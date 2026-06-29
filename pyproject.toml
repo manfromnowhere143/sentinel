@@ -1,0 +1,12 @@
+[project]
+name = "sentinel"
+version = "0.0.1"
+description = "Runtime introspective safety monitor for a frozen driving planner — closed-loop on NeuroNCAP."
+requires-python = ">=3.10"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "engine", "method"]
