@@ -7,27 +7,34 @@ Tracking the NeuroNCAP stack build/download so nothing is lost. Updated as it pr
   stockout sweep). Docker + GPU-in-Docker **verified** (`GPU 0: NVIDIA L4`).
 - Stack cloned to `/opt/sentinel-stack`: `NeuroNCAP/`, `neurad-studio/`, `UniAD/`.
 
-## Docker images (the three the eval needs)
+## Docker images (the three the eval needs) — ALL BUILT
 | image | status | size |
 |---|---|---|
 | `ncap:latest` | **BUILT** | 35 GB |
 | `uniad:latest` | **BUILT** | 31 GB |
-| `neurad:latest` | rebuilding (see fix below) | — |
+| `neurad:latest` | **BUILT** | 86 GB |
 
-**neurad build fix (the engineering insight).** First build failed on the `tiny-cuda-nn` torch
-bindings: `ModuleNotFoundError: No module named 'pkg_resources'`. Root cause: pip **build
-isolation** spins up a fresh build env with the latest setuptools (which has *removed*
-`pkg_resources`), ignoring the Dockerfile's pinned `setuptools<70`. Fix: add
-`--no-build-isolation` to the tiny-cuda-nn install (so it uses the pinned setuptools) plus
-`wheel ninja` in the env. Patched `neurad-studio/Dockerfile`; rebuilding.
+**neurad build — two fixes (the engineering insight).** The `neurad-studio` Dockerfile fought us:
+1. **tiny-cuda-nn** failed `ModuleNotFoundError: No module named 'pkg_resources'`. Root cause: pip
+   **build isolation** spins up a fresh build env with the latest setuptools (which *removed*
+   `pkg_resources`), ignoring the pinned `setuptools<70`. Fix: `--no-build-isolation` (use the
+   pinned setuptools) + `wheel ninja` in the env. → tiny-cuda-nn then compiled.
+2. **The SfM source-build cascade** (pycolmap → hloc → pyceres → pixel-perfect-sfm) all failed on
+   CMake/dependency configure. Key realization: these are **Structure-from-Motion / reconstruction**
+   tools — used to *train* NeuRAD from raw images by estimating camera poses. We render from
+   **pretrained checkpoints** on nuScenes (already calibrated), so none are needed at inference.
+   Fix: skip all four (replaced with no-ops). → neurad image built.
+
+The lesson, logged for the engine: when a research Dockerfile chains optional training-time deps,
+an inference-only deployment can skip them — don't grind CMake deps you'll never call.
 
 ## Downloads
 | artifact | needs account? | status |
 |---|---|---|
 | UniAD checkpoint `uniad_base_e2e.pth` (public GitHub release) | no | **DOWNLOADED** (972 MB) |
-| NeuRAD rendering weights (pretrained, 14 NeuroNCAP scenes) | no | pending (locate script/host) |
+| NeuRAD rendering weights (pretrained, 14 NeuroNCAP scenes, public Dropbox) | no | **DOWNLOADED + EXTRACTED** (13 GB, 14 scene dirs) |
 | UniAD data-infos (`nuscenes_infos_temporal_*.pkl`, HuggingFace OpenDriveLab) | no | pending |
-| **nuScenes** v1.0 (14 sequences + CAN-bus + maps) at `/datasets/nuscenes` | **YES** | **gated — needs a free nuScenes account** |
+| **nuScenes** v1.0 (14 sequences + CAN-bus + maps) at `/datasets/nuscenes` | **YES** | **THE remaining gate — needs a free nuScenes account** |
 
 ## The one external gate
 nuScenes requires a free account + non-commercial license acceptance (nuscenes.org), exactly
