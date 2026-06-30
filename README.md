@@ -90,7 +90,16 @@ public data. Full arc and honest scope: [`experiments/iter2_monitor/RESULT.md`](
 
 Honest scope: 2 public-mini scenes × 10 runs, TTC threshold fixed on the separate G1 shadow run — a
 clean monitored-vs-unmonitored win, **not** a claim against the full 14-scene published number (that
-needs the gated trainval set). Next: scale scenes/runs and ablate the trigger.
+needs the gated trainval set).
+
+**Ablation ([`ABLATION.md`](experiments/iter2_monitor/ABLATION.md)) — what's proven and what isn't.**
+The introspective signal is *essential*: a naive distance brake (no forecast) leaves frontal collisions
+at 83% (≈ the 80% unmonitored) while TTC cuts them to 40% and side 100%→0% — the closing-speed-from-forecast
+trigger does the work. The honest boundary: an *always-brake* control matches TTC on the safety score,
+because every scene in this corpus rewards stopping — so proving the *selective* monitor's net value
+needs a **progress-sensitive** benchmark (the selectivity is visible — TTC braked 0/10 clean-scene runs
+vs always-brake's 100% — but not yet quantified). Next: a progress-aware metric, scale scenes/runs (gated
+trainval), and VAD as a second frozen planner.
 
 ## Data & honesty
 
