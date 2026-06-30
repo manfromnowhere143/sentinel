@@ -31,13 +31,21 @@ unmonitored planner** (and a RiskMonitor-style baseline) with a bootstrap CI exc
 |---|---|---|---|---|---|
 | 0 | published baseline (target) | UniAD 1.84 · VAD 2.75 | 87.8–99.6 | — | the gap we attack |
 | 1a | **stack stood up** — full closed loop on 1 L4, frozen UniAD in the loop, real metric out (smoke: scene-0103 stationary, 2 runs → 5.0/5.0, no collision) | — | — | infra gate **cleared** | the binding constraint was the apparatus, not the idea — [8 blockers cleared](experiments/iter1_reproduce/PROOF_smoke_0103.md) |
-| 1b | *full averaged baseline* (14 scenes × 100 runs; needs gated trainval blobs) | (pending) | (pending) | starting line | — |
+| 1b | **partial baseline + collision corpus** — every public-mini scene, frozen UniAD, 60 closed-loop episodes (frontal/0103, side/0103, stationary/0103, stationary/0796 × 15) | frontal/0103 **1.07** · side/0103 0.51 · stat/0103 5.00 · stat/0796 1.03 | 80 · 100 · 0 · 80 % | frontal **1.07 vs pub 1.17** (matches) | crashes coincide with the planner's own perception collapsing at 5–15 m — the signal iter 2 monitors |
+| 2 | *monitor + intervention on the corpus* (next) | (pending) | (pending) | the actual method | — |
 
-> **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single
-> GPU and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk
-> the pre-registration flagged is retired. A single-scene smoke (5.0/5.0 on an easy stationary
-> scene) is **not** the averaged published baseline and no baseline claim is drawn from it; 1b
-> scales to all 14 scenes × 100 runs. Proof: [`PROOF_smoke_0103.md`](experiments/iter1_reproduce/PROOF_smoke_0103.md).
+> **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
+> and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
+> pre-registration flagged is retired. Proof: [`PROOF_smoke_0103.md`](experiments/iter1_reproduce/PROOF_smoke_0103.md).
+>
+> **Iteration 1b (2026-06-30):** 60 closed-loop episodes on public-mini scenes. The single clean
+> apples-to-apples point — **frontal/0103 = 1.07 vs the published 1.17** — reproduces within
+> run-noise; the UniAD failure profile reproduces qualitatively (80–100 % collision in dynamic
+> scenarios). Per-scene variance is huge (stationary 5.00 → 1.03), which is exactly why the *averaged*
+> baseline needs the gated full trainval set, so no full-baseline claim is drawn here. The real
+> payload is a **corpus of 39 frozen-planner collisions** for iteration 2, and a structured
+> introspective signal (collisions track `recall@5-15m → 0`). Detail:
+> [`PARTIAL_BASELINE.md`](experiments/iter1b_partial_baseline/PARTIAL_BASELINE.md).
 
 ---
 
