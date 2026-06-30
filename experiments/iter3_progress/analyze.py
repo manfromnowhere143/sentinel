@@ -29,10 +29,13 @@ arm = scene = None
 for line in open(LOG):
     m = re.search(r'I3_ARM_START (\w+)', line)
     if m:
-        arm = m.group(1); continue
+        arm = m.group(1)
+        continue
     m = re.search(r'I3PAIR (\w+) (\w+) (\d+)', line)
     if m:
-        arm = m.group(1); scene = m.group(2) + '-' + m.group(3); continue
+        arm = m.group(1)
+        scene = m.group(2) + '-' + m.group(3)
+        continue
     m = re.search(r'ncap_score: ([0-9.]+),  impact_speed: ([0-9.]+)', line)
     if m and arm and scene:
         scores[(arm, scene)].append((float(m.group(1)), float(m.group(2))))

@@ -8,6 +8,10 @@ requires-python = ">=3.10"
 line-length = 100
 target-version = "py311"
 
+[tool.ruff.lint]
+# operational analysis/patch scripts use the `x = ...; continue` idiom; not worth churning
+ignore = ["E702"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests", "engine", "method"]
 pythonpath = ["."]
