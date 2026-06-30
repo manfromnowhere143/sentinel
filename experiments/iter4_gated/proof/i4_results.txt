@@ -1,0 +1,67 @@
+arm	scene	run	score	impact	collide	ego_m	progress
+off	frontal-0103	0	0.409	11.92	1	51.7	1.000
+off	frontal-0103	1	5.000	0.00	0	55.1	1.000
+off	frontal-0103	2	0.000	15.33	1	22.5	0.652
+off	frontal-0103	3	0.000	14.97	1	22.2	0.642
+off	frontal-0103	4	0.050	13.11	1	24.3	0.702
+off	frontal-0103	5	0.000	14.72	1	31.6	0.914
+off	side-0103	0	0.822	6.44	1	19.5	0.977
+off	side-0103	1	0.000	8.41	1	20.3	1.000
+off	side-0103	2	0.473	7.15	1	21.4	1.000
+off	side-0103	3	0.416	7.27	1	21.3	1.000
+off	side-0103	4	0.924	6.24	1	18.9	0.949
+off	side-0103	5	1.218	5.64	1	18.1	0.908
+off	stationary-0103	0	5.000	0.00	0	35.9	1.000
+off	stationary-0103	1	5.000	0.00	0	34.4	1.000
+off	stationary-0103	2	5.000	0.00	0	36.0	1.000
+off	stationary-0103	3	5.000	0.00	0	26.6	0.819
+off	stationary-0103	4	5.000	0.00	0	27.9	0.861
+off	stationary-0103	5	5.000	0.00	0	33.8	1.000
+ttcold	frontal-0103	0	2.698	4.32	1	3.7	0.108
+ttcold	frontal-0103	1	5.000	0.00	0	3.7	0.108
+ttcold	frontal-0103	2	2.698	4.32	1	3.7	0.108
+ttcold	frontal-0103	3	2.698	4.32	1	3.7	0.108
+ttcold	frontal-0103	4	5.000	0.00	0	3.7	0.108
+ttcold	frontal-0103	5	5.000	0.00	0	3.7	0.108
+ttcold	side-0103	0	5.000	0.00	0	2.8	0.140
+ttcold	side-0103	1	5.000	0.00	0	3.7	0.187
+ttcold	side-0103	2	5.000	0.00	0	2.8	0.140
+ttcold	side-0103	3	5.000	0.00	0	2.8	0.140
+ttcold	side-0103	4	5.000	0.00	0	2.8	0.140
+ttcold	side-0103	5	5.000	0.00	0	2.8	0.140
+ttcold	stationary-0103	0	5.000	0.00	0	6.2	0.191
+ttcold	stationary-0103	1	5.000	0.00	0	2.8	0.086
+ttcold	stationary-0103	2	5.000	0.00	0	6.1	0.187
+ttcold	stationary-0103	3	5.000	0.00	0	2.0	0.061
+ttcold	stationary-0103	4	5.000	0.00	0	6.2	0.191
+ttcold	stationary-0103	5	5.000	0.00	0	6.0	0.186
+gated	frontal-0103	0	2.538	4.85	1	16.7	0.484
+gated	frontal-0103	1	5.000	0.00	0	36.9	1.000
+gated	frontal-0103	2	1.486	8.35	1	21.2	0.612
+gated	frontal-0103	3	1.353	8.79	1	19.5	0.565
+gated	frontal-0103	4	2.167	6.09	1	22.1	0.638
+gated	frontal-0103	5	0.929	10.19	1	28.9	0.835
+gated	side-0103	0	0.822	6.44	1	19.5	0.977
+gated	side-0103	1	0.000	8.41	1	20.3	1.000
+gated	side-0103	2	0.473	7.15	1	21.4	1.000
+gated	side-0103	3	0.416	7.27	1	21.3	1.000
+gated	side-0103	4	0.924	6.24	1	18.9	0.949
+gated	side-0103	5	1.218	5.64	1	18.1	0.908
+gated	stationary-0103	0	5.000	0.00	0	35.9	1.000
+gated	stationary-0103	1	5.000	0.00	0	34.4	1.000
+gated	stationary-0103	2	5.000	0.00	0	36.0	1.000
+gated	stationary-0103	3	5.000	0.00	0	26.6	0.819
+gated	stationary-0103	4	5.000	0.00	0	27.9	0.861
+gated	stationary-0103	5	5.000	0.00	0	33.8	1.000
+
+=== per arm (pooled over scenes) ===
+arm       score  progress collision%   ego_m safe-prog
+off        2.18      0.91         61    29.0      2.08
+ttcold     4.62      0.14         17     3.9      0.64
+gated      2.63      0.87         61    25.5      2.34
+
+=== CLEAN scene (stationary-0103) — the selectivity test ===
+arm       score  progress   ego_m
+off        5.00      0.95    32.4
+ttcold     5.00      0.15     4.9
+gated      5.00      0.95    32.4

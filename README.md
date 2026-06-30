@@ -42,6 +42,7 @@ unmonitored planner** (and a RiskMonitor-style baseline) with a bootstrap CI exc
 | 2 | **monitor + TTC brake, frozen planner** — A/B on the corpus | **1.92 → 4.67** | **65% → 13%** | **H1 met** (safety), CI [+2.21,+3.22] | TTC trigger + committed stop; side collisions 100%→0% — *but see iter 3* |
 | 2·abl | **ablation** — naive-proximity / always-brake controls | — | prox 83 · always 50 · TTC 40 (frontal) | introspective signal **essential** | naive distance brake ≈ useless on fast approaches; closing-speed-from-forecast does the work |
 | 3 | **deployment metric (safe-progress)** — does it avoid the crash AND drive? | OFF **2.08** · always 0.49 · TTC 0.58 (safe-prog) | progress: OFF 0.91 · TTC 0.13 | **monitor over-brakes** | honest setback: TTC freezes benign scenes, *not* selective; unmonitored wins safe-progress. Next: introspective gating |
+| 4 | **gate on the *agent's* closing speed** — brake only on active threats | gated **2.80** · OFF 2.08 · TTC-old 0.64 (safe-prog) | clean-scene progress restored to OFF (0 brakes) | **net-positive vs OFF** (partial) | selectivity SOLVED; but gate under-brakes real threats (optimistic-forecast velocity) → danger safety lost. Next: track true agent velocity |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -114,18 +115,28 @@ over-claim.** That arc, in order:
    iter-2 claim that the monitor was *selectively idle* on the clean scene was an unverified inference
    and is **wrong** — corrected in place. The geometric trigger brakes whenever the ego closes on *any*
    object, not only on real failures. [`iter3_progress/RESULT.md`](experiments/iter3_progress/RESULT.md).
+4. **Iter 4 — gate on the agent's closing speed: selectivity solved, net-positive (partial win).**
+   Triggering only when an *agent is actively driving at the ego* (not when the ego approaches a passive
+   object) **restores the clean scene to normal driving — 32.4 m, identical to OFF, 0 interventions** —
+   and the monitor goes **net-positive on the deployment metric: safe-progress 2.80 > OFF 2.08 >
+   over-braking 0.64.** Honest split: pre-registered H4 criterion 1 (selectivity) **met**, criterion 2
+   (keep danger safety) **failed** — the gate *under*-brakes real threats (side-impact reverts to OFF)
+   because it reads agent velocity from the planner's *optimistic* forecast and so filters out the very
+   actors it should catch. [`iter4_gated/RESULT.md`](experiments/iter4_gated/RESULT.md).
 
-**Net, stated plainly:** the introspective signal genuinely predicts collisions (AUROC 0.83) and the
-brake genuinely removes them — but as built, the monitor trades away ~85% of the car's progress, so it
-is **not** a net improvement over the unmonitored planner once progress counts. The safety result is
-real and pre-registered; the deployable-monitor claim is not yet earned.
+**Net, stated plainly:** across four iterations the monitor went from a safety-only win (iter 2), to an
+honest setback where it over-braked and *lost* to the unmonitored planner (iter 3), to **net-positive on
+the deployment metric (iter 4: safe-progress 2.80 vs 2.08)** by braking selectively — with the one
+remaining weakness (under-braking real threats) cleanly attributed to a single cause: the agent-velocity
+estimate comes from the planner's optimistic forecast. The introspective signal predicts collisions
+(AUROC 0.83); the open problem is turning prediction into a brake that is both selective and safe.
 
-**The next frontier (iteration 4).** The thing that separates a *safe close pass* from an *imminent
-crash* is not geometry — it is whether the planner itself is failing. Gate the brake on the planner's
-own distress (the PerceptionProof / G1 introspective signal) **and** geometric imminence, so the monitor
-stays out of the way when the planner is confidently handling a nearby object. The bar to clear is now
-explicit: **beat OFF's safe-progress of 2.08**, not just always-brake's 0.49. Then scale scenes/runs
-(gated trainval) and add VAD as a second frozen planner.
+**The next frontier (iteration 5).** Estimate each agent's velocity from its **actual observed motion**
+— track `object_ids` across frames and difference positions — instead of the optimistic forecast. A real
+fast actor then trips the gate (brake) while a stationary object does not (drive), which should keep
+iter 4's selectivity *and* recover the danger-scene safety. Bar: clean-scene progress ≈ OFF, danger
+collisions ≤ the over-braking arm, safe-progress > 2.80. Then scale scenes/runs (gated trainval) and add
+VAD as a second frozen planner.
 
 Scope throughout: 2 public-mini scenes, single-digit runs, one L4 — a method-development loop on public
 data, **not** a claim against the full 14-scene published benchmark (that needs the gated trainval set).
