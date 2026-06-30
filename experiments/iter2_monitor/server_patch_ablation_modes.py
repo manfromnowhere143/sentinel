@@ -1,7 +1,8 @@
 SRV = '/opt/sentinel-stack/UniAD/inference/server.py'
 s = open(SRV).read()
 if 'SENTINEL_MODE' in s:
-    print('MODES_ALREADY'); raise SystemExit
+    print('MODES_ALREADY')
+    raise SystemExit
 anchor = '''    if _sos.environ.get("SENTINEL_ENABLED", "0") != "1":
         return base
     try:
