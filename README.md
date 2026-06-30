@@ -2,7 +2,13 @@
 
 **A runtime introspective safety monitor that watches a frozen self-driving planner, predicts the
 collision it is about to cause, and intervenes — measured where it actually matters: in closed
-loop, by whether the car crashes.**
+loop, by whether the car crashes *and whether it can still drive*.**
+
+> **Honest status up front:** the introspective signal predicts the planner's collisions (AUROC 0.83)
+> and the brake removes them on the NeuroNCAP safety score (a pre-registered win) — but iteration 3's
+> progress-aware metric shows the current geometric trigger **over-brakes**, so it is not yet a net
+> improvement over the unmonitored planner. The result is reported with its boundary, and an earlier
+> over-claim was caught and corrected by our own next experiment. Details in [Status](#status--where-it-really-stands-the-honest-current-truth).
 
 The field's open-loop driving metrics are saturated and gameable (an ego-state MLP "wins" nuScenes
 L2). The honest axis is **closed-loop safety**, and there the public state of the art is wide open:
@@ -33,7 +39,9 @@ unmonitored planner** (and a RiskMonitor-style baseline) with a bootstrap CI exc
 | 1a | **stack stood up** — full closed loop on 1 L4, frozen UniAD in the loop, real metric out (smoke: scene-0103 stationary, 2 runs → 5.0/5.0, no collision) | — | — | infra gate **cleared** | the binding constraint was the apparatus, not the idea — [8 blockers cleared](experiments/iter1_reproduce/PROOF_smoke_0103.md) |
 | 1b | **partial baseline + collision corpus** — every public-mini scene, frozen UniAD, 60 closed-loop episodes (frontal/0103, side/0103, stationary/0103, stationary/0796 × 15) | frontal/0103 **1.07** · side/0103 0.51 · stat/0103 5.00 · stat/0796 1.03 | 80 · 100 · 0 · 80 % | frontal **1.07 vs pub 1.17** (matches) | crashes coincide with the planner's own perception collapsing at 5–15 m — the signal iter 2 monitors |
 | 2·G1 | **monitor signal validated** — frozen planner's own forecasts foresee its crashes (shadow replay, 40 episodes, 26/14) | — | — | **AUROC 0.83** (label-free) | imminent (≤0.5 s) predicted gap is the signal; monotone in horizon; simplest term wins |
-| 2 | **monitor + TTC brake, frozen planner** — A/B on the corpus | **1.92 → 4.67** | **65% → 13%** | **H1 met**, CI [+2.21,+3.22] | TTC trigger + committed stop; side collisions 100%→0%, clean scene unharmed |
+| 2 | **monitor + TTC brake, frozen planner** — A/B on the corpus | **1.92 → 4.67** | **65% → 13%** | **H1 met** (safety), CI [+2.21,+3.22] | TTC trigger + committed stop; side collisions 100%→0% — *but see iter 3* |
+| 2·abl | **ablation** — naive-proximity / always-brake controls | — | prox 83 · always 50 · TTC 40 (frontal) | introspective signal **essential** | naive distance brake ≈ useless on fast approaches; closing-speed-from-forecast does the work |
+| 3 | **deployment metric (safe-progress)** — does it avoid the crash AND drive? | OFF **2.08** · always 0.49 · TTC 0.58 (safe-prog) | progress: OFF 0.91 · TTC 0.13 | **monitor over-brakes** | honest setback: TTC freezes benign scenes, *not* selective; unmonitored wins safe-progress. Next: introspective gating |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -58,48 +66,69 @@ that this plan ends in a collision, and — above threshold — triggers a princ
 
 ```mermaid
 flowchart LR
-  S[("NeuroNCAP / HUGSIM<br/>closed-loop sim · public")] --> P["frozen planner<br/>UniAD / VAD"]
-  P -- plan + internal tokens --> MON["Sentinel monitor<br/>introspective collision-risk head"]
-  MON -- risk --> G{"risk &gt; θ ?"}
-  G -- no --> ACT["execute plan"]
-  G -- yes --> INT["intervention<br/>brake / safe fallback"]
+  S[("NeuroNCAP<br/>neural closed-loop sim · public")] --> P["frozen planner<br/>UniAD (weights locked)"]
+  P -- "plan + objects + 6-mode forecasts" --> MON["Sentinel monitor<br/>time-to-collision from the<br/>planner's own forecast"]
+  MON -- "TTC" --> G{"TTC &lt; θ ?"}
+  G -- no --> ACT["execute the plan"]
+  G -- yes --> INT["committed brake<br/>(stop-in-place)"]
   ACT --> S
   INT --> S
-  S --> SC[/"closed-loop score<br/>NCAP safety · collision rate"/]
+  S --> SC[/"closed-loop scores<br/>NCAP safety · collision % · progress"/]
 ```
 
 The monitor is small and the planner is frozen — that is what makes this winnable on single-digit
 GPUs and what makes a win *defensible*: any safety gain is attributable to Sentinel, not to a
-bigger planner.
+bigger planner. The label-free trigger reads only what the planner already outputs (its plan, its
+detected objects, and its own multimodal motion forecasts) — no ground truth, no privileged sim
+state. *Iteration 3 showed this geometric trigger is too blunt and over-brakes; see Status.*
 
 ## The research engine (how we get better every iteration)
 
 Sentinel runs on a disciplined learning loop — hypothesize → build → **measure vs the baseline** →
-**attribute (ablate *why*)** → improve — with the number frozen up front, drive-clustered
-bootstrap CIs, seed sweeps, and an Ed25519 receipt for every run. Nulls are logged and fed forward,
-not buried. Full design: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
+**attribute (ablate *why*)** → improve — with the win bar frozen up front (`PREREGISTRATION.md`) and
+drive-clustered bootstrap CIs on the deltas. The loop is working as intended: iteration 2 produced a
+safety win, iteration 2's ablation flagged what the safety metric couldn't separate, and iteration 3
+ran that experiment and **overturned an over-claim from iteration 2** — logged and corrected, not
+buried. That self-correction is the point. Full design: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
+(note: the Ed25519-receipt and seed-sweep machinery described there is design intent carried over from
+[PerceptionProof](https://github.com/manfromnowhere143/perceptionproof); it is **not yet wired into the
+Sentinel runs**, which is stated here rather than implied).
 
-## Status
+## Status — where it really stands (the honest current truth)
 
-**Iteration 2 lands the pre-registered win.** On the public-mini NeuroNCAP corpus, a Sentinel-monitored
-**frozen** UniAD beats the same unmonitored planner: pooled NCAP score **1.92 → 4.67**, collision rate
-**65% → 13%** (side-impact collisions **100% → 0%**), with the clean scene **unharmed** (5.00 → 5.00).
-The pre-registered H1 holds — score delta **+2.75, 95% CI [+2.21, +3.22]**, excludes 0. The planner is
-frozen, so the gain is Sentinel's; the signal is label-free (the planner's own forecasts); one L4,
-public data. Full arc and honest scope: [`experiments/iter2_monitor/RESULT.md`](experiments/iter2_monitor/RESULT.md).
+**Iteration 2 won on safety; iteration 3 showed that win is not yet deployable, and corrected an
+over-claim.** That arc, in order:
 
-Honest scope: 2 public-mini scenes × 10 runs, TTC threshold fixed on the separate G1 shadow run — a
-clean monitored-vs-unmonitored win, **not** a claim against the full 14-scene published number (that
-needs the gated trainval set).
+1. **Iter 2 — pre-registered safety win (holds).** On the public-mini NeuroNCAP corpus, a
+   Sentinel-monitored **frozen** UniAD beats the same unmonitored planner *on the NeuroNCAP safety
+   score*: pooled **1.92 → 4.67**, collision **65% → 13%** (side-impact 100% → 0%), delta **+2.75,
+   95% CI [+2.21, +3.22]** (excludes 0). Planner frozen, signal label-free, one L4, public data.
+   [`iter2_monitor/RESULT.md`](experiments/iter2_monitor/RESULT.md).
+2. **Iter 2 ablation — the introspective signal is essential.** A naive distance brake (no forecast)
+   leaves frontal collisions at 83% (≈ the 80% unmonitored); the closing-speed-from-forecast TTC
+   trigger is what cuts them to 40% and side to 0%. [`ABLATION.md`](experiments/iter2_monitor/ABLATION.md).
+3. **Iter 3 — the deployment metric (safe-progress) overturns the selectivity story.** Measuring
+   *route progress* alongside safety, the TTC monitor **over-brakes**: it freezes even the benign clean
+   scene (ego drives **4.9 m vs the unmonitored 32.4 m**), barely better than a trivial always-brake,
+   and on safe-progress the **unmonitored planner wins** (OFF 2.08 · TTC 0.58 · always 0.49). The
+   iter-2 claim that the monitor was *selectively idle* on the clean scene was an unverified inference
+   and is **wrong** — corrected in place. The geometric trigger brakes whenever the ego closes on *any*
+   object, not only on real failures. [`iter3_progress/RESULT.md`](experiments/iter3_progress/RESULT.md).
 
-**Ablation ([`ABLATION.md`](experiments/iter2_monitor/ABLATION.md)) — what's proven and what isn't.**
-The introspective signal is *essential*: a naive distance brake (no forecast) leaves frontal collisions
-at 83% (≈ the 80% unmonitored) while TTC cuts them to 40% and side 100%→0% — the closing-speed-from-forecast
-trigger does the work. The honest boundary: an *always-brake* control matches TTC on the safety score,
-because every scene in this corpus rewards stopping — so proving the *selective* monitor's net value
-needs a **progress-sensitive** benchmark (the selectivity is visible — TTC braked 0/10 clean-scene runs
-vs always-brake's 100% — but not yet quantified). Next: a progress-aware metric, scale scenes/runs (gated
-trainval), and VAD as a second frozen planner.
+**Net, stated plainly:** the introspective signal genuinely predicts collisions (AUROC 0.83) and the
+brake genuinely removes them — but as built, the monitor trades away ~85% of the car's progress, so it
+is **not** a net improvement over the unmonitored planner once progress counts. The safety result is
+real and pre-registered; the deployable-monitor claim is not yet earned.
+
+**The next frontier (iteration 4).** The thing that separates a *safe close pass* from an *imminent
+crash* is not geometry — it is whether the planner itself is failing. Gate the brake on the planner's
+own distress (the PerceptionProof / G1 introspective signal) **and** geometric imminence, so the monitor
+stays out of the way when the planner is confidently handling a nearby object. The bar to clear is now
+explicit: **beat OFF's safe-progress of 2.08**, not just always-brake's 0.49. Then scale scenes/runs
+(gated trainval) and add VAD as a second frozen planner.
+
+Scope throughout: 2 public-mini scenes, single-digit runs, one L4 — a method-development loop on public
+data, **not** a claim against the full 14-scene published benchmark (that needs the gated trainval set).
 
 ## Data & honesty
 

@@ -46,10 +46,16 @@ precisely:
 - **What is *not* proven here:** that the *selective* monitor beats a trivial always-brake in *net*
   driving value. That requires a **progress-sensitive** evaluation — scenes where the ego must reach a
   goal and always-braking would fail (normal-driving routes, route-completion / comfort metrics, the
-  full NeuroNCAP benchmark). The selectivity is visible in the intervention pattern (the TTC monitor
-  brakes on the danger scenes and leaves the clean scene alone — it fired on **0** of the clean-scene
-  runs in the A/B, vs always-brake's 100%), but quantifying its *value* needs a benchmark that rewards
-  progress. That is the explicit next experiment, not a swept-aside caveat.
+  full NeuroNCAP benchmark). That is the explicit next experiment.
+
+> **Update (iteration 3 ran it — and the answer is "not yet").** On a progress-aware metric the TTC
+> monitor **over-brakes**: it freezes even the benign clean scene (ego 4.9 m vs the unmonitored
+> 32.4 m), barely better than always-brake (2.1 m), and on safe-progress the **unmonitored planner
+> wins** (2.08 vs TTC 0.58 vs always 0.49). So the selectivity hoped for here is *not* established —
+> the geometric TTC trigger brakes whenever the ego closes on any object, not only on real failures.
+> An earlier draft of this section guessed the monitor "fired on 0 of the clean-scene runs"; that was
+> wrong and is corrected. Full result + the path forward (gate the brake on the planner's own distress):
+> [`../iter3_progress/RESULT.md`](../iter3_progress/RESULT.md).
 
 ## Why this is in the repo, prominently
 

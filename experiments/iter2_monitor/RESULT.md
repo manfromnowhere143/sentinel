@@ -60,16 +60,23 @@ The introspective signal is **essential**: a naive distance brake (6 m, no forec
 collisions at 83% (≈ the unmonitored 80%) — TTC's closing-speed-from-forecast trigger is what cuts it
 to 40% and side to 0%. **But** an always-brake control *matches* the TTC safety score on this corpus,
 because every scene rewards stopping. So the safety-score win over the unmonitored planner is real, yet
-proving the *selective* monitor beats a trivial always-brake needs a **progress-sensitive** benchmark
-(the monitor's selectivity is visible — it fired on 0/10 clean-scene runs vs always-brake's 100% — but
-its *net* value isn't quantified by a collision-only corpus). Stated up front, not buried.
+proving the *selective* monitor beats a trivial always-brake needs a **progress-sensitive** benchmark.
+
+> **Correction (iteration 3).** We ran that progress benchmark, and it overturned the selectivity
+> gloss first written here. On a progress-aware metric the TTC monitor **over-brakes** — it freezes
+> even the benign clean scene (ego drives 4.9 m vs the unmonitored 32.4 m), barely better than
+> always-brake, and the *unmonitored* planner wins on safe-progress. The safety-score result below
+> stands and is real; the claim that the monitor was *selectively idle* on the clean scene was an
+> unverified inference and is **wrong**. See [`../iter3_progress/RESULT.md`](../iter3_progress/RESULT.md).
 
 ## Honest residuals / falsifiers checked
 
-- **Do-no-harm:** the mandatory guard (stationary/0103, 10/10 clean) is **unchanged** — the monitor is
-  not a trivial "always brake." It fired on **0** of the 10 clean-scene runs.
-- **No collision-for-timeout trade:** ON scores went *up*, so the brake is not avoiding crashes by
-  stalling into NeuroNCAP's other penalties.
+- **Do-no-harm (safety only):** the clean scene (stationary/0103) stays at 5.00 / 0% — the monitor
+  induces **no new collisions** there. ~~It fired on 0 of the 10 clean-scene runs.~~ **Corrected by
+  iteration 3:** the monitor is *not* idle on the clean scene — it over-brakes it (freezes the car).
+  The safety-score do-no-harm holds; the *selectivity* claim does not. See `../iter3_progress/RESULT.md`.
+- **No collision-for-timeout trade (on the safety score):** ON safety scores went *up*. Note iter 3:
+  the brake *does* trade progress — it stops the car far short of where the planner would have driven.
 - **Residual frontal collisions:** reported, not hidden — the lead-time limit of an optimistic-forecast
   trigger on the most aggressive approaches.
 

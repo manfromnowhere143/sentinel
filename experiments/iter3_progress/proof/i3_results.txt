@@ -1,0 +1,61 @@
+arm	scene	run	score	impact	collide	ego_m	progress
+off	frontal-0103	0	0.409	11.92	1	51.7	1.000
+off	frontal-0103	1	5.000	0.00	0	55.1	1.000
+off	frontal-0103	2	0.000	15.33	1	22.5	0.652
+off	frontal-0103	3	0.000	14.97	1	22.2	0.642
+off	frontal-0103	4	0.050	13.11	1	24.3	0.702
+off	frontal-0103	5	0.000	14.72	1	31.6	0.914
+off	side-0103	0	0.822	6.44	1	19.5	0.977
+off	side-0103	1	0.000	8.41	1	20.3	1.000
+off	side-0103	2	0.473	7.15	1	21.4	1.000
+off	side-0103	3	0.416	7.27	1	21.3	1.000
+off	side-0103	4	0.924	6.24	1	18.9	0.949
+off	side-0103	5	1.218	5.64	1	18.1	0.908
+off	stationary-0103	0	5.000	0.00	0	35.9	1.000
+off	stationary-0103	1	5.000	0.00	0	34.4	1.000
+off	stationary-0103	2	5.000	0.00	0	36.0	1.000
+off	stationary-0103	3	5.000	0.00	0	26.6	0.819
+off	stationary-0103	4	5.000	0.00	0	27.9	0.861
+off	stationary-0103	5	5.000	0.00	0	33.8	1.000
+always	frontal-0103	0	2.698	4.32	1	3.7	0.108
+always	frontal-0103	1	5.000	0.00	0	3.7	0.108
+always	frontal-0103	2	2.698	4.32	1	3.7	0.108
+always	frontal-0103	3	2.698	4.32	1	3.7	0.108
+always	frontal-0103	4	5.000	0.00	0	3.7	0.108
+always	frontal-0103	5	5.000	0.00	0	3.7	0.108
+always	side-0103	0	5.000	0.00	0	2.8	0.140
+always	side-0103	1	5.000	0.00	0	3.7	0.187
+always	side-0103	2	5.000	0.00	0	2.8	0.140
+always	side-0103	3	5.000	0.00	0	2.8	0.140
+always	side-0103	4	5.000	0.00	0	2.8	0.140
+always	side-0103	5	5.000	0.00	0	2.8	0.140
+always	stationary-0103	0	5.000	0.00	0	2.0	0.061
+always	stationary-0103	1	5.000	0.00	0	2.8	0.086
+always	stationary-0103	2	5.000	0.00	0	2.0	0.061
+always	stationary-0103	3	5.000	0.00	0	2.0	0.061
+always	stationary-0103	4	5.000	0.00	0	2.0	0.061
+always	stationary-0103	5	5.000	0.00	0	2.0	0.061
+ttc	frontal-0103	0	2.698	4.32	1	3.7	0.108
+ttc	frontal-0103	1	5.000	0.00	0	3.7	0.108
+ttc	frontal-0103	2	2.698	4.32	1	3.7	0.108
+ttc	frontal-0103	3	2.698	4.32	1	3.7	0.108
+ttc	frontal-0103	4	5.000	0.00	0	3.7	0.108
+ttc	frontal-0103	5	5.000	0.00	0	3.7	0.108
+ttc	stationary-0103	0	5.000	0.00	0	6.2	0.191
+ttc	stationary-0103	1	5.000	0.00	0	2.8	0.086
+ttc	stationary-0103	2	5.000	0.00	0	6.1	0.187
+ttc	stationary-0103	3	5.000	0.00	0	2.0	0.061
+ttc	stationary-0103	4	5.000	0.00	0	6.2	0.191
+ttc	stationary-0103	5	5.000	0.00	0	6.0	0.186
+
+=== per arm (pooled over scenes) ===
+arm       score  progress collision%   ego_m safe-prog
+off        2.18      0.91         61    29.0      2.08
+always     4.62      0.11         17     2.9      0.49
+ttc        4.42      0.13         25     4.3      0.58
+
+=== CLEAN scene (stationary-0103) — the selectivity test ===
+arm       score  progress   ego_m
+off        5.00      0.95    32.4
+always     5.00      0.07     2.1
+ttc        5.00      0.15     4.9
