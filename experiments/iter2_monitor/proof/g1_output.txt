@@ -1,0 +1,55 @@
+runs in dump: 40  outcomes: 40  aligned: 40  frame-errors: 0
+collisions: 26  clean: 14
+
+=== displacement convention, proximity-only signal ===
+  horizon=full   AUROC[last3max risk]=0.723  AUROC[-closest_gap, last3]=0.673
+  horizon=h=4    AUROC[last3max risk]=0.745  AUROC[-closest_gap, last3]=0.695
+  horizon=h=3    AUROC[last3max risk]=0.698  AUROC[-closest_gap, last3]=0.684
+  horizon=h=2    AUROC[last3max risk]=0.734  AUROC[-closest_gap, last3]=0.750
+  horizon=h=1    AUROC[last3max risk]=0.813  AUROC[-closest_gap, last3]=0.827
+
+BEST: AUROC=0.827 via ('gap', 1)
+
+=== per-run (displacement, closest predicted gap over last-3 frames, horizon=3) ===
+  frontal/0103       score=0.41 impact= 11.9 collide=1 closest_gap= 3.44m
+  frontal/0103       score=5.00 impact=  0.0 collide=0 closest_gap= 4.33m
+  frontal/0103       score=0.00 impact= 15.3 collide=1 closest_gap= 4.51m
+  frontal/0103       score=0.00 impact= 15.0 collide=1 closest_gap= 4.34m
+  frontal/0103       score=0.05 impact= 13.1 collide=1 closest_gap= 5.55m
+  frontal/0103       score=0.00 impact= 14.7 collide=1 closest_gap= 0.39m
+  frontal/0103       score=0.00 impact= 13.6 collide=1 closest_gap= 3.40m
+  frontal/0103       score=5.00 impact=  0.0 collide=0 closest_gap= 4.82m
+  frontal/0103       score=0.00 impact= 14.5 collide=1 closest_gap= 2.50m
+  frontal/0103       score=0.00 impact= 13.6 collide=1 closest_gap= 3.03m
+  side/0103          score=0.82 impact=  6.4 collide=1 closest_gap= 5.42m
+  side/0103          score=0.00 impact=  8.4 collide=1 closest_gap= 3.28m
+  side/0103          score=0.47 impact=  7.2 collide=1 closest_gap= 5.62m
+  side/0103          score=0.42 impact=  7.3 collide=1 closest_gap= 3.08m
+  side/0103          score=0.92 impact=  6.2 collide=1 closest_gap= 5.29m
+  side/0103          score=1.22 impact=  5.6 collide=1 closest_gap= 5.09m
+  side/0103          score=0.00 impact=  8.3 collide=1 closest_gap= 5.78m
+  side/0103          score=1.32 impact=  5.4 collide=1 closest_gap= 4.63m
+  side/0103          score=0.58 impact=  6.9 collide=1 closest_gap= 4.09m
+  side/0103          score=0.18 impact=  7.7 collide=1 closest_gap= 5.30m
+  stationary/0103    score=5.00 impact=  0.0 collide=0 closest_gap= 2.26m
+  stationary/0103    score=5.00 impact=  0.0 collide=0 closest_gap= 3.60m
+  stationary/0103    score=5.00 impact=  0.0 collide=0 closest_gap= 6.35m
+  stationary/0103    score=5.00 impact=  0.0 collide=0 closest_gap= 6.59m
+  stationary/0103    score=5.00 impact=  0.0 collide=0 closest_gap= 6.23m
+  stationary/0103    score=5.00 impact=  0.0 collide=0 closest_gap= 0.38m
+  stationary/0103    score=5.00 impact=  0.0 collide=0 closest_gap= 5.16m
+  stationary/0103    score=5.00 impact=  0.0 collide=0 closest_gap= 4.17m
+  stationary/0103    score=5.00 impact=  0.0 collide=0 closest_gap= 4.10m
+  stationary/0103    score=5.00 impact=  0.0 collide=0 closest_gap= 6.40m
+  stationary/0796    score=0.00 impact= 13.7 collide=1 closest_gap= 6.03m
+  stationary/0796    score=0.00 impact= 13.6 collide=1 closest_gap= 4.28m
+  stationary/0796    score=0.00 impact= 14.5 collide=1 closest_gap= 3.41m
+  stationary/0796    score=5.00 impact=  0.0 collide=0 closest_gap=  infm
+  stationary/0796    score=0.00 impact= 14.8 collide=1 closest_gap= 3.53m
+  stationary/0796    score=0.00 impact= 11.9 collide=1 closest_gap= 1.21m
+  stationary/0796    score=0.19 impact= 11.3 collide=1 closest_gap= 3.76m
+  stationary/0796    score=5.00 impact=  0.0 collide=0 closest_gap=  infm
+  stationary/0796    score=0.30 impact= 11.0 collide=1 closest_gap= 3.62m
+  stationary/0796    score=0.02 impact= 11.8 collide=1 closest_gap= 3.30m
+
+closest-gap (m): collisions median=4.09 min=0.39 max=6.03  |  clean median=5.16 min=0.38 max=inf

@@ -101,6 +101,7 @@ def compute_risk(
     use_confidence: bool = True,
     use_disagreement: bool = True,
     min_score: float = 0.2,
+    horizon: Optional[int] = None,
 ) -> RiskBreakdown:
     """Predicted-collision risk for one frame, from the frozen planner's own outputs.
 
@@ -131,8 +132,10 @@ def compute_risk(
         weight = conf * (1.0 + disagree)
 
         for mi, mode in enumerate(a.modes):
-            horizon = min(len(ego), len(mode))
-            for t in range(horizon):
+            h = min(len(ego), len(mode))
+            if horizon is not None:
+                h = min(h, horizon)
+            for t in range(h):
                 ex, ey = ego[t]
                 ax, ay = float(mode[t][0]), float(mode[t][1])
                 gap = hypot(ex - ax, ey - ay)
