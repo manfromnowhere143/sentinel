@@ -36,9 +36,13 @@ an inference-only deployment can skip them — don't grind CMake deps you'll nev
 | UniAD data-infos (`nuscenes_infos_temporal_*.pkl`, HuggingFace OpenDriveLab) | no | pending |
 | **nuScenes** v1.0 (14 sequences + CAN-bus + maps) at `/datasets/nuscenes` | **YES** | **THE remaining gate — needs a free nuScenes account** |
 
-## The one external gate
-nuScenes requires a free account + non-commercial license acceptance (nuscenes.org), exactly
-like Waymo. Without it the closed-loop run cannot execute. Everything else proceeds without it.
+## The external gate — CLEARED
+nuScenes account registered (license accepted). The three needed pieces — **trainval metadata
+(0.43 GB), CAN-bus (0.73 GB), map expansion v1.3 (0.37 GB)** — were downloaded, routed through a
+GCS bucket, and staged on the box at `/datasets/nuscenes/` (`v1.0-trainval/` 13 JSONs, `can_bus/`
+per-scene pose/IMU, `maps/` basemaps + `expansion/`). The 290 GB sensor blobs were **not** pulled
+— NeuRAD renders the images, so they are not needed (and would not fit). Extraction needed Python
+`zipfile` (the box lacks `unzip`) — logged. **All run inputs are now on the box.**
 
 ## Remaining steps to the starting line
 1. neurad image rebuild completes (3/3 images).
