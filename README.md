@@ -33,7 +33,7 @@ unmonitored planner** (and a RiskMonitor-style baseline) with a bootstrap CI exc
 | 1a | **stack stood up** — full closed loop on 1 L4, frozen UniAD in the loop, real metric out (smoke: scene-0103 stationary, 2 runs → 5.0/5.0, no collision) | — | — | infra gate **cleared** | the binding constraint was the apparatus, not the idea — [8 blockers cleared](experiments/iter1_reproduce/PROOF_smoke_0103.md) |
 | 1b | **partial baseline + collision corpus** — every public-mini scene, frozen UniAD, 60 closed-loop episodes (frontal/0103, side/0103, stationary/0103, stationary/0796 × 15) | frontal/0103 **1.07** · side/0103 0.51 · stat/0103 5.00 · stat/0796 1.03 | 80 · 100 · 0 · 80 % | frontal **1.07 vs pub 1.17** (matches) | crashes coincide with the planner's own perception collapsing at 5–15 m — the signal iter 2 monitors |
 | 2·G1 | **monitor signal validated** — frozen planner's own forecasts foresee its crashes (shadow replay, 40 episodes, 26/14) | — | — | **AUROC 0.83** (label-free) | imminent (≤0.5 s) predicted gap is the signal; monotone in horizon; simplest term wins |
-| 2 | *monitor + brake intervention, A/B on the corpus* (next) | (pending) | (pending) | the actual method | — |
+| 2 | **monitor + TTC brake, frozen planner** — A/B on the corpus | **1.92 → 4.67** | **65% → 13%** | **H1 met**, CI [+2.21,+3.22] | TTC trigger + committed stop; side collisions 100%→0%, clean scene unharmed |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -81,10 +81,16 @@ not buried. Full design: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
 ## Status
 
-Pre-registration frozen; engine designed; target locked from a 110-agent adversarially-verified
-frontier survey. **Iteration 1 = reproduce the published NeuroNCAP baseline** (the binding
-constraint is infrastructure, not the idea). Then the monitor + intervention, and the score tracker
-starts to climb.
+**Iteration 2 lands the pre-registered win.** On the public-mini NeuroNCAP corpus, a Sentinel-monitored
+**frozen** UniAD beats the same unmonitored planner: pooled NCAP score **1.92 → 4.67**, collision rate
+**65% → 13%** (side-impact collisions **100% → 0%**), with the clean scene **unharmed** (5.00 → 5.00).
+The pre-registered H1 holds — score delta **+2.75, 95% CI [+2.21, +3.22]**, excludes 0. The planner is
+frozen, so the gain is Sentinel's; the signal is label-free (the planner's own forecasts); one L4,
+public data. Full arc and honest scope: [`experiments/iter2_monitor/RESULT.md`](experiments/iter2_monitor/RESULT.md).
+
+Honest scope: 2 public-mini scenes × 10 runs, TTC threshold fixed on the separate G1 shadow run — a
+clean monitored-vs-unmonitored win, **not** a claim against the full 14-scene published number (that
+needs the gated trainval set). Next: scale scenes/runs and ablate the trigger.
 
 ## Data & honesty
 
