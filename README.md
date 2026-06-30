@@ -30,7 +30,14 @@ unmonitored planner** (and a RiskMonitor-style baseline) with a bootstrap CI exc
 | iter | what we changed | NeuroNCAP score ↑ | collision % ↓ | vs baseline | insight |
 |---|---|---|---|---|---|
 | 0 | published baseline (target) | UniAD 1.84 · VAD 2.75 | 87.8–99.6 | — | the gap we attack |
-| 1 | *reproduce baseline ourselves* | (pending) | (pending) | starting line | — |
+| 1a | **stack stood up** — full closed loop on 1 L4, frozen UniAD in the loop, real metric out (smoke: scene-0103 stationary, 2 runs → 5.0/5.0, no collision) | — | — | infra gate **cleared** | the binding constraint was the apparatus, not the idea — [8 blockers cleared](experiments/iter1_reproduce/PROOF_smoke_0103.md) |
+| 1b | *full averaged baseline* (14 scenes × 100 runs; needs gated trainval blobs) | (pending) | (pending) | starting line | — |
+
+> **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single
+> GPU and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk
+> the pre-registration flagged is retired. A single-scene smoke (5.0/5.0 on an easy stationary
+> scene) is **not** the averaged published baseline and no baseline claim is drawn from it; 1b
+> scales to all 14 scenes × 100 runs. Proof: [`PROOF_smoke_0103.md`](experiments/iter1_reproduce/PROOF_smoke_0103.md).
 
 ---
 

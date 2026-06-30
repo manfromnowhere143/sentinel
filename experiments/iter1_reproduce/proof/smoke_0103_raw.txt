@@ -1,0 +1,171 @@
+### run_0 metrics (scalar fields)
+{
+"any_collide@0.0s": false,
+"avg_collide@0.0s": 0.0,
+"recall@0-5m": 1.0,
+"recall@5-15m": 1.0,
+"recall@15-25m": 1.0,
+"recall@25-35m": null,
+"recall@5-35m": 1.0,
+"rot_err@0-5mm": 2.7975781283482526,
+"rot_err@5-15mm": 2.8372062353279053,
+"rot_err@15-25mm": 2.786160854711482,
+"rot_err@25-35mm": null,
+"rot_err@5-35mm": 2.8186442787401145,
+"size_err@0-5m": 0.18212419748306274,
+"size_err@5-15m": 0.15895923120634897,
+"size_err@15-25m": 0.14146056026220322,
+"size_err@25-35m": null,
+"size_err@5-35m": 0.15259607813575052,
+"recall_info_tps": {
+"0-5": 1,
+"5-15": 7,
+"15-25": 4,
+"25-35": 0,
+"5-35": 11
+},
+"recall_info_total": {
+"0-5": 1,
+"5-15": 7,
+"15-25": 4,
+"25-35": 0,
+"5-35": 11
+},
+"future_recall@0-5m@1": 1.0,
+"future_recall@0-5m@2": 1.0,
+"future_recall@0-5m@3": 1.0,
+"future_recall@0-5m@4": 1.0,
+"future_recall@0-5m@5": 1.0,
+"future_recall@0-5m@6": 1.0,
+"future_recall@5-15m@1": 1.0,
+"future_recall@5-15m@2": 1.0,
+"future_recall@5-15m@3": 1.0,
+"future_recall@5-15m@4": 1.0,
+"future_recall@5-15m@5": 1.0,
+"future_recall@5-15m@6": 1.0,
+"future_recall@15-25m@1": 1.0,
+"future_recall@15-25m@2": 1.0,
+"future_recall@15-25m@3": 1.0,
+"future_recall@15-25m@4": 1.0,
+"future_recall@15-25m@5": 1.0,
+"future_recall@15-25m@6": 1.0,
+"future_recall@25-35m@1": null,
+"future_recall@25-35m@2": null,
+"future_recall@25-35m@3": null,
+"future_recall@25-35m@4": null,
+"future_recall@25-35m@5": null,
+"future_recall@25-35m@6": null,
+"future_recall@5-35m@1": 1.0,
+"future_recall@5-35m@2": 1.0,
+"future_recall@5-35m@3": 1.0,
+"future_recall@5-35m@4": 1.0,
+"future_recall@5-35m@5": 1.0,
+"future_recall@5-35m@6": 1.0,
+"ncap_score": 5.0
+}
+### run_1 metrics (scalar fields)
+{
+"any_collide@0.0s": false,
+"avg_collide@0.0s": 0.0,
+"recall@0-5m": 0.3333333333333333,
+"recall@5-15m": 1.0,
+"recall@15-25m": 0.3333333333333333,
+"recall@25-35m": 1.0,
+"recall@5-35m": 0.7777777777777778,
+"rot_err@0-5mm": 3.069974004632798,
+"rot_err@5-15mm": 2.8723293883697885,
+"rot_err@15-25mm": 2.944899110754419,
+"rot_err@25-35mm": 2.9654177162396596,
+"rot_err@5-35mm": 2.9225914892261082,
+"size_err@0-5m": 0.6330938935279846,
+"size_err@5-15m": 0.4951015015443166,
+"size_err@15-25m": 0.47993364930152893,
+"size_err@25-35m": 0.5271788338820139,
+"size_err@5-35m": 0.5066820936543601,
+"recall_info_tps": {
+"0-5": 1,
+"5-15": 3,
+"15-25": 1,
+"25-35": 3,
+"5-35": 7
+},
+"recall_info_total": {
+"0-5": 3,
+"5-15": 3,
+"15-25": 3,
+"25-35": 3,
+"5-35": 9
+},
+"future_recall@0-5m@1": 0.3333333333333333,
+"future_recall@0-5m@2": 0.3333333333333333,
+"future_recall@0-5m@3": 0.3333333333333333,
+"future_recall@0-5m@4": 0.3333333333333333,
+"future_recall@0-5m@5": 0.3333333333333333,
+"future_recall@0-5m@6": 0.3333333333333333,
+"future_recall@5-15m@1": 1.0,
+"future_recall@5-15m@2": 1.0,
+"future_recall@5-15m@3": 1.0,
+"future_recall@5-15m@4": 1.0,
+"future_recall@5-15m@5": 1.0,
+"future_recall@5-15m@6": 1.0,
+"future_recall@15-25m@1": 0.3333333333333333,
+"future_recall@15-25m@2": 0.3333333333333333,
+"future_recall@15-25m@3": 0.3333333333333333,
+"future_recall@15-25m@4": 0.3333333333333333,
+"future_recall@15-25m@5": 0.3333333333333333,
+"future_recall@15-25m@6": 0.3333333333333333,
+"future_recall@25-35m@1": 1.0,
+"future_recall@25-35m@2": 0.3333333333333333,
+"future_recall@25-35m@3": 0.0,
+"future_recall@25-35m@4": 0.0,
+"future_recall@25-35m@5": 0.0,
+"future_recall@25-35m@6": 0.0,
+"future_recall@5-35m@1": 0.7777777777777778,
+"future_recall@5-35m@2": 0.5555555555555556,
+"future_recall@5-35m@3": 0.4444444444444444,
+"future_recall@5-35m@4": 0.4444444444444444,
+"future_recall@5-35m@5": 0.4444444444444444,
+"future_recall@5-35m@6": 0.4444444444444444,
+"ncap_score": 5.0
+}
+### closed-loop log excerpt (render -> infer -> score)
+Running scenario stationary with sequence 0103
+INFO:     Application startup complete.
+✅ Done loading checkpoint from checkpoints/0103/step-000150000.ckpt
+INFO:     Application startup complete.
+Running step 0 at time 1533151608548020...
+INFO:     127.0.0.1:37986 - "POST /infer HTTP/1.1" 200 OK
+Running step 1 at time 1533151609047890...
+INFO:     127.0.0.1:57446 - "POST /infer HTTP/1.1" 200 OK
+Running step 2 at time 1533151609547766...
+INFO:     127.0.0.1:50344 - "POST /infer HTTP/1.1" 200 OK
+Running step 3 at time 1533151610047766...
+INFO:     127.0.0.1:50354 - "POST /infer HTTP/1.1" 200 OK
+Running step 4 at time 1533151610547766...
+INFO:     127.0.0.1:50370 - "POST /infer HTTP/1.1" 200 OK
+Running step 5 at time 1533151611047766...
+INFO:     127.0.0.1:45686 - "POST /infer HTTP/1.1" 200 OK
+Running step 6 at time 1533151611547766...
+INFO:     127.0.0.1:33526 - "POST /infer HTTP/1.1" 200 OK
+Running step 7 at time 1533151612047766...
+INFO:     127.0.0.1:59046 - "POST /infer HTTP/1.1" 200 OK
+Running step 8 at time 1533151612547766...
+INFO:     127.0.0.1:59062 - "POST /infer HTTP/1.1" 200 OK
+Running step 9 at time 1533151613047766...
+INFO:     127.0.0.1:37952 - "POST /infer HTTP/1.1" 200 OK
+Running step 10 at time 1533151613547766...
+INFO:     127.0.0.1:33264 - "POST /infer HTTP/1.1" 200 OK
+Running step 11 at time 1533151614047766...
+INFO:     127.0.0.1:43692 - "POST /infer HTTP/1.1" 200 OK
+Running step 12 at time 1533151614547766...
+INFO:     127.0.0.1:35378 - "POST /infer HTTP/1.1" 200 OK
+Running step 13 at time 1533151615047766...
+INFO:     127.0.0.1:44230 - "POST /infer HTTP/1.1" 200 OK
+Running step 14 at time 1533151615547766...
+INFO:     127.0.0.1:57290 - "POST /infer HTTP/1.1" 200 OK
+ncap_score: 5.0,  impact_speed: 0.0,  reference_speed: 8.314382330543005
+Running step 0 at time 1533151608048151...
+INFO:     127.0.0.1:34506 - "POST /infer HTTP/1.1" 200 OK
+Running step 1 at time 1533151608548020...
+INFO:     127.0.0.1:34518 - "POST /infer HTTP/1.1" 200 OK
+Running step 2 at time 1533151609047890...

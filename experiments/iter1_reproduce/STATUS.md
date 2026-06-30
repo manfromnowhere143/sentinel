@@ -1,5 +1,14 @@
 # Iteration 1 — live status (the infrastructure gate)
 
+> **GATE CLEARED (2026-06-30).** The full NeuroNCAP closed loop runs end-to-end on a single L4 and
+> emits the real benchmark metric — `render_image → infer → update_actors → score`, frozen UniAD in
+> the loop. Closed-loop smoke on **scene-0103 / stationary / 2 runs** → `ncap_score 5.0`,
+> `any_collide=false`, `recall@5-35m=1.0` on both runs, per-run `metrics.json` written. Full proof +
+> the eight integration blockers cleared (durable engine insights): [`PROOF_smoke_0103.md`](PROOF_smoke_0103.md).
+> This retires the engineering risk the pre-reg named as the binding constraint. It is **not** the
+> full averaged baseline (14 scenes × 100 runs) — that is now compute + the gated trainval blobs,
+> not unknowns. No baseline claim is made from a single smoke point.
+
 Tracking the NeuroNCAP stack build/download so nothing is lost. Updated as it progresses.
 
 ## Compute
