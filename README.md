@@ -43,6 +43,7 @@ unmonitored planner** (and a RiskMonitor-style baseline) with a bootstrap CI exc
 | 2·abl | **ablation** — naive-proximity / always-brake controls | — | prox 83 · always 50 · TTC 40 (frontal) | introspective signal **essential** | naive distance brake ≈ useless on fast approaches; closing-speed-from-forecast does the work |
 | 3 | **deployment metric (safe-progress)** — does it avoid the crash AND drive? | OFF **2.08** · always 0.49 · TTC 0.58 (safe-prog) | progress: OFF 0.91 · TTC 0.13 | **monitor over-brakes** | honest setback: TTC freezes benign scenes, *not* selective; unmonitored wins safe-progress. Next: introspective gating |
 | 4 | **gate on the *agent's* closing speed** — brake only on active threats | gated **2.80** · OFF 2.08 · TTC-old 0.64 (safe-prog) | clean-scene progress restored to OFF (0 brakes) | **net-positive vs OFF** (partial) | selectivity SOLVED; but gate under-brakes real threats (optimistic-forecast velocity) → danger safety lost. Next: track true agent velocity |
+| 5 | **observed-velocity gating** — agent velocity from multi-frame tracking, not the forecast | tracked **2.35** · OFF 2.08 (safe-prog) | clean=OFF (0 brakes); frontal coll 83%→**67%** | net-positive; **frontal recovered** | selectivity holds + observed velocity beats the forecast on frontal — but **side-impact still 100%** (its warning is in the ego's motion the gate filters out). Next: plan-vs-tracked-path collision check |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -131,12 +132,28 @@ remaining weakness (under-braking real threats) cleanly attributed to a single c
 estimate comes from the planner's optimistic forecast. The introspective signal predicts collisions
 (AUROC 0.83); the open problem is turning prediction into a brake that is both selective and safe.
 
-**The next frontier (iteration 5).** Estimate each agent's velocity from its **actual observed motion**
-— track `object_ids` across frames and difference positions — instead of the optimistic forecast. A real
-fast actor then trips the gate (brake) while a stationary object does not (drive), which should keep
-iter 4's selectivity *and* recover the danger-scene safety. Bar: clean-scene progress ≈ OFF, danger
-collisions ≤ the over-braking arm, safe-progress > 2.80. Then scale scenes/runs (gated trainval) and add
-VAD as a second frozen planner.
+5. **Iter 5 — observed-velocity gating: selectivity holds, frontal recovers, side resists.** Estimating
+   agent velocity from *actual multi-frame tracking* (world-frame, ego-motion-compensated) instead of the
+   optimistic forecast keeps the clean scene identical to OFF (0 interventions), stays net-positive
+   (safe-progress 2.35 > 2.08), and **recovers frontal safety (collision 83% → 67%)** where the forecast
+   gate could not. But **side-impact is still 100%** — its early warning lives in the ego's own
+   converging motion, exactly the term the selective gate removes. The arms now bracket the trade
+   precisely: total-closing catches every threat but over-brakes; agent-closing is selective but blind to
+   the side case. [`iter5_tracked/RESULT.md`](experiments/iter5_tracked/RESULT.md).
+
+**Net, stated plainly:** five iterations established a stable structure — the introspective signal
+predicts collisions (AUROC 0.83), selectivity is solved, and a selective monitor is repeatably
+net-positive over the unmonitored planner on the deployment metric (iter 4: 2.80, iter 5: 2.35, both >
+2.08). The open problem is sharp and singular: the **side-impact** case, whose warning is geometric
+(converging paths) rather than in the agent's own velocity. At 6 runs/scene the variant deltas are within
+noise; the robust facts are the structure, not the rankings.
+
+**The next frontier (iteration 6).** Predict the collision from the **ego's planned path vs each agent's
+tracked path** (closest point of approach over both real trajectories), not a closing-speed scalar — if
+the *plan* already steers clear, don't brake (selective); if plan-vs-tracked-actor paths cross within the
+horizon, brake (the side T-bone is caught because the crossing is in the geometry, whichever body's
+motion causes it). Bar: clean progress ≈ OFF, **side collisions down**, safe-progress > 2.80 — at higher
+run counts to escape the noise floor, then the full 14-scene benchmark (gated trainval) and VAD.
 
 Scope throughout: 2 public-mini scenes, single-digit runs, one L4 — a method-development loop on public
 data, **not** a claim against the full 14-scene published benchmark (that needs the gated trainval set).
