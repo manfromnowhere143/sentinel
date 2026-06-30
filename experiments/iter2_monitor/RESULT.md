@@ -54,6 +54,16 @@ stop-in-place. `SENTINEL_ENABLED` is the only switch between the OFF and ON arms
   head-on approaches where even a 1.8 s brake cannot fully stop — but at ~4 m/s instead of ~14 m/s, so
   the score rises from ~0 to ~2.7. We report avoidance and mitigation separately, not as one number.
 
+## Ablation boundary (see `ABLATION.md` — read it, it bounds this result)
+
+The introspective signal is **essential**: a naive distance brake (6 m, no forecast) leaves frontal
+collisions at 83% (≈ the unmonitored 80%) — TTC's closing-speed-from-forecast trigger is what cuts it
+to 40% and side to 0%. **But** an always-brake control *matches* the TTC safety score on this corpus,
+because every scene rewards stopping. So the safety-score win over the unmonitored planner is real, yet
+proving the *selective* monitor beats a trivial always-brake needs a **progress-sensitive** benchmark
+(the monitor's selectivity is visible — it fired on 0/10 clean-scene runs vs always-brake's 100% — but
+its *net* value isn't quantified by a collision-only corpus). Stated up front, not buried.
+
 ## Honest residuals / falsifiers checked
 
 - **Do-no-harm:** the mandatory guard (stationary/0103, 10/10 clean) is **unchanged** — the monitor is
