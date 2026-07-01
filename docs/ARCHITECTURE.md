@@ -13,7 +13,7 @@ learning.
 
 ---
 
-## 1. Design principles (what makes this world-class, not just a script)
+## 1. Design principles (what makes this a rigorous protocol, not just a script)
 
 1. **One number, frozen up front.** A single primary metric on a single public benchmark, with a
    pre-registered "win" bar (baseline-beating, CI excludes zero). No goalpost-moving.
