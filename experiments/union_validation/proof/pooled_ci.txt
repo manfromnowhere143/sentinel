@@ -1,0 +1,15 @@
+Pooled OFF and union arms across iterations 8/9/10 (same config, independent seeds), n=20 runs/scene.
+
+pooled n per scene (OFF / union): 20 / 20 for all three scenes
+
+per-scene mean score / collision% (pooled, n=20):
+  off    stationary-0103  score=5.00 coll%=  0
+  off    frontal-0103     score=1.07 coll%= 80
+  off    side-0103        score=0.64 coll%=100
+  union  stationary-0103  score=5.00 coll%=  0
+  union  frontal-0103     score=2.49 coll%= 85
+  union  side-0103        score=4.75 coll%=  5   <- 100% -> 5% at n=20
+
+pooled safe-progress:  OFF 2.142   union 2.597
+union - OFF delta = +0.455   95% CI [+0.083, +0.793]   (5000-sample within-scene bootstrap, seed 20260701)
+CI excludes 0 (net-positive confirmed): True

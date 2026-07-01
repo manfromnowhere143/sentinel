@@ -4,12 +4,14 @@
 collision it is about to cause, and intervenes — measured where it actually matters: in closed
 loop, by whether the car crashes *and whether it can still drive*.**
 
-> **Honest status up front (6 iterations in):** the introspective signal predicts the planner's
-> collisions (AUROC 0.83), and across six pre-registered iterations we have *separately* demonstrated
-> every property a deployable monitor needs — it is **selective** (leaves the clean scene identical to
-> the unmonitored planner), **net-positive** on a progress-aware deployment metric, and **catches the
-> hardest side-impact case** (100% → 0%). No single configuration holds all four at once yet; the
-> remaining gap is a **margin-calibration** problem, not a method problem. Along the way an over-claim
+> **Honest status up front (10 iterations, statistically validated):** the introspective signal predicts
+> the planner's collisions (AUROC 0.83), and the best configuration — the **union** (iter 8) — is
+> **selective** (clean scene identical to the unmonitored planner), **solves side-impact** (100% → 5% at
+> n=20), and is **net-positive** on a progress-aware deployment metric with a **bootstrap CI that excludes
+> zero** (safe-progress +0.455, 95% CI [+0.08, +0.79], 20 pooled runs/scene — the pre-registered bar,
+> met; [`union_validation/RESULT.md`](experiments/union_validation/RESULT.md)). The frontal head-on is
+> *mitigated* not prevented, and two evasive-steering designs to prevent it were honestly **refuted**.
+> Along the way an over-claim
 > was caught and corrected by our *own* next experiment — that self-correction is the point. Full arc in
 > [Status](#status--where-it-really-stands-the-honest-current-truth).
 
@@ -52,6 +54,7 @@ unmonitored planner** (and a RiskMonitor-style baseline) with a bootstrap CI exc
 | 8 | **the union** — brake if (plan-vs-path CPA < 1.5 m) OR (observed agent-closing TTC < 2.5 s) | union **2.53** · OFF 2.32 (safe-prog) | clean 30.2≈OFF · **side 100→0%** · frontal score 1.31→**2.43** | **net-positive + selective + side-solved, at once** | first config to hold 3 of 4 simultaneously; frontal impact strongly *mitigated* (not rate-reduced). Open ceiling: preventing (not softening) frontal head-on — planner optimism + stopping distance |
 | 9 | **evasive steering (AES) for frontal** — threat-aware: side→stop, head-on→swerve | — | frontal evade **1.66/100%** vs union stop **2.53/83%** | **refuted (null)** | naive 4 m swerve can't clear the actor and, keeping speed, hits harder than stopping. Selectivity + side preserved. Committed stop stays best; frontal *prevention* remains open |
 | 10 | **braking evasion into a tracked-clear gap** — shed speed *and* steer to the open side | — | frontal brakevade **1.67/100%** vs union stop **2.53/83%** | **refuted (null)** | second evasion family, same result: steering (even while braking) is worse than the pure stop. Two designs converge → committed stop is the frontal *ceiling*; prevention needs more than a single maneuver |
+| ✓ | **statistical validation** — pool the union & OFF arms across iters 8/9/10 (n=20/scene), bootstrap the safe-progress delta | union **2.60** vs OFF 2.14 (safe-prog) | side 100→**5%** at n=20 | **net-positive CONFIRMED** | delta **+0.455, 95% CI [+0.08, +0.79]**, excludes 0 — the pre-registered bar, met on 60 pooled runs. [`union_validation`](experiments/union_validation/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
