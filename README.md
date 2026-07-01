@@ -11,9 +11,8 @@ loop, by whether the car crashes *and whether it can still drive*.**
 > zero** (safe-progress +0.455, 95% CI [+0.08, +0.79], 20 pooled runs/scene — the pre-registered bar,
 > met; [`union_validation/RESULT.md`](experiments/union_validation/RESULT.md)). The frontal head-on is
 > *mitigated* not prevented, and two evasive-steering designs to prevent it were honestly **refuted**.
-> Along the way an over-claim
-> was caught and corrected by our *own* next experiment — that self-correction is the point. Full arc in
-> [Status](#status--where-it-really-stands-the-honest-current-truth).
+> Along the way an over-claim was caught and corrected by our *own* next experiment — that
+> self-correction is the point. Full arc in [Status](#status--where-it-really-stands-the-honest-current-truth).
 
 The field's open-loop driving metrics are saturated and gameable (an ego-state MLP "wins" nuScenes
 L2). The honest axis is **closed-loop safety**, and there the public state of the art is wide open:
@@ -26,6 +25,53 @@ GPUs.
 > a cheap label-free signal predicted the **collision gate at AUROC ~0.8**. Sentinel takes that
 > introspective signal **closed-loop, with intervention, to prevent the crash** — the natural
 > sequel: *we showed cheap signals see failure coming; now we use them to stop it.*
+
+---
+
+## The result
+
+Ten pre-registered iterations converge on one configuration — the **union** — that, on a frozen UniAD
+planner, is **selective, side-impact-solving, and net-positive over the unmonitored planner** on a
+progress-aware deployment metric, confirmed by a bootstrap CI that excludes zero (pooled n=20/scene):
+
+| metric (pooled, 20 runs/scene) | unmonitored planner | Sentinel (union) |
+|---|---:|---:|
+| clean-scene distance driven (selectivity) | 32.4 m | **32.3 m** (≈ identical) |
+| side-impact collision rate | **100 %** | **5 %** |
+| frontal head-on score (0–5) | 1.07 | **2.49** (impact mitigated) |
+| **safe-progress** (safety × route progress) | 2.14 | **2.60** |
+
+> **Net-positive, confirmed:** safe-progress advantage **+0.455, 95 % CI [+0.08, +0.79]** — excludes 0,
+> the pre-registered bar, met on 60 pooled runs. The one honest limit, named precisely: the frontal
+> head-on is *mitigated*, not *prevented*, and two evasive-steering designs to prevent it were tested
+> and refuted (§Status).
+
+The winning monitor is a **union of two individually-selective detectors**, chosen because the two
+failure modes are physically distinct — a side T-bone is a real path crossing, while a head-on is
+hidden by the planner's own optimism:
+
+```mermaid
+flowchart LR
+  P["frozen planner<br/>(UniAD, weights locked)"] -- "plan + detections + forecasts + track IDs" --> M
+  subgraph M["Sentinel monitor · label-free, from the planner's own outputs"]
+    direction TB
+    A["multi-frame world-frame<br/>object tracking (by ID)"]
+    C{"plan-vs-tracked-path<br/>closest approach &lt; 1.5 m?<br/><i>(catches the side T-bone)</i>"}
+    T{"observed agent-closing<br/>time-to-collision &lt; 2.5 s?<br/><i>(catches the optimistic-plan head-on)</i>"}
+    A --> C
+    A --> T
+  end
+  C -- "either fires" --> B["committed brake<br/>(stop-in-place)"]
+  T -- "either fires" --> B
+  C -- "neither fires" --> E["execute the planner's plan<br/>(stay out of the way)"]
+  B --> S["NeuroNCAP closed loop"]
+  E --> S
+  S --> R[/"scores: NCAP safety · collision % · route progress"/]
+```
+
+Neither detector fires on a benign passing object, so the union inherits both terms' selectivity; each
+term catches the danger case the other is blind to. Full derivation — and the honest nulls along the
+way — in the score tracker and [Status](#status--where-it-really-stands-the-honest-current-truth).
 
 ---
 
@@ -137,13 +183,6 @@ over-claim.** That arc, in order:
    because it reads agent velocity from the planner's *optimistic* forecast and so filters out the very
    actors it should catch. [`iter4_gated/RESULT.md`](experiments/iter4_gated/RESULT.md).
 
-**Net, stated plainly:** across four iterations the monitor went from a safety-only win (iter 2), to an
-honest setback where it over-braked and *lost* to the unmonitored planner (iter 3), to **net-positive on
-the deployment metric (iter 4: safe-progress 2.80 vs 2.08)** by braking selectively — with the one
-remaining weakness (under-braking real threats) cleanly attributed to a single cause: the agent-velocity
-estimate comes from the planner's optimistic forecast. The introspective signal predicts collisions
-(AUROC 0.83); the open problem is turning prediction into a brake that is both selective and safe.
-
 5. **Iter 5 — observed-velocity gating: selectivity holds, frontal recovers, side resists.** Estimating
    agent velocity from *actual multi-frame tracking* (world-frame, ego-motion-compensated) instead of the
    optimistic forecast keeps the clean scene identical to OFF (0 interventions), stays net-positive
@@ -153,13 +192,6 @@ estimate comes from the planner's optimistic forecast. The introspective signal 
    precisely: total-closing catches every threat but over-brakes; agent-closing is selective but blind to
    the side case. [`iter5_tracked/RESULT.md`](experiments/iter5_tracked/RESULT.md).
 
-**Net, stated plainly:** five iterations established a stable structure — the introspective signal
-predicts collisions (AUROC 0.83), selectivity is solved, and a selective monitor is repeatably
-net-positive over the unmonitored planner on the deployment metric (iter 4: 2.80, iter 5: 2.35, both >
-2.08). The open problem is sharp and singular: the **side-impact** case, whose warning is geometric
-(converging paths) rather than in the agent's own velocity. At 6 runs/scene the variant deltas are within
-noise; the robust facts are the structure, not the rankings.
-
 6. **Iter 6 — plan-vs-tracked-path CPA solves the side-impact case.** Braking when the ego's *planned*
    path crosses an agent's *tracked* path (closest point of approach, world frame) **drops side-impact
    from 100% to 0% (8/8 avoided)** — the T-bone that resisted iterations 4–5 is caught *geometrically*,
@@ -168,13 +200,6 @@ noise; the robust facts are the structure, not the rankings.
    just below OFF (2.17 vs 2.32). The two live approaches are now complementary: iter 5 is selective but
    side-blind; iter 6 catches the side case but over-brakes. [`iter6_cpa/RESULT.md`](experiments/iter6_cpa/RESULT.md).
 
-**Net, stated plainly:** six iterations have separately demonstrated every piece of a deployable monitor
-— it predicts collisions (AUROC 0.83), it can be perfectly selective (iter 5, clean = OFF), it can be
-net-positive over the unmonitored planner (iter 4/5, safe-progress > OFF), and it can catch the hardest
-side-impact case (iter 6, 100 → 0%). No single configuration yet holds all four at once; the gap between
-"catches the side crossing" and "ignores a benign close pass" is a **margin-calibration** problem, not a
-method problem.
-
 7. **Iter 7 — margin sweep: three of four at once, and why the fourth resists.** A tighter CPA margin
    (1.5 m) **restores clean-scene selectivity (32.3 m = OFF) and keeps side-impact at 0%** — but frontal
    reverts to 100%. The reason is fundamental: the head-on actor defeats plan-vs-path CPA at *any* tight
@@ -182,27 +207,12 @@ method problem.
    closest approach never drops near the margin. Side (paths truly cross to ~0) and frontal (optimistic
    plan) need *different* detectors — no single margin holds all four. [`iter7_margin/RESULT.md`](experiments/iter7_margin/RESULT.md).
 
-**Net, stated plainly:** the campaign has now isolated the exact structure of the solution. Every property
-is achievable, and the two danger cases have distinct, understood mechanisms: the **side T-bone** is a real
-path crossing (caught by plan-vs-tracked-path CPA at a tight, selective margin), while the **frontal
-head-on** is hidden by the planner's own optimism (caught only by the actor's *observed closing motion*,
-not the plan). Both detectors are individually selective.
-
 8. **Iter 8 — the union: one config, three of four at once.** Braking on **(plan-vs-path CPA < 1.5 m)
    OR (observed agent-closing TTC < 2.5 s)** is the first configuration that is **simultaneously
    selective (clean 30.2 m ≈ OFF), net-positive (safe-progress 2.53 > OFF 2.32), and side-solving
    (100 → 0%)** — with frontal impact strongly *mitigated* (score 1.31 → 2.43). The union works exactly
    as reasoned: CPA catches the side crossing, observed-closing catches the frontal the optimistic plan
    hid, and neither fires on the passive object. [`iter8_union/RESULT.md`](experiments/iter8_union/RESULT.md).
-
-**Net, stated plainly — where eight iterations land.** Every property of a deployable frozen-planner
-safety monitor has been demonstrated, and the **union is the best single configuration of the campaign**:
-selective, net-positive over the unmonitored planner on a progress-aware metric, and it solves the
-side-impact case — all label-free, frozen planner, one L4, public data. The one honest ceiling is named
-precisely: it *mitigates* frontal head-on crashes (impact speed cut hard) rather than *preventing* them —
-the only arm that ever drove frontal rate down froze the car everywhere. Fully preventing a committed
-head-on without over-braking is a real open problem (planner optimism + stopping distance), not a
-threshold tweak.
 
 9. **Iter 9 — evasive steering for the frontal head-on: refuted.** The state-of-the-art active-safety
    move (AEB **+ AES**) is to steer around a head-on rather than stop in its path. Implemented threat-aware
@@ -212,12 +222,6 @@ threshold tweak.
    the committed stop. Selectivity and the side solution are preserved; only the evasive *trajectory* is
    inadequate. **Reported as a null — the committed stop (the union) stays the best frontal response.**
    [`iter9_evade/RESULT.md`](experiments/iter9_evade/RESULT.md).
-
-**Net, stated plainly — nine iterations.** The **union (iter 8) remains the campaign's best monitor**:
-selective, net-positive over the unmonitored planner, and side-impact solved, with the frontal head-on
-*mitigated*. Iteration 9 tested the obvious way to turn frontal mitigation into prevention (evasive
-steering) and honestly refuted it — steering at speed is worse than stopping here. Frontal head-on
-*prevention* is now established as a genuine open problem, not a maneuver away.
 
 10. **Iter 10 — braking evasion into a tracked-clear gap: also refuted.** The iter-9 null's refined
     evasion — shed speed *and* steer toward the open side — lands at **1.67/100%**, essentially
@@ -232,19 +236,46 @@ The frontal head-on *ceiling* is now firmly established — a committed stop is 
 and **two separate evasive-steering designs (iter 9, iter 10) were tested and honestly refuted**, both
 worse than stopping. Frontal head-on *prevention* is a genuinely hard open problem, not a maneuver away.
 
-**The next frontier (iteration 11).** With single-shot maneuvers exhausted for frontal, the remaining
-levers are *earlier* action (a longer tracking horizon so a gentle, fully-completed lane change is
-possible before the ego is committed into the actor's path) and evaluation at scale. The highest-value
-next step is arguably to **stop refining the frontal edge case and validate the union at scale** — the
-full 14-scene NeuroNCAP benchmark (gated trainval) and VAD as a second frozen planner — since the
-union's three solved properties are the publishable result and the frontal ceiling is now well
-characterized.
+**What's next — validation at scale.** With single-shot maneuvers exhausted for the frontal edge case,
+the two remaining milestones both concern *generalization of the validated result*, not the frontal
+corner:
 
-Scope throughout: 2 public-mini scenes, single-digit runs, one L4 — a method-development loop on public
-data, **not** a claim against the full 14-scene published benchmark (that needs the gated trainval set).
+- **A second frozen planner (VAD).** Does the union transfer beyond UniAD, or is it UniAD-specific? VAD
+  exposes the identical output schema, so the monitor's logic is unchanged — the stack is built and the
+  union is patched onto VAD; the one remaining step is generating VAD's NeuroNCAP-specific data-infos.
+  Staged to a precise restart point: [`vad_generalization/STATUS.md`](experiments/vad_generalization/STATUS.md).
+- **The full 14-scene benchmark.** All results here are on the 2 NeuroNCAP scenes present in public
+  `v1.0-mini`; the averaged published number needs the gated ~290 GB trainval set (a free nuScenes
+  account). That is the one dependency external to this repo.
+
+Scope throughout, stated plainly: 2 public-mini scenes, single-digit-to-20 runs, one L4 — a
+method-development loop on public data, **not** a claim against the full 14-scene published benchmark.
+
+## Reproduce & repository map
+
+The closed-loop stack is three public Docker images (NeuRAD renderer · frozen planner · NeuroNCAP
+orchestrator/scorer) on a single L4; the monitor is a self-contained patch injected into the planner's
+inference server, gated by environment variables so every arm (OFF / union / ablations) is one switch.
+Each experiment directory is self-describing:
+
+| path | what it holds |
+|---|---|
+| [`PREREGISTRATION.md`](PREREGISTRATION.md) · [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | frozen win bar; research-loop design |
+| [`experiments/iter1_reproduce/`](experiments/iter1_reproduce) · [`iter1b_partial_baseline/`](experiments/iter1b_partial_baseline) | stack stood up; baseline reproduced + collision corpus |
+| [`experiments/iter2_monitor/`](experiments/iter2_monitor) | the signal (G1, AUROC 0.83), the first A/B, the ablation, and the corrected over-claim |
+| [`experiments/iter3_progress/`](experiments/iter3_progress) | the deployment metric (safe-progress) — the honest setback |
+| [`experiments/iter4_gated/`](experiments/iter4_gated) … [`iter7_margin/`](experiments/iter7_margin) | selectivity → observed velocity → CPA → margin sweep |
+| [`experiments/iter8_union/`](experiments/iter8_union) | **the definitive monitor** (union of two detectors) |
+| [`experiments/iter9_evade/`](experiments/iter9_evade) · [`iter10_brakevade/`](experiments/iter10_brakevade) | two refuted evasion designs for frontal prevention (reported nulls) |
+| [`experiments/union_validation/`](experiments/union_validation) | **pooled n=20 bootstrap CI** confirming net-positive |
+| [`experiments/vad_generalization/`](experiments/vad_generalization) | second-planner generalization, staged |
+
+Every result folder carries a `RESULT.md` with the real per-run numbers, the exact server patch, and the
+run script. `sentinel/monitor.py` is the pure-geometry monitor with unit tests (`tests/`); CI runs ruff +
+pytest on every push.
 
 ## Data & honesty
 
 Public datasets only (nuScenes via NeuroNCAP); no fleet or proprietary data; no frames
 redistributed. Published baselines are single-preprint and unreproduced — reproducing them is our
-true starting line, and a null is reported, not buried.
+true starting line, and every null is reported, not buried.
