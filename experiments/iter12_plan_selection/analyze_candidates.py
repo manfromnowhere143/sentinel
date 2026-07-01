@@ -21,7 +21,7 @@ import sys
 
 CMD = {0: 'right', 1: 'left', 2: 'straight'}
 path = sys.argv[1]
-DANGER_GAP = float(sys.argv[2]) if len(sys.argv) > 3 else 3.5
+DANGER_GAP = float(sys.argv[2]) if len(sys.argv) > 2 else 3.5
 ESCAPE_GAP = float(sys.argv[3]) if len(sys.argv) > 3 else 5.0
 H = int(sys.argv[4]) if len(sys.argv) > 4 else 3  # plan steps at 0.5 s -> 1.5 s imminent window
 
