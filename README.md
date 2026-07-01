@@ -51,6 +51,7 @@ unmonitored planner** (and a RiskMonitor-style baseline) with a bootstrap CI exc
 | 7 | **margin sweep** — CPA at 1.5 m vs 1.0 m vs OFF | cpa@1.5 selective (clean 32.3 = OFF) | side **0%** kept; frontal reverts to **100%** | **3 of 4 at once** | tighter margin restores selectivity + keeps the side win, but frontal defeats plan-CPA at *any* tight margin (optimistic plan clears by 3–4 m). No single margin holds all four → **union two detectors** |
 | 8 | **the union** — brake if (plan-vs-path CPA < 1.5 m) OR (observed agent-closing TTC < 2.5 s) | union **2.53** · OFF 2.32 (safe-prog) | clean 30.2≈OFF · **side 100→0%** · frontal score 1.31→**2.43** | **net-positive + selective + side-solved, at once** | first config to hold 3 of 4 simultaneously; frontal impact strongly *mitigated* (not rate-reduced). Open ceiling: preventing (not softening) frontal head-on — planner optimism + stopping distance |
 | 9 | **evasive steering (AES) for frontal** — threat-aware: side→stop, head-on→swerve | — | frontal evade **1.66/100%** vs union stop **2.53/83%** | **refuted (null)** | naive 4 m swerve can't clear the actor and, keeping speed, hits harder than stopping. Selectivity + side preserved. Committed stop stays best; frontal *prevention* remains open |
+| 10 | **braking evasion into a tracked-clear gap** — shed speed *and* steer to the open side | — | frontal brakevade **1.67/100%** vs union stop **2.53/83%** | **refuted (null)** | second evasion family, same result: steering (even while braking) is worse than the pure stop. Two designs converge → committed stop is the frontal *ceiling*; prevention needs more than a single maneuver |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -215,11 +216,26 @@ selective, net-positive over the unmonitored planner, and side-impact solved, wi
 steering) and honestly refuted it — steering at speed is worse than stopping here. Frontal head-on
 *prevention* is now established as a genuine open problem, not a maneuver away.
 
-**The next frontier (iteration 10).** The iter-9 null points the way: a **braking** evasion (shed speed
-*and* steer, not steer at speed), steering only into a **tracked-clear gap** rather than a fixed offset,
-and **earlier detection** (longer tracking horizon) so a gentle, trackable lane change has time to
-complete. Each is a real experiment. Then scale to the full 14-scene benchmark (gated trainval) and add
-VAD as a second frozen planner.
+10. **Iter 10 — braking evasion into a tracked-clear gap: also refuted.** The iter-9 null's refined
+    evasion — shed speed *and* steer toward the open side — lands at **1.67/100%**, essentially
+    identical to iter 9 and again worse than the pure stop's 2.53/83%. Two independent evasion families
+    now converge on the same result: adding lateral steering to the head-on hurts (splitting effort
+    between braking and steering realizes less deceleration, and the dodge doesn't complete in time).
+    [`iter10_brakevade/RESULT.md`](experiments/iter10_brakevade/RESULT.md).
+
+**Net, stated plainly — ten iterations.** The **union (iter 8) is the definitive best monitor** of the
+campaign: selective, net-positive over the unmonitored planner, side-impact solved, frontal *mitigated*.
+The frontal head-on *ceiling* is now firmly established — a committed stop is the best frontal response,
+and **two separate evasive-steering designs (iter 9, iter 10) were tested and honestly refuted**, both
+worse than stopping. Frontal head-on *prevention* is a genuinely hard open problem, not a maneuver away.
+
+**The next frontier (iteration 11).** With single-shot maneuvers exhausted for frontal, the remaining
+levers are *earlier* action (a longer tracking horizon so a gentle, fully-completed lane change is
+possible before the ego is committed into the actor's path) and evaluation at scale. The highest-value
+next step is arguably to **stop refining the frontal edge case and validate the union at scale** — the
+full 14-scene NeuroNCAP benchmark (gated trainval) and VAD as a second frozen planner — since the
+union's three solved properties are the publishable result and the frontal ceiling is now well
+characterized.
 
 Scope throughout: 2 public-mini scenes, single-digit runs, one L4 — a method-development loop on public
 data, **not** a claim against the full 14-scene published benchmark (that needs the gated trainval set).
