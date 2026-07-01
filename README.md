@@ -48,6 +48,7 @@ unmonitored planner** (and a RiskMonitor-style baseline) with a bootstrap CI exc
 | 4 | **gate on the *agent's* closing speed** — brake only on active threats | gated **2.80** · OFF 2.08 · TTC-old 0.64 (safe-prog) | clean-scene progress restored to OFF (0 brakes) | **net-positive vs OFF** (partial) | selectivity SOLVED; but gate under-brakes real threats (optimistic-forecast velocity) → danger safety lost. Next: track true agent velocity |
 | 5 | **observed-velocity gating** — agent velocity from multi-frame tracking, not the forecast | tracked **2.35** · OFF 2.08 (safe-prog) | clean=OFF (0 brakes); frontal coll 83%→**67%** | net-positive; **frontal recovered** | selectivity holds + observed velocity beats the forecast on frontal — but **side-impact still 100%** (its warning is in the ego's motion the gate filters out). Next: plan-vs-tracked-path collision check |
 | 6 | **plan-vs-tracked-path CPA** — brake if the ego's planned path crosses an agent's tracked path | cpa 2.17 · OFF 2.32 (safe-prog) | **side-impact 100% → 0%** (8/8 avoided) | **side case SOLVED** (but over-brakes) | the T-bone that beat iters 4–5 is caught geometrically; cost = 2.5 m margin also flags benign close passes → clean 33→22 m. Next: tighter margin (~1.2 m) to keep the side win + restore selectivity |
+| 7 | **margin sweep** — CPA at 1.5 m vs 1.0 m vs OFF | cpa@1.5 selective (clean 32.3 = OFF) | side **0%** kept; frontal reverts to **100%** | **3 of 4 at once** | tighter margin restores selectivity + keeps the side win, but frontal defeats plan-CPA at *any* tight margin (optimistic plan clears by 3–4 m). No single margin holds all four → **union two detectors** |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -168,11 +169,25 @@ side-impact case (iter 6, 100 → 0%). No single configuration yet holds all fou
 "catches the side crossing" and "ignores a benign close pass" is a **margin-calibration** problem, not a
 method problem.
 
-**The next frontier (iteration 7).** Tighten the CPA margin to actual contact (~1.0–1.5 m): a real
-collision converges to ~0 m and the side T-bone crosses to <1 m, while the safe pass of the stationary
-object stays at ~2–3 m — so a tighter margin should keep iteration 6's side win *and* restore iteration
-5's clean-scene selectivity, clearing all four properties at once. Bar: side ≈ 0, clean progress ≈ OFF,
-safe-progress > OFF, at n ≥ 8 — then the full 14-scene benchmark (gated trainval) and VAD.
+7. **Iter 7 — margin sweep: three of four at once, and why the fourth resists.** A tighter CPA margin
+   (1.5 m) **restores clean-scene selectivity (32.3 m = OFF) and keeps side-impact at 0%** — but frontal
+   reverts to 100%. The reason is fundamental: the head-on actor defeats plan-vs-path CPA at *any* tight
+   margin because the planner's **optimistic plan** believes it clears by 3–4 m, so the plan-vs-actor
+   closest approach never drops near the margin. Side (paths truly cross to ~0) and frontal (optimistic
+   plan) need *different* detectors — no single margin holds all four. [`iter7_margin/RESULT.md`](experiments/iter7_margin/RESULT.md).
+
+**Net, stated plainly:** the campaign has now isolated the exact structure of the solution. Every property
+is achievable, and the two danger cases have distinct, understood mechanisms: the **side T-bone** is a real
+path crossing (caught by plan-vs-tracked-path CPA at a tight, selective margin), while the **frontal
+head-on** is hidden by the planner's own optimism (caught only by the actor's *observed closing motion*,
+not the plan). Both detectors are individually selective.
+
+**The next frontier (iteration 8) — the union.** Brake if **(plan-vs-tracked-path CPA < ~1.5 m) OR
+(observed agent-closing TTC < threshold)**: the CPA term catches the side crossing, the closing term
+catches the optimistic-plan frontal, and because neither fires on the passive stationary object the union
+stays selective. This is the configuration that should hold **all four properties at once** — selective,
+net-positive, side solved, frontal caught. Bar: side ≈ 0, frontal collision ≪ OFF, clean progress ≈ OFF,
+safe-progress > OFF — then the full 14-scene benchmark (gated trainval) and VAD.
 
 Scope throughout: 2 public-mini scenes, single-digit runs, one L4 — a method-development loop on public
 data, **not** a claim against the full 14-scene published benchmark (that needs the gated trainval set).
