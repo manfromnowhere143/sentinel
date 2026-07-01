@@ -50,6 +50,7 @@ unmonitored planner** (and a RiskMonitor-style baseline) with a bootstrap CI exc
 | 6 | **plan-vs-tracked-path CPA** — brake if the ego's planned path crosses an agent's tracked path | cpa 2.17 · OFF 2.32 (safe-prog) | **side-impact 100% → 0%** (8/8 avoided) | **side case SOLVED** (but over-brakes) | the T-bone that beat iters 4–5 is caught geometrically; cost = 2.5 m margin also flags benign close passes → clean 33→22 m. Next: tighter margin (~1.2 m) to keep the side win + restore selectivity |
 | 7 | **margin sweep** — CPA at 1.5 m vs 1.0 m vs OFF | cpa@1.5 selective (clean 32.3 = OFF) | side **0%** kept; frontal reverts to **100%** | **3 of 4 at once** | tighter margin restores selectivity + keeps the side win, but frontal defeats plan-CPA at *any* tight margin (optimistic plan clears by 3–4 m). No single margin holds all four → **union two detectors** |
 | 8 | **the union** — brake if (plan-vs-path CPA < 1.5 m) OR (observed agent-closing TTC < 2.5 s) | union **2.53** · OFF 2.32 (safe-prog) | clean 30.2≈OFF · **side 100→0%** · frontal score 1.31→**2.43** | **net-positive + selective + side-solved, at once** | first config to hold 3 of 4 simultaneously; frontal impact strongly *mitigated* (not rate-reduced). Open ceiling: preventing (not softening) frontal head-on — planner optimism + stopping distance |
+| 9 | **evasive steering (AES) for frontal** — threat-aware: side→stop, head-on→swerve | — | frontal evade **1.66/100%** vs union stop **2.53/83%** | **refuted (null)** | naive 4 m swerve can't clear the actor and, keeping speed, hits harder than stopping. Selectivity + side preserved. Committed stop stays best; frontal *prevention* remains open |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -199,10 +200,26 @@ the only arm that ever drove frontal rate down froze the car everywhere. Fully p
 head-on without over-braking is a real open problem (planner optimism + stopping distance), not a
 threshold tweak.
 
-**The next frontier (iteration 9).** Attack frontal *prevention*: a longer tracking/prediction horizon
-for earlier detection, and an evasive brake-and-steer fallback rather than a straight-line stop — so the
-head-on is avoided, not just softened, without sacrificing the union's selectivity. Then scale to the
-full 14-scene benchmark (gated trainval) and add VAD as a second frozen planner.
+9. **Iter 9 — evasive steering for the frontal head-on: refuted.** The state-of-the-art active-safety
+   move (AEB **+ AES**) is to steer around a head-on rather than stop in its path. Implemented threat-aware
+   (side → stop, head-on → lateral swerve) and tested — and it **makes frontal worse**: evade 1.66/100%
+   vs the stop-based union's 2.53/83% (more collisions *and* higher impact). A 4 m swerve while keeping
+   speed can't clear the aggressively-converging actor in time, and not shedding speed strikes harder than
+   the committed stop. Selectivity and the side solution are preserved; only the evasive *trajectory* is
+   inadequate. **Reported as a null — the committed stop (the union) stays the best frontal response.**
+   [`iter9_evade/RESULT.md`](experiments/iter9_evade/RESULT.md).
+
+**Net, stated plainly — nine iterations.** The **union (iter 8) remains the campaign's best monitor**:
+selective, net-positive over the unmonitored planner, and side-impact solved, with the frontal head-on
+*mitigated*. Iteration 9 tested the obvious way to turn frontal mitigation into prevention (evasive
+steering) and honestly refuted it — steering at speed is worse than stopping here. Frontal head-on
+*prevention* is now established as a genuine open problem, not a maneuver away.
+
+**The next frontier (iteration 10).** The iter-9 null points the way: a **braking** evasion (shed speed
+*and* steer, not steer at speed), steering only into a **tracked-clear gap** rather than a fixed offset,
+and **earlier detection** (longer tracking horizon) so a gentle, trackable lane change has time to
+complete. Each is a real experiment. Then scale to the full 14-scene benchmark (gated trainval) and add
+VAD as a second frozen planner.
 
 Scope throughout: 2 public-mini scenes, single-digit runs, one L4 — a method-development loop on public
 data, **not** a claim against the full 14-scene published benchmark (that needs the gated trainval set).

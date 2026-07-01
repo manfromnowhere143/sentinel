@@ -1,0 +1,10 @@
+arm scene score coll% ego_m n
+off    stationary-0103 5.00   0  32.4 6
+off    frontal-0103    0.91  83  34.6 6
+off    side-0103       0.64 100  19.9 6
+union  stationary-0103 5.00   0  32.3 6
+union  frontal-0103    2.53  83  20.8 6
+union  side-0103       5.00   0   7.1 6
+evade  stationary-0103 5.00   0  32.3 6
+evade  frontal-0103    1.66 100  21.2 6
+evade  side-0103       5.00   0   6.8 5
