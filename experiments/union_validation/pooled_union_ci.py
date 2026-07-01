@@ -2,7 +2,13 @@
 """Pool the OFF and union arms across iterations 8/9/10 (same config, independent seeds) and put a
 drive-clustered bootstrap CI on the union's safe-progress advantage. This is the statistical
 confirmation of the campaign's headline: is safe-progress(union) > safe-progress(OFF) real, or noise?"""
-import json, math, os, re, collections, random
+import collections
+import json
+import math
+import os
+import random
+import re
+
 random.seed(20260701)  # fixed; Date.now/random-at-import are unavailable, so pin explicitly
 
 OUT = '/opt/sentinel-stack/NeuroNCAP/outoutput'
@@ -84,11 +90,6 @@ print(f'\npooled safe-progress:  OFF {off_sp:.3f}   union {un_sp:.3f}')
 print(f'union - OFF delta = {d_obs:+.3f}   95% CI [{lo:+.3f}, {hi:+.3f}]')
 print(f'CI excludes 0 (net-positive confirmed): {lo > 0}')
 
-# per-scene collision rate, pooled
-print('\npooled collision % (OFF -> union):')
-for s in SCENES:
-    o = pool['off'][s]; u = pool['union'][s]
-    oc = sum(1 for sc, e in o if False) if not o else sum(1 for i in range(len(o)))  # placeholder
 print('\nper-scene mean score / collision% (pooled):')
 sc_all = {tag: scores_from_log(tag) for tag, _ in ITERS}
 for arm in ['off', 'union']:
