@@ -1,0 +1,9 @@
+arm scene score coll% ego_m n
+off  stationary-0103 5.00   0  33.0 8
+off  frontal-0103    1.31  75  36.1 8
+off  side-0103       0.65 100  20.3 8
+off pooled_safe_progress 2.32
+cpa  stationary-0103 5.00   0  22.3 8
+cpa  frontal-0103    2.95  88  19.9 8
+cpa  side-0103       5.00   0   6.1 8
+cpa pooled_safe_progress 2.17

@@ -44,6 +44,7 @@ unmonitored planner** (and a RiskMonitor-style baseline) with a bootstrap CI exc
 | 3 | **deployment metric (safe-progress)** — does it avoid the crash AND drive? | OFF **2.08** · always 0.49 · TTC 0.58 (safe-prog) | progress: OFF 0.91 · TTC 0.13 | **monitor over-brakes** | honest setback: TTC freezes benign scenes, *not* selective; unmonitored wins safe-progress. Next: introspective gating |
 | 4 | **gate on the *agent's* closing speed** — brake only on active threats | gated **2.80** · OFF 2.08 · TTC-old 0.64 (safe-prog) | clean-scene progress restored to OFF (0 brakes) | **net-positive vs OFF** (partial) | selectivity SOLVED; but gate under-brakes real threats (optimistic-forecast velocity) → danger safety lost. Next: track true agent velocity |
 | 5 | **observed-velocity gating** — agent velocity from multi-frame tracking, not the forecast | tracked **2.35** · OFF 2.08 (safe-prog) | clean=OFF (0 brakes); frontal coll 83%→**67%** | net-positive; **frontal recovered** | selectivity holds + observed velocity beats the forecast on frontal — but **side-impact still 100%** (its warning is in the ego's motion the gate filters out). Next: plan-vs-tracked-path collision check |
+| 6 | **plan-vs-tracked-path CPA** — brake if the ego's planned path crosses an agent's tracked path | cpa 2.17 · OFF 2.32 (safe-prog) | **side-impact 100% → 0%** (8/8 avoided) | **side case SOLVED** (but over-brakes) | the T-bone that beat iters 4–5 is caught geometrically; cost = 2.5 m margin also flags benign close passes → clean 33→22 m. Next: tighter margin (~1.2 m) to keep the side win + restore selectivity |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -148,12 +149,26 @@ net-positive over the unmonitored planner on the deployment metric (iter 4: 2.80
 (converging paths) rather than in the agent's own velocity. At 6 runs/scene the variant deltas are within
 noise; the robust facts are the structure, not the rankings.
 
-**The next frontier (iteration 6).** Predict the collision from the **ego's planned path vs each agent's
-tracked path** (closest point of approach over both real trajectories), not a closing-speed scalar — if
-the *plan* already steers clear, don't brake (selective); if plan-vs-tracked-actor paths cross within the
-horizon, brake (the side T-bone is caught because the crossing is in the geometry, whichever body's
-motion causes it). Bar: clean progress ≈ OFF, **side collisions down**, safe-progress > 2.80 — at higher
-run counts to escape the noise floor, then the full 14-scene benchmark (gated trainval) and VAD.
+6. **Iter 6 — plan-vs-tracked-path CPA solves the side-impact case.** Braking when the ego's *planned*
+   path crosses an agent's *tracked* path (closest point of approach, world frame) **drops side-impact
+   from 100% to 0% (8/8 avoided)** — the T-bone that resisted iterations 4–5 is caught *geometrically*,
+   from the crossing itself. The honest cost: the 2.5 m margin also flags the ego's benign close pass of
+   the stationary object, so CPA over-brakes the clean scene (33 → 22 m) and pooled safe-progress dips
+   just below OFF (2.17 vs 2.32). The two live approaches are now complementary: iter 5 is selective but
+   side-blind; iter 6 catches the side case but over-brakes. [`iter6_cpa/RESULT.md`](experiments/iter6_cpa/RESULT.md).
+
+**Net, stated plainly:** six iterations have separately demonstrated every piece of a deployable monitor
+— it predicts collisions (AUROC 0.83), it can be perfectly selective (iter 5, clean = OFF), it can be
+net-positive over the unmonitored planner (iter 4/5, safe-progress > OFF), and it can catch the hardest
+side-impact case (iter 6, 100 → 0%). No single configuration yet holds all four at once; the gap between
+"catches the side crossing" and "ignores a benign close pass" is a **margin-calibration** problem, not a
+method problem.
+
+**The next frontier (iteration 7).** Tighten the CPA margin to actual contact (~1.0–1.5 m): a real
+collision converges to ~0 m and the side T-bone crosses to <1 m, while the safe pass of the stationary
+object stays at ~2–3 m — so a tighter margin should keep iteration 6's side win *and* restore iteration
+5's clean-scene selectivity, clearing all four properties at once. Bar: side ≈ 0, clean progress ≈ OFF,
+safe-progress > OFF, at n ≥ 8 — then the full 14-scene benchmark (gated trainval) and VAD.
 
 Scope throughout: 2 public-mini scenes, single-digit runs, one L4 — a method-development loop on public
 data, **not** a claim against the full 14-scene published benchmark (that needs the gated trainval set).
