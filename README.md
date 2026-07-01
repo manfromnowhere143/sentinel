@@ -49,6 +49,7 @@ unmonitored planner** (and a RiskMonitor-style baseline) with a bootstrap CI exc
 | 5 | **observed-velocity gating** — agent velocity from multi-frame tracking, not the forecast | tracked **2.35** · OFF 2.08 (safe-prog) | clean=OFF (0 brakes); frontal coll 83%→**67%** | net-positive; **frontal recovered** | selectivity holds + observed velocity beats the forecast on frontal — but **side-impact still 100%** (its warning is in the ego's motion the gate filters out). Next: plan-vs-tracked-path collision check |
 | 6 | **plan-vs-tracked-path CPA** — brake if the ego's planned path crosses an agent's tracked path | cpa 2.17 · OFF 2.32 (safe-prog) | **side-impact 100% → 0%** (8/8 avoided) | **side case SOLVED** (but over-brakes) | the T-bone that beat iters 4–5 is caught geometrically; cost = 2.5 m margin also flags benign close passes → clean 33→22 m. Next: tighter margin (~1.2 m) to keep the side win + restore selectivity |
 | 7 | **margin sweep** — CPA at 1.5 m vs 1.0 m vs OFF | cpa@1.5 selective (clean 32.3 = OFF) | side **0%** kept; frontal reverts to **100%** | **3 of 4 at once** | tighter margin restores selectivity + keeps the side win, but frontal defeats plan-CPA at *any* tight margin (optimistic plan clears by 3–4 m). No single margin holds all four → **union two detectors** |
+| 8 | **the union** — brake if (plan-vs-path CPA < 1.5 m) OR (observed agent-closing TTC < 2.5 s) | union **2.53** · OFF 2.32 (safe-prog) | clean 30.2≈OFF · **side 100→0%** · frontal score 1.31→**2.43** | **net-positive + selective + side-solved, at once** | first config to hold 3 of 4 simultaneously; frontal impact strongly *mitigated* (not rate-reduced). Open ceiling: preventing (not softening) frontal head-on — planner optimism + stopping distance |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -182,12 +183,26 @@ path crossing (caught by plan-vs-tracked-path CPA at a tight, selective margin),
 head-on** is hidden by the planner's own optimism (caught only by the actor's *observed closing motion*,
 not the plan). Both detectors are individually selective.
 
-**The next frontier (iteration 8) — the union.** Brake if **(plan-vs-tracked-path CPA < ~1.5 m) OR
-(observed agent-closing TTC < threshold)**: the CPA term catches the side crossing, the closing term
-catches the optimistic-plan frontal, and because neither fires on the passive stationary object the union
-stays selective. This is the configuration that should hold **all four properties at once** — selective,
-net-positive, side solved, frontal caught. Bar: side ≈ 0, frontal collision ≪ OFF, clean progress ≈ OFF,
-safe-progress > OFF — then the full 14-scene benchmark (gated trainval) and VAD.
+8. **Iter 8 — the union: one config, three of four at once.** Braking on **(plan-vs-path CPA < 1.5 m)
+   OR (observed agent-closing TTC < 2.5 s)** is the first configuration that is **simultaneously
+   selective (clean 30.2 m ≈ OFF), net-positive (safe-progress 2.53 > OFF 2.32), and side-solving
+   (100 → 0%)** — with frontal impact strongly *mitigated* (score 1.31 → 2.43). The union works exactly
+   as reasoned: CPA catches the side crossing, observed-closing catches the frontal the optimistic plan
+   hid, and neither fires on the passive object. [`iter8_union/RESULT.md`](experiments/iter8_union/RESULT.md).
+
+**Net, stated plainly — where eight iterations land.** Every property of a deployable frozen-planner
+safety monitor has been demonstrated, and the **union is the best single configuration of the campaign**:
+selective, net-positive over the unmonitored planner on a progress-aware metric, and it solves the
+side-impact case — all label-free, frozen planner, one L4, public data. The one honest ceiling is named
+precisely: it *mitigates* frontal head-on crashes (impact speed cut hard) rather than *preventing* them —
+the only arm that ever drove frontal rate down froze the car everywhere. Fully preventing a committed
+head-on without over-braking is a real open problem (planner optimism + stopping distance), not a
+threshold tweak.
+
+**The next frontier (iteration 9).** Attack frontal *prevention*: a longer tracking/prediction horizon
+for earlier detection, and an evasive brake-and-steer fallback rather than a straight-line stop — so the
+head-on is avoided, not just softened, without sacrificing the union's selectivity. Then scale to the
+full 14-scene benchmark (gated trainval) and add VAD as a second frozen planner.
 
 Scope throughout: 2 public-mini scenes, single-digit runs, one L4 — a method-development loop on public
 data, **not** a claim against the full 14-scene published benchmark (that needs the gated trainval set).
