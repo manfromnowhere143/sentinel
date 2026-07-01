@@ -114,6 +114,21 @@ Determinism makes indices 0–7 an exact-reproduction check; indices 8–19 are 
 **RESULTS PENDING — run in flight at the time of this commit; this section is finalized in the
 follow-up commit with the raw logs committed alongside.**
 
+## 4b. The safety-engineering view (derived from committed decision logs)
+
+AV safety cases are argued in interventions-per-distance, detection lead time, and severity — not
+benchmark scores. `verification/analyze_safety_case.py` derives them from the committed evidence
+(episodes are deterministic until intervention, so the OFF arm's ground-truth contact moment is the
+counterfactual impact time for the union arm's first brake on the same run index; simulator actor
+trajectories are used only for this offline timing, never by the monitor):
+
+| quantity | value (iteration-8 union, unique episodes) |
+|---|---|
+| detection lead time before counterfactual contact | **median 2.5 s** (n=6 reconstructable, range 1.0–3.5 s) |
+| benign-scene intervention budget | 11 brake frames over 242 m driven (2 of 8 episodes touched) |
+| frontal severity | mean impact 13.9 → **6.7 m/s** (rate unchanged) |
+| side outcome | 8/8 collisions → **1/8** |
+
 ## 5. Attacks attempted and their outcomes
 
 | attack | outcome |
