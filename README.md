@@ -10,7 +10,8 @@ loop, by whether the car crashes *and whether it can still drive*.**
 > n=20), and is **net-positive** on a progress-aware deployment metric with a **bootstrap CI that excludes
 > zero** (safe-progress +0.455, 95% CI [+0.08, +0.79], 20 pooled runs/scene — the pre-registered bar,
 > met; [`union_validation/RESULT.md`](experiments/union_validation/RESULT.md)). The frontal head-on is
-> *mitigated* not prevented, and two evasive-steering designs to prevent it were honestly **refuted**.
+> *mitigated* not prevented, and three evasive designs to prevent it were honestly **refuted** — the last
+> showing *why*: a swerve on a false alarm crashes, so evasion is unsafe without perfect precision.
 > Along the way an over-claim was caught and corrected by our *own* next experiment — that
 > self-correction is the point. Full arc in [Status](#status--where-it-really-stands-the-honest-current-truth).
 
@@ -43,7 +44,7 @@ progress-aware deployment metric, confirmed by a bootstrap CI that excludes zero
 
 > **Net-positive, confirmed:** safe-progress advantage **+0.455, 95 % CI [+0.08, +0.79]** — excludes 0,
 > the pre-registered bar, met on 60 pooled runs. The one honest limit, named precisely: the frontal
-> head-on is *mitigated*, not *prevented*, and two evasive-steering designs to prevent it were tested
+> head-on is *mitigated*, not *prevented*, and three evasive designs to prevent it were tested
 > and refuted (§Status).
 
 The winning monitor is a **union of two individually-selective detectors**, chosen because the two
@@ -101,6 +102,7 @@ unmonitored planner** (and a RiskMonitor-style baseline) with a bootstrap CI exc
 | 9 | **evasive steering (AES) for frontal** — threat-aware: side→stop, head-on→swerve | — | frontal evade **1.66/100%** vs union stop **2.53/83%** | **refuted (null)** | naive 4 m swerve can't clear the actor and, keeping speed, hits harder than stopping. Selectivity + side preserved. Committed stop stays best; frontal *prevention* remains open |
 | 10 | **braking evasion into a tracked-clear gap** — shed speed *and* steer to the open side | — | frontal brakevade **1.67/100%** vs union stop **2.53/83%** | **refuted (null)** | second evasion family, same result: steering (even while braking) is worse than the pure stop. Two designs converge → committed stop is the frontal *ceiling*; prevention needs more than a single maneuver |
 | ✓ | **statistical validation** — pool the union & OFF arms across iters 8/9/10 (n=20/scene), bootstrap the safe-progress delta | union **2.60** vs OFF 2.14 (safe-prog) | side 100→**5%** at n=20 | **net-positive CONFIRMED** | delta **+0.455, 95% CI [+0.08, +0.79]**, excludes 0 — the pre-registered bar, met on 60 pooled runs. [`union_validation`](experiments/union_validation/RESULT.md) |
+| 11 | **early collision-course detection + evasion** — 4 s kinematic closest-approach, then time-gated lane change | — | frontal evade **80%** (≈ stop 83%); clean **50% crash** | **refuted (null)** | third evasion refuted: early detection neither prevents the head-on (stop stays 83%) nor stays selective; and evasion on a false alarm *crashes the clean scene 50%*. A stop is safe when wrong, a swerve is not. Frontal-prevention line closed. [`iter11_early_evade`](experiments/iter11_early_evade/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the

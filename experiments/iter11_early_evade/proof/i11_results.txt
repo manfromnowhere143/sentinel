@@ -1,0 +1,10 @@
+arm scene score coll% ego_m n
+off    stationary-0103 score=5.00 coll%=  0 ego_m= 32.4 n=6
+off    frontal-0103    score=0.91 coll%= 83 ego_m= 34.6 n=6
+off    side-0103       score=0.64 coll%=100 ego_m= 19.9 n=6
+stop   stationary-0103 score=5.00 coll%=  0 ego_m= 17.3 n=6
+stop   frontal-0103    score=2.03 coll%= 83 ego_m= 32.1 n=6
+stop   side-0103       score=5.00 coll%=  0 ego_m=  4.7 n=6
+evade  stationary-0103 score=3.07 coll%= 50 ego_m= 21.8 n=6
+evade  frontal-0103    score=2.06 coll%= 80 ego_m= 30.3 n=5
+evade  side-0103       score=0.00 coll%=  0 ego_m=  0.0 n=0
