@@ -1,5 +1,13 @@
 # Iteration 8 — the union: one config that is selective, net-positive, and solves the side case
 
+> **Correction (2026-07-02, verification pass).** The side-impact row below originally read
+> "5.00 / 0%" and the text claimed "8/8 avoided". The iteration-8 analysis raced the final runs and
+> saw only 4 complete run directories; the complete run log (committed:
+> [`../verification/evidence/logs/sentinel-i8.log`](../verification/evidence/logs/sentinel-i8.log))
+> shows **8 side runs with 1 collision at run 6** (impact 8.3 m/s): **100% → 12.5%, 7/8 avoided.**
+> The table and text below are corrected in place; the conclusion (side case solved in structure,
+> one residual collision) is qualitatively unchanged. See [`../VERIFICATION.md`](../VERIFICATION.md) §3.2.
+
 Iteration 7 showed the two danger cases need different detectors and that no single margin holds all
 four properties. Iteration 8 tests the obvious synthesis: brake on the **union** of the two
 individually-selective detectors —
@@ -17,7 +25,7 @@ neither fires on the passive stationary object, the union should stay selective.
 |---|---|---|
 | stationary/0103 (clean) | 5.00 / 0% / 33.0 m | 5.00 / 0% / **30.2 m** |
 | frontal/0103 | 1.31 / 75% / 36.1 m | **2.43** / 88% / 21.2 m |
-| side/0103 | 0.65 / **100%** / 20.3 m | **5.00 / 0%** / 6.4 m |
+| side/0103 | 0.65 / **100%** / 20.3 m | **4.38 / 12.5%** (1 of 8) / 6.4 m |
 | **pooled safe-progress** | **2.32** | **2.53** |
 
 ## What the union achieves — three of four fully, the fourth mitigated
@@ -28,8 +36,8 @@ neither fires on the passive stationary object, the union should stay selective.
 - **Net-positive** on the deployment metric — **safe-progress 2.53 > OFF 2.32**. The gain is real and
   structural: it comes from solving the side case (which OFF loses 100%) while barely touching
   clean-scene progress.
-- **Side-impact solved** — 100% → 0% (the CPA term catches the crossing, unaffected by planner
-  optimism).
+- **Side-impact largely solved** — 100% → 12.5% (7 of 8 avoided; the CPA term catches the crossing,
+  unaffected by planner optimism).
 - **Frontal — strongly mitigated, not fully prevented.** Score 1.31 → 2.43 (impact speed cut hard by
   the closing-TTC brake), but the collision *rate* stays ≈ OFF (88% vs 75%, within noise). This is the
   one property not fully closed.
@@ -59,7 +67,7 @@ planner optimism and stopping distance.
 ## Honesty about scope and noise
 
 2 public-mini scenes, 8 runs/scene, one L4 — a method-development loop, not the full 14-scene published
-benchmark (gated trainval). The robust same-run facts are the large, clean swings: **side 100 → 0%**,
+benchmark (gated trainval). The robust same-run facts are the large, clean swings: **side 100 → 12.5%**,
 **clean ≈ OFF (30.2 vs 33)**, **frontal score 1.31 → 2.43**, **pooled 2.53 > 2.32**. The frontal
 collision-*rate* difference (88 vs 75) is within noise and is *not* claimed as an improvement.
 

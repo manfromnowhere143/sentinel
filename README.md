@@ -4,16 +4,20 @@
 collision it is about to cause, and intervenes — measured where it actually matters: in closed
 loop, by whether the car crashes *and whether it can still drive*.**
 
-> **Honest status up front (10 iterations, statistically validated):** the introspective signal predicts
-> the planner's collisions (AUROC 0.83), and the best configuration — the **union** (iter 8) — is
-> **selective** (clean scene identical to the unmonitored planner), **solves side-impact** (100% → 5% at
-> n=20), and is **net-positive** on a progress-aware deployment metric with a **bootstrap CI that excludes
-> zero** (safe-progress +0.455, 95% CI [+0.08, +0.79], 20 pooled runs/scene — the pre-registered bar,
-> met; [`union_validation/RESULT.md`](experiments/union_validation/RESULT.md)). The frontal head-on is
-> *mitigated* not prevented, and three evasive designs to prevent it were honestly **refuted** — the last
-> showing *why*: a swerve on a false alarm crashes, so evasion is unsafe without perfect precision.
-> Along the way an over-claim was caught and corrected by our *own* next experiment — that
-> self-correction is the point. Full arc in [Status](#status--where-it-really-stands-the-honest-current-truth).
+> **Honest status up front (11 iterations + an independent verification pass):** the introspective
+> signal predicts the planner's collisions (AUROC 0.83), and the best configuration — the **union**
+> (iter 8) — is **selective** (clean scene ≈ the unmonitored planner), **solves most side-impacts**
+> (100% → 12.5% on the 8 unique episodes), and **mitigates** the frontal head-on; three evasive
+> designs to *prevent* the head-on were honestly **refuted** — the last showing *why*: a swerve on a
+> false alarm crashes, so evasion is unsafe without perfect precision. A full independent
+> verification pass ([`experiments/VERIFICATION.md`](experiments/VERIFICATION.md)) then re-derived
+> every claim from raw committed evidence. It **withdrew one headline**: the earlier "net-positive
+> confirmed at n=20" pooled NeuroNCAP's deterministic per-index episodes as if they were independent
+> replications; on the honest 8 unique episodes the safe-progress delta is +0.25 with a 95% CI
+> [−0.27, +0.78] — **direction positive, not significant** — and a fresh 20-unique-episode
+> re-measurement was run to settle it (§4 of the verification report). Over-claims here get caught
+> by our *own* next experiment and corrected in place — that self-correction is the point. Full arc
+> in [Status](#status--where-it-really-stands-the-honest-current-truth).
 
 The field's open-loop driving metrics are saturated and gameable (an ego-state MLP "wins" nuScenes
 L2). The honest axis is **closed-loop safety**, and there the public state of the art is wide open:
@@ -31,21 +35,25 @@ GPUs.
 
 ## The result
 
-Ten pre-registered iterations converge on one configuration — the **union** — that, on a frozen UniAD
-planner, is **selective, side-impact-solving, and net-positive over the unmonitored planner** on a
-progress-aware deployment metric, confirmed by a bootstrap CI that excludes zero (pooled n=20/scene):
+Eleven iterations under a frozen campaign pre-registration converge on one configuration — the
+**union** — that, on a frozen UniAD planner, is **selective, side-impact-solving, and directionally
+net-positive over the unmonitored planner** on a progress-aware deployment metric (unique episodes,
+seed-paired — the verification-corrected numbers):
 
-| metric (pooled, 20 runs/scene) | unmonitored planner | Sentinel (union) |
+| metric (8 unique episodes/scene) | unmonitored planner | Sentinel (union) |
 |---|---:|---:|
-| clean-scene distance driven (selectivity) | 32.4 m | **32.3 m** (≈ identical) |
-| side-impact collision rate | **100 %** | **5 %** |
-| frontal head-on score (0–5) | 1.07 | **2.49** (impact mitigated) |
-| **safe-progress** (safety × route progress) | 2.14 | **2.60** |
+| clean-scene distance driven (selectivity) | 33.0 m | **30.2 m** (≈ unchanged) |
+| side-impact collision rate | **100 %** | **12.5 %** (7 of 8 avoided) |
+| frontal head-on score (0–5) | 1.31 | **2.43** (impact mitigated) |
+| **safe-progress** (safety × route progress) | 2.23 | **2.48** |
 
-> **Net-positive, confirmed:** safe-progress advantage **+0.455, 95 % CI [+0.08, +0.79]** — excludes 0,
-> the pre-registered bar, met on 60 pooled runs. The one honest limit, named precisely: the frontal
-> head-on is *mitigated*, not *prevented*, and three evasive designs to prevent it were tested
-> and refuted (§Status).
+> **Statistical honesty:** the safe-progress advantage is **+0.25, 95 % CI [−0.27, +0.78]** at 8
+> unique episodes — positive in direction, **not significant at this n**. An earlier claim of a
+> CI excluding zero pooled deterministic replays as independent runs and was withdrawn by the
+> independent verification pass ([`experiments/VERIFICATION.md`](experiments/VERIFICATION.md)),
+> which also re-measured everything fresh at 20 genuinely-unique episodes. The other honest limit,
+> named precisely: the frontal head-on is *mitigated*, not *prevented*, and three evasive designs
+> to prevent it were tested and refuted (§Status).
 
 The winning monitor is a **union of two individually-selective detectors**, chosen because the two
 failure modes are physically distinct — a side T-bone is a real path crossing, while a head-on is
@@ -53,21 +61,29 @@ hidden by the planner's own optimism:
 
 ```mermaid
 flowchart LR
-  P["frozen planner<br/>(UniAD, weights locked)"] -- "plan + detections + forecasts + track IDs" --> M
-  subgraph M["Sentinel monitor · label-free, from the planner's own outputs"]
+  subgraph PL["frozen planner (UniAD, weights locked)"]
     direction TB
-    A["multi-frame world-frame<br/>object tracking (by ID)"]
-    C{"plan-vs-tracked-path<br/>closest approach &lt; 1.5 m?<br/><i>(catches the side T-bone)</i>"}
-    T{"observed agent-closing<br/>time-to-collision &lt; 2.5 s?<br/><i>(catches the optimistic-plan head-on)</i>"}
+    BEV["multi-camera BEV encoding"] --> TRK["detection + tracking<br/>(objects, scores, persistent IDs)"]
+    TRK --> MOT["motion forecasting<br/>(per-agent future trajectories)"]
+    MOT --> PH["planning head<br/>(ego trajectory, command-conditioned)"]
+  end
+  PL -- "plan · objects · forecasts · track IDs · ego2world<br/>(the planner's own /infer outputs — nothing privileged)" --> M
+  subgraph M["Sentinel monitor — label-free geometry, no learned weights"]
+    direction TB
+    A["world-frame object tracks by ID<br/>(ego-motion-compensated finite difference<br/>= observed velocity, not the planner's optimistic forecast)"]
+    C{"plan-vs-tracked-path<br/>closest approach &lt; 1.5 m?<br/><i>catches the side T-bone:<br/>paths truly cross</i>"}
+    T{"observed agent-closing<br/>time-to-collision &lt; 2.5 s?<br/><i>catches the head-on the planner's<br/>optimistic plan hides</i>"}
     A --> C
     A --> T
   end
-  C -- "either fires" --> B["committed brake<br/>(stop-in-place)"]
+  C -- "either fires" --> B["committed stop<br/>(latched zero-trajectory —<br/>safe even when the trigger is wrong)"]
   T -- "either fires" --> B
-  C -- "neither fires" --> E["execute the planner's plan<br/>(stay out of the way)"]
+  C -- "neither fires" --> E["execute the planner's plan<br/>unchanged"]
   B --> S["NeuroNCAP closed loop"]
   E --> S
-  S --> R[/"scores: NCAP safety · collision % · route progress"/]
+  M -. "per-frame decision receipt<br/>(sentinel_*.jsonl, committed)" .-> V[("evidence archive<br/>experiments/verification/")]
+  S --> R[/"per-run: NCAP safety 0–5 · collision % · impact speed · ego progress"/]
+  R -. "run logs + ego_poses.json (committed)" .-> V
 ```
 
 Neither detector fires on a benign passing object, so the union inherits both terms' selectivity; each
@@ -90,7 +106,7 @@ unmonitored planner** (and a RiskMonitor-style baseline) with a bootstrap CI exc
 | 0 | published baseline (target) | UniAD 1.84 · VAD 2.75 | 87.8–99.6 | — | the gap we attack |
 | 1a | **stack stood up** — full closed loop on 1 L4, frozen UniAD in the loop, real metric out (smoke: scene-0103 stationary, 2 runs → 5.0/5.0, no collision) | — | — | infra gate **cleared** | the binding constraint was the apparatus, not the idea — [8 blockers cleared](experiments/iter1_reproduce/PROOF_smoke_0103.md) |
 | 1b | **partial baseline + collision corpus** — every public-mini scene, frozen UniAD, 60 closed-loop episodes (frontal/0103, side/0103, stationary/0103, stationary/0796 × 15) | frontal/0103 **1.07** · side/0103 0.51 · stat/0103 5.00 · stat/0796 1.03 | 80 · 100 · 0 · 80 % | frontal **1.07 vs pub 1.17** (matches) | crashes coincide with the planner's own perception collapsing at 5–15 m — the signal iter 2 monitors |
-| 2·G1 | **monitor signal validated** — frozen planner's own forecasts foresee its crashes (shadow replay, 40 episodes, 26/14) | — | — | **AUROC 0.83** (label-free) | imminent (≤0.5 s) predicted gap is the signal; monotone in horizon; simplest term wins |
+| 2·G1 | **monitor signal validated** — frozen planner's own forecasts foresee its crashes (shadow replay, 40 episodes, 26/14) | — | — | **AUROC 0.83** (label-free) | imminent (≤0.5 s) predicted gap is the signal; sharpens toward imminent (0.67→0.75→0.83 at the cited horizons, one small inversion mid-curve); simplest term wins |
 | 2 | **monitor + TTC brake, frozen planner** — A/B on the corpus | **1.92 → 4.67** | **65% → 13%** | **H1 met** (safety), CI [+2.21,+3.22] | TTC trigger + committed stop; side collisions 100%→0% — *but see iter 3* |
 | 2·abl | **ablation** — naive-proximity / always-brake controls | — | prox 83 · always 50 · TTC 40 (frontal) | introspective signal **essential** | naive distance brake ≈ useless on fast approaches; closing-speed-from-forecast does the work |
 | 3 | **deployment metric (safe-progress)** — does it avoid the crash AND drive? | OFF **2.08** · always 0.49 · TTC 0.58 (safe-prog) | progress: OFF 0.91 · TTC 0.13 | **monitor over-brakes** | honest setback: TTC freezes benign scenes, *not* selective; unmonitored wins safe-progress. Next: introspective gating |
@@ -98,11 +114,12 @@ unmonitored planner** (and a RiskMonitor-style baseline) with a bootstrap CI exc
 | 5 | **observed-velocity gating** — agent velocity from multi-frame tracking, not the forecast | tracked **2.35** · OFF 2.08 (safe-prog) | clean=OFF (0 brakes); frontal coll 83%→**67%** | net-positive; **frontal recovered** | selectivity holds + observed velocity beats the forecast on frontal — but **side-impact still 100%** (its warning is in the ego's motion the gate filters out). Next: plan-vs-tracked-path collision check |
 | 6 | **plan-vs-tracked-path CPA** — brake if the ego's planned path crosses an agent's tracked path | cpa 2.17 · OFF 2.32 (safe-prog) | **side-impact 100% → 0%** (8/8 avoided) | **side case SOLVED** (but over-brakes) | the T-bone that beat iters 4–5 is caught geometrically; cost = 2.5 m margin also flags benign close passes → clean 33→22 m. Next: tighter margin (~1.2 m) to keep the side win + restore selectivity |
 | 7 | **margin sweep** — CPA at 1.5 m vs 1.0 m vs OFF | cpa@1.5 selective (clean 32.3 = OFF) | side **0%** kept; frontal reverts to **100%** | **3 of 4 at once** | tighter margin restores selectivity + keeps the side win, but frontal defeats plan-CPA at *any* tight margin (optimistic plan clears by 3–4 m). No single margin holds all four → **union two detectors** |
-| 8 | **the union** — brake if (plan-vs-path CPA < 1.5 m) OR (observed agent-closing TTC < 2.5 s) | union **2.53** · OFF 2.32 (safe-prog) | clean 30.2≈OFF · **side 100→0%** · frontal score 1.31→**2.43** | **net-positive + selective + side-solved, at once** | first config to hold 3 of 4 simultaneously; frontal impact strongly *mitigated* (not rate-reduced). Open ceiling: preventing (not softening) frontal head-on — planner optimism + stopping distance |
+| 8 | **the union** — brake if (plan-vs-path CPA < 1.5 m) OR (observed agent-closing TTC < 2.5 s) | union **2.53** · OFF 2.32 (safe-prog) | clean 30.2≈OFF · **side 100→12.5%** (7/8, verification-corrected) · frontal score 1.31→**2.43** | **selective + side-solving + directionally net-positive, at once** | first config to hold 3 of 4 simultaneously; frontal impact strongly *mitigated* (not rate-reduced). Open ceiling: preventing (not softening) frontal head-on — planner optimism + stopping distance |
 | 9 | **evasive steering (AES) for frontal** — threat-aware: side→stop, head-on→swerve | — | frontal evade **1.66/100%** vs union stop **2.53/83%** | **refuted (null)** | naive 4 m swerve can't clear the actor and, keeping speed, hits harder than stopping. Selectivity + side preserved. Committed stop stays best; frontal *prevention* remains open |
 | 10 | **braking evasion into a tracked-clear gap** — shed speed *and* steer to the open side | — | frontal brakevade **1.67/100%** vs union stop **2.53/83%** | **refuted (null)** | second evasion family, same result: steering (even while braking) is worse than the pure stop. Two designs converge → committed stop is the frontal *ceiling*; prevention needs more than a single maneuver |
-| ✓ | **statistical validation** — pool the union & OFF arms across iters 8/9/10 (n=20/scene), bootstrap the safe-progress delta | union **2.60** vs OFF 2.14 (safe-prog) | side 100→**5%** at n=20 | **net-positive CONFIRMED** | delta **+0.455, 95% CI [+0.08, +0.79]**, excludes 0 — the pre-registered bar, met on 60 pooled runs. [`union_validation`](experiments/union_validation/RESULT.md) |
-| 11 | **early collision-course detection + evasion** — 4 s kinematic closest-approach, then time-gated lane change | — | frontal evade **80%** (≈ stop 83%); clean **50% crash** | **refuted (null)** | third evasion refuted: early detection neither prevents the head-on (stop stays 83%) nor stays selective; and evasion on a false alarm *crashes the clean scene 50%*. A stop is safe when wrong, a swerve is not. Frontal-prevention line closed. [`iter11_early_evade`](experiments/iter11_early_evade/RESULT.md) |
+| ✓ | **statistical validation** — pool the union & OFF arms across iters 8/9/10, bootstrap the safe-progress delta | union 2.60 vs OFF 2.14 (pooled) | side "5%" (pooled) | *claimed* net-positive | **WITHDRAWN by the verification pass**: the three "replications" are deterministic replays of the same episodes (n=20 was really n=8 unique); honest CI [−0.27, +0.78] does not exclude 0. [`union_validation`](experiments/union_validation/RESULT.md) |
+| 11 | **early collision-course detection + evasion** — 4 s kinematic closest-approach, then time-gated lane change | — | frontal evade **83%** (= stop 83%); clean **50% crash**; side evade 83% | **refuted (null)** | third evasion refuted, and complete-data audit made it stronger: early detection neither prevents the head-on nor stays selective; evasion on a false alarm *crashes the clean scene 50%* and un-solves the side case (83%). A stop is safe when wrong, a swerve is not. Frontal-prevention line closed. [`iter11_early_evade`](experiments/iter11_early_evade/RESULT.md) |
+| ✚ | **independent verification pass** — re-derive every claim from raw evidence; attack the statistics; re-run fresh at 20 unique episodes | — | side honest rate **12.5%** (n=8 unique) | audit | determinism found (episodes replay per run index) → pooled n=20 claim withdrawn, side 5%→12.5%, iter8 "8/8" → 7/8, iter11 snapshot completed; everything else reproduces exactly. Raw evidence now committed. [`VERIFICATION.md`](experiments/VERIFICATION.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -126,15 +143,26 @@ that this plan ends in a collision, and — above threshold — triggers a princ
 (brake / fallback). All evaluated in a public neural closed-loop simulator.
 
 ```mermaid
-flowchart LR
-  S[("NeuroNCAP<br/>neural closed-loop sim · public")] --> P["frozen planner<br/>UniAD (weights locked)"]
-  P -- "plan + objects + tracked motion" --> MON["Sentinel monitor<br/>collision risk from the<br/>planner's own outputs"]
-  MON -- "risk" --> G{"imminent collision?"}
-  G -- no --> ACT["execute the plan"]
-  G -- yes --> INT["committed brake<br/>(stop-in-place)"]
-  ACT --> S
-  INT --> S
-  S --> SC[/"closed-loop scores<br/>NCAP safety · collision % · progress"/]
+flowchart TB
+  subgraph STACK["the apparatus — three public containers on one L4 GPU"]
+    direction LR
+    ORCH["NeuroNCAP orchestrator<br/>scenario actor + scoring<br/><i>episodes are deterministic per run index<br/>(established by the verification pass —<br/>every comparison is therefore seed-paired)</i>"]
+    REND["NeuRAD neural renderer<br/>photoreal multi-camera frames<br/>from real nuScenes drives"]
+    MODEL["frozen UniAD container<br/>inference server /infer<br/>+ the Sentinel patch (env-gated:<br/>OFF / union / ablation arms)"]
+    ORCH -- "ego state, actor state" --> REND
+    REND -- "rendered camera set" --> MODEL
+    MODEL -- "trajectory (planner's or Sentinel's stop)" --> ORCH
+    ORCH -- "nuPlan LQR tracker executes it<br/>collision + scoring vs the actor" --> ORCH
+  end
+  STACK --> EVID["per-run evidence<br/>scores · ego_poses · metrics ·<br/>per-frame monitor decisions (jsonl)"]
+  EVID --> LOOP{"the research loop"}
+  LOOP -- "hypothesize (pre-register the bar)" --> BUILD["build: monitor change<br/>as a reviewable server patch"]
+  BUILD --> RUN["run: OFF vs arm,<br/>same episodes, seed-paired"]
+  RUN --> MEASURE["measure: NCAP score · collision % ·<br/>safe-progress (safety × route progress)"]
+  MEASURE --> ATTR["attribute: ablate WHY —<br/>nulls published with the wins"]
+  ATTR --> LOOP
+  EVID -- "committed raw<br/>(logs, jsonl, run JSONs)" --> AUDIT["independent verification pass<br/>re-derives every claim from the archive;<br/>corrections applied in place<br/>(experiments/VERIFICATION.md)"]
+  AUDIT -. "withdrew one headline,<br/>strengthened three nulls" .-> LOOP
 ```
 
 The monitor is small and the planner is frozen — that is what makes this winnable on single-digit
@@ -212,7 +240,8 @@ over-claim.** That arc, in order:
 8. **Iter 8 — the union: one config, three of four at once.** Braking on **(plan-vs-path CPA < 1.5 m)
    OR (observed agent-closing TTC < 2.5 s)** is the first configuration that is **simultaneously
    selective (clean 30.2 m ≈ OFF), net-positive (safe-progress 2.53 > OFF 2.32), and side-solving
-   (100 → 0%)** — with frontal impact strongly *mitigated* (score 1.31 → 2.43). The union works exactly
+   (100 → 12.5%, 7 of 8 — verification-corrected from the originally-reported 0%)** — with frontal
+   impact strongly *mitigated* (score 1.31 → 2.43). The union works exactly
    as reasoned: CPA catches the side crossing, observed-closing catches the frontal the optimistic plan
    hid, and neither fires on the passive object. [`iter8_union/RESULT.md`](experiments/iter8_union/RESULT.md).
 
@@ -232,16 +261,25 @@ over-claim.** That arc, in order:
     between braking and steering realizes less deceleration, and the dodge doesn't complete in time).
     [`iter10_brakevade/RESULT.md`](experiments/iter10_brakevade/RESULT.md).
 
-**Net, stated plainly — ten iterations.** The **union (iter 8) is the definitive best monitor** of the
-campaign: selective, net-positive over the unmonitored planner, side-impact solved, frontal *mitigated*.
-The frontal head-on *ceiling* is now firmly established — a committed stop is the best frontal response,
-and **two separate evasive-steering designs (iter 9, iter 10) were tested and honestly refuted**, both
-worse than stopping. Frontal head-on *prevention* is a genuinely hard open problem, not a maneuver away.
+**Net, stated plainly — eleven iterations plus an independent verification pass.** The **union
+(iter 8) is the best monitor** of the campaign: selective, side-impact-solving in 7 of 8 unique
+episodes, frontal *mitigated*, and directionally net-positive on safe-progress (+0.25 at n=8, CI
+includes zero — significance is settled by the fresh 20-unique-episode measurement in the
+verification report, not by pooled replays). The frontal head-on *ceiling* is firmly established —
+a committed stop is the best frontal response, and **three separate evasion designs (iters 9, 10,
+11) were tested and honestly refuted**, all worse than stopping, the last one dangerous on false
+alarms. Frontal head-on *prevention* is a genuinely hard open problem, not a maneuver away — which
+is exactly what the introspective plan-selection line attacks next.
 
-**What's next — validation at scale.** With single-shot maneuvers exhausted for the frontal edge case,
-the two remaining milestones both concern *generalization of the validated result*, not the frontal
-corner:
+**What's next.** With invented maneuvers exhausted for the frontal edge case, three lines remain —
+one new mechanism and two scaling milestones:
 
+- **Introspective plan selection (the active line).** Stop overriding the planner; **re-rank the
+  frozen planner's own candidate trajectories** by the label-free risk score and execute the safest
+  feasible one. Safe on false alarms *by construction* (every candidate is planner-generated and
+  in-distribution — the iteration-11 false-alarm crash is structurally impossible), and the first
+  mechanism with a credible path to *preventing* the head-on rather than softening it. Plan:
+  [`docs/NEXT_FRONTIER_INTROSPECTIVE_PLAN_SELECTION.md`](docs/NEXT_FRONTIER_INTROSPECTIVE_PLAN_SELECTION.md).
 - **A second frozen planner (VAD).** Does the union transfer beyond UniAD, or is it UniAD-specific? VAD
   exposes the identical output schema, so the monitor's logic is unchanged — the stack is built and the
   union is patched onto VAD; the one remaining step is generating VAD's NeuroNCAP-specific data-infos.
@@ -269,7 +307,8 @@ Each experiment directory is self-describing:
 | [`experiments/iter4_gated/`](experiments/iter4_gated) … [`iter7_margin/`](experiments/iter7_margin) | selectivity → observed velocity → CPA → margin sweep |
 | [`experiments/iter8_union/`](experiments/iter8_union) | **the definitive monitor** (union of two detectors) |
 | [`experiments/iter9_evade/`](experiments/iter9_evade) · [`iter10_brakevade/`](experiments/iter10_brakevade) | two refuted evasion designs for frontal prevention (reported nulls) |
-| [`experiments/union_validation/`](experiments/union_validation) | **pooled n=20 bootstrap CI** confirming net-positive |
+| [`experiments/union_validation/`](experiments/union_validation) | pooled bootstrap CI — **withdrawn** (invalid pooling); corrected in place |
+| [`experiments/VERIFICATION.md`](experiments/VERIFICATION.md) · [`verification/`](experiments/verification) | **independent verification pass**: audit, corrections, committed raw evidence, fresh n=20 re-measurement |
 | [`experiments/vad_generalization/`](experiments/vad_generalization) | second-planner generalization, staged |
 
 Every result folder carries a `RESULT.md` with the real per-run numbers, the exact server patch, and the

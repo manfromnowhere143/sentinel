@@ -6,13 +6,22 @@ collision course *early* from observed kinematics (a 4 s closest-approach over t
 the agent's tracked path) would let a lane change succeed. It is **refuted**, on both the detector and the
 maneuver, and it exposes why the committed stop is the right answer.
 
+> **Correction (2026-07-02, verification pass).** The published table was a mid-run snapshot. The
+> complete log (committed:
+> [`../verification/evidence/logs/sentinel-i11.log`](../verification/evidence/logs/sentinel-i11.log))
+> changes two cells, both making the null **stronger**: frontal evade is **1.71 / 83%** on all 6 runs
+> (the published 2.06 / 80% was computed on the 5 finished at snapshot time), and the evade arm's side
+> runs — which had not finished — show **5/6 collisions**: the early-evade design also breaks the side
+> case the stop-based union had solved. Corrected in the table; conclusions unchanged (reinforced).
+> See [`../VERIFICATION.md`](../VERIFICATION.md) §3.3.
+
 ## Result (OFF vs early-stop vs early-evade, same run, 3 scenes × 6 runs)
 
 | arm | clean (stationary) | frontal | side |
 |---|---|---|---|
 | OFF | 5.00 / 0% / 32.4 m | 0.91 / 83% | 0.64 / 100% |
 | early-detector → **stop** | 5.00 / 0% / **17.3 m** | 2.03 / **83%** | 5.00 / 0% |
-| early-detector → **evade** | 3.07 / **50%** / 21.8 m | 2.06 / **80%** | (stop-routed) |
+| early-detector → **evade** | 3.07 / **50%** / 21.8 m | 1.71 / **83%** | 1.24 / **83%** |
 
 22 `evade_early` actions fired, so the maneuver ran. The pre-registered H11 bar — frontal collision
 *below* the stop's ~83% while clean stays ≈ OFF — fails on every clause.
@@ -33,7 +42,10 @@ lower-precision detector with a *lane change* makes the **clean scene collide 50
 swerves into the parked car it should have passed. This is the asymmetry that kills evasion as a strategy
 here — **a committed stop is safe when the trigger is wrong; a swerve when the trigger is wrong causes the
 crash it was meant to avoid.** Evasion demands near-perfect precision, which a label-free monitor does not
-have. And even when it fired correctly on the frontal, it did not prevent it (80% ≈ 83%).
+have. And even when it fired correctly on the frontal, it did not prevent it (83% = the stop's 83%).
+The complete side-scene data sharpens this further: under the evade response the side case — which the
+stop-based union solves — collides 5/6 times. Evasion does not merely fail to add safety; it *removes*
+safety the stop already delivers.
 
 ## The settled conclusion of the frontal-prevention line
 
@@ -47,9 +59,9 @@ closed with a clear, honest reason.**
 
 ## Honesty
 
-Same-run OFF baseline identical to every prior iteration (frontal 83%). evade side was stop-routed and
-did not complete before this snapshot; the clean (50% collision) and frontal (80%) results already refute
-H11 decisively, so the conclusion does not depend on it. 6 runs/scene, 2 public-mini scenes, one L4.
+Same-run OFF baseline identical to every prior iteration (frontal 83%). The originally-published
+numbers were a mid-run snapshot; the complete-data correction above (frontal 1.71/83%, side 1.24/83%)
+strengthens the refutation. 6 runs/scene, 2 public-mini scenes, one L4.
 A **reported null**, filed with the same weight as the wins — and the pre-registered falsifier ("evasion
 succeeds only if the trigger is precise") is the one that fired.
 

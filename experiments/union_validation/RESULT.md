@@ -1,48 +1,46 @@
-# Union — statistical validation: net-positive confirmed at n=20 (bootstrap CI excludes 0)
+# Union — statistical validation: CORRECTED (the original pooling was invalid)
 
-The campaign's headline is the iteration-8 union: a label-free monitor on a frozen planner that is
-selective, side-solving, and **net-positive over the unmonitored planner on the progress-aware
-deployment metric**. That last claim was asserted at single-digit run counts. Here it is put on a
-statistical footing, using the pre-registration's own bar: a **drive-clustered bootstrap CI on the
-safe-progress advantage that excludes zero**.
+> **Correction (2026-07-02, independent verification pass).** This document originally claimed
+> "net-positive confirmed at n=20 with a bootstrap CI excluding zero." The verification audit
+> ([`../VERIFICATION.md`](../VERIFICATION.md)) found the pooling invalid: NeuroNCAP episodes are
+> **deterministic per run index**, so the union/OFF arms of iterations 8, 9 and 10 — pooled here as
+> "independent replications" — were the *same episodes* re-executed (iteration 9 ≡ iteration 10
+> run-for-run; iteration 8's first six runs ≡ iteration 9's). The honest sample is **8 unique
+> episodes per scene per arm**, not 20, and at n=8 the CI does not exclude zero. The original
+> claim is withdrawn; the corrected analysis is below, and the definitive re-measurement with 20
+> genuinely distinct episodes is in [`../VERIFICATION.md`](../VERIFICATION.md) §4.
+> Reproduce both from committed evidence: `../verification/audit_pooling.py`.
 
-## Method — pool the independent replications
+## What the evidence supports
 
-The union and OFF arms were run together (same seeds) **three separate times** — iterations 8, 9, and
-10 — with identical configuration for the union and OFF arms. Pooling those replications gives
-**20 independent-seed runs per scene per arm**. Progress is normalized to the pooled-OFF mean ego
-distance per scene; safe-progress = NCAP score × progress; the pooled metric averages the three scenes.
-The CI is a 5000-sample bootstrap resampling runs **within each scene** (drive-clustered), fixed seed.
-Reproduce: `pooled_union_ci.py`.
+**Corrected analysis — unique episodes (run indices 0–7, iteration 8), seed-paired bootstrap:**
 
-## Result
-
-| scene (pooled n=20) | OFF score / collision % | union score / collision % |
+| scene (unique n=8) | OFF score / collision % | union score / collision % |
 |---|---|---|
 | stationary/0103 (clean) | 5.00 / 0% | 5.00 / 0% |
-| frontal/0103 | 1.07 / 80% | 2.49 / 85% |
-| side/0103 | 0.64 / **100%** | 4.75 / **5%** |
+| frontal/0103 | 1.31 / 75% | 2.43 / 88% |
+| side/0103 | 0.65 / 100% | 4.38 / **12.5%** (1 of 8) |
 
-**Pooled safe-progress: OFF 2.142 → union 2.597. Delta = +0.455, 95% CI [+0.083, +0.793].**
+Safe-progress OFF 2.228 → union 2.476, delta **+0.247, 95% CI [−0.272, +0.782]** — positive in
+direction, **not significant at 8 episodes**. The side-impact reduction (100% → 12.5%) and the
+frontal impact mitigation remain the structural sources of the gain; the clean scene is unchanged.
 
-> **The CI excludes 0 — the union is net-positive over the unmonitored planner at a 95% confidence
-> level, on 20 independent-seed runs per scene.** The pre-registered deployment-metric bar is met.
+## What was wrong, precisely
 
-## Reading it honestly
+- Pooling deterministic replays as independent runs triple-counted episodes 0–5 (n inflated 8 → 20),
+  shrinking the bootstrap CI by roughly √2.5 and pulling it past zero.
+- The same duplication *diluted* the one union side-impact collision (run 6, which only the
+  8-run iteration-8 pass reached) from its true 1/8 = 12.5% to the published "1 of 20 = 5%".
+- The original text called the safe-progress CI "the pre-registration's own bar". The frozen
+  pre-registration bar is NCAP score / collision rate (met by iteration 2); safe-progress was
+  introduced in iteration 3 and adopted as a bar in iteration 4's hypothesis. The distinction
+  matters and is now stated.
 
-- **The win is real but modest.** The advantage is +0.46 safe-progress with a lower CI bound of +0.08 —
-  positive and significant, not large. The campaign never claimed more; this pins the size.
-- **The advantage is carried by the side case.** Side-impact goes 100% → **5%** at n=20 (near-complete
-  prevention; the residual 5% is 1 of 20 runs). That is the structural source of the net gain, on top
-  of an unchanged clean scene and a mitigated (not prevented) frontal.
-- **Frontal remains mitigated, not prevented** — 80% → 85% collision (within noise), score 1.07 → 2.49
-  (impact cut). Consistent with the iteration 9/10 finding that the frontal ceiling is a committed
-  stop; two evasion families were refuted trying to beat it.
+## What survives
 
-## What this establishes
-
-The union is not a lucky single-run result: across 60 pooled runs it beats the unmonitored planner on
-the deployment-realistic metric with a bootstrap CI that excludes zero, while remaining selective and
-solving side-impact. That is the campaign's defensible, statistically-validated headline — label-free,
-frozen planner, one L4, public data. Scope is unchanged: 3 scenes of 2 public-mini sequences; the full
-14-scene published benchmark (gated trainval) is the next validation at scale.
+Determinism cuts both ways: it invalidates the pooling but makes every OFF-vs-union comparison
+**seed-paired on identical episodes** — the per-iteration results themselves are exact and
+reproducible (the audit re-derived them run-for-run from the committed logs). The union remains
+selective (clean ≈ OFF), side-solving in 7 of 8 unique episodes, and frontal-mitigating. Whether
+its net advantage on safe-progress is statistically significant is settled honestly by the fresh
+n=20 evaluation in [`../VERIFICATION.md`](../VERIFICATION.md) §4 — not by this pooling.
