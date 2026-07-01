@@ -79,7 +79,7 @@ over the three commands and collect the trajectories — cost is three lightweig
 backbone:
 ```
 cand = []
-for c in (0, 1, 2):  # right / straight / left  (command is an int into the planning head)
+for c in (0, 1, 2):  # 0 right / 1 left / 2 straight (per the runner's own docstring)
     op = self.model.planning_head.forward(
         bev_embed, occ_mask, outs_motion["bev_pos"],
         outs_motion["sdc_traj_query"], outs_motion["sdc_track_query"],
