@@ -67,5 +67,54 @@ produced.
 - If the safe alternative does not exist among the planner's modes for the hardest head-on, the result
   degrades gracefully to the union stop (no regression, no unsafe behavior) — the floor is safe by design.
 
+## Implementation (code-grounded — verified against the actual UniAD inference source)
+
+The candidate source is settled: UniAD is **command-conditioned**, so it is the first target (no VAD
+runtime fix required to test the core idea). Precise changes:
+
+**A. Candidate generation — `UniAD/inference/runner.py`, in `forward_inference`.** The expensive stages
+(`bev_embed`, `outs_track`, `outs_motion`) already run once. Directly after the existing single
+`outs_planning = self.model.planning_head.forward(..., command=input.command)` call, loop the *head only*
+over the three commands and collect the trajectories — cost is three lightweight head passes, no second
+backbone:
+```
+cand = []
+for c in (0, 1, 2):  # right / straight / left  (command is an int into the planning head)
+    op = self.model.planning_head.forward(
+        bev_embed, occ_mask, outs_motion["bev_pos"],
+        outs_motion["sdc_traj_query"], outs_motion["sdc_track_query"],
+        command=torch.tensor(c).to(self.device).unsqueeze(0))
+    cand.append(_format_trajs(op["sdc_traj"])[0].cpu().numpy())
+```
+Add `candidate_trajs: Optional[np.ndarray]` (shape `3 x 6 x 2`) to `UniADAuxOutputs` and emit it in
+`to_json()` (alongside `objects_in_bev`, `object_scores`, `object_ids`, `future_trajs` at runner.py:76-95).
+
+**B. Transport — `UniAD/inference/server.py`.** Add `candidate_trajs: Optional[list] = None` to the
+`InferenceAuxOutputs` pydantic model so the field is not dropped in transit.
+
+**C. Re-ranker — the Sentinel server patch (extends the union's `_sentinel_intervene`).** The tracking,
+ego2world, and CPA/closing-TTC risk are already implemented there. For each of the three candidates,
+transform to world frame and compute the union risk (min plan-vs-tracked-path CPA and observed-closing
+TTC over that candidate). Select `argmin(risk)`; add hysteresis/latch to prevent mode chatter; and — the
+safe floor — fall back to the committed stop only if *all three* candidates exceed the risk threshold.
+Because every returned trajectory is one UniAD itself produced, the iteration-11 clean-scene crash is
+structurally impossible.
+
+**D. First empirical checkpoint (do this before the full sweep).** Log all three candidates' risks on the
+frontal scene and confirm the pre-condition of the whole thesis: **does a low-risk command-conditioned
+plan exist when the default (straight) plan is high-risk?** If yes, re-ranking can prevent the head-on;
+if the three commands are near-identical in the head-on, that is itself the finding (planner mode
+diversity is insufficient) and the effort pivots to VAD's native modes or candidate synthesis.
+
+**E. Evaluate.** OFF (planner default command) vs re-ranker vs union-stop, stationary/frontal/side, ≥6
+runs → pooled bootstrap CIs; then a published-monitor baseline; then scale (14 scenes, gated data) and
+VAD.
+
+## VAD as the second candidate source
+
+`VAD_head.py` exposes `ego_fut_mode=3` and `ego_fut_preds` of shape `[B, 3, fut_ts, 2]`; the VAD runner
+currently returns only the selected mode. Exposing all three (plus their mode scores) is the parallel
+path once the VAD renderer-to-model runtime bug is fixed (`experiments/vad_generalization/`).
+
 The bar remains unchanged: real numbers, pre-registered, nulls published with the wins, CIs on the
 headline, classically professional presentation.
