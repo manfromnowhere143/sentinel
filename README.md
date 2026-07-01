@@ -4,11 +4,14 @@
 collision it is about to cause, and intervenes — measured where it actually matters: in closed
 loop, by whether the car crashes *and whether it can still drive*.**
 
-> **Honest status up front:** the introspective signal predicts the planner's collisions (AUROC 0.83)
-> and the brake removes them on the NeuroNCAP safety score (a pre-registered win) — but iteration 3's
-> progress-aware metric shows the current geometric trigger **over-brakes**, so it is not yet a net
-> improvement over the unmonitored planner. The result is reported with its boundary, and an earlier
-> over-claim was caught and corrected by our own next experiment. Details in [Status](#status--where-it-really-stands-the-honest-current-truth).
+> **Honest status up front (6 iterations in):** the introspective signal predicts the planner's
+> collisions (AUROC 0.83), and across six pre-registered iterations we have *separately* demonstrated
+> every property a deployable monitor needs — it is **selective** (leaves the clean scene identical to
+> the unmonitored planner), **net-positive** on a progress-aware deployment metric, and **catches the
+> hardest side-impact case** (100% → 0%). No single configuration holds all four at once yet; the
+> remaining gap is a **margin-calibration** problem, not a method problem. Along the way an over-claim
+> was caught and corrected by our *own* next experiment — that self-correction is the point. Full arc in
+> [Status](#status--where-it-really-stands-the-honest-current-truth).
 
 The field's open-loop driving metrics are saturated and gameable (an ego-state MLP "wins" nuScenes
 L2). The honest axis is **closed-loop safety**, and there the public state of the art is wide open:
@@ -70,8 +73,8 @@ that this plan ends in a collision, and — above threshold — triggers a princ
 ```mermaid
 flowchart LR
   S[("NeuroNCAP<br/>neural closed-loop sim · public")] --> P["frozen planner<br/>UniAD (weights locked)"]
-  P -- "plan + objects + 6-mode forecasts" --> MON["Sentinel monitor<br/>time-to-collision from the<br/>planner's own forecast"]
-  MON -- "TTC" --> G{"TTC &lt; θ ?"}
+  P -- "plan + objects + tracked motion" --> MON["Sentinel monitor<br/>collision risk from the<br/>planner's own outputs"]
+  MON -- "risk" --> G{"imminent collision?"}
   G -- no --> ACT["execute the plan"]
   G -- yes --> INT["committed brake<br/>(stop-in-place)"]
   ACT --> S
@@ -82,8 +85,9 @@ flowchart LR
 The monitor is small and the planner is frozen — that is what makes this winnable on single-digit
 GPUs and what makes a win *defensible*: any safety gain is attributable to Sentinel, not to a
 bigger planner. The label-free trigger reads only what the planner already outputs (its plan, its
-detected objects, and its own multimodal motion forecasts) — no ground truth, no privileged sim
-state. *Iteration 3 showed this geometric trigger is too blunt and over-brakes; see Status.*
+detected objects, and their motion) — no ground truth, no privileged sim state. The *risk* term itself
+evolved across iterations — from a time-to-collision scalar (iter 2) to a plan-vs-tracked-path
+closest-approach test (iter 6); see the score tracker and Status for the honest trajectory.
 
 ## The research engine (how we get better every iteration)
 
@@ -175,6 +179,6 @@ data, **not** a claim against the full 14-scene published benchmark (that needs 
 
 ## Data & honesty
 
-Public datasets only (nuScenes via NeuroNCAP/HUGSIM); no fleet or proprietary data; no frames
+Public datasets only (nuScenes via NeuroNCAP); no fleet or proprietary data; no frames
 redistributed. Published baselines are single-preprint and unreproduced — reproducing them is our
 true starting line, and a null is reported, not buried.
