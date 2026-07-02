@@ -15,6 +15,7 @@ negative answer and the effort pivots to VAD's native modes.
 
 Usage: analyze_candidates.py <sentinel_cand.jsonl> [danger_gap] [escape_gap] [horizon_steps]
 """
+import gzip
 import json
 import math
 import sys
@@ -40,7 +41,8 @@ def closest_gap(plan, objs, futs):
     return best
 
 
-frames = [json.loads(x) for x in open(path) if x.strip()]
+_open = gzip.open if path.endswith('.gz') else open
+frames = [json.loads(x) for x in _open(path, 'rt') if x.strip()]
 print(f'frames: {len(frames)}')
 
 danger_frames = 0

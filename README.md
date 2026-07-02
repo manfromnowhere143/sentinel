@@ -147,6 +147,7 @@ unmonitored planner** (and a RiskMonitor-style baseline) with a bootstrap CI exc
 | ✓ | **statistical validation** — pool the union & OFF arms across iters 8/9/10, bootstrap the safe-progress delta | union 2.60 vs OFF 2.14 (pooled) | side "5%" (pooled) | *claimed* net-positive | **WITHDRAWN by the verification pass**: the three "replications" are deterministic replays of the same episodes (n=20 was really n=8 unique); honest CI [−0.27, +0.78] does not exclude 0. [`union_validation`](experiments/union_validation/RESULT.md) |
 | 11 | **early collision-course detection + evasion** — 4 s kinematic closest-approach, then time-gated lane change | — | frontal evade **83%** (= stop 83%); clean **50% crash**; side evade 83% | **refuted (null)** | third evasion refuted, and complete-data audit made it stronger: early detection neither prevents the head-on nor stays selective; evasion on a false alarm *crashes the clean scene 50%* and un-solves the side case (83%). A stop is safe when wrong, a swerve is not. Frontal-prevention line closed. [`iter11_early_evade`](experiments/iter11_early_evade/RESULT.md) |
 | ✚ | **independent verification pass** — re-derive every claim from raw evidence; attack the statistics; re-run fresh at 20 unique episodes | union **2.22** vs OFF 1.83 (n=20 unique) | side 100→**30%** · clean identical to OFF | **net-positive RE-ESTABLISHED**: delta **+0.398, 95% CI [+0.133, +0.665]** | determinism found (episodes replay per run index) → pooled claim withdrawn, then re-measured on 20 genuinely-unique episodes: CI excludes zero; runs 0-7 reproduce iteration 8 exactly (apparatus check); iter11 evasion null re-confirms (worse than stop, degrades the clean scene). Raw evidence committed. [`VERIFICATION.md`](experiments/VERIFICATION.md) |
+| 12 | **introspective plan selection, checkpoint** — log UniAD's 3 command-conditioned candidate plans per frame; does a safe alternative exist when the executed plan is dangerous? | — | escape candidates **0/37 dangerous frames** (bar: >30%) | **null — pre-condition fails** | the mechanism works (candidates diverge up to 14 m in benign frames) but **collapse under threat** (mean gaps 2.85/2.88/2.84 m): the command is routing, not hazard response. Introspection sees the danger; UniAD holds no safer intention to defer to. Pivot (pre-registered): VAD's native `ego_fut_mode=3`. [`iter12_plan_selection`](experiments/iter12_plan_selection/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -235,12 +236,16 @@ next.
 **What's next.** With invented maneuvers exhausted for the frontal edge case, three lines remain —
 one new mechanism and two scaling milestones:
 
-- **Introspective plan selection (the active line).** Stop overriding the planner; **re-rank the
-  frozen planner's own candidate trajectories** by the label-free risk score and execute the safest
-  feasible one. Safe on false alarms *by construction* (every candidate is planner-generated and
-  in-distribution — the iteration-11 false-alarm crash is structurally impossible), and the first
-  mechanism with a credible path to *preventing* the head-on rather than softening it. Plan:
-  [`docs/NEXT_FRONTIER_INTROSPECTIVE_PLAN_SELECTION.md`](docs/NEXT_FRONTIER_INTROSPECTIVE_PLAN_SELECTION.md).
+- **Introspective plan selection (the active line — now via VAD).** Stop overriding the planner;
+  **re-rank the frozen planner's own candidate trajectories** by the label-free risk score and
+  execute the safest feasible one — safe on false alarms *by construction*, and the first mechanism
+  with a credible path to *preventing* the head-on rather than softening it. The iteration-12
+  checkpoint showed UniAD cannot supply the candidates (its command-conditioned plans collapse
+  under threat — a pre-registered null), so the mechanism is tested on VAD's native multimodal
+  head. Plan: [`docs/NEXT_FRONTIER_INTROSPECTIVE_PLAN_SELECTION.md`](docs/NEXT_FRONTIER_INTROSPECTIVE_PLAN_SELECTION.md).
+- **A formal-envelope baseline (RSS-style, in flight).** The union vs a guaranteed-stopping-distance
+  rule on the same observed kinematics, same actuator, 20 unique episodes — pre-registered with its
+  falsifier in [`experiments/iter13_rss_baseline/HYPOTHESIS.md`](experiments/iter13_rss_baseline/HYPOTHESIS.md).
 - **A second frozen planner (VAD).** Does the union transfer beyond UniAD, or is it UniAD-specific? VAD
   exposes the identical output schema, so the monitor's logic is unchanged — the stack is built and the
   union is patched onto VAD; the one remaining step is generating VAD's NeuroNCAP-specific data-infos.
