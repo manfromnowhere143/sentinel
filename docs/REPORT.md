@@ -155,10 +155,28 @@ longitudinal closing-speed form, not a full RSS implementation (disclosed in the
 fleet data, no retraining, single-digit GPU-hours per experiment — deliberately: every gain is
 attributable to the monitor, and everything is reproducible from this repository.
 
-## 10. The full-benchmark measurement (pre-registered, in progress)
+## 10. The full-benchmark measurement
 
-OFF vs union across all 14 official NeuroNCAP scenes (240 episodes), with three frozen
-hypotheses: independent reproduction of the published UniAD 1.84; the union's advantage at
-benchmark scope with a CI; per-class structure (side strongest, frontal mitigated, stationary
-preserved). Falsifiers include scene-luck on the side case and a cross-metadata drift check.
-This section is completed when the run lands — with the numbers it produces, whatever they are.
+All 240 episodes (40 scene-scenario pairs × 6 seed-paired runs × 2 arms) completed with zero
+failures; hypotheses were frozen before the run.
+
+- **H14-1 — the published baseline reproduces.** Unmonitored UniAD pools to **2.15** vs the
+  published **1.84** (pre-registered tolerance ±0.4) with the published failure structure — to the
+  verified literature, the first independent reproduction of the NeuroNCAP UniAD number.
+- **H14-2 — a split verdict, both halves first-class.** On the benchmark's own metric the union
+  lifts the pooled score **2.15 → 3.09 (+0.934, 95% CI [+0.713, +1.155])** — a 43% relative
+  improvement at full scale, driven by side (collisions 73% → 37%) and stationary (32% → 17%).
+  On this repository's own deployment metric the mini-scene net-positive **does not generalize**:
+  safe-progress delta −0.170, CI [−0.401, +0.032] — the union over-spends progress on several
+  unseen benign-progress scenes. Benchmark-positive, deployment-neutral: the exact distinction
+  iteration 3 introduced, now measured at scale on our own headline configuration.
+- **H14-3 — structure holds, with one named regression.** Side survives its scene-luck falsifier
+  (improves on 3 of 4 unseen side scenes); selectivity holds on the already-clean stationary
+  scenes; frontal remains mitigation-not-prevention; frontal/0346 got *worse* under the union
+  (3.13/50% → 2.28/100%) — logged, not hidden.
+- **Validity:** the 0103 pairs reproduce the committed v20 values across metadata versions; no
+  exclusions.
+
+The open problem the split verdict defines: per-scene brake-budget calibration — the union fires
+correctly but holds too long on scenes where the planner would have recovered progress. Full
+tables and evidence: [experiments/full14_benchmark/RESULT.md](../experiments/full14_benchmark/RESULT.md).

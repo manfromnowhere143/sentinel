@@ -1,0 +1,38 @@
+=== per-pair (score / coll% / ego m), OFF vs union ===
+  stationary 0099   OFF 5.00/  0/ 21.1   union 5.00/  0/ 21.1
+  stationary 0101   OFF 3.07/ 50/ 50.1   union 5.00/  0/  7.2
+  stationary 0103   OFF 5.00/  0/ 32.4   union 5.00/  0/ 32.3
+  stationary 0106   OFF 4.17/ 17/ 38.5   union 4.17/ 17/ 35.1
+  stationary 0108   OFF 2.69/ 50/ 42.6   union 4.23/ 17/  7.4
+  stationary 0278   OFF 3.34/ 33/ 40.5   union 4.17/ 17/ 39.2
+  stationary 0331   OFF 4.32/ 17/ 39.8   union 4.32/ 17/ 38.2
+  stationary 0783   OFF 2.50/ 50/ 47.5   union 3.33/ 33/ 46.8
+  stationary 0796   OFF 0.83/ 83/ 44.8   union 2.50/ 50/ 21.9
+  stationary 0966   OFF 4.23/ 17/ 40.9   union 4.23/ 17/ 40.9
+  frontal    0103   OFF 0.91/ 83/ 34.6   union 2.53/ 83/ 20.8
+  frontal    0106   OFF 1.67/ 67/ 33.2   union 1.84/ 67/ 27.7
+  frontal    0110   OFF 0.00/100/ 50.7   union 1.00/100/ 46.5
+  frontal    0346   OFF 3.13/ 50/ 17.8   union 2.28/100/  9.3
+  frontal    0923   OFF 0.88/ 83/ 40.7   union 1.83/ 83/ 29.6
+  side       0103   OFF 0.64/100/ 19.9   union 5.00/  0/  7.1
+  side       0108   OFF 2.48/ 67/ 22.8   union 4.17/ 17/ 10.7
+  side       0110   OFF 0.00/100/ 28.2   union 0.83/ 83/ 26.4
+  side       0278   OFF 0.00/100/ 17.0   union 0.83/ 83/ 16.0
+  side       0921   OFF 5.00/  0/  7.5   union 5.00/  0/  6.0
+
+=== per-class pooled (H14-3) ===
+  stationary OFF 3.52/32% (n=60)   union 4.19/17% (n=60)
+  frontal    OFF 1.32/77% (n=30)   union 1.90/87% (n=30)
+  side       OFF 1.62/73% (n=30)   union 3.17/37% (n=30)
+
+H14-1: OFF pooled NCAP score = 2.15   (published UniAD 1.84; pre-registered tolerance ±0.4)
+H14-2: union pooled NCAP score = 3.09   delta = +0.93
+
+H14-2 CIs (within-pair seed-paired bootstrap, 3000 samples):
+  NCAP-score delta   +0.934   95% CI [+0.713, +1.155]   excludes 0: True
+  safe-progress delta -0.170   95% CI [-0.401, +0.032]   excludes 0: False
+
+=== 0103 cross-metadata drift check (vs committed v20, mini metadata) ===
+  off stationary 0103: f14 5.00/0% (n=6) vs v20 4.51/10% (n=20) — first-6 determinism check in text
+  off frontal    0103: f14 0.91/83% (n=6) vs v20 0.84/85% (n=20) — first-6 determinism check in text
+  off side       0103: f14 0.64/100% (n=6) vs v20 0.52/100% (n=20) — first-6 determinism check in text
