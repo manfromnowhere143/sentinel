@@ -14,8 +14,11 @@ RENDERING_FOLDER=$BASE_DIR/'neurad-studio'; RENDERING_CHECKPOITNS_PATH='checkpoi
 NCAP_FOLDER=$BASE_DIR/'neuro-ncap'; NCAP_IMAGE='ncap:latest'
 RUNS=20
 
+git -C /opt/sentinel-stack/VAD checkout -- inference/runner.py || exit 1
 python3 /tmp/server_patch_union_vad.py || exit 1   # git-checkouts server.py, applies the union
 python3 /tmp/patch_vad_image_decode.py || exit 1   # then the renderer-tensor decode fix
+python3 /tmp/patch_vad_candidates.py || exit 1     # behaviour-preserving: log all 3 native modes
+rm -f /opt/sentinel-stack/VAD/sentinel_vad_cand.jsonl
 
 ARMS="off:0 union:1"
 PAIRS="stationary:0103 frontal:0103 side:0103"
