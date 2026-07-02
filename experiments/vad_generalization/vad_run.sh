@@ -18,6 +18,7 @@ git -C /opt/sentinel-stack/VAD checkout -- inference/runner.py || exit 1
 python3 /tmp/server_patch_union_vad.py || exit 1   # git-checkouts server.py, applies the union
 python3 /tmp/patch_vad_image_decode.py || exit 1   # then the renderer-tensor decode fix
 python3 /tmp/patch_vad_candidates.py || exit 1     # behaviour-preserving: log all 3 native modes
+python3 /tmp/patch_vad_empty_fix.py || exit 1      # fork bugs: empty aux shape + cold-start forecasts
 rm -f /opt/sentinel-stack/VAD/sentinel_vad_cand.jsonl
 
 ARMS="off:0 union:1"
