@@ -148,6 +148,7 @@ unmonitored planner** (and a RiskMonitor-style baseline) with a bootstrap CI exc
 | 11 | **early collision-course detection + evasion** — 4 s kinematic closest-approach, then time-gated lane change | — | frontal evade **83%** (= stop 83%); clean **50% crash**; side evade 83% | **refuted (null)** | third evasion refuted, and complete-data audit made it stronger: early detection neither prevents the head-on nor stays selective; evasion on a false alarm *crashes the clean scene 50%* and un-solves the side case (83%). A stop is safe when wrong, a swerve is not. Frontal-prevention line closed. [`iter11_early_evade`](experiments/iter11_early_evade/RESULT.md) |
 | ✚ | **independent verification pass** — re-derive every claim from raw evidence; attack the statistics; re-run fresh at 20 unique episodes | union **2.22** vs OFF 1.83 (n=20 unique) | side 100→**30%** · clean identical to OFF | **net-positive RE-ESTABLISHED**: delta **+0.398, 95% CI [+0.133, +0.665]** | determinism found (episodes replay per run index) → pooled claim withdrawn, then re-measured on 20 genuinely-unique episodes: CI excludes zero; runs 0-7 reproduce iteration 8 exactly (apparatus check); iter11 evasion null re-confirms (worse than stop, degrades the clean scene). Raw evidence committed. [`VERIFICATION.md`](experiments/VERIFICATION.md) |
 | 12 | **introspective plan selection, checkpoint** — log UniAD's 3 command-conditioned candidate plans per frame; does a safe alternative exist when the executed plan is dangerous? | — | escape candidates **0/37 dangerous frames** (bar: >30%) | **null — pre-condition fails** | the mechanism works (candidates diverge up to 14 m in benign frames) but **collapse under threat** (mean gaps 2.85/2.88/2.84 m): the command is routing, not hazard response. Introspection sees the danger; UniAD holds no safer intention to defer to. Pivot (pre-registered): VAD's native `ego_fut_mode=3`. [`iter12_plan_selection`](experiments/iter12_plan_selection/RESULT.md) |
+| 13 | **formal-envelope baseline (RSS-style)** — same tracking, same actuator, physics rule instead of introspection; n=20 unique episodes | RSS **0.88** vs union **2.22** vs OFF 1.83 (safe-prog) | RSS: clean 0% · frontal 30% · side 0% — but ego 3.6–8.2 m (near-freeze) | **H13 confirmed**: union − RSS **+1.345, CI [+0.944, +1.701]** | the envelope posts the campaign's best raw safety *by not driving* — worse than no monitor on the deployment metric. Stopping power is free; **selectivity is what introspection buys** (the plan-aware terms know when the plan clears). [`iter13_rss_baseline`](experiments/iter13_rss_baseline/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -243,9 +244,11 @@ one new mechanism and two scaling milestones:
   checkpoint showed UniAD cannot supply the candidates (its command-conditioned plans collapse
   under threat — a pre-registered null), so the mechanism is tested on VAD's native multimodal
   head. Plan: [`docs/NEXT_FRONTIER_INTROSPECTIVE_PLAN_SELECTION.md`](docs/NEXT_FRONTIER_INTROSPECTIVE_PLAN_SELECTION.md).
-- **A formal-envelope baseline (RSS-style, in flight).** The union vs a guaranteed-stopping-distance
-  rule on the same observed kinematics, same actuator, 20 unique episodes — pre-registered with its
-  falsifier in [`experiments/iter13_rss_baseline/HYPOTHESIS.md`](experiments/iter13_rss_baseline/HYPOTHESIS.md).
+- **A formal-envelope baseline (RSS-style) — done, H13 confirmed.** The envelope achieves the
+  campaign's best raw safety by near-paralysis (ego 3.6–8.2 m vs the planner's 21–32 m) and lands
+  *below the unmonitored planner* on safe-progress; union − RSS = +1.345, CI [+0.944, +1.701].
+  Stopping power is free; selectivity is what plan-aware introspection buys.
+  [`experiments/iter13_rss_baseline/RESULT.md`](experiments/iter13_rss_baseline/RESULT.md).
 - **A second frozen planner (VAD).** Does the union transfer beyond UniAD, or is it UniAD-specific? VAD
   exposes the identical output schema, so the monitor's logic is unchanged — the stack is built and the
   union is patched onto VAD; the one remaining step is generating VAD's NeuroNCAP-specific data-infos.
