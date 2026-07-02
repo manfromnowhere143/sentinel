@@ -32,6 +32,17 @@ thresholds: danger < 3.5 m, escape > 5.0 m, decision bar > 30% of dangerous fram
   diversity under threat — a stronger negative than iteration 12 alone, published as such — and
   plan selection on command-indexed heads is closed.
 
+## Pre-run amendment (2026-07-02, before any VAD result exists)
+
+The first two launch attempts exposed three VAD-fork infrastructure gaps, fixed before data
+collection: the renderer-tensor image decode (`patch_vad_image_decode.py`), empty/cold-start aux
+handling (`patch_vad_empty_fix.py`), and — materially for H-VAD-1 — the fork exposes **no object
+IDs**, which the union's multi-frame tracking requires. `patch_vad_track_ids.py` adds a label-free
+world-frame nearest-neighbor id association (3 m gate, state reset per episode) at the *input*
+layer; the monitor's decision rule is untouched. Named here so the transfer result is read with
+the right caveat: VAD's tracking input comes from geometric association, not a learned tracker
+like UniAD's — if transfer is weaker, this association layer is the first suspect to ablate.
+
 ## Protocol
 
 `vad_run.sh`: OFF vs union, 3 scenes × `--runs 20`, smoke-verified config (`VAD_inference.py`,
