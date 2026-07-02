@@ -58,6 +58,32 @@ original iteration-8 data (they match to the last digit):
 > is *mitigated*, not *prevented*, and three evasive designs to prevent it were tested and refuted
 > (§Status) — the third refutation re-confirmed at n=20.
 
+In the units an AV safety case is written in (derived from the committed per-frame decision logs
+and ground-truth timing — [`analyze_safety_case.py`](experiments/verification/analyze_safety_case.py)):
+the monitor fires a **median 2.5 s before counterfactual contact** (range 1.0–3.5 s), spends
+**11 brake frames per 242 benign meters** driven on the clean scene, and cuts frontal mean impact
+speed from **13.9 to 6.7 m/s**.
+
+The campaign in one picture — every step measured closed-loop against the same unmonitored planner,
+nulls kept, one headline withdrawn by our own audit and re-established on independent data:
+
+```mermaid
+flowchart LR
+  G1["G1 · the signal<br/>planner's own outputs<br/>predict its crashes<br/><b>AUROC 0.83</b>"] --> I2["iter 2 · TTC brake<br/>collision 65→13%<br/><b>safety CI met</b>"]
+  I2 --> I3["iter 3 · deployment metric<br/><b>over-brakes</b> — honest setback,<br/>corrected an over-claim"]
+  I3 --> I45["iters 4–5 · selective gating<br/>clean scene = OFF<br/>but side-blind"]
+  I45 --> I67["iters 6–7 · plan-vs-path CPA<br/>catches the T-bone<br/>no single margin holds all"]
+  I67 --> U["iter 8 · THE UNION<br/>CPA OR observed-TTC<br/><b>selective + side + net-positive</b>"]
+  U --> E9["iters 9–11 · three evasion designs<br/>steer · brake-steer · early-evade<br/><b>all refuted</b> — a stop is safe<br/>when wrong, a swerve is not"]
+  U --> V["verification pass<br/>determinism found → pooled claim<br/><b>withdrawn</b> → re-measured fresh:<br/><b>+0.398 [+0.133, +0.665]</b> at n=20"]
+  classDef win fill:#e2f3e5,stroke:#2e7d32,color:#13361b;
+  classDef null fill:#fdebec,stroke:#c62828,color:#3b1213;
+  classDef audit fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
+  class G1,I2,U win;
+  class I3,I45,I67,E9 null;
+  class V audit;
+```
+
 The winning monitor is a **union of two individually-selective detectors**, chosen because the two
 failure modes are physically distinct — a side T-bone is a real path crossing, while a head-on is
 hidden by the planner's own optimism:
@@ -87,6 +113,14 @@ flowchart LR
   M -. "per-frame decision receipt<br/>(sentinel_*.jsonl, committed)" .-> V[("evidence archive<br/>experiments/verification/")]
   S --> R[/"per-run: NCAP safety 0–5 · collision % · impact speed · ego progress"/]
   R -. "run logs + ego_poses.json (committed)" .-> V
+  classDef planner fill:#f3f0fa,stroke:#5e35b1,color:#22163d;
+  classDef mon fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
+  classDef act fill:#e2f3e5,stroke:#2e7d32,color:#13361b;
+  classDef ev fill:#fff8e1,stroke:#b28704,color:#3d2f00;
+  class BEV,TRK,MOT,PH planner;
+  class A,C,T mon;
+  class B,E act;
+  class V,R ev;
 ```
 
 Neither detector fires on a benign passing object, so the union inherits both terms' selectivity; each
@@ -166,6 +200,14 @@ flowchart TB
   ATTR --> LOOP
   EVID -- "committed raw<br/>(logs, jsonl, run JSONs)" --> AUDIT["independent verification pass<br/>re-derives every claim from the archive;<br/>corrections applied in place<br/>(experiments/VERIFICATION.md)"]
   AUDIT -. "withdrew one headline,<br/>strengthened three nulls" .-> LOOP
+  classDef stack fill:#f3f0fa,stroke:#5e35b1,color:#22163d;
+  classDef loop fill:#e2f3e5,stroke:#2e7d32,color:#13361b;
+  classDef ev fill:#fff8e1,stroke:#b28704,color:#3d2f00;
+  classDef audit fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
+  class ORCH,REND,MODEL stack;
+  class LOOP,BUILD,RUN,MEASURE,ATTR loop;
+  class EVID ev;
+  class AUDIT audit;
 ```
 
 The monitor is small and the planner is frozen — that is what makes this winnable on single-digit
@@ -298,10 +340,30 @@ method-development loop on public data, **not** a claim against the full 14-scen
 
 ## Reproduce & repository map
 
-The closed-loop stack is three public Docker images (NeuRAD renderer · frozen planner · NeuroNCAP
-orchestrator/scorer) on a single L4; the monitor is a self-contained patch injected into the planner's
-inference server, gated by environment variables so every arm (OFF / union / ablations) is one switch.
-Each experiment directory is self-describing:
+**Every headline number regenerates from committed evidence — no GPU, no dataset download:**
+
+```bash
+python3 -m pytest -q                                   # monitor geometry unit tests (stdlib + pytest only)
+
+# the G1 signal: AUROC 0.83 from the committed shadow dump
+python3 experiments/iter2_monitor/g1_auroc.py \
+        experiments/iter2_monitor/proof/risk.jsonl.gz \
+        experiments/iter2_monitor/proof/outcomes.tsv
+
+# the verification audit: determinism proof, side-impact recount, honest n=8 CI
+python3 experiments/verification/audit_pooling.py
+
+# the safety-engineering view: lead time, intervention budget, severity
+python3 experiments/verification/analyze_safety_case.py
+
+# the definitive n=20 measurement (+0.398, CI [+0.133, +0.665]) — committed output
+cat experiments/verification/proof_v20.txt             # regenerate: analyze_v20.py (paths in header)
+```
+
+The closed-loop stack itself is three public Docker images (NeuRAD renderer · frozen planner ·
+NeuroNCAP orchestrator/scorer) on a single L4; the monitor is a self-contained patch injected into
+the planner's inference server, gated by environment variables so every arm (OFF / union / RSS /
+ablations) is one switch. Each experiment directory is self-describing:
 
 | path | what it holds |
 |---|---|
@@ -311,9 +373,11 @@ Each experiment directory is self-describing:
 | [`experiments/iter3_progress/`](experiments/iter3_progress) | the deployment metric (safe-progress) — the honest setback |
 | [`experiments/iter4_gated/`](experiments/iter4_gated) … [`iter7_margin/`](experiments/iter7_margin) | selectivity → observed velocity → CPA → margin sweep |
 | [`experiments/iter8_union/`](experiments/iter8_union) | **the definitive monitor** (union of two detectors) |
-| [`experiments/iter9_evade/`](experiments/iter9_evade) · [`iter10_brakevade/`](experiments/iter10_brakevade) | two refuted evasion designs for frontal prevention (reported nulls) |
+| [`experiments/iter9_evade/`](experiments/iter9_evade) · [`iter10_brakevade/`](experiments/iter10_brakevade) · [`iter11_early_evade/`](experiments/iter11_early_evade) | three refuted evasion designs for frontal prevention (reported nulls) |
 | [`experiments/union_validation/`](experiments/union_validation) | pooled bootstrap CI — **withdrawn** (invalid pooling); corrected in place |
-| [`experiments/VERIFICATION.md`](experiments/VERIFICATION.md) · [`verification/`](experiments/verification) | **independent verification pass**: audit, corrections, committed raw evidence, fresh n=20 re-measurement |
+| [`experiments/VERIFICATION.md`](experiments/VERIFICATION.md) · [`verification/`](experiments/verification) | **independent verification pass**: audit, corrections, committed raw evidence, fresh n=20 re-measurement, safety-case analysis |
+| [`experiments/iter12_plan_selection/`](experiments/iter12_plan_selection) | **introspective plan selection** (active): pre-registered checkpoint + candidate logging |
+| [`experiments/iter13_rss_baseline/`](experiments/iter13_rss_baseline) | **RSS-style formal-envelope baseline** (pre-registered, queued) |
 | [`experiments/vad_generalization/`](experiments/vad_generalization) | second-planner generalization, staged |
 
 Every result folder carries a `RESULT.md` with the real per-run numbers, the exact server patch, and the
