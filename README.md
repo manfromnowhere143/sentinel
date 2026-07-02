@@ -76,9 +76,9 @@ flowchart LR
   I67 --> U["iter 8 · THE UNION<br/><b>selective + side<br/>+ net-positive</b>"]
   U --> E9["iters 9-11<br/>three evasions<br/><b>all refuted</b>"]
   U --> V["verification pass<br/>claim withdrawn, re-measured:<br/><b>+0.398 [+0.133, +0.665]</b>"]
-  classDef win fill:#e2f3e5,stroke:#2e7d32;
-  classDef bad fill:#fdebec,stroke:#c62828;
-  classDef audit fill:#e4f0ff,stroke:#1565c0;
+  classDef win fill:#e2f3e5,stroke:#2e7d32,color:#13361b;
+  classDef bad fill:#fdebec,stroke:#c62828,color:#3b1213;
+  classDef audit fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
   class G1,I2,U win;
   class I3,I45,I67,E9 bad;
   class V audit;
@@ -105,10 +105,12 @@ flowchart LR
   B --> S["NeuroNCAP closed loop"]
   E --> S
   S --> R[/"score 0-5 · collision % ·<br/>impact speed · progress"/]
-  classDef mon fill:#e4f0ff,stroke:#1565c0;
-  classDef act fill:#e2f3e5,stroke:#2e7d32;
+  classDef mon fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
+  classDef act fill:#e2f3e5,stroke:#2e7d32,color:#13361b;
+  classDef base fill:#f6f8fa,stroke:#57606a,color:#1f2328;
   class A,C,T mon;
   class B,E act;
+  class P,S,R base;
 ```
 
 Neither detector fires on a benign passing object, so the union inherits both terms' selectivity; each
@@ -182,10 +184,10 @@ flowchart TB
   ORCH --> EVID["per-run evidence<br/>scores · trajectories ·<br/>decision logs (committed)"]
   EVID --> H["hypothesize<br/>pre-register the bar"] --> B2["build a patch"] --> R2["run OFF vs arm<br/>seed-paired"] --> M2["measure + ablate<br/>nulls published"] --> H
   EVID --> AUD["independent audit<br/>re-derives every claim;<br/>corrections in place"]
-  classDef stack fill:#f3f0fa,stroke:#5e35b1;
-  classDef loop fill:#e2f3e5,stroke:#2e7d32;
-  classDef ev fill:#fff8e1,stroke:#b28704;
-  classDef audit fill:#e4f0ff,stroke:#1565c0;
+  classDef stack fill:#f3f0fa,stroke:#5e35b1,color:#22163d;
+  classDef loop fill:#e2f3e5,stroke:#2e7d32,color:#13361b;
+  classDef ev fill:#fff8e1,stroke:#b28704,color:#3d2f00;
+  classDef audit fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
   class ORCH,REND,MODEL stack;
   class H,B2,R2,M2 loop;
   class EVID ev;
