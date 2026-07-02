@@ -69,18 +69,18 @@ nulls kept, one headline withdrawn by our own audit and re-established on indepe
 
 ```mermaid
 flowchart LR
-  G1["G1 · the signal<br/>planner's own outputs<br/>predict its crashes<br/><b>AUROC 0.83</b>"] --> I2["iter 2 · TTC brake<br/>collision 65→13%<br/><b>safety CI met</b>"]
-  I2 --> I3["iter 3 · deployment metric<br/><b>over-brakes</b> — honest setback,<br/>corrected an over-claim"]
-  I3 --> I45["iters 4–5 · selective gating<br/>clean scene = OFF<br/>but side-blind"]
-  I45 --> I67["iters 6–7 · plan-vs-path CPA<br/>catches the T-bone<br/>no single margin holds all"]
-  I67 --> U["iter 8 · THE UNION<br/>CPA OR observed-TTC<br/><b>selective + side + net-positive</b>"]
-  U --> E9["iters 9–11 · three evasion designs<br/>steer · brake-steer · early-evade<br/><b>all refuted</b> — a stop is safe<br/>when wrong, a swerve is not"]
-  U --> V["verification pass<br/>determinism found → pooled claim<br/><b>withdrawn</b> → re-measured fresh:<br/><b>+0.398 [+0.133, +0.665]</b> at n=20"]
-  classDef win fill:#e2f3e5,stroke:#2e7d32,color:#13361b;
-  classDef null fill:#fdebec,stroke:#c62828,color:#3b1213;
-  classDef audit fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
+  G1["the signal<br/><b>AUROC 0.83</b>"] --> I2["iter 2 · TTC brake<br/>collision 65 to 13%"]
+  I2 --> I3["iter 3<br/><b>over-brakes</b><br/>honest setback"]
+  I3 --> I45["iters 4-5<br/>selective gating<br/>side-blind"]
+  I45 --> I67["iters 6-7 · CPA<br/>catches the T-bone"]
+  I67 --> U["iter 8 · THE UNION<br/><b>selective + side<br/>+ net-positive</b>"]
+  U --> E9["iters 9-11<br/>three evasions<br/><b>all refuted</b>"]
+  U --> V["verification pass<br/>claim withdrawn, re-measured:<br/><b>+0.398 [+0.133, +0.665]</b>"]
+  classDef win fill:#e2f3e5,stroke:#2e7d32;
+  classDef bad fill:#fdebec,stroke:#c62828;
+  classDef audit fill:#e4f0ff,stroke:#1565c0;
   class G1,I2,U win;
-  class I3,I45,I67,E9 null;
+  class I3,I45,I67,E9 bad;
   class V audit;
 ```
 
@@ -88,39 +88,27 @@ The winning monitor is a **union of two individually-selective detectors**, chos
 failure modes are physically distinct — a side T-bone is a real path crossing, while a head-on is
 hidden by the planner's own optimism:
 
+The planner's own `/infer` outputs — plan, detected objects, scores, persistent track IDs,
+forecasts, ego pose — are the monitor's only inputs; nothing privileged. Object velocity is
+*observed* (ego-motion-compensated tracking by ID across frames), not the planner's optimistic
+forecast. The stop is latched, so it is safe even when the trigger is wrong. Every frame's decision
+is written to a committed receipt log.
+
 ```mermaid
 flowchart LR
-  subgraph PL["frozen planner (UniAD, weights locked)"]
-    direction TB
-    BEV["multi-camera BEV encoding"] --> TRK["detection + tracking<br/>(objects, scores, persistent IDs)"]
-    TRK --> MOT["motion forecasting<br/>(per-agent future trajectories)"]
-    MOT --> PH["planning head<br/>(ego trajectory, command-conditioned)"]
-  end
-  PL -- "plan · objects · forecasts · track IDs · ego2world<br/>(the planner's own /infer outputs — nothing privileged)" --> M
-  subgraph M["Sentinel monitor — label-free geometry, no learned weights"]
-    direction TB
-    A["world-frame object tracks by ID<br/>(ego-motion-compensated finite difference<br/>= observed velocity, not the planner's optimistic forecast)"]
-    C{"plan-vs-tracked-path<br/>closest approach &lt; 1.5 m?<br/><i>catches the side T-bone:<br/>paths truly cross</i>"}
-    T{"observed agent-closing<br/>time-to-collision &lt; 2.5 s?<br/><i>catches the head-on the planner's<br/>optimistic plan hides</i>"}
-    A --> C
-    A --> T
-  end
-  C -- "either fires" --> B["committed stop<br/>(latched zero-trajectory —<br/>safe even when the trigger is wrong)"]
-  T -- "either fires" --> B
-  C -- "neither fires" --> E["execute the planner's plan<br/>unchanged"]
+  P["frozen planner<br/>UniAD, weights locked"] -- "plan + objects +<br/>forecasts + track IDs" --> A
+  A["world-frame tracks by ID<br/>= observed velocity"] --> C{"plan vs tracked path<br/>closest approach under 1.5 m?<br/><i>the side T-bone</i>"}
+  A --> T{"observed closing TTC<br/>under 2.5 s?<br/><i>the hidden head-on</i>"}
+  C -- fires --> B["committed stop<br/>latched"]
+  T -- fires --> B
+  C -- neither --> E["planner's plan<br/>unchanged"]
   B --> S["NeuroNCAP closed loop"]
   E --> S
-  M -. "per-frame decision receipt<br/>(sentinel_*.jsonl, committed)" .-> V[("evidence archive<br/>experiments/verification/")]
-  S --> R[/"per-run: NCAP safety 0–5 · collision % · impact speed · ego progress"/]
-  R -. "run logs + ego_poses.json (committed)" .-> V
-  classDef planner fill:#f3f0fa,stroke:#5e35b1,color:#22163d;
-  classDef mon fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
-  classDef act fill:#e2f3e5,stroke:#2e7d32,color:#13361b;
-  classDef ev fill:#fff8e1,stroke:#b28704,color:#3d2f00;
-  class BEV,TRK,MOT,PH planner;
+  S --> R[/"score 0-5 · collision % ·<br/>impact speed · progress"/]
+  classDef mon fill:#e4f0ff,stroke:#1565c0;
+  classDef act fill:#e2f3e5,stroke:#2e7d32;
   class A,C,T mon;
   class B,E act;
-  class V,R ev;
 ```
 
 Neither detector fires on a benign passing object, so the union inherits both terms' selectivity; each
@@ -179,35 +167,29 @@ A frozen planner proposes a plan; Sentinel reads the planner's own internal stat
 that this plan ends in a collision, and — above threshold — triggers a principled intervention
 (brake / fallback). All evaluated in a public neural closed-loop simulator.
 
+The apparatus is three public containers on one L4: the NeuroNCAP orchestrator drives the scenario
+actor and scores collisions; NeuRAD renders photoreal multi-camera frames from real nuScenes
+drives; the frozen UniAD container serves `/infer` with the Sentinel patch env-gated per arm.
+Episodes are deterministic per run index (established by the verification pass), so every
+comparison is seed-paired. Every run leaves evidence — scores, driven trajectories, per-frame
+monitor decisions — which feeds both the research loop and the independent audit:
+
 ```mermaid
 flowchart TB
-  subgraph STACK["the apparatus — three public containers on one L4 GPU"]
-    direction LR
-    ORCH["NeuroNCAP orchestrator<br/>scenario actor + scoring<br/><i>episodes are deterministic per run index<br/>(established by the verification pass —<br/>every comparison is therefore seed-paired)</i>"]
-    REND["NeuRAD neural renderer<br/>photoreal multi-camera frames<br/>from real nuScenes drives"]
-    MODEL["frozen UniAD container<br/>inference server /infer<br/>+ the Sentinel patch (env-gated:<br/>OFF / union / ablation arms)"]
-    ORCH -- "ego state, actor state" --> REND
-    REND -- "rendered camera set" --> MODEL
-    MODEL -- "trajectory (planner's or Sentinel's stop)" --> ORCH
-    ORCH -- "nuPlan LQR tracker executes it<br/>collision + scoring vs the actor" --> ORCH
-  end
-  STACK --> EVID["per-run evidence<br/>scores · ego_poses · metrics ·<br/>per-frame monitor decisions (jsonl)"]
-  EVID --> LOOP{"the research loop"}
-  LOOP -- "hypothesize (pre-register the bar)" --> BUILD["build: monitor change<br/>as a reviewable server patch"]
-  BUILD --> RUN["run: OFF vs arm,<br/>same episodes, seed-paired"]
-  RUN --> MEASURE["measure: NCAP score · collision % ·<br/>safe-progress (safety × route progress)"]
-  MEASURE --> ATTR["attribute: ablate WHY —<br/>nulls published with the wins"]
-  ATTR --> LOOP
-  EVID -- "committed raw<br/>(logs, jsonl, run JSONs)" --> AUDIT["independent verification pass<br/>re-derives every claim from the archive;<br/>corrections applied in place<br/>(experiments/VERIFICATION.md)"]
-  AUDIT -. "withdrew one headline,<br/>strengthened three nulls" .-> LOOP
-  classDef stack fill:#f3f0fa,stroke:#5e35b1,color:#22163d;
-  classDef loop fill:#e2f3e5,stroke:#2e7d32,color:#13361b;
-  classDef ev fill:#fff8e1,stroke:#b28704,color:#3d2f00;
-  classDef audit fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
+  ORCH["NeuroNCAP orchestrator<br/>actor + scoring"] --> REND["NeuRAD renderer<br/>photoreal cameras"]
+  REND --> MODEL["frozen UniAD /infer<br/>+ Sentinel patch, env-gated"]
+  MODEL -- "trajectory" --> ORCH
+  ORCH --> EVID["per-run evidence<br/>scores · trajectories ·<br/>decision logs (committed)"]
+  EVID --> H["hypothesize<br/>pre-register the bar"] --> B2["build a patch"] --> R2["run OFF vs arm<br/>seed-paired"] --> M2["measure + ablate<br/>nulls published"] --> H
+  EVID --> AUD["independent audit<br/>re-derives every claim;<br/>corrections in place"]
+  classDef stack fill:#f3f0fa,stroke:#5e35b1;
+  classDef loop fill:#e2f3e5,stroke:#2e7d32;
+  classDef ev fill:#fff8e1,stroke:#b28704;
+  classDef audit fill:#e4f0ff,stroke:#1565c0;
   class ORCH,REND,MODEL stack;
-  class LOOP,BUILD,RUN,MEASURE,ATTR loop;
+  class H,B2,R2,M2 loop;
   class EVID ev;
-  class AUDIT audit;
+  class AUD audit;
 ```
 
 The monitor is small and the planner is frozen — that is what makes this winnable on single-digit
