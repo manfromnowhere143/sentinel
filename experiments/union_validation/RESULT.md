@@ -25,6 +25,13 @@ Safe-progress OFF 2.228 → union 2.476, delta **+0.247, 95% CI [−0.272, +0.78
 direction, **not significant at 8 episodes**. The side-impact reduction (100% → 12.5%) and the
 frontal impact mitigation remain the structural sources of the gain; the clean scene is unchanged.
 
+**Definitive resolution (2026-07-02):** the verification pass then ran the same comparison on
+**20 genuinely-unique episodes per scene** (run indices 0–19, a single `--runs 20` pass per arm;
+indices 0–7 reproduce this iteration's data exactly). Result: safe-progress OFF 1.826 → union
+2.224, **delta +0.398, 95% CI [+0.133, +0.665] — excludes zero; net-positive re-established on
+valid statistics**. Side-impact at n=20 is 100% → 30%. Full table and raw evidence:
+[`../VERIFICATION.md`](../VERIFICATION.md) §4.
+
 ## What was wrong, precisely
 
 - Pooling deterministic replays as independent runs triple-counted episodes 0–5 (n inflated 8 → 20),

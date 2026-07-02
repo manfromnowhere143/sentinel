@@ -111,8 +111,37 @@ committed `server_patch_union.py`, pristine planner repo) on stationary/frontal/
 episodes** — followed by the iteration-11 early-evade arm on the same 20 indices (null re-check).
 Determinism makes indices 0–7 an exact-reproduction check; indices 8–19 are the honest expansion.
 
-**RESULTS PENDING — run in flight at the time of this commit; this section is finalized in the
-follow-up commit with the raw logs committed alongside.**
+**Result — the determinism check passed and the headline is re-established with valid statistics.**
+
+Run indices 0–7 reproduce the committed iteration-8 evidence **exactly** (every score, every arm,
+every scene — `analyze_v20.py` cross-check), so indices 8–19 are genuinely new episodes and the
+n=20 statistics below are honest:
+
+| arm (n=20/scene) | stationary (clean) | frontal | side |
+|---|---|---|---|
+| OFF | 4.51 / 10% / 31.9 m | 0.84 / 85% / 31.7 m | 0.52 / **100%** / 21.3 m |
+| union | 4.51 / 10% / 28.6 m | **2.36** / 90% / 21.7 m | **3.56 / 30%** / 12.4 m |
+| iter11 early-evade (null re-check) | 3.93 / **25%** / 28.7 m | 1.38 / 90% / 30.4 m | — |
+
+**Pooled safe-progress: OFF 1.826 → union 2.224. Delta = +0.398, 95% CI [+0.133, +0.665] —
+excludes zero.** The union is net-positive over the unmonitored planner at 20 unique episodes per
+scene, by the same metric and bootstrap the withdrawn claim used — now on data that is actually
+independent.
+
+The new episodes also revise the picture honestly, in both directions:
+
+- **Side-impact: 100% → 30% at n=20** (not the 12.5% of the 8-episode set, and not the withdrawn
+  5%). The reduction is large and real; the first 8 episodes had happened to be easier.
+- **The benign scene is not perfectly benign:** 2 of the 12 new perturbations make even the
+  unmonitored planner hit the parked object (OFF 10% collision). The union's selectivity claim
+  survives in its precise form — the union's clean-scene behaviour is *identical to OFF* (same
+  score 4.51, same 10%), i.e. the monitor does not degrade the benign scene.
+- **The iteration-11 null re-confirms on fresh episodes:** early-evade remains worse than the
+  committed stop on frontal (1.38 vs 2.36) and degrades the clean scene (25% vs 10% collisions) —
+  the "evasion is unsafe on false alarms" conclusion holds at triple the sample size.
+
+Raw evidence committed: `evidence/logs/sentinel-v20.log`, `evidence/jsonl/sentinel_v20_*.jsonl.gz`,
+`evidence/runs/v20-*.tar.gz`.
 
 ## 4b. The safety-engineering view (derived from committed decision logs)
 
@@ -156,9 +185,12 @@ committed with the follow-up.
 - **Corrected in place:** pooled n=20 validation (invalid → withdrawn; honest n=8 CI does not
   exclude zero); side-impact rate (5% → 12.5% unique at n=8); iteration-8 "8/8 avoided" (7/8);
   iteration-11 snapshot numbers (complete-data numbers published); framing items in §3.4.
-- **Superseded by §4 (n=20 fresh measurement):** the definitive net-positive test and side/frontal
-  rates.
+- **Re-established by §4 (n=20 fresh measurement):** the union is **net-positive with a CI that
+  excludes zero** (+0.398, [+0.133, +0.665]) on 20 genuinely-unique episodes per scene; side-impact
+  100% → 30%; selectivity holds in its precise form (clean-scene behaviour identical to OFF); the
+  iteration-11 evasion null re-confirms at triple the sample.
 
-The campaign's honest core — a selective, label-free monitor on a frozen planner that solves most of
-the side-impact failure and mitigates the frontal one, with prevention refuted for invented
-maneuvers — stands. Its statistical headline is re-established at n=20 in §4 or not at all.
+The campaign's honest core — a selective, label-free monitor on a frozen planner that removes most
+of the side-impact failure and mitigates the frontal one, with prevention refuted for invented
+maneuvers — stands, now on statistics that survived an adversarial audit and an independent
+re-measurement.

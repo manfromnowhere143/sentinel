@@ -6,18 +6,19 @@ loop, by whether the car crashes *and whether it can still drive*.**
 
 > **Honest status up front (11 iterations + an independent verification pass):** the introspective
 > signal predicts the planner's collisions (AUROC 0.83), and the best configuration — the **union**
-> (iter 8) — is **selective** (clean scene ≈ the unmonitored planner), **solves most side-impacts**
-> (100% → 12.5% on the 8 unique episodes), and **mitigates** the frontal head-on; three evasive
-> designs to *prevent* the head-on were honestly **refuted** — the last showing *why*: a swerve on a
-> false alarm crashes, so evasion is unsafe without perfect precision. A full independent
-> verification pass ([`experiments/VERIFICATION.md`](experiments/VERIFICATION.md)) then re-derived
-> every claim from raw committed evidence. It **withdrew one headline**: the earlier "net-positive
-> confirmed at n=20" pooled NeuroNCAP's deterministic per-index episodes as if they were independent
-> replications; on the honest 8 unique episodes the safe-progress delta is +0.25 with a 95% CI
-> [−0.27, +0.78] — **direction positive, not significant** — and a fresh 20-unique-episode
-> re-measurement was run to settle it (§4 of the verification report). Over-claims here get caught
-> by our *own* next experiment and corrected in place — that self-correction is the point. Full arc
-> in [Status](#status--where-it-really-stands-the-honest-current-truth).
+> (iter 8) — is **selective** (clean-scene behaviour identical to the unmonitored planner),
+> **removes most side-impacts** (100% → 30% at 20 unique episodes), **mitigates** the frontal
+> head-on, and is **net-positive on the deployment metric with a bootstrap CI that excludes zero**
+> (safe-progress +0.398, 95% CI [+0.133, +0.665], n=20 unique episodes/scene). That last sentence
+> earned its precision the hard way: an independent verification pass
+> ([`experiments/VERIFICATION.md`](experiments/VERIFICATION.md)) **withdrew** an earlier version of
+> it — the original pooling had counted NeuroNCAP's deterministic per-index episodes as independent
+> replications — and the claim was then **re-established on 20 genuinely-unique episodes**, with
+> run indices 0–7 doubling as an exact-reproduction check of the whole apparatus (they match to
+> the last digit). Three evasive designs to *prevent* the head-on were honestly **refuted** — the
+> last showing *why*: a swerve on a false alarm crashes, and the fresh n=20 re-check confirms it.
+> Over-claims here get caught by our own audits and corrected in place — that self-correction is
+> the point. Full arc in [Status](#status--where-it-really-stands-the-honest-current-truth).
 
 The field's open-loop driving metrics are saturated and gameable (an ego-state MLP "wins" nuScenes
 L2). The honest axis is **closed-loop safety**, and there the public state of the art is wide open:
@@ -36,24 +37,26 @@ GPUs.
 ## The result
 
 Eleven iterations under a frozen campaign pre-registration converge on one configuration — the
-**union** — that, on a frozen UniAD planner, is **selective, side-impact-solving, and directionally
-net-positive over the unmonitored planner** on a progress-aware deployment metric (unique episodes,
-seed-paired — the verification-corrected numbers):
+**union** — that, on a frozen UniAD planner, is **selective, side-impact-reducing, and
+net-positive over the unmonitored planner** on a progress-aware deployment metric. The numbers
+below are the verification pass's definitive fresh measurement: **20 genuinely-unique episodes per
+scene per arm**, seed-paired, with run indices 0–7 doubling as an exact reproduction of the
+original iteration-8 data (they match to the last digit):
 
-| metric (8 unique episodes/scene) | unmonitored planner | Sentinel (union) |
+| metric (20 unique episodes/scene) | unmonitored planner | Sentinel (union) |
 |---|---:|---:|
-| clean-scene distance driven (selectivity) | 33.0 m | **30.2 m** (≈ unchanged) |
-| side-impact collision rate | **100 %** | **12.5 %** (7 of 8 avoided) |
-| frontal head-on score (0–5) | 1.31 | **2.43** (impact mitigated) |
-| **safe-progress** (safety × route progress) | 2.23 | **2.48** |
+| clean-scene score / collision (selectivity) | 4.51 / 10% | **4.51 / 10%** (identical) |
+| side-impact collision rate | **100 %** | **30 %** |
+| frontal head-on score (0–5) | 0.84 | **2.36** (impact mitigated) |
+| **safe-progress** (safety × route progress) | 1.83 | **2.22** |
 
-> **Statistical honesty:** the safe-progress advantage is **+0.25, 95 % CI [−0.27, +0.78]** at 8
-> unique episodes — positive in direction, **not significant at this n**. An earlier claim of a
-> CI excluding zero pooled deterministic replays as independent runs and was withdrawn by the
-> independent verification pass ([`experiments/VERIFICATION.md`](experiments/VERIFICATION.md)),
-> which also re-measured everything fresh at 20 genuinely-unique episodes. The other honest limit,
-> named precisely: the frontal head-on is *mitigated*, not *prevented*, and three evasive designs
-> to prevent it were tested and refuted (§Status).
+> **Net-positive, on statistics that survived an adversarial audit:** safe-progress advantage
+> **+0.398, 95 % CI [+0.133, +0.665]** — excludes zero at n=20 unique episodes. An earlier version
+> of this claim was **withdrawn** by the independent verification pass (it had pooled
+> deterministic episode replays as if independent — [`experiments/VERIFICATION.md`](experiments/VERIFICATION.md))
+> and re-established on fresh data. The other honest limit, named precisely: the frontal head-on
+> is *mitigated*, not *prevented*, and three evasive designs to prevent it were tested and refuted
+> (§Status) — the third refutation re-confirmed at n=20.
 
 The winning monitor is a **union of two individually-selective detectors**, chosen because the two
 failure modes are physically distinct — a side T-bone is a real path crossing, while a head-on is
@@ -119,7 +122,7 @@ unmonitored planner** (and a RiskMonitor-style baseline) with a bootstrap CI exc
 | 10 | **braking evasion into a tracked-clear gap** — shed speed *and* steer to the open side | — | frontal brakevade **1.67/100%** vs union stop **2.53/83%** | **refuted (null)** | second evasion family, same result: steering (even while braking) is worse than the pure stop. Two designs converge → committed stop is the frontal *ceiling*; prevention needs more than a single maneuver |
 | ✓ | **statistical validation** — pool the union & OFF arms across iters 8/9/10, bootstrap the safe-progress delta | union 2.60 vs OFF 2.14 (pooled) | side "5%" (pooled) | *claimed* net-positive | **WITHDRAWN by the verification pass**: the three "replications" are deterministic replays of the same episodes (n=20 was really n=8 unique); honest CI [−0.27, +0.78] does not exclude 0. [`union_validation`](experiments/union_validation/RESULT.md) |
 | 11 | **early collision-course detection + evasion** — 4 s kinematic closest-approach, then time-gated lane change | — | frontal evade **83%** (= stop 83%); clean **50% crash**; side evade 83% | **refuted (null)** | third evasion refuted, and complete-data audit made it stronger: early detection neither prevents the head-on nor stays selective; evasion on a false alarm *crashes the clean scene 50%* and un-solves the side case (83%). A stop is safe when wrong, a swerve is not. Frontal-prevention line closed. [`iter11_early_evade`](experiments/iter11_early_evade/RESULT.md) |
-| ✚ | **independent verification pass** — re-derive every claim from raw evidence; attack the statistics; re-run fresh at 20 unique episodes | — | side honest rate **12.5%** (n=8 unique) | audit | determinism found (episodes replay per run index) → pooled n=20 claim withdrawn, side 5%→12.5%, iter8 "8/8" → 7/8, iter11 snapshot completed; everything else reproduces exactly. Raw evidence now committed. [`VERIFICATION.md`](experiments/VERIFICATION.md) |
+| ✚ | **independent verification pass** — re-derive every claim from raw evidence; attack the statistics; re-run fresh at 20 unique episodes | union **2.22** vs OFF 1.83 (n=20 unique) | side 100→**30%** · clean identical to OFF | **net-positive RE-ESTABLISHED**: delta **+0.398, 95% CI [+0.133, +0.665]** | determinism found (episodes replay per run index) → pooled claim withdrawn, then re-measured on 20 genuinely-unique episodes: CI excludes zero; runs 0-7 reproduce iteration 8 exactly (apparatus check); iter11 evasion null re-confirms (worse than stop, degrades the clean scene). Raw evidence committed. [`VERIFICATION.md`](experiments/VERIFICATION.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -262,14 +265,16 @@ over-claim.** That arc, in order:
     [`iter10_brakevade/RESULT.md`](experiments/iter10_brakevade/RESULT.md).
 
 **Net, stated plainly — eleven iterations plus an independent verification pass.** The **union
-(iter 8) is the best monitor** of the campaign: selective, side-impact-solving in 7 of 8 unique
-episodes, frontal *mitigated*, and directionally net-positive on safe-progress (+0.25 at n=8, CI
-includes zero — significance is settled by the fresh 20-unique-episode measurement in the
-verification report, not by pooled replays). The frontal head-on *ceiling* is firmly established —
-a committed stop is the best frontal response, and **three separate evasion designs (iters 9, 10,
-11) were tested and honestly refuted**, all worse than stopping, the last one dangerous on false
-alarms. Frontal head-on *prevention* is a genuinely hard open problem, not a maneuver away — which
-is exactly what the introspective plan-selection line attacks next.
+(iter 8) is the best monitor** of the campaign: selective (clean-scene behaviour identical to the
+unmonitored planner at n=20), side-impact 100% → 30%, frontal *mitigated* (score 0.84 → 2.36), and
+**net-positive on safe-progress with a CI that excludes zero** (+0.398, [+0.133, +0.665], 20
+unique episodes/scene — re-established after the original pooled version was withdrawn by audit).
+The frontal head-on *ceiling* is firmly established — a committed stop is the best frontal
+response, and **three separate evasion designs (iters 9, 10, 11) were tested and honestly
+refuted**, all worse than stopping, the last one dangerous on false alarms (re-confirmed at n=20:
+25% clean-scene collisions vs OFF's 10%). Frontal head-on *prevention* is a genuinely hard open
+problem, not a maneuver away — which is exactly what the introspective plan-selection line attacks
+next.
 
 **What's next.** With invented maneuvers exhausted for the frontal edge case, three lines remain —
 one new mechanism and two scaling milestones:
