@@ -1,0 +1,11 @@
+=== per-arm, per-scene (n, mean score, collision%, mean ego m) ===
+  off    stationary-0103  n=20 score=0.88 coll%= 85 ego=12.0
+  off    frontal-0103     n=20 score=4.32 coll%= 15 ego=49.4
+  off    side-0103        n=20 score=1.87 coll%= 65 ego=20.5
+  union  stationary-0103  n=20 score=5.00 coll%=  0 ego=2.4
+  union  frontal-0103     n=20 score=4.31 coll%= 30 ego=3.7
+  union  side-0103        n=20 score=5.00 coll%=  0 ego=3.8
+
+=== pooled safe-progress (n=20/scene, normalized to VAD-OFF) ===
+  OFF 2.297   union 0.750   delta -1.548
+  95% CI [-2.057, -1.027]   excludes 0: True

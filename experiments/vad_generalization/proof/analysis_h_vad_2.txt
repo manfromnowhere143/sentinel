@@ -1,0 +1,9 @@
+frames: 1659
+candidate divergence (max endpoint distance between the 3 plans): median=3.45 m  max=22.08 m
+dangerous frames (executed-plan closest gap < 3.5 m): 111
+  command 0 (right   ): mean gap in danger 2.54 m
+  command 1 (left    ): mean gap in danger 3.11 m
+  command 2 (straight): mean gap in danger 2.80 m
+ESCAPE EXISTS (alt gap > 5.0 m and better than executed): 23/111 = 21%
+
+VERDICT: the command-conditioned candidates collapse under threat -> pivot to VAD native modes.

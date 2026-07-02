@@ -149,6 +149,7 @@ unmonitored planner** (and a RiskMonitor-style baseline) with a bootstrap CI exc
 | ✚ | **independent verification pass** — re-derive every claim from raw evidence; attack the statistics; re-run fresh at 20 unique episodes | union **2.22** vs OFF 1.83 (n=20 unique) | side 100→**30%** · clean identical to OFF | **net-positive RE-ESTABLISHED**: delta **+0.398, 95% CI [+0.133, +0.665]** | determinism found (episodes replay per run index) → pooled claim withdrawn, then re-measured on 20 genuinely-unique episodes: CI excludes zero; runs 0-7 reproduce iteration 8 exactly (apparatus check); iter11 evasion null re-confirms (worse than stop, degrades the clean scene). Raw evidence committed. [`VERIFICATION.md`](experiments/VERIFICATION.md) |
 | 12 | **introspective plan selection, checkpoint** — log UniAD's 3 command-conditioned candidate plans per frame; does a safe alternative exist when the executed plan is dangerous? | — | escape candidates **0/37 dangerous frames** (bar: >30%) | **null — pre-condition fails** | the mechanism works (candidates diverge up to 14 m in benign frames) but **collapse under threat** (mean gaps 2.85/2.88/2.84 m): the command is routing, not hazard response. Introspection sees the danger; UniAD holds no safer intention to defer to. Pivot (pre-registered): VAD's native `ego_fut_mode=3`. [`iter12_plan_selection`](experiments/iter12_plan_selection/RESULT.md) |
 | 13 | **formal-envelope baseline (RSS-style)** — same tracking, same actuator, physics rule instead of introspection; n=20 unique episodes | RSS **0.88** vs union **2.22** vs OFF 1.83 (safe-prog) | RSS: clean 0% · frontal 30% · side 0% — but ego 3.6–8.2 m (near-freeze) | **H13 confirmed**: union − RSS **+1.345, CI [+0.944, +1.701]** | the envelope posts the campaign's best raw safety *by not driving* — worse than no monitor on the deployment metric. Stopping power is free; **selectivity is what introspection buys** (the plan-aware terms know when the plan clears). [`iter13_rss_baseline`](experiments/iter13_rss_baseline/RESULT.md) |
+| 14 | **second frozen planner (VAD)** — union transfer + native-mode diversity, after four fork-level runtime fixes; n=20/scene | VAD-OFF 2.30 vs VAD+union **0.75** (safe-prog, CI [−2.06, −1.03]) | VAD-OFF fails **stationary 85%** / side 65% (inverted profile!); union: both → **0%** but ego 2.4–3.8 m | **transfer: safety yes, selectivity NO** · **H-VAD-2: 21% escapes < 30% bar** | the union protects exactly where VAD fails, but over-brakes everywhere — decision logs attribute it to the TTC term reading jittery geometric-NN IDs (VAD exposes no tracker): **selectivity is a property of tracking quality, not the rule alone**. Candidates: partial diversity under threat (0.6 m spread, 1-in-5 escapes) — a two-planner collapse spectrum; no re-ranker per the frozen rule. [`vad_generalization`](experiments/vad_generalization/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -237,25 +238,28 @@ next.
 **What's next.** With invented maneuvers exhausted for the frontal edge case, three lines remain —
 one new mechanism and two scaling milestones:
 
-- **Introspective plan selection (the active line — now via VAD).** Stop overriding the planner;
-  **re-rank the frozen planner's own candidate trajectories** by the label-free risk score and
-  execute the safest feasible one — safe on false alarms *by construction*, and the first mechanism
-  with a credible path to *preventing* the head-on rather than softening it. The iteration-12
-  checkpoint showed UniAD cannot supply the candidates (its command-conditioned plans collapse
-  under threat — a pre-registered null), so the mechanism is tested on VAD's native multimodal
-  head. Plan: [`docs/NEXT_FRONTIER_INTROSPECTIVE_PLAN_SELECTION.md`](docs/NEXT_FRONTIER_INTROSPECTIVE_PLAN_SELECTION.md).
+- **Introspective plan selection — closed for command-indexed candidates, on two planners.** The
+  pre-registered checkpoints answered it: UniAD's command-conditioned plans collapse totally under
+  threat (0/37 escapes); VAD's native modes retain partial diversity (21% escapes) but stay below
+  the frozen 30% viability bar. The safe alternative the re-ranker needs is mostly absent when it
+  matters — the first threat-conditioned diversity measurements on E2E planners' own candidates
+  ([`iter12`](experiments/iter12_plan_selection/RESULT.md) ·
+  [`vad_generalization`](experiments/vad_generalization/RESULT.md)). A diversity-trained candidate
+  head (DIVER-style) under a runtime safety selector is the natural successor mechanism.
 - **A formal-envelope baseline (RSS-style) — done, H13 confirmed.** The envelope achieves the
-  campaign's best raw safety by near-paralysis (ego 3.6–8.2 m vs the planner's 21–32 m) and lands
-  *below the unmonitored planner* on safe-progress; union − RSS = +1.345, CI [+0.944, +1.701].
-  Stopping power is free; selectivity is what plan-aware introspection buys.
+  campaign's best raw safety by near-paralysis and lands *below the unmonitored planner* on
+  safe-progress; union − RSS = +1.345, CI [+0.944, +1.701]. Stopping power is free; selectivity is
+  what plan-aware introspection buys.
   [`experiments/iter13_rss_baseline/RESULT.md`](experiments/iter13_rss_baseline/RESULT.md).
-- **A second frozen planner (VAD).** Does the union transfer beyond UniAD, or is it UniAD-specific? VAD
-  exposes the identical output schema, so the monitor's logic is unchanged — the stack is built and the
-  union is patched onto VAD; the one remaining step is generating VAD's NeuroNCAP-specific data-infos.
-  Staged to a precise restart point: [`vad_generalization/STATUS.md`](experiments/vad_generalization/STATUS.md).
-- **The full 14-scene benchmark.** All results here are on the 2 NeuroNCAP scenes present in public
-  `v1.0-mini`; the averaged published number needs the gated ~290 GB trainval set (a free nuScenes
-  account). That is the one dependency external to this repo.
+- **A second frozen planner (VAD) — done, and the transfer verdict is a finding.** VAD's failure
+  profile is inverted (stationary 85%, side 65%, frontal strong); the union prevents exactly those
+  failures (both → 0%) but loses its selectivity — its TTC term needs the stable IDs of a learned
+  tracker, which VAD does not expose. Monitor selectivity is a property of tracking quality, not
+  the decision rule alone. [`vad_generalization/RESULT.md`](experiments/vad_generalization/RESULT.md).
+- **The full 14-scene benchmark (in progress).** The 12 non-mini scenes' sensor data is streaming
+  from nuScenes' public AWS Open Data mirror; renderer checkpoints and data-infos staging follow,
+  then OFF vs union across all 14 official scenes — the first number comparable against the
+  published UniAD 1.84.
 
 Scope throughout, stated plainly: 2 public-mini scenes, single-digit-to-20 runs, one L4 — a
 method-development loop on public data, **not** a claim against the full 14-scene published benchmark.
