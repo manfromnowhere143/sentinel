@@ -177,6 +177,13 @@ failures; hypotheses were frozen before the run.
 - **Validity:** the 0103 pairs reproduce the committed v20 values across metadata versions; no
   exclusions.
 
-The open problem the split verdict defines: per-scene brake-budget calibration — the union fires
-correctly but holds too long on scenes where the planner would have recovered progress. Full
-tables and evidence: [experiments/full14_benchmark/RESULT.md](../experiments/full14_benchmark/RESULT.md).
+The open problem the split verdict defines — brake-budget calibration — was attacked immediately
+(iteration 15): releasing the latch after four verified-clear frames **strictly dominates the
+union** (identical safety on every cell, 44 releases with zero reopened cases, safe-progress
++0.246 over the union with CI [+0.206, +0.293]) and becomes the campaign's best configuration —
+while the deployment gap against the unmonitored planner narrows to +0.08 but keeps a CI that
+includes zero. The residual is a *cost-of-stopping* floor in fixed-horizon episodes, not a
+triggering flaw; the next pre-registrable mechanisms are a smaller release threshold under
+premature-release pressure, or an intervention softer than a full stop. Full tables and
+evidence: [experiments/full14_benchmark/RESULT.md](../experiments/full14_benchmark/RESULT.md) ·
+[experiments/iter15_latch_release/RESULT.md](../experiments/iter15_latch_release/RESULT.md).
