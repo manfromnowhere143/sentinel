@@ -137,3 +137,14 @@ over-claim.** That arc, in order:
     narrows to +0.08 but keeps a CI that includes zero: a *cost-of-stopping* floor in
     fixed-horizon episodes, which iteration 16 (a pre-registered softer-than-stop crawl) attacks.
     [`../experiments/iter15_latch_release/RESULT.md`](../experiments/iter15_latch_release/RESULT.md).
+
+18. **Iter 16 — softer than a stop: the pre-registered null publishes; the stop stands.**
+    Replacing the latched stop with the planner's own plan re-parameterized to a 2.0 m/s crawl
+    (speed fixed from committed impact evidence before the run) posts the campaign's highest
+    safe-progress (2.544; +0.096 over the released union, CI [+0.033, +0.167]) — and **fires the
+    pre-registered side falsifier**: side collisions 37% → 57% (bar 45%), benchmark score 3.09 →
+    2.64, with side-0108 collapsing 17% → 100% at 4–5 m/s impacts scoring zero. The mechanism:
+    the stop is a **position guarantee** — it halts the ego short of the crossing point; the
+    crawl delivers it there at contact time. With iteration 11 the result is two-sided: a swerve
+    is unsafe when the trigger is wrong, a crawl is unsafe when it is right; only the committed
+    stop is safe in both cases. [`../experiments/iter16_soft_stop/RESULT.md`](../experiments/iter16_soft_stop/RESULT.md).

@@ -1,0 +1,49 @@
+=== per-pair (score/coll%/ego m): OFF | union | released | crawl ===
+  stationary 0099   5.00/  0/ 21.1 | 5.00/  0/ 21.1 | 5.00/  0/ 21.1 | 5.00/  0/ 21.1
+  stationary 0101   3.07/ 50/ 50.1 | 5.00/  0/  7.2 | 5.00/  0/ 13.0 | 4.00/ 50/ 22.1
+  stationary 0103   5.00/  0/ 32.4 | 5.00/  0/ 32.3 | 5.00/  0/ 32.3 | 5.00/  0/ 32.3
+  stationary 0106   4.17/ 17/ 38.5 | 4.17/ 17/ 35.1 | 4.17/ 17/ 35.2 | 4.17/ 17/ 36.7
+  stationary 0108   2.69/ 50/ 42.6 | 4.23/ 17/  7.4 | 4.23/ 17/ 18.6 | 4.23/ 17/ 22.7
+  stationary 0278   3.34/ 33/ 40.5 | 4.17/ 17/ 39.2 | 4.17/ 17/ 39.7 | 4.17/ 17/ 42.3
+  stationary 0331   4.32/ 17/ 39.8 | 4.32/ 17/ 38.2 | 4.32/ 17/ 38.5 | 4.32/ 17/ 39.3
+  stationary 0783   2.50/ 50/ 47.5 | 3.33/ 33/ 46.8 | 3.33/ 33/ 46.9 | 2.50/ 50/ 46.9
+  stationary 0796   0.83/ 83/ 44.8 | 2.50/ 50/ 21.9 | 2.50/ 50/ 28.4 | 2.26/ 67/ 31.5
+  stationary 0966   4.23/ 17/ 40.9 | 4.23/ 17/ 40.9 | 4.23/ 17/ 40.9 | 4.23/ 17/ 40.9
+  frontal    0103   0.91/ 83/ 34.6 | 2.53/ 83/ 20.8 | 2.53/ 83/ 21.1 | 1.85/ 83/ 24.2
+  frontal    0106   1.67/ 67/ 33.2 | 1.84/ 67/ 27.7 | 1.84/ 67/ 28.0 | 1.69/ 67/ 29.1
+  frontal    0110   0.00/100/ 50.7 | 1.00/100/ 46.5 | 1.00/100/ 46.5 | 1.63/ 83/ 48.7
+  frontal    0346   3.13/ 50/ 17.8 | 2.28/100/  9.3 | 2.28/100/  9.3 | 2.17/ 83/ 13.1
+  frontal    0923   0.88/ 83/ 40.7 | 1.83/ 83/ 29.6 | 1.83/ 83/ 30.2 | 1.22/100/ 29.9
+  side       0103   0.64/100/ 19.9 | 5.00/  0/  7.1 | 5.00/  0/ 12.1 | 5.00/  0/ 19.7
+  side       0108   2.48/ 67/ 22.8 | 4.17/ 17/ 10.7 | 4.17/ 17/ 11.9 | 0.00/100/ 14.6
+  side       0110   0.00/100/ 28.2 | 0.83/ 83/ 26.4 | 0.83/ 83/ 27.4 | 0.83/ 83/ 28.6
+  side       0278   0.00/100/ 17.0 | 0.83/ 83/ 16.0 | 0.83/ 83/ 17.9 | 0.20/100/ 16.5
+  side       0921   5.00/  0/  7.5 | 5.00/  0/  6.0 | 5.00/  0/  6.0 | 5.00/  0/  7.5
+
+=== per-class pooled ===
+  stationary off 3.52/ 32%   union 4.19/ 17%   released 4.19/ 17%   crawl 3.99/ 25%
+  frontal    off 1.32/ 77%   union 1.90/ 87%   released 1.90/ 87%   crawl 1.71/ 83%
+  side       off 1.62/ 73%   union 3.17/ 37%   released 3.17/ 37%   crawl 2.21/ 57%
+
+=== pooled NCAP score and safe-progress ===
+  off       NCAP 2.15   safe-progress 2.372
+  union     NCAP 3.09   safe-progress 2.203
+  released  NCAP 3.09   safe-progress 2.448
+  crawl     NCAP 2.64   safe-progress 2.544
+
+crawl - off:
+  NCAP delta +0.484  CI [+0.258, +0.719]  excludes 0: True
+  safe-prog  +0.171  CI [-0.036, +0.359]  excludes 0: False
+
+crawl - union:
+  NCAP delta -0.450  CI [-0.528, -0.371]  excludes 0: True
+  safe-prog  +0.341  CI [+0.261, +0.421]  excludes 0: True
+
+crawl - released:
+  NCAP delta -0.450  CI [-0.525, -0.371]  excludes 0: True
+  safe-prog  +0.096  CI [+0.033, +0.167]  excludes 0: True
+
+=== falsifier checks (decision log) ===
+  episodes: 120  fired: 69  with >=1 release: 38
+  ended still latched (crawling): 34  total crawl frames: 411
+  episodes with >=2 release->re-latch cycles (oscillation): 0

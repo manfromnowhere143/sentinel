@@ -13,8 +13,10 @@ loop, by whether the car crashes *and whether it can still drive*.**
 > [+0.713, +1.155])** while keeping clean-scene behaviour identical to the unmonitored planner.
 > Stated with equal weight: on this repository's own deployment metric (safety × progress) the
 > benchmark-scope advantage over the unmonitored planner is **+0.08 with a CI that includes zero**
-> — a *cost-of-stopping* floor that iteration 16 (a calibrated crawl instead of a full stop,
-> pre-registered) attacks next. The statistics here earned their precision the hard way: an
+> — a *cost-of-stopping* floor that iteration 16 then measured directly: replacing the stop with
+> a calibrated 2 m/s crawl recovers progress but surrenders the stop's **position guarantee**
+> (side collisions 37% → 57%, past the pre-registered falsifier bar) — that null is published
+> and the stop stands. The statistics here earned their precision the hard way: an
 > independent verification pass ([`experiments/VERIFICATION.md`](experiments/VERIFICATION.md))
 > **withdrew** an earlier headline — the original pooling had counted NeuroNCAP's deterministic
 > per-index episodes as independent replications — and the claim was re-established on 20
@@ -166,6 +168,7 @@ unmonitored planner** (and a RiskMonitor-style baseline) with a bootstrap CI exc
 | 14 | **second frozen planner (VAD)** — union transfer + native-mode diversity, after four fork-level runtime fixes; n=20/scene | VAD-OFF 2.30 vs VAD+union **0.75** (safe-prog, CI [−2.06, −1.03]) | VAD-OFF fails **stationary 85%** / side 65% (inverted profile!); union: both → **0%** but ego 2.4–3.8 m | **transfer: safety yes, selectivity NO** · **H-VAD-2: 21% escapes < 30% bar** | the union protects exactly where VAD fails, but over-brakes everywhere — decision logs attribute it to the TTC term reading jittery geometric-NN IDs (VAD exposes no tracker): **selectivity is a property of tracking quality, not the rule alone**. Candidates: partial diversity under threat (0.6 m spread, 1-in-5 escapes) — a two-planner collapse spectrum; no re-ranker per the frozen rule. [`vad_generalization`](experiments/vad_generalization/RESULT.md) |
 | f14 | **the full 14-scene benchmark** — OFF vs union, all official scenes, 240 seed-paired episodes | OFF **2.15** (published: 1.84 — **first independent reproduction**) → union **3.09** | side 73→**37%** · stationary 32→**17%** · frontal 77→87% (mitigation) | **benchmark score +0.934, CI [+0.713, +1.155]** · safe-progress −0.17, CI includes 0 | split verdict, both halves first-class: decisive on the benchmark's metric (side survives its scene-luck falsifier on 3/4 unseen scenes; selectivity holds on clean scenes), and the deployment-metric win does **not** generalize (over-braking on unseen benign-progress scenes; frontal/0346 regression named). Open problem defined: brake-budget calibration. [`full14_benchmark`](experiments/full14_benchmark/RESULT.md) |
 | 15 | **threat-cleared latch release** — the stop releases after K=4 clear frames; one new mechanism, thresholds untouched | released **3.09** NCAP = union's · safe-prog 2.45 vs union 2.20 vs OFF 2.37 | safety cells **identical to the union** (44 releases, 0 reopened cases, oscillation 2/120) | **released − union +0.246, CI [+0.206, +0.293]** — strict improvement · vs OFF +0.08, CI includes 0 | **the new best configuration** (dominates the union: same benchmark score, significantly more driving). H15 partial: the deployment gap vs OFF narrows but stays open — a *cost-of-stopping* floor in fixed-horizon episodes, not a triggering flaw. Next mechanisms defined: smaller K under premature-release pressure, or a softer-than-stop intervention. [`iter15_latch_release`](experiments/iter15_latch_release/RESULT.md) |
+| 16 | **softer than a stop** — while latched, the planner's own plan re-parameterized to a 2.0 m/s crawl (speed fixed from committed impact evidence); K=4 release unchanged | crawl NCAP **2.64** vs released 3.09 · safe-prog **2.544** (the campaign's highest) | side 37→**57%** — past the pre-registered 45% falsifier bar (0108: 17→100%, impacts 4–5 m/s at zero score) · stationary at its 25% bar (0101 taps at 1.9–3.4 m/s) | crawl − released: NCAP **−0.450** CI [−0.525, −0.371] · safe-prog +0.096 CI [+0.033, +0.167] · vs OFF +0.171, CI includes 0 | **pre-registered null — the full stop stands.** The stop is a *position guarantee*, not just speed reduction: the crawl delivers the ego into the crossing point the stop halts short of. With iter 11 this is two-sided: a swerve is unsafe when the trigger is wrong; a crawl is unsafe when it is right; only the stop is safe in both. [`iter16_soft_stop`](experiments/iter16_soft_stop/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -239,7 +242,7 @@ selectivity/side-blindness trade of iterations 4–7, and the three refuted evas
 kept, with every number and link, in [`docs/CAMPAIGN.md`](docs/CAMPAIGN.md). The summary table
 above is the same history in one screen.
 
-**Net, stated plainly — fifteen iterations plus an independent verification pass.** The
+**Net, stated plainly — sixteen iterations plus an independent verification pass.** The
 **released union (iteration 15) is the best configuration** of the campaign: on the full official
 benchmark it lifts the reproduced baseline 2.15 → 3.09 (CI excludes zero), keeps clean scenes
 identical to the unmonitored planner, and strictly dominates the plain union (identical safety on
@@ -252,18 +255,22 @@ stop is the best frontal response, and **three separate evasion designs (iters 9
 tested and honestly refuted**, all worse than stopping, the last one dangerous on false alarms
 (re-confirmed at n=20: 25% clean-scene collisions vs OFF's 10%).
 
-**What's next.** Two pre-registered lines are live, and one successor mechanism is defined:
+**What's next.** One pre-registered line is live, and one successor mechanism is defined:
 
-- **Iteration 16 — softer than a stop (pre-registered, running).** Replace the latched full stop
-  with the planner's own plan re-parameterized to a 2.0 m/s crawl (speed fixed from committed
-  impact evidence; falsifiers frozen, including the crawl-into-crossing-actor null).
-  [`experiments/iter16_soft_stop/HYPOTHESIS.md`](experiments/iter16_soft_stop/HYPOTHESIS.md).
-- **The power run (pre-registered, queued).** OFF vs the best configuration at 20 runs per pair
-  on all 14 scenes — 800 episodes, tripling the power behind every benchmark CI, with the first-6
-  indices doubling as an exact apparatus check.
-  [`experiments/full14_power/HYPOTHESIS.md`](experiments/full14_power/HYPOTHESIS.md).
+- **The power run (pre-registered, launching).** OFF vs the best configuration — the released
+  union, per iteration 16's decision rule — at 20 runs per pair on all 14 scenes: 800 episodes,
+  tripling the power behind every benchmark CI, with the first-6 indices doubling as an exact
+  apparatus check. [`experiments/full14_power/HYPOTHESIS.md`](experiments/full14_power/HYPOTHESIS.md).
+- **Recovering progress without surrendering position** would need threat-class routing (stop
+  for crossings and in-path obstacles; softer only where geometry proves an overlap-free path) —
+  named by iteration 16's null as a possible successor, not built post-hoc.
 
 Completed lines, kept for the record:
+
+- **Iteration 16 — softer than a stop: pre-registered null.** The 2.0 m/s crawl recovers the
+  campaign's highest safe-progress but fires the side falsifier (37% → 57%): the crawl delivers
+  the ego into the crossing point the stop halts short of. The full stop stands.
+  [`experiments/iter16_soft_stop/RESULT.md`](experiments/iter16_soft_stop/RESULT.md).
 
 - **Introspective plan selection — closed for command-indexed candidates, on two planners.** The
   pre-registered checkpoints answered it: UniAD's command-conditioned plans collapse totally under
