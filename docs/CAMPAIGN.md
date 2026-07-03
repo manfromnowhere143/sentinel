@@ -79,3 +79,61 @@ over-claim.** That arc, in order:
     between braking and steering realizes less deceleration, and the dodge doesn't complete in time).
     [`../experiments/iter10_brakevade/RESULT.md`](../experiments/iter10_brakevade/RESULT.md).
 
+
+11. **Iter 11 — early collision-course detection + evasion: the third and decisive refutation.** A
+    4 s kinematic closest-approach detector (observed ego and agent velocities) with a time-gated
+    lane change neither prevents the head-on (evade 83% = stop 83%) nor stays safe when wrong: the
+    evasion **crashes the benign clean scene 50%** (it swerves into the parked car) and un-solves
+    the side case. The structural lesson the three nulls prove together: **a committed stop
+    degrades gracefully under false alarms; an invented swerve causes the crash it was meant to
+    avoid.** Frontal-prevention-by-maneuver is closed.
+    [`../experiments/iter11_early_evade/RESULT.md`](../experiments/iter11_early_evade/RESULT.md).
+
+12. **The independent verification pass — a headline withdrawn, then re-established.** Re-deriving
+    every claim from raw evidence established that NeuroNCAP episodes **replay deterministically
+    per run index**, which invalidated the pooled "n=20" validation (really 8 unique episodes;
+    honest CI [−0.27, +0.78] includes zero) — the net-positive headline was **withdrawn in
+    place**. A fresh 20-unique-episode measurement then re-established it: safe-progress **+0.398,
+    95% CI [+0.133, +0.665]**, side 100% → 30%, clean scene identical to OFF, with run indices
+    0–7 reproducing the iteration-8 data exactly (apparatus check). Corrections were applied
+    where documents disagreed with logs; all raw evidence committed.
+    [`../experiments/VERIFICATION.md`](../experiments/VERIFICATION.md).
+
+13. **Iter 12 — introspective plan selection: the planner has no plan B (pre-registered null).**
+    UniAD's three command-conditioned candidate plans diverge up to 14 m in benign frames but
+    **collapse to a 4 cm spread under threat** — 0 of 37 dangerous frames hold a viable escape
+    (bar: >30%). Introspection sees the danger; the planner holds no safer intention to defer to.
+    [`../experiments/iter12_plan_selection/RESULT.md`](../experiments/iter12_plan_selection/RESULT.md).
+
+14. **Iter 13 — the formal-envelope baseline: stopping power is free, selectivity is not.** An
+    RSS-style guaranteed-stopping envelope on identical inputs and actuator posts the campaign's
+    best raw safety (clean 0%, frontal 30%, side 0%) **by near-paralysis** (ego 3.6–8.2 m vs
+    21–32 m) and lands *below the unmonitored planner* on safe-progress (0.88 vs 1.83; union −
+    RSS = +1.345, CI [+0.944, +1.701]) — quantifying, apparently for the first time closed-loop,
+    the over-conservatism the literature only asserts.
+    [`../experiments/iter13_rss_baseline/RESULT.md`](../experiments/iter13_rss_baseline/RESULT.md).
+
+15. **Iter 14 — a second frozen planner (VAD): safety transfers, selectivity does not.** VAD's
+    failure profile is inverted (stationary 85%, side 65% collisions); the union prevents exactly
+    those failures (both → 0%) but over-brakes everywhere (safe-progress 2.30 → 0.75, CI
+    [−2.06, −1.03]) — decision logs attribute it to the TTC term reading jittery
+    nearest-neighbor IDs (VAD exposes no tracker). **Selectivity is a property of tracking
+    quality, not of the decision rule alone.** VAD's native modes also stay below the escape
+    viability bar (21% < 30%): candidate collapse is a two-planner spectrum.
+    [`../experiments/vad_generalization/RESULT.md`](../experiments/vad_generalization/RESULT.md).
+
+16. **The full 14-scene benchmark — the baseline reproduces; the win is decisive on the
+    benchmark's metric and honest on ours.** Unmonitored UniAD pools to **2.15 vs the published
+    1.84** (first independent reproduction); the union lifts it to **3.09 (+0.934, CI [+0.713,
+    +1.155])**, driven by side (73% → 37%) and stationary (32% → 17%) — while the mini-scene
+    deployment-metric win does **not** generalize (safe-progress −0.17, CI includes 0; the union
+    over-brakes unseen benign-progress scenes, and frontal/0346 is named as a real regression).
+    [`../experiments/full14_benchmark/RESULT.md`](../experiments/full14_benchmark/RESULT.md).
+
+17. **Iter 15 — threat-cleared latch release: the new best configuration.** Releasing the latch
+    after four consecutive verified-clear frames leaves every safety cell **identical to the
+    union** (44 releases, 0 reopened cases) and recovers **+0.246 safe-progress over it (CI
+    [+0.206, +0.293])** — strict domination. Against the unmonitored planner the deployment gap
+    narrows to +0.08 but keeps a CI that includes zero: a *cost-of-stopping* floor in
+    fixed-horizon episodes, which iteration 16 (a pre-registered softer-than-stop crawl) attacks.
+    [`../experiments/iter15_latch_release/RESULT.md`](../experiments/iter15_latch_release/RESULT.md).

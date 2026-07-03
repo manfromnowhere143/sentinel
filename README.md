@@ -4,21 +4,26 @@
 collision it is about to cause, and intervenes — measured where it actually matters: in closed
 loop, by whether the car crashes *and whether it can still drive*.**
 
-> **Honest status up front (11 iterations + an independent verification pass):** the introspective
-> signal predicts the planner's collisions (AUROC 0.83), and the best configuration — the **union**
-> (iter 8) — is **selective** (clean-scene behaviour identical to the unmonitored planner),
-> **removes most side-impacts** (100% → 30% at 20 unique episodes), **mitigates** the frontal
-> head-on, and is **net-positive on the deployment metric with a bootstrap CI that excludes zero**
-> (safe-progress +0.398, 95% CI [+0.133, +0.665], n=20 unique episodes/scene). That last sentence
-> earned its precision the hard way: an independent verification pass
-> ([`experiments/VERIFICATION.md`](experiments/VERIFICATION.md)) **withdrew** an earlier version of
-> it — the original pooling had counted NeuroNCAP's deterministic per-index episodes as independent
-> replications — and the claim was then **re-established on 20 genuinely-unique episodes**, with
-> run indices 0–7 doubling as an exact-reproduction check of the whole apparatus (they match to
-> the last digit). Three evasive designs to *prevent* the head-on were honestly **refuted** — the
-> last showing *why*: a swerve on a false alarm crashes, and the fresh n=20 re-check confirms it.
-> Over-claims here get caught by our own audits and corrected in place — that self-correction is
-> the point. Full arc in [Status](#status--where-it-really-stands-the-honest-current-truth).
+> **Honest status up front (15 iterations + an independent verification pass + the full official
+> benchmark):** the introspective signal predicts the planner's collisions (AUROC 0.83). On the
+> complete 14-scene NeuroNCAP set, the unmonitored UniAD baseline **independently reproduces**
+> (pooled 2.15 vs the published 1.84 — to the verified literature, a first), and the best
+> configuration — the **released union** (iteration 8's two-detector union + iteration 15's
+> threat-cleared latch release) — lifts the benchmark score to **3.09 (+0.934, 95% CI
+> [+0.713, +1.155])** while keeping clean-scene behaviour identical to the unmonitored planner.
+> Stated with equal weight: on this repository's own deployment metric (safety × progress) the
+> benchmark-scope advantage over the unmonitored planner is **+0.08 with a CI that includes zero**
+> — a *cost-of-stopping* floor that iteration 16 (a calibrated crawl instead of a full stop,
+> pre-registered) attacks next. The statistics here earned their precision the hard way: an
+> independent verification pass ([`experiments/VERIFICATION.md`](experiments/VERIFICATION.md))
+> **withdrew** an earlier headline — the original pooling had counted NeuroNCAP's deterministic
+> per-index episodes as independent replications — and the claim was re-established on 20
+> genuinely-unique episodes (+0.398, CI [+0.133, +0.665] at mini-scene scope), with run indices
+> 0–7 doubling as an exact-reproduction check of the whole apparatus. Three evasive designs to
+> *prevent* the head-on were honestly **refuted** — the last showing *why*: a swerve on a false
+> alarm crashes. Over-claims here get caught by our own audits and corrected in place — that
+> self-correction is the point. Full arc in
+> [Status](#status--where-it-really-stands-the-honest-current-truth).
 
 The field's open-loop driving metrics are saturated and gameable (an ego-state MLP "wins" nuScenes
 L2). The honest axis is **closed-loop safety**, and there the public state of the art is wide open:
@@ -36,27 +41,33 @@ GPUs.
 
 ## The result
 
-Eleven iterations under a frozen campaign pre-registration converge on one configuration — the
-**union** — that, on a frozen UniAD planner, is **selective, side-impact-reducing, and
-net-positive over the unmonitored planner** on a progress-aware deployment metric. The numbers
-below are the verification pass's definitive fresh measurement: **20 genuinely-unique episodes per
-scene per arm**, seed-paired, with run indices 0–7 doubling as an exact reproduction of the
-original iteration-8 data (they match to the last digit):
+Fifteen iterations under a frozen campaign pre-registration converge on one configuration — the
+**released union** (two label-free geometric detectors + a threat-cleared latch release) — and
+one benchmark-scale measurement. On the **complete official 14-scene NeuroNCAP set** (20
+scene-scenario pairs, seed-paired episodes, hypotheses frozen before the run):
 
-| metric (20 unique episodes/scene) | unmonitored planner | Sentinel (union) |
+| pooled, all 14 official scenes | unmonitored UniAD | Sentinel (released union) |
 |---|---:|---:|
-| clean-scene score / collision (selectivity) | 4.51 / 10% | **4.51 / 10%** (identical) |
-| side-impact collision rate | **100 %** | **30 %** |
-| frontal head-on score (0–5) | 0.84 | **2.36** (impact mitigated) |
-| **safe-progress** (safety × route progress) | 1.83 | **2.22** |
+| **NeuroNCAP score (0–5, the benchmark's metric)** | 2.15 *(published: 1.84 — reproduced)* | **3.09** |
+| side-impact collision rate | 73% | **37%** |
+| stationary collision rate | 32% | **17%** |
+| frontal head-on | 1.32 / 77% | 1.90 / 87% (impact mitigated, not prevented) |
+| safe-progress (safety × route progress) | 2.37 | 2.45 (+0.08, CI includes 0) |
 
-> **Net-positive, on statistics that survived an adversarial audit:** safe-progress advantage
-> **+0.398, 95 % CI [+0.133, +0.665]** — excludes zero at n=20 unique episodes. An earlier version
-> of this claim was **withdrawn** by the independent verification pass (it had pooled
-> deterministic episode replays as if independent — [`experiments/VERIFICATION.md`](experiments/VERIFICATION.md))
-> and re-established on fresh data. The other honest limit, named precisely: the frontal head-on
-> is *mitigated*, not *prevented*, and three evasive designs to prevent it were tested and refuted
-> (§Status) — the third refutation re-confirmed at n=20.
+> **Benchmark score +0.934, 95% CI [+0.713, +1.155] — excludes zero at full scale** — with
+> clean-scene behaviour identical to the unmonitored planner, and the release mechanism itself
+> strictly dominating the plain union (identical safety on every cell, safe-progress +0.246, CI
+> [+0.206, +0.293]). The honest limits, named precisely: the frontal head-on is *mitigated*, not
+> *prevented* (three evasive designs to prevent it were tested and refuted, §Status); and the
+> deployment-metric advantage over the unmonitored planner at benchmark scope is **not yet
+> earned** (+0.08, CI includes 0 — the measured cost of stopping inside fixed-horizon episodes).
+
+The verification pass's fresh mini-scene measurement stands as measured there: at **20
+genuinely-unique episodes per scene** the union is net-positive on safe-progress **+0.398, 95% CI
+[+0.133, +0.665]** — a claim that was first **withdrawn** by our own audit (the original pooling
+had counted deterministic episode replays as independent —
+[`experiments/VERIFICATION.md`](experiments/VERIFICATION.md)) and re-established on fresh data,
+with run indices 0–7 doubling as an exact reproduction of the original iteration-8 data.
 
 In the units an AV safety case is written in (derived from the committed per-frame decision logs
 and ground-truth timing — [`analyze_safety_case.py`](experiments/verification/analyze_safety_case.py)):
@@ -76,10 +87,12 @@ flowchart LR
   I67 --> U["iter 8 · THE UNION<br/><b>selective + side<br/>+ net-positive</b>"]
   U --> E9["iters 9-11<br/>three evasions<br/><b>all refuted</b>"]
   U --> V["verification pass<br/>claim withdrawn, re-measured:<br/><b>+0.398 [+0.133, +0.665]</b>"]
+  V --> F14["full 14-scene benchmark<br/>baseline reproduced<br/><b>2.15 to 3.09</b>"]
+  F14 --> R15["iter 15 · latch release<br/><b>best config</b>"]
   classDef win fill:#e2f3e5,stroke:#2e7d32,color:#13361b;
   classDef bad fill:#fdebec,stroke:#c62828,color:#3b1213;
   classDef audit fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
-  class G1,I2,U win;
+  class G1,I2,U,F14,R15 win;
   class I3,I45,I67,E9 bad;
   class V audit;
 ```
@@ -91,15 +104,16 @@ hidden by the planner's own optimism:
 The planner's own `/infer` outputs — plan, detected objects, scores, persistent track IDs,
 forecasts, ego pose — are the monitor's only inputs; nothing privileged. Object velocity is
 *observed* (ego-motion-compensated tracking by ID across frames), not the planner's optimistic
-forecast. The stop is latched, so it is safe even when the trigger is wrong. Every frame's decision
-is written to a committed receipt log.
+forecast. The stop is latched — safe even when the trigger is wrong — and, since iteration 15,
+releases after four consecutive verified-clear frames, returning control to the planner. Every
+frame's decision is written to a committed receipt log.
 
 ```mermaid
 flowchart LR
   P["frozen planner<br/>UniAD, weights locked"] -- "plan + objects +<br/>forecasts + track IDs" --> A
   A["world-frame tracks by ID<br/>= observed velocity"] --> C{"plan vs tracked path<br/>closest approach under 1.5 m?<br/><i>the side T-bone</i>"}
   A --> T{"observed closing TTC<br/>under 2.5 s?<br/><i>the hidden head-on</i>"}
-  C -- fires --> B["committed stop<br/>latched"]
+  C -- fires --> B["latched stop<br/>releases when clear"]
   T -- fires --> B
   C -- neither --> E["planner's plan<br/>unchanged"]
   B --> S["NeuroNCAP closed loop"]
@@ -147,11 +161,11 @@ unmonitored planner** (and a RiskMonitor-style baseline) with a bootstrap CI exc
 | ✓ | **statistical validation** — pool the union & OFF arms across iters 8/9/10, bootstrap the safe-progress delta | union 2.60 vs OFF 2.14 (pooled) | side "5%" (pooled) | *claimed* net-positive | **WITHDRAWN by the verification pass**: the three "replications" are deterministic replays of the same episodes (n=20 was really n=8 unique); honest CI [−0.27, +0.78] does not exclude 0. [`union_validation`](experiments/union_validation/RESULT.md) |
 | 11 | **early collision-course detection + evasion** — 4 s kinematic closest-approach, then time-gated lane change | — | frontal evade **83%** (= stop 83%); clean **50% crash**; side evade 83% | **refuted (null)** | third evasion refuted, and complete-data audit made it stronger: early detection neither prevents the head-on nor stays selective; evasion on a false alarm *crashes the clean scene 50%* and un-solves the side case (83%). A stop is safe when wrong, a swerve is not. Frontal-prevention line closed. [`iter11_early_evade`](experiments/iter11_early_evade/RESULT.md) |
 | ✚ | **independent verification pass** — re-derive every claim from raw evidence; attack the statistics; re-run fresh at 20 unique episodes | union **2.22** vs OFF 1.83 (n=20 unique) | side 100→**30%** · clean identical to OFF | **net-positive RE-ESTABLISHED**: delta **+0.398, 95% CI [+0.133, +0.665]** | determinism found (episodes replay per run index) → pooled claim withdrawn, then re-measured on 20 genuinely-unique episodes: CI excludes zero; runs 0-7 reproduce iteration 8 exactly (apparatus check); iter11 evasion null re-confirms (worse than stop, degrades the clean scene). Raw evidence committed. [`VERIFICATION.md`](experiments/VERIFICATION.md) |
-| 15 | **the full 14-scene benchmark** — OFF vs union, all official scenes, 240 seed-paired episodes | OFF **2.15** (published: 1.84 — **first independent reproduction**) → union **3.09** | side 73→**37%** · stationary 32→**17%** · frontal 77→87% (mitigation) | **benchmark score +0.934, CI [+0.713, +1.155]** · safe-progress −0.17, CI includes 0 | split verdict, both halves first-class: decisive on the benchmark's metric (side survives its scene-luck falsifier on 3/4 unseen scenes; selectivity holds on clean scenes), and the deployment-metric win does **not** generalize (over-braking on unseen benign-progress scenes; frontal/0346 regression named). Open problem defined: brake-budget calibration. [`full14_benchmark`](experiments/full14_benchmark/RESULT.md) |
-| 16 | **threat-cleared latch release** — the stop releases after K=4 clear frames; one new mechanism, thresholds untouched | released **3.09** NCAP = union's · safe-prog 2.45 vs union 2.20 vs OFF 2.37 | safety cells **identical to the union** (44 releases, 0 reopened cases, oscillation 2/120) | **released − union +0.246, CI [+0.206, +0.293]** — strict improvement · vs OFF +0.08, CI includes 0 | **the new best configuration** (dominates the union: same benchmark score, significantly more driving). H15 partial: the deployment gap vs OFF narrows but stays open — a *cost-of-stopping* floor in fixed-horizon episodes, not a triggering flaw. Next mechanisms defined: smaller K under premature-release pressure, or a softer-than-stop intervention. [`iter15_latch_release`](experiments/iter15_latch_release/RESULT.md) |
 | 12 | **introspective plan selection, checkpoint** — log UniAD's 3 command-conditioned candidate plans per frame; does a safe alternative exist when the executed plan is dangerous? | — | escape candidates **0/37 dangerous frames** (bar: >30%) | **null — pre-condition fails** | the mechanism works (candidates diverge up to 14 m in benign frames) but **collapse under threat** (mean gaps 2.85/2.88/2.84 m): the command is routing, not hazard response. Introspection sees the danger; UniAD holds no safer intention to defer to. Pivot (pre-registered): VAD's native `ego_fut_mode=3`. [`iter12_plan_selection`](experiments/iter12_plan_selection/RESULT.md) |
 | 13 | **formal-envelope baseline (RSS-style)** — same tracking, same actuator, physics rule instead of introspection; n=20 unique episodes | RSS **0.88** vs union **2.22** vs OFF 1.83 (safe-prog) | RSS: clean 0% · frontal 30% · side 0% — but ego 3.6–8.2 m (near-freeze) | **H13 confirmed**: union − RSS **+1.345, CI [+0.944, +1.701]** | the envelope posts the campaign's best raw safety *by not driving* — worse than no monitor on the deployment metric. Stopping power is free; **selectivity is what introspection buys** (the plan-aware terms know when the plan clears). [`iter13_rss_baseline`](experiments/iter13_rss_baseline/RESULT.md) |
 | 14 | **second frozen planner (VAD)** — union transfer + native-mode diversity, after four fork-level runtime fixes; n=20/scene | VAD-OFF 2.30 vs VAD+union **0.75** (safe-prog, CI [−2.06, −1.03]) | VAD-OFF fails **stationary 85%** / side 65% (inverted profile!); union: both → **0%** but ego 2.4–3.8 m | **transfer: safety yes, selectivity NO** · **H-VAD-2: 21% escapes < 30% bar** | the union protects exactly where VAD fails, but over-brakes everywhere — decision logs attribute it to the TTC term reading jittery geometric-NN IDs (VAD exposes no tracker): **selectivity is a property of tracking quality, not the rule alone**. Candidates: partial diversity under threat (0.6 m spread, 1-in-5 escapes) — a two-planner collapse spectrum; no re-ranker per the frozen rule. [`vad_generalization`](experiments/vad_generalization/RESULT.md) |
+| f14 | **the full 14-scene benchmark** — OFF vs union, all official scenes, 240 seed-paired episodes | OFF **2.15** (published: 1.84 — **first independent reproduction**) → union **3.09** | side 73→**37%** · stationary 32→**17%** · frontal 77→87% (mitigation) | **benchmark score +0.934, CI [+0.713, +1.155]** · safe-progress −0.17, CI includes 0 | split verdict, both halves first-class: decisive on the benchmark's metric (side survives its scene-luck falsifier on 3/4 unseen scenes; selectivity holds on clean scenes), and the deployment-metric win does **not** generalize (over-braking on unseen benign-progress scenes; frontal/0346 regression named). Open problem defined: brake-budget calibration. [`full14_benchmark`](experiments/full14_benchmark/RESULT.md) |
+| 15 | **threat-cleared latch release** — the stop releases after K=4 clear frames; one new mechanism, thresholds untouched | released **3.09** NCAP = union's · safe-prog 2.45 vs union 2.20 vs OFF 2.37 | safety cells **identical to the union** (44 releases, 0 reopened cases, oscillation 2/120) | **released − union +0.246, CI [+0.206, +0.293]** — strict improvement · vs OFF +0.08, CI includes 0 | **the new best configuration** (dominates the union: same benchmark score, significantly more driving). H15 partial: the deployment gap vs OFF narrows but stays open — a *cost-of-stopping* floor in fixed-horizon episodes, not a triggering flaw. Next mechanisms defined: smaller K under premature-release pressure, or a softer-than-stop intervention. [`iter15_latch_release`](experiments/iter15_latch_release/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -225,20 +239,31 @@ selectivity/side-blindness trade of iterations 4–7, and the three refuted evas
 kept, with every number and link, in [`docs/CAMPAIGN.md`](docs/CAMPAIGN.md). The summary table
 above is the same history in one screen.
 
-**Net, stated plainly — eleven iterations plus an independent verification pass.** The **union
-(iter 8) is the best monitor** of the campaign: selective (clean-scene behaviour identical to the
-unmonitored planner at n=20), side-impact 100% → 30%, frontal *mitigated* (score 0.84 → 2.36), and
-**net-positive on safe-progress with a CI that excludes zero** (+0.398, [+0.133, +0.665], 20
-unique episodes/scene — re-established after the original pooled version was withdrawn by audit).
-The frontal head-on *ceiling* is firmly established — a committed stop is the best frontal
-response, and **three separate evasion designs (iters 9, 10, 11) were tested and honestly
-refuted**, all worse than stopping, the last one dangerous on false alarms (re-confirmed at n=20:
-25% clean-scene collisions vs OFF's 10%). Frontal head-on *prevention* is a genuinely hard open
-problem, not a maneuver away — which is exactly what the introspective plan-selection line attacks
-next.
+**Net, stated plainly — fifteen iterations plus an independent verification pass.** The
+**released union (iteration 15) is the best configuration** of the campaign: on the full official
+benchmark it lifts the reproduced baseline 2.15 → 3.09 (CI excludes zero), keeps clean scenes
+identical to the unmonitored planner, and strictly dominates the plain union (identical safety on
+every cell, safe-progress +0.246, CI [+0.206, +0.293]). The mini-scene deployment win stands as
+measured there (+0.398, [+0.133, +0.665], 20 unique episodes/scene — re-established after the
+original pooled version was withdrawn by audit); at benchmark scope the deployment advantage over
+the unmonitored planner is +0.08 with a CI that includes zero — a measured *cost-of-stopping*
+floor, not a triggering flaw. The frontal head-on *ceiling* is firmly established — a committed
+stop is the best frontal response, and **three separate evasion designs (iters 9, 10, 11) were
+tested and honestly refuted**, all worse than stopping, the last one dangerous on false alarms
+(re-confirmed at n=20: 25% clean-scene collisions vs OFF's 10%).
 
-**What's next.** With invented maneuvers exhausted for the frontal edge case, three lines remain —
-one new mechanism and two scaling milestones:
+**What's next.** Two pre-registered lines are live, and one successor mechanism is defined:
+
+- **Iteration 16 — softer than a stop (pre-registered, running).** Replace the latched full stop
+  with the planner's own plan re-parameterized to a 2.0 m/s crawl (speed fixed from committed
+  impact evidence; falsifiers frozen, including the crawl-into-crossing-actor null).
+  [`experiments/iter16_soft_stop/HYPOTHESIS.md`](experiments/iter16_soft_stop/HYPOTHESIS.md).
+- **The power run (pre-registered, queued).** OFF vs the best configuration at 20 runs per pair
+  on all 14 scenes — 800 episodes, tripling the power behind every benchmark CI, with the first-6
+  indices doubling as an exact apparatus check.
+  [`experiments/full14_power/HYPOTHESIS.md`](experiments/full14_power/HYPOTHESIS.md).
+
+Completed lines, kept for the record:
 
 - **Introspective plan selection — closed for command-indexed candidates, on two planners.** The
   pre-registered checkpoints answered it: UniAD's command-conditioned plans collapse totally under
@@ -265,8 +290,10 @@ one new mechanism and two scaling milestones:
   defines: per-scene brake-budget calibration.
   [`experiments/full14_benchmark/RESULT.md`](experiments/full14_benchmark/RESULT.md).
 
-Scope throughout, stated plainly: 2 public-mini scenes, single-digit-to-20 runs, one L4 — a
-method-development loop on public data, **not** a claim against the full 14-scene published benchmark.
+Scope throughout, stated plainly: the method was developed on 2 public-mini scenes at
+single-digit-to-20 runs and then measured on the complete official 14-scene set at 6 seed-paired
+runs per pair (the published protocol uses 100 — the pre-registered power run extends toward it);
+one simulator, one L4, public data only.
 
 ## Reproduce & repository map
 
@@ -304,13 +331,17 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter2_monitor/`](experiments/iter2_monitor) | the signal (G1, AUROC 0.83), the first A/B, the ablation, and the corrected over-claim |
 | [`experiments/iter3_progress/`](experiments/iter3_progress) | the deployment metric (safe-progress) — the honest setback |
 | [`experiments/iter4_gated/`](experiments/iter4_gated) … [`iter7_margin/`](experiments/iter7_margin) | selectivity → observed velocity → CPA → margin sweep |
-| [`experiments/iter8_union/`](experiments/iter8_union) | **the definitive monitor** (union of two detectors) |
+| [`experiments/iter8_union/`](experiments/iter8_union) | **the union of two detectors** — the campaign's core monitor |
 | [`experiments/iter9_evade/`](experiments/iter9_evade) · [`iter10_brakevade/`](experiments/iter10_brakevade) · [`iter11_early_evade/`](experiments/iter11_early_evade) | three refuted evasion designs for frontal prevention (reported nulls) |
 | [`experiments/union_validation/`](experiments/union_validation) | pooled bootstrap CI — **withdrawn** (invalid pooling); corrected in place |
 | [`experiments/VERIFICATION.md`](experiments/VERIFICATION.md) · [`verification/`](experiments/verification) | **independent verification pass**: audit, corrections, committed raw evidence, fresh n=20 re-measurement, safety-case analysis |
-| [`experiments/iter12_plan_selection/`](experiments/iter12_plan_selection) | **introspective plan selection** (active): pre-registered checkpoint + candidate logging |
-| [`experiments/iter13_rss_baseline/`](experiments/iter13_rss_baseline) | **RSS-style formal-envelope baseline** (pre-registered, queued) |
-| [`experiments/vad_generalization/`](experiments/vad_generalization) | second-planner generalization, staged |
+| [`experiments/iter12_plan_selection/`](experiments/iter12_plan_selection) | introspective plan selection — candidates collapse under threat (reported null) |
+| [`experiments/iter13_rss_baseline/`](experiments/iter13_rss_baseline) | RSS-style formal-envelope baseline — best raw safety by near-paralysis (H13 confirmed) |
+| [`experiments/vad_generalization/`](experiments/vad_generalization) | second frozen planner (VAD) — safety transfers, selectivity does not |
+| [`experiments/full14_benchmark/`](experiments/full14_benchmark) | **the full official 14-scene benchmark** — baseline reproduced; 2.15 → 3.09 |
+| [`experiments/iter15_latch_release/`](experiments/iter15_latch_release) | **threat-cleared latch release — the best configuration** |
+| [`experiments/iter16_soft_stop/`](experiments/iter16_soft_stop) | softer-than-stop crawl (pre-registered, running) |
+| [`experiments/full14_power/`](experiments/full14_power) | the 20-run power measurement (pre-registered, queued) |
 
 Every result folder carries a `RESULT.md` with the real per-run numbers, the exact server patch, and the
 run script. `sentinel/monitor.py` is the pure-geometry monitor with unit tests (`tests/`); CI runs ruff +
