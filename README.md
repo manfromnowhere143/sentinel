@@ -257,7 +257,7 @@ tested and honestly refuted**, all worse than stopping, the last one dangerous o
 
 **What's next.** One pre-registered line is live, and one successor mechanism is defined:
 
-- **The power run (pre-registered, launching).** OFF vs the best configuration — the released
+- **The power run (pre-registered, in progress).** OFF vs the best configuration — the released
   union, per iteration 16's decision rule — at 20 runs per pair on all 14 scenes: 800 episodes,
   tripling the power behind every benchmark CI, with the first-6 indices doubling as an exact
   apparatus check. [`experiments/full14_power/HYPOTHESIS.md`](experiments/full14_power/HYPOTHESIS.md).
@@ -347,8 +347,8 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/vad_generalization/`](experiments/vad_generalization) | second frozen planner (VAD) — safety transfers, selectivity does not |
 | [`experiments/full14_benchmark/`](experiments/full14_benchmark) | **the full official 14-scene benchmark** — baseline reproduced; 2.15 → 3.09 |
 | [`experiments/iter15_latch_release/`](experiments/iter15_latch_release) | **threat-cleared latch release — the best configuration** |
-| [`experiments/iter16_soft_stop/`](experiments/iter16_soft_stop) | softer-than-stop crawl (pre-registered, running) |
-| [`experiments/full14_power/`](experiments/full14_power) | the 20-run power measurement (pre-registered, queued) |
+| [`experiments/iter16_soft_stop/`](experiments/iter16_soft_stop) | softer than a stop — the crawl null; the stop is a position guarantee |
+| [`experiments/full14_power/`](experiments/full14_power) | the 20-run power measurement (pre-registered, in progress) |
 
 Every result folder carries a `RESULT.md` with the real per-run numbers, the exact server patch, and the
 run script. `sentinel/monitor.py` is the pure-geometry monitor with unit tests (`tests/`); CI runs ruff +
