@@ -43,10 +43,13 @@ STATIONARY="0099 0101 0103 0106 0108 0278 0331 0783 0796 0966"
 FRONTAL="0103 0106 0110 0346 0923"
 SIDE="0103 0108 0110 0278 0921"
 
-pair_done() { # tag scen seq -> 0 if 20 complete metrics
-  local n
+pair_done() { # tag scen seq -> 0 if the pair's required episode count is complete on disk
+  local n need=20
+  # off/side-0921: run_19 reproducibly hard-freezes the host (3/3 attempts, 2 different
+  # physical hosts) — accepted at n=19, documented in RESULT.md. No further attempts.
+  [ "$1-$2-$3" = "p14-off-side-0921" ] && need=19
   n=$(find "/opt/sentinel-stack/neuro-ncap/outoutput/$1/$2-$3" -name metrics.json 2>/dev/null | wc -l)
-  [ "$n" -ge 20 ]
+  [ "$n" -ge "$need" ]
 }
 
 run_arm() { # armname enabled tag
