@@ -6,17 +6,18 @@ loop, by whether the car crashes *and whether it can still drive*.**
 
 > **Honest status up front (15 iterations + an independent verification pass + the full official
 > benchmark):** the introspective signal predicts the planner's collisions (AUROC 0.83). On the
-> complete 14-scene NeuroNCAP set, the unmonitored UniAD baseline **independently reproduces**
-> (pooled 2.15 vs the published 1.84 — to the verified literature, a first), and the best
-> configuration — the **released union** (iteration 8's two-detector union + iteration 15's
-> threat-cleared latch release) — lifts the benchmark score to **3.09 (+0.934, 95% CI
-> [+0.713, +1.155])** while keeping clean-scene behaviour identical to the unmonitored planner.
-> Stated with equal weight: on this repository's own deployment metric (safety × progress) the
-> benchmark-scope advantage over the unmonitored planner is **+0.08 with a CI that includes zero**
-> — a *cost-of-stopping* floor that iteration 16 then measured directly: replacing the stop with
-> a calibrated 2 m/s crawl recovers progress but surrenders the stop's **position guarantee**
-> (side collisions 37% → 57%, past the pre-registered falsifier bar) — that null is published
-> and the stop stands. The statistics here earned their precision the hard way: an
+> complete 14-scene NeuroNCAP set at **20 seed-paired runs per pair** (799 episodes, the power
+> measurement), the unmonitored UniAD baseline **independently reproduces** (pooled 2.12 vs the
+> published 1.84 — to the verified literature, a first), and the best configuration — the
+> **released union** (iteration 8's two-detector union + iteration 15's threat-cleared latch
+> release) — lifts the benchmark score to **2.91 (+0.783, 95% CI [+0.605, +0.928])**, with run
+> indices 0–5 of every pair reproducing the earlier 6-run measurement exactly. Stated with equal
+> weight: on this repository's own deployment metric (safety × progress) the effect vs the
+> unmonitored planner is a **tight null (−0.03, 95% CI [−0.13, +0.07])** — the benchmark safety
+> gain costs approximately nothing in deployment terms, and iteration 16 showed the residual
+> cannot be bought back by softening the stop: a calibrated 2 m/s crawl recovers progress but
+> surrenders the stop's **position guarantee** (side collisions past the pre-registered
+> falsifier bar) — that null is published and the stop stands. The statistics here earned their precision the hard way: an
 > independent verification pass ([`experiments/VERIFICATION.md`](experiments/VERIFICATION.md))
 > **withdrew** an earlier headline — the original pooling had counted NeuroNCAP's deterministic
 > per-index episodes as independent replications — and the claim was re-established on 20
@@ -43,26 +44,28 @@ GPUs.
 
 ## The result
 
-Fifteen iterations under a frozen campaign pre-registration converge on one configuration — the
-**released union** (two label-free geometric detectors + a threat-cleared latch release) — and
-one benchmark-scale measurement. On the **complete official 14-scene NeuroNCAP set** (20
-scene-scenario pairs, seed-paired episodes, hypotheses frozen before the run):
+Sixteen iterations under a frozen campaign pre-registration converge on one configuration — the
+**released union** (two label-free geometric detectors + a threat-cleared latch release) —
+measured on the **complete official 14-scene NeuroNCAP set at 20 seed-paired runs per pair**
+(799 episodes; hypotheses frozen before the run; the first 6 indices of every pair reproduce the
+earlier 6-run measurement exactly):
 
-| pooled, all 14 official scenes | unmonitored UniAD | Sentinel (released union) |
+| pooled, all 14 official scenes (n=20/pair) | unmonitored UniAD | Sentinel (released union) |
 |---|---:|---:|
-| **NeuroNCAP score (0–5, the benchmark's metric)** | 2.15 *(published: 1.84 — reproduced)* | **3.09** |
-| side-impact collision rate | 73% | **37%** |
-| stationary collision rate | 32% | **17%** |
-| frontal head-on | 1.32 / 77% | 1.90 / 87% (impact mitigated, not prevented) |
-| safe-progress (safety × route progress) | 2.37 | 2.45 (+0.08, CI includes 0) |
+| **NeuroNCAP score (0–5, the benchmark's metric)** | 2.12 *(published: 1.84 — reproduced)* | **2.91** |
+| side-impact collision rate | 74% | **44%** |
+| stationary collision rate | 29% | **18%** |
+| frontal head-on | 1.24 / 78% | 1.78 / 90% (impact mitigated, not prevented) |
+| safe-progress (safety × route progress) | 2.40 | 2.36 (−0.03, CI [−0.13, +0.07]) |
 
-> **Benchmark score +0.934, 95% CI [+0.713, +1.155] — excludes zero at full scale** — with
-> clean-scene behaviour identical to the unmonitored planner, and the release mechanism itself
-> strictly dominating the plain union (identical safety on every cell, safe-progress +0.246, CI
-> [+0.206, +0.293]). The honest limits, named precisely: the frontal head-on is *mitigated*, not
-> *prevented* (three evasive designs to prevent it were tested and refuted, §Status); and the
-> deployment-metric advantage over the unmonitored planner at benchmark scope is **not yet
-> earned** (+0.08, CI includes 0 — the measured cost of stopping inside fixed-horizon episodes).
+> **Benchmark score +0.783, 95% CI [+0.605, +0.928] — excludes zero at 3.3× the original
+> power** — with the release mechanism strictly dominating the plain union (identical safety on
+> every cell, safe-progress +0.246, CI [+0.206, +0.293] at n=6). The honest limits, named
+> precisely: the frontal head-on is *mitigated*, not *prevented* (three evasive designs to
+> prevent it were tested and refuted, §Status; the frontal/0346 regression is confirmed real at
+> n=20); and the deployment-metric effect vs the unmonitored planner is a **tight null**
+> (−0.03, CI [−0.13, +0.07]) — the safety gain costs approximately nothing on the deployment
+> metric, and iteration 16 established the residual is not recoverable by softening the stop.
 
 The verification pass's fresh mini-scene measurement stands as measured there: at **20
 genuinely-unique episodes per scene** the union is net-positive on safe-progress **+0.398, 95% CI
@@ -91,10 +94,11 @@ flowchart LR
   U --> V["verification pass<br/>claim withdrawn, re-measured:<br/><b>+0.398 [+0.133, +0.665]</b>"]
   V --> F14["full 14-scene benchmark<br/>baseline reproduced<br/><b>2.15 to 3.09</b>"]
   F14 --> R15["iter 15 · latch release<br/><b>best config</b>"]
+  R15 --> P20["power run · n=20/pair<br/><b>2.12 to 2.91, CI excl. 0</b>"]
   classDef win fill:#e2f3e5,stroke:#2e7d32,color:#13361b;
   classDef bad fill:#fdebec,stroke:#c62828,color:#3b1213;
   classDef audit fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
-  class G1,I2,U,F14,R15 win;
+  class G1,I2,U,F14,R15,P20 win;
   class I3,I45,I67,E9 bad;
   class V audit;
 ```
@@ -169,6 +173,7 @@ unmonitored planner** (and a RiskMonitor-style baseline) with a bootstrap CI exc
 | f14 | **the full 14-scene benchmark** — OFF vs union, all official scenes, 240 seed-paired episodes | OFF **2.15** (published: 1.84 — **first independent reproduction**) → union **3.09** | side 73→**37%** · stationary 32→**17%** · frontal 77→87% (mitigation) | **benchmark score +0.934, CI [+0.713, +1.155]** · safe-progress −0.17, CI includes 0 | split verdict, both halves first-class: decisive on the benchmark's metric (side survives its scene-luck falsifier on 3/4 unseen scenes; selectivity holds on clean scenes), and the deployment-metric win does **not** generalize (over-braking on unseen benign-progress scenes; frontal/0346 regression named). Open problem defined: brake-budget calibration. [`full14_benchmark`](experiments/full14_benchmark/RESULT.md) |
 | 15 | **threat-cleared latch release** — the stop releases after K=4 clear frames; one new mechanism, thresholds untouched | released **3.09** NCAP = union's · safe-prog 2.45 vs union 2.20 vs OFF 2.37 | safety cells **identical to the union** (44 releases, 0 reopened cases, oscillation 2/120) | **released − union +0.246, CI [+0.206, +0.293]** — strict improvement · vs OFF +0.08, CI includes 0 | **the new best configuration** (dominates the union: same benchmark score, significantly more driving). H15 partial: the deployment gap vs OFF narrows but stays open — a *cost-of-stopping* floor in fixed-horizon episodes, not a triggering flaw. Next mechanisms defined: smaller K under premature-release pressure, or a softer-than-stop intervention. [`iter15_latch_release`](experiments/iter15_latch_release/RESULT.md) |
 | 16 | **softer than a stop** — while latched, the planner's own plan re-parameterized to a 2.0 m/s crawl (speed fixed from committed impact evidence); K=4 release unchanged | crawl NCAP **2.64** vs released 3.09 · safe-prog **2.544** (the campaign's highest) | side 37→**57%** — past the pre-registered 45% falsifier bar (0108: 17→100%, impacts 4–5 m/s at zero score) · stationary at its 25% bar (0101 taps at 1.9–3.4 m/s) | crawl − released: NCAP **−0.450** CI [−0.525, −0.371] · safe-prog +0.096 CI [+0.033, +0.167] · vs OFF +0.171, CI includes 0 | **pre-registered null — the full stop stands.** The stop is a *position guarantee*, not just speed reduction: the crawl delivers the ego into the crossing point the stop halts short of. With iter 11 this is two-sided: a swerve is unsafe when the trigger is wrong; a crawl is unsafe when it is right; only the stop is safe in both. [`iter16_soft_stop`](experiments/iter16_soft_stop/RESULT.md) |
+| p20 | **the power run** — OFF vs released union at 20 runs/pair, all 14 scenes (799 episodes); H-P0 gate: first-6 of every pair must reproduce the committed 6-run evidence | OFF **2.12** (published 1.84 — reproduction holds) → released **2.91** | side 74→**44%** · stationary 29→**18%** · frontal 1.24→1.78 (78→90%, mitigation) · frontal/0346 regression **confirmed real** | **benchmark +0.783, CI [+0.605, +0.928]** at 3.3× power · safe-progress **−0.03, CI [−0.13, +0.07]** — tight null | **H-P0 PASS (first-6 exact, all pairs, both arms — through 5 machine freezes, 2 hosts, 4 relaunches**; root cause memory exhaustion, found by an on-box vitals watchdog, fixed with swap; off/side-0921 at n=19, its run_19 reproducibly froze the pre-swap host). The n=6 estimate (+0.934) was modestly optimistic; this replaces it as the headline. [`full14_power`](experiments/full14_power/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -255,17 +260,25 @@ stop is the best frontal response, and **three separate evasion designs (iters 9
 tested and honestly refuted**, all worse than stopping, the last one dangerous on false alarms
 (re-confirmed at n=20: 25% clean-scene collisions vs OFF's 10%).
 
-**What's next.** One pre-registered line is live, and one successor mechanism is defined:
+**What's next.** The measurement campaign is complete; the successor lines are defined with
+frozen decision rules in [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md):
 
-- **The power run (pre-registered, in progress).** OFF vs the best configuration — the released
-  union, per iteration 16's decision rule — at 20 runs per pair on all 14 scenes: 800 episodes,
-  tripling the power behind every benchmark CI, with the first-6 indices doubling as an exact
-  apparatus check. [`experiments/full14_power/HYPOTHESIS.md`](experiments/full14_power/HYPOTHESIS.md).
-- **Recovering progress without surrendering position** would need threat-class routing (stop
-  for crossings and in-path obstacles; softer only where geometry proves an overlap-free path) —
-  named by iteration 16's null as a possible successor, not built post-hoc.
+- **The manuscript** — every number final and evidence-wired; a writing task now.
+- **Threat-class routing** (named by iteration 16's null): stop for crossings and in-path
+  obstacles, softer only where geometry proves an overlap-free path — the cheapest credible
+  attack on the deployment null.
+- **A diversity-trained candidate head under the runtime selector** — the successor mechanism
+  motivated by the two-planner candidate-collapse findings; offline bar (escape rate > 30%)
+  before any closed-loop GPU time.
+- **Tracker-quality repair for VAD** — turning the failed selectivity transfer into a
+  quantified portability threshold.
 
 Completed lines, kept for the record:
+
+- **The power run — done.** The benchmark result confirmed at 20 runs/pair (2.12 → 2.91, CI
+  [+0.605, +0.928]); the deployment question resolved into a tight null (−0.03, CI [−0.13,
+  +0.07]); the apparatus reproduced the 6-run evidence exactly on every pair.
+  [`experiments/full14_power/RESULT.md`](experiments/full14_power/RESULT.md).
 
 - **Iteration 16 — softer than a stop: pre-registered null.** The 2.0 m/s crawl recovers the
   campaign's highest safe-progress but fires the side falsifier (37% → 57%): the crawl delivers
@@ -298,9 +311,10 @@ Completed lines, kept for the record:
   [`experiments/full14_benchmark/RESULT.md`](experiments/full14_benchmark/RESULT.md).
 
 Scope throughout, stated plainly: the method was developed on 2 public-mini scenes at
-single-digit-to-20 runs and then measured on the complete official 14-scene set at 6 seed-paired
-runs per pair (the published protocol uses 100 — the pre-registered power run extends toward it);
-one simulator, one L4, public data only.
+single-digit-to-20 runs and then measured on the complete official 14-scene set — first at 6
+seed-paired runs per pair, then at 20 (the published protocol uses 100; the first-6 indices of
+the 20-run measurement reproduce the 6-run measurement exactly); one simulator, one L4, public
+data only.
 
 ## Reproduce & repository map
 
@@ -348,7 +362,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/full14_benchmark/`](experiments/full14_benchmark) | **the full official 14-scene benchmark** — baseline reproduced; 2.15 → 3.09 |
 | [`experiments/iter15_latch_release/`](experiments/iter15_latch_release) | **threat-cleared latch release — the best configuration** |
 | [`experiments/iter16_soft_stop/`](experiments/iter16_soft_stop) | softer than a stop — the crawl null; the stop is a position guarantee |
-| [`experiments/full14_power/`](experiments/full14_power) | the 20-run power measurement (pre-registered, in progress) |
+| [`experiments/full14_power/`](experiments/full14_power) | **the power measurement** — the benchmark result at n=20/pair; deployment resolved to a tight null |
 
 Every result folder carries a `RESULT.md` with the real per-run numbers, the exact server patch, and the
 run script. `sentinel/monitor.py` is the pure-geometry monitor with unit tests (`tests/`); CI runs ruff +

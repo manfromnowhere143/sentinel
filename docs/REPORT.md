@@ -1,6 +1,6 @@
 # Sentinel: a label-free runtime safety monitor for frozen end-to-end driving planners, evaluated closed-loop
 
-**Technical report — 2026-07-02, updated 2026-07-03.** Every number below regenerates from
+**Technical report — 2026-07-02, updated 2026-07-05.** Every number below regenerates from
 evidence committed in this repository; reproduction commands are in the
 [README](../README.md#reproduce--repository-map). Scope is stated plainly throughout; the
 full-benchmark (14-scene) measurement and its latch-release refinement are reported in §10.
@@ -29,10 +29,13 @@ danger; VAD: partial, below a pre-registered viability bar) — the first threat
 diversity measurements on end-to-end planners, closing the runtime plan-selection mechanism for
 command-indexed candidates; and (5) the union's **selectivity does not transfer blind** to a
 second planner — it is a property of tracking quality, not the decision rule alone; and (6) at
-full benchmark scale the published UniAD baseline **independently reproduces** (pooled 2.15 vs
-1.84) and the monitor lifts the pooled score to **3.09 (+0.934, 95% CI [+0.713, +1.155])**, with
-a threat-cleared latch release strictly dominating the plain union — while the deployment-metric
-advantage over the unmonitored planner at that scope honestly remains open (CI includes zero).
+full benchmark scale and 20 seed-paired runs per pair (799 episodes) the published UniAD
+baseline **independently reproduces** (pooled 2.12 vs 1.84) and the monitor lifts the pooled
+score to **2.91 (+0.783, 95% CI [+0.605, +0.928])**, with a threat-cleared latch release
+strictly dominating the plain union — while the deployment-metric effect vs the unmonitored
+planner resolves to a **tight null** (−0.03, 95% CI [−0.13, +0.07]): the benchmark safety gain
+costs approximately nothing on the deployment metric, and softening the stop cannot buy the
+residual back (the crawl null).
 One headline claim was withdrawn by our own audit and re-established on independent data; the
 withdrawal is part of the record.
 

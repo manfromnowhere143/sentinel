@@ -148,3 +148,16 @@ over-claim.** That arc, in order:
     crawl delivers it there at contact time. With iteration 11 the result is two-sided: a swerve
     is unsafe when the trigger is wrong, a crawl is unsafe when it is right; only the committed
     stop is safe in both cases. [`../experiments/iter16_soft_stop/RESULT.md`](../experiments/iter16_soft_stop/RESULT.md).
+
+19. **The power run — the benchmark result at 20 runs per pair; the deployment question resolved
+    to a tight null.** 799 of 800 planned episodes (off/side-0921 documented at n=19 — its
+    run_19 reproducibly froze the pre-swap host, 3/3 attempts on 2 physical hosts). The H-P0
+    gate passed in full: run indices 0–5 of every pair in both arms reproduce the committed
+    6-run evidence exactly, through five machine-freezing incidents whose root cause (memory
+    exhaustion on a swapless image) was isolated by an on-box vitals watchdog and fixed with
+    swap. Results: baseline reproduction holds (**2.12** pooled vs published 1.84); the released
+    union lifts the benchmark score to **2.91 (+0.783, 95% CI [+0.605, +0.928])** — the n=6
+    estimate (+0.934) was modestly optimistic and is replaced; safe-progress resolves to
+    **−0.03, CI [−0.13, +0.07]** — the safety gain costs approximately nothing on the deployment
+    metric; the frontal/0346 regression is confirmed real. The campaign's measurement phase is
+    complete. [`../experiments/full14_power/RESULT.md`](../experiments/full14_power/RESULT.md).
