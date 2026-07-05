@@ -67,6 +67,31 @@ share); 57 releases; oscillation 4/120.
    marginally softens head-on outcomes relative to the full stop — consistent with iteration
    16's frontal cells, and folded into the frontal-ceiling picture rather than claimed.
 
+## Addendum — the three named successors, evaluated offline: all refuted
+
+Each successor was testable on this iteration's committed per-frame log without GPU time
+([`analyze_successors_offline.py`](analyze_successors_offline.py); output committed in
+`proof/successors_offline_output.txt`):
+
+1. **Firing-term routing — a no-op.** Zero crawl frames had CPA < 1.5 m: every CPA-fired frame
+   was already stopped by the 2.0 m overlap predicate, so this variant is equal-or-more
+   permissive than what failed.
+2. **N-frame no-overlap confirmation — a dead trade.** N=4 removes all of 0108's unsafe crawl
+   frames but collapses total crawl share to 6% (the mechanism degenerates to the released
+   union); N ≤ 3 leaves unsafe frames *and* forfeits most of the share.
+3. **Position-proximity guard — non-separable.** 0108's unsafe crawl frames (median object
+   distance to plan 5.4 m) are indistinguishable from side-0103's perfectly safe ones
+   (median 4.4 m, scored 5.00/0%); no radius separates them without destroying the mechanism.
+
+**The routing line therefore closes for per-frame geometric predicates.** The signal that
+distinguishes the dangerous crossing from the safe crawl is not in any instantaneous geometric
+feature of these logs — it is velocity continuity through identity switches, i.e. **tracking
+quality**. This converges with iteration 14's transfer finding (selectivity is a property of
+tracking quality): two independent failure modes — cross-planner selectivity and routing safety
+— now bottleneck on the same constraint, making the tracker-quality line
+([`docs/NEXT_PHASE.md`](../../docs/NEXT_PHASE.md), Line 3) the motivated path to the deployment
+flip that this iteration proved achievable.
+
 ## Evidence
 
 [`proof/`](proof/): run log, per-frame decision log (stop/crawl/release records with the

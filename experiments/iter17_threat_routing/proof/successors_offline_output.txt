@@ -1,0 +1,37 @@
+=== successor 1: firing-term routing (crawl frames with cpa < 1.5 -> stop) ===
+  crawl frames converted: 0/240 -> NO-OP: every CPA-fired frame was already stopped by the 2.0 m overlap predicate; this variant is equal-or-more permissive. REFUTED.
+
+=== successor 2: N-frame no-overlap confirmation ===
+  N=2: total crawl kept 142/240 (59%) | side-0108 kept 14 converted 9
+  N=3: total crawl kept 71/240 (30%) | side-0108 kept 6 converted 17
+  N=4: total crawl kept 15/240 (6%) | side-0108 kept 0 converted 23
+  -> N=4 removes 0108 but leaves 6% crawl share (mechanism vacuous); N<=3 unsafe. REFUTED.
+
+=== successor 3: current-position proximity guard ===
+  frontal    0103  n= 19  min=  2.3  median=  5.1  max=  7.5
+  frontal    0106  n= 14  min=  1.7  median=  3.7  max=  8.5
+  frontal    0110  n= 10  min=  0.6  median= 11.1  max= 99.0
+  frontal    0346  n= 24  min=  2.1  median= 99.0  max= 99.0
+  frontal    0923  n= 19  min=  0.7  median=  9.9  max= 99.0
+  side       0103  n= 24  min=  3.0  median=  4.4  max=  7.9
+  side       0108  n= 23  min=  2.6  median=  5.4  max=  8.0  <-- misrouted pair
+  side       0110  n=  2  min=  4.5  median=  8.6  max=  8.6
+  side       0278  n=  6  min=  2.0  median=  9.6  max= 11.3
+  side       0921  n= 26  min=  4.7  median=  8.6  max= 13.1
+  stationary 0101  n= 21  min=  2.1  median=  2.6  max=  3.1
+  stationary 0103  n=  1  min=  6.4  median=  6.4  max=  6.4
+  stationary 0106  n=  4  min=  2.3  median=  7.3  max=  7.7
+  stationary 0108  n= 26  min=  2.5  median=  3.6  max=  5.3
+  stationary 0278  n=  6  min=  2.8  median=  4.6  max=  8.6
+  stationary 0331  n=  3  min=  3.7  median=  3.7  max=  3.8
+  stationary 0783  n=  3  min=  3.8  median=  3.8  max=  4.0
+  stationary 0796  n=  9  min=  2.4  median=  9.1  max= 11.4
+  X=2.5: 0108 converted 0/23 | total converted 25/240 (retained 90%)
+  X=3.0: 0108 converted 1/23 | total converted 39/240 (retained 84%)
+  X=4.0: 0108 converted 3/23 | total converted 81/240 (retained 66%)
+  X=5.0: 0108 converted 8/23 | total converted 117/240 (retained 51%)
+  -> 0108 (unsafe) and side-0103 (safe, 5.00/0%) are indistinguishable on this feature. REFUTED.
+
+CONCLUSION: no per-frame geometric refinement separates the misrouted crossing from
+safe crawls on this evidence. The discriminating signal is velocity continuity through
+ID switches — tracking quality — converging with the iteration-14 transfer finding.

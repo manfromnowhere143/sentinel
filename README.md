@@ -287,10 +287,12 @@ frozen decision rules in [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md):
 
 - **The manuscript — drafting** ([`docs/paper/MANUSCRIPT.md`](docs/paper/MANUSCRIPT.md)): every
   number final and evidence-wired.
-- **A crossing-safe routing predicate.** Iteration 17 proved the deployment flip is achievable
-  (+0.226 vs OFF, CI excluding zero — a campaign first) but failed its safety gate on one
-  misrouted crossing; the named successors: route on the firing term, N-frame no-overlap
-  confirmation, windowed observed-position overlap.
+- **The deployment flip now routes through tracking quality.** Iteration 17 proved the flip
+  achievable (+0.226 vs OFF, CI excluding zero — a campaign first) but failed its safety gate
+  on one misrouted crossing — and all three named successor predicates were then **refuted
+  offline** on the committed log (no-op; dead trade; non-separable). The discriminating signal
+  is velocity continuity through ID switches: tracking quality, the same constraint iteration
+  14 found — two independent lines converging on the tracker-repair path.
   [`experiments/iter17_threat_routing/RESULT.md`](experiments/iter17_threat_routing/RESULT.md).
 - **A diversity-trained candidate head under the runtime selector** — the successor mechanism
   motivated by the two-planner candidate-collapse findings; offline bar (escape rate > 30%)

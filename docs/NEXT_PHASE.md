@@ -32,6 +32,16 @@ noise of OFF), benchmark score not below the released-union's.
 **Cost:** the first line requiring training — feature-extraction pipeline plus a small head;
 single-L4 feasible; the largest engineering lift of the three.
 
+> **Line 2 outcome (2026-07-05):** run as iteration 17 — the pre-registered safety gate failed
+> on one misrouted crossing (side 47% vs the 45% bar) and the released union stands, while the
+> voided secondary criterion recorded the campaign's first deployment CI excluding zero vs the
+> unmonitored planner (+0.226, [+0.004, +0.421]). All three named successor predicates were
+> then **refuted offline** on the committed log (no-op; dead trade; non-separable) — the
+> routing line closes for per-frame geometric predicates, and the deployment flip now routes
+> through **tracking quality**, elevating Line 3 (motivated independently by iteration 14) to
+> the front of the GPU queue alongside Line 1's offline stage.
+> [`../experiments/iter17_threat_routing/RESULT.md`](../experiments/iter17_threat_routing/RESULT.md).
+
 ## Line 2 — threat-class routing (named by iteration 16's null)
 
 **Motivation (measured):** the crawl null proved the stop is a *position guarantee* — but it
