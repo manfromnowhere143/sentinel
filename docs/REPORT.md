@@ -204,7 +204,17 @@ stop is a **position guarantee**, not merely speed reduction — the crawl deliv
 the crossing point the stop halts short of. Together with iteration 11 the result is two-sided:
 a swerve is unsafe when the trigger is wrong; a crawl is unsafe when it is right; the committed
 stop is the only intervention tested that is safe in both cases, and the released union is its
-calibrated form — the campaign's best configuration. Full tables and evidence:
+calibrated form — the campaign's best configuration.
+
+Iteration 17 completed the intervention-softness line with threat-class routing — stop wherever
+a tracked object's projected path overlaps the planned corridor, crawl where none does. Its
+pre-registered safety gate failed on a single misrouted crossing (side 47% vs the 45% bar,
+carried by one scene whose crossing geometry the constant-velocity projection misses; benchmark
+−0.170 vs a 0.15 tolerance), so the released union stands, its fourth surviving challenge —
+while the voided secondary criterion recorded the campaign's first deployment CI excluding zero
+against the unmonitored planner (+0.226, [+0.004, +0.421]): the deployment flip is achievable,
+pending a crossing-safe predicate. Full tables and evidence:
 [experiments/full14_benchmark/RESULT.md](../experiments/full14_benchmark/RESULT.md) ·
 [experiments/iter15_latch_release/RESULT.md](../experiments/iter15_latch_release/RESULT.md) ·
-[experiments/iter16_soft_stop/RESULT.md](../experiments/iter16_soft_stop/RESULT.md).
+[experiments/iter16_soft_stop/RESULT.md](../experiments/iter16_soft_stop/RESULT.md) ·
+[experiments/iter17_threat_routing/RESULT.md](../experiments/iter17_threat_routing/RESULT.md).

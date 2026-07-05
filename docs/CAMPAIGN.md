@@ -161,3 +161,15 @@ over-claim.** That arc, in order:
     **−0.03, CI [−0.13, +0.07]** — the safety gain costs approximately nothing on the deployment
     metric; the frontal/0346 regression is confirmed real. The campaign's measurement phase is
     complete. [`../experiments/full14_power/RESULT.md`](../experiments/full14_power/RESULT.md).
+
+20. **Iter 17 — threat-class routing: the safety gate fails on one misrouted crossing; the
+    deployment flip is proven achievable.** A geometric router (stop wherever a tracked object's
+    constant-velocity path overlaps the planned corridor at 2.0 m; crawl otherwise) posts a new
+    campaign-high safe-progress (2.598) and — as a voided-by-gate observation — the **first
+    deployment CI excluding zero vs the unmonitored planner** (+0.226, CI [+0.004, +0.421]).
+    But side collisions reach 47% (bar 45%), carried entirely by side-0108, whose crossing
+    geometry the projection misses (17% → 67%); the benchmark score gives up 0.170 against a
+    0.15 tolerance. **The pre-registered null publishes; the released union survives its fourth
+    challenger.** The open problem narrows: a crossing-safe routing predicate (successors named:
+    firing-term routing, N-frame no-overlap confirmation, windowed observed-position overlap).
+    [`../experiments/iter17_threat_routing/RESULT.md`](../experiments/iter17_threat_routing/RESULT.md).
