@@ -257,6 +257,7 @@ NeuroNCAP (arXiv 2404.07762) · UniAD (CVPR 2023) · VAD (ICCV 2023) · CATPlan/
 - [x] §6–§8 Negative results and the tracking-quality convergence — full prose
 - [x] §9–§11 Verification, limitations, conclusion
 - [x] Reference list (IDs verified; venue formatting pending)
-- [ ] Figures: campaign two-act arc; per-class bars OFF vs released (n=20); lead-time
-      histogram; routing audit (stop/crawl frames per class)
-- [ ] Venue selection and format conversion (LaTeX)
+- [x] Figures 1–3 rendered from committed evidence (figures/make_figures.py — validated
+      palette, grayscale-safe): per-class benchmark bars; lead-time events; routing audit
+- [ ] Figure 0: campaign two-act arc (vector redraw of the README diagrams)
+- [ ] LaTeX conversion for arXiv (venue decision: arXiv first, per 2026-07-05)
