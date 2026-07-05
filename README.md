@@ -108,14 +108,15 @@ flowchart LR
   F14 --> R15["iter 15 · latch release<br/><b>best configuration</b>"]
   R15 --> X16["iter 16 · crawl refuted<br/><b>the stop is a<br/>position guarantee</b>"]
   R15 --> P20["power run · n=20/pair<br/><b>2.12 to 2.91, CI excl. 0</b><br/>deployment: tight null"]
-  P20 --> X17["iter 17 · routing refuted<br/>(one misrouted crossing) —<br/><b>deployment flip proven<br/>achievable</b>"]
-  P20 --> NX["manuscript ·<br/>crossing-safe predicate"]
+  P20 --> X17["iter 17 · routing refuted —<br/><b>deployment flip proven<br/>achievable</b>"]
+  X17 --> X18["iter 18 · tracker offline gate<br/><b>12/13 — GPU stays off</b>"]
+  X18 --> H19["iter 19 · diversity head<br/>trained, <b>gate pending</b> ·<br/>+ the paper"]
   classDef win fill:#e2f3e5,stroke:#2e7d32,color:#13361b;
   classDef bad fill:#fdebec,stroke:#c62828,color:#3b1213;
   classDef next fill:#f6f8fa,stroke:#57606a,color:#1f2328;
   class F14,R15,P20 win;
-  class N12,X16,X17 bad;
-  class NX next;
+  class N12,X16,X17,X18 bad;
+  class H19 next;
 ```
 
 The winning monitor is a **union of two individually-selective detectors**, chosen because the two
@@ -194,7 +195,9 @@ always-brake controls) and the formal-envelope baseline (iteration 13) on identi
 | 15 | **threat-cleared latch release** — the stop releases after K=4 clear frames; one new mechanism, thresholds untouched | released **3.09** NCAP = union's · safe-prog 2.45 vs union 2.20 vs OFF 2.37 | safety cells **identical to the union** (44 releases, 0 reopened cases, oscillation 2/120) | **released − union +0.246, CI [+0.206, +0.293]** — strict improvement · vs OFF +0.08, CI includes 0 | **the new best configuration** (dominates the union: same benchmark score, significantly more driving). H15 partial: the deployment gap vs OFF narrows but stays open — a *cost-of-stopping* floor in fixed-horizon episodes, not a triggering flaw. Next mechanisms defined: smaller K under premature-release pressure, or a softer-than-stop intervention. [`iter15_latch_release`](experiments/iter15_latch_release/RESULT.md) |
 | 16 | **softer than a stop** — while latched, the planner's own plan re-parameterized to a 2.0 m/s crawl (speed fixed from committed impact evidence); K=4 release unchanged | crawl NCAP **2.64** vs released 3.09 · safe-prog **2.544** (the campaign's highest) | side 37→**57%** — past the pre-registered 45% falsifier bar (0108: 17→100%, impacts 4–5 m/s at zero score) · stationary at its 25% bar (0101 taps at 1.9–3.4 m/s) | crawl − released: NCAP **−0.450** CI [−0.525, −0.371] · safe-prog +0.096 CI [+0.033, +0.167] · vs OFF +0.171, CI includes 0 | **pre-registered null — the full stop stands.** The stop is a *position guarantee*, not just speed reduction: the crawl delivers the ego into the crossing point the stop halts short of. With iter 11 this is two-sided: a swerve is unsafe when the trigger is wrong; a crawl is unsafe when it is right; only the stop is safe in both. [`iter16_soft_stop`](experiments/iter16_soft_stop/RESULT.md) |
 | p20 | **the power run** — OFF vs released union at 20 runs/pair, all 14 scenes (799 episodes); H-P0 gate: first-6 of every pair must reproduce the committed 6-run evidence | OFF **2.12** (published 1.84 — reproduction holds) → released **2.91** | side 74→**44%** · stationary 29→**18%** · frontal 1.24→1.78 (78→90%, mitigation) · frontal/0346 regression **confirmed real** | **benchmark +0.783, CI [+0.605, +0.928]** at 3.3× power · safe-progress **−0.03, CI [−0.13, +0.07]** — tight null | **H-P0 PASS (first-6 exact, all pairs, both arms — through 5 machine freezes, 2 hosts, 4 relaunches**; root cause memory exhaustion, found by an on-box vitals watchdog, fixed with swap; off/side-0921 at n=19, its run_19 reproducibly froze the pre-swap host). The n=6 estimate (+0.934) was modestly optimistic; this replaces it as the headline. [`full14_power`](experiments/full14_power/RESULT.md) |
-| 17 | **threat-class routing** — stop wherever a tracked object's path overlaps the planned corridor (2.0 m, conservative); crawl only where none does; triggers/crawl/release unchanged | routed NCAP **2.92** vs released 3.09 · safe-prog **2.598** (new campaign high) | side 37→**47%** — past the 45% falsifier bar, carried by ONE pair (0108: 17→67%, a crossing the CV projection misses) · stationary 20% ✓ · frontal **1.97** (best of any arm) | routed − OFF safe-prog **+0.226, CI [+0.004, +0.421] — the campaign's FIRST deployment CI excluding zero vs the unmonitored planner** · routed − released: NCAP −0.170 (beyond the 0.15 tolerance), safe-prog +0.150 | **pre-registered null — the safety gate fails, the released union stands (its fourth surviving challenge).** But the deployment flip is now proven *achievable*: the open problem narrows to a crossing-safe routing predicate (successors named: route on firing term; N-frame no-overlap confirmation; windowed observed-position overlap). [`iter17_threat_routing`](experiments/iter17_threat_routing/RESULT.md) |
+| 17 | **threat-class routing** — stop wherever a tracked object's path overlaps the planned corridor (2.0 m, conservative); crawl only where none does; triggers/crawl/release unchanged | routed NCAP **2.92** vs released 3.09 · safe-prog **2.598** (new campaign high) | side 37→**47%** — past the 45% falsifier bar, carried by ONE pair (0108: 17→67%, a crossing the CV projection misses) · stationary 20% ✓ · frontal **1.97** (best of any arm) | routed − OFF safe-prog **+0.226, CI [+0.004, +0.421] — the campaign's FIRST deployment CI excluding zero vs the unmonitored planner** · routed − released: NCAP −0.170 (beyond the 0.15 tolerance), safe-prog +0.150 | **pre-registered null — the safety gate fails, the released union stands (its fourth surviving challenge).** But the deployment flip is now proven *achievable*. All three named successor predicates were then **refuted offline** on the committed log (a no-op; a dead trade; non-separable) — the routing line closes for per-frame geometric predicates, and the discriminating signal is tracking quality, converging with iteration 14. [`iter17_threat_routing`](experiments/iter17_threat_routing/RESULT.md) |
+| 18 | **the tracking layer, offline gate** — association + constant-velocity filter with coasting ([`sentinel/tracker.py`](sentinel/tracker.py), 6 unit tests); pre-registered offline bars on committed logs before any GPU | — (no closed-loop run: that is the point) | O2: **12/13** unsafe crawl frames convert to stops under tracker-based overlap — one miss at 2.2 m vs the frozen 2.0 m margin | **offline gate FAILED by one frame — per the gate rule, the GPU stayed off** | the tracker repairs the measured velocity-flicker class (raw-blind frames at 4.6–6.9 m → tracker sees the actor at 0.5–1.1 m) and retention stays 80%; the tempting margin-widening fix is named as overfitting-until-proven; an initial detection-gap reading was **retracted on the record** (an artifact of a starved diagnostic feed). [`iter18_tracker`](experiments/iter18_tracker/RESULT.md) |
+| 19 | **the diversity-trained candidate head (in progress)** — first *learned* mechanism: K=8 candidates conditioned on the planner's own planning queries, WTA + repulsion, frozen planner untouched; training data provably disjoint from all evaluation scenes | Stage 1 done: 2,385-frame conditioning corpus extracted; 1.2M-param head trained to **0.52 m** best-of-8 val WTA on held-out scenes | offline gate D1–D3 pending: escape rate > 30% on iteration 12's 37 eval-only frames · kinematic feasibility · benign fidelity | gate verdict decides whether the closed loop opens | attacks both open problems at once (frontal prevention; the deployment flip) with the mechanism class the candidate-collapse findings motivated. [`iter19_diversity_head`](experiments/iter19_diversity_head/HYPOTHESIS.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -282,23 +285,23 @@ firmly established — a committed stop is the best frontal response, and **thre
 designs (iters 9, 10, 11) were tested and honestly refuted**, all worse than stopping, the last
 one dangerous on false alarms (re-confirmed at n=20: 25% clean-scene collisions vs OFF's 10%).
 
-**What's next.** The measurement campaign is complete; the successor lines are defined with
-frozen decision rules in [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md):
+**What's next.** The benchmark campaign is complete and consolidated; two lines are live:
 
-- **The manuscript — drafting** ([`docs/paper/MANUSCRIPT.md`](docs/paper/MANUSCRIPT.md)): every
-  number final and evidence-wired.
-- **The deployment flip now routes through tracking quality.** Iteration 17 proved the flip
-  achievable (+0.226 vs OFF, CI excluding zero — a campaign first) but failed its safety gate
-  on one misrouted crossing — and all three named successor predicates were then **refuted
-  offline** on the committed log (no-op; dead trade; non-separable). The discriminating signal
-  is velocity continuity through ID switches: tracking quality, the same constraint iteration
-  14 found — two independent lines converging on the tracker-repair path.
-  [`experiments/iter17_threat_routing/RESULT.md`](experiments/iter17_threat_routing/RESULT.md).
-- **A diversity-trained candidate head under the runtime selector** — the successor mechanism
-  motivated by the two-planner candidate-collapse findings; offline bar (escape rate > 30%)
-  before any closed-loop GPU time.
-- **Tracker-quality repair for VAD** — turning the failed selectivity transfer into a
-  quantified portability threshold.
+- **The manuscript — full draft and compiled PDF committed**
+  ([`docs/paper/`](docs/paper/MANUSCRIPT.md)); the arXiv submission package is built and the
+  endorsement handshake is in progress.
+- **Iteration 19 — the diversity-trained candidate head (Stage 1 complete).** The first
+  *learned* mechanism of the campaign: a 1.2M-parameter head producing K=8 candidates from the
+  planner's own planning-query embeddings, trained on 60 scenes provably disjoint from every
+  evaluation scene, reaching 0.52 m best-of-8 validation error. The frozen offline gate
+  (escape rate > 30% on the exact frames where the planner's own candidates collapsed to 4 cm;
+  kinematic feasibility; benign fidelity) decides whether the closed loop opens.
+  [`experiments/iter19_diversity_head/HYPOTHESIS.md`](experiments/iter19_diversity_head/HYPOTHESIS.md).
+
+Closed en route, per the gate discipline: the per-frame routing predicates (iteration 17
+addendum — refuted offline) and the tracking layer's own offline gate (iteration 18 — failed
+by one frame at the frozen margin; the GPU stayed off). The deployment flip remains proven
+achievable and unclaimed — the head is the motivated path to claim it safely.
 
 Completed lines, kept for the record:
 
@@ -378,7 +381,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter1_reproduce/`](experiments/iter1_reproduce) · [`iter1b_partial_baseline/`](experiments/iter1b_partial_baseline) | stack stood up; baseline reproduced + collision corpus |
 | [`experiments/iter2_monitor/`](experiments/iter2_monitor) | the signal (G1, AUROC 0.83), the first A/B, the ablation, and the corrected over-claim |
 | [`experiments/iter3_progress/`](experiments/iter3_progress) | the deployment metric (safe-progress) — the honest setback |
-| [`experiments/iter4_gated/`](experiments/iter4_gated) … [`iter7_margin/`](experiments/iter7_margin) | selectivity → observed velocity → CPA → margin sweep |
+| [`experiments/iter4_gated/`](experiments/iter4_gated) · [`iter5_tracked/`](experiments/iter5_tracked) · [`iter6_cpa/`](experiments/iter6_cpa) · [`iter7_margin/`](experiments/iter7_margin) | selectivity → observed velocity → CPA → margin sweep |
 | [`experiments/iter8_union/`](experiments/iter8_union) | **the union of two detectors** — the campaign's core monitor |
 | [`experiments/iter9_evade/`](experiments/iter9_evade) · [`iter10_brakevade/`](experiments/iter10_brakevade) · [`iter11_early_evade/`](experiments/iter11_early_evade) | three refuted evasion designs for frontal prevention (reported nulls) |
 | [`experiments/union_validation/`](experiments/union_validation) | pooled bootstrap CI — **withdrawn** (invalid pooling); corrected in place |
@@ -390,9 +393,12 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter15_latch_release/`](experiments/iter15_latch_release) | **threat-cleared latch release — the best configuration** |
 | [`experiments/iter16_soft_stop/`](experiments/iter16_soft_stop) | softer than a stop — the crawl null; the stop is a position guarantee |
 | [`experiments/full14_power/`](experiments/full14_power) | **the power measurement** — the benchmark result at n=20/pair; deployment resolved to a tight null |
-| [`experiments/iter17_threat_routing/`](experiments/iter17_threat_routing) | threat-class routing (pre-registered, running) |
+| [`experiments/iter17_threat_routing/`](experiments/iter17_threat_routing) | threat-class routing — the gate fails on one crossing; the deployment flip proven achievable; successors refuted offline |
+| [`experiments/iter18_tracker/`](experiments/iter18_tracker) | the tracking layer — offline gate failed by one frame; the GPU stayed off |
+| [`experiments/iter19_diversity_head/`](experiments/iter19_diversity_head) | **the diversity-trained candidate head** — Stage 1 done (head trained); offline gate pending |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
-| [`docs/paper/MANUSCRIPT.md`](docs/paper/MANUSCRIPT.md) | the manuscript working draft |
+| [`docs/paper/MANUSCRIPT.md`](docs/paper/MANUSCRIPT.md) · [`docs/paper/paper.pdf`](docs/paper/paper.pdf) | the manuscript (full draft; compiled PDF; arXiv package committed) |
+| [`scripts/validate_docs.py`](scripts/validate_docs.py) | CI docs guard: diagram budgets, link health, story completeness — enforced on every push |
 
 Every result folder carries a `RESULT.md` with the real per-run numbers, the exact server patch, and the
 run script. `sentinel/monitor.py` is the pure-geometry monitor with unit tests (`tests/`); CI runs ruff +
