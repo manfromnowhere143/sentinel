@@ -4,8 +4,8 @@
 collision it is about to cause, and intervenes — measured where it actually matters: in closed
 loop, by whether the car crashes *and whether it can still drive*.**
 
-> **Honest status up front (16 completed iterations + an independent verification pass + the
-> full official benchmark at power; a 17th pre-registered and running):** the introspective signal predicts the planner's collisions (AUROC 0.83). On the
+> **Honest status up front (19 completed iterations + an independent verification pass + the
+> full official benchmark at power):** the introspective signal predicts the planner's collisions (AUROC 0.83). On the
 > complete 14-scene NeuroNCAP set at **20 seed-paired runs per pair** (799 episodes, the power
 > measurement), the unmonitored UniAD baseline **independently reproduces** (pooled 2.12 vs the
 > published 1.84 — to the verified literature, a first), and the best configuration — the
@@ -44,7 +44,7 @@ GPUs.
 
 ## The result
 
-Sixteen iterations under a frozen campaign pre-registration converge on one configuration — the
+Nineteen iterations under a frozen campaign pre-registration converge on one configuration — the
 **released union** (two label-free geometric detectors + a threat-cleared latch release) —
 measured on the **complete official 14-scene NeuroNCAP set at 20 seed-paired runs per pair**
 (799 episodes; hypotheses frozen before the run; the first 6 indices of every pair reproduce the
@@ -271,7 +271,7 @@ selectivity/side-blindness trade of iterations 4–7, and the three refuted evas
 kept, with every number and link, in [`docs/CAMPAIGN.md`](docs/CAMPAIGN.md). The summary table
 above is the same history in one screen.
 
-**Net, stated plainly — sixteen iterations plus an independent verification pass.** The
+**Net, stated plainly — nineteen iterations plus an independent verification pass.** The
 **released union (iteration 15) is the best configuration** of the campaign: at the definitive
 20-run scale it lifts the independently reproduced baseline **2.12 → 2.91 (CI [+0.605, +0.928])**,
 keeps clean scenes identical to the unmonitored planner, and strictly dominates the plain union
