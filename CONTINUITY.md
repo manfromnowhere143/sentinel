@@ -27,7 +27,14 @@ automatically; this file carries the invariants that do not change per shift.
    `~/.claude/projects/-Users-danielwahnich-workspace-aweb/memory/`; other operators: update
    THIS file's "shift log" section and the dynamic snapshot instead).
 
-## The baton protocol (one operator at a time — hard rule)
+## The baton protocol (one operator at a time — hard rule; PERMANENT, BIDIRECTIONAL)
+
+**Standing rule for every operator (Claude, Codex, or human): stay handoff-ready at all
+times.** Commit and push at every state change; keep the shift log below current; never leave
+uncommitted state at the end of a work window. Then any interruption — a usage limit, a crash,
+a sleep — is automatically a clean handoff in EITHER direction: the incoming operator (whoever
+it is) reads this file, runs `python3 scripts/make_handoff.py`, and continues. Handoffs are not
+events to prepare; they are a property the repository always has.
 
 - Outgoing: commit and push everything; run `python3 scripts/make_handoff.py > HANDOFF.md`,
   commit it; state in HANDOFF.md whether the GPU box is IDLE or a run is IN FLIGHT (name the
@@ -76,5 +83,7 @@ automatically; this file carries the invariants that do not change per shift.
 
 ## Shift log
 
-- 2026-06-30 → 2026-07-06: Claude (Fable 5) — iterations 1–19 stage 1, verification pass,
-  benchmark + power runs, paper draft, this continuity system.
+- 2026-06-30 → 2026-07-06: Claude (Fable 5) — iterations 1–19 (incl. the iter-19 gate null:
+  collapse located in the planning representation), verification pass, benchmark + power runs,
+  paper draft + figures + arXiv package, this continuity system.
+- (append one line per shift: dates, operator, what changed, box state at exit)
