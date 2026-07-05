@@ -34,9 +34,9 @@ FRONTAL_SCENE = 'frontal-0103'
 def union_pairs(path):
     pairs = []
     for line in open(path, errors='replace'):
-        match = re.search(r'VAD20PAIR (\w+) (\w+) (\d+)', line)
-        if match and match.group(1) == 'union':
-            pairs.append((match.group(2), match.group(3)))
+        match = re.search(r'^##### VAD20PAIR union (\w+) (\d+) #####$', line.strip())
+        if match:
+            pairs.append((match.group(1), match.group(2)))
     if not pairs:
         raise SystemExit('no VAD20PAIR union entries found')
     return pairs

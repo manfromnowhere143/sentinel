@@ -1,0 +1,31 @@
+frame join: 336 joined, 604 missing ego pose
+tracker defaults: {'gate': 3.0, 'alpha': 0.5, 'max_missed': 3}
+
+=== per-scene instantaneous replay ===
+  frontal-0103    frames=  72 raw_fire=   4 raw_ttc=   4 raw_cpa=   0 tracker_fire=   4 tracker_ttc=   4 tracker_cpa=   0 raw_ttc_removed=   0
+  stationary-0103 frames= 264 raw_fire=   8 raw_ttc=   5 raw_cpa=   4 tracker_fire=   8 tracker_ttc=   5 tracker_cpa=   4 raw_ttc_removed=   0
+
+=== V1 - false-closing reduction ===
+  raw TTC frames removed by tracker-union replay: 0/9 (0.0%; bar >= 80%)
+  V1 FAIL
+
+=== V2 - safety-scene firing-episode retention ===
+  side-0103       retained 0/0 raw firing episodes (0.0%; bar >= 90%) - FAIL
+  stationary-0103 retained 2/2 raw firing episodes (100.0%; bar >= 90%) - PASS
+
+=== V3 - frontal selectivity ===
+  firing frames raw=4 tracker=4 reduction=0.0% (bar >= 50%)
+  firing episodes raw=4 tracker=4 reduction=0.0% (bar >= 50%)
+  V3 FAIL
+
+=== V4 - no threshold fit ===
+  V4 PASS: defaults used with no sweep
+
+=== offline gate ===
+  ITER20 FAIL
+  Per HYPOTHESIS.md, no VAD closed-loop run is allowed from this iteration.
+
+Invalid attempt note: this output is not used for RESULT.md because the original pair parser
+matched both the shell xtrace line and the actual "##### VAD20PAIR ..." marker in the run log,
+duplicating scene order and mis-joining the side-scene episodes. The committed parser fix
+requires the actual marker at line start before the corrected replay is run.
