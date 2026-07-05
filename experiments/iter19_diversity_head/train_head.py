@@ -75,7 +75,7 @@ def loss_fn(pred, y):
     d = ((pred - y[:, None]) ** 2).sum(-1).sqrt().mean(-1)  # (B,K) mean waypoint dist
     wta = d.min(dim=1).values.mean()
     # repulsion on endpoints: hinge on min pairwise distance
-    ends = pred[:, :, -1, :]  # (B,K,2)
+    ends = pred[:, :, -1, :].contiguous()  # (B,K,2); contiguous: old-torch cdist backward requires it
     pd = torch.cdist(ends, ends)  # (B,K,K)
     eye = torch.eye(K, device=pred.device, dtype=torch.bool)
     pd = pd.masked_fill(eye[None], float('inf'))
