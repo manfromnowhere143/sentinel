@@ -1,20 +1,20 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: א' יול  5 22:41:01 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Sun Jul  5 23:11:51 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+ae13870 continuity: record iter20 VAD tracker null
+d5752eb iter20: publish VAD tracker portability null
+c345dff iter20: correct VAD replay scene parser
+8b6aeac iter20: add VAD tracker replay harness
+0c20322 iter20: clarify VAD replay pose evidence
+a577386 iter20: pre-register VAD tracker portability gate
+727db42 handoff snapshot committed; shift log closed — box idle, no runs in flight, open threads named
 9cbac87 paper: iterations 18-19 folded in — the plan-B deficit located in the planning representation joins the abstract and negative-results section; recompiled; arXiv package rebuilt; continuity arc current
-8147007 continuity: the baton is permanent and bidirectional — every operator stays handoff-ready at all times; shift-log convention
-8d26692 readme: iteration count current at nineteen
-d5fcb9d iter19 gate verdict: D1 fails at 0/37 feasible escapes with D3 passing — the pre-registered null; the collapse is located in the planning representation itself (third measurement, third route)
-5c8a9d8 iter19: the offline gate harness — iteration-12 rulers reused verbatim, deterministic frame join with executed-plan cross-check, D1 counts feasible escapes only, binomial CI reported
-4368ec8 paper: commit the arXiv submission package referenced by the continuity doc
-ad0b759 operator continuity system: CONTINUITY.md (invariants, baton protocol, box playbooks) + make_handoff.py (one-command dynamic state snapshot) — campaign portable across operators
-274fbda readme through iterations 18-19 with the two-act arc extended; docs integrity guard added to CI (diagram budgets, link health, story completeness — it immediately caught three unlinked experiment directories)
 ```
 Working tree: DIRTY — resolve before handoff:
-?? HANDOFF.md
+M HANDOFF.md
 
 ## Experiments (status inferred from files)
 
@@ -31,6 +31,7 @@ Working tree: DIRTY — resolve before handoff:
 - experiments/iter19_diversity_head: RESULT PUBLISHED
 - experiments/iter1_reproduce: artifacts only
 - experiments/iter1b_partial_baseline: artifacts only
+- experiments/iter20_vad_tracker_portability: RESULT PUBLISHED
 - experiments/iter2_monitor: RESULT PUBLISHED
 - experiments/iter3_progress: RESULT PUBLISHED
 - experiments/iter4_gated: RESULT PUBLISHED
@@ -44,9 +45,11 @@ Working tree: DIRTY — resolve before handoff:
 - experiments/verification: artifacts only
 
 ## GPU box quick-state (live probe)
+Box state: IDLE — no GPU run launched during iteration 20; no run is known to be in flight.
+
 ```
 sentinel-gpu
- 22:42:08 up 1 day, 12:23,  0 users,  load average: 0.00, 0.00, 0.11
+ 23:12:57 up 1 day, 12:54,  0 users,  load average: 0.00, 0.00, 0.00
 /var/log/sentinel-vitals.log
 /var/log/sentinel-evalextract.log
 /var/log/sentinel-train.log
@@ -57,7 +60,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest pre-registration: experiments/iter19_diversity_head/HYPOTHESIS.md — read it in full; its gate governs the next action.
+- Newest pre-registration: experiments/iter20_vad_tracker_portability/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
 
