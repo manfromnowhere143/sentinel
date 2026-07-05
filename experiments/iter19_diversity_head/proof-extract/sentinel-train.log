@@ -1,0 +1,22 @@
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 11.1.1
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+corpus rows: 2025  train: 1686  val: 339  scenes: 60
+params: 1232992 (<=5M: True)
+epoch 0  train 8.017  val_wta 2.491  val_rep 0.009
+epoch 10  train 0.666  val_wta 0.589  val_rep 0.018
+epoch 20  train 0.533  val_wta 0.529  val_rep 0.022
+epoch 30  train 0.497  val_wta 0.529  val_rep 0.023
+TRAIN_DONE best_val_wta 0.520 -> /model/diversity_head.pt
