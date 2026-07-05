@@ -1,0 +1,27 @@
+frame join: 759 joined, 181 missing ego pose
+tracker defaults: {'gate': 3.0, 'alpha': 0.5, 'max_missed': 3}
+
+=== per-scene instantaneous replay ===
+  frontal-0103    frames= 279 raw_fire=  79 raw_ttc=  41 raw_cpa=  58 tracker_fire=  90 tracker_ttc=  56 tracker_cpa=  67 raw_ttc_removed=   0
+  side-0103       frames= 240 raw_fire=   6 raw_ttc=   4 raw_cpa=   2 tracker_fire=   4 tracker_ttc=   4 tracker_cpa=   0 raw_ttc_removed=   0
+  stationary-0103 frames= 240 raw_fire=   2 raw_ttc=   2 raw_cpa=   0 tracker_fire=   2 tracker_ttc=   2 tracker_cpa=   0 raw_ttc_removed=   0
+
+=== V1 - false-closing reduction ===
+  raw TTC frames removed by tracker-union replay: 0/47 (0.0%; bar >= 80%)
+  V1 FAIL
+
+=== V2 - safety-scene firing-episode retention ===
+  side-0103       retained 4/6 raw firing episodes (66.7%; bar >= 90%) - FAIL
+  stationary-0103 retained 2/2 raw firing episodes (100.0%; bar >= 90%) - PASS
+
+=== V3 - frontal selectivity ===
+  firing frames raw=79 tracker=90 reduction=-13.9% (bar >= 50%)
+  firing episodes raw=20 tracker=20 reduction=0.0% (bar >= 50%)
+  V3 FAIL
+
+=== V4 - no threshold fit ===
+  V4 PASS: defaults used with no sweep
+
+=== offline gate ===
+  ITER20 FAIL
+  Per HYPOTHESIS.md, no VAD closed-loop run is allowed from this iteration.

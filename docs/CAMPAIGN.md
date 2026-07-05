@@ -184,3 +184,12 @@ over-claim.** That arc, in order:
     modes 21%; learned head 0/37): **the plan-B deficit sits in the planner's internal
     planning representation**, not in any decoder above it.
     [`../experiments/iter19_diversity_head/RESULT.md`](../experiments/iter19_diversity_head/RESULT.md).
+
+22. **Iter 20 — VAD tracker portability: the offline gate fails before GPU time.** The
+    registered replay of committed VAD-union logs through the iteration-18 tracker defaults
+    removes **0/47** raw TTC fires (bar: >=80%), retains only **4/6** side firing episodes
+    (bar: >=90%), and increases frontal firing frames **79 -> 90** rather than reducing them.
+    The simple association + smoothing tracker is therefore not the VAD transfer repair, and
+    no VAD closed-loop run launches from this hypothesis. The broader tracking-quality
+    constraint remains, but this zero-GPU bridge is closed.
+    [`../experiments/iter20_vad_tracker_portability/RESULT.md`](../experiments/iter20_vad_tracker_portability/RESULT.md).

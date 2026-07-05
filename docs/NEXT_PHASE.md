@@ -75,6 +75,13 @@ tracker's ID-switch rate alongside, giving the field a concrete portability thre
 **Cost:** moderate — one association module (pure geometry, unit-testable offline against the
 committed VAD decision logs before any GPU time), one 120-episode VAD arm.
 
+> **Line 3 outcome (2026-07-06):** run as iteration 20's offline stage only. The committed
+> tracker defaults removed **0/47** raw TTC fires, retained only **4/6** side firing episodes
+> (bar: 90%), and increased frontal firing frames **79 -> 90**. The pre-registered gate failed;
+> no VAD closed-loop run launched. The broad tracking-quality constraint remains, but this
+> simple association + smoothing bridge is closed.
+> [`../experiments/iter20_vad_tracker_portability/RESULT.md`](../experiments/iter20_vad_tracker_portability/RESULT.md).
+
 ## The manuscript
 
 Runs in parallel with whichever line is on the GPU: the campaign is consolidated in
