@@ -7,22 +7,22 @@ subprocess.run(['git', '-C', UNIAD, 'checkout', '--',
                 'inference/server.py', 'projects/mmdet3d_plugin/uniad/dense_heads/planning_head.py'],
                check=True)
 
-# ---- planning head: stash the conditioning tensors at their source ---------------------------
-src = open(PH).read()
-anchor = ("        outs_planning = self(bev_embed, occ_mask, bev_pos, sdc_traj_query, "
-          "sdc_track_query, command)\n        return outs_planning")
-assert anchor in src, 'planning_head forward_test anchor not found'
-patched = anchor.replace(
-    "        return outs_planning",
-    "        self._sentinel_stash = {\n"
-    "            'sdc_traj_query': sdc_traj_query.detach().float().cpu().numpy().ravel().tolist(),\n"
-    "            'sdc_traj_query_shape': list(sdc_traj_query.shape),\n"
-    "            'sdc_track_query': sdc_track_query.detach().float().cpu().numpy().ravel().tolist(),\n"
-    "            'sdc_track_query_shape': list(sdc_track_query.shape),\n"
+# ---- runner: stash the conditioning tensors at the ACTUAL planning call site -----------------
+# (the NCAP runner calls planning_head.forward directly — forward_test never runs in serving)
+RUN = f'{UNIAD}/inference/runner.py'
+src = open(RUN).read()
+anchor = "        # get the planning output\n        outs_planning = self.model.planning_head.forward("
+assert anchor in src, 'runner planning call-site anchor not found'
+stash = (
+    "        self.model.planning_head._sentinel_stash = {\n"
+    "            'sdc_traj_query': outs_motion['sdc_traj_query'].detach().float().cpu().numpy().ravel().tolist(),\n"
+    "            'sdc_traj_query_shape': list(outs_motion['sdc_traj_query'].shape),\n"
+    "            'sdc_track_query': outs_motion['sdc_track_query'].detach().float().cpu().numpy().ravel().tolist(),\n"
+    "            'sdc_track_query_shape': list(outs_motion['sdc_track_query'].shape),\n"
     "        }\n"
-    "        return outs_planning",
 )
-open(PH, 'w').write(src.replace(anchor, patched, 1))
+src = src.replace(anchor, stash + anchor, 1)
+open(RUN, 'w').write(src)
 
 # ---- server: dump per-frame conditioning + trajectory when SENTINEL_EXTRACT=1 ----------------
 src = open(SRV).read()
