@@ -1,20 +1,21 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Sun Jul  5 23:11:51 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Sun Jul  5 23:26:34 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+411f3b8 iter21: add BEV extraction patch
+93d6840 iter21: pre-register BEV diversity head gate
+5964cbb handoff: snapshot after iter20 tracker null
 ae13870 continuity: record iter20 VAD tracker null
 d5752eb iter20: publish VAD tracker portability null
 c345dff iter20: correct VAD replay scene parser
 8b6aeac iter20: add VAD tracker replay harness
 0c20322 iter20: clarify VAD replay pose evidence
-a577386 iter20: pre-register VAD tracker portability gate
-727db42 handoff snapshot committed; shift log closed — box idle, no runs in flight, open threads named
-9cbac87 paper: iterations 18-19 folded in — the plan-B deficit located in the planning representation joins the abstract and negative-results section; recompiled; arXiv package rebuilt; continuity arc current
 ```
 Working tree: DIRTY — resolve before handoff:
-M HANDOFF.md
+M CONTINUITY.md
+ M HANDOFF.md
 
 ## Experiments (status inferred from files)
 
@@ -32,6 +33,7 @@ M HANDOFF.md
 - experiments/iter1_reproduce: artifacts only
 - experiments/iter1b_partial_baseline: artifacts only
 - experiments/iter20_vad_tracker_portability: RESULT PUBLISHED
+- experiments/iter21_bev_diversity_head: PRE-REGISTERED, result pending
 - experiments/iter2_monitor: RESULT PUBLISHED
 - experiments/iter3_progress: RESULT PUBLISHED
 - experiments/iter4_gated: RESULT PUBLISHED
@@ -45,22 +47,26 @@ M HANDOFF.md
 - experiments/verification: artifacts only
 
 ## GPU box quick-state (live probe)
-Box state: IDLE — no GPU run launched during iteration 20; no run is known to be in flight.
+Run state: IN FLIGHT — iteration 21 Stage-1 BEV train extraction. Log:
+`/var/log/sentinel-bev-extract.log`. Done marker: `BEV_EXTRACT_DONE`. Expected artifacts:
+`/opt/sentinel-stack/UniAD/sentinel_bev_extract.jsonl(.gz)` and
+`/opt/sentinel-stack/UniAD/sentinel_bev_extract_gt.jsonl(.gz)`. Do not relaunch while the
+`model` container is running or the done marker is absent.
 
 ```
 sentinel-gpu
- 23:12:57 up 1 day, 12:54,  0 users,  load average: 0.00, 0.00, 0.00
+ 23:27:40 up 1 day, 13:08,  0 users,  load average: 1.02, 0.52, 0.21
+/var/log/sentinel-bev-extract.log
 /var/log/sentinel-vitals.log
 /var/log/sentinel-evalextract.log
-/var/log/sentinel-train.log
 /dev/root       310G  285G   26G  92% /
-Swap:          8.0Gi        61Mi       7.9Gi
+Swap:          8.0Gi        60Mi       7.9Gi
 ```
 If any docker container named renderer/model/ncap (or a random-name ncap) is up, a run
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest pre-registration: experiments/iter20_vad_tracker_portability/HYPOTHESIS.md — read it in full; its gate governs the next action.
+- Newest pre-registration: experiments/iter21_bev_diversity_head/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
 

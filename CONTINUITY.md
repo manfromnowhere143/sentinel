@@ -98,4 +98,7 @@ events to prepare; they are a property the repository always has.
 - 2026-07-06: Codex — iteration 20 VAD tracker-portability line pre-registered and run
   offline only; gate failed (V1 0/47, V2 side 4/6, V3 79 -> 90 frontal frames), null
   published; no GPU run launched; BOX not touched because no open gate authorized it.
+- 2026-07-06: Codex — iteration 21 BEV-conditioned diversity head pre-registered and Stage-1
+  BEV train extraction launched on sentinel-gpu; run IN FLIGHT if `/var/log/sentinel-bev-extract.log`
+  lacks `BEV_EXTRACT_DONE`; expected artifacts under `/opt/sentinel-stack/UniAD/sentinel_bev_extract*`.
 - (append one line per shift: dates, operator, what changed, box state at exit)
