@@ -76,6 +76,11 @@ events to prepare; they are a property the repository always has.
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
   Surviving variant if pursued: scene-level (BEV) conditioning — new pre-registration
   required. Data discipline unchanged: eval frames are EVAL-ONLY; violation voids results.
+- Iteration 20 concluded: the VAD tracker-portability offline gate FAILED before GPU time
+  (0/47 raw TTC fires removed, side retention 4/6 below the 90% bar, frontal firing frames
+  79 -> 90). The simple association + smoothing tracker is not the VAD transfer repair;
+  no VAD closed-loop run is authorized from that hypothesis
+  (experiments/iter20_vad_tracker_portability/RESULT.md).
 - Paper: docs/paper/paper.pdf compiled; arXiv account live (Daniel: ezio143); submission
   waits on a cs.RO endorsement (code V76QK4; request sent to William Ljungbergh
   william@recohere.ai on 2026-07-05; fallbacks: Holger Caesar, CATPlan authors). After
@@ -90,4 +95,7 @@ events to prepare; they are a property the repository always has.
   committed; BOX IDLE, no runs in flight; open threads: arXiv endorsement (V76QK4, Ljungbergh
   asked 07-05, escalate to Holger Caesar if silent by 07-07 eve), optional next lines per
   NEXT_PHASE (BEV-conditioning pre-reg; VAD tracker portability).
+- 2026-07-06: Codex — iteration 20 VAD tracker-portability line pre-registered and run
+  offline only; gate failed (V1 0/47, V2 side 4/6, V3 79 -> 90 frontal frames), null
+  published; no GPU run launched; BOX not touched because no open gate authorized it.
 - (append one line per shift: dates, operator, what changed, box state at exit)
