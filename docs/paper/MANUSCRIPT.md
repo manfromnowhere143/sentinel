@@ -11,7 +11,7 @@ published NeuroNCAP results score UniAD at 1.84/5 with collisions in 88–98% of
 field's dominant open-loop metrics cannot see it. We build a runtime monitor that reads only a
 frozen planner's own outputs (its plan, detected objects, and their tracked motion; no labels,
 no training, no privileged simulator state) and intervenes with a latched, threat-cleared stop.
-Across seventeen pre-registered iterations and an independent verification pass we show:
+Across nineteen pre-registered iterations and an independent verification pass we show:
 **(1)** the published NeuroNCAP UniAD baseline **independently reproduces** (pooled 2.12 vs
 1.84 at 20 seed-paired runs per scenario), to our knowledge a first; **(2)** a union of two
 label-free geometric detectors with a threat-cleared release lifts the full-benchmark score to
@@ -23,10 +23,12 @@ a geometric threat-router were all refuted by pre-registered falsifiers, the rou
 demonstrating that a deployment-positive monitor is achievable (+0.226 vs the unmonitored
 planner, CI [+0.004, +0.421], voided by its safety gate); **(4)** an RSS-style formal envelope
 on identical inputs achieves the campaign's best raw safety **by near-paralysis**, quantifying
-closed-loop the over-conservatism the literature only asserts; **(5)** the planner's own
-candidate trajectories **collapse under threat** on two planners (UniAD: 14 m benign diversity
-to 4 cm; VAD: partial, below a pre-registered viability bar) — the first threat-conditioned
-diversity measurements on end-to-end planners' own candidates; and **(6)** two independent
+closed-loop the over-conservatism the literature only asserts; **(5)** the plan-B deficit of
+end-to-end planners is **located**: candidates collapse under threat on two planners (UniAD:
+14 m benign diversity to 4 cm; VAD: partial, below a pre-registered viability bar), and a
+diversity-trained head reading the frozen planner's own planning-query embeddings — faithful
+on benign frames — yields **zero feasible escapes** on the same dangerous frames: the collapse
+sits in the planner's internal planning representation, not in any decoder above it; and **(6)** two independent
 failure analyses — cross-planner selectivity transfer and routing safety — converge on a single
 binding constraint: **tracking quality**. One headline claim was withdrawn by our own audit and
 re-established on independent data; the withdrawal, six published nulls, and the raw per-frame
@@ -100,7 +102,7 @@ determinism is verified at scale: the 20-run measurement's first six indices rep
 earlier 6-run measurement exactly, on every scenario pair, in both arms, across five
 machine-freezing infrastructure incidents, one host migration, and four relaunches.
 
-The methodological spine, held for all seventeen iterations: hypotheses and falsifiers frozen
+The methodological spine, held for all nineteen iterations: hypotheses and falsifiers frozen
 in writing before data; seed-paired within-pair bootstrap confidence intervals on every delta;
 per-frame monitor decision logs, per-run trajectories, and run logs committed for every arm;
 nulls published with the same weight as wins; and when a document disagreed with a log, the log
@@ -165,14 +167,21 @@ demonstrably achievable, pending a crossing-safe routing signal (§8).
 
 ## 7. Negative results II: no plan B, envelope paralysis
 
-**The planner has no plan B.** The natural escape from the stop's ceiling is to execute the
-planner's own safer candidate — safe on false alarms by construction. Pre-registered
-checkpoints measured whether a low-risk candidate *exists* when the executed plan is
-dangerous: UniAD's command-conditioned candidates span 13.9 m in benign frames and collapse to
-a 4 cm spread under threat (0/37 escapes); VAD's native modes retain partial diversity (21%
-escapes) but stay below the frozen 30% viability bar. Command-indexed alternatives lose their
-diversity precisely when it matters; a diversity-trained candidate head is the motivated
-successor mechanism.
+**The planner has no plan B — and the deficit is representational.** The natural escape from
+the stop's ceiling is to execute the planner's own safer candidate — safe on false alarms by
+construction. Pre-registered checkpoints measured whether a low-risk candidate *exists* when
+the executed plan is dangerous: UniAD's command-conditioned candidates span 13.9 m in benign
+frames and collapse to a 4 cm spread under threat (0/37 escapes); VAD's native modes retain
+partial diversity (21% escapes) but stay below the frozen 30% viability bar. We then trained
+the motivated successor — a 1.2M-parameter K=8 candidate head with an explicit diversity
+objective, conditioned on the frozen planner's own planning-query embeddings, on 60 scenes
+disjoint from all evaluation. It is a faithful generator (benign best-of-K error within its
+pre-registered fidelity bar) and its repulsion term forces divergence under threat — yet on
+the same 37 dangerous frames it yields **0 feasible escapes** (16 diverging candidates, every
+one violating kinematic limits). Three measurements by three routes agree: the deficit is not
+a decoder artifact but a property of the planning representation itself — under threat it no
+longer contains a feasible alternative to decode. Scene-level conditioning (bypassing the
+committed planning state) is the surviving variant, and it now carries a sharpened burden.
 
 **Stopping power is free; selectivity is not.** An RSS-style guaranteed-stopping envelope on
 identical inputs and actuator posts the campaign's best raw safety (clean 0%, frontal 30%,

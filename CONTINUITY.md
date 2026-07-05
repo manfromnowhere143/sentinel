@@ -71,11 +71,11 @@ events to prepare; they are a property the repository always has.
 - Best configuration: the released union (iteration 15). Four challengers refuted (evasions,
   crawl, router, tracker-gate); deployment flip proven achievable (+0.226 CI excl. 0) but
   unclaimed — safety gate failed on one crossing.
-- Live line: iteration 19, the diversity-trained candidate head
-  (experiments/iter19_diversity_head/HYPOTHESIS.md — read it in full; the offline gate D1–D3
-  is frozen and decides everything). Training data discipline: the 60 train scenes are
-  disjoint from ALL evaluation scenes; iteration 12's 37 frames are EVAL-ONLY. Violation
-  voids the result.
+- Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
+  escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
+  planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
+  Surviving variant if pursued: scene-level (BEV) conditioning — new pre-registration
+  required. Data discipline unchanged: eval frames are EVAL-ONLY; violation voids results.
 - Paper: docs/paper/paper.pdf compiled; arXiv account live (Daniel: ezio143); submission
   waits on a cs.RO endorsement (code V76QK4; request sent to William Ljungbergh
   william@recohere.ai on 2026-07-05; fallbacks: Holger Caesar, CATPlan authors). After
