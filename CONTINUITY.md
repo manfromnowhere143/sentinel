@@ -86,4 +86,8 @@ events to prepare; they are a property the repository always has.
 - 2026-06-30 → 2026-07-06: Claude (Fable 5) — iterations 1–19 (incl. the iter-19 gate null:
   collapse located in the planning representation), verification pass, benchmark + power runs,
   paper draft + figures + arXiv package, this continuity system.
+- 2026-07-06 (shift end): Claude (Fable 5) — paper folded through iter 19; HANDOFF.md
+  committed; BOX IDLE, no runs in flight; open threads: arXiv endorsement (V76QK4, Ljungbergh
+  asked 07-05, escalate to Holger Caesar if silent by 07-07 eve), optional next lines per
+  NEXT_PHASE (BEV-conditioning pre-reg; VAD tracker portability).
 - (append one line per shift: dates, operator, what changed, box state at exit)
