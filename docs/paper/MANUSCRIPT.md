@@ -53,13 +53,41 @@ re-established on fresh data.
 
 ## 2. Related work
 
-Position against (verified sweep, docs/RELATED_WORK.md): learned collision-prediction monitors
-with braking (RiskMonitor/CATPlan); generative takeover (Argus); test-time adaptation
-(Centaur); formal runtime assurance (RSS and derivatives); THG/candidate-diversity literature
-(prediction-side only). Four axes verified unoccupied: label-free geometric monitoring on a
-frozen planner; progress-aware deployment metric with CIs; closed-loop quantification of
-formal-envelope over-conservatism; threat-conditioned candidate diversity on planners' own
-candidates.
+*(Positioning from a per-claim adversarially verified sweep — 25 claims checked against source
+PDFs by three independent verifiers each; docs/RELATED_WORK.md carries the confidence labels.)*
+
+**Runtime monitors for end-to-end planners.** CATPlan/RiskMonitor (arXiv 2503.07425) is the
+canonical introspection-style monitor: a *learned* transformer decoder trained on the sign of
+the planner's collision loss, reading UniAD/VAD internal queries, with a braking policy
+(66.5% closed-loop collision-rate reduction on NeuroNCAP). Argus (arXiv 2511.09032, ASE 2025)
+attaches a takeover fallback that *generates its own replacement trajectory* in CARLA. Centaur
+(arXiv 2503.11650) performs test-time *training* — gradient updates driven by cluster-entropy
+uncertainty. Our monitor differs on each axis: label-free geometry over the planner's own
+outputs (no trained head), no invented takeover trajectory (the campaign's evasion and crawl
+nulls argue this is not merely simpler but structurally safer), no weight updates — and it is
+validated with a progress-aware metric none of the above report.
+
+**Runtime selection among a frozen planner's candidates.** Candidate scoring is an active
+paradigm (CLOVER, GTRS, DIVER, DiffusionDrive, TransDiffuser rejection sampling), but in every
+verified instance the scorer is co-trained within the planner's pipeline and evaluated on
+non-reactive NAVSIM. No verified published work re-ranks a *frozen* planner's native candidates
+at runtime with an external safety signal — the mechanism our iteration-12/14 measurements
+close for command-indexed candidates (the candidates collapse when needed) and reopen for
+diversity-trained heads.
+
+**Mode collapse under threat.** Documented as a training-time phenomenon (WTA instability,
+imitation collapse), with explicit metrics only prediction-side (arXiv 2506.23164). Our
+threat-*conditioned* diversity measurements on planners' own candidate sets, closed-loop, on
+two planners, appear to be the first.
+
+**Deployment-aware statistics.** The verified corpus reports Driving Score and collision-rate
+reductions; no confirmed source reports combined progress+safety metrics with bootstrap CIs,
+intervention budgets, or detection lead time for a closed-loop runtime monitor. That
+evaluation vocabulary — safe-progress with seed-paired CIs, interventions per benign distance,
+median lead time from committed decision logs — is a contribution of this work.
+
+**Formal-envelope over-conservatism** exists in the literature as a citable but unquantified
+assertion; §8 measures it closed-loop, on inputs and actuator identical to the monitor's.
 
 ## 3. Closed-loop apparatus and methodology
 
