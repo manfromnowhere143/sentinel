@@ -38,7 +38,10 @@ boundaries.
 ## Offline gate — bars frozen now
 
 The replay uses only committed iteration-14 VAD evidence:
-`../vad_generalization/proof/sentinel_vad20_union.jsonl.gz`.
+`../vad_generalization/proof/sentinel_vad20_union.jsonl.gz` plus the matching ego poses in
+`../vad_generalization/proof/vad20-runs.tar.gz` for the same world-frame reconstruction used
+by the original VAD patch. The poses are not new data; they are the committed per-run evidence
+already cited by the VAD result.
 
 - **V1 — false-closing reduction:** frames where raw-ID finite differencing fires the TTC term
   while the tracker stream does not fire either union term fall by **>= 80%** across the three
