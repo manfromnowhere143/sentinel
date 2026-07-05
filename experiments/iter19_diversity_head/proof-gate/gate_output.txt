@@ -1,0 +1,16 @@
+iter12 episodes: 1 frames 311 | extraction episodes: 24 frames 311
+joined frames: 311 (plan-mismatch skipped: 0)
+
+=== D1 — escape rate on dangerous frames (feasible escapes only) ===
+  dangerous frames: 37   escapes: 0   rate 0%  binomial 95% CI [0%, 0%]   bar > 30%
+  D1: FAIL
+
+=== D2 — feasibility (escapes rejected for kinematics above): ===
+  infeasible would-be escapes: 16 (already excluded from D1)
+  D2: PASS-BY-CONSTRUCTION (D1 counts only feasible escapes; raw counts reported)
+
+=== D3 — benign fidelity (best-of-K vs executed plan, non-dangerous frames) ===
+  frames: 274   mean best-of-K error 0.769 m   bar <= 0.780 m
+  D3: PASS
+
+GATE: FAILED — the null publishes per the gate rule

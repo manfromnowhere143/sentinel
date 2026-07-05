@@ -80,7 +80,7 @@ extr_eps = episodes_of(extr, lambda r: r.get('reset', False), lambda r: 'sdc_tra
 print(f'iter12 episodes: {len(cand_eps)} frames {sum(map(len, cand_eps))} | '
       f'extraction episodes: {len(extr_eps)} frames {sum(map(len, extr_eps))}')
 
-ck = torch.load(CKPT, map_location='cpu')
+ck = torch.load(CKPT, map_location='cpu', weights_only=False)  # our own checkpoint
 from types import SimpleNamespace  # noqa: E402
 import torch.nn as nn  # noqa: E402
 K, HH, din = ck['K'], ck['H'], ck['din']
@@ -92,14 +92,22 @@ net.eval()
 mu, s = ck['mu'], ck['sd']
 
 # align: same episode count expected; join by (episode, frame) with executed-plan cross-check
-n_ep = min(len(cand_eps), len(extr_eps))
+# both runs are the same deterministic frame sequence; join flat, index-by-index,
+# with per-frame executed-plan agreement as the alignment proof
+flat_c = [r for e in cand_eps for r in e]
+flat_x = [r for e in extr_eps for r in e]
+ep_bounds = set()
+acc_n = 0
+for e in extr_eps:
+    ep_bounds.add(acc_n)
+    acc_n += len(e)
 joined = []
 mismatch = 0
-for e in range(n_ep):
-    ce, xe = cand_eps[e], extr_eps[e]
-    # kinematics chains from extraction ego2world
+if True:
+    ce, xe = flat_c, flat_x
     for i in range(min(len(ce), len(xe))):
         c, x = ce[i], xe[i]
+        ep_start = i in ep_bounds
         exe_plan = c['cands'][c['exe_cmd']]
         served = x['traj']
         d0 = math.hypot(exe_plan[0][0] - served[0][0], exe_plan[0][1] - served[0][1])
@@ -107,7 +115,7 @@ for e in range(n_ep):
             mismatch += 1
             continue
         # ego kinematics from consecutive extraction poses
-        if i > 0:
+        if i > 0 and not ep_start:
             P0 = np.array(xe[i - 1]['ego2world'])
             P1 = np.array(x['ego2world'])
             dp = np.linalg.inv(P0[:3, :3]) @ (P1[:3, 3] - P0[:3, 3])
@@ -117,7 +125,7 @@ for e in range(n_ep):
             yr = ((yaw1 - yaw0 + math.pi) % (2 * math.pi) - math.pi) / DT
         else:
             speed, yr = 0.0, 0.0
-        if i > 1:
+        if i > 1 and not ep_start and (i - 1) not in ep_bounds:
             P00 = np.array(xe[i - 2]['ego2world'])
             dp0 = np.linalg.inv(P00[:3, :3]) @ (np.array(xe[i - 1]['ego2world'])[:3, 3] - P00[:3, 3])
             acc = (speed - float(dp0[0]) / DT) / DT

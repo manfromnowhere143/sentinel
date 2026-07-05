@@ -173,3 +173,14 @@ over-claim.** That arc, in order:
     challenger.** The open problem narrows: a crossing-safe routing predicate (successors named:
     firing-term routing, N-frame no-overlap confirmation, windowed observed-position overlap).
     [`../experiments/iter17_threat_routing/RESULT.md`](../experiments/iter17_threat_routing/RESULT.md).
+
+21. **Iter 19 — the diversity-trained candidate head: the gate refuses the closed loop, and
+    the collapse is located.** A 1.2M-parameter K=8 head, trained with an explicit diversity
+    objective on the planner's own planning-query embeddings (60 scenes disjoint from all
+    evaluation), passes benign fidelity but produces **0/37 feasible escapes** on iteration
+    12's dangerous frames — 16 diverging candidates appeared, every one kinematically
+    infeasible. The pre-registered falsifier fired exactly: the conditioning choice is
+    refuted, not the mechanism class. Third measurement by a third route (commands 0/37; VAD
+    modes 21%; learned head 0/37): **the plan-B deficit sits in the planner's internal
+    planning representation**, not in any decoder above it.
+    [`../experiments/iter19_diversity_head/RESULT.md`](../experiments/iter19_diversity_head/RESULT.md).
