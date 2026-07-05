@@ -1,0 +1,36 @@
+frame join: 1526 joined, 414 missing ego pose (the missing are episode warm-up frames that precede pose recording — excluded on both sides)
+
+=== O2 — side-0108: unsafe crawl frames (colliding runs [0, 2, 3, 4]) ===
+  run_0: crawl 3  -> stop under tracker 3
+  run_2: crawl 3  -> stop under tracker 3
+  run_3: crawl 3  -> stop under tracker 2
+  run_4: crawl 4  -> stop under tracker 4
+  O2 FAIL: 12/13 converted (bar: every unsafe crawl frame mandates the stop)
+  (all side-0108 crawl frames incl. safe runs: 16/23 converted)
+
+=== retention — crawl frames elsewhere that remain crawl (mechanism not vacuous) ===
+  frontal    0103  crawl  19  -> stop  10
+  frontal    0106  crawl  10  -> stop   0
+  frontal    0110  crawl   7  -> stop   3
+  frontal    0346  crawl  19  -> stop  11
+  frontal    0923  crawl  13  -> stop   7
+  side       0103  crawl  24  -> stop   0
+  side       0110  crawl   2  -> stop   0
+  side       0278  crawl   5  -> stop   2
+  side       0921  crawl  26  -> stop   0
+  stationary 0101  crawl  21  -> stop   3
+  stationary 0103  crawl   1  -> stop   0
+  stationary 0106  crawl   4  -> stop   1
+  stationary 0108  crawl  24  -> stop   0
+  stationary 0278  crawl   6  -> stop   0
+  stationary 0331  crawl   3  -> stop   0
+  stationary 0783  crawl   3  -> stop   3
+  stationary 0796  crawl   9  -> stop   0
+  retained elsewhere: 156/196 (80%)
+
+=== O3 — clean-scene union firing on tracker output vs logged (raw) ===
+  stationary 0099  raw fired frames   0   tracker fired frames   1
+  stationary 0103  raw fired frames   2   tracker fired frames   8
+  stationary 0331  raw fired frames   4   tracker fired frames   0
+  stationary 0966  raw fired frames   0   tracker fired frames   4
+  O3 CHECK (tracker 13 vs raw 6, bar: within 10%)
