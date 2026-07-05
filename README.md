@@ -4,8 +4,8 @@
 collision it is about to cause, and intervenes — measured where it actually matters: in closed
 loop, by whether the car crashes *and whether it can still drive*.**
 
-> **Honest status up front (15 iterations + an independent verification pass + the full official
-> benchmark):** the introspective signal predicts the planner's collisions (AUROC 0.83). On the
+> **Honest status up front (16 completed iterations + an independent verification pass + the
+> full official benchmark at power; a 17th pre-registered and running):** the introspective signal predicts the planner's collisions (AUROC 0.83). On the
 > complete 14-scene NeuroNCAP set at **20 seed-paired runs per pair** (799 episodes, the power
 > measurement), the unmonitored UniAD baseline **independently reproduces** (pooled 2.12 vs the
 > published 1.84 — to the verified literature, a first), and the best configuration — the
@@ -92,15 +92,29 @@ flowchart LR
   I67 --> U["iter 8 · THE UNION<br/><b>selective + side<br/>+ net-positive</b>"]
   U --> E9["iters 9-11<br/>three evasions<br/><b>all refuted</b>"]
   U --> V["verification pass<br/>claim withdrawn, re-measured:<br/><b>+0.398 [+0.133, +0.665]</b>"]
-  V --> F14["full 14-scene benchmark<br/>baseline reproduced<br/><b>2.15 to 3.09</b>"]
-  F14 --> R15["iter 15 · latch release<br/><b>best config</b>"]
-  R15 --> P20["power run · n=20/pair<br/><b>2.12 to 2.91, CI excl. 0</b>"]
   classDef win fill:#e2f3e5,stroke:#2e7d32,color:#13361b;
   classDef bad fill:#fdebec,stroke:#c62828,color:#3b1213;
   classDef audit fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
-  class G1,I2,U,F14,R15,P20 win;
+  class G1,I2,U win;
   class I3,I45,I67,E9 bad;
   class V audit;
+```
+
+Act two — from a validated method to the benchmark, at power, with the mechanism space mapped:
+
+```mermaid
+flowchart LR
+  N12["iters 12-14<br/>no plan B, two planners ·<br/>RSS: safety by paralysis ·<br/>selectivity not portable"] --> F14["full benchmark, n=6<br/>baseline reproduced<br/><b>2.15 to 3.09</b>"]
+  F14 --> R15["iter 15 · latch release<br/><b>best configuration</b>"]
+  R15 --> X16["iter 16 · crawl refuted<br/><b>the stop is a<br/>position guarantee</b>"]
+  R15 --> P20["power run · n=20/pair<br/><b>2.12 to 2.91, CI excl. 0</b><br/>deployment: tight null"]
+  P20 --> NX["manuscript · iter 17<br/>threat-class routing<br/>(pre-registered, running)"]
+  classDef win fill:#e2f3e5,stroke:#2e7d32,color:#13361b;
+  classDef bad fill:#fdebec,stroke:#c62828,color:#3b1213;
+  classDef next fill:#f6f8fa,stroke:#57606a,color:#1f2328;
+  class F14,R15,P20 win;
+  class N12,X16 bad;
+  class NX next;
 ```
 
 The winning monitor is a **union of two individually-selective detectors**, chosen because the two
@@ -145,6 +159,11 @@ Primary benchmark: **NeuroNCAP** (public, NeRF/NeuRAD closed-loop on nuScenes). 
 **safety score (0–5, ↑)** and **collision rate (%, ↓)**. The win bar is frozen in
 [`PREREGISTRATION.md`](PREREGISTRATION.md): a Sentinel-monitored frozen planner must beat **the same
 unmonitored planner** (and a RiskMonitor-style baseline) with a bootstrap CI excluding zero.
+
+**Status: the primary bar is met at full scale** — on all 14 official scenes at 20 seed-paired
+runs per pair, +0.783 with 95% CI [+0.605, +0.928] against the same unmonitored planner. The
+baseline-comparison arm is covered by the ablations (iteration 2: naive proximity and
+always-brake controls) and the formal-envelope baseline (iteration 13) on identical inputs.
 
 ### Score tracker (honest trajectory — updated every iteration)
 
@@ -248,25 +267,28 @@ kept, with every number and link, in [`docs/CAMPAIGN.md`](docs/CAMPAIGN.md). The
 above is the same history in one screen.
 
 **Net, stated plainly — sixteen iterations plus an independent verification pass.** The
-**released union (iteration 15) is the best configuration** of the campaign: on the full official
-benchmark it lifts the reproduced baseline 2.15 → 3.09 (CI excludes zero), keeps clean scenes
-identical to the unmonitored planner, and strictly dominates the plain union (identical safety on
-every cell, safe-progress +0.246, CI [+0.206, +0.293]). The mini-scene deployment win stands as
-measured there (+0.398, [+0.133, +0.665], 20 unique episodes/scene — re-established after the
-original pooled version was withdrawn by audit); at benchmark scope the deployment advantage over
-the unmonitored planner is +0.08 with a CI that includes zero — a measured *cost-of-stopping*
-floor, not a triggering flaw. The frontal head-on *ceiling* is firmly established — a committed
-stop is the best frontal response, and **three separate evasion designs (iters 9, 10, 11) were
-tested and honestly refuted**, all worse than stopping, the last one dangerous on false alarms
-(re-confirmed at n=20: 25% clean-scene collisions vs OFF's 10%).
+**released union (iteration 15) is the best configuration** of the campaign: at the definitive
+20-run scale it lifts the independently reproduced baseline **2.12 → 2.91 (CI [+0.605, +0.928])**,
+keeps clean scenes identical to the unmonitored planner, and strictly dominates the plain union
+(identical safety on every cell, safe-progress +0.246, CI [+0.206, +0.293]). Its
+deployment-metric effect vs the unmonitored planner is a **tight null** (−0.03, CI [−0.13,
++0.07]) — the safety is bought at approximately zero net deployment cost, and iteration 16
+proved the residual is not recoverable by softening the stop. The mini-scene deployment win
+stands as measured there (+0.398, [+0.133, +0.665], 20 unique episodes/scene — re-established
+after the original pooled version was withdrawn by audit). The frontal head-on *ceiling* is
+firmly established — a committed stop is the best frontal response, and **three separate evasion
+designs (iters 9, 10, 11) were tested and honestly refuted**, all worse than stopping, the last
+one dangerous on false alarms (re-confirmed at n=20: 25% clean-scene collisions vs OFF's 10%).
 
 **What's next.** The measurement campaign is complete; the successor lines are defined with
 frozen decision rules in [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md):
 
-- **The manuscript** — every number final and evidence-wired; a writing task now.
-- **Threat-class routing** (named by iteration 16's null): stop for crossings and in-path
-  obstacles, softer only where geometry proves an overlap-free path — the cheapest credible
-  attack on the deployment null.
+- **The manuscript — drafting** ([`docs/paper/MANUSCRIPT.md`](docs/paper/MANUSCRIPT.md)): every
+  number final and evidence-wired.
+- **Iteration 17 — threat-class routing (pre-registered, running)**: stop wherever a tracked
+  object's path overlaps the ego's planned corridor; crawl only where geometry shows none — the
+  cheapest credible attack on the deployment null, with the misrouted-crossing falsifier frozen.
+  [`experiments/iter17_threat_routing/HYPOTHESIS.md`](experiments/iter17_threat_routing/HYPOTHESIS.md).
 - **A diversity-trained candidate head under the runtime selector** — the successor mechanism
   motivated by the two-planner candidate-collapse findings; offline bar (escape rate > 30%)
   before any closed-loop GPU time.
@@ -363,6 +385,9 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter15_latch_release/`](experiments/iter15_latch_release) | **threat-cleared latch release — the best configuration** |
 | [`experiments/iter16_soft_stop/`](experiments/iter16_soft_stop) | softer than a stop — the crawl null; the stop is a position guarantee |
 | [`experiments/full14_power/`](experiments/full14_power) | **the power measurement** — the benchmark result at n=20/pair; deployment resolved to a tight null |
+| [`experiments/iter17_threat_routing/`](experiments/iter17_threat_routing) | threat-class routing (pre-registered, running) |
+| [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
+| [`docs/paper/MANUSCRIPT.md`](docs/paper/MANUSCRIPT.md) | the manuscript working draft |
 
 Every result folder carries a `RESULT.md` with the real per-run numbers, the exact server patch, and the
 run script. `sentinel/monitor.py` is the pure-geometry monitor with unit tests (`tests/`); CI runs ruff +
