@@ -56,6 +56,9 @@ if os.path.exists(latest_result):
     print(f'- Newest completed experiment: {latest_result} — read it before opening new work.')
 else:
     print(f'- Newest pre-registration: {latest} — read it in full; its gate governs the next action.')
+frontier = 'docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md'
+if os.path.exists(frontier):
+    print(f'- Next research launch packet: {frontier} — not a pre-registration; it authorizes no run.')
 for f in ('docs/NEXT_PHASE.md', 'docs/paper/MANUSCRIPT.md'):
     if os.path.exists(f):
         print(f'- {f}: check its status ledger/decision rules.')
