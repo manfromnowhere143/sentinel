@@ -1,0 +1,68 @@
+{
+  "all_s0_integrity_pass": true,
+  "canary_determinism_pass": true,
+  "pairs": [
+    {
+      "canonical_sha256": {
+        "extract": "8b1b4ab69c0e0b51334b6f06dc1312be3bdd80328d3eb5848a4613a8eb1174d6",
+        "extract_rows": 18,
+        "gt": "448b627ff1cc726d6b6d6c2dd2459b76dfdb362ea65b3141f1a408dd97dc51ac",
+        "gt_rows": 15
+      },
+      "duplicate_extract_keys": 0,
+      "duplicate_gt_keys": 0,
+      "error_row_types": {},
+      "extract_nonreset_rows_total": 15,
+      "extract_path": "experiments/iter23_s0_hardened_causal_localization/proof-canary/sentinel_e23_canary_a.jsonl.gz",
+      "extract_rows_total": 18,
+      "gt_path": "experiments/iter23_s0_hardened_causal_localization/proof-canary/sentinel_e23_canary_a_gt.jsonl.gz",
+      "gt_rows_total": 15,
+      "joined_rows": 15,
+      "s0_integrity_pass": true,
+      "shape_counts": {
+        "sdc_track_query_shape": {
+          "[1, 256]": 15
+        },
+        "sdc_traj_query_last_shape": {
+          "[1, 6, 256]": 15
+        }
+      },
+      "split_counts": {
+        "calibration": 5,
+        "fit": 5,
+        "heldout": 5
+      }
+    },
+    {
+      "canonical_sha256": {
+        "extract": "8b1b4ab69c0e0b51334b6f06dc1312be3bdd80328d3eb5848a4613a8eb1174d6",
+        "extract_rows": 18,
+        "gt": "448b627ff1cc726d6b6d6c2dd2459b76dfdb362ea65b3141f1a408dd97dc51ac",
+        "gt_rows": 15
+      },
+      "duplicate_extract_keys": 0,
+      "duplicate_gt_keys": 0,
+      "error_row_types": {},
+      "extract_nonreset_rows_total": 15,
+      "extract_path": "experiments/iter23_s0_hardened_causal_localization/proof-canary/sentinel_e23_canary_b.jsonl.gz",
+      "extract_rows_total": 18,
+      "gt_path": "experiments/iter23_s0_hardened_causal_localization/proof-canary/sentinel_e23_canary_b_gt.jsonl.gz",
+      "gt_rows_total": 15,
+      "joined_rows": 15,
+      "s0_integrity_pass": true,
+      "shape_counts": {
+        "sdc_track_query_shape": {
+          "[1, 256]": 15
+        },
+        "sdc_traj_query_last_shape": {
+          "[1, 6, 256]": 15
+        }
+      },
+      "split_counts": {
+        "calibration": 5,
+        "fit": 5,
+        "heldout": 5
+      }
+    }
+  ]
+}

@@ -1,0 +1,301 @@
++ swapon /swapfile
++ true
++ git config --global --add safe.directory /opt/sentinel-stack/UniAD
++ run_one a 9110
++ local tag=a
++ local port=9110
++ git -C /opt/sentinel-stack/UniAD checkout -- inference/server.py inference/runner.py
++ python3 /tmp/server_patch_stage1_iter23.py
+E23_STAGE1_PATCHED
++ rm -f /opt/sentinel-stack/UniAD/sentinel_e23_canary_a.jsonl /opt/sentinel-stack/UniAD/sentinel_e23_canary_a_gt.jsonl /opt/sentinel-stack/UniAD/sentinel_e23_context.json
++ docker rm -f model
++ echo 'waiting for model server a...'
+waiting for model server a...
++ docker run --name model --rm --gpus all -v /opt/sentinel-stack/UniAD:/model -v /datasets/nuscenes:/datasets/nuscenes:ro -w /model --network host -e PYTHONPATH=. -e SENTINEL_E23_STAGE1=1 -e SENTINEL_E23_LOG=/model/sentinel_e23_canary_a.jsonl -e SENTINEL_E23_CONTEXT=/model/sentinel_e23_context.json uniad:latest python -u inference/server.py --port 9110 --config_path projects/configs/stage2_e2e/inference_e2e.py --checkpoint_path ckpts/uniad_base_e2e.pth
+++ seq 1 120
++ for _ in $(seq 1 120)
++ curl -sf http://127.0.0.1:9110/alive
++ sleep 5
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 11.1.1
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
++ for _ in $(seq 1 120)
++ curl -sf http://127.0.0.1:9110/alive
++ sleep 5
++ for _ in $(seq 1 120)
++ curl -sf http://127.0.0.1:9110/alive
++ sleep 5
+/model/projects/mmdet3d_plugin/uniad/modules/custom_base_transformer_layer.py:77: UserWarning: The arguments `feedforward_channels` in BaseTransformerLayer has been deprecated, now you should set `feedforward_channels` and other FFN related arguments to a dict named `ffn_cfgs`. 
+  warnings.warn(
+/model/projects/mmdet3d_plugin/uniad/modules/custom_base_transformer_layer.py:77: UserWarning: The arguments `ffn_dropout` in BaseTransformerLayer has been deprecated, now you should set `ffn_drop` and other FFN related arguments to a dict named `ffn_cfgs`. 
+  warnings.warn(
+/model/projects/mmdet3d_plugin/uniad/modules/custom_base_transformer_layer.py:77: UserWarning: The arguments `ffn_num_fcs` in BaseTransformerLayer has been deprecated, now you should set `num_fcs` and other FFN related arguments to a dict named `ffn_cfgs`. 
+  warnings.warn(
+/usr/local/lib/python3.8/dist-packages/mmcv/cnn/bricks/transformer.py:341: UserWarning: The arguments `feedforward_channels` in BaseTransformerLayer has been deprecated, now you should set `feedforward_channels` and other FFN related arguments to a dict named `ffn_cfgs`. 
+  warnings.warn(
+/usr/local/lib/python3.8/dist-packages/mmcv/cnn/bricks/transformer.py:341: UserWarning: The arguments `ffn_dropout` in BaseTransformerLayer has been deprecated, now you should set `ffn_drop` and other FFN related arguments to a dict named `ffn_cfgs`. 
+  warnings.warn(
+/usr/local/lib/python3.8/dist-packages/mmcv/cnn/bricks/transformer.py:341: UserWarning: The arguments `ffn_num_fcs` in BaseTransformerLayer has been deprecated, now you should set `num_fcs` and other FFN related arguments to a dict named `ffn_cfgs`. 
+  warnings.warn(
+/usr/local/lib/python3.8/dist-packages/mmcv/cnn/bricks/transformer.py:92: UserWarning: The arguments `dropout` in MultiheadAttention has been deprecated, now you can separately set `attn_drop`(float), proj_drop(float), and `dropout_layer`(dict) 
+  warnings.warn('The arguments `dropout` in MultiheadAttention '
++ for _ in $(seq 1 120)
++ curl -sf http://127.0.0.1:9110/alive
++ sleep 5
+load checkpoint from local path: ckpts/uniad_base_e2e.pth
+2026-07-06 14:36:50,071 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.0.conv2 is upgraded to version 2.
+2026-07-06 14:36:50,077 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.1.conv2 is upgraded to version 2.
+2026-07-06 14:36:50,081 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.2.conv2 is upgraded to version 2.
+2026-07-06 14:36:50,085 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.3.conv2 is upgraded to version 2.
+2026-07-06 14:36:50,089 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.4.conv2 is upgraded to version 2.
+2026-07-06 14:36:50,093 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.5.conv2 is upgraded to version 2.
+2026-07-06 14:36:50,097 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.6.conv2 is upgraded to version 2.
+2026-07-06 14:36:50,101 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.7.conv2 is upgraded to version 2.
+2026-07-06 14:36:50,105 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.8.conv2 is upgraded to version 2.
+2026-07-06 14:36:50,109 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.9.conv2 is upgraded to version 2.
+2026-07-06 14:36:50,113 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.10.conv2 is upgraded to version 2.
+2026-07-06 14:36:50,116 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.11.conv2 is upgraded to version 2.
+2026-07-06 14:36:50,120 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.12.conv2 is upgraded to version 2.
+2026-07-06 14:36:50,124 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.13.conv2 is upgraded to version 2.
+2026-07-06 14:36:50,128 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.14.conv2 is upgraded to version 2.
+2026-07-06 14:36:50,131 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.15.conv2 is upgraded to version 2.
+2026-07-06 14:36:50,135 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.16.conv2 is upgraded to version 2.
+2026-07-06 14:36:50,139 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.17.conv2 is upgraded to version 2.
+2026-07-06 14:36:50,143 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.18.conv2 is upgraded to version 2.
+2026-07-06 14:36:50,147 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.19.conv2 is upgraded to version 2.
+2026-07-06 14:36:50,150 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.20.conv2 is upgraded to version 2.
+2026-07-06 14:36:50,154 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.21.conv2 is upgraded to version 2.
+2026-07-06 14:36:50,158 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.22.conv2 is upgraded to version 2.
+2026-07-06 14:36:50,162 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.0.conv2 is upgraded to version 2.
+2026-07-06 14:36:50,169 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.1.conv2 is upgraded to version 2.
+2026-07-06 14:36:50,174 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.2.conv2 is upgraded to version 2.
++ for _ in $(seq 1 120)
++ curl -sf http://127.0.0.1:9110/alive
++ sleep 5
+INFO:     Started server process [1]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:9110 (Press CTRL+C to quit)
++ for _ in $(seq 1 120)
++ curl -sf http://127.0.0.1:9110/alive
+INFO:     127.0.0.1:55958 - "GET /alive HTTP/1.1" 200 OK
++ break
++ curl -sf http://127.0.0.1:9110/alive
+trueINFO:     127.0.0.1:55966 - "GET /alive HTTP/1.1" 200 OK
++ cp /tmp/feeder_stage1_iter23.py /opt/sentinel-stack/UniAD/feeder_stage1_iter23.py
++ cp /tmp/availability_manifest_iter23.json /opt/sentinel-stack/UniAD/availability_manifest.json
++ docker exec model python -u /model/feeder_stage1_iter23.py --manifest /model/availability_manifest.json --mode canary --split all --canary-frames 5 --port 9110 --out /model/sentinel_e23_canary_a_gt.jsonl
+loading metadata...
+manifest scenes requested: 3 matched: 3
+INFO:     127.0.0.1:35428 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35444 - "POST /sentinel_e23_context HTTP/1.1" 200 OK
+/model/projects/mmdet3d_plugin/core/bbox/coders/detr3d_track_coder.py:94: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.post_center_range = torch.tensor(
+/usr/local/lib/python3.8/dist-packages/torch/_tensor.py:575: UserWarning: floor_divide is deprecated, and will be removed in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values.
+To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor'). (Triggered internally at  ../aten/src/ATen/native/BinaryOps.cpp:467.)
+  return torch.floor_divide(self, other)
+INFO:     127.0.0.1:35452 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35466 - "POST /sentinel_e23_context HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35476 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35484 - "POST /sentinel_e23_context HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35486 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35488 - "POST /sentinel_e23_context HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35502 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42120 - "POST /sentinel_e23_context HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42122 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0166 frames=5
+INFO:     127.0.0.1:42128 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42134 - "POST /sentinel_e23_context HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42136 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42140 - "POST /sentinel_e23_context HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42144 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42152 - "POST /sentinel_e23_context HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42154 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42158 - "POST /sentinel_e23_context HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42166 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46394 - "POST /sentinel_e23_context HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46408 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE calibration scene-0041 frames=5
+INFO:     127.0.0.1:46422 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46430 - "POST /sentinel_e23_context HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46440 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46452 - "POST /sentinel_e23_context HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46460 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46474 - "POST /sentinel_e23_context HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46478 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46494 - "POST /sentinel_e23_context HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46496 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49716 - "POST /sentinel_e23_context HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49726 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE heldout scene-0060 frames=5
+FEEDER_DONE mode=canary split=all scenes=3 frames=15
++ docker rm -f model
++ gzip -kf /opt/sentinel-stack/UniAD/sentinel_e23_canary_a.jsonl /opt/sentinel-stack/UniAD/sentinel_e23_canary_a_gt.jsonl
+++ date
++ echo 'E23_CANARY_a_DONE Mon Jul  6 12:38:02 UTC 2026'
+E23_CANARY_a_DONE Mon Jul  6 12:38:02 UTC 2026
++ run_one b 9111
++ local tag=b
++ local port=9111
++ git -C /opt/sentinel-stack/UniAD checkout -- inference/server.py inference/runner.py
++ python3 /tmp/server_patch_stage1_iter23.py
+E23_STAGE1_PATCHED
++ rm -f /opt/sentinel-stack/UniAD/sentinel_e23_canary_b.jsonl /opt/sentinel-stack/UniAD/sentinel_e23_canary_b_gt.jsonl /opt/sentinel-stack/UniAD/sentinel_e23_context.json
++ docker rm -f model
++ echo 'waiting for model server b...'
+waiting for model server b...
++ docker run --name model --rm --gpus all -v /opt/sentinel-stack/UniAD:/model -v /datasets/nuscenes:/datasets/nuscenes:ro -w /model --network host -e PYTHONPATH=. -e SENTINEL_E23_STAGE1=1 -e SENTINEL_E23_LOG=/model/sentinel_e23_canary_b.jsonl -e SENTINEL_E23_CONTEXT=/model/sentinel_e23_context.json uniad:latest python -u inference/server.py --port 9111 --config_path projects/configs/stage2_e2e/inference_e2e.py --checkpoint_path ckpts/uniad_base_e2e.pth
+++ seq 1 120
++ for _ in $(seq 1 120)
++ curl -sf http://127.0.0.1:9111/alive
++ sleep 5
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 11.1.1
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
++ for _ in $(seq 1 120)
++ curl -sf http://127.0.0.1:9111/alive
++ sleep 5
++ for _ in $(seq 1 120)
++ curl -sf http://127.0.0.1:9111/alive
++ sleep 5
+/model/projects/mmdet3d_plugin/uniad/modules/custom_base_transformer_layer.py:77: UserWarning: The arguments `feedforward_channels` in BaseTransformerLayer has been deprecated, now you should set `feedforward_channels` and other FFN related arguments to a dict named `ffn_cfgs`. 
+  warnings.warn(
+/model/projects/mmdet3d_plugin/uniad/modules/custom_base_transformer_layer.py:77: UserWarning: The arguments `ffn_dropout` in BaseTransformerLayer has been deprecated, now you should set `ffn_drop` and other FFN related arguments to a dict named `ffn_cfgs`. 
+  warnings.warn(
+/model/projects/mmdet3d_plugin/uniad/modules/custom_base_transformer_layer.py:77: UserWarning: The arguments `ffn_num_fcs` in BaseTransformerLayer has been deprecated, now you should set `num_fcs` and other FFN related arguments to a dict named `ffn_cfgs`. 
+  warnings.warn(
+/usr/local/lib/python3.8/dist-packages/mmcv/cnn/bricks/transformer.py:341: UserWarning: The arguments `feedforward_channels` in BaseTransformerLayer has been deprecated, now you should set `feedforward_channels` and other FFN related arguments to a dict named `ffn_cfgs`. 
+  warnings.warn(
+/usr/local/lib/python3.8/dist-packages/mmcv/cnn/bricks/transformer.py:341: UserWarning: The arguments `ffn_dropout` in BaseTransformerLayer has been deprecated, now you should set `ffn_drop` and other FFN related arguments to a dict named `ffn_cfgs`. 
+  warnings.warn(
+/usr/local/lib/python3.8/dist-packages/mmcv/cnn/bricks/transformer.py:341: UserWarning: The arguments `ffn_num_fcs` in BaseTransformerLayer has been deprecated, now you should set `num_fcs` and other FFN related arguments to a dict named `ffn_cfgs`. 
+  warnings.warn(
+/usr/local/lib/python3.8/dist-packages/mmcv/cnn/bricks/transformer.py:92: UserWarning: The arguments `dropout` in MultiheadAttention has been deprecated, now you can separately set `attn_drop`(float), proj_drop(float), and `dropout_layer`(dict) 
+  warnings.warn('The arguments `dropout` in MultiheadAttention '
++ for _ in $(seq 1 120)
++ curl -sf http://127.0.0.1:9111/alive
++ sleep 5
+load checkpoint from local path: ckpts/uniad_base_e2e.pth
+2026-07-06 14:38:19,571 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.0.conv2 is upgraded to version 2.
+2026-07-06 14:38:19,576 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.1.conv2 is upgraded to version 2.
+2026-07-06 14:38:19,580 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.2.conv2 is upgraded to version 2.
+2026-07-06 14:38:19,584 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.3.conv2 is upgraded to version 2.
+2026-07-06 14:38:19,588 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.4.conv2 is upgraded to version 2.
+2026-07-06 14:38:19,592 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.5.conv2 is upgraded to version 2.
+2026-07-06 14:38:19,596 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.6.conv2 is upgraded to version 2.
+2026-07-06 14:38:19,600 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.7.conv2 is upgraded to version 2.
+2026-07-06 14:38:19,603 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.8.conv2 is upgraded to version 2.
+2026-07-06 14:38:19,607 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.9.conv2 is upgraded to version 2.
+2026-07-06 14:38:19,611 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.10.conv2 is upgraded to version 2.
+2026-07-06 14:38:19,615 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.11.conv2 is upgraded to version 2.
+2026-07-06 14:38:19,619 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.12.conv2 is upgraded to version 2.
+2026-07-06 14:38:19,623 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.13.conv2 is upgraded to version 2.
+2026-07-06 14:38:19,626 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.14.conv2 is upgraded to version 2.
+2026-07-06 14:38:19,630 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.15.conv2 is upgraded to version 2.
+2026-07-06 14:38:19,634 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.16.conv2 is upgraded to version 2.
+2026-07-06 14:38:19,638 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.17.conv2 is upgraded to version 2.
+2026-07-06 14:38:19,641 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.18.conv2 is upgraded to version 2.
+2026-07-06 14:38:19,645 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.19.conv2 is upgraded to version 2.
+2026-07-06 14:38:19,649 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.20.conv2 is upgraded to version 2.
+2026-07-06 14:38:19,653 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.21.conv2 is upgraded to version 2.
+2026-07-06 14:38:19,656 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.22.conv2 is upgraded to version 2.
+2026-07-06 14:38:19,661 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.0.conv2 is upgraded to version 2.
+2026-07-06 14:38:19,667 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.1.conv2 is upgraded to version 2.
+2026-07-06 14:38:19,671 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.2.conv2 is upgraded to version 2.
++ for _ in $(seq 1 120)
++ curl -sf http://127.0.0.1:9111/alive
++ sleep 5
+INFO:     Started server process [1]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:9111 (Press CTRL+C to quit)
++ for _ in $(seq 1 120)
++ curl -sf http://127.0.0.1:9111/alive
+INFO:     127.0.0.1:51722 - "GET /alive HTTP/1.1" 200 OK
++ break
++ curl -sf http://127.0.0.1:9111/alive
+INFO:     127.0.0.1:51728 - "GET /alive HTTP/1.1" 200 OK
+true+ cp /tmp/feeder_stage1_iter23.py /opt/sentinel-stack/UniAD/feeder_stage1_iter23.py
++ cp /tmp/availability_manifest_iter23.json /opt/sentinel-stack/UniAD/availability_manifest.json
++ docker exec model python -u /model/feeder_stage1_iter23.py --manifest /model/availability_manifest.json --mode canary --split all --canary-frames 5 --port 9111 --out /model/sentinel_e23_canary_b_gt.jsonl
+loading metadata...
+manifest scenes requested: 3 matched: 3
+INFO:     127.0.0.1:52722 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52738 - "POST /sentinel_e23_context HTTP/1.1" 200 OK
+/model/projects/mmdet3d_plugin/core/bbox/coders/detr3d_track_coder.py:94: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.post_center_range = torch.tensor(
+/usr/local/lib/python3.8/dist-packages/torch/_tensor.py:575: UserWarning: floor_divide is deprecated, and will be removed in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values.
+To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor'). (Triggered internally at  ../aten/src/ATen/native/BinaryOps.cpp:467.)
+  return torch.floor_divide(self, other)
+INFO:     127.0.0.1:52754 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52756 - "POST /sentinel_e23_context HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52760 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52770 - "POST /sentinel_e23_context HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52784 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52798 - "POST /sentinel_e23_context HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52800 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54118 - "POST /sentinel_e23_context HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54130 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0166 frames=5
+INFO:     127.0.0.1:54140 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54144 - "POST /sentinel_e23_context HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54160 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54170 - "POST /sentinel_e23_context HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54184 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54190 - "POST /sentinel_e23_context HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54192 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54196 - "POST /sentinel_e23_context HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54208 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53928 - "POST /sentinel_e23_context HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53930 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE calibration scene-0041 frames=5
+INFO:     127.0.0.1:53946 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53960 - "POST /sentinel_e23_context HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53970 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53986 - "POST /sentinel_e23_context HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53994 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54002 - "POST /sentinel_e23_context HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54006 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54018 - "POST /sentinel_e23_context HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54028 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56360 - "POST /sentinel_e23_context HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56364 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE heldout scene-0060 frames=5
+FEEDER_DONE mode=canary split=all scenes=3 frames=15
++ docker rm -f model
++ gzip -kf /opt/sentinel-stack/UniAD/sentinel_e23_canary_b.jsonl /opt/sentinel-stack/UniAD/sentinel_e23_canary_b_gt.jsonl
+++ date
++ echo 'E23_CANARY_b_DONE Mon Jul  6 12:39:33 UTC 2026'
+E23_CANARY_b_DONE Mon Jul  6 12:39:33 UTC 2026
++ ls -la /opt/sentinel-stack/UniAD/sentinel_e23_canary_a.jsonl.gz /opt/sentinel-stack/UniAD/sentinel_e23_canary_a_gt.jsonl.gz /opt/sentinel-stack/UniAD/sentinel_e23_canary_b.jsonl.gz /opt/sentinel-stack/UniAD/sentinel_e23_canary_b_gt.jsonl.gz
+-rw-r--r-- 1 root root 427427 Jul  6 12:37 /opt/sentinel-stack/UniAD/sentinel_e23_canary_a.jsonl.gz
+-rw-r--r-- 1 root root   2887 Jul  6 12:37 /opt/sentinel-stack/UniAD/sentinel_e23_canary_a_gt.jsonl.gz
+-rw-r--r-- 1 root root 427427 Jul  6 12:39 /opt/sentinel-stack/UniAD/sentinel_e23_canary_b.jsonl.gz
+-rw-r--r-- 1 root root   2887 Jul  6 12:39 /opt/sentinel-stack/UniAD/sentinel_e23_canary_b_gt.jsonl.gz
+++ date
++ echo 'E23_CANARY_DONE Mon Jul  6 12:39:33 UTC 2026'
+E23_CANARY_DONE Mon Jul  6 12:39:33 UTC 2026
