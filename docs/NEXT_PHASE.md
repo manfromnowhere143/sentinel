@@ -32,6 +32,16 @@ noise of OFF), benchmark score not below the released-union's.
 **Cost:** the first line requiring training — feature-extraction pipeline plus a small head;
 single-L4 feasible; the largest engineering lift of the three.
 
+> **Line 1 outcome (2026-07-06):** run in two registered offline variants. Iteration 19's
+> planning-query head passed benign fidelity but failed at **0/37** feasible escapes, locating
+> the collapse in the planner's internal planning representation. Iteration 21 then tested the
+> surviving scene-level BEV variant; B0 passed (311/311 exact join, zero plan mismatches), but
+> B1 failed at **0/37** feasible escapes, B2 validity was **23.1%**, B3 benign error was
+> **1.449 m**, and B4 had no selectable escape. No closed-loop run launched from either
+> hypothesis.
+> [`../experiments/iter19_diversity_head/RESULT.md`](../experiments/iter19_diversity_head/RESULT.md) ·
+> [`../experiments/iter21_bev_diversity_head/RESULT.md`](../experiments/iter21_bev_diversity_head/RESULT.md).
+
 > **Line 2 outcome (2026-07-05):** run as iteration 17 — the pre-registered safety gate failed
 > on one misrouted crossing (side 47% vs the 45% bar) and the released union stands, while the
 > voided secondary criterion recorded the campaign's first deployment CI excluding zero vs the
@@ -93,8 +103,7 @@ measurement task. It waits only for the power run's final numbers so results are
 1. **Manuscript drafting starts when the power run's RESULT is committed** — no line blocks it.
 2. **Line 2 runs first on the GPU** (cheapest, completes the deployment story the campaign has
    chased since iteration 3; its null is also cheap and informative).
-3. **Line 1 starts its offline stage (feature extraction, head training) in parallel with Line
-   2's GPU time**; its closed-loop evaluation runs only after its offline bar (escape rate >
-   30%) is met — the iteration-12 corpus makes that a no-GPU check.
+3. **Line 1 is closed by offline gates**; its closed-loop evaluation never runs because neither
+   the planning-query nor the BEV-conditioned variant met the escape/feasibility bars.
 4. **Line 3 runs when Lines 1–2 conclude**, or earlier if either stalls on engineering.
 5. Every line gets a frozen HYPOTHESIS.md with falsifiers before data, per the campaign standard.

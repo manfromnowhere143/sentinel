@@ -81,6 +81,11 @@ events to prepare; they are a property the repository always has.
   79 -> 90). The simple association + smoothing tracker is not the VAD transfer repair;
   no VAD closed-loop run is authorized from that hypothesis
   (experiments/iter20_vad_tracker_portability/RESULT.md).
+- Iteration 21 concluded: the BEV-conditioned diversity head offline gate FAILED after exact
+  evaluation extraction (B0 pass: 311/311 frames, zero plan mismatches). B1 failed at 0/37
+  feasible escapes, B2 candidate validity was 574/2488 = 23.1%, B3 benign error was 1.449 m,
+  and B4 had no selectable escape. No closed-loop run is authorized from that hypothesis
+  (experiments/iter21_bev_diversity_head/RESULT.md).
 - Paper: docs/paper/paper.pdf compiled; arXiv account live (Daniel: ezio143); submission
   waits on a cs.RO endorsement (code V76QK4; request sent to William Ljungbergh
   william@recohere.ai on 2026-07-05; fallbacks: Holger Caesar, CATPlan authors). After
@@ -123,4 +128,7 @@ events to prepare; they are a property the repository always has.
   frames; 24 NCAP scores). Optional shadow log was absent and gzip warned on that path; the
   required BEV gzip validated. Next permitted step: commit proof, then run the offline gate
   once from committed artifacts.
+- 2026-07-06: Codex — iteration 21 offline gate run once from committed artifacts and FAILED
+  (B0 pass; B1 0/37, B2 23.1%, B3 1.449 m, B4 0/0). Null published; no closed-loop run
+  authorized from the BEV-conditioned head.
 - (append one line per shift: dates, operator, what changed, box state at exit)

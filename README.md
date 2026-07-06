@@ -111,12 +111,13 @@ flowchart LR
   P20 --> X17["iter 17 · routing refuted —<br/><b>deployment flip proven<br/>achievable</b>"]
   X17 --> X18["iter 18 · tracker offline gate<br/><b>12/13 — GPU stays off</b>"]
   X18 --> H19["iter 19 · diversity head<br/><b>gate refused: 0/37</b> —<br/>collapse is in the<br/>representation"]
+  H19 --> H21["iter 21 · BEV head<br/><b>gate refused: 0/37</b><br/>validity 23%"]
   classDef win fill:#e2f3e5,stroke:#2e7d32,color:#13361b;
   classDef bad fill:#fdebec,stroke:#c62828,color:#3b1213;
   classDef next fill:#f6f8fa,stroke:#57606a,color:#1f2328;
   class F14,R15,P20 win;
   class N12,X16,X17,X18 bad;
-  class H19 bad;
+  class H19,H21 bad;
 ```
 
 The winning monitor is a **union of two individually-selective detectors**, chosen because the two
@@ -197,8 +198,9 @@ always-brake controls) and the formal-envelope baseline (iteration 13) on identi
 | p20 | **the power run** — OFF vs released union at 20 runs/pair, all 14 scenes (799 episodes); H-P0 gate: first-6 of every pair must reproduce the committed 6-run evidence | OFF **2.12** (published 1.84 — reproduction holds) → released **2.91** | side 74→**44%** · stationary 29→**18%** · frontal 1.24→1.78 (78→90%, mitigation) · frontal/0346 regression **confirmed real** | **benchmark +0.783, CI [+0.605, +0.928]** at 3.3× power · safe-progress **−0.03, CI [−0.13, +0.07]** — tight null | **H-P0 PASS (first-6 exact, all pairs, both arms — through 5 machine freezes, 2 hosts, 4 relaunches**; root cause memory exhaustion, found by an on-box vitals watchdog, fixed with swap; off/side-0921 at n=19, its run_19 reproducibly froze the pre-swap host). The n=6 estimate (+0.934) was modestly optimistic; this replaces it as the headline. [`full14_power`](experiments/full14_power/RESULT.md) |
 | 17 | **threat-class routing** — stop wherever a tracked object's path overlaps the planned corridor (2.0 m, conservative); crawl only where none does; triggers/crawl/release unchanged | routed NCAP **2.92** vs released 3.09 · safe-prog **2.598** (new campaign high) | side 37→**47%** — past the 45% falsifier bar, carried by ONE pair (0108: 17→67%, a crossing the CV projection misses) · stationary 20% ✓ · frontal **1.97** (best of any arm) | routed − OFF safe-prog **+0.226, CI [+0.004, +0.421] — the campaign's FIRST deployment CI excluding zero vs the unmonitored planner** · routed − released: NCAP −0.170 (beyond the 0.15 tolerance), safe-prog +0.150 | **pre-registered null — the safety gate fails, the released union stands (its fourth surviving challenge).** But the deployment flip is now proven *achievable*. All three named successor predicates were then **refuted offline** on the committed log (a no-op; a dead trade; non-separable) — the routing line closes for per-frame geometric predicates, and the discriminating signal is tracking quality, converging with iteration 14. [`iter17_threat_routing`](experiments/iter17_threat_routing/RESULT.md) |
 | 18 | **the tracking layer, offline gate** — association + constant-velocity filter with coasting ([`sentinel/tracker.py`](sentinel/tracker.py), 6 unit tests); pre-registered offline bars on committed logs before any GPU | — (no closed-loop run: that is the point) | O2: **12/13** unsafe crawl frames convert to stops under tracker-based overlap — one miss at 2.2 m vs the frozen 2.0 m margin | **offline gate FAILED by one frame — per the gate rule, the GPU stayed off** | the tracker repairs the measured velocity-flicker class (raw-blind frames at 4.6–6.9 m → tracker sees the actor at 0.5–1.1 m) and retention stays 80%; the tempting margin-widening fix is named as overfitting-until-proven; an initial detection-gap reading was **retracted on the record** (an artifact of a starved diagnostic feed). [`iter18_tracker`](experiments/iter18_tracker/RESULT.md) |
-| 19 | **the diversity-trained candidate head** — first *learned* mechanism: K=8 candidates conditioned on the planner's own planning queries, WTA + repulsion, frozen planner untouched; training data provably disjoint from all evaluation scenes | Stage 1: 2,385-frame corpus; 1.2M-param head at **0.52 m** best-of-8 val WTA · D3 benign fidelity **PASS** (0.769 ≤ 0.780) | **D1 FAIL: 0/37 feasible escapes** on iteration 12's eval-only frames (16 diverging candidates appeared — every one kinematically infeasible) · frame join exact: 311/311, zero plan mismatches across runs four days apart | **pre-registered null — the gate refused the closed loop** | the falsifier written before training fired precisely: the *conditioning choice* is refuted, not the mechanism class — **the collapse lives in the planner's internal planning representation itself** (third measurement, third route: commands 0/37 · VAD modes 21% · learned head on planning queries 0/37). Surviving variant: scene-level (BEV) conditioning, with a sharpened burden. [`iter19_diversity_head`](experiments/iter19_diversity_head/RESULT.md) |
+| 19 | **the diversity-trained candidate head** — first *learned* mechanism: K=8 candidates conditioned on the planner's own planning queries, WTA + repulsion, frozen planner untouched; training data provably disjoint from all evaluation scenes | Stage 1: 2,385-frame corpus; 1.2M-param head at **0.52 m** best-of-8 val WTA · D3 benign fidelity **PASS** (0.769 ≤ 0.780) | **D1 FAIL: 0/37 feasible escapes** on iteration 12's eval-only frames (16 diverging candidates appeared — every one kinematically infeasible) · frame join exact: 311/311, zero plan mismatches across runs four days apart | **pre-registered null — the gate refused the closed loop** | the falsifier written before training fired precisely: the *conditioning choice* is refuted, not the mechanism class — **the collapse lives in the planner's internal planning representation itself** (third measurement, third route: commands 0/37 · VAD modes 21% · learned head on planning queries 0/37). The named scene-level (BEV) survivor is tested separately in iteration 21. [`iter19_diversity_head`](experiments/iter19_diversity_head/RESULT.md) |
 | 20 | **VAD tracker portability, offline gate** — replay committed VAD-union logs through the iteration-18 tracker defaults before any GPU | — (no closed-loop run) | V1 false-closing reduction **0/47 = 0%** · V2 side retention **4/6 = 66.7%** (bar 90%) · V3 frontal firing frames **79 → 90** | **pre-registered null — the gate refused the closed loop** | the simple association + smoothing tracker is **not** the VAD transfer repair: it removes no raw TTC fires, fails side retention, and increases frontal firing. The broad tracking-quality constraint remains, but this zero-GPU bridge is closed. [`iter20_vad_tracker_portability`](experiments/iter20_vad_tracker_portability/RESULT.md) |
+| 21 | **BEV-conditioned diversity head, offline gate** — the scene-level survivor from iteration 19, frozen planner untouched | Stage 1: 2,385-frame BEV corpus; 5.25M-param K=8 head, best val WTA **0.795**; eval extraction exact: 311/311, zero plan mismatches | **B1 FAIL: 0/37 feasible escapes** · B2 validity **574/2488 = 23.1%** · B3 benign error **1.449 m** · B4 **0/0** selectable escapes | **pre-registered null — the gate refused the closed loop** | BEV conditioning did not recover a deployable plan B: it produced invalid would-be escapes and failed benign fidelity as well. Narrow reading: this refutes the registered BEV head, not every possible learned planner; but the frozen-planner candidate-head path is closed for both planning-query and BEV variants tested. [`iter21_bev_diversity_head`](experiments/iter21_bev_diversity_head/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -292,16 +294,17 @@ authorized by an open gate:
 - **The manuscript — full draft and compiled PDF committed**
   ([`docs/paper/`](docs/paper/MANUSCRIPT.md)); the arXiv submission package is built and the
   endorsement handshake is in progress.
-- **Optional next research requires fresh pre-registration.** The surviving candidate-head
-  variant is scene-level (BEV) conditioning, not planning-query conditioning; the immediate VAD
-  tracker bridge is closed by iteration 20's offline null.
+- **Optional next research requires fresh pre-registration.** The planning-query and scene-level
+  BEV candidate-head variants are now both closed by offline nulls; the immediate VAD tracker
+  bridge is also closed by iteration 20's offline null.
 
 Closed en route, per the gate discipline: the per-frame routing predicates (iteration 17
-addendum — refuted offline) and the tracking layer's own offline gate (iteration 18 — failed
+addendum — refuted offline), the tracking layer's own offline gate (iteration 18 — failed
 by one frame at the frozen margin; the GPU stayed off), the planning-query diversity head
-(iteration 19 — 0/37 feasible escapes), and the VAD tracker-portability gate (iteration 20 —
-0/47 raw TTC fires removed, side retention below bar). The deployment flip remains proven
-achievable and unclaimed.
+(iteration 19 — 0/37 feasible escapes), the VAD tracker-portability gate (iteration 20 —
+0/47 raw TTC fires removed, side retention below bar), and the BEV-conditioned diversity head
+(iteration 21 — 0/37 feasible escapes, 23.1% candidate validity). The deployment flip remains
+proven achievable and unclaimed.
 
 Completed lines, kept for the record:
 
@@ -321,8 +324,11 @@ Completed lines, kept for the record:
   the frozen 30% viability bar. The safe alternative the re-ranker needs is mostly absent when it
   matters — the first threat-conditioned diversity measurements on E2E planners' own candidates
   ([`iter12`](experiments/iter12_plan_selection/RESULT.md) ·
-  [`vad_generalization`](experiments/vad_generalization/RESULT.md)). A diversity-trained candidate
-  head (DIVER-style) under a runtime safety selector is the natural successor mechanism.
+  [`vad_generalization`](experiments/vad_generalization/RESULT.md)). Two learned successor heads
+  under the runtime selector also failed offline: planning-query conditioning and scene-level BEV
+  conditioning both produced **0/37** feasible escapes.
+  [`iter19`](experiments/iter19_diversity_head/RESULT.md) ·
+  [`iter21`](experiments/iter21_bev_diversity_head/RESULT.md).
 - **A formal-envelope baseline (RSS-style) — done, H13 confirmed.** The envelope achieves the
   campaign's best raw safety by near-paralysis and lands *below the unmonitored planner* on
   safe-progress; union − RSS = +1.345, CI [+0.944, +1.701]. Stopping power is free; selectivity is
@@ -397,6 +403,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter18_tracker/`](experiments/iter18_tracker) | the tracking layer — offline gate failed by one frame; the GPU stayed off |
 | [`experiments/iter19_diversity_head/`](experiments/iter19_diversity_head) | **the diversity-trained candidate head** — planning-query variant failed offline; no closed-loop run |
 | [`experiments/iter20_vad_tracker_portability/`](experiments/iter20_vad_tracker_portability) | VAD tracker portability — offline gate failed; no closed-loop run |
+| [`experiments/iter21_bev_diversity_head/`](experiments/iter21_bev_diversity_head) | BEV-conditioned diversity head — offline gate failed; no closed-loop run |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/paper/MANUSCRIPT.md`](docs/paper/MANUSCRIPT.md) · [`docs/paper/paper.pdf`](docs/paper/paper.pdf) | the manuscript (full draft; compiled PDF; arXiv package committed) |
 | [`scripts/validate_docs.py`](scripts/validate_docs.py) | CI docs guard: diagram budgets, link health, story completeness — enforced on every push |

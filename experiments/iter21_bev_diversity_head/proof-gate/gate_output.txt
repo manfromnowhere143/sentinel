@@ -1,0 +1,26 @@
+iter12 frames: 311 | bev extraction frames: 311
+
+=== B0 - extraction integrity ===
+  joined 311 / iter12 311 / extraction 311
+  executed-plan mismatches: 0
+  B0 PASS
+
+=== B1 - feasible escape rate ===
+  dangerous frames: 37  feasible escapes: 0  rate 0.0%
+  B1 FAIL (bar: at least 12/37)
+
+=== B2 - candidate feasibility ===
+  all-candidate validity: 574/2488 = 23.1%
+  infeasible would-be escapes: 102
+  B2 FAIL (bar: >= 90%)
+
+=== B3 - benign fidelity ===
+  benign frames: 274  mean best-of-K error: 1.449 m
+  B3 FAIL (bar: <= 0.780 m)
+
+=== B4 - selector compatibility ===
+  selector-compatible escapes: 0/0 = 0.0%
+  B4 FAIL (bar: >= 75%)
+
+GATE: FAIL
+Per HYPOTHESIS.md, no closed-loop run is allowed.

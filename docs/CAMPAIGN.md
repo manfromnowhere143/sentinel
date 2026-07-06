@@ -193,3 +193,13 @@ over-claim.** That arc, in order:
     no VAD closed-loop run launches from this hypothesis. The broader tracking-quality
     constraint remains, but this zero-GPU bridge is closed.
     [`../experiments/iter20_vad_tracker_portability/RESULT.md`](../experiments/iter20_vad_tracker_portability/RESULT.md).
+
+23. **Iter 21 — BEV-conditioned diversity head: the scene-level survivor also fails the
+    offline gate.** The registered BEV extraction and K=8 head training completed on
+    train-split scenes disjoint from the evaluation corpus, and B0 passed exactly: 311/311
+    iteration-12 frames joined with zero executed-plan mismatches. But the gate failed every
+    behavioral bar: **0/37** feasible escapes (bar: >=12/37), all-candidate validity
+    **574/2488 = 23.1%** (bar: >=90%), benign best-of-K error **1.449 m** (bar: <=0.780 m),
+    and no selector-compatible escape because none existed. The registered BEV head therefore
+    does not recover a deployable plan B, and no closed-loop run launches from this hypothesis.
+    [`../experiments/iter21_bev_diversity_head/RESULT.md`](../experiments/iter21_bev_diversity_head/RESULT.md).

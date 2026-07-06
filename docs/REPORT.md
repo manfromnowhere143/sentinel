@@ -1,6 +1,6 @@
 # Sentinel: a label-free runtime safety monitor for frozen end-to-end driving planners, evaluated closed-loop
 
-**Technical report — 2026-07-02, updated 2026-07-05.** Every number below regenerates from
+**Technical report — 2026-07-02, updated 2026-07-06.** Every number below regenerates from
 evidence committed in this repository; reproduction commands are in the
 [README](../README.md#reproduce--repository-map). Scope is stated plainly throughout; the
 full-benchmark (14-scene) measurement and its latch-release refinement are reported in §10.
@@ -11,7 +11,7 @@ End-to-end driving planners fail catastrophically in safety-critical closed-loop
 (published NeuroNCAP: UniAD scores 1.84/5, colliding in 88–98% of runs), yet the field's dominant
 open-loop metrics cannot see it. We build a runtime monitor that reads only a frozen planner's own
 outputs — its plan, detected objects, and their tracked motion; no labels, no training, no
-privileged simulator state — and intervene with a latched stop. Across 16 pre-registered
+privileged simulator state — and intervene with a latched stop. Across 21 pre-registered
 iterations and an independent verification pass, we show: (1) a **union of two label-free
 geometric detectors** (plan-vs-tracked-path closest approach; observed-closing time-to-collision)
 is *selective* (clean-scene behaviour identical to the unmonitored planner), removes most
@@ -25,10 +25,11 @@ reason — a stop is safe under false alarms, a swerve is not — later complete
 result by the softer-than-stop null (a crawl is unsafe under *true* alarms: the stop is a
 position guarantee, not merely speed reduction); (4) the planner's own candidate
 trajectories **collapse under threat** on two planners (UniAD: 14 m benign diversity → 4 cm in
-danger; VAD: partial, below a pre-registered viability bar) — the first threat-conditioned
-diversity measurements on end-to-end planners, closing the runtime plan-selection mechanism for
-command-indexed candidates; and (5) the union's **selectivity does not transfer blind** to a
-second planner — it is a property of tracking quality, not the decision rule alone; and (6) at
+danger; VAD: partial, below a pre-registered viability bar), and two learned successor heads
+under the runtime selector also fail offline (planning-query and BEV conditioning: **0/37**
+feasible escapes each) — closing the tested frozen-planner plan-selection path; and (5) the
+union's **selectivity does not transfer blind** to a second planner — it is a property of
+tracking quality, not the decision rule alone; and (6) at
 full benchmark scale and 20 seed-paired runs per pair (799 episodes) the published UniAD
 baseline **independently reproduces** (pooled 2.12 vs 1.84) and the monitor lifts the pooled
 score to **2.91 (+0.783, 95% CI [+0.605, +0.928])**, with a threat-cleared latch release
@@ -130,8 +131,15 @@ Command-indexed trajectory alternatives lose most of their diversity precisely w
 totally on UniAD, partially on VAD; neither clears the pre-registered viability bar, so no
 re-ranker was built. To the verified corpus, these are the first threat-conditioned diversity
 measurements on end-to-end planners' own candidates; the nearest published evidence is
-prediction-side (arXiv 2506.23164). A diversity-trained candidate head under a runtime safety
-selector is the successor mechanism this result motivates.
+prediction-side (arXiv 2506.23164).
+
+Two learned successor heads then tested whether a small auxiliary decoder could supply the
+missing candidate while leaving the planner frozen. The planning-query head passed benign
+fidelity but failed at **0/37** feasible escapes; the BEV-conditioned survivor also failed at
+**0/37**, with only **23.1%** all-candidate validity and benign error **1.449 m**. The narrow
+claim is the important one: these registered heads do not recover a deployable plan B for the
+label-free selector. They do not prove that no richer learned planner or representation could
+encode alternatives.
 
 ## 7. Transfer: the monitor is not planner-agnostic, and the reason is precise
 
