@@ -117,4 +117,10 @@ events to prepare; they are a property the repository always has.
   `E21_BEV_EVAL_EXTRACT_DONE`; patch marker verified and first frontal pair started. Expected
   artifacts under `/opt/sentinel-stack/UniAD/sentinel_bev_evalextract*`; do not relaunch while
   renderer/model/ncap containers are up.
+- 2026-07-06: Codex — iteration 21 evaluation-only BEV extraction completed
+  (`E21_BEV_EVAL_EXTRACT_DONE`); proof copied under
+  experiments/iter21_bev_diversity_head/proof-gate (335 JSONL rows: 24 resets + 311 BEV
+  frames; 24 NCAP scores). Optional shadow log was absent and gzip warned on that path; the
+  required BEV gzip validated. Next permitted step: commit proof, then run the offline gate
+  once from committed artifacts.
 - (append one line per shift: dates, operator, what changed, box state at exit)
