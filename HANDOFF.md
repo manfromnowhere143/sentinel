@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Mon Jul  6 06:08:47 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Mon Jul  6 06:20:00 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+2e8d910 handoff: point completed experiments to results
+f06627e iter21: publish BEV diversity head null
+aeb1d17 handoff: refresh after iter21 eval proof
 ddc06ce iter21: commit BEV eval extraction proof
 331e85e handoff: refresh clean iter21 eval snapshot
 a318a73 handoff: make live probe snapshot self-clean
 57b81fb handoff: record iter21 eval extraction in flight
 0c6270a iter21: commit BEV head training proof
-09037ee iter21: commit BEV extraction proof
-4bc20dd handoff: record iter21 auth lapse
-a701ec5 iter21: add BEV offline gate harness
 ```
 Working tree: CLEAN
 
@@ -31,7 +31,7 @@ Working tree: CLEAN
 - experiments/iter1_reproduce: artifacts only
 - experiments/iter1b_partial_baseline: artifacts only
 - experiments/iter20_vad_tracker_portability: RESULT PUBLISHED
-- experiments/iter21_bev_diversity_head: PRE-REGISTERED, result pending
+- experiments/iter21_bev_diversity_head: RESULT PUBLISHED
 - experiments/iter2_monitor: RESULT PUBLISHED
 - experiments/iter3_progress: RESULT PUBLISHED
 - experiments/iter4_gated: RESULT PUBLISHED
@@ -47,7 +47,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 06:09:54 up 1 day, 19:50,  0 users,  load average: 0.04, 0.59, 0.89
+ 06:21:06 up 1 day, 20:02,  0 users,  load average: 0.00, 0.05, 0.41
 /var/log/sentinel-vitals.log
 /var/log/sentinel-bev-evalextract.log
 /var/log/sentinel-bev-train.log
@@ -58,7 +58,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest pre-registration: experiments/iter21_bev_diversity_head/HYPOTHESIS.md — read it in full; its gate governs the next action.
+- Newest completed experiment: experiments/iter21_bev_diversity_head/RESULT.md — read it before opening new work.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
 
