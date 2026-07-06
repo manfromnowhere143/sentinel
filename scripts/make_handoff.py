@@ -25,7 +25,10 @@ print(f"Generated: {sh('date -u')} by scripts/make_handoff.py. Read CONTINUITY.m
 print('## Repository state\n```')
 print(sh('git log --oneline -8'))
 print('```')
-dirty = sh('git status --short')
+dirty = '\n'.join(
+    line for line in sh('git status --short').splitlines()
+    if line.strip() and not line.endswith('HANDOFF.md')
+)
 print(f'Working tree: {"CLEAN" if not dirty else "DIRTY — resolve before handoff:" + chr(10) + dirty}\n')
 
 print('## Experiments (status inferred from files)\n')
