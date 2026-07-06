@@ -1,0 +1,154 @@
+{
+  "capacity_bar": {
+    "best_free_bytes": 25125416960,
+    "best_free_gb_decimal": 25.125,
+    "margin": 1.25,
+    "pass": false,
+    "required_free_bytes": 365975000000,
+    "required_free_gb_decimal": 365.975
+  },
+  "command": "/usr/bin/python3 /tmp/discover_staging_remedy_iter26.py --out /tmp/iter26_staging_remedy_discovery.json",
+  "data_movement_bytes": 0,
+  "experiment": "iter26_data_staging_remedy",
+  "frozen_roots": [
+    "/datasets/nuscenes",
+    "/datasets/nuscenes-full",
+    "/opt/sentinel-stack/data/nuscenes",
+    "/opt/sentinel-stack/UniAD/data/nuscenes",
+    "/data/nuscenes"
+  ],
+  "hypothesis": "experiments/iter26_data_staging_remedy/HYPOTHESIS.md",
+  "official_reference": "experiments/iter26_data_staging_remedy/official_nuscenes_download_reference.md",
+  "parent_listings": [
+    {
+      "entries": [
+        {
+          "is_dir": true,
+          "is_symlink": false,
+          "name": "nuscenes"
+        },
+        {
+          "is_dir": false,
+          "is_symlink": false,
+          "name": "v1.0-mini.tgz"
+        }
+      ],
+      "path": "/datasets",
+      "status": "ok"
+    },
+    {
+      "entries": [],
+      "path": "/opt/sentinel-stack/data",
+      "status": "missing_parent"
+    },
+    {
+      "entries": [],
+      "path": "/opt/sentinel-stack/UniAD/data",
+      "status": "missing_parent"
+    },
+    {
+      "entries": [],
+      "path": "/data",
+      "status": "missing_parent"
+    }
+  ],
+  "root_capacity": [
+    {
+      "exists": true,
+      "free_bytes": 25125416960,
+      "free_gb_decimal": 25.125,
+      "path": "/datasets/nuscenes",
+      "status": "ok",
+      "usage_probe_path": "/datasets/nuscenes"
+    },
+    {
+      "exists": false,
+      "free_bytes": 25125416960,
+      "free_gb_decimal": 25.125,
+      "path": "/datasets/nuscenes-full",
+      "status": "ok",
+      "usage_probe_path": "/datasets"
+    },
+    {
+      "exists": false,
+      "free_bytes": 25125416960,
+      "free_gb_decimal": 25.125,
+      "path": "/opt/sentinel-stack/data/nuscenes",
+      "status": "ok",
+      "usage_probe_path": "/opt/sentinel-stack"
+    },
+    {
+      "exists": false,
+      "free_bytes": 25125416960,
+      "free_gb_decimal": 25.125,
+      "path": "/opt/sentinel-stack/UniAD/data/nuscenes",
+      "status": "ok",
+      "usage_probe_path": "/opt/sentinel-stack/UniAD"
+    },
+    {
+      "exists": false,
+      "free_bytes": 25125416960,
+      "free_gb_decimal": 25.125,
+      "path": "/data/nuscenes",
+      "status": "ok",
+      "usage_probe_path": "/"
+    }
+  ],
+  "root_probes": [
+    {
+      "has_samples_dir": true,
+      "has_trainval_metadata_dir": true,
+      "path": "/datasets/nuscenes",
+      "root_exists": true,
+      "root_is_dir": true
+    },
+    {
+      "has_samples_dir": false,
+      "has_trainval_metadata_dir": false,
+      "path": "/datasets/nuscenes-full",
+      "root_exists": false,
+      "root_is_dir": false
+    },
+    {
+      "has_samples_dir": false,
+      "has_trainval_metadata_dir": false,
+      "path": "/opt/sentinel-stack/data/nuscenes",
+      "root_exists": false,
+      "root_is_dir": false
+    },
+    {
+      "has_samples_dir": false,
+      "has_trainval_metadata_dir": false,
+      "path": "/opt/sentinel-stack/UniAD/data/nuscenes",
+      "root_exists": false,
+      "root_is_dir": false
+    },
+    {
+      "has_samples_dir": false,
+      "has_trainval_metadata_dir": false,
+      "path": "/data/nuscenes",
+      "root_exists": false,
+      "root_is_dir": false
+    }
+  ],
+  "source_candidate": {
+    "archive_count": 10,
+    "archive_sizes_gb_decimal": [
+      29.41,
+      28.06,
+      27.81,
+      29.87,
+      26.25,
+      25.61,
+      27.5,
+      28.19,
+      31.21,
+      38.87
+    ],
+    "name": "official_nuscenes_v1_0_trainval_file_blobs_parts_1_10",
+    "source_type": "official_nuscenes_download",
+    "total_archive_bytes": 292780000000,
+    "total_archive_gb_decimal": 292.78
+  },
+  "stage": "read_only_staging_remedy_discovery"
+}

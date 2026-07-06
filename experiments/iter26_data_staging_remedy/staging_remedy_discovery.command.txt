@@ -1,0 +1,1 @@
+/usr/bin/python3 /tmp/discover_staging_remedy_iter26.py --out /tmp/iter26_staging_remedy_discovery.json

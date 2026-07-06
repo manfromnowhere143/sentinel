@@ -170,6 +170,12 @@ eligible scenes**, **0 planned keyframes**, and **0 heldout keyframes**; the oth
 missing. The conclusion is operational: the next causal-localization attempt is blocked on an
 explicit data-staging remedy, not on a failed model mechanism.
 
+The remedy discovery then identified the exact blocker. The missing asset class is the official
+nuScenes v1.0 trainval sensor file blobs: ten 85-scene archives totaling **292.78 GB**. The
+governed sentinel bucket holds only metadata/map/CAN bus artifacts, and the GPU had only
+**25.125 GB** free against the frozen **365.975 GB** capacity bar. Therefore the next scientific
+step is not another model run; it is a pre-registered storage/staging operation.
+
 ## 7. Transfer: the monitor is not planner-agnostic, and the reason is precise
 
 On a frozen VAD (after four documented fork-level runtime fixes), the union prevents exactly the

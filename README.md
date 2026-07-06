@@ -4,8 +4,8 @@
 collision it is about to cause, and intervenes — measured where it actually matters: in closed
 loop, by whether the car crashes *and whether it can still drive*.**
 
-> **Honest status up front (25 completed iterations + an independent verification pass + the
-> full official benchmark at power + one active data-staging remedy pre-registration):** the introspective signal predicts the planner's collisions (AUROC 0.83). On the
+> **Honest status up front (26 completed iterations + an independent verification pass + the
+> full official benchmark at power):** the introspective signal predicts the planner's collisions (AUROC 0.83). On the
 > complete 14-scene NeuroNCAP set at **20 seed-paired runs per pair** (799 episodes, the power
 > measurement), the unmonitored UniAD baseline **independently reproduces** (pooled 2.12 vs the
 > published 1.84 — to the verified literature, a first), and the best configuration — the
@@ -44,7 +44,7 @@ GPUs.
 
 ## The result
 
-Twenty-five documented iterations under a frozen campaign pre-registration converge on one configuration — the
+Twenty-six documented iterations under a frozen campaign pre-registration converge on one configuration — the
 **released union** (two label-free geometric detectors + a threat-cleared latch release) —
 measured on the **complete official 14-scene NeuroNCAP set at 20 seed-paired runs per pair**
 (799 episodes; hypotheses frozen before the run; the first 6 indices of every pair reproduce the
@@ -226,7 +226,7 @@ always-brake controls) and the formal-envelope baseline (iteration 13) on identi
 | 23 | **S0-hardened causal localization** — same narrow motion/planning-bridge question, but artifact validity is the first research object | — (stopped before probes/interventions) | canary deterministic; full S0 **PASS** with **2,627/2,627** joins, zero error rows; count floor **FAIL**: collapse positives **0** in every split, heldout danger **17/30** | **pre-registered data-null — no probe, iter12, or closed loop authorized** | Iter23 repaired the iter22 join failure and proved the extraction/counting surface, then stopped honestly because the frozen non-evaluation corpus did not contain enough collapse-positive or eligible-intervention frames to test the causal mechanism. [`iter23_s0_hardened_causal_localization`](experiments/iter23_s0_hardened_causal_localization/RESULT.md) |
 | 24 | **fresh risk-support atlas** — data-support prerequisite before another causal-localization attempt | — (stopped before extraction) | known-data firewall PASS; availability FAIL: **0 eligible scenes**, **0 keyframes**, **0 heldout keyframes** after 582 post-firewall candidates all missed local six-camera files | **pre-registered availability-null — no model extraction, probes, iter12, selector, or closed loop authorized** | The firewall did its job: iter22/iter23 known data could not rescue the gate. The result is a staged-data availability null, not evidence for or against the causal signal. [`iter24_risk_support_atlas`](experiments/iter24_risk_support_atlas/RESULT.md) |
 | 25 | **staged-data inventory** — provenance gate before another fresh atlas | — (stopped before extraction) | frozen root inventory FAIL: only `/datasets/nuscenes` exists and it has **0 eligible scenes**, **0 keyframes**, **0 heldout keyframes** after the known-data firewall; four other frozen roots are missing | **pre-registered infrastructure-null — no data download/copy, model extraction, labels, probes, iter12, selector, or closed loop authorized** | The blocker is staged-data availability, not a tested model mechanism. A successor must name a concrete data-staging remedy before any extraction. [`iter25_staged_data_inventory`](experiments/iter25_staged_data_inventory/RESULT.md) |
-| 26 | **data-staging remedy** — source/capacity gate before any download or copy | — (pre-registered; no discovery run launched yet) | read-only remedy discovery only; pass requires one auditable source, expected support above iter24 bars, and destination free-space margin `>=1.25x` expected staged bytes | **active pre-registration — no data movement authorized** | If the remedy is a download, the result must say so explicitly and freeze the operator action for a later pre-registration. [`iter26_data_staging_remedy`](experiments/iter26_data_staging_remedy/HYPOTHESIS.md) |
+| 26 | **data-staging remedy** — source/capacity gate before any download or copy | — (stopped before data movement) | official nuScenes v1.0 trainval sensor blobs identified: **292.78 GB** archive budget; capacity FAIL: **365.975 GB** required by margin, **25.125 GB** free observed | **pre-registered capacity-null — storage provisioning required before download/staging** | Yes, the missing data must be staged/downloaded. Do not start on the current disk; next action is a storage/staging pre-registration. [`iter26_data_staging_remedy`](experiments/iter26_data_staging_remedy/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -300,7 +300,7 @@ selectivity/side-blindness trade of iterations 4–7, and the three refuted evas
 kept, with every number and link, in [`docs/CAMPAIGN.md`](docs/CAMPAIGN.md). The summary table
 above is the same history in one screen.
 
-**Net, stated plainly — 25 completed iterations plus an independent verification pass.** The
+**Net, stated plainly — 26 completed iterations plus an independent verification pass.** The
 **released union (iteration 15) is the best configuration** of the campaign: at the definitive
 20-run scale it lifts the independently reproduced baseline **2.12 → 2.91 (CI [+0.605, +0.928])**,
 keeps clean scenes identical to the unmonitored planner, and strictly dominates the plain union
@@ -314,8 +314,8 @@ firmly established — a committed stop is the best frontal response, and **thre
 designs (iters 9, 10, 11) were tested and honestly refuted**, all worse than stopping, the last
 one dangerous on false alarms (re-confirmed at n=20: 25% clean-scene collisions vs OFF's 10%).
 
-**What's next.** The benchmark campaign is complete and consolidated. Iterations 22, 23, 24, and
-25 are closed as Stage 1 data/availability/infrastructure nulls; no probe, intervention,
+**What's next.** The benchmark campaign is complete and consolidated. Iterations 22, 23, 24, 25,
+and 26 are closed as Stage 1 data/availability/infrastructure/capacity nulls; no probe, intervention,
 iteration-12, or closed-loop work is authorized without a fresh pre-registration:
 
 - **The manuscript — full draft and compiled PDF committed**
@@ -348,13 +348,12 @@ iteration-12, or closed-loop work is authorized without a fresh pre-registration
   scenes, 0 planned keyframes, and 0 heldout keyframes; the other four roots were missing. It
   stopped before any data download/copy, model extraction, labels, probes, interventions,
   iteration-12 scoring, selector evaluation, or closed-loop work.
-- **Iteration 26 is pre-registered as a data-staging remedy gate.**
-  [`experiments/iter26_data_staging_remedy/HYPOTHESIS.md`](experiments/iter26_data_staging_remedy/HYPOTHESIS.md)
-  authorizes read-only source/capacity discovery only. It exists to answer plainly whether we need
-  to download or stage missing nuScenes camera files, and if yes, which exact source/destination
-  should be frozen in a later staging pre-registration. It does not authorize data movement,
-  inventory rerun, model extraction, labels, probes, interventions, iteration-12, selector, or
-  closed-loop work.
+- **Iteration 26 is completed as a data-staging remedy capacity-null.**
+  [`experiments/iter26_data_staging_remedy/RESULT.md`](experiments/iter26_data_staging_remedy/RESULT.md)
+  answers the operational question: yes, the missing data is the official nuScenes v1.0 trainval
+  sensor file blobs; no governed bucket copy currently contains them; and the current GPU disk is
+  too small. The next action is storage provisioning plus a later staging pre-registration, not a
+  model run.
 
 Closed en route, per the gate discipline: the per-frame routing predicates (iteration 17
 addendum — refuted offline), the tracking layer's own offline gate (iteration 18 — failed
@@ -470,7 +469,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter23_s0_hardened_causal_localization/`](experiments/iter23_s0_hardened_causal_localization) | S0-hardened causal localization — deterministic canary and full S0 pass, then count-floor data-null; stopped before probes, interventions, iter12, or closed loop |
 | [`experiments/iter24_risk_support_atlas/`](experiments/iter24_risk_support_atlas) | fresh risk-support atlas — availability-null after known-data firewall; stopped before canary/full extraction, probes, interventions, iter12, selector, or closed loop |
 | [`experiments/iter25_staged_data_inventory/`](experiments/iter25_staged_data_inventory) | staged-data inventory — infrastructure-null; no frozen local root has enough fresh post-firewall keyframes for a future atlas |
-| [`experiments/iter26_data_staging_remedy/`](experiments/iter26_data_staging_remedy) | data-staging remedy — active pre-registration for read-only source/capacity discovery before any download or copy |
+| [`experiments/iter26_data_staging_remedy/`](experiments/iter26_data_staging_remedy) | data-staging remedy — capacity-null; official trainval sensor blobs needed, current GPU disk too small |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/ITER22_HYPOTHESIS_DRAFT.md`](docs/research/ITER22_HYPOTHESIS_DRAFT.md) · [`docs/research/ITER22_ADVERSARIAL_REVIEW.md`](docs/research/ITER22_ADVERSARIAL_REVIEW.md) | planning-only iter22 draft and adversarial review; not pre-registrations |

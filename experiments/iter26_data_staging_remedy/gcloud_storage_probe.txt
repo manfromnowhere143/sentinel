@@ -1,0 +1,22 @@
+Read-only GCS probe for iter26.
+
+Commands:
+gcloud storage buckets list --project sunlit-unison-487018-b0 --format=json
+gcloud storage ls gs://sunlit-unison-487018-b0-sentinel/
+gcloud storage ls gs://sunlit-unison-487018-b0-sentinel/nuscenes/
+gcloud storage ls --long gs://sunlit-unison-487018-b0-sentinel/nuscenes/
+gcloud storage du -s 'gs://sunlit-unison-487018-b0-sentinel/nuscenes/*'
+
+Relevant bucket listing:
+gs://sunlit-unison-487018-b0-sentinel/gcloud/
+gs://sunlit-unison-487018-b0-sentinel/nuscenes/
+
+Objects under gs://sunlit-unison-487018-b0-sentinel/nuscenes/:
+780974697  2026-06-30T06:54:30Z  gs://sunlit-unison-487018-b0-sentinel/nuscenes/can_bus.zip
+398535531  2026-06-30T06:59:33Z  gs://sunlit-unison-487018-b0-sentinel/nuscenes/nuScenes-map-expansion-v1.3.zip
+461678030  2026-06-30T06:54:27Z  gs://sunlit-unison-487018-b0-sentinel/nuscenes/v1.0-trainval_meta.tgz
+TOTAL: 3 objects, 1641188258 bytes (1.53GiB)
+
+Conclusion:
+The governed sentinel bucket has metadata, maps, and CAN bus artifacts only. It does not contain
+the required v1.0 trainval sensor file blobs.

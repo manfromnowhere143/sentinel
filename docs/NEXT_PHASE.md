@@ -64,13 +64,17 @@ the firewall, while the other four frozen roots were missing. It authorizes no d
 model extraction, label atlas, probe fitting, activation direction, iteration-12 scoring, selector
 evaluation, or closed-loop work.
 
-The next line is now pre-registered as a read-only staging remedy gate:
+The next line was pre-registered as a read-only staging remedy gate:
 [`../experiments/iter26_data_staging_remedy/HYPOTHESIS.md`](../experiments/iter26_data_staging_remedy/HYPOTHESIS.md).
 Iteration 26 may inspect only source/capacity metadata and must move 0 data bytes. Its job is to
 answer whether the missing nuScenes camera files require an official download/staging operation,
 and if so to freeze the exact later operator action. It authorizes no download/copy, inventory
 rerun, model extraction, label atlas, probe fitting, activation intervention, iteration-12 scoring,
-selector evaluation, or closed-loop work.
+selector evaluation, or closed-loop work. Its result is now published:
+[`../experiments/iter26_data_staging_remedy/RESULT.md`](../experiments/iter26_data_staging_remedy/RESULT.md).
+The answer is yes: the needed data is the official nuScenes v1.0 trainval sensor file blobs
+(292.78 GB archive budget), but the current GPU disk has only 25.125 GB free against a frozen
+365.975 GB minimum. Next action is storage provisioning plus a later staging pre-registration.
 
 ## Line 1 — a diversity-trained candidate head under the runtime selector
 
@@ -178,7 +182,6 @@ measurement task. It waits only for the power run's final numbers so results are
    activation direction, iteration-12 scoring, or closed-loop run. Any next causal-localization
    line needs a fresh HYPOTHESIS.md before data.
 8. Iteration 25 is closed as a staged-data inventory infrastructure-null.
-9. Iteration 26 is the only active pre-registration. It authorizes read-only source/capacity
-   discovery only. No data download/copy, root mutation, inventory rerun, model extraction, label
-   atlas, probe fitting, activation intervention, iteration-12 scoring, selector evaluation, or
-   closed-loop work is authorized.
+9. Iteration 26 is closed as a data-staging capacity-null. No active experiment authorizes data
+   download/copy, root mutation, inventory rerun, model extraction, label atlas, probe fitting,
+   activation intervention, iteration-12 scoring, selector evaluation, or closed-loop work.

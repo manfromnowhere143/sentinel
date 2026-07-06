@@ -248,3 +248,12 @@ over-claim.** That arc, in order:
     activation-direction writing, iteration-12 scoring, selector evaluation, or closed-loop work.
     This is a staged-data infrastructure null, not evidence for or against the causal signal.
     [`../experiments/iter25_staged_data_inventory/RESULT.md`](../experiments/iter25_staged_data_inventory/RESULT.md).
+
+28. **Iter 26 — data-staging remedy: download is needed, but the disk is too small.** The
+    registered read-only discovery answered the operator question directly: the missing data is
+    the official nuScenes v1.0 trainval sensor file blobs, not metadata. The governed sentinel
+    bucket contains metadata/map/CAN bus artifacts only. The official trainval blobs total
+    **292.78 GB** as archives, while the frozen 1.25x capacity bar requires **365.975 GB** free
+    before staging; the GPU had only **25.125 GB** free. No bytes were downloaded or copied, and
+    no model work ran. The next action is a storage/staging pre-registration, not a model run.
+    [`../experiments/iter26_data_staging_remedy/RESULT.md`](../experiments/iter26_data_staging_remedy/RESULT.md).
