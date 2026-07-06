@@ -164,6 +164,12 @@ scenes**, **0 planned keyframes**, and **0 heldout keyframes**. This third null 
 current staged data tree cannot support the registered fresh atlas; it is not evidence that
 nuScenes lacks such frames or that the causal signal is absent.
 
+A final staged-data inventory then checked five frozen local roots before any model work. Only
+`/datasets/nuscenes` existed, and after the iter22/23/24/evaluation firewall it still had **0
+eligible scenes**, **0 planned keyframes**, and **0 heldout keyframes**; the other roots were
+missing. The conclusion is operational: the next causal-localization attempt is blocked on an
+explicit data-staging remedy, not on a failed model mechanism.
+
 ## 7. Transfer: the monitor is not planner-agnostic, and the reason is precise
 
 On a frozen VAD (after four documented fork-level runtime fixes), the union prevents exactly the

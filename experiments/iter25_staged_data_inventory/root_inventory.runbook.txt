@@ -1,0 +1,47 @@
+Iter25 staged-data inventory runbook
+
+Purpose:
+Run the frozen read-only inventory once. This is metadata/file-existence work only. It does not
+launch Docker, renderer/model/ncap containers, /infer, NeuroNCAP, label atlas computation, probe
+training, activation directions, selector scoring, data downloads, or data copies.
+
+Remote host:
+sentinel-gpu
+
+Remote working directory used for committed firewall-relative paths:
+/tmp/iter25_firewall_root_20260706_1852z
+
+Remote output directory:
+/tmp/iter25_inventory_20260706_1852z
+
+Committed firewall inputs staged under the working directory before the inventory command:
+experiments/iter22_causal_planner_interpretability/split_manifest.json
+experiments/iter22_causal_planner_interpretability/proof-extract/sentinel_e22_stage1_gt.jsonl.gz
+experiments/iter23_s0_hardened_causal_localization/availability_manifest.json
+experiments/iter23_s0_hardened_causal_localization/proof-full-extract/sentinel_e23_stage1_gt.jsonl.gz
+experiments/iter24_risk_support_atlas/availability_manifest.json
+experiments/iter24_risk_support_atlas/availability_manifest.exclusions.txt
+
+Script and train-scene source staged on the remote host:
+/tmp/inventory_roots_iter25.py
+/tmp/official_train_scenes_iter25.txt
+
+Container idle check before inventory:
+sudo docker ps --format '{{.Names}}'
+
+The idle check returned no running containers.
+
+Inventory command:
+cd /tmp/iter25_firewall_root_20260706_1852z
+python3 -B /tmp/inventory_roots_iter25.py --train-scenes /tmp/official_train_scenes_iter25.txt --out-dir /tmp/iter25_inventory_20260706_1852z
+
+Outputs copied back:
+/tmp/iter25_inventory_20260706_1852z/root_inventory.json
+/tmp/iter25_inventory_20260706_1852z/root_inventory.sha256
+/tmp/iter25_inventory_20260706_1852z/root_inventory.command.txt
+/tmp/iter25_inventory_20260706_1852z/root_inventory.exclusions.txt
+
+Observed result:
+overall_pass=false
+selected_root=NONE
+root_inventory_sha256=584e33b433a7be1773d09fdb15b6114550dc23f02834a3d32a7ae583a24617ba

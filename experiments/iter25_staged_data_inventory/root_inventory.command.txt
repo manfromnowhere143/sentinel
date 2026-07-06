@@ -1,0 +1,1 @@
+/usr/bin/python3 /tmp/inventory_roots_iter25.py --train-scenes /tmp/official_train_scenes_iter25.txt --out-dir /tmp/iter25_inventory_20260706_1852z

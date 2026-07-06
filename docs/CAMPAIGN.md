@@ -238,3 +238,13 @@ over-claim.** That arc, in order:
     selector evaluation, or closed-loop work. This is a staged-data availability null, not
     evidence for or against the causal signal.
     [`../experiments/iter24_risk_support_atlas/RESULT.md`](../experiments/iter24_risk_support_atlas/RESULT.md).
+
+27. **Iter 25 — staged-data inventory: no frozen local root can support the next atlas.** The
+    registered inventory inspected only five pre-declared local nuScenes roots and applied the
+    iter22/iter23/iter24/evaluation firewall before any model work. Only `/datasets/nuscenes`
+    existed; after exclusions it had **0 eligible scenes**, **0 keyframes**, and **0 heldout
+    keyframes**. The other four frozen roots were missing. Per the hypothesis, the run stopped
+    before data download/copy, model extraction, label-atlas computation, probe fitting,
+    activation-direction writing, iteration-12 scoring, selector evaluation, or closed-loop work.
+    This is a staged-data infrastructure null, not evidence for or against the causal signal.
+    [`../experiments/iter25_staged_data_inventory/RESULT.md`](../experiments/iter25_staged_data_inventory/RESULT.md).
