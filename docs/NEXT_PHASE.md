@@ -32,6 +32,14 @@ joined non-reset rows and zero error rows. The frozen count-floor gate then fail
 direction, iteration-12 scoring, or closed-loop evaluation. Any successor causal-localization
 line requires a fresh pre-registration with a revised data-support plan.
 
+The next line is now pre-registered as a fresh data-support prerequisite:
+[`../experiments/iter24_risk_support_atlas/HYPOTHESIS.md`](../experiments/iter24_risk_support_atlas/HYPOTHESIS.md).
+Iteration 24 is not a causal-intervention run. It freezes a known-data firewall that excludes
+iter22/iter23 scenes, then asks whether fresh non-evaluation train scenes contain enough
+low-diversity hazard frames and benign controls to justify a later causal-localization
+pre-registration. A pass authorizes only that later pre-registration; it does not authorize probe
+fitting, activation intervention, iteration-12 scoring, selector evaluation, or closed-loop work.
+
 ## Line 1 — a diversity-trained candidate head under the runtime selector
 
 **Motivation (measured, twice):** iterations 12 and 14 established that frozen planners hold no
@@ -132,9 +140,13 @@ measurement task. It waits only for the power run's final numbers so results are
 3. **Line 1 is closed by offline gates**; its closed-loop evaluation never runs because neither
    the planning-query nor the BEV-conditioned variant met the escape/feasibility bars.
 4. **Line 3 is closed by iteration 20**; the registered tracker bridge failed before GPU time.
-5. No line in this file currently authorizes a new run. Every new line gets a frozen
-   HYPOTHESIS.md with falsifiers before data, per the campaign standard.
+5. Iteration 24 is the only currently active line, and its HYPOTHESIS limits the next action to
+   prerequisite implementation and manifest work before any GPU extraction. Every later line gets
+   a frozen HYPOTHESIS.md with falsifiers before data, per the campaign standard.
 6. Iteration 22 is closed as an S0 data-null.
 7. Iteration 23 is closed as a count-floor data-null after S0 pass. It authorizes no probe,
    activation direction, iteration-12 scoring, or closed-loop run. Any next causal-localization
    line needs a fresh HYPOTHESIS.md before data.
+8. Iteration 24 is the active pre-registration. Its next permitted action is implementation of
+   the availability/manifest and extraction-analysis surface. No GPU run is authorized until the
+   code and manifest prerequisites in its HYPOTHESIS are committed.

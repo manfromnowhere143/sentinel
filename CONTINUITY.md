@@ -100,6 +100,13 @@ events to prepare; they are a property the repository always has.
   `eligible_intervention_frame` was 0, and heldout `danger_positive` was 17 below the 30-frame
   floor. No probe fitting, activation direction, intervention replay, iteration-12 scoring, or
   closed-loop run is authorized from iter23. Any successor needs a fresh pre-registration.
+- Iteration 24 is now pre-registered:
+  experiments/iter24_risk_support_atlas/HYPOTHESIS.md. It is a fresh risk-support atlas, not a
+  causal intervention: it must exclude iter22/iter23 known scenes, NeuroNCAP/evaluation scenes,
+  and iteration-12 identities, then prove enough fresh low-diversity hazard and benign-control
+  support before any later causal-localization pre-registration can exist. No manifest, extraction
+  code, GPU run, probe fitting, activation direction, iteration-12 scoring, selector evaluation,
+  or closed-loop work has launched yet.
 - Iter22 planning artifacts now exist under docs/research/: ITER22_HYPOTHESIS_DRAFT.md and
   ITER22_ADVERSARIAL_REVIEW.md. They are planning-only, not pre-registrations. Owner guidance:
   do not promote the broad A0-A8 draft directly; use the adversarial review's tighter Stage
@@ -212,4 +219,9 @@ events to prepare; they are a property the repository always has.
   tensor shapes, but collapse positives 0 in all splits, eligible intervention frames 0, and
   heldout danger positives 17/30 below the frozen floor. No probe fitting, activation direction,
   iteration-12 scoring, or closed-loop run is authorized from iter23; BOX IDLE.
+- 2026-07-06: Codex — pre-registered iteration 24 under
+  experiments/iter24_risk_support_atlas/HYPOTHESIS.md. Scope is a fresh risk-support atlas with a
+  known-data firewall excluding iter22/iter23 scenes; a pass would authorize only a later
+  pre-registration. No manifest generation, extraction surface, GPU work, probe fitting,
+  activation direction, iteration-12 scoring, selector evaluation, or closed-loop run launched.
 - (append one line per shift: dates, operator, what changed, box state at exit)
