@@ -51,7 +51,11 @@ print('is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and 
 
 print('## Open threads (from the newest experiment docs)')
 latest = sorted(glob.glob('experiments/*/HYPOTHESIS.md'), key=os.path.getmtime)[-1]
-print(f'- Newest pre-registration: {latest} — read it in full; its gate governs the next action.')
+latest_result = latest.replace('HYPOTHESIS.md', 'RESULT.md')
+if os.path.exists(latest_result):
+    print(f'- Newest completed experiment: {latest_result} — read it before opening new work.')
+else:
+    print(f'- Newest pre-registration: {latest} — read it in full; its gate governs the next action.')
 for f in ('docs/NEXT_PHASE.md', 'docs/paper/MANUSCRIPT.md'):
     if os.path.exists(f):
         print(f'- {f}: check its status ledger/decision rules.')
