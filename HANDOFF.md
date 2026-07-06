@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Mon Jul  6 06:20:00 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Mon Jul  6 06:21:33 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+1192fae docs: close completed next-phase lines
+2e4ecf8 handoff: refresh after iter21 null
 2e8d910 handoff: point completed experiments to results
 f06627e iter21: publish BEV diversity head null
 aeb1d17 handoff: refresh after iter21 eval proof
 ddc06ce iter21: commit BEV eval extraction proof
 331e85e handoff: refresh clean iter21 eval snapshot
 a318a73 handoff: make live probe snapshot self-clean
-57b81fb handoff: record iter21 eval extraction in flight
-0c6270a iter21: commit BEV head training proof
 ```
 Working tree: CLEAN
 
@@ -47,7 +47,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 06:21:06 up 1 day, 20:02,  0 users,  load average: 0.00, 0.05, 0.41
+ 06:22:40 up 1 day, 20:03,  0 users,  load average: 0.00, 0.03, 0.37
 /var/log/sentinel-vitals.log
 /var/log/sentinel-bev-evalextract.log
 /var/log/sentinel-bev-train.log
