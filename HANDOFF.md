@@ -1,22 +1,19 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Mon Jul  6 05:26:19 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Mon Jul  6 05:31:08 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+a318a73 handoff: make live probe snapshot self-clean
+57b81fb handoff: record iter21 eval extraction in flight
 0c6270a iter21: commit BEV head training proof
 09037ee iter21: commit BEV extraction proof
 4bc20dd handoff: record iter21 auth lapse
 a701ec5 iter21: add BEV offline gate harness
 4a8f332 iter21: add BEV head training stage
 d7986c5 handoff: record iter21 BEV extraction in flight
-411f3b8 iter21: add BEV extraction patch
-93d6840 iter21: pre-register BEV diversity head gate
 ```
-Working tree: DIRTY — resolve before handoff:
-M CONTINUITY.md
- M HANDOFF.md
- M scripts/make_handoff.py
+Working tree: CLEAN
 
 ## Experiments (status inferred from files)
 
@@ -50,15 +47,15 @@ M CONTINUITY.md
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 05:27:27 up 1 day, 19:08,  0 users,  load average: 1.06, 0.95, 0.46
-tender_shaw	Up 5 minutes
-model	Up 5 minutes
-renderer	Up 5 minutes
+ 05:32:15 up 1 day, 19:13,  0 users,  load average: 1.55, 1.16, 0.68
+tender_shaw	Up 10 minutes
+model	Up 10 minutes
+renderer	Up 10 minutes
 /var/log/sentinel-bev-evalextract.log
 /var/log/sentinel-vitals.log
 /var/log/sentinel-bev-train.log
 /dev/root       310G  287G   24G  93% /
-Swap:          8.0Gi       536Mi       7.5Gi
+Swap:          8.0Gi       757Mi       7.3Gi
 ```
 If any docker container named renderer/model/ncap (or a random-name ncap) is up, a run
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
