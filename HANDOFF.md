@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Mon Jul  6 21:20:55 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Mon Jul  6 21:50:46 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+5340e92 tools: harden iter28 archive staging
+7f37c84 handoff: refresh during iter28 staging
 614ad2e analysis: stage iter28 metadata archive proof
 dd62911 tools: add iter28 staging surface
 82971d1 docs: correct iter28 package scope
 218e4aa docs: pre-register iter28 trainval staging
 b5dbd90 handoff: refresh after iter27 result
 64cd874 analysis: publish iter27 storage pass
-97feaf7 tools: fix iter27 disk device path
-1f0eb73 handoff: refresh after iter27 surface
 ```
 Working tree: CLEAN
 
@@ -54,12 +54,12 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 21:22:01 up 2 days, 11:03,  0 users,  load average: 0.07, 0.04, 0.00
+ 21:51:53 up 2 days, 11:32,  0 users,  load average: 0.08, 0.02, 0.01
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-e23-extract.log
 /var/log/sentinel-e23-canary.log
-/dev/root       310G  293G   18G  95% /
+/dev/root       310G  297G   14G  96% /
 Swap:          8.0Gi        60Mi       7.9Gi
 ```
 If any docker container named renderer/model/ncap (or a random-name ncap) is up, a run
@@ -67,12 +67,15 @@ is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT 
 
 ## Live iter28 transfer note
 - `v1.0-trainval_meta.tgz` is staged and proof is committed in `614ad2e`.
-- `v1.0-trainval03_blobs.tgz` upload is in progress from local
-  `/Users/danielwahnich/Downloads/v1.0-trainval03_blobs.tgz` to remote temp path
-  `/tmp/iter28-upload-v1.0-trainval03_blobs.tgz`, then
-  `/datasets/nuscenes-full/archives/v1.0-trainval03_blobs.tgz`.
+- `v1.0-trainval03_blobs.tgz` upload restarted from local
+  `/Users/danielwahnich/Downloads/v1.0-trainval03_blobs.tgz` using committed script `5340e92`.
+  Its large temporary remote file now belongs under
+  `/datasets/nuscenes-full/.iter28_tmp/iter28-upload-v1.0-trainval03_blobs.tgz`, not `/tmp`.
 - Do not delete the local part 3 archive until remote bytes and SHA256 match and its proof JSON
   is committed.
+- If Daniel provides real signed official nuScenes URLs, use
+  `stage_local_archive.py --signed-url-file <uncommitted-temp-file>`; never scrape browser cookies
+  or commit URL query material.
 
 ## Open threads (from the newest experiment docs)
 - Newest pre-registration: experiments/iter28_nuscenes_trainval_staging/HYPOTHESIS.md — read it in full; its gate governs the next action.
