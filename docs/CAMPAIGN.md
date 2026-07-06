@@ -203,3 +203,13 @@ over-claim.** That arc, in order:
     and no selector-compatible escape because none existed. The registered BEV head therefore
     does not recover a deployable plan B, and no closed-loop run launches from this hypothesis.
     [`../experiments/iter21_bev_diversity_head/RESULT.md`](../experiments/iter21_bev_diversity_head/RESULT.md).
+
+24. **Iter 22 — causal planner interpretability Stage 1: the S0 gate fails before causal
+    testing.** The registered non-evaluation extraction completed with 1,507 non-reset rows and
+    a 1,507-row GT sidecar, but every row failed the committed timestamp join (`missing_gt`):
+    extracted timestamps were second-level while GT timestamps were microsecond-level. The frozen
+    manifest/staged-data combination also produced **0 heldout GT rows**, so the heldout count
+    floors could not be evaluated or met. Per the hypothesis, Stage 1 stopped before probe
+    fitting, activation-direction writing, calibration-grid replay, iteration-12 scoring, or
+    closed-loop work. This is a data-support/integrity null, not evidence for or against the
+    causal signal itself. [`../experiments/iter22_causal_planner_interpretability/RESULT.md`](../experiments/iter22_causal_planner_interpretability/RESULT.md).

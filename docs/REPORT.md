@@ -29,7 +29,8 @@ danger; VAD: partial, below a pre-registered viability bar), and two learned suc
 under the runtime selector also fail offline (planning-query and BEV conditioning: **0/37**
 feasible escapes each) — closing the tested frozen-planner plan-selection path; and (5) the
 union's **selectivity does not transfer blind** to a second planner — it is a property of
-tracking quality, not the decision rule alone; and (6) at
+tracking quality, not the decision rule alone; a subsequent causal-localization Stage 1 stopped
+at S0 before probes because the extraction/GT join and heldout data support failed; and (6) at
 full benchmark scale and 20 seed-paired runs per pair (799 episodes) the published UniAD
 baseline **independently reproduces** (pooled 2.12 vs 1.84) and the monitor lifts the pooled
 score to **2.91 (+0.783, 95% CI [+0.605, +0.928])**, with a threat-cleared latch release
@@ -140,6 +141,12 @@ fidelity but failed at **0/37** feasible escapes; the BEV-conditioned survivor a
 claim is the important one: these registered heads do not recover a deployable plan B for the
 label-free selector. They do not prove that no richer learned planner or representation could
 encode alternatives.
+
+A later causal-localization Stage 1 was pre-registered to ask a narrower representation question
+at UniAD's motion/planning bridge. It stopped before probes or interventions: extraction produced
+1,507 non-reset rows, but the committed timestamp join failed on all rows and the frozen heldout
+split had 0 GT frames. That result is a data-support/integrity null, not evidence for or against
+the causal signal itself.
 
 ## 7. Transfer: the monitor is not planner-agnostic, and the reason is precise
 

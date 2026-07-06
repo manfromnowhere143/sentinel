@@ -4,8 +4,8 @@
 collision it is about to cause, and intervenes — measured where it actually matters: in closed
 loop, by whether the car crashes *and whether it can still drive*.**
 
-> **Honest status up front (21 completed iterations + an independent verification pass + the
-> full official benchmark at power + one active Stage 1 pre-registration):** the introspective signal predicts the planner's collisions (AUROC 0.83). On the
+> **Honest status up front (22 completed iterations + an independent verification pass + the
+> full official benchmark at power):** the introspective signal predicts the planner's collisions (AUROC 0.83). On the
 > complete 14-scene NeuroNCAP set at **20 seed-paired runs per pair** (799 episodes, the power
 > measurement), the unmonitored UniAD baseline **independently reproduces** (pooled 2.12 vs the
 > published 1.84 — to the verified literature, a first), and the best configuration — the
@@ -120,24 +120,24 @@ flowchart LR
   class H19,H21 bad;
 ```
 
-Act three — the active frontier is causal localization, not another decoder:
+Act three — causal localization was attempted, and the first Stage 1 run stopped at S0:
 
 ```mermaid
 flowchart LR
   H21["iter 21 null<br/>BEV head: 0/37<br/>validity 23%"] --> Q["question<br/>where does<br/>collapse become causal?"]
-  Q --> P22["iter 22 Stage 1<br/>pre-registered<br/>non-eval scenes only"]
-  P22 --> M22["manifest committed<br/>60 fit · 15 cal · 15 heldout"]
-  M22 --> G22{"S0-S3 pass?"}
-  G22 -- "no" --> N22["publish null<br/>stop"]
-  G22 -- "yes" --> S2["Stage 2 prereg<br/>then iter12 gate"]
+  Q --> P22["iter 22 Stage 1<br/>non-eval scenes only"]
+  P22 --> E22["baseline extraction<br/>1,507 frames"]
+  E22 --> F22["S0 fail<br/>1,507 missing-GT joins<br/>heldout rows 0"]
+  F22 --> N22["data-null published<br/>stop before probes"]
+  N22 --> R22["fresh pre-registration<br/>required for any successor"]
   classDef bad fill:#fdebec,stroke:#c62828,color:#3b1213;
   classDef ask fill:#fff8e1,stroke:#b28704,color:#3d2f00;
   classDef active fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
   classDef gate fill:#f6f8fa,stroke:#57606a,color:#1f2328;
-  class H21,N22 bad;
+  class H21,F22,N22 bad;
   class Q ask;
-  class P22,M22 active;
-  class G22,S2 gate;
+  class P22,E22 active;
+  class R22 gate;
 ```
 
 The winning monitor is a **union of two individually-selective detectors**, chosen because the two
@@ -221,7 +221,7 @@ always-brake controls) and the formal-envelope baseline (iteration 13) on identi
 | 19 | **the diversity-trained candidate head** — first *learned* mechanism: K=8 candidates conditioned on the planner's own planning queries, WTA + repulsion, frozen planner untouched; training data provably disjoint from all evaluation scenes | Stage 1: 2,385-frame corpus; 1.2M-param head at **0.52 m** best-of-8 val WTA · D3 benign fidelity **PASS** (0.769 ≤ 0.780) | **D1 FAIL: 0/37 feasible escapes** on iteration 12's eval-only frames (16 diverging candidates appeared — every one kinematically infeasible) · frame join exact: 311/311, zero plan mismatches across runs four days apart | **pre-registered null — the gate refused the closed loop** | the falsifier written before training fired precisely: the *conditioning choice* is refuted, not the mechanism class — **the collapse lives in the planner's internal planning representation itself** (third measurement, third route: commands 0/37 · VAD modes 21% · learned head on planning queries 0/37). The named scene-level (BEV) survivor is tested separately in iteration 21. [`iter19_diversity_head`](experiments/iter19_diversity_head/RESULT.md) |
 | 20 | **VAD tracker portability, offline gate** — replay committed VAD-union logs through the iteration-18 tracker defaults before any GPU | — (no closed-loop run) | V1 false-closing reduction **0/47 = 0%** · V2 side retention **4/6 = 66.7%** (bar 90%) · V3 frontal firing frames **79 → 90** | **pre-registered null — the gate refused the closed loop** | the simple association + smoothing tracker is **not** the VAD transfer repair: it removes no raw TTC fires, fails side retention, and increases frontal firing. The broad tracking-quality constraint remains, but this zero-GPU bridge is closed. [`iter20_vad_tracker_portability`](experiments/iter20_vad_tracker_portability/RESULT.md) |
 | 21 | **BEV-conditioned diversity head, offline gate** — the scene-level survivor from iteration 19, frozen planner untouched | Stage 1: 2,385-frame BEV corpus; 5.25M-param K=8 head, best val WTA **0.795**; eval extraction exact: 311/311, zero plan mismatches | **B1 FAIL: 0/37 feasible escapes** · B2 validity **574/2488 = 23.1%** · B3 benign error **1.449 m** · B4 **0/0** selectable escapes | **pre-registered null — the gate refused the closed loop** | BEV conditioning did not recover a deployable plan B: it produced invalid would-be escapes and failed benign fidelity as well. Narrow reading: this refutes the registered BEV head, not every possible learned planner; but the frozen-planner candidate-head path is closed for both planning-query and BEV variants tested. [`iter21_bev_diversity_head`](experiments/iter21_bev_diversity_head/RESULT.md) |
-| 22 | **causal planner interpretability, Stage 1** — one frozen motion/planning-bridge representation, non-evaluation scenes only, minimum counts, negative controls, and a frozen intervention grid | — (pre-registered; no result yet) | split manifest committed: 60 fit · 15 calibration · 15 heldout; iteration-12 remains untouched | **active pre-registration — no closed-loop or iter12 gate authorized** | The next question is causal localization: whether a low-capacity collapse signal at `sdc_traj_query`/`sdc_track_query` can be moved by one pre-declared activation direction without damaging benign controls. A pass only authorizes a separate Stage 2 pre-registration; a failure publishes as a Stage 1 null. [`iter22_causal_planner_interpretability`](experiments/iter22_causal_planner_interpretability/HYPOTHESIS.md) |
+| 22 | **causal planner interpretability, Stage 1** — one frozen motion/planning-bridge representation, non-evaluation scenes only, minimum counts, negative controls, and a frozen intervention grid | — (stopped before probes/interventions) | extraction produced 1,507 non-reset rows and 1,507 GT rows, but **1,507 missing-GT joins**; heldout GT rows **0** | **pre-registered data-null — S0 failed; no iter12 or closed loop authorized** | This did not test whether the bridge contains a causal collapse signal. It established that the launched Stage 1 artifact pair cannot support the registered test: timestamp precision mismatch broke the committed join, and the frozen manifest/staged-data combination had no heldout frames. A successor needs a fresh pre-registration. [`iter22_causal_planner_interpretability`](experiments/iter22_causal_planner_interpretability/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -295,7 +295,7 @@ selectivity/side-blindness trade of iterations 4–7, and the three refuted evas
 kept, with every number and link, in [`docs/CAMPAIGN.md`](docs/CAMPAIGN.md). The summary table
 above is the same history in one screen.
 
-**Net, stated plainly — 21 completed iterations plus an independent verification pass.** The
+**Net, stated plainly — 22 completed iterations plus an independent verification pass.** The
 **released union (iteration 15) is the best configuration** of the campaign: at the definitive
 20-run scale it lifts the independently reproduced baseline **2.12 → 2.91 (CI [+0.605, +0.928])**,
 keeps clean scenes identical to the unmonitored planner, and strictly dominates the plain union
@@ -309,26 +309,27 @@ firmly established — a committed stop is the best frontal response, and **thre
 designs (iters 9, 10, 11) were tested and honestly refuted**, all worse than stopping, the last
 one dangerous on false alarms (re-confirmed at n=20: 25% clean-scene collisions vs OFF's 10%).
 
-**What's next.** The benchmark campaign is complete and consolidated. Iteration 22 is active, but
-only as a Stage 1 causal-localization line:
+**What's next.** The benchmark campaign is complete and consolidated. Iteration 22 is now also
+closed, but as a Stage 1 data-null:
 
 - **The manuscript — full draft and compiled PDF committed**
   ([`docs/paper/`](docs/paper/MANUSCRIPT.md)); the arXiv submission package is built and the
   endorsement handshake is in progress.
-- **Iteration 22 is pre-registered, not completed.**
-  [`experiments/iter22_causal_planner_interpretability/HYPOTHESIS.md`](experiments/iter22_causal_planner_interpretability/HYPOTHESIS.md)
-  freezes a non-evaluation Stage 1 test at UniAD's motion/planning bridge. The split manifest is
-  committed; extraction/intervention code must be committed before any GPU extraction. No
-  iteration-12 scoring, selector claim, or closed-loop work is authorized from Stage 1 unless a
-  future Stage 2 pre-registration is written after the Stage 1 gate.
+- **Iteration 22 is completed as an S0 data-null.**
+  [`experiments/iter22_causal_planner_interpretability/RESULT.md`](experiments/iter22_causal_planner_interpretability/RESULT.md)
+  reports that baseline extraction completed, but the committed timestamp join failed on all
+  1,507 non-reset rows and the frozen heldout split had 0 GT frames. Stage 1 stopped before probe
+  fitting, activation directions, intervention replay, iteration-12 scoring, or closed-loop work.
+  Any successor requires a fresh pre-registration.
 
 Closed en route, per the gate discipline: the per-frame routing predicates (iteration 17
 addendum — refuted offline), the tracking layer's own offline gate (iteration 18 — failed
 by one frame at the frozen margin; the GPU stayed off), the planning-query diversity head
 (iteration 19 — 0/37 feasible escapes), the VAD tracker-portability gate (iteration 20 —
 0/47 raw TTC fires removed, side retention below bar), and the BEV-conditioned diversity head
-(iteration 21 — 0/37 feasible escapes, 23.1% candidate validity). The deployment flip remains
-proven achievable and unclaimed.
+(iteration 21 — 0/37 feasible escapes, 23.1% candidate validity), and the first causal-localization
+Stage 1 (iteration 22 — S0 integrity/data-support null). The deployment flip remains proven
+achievable and unclaimed.
 
 Completed lines, kept for the record:
 
@@ -428,7 +429,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter19_diversity_head/`](experiments/iter19_diversity_head) | **the diversity-trained candidate head** — planning-query variant failed offline; no closed-loop run |
 | [`experiments/iter20_vad_tracker_portability/`](experiments/iter20_vad_tracker_portability) | VAD tracker portability — offline gate failed; no closed-loop run |
 | [`experiments/iter21_bev_diversity_head/`](experiments/iter21_bev_diversity_head) | BEV-conditioned diversity head — offline gate failed; no closed-loop run |
-| [`experiments/iter22_causal_planner_interpretability/`](experiments/iter22_causal_planner_interpretability) | causal planner interpretability Stage 1 — active pre-registration, split manifest committed, result pending |
+| [`experiments/iter22_causal_planner_interpretability/`](experiments/iter22_causal_planner_interpretability) | causal planner interpretability Stage 1 — S0 data-null; stopped before probes, interventions, iter12, or closed loop |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/ITER22_HYPOTHESIS_DRAFT.md`](docs/research/ITER22_HYPOTHESIS_DRAFT.md) · [`docs/research/ITER22_ADVERSARIAL_REVIEW.md`](docs/research/ITER22_ADVERSARIAL_REVIEW.md) | planning-only iter22 draft and adversarial review; not pre-registrations |

@@ -86,12 +86,12 @@ events to prepare; they are a property the repository always has.
   feasible escapes, B2 candidate validity was 574/2488 = 23.1%, B3 benign error was 1.449 m,
   and B4 had no selectable escape. No closed-loop run is authorized from that hypothesis
   (experiments/iter21_bev_diversity_head/RESULT.md).
-- Iteration 22 Stage 1 is now pre-registered:
-  experiments/iter22_causal_planner_interpretability/HYPOTHESIS.md. It is a non-evaluation
-  causal-localization experiment on UniAD's motion/planning bridge. It authorizes no
-  iteration-12 scoring and no closed-loop work. Before any extraction, the next operator must
-  create and commit the iter22 split manifest/generator and the exact extraction/intervention
-  patch/run scripts.
+- Iteration 22 concluded: the non-evaluation causal-localization Stage 1 stopped at S0
+  (experiments/iter22_causal_planner_interpretability/RESULT.md). Baseline extraction completed
+  with 1,507 non-reset rows and 1,507 GT rows, but all rows failed the committed timestamp join
+  (`missing_gt`) and the frozen heldout split had 0 GT frames. No probe fitting, activation
+  direction, intervention replay, iteration-12 scoring, or closed-loop work is authorized from
+  that hypothesis. Any successor requires a fresh pre-registration.
 - Iter22 planning artifacts now exist under docs/research/: ITER22_HYPOTHESIS_DRAFT.md and
   ITER22_ADVERSARIAL_REVIEW.md. They are planning-only, not pre-registrations. Owner guidance:
   do not promote the broad A0-A8 draft directly; use the adversarial review's tighter Stage
@@ -176,4 +176,11 @@ events to prepare; they are a property the repository always has.
   plus required SHA evidence strings. Removed unnecessary scene tokens from the generator and
   regenerated the manifest; retained SHA256 evidence sidecars required by protocol. Current
   in-flight extraction is unaffected because the feeder uses scene names only.
+- 2026-07-06: Codex — iteration 22 Stage 1 extraction completed cleanly on sentinel-gpu
+  (`FEEDER_DONE split=all scenes=90 frames=1507`, `E22_STAGE1_EXTRACT_DONE`); proof copied under
+  experiments/iter22_causal_planner_interpretability/proof-extract. The GPU box is IDLE.
+- 2026-07-06: Codex — iteration 22 Stage 1 analysis stopped at S0 and published a data-null:
+  1,507/1,507 non-reset rows failed the committed timestamp join (`missing_gt`) and heldout GT
+  rows were 0. No probes, activation directions, intervention grid, iteration-12 scoring, or
+  closed-loop work ran; any successor causal-localization line requires a fresh HYPOTHESIS.md.
 - (append one line per shift: dates, operator, what changed, box state at exit)
