@@ -101,9 +101,9 @@ measurement task. It waits only for the power run's final numbers so results are
 ## Decision rules
 
 1. **Manuscript drafting starts when the power run's RESULT is committed** — no line blocks it.
-2. **Line 2 runs first on the GPU** (cheapest, completes the deployment story the campaign has
-   chased since iteration 3; its null is also cheap and informative).
+2. **Line 2 is closed by iteration 17**; its safety gate failed, and the released union stands.
 3. **Line 1 is closed by offline gates**; its closed-loop evaluation never runs because neither
    the planning-query nor the BEV-conditioned variant met the escape/feasibility bars.
-4. **Line 3 runs when Lines 1–2 conclude**, or earlier if either stalls on engineering.
-5. Every line gets a frozen HYPOTHESIS.md with falsifiers before data, per the campaign standard.
+4. **Line 3 is closed by iteration 20**; the registered tracker bridge failed before GPU time.
+5. No line in this file currently authorizes a new run. Every new line gets a frozen
+   HYPOTHESIS.md with falsifiers before data, per the campaign standard.
