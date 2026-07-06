@@ -1,10 +1,20 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-DISK_BY_ID=/dev/disk/by-id/google-sentinel-nuscenes-data-1tb
+PRIMARY_DISK_BY_ID=/dev/disk/by-id/google-sentinel-nuscenes-data-1tb
+ATTACHED_DISK_BY_ID=/dev/disk/by-id/google-persistent-disk-1
 MOUNT_POINT=/datasets/nuscenes-full
 
-test -e "${DISK_BY_ID}"
+if test -e "${PRIMARY_DISK_BY_ID}"; then
+  DISK_BY_ID="${PRIMARY_DISK_BY_ID}"
+elif test -e "${ATTACHED_DISK_BY_ID}"; then
+  DISK_BY_ID="${ATTACHED_DISK_BY_ID}"
+else
+  echo "ITER27_DISK_BY_ID_MISSING"
+  exit 1
+fi
+
+echo "ITER27_DISK_BY_ID ${DISK_BY_ID}"
 mkdir -p "${MOUNT_POINT}"
 
 if blkid "${DISK_BY_ID}" >/dev/null 2>&1; then
