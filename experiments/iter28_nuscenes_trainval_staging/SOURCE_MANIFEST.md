@@ -35,6 +35,10 @@ The script computes a local SHA256, uploads the archive to
 `/datasets/nuscenes-full/archives/<canonical-name>` on `sentinel-gpu`, computes the remote SHA256,
 and writes a token-free proof JSON under `proof-staging/uploads/`.
 
+Local-path staging uses rsync by default so interrupted uploads can resume from
+`/datasets/nuscenes-full/.iter28_tmp/iter28-upload-<canonical-name>`. Use `--transfer-method scp`
+only for a deliberate non-resumable fallback.
+
 Only after the remote byte count and SHA256 match may the operator delete the local completed copy
 to free Mac space. Do not delete `.crdownload` files that are still active unless the download has
 been intentionally cancelled.

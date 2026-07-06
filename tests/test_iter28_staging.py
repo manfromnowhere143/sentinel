@@ -45,3 +45,20 @@ def test_signed_url_file_must_contain_single_https_url(tmp_path):
     url_file.write_text("http://example.com/archive.tgz\n")
     with pytest.raises(SystemExit, match="https URL"):
         module.read_signed_url(url_file)
+
+
+def test_strip_ssh_destination_removes_tty_and_preserves_proxy_command():
+    module = load_staging_module()
+    ssh_prefix, destination = module.strip_ssh_destination(
+        "/usr/bin/ssh -t -i /tmp/key -o 'ProxyCommand proxy words' user@host"
+    )
+
+    assert "-t" not in ssh_prefix
+    assert destination == "user@host"
+    assert ssh_prefix == [
+        "/usr/bin/ssh",
+        "-i",
+        "/tmp/key",
+        "-o",
+        "ProxyCommand proxy words",
+    ]

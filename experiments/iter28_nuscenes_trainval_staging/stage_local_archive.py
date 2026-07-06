@@ -92,6 +92,50 @@ def remote_scp(args: argparse.Namespace, local_path: Path, remote_path: str) -> 
     run_command(cmd, timeout=None)
 
 
+def strip_ssh_destination(dry_run_stdout: str) -> tuple[list[str], str]:
+    ssh_cmd = shlex.split(dry_run_stdout.strip())
+    if not ssh_cmd:
+        raise SystemExit("gcloud dry-run returned empty ssh command")
+    if "-t" in ssh_cmd:
+        ssh_cmd.remove("-t")
+    destination = ssh_cmd[-1]
+    if "@" not in destination:
+        raise SystemExit("gcloud dry-run ssh command missing user@host destination")
+    return ssh_cmd[:-1], destination
+
+
+def rsync_ssh_command(args: argparse.Namespace) -> tuple[list[str], str]:
+    dry_run = run_command(
+        [
+            *gcloud_base(args),
+            "ssh",
+            args.instance,
+            "--zone",
+            args.zone,
+            "--project",
+            args.project,
+            "--tunnel-through-iap",
+            "--dry-run",
+        ]
+    )
+    return strip_ssh_destination(dry_run.stdout)
+
+
+def remote_rsync(args: argparse.Namespace, local_path: Path, remote_path: str) -> None:
+    ssh_cmd, destination = rsync_ssh_command(args)
+    cmd = [
+        "rsync",
+        "--append",
+        "--partial",
+        "--progress",
+        "-e",
+        shlex.join(ssh_cmd),
+        str(local_path),
+        f"{destination}:{remote_path}",
+    ]
+    run_command(cmd, timeout=None)
+
+
 def read_signed_url(path: Path) -> str:
     if not path.is_file():
         raise SystemExit(f"missing signed URL file: {path}")
@@ -151,6 +195,7 @@ def proof_payload(
     preflight_stdout: str,
     verify_stdout: str,
     source_kind: str,
+    transfer_method: str,
     source_redacted: dict[str, str] | None = None,
 ) -> dict[str, Any]:
     archive: dict[str, Any] = {
@@ -190,6 +235,7 @@ def proof_payload(
         "preflight_stdout": preflight_stdout,
         "source_kind": source_kind,
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
+        "transfer_method": transfer_method,
         "verify_stdout": verify_stdout,
     }
 
@@ -209,6 +255,7 @@ def main() -> int:
     parser.add_argument("--instance", default=INSTANCE)
     parser.add_argument("--dest-root", default=DEST_ROOT)
     parser.add_argument("--remote-user", default="danielwahnich")
+    parser.add_argument("--transfer-method", choices=("rsync", "scp"), default="rsync")
     parser.add_argument("--out-dir", default=str(OUT_DIR), type=Path)
     parser.add_argument(
         "--gcloud-prefix",
@@ -258,7 +305,11 @@ def main() -> int:
 
     remote_tmp = f"{args.dest_root}/.iter28_tmp/iter28-upload-{canonical_name}"
     if local_path is not None:
-        remote_scp(args, local_path, remote_tmp)
+        if args.transfer_method == "rsync":
+            remote_rsync(args, local_path, remote_tmp)
+        else:
+            remote_scp(args, local_path, remote_tmp)
+        transfer_method = args.transfer_method
     else:
         assert signed_url is not None
         remote_url_file = f"{args.dest_root}/.iter28_tmp/iter28-url-{canonical_name}.txt"
@@ -288,6 +339,7 @@ def main() -> int:
                     )
                 ),
             )
+            transfer_method = "curl_signed_url"
         finally:
             url_file.unlink(missing_ok=True)
 
@@ -324,6 +376,7 @@ def main() -> int:
         preflight_stdout=preflight.stdout,
         verify_stdout=verify.stdout,
         source_kind=source_kind,
+        transfer_method=transfer_method,
         source_redacted=source_redacted,
     )
     proof_path = args.out_dir / f"{canonical_name}.json"
