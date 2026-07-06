@@ -41,7 +41,22 @@ been intentionally cancelled.
 
 ## Signed URL staging
 
-Signed URL staging is allowed by the hypothesis but must use an uncommitted manifest, for example:
+Signed URL staging is allowed by the hypothesis but must use an uncommitted file or manifest.
+For one archive, put exactly one official signed URL in a temporary file:
+
+```bash
+printf '%s\n' '<signed official URL>' > /tmp/iter28-part04.url
+
+python3 experiments/iter28_nuscenes_trainval_staging/stage_local_archive.py \
+  --package 4 \
+  --signed-url-file /tmp/iter28-part04.url
+```
+
+The script copies only that temporary URL file to `/datasets/nuscenes-full/.iter28_tmp`, downloads
+the archive on `sentinel-gpu`, deletes the remote URL file, records only redacted source
+provenance, and commits no URL/query material.
+
+For a batch operator manifest, use the same fields:
 
 ```json
 {

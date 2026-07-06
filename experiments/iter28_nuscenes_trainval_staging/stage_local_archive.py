@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Upload one completed official nuScenes trainval archive to the iter28 staging disk.
+"""Stage one official nuScenes trainval archive to the iter28 staging disk.
 
-This is a staging/provenance script, not an extraction or model script. It accepts one completed
-local archive, verifies it belongs to the frozen iter28 package set, copies it to
-sentinel-gpu:/datasets/nuscenes-full/archives, verifies remote byte count and SHA256, and writes a
-small proof JSON suitable for committing.
+This is a staging/provenance script, not an extraction or model script. It accepts either one
+completed local archive or an uncommitted file containing a signed official download URL, stages the
+archive to sentinel-gpu:/datasets/nuscenes-full/archives, verifies remote byte count and SHA256,
+and writes a small proof JSON suitable for committing.
 """
 
 from __future__ import annotations
@@ -15,9 +15,11 @@ import json
 import shlex
 import subprocess
 import sys
+import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
 
 PROJECT = "sunlit-unison-487018-b0"
@@ -90,6 +92,27 @@ def remote_scp(args: argparse.Namespace, local_path: Path, remote_path: str) -> 
     run_command(cmd, timeout=None)
 
 
+def read_signed_url(path: Path) -> str:
+    if not path.is_file():
+        raise SystemExit(f"missing signed URL file: {path}")
+    url = path.read_text().strip()
+    if "\n" in url or "\r" in url:
+        raise SystemExit("signed URL file must contain exactly one URL")
+    parsed = urlparse(url)
+    if parsed.scheme != "https" or not parsed.netloc:
+        raise SystemExit("signed URL must be an https URL with a host")
+    return url
+
+
+def redacted_url_source(url: str) -> dict[str, str]:
+    parsed = urlparse(url)
+    return {
+        "source_host": parsed.netloc,
+        "source_path_basename": Path(parsed.path).name,
+        "source_scheme": parsed.scheme,
+    }
+
+
 def parse_remote_verify(stdout: str) -> tuple[int, str]:
     size: int | None = None
     digest: str | None = None
@@ -120,27 +143,40 @@ def proof_payload(
     *,
     args: argparse.Namespace,
     canonical_name: str,
-    local_path: Path,
-    local_size: int,
-    local_sha256: str,
+    local_path: Path | None,
+    local_size: int | None,
+    local_sha256: str | None,
     remote_size: int,
     remote_sha256: str,
     preflight_stdout: str,
     verify_stdout: str,
+    source_kind: str,
+    source_redacted: dict[str, str] | None = None,
 ) -> dict[str, Any]:
+    archive: dict[str, Any] = {
+        "canonical_name": canonical_name,
+        "package": args.package,
+        "remote_path": f"{args.dest_root}/archives/{canonical_name}",
+        "remote_sha256": remote_sha256,
+        "remote_size_bytes": remote_size,
+    }
+    if local_path is not None:
+        archive.update(
+            {
+                "local_basename": local_path.name,
+                "local_path": str(local_path),
+                "local_sha256": local_sha256,
+                "local_size_bytes": local_size,
+                "sha256_match": local_sha256 == remote_sha256,
+                "size_match": local_size == remote_size,
+            }
+        )
+    if source_redacted is not None:
+        archive.update(source_redacted)
+
     return {
         "archive": {
-            "canonical_name": canonical_name,
-            "local_basename": local_path.name,
-            "local_path": str(local_path),
-            "local_sha256": local_sha256,
-            "local_size_bytes": local_size,
-            "package": args.package,
-            "remote_path": f"{args.dest_root}/archives/{canonical_name}",
-            "remote_sha256": remote_sha256,
-            "remote_size_bytes": remote_size,
-            "sha256_match": local_sha256 == remote_sha256,
-            "size_match": local_size == remote_size,
+            **archive,
         },
         "command": shlex.join([sys.executable, *sys.argv]),
         "destination": {
@@ -152,7 +188,7 @@ def proof_payload(
         "experiment": "iter28_nuscenes_trainval_staging",
         "hypothesis": "experiments/iter28_nuscenes_trainval_staging/HYPOTHESIS.md",
         "preflight_stdout": preflight_stdout,
-        "source_kind": "local_path",
+        "source_kind": source_kind,
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
         "verify_stdout": verify_stdout,
     }
@@ -161,11 +197,18 @@ def proof_payload(
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--package", required=True, choices=sorted(EXPECTED))
-    parser.add_argument("--local-path", required=True, type=Path)
+    source = parser.add_mutually_exclusive_group(required=True)
+    source.add_argument("--local-path", type=Path)
+    source.add_argument(
+        "--signed-url-file",
+        type=Path,
+        help="uncommitted file containing one signed official URL; URL is not committed",
+    )
     parser.add_argument("--project", default=PROJECT)
     parser.add_argument("--zone", default=ZONE)
     parser.add_argument("--instance", default=INSTANCE)
     parser.add_argument("--dest-root", default=DEST_ROOT)
+    parser.add_argument("--remote-user", default="danielwahnich")
     parser.add_argument("--out-dir", default=str(OUT_DIR), type=Path)
     parser.add_argument(
         "--gcloud-prefix",
@@ -176,14 +219,26 @@ def main() -> int:
     args = parser.parse_args()
 
     canonical_name = EXPECTED[args.package]
-    local_path = args.local_path.expanduser().resolve()
-    validate_local_path(local_path, canonical_name, args.package)
-
-    local_size = local_path.stat().st_size
-    local_sha256 = sha256_file(local_path)
+    local_path: Path | None = None
+    local_size: int | None = None
+    local_sha256: str | None = None
+    signed_url: str | None = None
+    source_redacted: dict[str, str] | None = None
+    if args.local_path is not None:
+        local_path = args.local_path.expanduser().resolve()
+        validate_local_path(local_path, canonical_name, args.package)
+        local_size = local_path.stat().st_size
+        local_sha256 = sha256_file(local_path)
+        source_kind = "local_path"
+    else:
+        signed_url = read_signed_url(args.signed_url_file.expanduser().resolve())
+        source_redacted = redacted_url_source(signed_url)
+        source_kind = "signed_url"
 
     q_dest_root = shlex.quote(args.dest_root)
     q_archives = shlex.quote(f"{args.dest_root}/archives")
+    q_tmp_dir = shlex.quote(f"{args.dest_root}/.iter28_tmp")
+    q_remote_user = shlex.quote(args.remote_user)
     preflight = remote_ssh(
         args,
         (
@@ -192,14 +247,49 @@ def main() -> int:
                 "set -euo pipefail; "
                 f"test -d {q_dest_root}; "
                 f"mkdir -p {q_archives}; "
+                f"mkdir -p {q_tmp_dir}; "
+                f"chown {q_remote_user}:{q_remote_user} {q_tmp_dir}; "
+                f"chmod 0700 {q_tmp_dir}; "
                 f"df -B1 {q_dest_root}; "
                 "docker ps --format '{{.Names}}'"
             )
         ),
     )
 
-    remote_tmp = f"/tmp/iter28-upload-{canonical_name}"
-    remote_scp(args, local_path, remote_tmp)
+    remote_tmp = f"{args.dest_root}/.iter28_tmp/iter28-upload-{canonical_name}"
+    if local_path is not None:
+        remote_scp(args, local_path, remote_tmp)
+    else:
+        assert signed_url is not None
+        remote_url_file = f"{args.dest_root}/.iter28_tmp/iter28-url-{canonical_name}.txt"
+        fd, url_file_name = tempfile.mkstemp(
+            prefix=f"iter28-{canonical_name}-",
+            suffix=".curl-config",
+            text=True,
+        )
+        url_file = Path(url_file_name)
+        try:
+            with open(fd, "w") as f:
+                f.write(f"url = {json.dumps(signed_url)}\n")
+            remote_scp(args, url_file, remote_url_file)
+            q_url_file = shlex.quote(remote_url_file)
+            q_tmp = shlex.quote(remote_tmp)
+            remote_ssh(
+                args,
+                (
+                    "sudo bash -lc "
+                    + shlex.quote(
+                        "set -euo pipefail; "
+                        f"chmod 0600 {q_url_file}; "
+                        f"trap 'rm -f {q_url_file}' EXIT; "
+                        f"curl --fail --location --silent --show-error --retry 5 "
+                        f"--retry-delay 10 --connect-timeout 30 --output {q_tmp} "
+                        f"--config {q_url_file}"
+                    )
+                ),
+            )
+        finally:
+            url_file.unlink(missing_ok=True)
 
     q_tmp = shlex.quote(remote_tmp)
     q_remote = shlex.quote(f"{args.dest_root}/archives/{canonical_name}")
@@ -217,9 +307,9 @@ def main() -> int:
         ),
     )
     remote_size, remote_sha256 = parse_remote_verify(verify.stdout)
-    if remote_size != local_size:
+    if local_size is not None and remote_size != local_size:
         raise SystemExit(f"remote size mismatch: local={local_size} remote={remote_size}")
-    if remote_sha256 != local_sha256:
+    if local_sha256 is not None and remote_sha256 != local_sha256:
         raise SystemExit(f"remote sha256 mismatch: local={local_sha256} remote={remote_sha256}")
 
     args.out_dir.mkdir(parents=True, exist_ok=True)
@@ -233,10 +323,12 @@ def main() -> int:
         remote_sha256=remote_sha256,
         preflight_stdout=preflight.stdout,
         verify_stdout=verify.stdout,
+        source_kind=source_kind,
+        source_redacted=source_redacted,
     )
     proof_path = args.out_dir / f"{canonical_name}.json"
     proof_path.write_text(json.dumps(proof, indent=2, sort_keys=True) + "\n")
-    print(f"ITER28_UPLOADED {canonical_name} bytes={local_size} sha256={local_sha256}")
+    print(f"ITER28_UPLOADED {canonical_name} bytes={remote_size} sha256={remote_sha256}")
     print(f"ITER28_PROOF {proof_path}")
     return 0
 

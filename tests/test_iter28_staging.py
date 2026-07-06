@@ -1,0 +1,47 @@
+from __future__ import annotations
+
+import importlib.util
+from pathlib import Path
+
+import pytest
+
+
+ROOT = Path(__file__).resolve().parents[1]
+SCRIPT = ROOT / "experiments/iter28_nuscenes_trainval_staging/stage_local_archive.py"
+
+
+def load_staging_module():
+    spec = importlib.util.spec_from_file_location("iter28_stage_local_archive", SCRIPT)
+    assert spec is not None
+    assert spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def test_signed_url_redaction_drops_query_and_fragment():
+    module = load_staging_module()
+
+    redacted = module.redacted_url_source(
+        "https://example.com/private/v1.0-trainval04_blobs.tgz"
+        "?token=secret&expires=soon#fragment"
+    )
+
+    assert redacted == {
+        "source_host": "example.com",
+        "source_path_basename": "v1.0-trainval04_blobs.tgz",
+        "source_scheme": "https",
+    }
+
+
+def test_signed_url_file_must_contain_single_https_url(tmp_path):
+    module = load_staging_module()
+    url_file = tmp_path / "url.txt"
+    url_file.write_text("https://example.com/archive.tgz\nhttps://example.com/other.tgz\n")
+
+    with pytest.raises(SystemExit, match="exactly one URL"):
+        module.read_signed_url(url_file)
+
+    url_file.write_text("http://example.com/archive.tgz\n")
+    with pytest.raises(SystemExit, match="https URL"):
+        module.read_signed_url(url_file)
