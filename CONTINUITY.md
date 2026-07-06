@@ -128,6 +128,12 @@ events to prepare; they are a property the repository always has.
   extraction, label atlas, probe fitting, activation direction, iteration-12 scoring, selector
   evaluation, or closed-loop run is authorized from iter26. Any successor needs a fresh
   storage/staging pre-registration.
+- Iteration 27 is now pre-registered:
+  experiments/iter27_storage_provisioning/HYPOTHESIS.md. It authorizes only storage provisioning:
+  create/attach/format/mount one 1024 GB `pd-balanced` disk named `sentinel-nuscenes-data-1tb` at
+  `/datasets/nuscenes-full` and prove at least 900 GB free. It authorizes no nuScenes download,
+  data copy, archive extraction, inventory rerun, model extraction, label atlas, probe fitting,
+  activation direction, iteration-12 scoring, selector evaluation, or closed-loop work.
 - Iter22 planning artifacts now exist under docs/research/: ITER22_HYPOTHESIS_DRAFT.md and
   ITER22_ADVERSARIAL_REVIEW.md. They are planning-only, not pre-registrations. Owner guidance:
   do not promote the broad A0-A8 draft directly; use the adversarial review's tighter Stage
@@ -285,4 +291,9 @@ events to prepare; they are a property the repository always has.
   budget) and rejected current capacity: 365.975 GB required by the 1.25x margin, 25.125 GB free
   observed. The governed sentinel bucket has only metadata/map/CAN bus artifacts. Null published;
   next action is storage/staging pre-registration, not model work.
+- 2026-07-06: Codex — pre-registered iteration 27 under
+  experiments/iter27_storage_provisioning/HYPOTHESIS.md. Scope is storage provisioning only: one
+  1024 GB persistent disk at `/datasets/nuscenes-full`; no data download/copy/extraction,
+  inventory rerun, model extraction, label atlas, probe fitting, activation direction,
+  iteration-12 scoring, selector evaluation, or closed-loop work launched yet.
 - (append one line per shift: dates, operator, what changed, box state at exit)

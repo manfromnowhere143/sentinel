@@ -5,7 +5,7 @@ collision it is about to cause, and intervenes — measured where it actually ma
 loop, by whether the car crashes *and whether it can still drive*.**
 
 > **Honest status up front (26 completed iterations + an independent verification pass + the
-> full official benchmark at power):** the introspective signal predicts the planner's collisions (AUROC 0.83). On the
+> full official benchmark at power + one active storage-provisioning pre-registration):** the introspective signal predicts the planner's collisions (AUROC 0.83). On the
 > complete 14-scene NeuroNCAP set at **20 seed-paired runs per pair** (799 episodes, the power
 > measurement), the unmonitored UniAD baseline **independently reproduces** (pooled 2.12 vs the
 > published 1.84 — to the verified literature, a first), and the best configuration — the
@@ -227,6 +227,7 @@ always-brake controls) and the formal-envelope baseline (iteration 13) on identi
 | 24 | **fresh risk-support atlas** — data-support prerequisite before another causal-localization attempt | — (stopped before extraction) | known-data firewall PASS; availability FAIL: **0 eligible scenes**, **0 keyframes**, **0 heldout keyframes** after 582 post-firewall candidates all missed local six-camera files | **pre-registered availability-null — no model extraction, probes, iter12, selector, or closed loop authorized** | The firewall did its job: iter22/iter23 known data could not rescue the gate. The result is a staged-data availability null, not evidence for or against the causal signal. [`iter24_risk_support_atlas`](experiments/iter24_risk_support_atlas/RESULT.md) |
 | 25 | **staged-data inventory** — provenance gate before another fresh atlas | — (stopped before extraction) | frozen root inventory FAIL: only `/datasets/nuscenes` exists and it has **0 eligible scenes**, **0 keyframes**, **0 heldout keyframes** after the known-data firewall; four other frozen roots are missing | **pre-registered infrastructure-null — no data download/copy, model extraction, labels, probes, iter12, selector, or closed loop authorized** | The blocker is staged-data availability, not a tested model mechanism. A successor must name a concrete data-staging remedy before any extraction. [`iter25_staged_data_inventory`](experiments/iter25_staged_data_inventory/RESULT.md) |
 | 26 | **data-staging remedy** — source/capacity gate before any download or copy | — (stopped before data movement) | official nuScenes v1.0 trainval sensor blobs identified: **292.78 GB** archive budget; capacity FAIL: **365.975 GB** required by margin, **25.125 GB** free observed | **pre-registered capacity-null — storage provisioning required before download/staging** | Yes, the missing data must be staged/downloaded. Do not start on the current disk; next action is a storage/staging pre-registration. [`iter26_data_staging_remedy`](experiments/iter26_data_staging_remedy/RESULT.md) |
+| 27 | **storage provisioning** — persistent volume before nuScenes staging | — (pre-registered; no disk action launched yet) | target: create/attach/mount `sentinel-nuscenes-data-1tb`, 1024 GB `pd-balanced`, at `/datasets/nuscenes-full`; pass requires **>=900 GB** free and **0** dataset bytes moved | **active pre-registration — storage only** | A pass authorizes only a later data-staging pre-registration, not download/model work. [`iter27_storage_provisioning`](experiments/iter27_storage_provisioning/HYPOTHESIS.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -354,6 +355,12 @@ iteration-12, or closed-loop work is authorized without a fresh pre-registration
   sensor file blobs; no governed bucket copy currently contains them; and the current GPU disk is
   too small. The next action is storage provisioning plus a later staging pre-registration, not a
   model run.
+- **Iteration 27 is pre-registered as a storage-provisioning gate.**
+  [`experiments/iter27_storage_provisioning/HYPOTHESIS.md`](experiments/iter27_storage_provisioning/HYPOTHESIS.md)
+  authorizes creating/attaching/mounting a new persistent 1 TB data disk at
+  `/datasets/nuscenes-full` only. It does not authorize downloading, copying, extracting,
+  inventory rerun, model extraction, labels, probes, interventions, iteration-12, selector, or
+  closed-loop work.
 
 Closed en route, per the gate discipline: the per-frame routing predicates (iteration 17
 addendum — refuted offline), the tracking layer's own offline gate (iteration 18 — failed
@@ -470,6 +477,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter24_risk_support_atlas/`](experiments/iter24_risk_support_atlas) | fresh risk-support atlas — availability-null after known-data firewall; stopped before canary/full extraction, probes, interventions, iter12, selector, or closed loop |
 | [`experiments/iter25_staged_data_inventory/`](experiments/iter25_staged_data_inventory) | staged-data inventory — infrastructure-null; no frozen local root has enough fresh post-firewall keyframes for a future atlas |
 | [`experiments/iter26_data_staging_remedy/`](experiments/iter26_data_staging_remedy) | data-staging remedy — capacity-null; official trainval sensor blobs needed, current GPU disk too small |
+| [`experiments/iter27_storage_provisioning/`](experiments/iter27_storage_provisioning) | storage provisioning — active pre-registration for a 1 TB persistent data volume before any nuScenes download |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/ITER22_HYPOTHESIS_DRAFT.md`](docs/research/ITER22_HYPOTHESIS_DRAFT.md) · [`docs/research/ITER22_ADVERSARIAL_REVIEW.md`](docs/research/ITER22_ADVERSARIAL_REVIEW.md) | planning-only iter22 draft and adversarial review; not pre-registrations |

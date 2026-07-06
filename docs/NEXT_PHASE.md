@@ -76,6 +76,13 @@ The answer is yes: the needed data is the official nuScenes v1.0 trainval sensor
 (292.78 GB archive budget), but the current GPU disk has only 25.125 GB free against a frozen
 365.975 GB minimum. Next action is storage provisioning plus a later staging pre-registration.
 
+The storage step is now pre-registered:
+[`../experiments/iter27_storage_provisioning/HYPOTHESIS.md`](../experiments/iter27_storage_provisioning/HYPOTHESIS.md).
+Iteration 27 may create/attach/format/mount one 1024 GB persistent disk at
+`/datasets/nuscenes-full` and prove at least 900 GB free. It may move 0 dataset bytes and
+authorizes no download, inventory rerun, model extraction, label atlas, probe fitting, activation
+intervention, iteration-12 scoring, selector evaluation, or closed-loop work.
+
 ## Line 1 — a diversity-trained candidate head under the runtime selector
 
 **Motivation (measured, twice):** iterations 12 and 14 established that frozen planners hold no
@@ -182,6 +189,8 @@ measurement task. It waits only for the power run's final numbers so results are
    activation direction, iteration-12 scoring, or closed-loop run. Any next causal-localization
    line needs a fresh HYPOTHESIS.md before data.
 8. Iteration 25 is closed as a staged-data inventory infrastructure-null.
-9. Iteration 26 is closed as a data-staging capacity-null. No active experiment authorizes data
-   download/copy, root mutation, inventory rerun, model extraction, label atlas, probe fitting,
-   activation intervention, iteration-12 scoring, selector evaluation, or closed-loop work.
+9. Iteration 26 is closed as a data-staging capacity-null.
+10. Iteration 27 is the only active pre-registration. It authorizes storage provisioning only: a
+    new/attached 1 TB persistent disk mounted at `/datasets/nuscenes-full`. No dataset download,
+    copy, extraction, inventory rerun, model extraction, label atlas, probe fitting, activation
+    intervention, iteration-12 scoring, selector evaluation, or closed-loop work is authorized.
