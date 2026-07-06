@@ -159,4 +159,10 @@ events to prepare; they are a property the repository always has.
   list, generator, manifest, command record, exclusion report, and SHA256 sidecar under
   experiments/iter22_causal_planner_interpretability/. No extraction, probe fitting, activation
   patching, model container run, or NeuroNCAP run launched.
+- 2026-07-06: Codex — aligned README with the active iter22 Stage 1 story and added the committed
+  extraction/intervention run surfaces for iter22 (server patch, manifest-driven feeder,
+  baseline extraction script, calibration-grid script, heldout-selected-alpha script). This
+  authorizes only the next committed extraction step under the iter22 HYPOTHESIS; no extraction,
+  probe fitting, activation patching, intervention replay, iteration-12 scoring, or closed-loop
+  run launched yet.
 - (append one line per shift: dates, operator, what changed, box state at exit)
