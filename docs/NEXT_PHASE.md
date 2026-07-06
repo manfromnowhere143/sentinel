@@ -147,6 +147,8 @@ measurement task. It waits only for the power run's final numbers so results are
 7. Iteration 23 is closed as a count-floor data-null after S0 pass. It authorizes no probe,
    activation direction, iteration-12 scoring, or closed-loop run. Any next causal-localization
    line needs a fresh HYPOTHESIS.md before data.
-8. Iteration 24 is the active pre-registration. Its next permitted action is implementation of
-   the availability/manifest and extraction-analysis surface. No GPU run is authorized until the
-   code and manifest prerequisites in its HYPOTHESIS are committed.
+8. Iteration 24 is the active pre-registration. Its prerequisite implementation surface is
+   committed. The next permitted action is availability-manifest generation and commit only. No
+   model extraction, probe fitting, activation intervention, iteration-12 scoring, selector
+   evaluation, or closed-loop run is authorized until the manifest exists, passes its availability
+   bar, and is committed.
