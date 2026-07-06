@@ -1,0 +1,70 @@
+{
+  "claim_boundary": "The frozen extraction artifacts failed the Stage 1 S0 integrity gate before label scoring: extraction rows could not be joined to GT rows by the committed timestamp key. Per the pre-registration, publish this as a data-null and do not fit probes, write an activation direction, run the calibration grid, touch iteration-12 frames, or start closed-loop work.",
+  "counts": {
+    "benign_control_frame": {
+      "calibration": 0,
+      "fit": 0,
+      "heldout": 0
+    },
+    "collapse_positive": {
+      "calibration": 0,
+      "fit": 0,
+      "heldout": 0
+    },
+    "danger_positive": {
+      "calibration": 0,
+      "fit": 0,
+      "heldout": 0
+    },
+    "eligible_intervention_frame": {
+      "calibration": 0,
+      "fit": 0,
+      "heldout": 0
+    },
+    "error_row_types": {
+      "missing_gt": 1507
+    },
+    "error_rows": 1507,
+    "extract_nonreset_rows_total": 1507,
+    "extract_rows_total": 1597,
+    "extract_timestamp_summary": {
+      "count": 1507,
+      "max": 1533153766,
+      "min": 1531883530,
+      "unique": 761
+    },
+    "gt_rows_by_split": {
+      "calibration": 79,
+      "fit": 1428,
+      "heldout": 0
+    },
+    "gt_rows_total": 1507,
+    "gt_timestamp_summary": {
+      "count": 1507,
+      "max": 1533153766547527,
+      "min": 1531883530449377,
+      "unique": 1507
+    },
+    "high_diversity_control": {
+      "calibration": 0,
+      "fit": 0,
+      "heldout": 0
+    },
+    "joined_scored_rows": 0,
+    "safe_control": {
+      "calibration": 0,
+      "fit": 0,
+      "heldout": 0
+    }
+  },
+  "s0_count_floor_failures": [
+    "count floors not evaluated because extraction/GT integrity failed",
+    "gt_rows_by_split.heldout=0 < 1"
+  ],
+  "s0_count_floor_pass": false,
+  "s0_integrity_failures": [
+    "analysis_error.missing_gt=1507"
+  ],
+  "s0_integrity_pass": false,
+  "stage1_verdict": "DATA_NULL_STOP_BEFORE_PROBE_OR_INTERVENTION"
+}

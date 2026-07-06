@@ -12,6 +12,7 @@ import argparse
 import gzip
 import json
 import math
+from collections import Counter
 from pathlib import Path
 
 import numpy as np
@@ -272,6 +273,26 @@ def count_by_split(rows, key):
     return out
 
 
+def gt_rows_by_split(gt_rows: list[dict]) -> dict[str, int]:
+    return {split: int(sum(row.get("split") == split for row in gt_rows)) for split in ("fit", "calibration", "heldout")}
+
+
+def timestamp_summary(rows: list[dict], *, include_resets: bool = False) -> dict:
+    vals = [
+        int(row["ts"])
+        for row in rows
+        if "ts" in row and (include_resets or not row.get("reset"))
+    ]
+    if not vals:
+        return {"count": 0, "unique": 0}
+    return {
+        "count": len(vals),
+        "unique": len(set(vals)),
+        "min": min(vals),
+        "max": max(vals),
+    }
+
+
 def count_floor_pass(counts: dict) -> tuple[bool, list[str]]:
     failures = []
     heldout = "heldout"
@@ -343,9 +364,14 @@ def main() -> int:
 
     counts = {
         "extract_rows_total": len(extract_rows),
+        "extract_nonreset_rows_total": int(sum(not r.get("reset") for r in extract_rows)),
         "gt_rows_total": len(gt_rows),
+        "gt_rows_by_split": gt_rows_by_split(gt_rows),
+        "extract_timestamp_summary": timestamp_summary(extract_rows),
+        "gt_timestamp_summary": timestamp_summary(gt_rows, include_resets=True),
         "joined_scored_rows": len(rows),
         "error_rows": len(errors),
+        "error_row_types": dict(Counter(r.get("analysis_error", "unknown") for r in errors)),
         "collapse_positive": count_by_split(rows, "collapse_positive"),
         "high_diversity_control": count_by_split(rows, "high_diversity_control"),
         "danger_positive": count_by_split(rows, "danger_positive"),
@@ -353,6 +379,33 @@ def main() -> int:
         "eligible_intervention_frame": count_by_split(rows, "eligible_intervention_frame"),
         "benign_control_frame": count_by_split(rows, "benign_control_frame"),
     }
+
+    if errors:
+        metrics = {
+            "counts": counts,
+            "s0_integrity_pass": False,
+            "s0_integrity_failures": [
+                f"analysis_error.{kind}={count}" for kind, count in counts["error_row_types"].items()
+            ],
+            "s0_count_floor_pass": False,
+            "s0_count_floor_failures": [
+                "count floors not evaluated because extraction/GT integrity failed",
+                f"gt_rows_by_split.heldout={counts['gt_rows_by_split']['heldout']} < 1",
+            ],
+            "stage1_verdict": "DATA_NULL_STOP_BEFORE_PROBE_OR_INTERVENTION",
+            "claim_boundary": (
+                "The frozen extraction artifacts failed the Stage 1 S0 integrity gate before "
+                "label scoring: extraction rows could not be joined to GT rows by the committed "
+                "timestamp key. Per the pre-registration, publish this as a data-null and do not "
+                "fit probes, write an activation direction, run the calibration grid, touch "
+                "iteration-12 frames, or start closed-loop work."
+            ),
+        }
+        (out_dir / "stage1_baseline_metrics.json").write_text(
+            json.dumps(metrics, indent=2, sort_keys=True) + "\n"
+        )
+        print(json.dumps(metrics, indent=2, sort_keys=True))
+        return 0
 
     s0_counts_ok, count_failures = count_floor_pass(counts)
     if not s0_counts_ok:
