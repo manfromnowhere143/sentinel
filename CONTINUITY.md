@@ -165,4 +165,10 @@ events to prepare; they are a property the repository always has.
   authorizes only the next committed extraction step under the iter22 HYPOTHESIS; no extraction,
   probe fitting, activation patching, intervention replay, iteration-12 scoring, or closed-loop
   run launched yet.
+- 2026-07-06: Codex — launched iteration 22 Stage 1 baseline extraction on sentinel-gpu from the
+  committed non-evaluation split manifest. Run is IN FLIGHT if `/var/log/sentinel-e22-extract.log`
+  lacks `E22_STAGE1_EXTRACT_DONE`; patch marker `E22_STAGE1_PATCHED` printed, server became
+  alive, feeder matched 90/90 manifest scenes, and the first JSONL rows were writing. Do not
+  relaunch while the `model` container is up. No probe fitting, activation intervention replay,
+  iteration-12 scoring, or closed-loop run launched.
 - (append one line per shift: dates, operator, what changed, box state at exit)
