@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Mon Jul  6 18:09:39 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Mon Jul  6 18:31:52 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+80498c8 analysis: publish iter24 availability null
+06c1a03 handoff: refresh after iter24 surface
 ff98e59 tools: add iter24 risk support surface
 c85c817 handoff: refresh after iter24 pre-registration
 df5b173 docs: pre-register iter24 risk support atlas
 8ed5253 handoff: refresh after explicit GPU idle state
 152df8a tools: make handoff GPU state explicit
 eb22748 handoff: refresh after iter23 result
-2f0a115 analysis: publish iter23 count-floor null
-8431802 data: add iter23 full extraction proof
 ```
 Working tree: CLEAN
 
@@ -34,7 +34,7 @@ Working tree: CLEAN
 - experiments/iter21_bev_diversity_head: RESULT PUBLISHED
 - experiments/iter22_causal_planner_interpretability: RESULT PUBLISHED
 - experiments/iter23_s0_hardened_causal_localization: RESULT PUBLISHED
-- experiments/iter24_risk_support_atlas: PRE-REGISTERED, result pending
+- experiments/iter24_risk_support_atlas: RESULT PUBLISHED
 - experiments/iter2_monitor: RESULT PUBLISHED
 - experiments/iter3_progress: RESULT PUBLISHED
 - experiments/iter4_gated: RESULT PUBLISHED
@@ -50,7 +50,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 18:10:47 up 2 days,  7:51,  0 users,  load average: 0.00, 0.00, 0.00
+ 18:32:59 up 2 days,  8:14,  0 users,  load average: 0.00, 0.00, 0.00
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-e23-extract.log
@@ -62,7 +62,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest pre-registration: experiments/iter24_risk_support_atlas/HYPOTHESIS.md — read it in full; its gate governs the next action.
+- Newest completed experiment: experiments/iter24_risk_support_atlas/RESULT.md — read it before opening new work.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
