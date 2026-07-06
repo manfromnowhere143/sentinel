@@ -405,6 +405,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter20_vad_tracker_portability/`](experiments/iter20_vad_tracker_portability) | VAD tracker portability — offline gate failed; no closed-loop run |
 | [`experiments/iter21_bev_diversity_head/`](experiments/iter21_bev_diversity_head) | BEV-conditioned diversity head — offline gate failed; no closed-loop run |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
+| [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet for the next causal-interpretability line; not a pre-registration |
 | [`docs/paper/MANUSCRIPT.md`](docs/paper/MANUSCRIPT.md) · [`docs/paper/paper.pdf`](docs/paper/paper.pdf) | the manuscript (full draft; compiled PDF; arXiv package committed) |
 | [`scripts/validate_docs.py`](scripts/validate_docs.py) | CI docs guard: diagram budgets, link health, story completeness — enforced on every push |
 

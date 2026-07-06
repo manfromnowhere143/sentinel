@@ -86,6 +86,10 @@ events to prepare; they are a property the repository always has.
   feasible escapes, B2 candidate validity was 574/2488 = 23.1%, B3 benign error was 1.449 m,
   and B4 had no selectable escape. No closed-loop run is authorized from that hypothesis
   (experiments/iter21_bev_diversity_head/RESULT.md).
+- Next research packet prepared: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md. It is a
+  launch packet only, not a pre-registration; it authorizes no extraction, probe training,
+  intervention, GPU run, or closed-loop work. The next operator must write and commit a fresh
+  iter22 HYPOTHESIS.md with numeric bars and named falsifiers before data.
 - Paper: docs/paper/paper.pdf compiled; arXiv account live (Daniel: ezio143); submission
   waits on a cs.RO endorsement (code V76QK4; request sent to William Ljungbergh
   william@recohere.ai on 2026-07-05; fallbacks: Holger Caesar, CATPlan authors). After
@@ -131,4 +135,7 @@ events to prepare; they are a property the repository always has.
 - 2026-07-06: Codex — iteration 21 offline gate run once from committed artifacts and FAILED
   (B0 pass; B1 0/37, B2 23.1%, B3 1.449 m, B4 0/0). Null published; no closed-loop run
   authorized from the BEV-conditioned head.
+- 2026-07-06: Codex — prepared the causal planner interpretability launch packet under
+  docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md for the next session. No data or GPU work
+  launched; fresh iter22 pre-registration remains required before any run.
 - (append one line per shift: dates, operator, what changed, box state at exit)

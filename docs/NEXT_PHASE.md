@@ -5,6 +5,15 @@ is stated with the evidence that motivates it, the mechanism, the pre-registerab
 cost. Ordering is by expected knowledge-per-GPU-hour; the decision rules at the bottom say what
 runs when.
 
+## New frontier packet after these lines closed
+
+After iterations 19–21 closed the tested frozen-planner candidate-head routes, the recommended
+next line is causal localization rather than another decoder:
+[`research/CAUSAL_PLANNER_INTERPRETABILITY.md`](research/CAUSAL_PLANNER_INTERPRETABILITY.md).
+That file is a launch packet only. It does not authorize data extraction, probe training,
+intervention runs, GPU work, or closed-loop evaluation; a fresh iter22 `HYPOTHESIS.md` with
+numeric bars and named falsifiers is required first.
+
 ## Line 1 — a diversity-trained candidate head under the runtime selector
 
 **Motivation (measured, twice):** iterations 12 and 14 established that frozen planners hold no
