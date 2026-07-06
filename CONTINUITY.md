@@ -90,6 +90,10 @@ events to prepare; they are a property the repository always has.
   launch packet only, not a pre-registration; it authorizes no extraction, probe training,
   intervention, GPU run, or closed-loop work. The next operator must write and commit a fresh
   iter22 HYPOTHESIS.md with numeric bars and named falsifiers before data.
+- Iter22 planning artifacts now exist under docs/research/: ITER22_HYPOTHESIS_DRAFT.md and
+  ITER22_ADVERSARIAL_REVIEW.md. They are planning-only, not pre-registrations. Owner guidance:
+  do not promote the broad A0-A8 draft directly; use the adversarial review's tighter Stage
+  1-only causal-localization shape before any iteration-12 gate or GPU work.
 - Paper: docs/paper/paper.pdf compiled; arXiv account live (Daniel: ezio143); submission
   waits on a cs.RO endorsement (code V76QK4; request sent to William Ljungbergh
   william@recohere.ai on 2026-07-05; fallbacks: Holger Caesar, CATPlan authors). After
@@ -138,4 +142,9 @@ events to prepare; they are a property the repository always has.
 - 2026-07-06: Codex — prepared the causal planner interpretability launch packet under
   docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md for the next session. No data or GPU work
   launched; fresh iter22 pre-registration remains required before any run.
+- 2026-07-06: bounded helper session drafted ITER22_HYPOTHESIS_DRAFT.md and
+  ITER22_ADVERSARIAL_REVIEW.md under docs/research only; Codex owner review accepted them as
+  planning artifacts and recorded that official iter22 should be tightened to Stage 1 before
+  promotion. No experiment directory, data extraction, GPU work, commit, or push was done by
+  the helper.
 - (append one line per shift: dates, operator, what changed, box state at exit)

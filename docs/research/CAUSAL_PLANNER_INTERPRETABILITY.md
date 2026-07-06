@@ -179,3 +179,18 @@ until you have written and committed a fresh iter22 HYPOTHESIS.md with numeric b
 falsifiers. Keep CI green with: ruff check . && pytest -q && python3 scripts/validate_docs.py.
 Commit and push every state change, publish nulls at full weight, and stay handoff-ready.
 ```
+
+## Planning artifacts
+
+Two planning-only follow-ups were drafted after this packet:
+
+- [`ITER22_HYPOTHESIS_DRAFT.md`](ITER22_HYPOTHESIS_DRAFT.md) sketches a broad iter22
+  hypothesis. It is **not** a pre-registration and authorizes no run.
+- [`ITER22_ADVERSARIAL_REVIEW.md`](ITER22_ADVERSARIAL_REVIEW.md) reviews that draft
+  skeptically and recommends a tighter Stage 1-only iter22 before any contact with the
+  iteration-12 evaluation corpus.
+
+Owner guidance: do not promote the broad draft directly. The official iter22 should likely be a
+Stage 1 causal-localization experiment on non-evaluation scenes first, with minimum positive-count
+rules, explicit intervention grid, negative controls, and a hard stop before any iteration-12
+gate or closed-loop claim.
