@@ -118,6 +118,14 @@ events to prepare; they are a property the repository always has.
   probe fitting, activation direction, iteration-12 scoring, selector evaluation, or closed-loop
   run is authorized from iter25. Any successor needs a fresh pre-registration naming a concrete
   data-staging remedy before extraction.
+- Iteration 26 is now pre-registered:
+  experiments/iter26_data_staging_remedy/HYPOTHESIS.md. It is a read-only data-staging remedy gate:
+  inspect source/capacity metadata only, move 0 data bytes, and determine whether the missing
+  nuScenes camera files require an official download/staging operation. It authorizes no download,
+  copy, extraction, root mutation, inventory rerun, model extraction, label atlas, probe fitting,
+  activation direction, iteration-12 scoring, selector evaluation, or closed-loop work. If the
+  remedy is a download, publish the exact operator action in the result and require a later
+  staging pre-registration before moving bytes.
 - Iter22 planning artifacts now exist under docs/research/: ITER22_HYPOTHESIS_DRAFT.md and
   ITER22_ADVERSARIAL_REVIEW.md. They are planning-only, not pre-registrations. Owner guidance:
   do not promote the broad A0-A8 draft directly; use the adversarial review's tighter Stage
@@ -264,4 +272,10 @@ events to prepare; they are a property the repository always has.
   `/data/nuscenes` were missing. Null published; no data download/copy, model extraction, label
   atlas, probe fitting, activation direction, iteration-12 scoring, selector evaluation, or
   closed-loop run authorized.
+- 2026-07-06: Codex — pre-registered iteration 26 under
+  experiments/iter26_data_staging_remedy/HYPOTHESIS.md. Scope is read-only source/capacity
+  discovery after iter25's inventory-null, to determine whether the correct next action is an
+  official nuScenes download/staging operation. No discovery script/run, data download/copy,
+  extraction, root mutation, inventory rerun, model extraction, label atlas, probe fitting,
+  activation direction, iteration-12 scoring, selector evaluation, or closed-loop work launched.
 - (append one line per shift: dates, operator, what changed, box state at exit)

@@ -64,6 +64,14 @@ the firewall, while the other four frozen roots were missing. It authorizes no d
 model extraction, label atlas, probe fitting, activation direction, iteration-12 scoring, selector
 evaluation, or closed-loop work.
 
+The next line is now pre-registered as a read-only staging remedy gate:
+[`../experiments/iter26_data_staging_remedy/HYPOTHESIS.md`](../experiments/iter26_data_staging_remedy/HYPOTHESIS.md).
+Iteration 26 may inspect only source/capacity metadata and must move 0 data bytes. Its job is to
+answer whether the missing nuScenes camera files require an official download/staging operation,
+and if so to freeze the exact later operator action. It authorizes no download/copy, inventory
+rerun, model extraction, label atlas, probe fitting, activation intervention, iteration-12 scoring,
+selector evaluation, or closed-loop work.
+
 ## Line 1 — a diversity-trained candidate head under the runtime selector
 
 **Motivation (measured, twice):** iterations 12 and 14 established that frozen planners hold no
@@ -169,6 +177,8 @@ measurement task. It waits only for the power run's final numbers so results are
 7. Iteration 23 is closed as a count-floor data-null after S0 pass. It authorizes no probe,
    activation direction, iteration-12 scoring, or closed-loop run. Any next causal-localization
    line needs a fresh HYPOTHESIS.md before data.
-8. Iteration 25 is closed as a staged-data inventory infrastructure-null. No active experiment
-   authorizes data download/copy, model extraction, label atlas, probe fitting, activation
-   intervention, iteration-12 scoring, selector evaluation, or closed-loop work.
+8. Iteration 25 is closed as a staged-data inventory infrastructure-null.
+9. Iteration 26 is the only active pre-registration. It authorizes read-only source/capacity
+   discovery only. No data download/copy, root mutation, inventory rerun, model extraction, label
+   atlas, probe fitting, activation intervention, iteration-12 scoring, selector evaluation, or
+   closed-loop work is authorized.
