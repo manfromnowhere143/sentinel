@@ -49,6 +49,14 @@ canary extraction, full extraction, label atlas, probe fitting, activation direc
 scoring, selector evaluation, or closed-loop evaluation. Any successor needs a fresh
 pre-registration and must name its data-staging plan before extraction.
 
+The next line is now pre-registered as a staged-data provenance gate:
+[`../experiments/iter25_staged_data_inventory/HYPOTHESIS.md`](../experiments/iter25_staged_data_inventory/HYPOTHESIS.md).
+Iteration 25 may inspect only a frozen list of local nuScenes roots and may produce only
+token-free inventory/availability artifacts. It cannot download or copy data, run Docker/model
+extraction, compute labels, fit probes, write activation directions, touch iteration-12 outcomes,
+score selectors, or run closed loop. A pass authorizes only a separate fresh risk-support-atlas
+pre-registration.
+
 ## Line 1 — a diversity-trained candidate head under the runtime selector
 
 **Motivation (measured, twice):** iterations 12 and 14 established that frozen planners hold no
@@ -154,6 +162,7 @@ measurement task. It waits only for the power run's final numbers so results are
 7. Iteration 23 is closed as a count-floor data-null after S0 pass. It authorizes no probe,
    activation direction, iteration-12 scoring, or closed-loop run. Any next causal-localization
    line needs a fresh HYPOTHESIS.md before data.
-8. There is no active experiment that authorizes model extraction, probe fitting, activation
-   intervention, iteration-12 scoring, selector evaluation, or closed-loop work. Every later line
-   needs a fresh frozen HYPOTHESIS.md with falsifiers before data, per the campaign standard.
+8. Iteration 25 is the only active pre-registration. It authorizes read-only staged-data inventory
+   over the frozen root list only. No data download/copy, model extraction, label atlas, probe
+   fitting, activation intervention, iteration-12 scoring, selector evaluation, or closed-loop
+   work is authorized.

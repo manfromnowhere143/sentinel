@@ -109,6 +109,14 @@ events to prepare; they are a property the repository always has.
   canary extraction, full extraction, label atlas, probe fitting, activation direction,
   iteration-12 scoring, selector evaluation, or closed-loop run is authorized from iter24. Any
   successor needs a fresh pre-registration and an explicit data-staging plan before extraction.
+- Iteration 25 is now pre-registered:
+  experiments/iter25_staged_data_inventory/HYPOTHESIS.md. It is a staged-data provenance gate, not
+  a model experiment: inspect only a frozen list of local nuScenes roots, keep iter22/iter23/iter24
+  and evaluation scenes behind the known-data firewall, and prove whether any one root contains at
+  least 48 fresh eligible scenes, 1,200 fresh keyframes, and 300 heldout keyframes. It authorizes
+  inventory/manifest work only; no data download/copy, model extraction, label atlas, probe
+  fitting, activation direction, iteration-12 scoring, selector evaluation, or closed-loop work is
+  authorized.
 - Iter22 planning artifacts now exist under docs/research/: ITER22_HYPOTHESIS_DRAFT.md and
   ITER22_ADVERSARIAL_REVIEW.md. They are planning-only, not pre-registrations. Owner guidance:
   do not promote the broad A0-A8 draft directly; use the adversarial review's tighter Stage
@@ -237,4 +245,9 @@ events to prepare; they are a property the repository always has.
   0 planned keyframes, and 0 heldout keyframes after 582 post-firewall candidate train scenes all
   missed local six-camera files. Null published; no canary/full extraction, probe fitting,
   activation direction, iteration-12 scoring, selector evaluation, or closed-loop run authorized.
+- 2026-07-06: Codex — pre-registered iteration 25 under
+  experiments/iter25_staged_data_inventory/HYPOTHESIS.md. Scope is read-only staged-data inventory
+  over a frozen local root list after iter24's availability-null. No inventory script/run, data
+  download/copy, model extraction, label atlas, probe fitting, activation direction, iteration-12
+  scoring, selector evaluation, or closed-loop work launched yet.
 - (append one line per shift: dates, operator, what changed, box state at exit)

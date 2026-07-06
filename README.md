@@ -5,7 +5,7 @@ collision it is about to cause, and intervenes — measured where it actually ma
 loop, by whether the car crashes *and whether it can still drive*.**
 
 > **Honest status up front (24 completed iterations + an independent verification pass + the
-> full official benchmark at power):** the introspective signal predicts the planner's collisions (AUROC 0.83). On the
+> full official benchmark at power + one active staged-data inventory pre-registration):** the introspective signal predicts the planner's collisions (AUROC 0.83). On the
 > complete 14-scene NeuroNCAP set at **20 seed-paired runs per pair** (799 episodes, the power
 > measurement), the unmonitored UniAD baseline **independently reproduces** (pooled 2.12 vs the
 > published 1.84 — to the verified literature, a first), and the best configuration — the
@@ -225,6 +225,7 @@ always-brake controls) and the formal-envelope baseline (iteration 13) on identi
 | 22 | **causal planner interpretability, Stage 1** — one frozen motion/planning-bridge representation, non-evaluation scenes only, minimum counts, negative controls, and a frozen intervention grid | — (stopped before probes/interventions) | extraction produced 1,507 non-reset rows and 1,507 GT rows, but **1,507 missing-GT joins**; heldout GT rows **0** | **pre-registered data-null — S0 failed; no iter12 or closed loop authorized** | This did not test whether the bridge contains a causal collapse signal. It established that the launched Stage 1 artifact pair cannot support the registered test: timestamp precision mismatch broke the committed join, and the frozen manifest/staged-data combination had no heldout frames. A successor needs a fresh pre-registration. [`iter22_causal_planner_interpretability`](experiments/iter22_causal_planner_interpretability/RESULT.md) |
 | 23 | **S0-hardened causal localization** — same narrow motion/planning-bridge question, but artifact validity is the first research object | — (stopped before probes/interventions) | canary deterministic; full S0 **PASS** with **2,627/2,627** joins, zero error rows; count floor **FAIL**: collapse positives **0** in every split, heldout danger **17/30** | **pre-registered data-null — no probe, iter12, or closed loop authorized** | Iter23 repaired the iter22 join failure and proved the extraction/counting surface, then stopped honestly because the frozen non-evaluation corpus did not contain enough collapse-positive or eligible-intervention frames to test the causal mechanism. [`iter23_s0_hardened_causal_localization`](experiments/iter23_s0_hardened_causal_localization/RESULT.md) |
 | 24 | **fresh risk-support atlas** — data-support prerequisite before another causal-localization attempt | — (stopped before extraction) | known-data firewall PASS; availability FAIL: **0 eligible scenes**, **0 keyframes**, **0 heldout keyframes** after 582 post-firewall candidates all missed local six-camera files | **pre-registered availability-null — no model extraction, probes, iter12, selector, or closed loop authorized** | The firewall did its job: iter22/iter23 known data could not rescue the gate. The result is a staged-data availability null, not evidence for or against the causal signal. [`iter24_risk_support_atlas`](experiments/iter24_risk_support_atlas/RESULT.md) |
+| 25 | **staged-data inventory** — provenance gate before another fresh atlas | — (pre-registered; no inventory run launched yet) | frozen root list; same known-data firewall plus iter24 scenes; pass requires one root with **>=48** fresh eligible scenes, **>=1,200** keyframes, and **>=300** heldout keyframes | **active pre-registration — inventory only** | A pass authorizes only a later risk-support-atlas pre-registration; it does not authorize data download/copy, model extraction, labels, probes, interventions, iter12, selector, or closed loop. [`iter25_staged_data_inventory`](experiments/iter25_staged_data_inventory/HYPOTHESIS.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -339,6 +340,13 @@ authorized without a fresh pre-registration:
   all missed local six-camera files. It stopped before canary extraction, full extraction, label
   atlas, probe fitting, activation intervention, iteration-12 scoring, selector evaluation, or
   closed-loop work. A successor needs a fresh pre-registration and an explicit data-staging plan.
+- **Iteration 25 is pre-registered as a staged-data inventory gate.**
+  [`experiments/iter25_staged_data_inventory/HYPOTHESIS.md`](experiments/iter25_staged_data_inventory/HYPOTHESIS.md)
+  freezes the next prerequisite: inspect only a pre-declared local root list, keep the
+  iter22/iter23/iter24/evaluation firewall, and prove whether any one root contains enough fresh
+  six-camera keyframes for a later atlas. It authorizes inventory/manifest work only; no data
+  download or copy, model extraction, label atlas, probe, intervention, iteration-12, selector, or
+  closed-loop work is authorized.
 
 Closed en route, per the gate discipline: the per-frame routing predicates (iteration 17
 addendum — refuted offline), the tracking layer's own offline gate (iteration 18 — failed
@@ -452,6 +460,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter22_causal_planner_interpretability/`](experiments/iter22_causal_planner_interpretability) | causal planner interpretability Stage 1 — S0 data-null; stopped before probes, interventions, iter12, or closed loop |
 | [`experiments/iter23_s0_hardened_causal_localization/`](experiments/iter23_s0_hardened_causal_localization) | S0-hardened causal localization — deterministic canary and full S0 pass, then count-floor data-null; stopped before probes, interventions, iter12, or closed loop |
 | [`experiments/iter24_risk_support_atlas/`](experiments/iter24_risk_support_atlas) | fresh risk-support atlas — availability-null after known-data firewall; stopped before canary/full extraction, probes, interventions, iter12, selector, or closed loop |
+| [`experiments/iter25_staged_data_inventory/`](experiments/iter25_staged_data_inventory) | staged-data inventory — active pre-registration for read-only root inventory before any future atlas |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/ITER22_HYPOTHESIS_DRAFT.md`](docs/research/ITER22_HYPOTHESIS_DRAFT.md) · [`docs/research/ITER22_ADVERSARIAL_REVIEW.md`](docs/research/ITER22_ADVERSARIAL_REVIEW.md) | planning-only iter22 draft and adversarial review; not pre-registrations |
