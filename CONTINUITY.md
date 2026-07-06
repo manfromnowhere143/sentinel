@@ -92,6 +92,12 @@ events to prepare; they are a property the repository always has.
   (`missing_gt`) and the frozen heldout split had 0 GT frames. No probe fitting, activation
   direction, intervention replay, iteration-12 scoring, or closed-loop work is authorized from
   that hypothesis. Any successor requires a fresh pre-registration.
+- Iteration 23 is now pre-registered:
+  experiments/iter23_s0_hardened_causal_localization/HYPOTHESIS.md. It is an S0-hardened
+  successor to iter22: availability manifest, frozen join key, two-run canary determinism, and
+  count floors must pass before probes or interventions can exist. No GPU run is authorized until
+  the manifest/generator and extraction/canary code are committed. Iteration-12 and closed-loop
+  work remain prohibited.
 - Iter22 planning artifacts now exist under docs/research/: ITER22_HYPOTHESIS_DRAFT.md and
   ITER22_ADVERSARIAL_REVIEW.md. They are planning-only, not pre-registrations. Owner guidance:
   do not promote the broad A0-A8 draft directly; use the adversarial review's tighter Stage
@@ -183,4 +189,10 @@ events to prepare; they are a property the repository always has.
   1,507/1,507 non-reset rows failed the committed timestamp join (`missing_gt`) and heldout GT
   rows were 0. No probes, activation directions, intervention grid, iteration-12 scoring, or
   closed-loop work ran; any successor causal-localization line requires a fresh HYPOTHESIS.md.
+- 2026-07-06: Codex — pre-registered iteration 23 under
+  experiments/iter23_s0_hardened_causal_localization/HYPOTHESIS.md. Scope is S0-hardened
+  causal localization: availability manifest first, frozen `(scene, sample_index, timestamp_us)`
+  join, two-run canary determinism, then full extraction only if canary passes. No manifest,
+  extraction code, GPU work, probe fitting, activation direction, iteration-12 scoring, or
+  closed-loop work launched yet.
 - (append one line per shift: dates, operator, what changed, box state at exit)

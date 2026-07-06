@@ -16,7 +16,13 @@ Its result is now published:
 [`../experiments/iter22_causal_planner_interpretability/RESULT.md`](../experiments/iter22_causal_planner_interpretability/RESULT.md).
 Stage 1 stopped at S0: the extraction/GT timestamp join failed on all 1,507 non-reset rows and
 the frozen heldout split had 0 GT frames. It authorizes no iteration-12 scoring, probe claim,
-intervention claim, or closed-loop evaluation. Any successor line needs a fresh pre-registration.
+intervention claim, or closed-loop evaluation.
+
+The successor is now pre-registered as
+[`../experiments/iter23_s0_hardened_causal_localization/HYPOTHESIS.md`](../experiments/iter23_s0_hardened_causal_localization/HYPOTHESIS.md).
+Its next permitted action is the availability/split manifest generator and manifest. No GPU run
+is authorized until the manifest, extraction patch, feeder, canary/full run scripts, analyzer,
+and canonical hashing routine are committed.
 
 ## Line 1 — a diversity-trained candidate head under the runtime selector
 
@@ -120,7 +126,7 @@ measurement task. It waits only for the power run's final numbers so results are
 4. **Line 3 is closed by iteration 20**; the registered tracker bridge failed before GPU time.
 5. No line in this file currently authorizes a new run. Every new line gets a frozen
    HYPOTHESIS.md with falsifiers before data, per the campaign standard.
-6. Iteration 22 is closed as an S0 data-null. A successor causal-localization line may be worth
-   writing, but it must be a fresh HYPOTHESIS.md that fixes data support and the GT/extraction
-   join key before any extraction; iteration-12 and closed-loop work remain deferred behind a new
-   Stage 1 gate.
+6. Iteration 22 is closed as an S0 data-null.
+7. Iteration 23 is the active successor line. Its next permitted action is to commit the
+   availability/split manifest generator and manifest. Iteration-12 and closed-loop work remain
+   deferred behind the new Stage 1 S0-S3 gate.
