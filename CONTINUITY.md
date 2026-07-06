@@ -116,7 +116,8 @@ events to prepare; they are a property the repository always has.
   least 48 fresh eligible scenes, 1,200 fresh keyframes, and 300 heldout keyframes. It authorizes
   inventory/manifest work only; no data download/copy, model extraction, label atlas, probe
   fitting, activation direction, iteration-12 scoring, selector evaluation, or closed-loop work is
-  authorized.
+  authorized. The inventory script/tests are committed; next permitted action is the single frozen
+  root inventory run, then publish the result at full weight.
 - Iter22 planning artifacts now exist under docs/research/: ITER22_HYPOTHESIS_DRAFT.md and
   ITER22_ADVERSARIAL_REVIEW.md. They are planning-only, not pre-registrations. Owner guidance:
   do not promote the broad A0-A8 draft directly; use the adversarial review's tighter Stage
@@ -250,4 +251,9 @@ events to prepare; they are a property the repository always has.
   over a frozen local root list after iter24's availability-null. No inventory script/run, data
   download/copy, model extraction, label atlas, probe fitting, activation direction, iteration-12
   scoring, selector evaluation, or closed-loop work launched yet.
+- 2026-07-06: Codex — added the committed iteration 25 inventory surface:
+  experiments/iter25_staged_data_inventory/inventory_roots.py plus pure gate tests. The script is
+  metadata/file-existence only, token-field guarded, and bounded to the frozen root list. No
+  inventory run, data download/copy, model extraction, label atlas, probe fitting, activation
+  direction, iteration-12 scoring, selector evaluation, or closed-loop work launched yet.
 - (append one line per shift: dates, operator, what changed, box state at exit)

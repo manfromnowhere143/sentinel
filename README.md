@@ -346,7 +346,8 @@ authorized without a fresh pre-registration:
   iter22/iter23/iter24/evaluation firewall, and prove whether any one root contains enough fresh
   six-camera keyframes for a later atlas. It authorizes inventory/manifest work only; no data
   download or copy, model extraction, label atlas, probe, intervention, iteration-12, selector, or
-  closed-loop work is authorized.
+  closed-loop work is authorized. The inventory script and pure gate tests are committed; the next
+  permitted action is the single frozen root inventory run.
 
 Closed en route, per the gate discipline: the per-frame routing predicates (iteration 17
 addendum — refuted offline), the tracking layer's own offline gate (iteration 18 — failed

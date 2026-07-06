@@ -55,7 +55,9 @@ Iteration 25 may inspect only a frozen list of local nuScenes roots and may prod
 token-free inventory/availability artifacts. It cannot download or copy data, run Docker/model
 extraction, compute labels, fit probes, write activation directions, touch iteration-12 outcomes,
 score selectors, or run closed loop. A pass authorizes only a separate fresh risk-support-atlas
-pre-registration.
+pre-registration. The committed implementation surface is
+[`../experiments/iter25_staged_data_inventory/inventory_roots.py`](../experiments/iter25_staged_data_inventory/inventory_roots.py);
+the next permitted action is the single frozen inventory run.
 
 ## Line 1 — a diversity-trained candidate head under the runtime selector
 
