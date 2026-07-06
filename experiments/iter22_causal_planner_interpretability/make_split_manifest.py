@@ -65,9 +65,7 @@ def read_scene_table(path: Path) -> dict[str, dict[str, object]]:
         name = row["name"]
         by_name[name] = {
             "name": name,
-            "token": row["token"],
             "nbr_samples": row["nbr_samples"],
-            "description": row.get("description", ""),
         }
     return by_name
 

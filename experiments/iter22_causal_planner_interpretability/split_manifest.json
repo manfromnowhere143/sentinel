@@ -61,548 +61,368 @@
   "splits": {
     "calibration": [
       {
-        "description": "Parked cars, oncoming semi, two oncoming bikes, parked motorcycle, bike rack",
         "name": "scene-0075",
-        "nbr_samples": 39,
-        "token": "01c3f5e39956402da3e37845632fadca"
+        "nbr_samples": 39
       },
       {
-        "description": "Turn right, follow cyclist, turn right",
         "name": "scene-0076",
-        "nbr_samples": 40,
-        "token": "e9a94a93c36a4adb831eb67ec8bdf289"
+        "nbr_samples": 40
       },
       {
-        "description": "Parked motorcycles, parking lot, wait at intersection, truck, ped very close to ego-vehicle",
         "name": "scene-0120",
-        "nbr_samples": 40,
-        "token": "a1ca2ba59ac9452fb3da60019bf32c71"
+        "nbr_samples": 40
       },
       {
-        "description": "Peds, follow motorcycle, motorcycle turns right",
         "name": "scene-0121",
-        "nbr_samples": 40,
-        "token": "ce2d6bdc33084dc1a2780f41f6740e06"
+        "nbr_samples": 40
       },
       {
-        "description": "Fast motorcycle on street ahead, stop, parked bicycles, turn right",
         "name": "scene-0122",
-        "nbr_samples": 39,
-        "token": "e6cb595f6df44b3999db28c65f2244ac"
+        "nbr_samples": 39
       },
       {
-        "description": "Monument, truck, peds, turn left, downhill",
         "name": "scene-0123",
-        "nbr_samples": 40,
-        "token": "cb3ef7b7ef124983b336c781f134cdfb"
+        "nbr_samples": 40
       },
       {
-        "description": "Many peds, parked buses, parked cars",
         "name": "scene-0124",
-        "nbr_samples": 40,
-        "token": "bed8426a524d45afab05b19cf02386b2"
+        "nbr_samples": 40
       },
       {
-        "description": "Many parked cars, animal, many peds, wait at intersection",
         "name": "scene-0125",
-        "nbr_samples": 40,
-        "token": "36fbee38a28543ea9e27a67d64e1dee4"
+        "nbr_samples": 40
       },
       {
-        "description": "Delayed left turn, jaywalker, parking lot, bus stops, parked bicycle, truck, turn right",
         "name": "scene-0126",
-        "nbr_samples": 40,
-        "token": "00590cbfa24a430a8c274b51e1c71231"
+        "nbr_samples": 40
       },
       {
-        "description": "Enter car park, jaywalker, parked motorcycles, pass a bus",
         "name": "scene-0127",
-        "nbr_samples": 40,
-        "token": "52b30ecd104a4f4eab6f8f5684a73e56"
+        "nbr_samples": 40
       },
       {
-        "description": "Parking lot, parked scooters, parked cars, ped, cross crosswalk, bump, parked bicycle",
         "name": "scene-0128",
-        "nbr_samples": 40,
-        "token": "5c9bd7ead37e4aa9989f7909f3a78baa"
+        "nbr_samples": 40
       },
       {
-        "description": "Parking lot, cross crosswalk, go over bump, construction, peds, scooter on main road",
         "name": "scene-0129",
-        "nbr_samples": 40,
-        "token": "ef5f216134a94e308697ab4c75402a20"
+        "nbr_samples": 40
       },
       {
-        "description": "Peds crossing at crosswalk, drive along parked cars, ped, workers kneeling",
         "name": "scene-0130",
-        "nbr_samples": 40,
-        "token": "dc6235e2281943548084c484cb38b876"
+        "nbr_samples": 40
       },
       {
-        "description": "Parking lot, peds",
         "name": "scene-0131",
-        "nbr_samples": 40,
-        "token": "8857cf15fa7049a6b000490835d3b9fc"
+        "nbr_samples": 40
       },
       {
-        "description": "Parked cars, turn left, parked bus",
         "name": "scene-0132",
-        "nbr_samples": 40,
-        "token": "4f28b42169f4404cbab4b43476e13885"
+        "nbr_samples": 40
       }
     ],
     "fit": [
       {
-        "description": "Construction, maneuver between several trucks",
         "name": "scene-0001",
-        "nbr_samples": 40,
-        "token": "73030fb67d3c46cfb5e590168088ae39"
+        "nbr_samples": 40
       },
       {
-        "description": "Intersection, peds, waiting vehicle, parked motorcycle at parking lot",
         "name": "scene-0002",
-        "nbr_samples": 40,
-        "token": "c3e0e9f6ee8d4170a3d22a6179f1ca3a"
+        "nbr_samples": 40
       },
       {
-        "description": "Random scene, arrive at intersection, cross intersection, jaywalkers",
         "name": "scene-0004",
-        "nbr_samples": 40,
-        "token": "25496f19ffd14bd088cb430bfc01a4d7"
+        "nbr_samples": 40
       },
       {
-        "description": "Overtaken by taxi, construction site",
         "name": "scene-0005",
-        "nbr_samples": 39,
-        "token": "6f5133fe62b240e797bac25aeff8b531"
+        "nbr_samples": 39
       },
       {
-        "description": "Sitting construction worker, parked bicycle, ped walking along road, construction vehicle, worker sitting on back of van",
         "name": "scene-0006",
-        "nbr_samples": 40,
-        "token": "7deb4760e2244f32b57f9d631b535b66"
+        "nbr_samples": 40
       },
       {
-        "description": "Van overtaking us, peds, jaywalker, bicycle rack, turn left",
         "name": "scene-0007",
-        "nbr_samples": 39,
-        "token": "bc219c0fa63b43b4b9dddab47fce1fef"
+        "nbr_samples": 39
       },
       {
-        "description": "Several moving pedestrians, parked cards and motorcycle",
         "name": "scene-0008",
-        "nbr_samples": 40,
-        "token": "9a61a88ed9094334a73aa93c08222110"
+        "nbr_samples": 40
       },
       {
-        "description": "Peds crossing, parked cars, garbage, peds waiting",
         "name": "scene-0009",
-        "nbr_samples": 40,
-        "token": "dd61533869aa48f2aaa7e8a6418bdbe6"
+        "nbr_samples": 40
       },
       {
-        "description": "Parked motorcycle, person pickung up garbage, pass construction vehicles and entrance to construction site",
         "name": "scene-0010",
-        "nbr_samples": 40,
-        "token": "daa9fce50073470398da3c2bccdaf21b"
+        "nbr_samples": 40
       },
       {
-        "description": "Turn left, pass trucks on both sides, construction workers, sleeping construction workers, garbage, parked cars",
         "name": "scene-0011",
-        "nbr_samples": 40,
-        "token": "c075fbdd97124beaba95bc5c25149f30"
+        "nbr_samples": 40
       },
       {
-        "description": "Turn left, waiting peds, turn left",
         "name": "scene-0019",
-        "nbr_samples": 40,
-        "token": "de943e246dad4ad686de98008a634ecf"
+        "nbr_samples": 40
       },
       {
-        "description": "Turn right, walking peds, pedestrian in blind spot in couple of frames, car park exit",
         "name": "scene-0020",
-        "nbr_samples": 39,
-        "token": "4d475873416a4860900f5af213e0027c"
+        "nbr_samples": 39
       },
       {
-        "description": "Wait at intersection, jaywalkers, parking lot, parked bicycle, turn right, construction, truck",
         "name": "scene-0021",
-        "nbr_samples": 40,
-        "token": "03ee880dd4e348f4b3407f0d073c7c70"
+        "nbr_samples": 40
       },
       {
-        "description": "Barriers, construction, lane switch, turn left",
         "name": "scene-0022",
-        "nbr_samples": 40,
-        "token": "7e3a6bdd6c6f4c8fb018cff404974446"
+        "nbr_samples": 40
       },
       {
-        "description": "Overtake parked car, bus turning, motorcycle",
         "name": "scene-0023",
-        "nbr_samples": 40,
-        "token": "d0880a386b6d434bb5cd13c134af7a3e"
+        "nbr_samples": 40
       },
       {
-        "description": "Intersection, peds in cafe, parked motorcycle, ped crossing",
         "name": "scene-0024",
-        "nbr_samples": 40,
-        "token": "d7ebcbbd26d849b384c11bec8df28a9b"
+        "nbr_samples": 40
       },
       {
-        "description": "Ped crossing street in front of ego vehicle",
         "name": "scene-0025",
-        "nbr_samples": 40,
-        "token": "0c601ff2bf004fccafec366b08bf29e2"
+        "nbr_samples": 40
       },
       {
-        "description": "Parked cars, peds on the roadside",
         "name": "scene-0026",
-        "nbr_samples": 39,
-        "token": "b79d940da8df43d09ee972c2414ffeca"
+        "nbr_samples": 39
       },
       {
-        "description": "Delivery motorcycle turns left, veh turn right",
         "name": "scene-0027",
-        "nbr_samples": 40,
-        "token": "1d4db80d13f342aba4881b38099bc4b7"
+        "nbr_samples": 40
       },
       {
-        "description": "Taxi parked on road, bicycle rack, many peds, many jaywalkers, parked bicycles, ped exiting taxi, ped crossing traffic light, lane change, peds crossing crosswalk",
         "name": "scene-0028",
-        "nbr_samples": 40,
-        "token": "3a1850241080418b88dcee97c7d17ed7"
+        "nbr_samples": 40
       },
       {
-        "description": "Waiting, peds crossing intersection",
         "name": "scene-0029",
-        "nbr_samples": 40,
-        "token": "6520b5f0d568414c973f791b30ee1548"
+        "nbr_samples": 40
       },
       {
-        "description": "Two parked motorcycles, overtake",
         "name": "scene-0030",
-        "nbr_samples": 40,
-        "token": "82aef599650d462db73731b7ff40918b"
+        "nbr_samples": 40
       },
       {
-        "description": "Construction, workers sitting on grass, garbage",
         "name": "scene-0031",
-        "nbr_samples": 40,
-        "token": "f444b757d7e2444c889da10f02b73491"
+        "nbr_samples": 40
       },
       {
-        "description": "Turn left, motorcycle driving, ped sitting",
         "name": "scene-0032",
-        "nbr_samples": 40,
-        "token": "9047b53fd41540649dce014a128cbe1b"
+        "nbr_samples": 40
       },
       {
-        "description": "Low traffic, following bus",
         "name": "scene-0033",
-        "nbr_samples": 40,
-        "token": "6e81ee0f64274490a403bbd6482c2bf9"
+        "nbr_samples": 40
       },
       {
-        "description": "No traffic, dead end street, overtake parked truck",
         "name": "scene-0034",
-        "nbr_samples": 39,
-        "token": "bb73edb93a0a46c4be997c576e9beb61"
+        "nbr_samples": 39
       },
       {
-        "description": "Turn left, arrive at busy intersection, red light",
         "name": "scene-0041",
-        "nbr_samples": 40,
-        "token": "359f9c029ae44e1d9d47c05bc7915561"
+        "nbr_samples": 40
       },
       {
-        "description": "Parked cars, many peds, parked bicycles, trash can, parking lots",
         "name": "scene-0042",
-        "nbr_samples": 41,
-        "token": "c6c092a66329470f836714f46b92d59b"
+        "nbr_samples": 41
       },
       {
-        "description": "Busy intersection, oncoming traffic, construction zone on the left",
         "name": "scene-0043",
-        "nbr_samples": 39,
-        "token": "70368a18644046f898ab836fc8a3c03f"
+        "nbr_samples": 39
       },
       {
-        "description": "Truck turns, parked cars, bump, bikes",
         "name": "scene-0044",
-        "nbr_samples": 40,
-        "token": "8758419c03ab47a59ea6d6620176f3a3"
+        "nbr_samples": 40
       },
       {
-        "description": "Full parking lot, peds, exiting from car park",
         "name": "scene-0045",
-        "nbr_samples": 39,
-        "token": "eac3102e4cc24d4b95532bcc711a902f"
+        "nbr_samples": 39
       },
       {
-        "description": "Busy intersection, ped crossing, waiting for traffic light, construction zone on the left",
         "name": "scene-0046",
-        "nbr_samples": 39,
-        "token": "798e8504b4364d378270333a349ef508"
+        "nbr_samples": 39
       },
       {
-        "description": "Construction workers close to road, vehicle turn out, cross intersection",
         "name": "scene-0047",
-        "nbr_samples": 40,
-        "token": "4047f251c21a475abb49518e0fa6fa9e"
+        "nbr_samples": 40
       },
       {
-        "description": "Construction, narrow road, construction workers, heavy construction vehicles, right turn",
         "name": "scene-0048",
-        "nbr_samples": 40,
-        "token": "cf550d9670274ac1a7f274fbacb39c48"
+        "nbr_samples": 40
       },
       {
-        "description": "Construction, barriers behind net, parked trucks, excavators, turn left",
         "name": "scene-0049",
-        "nbr_samples": 39,
-        "token": "095d9b93b583425f910ae2afaf1d017d"
+        "nbr_samples": 39
       },
       {
-        "description": "Narrow street, seveal peds, shadows, turn left, parked motorcycle",
         "name": "scene-0050",
-        "nbr_samples": 39,
-        "token": "9a81caa3d5134d7f87ee4786ccef68f7"
+        "nbr_samples": 39
       },
       {
-        "description": "Pass parked vehicles, peds, arrive at intersection",
         "name": "scene-0051",
-        "nbr_samples": 39,
-        "token": "0e37d4a357db4246a908cfd97d17efc6"
+        "nbr_samples": 39
       },
       {
-        "description": "Oncoming car in the same lane, overtake parked car, turn left",
         "name": "scene-0052",
-        "nbr_samples": 40,
-        "token": "37b32e4e8cf846679b2c0cb342dbd4aa"
+        "nbr_samples": 40
       },
       {
-        "description": "Cross intersection in group of cars, peds, bike rack",
         "name": "scene-0053",
-        "nbr_samples": 39,
-        "token": "6d4b2bd795ae4c66900ad98ccd2371a6"
+        "nbr_samples": 39
       },
       {
-        "description": "Turn left, many parked heavy trucks, workers",
         "name": "scene-0054",
-        "nbr_samples": 39,
-        "token": "8b43539a55374b6c8ed60c95a42d63a2"
+        "nbr_samples": 39
       },
       {
-        "description": "Bus stop left, parked cars right, oncoming bus",
         "name": "scene-0055",
-        "nbr_samples": 40,
-        "token": "446af4b1d7da4735a607bc3e45c2e0b3"
+        "nbr_samples": 40
       },
       {
-        "description": "Peds, nature, construction, trash can, parked truck, turn right",
         "name": "scene-0056",
-        "nbr_samples": 41,
-        "token": "83773bcf46ac486383529098de0542dd"
+        "nbr_samples": 41
       },
       {
-        "description": "Jaywalkers, parked bike and scooter, parked car on the main road",
         "name": "scene-0057",
-        "nbr_samples": 39,
-        "token": "433a14f8dcf5457fb2c4def5c749122a"
+        "nbr_samples": 39
       },
       {
-        "description": "Construction, strange cleaning vehicle parked on our lane",
         "name": "scene-0058",
-        "nbr_samples": 39,
-        "token": "9a1188aba4bf458c8220818a6c0be55a"
+        "nbr_samples": 39
       },
       {
-        "description": "Wait at intersection, bike on sidewalk, worker blowing leaves",
         "name": "scene-0059",
-        "nbr_samples": 41,
-        "token": "dcd5bc29543747e28ef02816dd458290"
+        "nbr_samples": 41
       },
       {
-        "description": "Wait at intersection, bike on sidewalk, worker blowing leaves, bicycle crossing",
         "name": "scene-0060",
-        "nbr_samples": 40,
-        "token": "bb028034cb474e3da8953f83752a70a9"
+        "nbr_samples": 40
       },
       {
-        "description": "Parked truck, construction, intersection, turn left, following a van",
         "name": "scene-0061",
-        "nbr_samples": 39,
-        "token": "cc8c0bf57f984915a77078b10eb33198"
+        "nbr_samples": 39
       },
       {
-        "description": "Change lane, parked cars, overhead walkways",
         "name": "scene-0062",
-        "nbr_samples": 39,
-        "token": "762e6aac0d6f4c1b9b0286ab4b2da654"
+        "nbr_samples": 39
       },
       {
-        "description": "Exit passage, parking lot, flag, trucks, wait at intersection",
         "name": "scene-0063",
-        "nbr_samples": 39,
-        "token": "a8819942e8bb43b6a832c56dfb78cfc6"
+        "nbr_samples": 39
       },
       {
-        "description": "Parking lots, oncoming special electrical vehicle",
         "name": "scene-0064",
-        "nbr_samples": 40,
-        "token": "7ad94b6e54f641208bf59cba6bb55220"
+        "nbr_samples": 40
       },
       {
-        "description": "Wait at intersection, truck, peds, turn right, parking lot",
         "name": "scene-0065",
-        "nbr_samples": 40,
-        "token": "59530445fcc04c2090bfaf63f342f794"
+        "nbr_samples": 40
       },
       {
-        "description": "Parking lots, parked truck, construction, congestion, worker directing traffic, passing cars",
         "name": "scene-0066",
-        "nbr_samples": 39,
-        "token": "30e77a3561ce4f1bb4fd90e322ea29d7"
+        "nbr_samples": 39
       },
       {
-        "description": "Exit construction, ped on crosswalk, construction workers, parking lot",
         "name": "scene-0067",
-        "nbr_samples": 40,
-        "token": "cb0cd06a1dd84271968466d7b65e48f8"
+        "nbr_samples": 40
       },
       {
-        "description": "Two turning trucks, wait, turn left",
         "name": "scene-0068",
-        "nbr_samples": 39,
-        "token": "b0b26c1e5a1140e69598422f12ae1dc0"
+        "nbr_samples": 39
       },
       {
-        "description": "Turn left, peds near parked bus, bird",
         "name": "scene-0069",
-        "nbr_samples": 40,
-        "token": "a5d7cc4bf3404cccb89932d94ccb9da6"
+        "nbr_samples": 40
       },
       {
-        "description": "Peds, ped with bag, bus stop, parking lot, turn right, follow cyclist, trailers, turn left",
         "name": "scene-0070",
-        "nbr_samples": 40,
-        "token": "c0cb50847c3949a0b4baf2e200ac897c"
+        "nbr_samples": 40
       },
       {
-        "description": "Parked trucks, construction vehicles, road blocked relative to baseline route, find deviation",
         "name": "scene-0071",
-        "nbr_samples": 40,
-        "token": "860ef56791a947baadb27dd00bd5d4b3"
+        "nbr_samples": 40
       },
       {
-        "description": "Wait at intersection, running ped",
         "name": "scene-0072",
-        "nbr_samples": 40,
-        "token": "fbf27198b3424e28ab1de2a12eb3dc4a"
+        "nbr_samples": 40
       },
       {
-        "description": "Parked scooter, flock of pigeons, person sitting on top of bench, two trucks passing, turn right",
         "name": "scene-0073",
-        "nbr_samples": 40,
-        "token": "5557f4edc1464442812293e2ea90a586"
+        "nbr_samples": 40
       },
       {
-        "description": "Wait at intersection, turn left, bike rack, parked cars, peds",
         "name": "scene-0074",
-        "nbr_samples": 40,
-        "token": "78c5f7d7b547483c906d8524a8c3190f"
+        "nbr_samples": 40
       }
     ],
     "heldout": [
       {
-        "description": "Drive through parking lot, stopped bus, parked scooters, parked motorcycles, peds, parked trucks, approach barrier",
         "name": "scene-0133",
-        "nbr_samples": 40,
-        "token": "f57957ebc5654b649a0786d993b64be4"
+        "nbr_samples": 40
       },
       {
-        "description": "Approach intersection, fence, turn left, peds in sidewalk",
         "name": "scene-0134",
-        "nbr_samples": 40,
-        "token": "d90b94e8bfd446cd9407f48665122268"
+        "nbr_samples": 40
       },
       {
-        "description": "Heavy traffic, sitting peds, parked motorcycles, 2 jaywalkers, turn right, busy intersection",
         "name": "scene-0135",
-        "nbr_samples": 39,
-        "token": "4db0eee3b82d49b198c1a411cf7f7d68"
+        "nbr_samples": 39
       },
       {
-        "description": "Bus stop, parked bicycles, bus stop, bicycle rack, peds",
         "name": "scene-0138",
-        "nbr_samples": 40,
-        "token": "7365754410624f2f85087003f4ed41ad"
+        "nbr_samples": 40
       },
       {
-        "description": "Ped standing, ped sitting, two parked motorcycles on road",
         "name": "scene-0139",
-        "nbr_samples": 40,
-        "token": "01c8c59260db4a3682d7b4f8da65425e"
+        "nbr_samples": 40
       },
       {
-        "description": "Wait at intersection, turn left, bushes, bus stops, peds, parking lot",
         "name": "scene-0149",
-        "nbr_samples": 40,
-        "token": "1fbcc26ebf6948bb964d3ae74939e8ea"
+        "nbr_samples": 40
       },
       {
-        "description": "Oncoming scooter, scooters, busy intersection, walking peds",
         "name": "scene-0150",
-        "nbr_samples": 39,
-        "token": "94f224a2a36c4bbbab59120cc6c31f6e"
+        "nbr_samples": 39
       },
       {
-        "description": "Turn right, busy intersection, construction, peds, parked bicycles, construction vehicle, motorcycle",
         "name": "scene-0151",
-        "nbr_samples": 40,
-        "token": "ba76f4185aa34ed3bff467ac640da902"
+        "nbr_samples": 40
       },
       {
-        "description": "Parked bicycles, bump, overtake parked buses, irregularly parked cars",
         "name": "scene-0152",
-        "nbr_samples": 39,
-        "token": "bd210a5bc7004d8c94b68cf6366612a2"
+        "nbr_samples": 39
       },
       {
-        "description": "Turn left, peds at restaurant, parked bicycles, autonomous vehicle, parked vehicles, passing at narrow street, taxi, ped with bag, sitting ped",
         "name": "scene-0154",
-        "nbr_samples": 39,
-        "token": "12cd5f88732749a58725528bb3d86958"
+        "nbr_samples": 39
       },
       {
-        "description": "Jaywalkers, turn left, stop for ped crossing, turn left, peds sitting in a restaurant",
         "name": "scene-0155",
-        "nbr_samples": 39,
-        "token": "cd1a8954ff904333bb13fa1a6ee526fd"
+        "nbr_samples": 39
       },
       {
-        "description": "Passing scooter, wait at intersection, turn right",
         "name": "scene-0157",
-        "nbr_samples": 40,
-        "token": "d0b2d916178a402a842c88f394d7d7e8"
+        "nbr_samples": 40
       },
       {
-        "description": "Worker stopped ego car, worker removes cones, follow truck, heavy traffic, construction, peds",
         "name": "scene-0158",
-        "nbr_samples": 40,
-        "token": "c0d3796765e2452d990309b2568adac5"
+        "nbr_samples": 40
       },
       {
-        "description": "Peds crossing crosswalk, barrier being pushed across crosswalk, turn left, peds",
         "name": "scene-0159",
-        "nbr_samples": 39,
-        "token": "73d9a36f20594e658020ebfc5b0ba74a"
+        "nbr_samples": 39
       },
       {
-        "description": "Wait for oncoming car to pass, narrow road, parked cars",
         "name": "scene-0160",
-        "nbr_samples": 40,
-        "token": "9eaabad9385b4fe1b9f397edead326ac"
+        "nbr_samples": 40
       }
     ]
   },

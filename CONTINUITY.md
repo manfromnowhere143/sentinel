@@ -171,4 +171,9 @@ events to prepare; they are a property the repository always has.
   alive, feeder matched 90/90 manifest scenes, and the first JSONL rows were writing. Do not
   relaunch while the `model` container is up. No probe fitting, activation intervention replay,
   iteration-12 scoring, or closed-loop run launched.
+- 2026-07-06: Codex — investigated GitGuardian's commit `b98cbb5` high-entropy alert. Findings:
+  no credentials; alerts came from public nuScenes scene-token metadata in `split_manifest.json`
+  plus required SHA evidence strings. Removed unnecessary scene tokens from the generator and
+  regenerated the manifest; retained SHA256 evidence sidecars required by protocol. Current
+  in-flight extraction is unaffected because the feeder uses scene names only.
 - (append one line per shift: dates, operator, what changed, box state at exit)
