@@ -85,6 +85,14 @@ pre-registration for the official nuScenes v1.0 trainval sensor file blobs; iter
 authorizes no download, extraction, inventory rerun, model extraction, label atlas, probe fitting,
 activation intervention, iteration-12 scoring, selector evaluation, or closed-loop work.
 
+That data-staging step is now pre-registered:
+[`../experiments/iter28_nuscenes_trainval_staging/HYPOTHESIS.md`](../experiments/iter28_nuscenes_trainval_staging/HYPOTHESIS.md).
+Iteration 28 may stage only the official nuScenes v1.0 trainval file-blob archives parts 1-10
+into `/datasets/nuscenes-full`, then run a bounded token-free availability inventory for that
+root. Daniel must perform any browser/session authentication or provide signed URLs; the agent
+must not handle credentials. Iteration 28 authorizes no model extraction, label atlas, probe
+fitting, activation intervention, iteration-12 scoring, selector evaluation, or closed-loop work.
+
 ## Line 1 — a diversity-trained candidate head under the runtime selector
 
 **Motivation (measured, twice):** iterations 12 and 14 established that frozen planners hold no
@@ -194,6 +202,8 @@ measurement task. It waits only for the power run's final numbers so results are
 9. Iteration 26 is closed as a data-staging capacity-null.
 10. Iteration 27 is closed as a storage-provisioning pass. The 1 TB persistent disk is mounted at
     `/datasets/nuscenes-full` with `1,026,108,792,832` bytes available, and 0 dataset bytes moved.
-    A successor must pre-register data staging before any download/copy/extraction, inventory
-    rerun, model extraction, label atlas, probe fitting, activation intervention, iteration-12
+11. Iteration 28 is the only active pre-registration. It authorizes official nuScenes trainval
+    staging only: ten sensor-blob archives, `/datasets/nuscenes-full`, redacted source provenance,
+    archive hashes, extraction safety proof, then bounded availability inventory. It does not
+    authorize model extraction, label atlas, probe fitting, activation intervention, iteration-12
     scoring, selector evaluation, or closed-loop work.

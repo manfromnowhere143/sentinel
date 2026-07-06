@@ -136,6 +136,14 @@ events to prepare; they are a property the repository always has.
   pre-registration, not nuScenes download/copy/extraction, inventory rerun, model extraction,
   label atlas, probe fitting, activation direction, iteration-12 scoring, selector evaluation, or
   closed-loop work.
+- Iteration 28 is now pre-registered:
+  experiments/iter28_nuscenes_trainval_staging/HYPOTHESIS.md. It authorizes only official
+  nuScenes v1.0 trainval sensor-blob staging into `/datasets/nuscenes-full`: ten file-blob
+  archives, redacted source provenance, archive byte/SHA evidence, extraction safety proof, then a
+  bounded availability inventory for that root. Daniel must perform any browser/session
+  authentication or provide signed URLs; the agent must not handle credentials. It authorizes no
+  model extraction, label atlas, probe fitting, activation direction, iteration-12 scoring,
+  selector evaluation, or closed-loop work.
 - Iter22 planning artifacts now exist under docs/research/: ITER22_HYPOTHESIS_DRAFT.md and
   ITER22_ADVERSARIAL_REVIEW.md. They are planning-only, not pre-registrations. Owner guidance:
   do not promote the broad A0-A8 draft directly; use the adversarial review's tighter Stage
@@ -303,4 +311,11 @@ events to prepare; they are a property the repository always has.
   bytes, above the 900 GB bar. No dataset bytes moved and no Docker/model/NeuroNCAP run launched.
   Result published as a storage-only pass; next step requires a fresh data-staging
   pre-registration before any nuScenes download/copy/extraction or inventory rerun.
+- 2026-07-06: Codex — pre-registered iteration 28 under
+  experiments/iter28_nuscenes_trainval_staging/HYPOTHESIS.md. Scope is official nuScenes trainval
+  staging only: ten v1.0 trainval sensor-blob archives into `/datasets/nuscenes-full`, redacted
+  source provenance, archive hashes, extraction safety, and bounded availability inventory. No
+  source manifest read, download/copy/extraction, inventory run, model extraction, label atlas,
+  probe fitting, activation direction, iteration-12 scoring, selector evaluation, or closed-loop
+  work launched yet.
 - (append one line per shift: dates, operator, what changed, box state at exit)
