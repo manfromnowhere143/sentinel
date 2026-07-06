@@ -1,21 +1,20 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Sun Jul  5 23:26:34 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Mon Jul  6 00:40:26 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+a701ec5 iter21: add BEV offline gate harness
+4a8f332 iter21: add BEV head training stage
+d7986c5 handoff: record iter21 BEV extraction in flight
 411f3b8 iter21: add BEV extraction patch
 93d6840 iter21: pre-register BEV diversity head gate
 5964cbb handoff: snapshot after iter20 tracker null
 ae13870 continuity: record iter20 VAD tracker null
 d5752eb iter20: publish VAD tracker portability null
-c345dff iter20: correct VAD replay scene parser
-8b6aeac iter20: add VAD tracker replay harness
-0c20322 iter20: clarify VAD replay pose evidence
 ```
 Working tree: DIRTY — resolve before handoff:
-M CONTINUITY.md
- M HANDOFF.md
+M HANDOFF.md
 
 ## Experiments (status inferred from files)
 
@@ -47,20 +46,16 @@ M CONTINUITY.md
 - experiments/verification: artifacts only
 
 ## GPU box quick-state (live probe)
-Run state: IN FLIGHT — iteration 21 Stage-1 BEV train extraction. Log:
-`/var/log/sentinel-bev-extract.log`. Done marker: `BEV_EXTRACT_DONE`. Expected artifacts:
-`/opt/sentinel-stack/UniAD/sentinel_bev_extract.jsonl(.gz)` and
-`/opt/sentinel-stack/UniAD/sentinel_bev_extract_gt.jsonl(.gz)`. Do not relaunch while the
-`model` container is running or the done marker is absent.
+Last known run state before auth lapsed: IN FLIGHT — iteration 21 Stage-1 BEV train
+extraction. Last verified healthy at 2200 frames, no error markers, log
+`/var/log/sentinel-bev-extract.log`, artifacts growing under
+`/opt/sentinel-stack/UniAD/sentinel_bev_extract*`. Done marker is `BEV_EXTRACT_DONE`.
+Daniel must run `gcloud auth login`; then check `sudo docker ps` and the done marker before
+any next action. DO NOT relaunch this extraction unless the box proves it is stopped without
+completed artifacts.
 
 ```
-sentinel-gpu
- 23:27:40 up 1 day, 13:08,  0 users,  load average: 1.02, 0.52, 0.21
-/var/log/sentinel-bev-extract.log
-/var/log/sentinel-vitals.log
-/var/log/sentinel-evalextract.log
-/dev/root       310G  285G   26G  92% /
-Swap:          8.0Gi        60Mi       7.9Gi
+BOX UNREACHABLE (auth lapsed? box down?) — ask Daniel: ! gcloud auth login
 ```
 If any docker container named renderer/model/ncap (or a random-name ncap) is up, a run
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.

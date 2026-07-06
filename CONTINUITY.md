@@ -101,4 +101,7 @@ events to prepare; they are a property the repository always has.
 - 2026-07-06: Codex — iteration 21 BEV-conditioned diversity head pre-registered and Stage-1
   BEV train extraction launched on sentinel-gpu; run IN FLIGHT if `/var/log/sentinel-bev-extract.log`
   lacks `BEV_EXTRACT_DONE`; expected artifacts under `/opt/sentinel-stack/UniAD/sentinel_bev_extract*`.
+- 2026-07-06: Codex — gcloud auth lapsed while iter21 extraction was near the final stretch;
+  last verified healthy at 2200 frames with no error markers. Ask Daniel to run `gcloud auth login`,
+  then check the log/done marker before any train/eval step; do not relaunch blindly.
 - (append one line per shift: dates, operator, what changed, box state at exit)
