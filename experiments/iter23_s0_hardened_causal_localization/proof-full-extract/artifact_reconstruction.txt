@@ -1,0 +1,19 @@
+Iter23 full extraction artifact reconstruction
+
+The primary extraction gzip exceeded the 90 MB pre-registration commit limit, so it is
+committed as split parts:
+
+- sentinel_e23_stage1.jsonl.gz.part-00
+- sentinel_e23_stage1.jsonl.gz.part-01
+
+Reconstruct the original gzip from this directory with:
+
+cat sentinel_e23_stage1.jsonl.gz.part-00 sentinel_e23_stage1.jsonl.gz.part-01 > sentinel_e23_stage1.jsonl.gz
+shasum -a 256 sentinel_e23_stage1.jsonl.gz
+
+Expected SHA256:
+
+10218c99eb006da4d664c60f28578c34a322582c25242a4223ad7d99b834b2e3
+
+The S0 analyzer was run against the original copied gzip before removing the oversized
+local copy from the commit set. Its report is s0_integrity_report.json.

@@ -1,0 +1,37 @@
+{
+  "all_s0_integrity_pass": true,
+  "canary_determinism_pass": null,
+  "pairs": [
+    {
+      "canonical_sha256": {
+        "extract": "f1843fc9e30ab32584ad1865624f9d3c534f45f60dceff758077f21cf04c68df",
+        "extract_rows": 2693,
+        "gt": "3f63c8df03f61366b2bd32b41edc07487f5ba9a3befe9f31df1c30446edc7aae",
+        "gt_rows": 2627
+      },
+      "duplicate_extract_keys": 0,
+      "duplicate_gt_keys": 0,
+      "error_row_types": {},
+      "extract_nonreset_rows_total": 2627,
+      "extract_path": "experiments/iter23_s0_hardened_causal_localization/proof-full-extract/sentinel_e23_stage1.jsonl.gz",
+      "extract_rows_total": 2693,
+      "gt_path": "experiments/iter23_s0_hardened_causal_localization/proof-full-extract/sentinel_e23_stage1_gt.jsonl.gz",
+      "gt_rows_total": 2627,
+      "joined_rows": 2627,
+      "s0_integrity_pass": true,
+      "shape_counts": {
+        "sdc_track_query_shape": {
+          "[1, 256]": 2627
+        },
+        "sdc_traj_query_last_shape": {
+          "[1, 6, 256]": 2627
+        }
+      },
+      "split_counts": {
+        "calibration": 516,
+        "fit": 1557,
+        "heldout": 554
+      }
+    }
+  ]
+}
