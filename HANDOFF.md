@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Mon Jul  6 10:56:31 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Mon Jul  6 11:44:02 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+03f41c6 data: add iter22 extraction proof
+01e69c7 handoff: refresh after iter22 analyzer guard
 8f34625 tools: guard iter22 count-floor nulls
 c3a9e19 handoff: refresh after iter22 analyzer
 035270a tools: add iter22 baseline analyzer
 2cebc70 handoff: refresh during iter22 extraction
 1f0e475 handoff: record iter22 extraction launch
 14d40e1 handoff: refresh after iter22 extraction surface
-5ff5dfb tools: add iter22 extraction surface
-f4644c1 handoff: refresh after iter22 split manifest
 ```
 Working tree: CLEAN
 
@@ -48,12 +48,11 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 10:57:39 up 2 days, 38 min,  0 users,  load average: 1.62, 1.48, 1.19
-model	Up 25 minutes
+ 11:45:11 up 2 days,  1:26,  0 users,  load average: 0.00, 0.03, 0.42
 /var/log/sentinel-vitals.log
 /var/log/sentinel-e22-extract.log
 /var/log/sentinel-bev-evalextract.log
-/dev/root       310G  286G   25G  93% /
+/dev/root       310G  287G   24G  93% /
 Swap:          8.0Gi        60Mi       7.9Gi
 ```
 If any docker container named renderer/model/ncap (or a random-name ncap) is up, a run
