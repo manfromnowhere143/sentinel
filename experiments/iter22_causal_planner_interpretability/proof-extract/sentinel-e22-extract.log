@@ -1,0 +1,1838 @@
++ swapon /swapfile
++ true
++ git config --global --add safe.directory /opt/sentinel-stack/UniAD
++ git -C /opt/sentinel-stack/UniAD checkout -- inference/server.py inference/runner.py
++ python3 /tmp/server_patch_stage1.py
+E22_STAGE1_PATCHED
++ rm -f /opt/sentinel-stack/UniAD/sentinel_e22_stage1.jsonl /opt/sentinel-stack/UniAD/sentinel_e22_stage1_gt.jsonl
++ docker rm -f model
++ PORT=9100
++ echo 'waiting for model server...'
+waiting for model server...
++ docker run --name model --rm --gpus all -v /opt/sentinel-stack/UniAD:/model -v /datasets/nuscenes:/datasets/nuscenes:ro -w /model --network host -e PYTHONPATH=. -e SENTINEL_E22_STAGE1=1 -e SENTINEL_E22_LOG=/model/sentinel_e22_stage1.jsonl uniad:latest python -u inference/server.py --port 9100 --config_path projects/configs/stage2_e2e/inference_e2e.py --checkpoint_path ckpts/uniad_base_e2e.pth
+++ seq 1 120
++ for _ in $(seq 1 120)
++ curl -sf http://127.0.0.1:9100/alive
++ sleep 5
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 11.1.1
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
++ for _ in $(seq 1 120)
++ curl -sf http://127.0.0.1:9100/alive
++ sleep 5
++ for _ in $(seq 1 120)
++ curl -sf http://127.0.0.1:9100/alive
++ sleep 5
++ for _ in $(seq 1 120)
++ curl -sf http://127.0.0.1:9100/alive
++ sleep 5
+/model/projects/mmdet3d_plugin/uniad/modules/custom_base_transformer_layer.py:77: UserWarning: The arguments `feedforward_channels` in BaseTransformerLayer has been deprecated, now you should set `feedforward_channels` and other FFN related arguments to a dict named `ffn_cfgs`. 
+  warnings.warn(
+/model/projects/mmdet3d_plugin/uniad/modules/custom_base_transformer_layer.py:77: UserWarning: The arguments `ffn_dropout` in BaseTransformerLayer has been deprecated, now you should set `ffn_drop` and other FFN related arguments to a dict named `ffn_cfgs`. 
+  warnings.warn(
+/model/projects/mmdet3d_plugin/uniad/modules/custom_base_transformer_layer.py:77: UserWarning: The arguments `ffn_num_fcs` in BaseTransformerLayer has been deprecated, now you should set `num_fcs` and other FFN related arguments to a dict named `ffn_cfgs`. 
+  warnings.warn(
++ for _ in $(seq 1 120)
++ curl -sf http://127.0.0.1:9100/alive
++ sleep 5
+/usr/local/lib/python3.8/dist-packages/mmcv/cnn/bricks/transformer.py:341: UserWarning: The arguments `feedforward_channels` in BaseTransformerLayer has been deprecated, now you should set `feedforward_channels` and other FFN related arguments to a dict named `ffn_cfgs`. 
+  warnings.warn(
+/usr/local/lib/python3.8/dist-packages/mmcv/cnn/bricks/transformer.py:341: UserWarning: The arguments `ffn_dropout` in BaseTransformerLayer has been deprecated, now you should set `ffn_drop` and other FFN related arguments to a dict named `ffn_cfgs`. 
+  warnings.warn(
+/usr/local/lib/python3.8/dist-packages/mmcv/cnn/bricks/transformer.py:341: UserWarning: The arguments `ffn_num_fcs` in BaseTransformerLayer has been deprecated, now you should set `num_fcs` and other FFN related arguments to a dict named `ffn_cfgs`. 
+  warnings.warn(
+/usr/local/lib/python3.8/dist-packages/mmcv/cnn/bricks/transformer.py:92: UserWarning: The arguments `dropout` in MultiheadAttention has been deprecated, now you can separately set `attn_drop`(float), proj_drop(float), and `dropout_layer`(dict) 
+  warnings.warn('The arguments `dropout` in MultiheadAttention '
+load checkpoint from local path: ckpts/uniad_base_e2e.pth
+2026-07-06 12:32:42,291 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.0.conv2 is upgraded to version 2.
+2026-07-06 12:32:42,296 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.1.conv2 is upgraded to version 2.
+2026-07-06 12:32:42,300 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.2.conv2 is upgraded to version 2.
+2026-07-06 12:32:42,304 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.3.conv2 is upgraded to version 2.
+2026-07-06 12:32:42,308 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.4.conv2 is upgraded to version 2.
+2026-07-06 12:32:42,312 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.5.conv2 is upgraded to version 2.
+2026-07-06 12:32:42,316 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.6.conv2 is upgraded to version 2.
+2026-07-06 12:32:42,320 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.7.conv2 is upgraded to version 2.
+2026-07-06 12:32:42,324 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.8.conv2 is upgraded to version 2.
+2026-07-06 12:32:42,328 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.9.conv2 is upgraded to version 2.
+2026-07-06 12:32:42,332 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.10.conv2 is upgraded to version 2.
+2026-07-06 12:32:42,335 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.11.conv2 is upgraded to version 2.
+2026-07-06 12:32:42,339 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.12.conv2 is upgraded to version 2.
+2026-07-06 12:32:42,343 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.13.conv2 is upgraded to version 2.
+2026-07-06 12:32:42,347 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.14.conv2 is upgraded to version 2.
+2026-07-06 12:32:42,351 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.15.conv2 is upgraded to version 2.
+2026-07-06 12:32:42,355 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.16.conv2 is upgraded to version 2.
+2026-07-06 12:32:42,358 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.17.conv2 is upgraded to version 2.
+2026-07-06 12:32:42,362 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.18.conv2 is upgraded to version 2.
+2026-07-06 12:32:42,366 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.19.conv2 is upgraded to version 2.
+2026-07-06 12:32:42,370 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.20.conv2 is upgraded to version 2.
+2026-07-06 12:32:42,374 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.21.conv2 is upgraded to version 2.
+2026-07-06 12:32:42,378 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.22.conv2 is upgraded to version 2.
+2026-07-06 12:32:42,383 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.0.conv2 is upgraded to version 2.
+2026-07-06 12:32:42,389 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.1.conv2 is upgraded to version 2.
+2026-07-06 12:32:42,394 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.2.conv2 is upgraded to version 2.
++ for _ in $(seq 1 120)
++ curl -sf http://127.0.0.1:9100/alive
++ sleep 5
++ for _ in $(seq 1 120)
++ curl -sf http://127.0.0.1:9100/alive
++ sleep 5
+INFO:     Started server process [1]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:9100 (Press CTRL+C to quit)
++ for _ in $(seq 1 120)
++ curl -sf http://127.0.0.1:9100/alive
+INFO:     127.0.0.1:36642 - "GET /alive HTTP/1.1" 200 OK
++ break
++ curl -sf http://127.0.0.1:9100/alive
+trueINFO:     127.0.0.1:36648 - "GET /alive HTTP/1.1" 200 OK
++ echo 'server alive; copying feeder and manifest'
+server alive; copying feeder and manifest
++ cp /tmp/feeder_stage1.py /opt/sentinel-stack/UniAD/feeder_stage1.py
++ cp /tmp/split_manifest.json /opt/sentinel-stack/UniAD/split_manifest.json
++ docker exec model python -u /model/feeder_stage1.py --manifest /model/split_manifest.json --split all --port 9100 --out /model/sentinel_e22_stage1_gt.jsonl
+loading metadata...
+manifest scenes requested: 90 matched: 90
+INFO:     127.0.0.1:52510 - "POST /reset HTTP/1.1" 200 OK
+/model/projects/mmdet3d_plugin/core/bbox/coders/detr3d_track_coder.py:94: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.post_center_range = torch.tensor(
+/usr/local/lib/python3.8/dist-packages/torch/_tensor.py:575: UserWarning: floor_divide is deprecated, and will be removed in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values.
+To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor'). (Triggered internally at  ../aten/src/ATen/native/BinaryOps.cpp:467.)
+  return torch.floor_divide(self, other)
+INFO:     127.0.0.1:52518 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52534 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53348 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53356 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53368 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53372 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53380 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47948 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47960 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47970 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47980 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35340 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35344 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35358 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35366 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35378 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59880 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59894 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59908 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59920 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59924 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35058 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35068 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35084 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35092 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45342 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45356 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45372 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45378 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39938 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39942 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39948 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48990 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48996 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49008 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49024 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36002 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36012 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36024 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36036 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0001 frames=40
+INFO:     127.0.0.1:36050 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36062 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51078 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51092 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51094 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51108 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51120 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53488 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53504 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53514 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53518 - "POST /infer HTTP/1.1" 200 OK
+frames 50 (last infer 1.85s)
+INFO:     127.0.0.1:53528 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49174 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49180 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49182 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49194 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49202 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54294 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54310 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54320 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54322 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54326 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60986 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60994 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32776 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32786 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32788 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48162 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48166 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48174 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48190 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48198 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47486 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47490 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47504 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47518 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47534 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45696 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45702 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45718 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45734 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0002 frames=40
+INFO:     127.0.0.1:45750 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0004 frames=0
+INFO:     127.0.0.1:45764 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0005 frames=0
+INFO:     127.0.0.1:45770 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0006 frames=0
+INFO:     127.0.0.1:45774 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0007 frames=0
+INFO:     127.0.0.1:45780 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0008 frames=0
+INFO:     127.0.0.1:45792 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0009 frames=0
+INFO:     127.0.0.1:45804 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0010 frames=0
+INFO:     127.0.0.1:45814 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0011 frames=0
+INFO:     127.0.0.1:45824 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0019 frames=0
+INFO:     127.0.0.1:45828 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0020 frames=0
+INFO:     127.0.0.1:45832 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0021 frames=0
+INFO:     127.0.0.1:45838 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0022 frames=0
+INFO:     127.0.0.1:45844 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0023 frames=0
+INFO:     127.0.0.1:45858 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0024 frames=0
+INFO:     127.0.0.1:45868 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0025 frames=0
+INFO:     127.0.0.1:45878 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0026 frames=0
+INFO:     127.0.0.1:45884 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0027 frames=0
+INFO:     127.0.0.1:45888 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0028 frames=0
+INFO:     127.0.0.1:45900 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0029 frames=0
+INFO:     127.0.0.1:45916 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0030 frames=0
+INFO:     127.0.0.1:45920 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0031 frames=0
+INFO:     127.0.0.1:45934 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0032 frames=0
+INFO:     127.0.0.1:45940 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0033 frames=0
+INFO:     127.0.0.1:45952 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0034 frames=0
+INFO:     127.0.0.1:45968 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35970 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35972 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35978 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35982 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35990 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35996 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56232 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56244 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56256 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56266 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56274 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46104 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46112 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46128 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46132 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46146 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53238 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53254 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53264 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53270 - "POST /infer HTTP/1.1" 200 OK
+frames 100 (last infer 1.78s)
+INFO:     127.0.0.1:53282 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33478 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33484 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33492 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33504 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33516 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36286 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36290 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36302 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36312 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36322 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39652 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39668 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39680 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39684 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39692 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52180 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52194 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52200 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52214 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0041 frames=40
+INFO:     127.0.0.1:52220 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52228 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51008 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51018 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51028 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51032 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51040 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51092 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51102 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51114 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51118 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55560 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55576 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55582 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55588 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55604 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48712 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48724 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48730 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48746 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48760 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58636 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58644 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58650 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58658 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58664 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60512 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60526 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60532 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60540 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60548 - "POST /infer HTTP/1.1" 200 OK
+frames 150 (last infer 2.00s)
+INFO:     127.0.0.1:47552 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47566 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47580 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47584 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57568 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57574 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57588 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57602 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57604 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47520 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47532 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0042 frames=41
+INFO:     127.0.0.1:47542 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47544 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47558 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47574 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47578 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59734 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59748 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59758 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59774 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59782 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49192 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49198 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49200 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49210 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49220 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60356 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60372 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60376 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60382 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44826 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44834 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44840 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33434 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33450 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33456 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33460 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41468 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41484 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41490 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42380 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42384 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42398 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42400 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48824 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48826 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48832 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45036 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45050 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45064 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43158 - "POST /infer HTTP/1.1" 200 OK
+frames 200 (last infer 3.01s)
+SCENE_DONE fit scene-0043 frames=39
+INFO:     127.0.0.1:43170 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43182 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43184 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43192 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34774 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34776 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34784 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34786 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34792 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57518 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57524 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57540 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57546 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57550 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51526 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51536 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51542 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51548 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51560 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37436 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37438 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37450 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37460 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37468 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58954 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58964 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58980 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58986 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58990 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47222 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47238 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47248 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47260 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47266 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56952 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56964 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56968 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56970 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56986 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56988 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54760 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0044 frames=40
+INFO:     127.0.0.1:54774 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54778 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54782 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54792 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47112 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47118 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47128 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41154 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41156 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41162 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41168 - "POST /infer HTTP/1.1" 200 OK
+frames 250 (last infer 2.18s)
+INFO:     127.0.0.1:39114 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39116 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39128 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39142 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39158 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41816 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41820 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41830 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41836 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41842 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51324 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51340 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51352 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51354 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35446 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35462 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35464 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35478 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46196 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46210 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46226 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46240 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60742 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60752 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60760 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60774 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60156 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60160 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60174 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0045 frames=39
+INFO:     127.0.0.1:60184 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60192 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36688 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36702 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36708 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36720 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36722 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46308 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46318 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46332 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46346 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58482 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58498 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58500 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58514 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48814 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48824 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48840 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48848 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49102 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49106 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49116 - "POST /infer HTTP/1.1" 200 OK
+frames 300 (last infer 2.69s)
+INFO:     127.0.0.1:45372 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45380 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45382 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45384 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35694 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35698 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35702 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45170 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45182 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45194 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45196 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53604 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53614 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53622 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56832 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56846 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56860 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56874 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0046 frames=39
+INFO:     127.0.0.1:48976 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48984 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48986 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49000 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49010 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47892 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47894 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47898 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47900 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47908 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47942 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47958 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47960 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47972 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47984 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53364 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53374 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53380 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53390 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53404 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39172 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39180 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39190 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39202 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39216 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51086 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51092 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51096 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42170 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42176 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42190 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42192 - "POST /infer HTTP/1.1" 200 OK
+frames 350 (last infer 2.31s)
+INFO:     127.0.0.1:36122 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36138 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36152 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36160 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47918 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47922 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47934 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47942 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0047 frames=40
+INFO:     127.0.0.1:47950 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47962 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47976 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39212 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39218 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39232 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39248 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49278 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49286 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49290 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49304 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46892 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46902 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46916 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50002 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50010 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50022 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50024 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50038 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58420 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58436 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58442 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58448 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58458 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34094 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34098 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34108 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34124 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34136 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44392 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44400 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44402 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44416 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44420 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38326 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38330 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38344 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38350 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38360 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59810 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59824 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0048 frames=40
+INFO:     127.0.0.1:59834 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59846 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59852 - "POST /infer HTTP/1.1" 200 OK
+frames 400 (last infer 1.78s)
+INFO:     127.0.0.1:59854 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45892 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45906 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45908 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45920 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45928 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44212 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44224 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44228 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44242 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44258 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55246 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55248 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55258 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55272 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55276 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45242 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45258 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45264 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45280 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45294 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44760 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44768 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44774 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44788 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44794 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60466 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60482 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60490 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60494 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60502 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54318 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54320 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54324 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54332 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54340 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58050 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0049 frames=39
+INFO:     127.0.0.1:58062 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58068 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58084 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58088 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58100 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45140 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45154 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45164 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45178 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45184 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52162 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52166 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52178 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52186 - "POST /infer HTTP/1.1" 200 OK
+frames 450 (last infer 1.72s)
+INFO:     127.0.0.1:52200 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34402 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34418 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34422 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34438 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34454 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51440 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51456 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51464 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51480 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51488 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51500 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33464 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33476 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33480 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33486 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33496 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42640 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42652 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42668 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42682 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42698 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36388 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36404 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36414 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36428 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0050 frames=39
+INFO:     127.0.0.1:36436 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36444 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50454 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50456 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50464 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50466 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37972 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37986 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37998 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38006 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48098 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48100 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48110 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48122 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48128 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48130 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56224 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56234 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56244 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56250 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56260 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58108 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58118 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58122 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58124 - "POST /infer HTTP/1.1" 200 OK
+frames 500 (last infer 1.78s)
+INFO:     127.0.0.1:58134 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35324 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35326 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35332 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35346 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35348 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33520 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33536 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33552 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33564 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33572 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59392 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59402 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59406 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59412 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0051 frames=39
+INFO:     127.0.0.1:59418 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59430 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48256 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48272 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48280 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48288 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36114 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36126 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36142 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36156 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36162 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47010 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47022 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47026 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47028 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47040 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50022 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50024 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50034 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50044 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36622 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36634 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36646 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36656 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36662 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40018 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40022 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40034 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40046 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40052 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33718 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33726 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33728 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33734 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33740 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56866 - "POST /infer HTTP/1.1" 200 OK
+frames 550 (last infer 1.77s)
+INFO:     127.0.0.1:56878 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56888 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56904 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56916 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44464 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0052 frames=40
+INFO:     127.0.0.1:44470 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44480 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44484 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44486 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40946 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40950 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40952 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40962 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40968 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58074 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58090 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58098 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58108 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58112 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59142 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59152 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59166 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59182 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59184 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36742 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36756 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36762 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36764 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36780 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47120 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47122 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47128 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47144 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47154 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37140 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37156 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37162 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37176 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55614 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55624 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55636 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55648 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55660 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55464 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55476 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0053 frames=39
+INFO:     127.0.0.1:55488 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55500 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55508 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55514 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60704 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60706 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60716 - "POST /infer HTTP/1.1" 200 OK
+frames 600 (last infer 1.83s)
+INFO:     127.0.0.1:60732 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60734 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56990 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57004 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57014 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57024 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57908 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57916 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57932 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57940 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40780 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40796 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40798 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42964 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42966 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42976 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42978 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33214 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33222 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33226 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33236 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55932 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55938 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55942 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55956 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45920 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45924 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45932 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54562 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54570 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54586 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54602 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47390 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0054 frames=39
+INFO:     127.0.0.1:47404 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47412 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47420 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47428 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41464 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41468 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41484 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41496 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41506 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44472 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44480 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44496 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44502 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44504 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56348 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56364 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56374 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56380 - "POST /infer HTTP/1.1" 200 OK
+frames 650 (last infer 1.77s)
+INFO:     127.0.0.1:34744 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34750 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34758 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34772 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34784 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34798 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51876 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51884 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51894 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51908 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51914 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56156 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56168 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56170 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56178 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56194 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43312 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43322 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43338 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43342 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43350 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34774 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34788 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0055 frames=40
+INFO:     127.0.0.1:34790 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34806 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34812 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34826 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55268 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55280 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55282 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55298 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55312 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40916 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40930 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40942 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40952 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40956 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60926 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60936 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60938 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60940 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60948 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44320 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44332 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44334 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44336 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44338 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44340 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48706 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48722 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48730 - "POST /infer HTTP/1.1" 200 OK
+frames 700 (last infer 1.77s)
+INFO:     127.0.0.1:48746 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48754 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52904 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52912 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52924 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52926 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52932 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56106 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56108 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56122 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56138 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56140 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34190 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34196 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0056 frames=41
+INFO:     127.0.0.1:34212 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34226 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34238 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34242 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39884 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39890 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39900 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39908 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39918 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44644 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44650 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44664 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44680 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44694 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57690 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57706 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57712 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57728 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57742 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51024 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51036 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51052 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51062 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51064 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35606 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35618 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35634 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35636 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35648 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59078 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59082 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59096 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59112 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59128 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35834 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35840 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35850 - "POST /infer HTTP/1.1" 200 OK
+frames 750 (last infer 1.77s)
+INFO:     127.0.0.1:35864 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35876 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41254 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0057 frames=39
+INFO:     127.0.0.1:41260 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41270 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41280 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41288 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41290 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57446 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57448 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57454 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57468 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56186 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56194 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56198 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56200 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58796 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58808 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58812 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58818 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58820 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51792 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51800 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51816 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51832 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51836 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34852 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34866 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34874 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34890 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34892 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49092 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49100 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49108 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49116 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49118 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45976 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45984 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46000 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46006 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46016 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43022 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43024 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0058 frames=39
+INFO:     127.0.0.1:43026 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43038 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43050 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43058 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46628 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46630 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46632 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46642 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46650 - "POST /infer HTTP/1.1" 200 OK
+frames 800 (last infer 1.80s)
+INFO:     127.0.0.1:43604 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43614 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43626 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43640 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43656 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34714 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34722 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34738 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34746 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34760 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49398 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49400 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49412 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49424 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49426 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50434 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50448 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50464 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50468 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50482 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40520 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40536 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40552 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40568 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40578 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40592 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38746 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38752 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38768 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38778 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36232 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36244 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36246 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0059 frames=41
+INFO:     127.0.0.1:36248 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36258 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36262 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48836 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48840 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48846 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48856 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48872 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47284 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47292 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47302 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47318 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47322 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39748 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39750 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39766 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39776 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39780 - "POST /infer HTTP/1.1" 200 OK
+frames 850 (last infer 1.79s)
+INFO:     127.0.0.1:34654 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34662 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34666 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34672 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34688 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59544 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59548 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59564 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59576 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59584 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57304 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57310 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57318 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57328 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57332 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59044 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59056 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59068 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59074 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59076 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48198 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48210 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48220 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0060 frames=40
+INFO:     127.0.0.1:48224 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48234 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48248 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40236 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40244 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40260 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40270 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40278 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43122 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43124 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43128 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43130 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43132 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39242 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39246 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39252 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39260 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39266 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41358 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41364 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41366 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41374 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34682 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34692 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34704 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34710 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48060 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48070 - "POST /infer HTTP/1.1" 200 OK
+frames 900 (last infer 2.14s)
+INFO:     127.0.0.1:48076 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48092 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48094 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57520 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57528 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57540 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57550 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51672 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51686 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51688 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51698 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51710 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0061 frames=39
+INFO:     127.0.0.1:43718 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43722 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43732 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43748 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43758 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43762 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43492 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43496 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43498 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43502 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43514 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43570 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43578 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43592 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43604 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43610 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41528 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41544 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41558 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41568 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41572 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37436 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37444 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37458 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37468 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37474 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37484 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54826 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54832 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54848 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54856 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54864 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37704 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37716 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37728 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37730 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37734 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60968 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60978 - "POST /infer HTTP/1.1" 200 OK
+frames 950 (last infer 1.78s)
+INFO:     127.0.0.1:60982 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0062 frames=39
+INFO:     127.0.0.1:60998 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32780 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32794 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57650 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57658 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57668 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57676 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57678 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37690 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37698 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37708 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37718 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37724 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40828 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40844 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40854 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40858 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40866 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57080 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57092 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57108 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57122 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57126 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45326 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45332 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45338 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45354 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45364 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47878 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47892 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47906 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47916 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47918 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47928 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53444 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53450 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53458 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53464 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53470 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37748 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0063 frames=39
+INFO:     127.0.0.1:37762 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37772 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37780 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37792 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37802 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38188 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38198 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38214 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38220 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47462 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47470 - "POST /infer HTTP/1.1" 200 OK
+frames 1000 (last infer 2.25s)
+INFO:     127.0.0.1:47474 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47490 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47496 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34262 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34264 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34276 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34278 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53770 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53776 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53788 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53796 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53222 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53236 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53238 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53254 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53270 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36176 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36188 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36194 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36196 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36206 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59798 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59808 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59822 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59826 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59834 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35164 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35178 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35180 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35194 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0064 frames=40
+INFO:     127.0.0.1:35202 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35208 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50874 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50882 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50886 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50892 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50894 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56500 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56516 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56522 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56532 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56538 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40850 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40854 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40866 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40882 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40896 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55322 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55324 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55340 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55352 - "POST /infer HTTP/1.1" 200 OK
+frames 1050 (last infer 1.87s)
+INFO:     127.0.0.1:55354 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60986 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60998 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32774 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32778 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32794 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58482 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58486 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58488 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58502 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50558 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50574 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50584 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50594 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50596 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37224 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37238 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37250 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37252 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56198 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0065 frames=40
+INFO:     127.0.0.1:56204 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56206 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56218 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56234 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56248 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46610 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46618 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46620 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46626 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54678 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54688 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54690 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54702 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54706 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37762 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37778 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37792 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37796 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44670 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44682 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44696 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44700 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44706 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42248 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42262 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42276 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58606 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58618 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58624 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44866 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44874 - "POST /infer HTTP/1.1" 200 OK
+frames 1100 (last infer 2.01s)
+INFO:     127.0.0.1:44886 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44890 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44686 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44688 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44700 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44702 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43808 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43822 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43828 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0066 frames=39
+INFO:     127.0.0.1:57126 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57136 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57144 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57148 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57164 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57166 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37544 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37556 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37564 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37566 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50646 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50656 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50662 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50670 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50680 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42636 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42642 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42654 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42664 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49620 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49626 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49630 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49642 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49656 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55262 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55266 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55282 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55292 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57272 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57280 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57290 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57300 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54784 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54794 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54802 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54814 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56890 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56896 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56912 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56916 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38180 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0067 frames=40
+INFO:     127.0.0.1:38182 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38196 - "POST /infer HTTP/1.1" 200 OK
+frames 1150 (last infer 1.78s)
+INFO:     127.0.0.1:38206 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38208 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38216 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42334 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42340 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42344 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42348 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42350 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56322 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56336 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56346 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56350 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56352 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42458 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42472 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42488 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42494 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42506 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35164 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35176 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35182 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35198 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35200 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50272 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50286 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50288 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50304 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50314 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36100 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36104 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36106 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36118 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36126 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46634 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46636 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46640 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46654 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46662 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0068 frames=39
+INFO:     127.0.0.1:47852 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47856 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47870 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47874 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47880 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44608 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44612 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44622 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44624 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44638 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50424 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50430 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50442 - "POST /infer HTTP/1.1" 200 OK
+frames 1200 (last infer 2.56s)
+INFO:     127.0.0.1:50450 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56726 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56732 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56742 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56748 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35746 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35754 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35758 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35762 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35764 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35776 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51436 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51442 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51446 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51454 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51460 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52626 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52642 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52650 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52664 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52668 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37566 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37578 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37594 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37604 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37608 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33524 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33540 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0069 frames=40
+INFO:     127.0.0.1:33550 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33552 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33566 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33572 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54140 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54142 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54154 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54166 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54174 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38424 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38432 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38442 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38448 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38456 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55004 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55006 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55008 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55022 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55028 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53964 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53966 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53978 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53994 - "POST /infer HTTP/1.1" 200 OK
+frames 1250 (last infer 1.81s)
+INFO:     127.0.0.1:54008 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54040 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54046 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54058 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54062 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54074 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35734 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35742 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35756 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35768 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35772 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54016 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54026 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54036 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54040 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54056 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40756 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40760 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0070 frames=40
+INFO:     127.0.0.1:40762 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40778 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40784 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40800 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55040 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55042 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55054 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55070 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51102 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51108 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51124 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51134 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51146 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44834 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44840 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44856 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44862 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44864 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35550 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35558 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35568 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35584 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35594 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35604 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40520 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40530 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40546 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40558 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40562 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36714 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36722 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36728 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36738 - "POST /infer HTTP/1.1" 200 OK
+frames 1300 (last infer 1.84s)
+INFO:     127.0.0.1:36750 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36486 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36492 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36506 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36514 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36524 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51016 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51030 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0071 frames=40
+INFO:     127.0.0.1:51044 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51050 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51054 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51862 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51868 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51874 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51890 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51902 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55722 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55724 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55730 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55746 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55750 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35118 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35122 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35128 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35138 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35146 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41060 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41068 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41076 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41086 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41088 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59896 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59908 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59910 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59914 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59924 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34142 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34148 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34158 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34166 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34178 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54070 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54084 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54094 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54108 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54124 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60330 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60332 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60334 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0072 frames=40
+INFO:     127.0.0.1:60336 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60350 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60354 - "POST /infer HTTP/1.1" 200 OK
+frames 1350 (last infer 2.01s)
+INFO:     127.0.0.1:57198 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57202 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57204 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57218 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57224 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60634 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60650 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60652 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60660 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60672 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48260 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48262 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48278 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48288 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48300 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49368 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49382 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49386 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49390 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49406 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35102 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35104 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35116 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35132 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36146 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36160 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36168 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36170 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39440 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39444 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39456 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39470 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39484 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48274 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48286 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48294 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48296 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48306 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0073 frames=40
+INFO:     127.0.0.1:58072 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58078 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58094 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58106 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58120 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58136 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47474 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47484 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47488 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47490 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47496 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34932 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34934 - "POST /infer HTTP/1.1" 200 OK
+frames 1400 (last infer 1.81s)
+INFO:     127.0.0.1:34950 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34954 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34964 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52544 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52554 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52564 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52580 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52594 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52596 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50816 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50824 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50830 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50844 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50856 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44738 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44748 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44764 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44780 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44784 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42928 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42942 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42948 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42964 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42966 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46152 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46158 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46168 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46172 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE fit scene-0074 frames=40
+INFO:     127.0.0.1:46182 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46192 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41200 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41202 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41218 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41226 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52066 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52074 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52086 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52102 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52118 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39310 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39326 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39330 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39340 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39354 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56318 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56332 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56338 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56350 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56354 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50334 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50350 - "POST /infer HTTP/1.1" 200 OK
+frames 1450 (last infer 1.80s)
+INFO:     127.0.0.1:50356 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50358 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50372 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53486 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53500 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53516 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53530 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53532 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43850 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43860 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43866 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43878 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43886 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47644 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47646 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47660 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47670 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE calibration scene-0075 frames=39
+INFO:     127.0.0.1:47686 - "POST /reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47700 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46016 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46024 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46040 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46044 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46046 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51982 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51992 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52008 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52012 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52022 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58190 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58200 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58202 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58216 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58218 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58234 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56636 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56650 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56658 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56670 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56676 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54456 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54466 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54482 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54486 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54492 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58362 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58364 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58368 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58378 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58384 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36306 - "POST /infer HTTP/1.1" 200 OK
+frames 1500 (last infer 1.77s)
+INFO:     127.0.0.1:36320 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36328 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36336 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36348 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42316 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42330 - "POST /infer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42332 - "POST /infer HTTP/1.1" 200 OK
+SCENE_DONE calibration scene-0076 frames=40
+INFO:     127.0.0.1:42338 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE calibration scene-0120 frames=0
+INFO:     127.0.0.1:42348 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE calibration scene-0121 frames=0
+INFO:     127.0.0.1:42360 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE calibration scene-0122 frames=0
+INFO:     127.0.0.1:42370 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE calibration scene-0123 frames=0
+INFO:     127.0.0.1:42384 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE calibration scene-0124 frames=0
+INFO:     127.0.0.1:42392 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE calibration scene-0125 frames=0
+INFO:     127.0.0.1:42396 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE calibration scene-0126 frames=0
+INFO:     127.0.0.1:42404 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE calibration scene-0127 frames=0
+INFO:     127.0.0.1:42408 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE calibration scene-0128 frames=0
+INFO:     127.0.0.1:42410 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE calibration scene-0129 frames=0
+INFO:     127.0.0.1:42418 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE calibration scene-0130 frames=0
+INFO:     127.0.0.1:42420 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE calibration scene-0131 frames=0
+INFO:     127.0.0.1:42424 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE calibration scene-0132 frames=0
+INFO:     127.0.0.1:42432 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE heldout scene-0133 frames=0
+INFO:     127.0.0.1:42434 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE heldout scene-0134 frames=0
+INFO:     127.0.0.1:42450 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE heldout scene-0135 frames=0
+INFO:     127.0.0.1:42460 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE heldout scene-0138 frames=0
+INFO:     127.0.0.1:42466 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE heldout scene-0139 frames=0
+INFO:     127.0.0.1:42478 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE heldout scene-0149 frames=0
+INFO:     127.0.0.1:42492 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE heldout scene-0150 frames=0
+INFO:     127.0.0.1:42498 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE heldout scene-0151 frames=0
+INFO:     127.0.0.1:42514 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE heldout scene-0152 frames=0
+INFO:     127.0.0.1:42520 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE heldout scene-0154 frames=0
+INFO:     127.0.0.1:42536 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE heldout scene-0155 frames=0
+INFO:     127.0.0.1:42538 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE heldout scene-0157 frames=0
+INFO:     127.0.0.1:42544 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE heldout scene-0158 frames=0
+INFO:     127.0.0.1:42558 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE heldout scene-0159 frames=0
+INFO:     127.0.0.1:42566 - "POST /reset HTTP/1.1" 200 OK
+SCENE_DONE heldout scene-0160 frames=0
+FEEDER_DONE split=all scenes=90 frames=1507
++ docker rm -f model
++ gzip -kf /opt/sentinel-stack/UniAD/sentinel_e22_stage1.jsonl /opt/sentinel-stack/UniAD/sentinel_e22_stage1_gt.jsonl
++ ls -la /opt/sentinel-stack/UniAD/sentinel_e22_stage1.jsonl.gz /opt/sentinel-stack/UniAD/sentinel_e22_stage1_gt.jsonl.gz
+-rw-r--r-- 1 root root 89161655 Jul  6 11:26 /opt/sentinel-stack/UniAD/sentinel_e22_stage1.jsonl.gz
+-rw-r--r-- 1 root root   233757 Jul  6 11:26 /opt/sentinel-stack/UniAD/sentinel_e22_stage1_gt.jsonl.gz
+++ date
++ echo 'E22_STAGE1_EXTRACT_DONE Mon Jul  6 11:27:07 UTC 2026'
+E22_STAGE1_EXTRACT_DONE Mon Jul  6 11:27:07 UTC 2026
