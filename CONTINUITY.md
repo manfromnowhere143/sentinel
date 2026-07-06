@@ -86,10 +86,12 @@ events to prepare; they are a property the repository always has.
   feasible escapes, B2 candidate validity was 574/2488 = 23.1%, B3 benign error was 1.449 m,
   and B4 had no selectable escape. No closed-loop run is authorized from that hypothesis
   (experiments/iter21_bev_diversity_head/RESULT.md).
-- Next research packet prepared: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md. It is a
-  launch packet only, not a pre-registration; it authorizes no extraction, probe training,
-  intervention, GPU run, or closed-loop work. The next operator must write and commit a fresh
-  iter22 HYPOTHESIS.md with numeric bars and named falsifiers before data.
+- Iteration 22 Stage 1 is now pre-registered:
+  experiments/iter22_causal_planner_interpretability/HYPOTHESIS.md. It is a non-evaluation
+  causal-localization experiment on UniAD's motion/planning bridge. It authorizes no
+  iteration-12 scoring and no closed-loop work. Before any extraction, the next operator must
+  create and commit the iter22 split manifest/generator and the exact extraction/intervention
+  patch/run scripts.
 - Iter22 planning artifacts now exist under docs/research/: ITER22_HYPOTHESIS_DRAFT.md and
   ITER22_ADVERSARIAL_REVIEW.md. They are planning-only, not pre-registrations. Owner guidance:
   do not promote the broad A0-A8 draft directly; use the adversarial review's tighter Stage
@@ -147,4 +149,9 @@ events to prepare; they are a property the repository always has.
   planning artifacts and recorded that official iter22 should be tightened to Stage 1 before
   promotion. No experiment directory, data extraction, GPU work, commit, or push was done by
   the helper.
+- 2026-07-06: Codex — pre-registered iteration 22 Stage 1 under
+  experiments/iter22_causal_planner_interpretability/HYPOTHESIS.md. Scope is non-evaluation
+  causal localization at the motion/planning bridge with minimum counts, negative controls, a
+  frozen activation-direction grid, and a hard stop before iteration-12 or closed-loop work.
+  No data extraction, GPU work, probe fitting, or activation patching launched.
 - (append one line per shift: dates, operator, what changed, box state at exit)

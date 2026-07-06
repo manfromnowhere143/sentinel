@@ -1,9 +1,9 @@
 # Causal planner interpretability — launch packet for the next Sentinel line
 
-Status: **research launch packet only.** This is not a pre-registration and it does not
+Status: **research launch packet only.** This file is not a pre-registration and it does not
 authorize data extraction, probe training, intervention runs, GPU work, or closed-loop
-evaluation. The next operator must write and commit an
-`experiments/iter22_*/HYPOTHESIS.md` with numeric bars and falsifiers before touching data.
+evaluation. The official Stage 1 pre-registration now lives at
+[`../../experiments/iter22_causal_planner_interpretability/HYPOTHESIS.md`](../../experiments/iter22_causal_planner_interpretability/HYPOTHESIS.md).
 
 ## The question
 
@@ -194,3 +194,10 @@ Owner guidance: do not promote the broad draft directly. The official iter22 sho
 Stage 1 causal-localization experiment on non-evaluation scenes first, with minimum positive-count
 rules, explicit intervention grid, negative controls, and a hard stop before any iteration-12
 gate or closed-loop claim.
+
+Official follow-up:
+
+- [`../../experiments/iter22_causal_planner_interpretability/HYPOTHESIS.md`](../../experiments/iter22_causal_planner_interpretability/HYPOTHESIS.md)
+  pre-registers the tightened Stage 1 version. It authorizes no iteration-12 scoring and no
+  closed-loop evaluation; the next permitted work is committing the split manifest/generator and
+  exact extraction/intervention patch before any extraction.

@@ -10,9 +10,10 @@ runs when.
 After iterations 19–21 closed the tested frozen-planner candidate-head routes, the recommended
 next line is causal localization rather than another decoder:
 [`research/CAUSAL_PLANNER_INTERPRETABILITY.md`](research/CAUSAL_PLANNER_INTERPRETABILITY.md).
-That file is a launch packet only. It does not authorize data extraction, probe training,
-intervention runs, GPU work, or closed-loop evaluation; a fresh iter22 `HYPOTHESIS.md` with
-numeric bars and named falsifiers is required first.
+That file is a launch packet only. The official Stage 1 pre-registration now lives at
+[`../experiments/iter22_causal_planner_interpretability/HYPOTHESIS.md`](../experiments/iter22_causal_planner_interpretability/HYPOTHESIS.md).
+It authorizes no iteration-12 scoring and no closed-loop evaluation. Before any extraction, the
+split manifest/generator and exact extraction/intervention patch/run scripts must be committed.
 
 ## Line 1 — a diversity-trained candidate head under the runtime selector
 
@@ -116,3 +117,6 @@ measurement task. It waits only for the power run's final numbers so results are
 4. **Line 3 is closed by iteration 20**; the registered tracker bridge failed before GPU time.
 5. No line in this file currently authorizes a new run. Every new line gets a frozen
    HYPOTHESIS.md with falsifiers before data, per the campaign standard.
+6. Iteration 22 is the active successor line, but only at Stage 1. Its next permitted action is
+   to commit the split manifest/generator and extraction/intervention patch; iteration-12 and
+   closed-loop work remain deferred behind the Stage 1 gate.
