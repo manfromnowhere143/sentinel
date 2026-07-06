@@ -11,19 +11,19 @@ class as the official nuScenes v1.0 trainval sensor file blobs, not metadata. It
 the capacity blocker by mounting a 1024 GB persistent disk at `/datasets/nuscenes-full` with
 1,026,108,792,832 bytes available.
 
-Iteration 28 is a data-staging gate. Its job is to stage the official trainval sensor blobs into
-the frozen destination and then run a bounded availability inventory. It is still not a model
-experiment.
+Iteration 28 is a data-staging gate. Its job is to stage the official trainval metadata plus
+sensor blobs into the frozen destination and then run a bounded availability inventory. It is
+still not a model experiment.
 
 ## Research question
 
-Can the official nuScenes v1.0 trainval sensor file blobs be staged at the frozen root
-`/datasets/nuscenes-full` with auditable provenance and enough post-firewall six-camera keyframes
-for a later fresh risk-support atlas?
+Can the official nuScenes v1.0 trainval metadata and sensor file blobs be staged at the frozen
+root `/datasets/nuscenes-full` with auditable provenance and enough post-firewall six-camera
+keyframes for a later fresh risk-support atlas?
 
 Acceptable positive claim if every bar passes:
 
-> The frozen data root contains official nuScenes trainval sensor blobs with enough fresh
+> The frozen data root contains official nuScenes trainval metadata and sensor blobs with enough fresh
 > post-firewall six-camera keyframes to justify a separate atlas pre-registration.
 
 Acceptable null claim if staging or availability fails:
@@ -55,25 +55,27 @@ The destination is the disk mounted by iteration 27. Iteration 28 may not mutate
 ## Frozen source handling
 
 The only allowed dataset source is the official nuScenes **Full dataset (v1.0) / Trainval /
-File blobs of 85 scenes, parts 1-10** package family. The expected package labels and planning
-sizes are inherited from the committed iteration-26 reference:
+Metadata** package plus the official **File blobs of 85 scenes, parts 1-10** package family. The
+expected package labels and planning sizes are inherited from the committed iteration-26 reference
+and the operator-provided Trainval download listing:
 [`../iter26_data_staging_remedy/official_nuscenes_download_reference.md`](../iter26_data_staging_remedy/official_nuscenes_download_reference.md).
 
 Expected archive basenames:
 
-| part | expected basename | reference size GB |
-|---:|---|---:|
-| 1 | `v1.0-trainval01_blobs.tgz` | 29.41 |
-| 2 | `v1.0-trainval02_blobs.tgz` | 28.06 |
-| 3 | `v1.0-trainval03_blobs.tgz` | 27.81 |
-| 4 | `v1.0-trainval04_blobs.tgz` | 29.87 |
-| 5 | `v1.0-trainval05_blobs.tgz` | 26.25 |
-| 6 | `v1.0-trainval06_blobs.tgz` | 25.61 |
-| 7 | `v1.0-trainval07_blobs.tgz` | 27.50 |
-| 8 | `v1.0-trainval08_blobs.tgz` | 28.19 |
-| 9 | `v1.0-trainval09_blobs.tgz` | 31.21 |
-| 10 | `v1.0-trainval10_blobs.tgz` | 38.87 |
-| total |  | 292.78 |
+| package | expected basename | reference size GB |
+|---|---|---:|
+| metadata | `v1.0-trainval_meta.tgz` | 0.43 |
+| blob part 1 | `v1.0-trainval01_blobs.tgz` | 29.41 |
+| blob part 2 | `v1.0-trainval02_blobs.tgz` | 28.06 |
+| blob part 3 | `v1.0-trainval03_blobs.tgz` | 27.81 |
+| blob part 4 | `v1.0-trainval04_blobs.tgz` | 29.87 |
+| blob part 5 | `v1.0-trainval05_blobs.tgz` | 26.25 |
+| blob part 6 | `v1.0-trainval06_blobs.tgz` | 25.61 |
+| blob part 7 | `v1.0-trainval07_blobs.tgz` | 27.50 |
+| blob part 8 | `v1.0-trainval08_blobs.tgz` | 28.19 |
+| blob part 9 | `v1.0-trainval09_blobs.tgz` | 31.21 |
+| blob part 10 | `v1.0-trainval10_blobs.tgz` | 38.87 |
+| total |  | 293.21 |
 
 The source manifest may be supplied only as an uncommitted operator-local file, for example
 `/tmp/iter28_nuscenes_sources.json`, because it may contain signed URLs. The committed artifacts
@@ -98,14 +100,17 @@ After this hypothesis and the iter28 staging/inventory scripts are committed, it
 - create the archive and temporary directories under `/datasets/nuscenes-full`;
 - copy each official archive from a `local_path` source, or fetch it from a `signed_url` source;
 - compute and record SHA256 and byte size for each archive;
-- extract the ten trainval blob archives into `/datasets/nuscenes-full`;
+- extract the official trainval metadata archive and ten trainval blob archives into
+  `/datasets/nuscenes-full`;
 - run a bounded, token-free availability inventory for `/datasets/nuscenes-full` only;
 - publish pass/fail evidence at full weight.
 
 Forbidden actions:
 
-- use any source outside the ten official trainval blob packages;
-- stage mini, test, lidarseg, panoptic, map, CAN bus, or unrelated archives in this iteration;
+- use any source outside the official trainval metadata package and ten official trainval blob
+  packages;
+- stage mini, test, lidarseg, panoptic, map expansion, CAN bus, or unrelated archives in this
+  iteration;
 - mutate any pre-existing dataset root other than `/datasets/nuscenes-full`;
 - run a broad filesystem search;
 - inspect image pixels for research labels;
@@ -121,12 +126,13 @@ Source/provenance bars:
 
 | bar | required value |
 |---|---:|
-| source manifest entries | `10` |
-| expected part numbers present | `1..10 exactly once` |
+| source manifest entries | `11` |
+| expected metadata package present | `1` |
+| expected blob part numbers present | `1..10 exactly once` |
 | unexpected package basenames | `0` |
 | committed secret-bearing URL/query strings | `0` |
-| per-archive SHA256 values recorded | `10` |
-| total archive bytes | `>= 250,000,000,000` and `<= 330,000,000,000` |
+| per-archive SHA256 values recorded | `11` |
+| total archive bytes | `>= 250,000,000,000` and `<= 331,000,000,000` |
 
 Storage/staging bars:
 
@@ -135,6 +141,7 @@ Storage/staging bars:
 | destination preflight free space | `>= 900,000,000,000` bytes |
 | extracted root | `/datasets/nuscenes-full` only |
 | extraction path traversal attempts accepted | `0` |
+| metadata directory present | `/datasets/nuscenes-full/v1.0-trainval` |
 | required camera channel directories present | `6/6` |
 | dataset bytes moved outside destination root | `0` |
 | model / Docker / NeuroNCAP runs | `0` |
@@ -176,7 +183,7 @@ remainder to `heldout`. No scene may move between splits after the manifest is c
 ## Named falsifiers
 
 - **Source absent.** The operator-local source manifest is missing, malformed, or does not list
-  exactly the ten official trainval blob packages.
+  exactly the official trainval metadata package plus the ten official trainval blob packages.
 - **Source ambiguity.** Any source cannot be tied to the expected official trainval package
   basename and part number.
 - **Credential leak.** Any committed artifact contains cookies, bearer tokens, signed query
@@ -226,7 +233,8 @@ With the result:
 2. Commit the staging and bounded inventory scripts before reading any source manifest or moving
    any dataset bytes.
 3. Verify `/datasets/nuscenes-full` mount/capacity.
-4. Stage the ten official trainval blob archives from the operator-provided source manifest.
+4. Stage the official trainval metadata archive and ten trainval blob archives from the
+   operator-provided source manifest.
 5. Extract into `/datasets/nuscenes-full` only.
 6. Run the bounded post-staging availability inventory for `/datasets/nuscenes-full`.
 7. Publish the result at full weight whether staging or availability passes or fails.

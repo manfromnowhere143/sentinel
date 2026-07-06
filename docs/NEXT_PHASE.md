@@ -87,11 +87,12 @@ activation intervention, iteration-12 scoring, selector evaluation, or closed-lo
 
 That data-staging step is now pre-registered:
 [`../experiments/iter28_nuscenes_trainval_staging/HYPOTHESIS.md`](../experiments/iter28_nuscenes_trainval_staging/HYPOTHESIS.md).
-Iteration 28 may stage only the official nuScenes v1.0 trainval file-blob archives parts 1-10
-into `/datasets/nuscenes-full`, then run a bounded token-free availability inventory for that
-root. Daniel must perform any browser/session authentication or provide signed URLs; the agent
-must not handle credentials. Iteration 28 authorizes no model extraction, label atlas, probe
-fitting, activation intervention, iteration-12 scoring, selector evaluation, or closed-loop work.
+Iteration 28 may stage only the official nuScenes v1.0 trainval metadata archive plus file-blob
+archives parts 1-10 into `/datasets/nuscenes-full`, then run a bounded token-free availability
+inventory for that root. Daniel must perform any browser/session authentication or provide signed
+URLs; the agent must not handle credentials. Iteration 28 authorizes no model extraction, label
+atlas, probe fitting, activation intervention, iteration-12 scoring, selector evaluation, or
+closed-loop work.
 
 ## Line 1 — a diversity-trained candidate head under the runtime selector
 
@@ -203,7 +204,7 @@ measurement task. It waits only for the power run's final numbers so results are
 10. Iteration 27 is closed as a storage-provisioning pass. The 1 TB persistent disk is mounted at
     `/datasets/nuscenes-full` with `1,026,108,792,832` bytes available, and 0 dataset bytes moved.
 11. Iteration 28 is the only active pre-registration. It authorizes official nuScenes trainval
-    staging only: ten sensor-blob archives, `/datasets/nuscenes-full`, redacted source provenance,
-    archive hashes, extraction safety proof, then bounded availability inventory. It does not
-    authorize model extraction, label atlas, probe fitting, activation intervention, iteration-12
-    scoring, selector evaluation, or closed-loop work.
+    staging only: metadata plus ten sensor-blob archives, `/datasets/nuscenes-full`, redacted
+    source provenance, archive hashes, extraction safety proof, then bounded availability
+    inventory. It does not authorize model extraction, label atlas, probe fitting, activation
+    intervention, iteration-12 scoring, selector evaluation, or closed-loop work.
