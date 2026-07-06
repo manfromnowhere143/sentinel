@@ -24,6 +24,10 @@ Its next permitted action is the availability/split manifest generator and manif
 is authorized until the manifest, extraction patch, feeder, canary/full run scripts, analyzer,
 and canonical hashing routine are committed.
 
+Current iter23 state: the availability manifest is committed and passes its gate (66 eligible
+scenes; 39 fit, 13 calibration, 14 heldout; 554 heldout keyframes). The next permitted action is
+to commit the extraction/canary code listed above.
+
 ## Line 1 — a diversity-trained candidate head under the runtime selector
 
 **Motivation (measured, twice):** iterations 12 and 14 established that frozen planners hold no
@@ -127,6 +131,6 @@ measurement task. It waits only for the power run's final numbers so results are
 5. No line in this file currently authorizes a new run. Every new line gets a frozen
    HYPOTHESIS.md with falsifiers before data, per the campaign standard.
 6. Iteration 22 is closed as an S0 data-null.
-7. Iteration 23 is the active successor line. Its next permitted action is to commit the
-   availability/split manifest generator and manifest. Iteration-12 and closed-loop work remain
-   deferred behind the new Stage 1 S0-S3 gate.
+7. Iteration 23 is the active successor line. Its availability manifest is committed; the next
+   permitted action is to commit canary/full extraction code and analyzer. Iteration-12 and
+   closed-loop work remain deferred behind the new Stage 1 S0-S3 gate.

@@ -1,0 +1,15 @@
+iter23 S0-hardened availability manifest report
+availability_pass: True
+official_train_scene_count: 700
+candidate_scene_count_after_exclusions: 700
+excluded_scene_names: scene-0099 scene-0101 scene-0103 scene-0106 scene-0108 scene-0110 scene-0278 scene-0331 scene-0346 scene-0783 scene-0796 scene-0921 scene-0923 scene-0966
+excluded_train_scene_names: (none)
+eligible_scene_count: 66
+ineligible_scene_count: 634
+fit_scene_count: 39
+calibration_scene_count: 13
+heldout_scene_count: 14
+heldout_keyframe_count: 554
+fit: scene-0166 scene-0174 scene-0191 scene-0043 scene-0048 scene-0061 scene-0071 scene-0064 scene-0190 scene-0163 scene-0757 scene-0170 scene-0062 scene-0196 scene-0072 scene-0173 scene-0175 scene-0069 scene-0042 scene-0056 scene-0002 scene-0070 scene-0063 scene-0057 scene-0068 scene-0161 scene-0195 scene-0168 scene-0067 scene-0655 scene-0001 scene-0194 scene-0076 scene-0047 scene-0044 scene-1077 scene-0066 scene-0052 scene-0192
+calibration: scene-0041 scene-0065 scene-0054 scene-0199 scene-0171 scene-0164 scene-0046 scene-0176 scene-0165 scene-0059 scene-0053 scene-1094 scene-0055
+heldout: scene-0060 scene-0050 scene-0051 scene-0074 scene-0073 scene-0049 scene-0193 scene-0058 scene-0045 scene-0075 scene-0172 scene-0167 scene-0162 scene-1100
