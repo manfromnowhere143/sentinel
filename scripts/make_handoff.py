@@ -39,11 +39,18 @@ for d in sorted(glob.glob('experiments/*/')):
     print(f'- {d[:-1]}: {status}')
 
 print('\n## GPU box quick-state (live probe)\n```')
-probe = sh(
+gpu_probe_cmd = (
     'timeout 60 gcloud compute ssh sentinel-gpu --zone us-west1-a --tunnel-through-iap '
-    '--quiet --command "hostname; uptime; sudo docker ps --format \'{{.Names}}\t{{.Status}}\' | head -6; '
-    'ls -t /var/log/sentinel-*.log | head -3; df -h / | tail -1; free -h | tail -1" 2>/dev/null',
-    timeout=70)
+    '--quiet --command "hostname; uptime; '
+    "sudo docker ps --format '{{.Names}}\t{{.Status}}' > /tmp/sentinel_handoff_docker_ps.txt; "
+    'if [ -s /tmp/sentinel_handoff_docker_ps.txt ]; then '
+    'echo GPU_RUN_STATE=IN_FLIGHT_CONTAINERS; head -6 /tmp/sentinel_handoff_docker_ps.txt; '
+    'else echo GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS; fi; '
+    'rm -f /tmp/sentinel_handoff_docker_ps.txt; '
+    'ls -t /var/log/sentinel-*.log | head -3; df -h / | tail -1; free -h | tail -1" '
+    '2>/dev/null'
+)
+probe = sh(gpu_probe_cmd, timeout=70)
 print(probe if probe else 'BOX UNREACHABLE (auth lapsed? box down?) — ask Daniel: ! gcloud auth login')
 print('```')
 print('If any docker container named renderer/model/ncap (or a random-name ncap) is up, a run')
