@@ -95,10 +95,11 @@ events to prepare; they are a property the repository always has.
 - Iteration 23 is now pre-registered:
   experiments/iter23_s0_hardened_causal_localization/HYPOTHESIS.md. It is an S0-hardened
   successor to iter22: availability manifest, frozen join key, two-run canary determinism, and
-  count floors must pass before probes or interventions can exist. No GPU run is authorized until
-  extraction/canary code is committed. The availability manifest is committed and passes its gate:
-  66 eligible scenes, 39 fit / 13 calibration / 14 heldout, 554 heldout keyframes. Iteration-12
-  and closed-loop work remain prohibited.
+  count floors must pass before probes or interventions can exist. The availability manifest is
+  committed and passes its gate: 66 eligible scenes, 39 fit / 13 calibration / 14 heldout, 554
+  heldout keyframes. The extraction patch, feeder, canary/full run scripts, analyzer, and
+  canonical hashing utility are committed. Next permitted action: the two-run canary only.
+  Full extraction, iteration-12, and closed-loop work remain prohibited.
 - Iter22 planning artifacts now exist under docs/research/: ITER22_HYPOTHESIS_DRAFT.md and
   ITER22_ADVERSARIAL_REVIEW.md. They are planning-only, not pre-registrations. Owner guidance:
   do not promote the broad A0-A8 draft directly; use the adversarial review's tighter Stage
@@ -201,4 +202,9 @@ events to prepare; they are a property the repository always has.
   66 eligible scenes, 39 fit / 13 calibration / 14 heldout, 554 heldout keyframes, no token
   fields in the manifest. No model container, extraction, probe fitting, activation direction,
   iteration-12 scoring, or closed-loop work launched.
+- 2026-07-06: Codex — added the iter23 S0 canary/full extraction surface: server patch with
+  explicit context endpoint for `(scene, sample_index, timestamp_us)`, manifest-driven feeder,
+  two-run canary script, full-extraction script, canonical JSONL hash utility, and S0 analyzer.
+  No canary/model run, full extraction, probe fitting, activation direction, iteration-12
+  scoring, or closed-loop work launched.
 - (append one line per shift: dates, operator, what changed, box state at exit)
