@@ -174,6 +174,8 @@ def split_xy(rows: list[dict], feature_fn, split: str):
         elif row["high_diversity_control"]:
             xs.append(feature_fn(row))
             ys.append(0)
+    if not xs:
+        return np.empty((0, 0), dtype=np.float64), np.array([], dtype=np.float64)
     return np.vstack(xs), np.array(ys, dtype=np.float64)
 
 
@@ -230,6 +232,9 @@ def run_probe(rows: list[dict], feature_fn, name: str, shuffle_fit: bool = False
     xfit, yfit = split_xy(rows, feature_fn, "fit")
     xcal, ycal = split_xy(rows, feature_fn, "calibration")
     xheld, yheld = split_xy(rows, feature_fn, "heldout")
+    for label, y in (("fit", yfit), ("calibration", ycal), ("heldout", yheld)):
+        if len(y) == 0 or int(y.sum()) == 0 or int(len(y) - y.sum()) == 0:
+            raise SystemExit(f"{name} probe lacks both classes on {label} split")
     if shuffle_fit:
         rng = np.random.default_rng(SEED)
         yfit = rng.permutation(yfit)
@@ -265,6 +270,24 @@ def count_by_split(rows, key):
         vals = [row for row in rows if row["gt_split"] == split]
         out[split] = int(sum(bool(row[key]) for row in vals))
     return out
+
+
+def count_floor_pass(counts: dict) -> tuple[bool, list[str]]:
+    failures = []
+    heldout = "heldout"
+    requirements = [
+        ("collapse_positive", heldout, 30),
+        ("high_diversity_control", heldout, 30),
+        ("danger_positive", heldout, 30),
+        ("safe_control", heldout, 30),
+        ("eligible_intervention_frame", heldout, 20),
+        ("benign_control_frame", heldout, 20),
+    ]
+    for key, split, minimum in requirements:
+        value = counts[key][split]
+        if value < minimum:
+            failures.append(f"{key}.{split}={value} < {minimum}")
+    return not failures, failures
 
 
 def write_direction(rows: list[dict], out_dir: Path):
@@ -331,6 +354,26 @@ def main() -> int:
         "benign_control_frame": count_by_split(rows, "benign_control_frame"),
     }
 
+    s0_counts_ok, count_failures = count_floor_pass(counts)
+    if not s0_counts_ok:
+        metrics = {
+            "counts": counts,
+            "s0_count_floor_pass": False,
+            "s0_count_floor_failures": count_failures,
+            "stage1_verdict": "DATA_NULL_STOP_BEFORE_PROBE_OR_INTERVENTION",
+            "claim_boundary": (
+                "The frozen split did not meet the Stage 1 minimum count floors. Per the "
+                "pre-registration, publish this as a data-null and do not fit probes, write an "
+                "activation direction, run the calibration grid, touch iteration-12 frames, or "
+                "start closed-loop work."
+            ),
+        }
+        (out_dir / "stage1_baseline_metrics.json").write_text(
+            json.dumps(metrics, indent=2, sort_keys=True) + "\n"
+        )
+        print(json.dumps(metrics, indent=2, sort_keys=True))
+        return 0
+
     probes = [
         run_probe(rows, tensor_feature, "internal_tensor"),
         run_probe(rows, kin_feature, "ego_kinematics"),
@@ -348,6 +391,7 @@ def main() -> int:
     metrics = {
         "counts": counts,
         "probes": probes,
+        "s0_count_floor_pass": True,
         "s1_pass_if_counts_pass": bool(s1_pass),
         "direction_json": str(direction_path),
         "claim_boundary": (
