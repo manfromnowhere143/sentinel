@@ -154,4 +154,9 @@ events to prepare; they are a property the repository always has.
   causal localization at the motion/planning bridge with minimum counts, negative controls, a
   frozen activation-direction grid, and a hard stop before iteration-12 or closed-loop work.
   No data extraction, GPU work, probe fitting, or activation patching launched.
+- 2026-07-06: Codex — created the iteration 22 Stage 1 split manifest from the official
+  `nuscenes.utils.splits.train` scene list and local nuScenes scene metadata. Committed source
+  list, generator, manifest, command record, exclusion report, and SHA256 sidecar under
+  experiments/iter22_causal_planner_interpretability/. No extraction, probe fitting, activation
+  patching, model container run, or NeuroNCAP run launched.
 - (append one line per shift: dates, operator, what changed, box state at exit)
