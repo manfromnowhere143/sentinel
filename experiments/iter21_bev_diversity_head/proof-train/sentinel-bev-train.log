@@ -1,0 +1,35 @@
++ swapon /swapfile
++ true
++ git config --global --add safe.directory /opt/sentinel-stack/UniAD
++ test -f /opt/sentinel-stack/UniAD/sentinel_bev_extract.jsonl.gz
++ test -f /opt/sentinel-stack/UniAD/sentinel_bev_extract_gt.jsonl.gz
++ cp /tmp/train_bev_head.py /opt/sentinel-stack/UniAD/train_bev_head.py
++ docker rm -f bev-train
++ docker run --name bev-train --rm --gpus all -v /opt/sentinel-stack/UniAD:/model -w /model --network host -e PYTHONPATH=. uniad:latest python -u /model/train_bev_head.py --extract /model/sentinel_bev_extract.jsonl.gz --gt /model/sentinel_bev_extract_gt.jsonl.gz --out /model/bev_diversity_head.pt
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 11.1.1
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+corpus rows: 2025  train: 1686  val: 339  scenes: 60
+params: 5249696 (<=15M: True)
+epoch 0 train 8.020 val_wta 3.410 val_rep 0.000 val_feas 8.528
+epoch 10 train 1.621 val_wta 1.202 val_rep 0.010 val_feas 2.387
+epoch 20 train 0.999 val_wta 0.873 val_rep 0.002 val_feas 0.506
+epoch 30 train 0.605 val_wta 0.987 val_rep 0.012 val_feas 0.476
+TRAIN_DONE best_val_wta 0.795 -> /model/bev_diversity_head.pt
++ ls -lh /opt/sentinel-stack/UniAD/bev_diversity_head.pt
+-rw-r--r-- 1 root root 21M Jul  6 05:17 /opt/sentinel-stack/UniAD/bev_diversity_head.pt
+++ date
++ echo 'BEV_TRAIN_DONE Mon Jul  6 05:17:50 UTC 2026'
+BEV_TRAIN_DONE Mon Jul  6 05:17:50 UTC 2026

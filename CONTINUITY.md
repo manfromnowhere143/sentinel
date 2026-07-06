@@ -109,4 +109,7 @@ events to prepare; they are a property the repository always has.
   experiments/iter21_bev_diversity_head/proof-extract with the 124 MB BEV gzip split into
   80 MB parts. Next permitted step: train the committed BEV head; no eval/gate run before
   training artifact is committed.
+- 2026-07-06: Codex — iteration 21 BEV head training completed cleanly (`BEV_TRAIN_DONE`);
+  checkpoint committed under proof-train, K=8/H=6, 5.25M params, best validation WTA 0.795.
+  Next permitted step: evaluation-only BEV extraction, then committed gate run.
 - (append one line per shift: dates, operator, what changed, box state at exit)
