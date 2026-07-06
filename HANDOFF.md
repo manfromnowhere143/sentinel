@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Mon Jul  6 19:21:40 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Mon Jul  6 19:37:12 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+64cd874 analysis: publish iter27 storage pass
+97feaf7 tools: fix iter27 disk device path
+1f0eb73 handoff: refresh after iter27 surface
 d9481ae tools: add iter27 mount script
 ac61ff0 handoff: refresh after iter27 pre-registration
 233938b docs: pre-register iter27 storage provisioning
 abfb24e handoff: refresh after iter26 result
 58bcacc analysis: publish iter26 staging capacity null
-8119b6c handoff: refresh after iter26 surface
-2032b8b tools: add iter26 staging discovery
-29d6bbb handoff: refresh after iter26 pre-registration
 ```
 Working tree: CLEAN
 
@@ -37,7 +37,7 @@ Working tree: CLEAN
 - experiments/iter24_risk_support_atlas: RESULT PUBLISHED
 - experiments/iter25_staged_data_inventory: RESULT PUBLISHED
 - experiments/iter26_data_staging_remedy: RESULT PUBLISHED
-- experiments/iter27_storage_provisioning: PRE-REGISTERED, result pending
+- experiments/iter27_storage_provisioning: RESULT PUBLISHED
 - experiments/iter2_monitor: RESULT PUBLISHED
 - experiments/iter3_progress: RESULT PUBLISHED
 - experiments/iter4_gated: RESULT PUBLISHED
@@ -53,7 +53,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 19:22:47 up 2 days,  9:03,  0 users,  load average: 0.00, 0.00, 0.00
+ 19:38:18 up 2 days,  9:19,  0 users,  load average: 0.00, 0.00, 0.00
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-e23-extract.log
@@ -65,7 +65,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest pre-registration: experiments/iter27_storage_provisioning/HYPOTHESIS.md — read it in full; its gate governs the next action.
+- Newest completed experiment: experiments/iter27_storage_provisioning/RESULT.md — read it before opening new work.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
