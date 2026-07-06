@@ -18,16 +18,19 @@ Stage 1 stopped at S0: the extraction/GT timestamp join failed on all 1,507 non-
 the frozen heldout split had 0 GT frames. It authorizes no iteration-12 scoring, probe claim,
 intervention claim, or closed-loop evaluation.
 
-The successor is now pre-registered as
+The hardened successor was pre-registered as
 [`../experiments/iter23_s0_hardened_causal_localization/HYPOTHESIS.md`](../experiments/iter23_s0_hardened_causal_localization/HYPOTHESIS.md).
-Its next permitted action is the availability/split manifest generator and manifest. No GPU run
-is authorized until the manifest, extraction patch, feeder, canary/full run scripts, analyzer,
-and canonical hashing routine are committed.
+Its result is now published:
+[`../experiments/iter23_s0_hardened_causal_localization/RESULT.md`](../experiments/iter23_s0_hardened_causal_localization/RESULT.md).
 
-Current iter23 state: the availability manifest is committed and passes its gate (66 eligible
-scenes; 39 fit, 13 calibration, 14 heldout; 554 heldout keyframes). The next permitted action is
-the two-run canary; the extraction/canary code listed above is committed. Full extraction remains
-unauthorized until canary proof is committed and passes S0.
+Iteration 23 repaired the iteration-22 artifact failure but did not reach the causal test. The
+availability gate passed (66 eligible scenes; 39 fit, 13 calibration, 14 heldout; 554 heldout
+keyframes), the two-run canary was deterministic, and full S0 integrity passed with 2,627/2,627
+joined non-reset rows and zero error rows. The frozen count-floor gate then failed:
+`collapse_positive` was 0 in every split, `eligible_intervention_frame` was 0, and heldout
+`danger_positive` was 17 below the 30-frame floor. Iter23 authorizes no probe, activation
+direction, iteration-12 scoring, or closed-loop evaluation. Any successor causal-localization
+line requires a fresh pre-registration with a revised data-support plan.
 
 ## Line 1 — a diversity-trained candidate head under the runtime selector
 
@@ -132,7 +135,6 @@ measurement task. It waits only for the power run's final numbers so results are
 5. No line in this file currently authorizes a new run. Every new line gets a frozen
    HYPOTHESIS.md with falsifiers before data, per the campaign standard.
 6. Iteration 22 is closed as an S0 data-null.
-7. Iteration 23 is the active successor line. Its availability manifest and canary/full
-   extraction code are committed; the next permitted action is the two-run canary. Full
-   extraction, iteration-12, and closed-loop work remain deferred behind the new Stage 1 S0-S3
-   gate.
+7. Iteration 23 is closed as a count-floor data-null after S0 pass. It authorizes no probe,
+   activation direction, iteration-12 scoring, or closed-loop run. Any next causal-localization
+   line needs a fresh HYPOTHESIS.md before data.

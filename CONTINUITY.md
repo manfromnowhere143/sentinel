@@ -92,14 +92,14 @@ events to prepare; they are a property the repository always has.
   (`missing_gt`) and the frozen heldout split had 0 GT frames. No probe fitting, activation
   direction, intervention replay, iteration-12 scoring, or closed-loop work is authorized from
   that hypothesis. Any successor requires a fresh pre-registration.
-- Iteration 23 is now pre-registered:
-  experiments/iter23_s0_hardened_causal_localization/HYPOTHESIS.md. It is an S0-hardened
-  successor to iter22: availability manifest, frozen join key, two-run canary determinism, and
-  count floors must pass before probes or interventions can exist. The availability manifest is
-  committed and passes its gate: 66 eligible scenes, 39 fit / 13 calibration / 14 heldout, 554
-  heldout keyframes. The extraction patch, feeder, canary/full run scripts, analyzer, and
-  canonical hashing utility are committed. Next permitted action: the two-run canary only.
-  Full extraction, iteration-12, and closed-loop work remain prohibited.
+- Iteration 23 concluded:
+  experiments/iter23_s0_hardened_causal_localization/RESULT.md. It repaired iter22's S0 artifact
+  failure: availability passed with 66 eligible scenes, the two-run canary was deterministic, and
+  full extraction joined 2,627/2,627 non-reset rows with zero error rows and stable tensor shapes.
+  The frozen count-floor gate then FAILED before probes: `collapse_positive` was 0 in every split,
+  `eligible_intervention_frame` was 0, and heldout `danger_positive` was 17 below the 30-frame
+  floor. No probe fitting, activation direction, intervention replay, iteration-12 scoring, or
+  closed-loop run is authorized from iter23. Any successor needs a fresh pre-registration.
 - Iter22 planning artifacts now exist under docs/research/: ITER22_HYPOTHESIS_DRAFT.md and
   ITER22_ADVERSARIAL_REVIEW.md. They are planning-only, not pre-registrations. Owner guidance:
   do not promote the broad A0-A8 draft directly; use the adversarial review's tighter Stage
@@ -207,4 +207,9 @@ events to prepare; they are a property the repository always has.
   two-run canary script, full-extraction script, canonical JSONL hash utility, and S0 analyzer.
   No canary/model run, full extraction, probe fitting, activation direction, iteration-12
   scoring, or closed-loop work launched.
+- 2026-07-06: Codex — iteration 23 canary and full extraction completed cleanly, S0 passed, and
+  the label/count gate then published a data-null: 2,627/2,627 full joins, zero error rows, stable
+  tensor shapes, but collapse positives 0 in all splits, eligible intervention frames 0, and
+  heldout danger positives 17/30 below the frozen floor. No probe fitting, activation direction,
+  iteration-12 scoring, or closed-loop run is authorized from iter23; BOX IDLE.
 - (append one line per shift: dates, operator, what changed, box state at exit)

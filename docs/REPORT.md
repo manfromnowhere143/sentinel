@@ -11,8 +11,8 @@ End-to-end driving planners fail catastrophically in safety-critical closed-loop
 (published NeuroNCAP: UniAD scores 1.84/5, colliding in 88–98% of runs), yet the field's dominant
 open-loop metrics cannot see it. We build a runtime monitor that reads only a frozen planner's own
 outputs — its plan, detected objects, and their tracked motion; no labels, no training, no
-privileged simulator state — and intervene with a latched stop. Across 21 pre-registered
-iterations and an independent verification pass, we show: (1) a **union of two label-free
+privileged simulator state — and intervene with a latched stop. Across 23 documented iterations
+and an independent verification pass, we show: (1) a **union of two label-free
 geometric detectors** (plan-vs-tracked-path closest approach; observed-closing time-to-collision)
 is *selective* (clean-scene behaviour identical to the unmonitored planner), removes most
 side-impacts (100% → 30%), halves frontal impact speed (13.9 → 6.7 m/s, median 2.5 s warning),
@@ -29,9 +29,10 @@ danger; VAD: partial, below a pre-registered viability bar), and two learned suc
 under the runtime selector also fail offline (planning-query and BEV conditioning: **0/37**
 feasible escapes each) — closing the tested frozen-planner plan-selection path; and (5) the
 union's **selectivity does not transfer blind** to a second planner — it is a property of
-tracking quality, not the decision rule alone; a subsequent causal-localization Stage 1 stopped
-at S0 before probes because the extraction/GT join and heldout data support failed; and (6) at
-full benchmark scale and 20 seed-paired runs per pair (799 episodes) the published UniAD
+tracking quality, not the decision rule alone; two subsequent causal-localization Stage 1s stopped
+before probes, first because extraction/GT integrity and heldout support failed, then because a
+hardened extraction passed S0 but lacked the frozen collapse/intervention count support; and (6)
+at full benchmark scale and 20 seed-paired runs per pair (799 episodes) the published UniAD
 baseline **independently reproduces** (pooled 2.12 vs 1.84) and the monitor lifts the pooled
 score to **2.91 (+0.783, 95% CI [+0.605, +0.928])**, with a threat-cleared latch release
 strictly dominating the plain union — while the deployment-metric effect vs the unmonitored
@@ -147,6 +148,14 @@ at UniAD's motion/planning bridge. It stopped before probes or interventions: ex
 1,507 non-reset rows, but the committed timestamp join failed on all rows and the frozen heldout
 split had 0 GT frames. That result is a data-support/integrity null, not evidence for or against
 the causal signal itself.
+
+The hardened successor repaired the artifact failure but still stopped before the causal test:
+availability and canary gates passed, full extraction joined **2,627/2,627** non-reset rows with
+zero error rows and stable tensor shapes, then the frozen count-floor gate failed
+(`collapse_positive` 0 in every split, `eligible_intervention_frame` 0, heldout
+`danger_positive` 17 below the 30-frame floor). That second null is narrower: it validates the
+non-evaluation extraction/counting surface, but says this exact manifest and label definition do
+not contain enough support to fit the registered probe or choose an activation direction.
 
 ## 7. Transfer: the monitor is not planner-agnostic, and the reason is precise
 

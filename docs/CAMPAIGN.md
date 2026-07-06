@@ -213,3 +213,16 @@ over-claim.** That arc, in order:
     fitting, activation-direction writing, calibration-grid replay, iteration-12 scoring, or
     closed-loop work. This is a data-support/integrity null, not evidence for or against the
     causal signal itself. [`../experiments/iter22_causal_planner_interpretability/RESULT.md`](../experiments/iter22_causal_planner_interpretability/RESULT.md).
+
+25. **Iter 23 — S0-hardened causal localization: artifact validity is repaired, then the
+    count-floor gate stops the run.** The hardened successor fixed the iteration-22 join failure:
+    the availability gate passed with 66 eligible non-evaluation scenes, the two-run canary was
+    deterministic, and full extraction passed S0 with **2,627/2,627** non-reset rows joined,
+    zero error rows, and stable motion/planning-bridge tensor shapes. The next frozen gate
+    failed before any learning or intervention: `collapse_positive` was **0** in fit,
+    calibration, and heldout; `eligible_intervention_frame` was **0**; and heldout
+    `danger_positive` was **17/30** below the minimum floor. Per the hypothesis, Stage 1 stopped
+    before probe fitting, activation-direction writing, intervention replay, iteration-12
+    scoring, or closed-loop work. This is a data-support null after a successful S0 repair, not
+    evidence that the causal signal is absent.
+    [`../experiments/iter23_s0_hardened_causal_localization/RESULT.md`](../experiments/iter23_s0_hardened_causal_localization/RESULT.md).

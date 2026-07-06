@@ -125,23 +125,18 @@ Act three — causal localization is now gated first on artifact validity:
 ```mermaid
 flowchart LR
   H21["iter 21 null<br/>BEV head: 0/37<br/>validity 23%"] --> Q["question<br/>where does<br/>collapse become causal?"]
-  Q --> P22["iter 22 Stage 1<br/>non-eval scenes only"]
-  P22 --> E22["baseline extraction<br/>1,507 frames"]
-  E22 --> F22["S0 fail<br/>1,507 missing-GT joins<br/>heldout rows 0"]
-  F22 --> N22["data-null published<br/>stop before probes"]
-  N22 --> I23["iter 23<br/>S0-hardened prereg"]
-  I23 --> C23["canary first<br/>join + determinism"]
-  C23 --> G23{"S0 pass?"}
-  G23 -- "no" --> X23["publish null<br/>stop"]
-  G23 -- "yes" --> P23["probe/intervention<br/>non-eval only"]
+  Q --> F22["iter 22 S0 fail<br/>1,507 missing-GT joins<br/>heldout rows 0"]
+  F22 --> I23["iter 23<br/>S0-hardened rerun"]
+  I23 --> C23["canary pass<br/>deterministic join"]
+  C23 --> S23["full S0 pass<br/>2,627/2,627 joins"]
+  S23 --> L23["count-floor fail<br/>collapse 0 all splits<br/>heldout danger 17/30"]
+  L23 --> N23["data-null published<br/>stop before probes"]
   classDef bad fill:#fdebec,stroke:#c62828,color:#3b1213;
   classDef ask fill:#fff8e1,stroke:#b28704,color:#3d2f00;
   classDef active fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
-  classDef gate fill:#f6f8fa,stroke:#57606a,color:#1f2328;
-  class H21,F22,N22,X23 bad;
+  class H21,F22,L23,N23 bad;
   class Q ask;
-  class P22,E22,I23,C23 active;
-  class G23,P23 gate;
+  class I23,C23,S23 active;
 ```
 
 The winning monitor is a **union of two individually-selective detectors**, chosen because the two
@@ -226,7 +221,7 @@ always-brake controls) and the formal-envelope baseline (iteration 13) on identi
 | 20 | **VAD tracker portability, offline gate** — replay committed VAD-union logs through the iteration-18 tracker defaults before any GPU | — (no closed-loop run) | V1 false-closing reduction **0/47 = 0%** · V2 side retention **4/6 = 66.7%** (bar 90%) · V3 frontal firing frames **79 → 90** | **pre-registered null — the gate refused the closed loop** | the simple association + smoothing tracker is **not** the VAD transfer repair: it removes no raw TTC fires, fails side retention, and increases frontal firing. The broad tracking-quality constraint remains, but this zero-GPU bridge is closed. [`iter20_vad_tracker_portability`](experiments/iter20_vad_tracker_portability/RESULT.md) |
 | 21 | **BEV-conditioned diversity head, offline gate** — the scene-level survivor from iteration 19, frozen planner untouched | Stage 1: 2,385-frame BEV corpus; 5.25M-param K=8 head, best val WTA **0.795**; eval extraction exact: 311/311, zero plan mismatches | **B1 FAIL: 0/37 feasible escapes** · B2 validity **574/2488 = 23.1%** · B3 benign error **1.449 m** · B4 **0/0** selectable escapes | **pre-registered null — the gate refused the closed loop** | BEV conditioning did not recover a deployable plan B: it produced invalid would-be escapes and failed benign fidelity as well. Narrow reading: this refutes the registered BEV head, not every possible learned planner; but the frozen-planner candidate-head path is closed for both planning-query and BEV variants tested. [`iter21_bev_diversity_head`](experiments/iter21_bev_diversity_head/RESULT.md) |
 | 22 | **causal planner interpretability, Stage 1** — one frozen motion/planning-bridge representation, non-evaluation scenes only, minimum counts, negative controls, and a frozen intervention grid | — (stopped before probes/interventions) | extraction produced 1,507 non-reset rows and 1,507 GT rows, but **1,507 missing-GT joins**; heldout GT rows **0** | **pre-registered data-null — S0 failed; no iter12 or closed loop authorized** | This did not test whether the bridge contains a causal collapse signal. It established that the launched Stage 1 artifact pair cannot support the registered test: timestamp precision mismatch broke the committed join, and the frozen manifest/staged-data combination had no heldout frames. A successor needs a fresh pre-registration. [`iter22_causal_planner_interpretability`](experiments/iter22_causal_planner_interpretability/RESULT.md) |
-| 23 | **S0-hardened causal localization** — same narrow motion/planning-bridge question, but artifact validity is the first research object | — (pre-registered; canary not yet run) | availability gate **PASS**: 66 eligible scenes, 39 fit / 13 calibration / 14 heldout, heldout keyframes **554** | **active pre-registration — next gate is the two-run canary** | Iter23 keeps iteration-12 untouched and fixes the iter22 failure mode up front: local frame availability, split support, join key, tensor-shape stability, and canary determinism must pass before probes or interventions can exist. [`iter23_s0_hardened_causal_localization`](experiments/iter23_s0_hardened_causal_localization/HYPOTHESIS.md) |
+| 23 | **S0-hardened causal localization** — same narrow motion/planning-bridge question, but artifact validity is the first research object | — (stopped before probes/interventions) | canary deterministic; full S0 **PASS** with **2,627/2,627** joins, zero error rows; count floor **FAIL**: collapse positives **0** in every split, heldout danger **17/30** | **pre-registered data-null — no probe, iter12, or closed loop authorized** | Iter23 repaired the iter22 join failure and proved the extraction/counting surface, then stopped honestly because the frozen non-evaluation corpus did not contain enough collapse-positive or eligible-intervention frames to test the causal mechanism. [`iter23_s0_hardened_causal_localization`](experiments/iter23_s0_hardened_causal_localization/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -300,7 +295,7 @@ selectivity/side-blindness trade of iterations 4–7, and the three refuted evas
 kept, with every number and link, in [`docs/CAMPAIGN.md`](docs/CAMPAIGN.md). The summary table
 above is the same history in one screen.
 
-**Net, stated plainly — 22 completed iterations plus an independent verification pass.** The
+**Net, stated plainly — 23 completed iterations plus an independent verification pass.** The
 **released union (iteration 15) is the best configuration** of the campaign: at the definitive
 20-run scale it lifts the independently reproduced baseline **2.12 → 2.91 (CI [+0.605, +0.928])**,
 keeps clean scenes identical to the unmonitored planner, and strictly dominates the plain union
@@ -314,8 +309,9 @@ firmly established — a committed stop is the best frontal response, and **thre
 designs (iters 9, 10, 11) were tested and honestly refuted**, all worse than stopping, the last
 one dangerous on false alarms (re-confirmed at n=20: 25% clean-scene collisions vs OFF's 10%).
 
-**What's next.** The benchmark campaign is complete and consolidated. Iteration 22 is now also
-closed as a Stage 1 data-null; iteration 23 is the active infrastructure-first successor:
+**What's next.** The benchmark campaign is complete and consolidated. Iterations 22 and 23 are
+both closed as Stage 1 data-nulls; no probe, intervention, iteration-12, or closed-loop work is
+authorized without a fresh pre-registration:
 
 - **The manuscript — full draft and compiled PDF committed**
   ([`docs/paper/`](docs/paper/MANUSCRIPT.md)); the arXiv submission package is built and the
@@ -326,14 +322,13 @@ closed as a Stage 1 data-null; iteration 23 is the active infrastructure-first s
   1,507 non-reset rows and the frozen heldout split had 0 GT frames. Stage 1 stopped before probe
   fitting, activation directions, intervention replay, iteration-12 scoring, or closed-loop work.
   Any successor requires a fresh pre-registration.
-- **Iteration 23 is pre-registered, not yet run.**
-  [`experiments/iter23_s0_hardened_causal_localization/HYPOTHESIS.md`](experiments/iter23_s0_hardened_causal_localization/HYPOTHESIS.md)
-  freezes an S0-hardened rerun of the narrow causal-localization question. The availability
-  manifest is committed and passes its gate: 66 eligible scenes and 554 heldout keyframes. The
-  extraction patch, feeder, canary/full run scripts, analyzer, and canonical hashing routine are
-  committed. The next permitted action is the two-run canary only. Full extraction, probe,
-  activation direction, iteration-12 scoring, and closed-loop work remain unauthorized until the
-  canary passes and its proof is committed.
+- **Iteration 23 is completed as a count-floor data-null.**
+  [`experiments/iter23_s0_hardened_causal_localization/RESULT.md`](experiments/iter23_s0_hardened_causal_localization/RESULT.md)
+  reports that the hardened S0 surface passed: deterministic canary, 2,627/2,627 full joins, zero
+  error rows, and stable primary tensor shapes. The next frozen gate failed before learning:
+  collapse-positive frames were 0 in every split, eligible-intervention frames were 0, and heldout
+  danger positives were 17 below the 30-frame floor. Stage 1 stopped before probe fitting,
+  activation directions, intervention replay, iteration-12 scoring, or closed-loop work.
 
 Closed en route, per the gate discipline: the per-frame routing predicates (iteration 17
 addendum — refuted offline), the tracking layer's own offline gate (iteration 18 — failed
@@ -341,7 +336,8 @@ by one frame at the frozen margin; the GPU stayed off), the planning-query diver
 (iteration 19 — 0/37 feasible escapes), the VAD tracker-portability gate (iteration 20 —
 0/47 raw TTC fires removed, side retention below bar), and the BEV-conditioned diversity head
 (iteration 21 — 0/37 feasible escapes, 23.1% candidate validity), and the first causal-localization
-Stage 1 (iteration 22 — S0 integrity/data-support null). The deployment flip remains proven
+Stage 1 (iteration 22 — S0 integrity/data-support null), and the hardened causal-localization
+rerun (iteration 23 — count-floor null after S0 pass). The deployment flip remains proven
 achievable and unclaimed.
 
 Completed lines, kept for the record:
@@ -443,7 +439,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter20_vad_tracker_portability/`](experiments/iter20_vad_tracker_portability) | VAD tracker portability — offline gate failed; no closed-loop run |
 | [`experiments/iter21_bev_diversity_head/`](experiments/iter21_bev_diversity_head) | BEV-conditioned diversity head — offline gate failed; no closed-loop run |
 | [`experiments/iter22_causal_planner_interpretability/`](experiments/iter22_causal_planner_interpretability) | causal planner interpretability Stage 1 — S0 data-null; stopped before probes, interventions, iter12, or closed loop |
-| [`experiments/iter23_s0_hardened_causal_localization/`](experiments/iter23_s0_hardened_causal_localization) | S0-hardened causal localization — active pre-registration; availability and canary/full extraction code committed; canary not yet run |
+| [`experiments/iter23_s0_hardened_causal_localization/`](experiments/iter23_s0_hardened_causal_localization) | S0-hardened causal localization — deterministic canary and full S0 pass, then count-floor data-null; stopped before probes, interventions, iter12, or closed loop |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/ITER22_HYPOTHESIS_DRAFT.md`](docs/research/ITER22_HYPOTHESIS_DRAFT.md) · [`docs/research/ITER22_ADVERSARIAL_REVIEW.md`](docs/research/ITER22_ADVERSARIAL_REVIEW.md) | planning-only iter22 draft and adversarial review; not pre-registrations |
