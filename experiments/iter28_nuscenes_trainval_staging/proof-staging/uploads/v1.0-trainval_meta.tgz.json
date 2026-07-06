@@ -1,0 +1,28 @@
+{
+  "archive": {
+    "canonical_name": "v1.0-trainval_meta.tgz",
+    "local_basename": "v1.0-trainval_meta (2).tgz",
+    "local_path": "/Users/danielwahnich/Downloads/v1.0-trainval_meta (2).tgz",
+    "local_sha256": "db48746b10e3544d5ef619eaa3d687e3960626fe1b4422ed856711da5aa7325b",
+    "local_size_bytes": 461678030,
+    "package": "metadata",
+    "remote_path": "/datasets/nuscenes-full/archives/v1.0-trainval_meta.tgz",
+    "remote_sha256": "db48746b10e3544d5ef619eaa3d687e3960626fe1b4422ed856711da5aa7325b",
+    "remote_size_bytes": 461678030,
+    "sha256_match": true,
+    "size_match": true
+  },
+  "command": "/opt/homebrew/opt/python@3.14/bin/python3.14 experiments/iter28_nuscenes_trainval_staging/stage_local_archive.py --package metadata --local-path '/Users/danielwahnich/Downloads/v1.0-trainval_meta (2).tgz'",
+  "destination": {
+    "dest_root": "/datasets/nuscenes-full",
+    "instance": "sentinel-gpu",
+    "project": "sunlit-unison-487018-b0",
+    "zone": "us-west1-a"
+  },
+  "experiment": "iter28_nuscenes_trainval_staging",
+  "hypothesis": "experiments/iter28_nuscenes_trainval_staging/HYPOTHESIS.md",
+  "preflight_stdout": "Filesystem         1B-blocks  Used     Available Use% Mounted on\n/dev/nvme0n2   1081101176832 32768 1026108788736   1% /datasets/nuscenes-full\n",
+  "source_kind": "local_path",
+  "timestamp_utc": "2026-07-06T20:47:35.946260+00:00",
+  "verify_stdout": "ITER28_REMOTE_SIZE 461678030\nITER28_REMOTE_SHA256 db48746b10e3544d5ef619eaa3d687e3960626fe1b4422ed856711da5aa7325b\n"
+}
