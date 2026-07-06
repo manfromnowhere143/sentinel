@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Mon Jul  6 19:37:12 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Mon Jul  6 21:20:55 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+614ad2e analysis: stage iter28 metadata archive proof
+dd62911 tools: add iter28 staging surface
+82971d1 docs: correct iter28 package scope
+218e4aa docs: pre-register iter28 trainval staging
+b5dbd90 handoff: refresh after iter27 result
 64cd874 analysis: publish iter27 storage pass
 97feaf7 tools: fix iter27 disk device path
 1f0eb73 handoff: refresh after iter27 surface
-d9481ae tools: add iter27 mount script
-ac61ff0 handoff: refresh after iter27 pre-registration
-233938b docs: pre-register iter27 storage provisioning
-abfb24e handoff: refresh after iter26 result
-58bcacc analysis: publish iter26 staging capacity null
 ```
 Working tree: CLEAN
 
@@ -38,6 +38,7 @@ Working tree: CLEAN
 - experiments/iter25_staged_data_inventory: RESULT PUBLISHED
 - experiments/iter26_data_staging_remedy: RESULT PUBLISHED
 - experiments/iter27_storage_provisioning: RESULT PUBLISHED
+- experiments/iter28_nuscenes_trainval_staging: PRE-REGISTERED, result pending
 - experiments/iter2_monitor: RESULT PUBLISHED
 - experiments/iter3_progress: RESULT PUBLISHED
 - experiments/iter4_gated: RESULT PUBLISHED
@@ -53,19 +54,28 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 19:38:18 up 2 days,  9:19,  0 users,  load average: 0.00, 0.00, 0.00
+ 21:22:01 up 2 days, 11:03,  0 users,  load average: 0.07, 0.04, 0.00
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-e23-extract.log
 /var/log/sentinel-e23-canary.log
-/dev/root       310G  287G   24G  93% /
+/dev/root       310G  293G   18G  95% /
 Swap:          8.0Gi        60Mi       7.9Gi
 ```
 If any docker container named renderer/model/ncap (or a random-name ncap) is up, a run
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
+## Live iter28 transfer note
+- `v1.0-trainval_meta.tgz` is staged and proof is committed in `614ad2e`.
+- `v1.0-trainval03_blobs.tgz` upload is in progress from local
+  `/Users/danielwahnich/Downloads/v1.0-trainval03_blobs.tgz` to remote temp path
+  `/tmp/iter28-upload-v1.0-trainval03_blobs.tgz`, then
+  `/datasets/nuscenes-full/archives/v1.0-trainval03_blobs.tgz`.
+- Do not delete the local part 3 archive until remote bytes and SHA256 match and its proof JSON
+  is committed.
+
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter27_storage_provisioning/RESULT.md — read it before opening new work.
+- Newest pre-registration: experiments/iter28_nuscenes_trainval_staging/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
