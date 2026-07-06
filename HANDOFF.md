@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Mon Jul  6 19:19:14 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Mon Jul  6 19:21:40 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+d9481ae tools: add iter27 mount script
+ac61ff0 handoff: refresh after iter27 pre-registration
 233938b docs: pre-register iter27 storage provisioning
 abfb24e handoff: refresh after iter26 result
 58bcacc analysis: publish iter26 staging capacity null
 8119b6c handoff: refresh after iter26 surface
 2032b8b tools: add iter26 staging discovery
 29d6bbb handoff: refresh after iter26 pre-registration
-277779c docs: pre-register iter26 data staging remedy
-fcd8b5f handoff: refresh after iter25 result
 ```
 Working tree: CLEAN
 
@@ -53,7 +53,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 19:20:22 up 2 days,  9:01,  0 users,  load average: 0.00, 0.00, 0.00
+ 19:22:47 up 2 days,  9:03,  0 users,  load average: 0.00, 0.00, 0.00
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-e23-extract.log
