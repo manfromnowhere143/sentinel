@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Mon Jul  6 18:57:16 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Mon Jul  6 19:05:39 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+277779c docs: pre-register iter26 data staging remedy
+fcd8b5f handoff: refresh after iter25 result
 741e609 analysis: publish iter25 inventory null
 9a96b66 handoff: refresh after iter25 surface
 1a61c9f tools: add iter25 inventory surface
 f15aa6b handoff: refresh after iter25 pre-registration
 66e1315 docs: pre-register iter25 staged data inventory
 3eaf186 handoff: refresh after iter24 result
-80498c8 analysis: publish iter24 availability null
-06c1a03 handoff: refresh after iter24 surface
 ```
 Working tree: CLEAN
 
@@ -36,6 +36,7 @@ Working tree: CLEAN
 - experiments/iter23_s0_hardened_causal_localization: RESULT PUBLISHED
 - experiments/iter24_risk_support_atlas: RESULT PUBLISHED
 - experiments/iter25_staged_data_inventory: RESULT PUBLISHED
+- experiments/iter26_data_staging_remedy: PRE-REGISTERED, result pending
 - experiments/iter2_monitor: RESULT PUBLISHED
 - experiments/iter3_progress: RESULT PUBLISHED
 - experiments/iter4_gated: RESULT PUBLISHED
@@ -51,7 +52,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 18:58:23 up 2 days,  8:39,  0 users,  load average: 0.00, 0.01, 0.00
+ 19:06:48 up 2 days,  8:47,  0 users,  load average: 0.00, 0.00, 0.00
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-e23-extract.log
@@ -63,7 +64,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter25_staged_data_inventory/RESULT.md — read it before opening new work.
+- Newest pre-registration: experiments/iter26_data_staging_remedy/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
