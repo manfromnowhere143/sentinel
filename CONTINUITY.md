@@ -104,4 +104,9 @@ events to prepare; they are a property the repository always has.
 - 2026-07-06: Codex — gcloud auth lapsed while iter21 extraction was near the final stretch;
   last verified healthy at 2200 frames with no error markers. Ask Daniel to run `gcloud auth login`,
   then check the log/done marker before any train/eval step; do not relaunch blindly.
+- 2026-07-06: Codex — iteration 21 Stage-1 BEV train extraction completed cleanly
+  (`FEEDER_DONE frames=2385`, `BEV_EXTRACT_DONE`); proof copied under
+  experiments/iter21_bev_diversity_head/proof-extract with the 124 MB BEV gzip split into
+  80 MB parts. Next permitted step: train the committed BEV head; no eval/gate run before
+  training artifact is committed.
 - (append one line per shift: dates, operator, what changed, box state at exit)
