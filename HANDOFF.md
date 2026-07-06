@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Mon Jul  6 17:39:41 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Mon Jul  6 17:42:30 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+152df8a tools: make handoff GPU state explicit
+eb22748 handoff: refresh after iter23 result
 2f0a115 analysis: publish iter23 count-floor null
 8431802 data: add iter23 full extraction proof
 344bb06 handoff: refresh after iter23 canary proof
 2e82cc2 data: add iter23 canary proof
 01b2506 handoff: refresh before iter23 canary
 c268d3d tools: add iter23 s0 canary extraction surface
-1bee035 handoff: refresh after iter23 availability manifest
-0ddec85 data: add iter23 availability manifest
 ```
 Working tree: CLEAN
 
@@ -49,7 +49,8 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 17:40:48 up 2 days,  7:21,  0 users,  load average: 0.00, 0.00, 0.00
+ 17:43:36 up 2 days,  7:24,  0 users,  load average: 0.00, 0.00, 0.00
+GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-e23-extract.log
 /var/log/sentinel-e23-canary.log
