@@ -176,6 +176,12 @@ governed sentinel bucket holds only metadata/map/CAN bus artifacts, and the GPU 
 **25.125 GB** free against the frozen **365.975 GB** capacity bar. Therefore the next scientific
 step is not another model run; it is a pre-registered storage/staging operation.
 
+The storage half of that operation is now complete. Iteration 27 provisioned a 1024 GB
+`pd-balanced` disk, mounted it at `/datasets/nuscenes-full`, and proved **1,026,108,792,832**
+bytes free with 0 dataset bytes moved and 0 Docker/model/NeuroNCAP runs. This clears the capacity
+blocker only. It does not stage nuScenes data or authorize an availability inventory rerun; those
+require a separate data-staging pre-registration.
+
 ## 7. Transfer: the monitor is not planner-agnostic, and the reason is precise
 
 On a frozen VAD (after four documented fork-level runtime fixes), the union prevents exactly the

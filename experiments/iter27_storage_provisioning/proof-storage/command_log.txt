@@ -1,0 +1,111 @@
+Iteration 27 storage provisioning command log
+
+Context:
+- Hypothesis committed before disk creation/attach/format/mount.
+- Target project: sunlit-unison-487018-b0
+- Target zone: us-west1-a
+- Target instance: sentinel-gpu
+- Target disk: sentinel-nuscenes-data-1tb
+- Target mount: /datasets/nuscenes-full
+
+1. Describe pre-existing disk
+
+Command:
+gcloud compute disks describe sentinel-nuscenes-data-1tb --zone us-west1-a --project sunlit-unison-487018-b0 --format=json
+
+Result:
+404 / resource not found. The named disk did not exist before iter27 provisioning.
+
+2. Create target disk
+
+Command:
+gcloud compute disks create sentinel-nuscenes-data-1tb --size=1024GB --type=pd-balanced --zone us-west1-a --project sunlit-unison-487018-b0
+
+Result:
+Created [https://www.googleapis.com/compute/v1/projects/sunlit-unison-487018-b0/zones/us-west1-a/disks/sentinel-nuscenes-data-1tb].
+
+NAME                         ZONE        SIZE_GB  TYPE         STATUS
+sentinel-nuscenes-data-1tb   us-west1-a  1024     pd-balanced  READY
+
+3. Attach target disk
+
+Command:
+gcloud compute instances attach-disk sentinel-gpu --disk sentinel-nuscenes-data-1tb --zone us-west1-a --project sunlit-unison-487018-b0
+
+Result:
+Updated [https://www.googleapis.com/compute/v1/projects/sunlit-unison-487018-b0/zones/us-west1-a/instances/sentinel-gpu].
+
+4. First mount attempt from committed script
+
+Command:
+gcloud compute scp experiments/iter27_storage_provisioning/mount_storage.sh sentinel-gpu:/tmp/iter27_mount_storage.sh --zone us-west1-a --project sunlit-unison-487018-b0 --tunnel-through-iap --quiet
+
+Result:
+copy succeeded.
+
+Command:
+gcloud compute ssh sentinel-gpu --zone us-west1-a --project sunlit-unison-487018-b0 --tunnel-through-iap --quiet --command "sudo bash /tmp/iter27_mount_storage.sh"
+
+Result:
+exit code 1 before format/mount markers. Diagnosis showed GCE exposed the attached disk by device
+name as /dev/disk/by-id/google-persistent-disk-1, not
+/dev/disk/by-id/google-sentinel-nuscenes-data-1tb.
+
+Read-only diagnosis:
+- gcloud instance describe showed source disk sentinel-nuscenes-data-1tb attached as
+  deviceName persistent-disk-1, diskSizeGb 1024, interface NVME, mode READ_WRITE.
+- remote /dev/disk/by-id listed google-persistent-disk-1 -> ../../nvme0n2.
+- remote lsblk showed nvme0n2 present without filesystem or mountpoint.
+
+5. Correct committed script and rerun mount
+
+Commit:
+97feaf7 tools: fix iter27 disk device path
+
+Command:
+gcloud compute scp experiments/iter27_storage_provisioning/mount_storage.sh sentinel-gpu:/tmp/iter27_mount_storage.sh --zone us-west1-a --project sunlit-unison-487018-b0 --tunnel-through-iap --quiet
+
+Result:
+copy succeeded.
+
+Command:
+gcloud compute ssh sentinel-gpu --zone us-west1-a --project sunlit-unison-487018-b0 --tunnel-through-iap --quiet --command "sudo bash /tmp/iter27_mount_storage.sh"
+
+Result:
+ITER27_DISK_BY_ID /dev/disk/by-id/google-persistent-disk-1
+ITER27_FORMAT_EMPTY_DISK
+Warning: label too long; will be truncated to 'sentinel-nuscene'
+
+mke2fs 1.46.5 (30-Dec-2021)
+Creating filesystem with 268435456 4k blocks and 67108864 inodes
+Filesystem UUID: 9a98277e-b21f-4ffc-8f14-3f2235b43103
+Creating journal (262144 blocks): done
+Writing superblocks and filesystem accounting information: done
+
+ITER27_MOUNTED
+ITER27_FSTAB_ADDED
+ITER27_DF_BYTES
+Filesystem         1B-blocks  Used     Available Use% Mounted on
+/dev/nvme0n2   1081101176832 28672 1026108792832   1% /datasets/nuscenes-full
+ITER27_DF_HUMAN
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/nvme0n2   1007G   28K  956G   1% /datasets/nuscenes-full
+ITER27_LSBLK
+nvme0n2                                                                           955.6G     0% /datasets/nuscenes-full
+ITER27_BLKID
+/dev/disk/by-id/google-persistent-disk-1: LABEL="sentinel-nuscene" UUID="9a98277e-b21f-4ffc-8f14-3f2235b43103" BLOCK_SIZE="4096" TYPE="ext4"
+ITER27_FSTAB_LINE
+UUID=9a98277e-b21f-4ffc-8f14-3f2235b43103 /datasets/nuscenes-full ext4 defaults,nofail 0 2
+ITER27_DOCKER_PS
+
+6. Post-mount proof capture
+
+Commands:
+gcloud compute disks describe sentinel-nuscenes-data-1tb --zone us-west1-a --project sunlit-unison-487018-b0 --format=json
+gcloud compute instances describe sentinel-gpu --zone us-west1-a --project sunlit-unison-487018-b0 --format='json(name,status,disks)'
+gcloud compute ssh sentinel-gpu --zone us-west1-a --project sunlit-unison-487018-b0 --tunnel-through-iap --quiet --command "sudo bash -lc 'echo ITER27_POST_DF_BYTES; df -B1 /datasets/nuscenes-full; echo ITER27_POST_DF_HUMAN; df -h /datasets/nuscenes-full; echo ITER27_POST_LSBLK; lsblk -f; echo ITER27_POST_BLKID; blkid /dev/disk/by-id/google-persistent-disk-1; echo ITER27_POST_FINDMNT; findmnt /datasets/nuscenes-full; echo ITER27_POST_FSTAB; grep nuscenes-full /etc/fstab; echo ITER27_POST_DOCKER_PS; docker ps --format \"{{.Names}}\"; echo ITER27_POST_ROOT_LIST; ls -la /datasets/nuscenes-full'"
+
+Artifacts:
+- disk_describe.json
+- instance_disks.json
+- mount_evidence.txt

@@ -257,3 +257,13 @@ over-claim.** That arc, in order:
     before staging; the GPU had only **25.125 GB** free. No bytes were downloaded or copied, and
     no model work ran. The next action is a storage/staging pre-registration, not a model run.
     [`../experiments/iter26_data_staging_remedy/RESULT.md`](../experiments/iter26_data_staging_remedy/RESULT.md).
+
+29. **Iter 27 — storage provisioning: the capacity blocker is cleared, but no data is staged.**
+    The registered storage gate created/attached/formatted/mounted the 1024 GB
+    `sentinel-nuscenes-data-1tb` disk at `/datasets/nuscenes-full`. The mounted filesystem has
+    **1,026,108,792,832** bytes available, above the 900 GB bar. No dataset bytes were downloaded,
+    copied, moved, or extracted, and no Docker/model/NeuroNCAP run was launched. The next action is
+    a fresh data-staging pre-registration for the official nuScenes trainval blobs; this pass does
+    not authorize a download, inventory rerun, model extraction, labels, probes, iteration-12
+    scoring, selector evaluation, or closed loop.
+    [`../experiments/iter27_storage_provisioning/RESULT.md`](../experiments/iter27_storage_provisioning/RESULT.md).

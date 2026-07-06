@@ -128,12 +128,14 @@ events to prepare; they are a property the repository always has.
   extraction, label atlas, probe fitting, activation direction, iteration-12 scoring, selector
   evaluation, or closed-loop run is authorized from iter26. Any successor needs a fresh
   storage/staging pre-registration.
-- Iteration 27 is now pre-registered:
-  experiments/iter27_storage_provisioning/HYPOTHESIS.md. It authorizes only storage provisioning:
-  create/attach/format/mount one 1024 GB `pd-balanced` disk named `sentinel-nuscenes-data-1tb` at
-  `/datasets/nuscenes-full` and prove at least 900 GB free. It authorizes no nuScenes download,
-  data copy, archive extraction, inventory rerun, model extraction, label atlas, probe fitting,
-  activation direction, iteration-12 scoring, selector evaluation, or closed-loop work.
+- Iteration 27 concluded:
+  experiments/iter27_storage_provisioning/RESULT.md. It was a storage-provisioning pass only:
+  `sentinel-nuscenes-data-1tb`, a 1024 GB `pd-balanced` disk, is mounted at
+  `/datasets/nuscenes-full` with 1,026,108,792,832 bytes available. It moved 0 dataset bytes and
+  launched 0 Docker/model/NeuroNCAP runs. It authorizes only a later data-staging
+  pre-registration, not nuScenes download/copy/extraction, inventory rerun, model extraction,
+  label atlas, probe fitting, activation direction, iteration-12 scoring, selector evaluation, or
+  closed-loop work.
 - Iter22 planning artifacts now exist under docs/research/: ITER22_HYPOTHESIS_DRAFT.md and
   ITER22_ADVERSARIAL_REVIEW.md. They are planning-only, not pre-registrations. Owner guidance:
   do not promote the broad A0-A8 draft directly; use the adversarial review's tighter Stage
@@ -296,4 +298,9 @@ events to prepare; they are a property the repository always has.
   1024 GB persistent disk at `/datasets/nuscenes-full`; no data download/copy/extraction,
   inventory rerun, model extraction, label atlas, probe fitting, activation direction,
   iteration-12 scoring, selector evaluation, or closed-loop work launched yet.
+- 2026-07-06: Codex — ran iteration 27 storage provisioning. Created/attached/formatted/mounted
+  `sentinel-nuscenes-data-1tb` at `/datasets/nuscenes-full`; free space is 1,026,108,792,832
+  bytes, above the 900 GB bar. No dataset bytes moved and no Docker/model/NeuroNCAP run launched.
+  Result published as a storage-only pass; next step requires a fresh data-staging
+  pre-registration before any nuScenes download/copy/extraction or inventory rerun.
 - (append one line per shift: dates, operator, what changed, box state at exit)

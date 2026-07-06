@@ -1,0 +1,19 @@
+{
+  "creationTimestamp": "2026-07-06T12:21:09.417-07:00",
+  "enableConfidentialCompute": false,
+  "id": "4710149589831892682",
+  "kind": "compute#disk",
+  "labelFingerprint": "42WmSpB8rSM=",
+  "lastAttachTimestamp": "2026-07-06T12:21:18.859-07:00",
+  "name": "sentinel-nuscenes-data-1tb",
+  "physicalBlockSizeBytes": "4096",
+  "satisfiesPzi": true,
+  "selfLink": "https://www.googleapis.com/compute/v1/projects/sunlit-unison-487018-b0/zones/us-west1-a/disks/sentinel-nuscenes-data-1tb",
+  "sizeGb": "1024",
+  "status": "READY",
+  "type": "https://www.googleapis.com/compute/v1/projects/sunlit-unison-487018-b0/zones/us-west1-a/diskTypes/pd-balanced",
+  "users": [
+    "https://www.googleapis.com/compute/v1/projects/sunlit-unison-487018-b0/zones/us-west1-a/instances/sentinel-gpu"
+  ],
+  "zone": "https://www.googleapis.com/compute/v1/projects/sunlit-unison-487018-b0/zones/us-west1-a"
+}

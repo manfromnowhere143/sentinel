@@ -1,0 +1,33 @@
+ITER27_POST_DF_BYTES
+Filesystem         1B-blocks  Used     Available Use% Mounted on
+/dev/nvme0n2   1081101176832 28672 1026108792832   1% /datasets/nuscenes-full
+ITER27_POST_DF_HUMAN
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/nvme0n2   1007G   28K  956G   1% /datasets/nuscenes-full
+ITER27_POST_LSBLK
+NAME         FSTYPE   FSVER LABEL            UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
+loop0        squashfs 4.0                                                               0   100% /snap/core20/2866
+loop1        squashfs 4.0                                                               0   100% /snap/core24/1643
+loop2        squashfs 4.0                                                               0   100% /snap/google-cloud-cli/473
+loop3        squashfs 4.0                                                               0   100% /snap/google-cloud-cli/475
+loop4        squashfs 4.0                                                               0   100% /snap/lxd/38800
+loop5        squashfs 4.0                                                               0   100% /snap/snapd/26865
+loop6        squashfs 4.0                                                               0   100% /snap/snapd/27406
+nvme0n1                                                                                          
+├─nvme0n1p1  ext4     1.0   cloudimg-rootfs  883080ab-ae1d-4e8a-956c-f0eebd839878   23.4G    92% /
+├─nvme0n1p14                                                                                     
+└─nvme0n1p15 vfat     FAT32 UEFI             6C34-9E16                              98.3M     6% /boot/efi
+nvme0n2      ext4     1.0   sentinel-nuscene 9a98277e-b21f-4ffc-8f14-3f2235b43103  955.6G     0% /datasets/nuscenes-full
+ITER27_POST_BLKID
+/dev/disk/by-id/google-persistent-disk-1: LABEL="sentinel-nuscene" UUID="9a98277e-b21f-4ffc-8f14-3f2235b43103" BLOCK_SIZE="4096" TYPE="ext4"
+ITER27_POST_FINDMNT
+TARGET                  SOURCE       FSTYPE OPTIONS
+/datasets/nuscenes-full /dev/nvme0n2 ext4   rw,relatime
+ITER27_POST_FSTAB
+UUID=9a98277e-b21f-4ffc-8f14-3f2235b43103 /datasets/nuscenes-full ext4 defaults,nofail 0 2
+ITER27_POST_DOCKER_PS
+ITER27_POST_ROOT_LIST
+total 24
+drwxr-xr-x 3 root          root           4096 Jul  6 19:26 .
+drwxr-xr-x 4 danielwahnich danielwahnich  4096 Jul  6 19:26 ..
+drwx------ 2 root          root          16384 Jul  6 19:26 lost+found

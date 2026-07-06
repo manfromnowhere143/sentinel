@@ -76,12 +76,14 @@ The answer is yes: the needed data is the official nuScenes v1.0 trainval sensor
 (292.78 GB archive budget), but the current GPU disk has only 25.125 GB free against a frozen
 365.975 GB minimum. Next action is storage provisioning plus a later staging pre-registration.
 
-The storage step is now pre-registered:
-[`../experiments/iter27_storage_provisioning/HYPOTHESIS.md`](../experiments/iter27_storage_provisioning/HYPOTHESIS.md).
-Iteration 27 may create/attach/format/mount one 1024 GB persistent disk at
-`/datasets/nuscenes-full` and prove at least 900 GB free. It may move 0 dataset bytes and
-authorizes no download, inventory rerun, model extraction, label atlas, probe fitting, activation
-intervention, iteration-12 scoring, selector evaluation, or closed-loop work.
+The storage step is now completed:
+[`../experiments/iter27_storage_provisioning/RESULT.md`](../experiments/iter27_storage_provisioning/RESULT.md).
+Iteration 27 created/attached/formatted/mounted one 1024 GB persistent disk at
+`/datasets/nuscenes-full` and proved `1,026,108,792,832` bytes available. It moved 0 dataset bytes
+and launched 0 Docker/model/NeuroNCAP runs. The next permitted action is a fresh data-staging
+pre-registration for the official nuScenes v1.0 trainval sensor file blobs; iteration 27 itself
+authorizes no download, extraction, inventory rerun, model extraction, label atlas, probe fitting,
+activation intervention, iteration-12 scoring, selector evaluation, or closed-loop work.
 
 ## Line 1 — a diversity-trained candidate head under the runtime selector
 
@@ -190,7 +192,8 @@ measurement task. It waits only for the power run's final numbers so results are
    line needs a fresh HYPOTHESIS.md before data.
 8. Iteration 25 is closed as a staged-data inventory infrastructure-null.
 9. Iteration 26 is closed as a data-staging capacity-null.
-10. Iteration 27 is the only active pre-registration. It authorizes storage provisioning only: a
-    new/attached 1 TB persistent disk mounted at `/datasets/nuscenes-full`. No dataset download,
-    copy, extraction, inventory rerun, model extraction, label atlas, probe fitting, activation
-    intervention, iteration-12 scoring, selector evaluation, or closed-loop work is authorized.
+10. Iteration 27 is closed as a storage-provisioning pass. The 1 TB persistent disk is mounted at
+    `/datasets/nuscenes-full` with `1,026,108,792,832` bytes available, and 0 dataset bytes moved.
+    A successor must pre-register data staging before any download/copy/extraction, inventory
+    rerun, model extraction, label atlas, probe fitting, activation intervention, iteration-12
+    scoring, selector evaluation, or closed-loop work.
