@@ -38,7 +38,7 @@ for d in sorted(glob.glob('experiments/*/')):
 print('\n## GPU box quick-state (live probe)\n```')
 probe = sh(
     'timeout 60 gcloud compute ssh sentinel-gpu --zone us-west1-a --tunnel-through-iap '
-    '--quiet --command "hostname; uptime; docker ps --format \'{{.Names}}\' | head -4; '
+    '--quiet --command "hostname; uptime; sudo docker ps --format \'{{.Names}}\t{{.Status}}\' | head -6; '
     'ls -t /var/log/sentinel-*.log | head -3; df -h / | tail -1; free -h | tail -1" 2>/dev/null',
     timeout=70)
 print(probe if probe else 'BOX UNREACHABLE (auth lapsed? box down?) — ask Daniel: ! gcloud auth login')
@@ -53,5 +53,5 @@ for f in ('docs/NEXT_PHASE.md', 'docs/paper/MANUSCRIPT.md'):
     if os.path.exists(f):
         print(f'- {f}: check its status ledger/decision rules.')
 print('\n## Verification before you act')
-print('- Run: python3 -m pytest -q && ruff check . && python3 scripts/validate_docs.py')
+print('- Run: ruff check . && pytest -q && python3 scripts/validate_docs.py')
 print('- All three must pass before and after your changes; CI enforces the same on push.')

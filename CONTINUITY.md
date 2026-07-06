@@ -112,4 +112,9 @@ events to prepare; they are a property the repository always has.
 - 2026-07-06: Codex — iteration 21 BEV head training completed cleanly (`BEV_TRAIN_DONE`);
   checkpoint committed under proof-train, K=8/H=6, 5.25M params, best validation WTA 0.795.
   Next permitted step: evaluation-only BEV extraction, then committed gate run.
+- 2026-07-06: Codex — iteration 21 evaluation-only BEV extraction launched on sentinel-gpu;
+  run IN FLIGHT if `/var/log/sentinel-bev-evalextract.log` lacks
+  `E21_BEV_EVAL_EXTRACT_DONE`; patch marker verified and first frontal pair started. Expected
+  artifacts under `/opt/sentinel-stack/UniAD/sentinel_bev_evalextract*`; do not relaunch while
+  renderer/model/ncap containers are up.
 - (append one line per shift: dates, operator, what changed, box state at exit)
