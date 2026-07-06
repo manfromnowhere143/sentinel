@@ -1,0 +1,1 @@
+python3 /tmp/make_availability_manifest_iter24.py --meta /datasets/nuscenes/v1.0-trainval --data-root /datasets/nuscenes --train-scenes /tmp/official_train_scenes_iter24.txt --out-dir /tmp/iter24_manifest

@@ -1,0 +1,39 @@
+Iter24 availability manifest runbook
+
+Purpose:
+Generate the availability and split manifest only. This is metadata/file-existence work; it does
+not launch renderer/model/ncap containers, does not run canary or full extraction, and does not fit
+probes or write activation directions.
+
+Remote host:
+sentinel-gpu
+
+Remote working directory used for committed firewall-relative paths:
+/tmp/iter24_firewall_root
+
+Committed firewall inputs staged under that directory before the manifest command:
+experiments/iter22_causal_planner_interpretability/split_manifest.json
+experiments/iter22_causal_planner_interpretability/proof-extract/sentinel_e22_stage1_gt.jsonl.gz
+experiments/iter23_s0_hardened_causal_localization/availability_manifest.json
+experiments/iter23_s0_hardened_causal_localization/proof-full-extract/sentinel_e23_stage1_gt.jsonl.gz
+
+Script and train-scene source staged on the remote host:
+/tmp/make_availability_manifest_iter24.py
+/tmp/official_train_scenes_iter24.txt
+
+Manifest command:
+cd /tmp/iter24_firewall_root
+python3 /tmp/make_availability_manifest_iter24.py --meta /datasets/nuscenes/v1.0-trainval --data-root /datasets/nuscenes --train-scenes /tmp/official_train_scenes_iter24.txt --out-dir /tmp/iter24_manifest
+
+Outputs copied back:
+/tmp/iter24_manifest/availability_manifest.json
+/tmp/iter24_manifest/availability_manifest.sha256
+/tmp/iter24_manifest/availability_manifest.command.txt
+/tmp/iter24_manifest/availability_manifest.exclusions.txt
+
+Observed result:
+availability_gate.pass=false
+eligible_scene_count=0
+candidate_scene_count_after_exclusions=582
+total_keyframe_count=0
+heldout_keyframe_count=0

@@ -100,17 +100,15 @@ events to prepare; they are a property the repository always has.
   `eligible_intervention_frame` was 0, and heldout `danger_positive` was 17 below the 30-frame
   floor. No probe fitting, activation direction, intervention replay, iteration-12 scoring, or
   closed-loop run is authorized from iter23. Any successor needs a fresh pre-registration.
-- Iteration 24 is now pre-registered:
-  experiments/iter24_risk_support_atlas/HYPOTHESIS.md. It is a fresh risk-support atlas, not a
-  causal intervention: it must exclude iter22/iter23 known scenes, NeuroNCAP/evaluation scenes,
-  and iteration-12 identities, then prove enough fresh low-diversity hazard and benign-control
-  support before any later causal-localization pre-registration can exist. No manifest, extraction
-  GPU run, probe fitting, activation direction, iteration-12 scoring, selector evaluation, or
-  closed-loop work has launched yet. The iter24 prerequisite code surface is committed: manifest
-  generator with known-data firewall, namespaced extraction patch/feeder/run scripts, S0 analyzer,
-  label-atlas analyzer, and canonical hashing routine. Next permitted action: generate and commit
-  the availability manifest only; no model extraction before that manifest is committed and its
-  availability bar passes.
+- Iteration 24 concluded:
+  experiments/iter24_risk_support_atlas/RESULT.md. It was a fresh risk-support atlas, not a causal
+  intervention. The known-data firewall ran first and excluded iter22/iter23 scenes plus
+  NeuroNCAP / iteration-12 evaluation scenes, but the availability bar FAILED before model
+  extraction: 0 eligible fresh scenes, 0 planned keyframes, and 0 heldout keyframes after 582
+  post-firewall candidate train scenes all missed the local six-camera file-existence check. No
+  canary extraction, full extraction, label atlas, probe fitting, activation direction,
+  iteration-12 scoring, selector evaluation, or closed-loop run is authorized from iter24. Any
+  successor needs a fresh pre-registration and an explicit data-staging plan before extraction.
 - Iter22 planning artifacts now exist under docs/research/: ITER22_HYPOTHESIS_DRAFT.md and
   ITER22_ADVERSARIAL_REVIEW.md. They are planning-only, not pre-registrations. Owner guidance:
   do not promote the broad A0-A8 draft directly; use the adversarial review's tighter Stage
@@ -233,4 +231,10 @@ events to prepare; they are a property the repository always has.
   scripts, S0 analyzer with dtype/candidate/alpha checks, label-atlas analyzer, and canonical
   hashing routine. No manifest generation, model extraction, GPU container, probe fitting,
   activation direction, iteration-12 scoring, selector evaluation, or closed-loop run launched.
+- 2026-07-06: Codex — generated the iteration 24 availability manifest on sentinel-gpu as
+  metadata/file-existence work only, with committed iter22/iter23 firewall inputs staged under
+  `/tmp/iter24_firewall_root`. Availability FAILED before any model extraction: 0 eligible scenes,
+  0 planned keyframes, and 0 heldout keyframes after 582 post-firewall candidate train scenes all
+  missed local six-camera files. Null published; no canary/full extraction, probe fitting,
+  activation direction, iteration-12 scoring, selector evaluation, or closed-loop run authorized.
 - (append one line per shift: dates, operator, what changed, box state at exit)

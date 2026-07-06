@@ -226,3 +226,15 @@ over-claim.** That arc, in order:
     scoring, or closed-loop work. This is a data-support null after a successful S0 repair, not
     evidence that the causal signal is absent.
     [`../experiments/iter23_s0_hardened_causal_localization/RESULT.md`](../experiments/iter23_s0_hardened_causal_localization/RESULT.md).
+
+26. **Iter 24 — fresh risk-support atlas: the known-data firewall works, then availability
+    stops the run.** The registered support-atlas prerequisite excluded iter22/iter23 known
+    scenes plus NeuroNCAP / iteration-12 evaluation scenes before any model extraction. The
+    availability manifest then failed the first bar: after 582 post-firewall train-scene
+    candidates, there were **0 eligible scenes**, **0 planned keyframes**, and **0 heldout
+    keyframes** because every candidate keyframe missed the local six-camera file-existence
+    check. Per the hypothesis, iteration 24 stopped before canary extraction, full extraction,
+    label-atlas computation, probe fitting, activation-direction writing, iteration-12 scoring,
+    selector evaluation, or closed-loop work. This is a staged-data availability null, not
+    evidence for or against the causal signal.
+    [`../experiments/iter24_risk_support_atlas/RESULT.md`](../experiments/iter24_risk_support_atlas/RESULT.md).

@@ -4,8 +4,8 @@
 collision it is about to cause, and intervenes — measured where it actually matters: in closed
 loop, by whether the car crashes *and whether it can still drive*.**
 
-> **Honest status up front (23 completed iterations + an independent verification pass + the
-> full official benchmark at power + one active risk-support pre-registration):** the introspective signal predicts the planner's collisions (AUROC 0.83). On the
+> **Honest status up front (24 completed iterations + an independent verification pass + the
+> full official benchmark at power):** the introspective signal predicts the planner's collisions (AUROC 0.83). On the
 > complete 14-scene NeuroNCAP set at **20 seed-paired runs per pair** (799 episodes, the power
 > measurement), the unmonitored UniAD baseline **independently reproduces** (pooled 2.12 vs the
 > published 1.84 — to the verified literature, a first), and the best configuration — the
@@ -44,7 +44,7 @@ GPUs.
 
 ## The result
 
-Twenty-three documented iterations under a frozen campaign pre-registration converge on one configuration — the
+Twenty-four documented iterations under a frozen campaign pre-registration converge on one configuration — the
 **released union** (two label-free geometric detectors + a threat-cleared latch release) —
 measured on the **complete official 14-scene NeuroNCAP set at 20 seed-paired runs per pair**
 (799 episodes; hypotheses frozen before the run; the first 6 indices of every pair reproduce the
@@ -131,12 +131,14 @@ flowchart LR
   C23 --> S23["full S0 pass<br/>2,627/2,627 joins"]
   S23 --> L23["count-floor fail<br/>collapse 0 all splits<br/>heldout danger 17/30"]
   L23 --> N23["data-null published<br/>stop before probes"]
+  N23 --> A24["iter 24<br/>fresh risk-support atlas"]
+  A24 --> Z24["availability-null<br/>0 fresh eligible scenes<br/>582 candidates missing cameras"]
   classDef bad fill:#fdebec,stroke:#c62828,color:#3b1213;
   classDef ask fill:#fff8e1,stroke:#b28704,color:#3d2f00;
   classDef active fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
-  class H21,F22,L23,N23 bad;
+  class H21,F22,L23,N23,Z24 bad;
   class Q ask;
-  class I23,C23,S23 active;
+  class I23,C23,S23,A24 active;
 ```
 
 The winning monitor is a **union of two individually-selective detectors**, chosen because the two
@@ -222,7 +224,7 @@ always-brake controls) and the formal-envelope baseline (iteration 13) on identi
 | 21 | **BEV-conditioned diversity head, offline gate** — the scene-level survivor from iteration 19, frozen planner untouched | Stage 1: 2,385-frame BEV corpus; 5.25M-param K=8 head, best val WTA **0.795**; eval extraction exact: 311/311, zero plan mismatches | **B1 FAIL: 0/37 feasible escapes** · B2 validity **574/2488 = 23.1%** · B3 benign error **1.449 m** · B4 **0/0** selectable escapes | **pre-registered null — the gate refused the closed loop** | BEV conditioning did not recover a deployable plan B: it produced invalid would-be escapes and failed benign fidelity as well. Narrow reading: this refutes the registered BEV head, not every possible learned planner; but the frozen-planner candidate-head path is closed for both planning-query and BEV variants tested. [`iter21_bev_diversity_head`](experiments/iter21_bev_diversity_head/RESULT.md) |
 | 22 | **causal planner interpretability, Stage 1** — one frozen motion/planning-bridge representation, non-evaluation scenes only, minimum counts, negative controls, and a frozen intervention grid | — (stopped before probes/interventions) | extraction produced 1,507 non-reset rows and 1,507 GT rows, but **1,507 missing-GT joins**; heldout GT rows **0** | **pre-registered data-null — S0 failed; no iter12 or closed loop authorized** | This did not test whether the bridge contains a causal collapse signal. It established that the launched Stage 1 artifact pair cannot support the registered test: timestamp precision mismatch broke the committed join, and the frozen manifest/staged-data combination had no heldout frames. A successor needs a fresh pre-registration. [`iter22_causal_planner_interpretability`](experiments/iter22_causal_planner_interpretability/RESULT.md) |
 | 23 | **S0-hardened causal localization** — same narrow motion/planning-bridge question, but artifact validity is the first research object | — (stopped before probes/interventions) | canary deterministic; full S0 **PASS** with **2,627/2,627** joins, zero error rows; count floor **FAIL**: collapse positives **0** in every split, heldout danger **17/30** | **pre-registered data-null — no probe, iter12, or closed loop authorized** | Iter23 repaired the iter22 join failure and proved the extraction/counting surface, then stopped honestly because the frozen non-evaluation corpus did not contain enough collapse-positive or eligible-intervention frames to test the causal mechanism. [`iter23_s0_hardened_causal_localization`](experiments/iter23_s0_hardened_causal_localization/RESULT.md) |
-| 24 | **fresh risk-support atlas** — data-support prerequisite before another causal-localization attempt | — (pre-registered; prerequisite code committed) | fresh-scene firewall excludes iter22/iter23 known data; support bars require low-diversity hazard and benign-control counts across fit/calibration/heldout | **active pre-registration — no data run launched** | Next permitted action is availability-manifest generation only. A pass would authorize only a separate successor pre-registration; it would not authorize probes, activation interventions, iteration-12 scoring, selector evaluation, or closed-loop work. [`iter24_risk_support_atlas`](experiments/iter24_risk_support_atlas/HYPOTHESIS.md) |
+| 24 | **fresh risk-support atlas** — data-support prerequisite before another causal-localization attempt | — (stopped before extraction) | known-data firewall PASS; availability FAIL: **0 eligible scenes**, **0 keyframes**, **0 heldout keyframes** after 582 post-firewall candidates all missed local six-camera files | **pre-registered availability-null — no model extraction, probes, iter12, selector, or closed loop authorized** | The firewall did its job: iter22/iter23 known data could not rescue the gate. The result is a staged-data availability null, not evidence for or against the causal signal. [`iter24_risk_support_atlas`](experiments/iter24_risk_support_atlas/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -296,7 +298,7 @@ selectivity/side-blindness trade of iterations 4–7, and the three refuted evas
 kept, with every number and link, in [`docs/CAMPAIGN.md`](docs/CAMPAIGN.md). The summary table
 above is the same history in one screen.
 
-**Net, stated plainly — 23 completed iterations plus an independent verification pass.** The
+**Net, stated plainly — 24 completed iterations plus an independent verification pass.** The
 **released union (iteration 15) is the best configuration** of the campaign: at the definitive
 20-run scale it lifts the independently reproduced baseline **2.12 → 2.91 (CI [+0.605, +0.928])**,
 keeps clean scenes identical to the unmonitored planner, and strictly dominates the plain union
@@ -310,8 +312,8 @@ firmly established — a committed stop is the best frontal response, and **thre
 designs (iters 9, 10, 11) were tested and honestly refuted**, all worse than stopping, the last
 one dangerous on false alarms (re-confirmed at n=20: 25% clean-scene collisions vs OFF's 10%).
 
-**What's next.** The benchmark campaign is complete and consolidated. Iterations 22 and 23 are
-both closed as Stage 1 data-nulls; no probe, intervention, iteration-12, or closed-loop work is
+**What's next.** The benchmark campaign is complete and consolidated. Iterations 22, 23, and 24
+are closed as Stage 1 data/availability nulls; no probe, intervention, iteration-12, or closed-loop work is
 authorized without a fresh pre-registration:
 
 - **The manuscript — full draft and compiled PDF committed**
@@ -330,14 +332,13 @@ authorized without a fresh pre-registration:
   collapse-positive frames were 0 in every split, eligible-intervention frames were 0, and heldout
   danger positives were 17 below the 30-frame floor. Stage 1 stopped before probe fitting,
   activation directions, intervention replay, iteration-12 scoring, or closed-loop work.
-- **Iteration 24 is pre-registered as a fresh risk-support atlas.**
-  [`experiments/iter24_risk_support_atlas/HYPOTHESIS.md`](experiments/iter24_risk_support_atlas/HYPOTHESIS.md)
-  freezes the next prerequisite: prove that fresh non-evaluation scenes, excluding iter22/iter23
-  known data, contain enough low-diversity hazard frames and benign controls before any future
-  causal-localization attempt. A pass authorizes only a separate successor pre-registration; it
-  does not authorize probe fitting, activation intervention, iteration-12 scoring, selector
-  evaluation, or closed-loop work. The prerequisite implementation surface is committed; the next
-  permitted action is availability-manifest generation only.
+- **Iteration 24 is completed as a fresh risk-support availability-null.**
+  [`experiments/iter24_risk_support_atlas/RESULT.md`](experiments/iter24_risk_support_atlas/RESULT.md)
+  reports that the known-data firewall ran first, then the availability manifest found 0 eligible
+  fresh scenes, 0 planned keyframes, and 0 heldout keyframes after 582 post-firewall candidates
+  all missed local six-camera files. It stopped before canary extraction, full extraction, label
+  atlas, probe fitting, activation intervention, iteration-12 scoring, selector evaluation, or
+  closed-loop work. A successor needs a fresh pre-registration and an explicit data-staging plan.
 
 Closed en route, per the gate discipline: the per-frame routing predicates (iteration 17
 addendum — refuted offline), the tracking layer's own offline gate (iteration 18 — failed
@@ -345,8 +346,9 @@ by one frame at the frozen margin; the GPU stayed off), the planning-query diver
 (iteration 19 — 0/37 feasible escapes), the VAD tracker-portability gate (iteration 20 —
 0/47 raw TTC fires removed, side retention below bar), and the BEV-conditioned diversity head
 (iteration 21 — 0/37 feasible escapes, 23.1% candidate validity), and the first causal-localization
-Stage 1 (iteration 22 — S0 integrity/data-support null), and the hardened causal-localization
-rerun (iteration 23 — count-floor null after S0 pass). The deployment flip remains proven
+Stage 1 (iteration 22 — S0 integrity/data-support null), the hardened causal-localization
+rerun (iteration 23 — count-floor null after S0 pass), and the fresh risk-support atlas
+(iteration 24 — availability-null before extraction). The deployment flip remains proven
 achievable and unclaimed.
 
 Completed lines, kept for the record:
@@ -449,7 +451,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter21_bev_diversity_head/`](experiments/iter21_bev_diversity_head) | BEV-conditioned diversity head — offline gate failed; no closed-loop run |
 | [`experiments/iter22_causal_planner_interpretability/`](experiments/iter22_causal_planner_interpretability) | causal planner interpretability Stage 1 — S0 data-null; stopped before probes, interventions, iter12, or closed loop |
 | [`experiments/iter23_s0_hardened_causal_localization/`](experiments/iter23_s0_hardened_causal_localization) | S0-hardened causal localization — deterministic canary and full S0 pass, then count-floor data-null; stopped before probes, interventions, iter12, or closed loop |
-| [`experiments/iter24_risk_support_atlas/`](experiments/iter24_risk_support_atlas) | fresh risk-support atlas — active pre-registration; prerequisite code committed; no manifest/data run, GPU model run, probes, interventions, iter12, or closed loop launched |
+| [`experiments/iter24_risk_support_atlas/`](experiments/iter24_risk_support_atlas) | fresh risk-support atlas — availability-null after known-data firewall; stopped before canary/full extraction, probes, interventions, iter12, selector, or closed loop |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/ITER22_HYPOTHESIS_DRAFT.md`](docs/research/ITER22_HYPOTHESIS_DRAFT.md) · [`docs/research/ITER22_ADVERSARIAL_REVIEW.md`](docs/research/ITER22_ADVERSARIAL_REVIEW.md) | planning-only iter22 draft and adversarial review; not pre-registrations |

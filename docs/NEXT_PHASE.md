@@ -40,6 +40,15 @@ low-diversity hazard frames and benign controls to justify a later causal-locali
 pre-registration. A pass authorizes only that later pre-registration; it does not authorize probe
 fitting, activation intervention, iteration-12 scoring, selector evaluation, or closed-loop work.
 
+Its result is now published:
+[`../experiments/iter24_risk_support_atlas/RESULT.md`](../experiments/iter24_risk_support_atlas/RESULT.md).
+The known-data firewall passed, but the availability bar failed before model extraction:
+0 eligible fresh scenes, 0 planned keyframes, and 0 heldout keyframes after 582 post-firewall
+candidate scenes all missed the local six-camera file-existence check. Iteration 24 authorizes no
+canary extraction, full extraction, label atlas, probe fitting, activation direction, iteration-12
+scoring, selector evaluation, or closed-loop evaluation. Any successor needs a fresh
+pre-registration and must name its data-staging plan before extraction.
+
 ## Line 1 — a diversity-trained candidate head under the runtime selector
 
 **Motivation (measured, twice):** iterations 12 and 14 established that frozen planners hold no
@@ -140,15 +149,11 @@ measurement task. It waits only for the power run's final numbers so results are
 3. **Line 1 is closed by offline gates**; its closed-loop evaluation never runs because neither
    the planning-query nor the BEV-conditioned variant met the escape/feasibility bars.
 4. **Line 3 is closed by iteration 20**; the registered tracker bridge failed before GPU time.
-5. Iteration 24 is the only currently active line, and its HYPOTHESIS limits the next action to
-   prerequisite implementation and manifest work before any GPU extraction. Every later line gets
-   a frozen HYPOTHESIS.md with falsifiers before data, per the campaign standard.
+5. Iteration 24 is closed as an availability-null before model extraction.
 6. Iteration 22 is closed as an S0 data-null.
 7. Iteration 23 is closed as a count-floor data-null after S0 pass. It authorizes no probe,
    activation direction, iteration-12 scoring, or closed-loop run. Any next causal-localization
    line needs a fresh HYPOTHESIS.md before data.
-8. Iteration 24 is the active pre-registration. Its prerequisite implementation surface is
-   committed. The next permitted action is availability-manifest generation and commit only. No
-   model extraction, probe fitting, activation intervention, iteration-12 scoring, selector
-   evaluation, or closed-loop run is authorized until the manifest exists, passes its availability
-   bar, and is committed.
+8. There is no active experiment that authorizes model extraction, probe fitting, activation
+   intervention, iteration-12 scoring, selector evaluation, or closed-loop work. Every later line
+   needs a fresh frozen HYPOTHESIS.md with falsifiers before data, per the campaign standard.

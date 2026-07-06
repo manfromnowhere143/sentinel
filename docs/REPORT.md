@@ -157,6 +157,13 @@ zero error rows and stable tensor shapes, then the frozen count-floor gate faile
 non-evaluation extraction/counting surface, but says this exact manifest and label definition do
 not contain enough support to fit the registered probe or choose an activation direction.
 
+The follow-up risk-support atlas put data availability ahead of extraction and kept the iter22/23
+rows behind a known-data firewall. That firewall passed, but the fresh staged-data pool failed:
+after 582 post-firewall train-scene candidates, the local file-existence check found **0 eligible
+scenes**, **0 planned keyframes**, and **0 heldout keyframes**. This third null says only that the
+current staged data tree cannot support the registered fresh atlas; it is not evidence that
+nuScenes lacks such frames or that the causal signal is absent.
+
 ## 7. Transfer: the monitor is not planner-agnostic, and the reason is precise
 
 On a frozen VAD (after four documented fork-level runtime fixes), the union prevents exactly the
