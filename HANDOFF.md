@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Tue Jul  7 08:14:09 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Tue Jul  7 09:02:58 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+d83134a tools: harden iter28 parallel interrupt
+cae33aa tools: add parallel iter28 direct staging
+cdeb85f docs: reflect iter28 partial staging
+6b9fb2e handoff: record iter28 part 4 upload
 491587d analysis: stage iter28 trainval part 3 proof
 b1d75a8 handoff: record iter28 direct upload path
 67f051b tools: add direct iter28 rsync transport
 83ede98 tools: enable faster iter28 IAP uploads
-948b2d0 tools: add resumable iter28 archive upload
-e7439e8 handoff: refresh iter28 staging transfer
-5340e92 tools: harden iter28 archive staging
-7f37c84 handoff: refresh during iter28 staging
 ```
 Working tree: CLEAN
 
@@ -54,7 +54,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 08:15:15 up 2 days, 21:56,  0 users,  load average: 0.08, 0.03, 0.08
+ 09:04:04 up 2 days, 22:45,  0 users,  load average: 0.04, 0.06, 0.01
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-e23-extract.log
@@ -72,10 +72,10 @@ is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT 
   only after remote byte and SHA256 verification.
 - `v1.0-trainval04_blobs.tgz` upload is in flight from local
   `/Users/danielwahnich/Downloads/v1.0-trainval04_blobs.tgz` to
-  `/datasets/nuscenes-full/.iter28_tmp/iter28-upload-v1.0-trainval04_blobs.tgz`, then
-  `/datasets/nuscenes-full/archives/v1.0-trainval04_blobs.tgz`.
-- Active Codex upload session at handoff time: `10279`, launched with direct transport:
-  `stage_local_archive.py --package 4 --local-path /Users/danielwahnich/Downloads/v1.0-trainval04_blobs.tgz --rsync-transport direct --direct-host 35.227.136.146`.
+  `/datasets/nuscenes-full/.iter28_tmp/iter28-upload-v1.0-trainval04_blobs.tgz`.
+- Active Codex upload session at handoff time: `38830`, launched with the hardened
+  parallel direct transport:
+  `stage_local_archive.py --package 4 --local-path /Users/danielwahnich/Downloads/v1.0-trainval04_blobs.tgz --rsync-transport direct --direct-host 35.227.136.146 --transfer-method parallel-direct --parallel-workers 8`.
 - Do not delete the local part 4 archive until remote bytes and SHA256 match and its
   proof JSON is committed.
 - Temporary direct SSH path is open for faster remaining local uploads: firewall rule
