@@ -18,6 +18,7 @@ import shlex
 import subprocess
 import sys
 import tempfile
+import threading
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -29,6 +30,8 @@ ZONE = "us-west1-a"
 INSTANCE = "sentinel-gpu"
 DEST_ROOT = "/datasets/nuscenes-full"
 OUT_DIR = Path("experiments/iter28_nuscenes_trainval_staging/proof-staging/uploads")
+ACTIVE_CHUNK_PROCS: set[subprocess.Popen[bytes]] = set()
+ACTIVE_CHUNK_PROCS_LOCK = threading.Lock()
 
 EXPECTED: dict[str, str] = {
     "metadata": "v1.0-trainval_meta.tgz",
@@ -198,6 +201,8 @@ def stream_chunk_over_ssh(
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
     )
+    with ACTIVE_CHUNK_PROCS_LOCK:
+        ACTIVE_CHUNK_PROCS.add(proc)
     assert proc.stdin is not None
     remaining = length
     try:
@@ -214,9 +219,13 @@ def stream_chunk_over_ssh(
         proc.kill()
         raise
 
-    stdout = proc.stdout.read().decode(errors="replace") if proc.stdout is not None else ""
-    stderr = proc.stderr.read().decode(errors="replace") if proc.stderr is not None else ""
-    returncode = proc.wait()
+    try:
+        stdout = proc.stdout.read().decode(errors="replace") if proc.stdout is not None else ""
+        stderr = proc.stderr.read().decode(errors="replace") if proc.stderr is not None else ""
+        returncode = proc.wait()
+    finally:
+        with ACTIVE_CHUNK_PROCS_LOCK:
+            ACTIVE_CHUNK_PROCS.discard(proc)
     if remaining != 0:
         raise SystemExit(
             f"local chunk read ended early for {remote_chunk_path}: {remaining} bytes remaining"
@@ -225,6 +234,14 @@ def stream_chunk_over_ssh(
         raise SystemExit(
             f"parallel chunk upload failed for {remote_chunk_path}: rc={returncode}\n{stdout}{stderr}"
         )
+
+
+def terminate_active_chunk_uploads() -> None:
+    with ACTIVE_CHUNK_PROCS_LOCK:
+        procs = list(ACTIVE_CHUNK_PROCS)
+    for proc in procs:
+        if proc.poll() is None:
+            proc.kill()
 
 
 def remote_parallel_direct_copy(args: argparse.Namespace, local_path: Path, remote_path: str) -> None:
@@ -274,10 +291,14 @@ def remote_parallel_direct_copy(args: argparse.Namespace, local_path: Path, remo
             ): (index, length)
             for index, offset, length in ranges
         }
-        for future in concurrent.futures.as_completed(futures):
-            index, length = futures[future]
-            future.result()
-            print(f"ITER28_CHUNK_UPLOADED index={index} bytes={length}", flush=True)
+        try:
+            for future in concurrent.futures.as_completed(futures):
+                index, length = futures[future]
+                future.result()
+                print(f"ITER28_CHUNK_UPLOADED index={index} bytes={length}", flush=True)
+        except KeyboardInterrupt:
+            terminate_active_chunk_uploads()
+            raise
 
     remote_ssh(
         args,
