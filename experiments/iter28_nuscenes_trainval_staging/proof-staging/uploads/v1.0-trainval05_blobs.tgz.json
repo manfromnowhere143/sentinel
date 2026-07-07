@@ -1,0 +1,26 @@
+{
+  "archive": {
+    "canonical_name": "v1.0-trainval05_blobs.tgz",
+    "package": "5",
+    "remote_path": "/datasets/nuscenes-full/archives/v1.0-trainval05_blobs.tgz",
+    "remote_sha256": "ea8d886bc79be30d02e9552d229aaa0843ecffccaaff6606644540b4183f605f",
+    "remote_size_bytes": 28191611840,
+    "source_host": "d36yt3mvayqw5m.cloudfront.net",
+    "source_path_basename": "v1.0-trainval05_blobs.tgz",
+    "source_scheme": "https"
+  },
+  "command": "/opt/homebrew/opt/python@3.14/bin/python3.14 experiments/iter28_nuscenes_trainval_staging/stage_local_archive.py --package 5 --signed-url-file /tmp/iter28-part05.url",
+  "destination": {
+    "dest_root": "/datasets/nuscenes-full",
+    "instance": "sentinel-gpu",
+    "project": "sunlit-unison-487018-b0",
+    "zone": "us-west1-a"
+  },
+  "experiment": "iter28_nuscenes_trainval_staging",
+  "hypothesis": "experiments/iter28_nuscenes_trainval_staging/HYPOTHESIS.md",
+  "preflight_stdout": "Filesystem         1B-blocks        Used    Available Use% Mounted on\n/dev/nvme0n2   1081101176832 67258458112 958850363392   7% /datasets/nuscenes-full\n",
+  "source_kind": "signed_url",
+  "timestamp_utc": "2026-07-07T10:11:21.185689+00:00",
+  "transfer_method": "curl_signed_url",
+  "verify_stdout": "ITER28_REMOTE_SIZE 28191611840\nITER28_REMOTE_SHA256 ea8d886bc79be30d02e9552d229aaa0843ecffccaaff6606644540b4183f605f\n"
+}
