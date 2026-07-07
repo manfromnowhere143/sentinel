@@ -6,12 +6,11 @@ claim beyond the committed iter28 result.
 
 ## Purpose
 
-After iteration 28 completes, the next research session should inherit a complete, audited account
-of the official nuScenes trainval staging state and convert it into a fresh pre-registration for
-the next real-data Sentinel experiment. The next session must not treat data availability as a
-research result. It must first prove that the staged root passes the bounded inventory gate, then
-freeze the exact research question, splits, bars, falsifiers, and proof artifacts before running
-any model-side work.
+Iteration 28 has completed as a staging and availability pass. The next research session should
+inherit the audited official nuScenes trainval root and convert it into a fresh pre-registration
+for the next real-data Sentinel experiment. The next session must not treat data availability as a
+model result. It must freeze the exact research question, splits, labels, count floors, numeric
+bars, falsifiers, and proof artifacts before running any model-side work.
 
 The audience assumption is severe external technical scrutiny. The handoff must read like a
 professional research-control document: concise, reproducible, falsifiable, and free of hidden
@@ -34,26 +33,40 @@ tuning paths or victory language.
   Official download URLs may be used through uncommitted temp files only, and committed artifacts
   must be redacted.
 
-## Iter28 completion requirements
+## Iter28 completed state
 
-Before any successor research is launched, the repo must show:
+The repo now shows:
 
 - proof JSON for `v1.0-trainval_meta.tgz`;
 - proof JSON for every blob part `01` through `10`;
 - all proof files committed and pushed;
-- local completed archives deleted only after their remote proof commits are pushed;
 - official archives extracted only into `/datasets/nuscenes-full`;
 - bounded availability inventory run for `/datasets/nuscenes-full` only;
 - iter28 `RESULT.md` published with pass/null language exactly bounded by the hypothesis;
-- `HANDOFF.md`, `README.md`, and any status ledgers updated without overclaiming.
+- `README.md` and status ledgers updated without overclaiming.
+
+Committed iter28 facts:
+
+- total staged archive bytes: `314,886,603,672`;
+- tar members scanned: `2,631,374`;
+- unsafe members: `0`;
+- camera files per channel: `34,149`;
+- eligible fresh post-firewall scenes: `532`;
+- total eligible keyframes: `21,461`;
+- heldout keyframes: `5,360`.
+
+The temporary direct-SSH firewall/tag used during staging has been removed, and obsolete
+`.iter28_tmp` scratch files have been deleted from the VM data disk. The official archives and
+extracted root remain on `/datasets/nuscenes-full`.
 
 ## Successor launch packet
 
-If and only if iter28 passes its availability bars, the next session should prepare a fresh
-pre-registration for the next real-data experiment. The launch packet should include:
+The next session should prepare a fresh pre-registration for the next real-data experiment. The
+launch packet should include:
 
 - research question: the single claim being tested, not a bundle of adjacent claims;
-- data source: `/datasets/nuscenes-full` only, with the committed iter28 inventory artifact named;
+- data source: `/datasets/nuscenes-full` only, naming
+  `experiments/iter28_nuscenes_trainval_staging/proof-inventory/selected_availability_manifest.json`;
 - split discipline: frozen scene manifest, known-data firewall, deterministic split rule, and
   no iteration-12 tuning surface;
 - minimum positive-count rules before any model/probe/intervention scoring;

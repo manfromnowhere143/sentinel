@@ -327,4 +327,9 @@ events to prepare; they are a property the repository always has.
   label atlas, probe fitting, activation direction, iteration-12 scoring, selector evaluation, or
   closed-loop work launched. Next action requires a fresh research pre-registration naming the
   committed iter28 availability manifest.
+- 2026-07-07: Codex — cleaned up the temporary iter28 direct-SSH staging surface after the result
+  commit was pushed: deleted firewall rule `sentinel-direct-ssh-20260707`, removed VM tag
+  `sentinel-direct-ssh`, and deleted only obsolete `.iter28_tmp` upload/inventory scratch files.
+  Verified the official archive directory and extracted `/datasets/nuscenes-full/v1.0-trainval`
+  root still exist; GPU box remains IDLE.
 - (append one line per shift: dates, operator, what changed, box state at exit)
