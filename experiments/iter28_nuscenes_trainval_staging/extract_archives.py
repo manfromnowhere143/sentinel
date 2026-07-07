@@ -11,7 +11,6 @@ import posixpath
 import shlex
 import subprocess
 import sys
-import tempfile
 from datetime import datetime, timezone
 from pathlib import PurePosixPath
 
@@ -330,14 +329,11 @@ def main() -> int:
     if args.dest_root != DEST_ROOT:
         raise SystemExit(f"iter28 extraction may target only {DEST_ROOT}, got {args.dest_root}")
 
+    os.makedirs(args.out_dir, exist_ok=True)
     remote_script = f"{args.dest_root}/.iter28_tmp/iter28-extract-archives.py"
-    with tempfile.NamedTemporaryFile("w", suffix=".py", delete=False) as f:
-        f.write(render_remote_extractor(args.dest_root))
-        local_script = f.name
-    try:
-        remote_scp(args, local_script, remote_script)
-    finally:
-        os.unlink(local_script)
+    local_script = os.path.join(args.out_dir, "remote_extractor.py")
+    write_text(local_script, render_remote_extractor(args.dest_root))
+    remote_scp(args, local_script, remote_script)
 
     command = (
         "sudo bash -lc "
@@ -358,7 +354,6 @@ def main() -> int:
         "zone": args.zone,
     }
 
-    os.makedirs(args.out_dir, exist_ok=True)
     report_path = os.path.join(args.out_dir, "extraction_safety_report.json")
     write_text(report_path, json.dumps(report, indent=2, sort_keys=True))
     write_text(
