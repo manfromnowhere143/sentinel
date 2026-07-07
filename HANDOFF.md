@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Tue Jul  7 09:02:58 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Tue Jul  7 16:31:28 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
-d83134a tools: harden iter28 parallel interrupt
-cae33aa tools: add parallel iter28 direct staging
-cdeb85f docs: reflect iter28 partial staging
-6b9fb2e handoff: record iter28 part 4 upload
-491587d analysis: stage iter28 trainval part 3 proof
-b1d75a8 handoff: record iter28 direct upload path
-67f051b tools: add direct iter28 rsync transport
-83ede98 tools: enable faster iter28 IAP uploads
+e341d43 docs: refresh post-iter28 handoff
+3e037b6 analysis: publish iter28 staging result
+9279472 analysis: publish iter28 availability inventory
+db4d91a tools: fix iter28 remote inventory proof import
+4a52fae tools: add iter28 remote inventory controller
+beb426b analysis: publish iter28 extraction proof
+d61b0ad tools: stabilize iter28 extraction controller copy
+467e433 analysis: stage iter28 trainval part 2 proof
 ```
 Working tree: CLEAN
 
@@ -38,7 +38,7 @@ Working tree: CLEAN
 - experiments/iter25_staged_data_inventory: RESULT PUBLISHED
 - experiments/iter26_data_staging_remedy: RESULT PUBLISHED
 - experiments/iter27_storage_provisioning: RESULT PUBLISHED
-- experiments/iter28_nuscenes_trainval_staging: PRE-REGISTERED, result pending
+- experiments/iter28_nuscenes_trainval_staging: RESULT PUBLISHED
 - experiments/iter2_monitor: RESULT PUBLISHED
 - experiments/iter3_progress: RESULT PUBLISHED
 - experiments/iter4_gated: RESULT PUBLISHED
@@ -54,7 +54,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 09:04:04 up 2 days, 22:45,  0 users,  load average: 0.04, 0.06, 0.01
+ 16:32:35 up 3 days,  6:13,  0 users,  load average: 0.00, 0.00, 0.00
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-e23-extract.log
@@ -65,26 +65,8 @@ Swap:          8.0Gi        60Mi       7.9Gi
 If any docker container named renderer/model/ncap (or a random-name ncap) is up, a run
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
-## Live iter28 transfer note
-- `v1.0-trainval_meta.tgz` is staged and proof is committed in `614ad2e`.
-- `v1.0-trainval03_blobs.tgz` is staged and proof is committed in `491587d`; the
-  local `/Users/danielwahnich/Downloads/v1.0-trainval03_blobs.tgz` copy was deleted
-  only after remote byte and SHA256 verification.
-- `v1.0-trainval04_blobs.tgz` upload is in flight from local
-  `/Users/danielwahnich/Downloads/v1.0-trainval04_blobs.tgz` to
-  `/datasets/nuscenes-full/.iter28_tmp/iter28-upload-v1.0-trainval04_blobs.tgz`.
-- Active Codex upload session at handoff time: `38830`, launched with the hardened
-  parallel direct transport:
-  `stage_local_archive.py --package 4 --local-path /Users/danielwahnich/Downloads/v1.0-trainval04_blobs.tgz --rsync-transport direct --direct-host 35.227.136.146 --transfer-method parallel-direct --parallel-workers 8`.
-- Do not delete the local part 4 archive until remote bytes and SHA256 match and its
-  proof JSON is committed.
-- Temporary direct SSH path is open for faster remaining local uploads: firewall rule
-  `sentinel-direct-ssh-20260707`, source `176.229.61.140/32`, target tag
-  `sentinel-direct-ssh`, VM external IP `35.227.136.146`. Remove this firewall rule and
-  VM tag after iter28 staging or if Daniel's public IP changes.
-
 ## Open threads (from the newest experiment docs)
-- Newest pre-registration: experiments/iter28_nuscenes_trainval_staging/HYPOTHESIS.md — read it in full; its gate governs the next action.
+- Newest completed experiment: experiments/iter28_nuscenes_trainval_staging/RESULT.md — read it before opening new work.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
