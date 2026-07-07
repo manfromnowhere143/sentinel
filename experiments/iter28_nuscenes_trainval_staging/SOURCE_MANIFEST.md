@@ -54,6 +54,25 @@ python3 experiments/iter28_nuscenes_trainval_staging/stage_local_archive.py \
 Record the temporary firewall rule in `HANDOFF.md` while it exists, and remove the rule/tag after
 staging. Never leave a broad SSH rule open.
 
+If a single direct `rsync` stream is still throughput-limited, use the bounded parallel direct
+transport. It splits the local archive into fixed chunks, uploads those chunks through multiple
+direct SSH streams into `/datasets/nuscenes-full/.iter28_tmp`, reassembles the archive on the VM,
+and then runs the same byte/SHA proof gate:
+
+```bash
+python3 experiments/iter28_nuscenes_trainval_staging/stage_local_archive.py \
+  --package 4 \
+  --local-path /Users/danielwahnich/Downloads/v1.0-trainval04_blobs.tgz \
+  --rsync-transport direct \
+  --direct-host 35.227.136.146 \
+  --transfer-method parallel-direct \
+  --parallel-workers 4
+```
+
+Use this only for completed local archives, not `.crdownload` files. If it is interrupted, rerun
+the same command; the script recreates its per-archive chunk directory and verifies the final
+archive before writing proof.
+
 Only after the remote byte count and SHA256 match may the operator delete the local completed copy
 to free Mac space. Do not delete `.crdownload` files that are still active unless the download has
 been intentionally cancelled.

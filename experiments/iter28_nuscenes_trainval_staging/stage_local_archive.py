@@ -10,6 +10,7 @@ and writes a small proof JSON suitable for committing.
 from __future__ import annotations
 
 import argparse
+import concurrent.futures
 import hashlib
 import json
 import os
@@ -167,6 +168,134 @@ def remote_rsync(args: argparse.Namespace, local_path: Path, remote_path: str) -
     run_command(cmd, timeout=None)
 
 
+def parallel_chunk_ranges(total_size: int, chunk_bytes: int) -> list[tuple[int, int, int]]:
+    if chunk_bytes <= 0:
+        raise SystemExit("--parallel-chunk-bytes must be positive")
+    if total_size < 0:
+        raise SystemExit("local file size cannot be negative")
+    ranges: list[tuple[int, int, int]] = []
+    for index, offset in enumerate(range(0, total_size, chunk_bytes)):
+        ranges.append((index, offset, min(chunk_bytes, total_size - offset)))
+    return ranges
+
+
+def stream_chunk_over_ssh(
+    *,
+    local_path: Path,
+    offset: int,
+    length: int,
+    remote_chunk_path: str,
+    ssh_cmd: list[str],
+    destination: str,
+    buffer_bytes: int,
+) -> None:
+    if buffer_bytes <= 0:
+        raise SystemExit("--parallel-buffer-bytes must be positive")
+    remote_script = "set -euo pipefail; cat > " + shlex.quote(remote_chunk_path)
+    proc = subprocess.Popen(
+        [*ssh_cmd, destination, "bash -lc " + shlex.quote(remote_script)],
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    assert proc.stdin is not None
+    remaining = length
+    try:
+        with local_path.open("rb") as f:
+            f.seek(offset)
+            while remaining:
+                data = f.read(min(buffer_bytes, remaining))
+                if not data:
+                    break
+                proc.stdin.write(data)
+                remaining -= len(data)
+        proc.stdin.close()
+    except Exception:
+        proc.kill()
+        raise
+
+    stdout = proc.stdout.read().decode(errors="replace") if proc.stdout is not None else ""
+    stderr = proc.stderr.read().decode(errors="replace") if proc.stderr is not None else ""
+    returncode = proc.wait()
+    if remaining != 0:
+        raise SystemExit(
+            f"local chunk read ended early for {remote_chunk_path}: {remaining} bytes remaining"
+        )
+    if returncode != 0:
+        raise SystemExit(
+            f"parallel chunk upload failed for {remote_chunk_path}: rc={returncode}\n{stdout}{stderr}"
+        )
+
+
+def remote_parallel_direct_copy(args: argparse.Namespace, local_path: Path, remote_path: str) -> None:
+    if args.rsync_transport != "direct":
+        raise SystemExit("--transfer-method parallel-direct requires --rsync-transport direct")
+    if args.parallel_workers <= 0:
+        raise SystemExit("--parallel-workers must be positive")
+
+    ssh_cmd, destination = rsync_ssh_command(args)
+    total_size = local_path.stat().st_size
+    ranges = parallel_chunk_ranges(total_size, args.parallel_chunk_bytes)
+    if not ranges:
+        raise SystemExit("refusing parallel upload of empty file")
+
+    parts_dir = f"{remote_path}.parts"
+    assembled_path = f"{remote_path}.assembled"
+    q_parts_dir = shlex.quote(parts_dir)
+    q_assembled = shlex.quote(assembled_path)
+    q_remote_path = shlex.quote(remote_path)
+    q_remote_user = shlex.quote(args.remote_user)
+    remote_ssh(
+        args,
+        (
+            "sudo bash -lc "
+            + shlex.quote(
+                "set -euo pipefail; "
+                f"rm -rf {q_parts_dir} {q_assembled}; "
+                f"mkdir -p {q_parts_dir}; "
+                f"chown {q_remote_user}:{q_remote_user} {q_parts_dir}; "
+                f"chmod 0700 {q_parts_dir}"
+            )
+        ),
+    )
+
+    workers = min(args.parallel_workers, len(ranges))
+    with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as executor:
+        futures = {
+            executor.submit(
+                stream_chunk_over_ssh,
+                local_path=local_path,
+                offset=offset,
+                length=length,
+                remote_chunk_path=f"{parts_dir}/part-{index:06d}",
+                ssh_cmd=ssh_cmd,
+                destination=destination,
+                buffer_bytes=args.parallel_buffer_bytes,
+            ): (index, length)
+            for index, offset, length in ranges
+        }
+        for future in concurrent.futures.as_completed(futures):
+            index, length = futures[future]
+            future.result()
+            print(f"ITER28_CHUNK_UPLOADED index={index} bytes={length}", flush=True)
+
+    remote_ssh(
+        args,
+        (
+            "sudo bash -lc "
+            + shlex.quote(
+                "set -euo pipefail; "
+                f"rm -f {q_assembled}; "
+                f"cat {q_parts_dir}/part-* > {q_assembled}; "
+                f"test \"$(stat -c %s {q_assembled})\" = {total_size}; "
+                f"mv -f {q_assembled} {q_remote_path}; "
+                f"chown {q_remote_user}:{q_remote_user} {q_remote_path}; "
+                f"rm -rf {q_parts_dir}"
+            )
+        ),
+    )
+
+
 def read_signed_url(path: Path) -> str:
     if not path.is_file():
         raise SystemExit(f"missing signed URL file: {path}")
@@ -286,11 +415,14 @@ def main() -> int:
     parser.add_argument("--instance", default=INSTANCE)
     parser.add_argument("--dest-root", default=DEST_ROOT)
     parser.add_argument("--remote-user", default="danielwahnich")
-    parser.add_argument("--transfer-method", choices=("rsync", "scp"), default="rsync")
+    parser.add_argument("--transfer-method", choices=("rsync", "scp", "parallel-direct"), default="rsync")
     parser.add_argument("--rsync-transport", choices=("iap", "direct"), default="iap")
     parser.add_argument("--direct-host")
     parser.add_argument("--direct-known-hosts", default="/private/tmp/sentinel_direct_known_hosts")
     parser.add_argument("--ssh-key", default="/Users/danielwahnich/.ssh/google_compute_engine", type=Path)
+    parser.add_argument("--parallel-workers", type=int, default=4)
+    parser.add_argument("--parallel-chunk-bytes", type=int, default=256 * 1024 * 1024)
+    parser.add_argument("--parallel-buffer-bytes", type=int, default=4 * 1024 * 1024)
     parser.add_argument("--out-dir", default=str(OUT_DIR), type=Path)
     parser.add_argument(
         "--gcloud-prefix",
@@ -343,9 +475,12 @@ def main() -> int:
         if args.transfer_method == "rsync":
             remote_rsync(args, local_path, remote_tmp)
             transfer_method = f"rsync_{args.rsync_transport}"
-        else:
+        elif args.transfer_method == "scp":
             remote_scp(args, local_path, remote_tmp)
             transfer_method = "scp_iap"
+        else:
+            remote_parallel_direct_copy(args, local_path, remote_tmp)
+            transfer_method = "parallel_direct"
     else:
         assert signed_url is not None
         remote_url_file = f"{args.dest_root}/.iter28_tmp/iter28-url-{canonical_name}.txt"

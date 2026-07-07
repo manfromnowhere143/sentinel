@@ -109,3 +109,38 @@ def test_rsync_ssh_command_can_use_direct_temporary_firewall_path():
     assert destination == "danielwahnich@35.227.136.146"
     assert ssh_prefix[:4] == ["/usr/bin/ssh", "-i", "/tmp/key", "-o"]
     assert "UserKnownHostsFile=/tmp/direct-known-hosts" in ssh_prefix
+
+
+def test_parallel_chunk_ranges_cover_file_without_overlap():
+    module = load_staging_module()
+
+    assert module.parallel_chunk_ranges(10, 4) == [
+        (0, 0, 4),
+        (1, 4, 4),
+        (2, 8, 2),
+    ]
+
+
+def test_parallel_chunk_ranges_reject_invalid_chunk_size():
+    module = load_staging_module()
+
+    with pytest.raises(SystemExit, match="parallel-chunk-bytes"):
+        module.parallel_chunk_ranges(10, 0)
+
+
+def test_parallel_direct_requires_direct_transport(tmp_path):
+    module = load_staging_module()
+    local = tmp_path / "archive.tgz"
+    local.write_bytes(b"abc")
+
+    with pytest.raises(SystemExit, match="requires --rsync-transport direct"):
+        module.remote_parallel_direct_copy(
+            SimpleNamespace(
+                rsync_transport="iap",
+                parallel_workers=4,
+                parallel_chunk_bytes=4,
+                parallel_buffer_bytes=4,
+            ),
+            local,
+            "/datasets/nuscenes-full/.iter28_tmp/archive.tgz",
+        )
