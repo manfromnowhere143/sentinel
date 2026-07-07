@@ -228,7 +228,7 @@ always-brake controls) and the formal-envelope baseline (iteration 13) on identi
 | 25 | **staged-data inventory** — provenance gate before another fresh atlas | — (stopped before extraction) | frozen root inventory FAIL: only `/datasets/nuscenes` exists and it has **0 eligible scenes**, **0 keyframes**, **0 heldout keyframes** after the known-data firewall; four other frozen roots are missing | **pre-registered infrastructure-null — no data download/copy, model extraction, labels, probes, iter12, selector, or closed loop authorized** | The blocker is staged-data availability, not a tested model mechanism. A successor must name a concrete data-staging remedy before any extraction. [`iter25_staged_data_inventory`](experiments/iter25_staged_data_inventory/RESULT.md) |
 | 26 | **data-staging remedy** — source/capacity gate before any download or copy | — (stopped before data movement) | official nuScenes v1.0 trainval sensor blobs identified: **292.78 GB** archive budget; capacity FAIL: **365.975 GB** required by margin, **25.125 GB** free observed | **pre-registered capacity-null — storage provisioning required before download/staging** | Yes, the missing data must be staged/downloaded. Do not start on the current disk; next action is a storage/staging pre-registration. [`iter26_data_staging_remedy`](experiments/iter26_data_staging_remedy/RESULT.md) |
 | 27 | **storage provisioning** — persistent volume before nuScenes staging | — (infrastructure only) | created/attached/formatted/mounted `sentinel-nuscenes-data-1tb`, 1024 GB `pd-balanced`, at `/datasets/nuscenes-full`; free space **1,026,108,792,832 bytes**; Docker/model runs **0**; dataset bytes moved **0** | **pre-registered storage pass — no data staging/model work authorized** | The capacity blocker is cleared, but only for a later data-staging pre-registration. No download, extraction, inventory rerun, labels, probes, iter12, selector, or closed loop is authorized from this pass. [`iter27_storage_provisioning`](experiments/iter27_storage_provisioning/RESULT.md) |
-| 28 | **official nuScenes trainval staging** — stage metadata + sensor blobs before a fresh atlas | — (pre-registered; no data movement yet) | target: official v1.0 trainval metadata plus blob parts 1-10; destination `/datasets/nuscenes-full`; source manifest entries **11**; archive budget **293.21 GB**; availability bars reuse the staged-data discipline | **active pre-registration — staging only** | Daniel must perform any browser/session authentication or provide signed URLs; no credentials, model extraction, labels, probes, iter12, selector, or closed loop authorized. [`iter28_nuscenes_trainval_staging`](experiments/iter28_nuscenes_trainval_staging/HYPOTHESIS.md) |
+| 28 | **official nuScenes trainval staging** — stage metadata + sensor blobs before a fresh atlas | — (partial staging in progress; no availability result yet) | staged and SHA-verified so far: official trainval metadata and blob part 3; destination `/datasets/nuscenes-full`; remaining target: blob parts 1-2 and 4-10; archive budget **293.21 GB**; availability bars reuse the staged-data discipline | **active pre-registration — staging only, not a model result** | Daniel must perform any browser/session authentication or provide signed URLs; no credentials, model extraction, labels, probes, iter12, selector, or closed loop authorized. [`iter28_nuscenes_trainval_staging`](experiments/iter28_nuscenes_trainval_staging/HYPOTHESIS.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -362,12 +362,13 @@ iteration-12, or closed-loop work is authorized without a fresh pre-registration
   `pd-balanced` disk, mounted at `/datasets/nuscenes-full` with `1,026,108,792,832` bytes
   available. It moved 0 dataset bytes and launched 0 Docker/model/NeuroNCAP runs. The next action
   is a fresh data-staging pre-registration, not an unregistered download or model run.
-- **Iteration 28 is pre-registered as official nuScenes trainval staging.**
+- **Iteration 28 is active as official nuScenes trainval staging.**
   [`experiments/iter28_nuscenes_trainval_staging/HYPOTHESIS.md`](experiments/iter28_nuscenes_trainval_staging/HYPOTHESIS.md)
   authorizes only staging the official v1.0 trainval metadata archive and ten sensor blob archives
-  into `/datasets/nuscenes-full`, then running a bounded availability inventory. It does not
-  authorize model extraction, labels, probes, interventions, iteration-12, selector, or
-  closed-loop work.
+  into `/datasets/nuscenes-full`, then running a bounded availability inventory. Metadata and
+  trainval blob part 3 are staged with committed SHA/byte proofs; the remaining blob archives are
+  still being staged. It does not authorize model extraction, labels, probes, interventions,
+  iteration-12, selector, or closed-loop work.
 
 Closed en route, per the gate discipline: the per-frame routing predicates (iteration 17
 addendum — refuted offline), the tracking layer's own offline gate (iteration 18 — failed
@@ -485,7 +486,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter25_staged_data_inventory/`](experiments/iter25_staged_data_inventory) | staged-data inventory — infrastructure-null; no frozen local root has enough fresh post-firewall keyframes for a future atlas |
 | [`experiments/iter26_data_staging_remedy/`](experiments/iter26_data_staging_remedy) | data-staging remedy — capacity-null; official trainval sensor blobs needed, current GPU disk too small |
 | [`experiments/iter27_storage_provisioning/`](experiments/iter27_storage_provisioning) | storage provisioning — passed; 1 TB persistent data volume mounted before any nuScenes download |
-| [`experiments/iter28_nuscenes_trainval_staging/`](experiments/iter28_nuscenes_trainval_staging) | official nuScenes trainval staging — active pre-registration; no data movement yet |
+| [`experiments/iter28_nuscenes_trainval_staging/`](experiments/iter28_nuscenes_trainval_staging) | official nuScenes trainval staging — active partial staging; metadata and blob part 3 proved, remaining blobs pending |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/ITER22_HYPOTHESIS_DRAFT.md`](docs/research/ITER22_HYPOTHESIS_DRAFT.md) · [`docs/research/ITER22_ADVERSARIAL_REVIEW.md`](docs/research/ITER22_ADVERSARIAL_REVIEW.md) | planning-only iter22 draft and adversarial review; not pre-registrations |
