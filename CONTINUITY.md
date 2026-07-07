@@ -318,4 +318,13 @@ events to prepare; they are a property the repository always has.
   bounded availability inventory. No source manifest read, download/copy/extraction, inventory run,
   model extraction, label atlas, probe fitting, activation direction, iteration-12 scoring,
   selector evaluation, or closed-loop work launched yet.
+- 2026-07-07: Codex — completed iteration 28 as an official nuScenes trainval staging and
+  availability PASS. Staged all 11 official archives into `/datasets/nuscenes-full`
+  (`314,886,603,672` bytes total) with redacted source provenance and SHA proofs; extracted with
+  `0` unsafe members across `2,631,374` tar members; verified all six camera channels have
+  `34,149` files; remote bounded inventory passed with `532` fresh post-firewall train scenes,
+  `21,461` eligible keyframes, and `5,360` heldout keyframes. No Docker/model/NeuroNCAP,
+  label atlas, probe fitting, activation direction, iteration-12 scoring, selector evaluation, or
+  closed-loop work launched. Next action requires a fresh research pre-registration naming the
+  committed iter28 availability manifest.
 - (append one line per shift: dates, operator, what changed, box state at exit)

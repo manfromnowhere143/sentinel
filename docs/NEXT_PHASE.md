@@ -85,14 +85,15 @@ pre-registration for the official nuScenes v1.0 trainval sensor file blobs; iter
 authorizes no download, extraction, inventory rerun, model extraction, label atlas, probe fitting,
 activation intervention, iteration-12 scoring, selector evaluation, or closed-loop work.
 
-That data-staging step is now pre-registered:
-[`../experiments/iter28_nuscenes_trainval_staging/HYPOTHESIS.md`](../experiments/iter28_nuscenes_trainval_staging/HYPOTHESIS.md).
-Iteration 28 may stage only the official nuScenes v1.0 trainval metadata archive plus file-blob
-archives parts 1-10 into `/datasets/nuscenes-full`, then run a bounded token-free availability
-inventory for that root. Daniel must perform any browser/session authentication or provide signed
-URLs; the agent must not handle credentials. Iteration 28 authorizes no model extraction, label
-atlas, probe fitting, activation intervention, iteration-12 scoring, selector evaluation, or
-closed-loop work.
+That data-staging step is now completed:
+[`../experiments/iter28_nuscenes_trainval_staging/RESULT.md`](../experiments/iter28_nuscenes_trainval_staging/RESULT.md).
+Iteration 28 staged the official nuScenes v1.0 trainval metadata archive plus file-blob archives
+parts 1-10 into `/datasets/nuscenes-full`, extracted them with a path-safety gate, and passed the
+bounded token-free availability inventory: `532` fresh post-firewall train scenes, `21,461`
+eligible keyframes, and `5,360` heldout keyframes. It authorizes no model extraction, label atlas,
+probe fitting, activation intervention, iteration-12 scoring, selector evaluation, or closed-loop
+work. The next action must be a fresh research pre-registration naming the committed iter28
+availability manifest.
 
 ## Line 1 — a diversity-trained candidate head under the runtime selector
 
