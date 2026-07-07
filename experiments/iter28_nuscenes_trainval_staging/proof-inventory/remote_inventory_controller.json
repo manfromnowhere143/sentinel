@@ -1,0 +1,61 @@
+{
+  "command": "/opt/homebrew/opt/python@3.14/bin/python3.14 experiments/iter28_nuscenes_trainval_staging/run_remote_inventory.py",
+  "experiment": "iter28_nuscenes_trainval_staging",
+  "inputs": [
+    {
+      "path": "experiments/iter28_nuscenes_trainval_staging/bounded_inventory.py",
+      "sha256": "0ba26cd2191125c5308bad386c5f3088786b3f3a1625de4be34ec97ffd09c662",
+      "size_bytes": 5236
+    },
+    {
+      "path": "experiments/iter25_staged_data_inventory/inventory_roots.py",
+      "sha256": "6aa651f189feaa298a9ceaca7a2839d503baba173e4a81b6970545e9322ba1ca",
+      "size_bytes": 22442
+    },
+    {
+      "path": "experiments/iter22_causal_planner_interpretability/official_train_scenes.txt",
+      "sha256": "80e7f1b38e4973cc7531ab7df4a37a86b98b5140dcaf1c7600df7db553357314",
+      "size_bytes": 7700
+    },
+    {
+      "path": "experiments/iter22_causal_planner_interpretability/split_manifest.json",
+      "sha256": "b5ff3f9c600f9b0b30b5e9ed07487bc126cf5f9def4811b59307b0e16df6b978",
+      "size_bytes": 8594
+    },
+    {
+      "path": "experiments/iter22_causal_planner_interpretability/proof-extract/sentinel_e22_stage1_gt.jsonl.gz",
+      "sha256": "369809a4ac0b4000be18b21290553367d9a428333f5a5406e8ddfa0089f77c52",
+      "size_bytes": 233757
+    },
+    {
+      "path": "experiments/iter23_s0_hardened_causal_localization/availability_manifest.json",
+      "sha256": "6a725fb18bd6c47caf6a82a8d328c8d5a2132cb64ccee96cda57d320049afbce",
+      "size_bytes": 310421
+    },
+    {
+      "path": "experiments/iter23_s0_hardened_causal_localization/proof-full-extract/sentinel_e23_stage1_gt.jsonl.gz",
+      "sha256": "67f3be430757c34332ffb997b51f073fc419c4f378e1fb9494a715af8b957813",
+      "size_bytes": 416833
+    },
+    {
+      "path": "experiments/iter24_risk_support_atlas/availability_manifest.json",
+      "sha256": "6c4835d3e69a5dc38a1bfcd7629f2df889004505230f61aa83582be8b502a7b0",
+      "size_bytes": 34790
+    },
+    {
+      "path": "experiments/iter24_risk_support_atlas/availability_manifest.exclusions.txt",
+      "sha256": "f3ffe11c970c23990e5d7c3ae7e58b416faf28f597175f5ddf6ccb7fef965896",
+      "size_bytes": 4473
+    }
+  ],
+  "remote": {
+    "instance": "sentinel-gpu",
+    "project": "sunlit-unison-487018-b0",
+    "result_tgz": "/datasets/nuscenes-full/.iter28_tmp/iter28-inventory-proof.tgz",
+    "workdir": "/datasets/nuscenes-full/.iter28_tmp/iter28-inventory-work",
+    "zone": "us-west1-a"
+  },
+  "remote_stdout": "iter28 inventory overall_pass=True eligible_scenes=532 heldout_keyframes=5360\n",
+  "stage": "iter28_remote_bounded_inventory_controller",
+  "timestamp_utc": "2026-07-07T16:12:36.311432+00:00"
+}
