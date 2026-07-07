@@ -204,8 +204,10 @@ measurement task. It waits only for the power run's final numbers so results are
 9. Iteration 26 is closed as a data-staging capacity-null.
 10. Iteration 27 is closed as a storage-provisioning pass. The 1 TB persistent disk is mounted at
     `/datasets/nuscenes-full` with `1,026,108,792,832` bytes available, and 0 dataset bytes moved.
-11. Iteration 28 is the only active pre-registration. It authorizes official nuScenes trainval
-    staging only: metadata plus ten sensor-blob archives, `/datasets/nuscenes-full`, redacted
-    source provenance, archive hashes, extraction safety proof, then bounded availability
-    inventory. It does not authorize model extraction, label atlas, probe fitting, activation
-    intervention, iteration-12 scoring, selector evaluation, or closed-loop work.
+11. Iteration 28 is closed as a staging/availability pass. It staged and extracted the official
+    nuScenes trainval metadata plus ten sensor-blob archives into `/datasets/nuscenes-full`, then
+    passed the bounded availability inventory with `532` fresh post-firewall scenes and `21,461`
+    eligible keyframes. It does not authorize model extraction, label atlas, probe fitting,
+    activation intervention, iteration-12 scoring, selector evaluation, or closed-loop work.
+    The next action must be a fresh research pre-registration naming the committed iter28
+    availability manifest.
