@@ -41,3 +41,24 @@ def test_safe_extract_result_rejects_path_traversal(tmp_path):
 
     with pytest.raises(SystemExit, match="unsafe inventory result member"):
         module.safe_extract_result(result_tgz, tmp_path / "out")
+
+
+def test_safe_extract_result_accepts_repo_relative_proof_dir(tmp_path):
+    module = load_remote_inventory_module()
+    result_tgz = tmp_path / "proof.tgz"
+    proof_dir = (
+        tmp_path
+        / "bundle"
+        / "experiments"
+        / "iter28_nuscenes_trainval_staging"
+        / "proof-inventory"
+    )
+    proof_dir.mkdir(parents=True)
+    (proof_dir / "availability_inventory.command.txt").write_text("cmd\n")
+    with tarfile.open(result_tgz, "w:gz") as tf:
+        tf.add(tmp_path / "bundle" / "experiments", arcname="experiments")
+
+    out = tmp_path / "out"
+    module.safe_extract_result(result_tgz, out)
+
+    assert (out / "availability_inventory.command.txt").read_text() == "cmd\n"

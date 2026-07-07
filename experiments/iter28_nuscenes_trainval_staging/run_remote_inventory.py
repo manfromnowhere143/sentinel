@@ -141,6 +141,13 @@ def safe_extract_result(result_tgz: Path, out_dir: Path) -> None:
             tf.extractall(tmp_parent)
         extracted = tmp_parent / "proof-inventory"
         if not extracted.is_dir():
+            extracted = (
+                tmp_parent
+                / "experiments"
+                / "iter28_nuscenes_trainval_staging"
+                / "proof-inventory"
+            )
+        if not extracted.is_dir():
             raise SystemExit("remote inventory result missing proof-inventory directory")
         if out_dir.exists():
             shutil.rmtree(out_dir)
