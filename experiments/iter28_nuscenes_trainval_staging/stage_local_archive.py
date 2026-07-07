@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import shlex
 import subprocess
 import sys
@@ -51,8 +52,13 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
-def run_command(cmd: list[str], *, timeout: int | None = None) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(cmd, check=True, capture_output=True, text=True, timeout=timeout)
+def run_command(
+    cmd: list[str],
+    *,
+    env: dict[str, str] | None = None,
+    timeout: int | None = None,
+) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(cmd, check=True, capture_output=True, text=True, timeout=timeout, env=env)
 
 
 def gcloud_base(args: argparse.Namespace) -> list[str]:
@@ -105,6 +111,8 @@ def strip_ssh_destination(dry_run_stdout: str) -> tuple[list[str], str]:
 
 
 def rsync_ssh_command(args: argparse.Namespace) -> tuple[list[str], str]:
+    # Let the gcloud IAP tunnel import NumPy for higher throughput; default dry-run uses python -S.
+    env = {**os.environ, "CLOUDSDK_PYTHON_SITEPACKAGES": "1"}
     dry_run = run_command(
         [
             *gcloud_base(args),
@@ -116,7 +124,8 @@ def rsync_ssh_command(args: argparse.Namespace) -> tuple[list[str], str]:
             args.project,
             "--tunnel-through-iap",
             "--dry-run",
-        ]
+        ],
+        env=env,
     )
     return strip_ssh_destination(dry_run.stdout)
 

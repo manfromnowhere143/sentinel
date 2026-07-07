@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
@@ -62,3 +63,30 @@ def test_strip_ssh_destination_removes_tty_and_preserves_proxy_command():
         "-o",
         "ProxyCommand proxy words",
     ]
+
+
+def test_rsync_ssh_command_enables_gcloud_site_packages(monkeypatch):
+    module = load_staging_module()
+    captured = {}
+
+    def fake_run_command(cmd, *, env=None, timeout=None):
+        captured["cmd"] = cmd
+        captured["env"] = env
+        captured["timeout"] = timeout
+        return SimpleNamespace(stdout="/usr/bin/ssh -t user@host\n")
+
+    monkeypatch.setattr(module, "run_command", fake_run_command)
+
+    ssh_prefix, destination = module.rsync_ssh_command(
+        SimpleNamespace(
+            gcloud_prefix=[],
+            instance="sentinel-gpu",
+            project="test-project",
+            zone="us-west1-a",
+        )
+    )
+
+    assert destination == "user@host"
+    assert "-t" not in ssh_prefix
+    assert captured["env"]["CLOUDSDK_PYTHON_SITEPACKAGES"] == "1"
+    assert captured["cmd"][-1] == "--dry-run"
