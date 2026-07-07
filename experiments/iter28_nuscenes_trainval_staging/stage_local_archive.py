@@ -111,6 +111,28 @@ def strip_ssh_destination(dry_run_stdout: str) -> tuple[list[str], str]:
 
 
 def rsync_ssh_command(args: argparse.Namespace) -> tuple[list[str], str]:
+    if args.rsync_transport == "direct":
+        if not args.direct_host:
+            raise SystemExit("--direct-host is required with --rsync-transport direct")
+        return (
+            [
+                "/usr/bin/ssh",
+                "-i",
+                str(args.ssh_key),
+                "-o",
+                "CheckHostIP=no",
+                "-o",
+                "HashKnownHosts=no",
+                "-o",
+                "IdentitiesOnly=yes",
+                "-o",
+                "StrictHostKeyChecking=no",
+                "-o",
+                f"UserKnownHostsFile={args.direct_known_hosts}",
+            ],
+            f"{args.remote_user}@{args.direct_host}",
+        )
+
     # Let the gcloud IAP tunnel import NumPy for higher throughput; default dry-run uses python -S.
     env = {**os.environ, "CLOUDSDK_PYTHON_SITEPACKAGES": "1"}
     dry_run = run_command(
@@ -265,6 +287,10 @@ def main() -> int:
     parser.add_argument("--dest-root", default=DEST_ROOT)
     parser.add_argument("--remote-user", default="danielwahnich")
     parser.add_argument("--transfer-method", choices=("rsync", "scp"), default="rsync")
+    parser.add_argument("--rsync-transport", choices=("iap", "direct"), default="iap")
+    parser.add_argument("--direct-host")
+    parser.add_argument("--direct-known-hosts", default="/private/tmp/sentinel_direct_known_hosts")
+    parser.add_argument("--ssh-key", default="/Users/danielwahnich/.ssh/google_compute_engine", type=Path)
     parser.add_argument("--out-dir", default=str(OUT_DIR), type=Path)
     parser.add_argument(
         "--gcloud-prefix",
@@ -316,9 +342,10 @@ def main() -> int:
     if local_path is not None:
         if args.transfer_method == "rsync":
             remote_rsync(args, local_path, remote_tmp)
+            transfer_method = f"rsync_{args.rsync_transport}"
         else:
             remote_scp(args, local_path, remote_tmp)
-        transfer_method = args.transfer_method
+            transfer_method = "scp_iap"
     else:
         assert signed_url is not None
         remote_url_file = f"{args.dest_root}/.iter28_tmp/iter28-url-{canonical_name}.txt"

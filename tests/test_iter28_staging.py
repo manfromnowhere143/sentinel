@@ -80,6 +80,7 @@ def test_rsync_ssh_command_enables_gcloud_site_packages(monkeypatch):
     ssh_prefix, destination = module.rsync_ssh_command(
         SimpleNamespace(
             gcloud_prefix=[],
+            rsync_transport="iap",
             instance="sentinel-gpu",
             project="test-project",
             zone="us-west1-a",
@@ -90,3 +91,21 @@ def test_rsync_ssh_command_enables_gcloud_site_packages(monkeypatch):
     assert "-t" not in ssh_prefix
     assert captured["env"]["CLOUDSDK_PYTHON_SITEPACKAGES"] == "1"
     assert captured["cmd"][-1] == "--dry-run"
+
+
+def test_rsync_ssh_command_can_use_direct_temporary_firewall_path():
+    module = load_staging_module()
+
+    ssh_prefix, destination = module.rsync_ssh_command(
+        SimpleNamespace(
+            direct_host="35.227.136.146",
+            direct_known_hosts="/tmp/direct-known-hosts",
+            remote_user="danielwahnich",
+            rsync_transport="direct",
+            ssh_key=Path("/tmp/key"),
+        )
+    )
+
+    assert destination == "danielwahnich@35.227.136.146"
+    assert ssh_prefix[:4] == ["/usr/bin/ssh", "-i", "/tmp/key", "-o"]
+    assert "UserKnownHostsFile=/tmp/direct-known-hosts" in ssh_prefix

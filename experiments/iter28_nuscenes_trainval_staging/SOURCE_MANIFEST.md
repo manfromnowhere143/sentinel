@@ -39,6 +39,21 @@ Local-path staging uses rsync by default so interrupted uploads can resume from
 `/datasets/nuscenes-full/.iter28_tmp/iter28-upload-<canonical-name>`. Use `--transfer-method scp`
 only for a deliberate non-resumable fallback.
 
+If the IAP tunnel is too slow, a temporary direct SSH path may be used only when the VM has a
+source-IP-restricted firewall rule and a temporary target tag. Example after confirming the
+operator's current public IP and creating the restricted rule:
+
+```bash
+python3 experiments/iter28_nuscenes_trainval_staging/stage_local_archive.py \
+  --package 4 \
+  --local-path /Users/danielwahnich/Downloads/v1.0-trainval04_blobs.tgz \
+  --rsync-transport direct \
+  --direct-host 35.227.136.146
+```
+
+Record the temporary firewall rule in `HANDOFF.md` while it exists, and remove the rule/tag after
+staging. Never leave a broad SSH rule open.
+
 Only after the remote byte count and SHA256 match may the operator delete the local completed copy
 to free Mac space. Do not delete `.crdownload` files that are still active unless the download has
 been intentionally cancelled.
