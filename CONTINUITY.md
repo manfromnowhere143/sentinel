@@ -332,4 +332,11 @@ events to prepare; they are a property the repository always has.
   `sentinel-direct-ssh`, and deleted only obsolete `.iter28_tmp` upload/inventory scratch files.
   Verified the official archive directory and extracted `/datasets/nuscenes-full/v1.0-trainval`
   root still exist; GPU box remains IDLE.
+- 2026-07-07: Codex — pre-registered iteration 29 under
+  experiments/iter29_trainval_risk_support_atlas/HYPOTHESIS.md. Scope is the first research gate
+  on the completed `/datasets/nuscenes-full` root: import the committed iter28 availability
+  manifest, pass a two-run canary, run full extraction only after canary pass, then compute frozen
+  low-diversity hazard and benign-control support counts. No tooling, manifest import, GPU work,
+  probe fitting, activation direction, intervention, iteration-12 scoring, selector evaluation, or
+  closed-loop work launched yet.
 - (append one line per shift: dates, operator, what changed, box state at exit)

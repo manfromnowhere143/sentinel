@@ -95,6 +95,14 @@ probe fitting, activation intervention, iteration-12 scoring, selector evaluatio
 work. The next action must be a fresh research pre-registration naming the committed iter28
 availability manifest.
 
+That fresh research gate is now pre-registered:
+[`../experiments/iter29_trainval_risk_support_atlas/HYPOTHESIS.md`](../experiments/iter29_trainval_risk_support_atlas/HYPOTHESIS.md).
+Iteration 29 is a full-trainval risk-support atlas, not a causal-intervention run. It may import
+only the committed iter28 availability manifest, then proceed through S0a manifest import, S0b
+two-run canary, S0c full extraction, and S1 support counts. It authorizes no probe fitting,
+activation direction, intervention replay, iteration-12 scoring, selector evaluation, or
+closed-loop work.
+
 ## Line 1 — a diversity-trained candidate head under the runtime selector
 
 **Motivation (measured, twice):** iterations 12 and 14 established that frozen planners hold no
@@ -211,3 +219,7 @@ measurement task. It waits only for the power run's final numbers so results are
     activation intervention, iteration-12 scoring, selector evaluation, or closed-loop work.
     The next action must be a fresh research pre-registration naming the committed iter28
     availability manifest.
+12. Iteration 29 is active as a full-trainval risk-support atlas. It authorizes only the staged
+    S0a/S0b/S0c/S1 atlas protocol in its HYPOTHESIS.md, starting from the committed iter28
+    manifest. It does not authorize probe fitting, activation intervention, iteration-12 scoring,
+    selector evaluation, or closed-loop work.
