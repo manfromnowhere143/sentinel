@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Tue Jul  7 07:46:36 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Tue Jul  7 08:14:09 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+491587d analysis: stage iter28 trainval part 3 proof
+b1d75a8 handoff: record iter28 direct upload path
 67f051b tools: add direct iter28 rsync transport
 83ede98 tools: enable faster iter28 IAP uploads
 948b2d0 tools: add resumable iter28 archive upload
 e7439e8 handoff: refresh iter28 staging transfer
 5340e92 tools: harden iter28 archive staging
 7f37c84 handoff: refresh during iter28 staging
-614ad2e analysis: stage iter28 metadata archive proof
-dd62911 tools: add iter28 staging surface
 ```
 Working tree: CLEAN
 
@@ -54,7 +54,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 07:47:42 up 2 days, 21:28,  0 users,  load average: 0.01, 0.02, 0.00
+ 08:15:15 up 2 days, 21:56,  0 users,  load average: 0.08, 0.03, 0.08
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-e23-extract.log
@@ -67,19 +67,21 @@ is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT 
 
 ## Live iter28 transfer note
 - `v1.0-trainval_meta.tgz` is staged and proof is committed in `614ad2e`.
-- `v1.0-trainval03_blobs.tgz` upload is in progress from local
-  `/Users/danielwahnich/Downloads/v1.0-trainval03_blobs.tgz` to
-  `/datasets/nuscenes-full/.iter28_tmp/iter28-upload-v1.0-trainval03_blobs.tgz`, then
-  `/datasets/nuscenes-full/archives/v1.0-trainval03_blobs.tgz`.
-- Do not delete the local part 3 archive until remote bytes and SHA256 match and its proof JSON
-  is committed.
-- Temporary direct SSH path is open for faster remaining local uploads:
-  firewall rule `sentinel-direct-ssh-20260707`, source `176.229.61.140/32`, target tag
-  `sentinel-direct-ssh`, VM external IP `35.227.136.146`. Remove this firewall rule and VM tag
-  after iter28 staging or if Daniel's public IP changes.
-- Use committed direct transport for subsequent local archives, e.g.
-  `stage_local_archive.py --package 4 --local-path ... --rsync-transport direct --direct-host
-  35.227.136.146`.
+- `v1.0-trainval03_blobs.tgz` is staged and proof is committed in `491587d`; the
+  local `/Users/danielwahnich/Downloads/v1.0-trainval03_blobs.tgz` copy was deleted
+  only after remote byte and SHA256 verification.
+- `v1.0-trainval04_blobs.tgz` upload is in flight from local
+  `/Users/danielwahnich/Downloads/v1.0-trainval04_blobs.tgz` to
+  `/datasets/nuscenes-full/.iter28_tmp/iter28-upload-v1.0-trainval04_blobs.tgz`, then
+  `/datasets/nuscenes-full/archives/v1.0-trainval04_blobs.tgz`.
+- Active Codex upload session at handoff time: `10279`, launched with direct transport:
+  `stage_local_archive.py --package 4 --local-path /Users/danielwahnich/Downloads/v1.0-trainval04_blobs.tgz --rsync-transport direct --direct-host 35.227.136.146`.
+- Do not delete the local part 4 archive until remote bytes and SHA256 match and its
+  proof JSON is committed.
+- Temporary direct SSH path is open for faster remaining local uploads: firewall rule
+  `sentinel-direct-ssh-20260707`, source `176.229.61.140/32`, target tag
+  `sentinel-direct-ssh`, VM external IP `35.227.136.146`. Remove this firewall rule and
+  VM tag after iter28 staging or if Daniel's public IP changes.
 
 ## Open threads (from the newest experiment docs)
 - Newest pre-registration: experiments/iter28_nuscenes_trainval_staging/HYPOTHESIS.md — read it in full; its gate governs the next action.
