@@ -1,0 +1,197 @@
+{
+  "archive_dir": "/datasets/nuscenes-full/archives",
+  "archives": [
+    {
+      "archive": "v1.0-trainval01_blobs.tgz",
+      "first_members": [
+        "samples",
+        "samples/CAM_FRONT_RIGHT",
+        "samples/CAM_FRONT_RIGHT/n015-2018-07-24-11-13-19+0800__CAM_FRONT_RIGHT__1532402059770339.jpg",
+        "samples/CAM_FRONT_RIGHT/n015-2018-07-24-11-13-19+0800__CAM_FRONT_RIGHT__1532402189270339.jpg",
+        "samples/CAM_FRONT_RIGHT/n015-2018-07-24-10-42-41+0800__CAM_FRONT_RIGHT__1532400521120339.jpg"
+      ],
+      "member_count": 258135,
+      "unsafe_members": []
+    },
+    {
+      "archive": "v1.0-trainval02_blobs.tgz",
+      "first_members": [
+        "samples",
+        "samples/CAM_FRONT_RIGHT",
+        "samples/CAM_FRONT_RIGHT/n008-2018-05-21-11-06-59-0400__CAM_FRONT_RIGHT__1526915692919959.jpg",
+        "samples/CAM_FRONT_RIGHT/n015-2018-08-01-15-10-21+0800__CAM_FRONT_RIGHT__1533107521920339.jpg",
+        "samples/CAM_FRONT_RIGHT/n008-2018-05-21-11-06-59-0400__CAM_FRONT_RIGHT__1526915467369956.jpg"
+      ],
+      "member_count": 259594,
+      "unsafe_members": []
+    },
+    {
+      "archive": "v1.0-trainval03_blobs.tgz",
+      "first_members": [
+        "samples",
+        "samples/CAM_FRONT_RIGHT",
+        "samples/CAM_FRONT_RIGHT/n008-2018-08-31-11-19-57-0400__CAM_FRONT_RIGHT__1535728963420482.jpg",
+        "samples/CAM_FRONT_RIGHT/n008-2018-08-31-11-19-57-0400__CAM_FRONT_RIGHT__1535729145420482.jpg",
+        "samples/CAM_FRONT_RIGHT/n008-2018-08-06-15-06-32-0400__CAM_FRONT_RIGHT__1533582539120482.jpg"
+      ],
+      "member_count": 259946,
+      "unsafe_members": []
+    },
+    {
+      "archive": "v1.0-trainval04_blobs.tgz",
+      "first_members": [
+        "samples",
+        "samples/CAM_FRONT_RIGHT",
+        "samples/CAM_FRONT_RIGHT/n015-2018-09-27-15-33-17+0800__CAM_FRONT_RIGHT__1538033812370339.jpg",
+        "samples/CAM_FRONT_RIGHT/n015-2018-09-27-15-33-17+0800__CAM_FRONT_RIGHT__1538033918170339.jpg",
+        "samples/CAM_FRONT_RIGHT/n015-2018-10-08-15-52-24+0800__CAM_FRONT_RIGHT__1538985207270339.jpg"
+      ],
+      "member_count": 263164,
+      "unsafe_members": []
+    },
+    {
+      "archive": "v1.0-trainval05_blobs.tgz",
+      "first_members": [
+        "samples",
+        "samples/CAM_FRONT_RIGHT",
+        "samples/CAM_FRONT_RIGHT/n008-2018-09-18-12-07-26-0400__CAM_FRONT_RIGHT__1537287316170482.jpg",
+        "samples/CAM_FRONT_RIGHT/n008-2018-08-28-16-57-39-0400__CAM_FRONT_RIGHT__1535490013870482.jpg",
+        "samples/CAM_FRONT_RIGHT/n008-2018-09-18-12-53-31-0400__CAM_FRONT_RIGHT__1537290062520482.jpg"
+      ],
+      "member_count": 264867,
+      "unsafe_members": []
+    },
+    {
+      "archive": "v1.0-trainval06_blobs.tgz",
+      "first_members": [
+        "samples",
+        "samples/CAM_FRONT_RIGHT",
+        "samples/CAM_FRONT_RIGHT/n008-2018-09-18-14-43-59-0400__CAM_FRONT_RIGHT__1537296402520482.jpg",
+        "samples/CAM_FRONT_RIGHT/n008-2018-09-18-14-43-59-0400__CAM_FRONT_RIGHT__1537296508270482.jpg",
+        "samples/CAM_FRONT_RIGHT/n008-2018-08-31-11-37-23-0400__CAM_FRONT_RIGHT__1535730333670482.jpg"
+      ],
+      "member_count": 264655,
+      "unsafe_members": []
+    },
+    {
+      "archive": "v1.0-trainval07_blobs.tgz",
+      "first_members": [
+        "samples",
+        "samples/CAM_FRONT_RIGHT",
+        "samples/CAM_FRONT_RIGHT/n008-2018-08-28-16-16-48-0400__CAM_FRONT_RIGHT__1535488231620482.jpg",
+        "samples/CAM_FRONT_RIGHT/n008-2018-08-28-16-16-48-0400__CAM_FRONT_RIGHT__1535487976770482.jpg",
+        "samples/CAM_FRONT_RIGHT/n008-2018-08-29-16-04-13-0400__CAM_FRONT_RIGHT__1535573632770482.jpg"
+      ],
+      "member_count": 265012,
+      "unsafe_members": []
+    },
+    {
+      "archive": "v1.0-trainval08_blobs.tgz",
+      "first_members": [
+        "samples",
+        "samples/CAM_FRONT_RIGHT",
+        "samples/CAM_FRONT_RIGHT/n015-2018-10-02-10-50-40+0800__CAM_FRONT_RIGHT__1538448746520339.jpg",
+        "samples/CAM_FRONT_RIGHT/n015-2018-10-08-16-03-24+0800__CAM_FRONT_RIGHT__1538986187670339.jpg",
+        "samples/CAM_FRONT_RIGHT/n015-2018-10-08-16-03-24+0800__CAM_FRONT_RIGHT__1538986216770339.jpg"
+      ],
+      "member_count": 265401,
+      "unsafe_members": []
+    },
+    {
+      "archive": "v1.0-trainval09_blobs.tgz",
+      "first_members": [
+        "samples",
+        "samples/CAM_FRONT_RIGHT",
+        "samples/CAM_FRONT_RIGHT/n015-2018-11-14-18-57-54+0800__CAM_FRONT_RIGHT__1542193494420339.jpg",
+        "samples/CAM_FRONT_RIGHT/n015-2018-09-25-11-10-38+0800__CAM_FRONT_RIGHT__1537845401670339.jpg",
+        "samples/CAM_FRONT_RIGHT/n015-2018-09-26-11-17-24+0800__CAM_FRONT_RIGHT__1537932299370339.jpg"
+      ],
+      "member_count": 265413,
+      "unsafe_members": []
+    },
+    {
+      "archive": "v1.0-trainval10_blobs.tgz",
+      "first_members": [
+        "samples",
+        "samples/CAM_FRONT_RIGHT",
+        "samples/CAM_FRONT_RIGHT/n015-2018-11-21-19-38-26+0800__CAM_FRONT_RIGHT__1542800839870339.jpg",
+        "samples/CAM_FRONT_RIGHT/n015-2018-11-21-19-38-26+0800__CAM_FRONT_RIGHT__1542800801620339.jpg",
+        "samples/CAM_FRONT_RIGHT/n015-2018-11-21-19-58-31+0800__CAM_FRONT_RIGHT__1542801600870339.jpg"
+      ],
+      "member_count": 265166,
+      "unsafe_members": []
+    },
+    {
+      "archive": "v1.0-trainval_meta.tgz",
+      "first_members": [
+        "maps",
+        "maps/93406b464a165eaba6d9de76ca09f5da.png",
+        "maps/53992ee3023e5494b90c316c183be829.png",
+        "maps/37819e65e09e5547b8a3ceaefba56bb2.png",
+        "maps/36092f0b03a857c6a3403e25b4b7aab3.png"
+      ],
+      "member_count": 21,
+      "unsafe_members": []
+    }
+  ],
+  "camera_channels": {
+    "CAM_BACK": {
+      "file_count": 34149,
+      "present": true
+    },
+    "CAM_BACK_LEFT": {
+      "file_count": 34149,
+      "present": true
+    },
+    "CAM_BACK_RIGHT": {
+      "file_count": 34149,
+      "present": true
+    },
+    "CAM_FRONT": {
+      "file_count": 34149,
+      "present": true
+    },
+    "CAM_FRONT_LEFT": {
+      "file_count": 34149,
+      "present": true
+    },
+    "CAM_FRONT_RIGHT": {
+      "file_count": 34149,
+      "present": true
+    }
+  },
+  "command": "/datasets/nuscenes-full/.iter28_tmp/iter28-extract-archives.py /datasets/nuscenes-full",
+  "controller": {
+    "command": "/opt/homebrew/opt/python@3.14/bin/python3.14 experiments/iter28_nuscenes_trainval_staging/extract_archives.py",
+    "instance": "sentinel-gpu",
+    "project": "sunlit-unison-487018-b0",
+    "timestamp_utc": "2026-07-07T15:07:42.181551+00:00",
+    "zone": "us-west1-a"
+  },
+  "destination_root": "/datasets/nuscenes-full",
+  "df_stdout": "Filesystem         1B-blocks         Used    Available Use% Mounted on\n/dev/nvme0n2   1081101176832 745709838336 280398983168  73% /datasets/nuscenes-full\n",
+  "expected_archives": [
+    "v1.0-trainval01_blobs.tgz",
+    "v1.0-trainval02_blobs.tgz",
+    "v1.0-trainval03_blobs.tgz",
+    "v1.0-trainval04_blobs.tgz",
+    "v1.0-trainval05_blobs.tgz",
+    "v1.0-trainval06_blobs.tgz",
+    "v1.0-trainval07_blobs.tgz",
+    "v1.0-trainval08_blobs.tgz",
+    "v1.0-trainval09_blobs.tgz",
+    "v1.0-trainval10_blobs.tgz",
+    "v1.0-trainval_meta.tgz"
+  ],
+  "extraction": {
+    "attempted": true,
+    "completed": true
+  },
+  "generated_utc": "2026-07-07T13:22:18.201751+00:00",
+  "metadata_dir_present": true,
+  "missing_archives": [],
+  "path_traversal_attempts_accepted": 0,
+  "stage": "iter28_extract_archives",
+  "unexpected_archives": [],
+  "unsafe_member_count": 0
+}
