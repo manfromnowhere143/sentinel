@@ -153,6 +153,13 @@ events to prepare; they are a property the repository always has.
   Iter29 authorizes only a separate successor pre-registration. It authorizes no probe fitting,
   activation direction, intervention replay, iteration-12 scoring, selector evaluation, or
   closed-loop work.
+- Iteration 30 is now pre-registered:
+  experiments/iter30_full_trainval_lowdiv_localization/HYPOTHESIS.md. It may use only committed
+  iteration-29 proof artifacts and asks whether the frozen motion/planning-bridge representation
+  carries linearly decodable `eligible_lowdiv` information beyond metadata and
+  ego-plan-kinematic controls, with scene-cluster robustness. It authorizes no new extraction,
+  GPU work, activation direction, intervention replay, iteration-12 scoring, selector evaluation,
+  or closed-loop work. A pass authorizes only a separate causal-intervention pre-registration.
 - Iter22 planning artifacts now exist under docs/research/: ITER22_HYPOTHESIS_DRAFT.md and
   ITER22_ADVERSARIAL_REVIEW.md. They are planning-only, not pre-registrations. Owner guidance:
   do not promote the broad A0-A8 draft directly; use the adversarial review's tighter Stage
@@ -368,4 +375,11 @@ events to prepare; they are a property the repository always has.
 - 2026-07-08: Codex — clarified README score-tracker semantics: `—` in metric cells means
   not-applicable for the registered gate type, not missing work, and "stopped before probes" means
   a frozen gate refused the next step rather than an unreported probe/model run.
+- 2026-07-08: Codex — pre-registered iteration 30 under
+  experiments/iter30_full_trainval_lowdiv_localization/HYPOTHESIS.md. Scope is diagnostic
+  localization only on committed iteration-29 proof artifacts: validate hashes/counts, fit one
+  low-capacity internal-representation probe against fixed controls if S0 passes, require
+  scene-cluster robustness, and stop before any activation direction, intervention, iteration-12
+  scoring, selector evaluation, closed-loop work, GPU run, or gcloud command. No analyzer,
+  probe-fitting run, or intervention code launched yet.
 - (append one line per shift: dates, operator, what changed, box state at exit)

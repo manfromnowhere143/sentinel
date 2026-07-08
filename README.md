@@ -398,6 +398,13 @@ intervention, iteration-12, or closed-loop work is authorized without a fresh pr
   fit/calibration/heldout), so successor work may use only low-diversity language unless a new
   strict-collapse pre-registration passes. No probe fitting, activation direction, intervention,
   iteration-12 scoring, selector evaluation, or closed-loop work is authorized.
+- **Iteration 30 is pre-registered as a diagnostic localization gate.**
+  [`experiments/iter30_full_trainval_lowdiv_localization/HYPOTHESIS.md`](experiments/iter30_full_trainval_lowdiv_localization/HYPOTHESIS.md)
+  may use only committed iteration-29 proof artifacts. It asks whether the frozen
+  motion/planning-bridge tensors carry linearly decodable `eligible_lowdiv` information beyond
+  metadata and ego-plan-kinematic controls, with scene-cluster robustness. It authorizes no new
+  extraction, GPU work, activation direction, intervention, iteration-12 scoring, selector
+  evaluation, or closed-loop work.
 
 Closed en route, per the gate discipline: the per-frame routing predicates (iteration 17
 addendum — refuted offline), the tracking layer's own offline gate (iteration 18 — failed
@@ -518,6 +525,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter27_storage_provisioning/`](experiments/iter27_storage_provisioning) | storage provisioning — passed; 1 TB persistent data volume mounted before any nuScenes download |
 | [`experiments/iter28_nuscenes_trainval_staging/`](experiments/iter28_nuscenes_trainval_staging) | official nuScenes trainval staging — passed; full trainval root staged, extracted, and post-firewall inventory proved |
 | [`experiments/iter29_trainval_risk_support_atlas/`](experiments/iter29_trainval_risk_support_atlas) | full-trainval risk-support atlas — support pass for low-diversity hazard/control counts; optional strict-collapse note failed; no probes, interventions, iter12, selector, or closed loop authorized |
+| [`experiments/iter30_full_trainval_lowdiv_localization/`](experiments/iter30_full_trainval_lowdiv_localization) | pre-registered diagnostic localization gate on iter29 proof artifacts only; no extraction, GPU, intervention, iter12, selector, or closed loop authorized |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/ITER22_HYPOTHESIS_DRAFT.md`](docs/research/ITER22_HYPOTHESIS_DRAFT.md) · [`docs/research/ITER22_ADVERSARIAL_REVIEW.md`](docs/research/ITER22_ADVERSARIAL_REVIEW.md) | planning-only iter22 draft and adversarial review; not pre-registrations |
