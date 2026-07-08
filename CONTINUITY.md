@@ -403,4 +403,10 @@ events to prepare; they are a property the repository always has.
   direction, select one alpha on calibration rows, then test heldout candidate-geometry movement
   and benign controls once. No direction builder, patch, feeder, analyzer, GPU/gcloud work,
   iteration-12 scoring, selector evaluation, or closed-loop work launched yet.
+- 2026-07-08: Codex — added and committed the iteration 31 bridge-intervention tooling surface:
+  offline direction/replay-manifest builder, UniAD server patch, row-manifest feeder, canary,
+  calibration-grid and heldout run scripts, intervention analyzer, and unit tests. Local
+  verification passed (`ruff check .`, `pytest -q`, `python3 scripts/validate_docs.py`). No
+  direction artifact, GPU/gcloud run, calibration replay, heldout replay, iteration-12 scoring,
+  selector evaluation, or closed-loop work launched yet.
 - (append one line per shift: dates, operator, what changed, box state at exit)
