@@ -342,8 +342,10 @@ evidence.
 and 26 are closed as Stage 1 data/availability/infrastructure/capacity nulls; iterations 27 and 28
 closed the storage and official trainval staging blockers; iteration 29 passed the first
 full-trainval support atlas while failing the optional strict-collapse note; iteration 30 passed
-the diagnostic localization gate over committed iter29 evidence. No activation intervention,
-iteration-12, selector, GPU, or closed-loop work is authorized without a fresh pre-registration:
+the diagnostic localization gate over committed iter29 evidence; iteration 31 is now
+pre-registered as the first Stage-1 bridge intervention test. No iteration-12, selector, GPU, or
+closed-loop work is authorized from iter31 unless its offline gates first pass and a separate
+successor pre-registration is committed:
 
 - **The manuscript — full draft and compiled PDF committed**
   ([`docs/paper/`](docs/paper/MANUSCRIPT.md)); the arXiv submission package is built and the
@@ -411,6 +413,13 @@ iteration-12, selector, GPU, or closed-loop work is authorized without a fresh p
   robustness passed (AUROC p05 `0.922`). This is diagnostic evidence only: it authorizes only a
   separate causal-intervention pre-registration, not activation patching, iteration-12 scoring,
   selector evaluation, GPU work, or closed-loop work.
+- **Iteration 31 is pre-registered as a full-trainval bridge intervention gate.**
+  [`experiments/iter31_full_trainval_bridge_intervention/HYPOTHESIS.md`](experiments/iter31_full_trainval_bridge_intervention/HYPOTHESIS.md)
+  freezes one causal question: derive a fit-only benign-centroid bridge direction, select one
+  global alpha on calibration rows, and test heldout `eligible_lowdiv` geometry while preserving
+  heldout benign controls. It authorizes no tooling or run until the direction builder, server
+  patch, feeder, analyzer, and tests are committed; it authorizes no iteration-12, selector, or
+  closed-loop work.
 
 Closed en route, per the gate discipline: the per-frame routing predicates (iteration 17
 addendum — refuted offline), the tracking layer's own offline gate (iteration 18 — failed
@@ -532,6 +541,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter28_nuscenes_trainval_staging/`](experiments/iter28_nuscenes_trainval_staging) | official nuScenes trainval staging — passed; full trainval root staged, extracted, and post-firewall inventory proved |
 | [`experiments/iter29_trainval_risk_support_atlas/`](experiments/iter29_trainval_risk_support_atlas) | full-trainval risk-support atlas — support pass for low-diversity hazard/control counts; optional strict-collapse note failed; no probes, interventions, iter12, selector, or closed loop authorized |
 | [`experiments/iter30_full_trainval_lowdiv_localization/`](experiments/iter30_full_trainval_lowdiv_localization) | full-trainval diagnostic localization — pass on committed iter29 proof artifacts; internal bridge tensor signal exceeds metadata and ego-plan controls; no intervention, iter12, selector, GPU, or closed loop authorized |
+| [`experiments/iter31_full_trainval_bridge_intervention/`](experiments/iter31_full_trainval_bridge_intervention) | pre-registered full-trainval bridge intervention — fit-only benign-centroid direction, calibration alpha grid, heldout geometry and benign-control gates; no iter12, selector, or closed loop authorized |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/ITER22_HYPOTHESIS_DRAFT.md`](docs/research/ITER22_HYPOTHESIS_DRAFT.md) · [`docs/research/ITER22_ADVERSARIAL_REVIEW.md`](docs/research/ITER22_ADVERSARIAL_REVIEW.md) | planning-only iter22 draft and adversarial review; not pre-registrations |

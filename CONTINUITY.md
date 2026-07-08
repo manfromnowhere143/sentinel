@@ -162,6 +162,14 @@ events to prepare; they are a property the repository always has.
   AUROC p05 0.922. This is diagnostic only: it authorizes only a separate causal-intervention
   pre-registration, not activation patching, iteration-12 scoring, selector evaluation, GPU work,
   or closed-loop work.
+- Iteration 31 is now pre-registered:
+  experiments/iter31_full_trainval_bridge_intervention/HYPOTHESIS.md. It is a Stage-1
+  full-trainval bridge intervention gate using the committed iter29/iter30 artifacts only. It
+  freezes a fit-only benign-centroid direction for `sdc_traj_query_last || sdc_track_query`, a
+  global alpha grid, calibration selection, heldout geometry bars, benign-control bars, and named
+  falsifiers. It authorizes no tooling or run until the direction builder, server patch, feeder,
+  analyzer, and tests are committed; it authorizes no iteration-12 scoring, selector evaluation,
+  closed-loop work, or safety claim.
 - Iter22 planning artifacts now exist under docs/research/: ITER22_HYPOTHESIS_DRAFT.md and
   ITER22_ADVERSARIAL_REVIEW.md. They are planning-only, not pre-registrations. Owner guidance:
   do not promote the broad A0-A8 draft directly; use the adversarial review's tighter Stage
@@ -389,4 +397,10 @@ events to prepare; they are a property the repository always has.
   metadata and ego-plan controls; scene-cluster bootstrap AUROC p05 was 0.922. No new extraction,
   GPU/gcloud work, activation intervention, iteration-12 scoring, selector evaluation, or
   closed-loop work ran. Successor work requires a fresh causal-intervention pre-registration.
+- 2026-07-08: Codex — pre-registered iteration 31 under
+  experiments/iter31_full_trainval_bridge_intervention/HYPOTHESIS.md. Scope is Stage-1 causal
+  intervention only on the full-trainval bridge representation: derive a fit-only benign-centroid
+  direction, select one alpha on calibration rows, then test heldout candidate-geometry movement
+  and benign controls once. No direction builder, patch, feeder, analyzer, GPU/gcloud work,
+  iteration-12 scoring, selector evaluation, or closed-loop work launched yet.
 - (append one line per shift: dates, operator, what changed, box state at exit)

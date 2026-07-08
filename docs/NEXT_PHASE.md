@@ -127,6 +127,16 @@ metadata and ego-plan-kinematic controls. The primary internal probe passed on h
 authorizes only a separate causal-intervention pre-registration, not activation patching,
 iteration-12 scoring, selector evaluation, GPU work, or closed-loop work.
 
+That causal-intervention pre-registration is now open:
+[`../experiments/iter31_full_trainval_bridge_intervention/HYPOTHESIS.md`](../experiments/iter31_full_trainval_bridge_intervention/HYPOTHESIS.md).
+Iteration 31 is a Stage-1 full-trainval bridge intervention gate. It derives one fit-only
+benign-centroid direction for `sdc_traj_query_last || sdc_track_query`, selects one global alpha
+from a frozen calibration grid, and evaluates heldout candidate-geometry movement plus benign
+controls once. It authorizes no tooling or run until the direction builder, server patch, feeder,
+analyzer, and tests are committed. A pass authorizes only a separate Stage-2 pre-registration for
+iteration-12 or selector evaluation; it does not authorize iteration-12 scoring, selector
+evaluation, GPU closed-loop work, or a safety claim.
+
 ## Line 1 — a diversity-trained candidate head under the runtime selector
 
 **Motivation (measured, twice):** iterations 12 and 14 established that frozen planners hold no
@@ -254,3 +264,8 @@ measurement task. It waits only for the power run's final numbers so results are
     exceeded the frozen bars and controls, and scene-cluster bootstrap robustness passed. This
     authorizes only a separate causal-intervention pre-registration; it does not authorize
     activation patching, iteration-12 scoring, selector evaluation, GPU work, or closed-loop work.
+14. Iteration 31 is pre-registered as that Stage-1 causal-intervention gate. Its next allowed
+    action is tooling only: commit a direction builder, server patch, feeder, analyzer, and tests
+    before any GPU replay. The registered run must stop at S0, calibration, heldout geometry, or
+    benign-control failure and publish the null; it authorizes no iteration-12, selector,
+    closed-loop, or safety claim.
