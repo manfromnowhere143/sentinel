@@ -352,4 +352,7 @@ events to prepare; they are a property the repository always has.
   extraction evidence where applicable, but they did not use the full official
   `/datasets/nuscenes-full` trainval root; iteration 28 is the first full-root staging pass and
   iteration 29 is the first research gate on that root. No scientific result was changed.
+- 2026-07-08: Codex — clarified README score-tracker semantics: `—` in metric cells means
+  not-applicable for the registered gate type, not missing work, and "stopped before probes" means
+  a frozen gate refused the next step rather than an unreported probe/model run.
 - (append one line per shift: dates, operator, what changed, box state at exit)

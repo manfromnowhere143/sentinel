@@ -191,6 +191,13 @@ always-brake controls) and the formal-envelope baseline (iteration 13) on identi
 
 ### Score tracker (honest trajectory — updated every iteration)
 
+Read the empty metric cells literally, not as missing work. In the score and collision columns,
+`—` means the pre-registered iteration did not run a closed-loop benchmark arm or that the relevant
+metric was not defined for that gate. Signal studies, offline gates, extraction/data gates, and
+infrastructure gates report their frozen gate metric in the nearest applicable column instead.
+Phrases such as "stopped before probes/interventions" mean the registered gate refused the next
+step; they are intentional stops, not hidden probe failures or unreported GPU runs.
+
 | iter | what we changed | NeuroNCAP score ↑ | collision % ↓ | vs baseline | insight |
 |---|---|---|---|---|---|
 | 0 | published baseline (target) | UniAD 1.84 · VAD 2.75 | 87.8–99.6 | — | the gap we attack |
