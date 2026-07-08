@@ -409,4 +409,11 @@ events to prepare; they are a property the repository always has.
   verification passed (`ruff check .`, `pytest -q`, `python3 scripts/validate_docs.py`). No
   direction artifact, GPU/gcloud run, calibration replay, heldout replay, iteration-12 scoring,
   selector evaluation, or closed-loop work launched yet.
+- 2026-07-08: Codex — ran the iteration 31 offline direction builder only and committed
+  `proof-direction/`: fit-only bridge-centroid direction SHA
+  `3ae7cb14ae4b31451bda3a0eebf9ace23a38483489839445b6f8333cc2f8d794`, replay manifests
+  canary/calibration/heldout = `12`/`2452`/`2403`, and byte-stability rebuild passed. Local
+  verification passed (`ruff check .`, `pytest -q`, `python3 scripts/validate_docs.py`). No
+  GPU/gcloud run, S0 canary replay, calibration replay, heldout replay, iteration-12 scoring,
+  selector evaluation, or closed-loop work launched yet.
 - (append one line per shift: dates, operator, what changed, box state at exit)
