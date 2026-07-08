@@ -416,4 +416,10 @@ events to prepare; they are a property the repository always has.
   verification passed (`ruff check .`, `pytest -q`, `python3 scripts/validate_docs.py`). No
   GPU/gcloud run, S0 canary replay, calibration replay, heldout replay, iteration-12 scoring,
   selector evaluation, or closed-loop work launched yet.
+- 2026-07-08: Codex — hardened the iteration 31 canary analyzer before GPU replay so S0 now
+  checks the frozen `alpha=0.00` baseline reproduction bar against committed iteration-29
+  trajectories/candidates within `1e-5`, in addition to repeat hashes and repeat counts. Local
+  verification passed (`ruff check .`, `pytest -q`, `python3 scripts/validate_docs.py`). No
+  GPU/gcloud run, S0 canary replay, calibration replay, heldout replay, iteration-12 scoring,
+  selector evaluation, or closed-loop work launched yet.
 - (append one line per shift: dates, operator, what changed, box state at exit)
