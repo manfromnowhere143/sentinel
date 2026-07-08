@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Wed Jul  8 01:24:35 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Wed Jul  8 01:33:23 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+79d47e3 docs: clarify score tracker gate semantics
+e539363 handoff: refresh after iter29 docs audit
 4440301 handoff: record iter29 docs audit
 8dd9c38 docs: align iter29 live research state
 2208cc2 handoff: refresh iter29 extraction snapshot
 1bb5a57 handoff: record iter29 extraction in flight
 df3ab83 analysis: publish iter29 canary proof
 f30da70 analysis: import iter29 manifest
-e0d71da tools: add iter29 atlas surface
-0cc2cfc docs: mark iter29 active
 ```
 Working tree: CLEAN
 
@@ -55,9 +55,9 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 01:25:42 up 3 days, 15:06,  0 users,  load average: 1.41, 1.33, 1.21
+ 01:34:29 up 3 days, 15:15,  0 users,  load average: 1.56, 1.48, 1.32
 GPU_RUN_STATE=IN_FLIGHT_CONTAINERS
-model	Up 32 minutes
+model	Up 41 minutes
 /var/log/sentinel-e29-extract.log
 /var/log/sentinel-vitals.log
 /var/log/sentinel-e29-canary.log
