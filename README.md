@@ -135,11 +135,11 @@ flowchart LR
   S28 --> A29["29 atlas<br/>support pass<br/>strict collapse null"]
   classDef bad fill:#fdebec,stroke:#c62828,color:#3b1213;
   classDef ask fill:#fff8e1,stroke:#b28704,color:#3d2f00;
-  classDef active fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
+  classDef data fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
   classDef win fill:#e2f3e5,stroke:#2e7d32,color:#13361b;
   class H21,F22,S23,A24,I25,R26 bad;
   class Q ask;
-  class D27,S28 active;
+  class D27,S28 data;
   class A29 win;
 ```
 
@@ -313,7 +313,7 @@ kept, with every number and link, in [`docs/CAMPAIGN.md`](docs/CAMPAIGN.md). The
 above is the same history in one screen.
 
 **Net, stated plainly — 29 completed iterations plus an independent verification pass, with
-iteration 29 active.** The
+iteration 29 completed as the first full-trainval research gate.** The
 **released union (iteration 15) is the best configuration** of the campaign: at the definitive
 20-run scale it lifts the independently reproduced baseline **2.12 → 2.91 (CI [+0.605, +0.928])**,
 keeps clean scenes identical to the unmonitored planner, and strictly dominates the plain union

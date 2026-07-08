@@ -136,14 +136,23 @@ events to prepare; they are a property the repository always has.
   pre-registration, not nuScenes download/copy/extraction, inventory rerun, model extraction,
   label atlas, probe fitting, activation direction, iteration-12 scoring, selector evaluation, or
   closed-loop work.
-- Iteration 28 is now pre-registered:
-  experiments/iter28_nuscenes_trainval_staging/HYPOTHESIS.md. It authorizes only official
-  nuScenes v1.0 trainval staging into `/datasets/nuscenes-full`: the metadata archive plus ten
-  file-blob archives, redacted source provenance, archive byte/SHA evidence, extraction safety
-  proof, then a bounded availability inventory for that root. Daniel must perform any
-  browser/session authentication or provide signed URLs; the agent must not handle credentials.
-  It authorizes no model extraction, label atlas, probe fitting, activation direction,
-  iteration-12 scoring, selector evaluation, or closed-loop work.
+- Iteration 28 concluded:
+  experiments/iter28_nuscenes_trainval_staging/RESULT.md. It staged the official nuScenes v1.0
+  trainval metadata archive plus ten sensor-blob archives into `/datasets/nuscenes-full`, proved
+  archive bytes/SHA values, extracted with 0 unsafe tar members, verified all six camera channels,
+  and passed a bounded availability inventory with 532 fresh post-firewall train scenes, 21,461
+  eligible keyframes, and 5,360 heldout keyframes. It authorizes no model extraction, label
+  atlas, probe fitting, activation direction, iteration-12 scoring, selector evaluation, or
+  closed-loop work.
+- Iteration 29 concluded:
+  experiments/iter29_trainval_risk_support_atlas/RESULT.md. It was the first research gate on the
+  staged full trainval root. S0c full extraction passed with 21,461/21,461 joined non-reset rows,
+  zero error row types, and stable tensor shapes/dtypes. S1 low-diversity support passed
+  (`eligible_lowdiv` 127/108/158 and `benign_control` 5,084/2,344/2,245 across
+  fit/calibration/heldout); the optional strict-collapse note failed (`eligible_strict` 0/0/1).
+  Iter29 authorizes only a separate successor pre-registration. It authorizes no probe fitting,
+  activation direction, intervention replay, iteration-12 scoring, selector evaluation, or
+  closed-loop work.
 - Iter22 planning artifacts now exist under docs/research/: ITER22_HYPOTHESIS_DRAFT.md and
   ITER22_ADVERSARIAL_REVIEW.md. They are planning-only, not pre-registrations. Owner guidance:
   do not promote the broad A0-A8 draft directly; use the adversarial review's tighter Stage
