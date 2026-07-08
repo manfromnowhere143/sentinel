@@ -1,0 +1,65 @@
+{
+  "claim_boundary": "This is an offline manifest/reference gate only. It authorizes no intervention, calibration, heldout, iteration-12, selector, closed-loop, or safety claim.",
+  "command_line": "experiments/iter32_prefix_replay_baseline_recovery/build_prefix_manifest.py",
+  "context_only_rows": 32,
+  "failures": [],
+  "iter29_extract_reference_paths": [
+    "experiments/iter29_trainval_risk_support_atlas/proof-full-extract/sentinel_e29_stage1.jsonl.gz.part-aa",
+    "experiments/iter29_trainval_risk_support_atlas/proof-full-extract/sentinel_e29_stage1.jsonl.gz.part-ab",
+    "experiments/iter29_trainval_risk_support_atlas/proof-full-extract/sentinel_e29_stage1.jsonl.gz.part-ac",
+    "experiments/iter29_trainval_risk_support_atlas/proof-full-extract/sentinel_e29_stage1.jsonl.gz.part-ad",
+    "experiments/iter29_trainval_risk_support_atlas/proof-full-extract/sentinel_e29_stage1.jsonl.gz.part-ae",
+    "experiments/iter29_trainval_risk_support_atlas/proof-full-extract/sentinel_e29_stage1.jsonl.gz.part-af",
+    "experiments/iter29_trainval_risk_support_atlas/proof-full-extract/sentinel_e29_stage1.jsonl.gz.part-ag",
+    "experiments/iter29_trainval_risk_support_atlas/proof-full-extract/sentinel_e29_stage1.jsonl.gz.part-ah",
+    "experiments/iter29_trainval_risk_support_atlas/proof-full-extract/sentinel_e29_stage1.jsonl.gz.part-ai",
+    "experiments/iter29_trainval_risk_support_atlas/proof-full-extract/sentinel_e29_stage1.jsonl.gz.part-aj",
+    "experiments/iter29_trainval_risk_support_atlas/proof-full-extract/sentinel_e29_stage1.jsonl.gz.part-ak",
+    "experiments/iter29_trainval_risk_support_atlas/proof-full-extract/sentinel_e29_stage1.jsonl.gz.part-al",
+    "experiments/iter29_trainval_risk_support_atlas/proof-full-extract/sentinel_e29_stage1.jsonl.gz.part-am",
+    "experiments/iter29_trainval_risk_support_atlas/proof-full-extract/sentinel_e29_stage1.jsonl.gz.part-an",
+    "experiments/iter29_trainval_risk_support_atlas/proof-full-extract/sentinel_e29_stage1.jsonl.gz.part-ao"
+  ],
+  "iter29_gt_reference_path": "experiments/iter29_trainval_risk_support_atlas/proof-full-extract/sentinel_e29_stage1_gt.jsonl.gz",
+  "missing_or_duplicate_iter29_extract_target_keys": [],
+  "missing_or_duplicate_iter29_gt_target_keys": [],
+  "offline_manifest_pass": true,
+  "prefix_manifest_sha256": "ceea957acff0b82219f664ce628693dedc5dcbb12c182c9ea3ba9386b8a56452",
+  "prefix_replay_rows": 44,
+  "scenes": {
+    "scene-0252": {
+      "prefix_replay_rows": 7,
+      "target_rows": 6,
+      "target_sample_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    "scene-0258": {
+      "prefix_replay_rows": 9,
+      "target_rows": 5,
+      "target_sample_indices": [
+        1,
+        3,
+        6,
+        7,
+        8
+      ]
+    },
+    "scene-0261": {
+      "prefix_replay_rows": 28,
+      "target_rows": 1,
+      "target_sample_indices": [
+        27
+      ]
+    }
+  },
+  "schema_version": "sentinel.iter32.prefix_manifest_report.v1",
+  "source_target_manifest": "experiments/iter31_full_trainval_bridge_intervention/proof-direction/replay_manifest_canary.json",
+  "source_target_manifest_sha256": "ecc07c9dab51569b3319b9bbbb31a00aeae41981ec4a56a65b9e2c5ed14079c6",
+  "target_rows": 12
+}
