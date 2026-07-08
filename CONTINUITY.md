@@ -346,4 +346,10 @@ events to prepare; they are a property the repository always has.
   `E29_STAGE1_EXTRACT_DONE`; model container `model` is expected while in flight. At launch,
   532 manifest scenes matched and the first fit scene completed (`SCENE_DONE fit scene-0852
   frames=41`). Do not relaunch while the container/log indicate progress.
+- 2026-07-08: Codex — audited the public story while iter29 full extraction remained in flight:
+  README, docs/CAMPAIGN.md, docs/NEXT_PHASE.md, and docs/REPORT.md now state the data-scope
+  boundary explicitly. Iterations 1-27 used real NeuroNCAP/nuScenes closed-loop or registered
+  extraction evidence where applicable, but they did not use the full official
+  `/datasets/nuscenes-full` trainval root; iteration 28 is the first full-root staging pass and
+  iteration 29 is the first research gate on that root. No scientific result was changed.
 - (append one line per shift: dates, operator, what changed, box state at exit)
