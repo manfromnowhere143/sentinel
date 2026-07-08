@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Wed Jul  8 19:05:19 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Wed Jul  8 19:33:10 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+08c5b56 research: pre-register iter31 bridge intervention
+7b3d9ae ci: install iter30 analyzer dependencies
+40a04b6 handoff: refresh after iter30 result
 1c0a7a6 analysis: publish iter30 localization result
 9b2552c handoff: refresh after iter30 analyzer
 5ce67b6 tools: add iter30 localization analyzer
 844c8f9 handoff: refresh after iter30 pre-registration
 89a742b research: pre-register iter30 localization gate
-72b1edf handoff: refresh after post-iter29 story audit
-63f4fce docs: align post-iter29 public story
-7f95d81 handoff: refresh after iter29 result
 ```
 Working tree: CLEAN
 
@@ -42,6 +42,7 @@ Working tree: CLEAN
 - experiments/iter29_trainval_risk_support_atlas: RESULT PUBLISHED
 - experiments/iter2_monitor: RESULT PUBLISHED
 - experiments/iter30_full_trainval_lowdiv_localization: RESULT PUBLISHED
+- experiments/iter31_full_trainval_bridge_intervention: PRE-REGISTERED, result pending
 - experiments/iter3_progress: RESULT PUBLISHED
 - experiments/iter4_gated: RESULT PUBLISHED
 - experiments/iter5_tracked: RESULT PUBLISHED
@@ -56,7 +57,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 19:06:27 up 4 days,  8:47,  0 users,  load average: 0.00, 0.00, 0.00
+ 19:34:16 up 4 days,  9:15,  0 users,  load average: 0.00, 0.00, 0.00
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-e29-extract.log
@@ -68,7 +69,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter30_full_trainval_lowdiv_localization/RESULT.md — read it before opening new work.
+- Newest pre-registration: experiments/iter31_full_trainval_bridge_intervention/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
