@@ -339,4 +339,11 @@ events to prepare; they are a property the repository always has.
   low-diversity hazard and benign-control support counts. No tooling, manifest import, GPU work,
   probe fitting, activation direction, intervention, iteration-12 scoring, selector evaluation, or
   closed-loop work launched yet.
+- 2026-07-08: Codex — iteration 29 S0a/S0b passed and proof was committed: manifest import matched
+  the iter28 digest/counts exactly, and the two-run canary had deterministic canonical hashes,
+  30/30 joins per run, zero error rows, and stable tensor shapes/dtypes. Full extraction is now
+  IN FLIGHT on sentinel-gpu if `/var/log/sentinel-e29-extract.log` lacks
+  `E29_STAGE1_EXTRACT_DONE`; model container `model` is expected while in flight. At launch,
+  532 manifest scenes matched and the first fit scene completed (`SCENE_DONE fit scene-0852
+  frames=41`). Do not relaunch while the container/log indicate progress.
 - (append one line per shift: dates, operator, what changed, box state at exit)
