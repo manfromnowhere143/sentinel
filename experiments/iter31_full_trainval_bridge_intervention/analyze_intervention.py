@@ -18,12 +18,16 @@ from pathlib import Path
 from typing import Iterable
 
 
+ROOT = Path(__file__).resolve().parents[2]
+ITER29 = ROOT / "experiments/iter29_trainval_risk_support_atlas"
+JOIN_KEY = ("scene", "sample_index", "timestamp_us")
 DANGER_THRESHOLD_M = 4.5
 SAFE_THRESHOLD_M = 6.0
 LOW_DIVERSITY_THRESHOLD_M = 1.5
 HIGH_DIVERSITY_THRESHOLD_M = 2.0
 GROSS_MAX_ABS_COORD_M = 100.0
 GROSS_MAX_STEP_M = 20.0
+ALPHA_ZERO_BASELINE_TOLERANCE = 1e-5
 ALPHA_GRID = (0.0, 0.25, 0.5, 0.75, 1.0)
 CALIBRATION_EXPECTED_COUNTS = {"eligible_lowdiv": 108, "benign_control": 2344}
 HELDOUT_EXPECTED_COUNTS = {"eligible_lowdiv": 158, "benign_control": 2245}
@@ -60,6 +64,26 @@ def canonical_jsonl_sha256(path: Path) -> tuple[str, int]:
 
 def key_of(row: dict) -> tuple:
     return (row.get("scene"), int(row.get("sample_index")), int(row.get("timestamp_us")))
+
+
+def default_iter29_extract_parts() -> list[Path]:
+    return sorted((ITER29 / "proof-full-extract").glob("sentinel_e29_stage1.jsonl.gz.part-*"))
+
+
+def key_label(key: tuple) -> str:
+    return f"{key[0]}:{key[1]}:{key[2]}"
+
+
+def max_abs_nested_delta(a, b) -> float:
+    if isinstance(a, (int, float)) and isinstance(b, (int, float)):
+        if not math.isfinite(float(a)) or not math.isfinite(float(b)):
+            return float("inf")
+        return abs(float(a) - float(b))
+    if isinstance(a, list) and isinstance(b, list) and len(a) == len(b):
+        if not a:
+            return 0.0
+        return max(max_abs_nested_delta(x, y) for x, y in zip(a, b))
+    return float("inf")
 
 
 def endpoint_spread(cands: list) -> float:
@@ -455,7 +479,57 @@ def analyze_heldout(paths: list[Path]) -> dict:
     }
 
 
-def analyze_canary(paths: list[Path]) -> dict:
+def alpha_zero_reference_report(canary_rows: list[dict], reference_rows: list[dict]) -> dict:
+    reference_by_key = {key_of(row): row for row in reference_rows if not row.get("reset")}
+    alpha_zero_rows = [
+        row
+        for row in canary_rows
+        if not row.get("reset")
+        and abs(float(row.get("intervention_alpha", row.get("alpha", 0.0)))) <= 1e-12
+    ]
+    failures = []
+    max_delta = 0.0
+    comparisons = 0
+    for row in alpha_zero_rows:
+        key = key_of(row)
+        reference = reference_by_key.get(key)
+        if reference is None:
+            failures.append(f"{key_label(key)}:missing_iter29_reference")
+            continue
+        if row.get("intervention_applied") is not False:
+            failures.append(f"{key_label(key)}:alpha_zero_intervention_applied_not_false")
+        for canary_field, reference_field in (
+            ("intervened_traj", "traj"),
+            ("intervened_cands", "cands"),
+            ("original_traj", "traj"),
+            ("original_cands", "cands"),
+        ):
+            if canary_field not in row:
+                failures.append(f"{key_label(key)}:missing_{canary_field}")
+                continue
+            delta = max_abs_nested_delta(row[canary_field], reference.get(reference_field))
+            max_delta = max(max_delta, delta)
+            comparisons += 1
+            if delta > ALPHA_ZERO_BASELINE_TOLERANCE:
+                failures.append(
+                    f"{key_label(key)}:{canary_field}_vs_iter29_{reference_field}_"
+                    f"max_abs={delta:.9g}"
+                )
+    if not alpha_zero_rows:
+        failures.append("alpha_zero_rows=0")
+    return {
+        "alpha_zero_reference_checked": True,
+        "alpha_zero_rows": len(alpha_zero_rows),
+        "alpha_zero_reference_comparisons": comparisons,
+        "alpha_zero_max_abs_coordinate_error": max_delta,
+        "alpha_zero_reference_tolerance": ALPHA_ZERO_BASELINE_TOLERANCE,
+        "alpha_zero_reference_pass": not failures,
+        "alpha_zero_reference_failures": failures[:50],
+        "alpha_zero_reference_failure_count": len(failures),
+    }
+
+
+def analyze_canary(paths: list[Path], reference_paths: list[Path] | None = None) -> dict:
     hashes = []
     for path in paths:
         digest, rows = canonical_jsonl_sha256(path)
@@ -470,15 +544,34 @@ def analyze_canary(paths: list[Path]) -> dict:
                 alpha_marker = encoded
                 break
         grouped[alpha_marker].append(item["canonical_sha256"])
+    repeat_count_failures = [
+        alpha for alpha in ("0p0", "0p5") if len(grouped.get(alpha, [])) != 2
+    ]
     repeat_failures = [
         alpha for alpha, digests in grouped.items() if len(digests) >= 2 and len(set(digests)) != 1
     ]
+    reference_report = {"alpha_zero_reference_checked": False}
+    if reference_paths is not None:
+        canary_rows = list(iter_jsonl(paths))
+        reference_rows = list(iter_jsonl(reference_paths))
+        reference_report = alpha_zero_reference_report(canary_rows, reference_rows)
+    s0_canary_pass = (
+        not repeat_count_failures
+        and not repeat_failures
+        and (
+            not reference_report["alpha_zero_reference_checked"]
+            or reference_report["alpha_zero_reference_pass"]
+        )
+    )
     return {
         "stage": "iter31_canary_hashes",
         "command_line": " ".join(sys.argv),
         "hashes": hashes,
+        "repeat_count_failures": repeat_count_failures,
         "repeat_hash_failures": repeat_failures,
         "s0_canary_repeat_pass": not repeat_failures,
+        "s0_canary_pass": s0_canary_pass,
+        **reference_report,
         "claim_boundary": "Canary hashing is an S0 integrity artifact only; it is not a model result.",
     }
 
@@ -487,11 +580,16 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--stage", choices=["canary", "calibration", "heldout"], required=True)
     parser.add_argument("--log", action="append", required=True)
+    parser.add_argument("--reference-extract-part", action="append")
     parser.add_argument("--out", required=True)
     args = parser.parse_args()
     paths = [Path(path) for path in args.log]
     if args.stage == "canary":
-        report = analyze_canary(paths)
+        if args.reference_extract_part is None:
+            reference_paths = default_iter29_extract_parts()
+        else:
+            reference_paths = [Path(path) for path in args.reference_extract_part]
+        report = analyze_canary(paths, reference_paths)
     elif args.stage == "calibration":
         report = analyze_calibration(paths)
     else:

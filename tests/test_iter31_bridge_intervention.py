@@ -151,6 +151,78 @@ def test_iter31_gap_delta_handles_no_object_infinity():
     assert analyze.gap_delta(float("inf"), float("inf")) == 0.0
 
 
+def test_iter31_alpha_zero_reference_check_passes_matching_originals():
+    analyze = load_module("iter31_analyze_alpha_zero_reference_pass", ANALYZE)
+    reference = [
+        {
+            "scene": "scene-a",
+            "sample_index": 1,
+            "timestamp_us": 10,
+            "traj": [[0.0, 0.0], [1.0, 1.0]],
+            "cands": [
+                [[0.0, 0.0], [1.0, 0.0]],
+                [[0.0, 0.0], [0.0, 1.0]],
+                [[0.0, 0.0], [1.0, 1.0]],
+            ],
+        }
+    ]
+    canary = [
+        {
+            "scene": "scene-a",
+            "sample_index": 1,
+            "timestamp_us": 10,
+            "intervention_alpha": 0.0,
+            "intervention_applied": False,
+            "original_traj": reference[0]["traj"],
+            "intervened_traj": reference[0]["traj"],
+            "original_cands": reference[0]["cands"],
+            "intervened_cands": reference[0]["cands"],
+        }
+    ]
+
+    report = analyze.alpha_zero_reference_report(canary, reference)
+
+    assert report["alpha_zero_reference_pass"]
+    assert report["alpha_zero_rows"] == 1
+    assert report["alpha_zero_max_abs_coordinate_error"] == 0.0
+
+
+def test_iter31_alpha_zero_reference_check_fails_coordinate_drift():
+    analyze = load_module("iter31_analyze_alpha_zero_reference_fail", ANALYZE)
+    reference = [
+        {
+            "scene": "scene-a",
+            "sample_index": 1,
+            "timestamp_us": 10,
+            "traj": [[0.0, 0.0], [1.0, 1.0]],
+            "cands": [
+                [[0.0, 0.0], [1.0, 0.0]],
+                [[0.0, 0.0], [0.0, 1.0]],
+                [[0.0, 0.0], [1.0, 1.0]],
+            ],
+        }
+    ]
+    canary = [
+        {
+            "scene": "scene-a",
+            "sample_index": 1,
+            "timestamp_us": 10,
+            "intervention_alpha": 0.0,
+            "intervention_applied": False,
+            "original_traj": reference[0]["traj"],
+            "intervened_traj": [[0.0, 0.0], [1.001, 1.0]],
+            "original_cands": reference[0]["cands"],
+            "intervened_cands": reference[0]["cands"],
+        }
+    ]
+
+    report = analyze.alpha_zero_reference_report(canary, reference)
+
+    assert not report["alpha_zero_reference_pass"]
+    assert report["alpha_zero_reference_failure_count"] == 1
+    assert "intervened_traj_vs_iter29_traj" in report["alpha_zero_reference_failures"][0]
+
+
 def test_iter31_calibration_selects_largest_spread_then_smallest_alpha():
     analyze = load_module("iter31_analyze_selection", ANALYZE)
     cells = [
