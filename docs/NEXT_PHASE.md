@@ -136,14 +136,14 @@ comparison failures, max coordinate error `30.222413063049316` m). Iteration 31 
 infrastructure null. It authorizes no calibration replay, heldout replay, iteration-12 scoring,
 selector evaluation, closed-loop work, or safety claim.
 
-The next line is now pre-registered as a baseline-recovery prerequisite:
-[`../experiments/iter32_prefix_replay_baseline_recovery/HYPOTHESIS.md`](../experiments/iter32_prefix_replay_baseline_recovery/HYPOTHESIS.md).
-Iteration 32 freezes the exact 12 iteration-31 canary target rows and replays each scene from
-sample index `0` through its last target index, for `44` total prefix rows. The question is whether
-prefix-preserving no-op replay restores iteration-29 baseline parity for the same target rows.
-It authorizes no tooling or run until the prefix manifest builder, no-op server patch, feeder,
-analyzer, and tests are committed. A pass authorizes only a separate prefix-preserving bridge
-intervention pre-registration.
+The baseline-recovery prerequisite is now published:
+[`../experiments/iter32_prefix_replay_baseline_recovery/RESULT.md`](../experiments/iter32_prefix_replay_baseline_recovery/RESULT.md).
+Iteration 32 froze the exact 12 iteration-31 canary target rows and replayed each scene from
+sample index `0` through its last target index, for `44` total prefix rows. The no-op prefix replay
+restored iteration-29 model and GT parity exactly on the frozen target rows (`0.0` max model and
+GT delta). This authorizes only a separate prefix-preserving bridge intervention
+pre-registration. It does not authorize calibration, heldout, iteration-12 scoring, selector
+evaluation, closed-loop work, or safety claims.
 
 ## Line 1 — a diversity-trained candidate head under the runtime selector
 
@@ -275,8 +275,8 @@ measurement task. It waits only for the power run's final numbers so results are
 14. Iteration 31 is closed as an S0 infrastructure-null. Alpha-zero baseline reproduction failed
     against iteration-29 originals, so calibration, heldout, iteration-12 scoring, selector
     evaluation, closed-loop work, and safety claims are not authorized.
-15. Iteration 32 is pre-registered as a prefix-replay baseline-recovery audit. Its next allowed
-    action is tooling only: commit a prefix manifest builder, no-op server patch, feeder, analyzer,
-    and tests before any GPU replay. The registered run must stop at offline S0 or prefix-replay
-    baseline parity failure and publish the null; it authorizes no intervention, calibration,
-    heldout, iteration-12, selector, closed-loop, or safety claim.
+15. Iteration 32 is closed as a prefix-replay baseline-recovery pass. The no-op replay restored
+    exact iteration-29 parity for the frozen 12 iter31 canary target rows under a 44-row
+    scene-prefix replay. It authorizes only a fresh prefix-preserving bridge intervention
+    pre-registration; it authorizes no direct intervention, calibration, heldout, iteration-12,
+    selector, closed-loop, or safety claim.

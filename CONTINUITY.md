@@ -169,13 +169,14 @@ events to prepare; they are a property the repository always has.
   reproduction bar (`24` rows checked, `96` comparison failures, max coordinate error
   `30.222413063049316` m). Iter31 authorizes no calibration replay, heldout replay,
   iteration-12 scoring, selector evaluation, closed-loop work, or safety claim.
-- Iteration 32 is now pre-registered:
-  experiments/iter32_prefix_replay_baseline_recovery/HYPOTHESIS.md. It is a narrow
-  prefix-replay baseline-recovery audit for the iter31 S0 blocker: replay the exact 12 canary
-  target rows with 44 scene-prefix rows and test whether no-op replay restores iteration-29
-  baseline parity. It authorizes no tooling or run until the prefix manifest builder, no-op
-  patch, feeder, analyzer, and tests are committed; it authorizes no intervention, calibration,
-  heldout, iteration-12 scoring, selector evaluation, closed-loop work, or safety claim.
+- Iteration 32 concluded:
+  experiments/iter32_prefix_replay_baseline_recovery/RESULT.md. It replayed the exact 12 iter31
+  canary target rows with 44 scene-prefix rows and passed the no-op baseline-recovery gate:
+  two repeats, 44 non-reset rows and 12 target rows each, matching target canonical hashes, and
+  max model/GT deltas of 0.0 versus committed iteration-29 artifacts. It authorizes only a fresh
+  prefix-preserving bridge intervention pre-registration; it authorizes no direct intervention,
+  calibration, heldout, iteration-12 scoring, selector evaluation, closed-loop work, or safety
+  claim.
 - Iter22 planning artifacts now exist under docs/research/: ITER22_HYPOTHESIS_DRAFT.md and
   ITER22_ADVERSARIAL_REVIEW.md. They are planning-only, not pre-registrations. Owner guidance:
   do not promote the broad A0-A8 draft directly; use the adversarial review's tighter Stage
@@ -448,4 +449,11 @@ events to prepare; they are a property the repository always has.
   extraction/GT target-key coverage. Local verification passed (`ruff check .`, `pytest -q`,
   `python3 scripts/validate_docs.py`). No GPU/gcloud replay, intervention, calibration, heldout,
   iteration-12 scoring, selector evaluation, or closed-loop work launched yet.
+- 2026-07-08: Codex — ran and published the iteration 32 no-op prefix replay on `sentinel-gpu`.
+  Two repeats completed with `44` non-reset rows and `12` target rows each; model and GT target
+  canonical hashes matched across repeats; max model and GT deltas versus committed iteration-29
+  artifacts were both `0.0`. Local verification passed (`ruff check .`, `pytest -q`,
+  `python3 scripts/validate_docs.py`). This is a baseline-recovery pass only; no intervention,
+  calibration, heldout, iteration-12 scoring, selector evaluation, closed-loop work, or safety
+  claim launched.
 - (append one line per shift: dates, operator, what changed, box state at exit)

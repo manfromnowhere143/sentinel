@@ -1,0 +1,69 @@
+{
+  "claim_boundary": "This report checks no-op prefix replay baseline parity only. It is not an intervention, calibration, heldout, iteration-12, selector, closed-loop, or safety result.",
+  "command_line": "experiments/iter32_prefix_replay_baseline_recovery/analyze_prefix_replay.py --log experiments/iter32_prefix_replay_baseline_recovery/proof-prefix/sentinel_e32_prefix_a.jsonl.gz --log experiments/iter32_prefix_replay_baseline_recovery/proof-prefix/sentinel_e32_prefix_b.jsonl.gz --gt-log experiments/iter32_prefix_replay_baseline_recovery/proof-prefix/sentinel_e32_prefix_a_gt.jsonl.gz --gt-log experiments/iter32_prefix_replay_baseline_recovery/proof-prefix/sentinel_e32_prefix_b_gt.jsonl.gz --out experiments/iter32_prefix_replay_baseline_recovery/proof-prefix/baseline_recovery_report.json",
+  "failure_count": 0,
+  "failures": [],
+  "gt_runs": [
+    {
+      "context_only_rows": 32,
+      "duplicate_target_keys": [],
+      "missing_target_keys": [],
+      "non_reset_rows": 44,
+      "path": "experiments/iter32_prefix_replay_baseline_recovery/proof-prefix/sentinel_e32_prefix_a_gt.jsonl.gz",
+      "target_canonical_sha256": "5064a3177c7918712fa56533b897e50a7d731f516d17a9ca6241ef67296050c7",
+      "target_rows": 12,
+      "unexpected_target_keys": []
+    },
+    {
+      "context_only_rows": 32,
+      "duplicate_target_keys": [],
+      "missing_target_keys": [],
+      "non_reset_rows": 44,
+      "path": "experiments/iter32_prefix_replay_baseline_recovery/proof-prefix/sentinel_e32_prefix_b_gt.jsonl.gz",
+      "target_canonical_sha256": "5064a3177c7918712fa56533b897e50a7d731f516d17a9ca6241ef67296050c7",
+      "target_rows": 12,
+      "unexpected_target_keys": []
+    }
+  ],
+  "gt_target_repeat_hashes": [
+    "5064a3177c7918712fa56533b897e50a7d731f516d17a9ca6241ef67296050c7",
+    "5064a3177c7918712fa56533b897e50a7d731f516d17a9ca6241ef67296050c7"
+  ],
+  "gt_tolerance": 1e-09,
+  "max_gt_abs_delta_vs_iter29": 0.0,
+  "max_model_abs_delta_vs_iter29": 0.0,
+  "model_runs": [
+    {
+      "context_only_rows": 32,
+      "duplicate_target_keys": [],
+      "error_rows": 0,
+      "missing_target_keys": [],
+      "non_reset_rows": 44,
+      "path": "experiments/iter32_prefix_replay_baseline_recovery/proof-prefix/sentinel_e32_prefix_a.jsonl.gz",
+      "target_canonical_sha256": "2495f9a1dc4d7f7544673cd4dc25c1283977087a0018b37e76184a2b3c0b611e",
+      "target_rows": 12,
+      "unexpected_target_keys": []
+    },
+    {
+      "context_only_rows": 32,
+      "duplicate_target_keys": [],
+      "error_rows": 0,
+      "missing_target_keys": [],
+      "non_reset_rows": 44,
+      "path": "experiments/iter32_prefix_replay_baseline_recovery/proof-prefix/sentinel_e32_prefix_b.jsonl.gz",
+      "target_canonical_sha256": "2495f9a1dc4d7f7544673cd4dc25c1283977087a0018b37e76184a2b3c0b611e",
+      "target_rows": 12,
+      "unexpected_target_keys": []
+    }
+  ],
+  "model_target_repeat_hashes": [
+    "2495f9a1dc4d7f7544673cd4dc25c1283977087a0018b37e76184a2b3c0b611e",
+    "2495f9a1dc4d7f7544673cd4dc25c1283977087a0018b37e76184a2b3c0b611e"
+  ],
+  "model_tolerance": 1e-05,
+  "prefix_rows_expected": 44,
+  "s1_prefix_replay_pass": true,
+  "schema_version": "sentinel.iter32.prefix_replay_report.v1",
+  "target_manifest": "/Users/danielwahnich/workspace/sentinel/experiments/iter31_full_trainval_bridge_intervention/proof-direction/replay_manifest_canary.json",
+  "target_rows_expected": 12
+}

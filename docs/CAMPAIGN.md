@@ -316,3 +316,13 @@ over-claim.** That arc, in order:
     iteration-12 scoring, selector evaluation, and closed-loop work were not run and are not
     authorized from this hypothesis.
     [`../experiments/iter31_full_trainval_bridge_intervention/RESULT.md`](../experiments/iter31_full_trainval_bridge_intervention/RESULT.md).
+
+34. **Iter 32 — prefix replay baseline recovery: replay-form blocker cleared.** The registered
+    successor did not intervene. It rebuilt the exact 12 iter31 canary target rows as a
+    prefix-preserving replay: `44` total rows, with `32` context-only rows to restore runner/input
+    state before target logging. Two no-op repeats completed with matching target canonical hashes,
+    `0` error rows, and max model/GT absolute deltas of **0.0** versus committed iteration-29
+    references. This is a baseline-recovery pass only. It authorizes a fresh prefix-preserving
+    bridge intervention pre-registration, not calibration, heldout replay, iteration-12 scoring,
+    selector evaluation, closed-loop work, or safety claims.
+    [`../experiments/iter32_prefix_replay_baseline_recovery/RESULT.md`](../experiments/iter32_prefix_replay_baseline_recovery/RESULT.md).
