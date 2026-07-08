@@ -1,0 +1,37 @@
+{
+  "command": "/opt/homebrew/opt/python@3.14/bin/python3.14 experiments/iter29_trainval_risk_support_atlas/import_iter28_manifest.py",
+  "expected_source_sha256": "0b89783862b9dcfa141d30083d1f462e939aa674502387f9169972ed532afe48",
+  "expected_split_keyframe_counts": {
+    "calibration": 5375,
+    "fit": 10726,
+    "heldout": 5360
+  },
+  "expected_split_scene_counts": {
+    "calibration": 133,
+    "fit": 266,
+    "heldout": 133
+  },
+  "expected_total_keyframes": 21461,
+  "experiment": "iter29_trainval_risk_support_atlas",
+  "known_data_contamination_count": 0,
+  "metadata_identifier_field_count": 0,
+  "mixed_root_keyframe_count": 0,
+  "root": "/datasets/nuscenes-full",
+  "root_id": "/datasets/nuscenes-full",
+  "s0a_manifest_import_pass": true,
+  "source_manifest": "experiments/iter28_nuscenes_trainval_staging/proof-inventory/selected_availability_manifest.json",
+  "source_sha256": "0b89783862b9dcfa141d30083d1f462e939aa674502387f9169972ed532afe48",
+  "source_sha_sidecar": "experiments/iter28_nuscenes_trainval_staging/proof-inventory/selected_availability_manifest.sha256",
+  "split_keyframe_counts": {
+    "calibration": 5375,
+    "fit": 10726,
+    "heldout": 5360
+  },
+  "split_scene_counts": {
+    "calibration": 133,
+    "fit": 266,
+    "heldout": 133
+  },
+  "total_keyframes": 21461,
+  "verdict": "S0A_PASS_CANARY_AUTHORIZED"
+}
