@@ -1,0 +1,122 @@
+[
+  {
+    "baseline_closest_gap": 6.764771516586663,
+    "baseline_endpoint_spread": 2.2529618131264466,
+    "label": 0,
+    "label_name": "benign_control",
+    "sample_index": 1,
+    "scene": "scene-0252",
+    "split": "calibration",
+    "timestamp_us": 1534867433448600
+  },
+  {
+    "baseline_closest_gap": 6.586952730205922,
+    "baseline_endpoint_spread": 2.480012578020869,
+    "label": 0,
+    "label_name": "benign_control",
+    "sample_index": 2,
+    "scene": "scene-0252",
+    "split": "calibration",
+    "timestamp_us": 1534867433898179
+  },
+  {
+    "baseline_closest_gap": 7.0179168291916225,
+    "baseline_endpoint_spread": 2.259689396850155,
+    "label": 0,
+    "label_name": "benign_control",
+    "sample_index": 3,
+    "scene": "scene-0252",
+    "split": "calibration",
+    "timestamp_us": 1534867434397491
+  },
+  {
+    "baseline_closest_gap": 6.438613929812912,
+    "baseline_endpoint_spread": 2.286071680063546,
+    "label": 0,
+    "label_name": "benign_control",
+    "sample_index": 4,
+    "scene": "scene-0252",
+    "split": "calibration",
+    "timestamp_us": 1534867434947673
+  },
+  {
+    "baseline_closest_gap": 6.280994873063047,
+    "baseline_endpoint_spread": 2.1960523785818005,
+    "label": 0,
+    "label_name": "benign_control",
+    "sample_index": 5,
+    "scene": "scene-0252",
+    "split": "calibration",
+    "timestamp_us": 1534867435447584
+  },
+  {
+    "baseline_closest_gap": 6.767479946190103,
+    "baseline_endpoint_spread": 2.577501766108966,
+    "label": 0,
+    "label_name": "benign_control",
+    "sample_index": 6,
+    "scene": "scene-0252",
+    "split": "calibration",
+    "timestamp_us": 1534867435947443
+  },
+  {
+    "baseline_closest_gap": 4.119693055924998,
+    "baseline_endpoint_spread": 1.0387071858453354,
+    "label": 1,
+    "label_name": "eligible_lowdiv",
+    "sample_index": 1,
+    "scene": "scene-0258",
+    "split": "calibration",
+    "timestamp_us": 1533582771796803
+  },
+  {
+    "baseline_closest_gap": 4.214003307872451,
+    "baseline_endpoint_spread": 1.4910723322081096,
+    "label": 1,
+    "label_name": "eligible_lowdiv",
+    "sample_index": 3,
+    "scene": "scene-0258",
+    "split": "calibration",
+    "timestamp_us": 1533582772796552
+  },
+  {
+    "baseline_closest_gap": 2.8423241739237097,
+    "baseline_endpoint_spread": 0.6421135822377673,
+    "label": 1,
+    "label_name": "eligible_lowdiv",
+    "sample_index": 6,
+    "scene": "scene-0258",
+    "split": "calibration",
+    "timestamp_us": 1533582774198325
+  },
+  {
+    "baseline_closest_gap": 3.824859386466237,
+    "baseline_endpoint_spread": 1.222877306805418,
+    "label": 1,
+    "label_name": "eligible_lowdiv",
+    "sample_index": 7,
+    "scene": "scene-0258",
+    "split": "calibration",
+    "timestamp_us": 1533582774698742
+  },
+  {
+    "baseline_closest_gap": 4.379771832366479,
+    "baseline_endpoint_spread": 0.8432961668240658,
+    "label": 1,
+    "label_name": "eligible_lowdiv",
+    "sample_index": 8,
+    "scene": "scene-0258",
+    "split": "calibration",
+    "timestamp_us": 1533582775198083
+  },
+  {
+    "baseline_closest_gap": 3.4480452933576613,
+    "baseline_endpoint_spread": 1.2185532282196339,
+    "label": 1,
+    "label_name": "eligible_lowdiv",
+    "sample_index": 27,
+    "scene": "scene-0261",
+    "split": "calibration",
+    "timestamp_us": 1533583207647916
+  }
+]
