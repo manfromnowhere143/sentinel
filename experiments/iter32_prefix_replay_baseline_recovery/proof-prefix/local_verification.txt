@@ -3,7 +3,7 @@ All checks passed!
 
 $ pytest -q
 .......................................................                  [100%]
-55 passed in 1.38s
+55 passed in 1.34s
 
 $ python3 scripts/validate_docs.py
-docs guard: 85 markdown files clean; all RESULT experiments surfaced in README
+docs guard: 86 markdown files clean; all RESULT experiments surfaced in README
