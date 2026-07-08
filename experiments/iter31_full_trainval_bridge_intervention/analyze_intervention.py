@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import gzip
 import hashlib
+import io
 import json
 import math
 import sys
@@ -33,18 +34,73 @@ CALIBRATION_EXPECTED_COUNTS = {"eligible_lowdiv": 108, "benign_control": 2344}
 HELDOUT_EXPECTED_COUNTS = {"eligible_lowdiv": 158, "benign_control": 2245}
 
 
+class ChainedBinaryReader(io.RawIOBase):
+    def __init__(self, paths: Iterable[Path]) -> None:
+        self.paths = iter(paths)
+        self.current = None
+
+    def readable(self) -> bool:
+        return True
+
+    def readinto(self, buffer) -> int:
+        view = memoryview(buffer)
+        total = 0
+        while total < len(view):
+            if self.current is None:
+                try:
+                    self.current = next(self.paths).open("rb")
+                except StopIteration:
+                    break
+            read = self.current.readinto(view[total:])
+            if read:
+                total += read
+                break
+            self.current.close()
+            self.current = None
+        return total
+
+    def close(self) -> None:
+        if self.current is not None:
+            self.current.close()
+            self.current = None
+        super().close()
+
+
 def open_text(path: Path):
-    if str(path).endswith(".gz"):
+    if ".gz" in path.suffixes:
         return gzip.open(path, "rt", encoding="utf-8")
     return path.open("rt", encoding="utf-8")
 
 
+def is_gzip_part(path: Path) -> bool:
+    return ".gz" in path.suffixes and any(suffix.startswith(".part-") for suffix in path.suffixes)
+
+
+def iter_gzip_parts(paths: list[Path]):
+    reader = ChainedBinaryReader(sorted(paths))
+    with reader:
+        with gzip.GzipFile(fileobj=io.BufferedReader(reader), mode="rb") as gz:
+            with io.TextIOWrapper(gz, encoding="utf-8") as f:
+                for line in f:
+                    if line.strip():
+                        yield json.loads(line)
+
+
 def iter_jsonl(paths: Iterable[Path]):
+    gzip_parts = []
     for path in paths:
+        if is_gzip_part(path):
+            gzip_parts.append(path)
+            continue
+        if gzip_parts:
+            yield from iter_gzip_parts(gzip_parts)
+            gzip_parts = []
         with open_text(path) as f:
             for line in f:
                 if line.strip():
                     yield json.loads(line)
+    if gzip_parts:
+        yield from iter_gzip_parts(gzip_parts)
 
 
 def canonical_jsonl_sha256(path: Path) -> tuple[str, int]:

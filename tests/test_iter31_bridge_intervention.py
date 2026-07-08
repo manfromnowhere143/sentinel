@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import gzip
 import importlib.util
+import json
 from pathlib import Path
 
 import pytest
@@ -149,6 +151,26 @@ def test_iter31_gap_delta_handles_no_object_infinity():
     analyze = load_module("iter31_analyze_gap_delta", ANALYZE)
 
     assert analyze.gap_delta(float("inf"), float("inf")) == 0.0
+
+
+def test_iter31_iter_jsonl_reads_split_gzip_part_shards(tmp_path):
+    analyze = load_module("iter31_analyze_gzip_part", ANALYZE)
+    payload = json.dumps({"scene": "scene-a", "sample_index": 1, "timestamp_us": 10}) + "\n"
+    compressed = gzip.compress(payload.encode("utf-8"))
+    midpoint = len(compressed) // 2
+    (tmp_path / "rows.jsonl.gz.part-0000").write_bytes(compressed[:midpoint])
+    (tmp_path / "rows.jsonl.gz.part-0001").write_bytes(compressed[midpoint:])
+
+    rows = list(
+        analyze.iter_jsonl(
+            [
+                tmp_path / "rows.jsonl.gz.part-0000",
+                tmp_path / "rows.jsonl.gz.part-0001",
+            ]
+        )
+    )
+
+    assert rows == [{"scene": "scene-a", "sample_index": 1, "timestamp_us": 10}]
 
 
 def test_iter31_alpha_zero_reference_check_passes_matching_originals():

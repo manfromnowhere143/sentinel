@@ -241,6 +241,7 @@ step; they are intentional stops, not hidden probe failures or unreported GPU ru
 | 28 | **official nuScenes trainval staging** — stage metadata + sensor blobs before a fresh atlas | — (data gate only) | staged 11 official archives, **314,886,603,672 bytes**, SHA-proved; extracted with **0 unsafe members** across **2,631,374** tar members; six camera channels present with **34,149 files each**; availability PASS: **532** fresh post-firewall train scenes, **21,461** keyframes, **5,360** heldout keyframes | **pre-registered staging/availability pass — not a model result** | `/datasets/nuscenes-full` is now an auditable official trainval root for a fresh pre-registered atlas/research run. No model extraction, labels, probes, iter12, selector, or closed loop authorized by this pass. [`iter28_nuscenes_trainval_staging`](experiments/iter28_nuscenes_trainval_staging/RESULT.md) |
 | 29 | **full-trainval risk-support atlas** — first research gate on the staged official trainval root | — (support atlas only) | S0c full extraction PASS: **532** scenes, **21,461/21,461** joined non-reset rows, zero error rows, stable shapes/dtypes; S1 support PASS: `eligible_lowdiv` **127/108/158** and `benign_control` **5,084/2,344/2,245** fit/calibration/heldout; strict optional support FAIL: `eligible_strict` **0/0/1** | **pre-registered support pass — successor pre-registration authorized; strict-collapse language not authorized** | The official trainval root contains enough fresh low-diversity hazard support and benign controls for a later causal-localization or planner-repair hypothesis. No probe, activation direction, intervention, iter12, selector, or closed-loop work is authorized from this pass. [`iter29_trainval_risk_support_atlas`](experiments/iter29_trainval_risk_support_atlas/RESULT.md) |
 | 30 | **full-trainval low-diversity localization** — diagnostic probe gate on committed iter29 evidence | — (diagnostic only) | S0/S1/S2 PASS: internal tensor AUROC **0.950**, AP **0.615**, balanced accuracy **0.867**; metadata AUROC **0.596**, ego-plan AUROC **0.674**, shuffled-label internal AUROC **0.531**; scene-bootstrap AUROC p05 **0.922** | **pre-registered localization pass — causal-intervention pre-registration authorized; no causal/safety claim** | The motion/planning bridge carries linearly decodable `eligible_lowdiv` information beyond registered controls on heldout full-trainval scenes. No activation direction, intervention, iter12, selector, GPU, or closed-loop work is authorized from this pass. [`iter30_full_trainval_lowdiv_localization`](experiments/iter30_full_trainval_lowdiv_localization/RESULT.md) |
+| 31 | **full-trainval bridge intervention S0 canary** — first causal-intervention harness on the iter30 bridge signal | — (stopped before calibration) | direction artifact PASS; S0 canary repeated hashes PASS for alpha `0.00` and `0.50`; alpha-zero baseline reproduction FAIL: `24` rows checked, `96` comparison failures, max error **30.222 m** vs iteration-29 originals | **pre-registered infrastructure null — calibration, heldout, iter12, selector, and closed loop not authorized** | The intervention harness is deterministic, but the sham run does not reproduce the frozen baseline within the registered `1e-5` tolerance. The experiment stops before any causal/model claim; a successor needs a fresh pre-registration that resolves baseline reproduction. [`iter31_full_trainval_bridge_intervention`](experiments/iter31_full_trainval_bridge_intervention/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -314,8 +315,9 @@ selectivity/side-blindness trade of iterations 4–7, and the three refuted evas
 kept, with every number and link, in [`docs/CAMPAIGN.md`](docs/CAMPAIGN.md). The summary table
 above is the same history in one screen.
 
-**Net, stated plainly — 30 completed iterations plus an independent verification pass, with
-iterations 29 and 30 completed as the first full-trainval support and localization gates.** The
+**Net, stated plainly — 31 completed iterations plus an independent verification pass, with
+iterations 29, 30, and 31 completed as the first full-trainval support, localization, and
+intervention-S0 gates.** The
 **released union (iteration 15) is the best configuration** of the campaign: at the definitive
 20-run scale it lifts the independently reproduced baseline **2.12 → 2.91 (CI [+0.605, +0.928])**,
 keeps clean scenes identical to the unmonitored planner, and strictly dominates the plain union
@@ -342,10 +344,10 @@ evidence.
 and 26 are closed as Stage 1 data/availability/infrastructure/capacity nulls; iterations 27 and 28
 closed the storage and official trainval staging blockers; iteration 29 passed the first
 full-trainval support atlas while failing the optional strict-collapse note; iteration 30 passed
-the diagnostic localization gate over committed iter29 evidence; iteration 31 is now
-pre-registered as the first Stage-1 bridge intervention test. No iteration-12, selector, GPU, or
-closed-loop work is authorized from iter31 unless its offline gates first pass and a separate
-successor pre-registration is committed:
+the diagnostic localization gate over committed iter29 evidence; iteration 31 stopped at S0
+because alpha `0.00` failed to reproduce the committed iteration-29 baseline. No calibration,
+heldout, iteration-12, selector, GPU, or closed-loop work is authorized from iter31. Any successor
+requires a fresh pre-registration:
 
 - **The manuscript — full draft and compiled PDF committed**
   ([`docs/paper/`](docs/paper/MANUSCRIPT.md)); the arXiv submission package is built and the
@@ -413,13 +415,13 @@ successor pre-registration is committed:
   robustness passed (AUROC p05 `0.922`). This is diagnostic evidence only: it authorizes only a
   separate causal-intervention pre-registration, not activation patching, iteration-12 scoring,
   selector evaluation, GPU work, or closed-loop work.
-- **Iteration 31 is pre-registered as a full-trainval bridge intervention gate.**
-  [`experiments/iter31_full_trainval_bridge_intervention/HYPOTHESIS.md`](experiments/iter31_full_trainval_bridge_intervention/HYPOTHESIS.md)
-  freezes one causal question: derive a fit-only benign-centroid bridge direction, select one
-  global alpha on calibration rows, and test heldout `eligible_lowdiv` geometry while preserving
-  heldout benign controls. It authorizes no tooling or run until the direction builder, server
-  patch, feeder, analyzer, and tests are committed; it authorizes no iteration-12, selector, or
-  closed-loop work.
+- **Iteration 31 is completed as a bridge-intervention S0 infrastructure-null.**
+  [`experiments/iter31_full_trainval_bridge_intervention/RESULT.md`](experiments/iter31_full_trainval_bridge_intervention/RESULT.md)
+  reports that the fit-only direction artifact was committed and the S0 canary repeated hashes
+  were deterministic, but alpha `0.00` failed the frozen baseline reproduction bar against
+  iteration-29 originals (`24` rows checked, `96` comparison failures, max coordinate error
+  `30.222413063049316` m). Stage 1 stopped before calibration replay, heldout replay,
+  iteration-12 scoring, selector evaluation, or closed-loop work.
 
 Closed en route, per the gate discipline: the per-frame routing predicates (iteration 17
 addendum — refuted offline), the tracking layer's own offline gate (iteration 18 — failed
@@ -541,7 +543,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter28_nuscenes_trainval_staging/`](experiments/iter28_nuscenes_trainval_staging) | official nuScenes trainval staging — passed; full trainval root staged, extracted, and post-firewall inventory proved |
 | [`experiments/iter29_trainval_risk_support_atlas/`](experiments/iter29_trainval_risk_support_atlas) | full-trainval risk-support atlas — support pass for low-diversity hazard/control counts; optional strict-collapse note failed; no probes, interventions, iter12, selector, or closed loop authorized |
 | [`experiments/iter30_full_trainval_lowdiv_localization/`](experiments/iter30_full_trainval_lowdiv_localization) | full-trainval diagnostic localization — pass on committed iter29 proof artifacts; internal bridge tensor signal exceeds metadata and ego-plan controls; no intervention, iter12, selector, GPU, or closed loop authorized |
-| [`experiments/iter31_full_trainval_bridge_intervention/`](experiments/iter31_full_trainval_bridge_intervention) | pre-registered full-trainval bridge intervention — fit-only benign-centroid direction, calibration alpha grid, heldout geometry and benign-control gates; no iter12, selector, or closed loop authorized |
+| [`experiments/iter31_full_trainval_bridge_intervention/`](experiments/iter31_full_trainval_bridge_intervention) | full-trainval bridge intervention — S0 infrastructure-null after alpha-zero baseline reproduction failed; stopped before calibration, heldout, iter12, selector, or closed loop |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/ITER22_HYPOTHESIS_DRAFT.md`](docs/research/ITER22_HYPOTHESIS_DRAFT.md) · [`docs/research/ITER22_ADVERSARIAL_REVIEW.md`](docs/research/ITER22_ADVERSARIAL_REVIEW.md) | planning-only iter22 draft and adversarial review; not pre-registrations |

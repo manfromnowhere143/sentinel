@@ -304,3 +304,15 @@ over-claim.** That arc, in order:
     mechanism, activation direction, intervention, iter12 effect, selector compatibility, or
     closed-loop safety. It authorizes only a separate causal-intervention pre-registration.
     [`../experiments/iter30_full_trainval_lowdiv_localization/RESULT.md`](../experiments/iter30_full_trainval_lowdiv_localization/RESULT.md).
+
+33. **Iter 31 — full-trainval bridge intervention: S0 canary blocks calibration.** The registered
+    successor derived and committed a fit-only benign-centroid direction for the
+    `sdc_traj_query_last || sdc_track_query` bridge representation, then ran only the S0 canary.
+    The canary was deterministic: alpha `0.00` and alpha `0.50` each produced matching canonical
+    hashes across two repeats. The alpha-zero reproduction bar failed, however: `24` sham rows
+    were checked against committed iteration-29 originals, `96` comparisons failed, and max
+    absolute coordinate error was **30.222413063049316 m**, far above the frozen `1e-5` tolerance.
+    This is an infrastructure null, not a model-effect result. Calibration, heldout replay,
+    iteration-12 scoring, selector evaluation, and closed-loop work were not run and are not
+    authorized from this hypothesis.
+    [`../experiments/iter31_full_trainval_bridge_intervention/RESULT.md`](../experiments/iter31_full_trainval_bridge_intervention/RESULT.md).
