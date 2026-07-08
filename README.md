@@ -346,8 +346,9 @@ closed the storage and official trainval staging blockers; iteration 29 passed t
 full-trainval support atlas while failing the optional strict-collapse note; iteration 30 passed
 the diagnostic localization gate over committed iter29 evidence; iteration 31 stopped at S0
 because alpha `0.00` failed to reproduce the committed iteration-29 baseline. No calibration,
-heldout, iteration-12, selector, GPU, or closed-loop work is authorized from iter31. Any successor
-requires a fresh pre-registration:
+heldout, iteration-12, selector, GPU, or closed-loop work is authorized from iter31. Iteration 32
+is now pre-registered as the narrow prefix-replay baseline-recovery audit; it authorizes tooling
+only until the prefix manifest, no-op patch, feeder, analyzer, and tests are committed:
 
 - **The manuscript — full draft and compiled PDF committed**
   ([`docs/paper/`](docs/paper/MANUSCRIPT.md)); the arXiv submission package is built and the
@@ -422,6 +423,12 @@ requires a fresh pre-registration:
   iteration-29 originals (`24` rows checked, `96` comparison failures, max coordinate error
   `30.222413063049316` m). Stage 1 stopped before calibration replay, heldout replay,
   iteration-12 scoring, selector evaluation, or closed-loop work.
+- **Iteration 32 is pre-registered as a prefix-replay baseline-recovery audit.**
+  [`experiments/iter32_prefix_replay_baseline_recovery/HYPOTHESIS.md`](experiments/iter32_prefix_replay_baseline_recovery/HYPOTHESIS.md)
+  freezes the exact 12 iter31 canary target rows and a 44-row scene-prefix replay intended to
+  restore iteration-29 runner/input state before target logging. A pass would authorize only a
+  separate prefix-preserving intervention pre-registration; it does not authorize calibration,
+  heldout, iteration-12, selector, GPU closed-loop, or safety claims.
 
 Closed en route, per the gate discipline: the per-frame routing predicates (iteration 17
 addendum — refuted offline), the tracking layer's own offline gate (iteration 18 — failed
@@ -544,6 +551,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter29_trainval_risk_support_atlas/`](experiments/iter29_trainval_risk_support_atlas) | full-trainval risk-support atlas — support pass for low-diversity hazard/control counts; optional strict-collapse note failed; no probes, interventions, iter12, selector, or closed loop authorized |
 | [`experiments/iter30_full_trainval_lowdiv_localization/`](experiments/iter30_full_trainval_lowdiv_localization) | full-trainval diagnostic localization — pass on committed iter29 proof artifacts; internal bridge tensor signal exceeds metadata and ego-plan controls; no intervention, iter12, selector, GPU, or closed loop authorized |
 | [`experiments/iter31_full_trainval_bridge_intervention/`](experiments/iter31_full_trainval_bridge_intervention) | full-trainval bridge intervention — S0 infrastructure-null after alpha-zero baseline reproduction failed; stopped before calibration, heldout, iter12, selector, or closed loop |
+| [`experiments/iter32_prefix_replay_baseline_recovery/`](experiments/iter32_prefix_replay_baseline_recovery) | pre-registered prefix-replay baseline recovery — 12 frozen canary targets, 44 prefix rows; tooling only until committed |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/ITER22_HYPOTHESIS_DRAFT.md`](docs/research/ITER22_HYPOTHESIS_DRAFT.md) · [`docs/research/ITER22_ADVERSARIAL_REVIEW.md`](docs/research/ITER22_ADVERSARIAL_REVIEW.md) | planning-only iter22 draft and adversarial review; not pre-registrations |

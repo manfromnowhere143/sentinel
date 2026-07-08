@@ -127,15 +127,23 @@ metadata and ego-plan-kinematic controls. The primary internal probe passed on h
 authorizes only a separate causal-intervention pre-registration, not activation patching,
 iteration-12 scoring, selector evaluation, GPU work, or closed-loop work.
 
-That causal-intervention pre-registration is now open:
-[`../experiments/iter31_full_trainval_bridge_intervention/HYPOTHESIS.md`](../experiments/iter31_full_trainval_bridge_intervention/HYPOTHESIS.md).
-Iteration 31 is a Stage-1 full-trainval bridge intervention gate. It derives one fit-only
-benign-centroid direction for `sdc_traj_query_last || sdc_track_query`, selects one global alpha
-from a frozen calibration grid, and evaluates heldout candidate-geometry movement plus benign
-controls once. It authorizes no tooling or run until the direction builder, server patch, feeder,
-analyzer, and tests are committed. A pass authorizes only a separate Stage-2 pre-registration for
-iteration-12 or selector evaluation; it does not authorize iteration-12 scoring, selector
-evaluation, GPU closed-loop work, or a safety claim.
+That causal-intervention gate is now published:
+[`../experiments/iter31_full_trainval_bridge_intervention/RESULT.md`](../experiments/iter31_full_trainval_bridge_intervention/RESULT.md).
+Iteration 31 derived and committed a fit-only benign-centroid direction, then ran only the S0
+canary. The canary repeated hashes passed for alpha `0.00` and `0.50`, but the alpha-zero baseline
+reproduction bar failed against committed iteration-29 originals (`24` rows checked, `96`
+comparison failures, max coordinate error `30.222413063049316` m). Iteration 31 is an
+infrastructure null. It authorizes no calibration replay, heldout replay, iteration-12 scoring,
+selector evaluation, closed-loop work, or safety claim.
+
+The next line is now pre-registered as a baseline-recovery prerequisite:
+[`../experiments/iter32_prefix_replay_baseline_recovery/HYPOTHESIS.md`](../experiments/iter32_prefix_replay_baseline_recovery/HYPOTHESIS.md).
+Iteration 32 freezes the exact 12 iteration-31 canary target rows and replays each scene from
+sample index `0` through its last target index, for `44` total prefix rows. The question is whether
+prefix-preserving no-op replay restores iteration-29 baseline parity for the same target rows.
+It authorizes no tooling or run until the prefix manifest builder, no-op server patch, feeder,
+analyzer, and tests are committed. A pass authorizes only a separate prefix-preserving bridge
+intervention pre-registration.
 
 ## Line 1 — a diversity-trained candidate head under the runtime selector
 
@@ -264,8 +272,11 @@ measurement task. It waits only for the power run's final numbers so results are
     exceeded the frozen bars and controls, and scene-cluster bootstrap robustness passed. This
     authorizes only a separate causal-intervention pre-registration; it does not authorize
     activation patching, iteration-12 scoring, selector evaluation, GPU work, or closed-loop work.
-14. Iteration 31 is pre-registered as that Stage-1 causal-intervention gate. Its next allowed
-    action is tooling only: commit a direction builder, server patch, feeder, analyzer, and tests
-    before any GPU replay. The registered run must stop at S0, calibration, heldout geometry, or
-    benign-control failure and publish the null; it authorizes no iteration-12, selector,
-    closed-loop, or safety claim.
+14. Iteration 31 is closed as an S0 infrastructure-null. Alpha-zero baseline reproduction failed
+    against iteration-29 originals, so calibration, heldout, iteration-12 scoring, selector
+    evaluation, closed-loop work, and safety claims are not authorized.
+15. Iteration 32 is pre-registered as a prefix-replay baseline-recovery audit. Its next allowed
+    action is tooling only: commit a prefix manifest builder, no-op server patch, feeder, analyzer,
+    and tests before any GPU replay. The registered run must stop at offline S0 or prefix-replay
+    baseline parity failure and publish the null; it authorizes no intervention, calibration,
+    heldout, iteration-12, selector, closed-loop, or safety claim.
