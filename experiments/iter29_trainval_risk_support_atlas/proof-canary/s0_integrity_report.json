@@ -1,0 +1,84 @@
+{
+  "all_s0_integrity_pass": true,
+  "canary_determinism_pass": true,
+  "pairs": [
+    {
+      "canonical_sha256": {
+        "extract": "1df861dc0f0824149c90a145fbd6c153f2e31f5e59c78ca1329bbe9e0d019bd4",
+        "extract_rows": 36,
+        "gt": "383e7955aad9fede0b37882e6adb785c8c2683fb29d2d0c467063c46336fa834",
+        "gt_rows": 30
+      },
+      "dtype_counts": {
+        "sdc_track_query_dtype": {
+          "torch.float32": 30
+        },
+        "sdc_traj_query_last_dtype": {
+          "torch.float32": 30
+        }
+      },
+      "duplicate_extract_keys": 0,
+      "duplicate_gt_keys": 0,
+      "error_row_types": {},
+      "extract_nonreset_rows_total": 30,
+      "extract_path": "experiments/iter29_trainval_risk_support_atlas/proof-canary/sentinel_e29_canary_a.jsonl.gz",
+      "extract_rows_total": 36,
+      "gt_path": "experiments/iter29_trainval_risk_support_atlas/proof-canary/sentinel_e29_canary_a_gt.jsonl.gz",
+      "gt_rows_total": 30,
+      "joined_rows": 30,
+      "s0_integrity_pass": true,
+      "shape_counts": {
+        "sdc_track_query_shape": {
+          "[1, 256]": 30
+        },
+        "sdc_traj_query_last_shape": {
+          "[1, 6, 256]": 30
+        }
+      },
+      "split_counts": {
+        "calibration": 10,
+        "fit": 10,
+        "heldout": 10
+      }
+    },
+    {
+      "canonical_sha256": {
+        "extract": "1df861dc0f0824149c90a145fbd6c153f2e31f5e59c78ca1329bbe9e0d019bd4",
+        "extract_rows": 36,
+        "gt": "383e7955aad9fede0b37882e6adb785c8c2683fb29d2d0c467063c46336fa834",
+        "gt_rows": 30
+      },
+      "dtype_counts": {
+        "sdc_track_query_dtype": {
+          "torch.float32": 30
+        },
+        "sdc_traj_query_last_dtype": {
+          "torch.float32": 30
+        }
+      },
+      "duplicate_extract_keys": 0,
+      "duplicate_gt_keys": 0,
+      "error_row_types": {},
+      "extract_nonreset_rows_total": 30,
+      "extract_path": "experiments/iter29_trainval_risk_support_atlas/proof-canary/sentinel_e29_canary_b.jsonl.gz",
+      "extract_rows_total": 36,
+      "gt_path": "experiments/iter29_trainval_risk_support_atlas/proof-canary/sentinel_e29_canary_b_gt.jsonl.gz",
+      "gt_rows_total": 30,
+      "joined_rows": 30,
+      "s0_integrity_pass": true,
+      "shape_counts": {
+        "sdc_track_query_shape": {
+          "[1, 256]": 30
+        },
+        "sdc_traj_query_last_shape": {
+          "[1, 6, 256]": 30
+        }
+      },
+      "split_counts": {
+        "calibration": 10,
+        "fit": 10,
+        "heldout": 10
+      }
+    }
+  ]
+}
