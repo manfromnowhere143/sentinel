@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Wed Jul  8 20:22:03 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Wed Jul  8 20:41:58 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+26826e2 analysis: publish iter31 canary null
+a7ae998 handoff: refresh after iter31 canary verifier
 ed44e78 tools: harden iter31 canary verifier
 f8f57ee handoff: refresh after iter31 direction artifact
 904dcdc analysis: publish iter31 direction artifact
 e1a151c handoff: refresh after iter31 tooling
 aa7adac tools: add iter31 bridge intervention surface
 115ff5d handoff: refresh after iter31 pre-registration
-08c5b56 research: pre-register iter31 bridge intervention
-7b3d9ae ci: install iter30 analyzer dependencies
 ```
 Working tree: CLEAN
 
@@ -42,7 +42,7 @@ Working tree: CLEAN
 - experiments/iter29_trainval_risk_support_atlas: RESULT PUBLISHED
 - experiments/iter2_monitor: RESULT PUBLISHED
 - experiments/iter30_full_trainval_lowdiv_localization: RESULT PUBLISHED
-- experiments/iter31_full_trainval_bridge_intervention: PRE-REGISTERED, result pending
+- experiments/iter31_full_trainval_bridge_intervention: RESULT PUBLISHED
 - experiments/iter3_progress: RESULT PUBLISHED
 - experiments/iter4_gated: RESULT PUBLISHED
 - experiments/iter5_tracked: RESULT PUBLISHED
@@ -57,19 +57,19 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 20:23:11 up 4 days, 10:04,  0 users,  load average: 0.00, 0.00, 0.00
+ 20:43:05 up 4 days, 10:24,  0 users,  load average: 0.00, 0.13, 0.21
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
+/var/log/sentinel-e31-canary.log
 /var/log/sentinel-e29-extract.log
-/var/log/sentinel-e29-canary.log
 /dev/root       310G  291G   20G  94% /
-Swap:          8.0Gi        59Mi       7.9Gi
+Swap:          8.0Gi        58Mi       7.9Gi
 ```
 If any docker container named renderer/model/ncap (or a random-name ncap) is up, a run
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest pre-registration: experiments/iter31_full_trainval_bridge_intervention/HYPOTHESIS.md — read it in full; its gate governs the next action.
+- Newest completed experiment: experiments/iter31_full_trainval_bridge_intervention/RESULT.md — read it before opening new work.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.

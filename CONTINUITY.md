@@ -422,4 +422,10 @@ events to prepare; they are a property the repository always has.
   verification passed (`ruff check .`, `pytest -q`, `python3 scripts/validate_docs.py`). No
   GPU/gcloud run, S0 canary replay, calibration replay, heldout replay, iteration-12 scoring,
   selector evaluation, or closed-loop work launched yet.
+- 2026-07-08: Codex — ran and published the iteration 31 S0 canary as an infrastructure-null:
+  alpha `0.00` and `0.50` repeat hashes matched, but alpha `0.00` failed the registered
+  iteration-29 baseline reproduction bar (`24` rows checked, `96` comparison failures, max
+  coordinate error `30.222413063049316` m). `RESULT.md` and `proof-canary/` are committed.
+  Calibration replay, heldout replay, iteration-12 scoring, selector evaluation, and closed-loop
+  work remain unauthorized.
 - (append one line per shift: dates, operator, what changed, box state at exit)
