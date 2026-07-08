@@ -441,4 +441,11 @@ events to prepare; they are a property the repository always has.
   No prefix manifest builder, no-op patch, feeder, analyzer, GPU/gcloud replay, intervention,
   calibration, heldout, iteration-12 scoring, selector evaluation, or closed-loop work launched
   yet.
+- 2026-07-08: Codex — added and committed the iteration 32 prefix-replay tooling surface
+  (prefix manifest builder, no-op server patch, prefix feeder, analyzer, two-run script, and
+  tests), then ran the offline manifest/reference gate only. `proof-prefix/` passed with
+  `44` prefix rows, `12` target rows, `32` context-only rows, and exact committed iteration-29
+  extraction/GT target-key coverage. Local verification passed (`ruff check .`, `pytest -q`,
+  `python3 scripts/validate_docs.py`). No GPU/gcloud replay, intervention, calibration, heldout,
+  iteration-12 scoring, selector evaluation, or closed-loop work launched yet.
 - (append one line per shift: dates, operator, what changed, box state at exit)
