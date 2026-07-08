@@ -341,11 +341,15 @@ events to prepare; they are a property the repository always has.
   closed-loop work launched yet.
 - 2026-07-08: Codex — iteration 29 S0a/S0b passed and proof was committed: manifest import matched
   the iter28 digest/counts exactly, and the two-run canary had deterministic canonical hashes,
-  30/30 joins per run, zero error rows, and stable tensor shapes/dtypes. Full extraction is now
-  IN FLIGHT on sentinel-gpu if `/var/log/sentinel-e29-extract.log` lacks
-  `E29_STAGE1_EXTRACT_DONE`; model container `model` is expected while in flight. At launch,
-  532 manifest scenes matched and the first fit scene completed (`SCENE_DONE fit scene-0852
-  frames=41`). Do not relaunch while the container/log indicate progress.
+  30/30 joins per run, zero error rows, and stable tensor shapes/dtypes. Full extraction then
+  completed cleanly on sentinel-gpu (`FEEDER_DONE mode=full split=all scenes=532 frames=21461`;
+  `E29_STAGE1_EXTRACT_DONE Wed Jul  8 14:36:11 UTC 2026`). S0c passed with `21,461/21,461`
+  joined non-reset rows, zero error row types, stable primary tensor shapes/dtypes, and split
+  counts matching the manifest. S1 low-diversity support passed with no count-floor or
+  distribution failures; optional strict-collapse support failed. No probe fitting, activation
+  direction, intervention replay, iteration-12 scoring, selector evaluation, or closed-loop work
+  is authorized from iter29; a successor requires a fresh pre-registration. GPU box has no iter29
+  model container left running after the full extraction script removed it.
 - 2026-07-08: Codex — audited the public story while iter29 full extraction remained in flight:
   README, docs/CAMPAIGN.md, docs/NEXT_PHASE.md, and docs/REPORT.md now state the data-scope
   boundary explicitly. Iterations 1-27 used real NeuroNCAP/nuScenes closed-loop or registered

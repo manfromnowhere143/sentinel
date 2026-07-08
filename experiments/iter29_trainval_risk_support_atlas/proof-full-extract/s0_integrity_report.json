@@ -1,0 +1,45 @@
+{
+  "all_s0_integrity_pass": true,
+  "canary_determinism_pass": null,
+  "pairs": [
+    {
+      "canonical_sha256": {
+        "extract": "878d31e594c1d106b6d862e0c03f3d7377e0d28bb69817ab5f60de86de06b639",
+        "extract_rows": 21993,
+        "gt": "a6dc71c79eabc98bf6b55a7ebb1c1afcce235d463cd607575c95415eeba45731",
+        "gt_rows": 21461
+      },
+      "dtype_counts": {
+        "sdc_track_query_dtype": {
+          "torch.float32": 21461
+        },
+        "sdc_traj_query_last_dtype": {
+          "torch.float32": 21461
+        }
+      },
+      "duplicate_extract_keys": 0,
+      "duplicate_gt_keys": 0,
+      "error_row_types": {},
+      "extract_nonreset_rows_total": 21461,
+      "extract_path": "experiments/iter29_trainval_risk_support_atlas/proof-full-extract/sentinel_e29_stage1.jsonl.gz",
+      "extract_rows_total": 21993,
+      "gt_path": "experiments/iter29_trainval_risk_support_atlas/proof-full-extract/sentinel_e29_stage1_gt.jsonl.gz",
+      "gt_rows_total": 21461,
+      "joined_rows": 21461,
+      "s0_integrity_pass": true,
+      "shape_counts": {
+        "sdc_track_query_shape": {
+          "[1, 256]": 21461
+        },
+        "sdc_traj_query_last_shape": {
+          "[1, 6, 256]": 21461
+        }
+      },
+      "split_counts": {
+        "calibration": 5375,
+        "fit": 10726,
+        "heldout": 5360
+      }
+    }
+  ]
+}

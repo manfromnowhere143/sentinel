@@ -103,11 +103,17 @@ two-run canary, S0c full extraction, and S1 support counts. It authorizes no pro
 activation direction, intervention replay, iteration-12 scoring, selector evaluation, or
 closed-loop work.
 
-Current iter29 state: S0a manifest import passed against the committed iter28 digest and exact
-split/keyframe counts, and S0b two-run canary passed with deterministic hashes, 30/30 joins per
-run, zero errors, and stable tensor shapes/dtypes. S0c full extraction is in flight on
-`sentinel-gpu`; do not relaunch while `/var/log/sentinel-e29-extract.log` lacks
-`E29_STAGE1_EXTRACT_DONE` and the `model` container/log indicate progress.
+Its result is now published:
+[`../experiments/iter29_trainval_risk_support_atlas/RESULT.md`](../experiments/iter29_trainval_risk_support_atlas/RESULT.md).
+S0c full extraction integrity passed on all `21,461` imported keyframes: `21,461/21,461`
+non-reset extraction rows joined GT one-to-one, with zero error row types and stable primary
+tensor shapes/dtypes. The S1 low-diversity support gate passed with `eligible_lowdiv`
+`127/108/158` and `benign_control` `5,084/2,344/2,245` across fit/calibration/heldout, and no
+count-floor or distribution failures. The optional strict-collapse note failed
+(`eligible_strict` `0/0/1`), so successor work may use only low-diversity language unless a new
+strict-collapse pre-registration passes. Iter29 authorizes only a separate successor
+pre-registration; it does not authorize probe fitting, activation direction, intervention replay,
+iteration-12 scoring, selector evaluation, or closed-loop work.
 
 ## Line 1 — a diversity-trained candidate head under the runtime selector
 
@@ -225,8 +231,9 @@ measurement task. It waits only for the power run's final numbers so results are
     activation intervention, iteration-12 scoring, selector evaluation, or closed-loop work.
     The next action must be a fresh research pre-registration naming the committed iter28
     availability manifest.
-12. Iteration 29 is active as a full-trainval risk-support atlas. S0a/S0b have passed, and S0c
-    full extraction is in flight. It authorizes only the staged S0a/S0b/S0c/S1 atlas protocol in
-    its HYPOTHESIS.md, starting from the committed iter28 manifest. It does not authorize probe
-    fitting, activation intervention, iteration-12 scoring, selector evaluation, or closed-loop
-    work.
+12. Iteration 29 is closed as a full-trainval low-diversity support pass. S0c full extraction
+    passed with `21,461/21,461` joined non-reset rows and zero error row types; S1 passed all
+    low-diversity hazard/control count and distribution bars. The optional strict-collapse note
+    failed, so no successor may call this support strict collapse without a new pre-registration.
+    Iter29 authorizes only a separate successor pre-registration, not probe fitting, activation
+    intervention, iteration-12 scoring, selector evaluation, or closed-loop work.

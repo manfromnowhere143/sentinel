@@ -4,8 +4,8 @@
 collision it is about to cause, and intervenes — measured where it actually matters: in closed
 loop, by whether the car crashes *and whether it can still drive*.**
 
-> **Honest status up front (28 completed iterations + an independent verification pass + the
-> full official benchmark at power + one active full-trainval research gate):** the introspective signal predicts the planner's collisions (AUROC 0.83). On the
+> **Honest status up front (29 completed iterations + an independent verification pass + the
+> full official benchmark at power + the first full-trainval research gate):** the introspective signal predicts the planner's collisions (AUROC 0.83). On the
 > complete 14-scene NeuroNCAP set at **20 seed-paired runs per pair** (799 episodes, the power
 > measurement), the unmonitored UniAD baseline **independently reproduces** (pooled 2.12 vs the
 > published 1.84 — to the verified literature, a first), and the best configuration — the
@@ -44,7 +44,7 @@ GPUs.
 
 ## The result
 
-Twenty-eight completed iterations under a frozen campaign pre-registration converge on one configuration — the
+Twenty-nine completed iterations under a frozen campaign pre-registration converge on one configuration — the
 **released union** (two label-free geometric detectors + a threat-cleared latch release) —
 measured on the **complete official 14-scene NeuroNCAP set at 20 seed-paired runs per pair**
 (799 episodes; hypotheses frozen before the run; the first 6 indices of every pair reproduce the
@@ -132,13 +132,15 @@ flowchart LR
   I25 --> R26["26 blobs needed<br/>disk too small"]
   R26 --> D27["27 1 TB disk"]
   D27 --> S28["28 trainval staged<br/>532 scenes"]
-  S28 --> A29["29 atlas<br/>S0a/S0b pass<br/>extracting"]
+  S28 --> A29["29 atlas<br/>support pass<br/>strict collapse null"]
   classDef bad fill:#fdebec,stroke:#c62828,color:#3b1213;
   classDef ask fill:#fff8e1,stroke:#b28704,color:#3d2f00;
   classDef active fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
+  classDef win fill:#e2f3e5,stroke:#2e7d32,color:#13361b;
   class H21,F22,S23,A24,I25,R26 bad;
   class Q ask;
-  class D27,S28,A29 active;
+  class D27,S28 active;
+  class A29 win;
 ```
 
 The winning monitor is a **union of two individually-selective detectors**, chosen because the two
@@ -236,7 +238,7 @@ step; they are intentional stops, not hidden probe failures or unreported GPU ru
 | 26 | **data-staging remedy** — source/capacity gate before any download or copy | — (stopped before data movement) | official nuScenes v1.0 trainval sensor blobs identified: **292.78 GB** archive budget; capacity FAIL: **365.975 GB** required by margin, **25.125 GB** free observed | **pre-registered capacity-null — storage provisioning required before download/staging** | Yes, the missing data must be staged/downloaded. Do not start on the current disk; next action is a storage/staging pre-registration. [`iter26_data_staging_remedy`](experiments/iter26_data_staging_remedy/RESULT.md) |
 | 27 | **storage provisioning** — persistent volume before nuScenes staging | — (infrastructure only) | created/attached/formatted/mounted `sentinel-nuscenes-data-1tb`, 1024 GB `pd-balanced`, at `/datasets/nuscenes-full`; free space **1,026,108,792,832 bytes**; Docker/model runs **0**; dataset bytes moved **0** | **pre-registered storage pass — no data staging/model work authorized** | The capacity blocker is cleared, but only for a later data-staging pre-registration. No download, extraction, inventory rerun, labels, probes, iter12, selector, or closed loop is authorized from this pass. [`iter27_storage_provisioning`](experiments/iter27_storage_provisioning/RESULT.md) |
 | 28 | **official nuScenes trainval staging** — stage metadata + sensor blobs before a fresh atlas | — (data gate only) | staged 11 official archives, **314,886,603,672 bytes**, SHA-proved; extracted with **0 unsafe members** across **2,631,374** tar members; six camera channels present with **34,149 files each**; availability PASS: **532** fresh post-firewall train scenes, **21,461** keyframes, **5,360** heldout keyframes | **pre-registered staging/availability pass — not a model result** | `/datasets/nuscenes-full` is now an auditable official trainval root for a fresh pre-registered atlas/research run. No model extraction, labels, probes, iter12, selector, or closed loop authorized by this pass. [`iter28_nuscenes_trainval_staging`](experiments/iter28_nuscenes_trainval_staging/RESULT.md) |
-| 29 | **full-trainval risk-support atlas** — first research gate on the staged official trainval root | — (active full extraction) | S0a manifest import PASS exactly: **266/133/133** scenes and **10,726/5,375/5,360** keyframes; S0b two-run canary PASS with deterministic hashes, 30/30 joins per run, zero errors, stable shapes/dtypes; S0c full extraction is in flight on the committed **532**-scene manifest | **active atlas/support run — not a causal or closed-loop result** | A pass would authorize only a later causal-localization or planner-repair pre-registration. No probe, activation direction, intervention, iter12, selector, or closed-loop work authorized. [`iter29_trainval_risk_support_atlas`](experiments/iter29_trainval_risk_support_atlas/HYPOTHESIS.md) |
+| 29 | **full-trainval risk-support atlas** — first research gate on the staged official trainval root | — (support atlas only) | S0c full extraction PASS: **532** scenes, **21,461/21,461** joined non-reset rows, zero error rows, stable shapes/dtypes; S1 support PASS: `eligible_lowdiv` **127/108/158** and `benign_control` **5,084/2,344/2,245** fit/calibration/heldout; strict optional support FAIL: `eligible_strict` **0/0/1** | **pre-registered support pass — successor pre-registration authorized; strict-collapse language not authorized** | The official trainval root contains enough fresh low-diversity hazard support and benign controls for a later causal-localization or planner-repair hypothesis. No probe, activation direction, intervention, iter12, selector, or closed-loop work is authorized from this pass. [`iter29_trainval_risk_support_atlas`](experiments/iter29_trainval_risk_support_atlas/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -310,7 +312,7 @@ selectivity/side-blindness trade of iterations 4–7, and the three refuted evas
 kept, with every number and link, in [`docs/CAMPAIGN.md`](docs/CAMPAIGN.md). The summary table
 above is the same history in one screen.
 
-**Net, stated plainly — 28 completed iterations plus an independent verification pass, with
+**Net, stated plainly — 29 completed iterations plus an independent verification pass, with
 iteration 29 active.** The
 **released union (iteration 15) is the best configuration** of the campaign: at the definitive
 20-run scale it lifts the independently reproduced baseline **2.12 → 2.91 (CI [+0.605, +0.928])**,
@@ -335,9 +337,9 @@ root.
 
 **What's next.** The benchmark campaign is complete and consolidated. Iterations 22, 23, 24, 25,
 and 26 are closed as Stage 1 data/availability/infrastructure/capacity nulls; iterations 27 and 28
-closed the storage and official trainval staging blockers; iteration 29 is active as the first
-full-trainval atlas. No probe, intervention, iteration-12, or closed-loop work is authorized without
-a fresh pre-registration:
+closed the storage and official trainval staging blockers; iteration 29 passed the first
+full-trainval support atlas while failing the optional strict-collapse note. No probe,
+intervention, iteration-12, or closed-loop work is authorized without a fresh pre-registration:
 
 - **The manuscript — full draft and compiled PDF committed**
   ([`docs/paper/`](docs/paper/MANUSCRIPT.md)); the arXiv submission package is built and the
@@ -388,14 +390,14 @@ a fresh pre-registration:
   present (`34,149` files each), and availability PASS with `532` fresh post-firewall train scenes,
   `21,461` eligible keyframes, and `5,360` heldout keyframes. This is a data-root pass, not a
   model result; the next action must be a fresh research pre-registration.
-- **Iteration 29 is active as a full-trainval risk-support atlas.**
-  [`experiments/iter29_trainval_risk_support_atlas/HYPOTHESIS.md`](experiments/iter29_trainval_risk_support_atlas/HYPOTHESIS.md)
-  freezes the first research use of `/datasets/nuscenes-full`. S0a manifest import passed against
-  the committed iter28 digest and counts, and S0b two-run canary passed with deterministic hashes,
-  30/30 joins per run, zero errors, and stable tensor shapes/dtypes. S0c full extraction is in
-  flight before frozen low-diversity hazard and benign-control support bars are computed. No probe
-  fitting, activation direction, intervention, iteration-12 scoring, selector evaluation, or
-  closed-loop work is authorized.
+- **Iteration 29 is completed as a full-trainval risk-support pass.**
+  [`experiments/iter29_trainval_risk_support_atlas/RESULT.md`](experiments/iter29_trainval_risk_support_atlas/RESULT.md)
+  reports S0c full extraction integrity PASS (`21,461/21,461` joined non-reset rows, zero error
+  row types, stable shapes/dtypes) and S1 support PASS for `low_diversity_1p5` under `danger_4p5`.
+  The optional strict-collapse note failed (`eligible_strict` `0/0/1` across
+  fit/calibration/heldout), so successor work may use only low-diversity language unless a new
+  strict-collapse pre-registration passes. No probe fitting, activation direction, intervention,
+  iteration-12 scoring, selector evaluation, or closed-loop work is authorized.
 
 Closed en route, per the gate discipline: the per-frame routing predicates (iteration 17
 addendum — refuted offline), the tracking layer's own offline gate (iteration 18 — failed
@@ -515,7 +517,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter26_data_staging_remedy/`](experiments/iter26_data_staging_remedy) | data-staging remedy — capacity-null; official trainval sensor blobs needed, current GPU disk too small |
 | [`experiments/iter27_storage_provisioning/`](experiments/iter27_storage_provisioning) | storage provisioning — passed; 1 TB persistent data volume mounted before any nuScenes download |
 | [`experiments/iter28_nuscenes_trainval_staging/`](experiments/iter28_nuscenes_trainval_staging) | official nuScenes trainval staging — passed; full trainval root staged, extracted, and post-firewall inventory proved |
-| [`experiments/iter29_trainval_risk_support_atlas/`](experiments/iter29_trainval_risk_support_atlas) | full-trainval risk-support atlas — S0a/S0b passed; full extraction in flight; no probes, interventions, iter12, selector, or closed loop authorized |
+| [`experiments/iter29_trainval_risk_support_atlas/`](experiments/iter29_trainval_risk_support_atlas) | full-trainval risk-support atlas — support pass for low-diversity hazard/control counts; optional strict-collapse note failed; no probes, interventions, iter12, selector, or closed loop authorized |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/ITER22_HYPOTHESIS_DRAFT.md`](docs/research/ITER22_HYPOTHESIS_DRAFT.md) · [`docs/research/ITER22_ADVERSARIAL_REVIEW.md`](docs/research/ITER22_ADVERSARIAL_REVIEW.md) | planning-only iter22 draft and adversarial review; not pre-registrations |

@@ -280,14 +280,15 @@ over-claim.** That arc, in order:
     research pre-registration naming the committed iter28 manifest.
     [`../experiments/iter28_nuscenes_trainval_staging/RESULT.md`](../experiments/iter28_nuscenes_trainval_staging/RESULT.md).
 
-31. **Iter 29 — full-trainval risk-support atlas: first research gate on the staged root.** The
-    active registered atlas imports only the committed iter28 manifest and asks whether the fresh
-    post-firewall trainval support contains enough low-diversity hazard frames and benign controls
-    for a later causal-localization or planner-repair pre-registration. S0a has passed exactly:
-    **266/133/133** fit/calibration/heldout scenes, **10,726/5,375/5,360** keyframes, no
-    known-data contamination, no mixed-root keyframes, and no metadata identifier fields. S0b has
-    passed with two deterministic canary runs: **30/30** joins per run, zero error rows, identical
-    canonical hashes, and stable tensor shapes/dtypes. S0c full extraction is in flight under the
-    frozen protocol; no probe fitting, activation direction, intervention replay, iteration-12
-    scoring, selector evaluation, or closed-loop work is authorized from the current state.
-    [`../experiments/iter29_trainval_risk_support_atlas/HYPOTHESIS.md`](../experiments/iter29_trainval_risk_support_atlas/HYPOTHESIS.md).
+31. **Iter 29 — full-trainval risk-support atlas: low-diversity support exists, strict collapse
+    does not.** The registered atlas imported only the committed iter28 manifest and ran the first
+    research gate on `/datasets/nuscenes-full`. S0c full extraction passed on all **21,461**
+    imported keyframes: **21,461/21,461** non-reset extraction rows joined GT one-to-one, with
+    zero error row types and stable tensor shapes/dtypes. S1 support passed: `eligible_lowdiv`
+    counts were **127/108/158** and `benign_control` counts were **5,084/2,344/2,245** across
+    fit/calibration/heldout, with no count-floor or distribution failures. The optional
+    strict-collapse note failed (`eligible_strict` **0/0/1**), so successors may use only
+    low-diversity language unless a new strict-collapse pre-registration passes. No probe fitting,
+    activation direction, intervention replay, iteration-12 scoring, selector evaluation, or
+    closed-loop work is authorized from this pass.
+    [`../experiments/iter29_trainval_risk_support_atlas/RESULT.md`](../experiments/iter29_trainval_risk_support_atlas/RESULT.md).

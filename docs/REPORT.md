@@ -190,11 +190,15 @@ present (**34,149** files each). The bounded post-firewall availability inventor
 **532** fresh train scenes, **21,461** eligible keyframes, and **5,360** heldout keyframes. This
 is a data-root result, not a model result.
 
-Iteration 29 is the first research gate on that staged root. It has passed S0a manifest import
-against the committed iter28 digest/counts and S0b deterministic canary extraction (30/30 joins
-per run, zero errors, stable tensor shapes/dtypes). The full S0c extraction is now in flight
-before any S1 label-support claim. It still authorizes no probe fitting, activation direction,
-intervention, iteration-12 scoring, selector evaluation, or closed-loop work.
+Iteration 29 is the first research gate on that staged root. It passed S0a manifest import and
+S0b deterministic canary extraction, then completed the full S0c extraction with **21,461/21,461**
+non-reset rows joined to GT, zero error row types, and stable primary tensor shapes/dtypes. The S1
+support gate passed for low-diversity hazard/control support (`eligible_lowdiv` **127/108/158** and
+`benign_control` **5,084/2,344/2,245** across fit/calibration/heldout). The optional strict-collapse
+note failed (`eligible_strict` **0/0/1**), so the successor language is low-diversity support, not
+strict collapse. This still authorizes no probe fitting, activation direction, intervention,
+iteration-12 scoring, selector evaluation, or closed-loop work; it authorizes only a separate
+successor pre-registration.
 
 ## 7. Transfer: the monitor is not planner-agnostic, and the reason is precise
 
