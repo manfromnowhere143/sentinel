@@ -292,3 +292,15 @@ over-claim.** That arc, in order:
     activation direction, intervention replay, iteration-12 scoring, selector evaluation, or
     closed-loop work is authorized from this pass.
     [`../experiments/iter29_trainval_risk_support_atlas/RESULT.md`](../experiments/iter29_trainval_risk_support_atlas/RESULT.md).
+
+32. **Iter 30 — full-trainval diagnostic localization: the bridge tensor carries the
+    low-diversity signal beyond controls.** This gate used only committed iter29 proof artifacts.
+    S0 reproduced the iter29 extraction and GT hashes/counts exactly. S1 passed on heldout fresh
+    scenes: the frozen `sdc_traj_query_last || sdc_track_query` representation reached AUROC
+    **0.950**, AP **0.615**, and balanced accuracy **0.867** for `eligible_lowdiv` versus benign
+    controls, exceeding metadata (AUROC **0.596**), ego-plan-kinematic controls (AUROC
+    **0.674**), and shuffled-label internal control (AUROC **0.531**). S2 scene-cluster bootstrap
+    robustness passed with AUROC p05 **0.922**. The claim is diagnostic only: it does not prove a
+    mechanism, activation direction, intervention, iter12 effect, selector compatibility, or
+    closed-loop safety. It authorizes only a separate causal-intervention pre-registration.
+    [`../experiments/iter30_full_trainval_lowdiv_localization/RESULT.md`](../experiments/iter30_full_trainval_lowdiv_localization/RESULT.md).

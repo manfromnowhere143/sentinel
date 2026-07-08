@@ -115,15 +115,17 @@ strict-collapse pre-registration passes. Iter29 authorizes only a separate succe
 pre-registration; it does not authorize probe fitting, activation direction, intervention replay,
 iteration-12 scoring, selector evaluation, or closed-loop work.
 
-The next gate is now pre-registered:
-[`../experiments/iter30_full_trainval_lowdiv_localization/HYPOTHESIS.md`](../experiments/iter30_full_trainval_lowdiv_localization/HYPOTHESIS.md).
-Iteration 30 may use only committed iteration-29 proof artifacts. It is a diagnostic
-localization gate, not a causal-intervention run: it asks whether the concatenated
-`sdc_traj_query_last` and `sdc_track_query` representation carries linearly decodable
-`eligible_lowdiv` information beyond metadata and ego-plan-kinematic controls, with
-scene-cluster robustness. It authorizes no new extraction, GPU work, activation direction,
-intervention replay, iteration-12 scoring, selector evaluation, or closed-loop work. A pass
-authorizes only a separate causal-intervention pre-registration.
+The diagnostic localization gate is now published:
+[`../experiments/iter30_full_trainval_lowdiv_localization/RESULT.md`](../experiments/iter30_full_trainval_lowdiv_localization/RESULT.md).
+Iteration 30 used only committed iteration-29 proof artifacts. It validated the iter29
+hashes/counts, then showed that the concatenated `sdc_traj_query_last || sdc_track_query`
+representation carries linearly decodable `eligible_lowdiv` information beyond the registered
+metadata and ego-plan-kinematic controls. The primary internal probe passed on heldout scenes
+(AUROC `0.950`, AP `0.615`, balanced accuracy `0.867`), while controls remained lower
+(metadata AUROC `0.596`, ego-plan-kinematic AUROC `0.674`, shuffled-label internal AUROC
+`0.531`), and scene-cluster robustness passed (AUROC p05 `0.922`). This is diagnostic only. It
+authorizes only a separate causal-intervention pre-registration, not activation patching,
+iteration-12 scoring, selector evaluation, GPU work, or closed-loop work.
 
 ## Line 1 — a diversity-trained candidate head under the runtime selector
 
@@ -247,7 +249,8 @@ measurement task. It waits only for the power run's final numbers so results are
     failed, so no successor may call this support strict collapse without a new pre-registration.
     Iter29 authorizes only a separate successor pre-registration, not probe fitting, activation
     intervention, iteration-12 scoring, selector evaluation, or closed-loop work.
-13. Iteration 30 is pre-registered as a diagnostic localization gate on committed iter29 proof
-    artifacts only. It may fit low-capacity probes only after validating the iter29 hashes/counts,
-    and it must stop on S0/S1/S2 failure. It does not authorize new extraction, GPU work,
-    activation intervention, iteration-12 scoring, selector evaluation, or closed-loop work.
+13. Iteration 30 is closed as a diagnostic localization pass on committed iter29 proof artifacts
+    only. S0/S1/S2 passed: iter29 hashes/counts reproduced, the internal bridge tensor probe
+    exceeded the frozen bars and controls, and scene-cluster bootstrap robustness passed. This
+    authorizes only a separate causal-intervention pre-registration; it does not authorize
+    activation patching, iteration-12 scoring, selector evaluation, GPU work, or closed-loop work.

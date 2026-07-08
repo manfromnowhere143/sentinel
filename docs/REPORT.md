@@ -11,7 +11,7 @@ End-to-end driving planners fail catastrophically in safety-critical closed-loop
 (published NeuroNCAP: UniAD scores 1.84/5, colliding in 88–98% of runs), yet the field's dominant
 open-loop metrics cannot see it. We build a runtime monitor that reads only a frozen planner's own
 outputs — its plan, detected objects, and their tracked motion; no labels, no training, no
-privileged simulator state — and intervene with a latched stop. Across 29 documented iterations
+privileged simulator state — and intervene with a latched stop. Across 30 documented iterations
 and an independent verification pass, we show: (1) a **union of two label-free
 geometric detectors** (plan-vs-tracked-path closest approach; observed-closing time-to-collision)
 is *selective* (clean-scene behaviour identical to the unmonitored planner), removes most
@@ -38,7 +38,10 @@ score to **2.91 (+0.783, 95% CI [+0.605, +0.928])**, with a threat-cleared latch
 strictly dominating the plain union — while the deployment-metric effect vs the unmonitored
 planner resolves to a **tight null** (−0.03, 95% CI [−0.13, +0.07]): the benchmark safety gain
 costs approximately nothing on the deployment metric, and softening the stop cannot buy the
-residual back (the crawl null).
+residual back (the crawl null). A full-trainval diagnostic successor then found that UniAD's
+motion/planning-bridge tensor carries the low-diversity hazard signal beyond metadata and
+ego-plan controls, but this remains a representation diagnostic rather than a causal or safety
+claim.
 One headline claim was withdrawn by our own audit and re-established on independent data; the
 withdrawal is part of the record.
 
@@ -199,6 +202,16 @@ note failed (`eligible_strict` **0/0/1**), so the successor language is low-dive
 strict collapse. This still authorizes no probe fitting, activation direction, intervention,
 iteration-12 scoring, selector evaluation, or closed-loop work; it authorizes only a separate
 successor pre-registration.
+
+Iteration 30 ran that successor diagnostic without touching the GPU or extracting new data. It
+used only the committed iter29 proof artifacts, reproduced the frozen hashes/counts, and fit the
+registered low-capacity probe on `sdc_traj_query_last || sdc_track_query`. Heldout performance
+passed the localization bars (AUROC **0.950**, AP **0.615**, balanced accuracy **0.867**, recall
+**0.873**, specificity **0.861**) and exceeded the frozen controls: metadata AUROC **0.596**,
+ego-plan-kinematic AUROC **0.674**, shuffled-label internal AUROC **0.531**. Scene-cluster
+bootstrap robustness passed with AUROC p05 **0.922**. The claim boundary is explicit: this is a
+linearly decodable representation-level correlate, not proof of a mechanism or an intervention.
+The only authorized successor is a separate causal-intervention pre-registration.
 
 ## 7. Transfer: the monitor is not planner-agnostic, and the reason is precise
 

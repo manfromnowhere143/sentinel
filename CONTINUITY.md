@@ -153,13 +153,15 @@ events to prepare; they are a property the repository always has.
   Iter29 authorizes only a separate successor pre-registration. It authorizes no probe fitting,
   activation direction, intervention replay, iteration-12 scoring, selector evaluation, or
   closed-loop work.
-- Iteration 30 is now pre-registered:
-  experiments/iter30_full_trainval_lowdiv_localization/HYPOTHESIS.md. It may use only committed
-  iteration-29 proof artifacts and asks whether the frozen motion/planning-bridge representation
-  carries linearly decodable `eligible_lowdiv` information beyond metadata and
-  ego-plan-kinematic controls, with scene-cluster robustness. It authorizes no new extraction,
-  GPU work, activation direction, intervention replay, iteration-12 scoring, selector evaluation,
-  or closed-loop work. A pass authorizes only a separate causal-intervention pre-registration.
+- Iteration 30 concluded:
+  experiments/iter30_full_trainval_lowdiv_localization/RESULT.md. It used only committed
+  iteration-29 proof artifacts and passed the diagnostic localization gate. S0 reproduced iter29
+  hashes/counts exactly; S1 passed with the frozen motion/planning-bridge tensor probe at heldout
+  AUROC 0.950, AP 0.615, and balanced accuracy 0.867, above metadata AUROC 0.596, ego-plan
+  AUROC 0.674, and shuffled-label internal AUROC 0.531; S2 scene-cluster bootstrap passed with
+  AUROC p05 0.922. This is diagnostic only: it authorizes only a separate causal-intervention
+  pre-registration, not activation patching, iteration-12 scoring, selector evaluation, GPU work,
+  or closed-loop work.
 - Iter22 planning artifacts now exist under docs/research/: ITER22_HYPOTHESIS_DRAFT.md and
   ITER22_ADVERSARIAL_REVIEW.md. They are planning-only, not pre-registrations. Owner guidance:
   do not promote the broad A0-A8 draft directly; use the adversarial review's tighter Stage
@@ -376,10 +378,15 @@ events to prepare; they are a property the repository always has.
   not-applicable for the registered gate type, not missing work, and "stopped before probes" means
   a frozen gate refused the next step rather than an unreported probe/model run.
 - 2026-07-08: Codex — pre-registered iteration 30 under
-  experiments/iter30_full_trainval_lowdiv_localization/HYPOTHESIS.md. Scope is diagnostic
+  experiments/iter30_full_trainval_lowdiv_localization/HYPOTHESIS.md. Scope was diagnostic
   localization only on committed iteration-29 proof artifacts: validate hashes/counts, fit one
   low-capacity internal-representation probe against fixed controls if S0 passes, require
   scene-cluster robustness, and stop before any activation direction, intervention, iteration-12
-  scoring, selector evaluation, closed-loop work, GPU run, or gcloud command. No analyzer,
-  probe-fitting run, or intervention code launched yet.
+  scoring, selector evaluation, closed-loop work, GPU run, or gcloud command.
+- 2026-07-08: Codex — completed and published iteration 30 as a diagnostic localization pass.
+  S0/S1/S2 passed: iter29 hashes/counts reproduced exactly; the internal motion/planning-bridge
+  tensor probe reached heldout AUROC 0.950, AP 0.615, and balanced accuracy 0.867, exceeding
+  metadata and ego-plan controls; scene-cluster bootstrap AUROC p05 was 0.922. No new extraction,
+  GPU/gcloud work, activation intervention, iteration-12 scoring, selector evaluation, or
+  closed-loop work ran. Successor work requires a fresh causal-intervention pre-registration.
 - (append one line per shift: dates, operator, what changed, box state at exit)
