@@ -182,6 +182,20 @@ bytes free with 0 dataset bytes moved and 0 Docker/model/NeuroNCAP runs. This cl
 blocker only. It does not stage nuScenes data or authorize an availability inventory rerun; those
 require a separate data-staging pre-registration.
 
+Iteration 28 then completed that official data-staging step. The nuScenes v1.0 trainval metadata
+archive plus ten sensor-blob archives were staged into `/datasets/nuscenes-full` with redacted
+source provenance and SHA/byte proofs (**314,886,603,672** bytes total), extracted with **0**
+unsafe tar members across **2,631,374** members, and inventoried with all six camera channels
+present (**34,149** files each). The bounded post-firewall availability inventory passed with
+**532** fresh train scenes, **21,461** eligible keyframes, and **5,360** heldout keyframes. This
+is a data-root result, not a model result.
+
+Iteration 29 is the first research gate on that staged root. It has passed S0a manifest import
+against the committed iter28 digest/counts and S0b deterministic canary extraction (30/30 joins
+per run, zero errors, stable tensor shapes/dtypes). The full S0c extraction is now in flight
+before any S1 label-support claim. It still authorizes no probe fitting, activation direction,
+intervention, iteration-12 scoring, selector evaluation, or closed-loop work.
+
 ## 7. Transfer: the monitor is not planner-agnostic, and the reason is precise
 
 On a frozen VAD (after four documented fork-level runtime fixes), the union prevents exactly the
@@ -205,8 +219,9 @@ the apparatus). Full report: [experiments/VERIFICATION.md](../experiments/VERIFI
 
 ## 9. Limitations and scope
 
-Two nuScenes sequences carried all sub-benchmark results (the 14-scene run extends this — 
-pre-registered, in progress); one simulator (NeuroNCAP/NeuRAD), whose deterministic episode
+Two nuScenes sequences carried all sub-benchmark method-development results; the full official
+14-scene benchmark then extended this at 6 runs per pair and the power measurement at 20 runs per
+pair. One simulator (NeuroNCAP/NeuRAD), whose deterministic episode
 replay we characterize and exploit rather than hide; n=20 per cell; the VAD stack required an
 ID-association layer whose quality bounds the transfer conclusion; the RSS baseline is the
 longitudinal closing-speed form, not a full RSS implementation (disclosed in the patch). No

@@ -267,3 +267,27 @@ over-claim.** That arc, in order:
     not authorize a download, inventory rerun, model extraction, labels, probes, iteration-12
     scoring, selector evaluation, or closed loop.
     [`../experiments/iter27_storage_provisioning/RESULT.md`](../experiments/iter27_storage_provisioning/RESULT.md).
+
+30. **Iter 28 — official nuScenes trainval staging: the full data root is finally real.** The
+    registered staging gate moved from storage readiness to official data provenance. It staged
+    the nuScenes v1.0 trainval metadata archive plus ten sensor-blob archives into
+    `/datasets/nuscenes-full`, recorded redacted source provenance, and SHA/byte proofs for all
+    11 archives (**314,886,603,672** bytes total). Extraction safety passed with **0 unsafe
+    members** across **2,631,374** tar members, all six camera channels were present with
+    **34,149** files each, and the bounded post-firewall inventory passed with **532** fresh
+    train scenes, **21,461** eligible keyframes, and **5,360** heldout keyframes. This is a
+    data-root and availability pass, not a model result; it authorizes only a later fresh
+    research pre-registration naming the committed iter28 manifest.
+    [`../experiments/iter28_nuscenes_trainval_staging/RESULT.md`](../experiments/iter28_nuscenes_trainval_staging/RESULT.md).
+
+31. **Iter 29 — full-trainval risk-support atlas: first research gate on the staged root.** The
+    active registered atlas imports only the committed iter28 manifest and asks whether the fresh
+    post-firewall trainval support contains enough low-diversity hazard frames and benign controls
+    for a later causal-localization or planner-repair pre-registration. S0a has passed exactly:
+    **266/133/133** fit/calibration/heldout scenes, **10,726/5,375/5,360** keyframes, no
+    known-data contamination, no mixed-root keyframes, and no metadata identifier fields. S0b has
+    passed with two deterministic canary runs: **30/30** joins per run, zero error rows, identical
+    canonical hashes, and stable tensor shapes/dtypes. S0c full extraction is in flight under the
+    frozen protocol; no probe fitting, activation direction, intervention replay, iteration-12
+    scoring, selector evaluation, or closed-loop work is authorized from the current state.
+    [`../experiments/iter29_trainval_risk_support_atlas/HYPOTHESIS.md`](../experiments/iter29_trainval_risk_support_atlas/HYPOTHESIS.md).
