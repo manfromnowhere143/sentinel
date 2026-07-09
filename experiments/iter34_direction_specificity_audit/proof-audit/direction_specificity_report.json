@@ -1,0 +1,362 @@
+{
+  "alpha_summaries": [
+    {
+      "alpha": 0.0,
+      "benign_control": {
+        "danger_cross_count": 0,
+        "danger_cross_fraction": 0.0,
+        "fraction_best_candidate_gap_delta_lt_neg_0p25": 0.0,
+        "fraction_endpoint_spread_delta_ge_0p25": 0.0,
+        "fraction_endpoint_spread_delta_gt_0p25": 0.0,
+        "gross_validity_failures": 0,
+        "lowdiv_collapse_count": 0,
+        "lowdiv_collapse_fraction": 0.0,
+        "median_best_candidate_gap_delta": 0.0,
+        "median_endpoint_spread_delta": 0.0,
+        "median_executed_endpoint_displacement": 0.0,
+        "p95_executed_endpoint_displacement": 0.0,
+        "rows": 2344
+      },
+      "context_only_rows": 1841,
+      "duplicate_target_keys": 0,
+      "eligible_lowdiv": {
+        "danger_cross_count": 0,
+        "danger_cross_fraction": 0.0,
+        "fraction_best_candidate_gap_delta_lt_neg_0p25": 0.0,
+        "fraction_endpoint_spread_delta_ge_0p25": 0.0,
+        "fraction_endpoint_spread_delta_gt_0p25": 0.0,
+        "gross_validity_failures": 0,
+        "lowdiv_collapse_count": 0,
+        "lowdiv_collapse_fraction": 0.0,
+        "median_best_candidate_gap_delta": 0.0,
+        "median_endpoint_spread_delta": 0.0,
+        "median_executed_endpoint_displacement": 0.0,
+        "p95_executed_endpoint_displacement": 0.0,
+        "rows": 108
+      },
+      "error_rows": 0,
+      "log_parts": [
+        "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p00.jsonl.gz.part-aa",
+        "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p00.jsonl.gz.part-ab",
+        "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p00.jsonl.gz.part-ac"
+      ],
+      "non_reset_rows": 4293,
+      "rows": 2452,
+      "target_rows": 2452
+    },
+    {
+      "alpha": 0.25,
+      "benign_control": {
+        "danger_cross_count": 0,
+        "danger_cross_fraction": 0.0,
+        "fraction_best_candidate_gap_delta_lt_neg_0p25": 0.0,
+        "fraction_endpoint_spread_delta_ge_0p25": 0.019197952218430035,
+        "fraction_endpoint_spread_delta_gt_0p25": 0.019197952218430035,
+        "gross_validity_failures": 0,
+        "lowdiv_collapse_count": 0,
+        "lowdiv_collapse_fraction": 0.0,
+        "median_best_candidate_gap_delta": 0.00219922741614198,
+        "median_endpoint_spread_delta": 0.014540110005587747,
+        "median_executed_endpoint_displacement": 0.025533197593284443,
+        "p95_executed_endpoint_displacement": 0.10776030758511944,
+        "rows": 2344
+      },
+      "context_only_rows": 1841,
+      "duplicate_target_keys": 0,
+      "eligible_lowdiv": {
+        "danger_cross_count": 0,
+        "danger_cross_fraction": 0.0,
+        "fraction_best_candidate_gap_delta_lt_neg_0p25": 0.0,
+        "fraction_endpoint_spread_delta_ge_0p25": 0.009259259259259259,
+        "fraction_endpoint_spread_delta_gt_0p25": 0.009259259259259259,
+        "gross_validity_failures": 0,
+        "lowdiv_collapse_count": 0,
+        "lowdiv_collapse_fraction": 0.0,
+        "median_best_candidate_gap_delta": -8.634772864257734e-05,
+        "median_endpoint_spread_delta": 0.004534701612455727,
+        "median_executed_endpoint_displacement": 0.015390968509753767,
+        "p95_executed_endpoint_displacement": 0.05604084287513961,
+        "rows": 108
+      },
+      "error_rows": 0,
+      "log_parts": [
+        "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p25.jsonl.gz.part-aa",
+        "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p25.jsonl.gz.part-ab",
+        "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p25.jsonl.gz.part-ac"
+      ],
+      "non_reset_rows": 4293,
+      "rows": 2452,
+      "target_rows": 2452
+    },
+    {
+      "alpha": 0.5,
+      "benign_control": {
+        "danger_cross_count": 0,
+        "danger_cross_fraction": 0.0,
+        "fraction_best_candidate_gap_delta_lt_neg_0p25": 0.0004266211604095563,
+        "fraction_endpoint_spread_delta_ge_0p25": 0.05460750853242321,
+        "fraction_endpoint_spread_delta_gt_0p25": 0.05460750853242321,
+        "gross_validity_failures": 0,
+        "lowdiv_collapse_count": 0,
+        "lowdiv_collapse_fraction": 0.0,
+        "median_best_candidate_gap_delta": 0.004414153647090302,
+        "median_endpoint_spread_delta": 0.028761532296035064,
+        "median_executed_endpoint_displacement": 0.05089560428801812,
+        "p95_executed_endpoint_displacement": 0.21427937925083326,
+        "rows": 2344
+      },
+      "context_only_rows": 1841,
+      "duplicate_target_keys": 0,
+      "eligible_lowdiv": {
+        "danger_cross_count": 0,
+        "danger_cross_fraction": 0.0,
+        "fraction_best_candidate_gap_delta_lt_neg_0p25": 0.0,
+        "fraction_endpoint_spread_delta_ge_0p25": 0.08333333333333333,
+        "fraction_endpoint_spread_delta_gt_0p25": 0.08333333333333333,
+        "gross_validity_failures": 0,
+        "lowdiv_collapse_count": 0,
+        "lowdiv_collapse_fraction": 0.0,
+        "median_best_candidate_gap_delta": -2.721171453856641e-05,
+        "median_endpoint_spread_delta": 0.009947867904281704,
+        "median_executed_endpoint_displacement": 0.028770961609550352,
+        "p95_executed_endpoint_displacement": 0.1068457865413522,
+        "rows": 108
+      },
+      "error_rows": 0,
+      "log_parts": [
+        "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p50.jsonl.gz.part-aa",
+        "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p50.jsonl.gz.part-ab",
+        "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p50.jsonl.gz.part-ac"
+      ],
+      "non_reset_rows": 4293,
+      "rows": 2452,
+      "target_rows": 2452
+    },
+    {
+      "alpha": 0.75,
+      "benign_control": {
+        "danger_cross_count": 0,
+        "danger_cross_fraction": 0.0,
+        "fraction_best_candidate_gap_delta_lt_neg_0p25": 0.0004266211604095563,
+        "fraction_endpoint_spread_delta_ge_0p25": 0.09641638225255973,
+        "fraction_endpoint_spread_delta_gt_0p25": 0.09641638225255973,
+        "gross_validity_failures": 0,
+        "lowdiv_collapse_count": 0,
+        "lowdiv_collapse_fraction": 0.0,
+        "median_best_candidate_gap_delta": 0.006608272451625652,
+        "median_endpoint_spread_delta": 0.04273450046666838,
+        "median_executed_endpoint_displacement": 0.07808398766726604,
+        "p95_executed_endpoint_displacement": 0.32777693207814795,
+        "rows": 2344
+      },
+      "context_only_rows": 1841,
+      "duplicate_target_keys": 0,
+      "eligible_lowdiv": {
+        "danger_cross_count": 0,
+        "danger_cross_fraction": 0.0,
+        "fraction_best_candidate_gap_delta_lt_neg_0p25": 0.0,
+        "fraction_endpoint_spread_delta_ge_0p25": 0.1111111111111111,
+        "fraction_endpoint_spread_delta_gt_0p25": 0.1111111111111111,
+        "gross_validity_failures": 0,
+        "lowdiv_collapse_count": 0,
+        "lowdiv_collapse_fraction": 0.0,
+        "median_best_candidate_gap_delta": -1.787727819069218e-05,
+        "median_endpoint_spread_delta": 0.01927140998303939,
+        "median_executed_endpoint_displacement": 0.044434170655888325,
+        "p95_executed_endpoint_displacement": 0.15526186906289524,
+        "rows": 108
+      },
+      "error_rows": 0,
+      "log_parts": [
+        "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p75.jsonl.gz.part-aa",
+        "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p75.jsonl.gz.part-ab",
+        "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p75.jsonl.gz.part-ac"
+      ],
+      "non_reset_rows": 4293,
+      "rows": 2452,
+      "target_rows": 2452
+    },
+    {
+      "alpha": 1.0,
+      "benign_control": {
+        "danger_cross_count": 0,
+        "danger_cross_fraction": 0.0,
+        "fraction_best_candidate_gap_delta_lt_neg_0p25": 0.001279863481228669,
+        "fraction_endpoint_spread_delta_ge_0p25": 0.14505119453924914,
+        "fraction_endpoint_spread_delta_gt_0p25": 0.14505119453924914,
+        "gross_validity_failures": 0,
+        "lowdiv_collapse_count": 0,
+        "lowdiv_collapse_fraction": 0.0,
+        "median_best_candidate_gap_delta": 0.008690336974023438,
+        "median_endpoint_spread_delta": 0.05451371117178172,
+        "median_executed_endpoint_displacement": 0.10603914126901506,
+        "p95_executed_endpoint_displacement": 0.46609491074492027,
+        "rows": 2344
+      },
+      "context_only_rows": 1841,
+      "duplicate_target_keys": 0,
+      "eligible_lowdiv": {
+        "danger_cross_count": 0,
+        "danger_cross_fraction": 0.0,
+        "fraction_best_candidate_gap_delta_lt_neg_0p25": 0.0,
+        "fraction_endpoint_spread_delta_ge_0p25": 0.12962962962962962,
+        "fraction_endpoint_spread_delta_gt_0p25": 0.12962962962962962,
+        "gross_validity_failures": 0,
+        "lowdiv_collapse_count": 0,
+        "lowdiv_collapse_fraction": 0.0,
+        "median_best_candidate_gap_delta": -5.5038585016653485e-05,
+        "median_endpoint_spread_delta": 0.030803381972340005,
+        "median_executed_endpoint_displacement": 0.062320996795922554,
+        "p95_executed_endpoint_displacement": 0.21362973838953753,
+        "rows": 108
+      },
+      "error_rows": 0,
+      "log_parts": [
+        "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha1p00.jsonl.gz.part-aa",
+        "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha1p00.jsonl.gz.part-ab",
+        "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha1p00.jsonl.gz.part-ac"
+      ],
+      "non_reset_rows": 4293,
+      "rows": 2452,
+      "target_rows": 2452
+    }
+  ],
+  "artifact_hash_validation": {
+    "checked": {
+      "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/calibration_report.json": {
+        "expected": "5865222557c9e771577b25b712d6db49469946b0ab02456751a1065a7a5558ca",
+        "match": true,
+        "observed": "5865222557c9e771577b25b712d6db49469946b0ab02456751a1065a7a5558ca"
+      },
+      "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p00.jsonl.gz.part-aa": {
+        "expected": "a1cc1b2e9f8e7b30cf7a670dad2c9a40fc7e0f75aec5ba005bd070936d464ba6",
+        "match": true,
+        "observed": "a1cc1b2e9f8e7b30cf7a670dad2c9a40fc7e0f75aec5ba005bd070936d464ba6"
+      },
+      "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p00.jsonl.gz.part-ab": {
+        "expected": "a4c88c7524649ee6ad4419ee79203d411a79659110cb7f21c7282aa5c69accf8",
+        "match": true,
+        "observed": "a4c88c7524649ee6ad4419ee79203d411a79659110cb7f21c7282aa5c69accf8"
+      },
+      "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p00.jsonl.gz.part-ac": {
+        "expected": "98a8c1e006293c63d9025afa21414a40b21e16fba2fb6fff79892c595dc7a8f2",
+        "match": true,
+        "observed": "98a8c1e006293c63d9025afa21414a40b21e16fba2fb6fff79892c595dc7a8f2"
+      },
+      "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p25.jsonl.gz.part-aa": {
+        "expected": "5326df55a83228ff8bcc7dce5c9b49914438b774bc28e64719c064abc387be86",
+        "match": true,
+        "observed": "5326df55a83228ff8bcc7dce5c9b49914438b774bc28e64719c064abc387be86"
+      },
+      "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p25.jsonl.gz.part-ab": {
+        "expected": "d1c5e6ed1dba8398aaf61601b44478ff22c78949acc806c9f56a550f73bea5cc",
+        "match": true,
+        "observed": "d1c5e6ed1dba8398aaf61601b44478ff22c78949acc806c9f56a550f73bea5cc"
+      },
+      "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p25.jsonl.gz.part-ac": {
+        "expected": "54a58ab2f9a70dbce31badd7a56994868fe6bcdb32dd9ca8c95a8a8866360426",
+        "match": true,
+        "observed": "54a58ab2f9a70dbce31badd7a56994868fe6bcdb32dd9ca8c95a8a8866360426"
+      },
+      "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p50.jsonl.gz.part-aa": {
+        "expected": "d81d11c3a2fccaab550503763d97dcb077cede60687b7302840498114f650a9d",
+        "match": true,
+        "observed": "d81d11c3a2fccaab550503763d97dcb077cede60687b7302840498114f650a9d"
+      },
+      "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p50.jsonl.gz.part-ab": {
+        "expected": "02bb54d23ea4f02b979d9702c5648c19acf77a6659d8fe9e13ff422a93822da6",
+        "match": true,
+        "observed": "02bb54d23ea4f02b979d9702c5648c19acf77a6659d8fe9e13ff422a93822da6"
+      },
+      "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p50.jsonl.gz.part-ac": {
+        "expected": "49353d1f5dbe01e199bdf9f39401df4263d360bf7814d972fa7925a47bfb9516",
+        "match": true,
+        "observed": "49353d1f5dbe01e199bdf9f39401df4263d360bf7814d972fa7925a47bfb9516"
+      },
+      "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p75.jsonl.gz.part-aa": {
+        "expected": "95ea17cd4a119e7c9d6a7c5c98a8f105f4f2942da4eab6ff8aee4680ed691d2f",
+        "match": true,
+        "observed": "95ea17cd4a119e7c9d6a7c5c98a8f105f4f2942da4eab6ff8aee4680ed691d2f"
+      },
+      "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p75.jsonl.gz.part-ab": {
+        "expected": "c60218fdf80e4ae71fa52fc42300395362d26f2fff08e5a607c9bf7c1f36f340",
+        "match": true,
+        "observed": "c60218fdf80e4ae71fa52fc42300395362d26f2fff08e5a607c9bf7c1f36f340"
+      },
+      "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p75.jsonl.gz.part-ac": {
+        "expected": "249349105cf762b976a6d3f6761c7a4dad380a9f75fcb8f4e76ab5ae0d1a62f4",
+        "match": true,
+        "observed": "249349105cf762b976a6d3f6761c7a4dad380a9f75fcb8f4e76ab5ae0d1a62f4"
+      },
+      "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha1p00.jsonl.gz.part-aa": {
+        "expected": "e69a279ed1cb797e0c6f927e12fb8f5f3098a634414ebf5f21405cf4d8dc0051",
+        "match": true,
+        "observed": "e69a279ed1cb797e0c6f927e12fb8f5f3098a634414ebf5f21405cf4d8dc0051"
+      },
+      "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha1p00.jsonl.gz.part-ab": {
+        "expected": "748e6933a427e06c3b196c4f6bdf01002d2f065ae2e562d7c78408d583054b24",
+        "match": true,
+        "observed": "748e6933a427e06c3b196c4f6bdf01002d2f065ae2e562d7c78408d583054b24"
+      },
+      "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha1p00.jsonl.gz.part-ac": {
+        "expected": "b2e03f7f59dbcc1889c5ba0e38a577a2a8247c458aecb2afb07528c2916a3705",
+        "match": true,
+        "observed": "b2e03f7f59dbcc1889c5ba0e38a577a2a8247c458aecb2afb07528c2916a3705"
+      },
+      "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/unsplit_sha256s.txt": {
+        "expected": "bc4686aeb4967f019d9b5075db30730b89482d56f1b2551904213049ae2c57f0",
+        "match": true,
+        "observed": "bc4686aeb4967f019d9b5075db30730b89482d56f1b2551904213049ae2c57f0"
+      }
+    },
+    "failures": [],
+    "sha256s_file_sha256": "282b5b311bda588aae3944f9b61d238526f0300bd37f0b1d352bed33fd0e0ba2",
+    "sha256s_path": "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sha256s.txt",
+    "unsplit_record_count": 10,
+    "unsplit_sha256s_path": "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/unsplit_sha256s.txt"
+  },
+  "claim_boundary": "Post-result audit only: no alpha selection, heldout replay, iteration-12 scoring, selector evaluation, closed-loop work, deployment language, or safety claim is authorized.",
+  "cloud_or_gpu_used": false,
+  "command_line": "experiments/iter34_direction_specificity_audit/analyze_direction_specificity.py",
+  "experiment_id": "iter34_direction_specificity_audit",
+  "local_cpu_only": true,
+  "next_authorized_action": "publish RESULT.md from this report; no heldout, iteration-12, selector, closed-loop, deployment, or safety work is authorized",
+  "provider_api_calls": 0,
+  "provider_spend_usd": 0.0,
+  "s0_failures": [],
+  "s0_pass": true,
+  "s1": {
+    "alpha1_eligible_fraction_endpoint_spread_delta_gt_0p25": 0.12962962962962962,
+    "eligible_alpha_pearson": 0.9805137775725951,
+    "eligible_median_endpoint_spread_delta_by_alpha": {
+      "0.0": 0.0,
+      "0.25": 0.004534701612455727,
+      "0.5": 0.009947867904281704,
+      "0.75": 0.01927140998303939,
+      "1.0": 0.030803381972340005
+    },
+    "eligible_nonnegative_endpoint_spread_slope": {
+      "fraction": 0.6851851851851852,
+      "median_slope": 0.030706314505333877,
+      "passing_rows": 74,
+      "rows": 108
+    },
+    "failures": [
+      "eligible_nonnegative_slope_fraction=0.685185 < 0.70"
+    ],
+    "pass": false
+  },
+  "s2": null,
+  "schema_version": "sentinel.iter34_direction_specificity_audit.report.v1",
+  "source_iter33_report": "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/calibration_report.json",
+  "status": "null",
+  "submitted_model_mutated": false,
+  "target_key_counts": {
+    "0.0": 2452,
+    "0.25": 2452,
+    "0.5": 2452,
+    "0.75": 2452,
+    "1.0": 2452
+  },
+  "verdict": "DIRECTION_AUDIT_NULL_NO_DOSE_RESPONSE"
+}

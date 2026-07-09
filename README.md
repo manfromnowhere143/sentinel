@@ -244,6 +244,7 @@ step; they are intentional stops, not hidden probe failures or unreported GPU ru
 | 31 | **full-trainval bridge intervention S0 canary** — first causal-intervention harness on the iter30 bridge signal | — (stopped before calibration) | direction artifact PASS; S0 canary repeated hashes PASS for alpha `0.00` and `0.50`; alpha-zero baseline reproduction FAIL: `24` rows checked, `96` comparison failures, max error **30.222 m** vs iteration-29 originals | **pre-registered infrastructure null — calibration, heldout, iter12, selector, and closed loop not authorized** | The intervention harness is deterministic, but the sham run does not reproduce the frozen baseline within the registered `1e-5` tolerance. The experiment stops before any causal/model claim; a successor needs a fresh pre-registration that resolves baseline reproduction. [`iter31_full_trainval_bridge_intervention`](experiments/iter31_full_trainval_bridge_intervention/RESULT.md) |
 | 32 | **prefix replay baseline recovery** — no-op replay audit for the iter31 S0 blocker | — (baseline replay only) | offline manifest PASS: `44` replay rows, `12` target rows, `32` context-only rows; S1 prefix replay PASS: two repeats, `44` rows and `12` targets each; model/GT target hashes repeat; max model and GT deltas vs iter29 **0.0** | **pre-registered baseline-recovery pass — fresh prefix-preserving intervention pre-registration authorized only** | Prefix-preserving no-op replay restores iteration-29 baseline parity for the frozen canary targets. This clears only the replay-form blocker; no intervention, calibration, heldout, iter12, selector, closed-loop, or safety claim is authorized. [`iter32_prefix_replay_baseline_recovery`](experiments/iter32_prefix_replay_baseline_recovery/RESULT.md) |
 | 33 | **prefix-preserving bridge intervention calibration** — repaired replay form plus committed bridge-centroid direction | — (stopped before heldout) | S0 canary PASS; full calibration grid PASS on row integrity for all alphas (`4293/2452/1841` each); alpha selection NULL: best alpha `1.00` had eligible median spread delta **0.0308 m** vs `>0.25 m` bar and fraction `>0.25 m` **0.1296** vs `>=0.50` bar | **pre-registered calibration null — no usable alpha; heldout/iter12/selector/closed loop not authorized** | Prefix-preserving replay is stable and nonzero alphas perturb the bridge without gross corruption, but the committed centroid direction does not move eligible-lowdiv candidate geometry enough to pass calibration. Iter33 stops before heldout. [`iter33_prefix_preserving_bridge_intervention`](experiments/iter33_prefix_preserving_bridge_intervention/RESULT.md) |
+| 34 | **direction-specificity audit** — post-result audit of the failed global bridge-centroid direction | — (offline audit only) | S0 artifact/row integrity PASS; S1 dose-response NULL: only **74/108** eligible rows had nonnegative endpoint-spread slope (`0.685185` vs `0.70` bar), median slope **0.0307 m/alpha** | **post-result audit null — no same-direction scale-only successor authorized** | The same global bridge-centroid direction is closed for scale-only follow-up from these artifacts; a successor must change the intervention family, target site, row conditioning, or claim. [`iter34_direction_specificity_audit`](experiments/iter34_direction_specificity_audit/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -350,8 +351,10 @@ the diagnostic localization gate over committed iter29 evidence; iteration 31 st
 because alpha `0.00` failed to reproduce the committed iteration-29 baseline; iteration 32 passed
 the narrow prefix-replay baseline-recovery audit by restoring exact iteration-29 parity on the
 same frozen target rows; iteration 33 repaired the nonzero-intervention S0 canary but then stopped
-as a calibration null because no nonzero alpha passed the frozen S1 selection bars. No heldout,
-iteration-12, selector, closed-loop work, or safety claim is authorized from iter33:
+as a calibration null because no nonzero alpha passed the frozen S1 selection bars; iteration 34
+then closed the same global bridge-centroid direction for scale-only successor work with a
+post-result dose-response audit null. No heldout, iteration-12, selector, closed-loop work, or
+safety claim is authorized from iter33 or iter34:
 
 - **The manuscript — full draft and compiled PDF committed**
   ([`docs/paper/`](docs/paper/MANUSCRIPT.md)); the arXiv submission package is built and the
@@ -440,11 +443,13 @@ iteration-12, selector, closed-loop work, or safety claim is authorized from ite
   `1.00`, the strongest cell, reached only `0.0308 m` median eligible endpoint-spread delta and
   `0.1296` fraction above `0.25 m`. Heldout, iteration-12, selector, closed loop, and
   safety claims remain unauthorized.
-- **Iteration 34 is pre-registered as an offline direction-specificity audit.**
-  [`experiments/iter34_direction_specificity_audit/HYPOTHESIS.md`](experiments/iter34_direction_specificity_audit/HYPOTHESIS.md)
-  may inspect only committed iteration-33 calibration artifacts to decide whether the same global
-  bridge-centroid direction warrants any future scale-only successor. It authorizes no GPU run,
-  heldout replay, iteration-12 scoring, selector evaluation, closed-loop work, or safety claim.
+- **Iteration 34 is completed as an offline direction-specificity audit null.**
+  [`experiments/iter34_direction_specificity_audit/RESULT.md`](experiments/iter34_direction_specificity_audit/RESULT.md)
+  reports S0 artifact/row integrity PASS, then S1 dose-response NULL: only `74/108`
+  `eligible_lowdiv` rows had nonnegative endpoint-spread slope (`0.685185` vs the frozen `0.70`
+  bar). The same global bridge-centroid direction is closed for scale-only successor work from
+  these artifacts; heldout, iteration-12, selector, closed-loop, and safety claims remain
+  unauthorized.
 
 Closed en route, per the gate discipline: the per-frame routing predicates (iteration 17
 addendum — refuted offline), the tracking layer's own offline gate (iteration 18 — failed
@@ -569,6 +574,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter31_full_trainval_bridge_intervention/`](experiments/iter31_full_trainval_bridge_intervention) | full-trainval bridge intervention — S0 infrastructure-null after alpha-zero baseline reproduction failed; stopped before calibration, heldout, iter12, selector, or closed loop |
 | [`experiments/iter32_prefix_replay_baseline_recovery/`](experiments/iter32_prefix_replay_baseline_recovery) | prefix-replay baseline recovery — pass; 12 frozen canary targets reproduce iter29 exactly under 44-row prefix replay; fresh intervention pre-registration required |
 | [`experiments/iter33_prefix_preserving_bridge_intervention/`](experiments/iter33_prefix_preserving_bridge_intervention) | prefix-preserving bridge intervention — calibration null; no usable alpha, stopped before heldout, iter12, selector, and closed loop |
+| [`experiments/iter34_direction_specificity_audit/`](experiments/iter34_direction_specificity_audit) | direction-specificity audit — post-result null; same global bridge-centroid direction lacks row-level dose-response consistency for scale-only successor work |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/ITER22_HYPOTHESIS_DRAFT.md`](docs/research/ITER22_HYPOTHESIS_DRAFT.md) · [`docs/research/ITER22_ADVERSARIAL_REVIEW.md`](docs/research/ITER22_ADVERSARIAL_REVIEW.md) | planning-only iter22 draft and adversarial review; not pre-registrations |

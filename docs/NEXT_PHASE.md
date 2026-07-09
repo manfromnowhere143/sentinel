@@ -287,3 +287,9 @@ measurement task. It waits only for the power run's final numbers so results are
     Iter33 authorizes no heldout replay, iteration-12 scoring, selector evaluation, closed-loop
     work, deployment language, or safety claim. Any successor needs a fresh pre-registration with
     a different intervention hypothesis or a narrower post-result audit claim.
+17. Iteration 34 is closed as a post-result direction-specificity audit null. S0 artifact and row
+    integrity passed, but S1 failed: only `74/108` eligible rows had nonnegative endpoint-spread
+    slope across the frozen alpha grid (`0.685185` vs the `0.70` bar). S2 was not evaluated. The
+    same global bridge-centroid direction is not authorized for scale-only successor work from
+    these artifacts. Any successor needs a fresh pre-registration that changes the intervention
+    family, target site, row conditioning, or claim.

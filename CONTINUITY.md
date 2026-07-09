@@ -515,4 +515,10 @@ events to prepare; they are a property the repository always has.
   bridge-centroid direction warrants any future scale-only successor. No analyzer, proof report,
   GPU/gcloud replay, heldout replay, iteration-12 scoring, selector evaluation, closed-loop work,
   or safety claim launched yet.
+- 2026-07-09: Codex — ran and published the iteration 34 offline direction-specificity audit.
+  S0 artifact/row integrity passed, but S1 dose-response coupling failed: only `74/108`
+  eligible rows had nonnegative endpoint-spread slope (`0.685185` vs the frozen `0.70` bar).
+  Published as `DIRECTION_AUDIT_NULL_NO_DOSE_RESPONSE`; S2 was not evaluated, and heldout replay,
+  iteration-12 scoring, selector evaluation, closed-loop work, and safety claims remain
+  unauthorized.
 - (append one line per shift: dates, operator, what changed, box state at exit)
