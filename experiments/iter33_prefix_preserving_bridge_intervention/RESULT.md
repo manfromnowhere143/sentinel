@@ -1,17 +1,16 @@
-# Iteration 33 - prefix-preserving bridge intervention S0 canary pass
+# Iteration 33 - prefix-preserving bridge intervention calibration null
 
-Status: `S0_CANARY_PASS_CALIBRATION_GRID_AUTHORIZED`
+Status: `CALIBRATION_NULL_NO_USABLE_ALPHA`
 
 The hypothesis ([`HYPOTHESIS.md`](HYPOTHESIS.md)) was tested through the committed offline
-prefix-manifest/direction gate and the pre-registered S0 canary only. The canary fixes the
-iteration-31 infrastructure blocker: alpha `0.00` prefix replay exactly reproduces the committed
-iteration-29/iteration-32 target outputs while alpha `0.50` deterministically changes the bridge
-vector on every target row checked.
+prefix-manifest/direction gate, the pre-registered S0 canary, and the full S1 calibration grid.
+S0 passed, but calibration did not select any nonzero global alpha. The experiment therefore stops
+before heldout replay.
 
-Claim boundary: this is **not** a calibration, heldout, iteration-12, selector, closed-loop,
-deployment, or safety result. It authorizes only the frozen iteration-33 calibration grid as the
-next stage. Heldout replay remains unauthorized until a nonzero calibration alpha passes the
-registered bars.
+Claim boundary: this is **not** a heldout causal-geometry result, iteration-12 result, selector
+score, closed-loop result, deployment result, or safety result. It is a calibration null: the
+registered intervention produced valid logs and benign controls remained stable, but the
+eligible-lowdiv target movement was far below the frozen calibration bars.
 
 Harnesses:
 
@@ -19,89 +18,123 @@ Harnesses:
 - [`server_patch_intervention.py`](server_patch_intervention.py)
 - [`feeder_intervention.py`](feeder_intervention.py)
 - [`canary_intervention_run.sh`](canary_intervention_run.sh)
+- [`calibration_grid_run.sh`](calibration_grid_run.sh)
 - [`analyze_intervention.py`](analyze_intervention.py)
 
 Primary evidence:
 
 - [`proof-prefix/prefix_manifest_report.json`](proof-prefix/prefix_manifest_report.json)
-- [`proof-prefix/prefix_manifest_canary.json`](proof-prefix/prefix_manifest_canary.json)
 - [`proof-canary/canary_report.json`](proof-canary/canary_report.json)
-- [`proof-canary/sentinel-e33-canary.log`](proof-canary/sentinel-e33-canary.log)
-- [`proof-canary/sha256s.txt`](proof-canary/sha256s.txt)
-- [`proof-canary/local_verification.txt`](proof-canary/local_verification.txt)
+- [`proof-calibration/calibration_report.json`](proof-calibration/calibration_report.json)
+- [`proof-calibration/sentinel-e33-calibration.log`](proof-calibration/sentinel-e33-calibration.log)
+- [`proof-calibration/unsplit_sha256s.txt`](proof-calibration/unsplit_sha256s.txt)
+- [`proof-calibration/sha256s.txt`](proof-calibration/sha256s.txt)
+- [`proof-calibration/local_verification.txt`](proof-calibration/local_verification.txt)
+
+The large model JSONL gzip logs are committed as `*.jsonl.gz.part-*` shards under the registered
+`>90 MB` proof-artifact rule. Reconstruct and re-run the analyzer with
+[`proof-calibration/artifact_reconstruction.command.txt`](proof-calibration/artifact_reconstruction.command.txt).
 
 ## Verdict
 
 | gate | result |
 |---|---|
-| Offline prefix manifest | **PASS**: committed canary manifest has `3` scenes, `44` prefix replay rows, `12` target rows, and `32` context-only rows |
+| Offline prefix manifest | **PASS**: canary/calibration/heldout manifests match the frozen prefix/target/context counts |
 | Direction integrity | **PASS**: iteration-31 direction SHA remains `3ae7cb14ae4b31451bda3a0eebf9ace23a38483489839445b6f8333cc2f8d794` |
-| S0 canary execution | **PASS**: two alpha `0.00` repeats and two alpha `0.50` repeats completed on `sentinel-gpu`; every run logged `44` non-reset rows and `12` target rows |
-| Alpha-zero model hash | **PASS**: both alpha `0.00` model repeats produced target projection hash `2495f9a1dc4d7f7544673cd4dc25c1283977087a0018b37e76184a2b3c0b611e` |
-| Alpha-zero GT hash | **PASS**: both alpha `0.00` GT sidecars produced target projection hash `5064a3177c7918712fa56533b897e50a7d731f516d17a9ca6241ef67296050c7` |
-| Alpha-zero reference parity | **PASS**: `96` reference comparisons checked, `0` failures, max absolute coordinate error `0.0` within tolerance `1e-5` |
-| Alpha `0.50` repeat hash | **PASS**: both alpha `0.50` model repeats produced target projection hash `30e7e95cc165367697bf72f13b940358ce1c60101d3c3d2abe497f35696fa866` |
-| Alpha `0.50` bridge change | **PASS**: `24/24` alpha `0.50` target observations recorded changed bridge-vector SHA256s |
-| Context contamination | **PASS**: context-only rows were not intervened on and did not enter target hash/reference checks |
-| Calibration, heldout, iteration-12, selector, closed loop | **NOT RUN**: prohibited until this S0 proof is committed; calibration grid is the next authorized stage |
+| S0 canary | **PASS**: alpha `0.00` reproduced the iteration-32 model/GT target hashes exactly; alpha `0.50` repeated deterministically and changed bridge SHA on `24/24` nonzero target observations |
+| S1 calibration replay | **PASS**: alphas `0.00`, `0.25`, `0.50`, `0.75`, and `1.00` each logged `4293` non-reset rows, `2452` target rows, and `1841` context-only rows |
+| Context contamination | **PASS**: all calibration cells reported zero context-contamination failures |
+| Error/gross validity | **PASS**: all calibration cells reported `0` error rows and `0` gross-validity failures |
+| Alpha selection | **FAIL/NULL**: no nonzero alpha was calibration-eligible |
+| Heldout, iteration-12, selector, closed loop | **NOT RUN**: prohibited because calibration selected no usable alpha |
 
-**Iteration 33 S0 passes.** Prefix-preserving intervention replay is now stable enough to run the
-pre-registered calibration grid. This does not establish a causal heldout effect or a safety
-improvement; it only clears the infrastructure gate that iteration 31 failed.
+## Calibration Result
 
-## S0 Evidence
-
-The canary completed on `sentinel-gpu` with:
+The calibration report selected no alpha:
 
 ```text
-E33_CANARY_ALPHA_0p00_a_DONE Thu Jul  9 05:26:55 UTC 2026
-E33_CANARY_ALPHA_0p00_b_DONE Thu Jul  9 05:29:28 UTC 2026
-E33_CANARY_ALPHA_0p50_a_DONE Thu Jul  9 05:32:09 UTC 2026
-E33_CANARY_ALPHA_0p50_b_DONE Thu Jul  9 05:34:49 UTC 2026
-E33_CANARY_DONE Thu Jul  9 05:34:49 UTC 2026
+verdict=CALIBRATION_NULL_NO_USABLE_ALPHA
+selected=false
+selected_alpha=null
+prefix_replay_integrity_pass=true
 ```
 
-The proof directory contains:
+The strongest nonzero cell by registered positive movement was alpha `1.00`, but it still missed
+the eligible-lowdiv bars by a wide margin:
 
-- [`proof-canary/sentinel_e33_canary_alpha0p00_a.jsonl.gz`](proof-canary/sentinel_e33_canary_alpha0p00_a.jsonl.gz)
-- [`proof-canary/sentinel_e33_canary_alpha0p00_a_gt.jsonl.gz`](proof-canary/sentinel_e33_canary_alpha0p00_a_gt.jsonl.gz)
-- [`proof-canary/sentinel_e33_canary_alpha0p00_b.jsonl.gz`](proof-canary/sentinel_e33_canary_alpha0p00_b.jsonl.gz)
-- [`proof-canary/sentinel_e33_canary_alpha0p00_b_gt.jsonl.gz`](proof-canary/sentinel_e33_canary_alpha0p00_b_gt.jsonl.gz)
-- [`proof-canary/sentinel_e33_canary_alpha0p50_a.jsonl.gz`](proof-canary/sentinel_e33_canary_alpha0p50_a.jsonl.gz)
-- [`proof-canary/sentinel_e33_canary_alpha0p50_a_gt.jsonl.gz`](proof-canary/sentinel_e33_canary_alpha0p50_a_gt.jsonl.gz)
-- [`proof-canary/sentinel_e33_canary_alpha0p50_b.jsonl.gz`](proof-canary/sentinel_e33_canary_alpha0p50_b.jsonl.gz)
-- [`proof-canary/sentinel_e33_canary_alpha0p50_b_gt.jsonl.gz`](proof-canary/sentinel_e33_canary_alpha0p50_b_gt.jsonl.gz)
+| alpha | eligible median spread delta | eligible fraction > 0.25 m | eligible median best-gap delta | eligible rows | benign rows |
+|---:|---:|---:|---:|---:|---:|
+| `0.25` | `0.004535` | `0.009259` | `-0.000086` | `108` | `2344` |
+| `0.50` | `0.009948` | `0.083333` | `-0.000027` | `108` | `2344` |
+| `0.75` | `0.019271` | `0.111111` | `-0.000018` | `108` | `2344` |
+| `1.00` | `0.030803` | `0.129630` | `-0.000055` | `108` | `2344` |
+
+The frozen eligibility bars required median eligible endpoint-spread delta `> 0.25 m`, at least
+`50%` of eligible rows with endpoint-spread delta `> 0.25 m`, and median best-candidate-gap delta
+`>= 0.0 m`. No nonzero alpha satisfied those bars.
+
+Benign-control motion stayed within the registered harm bars. For alpha `1.00`, benign median
+executed endpoint displacement was `0.106039 m`, p95 displacement was `0.466095 m`, danger-cross
+fraction was `0.0`, low-diversity-collapse fraction was `0.0`, and benign median endpoint-spread
+delta was `0.054514 m`. That does not rescue the result because the positive eligible-lowdiv
+movement criterion failed first.
+
+## Calibration Evidence
+
+The calibration grid completed on `sentinel-gpu`:
+
+```text
+E33_CALIBRATION_ALPHA_0p00_DONE Thu Jul  9 08:14:04 UTC 2026
+E33_CALIBRATION_ALPHA_0p25_DONE Thu Jul  9 10:50:54 UTC 2026
+E33_CALIBRATION_ALPHA_0p50_DONE Thu Jul  9 13:27:10 UTC 2026
+E33_CALIBRATION_ALPHA_0p75_DONE Thu Jul  9 16:02:31 UTC 2026
+E33_CALIBRATION_ALPHA_1p00_DONE Thu Jul  9 18:39:08 UTC 2026
+E33_CALIBRATION_DONE Thu Jul  9 18:39:08 UTC 2026
+```
+
+Every alpha cell logged the frozen row counts:
+
+```text
+FEEDER_DONE run_alpha=0.0 rows=4293 target_rows=2452 context_only_rows=1841 scenes=121
+FEEDER_DONE run_alpha=0.25 rows=4293 target_rows=2452 context_only_rows=1841 scenes=121
+FEEDER_DONE run_alpha=0.5 rows=4293 target_rows=2452 context_only_rows=1841 scenes=121
+FEEDER_DONE run_alpha=0.75 rows=4293 target_rows=2452 context_only_rows=1841 scenes=121
+FEEDER_DONE run_alpha=1.0 rows=4293 target_rows=2452 context_only_rows=1841 scenes=121
+```
 
 The analyzer command was:
 
 ```bash
 python3 experiments/iter33_prefix_preserving_bridge_intervention/analyze_intervention.py \
-  --stage canary \
-  --log experiments/iter33_prefix_preserving_bridge_intervention/proof-canary/sentinel_e33_canary_alpha0p00_a.jsonl.gz \
-  --log experiments/iter33_prefix_preserving_bridge_intervention/proof-canary/sentinel_e33_canary_alpha0p00_b.jsonl.gz \
-  --log experiments/iter33_prefix_preserving_bridge_intervention/proof-canary/sentinel_e33_canary_alpha0p50_a.jsonl.gz \
-  --log experiments/iter33_prefix_preserving_bridge_intervention/proof-canary/sentinel_e33_canary_alpha0p50_b.jsonl.gz \
-  --gt-log experiments/iter33_prefix_preserving_bridge_intervention/proof-canary/sentinel_e33_canary_alpha0p00_a_gt.jsonl.gz \
-  --gt-log experiments/iter33_prefix_preserving_bridge_intervention/proof-canary/sentinel_e33_canary_alpha0p00_b_gt.jsonl.gz \
-  --gt-log experiments/iter33_prefix_preserving_bridge_intervention/proof-canary/sentinel_e33_canary_alpha0p50_a_gt.jsonl.gz \
-  --gt-log experiments/iter33_prefix_preserving_bridge_intervention/proof-canary/sentinel_e33_canary_alpha0p50_b_gt.jsonl.gz \
-  --out experiments/iter33_prefix_preserving_bridge_intervention/proof-canary/canary_report.json
+  --stage calibration \
+  --log experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p00.jsonl.gz \
+  --log experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p25.jsonl.gz \
+  --log experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p50.jsonl.gz \
+  --log experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p75.jsonl.gz \
+  --log experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha1p00.jsonl.gz \
+  --out experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/calibration_report.json
 ```
+
+The committed proof directory contains the analyzer report, command receipts, the calibration run
+log, GT sidecars, split model logs, unsplit SHA256 receipts, final SHA256 receipts, and local
+verification output.
 
 ## Interpretation
 
-Iteration 31 failed at S0 because sparse alpha-zero replay did not reproduce the committed
-iteration-29 target outputs. Iteration 32 showed that prefix-preserving no-op replay restored that
-baseline. Iteration 33 combines the same prefix-preserving replay form with the committed
-iteration-31 bridge-centroid direction and verifies that the sham condition remains an exact
-baseline while the nonzero intervention actually changes the bridge tensor.
+Iteration 33 repaired the replay-form blocker that stopped iteration 31: prefix-preserving replay
+is stable, alpha-zero reproduces the baseline, and nonzero alphas change the bridge tensor without
+gross corruption. The calibration null says something narrower and important: the committed
+iteration-31 bridge-centroid direction is not a strong enough single global intervention to move
+calibration eligible-lowdiv command-candidate geometry by the registered amount.
 
-That is an infrastructure pass, not a causal pass. The next legal action is the frozen calibration
-grid over alphas `{0.00, 0.25, 0.50, 0.75, 1.00}`. If no nonzero alpha passes calibration, the
-experiment must publish a calibration null and stop before heldout replay.
+This does not erase iteration 30's localization result. The bridge representation can still carry
+diagnostic low-diversity information. What failed here is the stronger causal repair step: adding
+that centroid direction globally did not produce enough registered downstream candidate-diversity
+movement while preserving the frozen gate logic.
 
 ## Next Authorized Step
 
-Run exactly one calibration prefix replay for every frozen alpha in the iteration-33 grid, using
-the committed calibration manifest. Do not run heldout, iteration-12 scoring, selector evaluation,
-or closed-loop work unless the registered calibration-selection gate authorizes it.
+Publish this calibration null and stop iteration 33. Heldout replay, iteration-12 scoring, selector
+evaluation, closed-loop work, deployment language, and safety claims are not authorized from this
+result. A successor would need a fresh pre-registration with a different intervention hypothesis
+or a deliberately narrower claim.

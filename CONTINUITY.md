@@ -503,4 +503,10 @@ events to prepare; they are a property the repository always has.
   prefix/target/context counts, and alpha `1.00` had started on `sentinel-gpu`. No calibration
   analyzer, heldout replay, iteration-12 scoring, selector evaluation, closed-loop work, or safety
   claim was launched.
+- 2026-07-09: Codex — completed and analyzed the iteration 33 calibration grid. All five alphas
+  completed exact `4293/2452/1841` prefix/target/context counts with zero error rows and no context
+  contamination, but no nonzero alpha passed S1: best alpha `1.00` reached only `0.0308 m`
+  eligible median endpoint-spread delta and `0.1296` fraction above `0.25 m`. Published as
+  `CALIBRATION_NULL_NO_USABLE_ALPHA`; heldout replay, iteration-12 scoring, selector evaluation,
+  closed-loop work, and safety claims remain unauthorized.
 - (append one line per shift: dates, operator, what changed, box state at exit)
