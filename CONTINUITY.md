@@ -177,6 +177,13 @@ events to prepare; they are a property the repository always has.
   prefix-preserving bridge intervention pre-registration; it authorizes no direct intervention,
   calibration, heldout, iteration-12 scoring, selector evaluation, closed-loop work, or safety
   claim.
+- Iteration 33 is now pre-registered:
+  experiments/iter33_prefix_preserving_bridge_intervention/HYPOTHESIS.md. It is the fresh
+  prefix-preserving bridge intervention successor authorized by iteration 32: same committed
+  iteration-31 fit-only direction, but canary/calibration/heldout replays must preserve scene
+  prefixes, context-only rows are always no-op, and metrics are target-row only. It authorizes no
+  tooling, GPU replay, calibration, heldout, iteration-12 scoring, selector evaluation,
+  closed-loop work, or safety claim until the required tooling and gates are committed.
 - Iter22 planning artifacts now exist under docs/research/: ITER22_HYPOTHESIS_DRAFT.md and
   ITER22_ADVERSARIAL_REVIEW.md. They are planning-only, not pre-registrations. Owner guidance:
   do not promote the broad A0-A8 draft directly; use the adversarial review's tighter Stage
@@ -456,4 +463,9 @@ events to prepare; they are a property the repository always has.
   `python3 scripts/validate_docs.py`). This is a baseline-recovery pass only; no intervention,
   calibration, heldout, iteration-12 scoring, selector evaluation, closed-loop work, or safety
   claim launched.
+- 2026-07-09: Codex — pre-registered iteration 33 under
+  experiments/iter33_prefix_preserving_bridge_intervention/HYPOTHESIS.md. Scope is a fresh
+  prefix-preserving bridge intervention using the committed iteration-31 direction and the
+  iteration-32 replay lesson. No iteration-33 tooling, GPU/gcloud replay, calibration, heldout,
+  iteration-12 scoring, selector evaluation, closed-loop work, or safety claim launched yet.
 - (append one line per shift: dates, operator, what changed, box state at exit)
