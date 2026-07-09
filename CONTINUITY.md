@@ -509,4 +509,10 @@ events to prepare; they are a property the repository always has.
   eligible median endpoint-spread delta and `0.1296` fraction above `0.25 m`. Published as
   `CALIBRATION_NULL_NO_USABLE_ALPHA`; heldout replay, iteration-12 scoring, selector evaluation,
   closed-loop work, and safety claims remain unauthorized.
+- 2026-07-09: Codex — pre-registered iteration 34 under
+  experiments/iter34_direction_specificity_audit/HYPOTHESIS.md. Scope is a post-result offline
+  audit of committed iteration-33 calibration artifacts to decide whether the same global
+  bridge-centroid direction warrants any future scale-only successor. No analyzer, proof report,
+  GPU/gcloud replay, heldout replay, iteration-12 scoring, selector evaluation, closed-loop work,
+  or safety claim launched yet.
 - (append one line per shift: dates, operator, what changed, box state at exit)

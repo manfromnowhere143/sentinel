@@ -280,3 +280,10 @@ measurement task. It waits only for the power run's final numbers so results are
     scene-prefix replay. It authorizes only a fresh prefix-preserving bridge intervention
     pre-registration; it authorizes no direct intervention, calibration, heldout, iteration-12,
     selector, closed-loop, or safety claim.
+16. Iteration 33 is closed as a prefix-preserving bridge-intervention calibration null. S0 passed
+    and the full calibration grid completed exact row counts for every frozen alpha, but no
+    nonzero alpha passed S1. The strongest cell, alpha `1.00`, reached only `0.0308 m` eligible
+    median endpoint-spread delta and `0.1296` fraction above `0.25 m`, far below the frozen bars.
+    Iter33 authorizes no heldout replay, iteration-12 scoring, selector evaluation, closed-loop
+    work, deployment language, or safety claim. Any successor needs a fresh pre-registration with
+    a different intervention hypothesis or a narrower post-result audit claim.

@@ -440,6 +440,11 @@ iteration-12, selector, closed-loop work, or safety claim is authorized from ite
   `1.00`, the strongest cell, reached only `0.0308 m` median eligible endpoint-spread delta and
   `0.1296` fraction above `0.25 m`. Heldout, iteration-12, selector, closed loop, and
   safety claims remain unauthorized.
+- **Iteration 34 is pre-registered as an offline direction-specificity audit.**
+  [`experiments/iter34_direction_specificity_audit/HYPOTHESIS.md`](experiments/iter34_direction_specificity_audit/HYPOTHESIS.md)
+  may inspect only committed iteration-33 calibration artifacts to decide whether the same global
+  bridge-centroid direction warrants any future scale-only successor. It authorizes no GPU run,
+  heldout replay, iteration-12 scoring, selector evaluation, closed-loop work, or safety claim.
 
 Closed en route, per the gate discipline: the per-frame routing predicates (iteration 17
 addendum — refuted offline), the tracking layer's own offline gate (iteration 18 — failed
