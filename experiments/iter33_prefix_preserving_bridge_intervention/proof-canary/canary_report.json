@@ -1,0 +1,149 @@
+{
+  "alpha0p50_bridge_change_failures": [],
+  "alpha0p50_bridge_change_pass": true,
+  "alpha0p50_changed_bridge_sha_rows": 24,
+  "alpha0p50_target_rows_checked": 24,
+  "alpha_zero_max_abs_coordinate_error": 0.0,
+  "alpha_zero_reference_checked": true,
+  "alpha_zero_reference_comparisons": 96,
+  "alpha_zero_reference_failure_count": 0,
+  "alpha_zero_reference_failures": [],
+  "alpha_zero_reference_pass": true,
+  "alpha_zero_reference_tolerance": 1e-05,
+  "alpha_zero_rows": 24,
+  "claim_boundary": "Canary hashing is an S0 integrity artifact only. Baseline hashes use the iteration-32 compatible target-row projection so extra iter33 audit metadata cannot hide output drift.",
+  "command_line": "experiments/iter33_prefix_preserving_bridge_intervention/analyze_intervention.py --stage canary --log experiments/iter33_prefix_preserving_bridge_intervention/proof-canary/sentinel_e33_canary_alpha0p00_a.jsonl.gz --log experiments/iter33_prefix_preserving_bridge_intervention/proof-canary/sentinel_e33_canary_alpha0p00_b.jsonl.gz --log experiments/iter33_prefix_preserving_bridge_intervention/proof-canary/sentinel_e33_canary_alpha0p50_a.jsonl.gz --log experiments/iter33_prefix_preserving_bridge_intervention/proof-canary/sentinel_e33_canary_alpha0p50_b.jsonl.gz --gt-log experiments/iter33_prefix_preserving_bridge_intervention/proof-canary/sentinel_e33_canary_alpha0p00_a_gt.jsonl.gz --gt-log experiments/iter33_prefix_preserving_bridge_intervention/proof-canary/sentinel_e33_canary_alpha0p00_b_gt.jsonl.gz --gt-log experiments/iter33_prefix_preserving_bridge_intervention/proof-canary/sentinel_e33_canary_alpha0p50_a_gt.jsonl.gz --gt-log experiments/iter33_prefix_preserving_bridge_intervention/proof-canary/sentinel_e33_canary_alpha0p50_b_gt.jsonl.gz --out experiments/iter33_prefix_preserving_bridge_intervention/proof-canary/canary_report.json",
+  "failure_count": 0,
+  "failures": [],
+  "gt_run_summaries": [
+    {
+      "context_contamination_failure_count": 0,
+      "context_contamination_failures": [],
+      "context_contamination_pass": true,
+      "context_only_rows": 32,
+      "error_rows": 0,
+      "non_reset_rows": 44,
+      "path": "experiments/iter33_prefix_preserving_bridge_intervention/proof-canary/sentinel_e33_canary_alpha0p00_a_gt.jsonl.gz",
+      "row_count_failures": [],
+      "row_count_pass": true,
+      "target_baseline_projection_sha256": "5064a3177c7918712fa56533b897e50a7d731f516d17a9ca6241ef67296050c7",
+      "target_rows": 12
+    },
+    {
+      "context_contamination_failure_count": 0,
+      "context_contamination_failures": [],
+      "context_contamination_pass": true,
+      "context_only_rows": 32,
+      "error_rows": 0,
+      "non_reset_rows": 44,
+      "path": "experiments/iter33_prefix_preserving_bridge_intervention/proof-canary/sentinel_e33_canary_alpha0p00_b_gt.jsonl.gz",
+      "row_count_failures": [],
+      "row_count_pass": true,
+      "target_baseline_projection_sha256": "5064a3177c7918712fa56533b897e50a7d731f516d17a9ca6241ef67296050c7",
+      "target_rows": 12
+    },
+    {
+      "context_contamination_failure_count": 0,
+      "context_contamination_failures": [],
+      "context_contamination_pass": true,
+      "context_only_rows": 32,
+      "error_rows": 0,
+      "non_reset_rows": 44,
+      "path": "experiments/iter33_prefix_preserving_bridge_intervention/proof-canary/sentinel_e33_canary_alpha0p50_a_gt.jsonl.gz",
+      "row_count_failures": [],
+      "row_count_pass": true,
+      "target_baseline_projection_sha256": "5064a3177c7918712fa56533b897e50a7d731f516d17a9ca6241ef67296050c7",
+      "target_rows": 12
+    },
+    {
+      "context_contamination_failure_count": 0,
+      "context_contamination_failures": [],
+      "context_contamination_pass": true,
+      "context_only_rows": 32,
+      "error_rows": 0,
+      "non_reset_rows": 44,
+      "path": "experiments/iter33_prefix_preserving_bridge_intervention/proof-canary/sentinel_e33_canary_alpha0p50_b_gt.jsonl.gz",
+      "row_count_failures": [],
+      "row_count_pass": true,
+      "target_baseline_projection_sha256": "5064a3177c7918712fa56533b897e50a7d731f516d17a9ca6241ef67296050c7",
+      "target_rows": 12
+    }
+  ],
+  "gt_target_baseline_projection_hashes_by_alpha": {
+    "0p00": [
+      "5064a3177c7918712fa56533b897e50a7d731f516d17a9ca6241ef67296050c7",
+      "5064a3177c7918712fa56533b897e50a7d731f516d17a9ca6241ef67296050c7"
+    ],
+    "0p50": [
+      "5064a3177c7918712fa56533b897e50a7d731f516d17a9ca6241ef67296050c7",
+      "5064a3177c7918712fa56533b897e50a7d731f516d17a9ca6241ef67296050c7"
+    ]
+  },
+  "metric_scope": "target_row_only_for_hash_and_reference_checks",
+  "model_run_summaries": [
+    {
+      "context_contamination_failure_count": 0,
+      "context_contamination_failures": [],
+      "context_contamination_pass": true,
+      "context_only_rows": 32,
+      "error_rows": 0,
+      "non_reset_rows": 44,
+      "path": "experiments/iter33_prefix_preserving_bridge_intervention/proof-canary/sentinel_e33_canary_alpha0p00_a.jsonl.gz",
+      "row_count_failures": [],
+      "row_count_pass": true,
+      "target_baseline_projection_sha256": "2495f9a1dc4d7f7544673cd4dc25c1283977087a0018b37e76184a2b3c0b611e",
+      "target_rows": 12
+    },
+    {
+      "context_contamination_failure_count": 0,
+      "context_contamination_failures": [],
+      "context_contamination_pass": true,
+      "context_only_rows": 32,
+      "error_rows": 0,
+      "non_reset_rows": 44,
+      "path": "experiments/iter33_prefix_preserving_bridge_intervention/proof-canary/sentinel_e33_canary_alpha0p00_b.jsonl.gz",
+      "row_count_failures": [],
+      "row_count_pass": true,
+      "target_baseline_projection_sha256": "2495f9a1dc4d7f7544673cd4dc25c1283977087a0018b37e76184a2b3c0b611e",
+      "target_rows": 12
+    },
+    {
+      "context_contamination_failure_count": 0,
+      "context_contamination_failures": [],
+      "context_contamination_pass": true,
+      "context_only_rows": 32,
+      "error_rows": 0,
+      "non_reset_rows": 44,
+      "path": "experiments/iter33_prefix_preserving_bridge_intervention/proof-canary/sentinel_e33_canary_alpha0p50_a.jsonl.gz",
+      "row_count_failures": [],
+      "row_count_pass": true,
+      "target_baseline_projection_sha256": "30e7e95cc165367697bf72f13b940358ce1c60101d3c3d2abe497f35696fa866",
+      "target_rows": 12
+    },
+    {
+      "context_contamination_failure_count": 0,
+      "context_contamination_failures": [],
+      "context_contamination_pass": true,
+      "context_only_rows": 32,
+      "error_rows": 0,
+      "non_reset_rows": 44,
+      "path": "experiments/iter33_prefix_preserving_bridge_intervention/proof-canary/sentinel_e33_canary_alpha0p50_b.jsonl.gz",
+      "row_count_failures": [],
+      "row_count_pass": true,
+      "target_baseline_projection_sha256": "30e7e95cc165367697bf72f13b940358ce1c60101d3c3d2abe497f35696fa866",
+      "target_rows": 12
+    }
+  ],
+  "model_target_baseline_projection_hashes_by_alpha": {
+    "0p00": [
+      "2495f9a1dc4d7f7544673cd4dc25c1283977087a0018b37e76184a2b3c0b611e",
+      "2495f9a1dc4d7f7544673cd4dc25c1283977087a0018b37e76184a2b3c0b611e"
+    ],
+    "0p50": [
+      "30e7e95cc165367697bf72f13b940358ce1c60101d3c3d2abe497f35696fa866",
+      "30e7e95cc165367697bf72f13b940358ce1c60101d3c3d2abe497f35696fa866"
+    ]
+  },
+  "s0_canary_pass": true,
+  "stage": "iter33_canary_integrity"
+}
