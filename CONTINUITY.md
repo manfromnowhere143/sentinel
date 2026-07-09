@@ -492,4 +492,10 @@ events to prepare; they are a property the repository always has.
   verification passed (`ruff check .`, `pytest -q`, `python3 scripts/validate_docs.py`).
   Calibration grid replay is authorized next; heldout replay, iteration-12 scoring, selector
   evaluation, closed-loop work, and safety claims remain unauthorized.
+- 2026-07-09: Codex — refreshed the baton while the authorized iteration 33 calibration grid was
+  in flight on `sentinel-gpu` (`/var/log/sentinel-e33-calibration.log`). Alpha `0.00`, `0.25`,
+  and `0.50` had completed with exact `4293/2452/1841` prefix/target/context counts; alpha
+  `0.75` was still running without error markers, and alpha `1.00` had not started yet. No
+  calibration analyzer, heldout replay, iteration-12 scoring, selector evaluation, closed-loop
+  work, or safety claim was launched.
 - (append one line per shift: dates, operator, what changed, box state at exit)
