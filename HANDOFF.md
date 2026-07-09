@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Thu Jul  9 19:06:59 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Thu Jul  9 19:15:23 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+78a6aff tools: add iter34 direction audit analyzer
+7f9fb27 handoff: refresh after iter34 preregistration
 3d85104 research: preregister iter34 direction audit
 84e0e0f handoff: refresh after iter33 calibration null
 62b7331 analysis: publish iter33 calibration null
 ea9f6f4 handoff: record iter33 alpha one in flight
 0e424aa handoff: record iter33 calibration in flight
 221b862 handoff: refresh after iter33 canary pass
-c4f47bd analysis: publish iter33 canary pass
-6c7e1dc handoff: refresh after iter33 canary hardening
 ```
 Working tree: CLEAN
 
@@ -60,7 +60,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 19:08:06 up 5 days,  8:49,  0 users,  load average: 0.00, 0.00, 0.18
+ 19:16:30 up 5 days,  8:57,  0 users,  load average: 0.00, 0.00, 0.08
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-e33-calibration.log
