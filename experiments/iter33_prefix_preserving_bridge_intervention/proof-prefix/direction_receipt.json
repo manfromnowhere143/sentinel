@@ -1,0 +1,10 @@
+{
+  "direction_and_fit_stats_sha256": "3ae7cb14ae4b31451bda3a0eebf9ace23a38483489839445b6f8333cc2f8d794",
+  "direction_raw_len": 1792,
+  "dropped_dimension_count": 0,
+  "feature_count": 1792,
+  "feature_order": "flatten(sdc_traj_query_last) || flatten(sdc_track_query)",
+  "file_sha256": "70f01f65c53d3e9af8352d8ee16e71c5f93f6d89c3e936e345035f5cf3d6f9e7",
+  "fit_rows": 5211,
+  "path": "experiments/iter31_full_trainval_bridge_intervention/proof-direction/direction.json"
+}
