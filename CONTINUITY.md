@@ -468,4 +468,12 @@ events to prepare; they are a property the repository always has.
   prefix-preserving bridge intervention using the committed iteration-31 direction and the
   iteration-32 replay lesson. No iteration-33 tooling, GPU/gcloud replay, calibration, heldout,
   iteration-12 scoring, selector evaluation, closed-loop work, or safety claim launched yet.
+- 2026-07-09: Codex — added and committed the iteration 33 prefix-preserving intervention
+  tooling surface, then published the offline prefix-manifest/direction-receipt proof. The S0
+  offline gate passed with canary `44/12/32`, calibration `4293/2452/1841`, heldout
+  `4283/2403/1880` prefix/target/context counts, direction SHA
+  `3ae7cb14ae4b31451bda3a0eebf9ace23a38483489839445b6f8333cc2f8d794`, and local verification
+  passed (`ruff check .`, `pytest -q`, `python3 scripts/validate_docs.py`). No GPU/gcloud
+  canary replay, calibration replay, heldout replay, iteration-12 scoring, selector evaluation,
+  closed-loop work, or safety claim launched yet.
 - (append one line per shift: dates, operator, what changed, box state at exit)

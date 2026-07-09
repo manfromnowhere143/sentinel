@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Thu Jul  9 03:51:00 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Thu Jul  9 04:18:11 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+af25878 analysis: publish iter33 prefix manifest proof
+501a144 tools: add iter33 prefix intervention harness
+69d3af5 handoff: refresh after iter33 pre-registration
 76b1da4 research: pre-register iter33 prefix intervention
 bc9165f handoff: refresh after iter32 replay pass
 e00598c analysis: refresh iter32 verification proof
 8d9f843 analysis: publish iter32 prefix replay pass
 63a6845 handoff: refresh after iter32 prefix manifest
-bb996a7 handoff: record iter32 tooling proof
-02fb60a analysis: publish iter32 prefix manifest
-c36aeef tools: add iter32 prefix replay surface
 ```
 Working tree: CLEAN
 
