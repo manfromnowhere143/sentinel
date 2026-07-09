@@ -193,6 +193,7 @@ def validate_recorded_hashes(paths: list[Path]) -> dict:
             failures.append(f"sha256 mismatch for {rel}")
     return {
         "sha256s_path": str((PROOF33 / "sha256s.txt").relative_to(ROOT)),
+        "sha256s_file_sha256": sha256_file(PROOF33 / "sha256s.txt"),
         "unsplit_sha256s_path": str((PROOF33 / "unsplit_sha256s.txt").relative_to(ROOT)),
         "checked": checked,
         "unsplit_record_count": len(unsplit_recorded),
@@ -398,7 +399,7 @@ def build_report() -> dict:
     module = load_iter33_analyzer()
     calibration_report_path = PROOF33 / "calibration_report.json"
     calibration_report = json.loads(calibration_report_path.read_text(encoding="utf-8"))
-    required_paths = [calibration_report_path, PROOF33 / "sha256s.txt", PROOF33 / "unsplit_sha256s.txt"]
+    required_paths = [calibration_report_path, PROOF33 / "unsplit_sha256s.txt"]
     for alpha in ALPHAS:
         required_paths.extend(alpha_log_parts(alpha))
     hash_report = validate_recorded_hashes(required_paths)
