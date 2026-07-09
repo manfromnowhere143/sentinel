@@ -484,4 +484,12 @@ events to prepare; they are a property the repository always has.
   still failed with non-interactive gcloud reauthentication; ask Daniel to run `gcloud auth
   login` before S0 canary replay. No GPU canary replay, calibration replay, heldout replay,
   iteration-12 scoring, selector evaluation, closed-loop work, or safety claim launched yet.
+- 2026-07-09: Codex — ran and published the iteration 33 prefix-preserving S0 canary on
+  `sentinel-gpu` after Daniel refreshed gcloud auth. Two alpha `0.00` repeats and two alpha
+  `0.50` repeats completed with `44` non-reset rows and `12` target rows each. Alpha `0.00`
+  reproduced the iteration-32 model/GT target hashes exactly, alpha `0.50` repeated
+  deterministically, bridge SHA256 changed on `24/24` nonzero target observations, and local
+  verification passed (`ruff check .`, `pytest -q`, `python3 scripts/validate_docs.py`).
+  Calibration grid replay is authorized next; heldout replay, iteration-12 scoring, selector
+  evaluation, closed-loop work, and safety claims remain unauthorized.
 - (append one line per shift: dates, operator, what changed, box state at exit)
