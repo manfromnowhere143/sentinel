@@ -83,6 +83,8 @@ PRE_CALL = r'''        # SENTINEL_E33_PREFIX_BRIDGE_INTERVENTION: target-aware b
                     "intervention_applied": False,
                     "intervention_direction_json": _e33_dir_path,
                     "intervention_direction_sha256": _e33_direction_sha,
+                    "server_patch_sha256": _e33_os.environ.get("SENTINEL_E33_PATCH_SHA256", ""),
+                    "uniad_source_commit": _e33_os.environ.get("SENTINEL_E33_UNIAD_COMMIT", ""),
                     "original_bridge_sha256": _e33_original_bridge_sha,
                     "sdc_traj_query_last_shape": list(_e33_last.shape),
                     "sdc_traj_query_last_dtype": str(_e33_last.dtype),
@@ -91,7 +93,7 @@ PRE_CALL = r'''        # SENTINEL_E33_PREFIX_BRIDGE_INTERVENTION: target-aware b
                     "iter33_patch_mode": "prefix_preserving_bridge_intervention",
                 }
 
-                if _e33_target_row:
+                if _e33_target_row and abs(_e33_alpha) > 0.0:
                     _e33_stash["original_traj"] = _e33_plan(int(input.command), _e33_tq, _e33_trk)
                     _e33_stash["original_cands"] = [
                         _e33_plan(_e33_cmd, _e33_tq, _e33_trk) for _e33_cmd in (0, 1, 2)
@@ -182,6 +184,9 @@ LOG_INSERT = r'''        # SENTINEL_E33_PREFIX_BRIDGE_INTERVENTION: log prefix a
                 _e33_n_obj = outs_track[0]["boxes_3d"].tensor.shape[0]
                 _e33_stash = getattr(self.model.planning_head, "_sentinel_e33_stash", {})
                 _e33_intervened_traj = _format_trajs(outs_planning["sdc_traj"])[0].cpu().numpy().tolist()
+                if _e33_target_row and "original_traj" not in _e33_stash:
+                    _e33_stash["original_traj"] = _e33_intervened_traj
+                    _e33_stash["original_cands"] = _e33_cands
                 _e33_rec = {
                     "scene": _e33_ctx.get("scene", ""),
                     "split": _e33_ctx.get("split", ""),

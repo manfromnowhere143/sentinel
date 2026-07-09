@@ -10,6 +10,12 @@ PATCH=/tmp/server_patch_intervention_iter33.py
 FEEDER=/tmp/feeder_intervention_iter33.py
 DIRECTION=/tmp/iter33_direction.json
 MANIFEST=/tmp/prefix_manifest_calibration_iter33.json
+PATCH_SHA256=$(sha256sum "$PATCH" | awk '{print $1}')
+UNIAD_COMMIT=$(git -C "$UNIAD" rev-parse HEAD)
+if [ -z "$PATCH_SHA256" ] || [ -z "$UNIAD_COMMIT" ]; then
+  echo "missing patch hash or UniAD commit"
+  exit 1
+fi
 
 run_alpha() {
   local alpha="$1"
@@ -30,6 +36,8 @@ run_alpha() {
     -e SENTINEL_E33_PREFIX_INTERVENTION=1 \
     -e SENTINEL_E33_ALPHA="$alpha" \
     -e SENTINEL_E33_DIRECTION=/model/iter33_direction.json \
+    -e SENTINEL_E33_PATCH_SHA256="$PATCH_SHA256" \
+    -e SENTINEL_E33_UNIAD_COMMIT="$UNIAD_COMMIT" \
     -e SENTINEL_E33_LOG="/model/sentinel_e33_calibration_alpha${encoded}.jsonl" \
     -e SENTINEL_E33_CONTEXT=/model/sentinel_e33_context.json \
     uniad:latest \

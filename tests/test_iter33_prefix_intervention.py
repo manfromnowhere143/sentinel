@@ -220,5 +220,24 @@ def test_iter33_patch_source_forces_context_alpha_zero():
 
     assert 'SENTINEL_E33_PREFIX_INTERVENTION' in source
     assert "_e33_alpha = _e33_run_alpha if _e33_target_row else 0.0" in source
+    assert "server_patch_sha256" in source
+    assert "uniad_source_commit" in source
+    assert "if _e33_target_row and abs(_e33_alpha) > 0.0:" in source
+    assert '"original_traj" not in _e33_stash' in source
     assert '"bridge_sha256_changed"' in source
     assert '@app.post("/sentinel_e33_context")' in source
+
+
+def test_iter33_run_scripts_pass_patch_provenance():
+    for script_name in (
+        "canary_intervention_run.sh",
+        "calibration_grid_run.sh",
+        "heldout_selected_alpha_run.sh",
+    ):
+        source = (EXP / script_name).read_text(encoding="utf-8")
+
+        assert "PATCH_SHA256=$(sha256sum \"$PATCH\" | awk '{print $1}')" in source
+        assert "UNIAD_COMMIT=$(git -C \"$UNIAD\" rev-parse HEAD)" in source
+        assert "missing patch hash or UniAD commit" in source
+        assert '-e SENTINEL_E33_PATCH_SHA256="$PATCH_SHA256"' in source
+        assert '-e SENTINEL_E33_UNIAD_COMMIT="$UNIAD_COMMIT"' in source
