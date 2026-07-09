@@ -498,4 +498,9 @@ events to prepare; they are a property the repository always has.
   `0.75` was still running without error markers, and alpha `1.00` had not started yet. No
   calibration analyzer, heldout replay, iteration-12 scoring, selector evaluation, closed-loop
   work, or safety claim was launched.
+- 2026-07-09: Codex — monitored the same authorized iteration 33 calibration grid through alpha
+  `0.75` completion. Alpha `0.75` also completed with exact `4293/2452/1841`
+  prefix/target/context counts, and alpha `1.00` had started on `sentinel-gpu`. No calibration
+  analyzer, heldout replay, iteration-12 scoring, selector evaluation, closed-loop work, or safety
+  claim was launched.
 - (append one line per shift: dates, operator, what changed, box state at exit)
