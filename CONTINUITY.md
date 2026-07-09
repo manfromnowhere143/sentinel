@@ -476,4 +476,12 @@ events to prepare; they are a property the repository always has.
   passed (`ruff check .`, `pytest -q`, `python3 scripts/validate_docs.py`). No GPU/gcloud
   canary replay, calibration replay, heldout replay, iteration-12 scoring, selector evaluation,
   closed-loop work, or safety claim launched yet.
+- 2026-07-09: Codex — hardened the iteration 33 S0 canary harness before GPU replay: run
+  scripts now pass a server-patch SHA256 and UniAD source commit into logged rows, and alpha
+  `0.00` target rows avoid extra original-output pre-planning calls so the baseline cell stays
+  closest to the iteration-32 no-op replay form. Local verification passed (`ruff check .`,
+  `pytest -q`, `python3 scripts/validate_docs.py`) and GitHub CI passed. A direct GPU probe
+  still failed with non-interactive gcloud reauthentication; ask Daniel to run `gcloud auth
+  login` before S0 canary replay. No GPU canary replay, calibration replay, heldout replay,
+  iteration-12 scoring, selector evaluation, closed-loop work, or safety claim launched yet.
 - (append one line per shift: dates, operator, what changed, box state at exit)
