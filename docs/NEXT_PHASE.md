@@ -338,3 +338,9 @@ pre-registration should prioritize hostile external-validity pressure unless the
 reason calibration is more informative: independent planner transfer, unseen scenario families,
 sensor degradation, adversarial perturbations, calibration stability, intervention latency,
 intervention cost, and deployment trade-offs.
+
+22. Iteration 39 is now pre-registered as that hostile external-validity gate. It is an offline
+    claim audit over committed evidence and active story documents, not a new benchmark or model
+    run. It must publish a claim ledger and active-document overclaim audit before any new
+    GPU/model work resumes. If it finds scope inflation, the docs must be narrowed in the same
+    published state before iteration-38 calibration or any other mechanism run proceeds.

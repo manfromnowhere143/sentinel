@@ -76,6 +76,10 @@ events to prepare; they are a property the repository always has.
 - Best configuration: the released union (iteration 15). Four challengers refuted (evasions,
   crawl, router, tracker-gate); deployment flip proven achievable (+0.226 CI excl. 0) but
   unclaimed — safety gate failed on one crossing.
+- Iteration 39 is pre-registered as the defensibility gate before more GPU/model work:
+  experiments/iter39_external_validity_claim_audit/HYPOTHESIS.md. It must publish a claim ledger
+  and active-document overclaim audit before iteration-38 calibration or any other mechanism run
+  resumes.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).

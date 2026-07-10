@@ -380,3 +380,12 @@ over-claim.** That arc, in order:
     defensibility rule, external-validity falsification should be weighed before spending the
     next GPU window on incremental mechanism search.
     [`../experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md`](../experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md).
+
+41. **Iter 39 — external-validity claim audit: pre-registered before more GPU work.** The next
+    gate deliberately shifts from mechanism search to hostile scientific review. It will classify
+    every active headline claim as established, split, null, diagnostic, active, or untested
+    across planner transfer, scenario scope, sensor/input degradation, adversarial perturbation,
+    calibration stability, latency/cost, and deployment trade-offs. If active docs imply broader
+    validity than the committed evidence supports, they must be narrowed before any new GPU/model
+    work, including iteration-38 calibration.
+    [`../experiments/iter39_external_validity_claim_audit/HYPOTHESIS.md`](../experiments/iter39_external_validity_claim_audit/HYPOTHESIS.md).
