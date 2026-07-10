@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Thu Jul  9 19:30:05 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Fri Jul 10 02:03:18 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+af88cdb analysis: publish iter35 heterogeneity null
+908271e fix: write strict iter35 audit json
+9d904bc tools: add iter35 heterogeneity audit analyzer
+e474ff9 research: preregister iter35 heterogeneity audit
+8ccfafd handoff: refresh after iter34 result
 c042bdb analysis: publish iter34 direction audit null
 d1f23e2 handoff: refresh after iter34 analyzer fix
 c7b8e67 fix: align iter34 hash receipt validation
-0fc1804 handoff: refresh after iter34 tooling
-78a6aff tools: add iter34 direction audit analyzer
-7f9fb27 handoff: refresh after iter34 preregistration
-3d85104 research: preregister iter34 direction audit
-84e0e0f handoff: refresh after iter33 calibration null
 ```
 Working tree: CLEAN
 
@@ -46,6 +46,7 @@ Working tree: CLEAN
 - experiments/iter32_prefix_replay_baseline_recovery: RESULT PUBLISHED
 - experiments/iter33_prefix_preserving_bridge_intervention: RESULT PUBLISHED
 - experiments/iter34_direction_specificity_audit: RESULT PUBLISHED
+- experiments/iter35_response_heterogeneity_audit: RESULT PUBLISHED
 - experiments/iter3_progress: RESULT PUBLISHED
 - experiments/iter4_gated: RESULT PUBLISHED
 - experiments/iter5_tracked: RESULT PUBLISHED
@@ -59,20 +60,13 @@ Working tree: CLEAN
 
 ## GPU box quick-state (live probe)
 ```
-sentinel-gpu
- 19:31:13 up 5 days,  9:12,  0 users,  load average: 0.00, 0.00, 0.00
-GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
-/var/log/sentinel-vitals.log
-/var/log/sentinel-e33-calibration.log
-/var/log/sentinel-e33-canary.log
-/dev/root       310G  296G   15G  96% /
-Swap:          8.0Gi        58Mi       7.9Gi
+BOX UNREACHABLE (auth lapsed? box down?) — ask Daniel: ! gcloud auth login
 ```
 If any docker container named renderer/model/ncap (or a random-name ncap) is up, a run
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter34_direction_specificity_audit/RESULT.md — read it before opening new work.
+- Newest completed experiment: experiments/iter35_response_heterogeneity_audit/RESULT.md — read it before opening new work.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
