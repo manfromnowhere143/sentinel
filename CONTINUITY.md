@@ -554,4 +554,13 @@ events to prepare; they are a property the repository always has.
   frozen alpha grid, S0 canary, calibration, and heldout gates. No tooling, direction artifact,
   proof report, GPU/gcloud replay, heldout replay, iteration-12 scoring, selector evaluation,
   closed-loop work, deployment language, or safety claim launched yet.
+- 2026-07-10: Codex — added and committed the iteration 37 offline track-query direction builder
+  and unit tests, then built and committed the reproduced `proof-direction` artifact. Direction
+  has feature count `256`, fit rows `5211` (`127` eligible lowdiv, `5084` benign control), zero
+  dropped dimensions, direction stats SHA `d46179b6f6152e9ede19c2ddf05eb4ce53cb72a229705fea88c337feb5905cd5`,
+  and file SHA `56c70104230f2eacd328c884197c93bd120076fbed775e21c8dc219f6392230f`. Local
+  verification passed (`ruff check .`, `pytest -q`, `python3 scripts/validate_docs.py`). GPU
+  box was reachable and idle in refreshed `HANDOFF.md`; no S0 canary, calibration, heldout
+  replay, iteration-12 scoring, selector evaluation, closed-loop work, deployment language, or
+  safety claim launched.
 - (append one line per shift: dates, operator, what changed, box state at exit)

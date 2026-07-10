@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Fri Jul 10 02:45:32 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Fri Jul 10 03:15:50 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+b5aa11a research: add iter37 track-query direction artifact
+a082ba6 tools: add iter37 track-query direction builder
+e1bee54 research: preregister iter37 track-query intervention
+a4f64ea handoff: refresh after iter36 result
 4f9e2b1 analysis: publish iter36 bridge-site pass
 c52a184 tools: add iter36 bridge-site analyzer
 68cac25 research: preregister iter36 bridge-site audit
 cb3521e handoff: refresh after iter35 result
-af88cdb analysis: publish iter35 heterogeneity null
-908271e fix: write strict iter35 audit json
-9d904bc tools: add iter35 heterogeneity audit analyzer
-e474ff9 research: preregister iter35 heterogeneity audit
 ```
 Working tree: CLEAN
 
@@ -48,6 +48,7 @@ Working tree: CLEAN
 - experiments/iter34_direction_specificity_audit: RESULT PUBLISHED
 - experiments/iter35_response_heterogeneity_audit: RESULT PUBLISHED
 - experiments/iter36_bridge_site_decomposition: RESULT PUBLISHED
+- experiments/iter37_track_query_site_intervention: PRE-REGISTERED, result pending
 - experiments/iter3_progress: RESULT PUBLISHED
 - experiments/iter4_gated: RESULT PUBLISHED
 - experiments/iter5_tracked: RESULT PUBLISHED
@@ -61,13 +62,20 @@ Working tree: CLEAN
 
 ## GPU box quick-state (live probe)
 ```
-BOX UNREACHABLE (auth lapsed? box down?) — ask Daniel: ! gcloud auth login
+sentinel-gpu
+ 03:16:57 up 5 days, 16:58,  0 users,  load average: 0.00, 0.00, 0.00
+GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
+/var/log/sentinel-vitals.log
+/var/log/sentinel-e33-calibration.log
+/var/log/sentinel-e33-canary.log
+/dev/root       310G  296G   15G  96% /
+Swap:          8.0Gi        58Mi       7.9Gi
 ```
 If any docker container named renderer/model/ncap (or a random-name ncap) is up, a run
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter36_bridge_site_decomposition/RESULT.md — read it before opening new work.
+- Newest pre-registration: experiments/iter37_track_query_site_intervention/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
