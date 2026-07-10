@@ -355,8 +355,10 @@ same frozen target rows; iteration 33 repaired the nonzero-intervention S0 canar
 as a calibration null because no nonzero alpha passed the frozen S1 selection bars; iteration 34
 then closed the same global bridge-centroid direction for scale-only successor work with a
 post-result dose-response audit null; iteration 35 then showed real row-level heterogeneity but
-no actionable frozen baseline-geometry stratum. No heldout, iteration-12, selector,
-closed-loop work, or safety claim is authorized from iter33, iter34, or iter35:
+no actionable frozen baseline-geometry stratum. Iteration 36 is now pre-registered as an offline
+bridge-site decomposition audit that may only test the six `sdc_traj_query_last` slots and
+`sdc_track_query` as smaller diagnostic target sites. No heldout, iteration-12, selector,
+closed-loop work, or safety claim is authorized from iter33, iter34, iter35, or iter36:
 
 - **The manuscript — full draft and compiled PDF committed**
   ([`docs/paper/`](docs/paper/MANUSCRIPT.md)); the arXiv submission package is built and the
@@ -578,6 +580,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter33_prefix_preserving_bridge_intervention/`](experiments/iter33_prefix_preserving_bridge_intervention) | prefix-preserving bridge intervention — calibration null; no usable alpha, stopped before heldout, iter12, selector, and closed loop |
 | [`experiments/iter34_direction_specificity_audit/`](experiments/iter34_direction_specificity_audit) | direction-specificity audit — post-result null; same global bridge-centroid direction lacks row-level dose-response consistency for scale-only successor work |
 | [`experiments/iter35_response_heterogeneity_audit/`](experiments/iter35_response_heterogeneity_audit) | response-heterogeneity audit — post-result null; heterogeneity exists but no frozen baseline-geometry stratum authorizes conditioned successor work |
+| [`experiments/iter36_bridge_site_decomposition/`](experiments/iter36_bridge_site_decomposition) | bridge-site decomposition audit — pre-registered offline target-site audit; no analyzer/report/GPU run yet |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/ITER22_HYPOTHESIS_DRAFT.md`](docs/research/ITER22_HYPOTHESIS_DRAFT.md) · [`docs/research/ITER22_ADVERSARIAL_REVIEW.md`](docs/research/ITER22_ADVERSARIAL_REVIEW.md) | planning-only iter22 draft and adversarial review; not pre-registrations |

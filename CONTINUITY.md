@@ -534,4 +534,10 @@ events to prepare; they are a property the repository always has.
   `HETEROGENEITY_NULL_NO_ACTIONABLE_STRATUM`; heldout replay, iteration-12 scoring, selector
   evaluation, closed-loop work, row-conditioned successor work, and safety claims remain
   unauthorized.
+- 2026-07-10: Codex — pre-registered iteration 36 under
+  experiments/iter36_bridge_site_decomposition/HYPOTHESIS.md. Scope is an offline bridge-site
+  decomposition audit over committed iteration-29/30/35 artifacts only, with frozen target-site
+  slices (`traj_slot_0` through `traj_slot_5`, `track_query`) and scene-robustness bars. No
+  analyzer, proof report, GPU/gcloud replay, heldout replay, iteration-12 scoring, selector
+  evaluation, closed-loop work, intervention direction, or safety claim launched yet.
 - (append one line per shift: dates, operator, what changed, box state at exit)

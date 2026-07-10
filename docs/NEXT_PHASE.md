@@ -299,3 +299,9 @@ measurement task. It waits only for the power run's final numbers so results are
     stratum passed all actionability bars. It authorizes no GPU/gcloud work, heldout replay,
     iteration-12 scoring, selector evaluation, closed-loop work, deployment language, safety
     claim, same-direction scale-only successor, or row-conditioned successor from these artifacts.
+19. Iteration 36 is pre-registered as an offline bridge-site decomposition audit over committed
+    iteration-29/30/35 artifacts only. It may evaluate only `all_bridge` as a reproduction
+    reference plus the frozen `traj_slot_0` through `traj_slot_5` and `track_query` sites named in
+    [`../experiments/iter36_bridge_site_decomposition/HYPOTHESIS.md`](../experiments/iter36_bridge_site_decomposition/HYPOTHESIS.md).
+    It authorizes no GPU/gcloud work, heldout replay, iteration-12 scoring, selector evaluation,
+    closed-loop work, deployment language, safety claim, or intervention direction.
