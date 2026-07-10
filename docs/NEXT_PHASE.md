@@ -346,3 +346,8 @@ intervention cost, and deployment trade-offs.
     cost audit over committed decision logs or a sensor/input-degradation stress gate for the
     released union. Iteration-38 calibration remains allowed by its own HYPOTHESIS, but it is not
     the primary direction unless explicitly justified against those falsifiers.
+23. Iteration 40 is now pre-registered as the offline latency/intervention-cost successor. It
+    freezes the committed full14/power and verification artifacts, preserves the known
+    full14/power relaunch/missing-run messiness, and forbids real-time, production-cost, or
+    deployment-readiness claims. It authorizes no tooling or report until its HYPOTHESIS commit is
+    pushed.

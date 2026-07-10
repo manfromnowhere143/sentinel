@@ -390,3 +390,11 @@ over-claim.** That arc, in order:
     zero findings. Iter39 creates no new empirical safety evidence; it makes the paper/repo claim
     boundary defensible before any more GPU/model work.
     [`../experiments/iter39_external_validity_claim_audit/RESULT.md`](../experiments/iter39_external_validity_claim_audit/RESULT.md).
+
+42. **Iter 40 — timing and intervention-cost audit: pre-registered offline.** This is the first
+    concrete successor chosen by the iteration-39 defensibility rule. It will use only committed
+    full14/power and verification decision logs plus committed run archives to quantify
+    simulation intervention budget and reconstructable counterfactual-contact lead time. It
+    explicitly forbids wall-clock latency, production-cost, real-vehicle, deployment-readiness, or
+    new safety claims.
+    [`../experiments/iter40_timing_cost_audit/HYPOTHESIS.md`](../experiments/iter40_timing_cost_audit/HYPOTHESIS.md).
