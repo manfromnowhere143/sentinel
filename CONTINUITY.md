@@ -571,4 +571,13 @@ events to prepare; they are a property the repository always has.
   GPU box was reachable and idle in refreshed `HANDOFF.md`; no S0 canary, calibration, heldout
   replay, iteration-12 scoring, selector evaluation, closed-loop work, deployment language, or
   safety claim launched.
+- 2026-07-10: Codex — ran and committed iteration 37 S0 canary proof. S0 passed with alpha-zero
+  target model hash `2495f9a1dc4d7f7544673cd4dc25c1283977087a0018b37e76184a2b3c0b611e`,
+  alpha-zero GT hash `5064a3177c7918712fa56533b897e50a7d731f516d17a9ca6241ef67296050c7`,
+  zero alpha-zero coordinate error, alpha-0.50 repeat hash
+  `bb7983cfba0c8c132b09474c61fae202ac8514e1e552a44c951070c84dc25e54`, `24/24`
+  changed track-query SHA rows, and `24/24` unchanged `sdc_traj_query_last` SHA rows. GPU
+  box was idle after collection in refreshed `HANDOFF.md`; calibration grid is now authorized,
+  but heldout replay, iteration-12 scoring, selector evaluation, closed-loop work, deployment
+  language, and safety claims remain unauthorized.
 - (append one line per shift: dates, operator, what changed, box state at exit)
