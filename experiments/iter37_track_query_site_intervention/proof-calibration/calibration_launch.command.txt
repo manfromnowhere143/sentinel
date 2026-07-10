@@ -1,0 +1,68 @@
+Iteration 37 calibration launch receipt.
+
+Status at receipt creation: in flight, no calibration result analyzed yet.
+UTC receipt time: 2026-07-10T06:46:58Z
+Remote GPU: sentinel-gpu us-west1-a
+Remote log: /var/log/sentinel-e37-calibration.log
+Detached run script: /tmp/calibration_grid_run_iter37.sh
+
+Local files staged to the GPU before launch:
+
+gcloud compute scp experiments/iter37_track_query_site_intervention/server_patch_intervention.py experiments/iter37_track_query_site_intervention/feeder_intervention.py experiments/iter37_track_query_site_intervention/calibration_grid_run.sh experiments/iter37_track_query_site_intervention/proof-direction/track_query_direction.json experiments/iter33_prefix_preserving_bridge_intervention/proof-prefix/prefix_manifest_calibration.json sentinel-gpu:/tmp/ --zone us-west1-a --tunnel-through-iap --quiet
+
+Remote staging and hash check command:
+
+timeout 90 gcloud compute ssh sentinel-gpu --zone us-west1-a --tunnel-through-iap --quiet --command 'sudo bash -s' <<'REMOTE'
+set -euo pipefail
+mv -f /tmp/server_patch_intervention.py /tmp/server_patch_intervention_iter37.py 2>/dev/null || true
+mv -f /tmp/feeder_intervention.py /tmp/feeder_intervention_iter37.py 2>/dev/null || true
+mv -f /tmp/calibration_grid_run.sh /tmp/calibration_grid_run_iter37.sh 2>/dev/null || true
+mv -f /tmp/track_query_direction.json /tmp/track_query_direction_iter37.json 2>/dev/null || true
+mv -f /tmp/prefix_manifest_calibration.json /tmp/prefix_manifest_calibration_iter37.json 2>/dev/null || true
+chmod 644 /tmp/server_patch_intervention_iter37.py /tmp/feeder_intervention_iter37.py /tmp/track_query_direction_iter37.json /tmp/prefix_manifest_calibration_iter37.json
+chmod 755 /tmp/calibration_grid_run_iter37.sh
+sha256sum /tmp/server_patch_intervention_iter37.py /tmp/feeder_intervention_iter37.py /tmp/calibration_grid_run_iter37.sh /tmp/track_query_direction_iter37.json /tmp/prefix_manifest_calibration_iter37.json
+printf 'DOCKER_STATE\n'
+sudo docker ps --format '{{.Names}}\t{{.Status}}'
+df -h /
+free -h
+REMOTE
+
+Verified remote SHA256s:
+
+78bf6678baa3f804cbf495724478b7abfb4b28c3fc775584c3ce0e2b38bcbc8d  /tmp/server_patch_intervention_iter37.py
+8d7aebb584087ed8b83e3bd21d1e3b68258046d8603dca0c629848f63e8a7067  /tmp/feeder_intervention_iter37.py
+b3d56f918432e07316d0dfdd0b6e29856c6e67feada24d403e464cee3a573183  /tmp/calibration_grid_run_iter37.sh
+56c70104230f2eacd328c884197c93bd120076fbed775e21c8dc219f6392230f  /tmp/track_query_direction_iter37.json
+ce3a6c2080b936e2dd8bad3f79510093a1009ef194b9e7d3c91d68ed90eac02c  /tmp/prefix_manifest_calibration_iter37.json
+
+Launch command:
+
+timeout 90 gcloud compute ssh sentinel-gpu --zone us-west1-a --tunnel-through-iap --quiet --command 'sudo bash -s' <<'REMOTE'
+set -euo pipefail
+rm -f /var/log/sentinel-e37-calibration.log
+setsid nohup bash /tmp/calibration_grid_run_iter37.sh </dev/null >/var/log/sentinel-e37-calibration.log 2>&1 &
+echo E37_CALIBRATION_LAUNCHED pid=$!
+sleep 12
+tail -n 160 /var/log/sentinel-e37-calibration.log || true
+printf 'DOCKER_STATE\n'
+docker ps --format '{{.Names}}\t{{.Status}}'
+REMOTE
+
+Latest recovery snapshot before this receipt was committed:
+
+sentinel_e37_calibration_alpha0p00.jsonl 4414
+sentinel_e37_calibration_alpha0p00_gt.jsonl 4293
+sentinel_e37_calibration_alpha0p25.jsonl 713
+sentinel_e37_calibration_alpha0p25_gt.jsonl 693
+sentinel_e37_calibration_alpha0p00.jsonl.gz 4414
+sentinel_e37_calibration_alpha0p00_gt.jsonl.gz 4293
+E37_CALIBRATION_ALPHA_0p00_DONE Fri Jul 10 06:22:02 UTC 2026
+Docker: model Up 25 minutes
+
+Recovery rule:
+
+Do not relaunch calibration while Docker shows an active container. Resume by tailing
+/var/log/sentinel-e37-calibration.log. After E37_CALIBRATION_DONE appears and Docker is empty,
+collect all five model logs and GT logs, run the registered calibration analyzer, commit the
+full grid proof or calibration null, refresh HANDOFF.md and CONTINUITY.md, push, and verify CI.

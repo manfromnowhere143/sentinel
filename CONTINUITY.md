@@ -580,4 +580,15 @@ events to prepare; they are a property the repository always has.
   box was idle after collection in refreshed `HANDOFF.md`; calibration grid is now authorized,
   but heldout replay, iteration-12 scoring, selector evaluation, closed-loop work, deployment
   language, and safety claims remain unauthorized.
+- 2026-07-10: Codex — launched the authorized iteration 37 calibration grid as a detached GPU
+  job using `/tmp/calibration_grid_run_iter37.sh`, with output log
+  `/var/log/sentinel-e37-calibration.log`. The laptop-local monitor was stopped, but the remote
+  `model` container remained in flight. Latest recovery snapshot before baton commit: alpha
+  `0.00` completed and compressed (`sentinel_e37_calibration_alpha0p00.jsonl.gz` `4414`
+  lines; GT `4293` lines) with `E37_CALIBRATION_ALPHA_0p00_DONE`; alpha `0.25` was running
+  (`713` model lines, `693` GT lines). Do not relaunch calibration while any Docker container
+  is up. When `E37_CALIBRATION_DONE` appears, collect all five alpha logs, analyze calibration,
+  publish the grid proof or calibration null, and keep heldout, iteration-12 scoring, selector
+  evaluation, closed-loop work, deployment language, and safety claims unauthorized until the
+  registered bars allow them.
 - (append one line per shift: dates, operator, what changed, box state at exit)
