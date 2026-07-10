@@ -84,10 +84,14 @@ events to prepare; they are a property the repository always has.
   creates no new empirical safety evidence. Default next line: external-validity falsification
   (latency/intervention-cost audit or sensor/input-degradation stress) before incremental
   mechanism search, unless iteration-38 calibration is explicitly justified.
-- Iteration 40 is pre-registered:
-  experiments/iter40_timing_cost_audit/HYPOTHESIS.md. It is an offline timing/intervention-cost
-  audit over committed full14/power and verification evidence only. It authorizes no tooling,
-  report, GPU/model work, or deployment/real-time claim until the HYPOTHESIS commit is pushed.
+- Iteration 40 concluded:
+  experiments/iter40_timing_cost_audit/RESULT.md. The offline timing/intervention-cost audit over
+  committed full14/power evidence passed S0/S1/S2/S3: `400/400` best episodes joined, `1,205`
+  brake frames over `10,789.9 m`, `230/400` intervention episodes, and `61` measured lead-time
+  episodes (median `1.30 s`, p05/p95 `0.40/3.50 s`). It authorizes only simulation timestamp and
+  brake-frame budget wording, not wall-clock latency, passenger comfort, production cost,
+  deployment readiness, or new safety claims. Next defensibility-first line: sensor/input
+  degradation pre-registration unless explicitly overridden.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).

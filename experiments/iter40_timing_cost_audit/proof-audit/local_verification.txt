@@ -1,0 +1,27 @@
+Audit command:
+python3 experiments/iter40_timing_cost_audit/analyze_timing_cost.py --out experiments/iter40_timing_cost_audit/proof-audit/timing_cost_report.json
+
+Audit output:
+{"out": "/Users/danielwahnich/workspace/sentinel/experiments/iter40_timing_cost_audit/proof-audit/timing_cost_report.json", "verdict": "TIMING_COST_AUDIT_PASS_SIMULATION_SCOPE"}
+
+Key report values:
+verdict TIMING_COST_AUDIT_PASS_SIMULATION_SCOPE
+s0 True best rows=8235 resets=400 frames=7835 brake_rows=1205; off rows=7987 resets=484 frames=7503 brake_rows=0
+s1 True episodes=400 intervention_episodes=230 total_brake_frames=1205 brake_frames_per_km=111.67836410662616
+s2 True measured_rows=61 status_counts={'measured': 61, 'missing_off_run': 1, 'no_best_brake': 170, 'no_off_contact_crossing': 168}
+lead_time_summary_s={'max': 6.350206, 'median': 1.3, 'min': -0.3, 'n': 61, 'p05': 0.4, 'p95': 3.5}
+negative_lead_time_fraction=0.04918032786885246
+
+Full verification before commit:
+ruff check .
+All checks passed!
+
+pytest -q
+111 passed in 1.47s
+
+python3 scripts/validate_docs.py
+docs guard: 100 markdown files clean; all RESULT experiments surfaced in README
+
+Repeat audit verification:
+python3 experiments/iter40_timing_cost_audit/analyze_timing_cost.py --out /tmp/iter40_timing_cost_verify.json
+{"out": "/tmp/iter40_timing_cost_verify.json", "verdict": "TIMING_COST_AUDIT_PASS_SIMULATION_SCOPE"}

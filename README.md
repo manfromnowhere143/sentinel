@@ -6,8 +6,8 @@ loop, by whether the car crashes *and whether it can still drive*.**
 
 > **Honest status up front (37 completed mechanism iterations + an independent verification pass +
 > the full official benchmark at power + a completed iteration-37 calibration null + an
-> iteration-38 opposite-direction S0 canary pass + a completed iteration-39 external-validity
-> claim audit):** the introspective signal predicts the planner's collisions (AUROC 0.83). On the
+> iteration-38 opposite-direction S0 canary pass + completed iteration-39/40 defensibility
+> audits):** the introspective signal predicts the planner's collisions (AUROC 0.83). On the
 > complete 14-scene NeuroNCAP set at **20 seed-paired runs per pair** (799 episodes, the power
 > measurement), the unmonitored UniAD baseline **independently reproduces** (pooled 2.12 vs the
 > published 1.84 — to the verified literature, a first), and the best configuration — the
@@ -260,6 +260,7 @@ step; they are intentional stops, not hidden probe failures or unreported GPU ru
 | 37 | **track-query site intervention** — prefix-preserving `sdc_track_query`-only causal test | — (stopped before heldout) | S0 canary PASS; full calibration grid PASS on row integrity for all alphas (`4293/2452/1841` each); alpha selection NULL: best alpha `1.00` had eligible median spread delta **−0.0419 m**, fraction `>0.25 m` **0.0741**, and median best-gap delta **−0.001315** | **pre-registered calibration null — no usable alpha; heldout/iter12/selector/closed loop not authorized** | The site-specific track-query harness is stable and wrong-site guarded, but the fit-only centroid direction moves eligible-lowdiv candidate spread in the wrong direction on the median. [`iter37_track_query_site_intervention`](experiments/iter37_track_query_site_intervention/RESULT.md) |
 | 38 | **track-query opposite-direction intervention** — exact sign reversal of the iter37 fit-only `sdc_track_query` centroid direction | — (S0 canary only) | Direction artifact PASS: feature count **256**, fit rows **5,211**, direction SHA **251323cf6ba7361da5aa0a084a6ae5ad5083989df75e10d16f352da845e2983d**, exact negative of iter37 (`max_abs_direction_sum=0.0`, cosine **−1.0**); S0 canary PASS: alpha-zero parity restored, `24/24` target rows changed `track_query`, `24/24` preserved `sdc_traj_query_last` | **active pre-registration — calibration authorized but not launched; no calibration result or safety claim yet** | This is the clean post-iter37 successor: test whether the causal handle was real but the centroid repair sign was reversed. It does not rescue iter37. Under the defensibility rule, the next GPU window should be weighed against external-validity falsification before continuing mechanism search. [`iter38_track_query_opposite_direction`](experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md) |
 | 39 | **external-validity claim audit** — hostile active-story audit before more GPU/model work | — (offline claim audit only) | S0/S1/S2 PASS; S3 found **3** active-doc scope/ambiguity findings; report/manuscript titles narrowed to frozen UniAD with measured cross-planner limits; post-narrowing scanner PASS with `0` findings | **doc-narrowing result — no new empirical safety claim** | This is the defensibility pivot: VAD remains a split transfer finding, full14 deployment remains a tight null, activation interventions remain null/active, and sensor/adversarial/latency/deployment-trade-off axes remain untested. [`iter39_external_validity_claim_audit`](experiments/iter39_external_validity_claim_audit/RESULT.md) |
+| 40 | **timing and intervention-cost audit** — full14/power simulation cost and lead-time envelope | — (offline audit only) | S0/S1/S2/S3 PASS; `400/400` best episodes joined; `1,205` brake frames over `10,789.9 m` (`111.68` frames/km); `230/400` intervention episodes; `61` measured lead-time episodes, median `1.30 s`, p05/p95 `0.40/3.50 s`, negative fraction `0.049` | **simulation-scope timing/cost pass — no real-time or deployment claim** | This upgrades the safety-case budget from mini-scene evidence to full14/power logs while preserving boundaries: simulator timestamp lead time, brake-frame budget, full14 safe-progress tight null, and no production-cost or comfort claim. [`iter40_timing_cost_audit`](experiments/iter40_timing_cost_audit/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -379,9 +380,12 @@ offline direction artifact, and S0 canary proof are committed. Calibration is au
 registered gate but not launched. No heldout intervention replay, iteration-12, selector,
 closed-loop work, deployment language, or safety claim is authorized unless its registered gates
 advance. Iteration 39 then audited the active paper/repository story against external-validity
-pressure, found three active-doc wording problems, and narrowed them in place. Given the current
-maturity of the benchmark result, external-validity falsification now has priority when it
-conflicts with incremental mechanism search:
+pressure, found three active-doc wording problems, and narrowed them in place. Iteration 40 then
+quantified full14/power simulation intervention budget and reconstructable lead time: `1,205`
+brake frames over `10.79 km`, `230/400` intervention episodes, and `61` measured lead-time
+episodes with median `1.30 s`. Given the current maturity of the benchmark result,
+external-validity falsification now has priority when it conflicts with incremental mechanism
+search:
 
 - **The manuscript — full draft and compiled PDF committed**
   ([`docs/paper/`](docs/paper/MANUSCRIPT.md)); the arXiv submission package is built and the
@@ -513,6 +517,13 @@ conflicts with incremental mechanism search:
   manuscript titles were narrowed to frozen UniAD with measured cross-planner limits, and
   ambiguous certification-like wording was removed. The post-narrowing scanner passed with zero
   findings. This creates no new empirical result; it makes the claim boundary harder to dismiss.
+- **Iteration 40 is completed as a timing and intervention-cost audit.**
+  [`experiments/iter40_timing_cost_audit/RESULT.md`](experiments/iter40_timing_cost_audit/RESULT.md)
+  reports full14/power simulation cost coverage: `400/400` best episodes joined, `1,205` brake
+  frames over `10,789.9 m`, `111.68` brake frames/km, `230/400` intervention episodes, and `61`
+  measured lead-time episodes with median `1.30 s`. It authorizes only scoped simulation timing
+  and brake-budget wording, not wall-clock latency, passenger comfort, production cost,
+  deployment readiness, or real-world safety language.
 - **Scientific priority is now defensibility over impressiveness.**
   If the choice is between another stronger-looking benchmark/mechanism result and a narrower
   claim that survives hostile scrutiny, prefer the narrower defensible claim. The next fresh
@@ -649,7 +660,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter37_track_query_site_intervention/`](experiments/iter37_track_query_site_intervention) | track-query site intervention — calibration null; no usable alpha, stopped before heldout, iter12, selector, and closed loop |
 | [`experiments/iter38_track_query_opposite_direction/`](experiments/iter38_track_query_opposite_direction) | track-query opposite-direction S0 proof — canary pass; calibration authorized but not launched |
 | [`experiments/iter39_external_validity_claim_audit/`](experiments/iter39_external_validity_claim_audit) | external-validity claim audit — doc narrowing published; active story now scoped to evidence |
-| [`experiments/iter40_timing_cost_audit/`](experiments/iter40_timing_cost_audit) | timing/intervention-cost audit — pre-registered offline; no real-time or deployment claim |
+| [`experiments/iter40_timing_cost_audit/`](experiments/iter40_timing_cost_audit) | timing/intervention-cost audit — full14/power simulation budget and lead-time pass; no real-time/deployment claim |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/ITER22_HYPOTHESIS_DRAFT.md`](docs/research/ITER22_HYPOTHESIS_DRAFT.md) · [`docs/research/ITER22_ADVERSARIAL_REVIEW.md`](docs/research/ITER22_ADVERSARIAL_REVIEW.md) | planning-only iter22 draft and adversarial review; not pre-registrations |

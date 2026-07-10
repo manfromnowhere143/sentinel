@@ -141,6 +141,11 @@ regression (the stop converting occasional planner escapes into low-speed collis
 confirmed real at n=20 and reported as the stop policy's named cost. In safety-case units
 (from committed decision logs): median detection lead **2.5 s** before counterfactual contact;
 **11 brake frames per 242 benign meters**; frontal mean impact speed **13.9 → 6.7 m/s**.
+A full14/power timing-cost audit later bounds this at benchmark scale: `230/400` best-arm
+episodes intervene, with `1,205` brake frames over `10.79 km` (`111.68` frames/km), and `61`
+reconstructable lead-time episodes with median `1.30 s`. These are simulation timestamp and
+brake-budget numbers, not wall-clock latency, comfort, production-cost, or deployment-readiness
+claims.
 
 ## 6. Negative results I: the stop is a position guarantee
 

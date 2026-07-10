@@ -100,6 +100,12 @@ reproduction — they match the original data to the last digit):
 lead **2.5 s** before counterfactual contact; **11 brake frames per 242 benign meters**; frontal
 mean impact speed **13.9 → 6.7 m/s**.
 
+A later full14/power timing-cost audit scopes the deployment budget at benchmark scale:
+`230/400` best-arm episodes intervened, with `1,205` brake frames over `10.79 km`
+(`111.68` frames/km), and `61` reconstructable counterfactual-contact lead-time episodes
+(median `1.30 s`, p05/p95 `0.40/3.50 s`). These are simulation timestamp and brake-frame-budget
+numbers, not wall-clock latency, comfort, production-cost, or deployment-readiness claims.
+
 ## 4. The formal-envelope baseline
 
 An RSS-style guaranteed-stopping envelope on the *same* observed kinematics and the *same*

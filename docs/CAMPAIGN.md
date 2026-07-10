@@ -391,10 +391,11 @@ over-claim.** That arc, in order:
     boundary defensible before any more GPU/model work.
     [`../experiments/iter39_external_validity_claim_audit/RESULT.md`](../experiments/iter39_external_validity_claim_audit/RESULT.md).
 
-42. **Iter 40 — timing and intervention-cost audit: pre-registered offline.** This is the first
-    concrete successor chosen by the iteration-39 defensibility rule. It will use only committed
-    full14/power and verification decision logs plus committed run archives to quantify
-    simulation intervention budget and reconstructable counterfactual-contact lead time. It
-    explicitly forbids wall-clock latency, production-cost, real-vehicle, deployment-readiness, or
-    new safety claims.
-    [`../experiments/iter40_timing_cost_audit/HYPOTHESIS.md`](../experiments/iter40_timing_cost_audit/HYPOTHESIS.md).
+42. **Iter 40 — timing and intervention-cost audit: full14/power simulation scope pass.** The
+    offline audit joined `400/400` best completed episodes to decision blocks, metrics, and ego
+    paths. The released union spent `1,205` brake frames over `10,789.9 m` (`111.68` frames/km),
+    with `230/400` intervention episodes. Lead time was reconstructable for `61` intervention
+    episodes across all three classes: median `1.30 s`, p05/p95 `0.40/3.50 s`, negative fraction
+    `0.049`. This is simulation timestamp timing and brake-frame budget only, not wall-clock
+    latency, passenger comfort, production cost, deployment readiness, or new safety evidence.
+    [`../experiments/iter40_timing_cost_audit/RESULT.md`](../experiments/iter40_timing_cost_audit/RESULT.md).

@@ -1,0 +1,2 @@
+python3 experiments/iter40_timing_cost_audit/analyze_timing_cost.py \
+  --out experiments/iter40_timing_cost_audit/proof-audit/timing_cost_report.json
