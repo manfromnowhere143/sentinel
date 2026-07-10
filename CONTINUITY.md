@@ -563,4 +563,12 @@ events to prepare; they are a property the repository always has.
   box was reachable and idle in refreshed `HANDOFF.md`; no S0 canary, calibration, heldout
   replay, iteration-12 scoring, selector evaluation, closed-loop work, deployment language, or
   safety claim launched.
+- 2026-07-10: Codex — added and committed iteration 37 replay tooling: track-query-only UniAD
+  server patch, prefix-preserving feeder, canary/calibration/heldout run scripts, analyzer, and
+  unit tests. The patch mutates only `sdc_track_query`, logs track-query and full-bridge SHA
+  changes, and treats any `sdc_traj_query_last` SHA change as S0 wrong-site failure. Local
+  verification passed (`ruff check .`, `pytest -q` with `89` tests, `python3 scripts/validate_docs.py`).
+  GPU box was reachable and idle in refreshed `HANDOFF.md`; no S0 canary, calibration, heldout
+  replay, iteration-12 scoring, selector evaluation, closed-loop work, deployment language, or
+  safety claim launched.
 - (append one line per shift: dates, operator, what changed, box state at exit)
