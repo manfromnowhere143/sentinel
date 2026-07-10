@@ -1,0 +1,7 @@
+$ mkdir -p experiments/iter35_response_heterogeneity_audit/proof-audit && set -o pipefail; python3 experiments/iter35_response_heterogeneity_audit/analyze_response_heterogeneity.py 2>&1 | tee experiments/iter35_response_heterogeneity_audit/proof-audit/analyze_response_heterogeneity.command.txt
+iter35 response heterogeneity audit: HETEROGENEITY_NULL_NO_ACTIONABLE_STRATUM
+s0_pass=true
+s1_pass=true
+s2_pass=false
+passing_strata=
+out=/Users/danielwahnich/workspace/sentinel/experiments/iter35_response_heterogeneity_audit/proof-audit/response_heterogeneity_report.json

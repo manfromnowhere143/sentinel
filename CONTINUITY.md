@@ -527,4 +527,11 @@ events to prepare; they are a property the repository always has.
   baseline-geometry strata and support/benign-harm bars. No analyzer, proof report, GPU/gcloud
   replay, heldout replay, iteration-12 scoring, selector evaluation, closed-loop work, or safety
   claim launched yet.
+- 2026-07-10: Codex — ran and published the iteration 35 offline response-heterogeneity audit.
+  S0 passed and S1 showed real row-level heterogeneity (`42/108` eligible rows with slope
+  `>=0.05 m/alpha`, `34/108` with slope `<0`, IQR `0.126519 m/alpha`), but S2 failed because
+  no frozen baseline-geometry stratum passed the actionability bars. Published as
+  `HETEROGENEITY_NULL_NO_ACTIONABLE_STRATUM`; heldout replay, iteration-12 scoring, selector
+  evaluation, closed-loop work, row-conditioned successor work, and safety claims remain
+  unauthorized.
 - (append one line per shift: dates, operator, what changed, box state at exit)
