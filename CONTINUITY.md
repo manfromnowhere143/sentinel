@@ -621,4 +621,13 @@ events to prepare; they are a property the repository always has.
   unit tests. No iteration 38 direction artifact, GPU/gcloud command, model replay, calibration
   result, heldout replay, iteration-12 scoring, selector evaluation, closed-loop work, deployment
   language, or safety claim exists yet. Next authorized work is the offline direction build.
+- 2026-07-10: Codex — ran the iteration 38 offline direction builder only and committed
+  `proof-direction/`: feature count `256`, fit rows `5211`, direction stats SHA
+  `251323cf6ba7361da5aa0a084a6ae5ad5083989df75e10d16f352da845e2983d`, file SHA
+  `ca256dc8a402c9bc6b12df800f9ae62052f95ab78aef78ceb253a44a9fc41743`, and exact
+  negative-of-iteration-37 sign equivalence (`max_abs_direction_sum=0.0`, cosine `-1.0`).
+  Local verification passed (`ruff check .`, `pytest -q` with `100` tests,
+  `python3 scripts/validate_docs.py`). No GPU/gcloud command, S0 canary replay, calibration,
+  heldout replay, iteration-12 scoring, selector evaluation, closed-loop work, deployment
+  language, or safety claim exists yet. Next authorized work is S0 canary replay.
 - (append one line per shift: dates, operator, what changed, box state at exit)

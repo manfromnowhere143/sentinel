@@ -94,6 +94,13 @@ def sha256_file(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def display_path(path: Path) -> str:
+    try:
+        return str(path.relative_to(ROOT))
+    except ValueError:
+        return str(path)
+
+
 def write_json(path: Path, payload: dict | list[dict]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
@@ -211,10 +218,6 @@ def sign_equivalence_report(
 ) -> tuple[dict, list[str]]:
     failures = []
     payload = json.loads(iter37_direction_path.read_text(encoding="utf-8"))
-    try:
-        path_label = str(iter37_direction_path.relative_to(ROOT))
-    except ValueError:
-        path_label = str(iter37_direction_path)
     iter37_raw = np.asarray(payload.get("direction_raw", []), dtype=np.float64)
     if iter37_raw.shape != iter38_direction_raw.shape:
         failures.append(
@@ -238,7 +241,7 @@ def sign_equivalence_report(
         cosine = dot_product / denom if denom > 0 else None
 
     return {
-        "path": path_label,
+        "path": display_path(iter37_direction_path),
         "file_sha256": sha256_file(iter37_direction_path),
         "direction_and_fit_stats_sha256": payload.get("direction_and_fit_stats_sha256", ""),
         "stage": payload.get("stage", ""),
@@ -438,7 +441,7 @@ def main() -> int:
         "iter37_sign_equivalence": sign_report,
         "direction_raw_min": float(np.min(arrays["direction_raw"])),
         "direction_raw_max": float(np.max(arrays["direction_raw"])),
-        "direction_path": str((out_dir / "track_query_opposite_direction.json").relative_to(ROOT)),
+        "direction_path": display_path(out_dir / "track_query_opposite_direction.json"),
         "direction_file_sha256": sha256_file(out_dir / "track_query_opposite_direction.json"),
         "verdict": "TRACK_QUERY_OPPOSITE_DIRECTION_ARTIFACT_WRITTEN_REPLAY_NOT_LAUNCHED",
         "claim_boundary": (

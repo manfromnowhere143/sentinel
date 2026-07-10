@@ -1,0 +1,39 @@
+Iteration 38 opposite-direction proof local verification
+
+Date: 2026-07-10
+
+Commands run:
+
+- python3 experiments/iter38_track_query_opposite_direction/build_track_direction.py
+- python3 experiments/iter38_track_query_opposite_direction/build_track_direction.py --out-dir /tmp/iter38_direction_rebuild
+- ruff check . && pytest -q && python3 scripts/validate_docs.py
+
+Offline direction checks:
+
+- feature_count: 256
+- fit_rows: 5211
+- fit_eligible_lowdiv_rows: 127
+- fit_benign_control_rows: 5084
+- direction_and_fit_stats_sha256: 251323cf6ba7361da5aa0a084a6ae5ad5083989df75e10d16f352da845e2983d
+- direction_file_sha256: ca256dc8a402c9bc6b12df800f9ae62052f95ab78aef78ceb253a44a9fc41743
+- rebuilt_direction_file_sha256: ca256dc8a402c9bc6b12df800f9ae62052f95ab78aef78ceb253a44a9fc41743
+- direction_raw_exact_match_on_rebuild: true
+- direction_digest_match_on_rebuild: true
+
+Iteration-37 sign-equivalence checks:
+
+- iter37_direction_file_sha256: 56c70104230f2eacd328c884197c93bd120076fbed775e21c8dc219f6392230f
+- iter37_direction_and_fit_stats_sha256: d46179b6f6152e9ede19c2ddf05eb4ce53cb72a229705fea88c337feb5905cd5
+- max_abs_direction_sum: 0.0
+- l2_direction_sum: 0.0
+- cosine_similarity: -1.0
+- sign_equivalence_pass: true
+
+Verification result:
+
+- ruff: passed
+- pytest: 100 passed
+- docs guard: 97 markdown files clean; all RESULT experiments surfaced in README
+
+No GPU command, gcloud command, model replay, calibration replay, heldout replay, iteration-12
+scoring, selector evaluation, closed-loop work, deployment claim, or safety claim was run.
