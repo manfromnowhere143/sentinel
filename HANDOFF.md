@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Fri Jul 10 06:46:32 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Fri Jul 10 11:38:18 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+cf92a59 docs: align iter37 calibration state
+6c14aec handoff: record iter37 calibration in flight
 eecb746 handoff: refresh after iter37 canary
 1e6a5f8 research: add iter37 canary proof
 e958ae3 handoff: refresh after iter37 replay tooling
 652f3f2 tools: add iter37 track-query replay tooling
 0593f0b handoff: refresh after iter37 direction
 b5aa11a research: add iter37 track-query direction artifact
-a082ba6 tools: add iter37 track-query direction builder
-e1bee54 research: preregister iter37 track-query intervention
 ```
 Working tree: CLEAN
 
@@ -63,13 +63,13 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 06:47:39 up 5 days, 20:28,  0 users,  load average: 1.19, 1.41, 1.44
+ 11:39:26 up 6 days,  1:20,  0 users,  load average: 1.54, 1.59, 1.53
 GPU_RUN_STATE=IN_FLIGHT_CONTAINERS
-model	Up 25 minutes
+model	Up 7 minutes
 /var/log/sentinel-e37-calibration.log
 /var/log/sentinel-vitals.log
 /var/log/sentinel-e37-canary.log
-/dev/root       310G  297G   14G  96% /
+/dev/root       310G  298G   13G  97% /
 Swap:          8.0Gi        58Mi       7.9Gi
 ```
 If any docker container named renderer/model/ncap (or a random-name ncap) is up, a run
