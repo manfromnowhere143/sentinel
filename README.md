@@ -5,7 +5,8 @@ collision it is about to cause, and intervenes — measured where it actually ma
 loop, by whether the car crashes *and whether it can still drive*.**
 
 > **Honest status up front (37 completed iterations + an independent verification pass + the
-> full official benchmark at power + a completed iteration-37 calibration null):** the introspective signal predicts the planner's collisions (AUROC 0.83). On the
+> full official benchmark at power + a completed iteration-37 calibration null + a newly
+> pre-registered iteration-38 opposite-direction gate):** the introspective signal predicts the planner's collisions (AUROC 0.83). On the
 > complete 14-scene NeuroNCAP set at **20 seed-paired runs per pair** (799 episodes, the power
 > measurement), the unmonitored UniAD baseline **independently reproduces** (pooled 2.12 vs the
 > published 1.84 — to the verified literature, a first), and the best configuration — the
@@ -141,12 +142,13 @@ flowchart LR
   A34 --> H35["35 no stratum"]
   H35 --> S36["36 <b>track_query</b> site"]
   S36 --> T37["37 track_query<br/>calibration null"]
+  T37 --> O38["38 opposite sign<br/>pre-reg only"]
   classDef bad fill:#fee,stroke:#c00,color:#111;
   classDef ask fill:#ffe,stroke:#a70,color:#111;
   classDef data fill:#eef,stroke:#06c,color:#111;
   classDef win fill:#efe,stroke:#080,color:#111;
   class H21,F22,S23,A24,I25,R26,I31,C33,A34,H35,T37 bad;
-  class Q ask;
+  class Q,O38 ask;
   class D27,S28 data;
   class A29,L30,P32,S36 win;
 ```
@@ -255,6 +257,7 @@ step; they are intentional stops, not hidden probe failures or unreported GPU ru
 | 35 | **response-heterogeneity audit** — post-result audit of the failed direction's row-level structure | — (offline audit only) | S0 PASS; S1 heterogeneity PASS (`42/108` rows slope `>=0.05`, `34/108` slope `<0`, IQR **0.1265 m/alpha**); S2 NULL: **0** frozen strata passed actionability bars | **post-result audit null — no row-conditioned successor authorized from these artifacts** | The response is heterogeneous, but not in a simple baseline-geometry stratum with enough target response and benign support. Future work must change intervention family or target site, not merely scale or row-condition the current global direction. [`iter35_response_heterogeneity_audit`](experiments/iter35_response_heterogeneity_audit/RESULT.md) |
 | 36 | **bridge-site decomposition audit** — frozen subsite probes over `sdc_traj_query_last` slots and `sdc_track_query` | — (offline audit only) | S0 PASS; S1 full-bridge reproduction PASS; S2 target-site PASS: `traj_slot_0`, `traj_slot_2`, `traj_slot_3`, `traj_slot_4`, and **`track_query`** passed diagnostic + scene-bootstrap bars | **site-specific preregistration authorized — diagnostic only, no intervention/safety claim** | The next intervention should not patch the whole bridge vector. The strongest diagnostic target is `track_query` (AUROC **0.9705**, AP **0.7264**, bootstrap AUROC p05 **0.9506**), but any patch still needs a fresh pre-registration and S0 canary. [`iter36_bridge_site_decomposition`](experiments/iter36_bridge_site_decomposition/RESULT.md) |
 | 37 | **track-query site intervention** — prefix-preserving `sdc_track_query`-only causal test | — (stopped before heldout) | S0 canary PASS; full calibration grid PASS on row integrity for all alphas (`4293/2452/1841` each); alpha selection NULL: best alpha `1.00` had eligible median spread delta **−0.0419 m**, fraction `>0.25 m` **0.0741**, and median best-gap delta **−0.001315** | **pre-registered calibration null — no usable alpha; heldout/iter12/selector/closed loop not authorized** | The site-specific track-query harness is stable and wrong-site guarded, but the fit-only centroid direction moves eligible-lowdiv candidate spread in the wrong direction on the median. [`iter37_track_query_site_intervention`](experiments/iter37_track_query_site_intervention/RESULT.md) |
+| 38 | **track-query opposite-direction intervention** — exact sign reversal of the iter37 fit-only `sdc_track_query` centroid direction | — (pre-registered only) | HYPOTHESIS committed before tooling/data; planned direction is `mu_pos - mu_benign`, required to be the exact negative of the iter37 raw direction; same prefix counts and S0/S1/S2/S3 bars are frozen | **active pre-registration — no tooling, direction artifact, GPU replay, calibration result, or safety claim yet** | This is the clean post-iter37 successor: test whether the causal handle was real but the centroid repair sign was reversed. It does not rescue iter37, and heldout remains prohibited unless S0 and calibration pass. [`iter38_track_query_opposite_direction`](experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -329,7 +332,8 @@ kept, with every number and link, in [`docs/CAMPAIGN.md`](docs/CAMPAIGN.md). The
 above is the same history in one screen.
 
 **Net, stated plainly — 37 completed iterations plus an independent verification pass, with
-iteration 37 now closed as a pre-registered calibration null.** The
+iteration 37 now closed as a pre-registered calibration null and iteration 38 newly
+pre-registered as an opposite-sign track-query gate.** The
 **released union (iteration 15) is the best configuration** of the campaign: at the definitive
 20-run scale it lifts the independently reproduced baseline **2.12 → 2.91 (CI [+0.605, +0.928])**,
 keeps clean scenes identical to the unmonitored planner, and strictly dominates the plain union
@@ -367,9 +371,10 @@ no actionable frozen baseline-geometry stratum. Iteration 36 then passed a diagn
 decomposition audit: `track_query` and four trajectory-query slots carry enough scene-robust
 signal to justify a separate site-specific intervention pre-registration. Iteration 37 ran that
 site-specific test through S0 and the full calibration grid, then stopped as a calibration null:
-no nonzero alpha passed the frozen positive-movement bars. No heldout intervention replay,
-iteration-12, selector, closed-loop work, deployment language, or safety claim is authorized from
-iteration 37:
+no nonzero alpha passed the frozen positive-movement bars. Iteration 38 is now the fresh
+post-result pre-registration for the exact opposite track-query direction; no tooling, direction
+artifact, GPU replay, heldout intervention replay, iteration-12, selector, closed-loop work,
+deployment language, or safety claim is authorized unless its registered gates advance:
 
 - **The manuscript — full draft and compiled PDF committed**
   ([`docs/paper/`](docs/paper/MANUSCRIPT.md)); the arXiv submission package is built and the
@@ -485,6 +490,12 @@ iteration 37:
   best-candidate-gap delta `-0.001315`, below the frozen positive-movement bars. Heldout replay,
   iteration-12 scoring, selector evaluation, closed-loop work, deployment language, and safety
   claims remain unauthorized.
+- **Iteration 38 is pre-registered as a track-query opposite-direction gate.**
+  [`experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md`](experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md)
+  freezes the exact sign-reversed `sdc_track_query` centroid hypothesis before tooling or data.
+  It may test only whether the iter37 causal handle was real with the opposite sign; it does not
+  rescue iter37 and authorizes no heldout, iteration-12, selector, closed-loop, deployment, or
+  safety claim unless S0 and calibration pass.
 
 Closed en route, per the gate discipline: the per-frame routing predicates (iteration 17
 addendum — refuted offline), the tracking layer's own offline gate (iteration 18 — failed
@@ -613,6 +624,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter35_response_heterogeneity_audit/`](experiments/iter35_response_heterogeneity_audit) | response-heterogeneity audit — post-result null; heterogeneity exists but no frozen baseline-geometry stratum authorizes conditioned successor work |
 | [`experiments/iter36_bridge_site_decomposition/`](experiments/iter36_bridge_site_decomposition) | bridge-site decomposition audit — diagnostic pass; `track_query` and four trajectory slots authorize only a future site-specific pre-registration |
 | [`experiments/iter37_track_query_site_intervention/`](experiments/iter37_track_query_site_intervention) | track-query site intervention — calibration null; no usable alpha, stopped before heldout, iter12, selector, and closed loop |
+| [`experiments/iter38_track_query_opposite_direction/`](experiments/iter38_track_query_opposite_direction) | track-query opposite-direction pre-registration — no tooling/data yet; same gates, exact sign reversal of iter37 direction |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/ITER22_HYPOTHESIS_DRAFT.md`](docs/research/ITER22_HYPOTHESIS_DRAFT.md) · [`docs/research/ITER22_ADVERSARIAL_REVIEW.md`](docs/research/ITER22_ADVERSARIAL_REVIEW.md) | planning-only iter22 draft and adversarial review; not pre-registrations |

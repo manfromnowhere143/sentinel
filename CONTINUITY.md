@@ -608,4 +608,11 @@ events to prepare; they are a property the repository always has.
   `0.074074`, and median best-candidate-gap delta `-0.001315`. Published as
   `CALIBRATION_NULL_NO_USABLE_ALPHA`; heldout replay, iteration-12 scoring, selector evaluation,
   closed-loop work, deployment language, and safety claims remain unauthorized.
+- 2026-07-10: Codex — pre-registered iteration 38 under
+  `experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md`. Scope is the exact
+  sign-reversed `sdc_track_query` centroid direction (`mu_pos - mu_benign`), required to be the
+  negative of the committed iteration 37 raw direction. No iteration 38 tooling, direction
+  artifact, GPU/gcloud command, model replay, calibration result, heldout replay, iteration-12
+  scoring, selector evaluation, closed-loop work, deployment language, or safety claim exists yet.
+  Next authorized work is tooling/tests for the committed pre-registration.
 - (append one line per shift: dates, operator, what changed, box state at exit)
