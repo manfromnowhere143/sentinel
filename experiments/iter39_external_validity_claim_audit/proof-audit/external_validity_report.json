@@ -1,0 +1,83 @@
+{
+  "claim_boundary": "This is an offline claim-scope audit over committed evidence and active docs. It creates no new planner, sensor, adversarial, deployment, or safety evidence.",
+  "command_line": "experiments/iter39_external_validity_claim_audit/analyze_external_validity.py --ledger experiments/iter39_external_validity_claim_audit/proof-audit/claim_ledger.json --out experiments/iter39_external_validity_claim_audit/proof-audit/external_validity_report.json",
+  "ledger_path": "experiments/iter39_external_validity_claim_audit/proof-audit/claim_ledger.json",
+  "s0": {
+    "active_docs_checked": [
+      "README.md",
+      "docs/REPORT.md",
+      "docs/paper/MANUSCRIPT.md"
+    ],
+    "docs_guard": {
+      "pass": true,
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "docs guard: 98 markdown files clean; all RESULT experiments surfaced in README"
+    },
+    "failures": [],
+    "frozen_inputs_checked": 38,
+    "pass": true
+  },
+  "s1": {
+    "claim_count": 14,
+    "failures": [],
+    "pass": true,
+    "required_claim_ids": [
+      "uniad_collision_prediction",
+      "released_union_full14_benchmark",
+      "deployment_metric_scope",
+      "frontal_mitigation_not_prevention",
+      "rss_formal_envelope",
+      "planner_transfer_vad",
+      "candidate_diversity_plan_b",
+      "full_trainval_localization",
+      "activation_intervention_status",
+      "sensor_input_degradation",
+      "adversarial_perturbation",
+      "calibration_stability",
+      "intervention_latency_cost",
+      "deployment_tradeoffs"
+    ]
+  },
+  "s2": {
+    "failures": [],
+    "pass": true
+  },
+  "s3": {
+    "active_docs": [
+      "README.md",
+      "docs/REPORT.md",
+      "docs/paper/MANUSCRIPT.md"
+    ],
+    "findings": [
+      {
+        "context": "# Sentinel: a label-free runtime safety monitor for frozen end-to-end driving planners, evaluated closed-loop",
+        "id": "planner_general_title",
+        "line": 1,
+        "match": "runtime safety monitor for frozen end-to-end driving planners",
+        "path": "docs/REPORT.md"
+      },
+      {
+        "context": "tions \u2014 **withdrew the headline**, and re-measured on 20 genuinely-unique episodes, where the claim was re-established (\u00a73). It also corrected a side-impact rate (5% \u2192 30% at honest n), completed two mid-run snapshot tables (both strengthening the nulls), and certified what reproduces exactly (the signal study byte-identical; the iteration-2 safety win; the apparatus). Full report: [experiments/VERIFICATION.md](../experiments/VERIFICATION.md). ## 9. Limitations and scope Two nuScenes sequences carried all sub-benchmark me",
+        "id": "production_or_certification_readiness",
+        "line": 234,
+        "match": "certified",
+        "path": "docs/REPORT.md"
+      },
+      {
+        "context": "# A label-free runtime safety monitor for frozen end-to-end driving planners, evaluated closed-loop at benchmark scale",
+        "id": "planner_general_title",
+        "line": 1,
+        "match": "runtime safety monitor for frozen end-to-end driving planners",
+        "path": "docs/paper/MANUSCRIPT.md"
+      }
+    ],
+    "pass": false
+  },
+  "s4": {
+    "iteration38_calibration_priority": "paused_until_active_docs_are_aligned",
+    "primary_next_step": "publish_doc_narrowing",
+    "recommendation": "narrow_active_docs_before_any_gpu_or_model_work"
+  },
+  "verdict": "CLAIM_AUDIT_DOC_NARROWING_REQUIRED"
+}

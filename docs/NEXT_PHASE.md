@@ -339,8 +339,10 @@ reason calibration is more informative: independent planner transfer, unseen sce
 sensor degradation, adversarial perturbations, calibration stability, intervention latency,
 intervention cost, and deployment trade-offs.
 
-22. Iteration 39 is now pre-registered as that hostile external-validity gate. It is an offline
-    claim audit over committed evidence and active story documents, not a new benchmark or model
-    run. It must publish a claim ledger and active-document overclaim audit before any new
-    GPU/model work resumes. If it finds scope inflation, the docs must be narrowed in the same
-    published state before iteration-38 calibration or any other mechanism run proceeds.
+22. Iteration 39 is closed as that hostile external-validity gate. It published a claim ledger and
+    active-document overclaim audit, passed S0/S1/S2, found three S3 wording problems, and narrowed
+    them in the same state. The active docs now pass the same overclaim scanner. The default next
+    scientific line is an external-validity falsifier, preferably an offline latency/intervention-
+    cost audit over committed decision logs or a sensor/input-degradation stress gate for the
+    released union. Iteration-38 calibration remains allowed by its own HYPOTHESIS, but it is not
+    the primary direction unless explicitly justified against those falsifiers.

@@ -1,6 +1,6 @@
-# Sentinel: a label-free runtime safety monitor for frozen end-to-end driving planners, evaluated closed-loop
+# Sentinel: a label-free runtime safety monitor for frozen UniAD, with measured cross-planner limits
 
-**Technical report — 2026-07-02, updated 2026-07-08.** Every number below regenerates from
+**Technical report — 2026-07-02, updated 2026-07-10.** Every number below regenerates from
 evidence committed in this repository; reproduction commands are in the
 [README](../README.md#reproduce--repository-map). Scope is stated plainly throughout; the
 full-benchmark (14-scene) measurement and its latch-release refinement are reported in §10.
@@ -11,8 +11,8 @@ End-to-end driving planners fail catastrophically in safety-critical closed-loop
 (published NeuroNCAP: UniAD scores 1.84/5, colliding in 88–98% of runs), yet the field's dominant
 open-loop metrics cannot see it. We build a runtime monitor that reads only a frozen planner's own
 outputs — its plan, detected objects, and their tracked motion; no labels, no training, no
-privileged simulator state — and intervene with a latched stop. Across 30 documented iterations
-and an independent verification pass, we show: (1) a **union of two label-free
+privileged simulator state — and intervene with a latched stop. Across the documented
+pre-registered campaign and an independent verification pass, we show: (1) a **union of two label-free
 geometric detectors** (plan-vs-tracked-path closest approach; observed-closing time-to-collision)
 is *selective* (clean-scene behaviour identical to the unmonitored planner), removes most
 side-impacts (100% → 30%), halves frontal impact speed (13.9 → 6.7 m/s, median 2.5 s warning),
@@ -231,7 +231,7 @@ An independent audit re-derived every claim from raw committed evidence. It foun
 independent replications — **withdrew the headline**, and re-measured on 20 genuinely-unique
 episodes, where the claim was re-established (§3). It also corrected a side-impact rate (5% →
 30% at honest n), completed two mid-run snapshot tables (both strengthening the nulls), and
-certified what reproduces exactly (the signal study byte-identical; the iteration-2 safety win;
+recorded what reproduces exactly (the signal study byte-identical; the iteration-2 safety win;
 the apparatus). Full report: [experiments/VERIFICATION.md](../experiments/VERIFICATION.md).
 
 ## 9. Limitations and scope

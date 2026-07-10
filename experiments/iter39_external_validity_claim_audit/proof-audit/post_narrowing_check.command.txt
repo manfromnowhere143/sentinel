@@ -1,0 +1,10 @@
+python3 experiments/iter39_external_validity_claim_audit/analyze_external_validity.py \
+  --ledger experiments/iter39_external_validity_claim_audit/proof-audit/claim_ledger.json \
+  --out /tmp/iter39_external_validity_after_narrowing.json
+
+python3 - <<'PY'
+import json
+r = json.load(open('/tmp/iter39_external_validity_after_narrowing.json'))
+print(r['verdict'])
+print('s3', r['s3']['pass'], r['s3']['findings'])
+PY

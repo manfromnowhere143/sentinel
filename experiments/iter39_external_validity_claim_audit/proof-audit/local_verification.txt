@@ -1,0 +1,34 @@
+Initial audit command:
+python3 experiments/iter39_external_validity_claim_audit/analyze_external_validity.py --ledger experiments/iter39_external_validity_claim_audit/proof-audit/claim_ledger.json --out experiments/iter39_external_validity_claim_audit/proof-audit/external_validity_report.json
+
+Initial audit output:
+{"out": "/Users/danielwahnich/workspace/sentinel/experiments/iter39_external_validity_claim_audit/proof-audit/external_validity_report.json", "verdict": "CLAIM_AUDIT_DOC_NARROWING_REQUIRED"}
+
+Post-narrowing check output:
+{"out": "/tmp/iter39_external_validity_after_narrowing.json", "verdict": "CLAIM_AUDIT_PASS_EXTERNAL_VALIDITY_ALIGNED"}
+CLAIM_AUDIT_PASS_EXTERNAL_VALIDITY_ALIGNED
+s3 True []
+
+Validation after narrowing:
+python3 scripts/validate_docs.py
+docs guard: 98 markdown files clean; all RESULT experiments surfaced in README
+
+Targeted analyzer test:
+pytest -q tests/test_iter39_external_validity.py
+6 passed
+
+Final active-doc alignment check:
+python3 experiments/iter39_external_validity_claim_audit/analyze_external_validity.py --ledger experiments/iter39_external_validity_claim_audit/proof-audit/claim_ledger.json --out /tmp/iter39_external_validity_after_docs_alignment.json
+{"out": "/tmp/iter39_external_validity_after_docs_alignment.json", "verdict": "CLAIM_AUDIT_PASS_EXTERNAL_VALIDITY_ALIGNED"}
+CLAIM_AUDIT_PASS_EXTERNAL_VALIDITY_ALIGNED
+s3_findings 0
+
+Full verification before commit:
+ruff check .
+All checks passed!
+
+pytest -q
+106 passed in 1.38s
+
+python3 scripts/validate_docs.py
+docs guard: 98 markdown files clean; all RESULT experiments surfaced in README

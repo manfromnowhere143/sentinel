@@ -1,0 +1,215 @@
+[
+  {
+    "claim_id": "uniad_collision_prediction",
+    "claim_text": "UniAD's own forecast/introspective outputs predict its closed-loop collisions on the measured Sentinel corpus.",
+    "evidence_paths": [
+      "experiments/iter2_monitor/G1_RESULT.md",
+      "experiments/iter2_monitor/RESULT.md",
+      "experiments/VERIFICATION.md"
+    ],
+    "evidence_gap": "",
+    "scope": "UniAD on the committed NeuroNCAP/Sentinel measured scenes and logs; not other planners or sensor shifts.",
+    "evidence_status": "established",
+    "external_validity_status": "within_scope",
+    "permitted_wording": "The introspective signal predicts UniAD collisions on the measured closed-loop corpus.",
+    "forbidden_wording": "Planner-agnostic collision prediction or robustness across sensors/datasets.",
+    "next_falsifier": "Recompute the same signal on another frozen planner/checkpoint with fixed thresholds and heldout scenes."
+  },
+  {
+    "claim_id": "released_union_full14_benchmark",
+    "claim_text": "The released union improves the official 14-scene NeuroNCAP benchmark score for UniAD at 20 seed-paired runs per pair.",
+    "evidence_paths": [
+      "experiments/full14_benchmark/RESULT.md",
+      "experiments/full14_power/RESULT.md",
+      "experiments/iter15_latch_release/RESULT.md"
+    ],
+    "evidence_gap": "",
+    "scope": "Frozen UniAD, NeuroNCAP official 14-scene set, released-union intervention, n=20 seed-paired runs per pair.",
+    "evidence_status": "established",
+    "external_validity_status": "within_scope",
+    "permitted_wording": "Benchmark-scale UniAD NeuroNCAP score improvement with stated frontal and deployment limits.",
+    "forbidden_wording": "General autonomous-driving safety improvement or planner-agnostic benchmark dominance.",
+    "next_falsifier": "Repeat the frozen released-union protocol on an independent planner/checkpoint or a new scenario family."
+  },
+  {
+    "claim_id": "deployment_metric_scope",
+    "claim_text": "Safe-progress is positive on mini-scene verification but resolves to a tight null at full14/power scope.",
+    "evidence_paths": [
+      "experiments/union_validation/RESULT.md",
+      "experiments/full14_benchmark/RESULT.md",
+      "experiments/full14_power/RESULT.md"
+    ],
+    "evidence_gap": "",
+    "scope": "Mini-scene safe-progress positive result is mini-scene only; full14/power deployment effect is neutral/tight null.",
+    "evidence_status": "split",
+    "external_validity_status": "split_limited",
+    "permitted_wording": "Benchmark safety gain at approximately zero full14 deployment-metric cost, with mini-scene positive result scoped separately.",
+    "forbidden_wording": "Deployment-positive at benchmark scope, production-ready, or real-world deployment-ready.",
+    "next_falsifier": "Pre-register a full14 or larger scenario-family deployment metric stress test with fixed safety/progress bars."
+  },
+  {
+    "claim_id": "frontal_mitigation_not_prevention",
+    "claim_text": "The released stop mitigates frontal head-on severity but does not prevent that scenario family.",
+    "evidence_paths": [
+      "experiments/iter9_evade/RESULT.md",
+      "experiments/iter10_brakevade/RESULT.md",
+      "experiments/iter11_early_evade/RESULT.md",
+      "experiments/full14_power/RESULT.md"
+    ],
+    "evidence_gap": "",
+    "scope": "Frontal/0346 and related measured frontal threat cases under the tested UniAD monitor arms.",
+    "evidence_status": "split",
+    "external_validity_status": "split_limited",
+    "permitted_wording": "Frontal impact is mitigated, with prevention attempts refuted under frozen gates.",
+    "forbidden_wording": "Head-on prevention, complete safety, or all-threat coverage.",
+    "next_falsifier": "A fixed frontal-specific intervention gate that must improve frontal collisions without inducing false-alarm crashes."
+  },
+  {
+    "claim_id": "rss_formal_envelope",
+    "claim_text": "An RSS-style formal envelope on the same inputs achieves strong raw safety by near-paralysis and worse safe-progress.",
+    "evidence_paths": [
+      "experiments/iter13_rss_baseline/RESULT.md",
+      "docs/REPORT.md"
+    ],
+    "evidence_gap": "",
+    "scope": "The committed RSS-style baseline on the measured Sentinel/NeuroNCAP inputs and actuator.",
+    "evidence_status": "established",
+    "external_validity_status": "within_scope",
+    "permitted_wording": "The formal-envelope baseline quantifies a safety/selectivity trade-off on identical measured inputs.",
+    "forbidden_wording": "All RSS systems are paralyzing or all formal methods fail.",
+    "next_falsifier": "Run a stronger formal-envelope baseline with fixed progress and collision bars on the same full14 protocol."
+  },
+  {
+    "claim_id": "planner_transfer_vad",
+    "claim_text": "On VAD, the released union transfers safety where VAD fails but does not transfer selectivity.",
+    "evidence_paths": [
+      "experiments/vad_generalization/RESULT.md",
+      "experiments/iter20_vad_tracker_portability/RESULT.md"
+    ],
+    "evidence_gap": "",
+    "scope": "Frozen VAD-Base after documented fork fixes on the measured VAD scenarios; safety transfer yes, selectivity failed.",
+    "evidence_status": "split",
+    "external_validity_status": "failed_transfer",
+    "permitted_wording": "VAD is a split transfer finding: safety improves on VAD's failure cells, selectivity does not transfer.",
+    "forbidden_wording": "Planner-agnostic monitor, blind transfer, or VAD deployment success.",
+    "next_falsifier": "A VAD-specific track-quality mechanism with an offline false-closing gate before any closed-loop run."
+  },
+  {
+    "claim_id": "candidate_diversity_plan_b",
+    "claim_text": "Planner-native candidate sets generally lack reliable threat-conditioned plan-B diversity under the tested gates.",
+    "evidence_paths": [
+      "experiments/iter12_plan_selection/RESULT.md",
+      "experiments/vad_generalization/RESULT.md",
+      "experiments/iter19_diversity_head/RESULT.md",
+      "experiments/iter21_bev_diversity_head/RESULT.md"
+    ],
+    "evidence_gap": "",
+    "scope": "UniAD command-conditioned candidates, VAD native modes, and two registered learned successor heads under measured threat frames.",
+    "evidence_status": "split",
+    "external_validity_status": "split_limited",
+    "permitted_wording": "The tested candidate sources fail the frozen viability bars; VAD retains partial but insufficient diversity.",
+    "forbidden_wording": "No planner can contain a plan B, or every learned candidate head is impossible.",
+    "next_falsifier": "A new candidate source with pre-registered threat escape, validity, and benign-fidelity bars."
+  },
+  {
+    "claim_id": "full_trainval_localization",
+    "claim_text": "The full-trainval bridge representation linearly localizes eligible-lowdiv risk beyond registered controls.",
+    "evidence_paths": [
+      "experiments/iter29_trainval_risk_support_atlas/RESULT.md",
+      "experiments/iter30_full_trainval_lowdiv_localization/RESULT.md"
+    ],
+    "evidence_gap": "",
+    "scope": "Diagnostic probe on committed full-trainval extraction rows; no activation patch, selector, NeuroNCAP, or safety effect.",
+    "evidence_status": "diagnostic",
+    "external_validity_status": "diagnostic_only",
+    "permitted_wording": "The representation carries diagnostic low-diversity information on heldout full-trainval scenes.",
+    "forbidden_wording": "Causal repair, intervention success, closed-loop safety, or deployment evidence.",
+    "next_falsifier": "An intervention gate that must pass S0, calibration, heldout causal geometry, and benign controls before any closed-loop claim."
+  },
+  {
+    "claim_id": "activation_intervention_status",
+    "claim_text": "Activation-intervention work after localization has not produced a heldout causal or closed-loop safety result.",
+    "evidence_paths": [
+      "experiments/iter31_full_trainval_bridge_intervention/RESULT.md",
+      "experiments/iter32_prefix_replay_baseline_recovery/RESULT.md",
+      "experiments/iter33_prefix_preserving_bridge_intervention/RESULT.md",
+      "experiments/iter34_direction_specificity_audit/RESULT.md",
+      "experiments/iter35_response_heterogeneity_audit/RESULT.md",
+      "experiments/iter36_bridge_site_decomposition/RESULT.md",
+      "experiments/iter37_track_query_site_intervention/RESULT.md",
+      "experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md",
+      "experiments/iter38_track_query_opposite_direction/proof-canary/canary_report.json"
+    ],
+    "evidence_gap": "",
+    "scope": "Iterations 31-38: infrastructure/calibration nulls, diagnostic site pass, and iter38 S0 canary only.",
+    "evidence_status": "active_gate",
+    "external_validity_status": "active_not_result",
+    "permitted_wording": "The intervention line is active but not yet a causal, heldout, selector, NeuroNCAP, deployment, or safety result.",
+    "forbidden_wording": "Activation patch works, track-query repair works, or iter38 passed beyond S0.",
+    "next_falsifier": "Publish iter38 calibration null/pass under frozen bars or choose an external-validity audit before further mechanism work."
+  },
+  {
+    "claim_id": "sensor_input_degradation",
+    "claim_text": "Robustness to sensor/input degradation has not been tested.",
+    "evidence_paths": [],
+    "evidence_gap": "No committed result perturbs camera inputs, detection quality, weather, lighting, latency, or missing-sensor conditions.",
+    "scope": "Untested external-validity axis.",
+    "evidence_status": "untested",
+    "external_validity_status": "untested",
+    "permitted_wording": "Sensor/input degradation remains untested and should be a future falsification target.",
+    "forbidden_wording": "Sensor-robust, degradation-robust, weather-robust, or perception-shift safe.",
+    "next_falsifier": "Pre-register a released-union sensor-degradation replay with fixed no-harm and safety-retention bars."
+  },
+  {
+    "claim_id": "adversarial_perturbation",
+    "claim_text": "Robustness to adversarial perturbation has not been tested.",
+    "evidence_paths": [],
+    "evidence_gap": "The campaign tests safety-critical scenarios and evasion policies, but not adversarial sensor/model perturbations.",
+    "scope": "Untested external-validity axis.",
+    "evidence_status": "untested",
+    "external_validity_status": "untested",
+    "permitted_wording": "Adversarial perturbation robustness remains untested.",
+    "forbidden_wording": "Adversarially robust, attack-resistant, or robust under malicious perturbation.",
+    "next_falsifier": "Pre-register bounded perturbations on perception or planner inputs with collision and false-brake bars."
+  },
+  {
+    "claim_id": "calibration_stability",
+    "claim_text": "Calibration stability is measured only inside frozen alpha grids and repeated canaries, not across deployments or domains.",
+    "evidence_paths": [
+      "experiments/iter33_prefix_preserving_bridge_intervention/RESULT.md",
+      "experiments/iter37_track_query_site_intervention/RESULT.md",
+      "experiments/iter38_track_query_opposite_direction/proof-canary/canary_report.json"
+    ],
+    "evidence_gap": "No committed result tests calibration stability across planners, domains, sensors, or time.",
+    "scope": "Frozen canary/grid reproducibility only; broader calibration stability is untested.",
+    "evidence_status": "split",
+    "external_validity_status": "untested",
+    "permitted_wording": "Canaries/grid integrity are stable in specific iterations; cross-domain calibration stability is untested.",
+    "forbidden_wording": "Stable calibration across deployments, planners, or distribution shifts.",
+    "next_falsifier": "Pre-register a calibration repeat/stress audit with fixed drift bars before any deployment-style claim."
+  },
+  {
+    "claim_id": "intervention_latency_cost",
+    "claim_text": "Runtime latency and intervention-cost trade-offs beyond committed brake-frame/lead-time summaries are not yet audited as a primary claim.",
+    "evidence_paths": [],
+    "evidence_gap": "Lead time and brake budget exist for the monitor, but no full latency/cost audit across active mechanisms is published.",
+    "scope": "Untested as a primary external-validity/deployment axis.",
+    "evidence_status": "untested",
+    "external_validity_status": "untested",
+    "permitted_wording": "Latency/cost needs a dedicated offline audit before deployment-style claims.",
+    "forbidden_wording": "Real-time deployable, low-cost in production, or operationally cheap across stacks.",
+    "next_falsifier": "Audit committed decision logs for lead time, brake frames, intervention duration, and computational overhead under fixed bars."
+  },
+  {
+    "claim_id": "deployment_tradeoffs",
+    "claim_text": "Deployment trade-offs are quantified only by safe-progress and named nulls in simulation, not by real-world operational analysis.",
+    "evidence_paths": [],
+    "evidence_gap": "No committed result covers real-world operations, human comfort, traffic interaction, legal, fleet, or certification trade-offs.",
+    "scope": "Untested beyond simulation safe-progress and intervention-budget summaries.",
+    "evidence_status": "untested",
+    "external_validity_status": "untested",
+    "permitted_wording": "Deployment trade-offs remain a simulation-scoped open problem.",
+    "forbidden_wording": "Deployment-ready, production-safe, certified, or real-vehicle validated.",
+    "next_falsifier": "Define a deployment trade-off benchmark with comfort/progress/no-harm bars before using deployment language."
+  }
+]

@@ -1,4 +1,4 @@
-# A label-free runtime safety monitor for frozen end-to-end driving planners, evaluated closed-loop at benchmark scale
+# A label-free runtime safety monitor for frozen UniAD, with measured cross-planner limits
 
 **Working draft — source of record for the manuscript.** Every number cites committed evidence
 in this repository; nothing here goes beyond what a result file states. Target venue and
@@ -11,7 +11,7 @@ published NeuroNCAP results score UniAD at 1.84/5 with collisions in 88–98% of
 field's dominant open-loop metrics cannot see it. We build a runtime monitor that reads only a
 frozen planner's own outputs (its plan, detected objects, and their tracked motion; no labels,
 no training, no privileged simulator state) and intervenes with a latched, threat-cleared stop.
-Across nineteen pre-registered iterations and an independent verification pass we show:
+Across the pre-registered campaign and an independent verification pass we show:
 **(1)** the published NeuroNCAP UniAD baseline **independently reproduces** (pooled 2.12 vs
 1.84 at 20 seed-paired runs per scenario), to our knowledge a first; **(2)** a union of two
 label-free geometric detectors with a threat-cleared release lifts the full-benchmark score to
