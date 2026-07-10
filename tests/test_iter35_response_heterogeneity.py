@@ -110,3 +110,10 @@ def test_iter35_verdict_order():
         module.verdict(True, {"pass": True}, {"pass": True})
         == "HETEROGENEITY_PASS_CONDITIONED_SUCCESSOR_PREREG_AUTHORIZED"
     )
+
+
+def test_iter35_json_sanitize_replaces_nonfinite_values():
+    module = load_module()
+    payload = {"ok": 1.0, "bad": float("nan"), "nested": [float("inf"), -float("inf")]}
+
+    assert module.json_sanitize(payload) == {"ok": 1.0, "bad": None, "nested": [None, None]}
