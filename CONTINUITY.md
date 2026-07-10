@@ -591,4 +591,13 @@ events to prepare; they are a property the repository always has.
   publish the grid proof or calibration null, and keep heldout, iteration-12 scoring, selector
   evaluation, closed-loop work, deployment language, and safety claims unauthorized until the
   registered bars allow them.
+- 2026-07-10: Codex — recovered the interrupted iteration 37 calibration/watch session and aligned
+  README plus docs/NEXT_PHASE with the committed direction/tooling/S0 facts while keeping
+  calibration explicitly in flight. Verification passed locally (`ruff check .`, `pytest -q`,
+  `python3 scripts/validate_docs.py`). Latest pre-handoff remote snapshot: alpha `0.00`, `0.25`,
+  and `0.50` completed with exact `4293/2452/1841` feeder counts; alpha `0.75` is running on
+  `sentinel-gpu` with the `model` container up. Do not relaunch. If the laptop sleeps, resume by
+  probing `/var/log/sentinel-e37-calibration.log`; after `E37_CALIBRATION_DONE` and empty Docker,
+  collect all five alpha logs, analyze calibration, and keep heldout/iteration-12/selector/
+  closed-loop/deployment/safety claims unauthorized unless the registered bars advance.
 - (append one line per shift: dates, operator, what changed, box state at exit)

@@ -4,8 +4,8 @@
 collision it is about to cause, and intervenes — measured where it actually matters: in closed
 loop, by whether the car crashes *and whether it can still drive*.**
 
-> **Honest status up front (30 completed iterations + an independent verification pass + the
-> full official benchmark at power + the first full-trainval research gates):** the introspective signal predicts the planner's collisions (AUROC 0.83). On the
+> **Honest status up front (36 completed iterations + an independent verification pass + the
+> full official benchmark at power + an active iteration-37 calibration gate):** the introspective signal predicts the planner's collisions (AUROC 0.83). On the
 > complete 14-scene NeuroNCAP set at **20 seed-paired runs per pair** (799 episodes, the power
 > measurement), the unmonitored UniAD baseline **independently reproduces** (pooled 2.12 vs the
 > published 1.84 — to the verified literature, a first), and the best configuration — the
@@ -44,7 +44,7 @@ GPUs.
 
 ## The result
 
-Thirty completed iterations under a frozen campaign pre-registration converge on one configuration — the
+Thirty-six completed iterations under frozen pre-registrations converge on one closed-loop configuration — the
 **released union** (two label-free geometric detectors + a threat-cleared latch release) —
 measured on the **complete official 14-scene NeuroNCAP set at 20 seed-paired runs per pair**
 (799 episodes; hypotheses frozen before the run; the first 6 indices of every pair reproduce the
@@ -124,24 +124,33 @@ Act three — causal localization is now gated first on artifact validity:
 
 ```mermaid
 flowchart LR
-  H21["21 BEV null<br/>0/37"] --> Q["causal<br/>localization?"]
-  Q --> F22["22 S0 fail<br/>missing joins"]
-  F22 --> S23["23 S0 pass<br/>count floor fail"]
-  S23 --> A24["24 availability null<br/>0 scenes"]
+  H21["21 BEV null"] --> Q["causal<br/>localization?"]
+  Q --> F22["22 join fail"]
+  F22 --> S23["23 count null"]
+  S23 --> A24["24 0 scenes"]
   A24 --> I25["25 inventory null"]
-  I25 --> R26["26 blobs needed<br/>disk too small"]
+  I25 --> R26["26 blobs/disk"]
   R26 --> D27["27 1 TB disk"]
-  D27 --> S28["28 trainval staged<br/>532 scenes"]
-  S28 --> A29["29 atlas<br/>support pass<br/>strict collapse null"]
-  A29 --> L30["30 localization<br/>diagnostic pass"]
-  classDef bad fill:#fdebec,stroke:#c62828,color:#3b1213;
-  classDef ask fill:#fff8e1,stroke:#b28704,color:#3d2f00;
-  classDef data fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
-  classDef win fill:#e2f3e5,stroke:#2e7d32,color:#13361b;
-  class H21,F22,S23,A24,I25,R26 bad;
+  D27 --> S28["28 trainval<br/>532 scenes"]
+  S28 --> A29["29 support pass"]
+  A29 --> L30["30 localization pass"]
+  L30 --> I31["31 S0 fail"]
+  I31 --> P32["32 prefix pass"]
+  P32 --> C33["33 cal null"]
+  C33 --> A34["34 scale null"]
+  A34 --> H35["35 no stratum"]
+  H35 --> S36["36 <b>track_query</b> site"]
+  S36 --> T37["37 S0 pass<br/>calibration running"]
+  classDef bad fill:#fee,stroke:#c00,color:#111;
+  classDef ask fill:#ffe,stroke:#a70,color:#111;
+  classDef data fill:#eef,stroke:#06c,color:#111;
+  classDef win fill:#efe,stroke:#080,color:#111;
+  classDef live fill:#ffd,stroke:#a70,color:#111;
+  class H21,F22,S23,A24,I25,R26,I31,C33,A34,H35 bad;
   class Q ask;
   class D27,S28 data;
-  class A29,L30 win;
+  class A29,L30,P32,S36 win;
+  class T37 live;
 ```
 
 The winning monitor is a **union of two individually-selective detectors**, chosen because the two
@@ -247,6 +256,7 @@ step; they are intentional stops, not hidden probe failures or unreported GPU ru
 | 34 | **direction-specificity audit** — post-result audit of the failed global bridge-centroid direction | — (offline audit only) | S0 artifact/row integrity PASS; S1 dose-response NULL: only **74/108** eligible rows had nonnegative endpoint-spread slope (`0.685185` vs `0.70` bar), median slope **0.0307 m/alpha** | **post-result audit null — no same-direction scale-only successor authorized** | The same global bridge-centroid direction is closed for scale-only follow-up from these artifacts; a successor must change the intervention family, target site, row conditioning, or claim. [`iter34_direction_specificity_audit`](experiments/iter34_direction_specificity_audit/RESULT.md) |
 | 35 | **response-heterogeneity audit** — post-result audit of the failed direction's row-level structure | — (offline audit only) | S0 PASS; S1 heterogeneity PASS (`42/108` rows slope `>=0.05`, `34/108` slope `<0`, IQR **0.1265 m/alpha**); S2 NULL: **0** frozen strata passed actionability bars | **post-result audit null — no row-conditioned successor authorized from these artifacts** | The response is heterogeneous, but not in a simple baseline-geometry stratum with enough target response and benign support. Future work must change intervention family or target site, not merely scale or row-condition the current global direction. [`iter35_response_heterogeneity_audit`](experiments/iter35_response_heterogeneity_audit/RESULT.md) |
 | 36 | **bridge-site decomposition audit** — frozen subsite probes over `sdc_traj_query_last` slots and `sdc_track_query` | — (offline audit only) | S0 PASS; S1 full-bridge reproduction PASS; S2 target-site PASS: `traj_slot_0`, `traj_slot_2`, `traj_slot_3`, `traj_slot_4`, and **`track_query`** passed diagnostic + scene-bootstrap bars | **site-specific preregistration authorized — diagnostic only, no intervention/safety claim** | The next intervention should not patch the whole bridge vector. The strongest diagnostic target is `track_query` (AUROC **0.9705**, AP **0.7264**, bootstrap AUROC p05 **0.9506**), but any patch still needs a fresh pre-registration and S0 canary. [`iter36_bridge_site_decomposition`](experiments/iter36_bridge_site_decomposition/RESULT.md) |
+| 37 | **track-query site intervention** — prefix-preserving `sdc_track_query`-only causal test | — (calibration in flight) | Direction/tooling committed; direction feature count **256**, fit rows **5,211**; S0 canary PASS with alpha-zero hashes restored, `24/24` changed track-query SHA rows at alpha `0.50`, and `24/24` unchanged `sdc_traj_query_last` SHA rows | **active gate — calibration grid running; no result yet** | This is the site-specific successor authorized by iteration 36. It is not a NeuroNCAP, selector, deployment, or safety run. Heldout remains prohibited unless the full calibration grid selects a nonzero alpha under the frozen bars. [`iter37_track_query_site_intervention`](experiments/iter37_track_query_site_intervention/HYPOTHESIS.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -320,9 +330,8 @@ selectivity/side-blindness trade of iterations 4–7, and the three refuted evas
 kept, with every number and link, in [`docs/CAMPAIGN.md`](docs/CAMPAIGN.md). The summary table
 above is the same history in one screen.
 
-**Net, stated plainly — 31 completed iterations plus an independent verification pass, with
-iterations 29, 30, and 31 completed as the first full-trainval support, localization, and
-intervention-S0 gates.** The
+**Net, stated plainly — 36 completed iterations plus an independent verification pass, with
+iteration 37 currently inside its pre-registered calibration gate.** The
 **released union (iteration 15) is the best configuration** of the campaign: at the definitive
 20-run scale it lifts the independently reproduced baseline **2.12 → 2.91 (CI [+0.605, +0.928])**,
 keeps clean scenes identical to the unmonitored planner, and strictly dominates the plain union
@@ -358,9 +367,12 @@ then closed the same global bridge-centroid direction for scale-only successor w
 post-result dose-response audit null; iteration 35 then showed real row-level heterogeneity but
 no actionable frozen baseline-geometry stratum. Iteration 36 then passed a diagnostic bridge-site
 decomposition audit: `track_query` and four trajectory-query slots carry enough scene-robust
-signal to justify a separate site-specific intervention pre-registration. No heldout intervention
-replay, iteration-12, selector, closed-loop work, or safety claim is authorized from iter33,
-iter34, iter35, iter36, or the newly pre-registered iteration 37:
+signal to justify a separate site-specific intervention pre-registration. Iteration 37 is that
+site-specific test: its direction artifact, replay tooling, and S0 canary proof are committed, and
+the calibration grid is currently in flight on `sentinel-gpu`. No heldout intervention replay,
+iteration-12, selector, closed-loop work, deployment language, or safety claim is authorized unless
+the full iteration-37 calibration grid selects a nonzero alpha under the frozen bars and that proof
+is committed:
 
 - **The manuscript — full draft and compiled PDF committed**
   ([`docs/paper/`](docs/paper/MANUSCRIPT.md)); the arXiv submission package is built and the
@@ -456,6 +468,26 @@ iter34, iter35, iter36, or the newly pre-registered iteration 37:
   bar). The same global bridge-centroid direction is closed for scale-only successor work from
   these artifacts; heldout, iteration-12, selector, closed-loop, and safety claims remain
   unauthorized.
+- **Iteration 35 is completed as an offline response-heterogeneity audit null.**
+  [`experiments/iter35_response_heterogeneity_audit/RESULT.md`](experiments/iter35_response_heterogeneity_audit/RESULT.md)
+  reports S1 heterogeneity PASS (`42/108` eligible rows with endpoint-spread slope `>=0.05`,
+  `34/108` with slope `<0`, IQR `0.126519 m/alpha`), but S2 found no frozen
+  baseline-geometry stratum with enough target response and benign support. Row-conditioned
+  successor work from the same global direction is therefore unauthorized.
+- **Iteration 36 is completed as a bridge-site decomposition diagnostic pass.**
+  [`experiments/iter36_bridge_site_decomposition/RESULT.md`](experiments/iter36_bridge_site_decomposition/RESULT.md)
+  reports full-bridge reproduction plus five passing non-global sites. `track_query` is the
+  strongest frozen site (AUROC `0.970531`, AP `0.726416`, bootstrap AUROC p05 `0.950589`).
+  This authorizes only a fresh site-specific intervention pre-registration, not a causal,
+  selector, closed-loop, deployment, or safety claim.
+- **Iteration 37 is active as a track-query site intervention calibration gate.**
+  [`experiments/iter37_track_query_site_intervention/HYPOTHESIS.md`](experiments/iter37_track_query_site_intervention/HYPOTHESIS.md)
+  is pre-registered. Its direction artifact, replay tooling, and S0 canary proof are committed:
+  direction feature count `256`, fit rows `5,211`, alpha-zero parity restored, `24/24`
+  nonzero target observations changed `track_query`, and `24/24` preserved
+  `sdc_traj_query_last`. The calibration grid is in flight; no calibration result, heldout
+  replay, iteration-12 scoring, selector evaluation, closed-loop work, deployment language, or
+  safety claim is authorized yet.
 
 Closed en route, per the gate discipline: the per-frame routing predicates (iteration 17
 addendum — refuted offline), the tracking layer's own offline gate (iteration 18 — failed
@@ -583,7 +615,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter34_direction_specificity_audit/`](experiments/iter34_direction_specificity_audit) | direction-specificity audit — post-result null; same global bridge-centroid direction lacks row-level dose-response consistency for scale-only successor work |
 | [`experiments/iter35_response_heterogeneity_audit/`](experiments/iter35_response_heterogeneity_audit) | response-heterogeneity audit — post-result null; heterogeneity exists but no frozen baseline-geometry stratum authorizes conditioned successor work |
 | [`experiments/iter36_bridge_site_decomposition/`](experiments/iter36_bridge_site_decomposition) | bridge-site decomposition audit — diagnostic pass; `track_query` and four trajectory slots authorize only a future site-specific pre-registration |
-| [`experiments/iter37_track_query_site_intervention/`](experiments/iter37_track_query_site_intervention) | track-query site intervention — pre-registered causal test; no tooling, direction artifact, GPU replay, analyzer, or result yet |
+| [`experiments/iter37_track_query_site_intervention/`](experiments/iter37_track_query_site_intervention) | track-query site intervention — pre-registered causal test; direction artifact, replay tooling, analyzer, and S0 canary proof are committed; calibration grid is in flight, with no result, heldout replay, selector, closed-loop, deployment, or safety claim yet |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/ITER22_HYPOTHESIS_DRAFT.md`](docs/research/ITER22_HYPOTHESIS_DRAFT.md) · [`docs/research/ITER22_ADVERSARIAL_REVIEW.md`](docs/research/ITER22_ADVERSARIAL_REVIEW.md) | planning-only iter22 draft and adversarial review; not pre-registrations |

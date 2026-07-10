@@ -308,9 +308,11 @@ measurement task. It waits only for the power run's final numbers so results are
     pre-registration. It authorizes no GPU/gcloud work, heldout intervention replay,
     iteration-12 scoring, selector evaluation, closed-loop work, deployment language, safety
     claim, direction, or alpha.
-20. Iteration 37 is pre-registered as a prefix-preserving `track_query`-only site intervention
-    causal test. It must derive a fit-only centroid direction over `sdc_track_query`, commit that
-    direction before GPU replay, and pass S0 canary before any calibration. It authorizes no GPU
-    run yet until tooling and the direction artifact are committed. It authorizes no heldout
-    replay, iteration-12 scoring, selector evaluation, closed-loop work, deployment language, or
-    safety claim unless the registered gates advance.
+20. Iteration 37 is active as a prefix-preserving `track_query`-only site intervention
+    calibration gate. Its fit-only `sdc_track_query` direction, replay tooling, analyzer, and S0
+    canary proof are committed; S0 passed with alpha-zero parity restored, `24/24` nonzero target
+    observations changing `track_query`, and `24/24` preserving `sdc_traj_query_last`. The
+    authorized calibration grid is in flight on `sentinel-gpu`. It authorizes no heldout replay,
+    iteration-12 scoring, selector evaluation, closed-loop work, deployment language, or safety
+    claim unless the full registered calibration grid selects a nonzero alpha and that proof is
+    committed.
