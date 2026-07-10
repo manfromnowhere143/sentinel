@@ -548,4 +548,10 @@ events to prepare; they are a property the repository always has.
   intervention pre-registration is authorized. No GPU/gcloud replay, heldout intervention replay,
   iteration-12 scoring, selector evaluation, closed-loop work, direction, alpha, deployment
   language, or safety claim launched.
+- 2026-07-10: Codex — pre-registered iteration 37 under
+  experiments/iter37_track_query_site_intervention/HYPOTHESIS.md. Scope is a
+  prefix-preserving `track_query`-only site intervention with a fit-only centroid direction,
+  frozen alpha grid, S0 canary, calibration, and heldout gates. No tooling, direction artifact,
+  proof report, GPU/gcloud replay, heldout replay, iteration-12 scoring, selector evaluation,
+  closed-loop work, deployment language, or safety claim launched yet.
 - (append one line per shift: dates, operator, what changed, box state at exit)

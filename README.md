@@ -360,7 +360,7 @@ no actionable frozen baseline-geometry stratum. Iteration 36 then passed a diagn
 decomposition audit: `track_query` and four trajectory-query slots carry enough scene-robust
 signal to justify a separate site-specific intervention pre-registration. No heldout intervention
 replay, iteration-12, selector, closed-loop work, or safety claim is authorized from iter33,
-iter34, iter35, or iter36:
+iter34, iter35, iter36, or the newly pre-registered iteration 37:
 
 - **The manuscript — full draft and compiled PDF committed**
   ([`docs/paper/`](docs/paper/MANUSCRIPT.md)); the arXiv submission package is built and the
@@ -583,6 +583,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter34_direction_specificity_audit/`](experiments/iter34_direction_specificity_audit) | direction-specificity audit — post-result null; same global bridge-centroid direction lacks row-level dose-response consistency for scale-only successor work |
 | [`experiments/iter35_response_heterogeneity_audit/`](experiments/iter35_response_heterogeneity_audit) | response-heterogeneity audit — post-result null; heterogeneity exists but no frozen baseline-geometry stratum authorizes conditioned successor work |
 | [`experiments/iter36_bridge_site_decomposition/`](experiments/iter36_bridge_site_decomposition) | bridge-site decomposition audit — diagnostic pass; `track_query` and four trajectory slots authorize only a future site-specific pre-registration |
+| [`experiments/iter37_track_query_site_intervention/`](experiments/iter37_track_query_site_intervention) | track-query site intervention — pre-registered causal test; no tooling, direction artifact, GPU replay, analyzer, or result yet |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/ITER22_HYPOTHESIS_DRAFT.md`](docs/research/ITER22_HYPOTHESIS_DRAFT.md) · [`docs/research/ITER22_ADVERSARIAL_REVIEW.md`](docs/research/ITER22_ADVERSARIAL_REVIEW.md) | planning-only iter22 draft and adversarial review; not pre-registrations |

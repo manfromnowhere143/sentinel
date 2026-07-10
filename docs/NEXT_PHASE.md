@@ -308,3 +308,9 @@ measurement task. It waits only for the power run's final numbers so results are
     pre-registration. It authorizes no GPU/gcloud work, heldout intervention replay,
     iteration-12 scoring, selector evaluation, closed-loop work, deployment language, safety
     claim, direction, or alpha.
+20. Iteration 37 is pre-registered as a prefix-preserving `track_query`-only site intervention
+    causal test. It must derive a fit-only centroid direction over `sdc_track_query`, commit that
+    direction before GPU replay, and pass S0 canary before any calibration. It authorizes no GPU
+    run yet until tooling and the direction artifact are committed. It authorizes no heldout
+    replay, iteration-12 scoring, selector evaluation, closed-loop work, deployment language, or
+    safety claim unless the registered gates advance.
