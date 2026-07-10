@@ -1,0 +1,26 @@
+Artifact collection command:
+
+mkdir -p experiments/iter38_track_query_opposite_direction/proof-canary && \
+gcloud compute scp --zone us-west1-a --tunnel-through-iap --quiet \
+  sentinel-gpu:/var/log/sentinel-e38-canary.log \
+  sentinel-gpu:/opt/sentinel-stack/UniAD/sentinel_e38_canary_alpha0p00_a.jsonl.gz \
+  sentinel-gpu:/opt/sentinel-stack/UniAD/sentinel_e38_canary_alpha0p00_a_gt.jsonl.gz \
+  sentinel-gpu:/opt/sentinel-stack/UniAD/sentinel_e38_canary_alpha0p00_b.jsonl.gz \
+  sentinel-gpu:/opt/sentinel-stack/UniAD/sentinel_e38_canary_alpha0p00_b_gt.jsonl.gz \
+  sentinel-gpu:/opt/sentinel-stack/UniAD/sentinel_e38_canary_alpha0p50_a.jsonl.gz \
+  sentinel-gpu:/opt/sentinel-stack/UniAD/sentinel_e38_canary_alpha0p50_a_gt.jsonl.gz \
+  sentinel-gpu:/opt/sentinel-stack/UniAD/sentinel_e38_canary_alpha0p50_b.jsonl.gz \
+  sentinel-gpu:/opt/sentinel-stack/UniAD/sentinel_e38_canary_alpha0p50_b_gt.jsonl.gz \
+  experiments/iter38_track_query_opposite_direction/proof-canary/
+
+Collected artifacts:
+
+- sentinel-e38-canary.log
+- sentinel_e38_canary_alpha0p00_a.jsonl.gz
+- sentinel_e38_canary_alpha0p00_a_gt.jsonl.gz
+- sentinel_e38_canary_alpha0p00_b.jsonl.gz
+- sentinel_e38_canary_alpha0p00_b_gt.jsonl.gz
+- sentinel_e38_canary_alpha0p50_a.jsonl.gz
+- sentinel_e38_canary_alpha0p50_a_gt.jsonl.gz
+- sentinel_e38_canary_alpha0p50_b.jsonl.gz
+- sentinel_e38_canary_alpha0p50_b_gt.jsonl.gz

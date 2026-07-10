@@ -26,6 +26,11 @@ automatically; this file carries the invariants that do not change per shift.
 7. **Memory at every state change** (Claude shifts: the aweb-sentinel file under
    `~/.claude/projects/-Users-danielwahnich-workspace-aweb/memory/`; other operators: update
    THIS file's "shift log" section and the dynamic snapshot instead).
+8. **Defensibility over impressiveness.** When choosing between a stronger-looking repository
+   story and a more defensible scientific claim, choose the defensible claim. A narrower result
+   that survives hostile scrutiny is worth more than a larger claim resting on untested
+   assumptions. Prefer external-validity falsification, hidden-assumption discovery, and
+   reproducibility over incremental benchmark optimization when those goals conflict.
 
 ## The baton protocol (one operator at a time — hard rule; PERMANENT, BIDIRECTIONAL)
 
@@ -630,4 +635,13 @@ events to prepare; they are a property the repository always has.
   `python3 scripts/validate_docs.py`). No GPU/gcloud command, S0 canary replay, calibration,
   heldout replay, iteration-12 scoring, selector evaluation, closed-loop work, deployment
   language, or safety claim exists yet. Next authorized work is S0 canary replay.
+- 2026-07-10: Codex — ran and collected iteration 38 S0 canary proof. S0 passed with exact
+  alpha-zero parity (`0.0` max coordinate error), model alpha-zero target hash
+  `2495f9a1dc4d7f7544673cd4dc25c1283977087a0018b37e76184a2b3c0b611e`, GT alpha-zero target
+  hash `5064a3177c7918712fa56533b897e50a7d731f516d17a9ca6241ef67296050c7`, stable alpha-0.50
+  repeat hash `af113a25e8eccb092a7e863f6f13892871d6b78a766d68267773e3e8972a28a7`, `24/24`
+  changed track-query SHA rows, and `24/24` unchanged `sdc_traj_query_last` SHA rows.
+  Calibration is authorized by the registered gate but not launched. Under the defensibility
+  rule, compare the value of Iter38 calibration against a fresh external-validity falsification
+  pre-registration before spending the next GPU window.
 - (append one line per shift: dates, operator, what changed, box state at exit)

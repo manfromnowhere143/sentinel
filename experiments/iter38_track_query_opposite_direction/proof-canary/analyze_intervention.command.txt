@@ -1,0 +1,13 @@
+Analyzer command:
+
+python3 experiments/iter38_track_query_opposite_direction/analyze_intervention.py \
+  --stage canary \
+  --log experiments/iter38_track_query_opposite_direction/proof-canary/sentinel_e38_canary_alpha0p00_a.jsonl.gz \
+  --log experiments/iter38_track_query_opposite_direction/proof-canary/sentinel_e38_canary_alpha0p00_b.jsonl.gz \
+  --log experiments/iter38_track_query_opposite_direction/proof-canary/sentinel_e38_canary_alpha0p50_a.jsonl.gz \
+  --log experiments/iter38_track_query_opposite_direction/proof-canary/sentinel_e38_canary_alpha0p50_b.jsonl.gz \
+  --gt-log experiments/iter38_track_query_opposite_direction/proof-canary/sentinel_e38_canary_alpha0p00_a_gt.jsonl.gz \
+  --gt-log experiments/iter38_track_query_opposite_direction/proof-canary/sentinel_e38_canary_alpha0p00_b_gt.jsonl.gz \
+  --gt-log experiments/iter38_track_query_opposite_direction/proof-canary/sentinel_e38_canary_alpha0p50_a_gt.jsonl.gz \
+  --gt-log experiments/iter38_track_query_opposite_direction/proof-canary/sentinel_e38_canary_alpha0p50_b_gt.jsonl.gz \
+  --out experiments/iter38_track_query_opposite_direction/proof-canary/canary_report.json

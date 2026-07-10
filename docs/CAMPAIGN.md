@@ -367,13 +367,16 @@ over-claim.** That arc, in order:
     deployment, and safety claims remain unauthorized.
     [`../experiments/iter37_track_query_site_intervention/RESULT.md`](../experiments/iter37_track_query_site_intervention/RESULT.md).
 
-40. **Iter 38 — track-query opposite-direction gate: direction proof built, not run on GPU.** The post-iter37
+40. **Iter 38 — track-query opposite-direction gate: S0 canary pass, calibration not launched.** The post-iter37
     successor freezes the exact sign reversal of the iter37 fit-only `sdc_track_query` centroid
     direction: `mu_pos - mu_benign`, required to be the negative of the committed iter37 raw
     direction. The offline direction builder, UniAD patch, feeder, run scripts, analyzer, and
     tests are committed. The proof-direction artifact has `256` features, `5,211` fit rows, and
-    exact negative-of-iter37 sign equivalence (`max_abs_direction_sum=0.0`, cosine **-1.0**).
-    This is not an iter37 rescue and not a safety result. It authorizes only S0 canary next;
-    calibration, heldout, iteration-12, selector, closed-loop, deployment, and safety claims
-    remain gated.
+    exact negative-of-iter37 sign equivalence (`max_abs_direction_sum=0.0`, cosine **-1.0**). S0
+    canary passed with alpha-zero parity restored, alpha `0.50` changing `track_query` on `24/24`
+    target rows, and `sdc_traj_query_last` unchanged on `24/24`. This is not an iter37 rescue and
+    not a safety result. Calibration is authorized but not launched; heldout, iteration-12,
+    selector, closed-loop, deployment, and safety claims remain gated. Under the campaign's
+    defensibility rule, external-validity falsification should be weighed before spending the
+    next GPU window on incremental mechanism search.
     [`../experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md`](../experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md).

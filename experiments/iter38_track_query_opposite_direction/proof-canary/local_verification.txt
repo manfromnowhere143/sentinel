@@ -1,0 +1,43 @@
+Iteration 38 opposite-direction S0 canary local verification
+
+Date: 2026-07-10
+
+Commands run:
+
+- gzip -t experiments/iter38_track_query_opposite_direction/proof-canary/*.gz
+- python3 experiments/iter38_track_query_opposite_direction/analyze_intervention.py --stage canary ...
+
+Remote run markers:
+
+- E38_CANARY_ALPHA_0p00_a_DONE Fri Jul 10 20:35:32 UTC 2026
+- E38_CANARY_ALPHA_0p00_b_DONE Fri Jul 10 20:38:04 UTC 2026
+- E38_CANARY_ALPHA_0p50_a_DONE Fri Jul 10 20:40:43 UTC 2026
+- E38_CANARY_ALPHA_0p50_b_DONE Fri Jul 10 20:43:22 UTC 2026
+- E38_CANARY_DONE Fri Jul 10 20:43:22 UTC 2026
+
+Row-count checks:
+
+- alpha0p00_a model rows: 47; GT rows: 44
+- alpha0p00_b model rows: 47; GT rows: 44
+- alpha0p50_a model rows: 47; GT rows: 44
+- alpha0p50_b model rows: 47; GT rows: 44
+- analyzer non-reset rows per model/GT run: 44
+- analyzer target rows per model/GT run: 12
+- analyzer context-only rows per model/GT run: 32
+
+Analyzer result:
+
+- s0_canary_pass: true
+- failure_count: 0
+- alpha_zero_reference_pass: true
+- alpha_zero_max_abs_coordinate_error: 0.0
+- alpha_zero_reference_comparisons: 96
+- model alpha0p00 target hash: 2495f9a1dc4d7f7544673cd4dc25c1283977087a0018b37e76184a2b3c0b611e
+- GT alpha0p00 target hash: 5064a3177c7918712fa56533b897e50a7d731f516d17a9ca6241ef67296050c7
+- model alpha0p50 repeat hash: af113a25e8eccb092a7e863f6f13892871d6b78a766d68267773e3e8972a28a7
+- alpha0p50_changed_track_query_sha_rows: 24
+- alpha0p50_unchanged_sdc_traj_query_last_sha_rows: 24
+- context_contamination_failure_count: 0 for every run
+
+No calibration replay, heldout replay, iteration-12 scoring, selector evaluation, closed-loop
+work, deployment claim, or safety claim was run.

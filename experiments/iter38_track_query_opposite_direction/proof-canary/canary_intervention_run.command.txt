@@ -1,0 +1,28 @@
+Remote launch command:
+
+gcloud compute ssh sentinel-gpu --zone us-west1-a --tunnel-through-iap --quiet --command \
+  'sudo bash -lc '"'"'set -euo pipefail; test -z "$(docker ps -q)"; rm -f /var/log/sentinel-e38-canary.log; setsid nohup bash /tmp/canary_intervention_run_iter38.sh </dev/null >/dev/null 2>&1 & echo E38_CANARY_LAUNCHED $(date -u +%Y-%m-%dT%H:%M:%SZ); sleep 8; docker ps --format "{{.Names}}\t{{.Status}}"; tail -n 80 /var/log/sentinel-e38-canary.log || true'"'"''
+
+Remote input files copied before launch:
+
+- /tmp/server_patch_intervention_iter38.py
+- /tmp/feeder_intervention_iter38.py
+- /tmp/canary_intervention_run_iter38.sh
+- /tmp/track_query_opposite_direction_iter38.json
+- /tmp/prefix_manifest_canary_iter38.json
+
+Remote input SHA256s:
+
+- server_patch_intervention_iter38.py: 761ce97645960c0e39b8cfcda24cb48fea10bcc5380b3c70ce83986178e882bd
+- feeder_intervention_iter38.py: c46d26df8902e8874d27743de6db2f0e17afbde57b611f2989425f665912fef4
+- canary_intervention_run_iter38.sh: 22f04d37ac82b0efd6b927ac518a929763dfae99d6bb0ba7ce7ccfaf25e733d2
+- track_query_opposite_direction_iter38.json: ca256dc8a402c9bc6b12df800f9ae62052f95ab78aef78ceb253a44a9fc41743
+- prefix_manifest_canary_iter38.json: ceea957acff0b82219f664ce628693dedc5dcbb12c182c9ea3ba9386b8a56452
+
+Remote done markers:
+
+- E38_CANARY_ALPHA_0p00_a_DONE Fri Jul 10 20:35:32 UTC 2026
+- E38_CANARY_ALPHA_0p00_b_DONE Fri Jul 10 20:38:04 UTC 2026
+- E38_CANARY_ALPHA_0p50_a_DONE Fri Jul 10 20:40:43 UTC 2026
+- E38_CANARY_ALPHA_0p50_b_DONE Fri Jul 10 20:43:22 UTC 2026
+- E38_CANARY_DONE Fri Jul 10 20:43:22 UTC 2026

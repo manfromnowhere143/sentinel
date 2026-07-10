@@ -323,8 +323,18 @@ measurement task. It waits only for the power run's final numbers so results are
     UniAD patch, feeder, run scripts, analyzer, tests, and proof-direction artifact are committed.
     The direction has `256` features, `5,211` fit rows, direction SHA
     `251323cf6ba7361da5aa0a084a6ae5ad5083989df75e10d16f352da845e2983d`, and exact
-    negative-of-iteration-37 sign equivalence (`max_abs_direction_sum=0.0`, cosine `-1.0`). No
-    GPU/gcloud command, model replay, calibration result, heldout replay, iteration-12 scoring,
-    selector evaluation, closed-loop work, deployment language, or safety claim exists yet. The
-    next authorized action is S0 canary replay for the committed
+    negative-of-iteration-37 sign equivalence (`max_abs_direction_sum=0.0`, cosine `-1.0`). S0
+    canary passed: alpha-zero parity restored with `0.0` max coordinate error, alpha `0.50`
+    changed `track_query` on `24/24` target rows, and `sdc_traj_query_last` stayed unchanged on
+    `24/24`. Calibration is authorized but not launched. No calibration result, heldout replay,
+    iteration-12 scoring, selector evaluation, closed-loop work, deployment language, or safety
+    claim exists yet. Before spending the next GPU window on calibration, compare its value
+    against a fresh external-validity falsification pre-registration for the committed
     [`HYPOTHESIS.md`](../experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md).
+
+Strategic rule after iteration 38 S0: if the choice is between a stronger-looking mechanism story
+and a more defensible scientific claim, choose the defensible claim. The next fresh
+pre-registration should prioritize hostile external-validity pressure unless there is a specific
+reason calibration is more informative: independent planner transfer, unseen scenario families,
+sensor degradation, adversarial perturbations, calibration stability, intervention latency,
+intervention cost, and deployment trade-offs.
