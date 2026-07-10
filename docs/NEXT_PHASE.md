@@ -308,11 +308,12 @@ measurement task. It waits only for the power run's final numbers so results are
     pre-registration. It authorizes no GPU/gcloud work, heldout intervention replay,
     iteration-12 scoring, selector evaluation, closed-loop work, deployment language, safety
     claim, direction, or alpha.
-20. Iteration 37 is active as a prefix-preserving `track_query`-only site intervention
-    calibration gate. Its fit-only `sdc_track_query` direction, replay tooling, analyzer, and S0
-    canary proof are committed; S0 passed with alpha-zero parity restored, `24/24` nonzero target
-    observations changing `track_query`, and `24/24` preserving `sdc_traj_query_last`. The
-    authorized calibration grid is in flight on `sentinel-gpu`. It authorizes no heldout replay,
-    iteration-12 scoring, selector evaluation, closed-loop work, deployment language, or safety
-    claim unless the full registered calibration grid selects a nonzero alpha and that proof is
-    committed.
+20. Iteration 37 is closed as a prefix-preserving `track_query`-only site intervention
+    calibration null. Its fit-only `sdc_track_query` direction, replay tooling, analyzer, and S0
+    canary proof were committed; S0 passed with alpha-zero parity restored, `24/24` nonzero target
+    observations changing `track_query`, and `24/24` preserving `sdc_traj_query_last`. The full
+    calibration grid then passed row integrity for every frozen alpha, but no nonzero alpha was
+    selectable. Alpha `1.00` had eligible median endpoint-spread delta `-0.041940 m`, fraction
+    `>0.25 m` `0.074074`, and median best-candidate-gap delta `-0.001315`, below the frozen bars.
+    Iter37 authorizes no heldout replay, iteration-12 scoring, selector evaluation, closed-loop
+    work, deployment language, or safety claim.

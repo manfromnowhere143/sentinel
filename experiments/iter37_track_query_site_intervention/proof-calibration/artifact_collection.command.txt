@@ -1,0 +1,22 @@
+mkdir -p experiments/iter37_track_query_site_intervention/proof-calibration && timeout 90 gcloud compute ssh sentinel-gpu --zone us-west1-a --tunnel-through-iap --quiet --command 'sudo bash -s' <<'REMOTE'
+set -euo pipefail
+rm -f /tmp/sentinel-e37-calibration-artifacts.tar
+sudo tar -cf /tmp/sentinel-e37-calibration-artifacts.tar \
+  -C /var/log sentinel-e37-calibration.log \
+  -C /opt/sentinel-stack/UniAD \
+  sentinel_e37_calibration_alpha0p00.jsonl.gz \
+  sentinel_e37_calibration_alpha0p00_gt.jsonl.gz \
+  sentinel_e37_calibration_alpha0p25.jsonl.gz \
+  sentinel_e37_calibration_alpha0p25_gt.jsonl.gz \
+  sentinel_e37_calibration_alpha0p50.jsonl.gz \
+  sentinel_e37_calibration_alpha0p50_gt.jsonl.gz \
+  sentinel_e37_calibration_alpha0p75.jsonl.gz \
+  sentinel_e37_calibration_alpha0p75_gt.jsonl.gz \
+  sentinel_e37_calibration_alpha1p00.jsonl.gz \
+  sentinel_e37_calibration_alpha1p00_gt.jsonl.gz
+sudo chmod 644 /tmp/sentinel-e37-calibration-artifacts.tar
+ls -lh /tmp/sentinel-e37-calibration-artifacts.tar
+REMOTE
+gcloud compute scp sentinel-gpu:/tmp/sentinel-e37-calibration-artifacts.tar experiments/iter37_track_query_site_intervention/proof-calibration/sentinel-e37-calibration-artifacts.tar --zone us-west1-a --tunnel-through-iap --quiet
+tar -xf experiments/iter37_track_query_site_intervention/proof-calibration/sentinel-e37-calibration-artifacts.tar -C experiments/iter37_track_query_site_intervention/proof-calibration
+rm experiments/iter37_track_query_site_intervention/proof-calibration/sentinel-e37-calibration-artifacts.tar

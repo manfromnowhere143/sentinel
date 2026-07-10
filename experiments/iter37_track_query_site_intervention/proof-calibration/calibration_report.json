@@ -1,0 +1,292 @@
+{
+  "cells": [
+    {
+      "alpha": 0.0,
+      "benign_control": {
+        "danger_cross_count": 0,
+        "danger_cross_fraction": 0.0,
+        "fraction_best_candidate_gap_delta_lt_neg_0p25": 0.0,
+        "fraction_endpoint_spread_delta_ge_0p25": 0.0,
+        "fraction_endpoint_spread_delta_gt_0p25": 0.0,
+        "gross_validity_failures": 0,
+        "lowdiv_collapse_count": 0,
+        "lowdiv_collapse_fraction": 0.0,
+        "median_best_candidate_gap_delta": 0.0,
+        "median_endpoint_spread_delta": 0.0,
+        "median_executed_endpoint_displacement": 0.0,
+        "p95_executed_endpoint_displacement": 0.0,
+        "rows": 2344
+      },
+      "calibration_eligible": false,
+      "calibration_failures": [
+        "alpha_zero_not_selectable",
+        "eligible_median_endpoint_spread_delta=0.000000 <= 0.25",
+        "eligible_fraction_endpoint_spread_delta_gt_0p25=0.000000 < 0.50"
+      ],
+      "eligible_lowdiv": {
+        "danger_cross_count": 0,
+        "danger_cross_fraction": 0.0,
+        "fraction_best_candidate_gap_delta_lt_neg_0p25": 0.0,
+        "fraction_endpoint_spread_delta_ge_0p25": 0.0,
+        "fraction_endpoint_spread_delta_gt_0p25": 0.0,
+        "gross_validity_failures": 0,
+        "lowdiv_collapse_count": 0,
+        "lowdiv_collapse_fraction": 0.0,
+        "median_best_candidate_gap_delta": 0.0,
+        "median_endpoint_spread_delta": 0.0,
+        "median_executed_endpoint_displacement": 0.0,
+        "p95_executed_endpoint_displacement": 0.0,
+        "rows": 108
+      },
+      "error_rows": 0,
+      "rows": 2452
+    },
+    {
+      "alpha": 0.25,
+      "benign_control": {
+        "danger_cross_count": 0,
+        "danger_cross_fraction": 0.0,
+        "fraction_best_candidate_gap_delta_lt_neg_0p25": 0.0,
+        "fraction_endpoint_spread_delta_ge_0p25": 0.0,
+        "fraction_endpoint_spread_delta_gt_0p25": 0.0,
+        "gross_validity_failures": 0,
+        "lowdiv_collapse_count": 0,
+        "lowdiv_collapse_fraction": 0.0,
+        "median_best_candidate_gap_delta": 0.00013022810574359056,
+        "median_endpoint_spread_delta": -0.02487107702127056,
+        "median_executed_endpoint_displacement": 0.015488485398113159,
+        "p95_executed_endpoint_displacement": 0.0507325008156913,
+        "rows": 2344
+      },
+      "calibration_eligible": false,
+      "calibration_failures": [
+        "eligible_median_endpoint_spread_delta=-0.009995 <= 0.25",
+        "eligible_fraction_endpoint_spread_delta_gt_0p25=0.000000 < 0.50",
+        "eligible_median_best_candidate_gap_delta=-0.000322 < 0.0"
+      ],
+      "eligible_lowdiv": {
+        "danger_cross_count": 0,
+        "danger_cross_fraction": 0.0,
+        "fraction_best_candidate_gap_delta_lt_neg_0p25": 0.0,
+        "fraction_endpoint_spread_delta_ge_0p25": 0.0,
+        "fraction_endpoint_spread_delta_gt_0p25": 0.0,
+        "gross_validity_failures": 0,
+        "lowdiv_collapse_count": 0,
+        "lowdiv_collapse_fraction": 0.0,
+        "median_best_candidate_gap_delta": -0.000321615955254817,
+        "median_endpoint_spread_delta": -0.00999540122618775,
+        "median_executed_endpoint_displacement": 0.009633117556842128,
+        "p95_executed_endpoint_displacement": 0.03927531136875961,
+        "rows": 108
+      },
+      "error_rows": 0,
+      "rows": 2452
+    },
+    {
+      "alpha": 0.5,
+      "benign_control": {
+        "danger_cross_count": 0,
+        "danger_cross_fraction": 0.0,
+        "fraction_best_candidate_gap_delta_lt_neg_0p25": 0.0,
+        "fraction_endpoint_spread_delta_ge_0p25": 0.0,
+        "fraction_endpoint_spread_delta_gt_0p25": 0.0,
+        "gross_validity_failures": 0,
+        "lowdiv_collapse_count": 0,
+        "lowdiv_collapse_fraction": 0.0,
+        "median_best_candidate_gap_delta": 0.0002417637376863624,
+        "median_endpoint_spread_delta": -0.05042492553249578,
+        "median_executed_endpoint_displacement": 0.0306177897649988,
+        "p95_executed_endpoint_displacement": 0.10286660765687305,
+        "rows": 2344
+      },
+      "calibration_eligible": false,
+      "calibration_failures": [
+        "eligible_median_endpoint_spread_delta=-0.020936 <= 0.25",
+        "eligible_fraction_endpoint_spread_delta_gt_0p25=0.000000 < 0.50",
+        "eligible_median_best_candidate_gap_delta=-0.000619 < 0.0"
+      ],
+      "eligible_lowdiv": {
+        "danger_cross_count": 0,
+        "danger_cross_fraction": 0.0,
+        "fraction_best_candidate_gap_delta_lt_neg_0p25": 0.0,
+        "fraction_endpoint_spread_delta_ge_0p25": 0.0,
+        "fraction_endpoint_spread_delta_gt_0p25": 0.0,
+        "gross_validity_failures": 0,
+        "lowdiv_collapse_count": 0,
+        "lowdiv_collapse_fraction": 0.0,
+        "median_best_candidate_gap_delta": -0.0006190501634555368,
+        "median_endpoint_spread_delta": -0.02093569450656535,
+        "median_executed_endpoint_displacement": 0.018642800854609863,
+        "p95_executed_endpoint_displacement": 0.07813315201371095,
+        "rows": 108
+      },
+      "error_rows": 0,
+      "rows": 2452
+    },
+    {
+      "alpha": 0.75,
+      "benign_control": {
+        "danger_cross_count": 0,
+        "danger_cross_fraction": 0.0,
+        "fraction_best_candidate_gap_delta_lt_neg_0p25": 0.0,
+        "fraction_endpoint_spread_delta_ge_0p25": 0.020904436860068258,
+        "fraction_endpoint_spread_delta_gt_0p25": 0.020904436860068258,
+        "gross_validity_failures": 0,
+        "lowdiv_collapse_count": 0,
+        "lowdiv_collapse_fraction": 0.0,
+        "median_best_candidate_gap_delta": 0.00042665532501118264,
+        "median_endpoint_spread_delta": -0.07613694525583381,
+        "median_executed_endpoint_displacement": 0.04556348448688439,
+        "p95_executed_endpoint_displacement": 0.15326793776489023,
+        "rows": 2344
+      },
+      "calibration_eligible": false,
+      "calibration_failures": [
+        "eligible_median_endpoint_spread_delta=-0.031567 <= 0.25",
+        "eligible_fraction_endpoint_spread_delta_gt_0p25=0.009259 < 0.50",
+        "eligible_median_best_candidate_gap_delta=-0.000930 < 0.0"
+      ],
+      "eligible_lowdiv": {
+        "danger_cross_count": 0,
+        "danger_cross_fraction": 0.0,
+        "fraction_best_candidate_gap_delta_lt_neg_0p25": 0.0,
+        "fraction_endpoint_spread_delta_ge_0p25": 0.009259259259259259,
+        "fraction_endpoint_spread_delta_gt_0p25": 0.009259259259259259,
+        "gross_validity_failures": 0,
+        "lowdiv_collapse_count": 0,
+        "lowdiv_collapse_fraction": 0.0,
+        "median_best_candidate_gap_delta": -0.0009303108601925736,
+        "median_endpoint_spread_delta": -0.031566662487447716,
+        "median_executed_endpoint_displacement": 0.026762239583449907,
+        "p95_executed_endpoint_displacement": 0.11826050724206222,
+        "rows": 108
+      },
+      "error_rows": 0,
+      "rows": 2452
+    },
+    {
+      "alpha": 1.0,
+      "benign_control": {
+        "danger_cross_count": 0,
+        "danger_cross_fraction": 0.0,
+        "fraction_best_candidate_gap_delta_lt_neg_0p25": 0.0,
+        "fraction_endpoint_spread_delta_ge_0p25": 0.029863481228668942,
+        "fraction_endpoint_spread_delta_gt_0p25": 0.029863481228668942,
+        "gross_validity_failures": 0,
+        "lowdiv_collapse_count": 0,
+        "lowdiv_collapse_fraction": 0.0,
+        "median_best_candidate_gap_delta": 0.0005931605082167835,
+        "median_endpoint_spread_delta": -0.10255836563821874,
+        "median_executed_endpoint_displacement": 0.06103747099005095,
+        "p95_executed_endpoint_displacement": 0.2033394636610017,
+        "rows": 2344
+      },
+      "calibration_eligible": false,
+      "calibration_failures": [
+        "eligible_median_endpoint_spread_delta=-0.041940 <= 0.25",
+        "eligible_fraction_endpoint_spread_delta_gt_0p25=0.074074 < 0.50",
+        "eligible_median_best_candidate_gap_delta=-0.001315 < 0.0"
+      ],
+      "eligible_lowdiv": {
+        "danger_cross_count": 0,
+        "danger_cross_fraction": 0.0,
+        "fraction_best_candidate_gap_delta_lt_neg_0p25": 0.0,
+        "fraction_endpoint_spread_delta_ge_0p25": 0.07407407407407407,
+        "fraction_endpoint_spread_delta_gt_0p25": 0.07407407407407407,
+        "gross_validity_failures": 0,
+        "lowdiv_collapse_count": 0,
+        "lowdiv_collapse_fraction": 0.0,
+        "median_best_candidate_gap_delta": -0.0013153694726000253,
+        "median_endpoint_spread_delta": -0.04193987066629662,
+        "median_executed_endpoint_displacement": 0.03486775664128159,
+        "p95_executed_endpoint_displacement": 0.15838106155098144,
+        "rows": 108
+      },
+      "error_rows": 0,
+      "rows": 2452
+    }
+  ],
+  "claim_boundary": "Calibration selects at most one global alpha using target rows only. It is not a heldout result, selector score, closed-loop result, deployment result, or safety claim.",
+  "command_line": "experiments/iter37_track_query_site_intervention/analyze_intervention.py --stage calibration --log experiments/iter37_track_query_site_intervention/proof-calibration/sentinel_e37_calibration_alpha0p00.jsonl.gz --log experiments/iter37_track_query_site_intervention/proof-calibration/sentinel_e37_calibration_alpha0p25.jsonl.gz --log experiments/iter37_track_query_site_intervention/proof-calibration/sentinel_e37_calibration_alpha0p50.jsonl.gz --log experiments/iter37_track_query_site_intervention/proof-calibration/sentinel_e37_calibration_alpha0p75.jsonl.gz --log experiments/iter37_track_query_site_intervention/proof-calibration/sentinel_e37_calibration_alpha1p00.jsonl.gz --out experiments/iter37_track_query_site_intervention/proof-calibration/calibration_report.json",
+  "metric_scope": "target_row_only",
+  "prefix_replay_integrity_failures": [],
+  "prefix_replay_integrity_pass": true,
+  "row_counts_by_alpha_label": {
+    "0.0:benign_control": 2344,
+    "0.0:eligible_lowdiv": 108,
+    "0.25:benign_control": 2344,
+    "0.25:eligible_lowdiv": 108,
+    "0.5:benign_control": 2344,
+    "0.5:eligible_lowdiv": 108,
+    "0.75:benign_control": 2344,
+    "0.75:eligible_lowdiv": 108,
+    "1.0:benign_control": 2344,
+    "1.0:eligible_lowdiv": 108
+  },
+  "run_summaries": [
+    {
+      "context_contamination_failure_count": 0,
+      "context_contamination_failures": [],
+      "context_contamination_pass": true,
+      "context_only_rows": 1841,
+      "error_rows": 0,
+      "non_reset_rows": 4293,
+      "path": "experiments/iter37_track_query_site_intervention/proof-calibration/sentinel_e37_calibration_alpha0p00.jsonl.gz",
+      "row_count_failures": [],
+      "row_count_pass": true,
+      "target_rows": 2452
+    },
+    {
+      "context_contamination_failure_count": 0,
+      "context_contamination_failures": [],
+      "context_contamination_pass": true,
+      "context_only_rows": 1841,
+      "error_rows": 0,
+      "non_reset_rows": 4293,
+      "path": "experiments/iter37_track_query_site_intervention/proof-calibration/sentinel_e37_calibration_alpha0p25.jsonl.gz",
+      "row_count_failures": [],
+      "row_count_pass": true,
+      "target_rows": 2452
+    },
+    {
+      "context_contamination_failure_count": 0,
+      "context_contamination_failures": [],
+      "context_contamination_pass": true,
+      "context_only_rows": 1841,
+      "error_rows": 0,
+      "non_reset_rows": 4293,
+      "path": "experiments/iter37_track_query_site_intervention/proof-calibration/sentinel_e37_calibration_alpha0p50.jsonl.gz",
+      "row_count_failures": [],
+      "row_count_pass": true,
+      "target_rows": 2452
+    },
+    {
+      "context_contamination_failure_count": 0,
+      "context_contamination_failures": [],
+      "context_contamination_pass": true,
+      "context_only_rows": 1841,
+      "error_rows": 0,
+      "non_reset_rows": 4293,
+      "path": "experiments/iter37_track_query_site_intervention/proof-calibration/sentinel_e37_calibration_alpha0p75.jsonl.gz",
+      "row_count_failures": [],
+      "row_count_pass": true,
+      "target_rows": 2452
+    },
+    {
+      "context_contamination_failure_count": 0,
+      "context_contamination_failures": [],
+      "context_contamination_pass": true,
+      "context_only_rows": 1841,
+      "error_rows": 0,
+      "non_reset_rows": 4293,
+      "path": "experiments/iter37_track_query_site_intervention/proof-calibration/sentinel_e37_calibration_alpha1p00.jsonl.gz",
+      "row_count_failures": [],
+      "row_count_pass": true,
+      "target_rows": 2452
+    }
+  ],
+  "selected": false,
+  "selected_alpha": null,
+  "stage": "iter37_calibration_grid",
+  "verdict": "CALIBRATION_NULL_NO_USABLE_ALPHA"
+}

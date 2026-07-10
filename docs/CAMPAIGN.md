@@ -326,3 +326,43 @@ over-claim.** That arc, in order:
     bridge intervention pre-registration, not calibration, heldout replay, iteration-12 scoring,
     selector evaluation, closed-loop work, or safety claims.
     [`../experiments/iter32_prefix_replay_baseline_recovery/RESULT.md`](../experiments/iter32_prefix_replay_baseline_recovery/RESULT.md).
+
+35. **Iter 33 — prefix-preserving bridge intervention: calibration refuses the global direction.**
+    The repaired replay form passed S0, and all five calibration alphas completed exact
+    `4293/2452/1841` row counts with zero error rows. But no nonzero alpha passed the frozen S1
+    selection bars: alpha `1.00`, the strongest cell, moved eligible-lowdiv endpoint spread by
+    only **0.0308 m** on the median, with **0.1296** of rows above `0.25 m`. Heldout replay,
+    iteration-12 scoring, selector evaluation, closed-loop work, and safety claims were not run.
+    [`../experiments/iter33_prefix_preserving_bridge_intervention/RESULT.md`](../experiments/iter33_prefix_preserving_bridge_intervention/RESULT.md).
+
+36. **Iter 34 — direction-specificity audit: scale alone is not a successor.** The post-result
+    audit over committed iter33 calibration artifacts passed S0 integrity, then failed the
+    dose-response bar: only **74/108** eligible rows had nonnegative endpoint-spread slope
+    (`0.685185` vs the frozen `0.70` bar). The same global bridge-centroid direction is closed
+    for scale-only follow-up from these artifacts.
+    [`../experiments/iter34_direction_specificity_audit/RESULT.md`](../experiments/iter34_direction_specificity_audit/RESULT.md).
+
+37. **Iter 35 — response heterogeneity exists, but not in an actionable frozen stratum.** S1
+    showed real row-level heterogeneity (`42/108` eligible rows with slope `>=0.05 m/alpha`,
+    `34/108` with slope `<0`, IQR **0.126519 m/alpha**), but S2 found no frozen
+    baseline-geometry stratum with enough target response and benign support. Row-conditioned
+    successor work from the same global direction is not authorized.
+    [`../experiments/iter35_response_heterogeneity_audit/RESULT.md`](../experiments/iter35_response_heterogeneity_audit/RESULT.md).
+
+38. **Iter 36 — bridge-site decomposition: `track_query` is the strongest site, diagnostically.**
+    The offline subsite audit reproduced the full-bridge signal and passed S2 for
+    `traj_slot_0`, `traj_slot_2`, `traj_slot_3`, `traj_slot_4`, and `track_query`. The strongest
+    frozen site was `track_query` (AUROC **0.970531**, AP **0.726416**, bootstrap AUROC p05
+    **0.950589**). This authorized only a fresh site-specific intervention pre-registration, not
+    a causal or safety claim.
+    [`../experiments/iter36_bridge_site_decomposition/RESULT.md`](../experiments/iter36_bridge_site_decomposition/RESULT.md).
+
+39. **Iter 37 — track-query site intervention: S0 passes, calibration still selects no alpha.**
+    The site-specific harness passed S0: alpha-zero parity was restored, alpha `0.50` changed
+    `track_query` SHA on `24/24` nonzero target observations, and `sdc_traj_query_last` stayed
+    unchanged on `24/24`. The full calibration grid then passed row integrity and context checks
+    for all alphas, but no nonzero alpha passed the positive-movement bars. Alpha `1.00` had
+    eligible median endpoint-spread delta **-0.041940 m**, fraction `>0.25 m` **0.074074**, and
+    median best-candidate-gap delta **-0.001315**. Heldout, iteration-12, selector, closed-loop,
+    deployment, and safety claims remain unauthorized.
+    [`../experiments/iter37_track_query_site_intervention/RESULT.md`](../experiments/iter37_track_query_site_intervention/RESULT.md).

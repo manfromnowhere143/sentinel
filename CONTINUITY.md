@@ -601,4 +601,11 @@ events to prepare; they are a property the repository always has.
   probing `/var/log/sentinel-e37-calibration.log`; after `E37_CALIBRATION_DONE` and empty Docker,
   collect all five alpha logs, analyze calibration, and keep heldout/iteration-12/selector/
   closed-loop/deployment/safety claims unauthorized unless the registered bars advance.
+- 2026-07-10: Codex — collected and analyzed the completed iteration 37 calibration grid.
+  All five alphas completed exact `4293/2452/1841` row counts with zero context-contamination
+  failures, zero error rows, and zero gross-validity failures, but no nonzero alpha was selectable.
+  Alpha `1.00` had eligible median endpoint-spread delta `-0.041940 m`, fraction `>0.25 m`
+  `0.074074`, and median best-candidate-gap delta `-0.001315`. Published as
+  `CALIBRATION_NULL_NO_USABLE_ALPHA`; heldout replay, iteration-12 scoring, selector evaluation,
+  closed-loop work, deployment language, and safety claims remain unauthorized.
 - (append one line per shift: dates, operator, what changed, box state at exit)
