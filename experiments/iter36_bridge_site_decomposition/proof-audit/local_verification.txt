@@ -1,0 +1,10 @@
+$ ruff check .
+All checks passed!
+
+$ pytest -q
+........................................................................ [ 91%]
+.......                                                                  [100%]
+79 passed in 1.42s
+
+$ python3 scripts/validate_docs.py
+docs guard: 93 markdown files clean; all RESULT experiments surfaced in README

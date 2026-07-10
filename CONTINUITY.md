@@ -540,4 +540,12 @@ events to prepare; they are a property the repository always has.
   slices (`traj_slot_0` through `traj_slot_5`, `track_query`) and scene-robustness bars. No
   analyzer, proof report, GPU/gcloud replay, heldout replay, iteration-12 scoring, selector
   evaluation, closed-loop work, intervention direction, or safety claim launched yet.
+- 2026-07-10: Codex — ran and published the iteration 36 offline bridge-site decomposition audit.
+  S0 passed, S1 reproduced the full-bridge diagnostic signal, and S2 passed for `traj_slot_0`,
+  `traj_slot_2`, `traj_slot_3`, `traj_slot_4`, and `track_query`; `track_query` was strongest
+  (AUROC `0.970531`, AP `0.726416`, bootstrap AUROC p05 `0.950589`). Published as
+  `BRIDGE_SITE_PASS_SITE_SPECIFIC_PREREG_AUTHORIZED`; only a separate future site-specific
+  intervention pre-registration is authorized. No GPU/gcloud replay, heldout intervention replay,
+  iteration-12 scoring, selector evaluation, closed-loop work, direction, alpha, deployment
+  language, or safety claim launched.
 - (append one line per shift: dates, operator, what changed, box state at exit)

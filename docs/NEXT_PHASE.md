@@ -299,9 +299,12 @@ measurement task. It waits only for the power run's final numbers so results are
     stratum passed all actionability bars. It authorizes no GPU/gcloud work, heldout replay,
     iteration-12 scoring, selector evaluation, closed-loop work, deployment language, safety
     claim, same-direction scale-only successor, or row-conditioned successor from these artifacts.
-19. Iteration 36 is pre-registered as an offline bridge-site decomposition audit over committed
-    iteration-29/30/35 artifacts only. It may evaluate only `all_bridge` as a reproduction
-    reference plus the frozen `traj_slot_0` through `traj_slot_5` and `track_query` sites named in
-    [`../experiments/iter36_bridge_site_decomposition/HYPOTHESIS.md`](../experiments/iter36_bridge_site_decomposition/HYPOTHESIS.md).
-    It authorizes no GPU/gcloud work, heldout replay, iteration-12 scoring, selector evaluation,
-    closed-loop work, deployment language, safety claim, or intervention direction.
+19. Iteration 36 is closed as an offline bridge-site decomposition diagnostic pass. S0 artifact
+    and count integrity passed; S1 reproduced the full-bridge diagnostic signal (`all_bridge`
+    AUROC `0.950224`, AP `0.614943`, balanced accuracy `0.867444`); S2 passed for five frozen
+    non-global sites: `traj_slot_0`, `traj_slot_2`, `traj_slot_3`, `traj_slot_4`, and
+    `track_query`. The strongest site was `track_query` (AUROC `0.970531`, AP `0.726416`,
+    bootstrap AUROC p05 `0.950589`). This authorizes only a separate site-specific intervention
+    pre-registration. It authorizes no GPU/gcloud work, heldout intervention replay,
+    iteration-12 scoring, selector evaluation, closed-loop work, deployment language, safety
+    claim, direction, or alpha.

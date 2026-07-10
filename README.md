@@ -246,6 +246,7 @@ step; they are intentional stops, not hidden probe failures or unreported GPU ru
 | 33 | **prefix-preserving bridge intervention calibration** — repaired replay form plus committed bridge-centroid direction | — (stopped before heldout) | S0 canary PASS; full calibration grid PASS on row integrity for all alphas (`4293/2452/1841` each); alpha selection NULL: best alpha `1.00` had eligible median spread delta **0.0308 m** vs `>0.25 m` bar and fraction `>0.25 m` **0.1296** vs `>=0.50` bar | **pre-registered calibration null — no usable alpha; heldout/iter12/selector/closed loop not authorized** | Prefix-preserving replay is stable and nonzero alphas perturb the bridge without gross corruption, but the committed centroid direction does not move eligible-lowdiv candidate geometry enough to pass calibration. Iter33 stops before heldout. [`iter33_prefix_preserving_bridge_intervention`](experiments/iter33_prefix_preserving_bridge_intervention/RESULT.md) |
 | 34 | **direction-specificity audit** — post-result audit of the failed global bridge-centroid direction | — (offline audit only) | S0 artifact/row integrity PASS; S1 dose-response NULL: only **74/108** eligible rows had nonnegative endpoint-spread slope (`0.685185` vs `0.70` bar), median slope **0.0307 m/alpha** | **post-result audit null — no same-direction scale-only successor authorized** | The same global bridge-centroid direction is closed for scale-only follow-up from these artifacts; a successor must change the intervention family, target site, row conditioning, or claim. [`iter34_direction_specificity_audit`](experiments/iter34_direction_specificity_audit/RESULT.md) |
 | 35 | **response-heterogeneity audit** — post-result audit of the failed direction's row-level structure | — (offline audit only) | S0 PASS; S1 heterogeneity PASS (`42/108` rows slope `>=0.05`, `34/108` slope `<0`, IQR **0.1265 m/alpha**); S2 NULL: **0** frozen strata passed actionability bars | **post-result audit null — no row-conditioned successor authorized from these artifacts** | The response is heterogeneous, but not in a simple baseline-geometry stratum with enough target response and benign support. Future work must change intervention family or target site, not merely scale or row-condition the current global direction. [`iter35_response_heterogeneity_audit`](experiments/iter35_response_heterogeneity_audit/RESULT.md) |
+| 36 | **bridge-site decomposition audit** — frozen subsite probes over `sdc_traj_query_last` slots and `sdc_track_query` | — (offline audit only) | S0 PASS; S1 full-bridge reproduction PASS; S2 target-site PASS: `traj_slot_0`, `traj_slot_2`, `traj_slot_3`, `traj_slot_4`, and **`track_query`** passed diagnostic + scene-bootstrap bars | **site-specific preregistration authorized — diagnostic only, no intervention/safety claim** | The next intervention should not patch the whole bridge vector. The strongest diagnostic target is `track_query` (AUROC **0.9705**, AP **0.7264**, bootstrap AUROC p05 **0.9506**), but any patch still needs a fresh pre-registration and S0 canary. [`iter36_bridge_site_decomposition`](experiments/iter36_bridge_site_decomposition/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -355,10 +356,11 @@ same frozen target rows; iteration 33 repaired the nonzero-intervention S0 canar
 as a calibration null because no nonzero alpha passed the frozen S1 selection bars; iteration 34
 then closed the same global bridge-centroid direction for scale-only successor work with a
 post-result dose-response audit null; iteration 35 then showed real row-level heterogeneity but
-no actionable frozen baseline-geometry stratum. Iteration 36 is now pre-registered as an offline
-bridge-site decomposition audit that may only test the six `sdc_traj_query_last` slots and
-`sdc_track_query` as smaller diagnostic target sites. No heldout, iteration-12, selector,
-closed-loop work, or safety claim is authorized from iter33, iter34, iter35, or iter36:
+no actionable frozen baseline-geometry stratum. Iteration 36 then passed a diagnostic bridge-site
+decomposition audit: `track_query` and four trajectory-query slots carry enough scene-robust
+signal to justify a separate site-specific intervention pre-registration. No heldout intervention
+replay, iteration-12, selector, closed-loop work, or safety claim is authorized from iter33,
+iter34, iter35, or iter36:
 
 - **The manuscript — full draft and compiled PDF committed**
   ([`docs/paper/`](docs/paper/MANUSCRIPT.md)); the arXiv submission package is built and the
@@ -580,7 +582,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter33_prefix_preserving_bridge_intervention/`](experiments/iter33_prefix_preserving_bridge_intervention) | prefix-preserving bridge intervention — calibration null; no usable alpha, stopped before heldout, iter12, selector, and closed loop |
 | [`experiments/iter34_direction_specificity_audit/`](experiments/iter34_direction_specificity_audit) | direction-specificity audit — post-result null; same global bridge-centroid direction lacks row-level dose-response consistency for scale-only successor work |
 | [`experiments/iter35_response_heterogeneity_audit/`](experiments/iter35_response_heterogeneity_audit) | response-heterogeneity audit — post-result null; heterogeneity exists but no frozen baseline-geometry stratum authorizes conditioned successor work |
-| [`experiments/iter36_bridge_site_decomposition/`](experiments/iter36_bridge_site_decomposition) | bridge-site decomposition audit — pre-registered offline target-site audit; no analyzer/report/GPU run yet |
+| [`experiments/iter36_bridge_site_decomposition/`](experiments/iter36_bridge_site_decomposition) | bridge-site decomposition audit — diagnostic pass; `track_query` and four trajectory slots authorize only a future site-specific pre-registration |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/ITER22_HYPOTHESIS_DRAFT.md`](docs/research/ITER22_HYPOTHESIS_DRAFT.md) · [`docs/research/ITER22_ADVERSARIAL_REVIEW.md`](docs/research/ITER22_ADVERSARIAL_REVIEW.md) | planning-only iter22 draft and adversarial review; not pre-registrations |

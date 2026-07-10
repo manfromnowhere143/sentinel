@@ -1,0 +1,7 @@
+$ mkdir -p experiments/iter36_bridge_site_decomposition/proof-audit && set -o pipefail; python3 experiments/iter36_bridge_site_decomposition/analyze_bridge_sites.py 2>&1 | tee experiments/iter36_bridge_site_decomposition/proof-audit/analyze_bridge_sites.command.txt
+iter36 bridge site decomposition: BRIDGE_SITE_PASS_SITE_SPECIFIC_PREREG_AUTHORIZED
+s0_pass=true
+s1_pass=true
+s2_pass=true
+passing_sites=traj_slot_0,traj_slot_2,traj_slot_3,traj_slot_4,track_query
+out=/Users/danielwahnich/workspace/sentinel/experiments/iter36_bridge_site_decomposition/proof-audit/bridge_site_decomposition_report.json
