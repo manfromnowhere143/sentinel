@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Fri Jul 10 02:03:18 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Fri Jul 10 02:45:32 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+4f9e2b1 analysis: publish iter36 bridge-site pass
+c52a184 tools: add iter36 bridge-site analyzer
+68cac25 research: preregister iter36 bridge-site audit
+cb3521e handoff: refresh after iter35 result
 af88cdb analysis: publish iter35 heterogeneity null
 908271e fix: write strict iter35 audit json
 9d904bc tools: add iter35 heterogeneity audit analyzer
 e474ff9 research: preregister iter35 heterogeneity audit
-8ccfafd handoff: refresh after iter34 result
-c042bdb analysis: publish iter34 direction audit null
-d1f23e2 handoff: refresh after iter34 analyzer fix
-c7b8e67 fix: align iter34 hash receipt validation
 ```
 Working tree: CLEAN
 
@@ -47,6 +47,7 @@ Working tree: CLEAN
 - experiments/iter33_prefix_preserving_bridge_intervention: RESULT PUBLISHED
 - experiments/iter34_direction_specificity_audit: RESULT PUBLISHED
 - experiments/iter35_response_heterogeneity_audit: RESULT PUBLISHED
+- experiments/iter36_bridge_site_decomposition: RESULT PUBLISHED
 - experiments/iter3_progress: RESULT PUBLISHED
 - experiments/iter4_gated: RESULT PUBLISHED
 - experiments/iter5_tracked: RESULT PUBLISHED
@@ -66,7 +67,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter35_response_heterogeneity_audit/RESULT.md — read it before opening new work.
+- Newest completed experiment: experiments/iter36_bridge_site_decomposition/RESULT.md — read it before opening new work.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
