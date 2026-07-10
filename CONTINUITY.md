@@ -521,4 +521,10 @@ events to prepare; they are a property the repository always has.
   Published as `DIRECTION_AUDIT_NULL_NO_DOSE_RESPONSE`; S2 was not evaluated, and heldout replay,
   iteration-12 scoring, selector evaluation, closed-loop work, and safety claims remain
   unauthorized.
+- 2026-07-10: Codex — pre-registered iteration 35 under
+  experiments/iter35_response_heterogeneity_audit/HYPOTHESIS.md. Scope is an offline
+  response-heterogeneity audit over committed iteration-33/34 artifacts only, with frozen
+  baseline-geometry strata and support/benign-harm bars. No analyzer, proof report, GPU/gcloud
+  replay, heldout replay, iteration-12 scoring, selector evaluation, closed-loop work, or safety
+  claim launched yet.
 - (append one line per shift: dates, operator, what changed, box state at exit)

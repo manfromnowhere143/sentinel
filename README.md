@@ -353,8 +353,10 @@ the narrow prefix-replay baseline-recovery audit by restoring exact iteration-29
 same frozen target rows; iteration 33 repaired the nonzero-intervention S0 canary but then stopped
 as a calibration null because no nonzero alpha passed the frozen S1 selection bars; iteration 34
 then closed the same global bridge-centroid direction for scale-only successor work with a
-post-result dose-response audit null. No heldout, iteration-12, selector, closed-loop work, or
-safety claim is authorized from iter33 or iter34:
+post-result dose-response audit null. Iteration 35 is now pre-registered as an offline
+response-heterogeneity audit over the same committed artifacts; it may only ask whether the failed
+response localizes to a simple frozen baseline-geometry stratum. No heldout, iteration-12,
+selector, closed-loop work, or safety claim is authorized from iter33, iter34, or iter35:
 
 - **The manuscript — full draft and compiled PDF committed**
   ([`docs/paper/`](docs/paper/MANUSCRIPT.md)); the arXiv submission package is built and the
@@ -575,6 +577,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter32_prefix_replay_baseline_recovery/`](experiments/iter32_prefix_replay_baseline_recovery) | prefix-replay baseline recovery — pass; 12 frozen canary targets reproduce iter29 exactly under 44-row prefix replay; fresh intervention pre-registration required |
 | [`experiments/iter33_prefix_preserving_bridge_intervention/`](experiments/iter33_prefix_preserving_bridge_intervention) | prefix-preserving bridge intervention — calibration null; no usable alpha, stopped before heldout, iter12, selector, and closed loop |
 | [`experiments/iter34_direction_specificity_audit/`](experiments/iter34_direction_specificity_audit) | direction-specificity audit — post-result null; same global bridge-centroid direction lacks row-level dose-response consistency for scale-only successor work |
+| [`experiments/iter35_response_heterogeneity_audit/`](experiments/iter35_response_heterogeneity_audit) | response-heterogeneity audit — pre-registered offline audit; no analyzer/report/GPU run yet |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/ITER22_HYPOTHESIS_DRAFT.md`](docs/research/ITER22_HYPOTHESIS_DRAFT.md) · [`docs/research/ITER22_ADVERSARIAL_REVIEW.md`](docs/research/ITER22_ADVERSARIAL_REVIEW.md) | planning-only iter22 draft and adversarial review; not pre-registrations |

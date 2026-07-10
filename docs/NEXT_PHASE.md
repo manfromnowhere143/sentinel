@@ -293,3 +293,9 @@ measurement task. It waits only for the power run's final numbers so results are
     same global bridge-centroid direction is not authorized for scale-only successor work from
     these artifacts. Any successor needs a fresh pre-registration that changes the intervention
     family, target site, row conditioning, or claim.
+18. Iteration 35 is pre-registered as an offline response-heterogeneity audit over committed
+    iteration-33 and iteration-34 artifacts only. It may test only the frozen baseline-geometry
+    strata named in
+    [`../experiments/iter35_response_heterogeneity_audit/HYPOTHESIS.md`](../experiments/iter35_response_heterogeneity_audit/HYPOTHESIS.md).
+    It authorizes no GPU/gcloud work, heldout replay, iteration-12 scoring, selector evaluation,
+    closed-loop work, deployment language, safety claim, or same-direction scale-only successor.
