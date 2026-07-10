@@ -319,8 +319,9 @@ measurement task. It waits only for the power run's final numbers so results are
     work, deployment language, or safety claim.
 21. Iteration 38 is pre-registered as a post-iteration-37 opposite-direction `track_query` gate.
     It may test only the exact sign reversal of the iter37 fit-only `sdc_track_query` centroid
-    direction, with the same prefix counts and S0/S1/S2/S3 bars. No iteration-38 tooling,
-    direction artifact, GPU/gcloud command, model replay, calibration result, heldout replay,
-    iteration-12 scoring, selector evaluation, closed-loop work, deployment language, or safety
-    claim exists yet. The next authorized action is tooling/tests for the committed
+    direction, with the same prefix counts and S0/S1/S2/S3 bars. Its offline direction builder,
+    UniAD patch, feeder, run scripts, analyzer, and tests are committed. No direction artifact,
+    GPU/gcloud command, model replay, calibration result, heldout replay, iteration-12 scoring,
+    selector evaluation, closed-loop work, deployment language, or safety claim exists yet. The
+    next authorized action is the offline direction build for the committed
     [`HYPOTHESIS.md`](../experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md).

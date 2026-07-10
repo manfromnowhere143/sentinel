@@ -367,11 +367,11 @@ over-claim.** That arc, in order:
     deployment, and safety claims remain unauthorized.
     [`../experiments/iter37_track_query_site_intervention/RESULT.md`](../experiments/iter37_track_query_site_intervention/RESULT.md).
 
-40. **Iter 38 — track-query opposite-direction gate: pre-registered, not run.** The post-iter37
+40. **Iter 38 — track-query opposite-direction gate: tooling added, not run.** The post-iter37
     successor freezes the exact sign reversal of the iter37 fit-only `sdc_track_query` centroid
     direction: `mu_pos - mu_benign`, required to be the negative of the committed iter37 raw
-    direction. This is not an iter37 rescue and not a safety result. It authorizes only
-    tooling/tests for the committed pre-registration, then a direction artifact and S0 canary if
-    those tools pass; calibration, heldout, iteration-12, selector, closed-loop, deployment, and
-    safety claims remain gated.
+    direction. The offline direction builder, UniAD patch, feeder, run scripts, analyzer, and
+    tests are committed. This is not an iter37 rescue and not a safety result. It authorizes only
+    an offline direction artifact next, then S0 canary if that artifact passes; calibration,
+    heldout, iteration-12, selector, closed-loop, deployment, and safety claims remain gated.
     [`../experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md`](../experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md).

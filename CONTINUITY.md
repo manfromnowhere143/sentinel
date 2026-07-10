@@ -615,4 +615,10 @@ events to prepare; they are a property the repository always has.
   artifact, GPU/gcloud command, model replay, calibration result, heldout replay, iteration-12
   scoring, selector evaluation, closed-loop work, deployment language, or safety claim exists yet.
   Next authorized work is tooling/tests for the committed pre-registration.
+- 2026-07-10: Codex — added iteration 38 tooling/tests for the committed opposite-direction
+  pre-registration: offline direction builder with iteration-37 sign-equivalence check, UniAD
+  server patch, prefix-preserving feeder, canary/calibration/heldout run scripts, analyzer, and
+  unit tests. No iteration 38 direction artifact, GPU/gcloud command, model replay, calibration
+  result, heldout replay, iteration-12 scoring, selector evaluation, closed-loop work, deployment
+  language, or safety claim exists yet. Next authorized work is the offline direction build.
 - (append one line per shift: dates, operator, what changed, box state at exit)
