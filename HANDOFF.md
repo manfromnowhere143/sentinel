@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Fri Jul 10 13:00:10 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Fri Jul 10 19:31:39 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+23b0948 research: publish iter37 calibration null
+4a2a729 handoff: refresh before laptop sleep
 001d8ed handoff: note iter37 alpha075 progress
 570f022 handoff: refresh iter37 calibration state
 cf92a59 docs: align iter37 calibration state
 6c14aec handoff: record iter37 calibration in flight
 eecb746 handoff: refresh after iter37 canary
 1e6a5f8 research: add iter37 canary proof
-e958ae3 handoff: refresh after iter37 replay tooling
-652f3f2 tools: add iter37 track-query replay tooling
 ```
 Working tree: CLEAN
 
@@ -48,7 +48,7 @@ Working tree: CLEAN
 - experiments/iter34_direction_specificity_audit: RESULT PUBLISHED
 - experiments/iter35_response_heterogeneity_audit: RESULT PUBLISHED
 - experiments/iter36_bridge_site_decomposition: RESULT PUBLISHED
-- experiments/iter37_track_query_site_intervention: PRE-REGISTERED, result pending
+- experiments/iter37_track_query_site_intervention: RESULT PUBLISHED
 - experiments/iter3_progress: RESULT PUBLISHED
 - experiments/iter4_gated: RESULT PUBLISHED
 - experiments/iter5_tracked: RESULT PUBLISHED
@@ -63,20 +63,19 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 13:01:19 up 6 days,  2:42,  0 users,  load average: 1.40, 1.56, 1.60
-GPU_RUN_STATE=IN_FLIGHT_CONTAINERS
-model	Up About an hour
-/var/log/sentinel-e37-calibration.log
+ 19:32:47 up 6 days,  9:13,  0 users,  load average: 0.00, 0.01, 0.00
+GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
+/var/log/sentinel-e37-calibration.log
 /var/log/sentinel-e37-canary.log
-/dev/root       310G  298G   13G  97% /
+/dev/root       310G  301G  9.9G  97% /
 Swap:          8.0Gi        58Mi       7.9Gi
 ```
 If any docker container named renderer/model/ncap (or a random-name ncap) is up, a run
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest pre-registration: experiments/iter37_track_query_site_intervention/HYPOTHESIS.md — read it in full; its gate governs the next action.
+- Newest completed experiment: experiments/iter37_track_query_site_intervention/RESULT.md — read it before opening new work.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
