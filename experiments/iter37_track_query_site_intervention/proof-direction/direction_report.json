@@ -1,0 +1,243 @@
+{
+  "build_report": {
+    "errors": {},
+    "label_counts": {
+      "ambiguous": {
+        "calibration": 2923,
+        "fit": 5515,
+        "heldout": 2957
+      },
+      "benign_control": {
+        "calibration": 2344,
+        "fit": 5084,
+        "heldout": 2245
+      },
+      "eligible_lowdiv": {
+        "calibration": 108,
+        "fit": 127,
+        "heldout": 158
+      }
+    },
+    "positive_scenes": {
+      "calibration": {
+        "scene-0258": 5,
+        "scene-0261": 3,
+        "scene-0396": 5,
+        "scene-0398": 11,
+        "scene-0419": 1,
+        "scene-0471": 9,
+        "scene-0475": 8,
+        "scene-0478": 3,
+        "scene-0525": 2,
+        "scene-0526": 2,
+        "scene-0544": 3,
+        "scene-0570": 1,
+        "scene-0572": 2,
+        "scene-0573": 2,
+        "scene-0591": 4,
+        "scene-0639": 1,
+        "scene-0675": 5,
+        "scene-0676": 1,
+        "scene-0688": 3,
+        "scene-0689": 1,
+        "scene-0705": 9,
+        "scene-0709": 3,
+        "scene-0872": 2,
+        "scene-0901": 20,
+        "scene-1053": 2
+      },
+      "fit": {
+        "scene-0248": 19,
+        "scene-0259": 7,
+        "scene-0286": 1,
+        "scene-0290": 5,
+        "scene-0292": 2,
+        "scene-0305": 3,
+        "scene-0321": 2,
+        "scene-0350": 1,
+        "scene-0358": 3,
+        "scene-0364": 1,
+        "scene-0373": 2,
+        "scene-0388": 1,
+        "scene-0392": 1,
+        "scene-0401": 3,
+        "scene-0418": 1,
+        "scene-0423": 1,
+        "scene-0449": 1,
+        "scene-0465": 2,
+        "scene-0467": 1,
+        "scene-0474": 1,
+        "scene-0527": 2,
+        "scene-0533": 3,
+        "scene-0534": 1,
+        "scene-0536": 1,
+        "scene-0537": 2,
+        "scene-0566": 2,
+        "scene-0575": 2,
+        "scene-0590": 1,
+        "scene-0599": 1,
+        "scene-0668": 1,
+        "scene-0673": 1,
+        "scene-0674": 4,
+        "scene-0683": 5,
+        "scene-0685": 7,
+        "scene-0701": 1,
+        "scene-0703": 2,
+        "scene-0716": 2,
+        "scene-0730": 3,
+        "scene-0741": 1,
+        "scene-0744": 1,
+        "scene-0761": 2,
+        "scene-0792": 2,
+        "scene-0810": 3,
+        "scene-0849": 1,
+        "scene-0868": 2,
+        "scene-0869": 3,
+        "scene-0894": 5,
+        "scene-0899": 3,
+        "scene-0980": 3,
+        "scene-1093": 1,
+        "scene-1105": 1
+      },
+      "heldout": {
+        "scene-0249": 3,
+        "scene-0251": 4,
+        "scene-0253": 3,
+        "scene-0260": 1,
+        "scene-0284": 3,
+        "scene-0288": 9,
+        "scene-0289": 2,
+        "scene-0356": 18,
+        "scene-0357": 9,
+        "scene-0395": 2,
+        "scene-0397": 7,
+        "scene-0458": 1,
+        "scene-0469": 2,
+        "scene-0538": 1,
+        "scene-0568": 1,
+        "scene-0592": 2,
+        "scene-0596": 1,
+        "scene-0651": 1,
+        "scene-0652": 15,
+        "scene-0667": 1,
+        "scene-0678": 7,
+        "scene-0717": 10,
+        "scene-0733": 1,
+        "scene-0740": 9,
+        "scene-0751": 4,
+        "scene-0752": 3,
+        "scene-0767": 2,
+        "scene-0806": 12,
+        "scene-0877": 6,
+        "scene-0888": 2,
+        "scene-0893": 2,
+        "scene-0902": 12,
+        "scene-1047": 1,
+        "scene-1056": 1
+      }
+    },
+    "row_counts": {
+      "extract_nonreset_rows_total": 21461,
+      "extract_rows_total": 21993,
+      "joined_rows": 21461
+    }
+  },
+  "claim_boundary": "This artifact prepares the frozen iter37 track-query direction and prerequisite receipts only. It does not run a model, select an alpha, touch iteration-12 frames, score a selector, run closed loop, or make a safety claim.",
+  "command_line": "experiments/iter37_track_query_site_intervention/build_track_direction.py",
+  "direction": {
+    "direction_and_fit_stats_sha256": "d46179b6f6152e9ede19c2ddf05eb4ce53cb72a229705fea88c337feb5905cd5",
+    "direction_raw_l2": 1.727396968339733,
+    "direction_std_l2": 5.69884615443658,
+    "dropped_dimension_count": 0,
+    "feature_count": 256,
+    "fit_benign_control_rows": 5084,
+    "fit_eligible_lowdiv_rows": 127,
+    "fit_rows": 5211,
+    "kept_dimension_count": 256
+  },
+  "direction_file_sha256": "56c70104230f2eacd328c884197c93bd120076fbed775e21c8dc219f6392230f",
+  "direction_path": "experiments/iter37_track_query_site_intervention/proof-direction/track_query_direction.json",
+  "direction_raw_max": 0.33094638526550585,
+  "direction_raw_min": -0.3014843728586764,
+  "hash_validation": {
+    "extract_concat_sha256": "390bee5763d576005f5c49441b2ce7eab208d8396a893e329c6f70d5a0c1d03b",
+    "extract_expected_sha256": "390bee5763d576005f5c49441b2ce7eab208d8396a893e329c6f70d5a0c1d03b",
+    "extract_sha256_match": true,
+    "gt_expected_sha256": "3d2cecd2233cd43cd0ecde0e0bc1d834ad0928a1cbae3cb82756085be8134648",
+    "gt_sha256": "3d2cecd2233cd43cd0ecde0e0bc1d834ad0928a1cbae3cb82756085be8134648",
+    "gt_sha256_match": true
+  },
+  "prerequisites": {
+    "iter30_result_status": "LOCALIZATION_PASS_SUCCESSOR_PREREG_AUTHORIZED",
+    "iter32_baseline_recovery": {
+      "gt_target_repeat_hashes": [
+        "5064a3177c7918712fa56533b897e50a7d731f516d17a9ca6241ef67296050c7",
+        "5064a3177c7918712fa56533b897e50a7d731f516d17a9ca6241ef67296050c7"
+      ],
+      "model_target_repeat_hashes": [
+        "2495f9a1dc4d7f7544673cd4dc25c1283977087a0018b37e76184a2b3c0b611e",
+        "2495f9a1dc4d7f7544673cd4dc25c1283977087a0018b37e76184a2b3c0b611e"
+      ],
+      "path": "experiments/iter32_prefix_replay_baseline_recovery/proof-prefix/baseline_recovery_report.json",
+      "s1_prefix_replay_pass": true
+    },
+    "iter32_result_status": "BASELINE_RECOVERY_PASS_S1_PREFIX_REPLAY",
+    "iter33_canary": {
+      "path": "experiments/iter33_prefix_preserving_bridge_intervention/proof-canary/canary_report.json",
+      "s0_canary_pass": true
+    },
+    "iter33_result_status": "CALIBRATION_NULL_NO_USABLE_ALPHA",
+    "iter36_result_status": "BRIDGE_SITE_PASS_SITE_SPECIFIC_PREREG_AUTHORIZED",
+    "iter36_track_query": {
+      "passing_sites": [
+        "traj_slot_0",
+        "traj_slot_2",
+        "traj_slot_3",
+        "traj_slot_4",
+        "track_query"
+      ],
+      "path": "experiments/iter36_bridge_site_decomposition/proof-audit/bridge_site_decomposition_report.json"
+    },
+    "prefix_manifests": {
+      "calibration": {
+        "context_only_rows": 1841,
+        "path": "experiments/iter33_prefix_preserving_bridge_intervention/proof-prefix/prefix_manifest_calibration.json",
+        "prefix_replay_rows": 4293,
+        "scenes": 121,
+        "sha256": "ce3a6c2080b936e2dd8bad3f79510093a1009ef194b9e7d3c91d68ed90eac02c",
+        "target_label_counts": {
+          "benign_control": 2344,
+          "eligible_lowdiv": 108
+        },
+        "target_rows": 2452
+      },
+      "canary": {
+        "context_only_rows": 32,
+        "path": "experiments/iter33_prefix_preserving_bridge_intervention/proof-prefix/prefix_manifest_canary.json",
+        "prefix_replay_rows": 44,
+        "scenes": 3,
+        "sha256": "ceea957acff0b82219f664ce628693dedc5dcbb12c182c9ea3ba9386b8a56452",
+        "target_label_counts": {
+          "benign_control": 6,
+          "eligible_lowdiv": 6
+        },
+        "target_rows": 12
+      },
+      "heldout": {
+        "context_only_rows": 1880,
+        "path": "experiments/iter33_prefix_preserving_bridge_intervention/proof-prefix/prefix_manifest_heldout.json",
+        "prefix_replay_rows": 4283,
+        "scenes": 122,
+        "sha256": "46f8c509a9b87eb0f67e535bb09598e81171ce34fcd6c1fac6ba772fb394b95d",
+        "target_label_counts": {
+          "benign_control": 2245,
+          "eligible_lowdiv": 158
+        },
+        "target_rows": 2403
+      }
+    }
+  },
+  "s0_failures": [],
+  "stage": "iter37_track_query_site_intervention",
+  "verdict": "TRACK_QUERY_DIRECTION_ARTIFACT_WRITTEN_REPLAY_NOT_LAUNCHED"
+}
