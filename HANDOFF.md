@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Fri Jul 10 21:06:43 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Fri Jul 10 21:19:14 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+b104a63 research: publish iter40 timing cost audit
+86edfee research: add iter40 timing cost tooling
+5aad169 research: preregister iter40 timing cost audit
+3e8b012 handoff: refresh after iter39 audit
 8598851 research: publish iter39 external validity audit
 f557197 research: add iter39 external validity tooling
 31e6b62 research: preregister iter39 external validity audit
 8ce06bc handoff: refresh after iter38 canary
-93527c4 research: add iter38 canary proof
-258283e handoff: refresh after iter38 direction proof
-2f20ce6 research: add iter38 opposite-direction proof
-d05b23d research: add iter38 opposite-direction tooling
 ```
 Working tree: CLEAN
 
@@ -52,6 +52,7 @@ Working tree: CLEAN
 - experiments/iter38_track_query_opposite_direction: PRE-REGISTERED, result pending
 - experiments/iter39_external_validity_claim_audit: RESULT PUBLISHED
 - experiments/iter3_progress: RESULT PUBLISHED
+- experiments/iter40_timing_cost_audit: RESULT PUBLISHED
 - experiments/iter4_gated: RESULT PUBLISHED
 - experiments/iter5_tracked: RESULT PUBLISHED
 - experiments/iter6_cpa: RESULT PUBLISHED
@@ -65,7 +66,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 21:07:52 up 6 days, 10:48,  0 users,  load average: 0.00, 0.00, 0.10
+ 21:20:21 up 6 days, 11:01,  0 users,  load average: 0.00, 0.01, 0.04
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-e38-canary.log
@@ -77,7 +78,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter39_external_validity_claim_audit/RESULT.md — read it before opening new work.
+- Newest completed experiment: experiments/iter40_timing_cost_audit/RESULT.md — read it before opening new work.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
