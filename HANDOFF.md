@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: ש' יול 11 19:45:57 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: ש' יול 11 20:15:25 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+9d28d5c docs: record iter44 no-repair smoothing verdict in README header/tracker/diagram/status and CONTINUITY arc + shift log
+f958d25 iter44: publish VELOCITY_SMOOTHING_NO_REPAIR_NULL — all four frozen estimators fail baseline fidelity and jitter repair; over-firing halves but never reaches the bar
+baf0da2 iter44: collect single-run smoothing-gate proof — report JSON, command record, local verification
+507a757 iter44: add velocity-smoothing gate analyzer importing the iter42 replay and iter43 perturbation modules, plus unit tests
+e19a4af iter44: pre-register offline velocity temporal-smoothing repair gate over the committed iter42 trace
+d9b814f handoff: refresh after iter43 object-stream perturbation gate; box idle and untouched
 20805b4 docs: record iter43 mild-fragile perturbation verdict in README header/tracker/diagram/status and CONTINUITY arc + shift log
 9f960d4 iter43: publish OBJECT_PERTURBATION_MILD_FRAGILE — jitter fragile at 0.05/0.10 m (over-firing dominant), dropout/score/churn stable at mild levels
-51f8021 iter43: collect single-run perturbation proof — report JSON, command record, local verification
-14be64a iter43: add object-stream perturbation analyzer reusing the iter42 replay implementation, plus unit tests
-733dc3d iter43: pre-register offline object-stream perturbation gate over the committed iter42 exact trace
-565ebcb handoff: refresh after iter42 trace replay-support pass; box idle
-bd6e6c4 docs: record iter42 trace replay-support pass in README status/tracker/diagram and CONTINUITY arc + shift log
-d1a83aa iter42: publish TRACE_REPLAY_SUPPORT_PASS — exact counts (400/6474/1205/156/230) and 0-mismatch offline replay identity
 ```
 Working tree: CLEAN
 
@@ -56,6 +56,7 @@ Working tree: CLEAN
 - experiments/iter41_sensor_input_degradation_gate: RESULT PUBLISHED
 - experiments/iter42_exact_trace_replay_support: RESULT PUBLISHED
 - experiments/iter43_object_stream_perturbation_gate: RESULT PUBLISHED
+- experiments/iter44_velocity_smoothing_gate: RESULT PUBLISHED
 - experiments/iter4_gated: RESULT PUBLISHED
 - experiments/iter5_tracked: RESULT PUBLISHED
 - experiments/iter6_cpa: RESULT PUBLISHED
@@ -69,7 +70,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 19:47:04 up 7 days,  9:28,  0 users,  load average: 0.01, 0.01, 0.00
+ 20:16:32 up 7 days,  9:57,  0 users,  load average: 0.00, 0.00, 0.00
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-iter42-watch.log
@@ -81,7 +82,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter43_object_stream_perturbation_gate/RESULT.md — read it before opening new work.
+- Newest completed experiment: experiments/iter44_velocity_smoothing_gate/RESULT.md — read it before opening new work.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
