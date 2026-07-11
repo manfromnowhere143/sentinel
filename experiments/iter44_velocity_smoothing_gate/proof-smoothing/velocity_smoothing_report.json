@@ -1,0 +1,889 @@
+{
+  "cells": [
+    {
+      "dose_response": [
+        {
+          "brake_flips": 722,
+          "brake_frames": 1561,
+          "classification": "FRAGILE",
+          "delay_gt2_fraction": 0.04830917874396135,
+          "estimator": "fd:2",
+          "failed_bars": [
+            "retention=207/230 < 219",
+            "new_interventions=51/170 > 8",
+            "brake_frames=1561 outside [1025, 1385]"
+          ],
+          "family": "jitter",
+          "fired_flips": 365,
+          "level": "sigma_0p25",
+          "lost_interventions": 23,
+          "median_first_brake_delay_frames": 0,
+          "new_interventions": 51,
+          "param": 0.25,
+          "release_frames": 184,
+          "retained_interventions": 207
+        },
+        {
+          "brake_flips": 1307,
+          "brake_frames": 2126,
+          "classification": "FRAGILE",
+          "delay_gt2_fraction": 0.07142857142857142,
+          "estimator": "fd:2",
+          "failed_bars": [
+            "retention=210/230 < 219",
+            "new_interventions=87/170 > 8",
+            "brake_frames=2126 outside [1025, 1385]"
+          ],
+          "family": "jitter",
+          "fired_flips": 686,
+          "level": "sigma_0p50",
+          "lost_interventions": 20,
+          "median_first_brake_delay_frames": 0.0,
+          "new_interventions": 87,
+          "param": 0.5,
+          "release_frames": 214,
+          "retained_interventions": 210
+        },
+        {
+          "brake_flips": 2388,
+          "brake_frames": 3173,
+          "classification": "FRAGILE",
+          "delay_gt2_fraction": 0.0639269406392694,
+          "estimator": "fd:2",
+          "failed_bars": [
+            "new_interventions=125/170 > 8",
+            "brake_frames=3173 outside [1025, 1385]"
+          ],
+          "family": "jitter",
+          "fired_flips": 1309,
+          "level": "sigma_1p00",
+          "lost_interventions": 11,
+          "median_first_brake_delay_frames": -2,
+          "new_interventions": 125,
+          "param": 1.0,
+          "release_frames": 240,
+          "retained_interventions": 219
+        }
+      ],
+      "estimator": "fd_k2",
+      "fidelity": {
+        "brake_flips": 140,
+        "brake_frames": 1155,
+        "classification": "FAIL",
+        "delay_gt2_fraction": 0.009302325581395349,
+        "estimator": "fd:2",
+        "failed_bars": [
+          "retention=215/230 < 225",
+          "new_interventions=5/170 > 4"
+        ],
+        "family": null,
+        "fired_flips": 88,
+        "level": "unperturbed",
+        "lost_interventions": 15,
+        "median_first_brake_delay_frames": 0,
+        "new_interventions": 5,
+        "param": 0.0,
+        "release_frames": 141,
+        "retained_interventions": 215
+      },
+      "kind": "fd",
+      "param": 2,
+      "passes_all": false,
+      "robustness": [
+        {
+          "brake_flips": 230,
+          "brake_frames": 1183,
+          "classification": "FRAGILE",
+          "delay_gt2_fraction": 0.018779342723004695,
+          "estimator": "fd:2",
+          "failed_bars": [
+            "retention=213/230 < 219",
+            "new_interventions=14/170 > 8"
+          ],
+          "family": "jitter",
+          "fired_flips": 121,
+          "level": "sigma_0p05",
+          "lost_interventions": 17,
+          "median_first_brake_delay_frames": 0,
+          "new_interventions": 14,
+          "param": 0.05,
+          "release_frames": 144,
+          "retained_interventions": 213
+        },
+        {
+          "brake_flips": 362,
+          "brake_frames": 1263,
+          "classification": "FRAGILE",
+          "delay_gt2_fraction": 0.03755868544600939,
+          "estimator": "fd:2",
+          "failed_bars": [
+            "retention=213/230 < 219",
+            "new_interventions=18/170 > 8"
+          ],
+          "family": "jitter",
+          "fired_flips": 187,
+          "level": "sigma_0p10",
+          "lost_interventions": 17,
+          "median_first_brake_delay_frames": 0,
+          "new_interventions": 18,
+          "param": 0.1,
+          "release_frames": 154,
+          "retained_interventions": 213
+        },
+        {
+          "brake_flips": 182,
+          "brake_frames": 1097,
+          "classification": "FRAGILE",
+          "delay_gt2_fraction": 0.02403846153846154,
+          "estimator": "fd:2",
+          "failed_bars": [
+            "retention=208/230 < 219"
+          ],
+          "family": "dropout",
+          "fired_flips": 116,
+          "level": "p_0p05",
+          "lost_interventions": 22,
+          "median_first_brake_delay_frames": 0.0,
+          "new_interventions": 4,
+          "param": 0.05,
+          "release_frames": 139,
+          "retained_interventions": 208
+        },
+        {
+          "brake_flips": 140,
+          "brake_frames": 1155,
+          "classification": "FRAGILE",
+          "delay_gt2_fraction": 0.009302325581395349,
+          "estimator": "fd:2",
+          "failed_bars": [
+            "retention=215/230 < 219"
+          ],
+          "family": "score",
+          "fired_flips": 88,
+          "level": "f_0p90",
+          "lost_interventions": 15,
+          "median_first_brake_delay_frames": 0,
+          "new_interventions": 5,
+          "param": 0.9,
+          "release_frames": 141,
+          "retained_interventions": 215
+        },
+        {
+          "brake_flips": 158,
+          "brake_frames": 1139,
+          "classification": "FRAGILE",
+          "delay_gt2_fraction": 0.009433962264150943,
+          "estimator": "fd:2",
+          "failed_bars": [
+            "retention=212/230 < 219"
+          ],
+          "family": "churn",
+          "fired_flips": 103,
+          "level": "p_0p05",
+          "lost_interventions": 18,
+          "median_first_brake_delay_frames": 0.0,
+          "new_interventions": 6,
+          "param": 0.05,
+          "release_frames": 143,
+          "retained_interventions": 212
+        }
+      ],
+      "v1_pass": false,
+      "v2_pass": false,
+      "v3_pass": false
+    },
+    {
+      "dose_response": [
+        {
+          "brake_flips": 646,
+          "brake_frames": 1473,
+          "classification": "FRAGILE",
+          "delay_gt2_fraction": 0.039603960396039604,
+          "estimator": "fd:3",
+          "failed_bars": [
+            "retention=202/230 < 219",
+            "new_interventions=43/170 > 8",
+            "brake_frames=1473 outside [1025, 1385]"
+          ],
+          "family": "jitter",
+          "fired_flips": 306,
+          "level": "sigma_0p25",
+          "lost_interventions": 28,
+          "median_first_brake_delay_frames": 0.0,
+          "new_interventions": 43,
+          "param": 0.25,
+          "release_frames": 173,
+          "retained_interventions": 202
+        },
+        {
+          "brake_flips": 1198,
+          "brake_frames": 1973,
+          "classification": "FRAGILE",
+          "delay_gt2_fraction": 0.043478260869565216,
+          "estimator": "fd:3",
+          "failed_bars": [
+            "retention=207/230 < 219",
+            "new_interventions=80/170 > 8",
+            "brake_frames=1973 outside [1025, 1385]"
+          ],
+          "family": "jitter",
+          "fired_flips": 618,
+          "level": "sigma_0p50",
+          "lost_interventions": 23,
+          "median_first_brake_delay_frames": 0,
+          "new_interventions": 80,
+          "param": 0.5,
+          "release_frames": 212,
+          "retained_interventions": 207
+        },
+        {
+          "brake_flips": 2166,
+          "brake_frames": 2941,
+          "classification": "FRAGILE",
+          "delay_gt2_fraction": 0.05555555555555555,
+          "estimator": "fd:3",
+          "failed_bars": [
+            "retention=216/230 < 219",
+            "new_interventions=121/170 > 8",
+            "brake_frames=2941 outside [1025, 1385]"
+          ],
+          "family": "jitter",
+          "fired_flips": 1152,
+          "level": "sigma_1p00",
+          "lost_interventions": 14,
+          "median_first_brake_delay_frames": -1.0,
+          "new_interventions": 121,
+          "param": 1.0,
+          "release_frames": 273,
+          "retained_interventions": 216
+        }
+      ],
+      "estimator": "fd_k3",
+      "fidelity": {
+        "brake_flips": 181,
+        "brake_frames": 1136,
+        "classification": "FAIL",
+        "delay_gt2_fraction": 0.004694835680751174,
+        "estimator": "fd:3",
+        "failed_bars": [
+          "retention=213/230 < 225",
+          "new_interventions=6/170 > 4"
+        ],
+        "family": null,
+        "fired_flips": 108,
+        "level": "unperturbed",
+        "lost_interventions": 17,
+        "median_first_brake_delay_frames": 0,
+        "new_interventions": 6,
+        "param": 0.0,
+        "release_frames": 140,
+        "retained_interventions": 213
+      },
+      "kind": "fd",
+      "param": 3,
+      "passes_all": false,
+      "robustness": [
+        {
+          "brake_flips": 249,
+          "brake_frames": 1172,
+          "classification": "FRAGILE",
+          "delay_gt2_fraction": 0.018957345971563982,
+          "estimator": "fd:3",
+          "failed_bars": [
+            "retention=211/230 < 219",
+            "new_interventions=14/170 > 8"
+          ],
+          "family": "jitter",
+          "fired_flips": 137,
+          "level": "sigma_0p05",
+          "lost_interventions": 19,
+          "median_first_brake_delay_frames": 0,
+          "new_interventions": 14,
+          "param": 0.05,
+          "release_frames": 142,
+          "retained_interventions": 211
+        },
+        {
+          "brake_flips": 354,
+          "brake_frames": 1215,
+          "classification": "FRAGILE",
+          "delay_gt2_fraction": 0.03349282296650718,
+          "estimator": "fd:3",
+          "failed_bars": [
+            "retention=209/230 < 219",
+            "new_interventions=19/170 > 8"
+          ],
+          "family": "jitter",
+          "fired_flips": 191,
+          "level": "sigma_0p10",
+          "lost_interventions": 21,
+          "median_first_brake_delay_frames": 0,
+          "new_interventions": 19,
+          "param": 0.1,
+          "release_frames": 145,
+          "retained_interventions": 209
+        },
+        {
+          "brake_flips": 223,
+          "brake_frames": 1068,
+          "classification": "FRAGILE",
+          "delay_gt2_fraction": 0.024271844660194174,
+          "estimator": "fd:3",
+          "failed_bars": [
+            "retention=206/230 < 219"
+          ],
+          "family": "dropout",
+          "fired_flips": 134,
+          "level": "p_0p05",
+          "lost_interventions": 24,
+          "median_first_brake_delay_frames": 0.0,
+          "new_interventions": 5,
+          "param": 0.05,
+          "release_frames": 135,
+          "retained_interventions": 206
+        },
+        {
+          "brake_flips": 181,
+          "brake_frames": 1136,
+          "classification": "FRAGILE",
+          "delay_gt2_fraction": 0.004694835680751174,
+          "estimator": "fd:3",
+          "failed_bars": [
+            "retention=213/230 < 219"
+          ],
+          "family": "score",
+          "fired_flips": 108,
+          "level": "f_0p90",
+          "lost_interventions": 17,
+          "median_first_brake_delay_frames": 0,
+          "new_interventions": 6,
+          "param": 0.9,
+          "release_frames": 140,
+          "retained_interventions": 213
+        },
+        {
+          "brake_flips": 198,
+          "brake_frames": 1119,
+          "classification": "FRAGILE",
+          "delay_gt2_fraction": 0.004761904761904762,
+          "estimator": "fd:3",
+          "failed_bars": [
+            "retention=210/230 < 219"
+          ],
+          "family": "churn",
+          "fired_flips": 121,
+          "level": "p_0p05",
+          "lost_interventions": 20,
+          "median_first_brake_delay_frames": 0.0,
+          "new_interventions": 7,
+          "param": 0.05,
+          "release_frames": 142,
+          "retained_interventions": 210
+        }
+      ],
+      "v1_pass": false,
+      "v2_pass": false,
+      "v3_pass": false
+    },
+    {
+      "dose_response": [
+        {
+          "brake_flips": 704,
+          "brake_frames": 1551,
+          "classification": "FRAGILE",
+          "delay_gt2_fraction": 0.043478260869565216,
+          "estimator": "ema:0.5",
+          "failed_bars": [
+            "retention=207/230 < 219",
+            "new_interventions=52/170 > 8",
+            "brake_frames=1551 outside [1025, 1385]"
+          ],
+          "family": "jitter",
+          "fired_flips": 335,
+          "level": "sigma_0p25",
+          "lost_interventions": 23,
+          "median_first_brake_delay_frames": 0,
+          "new_interventions": 52,
+          "param": 0.25,
+          "release_frames": 191,
+          "retained_interventions": 207
+        },
+        {
+          "brake_flips": 1235,
+          "brake_frames": 2028,
+          "classification": "FRAGILE",
+          "delay_gt2_fraction": 0.061611374407582936,
+          "estimator": "ema:0.5",
+          "failed_bars": [
+            "retention=211/230 < 219",
+            "new_interventions=84/170 > 8",
+            "brake_frames=2028 outside [1025, 1385]"
+          ],
+          "family": "jitter",
+          "fired_flips": 646,
+          "level": "sigma_0p50",
+          "lost_interventions": 19,
+          "median_first_brake_delay_frames": 0,
+          "new_interventions": 84,
+          "param": 0.5,
+          "release_frames": 218,
+          "retained_interventions": 211
+        },
+        {
+          "brake_flips": 2312,
+          "brake_frames": 3053,
+          "classification": "FRAGILE",
+          "delay_gt2_fraction": 0.06481481481481481,
+          "estimator": "ema:0.5",
+          "failed_bars": [
+            "retention=216/230 < 219",
+            "new_interventions=120/170 > 8",
+            "brake_frames=3053 outside [1025, 1385]"
+          ],
+          "family": "jitter",
+          "fired_flips": 1227,
+          "level": "sigma_1p00",
+          "lost_interventions": 14,
+          "median_first_brake_delay_frames": -1.0,
+          "new_interventions": 120,
+          "param": 1.0,
+          "release_frames": 243,
+          "retained_interventions": 216
+        }
+      ],
+      "estimator": "ema_a0p5",
+      "fidelity": {
+        "brake_flips": 154,
+        "brake_frames": 1137,
+        "classification": "FAIL",
+        "delay_gt2_fraction": 0.009389671361502348,
+        "estimator": "ema:0.5",
+        "failed_bars": [
+          "retention=213/230 < 225",
+          "new_interventions=5/170 > 4"
+        ],
+        "family": null,
+        "fired_flips": 89,
+        "level": "unperturbed",
+        "lost_interventions": 17,
+        "median_first_brake_delay_frames": 0,
+        "new_interventions": 5,
+        "param": 0.0,
+        "release_frames": 141,
+        "retained_interventions": 213
+      },
+      "kind": "ema",
+      "param": 0.5,
+      "passes_all": false,
+      "robustness": [
+        {
+          "brake_flips": 227,
+          "brake_frames": 1160,
+          "classification": "FRAGILE",
+          "delay_gt2_fraction": 0.018957345971563982,
+          "estimator": "ema:0.5",
+          "failed_bars": [
+            "retention=211/230 < 219",
+            "new_interventions=11/170 > 8"
+          ],
+          "family": "jitter",
+          "fired_flips": 117,
+          "level": "sigma_0p05",
+          "lost_interventions": 19,
+          "median_first_brake_delay_frames": 0,
+          "new_interventions": 11,
+          "param": 0.05,
+          "release_frames": 141,
+          "retained_interventions": 211
+        },
+        {
+          "brake_flips": 350,
+          "brake_frames": 1225,
+          "classification": "FRAGILE",
+          "delay_gt2_fraction": 0.04326923076923077,
+          "estimator": "ema:0.5",
+          "failed_bars": [
+            "retention=208/230 < 219",
+            "new_interventions=19/170 > 8"
+          ],
+          "family": "jitter",
+          "fired_flips": 179,
+          "level": "sigma_0p10",
+          "lost_interventions": 22,
+          "median_first_brake_delay_frames": 0.0,
+          "new_interventions": 19,
+          "param": 0.1,
+          "release_frames": 148,
+          "retained_interventions": 208
+        },
+        {
+          "brake_flips": 195,
+          "brake_frames": 1070,
+          "classification": "FRAGILE",
+          "delay_gt2_fraction": 0.024390243902439025,
+          "estimator": "ema:0.5",
+          "failed_bars": [
+            "retention=205/230 < 219"
+          ],
+          "family": "dropout",
+          "fired_flips": 115,
+          "level": "p_0p05",
+          "lost_interventions": 25,
+          "median_first_brake_delay_frames": 0,
+          "new_interventions": 4,
+          "param": 0.05,
+          "release_frames": 136,
+          "retained_interventions": 205
+        },
+        {
+          "brake_flips": 154,
+          "brake_frames": 1137,
+          "classification": "FRAGILE",
+          "delay_gt2_fraction": 0.009389671361502348,
+          "estimator": "ema:0.5",
+          "failed_bars": [
+            "retention=213/230 < 219"
+          ],
+          "family": "score",
+          "fired_flips": 89,
+          "level": "f_0p90",
+          "lost_interventions": 17,
+          "median_first_brake_delay_frames": 0,
+          "new_interventions": 5,
+          "param": 0.9,
+          "release_frames": 141,
+          "retained_interventions": 213
+        },
+        {
+          "brake_flips": 174,
+          "brake_frames": 1123,
+          "classification": "FRAGILE",
+          "delay_gt2_fraction": 0.009523809523809525,
+          "estimator": "ema:0.5",
+          "failed_bars": [
+            "retention=210/230 < 219"
+          ],
+          "family": "churn",
+          "fired_flips": 106,
+          "level": "p_0p05",
+          "lost_interventions": 20,
+          "median_first_brake_delay_frames": 0.0,
+          "new_interventions": 6,
+          "param": 0.05,
+          "release_frames": 142,
+          "retained_interventions": 210
+        }
+      ],
+      "v1_pass": false,
+      "v2_pass": false,
+      "v3_pass": false
+    },
+    {
+      "dose_response": [
+        {
+          "brake_flips": 634,
+          "brake_frames": 1417,
+          "classification": "FRAGILE",
+          "delay_gt2_fraction": 0.03980099502487562,
+          "estimator": "ema:0.3",
+          "failed_bars": [
+            "retention=201/230 < 219",
+            "new_interventions=46/170 > 8",
+            "brake_frames=1417 outside [1025, 1385]"
+          ],
+          "family": "jitter",
+          "fired_flips": 299,
+          "level": "sigma_0p25",
+          "lost_interventions": 29,
+          "median_first_brake_delay_frames": 0,
+          "new_interventions": 46,
+          "param": 0.25,
+          "release_frames": 175,
+          "retained_interventions": 201
+        },
+        {
+          "brake_flips": 1215,
+          "brake_frames": 1946,
+          "classification": "FRAGILE",
+          "delay_gt2_fraction": 0.05365853658536585,
+          "estimator": "ema:0.3",
+          "failed_bars": [
+            "retention=205/230 < 219",
+            "new_interventions=82/170 > 8",
+            "brake_frames=1946 outside [1025, 1385]"
+          ],
+          "family": "jitter",
+          "fired_flips": 606,
+          "level": "sigma_0p50",
+          "lost_interventions": 25,
+          "median_first_brake_delay_frames": 0,
+          "new_interventions": 82,
+          "param": 0.5,
+          "release_frames": 220,
+          "retained_interventions": 205
+        },
+        {
+          "brake_flips": 2215,
+          "brake_frames": 2924,
+          "classification": "FRAGILE",
+          "delay_gt2_fraction": 0.07547169811320754,
+          "estimator": "ema:0.3",
+          "failed_bars": [
+            "retention=212/230 < 219",
+            "new_interventions=120/170 > 8",
+            "brake_frames=2924 outside [1025, 1385]"
+          ],
+          "family": "jitter",
+          "fired_flips": 1185,
+          "level": "sigma_1p00",
+          "lost_interventions": 18,
+          "median_first_brake_delay_frames": -1.0,
+          "new_interventions": 120,
+          "param": 1.0,
+          "release_frames": 249,
+          "retained_interventions": 212
+        }
+      ],
+      "estimator": "ema_a0p3",
+      "fidelity": {
+        "brake_flips": 201,
+        "brake_frames": 1098,
+        "classification": "FAIL",
+        "delay_gt2_fraction": 0.009569377990430622,
+        "estimator": "ema:0.3",
+        "failed_bars": [
+          "retention=209/230 < 225",
+          "new_interventions=5/170 > 4"
+        ],
+        "family": null,
+        "fired_flips": 112,
+        "level": "unperturbed",
+        "lost_interventions": 21,
+        "median_first_brake_delay_frames": 0,
+        "new_interventions": 5,
+        "param": 0.0,
+        "release_frames": 136,
+        "retained_interventions": 209
+      },
+      "kind": "ema",
+      "param": 0.3,
+      "passes_all": false,
+      "robustness": [
+        {
+          "brake_flips": 253,
+          "brake_frames": 1142,
+          "classification": "FRAGILE",
+          "delay_gt2_fraction": 0.02830188679245283,
+          "estimator": "ema:0.3",
+          "failed_bars": [
+            "retention=212/230 < 219",
+            "new_interventions=11/170 > 8"
+          ],
+          "family": "jitter",
+          "fired_flips": 135,
+          "level": "sigma_0p05",
+          "lost_interventions": 18,
+          "median_first_brake_delay_frames": 0.0,
+          "new_interventions": 11,
+          "param": 0.05,
+          "release_frames": 142,
+          "retained_interventions": 212
+        },
+        {
+          "brake_flips": 355,
+          "brake_frames": 1182,
+          "classification": "FRAGILE",
+          "delay_gt2_fraction": 0.043689320388349516,
+          "estimator": "ema:0.3",
+          "failed_bars": [
+            "retention=206/230 < 219",
+            "new_interventions=20/170 > 8"
+          ],
+          "family": "jitter",
+          "fired_flips": 184,
+          "level": "sigma_0p10",
+          "lost_interventions": 24,
+          "median_first_brake_delay_frames": 0.0,
+          "new_interventions": 20,
+          "param": 0.1,
+          "release_frames": 142,
+          "retained_interventions": 206
+        },
+        {
+          "brake_flips": 250,
+          "brake_frames": 1041,
+          "classification": "FRAGILE",
+          "delay_gt2_fraction": 0.0297029702970297,
+          "estimator": "ema:0.3",
+          "failed_bars": [
+            "retention=202/230 < 219"
+          ],
+          "family": "dropout",
+          "fired_flips": 137,
+          "level": "p_0p05",
+          "lost_interventions": 28,
+          "median_first_brake_delay_frames": 0.0,
+          "new_interventions": 5,
+          "param": 0.05,
+          "release_frames": 132,
+          "retained_interventions": 202
+        },
+        {
+          "brake_flips": 201,
+          "brake_frames": 1098,
+          "classification": "FRAGILE",
+          "delay_gt2_fraction": 0.009569377990430622,
+          "estimator": "ema:0.3",
+          "failed_bars": [
+            "retention=209/230 < 219"
+          ],
+          "family": "score",
+          "fired_flips": 112,
+          "level": "f_0p90",
+          "lost_interventions": 21,
+          "median_first_brake_delay_frames": 0,
+          "new_interventions": 5,
+          "param": 0.9,
+          "release_frames": 136,
+          "retained_interventions": 209
+        },
+        {
+          "brake_flips": 217,
+          "brake_frames": 1088,
+          "classification": "FRAGILE",
+          "delay_gt2_fraction": 0.00966183574879227,
+          "estimator": "ema:0.3",
+          "failed_bars": [
+            "retention=207/230 < 219"
+          ],
+          "family": "churn",
+          "fired_flips": 125,
+          "level": "p_0p05",
+          "lost_interventions": 23,
+          "median_first_brake_delay_frames": 0,
+          "new_interventions": 6,
+          "param": 0.05,
+          "release_frames": 139,
+          "retained_interventions": 207
+        }
+      ],
+      "v1_pass": false,
+      "v2_pass": false,
+      "v3_pass": false
+    }
+  ],
+  "claim_boundary": "Iteration 44 measures offline decision-replay behavior of a registered smoothed-velocity modification of the released-union monitor rule on the frozen iteration-42 trace. The released union itself is unchanged. This is not sensor/camera degradation, not closed-loop (consequences of changed decisions are not observable offline), and not a benchmark, NeuroNCAP-score, selector, deployment, or safety claim. A pass authorizes only a future closed-loop pre-registration.",
+  "command_line": "experiments/iter44_velocity_smoothing_gate/analyze_velocity_smoothing.py",
+  "determinism_guard": {
+    "cell": "fd_k2:jitter:sigma_0p10",
+    "hashes": [
+      "086cb803a70f0814c0c786092857c053fd884b5757d1c1d141c8972990c4c969",
+      "086cb803a70f0814c0c786092857c053fd884b5757d1c1d141c8972990c4c969"
+    ],
+    "pass": true
+  },
+  "estimator_cells": [
+    "fd_k2",
+    "fd_k3",
+    "ema_a0p5",
+    "ema_a0p3"
+  ],
+  "fidelity_bars": {
+    "brake_total_max": 1325,
+    "brake_total_min": 1085,
+    "delay_gt2_fraction_max": 0.05,
+    "median_delay_max_frames": 1.0,
+    "new_interventions_max": 4,
+    "retention_min": 225
+  },
+  "online_reference": {
+    "brake_frames": 1205,
+    "frames": 6474,
+    "intervention_episodes": 230,
+    "non_intervention_episodes": 170,
+    "release_frames": 156,
+    "resets": 400
+  },
+  "passing_cells": [],
+  "perturbation_seed": "iter43-object-stream-perturbation-v1",
+  "robustness_bars": {
+    "brake_total_max": 1385,
+    "brake_total_min": 1025,
+    "delay_gt2_fraction_max": 0.1,
+    "median_delay_max_frames": 1.0,
+    "new_interventions_max": 8,
+    "retention_min": 219
+  },
+  "run_id": "iter44-velocity-smoothing-v1",
+  "s0": {
+    "failures": [],
+    "pass": true,
+    "trace_sha256_before": "8c43726c94a8870d40518b97bf5b74a7b88517a661c16291dd8408a61eb97f4d"
+  },
+  "s1": {
+    "cells": {
+      "ema_a1p0": {
+        "brake_frames": 1205,
+        "failures": [],
+        "intervention_episodes": 230,
+        "mismatched_frames": 0,
+        "pass": true,
+        "release_frames": 156
+      },
+      "fd_k1": {
+        "brake_frames": 1205,
+        "failures": [],
+        "intervention_episodes": 230,
+        "mismatched_frames": 0,
+        "pass": true,
+        "release_frames": 156
+      }
+    },
+    "pass": true
+  },
+  "s1b": {
+    "cells": {
+      "jitter:sigma_0p05": {
+        "metrics": {
+          "brake_flips": 240,
+          "brake_frames": 1275,
+          "delay_gt2_fraction": 0.01834862385321101,
+          "estimator": "fd:1",
+          "family": "jitter",
+          "fired_flips": 101,
+          "level": "sigma_0p05",
+          "lost_interventions": 12,
+          "median_first_brake_delay_frames": 0.0,
+          "new_interventions": 17,
+          "param": 0.05,
+          "release_frames": 159,
+          "retained_interventions": 218
+        },
+        "mismatched_fields": []
+      },
+      "jitter:sigma_0p10": {
+        "metrics": {
+          "brake_flips": 484,
+          "brake_frames": 1445,
+          "delay_gt2_fraction": 0.02336448598130841,
+          "estimator": "fd:1",
+          "family": "jitter",
+          "fired_flips": 237,
+          "level": "sigma_0p10",
+          "lost_interventions": 16,
+          "median_first_brake_delay_frames": 0.0,
+          "new_interventions": 36,
+          "param": 0.1,
+          "release_frames": 166,
+          "retained_interventions": 214
+        },
+        "mismatched_fields": []
+      }
+    },
+    "failures": [],
+    "pass": true
+  },
+  "trace_sha256_after": "8c43726c94a8870d40518b97bf5b74a7b88517a661c16291dd8408a61eb97f4d",
+  "v2_passing_cells": [],
+  "verdict": "VELOCITY_SMOOTHING_NO_REPAIR_NULL"
+}

@@ -1,0 +1,3 @@
+commit_before_run: 507a757ef1ec327517df92e608ae2513ac92d3ca
+date_utc: 2026-07-11T20:08:51Z
+command: python3 experiments/iter44_velocity_smoothing_gate/analyze_velocity_smoothing.py

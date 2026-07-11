@@ -1,0 +1,19 @@
+date_utc: 2026-07-11T20:08:40Z
+commit: 507a757ef1ec327517df92e608ae2513ac92d3ca
+
+$ ruff check .
+All checks passed!
+
+$ python3 -m pytest -q
+....................................................................     [100%]
+140 passed in 1.46s
+
+$ python3 scripts/validate_docs.py
+docs guard: 111 markdown files clean; all RESULT experiments surfaced in README
+
+$ shasum -a 256 experiments/iter42_exact_trace_replay_support/proof-trace/sentinel_iter42_trace.jsonl.gz
+8c43726c94a8870d40518b97bf5b74a7b88517a661c16291dd8408a61eb97f4d  experiments/iter42_exact_trace_replay_support/proof-trace/sentinel_iter42_trace.jsonl.gz
+
+post_run date_utc: 2026-07-11T20:10:09Z
+$ shasum -a 256 experiments/iter42_exact_trace_replay_support/proof-trace/sentinel_iter42_trace.jsonl.gz
+8c43726c94a8870d40518b97bf5b74a7b88517a661c16291dd8408a61eb97f4d  experiments/iter42_exact_trace_replay_support/proof-trace/sentinel_iter42_trace.jsonl.gz
