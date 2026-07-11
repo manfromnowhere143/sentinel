@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: ש' יול 11 20:15:25 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: ש' יול 11 23:34:24 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
-9d28d5c docs: record iter44 no-repair smoothing verdict in README header/tracker/diagram/status and CONTINUITY arc + shift log
-f958d25 iter44: publish VELOCITY_SMOOTHING_NO_REPAIR_NULL — all four frozen estimators fail baseline fidelity and jitter repair; over-firing halves but never reaches the bar
-baf0da2 iter44: collect single-run smoothing-gate proof — report JSON, command record, local verification
-507a757 iter44: add velocity-smoothing gate analyzer importing the iter42 replay and iter43 perturbation modules, plus unit tests
-e19a4af iter44: pre-register offline velocity temporal-smoothing repair gate over the committed iter42 trace
-d9b814f handoff: refresh after iter43 object-stream perturbation gate; box idle and untouched
-20805b4 docs: record iter43 mild-fragile perturbation verdict in README header/tracker/diagram/status and CONTINUITY arc + shift log
-9f960d4 iter43: publish OBJECT_PERTURBATION_MILD_FRAGILE — jitter fragile at 0.05/0.10 m (over-firing dominant), dropout/score/churn stable at mild levels
+fd303b0 iter45: publish HUGSIM_INFRA_GATE_PASS — assets/envs/renderer/closed-loop smoke all pass on the frozen checkpoint; record verdict in README header/tracker/status/repo-map and CONTINUITY arc + shift log
+baf54ad iter45: env build complete (torch cu124 + gsplat 1.2.0, apex non-blocking), G3 scenario renders, first closed-loop round trips through the pipes; cusolver init failure at step 2 under retry
+ea520c3 iter45: fix2 resolved the CUDA-major mismatch (torch cu124); new simple-knn FLT_MAX blocker patched with float.h include, fix3 rebuild in flight
+9b2c497 iter45: G2 client half passes — unmodified UniAD_SIM client loads the NeuroNCAP checkpoint in uniad:latest (131,809,024 params); motion-anchor data file staged; smoke script ready pending env build
+2cdabd8 iter45: record base-config path edits, docker client wrapper for the unmodified UniAD_SIM client, and host zsh install
+1ae096c iter45: commit G1 asset-staging evidence — 306-file SHA256/size manifest of the XDimLab/HUGSIM release on /datasets/nuscenes-full plus staging receipts
+123a9e7 iter45: log CUDA falsifier probe (nvcc 12.9 vs torch cu118), failed 11.8-pin fallback, in-flight cu124 fallback, smoke-scene staging (scene-0013-easy-00 by frozen rule), docker client route, exact resume steps
+a9de6b1 iter45: record setup progress — repos cloned (62c690d3/5fb279e3), asset staging and pixi env build launched detached, checkpoint SHA receipts, exact resume point
 ```
 Working tree: CLEAN
 
@@ -57,6 +57,7 @@ Working tree: CLEAN
 - experiments/iter42_exact_trace_replay_support: RESULT PUBLISHED
 - experiments/iter43_object_stream_perturbation_gate: RESULT PUBLISHED
 - experiments/iter44_velocity_smoothing_gate: RESULT PUBLISHED
+- experiments/iter45_hugsim_infra_gate: RESULT PUBLISHED
 - experiments/iter4_gated: RESULT PUBLISHED
 - experiments/iter5_tracked: RESULT PUBLISHED
 - experiments/iter6_cpa: RESULT PUBLISHED
@@ -70,19 +71,19 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 20:16:32 up 7 days,  9:57,  0 users,  load average: 0.00, 0.00, 0.00
+ 23:35:31 up 7 days, 13:16,  0 users,  load average: 0.00, 0.36, 1.30
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
-/var/log/sentinel-iter42-watch.log
-/var/log/sentinel-iter42-trace.log
-/dev/root       310G  295G   16G  96% /
-Swap:          8.0Gi        67Mi       7.9Gi
+/var/log/sentinel-hugsim-smoke.log
+/var/log/sentinel-hugsim-importcheck.log
+/dev/root       310G  269G   42G  87% /
+Swap:          8.0Gi        65Mi       7.9Gi
 ```
 If any docker container named renderer/model/ncap (or a random-name ncap) is up, a run
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter44_velocity_smoothing_gate/RESULT.md — read it before opening new work.
+- Newest completed experiment: experiments/iter45_hugsim_infra_gate/RESULT.md — read it before opening new work.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
