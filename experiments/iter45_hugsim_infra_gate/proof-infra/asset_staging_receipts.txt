@@ -1,0 +1,39 @@
+Iteration 45 — G1 asset staging receipts (sentinel-gpu)
+
+Download:
+  command: hf download XDimLab/HUGSIM --repo-type dataset --local-dir /datasets/nuscenes-full/hugsim
+  tool: huggingface_hub[cli] 1.23.0
+  log: /var/log/sentinel-hugsim-assets.log
+  markers: HUGSIM_ASSETS_START Sat Jul 11 22:31 UTC 2026 (approx; see log)
+           HUGSIM_ASSETS_RC=0
+           HUGSIM_ASSETS_DONE Sat Jul 11 22:35:21 UTC 2026
+
+Manifest (hugsim_asset_manifest.txt in this directory):
+  generator: /tmp/hugsim_manifest.sh, log /var/log/sentinel-hugsim-manifest.log
+  markers: HUGSIM_MANIFEST_START Sat Jul 11 22:36:28 UTC 2026
+           HUGSIM_MANIFEST_DONE Sat Jul 11 22:42:51 UTC 2026
+  format: <sha256>  <bytes>  <path relative to /datasets/nuscenes-full/hugsim>
+  entries: 306 files (the complete as-downloaded release; the .cache/huggingface
+           bookkeeping subtree is excluded)
+
+Size / free-space receipts (from the manifest log, 22:42 UTC):
+  du -sb /datasets/nuscenes-full/hugsim
+    61678358667   (includes the release files plus the scene-0013/nusc_map_cache/scenarios
+                   extraction that was staged concurrently under extracted/)
+  df -B1 /datasets/nuscenes-full
+    /dev/nvme0n2   1081101176832 828029796352 198079025152  81% /datasets/nuscenes-full
+
+Smoke-scene extraction (python -m zipfile -e, no path traversal possible via the module API):
+  scenes/nuscenes/scene-0013.zip -> extracted/scenes/nuscenes/scene-0013/
+    (cfg.yaml, scene.pth, ground_param.pkl, meta_data.json,
+     dynamic_6e298f45ca39473887bfe3df4a71e34f.pth, unicycle_6e298f45ca39473887bfe3df4a71e34f.pth)
+  nusc_map_cache.zip -> extracted/nusc_map_cache/ (6,493 members)
+  scenarios.zip -> extracted/scenarios/{kitti360,nuscenes,pandaset,waymo}/ (440 members)
+
+Checkpoint receipts (same-checkpoint premise, G2):
+  0ad0c2f5dc9788a41c313305779ea49346aeb742d1f6bb5ad25c46f9beffc990  /opt/sentinel-stack/UniAD/ckpts/uniad_base_e2e.pth
+  45761de4a965c590318987f43af7e7f50b8e043f9a2832a91246f4fd39bb57bb  /opt/sentinel-stack/UniAD/ckpts/motion_anchor_infos_mode6.pkl
+
+Code provenance:
+  /opt/sentinel-stack/HUGSIM    @ 62c690d39fd90020e68a196bd8bcc1c4d4191f2e
+  /opt/sentinel-stack/UniAD_SIM @ 5fb279e39912a5ac7f58e00d56b065cadcd0a749
