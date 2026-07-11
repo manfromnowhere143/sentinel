@@ -170,6 +170,46 @@ never alongside another GPU job.
   vendored build file, recorded here per the pre-registration; it does not touch simulator
   or client logic.
 
+## 2026-07-11 23:09-23:25 UTC — env build COMPLETE; smoke iterations (G3 achieved; G4 in progress)
+
+- **fix3 result**: `HUGSIM_PIXI_FIX3_RC=0` — the FULL pixi environment built (all source
+  packages: gsplat fork, simple-knn, tinycudann, pytorch3d, unidepth, trajdata, hugsim-env,
+  nuscenes-devkit fork, et al.). Import check passed:
+  `HUGSIM_IMPORT_OK torch 2.4.1+cu124 cuda_avail True gsplat 1.2.0`
+  (`/var/log/sentinel-hugsim-importcheck.log`, RC=0; `pip freeze` capture at
+  `/tmp/hugsim_pip_freeze.txt`).
+- **apex**: `HUGSIM_APEX_RC=1` (apex's own strict CUDA minor-version check, 12.9 vs torch's
+  12.4). NOT blocking for this gate: `apex` is imported only under `data/InverseForm/`
+  (reconstruction/data-prep toolchain), not by `closed_loop.py`, `sim/`, or `eval_render/`
+  (verified by grep). Recorded honestly; a future reconstruction line would need it.
+- **Smoke attempt 1** (23:12): fail-fast — host cv2 missing `libGL.so.1`; installed host
+  `libgl1`+`libegl1` via apt (env step, recorded).
+- **Smoke attempt 2** (23:13): simulator config loaded, client launched; env creation failed
+  on the released scene's own `cfg.yaml` baking the author's absolute
+  `model_path: /nas/users/...`. Edited the EXTRACTED copy's `model_path` to
+  `/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013` (original preserved
+  as `cfg.yaml.orig`; the zip in the manifest is untouched).
+- **Smoke attempt 3** (23:14): simulator fully up — `Ready for simulation`, first ego pose
+  printed, `ground.ply`/`scene.ply` written (G3: the scenario renders). Client crashed on
+  import: `open3d` then `mediapy` missing in `uniad:latest` (visualization imports of
+  `tools/closeloop/visualizer.py`). Wrapper now `pip install -q open3d mediapy` into the
+  ephemeral container at start; client code untouched.
+- **Smoke attempt 4** (23:18:59): FIRST CLOSED-LOOP ROUND TRIPS — client `Ready for
+  recieving`, `received`/`sent` for steps 0000 and 0001 with BEV/cam visualizations saved;
+  sim advanced 3 ego poses (pipe-deadlock falsifier did NOT fire; the interface works).
+  At step ~2 the client's UniAD forward raised `cusolver error:
+  CUSOLVER_STATUS_INTERNAL_ERROR when calling cusolverDnCreate(handle)`; the author's
+  except-path sets `results=None` and the next line crashes (`NoneType` not subscriptable),
+  exiting the client. Killed the then-blocked simulator cleanly.
+- **Smoke attempt 5** (23:22:32, IN FLIGHT): plain retry to test transience of the cusolver
+  init failure. If it reproduces at the same step, next declared options (in order):
+  (a) retry with `PYTORCH_CUDA_ALLOC_CONF` fragmentation guard in the client env;
+  (b) an env-level linalg backend preference for the client interpreter (no client code
+  edit); (c) if it persists, this is falsifier territory ("environment/CUDA incompatibility"
+  applied to the client half) — publish the infrastructure null with the evidence.
+  NeuroNCAP context: the same image ran full UniAD inference (incl. planning) for 6,474
+  frames on this box/driver, so a hard incompatibility is not the default explanation.
+
 ## Resume point (exact — updated 2026-07-11 ~22:45 UTC)
 
 1. Poll `/var/log/sentinel-hugsim-envsetup.log` for `HUGSIM_ENV_FIX2_DONE`; check
