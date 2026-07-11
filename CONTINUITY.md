@@ -148,6 +148,26 @@ events to prepare; they are a property the repository always has.
   observable). The temporal-smoothing repair line is closed at these frozen parameters; any
   successor (estimator-class change such as a measurement-noise-modeling tracking filter, a
   noise-robust rule term, or any closed-loop line) requires a fresh pre-registration.
+- Iteration 45 concluded:
+  experiments/iter45_hugsim_infra_gate/RESULT.md, published as `HUGSIM_INFRA_GATE_PASS`. The
+  Stage-0-only infrastructure gate for the second closed-loop benchmark family passed all four
+  completion bars: the XDimLab/HUGSIM release staged at `/datasets/nuscenes-full/hugsim/` with
+  a committed 306-file SHA256/size manifest; the HUGSIM pixi environment built (torch
+  `2.4.1+cu124`, gsplat `1.2.0`, `simple-knn` +`float.h` build patch; apex fails its strict
+  CUDA-minor check but is used only by the reconstruction toolchain — non-blocking, recorded);
+  the unmodified UniAD_SIM client (`5fb279e3`) runs inside the existing `uniad:latest` image on
+  the SAME `uniad_base_e2e.pth`; and one monitor-OFF scenario (`scene-0013-easy-00`, frozen
+  lexicographic rule) ran closed-loop end-to-end through the named pipes (15 steps,
+  benchmark-rule termination, `eval.json` HD-Score output, per-step logs). One real
+  incompatibility found and bounded: CUDA 11.1 cuSOLVER cannot init on the L4 (sm_89), so the
+  client's GPU dense linalg runs through a recorded interpreter-level CPU shim
+  (`/opt/sentinel-stack/hugsim-shim/sitecustomize.py`); client/model code untouched. The pass
+  authorizes ONLY the Stage-1/2 pre-registration (monitor-OFF reproduction subset, then OFF vs
+  released union, seed-paired); no transfer, benchmark, robustness, deployment, or safety
+  claim. Box-side surfaces to know: configs edited with `.orig` originals preserved
+  (`HUGSIM/configs/sim/nuscenes_base.yaml`, `UniAD_SIM/tools/e2e.sh` docker wrapper,
+  `scene-0013/cfg.yaml` model_path), smoke launcher `/tmp/hugsim_smoke.sh`, logs
+  `/var/log/sentinel-hugsim-*.log`.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -794,3 +814,23 @@ events to prepare; they are a property the repository always has.
   docs commit; its read-only probe (run after the result was published, outside the iteration's
   evidence chain) confirmed sentinel-gpu IDLE with no Docker containers — the box was not
   otherwise touched.
+- 2026-07-12 (box-clock 2026-07-11 22:12-23:35 UTC): Claude (Fable 5) via delegated executor —
+  opened the HUGSIM transfer lane in three stages. (1) Verified disk cleanup per
+  docs/research/BOX_CLEANUP_2026-07-12.md: 26.7 GiB freed (root 16 -> 43 GiB free at 87%);
+  outoutput/iter42-trace archived FIRST into the committed
+  experiments/iter42_exact_trace_replay_support/proof-runs-cleanup/i42-runs.tar.gz then
+  deleted; 196 UniAD jsonl/gz duplicates deleted only after SHA256 match against committed
+  artifacts; 42 logs deleted only when byte-identical to committed copies; 2 files + 25 logs
+  SKIPPED as unverifiable; Docker images and both dataset roots untouched. (2) Pre-registered
+  iteration 45 (experiments/iter45_hugsim_infra_gate/HYPOTHESIS.md, committed ALONE, CI green)
+  per the launch packet's frozen Stage-0 shape. (3) Executed the gate to completion in the same
+  window: assets (306-file SHA manifest), environments (3 recorded pixi attempts to torch
+  cu124; falsifier probes fired exactly as pre-declared and were bounded), unmodified client on
+  the frozen checkpoint, and the single monitor-OFF smoke (scene-0013-easy-00, 15 steps,
+  HD-Score produced). Published HUGSIM_INFRA_GATE_PASS at full weight; README row 45 + header +
+  status bullet + repo map updated; ruff + pytest (140) + validate_docs green on every push.
+  BOX state at exit: IDLE, no Docker containers, root 43 GiB free, data disk 184 GiB free;
+  detached jobs all terminated (check /var/log/sentinel-hugsim-*.log markers). Exact resume
+  point: write the Stage-1/2 HUGSIM pre-registration (monitor-OFF reproduction subset first)
+  per the S4 boundary in iter45 RESULT.md; the smoke launcher and shim on the box are reusable
+  surfaces for it.

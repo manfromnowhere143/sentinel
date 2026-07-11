@@ -210,7 +210,24 @@ never alongside another GPU job.
   NeuroNCAP context: the same image ran full UniAD inference (incl. planning) for 6,474
   frames on this box/driver, so a hard incompatibility is not the default explanation.
 
-## Resume point (exact — updated 2026-07-11 ~22:45 UTC)
+## 2026-07-11 23:26-23:31 UTC — GATE COMPLETE (see RESULT.md)
+
+Smoke attempt 6 (with the recorded cuSOLVER CPU shim mounted via `PYTHONPATH`) ran the full
+closed loop: 15 steps of `received`/`sent` round trips, benchmark-rule termination,
+`eval.json` written with `hdscore 0.1677` (`nc/dac/ttc/comfort 1.0`, `rc 0.1677`). Evidence
+collected to `proof-infra/i45-smoke-evidence.tar.gz` (SHA
+`086b2e095b69c9643ce5b2a04755cd2686e5368b82143ad0c7ef90c2de092233`) plus the full env-setup
+and smoke logs. Verdict `HUGSIM_INFRA_GATE_PASS` published in [`RESULT.md`](RESULT.md). Box
+left with no Docker containers running.
+
+The shim provenance (attempt 5 evidence): the cuSOLVER failure reproduced deterministically
+at step 2 on plain retry, then was isolated OUTSIDE the pipeline —
+`docker run --rm --gpus all uniad:latest python -c "torch.inverse(torch.eye(4).cuda())"`
+fails with the identical `cusolverDnCreate` error on torch `1.9.1+cu111` / sm_89, and
+torch 1.9 has no `preferred_linalg_library`. The shim routes those ops via CPU; client code
+untouched (see RESULT.md).
+
+## Original resume plan (historical — superseded by gate completion above)
 
 1. Poll `/var/log/sentinel-hugsim-envsetup.log` for `HUGSIM_ENV_FIX2_DONE`; check
    `HUGSIM_PIXI_FIX2_RC` (and `HUGSIM_APEX_RC` — apex `--cuda_ext` may need the same

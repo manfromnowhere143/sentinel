@@ -1,0 +1,367 @@
+++ date -u
++ echo HUGSIM_SMOKE_START Sat Jul 11 23:12:18 UTC 2026
+HUGSIM_SMOKE_START Sat Jul 11 23:12:18 UTC 2026
++ export PIXI_HOME=/datasets/nuscenes-full/hugsim-envs/pixi-home
++ PIXI_HOME=/datasets/nuscenes-full/hugsim-envs/pixi-home
++ export PIXI_CACHE_DIR=/datasets/nuscenes-full/hugsim-envs/pixi-cache
++ PIXI_CACHE_DIR=/datasets/nuscenes-full/hugsim-envs/pixi-cache
++ export PATH=/datasets/nuscenes-full/hugsim-envs/pixi-home/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
++ PATH=/datasets/nuscenes-full/hugsim-envs/pixi-home/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
++ mkdir -p /datasets/nuscenes-full/hugsim/outputs
++ cd /opt/sentinel-stack/HUGSIM
++ timeout 7200 pixi run python -u closed_loop.py --scenario_path /datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0013-easy-00.yaml --base_path configs/sim/nuscenes_base.yaml --camera_path configs/sim/nuscenes_camera.yaml --kinematic_path configs/sim/kinematic.yaml --ad uniad --ad_cuda 0
+Traceback (most recent call last):
+  File "/opt/sentinel-stack/HUGSIM/closed_loop.py", line 8, in <module>
+    from sim.utils.sim_utils import traj2control, traj_transform_to_global
+  File "/opt/sentinel-stack/HUGSIM/sim/utils/sim_utils.py", line 4, in <module>
+    from scene.cameras import Camera
+  File "/opt/sentinel-stack/HUGSIM/scene/__init__.py", line 5, in <module>
+    from scene.dataset_readers import sceneLoadTypeCallbacks
+  File "/opt/sentinel-stack/HUGSIM/scene/dataset_readers.py", line 7, in <module>
+    from scene.gaussian_model import BasicPointCloud
+  File "/opt/sentinel-stack/HUGSIM/scene/gaussian_model.py", line 3, in <module>
+    from utils.general_utils import inverse_sigmoid, get_expon_lr_func, build_rotation
+  File "/opt/sentinel-stack/HUGSIM/utils/general_utils.py", line 18, in <module>
+    import cv2
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/cv2/__init__.py", line 181, in <module>
+    bootstrap()
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/cv2/__init__.py", line 153, in bootstrap
+    native_module = importlib.import_module("cv2")
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ImportError: libGL.so.1: cannot open shared object file: No such file or directory
++ echo HUGSIM_SMOKE_RC=1
+HUGSIM_SMOKE_RC=1
++ echo --- output tree ---
+--- output tree ---
++ find /datasets/nuscenes-full/hugsim/outputs -maxdepth 3
++ head -40
+/datasets/nuscenes-full/hugsim/outputs
++ echo --- eval.json ---
+--- eval.json ---
++ cat /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/eval.json
++ echo
+
+++ date -u
++ echo HUGSIM_SMOKE_DONE Sat Jul 11 23:12:21 UTC 2026
+HUGSIM_SMOKE_DONE Sat Jul 11 23:12:21 UTC 2026
+++ date -u
++ echo HUGSIM_SMOKE_START Sat Jul 11 23:13:12 UTC 2026
+HUGSIM_SMOKE_START Sat Jul 11 23:13:12 UTC 2026
++ export PIXI_HOME=/datasets/nuscenes-full/hugsim-envs/pixi-home
++ PIXI_HOME=/datasets/nuscenes-full/hugsim-envs/pixi-home
++ export PIXI_CACHE_DIR=/datasets/nuscenes-full/hugsim-envs/pixi-cache
++ PIXI_CACHE_DIR=/datasets/nuscenes-full/hugsim-envs/pixi-cache
++ export PATH=/datasets/nuscenes-full/hugsim-envs/pixi-home/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
++ PATH=/datasets/nuscenes-full/hugsim-envs/pixi-home/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
++ mkdir -p /datasets/nuscenes-full/hugsim/outputs
++ cd /opt/sentinel-stack/HUGSIM
++ timeout 7200 pixi run python -u closed_loop.py --scenario_path /datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0013-easy-00.yaml --base_path configs/sim/nuscenes_base.yaml --camera_path configs/sim/nuscenes_camera.yaml --kinematic_path configs/sim/kinematic.yaml --ad uniad --ad_cuda 0
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/output.txt
+/opt/sentinel-stack/UniAD_SIM/tools/e2e.sh 0 /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00
+Traceback (most recent call last):
+  File "/opt/sentinel-stack/HUGSIM/closed_loop.py", line 149, in <module>
+    create_gym_env(cfg, output)
+  File "/opt/sentinel-stack/HUGSIM/closed_loop.py", line 32, in create_gym_env
+    env = gymnasium.make('hugsim_env/HUGSim-v0', cfg=cfg, output=output)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/gymnasium/envs/registration.py", line 742, in make
+    env = env_creator(**env_spec_kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/sim/hugsim_env/envs/hug_sim.py", line 41, in __init__
+    with open(os.path.join(cfg.model_path, 'ground_param.pkl'), 'rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/nas/users/hyzhou/PAMI2024/release/ss/scenes/nuscenes/scene-0013/ground_param.pkl'
++ echo HUGSIM_SMOKE_RC=0
+HUGSIM_SMOKE_RC=0
++ echo --- output tree ---
+--- output tree ---
++ find /datasets/nuscenes-full/hugsim/outputs -maxdepth 3
++ head -40
+/datasets/nuscenes-full/hugsim/outputs
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/output.txt
++ echo --- eval.json ---
+--- eval.json ---
++ cat /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/eval.json
++ echo
+
+++ date -u
++ echo HUGSIM_SMOKE_DONE Sat Jul 11 23:13:31 UTC 2026
+HUGSIM_SMOKE_DONE Sat Jul 11 23:13:31 UTC 2026
+++ date -u
++ echo HUGSIM_SMOKE_START Sat Jul 11 23:14:17 UTC 2026
+HUGSIM_SMOKE_START Sat Jul 11 23:14:17 UTC 2026
++ export PIXI_HOME=/datasets/nuscenes-full/hugsim-envs/pixi-home
++ PIXI_HOME=/datasets/nuscenes-full/hugsim-envs/pixi-home
++ export PIXI_CACHE_DIR=/datasets/nuscenes-full/hugsim-envs/pixi-cache
++ PIXI_CACHE_DIR=/datasets/nuscenes-full/hugsim-envs/pixi-cache
++ export PATH=/datasets/nuscenes-full/hugsim-envs/pixi-home/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
++ PATH=/datasets/nuscenes-full/hugsim-envs/pixi-home/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
++ mkdir -p /datasets/nuscenes-full/hugsim/outputs
++ cd /opt/sentinel-stack/HUGSIM
++ timeout 7200 pixi run python -u closed_loop.py --scenario_path /datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0013-easy-00.yaml --base_path configs/sim/nuscenes_base.yaml --camera_path configs/sim/nuscenes_camera.yaml --kinematic_path configs/sim/kinematic.yaml --ad uniad --ad_cuda 0
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/output.txt
+/opt/sentinel-stack/UniAD_SIM/tools/e2e.sh 0 /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00
+Ready for simulation
+ego pose [0.0, -5.551115123125783e-17, 0.0]
+Terminated
++ echo HUGSIM_SMOKE_RC=143
+HUGSIM_SMOKE_RC=143
++ echo --- output tree ---
+--- output tree ---
++ find /datasets/nuscenes-full/hugsim/outputs -maxdepth 3
++ head -40
+/datasets/nuscenes-full/hugsim/outputs
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/ground.ply
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/obs_pipe
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/scene.ply
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/plan_pipe
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/output.txt
++ echo --- eval.json ---
+--- eval.json ---
++ cat /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/eval.json
++ echo
+
+++ date -u
++ echo HUGSIM_SMOKE_DONE Sat Jul 11 23:15:55 UTC 2026
+HUGSIM_SMOKE_DONE Sat Jul 11 23:15:55 UTC 2026
+++ date -u
++ echo HUGSIM_SMOKE_START Sat Jul 11 23:16:34 UTC 2026
+HUGSIM_SMOKE_START Sat Jul 11 23:16:34 UTC 2026
++ export PIXI_HOME=/datasets/nuscenes-full/hugsim-envs/pixi-home
++ PIXI_HOME=/datasets/nuscenes-full/hugsim-envs/pixi-home
++ export PIXI_CACHE_DIR=/datasets/nuscenes-full/hugsim-envs/pixi-cache
++ PIXI_CACHE_DIR=/datasets/nuscenes-full/hugsim-envs/pixi-cache
++ export PATH=/datasets/nuscenes-full/hugsim-envs/pixi-home/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
++ PATH=/datasets/nuscenes-full/hugsim-envs/pixi-home/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
++ mkdir -p /datasets/nuscenes-full/hugsim/outputs
++ cd /opt/sentinel-stack/HUGSIM
++ timeout 7200 pixi run python -u closed_loop.py --scenario_path /datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0013-easy-00.yaml --base_path configs/sim/nuscenes_base.yaml --camera_path configs/sim/nuscenes_camera.yaml --kinematic_path configs/sim/kinematic.yaml --ad uniad --ad_cuda 0
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/output.txt
+/opt/sentinel-stack/UniAD_SIM/tools/e2e.sh 0 /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00
+Ready for simulation
+ego pose [0.0, -5.551115123125783e-17, 0.0]
+Terminated
++ echo HUGSIM_SMOKE_RC=143
+HUGSIM_SMOKE_RC=143
++ echo --- output tree ---
+--- output tree ---
++ find /datasets/nuscenes-full/hugsim/outputs -maxdepth 3
++ head -40
+/datasets/nuscenes-full/hugsim/outputs
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/ground.ply
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/obs_pipe
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/scene.ply
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/plan_pipe
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/output.txt
++ echo --- eval.json ---
+--- eval.json ---
++ cat /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/eval.json
++ echo
+
+++ date -u
++ echo HUGSIM_SMOKE_DONE Sat Jul 11 23:18:23 UTC 2026
+HUGSIM_SMOKE_DONE Sat Jul 11 23:18:23 UTC 2026
+++ date -u
++ echo HUGSIM_SMOKE_START Sat Jul 11 23:18:59 UTC 2026
+HUGSIM_SMOKE_START Sat Jul 11 23:18:59 UTC 2026
++ export PIXI_HOME=/datasets/nuscenes-full/hugsim-envs/pixi-home
++ PIXI_HOME=/datasets/nuscenes-full/hugsim-envs/pixi-home
++ export PIXI_CACHE_DIR=/datasets/nuscenes-full/hugsim-envs/pixi-cache
++ PIXI_CACHE_DIR=/datasets/nuscenes-full/hugsim-envs/pixi-cache
++ export PATH=/datasets/nuscenes-full/hugsim-envs/pixi-home/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
++ PATH=/datasets/nuscenes-full/hugsim-envs/pixi-home/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
++ mkdir -p /datasets/nuscenes-full/hugsim/outputs
++ cd /opt/sentinel-stack/HUGSIM
++ timeout 7200 pixi run python -u closed_loop.py --scenario_path /datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0013-easy-00.yaml --base_path configs/sim/nuscenes_base.yaml --camera_path configs/sim/nuscenes_camera.yaml --kinematic_path configs/sim/kinematic.yaml --ad uniad --ad_cuda 0
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/output.txt
+/opt/sentinel-stack/UniAD_SIM/tools/e2e.sh 0 /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00
+Ready for simulation
+ego pose [0.0, -5.551115123125783e-17, 0.0]
+ego pose [0.0, -0.002826926030539508, 0.4375]
+ego pose [0.007925481779120403, -0.006816218362474861, 0.9922924461831947]
+Terminated
++ echo HUGSIM_SMOKE_RC=143
+HUGSIM_SMOKE_RC=143
++ echo --- output tree ---
+--- output tree ---
++ find /datasets/nuscenes-full/hugsim/outputs -maxdepth 3
++ head -40
+/datasets/nuscenes-full/hugsim/outputs
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/ground.ply
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/obs_pipe
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/uniad
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/scene.ply
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/plan_pipe
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/output.txt
++ echo --- eval.json ---
+--- eval.json ---
++ cat /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/eval.json
++ echo
+
+++ date -u
++ echo HUGSIM_SMOKE_DONE Sat Jul 11 23:22:01 UTC 2026
+HUGSIM_SMOKE_DONE Sat Jul 11 23:22:01 UTC 2026
+++ date -u
++ echo HUGSIM_SMOKE_START Sat Jul 11 23:22:32 UTC 2026
+HUGSIM_SMOKE_START Sat Jul 11 23:22:32 UTC 2026
++ export PIXI_HOME=/datasets/nuscenes-full/hugsim-envs/pixi-home
++ PIXI_HOME=/datasets/nuscenes-full/hugsim-envs/pixi-home
++ export PIXI_CACHE_DIR=/datasets/nuscenes-full/hugsim-envs/pixi-cache
++ PIXI_CACHE_DIR=/datasets/nuscenes-full/hugsim-envs/pixi-cache
++ export PATH=/datasets/nuscenes-full/hugsim-envs/pixi-home/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
++ PATH=/datasets/nuscenes-full/hugsim-envs/pixi-home/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
++ mkdir -p /datasets/nuscenes-full/hugsim/outputs
++ cd /opt/sentinel-stack/HUGSIM
++ timeout 7200 pixi run python -u closed_loop.py --scenario_path /datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0013-easy-00.yaml --base_path configs/sim/nuscenes_base.yaml --camera_path configs/sim/nuscenes_camera.yaml --kinematic_path configs/sim/kinematic.yaml --ad uniad --ad_cuda 0
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/output.txt
+/opt/sentinel-stack/UniAD_SIM/tools/e2e.sh 0 /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00
+Ready for simulation
+ego pose [0.0, -5.551115123125783e-17, 0.0]
+ego pose [0.0, -0.002826926030539508, 0.4375]
+ego pose [0.007925073138967956, -0.006816227473517203, 0.9922636439766587]
+Terminated
++ echo HUGSIM_SMOKE_RC=143
+HUGSIM_SMOKE_RC=143
++ echo --- output tree ---
+--- output tree ---
++ find /datasets/nuscenes-full/hugsim/outputs -maxdepth 3
++ head -40
+/datasets/nuscenes-full/hugsim/outputs
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/ground.ply
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/obs_pipe
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/uniad
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/scene.ply
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/plan_pipe
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/output.txt
++ echo --- eval.json ---
+--- eval.json ---
++ cat /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/eval.json
++ echo
+
+++ date -u
++ echo HUGSIM_SMOKE_DONE Sat Jul 11 23:24:35 UTC 2026
+HUGSIM_SMOKE_DONE Sat Jul 11 23:24:35 UTC 2026
+++ date -u
++ echo HUGSIM_SMOKE_START Sat Jul 11 23:26:26 UTC 2026
+HUGSIM_SMOKE_START Sat Jul 11 23:26:26 UTC 2026
++ export PIXI_HOME=/datasets/nuscenes-full/hugsim-envs/pixi-home
++ PIXI_HOME=/datasets/nuscenes-full/hugsim-envs/pixi-home
++ export PIXI_CACHE_DIR=/datasets/nuscenes-full/hugsim-envs/pixi-cache
++ PIXI_CACHE_DIR=/datasets/nuscenes-full/hugsim-envs/pixi-cache
++ export PATH=/datasets/nuscenes-full/hugsim-envs/pixi-home/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
++ PATH=/datasets/nuscenes-full/hugsim-envs/pixi-home/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
++ mkdir -p /datasets/nuscenes-full/hugsim/outputs
++ cd /opt/sentinel-stack/HUGSIM
++ timeout 7200 pixi run python -u closed_loop.py --scenario_path /datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0013-easy-00.yaml --base_path configs/sim/nuscenes_base.yaml --camera_path configs/sim/nuscenes_camera.yaml --kinematic_path configs/sim/kinematic.yaml --ad uniad --ad_cuda 0
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/output.txt
+/opt/sentinel-stack/UniAD_SIM/tools/e2e.sh 0 /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00
+Ready for simulation
+ego pose [0.0, -5.551115123125783e-17, 0.0]
+ego pose [0.0, -0.002826926030539508, 0.4375]
+ego pose [0.007925473940903349, -0.006816218536074797, 0.9922918974993752]
+ego pose [0.01576495434182547, -0.012847520687262545, 1.6564140584397653]
+ego pose [0.0038692538337105394, -0.018828195366794608, 2.4054253508102352]
+ego pose [-0.04961342885413675, -0.02525882836401469, 3.2106120146375563]
+ego pose [-0.1584433899376574, -0.027903437303076727, 4.0484743902012665]
+ego pose [-0.33254625059331044, -0.039497590027956185, 4.92536151883106]
+ego pose [-0.5504134905932848, -0.048695580594741904, 5.826798649191597]
+ego pose [-0.7990712109942292, -0.0630973293264828, 6.757016782284769]
+ego pose [-1.0445020691348463, -0.07850783712468268, 7.716274812448586]
+ego pose [-1.2608913562080442, -0.09674981003220698, 8.709409063857631]
+ego pose [-1.4340251566633075, -0.1069678091012338, 9.710133937339194]
+ego pose [-1.5931333540558623, -0.12122968208439075, 10.705992698498344]
+ego pose [-1.7537606872488372, -0.13608225765259657, 11.714325411138367]
+ego pose [-1.92561585465615, -0.15150708978323868, 12.730047913636652]
+Collision with background
+MoviePy - Building video /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/video.mp4.
+MoviePy - Writing video /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/video.mp4
+
+frame_index:   0%|          | 0/16 [00:00<?, ?it/s, now=None]frame_index:  31%|███▏      | 5/16 [00:00<00:00, 49.76it/s, now=None]frame_index: 100%|██████████| 16/16 [00:00<00:00, 84.91it/s, now=None]                                                                      MoviePy - Done !
+MoviePy - video ready /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/video.mp4
+this pkl file contains 1 experiment records.
+current exp has 16 frames
+frame 0 / 16
+comfortable: [True, True, True, True, True, True]
+frame 1 / 16
+comfortable: [True, True, True, True, True, True]
+frame 2 / 16
+comfortable: [True, True, True, True, True, True]
+frame 3 / 16
+comfortable: [True, True, True, True, True, True]
+frame 4 / 16
+comfortable: [True, True, True, True, True, True]
+frame 5 / 16
+comfortable: [True, True, True, True, True, True]
+frame 6 / 16
+comfortable: [True, True, True, True, True, True]
+frame 7 / 16
+comfortable: [True, True, True, True, True, True]
+frame 8 / 16
+comfortable: [True, True, True, True, True, True]
+frame 9 / 16
+comfortable: [True, True, True, True, True, True]
+frame 10 / 16
+comfortable: [True, True, True, True, True, True]
+frame 11 / 16
+comfortable: [True, True, True, True, True, True]
+frame 12 / 16
+comfortable: [True, True, True, True, True, True]
+frame 13 / 16
+comfortable: [True, True, True, True, True, True]
+frame 14 / 16
+comfortable: [True, True, True, True, True, True]
+frame 15 / 16
+comfortable: [True, True, True, True, True, True]
+The score of experiment is (1.0, 0.16773162939297126, 0.16773162939297126, {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, {0.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 0.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 0.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 4.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}}).
+=============================Results=============================
+'nc': 1.0
+'dac': 1.0
+'ttc': 1.0
+'c': 1.0
+'pdms': 1.0
+'rc': 0.16773162939297126
+'hdscore': 0.16773162939297126
+The AD algorithm is still running, remaining tolerant 100.
+The AD algorithm is still running, remaining tolerant 95.
+The AD algorithm is still running, remaining tolerant 90.
+The AD algorithm completed with return code 0.
++ echo HUGSIM_SMOKE_RC=0
+HUGSIM_SMOKE_RC=0
++ echo --- output tree ---
+--- output tree ---
++ find /datasets/nuscenes-full/hugsim/outputs -maxdepth 3
++ head -40
+/datasets/nuscenes-full/hugsim/outputs
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/ground.ply
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/eval.json
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/obs_pipe
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/uniad
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/video.mp4
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/scene.ply
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/data.pkl
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/infos.pkl
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/plan_pipe
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/output.txt
++ echo --- eval.json ---
+--- eval.json ---
++ cat /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/eval.json
+{"nc": 1.0, "dac": 1.0, "ttc": 1.0, "c": 1.0, "pdms": 1.0, "rc": 0.16773162939297126, "hdscore": 0.16773162939297126, "details": {"0.25": {"nc": 1.0, "dac": 1.0, "ttc": 1.0, "c": 1.0, "pdms": 1.0}, "0.5": {"nc": 1.0, "dac": 1.0, "ttc": 1.0, "c": 1.0, "pdms": 1.0}, "0.75": {"nc": 1.0, "dac": 1.0, "ttc": 1.0, "c": 1.0, "pdms": 1.0}, "1.0": {"nc": 1.0, "dac": 1.0, "ttc": 1.0, "c": 1.0, "pdms": 1.0}, "1.25": {"nc": 1.0, "dac": 1.0, "ttc": 1.0, "c": 1.0, "pdms": 1.0}, "1.5": {"nc": 1.0, "dac": 1.0, "ttc": 1.0, "c": 1.0, "pdms": 1.0}, "1.75": {"nc": 1.0, "dac": 1.0, "ttc": 1.0, "c": 1.0, "pdms": 1.0}, "2.0": {"nc": 1.0, "dac": 1.0, "ttc": 1.0, "c": 1.0, "pdms": 1.0}, "2.25": {"nc": 1.0, "dac": 1.0, "ttc": 1.0, "c": 1.0, "pdms": 1.0}, "2.5": {"nc": 1.0, "dac": 1.0, "ttc": 1.0, "c": 1.0, "pdms": 1.0}, "2.75": {"nc": 1.0, "dac": 1.0, "ttc": 1.0, "c": 1.0, "pdms": 1.0}, "3.0": {"nc": 1.0, "dac": 1.0, "ttc": 1.0, "c": 1.0, "pdms": 1.0}, "3.25": {"nc": 1.0, "dac": 1.0, "ttc": 1.0, "c": 1.0, "pdms": 1.0}, "3.5": {"nc": 1.0, "dac": 1.0, "ttc": 1.0, "c": 1.0, "pdms": 1.0}, "3.75": {"nc": 1.0, "dac": 1.0, "ttc": 1.0, "c": 1.0, "pdms": 1.0}, "4.0": {"nc": 1.0, "dac": 1.0, "ttc": 1.0, "c": 1.0, "pdms": 1.0}}}+ echo
+
+++ date -u
++ echo HUGSIM_SMOKE_DONE Sat Jul 11 23:28:21 UTC 2026
+HUGSIM_SMOKE_DONE Sat Jul 11 23:28:21 UTC 2026
