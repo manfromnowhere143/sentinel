@@ -75,6 +75,15 @@ geometry over the planner's own outputs (no trained head), no invented takeover 
 structurally safer), no weight updates --- and it is validated with a progress-aware metric
 none of the above report.
 
+\textbf{Retrained planners on the same benchmark.} Concurrent work improves NeuroNCAP by
+retraining or replacing the planner rather than monitoring it: BridgeAD \cite{bridgead}
+reports 2.98--3.06 under the same trajectory post-processing protocol in which UniAD scores
+1.84, and a VLM-agent system reports 3.49 in the no-post-processing protocol
+\cite{imagidrive}. Those results are complementary rather than comparable to ours: they change
+the planner, while this campaign measures what a training-free monitor buys on the planner
+exactly as shipped. Independently, DMAD's own rerun of the UniAD baseline (pooled 2.11)
+\cite{dmad} corroborates the reproduction reported here (2.12).
+
 \textbf{Runtime selection among a frozen planner's candidates.} Candidate scoring is an active
 paradigm \cite{diver,gtrs,diffusiondrive}, but in every verified instance the scorer is
 co-trained within the planner's pipeline and evaluated on non-reactive NAVSIM. No verified
@@ -234,11 +243,17 @@ convergence of two independent failure modes on tracking quality --- together th
 mechanism space for runtime driving assurance more sharply than the headline number does, and
 they name the next frontier precisely.
 
-\begin{thebibliography}{9}\small
+\begin{thebibliography}{99}\small
 \bibitem{neuroncap} Ljungbergh et al. NeuroNCAP: Photorealistic closed-loop safety testing for
 autonomous driving. arXiv:2404.07762, 2024.
 \bibitem{bevplanner} Li et al. Is ego status all you need for open-loop end-to-end autonomous
 driving? arXiv:2312.03031, 2023.
+\bibitem{bridgead} Zhang et al. Bridging past and future in end-to-end autonomous driving
+(BridgeAD). CVPR 2025; arXiv:2503.14182.
+\bibitem{dmad} Shen et al. Divide and merge: motion and semantic learning in end-to-end
+autonomous driving (DMAD). arXiv:2502.07631, 2025.
+\bibitem{imagidrive} ImagiDrive: driving-world-model imagination with a VLM agent. ICRA 2026;
+arXiv:2508.11428.
 \bibitem{catplan} CATPlan/RiskMonitor: collision prediction for end-to-end planners.
 arXiv:2503.07425, 2025.
 \bibitem{argus} Argus: runtime monitoring and takeover for end-to-end drivers. arXiv:2511.09032,

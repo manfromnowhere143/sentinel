@@ -692,3 +692,13 @@ events to prepare; they are a property the repository always has.
   "detection-without-correction" asymmetry now documented in LLMs (arXiv 2604.13068) — our
   steering nulls are independent cross-domain evidence. Full positioning report to Daniel in
   the session; related-work refresh of the manuscript is a named next action.
+- 2026-07-11: Claude (Fable 5) — manuscript related-work refresh DONE with source-verified
+  numbers only: added a "Retrained planners on the same benchmark" paragraph (BridgeAD CVPR 2025
+  2.98--3.06 with post-processing / UniAD 1.84 same table, verified from arXiv 2503.14182 HTML;
+  ImagiDrive ICRA 2026 3.49 in the no-post-processing family, verified from arXiv 2508.11428;
+  DMAD UniAD rerun 2.11 corroborating our 2.12 reproduction, verified from the DMAD README) plus
+  three bibitems; paper.pdf recompiled (tectonic) and sentinel-arxiv-submission.tar.gz rebuilt
+  with identical member list. Scope note: the compiled paper covers through iteration 19; the
+  iters 29-38 probe/steering line and its cross-domain "detection-without-correction" framing
+  (arXiv 2604.13068) are deliberately NOT folded in — that is a future revision, not this
+  submission.
