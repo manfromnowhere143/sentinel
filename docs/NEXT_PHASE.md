@@ -364,3 +364,7 @@ intervention cost, and deployment trade-offs.
     rule and first prove vanilla replay. Otherwise choose another hostile external-validity
     falsifier such as adversarial perturbations, independent planner transfer, unseen scenario
     families, calibration stability, or deployment trade-offs.
+26. Iteration 42 is now pre-registered as that replay-support remedy. It freezes a best-arm-only
+    full14/power trace capture with exact `ego2world` per monitor frame and exact offline replay
+    identity as the only success condition. It authorizes no perturbation, no robustness claim, no
+    selector, no deployment language, and no safety claim.

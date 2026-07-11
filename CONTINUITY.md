@@ -101,6 +101,13 @@ events to prepare; they are a property the repository always has.
   `400/400` episodes. Perturbation bars were skipped. No object-stream, camera, degraded-sensor,
   GPU, closed-loop, selector, deployment, or safety robustness claim is authorized. A successor on
   this line needs a fresh replay-support pre-registration before any result.
+- Iteration 42 is pre-registered:
+  experiments/iter42_exact_trace_replay_support/HYPOTHESIS.md. It is the direct replay-support
+  remedy for Iter41: best-arm-only full14/power trace capture, exact `ego2world` logged per
+  monitor frame, and exact offline replay identity for fired/brake/release/latch state. It
+  authorizes no degradation perturbation, selector, deployment, or safety claim. Tooling must be
+  committed before any GPU launch; GPU preflight must show idle Docker, active swap, and at least
+  `8 GiB` free root disk.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).

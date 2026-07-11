@@ -408,3 +408,11 @@ over-claim.** That arc, in order:
     runnable. No score-threshold, range-limit, dropout, jitter, camera degradation, closed-loop,
     deployment, or safety robustness claim is authorized.
     [`../experiments/iter41_sensor_input_degradation_gate/RESULT.md`](../experiments/iter41_sensor_input_degradation_gate/RESULT.md).
+
+44. **Iter 42 — exact trace replay support gate: pre-registered.** This is the direct repair for
+    Iter41's hidden artifact assumption. The gate may run only the released-union best arm on the
+    frozen full14/power scenario/run set, logging exact `ego2world` with every monitor frame. It
+    must then reproduce online fired/brake/release/latch state exactly offline. A pass authorizes
+    only a future offline object-stream perturbation pre-registration; it is not a degradation,
+    benchmark, deployment, or safety result.
+    [`../experiments/iter42_exact_trace_replay_support/HYPOTHESIS.md`](../experiments/iter42_exact_trace_replay_support/HYPOTHESIS.md).
