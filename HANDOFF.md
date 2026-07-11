@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: ש' יול 11 19:02:13 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: ש' יול 11 19:45:57 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+20805b4 docs: record iter43 mild-fragile perturbation verdict in README header/tracker/diagram/status and CONTINUITY arc + shift log
+9f960d4 iter43: publish OBJECT_PERTURBATION_MILD_FRAGILE — jitter fragile at 0.05/0.10 m (over-firing dominant), dropout/score/churn stable at mild levels
+51f8021 iter43: collect single-run perturbation proof — report JSON, command record, local verification
+14be64a iter43: add object-stream perturbation analyzer reusing the iter42 replay implementation, plus unit tests
+733dc3d iter43: pre-register offline object-stream perturbation gate over the committed iter42 exact trace
+565ebcb handoff: refresh after iter42 trace replay-support pass; box idle
 bd6e6c4 docs: record iter42 trace replay-support pass in README status/tracker/diagram and CONTINUITY arc + shift log
 d1a83aa iter42: publish TRACE_REPLAY_SUPPORT_PASS — exact counts (400/6474/1205/156/230) and 0-mismatch offline replay identity
-3ffde8f iter42: collect trace capture proof from sentinel-gpu (trace sha256 8c43726c, run + watch logs)
-f19fb4b handoff: record threaded ljungbergh follow-up
-a614535 docs: readme alignment pass — corroborated-reproduction framing, iter40 power-scale safety case, iters 39-42 arc, steering-line closure, early-row evidence links
-1e4c3be research: record intervention-mechanism survey verdict (asymmetry replicated; LAE-style learned edit = only credible successor)
-541cdbc handoff: record positioning and hugsim launch-packet shift work
-eee4bf9 research: add HUGSIM second-benchmark transfer launch packet from recon
 ```
 Working tree: CLEAN
 
@@ -55,6 +55,7 @@ Working tree: CLEAN
 - experiments/iter40_timing_cost_audit: RESULT PUBLISHED
 - experiments/iter41_sensor_input_degradation_gate: RESULT PUBLISHED
 - experiments/iter42_exact_trace_replay_support: RESULT PUBLISHED
+- experiments/iter43_object_stream_perturbation_gate: RESULT PUBLISHED
 - experiments/iter4_gated: RESULT PUBLISHED
 - experiments/iter5_tracked: RESULT PUBLISHED
 - experiments/iter6_cpa: RESULT PUBLISHED
@@ -68,7 +69,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 19:03:21 up 7 days,  8:44,  0 users,  load average: 0.00, 0.00, 0.08
+ 19:47:04 up 7 days,  9:28,  0 users,  load average: 0.01, 0.01, 0.00
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-iter42-watch.log
@@ -80,7 +81,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter42_exact_trace_replay_support/RESULT.md — read it before opening new work.
+- Newest completed experiment: experiments/iter43_object_stream_perturbation_gate/RESULT.md — read it before opening new work.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
