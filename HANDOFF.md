@@ -84,6 +84,10 @@ is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT 
 Latest Iter42 observation before this handoff: at 2026-07-11T08:59:41Z the trace had reached
 `stationary 0108` with 1,796 JSONL rows, 94 reset blocks, 1,702 frame rows, zero parse errors,
 and no error markers.
+Read-only Iter42 watcher: `/tmp/sentinel_iter42_watch_loop.sh` is running on `sentinel-gpu`
+and appends 10-minute summaries to `/var/log/sentinel-iter42-watch.log`. It does not relaunch,
+kill, patch, or analyze the run; it exits after `I42_TRACE_ALL_DONE` or if Docker stops before
+that marker.
 
 ## Open threads (from the newest experiment docs)
 - Newest pre-registration: experiments/iter42_exact_trace_replay_support/HYPOTHESIS.md — read it in full; its gate governs the next action.
