@@ -1,0 +1,2078 @@
+WATCH_UTC 2026-07-11T09:31:47Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=2075 resets=108 frames=1967 brake=331 fired=103 release=63 bad_json=0
+LAST run=7 frame=13 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
+DOCKER
+laughing_burnell	Up 19 minutes
+renderer	Up 19 minutes
+model	Up 19 minutes
+DISK
+/dev/root       310G  288G   23G  93% /
+---
+WATCH_UTC 2026-07-11T09:41:48Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=2173 resets=113 frames=2060 brake=335 fired=104 release=64 bad_json=0
+LAST run=12 frame=15 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
+DOCKER
+laughing_burnell	Up 29 minutes
+renderer	Up 29 minutes
+model	Up 29 minutes
+DISK
+/dev/root       310G  288G   23G  93% /
+---
+WATCH_UTC 2026-07-11T09:51:48Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=2271 resets=118 frames=2153 brake=340 fired=106 release=65 bad_json=0
+LAST run=17 frame=11 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
+DOCKER
+laughing_burnell	Up 39 minutes
+renderer	Up 39 minutes
+model	Up 39 minutes
+DISK
+/dev/root       310G  288G   23G  93% /
+---
+WATCH_UTC 2026-07-11T10:01:48Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=2340 resets=122 frames=2218 brake=344 fired=107 release=66 bad_json=0
+LAST run=1 frame=12 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
+DOCKER
+funny_mirzakhani	Up 6 minutes
+model	Up 6 minutes
+renderer	Up 6 minutes
+DISK
+/dev/root       310G  288G   23G  93% /
+---
+WATCH_UTC 2026-07-11T10:11:50Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=2428 resets=126 frames=2302 brake=344 fired=107 release=66 bad_json=0
+LAST run=5 frame=15 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
+DOCKER
+funny_mirzakhani	Up 16 minutes
+model	Up 16 minutes
+renderer	Up 16 minutes
+DISK
+/dev/root       310G  288G   23G  93% /
+---
+WATCH_UTC 2026-07-11T10:21:50Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=2518 resets=131 frames=2387 brake=344 fired=107 release=66 bad_json=0
+LAST run=10 frame=2 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
+DOCKER
+funny_mirzakhani	Up 26 minutes
+model	Up 26 minutes
+renderer	Up 26 minutes
+DISK
+/dev/root       310G  289G   22G  93% /
+---
+WATCH_UTC 2026-07-11T10:31:50Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=2606 resets=135 frames=2471 brake=344 fired=107 release=66 bad_json=0
+LAST run=14 frame=5 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
+DOCKER
+funny_mirzakhani	Up 36 minutes
+model	Up 36 minutes
+renderer	Up 36 minutes
+DISK
+/dev/root       310G  289G   22G  93% /
+---
+WATCH_UTC 2026-07-11T10:41:51Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=2694 resets=139 frames=2555 brake=344 fired=107 release=66 bad_json=0
+LAST run=18 frame=8 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
+DOCKER
+funny_mirzakhani	Up 46 minutes
+model	Up 46 minutes
+renderer	Up 46 minutes
+DISK
+/dev/root       310G  289G   22G  94% /
+---
+WATCH_UTC 2026-07-11T10:51:51Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=2758 resets=142 frames=2616 brake=360 fired=113 release=68 bad_json=0
+LAST run=1 frame=8 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
+DOCKER
+suspicious_maxwell	Up 5 minutes
+model	Up 5 minutes
+renderer	Up 5 minutes
+DISK
+/dev/root       310G  289G   22G  94% /
+---
+WATCH_UTC 2026-07-11T11:01:52Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=2856 resets=148 frames=2708 brake=360 fired=113 release=68 bad_json=0
+LAST run=7 frame=4 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
+DOCKER
+suspicious_maxwell	Up 15 minutes
+model	Up 15 minutes
+renderer	Up 15 minutes
+DISK
+/dev/root       310G  289G   22G  94% /
+---
+WATCH_UTC 2026-07-11T11:11:53Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=2952 resets=153 frames=2799 brake=360 fired=113 release=68 bad_json=0
+LAST run=12 frame=5 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
+DOCKER
+suspicious_maxwell	Up 25 minutes
+model	Up 25 minutes
+renderer	Up 25 minutes
+DISK
+/dev/root       310G  289G   22G  94% /
+---
+WATCH_UTC 2026-07-11T11:21:53Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=3051 resets=159 frames=2892 brake=365 fired=115 release=69 bad_json=0
+LAST run=18 frame=6 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
+DOCKER
+suspicious_maxwell	Up 35 minutes
+model	Up 35 minutes
+renderer	Up 35 minutes
+DISK
+/dev/root       310G  289G   22G  94% /
+---
+WATCH_UTC 2026-07-11T11:31:54Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=3130 resets=165 frames=2965 brake=373 fired=117 release=71 bad_json=0
+LAST run=4 frame=7 reset=None brake=False fired=False release=True
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
+DOCKER
+competent_kirch	Up 8 minutes
+model	Up 8 minutes
+renderer	Up 8 minutes
+DISK
+/dev/root       310G  290G   21G  94% /
+---
+WATCH_UTC 2026-07-11T11:41:55Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=3230 resets=171 frames=3059 brake=377 fired=118 release=72 bad_json=0
+LAST run=10 frame=6 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
+DOCKER
+competent_kirch	Up 18 minutes
+model	Up 18 minutes
+renderer	Up 18 minutes
+DISK
+/dev/root       310G  290G   21G  94% /
+---
+WATCH_UTC 2026-07-11T11:51:55Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=3329 resets=176 frames=3153 brake=394 fired=123 release=76 bad_json=0
+LAST run=15 frame=7 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
+DOCKER
+competent_kirch	Up 28 minutes
+model	Up 28 minutes
+renderer	Up 28 minutes
+DISK
+/dev/root       310G  290G   21G  94% /
+---
+WATCH_UTC 2026-07-11T12:01:56Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=3404 resets=181 frames=3223 brake=398 fired=124 release=77 bad_json=0
+LAST run=0 frame=4 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
+DOCKER
+musing_jang	Up 2 minutes
+renderer	Up 2 minutes
+model	Up 2 minutes
+DISK
+/dev/root       310G  290G   21G  94% /
+---
+WATCH_UTC 2026-07-11T12:11:57Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=3498 resets=186 frames=3312 brake=398 fired=124 release=77 bad_json=0
+LAST run=5 frame=0 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
+DOCKER
+musing_jang	Up 12 minutes
+renderer	Up 12 minutes
+model	Up 12 minutes
+DISK
+/dev/root       310G  290G   21G  94% /
+---
+WATCH_UTC 2026-07-11T12:21:57Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=3591 resets=190 frames=3401 brake=400 fired=125 release=77 bad_json=0
+LAST run=9 frame=7 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
+DOCKER
+musing_jang	Up 22 minutes
+renderer	Up 22 minutes
+model	Up 22 minutes
+DISK
+/dev/root       310G  290G   20G  94% /
+---
+WATCH_UTC 2026-07-11T12:31:58Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=3684 resets=194 frames=3490 brake=404 fired=126 release=78 bad_json=0
+LAST run=13 frame=12 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
+DOCKER
+musing_jang	Up 32 minutes
+renderer	Up 32 minutes
+model	Up 32 minutes
+DISK
+/dev/root       310G  291G   20G  94% /
+---
+WATCH_UTC 2026-07-11T12:41:58Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=3777 resets=198 frames=3579 brake=412 fired=128 release=79 bad_json=0
+LAST run=17 frame=17 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
+DOCKER
+musing_jang	Up 42 minutes
+renderer	Up 42 minutes
+model	Up 42 minutes
+DISK
+/dev/root       310G  291G   20G  94% /
+---
+WATCH_UTC 2026-07-11T12:51:59Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=3845 resets=202 frames=3643 brake=421 fired=131 release=81 bad_json=0
+LAST run=1 frame=1 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
+DOCKER
+sad_dewdney	Up 4 minutes
+renderer	Up 4 minutes
+model	Up 4 minutes
+DISK
+/dev/root       310G  291G   20G  94% /
+---
+WATCH_UTC 2026-07-11T13:02:00Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=3940 resets=209 frames=3731 brake=460 fired=149 release=83 bad_json=0
+LAST run=8 frame=None reset=True brake=None fired=None release=None
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
+DOCKER
+sad_dewdney	Up 14 minutes
+renderer	Up 14 minutes
+model	Up 14 minutes
+DISK
+/dev/root       310G  291G   20G  94% /
+---
+WATCH_UTC 2026-07-11T13:12:00Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=4035 resets=215 frames=3820 brake=495 fired=166 release=86 bad_json=0
+LAST run=14 frame=6 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
+DOCKER
+sad_dewdney	Up 24 minutes
+renderer	Up 24 minutes
+model	Up 24 minutes
+DISK
+/dev/root       310G  291G   20G  94% /
+---
+WATCH_UTC 2026-07-11T13:22:01Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=4110 resets=220 frames=3890 brake=524 fired=181 release=88 bad_json=0
+LAST run=19 frame=13 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
++ echo '##### I42PAIR trace frontal 0106 #####'
+##### I42PAIR trace frontal 0106 #####
+DOCKER
+magical_tharp	Up About a minute
+model	Up About a minute
+renderer	Up About a minute
+DISK
+/dev/root       310G  291G   20G  94% /
+---
+WATCH_UTC 2026-07-11T13:32:01Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=4203 resets=227 frames=3976 brake=548 fired=191 release=89 bad_json=0
+LAST run=6 frame=11 reset=None brake=True fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
++ echo '##### I42PAIR trace frontal 0106 #####'
+##### I42PAIR trace frontal 0106 #####
+DOCKER
+magical_tharp	Up 11 minutes
+model	Up 11 minutes
+renderer	Up 11 minutes
+DISK
+/dev/root       310G  292G   19G  94% /
+---
+WATCH_UTC 2026-07-11T13:42:02Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=4299 resets=234 frames=4065 brake=571 fired=202 release=92 bad_json=0
+LAST run=13 frame=7 reset=None brake=True fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
++ echo '##### I42PAIR trace frontal 0106 #####'
+##### I42PAIR trace frontal 0106 #####
+DOCKER
+magical_tharp	Up 21 minutes
+model	Up 21 minutes
+renderer	Up 21 minutes
+DISK
+/dev/root       310G  292G   19G  94% /
+---
+WATCH_UTC 2026-07-11T13:52:03Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=4395 resets=240 frames=4155 brake=594 fired=212 release=94 bad_json=0
+LAST run=19 frame=15 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
++ echo '##### I42PAIR trace frontal 0106 #####'
+##### I42PAIR trace frontal 0106 #####
+DOCKER
+magical_tharp	Up 31 minutes
+model	Up 31 minutes
+renderer	Up 31 minutes
+DISK
+/dev/root       310G  292G   19G  94% /
+---
+WATCH_UTC 2026-07-11T14:02:03Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=4466 resets=245 frames=4221 brake=608 fired=224 release=94 bad_json=0
+LAST run=4 frame=7 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
++ echo '##### I42PAIR trace frontal 0106 #####'
+##### I42PAIR trace frontal 0106 #####
++ echo '##### I42PAIR trace frontal 0110 #####'
+##### I42PAIR trace frontal 0110 #####
+DOCKER
+nervous_cartwright	Up 9 minutes
+model	Up 9 minutes
+renderer	Up 9 minutes
+DISK
+/dev/root       310G  292G   19G  95% /
+---
+WATCH_UTC 2026-07-11T14:12:04Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=4558 resets=251 frames=4307 brake=632 fired=235 release=94 bad_json=0
+LAST run=10 frame=8 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
++ echo '##### I42PAIR trace frontal 0106 #####'
+##### I42PAIR trace frontal 0106 #####
++ echo '##### I42PAIR trace frontal 0110 #####'
+##### I42PAIR trace frontal 0110 #####
+DOCKER
+nervous_cartwright	Up 19 minutes
+model	Up 19 minutes
+renderer	Up 19 minutes
+DISK
+/dev/root       310G  292G   19G  95% /
+---
+WATCH_UTC 2026-07-11T14:22:05Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=4652 resets=257 frames=4395 brake=654 fired=245 release=95 bad_json=0
+LAST run=16 frame=8 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
++ echo '##### I42PAIR trace frontal 0106 #####'
+##### I42PAIR trace frontal 0106 #####
++ echo '##### I42PAIR trace frontal 0110 #####'
+##### I42PAIR trace frontal 0110 #####
+DOCKER
+nervous_cartwright	Up 29 minutes
+model	Up 29 minutes
+renderer	Up 29 minutes
+DISK
+/dev/root       310G  292G   19G  95% /
+---
+WATCH_UTC 2026-07-11T14:32:05Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=4723 resets=262 frames=4461 brake=675 fired=255 release=96 bad_json=0
+LAST run=1 frame=1 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
++ echo '##### I42PAIR trace frontal 0106 #####'
+##### I42PAIR trace frontal 0106 #####
++ echo '##### I42PAIR trace frontal 0110 #####'
+##### I42PAIR trace frontal 0110 #####
++ echo '##### I42PAIR trace frontal 0346 #####'
+##### I42PAIR trace frontal 0346 #####
+DOCKER
+practical_gould	Up 3 minutes
+model	Up 3 minutes
+renderer	Up 3 minutes
+DISK
+/dev/root       310G  292G   19G  95% /
+---
+WATCH_UTC 2026-07-11T14:42:06Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=4829 resets=269 frames=4560 brake=728 fired=281 release=96 bad_json=0
+LAST run=8 frame=2 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
++ echo '##### I42PAIR trace frontal 0106 #####'
+##### I42PAIR trace frontal 0106 #####
++ echo '##### I42PAIR trace frontal 0110 #####'
+##### I42PAIR trace frontal 0110 #####
++ echo '##### I42PAIR trace frontal 0346 #####'
+##### I42PAIR trace frontal 0346 #####
+DOCKER
+practical_gould	Up 13 minutes
+model	Up 13 minutes
+renderer	Up 13 minutes
+DISK
+/dev/root       310G  292G   18G  95% /
+---
+WATCH_UTC 2026-07-11T14:52:07Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=4933 resets=275 frames=4658 brake=780 fired=307 release=96 bad_json=0
+LAST run=14 frame=15 reset=None brake=True fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
++ echo '##### I42PAIR trace frontal 0106 #####'
+##### I42PAIR trace frontal 0106 #####
++ echo '##### I42PAIR trace frontal 0110 #####'
+##### I42PAIR trace frontal 0110 #####
++ echo '##### I42PAIR trace frontal 0346 #####'
+##### I42PAIR trace frontal 0346 #####
+DOCKER
+practical_gould	Up 24 minutes
+model	Up 24 minutes
+renderer	Up 24 minutes
+DISK
+/dev/root       310G  293G   18G  95% /
+---
+WATCH_UTC 2026-07-11T15:02:07Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=5012 resets=281 frames=4731 brake=808 fired=320 release=97 bad_json=0
+LAST run=0 frame=5 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
++ echo '##### I42PAIR trace frontal 0106 #####'
+##### I42PAIR trace frontal 0106 #####
++ echo '##### I42PAIR trace frontal 0110 #####'
+##### I42PAIR trace frontal 0110 #####
++ echo '##### I42PAIR trace frontal 0346 #####'
+##### I42PAIR trace frontal 0346 #####
++ echo '##### I42PAIR trace frontal 0923 #####'
+##### I42PAIR trace frontal 0923 #####
+DOCKER
+cranky_snyder	Up 2 minutes
+model	Up 2 minutes
+renderer	Up 2 minutes
+DISK
+/dev/root       310G  293G   18G  95% /
+---
+WATCH_UTC 2026-07-11T15:12:08Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=5118 resets=289 frames=4829 brake=841 fired=336 release=98 bad_json=0
+LAST run=8 frame=4 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
++ echo '##### I42PAIR trace frontal 0106 #####'
+##### I42PAIR trace frontal 0106 #####
++ echo '##### I42PAIR trace frontal 0110 #####'
+##### I42PAIR trace frontal 0110 #####
++ echo '##### I42PAIR trace frontal 0346 #####'
+##### I42PAIR trace frontal 0346 #####
++ echo '##### I42PAIR trace frontal 0923 #####'
+##### I42PAIR trace frontal 0923 #####
+DOCKER
+cranky_snyder	Up 12 minutes
+model	Up 12 minutes
+renderer	Up 12 minutes
+DISK
+/dev/root       310G  293G   18G  95% /
+---
+WATCH_UTC 2026-07-11T15:22:09Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=5225 resets=297 frames=4928 brake=877 fired=357 release=98 bad_json=0
+LAST run=16 frame=4 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
++ echo '##### I42PAIR trace frontal 0106 #####'
+##### I42PAIR trace frontal 0106 #####
++ echo '##### I42PAIR trace frontal 0110 #####'
+##### I42PAIR trace frontal 0110 #####
++ echo '##### I42PAIR trace frontal 0346 #####'
+##### I42PAIR trace frontal 0346 #####
++ echo '##### I42PAIR trace frontal 0923 #####'
+##### I42PAIR trace frontal 0923 #####
+DOCKER
+cranky_snyder	Up 22 minutes
+model	Up 22 minutes
+renderer	Up 22 minutes
+DISK
+/dev/root       310G  293G   18G  95% /
+---
+WATCH_UTC 2026-07-11T15:32:09Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=5299 resets=302 frames=4997 brake=899 fired=366 release=100 bad_json=0
+LAST run=1 frame=10 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
++ echo '##### I42PAIR trace frontal 0106 #####'
+##### I42PAIR trace frontal 0106 #####
++ echo '##### I42PAIR trace frontal 0110 #####'
+##### I42PAIR trace frontal 0110 #####
++ echo '##### I42PAIR trace frontal 0346 #####'
+##### I42PAIR trace frontal 0346 #####
++ echo '##### I42PAIR trace frontal 0923 #####'
+##### I42PAIR trace frontal 0923 #####
++ echo '##### I42PAIR trace side 0103 #####'
+##### I42PAIR trace side 0103 #####
+DOCKER
+inspiring_cerf	Up 5 minutes
+model	Up 5 minutes
+renderer	Up 5 minutes
+DISK
+/dev/root       310G  293G   18G  95% /
+---
+WATCH_UTC 2026-07-11T15:42:10Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=5392 resets=308 frames=5084 brake=919 fired=371 release=105 bad_json=0
+LAST run=7 frame=11 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
++ echo '##### I42PAIR trace frontal 0106 #####'
+##### I42PAIR trace frontal 0106 #####
++ echo '##### I42PAIR trace frontal 0110 #####'
+##### I42PAIR trace frontal 0110 #####
++ echo '##### I42PAIR trace frontal 0346 #####'
+##### I42PAIR trace frontal 0346 #####
++ echo '##### I42PAIR trace frontal 0923 #####'
+##### I42PAIR trace frontal 0923 #####
++ echo '##### I42PAIR trace side 0103 #####'
+##### I42PAIR trace side 0103 #####
+DOCKER
+inspiring_cerf	Up 15 minutes
+model	Up 15 minutes
+renderer	Up 15 minutes
+DISK
+/dev/root       310G  293G   18G  95% /
+---
+WATCH_UTC 2026-07-11T15:52:11Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=5488 resets=315 frames=5173 brake=935 fired=375 release=109 bad_json=0
+LAST run=14 frame=3 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
++ echo '##### I42PAIR trace frontal 0106 #####'
+##### I42PAIR trace frontal 0106 #####
++ echo '##### I42PAIR trace frontal 0110 #####'
+##### I42PAIR trace frontal 0110 #####
++ echo '##### I42PAIR trace frontal 0346 #####'
+##### I42PAIR trace frontal 0346 #####
++ echo '##### I42PAIR trace frontal 0923 #####'
+##### I42PAIR trace frontal 0923 #####
++ echo '##### I42PAIR trace side 0103 #####'
+##### I42PAIR trace side 0103 #####
+DOCKER
+inspiring_cerf	Up 25 minutes
+model	Up 25 minutes
+renderer	Up 25 minutes
+DISK
+/dev/root       310G  294G   17G  95% /
+---
+WATCH_UTC 2026-07-11T16:02:11Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=5566 resets=320 frames=5246 brake=947 fired=378 release=112 bad_json=0
+LAST run=19 frame=9 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
++ echo '##### I42PAIR trace frontal 0106 #####'
+##### I42PAIR trace frontal 0106 #####
++ echo '##### I42PAIR trace frontal 0110 #####'
+##### I42PAIR trace frontal 0110 #####
++ echo '##### I42PAIR trace frontal 0346 #####'
+##### I42PAIR trace frontal 0346 #####
++ echo '##### I42PAIR trace frontal 0923 #####'
+##### I42PAIR trace frontal 0923 #####
++ echo '##### I42PAIR trace side 0103 #####'
+##### I42PAIR trace side 0103 #####
++ echo '##### I42PAIR trace side 0108 #####'
+##### I42PAIR trace side 0108 #####
+DOCKER
+upbeat_rubin	Up About a minute
+model	Up About a minute
+renderer	Up About a minute
+DISK
+/dev/root       310G  293G   18G  95% /
+---
+WATCH_UTC 2026-07-11T16:12:12Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=5645 resets=324 frames=5321 brake=965 fired=387 release=115 bad_json=0
+LAST run=3 frame=5 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
++ echo '##### I42PAIR trace frontal 0106 #####'
+##### I42PAIR trace frontal 0106 #####
++ echo '##### I42PAIR trace frontal 0110 #####'
+##### I42PAIR trace frontal 0110 #####
++ echo '##### I42PAIR trace frontal 0346 #####'
+##### I42PAIR trace frontal 0346 #####
++ echo '##### I42PAIR trace frontal 0923 #####'
+##### I42PAIR trace frontal 0923 #####
++ echo '##### I42PAIR trace side 0103 #####'
+##### I42PAIR trace side 0103 #####
++ echo '##### I42PAIR trace side 0108 #####'
+##### I42PAIR trace side 0108 #####
+DOCKER
+upbeat_rubin	Up 11 minutes
+model	Up 11 minutes
+renderer	Up 11 minutes
+DISK
+/dev/root       310G  294G   17G  95% /
+---
+WATCH_UTC 2026-07-11T16:22:12Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=5729 resets=327 frames=5402 brake=988 fired=401 release=118 bad_json=0
+LAST run=6 frame=14 reset=None brake=True fired=True release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
++ echo '##### I42PAIR trace frontal 0106 #####'
+##### I42PAIR trace frontal 0106 #####
++ echo '##### I42PAIR trace frontal 0110 #####'
+##### I42PAIR trace frontal 0110 #####
++ echo '##### I42PAIR trace frontal 0346 #####'
+##### I42PAIR trace frontal 0346 #####
++ echo '##### I42PAIR trace frontal 0923 #####'
+##### I42PAIR trace frontal 0923 #####
++ echo '##### I42PAIR trace side 0103 #####'
+##### I42PAIR trace side 0103 #####
++ echo '##### I42PAIR trace side 0108 #####'
+##### I42PAIR trace side 0108 #####
+DOCKER
+upbeat_rubin	Up 21 minutes
+model	Up 21 minutes
+renderer	Up 21 minutes
+DISK
+/dev/root       310G  294G   17G  95% /
+---
+WATCH_UTC 2026-07-11T16:32:13Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=5816 resets=331 frames=5485 brake=1015 fired=416 release=121 bad_json=0
+LAST run=10 frame=4 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
++ echo '##### I42PAIR trace frontal 0106 #####'
+##### I42PAIR trace frontal 0106 #####
++ echo '##### I42PAIR trace frontal 0110 #####'
+##### I42PAIR trace frontal 0110 #####
++ echo '##### I42PAIR trace frontal 0346 #####'
+##### I42PAIR trace frontal 0346 #####
++ echo '##### I42PAIR trace frontal 0923 #####'
+##### I42PAIR trace frontal 0923 #####
++ echo '##### I42PAIR trace side 0103 #####'
+##### I42PAIR trace side 0103 #####
++ echo '##### I42PAIR trace side 0108 #####'
+##### I42PAIR trace side 0108 #####
+DOCKER
+upbeat_rubin	Up 31 minutes
+model	Up 31 minutes
+renderer	Up 31 minutes
+DISK
+/dev/root       310G  294G   17G  95% /
+---
+WATCH_UTC 2026-07-11T16:42:14Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=5901 resets=334 frames=5567 brake=1042 fired=431 release=125 bad_json=0
+LAST run=13 frame=17 reset=None brake=False fired=False release=True
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
++ echo '##### I42PAIR trace frontal 0106 #####'
+##### I42PAIR trace frontal 0106 #####
++ echo '##### I42PAIR trace frontal 0110 #####'
+##### I42PAIR trace frontal 0110 #####
++ echo '##### I42PAIR trace frontal 0346 #####'
+##### I42PAIR trace frontal 0346 #####
++ echo '##### I42PAIR trace frontal 0923 #####'
+##### I42PAIR trace frontal 0923 #####
++ echo '##### I42PAIR trace side 0103 #####'
+##### I42PAIR trace side 0103 #####
++ echo '##### I42PAIR trace side 0108 #####'
+##### I42PAIR trace side 0108 #####
+DOCKER
+upbeat_rubin	Up 41 minutes
+model	Up 41 minutes
+renderer	Up 41 minutes
+DISK
+/dev/root       310G  294G   17G  95% /
+---
+WATCH_UTC 2026-07-11T16:52:14Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=5988 resets=338 frames=5650 brake=1063 fired=443 release=127 bad_json=0
+LAST run=17 frame=8 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
++ echo '##### I42PAIR trace frontal 0106 #####'
+##### I42PAIR trace frontal 0106 #####
++ echo '##### I42PAIR trace frontal 0110 #####'
+##### I42PAIR trace frontal 0110 #####
++ echo '##### I42PAIR trace frontal 0346 #####'
+##### I42PAIR trace frontal 0346 #####
++ echo '##### I42PAIR trace frontal 0923 #####'
+##### I42PAIR trace frontal 0923 #####
++ echo '##### I42PAIR trace side 0103 #####'
+##### I42PAIR trace side 0103 #####
++ echo '##### I42PAIR trace side 0108 #####'
+##### I42PAIR trace side 0108 #####
+DOCKER
+upbeat_rubin	Up 51 minutes
+model	Up 51 minutes
+renderer	Up 51 minutes
+DISK
+/dev/root       310G  294G   17G  95% /
+---
+WATCH_UTC 2026-07-11T17:02:15Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=6051 resets=341 frames=5710 brake=1085 fired=456 release=129 bad_json=0
+LAST run=0 frame=None reset=True brake=None fired=None release=None
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
++ echo '##### I42PAIR trace frontal 0106 #####'
+##### I42PAIR trace frontal 0106 #####
++ echo '##### I42PAIR trace frontal 0110 #####'
+##### I42PAIR trace frontal 0110 #####
++ echo '##### I42PAIR trace frontal 0346 #####'
+##### I42PAIR trace frontal 0346 #####
++ echo '##### I42PAIR trace frontal 0923 #####'
+##### I42PAIR trace frontal 0923 #####
++ echo '##### I42PAIR trace side 0103 #####'
+##### I42PAIR trace side 0103 #####
++ echo '##### I42PAIR trace side 0108 #####'
+##### I42PAIR trace side 0108 #####
++ echo '##### I42PAIR trace side 0110 #####'
+##### I42PAIR trace side 0110 #####
+DOCKER
+xenodochial_colden	Up 2 minutes
+model	Up 2 minutes
+renderer	Up 2 minutes
+DISK
+/dev/root       310G  295G   16G  95% /
+---
+WATCH_UTC 2026-07-11T17:12:16Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=6154 resets=349 frames=5805 brake=1089 fired=457 release=130 bad_json=0
+LAST run=8 frame=6 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
++ echo '##### I42PAIR trace frontal 0106 #####'
+##### I42PAIR trace frontal 0106 #####
++ echo '##### I42PAIR trace frontal 0110 #####'
+##### I42PAIR trace frontal 0110 #####
++ echo '##### I42PAIR trace frontal 0346 #####'
+##### I42PAIR trace frontal 0346 #####
++ echo '##### I42PAIR trace frontal 0923 #####'
+##### I42PAIR trace frontal 0923 #####
++ echo '##### I42PAIR trace side 0103 #####'
+##### I42PAIR trace side 0103 #####
++ echo '##### I42PAIR trace side 0108 #####'
+##### I42PAIR trace side 0108 #####
++ echo '##### I42PAIR trace side 0110 #####'
+##### I42PAIR trace side 0110 #####
+DOCKER
+xenodochial_colden	Up 12 minutes
+model	Up 12 minutes
+renderer	Up 12 minutes
+DISK
+/dev/root       310G  295G   16G  95% /
+---
+WATCH_UTC 2026-07-11T17:22:16Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=6250 resets=356 frames=5894 brake=1101 fired=460 release=133 bad_json=0
+LAST run=15 frame=1 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
++ echo '##### I42PAIR trace frontal 0106 #####'
+##### I42PAIR trace frontal 0106 #####
++ echo '##### I42PAIR trace frontal 0110 #####'
+##### I42PAIR trace frontal 0110 #####
++ echo '##### I42PAIR trace frontal 0346 #####'
+##### I42PAIR trace frontal 0346 #####
++ echo '##### I42PAIR trace frontal 0923 #####'
+##### I42PAIR trace frontal 0923 #####
++ echo '##### I42PAIR trace side 0103 #####'
+##### I42PAIR trace side 0103 #####
++ echo '##### I42PAIR trace side 0108 #####'
+##### I42PAIR trace side 0108 #####
++ echo '##### I42PAIR trace side 0110 #####'
+##### I42PAIR trace side 0110 #####
+DOCKER
+xenodochial_colden	Up 22 minutes
+model	Up 22 minutes
+renderer	Up 22 minutes
+DISK
+/dev/root       310G  295G   16G  95% /
+---
+WATCH_UTC 2026-07-11T17:32:17Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=6323 resets=361 frames=5962 brake=1110 fired=463 release=135 bad_json=0
+LAST run=0 frame=11 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
++ echo '##### I42PAIR trace frontal 0106 #####'
+##### I42PAIR trace frontal 0106 #####
++ echo '##### I42PAIR trace frontal 0110 #####'
+##### I42PAIR trace frontal 0110 #####
++ echo '##### I42PAIR trace frontal 0346 #####'
+##### I42PAIR trace frontal 0346 #####
++ echo '##### I42PAIR trace frontal 0923 #####'
+##### I42PAIR trace frontal 0923 #####
++ echo '##### I42PAIR trace side 0103 #####'
+##### I42PAIR trace side 0103 #####
++ echo '##### I42PAIR trace side 0108 #####'
+##### I42PAIR trace side 0108 #####
++ echo '##### I42PAIR trace side 0110 #####'
+##### I42PAIR trace side 0110 #####
++ echo '##### I42PAIR trace side 0278 #####'
+##### I42PAIR trace side 0278 #####
+DOCKER
+hopeful_newton	Up 3 minutes
+model	Up 3 minutes
+renderer	Up 3 minutes
+DISK
+/dev/root       310G  295G   16G  95% /
+---
+WATCH_UTC 2026-07-11T17:42:18Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=6429 resets=371 frames=6058 brake=1112 fired=464 release=135 bad_json=0
+LAST run=10 frame=6 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
++ echo '##### I42PAIR trace frontal 0106 #####'
+##### I42PAIR trace frontal 0106 #####
++ echo '##### I42PAIR trace frontal 0110 #####'
+##### I42PAIR trace frontal 0110 #####
++ echo '##### I42PAIR trace frontal 0346 #####'
+##### I42PAIR trace frontal 0346 #####
++ echo '##### I42PAIR trace frontal 0923 #####'
+##### I42PAIR trace frontal 0923 #####
++ echo '##### I42PAIR trace side 0103 #####'
+##### I42PAIR trace side 0103 #####
++ echo '##### I42PAIR trace side 0108 #####'
+##### I42PAIR trace side 0108 #####
++ echo '##### I42PAIR trace side 0110 #####'
+##### I42PAIR trace side 0110 #####
++ echo '##### I42PAIR trace side 0278 #####'
+##### I42PAIR trace side 0278 #####
+DOCKER
+hopeful_newton	Up 13 minutes
+model	Up 13 minutes
+renderer	Up 13 minutes
+DISK
+/dev/root       310G  295G   16G  96% /
+---
+WATCH_UTC 2026-07-11T17:52:19Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=6532 resets=380 frames=6152 brake=1120 fired=467 release=136 bad_json=0
+LAST run=19 frame=6 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
++ echo '##### I42PAIR trace frontal 0106 #####'
+##### I42PAIR trace frontal 0106 #####
++ echo '##### I42PAIR trace frontal 0110 #####'
+##### I42PAIR trace frontal 0110 #####
++ echo '##### I42PAIR trace frontal 0346 #####'
+##### I42PAIR trace frontal 0346 #####
++ echo '##### I42PAIR trace frontal 0923 #####'
+##### I42PAIR trace frontal 0923 #####
++ echo '##### I42PAIR trace side 0103 #####'
+##### I42PAIR trace side 0103 #####
++ echo '##### I42PAIR trace side 0108 #####'
+##### I42PAIR trace side 0108 #####
++ echo '##### I42PAIR trace side 0110 #####'
+##### I42PAIR trace side 0110 #####
++ echo '##### I42PAIR trace side 0278 #####'
+##### I42PAIR trace side 0278 #####
+DOCKER
+hopeful_newton	Up 23 minutes
+model	Up 23 minutes
+renderer	Up 23 minutes
+DISK
+/dev/root       310G  295G   16G  96% /
+---
+WATCH_UTC 2026-07-11T18:02:19Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=6612 resets=385 frames=6227 brake=1137 fired=472 release=140 bad_json=0
+LAST run=4 frame=8 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
++ echo '##### I42PAIR trace frontal 0106 #####'
+##### I42PAIR trace frontal 0106 #####
++ echo '##### I42PAIR trace frontal 0110 #####'
+##### I42PAIR trace frontal 0110 #####
++ echo '##### I42PAIR trace frontal 0346 #####'
+##### I42PAIR trace frontal 0346 #####
++ echo '##### I42PAIR trace frontal 0923 #####'
+##### I42PAIR trace frontal 0923 #####
++ echo '##### I42PAIR trace side 0103 #####'
+##### I42PAIR trace side 0103 #####
++ echo '##### I42PAIR trace side 0108 #####'
+##### I42PAIR trace side 0108 #####
++ echo '##### I42PAIR trace side 0110 #####'
+##### I42PAIR trace side 0110 #####
++ echo '##### I42PAIR trace side 0278 #####'
+##### I42PAIR trace side 0278 #####
++ echo '##### I42PAIR trace side 0921 #####'
+##### I42PAIR trace side 0921 #####
+DOCKER
+magical_goodall	Up 9 minutes
+model	Up 9 minutes
+renderer	Up 9 minutes
+DISK
+/dev/root       310G  295G   16G  96% /
+---
+WATCH_UTC 2026-07-11T18:12:20Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=6717 resets=391 frames=6326 brake=1166 fired=482 release=146 bad_json=0
+LAST run=10 frame=11 reset=None brake=True fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
++ echo '##### I42PAIR trace frontal 0106 #####'
+##### I42PAIR trace frontal 0106 #####
++ echo '##### I42PAIR trace frontal 0110 #####'
+##### I42PAIR trace frontal 0110 #####
++ echo '##### I42PAIR trace frontal 0346 #####'
+##### I42PAIR trace frontal 0346 #####
++ echo '##### I42PAIR trace frontal 0923 #####'
+##### I42PAIR trace frontal 0923 #####
++ echo '##### I42PAIR trace side 0103 #####'
+##### I42PAIR trace side 0103 #####
++ echo '##### I42PAIR trace side 0108 #####'
+##### I42PAIR trace side 0108 #####
++ echo '##### I42PAIR trace side 0110 #####'
+##### I42PAIR trace side 0110 #####
++ echo '##### I42PAIR trace side 0278 #####'
+##### I42PAIR trace side 0278 #####
++ echo '##### I42PAIR trace side 0921 #####'
+##### I42PAIR trace side 0921 #####
+DOCKER
+magical_goodall	Up 19 minutes
+model	Up 19 minutes
+renderer	Up 19 minutes
+DISK
+/dev/root       310G  295G   15G  96% /
+---
+WATCH_UTC 2026-07-11T18:22:21Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl
+COUNTS rows=6821 resets=397 frames=6424 brake=1192 fired=488 release=152 bad_json=0
+LAST run=16 frame=13 reset=None brake=True fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0099 #####'
+##### I42PAIR trace stationary 0099 #####
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
++ echo '##### I42PAIR trace frontal 0106 #####'
+##### I42PAIR trace frontal 0106 #####
++ echo '##### I42PAIR trace frontal 0110 #####'
+##### I42PAIR trace frontal 0110 #####
++ echo '##### I42PAIR trace frontal 0346 #####'
+##### I42PAIR trace frontal 0346 #####
++ echo '##### I42PAIR trace frontal 0923 #####'
+##### I42PAIR trace frontal 0923 #####
++ echo '##### I42PAIR trace side 0103 #####'
+##### I42PAIR trace side 0103 #####
++ echo '##### I42PAIR trace side 0108 #####'
+##### I42PAIR trace side 0108 #####
++ echo '##### I42PAIR trace side 0110 #####'
+##### I42PAIR trace side 0110 #####
++ echo '##### I42PAIR trace side 0278 #####'
+##### I42PAIR trace side 0278 #####
++ echo '##### I42PAIR trace side 0921 #####'
+##### I42PAIR trace side 0921 #####
+DOCKER
+magical_goodall	Up 29 minutes
+model	Up 29 minutes
+renderer	Up 29 minutes
+DISK
+/dev/root       310G  296G   15G  96% /
+---
+WATCH_UTC 2026-07-11T18:32:21Z
+TRACE /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl.gz
+COUNTS rows=6874 resets=400 frames=6474 brake=1205 fired=492 release=156 bad_json=0
+LAST run=19 frame=15 reset=None brake=False fired=False release=False
+MARKERS
++ echo '##### I42PAIR trace stationary 0101 #####'
+##### I42PAIR trace stationary 0101 #####
++ echo '##### I42PAIR trace stationary 0103 #####'
+##### I42PAIR trace stationary 0103 #####
++ echo '##### I42PAIR trace stationary 0106 #####'
+##### I42PAIR trace stationary 0106 #####
++ echo '##### I42PAIR trace stationary 0108 #####'
+##### I42PAIR trace stationary 0108 #####
++ echo '##### I42PAIR trace stationary 0278 #####'
+##### I42PAIR trace stationary 0278 #####
++ echo '##### I42PAIR trace stationary 0331 #####'
+##### I42PAIR trace stationary 0331 #####
++ echo '##### I42PAIR trace stationary 0783 #####'
+##### I42PAIR trace stationary 0783 #####
++ echo '##### I42PAIR trace stationary 0796 #####'
+##### I42PAIR trace stationary 0796 #####
++ echo '##### I42PAIR trace stationary 0966 #####'
+##### I42PAIR trace stationary 0966 #####
++ echo '##### I42PAIR trace frontal 0103 #####'
+##### I42PAIR trace frontal 0103 #####
++ echo '##### I42PAIR trace frontal 0106 #####'
+##### I42PAIR trace frontal 0106 #####
++ echo '##### I42PAIR trace frontal 0110 #####'
+##### I42PAIR trace frontal 0110 #####
++ echo '##### I42PAIR trace frontal 0346 #####'
+##### I42PAIR trace frontal 0346 #####
++ echo '##### I42PAIR trace frontal 0923 #####'
+##### I42PAIR trace frontal 0923 #####
++ echo '##### I42PAIR trace side 0103 #####'
+##### I42PAIR trace side 0103 #####
++ echo '##### I42PAIR trace side 0108 #####'
+##### I42PAIR trace side 0108 #####
++ echo '##### I42PAIR trace side 0110 #####'
+##### I42PAIR trace side 0110 #####
++ echo '##### I42PAIR trace side 0278 #####'
+##### I42PAIR trace side 0278 #####
++ echo '##### I42PAIR trace side 0921 #####'
+##### I42PAIR trace side 0921 #####
++ echo 'I42_TRACE_ALL_DONE Sat Jul 11 18:27:55 UTC 2026'
+I42_TRACE_ALL_DONE Sat Jul 11 18:27:55 UTC 2026
+DOCKER
+DISK
+/dev/root       310G  295G   16G  96% /
+WATCH_DONE
+8c43726c94a8870d40518b97bf5b74a7b88517a661c16291dd8408a61eb97f4d  /opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl.gz
