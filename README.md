@@ -10,7 +10,7 @@ loop, by whether the car crashes *and whether it can still drive*.**
 > audits + an active iteration-42 exact-trace replay-support gate):** the introspective signal predicts the planner's collisions (AUROC 0.83). On the
 > complete 14-scene NeuroNCAP set at **20 seed-paired runs per pair** (799 episodes, the power
 > measurement), the unmonitored UniAD baseline **independently reproduces** (pooled 2.12 vs the
-> published 1.84 — to the verified literature, a first), and the best configuration — the
+> published 1.84 — corroborated by DMAD's independent rerun at 2.11), and the best configuration — the
 > **released union** (iteration 8's two-detector union + iteration 15's threat-cleared latch
 > release) — lifts the benchmark score to **2.91 (+0.783, 95% CI [+0.605, +0.928])**, with run
 > indices 0–5 of every pair reproducing the earlier 6-run measurement exactly. Stated with equal
@@ -31,11 +31,12 @@ loop, by whether the car crashes *and whether it can still drive*.**
 > [Status](#status--where-it-really-stands-the-honest-current-truth).
 
 The field's open-loop driving metrics are saturated and gameable (an ego-state MLP "wins" nuScenes
-L2). The honest axis is **closed-loop safety**, and there the public state of the art is wide open:
-the strongest end-to-end planners **collide in 87.8–99.6% of safety-critical scenarios** and score
-**1.84 (UniAD) / 2.75 (VAD) out of 5** on NeuroNCAP. Sentinel attacks that gap with a small,
-plug-and-play monitor on a *frozen* planner — no fleet, no retraining the planner, single-digit
-GPUs.
+L2). The honest axis is **closed-loop safety**. The end-to-end planner families this campaign
+builds on score **1.84 (UniAD) / 2.75 (VAD) out of 5** on NeuroNCAP and collide in 87.8–99.6% of
+safety-critical scenarios; retrained planners reach ~3.06 (BridgeAD, CVPR 2025, same protocol) —
+every published gain above the baselines changes the planner. Sentinel attacks the unoccupied
+slot: a small, plug-and-play monitor on a *frozen* planner — no fleet, no retraining the planner,
+single-digit GPUs.
 
 > Built on what we already proved. In a prior study ([PerceptionProof](https://github.com/manfromnowhere143/perceptionproof))
 > a cheap label-free signal predicted the **collision gate at AUROC ~0.8**. Sentinel takes that
@@ -46,7 +47,7 @@ GPUs.
 
 ## The result
 
-Thirty-seven completed iterations under frozen pre-registrations converge on one closed-loop configuration — the
+Thirty-seven completed mechanism iterations (plus three completed defensibility audits) under frozen pre-registrations converge on one closed-loop configuration — the
 **released union** (two label-free geometric detectors + a threat-cleared latch release) —
 measured on the **complete official 14-scene NeuroNCAP set at 20 seed-paired runs per pair**
 (799 episodes; hypotheses frozen before the run; the first 6 indices of every pair reproduce the
@@ -78,9 +79,10 @@ with run indices 0–7 doubling as an exact reproduction of the original iterati
 
 In the units an AV safety case is written in (derived from the committed per-frame decision logs
 and ground-truth timing — [`analyze_safety_case.py`](experiments/verification/analyze_safety_case.py)):
-the monitor fires a **median 2.5 s before counterfactual contact** (range 1.0–3.5 s), spends
-**11 brake frames per 242 benign meters** driven on the clean scene, and cuts frontal mean impact
-speed from **13.9 to 6.7 m/s**.
+at full14/power scale (iteration 40) the monitor's reconstructable lead time is a median
+**1.30 s** (p05/p95 0.40/3.50 s) over 61 measured episodes, at 111.68 brake frames/km across
+10.79 km; on the mini-scene verification set it fires a median **2.5 s** before counterfactual
+contact and cuts frontal mean impact speed from **13.9 to 6.7 m/s**.
 
 The campaign in one picture — every step measured closed-loop against the same unmonitored planner,
 nulls kept, one headline withdrawn by our own audit and re-established on independent data:
@@ -116,7 +118,6 @@ flowchart LR
   H19 --> H21["iter 21 · BEV head<br/><b>gate refused: 0/37</b><br/>validity 23%"]
   classDef win fill:#e2f3e5,stroke:#2e7d32,color:#13361b;
   classDef bad fill:#fdebec,stroke:#c62828,color:#3b1213;
-  classDef next fill:#f6f8fa,stroke:#57606a,color:#1f2328;
   class F14,R15,P20 win;
   class N12,X16,X17,X18 bad;
   class H19,H21 bad;
@@ -152,6 +153,22 @@ flowchart LR
   class Q,O38 ask;
   class D27,S28 data;
   class A29,L30,P32,S36 win;
+```
+
+And the defensibility arc that follows:
+
+```mermaid
+flowchart LR
+  O38["38 opposite sign<br/>pre-reg only"] --> A39["39 claim audit"]
+  A39 --> A40["40 timing/cost"]
+  A40 --> A41["41 replay null"]
+  A41 --> A42["42 trace gate<br/>in flight"]
+  classDef ask fill:#ffe,stroke:#a70,color:#111;
+  classDef audit fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
+  classDef next fill:#f6f8fa,stroke:#57606a,color:#1f2328;
+  class O38 ask;
+  class A39,A40,A41 audit;
+  class A42 next;
 ```
 
 The winning monitor is a **union of two individually-selective detectors**, chosen because the two
@@ -215,25 +232,25 @@ step; they are intentional stops, not hidden probe failures or unreported GPU ru
 |---|---|---|---|---|---|
 | 0 | published baseline (target) | UniAD 1.84 · VAD 2.75 | 87.8–99.6 | — | the gap we attack |
 | 1a | **stack stood up** — full closed loop on 1 L4, frozen UniAD in the loop, real metric out (smoke: scene-0103 stationary, 2 runs → 5.0/5.0, no collision) | — | — | infra gate **cleared** | the binding constraint was the apparatus, not the idea — [8 blockers cleared](experiments/iter1_reproduce/PROOF_smoke_0103.md) |
-| 1b | **partial baseline + collision corpus** — every public-mini scene, frozen UniAD, 60 closed-loop episodes (frontal/0103, side/0103, stationary/0103, stationary/0796 × 15) | frontal/0103 **1.07** · side/0103 0.51 · stat/0103 5.00 · stat/0796 1.03 | 80 · 100 · 0 · 80 % | frontal **1.07 vs pub 1.17** (matches) | crashes coincide with the planner's own perception collapsing at 5–15 m — the signal iter 2 monitors |
-| 2·G1 | **monitor signal validated** — frozen planner's own forecasts foresee its crashes (shadow replay, 40 episodes, 26/14) | — | — | **AUROC 0.83** (label-free) | imminent (≤0.5 s) predicted gap is the signal; sharpens toward imminent (0.67→0.75→0.83 at the cited horizons, one small inversion mid-curve); simplest term wins |
-| 2 | **monitor + TTC brake, frozen planner** — A/B on the corpus | **1.92 → 4.67** | **65% → 13%** | **H1 met** (safety), CI [+2.21,+3.22] | TTC trigger + committed stop; side collisions 100%→0% — *but see iter 3* |
-| 2·abl | **ablation** — naive-proximity / always-brake controls | — | prox 83 · always 50 · TTC 40 (frontal) | introspective signal **essential** | naive distance brake ≈ useless on fast approaches; closing-speed-from-forecast does the work |
-| 3 | **deployment metric (safe-progress)** — does it avoid the crash AND drive? | OFF **2.08** · always 0.49 · TTC 0.58 (safe-prog) | progress: OFF 0.91 · TTC 0.13 | **monitor over-brakes** | honest setback: TTC freezes benign scenes, *not* selective; unmonitored wins safe-progress. Next: introspective gating |
-| 4 | **gate on the *agent's* closing speed** — brake only on active threats | gated **2.80** · OFF 2.08 · TTC-old 0.64 (safe-prog) | clean-scene progress restored to OFF (0 brakes) | **net-positive vs OFF** (partial) | selectivity SOLVED; but gate under-brakes real threats (optimistic-forecast velocity) → danger safety lost. Next: track true agent velocity |
-| 5 | **observed-velocity gating** — agent velocity from multi-frame tracking, not the forecast | tracked **2.35** · OFF 2.08 (safe-prog) | clean=OFF (0 brakes); frontal coll 83%→**67%** | net-positive; **frontal recovered** | selectivity holds + observed velocity beats the forecast on frontal — but **side-impact still 100%** (its warning is in the ego's motion the gate filters out). Next: plan-vs-tracked-path collision check |
-| 6 | **plan-vs-tracked-path CPA** — brake if the ego's planned path crosses an agent's tracked path | cpa 2.17 · OFF 2.32 (safe-prog) | **side-impact 100% → 0%** (8/8 avoided) | **side case SOLVED** (but over-brakes) | the T-bone that beat iters 4–5 is caught geometrically; cost = 2.5 m margin also flags benign close passes → clean 33→22 m. Next: tighter margin (~1.2 m) to keep the side win + restore selectivity |
-| 7 | **margin sweep** — CPA at 1.5 m vs 1.0 m vs OFF | cpa@1.5 selective (clean 32.3 = OFF) | side **0%** kept; frontal reverts to **100%** | **3 of 4 at once** | tighter margin restores selectivity + keeps the side win, but frontal defeats plan-CPA at *any* tight margin (optimistic plan clears by 3–4 m). No single margin holds all four → **union two detectors** |
-| 8 | **the union** — brake if (plan-vs-path CPA < 1.5 m) OR (observed agent-closing TTC < 2.5 s) | union **2.53** · OFF 2.32 (safe-prog) | clean 30.2≈OFF · **side 100→12.5%** (7/8, verification-corrected) · frontal score 1.31→**2.43** | **selective + side-solving + directionally net-positive, at once** | first config to hold 3 of 4 simultaneously; frontal impact strongly *mitigated* (not rate-reduced). Open ceiling: preventing (not softening) frontal head-on — planner optimism + stopping distance |
-| 9 | **evasive steering (AES) for frontal** — threat-aware: side→stop, head-on→swerve | — | frontal evade **1.66/100%** vs union stop **2.53/83%** | **refuted (null)** | naive 4 m swerve can't clear the actor and, keeping speed, hits harder than stopping. Selectivity + side preserved. Committed stop stays best; frontal *prevention* remains open |
-| 10 | **braking evasion into a tracked-clear gap** — shed speed *and* steer to the open side | — | frontal brakevade **1.67/100%** vs union stop **2.53/83%** | **refuted (null)** | second evasion family, same result: steering (even while braking) is worse than the pure stop. Two designs converge → committed stop is the frontal *ceiling*; prevention needs more than a single maneuver |
+| 1b | **partial baseline + collision corpus** — every public-mini scene, frozen UniAD, 60 closed-loop episodes (frontal/0103, side/0103, stationary/0103, stationary/0796 × 15) | frontal/0103 **1.07** · side/0103 0.51 · stat/0103 5.00 · stat/0796 1.03 | 80 · 100 · 0 · 80 % | frontal **1.07 vs pub 1.17** (matches) | crashes coincide with the planner's own perception collapsing at 5–15 m — the signal iter 2 monitors. [`PARTIAL_BASELINE.md`](experiments/iter1b_partial_baseline/PARTIAL_BASELINE.md) |
+| 2·G1 | **monitor signal validated** — frozen planner's own forecasts foresee its crashes (shadow replay, 40 episodes, 26/14) | — | — | **AUROC 0.83** (label-free) | imminent (≤0.5 s) predicted gap is the signal; sharpens toward imminent (0.67→0.75→0.83 at the cited horizons, one small inversion mid-curve); simplest term wins. [`G1_RESULT.md`](experiments/iter2_monitor/G1_RESULT.md) |
+| 2 | **monitor + TTC brake, frozen planner** — A/B on the corpus | **1.92 → 4.67** | **65% → 13%** | **H1 met** (safety), CI [+2.21,+3.22] | TTC trigger + committed stop; side collisions 100%→0% — *but see iter 3*. [`iter2_monitor`](experiments/iter2_monitor/RESULT.md) |
+| 2·abl | **ablation** — naive-proximity / always-brake controls | — | prox 83 · always 50 · TTC 40 (frontal) | introspective signal **essential** | naive distance brake ≈ useless on fast approaches; closing-speed-from-forecast does the work. [`ABLATION.md`](experiments/iter2_monitor/ABLATION.md) |
+| 3 | **deployment metric (safe-progress)** — does it avoid the crash AND drive? | OFF **2.08** · always 0.49 · TTC 0.58 (safe-prog) | progress: OFF 0.91 · TTC 0.13 | **monitor over-brakes** | honest setback: TTC freezes benign scenes, *not* selective; unmonitored wins safe-progress. Next: introspective gating. [`iter3_progress`](experiments/iter3_progress/RESULT.md) |
+| 4 | **gate on the *agent's* closing speed** — brake only on active threats | gated **2.80** · OFF 2.08 · TTC-old 0.64 (safe-prog) | clean-scene progress restored to OFF (0 brakes) | **net-positive vs OFF** (partial) | selectivity SOLVED; but gate under-brakes real threats (optimistic-forecast velocity) → danger safety lost. Next: track true agent velocity. [`iter4_gated`](experiments/iter4_gated/RESULT.md) |
+| 5 | **observed-velocity gating** — agent velocity from multi-frame tracking, not the forecast | tracked **2.35** · OFF 2.08 (safe-prog) | clean=OFF (0 brakes); frontal coll 83%→**67%** | net-positive; **frontal recovered** | selectivity holds + observed velocity beats the forecast on frontal — but **side-impact still 100%** (its warning is in the ego's motion the gate filters out). Next: plan-vs-tracked-path collision check. [`iter5_tracked`](experiments/iter5_tracked/RESULT.md) |
+| 6 | **plan-vs-tracked-path CPA** — brake if the ego's planned path crosses an agent's tracked path | cpa 2.17 · OFF 2.32 (safe-prog) | **side-impact 100% → 0%** (8/8 avoided) | **side case SOLVED** (but over-brakes) | the T-bone that beat iters 4–5 is caught geometrically; cost = 2.5 m margin also flags benign close passes → clean 33→22 m. Next: tighter margin (~1.2 m) to keep the side win + restore selectivity. [`iter6_cpa`](experiments/iter6_cpa/RESULT.md) |
+| 7 | **margin sweep** — CPA at 1.5 m vs 1.0 m vs OFF | cpa@1.5 selective (clean 32.3 = OFF) | side **0%** kept; frontal reverts to **100%** | **3 of 4 at once** | tighter margin restores selectivity + keeps the side win, but frontal defeats plan-CPA at *any* tight margin (optimistic plan clears by 3–4 m). No single margin holds all four → **union two detectors**. [`iter7_margin`](experiments/iter7_margin/RESULT.md) |
+| 8 | **the union** — brake if (plan-vs-path CPA < 1.5 m) OR (observed agent-closing TTC < 2.5 s) | union **2.53** · OFF 2.32 (safe-prog) | clean 30.2≈OFF · **side 100→12.5%** (7/8, verification-corrected) · frontal score 1.31→**2.43** | **selective + side-solving + directionally net-positive, at once** | first config to hold 3 of 4 simultaneously; frontal impact strongly *mitigated* (not rate-reduced). Open ceiling: preventing (not softening) frontal head-on — planner optimism + stopping distance. [`iter8_union`](experiments/iter8_union/RESULT.md) |
+| 9 | **evasive steering (AES) for frontal** — threat-aware: side→stop, head-on→swerve | — | frontal evade **1.66/100%** vs union stop **2.53/83%** | **refuted (null)** | naive 4 m swerve can't clear the actor and, keeping speed, hits harder than stopping. Selectivity + side preserved. Committed stop stays best; frontal *prevention* remains open. [`iter9_evade`](experiments/iter9_evade/RESULT.md) |
+| 10 | **braking evasion into a tracked-clear gap** — shed speed *and* steer to the open side | — | frontal brakevade **1.67/100%** vs union stop **2.53/83%** | **refuted (null)** | second evasion family, same result: steering (even while braking) is worse than the pure stop. Two designs converge → committed stop is the frontal *ceiling*; prevention needs more than a single maneuver. [`iter10_brakevade`](experiments/iter10_brakevade/RESULT.md) |
 | ✓ | **statistical validation** — pool the union & OFF arms across iters 8/9/10, bootstrap the safe-progress delta | union 2.60 vs OFF 2.14 (pooled) | side "5%" (pooled) | *claimed* net-positive | **WITHDRAWN by the verification pass**: the three "replications" are deterministic replays of the same episodes (n=20 was really n=8 unique); honest CI [−0.27, +0.78] does not exclude 0. [`union_validation`](experiments/union_validation/RESULT.md) |
 | 11 | **early collision-course detection + evasion** — 4 s kinematic closest-approach, then time-gated lane change | — | frontal evade **83%** (= stop 83%); clean **50% crash**; side evade 83% | **refuted (null)** | third evasion refuted, and complete-data audit made it stronger: early detection neither prevents the head-on nor stays selective; evasion on a false alarm *crashes the clean scene 50%* and un-solves the side case (83%). A stop is safe when wrong, a swerve is not. Frontal-prevention line closed. [`iter11_early_evade`](experiments/iter11_early_evade/RESULT.md) |
 | ✚ | **independent verification pass** — re-derive every claim from raw evidence; attack the statistics; re-run fresh at 20 unique episodes | union **2.22** vs OFF 1.83 (n=20 unique) | side 100→**30%** · clean identical to OFF | **net-positive RE-ESTABLISHED**: delta **+0.398, 95% CI [+0.133, +0.665]** | determinism found (episodes replay per run index) → pooled claim withdrawn, then re-measured on 20 genuinely-unique episodes: CI excludes zero; runs 0-7 reproduce iteration 8 exactly (apparatus check); iter11 evasion null re-confirms (worse than stop, degrades the clean scene). Raw evidence committed. [`VERIFICATION.md`](experiments/VERIFICATION.md) |
 | 12 | **introspective plan selection, checkpoint** — log UniAD's 3 command-conditioned candidate plans per frame; does a safe alternative exist when the executed plan is dangerous? | — | escape candidates **0/37 dangerous frames** (bar: >30%) | **null — pre-condition fails** | the mechanism works (candidates diverge up to 14 m in benign frames) but **collapse under threat** (mean gaps 2.85/2.88/2.84 m): the command is routing, not hazard response. Introspection sees the danger; UniAD holds no safer intention to defer to. Pivot (pre-registered): VAD's native `ego_fut_mode=3`. [`iter12_plan_selection`](experiments/iter12_plan_selection/RESULT.md) |
 | 13 | **formal-envelope baseline (RSS-style)** — same tracking, same actuator, physics rule instead of introspection; n=20 unique episodes | RSS **0.88** vs union **2.22** vs OFF 1.83 (safe-prog) | RSS: clean 0% · frontal 30% · side 0% — but ego 3.6–8.2 m (near-freeze) | **H13 confirmed**: union − RSS **+1.345, CI [+0.944, +1.701]** | the envelope posts the campaign's best raw safety *by not driving* — worse than no monitor on the deployment metric. Stopping power is free; **selectivity is what introspection buys** (the plan-aware terms know when the plan clears). [`iter13_rss_baseline`](experiments/iter13_rss_baseline/RESULT.md) |
 | 14 | **second frozen planner (VAD)** — union transfer + native-mode diversity, after four fork-level runtime fixes; n=20/scene | VAD-OFF 2.30 vs VAD+union **0.75** (safe-prog, CI [−2.06, −1.03]) | VAD-OFF fails **stationary 85%** / side 65% (inverted profile!); union: both → **0%** but ego 2.4–3.8 m | **transfer: safety yes, selectivity NO** · **H-VAD-2: 21% escapes < 30% bar** | the union protects exactly where VAD fails, but over-brakes everywhere — decision logs attribute it to the TTC term reading jittery geometric-NN IDs (VAD exposes no tracker): **selectivity is a property of tracking quality, not the rule alone**. Candidates: partial diversity under threat (0.6 m spread, 1-in-5 escapes) — a two-planner collapse spectrum; no re-ranker per the frozen rule. [`vad_generalization`](experiments/vad_generalization/RESULT.md) |
-| f14 | **the full 14-scene benchmark** — OFF vs union, all official scenes, 240 seed-paired episodes | OFF **2.15** (published: 1.84 — **first independent reproduction**) → union **3.09** | side 73→**37%** · stationary 32→**17%** · frontal 77→87% (mitigation) | **benchmark score +0.934, CI [+0.713, +1.155]** · safe-progress −0.17, CI includes 0 | split verdict, both halves first-class: decisive on the benchmark's metric (side survives its scene-luck falsifier on 3/4 unseen scenes; selectivity holds on clean scenes), and the deployment-metric win does **not** generalize (over-braking on unseen benign-progress scenes; frontal/0346 regression named). Open problem defined: brake-budget calibration. [`full14_benchmark`](experiments/full14_benchmark/RESULT.md) |
+| f14 | **the full 14-scene benchmark** — OFF vs union, all official scenes, 240 seed-paired episodes | OFF **2.15** (published: 1.84 — independent reproduction; DMAD's rerun 2.11 corroborates) → union **3.09** | side 73→**37%** · stationary 32→**17%** · frontal 77→87% (mitigation) | **benchmark score +0.934, CI [+0.713, +1.155]** · safe-progress −0.17, CI includes 0 | split verdict, both halves first-class: decisive on the benchmark's metric (side survives its scene-luck falsifier on 3/4 unseen scenes; selectivity holds on clean scenes), and the deployment-metric win does **not** generalize (over-braking on unseen benign-progress scenes; frontal/0346 regression named). Open problem defined: brake-budget calibration. [`full14_benchmark`](experiments/full14_benchmark/RESULT.md) |
 | 15 | **threat-cleared latch release** — the stop releases after K=4 clear frames; one new mechanism, thresholds untouched | released **3.09** NCAP = union's · safe-prog 2.45 vs union 2.20 vs OFF 2.37 | safety cells **identical to the union** (44 releases, 0 reopened cases, oscillation 2/120) | **released − union +0.246, CI [+0.206, +0.293]** — strict improvement · vs OFF +0.08, CI includes 0 | **the new best configuration** (dominates the union: same benchmark score, significantly more driving). H15 partial: the deployment gap vs OFF narrows but stays open — a *cost-of-stopping* floor in fixed-horizon episodes, not a triggering flaw. Next mechanisms defined: smaller K under premature-release pressure, or a softer-than-stop intervention. [`iter15_latch_release`](experiments/iter15_latch_release/RESULT.md) |
 | 16 | **softer than a stop** — while latched, the planner's own plan re-parameterized to a 2.0 m/s crawl (speed fixed from committed impact evidence); K=4 release unchanged | crawl NCAP **2.64** vs released 3.09 · safe-prog **2.544** (the campaign's highest) | side 37→**57%** — past the pre-registered 45% falsifier bar (0108: 17→100%, impacts 4–5 m/s at zero score) · stationary at its 25% bar (0101 taps at 1.9–3.4 m/s) | crawl − released: NCAP **−0.450** CI [−0.525, −0.371] · safe-prog +0.096 CI [+0.033, +0.167] · vs OFF +0.171, CI includes 0 | **pre-registered null — the full stop stands.** The stop is a *position guarantee*, not just speed reduction: the crawl delivers the ego into the crossing point the stop halts short of. With iter 11 this is two-sided: a swerve is unsafe when the trigger is wrong; a crawl is unsafe when it is right; only the stop is safe in both. [`iter16_soft_stop`](experiments/iter16_soft_stop/RESULT.md) |
 | p20 | **the power run** — OFF vs released union at 20 runs/pair, all 14 scenes (799 episodes); H-P0 gate: first-6 of every pair must reproduce the committed 6-run evidence | OFF **2.12** (published 1.84 — reproduction holds) → released **2.91** | side 74→**44%** · stationary 29→**18%** · frontal 1.24→1.78 (78→90%, mitigation) · frontal/0346 regression **confirmed real** | **benchmark +0.783, CI [+0.605, +0.928]** at 3.3× power · safe-progress **−0.03, CI [−0.13, +0.07]** — tight null | **H-P0 PASS (first-6 exact, all pairs, both arms — through 5 machine freezes, 2 hosts, 4 relaunches**; root cause memory exhaustion, found by an on-box vitals watchdog, fixed with swap; off/side-0921 at n=19, its run_19 reproducibly froze the pre-swap host). The n=6 estimate (+0.934) was modestly optimistic; this replaces it as the headline. [`full14_power`](experiments/full14_power/RESULT.md) |
@@ -258,7 +275,7 @@ step; they are intentional stops, not hidden probe failures or unreported GPU ru
 | 35 | **response-heterogeneity audit** — post-result audit of the failed direction's row-level structure | — (offline audit only) | S0 PASS; S1 heterogeneity PASS (`42/108` rows slope `>=0.05`, `34/108` slope `<0`, IQR **0.1265 m/alpha**); S2 NULL: **0** frozen strata passed actionability bars | **post-result audit null — no row-conditioned successor authorized from these artifacts** | The response is heterogeneous, but not in a simple baseline-geometry stratum with enough target response and benign support. Future work must change intervention family or target site, not merely scale or row-condition the current global direction. [`iter35_response_heterogeneity_audit`](experiments/iter35_response_heterogeneity_audit/RESULT.md) |
 | 36 | **bridge-site decomposition audit** — frozen subsite probes over `sdc_traj_query_last` slots and `sdc_track_query` | — (offline audit only) | S0 PASS; S1 full-bridge reproduction PASS; S2 target-site PASS: `traj_slot_0`, `traj_slot_2`, `traj_slot_3`, `traj_slot_4`, and **`track_query`** passed diagnostic + scene-bootstrap bars | **site-specific preregistration authorized — diagnostic only, no intervention/safety claim** | The next intervention should not patch the whole bridge vector. The strongest diagnostic target is `track_query` (AUROC **0.9705**, AP **0.7264**, bootstrap AUROC p05 **0.9506**), but any patch still needs a fresh pre-registration and S0 canary. [`iter36_bridge_site_decomposition`](experiments/iter36_bridge_site_decomposition/RESULT.md) |
 | 37 | **track-query site intervention** — prefix-preserving `sdc_track_query`-only causal test | — (stopped before heldout) | S0 canary PASS; full calibration grid PASS on row integrity for all alphas (`4293/2452/1841` each); alpha selection NULL: best alpha `1.00` had eligible median spread delta **−0.0419 m**, fraction `>0.25 m` **0.0741**, and median best-gap delta **−0.001315** | **pre-registered calibration null — no usable alpha; heldout/iter12/selector/closed loop not authorized** | The site-specific track-query harness is stable and wrong-site guarded, but the fit-only centroid direction moves eligible-lowdiv candidate spread in the wrong direction on the median. [`iter37_track_query_site_intervention`](experiments/iter37_track_query_site_intervention/RESULT.md) |
-| 38 | **track-query opposite-direction intervention** — exact sign reversal of the iter37 fit-only `sdc_track_query` centroid direction | — (S0 canary only) | Direction artifact PASS: feature count **256**, fit rows **5,211**, direction SHA **251323cf6ba7361da5aa0a084a6ae5ad5083989df75e10d16f352da845e2983d**, exact negative of iter37 (`max_abs_direction_sum=0.0`, cosine **−1.0**); S0 canary PASS: alpha-zero parity restored, `24/24` target rows changed `track_query`, `24/24` preserved `sdc_traj_query_last` | **active pre-registration — calibration authorized but not launched; no calibration result or safety claim yet** | This is the clean post-iter37 successor: test whether the causal handle was real but the centroid repair sign was reversed. It does not rescue iter37. Under the defensibility rule, the next GPU window should be weighed against external-validity falsification before continuing mechanism search. [`iter38_track_query_opposite_direction`](experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md) |
+| 38 | **track-query opposite-direction intervention** — exact sign reversal of the iter37 fit-only `sdc_track_query` centroid direction | — (S0 canary only) | Direction artifact PASS: feature count **256**, fit rows **5,211**, direction SHA **251323cf6ba7361da5aa0a084a6ae5ad5083989df75e10d16f352da845e2983d**, exact negative of iter37 (`max_abs_direction_sum=0.0`, cosine **−1.0**); S0 canary PASS: alpha-zero parity restored, `24/24` target rows changed `track_query`, `24/24` preserved `sdc_traj_query_last` | **active pre-registration — calibration authorized but not launched; no calibration result or safety claim yet** | This is the clean post-iter37 successor: test whether the causal handle was real but the centroid repair sign was reversed. It does not rescue iter37. Per the 2026-07-11 intervention-mechanism verdict, the linear-centroid steering line (iterations 31-38) is closed; iter38 calibration stays deprioritized behind iteration 42, the HUGSIM transfer, and the deployment-flip successor. [`iter38_track_query_opposite_direction`](experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md) |
 | 39 | **external-validity claim audit** — hostile active-story audit before more GPU/model work | — (offline claim audit only) | S0/S1/S2 PASS; S3 found **3** active-doc scope/ambiguity findings; report/manuscript titles narrowed to frozen UniAD with measured cross-planner limits; post-narrowing scanner PASS with `0` findings | **doc-narrowing result — no new empirical safety claim** | This is the defensibility pivot: VAD remains a split transfer finding, full14 deployment remains a tight null, activation interventions remain null/active, and sensor/adversarial/latency/deployment-trade-off axes remain untested. [`iter39_external_validity_claim_audit`](experiments/iter39_external_validity_claim_audit/RESULT.md) |
 | 40 | **timing and intervention-cost audit** — full14/power simulation cost and lead-time envelope | — (offline audit only) | S0/S1/S2/S3 PASS; `400/400` best episodes joined; `1,205` brake frames over `10,789.9 m` (`111.68` frames/km); `230/400` intervention episodes; `61` measured lead-time episodes, median `1.30 s`, p05/p95 `0.40/3.50 s`, negative fraction `0.049` | **simulation-scope timing/cost pass — no real-time or deployment claim** | This upgrades the safety-case budget from mini-scene evidence to full14/power logs while preserving boundaries: simulator timestamp lead time, brake-frame budget, full14 safe-progress tight null, and no production-cost or comfort claim. [`iter40_timing_cost_audit`](experiments/iter40_timing_cost_audit/RESULT.md) |
 | 41 | **monitor-input degradation gate** — exact world-frame replay support before perturbation claims | — (offline audit only) | S0 infrastructure NULL: frozen paths, H-P0, Iter40 verdict, and decision-log counts were intact (`8,235` rows, `400` resets, `7,835` non-reset rows, `1,205` brake-key rows), but exact timestamp lookup into committed `p14-best` ego poses missed **1,388/6,474** timestamped monitor frames across **400/400** episodes | **replay-support infrastructure null — perturbations skipped; no sensor/degradation robustness claim** | The current committed full14/power evidence cannot support the registered exact world-frame object-stream replay. No interpolation, nearest-pose snapping, degraded-sensor GPU run, image perturbation, selector, closed-loop, deployment, or safety claim is authorized from this result. [`iter41_sensor_input_degradation_gate`](experiments/iter41_sensor_input_degradation_gate/RESULT.md) |
@@ -337,10 +354,12 @@ kept, with every number and link, in [`docs/CAMPAIGN.md`](docs/CAMPAIGN.md). The
 above is the same history in one screen.
 
 **Net, stated plainly — 37 completed mechanism iterations plus an independent verification pass,
-with iteration 37 closed as a pre-registered calibration null, iteration 38 active at S0, and
-iteration 39 completed as an external-validity claim audit.** The
-**released union (iteration 15) is the best configuration** of the campaign: at the definitive
-20-run scale it lifts the independently reproduced baseline **2.12 → 2.91 (CI [+0.605, +0.928])**,
+with iteration 37 closed as a pre-registered calibration null, iteration 38 active at S0
+(calibration deprioritized), iterations 39/40/41 completed as defensibility audits (claim
+narrowing; timing/cost budget; degradation replay-support null), and iteration 42 active as the
+exact-trace replay-support gate.** The
+**released union (iteration 15) is the best configuration** of the campaign: at the 20-run
+power scale it lifts the independently reproduced baseline **2.12 → 2.91 (CI [+0.605, +0.928])**,
 keeps clean scenes identical to the unmonitored planner, and strictly dominates the plain union
 (identical safety on every cell, safe-progress +0.246, CI [+0.206, +0.293]). Its
 deployment-metric effect vs the unmonitored planner is a **tight null** (−0.03, CI [−0.13,
@@ -379,7 +398,11 @@ site-specific test through S0 and the full calibration grid, then stopped as a c
 no nonzero alpha passed the frozen positive-movement bars. Iteration 38 is now the fresh
 post-result pre-registration for the exact opposite track-query direction; its tooling/tests,
 offline direction artifact, and S0 canary proof are committed. Calibration is authorized by the
-registered gate but not launched. No heldout intervention replay, iteration-12, selector,
+registered gate but not launched. It is deprioritized: the 2026-07-11 intervention-mechanism
+verdict
+([docs/research/INTERVENTION_MECHANISM_VERDICT_2026-07-11.md](docs/research/INTERVENTION_MECHANISM_VERDICT_2026-07-11.md))
+closes the linear-centroid family after five consecutive pre-registered nulls. No heldout
+intervention replay, iteration-12, selector,
 closed-loop work, deployment language, or safety claim is authorized unless its registered gates
 advance. Iteration 39 then audited the active paper/repository story against external-validity
 pressure, found three active-doc wording problems, and narrowed them in place. Iteration 40 then
@@ -515,7 +538,10 @@ replay identity:
   artifact is committed with an exact negative-of-iter37 sign-equivalence receipt. S0 canary
   passed: alpha-zero parity restored, alpha `0.50` changed `track_query` on `24/24` target rows,
   and `sdc_traj_query_last` stayed unchanged on `24/24`. Calibration is authorized but not
-  launched. It may test only whether the iter37 causal handle was real with the opposite sign; it
+  launched. It is deprioritized: the 2026-07-11 intervention-mechanism verdict
+  ([docs/research/INTERVENTION_MECHANISM_VERDICT_2026-07-11.md](docs/research/INTERVENTION_MECHANISM_VERDICT_2026-07-11.md))
+  closes the linear-centroid family after five consecutive pre-registered nulls.
+  It may test only whether the iter37 causal handle was real with the opposite sign; it
   does not rescue iter37 and authorizes no heldout, iteration-12, selector, closed-loop,
   deployment, or safety claim unless calibration and heldout pass.
 - **Iteration 39 is completed as an external-validity claim audit and doc-narrowing result.**
@@ -550,6 +576,13 @@ replay identity:
   planner transfer, unseen scenario families, sensor degradation, adversarial perturbations,
   calibration stability, intervention latency, intervention cost, and deployment trade-offs.
   Sensor degradation now requires replay-support repair before any robustness claim.
+
+The adopted sequencing (2026-07-11): the iteration-42 trace gate first, then the second
+closed-loop benchmark family (HUGSIM transfer of the released union — launch packet at
+[docs/research/SECOND_BENCHMARK_TRANSFER_HUGSIM.md](docs/research/SECOND_BENCHMARK_TRANSFER_HUGSIM.md)),
+then the deployment-flip successor; these rank ahead of any new intervention iteration, and the
+linear-steering mechanism line is closed
+([docs/research/INTERVENTION_MECHANISM_VERDICT_2026-07-11.md](docs/research/INTERVENTION_MECHANISM_VERDICT_2026-07-11.md)).
 
 Closed en route, per the gate discipline: the per-frame routing predicates (iteration 17
 addendum — refuted offline), the tracking layer's own offline gate (iteration 18 — failed
@@ -628,7 +661,7 @@ python3 experiments/verification/audit_pooling.py
 # the safety-engineering view: lead time, intervention budget, severity
 python3 experiments/verification/analyze_safety_case.py
 
-# the definitive n=20 measurement (+0.398, CI [+0.133, +0.665]) — committed output
+# the n=20 measurement (+0.398, CI [+0.133, +0.665]) — committed output
 cat experiments/verification/proof_v20.txt             # regenerate: analyze_v20.py (paths in header)
 ```
 
@@ -685,6 +718,9 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter42_exact_trace_replay_support/`](experiments/iter42_exact_trace_replay_support) | exact trace replay support — pre-registered; trace substrate only, no degradation/safety claim |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
+| [`docs/research/FRONTIER_POSITIONING_2026-07-11.md`](docs/research/FRONTIER_POSITIONING_2026-07-11.md) | source-verified mid-2026 benchmark/monitor/industry positioning; the binding 2.91-is-not-benchmark-SOTA framing rule |
+| [`docs/research/SECOND_BENCHMARK_TRANSFER_HUGSIM.md`](docs/research/SECOND_BENCHMARK_TRANSFER_HUGSIM.md) | launch packet for the HUGSIM second-benchmark transfer of the released union; not a pre-registration |
+| [`docs/research/INTERVENTION_MECHANISM_VERDICT_2026-07-11.md`](docs/research/INTERVENTION_MECHANISM_VERDICT_2026-07-11.md) | survey verdict closing the linear-steering line; conditions for any future intervention iteration |
 | [`docs/research/ITER22_HYPOTHESIS_DRAFT.md`](docs/research/ITER22_HYPOTHESIS_DRAFT.md) · [`docs/research/ITER22_ADVERSARIAL_REVIEW.md`](docs/research/ITER22_ADVERSARIAL_REVIEW.md) | planning-only iter22 draft and adversarial review; not pre-registrations |
 | [`docs/paper/MANUSCRIPT.md`](docs/paper/MANUSCRIPT.md) · [`docs/paper/paper.pdf`](docs/paper/paper.pdf) | the manuscript (full draft; compiled PDF; arXiv package committed) |
 | [`scripts/validate_docs.py`](scripts/validate_docs.py) | CI docs guard: diagram budgets, link health, story completeness — enforced on every push |
@@ -696,5 +732,6 @@ pytest on every push.
 ## Data & honesty
 
 Public datasets only (nuScenes via NeuroNCAP); no fleet or proprietary data; no frames
-redistributed. Published baselines are single-preprint and unreproduced — reproducing them is our
-true starting line, and every null is reported, not buried.
+redistributed. Reproducing the published baseline ourselves was the starting line — our 2.12
+pooled reproduction is corroborated by DMAD's independent 2.11 rerun — and every null is
+reported, not buried.
