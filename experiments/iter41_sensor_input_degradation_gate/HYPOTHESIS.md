@@ -76,13 +76,15 @@ The offline replay must implement the released-union decision rule from
 - TTC threshold `SENTINEL_TTC = 2.5 s`;
 - minimum closing speed `SENTINEL_MIN_CLOSING = 3.0 m/s`;
 - latch release after `SENTINEL_RELEASE_K = 4` consecutive clear frames;
-- ego plan points and object positions use the logged ego-frame `traj` and `objs`;
+- ego plan points and object positions use the logged ego-frame `traj` and `objs`, transformed to
+  world frame through the same episode timestamp's committed `p14-best` `ego_poses.json` pose;
 - object identities use logged `object_ids` if present, otherwise deterministic object index
   `idx_<i>`, matching the patch fallback.
 
 The replay may use only the best-arm frame rows in reconstructed
-`sentinel_p14_best.jsonl.gz`. It must not use the `brake` rows as input to decide future state
-except for the S0 vanilla reproduction comparison.
+`sentinel_p14_best.jsonl.gz` plus committed `p14-best` ego poses for the same episode. It must not
+use the `brake` rows as input to decide future state except for the S0 vanilla reproduction
+comparison.
 
 ## Frozen perturbations
 
@@ -124,6 +126,7 @@ S0 passes only if:
   - every episode's brake-frame count matches the logged count;
   - every episode's first-brake frame index matches the logged first-brake frame index when the
     episode has an intervention;
+  - every replayed frame has an exact timestamp match in the committed `p14-best` ego pose archive;
 - no gcloud, Docker, model replay, image perturbation, selector, heldout, or closed-loop command
   runs.
 
