@@ -113,6 +113,22 @@ events to prepare; they are a property the repository always has.
   committed exact trace (proof-trace/sentinel_iter42_trace.jsonl.gz, SHA256
   `8c43726c94a8870d40518b97bf5b74a7b88517a661c16291dd8408a61eb97f4d`); no degradation,
   robustness, selector, deployment, or safety claim.
+- Iteration 43 concluded:
+  experiments/iter43_object_stream_perturbation_gate/RESULT.md, published as
+  `OBJECT_PERTURBATION_MILD_FRAGILE`. The entirely offline perturbation gate over the committed
+  iteration-42 exact trace passed S0 provenance and S1 zero-strength identity (0 mismatched
+  frames through the reused iteration-42 replay implementation), then ran the frozen 14-cell
+  jitter/dropout/score/churn grid once with seed `iter43-object-stream-perturbation-v1`.
+  Two of five mild cells failed the frozen bars: position jitter at `0.05 m` (retention
+  `218/230` vs `>=219`; `17` new interventions vs `<=8`) and `0.10 m` (`36` new, `1,445` brake
+  frames); the false-intervention dose-response is monotonic to `151` new interventions at
+  `1.00 m`. Dropout `0.05`, score attenuation `0.90` (decision-identical), and identity churn
+  `0.05` were STABLE. Scope is replay decision-flip sensitivity of the monitor rule only —
+  not sensor/camera degradation, not closed-loop (consequences of flipped decisions are not
+  observable offline), and no benchmark, selector, deployment, or safety claim. Per the
+  registered S4 boundary the offline perturbation line at this trace is closed; any successor
+  (e.g. correlated-noise or smoothed-input variants, or any closed-loop degradation line)
+  requires a fresh pre-registration.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -729,3 +745,16 @@ events to prepare; they are a property the repository always has.
   heldout, iteration-12 scoring, selector, closed-loop, deployment, and safety claims remain
   unauthorized. BOX IDLE at exit (no containers; root disk 96% used, 16 GiB free — nothing
   deleted).
+- 2026-07-11: Claude (Fable 5) via delegated executor — executed iteration 43 end-to-end,
+  entirely offline (no gcloud, Docker, or GPU command; BOX UNTOUCHED, still IDLE).
+  Pre-registered the object-stream perturbation gate over the committed iter42 exact trace
+  (frozen 14-cell jitter/dropout/score/churn grid, seed `iter43-object-stream-perturbation-v1`,
+  mild-set stability bars) BEFORE any analysis code existed; committed analyzer (reusing the
+  iter42 replay implementation via import) + 9 unit tests; ran the analyzer exactly once from
+  committed artifacts and published `OBJECT_PERTURBATION_MILD_FRAGILE` at full weight: jitter
+  fragile at `0.05`/`0.10 m` (over-firing dominant — `17`/`36` new interventions vs the `<=8`
+  bar), dropout/score/churn stable at mild levels; zero-strength identity exact, determinism
+  guard pass, trace SHA unchanged. README row 43, header clause, net-summary, defensibility
+  diagram (A43), status bullet, and repo map updated; ruff + pytest (131) +
+  validate_docs green. The offline perturbation line at this trace is closed; successors need
+  a fresh pre-registration.
