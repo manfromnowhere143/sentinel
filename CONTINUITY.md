@@ -229,7 +229,9 @@ events to prepare; they are a property the repository always has.
   waits on a cs.RO endorsement (code V76QK4; request sent to William Ljungbergh
   william@recohere.ai on 2026-07-05 — silent through 2026-07-11 per a live mailbox check;
   escalation sent to Holger Caesar H.Caesar@tudelft.nl on 2026-07-11, Gmail message id
-  19f51374b4186984, review copy 19f51371eb509367; remaining fallback: CATPlan authors). After
+  19f51374b4186984, review copy 19f51371eb509367; threaded follow-up to Ljungbergh with the
+  DMAD-corroboration update sent 2026-07-11 from daniel@aweblabs.ai, Gmail id 19f51f7617032232;
+  remaining fallback: CATPlan authors). After
   endorsement Daniel resumes at arxiv.org/user; package = docs/paper/sentinel-arxiv-submission.tar.gz.
 
 ## Shift log
