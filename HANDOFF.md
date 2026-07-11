@@ -1,9 +1,10 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Sat Jul 11 07:09:23 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Sat Jul 11 08:58:57 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+3d49bac handoff: refresh iter42 second-boundary progress
 0e61696 handoff: refresh iter42 pair-boundary progress
 d51c036 handoff: refresh after iter42 launch
 5523303 research: record iter42 gpu preflight
@@ -11,7 +12,6 @@ d51c036 handoff: refresh after iter42 launch
 acb7397 research: preregister iter42 exact trace replay support
 a50f165 handoff: refresh after iter41 audit
 9059738 research: publish iter41 degradation gate null
-7df799a research: add iter41 degradation gate analyzer
 ```
 Working tree: CLEAN
 
@@ -68,22 +68,22 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 07:10:31 up 6 days, 20:51,  0 users,  load average: 1.35, 1.33, 1.19
+ 09:00:04 up 6 days, 22:41,  0 users,  load average: 1.24, 1.09, 1.12
 GPU_RUN_STATE=IN_FLIGHT_CONTAINERS
-xenodochial_varahamihira	Up 2 minutes
-model	Up 2 minutes
-renderer	Up 2 minutes
+quizzical_wilbur	Up 33 minutes
+model	Up 33 minutes
+renderer	Up 33 minutes
 /var/log/sentinel-iter42-trace.log
 /var/log/sentinel-vitals.log
 /var/log/sentinel-iter42-preflight.log
-/dev/root       310G  286G   25G  92% /
-Swap:          8.0Gi       351Mi       7.7Gi
+/dev/root       310G  287G   24G  93% /
+Swap:          8.0Gi       4.0Gi       4.0Gi
 ```
 If any docker container named renderer/model/ncap (or a random-name ncap) is up, a run
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
-Latest Iter42 observation before this handoff: at 2026-07-11T07:10:17Z the trace had crossed
-from `stationary 0099` through `stationary 0101` into `stationary 0103` with 849 JSONL rows,
-40 reset blocks, 809 frame rows, zero parse errors, and no error markers.
+Latest Iter42 observation before this handoff: at 2026-07-11T08:59:41Z the trace had reached
+`stationary 0108` with 1,796 JSONL rows, 94 reset blocks, 1,702 frame rows, zero parse errors,
+and no error markers.
 
 ## Open threads (from the newest experiment docs)
 - Newest pre-registration: experiments/iter42_exact_trace_replay_support/HYPOTHESIS.md — read it in full; its gate governs the next action.
