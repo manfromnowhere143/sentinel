@@ -661,6 +661,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter38_track_query_opposite_direction/`](experiments/iter38_track_query_opposite_direction) | track-query opposite-direction S0 proof — canary pass; calibration authorized but not launched |
 | [`experiments/iter39_external_validity_claim_audit/`](experiments/iter39_external_validity_claim_audit) | external-validity claim audit — doc narrowing published; active story now scoped to evidence |
 | [`experiments/iter40_timing_cost_audit/`](experiments/iter40_timing_cost_audit) | timing/intervention-cost audit — full14/power simulation budget and lead-time pass; no real-time/deployment claim |
+| [`experiments/iter41_sensor_input_degradation_gate/`](experiments/iter41_sensor_input_degradation_gate) | monitor-input degradation gate — pre-registered offline; no camera/closed-loop robustness claim |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/ITER22_HYPOTHESIS_DRAFT.md`](docs/research/ITER22_HYPOTHESIS_DRAFT.md) · [`docs/research/ITER22_ADVERSARIAL_REVIEW.md`](docs/research/ITER22_ADVERSARIAL_REVIEW.md) | planning-only iter22 draft and adversarial review; not pre-registrations |

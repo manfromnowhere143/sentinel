@@ -353,3 +353,8 @@ intervention cost, and deployment trade-offs.
     production-cost, passenger-comfort, deployment-readiness, or new safety claim. The next
     defensibility-first pre-registration should move to a still-untested external-validity axis;
     sensor/input degradation is now the strongest candidate.
+24. Iteration 41 is now pre-registered as that sensor/input-degradation prerequisite, scoped
+    conservatively as an offline monitor-input degradation gate over committed full14/power
+    decision logs. It authorizes no tooling/report until the HYPOTHESIS commit is pushed, and no
+    GPU/image/closed-loop run unless the offline replay gate passes and a separate future
+    pre-registration is written.

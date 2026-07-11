@@ -92,6 +92,11 @@ events to prepare; they are a property the repository always has.
   brake-frame budget wording, not wall-clock latency, passenger comfort, production cost,
   deployment readiness, or new safety claims. Next defensibility-first line: sensor/input
   degradation pre-registration unless explicitly overridden.
+- Iteration 41 is pre-registered:
+  experiments/iter41_sensor_input_degradation_gate/HYPOTHESIS.md. It is an offline monitor-input
+  degradation gate over committed full14/power logs. It authorizes no tooling/report until the
+  HYPOTHESIS commit is pushed, and no GPU/image/closed-loop work unless the offline gate passes
+  and a separate future pre-registration is written.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).

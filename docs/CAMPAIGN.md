@@ -399,3 +399,11 @@ over-claim.** That arc, in order:
     `0.049`. This is simulation timestamp timing and brake-frame budget only, not wall-clock
     latency, passenger comfort, production cost, deployment readiness, or new safety evidence.
     [`../experiments/iter40_timing_cost_audit/RESULT.md`](../experiments/iter40_timing_cost_audit/RESULT.md).
+
+43. **Iter 41 — monitor-input degradation gate: pre-registered offline.** This is the next
+    external-validity gate after the timing/cost audit. It will replay the released-union
+    object-stream decision rule over committed full14/power logs, first requiring exact vanilla
+    reproduction, then applying frozen score-threshold, range-limit, deterministic dropout, and
+    deterministic jitter perturbations. A failure is a brittleness finding; a pass authorizes only
+    a separate degraded-sensor closed-loop pre-registration, not a robustness or safety claim.
+    [`../experiments/iter41_sensor_input_degradation_gate/HYPOTHESIS.md`](../experiments/iter41_sensor_input_degradation_gate/HYPOTHESIS.md).
