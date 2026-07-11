@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Sat Jul 11 12:35:41 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: ש' יול 11 19:02:13 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
-d68190c handoff: refresh iter42 stationary-final progress
-ee50ec3 handoff: record iter42 watcher
-02f1d3a handoff: refresh iter42 stationary progress
-3d49bac handoff: refresh iter42 second-boundary progress
-0e61696 handoff: refresh iter42 pair-boundary progress
-d51c036 handoff: refresh after iter42 launch
-5523303 research: record iter42 gpu preflight
-8601ef0 research: add iter42 exact trace tooling
+bd6e6c4 docs: record iter42 trace replay-support pass in README status/tracker/diagram and CONTINUITY arc + shift log
+d1a83aa iter42: publish TRACE_REPLAY_SUPPORT_PASS — exact counts (400/6474/1205/156/230) and 0-mismatch offline replay identity
+3ffde8f iter42: collect trace capture proof from sentinel-gpu (trace sha256 8c43726c, run + watch logs)
+f19fb4b handoff: record threaded ljungbergh follow-up
+a614535 docs: readme alignment pass — corroborated-reproduction framing, iter40 power-scale safety case, iters 39-42 arc, steering-line closure, early-row evidence links
+1e4c3be research: record intervention-mechanism survey verdict (asymmetry replicated; LAE-style learned edit = only credible successor)
+541cdbc handoff: record positioning and hugsim launch-packet shift work
+eee4bf9 research: add HUGSIM second-benchmark transfer launch packet from recon
 ```
 Working tree: CLEAN
 
@@ -54,7 +54,7 @@ Working tree: CLEAN
 - experiments/iter3_progress: RESULT PUBLISHED
 - experiments/iter40_timing_cost_audit: RESULT PUBLISHED
 - experiments/iter41_sensor_input_degradation_gate: RESULT PUBLISHED
-- experiments/iter42_exact_trace_replay_support: PRE-REGISTERED, result pending
+- experiments/iter42_exact_trace_replay_support: RESULT PUBLISHED
 - experiments/iter4_gated: RESULT PUBLISHED
 - experiments/iter5_tracked: RESULT PUBLISHED
 - experiments/iter6_cpa: RESULT PUBLISHED
@@ -68,27 +68,19 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 12:36:49 up 7 days,  2:17,  0 users,  load average: 1.15, 1.11, 1.11
-GPU_RUN_STATE=IN_FLIGHT_CONTAINERS
-musing_jang	Up 37 minutes
-renderer	Up 37 minutes
-model	Up 37 minutes
-/var/log/sentinel-iter42-trace.log
+ 19:03:21 up 7 days,  8:44,  0 users,  load average: 0.00, 0.00, 0.08
+GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-iter42-watch.log
-/dev/root       310G  291G   20G  94% /
-Swap:          8.0Gi       4.4Gi       3.6Gi
+/var/log/sentinel-iter42-trace.log
+/dev/root       310G  295G   16G  96% /
+Swap:          8.0Gi        67Mi       7.9Gi
 ```
 If any docker container named renderer/model/ncap (or a random-name ncap) is up, a run
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
-Latest Iter42 observation before this handoff: at 2026-07-11T12:31:58Z the trace was still in
-the final stationary pair, `stationary 0966`, with 3,684 JSONL rows, 194 reset blocks,
-3,490 frame rows, zero parse errors, and no error markers. The read-only watcher is running as
-`/tmp/sentinel_iter42_watch_loop.sh` and appends 10-minute summaries to
-`/var/log/sentinel-iter42-watch.log`; it does not relaunch, kill, patch, or analyze the run.
 
 ## Open threads (from the newest experiment docs)
-- Newest pre-registration: experiments/iter42_exact_trace_replay_support/HYPOTHESIS.md — read it in full; its gate governs the next action.
+- Newest completed experiment: experiments/iter42_exact_trace_replay_support/RESULT.md — read it before opening new work.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
