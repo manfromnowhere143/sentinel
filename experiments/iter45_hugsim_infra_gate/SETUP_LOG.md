@@ -135,6 +135,26 @@ recording; originals preserved with `.orig` suffixes:
 - Host `zsh` installed via apt (HUGSIM's `sim/utils/launch_ad.py` launches the client with
   `zsh <script>`; the wrapper itself is plain bash, which zsh executes via its shebang).
 
+## 2026-07-11 22:53 UTC — G2 client half PASSES (checkpoint-mismatch falsifier did not fire)
+
+Detached probe `/tmp/hugsim_client_probe.sh` (log `/var/log/sentinel-hugsim-clientprobe.log`,
+markers `HUGSIM_CLIENT_PROBE_*`): inside `uniad:latest` with the wrapper's mounts, the
+UNMODIFIED UniAD_SIM config `projects/configs/stage2_e2e/base_e2e.py` built the model
+(plugin import OK) and `load_checkpoint('ckpts/uniad_base_e2e.pth', map_location='cpu')`
+succeeded: `CLIENT_LOAD_OK params 131809024`, `HUGSIM_CLIENT_PROBE_RC=0`. First attempt
+failed on a missing data file (`data/others/motion_anchor_infos_mode6.pkl`); staged the
+box's existing copy (SHA `45761de4…`, receipt above) into `UniAD_SIM/data/others/` and the
+retry passed. The GPU inference half of G2/G4 is exercised by the smoke run itself.
+
+Smoke script staged at `/tmp/hugsim_smoke.sh` (log will be
+`/var/log/sentinel-hugsim-smoke.log`, markers `HUGSIM_SMOKE_START/RC/DONE`, `timeout 7200`s
+per the 120-minute G4 bound): `pixi run python -u closed_loop.py --scenario_path
+/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0013-easy-00.yaml
+--base_path configs/sim/nuscenes_base.yaml --camera_path configs/sim/nuscenes_camera.yaml
+--kinematic_path configs/sim/kinematic.yaml --ad uniad --ad_cuda 0`. NOT to be launched
+until the pixi env build (fix2) finishes with RC=0 and the hugsim_env import check passes;
+never alongside another GPU job.
+
 ## Resume point (exact — updated 2026-07-11 ~22:45 UTC)
 
 1. Poll `/var/log/sentinel-hugsim-envsetup.log` for `HUGSIM_ENV_FIX2_DONE`; check
