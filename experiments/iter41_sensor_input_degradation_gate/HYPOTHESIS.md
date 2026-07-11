@@ -95,7 +95,9 @@ After S0 vanilla replay passes, run exactly these perturbation modes:
 3. `dropout_20pct`: delete an object row when
    `sha256("iter41|dropout_20pct|<scenario>|<run>|<frame_index>|<object_index>") mod 100 < 20`;
 4. `jitter_0p25m`: add deterministic ego-frame x/y offsets in `[-0.25 m, +0.25 m]` from
-   `sha256("iter41|jitter_0p25m|<scenario>|<run>|<frame_index>|<object_index>|x|y")`.
+   separate axis seeds
+   `sha256("iter41|jitter_0p25m|<scenario>|<run>|<frame_index>|<object_index>|x")` and
+   `sha256("iter41|jitter_0p25m|<scenario>|<run>|<frame_index>|<object_index>|y")`.
 
 Perturbations are global and frozen. No per-scene, per-class, per-row, adaptive, or post-hoc
 perturbation strength is allowed.
