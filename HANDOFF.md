@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Sat Jul 11 05:10:31 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Sat Jul 11 05:28:22 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+5523303 research: record iter42 gpu preflight
+8601ef0 research: add iter42 exact trace tooling
+acb7397 research: preregister iter42 exact trace replay support
+a50f165 handoff: refresh after iter41 audit
 9059738 research: publish iter41 degradation gate null
 7df799a research: add iter41 degradation gate analyzer
 5fb1fae research: clarify iter41 jitter seeds
 5979302 research: clarify iter41 replay frame transform
-1d161a9 research: preregister iter41 sensor input degradation gate
-d9c703c handoff: refresh after iter40 audit
-b104a63 research: publish iter40 timing cost audit
-86edfee research: add iter40 timing cost tooling
 ```
 Working tree: CLEAN
 
@@ -54,6 +54,7 @@ Working tree: CLEAN
 - experiments/iter3_progress: RESULT PUBLISHED
 - experiments/iter40_timing_cost_audit: RESULT PUBLISHED
 - experiments/iter41_sensor_input_degradation_gate: RESULT PUBLISHED
+- experiments/iter42_exact_trace_replay_support: PRE-REGISTERED, result pending
 - experiments/iter4_gated: RESULT PUBLISHED
 - experiments/iter5_tracked: RESULT PUBLISHED
 - experiments/iter6_cpa: RESULT PUBLISHED
@@ -67,19 +68,22 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 05:11:37 up 6 days, 18:52,  0 users,  load average: 0.08, 0.02, 0.01
-GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
+ 05:29:28 up 6 days, 19:10,  0 users,  load average: 1.38, 0.37, 0.13
+GPU_RUN_STATE=IN_FLIGHT_CONTAINERS
+naughty_kalam	Up 32 seconds
+renderer	Up 32 seconds
+model	Up 32 seconds
+/var/log/sentinel-iter42-trace.log
 /var/log/sentinel-vitals.log
-/var/log/sentinel-e38-canary.log
-/var/log/sentinel-e37-calibration.log
-/dev/root       310G  301G  9.9G  97% /
+/var/log/sentinel-iter42-preflight.log
+/dev/root       310G  283G   28G  92% /
 Swap:          8.0Gi        58Mi       7.9Gi
 ```
 If any docker container named renderer/model/ncap (or a random-name ncap) is up, a run
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter41_sensor_input_degradation_gate/RESULT.md — read it before opening new work.
+- Newest pre-registration: experiments/iter42_exact_trace_replay_support/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
