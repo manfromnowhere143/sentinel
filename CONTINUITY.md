@@ -227,7 +227,9 @@ events to prepare; they are a property the repository always has.
   1-only causal-localization shape before any iteration-12 gate or GPU work.
 - Paper: docs/paper/paper.pdf compiled; arXiv account live (Daniel: ezio143); submission
   waits on a cs.RO endorsement (code V76QK4; request sent to William Ljungbergh
-  william@recohere.ai on 2026-07-05; fallbacks: Holger Caesar, CATPlan authors). After
+  william@recohere.ai on 2026-07-05 — silent through 2026-07-11 per a live mailbox check;
+  escalation sent to Holger Caesar H.Caesar@tudelft.nl on 2026-07-11, Gmail message id
+  19f51374b4186984, review copy 19f51371eb509367; remaining fallback: CATPlan authors). After
   endorsement Daniel resumes at arxiv.org/user; package = docs/paper/sentinel-arxiv-submission.tar.gz.
 
 ## Shift log
@@ -676,4 +678,17 @@ events to prepare; they are a property the repository always has.
   Calibration is authorized by the registered gate but not launched. Under the defensibility
   rule, compare the value of Iter38 calibration against a fresh external-validity falsification
   pre-registration before spending the next GPU window.
-- (append one line per shift: dates, operator, what changed, box state at exit)
+- 2026-07-11: Claude (Fable 5) — took the baton mid-iter42 (run IN FLIGHT under the read-only
+  watcher; not touched). Verified the Ljungbergh endorsement request was silent for 6 days in
+  the live mailbox and sent the pre-authorized escalation to Holger Caesar (H.Caesar@tudelft.nl,
+  Gmail id 19f51374b4186984; review copy to Daniel first). Launched an external frontier survey
+  (NeuroNCAP SOTA 2026, monitor/interpretability literature, industry landscape) to position the
+  campaign; key facts so far: RiskMonitor (arXiv 2503.07425v2, 2026-02) is the closest prior —
+  frozen UniAD/VAD + risk head + max-brake on NeuroNCAP, collision-rate-only, no CIs, no
+  deployment-cost measurement; retrained planners now post 3.06 (BridgeAD, CVPR 2025) and 3.49
+  (ImagiDrive, ICRA 2026, no-post-processing family) on NeuroNCAP, so 2.91 must be framed as a
+  training-free plug-in on a frozen planner, not absolute benchmark SOTA; no published work
+  probes or steers UniAD/VAD-class planner internals (iters 29-38 line appears first-of-kind);
+  "detection-without-correction" asymmetry now documented in LLMs (arXiv 2604.13068) — our
+  steering nulls are independent cross-domain evidence. Full positioning report to Daniel in
+  the session; related-work refresh of the manuscript is a named next action.
