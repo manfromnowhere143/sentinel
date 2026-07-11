@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Fri Jul 10 21:19:14 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Sat Jul 11 05:10:31 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+9059738 research: publish iter41 degradation gate null
+7df799a research: add iter41 degradation gate analyzer
+5fb1fae research: clarify iter41 jitter seeds
+5979302 research: clarify iter41 replay frame transform
+1d161a9 research: preregister iter41 sensor input degradation gate
+d9c703c handoff: refresh after iter40 audit
 b104a63 research: publish iter40 timing cost audit
 86edfee research: add iter40 timing cost tooling
-5aad169 research: preregister iter40 timing cost audit
-3e8b012 handoff: refresh after iter39 audit
-8598851 research: publish iter39 external validity audit
-f557197 research: add iter39 external validity tooling
-31e6b62 research: preregister iter39 external validity audit
-8ce06bc handoff: refresh after iter38 canary
 ```
 Working tree: CLEAN
 
@@ -53,6 +53,7 @@ Working tree: CLEAN
 - experiments/iter39_external_validity_claim_audit: RESULT PUBLISHED
 - experiments/iter3_progress: RESULT PUBLISHED
 - experiments/iter40_timing_cost_audit: RESULT PUBLISHED
+- experiments/iter41_sensor_input_degradation_gate: RESULT PUBLISHED
 - experiments/iter4_gated: RESULT PUBLISHED
 - experiments/iter5_tracked: RESULT PUBLISHED
 - experiments/iter6_cpa: RESULT PUBLISHED
@@ -66,7 +67,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 21:20:21 up 6 days, 11:01,  0 users,  load average: 0.00, 0.01, 0.04
+ 05:11:37 up 6 days, 18:52,  0 users,  load average: 0.08, 0.02, 0.01
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-e38-canary.log
@@ -78,7 +79,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter40_timing_cost_audit/RESULT.md — read it before opening new work.
+- Newest completed experiment: experiments/iter41_sensor_input_degradation_gate/RESULT.md — read it before opening new work.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
