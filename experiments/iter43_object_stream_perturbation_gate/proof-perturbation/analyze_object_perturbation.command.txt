@@ -1,0 +1,3 @@
+commit_before_run: 14be64a15b2478cc8f981fbab8bdfa14b69fd59b
+date_utc: 2026-07-11T19:40:39Z
+command: python3 experiments/iter43_object_stream_perturbation_gate/analyze_object_perturbation.py

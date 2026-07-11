@@ -1,0 +1,321 @@
+{
+  "bars": {
+    "brake_total_max": 1385,
+    "brake_total_min": 1025,
+    "delay_gt2_fraction_max": 0.1,
+    "median_delay_max_frames": 1.0,
+    "new_interventions_max": 8,
+    "retention_min": 219
+  },
+  "cells": [
+    {
+      "brake_flips": 240,
+      "brake_frames": 1275,
+      "classification": "FRAGILE",
+      "delay_gt2_fraction": 0.01834862385321101,
+      "failed_bars": [
+        "retention=218/230 < 219",
+        "new_interventions=17/170 > 8"
+      ],
+      "family": "jitter",
+      "fired_flips": 101,
+      "level": "sigma_0p05",
+      "lost_interventions": 12,
+      "median_first_brake_delay_frames": 0.0,
+      "mild": true,
+      "new_interventions": 17,
+      "param": 0.05,
+      "release_frames": 159,
+      "retained_interventions": 218
+    },
+    {
+      "brake_flips": 484,
+      "brake_frames": 1445,
+      "classification": "FRAGILE",
+      "delay_gt2_fraction": 0.02336448598130841,
+      "failed_bars": [
+        "retention=214/230 < 219",
+        "new_interventions=36/170 > 8",
+        "brake_frames=1445 outside [1025, 1385]"
+      ],
+      "family": "jitter",
+      "fired_flips": 237,
+      "level": "sigma_0p10",
+      "lost_interventions": 16,
+      "median_first_brake_delay_frames": 0.0,
+      "mild": true,
+      "new_interventions": 36,
+      "param": 0.1,
+      "release_frames": 166,
+      "retained_interventions": 214
+    },
+    {
+      "brake_flips": 1045,
+      "brake_frames": 1946,
+      "classification": "FRAGILE",
+      "delay_gt2_fraction": 0.05092592592592592,
+      "failed_bars": [
+        "retention=216/230 < 219",
+        "new_interventions=79/170 > 8",
+        "brake_frames=1946 outside [1025, 1385]"
+      ],
+      "family": "jitter",
+      "fired_flips": 556,
+      "level": "sigma_0p25",
+      "lost_interventions": 14,
+      "median_first_brake_delay_frames": 0.0,
+      "mild": false,
+      "new_interventions": 79,
+      "param": 0.25,
+      "release_frames": 201,
+      "retained_interventions": 216
+    },
+    {
+      "brake_flips": 1934,
+      "brake_frames": 2837,
+      "classification": "FRAGILE",
+      "delay_gt2_fraction": 0.06334841628959276,
+      "failed_bars": [
+        "new_interventions=111/170 > 8",
+        "brake_frames=2837 outside [1025, 1385]"
+      ],
+      "family": "jitter",
+      "fired_flips": 1082,
+      "level": "sigma_0p50",
+      "lost_interventions": 9,
+      "median_first_brake_delay_frames": -1,
+      "mild": false,
+      "new_interventions": 111,
+      "param": 0.5,
+      "release_frames": 207,
+      "retained_interventions": 221
+    },
+    {
+      "brake_flips": 3043,
+      "brake_frames": 3996,
+      "classification": "FRAGILE",
+      "delay_gt2_fraction": 0.05701754385964912,
+      "failed_bars": [
+        "new_interventions=151/170 > 8",
+        "brake_frames=3996 outside [1025, 1385]"
+      ],
+      "family": "jitter",
+      "fired_flips": 2242,
+      "level": "sigma_1p00",
+      "lost_interventions": 2,
+      "median_first_brake_delay_frames": -2.0,
+      "mild": false,
+      "new_interventions": 151,
+      "param": 1.0,
+      "release_frames": 156,
+      "retained_interventions": 228
+    },
+    {
+      "brake_flips": 64,
+      "brake_frames": 1143,
+      "classification": "STABLE",
+      "delay_gt2_fraction": 0.0091324200913242,
+      "failed_bars": [],
+      "family": "dropout",
+      "fired_flips": 43,
+      "level": "p_0p05",
+      "lost_interventions": 11,
+      "median_first_brake_delay_frames": 0,
+      "mild": true,
+      "new_interventions": 0,
+      "param": 0.05,
+      "release_frames": 152,
+      "retained_interventions": 219
+    },
+    {
+      "brake_flips": 94,
+      "brake_frames": 1123,
+      "classification": "STABLE",
+      "delay_gt2_fraction": 0.02252252252252252,
+      "failed_bars": [],
+      "family": "dropout",
+      "fired_flips": 65,
+      "level": "p_0p10",
+      "lost_interventions": 8,
+      "median_first_brake_delay_frames": 0.0,
+      "mild": false,
+      "new_interventions": 0,
+      "param": 0.1,
+      "release_frames": 151,
+      "retained_interventions": 222
+    },
+    {
+      "brake_flips": 246,
+      "brake_frames": 965,
+      "classification": "FRAGILE",
+      "delay_gt2_fraction": 0.04020100502512563,
+      "failed_bars": [
+        "retention=199/230 < 219",
+        "brake_frames=965 outside [1025, 1385]"
+      ],
+      "family": "dropout",
+      "fired_flips": 141,
+      "level": "p_0p20",
+      "lost_interventions": 31,
+      "median_first_brake_delay_frames": 0,
+      "mild": false,
+      "new_interventions": 0,
+      "param": 0.2,
+      "release_frames": 144,
+      "retained_interventions": 199
+    },
+    {
+      "brake_flips": 0,
+      "brake_frames": 1205,
+      "classification": "STABLE",
+      "delay_gt2_fraction": 0.0,
+      "failed_bars": [],
+      "family": "score",
+      "fired_flips": 0,
+      "level": "f_0p90",
+      "lost_interventions": 0,
+      "median_first_brake_delay_frames": 0.0,
+      "mild": true,
+      "new_interventions": 0,
+      "param": 0.9,
+      "release_frames": 156,
+      "retained_interventions": 230
+    },
+    {
+      "brake_flips": 20,
+      "brake_frames": 1185,
+      "classification": "STABLE",
+      "delay_gt2_fraction": 0.008733624454148471,
+      "failed_bars": [],
+      "family": "score",
+      "fired_flips": 15,
+      "level": "f_0p80",
+      "lost_interventions": 1,
+      "median_first_brake_delay_frames": 0,
+      "mild": false,
+      "new_interventions": 0,
+      "param": 0.8,
+      "release_frames": 157,
+      "retained_interventions": 229
+    },
+    {
+      "brake_flips": 77,
+      "brake_frames": 1130,
+      "classification": "STABLE",
+      "delay_gt2_fraction": 0.0273972602739726,
+      "failed_bars": [],
+      "family": "score",
+      "fired_flips": 52,
+      "level": "f_0p60",
+      "lost_interventions": 11,
+      "median_first_brake_delay_frames": 0,
+      "mild": false,
+      "new_interventions": 0,
+      "param": 0.6,
+      "release_frames": 153,
+      "retained_interventions": 219
+    },
+    {
+      "brake_flips": 39,
+      "brake_frames": 1176,
+      "classification": "STABLE",
+      "delay_gt2_fraction": 0.0,
+      "failed_bars": [],
+      "family": "churn",
+      "fired_flips": 27,
+      "level": "p_0p05",
+      "lost_interventions": 7,
+      "median_first_brake_delay_frames": 0,
+      "mild": true,
+      "new_interventions": 1,
+      "param": 0.05,
+      "release_frames": 156,
+      "retained_interventions": 223
+    },
+    {
+      "brake_flips": 111,
+      "brake_frames": 1106,
+      "classification": "FRAGILE",
+      "delay_gt2_fraction": 0.009345794392523364,
+      "failed_bars": [
+        "retention=214/230 < 219"
+      ],
+      "family": "churn",
+      "fired_flips": 73,
+      "level": "p_0p10",
+      "lost_interventions": 16,
+      "median_first_brake_delay_frames": 0.0,
+      "mild": false,
+      "new_interventions": 1,
+      "param": 0.1,
+      "release_frames": 148,
+      "retained_interventions": 214
+    },
+    {
+      "brake_flips": 254,
+      "brake_frames": 985,
+      "classification": "FRAGILE",
+      "delay_gt2_fraction": 0.02564102564102564,
+      "failed_bars": [
+        "retention=195/230 < 219",
+        "brake_frames=985 outside [1025, 1385]"
+      ],
+      "family": "churn",
+      "fired_flips": 138,
+      "level": "p_0p20",
+      "lost_interventions": 35,
+      "median_first_brake_delay_frames": 0,
+      "mild": false,
+      "new_interventions": 1,
+      "param": 0.2,
+      "release_frames": 132,
+      "retained_interventions": 195
+    }
+  ],
+  "claim_boundary": "Iteration 43 measures replay decision-flip sensitivity of the released-union monitor rule on the frozen iteration-42 trace. It is not sensor/camera degradation, not closed-loop (consequences of changed decisions are not observable offline), and not a benchmark, selector, deployment, or safety claim.",
+  "command_line": "experiments/iter43_object_stream_perturbation_gate/analyze_object_perturbation.py",
+  "determinism_guard": {
+    "cell": "jitter:sigma_0p25",
+    "hashes": [
+      "35a9260b66e9d4c5115539be506b9cbba81b7796ad76e31cbc595e286af338d8",
+      "35a9260b66e9d4c5115539be506b9cbba81b7796ad76e31cbc595e286af338d8"
+    ],
+    "pass": true
+  },
+  "logged_ids_present": true,
+  "mild_cells": [
+    "churn:p_0p05",
+    "dropout:p_0p05",
+    "jitter:sigma_0p05",
+    "jitter:sigma_0p10",
+    "score:f_0p90"
+  ],
+  "mild_fragile_cells": [
+    "jitter:sigma_0p05",
+    "jitter:sigma_0p10"
+  ],
+  "online_reference": {
+    "brake_frames": 1205,
+    "frames": 6474,
+    "intervention_episodes": 230,
+    "non_intervention_episodes": 170,
+    "release_frames": 156,
+    "resets": 400
+  },
+  "s0": {
+    "failures": [],
+    "pass": true,
+    "trace_sha256_before": "8c43726c94a8870d40518b97bf5b74a7b88517a661c16291dd8408a61eb97f4d"
+  },
+  "s1": {
+    "failures": [],
+    "mismatched_frames": 0,
+    "pass": true,
+    "zero_strength_brake_frames": 1205,
+    "zero_strength_intervention_episodes": 230,
+    "zero_strength_release_frames": 156
+  },
+  "seed": "iter43-object-stream-perturbation-v1",
+  "trace_sha256_after": "8c43726c94a8870d40518b97bf5b74a7b88517a661c16291dd8408a61eb97f4d",
+  "verdict": "OBJECT_PERTURBATION_MILD_FRAGILE"
+}
