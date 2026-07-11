@@ -155,6 +155,21 @@ per the 120-minute G4 bound): `pixi run python -u closed_loop.py --scenario_path
 until the pixi env build (fix2) finishes with RC=0 and the hugsim_env import check passes;
 never alongside another GPU job.
 
+## 2026-07-11 23:09-23:10 UTC — fix2 verdict: CUDA mismatch RESOLVED; new blocker simple-knn; fix3 launched
+
+- **Fallback attempt B (fix2) result**: `HUGSIM_PIXI_FIX2_RC=1`, but the failure MOVED — no
+  CUDA-version mismatch error remains (torch cu124 + env cuda-toolkit 12.9 resolved the
+  falsifier's first form; gsplat proceeded past its previous failure point). The new failing
+  package is the vendored `submodules/simple-knn`: `error: identifier "FLT_MAX" is
+  undefined` — the known CUDA-12 header change (needs `#include <float.h>`).
+- **fix3** (23:10, `/tmp/hugsim_env_fix3.sh`, markers `HUGSIM_ENV_FIX3_*`, IN FLIGHT):
+  one-line build patch adding `#include <float.h>` to
+  `submodules/simple-knn/simple_knn.cu` (original preserved as `simple_knn.cu.orig`), then
+  `pixi install` again (cached wheels for already-built packages are reused) and
+  `pixi run install-apex` on success. This is a required-to-build compatibility edit to a
+  vendored build file, recorded here per the pre-registration; it does not touch simulator
+  or client logic.
+
 ## Resume point (exact — updated 2026-07-11 ~22:45 UTC)
 
 1. Poll `/var/log/sentinel-hugsim-envsetup.log` for `HUGSIM_ENV_FIX2_DONE`; check
