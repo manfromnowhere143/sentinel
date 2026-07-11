@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Sat Jul 11 08:58:57 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Sat Jul 11 12:18:24 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+ee50ec3 handoff: record iter42 watcher
+02f1d3a handoff: refresh iter42 stationary progress
 3d49bac handoff: refresh iter42 second-boundary progress
 0e61696 handoff: refresh iter42 pair-boundary progress
 d51c036 handoff: refresh after iter42 launch
 5523303 research: record iter42 gpu preflight
 8601ef0 research: add iter42 exact trace tooling
 acb7397 research: preregister iter42 exact trace replay support
-a50f165 handoff: refresh after iter41 audit
-9059738 research: publish iter41 degradation gate null
 ```
 Working tree: CLEAN
 
@@ -68,26 +68,24 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 09:00:04 up 6 days, 22:41,  0 users,  load average: 1.24, 1.09, 1.12
+ 12:19:31 up 7 days,  2:00,  0 users,  load average: 1.25, 1.20, 1.18
 GPU_RUN_STATE=IN_FLIGHT_CONTAINERS
-quizzical_wilbur	Up 33 minutes
-model	Up 33 minutes
-renderer	Up 33 minutes
+musing_jang	Up 20 minutes
+renderer	Up 20 minutes
+model	Up 20 minutes
 /var/log/sentinel-iter42-trace.log
 /var/log/sentinel-vitals.log
-/var/log/sentinel-iter42-preflight.log
-/dev/root       310G  287G   24G  93% /
-Swap:          8.0Gi       4.0Gi       4.0Gi
+/var/log/sentinel-iter42-watch.log
+/dev/root       310G  290G   21G  94% /
+Swap:          8.0Gi       4.3Gi       3.7Gi
 ```
 If any docker container named renderer/model/ncap (or a random-name ncap) is up, a run
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
-Latest Iter42 observation before this handoff: at 2026-07-11T08:59:41Z the trace had reached
-`stationary 0108` with 1,796 JSONL rows, 94 reset blocks, 1,702 frame rows, zero parse errors,
-and no error markers.
-Read-only Iter42 watcher: `/tmp/sentinel_iter42_watch_loop.sh` is running on `sentinel-gpu`
-and appends 10-minute summaries to `/var/log/sentinel-iter42-watch.log`. It does not relaunch,
-kill, patch, or analyze the run; it exits after `I42_TRACE_ALL_DONE` or if Docker stops before
-that marker.
+Latest Iter42 observation before this handoff: at 2026-07-11T12:11:57Z the trace had reached
+the final stationary pair, `stationary 0966`, with 3,498 JSONL rows, 186 reset blocks,
+3,312 frame rows, zero parse errors, and no error markers. The read-only watcher is running as
+`/tmp/sentinel_iter42_watch_loop.sh` and appends 10-minute summaries to
+`/var/log/sentinel-iter42-watch.log`; it does not relaunch, kill, patch, or analyze the run.
 
 ## Open threads (from the newest experiment docs)
 - Newest pre-registration: experiments/iter42_exact_trace_replay_support/HYPOTHESIS.md — read it in full; its gate governs the next action.
