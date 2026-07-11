@@ -1,9 +1,10 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Sat Jul 11 05:28:22 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Sat Jul 11 06:22:09 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+d51c036 handoff: refresh after iter42 launch
 5523303 research: record iter42 gpu preflight
 8601ef0 research: add iter42 exact trace tooling
 acb7397 research: preregister iter42 exact trace replay support
@@ -11,7 +12,6 @@ a50f165 handoff: refresh after iter41 audit
 9059738 research: publish iter41 degradation gate null
 7df799a research: add iter41 degradation gate analyzer
 5fb1fae research: clarify iter41 jitter seeds
-5979302 research: clarify iter41 replay frame transform
 ```
 Working tree: CLEAN
 
@@ -68,19 +68,22 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 05:29:28 up 6 days, 19:10,  0 users,  load average: 1.38, 0.37, 0.13
+ 06:23:17 up 6 days, 20:04,  0 users,  load average: 1.24, 1.27, 1.17
 GPU_RUN_STATE=IN_FLIGHT_CONTAINERS
-naughty_kalam	Up 32 seconds
-renderer	Up 32 seconds
-model	Up 32 seconds
+awesome_brown	Up 2 minutes
+model	Up 2 minutes
+renderer	Up 2 minutes
 /var/log/sentinel-iter42-trace.log
 /var/log/sentinel-vitals.log
 /var/log/sentinel-iter42-preflight.log
-/dev/root       310G  283G   28G  92% /
-Swap:          8.0Gi        58Mi       7.9Gi
+/dev/root       310G  285G   26G  92% /
+Swap:          8.0Gi       1.6Gi       6.4Gi
 ```
 If any docker container named renderer/model/ncap (or a random-name ncap) is up, a run
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
+Latest Iter42 observation before this handoff: at 2026-07-11T06:22:53Z the trace had crossed
+from `stationary 0099` into `stationary 0101` with 422 JSONL rows, 21 reset blocks, 401 frame
+rows, zero parse errors, and no error markers.
 
 ## Open threads (from the newest experiment docs)
 - Newest pre-registration: experiments/iter42_exact_trace_replay_support/HYPOTHESIS.md — read it in full; its gate governs the next action.
