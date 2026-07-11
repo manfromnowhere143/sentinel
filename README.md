@@ -7,7 +7,7 @@ loop, by whether the car crashes *and whether it can still drive*.**
 > **Honest status up front (37 completed mechanism iterations + an independent verification pass +
 > the full official benchmark at power + a completed iteration-37 calibration null + an
 > iteration-38 opposite-direction S0 canary pass + completed iteration-39/40/41 defensibility
-> audits + an active iteration-42 exact-trace replay-support gate):** the introspective signal predicts the planner's collisions (AUROC 0.83). On the
+> audits + a completed iteration-42 exact-trace replay-support pass):** the introspective signal predicts the planner's collisions (AUROC 0.83). On the
 > complete 14-scene NeuroNCAP set at **20 seed-paired runs per pair** (799 episodes, the power
 > measurement), the unmonitored UniAD baseline **independently reproduces** (pooled 2.12 vs the
 > published 1.84 — corroborated by DMAD's independent rerun at 2.11), and the best configuration — the
@@ -162,13 +162,13 @@ flowchart LR
   O38["38 opposite sign<br/>pre-reg only"] --> A39["39 claim audit"]
   A39 --> A40["40 timing/cost"]
   A40 --> A41["41 replay null"]
-  A41 --> A42["42 trace gate<br/>in flight"]
+  A41 --> A42["42 trace replay<br/>identity pass"]
   classDef ask fill:#ffe,stroke:#a70,color:#111;
   classDef audit fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
-  classDef next fill:#f6f8fa,stroke:#57606a,color:#1f2328;
+  classDef win fill:#efe,stroke:#080,color:#111;
   class O38 ask;
   class A39,A40,A41 audit;
-  class A42 next;
+  class A42 win;
 ```
 
 The winning monitor is a **union of two individually-selective detectors**, chosen because the two
@@ -279,7 +279,7 @@ step; they are intentional stops, not hidden probe failures or unreported GPU ru
 | 39 | **external-validity claim audit** — hostile active-story audit before more GPU/model work | — (offline claim audit only) | S0/S1/S2 PASS; S3 found **3** active-doc scope/ambiguity findings; report/manuscript titles narrowed to frozen UniAD with measured cross-planner limits; post-narrowing scanner PASS with `0` findings | **doc-narrowing result — no new empirical safety claim** | This is the defensibility pivot: VAD remains a split transfer finding, full14 deployment remains a tight null, activation interventions remain null/active, and sensor/adversarial/latency/deployment-trade-off axes remain untested. [`iter39_external_validity_claim_audit`](experiments/iter39_external_validity_claim_audit/RESULT.md) |
 | 40 | **timing and intervention-cost audit** — full14/power simulation cost and lead-time envelope | — (offline audit only) | S0/S1/S2/S3 PASS; `400/400` best episodes joined; `1,205` brake frames over `10,789.9 m` (`111.68` frames/km); `230/400` intervention episodes; `61` measured lead-time episodes, median `1.30 s`, p05/p95 `0.40/3.50 s`, negative fraction `0.049` | **simulation-scope timing/cost pass — no real-time or deployment claim** | This upgrades the safety-case budget from mini-scene evidence to full14/power logs while preserving boundaries: simulator timestamp lead time, brake-frame budget, full14 safe-progress tight null, and no production-cost or comfort claim. [`iter40_timing_cost_audit`](experiments/iter40_timing_cost_audit/RESULT.md) |
 | 41 | **monitor-input degradation gate** — exact world-frame replay support before perturbation claims | — (offline audit only) | S0 infrastructure NULL: frozen paths, H-P0, Iter40 verdict, and decision-log counts were intact (`8,235` rows, `400` resets, `7,835` non-reset rows, `1,205` brake-key rows), but exact timestamp lookup into committed `p14-best` ego poses missed **1,388/6,474** timestamped monitor frames across **400/400** episodes | **replay-support infrastructure null — perturbations skipped; no sensor/degradation robustness claim** | The current committed full14/power evidence cannot support the registered exact world-frame object-stream replay. No interpolation, nearest-pose snapping, degraded-sensor GPU run, image perturbation, selector, closed-loop, deployment, or safety claim is authorized from this result. [`iter41_sensor_input_degradation_gate`](experiments/iter41_sensor_input_degradation_gate/RESULT.md) |
-| 42 | **exact trace replay support** — log `ego2world` and replay online monitor decisions exactly | — (pre-registered trace gate) | HYPOTHESIS frozen before tooling/run: best-arm-only full14/power trace, `400` episodes, exact `6,474` frame rows / `1,205` brake frames / `156` releases / `230` intervention episodes required before replay identity | **active pre-registration — trace support only, no degradation or safety claim** | This is the disciplined repair for Iter41: prove the trace substrate before any perturbation claim. A pass authorizes only a future offline object-stream perturbation pre-registration over the committed exact trace. [`iter42_exact_trace_replay_support`](experiments/iter42_exact_trace_replay_support/HYPOTHESIS.md) |
+| 42 | **exact trace replay support** — log `ego2world` and replay online monitor decisions exactly | — (offline replay-identity gate) | S0/S1/S2/S3 PASS: the single authorized best-arm full14/power capture produced `400/400` reset blocks, exactly `6,474` frame rows / `1,205` brake frames / `156` releases / `230` intervention episodes with `0` field failures; offline replay from logged inputs and logged `ego2world` matched every frame's `fired`/`brake`/`release`/latch state (`0` mismatches) | **trace-substrate pass — authorizes only a future offline object-stream perturbation pre-registration; no degradation or safety claim** | The disciplined repair for Iter41 worked without weakening the rule: instead of interpolating poses post hoc, the online monitor logs the exact transform it used, and replay is identical at perturbation strength zero. [`iter42_exact_trace_replay_support`](experiments/iter42_exact_trace_replay_support/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -356,8 +356,9 @@ above is the same history in one screen.
 **Net, stated plainly — 37 completed mechanism iterations plus an independent verification pass,
 with iteration 37 closed as a pre-registered calibration null, iteration 38 active at S0
 (calibration deprioritized), iterations 39/40/41 completed as defensibility audits (claim
-narrowing; timing/cost budget; degradation replay-support null), and iteration 42 active as the
-exact-trace replay-support gate.** The
+narrowing; timing/cost budget; degradation replay-support null), and iteration 42 completed as
+the exact-trace replay-support pass — offline replay reproduces every online monitor decision
+exactly, authorizing only a future offline object-stream perturbation pre-registration.** The
 **released union (iteration 15) is the best configuration** of the campaign: at the 20-run
 power scale it lifts the independently reproduced baseline **2.12 → 2.91 (CI [+0.605, +0.928])**,
 keeps clean scenes identical to the unmonitored planner, and strictly dominates the plain union
@@ -413,9 +414,9 @@ prerequisite and stopped at S0: exact timestamp lookup into committed `p14-best`
 `1,388/6,474` timestamped monitor frames across all `400` episodes, so the registered
 world-frame replay could not be run and perturbations were skipped. Given the current maturity of
 the benchmark result, external-validity falsification now has priority when it conflicts with
-incremental mechanism search. Iteration 42 is the active replay-support remedy: before any
-degradation claim, it must log exact `ego2world` transforms with monitor rows and prove offline
-replay identity:
+incremental mechanism search. Iteration 42 completed that replay-support remedy: the new
+best-arm trace logs the exact `ego2world` transform with every monitor row, and offline replay
+reproduced every online decision exactly (`0` mismatches over `6,474` frames):
 
 - **The manuscript — full draft and compiled PDF committed**
   ([`docs/paper/`](docs/paper/MANUSCRIPT.md)); the arXiv submission package is built and the
@@ -564,10 +565,12 @@ replay identity:
   `p14-best` ego pose, across `400/400` episodes. No perturbation bars were reached, and no
   object-stream, camera, degraded-sensor, closed-loop, deployment, or safety robustness claim is
   authorized.
-- **Iteration 42 is pre-registered as the exact trace replay-support remedy.**
-  [`experiments/iter42_exact_trace_replay_support/HYPOTHESIS.md`](experiments/iter42_exact_trace_replay_support/HYPOTHESIS.md)
-  freezes a best-arm-only full14/power trace gate: log `ego2world` with every monitor frame, then
-  reproduce online fired/brake/release/latch state exactly offline. It authorizes no degradation
+- **Iteration 42 is completed as the exact trace replay-support pass.**
+  [`experiments/iter42_exact_trace_replay_support/RESULT.md`](experiments/iter42_exact_trace_replay_support/RESULT.md)
+  commits a best-arm-only full14/power exact trace (`400` episodes, `6,474` frame rows, each
+  carrying the exact online `ego2world`) and proves offline replay identity: every online
+  fired/brake/release/latch decision reproduced with `0` mismatches. It authorizes only a future
+  offline object-stream perturbation pre-registration over that committed trace — no degradation
   perturbation, selector, closed-loop, deployment, or safety claim.
 - **Scientific priority is now defensibility over impressiveness.**
   If the choice is between another stronger-looking benchmark/mechanism result and a narrower
@@ -715,7 +718,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter39_external_validity_claim_audit/`](experiments/iter39_external_validity_claim_audit) | external-validity claim audit — doc narrowing published; active story now scoped to evidence |
 | [`experiments/iter40_timing_cost_audit/`](experiments/iter40_timing_cost_audit) | timing/intervention-cost audit — full14/power simulation budget and lead-time pass; no real-time/deployment claim |
 | [`experiments/iter41_sensor_input_degradation_gate/`](experiments/iter41_sensor_input_degradation_gate) | monitor-input degradation gate — infrastructure null; exact pose timestamp support failed before perturbations |
-| [`experiments/iter42_exact_trace_replay_support/`](experiments/iter42_exact_trace_replay_support) | exact trace replay support — pre-registered; trace substrate only, no degradation/safety claim |
+| [`experiments/iter42_exact_trace_replay_support/`](experiments/iter42_exact_trace_replay_support) | exact trace replay support — replay-identity pass; trace substrate only, authorizes only an offline object-stream perturbation pre-registration |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/FRONTIER_POSITIONING_2026-07-11.md`](docs/research/FRONTIER_POSITIONING_2026-07-11.md) | source-verified mid-2026 benchmark/monitor/industry positioning; the binding 2.91-is-not-benchmark-SOTA framing rule |

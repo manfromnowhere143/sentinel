@@ -101,13 +101,18 @@ events to prepare; they are a property the repository always has.
   `400/400` episodes. Perturbation bars were skipped. No object-stream, camera, degraded-sensor,
   GPU, closed-loop, selector, deployment, or safety robustness claim is authorized. A successor on
   this line needs a fresh replay-support pre-registration before any result.
-- Iteration 42 is pre-registered:
-  experiments/iter42_exact_trace_replay_support/HYPOTHESIS.md. It is the direct replay-support
-  remedy for Iter41: best-arm-only full14/power trace capture, exact `ego2world` logged per
-  monitor frame, and exact offline replay identity for fired/brake/release/latch state. It
-  authorizes no degradation perturbation, selector, deployment, or safety claim. Tooling must be
-  committed before any GPU launch; GPU preflight must show idle Docker, active swap, and at least
-  `8 GiB` free root disk.
+- Iteration 42 concluded:
+  experiments/iter42_exact_trace_replay_support/RESULT.md, published as
+  `TRACE_REPLAY_SUPPORT_PASS`. The single authorized best-arm full14/power trace-capture run
+  logged the exact `ego2world` matrix with every monitor frame and hit the frozen envelope
+  exactly: `400/400` reset blocks, `6,474` frame rows, `1,205` brake frames, `156` releases,
+  `230` intervention episodes, `0` field failures, `0` trace-error rows. The committed analyzer
+  replayed the released-union rule from logged inputs alone and matched every frame's
+  fired/brake/release/latch state with `0` mismatches. This is trace-substrate evidence only:
+  it authorizes ONLY a future offline object-stream perturbation pre-registration over the
+  committed exact trace (proof-trace/sentinel_iter42_trace.jsonl.gz, SHA256
+  `8c43726c94a8870d40518b97bf5b74a7b88517a661c16291dd8408a61eb97f4d`); no degradation,
+  robustness, selector, deployment, or safety claim.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -713,3 +718,14 @@ events to prepare; they are a property the repository always has.
   stretch only, Argus ASE 2025 occupies that slot and a full pass costs weeks on one L4).
   Neither authorizes a run; the HUGSIM line needs its own HYPOTHESIS.md and launches only after
   iter42 completes and its analyzer publishes.
+- 2026-07-11: Claude (Fable 5) — collected the completed iteration 42 trace-capture run from
+  sentinel-gpu (`I42_TRACE_ALL_DONE` at 18:27:55 UTC; trace SHA256 `8c43726c…` verified identical
+  after copy; run + watch logs committed under proof-trace/), ran the committed analyzer once
+  from the committed artifacts, and published `TRACE_REPLAY_SUPPORT_PASS`: S0/S1/S2/S3 all
+  passed, exact frozen counts (`400` resets, `6,474` frames, `1,205` brake frames, `156`
+  releases, `230` intervention episodes), and exact offline replay identity (`0` mismatched
+  frames). README row 42, header status, defensibility diagram, and net-summary updated to the
+  verdict. Only a future offline object-stream perturbation pre-registration is authorized;
+  heldout, iteration-12 scoring, selector, closed-loop, deployment, and safety claims remain
+  unauthorized. BOX IDLE at exit (no containers; root disk 96% used, 16 GiB free — nothing
+  deleted).
