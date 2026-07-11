@@ -6,7 +6,7 @@ loop, by whether the car crashes *and whether it can still drive*.**
 
 > **Honest status up front (37 completed mechanism iterations + an independent verification pass +
 > the full official benchmark at power + a completed iteration-37 calibration null + an
-> iteration-38 opposite-direction S0 canary pass + completed iteration-39/40 defensibility
+> iteration-38 opposite-direction S0 canary pass + completed iteration-39/40/41 defensibility
 > audits):** the introspective signal predicts the planner's collisions (AUROC 0.83). On the
 > complete 14-scene NeuroNCAP set at **20 seed-paired runs per pair** (799 episodes, the power
 > measurement), the unmonitored UniAD baseline **independently reproduces** (pooled 2.12 vs the
@@ -261,6 +261,7 @@ step; they are intentional stops, not hidden probe failures or unreported GPU ru
 | 38 | **track-query opposite-direction intervention** — exact sign reversal of the iter37 fit-only `sdc_track_query` centroid direction | — (S0 canary only) | Direction artifact PASS: feature count **256**, fit rows **5,211**, direction SHA **251323cf6ba7361da5aa0a084a6ae5ad5083989df75e10d16f352da845e2983d**, exact negative of iter37 (`max_abs_direction_sum=0.0`, cosine **−1.0**); S0 canary PASS: alpha-zero parity restored, `24/24` target rows changed `track_query`, `24/24` preserved `sdc_traj_query_last` | **active pre-registration — calibration authorized but not launched; no calibration result or safety claim yet** | This is the clean post-iter37 successor: test whether the causal handle was real but the centroid repair sign was reversed. It does not rescue iter37. Under the defensibility rule, the next GPU window should be weighed against external-validity falsification before continuing mechanism search. [`iter38_track_query_opposite_direction`](experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md) |
 | 39 | **external-validity claim audit** — hostile active-story audit before more GPU/model work | — (offline claim audit only) | S0/S1/S2 PASS; S3 found **3** active-doc scope/ambiguity findings; report/manuscript titles narrowed to frozen UniAD with measured cross-planner limits; post-narrowing scanner PASS with `0` findings | **doc-narrowing result — no new empirical safety claim** | This is the defensibility pivot: VAD remains a split transfer finding, full14 deployment remains a tight null, activation interventions remain null/active, and sensor/adversarial/latency/deployment-trade-off axes remain untested. [`iter39_external_validity_claim_audit`](experiments/iter39_external_validity_claim_audit/RESULT.md) |
 | 40 | **timing and intervention-cost audit** — full14/power simulation cost and lead-time envelope | — (offline audit only) | S0/S1/S2/S3 PASS; `400/400` best episodes joined; `1,205` brake frames over `10,789.9 m` (`111.68` frames/km); `230/400` intervention episodes; `61` measured lead-time episodes, median `1.30 s`, p05/p95 `0.40/3.50 s`, negative fraction `0.049` | **simulation-scope timing/cost pass — no real-time or deployment claim** | This upgrades the safety-case budget from mini-scene evidence to full14/power logs while preserving boundaries: simulator timestamp lead time, brake-frame budget, full14 safe-progress tight null, and no production-cost or comfort claim. [`iter40_timing_cost_audit`](experiments/iter40_timing_cost_audit/RESULT.md) |
+| 41 | **monitor-input degradation gate** — exact world-frame replay support before perturbation claims | — (offline audit only) | S0 infrastructure NULL: frozen paths, H-P0, Iter40 verdict, and decision-log counts were intact (`8,235` rows, `400` resets, `7,835` non-reset rows, `1,205` brake-key rows), but exact timestamp lookup into committed `p14-best` ego poses missed **1,388/6,474** timestamped monitor frames across **400/400** episodes | **replay-support infrastructure null — perturbations skipped; no sensor/degradation robustness claim** | The current committed full14/power evidence cannot support the registered exact world-frame object-stream replay. No interpolation, nearest-pose snapping, degraded-sensor GPU run, image perturbation, selector, closed-loop, deployment, or safety claim is authorized from this result. [`iter41_sensor_input_degradation_gate`](experiments/iter41_sensor_input_degradation_gate/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -383,9 +384,12 @@ advance. Iteration 39 then audited the active paper/repository story against ext
 pressure, found three active-doc wording problems, and narrowed them in place. Iteration 40 then
 quantified full14/power simulation intervention budget and reconstructable lead time: `1,205`
 brake frames over `10.79 km`, `230/400` intervention episodes, and `61` measured lead-time
-episodes with median `1.30 s`. Given the current maturity of the benchmark result,
-external-validity falsification now has priority when it conflicts with incremental mechanism
-search:
+episodes with median `1.30 s`. Iteration 41 then tested the next sensor/input-degradation
+prerequisite and stopped at S0: exact timestamp lookup into committed `p14-best` ego poses missed
+`1,388/6,474` timestamped monitor frames across all `400` episodes, so the registered
+world-frame replay could not be run and perturbations were skipped. Given the current maturity of
+the benchmark result, external-validity falsification now has priority when it conflicts with
+incremental mechanism search:
 
 - **The manuscript — full draft and compiled PDF committed**
   ([`docs/paper/`](docs/paper/MANUSCRIPT.md)); the arXiv submission package is built and the
@@ -524,12 +528,20 @@ search:
   measured lead-time episodes with median `1.30 s`. It authorizes only scoped simulation timing
   and brake-budget wording, not wall-clock latency, passenger comfort, production cost,
   deployment readiness, or real-world safety language.
+- **Iteration 41 is completed as a monitor-input degradation infrastructure null.**
+  [`experiments/iter41_sensor_input_degradation_gate/RESULT.md`](experiments/iter41_sensor_input_degradation_gate/RESULT.md)
+  reports that the committed full14/power evidence cannot support the registered exact
+  world-frame replay: `1,388/6,474` timestamped monitor frames had no exact matching committed
+  `p14-best` ego pose, across `400/400` episodes. No perturbation bars were reached, and no
+  object-stream, camera, degraded-sensor, closed-loop, deployment, or safety robustness claim is
+  authorized.
 - **Scientific priority is now defensibility over impressiveness.**
   If the choice is between another stronger-looking benchmark/mechanism result and a narrower
   claim that survives hostile scrutiny, prefer the narrower defensible claim. The next fresh
   pre-registration should prioritize external validity and falsification pressure: independent
   planner transfer, unseen scenario families, sensor degradation, adversarial perturbations,
   calibration stability, intervention latency, intervention cost, and deployment trade-offs.
+  Sensor degradation now requires replay-support repair before any robustness claim.
 
 Closed en route, per the gate discipline: the per-frame routing predicates (iteration 17
 addendum — refuted offline), the tracking layer's own offline gate (iteration 18 — failed
@@ -661,7 +673,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter38_track_query_opposite_direction/`](experiments/iter38_track_query_opposite_direction) | track-query opposite-direction S0 proof — canary pass; calibration authorized but not launched |
 | [`experiments/iter39_external_validity_claim_audit/`](experiments/iter39_external_validity_claim_audit) | external-validity claim audit — doc narrowing published; active story now scoped to evidence |
 | [`experiments/iter40_timing_cost_audit/`](experiments/iter40_timing_cost_audit) | timing/intervention-cost audit — full14/power simulation budget and lead-time pass; no real-time/deployment claim |
-| [`experiments/iter41_sensor_input_degradation_gate/`](experiments/iter41_sensor_input_degradation_gate) | monitor-input degradation gate — pre-registered offline; no camera/closed-loop robustness claim |
+| [`experiments/iter41_sensor_input_degradation_gate/`](experiments/iter41_sensor_input_degradation_gate) | monitor-input degradation gate — infrastructure null; exact pose timestamp support failed before perturbations |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/ITER22_HYPOTHESIS_DRAFT.md`](docs/research/ITER22_HYPOTHESIS_DRAFT.md) · [`docs/research/ITER22_ADVERSARIAL_REVIEW.md`](docs/research/ITER22_ADVERSARIAL_REVIEW.md) | planning-only iter22 draft and adversarial review; not pre-registrations |

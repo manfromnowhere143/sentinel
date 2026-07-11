@@ -90,13 +90,17 @@ events to prepare; they are a property the repository always has.
   brake frames over `10,789.9 m`, `230/400` intervention episodes, and `61` measured lead-time
   episodes (median `1.30 s`, p05/p95 `0.40/3.50 s`). It authorizes only simulation timestamp and
   brake-frame budget wording, not wall-clock latency, passenger comfort, production cost,
-  deployment readiness, or new safety claims. Next defensibility-first line: sensor/input
-  degradation pre-registration unless explicitly overridden.
-- Iteration 41 is pre-registered:
-  experiments/iter41_sensor_input_degradation_gate/HYPOTHESIS.md. It is an offline monitor-input
-  degradation gate over committed full14/power logs. It authorizes no tooling/report until the
-  HYPOTHESIS commit is pushed, and no GPU/image/closed-loop work unless the offline gate passes
-  and a separate future pre-registration is written.
+  deployment readiness, or new safety claims. It motivated the sensor/input-degradation
+  prerequisite in iteration 41; after iteration 41's null, that line requires replay-support
+  repair before any robustness claim.
+- Iteration 41 concluded:
+  experiments/iter41_sensor_input_degradation_gate/RESULT.md. The offline monitor-input
+  degradation gate stopped at S0 as `DEGRADATION_GATE_INFRASTRUCTURE_NULL`: frozen paths, H-P0,
+  the iteration-40 verdict, and best decision-log counts were intact, but exact timestamp lookup
+  into committed `p14-best` ego poses missed `1,388/6,474` timestamped monitor frames across
+  `400/400` episodes. Perturbation bars were skipped. No object-stream, camera, degraded-sensor,
+  GPU, closed-loop, selector, deployment, or safety robustness claim is authorized. A successor on
+  this line needs a fresh replay-support pre-registration before any result.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).

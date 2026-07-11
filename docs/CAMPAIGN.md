@@ -400,10 +400,11 @@ over-claim.** That arc, in order:
     latency, passenger comfort, production cost, deployment readiness, or new safety evidence.
     [`../experiments/iter40_timing_cost_audit/RESULT.md`](../experiments/iter40_timing_cost_audit/RESULT.md).
 
-43. **Iter 41 — monitor-input degradation gate: pre-registered offline.** This is the next
-    external-validity gate after the timing/cost audit. It will replay the released-union
-    object-stream decision rule over committed full14/power logs, first requiring exact vanilla
-    reproduction, then applying frozen score-threshold, range-limit, deterministic dropout, and
-    deterministic jitter perturbations. A failure is a brittleness finding; a pass authorizes only
-    a separate degraded-sensor closed-loop pre-registration, not a robustness or safety claim.
-    [`../experiments/iter41_sensor_input_degradation_gate/HYPOTHESIS.md`](../experiments/iter41_sensor_input_degradation_gate/HYPOTHESIS.md).
+43. **Iter 41 — monitor-input degradation gate: replay-support infrastructure null.** The next
+    external-validity gate stopped at S0 before perturbations: frozen paths, H-P0, the iteration-40
+    verdict, and best-arm decision-log counts were intact, but exact timestamp lookup into
+    committed `p14-best` ego poses failed for `1,388/6,474` timestamped monitor frames across
+    `400/400` episodes. The registered world-frame object-stream replay was therefore not
+    runnable. No score-threshold, range-limit, dropout, jitter, camera degradation, closed-loop,
+    deployment, or safety robustness claim is authorized.
+    [`../experiments/iter41_sensor_input_degradation_gate/RESULT.md`](../experiments/iter41_sensor_input_degradation_gate/RESULT.md).

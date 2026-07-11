@@ -350,11 +350,17 @@ intervention cost, and deployment trade-offs.
     full14/power simulation intervention envelope (`1,205` brake frames over `10.79 km`,
     `230/400` intervention episodes) and reconstructable lead-time support (`61` measured
     episodes, median `1.30 s`) while preserving the boundaries: no wall-clock latency,
-    production-cost, passenger-comfort, deployment-readiness, or new safety claim. The next
-    defensibility-first pre-registration should move to a still-untested external-validity axis;
-    sensor/input degradation is now the strongest candidate.
-24. Iteration 41 is now pre-registered as that sensor/input-degradation prerequisite, scoped
-    conservatively as an offline monitor-input degradation gate over committed full14/power
-    decision logs. It authorizes no tooling/report until the HYPOTHESIS commit is pushed, and no
-    GPU/image/closed-loop run unless the offline replay gate passes and a separate future
-    pre-registration is written.
+    production-cost, passenger-comfort, deployment-readiness, or new safety claim. This motivated
+    the sensor/input-degradation prerequisite in iteration 41; after iteration 41's infrastructure
+    null, that line requires replay-support repair before any robustness claim.
+24. Iteration 41 is closed as a monitor-input degradation infrastructure null. The frozen paths,
+    H-P0 status, iteration-40 verdict, and decision-log counts were intact, but exact timestamp
+    lookup into committed `p14-best` ego poses missed `1,388/6,474` timestamped monitor frames
+    across `400/400` episodes. The registered world-frame replay was not runnable, so all
+    perturbation bars were skipped. No object-stream, camera, degraded-sensor, GPU, closed-loop,
+    deployment, or safety robustness claim is authorized.
+25. A successor on this line must be a fresh replay-support pre-registration before any result:
+    log exact `ego2world` transforms with monitor rows, or pre-register a pose-interpolation/snap
+    rule and first prove vanilla replay. Otherwise choose another hostile external-validity
+    falsifier such as adversarial perturbations, independent planner transfer, unseen scenario
+    families, calibration stability, or deployment trade-offs.

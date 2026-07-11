@@ -1,0 +1,38 @@
+UTC 2026-07-11T05:09:57Z
+HEAD 7df799a22416b51b0e97b217b18fa374508dcd40
+
+REPORT_SUMMARY
+verdict DEGRADATION_GATE_INFRASTRUCTURE_NULL
+s0_pass False
+s0_failures ['pose_timestamp_exact_miss=1388/6474']
+best_sha256 c36eafd82796a8a09ccca721d5cc8daabb07eeb9c296b2038b29007e086cb2c6
+best_decision_log_stats {'brake_rows': 1205, 'frame_rows': 6474, 'non_reset_rows': 7835, 'other_rows': 0, 'release_rows': 156, 'resets': 400, 'rows': 8235}
+pose_total_frame_rows_checked 6474
+pose_missing_exact_timestamp_count 1388
+pose_missing_exact_timestamp_fraction 0.21439604572134693
+pose_missing_pose_files 0
+pose_episodes_with_missing_timestamps 400
+vanilla_replay_comparison {'skipped': 's0_pre_replay_failures_present'}
+s1 None
+s2 None
+s3 None
+s4 None
+
+DOCS
+docs guard: 102 markdown files clean; all RESULT experiments surfaced in README
+
+RUFF
+All checks passed!
+
+PYTEST
+........................................................................ [ 61%]
+.............................................                            [100%]
+117 passed in 1.39s
+
+GIT_STATUS
+ M CONTINUITY.md
+ M README.md
+ M docs/CAMPAIGN.md
+ M docs/NEXT_PHASE.md
+?? experiments/iter41_sensor_input_degradation_gate/RESULT.md
+?? experiments/iter41_sensor_input_degradation_gate/proof-audit/

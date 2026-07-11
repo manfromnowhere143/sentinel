@@ -1,0 +1,241 @@
+{
+  "claim_boundary": "Iteration 41 is an offline replay of logged monitor inputs, not camera/image degradation, UniAD robustness, closed-loop safety, wall-clock latency, deployment readiness, or a production-cost result.",
+  "command_line": "experiments/iter41_sensor_input_degradation_gate/analyze_degradation_gate.py --out experiments/iter41_sensor_input_degradation_gate/proof-audit/degradation_gate_report.json",
+  "perturbation_modes": [
+    "score_0p50",
+    "range_20m",
+    "dropout_20pct",
+    "jitter_0p25m"
+  ],
+  "reconstructed_gzip_receipts": {
+    "best_sha256": "c36eafd82796a8a09ccca721d5cc8daabb07eeb9c296b2038b29007e086cb2c6"
+  },
+  "s0": {
+    "best_decision_log_stats": {
+      "brake_rows": 1205,
+      "frame_rows": 6474,
+      "non_reset_rows": 7835,
+      "other_rows": 0,
+      "release_rows": 156,
+      "resets": 400,
+      "rows": 8235
+    },
+    "failures": [
+      "pose_timestamp_exact_miss=1388/6474"
+    ],
+    "frozen_input_count": 13,
+    "no_gpu_or_model_commands_run_by_analyzer": true,
+    "pass": false,
+    "pose_timestamp_coverage": {
+      "by_episode_sample": [
+        {
+          "frame_rows": 20,
+          "missing_exact_timestamps": 3,
+          "run_index": 0,
+          "scenario_class": "stationary",
+          "scenario_id": "0099"
+        },
+        {
+          "frame_rows": 20,
+          "missing_exact_timestamps": 3,
+          "run_index": 1,
+          "scenario_class": "stationary",
+          "scenario_id": "0099"
+        },
+        {
+          "frame_rows": 20,
+          "missing_exact_timestamps": 3,
+          "run_index": 2,
+          "scenario_class": "stationary",
+          "scenario_id": "0099"
+        },
+        {
+          "frame_rows": 20,
+          "missing_exact_timestamps": 3,
+          "run_index": 3,
+          "scenario_class": "stationary",
+          "scenario_id": "0099"
+        },
+        {
+          "frame_rows": 20,
+          "missing_exact_timestamps": 3,
+          "run_index": 4,
+          "scenario_class": "stationary",
+          "scenario_id": "0099"
+        },
+        {
+          "frame_rows": 20,
+          "missing_exact_timestamps": 3,
+          "run_index": 5,
+          "scenario_class": "stationary",
+          "scenario_id": "0099"
+        },
+        {
+          "frame_rows": 20,
+          "missing_exact_timestamps": 3,
+          "run_index": 6,
+          "scenario_class": "stationary",
+          "scenario_id": "0099"
+        },
+        {
+          "frame_rows": 20,
+          "missing_exact_timestamps": 3,
+          "run_index": 7,
+          "scenario_class": "stationary",
+          "scenario_id": "0099"
+        },
+        {
+          "frame_rows": 20,
+          "missing_exact_timestamps": 3,
+          "run_index": 8,
+          "scenario_class": "stationary",
+          "scenario_id": "0099"
+        },
+        {
+          "frame_rows": 20,
+          "missing_exact_timestamps": 3,
+          "run_index": 9,
+          "scenario_class": "stationary",
+          "scenario_id": "0099"
+        },
+        {
+          "frame_rows": 20,
+          "missing_exact_timestamps": 3,
+          "run_index": 10,
+          "scenario_class": "stationary",
+          "scenario_id": "0099"
+        },
+        {
+          "frame_rows": 20,
+          "missing_exact_timestamps": 3,
+          "run_index": 11,
+          "scenario_class": "stationary",
+          "scenario_id": "0099"
+        }
+      ],
+      "episodes_with_missing_timestamps": 400,
+      "examples": [
+        {
+          "frame_index": 0,
+          "nearest_delta_us": 1550627,
+          "nearest_pose_timestamp_us": 1533151419197895,
+          "run_index": 0,
+          "scenario_class": "stationary",
+          "scenario_id": "0099",
+          "timestamp_us": 1533151417647268
+        },
+        {
+          "frame_index": 1,
+          "nearest_delta_us": 1050201,
+          "nearest_pose_timestamp_us": 1533151419197895,
+          "run_index": 0,
+          "scenario_class": "stationary",
+          "scenario_id": "0099",
+          "timestamp_us": 1533151418147694
+        },
+        {
+          "frame_index": 2,
+          "nearest_delta_us": 500000,
+          "nearest_pose_timestamp_us": 1533151419197895,
+          "run_index": 0,
+          "scenario_class": "stationary",
+          "scenario_id": "0099",
+          "timestamp_us": 1533151418697895
+        },
+        {
+          "frame_index": 0,
+          "nearest_delta_us": 1550627,
+          "nearest_pose_timestamp_us": 1533151419197895,
+          "run_index": 1,
+          "scenario_class": "stationary",
+          "scenario_id": "0099",
+          "timestamp_us": 1533151417647268
+        },
+        {
+          "frame_index": 1,
+          "nearest_delta_us": 1050201,
+          "nearest_pose_timestamp_us": 1533151419197895,
+          "run_index": 1,
+          "scenario_class": "stationary",
+          "scenario_id": "0099",
+          "timestamp_us": 1533151418147694
+        },
+        {
+          "frame_index": 2,
+          "nearest_delta_us": 500000,
+          "nearest_pose_timestamp_us": 1533151419197895,
+          "run_index": 1,
+          "scenario_class": "stationary",
+          "scenario_id": "0099",
+          "timestamp_us": 1533151418697895
+        },
+        {
+          "frame_index": 0,
+          "nearest_delta_us": 1550627,
+          "nearest_pose_timestamp_us": 1533151419197895,
+          "run_index": 2,
+          "scenario_class": "stationary",
+          "scenario_id": "0099",
+          "timestamp_us": 1533151417647268
+        },
+        {
+          "frame_index": 1,
+          "nearest_delta_us": 1050201,
+          "nearest_pose_timestamp_us": 1533151419197895,
+          "run_index": 2,
+          "scenario_class": "stationary",
+          "scenario_id": "0099",
+          "timestamp_us": 1533151418147694
+        },
+        {
+          "frame_index": 2,
+          "nearest_delta_us": 500000,
+          "nearest_pose_timestamp_us": 1533151419197895,
+          "run_index": 2,
+          "scenario_class": "stationary",
+          "scenario_id": "0099",
+          "timestamp_us": 1533151418697895
+        },
+        {
+          "frame_index": 0,
+          "nearest_delta_us": 1550627,
+          "nearest_pose_timestamp_us": 1533151419197895,
+          "run_index": 3,
+          "scenario_class": "stationary",
+          "scenario_id": "0099",
+          "timestamp_us": 1533151417647268
+        },
+        {
+          "frame_index": 1,
+          "nearest_delta_us": 1050201,
+          "nearest_pose_timestamp_us": 1533151419197895,
+          "run_index": 3,
+          "scenario_class": "stationary",
+          "scenario_id": "0099",
+          "timestamp_us": 1533151418147694
+        },
+        {
+          "frame_index": 2,
+          "nearest_delta_us": 500000,
+          "nearest_pose_timestamp_us": 1533151419197895,
+          "run_index": 3,
+          "scenario_class": "stationary",
+          "scenario_id": "0099",
+          "timestamp_us": 1533151418697895
+        }
+      ],
+      "missing_exact_timestamp_count": 1388,
+      "missing_exact_timestamp_fraction": 0.21439604572134693,
+      "missing_pose_files": 0,
+      "total_frame_rows_checked": 6474
+    },
+    "vanilla_replay_comparison": {
+      "skipped": "s0_pre_replay_failures_present"
+    }
+  },
+  "s1": null,
+  "s2": null,
+  "s3": null,
+  "s4": null,
+  "verdict": "DEGRADATION_GATE_INFRASTRUCTURE_NULL"
+}

@@ -1,0 +1,1 @@
+python3 experiments/iter41_sensor_input_degradation_gate/analyze_degradation_gate.py --out experiments/iter41_sensor_input_degradation_gate/proof-audit/degradation_gate_report.json
