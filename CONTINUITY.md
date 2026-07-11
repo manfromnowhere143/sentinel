@@ -834,3 +834,42 @@ events to prepare; they are a property the repository always has.
   point: write the Stage-1/2 HUGSIM pre-registration (monitor-OFF reproduction subset first)
   per the S4 boundary in iter45 RESULT.md; the smoke launcher and shim on the box are reusable
   surfaces for it.
+- 2026-07-11 23:37-00:15 UTC (box clock): Claude (Fable 5) via delegated executor — iteration
+  46 opened on the iter45 resume point. (1) Pre-registered the HUGSIM Stage-1 monitor-OFF
+  baseline (experiments/iter46_hugsim_off_baseline/HYPOTHESIS.md, commit `077e8d9`, committed
+  alone with the pinned iter45 shim byte copy, CI green): frozen 52-scenario easy+medium
+  nuScenes subset (deterministic rule + per-yaml SHA256s), D0 determinism probe deciding run
+  multiplicity (deterministic -> N=1 x 52; stochastic -> N=2 x lexicographic first 26),
+  completion bars C1-C3, budget ceiling ~19.4 GPU-h (53 runs x 20-min timeout) vs expected
+  2.5-6 h, falsifiers (crash loop, VRAM overflow, pairing-infeasibility median |dHD|>0.15,
+  disk guard 20 GiB). (2) Committed tooling (`a03ea18`): detached run script with a hard
+  provenance gate (repo SHAs, checkpoint/shim SHAs, image id, 52-yaml sha256sum -c), on-box
+  D0 comparator, offline completion analyzer, 13 unit tests; ruff + pytest (153) +
+  validate_docs green. (3) LAUNCHED the OFF baseline detached on sentinel-gpu
+  (`sudo setsid nohup bash /tmp/iter46_run_off_baseline.sh`, log
+  `/var/log/sentinel-iter46-off.log`): `I46_OFF_PROVENANCE_OK` at 23:54:11 UTC, first episode
+  `scene-0013-easy-00 r1` started, client container up and stepping. RUN IN FLIGHT — done
+  marker `I46_OFF_ALL_DONE`; do NOT relaunch while any Docker container is up.
+
+  ### On I46_OFF_ALL_DONE (iteration 46 completion instructions — execute in this order)
+
+  1. Check the log tail for `I46_OFF_ABORT_*` (disk / consecutive-failure aborts are
+     interrupted runs with a resume point, not nulls) and confirm no Docker containers
+     remain (`docker ps`); read `I46_OFF_D0_VERDICT=` from the log.
+  2. Collect: `/datasets/nuscenes-full/hugsim/iter46_runs/` — copy `receipts.json`,
+     `d0_comparison.json`, `d0_verdict.txt`, `frozen_scenarios.sha256`, `heavy_manifest.txt`,
+     each `episodes <scenario>__r<n>/{eval.json,output.txt,episode_meta.json}` (and any
+     `__failed` dirs), plus `/var/log/sentinel-iter46-off.log`, into
+     `experiments/iter46_hugsim_off_baseline/proof-off/` (episodes under `proof-off/episodes/`;
+     split any file >90 MB into `.part-*`). Heavy pickles/videos STAY on the box behind
+     `heavy_manifest.txt`.
+  3. Run the committed analyzer ONCE from the collected artifacts:
+     `python3 experiments/iter46_hugsim_off_baseline/analyze_off_baseline.py
+     --runs-root experiments/iter46_hugsim_off_baseline/proof-off/episodes-root
+     --out .../proof-off/off_baseline_report.json` (point --runs-root at the directory that
+     directly contains the `<scenario>__r<n>` dirs plus `d0_comparison.json`).
+  4. Publish RESULT.md at full weight (pass or null per the analyzer's registered bars;
+     plausibility note is context, NOT a bar; forbidden claims list is binding — OFF arm
+     only), update README (row 46 + header/status/repo-map), CONTINUITY arc + shift log,
+     regenerate HANDOFF.md; ruff + pytest + validate_docs green on every push. A pass
+     authorizes ONLY the Stage-2 OFF-vs-released-union pre-registration.
