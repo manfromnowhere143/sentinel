@@ -9,7 +9,10 @@ loop, by whether the car crashes *and whether it can still drive*.**
 > iteration-38 opposite-direction S0 canary pass + completed iteration-39/40/41 defensibility
 > audits + a completed iteration-42 exact-trace replay-support pass + a completed iteration-43
 > object-stream perturbation gate — a mild-fragile finding: the rule over-fires under 5 cm
-> position jitter in replay):** the introspective signal predicts the planner's collisions (AUROC 0.83). On the
+> position jitter in replay — + a completed iteration-44 velocity temporal-smoothing repair
+> gate — a no-repair null: every frozen smoothed estimator halves the over-firing but erases
+> genuine interventions, so the fragility is not repaired by low-pass filtering the velocity):**
+> the introspective signal predicts the planner's collisions (AUROC 0.83). On the
 > complete 14-scene NeuroNCAP set at **20 seed-paired runs per pair** (799 episodes, the power
 > measurement), the unmonitored UniAD baseline **independently reproduces** (pooled 2.12 vs the
 > published 1.84 — corroborated by DMAD's independent rerun at 2.11), and the best configuration — the
@@ -166,6 +169,7 @@ flowchart LR
   A40 --> A41["41 replay null"]
   A41 --> A42["42 trace replay<br/>identity pass"]
   A42 --> A43["43 perturbation gate<br/>jitter-fragile"]
+  A43 --> A44["44 smoothing repair<br/>no-repair null"]
   classDef ask fill:#ffe,stroke:#a70,color:#111;
   classDef audit fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
   classDef win fill:#efe,stroke:#080,color:#111;
@@ -173,7 +177,7 @@ flowchart LR
   class O38 ask;
   class A39,A40,A41 audit;
   class A42 win;
-  class A43 bad;
+  class A43,A44 bad;
 ```
 
 The winning monitor is a **union of two individually-selective detectors**, chosen because the two
@@ -286,6 +290,7 @@ step; they are intentional stops, not hidden probe failures or unreported GPU ru
 | 41 | **monitor-input degradation gate** — exact world-frame replay support before perturbation claims | — (offline audit only) | S0 infrastructure NULL: frozen paths, H-P0, Iter40 verdict, and decision-log counts were intact (`8,235` rows, `400` resets, `7,835` non-reset rows, `1,205` brake-key rows), but exact timestamp lookup into committed `p14-best` ego poses missed **1,388/6,474** timestamped monitor frames across **400/400** episodes | **replay-support infrastructure null — perturbations skipped; no sensor/degradation robustness claim** | The current committed full14/power evidence cannot support the registered exact world-frame object-stream replay. No interpolation, nearest-pose snapping, degraded-sensor GPU run, image perturbation, selector, closed-loop, deployment, or safety claim is authorized from this result. [`iter41_sensor_input_degradation_gate`](experiments/iter41_sensor_input_degradation_gate/RESULT.md) |
 | 42 | **exact trace replay support** — log `ego2world` and replay online monitor decisions exactly | — (offline replay-identity gate) | S0/S1/S2/S3 PASS: the single authorized best-arm full14/power capture produced `400/400` reset blocks, exactly `6,474` frame rows / `1,205` brake frames / `156` releases / `230` intervention episodes with `0` field failures; offline replay from logged inputs and logged `ego2world` matched every frame's `fired`/`brake`/`release`/latch state (`0` mismatches) | **trace-substrate pass — authorizes only a future offline object-stream perturbation pre-registration; no degradation or safety claim** | The disciplined repair for Iter41 worked without weakening the rule: instead of interpolating poses post hoc, the online monitor logs the exact transform it used, and replay is identical at perturbation strength zero. [`iter42_exact_trace_replay_support`](experiments/iter42_exact_trace_replay_support/RESULT.md) |
 | 43 | **object-stream perturbation gate** — frozen 14-cell jitter/dropout/score/churn grid over the committed iter42 exact trace, replayed offline | — (offline replay decision-flip gate) | S0/S1 PASS (zero-strength identity exact, trace SHA unchanged, determinism guard pass); verdict **`OBJECT_PERTURBATION_MILD_FRAGILE`**: jitter `0.05 m` gains **17** new interventions (bar `<=8`) and retains `218/230` (bar `>=219`); jitter `0.10 m` worse (`36` new, `1,445` brake frames); dropout `0.05`, score `0.90`, and churn `0.05` all STABLE | **pre-registered mild-fragile finding — over-firing is the fragile direction; no sensor/closed-loop/safety claim** | The rule derives object velocity from cross-frame positions, so independent per-frame position noise manufactures spurious velocity near the CPA/TTC thresholds; disappearing objects, weakened scores, and broken identities degrade gracefully instead. Closed-loop consequences of flipped decisions are not observable offline. [`iter43_object_stream_perturbation_gate`](experiments/iter43_object_stream_perturbation_gate/RESULT.md) |
+| 44 | **velocity temporal-smoothing repair gate** — frozen FD-k / EMA velocity estimators (`k ∈ {2,3}`, `alpha ∈ {0.5,0.3}`) replayed offline over the committed iter42 trace, seed-paired with the iter43 grid | — (offline replay decision-flip gate) | S0/S1/S1b PASS (neutral cells bit-identical to the online stream; iter43 jitter cells reproduced field-for-field); verdict **`VELOCITY_SMOOTHING_NO_REPAIR_NULL`**: every estimator fails V1 fidelity on the clean trace (retention `209–215/230` vs `>= 225`, `5–6` invented interventions vs `<= 4`) and V2 repair (jitter new interventions `11–20` vs `<= 8`, retention below bar) | **pre-registered no-repair null — smoothing halves the over-firing (36 → 18–20 at 0.10 m) but erases 15–21 genuine interventions outright; released union unchanged** | the rule's decision boundary sits on one-frame velocity transients at the 2 Hz cadence: the same spikes that manufacture jitter false-fires also carry a fraction of the true interventions (they vanish under smoothing, not delay — median delay 0), and residual over-firing survives through the CPA term's direct use of the jittered positions; converges with iter18 from the opposite side — no low-pass filter on this estimator is the repair. [`iter44_velocity_smoothing_gate`](experiments/iter44_velocity_smoothing_gate/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -364,10 +369,14 @@ with iteration 37 closed as a pre-registered calibration null, iteration 38 acti
 (calibration deprioritized), iterations 39/40/41 completed as defensibility audits (claim
 narrowing; timing/cost budget; degradation replay-support null), iteration 42 completed as
 the exact-trace replay-support pass — offline replay reproduces every online monitor decision
-exactly — and iteration 43 completed as the authorized object-stream perturbation gate with a
+exactly — iteration 43 completed as the authorized object-stream perturbation gate with a
 mild-fragile finding: in replay, 5 cm per-frame position jitter already breaks the frozen
 stability bars (mostly by adding false interventions), while detection dropout, score
-attenuation, and identity churn stay stable at mild levels.** The
+attenuation, and identity churn stay stable at mild levels — and iteration 44 completed as the
+velocity temporal-smoothing repair gate with a no-repair null: all four frozen smoothed
+estimators halve the jitter over-firing but erase 15-21 genuine interventions on the clean
+trace, so the fragility is not repaired by low-pass filtering the velocity and the released
+union stands unchanged.** The
 **released union (iteration 15) is the best configuration** of the campaign: at the 20-run
 power scale it lifts the independently reproduced baseline **2.12 → 2.91 (CI [+0.605, +0.928])**,
 keeps clean scenes identical to the unmonitored planner, and strictly dominates the plain union
@@ -430,7 +439,12 @@ ran the single authorized successor — the offline object-stream perturbation g
 trace — and published `OBJECT_PERTURBATION_MILD_FRAGILE`: position jitter at `0.05`–`0.10 m`
 breaks the frozen stability bars, dominated by false interventions (`17` and `36` new
 intervention episodes against the `<=8` bar), while dropout, score attenuation, and identity
-churn hold at their mild levels; the offline perturbation line at this trace is closed, and any
+churn hold at their mild levels. Iteration 44 then tested the natural repair under a fresh
+pre-registration — temporally smoothed velocity estimators (two-/three-frame finite difference
+and EMA) over the same trace and seed-paired jitter grid — and published
+`VELOCITY_SMOOTHING_NO_REPAIR_NULL`: smoothing halves the over-firing but never reaches the
+bar, and it erases `15`–`21` of the `230` genuine online interventions outright on the
+unperturbed trace, so the temporal-smoothing repair line is closed at these parameters and any
 successor needs a fresh pre-registration:
 
 - **The manuscript — full draft and compiled PDF committed**
@@ -596,6 +610,16 @@ successor needs a fresh pre-registration:
   their mild cells. This is replay decision-flip sensitivity of the monitor rule only — not
   sensor degradation, not closed-loop, and not a deployment or safety claim; the offline line
   at this trace is closed.
+- **Iteration 44 is completed as the velocity temporal-smoothing repair gate, a no-repair null.**
+  [`experiments/iter44_velocity_smoothing_gate/RESULT.md`](experiments/iter44_velocity_smoothing_gate/RESULT.md)
+  reports exact neutral-parameter identity and field-for-field seed-paired reproduction of the
+  iteration-43 jitter cells, then the frozen verdict grid: all four registered smoothed
+  estimators (`fd_k2`, `fd_k3`, `ema_a0p5`, `ema_a0p3`) fail baseline fidelity on the
+  unperturbed trace (retention `209-215/230` vs the `>= 225` bar; `5-6` invented interventions)
+  and fail jitter repair (`11-20` new interventions vs the `<= 8` bar). Smoothing measurably
+  shrinks the over-firing channel but deletes genuine interventions, so the rule's decision
+  boundary sits on one-frame velocity transients; the released union is unchanged, and no
+  sensor, closed-loop, deployment, or safety claim is made.
 - **Scientific priority is now defensibility over impressiveness.**
   If the choice is between another stronger-looking benchmark/mechanism result and a narrower
   claim that survives hostile scrutiny, prefer the narrower defensible claim. The next fresh
@@ -744,6 +768,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter41_sensor_input_degradation_gate/`](experiments/iter41_sensor_input_degradation_gate) | monitor-input degradation gate — infrastructure null; exact pose timestamp support failed before perturbations |
 | [`experiments/iter42_exact_trace_replay_support/`](experiments/iter42_exact_trace_replay_support) | exact trace replay support — replay-identity pass; trace substrate only, authorizes only an offline object-stream perturbation pre-registration |
 | [`experiments/iter43_object_stream_perturbation_gate/`](experiments/iter43_object_stream_perturbation_gate) | object-stream perturbation gate — mild-fragile finding; jitter over-fires at 5 cm in replay, dropout/score/churn stable at mild levels; no sensor or closed-loop claim |
+| [`experiments/iter44_velocity_smoothing_gate/`](experiments/iter44_velocity_smoothing_gate) | velocity temporal-smoothing repair gate — no-repair null; smoothing halves jitter over-firing but erases genuine interventions; released union unchanged |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/FRONTIER_POSITIONING_2026-07-11.md`](docs/research/FRONTIER_POSITIONING_2026-07-11.md) | source-verified mid-2026 benchmark/monitor/industry positioning; the binding 2.91-is-not-benchmark-SOTA framing rule |

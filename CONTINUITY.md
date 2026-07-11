@@ -129,6 +129,25 @@ events to prepare; they are a property the repository always has.
   registered S4 boundary the offline perturbation line at this trace is closed; any successor
   (e.g. correlated-noise or smoothed-input variants, or any closed-loop degradation line)
   requires a fresh pre-registration.
+- Iteration 44 concluded:
+  experiments/iter44_velocity_smoothing_gate/RESULT.md, published as
+  `VELOCITY_SMOOTHING_NO_REPAIR_NULL`. The fresh pre-registration authorized after iteration 43
+  tested temporally smoothed velocity estimators (finite difference over `k ∈ {2, 3}` frames;
+  EMA at `alpha ∈ {0.5, 0.3}`) as the jitter-fragility repair, entirely offline over the
+  committed iteration-42 trace with the seed-paired iteration-43 perturbation layer. S0/S1/S1b
+  passed exactly (neutral cells bit-identical to the online stream; iteration-43 jitter cells
+  reproduced field-for-field), then every frozen estimator failed both V1 baseline fidelity
+  (retention `209-215/230` vs the `>= 225` bar, `5-6` invented interventions vs `<= 4`) and V2
+  jitter repair (`11-20` new interventions vs `<= 8`, retention below `219`). Smoothing halves
+  the over-firing (`36 -> 18-20` at `0.10 m`) but erases `15-21` genuine online interventions
+  outright (median delay `0` — lost interventions vanish, not shift), and residual over-firing
+  survives through the CPA term's direct use of jittered positions. Read with iteration 18,
+  this bounds the rule from both sides: its decision boundary sits on one-frame velocity
+  transients, so no low-pass filter on this estimator is the repair. The released union is
+  unchanged; scope is offline decision replay only (changed decisions' vehicle outcomes are not
+  observable). The temporal-smoothing repair line is closed at these frozen parameters; any
+  successor (estimator-class change such as a measurement-noise-modeling tracking filter, a
+  noise-robust rule term, or any closed-loop line) requires a fresh pre-registration.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -758,3 +777,20 @@ events to prepare; they are a property the repository always has.
   diagram (A43), status bullet, and repo map updated; ruff + pytest (131) +
   validate_docs green. The offline perturbation line at this trace is closed; successors need
   a fresh pre-registration.
+- 2026-07-11: Claude (Fable 5) via delegated executor — executed iteration 44 end-to-end,
+  entirely offline (no gcloud, Docker, or GPU command; BOX UNTOUCHED). Pre-registered the
+  velocity temporal-smoothing repair gate (frozen estimators `fd_k2`/`fd_k3`/`ema_a0p5`/
+  `ema_a0p3`, frozen V1 fidelity + V2 jitter-repair + V3 no-new-fragility bars, iteration-43
+  seed reused verbatim for seed-paired perturbation draws, fresh run id
+  `iter44-velocity-smoothing-v1`) and committed it ALONE before any analysis code; committed
+  the analyzer (importing the iter42 replay and iter43 perturbation modules) + 10 unit tests;
+  ran once from committed artifacts and published `VELOCITY_SMOOTHING_NO_REPAIR_NULL` at full
+  weight: S1/S1b exact (0 mismatches; iter43 jitter cells reproduced field-for-field), then all
+  four estimators failed V1 (retention 209-215/230 vs >=225) and V2 (new interventions 11-20 vs
+  <=8); smoothing halves over-firing but erases 15-21 genuine interventions — no low-pass
+  filter on this estimator is the repair. README row 44, header clause, net-summary,
+  defensibility diagram (A44), status bullet, what's-next, and repo map updated; ruff + pytest
+  (140) + validate_docs green. HANDOFF.md regenerated via scripts/make_handoff.py after the
+  docs commit; its read-only probe (run after the result was published, outside the iteration's
+  evidence chain) confirmed sentinel-gpu IDLE with no Docker containers — the box was not
+  otherwise touched.
