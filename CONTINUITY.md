@@ -702,3 +702,12 @@ events to prepare; they are a property the repository always has.
   iters 29-38 probe/steering line and its cross-domain "detection-without-correction" framing
   (arXiv 2604.13068) are deliberately NOT folded in — that is a future revision, not this
   submission.
+- 2026-07-11: Claude (Fable 5) — while iter42 remained in flight (protected, watcher + external
+  read-only poll), committed two planning-only research docs: FRONTIER_POSITIONING_2026-07-11.md
+  (source-verified benchmark table + consequences: linear-steering line closed, headline framing
+  rule binding) and SECOND_BENCHMARK_TRANSFER_HUGSIM.md (launch packet: HUGSIM primary — same
+  uniad_base_e2e.pth checkpoint via hyzhou404/UniAD_SIM pipe client, ~61 GB prebuilt scenes,
+  10-20 GPU-h per sweep on the L4, no prior monitor work there; Bench2Drive = labeled-subset
+  stretch only, Argus ASE 2025 occupies that slot and a full pass costs weeks on one L4).
+  Neither authorizes a run; the HUGSIM line needs its own HYPOTHESIS.md and launches only after
+  iter42 completes and its analyzer publishes.
