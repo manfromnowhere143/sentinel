@@ -1,0 +1,26 @@
+Iteration 42 artifact collection and single analyzer run (2026-07-11).
+
+Collection from sentinel-gpu (run completed 2026-07-11 18:27:55 UTC; I42_TRACE_ALL_DONE present,
+no Docker containers, swap active):
+
+gcloud compute scp --zone us-west1-a --tunnel-through-iap --quiet \
+  sentinel-gpu:/opt/sentinel-stack/UniAD/sentinel_iter42_trace.jsonl.gz \
+  experiments/iter42_exact_trace_replay_support/proof-trace/
+gcloud compute scp --zone us-west1-a --tunnel-through-iap --quiet \
+  sentinel-gpu:/var/log/sentinel-iter42-trace.log \
+  experiments/iter42_exact_trace_replay_support/proof-trace/
+gcloud compute scp --zone us-west1-a --tunnel-through-iap --quiet \
+  sentinel-gpu:/var/log/sentinel-iter42-watch.log \
+  experiments/iter42_exact_trace_replay_support/proof-trace/
+
+Trace SHA256 verified identical on the box and after copy:
+8c43726c94a8870d40518b97bf5b74a7b88517a661c16291dd8408a61eb97f4d  sentinel_iter42_trace.jsonl.gz
+
+Single analyzer run, from the collected/committed artifacts, from the repository root:
+
+python3 experiments/iter42_exact_trace_replay_support/analyze_trace_replay.py \
+  --trace experiments/iter42_exact_trace_replay_support/proof-trace/sentinel_iter42_trace.jsonl.gz \
+  --log experiments/iter42_exact_trace_replay_support/proof-trace/sentinel-iter42-trace.log
+
+stdout:
+{"out": "/Users/danielwahnich/workspace/sentinel/experiments/iter42_exact_trace_replay_support/proof-trace/trace_replay_report.json", "verdict": "TRACE_REPLAY_SUPPORT_PASS"}

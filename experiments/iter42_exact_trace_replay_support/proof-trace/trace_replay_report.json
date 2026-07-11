@@ -1,0 +1,126 @@
+{
+  "claim_boundary": "Trace replay support is a substrate result only. It is not degradation robustness, closed-loop safety, selector evidence, deployment readiness, or production evidence.",
+  "command_line": "experiments/iter42_exact_trace_replay_support/analyze_trace_replay.py --trace experiments/iter42_exact_trace_replay_support/proof-trace/sentinel_iter42_trace.jsonl.gz --log experiments/iter42_exact_trace_replay_support/proof-trace/sentinel-iter42-trace.log",
+  "s0": {
+    "failures": [],
+    "pass": true,
+    "required_paths": [
+      "experiments/iter42_exact_trace_replay_support/HYPOTHESIS.md",
+      "experiments/iter42_exact_trace_replay_support/server_patch_union_trace.py",
+      "experiments/iter42_exact_trace_replay_support/iter42_trace_run.sh",
+      "experiments/iter42_exact_trace_replay_support/analyze_trace_replay.py",
+      "tests/test_iter42_trace_replay.py"
+    ]
+  },
+  "s1": {
+    "failures": [],
+    "pair_order": [
+      [
+        "stationary",
+        "0099"
+      ],
+      [
+        "stationary",
+        "0101"
+      ],
+      [
+        "stationary",
+        "0103"
+      ],
+      [
+        "stationary",
+        "0106"
+      ],
+      [
+        "stationary",
+        "0108"
+      ],
+      [
+        "stationary",
+        "0278"
+      ],
+      [
+        "stationary",
+        "0331"
+      ],
+      [
+        "stationary",
+        "0783"
+      ],
+      [
+        "stationary",
+        "0796"
+      ],
+      [
+        "stationary",
+        "0966"
+      ],
+      [
+        "frontal",
+        "0103"
+      ],
+      [
+        "frontal",
+        "0106"
+      ],
+      [
+        "frontal",
+        "0110"
+      ],
+      [
+        "frontal",
+        "0346"
+      ],
+      [
+        "frontal",
+        "0923"
+      ],
+      [
+        "side",
+        "0103"
+      ],
+      [
+        "side",
+        "0108"
+      ],
+      [
+        "side",
+        "0110"
+      ],
+      [
+        "side",
+        "0278"
+      ],
+      [
+        "side",
+        "0921"
+      ]
+    ],
+    "pass": true,
+    "summary": {
+      "brake_frames": 1205,
+      "field_failure_count": 0,
+      "field_failure_examples": [],
+      "frames": 6474,
+      "intervention_episodes": 230,
+      "release_frames": 156,
+      "resets": 400
+    }
+  },
+  "s2": {
+    "failure_count": 0,
+    "failures": [],
+    "mismatch_examples": [],
+    "pass": true,
+    "replay_brake_frames": 1205,
+    "replay_intervention_episodes": 230,
+    "replay_release_frames": 156
+  },
+  "s3": {
+    "claim_boundary": "Iteration 42 is trace-support evidence only: no perturbation, sensor degradation, benchmark, selector, deployment, or safety claim is authorized.",
+    "failures": [],
+    "pass": true
+  },
+  "trace_blocks": 400,
+  "verdict": "TRACE_REPLAY_SUPPORT_PASS"
+}

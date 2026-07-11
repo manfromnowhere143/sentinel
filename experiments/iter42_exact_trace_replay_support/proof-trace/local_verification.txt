@@ -1,0 +1,15 @@
+Local verification for iteration 42 (2026-07-11)
+
+$ ruff check .
+All checks passed!
+exit=0
+
+$ pytest -q
+........................................................................ [ 59%]
+..................................................                       [100%]
+122 passed in 1.65s
+exit=0
+
+$ python3 scripts/validate_docs.py
+docs guard: 107 markdown files clean; all RESULT experiments surfaced in README
+exit=0
