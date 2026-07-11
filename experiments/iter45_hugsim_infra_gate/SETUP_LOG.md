@@ -112,6 +112,29 @@ Options, in intended order of attempt (G2):
 
 Not attempted yet in this window.
 
+## 2026-07-11 22:55-23:00 UTC — config edits + client wrapper staged (while fix2 compiles)
+
+All three are path/launch config edits of the kind the pre-registration allows and requires
+recording; originals preserved with `.orig` suffixes:
+
+- `HUGSIM/configs/sim/nuscenes_base.yaml` (original at `nuscenes_base.yaml.orig`):
+  `realcar_path: /datasets/nuscenes-full/hugsim/3DRealCar`,
+  `model_base: /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes`,
+  `uniad_path: /opt/sentinel-stack/UniAD_SIM/tools/e2e.sh`,
+  `output_dir: /datasets/nuscenes-full/hugsim/outputs/nusc_`,
+  `HD_map.path: /datasets/nuscenes-full` (`nusc_trainval`), vad/ltf paths updated for shape
+  only (not installed, not used).
+- `UniAD_SIM/tools/e2e.sh` (original at `e2e.sh.orig`): replaced the author's
+  zsh+conda launcher with a wrapper that runs the UNMODIFIED client
+  (`tools/closeloop/e2e.py projects/configs/stage2_e2e/base_e2e.py ckpts/uniad_base_e2e.pth`)
+  inside the existing sentinel `uniad:latest` image, mounting `/opt/sentinel-stack/UniAD_SIM`
+  as `/model`, the existing `/opt/sentinel-stack/UniAD/ckpts` (SHA receipts above) as
+  `/model/ckpts`, and `/datasets/nuscenes-full/hugsim/outputs` at the SAME path inside the
+  container so the `mkfifo` pipes are shared host<->container. `CUDA_VISIBLE_DEVICES` passes
+  through; container name `hugsim_uniad_client`.
+- Host `zsh` installed via apt (HUGSIM's `sim/utils/launch_ad.py` launches the client with
+  `zsh <script>`; the wrapper itself is plain bash, which zsh executes via its shebang).
+
 ## Resume point (exact — updated 2026-07-11 ~22:45 UTC)
 
 1. Poll `/var/log/sentinel-hugsim-envsetup.log` for `HUGSIM_ENV_FIX2_DONE`; check
