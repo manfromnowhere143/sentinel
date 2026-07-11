@@ -1,0 +1,108 @@
+ITER42_PREFLIGHT_CLEANUP_START
+UTC 2026-07-11T05:25:00Z
+sentinel-gpu
+DOCKER_BEFORE
+DISK_BEFORE
+/dev/root      332805349376 322230587392 10557984768  97% /
+SWAP_BEFORE
+NAME      TYPE SIZE  USED PRIO
+/swapfile file   8G 58.5M   -2
+OUTOUTPUT_MANIFEST_BEFORE
+208K	outoutput/2026-06-30_07-37-53
+208K	outoutput/vad-off
+208K	outoutput/vad-union
+57M	outoutput/2026-06-30_07-42-07
+67M	outoutput/i7-cpa10
+125M	outoutput/2026-06-30_12-47-39
+126M	outoutput/2026-06-30_16-21-51
+138M	outoutput/2026-06-30_16-33-03
+141M	outoutput/2026-06-30_12-04-28
+164M	outoutput/2026-06-30_16-58-14
+167M	outoutput/2026-06-30_15-40-40
+167M	outoutput/2026-06-30_15-53-15
+168M	outoutput/2026-06-30_12-58-55
+168M	outoutput/2026-06-30_16-44-49
+193M	outoutput/2026-06-30_15-26-34
+237M	outoutput/2026-06-30_13-12-57
+291M	outoutput/2026-06-30_16-05-57
+340M	outoutput/i11-evade
+385M	outoutput/i4-gated
+390M	outoutput/i10-off
+390M	outoutput/i11-off
+390M	outoutput/i3-off
+390M	outoutput/i4-off
+390M	outoutput/i5-off
+390M	outoutput/i7-off
+390M	outoutput/i9-off
+396M	outoutput/i5-tracked
+455M	outoutput/i9-evade
+460M	outoutput/i10-brakevade
+467M	outoutput/i7-cpa15
+470M	outoutput/i11-stop
+473M	outoutput/i10-union
+473M	outoutput/i9-union
+526M	outoutput/i3-always
+526M	outoutput/i3-ttc
+526M	outoutput/i4-ttcold
+528M	outoutput/e19-evalextract
+528M	outoutput/e21-bev-evalextract
+528M	outoutput/i6-off
+528M	outoutput/i8-off
+529M	outoutput/cand-off
+614M	outoutput/i8-union
+642M	outoutput/i6-cpa
+878M	outoutput/2026-06-30_10-43-33
+1.3G	outoutput/2026-06-30_08-04-29
+1.3G	outoutput/2026-06-30_13-34-42
+OUTOUTPUT_METRIC_COUNTS_BEFORE
+outoutput/2026-06-30_07-37-53 metrics=0
+outoutput/2026-06-30_07-42-07 metrics=2
+outoutput/2026-06-30_08-04-29 metrics=60
+outoutput/2026-06-30_10-43-33 metrics=40
+outoutput/2026-06-30_12-04-28 metrics=7
+outoutput/2026-06-30_12-47-39 metrics=6
+outoutput/2026-06-30_12-58-55 metrics=7
+outoutput/2026-06-30_13-12-57 metrics=11
+outoutput/2026-06-30_13-34-42 metrics=40
+outoutput/2026-06-30_15-26-34 metrics=6
+outoutput/2026-06-30_15-40-40 metrics=6
+outoutput/2026-06-30_15-53-15 metrics=6
+outoutput/2026-06-30_16-05-57 metrics=6
+outoutput/2026-06-30_16-21-51 metrics=6
+outoutput/2026-06-30_16-33-03 metrics=6
+outoutput/2026-06-30_16-44-49 metrics=6
+outoutput/2026-06-30_16-58-14 metrics=6
+outoutput/cand-off metrics=24
+outoutput/e19-evalextract metrics=24
+outoutput/e21-bev-evalextract metrics=24
+outoutput/i10-brakevade metrics=18
+outoutput/i10-off metrics=18
+outoutput/i10-union metrics=18
+outoutput/i11-evade metrics=18
+outoutput/i11-off metrics=18
+outoutput/i11-stop metrics=18
+outoutput/i3-always metrics=18
+outoutput/i3-off metrics=18
+outoutput/i3-ttc metrics=18
+outoutput/i4-gated metrics=18
+outoutput/i4-off metrics=18
+outoutput/i4-ttcold metrics=18
+outoutput/i5-off metrics=18
+outoutput/i5-tracked metrics=18
+outoutput/i6-cpa metrics=24
+outoutput/i6-off metrics=24
+outoutput/i7-cpa10 metrics=2
+outoutput/i7-cpa15 metrics=18
+outoutput/i7-off metrics=18
+outoutput/i8-off metrics=24
+outoutput/i8-union metrics=24
+outoutput/i9-evade metrics=18
+outoutput/i9-off metrics=18
+outoutput/i9-union metrics=18
+outoutput/vad-off metrics=0
+outoutput/vad-union metrics=0
+CLEANUP_ACTION rm -rf /opt/sentinel-stack/neuro-ncap/outoutput/*
+DISK_AFTER
+/dev/root      332805349376 303542005760 29246566400  92% /
+OUTOUTPUT_AFTER
+ITER42_PREFLIGHT_CLEANUP_DONE

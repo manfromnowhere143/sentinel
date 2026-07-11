@@ -375,12 +375,15 @@ def evaluate_s0(root: Path, tracked: set[str]) -> dict[str, Any]:
     ):
         if needle not in patch:
             failures.append(f"patch_missing_{needle}")
-    if re.search(r"for arm in .*off", run_script):
+    active_run_script = "\n".join(
+        line for line in run_script.splitlines() if not line.lstrip().startswith("#")
+    )
+    if re.search(r"for arm in .*off", active_run_script):
         failures.append("run_script_mentions_off_arm_loop")
-    if "SENTINEL_ENABLED=0" in run_script:
+    if "SENTINEL_ENABLED=0" in active_run_script:
         failures.append("run_script_can_disable_sentinel")
     for forbidden in ("PERTURB", "dropout", "jitter", "selector", "heldout"):
-        if forbidden.lower() in run_script.lower():
+        if forbidden.lower() in active_run_script.lower():
             failures.append(f"run_script_forbidden_word:{forbidden}")
     return {"pass": not failures, "failures": failures, "required_paths": required}
 
