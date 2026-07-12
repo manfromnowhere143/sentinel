@@ -367,8 +367,13 @@ events to prepare; they are a property the repository always has.
   escalation sent to Holger Caesar H.Caesar@tudelft.nl on 2026-07-11, Gmail message id
   19f51374b4186984, review copy 19f51371eb509367; threaded follow-up to Ljungbergh with the
   DMAD-corroboration update sent 2026-07-11 from daniel@aweblabs.ai, Gmail id 19f51f7617032232;
-  remaining fallback: CATPlan authors). After
-  endorsement Daniel resumes at arxiv.org/user; package = docs/paper/sentinel-arxiv-submission.tar.gz.
+  remaining fallback: CATPlan authors). BREAKTHROUGH 2026-07-12 ~19:54 local: Caesar REPLIED
+  "Nice work... I am happy to endorse you. Do send me the link" (he noted our mail hit his
+  spam folder — root-caused to dev@alfred-ai.app lacking a DKIM record; all sends now go from
+  the fully authenticated daniel@aweblabs.ai). Threaded reply with the direct link
+  https://arxiv.org/auth/endorse?x=V76QK4 sent the same hour from daniel@aweblabs.ai, Gmail id
+  19f574aed0b5f451. AWAITING endorsement confirmation; then Daniel submits at arxiv.org/user;
+  package = docs/paper/sentinel-arxiv-submission.tar.gz.
 
 ## Shift log
 
