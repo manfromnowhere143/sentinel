@@ -4,7 +4,8 @@
 collision it is about to cause, and intervenes — measured where it actually matters: in closed
 loop, by whether the car crashes *and whether it can still drive*.**
 
-> **Honest status up front (37 completed mechanism iterations + an independent verification pass +
+> **Honest status up front (47 registered iterations: 37 completed mechanism iterations + an
+> independent verification pass +
 > the full official benchmark at power + a completed iteration-37 calibration null + an
 > iteration-38 opposite-direction S0 canary pass + completed iteration-39/40/41 defensibility
 > audits + a completed iteration-42 exact-trace replay-support pass + a completed iteration-43
@@ -62,7 +63,7 @@ single-digit GPUs.
 
 ## The result
 
-Thirty-seven completed mechanism iterations (plus the completed defensibility, robustness, and transfer-infrastructure gates of iterations 39-46) under frozen pre-registrations converge on one closed-loop configuration — the
+Forty-seven registered iterations — thirty-seven completed mechanism iterations, plus the completed defensibility, robustness, and transfer-infrastructure gates of iterations 39-46, with iteration 47 in flight — under frozen pre-registrations converge on one closed-loop configuration — the
 **released union** (two label-free geometric detectors + a threat-cleared latch release) —
 measured on the **complete official 14-scene NeuroNCAP set at 20 seed-paired runs per pair**
 (799 episodes; hypotheses frozen before the run; the first 6 indices of every pair reproduce the
