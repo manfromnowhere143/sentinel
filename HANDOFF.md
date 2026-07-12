@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: א' יול 12 07:22:53 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: א' יול 12 16:54:36 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+8371205 iter48: publish TRANSFER_NULL transfer verdict, analyzer report, docs
+c78b301 iter48: collect stage2 proof, 104 episodes, receipts verified
+b0439af docs: regenerate handoff on clean tree
 6aaec26 docs: record iter48 launch in flight with on-done block, handoff regen
 bddb6f1 iter48: collect ON-arm smoke evidence, zero-fire clean
 c8cb6e8 iter48: add labeled pre-launch ON-arm smoke script
 ff3772c iter48: commit monitor patch, transfer launcher, paired analyzer, tests
 3f56b5d docs: record iter47 close and iter48 pre-reg in shift log, box idle
-889770c iter48: pre-register HUGSIM Stage-2 OFF-vs-union transfer gate
-ea3c5f8 iter47: completion pass published, full 52-episode OFF arm stands
-673bc0c iter47: collect Stage B completion proof, 14 new episodes
 ```
 Working tree: CLEAN
 
@@ -60,7 +60,7 @@ Working tree: CLEAN
 - experiments/iter45_hugsim_infra_gate: RESULT PUBLISHED
 - experiments/iter46_hugsim_off_baseline: RESULT PUBLISHED
 - experiments/iter47_map_staging_and_off_completion: RESULT PUBLISHED
-- experiments/iter48_hugsim_transfer_gate: PRE-REGISTERED, result pending
+- experiments/iter48_hugsim_transfer_gate: RESULT PUBLISHED
 - experiments/iter4_gated: RESULT PUBLISHED
 - experiments/iter5_tracked: RESULT PUBLISHED
 - experiments/iter6_cpa: RESULT PUBLISHED
@@ -74,20 +74,19 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 07:24:00 up 7 days, 21:05,  0 users,  load average: 2.74, 2.00, 1.14
-GPU_RUN_STATE=IN_FLIGHT_CONTAINERS
-hugsim_uniad_client	Up 23 seconds
-/var/log/sentinel-iter48-stage2.log
+ 16:55:43 up 8 days,  6:36,  0 users,  load average: 0.00, 0.02, 0.85
+GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
+/var/log/sentinel-iter48-stage2.log
 /var/log/sentinel-iter48-smoke.log
-/dev/root       310G  271G   40G  88% /
-Swap:          8.0Gi        65Mi       7.9Gi
+/dev/root       310G  269G   42G  87% /
+Swap:          8.0Gi        76Mi       7.9Gi
 ```
 If any docker container named renderer/model/ncap (or a random-name ncap) is up, a run
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest pre-registration: experiments/iter48_hugsim_transfer_gate/HYPOTHESIS.md — read it in full; its gate governs the next action.
+- Newest completed experiment: experiments/iter48_hugsim_transfer_gate/RESULT.md — read it before opening new work.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
