@@ -1,20 +1,19 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: א' יול 12 17:35:03 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: א' יול 12 17:43:24 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+2c89471 iter50: publish opportunity audit result and docs
+d76c6ba iter50: commit audit proof artifacts
+ee41aa6 iter50: add opportunity analyzer and tests
+5a3717a handoff: evening consolidation, caesar thread and dual iterations state
 fbd1b3d iter50: pre-register collision-opportunity audit
 cf42522 docs: regenerate handoff, iter49 run in flight
 73add7c docs: record iter49 launch in flight with on-done block
 1a1dc0a handoff: record paper revision delivery and caesar thread
-7372eae paper: rebuild pdf and arxiv package
-1807981 paper: accessibility revision per external feedback
-755e179 iter49: add hard-tier launcher, paired analyzer, tests
-ddd9130 iter49: pre-register hard/extreme-tier transfer gate
 ```
-Working tree: DIRTY — resolve before handoff:
-M CONTINUITY.md
+Working tree: CLEAN
 
 ## Experiments (status inferred from files)
 
@@ -64,7 +63,7 @@ M CONTINUITY.md
 - experiments/iter48_hugsim_transfer_gate: RESULT PUBLISHED
 - experiments/iter49_hugsim_hard_tier_gate: PRE-REGISTERED, result pending
 - experiments/iter4_gated: RESULT PUBLISHED
-- experiments/iter50_collision_opportunity_audit: PRE-REGISTERED, result pending
+- experiments/iter50_collision_opportunity_audit: RESULT PUBLISHED
 - experiments/iter5_tracked: RESULT PUBLISHED
 - experiments/iter6_cpa: RESULT PUBLISHED
 - experiments/iter7_margin: RESULT PUBLISHED
@@ -77,11 +76,11 @@ M CONTINUITY.md
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 17:36:13 up 8 days,  7:17,  0 users,  load average: 3.48, 3.35, 2.24
+ 17:44:36 up 8 days,  7:25,  0 users,  load average: 2.25, 3.30, 2.77
 GPU_RUN_STATE=IN_FLIGHT_CONTAINERS
-hugsim_uniad_client	Up 33 seconds
-/var/log/sentinel-vitals.log
+hugsim_uniad_client	Up About a minute
 /var/log/sentinel-iter49-hard.log
+/var/log/sentinel-vitals.log
 /var/log/sentinel-iter48-stage2.log
 /dev/root       310G  271G   40G  88% /
 Swap:          8.0Gi        76Mi       7.9Gi
@@ -90,7 +89,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest pre-registration: experiments/iter50_collision_opportunity_audit/HYPOTHESIS.md — read it in full; its gate governs the next action.
+- Newest completed experiment: experiments/iter50_collision_opportunity_audit/RESULT.md — read it before opening new work.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
