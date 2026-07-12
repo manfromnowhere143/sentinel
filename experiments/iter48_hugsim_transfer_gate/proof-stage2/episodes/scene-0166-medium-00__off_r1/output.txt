@@ -1,0 +1,178 @@
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 11.1.1
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+ERROR: mmdet3d 0.17.1 has requirement networkx<2.3,>=2.2, but you'll have networkx 2.5 which is incompatible.
+ERROR: mmdet3d 0.17.1 has requirement numpy<1.20.0, but you'll have numpy 1.22.4 which is incompatible.
+ERROR: notebook 6.5.7 has requirement jupyter-client<8,>=5.3.4, but you'll have jupyter-client 8.6.3 which is incompatible.
+ERROR: jupyter-packaging 0.12.3 has requirement setuptools>=60.2.0, but you'll have setuptools 59.5.0 which is incompatible.
+[iter45-shim] cuSOLVER-backed linalg ops routed via CPU (torch 1.9.1+cu111 )
+[iter45-shim] cuSOLVER-backed linalg ops routed via CPU (torch 1.9.1+cu111 )
+SENTINEL_I48_UNION_PATCH_LOADED enabled=0 params={"cpa_margin": 1.5, "dt": 0.5, "max_gap": 30.0, "min_closing": 3.0, "min_score": 0.3, "release_k": 4, "ttc_thresh": 2.5}
+projects.mmdet3d_plugin
+load checkpoint from local path: ckpts/uniad_base_e2e.pth
+2026-07-12 17:53:24,992 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.0.conv2 is upgraded to version 2.
+2026-07-12 17:53:24,997 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.1.conv2 is upgraded to version 2.
+2026-07-12 17:53:25,001 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.2.conv2 is upgraded to version 2.
+2026-07-12 17:53:25,005 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.3.conv2 is upgraded to version 2.
+2026-07-12 17:53:25,009 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.4.conv2 is upgraded to version 2.
+2026-07-12 17:53:25,013 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.5.conv2 is upgraded to version 2.
+2026-07-12 17:53:25,016 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.6.conv2 is upgraded to version 2.
+2026-07-12 17:53:25,020 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.7.conv2 is upgraded to version 2.
+2026-07-12 17:53:25,024 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.8.conv2 is upgraded to version 2.
+2026-07-12 17:53:25,028 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.9.conv2 is upgraded to version 2.
+2026-07-12 17:53:25,031 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.10.conv2 is upgraded to version 2.
+2026-07-12 17:53:25,035 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.11.conv2 is upgraded to version 2.
+2026-07-12 17:53:25,039 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.12.conv2 is upgraded to version 2.
+2026-07-12 17:53:25,043 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.13.conv2 is upgraded to version 2.
+2026-07-12 17:53:25,046 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.14.conv2 is upgraded to version 2.
+2026-07-12 17:53:25,050 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.15.conv2 is upgraded to version 2.
+2026-07-12 17:53:25,054 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.16.conv2 is upgraded to version 2.
+2026-07-12 17:53:25,057 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.17.conv2 is upgraded to version 2.
+2026-07-12 17:53:25,061 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.18.conv2 is upgraded to version 2.
+2026-07-12 17:53:25,065 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.19.conv2 is upgraded to version 2.
+2026-07-12 17:53:25,068 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.20.conv2 is upgraded to version 2.
+2026-07-12 17:53:25,072 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.21.conv2 is upgraded to version 2.
+2026-07-12 17:53:25,076 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.22.conv2 is upgraded to version 2.
+2026-07-12 17:53:25,080 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.0.conv2 is upgraded to version 2.
+2026-07-12 17:53:25,086 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.1.conv2 is upgraded to version 2.
+2026-07-12 17:53:25,090 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.2.conv2 is upgraded to version 2.
+Ready for recieving
+received
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0000_bev.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0000_cam.jpg
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0001_bev.jpg
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0001_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0002_bev.jpg
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0002_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0003_bev.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0003_cam.jpg
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0004_bev.jpg
+received
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0004_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0005_bev.jpg
+received
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0005_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0006_bev.jpg
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0006_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0007_bev.jpg
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0007_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0008_bev.jpg
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0008_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0009_bev.jpg
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0009_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0010_bev.jpg
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0010_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0011_bev.jpg
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0011_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0012_bev.jpg
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0012_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0013_bev.jpg
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0013_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0014_bev.jpg
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0014_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0015_bev.jpg
+received
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0016_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0015_cam.jpg
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0016_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0017_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0017_cam.jpg
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0018_bev.jpg
+received
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0018_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0019_bev.jpg
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0019_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0020_bev.jpg
+received
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0020_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0021_bev.jpg
+received
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0021_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0022_bev.jpg
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0023_bev.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0022_cam.jpg
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0023_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0024_bev.jpg
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0024_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0025_bev.jpg
+received
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0025_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0026_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0026_cam.jpg
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0027_bev.jpg
+received
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0027_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0028_bev.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0028_cam.jpg
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0029_bev.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0029_cam.jpg
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0030_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0166_medium_00/uniad/0030_cam.jpg
+OpenCV: FFMPEG: tag 0x58564944/'DIVX' is not supported with codec id 12 and format 'mp4 / MP4 (MPEG-4 Part 14)'
+OpenCV: FFMPEG: fallback to use tag 0x7634706d/'mp4v'
