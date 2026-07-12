@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: א' יול 12 00:25:30 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: א' יול 12 04:58:57 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+f341fce iter46: record the completion-null verdict in the CONTINUITY arc and shift log — evidence collected and committed, analyzer run once, Stage-2 pre-registration not authorized, box IDLE
+497cce1 iter46: publish HUGSIM_OFF_BASELINE_NULL — 38/52 episodes complete, D0 stochastic, the seven load_HD_map medium-01 scenarios failed both attempts on the unstaged nuScenes map-expansion pack (dual-failure falsifier fired, C1 failed); pairing spread median |dHD| 0.0245 over 19 pairs recorded as Stage-2 design evidence; Stage-2 pre-registration NOT authorized; README header/tracker/status/diagram/repo-map updated
+d6b4030 iter46: collect OFF-baseline run evidence from sentinel-gpu — 52-episode stochastic schedule (26 scenarios x 2), 38 completed episodes with eval.json/output.txt/episode_meta.json, 14 dual-attempt failures (the seven load_HD_map medium-01 scenarios), D0 stochastic verdict, both launch logs, provenance receipts, heavy-artifact manifest, prior-launch defect archive, and the load_HD_map yaml diagnostic
+2f1fb4a handoff: refresh — iter46 OFF baseline RELAUNCHED after the launcher-only amendment (stochastic branch carried, resumed at scene-0013-medium-00); run IN FLIGHT on sentinel-gpu, done marker I46_OFF_ALL_DONE
 2af43dd iter46: launcher-only amendment after the consecutive-failure abort — fix zip-nesting extraction (7 zips carry a top-level nuscenes/ prefix) and add 3DRealCar postprocess/shadow.pth compatibility symlinks (release layout mismatch, upstream strips the same suffix); resume-skip completed episodes, carry the recorded stochastic D0 verdict, archive prior-launch failure evidence. No frozen bar, scenario yaml, SHA receipt, schedule, or claim boundary changed; abort cause documented in the HYPOTHESIS amendment note and shift log.
 e4de492 handoff: refresh — iter46 monitor-OFF baseline run IN FLIGHT (I46_OFF markers, done marker I46_OFF_ALL_DONE); never relaunch while a container is up
 fb87da5 iter46: record launch in shift log — OFF baseline IN FLIGHT on sentinel-gpu (log /var/log/sentinel-iter46-off.log, done marker I46_OFF_ALL_DONE) with exact on-done collect/analyze/publish instructions
 a03ea18 iter46: tooling — detached run script (provenance gate, D0 probe, branch loop, retry/abort guards, I46_OFF_ALL_DONE marker), on-box D0 comparator, offline completion analyzer, 13 unit tests
-077e8d9 iter46: pre-register HUGSIM Stage-1 monitor-OFF baseline — frozen 52-scenario easy+medium nuScenes subset with per-yaml SHAs, D0 determinism probe deciding run multiplicity, provenance gate incl. the carried iter45 CPU-fallback shim (byte copy pinned), completion bars, budget arithmetic, falsifiers
-75eaabc handoff: refresh after iter45 HUGSIM infrastructure gate pass; box idle, root 43 GiB free, next step is the Stage-1/2 transfer pre-registration
-fd303b0 iter45: publish HUGSIM_INFRA_GATE_PASS — assets/envs/renderer/closed-loop smoke all pass on the frozen checkpoint; record verdict in README header/tracker/status/repo-map and CONTINUITY arc + shift log
-baf54ad iter45: env build complete (torch cu124 + gsplat 1.2.0, apex non-blocking), G3 scenario renders, first closed-loop round trips through the pipes; cusolver init failure at step 2 under retry
 ```
 Working tree: CLEAN
 
@@ -58,7 +58,7 @@ Working tree: CLEAN
 - experiments/iter43_object_stream_perturbation_gate: RESULT PUBLISHED
 - experiments/iter44_velocity_smoothing_gate: RESULT PUBLISHED
 - experiments/iter45_hugsim_infra_gate: RESULT PUBLISHED
-- experiments/iter46_hugsim_off_baseline: PRE-REGISTERED, result pending
+- experiments/iter46_hugsim_off_baseline: RESULT PUBLISHED
 - experiments/iter4_gated: RESULT PUBLISHED
 - experiments/iter5_tracked: RESULT PUBLISHED
 - experiments/iter6_cpa: RESULT PUBLISHED
@@ -72,20 +72,19 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 00:26:36 up 7 days, 14:07,  0 users,  load average: 2.47, 0.75, 0.41
-GPU_RUN_STATE=IN_FLIGHT_CONTAINERS
-hugsim_uniad_client	Up About a minute
-/var/log/sentinel-iter46-off.log
+ 05:00:05 up 7 days, 18:41,  0 users,  load average: 0.00, 0.00, 0.00
+GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
+/var/log/sentinel-iter46-off.log
 /var/log/sentinel-hugsim-smoke.log
-/dev/root       310G  270G   41G  88% /
+/dev/root       310G  269G   42G  87% /
 Swap:          8.0Gi        65Mi       7.9Gi
 ```
 If any docker container named renderer/model/ncap (or a random-name ncap) is up, a run
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest pre-registration: experiments/iter46_hugsim_off_baseline/HYPOTHESIS.md — read it in full; its gate governs the next action.
+- Newest completed experiment: experiments/iter46_hugsim_off_baseline/RESULT.md — read it before opening new work.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
