@@ -939,3 +939,52 @@ events to prepare; they are a property the repository always has.
   official download, ~last staging gap: zips nest, 3DRealCar flat, map expansion absent). BOX
   IDLE at exit (no Docker containers; iter46_runs kept on the data disk behind the committed
   heavy manifest).
+- 2026-07-12: Claude (Fable 5) via delegated executor — iteration 47 opened as the named
+  iteration-46 successor. (1) Pre-registered
+  experiments/iter47_map_staging_and_off_completion/HYPOTHESIS.md (commit `ced26df`, committed
+  ALONE, CI green): Stage A = official nuScenes map-expansion pack v1.3 staged
+  iteration-28-class (redacted provenance, SHA/size proofs, 0 unsafe members, four-json bar);
+  Stage B = ONLY the 14 failed load_HD_map -medium-01 episodes re-run under the carried
+  stochastic D0 verdict with the iteration-46 resume-skip launcher, then C1/C2/C3 re-evaluated
+  over all 52 (38 carried + 14 new, carried-integrity byte check against the committed iter46
+  proof); iteration 46's null stands as published — completion is re-earned, not repaired.
+  (2) Tooling committed (`ab7bf22`, CI green): staging script, 14-episode completion launcher,
+  analyzer reusing the committed iter46 analyzer, new tests (164 total). (3) Stage A
+  EXECUTED and PASSED on the first source (public bucket
+  motional-nuscenes.s3.amazonaws.com): archive 398,535,531 bytes, SHA256
+  `9dbc80a095b6b28d9b79fc9a43471a750dc92ca78c6d0db288fd92b34be5a144`, 13 members 0 unsafe,
+  all four expansion jsons staged (8.2-16.2 MB each); receipts committed (`dc25fa0`).
+  (4) Stage B LAUNCHED detached on sentinel-gpu at 05:18 UTC (log
+  /var/log/sentinel-iter47-completion.log, done marker I47_OFF_COMPLETION_DONE):
+  I47_OFF_PROVENANCE_OK (all frozen iter46 SHAs + map jsons + carried verdict + 38/38 carried
+  episodes verified; 14 stale __failed dirs archived under prior_launches/20260712T051822Z);
+  first formerly-failing episode scene-0038-medium-01 r1 verified PAST map loading (no
+  FileNotFoundError) and INTO client stepping (hugsim_uniad_client up, 2 round-trip sent
+  lines) before departure. RUN IN FLIGHT — do NOT relaunch while any Docker container is up.
+
+  ### On I47_OFF_COMPLETION_DONE (iteration 47 completion instructions — execute in this order)
+
+  1. Check the log tail for `I47_OFF_ABORT_*` (disk aborts are interrupted runs with a resume
+     point, not nulls) and confirm no Docker containers remain (`sudo docker ps`).
+  2. Collect from `/datasets/nuscenes-full/hugsim/iter46_runs/` into
+     `experiments/iter47_map_staging_and_off_completion/proof-completion/`: the 14 new
+     episode dirs' `eval.json`/`output.txt`/`episode_meta.json` (under
+     `proof-completion/episodes/`, any `__failed` dirs included), `receipts_iter47.json` (as
+     `proof-completion/receipts.json`), `heavy_manifest_iter47.txt`, and
+     `/var/log/sentinel-iter47-completion.log` (as `proof-completion/i47-completion-run.log`);
+     also produce `proof-completion/box_episode_hashes.txt` on the box first:
+     `cd /datasets/nuscenes-full/hugsim/iter46_runs && sha256sum */eval.json */episode_meta.json`
+     (all 52 dirs). Split any file >90 MB into `.part-*`. Commit proof FIRST.
+  3. Run the committed analyzer ONCE from the committed artifacts:
+     `python3 experiments/iter47_map_staging_and_off_completion/analyze_completion.py
+     --new-episodes .../proof-completion/episodes --box-hashes
+     .../proof-completion/box_episode_hashes.txt --out
+     .../proof-completion/off_completion_report.json --markdown-out
+     .../proof-completion/off_completion_episodes.md` (it assembles all 52 = 38 carried from
+     the committed iter46 proof + 14 new, checks carried integrity, and applies the frozen
+     bars + falsifiers including pairing over all 26 pairs).
+  4. Publish RESULT.md at full weight (pass or null per the registered bars; forbidden-claims
+     list is binding — OFF arm only), update README (row 47 + header/status/repo-map),
+     CONTINUITY arc + shift log, regenerate HANDOFF.md; ruff + pytest + validate_docs green
+     on every push. A pass authorizes ONLY the iteration-48 Stage-2 OFF-vs-released-union
+     pre-registration; no Stage-2 run happens under iteration 47.
