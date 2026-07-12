@@ -275,3 +275,6 @@ NeuroNCAP (arXiv 2404.07762) · UniAD (CVPR 2023) · VAD (ICCV 2023) · CATPlan/
       palette, grayscale-safe): per-class benchmark bars; lead-time events; routing audit
 - [ ] Figure 0: campaign two-act arc (vector redraw of the README diagrams)
 - [ ] LaTeX conversion for arXiv (venue decision: arXiv first, per 2026-07-05)
+- [x] Accessibility revision of `paper.tex` applied per external expert feedback (2026-07-12):
+      plain-language rewrite, every term of art defined at first use, no change to any number,
+      claim, citation, or section structure

@@ -16,115 +16,151 @@ Evaluated Closed-Loop at Benchmark Scale}
 \maketitle
 
 \begin{abstract}
-End-to-end driving planners fail catastrophically in safety-critical closed-loop scenarios ---
-published NeuroNCAP results score UniAD at 1.84/5 with collisions in 88--98\% of runs --- yet
-the field's dominant open-loop metrics cannot see it. We build a runtime monitor that reads
-only a frozen planner's own outputs (its plan, detected objects, and their tracked motion; no
-labels, no training, no privileged simulator state) and intervenes with a latched,
-threat-cleared stop. Across nineteen pre-registered iterations and an independent verification
-pass we show: (1) the published NeuroNCAP UniAD baseline \emph{independently reproduces}
-(pooled 2.12 vs.\ 1.84 at 20 seed-paired runs per scenario), to our knowledge a first; (2) a
-union of two label-free geometric detectors with a threat-cleared release lifts the
-full-benchmark score to \textbf{2.91} ($+0.783$, 95\% CI $[+0.605, +0.928]$) while leaving
-clean-scene behaviour identical to the unmonitored planner, at a deployment-metric cost that is
-a tight null (safety$\times$progress delta $-0.03$, 95\% CI $[-0.13, +0.07]$); (3) the
-committed stop is a \emph{position guarantee} that no tested softer intervention replaces ---
-three evasive maneuvers, a calibrated crawl, and a geometric threat-router were all refuted by
-pre-registered falsifiers, the router while demonstrating that a deployment-positive monitor is
-achievable ($+0.226$ vs.\ the unmonitored planner, CI $[+0.004, +0.421]$, voided by its safety
-gate); (4) an RSS-style formal envelope on identical inputs achieves the campaign's best raw
-safety \emph{by near-paralysis}, quantifying closed-loop the over-conservatism the literature
-only asserts; (5) the plan-B deficit of end-to-end planners is \emph{located}: candidates collapse under
-threat on two planners (UniAD: 14\,m benign diversity to 4\,cm; VAD: partial, below a
-pre-registered viability bar), and a diversity-trained head reading the frozen planner's own
-planning-query embeddings --- faithful on benign frames --- yields \textbf{zero feasible
-escapes} on the same dangerous frames: the collapse sits in the planner's internal planning
-representation, not in any decoder above it; and (6) two independent failure analyses --- cross-planner selectivity transfer
-and routing safety --- converge on a single binding constraint: \emph{tracking quality}. One
-headline claim was withdrawn by our own audit and re-established on independent data; the
-withdrawal, six published nulls, and the raw per-frame evidence for every number are part of
-the public record.
+End-to-end driving planners fail catastrophically in safety-critical closed-loop tests:
+published NeuroNCAP results score UniAD at 1.84 out of 5, with collisions in 88--98\% of runs.
+These collision failures are invisible to the open-loop displacement-error metrics that
+dominate the field. We build a runtime monitor that reads only the frozen planner's own
+outputs: its planned trajectory, the objects it detects, and their tracked motion. The monitor
+uses no labels, no training, and no privileged simulator state. When it predicts a collision,
+it commands a full stop, holds that stop, and returns control only after consecutive clear
+frames confirm the threat has passed.
+
+Across nineteen pre-registered campaign iterations and an independent verification pass we
+show six results. (1) The published NeuroNCAP UniAD baseline reproduces: rerunning the full
+benchmark at 20 runs per scenario yields a pooled score of 2.12 against the published 1.84. To
+our knowledge, we are the first to independently reproduce this baseline; a concurrent rerun
+by the DMAD authors (2.11), discussed in related work, corroborates the value. (2) The
+monitor, a union of two label-free geometric detectors with the threat-cleared stop-and-release
+policy, raises the full-benchmark score to \textbf{2.91} ($+0.783$, 95\% CI
+$[+0.605, +0.928]$) while leaving behaviour in clean scenes, scenes with no staged threat,
+identical to the unmonitored planner. Its cost on our deployment metric, which combines safety with driving
+progress, is statistically indistinguishable from zero ($-0.03$, 95\% CI $[-0.13, +0.07]$).
+(3) No softer intervention we tested could replace the committed stop. Three evasive
+maneuvers, a calibrated crawl, and a geometric threat-router all failed their pre-registered
+falsification criteria. The router failed narrowly, on a single misrouted crossing, while
+showing that a monitor with a positive deployment effect is achievable ($+0.226$ vs.\ the
+unmonitored planner, CI $[+0.004, +0.421]$). (4) An RSS-style formal safety envelope on
+identical inputs achieves the campaign's best raw safety scores, but only by nearly refusing
+to drive. This quantifies in closed loop the over-conservatism of formal envelopes that the
+literature so far only asserts. (5) We locate why the planner cannot save itself. In
+safety-critical frames, where a collision is imminent, the planner's candidate trajectories
+collapse onto its dangerous main plan: UniAD's candidates span 14\,m of diversity on benign
+frames (frames where the planner is not on a collision course) but only 4\,cm under imminent
+collision, and VAD retains partial diversity that stays below a pre-registered viability bar.
+A separately trained candidate generator that reads the frozen planner's internal planning
+embeddings is accurate on benign frames, yet on the same dangerous frames it produces
+\textbf{zero feasible escapes}, where a feasible escape is an alternative trajectory that is
+both kinematically drivable and collision-free. The collapse therefore sits in the planner's
+internal planning representation, not in any decoder above it. (6) Two independent failure
+analyses, one on cross-planner transfer and one on intervention routing, converge on the same
+bottleneck: the quality of the object tracking the monitor consumes.
+
+One of our own earlier headline claims, that the monitor's deployment effect was net positive,
+was withdrawn by our own audit after we found that deterministic episode replays had been
+pooled as if they were independent samples; the claim was later re-established on genuinely
+independent episodes. Six experiments whose pre-registered hypotheses failed are published in
+full rather than discarded. All raw per-frame evidence is already released: it is committed in
+the public repository, and every number in this paper regenerates from it.
 \end{abstract}
 
 \section{Introduction}
 Open-loop planning metrics on nuScenes are saturated and gameable: an ego-state MLP with no
 perception outperforms published end-to-end planners on displacement error
-\cite{bevplanner}. Closed-loop evaluation under safety-critical perturbation tells the opposite
-story --- state-of-the-art planners collide in the vast majority of adversarial episodes
-\cite{neuroncap}. This gap defines the honest axis for driving-safety research, and it is where
-runtime assurance belongs: if a frozen planner's failures are predictable from its own outputs,
-a small monitor can intervene before they become collisions, without retraining, fleet data, or
-privileged state.
+\cite{bevplanner}. Closed-loop evaluation under safety-critical perturbation tells the
+opposite story: state-of-the-art planners collide in the vast majority of adversarial episodes
+\cite{neuroncap}. Runtime assurance belongs in this gap. If a frozen planner's failures can be
+predicted from its own outputs, a small monitor can intervene before they become collisions,
+without retraining, fleet data, or privileged simulator state.
 
 This paper reports a complete measurement campaign on that thesis. Its contributions are the
-six numbered results in the abstract; its method is as much a contribution as its numbers:
-every iteration was pre-registered with falsifiers before data; every comparison is seed-paired
-on deterministic episodes; every number regenerates from committed raw evidence; and the
-campaign's one statistical over-claim was caught by its own audit, withdrawn in place, and
-re-established on fresh data.
+six numbered results in the abstract. Its method matters as much as its numbers: every
+iteration of the campaign was pre-registered, with falsification criteria written down before
+any data was collected; every comparison pairs the monitored and unmonitored arms on identical
+episodes; every number can be regenerated from raw evidence committed in the public
+repository; and the campaign's one statistical over-claim was caught by our own audit,
+withdrawn, and re-established on fresh data.
 
 \section{Related work}
 \textbf{Runtime monitors for end-to-end planners.} CATPlan/RiskMonitor \cite{catplan} is the
-canonical introspection-style monitor: a \emph{learned} transformer decoder trained on the sign
-of the planner's collision loss, reading UniAD/VAD internal queries, with a braking policy
-(66.5\% closed-loop collision-rate reduction on NeuroNCAP). Argus \cite{argus} attaches a
-takeover fallback that generates its own replacement trajectory in CARLA. Centaur
-\cite{centaur} performs test-time training. Our monitor differs on each axis: label-free
-geometry over the planner's own outputs (no trained head), no invented takeover trajectory
-(the campaign's evasion, crawl, and routing nulls argue this is not merely simpler but
-structurally safer), no weight updates --- and it is validated with a progress-aware metric
-none of the above report.
+canonical learned monitor: a transformer decoder trained on the sign of the planner's
+collision loss, reading UniAD/VAD internal queries, paired with a braking policy (a 66.5\%
+closed-loop collision-rate reduction on NeuroNCAP). Argus \cite{argus} attaches a takeover
+fallback that generates its own replacement trajectory in CARLA. Centaur \cite{centaur}
+adapts the planner's weights at test time. Our monitor differs on each axis. It uses
+label-free geometry over the planner's own outputs, with no trained head. It never invents a
+replacement trajectory; the failures of our evasion, crawl, and routing experiments
+(\S\ref{sec:negI}) suggest this restraint is not merely simpler but structurally safer. It
+performs no weight updates. And it is validated with a progress-aware metric that none of the
+above report.
 
-\textbf{Retrained planners on the same benchmark.} Concurrent work improves NeuroNCAP by
-retraining or replacing the planner rather than monitoring it: BridgeAD \cite{bridgead}
+\textbf{Retrained planners on the same benchmark.} Concurrent work improves NeuroNCAP scores
+by retraining or replacing the planner rather than monitoring it: BridgeAD \cite{bridgead}
 reports 2.98--3.06 under the same trajectory post-processing protocol in which UniAD scores
-1.84, and a VLM-agent system reports 3.49 in the no-post-processing protocol
+1.84, and a VLM-agent system reports 3.49 in the protocol without post-processing
 \cite{imagidrive}. Those results are complementary rather than comparable to ours: they change
 the planner, while this campaign measures what a training-free monitor buys on the planner
 exactly as shipped. Independently, DMAD's own rerun of the UniAD baseline (pooled 2.11)
 \cite{dmad} corroborates the reproduction reported here (2.12).
 
-\textbf{Runtime selection among a frozen planner's candidates.} Candidate scoring is an active
-paradigm \cite{diver,gtrs,diffusiondrive}, but in every verified instance the scorer is
-co-trained within the planner's pipeline and evaluated on non-reactive NAVSIM. No verified
-published work re-ranks a \emph{frozen} planner's native candidates at runtime with an external
-safety signal --- the mechanism our measurements close for command-indexed candidates (the
-candidates collapse when needed) and reopen for diversity-trained heads.
+\textbf{Runtime selection among a frozen planner's candidates.} Scoring and re-ranking a
+planner's candidate trajectories is an active paradigm \cite{diver,gtrs,diffusiondrive}, but
+in every instance we could verify, the scorer is co-trained within the planner's own pipeline
+and evaluated on the non-reactive NAVSIM benchmark. We found no published work that re-ranks a
+\emph{frozen} planner's native candidates at runtime using an external safety signal. Our
+measurements close this mechanism for the planner's command-indexed candidates, which collapse
+precisely when they are needed (\S\ref{sec:negII}), and reopen it for separately trained
+candidate generators.
 
 \textbf{Mode collapse under threat} is documented as a training-time phenomenon
-\cite{awta}, with explicit metrics only prediction-side \cite{modecollapse}. Our
-threat-conditioned diversity measurements on planners' own candidate sets, closed-loop, on two
-planners, appear to be the first. \textbf{Deployment-aware statistics} (progress$+$safety with
-bootstrap CIs, intervention budgets, detection lead time) and a \textbf{closed-loop
-quantification of formal-envelope over-conservatism} \cite{rss} likewise appear unreported in
-the verified corpus.
+\cite{awta}, with explicit metrics reported only for trajectory prediction
+\cite{modecollapse}. To our knowledge, our measurements of candidate diversity conditioned on
+imminent collision, taken closed-loop on two planners' own candidate sets, are the first of
+their kind. Likewise, we found no prior closed-loop report of deployment-aware statistics for
+a runtime monitor (combined progress-and-safety scores with bootstrap confidence intervals,
+intervention budgets, detection lead time), and no prior closed-loop quantification of how
+over-conservative a formal safety envelope \cite{rss} is in practice.
 
-\section{Apparatus and methodology}
-Three public containers on one L4 GPU: the NeuroNCAP orchestrator (scenario actor and scorer),
-the NeuRAD neural renderer (photoreal multi-camera frames from real nuScenes drives), and the
-frozen planner serving \texttt{/infer} carrying the monitor as a $\sim$150-line patch,
-env-gated per arm. NeuroNCAP episodes replay deterministically per run index --- a property we
-established mid-campaign, which first invalidated an early pooled claim (\S\ref{sec:verif}) and
-then upgraded every comparison to seed-paired on identical episodes. The determinism is
-verified at scale: the 20-run measurement's first six indices reproduce the earlier 6-run
-measurement exactly, on every scenario pair, in both arms.
+\section{Apparatus and methodology}\label{sec:apparatus}
+The apparatus is three public containers on one L4 GPU: the NeuroNCAP orchestrator, which
+drives the scenario actor and scores each episode; the NeuRAD neural renderer, which produces
+photoreal multi-camera frames from real nuScenes drives; and the frozen planner, which serves
+\texttt{/infer} and carries the monitor as a $\sim$150-line patch that an environment variable
+enables or disables per experimental arm.
 
-The methodological spine, held for all nineteen iterations: hypotheses and falsifiers frozen
-in writing before data; seed-paired within-pair bootstrap confidence intervals on every delta;
-per-frame monitor decision logs, per-run trajectories, and run logs committed for every arm;
-nulls published with the same weight as wins.
+NeuroNCAP episodes replay deterministically for a given run index. We established this
+property mid-campaign. It first invalidated an early pooled claim (\S\ref{sec:verif}), and it
+then strengthened the design: because both arms replay the identical episode at the same run
+index, every comparison in this paper is a paired comparison on identical episodes. We call
+such comparisons \emph{seed-paired}. The determinism is verified at scale: the first six run
+indices of the 20-run measurement reproduce the earlier 6-run measurement exactly, on every
+scenario pair, in both arms.
+
+The same methodology held for all nineteen iterations of the campaign. Hypotheses and
+falsification criteria were frozen in writing before data collection. Every reported delta
+carries a seed-paired bootstrap confidence interval. Per-frame monitor decision logs, per-run
+trajectories, and run logs are committed for every arm. Experiments whose pre-registered
+hypotheses failed are published with the same weight as those that succeeded.
 
 \section{The monitor}
-The union brakes when (plan-vs-tracked-path closest approach $<1.5$\,m) OR (observed
-agent-closing time-to-collision $<2.5$\,s). The two terms correspond to physically distinct
-failure modes: the first catches the side crossing, the second the head-on that the planner's
-own optimism hides (its plan claims 3--4\,m of clearance on runs that end in collision). Object
-velocity is \emph{observed} --- ego-motion-compensated tracking by persistent identity ---
-not the planner's forecast; the forecast is optimistic on exactly the runs that collide (the
-planner's own outputs predict its collisions at AUROC 0.83). The stop is latched --- safe even
-when the trigger is wrong --- and releases after four consecutive verified-clear frames,
-returning control; the release strictly dominates the plain latch (identical safety,
-safe-progress $+0.246$, CI $[+0.206, +0.293]$).
+The monitor brakes when either of two conditions holds: the closest approach between the
+planner's intended path and a tracked object's path falls below 1.5\,m, or the observed
+time-to-collision with a closing agent falls below 2.5\,s. The two conditions catch physically
+distinct failure modes. The first catches side crossings, where the planned path and an
+object's path genuinely intersect. The second catches the head-on approach that the planner's
+own optimism hides: on runs that end in collision, the planner's plan claims 3--4\,m of
+clearance. Object velocity is \emph{observed}, by ego-motion-compensated tracking of each
+object under a persistent identity, rather than taken from the planner's motion forecast; the
+forecast is optimistic on exactly the runs that collide. The underlying signal is real and
+cheap: the planner's own outputs predict its collisions with an AUROC of 0.83.
+
+When the monitor triggers, the stop is \emph{latched}: the vehicle stays stopped even if the
+trigger was spurious, which makes a false alarm safe. The latch \emph{releases}, returning
+control to the planner, only after four consecutive frames verify that the planner's current
+plan is clear of threats. We call this full configuration, the two detectors plus the
+threat-cleared release, the \emph{released union}. Throughout the paper, \emph{safe-progress}
+denotes our deployment metric: the product of episode safety and driving progress. The release
+strictly dominates a latch that never releases: safety is identical, and safe-progress
+improves by $+0.246$ (CI $[+0.206, +0.293]$).
 
 \section{The benchmark result}
 \begin{table}[h]\centering
@@ -139,109 +175,142 @@ frontal (score / collisions) & 1.24 / 78\% & 1.78 / 90\%\\
 safe-progress & 2.40 & 2.36\\
 \bottomrule
 \end{tabular}
-\caption{The power measurement: 799 episodes, seed-paired. Benchmark delta $+0.783$, CI
-$[+0.605, +0.928]$; deployment delta $-0.03$, CI $[-0.13, +0.07]$.}
+\caption{The full-benchmark measurement: 799 episodes, seed-paired. Benchmark delta $+0.783$,
+CI $[+0.605, +0.928]$; safe-progress delta $-0.03$, CI $[-0.13, +0.07]$.}
 \end{table}
 
 \begin{figure}[h]\centering
 \includegraphics[width=\linewidth]{figures/fig1_benchmark.pdf}
-\caption{Per-class results at $n{=}20$ runs per pair. Frontal remains mitigation, not
-prevention; the frontal/0346 regression is confirmed real and reported as the stop policy's
-named cost.}
+\caption{Per-class results at $n{=}20$ runs per pair. In frontal scenarios the monitor
+mitigates collisions rather than preventing them; the regression on the frontal 0346 scenario
+is confirmed real and is reported as a named cost of the stop policy.}
 \end{figure}
 
-In safety-case units (from committed decision logs): median detection lead 2.5\,s before
-counterfactual contact (Fig.~\ref{fig:lead}); 11 brake frames per 242 benign meters; frontal
-mean impact speed $13.9 \to 6.7$\,m/s.
+In the units a safety case uses, all computed from the committed decision logs: the median
+detection lead is 2.5\,s before the moment of counterfactual contact, that is, before the
+collision that occurs in the unmonitored arm (Fig.~\ref{fig:lead}); the monitor spends 11
+brake frames per 242 benign meters driven; and the mean frontal impact speed drops from 13.9
+to 6.7\,m/s.
 
 \begin{figure}[h]\centering
 \includegraphics[width=0.8\linewidth]{figures/fig2_leadtime.pdf}
 \caption{Detection lead time: the six lead-time events measurable under the strict contact
-criterion, shown as events (a histogram of six values would over-claim).}
+criterion, shown as individual events because six values are too few for a histogram.}
 \label{fig:lead}
 \end{figure}
 
-\section{Negative results I: the stop is a position guarantee}
-Five designs to keep more progress than the stop were pre-registered and refuted, and the
-pattern of their failures is the finding: three evasive maneuvers fail under \emph{false}
-alarms (the third crashes the benign scene at 25\% vs.\ the unmonitored 10\%); a calibrated
-2.0\,m/s crawl fails under \emph{true} alarms (side $37\%\to57\%$: it delivers the ego into the
-crossing point the stop halts short of); and a geometric threat-router (stop on projected path
-overlap with the planned corridor; crawl otherwise --- Fig.~\ref{fig:routing}) comes closest,
-recording the campaign's first deployment CI excluding zero against the unmonitored planner
-($+0.226$, CI $[+0.004, +0.421]$) while still failing its pre-registered gate on a single
-misrouted crossing. The stop is not merely speed reduction but a position guarantee --- the
-only tested intervention safe in both error directions --- and a deployment-positive monitor is
-demonstrably achievable, pending a crossing-safe routing signal (\S\ref{sec:tracking}).
+\section{Negative results I: the stop is a position guarantee}\label{sec:negI}
+Five designs that aimed to preserve more driving progress than the full stop were
+pre-registered and refuted. The pattern of their failures is itself the finding.
+
+Three evasive maneuvers fail under \emph{false} alarms: an evasive action taken on a spurious
+trigger creates a crash where none was coming, and the third design crashes the benign scene
+in 25\% of runs against the unmonitored planner's 10\%. A calibrated 2.0\,m/s crawl fails
+under \emph{true} alarms: instead of halting short of a crossing object's path, as the stop
+does, it delivers the ego vehicle into the crossing point, raising side collisions from 37\%
+to 57\%. A geometric threat-router, which commands a stop when the projected object path
+overlaps the planned corridor and a crawl otherwise (Fig.~\ref{fig:routing}), comes closest.
+It records the campaign's first deployment-metric confidence interval excluding zero against
+the unmonitored planner ($+0.226$, CI $[+0.004, +0.421]$), yet it still fails its
+pre-registered safety gate on a single misrouted crossing.
+
+The conclusion is twofold. First, the stop is not merely a speed reduction but a
+\emph{position guarantee}: a stopped vehicle cannot be delivered into a collision point, so
+the stop is safe whether the alarm is true or false, and it was the only tested intervention
+with that property. Second, the router shows that a deployment-positive monitor is
+demonstrably achievable, pending a routing signal that is safe on crossings
+(\S\ref{sec:tracking}).
 
 \begin{figure}[h]\centering
 \includegraphics[width=0.55\linewidth]{figures/fig3_routing.pdf}
-\caption{The router's latched frames by action and class: the crawl share is where its
-deployment gain lives; its side-class misroute is where the gain died.}
+\caption{Frames in which the threat-router intervened, split by chosen action and scenario
+class. The crawl frames account for the router's deployment gain; the misrouted side-class
+crossing accounts for its safety failure.}
 \label{fig:routing}
 \end{figure}
 
-\section{Negative results II: no plan B, envelope paralysis}
-\textbf{The planner has no plan B.} Pre-registered checkpoints measured whether a low-risk
-candidate exists when the executed plan is dangerous: UniAD's command-conditioned candidates
-span 13.9\,m in benign frames and collapse to a 4\,cm spread under threat (0/37 escapes); VAD's
-native modes retain partial diversity (21\% escapes) but stay below the frozen 30\% viability
-bar. A diversity-trained candidate head is the motivated successor mechanism. We then trained that successor --- a 1.2M-parameter K=8 head with an explicit
-diversity objective, conditioned on the frozen planner's own planning-query embeddings,
-on 60 scenes disjoint from all evaluation. It is a faithful generator (benign best-of-K
-error within its pre-registered fidelity bar), its repulsion term forces divergence under
-threat --- and on the same 37 dangerous frames it yields \textbf{0 feasible escapes}
-(16 diverging candidates, every one violating kinematic limits). Three measurements by
-three routes agree: the deficit is a property of the planning representation itself ---
-under threat it no longer contains a feasible alternative to decode.
+\section{Negative results II: no plan B, envelope paralysis}\label{sec:negII}
+\textbf{The planner has no plan B.} The natural escape from the stop's progress ceiling is to
+execute a safer trajectory that the planner itself already proposes; such a takeover is safe
+on false alarms by construction. Pre-registered checkpoints therefore measured whether a
+low-risk candidate exists at the moments the executed plan is dangerous. It does not. UniAD's
+command-conditioned candidates span 13.9\,m of diversity on benign frames and collapse to a
+4\,cm spread under imminent collision (0 escapes in 37 dangerous frames). VAD's native modes
+retain partial diversity (escapes in 21\% of those frames) but stay below the frozen 30\%
+viability bar. We then trained the motivated successor: a 1.2M-parameter candidate head that
+generates $K{=}8$ trajectories with an explicit diversity objective, conditioned on the frozen
+planner's own planning-query embeddings and trained on 60 scenes disjoint from all evaluation.
+The head is a faithful generator: on benign frames its best-of-$K$ error stays within its
+pre-registered fidelity bar. Its repulsion term forces its candidates to diverge under threat.
+And on the same 37 dangerous frames it yields \textbf{0 feasible escapes}: 16 diverging
+candidates, every one violating kinematic limits. Three measurements by three routes agree.
+The deficit is a property of the planning representation itself: under imminent collision,
+that representation no longer contains a feasible alternative for any decoder to find.
 
-\textbf{Stopping power is free; selectivity is not.} An RSS-style guaranteed-stopping envelope
-on identical inputs and actuator posts the campaign's best raw safety (clean 0\%, frontal
-30\%, side 0\%) by driving 3.6--8.2\,m where the planner drives 21--32\,m --- safe-progress
-0.88 against the unmonitored 1.83 (union $-$ RSS $= +1.345$, CI $[+0.944, +1.701]$).
+\textbf{Stopping power is free; selectivity is not.} An RSS-style guaranteed-stopping
+envelope, given inputs and an actuator identical to the monitor's, posts the campaign's best
+raw safety (clean scenes 0\% collisions, frontal 30\%, side 0\%). It does so by driving
+3.6--8.2\,m where the planner drives 21--32\,m, for a safe-progress of 0.88 against the
+unmonitored planner's 1.83 (union minus RSS $= +1.345$, CI $[+0.944, +1.701]$).
 
 \section{The binding constraint is tracking quality}\label{sec:tracking}
-Two failure analyses, from independent directions, converge. \emph{Transfer:} on a frozen VAD
-the union prevents exactly the failures VAD has (stationary $85\%\to0\%$, side $65\%\to0\%$)
-but loses selectivity everywhere; decision logs attribute the over-braking to nearest-neighbor
-identity jitter manufacturing closing speed. \emph{Routing:} the router's single misrouted
-crossing traces to velocity dropout across identity switches; all three named per-frame
-geometric repairs were refuted offline on the committed logs (a provable no-op; a dead trade; a
-non-separable feature). The discriminating signal in both cases is velocity continuity through
-identity switches --- a property of the tracking layer, not of any decision rule above it. An
+Two failure analyses, carried out from independent directions, converge on the same
+constraint.
+
+\emph{Transfer.} On a frozen VAD planner, the union prevents exactly the failures VAD has
+(stationary collisions fall from 85\% to 0\%, side collisions from 65\% to 0\%) but brakes far
+too often everywhere else. The decision logs attribute the over-braking to identity jitter:
+VAD exposes no learned tracker, so nearest-neighbor association switches object identities
+between frames, and each switch manufactures spurious closing speed.
+
+\emph{Routing.} The router's single misrouted crossing traces to velocity dropout across
+identity switches: when an object's identity changes, its velocity estimate momentarily
+vanishes, and the projected-path test misses the crossing. All three named per-frame geometric
+repairs were refuted offline on the committed logs: one is provably a no-op, one trades away
+the mechanism it was meant to save, and one relies on a feature that does not separate unsafe
+frames from safe ones.
+
+In both analyses the discriminating signal is velocity continuity through identity switches, a
+property of the tracking layer rather than of any decision rule built on top of it. An
 association-and-filter layer built to this specification converts 12 of 13 unsafe crawl frames
-offline yet fails its pre-registered every-frame bar by a single borderline frame (0.2\,m) ---
-the gate held, and the closed loop stayed off; the result and its open-loop-replay fidelity
-caveat are part of the record.
+in offline replay, yet fails its pre-registered every-frame bar by a single borderline frame
+(0.2\,m). The gate held, and the layer never ran closed-loop. That result, together with the
+caveat that offline replay may not perfectly reproduce closed-loop behaviour, is part of the
+released record.
 
 \section{Verification, reproducibility, and the incident record}\label{sec:verif}
-An independent verification pass re-derived every claim from raw evidence. It discovered the
-episode determinism, found that an early pooled validation had counted deterministic replays as
-independent replications, withdrew the headline, and re-measured on genuinely unique episodes
-where the claim was re-established (mini-scene safe-progress $+0.398$, CI $[+0.133, +0.665]$).
-The power measurement's incident record is reported as part of the measurement: five
-machine-freezing events across two physical hosts, root-caused via an on-box vitals instrument
-to memory exhaustion on a swapless image; one scenario pair reported at $n{=}19$ after its
-final episode reproducibly froze the pre-swap host. No completed episode was lost or
-re-measured differently --- the exact-reproduction gate is the proof. Every number regenerates
-from committed raw evidence with the commands in the repository README.
+An independent verification pass re-derived every claim from the raw evidence. It discovered
+the episode determinism described in \S\ref{sec:apparatus}, and it found that an early pooled
+validation had counted deterministic replays of the same episodes as independent replications.
+We withdrew that headline claim and re-measured on genuinely unique episodes, where the claim
+was re-established (mini-scene safe-progress $+0.398$, CI $[+0.133, +0.665]$).
+
+The infrastructure incidents of the full-benchmark measurement are reported as part of the
+measurement. Five machine-freezing events occurred across two physical hosts; an on-box vitals
+instrument traced them to memory exhaustion on a swapless image. One scenario pair is reported
+at $n{=}19$ because its final episode reproducibly froze the pre-swap host. No completed
+episode was lost or re-measured differently; the exact reproduction of the earlier 6-run
+measurement is the proof. Every number in this paper regenerates from raw evidence committed
+in the public repository, using the commands in the repository README.
 
 \section{Limitations}
-One simulator (NeuroNCAP/NeuRAD), whose deterministic replay we characterize and exploit; 20
-runs per pair against the published 100-run protocol; two planners; the VAD transfer bounded by
-an identity-association layer's quality; the RSS baseline is the longitudinal form; no fleet
-data or real-vehicle validation. Frontal head-on prevention (as opposed to mitigation) remains
-open and is, on this evidence, not reachable by maneuver invention from a label-free monitor.
+This campaign uses one simulator (NeuroNCAP with the NeuRAD renderer), whose deterministic
+replay we characterize and exploit; 20 runs per scenario pair against the published 100-run
+protocol; and two planners. The VAD transfer result is bounded by the quality of the
+identity-association layer. The RSS baseline implements the longitudinal form only. There is
+no fleet data and no real-vehicle validation. Preventing frontal head-on collisions, as
+opposed to mitigating them, remains open, and on this evidence it is not reachable by maneuver
+invention from a label-free monitor.
 
 \section{Conclusion}
 A label-free monitor on a frozen planner lifts the full official NeuroNCAP benchmark from an
-independently reproduced 2.12 to 2.91 with a confidence interval excluding zero, at a
+independently reproduced 2.12 to 2.91, with a confidence interval excluding zero, at a
 deployment-metric cost statistically indistinguishable from zero. The campaign's negative
-results are as load-bearing as its wins: the stop's position guarantee, the planner's missing
-plan B, the envelope's paralysis, the achievable-but-not-yet-safe deployment flip, and the
-convergence of two independent failure modes on tracking quality --- together they map the
-mechanism space for runtime driving assurance more sharply than the headline number does, and
-they name the next frontier precisely.
+results carry as much weight as its wins: the stop's position guarantee, the planner's missing
+plan B, the formal envelope's paralysis, the deployment-positive router that failed its safety
+gate, and the convergence of two independent failure analyses on tracking quality. Together
+they map the mechanism space for runtime driving assurance more sharply than the headline
+number does, and they name the next constraint to remove.
 
 \begin{thebibliography}{99}\small
 \bibitem{neuroncap} Ljungbergh et al. NeuroNCAP: Photorealistic closed-loop safety testing for
