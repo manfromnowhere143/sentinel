@@ -1172,6 +1172,77 @@ events to prepare; they are a property the repository always has.
   HANDOFF regenerated; ruff + pytest (178) + validate_docs green. BOX IDLE at exit (no Docker
   containers; iter48_runs stays on the data disk behind heavy_manifest_iter48.txt). Nothing
   further is authorized under this iteration; successors need fresh pre-registrations.
+- 2026-07-12: Claude (Fable 5) via delegated executor — iteration 49 (the named hard-tier
+  successor to iteration 48's TRANSFER_NULL, successor item (c)) pre-registered, tooled, and
+  LAUNCHED. (1) Read-only box inventory FIRST: the staged HUGSIM release ships exactly two
+  harder nuScenes tiers — hard-00 and extreme-00, one per scene x 18 scenes = 36 yamls (88
+  total across tiers); every extreme yaml carries an AttackPlanner adversarial actor (18/18),
+  three hard yamls do (0041/0411/0930); only scene-0013-hard-00 and scene-0920-hard-00 set
+  load_HD_map: true (maps staged, iter47); all 44 referenced 3DRealCar assets present with
+  gs.pth; scene zips present for all 18 scenes; 9 scenes already extracted, 4 scheduled
+  scenes new to the pipeline (0167/0254/0383/0411). (2) Pre-registered
+  experiments/iter49_hugsim_hard_tier_gate/HYPOTHESIS.md committed ALONE (ddd9130, CI
+  green): frozen schedule = lexicographically first 26 of the 36 (13 scenes x both tiers,
+  15/26 AttackPlanner-bearing, includes scene-0051 both tiers) with per-yaml SHA256s; the
+  iter48 client patch UNCHANGED as a byte copy (SHA 6b39fd79… gated at launch AND in the
+  analyzer F1), seven NeuroNCAP-frozen params, F1 void identical; 26 x 2 arms x N=2 = 104
+  episodes, within-launch back-to-back OFF r1 -> ON r1 -> OFF r2 -> ON r2 under the carried
+  stochastic D0; scenario-clustered bootstrap 10k seed 49, primary mean-delta CI + median
+  heavy-tail; secondaries NC/DAC/TTC-COM/RC + per-episode brake fractions + step-cap list
+  (scene-0051 recurrence watch) + descriptive tier split (no tier claim); falsifiers F1-F7
+  incl. the pre-declared asset pre-check gate (iters 46/47 staging lesson); budget ceiling
+  104 x 1200 s = 34.7 GPU-h (<= 35), expected ~9-18; forbidden claims carried; pass OR null
+  = the collision-regime transfer answer at full weight. (3) Tooling committed (755e179, CI
+  green): run_hard_tier_gate.sh (iter48 launcher pattern + I49 markers + pre-check gate +
+  patch-SHA gate; only SENTINEL_ENABLED reaches the container), analyze_hard_tier.py (seed
+  49, patch-SHA F1, per-episode over-braking visibility), 19 unit tests (197 total green).
+  (4) LAUNCHED detached at 17:16:54 UTC: I49_PRECHECK_OK 17:16:55, I49_PROVENANCE_OK
+  17:17:06 (receipts monitor_patch_sha byte-identical to the committed iter48 patch);
+  first pair verified — OFF r1 hd=0.0 steps=12 (~109 s, attempt 1) and ON r1 hd=0.0082
+  steps=12 (12 decision lines + JSONL, attempt 1) on scene-0013-extreme-00; the map-loading
+  episode scene-0013-hard-00 off r1 also completed (hd=0.0054, steps=13) — past the
+  iteration-46 historical failure point. RUN IN FLIGHT — log
+  /var/log/sentinel-iter49-hard.log, done marker I49_HARD_DONE; observed pace ~108
+  s/episode would finish ~20:30 UTC 2026-07-12; braking/extraction-heavy episodes may
+  extend this; registered ceiling 34.7 GPU-h. Do NOT relaunch while any Docker container
+  is up.
+
+  ### On I49_HARD_DONE (iteration 49 completion instructions — execute in this order)
+
+  1. Check the log tail for `I49_ABORT_*` (disk aborts are interrupted runs with a resume
+     point, not nulls; the consecutive-failure abort is falsifier F4's completion-null
+     form) and confirm no Docker containers remain (`sudo docker ps`).
+  2. Collect from `/datasets/nuscenes-full/hugsim/iter49_runs/` into
+     `experiments/iter49_hugsim_hard_tier_gate/proof-hard/`: `receipts.json`,
+     `d0_verdict_carried.txt`, `frozen_scenarios_hard.sha256`, `schedule_26.txt`,
+     `heavy_manifest_iter49.txt`, every episode dir's
+     `eval.json`/`output.txt`/`episode_meta.json` plus each ON dir's
+     `sentinel_iter48_decisions.jsonl` (under `proof-hard/episodes/`, any `__failed` dirs
+     included), and `/var/log/sentinel-iter49-hard.log` as `proof-hard/i49-hard-run.log`;
+     also produce `proof-hard/box_episode_hashes.txt` on the box first:
+     `cd /datasets/nuscenes-full/hugsim/iter49_runs && sha256sum */eval.json
+     */episode_meta.json`. Split any file >90 MB into `.part-*`. Heavy pickles/videos STAY
+     on the box behind `heavy_manifest_iter49.txt`. Verify the collected receipts'
+     monitor_patch_sha is byte-identical to the committed
+     experiments/iter48_hugsim_transfer_gate/client_patch_union_iter48.py BEFORE commit.
+     Commit proof FIRST.
+  3. Run the committed analyzer ONCE from the committed artifacts:
+     `python3 experiments/iter49_hugsim_hard_tier_gate/analyze_hard_tier.py
+     --episodes .../proof-hard/episodes --receipts .../proof-hard/receipts.json
+     --out .../proof-hard/transfer_report.json
+     --markdown-out .../proof-hard/transfer_pairs.md`
+  4. Publish RESULT.md at FULL WEIGHT per the registered verdict classes
+     (PASS_TRANSFER_POSITIVE / TRANSFER_NEGATIVE / TRANSFER_NULL /
+     TRANSFER_BOUNDARY_NULL_F2_* / VOID_RETUNED / completion null) — pass OR null is the
+     collision-regime transfer answer; state that the harder-tier OFF-OFF noise floor is
+     measured fresh by F5 inside this run; report the median CI + heavy-tail caveat; name
+     F3 and any scene-0051-pattern localized over-braking on the record; the tier split is
+     descriptive only (no tier claim); the forbidden-claims list is binding (no
+     NeuroNCAP-equivalence, no deployment/real-world/safety, no benchmark-ranking, no
+     monitor-robustness claim). Update README (row 49 + header/status/repo-map/
+     defensibility arc), CONTINUITY arc + shift log, regenerate HANDOFF.md; ruff + pytest
+     + validate_docs green on every push. Record box state (iter49_runs stays on the data
+     disk behind the heavy manifest).
 - 2026-07-12: Claude (Fable 5) via delegated executor: accessibility revision of paper.tex per
   Holger Caesar's nine-point feedback (language only, zero number or claim changes); pdf and
   arXiv package rebuilt (1807981, 7372eae, CI green). Caesar replied happy-to-endorse; direct
