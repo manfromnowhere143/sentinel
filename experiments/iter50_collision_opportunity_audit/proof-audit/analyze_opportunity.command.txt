@@ -1,0 +1,1 @@
+python3 experiments/iter50_collision_opportunity_audit/analyze_opportunity.py --out experiments/iter50_collision_opportunity_audit/proof-audit/opportunity_report.json --episodes-md-out experiments/iter50_collision_opportunity_audit/proof-audit/opportunity_episodes.md --pairs-md-out experiments/iter50_collision_opportunity_audit/proof-audit/neuroncap_pairs.md

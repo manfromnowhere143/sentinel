@@ -1,0 +1,1524 @@
+{
+ "iteration": 50,
+ "frozen": {
+  "opportunity_fraction_bar": 0.25,
+  "a1_rho_bar": 0.5,
+  "stratum_split": 0.5,
+  "bootstrap": {
+   "draws": 10000,
+   "seed": 50
+  },
+  "primary_definition": "OFF eval.json nc_min < 1.0 (top-level nc and all details.<t>.nc)",
+  "secondary_definition": "not primary and ttc_min < 1.0 (descriptive only)",
+  "neuroncap_definition": "OFF metrics.json any_collide@0.0s per-pair fraction"
+ },
+ "integrity": {
+  "problems": [],
+  "p14_tar_counts": {
+   "off": 399,
+   "best": 400
+  }
+ },
+ "a1": {
+  "draws": 10000,
+  "seed": 50,
+  "point_rho": 0.7003430781759243,
+  "rho_ci95": [
+   0.3908878667515415,
+   0.8762072870941174
+  ],
+  "verdict": "A1_CONFIRMED",
+  "pairs": [
+   {
+    "pair": "frontal-0103",
+    "off_collision_rate": 0.85,
+    "off_n": 20,
+    "benefit": 1.5212268550082895
+   },
+   {
+    "pair": "frontal-0106",
+    "off_collision_rate": 0.6,
+    "off_n": 20,
+    "benefit": 0.1380687733679009
+   },
+   {
+    "pair": "frontal-0110",
+    "off_collision_rate": 1.0,
+    "off_n": 20,
+    "benefit": 0.7055311653489627
+   },
+   {
+    "pair": "frontal-0346",
+    "off_collision_rate": 0.5,
+    "off_n": 20,
+    "benefit": -0.7577547331694419
+   },
+   {
+    "pair": "frontal-0923",
+    "off_collision_rate": 0.95,
+    "off_n": 20,
+    "benefit": 1.058937435104724
+   },
+   {
+    "pair": "side-0103",
+    "off_collision_rate": 1.0,
+    "off_n": 20,
+    "benefit": 3.0384959214657137
+   },
+   {
+    "pair": "side-0108",
+    "off_collision_rate": 0.65,
+    "off_n": 20,
+    "benefit": 1.6950948278803262
+   },
+   {
+    "pair": "side-0110",
+    "off_collision_rate": 1.0,
+    "off_n": 20,
+    "benefit": 1.25
+   },
+   {
+    "pair": "side-0278",
+    "off_collision_rate": 1.0,
+    "off_n": 20,
+    "benefit": 0.5
+   },
+   {
+    "pair": "side-0921",
+    "off_collision_rate": 0.0,
+    "off_n": 19,
+    "benefit": 0.0
+   },
+   {
+    "pair": "stationary-0099",
+    "off_collision_rate": 0.0,
+    "off_n": 20,
+    "benefit": 0.0
+   },
+   {
+    "pair": "stationary-0101",
+    "off_collision_rate": 0.25,
+    "off_n": 20,
+    "benefit": 0.7986196318768326
+   },
+   {
+    "pair": "stationary-0103",
+    "off_collision_rate": 0.1,
+    "off_n": 20,
+    "benefit": 0.0
+   },
+   {
+    "pair": "stationary-0106",
+    "off_collision_rate": 0.1,
+    "off_n": 20,
+    "benefit": 0.25
+   },
+   {
+    "pair": "stationary-0108",
+    "off_collision_rate": 0.3,
+    "off_n": 20,
+    "benefit": 0.9600951571813088
+   },
+   {
+    "pair": "stationary-0278",
+    "off_collision_rate": 0.5,
+    "off_n": 20,
+    "benefit": 0.9978300879233726
+   },
+   {
+    "pair": "stationary-0331",
+    "off_collision_rate": 0.2,
+    "off_n": 20,
+    "benefit": 0.09825566853595546
+   },
+   {
+    "pair": "stationary-0783",
+    "off_collision_rate": 0.55,
+    "off_n": 20,
+    "benefit": 0.25
+   },
+   {
+    "pair": "stationary-0796",
+    "off_collision_rate": 0.8,
+    "off_n": 20,
+    "benefit": 1.4710240515703448
+   },
+   {
+    "pair": "stationary-0966",
+    "off_collision_rate": 0.1,
+    "off_n": 20,
+    "benefit": 0.0
+   }
+  ],
+  "strata": {
+   "high_opportunity": {
+    "n": 12,
+    "mean_benefit": 0.9890378653750159
+   },
+   "low_opportunity": {
+    "n": 8,
+    "mean_benefit": 0.2633713071992621
+   },
+   "difference": 0.7256665581757538
+  }
+ },
+ "a2": {
+  "h48_off": {
+   "episodes": 52,
+   "primary_opportunity_count": 40,
+   "primary_opportunity_fraction": 0.7692307692307693,
+   "secondary_near_miss_count": 6,
+   "per_tier": {
+    "easy": {
+     "episodes": 18,
+     "primary_opportunity": 12,
+     "secondary_near_miss": 1
+    },
+    "medium": {
+     "episodes": 34,
+     "primary_opportunity": 28,
+     "secondary_near_miss": 5
+    }
+   }
+  },
+  "hbase": {
+   "episodes": 52,
+   "primary_opportunity_count": 40,
+   "primary_opportunity_fraction": 0.7692307692307693,
+   "secondary_near_miss_count": 9,
+   "per_tier": {
+    "easy": {
+     "episodes": 18,
+     "primary_opportunity": 14,
+     "secondary_near_miss": 3
+    },
+    "medium": {
+     "episodes": 34,
+     "primary_opportunity": 26,
+     "secondary_near_miss": 6
+    }
+   }
+  },
+  "iter48_null_classification": "OPPORTUNITY_PRESENT_NULL",
+  "classification_note": "explanation of the null's domain, not an excuse; iteration 48's TRANSFER_NULL stands as published",
+  "delta_stratification_descriptive": {
+   "with_opportunity": {
+    "n": 40,
+    "mean_delta": 0.0013188632308371432,
+    "median_delta": 0.00878833112984441
+   },
+   "without_opportunity": {
+    "n": 12,
+    "mean_delta": -0.07648898377479425,
+    "median_delta": -0.06360194059874572
+   }
+  },
+  "episodes_h48_off": [
+   {
+    "episode": "scene-0013-easy-00__off_r1",
+    "scenario": "scene-0013-easy-00",
+    "tier": "easy",
+    "nc_min": 1.0,
+    "ttc_min": 1.0,
+    "primary_opportunity": false,
+    "secondary_near_miss": false,
+    "hdscore": 0.16773162939297126
+   },
+   {
+    "episode": "scene-0013-easy-00__off_r2",
+    "scenario": "scene-0013-easy-00",
+    "tier": "easy",
+    "nc_min": 1.0,
+    "ttc_min": 1.0,
+    "primary_opportunity": false,
+    "secondary_near_miss": false,
+    "hdscore": 0.16773162939297126
+   },
+   {
+    "episode": "scene-0013-medium-00__off_r1",
+    "scenario": "scene-0013-medium-00",
+    "tier": "medium",
+    "nc_min": 1.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": false,
+    "secondary_near_miss": true,
+    "hdscore": 0.2515859185188259
+   },
+   {
+    "episode": "scene-0013-medium-00__off_r2",
+    "scenario": "scene-0013-medium-00",
+    "tier": "medium",
+    "nc_min": 1.0,
+    "ttc_min": 1.0,
+    "primary_opportunity": false,
+    "secondary_near_miss": false,
+    "hdscore": 0.22009229676961306
+   },
+   {
+    "episode": "scene-0038-easy-00__off_r1",
+    "scenario": "scene-0038-easy-00",
+    "tier": "easy",
+    "nc_min": 1.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": false,
+    "secondary_near_miss": true,
+    "hdscore": 0.30595448881893905
+   },
+   {
+    "episode": "scene-0038-easy-00__off_r2",
+    "scenario": "scene-0038-easy-00",
+    "tier": "easy",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.7278770721539134
+   },
+   {
+    "episode": "scene-0038-medium-00__off_r1",
+    "scenario": "scene-0038-medium-00",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.4548776032151992
+   },
+   {
+    "episode": "scene-0038-medium-00__off_r2",
+    "scenario": "scene-0038-medium-00",
+    "tier": "medium",
+    "nc_min": 1.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": false,
+    "secondary_near_miss": true,
+    "hdscore": 0.5091706247716479
+   },
+   {
+    "episode": "scene-0038-medium-01__off_r1",
+    "scenario": "scene-0038-medium-01",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.5032321075327554
+   },
+   {
+    "episode": "scene-0038-medium-01__off_r2",
+    "scenario": "scene-0038-medium-01",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.337784889068071
+   },
+   {
+    "episode": "scene-0041-easy-00__off_r1",
+    "scenario": "scene-0041-easy-00",
+    "tier": "easy",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.27341490645813654
+   },
+   {
+    "episode": "scene-0041-easy-00__off_r2",
+    "scenario": "scene-0041-easy-00",
+    "tier": "easy",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.25708442886356997
+   },
+   {
+    "episode": "scene-0041-medium-00__off_r1",
+    "scenario": "scene-0041-medium-00",
+    "tier": "medium",
+    "nc_min": 1.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": false,
+    "secondary_near_miss": true,
+    "hdscore": 0.232494612862711
+   },
+   {
+    "episode": "scene-0041-medium-00__off_r2",
+    "scenario": "scene-0041-medium-00",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.23068620768007272
+   },
+   {
+    "episode": "scene-0041-medium-01__off_r1",
+    "scenario": "scene-0041-medium-01",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.2576730396771296
+   },
+   {
+    "episode": "scene-0041-medium-01__off_r2",
+    "scenario": "scene-0041-medium-01",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.259701528873308
+   },
+   {
+    "episode": "scene-0051-easy-00__off_r1",
+    "scenario": "scene-0051-easy-00",
+    "tier": "easy",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.21079930295258775
+   },
+   {
+    "episode": "scene-0051-easy-00__off_r2",
+    "scenario": "scene-0051-easy-00",
+    "tier": "easy",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.3615227702818946
+   },
+   {
+    "episode": "scene-0051-medium-00__off_r1",
+    "scenario": "scene-0051-medium-00",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.18785705373296624
+   },
+   {
+    "episode": "scene-0051-medium-00__off_r2",
+    "scenario": "scene-0051-medium-00",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.41670197269935827
+   },
+   {
+    "episode": "scene-0051-medium-01__off_r1",
+    "scenario": "scene-0051-medium-01",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.24385805277525036
+   },
+   {
+    "episode": "scene-0051-medium-01__off_r2",
+    "scenario": "scene-0051-medium-01",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.24083008890678922
+   },
+   {
+    "episode": "scene-0062-easy-00__off_r1",
+    "scenario": "scene-0062-easy-00",
+    "tier": "easy",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.15156394380536606
+   },
+   {
+    "episode": "scene-0062-easy-00__off_r2",
+    "scenario": "scene-0062-easy-00",
+    "tier": "easy",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.14612796197378639
+   },
+   {
+    "episode": "scene-0062-medium-00__off_r1",
+    "scenario": "scene-0062-medium-00",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.39432998258327084
+   },
+   {
+    "episode": "scene-0062-medium-00__off_r2",
+    "scenario": "scene-0062-medium-00",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.2586069330162532
+   },
+   {
+    "episode": "scene-0062-medium-01__off_r1",
+    "scenario": "scene-0062-medium-01",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.0
+   },
+   {
+    "episode": "scene-0062-medium-01__off_r2",
+    "scenario": "scene-0062-medium-01",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.0
+   },
+   {
+    "episode": "scene-0064-easy-00__off_r1",
+    "scenario": "scene-0064-easy-00",
+    "tier": "easy",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.7697228144989342
+   },
+   {
+    "episode": "scene-0064-easy-00__off_r2",
+    "scenario": "scene-0064-easy-00",
+    "tier": "easy",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.7255102040816327
+   },
+   {
+    "episode": "scene-0064-medium-00__off_r1",
+    "scenario": "scene-0064-medium-00",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.24376417233560088
+   },
+   {
+    "episode": "scene-0064-medium-00__off_r2",
+    "scenario": "scene-0064-medium-00",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.24931833198395636
+   },
+   {
+    "episode": "scene-0064-medium-01__off_r1",
+    "scenario": "scene-0064-medium-01",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.5116603032190321
+   },
+   {
+    "episode": "scene-0064-medium-01__off_r2",
+    "scenario": "scene-0064-medium-01",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.4075869931305855
+   },
+   {
+    "episode": "scene-0071-easy-00__off_r1",
+    "scenario": "scene-0071-easy-00",
+    "tier": "easy",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.5229390410631336
+   },
+   {
+    "episode": "scene-0071-easy-00__off_r2",
+    "scenario": "scene-0071-easy-00",
+    "tier": "easy",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.09409515538248538
+   },
+   {
+    "episode": "scene-0071-medium-00__off_r1",
+    "scenario": "scene-0071-medium-00",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.12987973830467667
+   },
+   {
+    "episode": "scene-0071-medium-00__off_r2",
+    "scenario": "scene-0071-medium-00",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.4999346461200075
+   },
+   {
+    "episode": "scene-0071-medium-01__off_r1",
+    "scenario": "scene-0071-medium-01",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.035225525133690684
+   },
+   {
+    "episode": "scene-0071-medium-01__off_r2",
+    "scenario": "scene-0071-medium-01",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.03668716518073179
+   },
+   {
+    "episode": "scene-0138-easy-00__off_r1",
+    "scenario": "scene-0138-easy-00",
+    "tier": "easy",
+    "nc_min": 1.0,
+    "ttc_min": 1.0,
+    "primary_opportunity": false,
+    "secondary_near_miss": false,
+    "hdscore": 0.9813084112149533
+   },
+   {
+    "episode": "scene-0138-easy-00__off_r2",
+    "scenario": "scene-0138-easy-00",
+    "tier": "easy",
+    "nc_min": 1.0,
+    "ttc_min": 1.0,
+    "primary_opportunity": false,
+    "secondary_near_miss": false,
+    "hdscore": 0.9735449735449736
+   },
+   {
+    "episode": "scene-0138-medium-00__off_r1",
+    "scenario": "scene-0138-medium-00",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.9528178243774574
+   },
+   {
+    "episode": "scene-0138-medium-00__off_r2",
+    "scenario": "scene-0138-medium-00",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.8448712513797376
+   },
+   {
+    "episode": "scene-0138-medium-01__off_r1",
+    "scenario": "scene-0138-medium-01",
+    "tier": "medium",
+    "nc_min": 1.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": false,
+    "secondary_near_miss": true,
+    "hdscore": 0.8803088803088805
+   },
+   {
+    "episode": "scene-0138-medium-01__off_r2",
+    "scenario": "scene-0138-medium-01",
+    "tier": "medium",
+    "nc_min": 1.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": false,
+    "secondary_near_miss": true,
+    "hdscore": 0.9064935064935066
+   },
+   {
+    "episode": "scene-0166-easy-00__off_r1",
+    "scenario": "scene-0166-easy-00",
+    "tier": "easy",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.6988890366580526
+   },
+   {
+    "episode": "scene-0166-easy-00__off_r2",
+    "scenario": "scene-0166-easy-00",
+    "tier": "easy",
+    "nc_min": 1.0,
+    "ttc_min": 1.0,
+    "primary_opportunity": false,
+    "secondary_near_miss": false,
+    "hdscore": 0.945812807881773
+   },
+   {
+    "episode": "scene-0166-medium-00__off_r1",
+    "scenario": "scene-0166-medium-00",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.14382089502520665
+   },
+   {
+    "episode": "scene-0166-medium-00__off_r2",
+    "scenario": "scene-0166-medium-00",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.1601206469328379
+   },
+   {
+    "episode": "scene-0166-medium-01__off_r1",
+    "scenario": "scene-0166-medium-01",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.40983058190447597
+   },
+   {
+    "episode": "scene-0166-medium-01__off_r2",
+    "scenario": "scene-0166-medium-01",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.4397610311853782
+   }
+  ],
+  "episodes_hbase": [
+   {
+    "episode": "scene-0013-easy-00__r1",
+    "scenario": "scene-0013-easy-00",
+    "tier": "easy",
+    "nc_min": 1.0,
+    "ttc_min": 1.0,
+    "primary_opportunity": false,
+    "secondary_near_miss": false,
+    "hdscore": 0.16773162939297126
+   },
+   {
+    "episode": "scene-0013-easy-00__r2",
+    "scenario": "scene-0013-easy-00",
+    "tier": "easy",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.1026421218114509
+   },
+   {
+    "episode": "scene-0013-medium-00__r1",
+    "scenario": "scene-0013-medium-00",
+    "tier": "medium",
+    "nc_min": 1.0,
+    "ttc_min": 1.0,
+    "primary_opportunity": false,
+    "secondary_near_miss": false,
+    "hdscore": 0.1757188498402556
+   },
+   {
+    "episode": "scene-0013-medium-00__r2",
+    "scenario": "scene-0013-medium-00",
+    "tier": "medium",
+    "nc_min": 1.0,
+    "ttc_min": 1.0,
+    "primary_opportunity": false,
+    "secondary_near_miss": false,
+    "hdscore": 0.1757188498402556
+   },
+   {
+    "episode": "scene-0038-easy-00__r1",
+    "scenario": "scene-0038-easy-00",
+    "tier": "easy",
+    "nc_min": 1.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": false,
+    "secondary_near_miss": true,
+    "hdscore": 0.3393350383631714
+   },
+   {
+    "episode": "scene-0038-easy-00__r2",
+    "scenario": "scene-0038-easy-00",
+    "tier": "easy",
+    "nc_min": 1.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": false,
+    "secondary_near_miss": true,
+    "hdscore": 0.6381571119202301
+   },
+   {
+    "episode": "scene-0038-medium-00__r1",
+    "scenario": "scene-0038-medium-00",
+    "tier": "medium",
+    "nc_min": 1.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": false,
+    "secondary_near_miss": true,
+    "hdscore": 0.2236892121802608
+   },
+   {
+    "episode": "scene-0038-medium-00__r2",
+    "scenario": "scene-0038-medium-00",
+    "tier": "medium",
+    "nc_min": 1.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": false,
+    "secondary_near_miss": true,
+    "hdscore": 0.2937376689806358
+   },
+   {
+    "episode": "scene-0041-easy-00__r1",
+    "scenario": "scene-0041-easy-00",
+    "tier": "easy",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.26951666828967447
+   },
+   {
+    "episode": "scene-0041-easy-00__r2",
+    "scenario": "scene-0041-easy-00",
+    "tier": "easy",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.25112628196257514
+   },
+   {
+    "episode": "scene-0041-medium-00__r1",
+    "scenario": "scene-0041-medium-00",
+    "tier": "medium",
+    "nc_min": 1.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": false,
+    "secondary_near_miss": true,
+    "hdscore": 0.2357423154969167
+   },
+   {
+    "episode": "scene-0041-medium-00__r2",
+    "scenario": "scene-0041-medium-00",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.2344665344342451
+   },
+   {
+    "episode": "scene-0041-medium-01__r1",
+    "scenario": "scene-0041-medium-01",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.2548197088074388
+   },
+   {
+    "episode": "scene-0041-medium-01__r2",
+    "scenario": "scene-0041-medium-01",
+    "tier": "medium",
+    "nc_min": 1.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": false,
+    "secondary_near_miss": true,
+    "hdscore": 0.2389716622845457
+   },
+   {
+    "episode": "scene-0051-easy-00__r1",
+    "scenario": "scene-0051-easy-00",
+    "tier": "easy",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.23888362851363112
+   },
+   {
+    "episode": "scene-0051-easy-00__r2",
+    "scenario": "scene-0051-easy-00",
+    "tier": "easy",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.22666666666666682
+   },
+   {
+    "episode": "scene-0051-medium-00__r1",
+    "scenario": "scene-0051-medium-00",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.24032515976140773
+   },
+   {
+    "episode": "scene-0051-medium-00__r2",
+    "scenario": "scene-0051-medium-00",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.16374021066408978
+   },
+   {
+    "episode": "scene-0062-easy-00__r1",
+    "scenario": "scene-0062-easy-00",
+    "tier": "easy",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.4925138506508958
+   },
+   {
+    "episode": "scene-0062-easy-00__r2",
+    "scenario": "scene-0062-easy-00",
+    "tier": "easy",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.18690353451238534
+   },
+   {
+    "episode": "scene-0062-medium-00__r1",
+    "scenario": "scene-0062-medium-00",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.47430496297846686
+   },
+   {
+    "episode": "scene-0062-medium-00__r2",
+    "scenario": "scene-0062-medium-00",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.44871064170061103
+   },
+   {
+    "episode": "scene-0064-easy-00__r1",
+    "scenario": "scene-0064-easy-00",
+    "tier": "easy",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.7275510204081634
+   },
+   {
+    "episode": "scene-0064-easy-00__r2",
+    "scenario": "scene-0064-easy-00",
+    "tier": "easy",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.6809176225234623
+   },
+   {
+    "episode": "scene-0064-medium-00__r1",
+    "scenario": "scene-0064-medium-00",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.24036281179138316
+   },
+   {
+    "episode": "scene-0064-medium-00__r2",
+    "scenario": "scene-0064-medium-00",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.23603860148710643
+   },
+   {
+    "episode": "scene-0071-easy-00__r1",
+    "scenario": "scene-0071-easy-00",
+    "tier": "easy",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.0984593858091282
+   },
+   {
+    "episode": "scene-0071-easy-00__r2",
+    "scenario": "scene-0071-easy-00",
+    "tier": "easy",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.12276336152981832
+   },
+   {
+    "episode": "scene-0071-medium-00__r1",
+    "scenario": "scene-0071-medium-00",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.4921994939527801
+   },
+   {
+    "episode": "scene-0071-medium-00__r2",
+    "scenario": "scene-0071-medium-00",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.5410287022651068
+   },
+   {
+    "episode": "scene-0138-easy-00__r1",
+    "scenario": "scene-0138-easy-00",
+    "tier": "easy",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.7553529824678951
+   },
+   {
+    "episode": "scene-0138-easy-00__r2",
+    "scenario": "scene-0138-easy-00",
+    "tier": "easy",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.7308089979498794
+   },
+   {
+    "episode": "scene-0138-medium-00__r1",
+    "scenario": "scene-0138-medium-00",
+    "tier": "medium",
+    "nc_min": 1.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": false,
+    "secondary_near_miss": true,
+    "hdscore": 0.9558441558441559
+   },
+   {
+    "episode": "scene-0138-medium-00__r2",
+    "scenario": "scene-0138-medium-00",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.866233766233766
+   },
+   {
+    "episode": "scene-0166-easy-00__r1",
+    "scenario": "scene-0166-easy-00",
+    "tier": "easy",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.8977832512315269
+   },
+   {
+    "episode": "scene-0166-easy-00__r2",
+    "scenario": "scene-0166-easy-00",
+    "tier": "easy",
+    "nc_min": 1.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": false,
+    "secondary_near_miss": true,
+    "hdscore": 0.9118012422360248
+   },
+   {
+    "episode": "scene-0166-medium-00__r1",
+    "scenario": "scene-0166-medium-00",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.14588770053880787
+   },
+   {
+    "episode": "scene-0166-medium-00__r2",
+    "scenario": "scene-0166-medium-00",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.14857530477810607
+   },
+   {
+    "episode": "scene-0038-medium-01__r1",
+    "scenario": "scene-0038-medium-01",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.36104954058918254
+   },
+   {
+    "episode": "scene-0038-medium-01__r2",
+    "scenario": "scene-0038-medium-01",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.4946463260999338
+   },
+   {
+    "episode": "scene-0051-medium-01__r1",
+    "scenario": "scene-0051-medium-01",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.25580078061264067
+   },
+   {
+    "episode": "scene-0051-medium-01__r2",
+    "scenario": "scene-0051-medium-01",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.29395604395604413
+   },
+   {
+    "episode": "scene-0062-medium-01__r1",
+    "scenario": "scene-0062-medium-01",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.0
+   },
+   {
+    "episode": "scene-0062-medium-01__r2",
+    "scenario": "scene-0062-medium-01",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.0
+   },
+   {
+    "episode": "scene-0064-medium-01__r1",
+    "scenario": "scene-0064-medium-01",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.3876489562961334
+   },
+   {
+    "episode": "scene-0064-medium-01__r2",
+    "scenario": "scene-0064-medium-01",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.343456466556088
+   },
+   {
+    "episode": "scene-0071-medium-01__r1",
+    "scenario": "scene-0071-medium-01",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.04016744864409183
+   },
+   {
+    "episode": "scene-0071-medium-01__r2",
+    "scenario": "scene-0071-medium-01",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.03016509026812404
+   },
+   {
+    "episode": "scene-0138-medium-01__r1",
+    "scenario": "scene-0138-medium-01",
+    "tier": "medium",
+    "nc_min": 1.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": false,
+    "secondary_near_miss": true,
+    "hdscore": 0.9378306878306878
+   },
+   {
+    "episode": "scene-0138-medium-01__r2",
+    "scenario": "scene-0138-medium-01",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.1959056899312102
+   },
+   {
+    "episode": "scene-0166-medium-01__r1",
+    "scenario": "scene-0166-medium-01",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.40365440035737965
+   },
+   {
+    "episode": "scene-0166-medium-01__r2",
+    "scenario": "scene-0166-medium-01",
+    "tier": "medium",
+    "nc_min": 0.0,
+    "ttc_min": 0.0,
+    "primary_opportunity": true,
+    "secondary_near_miss": false,
+    "hdscore": 0.3865056840023275
+   }
+  ],
+  "iter48_pair_deltas": [
+   {
+    "pair": "scene-0013-easy-00__r1",
+    "delta_hd": -0.06211437361597105,
+    "off_primary_opportunity": false
+   },
+   {
+    "pair": "scene-0013-easy-00__r2",
+    "delta_hd": -0.06508950758152036,
+    "off_primary_opportunity": false
+   },
+   {
+    "pair": "scene-0013-medium-00__r1",
+    "delta_hd": -0.08917910275737753,
+    "off_primary_opportunity": false
+   },
+   {
+    "pair": "scene-0013-medium-00__r2",
+    "delta_hd": 0.019939634625103453,
+    "off_primary_opportunity": false
+   },
+   {
+    "pair": "scene-0038-easy-00__r1",
+    "delta_hd": 0.260394208858141,
+    "off_primary_opportunity": false
+   },
+   {
+    "pair": "scene-0038-easy-00__r2",
+    "delta_hd": -0.1407120348609988,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0038-medium-00__r1",
+    "delta_hd": 0.0020375517085192696,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0038-medium-00__r2",
+    "delta_hd": -0.2068680963821629,
+    "off_primary_opportunity": false
+   },
+   {
+    "pair": "scene-0038-medium-01__r1",
+    "delta_hd": 0.09628827616029012,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0038-medium-01__r2",
+    "delta_hd": 0.030982461796466354,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0041-easy-00__r1",
+    "delta_hd": -0.004265037921764969,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0041-easy-00__r2",
+    "delta_hd": -0.07409904342419676,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0041-medium-00__r1",
+    "delta_hd": 0.011703889289850222,
+    "off_primary_opportunity": false
+   },
+   {
+    "pair": "scene-0041-medium-00__r2",
+    "delta_hd": 0.012296477020403346,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0041-medium-01__r1",
+    "delta_hd": 0.005280185239285473,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0041-medium-01__r2",
+    "delta_hd": -0.022826109240381115,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0051-easy-00__r1",
+    "delta_hd": 0.1220107441431737,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0051-easy-00__r2",
+    "delta_hd": -0.15732108960962565,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0051-medium-00__r1",
+    "delta_hd": -0.1533834508287064,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0051-medium-00__r2",
+    "delta_hd": -0.24364928762604987,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0051-medium-01__r1",
+    "delta_hd": -0.2023622817174355,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0051-medium-01__r2",
+    "delta_hd": 0.004187544161364631,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0062-easy-00__r1",
+    "delta_hd": 0.3260253239337948,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0062-easy-00__r2",
+    "delta_hd": 0.30071485438187806,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0062-medium-00__r1",
+    "delta_hd": -0.06640095229878018,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0062-medium-00__r2",
+    "delta_hd": 0.12615565153219865,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0062-medium-01__r1",
+    "delta_hd": 0.018168840438647717,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0062-medium-01__r2",
+    "delta_hd": 0.018168840438647717,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0064-easy-00__r1",
+    "delta_hd": -0.044599661789574196,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0064-easy-00__r2",
+    "delta_hd": 0.03153547133139001,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0064-medium-00__r1",
+    "delta_hd": 0.0005257917120336797,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0064-medium-00__r2",
+    "delta_hd": 0.004220992242466193,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0064-medium-01__r1",
+    "delta_hd": 0.01816940644261056,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0064-medium-01__r2",
+    "delta_hd": 0.14981879126906444,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0071-easy-00__r1",
+    "delta_hd": -0.4320054383951291,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0071-easy-00__r2",
+    "delta_hd": 0.030321743208860052,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0071-medium-00__r1",
+    "delta_hd": -0.048894345355917954,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0071-medium-00__r2",
+    "delta_hd": 0.0273066446524155,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0071-medium-01__r1",
+    "delta_hd": 0.017454352388774123,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0071-medium-01__r2",
+    "delta_hd": 0.16232065775382268,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0138-easy-00__r1",
+    "delta_hd": -0.013351134846461998,
+    "off_primary_opportunity": false
+   },
+   {
+    "pair": "scene-0138-easy-00__r2",
+    "delta_hd": 0.0021962663472095967,
+    "off_primary_opportunity": false
+   },
+   {
+    "pair": "scene-0138-medium-00__r1",
+    "delta_hd": -0.2309176276427608,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0138-medium-00__r2",
+    "delta_hd": -0.09963367745218144,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0138-medium-01__r1",
+    "delta_hd": -0.1482614502013858,
+    "off_primary_opportunity": false
+   },
+   {
+    "pair": "scene-0138-medium-01__r2",
+    "delta_hd": -0.15275948410189544,
+    "off_primary_opportunity": false
+   },
+   {
+    "pair": "scene-0166-easy-00__r1",
+    "delta_hd": 0.26329583729152684,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0166-easy-00__r2",
+    "delta_hd": -0.4744786549310601,
+    "off_primary_opportunity": false
+   },
+   {
+    "pair": "scene-0166-medium-00__r1",
+    "delta_hd": 0.0302885055939206,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0166-medium-00__r2",
+    "delta_hd": 0.017475154122795572,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0166-medium-01__r1",
+    "delta_hd": -0.10192532987507064,
+    "off_primary_opportunity": true
+   },
+   {
+    "pair": "scene-0166-medium-01__r2",
+    "delta_hd": 0.2606997983077091,
+    "off_primary_opportunity": true
+   }
+  ]
+ },
+ "verdict": "OPPORTUNITY_AUDIT_COMPLETE"
+}
