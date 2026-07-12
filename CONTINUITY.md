@@ -20,7 +20,10 @@ automatically; this file carries the invariants that do not change per shift.
 5. **Corrections on the record.** If your earlier statement was wrong, retract it explicitly
    in the published doc (see iteration 18's addendum for the pattern).
 6. **Commits:** plain factual messages, no trailers, no self-praise ("brilliant",
-   "state-of-the-art", "definitive" never appear as self-description). CI must be green on
+   "state-of-the-art", "definitive" never appear as self-description). Form: one terse subject
+   line (~72 chars, `iterNN: what happened`), no em dashes, never a paragraph-length subject;
+   detail belongs in HYPOTHESIS/RESULT/shift-log docs, not the commit message (convention
+   drifted 2026-07-12, corrected forward; pushed history stands). CI must be green on
    every push — it runs ruff + pytest + `scripts/validate_docs.py` (diagram budgets, link
    health, README story completeness).
 7. **Memory at every state change** (Claude shifts: the aweb-sentinel file under
