@@ -168,6 +168,27 @@ events to prepare; they are a property the repository always has.
   (`HUGSIM/configs/sim/nuscenes_base.yaml`, `UniAD_SIM/tools/e2e.sh` docker wrapper,
   `scene-0013/cfg.yaml` model_path), smoke launcher `/tmp/hugsim_smoke.sh`, logs
   `/var/log/sentinel-hugsim-*.log`.
+- Iteration 46 concluded:
+  experiments/iter46_hugsim_off_baseline/RESULT.md, published as `HUGSIM_OFF_BASELINE_NULL`
+  (analyzer verdict `NULL_FALSIFIER_CRASH_LOOP_DUAL_FAILURES`). The Stage-1 monitor-OFF
+  baseline over the frozen 52-scenario easy+medium subset ran to `I46_OFF_ALL_DONE` (launch 2,
+  after the recorded launcher-only amendment), with the D0 probe recording the loop as
+  STOCHASTIC (16 vs 15 steps, `data.pkl` SHA divergence) — schedule = first 26 scenarios x 2
+  back-to-back runs. `38/52` episodes completed with finite HD-Scores and per-step logs (all
+  attempt 1, 114-481 s each); the seven scheduled `load_HD_map: true` `-medium-01` scenarios
+  (scenes 0038/0051/0062/0064/0071/0138/0166) failed both attempts before the client's first
+  step on `FileNotFoundError: /datasets/nuscenes-full/maps/expansion/singapore-onenorth.json`
+  — the official nuScenes map-expansion pack was never staged (iteration 28 staged metadata +
+  sensor blobs only); the one `-medium-01` without the flag (scene-0041) passed. C1 failed and
+  the dual-failure falsifier fired; VRAM/disk falsifiers did not; pairing-infeasibility did
+  NOT fire (median within-scenario |dHD| `0.0245` over 19 pairs vs the `0.15` bar,
+  heavy-tailed: two pairs > `0.29`). Descriptive aggregate (plausibility context only): mean
+  HD `0.3849`, easy `0.4355` (n=18) / medium `0.3393` (n=20). The null authorizes NOTHING:
+  the Stage-2 OFF-vs-released-union pre-registration is NOT authorized. A successor needs a
+  fresh pre-registration that stages `maps/expansion/` with provenance receipts and re-earns
+  completion. Evidence committed under proof-off/ (both launch logs, receipts, D0 report,
+  per-episode artifacts, prior-launch defect archive, heavy-artifact SHA manifest on the box
+  at /datasets/nuscenes-full/hugsim/iter46_runs/).
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -895,3 +916,23 @@ events to prepare; they are a property the repository always has.
   /var/log/sentinel-iter46-off.log, done marker I46_OFF_ALL_DONE); the on-done completion
   instructions above apply unchanged, plus: commit BOTH launch logs under proof-off/ and
   the archived prior_launches/ defect evidence.
+- 2026-07-12: Claude (Fable 5) via delegated executor — executed the committed iteration 46
+  on-done flow after `I46_OFF_ALL_DONE` (03:43:53 UTC; no containers; no abort markers in
+  launch 2). Collected the full evidence set from the box into
+  experiments/iter46_hugsim_off_baseline/proof-off/ (52 episode dirs — 38 complete + 14
+  __failed — both launch logs, receipts, D0 report, frozen-scenario manifest verified
+  byte-identical to HYPOTHESIS.md, prior_launches defect archive, heavy manifest; transfer
+  tar SHA-verified; no file needed a .part split), committed proof FIRST (d6b4030), ran the
+  committed analyzer ONCE, and published the honest null `HUGSIM_OFF_BASELINE_NULL` at full
+  weight (497cce1): C1 38/52, dual-failure falsifier fired on the seven load_HD_map
+  medium-01 scenarios — diagnosed on the record as the unstaged nuScenes map-expansion pack
+  (maps/expansion/*.json), NOT client instability (control: the flagless scene-0041-medium-01
+  passed; zero failures after first client step across both launches). Pairing spread
+  recorded for Stage-2 design: median |dHD| 0.0245 (19 pairs), heavy tail to 0.3056. README
+  row 46 + header + status bullet + repo map + defensibility-arc nodes A45/A46 updated; ruff
+  + pytest (153) + validate_docs green. Per the registered boundary the Stage-2
+  pre-registration is NOT authorized — iteration 47 was NOT pre-registered; next step on this
+  lane is a fresh completion pre-registration staging maps/expansion/ (iteration-28-class
+  official download, ~last staging gap: zips nest, 3DRealCar flat, map expansion absent). BOX
+  IDLE at exit (no Docker containers; iter46_runs kept on the data disk behind the committed
+  heavy manifest).
