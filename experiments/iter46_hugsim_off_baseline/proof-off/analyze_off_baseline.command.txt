@@ -1,0 +1,2 @@
+python3 experiments/iter46_hugsim_off_baseline/analyze_off_baseline.py --runs-root experiments/iter46_hugsim_off_baseline/proof-off/episodes --out experiments/iter46_hugsim_off_baseline/proof-off/off_baseline_report.json --markdown-out experiments/iter46_hugsim_off_baseline/proof-off/off_baseline_episodes.md
+# run once, 2026-07-12, from proof commit d6b4030

@@ -14,7 +14,11 @@ loop, by whether the car crashes *and whether it can still drive*.**
 > genuine interventions, so the fragility is not repaired by low-pass filtering the velocity —
 > + a completed iteration-45 HUGSIM infrastructure gate: the second-benchmark transfer lane is
 > open, with assets, environments, and a monitor-OFF closed-loop smoke passing on the same
-> frozen checkpoint; no transfer claim yet):**
+> frozen checkpoint — + a completed iteration-46 HUGSIM Stage-1 monitor-OFF baseline, a
+> completion null: 38 of 52 scheduled episodes completed with per-step logs, the D0 probe
+> recorded the loop as stochastic, but the seven `load_HD_map` scenarios all failed on an
+> unstaged nuScenes map-expansion pack, so the Stage-2 OFF-vs-union pre-registration is not
+> authorized; no transfer claim):**
 > the introspective signal predicts the planner's collisions (AUROC 0.83). On the
 > complete 14-scene NeuroNCAP set at **20 seed-paired runs per pair** (799 episodes, the power
 > measurement), the unmonitored UniAD baseline **independently reproduces** (pooled 2.12 vs the
@@ -173,14 +177,16 @@ flowchart LR
   A41 --> A42["42 trace replay<br/>identity pass"]
   A42 --> A43["43 perturbation gate<br/>jitter-fragile"]
   A43 --> A44["44 smoothing repair<br/>no-repair null"]
+  A44 --> A45["45 HUGSIM infra<br/>lane open"]
+  A45 --> A46["46 OFF baseline<br/>completion null"]
   classDef ask fill:#ffe,stroke:#a70,color:#111;
   classDef audit fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
   classDef win fill:#efe,stroke:#080,color:#111;
   classDef bad fill:#fee,stroke:#c00,color:#111;
   class O38 ask;
   class A39,A40,A41 audit;
-  class A42 win;
-  class A43,A44 bad;
+  class A42,A45 win;
+  class A43,A44,A46 bad;
 ```
 
 The winning monitor is a **union of two individually-selective detectors**, chosen because the two
@@ -295,6 +301,7 @@ step; they are intentional stops, not hidden probe failures or unreported GPU ru
 | 43 | **object-stream perturbation gate** — frozen 14-cell jitter/dropout/score/churn grid over the committed iter42 exact trace, replayed offline | — (offline replay decision-flip gate) | S0/S1 PASS (zero-strength identity exact, trace SHA unchanged, determinism guard pass); verdict **`OBJECT_PERTURBATION_MILD_FRAGILE`**: jitter `0.05 m` gains **17** new interventions (bar `<=8`) and retains `218/230` (bar `>=219`); jitter `0.10 m` worse (`36` new, `1,445` brake frames); dropout `0.05`, score `0.90`, and churn `0.05` all STABLE | **pre-registered mild-fragile finding — over-firing is the fragile direction; no sensor/closed-loop/safety claim** | The rule derives object velocity from cross-frame positions, so independent per-frame position noise manufactures spurious velocity near the CPA/TTC thresholds; disappearing objects, weakened scores, and broken identities degrade gracefully instead. Closed-loop consequences of flipped decisions are not observable offline. [`iter43_object_stream_perturbation_gate`](experiments/iter43_object_stream_perturbation_gate/RESULT.md) |
 | 44 | **velocity temporal-smoothing repair gate** — frozen FD-k / EMA velocity estimators (`k ∈ {2,3}`, `alpha ∈ {0.5,0.3}`) replayed offline over the committed iter42 trace, seed-paired with the iter43 grid | — (offline replay decision-flip gate) | S0/S1/S1b PASS (neutral cells bit-identical to the online stream; iter43 jitter cells reproduced field-for-field); verdict **`VELOCITY_SMOOTHING_NO_REPAIR_NULL`**: every estimator fails V1 fidelity on the clean trace (retention `209–215/230` vs `>= 225`, `5–6` invented interventions vs `<= 4`) and V2 repair (jitter new interventions `11–20` vs `<= 8`, retention below bar) | **pre-registered no-repair null — smoothing halves the over-firing (36 → 18–20 at 0.10 m) but erases 15–21 genuine interventions outright; released union unchanged** | the rule's decision boundary sits on one-frame velocity transients at the 2 Hz cadence: the same spikes that manufacture jitter false-fires also carry a fraction of the true interventions (they vanish under smoothing, not delay — median delay 0), and residual over-firing survives through the CPA term's direct use of the jittered positions; converges with iter18 from the opposite side — no low-pass filter on this estimator is the repair. [`iter44_velocity_smoothing_gate`](experiments/iter44_velocity_smoothing_gate/RESULT.md) |
 | 45 | **HUGSIM infrastructure gate** — stand up the second closed-loop benchmark family: XDimLab scene release staged with a per-file SHA256 manifest, HUGSIM pixi environment built, and the unmodified UniAD_SIM client run on the SAME frozen `uniad_base_e2e.pth` inside the existing `uniad:latest` image | — (infrastructure gate; the single-scenario HD-Score `0.1677` is metric-pipeline evidence, not a performance number) | G1–G4 PASS: assets staged with provenance (306 files, ~61 GB, data disk); both environments up (`torch 2.4.1+cu124`, `gsplat 1.2.0`; client `CLIENT_LOAD_OK` on the NeuroNCAP checkpoint); `scene-0013` renders; the monitor-OFF closed-loop smoke completes end-to-end through the named pipes (15 steps, benchmark-rule termination, finite HD-Score, per-step logs); verdict **`HUGSIM_INFRA_GATE_PASS`** | **the transfer lane is open — authorizes ONLY the Stage-1/2 pre-registration (monitor-OFF reproduction subset, then OFF vs released union, seed-paired); no transfer claim** | one real incompatibility found and bounded: CUDA 11.1's cuSOLVER cannot initialize on the L4 (sm_89), so the client's GPU dense linalg is routed through a recorded interpreter-level CPU shim — client and model code untouched; the checkpoint-mismatch, pipe-deadlock, and VRAM-overflow falsifiers did not fire. [`iter45_hugsim_infra_gate`](experiments/iter45_hugsim_infra_gate/RESULT.md) |
+| 46 | **HUGSIM Stage-1 monitor-OFF baseline** — frozen 52-scenario easy+medium subset (per-yaml SHA256 provenance gate), D0 determinism probe, then the stochastic branch: the first 26 scenarios x 2 back-to-back runs on the same frozen checkpoint, monitor OFF | — (completion gate; the 38-episode HD aggregate — mean `0.3849`, easy `0.4355` / medium `0.3393` — is the registered plausibility context, not a performance number) | D0 verdict **STOCHASTIC** (16 vs 15 steps, `data.pkl` SHA divergence); C1 **FAIL** `38/52` complete — the seven `load_HD_map: true` `-medium-01` scenarios failed both attempts before the client's first step on a missing `maps/expansion/*.json` (the nuScenes map-expansion pack was never staged; the one `-medium-01` without the flag passed); pairing spread median \|ΔHD\| `0.0245` over 19 pairs (bar `0.15`, not fired); verdict **`HUGSIM_OFF_BASELINE_NULL`** | **pre-registered completion null — the Stage-2 OFF-vs-released-union pre-registration is NOT authorized; a successor needs a fresh pre-registration staging the map-expansion pack** | the registered crash-loop falsifier fired in its dual-failure form, but the mechanism is a staging gap, the third of the iteration's record (zip-nesting and 3DRealCar-suffix defects were fixed by a recorded launcher-only amendment): across both launches no episode that reached client stepping ever failed, and every completed episode finished on attempt 1 inside 114-481 s. [`iter46_hugsim_off_baseline`](experiments/iter46_hugsim_off_baseline/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -634,6 +641,21 @@ successor needs a fresh pre-registration:
   a finite HD-Score output and per-step logs. This proves only that the pipeline runs: no
   transfer, benchmark, robustness, deployment, or safety claim, and it authorizes only the
   Stage-1/2 pre-registration of the transfer line.
+- **Iteration 46 is completed as the HUGSIM Stage-1 monitor-OFF baseline, a completion null.**
+  [`experiments/iter46_hugsim_off_baseline/RESULT.md`](experiments/iter46_hugsim_off_baseline/RESULT.md)
+  ran the frozen 52-scenario easy+medium subset under a hard provenance gate. The D0 probe
+  recorded the HUGSIM closed loop as **stochastic** (no seed surface), fixing the schedule at
+  the first 26 scenarios x 2 back-to-back runs. 38 of the 52 episodes completed with finite
+  HD-Scores and per-step pairing logs (all on attempt 1); the seven scheduled scenarios whose
+  released yamls set `load_HD_map: true` failed both attempts before the client's first step
+  on a missing nuScenes **map-expansion** JSON — a staging gap (iteration 28 staged trainval
+  metadata and sensor blobs, never the map-expansion pack), cleanly separated from client
+  stability by the control case: the one `-medium-01` scenario without the flag passed. The
+  registered dual-failure falsifier fired, C1 failed, and the null publishes at full weight:
+  the Stage-2 OFF-vs-released-union pre-registration is NOT authorized. The within-scenario
+  stochastic spread (median |ΔHD| `0.0245` over 19 pairs, heavy-tailed to `0.31`) is committed
+  Stage-2 design evidence for a successor. OFF arm only; no transfer, monitor, benchmark,
+  deployment, or safety claim.
 - **Scientific priority is now defensibility over impressiveness.**
   If the choice is between another stronger-looking benchmark/mechanism result and a narrower
   claim that survives hostile scrutiny, prefer the narrower defensible claim. The next fresh
@@ -784,6 +806,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter43_object_stream_perturbation_gate/`](experiments/iter43_object_stream_perturbation_gate) | object-stream perturbation gate — mild-fragile finding; jitter over-fires at 5 cm in replay, dropout/score/churn stable at mild levels; no sensor or closed-loop claim |
 | [`experiments/iter44_velocity_smoothing_gate/`](experiments/iter44_velocity_smoothing_gate) | velocity temporal-smoothing repair gate — no-repair null; smoothing halves jitter over-firing but erases genuine interventions; released union unchanged |
 | [`experiments/iter45_hugsim_infra_gate/`](experiments/iter45_hugsim_infra_gate) | HUGSIM infrastructure gate — pass; second-benchmark transfer lane open (assets, environments, monitor-OFF closed-loop smoke); authorizes only the Stage-1/2 pre-registration |
+| [`experiments/iter46_hugsim_off_baseline/`](experiments/iter46_hugsim_off_baseline) | HUGSIM Stage-1 monitor-OFF baseline — completion null; 38/52 episodes, seven `load_HD_map` scenarios blocked on the unstaged map-expansion pack; Stage-2 pre-registration not authorized |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/FRONTIER_POSITIONING_2026-07-11.md`](docs/research/FRONTIER_POSITIONING_2026-07-11.md) | source-verified mid-2026 benchmark/monitor/industry positioning; the binding 2.91-is-not-benchmark-SOTA framing rule |
