@@ -1,0 +1,12 @@
+{
+  "hugsim_sha": "62c690d39fd90020e68a196bd8bcc1c4d4191f2e",
+  "uniad_sim_sha": "5fb279e39912a5ac7f58e00d56b065cadcd0a749",
+  "ckpt_sha": "0ad0c2f5dc9788a41c313305779ea49346aeb742d1f6bb5ad25c46f9beffc990",
+  "shim_sha": "5bf69a1187478c52d49792d5871bd5732c6dd431ecd1f44b5e391f7adb80682c",
+  "image_id": "f73ef3884063",
+  "scenario_manifest_check": "pass",
+  "map_expansion_jsons": "present",
+  "carried_d0_verdict": "stochastic",
+  "carried_completed_episodes": 38,
+  "start_utc": "2026-07-12T05:18:28Z"
+}
