@@ -4,7 +4,7 @@
 collision it is about to cause, and intervenes — measured where it actually matters: in closed
 loop, by whether the car crashes *and whether it can still drive*.**
 
-> **Honest status up front (47 registered iterations: 37 completed mechanism iterations + an
+> **Honest status up front (48 registered iterations: 37 completed mechanism iterations + an
 > independent verification pass +
 > the full official benchmark at power + a completed iteration-37 calibration null + an
 > iteration-38 opposite-direction S0 canary pass + completed iteration-39/40/41 defensibility
@@ -23,8 +23,15 @@ loop, by whether the car crashes *and whether it can still drive*.**
 > the official nuScenes map-expansion pack v1.3 with provenance receipts, Stage B completed
 > all 14 previously failed episodes on the first attempt, and the full 52-episode monitor-OFF
 > arm now stands with carried-episode byte integrity and pairing feasible over all 26
-> within-scenario pairs (median |dHD| 0.0251), authorizing only the iteration-48 Stage-2
-> OFF-vs-union pre-registration; no transfer claim):**
+> within-scenario pairs (median |dHD| 0.0251) — + a completed iteration-48 HUGSIM Stage-2
+> transfer gate, THE transfer verdict of the second-benchmark line, a **transfer null**: all
+> 104 OFF-vs-released-union episodes completed under the seven NeuroNCAP-frozen parameters
+> with zero retuning, the monitor actively fired and braked (37/52 ON episodes, 26.9% of
+> frames braking, 134 latch releases, no RC collapse), and the mean paired HD-Score delta is
+> −0.017 with a 95% scenario-clustered CI [−0.055, +0.026] that includes zero — the NeuroNCAP
+> benefit does not measurably transfer to HUGSIM easy+medium scenarios at this N, published at
+> full weight as the measured external-validity boundary; no NeuroNCAP-equivalence or safety
+> claim):**
 > the introspective signal predicts the planner's collisions (AUROC 0.83). On the
 > complete 14-scene NeuroNCAP set at **20 seed-paired runs per pair** (799 episodes, the power
 > measurement), the unmonitored UniAD baseline **independently reproduces** (pooled 2.12 vs the
@@ -65,7 +72,7 @@ single-digit GPUs.
 
 ## The result
 
-Forty-seven registered iterations — thirty-seven completed mechanism iterations, plus the completed defensibility, robustness, and transfer-infrastructure gates of iterations 39-47 — under frozen pre-registrations converge on one closed-loop configuration — the
+Forty-eight registered iterations — thirty-seven completed mechanism iterations, plus the completed defensibility, robustness, and transfer gates of iterations 39-48 — under frozen pre-registrations converge on one closed-loop configuration — the
 **released union** (two label-free geometric detectors + a threat-cleared latch release) —
 measured on the **complete official 14-scene NeuroNCAP set at 20 seed-paired runs per pair**
 (799 episodes; hypotheses frozen before the run; the first 6 indices of every pair reproduce the
@@ -87,6 +94,9 @@ earlier 6-run measurement exactly):
 > n=20); and the deployment-metric effect vs the unmonitored planner is a **tight null**
 > (−0.03, CI [−0.13, +0.07]) — the safety gain costs approximately nothing on the deployment
 > metric, and iteration 16 established the residual is not recoverable by softening the stop.
+> The benefit is NeuroNCAP-measured: on a second closed-loop benchmark (HUGSIM, 26 easy+medium
+> scenarios, iteration 48) the frozen rule fires and brakes but the paired HD-Score effect is
+> a **transfer null** (−0.017, CI [−0.055, +0.026]) — the measured external-validity boundary.
 
 The verification pass's fresh mini-scene measurement stands as measured there: at **20
 genuinely-unique episodes per scene** the union is net-positive on safe-progress **+0.398, 95% CI
@@ -186,6 +196,7 @@ flowchart LR
   A44 --> A45["45 HUGSIM infra<br/>lane open"]
   A45 --> A46["46 OFF baseline<br/>completion null"]
   A46 --> A47["47 completion pass<br/>52/52 OFF arm"]
+  A47 --> A48["48 transfer gate<br/>TRANSFER_NULL"]
   classDef ask fill:#ffe,stroke:#a70,color:#111;
   classDef audit fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
   classDef win fill:#efe,stroke:#080,color:#111;
@@ -193,7 +204,7 @@ flowchart LR
   class O38 ask;
   class A39,A40,A41 audit;
   class A42,A45,A47 win;
-  class A43,A44,A46 bad;
+  class A43,A44,A46,A48 bad;
 ```
 
 The winning monitor is a **union of two individually-selective detectors**, chosen because the two
@@ -310,6 +321,7 @@ step; they are intentional stops, not hidden probe failures or unreported GPU ru
 | 45 | **HUGSIM infrastructure gate** — stand up the second closed-loop benchmark family: XDimLab scene release staged with a per-file SHA256 manifest, HUGSIM pixi environment built, and the unmodified UniAD_SIM client run on the SAME frozen `uniad_base_e2e.pth` inside the existing `uniad:latest` image | — (infrastructure gate; the single-scenario HD-Score `0.1677` is metric-pipeline evidence, not a performance number) | G1–G4 PASS: assets staged with provenance (306 files, ~61 GB, data disk); both environments up (`torch 2.4.1+cu124`, `gsplat 1.2.0`; client `CLIENT_LOAD_OK` on the NeuroNCAP checkpoint); `scene-0013` renders; the monitor-OFF closed-loop smoke completes end-to-end through the named pipes (15 steps, benchmark-rule termination, finite HD-Score, per-step logs); verdict **`HUGSIM_INFRA_GATE_PASS`** | **the transfer lane is open — authorizes ONLY the Stage-1/2 pre-registration (monitor-OFF reproduction subset, then OFF vs released union, seed-paired); no transfer claim** | one real incompatibility found and bounded: CUDA 11.1's cuSOLVER cannot initialize on the L4 (sm_89), so the client's GPU dense linalg is routed through a recorded interpreter-level CPU shim — client and model code untouched; the checkpoint-mismatch, pipe-deadlock, and VRAM-overflow falsifiers did not fire. [`iter45_hugsim_infra_gate`](experiments/iter45_hugsim_infra_gate/RESULT.md) |
 | 46 | **HUGSIM Stage-1 monitor-OFF baseline** — frozen 52-scenario easy+medium subset (per-yaml SHA256 provenance gate), D0 determinism probe, then the stochastic branch: the first 26 scenarios x 2 back-to-back runs on the same frozen checkpoint, monitor OFF | — (completion gate; the 38-episode HD aggregate — mean `0.3849`, easy `0.4355` / medium `0.3393` — is the registered plausibility context, not a performance number) | D0 verdict **STOCHASTIC** (16 vs 15 steps, `data.pkl` SHA divergence); C1 **FAIL** `38/52` complete — the seven `load_HD_map: true` `-medium-01` scenarios failed both attempts before the client's first step on a missing `maps/expansion/*.json` (the nuScenes map-expansion pack was never staged; the one `-medium-01` without the flag passed); pairing spread median \|ΔHD\| `0.0245` over 19 pairs (bar `0.15`, not fired); verdict **`HUGSIM_OFF_BASELINE_NULL`** | **pre-registered completion null — the Stage-2 OFF-vs-released-union pre-registration is NOT authorized; a successor needs a fresh pre-registration staging the map-expansion pack** | the registered crash-loop falsifier fired in its dual-failure form, but the mechanism is a staging gap, the third of the iteration's record (zip-nesting and 3DRealCar-suffix defects were fixed by a recorded launcher-only amendment): across both launches no episode that reached client stepping ever failed, and every completed episode finished on attempt 1 inside 114-481 s. [`iter46_hugsim_off_baseline`](experiments/iter46_hugsim_off_baseline/RESULT.md) |
 | 47 | **map-expansion staging + OFF-baseline completion** — Stage A stages the official nuScenes map-expansion pack v1.3 (iteration-28-class gate); Stage B re-runs exactly the 14 failed `load_HD_map` `-medium-01` episodes under the carried stochastic D0 verdict, then ONE analyzer run over all 52 (38 carried + 14 new) | — (staging gate + completion re-run; iteration 46's null stands as published) | Stage A **PASS**: archive `398,535,531` bytes with recorded SHA256, redacted public-bucket provenance, `0` unsafe members over `13`, all four `maps/expansion/*.json` vector maps present; Stage B **PASS**: `52/52` episodes complete with finite HD-Score and per-step logs, all 14 new episodes on attempt 1 (wall 102-509 s, bound 1200 s), `retried_episodes = 0`, carried integrity `104/104` files byte-identical, pairing falsifier NOT fired over all 26 pairs (median \|ΔHD\| `0.0251`, bar `0.15`) | **pre-registered PASS — the full 52-episode monitor-OFF arm stands; authorizes ONLY the iteration-48 Stage-2 OFF-vs-released-union pre-registration** | completion re-earned, not retroactively repaired: iteration 46's null stands, the map-staging diagnosis is confirmed by cure (all seven formerly dual-failing scenarios completed first-attempt), and the 26-pair spread is heavy-tailed (22/26 pairs <= `0.09`, max `0.7419` on `scene-0138-medium-01`) — that shape binds the Stage-2 paired design. [`iter47_map_staging_and_off_completion`](experiments/iter47_map_staging_and_off_completion/RESULT.md) |
+| 48 | **HUGSIM Stage-2 transfer gate** — THE transfer verdict of the second-benchmark line: monitor-OFF vs the released union under the seven NeuroNCAP-frozen parameters (zero retuning, F1 void discipline), client-side interception in UniAD_SIM's e2e loop, 26 scenarios x 2 runs x 2 arms with within-launch back-to-back pairing under the carried stochastic verdict, ONE analyzer run | mean paired HD-Score delta (ON − OFF) over 52 pairs, 95% scenario-clustered bootstrap CI (26 clusters, 10,000 draws, seed 48); median-delta CI as the registered heavy-tail treatment | `104/104` episodes complete, `0` retries, `0` dual failures; F1 passed (patch SHA byte-identical to the committed copy, frozen params echoed in receipts and all 52 ON decision logs); primary mean delta `−0.0166` CI `[−0.0551, +0.0255]` (includes zero), median `+0.0032` CI `[−0.0467, +0.0178]`; firing: `37/52` ON episodes intervened, `887` fired / `1,392` brake frames (`26.9%` pooled), `134` latch releases; mean paired RC delta `−0.0147` (bar `−0.30`); fresh OFF-OFF median \|ΔHD\| `0.0307` (bar `0.15`) | **pre-registered TRANSFER_NULL — the NeuroNCAP benefit does not measurably transfer to HUGSIM easy+medium at this N; published at full weight as the measured external-validity boundary; no NeuroNCAP-equivalence, deployment, or safety claim** | the frozen rule demonstrably operates on HUGSIM — fires, latches, releases; F2 over-firing NOT fired (iteration 43's splat-noise prediction lands as broad-but-not-constant firing, 2 episodes >80% brake frames, pooled 26.9%), F3 RC collapse NOT fired (iteration 13's paralysis did not recur) — but the interventions buy no measurable HD change against a noise floor where single stochastic pairs swing most of the score range; successors (manuscript fold-in, expanded-N confirmation, hard-tier extension) each need a fresh pre-registration. [`iter48_hugsim_transfer_gate`](experiments/iter48_hugsim_transfer_gate/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -398,10 +410,16 @@ trace, so the fragility is not repaired by low-pass filtering the velocity and t
 union stands unchanged — iteration 45 completed as the HUGSIM infrastructure-gate pass that
 opens the second-benchmark transfer lane, iteration 46 completed as the HUGSIM Stage-1
 monitor-OFF baseline completion null (38 of 52 episodes; the seven `load_HD_map` scenarios
-blocked on the unstaged map-expansion pack), and iteration 47 completed as the completion
+blocked on the unstaged map-expansion pack), iteration 47 completed as the completion
 pass: Stage A staged that pack with provenance receipts, Stage B completed all 14 failed
-episodes first-attempt, and the full 52-episode monitor-OFF arm now stands, authorizing only
-the iteration-48 Stage-2 pre-registration.**
+episodes first-attempt, and the full 52-episode monitor-OFF arm now stands — and iteration 48
+completed as THE transfer verdict of the second-benchmark line, a **transfer null**: all 104
+OFF-vs-released-union HUGSIM episodes completed under the seven NeuroNCAP-frozen parameters
+with zero retuning, the monitor fired and braked in 37/52 ON episodes (26.9% pooled brake
+frames, 134 latch releases, no RC collapse), and the mean paired HD-Score delta is −0.017
+with a 95% scenario-clustered CI [−0.055, +0.026] that includes zero — the NeuroNCAP benefit
+does not measurably transfer to HUGSIM easy+medium scenarios at this N, and the null stands
+as the measured external-validity boundary of the released union.**
 The
 **released union (iteration 15) is the best configuration** of the campaign: at the 20-run
 power scale it lifts the independently reproduced baseline **2.12 → 2.91 (CI [+0.605, +0.928])**,
@@ -483,9 +501,16 @@ map-expansion pack v1.3 with redacted provenance receipts and passed all bars; S
 14-episode completion re-run under the carried stochastic verdict — completed all 14 episodes
 on the first attempt, and ONE analyzer run over all 52 passed C1/C2/C3 with carried integrity
 `104/104` files and the pairing falsifier not fired over all 26 pairs (median |ΔHD| `0.0251`,
-heavy-tailed to `0.7419`). The full 52-episode monitor-OFF arm now stands, and it authorizes
-exactly one thing: the iteration-48 Stage-2 OFF-vs-released-union transfer-gate
-pre-registration. The published RealADSim closed-loop anchor range remains loose context only —
+heavy-tailed to `0.7419`). Iteration 48 then ran the authorized Stage-2 transfer gate — the
+released union under the seven NeuroNCAP-frozen parameters against the monitor-OFF planner,
+104 within-launch back-to-back paired episodes — and published `TRANSFER_NULL` at full
+weight: the frozen rule fires, latches, and releases on HUGSIM (37/52 ON episodes, 26.9%
+pooled brake frames, no F2 over-firing, no F3 RC collapse), and the mean paired HD-Score
+delta is `−0.0166` with 95% scenario-clustered CI `[−0.0551, +0.0255]` — no detectable
+outcome change. That null is THE transfer verdict of the second-benchmark line and the
+measured external-validity boundary of the released union; successors (manuscript fold-in,
+expanded-N confirmation, hard-tier extension) each require a fresh pre-registration. The
+published RealADSim closed-loop anchor range remains loose context only —
 it supports no performance statement:
 
 - **The manuscript — full draft and compiled PDF committed**
@@ -703,6 +728,23 @@ it supports no performance statement:
   (mean HD `0.3607`, median `0.2553`). This pass authorizes ONLY the iteration-48 Stage-2
   OFF-vs-released-union pre-registration — not the Stage-2 runs, and no transfer, monitor,
   benchmark, deployment, or safety claim.
+- **Iteration 48 completed as the HUGSIM Stage-2 transfer gate: `TRANSFER_NULL` — THE
+  transfer verdict of the second-benchmark line, published at full weight.**
+  [`experiments/iter48_hugsim_transfer_gate/RESULT.md`](experiments/iter48_hugsim_transfer_gate/RESULT.md).
+  All `104` scheduled episodes (26 scenarios x 2 runs x 2 arms, within-launch back-to-back
+  pairing) completed with `0` retries behind the full provenance gate; the F1 void check
+  passed mechanically (monitor-patch SHA byte-identical to the committed copy; the seven
+  NeuroNCAP-frozen parameters echoed in the receipts and every ON-arm decision log — zero
+  retuning). The released union demonstrably operates on HUGSIM: it intervened in `37/52` ON
+  episodes (`887` fired frames, `1,392` brake frames = `26.9%` pooled, `134` latch releases),
+  F2 splat-noise mistuning did not fire in either direction, and F3 RC collapse did not fire
+  (mean paired RC delta `−0.0147`, bar `−0.30` — iteration 13's paralysis did not recur). But
+  the interventions buy no measurable outcome change: mean paired HD-Score delta `−0.0166`,
+  95% scenario-clustered bootstrap CI `[−0.0551, +0.0255]` (median `+0.0032`, CI
+  `[−0.0467, +0.0178]`; fresh OFF-OFF noise floor median \|ΔHD\| `0.0307`). The NeuroNCAP
+  benefit does not measurably transfer to HUGSIM easy+medium scenarios at this N; the null is
+  the measured external-validity boundary. No NeuroNCAP-equivalence, deployment, benchmark-
+  ranking, robustness, or safety claim; successors need fresh pre-registrations.
 - **Scientific priority is now defensibility over impressiveness.**
   If the choice is between another stronger-looking benchmark/mechanism result and a narrower
   claim that survives hostile scrutiny, prefer the narrower defensible claim. The next fresh
@@ -715,8 +757,10 @@ The adopted sequencing (2026-07-11): the iteration-42 trace gate first (done —
 42-44), then the second closed-loop benchmark family (HUGSIM transfer of the released union —
 launch packet at
 [docs/research/SECOND_BENCHMARK_TRANSFER_HUGSIM.md](docs/research/SECOND_BENCHMARK_TRANSFER_HUGSIM.md);
-lane opened by iteration 45, Stage-1 OFF-arm completion earned by iteration 47's pass, with
-the iteration-48 Stage-2 OFF-vs-union pre-registration authorized as the sole next step), then the
+lane opened by iteration 45, Stage-1 OFF-arm completion earned by iteration 47's pass, and
+the Stage-2 transfer verdict delivered by iteration 48 as a full-weight transfer null — the
+line's registered question is answered and the null folds into the manuscript as the measured
+external-validity boundary), then the
 deployment-flip successor; these rank ahead of any new intervention iteration, and the
 linear-steering mechanism line is closed
 ([docs/research/INTERVENTION_MECHANISM_VERDICT_2026-07-11.md](docs/research/INTERVENTION_MECHANISM_VERDICT_2026-07-11.md)).
@@ -858,6 +902,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter45_hugsim_infra_gate/`](experiments/iter45_hugsim_infra_gate) | HUGSIM infrastructure gate — pass; second-benchmark transfer lane open (assets, environments, monitor-OFF closed-loop smoke); authorizes only the Stage-1/2 pre-registration |
 | [`experiments/iter46_hugsim_off_baseline/`](experiments/iter46_hugsim_off_baseline) | HUGSIM Stage-1 monitor-OFF baseline — completion null; 38/52 episodes, seven `load_HD_map` scenarios blocked on the unstaged map-expansion pack; Stage-2 pre-registration not authorized |
 | [`experiments/iter47_map_staging_and_off_completion/`](experiments/iter47_map_staging_and_off_completion) | map-expansion staging + OFF-baseline completion — PASS; Stage A staged the pack with receipts, Stage B completed all 14 failed episodes first-attempt, full 52-episode OFF arm stands with pairing feasible over 26 pairs; authorizes only the iteration-48 Stage-2 pre-registration |
+| [`experiments/iter48_hugsim_transfer_gate/`](experiments/iter48_hugsim_transfer_gate) | HUGSIM Stage-2 transfer gate — TRANSFER_NULL, THE transfer verdict: 104/104 paired episodes under the frozen NeuroNCAP parameters (F1 zero-retuning verified), the union fires/latches/releases on HUGSIM but the mean paired HD delta CI [−0.0551, +0.0255] includes zero; the measured external-validity boundary of the released union |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/FRONTIER_POSITIONING_2026-07-11.md`](docs/research/FRONTIER_POSITIONING_2026-07-11.md) | source-verified mid-2026 benchmark/monitor/industry positioning; the binding 2.91-is-not-benchmark-SOTA framing rule |

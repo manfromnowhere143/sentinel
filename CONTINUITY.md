@@ -215,6 +215,35 @@ events to prepare; they are a property the repository always has.
   transfer-gate pre-registration (docs/research/SECOND_BENCHMARK_TRANSFER_HUGSIM.md); it does
   NOT authorize the Stage-2 runs, and no transfer, monitor, OFF-vs-ON, benchmark-ranking,
   robustness, deployment, or safety claim is made.
+- Iteration 48 concluded:
+  experiments/iter48_hugsim_transfer_gate/RESULT.md, published as `TRANSFER_NULL` at full
+  weight — THE transfer verdict of the second-benchmark line. The single registered
+  104-episode HUGSIM Stage-2 run (26 scenarios x 2 runs x 2 arms, within-launch back-to-back
+  pairing OFF r1 -> ON r1 -> OFF r2 -> ON r2 under the carried stochastic D0 verdict)
+  completed 104/104 with 0 retries and 0 dual failures behind the full provenance gate
+  (`I48_STAGE2_PROVENANCE_OK` 07:17:49, `I48_STAGE2_DONE` 16:29:13 UTC 2026-07-12; ~9.2
+  GPU-h of episode walls, expected 8-16, ceiling 34.7). F1 void check passed FIRST and
+  mechanically: monitor_patch_sha byte-identical to the committed
+  client_patch_union_iter48.py, the seven NeuroNCAP-frozen parameters echoed in the receipts
+  and in every params row of all 52 ON decision logs — zero retuning. Primary: mean paired
+  HD-Score delta (ON − OFF) over 52 pairs = `−0.0166`, 95% scenario-clustered bootstrap CI
+  `[−0.0551, +0.0255]` (26 clusters, 10k draws, seed 48) — includes zero; median delta
+  `+0.0032`, CI `[−0.0467, +0.0178]`, no mean/median CI sign disagreement. The union
+  demonstrably OPERATES on HUGSIM: 37/52 ON episodes intervened, 887 fired / 1,392 brake
+  frames (26.9% pooled), 134 latch releases. F2 splat-noise mistuning NOT fired either
+  direction (iteration 43's prediction lands as broad-but-not-constant firing; 2 episodes
+  >80% brake frames — scene-0051-medium-00/01 r1 ran to the 400-step cap with RC roughly
+  halved — pooled far under the 80% bar); F3 RC collapse NOT fired (mean paired RC delta
+  `−0.0147`, bar `−0.30` — iteration 13's paralysis did not recur); F4 zero dual failures;
+  F5 fresh OFF-OFF median |dHD| `0.0307` vs `0.15` bar (heavy tail to 0.4288,
+  scene-0071-easy-00). Secondaries (mean paired deltas): NC `−0.0369`, DAC `+0.0069`, TTC
+  `−0.0248`, comfort `+0.0652`, RC `−0.0147`. The registered answer: the NeuroNCAP benefit
+  does not measurably transfer to HUGSIM easy+medium at this N; the null is the measured
+  external-validity boundary of the released union. Forbidden claims held: no
+  NeuroNCAP-equivalence, deployment, benchmark-ranking, robustness, or safety claim.
+  Successors (manuscript fold-in of the boundary, expanded-N confirmation, hard-tier
+  extension) each require a fresh pre-registration; nothing further is authorized by this
+  iteration.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1120,3 +1149,21 @@ events to prepare; they are a property the repository always has.
      defensibility arc), CONTINUITY arc + shift log, regenerate HANDOFF.md; ruff + pytest
      + validate_docs green on every push. Record box state (iter48_runs stays on the data
      disk behind the heavy manifest).
+- 2026-07-12: Claude (Fable 5) via delegated executor — executed the committed iteration 48
+  on-done flow after `I48_STAGE2_DONE` (16:29:13 UTC; zero `I48_ABORT_*` markers; no
+  containers). Collected the full evidence set from the box into
+  experiments/iter48_hugsim_transfer_gate/proof-stage2/ (receipts, carried D0 verdict file,
+  frozen-scenarios manifest, heavy manifest, all 104 episode artifact sets — zero __failed
+  dirs — all 52 ON-arm decision JSONLs, the full run log, on-box SHA256 hashes; 208/208
+  collected files verified byte-identical to the box; monitor_patch_sha verified
+  byte-identical to the committed patch copy BEFORE commit; no file needed a .part split),
+  committed proof FIRST, ran the committed analyzer ONCE from committed artifacts, and
+  published `TRANSFER_NULL` at full weight — THE transfer verdict (see the arc bullet above
+  for the numbers: mean paired HD delta −0.0166 CI [−0.0551, +0.0255]; median +0.0032 CI
+  [−0.0467, +0.0178]; 37/52 ON episodes intervened, 26.9% pooled brake frames, 134 releases;
+  no falsifier fired; F1 void check passed mechanically). README row 48 + header blockquote +
+  "The result" boundary line + net-summary + status bullet + sequencing paragraph + repo map
+  + defensibility-arc node A48 (verdict class null) updated; CONTINUITY arc bullet added;
+  HANDOFF regenerated; ruff + pytest (178) + validate_docs green. BOX IDLE at exit (no Docker
+  containers; iter48_runs stays on the data disk behind heavy_manifest_iter48.txt). Nothing
+  further is authorized under this iteration; successors need fresh pre-registrations.
