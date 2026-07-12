@@ -1,9 +1,10 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: א' יול 12 07:22:27 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: א' יול 12 07:22:53 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+6aaec26 docs: record iter48 launch in flight with on-done block, handoff regen
 bddb6f1 iter48: collect ON-arm smoke evidence, zero-fire clean
 c8cb6e8 iter48: add labeled pre-launch ON-arm smoke script
 ff3772c iter48: commit monitor patch, transfer launcher, paired analyzer, tests
@@ -11,10 +12,8 @@ ff3772c iter48: commit monitor patch, transfer launcher, paired analyzer, tests
 889770c iter48: pre-register HUGSIM Stage-2 OFF-vs-union transfer gate
 ea3c5f8 iter47: completion pass published, full 52-episode OFF arm stands
 673bc0c iter47: collect Stage B completion proof, 14 new episodes
-1e6a1b4 docs: state full 47-iteration count in header and result intro
 ```
-Working tree: DIRTY — resolve before handoff:
-M CONTINUITY.md
+Working tree: CLEAN
 
 ## Experiments (status inferred from files)
 
@@ -75,12 +74,13 @@ M CONTINUITY.md
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 07:23:35 up 7 days, 21:04,  0 users,  load average: 2.98, 1.97, 1.11
-GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
+ 07:24:00 up 7 days, 21:05,  0 users,  load average: 2.74, 2.00, 1.14
+GPU_RUN_STATE=IN_FLIGHT_CONTAINERS
+hugsim_uniad_client	Up 23 seconds
 /var/log/sentinel-iter48-stage2.log
 /var/log/sentinel-vitals.log
 /var/log/sentinel-iter48-smoke.log
-/dev/root       310G  269G   42G  87% /
+/dev/root       310G  271G   40G  88% /
 Swap:          8.0Gi        65Mi       7.9Gi
 ```
 If any docker container named renderer/model/ncap (or a random-name ncap) is up, a run
