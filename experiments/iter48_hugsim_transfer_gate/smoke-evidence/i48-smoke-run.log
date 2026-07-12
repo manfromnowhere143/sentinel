@@ -1,0 +1,166 @@
+++ date -u
++ echo 'I48_SMOKE_START Sun Jul 12 07:12:56 UTC 2026'
+I48_SMOKE_START Sun Jul 12 07:12:56 UTC 2026
++ HUGSIM=/opt/sentinel-stack/HUGSIM
++ SCEN_DIR=/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes
++ OUT_BASE=/datasets/nuscenes-full/hugsim/outputs/nusc_uniad
++ SMOKE=/datasets/nuscenes-full/hugsim/iter48_smoke
++ PATCH=/tmp/iter48_client_patch.py
++ SCENARIO=scene-0013-easy-00
++ OUT_DIR=/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00
++ export PIXI_HOME=/datasets/nuscenes-full/hugsim-envs/pixi-home
++ PIXI_HOME=/datasets/nuscenes-full/hugsim-envs/pixi-home
++ export PIXI_CACHE_DIR=/datasets/nuscenes-full/hugsim-envs/pixi-cache
++ PIXI_CACHE_DIR=/datasets/nuscenes-full/hugsim-envs/pixi-cache
++ export PATH=/datasets/nuscenes-full/hugsim-envs/pixi-home/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
++ PATH=/datasets/nuscenes-full/hugsim-envs/pixi-home/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
++ mkdir -p /datasets/nuscenes-full/hugsim/iter48_smoke
+++ docker ps -q
+++ wc -l
++ '[' 0 '!=' 0 ']'
+++ python3 /tmp/iter48_client_patch.py
++ PATCH_OUT='ITER48_UNION_PATCHED
+ITER48_E2E_PY_SHA256=23cce8a2a559b60dc3de394ba890a28adc13b5b24d222936478dad6f83f9aea3
+ITER48_E2E_SH_SHA256=8b404adcbc7fea328a5fbbd10c5256656444739b3af79ca26676a45464471aa7'
++ echo 'ITER48_UNION_PATCHED
+ITER48_E2E_PY_SHA256=23cce8a2a559b60dc3de394ba890a28adc13b5b24d222936478dad6f83f9aea3
+ITER48_E2E_SH_SHA256=8b404adcbc7fea328a5fbbd10c5256656444739b3af79ca26676a45464471aa7'
+ITER48_UNION_PATCHED
+ITER48_E2E_PY_SHA256=23cce8a2a559b60dc3de394ba890a28adc13b5b24d222936478dad6f83f9aea3
+ITER48_E2E_SH_SHA256=8b404adcbc7fea328a5fbbd10c5256656444739b3af79ca26676a45464471aa7
++ echo 'ITER48_UNION_PATCHED
+ITER48_E2E_PY_SHA256=23cce8a2a559b60dc3de394ba890a28adc13b5b24d222936478dad6f83f9aea3
+ITER48_E2E_SH_SHA256=8b404adcbc7fea328a5fbbd10c5256656444739b3af79ca26676a45464471aa7'
++ grep -q ITER48_UNION_PATCHED
+++ date -u
++ echo 'I48_SMOKE_PATCHED Sun Jul 12 07:12:56 UTC 2026'
+I48_SMOKE_PATCHED Sun Jul 12 07:12:56 UTC 2026
++ docker rm -f hugsim_uniad_client
++ rm -rf /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00
++ cd /opt/sentinel-stack/HUGSIM
++ SENTINEL_ENABLED=1
++ timeout 1200 pixi run python -u closed_loop.py --scenario_path /datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0013-easy-00.yaml --base_path configs/sim/nuscenes_base.yaml --camera_path configs/sim/nuscenes_camera.yaml --kinematic_path configs/sim/kinematic.yaml --ad uniad --ad_cuda 0
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/output.txt
+/opt/sentinel-stack/UniAD_SIM/tools/e2e.sh 0 /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00
+Ready for simulation
+ego pose [0.0, -5.551115123125783e-17, 0.0]
+ego pose [0.0, -0.002826926030539508, 0.4375]
+ego pose [0.007918025977621278, -0.006816358808130347, 0.9918508521285221]
+ego pose [0.01575137963317931, -0.012847813790789472, 1.6556058122451258]
+ego pose [0.0038679167611428786, -0.018828470571009573, 2.4042922997066336]
+ego pose [-0.049577647902551904, -0.02503995351212143, 3.208858632841885]
+ego pose [-0.15870081447644432, -0.027907294270113882, 4.046892084623521]
+ego pose [-0.33300297178274196, -0.039501201146261086, 4.924342632569295]
+ego pose [-0.5513637214754112, -0.04870487248322722, 5.82705401986683]
+ego pose [-0.8002730953418229, -0.06311086425574705, 6.756202073099893]
+ego pose [-1.0448371589683558, -0.07850586366287528, 7.70861577826647]
+ego pose [-1.293622587206301, -0.09674305825380274, 8.676725832653227]
+ego pose [-1.5568541336372852, -0.10973171787851166, 9.671329843415673]
+ego pose [-1.797033457784687, -0.12527831961149266, 10.68957668686975]
+ego pose [-2.039527145721633, -0.14612228961335505, 11.731534953428557]
+Collision with background
+MoviePy - Building video /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/video.mp4.
+MoviePy - Writing video /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/video.mp4
+
+frame_index:   0%|          | 0/15 [00:00<?, ?it/s, now=None]frame_index:  73%|███████▎  | 11/15 [00:00<00:00, 105.61it/s, now=None]                                                                       MoviePy - Done !
+MoviePy - video ready /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/video.mp4
+this pkl file contains 1 experiment records.
+current exp has 15 frames
+frame 0 / 15
+comfortable: [True, True, True, True, True, True]
+frame 1 / 15
+comfortable: [True, True, True, True, True, True]
+frame 2 / 15
+comfortable: [True, True, True, True, True, True]
+frame 3 / 15
+comfortable: [True, True, True, True, True, True]
+frame 4 / 15
+comfortable: [True, True, True, True, True, True]
+frame 5 / 15
+comfortable: [True, True, True, True, True, True]
+frame 6 / 15
+comfortable: [True, True, True, True, True, True]
+frame 7 / 15
+comfortable: [True, True, True, True, True, True]
+frame 8 / 15
+comfortable: [True, True, True, True, True, True]
+frame 9 / 15
+collision with background detected! @ timestep2
+ failed to pass ttc collision check, t=1
+comfortable: [True, True, True, True, True, True]
+frame 10 / 15
+collision with background detected! @ timestep2
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 11 / 15
+collision with background detected! @ timestep1
+ failed to pass ttc collision check, t=1
+comfortable: [True, True, True, True, True, True]
+frame 12 / 15
+collision with background detected! @ timestep1
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 13 / 15
+collision with background detected! @ timestep2
+collision with background detected! @ timestep1
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 14 / 15
+collision with background detected! @ timestep1
+collision with background detected! @ timestep0
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+The score of experiment is (0.6761904761904763, 0.1561945331913383, 0.10561725577700021, {'nc': 0.8666666666666667, 'dac': 1.0, 'ttc': 0.6, 'c': 1.0, 'pdms': 0.6761904761904763}, {0.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 0.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 0.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.2857142857142857}, 2.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.2857142857142857}, 3.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.2857142857142857}, 3.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.2857142857142857}, 3.5: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 3.75: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}}).
+=============================Results=============================
+'nc': 0.8666666666666667
+'dac': 1.0
+'ttc': 0.6
+'c': 1.0
+'pdms': 0.6761904761904763
+'rc': 0.1561945331913383
+'hdscore': 0.10561725577700021
+The AD algorithm is still running, remaining tolerant 100.
+The AD algorithm is still running, remaining tolerant 95.
+The AD algorithm is still running, remaining tolerant 90.
+The AD algorithm completed with return code 0.
++ RC=0
++ echo I48_SMOKE_RC=0
+I48_SMOKE_RC=0
++ docker rm -f hugsim_uniad_client
++ FAIL=0
++ grep -q 'SENTINEL_I48_UNION_PATCH_LOADED enabled=1' /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/output.txt
++ echo 'I48_SMOKE_VERIFY_MARKER ok'
+I48_SMOKE_VERIFY_MARKER ok
+++ grep -c 'SENTINEL_I48_DECISION frame=' /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/output.txt
++ DEC_LINES=15
++ '[' -n 15 ']'
++ echo 'I48_SMOKE_VERIFY_DECISION_LINES count=15'
+I48_SMOKE_VERIFY_DECISION_LINES count=15
++ '[' 15 -gt 0 ']'
++ '[' -s /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/sentinel_iter48_decisions.jsonl ']'
+++ wc -l
++ echo 'I48_SMOKE_VERIFY_JSONL ok rows=15'
+I48_SMOKE_VERIFY_JSONL ok rows=15
+++ grep -c 'SENTINEL_I48_DECISION frame=[0-9]* fired=[01] brake=1' /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/output.txt
++ BRAKE=0
++ '[' -n 0 ']'
+++ grep -c 'SENTINEL_I48_DECISION frame=[0-9]* fired=1' /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/output.txt
++ FIRED=0
++ '[' -n 0 ']'
++ '[' 0 -gt 0 ']'
++ '[' 0 = 0 ']'
++ '[' 15 -gt 0 ']'
++ echo 'I48_SMOKE_VERIFY_OVERRIDE zero-fire logged cleanly (fired=0 on all 15 frames)'
+I48_SMOKE_VERIFY_OVERRIDE zero-fire logged cleanly (fired=0 on all 15 frames)
++ grep -q SENTINEL_I48_DECISION_ERROR /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/output.txt
+++ date -u +%Y%m%dT%H%M%SZ
++ DEST=/datasets/nuscenes-full/hugsim/iter48_smoke/scene-0013-easy-00__on_smoke_20260712T071450Z
++ mkdir -p /datasets/nuscenes-full/hugsim/iter48_smoke/scene-0013-easy-00__on_smoke_20260712T071450Z
++ find /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00 -type p -delete
++ mv /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/data.pkl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/eval.json /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/ground.ply /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/infos.pkl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/output.txt /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/scene.ply /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/sentinel_iter48_decisions.jsonl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/uniad /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/video.mp4 /datasets/nuscenes-full/hugsim/iter48_smoke/scene-0013-easy-00__on_smoke_20260712T071450Z/
++ rmdir /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00
++ '[' 0 = 0 ']'
++ '[' 0 = 0 ']'
+++ date -u
++ echo 'I48_SMOKE_DONE Sun Jul 12 07:14:50 UTC 2026 evidence=/datasets/nuscenes-full/hugsim/iter48_smoke/scene-0013-easy-00__on_smoke_20260712T071450Z'
+I48_SMOKE_DONE Sun Jul 12 07:14:50 UTC 2026 evidence=/datasets/nuscenes-full/hugsim/iter48_smoke/scene-0013-easy-00__on_smoke_20260712T071450Z
