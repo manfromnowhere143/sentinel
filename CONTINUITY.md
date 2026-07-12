@@ -1249,3 +1249,17 @@ events to prepare; they are a property the repository always has.
   link sent (Gmail 19f574aed0b5f451) plus an honest Maestro disclosure (19f5752e5c2369f1);
   awaiting his endorsement confirmation. Iter49 hard-tier gate in its launch window in
   parallel.
+- 2026-07-12 (eve consolidation): Claude (Fable 5) — Caesar thread complete for the night: four
+  messages sent same-evening (endorse link 19f574aed0b5f451; style ownership 19f57523339cc24e;
+  honest Maestro disclosure 19f5752e5c2369f1; revision-is-live closing note 19f5763d5703fb3d),
+  all threaded, all from the authenticated daniel@aweblabs.ai; awaiting endorsement
+  confirmation, then Daniel uploads docs/paper/sentinel-arxiv-submission.tar.gz (REVISED
+  package, rebuilt 7372eae) at arxiv.org/user. RUNS: iter49 hard-tier gate IN FLIGHT
+  (pre-reg ddd9130; 26 hard/extreme scenarios, 15 with AttackPlanner adversaries; log
+  /var/log/sentinel-iter49-hard.log, done marker I49_HARD_DONE, on-done block committed
+  73add7c; early OFF-arm zero-score episodes confirm the collision-dominant regime). iter50
+  collision-opportunity audit dispatched OFFLINE in parallel: its HYPOTHESIS must be committed
+  BEFORE any iter49 outcome data is read, freezing the opportunity-scarcity explanation of the
+  iter48 null and prediction P1 for iter49; both branches falsifiable. Standards unchanged and
+  binding: pre-register before data, nulls at full weight, terse commit subjects, evidence or
+  it did not happen, defensibility over impressiveness.
