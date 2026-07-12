@@ -1028,3 +1028,22 @@ events to prepare; they are a property the repository always has.
   authorizes ONLY the iteration-48 Stage-2 OFF-vs-released-union pre-registration. BOX IDLE
   at exit (no Docker containers; iter46_runs kept on the data disk behind
   heavy_manifest_iter47.txt).
+- 2026-07-12: Claude (Fable 5) via delegated executor — iteration 48 pre-registered per the
+  iteration-47 authorization: experiments/iter48_hugsim_transfer_gate/HYPOTHESIS.md committed
+  ALONE (889770c, CI green). Frozen: monitored arm = released union at the client-side
+  interception point in UniAD_SIM's e2e loop (plan + tracked boxes/scores from the same
+  forward pass, velocities via cross-frame tracking as on NeuroNCAP), monitor params EXACTLY
+  the NeuroNCAP-frozen values (cpa 1.5 / ttc 2.5 / min-closing 3.0 / max-gap 30.0 /
+  min-score 0.3 / release-K 4 / dt 0.5; any retuning = VOID, falsifier F1); iter45 shim
+  carried; same 26 scenarios x N=2 both arms, within-launch back-to-back OFF/ON pairing
+  (per-scenario order OFF r1 -> ON r1 -> OFF r2 -> ON r2) per the carried stochastic D0
+  verdict with the iter46/47 measured spread as the noise floor; frozen paired analysis =
+  scenario-clustered bootstrap (10,000 draws, seed 48) on the 52 paired HD deltas, primary =
+  mean-delta CI, median-delta CI reported alongside as the stated heavy-tail treatment;
+  secondary = NC/DAC/TTC-COM terms + route completion (over-braking visibility, F3 RC-collapse
+  falsifier; F2 splat-tracking-noise over-firing falsifier connects iter43's finding, fires
+  constantly >80% brake frames or never 0 fired); budget arithmetic frozen (104 episodes,
+  ~35 GPU-h state ceiling, ~8-16 expected); forbidden claims: no NeuroNCAP-equivalence, no
+  deployment/safety claim; pass OR null publishes at full weight — THE transfer verdict. NO
+  monitor patch built, NO tooling, NO launch under this window; next window starts at
+  protocol step 2. BOX IDLE (no Docker containers).
