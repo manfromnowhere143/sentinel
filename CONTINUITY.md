@@ -244,6 +244,31 @@ events to prepare; they are a property the repository always has.
   Successors (manuscript fold-in of the boundary, expanded-N confirmation, hard-tier
   extension) each require a fresh pre-registration; nothing further is authorized by this
   iteration.
+- Iteration 50 concluded:
+  experiments/iter50_collision_opportunity_audit/RESULT.md, published as
+  `OPPORTUNITY_AUDIT_COMPLETE` — an entirely offline collision-opportunity audit over
+  committed evidence only (zero GPU, zero gcloud), pre-registered ALONE (fbd1b3d) while
+  iteration 49's run was in flight and UNREAD, with the frozen prediction P1 registered
+  before any iteration-49 outcome data existed in-repo. Integrity gates all passed (p14 tar
+  399 OFF / 400 best metrics over 20 pairs with the side-0921 n=19 exception detected;
+  published iteration-48 mean reproduced to 1e-9; 52+52 HUGSIM OFF episodes read with the
+  frozen nc fields fully supported). A1 (NeuroNCAP) CONFIRMED: Spearman rho `+0.7003`, 95%
+  bootstrap CI `[+0.3909, +0.8762]` (10k draws, seed 50) between per-pair OFF collision rate
+  (`any_collide@0.0s`) and per-pair benefit; strata means `+0.989` (12 pairs at rate >= 0.5)
+  vs `+0.263` (8 below) — the NeuroNCAP benefit is an opportunity-conversion effect. A2
+  (HUGSIM): `40/52` (76.9%) of iteration-48's OFF episodes carry primary collision
+  opportunity (frozen definition: eval.json `nc_min < 1.0` over top-level nc and all
+  details steps; measured binary 0/1), and the independent iteration-46/47 52-episode
+  baseline corroborates at exactly `40/52`; against the frozen 0.25 bar the iteration-48
+  `TRANSFER_NULL` is CLASSIFIED `OPPORTUNITY_PRESENT_NULL` — opportunity was abundant and
+  the union's interventions converted none of it (descriptive: with-opportunity paired
+  deltas mean `+0.0013`, without `−0.0765`). The classification does NOT upgrade the null.
+  P1 (binding on whoever publishes iteration 49's RESULT, quoted verbatim there and in the
+  RESULT): opportunity fraction >= 13/52 in iter49's OFF arm + positive CI excluding zero =
+  CONFIRMED (benefit reappears with opportunity); >= 13/52 + CI including zero or below =
+  REFUTED and the transfer failure is REAL, not opportunity-scarce; < 13/52 = NOT TESTABLE
+  at the hard tier. No new safety/transfer/deployment claim; classification and prediction
+  only; any further opportunity-conditioned analysis needs a fresh pre-registration.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1263,3 +1288,17 @@ events to prepare; they are a property the repository always has.
   iter48 null and prediction P1 for iter49; both branches falsifiable. Standards unchanged and
   binding: pre-register before data, nulls at full weight, terse commit subjects, evidence or
   it did not happen, defensibility over impressiveness.
+- 2026-07-12/13: Claude (Fable 5) — iteration 50 executed and published. Pre-registration
+  committed ALONE and pushed (fbd1b3d) with iteration 49 unread (firewall stated in the doc;
+  the three HANDOFF launch-marker HDs disclosed as the only pre-existing sliver); analyzer +
+  18 unit tests (ee41aa6, 215 total green); ONE analyzer run over committed artifacts; proof
+  committed first (d76c6ba), then RESULT at full weight: `OPPORTUNITY_AUDIT_COMPLETE` with
+  A1_CONFIRMED (NeuroNCAP benefit concentrates where OFF collides, rho +0.7003 CI
+  [+0.3909, +0.8762]) and the iter48 TRANSFER_NULL classified `OPPORTUNITY_PRESENT_NULL`
+  (40/52 = 76.9% of iter48 OFF episodes collision-bearing; HBASE corroborates 40/52; the
+  classification does not upgrade the null). P1 stands frozen for iteration 49's publisher:
+  opportunity >= 13/52 + positive CI = confirmed; opportunity >= 13/52 + null/negative CI =
+  transfer failure REAL, not opportunity-scarce; < 13/52 = not testable. NO iteration-49
+  outcome data was read this shift; the iter49 run/collection remains governed solely by its
+  own on-done block above. README row 49 (in-flight) + row 50 added; ruff/pytest/
+  validate_docs green on every push.
