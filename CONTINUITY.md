@@ -1172,3 +1172,9 @@ events to prepare; they are a property the repository always has.
   HANDOFF regenerated; ruff + pytest (178) + validate_docs green. BOX IDLE at exit (no Docker
   containers; iter48_runs stays on the data disk behind heavy_manifest_iter48.txt). Nothing
   further is authorized under this iteration; successors need fresh pre-registrations.
+- 2026-07-12: Claude (Fable 5) via delegated executor: accessibility revision of paper.tex per
+  Holger Caesar's nine-point feedback (language only, zero number or claim changes); pdf and
+  arXiv package rebuilt (1807981, 7372eae, CI green). Caesar replied happy-to-endorse; direct
+  link sent (Gmail 19f574aed0b5f451) plus an honest Maestro disclosure (19f5752e5c2369f1);
+  awaiting his endorsement confirmation. Iter49 hard-tier gate in its launch window in
+  parallel.
