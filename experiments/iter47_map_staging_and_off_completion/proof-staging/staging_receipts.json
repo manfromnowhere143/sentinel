@@ -1,0 +1,53 @@
+{
+  "experiment": "iter47_map_staging_and_off_completion",
+  "hypothesis": "experiments/iter47_map_staging_and_off_completion/HYPOTHESIS.md",
+  "timestamp_utc": "2026-07-12T05:17:02.058976+00:00",
+  "bars": {
+    "preflight_free_space": true,
+    "archive_staged": true,
+    "archive_bytes_in_range": true,
+    "zero_unsafe_members": true,
+    "four_expansion_jsons": true
+  },
+  "preflight_free_bytes": 183051268096,
+  "source": {
+    "source_kind": "public_url",
+    "source_scheme": "https",
+    "source_host": "motional-nuscenes.s3.amazonaws.com",
+    "source_path_basename": "nuScenes-map-expansion-v1.3.zip"
+  },
+  "archive": {
+    "canonical_name": "nuScenes-map-expansion-v1.3.zip",
+    "remote_path": "/datasets/nuscenes-full/archives/nuScenes-map-expansion-v1.3.zip",
+    "bytes": 398535531,
+    "sha256": "9dbc80a095b6b28d9b79fc9a43471a750dc92ca78c6d0db288fd92b34be5a144"
+  },
+  "extraction_safety": {
+    "members_scanned": 13,
+    "unsafe_member_count": 0,
+    "unsafe_members": []
+  },
+  "expansion_jsons": {
+    "expansion/singapore-onenorth.json": {
+      "exists": true,
+      "bytes": 13809722,
+      "pass": true
+    },
+    "expansion/singapore-hollandvillage.json": {
+      "exists": true,
+      "bytes": 8203967,
+      "pass": true
+    },
+    "expansion/singapore-queenstown.json": {
+      "exists": true,
+      "bytes": 11011530,
+      "pass": true
+    },
+    "expansion/boston-seaport.json": {
+      "exists": true,
+      "bytes": 16244922,
+      "pass": true
+    }
+  },
+  "stage_a_pass": true
+}
