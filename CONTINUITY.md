@@ -1302,3 +1302,9 @@ events to prepare; they are a property the repository always has.
   outcome data was read this shift; the iter49 run/collection remains governed solely by its
   own on-done block above. README row 49 (in-flight) + row 50 added; ruff/pytest/
   validate_docs green on every push.
+- 2026-07-12 ~23:15 local: MILESTONE — the paper is SUBMITTED to arXiv (submit/7790500,
+  cs.RO, status submitted; endorsed by Holger Caesar the same evening after his nine-point
+  review was folded in). Awaiting moderation + announcement for the abs/ link. On
+  announcement: thank-you reply to Caesar with the link, William courtesy note follow-up if
+  natural, LinkedIn publication entry + follow-up post, profile README + portfolio research
+  links upgraded from repo-PDF to arXiv link (post-publication task list in campaign memory).
