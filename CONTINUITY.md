@@ -192,6 +192,29 @@ events to prepare; they are a property the repository always has.
   completion. Evidence committed under proof-off/ (both launch logs, receipts, D0 report,
   per-episode artifacts, prior-launch defect archive, heavy-artifact SHA manifest on the box
   at /datasets/nuscenes-full/hugsim/iter46_runs/).
+- Iteration 47 concluded:
+  experiments/iter47_map_staging_and_off_completion/RESULT.md, published as
+  `OFF_COMPLETION_PASS` (analyzer verdict `PASS_BARS_MET`). Stage A staged the official
+  nuScenes map-expansion pack v1.3 under the iteration-28-class gate (398,535,531 bytes,
+  SHA-receipted, redacted public-bucket provenance, 0 unsafe members, four expansion jsons
+  present). Stage B re-ran exactly the 14 previously failed `load_HD_map: true` `-medium-01`
+  episodes under the re-verified iteration-46 provenance gate and the carried STOCHASTIC D0
+  verdict; all 14 completed on attempt 1 (102-509 s, steps 9-156, ~1.2 GPU-h), reaching
+  `I47_OFF_COMPLETION_DONE` with zero aborts. ONE analyzer run over all 52 (38 carried + 14
+  new) passed C1 (52/52 complete, retried_episodes 0), C2 (per-step logs for all 52), and C3
+  (evidence committed; carried integrity 104/104 files byte-identical to the committed iter46
+  artifacts). Pairing falsifier NOT fired over all 26 within-scenario pairs: median |dHD|
+  `0.0251` vs the `0.15` bar, but MORE heavy-tailed than the 19-pair view — 22/26 pairs at or
+  under `0.09`, max `0.7419` (scene-0138-medium-01, r1 0.9378 vs r2 0.1959); that shape binds
+  the Stage-2 paired design (back-to-back within-launch pairing + scenario-clustered
+  uncertainty + stated heavy-tail policy). Descriptive 52-episode aggregate (plausibility
+  context only): mean HD `0.3607`, median `0.2553`, easy `0.4355` (n=18) / medium `0.3211`
+  (n=34); scene-0062-medium-01 completed both runs at HD exactly 0.0 (valid under C1).
+  Iteration 46's null stands as published; the map-staging diagnosis is confirmed by cure.
+  The pass authorizes exactly ONE thing: the iteration-48 Stage-2 OFF-vs-released-union
+  transfer-gate pre-registration (docs/research/SECOND_BENCHMARK_TRANSFER_HUGSIM.md); it does
+  NOT authorize the Stage-2 runs, and no transfer, monitor, OFF-vs-ON, benchmark-ranking,
+  robustness, deployment, or safety claim is made.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -988,3 +1011,20 @@ events to prepare; they are a property the repository always has.
      CONTINUITY arc + shift log, regenerate HANDOFF.md; ruff + pytest + validate_docs green
      on every push. A pass authorizes ONLY the iteration-48 Stage-2 OFF-vs-released-union
      pre-registration; no Stage-2 run happens under iteration 47.
+- 2026-07-12: Claude (Fable 5) via delegated executor — executed the committed iteration 47
+  on-done flow after `I47_OFF_COMPLETION_DONE` (06:29:25 UTC; zero `I47_OFF_ABORT_*` markers;
+  no containers). Collected the evidence set from the box into
+  experiments/iter47_map_staging_and_off_completion/proof-completion/ (14 new episode
+  artifact sets — zero __failed dirs — receipts, full run log, heavy_manifest_iter47,
+  on-box SHA256 hashes over all 52 episode dirs; no file needed a .part split), committed
+  proof FIRST (673bc0c), ran the committed analyzer ONCE from committed artifacts, and
+  published `OFF_COMPLETION_PASS` at full weight: C1 52/52 (all 14 new episodes attempt 1,
+  102-509 s), C2 pass, C3 pass with carried integrity 104/104 byte-identical, pairing
+  falsifier not fired over all 26 pairs (median |dHD| 0.0251, heavy tail to 0.7419 on
+  scene-0138-medium-01). Iteration 46's null stands; completion re-earned under the fresh
+  bars, map-staging diagnosis confirmed by cure. README row 47 + header + net-summary +
+  status bullet + repo map + arc node A47 (verdict class win) updated; CONTINUITY arc bullet
+  added; ruff + pytest + validate_docs green. Per the registered boundary the pass
+  authorizes ONLY the iteration-48 Stage-2 OFF-vs-released-union pre-registration. BOX IDLE
+  at exit (no Docker containers; iter46_runs kept on the data disk behind
+  heavy_manifest_iter47.txt).

@@ -1,0 +1,4 @@
+iter47 analyzer verdict: PASS_BARS_MET
+carried integrity: True (104 files)
+full-52 bars: {'C1_all_episodes_complete': True, 'C2_per_step_logs': True}
+hdscore aggregate: {'mean': 0.3606888043316103, 'median': 0.2553102447100397, 'per_tier_mean': {'easy': 0.4354952442355306, 'medium': 0.3210853949707113}, 'n': 52, 'plausibility_note': 'context only, NOT a bar: published RealADSim closed-loop anchors ~0.30-0.42 HD-Score; scene sets/tiers/clients differ'}
