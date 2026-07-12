@@ -1047,3 +1047,76 @@ events to prepare; they are a property the repository always has.
   deployment/safety claim; pass OR null publishes at full weight — THE transfer verdict. NO
   monitor patch built, NO tooling, NO launch under this window; next window starts at
   protocol step 2. BOX IDLE (no Docker containers).
+- 2026-07-12: Claude (Fable 5) via delegated executor — iteration 48 protocol steps 2-3
+  executed on the committed pre-registration (889770c). (1) Tooling committed (ff3772c, CI
+  green): client-side monitor patch `client_patch_union_iter48.py` — the released union
+  ported EXACTLY at the pre-registered UniAD_SIM interception point
+  (`tools/closeloop/e2e.py`, after the model forward, before the plan-pipe write; plan +
+  tracked `boxes_3d`/`scores_3d`/`track_ids` from the SAME forward pass; velocities by
+  cross-frame world-position differencing keyed on track id via the client's own l2g
+  transform; HUGSIM timestamps are seconds and are used unit-correctly; latched all-zeros
+  committed-stop override; threat-cleared release K=4; the seven frozen params are baked in
+  as defaults and `tools/e2e.sh` forwards ONLY `SENTINEL_ENABLED` into the container, so no
+  parameter override can reach the monitor — F1 discipline); env-gated `SENTINEL_ENABLED`
+  so the OFF arm runs the identical patched binary path unpatched-in-behavior; per-frame
+  decision logging (`SENTINEL_I48_DECISION` lines in output.txt + full-input JSONL per ON
+  episode; no printed token contains the substring 'sent' — the step counter greps for it);
+  104-episode launcher `run_transfer_gate.sh` (per-scenario within-launch order
+  OFF r1 -> ON r1 -> OFF r2 -> ON r2, resume-skip, retry-once,
+  3-consecutive-dual-failure abort, 20 GiB disk guard, provenance gate incl. patch SHA +
+  shim + 52-yaml manifest + map jsons + carried stochastic D0, fresh collection root
+  `iter48_runs`, per-episode arm-labelled markers); offline paired analyzer
+  `analyze_transfer.py` (F1 void check FIRST, K1/K2 bars, scenario-clustered bootstrap
+  10,000 draws seed 48, mean-delta CI primary + median-delta CI heavy-tail treatment,
+  NC/DAC/TTC/comfort + RC secondaries, F2/F3/F4/F5) + 14 unit tests (178 total green).
+  (2) Pre-launch ON-arm SMOKE (disclosed, non-scheduled, excluded from all analysis; the
+  pre-registration has no smoke provision — see smoke-evidence/SMOKE_NOTE.md):
+  scene-0013-easy-00 with SENTINEL_ENABLED=1 into the separate `iter48_smoke` root — load
+  marker `enabled=1` printed, 15 decision lines + 15 full-input JSONL rows with the frozen
+  params echoed, zero-fire logged cleanly (no object inside the frozen margins on this easy
+  scene), RC=0, finite HD; evidence committed (bddb6f1); nothing tuned. (3) LAUNCHED the
+  single registered 104-episode run detached on sentinel-gpu at 07:17:38 UTC:
+  `I48_STAGE2_PROVENANCE_OK` 07:17:49 (receipts.json records monitor_patch_sha
+  `6b39fd79d00c7bdb937c6d240fbc4648661b235f1a3024912d62874937146c5c` — byte-identical to the
+  committed patch — e2e_py_patched_sha `23cce8a2…`, e2e_sh_patched_sha `8b404adc…`, frozen
+  param echo, carried stochastic D0); first pair verified before departure — OFF r1
+  hd=0.1677 steps=16 (114 s, attempt 1, marker `enabled=0`) and ON r1 hd=0.1056 steps=15
+  (113 s, attempt 1, marker `enabled=1`, 15 decision lines/JSONL rows, 0 brake frames on
+  this scene; per-pair deltas are NOT interpretable alone per the registered noise floor).
+  RUN IN FLIGHT — log `/var/log/sentinel-iter48-stage2.log`, done marker `I48_STAGE2_DONE`;
+  ETA: at the iteration-46/47 median ~250 s/episode the remaining 102 episodes are ~7.1 h
+  (done ~14:30-15:30 UTC 2026-07-12); observed first-pair pace ~114 s/episode would finish
+  ~10:33 UTC; registered ceiling 104 x 1200 s = 34.7 GPU-h. Do NOT relaunch while any
+  Docker container is up.
+
+  ### On I48_STAGE2_DONE (iteration 48 completion instructions — execute in this order)
+
+  1. Check the log tail for `I48_ABORT_*` (disk aborts are interrupted runs with a resume
+     point, not nulls; the consecutive-failure abort is falsifier F4's completion-null
+     form) and confirm no Docker containers remain (`sudo docker ps`).
+  2. Collect from `/datasets/nuscenes-full/hugsim/iter48_runs/` into
+     `experiments/iter48_hugsim_transfer_gate/proof-stage2/`: `receipts.json`,
+     `d0_verdict_carried.txt`, `frozen_scenarios.sha256`, `heavy_manifest_iter48.txt`,
+     every episode dir's `eval.json`/`output.txt`/`episode_meta.json` plus each ON dir's
+     `sentinel_iter48_decisions.jsonl` (under `proof-stage2/episodes/`, any `__failed`
+     dirs included), and `/var/log/sentinel-iter48-stage2.log` as
+     `proof-stage2/i48-stage2-run.log`; also produce `proof-stage2/box_episode_hashes.txt`
+     on the box first: `cd /datasets/nuscenes-full/hugsim/iter48_runs && sha256sum
+     */eval.json */episode_meta.json`. Split any file >90 MB into `.part-*`. Heavy
+     pickles/videos STAY on the box behind `heavy_manifest_iter48.txt`. Commit proof
+     FIRST.
+  3. Run the committed analyzer ONCE from the committed artifacts:
+     `python3 experiments/iter48_hugsim_transfer_gate/analyze_transfer.py
+     --episodes .../proof-stage2/episodes --receipts .../proof-stage2/receipts.json
+     --out .../proof-stage2/transfer_report.json
+     --markdown-out .../proof-stage2/transfer_pairs.md`
+  4. Publish RESULT.md at FULL WEIGHT per the registered verdict classes
+     (PASS_TRANSFER_POSITIVE / TRANSFER_NEGATIVE / TRANSFER_NULL /
+     TRANSFER_BOUNDARY_NULL_F2_* / VOID_RETUNED / completion null) — pass OR null is THE
+     transfer verdict; state the carried noise floor; report the median CI + heavy-tail
+     caveat; name F3 on the record if fired; the forbidden-claims list is binding (no
+     NeuroNCAP-equivalence, no deployment/real-world/safety, no benchmark-ranking, no
+     monitor-robustness claim). Update README (row 48 + header/status/repo-map/
+     defensibility arc), CONTINUITY arc + shift log, regenerate HANDOFF.md; ruff + pytest
+     + validate_docs green on every push. Record box state (iter48_runs stays on the data
+     disk behind the heavy manifest).

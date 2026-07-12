@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: א' יול 12 06:50:03 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: א' יול 12 07:22:27 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+bddb6f1 iter48: collect ON-arm smoke evidence, zero-fire clean
+c8cb6e8 iter48: add labeled pre-launch ON-arm smoke script
+ff3772c iter48: commit monitor patch, transfer launcher, paired analyzer, tests
+3f56b5d docs: record iter47 close and iter48 pre-reg in shift log, box idle
 889770c iter48: pre-register HUGSIM Stage-2 OFF-vs-union transfer gate
 ea3c5f8 iter47: completion pass published, full 52-episode OFF arm stands
 673bc0c iter47: collect Stage B completion proof, 14 new episodes
 1e6a1b4 docs: state full 47-iteration count in header and result intro
-c93dd12 docs: readme currency pass through iter47
-83457b2 iter47: record Stage B launch in flight, on-done instructions in shift log
-dc25fa0 iter47: Stage A pass, map expansion pack staged with receipts
-ab7bf22 iter47: tooling for map staging, completion launcher, analyzer, tests
 ```
 Working tree: DIRTY — resolve before handoff:
 M CONTINUITY.md
@@ -75,11 +75,11 @@ M CONTINUITY.md
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 06:51:10 up 7 days, 20:32,  0 users,  load average: 0.08, 0.06, 1.10
+ 07:23:35 up 7 days, 21:04,  0 users,  load average: 2.98, 1.97, 1.11
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
+/var/log/sentinel-iter48-stage2.log
 /var/log/sentinel-vitals.log
-/var/log/sentinel-iter47-completion.log
-/var/log/sentinel-iter46-off.log
+/var/log/sentinel-iter48-smoke.log
 /dev/root       310G  269G   42G  87% /
 Swap:          8.0Gi        65Mi       7.9Gi
 ```
