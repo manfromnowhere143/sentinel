@@ -1,0 +1,21 @@
+{
+  "dir1": "/datasets/nuscenes-full/hugsim/iter46_runs/scene-0013-easy-00__r1",
+  "dir2": "/datasets/nuscenes-full/hugsim/iter46_runs/scene-0013-easy-00__r2",
+  "steps": {
+    "run1": 16,
+    "run2": 15,
+    "equal": false
+  },
+  "eval_json": {
+    "equal": false,
+    "max_abs_delta": "structural-mismatch"
+  },
+  "data_pkl": {
+    "sha_run1": "7c1204f03a93a9fa8fe48a37344be5535c14a6ebdb10701d2da0f474eafae418",
+    "sha_run2": "1c3eb9715f5c87069e4acd5b52f8007e539e3e7ff14e0c910e490fb74b831b9d",
+    "sha_equal": false,
+    "equal": false,
+    "max_abs_delta": "structural-mismatch"
+  },
+  "verdict": "stochastic"
+}

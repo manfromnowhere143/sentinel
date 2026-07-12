@@ -1,0 +1,987 @@
+++ date -u
++ echo 'I46_OFF_START Sat Jul 11 23:53:59 UTC 2026'
+I46_OFF_START Sat Jul 11 23:53:59 UTC 2026
++ HUGSIM=/opt/sentinel-stack/HUGSIM
++ UNIAD_SIM=/opt/sentinel-stack/UniAD_SIM
++ SCEN_DIR=/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes
++ ZIP_DIR=/datasets/nuscenes-full/hugsim/scenes/nuscenes
++ SCENES_DIR=/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes
++ OUT_BASE=/datasets/nuscenes-full/hugsim/outputs/nusc_uniad
++ RUNS=/datasets/nuscenes-full/hugsim/iter46_runs
++ HELPER=/tmp/iter46_d0_compare.py
++ SHIM=/opt/sentinel-stack/hugsim-shim/sitecustomize.py
++ CKPT=/opt/sentinel-stack/UniAD/ckpts/uniad_base_e2e.pth
++ FROZEN_HUGSIM_SHA=62c690d39fd90020e68a196bd8bcc1c4d4191f2e
++ FROZEN_UNIADSIM_SHA=5fb279e39912a5ac7f58e00d56b065cadcd0a749
++ FROZEN_CKPT_SHA=0ad0c2f5dc9788a41c313305779ea49346aeb742d1f6bb5ad25c46f9beffc990
++ FROZEN_SHIM_SHA=5bf69a1187478c52d49792d5871bd5732c6dd431ecd1f44b5e391f7adb80682c
++ FROZEN_IMAGE_ID=f73ef3884063
++ EPISODE_TIMEOUT=1200
++ DISK_MIN_GIB=20
++ export PIXI_HOME=/datasets/nuscenes-full/hugsim-envs/pixi-home
++ PIXI_HOME=/datasets/nuscenes-full/hugsim-envs/pixi-home
++ export PIXI_CACHE_DIR=/datasets/nuscenes-full/hugsim-envs/pixi-cache
++ PIXI_CACHE_DIR=/datasets/nuscenes-full/hugsim-envs/pixi-cache
++ export PATH=/datasets/nuscenes-full/hugsim-envs/pixi-home/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
++ PATH=/datasets/nuscenes-full/hugsim-envs/pixi-home/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
++ mkdir -p /datasets/nuscenes-full/hugsim/iter46_runs
++ MANIFEST=/datasets/nuscenes-full/hugsim/iter46_runs/frozen_scenarios.sha256
++ cat
++ PROV_FAIL=0
+++ git -C /opt/sentinel-stack/HUGSIM rev-parse HEAD
++ '[' 62c690d39fd90020e68a196bd8bcc1c4d4191f2e = 62c690d39fd90020e68a196bd8bcc1c4d4191f2e ']'
+++ git -C /opt/sentinel-stack/UniAD_SIM rev-parse HEAD
++ '[' 5fb279e39912a5ac7f58e00d56b065cadcd0a749 = 5fb279e39912a5ac7f58e00d56b065cadcd0a749 ']'
+++ sha256sum /opt/sentinel-stack/UniAD/ckpts/uniad_base_e2e.pth
+++ cut '-d ' -f1
++ '[' 0ad0c2f5dc9788a41c313305779ea49346aeb742d1f6bb5ad25c46f9beffc990 = 0ad0c2f5dc9788a41c313305779ea49346aeb742d1f6bb5ad25c46f9beffc990 ']'
+++ sha256sum /opt/sentinel-stack/hugsim-shim/sitecustomize.py
+++ cut '-d ' -f1
++ '[' 5bf69a1187478c52d49792d5871bd5732c6dd431ecd1f44b5e391f7adb80682c = 5bf69a1187478c52d49792d5871bd5732c6dd431ecd1f44b5e391f7adb80682c ']'
++ docker images --format '{{.ID}}' uniad:latest
++ grep -q f73ef3884063
++ cd /datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes
++ sha256sum -c /datasets/nuscenes-full/hugsim/iter46_runs/frozen_scenarios.sha256
+scene-0013-easy-00.yaml: OK
+scene-0013-medium-00.yaml: OK
+scene-0038-easy-00.yaml: OK
+scene-0038-medium-00.yaml: OK
+scene-0038-medium-01.yaml: OK
+scene-0041-easy-00.yaml: OK
+scene-0041-medium-00.yaml: OK
+scene-0041-medium-01.yaml: OK
+scene-0051-easy-00.yaml: OK
+scene-0051-medium-00.yaml: OK
+scene-0051-medium-01.yaml: OK
+scene-0062-easy-00.yaml: OK
+scene-0062-medium-00.yaml: OK
+scene-0062-medium-01.yaml: OK
+scene-0064-easy-00.yaml: OK
+scene-0064-medium-00.yaml: OK
+scene-0064-medium-01.yaml: OK
+scene-0071-easy-00.yaml: OK
+scene-0071-medium-00.yaml: OK
+scene-0071-medium-01.yaml: OK
+scene-0138-easy-00.yaml: OK
+scene-0138-medium-00.yaml: OK
+scene-0138-medium-01.yaml: OK
+scene-0166-easy-00.yaml: OK
+scene-0166-medium-00.yaml: OK
+scene-0166-medium-01.yaml: OK
+scene-0167-easy-00.yaml: OK
+scene-0167-medium-00.yaml: OK
+scene-0167-medium-01.yaml: OK
+scene-0254-easy-00.yaml: OK
+scene-0254-medium-00.yaml: OK
+scene-0254-medium-01.yaml: OK
+scene-0383-easy-00.yaml: OK
+scene-0383-medium-00.yaml: OK
+scene-0383-medium-01.yaml: OK
+scene-0411-easy-00.yaml: OK
+scene-0411-medium-00.yaml: OK
+scene-0411-medium-01.yaml: OK
+scene-0418-easy-00.yaml: OK
+scene-0418-medium-00.yaml: OK
+scene-0418-medium-01.yaml: OK
+scene-0528-easy-00.yaml: OK
+scene-0528-medium-00.yaml: OK
+scene-0528-medium-01.yaml: OK
+scene-0661-easy-00.yaml: OK
+scene-0661-medium-00.yaml: OK
+scene-0661-medium-01.yaml: OK
+scene-0920-easy-00.yaml: OK
+scene-0920-medium-00.yaml: OK
+scene-0930-easy-00.yaml: OK
+scene-0930-medium-00.yaml: OK
+scene-0930-medium-01.yaml: OK
+++ docker ps -q
+++ wc -l
++ '[' 0 '!=' 0 ']'
++ '[' 0 '!=' 0 ']'
++ echo '{'
+++ git -C /opt/sentinel-stack/HUGSIM rev-parse HEAD
++ echo '  "hugsim_sha": "62c690d39fd90020e68a196bd8bcc1c4d4191f2e",'
+++ git -C /opt/sentinel-stack/UniAD_SIM rev-parse HEAD
++ echo '  "uniad_sim_sha": "5fb279e39912a5ac7f58e00d56b065cadcd0a749",'
+++ sha256sum /opt/sentinel-stack/UniAD/ckpts/uniad_base_e2e.pth
+++ cut '-d ' -f1
++ echo '  "ckpt_sha": "0ad0c2f5dc9788a41c313305779ea49346aeb742d1f6bb5ad25c46f9beffc990",'
+++ sha256sum /opt/sentinel-stack/hugsim-shim/sitecustomize.py
+++ cut '-d ' -f1
++ echo '  "shim_sha": "5bf69a1187478c52d49792d5871bd5732c6dd431ecd1f44b5e391f7adb80682c",'
+++ docker images --format '{{.ID}}' uniad:latest
++ echo '  "image_id": "f73ef3884063",'
++ echo '  "scenario_manifest_check": "pass",'
+++ date -u +%Y-%m-%dT%H:%M:%SZ
++ echo '  "start_utc": "2026-07-11T23:54:11Z"'
++ echo '}'
+++ date -u
++ echo 'I46_OFF_PROVENANCE_OK Sat Jul 11 23:54:11 UTC 2026'
+I46_OFF_PROVENANCE_OK Sat Jul 11 23:54:11 UTC 2026
+++ cut -c67- /datasets/nuscenes-full/hugsim/iter46_runs/frozen_scenarios.sha256
+++ sed 's/\.yaml$//'
++ SCENARIOS='scene-0013-easy-00
+scene-0013-medium-00
+scene-0038-easy-00
+scene-0038-medium-00
+scene-0038-medium-01
+scene-0041-easy-00
+scene-0041-medium-00
+scene-0041-medium-01
+scene-0051-easy-00
+scene-0051-medium-00
+scene-0051-medium-01
+scene-0062-easy-00
+scene-0062-medium-00
+scene-0062-medium-01
+scene-0064-easy-00
+scene-0064-medium-00
+scene-0064-medium-01
+scene-0071-easy-00
+scene-0071-medium-00
+scene-0071-medium-01
+scene-0138-easy-00
+scene-0138-medium-00
+scene-0138-medium-01
+scene-0166-easy-00
+scene-0166-medium-00
+scene-0166-medium-01
+scene-0167-easy-00
+scene-0167-medium-00
+scene-0167-medium-01
+scene-0254-easy-00
+scene-0254-medium-00
+scene-0254-medium-01
+scene-0383-easy-00
+scene-0383-medium-00
+scene-0383-medium-01
+scene-0411-easy-00
+scene-0411-medium-00
+scene-0411-medium-01
+scene-0418-easy-00
+scene-0418-medium-00
+scene-0418-medium-01
+scene-0528-easy-00
+scene-0528-medium-00
+scene-0528-medium-01
+scene-0661-easy-00
+scene-0661-medium-00
+scene-0661-medium-01
+scene-0920-easy-00
+scene-0920-medium-00
+scene-0930-easy-00
+scene-0930-medium-00
+scene-0930-medium-01'
++ CONSEC=0
+++ echo 'scene-0013-easy-00
+scene-0013-medium-00
+scene-0038-easy-00
+scene-0038-medium-00
+scene-0038-medium-01
+scene-0041-easy-00
+scene-0041-medium-00
+scene-0041-medium-01
+scene-0051-easy-00
+scene-0051-medium-00
+scene-0051-medium-01
+scene-0062-easy-00
+scene-0062-medium-00
+scene-0062-medium-01
+scene-0064-easy-00
+scene-0064-medium-00
+scene-0064-medium-01
+scene-0071-easy-00
+scene-0071-medium-00
+scene-0071-medium-01
+scene-0138-easy-00
+scene-0138-medium-00
+scene-0138-medium-01
+scene-0166-easy-00
+scene-0166-medium-00
+scene-0166-medium-01
+scene-0167-easy-00
+scene-0167-medium-00
+scene-0167-medium-01
+scene-0254-easy-00
+scene-0254-medium-00
+scene-0254-medium-01
+scene-0383-easy-00
+scene-0383-medium-00
+scene-0383-medium-01
+scene-0411-easy-00
+scene-0411-medium-00
+scene-0411-medium-01
+scene-0418-easy-00
+scene-0418-medium-00
+scene-0418-medium-01
+scene-0528-easy-00
+scene-0528-medium-00
+scene-0528-medium-01
+scene-0661-easy-00
+scene-0661-medium-00
+scene-0661-medium-01
+scene-0920-easy-00
+scene-0920-medium-00
+scene-0930-easy-00
+scene-0930-medium-00
+scene-0930-medium-01'
+++ head -1
++ FIRST=scene-0013-easy-00
++ run_one scene-0013-easy-00 1
++ local scenario=scene-0013-easy-00 run_idx=1
++ local scene=scene-0013
++ local mode_dashed=easy-00
++ local mode=easy_00
++ local out_dir=/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00
++ local dest=/datasets/nuscenes-full/hugsim/iter46_runs/scene-0013-easy-00__r1
++ prep_scene scene-0013
++ local scene=scene-0013
++ '[' '!' -d /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013 ']'
++ local cfg=/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/cfg.yaml
++ '[' -f /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/cfg.yaml.orig ']'
++ python3 - /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/cfg.yaml /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013
++ local attempt rc steps hd
++ for attempt in 1 2
++ disk_guard
++ local avail
+++ df --output=avail -BG /datasets/nuscenes-full
+++ tail -1
+++ tr -dc 0-9
++ avail=184
++ '[' 184 -lt 20 ']'
+++ date -u
++ echo 'I46_OFF_EP_START scene-0013-easy-00 r1 a1 Sat Jul 11 23:54:11 UTC 2026'
+I46_OFF_EP_START scene-0013-easy-00 r1 a1 Sat Jul 11 23:54:11 UTC 2026
++ local t0
+++ date -u +%s
++ t0=1783814051
++ docker rm -f hugsim_uniad_client
++ rm -rf /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00
++ cd /opt/sentinel-stack/HUGSIM
++ timeout 1200 pixi run python -u closed_loop.py --scenario_path /datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0013-easy-00.yaml --base_path configs/sim/nuscenes_base.yaml --camera_path configs/sim/nuscenes_camera.yaml --kinematic_path configs/sim/kinematic.yaml --ad uniad --ad_cuda 0
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/output.txt
+/opt/sentinel-stack/UniAD_SIM/tools/e2e.sh 0 /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00
+Ready for simulation
+ego pose [0.0, -5.551115123125783e-17, 0.0]
+ego pose [0.0, -0.002826926030539508, 0.4375]
+ego pose [0.007920854113617676, -0.006816313203987836, 0.991993401419055]
+ego pose [0.015759511334339234, -0.01284765067001952, 1.6560521976919171]
+ego pose [0.003863967828764678, -0.01882828051637753, 2.4051267295688006]
+ego pose [-0.04963548917874812, -0.025258196856748426, 3.2110537620103976]
+ego pose [-0.1585281399503964, -0.027899768088401278, 4.050916601588953]
+ego pose [-0.33165655214881085, -0.03949024925564088, 4.927869299015173]
+ego pose [-0.5494088409219309, -0.048685763835584775, 5.834572169224807]
+ego pose [-0.7977177703905788, -0.06309312457947736, 6.766036297309432]
+ego pose [-1.0432747314157798, -0.07849897778212436, 7.725971697568603]
+ego pose [-1.2603373881633544, -0.09675214117120372, 8.721616495839124]
+ego pose [-1.4356159291586326, -0.10698388533687589, 9.727106279063216]
+ego pose [-1.5991366360988604, -0.121298866686395, 10.731653963395836]
+ego pose [-1.7660142345948846, -0.13755327316929977, 11.744648701823065]
+ego pose [-1.9449262885450362, -0.1525678953695441, 12.763992858054046]
+Collision with background
+MoviePy - Building video /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/video.mp4.
+MoviePy - Writing video /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/video.mp4
+
+frame_index:   0%|          | 0/16 [00:00<?, ?it/s, now=None]frame_index:  56%|█████▋    | 9/16 [00:00<00:00, 88.70it/s, now=None]                                                                     MoviePy - Done !
+MoviePy - video ready /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/video.mp4
+this pkl file contains 1 experiment records.
+current exp has 16 frames
+frame 0 / 16
+comfortable: [True, True, True, True, True, True]
+frame 1 / 16
+comfortable: [True, True, True, True, True, True]
+frame 2 / 16
+comfortable: [True, True, True, True, True, True]
+frame 3 / 16
+comfortable: [True, True, True, True, True, True]
+frame 4 / 16
+comfortable: [True, True, True, True, True, True]
+frame 5 / 16
+comfortable: [True, True, True, True, True, True]
+frame 6 / 16
+comfortable: [True, True, True, True, True, True]
+frame 7 / 16
+comfortable: [True, True, True, True, True, True]
+frame 8 / 16
+comfortable: [True, True, True, True, True, True]
+frame 9 / 16
+comfortable: [True, True, True, True, True, True]
+frame 10 / 16
+comfortable: [True, True, True, True, True, True]
+frame 11 / 16
+comfortable: [True, True, True, True, True, True]
+frame 12 / 16
+comfortable: [True, True, True, True, True, True]
+frame 13 / 16
+comfortable: [True, True, True, True, True, True]
+frame 14 / 16
+comfortable: [True, True, True, True, True, True]
+frame 15 / 16
+comfortable: [True, True, True, True, True, True]
+The score of experiment is (1.0, 0.16773162939297126, 0.16773162939297126, {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, {0.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 0.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 0.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 4.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}}).
+=============================Results=============================
+'nc': 1.0
+'dac': 1.0
+'ttc': 1.0
+'c': 1.0
+'pdms': 1.0
+'rc': 0.16773162939297126
+'hdscore': 0.16773162939297126
+The AD algorithm is still running, remaining tolerant 100.
+The AD algorithm is still running, remaining tolerant 95.
+The AD algorithm is still running, remaining tolerant 90.
+The AD algorithm completed with return code 0.
++ rc=0
++ echo 'I46_OFF_EP_RC=0 scene-0013-easy-00 r1 a1'
+I46_OFF_EP_RC=0 scene-0013-easy-00 r1 a1
++ docker rm -f hugsim_uniad_client
+++ python3 -c '
+import json, math, sys
+try:
+    v = json.load(open('\''/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/eval.json'\'')).get('\''hdscore'\'')
+    print(v if isinstance(v, (int, float)) and math.isfinite(v) else '\''INVALID'\'')
+except Exception:
+    print('\''MISSING'\'')
+'
++ hd=0.16773162939297126
+++ grep -c sent /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/output.txt
++ steps=16
++ '[' -n 16 ']'
++ '[' 0 = 0 ']'
++ '[' 0.16773162939297126 '!=' MISSING ']'
++ '[' 0.16773162939297126 '!=' INVALID ']'
++ '[' 16 -gt 0 ']'
++ rm -rf /datasets/nuscenes-full/hugsim/iter46_runs/scene-0013-easy-00__r1
++ mkdir -p /datasets/nuscenes-full/hugsim/iter46_runs/scene-0013-easy-00__r1
++ find /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00 -type p -delete
++ mv /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/data.pkl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/eval.json /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/ground.ply /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/infos.pkl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/output.txt /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/scene.ply /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/uniad /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/video.mp4 /datasets/nuscenes-full/hugsim/iter46_runs/scene-0013-easy-00__r1/
++ rmdir /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00
+++ date -u +%s
++ printf '{"scenario":"%s","run":%s,"attempt":%s,"rc":%s,"hdscore":%s,"steps":%s,"start_epoch":%s,"end_epoch":%s}\n' scene-0013-easy-00 1 1 0 0.16773162939297126 16 1783814051 1783814167
++ echo 'I46_OFF_EP_DONE scene-0013-easy-00 r1 ok hd=0.16773162939297126 steps=16'
+I46_OFF_EP_DONE scene-0013-easy-00 r1 ok hd=0.16773162939297126 steps=16
++ return 0
++ note_result 0
++ '[' 0 = 0 ']'
++ CONSEC=0
++ run_one scene-0013-easy-00 2
++ local scenario=scene-0013-easy-00 run_idx=2
++ local scene=scene-0013
++ local mode_dashed=easy-00
++ local mode=easy_00
++ local out_dir=/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00
++ local dest=/datasets/nuscenes-full/hugsim/iter46_runs/scene-0013-easy-00__r2
++ prep_scene scene-0013
++ local scene=scene-0013
++ '[' '!' -d /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013 ']'
++ local cfg=/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/cfg.yaml
++ '[' -f /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/cfg.yaml.orig ']'
++ python3 - /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/cfg.yaml /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013
++ local attempt rc steps hd
++ for attempt in 1 2
++ disk_guard
++ local avail
+++ df --output=avail -BG /datasets/nuscenes-full
+++ tail -1
+++ tr -dc 0-9
++ avail=184
++ '[' 184 -lt 20 ']'
+++ date -u
++ echo 'I46_OFF_EP_START scene-0013-easy-00 r2 a1 Sat Jul 11 23:56:07 UTC 2026'
+I46_OFF_EP_START scene-0013-easy-00 r2 a1 Sat Jul 11 23:56:07 UTC 2026
++ local t0
+++ date -u +%s
++ t0=1783814167
++ docker rm -f hugsim_uniad_client
++ rm -rf /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00
++ cd /opt/sentinel-stack/HUGSIM
++ timeout 1200 pixi run python -u closed_loop.py --scenario_path /datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0013-easy-00.yaml --base_path configs/sim/nuscenes_base.yaml --camera_path configs/sim/nuscenes_camera.yaml --kinematic_path configs/sim/kinematic.yaml --ad uniad --ad_cuda 0
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/output.txt
+/opt/sentinel-stack/UniAD_SIM/tools/e2e.sh 0 /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00
+Ready for simulation
+ego pose [0.0, -5.551115123125783e-17, 0.0]
+ego pose [0.0, -0.002826926030539508, 0.4375]
+ego pose [0.007924817067358767, -0.0068162324266242795, 0.9922480560545797]
+ego pose [0.015763738391178013, -0.012847554470854245, 1.6563188273063283]
+ego pose [0.003870752735216216, -0.018828231283410102, 2.4052596350035467]
+ego pose [-0.04963288408857726, -0.025258881257030432, 3.2106319418975846]
+ego pose [-0.1585520843081782, -0.027902093049494908, 4.049589806663109]
+ego pose [-0.33254749019571667, -0.03949566063794524, 4.928670058815374]
+ego pose [-0.5508668937544982, -0.04870001977232173, 5.833061778962893]
+ego pose [-0.8000729106739881, -0.06311952371615312, 6.764349478384441]
+ego pose [-1.0447613543767122, -0.07851286815078867, 7.717831168125677]
+ego pose [-1.2946782135531207, -0.09737631876985262, 8.689533234771444]
+ego pose [-1.558767512712088, -0.10976098244487946, 9.682946129818045]
+ego pose [-1.7984885951003637, -0.1263706298855157, 10.696669062104386]
+ego pose [-2.040395021161007, -0.14613286090149072, 11.735785977719832]
+Collision with background
+MoviePy - Building video /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/video.mp4.
+MoviePy - Writing video /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/video.mp4
+
+frame_index:   0%|          | 0/15 [00:00<?, ?it/s, now=None]frame_index:  67%|██████▋   | 10/15 [00:00<00:00, 97.05it/s, now=None]                                                                      MoviePy - Done !
+MoviePy - video ready /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/video.mp4
+this pkl file contains 1 experiment records.
+current exp has 15 frames
+frame 0 / 15
+comfortable: [True, True, True, True, True, True]
+frame 1 / 15
+comfortable: [True, True, True, True, True, True]
+frame 2 / 15
+comfortable: [True, True, True, True, True, True]
+frame 3 / 15
+comfortable: [True, True, True, True, True, True]
+frame 4 / 15
+comfortable: [True, True, True, True, True, True]
+frame 5 / 15
+comfortable: [True, True, True, True, True, True]
+frame 6 / 15
+comfortable: [True, True, True, True, True, True]
+frame 7 / 15
+comfortable: [True, True, True, True, True, True]
+frame 8 / 15
+comfortable: [True, True, True, True, True, True]
+frame 9 / 15
+collision with background detected! @ timestep2
+ failed to pass ttc collision check, t=1
+comfortable: [True, True, True, True, True, True]
+frame 10 / 15
+collision with background detected! @ timestep4
+collision with background detected! @ timestep2
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 11 / 15
+collision with background detected! @ timestep1
+ failed to pass ttc collision check, t=1
+comfortable: [True, True, True, True, True, True]
+frame 12 / 15
+collision with background detected! @ timestep1
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 13 / 15
+collision with background detected! @ timestep2
+collision with background detected! @ timestep1
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 14 / 15
+collision with background detected! @ timestep1
+collision with background detected! @ timestep0
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+The score of experiment is (0.6571428571428573, 0.1561945331913383, 0.1026421218114509, {'nc': 0.8, 'dac': 1.0, 'ttc': 0.6, 'c': 1.0, 'pdms': 0.6571428571428573}, {0.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 0.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 0.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.2857142857142857}, 2.75: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 3.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.2857142857142857}, 3.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.2857142857142857}, 3.5: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 3.75: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}}).
+=============================Results=============================
+'nc': 0.8
+'dac': 1.0
+'ttc': 0.6
+'c': 1.0
+'pdms': 0.6571428571428573
+'rc': 0.1561945331913383
+'hdscore': 0.1026421218114509
+The AD algorithm is still running, remaining tolerant 100.
+The AD algorithm is still running, remaining tolerant 95.
+The AD algorithm is still running, remaining tolerant 90.
+The AD algorithm completed with return code 0.
++ rc=0
++ echo 'I46_OFF_EP_RC=0 scene-0013-easy-00 r2 a1'
+I46_OFF_EP_RC=0 scene-0013-easy-00 r2 a1
++ docker rm -f hugsim_uniad_client
+++ python3 -c '
+import json, math, sys
+try:
+    v = json.load(open('\''/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/eval.json'\'')).get('\''hdscore'\'')
+    print(v if isinstance(v, (int, float)) and math.isfinite(v) else '\''INVALID'\'')
+except Exception:
+    print('\''MISSING'\'')
+'
++ hd=0.1026421218114509
+++ grep -c sent /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/output.txt
++ steps=15
++ '[' -n 15 ']'
++ '[' 0 = 0 ']'
++ '[' 0.1026421218114509 '!=' MISSING ']'
++ '[' 0.1026421218114509 '!=' INVALID ']'
++ '[' 15 -gt 0 ']'
++ rm -rf /datasets/nuscenes-full/hugsim/iter46_runs/scene-0013-easy-00__r2
++ mkdir -p /datasets/nuscenes-full/hugsim/iter46_runs/scene-0013-easy-00__r2
++ find /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00 -type p -delete
++ mv /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/data.pkl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/eval.json /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/ground.ply /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/infos.pkl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/output.txt /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/scene.ply /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/uniad /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00/video.mp4 /datasets/nuscenes-full/hugsim/iter46_runs/scene-0013-easy-00__r2/
++ rmdir /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_easy_00
+++ date -u +%s
++ printf '{"scenario":"%s","run":%s,"attempt":%s,"rc":%s,"hdscore":%s,"steps":%s,"start_epoch":%s,"end_epoch":%s}\n' scene-0013-easy-00 2 1 0 0.1026421218114509 15 1783814167 1783814281
++ echo 'I46_OFF_EP_DONE scene-0013-easy-00 r2 ok hd=0.1026421218114509 steps=15'
+I46_OFF_EP_DONE scene-0013-easy-00 r2 ok hd=0.1026421218114509 steps=15
++ return 0
++ note_result 0
++ '[' 0 = 0 ']'
++ CONSEC=0
++ '[' -d /datasets/nuscenes-full/hugsim/iter46_runs/scene-0013-easy-00__r1 ']'
++ '[' -d /datasets/nuscenes-full/hugsim/iter46_runs/scene-0013-easy-00__r2 ']'
++ cd /opt/sentinel-stack/HUGSIM
++ pixi run python /tmp/iter46_d0_compare.py /datasets/nuscenes-full/hugsim/iter46_runs/scene-0013-easy-00__r1 /datasets/nuscenes-full/hugsim/iter46_runs/scene-0013-easy-00__r2 --out /datasets/nuscenes-full/hugsim/iter46_runs/d0_comparison.json --verdict-file /datasets/nuscenes-full/hugsim/iter46_runs/d0_verdict.txt
+I46_OFF_D0_VERDICT=stochastic
+++ cat /datasets/nuscenes-full/hugsim/iter46_runs/d0_verdict.txt
++ VERDICT=stochastic
++ '[' stochastic = deterministic ']'
+++ echo 'scene-0013-easy-00
+scene-0013-medium-00
+scene-0038-easy-00
+scene-0038-medium-00
+scene-0038-medium-01
+scene-0041-easy-00
+scene-0041-medium-00
+scene-0041-medium-01
+scene-0051-easy-00
+scene-0051-medium-00
+scene-0051-medium-01
+scene-0062-easy-00
+scene-0062-medium-00
+scene-0062-medium-01
+scene-0064-easy-00
+scene-0064-medium-00
+scene-0064-medium-01
+scene-0071-easy-00
+scene-0071-medium-00
+scene-0071-medium-01
+scene-0138-easy-00
+scene-0138-medium-00
+scene-0138-medium-01
+scene-0166-easy-00
+scene-0166-medium-00
+scene-0166-medium-01
+scene-0167-easy-00
+scene-0167-medium-00
+scene-0167-medium-01
+scene-0254-easy-00
+scene-0254-medium-00
+scene-0254-medium-01
+scene-0383-easy-00
+scene-0383-medium-00
+scene-0383-medium-01
+scene-0411-easy-00
+scene-0411-medium-00
+scene-0411-medium-01
+scene-0418-easy-00
+scene-0418-medium-00
+scene-0418-medium-01
+scene-0528-easy-00
+scene-0528-medium-00
+scene-0528-medium-01
+scene-0661-easy-00
+scene-0661-medium-00
+scene-0661-medium-01
+scene-0920-easy-00
+scene-0920-medium-00
+scene-0930-easy-00
+scene-0930-medium-00
+scene-0930-medium-01'
+++ head -26
+++ tail -n +2
++ for s in $(echo "$SCENARIOS" | head -26 | tail -n +2)
++ run_one scene-0013-medium-00 1
++ local scenario=scene-0013-medium-00 run_idx=1
++ local scene=scene-0013
++ local mode_dashed=medium-00
++ local mode=medium_00
++ local out_dir=/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_medium_00
++ local dest=/datasets/nuscenes-full/hugsim/iter46_runs/scene-0013-medium-00__r1
++ prep_scene scene-0013
++ local scene=scene-0013
++ '[' '!' -d /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013 ']'
++ local cfg=/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/cfg.yaml
++ '[' -f /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/cfg.yaml.orig ']'
++ python3 - /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/cfg.yaml /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013
++ local attempt rc steps hd
++ for attempt in 1 2
++ disk_guard
++ local avail
+++ df --output=avail -BG /datasets/nuscenes-full
+++ tail -1
+++ tr -dc 0-9
++ avail=184
++ '[' 184 -lt 20 ']'
+++ date -u
++ echo 'I46_OFF_EP_START scene-0013-medium-00 r1 a1 Sat Jul 11 23:58:01 UTC 2026'
+I46_OFF_EP_START scene-0013-medium-00 r1 a1 Sat Jul 11 23:58:01 UTC 2026
++ local t0
+++ date -u +%s
++ t0=1783814281
++ docker rm -f hugsim_uniad_client
++ rm -rf /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_medium_00
++ cd /opt/sentinel-stack/HUGSIM
++ timeout 1200 pixi run python -u closed_loop.py --scenario_path /datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0013-medium-00.yaml --base_path configs/sim/nuscenes_base.yaml --camera_path configs/sim/nuscenes_camera.yaml --kinematic_path configs/sim/kinematic.yaml --ad uniad --ad_cuda 0
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_medium_00/output.txt
+/opt/sentinel-stack/UniAD_SIM/tools/e2e.sh 0 /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_medium_00
+Traceback (most recent call last):
+  File "/opt/sentinel-stack/HUGSIM/closed_loop.py", line 149, in <module>
+    create_gym_env(cfg, output)
+  File "/opt/sentinel-stack/HUGSIM/closed_loop.py", line 32, in create_gym_env
+    env = gymnasium.make('hugsim_env/HUGSim-v0', cfg=cfg, output=output)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/gymnasium/envs/registration.py", line 742, in make
+    env = env_creator(**env_spec_kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/sim/hugsim_env/envs/hug_sim.py", line 67, in __init__
+    self.planner = planner(plan_list, scene_path=cfg.model_path, unified_map=unified_map, ground=self.ground_model, dt=cfg.kinematic.dt)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/sim/utils/plan.py", line 53, in __init__
+    with open(os.path.join(model.model_path, 'wlh.json')) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_06_00_52/postprocess/shadow.pth/wlh.json'
++ rc=0
++ echo 'I46_OFF_EP_RC=0 scene-0013-medium-00 r1 a1'
+I46_OFF_EP_RC=0 scene-0013-medium-00 r1 a1
++ docker rm -f hugsim_uniad_client
+++ python3 -c '
+import json, math, sys
+try:
+    v = json.load(open('\''/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_medium_00/eval.json'\'')).get('\''hdscore'\'')
+    print(v if isinstance(v, (int, float)) and math.isfinite(v) else '\''INVALID'\'')
+except Exception:
+    print('\''MISSING'\'')
+'
++ hd=MISSING
+++ grep -c sent /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_medium_00/output.txt
++ steps=0
++ '[' -n 0 ']'
++ '[' 0 = 0 ']'
++ '[' MISSING '!=' MISSING ']'
++ echo 'I46_OFF_EP_ATTEMPT_FAIL scene-0013-medium-00 r1 a1 rc=0 hd=MISSING steps=0'
+I46_OFF_EP_ATTEMPT_FAIL scene-0013-medium-00 r1 a1 rc=0 hd=MISSING steps=0
++ for attempt in 1 2
++ disk_guard
++ local avail
+++ df --output=avail -BG /datasets/nuscenes-full
+++ tail -1
+++ tr -dc 0-9
++ avail=184
++ '[' 184 -lt 20 ']'
+++ date -u
++ echo 'I46_OFF_EP_START scene-0013-medium-00 r1 a2 Sat Jul 11 23:58:10 UTC 2026'
+I46_OFF_EP_START scene-0013-medium-00 r1 a2 Sat Jul 11 23:58:10 UTC 2026
++ local t0
+++ date -u +%s
++ t0=1783814290
++ docker rm -f hugsim_uniad_client
++ rm -rf /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_medium_00
++ cd /opt/sentinel-stack/HUGSIM
++ timeout 1200 pixi run python -u closed_loop.py --scenario_path /datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0013-medium-00.yaml --base_path configs/sim/nuscenes_base.yaml --camera_path configs/sim/nuscenes_camera.yaml --kinematic_path configs/sim/kinematic.yaml --ad uniad --ad_cuda 0
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_medium_00/output.txt
+/opt/sentinel-stack/UniAD_SIM/tools/e2e.sh 0 /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_medium_00
+Traceback (most recent call last):
+  File "/opt/sentinel-stack/HUGSIM/closed_loop.py", line 149, in <module>
+    create_gym_env(cfg, output)
+  File "/opt/sentinel-stack/HUGSIM/closed_loop.py", line 32, in create_gym_env
+    env = gymnasium.make('hugsim_env/HUGSim-v0', cfg=cfg, output=output)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/gymnasium/envs/registration.py", line 742, in make
+    env = env_creator(**env_spec_kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/sim/hugsim_env/envs/hug_sim.py", line 67, in __init__
+    self.planner = planner(plan_list, scene_path=cfg.model_path, unified_map=unified_map, ground=self.ground_model, dt=cfg.kinematic.dt)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/sim/utils/plan.py", line 53, in __init__
+    with open(os.path.join(model.model_path, 'wlh.json')) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_06_00_52/postprocess/shadow.pth/wlh.json'
++ rc=0
++ echo 'I46_OFF_EP_RC=0 scene-0013-medium-00 r1 a2'
+I46_OFF_EP_RC=0 scene-0013-medium-00 r1 a2
++ docker rm -f hugsim_uniad_client
+++ python3 -c '
+import json, math, sys
+try:
+    v = json.load(open('\''/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_medium_00/eval.json'\'')).get('\''hdscore'\'')
+    print(v if isinstance(v, (int, float)) and math.isfinite(v) else '\''INVALID'\'')
+except Exception:
+    print('\''MISSING'\'')
+'
++ hd=MISSING
+++ grep -c sent /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_medium_00/output.txt
++ steps=0
++ '[' -n 0 ']'
++ '[' 0 = 0 ']'
++ '[' MISSING '!=' MISSING ']'
++ echo 'I46_OFF_EP_ATTEMPT_FAIL scene-0013-medium-00 r1 a2 rc=0 hd=MISSING steps=0'
+I46_OFF_EP_ATTEMPT_FAIL scene-0013-medium-00 r1 a2 rc=0 hd=MISSING steps=0
++ rm -rf /datasets/nuscenes-full/hugsim/iter46_runs/scene-0013-medium-00__r1__failed
++ mkdir -p /datasets/nuscenes-full/hugsim/iter46_runs/scene-0013-medium-00__r1__failed
++ '[' -d /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_medium_00 ']'
++ find /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_medium_00 -type p -delete
++ mv /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_medium_00 /datasets/nuscenes-full/hugsim/iter46_runs/scene-0013-medium-00__r1__failed/last_attempt
+++ date -u +%s
++ printf '{"scenario":"%s","run":%s,"attempt":2,"rc":%s,"failed":true,"start_epoch":0,"end_epoch":%s}\n' scene-0013-medium-00 1 0 1783814298
++ echo 'I46_OFF_EP_DONE scene-0013-medium-00 r1 FAILED'
+I46_OFF_EP_DONE scene-0013-medium-00 r1 FAILED
++ return 1
++ note_result 1
++ '[' 1 = 0 ']'
++ CONSEC=1
++ '[' 1 -ge 3 ']'
++ run_one scene-0013-medium-00 2
++ local scenario=scene-0013-medium-00 run_idx=2
++ local scene=scene-0013
++ local mode_dashed=medium-00
++ local mode=medium_00
++ local out_dir=/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_medium_00
++ local dest=/datasets/nuscenes-full/hugsim/iter46_runs/scene-0013-medium-00__r2
++ prep_scene scene-0013
++ local scene=scene-0013
++ '[' '!' -d /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013 ']'
++ local cfg=/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/cfg.yaml
++ '[' -f /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/cfg.yaml.orig ']'
++ python3 - /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/cfg.yaml /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013
++ local attempt rc steps hd
++ for attempt in 1 2
++ disk_guard
++ local avail
+++ df --output=avail -BG /datasets/nuscenes-full
+++ tail -1
+++ tr -dc 0-9
++ avail=184
++ '[' 184 -lt 20 ']'
+++ date -u
++ echo 'I46_OFF_EP_START scene-0013-medium-00 r2 a1 Sat Jul 11 23:58:18 UTC 2026'
+I46_OFF_EP_START scene-0013-medium-00 r2 a1 Sat Jul 11 23:58:18 UTC 2026
++ local t0
+++ date -u +%s
++ t0=1783814298
++ docker rm -f hugsim_uniad_client
++ rm -rf /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_medium_00
++ cd /opt/sentinel-stack/HUGSIM
++ timeout 1200 pixi run python -u closed_loop.py --scenario_path /datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0013-medium-00.yaml --base_path configs/sim/nuscenes_base.yaml --camera_path configs/sim/nuscenes_camera.yaml --kinematic_path configs/sim/kinematic.yaml --ad uniad --ad_cuda 0
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_medium_00/output.txt
+/opt/sentinel-stack/UniAD_SIM/tools/e2e.sh 0 /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_medium_00
+Traceback (most recent call last):
+  File "/opt/sentinel-stack/HUGSIM/closed_loop.py", line 149, in <module>
+    create_gym_env(cfg, output)
+  File "/opt/sentinel-stack/HUGSIM/closed_loop.py", line 32, in create_gym_env
+    env = gymnasium.make('hugsim_env/HUGSim-v0', cfg=cfg, output=output)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/gymnasium/envs/registration.py", line 742, in make
+    env = env_creator(**env_spec_kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/sim/hugsim_env/envs/hug_sim.py", line 67, in __init__
+    self.planner = planner(plan_list, scene_path=cfg.model_path, unified_map=unified_map, ground=self.ground_model, dt=cfg.kinematic.dt)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/sim/utils/plan.py", line 53, in __init__
+    with open(os.path.join(model.model_path, 'wlh.json')) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_06_00_52/postprocess/shadow.pth/wlh.json'
++ rc=0
++ echo 'I46_OFF_EP_RC=0 scene-0013-medium-00 r2 a1'
+I46_OFF_EP_RC=0 scene-0013-medium-00 r2 a1
++ docker rm -f hugsim_uniad_client
+++ python3 -c '
+import json, math, sys
+try:
+    v = json.load(open('\''/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_medium_00/eval.json'\'')).get('\''hdscore'\'')
+    print(v if isinstance(v, (int, float)) and math.isfinite(v) else '\''INVALID'\'')
+except Exception:
+    print('\''MISSING'\'')
+'
++ hd=MISSING
+++ grep -c sent /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_medium_00/output.txt
++ steps=0
++ '[' -n 0 ']'
++ '[' 0 = 0 ']'
++ '[' MISSING '!=' MISSING ']'
++ echo 'I46_OFF_EP_ATTEMPT_FAIL scene-0013-medium-00 r2 a1 rc=0 hd=MISSING steps=0'
+I46_OFF_EP_ATTEMPT_FAIL scene-0013-medium-00 r2 a1 rc=0 hd=MISSING steps=0
++ for attempt in 1 2
++ disk_guard
++ local avail
+++ df --output=avail -BG /datasets/nuscenes-full
+++ tail -1
+++ tr -dc 0-9
++ avail=184
++ '[' 184 -lt 20 ']'
+++ date -u
++ echo 'I46_OFF_EP_START scene-0013-medium-00 r2 a2 Sat Jul 11 23:58:27 UTC 2026'
+I46_OFF_EP_START scene-0013-medium-00 r2 a2 Sat Jul 11 23:58:27 UTC 2026
++ local t0
+++ date -u +%s
++ t0=1783814307
++ docker rm -f hugsim_uniad_client
++ rm -rf /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_medium_00
++ cd /opt/sentinel-stack/HUGSIM
++ timeout 1200 pixi run python -u closed_loop.py --scenario_path /datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0013-medium-00.yaml --base_path configs/sim/nuscenes_base.yaml --camera_path configs/sim/nuscenes_camera.yaml --kinematic_path configs/sim/kinematic.yaml --ad uniad --ad_cuda 0
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_medium_00/output.txt
+/opt/sentinel-stack/UniAD_SIM/tools/e2e.sh 0 /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_medium_00
+Traceback (most recent call last):
+  File "/opt/sentinel-stack/HUGSIM/closed_loop.py", line 149, in <module>
+    create_gym_env(cfg, output)
+  File "/opt/sentinel-stack/HUGSIM/closed_loop.py", line 32, in create_gym_env
+    env = gymnasium.make('hugsim_env/HUGSim-v0', cfg=cfg, output=output)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/gymnasium/envs/registration.py", line 742, in make
+    env = env_creator(**env_spec_kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/sim/hugsim_env/envs/hug_sim.py", line 67, in __init__
+    self.planner = planner(plan_list, scene_path=cfg.model_path, unified_map=unified_map, ground=self.ground_model, dt=cfg.kinematic.dt)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/sim/utils/plan.py", line 53, in __init__
+    with open(os.path.join(model.model_path, 'wlh.json')) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_06_00_52/postprocess/shadow.pth/wlh.json'
++ rc=0
++ echo 'I46_OFF_EP_RC=0 scene-0013-medium-00 r2 a2'
+I46_OFF_EP_RC=0 scene-0013-medium-00 r2 a2
++ docker rm -f hugsim_uniad_client
+++ python3 -c '
+import json, math, sys
+try:
+    v = json.load(open('\''/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_medium_00/eval.json'\'')).get('\''hdscore'\'')
+    print(v if isinstance(v, (int, float)) and math.isfinite(v) else '\''INVALID'\'')
+except Exception:
+    print('\''MISSING'\'')
+'
++ hd=MISSING
+++ grep -c sent /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_medium_00/output.txt
++ steps=0
++ '[' -n 0 ']'
++ '[' 0 = 0 ']'
++ '[' MISSING '!=' MISSING ']'
++ echo 'I46_OFF_EP_ATTEMPT_FAIL scene-0013-medium-00 r2 a2 rc=0 hd=MISSING steps=0'
+I46_OFF_EP_ATTEMPT_FAIL scene-0013-medium-00 r2 a2 rc=0 hd=MISSING steps=0
++ rm -rf /datasets/nuscenes-full/hugsim/iter46_runs/scene-0013-medium-00__r2__failed
++ mkdir -p /datasets/nuscenes-full/hugsim/iter46_runs/scene-0013-medium-00__r2__failed
++ '[' -d /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_medium_00 ']'
++ find /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_medium_00 -type p -delete
++ mv /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_medium_00 /datasets/nuscenes-full/hugsim/iter46_runs/scene-0013-medium-00__r2__failed/last_attempt
+++ date -u +%s
++ printf '{"scenario":"%s","run":%s,"attempt":2,"rc":%s,"failed":true,"start_epoch":0,"end_epoch":%s}\n' scene-0013-medium-00 2 0 1783814315
++ echo 'I46_OFF_EP_DONE scene-0013-medium-00 r2 FAILED'
+I46_OFF_EP_DONE scene-0013-medium-00 r2 FAILED
++ return 1
++ note_result 1
++ '[' 1 = 0 ']'
++ CONSEC=2
++ '[' 2 -ge 3 ']'
++ for s in $(echo "$SCENARIOS" | head -26 | tail -n +2)
++ run_one scene-0038-easy-00 1
++ local scenario=scene-0038-easy-00 run_idx=1
++ local scene=scene-0038
++ local mode_dashed=easy-00
++ local mode=easy_00
++ local out_dir=/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_easy_00
++ local dest=/datasets/nuscenes-full/hugsim/iter46_runs/scene-0038-easy-00__r1
++ prep_scene scene-0038
++ local scene=scene-0038
++ '[' '!' -d /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038 ']'
++ python3 -c 'import zipfile; zipfile.ZipFile('\''/datasets/nuscenes-full/hugsim/scenes/nuscenes/scene-0038.zip'\'').extractall('\''/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes'\'')'
++ local cfg=/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/cfg.yaml
++ '[' -f /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/cfg.yaml.orig ']'
++ cp /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/cfg.yaml /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/cfg.yaml.orig
+cp: cannot stat '/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/cfg.yaml': No such file or directory
++ python3 - /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/cfg.yaml /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038
+Traceback (most recent call last):
+  File "<stdin>", line 3, in <module>
+FileNotFoundError: [Errno 2] No such file or directory: '/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/cfg.yaml'
++ local attempt rc steps hd
++ for attempt in 1 2
++ disk_guard
++ local avail
+++ df --output=avail -BG /datasets/nuscenes-full
+++ tail -1
+++ tr -dc 0-9
++ avail=183
++ '[' 183 -lt 20 ']'
+++ date -u
++ echo 'I46_OFF_EP_START scene-0038-easy-00 r1 a1 Sat Jul 11 23:58:39 UTC 2026'
+I46_OFF_EP_START scene-0038-easy-00 r1 a1 Sat Jul 11 23:58:39 UTC 2026
++ local t0
+++ date -u +%s
++ t0=1783814319
++ docker rm -f hugsim_uniad_client
++ rm -rf /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_easy_00
++ cd /opt/sentinel-stack/HUGSIM
++ timeout 1200 pixi run python -u closed_loop.py --scenario_path /datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0038-easy-00.yaml --base_path configs/sim/nuscenes_base.yaml --camera_path configs/sim/nuscenes_camera.yaml --kinematic_path configs/sim/kinematic.yaml --ad uniad --ad_cuda 0
+Traceback (most recent call last):
+  File "/opt/sentinel-stack/HUGSIM/closed_loop.py", line 132, in <module>
+    model_config = OmegaConf.load(os.path.join(model_path, 'cfg.yaml'))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/omegaconf/omegaconf.py", line 189, in load
+    with io.open(os.path.abspath(file_), "r", encoding="utf-8") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/cfg.yaml'
++ rc=1
++ echo 'I46_OFF_EP_RC=1 scene-0038-easy-00 r1 a1'
+I46_OFF_EP_RC=1 scene-0038-easy-00 r1 a1
++ docker rm -f hugsim_uniad_client
+++ python3 -c '
+import json, math, sys
+try:
+    v = json.load(open('\''/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_easy_00/eval.json'\'')).get('\''hdscore'\'')
+    print(v if isinstance(v, (int, float)) and math.isfinite(v) else '\''INVALID'\'')
+except Exception:
+    print('\''MISSING'\'')
+'
++ hd=MISSING
+++ grep -c sent /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_easy_00/output.txt
++ steps=
++ '[' -n '' ']'
++ steps=0
++ '[' 1 = 0 ']'
++ echo 'I46_OFF_EP_ATTEMPT_FAIL scene-0038-easy-00 r1 a1 rc=1 hd=MISSING steps=0'
+I46_OFF_EP_ATTEMPT_FAIL scene-0038-easy-00 r1 a1 rc=1 hd=MISSING steps=0
++ for attempt in 1 2
++ disk_guard
++ local avail
+++ df --output=avail -BG /datasets/nuscenes-full
+++ tail -1
+++ tr -dc 0-9
++ avail=183
++ '[' 183 -lt 20 ']'
+++ date -u
++ echo 'I46_OFF_EP_START scene-0038-easy-00 r1 a2 Sat Jul 11 23:58:46 UTC 2026'
+I46_OFF_EP_START scene-0038-easy-00 r1 a2 Sat Jul 11 23:58:46 UTC 2026
++ local t0
+++ date -u +%s
++ t0=1783814326
++ docker rm -f hugsim_uniad_client
++ rm -rf /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_easy_00
++ cd /opt/sentinel-stack/HUGSIM
++ timeout 1200 pixi run python -u closed_loop.py --scenario_path /datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0038-easy-00.yaml --base_path configs/sim/nuscenes_base.yaml --camera_path configs/sim/nuscenes_camera.yaml --kinematic_path configs/sim/kinematic.yaml --ad uniad --ad_cuda 0
+Traceback (most recent call last):
+  File "/opt/sentinel-stack/HUGSIM/closed_loop.py", line 132, in <module>
+    model_config = OmegaConf.load(os.path.join(model_path, 'cfg.yaml'))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/omegaconf/omegaconf.py", line 189, in load
+    with io.open(os.path.abspath(file_), "r", encoding="utf-8") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/cfg.yaml'
++ rc=1
++ echo 'I46_OFF_EP_RC=1 scene-0038-easy-00 r1 a2'
+I46_OFF_EP_RC=1 scene-0038-easy-00 r1 a2
++ docker rm -f hugsim_uniad_client
+++ python3 -c '
+import json, math, sys
+try:
+    v = json.load(open('\''/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_easy_00/eval.json'\'')).get('\''hdscore'\'')
+    print(v if isinstance(v, (int, float)) and math.isfinite(v) else '\''INVALID'\'')
+except Exception:
+    print('\''MISSING'\'')
+'
++ hd=MISSING
+++ grep -c sent /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_easy_00/output.txt
++ steps=
++ '[' -n '' ']'
++ steps=0
++ '[' 1 = 0 ']'
++ echo 'I46_OFF_EP_ATTEMPT_FAIL scene-0038-easy-00 r1 a2 rc=1 hd=MISSING steps=0'
+I46_OFF_EP_ATTEMPT_FAIL scene-0038-easy-00 r1 a2 rc=1 hd=MISSING steps=0
++ rm -rf /datasets/nuscenes-full/hugsim/iter46_runs/scene-0038-easy-00__r1__failed
++ mkdir -p /datasets/nuscenes-full/hugsim/iter46_runs/scene-0038-easy-00__r1__failed
++ '[' -d /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_easy_00 ']'
+++ date -u +%s
++ printf '{"scenario":"%s","run":%s,"attempt":2,"rc":%s,"failed":true,"start_epoch":0,"end_epoch":%s}\n' scene-0038-easy-00 1 1 1783814332
++ echo 'I46_OFF_EP_DONE scene-0038-easy-00 r1 FAILED'
+I46_OFF_EP_DONE scene-0038-easy-00 r1 FAILED
++ return 1
++ note_result 1
++ '[' 1 = 0 ']'
++ CONSEC=3
++ '[' 3 -ge 3 ']'
+++ date -u
++ echo 'I46_OFF_ABORT_CONSECUTIVE_FAILURES Sat Jul 11 23:58:52 UTC 2026'
+I46_OFF_ABORT_CONSECUTIVE_FAILURES Sat Jul 11 23:58:52 UTC 2026
++ exit 1

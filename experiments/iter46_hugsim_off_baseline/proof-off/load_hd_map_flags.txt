@@ -1,0 +1,17 @@
+# grep -c load_HD_map:\ true per frozen scenario yaml (diagnostic, 2026-07-12)
+scene-0013-hard-00.yaml
+scene-0038-medium-01.yaml
+scene-0051-medium-01.yaml
+scene-0062-medium-01.yaml
+scene-0064-medium-01.yaml
+scene-0071-medium-01.yaml
+scene-0138-medium-01.yaml
+scene-0166-medium-01.yaml
+scene-0167-medium-01.yaml
+scene-0254-medium-01.yaml
+scene-0383-medium-01.yaml
+scene-0411-medium-01.yaml
+scene-0418-medium-01.yaml
+scene-0661-medium-01.yaml
+scene-0920-hard-00.yaml
+scene-0930-medium-01.yaml
