@@ -873,3 +873,25 @@ events to prepare; they are a property the repository always has.
      only), update README (row 46 + header/status/repo-map), CONTINUITY arc + shift log,
      regenerate HANDOFF.md; ruff + pytest + validate_docs green on every push. A pass
      authorizes ONLY the Stage-2 OFF-vs-released-union pre-registration.
+
+- 2026-07-12: Claude (Fable 5) via delegated executor — diagnosed the iteration 46 first-launch
+  abort and relaunched after a launcher-only amendment. The run stopped at 23:58:52 UTC via
+  `I46_OFF_ABORT_CONSECUTIVE_FAILURES` (episodes 3-5 failed both attempts), but box evidence
+  showed both causes were run-script/staging defects, not the registered crash/VRAM
+  falsifier conditions: (1) 7 of 19 release scene zips nest under a top-level `nuscenes/`
+  prefix, so `prep_scene` extracted scene-0038 (and would have extracted 0041/0051/0254/
+  0418/0920/0930) to the wrong path — `cfg.yaml` never found; (2) the released scenario
+  yamls reference actor assets as `<car>/postprocess/shadow.pth` while the staged 3DRealCar
+  export is flat — HUGSIM's plan.py failed on `.../shadow.pth/wlh.json` for every
+  actor-bearing (medium) scenario; upstream's own export_multiple_scenes.py strips exactly
+  this suffix. No episode reached client stepping; no OOM. D0 completed before the abort:
+  verdict STOCHASTIC (hd 0.1677/16 steps vs 0.1026/15 steps), so the branch is 26 scenarios
+  x 2 runs. Amended run_off_baseline.sh only (temp-dir extraction keyed on cfg.yaml,
+  idempotent `postprocess/shadow.pth -> ..` symlinks under 3DRealCar, resume-skip of
+  completed episodes, carried D0 verdict, prior-launch evidence archival) and recorded the
+  amendment in HYPOTHESIS.md — no frozen bar/scenario/provenance value changed; the two
+  completed scene-0013-easy-00 episodes remain valid. Launch-1 log preserved into the
+  collection root. RELAUNCHED detached on sentinel-gpu (same log
+  /var/log/sentinel-iter46-off.log, done marker I46_OFF_ALL_DONE); the on-done completion
+  instructions above apply unchanged, plus: commit BOTH launch logs under proof-off/ and
+  the archived prior_launches/ defect evidence.

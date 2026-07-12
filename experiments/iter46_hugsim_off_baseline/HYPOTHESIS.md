@@ -254,3 +254,42 @@ apply to every doc this iteration touches.
 4. On `I46_OFF_ALL_DONE`: collect evidence, run the committed analyzer ONCE from collected
    artifacts, publish `RESULT.md` at full weight (pass or null), update README/CONTINUITY/
    HANDOFF. No Stage-2 run happens under this pre-registration.
+
+## Amendment 2026-07-12 — launcher defect fix only (no frozen content changed)
+
+On the record: the first launch (2026-07-11 23:54 UTC) aborted at 23:58:52 UTC via the
+consecutive-failure guard (`I46_OFF_ABORT_CONSECUTIVE_FAILURES`) after episodes 3-5
+(scene-0013-medium-00 r1, r2; scene-0038-easy-00 r1) failed both attempts. Box diagnosis
+showed all three were run-script/staging defects, not the registered crash/deadlock or VRAM
+experimental conditions — no episode reached client stepping; no CUDA OOM occurred:
+
+1. **Zip-nesting defect** (scene-0038-easy-00, rc=1): 7 of the 19 release scene zips
+   (`scene-0038/0041/0051/0254/0418/0920/0930`) nest members under a top-level `nuscenes/`
+   prefix; `prep_scene`'s `extractall($SCENES_DIR)` landed them at
+   `$SCENES_DIR/nuscenes/<scene>`, so `closed_loop.py` failed on a missing `cfg.yaml`.
+   The other 12 zips (including scene-0013, pre-extracted by the iteration-45 smoke) extract
+   flat, which is why the D0 probe passed.
+2. **3DRealCar layout suffix** (scene-0013-medium-00, rc=0 with a swallowed
+   `FileNotFoundError`): the released scenario yamls reference actor assets as
+   `<car_id>/postprocess/shadow.pth` (the authors' internal layout), while the released
+   3DRealCar export staged in iteration 45 is flat (`<car_id>/{gs.pth, wlh.json}`); HUGSIM's
+   `sim/utils/plan.py` then opens `<...>/postprocess/shadow.pth/wlh.json`, which does not
+   exist. Upstream's own `eval_render/export_multiple_scenes.py:63` strips exactly this
+   suffix, confirming the release-layout mismatch. All 29 car ids referenced by the 34
+   medium yamls are staged and complete on the box. The iteration-45 smoke never hit this
+   because `scene-0013-easy-00` has an empty actor plan list.
+
+The amendment changes ONLY the run script (`run_off_baseline.sh`): (a) extraction via a
+temp dir locating the scene dir by its `cfg.yaml`; (b) idempotent
+`<car>/postprocess/shadow.pth -> ..` compatibility symlinks under the staged 3DRealCar tree
+(filesystem links only; no manifested file modified, no HUGSIM/UniAD_SIM code touched);
+(c) resume support — completed episodes are skipped, the recorded D0 verdict is carried
+(the branch decision is made once, per this pre-registration), and prior-launch `__failed`
+dirs plus receipts are archived under the collection root as defect evidence. No scenario
+yaml, SHA receipt, completion bar, falsifier, schedule, budget number, or claim boundary
+changed. The two completed `scene-0013-easy-00` episodes (the D0 probe; verdict
+`stochastic`: hd `0.16773162939297126`/16 steps vs `0.1026421218114509`/15 steps) remain
+valid — each episode is independent, and within-scenario stochastic-branch pairs are always
+produced back-to-back within a single launch (the D0 pair was; the remaining 25 pairs will
+be). The relaunch resumes from `scene-0013-medium-00` under the recorded stochastic branch
+with all guards unchanged.

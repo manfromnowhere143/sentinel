@@ -6,6 +6,22 @@
 # Markers: I46_OFF_START, I46_OFF_PROVENANCE_OK|FAIL, I46_OFF_EP_START/RC/DONE pairs,
 # I46_OFF_D0_VERDICT=, I46_OFF_ABORT_DISK, I46_OFF_ABORT_CONSECUTIVE_FAILURES,
 # I46_OFF_ALL_DONE. All frozen values below mirror HYPOTHESIS.md exactly.
+#
+# Amended 2026-07-12 (launcher defects only; see the HYPOTHESIS.md amendment note —
+# no frozen bar/scenario/provenance value changed):
+#   (a) prep_scene handles release zips that nest scene dirs under a top-level
+#       'nuscenes/' prefix (7 of 19 zips do; the old extractall landed them at
+#       $SCENES_DIR/nuscenes/<scene> and cfg.yaml was never found);
+#   (b) idempotent '<car>/postprocess/shadow.pth -> ..' compatibility symlinks under
+#       the staged 3DRealCar tree (released scenario yamls carry the authors' internal
+#       layout suffix; the released car export is flat — upstream strips the same
+#       suffix in HUGSIM eval_render/export_multiple_scenes.py);
+#   (c) resume support: completed episodes are skipped (I46_OFF_EP_SKIP_DONE), a
+#       recorded D0 verdict is carried (the branch decision is made once per the
+#       pre-registration), and stale __failed dirs plus the prior receipts.json are
+#       archived under $RUNS/prior_launches/<utc>/ as defect evidence.
+# New markers: I46_OFF_PRIOR_LAUNCH_ARCHIVED, I46_OFF_REALCAR_COMPAT_LINKS,
+# I46_OFF_PREP_FAIL, I46_OFF_EP_SKIP_DONE.
 set -x
 echo "I46_OFF_START $(date -u)"
 
@@ -106,6 +122,19 @@ if [ "$PROV_FAIL" != "0" ]; then
     echo "I46_OFF_PROVENANCE_FAIL $(date -u)"
     exit 1
 fi
+
+# ---- archive prior-launch failure evidence before overwriting receipts (amendment c) ----
+shopt -s nullglob
+STALE_FAILED=("$RUNS"/*__failed)
+if [ ${#STALE_FAILED[@]} -gt 0 ] || { [ -f "$RUNS/receipts.json" ] && [ -s "$RUNS/d0_verdict.txt" ]; }; then
+    PRIOR="$RUNS/prior_launches/$(date -u +%Y%m%dT%H%M%SZ)"
+    mkdir -p "$PRIOR"
+    [ -f "$RUNS/receipts.json" ] && cp "$RUNS/receipts.json" "$PRIOR/receipts.json"
+    for d in "${STALE_FAILED[@]}"; do mv "$d" "$PRIOR/"; done
+    echo "I46_OFF_PRIOR_LAUNCH_ARCHIVED $PRIOR failed_dirs=${#STALE_FAILED[@]}"
+fi
+shopt -u nullglob
+
 {
     echo "{"
     echo "  \"hugsim_sha\": \"$(git -C $HUGSIM rev-parse HEAD)\","
@@ -118,6 +147,18 @@ fi
     echo "}"
 } > "$RUNS/receipts.json"
 echo "I46_OFF_PROVENANCE_OK $(date -u)"
+
+# ---- 3DRealCar layout-compatibility symlinks (amendment b; idempotent, adds only links) ----
+REALCAR=/datasets/nuscenes-full/hugsim/3DRealCar
+LINKED=0
+for car in "$REALCAR"/*/; do
+    if [ -f "$car/gs.pth" ] && [ ! -e "$car/postprocess/shadow.pth" ]; then
+        mkdir -p "$car/postprocess"
+        ln -s .. "$car/postprocess/shadow.pth"
+        LINKED=$((LINKED + 1))
+    fi
+done
+echo "I46_OFF_REALCAR_COMPAT_LINKS linked=$LINKED"
 
 SCENARIOS=$(cut -c67- "$MANIFEST" | sed 's/\.yaml$//')
 
@@ -132,11 +173,26 @@ disk_guard() {
 
 prep_scene() {
     # iter45-recorded edit class: extract once, patch extracted cfg.yaml model_path only.
+    # Amendment (a): extract via a temp dir and locate the scene dir by its cfg.yaml,
+    # because 7 of the 19 release zips nest members under a top-level 'nuscenes/' prefix.
     local scene=$1
     if [ ! -d "$SCENES_DIR/$scene" ]; then
-        python3 -c "import zipfile; zipfile.ZipFile('$ZIP_DIR/$scene.zip').extractall('$SCENES_DIR')"
+        python3 - "$ZIP_DIR/$scene.zip" "$scene" "$SCENES_DIR" <<'PYEOF'
+import pathlib, shutil, sys, tempfile, zipfile
+zip_path, scene, scenes_dir = sys.argv[1], sys.argv[2], sys.argv[3]
+with tempfile.TemporaryDirectory(dir=scenes_dir) as tmp:
+    zipfile.ZipFile(zip_path).extractall(tmp)
+    hits = [p for p in pathlib.Path(tmp).rglob(scene) if (p / "cfg.yaml").is_file()]
+    if len(hits) != 1:
+        raise SystemExit(f"expected exactly one {scene} dir with cfg.yaml in {zip_path}, got {hits}")
+    shutil.move(str(hits[0]), str(pathlib.Path(scenes_dir) / scene))
+PYEOF
     fi
     local cfg="$SCENES_DIR/$scene/cfg.yaml"
+    if [ ! -f "$cfg" ]; then
+        echo "I46_OFF_PREP_FAIL scene=$scene cfg.yaml missing after extraction"
+        return 1
+    fi
     [ -f "$cfg.orig" ] || cp "$cfg" "$cfg.orig"
     python3 - "$cfg" "$SCENES_DIR/$scene" <<'PYEOF'
 import re, sys
@@ -155,6 +211,11 @@ run_one() {
     local mode=${mode_dashed//-/_}
     local out_dir="$OUT_BASE/${scene}_${mode}"
     local dest="$RUNS/${scenario}__r${run_idx}"
+    # Amendment (c): resume — an episode completed by a prior launch stays valid.
+    if [ -f "$dest/episode_meta.json" ] && ! grep -q '"failed":true' "$dest/episode_meta.json"; then
+        echo "I46_OFF_EP_SKIP_DONE $scenario r$run_idx (completed by a prior launch)"
+        return 0
+    fi
     prep_scene "$scene"
     local attempt rc steps hd
     for attempt in 1 2; do
@@ -222,15 +283,22 @@ note_result() {
 FIRST=$(echo "$SCENARIOS" | head -1)
 
 # ---- D0 determinism probe: first scenario twice, back to back ----
-run_one "$FIRST" 1; note_result $?
-run_one "$FIRST" 2; note_result $?
-if [ -d "$RUNS/${FIRST}__r1" ] && [ -d "$RUNS/${FIRST}__r2" ]; then
-    (cd "$HUGSIM" && pixi run python "$HELPER" "$RUNS/${FIRST}__r1" "$RUNS/${FIRST}__r2" \
-        --out "$RUNS/d0_comparison.json" --verdict-file "$RUNS/d0_verdict.txt")
+# Amendment (c): the branch decision is made ONCE (pre-registration); a verdict recorded
+# by a prior launch is carried, never re-derived.
+if [ -s "$RUNS/d0_verdict.txt" ] && [ -f "$RUNS/d0_comparison.json" ] \
+    && [ -f "$RUNS/${FIRST}__r1/episode_meta.json" ] && [ -f "$RUNS/${FIRST}__r2/episode_meta.json" ]; then
+    echo "I46_OFF_D0_VERDICT=$(cat "$RUNS/d0_verdict.txt") (carried from the recorded D0 probe)"
 else
-    echo '{"verdict": "stochastic", "error": "D0 episode(s) failed to complete"}' > "$RUNS/d0_comparison.json"
-    echo "stochastic" > "$RUNS/d0_verdict.txt"
-    echo "I46_OFF_D0_VERDICT=stochastic (episodes failed)"
+    run_one "$FIRST" 1; note_result $?
+    run_one "$FIRST" 2; note_result $?
+    if [ -d "$RUNS/${FIRST}__r1" ] && [ -d "$RUNS/${FIRST}__r2" ]; then
+        (cd "$HUGSIM" && pixi run python "$HELPER" "$RUNS/${FIRST}__r1" "$RUNS/${FIRST}__r2" \
+            --out "$RUNS/d0_comparison.json" --verdict-file "$RUNS/d0_verdict.txt")
+    else
+        echo '{"verdict": "stochastic", "error": "D0 episode(s) failed to complete"}' > "$RUNS/d0_comparison.json"
+        echo "stochastic" > "$RUNS/d0_verdict.txt"
+        echo "I46_OFF_D0_VERDICT=stochastic (episodes failed)"
+    fi
 fi
 VERDICT=$(cat "$RUNS/d0_verdict.txt")
 
