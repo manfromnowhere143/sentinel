@@ -1,19 +1,20 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: א' יול 12 17:43:24 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: א' יול 12 20:34:36 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+5f5fae1 handoff: record arxiv submission milestone
+4ec1962 handoff: iter50 published, iter49 still in flight
 2c89471 iter50: publish opportunity audit result and docs
 d76c6ba iter50: commit audit proof artifacts
 ee41aa6 iter50: add opportunity analyzer and tests
 5a3717a handoff: evening consolidation, caesar thread and dual iterations state
 fbd1b3d iter50: pre-register collision-opportunity audit
 cf42522 docs: regenerate handoff, iter49 run in flight
-73add7c docs: record iter49 launch in flight with on-done block
-1a1dc0a handoff: record paper revision delivery and caesar thread
 ```
-Working tree: CLEAN
+Working tree: DIRTY — resolve before handoff:
+M CONTINUITY.md
 
 ## Experiments (status inferred from files)
 
@@ -76,9 +77,9 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 17:44:36 up 8 days,  7:25,  0 users,  load average: 2.25, 3.30, 2.77
+ 20:35:47 up 8 days, 10:16,  0 users,  load average: 8.19, 6.09, 5.39
 GPU_RUN_STATE=IN_FLIGHT_CONTAINERS
-hugsim_uniad_client	Up About a minute
+hugsim_uniad_client	Up 6 minutes
 /var/log/sentinel-iter49-hard.log
 /var/log/sentinel-vitals.log
 /var/log/sentinel-iter48-stage2.log
