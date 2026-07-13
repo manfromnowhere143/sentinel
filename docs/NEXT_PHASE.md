@@ -435,13 +435,18 @@ Iteration 62 then audited that matched non-trigger object's first-fire ranking. 
 `MATCHED_OBJECT_SUBTHRESHOLD_COMPLETE`: the matched object (`object_id=16`) was visible but had
 `min_cpa=22.7648 m`, CPA rank `9/9`, and no valid TTC, while the actual first-fire trigger
 (`object_id=1`) was TTC-only with `ttc=2.1303 s` and TTC rank `1`.
+Iteration 63 then followed that same matched object through the pre-contact decision window. The
+result is `TEMPORAL_VISIBLE_NEVER_HAZARD_COMPLETE`: before the first eligible foreground
+collision timestamp (`7.25 s`), `object_id=16` was present in `13` monitor frames, with zero
+hazard frames, zero borderline frames, minimum CPA `12.1690 m`, and no valid TTC.
 
 The default next scientific line is therefore not an expanded-N transfer run and not retuning the
 released union. After iteration 61, the actor-match audit points to wrong-object/wrong-hazard
 selection in at least one classifiable row, and iteration 62 shows that the collision-near
 object in that row was outside the frozen first-fire hazard surface rather than merely losing an
-argmin tie. Two classifiable rows still lack first-fire object support, and the remaining audit
-rows are no-fire/post-fire/background-only failure modes. Any successor should be a fresh
+argmin tie. Iteration 63 shows it also never becomes hazardous before contact. Two classifiable
+rows still lack first-fire object support, and the remaining audit rows are
+no-fire/post-fire/background-only failure modes. Any successor should be a fresh
 mechanism-cause pre-registration that explains those categories, not threshold tuning. A strong
 successor should distinguish among:
 
@@ -472,7 +477,8 @@ match, but one classifiable row is ambiguous, so robust all-row mismatch is also
 Iteration 61 narrows it further: one row has a non-triggering monitor-object match, while two
 rows still lack any first-fire monitor object support. Iteration 62 shows that the matched
 non-triggering object was subthreshold at first fire, not an active hazard that simply lost
-argmin provenance.
+argmin provenance. Iteration 63 shows the same object remains visible-never-hazard through the
+pre-contact window, closing the late-emergence explanation for that row.
 
 Any such line requires a fresh `HYPOTHESIS.md`. Until then, no new HUGSIM transfer, safety,
 robustness, deployment, benchmark-ranking, or retuning claim is authorized.

@@ -450,6 +450,15 @@ events to prepare; they are a property the repository always has.
   rank `9/9`, no valid TTC. The trigger (`object_id=1`) was TTC-only with `ttc=2.1303 s` and
   TTC rank `1`. No actor-causality, repair, population-rate, safety/transfer/deployment/
   robustness/benchmark, or retuning claim.
+- Iteration 63 concluded:
+  experiments/iter63_temporal_emergence_audit/RESULT.md, published as
+  `TEMPORAL_VISIBLE_NEVER_HAZARD_COMPLETE` — a one-object temporal audit for the same matched
+  non-trigger object. It launched no GPU work and read no live box state. Before the first
+  eligible foreground collision timestamp (`7.25 s`), `object_id=16` was present in `13/29`
+  pre-contact monitor frames, had zero hazard frames, zero borderline frames, minimum CPA
+  `12.1690 m`, and no valid TTC. Contact-time evidence also stayed subthreshold. This closes
+  the late-hazard-emergence explanation for that row only. No actor-causality, repair,
+  population-rate, safety/transfer/deployment/robustness/benchmark, or retuning claim.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1628,5 +1637,13 @@ events to prepare; they are a property the repository always has.
   iteration-59 and iteration-61 proof. Result: `MATCHED_OBJECT_SUBTHRESHOLD_COMPLETE`; matched
   non-trigger `object_id=16` had `min_cpa=22.7648 m`, CPA rank `9/9`, no valid TTC, while
   trigger `object_id=1` had `ttc=2.1303 s` and TTC rank `1`. No GPU/gcloud/box read, no
+  actor-causality, repair, population-rate, safety/transfer/deployment/robustness/benchmark,
+  or retuning claim.
+- 2026-07-13: Codex — continued into iteration 63 as the temporal emergence audit for the
+  iteration-61/62 matched non-trigger object. Pre-registered ALONE (`538e8d4`), added
+  analyzer/tests (`dd46041`, 304 tests green before analysis), then ran the analyzer ONCE over
+  committed iteration-59/61/62 proof. Result: `TEMPORAL_VISIBLE_NEVER_HAZARD_COMPLETE`;
+  `object_id=16` was present in 13 pre-contact frames before `7.25 s`, with hazard frames `0`,
+  borderline frames `0`, min CPA `12.1690 m`, and min TTC `null`. No GPU/gcloud/box read, no
   actor-causality, repair, population-rate, safety/transfer/deployment/robustness/benchmark,
   or retuning claim.

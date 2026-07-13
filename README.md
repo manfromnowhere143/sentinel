@@ -4,7 +4,7 @@
 collision it is about to cause, and intervenes — measured where it actually matters: in closed
 loop, by whether the car crashes *and whether it can still drive*.**
 
-> **Honest status up front (62 registered iterations: 37 completed mechanism iterations + an
+> **Honest status up front (63 registered iterations: 37 completed mechanism iterations + an
 > independent verification pass +
 > the full official benchmark at power + a completed iteration-37 calibration null + an
 > iteration-38 opposite-direction S0 canary pass + completed iteration-39/40/41 defensibility
@@ -93,6 +93,11 @@ loop, by whether the car crashes *and whether it can still drive*.**
 > in `ttc_extreme_b` was visible but subthreshold at first fire (`min_cpa=22.76 m`, CPA rank
 > 9/9, no valid TTC), while the trigger was TTC-only on `object_id=1`; no repair, actor-causality,
 > safety, transfer, deployment, benchmark, population, or retuning
+> claim — + a completed iteration-63 temporal emergence audit: the same `object_id=16` was
+> present in 13 pre-contact monitor frames before the `7.25 s` foreground collision timestamp
+> and never crossed even the registered borderline band (minimum CPA 12.17 m, no valid TTC),
+> so late hazard emergence is not the explanation for that row; no repair, actor-causality,
+> safety, transfer, deployment, benchmark, population, or retuning
 > claim):**
 > the introspective signal predicts the planner's collisions (AUROC 0.83). On the
 > complete 14-scene NeuroNCAP set at **20 seed-paired runs per pair** (799 episodes, the power
@@ -134,7 +139,7 @@ single-digit GPUs.
 
 ## The result
 
-Sixty-two registered iterations — thirty-seven completed mechanism iterations, plus the completed defensibility, robustness, and transfer gates of iterations 39-62 — under frozen pre-registrations converge on one closed-loop configuration — the
+Sixty-three registered iterations — thirty-seven completed mechanism iterations, plus the completed defensibility, robustness, and transfer gates of iterations 39-63 — under frozen pre-registrations converge on one closed-loop configuration — the
 **released union** (two label-free geometric detectors + a threat-cleared latch release) —
 measured on the **complete official 14-scene NeuroNCAP set at 20 seed-paired runs per pair**
 (799 episodes; hypotheses frozen before the run; the first 6 indices of every pair reproduce the
@@ -261,10 +266,10 @@ flowchart LR
   A47 --> A48["48 transfer<br/>null"]
   A48 --> A49["49 hard null"]
   A49 --> A50["50 opp"]
-  A50 --> A51["51 taxonomy"]
-  A51 --> A52["52 timing<br/>split"]
-  A52 --> A53["53 ch split"]
-  A53 --> A54["54 prov null"]
+  A50 --> A51["51"]
+  A51 --> A52["52"]
+  A52 --> A53["53"]
+  A53 --> A54["54"]
   A54 --> A55["55 src map"]
   A55 --> A56["56 guard null"]
   A56 --> A57["57 guard"]
@@ -273,6 +278,7 @@ flowchart LR
   A59 --> A60["60 ambig"]
   A60 --> A61["61"]
   A61 --> A62["62"]
+  A62 --> A63["63"]
   classDef ask fill:#ffe,stroke:#a70,color:#111;
   classDef audit fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
   classDef win fill:#efe,stroke:#080,color:#111;
@@ -281,7 +287,7 @@ flowchart LR
   class A39,A40,A41 audit;
   class A42,A45,A47 win;
   class A43,A44,A46,A48,A49,A56 bad;
-  class A50,A51,A52,A53,A54,A55,A57,A58,A59,A60,A61,A62 audit;
+  class A50,A51,A52,A53,A54,A55,A57,A58,A59,A60,A61,A62,A63 audit;
 ```
 
 The winning monitor is a **union of two individually-selective detectors**, chosen because the two
@@ -413,6 +419,7 @@ step; they are intentional stops, not hidden probe failures or unreported GPU ru
 | 60 | **Actor-match bridge sensitivity audit** — offline sensitivity over the three iteration-59 classifiable foreground rows only | committed iteration-59 proof/report; 16 frozen bridge variants per row: first-fire vs propagated position, two axis orders, four sign flips; no fitted transform or retuning | all three rows reconstructed; 48 variants evaluated; counts: `robust_mismatch` 2, `bridge_ambiguous_possible` 1; no `bridge_match_possible`; minimum distance `5.6649 m` | **`BRIDGE_AMBIGUOUS_NULL` — no bounded variant makes a match, but one row becomes ambiguous, so robust all-row mismatch is not supported** | narrows iteration 59 honestly: zero matches, one ambiguous bridge case, two robust mismatches; no actor-causality, repair, population mismatch-rate, safety/transfer/deployment/benchmark/retuning claim. [`iter60_actor_bridge_sensitivity`](experiments/iter60_actor_bridge_sensitivity/RESULT.md) |
 | 61 | **Monitor object-surface audit** — compare every first-fire monitor object to every eligible HUGSIM foreground provenance row under the frozen bridge grid | committed iteration-59/60 proof only; three classifiable rows; trigger vs non-trigger object labels; 2,384 object/provenance/bridge variants | rows: `no_monitor_object_support` 2, `nontrigger_object_match` 1; `ttc_extreme_b` non-trigger `object_id=16` matches at `2.0686 m` while trigger `object_id=1` remains ambiguous at `5.6649 m` | **`OBJECT_SURFACE_NONTRIGGER_MATCH_COMPLETE` — one row supports wrong-object/wrong-hazard selection; two rows still lack first-fire object support** | bounded three-row mechanism audit only; no actor-causality, repair, population mismatch-rate, safety/transfer/deployment/benchmark/retuning claim. [`iter61_monitor_object_surface_audit`](experiments/iter61_monitor_object_surface_audit/RESULT.md) |
 | 62 | **Non-trigger ranking audit** — one-row selector audit for the Iter61 matched non-trigger object | committed iteration-59/61 proof only; reconstruct every first-fire object's CPA/TTC values and ranks in `ttc_extreme_b` | matched non-trigger `object_id=16`: `min_cpa=22.7648 m`, CPA rank `9/9`, `ttc=null`, no CPA/TTC crossing; trigger `object_id=1`: TTC-only, `ttc=2.1303 s`, TTC rank `1` | **`MATCHED_OBJECT_SUBTHRESHOLD_COMPLETE` — the matched object was visible but outside the frozen first-fire hazard surface** | one-row selector-surface fact only; no actor-causality, repair, population mismatch-rate, safety/transfer/deployment/benchmark/retuning claim. [`iter62_nontrigger_ranking_audit`](experiments/iter62_nontrigger_ranking_audit/RESULT.md) |
+| 63 | **Temporal emergence audit** — follow the Iter61/62 matched non-trigger object through pre-contact monitor frames | committed iteration-59/61/62 proof only; target `ttc_extreme_b` `object_id=16`; pre-contact rows are `ts < 7.25 s` | object present in 13 of 29 pre-contact frames; hazard frames `0`; borderline frames `0`; min CPA `12.1690 m`; min TTC `null`; contact-time row also subthreshold | **`TEMPORAL_VISIBLE_NEVER_HAZARD_COMPLETE` — the collision-near object never becomes a frozen CPA/TTC hazard before contact** | one-object temporal surface audit only; no actor-causality, repair, population mismatch-rate, safety/transfer/deployment/benchmark/retuning claim. [`iter63_temporal_emergence_audit`](experiments/iter63_temporal_emergence_audit/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -642,7 +649,9 @@ row (`ttc_extreme_b`) has a non-triggering object match (`object_id=16`, `2.0686
 trigger remains ambiguous; the other two rows have no first-fire object support. Iteration 62
 then reconstructed the first-fire ranks for that matched object: it was visible but subthreshold
 (`min_cpa=22.7648 m`, CPA rank `9/9`, `ttc=null`), while the actual trigger was TTC-only on
-`object_id=1`. This is a
+`object_id=1`. Iteration 63 then followed that same object through the pre-contact window:
+present in 13 frames, zero hazard frames, zero borderline frames, min CPA `12.1690 m`, no valid
+TTC. This is a
 mechanism-cause audit, not a repair or population-rate claim. Successors now require fresh
 pre-registrations. The
 published RealADSim closed-loop anchor range remains loose context only —
@@ -1058,6 +1067,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter60_actor_bridge_sensitivity/`](experiments/iter60_actor_bridge_sensitivity) | actor-match bridge sensitivity audit — BRIDGE_AMBIGUOUS_NULL: no frozen bridge variant turned the three iteration-59 rows into a match, but one row became ambiguous at 5.6649 m, so robust all-row mismatch is not supported |
 | [`experiments/iter61_monitor_object_surface_audit/`](experiments/iter61_monitor_object_surface_audit) | monitor object-surface audit — OBJECT_SURFACE_NONTRIGGER_MATCH_COMPLETE: one classifiable row has a non-triggering first-fire object match, while two rows have no first-fire object support; bounded mechanism audit only |
 | [`experiments/iter62_nontrigger_ranking_audit/`](experiments/iter62_nontrigger_ranking_audit) | non-trigger ranking audit — MATCHED_OBJECT_SUBTHRESHOLD_COMPLETE: the matched non-trigger object in `ttc_extreme_b` was visible but outside the frozen first-fire CPA/TTC hazard surface |
+| [`experiments/iter63_temporal_emergence_audit/`](experiments/iter63_temporal_emergence_audit) | temporal emergence audit — TEMPORAL_VISIBLE_NEVER_HAZARD_COMPLETE: the matched non-trigger object stayed visible but never crossed hazard or borderline before the first foreground collision timestamp |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/FRONTIER_POSITIONING_2026-07-11.md`](docs/research/FRONTIER_POSITIONING_2026-07-11.md) | source-verified mid-2026 benchmark/monitor/industry positioning; the binding 2.91-is-not-benchmark-SOTA framing rule |

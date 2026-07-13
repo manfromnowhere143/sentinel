@@ -1,0 +1,22 @@
+Working directory:
+/Users/danielwahnich/workspace/sentinel
+
+Command:
+python3 experiments/iter63_temporal_emergence_audit/analyze_temporal_emergence.py --iter59-proof-root experiments/iter59_hugsim_actor_match_audit/proof-actor-match --iter59-report experiments/iter59_hugsim_actor_match_audit/proof-actor-match/actor_match_report.json --iter61-report experiments/iter61_monitor_object_surface_audit/proof-object-surface/object_surface_report.json --iter62-report experiments/iter62_nontrigger_ranking_audit/proof-ranking/nontrigger_ranking_report.json --out experiments/iter63_temporal_emergence_audit/proof-temporal/temporal_emergence_report.json --markdown-out experiments/iter63_temporal_emergence_audit/proof-temporal/temporal_emergence.md
+
+Observed stdout:
+{
+  "verdict": "TEMPORAL_VISIBLE_NEVER_HAZARD_COMPLETE",
+  "summary": {
+    "row_label": "visible_never_hazard",
+    "first_foreground_ts": 7.25,
+    "pre_contact_frame_count": 29,
+    "present_frame_count": 13,
+    "hazard_frame_count": 0,
+    "borderline_frame_count": 0,
+    "first_hazard_ts": null,
+    "first_borderline_ts": null,
+    "min_cpa": 12.168955310853777,
+    "min_ttc": null
+  }
+}

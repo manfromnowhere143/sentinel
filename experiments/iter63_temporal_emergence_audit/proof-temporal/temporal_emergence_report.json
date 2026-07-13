@@ -1,0 +1,570 @@
+{
+  "claim_boundary": "one-object temporal hazard-surface audit only; no transfer, safety, deployment, benchmark, actor-causality, repair, population, or retuning claim",
+  "infra_problems": [],
+  "inputs": {
+    "iter59_proof_root": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match",
+    "iter59_report": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/actor_match_report.json",
+    "iter61_report": "experiments/iter61_monitor_object_surface_audit/proof-object-surface/object_surface_report.json",
+    "iter62_report": "experiments/iter62_nontrigger_ranking_audit/proof-ranking/nontrigger_ranking_report.json"
+  },
+  "iteration": 63,
+  "row_problems": [],
+  "summary": {
+    "borderline_frame_count": 0,
+    "first_borderline_ts": null,
+    "first_foreground_ts": 7.25,
+    "first_hazard_ts": null,
+    "hazard_frame_count": 0,
+    "min_cpa": 12.168955310853777,
+    "min_ttc": null,
+    "pre_contact_frame_count": 29,
+    "present_frame_count": 13,
+    "row_label": "visible_never_hazard"
+  },
+  "target": {
+    "audit_id": "ttc_extreme_b",
+    "object_id": 16,
+    "scenario": "scene-0383-extreme-00",
+    "trigger_object_id": 1
+  },
+  "temporal": {
+    "absent_frame_count": 16,
+    "borderline_frame_count": 0,
+    "contact_frames": [
+      {
+        "borderline": false,
+        "brake": true,
+        "bucket": "contact",
+        "closing": null,
+        "cpa_borderline": false,
+        "cpa_cross": false,
+        "cpa_horizon_index": 1,
+        "fired": true,
+        "frame_index": 29,
+        "gap": 20.682996100485877,
+        "hazard_cross": false,
+        "min_cpa": 22.87503784354674,
+        "object_present": true,
+        "score": 0.7770693898200989,
+        "ts": 7.25,
+        "ttc": null,
+        "ttc_borderline": false,
+        "ttc_cross": false,
+        "velocity": [
+          5.486882991568564,
+          2.490110904804169
+        ],
+        "world": [
+          8.358924430921661,
+          5.041362265497128
+        ]
+      }
+    ],
+    "first_borderline_ts": null,
+    "first_foreground_ts": 7.25,
+    "first_hazard_ts": null,
+    "first_present_ts": 4.0,
+    "frames": [
+      {
+        "brake": false,
+        "bucket": "pre_contact",
+        "fired": false,
+        "frame_index": 0,
+        "object_present": false,
+        "ts": 0.0
+      },
+      {
+        "brake": false,
+        "bucket": "pre_contact",
+        "fired": false,
+        "frame_index": 1,
+        "object_present": false,
+        "ts": 0.25
+      },
+      {
+        "brake": false,
+        "bucket": "pre_contact",
+        "fired": false,
+        "frame_index": 2,
+        "object_present": false,
+        "ts": 0.5
+      },
+      {
+        "brake": false,
+        "bucket": "pre_contact",
+        "fired": false,
+        "frame_index": 3,
+        "object_present": false,
+        "ts": 0.75
+      },
+      {
+        "brake": false,
+        "bucket": "pre_contact",
+        "fired": false,
+        "frame_index": 4,
+        "object_present": false,
+        "ts": 1.0
+      },
+      {
+        "brake": false,
+        "bucket": "pre_contact",
+        "fired": false,
+        "frame_index": 5,
+        "object_present": false,
+        "ts": 1.25
+      },
+      {
+        "brake": false,
+        "bucket": "pre_contact",
+        "fired": false,
+        "frame_index": 6,
+        "object_present": false,
+        "ts": 1.5
+      },
+      {
+        "brake": false,
+        "bucket": "pre_contact",
+        "fired": false,
+        "frame_index": 7,
+        "object_present": false,
+        "ts": 1.75
+      },
+      {
+        "brake": false,
+        "bucket": "pre_contact",
+        "fired": false,
+        "frame_index": 8,
+        "object_present": false,
+        "ts": 2.0
+      },
+      {
+        "brake": false,
+        "bucket": "pre_contact",
+        "fired": false,
+        "frame_index": 9,
+        "object_present": false,
+        "ts": 2.25
+      },
+      {
+        "brake": false,
+        "bucket": "pre_contact",
+        "fired": false,
+        "frame_index": 10,
+        "object_present": false,
+        "ts": 2.5
+      },
+      {
+        "brake": false,
+        "bucket": "pre_contact",
+        "fired": false,
+        "frame_index": 11,
+        "object_present": false,
+        "ts": 2.75
+      },
+      {
+        "brake": false,
+        "bucket": "pre_contact",
+        "fired": false,
+        "frame_index": 12,
+        "object_present": false,
+        "ts": 3.0
+      },
+      {
+        "brake": false,
+        "bucket": "pre_contact",
+        "fired": false,
+        "frame_index": 13,
+        "object_present": false,
+        "ts": 3.25
+      },
+      {
+        "brake": false,
+        "bucket": "pre_contact",
+        "fired": false,
+        "frame_index": 14,
+        "object_present": false,
+        "ts": 3.5
+      },
+      {
+        "brake": false,
+        "bucket": "pre_contact",
+        "fired": false,
+        "frame_index": 15,
+        "object_present": false,
+        "ts": 3.75
+      },
+      {
+        "borderline": false,
+        "brake": false,
+        "bucket": "pre_contact",
+        "closing": null,
+        "cpa_borderline": false,
+        "cpa_cross": false,
+        "cpa_horizon_index": 1,
+        "fired": false,
+        "frame_index": 16,
+        "gap": 10.619152046172669,
+        "hazard_cross": false,
+        "min_cpa": 12.168955310853777,
+        "object_present": true,
+        "score": 0.5998563766479492,
+        "ts": 4.0,
+        "ttc": null,
+        "ttc_borderline": false,
+        "ttc_cross": false,
+        "velocity": [
+          0.0,
+          0.0
+        ],
+        "world": [
+          -5.613606740726425,
+          3.9171276036329914
+        ]
+      },
+      {
+        "borderline": false,
+        "brake": false,
+        "bucket": "pre_contact",
+        "closing": null,
+        "cpa_borderline": false,
+        "cpa_cross": false,
+        "cpa_horizon_index": 1,
+        "fired": false,
+        "frame_index": 17,
+        "gap": 11.525166969393018,
+        "hazard_cross": false,
+        "min_cpa": 13.526964364118557,
+        "object_present": true,
+        "score": 0.6874406933784485,
+        "ts": 4.25,
+        "ttc": null,
+        "ttc_borderline": false,
+        "ttc_cross": false,
+        "velocity": [
+          2.8035712586222417,
+          -1.7531554000343021
+        ],
+        "world": [
+          -4.9127139260708645,
+          3.478838753624416
+        ]
+      },
+      {
+        "borderline": false,
+        "brake": false,
+        "bucket": "pre_contact",
+        "closing": null,
+        "cpa_borderline": false,
+        "cpa_cross": false,
+        "cpa_horizon_index": 1,
+        "fired": false,
+        "frame_index": 18,
+        "gap": 12.519836015210803,
+        "hazard_cross": false,
+        "min_cpa": 14.527972900926018,
+        "object_present": true,
+        "score": 0.7896551489830017,
+        "ts": 4.5,
+        "ttc": null,
+        "ttc_borderline": false,
+        "ttc_cross": false,
+        "velocity": [
+          1.1282616670090135,
+          -1.2213576279236236
+        ],
+        "world": [
+          -4.630648509318611,
+          3.17349934664351
+        ]
+      },
+      {
+        "borderline": false,
+        "brake": false,
+        "bucket": "pre_contact",
+        "closing": null,
+        "cpa_borderline": false,
+        "cpa_cross": false,
+        "cpa_horizon_index": 1,
+        "fired": false,
+        "frame_index": 19,
+        "gap": 13.34231708451938,
+        "hazard_cross": false,
+        "min_cpa": 14.919844214905233,
+        "object_present": true,
+        "score": 0.8690106272697449,
+        "ts": 4.75,
+        "ttc": null,
+        "ttc_borderline": false,
+        "ttc_cross": false,
+        "velocity": [
+          -1.2902096353376749,
+          0.29056388667919464
+        ],
+        "world": [
+          -4.95320091815303,
+          3.2461403183133086
+        ]
+      },
+      {
+        "borderline": false,
+        "brake": false,
+        "bucket": "pre_contact",
+        "closing": null,
+        "cpa_borderline": false,
+        "cpa_cross": false,
+        "cpa_horizon_index": 1,
+        "fired": false,
+        "frame_index": 20,
+        "gap": 13.95020697924578,
+        "hazard_cross": false,
+        "min_cpa": 14.932806509146454,
+        "object_present": true,
+        "score": 0.8957735896110535,
+        "ts": 5.0,
+        "ttc": null,
+        "ttc_borderline": false,
+        "ttc_cross": false,
+        "velocity": [
+          0.7035978808348204,
+          0.49547071699527123
+        ],
+        "world": [
+          -4.777301447944325,
+          3.3700079975621264
+        ]
+      },
+      {
+        "borderline": false,
+        "brake": false,
+        "bucket": "pre_contact",
+        "closing": null,
+        "cpa_borderline": false,
+        "cpa_cross": false,
+        "cpa_horizon_index": 1,
+        "fired": false,
+        "frame_index": 21,
+        "gap": 14.482715287758516,
+        "hazard_cross": false,
+        "min_cpa": 15.742324446135363,
+        "object_present": true,
+        "score": 0.8668467998504639,
+        "ts": 5.25,
+        "ttc": null,
+        "ttc_borderline": false,
+        "ttc_cross": false,
+        "velocity": [
+          3.2808625218577276,
+          -0.03333695938721348
+        ],
+        "world": [
+          -3.957085817479893,
+          3.361673757715323
+        ]
+      },
+      {
+        "borderline": false,
+        "brake": false,
+        "bucket": "pre_contact",
+        "closing": null,
+        "cpa_borderline": false,
+        "cpa_cross": false,
+        "cpa_horizon_index": 1,
+        "fired": false,
+        "frame_index": 22,
+        "gap": 15.408733205604387,
+        "hazard_cross": false,
+        "min_cpa": 17.787958293448128,
+        "object_present": true,
+        "score": 0.7025705575942993,
+        "ts": 5.5,
+        "ttc": null,
+        "ttc_borderline": false,
+        "ttc_cross": false,
+        "velocity": [
+          4.466096006625548,
+          -1.6365396132749765
+        ],
+        "world": [
+          -2.8405618158235058,
+          2.952538854396579
+        ]
+      },
+      {
+        "borderline": false,
+        "brake": false,
+        "bucket": "pre_contact",
+        "closing": null,
+        "cpa_borderline": false,
+        "cpa_cross": false,
+        "cpa_horizon_index": 1,
+        "fired": false,
+        "frame_index": 23,
+        "gap": 16.142738210056912,
+        "hazard_cross": false,
+        "min_cpa": 18.199836720749875,
+        "object_present": true,
+        "score": 0.7550950050354004,
+        "ts": 5.75,
+        "ttc": null,
+        "ttc_borderline": false,
+        "ttc_cross": false,
+        "velocity": [
+          3.5168933856455737,
+          -0.39534473110313684
+        ],
+        "world": [
+          -1.9613384694121123,
+          2.8537026716207947
+        ]
+      },
+      {
+        "borderline": false,
+        "brake": false,
+        "bucket": "pre_contact",
+        "closing": null,
+        "cpa_borderline": false,
+        "cpa_cross": false,
+        "cpa_horizon_index": 1,
+        "fired": false,
+        "frame_index": 24,
+        "gap": 16.81728364743215,
+        "hazard_cross": false,
+        "min_cpa": 18.69611827608736,
+        "object_present": true,
+        "score": 0.7724901437759399,
+        "ts": 6.0,
+        "ttc": null,
+        "ttc_borderline": false,
+        "ttc_cross": false,
+        "velocity": [
+          4.686790742850462,
+          0.3159968904642483
+        ],
+        "world": [
+          -0.7896407836994968,
+          2.932701894236857
+        ]
+      },
+      {
+        "borderline": false,
+        "brake": false,
+        "bucket": "pre_contact",
+        "closing": null,
+        "cpa_borderline": false,
+        "cpa_cross": false,
+        "cpa_horizon_index": 1,
+        "fired": false,
+        "frame_index": 25,
+        "gap": 17.490491295421666,
+        "hazard_cross": false,
+        "min_cpa": 19.555970313387064,
+        "object_present": true,
+        "score": 0.7616280317306519,
+        "ts": 6.25,
+        "ttc": null,
+        "ttc_borderline": false,
+        "ttc_cross": false,
+        "velocity": [
+          6.106282248359548,
+          0.9129653858587972
+        ],
+        "world": [
+          0.7369297783903903,
+          3.160943240701556
+        ]
+      },
+      {
+        "borderline": false,
+        "brake": false,
+        "bucket": "pre_contact",
+        "closing": null,
+        "cpa_borderline": false,
+        "cpa_cross": false,
+        "cpa_horizon_index": 1,
+        "fired": false,
+        "frame_index": 26,
+        "gap": 18.381267399137595,
+        "hazard_cross": false,
+        "min_cpa": 20.844560242603585,
+        "object_present": true,
+        "score": 0.7494324445724487,
+        "ts": 6.5,
+        "ttc": null,
+        "ttc_borderline": false,
+        "ttc_cross": false,
+        "velocity": [
+          7.254854089378796,
+          0.8268773959619011
+        ],
+        "world": [
+          2.5506433007350893,
+          3.3676625896920314
+        ]
+      },
+      {
+        "borderline": false,
+        "brake": false,
+        "bucket": "pre_contact",
+        "closing": null,
+        "cpa_borderline": false,
+        "cpa_cross": false,
+        "cpa_horizon_index": 1,
+        "fired": false,
+        "frame_index": 27,
+        "gap": 19.410366737263363,
+        "hazard_cross": false,
+        "min_cpa": 22.338382652169297,
+        "object_present": true,
+        "score": 0.6936266422271729,
+        "ts": 6.75,
+        "ttc": null,
+        "ttc_borderline": false,
+        "ttc_cross": false,
+        "velocity": [
+          9.22712386801652,
+          1.3411950874731247
+        ],
+        "world": [
+          4.857424267739219,
+          3.7029613615603125
+        ]
+      },
+      {
+        "borderline": false,
+        "brake": true,
+        "bucket": "pre_contact",
+        "closing": null,
+        "cpa_borderline": false,
+        "cpa_cross": false,
+        "cpa_horizon_index": 1,
+        "fired": true,
+        "frame_index": 28,
+        "gap": 20.173361858421636,
+        "hazard_cross": false,
+        "min_cpa": 22.764754524017974,
+        "object_present": true,
+        "score": 0.7100042700767517,
+        "ts": 7.0,
+        "ttc": null,
+        "ttc_borderline": false,
+        "ttc_cross": false,
+        "velocity": [
+          8.519117661161204,
+          2.863492710943092
+        ],
+        "world": [
+          6.98720368302952,
+          4.4188345392960855
+        ]
+      }
+    ],
+    "hazard_frame_count": 0,
+    "last_present_ts": 7.0,
+    "min_cpa": 12.168955310853777,
+    "min_ttc": null,
+    "pre_contact_frame_count": 29,
+    "present_frame_count": 13,
+    "row_label": "visible_never_hazard"
+  },
+  "verdict": "TEMPORAL_VISIBLE_NEVER_HAZARD_COMPLETE"
+}
