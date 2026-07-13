@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Mon Jul 13 13:31:44 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Mon Jul 13 13:45:32 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+f8e5cae iter78: publish hugsim support object ranking
+eea3883 iter78: add hugsim support object ranking tooling
+b7d90d6 iter78: preregister hugsim support object ranking
+b92b6ec handoff: record iter77 event set bridge state
 ae284af iter77: publish hugsim event set bridge audit
 9a5d20e iter77: add hugsim event set bridge tooling
 91bc32f iter77: preregister hugsim event set bridge audit
 ea37948 handoff: record iter76 switch bridge state
-5269212 iter76: publish hugsim switch bridge audit
-6f5d267 iter76: add hugsim switch bridge tooling
-f873c8c iter76: preregister hugsim switch bridge audit
-07a8f5f handoff: record iter75 object handoff state
 ```
 Working tree: CLEAN
 
@@ -93,6 +93,7 @@ Working tree: CLEAN
 - experiments/iter75_hugsim_cross_channel_object_handoff: RESULT PUBLISHED
 - experiments/iter76_hugsim_switch_foreground_bridge: RESULT PUBLISHED
 - experiments/iter77_hugsim_event_object_set_bridge: RESULT PUBLISHED
+- experiments/iter78_hugsim_support_object_ranking: RESULT PUBLISHED
 - experiments/iter7_margin: RESULT PUBLISHED
 - experiments/iter8_union: RESULT PUBLISHED
 - experiments/iter9_evade: RESULT PUBLISHED
@@ -103,7 +104,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 13:32:54 up 9 days,  3:14,  0 users,  load average: 0.00, 0.00, 0.00
+ 13:46:40 up 9 days,  3:27,  0 users,  load average: 0.00, 0.00, 0.00
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-iter59-actor-match.log
@@ -115,7 +116,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter77_hugsim_event_object_set_bridge/RESULT.md — read it before opening new work.
+- Newest completed experiment: experiments/iter78_hugsim_support_object_ranking/RESULT.md — read it before opening new work.
 - Newest pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
