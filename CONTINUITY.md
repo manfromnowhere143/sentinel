@@ -636,6 +636,17 @@ events to prepare; they are a property the repository always has.
   support-object temporal surface evidence only. No actor-causality, repair, threshold-value,
   population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance,
   commercial-value, or retuning claim.
+- Iteration 82 concluded:
+  experiments/iter82_hugsim_support_surface_bridge_cooccurrence/RESULT.md, published as
+  `HUGSIM_SUPPORT_SURFACE_BRIDGE_BORDERLINE_ONLY_COMPLETE` — an offline co-occurrence audit over
+  the two iteration-81 support objects. It launched no GPU work and read no live box state. Both
+  support objects have foreground bridge support. `both_distinct_extreme` object `9` has
+  same-frame bridge+surface co-occurrence only at the borderline level (`1` borderline+bridge
+  frame, zero active+bridge frames; best surface bridge `0.9876 m`). `ttc_medium_a` object `10`
+  has bridge support in `15/15` present frames and never reaches active or borderline surface.
+  This is support-object surface/provenance co-occurrence evidence only. No actor-causality,
+  repair, threshold-value, population-rate, safety/transfer/deployment/robustness/benchmark/
+  HD-Score-invariance, commercial-value, or retuning claim.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1977,3 +1988,13 @@ events to prepare; they are a property the repository always has.
   `15` frames. No GPU/gcloud/box read, no actor-causality, repair, threshold-value,
   population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance,
   commercial-value, or retuning claim.
+- 2026-07-13: Codex — continued into iteration 82 as the HUGSIM support-object
+  surface/provenance co-occurrence audit after iteration 81. Pre-registered ALONE (`6257a65`),
+  added analyzer/tests (`9abd95e`, 361 tests green before analysis), then ran the analyzer ONCE
+  over committed iteration-59 proof plus iteration-81 report. Result:
+  `HUGSIM_SUPPORT_SURFACE_BRIDGE_BORDERLINE_ONLY_COMPLETE`; both support objects have foreground
+  bridge support, but object `9` has only borderline+bridge co-occurrence and object `10` has
+  bridge support in every present frame without surface activation. No GPU/gcloud/box read, no
+  actor-causality, repair, threshold-value, population-rate,
+  safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value, or
+  retuning claim.

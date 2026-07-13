@@ -518,6 +518,12 @@ decision frame. The result is `HUGSIM_SUPPORT_OBJECT_EVER_ACTIVE_COMPLETE`: the 
 side is mixed, with `both_distinct_extreme` object `9` becoming borderline at `5.5 s` and active
 at `7.0 s` after foreground support, while `ttc_medium_a` object `10` stays visible across
 `15` frames and never becomes active or borderline.
+Iteration 82 then tested same-object co-occurrence between foreground bridge support and the
+released CPA/TTC surface. The result is
+`HUGSIM_SUPPORT_SURFACE_BRIDGE_BORDERLINE_ONLY_COMPLETE`: both fixed support objects have
+foreground bridge support, but object `9` reaches same-frame bridge+surface co-occurrence only
+at the borderline level (`1` borderline+bridge frame, zero active+bridge frames), while object
+`10` has bridge support in `15/15` present frames and never reaches active or borderline surface.
 
 The default next scientific line is therefore not an expanded-N transfer run and not retuning the
 released union. After iteration 61, the actor-match audit points to wrong-object/wrong-hazard
@@ -546,9 +552,12 @@ Iteration 79 shows the selected objects are active/borderline surface candidates
 foreground-supported objects stay subthreshold. Iteration 80 shows the selected objects also do
 not bridge to any logged provenance row in these fixed episodes. Iteration 81 shows the
 support-object side is temporally mixed: one support object reaches the released surface only
-later, while another stays visible-never-surface. Any successor should be a fresh
-mechanism-cause pre-registration that explains this selected-surface/provenance/support-temporal
-split, or chooses another branch. A strong
+later, while another stays visible-never-surface. Iteration 82 shows the same-object
+support/provenance surface has no active co-occurrence: one support object has borderline+bridge
+only, and the other has persistent bridge support without surface activation. Any successor should
+be a fresh mechanism-cause pre-registration that explains this
+selected-surface/provenance/support-temporal/co-occurrence split, or chooses another branch. A
+strong
 successor should distinguish among:
 
 1. hazard surface: whether the monitor is braking for the wrong detected object or wrong path
@@ -595,13 +604,13 @@ the bridge-supported geometry. Iteration 69 packages the full row set into the t
 iteration 70 splits the remaining structural rows into surface-silent, late-fire, and
 background-only branches. Iteration 71 closes the near-margin explanation for the surface-silent
 branch under the registered bands, and iteration 72 shows the late-fire rows are near but not
-crossing before contact. Iterations 73-81 refine the late-fire branch into cross-channel,
+crossing before contact. Iterations 73-82 refine the late-fire branch into cross-channel,
 cross-object, selected objects that are active/borderline but unsupported by any logged
 provenance row, plus separate full-set foreground support that remains nonselected and
-subthreshold or only late-surfacing. The next hypothesis should explain why released
-hazard-surface selection, logged collision provenance, and support-object temporal surface split
-across different objects at these event rows, or choose another branch and name what new evidence
-would falsify it.
+subthreshold, only late-surfacing, or bridge-supported without active same-frame co-occurrence.
+The next hypothesis should explain why released hazard-surface selection, logged collision
+provenance, and support-object co-occurrence split across different objects and times at these
+event rows, or choose another branch and name what new evidence would falsify it.
 
 Any such line requires a fresh `HYPOTHESIS.md`. Until then, no new HUGSIM transfer, safety,
 robustness, deployment, benchmark-ranking, or retuning claim is authorized.
