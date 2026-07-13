@@ -2096,3 +2096,13 @@ events to prepare; they are a property the repository always has.
   read, no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/
   robustness/benchmark/HD-Score-invariance, commercial-value, real-world/first-responder
   behavior, or retuning claim.
+- 2026-07-13: Codex — continued into iteration 89 as the HUGSIM joint bridge/surface candidate
+  audit after iteration 88. Pre-registered ALONE (`762d58d`), added analyzer/tests (`6ba45c9`,
+  375 tests green before analysis), then ran the analyzer ONCE over committed iteration-59 proof
+  plus iteration-85/87/88 reports. Result:
+  `HUGSIM_JOINT_BRIDGE_SURFACE_NO_ACTIVE_CANDIDATE_SPLIT_COMPLETE`; across the three replay rows,
+  `11` logged objects are bridge-supported, but active+bridge-supported candidate events are
+  `0/3`. Object `9` is bridge-supported only at borderline, and object `10` is bridge-supported
+  but subthreshold in both rows. No GPU/gcloud/box read, no actor-causality, repair,
+  threshold-value, population-rate, safety/transfer/deployment/robustness/benchmark/
+  HD-Score-invariance, commercial-value, real-world/first-responder behavior, or retuning claim.

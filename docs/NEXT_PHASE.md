@@ -13,7 +13,7 @@ It adds a deeper Stanford/MIT/Tesla/Mobileye/NHTSA read to the existing frontier
 packet. The decision is narrow: Sentinel is aligned when framed as a runtime monitor,
 failure-localization, and safety-evidence system for opaque planners; it is not aligned when
 framed as a full autonomy stack, world model, robotaxi system, or deployment-ready safety case.
-That priority is now partly closed by iterations 84-88: the selected-vs-support
+That priority is now partly closed by iterations 84-89: the selected-vs-support
 path/arbitration split is proven on the fixed rows, and the closest-path-horizon/provenance
 timing decomposition shows support-object provenance arriving after the event in all three rows.
 The exact bridge-time support-surface replay then blocked on the active `ttc_medium_a` row because
@@ -21,9 +21,9 @@ the committed ON decision log has no exact `6.0 s` row. The interval replay succ
 that row with a fixed at-or-before rule and returned a mixed support-side result: one borderline
 arrival and two surface misses. The margin-residual decomposition then split those support-side
 rows into one TTC-borderline/CPA-far case and two no-finite-TTC/CPA-far cases. The next local
-HUGSIM priority is a fresh mechanism-cause
-pre-registration that tests a counterfactual object/geometry explanation for the split or chooses
-a different unresolved branch; it must not retune thresholds or make repair/safety claims.
+HUGSIM priority is a fresh mechanism-cause pre-registration that explains why active path-surface
+objects lack provenance bridge support, or chooses a different unresolved branch; it must not
+retune thresholds or make repair/safety claims.
 
 ## New frontier packet after these lines closed
 
@@ -571,6 +571,9 @@ exact `5.5 s`, while object `10` remains subthreshold at exact `4.0 s` and neare
 Iteration 88 then paired those replay states with support bridge evidence and margins. The result
 is `HUGSIM_BRIDGE_SURFACE_MARGIN_RESIDUAL_SPLIT_COMPLETE`: object `9` is
 TTC-borderline/CPA-far, while object `10` is no-finite-TTC/CPA-far in both replay rows.
+Iteration 89 then enumerated every logged object at the fixed replay rows. The result is
+`HUGSIM_JOINT_BRIDGE_SURFACE_NO_ACTIVE_CANDIDATE_SPLIT_COMPLETE`: `11` objects are
+bridge-supported across the three rows, but `0/3` rows contain any active+bridge-supported object.
 
 The default next scientific line is therefore not an expanded-N transfer run and not retuning the
 released union. After iteration 61, the actor-match audit points to wrong-object/wrong-hazard
@@ -614,6 +617,8 @@ Iteration 87 answers the nearest-before interval version: the support side is mi
 borderline arrival and two subthreshold misses.
 Iteration 88 decomposes that mixed support side into one TTC-borderline/CPA-far residual and two
 no-finite-TTC/CPA-far residuals.
+Iteration 89 closes the simple object-arbitration counterfactual: bridge support is common, but
+no active released-surface candidate is bridge-supported in the fixed replay rows.
 Any successor should be a fresh mechanism-cause pre-registration that explains this
 selected-surface/provenance/support-temporal/co-occurrence/channel/arbitration/timing split, or
 chooses another branch. A strong
