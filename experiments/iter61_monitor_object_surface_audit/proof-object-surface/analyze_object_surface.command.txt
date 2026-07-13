@@ -1,0 +1,20 @@
+Working directory:
+/Users/danielwahnich/workspace/sentinel
+
+Command:
+python3 experiments/iter61_monitor_object_surface_audit/analyze_object_surface.py --iter59-proof-root experiments/iter59_hugsim_actor_match_audit/proof-actor-match --iter59-report experiments/iter59_hugsim_actor_match_audit/proof-actor-match/actor_match_report.json --iter60-report experiments/iter60_actor_bridge_sensitivity/proof-bridge/bridge_sensitivity_report.json --out experiments/iter61_monitor_object_surface_audit/proof-object-surface/object_surface_report.json --markdown-out experiments/iter61_monitor_object_surface_audit/proof-object-surface/object_surface.md
+
+Observed stdout:
+{
+  "verdict": "OBJECT_SURFACE_NONTRIGGER_MATCH_COMPLETE",
+  "summary": {
+    "classifiable_rows": 3,
+    "evaluated_rows": 3,
+    "row_label_counts": {
+      "no_monitor_object_support": 2,
+      "nontrigger_object_match": 1
+    },
+    "minimum_overall_distance_m": 2.068628866595313,
+    "total_variants_evaluated": 2384
+  }
+}

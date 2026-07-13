@@ -431,6 +431,16 @@ events to prepare; they are a property the repository always has.
   `robust_mismatch`, and `ttc_extreme_b` became `bridge_ambiguous_possible` at `5.6649 m`.
   This narrows iteration 59: no robust all-row mismatch, actor-causality, repair,
   safety/transfer/deployment/robustness/benchmark, population-rate, or retuning claim.
+- Iteration 61 concluded:
+  experiments/iter61_monitor_object_surface_audit/RESULT.md, published as
+  `OBJECT_SURFACE_NONTRIGGER_MATCH_COMPLETE` — an offline object-surface audit over the same
+  three iteration-59 classifiable foreground rows. It launched no GPU work and read no live box
+  state. The analyzer cross-checked iteration-59 and iteration-60, then evaluated every
+  first-fire monitor object against every eligible foreground provenance row under the frozen
+  bridge grid (`2,384` variants). Two rows were `no_monitor_object_support`; `ttc_extreme_b`
+  had a non-triggering object match (`object_id=16`, `2.0686 m`) while the triggering object
+  remained ambiguous (`object_id=1`, `5.6649 m`). No actor-causality, repair, population-rate,
+  safety/transfer/deployment/robustness/benchmark, or retuning claim.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1593,4 +1603,13 @@ events to prepare; they are a property the repository always has.
   48 frozen bridge variants evaluated, no `bridge_match_possible`, two `robust_mismatch`, and
   one `bridge_ambiguous_possible` at `5.6649 m`. No GPU/gcloud/box read, no robust all-row
   mismatch, actor-causality, repair, population-rate, safety/transfer/deployment/robustness/
+  benchmark, or retuning claim.
+- 2026-07-13: Codex — continued into iteration 61 as the monitor object-surface audit after the
+  iteration-60 ambiguity. Pre-registered ALONE (`7688075`), added analyzer/tests (`2598b79`,
+  295 tests green before analysis), then ran the analyzer ONCE over committed iteration-59 and
+  iteration-60 proof. Result: `OBJECT_SURFACE_NONTRIGGER_MATCH_COMPLETE`; three rows evaluated,
+  `2,384` variants, row labels = two `no_monitor_object_support` and one
+  `nontrigger_object_match`. The matching row is `ttc_extreme_b`: non-triggering `object_id=16`
+  at `2.0686 m`, while trigger `object_id=1` remains ambiguous at `5.6649 m`. No GPU/gcloud/box
+  read, no actor-causality, repair, population-rate, safety/transfer/deployment/robustness/
   benchmark, or retuning claim.

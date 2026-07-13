@@ -425,11 +425,18 @@ sensitivity grid: first-fire vs propagated position, two axis orders, and four s
 per row. The result is `BRIDGE_AMBIGUOUS_NULL`: no row became `bridge_match_possible`, but
 `ttc_extreme_b` became `bridge_ambiguous_possible` at `5.6649 m`, while the other two rows
 remained robust mismatches.
+Iteration 61 then widened only the monitor-object surface, not the bridge family or scenario set:
+every first-fire monitor object was compared against every eligible foreground provenance row for
+those same three classifiable rows. The result is `OBJECT_SURFACE_NONTRIGGER_MATCH_COMPLETE`:
+`ttc_extreme_b` has a non-triggering first-fire object match (`object_id=16`, `2.0686 m`) while
+the triggering object remains ambiguous (`object_id=1`, `5.6649 m`), and the other two rows have
+no first-fire object support.
 
 The default next scientific line is therefore not an expanded-N transfer run and not retuning the
-released union. After iteration 60, the actor-match audit points to a hazard-surface
-misalignment or coordinate/contact ambiguity in the classifiable rows and to
-no-fire/post-fire/background-only failure modes in the rest. Any successor should be a fresh
+released union. After iteration 61, the actor-match audit points to wrong-object/wrong-hazard
+selection in at least one classifiable row, to unsupported first-fire object surfaces in two
+classifiable rows, and to no-fire/post-fire/background-only failure modes in the rest. Any
+successor should be a fresh
 mechanism-cause pre-registration that explains those categories, not threshold tuning. A strong
 successor should distinguish among:
 
@@ -457,6 +464,8 @@ not prove actor match, HD-Score invariance, or transfer value. Iteration 59 supp
 actor-match mechanism result only; it does not prove a population mismatch rate, repair, or
 deployment/safety claim. Iteration 60 narrows that result: no bounded bridge variant produces a
 match, but one classifiable row is ambiguous, so robust all-row mismatch is also not authorized.
+Iteration 61 narrows it further: one row has a non-triggering monitor-object match, while two
+rows still lack any first-fire monitor object support.
 
 Any such line requires a fresh `HYPOTHESIS.md`. Until then, no new HUGSIM transfer, safety,
 robustness, deployment, benchmark-ranking, or retuning claim is authorized.
