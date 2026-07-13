@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Mon Jul 13 19:36:43 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Mon Jul 13 19:45:31 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+b93e408 iter95: publish nonactive branch arbitration
+2453187 iter95: add nonactive branch arbitration tooling
+f964d9e iter95: preregister nonactive branch arbitration
+ee8608a handoff: record iter94 margin state
 c8623be iter94: publish active row margin arbitration
 fab51e0 iter94: add active row margin arbitration tooling
 16449c2 iter94: preregister active row margin arbitration
 2ce1789 handoff: record iter93 alignment state
-a60aaa3 iter93: publish surface winner alignment
-126aa4a iter93: add surface winner alignment tooling
-193274f iter93: preregister surface winner alignment
-ea7014f handoff: record iter92 arbitration state
 ```
 Working tree: CLEAN
 
@@ -112,6 +112,7 @@ Working tree: CLEAN
 - experiments/iter92_hugsim_path_proximity_arbitration: RESULT PUBLISHED
 - experiments/iter93_hugsim_surface_winner_alignment: RESULT PUBLISHED
 - experiments/iter94_hugsim_active_row_surface_margin_arbitration: RESULT PUBLISHED
+- experiments/iter95_hugsim_nonactive_surface_branch_arbitration: RESULT PUBLISHED
 - experiments/iter9_evade: RESULT PUBLISHED
 - experiments/union_validation: RESULT PUBLISHED
 - experiments/vad_generalization: RESULT PUBLISHED
@@ -120,7 +121,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 19:37:59 up 9 days,  9:19,  0 users,  load average: 0.00, 0.00, 0.00
+ 19:46:39 up 9 days,  9:27,  0 users,  load average: 0.00, 0.00, 0.00
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-iter59-actor-match.log
@@ -132,7 +133,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter94_hugsim_active_row_surface_margin_arbitration/RESULT.md — read it before opening new work.
+- Newest completed experiment: experiments/iter95_hugsim_nonactive_surface_branch_arbitration/RESULT.md — read it before opening new work.
 - Newest pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
