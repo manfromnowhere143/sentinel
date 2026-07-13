@@ -1,0 +1,181 @@
+{
+  "claim_boundary": "three-row descriptive selector-alignment audit only; no actor-causality, repair, threshold-value, transfer, safety, deployment, robustness, benchmark, population, HD-Score-invariance, commercial-value, real-world behavior, or retuning claim",
+  "events": [
+    {
+      "audit_id": "both_distinct_extreme",
+      "event_role": "pre",
+      "path_best": {
+        "bridge_band": "no_support",
+        "bridge_best_distance_m": 9.049123028502123,
+        "cpa_rank": 1,
+        "joint_class": "subthreshold_no_bridge_support",
+        "min_cpa": 6.49094537582306,
+        "object_id": 5,
+        "state": "subthreshold",
+        "ttc": null,
+        "ttc_rank": null
+      },
+      "path_matches_provenance": false,
+      "problems": [],
+      "provenance_best": {
+        "bridge_band": "match",
+        "bridge_best_distance_m": 0.987644974002337,
+        "cpa_rank": 2,
+        "joint_class": "borderline_bridge_supported",
+        "min_cpa": 21.520798149009224,
+        "object_id": 9,
+        "state": "borderline",
+        "ttc": 4.776101409133555,
+        "ttc_rank": 1
+      },
+      "replay_alignment": "exact_bridge_ts",
+      "replay_ts": 5.5,
+      "row_label": "surface_follows_provenance_nonactive",
+      "scenario": "scene-0138-extreme-00",
+      "surface_best": {
+        "bridge_band": "match",
+        "bridge_best_distance_m": 0.987644974002337,
+        "cpa_rank": 2,
+        "joint_class": "borderline_bridge_supported",
+        "min_cpa": 21.520798149009224,
+        "object_id": 9,
+        "state": "borderline",
+        "ttc": 4.776101409133555,
+        "ttc_rank": 1
+      },
+      "surface_matches_path": false,
+      "surface_matches_provenance": true
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "event_role": "pre",
+      "path_best": {
+        "bridge_band": "ambiguous",
+        "bridge_best_distance_m": 3.2792928823035705,
+        "cpa_rank": 1,
+        "joint_class": "subthreshold_bridge_supported",
+        "min_cpa": 6.32985199064016,
+        "object_id": 19,
+        "state": "subthreshold",
+        "ttc": null,
+        "ttc_rank": null
+      },
+      "path_matches_provenance": false,
+      "problems": [],
+      "provenance_best": {
+        "bridge_band": "match",
+        "bridge_best_distance_m": 0.7077149882625609,
+        "cpa_rank": 5,
+        "joint_class": "subthreshold_bridge_supported",
+        "min_cpa": 17.48458457065019,
+        "object_id": 3,
+        "state": "subthreshold",
+        "ttc": null,
+        "ttc_rank": null
+      },
+      "replay_alignment": "exact_bridge_ts",
+      "replay_ts": 4.0,
+      "row_label": "surface_follows_path_nonactive",
+      "scenario": "scene-0071-medium-01",
+      "surface_best": {
+        "bridge_band": "ambiguous",
+        "bridge_best_distance_m": 3.2792928823035705,
+        "cpa_rank": 1,
+        "joint_class": "subthreshold_bridge_supported",
+        "min_cpa": 6.32985199064016,
+        "object_id": 19,
+        "state": "subthreshold",
+        "ttc": null,
+        "ttc_rank": null
+      },
+      "surface_matches_path": true,
+      "surface_matches_provenance": false
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "event_role": "active",
+      "path_best": {
+        "bridge_band": "no_support",
+        "bridge_best_distance_m": 10.951828022656175,
+        "cpa_rank": 1,
+        "joint_class": "active_no_bridge_support",
+        "min_cpa": 1.0009857304229401,
+        "object_id": 24,
+        "state": "active",
+        "ttc": null,
+        "ttc_rank": null
+      },
+      "path_matches_provenance": false,
+      "problems": [],
+      "provenance_best": {
+        "bridge_band": "ambiguous",
+        "bridge_best_distance_m": 3.7598179926411346,
+        "cpa_rank": 5,
+        "joint_class": "subthreshold_bridge_supported",
+        "min_cpa": 19.42671009900369,
+        "object_id": 6,
+        "state": "subthreshold",
+        "ttc": null,
+        "ttc_rank": null
+      },
+      "replay_alignment": "nearest_before_bridge_ts",
+      "replay_ts": 5.75,
+      "row_label": "surface_follows_path_active_no_bridge",
+      "scenario": "scene-0071-medium-01",
+      "surface_best": {
+        "bridge_band": "no_support",
+        "bridge_best_distance_m": 10.951828022656175,
+        "cpa_rank": 1,
+        "joint_class": "active_no_bridge_support",
+        "min_cpa": 1.0009857304229401,
+        "object_id": 24,
+        "state": "active",
+        "ttc": null,
+        "ttc_rank": null
+      },
+      "surface_matches_path": true,
+      "surface_matches_provenance": false
+    }
+  ],
+  "fixed_rows": [
+    {
+      "alignment": "exact_bridge_ts",
+      "audit_id": "both_distinct_extreme",
+      "replay_ts": 5.5,
+      "role": "pre",
+      "scenario": "scene-0138-extreme-00"
+    },
+    {
+      "alignment": "exact_bridge_ts",
+      "audit_id": "ttc_medium_a",
+      "replay_ts": 4.0,
+      "role": "pre",
+      "scenario": "scene-0071-medium-01"
+    },
+    {
+      "alignment": "nearest_before_bridge_ts",
+      "audit_id": "ttc_medium_a",
+      "replay_ts": 5.75,
+      "role": "active",
+      "scenario": "scene-0071-medium-01"
+    }
+  ],
+  "infra_problems": [],
+  "inputs": {
+    "iter92_report": "experiments/iter92_hugsim_path_proximity_arbitration/proof-arbitration/path_proximity_arbitration_report.json"
+  },
+  "iteration": 93,
+  "summary": {
+    "evaluated_rows": 3,
+    "path_matches_provenance_events": 0,
+    "row_label_counts": {
+      "surface_follows_path_active_no_bridge": 1,
+      "surface_follows_path_nonactive": 1,
+      "surface_follows_provenance_nonactive": 1
+    },
+    "surface_matches_path_events": 2,
+    "surface_matches_provenance_events": 1,
+    "target_rows": 3
+  },
+  "verdict": "HUGSIM_SURFACE_WINNER_ALIGNMENT_MIXED_COMPLETE"
+}

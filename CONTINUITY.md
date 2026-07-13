@@ -2136,3 +2136,12 @@ events to prepare; they are a property the repository always has.
   GPU/gcloud/box read, no actor-causality, repair, threshold-value, population-rate,
   safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value,
   real-world/first-responder behavior, or retuning claim.
+- 2026-07-13: Codex — continued into iteration 93 as the HUGSIM surface-winner alignment audit
+  after iteration 92. Pre-registered ALONE (`193274f`), added analyzer/tests (`126aa4a`, 383
+  tests green before analysis), then ran the analyzer ONCE over the committed iteration-92 report
+  only. Result: `HUGSIM_SURFACE_WINNER_ALIGNMENT_MIXED_COMPLETE`; surface follows path in two
+  rows and provenance in one row, with zero path/provenance same-object rows. The active
+  `ttc_medium_a` row follows path object `24`, which is active but bridge `no_support`. No
+  raw-log read, GPU/gcloud/box read, actor-causality, repair, threshold-value, population-rate,
+  safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value,
+  real-world/first-responder behavior, or retuning claim.

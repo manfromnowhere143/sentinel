@@ -4,7 +4,7 @@
 collision it is about to cause, and intervenes — measured where it actually matters: in closed
 loop, by whether the car crashes *and whether it can still drive*.**
 
-> **Honest status up front (92 registered iterations: 61 completed mechanism iterations + an
+> **Honest status up front (93 registered iterations: 62 completed mechanism iterations + an
 > independent verification pass +
 > the full official benchmark at power + a completed iteration-37 calibration null + an
 > iteration-38 opposite-direction S0 canary pass + completed iteration-39/40/41 defensibility
@@ -249,6 +249,11 @@ loop, by whether the car crashes *and whether it can still drive*.**
 > provenance-best is subthreshold; no threshold-value, repair, actor-causality, safety, transfer,
 > deployment, benchmark, population, commercial-value, real-world, first-responder, or
 > retuning
+> claim — + a completed iteration-93 HUGSIM surface-winner alignment audit:
+> surface-best alignment is mixed (`2/3` path, `1/3` provenance), with the active failure row
+> following path and no-support object `24`; no threshold-value, repair, actor-causality, safety,
+> transfer, deployment, benchmark, population, commercial-value, real-world, first-responder, or
+> retuning
 > claim):**
 > the introspective signal predicts the planner's collisions (AUROC 0.83). On the
 > complete 14-scene NeuroNCAP set at **20 seed-paired runs per pair** (799 episodes, the power
@@ -290,7 +295,7 @@ single-digit GPUs.
 
 ## The result
 
-Ninety-two registered iterations — sixty-one completed mechanism iterations, plus the completed defensibility, robustness, and transfer gates of iterations 39-92 — under frozen pre-registrations converge on one closed-loop configuration — the
+Ninety-three registered iterations — sixty-two completed mechanism iterations, plus the completed defensibility, robustness, and transfer gates of iterations 39-93 — under frozen pre-registrations converge on one closed-loop configuration — the
 **released union** (two label-free geometric detectors + a threat-cleared latch release) —
 measured on the **complete official 14-scene NeuroNCAP set at 20 seed-paired runs per pair**
 (799 episodes; hypotheses frozen before the run; the first 6 indices of every pair reproduce the
@@ -605,6 +610,7 @@ step; they are intentional stops, not hidden probe failures or unreported GPU ru
 | 90 | **HUGSIM active-surface provenance gap audit** — decompose active released-surface objects against provenance bridge support at the iteration-87 replay rows | committed iteration-59 proof/report plus iteration-87/89 reports only; all logged objects at fixed replay rows; all-provenance bridge and released-surface metrics recomputed from frozen logs | all three rows classify without blocking: `active_surface_absent_bridge_supported_nonactive` `2/3`, `active_surface_present_no_bridge_supported` `1/3`; active object events `1/3`; bridge-supported objects total `11`; active+bridge-supported objects `0`; active/no-bridge objects `1`; bridge-supported non-active objects `11` | **`HUGSIM_ACTIVE_SURFACE_PROVENANCE_GAP_COMPLETE` — bridge support lands on non-active objects, while the only active object lacks bridge support** | three-row descriptive active-surface/provenance gap audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/real-world/first-responder/retuning claim. [`iter90_hugsim_active_surface_provenance_gap`](experiments/iter90_hugsim_active_surface_provenance_gap/RESULT.md) |
 | 91 | **HUGSIM active-gap geometry decomposition** — make the path-vs-provenance geometry behind the iteration-90 split explicit | committed iteration-59 proof/report plus iteration-90 report only; all logged objects at fixed replay rows; bridge best-variant geometry and released-surface metrics recomputed from frozen logs | all three rows classify without blocking: `provenance_near_path_inactive` `2/3`, `path_active_provenance_far_with_bridge_nonactive` `1/3`; bridge-supported objects total `11`; active+bridge-supported objects `0`; active-row object `24` is active by path CPA (`min_cpa=1.0010 m`) but bridge `no_support` at `10.9518 m`, while nearest bridge object `10` is subthreshold at `4.2468 m` | **`HUGSIM_ACTIVE_GAP_PATH_PROVENANCE_DECOMPOSITION_COMPLETE` — released active surface follows path-near geometry while provenance support points to different non-active objects** | three-row descriptive active-gap geometry decomposition only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/real-world/first-responder/retuning claim. [`iter91_hugsim_active_gap_geometry_decomposition`](experiments/iter91_hugsim_active_gap_geometry_decomposition/RESULT.md) |
 | 92 | **HUGSIM path-proximity arbitration audit** — compare the CPA/path-best object with the provenance-best bridge-supported object at the fixed replay rows | committed iteration-59 proof/report plus iteration-91 report only; path-best selector is lowest `cpa_rank`; provenance-best selector is lowest bridge distance among supported objects; surface-best recorded for audit | all three rows classify without blocking: path/provenance same-object events `0/3`; labels split across `path_best_no_bridge_provenance_best_nonactive`, `path_best_bridge_supported_nonactive`, and `path_best_active_no_bridge`; active row path/surface-best object `24` is active (`min_cpa=1.0010 m`) but no-support (`10.9518 m`), while provenance-best object `6` is subthreshold at `3.7598 m` | **`HUGSIM_PATH_PROXIMITY_ARBITRATION_SPLIT_COMPLETE` — path proximity and provenance proximity select different logged objects in every fixed row** | three-row descriptive path-proximity/provenance arbitration audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/real-world/first-responder/retuning claim. [`iter92_hugsim_path_proximity_arbitration`](experiments/iter92_hugsim_path_proximity_arbitration/RESULT.md) |
+| 93 | **HUGSIM surface-winner alignment audit** — classify whether `surface_best` follows `path_best` or `provenance_best` using committed iteration-92 selector proof only | committed iteration-92 report only; no raw decision logs; fixed selector triples from the three replay rows | all three rows classify without blocking: `surface_follows_path_active_no_bridge` `1/3`, `surface_follows_path_nonactive` `1/3`, `surface_follows_provenance_nonactive` `1/3`; surface matches path `2/3`, surface matches provenance `1/3`, path matches provenance `0/3` | **`HUGSIM_SURFACE_WINNER_ALIGNMENT_MIXED_COMPLETE` — surface winner follows provenance in one row and path in two rows, including the active no-support row** | three-row descriptive selector-alignment audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/real-world/first-responder/retuning claim. [`iter93_hugsim_surface_winner_alignment`](experiments/iter93_hugsim_surface_winner_alignment/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -918,6 +924,8 @@ provenance-far, while the bridge-supported objects are provenance-near but path-
 Iteration 92 then made the arbitration object explicit: CPA/path-best and provenance-best differ
 in all three fixed replay rows, so path proximity and provenance proximity do not select the same
 logged object.
+Iteration 93 then showed the surface winner is mixed: it follows provenance in one row and path in
+two rows, including the active no-support row.
 This is a mechanism-cause audit, not a repair or population-rate claim. Successors now require
 fresh pre-registrations. The
 published RealADSim closed-loop anchor range remains loose context only —
@@ -1363,6 +1371,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter90_hugsim_active_surface_provenance_gap/`](experiments/iter90_hugsim_active_surface_provenance_gap) | HUGSIM active-surface provenance gap audit — HUGSIM_ACTIVE_SURFACE_PROVENANCE_GAP_COMPLETE: bridge-supported replay-row objects are non-active, while the only active object lacks bridge support |
 | [`experiments/iter91_hugsim_active_gap_geometry_decomposition/`](experiments/iter91_hugsim_active_gap_geometry_decomposition) | HUGSIM active-gap geometry decomposition — HUGSIM_ACTIVE_GAP_PATH_PROVENANCE_DECOMPOSITION_COMPLETE: path-active geometry and provenance-supported geometry split across different objects |
 | [`experiments/iter92_hugsim_path_proximity_arbitration/`](experiments/iter92_hugsim_path_proximity_arbitration) | HUGSIM path-proximity arbitration audit — HUGSIM_PATH_PROXIMITY_ARBITRATION_SPLIT_COMPLETE: CPA/path-best and provenance-best objects differ in all fixed replay rows |
+| [`experiments/iter93_hugsim_surface_winner_alignment/`](experiments/iter93_hugsim_surface_winner_alignment) | HUGSIM surface-winner alignment audit — HUGSIM_SURFACE_WINNER_ALIGNMENT_MIXED_COMPLETE: surface winner follows path in two rows and provenance in one row |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/FRONTIER_POSITIONING_2026-07-11.md`](docs/research/FRONTIER_POSITIONING_2026-07-11.md) | source-verified mid-2026 benchmark/monitor/industry positioning; the binding 2.91-is-not-benchmark-SOTA framing rule |
