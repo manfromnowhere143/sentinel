@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Mon Jul 13 10:53:14 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Mon Jul 13 11:01:56 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+6e5c2bc iter65: publish temporal alignment audit
+cf516a9 iter65: add temporal alignment tooling
+2ae2c07 iter65: preregister temporal alignment audit
+c28743c handoff: record iter64 unsupported temporal state
 40d956e iter64: publish unsupported temporal audit
 6807221 iter64: add unsupported temporal tooling
 ebdd344 iter64: preregister unsupported temporal audit
 0825583 handoff: record iter63 temporal state
-f47abcc iter63: publish temporal emergence audit
-dd46041 iter63: add temporal emergence tooling
-538e8d4 iter63: preregister temporal emergence audit
-edcf4cd handoff: record iter62 ranking state
 ```
 Working tree: CLEAN
 
@@ -79,6 +79,7 @@ Working tree: CLEAN
 - experiments/iter62_nontrigger_ranking_audit: RESULT PUBLISHED
 - experiments/iter63_temporal_emergence_audit: RESULT PUBLISHED
 - experiments/iter64_unsupported_temporal_surface_audit: RESULT PUBLISHED
+- experiments/iter65_temporal_alignment_audit: RESULT PUBLISHED
 - experiments/iter6_cpa: RESULT PUBLISHED
 - experiments/iter7_margin: RESULT PUBLISHED
 - experiments/iter8_union: RESULT PUBLISHED
@@ -90,7 +91,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 10:54:22 up 9 days, 35 min,  0 users,  load average: 0.00, 0.00, 0.00
+ 11:03:07 up 9 days, 44 min,  0 users,  load average: 0.00, 0.00, 0.00
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-iter59-actor-match.log
@@ -102,7 +103,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter64_unsupported_temporal_surface_audit/RESULT.md — read it before opening new work.
+- Newest completed experiment: experiments/iter65_temporal_alignment_audit/RESULT.md — read it before opening new work.
 - Newest pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
