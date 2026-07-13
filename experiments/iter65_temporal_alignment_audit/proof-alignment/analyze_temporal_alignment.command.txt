@@ -1,0 +1,22 @@
+Working directory:
+/Users/danielwahnich/workspace/sentinel
+
+Command:
+python3 experiments/iter65_temporal_alignment_audit/analyze_temporal_alignment.py --iter59-proof-root experiments/iter59_hugsim_actor_match_audit/proof-actor-match --iter59-report experiments/iter59_hugsim_actor_match_audit/proof-actor-match/actor_match_report.json --iter61-report experiments/iter61_monitor_object_surface_audit/proof-object-surface/object_surface_report.json --iter64-report experiments/iter64_unsupported_temporal_surface_audit/proof-unsupported-temporal/unsupported_temporal_report.json --out experiments/iter65_temporal_alignment_audit/proof-alignment/temporal_alignment_report.json --markdown-out experiments/iter65_temporal_alignment_audit/proof-alignment/temporal_alignment.md
+
+Observed stdout:
+{
+  "verdict": "TEMPORAL_ALIGNMENT_SUBTHRESHOLD_COMPLETE",
+  "summary": {
+    "target_rows": 2,
+    "evaluated_rows": 2,
+    "row_label_counts": {
+      "matched_object_subthreshold": 2
+    },
+    "matched_object_ids": [
+      2,
+      6
+    ],
+    "matched_objects_equal_first_fire_objects": 1
+  }
+}

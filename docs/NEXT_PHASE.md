@@ -443,6 +443,10 @@ Iteration 64 then expanded the two rows that lacked first-fire monitor-object su
 pre-contact decision objects. The result is `UNSUPPORTED_TEMPORAL_MATCH_COMPLETE`: both
 `ttc_extreme_short` and `cpa_medium_b` have pre-contact monitor-object matches under the frozen
 bridge grid, with best distances `1.6718 m` and `0.4325 m`.
+Iteration 65 then reconstructed those two matched monitor objects at their matched decision
+timestamps. The result is `TEMPORAL_ALIGNMENT_SUBTHRESHOLD_COMPLETE`: both objects were present
+but subthreshold (`object_id=2`: min CPA `12.7240 m`, TTC `3.5763 s`; `object_id=6`: min CPA
+`9.3179 m`, no valid TTC).
 
 The default next scientific line is therefore not an expanded-N transfer run and not retuning the
 released union. After iteration 61, the actor-match audit points to wrong-object/wrong-hazard
@@ -450,8 +454,9 @@ selection in at least one classifiable row, and iteration 62 shows that the coll
 object in that row was outside the frozen first-fire hazard surface rather than merely losing an
 argmin tie. Iteration 63 shows it also never becomes hazardous before contact. Iteration 64 shows
 the two first-fire-unsupported rows do have pre-contact object-surface support outside the
-first-fire frame. The remaining audit rows are no-fire/post-fire/background-only failure modes.
-Any successor should be a fresh
+first-fire frame. Iteration 65 shows those matches are not already-active hazards at the matched
+timestamps. The remaining audit rows are no-fire/post-fire/background-only failure modes. Any
+successor should be a fresh
 mechanism-cause pre-registration that explains those categories, not threshold tuning. A strong
 successor should distinguish among:
 
@@ -486,7 +491,9 @@ argmin provenance. Iteration 63 shows the same object remains visible-never-haza
 pre-contact window, closing the late-emergence explanation for that row. Iteration 64 shows the
 two first-fire unsupported rows are not globally object-unsupported: pre-contact monitor-object
 matches exist in both, so the next mechanism question is timing/provenance alignment rather than
-broad object absence.
+broad object absence. Iteration 65 answers that immediate timing question for the best matches:
+both are visible but subthreshold at the matched timestamps, so the remaining mechanism question
+is why collision-relevant geometry stays outside or arrives late to the released hazard surface.
 
 Any such line requires a fresh `HYPOTHESIS.md`. Until then, no new HUGSIM transfer, safety,
 robustness, deployment, benchmark-ranking, or retuning claim is authorized.

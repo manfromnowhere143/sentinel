@@ -4,7 +4,7 @@
 collision it is about to cause, and intervenes — measured where it actually matters: in closed
 loop, by whether the car crashes *and whether it can still drive*.**
 
-> **Honest status up front (64 registered iterations: 37 completed mechanism iterations + an
+> **Honest status up front (65 registered iterations: 37 completed mechanism iterations + an
 > independent verification pass +
 > the full official benchmark at power + a completed iteration-37 calibration null + an
 > iteration-38 opposite-direction S0 canary pass + completed iteration-39/40/41 defensibility
@@ -104,6 +104,12 @@ loop, by whether the car crashes *and whether it can still drive*.**
 > best 0.43 m), so the gap is first-fire/provenance timing rather than total pre-contact object
 > absence; no repair, actor-causality, safety, transfer, deployment, benchmark, population, or
 > retuning
+> claim — + a completed iteration-65 temporal alignment audit: those two matched pre-contact
+> objects were present but subthreshold at their matched timestamps (`object_id=2`: min CPA
+> 12.72 m, TTC 3.58 s; `object_id=6`: min CPA 9.32 m, no valid TTC), so the gap is not total
+> object absence and not an already-active matched hazard; no repair, actor-causality, safety,
+> transfer, deployment, benchmark, population, or
+> retuning
 > claim):**
 > the introspective signal predicts the planner's collisions (AUROC 0.83). On the
 > complete 14-scene NeuroNCAP set at **20 seed-paired runs per pair** (799 episodes, the power
@@ -145,7 +151,7 @@ single-digit GPUs.
 
 ## The result
 
-Sixty-four registered iterations — thirty-seven completed mechanism iterations, plus the completed defensibility, robustness, and transfer gates of iterations 39-64 — under frozen pre-registrations converge on one closed-loop configuration — the
+Sixty-five registered iterations — thirty-seven completed mechanism iterations, plus the completed defensibility, robustness, and transfer gates of iterations 39-65 — under frozen pre-registrations converge on one closed-loop configuration — the
 **released union** (two label-free geometric detectors + a threat-cleared latch release) —
 measured on the **complete official 14-scene NeuroNCAP set at 20 seed-paired runs per pair**
 (799 episodes; hypotheses frozen before the run; the first 6 indices of every pair reproduce the
@@ -276,8 +282,8 @@ flowchart LR
   A51 --> A52["52"]
   A52 --> A53["53"]
   A53 --> A54["54"]
-  A54 --> A55["55 src map"]
-  A55 --> A56["56 guard null"]
+  A54 --> A55["55"]
+  A55 --> A56["56"]
   A56 --> A57["57 guard"]
   A57 --> A58["58 canary"]
   A58 --> A59["59 mismatch"]
@@ -286,6 +292,7 @@ flowchart LR
   A61 --> A62["62"]
   A62 --> A63["63"]
   A63 --> A64["64"]
+  A64 --> A65["65"]
   classDef ask fill:#ffe,stroke:#a70,color:#111;
   classDef audit fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
   classDef win fill:#efe,stroke:#080,color:#111;
@@ -294,7 +301,7 @@ flowchart LR
   class A39,A40,A41 audit;
   class A42,A45,A47 win;
   class A43,A44,A46,A48,A49,A56 bad;
-  class A50,A51,A52,A53,A54,A55,A57,A58,A59,A60,A61,A62,A63,A64 audit;
+  class A50,A51,A52,A53,A54,A55,A57,A58,A59,A60,A61,A62,A63,A64,A65 audit;
 ```
 
 The winning monitor is a **union of two individually-selective detectors**, chosen because the two
@@ -428,6 +435,7 @@ step; they are intentional stops, not hidden probe failures or unreported GPU ru
 | 62 | **Non-trigger ranking audit** — one-row selector audit for the Iter61 matched non-trigger object | committed iteration-59/61 proof only; reconstruct every first-fire object's CPA/TTC values and ranks in `ttc_extreme_b` | matched non-trigger `object_id=16`: `min_cpa=22.7648 m`, CPA rank `9/9`, `ttc=null`, no CPA/TTC crossing; trigger `object_id=1`: TTC-only, `ttc=2.1303 s`, TTC rank `1` | **`MATCHED_OBJECT_SUBTHRESHOLD_COMPLETE` — the matched object was visible but outside the frozen first-fire hazard surface** | one-row selector-surface fact only; no actor-causality, repair, population mismatch-rate, safety/transfer/deployment/benchmark/retuning claim. [`iter62_nontrigger_ranking_audit`](experiments/iter62_nontrigger_ranking_audit/RESULT.md) |
 | 63 | **Temporal emergence audit** — follow the Iter61/62 matched non-trigger object through pre-contact monitor frames | committed iteration-59/61/62 proof only; target `ttc_extreme_b` `object_id=16`; pre-contact rows are `ts < 7.25 s` | object present in 13 of 29 pre-contact frames; hazard frames `0`; borderline frames `0`; min CPA `12.1690 m`; min TTC `null`; contact-time row also subthreshold | **`TEMPORAL_VISIBLE_NEVER_HAZARD_COMPLETE` — the collision-near object never becomes a frozen CPA/TTC hazard before contact** | one-object temporal surface audit only; no actor-causality, repair, population mismatch-rate, safety/transfer/deployment/benchmark/retuning claim. [`iter63_temporal_emergence_audit`](experiments/iter63_temporal_emergence_audit/RESULT.md) |
 | 64 | **Unsupported-row temporal surface audit** — expand the two no-first-fire-support rows to all pre-contact decision objects | committed iteration-59/61 proof only; targets `ttc_extreme_short` and `cpa_medium_b`; frozen 16-variant bridge grid over every pre-contact object/provenance pair | both rows become `pre_contact_object_match`; best distances `1.6718 m` and `0.4325 m`; `28,016` variants evaluated | **`UNSUPPORTED_TEMPORAL_MATCH_COMPLETE` — first-fire support is absent, but pre-contact object-surface support exists in both rows** | two-row temporal object-surface audit only; no actor-causality, repair, population mismatch-rate, safety/transfer/deployment/benchmark/retuning claim. [`iter64_unsupported_temporal_surface_audit`](experiments/iter64_unsupported_temporal_surface_audit/RESULT.md) |
+| 65 | **Matched pre-contact temporal alignment audit** — reconstruct released CPA/TTC metrics for the two Iter64 matched objects at their matched decision timestamps | committed iteration-59/61/64 proof only; targets `ttc_extreme_short` `object_id=2` and `cpa_medium_b` `object_id=6` | both rows classify `matched_object_subthreshold`; `object_id=2` at `0.25 s`: min CPA `12.7240 m`, TTC `3.5763 s`; `object_id=6` at `2.25 s`: min CPA `9.3179 m`, TTC `null`; one matched object later equals first-fire object | **`TEMPORAL_ALIGNMENT_SUBTHRESHOLD_COMPLETE` — the pre-contact matches are visible geometry, not active released-union hazards at their matched timestamps** | two-row temporal/provenance alignment audit only; no actor-causality, repair, population mismatch-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/retuning claim. [`iter65_temporal_alignment_audit`](experiments/iter65_temporal_alignment_audit/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -660,7 +668,9 @@ then reconstructed the first-fire ranks for that matched object: it was visible 
 `object_id=1`. Iteration 63 then followed that same object through the pre-contact window:
 present in 13 frames, zero hazard frames, zero borderline frames, min CPA `12.1690 m`, no valid
 TTC. Iteration 64 then expanded the two first-fire-unsupported rows to all pre-contact objects;
-both gained object-surface matches (`1.6718 m`, `0.4325 m`). This is a
+both gained object-surface matches (`1.6718 m`, `0.4325 m`). Iteration 65 reconstructed those
+matched objects at their matched timestamps and found both subthreshold (`12.7240 m` CPA /
+`3.5763 s` TTC, and `9.3179 m` CPA / no TTC). This is a
 mechanism-cause audit, not a repair or population-rate claim. Successors now require fresh
 pre-registrations. The
 published RealADSim closed-loop anchor range remains loose context only —
@@ -1078,6 +1088,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter62_nontrigger_ranking_audit/`](experiments/iter62_nontrigger_ranking_audit) | non-trigger ranking audit — MATCHED_OBJECT_SUBTHRESHOLD_COMPLETE: the matched non-trigger object in `ttc_extreme_b` was visible but outside the frozen first-fire CPA/TTC hazard surface |
 | [`experiments/iter63_temporal_emergence_audit/`](experiments/iter63_temporal_emergence_audit) | temporal emergence audit — TEMPORAL_VISIBLE_NEVER_HAZARD_COMPLETE: the matched non-trigger object stayed visible but never crossed hazard or borderline before the first foreground collision timestamp |
 | [`experiments/iter64_unsupported_temporal_surface_audit/`](experiments/iter64_unsupported_temporal_surface_audit) | unsupported-row temporal surface audit — UNSUPPORTED_TEMPORAL_MATCH_COMPLETE: both first-fire-unsupported rows have pre-contact monitor-object matches under the frozen bridge grid |
+| [`experiments/iter65_temporal_alignment_audit/`](experiments/iter65_temporal_alignment_audit) | matched pre-contact temporal alignment audit — TEMPORAL_ALIGNMENT_SUBTHRESHOLD_COMPLETE: both Iter64 matched objects were present but subthreshold at their matched decision timestamps |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/FRONTIER_POSITIONING_2026-07-11.md`](docs/research/FRONTIER_POSITIONING_2026-07-11.md) | source-verified mid-2026 benchmark/monitor/industry positioning; the binding 2.91-is-not-benchmark-SOTA framing rule |

@@ -1,0 +1,349 @@
+{
+  "claim_boundary": "two-row temporal/provenance alignment audit only; no transfer, safety, deployment, benchmark, actor-causality, repair, population, HD-Score-invariance, or retuning claim",
+  "episodes": [
+    {
+      "audit_id": "ttc_extreme_short",
+      "first_fire": {
+        "brake_frames": 14,
+        "fired_frames": 6,
+        "first_fire_channel": "ttc_only",
+        "first_fire_object_id": 2,
+        "first_fire_ts": 1.5,
+        "matched_object_is_first_fire_object": true,
+        "monitor_frames": 22,
+        "monitor_provenance_label": "unique_ttc_object"
+      },
+      "matched_bridge_variant": {
+        "axis_order": "yx",
+        "distance_m": 1.6718236908808954,
+        "forward_sign": -1,
+        "lateral_sign": -1,
+        "lead_time_s": 2.5,
+        "temporal_source": "propagated_to_foreground"
+      },
+      "matched_decision_ts": 0.25,
+      "matched_foreground_ts": 2.75,
+      "matched_object": {
+        "closing": 3.638321261405885,
+        "cpa_cross": false,
+        "cpa_horizon_index": 1,
+        "cpa_rank": 2,
+        "gap": 13.01190201822751,
+        "is_first_fire_object": true,
+        "is_matched_object": true,
+        "min_cpa": 12.724000037517374,
+        "object_id": 2,
+        "score": 0.8884814381599426,
+        "ttc": 3.576347739341626,
+        "ttc_cross": false,
+        "ttc_rank": 1,
+        "velocity": [
+          -3.673894994203465,
+          1.701516340355056
+        ],
+        "world": [
+          8.211000891341712,
+          -9.656511021112408
+        ]
+      },
+      "matched_object_id": 2,
+      "object_count_at_matched_ts": 3,
+      "objects_at_matched_ts": [
+        {
+          "closing": 3.638321261405885,
+          "cpa_cross": false,
+          "cpa_horizon_index": 1,
+          "cpa_rank": 2,
+          "gap": 13.01190201822751,
+          "is_first_fire_object": true,
+          "is_matched_object": true,
+          "min_cpa": 12.724000037517374,
+          "object_id": 2,
+          "score": 0.8884814381599426,
+          "ttc": 3.576347739341626,
+          "ttc_cross": false,
+          "ttc_rank": 1,
+          "velocity": [
+            -3.673894994203465,
+            1.701516340355056
+          ],
+          "world": [
+            8.211000891341712,
+            -9.656511021112408
+          ]
+        },
+        {
+          "closing": null,
+          "cpa_cross": false,
+          "cpa_horizon_index": 6,
+          "cpa_rank": 3,
+          "gap": 17.405327171581966,
+          "is_first_fire_object": false,
+          "is_matched_object": false,
+          "min_cpa": 13.430417434048856,
+          "object_id": 3,
+          "score": 0.5312243103981018,
+          "ttc": null,
+          "ttc_cross": false,
+          "ttc_rank": null,
+          "velocity": [
+            0.902251881568759,
+            2.3324141692148714
+          ],
+          "world": [
+            -17.21871193195156,
+            -2.1044231605771415
+          ]
+        },
+        {
+          "closing": null,
+          "cpa_cross": false,
+          "cpa_horizon_index": 6,
+          "cpa_rank": 1,
+          "gap": 16.84983041887281,
+          "is_first_fire_object": false,
+          "is_matched_object": false,
+          "min_cpa": 11.411363901207011,
+          "object_id": 4,
+          "score": 0.48439010977745056,
+          "ttc": null,
+          "ttc_cross": false,
+          "ttc_rank": null,
+          "velocity": [
+            1.1876095563392255,
+            2.3422844781837284
+          ],
+          "world": [
+            -16.845423965895662,
+            0.05217344498538523
+          ]
+        }
+      ],
+      "problems": [],
+      "row_label": "matched_object_subthreshold",
+      "scenario": "scene-0038-extreme-00"
+    },
+    {
+      "audit_id": "cpa_medium_b",
+      "first_fire": {
+        "brake_frames": 8,
+        "fired_frames": 2,
+        "first_fire_channel": "cpa_only",
+        "first_fire_object_id": 1,
+        "first_fire_ts": 0.25,
+        "matched_object_is_first_fire_object": false,
+        "monitor_frames": 37,
+        "monitor_provenance_label": "unique_cpa_object"
+      },
+      "matched_bridge_variant": {
+        "axis_order": "yx",
+        "distance_m": 0.4325280723170322,
+        "forward_sign": -1,
+        "lateral_sign": -1,
+        "lead_time_s": 4.25,
+        "temporal_source": "propagated_to_foreground"
+      },
+      "matched_decision_ts": 2.25,
+      "matched_foreground_ts": 6.5,
+      "matched_object": {
+        "closing": null,
+        "cpa_cross": false,
+        "cpa_horizon_index": 1,
+        "cpa_rank": 2,
+        "gap": 8.14787077966292,
+        "is_first_fire_object": false,
+        "is_matched_object": true,
+        "min_cpa": 9.31789901398808,
+        "object_id": 6,
+        "score": 0.6667803525924683,
+        "ttc": null,
+        "ttc_cross": false,
+        "ttc_rank": null,
+        "velocity": [
+          3.1354469501397944,
+          -6.430451795122735
+        ],
+        "world": [
+          -7.607598528763106,
+          0.8638594145531897
+        ]
+      },
+      "matched_object_id": 6,
+      "object_count_at_matched_ts": 6,
+      "objects_at_matched_ts": [
+        {
+          "closing": null,
+          "cpa_cross": false,
+          "cpa_horizon_index": 1,
+          "cpa_rank": 6,
+          "gap": 29.153225540600836,
+          "is_first_fire_object": false,
+          "is_matched_object": false,
+          "min_cpa": 31.702192707282858,
+          "object_id": 0,
+          "score": 0.9091100096702576,
+          "ttc": null,
+          "ttc_cross": false,
+          "ttc_rank": null,
+          "velocity": [
+            9.324173077353407,
+            3.796388862650474
+          ],
+          "world": [
+            14.622715794843032,
+            -22.13986317789613
+          ]
+        },
+        {
+          "closing": null,
+          "cpa_cross": false,
+          "cpa_horizon_index": 6,
+          "cpa_rank": 1,
+          "gap": 11.370562978138445,
+          "is_first_fire_object": true,
+          "is_matched_object": false,
+          "min_cpa": 8.552804672996325,
+          "object_id": 1,
+          "score": 0.7668315172195435,
+          "ttc": null,
+          "ttc_cross": false,
+          "ttc_rank": null,
+          "velocity": [
+            -1.9551211963330388,
+            2.940507749963899
+          ],
+          "world": [
+            4.4560415151207735,
+            13.7393285351759
+          ]
+        },
+        {
+          "closing": null,
+          "cpa_cross": false,
+          "cpa_horizon_index": 5,
+          "cpa_rank": 3,
+          "gap": 18.551253458837945,
+          "is_first_fire_object": false,
+          "is_matched_object": false,
+          "min_cpa": 13.530609485414052,
+          "object_id": 3,
+          "score": 0.6924886703491211,
+          "ttc": null,
+          "ttc_cross": false,
+          "ttc_rank": null,
+          "velocity": [
+            -5.334917464292857,
+            0.8907549737416502
+          ],
+          "world": [
+            4.584483975808666,
+            21.22109573597993
+          ]
+        },
+        {
+          "closing": null,
+          "cpa_cross": false,
+          "cpa_horizon_index": 1,
+          "cpa_rank": 5,
+          "gap": 21.152091495931824,
+          "is_first_fire_object": false,
+          "is_matched_object": false,
+          "min_cpa": 24.36774895757204,
+          "object_id": 4,
+          "score": 0.9696967601776123,
+          "ttc": null,
+          "ttc_cross": false,
+          "ttc_rank": null,
+          "velocity": [
+            8.456593586476856,
+            -2.5314161077099016
+          ],
+          "world": [
+            -0.4114153663749107,
+            -17.94773924446531
+          ]
+        },
+        {
+          "closing": null,
+          "cpa_cross": false,
+          "cpa_horizon_index": 1,
+          "cpa_rank": 4,
+          "gap": 21.867637221168234,
+          "is_first_fire_object": false,
+          "is_matched_object": false,
+          "min_cpa": 22.56262740385816,
+          "object_id": 5,
+          "score": 0.7282207012176514,
+          "ttc": null,
+          "ttc_cross": false,
+          "ttc_rank": null,
+          "velocity": [
+            7.91489779088306,
+            5.610434368559254
+          ],
+          "world": [
+            7.183390952703064,
+            -17.52690290283681
+          ]
+        },
+        {
+          "closing": null,
+          "cpa_cross": false,
+          "cpa_horizon_index": 1,
+          "cpa_rank": 2,
+          "gap": 8.14787077966292,
+          "is_first_fire_object": false,
+          "is_matched_object": true,
+          "min_cpa": 9.31789901398808,
+          "object_id": 6,
+          "score": 0.6667803525924683,
+          "ttc": null,
+          "ttc_cross": false,
+          "ttc_rank": null,
+          "velocity": [
+            3.1354469501397944,
+            -6.430451795122735
+          ],
+          "world": [
+            -7.607598528763106,
+            0.8638594145531897
+          ]
+        }
+      ],
+      "problems": [],
+      "row_label": "matched_object_subthreshold",
+      "scenario": "scene-0166-medium-00"
+    }
+  ],
+  "expected_rows": [
+    {
+      "audit_id": "ttc_extreme_short",
+      "scenario": "scene-0038-extreme-00"
+    },
+    {
+      "audit_id": "cpa_medium_b",
+      "scenario": "scene-0166-medium-00"
+    }
+  ],
+  "infra_problems": [],
+  "inputs": {
+    "iter59_proof_root": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match",
+    "iter59_report": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/actor_match_report.json",
+    "iter61_report": "experiments/iter61_monitor_object_surface_audit/proof-object-surface/object_surface_report.json",
+    "iter64_report": "experiments/iter64_unsupported_temporal_surface_audit/proof-unsupported-temporal/unsupported_temporal_report.json"
+  },
+  "iteration": 65,
+  "summary": {
+    "evaluated_rows": 2,
+    "matched_object_ids": [
+      2,
+      6
+    ],
+    "matched_objects_equal_first_fire_objects": 1,
+    "row_label_counts": {
+      "matched_object_subthreshold": 2
+    },
+    "target_rows": 2
+  },
+  "verdict": "TEMPORAL_ALIGNMENT_SUBTHRESHOLD_COMPLETE"
+}

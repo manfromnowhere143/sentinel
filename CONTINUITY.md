@@ -469,6 +469,16 @@ events to prepare; they are a property the repository always has.
   foreground `6.50 s`). This shifts the mechanism question to first-fire/provenance timing, not
   total pre-contact object absence. No actor-causality, repair, population-rate,
   safety/transfer/deployment/robustness/benchmark, or retuning claim.
+- Iteration 65 concluded:
+  experiments/iter65_temporal_alignment_audit/RESULT.md, published as
+  `TEMPORAL_ALIGNMENT_SUBTHRESHOLD_COMPLETE` — an offline temporal/provenance alignment audit
+  for the two iteration-64 best pre-contact monitor-object matches. It launched no GPU work and
+  read no live box state. Both matched objects were present but subthreshold at their matched
+  timestamps: `ttc_extreme_short` `object_id=2` at decision `0.25 s` had min CPA `12.7240 m`
+  and TTC `3.5763 s`; `cpa_medium_b` `object_id=6` at decision `2.25 s` had min CPA
+  `9.3179 m` and no valid TTC. One matched object later equals the first-fire object; the other
+  does not. No actor-causality, repair, population-rate,
+  safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, or retuning claim.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1664,3 +1674,12 @@ events to prepare; they are a property the repository always has.
   monitor-object matches (`ttc_extreme_short` best `1.6718 m`; `cpa_medium_b` best `0.4325 m`),
   with `28,016` frozen bridge variants evaluated. No GPU/gcloud/box read, no actor-causality,
   repair, population-rate, safety/transfer/deployment/robustness/benchmark, or retuning claim.
+- 2026-07-13: Codex — continued into iteration 65 as the matched pre-contact temporal alignment
+  audit after iteration 64. Pre-registered ALONE (`2ae2c07`), added analyzer/tests (`cf516a9`,
+  313 tests green before analysis), then ran the analyzer ONCE over committed iteration-59/61/64
+  proof. Result: `TEMPORAL_ALIGNMENT_SUBTHRESHOLD_COMPLETE`; both Iter64 matched objects were
+  present but subthreshold at their matched timestamps (`object_id=2`: min CPA `12.7240 m`, TTC
+  `3.5763 s`; `object_id=6`: min CPA `9.3179 m`, TTC `null`). One matched object later equals
+  the first-fire object; the other does not. No GPU/gcloud/box read, no actor-causality, repair,
+  population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, or
+  retuning claim.
