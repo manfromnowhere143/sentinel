@@ -411,6 +411,16 @@ events to prepare; they are a property the repository always has.
   episode carried the released-union decision log. This retires only the
   instrumentation-execution blocker. No actor-match, HD-Score-invariance,
   safety/transfer/deployment/robustness/benchmark, or retuning claim.
+- Iteration 59 concluded:
+  experiments/iter59_hugsim_actor_match_audit/RESULT.md, published as
+  `ACTOR_MATCH_AUDIT_COMPLETE` — a bounded eight-episode Sentinel-ON actor-match support audit
+  using the same byte-bound HUGSIM provenance patch. All eight episodes completed first-attempt
+  with intact scalar schemas, scalar-only `details`, top-level `collision_provenance`, and ON
+  decision logs. Support labels were `classifiable_foreground` `3`, `no_monitor_fire` `2`,
+  `post_collision_fire` `2`, and `background_collision_only` `1`. All three classifiable
+  foreground rows were `actor_mismatch` by the frozen bridge, with distances `15.43 m`,
+  `21.99 m`, and `37.04 m`. This is a bounded mechanism-cause audit only: no population
+  mismatch-rate, repair, safety/transfer/deployment/robustness/benchmark, or retuning claim.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1555,3 +1565,14 @@ events to prepare; they are a property the repository always has.
   first-attempt with `nc_min = 0.0`, top-level `collision_provenance` counts `11` and `13`,
   scalar metrics present, scalar-only `details`, and ON decision log present. No actor-match,
   HD-Score-invariance, safety/transfer/deployment/robustness/benchmark, or retuning claim.
+- 2026-07-13: Codex — continued into iteration 59 as the bounded actor-match support audit after
+  iteration 58 retired the instrumentation-execution blocker. Pre-registered ALONE (`c9f50c5`),
+  added launcher/analyzer/tests (`e2c98a6`, 285 tests green before launch), pushed pre-run state,
+  copied only byte-bound artifacts to `sentinel-gpu`, verified hashes/source/checkpoint/shim/
+  image/scenario/map/D0/single-tenant gates, then launched exactly eight Sentinel-ON episodes.
+  The run reached `I59_ACTOR_MATCH_DONE`; all eight episodes completed first-attempt. Raw proof
+  was collected without heavy artifacts and committed FIRST (`ec5750f`). Analyzer verdict:
+  `ACTOR_MATCH_AUDIT_COMPLETE`; support labels = 3 classifiable foreground, 2 no-fire, 2
+  post-collision-fire, 1 background-only; all three classifiable foreground rows were
+  `actor_mismatch` by the frozen bridge (15.43 m, 21.99 m, 37.04 m). No population
+  actor-mismatch rate, repair, safety/transfer/deployment/robustness/benchmark, or retuning claim.

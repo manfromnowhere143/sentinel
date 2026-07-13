@@ -1,0 +1,302 @@
+{
+  "claim_boundary": "bounded eight-episode actor-match support audit only; no transfer, safety, benchmark, HD-Score-invariance, all-HUGSIM, deployment, or retuning claim",
+  "episodes": [
+    {
+      "audit_id": "ttc_extreme_short",
+      "brake_frames": 14,
+      "bridge_distance_m": 15.433032797668899,
+      "bridge_label": "actor_mismatch",
+      "detail_problems": [],
+      "details_scalar_only": true,
+      "episode_dir": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/episodes/ttc_extreme_short__scene-0038-extreme-00__on",
+      "fired_frames": 6,
+      "first_fire_channel": "ttc_only",
+      "first_fire_ts": 1.5,
+      "first_foreground_obs_index": 0,
+      "first_foreground_obs_name": "car",
+      "first_foreground_ts": 2.5,
+      "foreground_count": 8,
+      "hugsim_forward_lateral": [
+        3.520719051361084,
+        -0.5754401683807373
+      ],
+      "lead_time_s": 1.0,
+      "monitor_forward_lateral": [
+        -8.998518828195703,
+        -9.600249543043141
+      ],
+      "monitor_frames": 22,
+      "monitor_object_id": 2,
+      "monitor_provenance_label": "unique_ttc_object",
+      "nc_min": 0.0,
+      "problems": [],
+      "provenance_count": 8,
+      "provenance_is_list": true,
+      "provenance_present": true,
+      "scalar_metrics_present": true,
+      "scenario": "scene-0038-extreme-00",
+      "support_label": "classifiable_foreground"
+    },
+    {
+      "audit_id": "mixed_extreme",
+      "brake_frames": 0,
+      "detail_problems": [],
+      "details_scalar_only": true,
+      "episode_dir": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/episodes/mixed_extreme__scene-0062-extreme-00__on",
+      "fired_frames": 0,
+      "first_fire_channel": "no_fire",
+      "first_fire_ts": null,
+      "first_foreground_obs_index": 1,
+      "first_foreground_obs_name": "car",
+      "first_foreground_ts": 4.75,
+      "foreground_count": 2,
+      "monitor_frames": 23,
+      "monitor_object_id": null,
+      "monitor_provenance_label": "no_fire",
+      "nc_min": 0.0,
+      "problems": [],
+      "provenance_count": 2,
+      "provenance_is_list": true,
+      "provenance_present": true,
+      "scalar_metrics_present": true,
+      "scenario": "scene-0062-extreme-00",
+      "support_label": "no_monitor_fire"
+    },
+    {
+      "audit_id": "both_distinct_extreme",
+      "brake_frames": 4,
+      "detail_problems": [],
+      "details_scalar_only": true,
+      "episode_dir": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/episodes/both_distinct_extreme__scene-0138-extreme-00__on",
+      "fired_frames": 3,
+      "first_fire_channel": "ttc_only",
+      "first_fire_ts": 7.0,
+      "first_foreground_obs_index": 0,
+      "first_foreground_obs_name": "car",
+      "first_foreground_ts": 5.25,
+      "foreground_count": 10,
+      "monitor_frames": 32,
+      "monitor_object_id": 9,
+      "monitor_provenance_label": "unique_ttc_object",
+      "nc_min": 0.0,
+      "problems": [],
+      "provenance_count": 10,
+      "provenance_is_list": true,
+      "provenance_present": true,
+      "scalar_metrics_present": true,
+      "scenario": "scene-0138-extreme-00",
+      "support_label": "post_collision_fire"
+    },
+    {
+      "audit_id": "nofire_hard_control",
+      "brake_frames": 0,
+      "detail_problems": [],
+      "details_scalar_only": true,
+      "episode_dir": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/episodes/nofire_hard_control__scene-0041-hard-00__on",
+      "fired_frames": 0,
+      "first_fire_channel": "no_fire",
+      "first_fire_ts": null,
+      "first_foreground_obs_index": 1,
+      "first_foreground_obs_name": "car",
+      "first_foreground_ts": 2.5,
+      "foreground_count": 9,
+      "monitor_frames": 41,
+      "monitor_object_id": null,
+      "monitor_provenance_label": "no_fire",
+      "nc_min": 0.0,
+      "problems": [],
+      "provenance_count": 12,
+      "provenance_is_list": true,
+      "provenance_present": true,
+      "scalar_metrics_present": true,
+      "scenario": "scene-0041-hard-00",
+      "support_label": "no_monitor_fire"
+    },
+    {
+      "audit_id": "cpa_medium_a",
+      "brake_frames": 11,
+      "detail_problems": [],
+      "details_scalar_only": true,
+      "episode_dir": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/episodes/cpa_medium_a__scene-0071-medium-00__on",
+      "fired_frames": 4,
+      "first_fire_channel": "ttc_only",
+      "first_fire_ts": 3.5,
+      "first_foreground_obs_index": null,
+      "first_foreground_obs_name": null,
+      "first_foreground_ts": null,
+      "foreground_count": 0,
+      "monitor_frames": 73,
+      "monitor_object_id": 11,
+      "monitor_provenance_label": "unique_ttc_object",
+      "nc_min": 0.0,
+      "problems": [],
+      "provenance_count": 47,
+      "provenance_is_list": true,
+      "provenance_present": true,
+      "scalar_metrics_present": true,
+      "scenario": "scene-0071-medium-00",
+      "support_label": "background_collision_only"
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "brake_frames": 4,
+      "detail_problems": [],
+      "details_scalar_only": true,
+      "episode_dir": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/episodes/ttc_medium_a__scene-0071-medium-01__on",
+      "fired_frames": 4,
+      "first_fire_channel": "cpa_only",
+      "first_fire_ts": 5.0,
+      "first_foreground_obs_index": 0,
+      "first_foreground_obs_name": "car",
+      "first_foreground_ts": 3.25,
+      "foreground_count": 10,
+      "monitor_frames": 24,
+      "monitor_object_id": 24,
+      "monitor_provenance_label": "unique_cpa_object",
+      "nc_min": 0.0,
+      "problems": [],
+      "provenance_count": 10,
+      "provenance_is_list": true,
+      "provenance_present": true,
+      "scalar_metrics_present": true,
+      "scenario": "scene-0071-medium-01",
+      "support_label": "post_collision_fire"
+    },
+    {
+      "audit_id": "cpa_medium_b",
+      "brake_frames": 8,
+      "bridge_distance_m": 21.986342860073755,
+      "bridge_label": "actor_mismatch",
+      "detail_problems": [],
+      "details_scalar_only": true,
+      "episode_dir": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/episodes/cpa_medium_b__scene-0166-medium-00__on",
+      "fired_frames": 2,
+      "first_fire_channel": "cpa_only",
+      "first_fire_ts": 0.25,
+      "first_foreground_obs_index": 0,
+      "first_foreground_obs_name": "car",
+      "first_foreground_ts": 6.25,
+      "foreground_count": 9,
+      "hugsim_forward_lateral": [
+        30.0,
+        -0.0
+      ],
+      "lead_time_s": 6.0,
+      "monitor_forward_lateral": [
+        8.484111103482928,
+        -4.523913941870421
+      ],
+      "monitor_frames": 37,
+      "monitor_object_id": 1,
+      "monitor_provenance_label": "unique_cpa_object",
+      "nc_min": 0.0,
+      "problems": [],
+      "provenance_count": 9,
+      "provenance_is_list": true,
+      "provenance_present": true,
+      "scalar_metrics_present": true,
+      "scenario": "scene-0166-medium-00",
+      "support_label": "classifiable_foreground"
+    },
+    {
+      "audit_id": "ttc_extreme_b",
+      "brake_frames": 10,
+      "bridge_distance_m": 37.038033481762156,
+      "bridge_label": "actor_mismatch",
+      "detail_problems": [],
+      "details_scalar_only": true,
+      "episode_dir": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/episodes/ttc_extreme_b__scene-0383-extreme-00__on",
+      "fired_frames": 8,
+      "first_fire_channel": "ttc_only",
+      "first_fire_ts": 7.0,
+      "first_foreground_obs_index": 0,
+      "first_foreground_obs_name": "car",
+      "first_foreground_ts": 7.25,
+      "foreground_count": 7,
+      "hugsim_forward_lateral": [
+        21.186262130737305,
+        0.4572702646255493
+      ],
+      "lead_time_s": 0.25,
+      "monitor_forward_lateral": [
+        -15.352504562383114,
+        6.518165639225604
+      ],
+      "monitor_frames": 38,
+      "monitor_object_id": 1,
+      "monitor_provenance_label": "unique_ttc_object",
+      "nc_min": 0.0,
+      "problems": [],
+      "provenance_count": 7,
+      "provenance_is_list": true,
+      "provenance_present": true,
+      "scalar_metrics_present": true,
+      "scenario": "scene-0383-extreme-00",
+      "support_label": "classifiable_foreground"
+    }
+  ],
+  "expected_schedule": [
+    {
+      "audit_id": "ttc_extreme_short",
+      "scenario": "scene-0038-extreme-00"
+    },
+    {
+      "audit_id": "mixed_extreme",
+      "scenario": "scene-0062-extreme-00"
+    },
+    {
+      "audit_id": "both_distinct_extreme",
+      "scenario": "scene-0138-extreme-00"
+    },
+    {
+      "audit_id": "nofire_hard_control",
+      "scenario": "scene-0041-hard-00"
+    },
+    {
+      "audit_id": "cpa_medium_a",
+      "scenario": "scene-0071-medium-00"
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "scenario": "scene-0071-medium-01"
+    },
+    {
+      "audit_id": "cpa_medium_b",
+      "scenario": "scene-0166-medium-00"
+    },
+    {
+      "audit_id": "ttc_extreme_b",
+      "scenario": "scene-0383-extreme-00"
+    }
+  ],
+  "infra_problems": [],
+  "iteration": 59,
+  "receipts": {
+    "ckpt_sha": "0ad0c2f5dc9788a41c313305779ea49346aeb742d1f6bb5ad25c46f9beffc990",
+    "e2e_py_patched_sha": "23cce8a2a559b60dc3de394ba890a28adc13b5b24d222936478dad6f83f9aea3",
+    "e2e_sh_patched_sha": "8b404adcbc7fea328a5fbbd10c5256656444739b3af79ca26676a45464471aa7",
+    "hugsim_patch_sha": "49eee7611e4b881d2bb6233e8767913019c6a097c6883762414005d5b2284ecd",
+    "hugsim_sha": "62c690d39fd90020e68a196bd8bcc1c4d4191f2e",
+    "image_id": "f73ef3884063",
+    "monitor_patch_sha": "6b39fd79d00c7bdb937c6d240fbc4648661b235f1a3024912d62874937146c5c",
+    "schedule": "eight ON episodes from Iter59 HYPOTHESIS",
+    "score_calculator_sha_after_patch": "1588b5b912384dead87b521b828cf7a135e77eb79aad5d540074c7168f79e46f",
+    "shim_sha": "5bf69a1187478c52d49792d5871bd5732c6dd431ecd1f44b5e391f7adb80682c",
+    "start_utc": "2026-07-13T07:45:43Z",
+    "uniad_sim_sha": "5fb279e39912a5ac7f58e00d56b065cadcd0a749"
+  },
+  "summary": {
+    "bridge_counts": {
+      "actor_mismatch": 3
+    },
+    "classifiable_foreground": 3,
+    "completed_rows": 8,
+    "support_counts": {
+      "background_collision_only": 1,
+      "classifiable_foreground": 3,
+      "no_monitor_fire": 2,
+      "post_collision_fire": 2
+    }
+  },
+  "verdict": "ACTOR_MATCH_AUDIT_COMPLETE"
+}

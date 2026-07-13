@@ -415,14 +415,17 @@ byte-bound patch was applied to the frozen HUGSIM stack and exactly two episodes
 episodes completed, both had `nc_min = 0.0`, both emitted top-level `collision_provenance`
 lists (counts `11` and `13`), scalar top-level metrics remained present, `details` rows stayed
 scalar-only, and the ON episode carried the released-union decision log.
+Iteration 59 then used that instrumentation in a bounded eight-episode ON-only actor-match
+support audit. The result is `ACTOR_MATCH_AUDIT_COMPLETE`: all eight episodes completed, three
+same-run foreground comparisons were classifiable, and all three were `actor_mismatch` by the
+frozen bridge (`15.43 m`, `21.99 m`, `37.04 m`). The other five rows were two no-fire collision
+rows, two post-collision-fire rows, and one background-only collision row.
 
 The default next scientific line is therefore not an expanded-N transfer run and not retuning the
-released union. After iteration 58, the instrumentation-execution blocker is retired, but actor
-matching is still unmeasured. Any true actor-match successor requires a fresh pre-registration
-that selects a bounded set of committed HUGSIM failure cases, applies the same byte-bound patch
-under receipt, records the monitor-side hazard provenance and HUGSIM collision provenance, and
-only then compares hazard actor/path identity against collision actor/contact identity. A strong
-successor should distinguish among:
+released union. After iteration 59, the first actor-match audit points to a hazard-surface
+misalignment in the classifiable rows and to no-fire/post-fire/background-only failure modes in
+the rest. Any successor should be a fresh mechanism-cause pre-registration that explains those
+categories, not threshold tuning. A strong successor should distinguish among:
 
 1. hazard surface: whether the monitor is braking for the wrong detected object or wrong path
    crossing geometry;
@@ -444,7 +447,9 @@ committed eval artifacts. Iteration 55 removes the source-location blocker only;
 retroactively add actor identity to any committed HUGSIM result. Iteration 56 did not remove the
 patch-authorization blocker because the static guard returned null. Iteration 57 removed only that
 static guard blocker. Iteration 58 removed only the execution blocker for a tiny canary; it does
-not prove actor match, HD-Score invariance, or transfer value.
+not prove actor match, HD-Score invariance, or transfer value. Iteration 59 supplies a bounded
+actor-match mechanism result only; it does not prove a population mismatch rate, repair, or
+deployment/safety claim.
 
 Any such line requires a fresh `HYPOTHESIS.md`. Until then, no new HUGSIM transfer, safety,
 robustness, deployment, benchmark-ranking, or retuning claim is authorized.
