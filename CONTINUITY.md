@@ -2055,3 +2055,13 @@ events to prepare; they are a property the repository always has.
   semantics as uncovered scope, and Sentinel's defensible niche as runtime monitor/failure
   localization/evidence ledger. It authorizes no run or claim; it is recall infrastructure for
   future sessions.
+- 2026-07-13: Codex — continued into iteration 85 as the HUGSIM path-horizon/provenance-timing
+  decomposition after iteration 84. Pre-registered ALONE (`91900b5`), added analyzer/tests
+  (`2f43d57`, 367 tests green before analysis), then ran the analyzer ONCE over committed
+  iteration-59 proof plus iteration-80/83/84 reports. Result:
+  `HUGSIM_PATH_HORIZON_BRIDGE_TIMING_SPLIT_COMPLETE`; all three fixed rows retain selected lower
+  CPA and better CPA rank, selected bridge support is `0/3`, support bridge support is `3/3`,
+  support best provenance bridge is after the event timestamp in `3/3`, and selected earlier CPA
+  horizon is only `1/3`. No GPU/gcloud/box read, no actor-causality, repair, threshold-value,
+  population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance,
+  commercial-value, real-world/first-responder behavior, or retuning claim.

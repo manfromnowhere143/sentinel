@@ -13,9 +13,12 @@ It adds a deeper Stanford/MIT/Tesla/Mobileye/NHTSA read to the existing frontier
 packet. The decision is narrow: Sentinel is aligned when framed as a runtime monitor,
 failure-localization, and safety-evidence system for opaque planners; it is not aligned when
 framed as a full autonomy stack, world model, robotaxi system, or deployment-ready safety case.
-The immediate next HUGSIM priority remains a fresh pre-registration that explains the
-iterations 79-83 selected-surface/provenance/support/TTC-CPA/time split, with a selected-vs-support
-path/arbitration decomposition as the highest-value local next experiment.
+That priority is now partly closed by iterations 84 and 85: the selected-vs-support
+path/arbitration split is proven on the fixed rows, and the closest-path-horizon/provenance
+timing decomposition shows support-object provenance arriving after the event in all three rows.
+The next local HUGSIM priority is a fresh mechanism-cause pre-registration that either tests a
+counterfactual object/geometry explanation for this split or chooses a different unresolved branch;
+it must not retune thresholds or make repair/safety claims.
 
 ## New frontier packet after these lines closed
 
@@ -545,6 +548,13 @@ Iteration 84 then answered the immediate selected/support arbitration question. 
 `HUGSIM_SELECTED_SURFACE_SUPPORT_BRIDGE_SPLIT_COMPLETE`: all three fixed rows have selected
 objects with lower CPA and better CPA rank, selected bridge support in `0/3`, and support bridge
 support in `3/3`.
+Iteration 85 then made the closest-path horizon and provenance timing explicit. The result is
+`HUGSIM_PATH_HORIZON_BRIDGE_TIMING_SPLIT_COMPLETE`: all three rows retain selected lower CPA and
+better CPA rank, selected bridge support remains `0/3`, support bridge support remains `3/3`, and
+the support object's best provenance bridge is after the event timestamp in `3/3`. The selected
+object has an earlier closest CPA horizon in only `1/3`, so the robust mechanism statement is
+path-geometry selection versus later support-object provenance, not a universal earlier-horizon
+rule.
 
 The default next scientific line is therefore not an expanded-N transfer run and not retuning the
 released union. After iteration 61, the actor-match audit points to wrong-object/wrong-hazard
@@ -579,9 +589,11 @@ only, and the other has persistent bridge support without surface activation. It
 the non-active miss is channel-specific and mixed: TTC-borderline-only in one support object and
 no-finite-TTC/CPA-far in the other. Iteration 84 shows the selected side is consistently stronger
 on logged path geometry while the support side is consistently stronger on provenance bridge.
+Iteration 85 shows that support-object provenance is after the event in all three fixed rows,
+while selected earlier closest-horizon timing is not universal.
 Any successor should be a fresh mechanism-cause pre-registration that explains this
-selected-surface/provenance/support-temporal/co-occurrence/channel/arbitration split, or chooses
-another branch. A strong
+selected-surface/provenance/support-temporal/co-occurrence/channel/arbitration/timing split, or
+chooses another branch. A strong
 successor should distinguish among:
 
 1. hazard surface: whether the monitor is braking for the wrong detected object or wrong path
