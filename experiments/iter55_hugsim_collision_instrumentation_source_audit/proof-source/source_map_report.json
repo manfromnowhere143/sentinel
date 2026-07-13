@@ -1,0 +1,2506 @@
+{
+  "audit": "hugsim_collision_instrumentation_source_audit",
+  "claim_boundary": "source-map only; no HUGSIM run, actor match, safety, transfer, benchmark, or retuning claim",
+  "instrumentation_points": [
+    {
+      "actor_identity_available": true,
+      "path": "sim/utils/score_calculator.py",
+      "reason": "metric and collision/proximity source terms co-located",
+      "score": 826
+    },
+    {
+      "actor_identity_available": true,
+      "path": "closed_loop.py",
+      "reason": "metric and collision/proximity source terms co-located",
+      "score": 224
+    }
+  ],
+  "iteration": 55,
+  "labels": {
+    "actor_identity_available_in_source": true,
+    "collision_geometry_source_identified": true,
+    "instrumentation_point_supported": true,
+    "metric_source_identified": true,
+    "source_map_insufficient": false
+  },
+  "problems": [],
+  "repository_identity": {
+    "expected_sha": "62c690d39fd90020e68a196bd8bcc1c4d4191f2e",
+    "head": "62c690d39fd90020e68a196bd8bcc1c4d4191f2e",
+    "remotes": [
+      {
+        "name": "origin",
+        "url": "https://github.com/hyzhou404/HUGSIM"
+      },
+      {
+        "name": "origin",
+        "url": "https://github.com/hyzhou404/HUGSIM"
+      }
+    ],
+    "sha_matches_expected": true
+  },
+  "source_map": {
+    "candidate_file_count": 103,
+    "candidate_files": [
+      {
+        "category_counts": {
+          "geometry": 39,
+          "identity": 29,
+          "metric": 28,
+          "write": 2
+        },
+        "labels": {
+          "actor_identity_available": true,
+          "collision_geometry_source": true,
+          "instrumentation_candidate": true,
+          "metric_source": true
+        },
+        "line_count": 640,
+        "path": "sim/utils/score_calculator.py",
+        "score": 826,
+        "snippets": [
+          {
+            "after": "'c': 2,",
+            "before": "score_weight = {",
+            "categories": [
+              "metric"
+            ],
+            "line": 31,
+            "terms": [
+              "ttc"
+            ],
+            "text": "'ttc': 5,"
+          },
+          {
+            "after": "O, A, B, C = box[0], box[1], box[2], box[5]",
+            "before": "",
+            "categories": [
+              "geometry"
+            ],
+            "line": 51,
+            "terms": [
+              "box",
+              "collision"
+            ],
+            "text": "def bg_collision_det(points, box):"
+          },
+          {
+            "after": "OA = A - O",
+            "before": "def bg_collision_det(points, box):",
+            "categories": [
+              "geometry"
+            ],
+            "line": 52,
+            "terms": [
+              "box"
+            ],
+            "text": "O, A, B, C = box[0], box[1], box[2], box[5]"
+          },
+          {
+            "after": "self.driving_score = None",
+            "before": "",
+            "categories": [
+              "metric"
+            ],
+            "line": 122,
+            "terms": [
+              "pdms"
+            ],
+            "text": "self.pdms = 0.0"
+          }
+        ],
+        "term_counts": {
+          "geometry": {
+            "box": 19,
+            "collide": 2,
+            "collision": 21,
+            "distance": 2
+          },
+          "identity": {
+            "name": 7,
+            "vehicle": 22
+          },
+          "metric": {
+            "comfort": 3,
+            "dac": 11,
+            "hdscore": 2,
+            "nc": 6,
+            "pdms": 5,
+            "rc": 3,
+            "ttc": 8
+          },
+          "write": {
+            ".write": 1,
+            "open(": 1
+          }
+        }
+      },
+      {
+        "category_counts": {
+          "geometry": 6,
+          "identity": 45,
+          "metric": 0,
+          "write": 16
+        },
+        "labels": {
+          "actor_identity_available": true,
+          "collision_geometry_source": false,
+          "instrumentation_candidate": false,
+          "metric_source": false
+        },
+        "line_count": 530,
+        "path": "data/kitti360/annotation.py",
+        "score": 351,
+        "snippets": [
+          {
+            "after": "class KITTI360Bbox3D(KITTI360Object):",
+            "before": "",
+            "categories": [
+              "geometry",
+              "identity"
+            ],
+            "line": 71,
+            "terms": [
+              "box",
+              "object"
+            ],
+            "text": "# Class that contains the information of a single annotated object as 3D bounding box"
+          },
+          {
+            "after": "self.semanticId = -1",
+            "before": "",
+            "categories": [
+              "identity"
+            ],
+            "line": 83,
+            "terms": [
+              "id",
+              "object"
+            ],
+            "text": "# the ID of the corresponding object"
+          },
+          {
+            "after": "self.start_frame = -1",
+            "before": "",
+            "categories": [
+              "geometry"
+            ],
+            "line": 88,
+            "terms": [
+              "bbox"
+            ],
+            "text": "# the window that contains the bbox"
+          },
+          {
+            "after": "self.timestamp = -1",
+            "before": "",
+            "categories": [
+              "geometry"
+            ],
+            "line": 92,
+            "terms": [
+              "bbox"
+            ],
+            "text": "# timestamp of the bbox (-1 if statis)"
+          }
+        ],
+        "term_counts": {
+          "geometry": {
+            "bbox": 5,
+            "box": 1
+          },
+          "identity": {
+            "id": 20,
+            "instance": 26,
+            "name": 9,
+            "object": 6,
+            "track": 1
+          },
+          "metric": {},
+          "write": {
+            ".dump": 2,
+            ".write": 11,
+            "json.dump": 2,
+            "open(": 4
+          }
+        }
+      },
+      {
+        "category_counts": {
+          "geometry": 1,
+          "identity": 59,
+          "metric": 0,
+          "write": 0
+        },
+        "labels": {
+          "actor_identity_available": true,
+          "collision_geometry_source": false,
+          "instrumentation_candidate": false,
+          "metric_source": false
+        },
+        "line_count": 237,
+        "path": "data/InverseForm/library/data/cityscapes_labels.py",
+        "score": 322,
+        "snippets": [
+          {
+            "after": "# -------",
+            "before": "#",
+            "categories": [
+              "geometry"
+            ],
+            "line": 23,
+            "terms": [
+              "contact"
+            ],
+            "text": "# Contact"
+          },
+          {
+            "after": "# We use them to uniquely name a class",
+            "before": "",
+            "categories": [
+              "identity"
+            ],
+            "line": 40,
+            "terms": [
+              "name"
+            ],
+            "text": "'name'        , # The identifier of this label, e.g. 'car', 'person', ... ."
+          },
+          {
+            "after": "",
+            "before": "'name'        , # The identifier of this label, e.g. 'car', 'person', ... .",
+            "categories": [
+              "identity"
+            ],
+            "line": 41,
+            "terms": [
+              "name"
+            ],
+            "text": "# We use them to uniquely name a class"
+          },
+          {
+            "after": "# The IDs are used to represent the label in ground truth images",
+            "before": "",
+            "categories": [
+              "identity"
+            ],
+            "line": 43,
+            "terms": [
+              "id"
+            ],
+            "text": "'id'          , # An integer ID that is associated with this label."
+          }
+        ],
+        "term_counts": {
+          "geometry": {
+            "contact": 1
+          },
+          "identity": {
+            "id": 18,
+            "instance": 2,
+            "name": 30,
+            "object": 8,
+            "track": 1,
+            "vehicle": 10
+          },
+          "metric": {},
+          "write": {}
+        }
+      },
+      {
+        "category_counts": {
+          "geometry": 17,
+          "identity": 22,
+          "metric": 3,
+          "write": 3
+        },
+        "labels": {
+          "actor_identity_available": true,
+          "collision_geometry_source": true,
+          "instrumentation_candidate": false,
+          "metric_source": false
+        },
+        "line_count": 324,
+        "path": "sim/hugsim_env/envs/hug_sim.py",
+        "score": 321,
+        "snippets": [
+          {
+            "after": "import os",
+            "before": "from scipy.spatial.transform import Rotation as SCR",
+            "categories": [
+              "geometry"
+            ],
+            "line": 9,
+            "terms": [
+              "collision"
+            ],
+            "text": "from sim.utils.score_calculator import create_rectangle, bg_collision_det"
+          },
+          {
+            "after": "ego_x, ego_y, _, ego_w, ego_l, ego_h, ego_yaw = ego_box",
+            "before": "",
+            "categories": [
+              "geometry"
+            ],
+            "line": 21,
+            "terms": [
+              "box",
+              "collision"
+            ],
+            "text": "def fg_collision_det(ego_box, objs):"
+          },
+          {
+            "after": "ego_poly = create_rectangle(ego_x, ego_y, ego_w, ego_l, ego_yaw)",
+            "before": "def fg_collision_det(ego_box, objs):",
+            "categories": [
+              "geometry"
+            ],
+            "line": 22,
+            "terms": [
+              "box"
+            ],
+            "text": "ego_x, ego_y, _, ego_w, ego_l, ego_h, ego_yaw = ego_box"
+          },
+          {
+            "after": "#numpy.ndarray, float, list",
+            "before": "# read ground infos",
+            "categories": [
+              "write"
+            ],
+            "line": 41,
+            "terms": [
+              "open("
+            ],
+            "text": "with open(os.path.join(cfg.model_path, 'ground_param.pkl'), 'rb') as f:"
+          }
+        ],
+        "term_counts": {
+          "geometry": {
+            "box": 10,
+            "collision": 9
+          },
+          "identity": {
+            "agent": 1,
+            "id": 6,
+            "name": 15
+          },
+          "metric": {
+            "rc": 3
+          },
+          "write": {
+            ".write": 2,
+            "open(": 1
+          }
+        }
+      },
+      {
+        "category_counts": {
+          "geometry": 1,
+          "identity": 50,
+          "metric": 0,
+          "write": 8
+        },
+        "labels": {
+          "actor_identity_available": true,
+          "collision_geometry_source": false,
+          "instrumentation_candidate": false,
+          "metric_source": false
+        },
+        "line_count": 294,
+        "path": "data/colmap/colmap_reader.py",
+        "score": 309,
+        "snippets": [
+          {
+            "after": "#",
+            "before": "#",
+            "categories": [
+              "geometry"
+            ],
+            "line": 9,
+            "terms": [
+              "contact"
+            ],
+            "text": "# For inquiries contact  george.drettakis@inria.fr"
+          },
+          {
+            "after": "Camera = collections.namedtuple(",
+            "before": "CameraModel = collections.namedtuple(",
+            "categories": [
+              "identity"
+            ],
+            "line": 17,
+            "terms": [
+              "id",
+              "name"
+            ],
+            "text": "\"CameraModel\", [\"model_id\", \"model_name\", \"num_params\"])"
+          },
+          {
+            "after": "BaseImage = collections.namedtuple(",
+            "before": "Camera = collections.namedtuple(",
+            "categories": [
+              "identity"
+            ],
+            "line": 19,
+            "terms": [
+              "id"
+            ],
+            "text": "\"Camera\", [\"id\", \"model\", \"width\", \"height\", \"params\"])"
+          },
+          {
+            "after": "Point3D = collections.namedtuple(",
+            "before": "BaseImage = collections.namedtuple(",
+            "categories": [
+              "identity"
+            ],
+            "line": 21,
+            "terms": [
+              "id",
+              "name"
+            ],
+            "text": "\"Image\", [\"id\", \"qvec\", \"tvec\", \"camera_id\", \"name\", \"xys\", \"point3D_ids\"])"
+          }
+        ],
+        "term_counts": {
+          "geometry": {
+            "contact": 1
+          },
+          "identity": {
+            "id": 40,
+            "name": 21,
+            "track": 4
+          },
+          "metric": {},
+          "write": {
+            "open(": 8
+          }
+        }
+      },
+      {
+        "category_counts": {
+          "geometry": 0,
+          "identity": 60,
+          "metric": 0,
+          "write": 0
+        },
+        "labels": {
+          "actor_identity_available": false,
+          "collision_geometry_source": false,
+          "instrumentation_candidate": false,
+          "metric_source": false
+        },
+        "line_count": 222,
+        "path": "utils/semantic_utils.py",
+        "score": 300,
+        "snippets": [
+          {
+            "after": "# We use them to uniquely name a class",
+            "before": "",
+            "categories": [
+              "identity"
+            ],
+            "line": 18,
+            "terms": [
+              "name"
+            ],
+            "text": "'name'        , # The identifier of this label, e.g. 'car', 'person', ... ."
+          },
+          {
+            "after": "",
+            "before": "'name'        , # The identifier of this label, e.g. 'car', 'person', ... .",
+            "categories": [
+              "identity"
+            ],
+            "line": 19,
+            "terms": [
+              "name"
+            ],
+            "text": "# We use them to uniquely name a class"
+          },
+          {
+            "after": "# The IDs are used to represent the label in ground truth images",
+            "before": "",
+            "categories": [
+              "identity"
+            ],
+            "line": 21,
+            "terms": [
+              "id"
+            ],
+            "text": "'id'          , # An integer ID that is associated with this label."
+          },
+          {
+            "after": "# is ignored when creating ground truth images (e.g. license plate).",
+            "before": "# The IDs are used to represent the label in ground truth images",
+            "categories": [
+              "identity"
+            ],
+            "line": 23,
+            "terms": [
+              "id"
+            ],
+            "text": "# An ID of -1 means that this label does not have an ID and thus"
+          }
+        ],
+        "term_counts": {
+          "geometry": {},
+          "identity": {
+            "id": 18,
+            "instance": 2,
+            "name": 31,
+            "object": 8,
+            "track": 1,
+            "vehicle": 10
+          },
+          "metric": {},
+          "write": {}
+        }
+      },
+      {
+        "category_counts": {
+          "geometry": 11,
+          "identity": 36,
+          "metric": 0,
+          "write": 5
+        },
+        "labels": {
+          "actor_identity_available": true,
+          "collision_geometry_source": false,
+          "instrumentation_candidate": false,
+          "metric_source": false
+        },
+        "line_count": 296,
+        "path": "data/waymo/load.py",
+        "score": 297,
+        "snippets": [
+          {
+            "after": "",
+            "before": "",
+            "categories": [
+              "identity"
+            ],
+            "line": 18,
+            "terms": [
+              "vehicle"
+            ],
+            "text": "type_list = ['UNKNOWN', 'VEHICLE', 'PEDESTRIAN', 'SIGN', 'CYCLIST']"
+          },
+          {
+            "after": "",
+            "before": "dim: length, height, width",
+            "categories": [
+              "geometry"
+            ],
+            "line": 37,
+            "terms": [
+              "box"
+            ],
+            "text": "bottom_center: center of bottom face of 3D bounding box"
+          },
+          {
+            "after": "'''",
+            "before": "",
+            "categories": [
+              "geometry"
+            ],
+            "line": 39,
+            "terms": [
+              "box"
+            ],
+            "text": "return: vertices of 3D bounding box (8*3)"
+          },
+          {
+            "after": "args = get_opts()",
+            "before": "",
+            "categories": [
+              "identity"
+            ],
+            "line": 59,
+            "terms": [
+              "name"
+            ],
+            "text": "if __name__ == '__main__':"
+          }
+        ],
+        "term_counts": {
+          "geometry": {
+            "bbox": 1,
+            "box": 9,
+            "distance": 1
+          },
+          "identity": {
+            "id": 11,
+            "name": 24,
+            "vehicle": 2
+          },
+          "metric": {},
+          "write": {
+            ".dump": 2,
+            ".write": 1,
+            "json.dump": 2,
+            "open(": 2
+          }
+        }
+      },
+      {
+        "category_counts": {
+          "geometry": 31,
+          "identity": 9,
+          "metric": 0,
+          "write": 0
+        },
+        "labels": {
+          "actor_identity_available": true,
+          "collision_geometry_source": false,
+          "instrumentation_candidate": false,
+          "metric_source": false
+        },
+        "line_count": 448,
+        "path": "submodules/Pplan/utils/geometry_utils.py",
+        "score": 282,
+        "snippets": [
+          {
+            "after": "corners = (torch.tensor([[-1, -1], [-1, 1], [1, 1], [1, -1]]) * 0.5).to(pos.device) * (",
+            "before": "",
+            "categories": [
+              "geometry"
+            ],
+            "line": 92,
+            "terms": [
+              "box"
+            ],
+            "text": "def get_box_world_coords(pos, yaw, extent):"
+          },
+          {
+            "after": "yaws = torch.zeros(*pos.shape[:-1], 1).to(pos.device)",
+            "before": "",
+            "categories": [
+              "geometry"
+            ],
+            "line": 104,
+            "terms": [
+              "box"
+            ],
+            "text": "def get_upright_box(pos, extent):"
+          },
+          {
+            "after": "upright_boxes = boxes[..., [0, 2], :]",
+            "before": "yaws = torch.zeros(*pos.shape[:-1], 1).to(pos.device)",
+            "categories": [
+              "geometry"
+            ],
+            "line": 106,
+            "terms": [
+              "box"
+            ],
+            "text": "boxes = get_box_world_coords(pos, yaws, extent)"
+          },
+          {
+            "after": "if isinstance(p1, torch.Tensor):",
+            "before": "",
+            "categories": [
+              "geometry"
+            ],
+            "line": 192,
+            "terms": [
+              "collision"
+            ],
+            "text": "def PED_PED_collision(p1, p2, S1, S2):"
+          }
+        ],
+        "term_counts": {
+          "geometry": {
+            "bbox": 8,
+            "box": 5,
+            "collision": 17,
+            "distance": 3
+          },
+          "identity": {
+            "agent": 9,
+            "id": 1,
+            "track": 1
+          },
+          "metric": {},
+          "write": {}
+        }
+      },
+      {
+        "category_counts": {
+          "geometry": 0,
+          "identity": 38,
+          "metric": 0,
+          "write": 13
+        },
+        "labels": {
+          "actor_identity_available": false,
+          "collision_geometry_source": false,
+          "instrumentation_candidate": false,
+          "metric_source": false
+        },
+        "line_count": 448,
+        "path": "data/InverseForm/utils/misc.py",
+        "score": 242,
+        "snippets": [
+          {
+            "after": "# FP = row[class].sum() - TP",
+            "before": "#",
+            "categories": [
+              "identity"
+            ],
+            "line": 31,
+            "terms": [
+              "id"
+            ],
+            "text": "# TP exist where value == num_classes*class_id + class_id"
+          },
+          {
+            "after": "converts them to images (doing transformations where necessary) and then",
+            "before": "",
+            "categories": [
+              "identity"
+            ],
+            "line": 128,
+            "terms": [
+              "object"
+            ],
+            "text": "You pass images/tensors from training pipeline into this object and it first"
+          },
+          {
+            "after": ":dump_all_images: dump all (validation) images, e.g. for video",
+            "before": ":webpage: generate a summary html page",
+            "categories": [
+              "identity"
+            ],
+            "line": 140,
+            "terms": [
+              "name"
+            ],
+            "text": ":webpage_fn: name of webpage file"
+          },
+          {
+            "after": "self.webpage_fn = os.path.join(cfg.RESULT_DIR,",
+            "before": "self.tensorboard = tensorboard",
+            "categories": [
+              "write"
+            ],
+            "line": 147,
+            "terms": [
+              ".write"
+            ],
+            "text": "self.write_webpage = write_webpage"
+          }
+        ],
+        "term_counts": {
+          "geometry": {},
+          "identity": {
+            "id": 19,
+            "name": 18,
+            "object": 2
+          },
+          "metric": {},
+          "write": {
+            ".dump": 12,
+            ".write": 1
+          }
+        }
+      },
+      {
+        "category_counts": {
+          "geometry": 11,
+          "identity": 29,
+          "metric": 0,
+          "write": 0
+        },
+        "labels": {
+          "actor_identity_available": true,
+          "collision_geometry_source": false,
+          "instrumentation_candidate": false,
+          "metric_source": false
+        },
+        "line_count": 211,
+        "path": "data/nusc/utils.py",
+        "score": 242,
+        "snippets": [
+          {
+            "after": "\"vehicle.bicycle\",",
+            "before": "ALLOWED_RIGID_CLASSES = (",
+            "categories": [
+              "identity"
+            ],
+            "line": 44,
+            "terms": [
+              "vehicle"
+            ],
+            "text": "\"vehicle.car\","
+          },
+          {
+            "after": "\"vehicle.motorcycle\",",
+            "before": "\"vehicle.car\",",
+            "categories": [
+              "identity"
+            ],
+            "line": 45,
+            "terms": [
+              "vehicle"
+            ],
+            "text": "\"vehicle.bicycle\","
+          },
+          {
+            "after": "\"vehicle.bus\",",
+            "before": "\"vehicle.bicycle\",",
+            "categories": [
+              "identity"
+            ],
+            "line": 46,
+            "terms": [
+              "vehicle"
+            ],
+            "text": "\"vehicle.motorcycle\","
+          },
+          {
+            "after": "\"vehicle.bus\",",
+            "before": "\"vehicle.motorcycle\",",
+            "categories": [
+              "identity"
+            ],
+            "line": 47,
+            "terms": [
+              "vehicle"
+            ],
+            "text": "\"vehicle.bus\","
+          }
+        ],
+        "term_counts": {
+          "geometry": {
+            "bbox": 1,
+            "box": 10
+          },
+          "identity": {
+            "instance": 4,
+            "name": 2,
+            "object": 1,
+            "token": 19,
+            "vehicle": 8
+          },
+          "metric": {},
+          "write": {}
+        }
+      },
+      {
+        "category_counts": {
+          "geometry": 7,
+          "identity": 27,
+          "metric": 0,
+          "write": 8
+        },
+        "labels": {
+          "actor_identity_available": true,
+          "collision_geometry_source": false,
+          "instrumentation_candidate": false,
+          "metric_source": false
+        },
+        "line_count": 212,
+        "path": "data/nusc/load.py",
+        "score": 236,
+        "snippets": [
+          {
+            "after": "traj_dict_to_list, get_box)",
+            "before": "_rotation_translation_to_pose, find_all_sample_data, find_all_sample,",
+            "categories": [
+              "geometry"
+            ],
+            "line": 16,
+            "terms": [
+              "bbox"
+            ],
+            "text": "get_vertices, point_in_bbox, frame_check, get_sample_pose, load_cam,"
+          },
+          {
+            "after": "",
+            "before": "get_vertices, point_in_bbox, frame_check, get_sample_pose, load_cam,",
+            "categories": [
+              "geometry"
+            ],
+            "line": 17,
+            "terms": [
+              "box"
+            ],
+            "text": "traj_dict_to_list, get_box)"
+          },
+          {
+            "after": "args = get_opts()",
+            "before": "",
+            "categories": [
+              "identity"
+            ],
+            "line": 32,
+            "terms": [
+              "name"
+            ],
+            "text": "if __name__ == \"__main__\":"
+          },
+          {
+            "after": "first_sample = nusc.get(\"sample\", scene[\"first_sample_token\"])",
+            "before": "nusc = NuScenes(version=args.version, dataroot=args.datapath, verbose=True)",
+            "categories": [
+              "identity"
+            ],
+            "line": 43,
+            "terms": [
+              "name"
+            ],
+            "text": "scene = nusc.get(\"scene\", nusc.field2token(\"scene\", \"name\", args.seq)[0])"
+          }
+        ],
+        "term_counts": {
+          "geometry": {
+            "bbox": 1,
+            "box": 5,
+            "distance": 1
+          },
+          "identity": {
+            "id": 2,
+            "instance": 10,
+            "name": 9,
+            "token": 15
+          },
+          "metric": {},
+          "write": {
+            ".dump": 3,
+            ".write": 2,
+            "json.dump": 3,
+            "open(": 3
+          }
+        }
+      },
+      {
+        "category_counts": {
+          "geometry": 3,
+          "identity": 3,
+          "metric": 2,
+          "write": 12
+        },
+        "labels": {
+          "actor_identity_available": true,
+          "collision_geometry_source": true,
+          "instrumentation_candidate": true,
+          "metric_source": true
+        },
+        "line_count": 157,
+        "path": "closed_loop.py",
+        "score": 224,
+        "snippets": [
+          {
+            "after": "",
+            "before": "clip = ImageSequenceClip(frames, fps=4)",
+            "categories": [
+              "write"
+            ],
+            "line": 27,
+            "terms": [
+              ".write"
+            ],
+            "text": "clip.write_videofile(output_path)"
+          },
+          {
+            "after": "pipe.write(pickle.dumps((obs, info)))",
+            "before": "",
+            "categories": [
+              "write"
+            ],
+            "line": 58,
+            "terms": [
+              "open("
+            ],
+            "text": "with open(obs_pipe, \"wb\") as pipe:"
+          },
+          {
+            "after": "with open(plan_pipe, \"rb\") as pipe:",
+            "before": "with open(obs_pipe, \"wb\") as pipe:",
+            "categories": [
+              "write"
+            ],
+            "line": 59,
+            "terms": [
+              ".dump",
+              ".write"
+            ],
+            "text": "pipe.write(pickle.dumps((obs, info)))"
+          },
+          {
+            "after": "plan_traj = pickle.loads(pipe.read())",
+            "before": "pipe.write(pickle.dumps((obs, info)))",
+            "categories": [
+              "write"
+            ],
+            "line": 60,
+            "terms": [
+              "open("
+            ],
+            "text": "with open(plan_pipe, \"rb\") as pipe:"
+          }
+        ],
+        "term_counts": {
+          "geometry": {
+            "box": 2,
+            "collision": 1
+          },
+          "identity": {
+            "name": 3
+          },
+          "metric": {
+            "eval.json": 1,
+            "rc": 1
+          },
+          "write": {
+            ".dump": 5,
+            ".write": 3,
+            "eval.json": 1,
+            "json.dump": 1,
+            "open(": 6
+          }
+        }
+      },
+      {
+        "category_counts": {
+          "geometry": 22,
+          "identity": 5,
+          "metric": 0,
+          "write": 0
+        },
+        "labels": {
+          "actor_identity_available": true,
+          "collision_geometry_source": false,
+          "instrumentation_candidate": false,
+          "metric_source": false
+        },
+        "line_count": 323,
+        "path": "sim/utils/agent_controller.py",
+        "score": 199,
+        "snippets": [
+          {
+            "after": "path: the path to follow, of size (N, [x, y, yaw])",
+            "before": "Args:",
+            "categories": [
+              "identity"
+            ],
+            "line": 16,
+            "terms": [
+              "vehicle"
+            ],
+            "text": "state: current state of the vehicle, of size [x, y, yaw, speed]"
+          },
+          {
+            "after": "target = path[-1]",
+            "before": "# find the target point",
+            "categories": [
+              "geometry"
+            ],
+            "line": 26,
+            "terms": [
+              "distance"
+            ],
+            "text": "lookahead_distance = state[3] * dt"
+          },
+          {
+            "after": "target = path[i]",
+            "before": "for i in range(nearest_index + 1, len(path)):",
+            "categories": [
+              "geometry"
+            ],
+            "line": 30,
+            "terms": [
+              "distance"
+            ],
+            "text": "if torch.norm(path[i, :2] - state[:2]) > lookahead_distance:"
+          },
+          {
+            "after": "ratio = lookahead_distance / target_distance.clamp(min=1e-6)",
+            "before": "# compute the new state",
+            "categories": [
+              "geometry"
+            ],
+            "line": 36,
+            "terms": [
+              "distance"
+            ],
+            "text": "target_distance = torch.norm(target[:2] - state[:2])"
+          }
+        ],
+        "term_counts": {
+          "geometry": {
+            "collision": 2,
+            "distance": 20
+          },
+          "identity": {
+            "agent": 1,
+            "vehicle": 4
+          },
+          "metric": {},
+          "write": {}
+        }
+      },
+      {
+        "category_counts": {
+          "geometry": 2,
+          "identity": 29,
+          "metric": 0,
+          "write": 2
+        },
+        "labels": {
+          "actor_identity_available": true,
+          "collision_geometry_source": false,
+          "instrumentation_candidate": false,
+          "metric_source": false
+        },
+        "line_count": 238,
+        "path": "sim/utils/plan.py",
+        "score": 187,
+        "snippets": [
+          {
+            "after": "from sim.utils import agent_controller",
+            "before": "from collections import namedtuple",
+            "categories": [
+              "identity"
+            ],
+            "line": 6,
+            "terms": [
+              "agent"
+            ],
+            "text": "from sim.utils.agent_controller import constant_headaway"
+          },
+          {
+            "after": "from collections import defaultdict",
+            "before": "from sim.utils.agent_controller import constant_headaway",
+            "categories": [
+              "identity"
+            ],
+            "line": 7,
+            "terms": [
+              "agent"
+            ],
+            "text": "from sim.utils import agent_controller"
+          },
+          {
+            "after": "import os",
+            "before": "from sim.utils.sim_utils import rt2pose, pose2rt",
+            "categories": [
+              "identity"
+            ],
+            "line": 13,
+            "terms": [
+              "agent"
+            ],
+            "text": "from sim.utils.agent_controller import IDM, AttackPlanner, ConstantPlanner, UnicyclePlanner"
+          },
+          {
+            "after": "# self.wlhs[f'agent_{iid}'] = [2.0, 4.0, 1.5]",
+            "before": "if args[6] == \"UnicyclePlanner\":",
+            "categories": [
+              "identity"
+            ],
+            "line": 37,
+            "terms": [
+              "agent"
+            ],
+            "text": "# self.ckpts[f\"agent_{iid}\"] = os.path.join(scene_path, \"ckpts\", f\"dynamic_{args[7]}_chkpnt30000.pth\")"
+          }
+        ],
+        "term_counts": {
+          "geometry": {
+            "distance": 2
+          },
+          "identity": {
+            "agent": 23,
+            "id": 1,
+            "name": 6,
+            "vehicle": 1
+          },
+          "metric": {},
+          "write": {
+            "open(": 2
+          }
+        }
+      },
+      {
+        "category_counts": {
+          "geometry": 0,
+          "identity": 29,
+          "metric": 0,
+          "write": 9
+        },
+        "labels": {
+          "actor_identity_available": false,
+          "collision_geometry_source": false,
+          "instrumentation_candidate": false,
+          "metric_source": false
+        },
+        "line_count": 636,
+        "path": "scene/gaussian_model.py",
+        "score": 181,
+        "snippets": [
+          {
+            "after": "{'params': [self._features_dc], 'lr': training_args.feature_lr, \"name\": \"f_dc\"},",
+            "before": "l = [",
+            "categories": [
+              "identity"
+            ],
+            "line": 235,
+            "terms": [
+              "name"
+            ],
+            "text": "{'params': [self._xyz], 'lr': training_args.position_lr_init*self.spatial_lr_scale, \"name\": \"xyz\"},"
+          },
+          {
+            "after": "{'params': [self._features_rest], 'lr': training_args.feature_lr / 20.0, \"name\": \"f_rest\"},",
+            "before": "{'params': [self._xyz], 'lr': training_args.position_lr_init*self.spatial_lr_scale, \"name\": \"xyz\"},",
+            "categories": [
+              "identity"
+            ],
+            "line": 236,
+            "terms": [
+              "name"
+            ],
+            "text": "{'params': [self._features_dc], 'lr': training_args.feature_lr, \"name\": \"f_dc\"},"
+          },
+          {
+            "after": "{'params': [self._opacity], 'lr': training_args.opacity_lr, \"name\": \"opacity\"},",
+            "before": "{'params': [self._features_dc], 'lr': training_args.feature_lr, \"name\": \"f_dc\"},",
+            "categories": [
+              "identity"
+            ],
+            "line": 237,
+            "terms": [
+              "name"
+            ],
+            "text": "{'params': [self._features_rest], 'lr': training_args.feature_lr / 20.0, \"name\": \"f_rest\"},"
+          },
+          {
+            "after": "{'params': [self._scaling], 'lr': training_args.scaling_lr*self.spatial_lr_scale, \"name\": \"scaling\"},",
+            "before": "{'params': [self._features_rest], 'lr': training_args.feature_lr / 20.0, \"name\": \"f_rest\"},",
+            "categories": [
+              "identity"
+            ],
+            "line": 238,
+            "terms": [
+              "name"
+            ],
+            "text": "{'params': [self._opacity], 'lr': training_args.opacity_lr, \"name\": \"opacity\"},"
+          }
+        ],
+        "term_counts": {
+          "geometry": {},
+          "identity": {
+            "name": 29
+          },
+          "metric": {},
+          "write": {
+            ".write": 8,
+            "open(": 1
+          }
+        }
+      },
+      {
+        "category_counts": {
+          "geometry": 0,
+          "identity": 29,
+          "metric": 0,
+          "write": 9
+        },
+        "labels": {
+          "actor_identity_available": false,
+          "collision_geometry_source": false,
+          "instrumentation_candidate": false,
+          "metric_source": false
+        },
+        "line_count": 567,
+        "path": "scene/obj_model.py",
+        "score": 181,
+        "snippets": [
+          {
+            "after": "{'params': [self._features_dc], 'lr': training_args.feature_lr, \"name\": \"f_dc\"},",
+            "before": "l = [",
+            "categories": [
+              "identity"
+            ],
+            "line": 186,
+            "terms": [
+              "name"
+            ],
+            "text": "{'params': [self._xyz], 'lr': training_args.position_lr_init * 0.5, \"name\": \"xyz\"},"
+          },
+          {
+            "after": "{'params': [self._features_rest], 'lr': training_args.feature_lr / 20.0, \"name\": \"f_rest\"},",
+            "before": "{'params': [self._xyz], 'lr': training_args.position_lr_init * 0.5, \"name\": \"xyz\"},",
+            "categories": [
+              "identity"
+            ],
+            "line": 187,
+            "terms": [
+              "name"
+            ],
+            "text": "{'params': [self._features_dc], 'lr': training_args.feature_lr, \"name\": \"f_dc\"},"
+          },
+          {
+            "after": "{'params': [self._opacity], 'lr': training_args.opacity_lr, \"name\": \"opacity\"},",
+            "before": "{'params': [self._features_dc], 'lr': training_args.feature_lr, \"name\": \"f_dc\"},",
+            "categories": [
+              "identity"
+            ],
+            "line": 188,
+            "terms": [
+              "name"
+            ],
+            "text": "{'params': [self._features_rest], 'lr': training_args.feature_lr / 20.0, \"name\": \"f_rest\"},"
+          },
+          {
+            "after": "{'params': [self._scaling], 'lr': training_args.scaling_lr * 0.5, \"name\": \"scaling\"},",
+            "before": "{'params': [self._features_rest], 'lr': training_args.feature_lr / 20.0, \"name\": \"f_rest\"},",
+            "categories": [
+              "identity"
+            ],
+            "line": 189,
+            "terms": [
+              "name"
+            ],
+            "text": "{'params': [self._opacity], 'lr': training_args.opacity_lr, \"name\": \"opacity\"},"
+          }
+        ],
+        "term_counts": {
+          "geometry": {},
+          "identity": {
+            "name": 29
+          },
+          "metric": {},
+          "write": {
+            ".write": 8,
+            "open(": 1
+          }
+        }
+      },
+      {
+        "category_counts": {
+          "geometry": 2,
+          "identity": 24,
+          "metric": 0,
+          "write": 2
+        },
+        "labels": {
+          "actor_identity_available": true,
+          "collision_geometry_source": false,
+          "instrumentation_candidate": false,
+          "metric_source": false
+        },
+        "line_count": 283,
+        "path": "data/InverseForm/library/datasets/base_loader.py",
+        "score": 162,
+        "snippets": [
+          {
+            "after": "may be used to endorse or promote products derived from this software",
+            "before": "and/or other materials provided with the distribution.",
+            "categories": [
+              "identity"
+            ],
+            "line": 10,
+            "terms": [
+              "name"
+            ],
+            "text": "3. Neither the name of the copyright holder nor the names of its contributors"
+          },
+          {
+            "after": "import torchvision.transforms as standard_transforms",
+            "before": "import library.data.cityscapes_labels as cityscapes_labels",
+            "categories": [
+              "geometry"
+            ],
+            "line": 39,
+            "terms": [
+              "distance"
+            ],
+            "text": "from scipy.ndimage.morphology import distance_transform_edt"
+          },
+          {
+            "after": "self.all_imgs = None",
+            "before": "self.train = mode == 'train'",
+            "categories": [
+              "identity"
+            ],
+            "line": 54,
+            "terms": [
+              "id"
+            ],
+            "text": "self.id_to_trainid = {}"
+          },
+          {
+            "after": "full_mask_fn = '{}.{}'.format(img_name, mask_ext)",
+            "before": "img_dir, img_fn = os.path.split(full_img_fn)",
+            "categories": [
+              "identity"
+            ],
+            "line": 70,
+            "terms": [
+              "name"
+            ],
+            "text": "img_name, _ = os.path.splitext(img_fn)"
+          }
+        ],
+        "term_counts": {
+          "geometry": {
+            "distance": 2
+          },
+          "identity": {
+            "id": 4,
+            "name": 21
+          },
+          "metric": {},
+          "write": {
+            "open(": 2
+          }
+        }
+      },
+      {
+        "category_counts": {
+          "geometry": 0,
+          "identity": 25,
+          "metric": 0,
+          "write": 3
+        },
+        "labels": {
+          "actor_identity_available": false,
+          "collision_geometry_source": false,
+          "instrumentation_candidate": false,
+          "metric_source": false
+        },
+        "line_count": 355,
+        "path": "data/utils/fish2persp/create_fisheye_grid.py",
+        "score": 137,
+        "snippets": [
+          {
+            "after": "# rewind",
+            "before": "",
+            "categories": [
+              "identity"
+            ],
+            "line": 15,
+            "terms": [
+              "name"
+            ],
+            "text": "def readVariable(fid,name,M,N):"
+          },
+          {
+            "after": "success = 1",
+            "before": "line = fid.readline()",
+            "categories": [
+              "identity"
+            ],
+            "line": 24,
+            "terms": [
+              "name"
+            ],
+            "text": "if line.startswith(name):"
+          },
+          {
+            "after": "line = line.split()",
+            "before": "# fill matrix",
+            "categories": [
+              "identity"
+            ],
+            "line": 33,
+            "terms": [
+              "name"
+            ],
+            "text": "line = line.replace('%s:' % name, '')"
+          },
+          {
+            "after": "",
+            "before": "# open file",
+            "categories": [
+              "write"
+            ],
+            "line": 46,
+            "terms": [
+              "open("
+            ],
+            "text": "fid = open(filename,'r');"
+          }
+        ],
+        "term_counts": {
+          "geometry": {},
+          "identity": {
+            "id": 21,
+            "name": 4
+          },
+          "metric": {},
+          "write": {
+            "open(": 3
+          }
+        }
+      },
+      {
+        "category_counts": {
+          "geometry": 0,
+          "identity": 25,
+          "metric": 0,
+          "write": 0
+        },
+        "labels": {
+          "actor_identity_available": false,
+          "collision_geometry_source": false,
+          "instrumentation_candidate": false,
+          "metric_source": false
+        },
+        "line_count": 230,
+        "path": "utils/dynamic_utils.py",
+        "score": 125,
+        "snippets": [
+          {
+            "after": "elif data_type == 'waymo':",
+            "before": "if data_type == 'kitti':",
+            "categories": [
+              "identity"
+            ],
+            "line": 146,
+            "terms": [
+              "name"
+            ],
+            "text": "cameras = [cam for cam in train_cams if 'cam_0' in cam.image_name]"
+          },
+          {
+            "after": "elif data_type == 'nuscenes':",
+            "before": "elif data_type == 'waymo':",
+            "categories": [
+              "identity"
+            ],
+            "line": 148,
+            "terms": [
+              "name"
+            ],
+            "text": "cameras = [cam for cam in train_cams if 'cam_1' in cam.image_name]"
+          },
+          {
+            "after": "elif data_type == 'pandaset':",
+            "before": "elif data_type == 'nuscenes':",
+            "categories": [
+              "identity"
+            ],
+            "line": 150,
+            "terms": [
+              "name"
+            ],
+            "text": "cameras = [cam for cam in train_cams if (('CAM_FRONT' in cam.image_name) and ('LEFT' not in cam.image_name) and ('RIGHT' not in cam.image_name))]"
+          },
+          {
+            "after": "else:",
+            "before": "elif data_type == 'pandaset':",
+            "categories": [
+              "identity"
+            ],
+            "line": 152,
+            "terms": [
+              "name"
+            ],
+            "text": "cameras = [cam for cam in train_cams if 'front_camera' in cam.image_name]"
+          }
+        ],
+        "term_counts": {
+          "geometry": {},
+          "identity": {
+            "id": 16,
+            "name": 9,
+            "track": 16
+          },
+          "metric": {},
+          "write": {}
+        }
+      },
+      {
+        "category_counts": {
+          "geometry": 0,
+          "identity": 24,
+          "metric": 0,
+          "write": 0
+        },
+        "labels": {
+          "actor_identity_available": false,
+          "collision_geometry_source": false,
+          "instrumentation_candidate": false,
+          "metric_source": false
+        },
+        "line_count": 231,
+        "path": "gaussian_renderer/__init__.py",
+        "score": 120,
+        "snippets": [
+          {
+            "after": "if prev_viewpoint is not None:",
+            "before": "if unicycles is None or len(unicycles) == 0:",
+            "categories": [
+              "identity"
+            ],
+            "line": 84,
+            "terms": [
+              "track"
+            ],
+            "text": "track_dict = viewpoint.dynamics"
+          },
+          {
+            "after": "else:",
+            "before": "if prev_viewpoint is not None:",
+            "categories": [
+              "identity"
+            ],
+            "line": 86,
+            "terms": [
+              "track"
+            ],
+            "text": "prev_track_dict = prev_viewpoint.dynamics"
+          },
+          {
+            "after": "for track_id, B2W in viewpoint.dynamics.items():",
+            "before": "else:",
+            "categories": [
+              "identity"
+            ],
+            "line": 88,
+            "terms": [
+              "track"
+            ],
+            "text": "track_dict, prev_track_dict = {}, {}"
+          },
+          {
+            "after": "if track_id in unicycles:",
+            "before": "track_dict, prev_track_dict = {}, {}",
+            "categories": [
+              "identity"
+            ],
+            "line": 89,
+            "terms": [
+              "id",
+              "track"
+            ],
+            "text": "for track_id, B2W in viewpoint.dynamics.items():"
+          }
+        ],
+        "term_counts": {
+          "geometry": {},
+          "identity": {
+            "id": 21,
+            "track": 22
+          },
+          "metric": {},
+          "write": {}
+        }
+      },
+      {
+        "category_counts": {
+          "geometry": 0,
+          "identity": 20,
+          "metric": 0,
+          "write": 2
+        },
+        "labels": {
+          "actor_identity_available": false,
+          "collision_geometry_source": false,
+          "instrumentation_candidate": false,
+          "metric_source": false
+        },
+        "line_count": 360,
+        "path": "scene/ground_model.py",
+        "score": 108,
+        "snippets": [
+          {
+            "after": "{'params': [self._features_rest], 'lr': 2.5e-3 / 20.0, \"name\": \"f_rest\"},",
+            "before": "self.param_groups = [",
+            "categories": [
+              "identity"
+            ],
+            "line": 70,
+            "terms": [
+              "name"
+            ],
+            "text": "{'params': [self._features_dc], 'lr': 2.5e-3, \"name\": \"f_dc\"},"
+          },
+          {
+            "after": "{'params': [self._feats3D], 'lr': 1e-3, \"name\": \"feats3D\"},",
+            "before": "{'params': [self._features_dc], 'lr': 2.5e-3, \"name\": \"f_dc\"},",
+            "categories": [
+              "identity"
+            ],
+            "line": 71,
+            "terms": [
+              "name"
+            ],
+            "text": "{'params': [self._features_rest], 'lr': 2.5e-3 / 20.0, \"name\": \"f_rest\"},"
+          },
+          {
+            "after": "]",
+            "before": "{'params': [self._features_rest], 'lr': 2.5e-3 / 20.0, \"name\": \"f_rest\"},",
+            "categories": [
+              "identity"
+            ],
+            "line": 72,
+            "terms": [
+              "name"
+            ],
+            "text": "{'params': [self._feats3D], 'lr': 1e-3, \"name\": \"feats3D\"},"
+          },
+          {
+            "after": "{'params': [self._features_dc], 'lr': 2.5e-3, \"name\": \"f_dc\"},",
+            "before": "self.param_groups = [",
+            "categories": [
+              "identity"
+            ],
+            "line": 76,
+            "terms": [
+              "name"
+            ],
+            "text": "{'params': [self._xyz], 'lr': 1.6e-4, \"name\": \"xyz\"},"
+          }
+        ],
+        "term_counts": {
+          "geometry": {},
+          "identity": {
+            "name": 20
+          },
+          "metric": {},
+          "write": {
+            ".write": 2
+          }
+        }
+      },
+      {
+        "category_counts": {
+          "geometry": 2,
+          "identity": 13,
+          "metric": 0,
+          "write": 2
+        },
+        "labels": {
+          "actor_identity_available": true,
+          "collision_geometry_source": false,
+          "instrumentation_candidate": false,
+          "metric_source": false
+        },
+        "line_count": 59,
+        "path": "data/nusc/statistic.py",
+        "score": 107,
+        "snippets": [
+          {
+            "after": "import argparse",
+            "before": "from tqdm import tqdm",
+            "categories": [
+              "geometry"
+            ],
+            "line": 5,
+            "terms": [
+              "box"
+            ],
+            "text": "from utils import get_box"
+          },
+          {
+            "after": "desc = scene['description'].lower()",
+            "before": "scene = nusc.scene[i]",
+            "categories": [
+              "identity"
+            ],
+            "line": 31,
+            "terms": [
+              "name"
+            ],
+            "text": "s = scene['name']"
+          },
+          {
+            "after": "tracks = defaultdict(list)",
+            "before": "",
+            "categories": [
+              "identity"
+            ],
+            "line": 36,
+            "terms": [
+              "token"
+            ],
+            "text": "token = scene['first_sample_token']"
+          },
+          {
+            "after": "sample = nusc.get('sample', token)",
+            "before": "tracks = defaultdict(list)",
+            "categories": [
+              "identity"
+            ],
+            "line": 38,
+            "terms": [
+              "token"
+            ],
+            "text": "while token != '':"
+          }
+        ],
+        "term_counts": {
+          "geometry": {
+            "box": 2
+          },
+          "identity": {
+            "instance": 6,
+            "name": 2,
+            "token": 9
+          },
+          "metric": {},
+          "write": {
+            ".write": 1,
+            "open(": 1
+          }
+        }
+      },
+      {
+        "category_counts": {
+          "geometry": 11,
+          "identity": 2,
+          "metric": 0,
+          "write": 0
+        },
+        "labels": {
+          "actor_identity_available": true,
+          "collision_geometry_source": false,
+          "instrumentation_candidate": false,
+          "metric_source": false
+        },
+        "line_count": 159,
+        "path": "utils/iou_utils.py",
+        "score": 107,
+        "snippets": [
+          {
+            "after": "# Kent 2018/12",
+            "before": "",
+            "categories": [
+              "identity"
+            ],
+            "line": 1,
+            "terms": [
+              "object"
+            ],
+            "text": "# 3D IoU caculate code for 3D object detection"
+          },
+          {
+            "after": "",
+            "before": "def box3d_iou(corners1, corners2):",
+            "categories": [
+              "geometry"
+            ],
+            "line": 85,
+            "terms": [
+              "box"
+            ],
+            "text": "''' Compute 3D bounding box IoU."
+          },
+          {
+            "after": "iou_2d: bird's eye view 2D bounding box IoU",
+            "before": "Output:",
+            "categories": [
+              "geometry"
+            ],
+            "line": 91,
+            "terms": [
+              "box"
+            ],
+            "text": "iou: 3D bounding box IoU"
+          },
+          {
+            "after": "",
+            "before": "iou: 3D bounding box IoU",
+            "categories": [
+              "geometry"
+            ],
+            "line": 92,
+            "terms": [
+              "box"
+            ],
+            "text": "iou_2d: bird's eye view 2D bounding box IoU"
+          }
+        ],
+        "term_counts": {
+          "geometry": {
+            "box": 11
+          },
+          "identity": {
+            "name": 1,
+            "object": 1
+          },
+          "metric": {},
+          "write": {}
+        }
+      },
+      {
+        "category_counts": {
+          "geometry": 3,
+          "identity": 9,
+          "metric": 0,
+          "write": 5
+        },
+        "labels": {
+          "actor_identity_available": true,
+          "collision_geometry_source": false,
+          "instrumentation_candidate": false,
+          "metric_source": false
+        },
+        "line_count": 224,
+        "path": "data/kitti360/load.py",
+        "score": 106,
+        "snippets": [
+          {
+            "after": "lines = f.readlines()",
+            "before": "lastrow = np.array([0, 0, 0, 1]).reshape(1, 4)",
+            "categories": [
+              "write"
+            ],
+            "line": 22,
+            "terms": [
+              "open("
+            ],
+            "text": "with open(filename, 'r') as f:"
+          },
+          {
+            "after": "lines = f.readlines()",
+            "before": "intrinstic_file = os.path.join(os.path.join(datadir, 'calibration'), 'perspective.txt')",
+            "categories": [
+              "write"
+            ],
+            "line": 34,
+            "terms": [
+              "open("
+            ],
+            "text": "with open(intrinstic_file) as f:"
+          },
+          {
+            "after": "lines = f.readlines()",
+            "before": "''' Camera_00  to world coordinate '''",
+            "categories": [
+              "write"
+            ],
+            "line": 59,
+            "terms": [
+              "open("
+            ],
+            "text": "with open(cam2world_file_00,'r') as f:"
+          },
+          {
+            "after": "annotation3D = Annotation3D(datadir, seq)",
+            "before": "",
+            "categories": [
+              "geometry"
+            ],
+            "line": 83,
+            "terms": [
+              "bbox"
+            ],
+            "text": "def get_kitti360_bbox(datadir, seq, start_index, end_index, inv_pose):"
+          }
+        ],
+        "term_counts": {
+          "geometry": {
+            "bbox": 3
+          },
+          "identity": {
+            "id": 4,
+            "name": 5,
+            "track": 4
+          },
+          "metric": {},
+          "write": {
+            ".dump": 1,
+            "json.dump": 1,
+            "open(": 4
+          }
+        }
+      },
+      {
+        "category_counts": {
+          "geometry": 1,
+          "identity": 10,
+          "metric": 0,
+          "write": 7
+        },
+        "labels": {
+          "actor_identity_available": true,
+          "collision_geometry_source": false,
+          "instrumentation_candidate": false,
+          "metric_source": false
+        },
+        "line_count": 247,
+        "path": "data/waymo/prepare_colmap.py",
+        "score": 105,
+        "snippets": [
+          {
+            "after": "'--SiftMatching.use_gpu', '1',  # use gpu or not",
+            "before": "'--database_path', self.path_database,",
+            "categories": [
+              "geometry"
+            ],
+            "line": 65,
+            "terms": [
+              "overlap"
+            ],
+            "text": "'--SequentialMatching.overlap', '60',"
+          },
+          {
+            "after": "dbconn = sqlite3.connect(self.path_database)",
+            "before": "",
+            "categories": [
+              "identity"
+            ],
+            "line": 102,
+            "terms": [
+              "id"
+            ],
+            "text": "def id_mapping_in_database(self):"
+          },
+          {
+            "after": "for image_id, image_name in cur.execute('''SELECT image_id, name FROM images '''):",
+            "before": "cur = dbconn.cursor()",
+            "categories": [
+              "identity"
+            ],
+            "line": 105,
+            "terms": [
+              "id",
+              "name"
+            ],
+            "text": "name__id = {}"
+          },
+          {
+            "after": "name__id[image_name] = image_id",
+            "before": "name__id = {}",
+            "categories": [
+              "identity"
+            ],
+            "line": 106,
+            "terms": [
+              "id",
+              "name"
+            ],
+            "text": "for image_id, image_name in cur.execute('''SELECT image_id, name FROM images '''):"
+          }
+        ],
+        "term_counts": {
+          "geometry": {
+            "overlap": 1
+          },
+          "identity": {
+            "id": 9,
+            "name": 5
+          },
+          "metric": {},
+          "write": {
+            ".dump": 1,
+            ".write": 2,
+            "json.dump": 1,
+            "open(": 4
+          }
+        }
+      },
+      {
+        "category_counts": {
+          "geometry": 3,
+          "identity": 11,
+          "metric": 0,
+          "write": 0
+        },
+        "labels": {
+          "actor_identity_available": true,
+          "collision_geometry_source": false,
+          "instrumentation_candidate": false,
+          "metric_source": false
+        },
+        "line_count": 689,
+        "path": "sim/ilqr/lqr_solver.py",
+        "score": 96,
+        "snippets": [
+          {
+            "after": "",
+            "before": "delta_k and phi_k are steering angle and steering angle rate,",
+            "categories": [
+              "identity"
+            ],
+            "line": 18,
+            "terms": [
+              "vehicle"
+            ],
+            "text": "and L is the vehicle wheelbase."
+          },
+          {
+            "after": "# from nuplan.common.geometry.compute import principal_value",
+            "before": "",
+            "categories": [
+              "identity"
+            ],
+            "line": 41,
+            "terms": [
+              "actor",
+              "vehicle"
+            ],
+            "text": "# from nuplan.common.actor_state.vehicle_parameters import get_pacifica_parameters"
+          },
+          {
+            "after": "",
+            "before": "min_velocity_linearization: float  # [m/s] Absolute value threshold below which linearization velocity is modified.",
+            "categories": [
+              "identity"
+            ],
+            "line": 80,
+            "terms": [
+              "vehicle"
+            ],
+            "text": "wheelbase: float  # [m] Wheelbase length parameter for the vehicle."
+          },
+          {
+            "after": "k_lateral_error: float  # Gain for lateral error to compute steering angle feedback.",
+            "before": "k_steering_angle_error_feedback: float  # Gain for initial steering angle error for warm start steering rate.",
+            "categories": [
+              "geometry"
+            ],
+            "line": 118,
+            "terms": [
+              "distance"
+            ],
+            "text": "lookahead_distance_lateral_error: float  # [m] Distance ahead for which we estimate lateral error."
+          }
+        ],
+        "term_counts": {
+          "geometry": {
+            "distance": 3
+          },
+          "identity": {
+            "actor": 1,
+            "name": 2,
+            "object": 3,
+            "track": 2,
+            "vehicle": 4
+          },
+          "metric": {},
+          "write": {}
+        }
+      },
+      {
+        "category_counts": {
+          "geometry": 9,
+          "identity": 1,
+          "metric": 0,
+          "write": 1
+        },
+        "labels": {
+          "actor_identity_available": true,
+          "collision_geometry_source": false,
+          "instrumentation_candidate": false,
+          "metric_source": false
+        },
+        "line_count": 83,
+        "path": "data/utils/create_dynamic_mask.py",
+        "score": 92,
+        "snippets": [
+          {
+            "after": "meta_data = json.load(f)",
+            "before": "# Opening JSON file",
+            "categories": [
+              "write"
+            ],
+            "line": 39,
+            "terms": [
+              "open("
+            ],
+            "text": "with open(os.path.join(basedir, \"meta_data.json\")) as f:"
+          },
+          {
+            "after": "cv2.fillPoly(bbox_mask, [xy_screen[[0, 1, 4, 5, 0]]], 1)",
+            "before": "xy_screen = np.round(xy_screen).astype(int)",
+            "categories": [
+              "geometry"
+            ],
+            "line": 68,
+            "terms": [
+              "bbox"
+            ],
+            "text": "bbox_mask = np.zeros((H, W), dtype=np.uint8)"
+          },
+          {
+            "after": "cv2.fillPoly(bbox_mask, [xy_screen[[2, 3, 6, 7, 2]]], 1)",
+            "before": "bbox_mask = np.zeros((H, W), dtype=np.uint8)",
+            "categories": [
+              "geometry"
+            ],
+            "line": 69,
+            "terms": [
+              "bbox"
+            ],
+            "text": "cv2.fillPoly(bbox_mask, [xy_screen[[0, 1, 4, 5, 0]]], 1)"
+          },
+          {
+            "after": "cv2.fillPoly(bbox_mask, [xy_screen[[0, 2, 7, 5, 0]]], 1)",
+            "before": "cv2.fillPoly(bbox_mask, [xy_screen[[0, 1, 4, 5, 0]]], 1)",
+            "categories": [
+              "geometry"
+            ],
+            "line": 70,
+            "terms": [
+              "bbox"
+            ],
+            "text": "cv2.fillPoly(bbox_mask, [xy_screen[[2, 3, 6, 7, 2]]], 1)"
+          }
+        ],
+        "term_counts": {
+          "geometry": {
+            "bbox": 9
+          },
+          "identity": {
+            "name": 1
+          },
+          "metric": {},
+          "write": {
+            "open(": 1
+          }
+        }
+      },
+      {
+        "category_counts": {
+          "geometry": 0,
+          "identity": 16,
+          "metric": 0,
+          "write": 3
+        },
+        "labels": {
+          "actor_identity_available": false,
+          "collision_geometry_source": false,
+          "instrumentation_candidate": false,
+          "metric_source": false
+        },
+        "line_count": 316,
+        "path": "train.py",
+        "score": 92,
+        "snippets": [
+          {
+            "after": "cam_poses, _, _ = pickle.load(f)",
+            "before": "",
+            "categories": [
+              "write"
+            ],
+            "line": 35,
+            "terms": [
+              "open("
+            ],
+            "text": "with open(os.path.join(cfg.source_path, 'ground_param.pkl'), 'rb') as f:"
+          },
+          {
+            "after": "",
+            "before": "if iteration % 500 == 0:",
+            "categories": [
+              "identity"
+            ],
+            "line": 97,
+            "terms": [
+              "name"
+            ],
+            "text": "torchvision.utils.save_image(image, os.path.join(scene.model_path, \"save_train\", f\"{iteration}_{viewpoint_cam.image_name}.png\"))"
+          },
+          {
+            "after": "model = unicycle_pkg['model']",
+            "before": "if cfg.uc_opt_pos and (len(unicycles) > 0) and (1000 < iteration) and (iteration < 15000):",
+            "categories": [
+              "identity"
+            ],
+            "line": 141,
+            "terms": [
+              "id",
+              "track"
+            ],
+            "text": "for track_id, unicycle_pkg in unicycles.items():"
+          },
+          {
+            "after": "model = unicycle_pkg['model']",
+            "before": "torch.save((dynamic_gaussian.capture(), iteration), os.path.join(scene.model_path, f\"ckpts/dynamic_{iid}_chkpnt{iteration}.pth\"))",
+            "categories": [
+              "identity"
+            ],
+            "line": 176,
+            "terms": [
+              "id",
+              "track"
+            ],
+            "text": "for track_id, unicycle_pkg in unicycles.items():"
+          }
+        ],
+        "term_counts": {
+          "geometry": {},
+          "identity": {
+            "id": 7,
+            "name": 8,
+            "track": 6
+          },
+          "metric": {},
+          "write": {
+            ".dump": 1,
+            "json.dump": 1,
+            "open(": 2
+          }
+        }
+      },
+      {
+        "category_counts": {
+          "geometry": 0,
+          "identity": 18,
+          "metric": 0,
+          "write": 0
+        },
+        "labels": {
+          "actor_identity_available": false,
+          "collision_geometry_source": false,
+          "instrumentation_candidate": false,
+          "metric_source": false
+        },
+        "line_count": 712,
+        "path": "data/InverseForm/library/transforms/joint_transforms.py",
+        "score": 90,
+        "snippets": [
+          {
+            "after": "def __init__(self, transforms):",
+            "before": "",
+            "categories": [
+              "identity"
+            ],
+            "line": 37,
+            "terms": [
+              "object"
+            ],
+            "text": "class Compose(object):"
+          },
+          {
+            "after": "\"\"\"",
+            "before": "",
+            "categories": [
+              "identity"
+            ],
+            "line": 73,
+            "terms": [
+              "object"
+            ],
+            "text": "class RandomCrop(object):"
+          },
+          {
+            "after": "def __init__(self, size, interpolation=Image.BICUBIC):",
+            "before": "",
+            "categories": [
+              "identity"
+            ],
+            "line": 184,
+            "terms": [
+              "object"
+            ],
+            "text": "class ResizeHeight(object):"
+          },
+          {
+            "after": "def __init__(self, size):",
+            "before": "",
+            "categories": [
+              "identity"
+            ],
+            "line": 196,
+            "terms": [
+              "object"
+            ],
+            "text": "class CenterCrop(object):"
+          }
+        ],
+        "term_counts": {
+          "geometry": {},
+          "identity": {
+            "object": 18
+          },
+          "metric": {},
+          "write": {}
+        }
+      },
+      {
+        "category_counts": {
+          "geometry": 1,
+          "identity": 8,
+          "metric": 0,
+          "write": 5
+        },
+        "labels": {
+          "actor_identity_available": true,
+          "collision_geometry_source": false,
+          "instrumentation_candidate": false,
+          "metric_source": false
+        },
+        "line_count": 194,
+        "path": "data/kitti360/prepare_colmap.py",
+        "score": 87,
+        "snippets": [
+          {
+            "after": "'--SiftMatching.use_gpu', '1',  # use gpu or not",
+            "before": "'--database_path', self.path_database,",
+            "categories": [
+              "geometry"
+            ],
+            "line": 64,
+            "terms": [
+              "overlap"
+            ],
+            "text": "'--SequentialMatching.overlap', '20',"
+          },
+          {
+            "after": "dbconn = sqlite3.connect(self.path_database)",
+            "before": "",
+            "categories": [
+              "identity"
+            ],
+            "line": 90,
+            "terms": [
+              "id"
+            ],
+            "text": "def id_mapping_in_database(self):"
+          },
+          {
+            "after": "for image_id, image_name in cur.execute('''SELECT image_id, name FROM images '''):",
+            "before": "cur = dbconn.cursor()",
+            "categories": [
+              "identity"
+            ],
+            "line": 93,
+            "terms": [
+              "id",
+              "name"
+            ],
+            "text": "name__id = {}"
+          },
+          {
+            "after": "name__id[image_name] = image_id",
+            "before": "name__id = {}",
+            "categories": [
+              "identity"
+            ],
+            "line": 94,
+            "terms": [
+              "id",
+              "name"
+            ],
+            "text": "for image_id, image_name in cur.execute('''SELECT image_id, name FROM images '''):"
+          }
+        ],
+        "term_counts": {
+          "geometry": {
+            "overlap": 1
+          },
+          "identity": {
+            "id": 7,
+            "name": 5
+          },
+          "metric": {},
+          "write": {
+            ".write": 2,
+            "open(": 3
+          }
+        }
+      }
+    ],
+    "omitted_candidate_file_count": 73,
+    "source_file_count": 153
+  },
+  "source_root": "/private/tmp/sentinel-iter55-hugsim-source-20260713/HUGSIM",
+  "verdict": "COLLISION_INSTRUMENTATION_SOURCE_MAP_COMPLETE"
+}

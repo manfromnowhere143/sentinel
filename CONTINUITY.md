@@ -368,6 +368,19 @@ events to prepare; they are a property the repository always has.
   actor-identity, actor-match, safety/transfer/deployment/robustness, benchmark, real-world,
   monitor-performance, HUGSIM-equivalence, or retuning claim. A later actor-match line needs
   fresh instrumentation.
+- Iteration 55 concluded:
+  experiments/iter55_hugsim_collision_instrumentation_source_audit/RESULT.md, published as
+  `COLLISION_INSTRUMENTATION_SOURCE_MAP_COMPLETE` — a source-only audit over a read-only HUGSIM
+  checkout detached at the frozen SHA `62c690d39fd90020e68a196bd8bcc1c4d4191f2e`. No GPU,
+  gcloud, simulator launch, HUGSIM episode, source edit, metric edit, or box read occurred.
+  The analyzer verified checkout identity, scanned 153 source-like files, found 103 candidates,
+  and mapped future instrumentation candidates to `sim/utils/score_calculator.py` and
+  `closed_loop.py`. Labels: metric source identified, collision geometry source identified,
+  actor identity available in source, instrumentation point supported, source map not
+  insufficient. No actor attribution, actor-match, safety/transfer/deployment/robustness,
+  benchmark, real-world, HUGSIM-equivalence, or retuning claim. A later actor-match line still
+  needs a fresh no-metric-change instrumentation pre-registration and proof that `nc`,
+  HD-Score, scenarios, Sentinel thresholds, and planner behavior are unchanged.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1472,4 +1485,14 @@ events to prepare; they are a property the repository always has.
   (`0/104` supported, `0/92` among ON-collision episodes). Published RESULT.md and
   proof-provenance artifacts, updated README/NEXT_PHASE/CONTINUITY. No GPU/gcloud/box read and
   no actor-identity, actor-match, safety, transfer, deployment, robustness, benchmark, or
+  retuning claim.
+- 2026-07-13: Codex — opened and completed iteration 55 as the HUGSIM collision instrumentation
+  source-map audit. Pre-registered source-only scope ALONE (`b9254fb`), added analyzer/tests
+  (`6695f2e`, 271 tests green before analysis), cloned HUGSIM outside the repo and detached at
+  the frozen SHA `62c690d39fd90020e68a196bd8bcc1c4d4191f2e`, then ran the analyzer ONCE.
+  Result: `COLLISION_INSTRUMENTATION_SOURCE_MAP_COMPLETE`; checkout identity matched, 153
+  source-like files scanned, 103 candidates found, and instrumentation candidates mapped to
+  `sim/utils/score_calculator.py` and `closed_loop.py`. Published RESULT.md and proof-source
+  artifacts, updated README/NEXT_PHASE/CONTINUITY. No GPU/gcloud/simulator/box read, no source
+  edit, no actor attribution, no safety/transfer/deployment/robustness/benchmark, and no
   retuning claim.

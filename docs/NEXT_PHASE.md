@@ -393,11 +393,19 @@ decision logs: first-fire argmins resolve to unique TTC objects `40` times, uniq
 But HUGSIM collision actor identity is not logged in any of the `104` committed eval artifacts
 (`0/104` actor-supported; top-level eval keys are scalar metrics plus `details`, and detail keys
 are `c`, `dac`, `nc`, `pdms`, `ttc`). The result is `PROVENANCE_SUPPORT_NULL`.
+Iteration 55 then performed the missing source-map prerequisite without running HUGSIM: the
+frozen HUGSIM checkout at `62c690d39fd90020e68a196bd8bcc1c4d4191f2e` matched exactly, a
+source-only scanner covered 153 source-like files, and the result was
+`COLLISION_INSTRUMENTATION_SOURCE_MAP_COMPLETE`. The source-level candidates are
+`sim/utils/score_calculator.py` and `closed_loop.py`; this makes a future no-metric-change
+provenance logging patch designable, but not yet implemented or run.
 
 The default next scientific line is therefore not an expanded-N transfer run and not retuning the
-released union. After iteration 54, any true actor-match successor requires new instrumentation
-first: log collision actor/object identity, simulator contact state, or enough per-step proximity
-state to bind the HUGSIM `nc` drop to an actor. A strong successor should distinguish among:
+released union. After iteration 55, any true actor-match successor requires a fresh
+instrumentation pre-registration first: patch the mapped HUGSIM source path to log collision
+actor/object identity, simulator contact state, or enough per-step proximity state to bind the
+HUGSIM `nc` drop to an actor, while proving that `nc`, HD-Score, scenario selection, Sentinel
+thresholds, and planner behavior are unchanged. A strong successor should distinguish among:
 
 1. hazard surface: whether the monitor is braking for the wrong detected object or wrong path
    crossing geometry;
@@ -415,7 +423,8 @@ move the first brake earlier. Pure "fix the TTC branch" or "fix the CPA branch" 
 the default next hypothesis because iteration 53 found the pre-collision-fire failures split
 across both channels. A pure offline "which actor did we hit?" audit is also not authorized from
 the current proof, because iteration 54 found that collision actor identity is not present in the
-committed eval artifacts.
+committed eval artifacts. Iteration 55 removes the source-location blocker only; it does not
+retroactively add actor identity to any committed HUGSIM result.
 
 Any such line requires a fresh `HYPOTHESIS.md`. Until then, no new HUGSIM transfer, safety,
 robustness, deployment, benchmark-ranking, or retuning claim is authorized.

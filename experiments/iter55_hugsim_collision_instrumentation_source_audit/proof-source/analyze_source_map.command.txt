@@ -1,0 +1,1 @@
+python3 experiments/iter55_hugsim_collision_instrumentation_source_audit/analyze_source_map.py --source-root /tmp/sentinel-iter55-hugsim-source-20260713/HUGSIM --out experiments/iter55_hugsim_collision_instrumentation_source_audit/proof-source/source_map_report.json --markdown-out experiments/iter55_hugsim_collision_instrumentation_source_audit/proof-source/source_map.md
