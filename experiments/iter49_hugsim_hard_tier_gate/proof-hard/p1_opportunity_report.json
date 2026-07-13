@@ -1,0 +1,271 @@
+{
+  "definition": "primary opportunity iff OFF eval.json nc_min < 1.0 over top-level nc and all details.*.nc",
+  "off_episodes": 52,
+  "primary_opportunity_count": 51,
+  "primary_opportunity_fraction": 0.9807692307692307,
+  "threshold_count": 13,
+  "threshold_fraction": 0.25,
+  "p1_branch_given_iter49_verdict": "B_REFUTED",
+  "rows": [
+    {
+      "episode": "scene-0013-extreme-00__off_r1",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0013-extreme-00__off_r2",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0013-hard-00__off_r1",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0013-hard-00__off_r2",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0038-extreme-00__off_r1",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0038-extreme-00__off_r2",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0038-hard-00__off_r1",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0038-hard-00__off_r2",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0041-extreme-00__off_r1",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0041-extreme-00__off_r2",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0041-hard-00__off_r1",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0041-hard-00__off_r2",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0051-extreme-00__off_r1",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0051-extreme-00__off_r2",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0051-hard-00__off_r1",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0051-hard-00__off_r2",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0062-extreme-00__off_r1",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0062-extreme-00__off_r2",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0062-hard-00__off_r1",
+      "nc_min": 1.0,
+      "opportunity": false
+    },
+    {
+      "episode": "scene-0062-hard-00__off_r2",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0064-extreme-00__off_r1",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0064-extreme-00__off_r2",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0064-hard-00__off_r1",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0064-hard-00__off_r2",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0071-extreme-00__off_r1",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0071-extreme-00__off_r2",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0071-hard-00__off_r1",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0071-hard-00__off_r2",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0138-extreme-00__off_r1",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0138-extreme-00__off_r2",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0138-hard-00__off_r1",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0138-hard-00__off_r2",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0166-extreme-00__off_r1",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0166-extreme-00__off_r2",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0166-hard-00__off_r1",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0166-hard-00__off_r2",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0167-extreme-00__off_r1",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0167-extreme-00__off_r2",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0167-hard-00__off_r1",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0167-hard-00__off_r2",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0254-extreme-00__off_r1",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0254-extreme-00__off_r2",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0254-hard-00__off_r1",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0254-hard-00__off_r2",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0383-extreme-00__off_r1",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0383-extreme-00__off_r2",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0383-hard-00__off_r1",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0383-hard-00__off_r2",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0411-extreme-00__off_r1",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0411-extreme-00__off_r2",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0411-hard-00__off_r1",
+      "nc_min": 0.0,
+      "opportunity": true
+    },
+    {
+      "episode": "scene-0411-hard-00__off_r2",
+      "nc_min": 0.0,
+      "opportunity": true
+    }
+  ]
+}

@@ -57,12 +57,16 @@ print('If any docker container named renderer/model/ncap (or a random-name ncap)
 print('is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.\n')
 
 print('## Open threads (from the newest experiment docs)')
-latest = sorted(glob.glob('experiments/*/HYPOTHESIS.md'), key=os.path.getmtime)[-1]
-latest_result = latest.replace('HYPOTHESIS.md', 'RESULT.md')
-if os.path.exists(latest_result):
-    print(f'- Newest completed experiment: {latest_result} — read it before opening new work.')
-else:
-    print(f'- Newest pre-registration: {latest} — read it in full; its gate governs the next action.')
+results = sorted(glob.glob('experiments/*/RESULT.md'), key=os.path.getmtime)
+if results:
+    print(f'- Newest completed experiment: {results[-1]} — read it before opening new work.')
+pending = sorted(
+    h for h in glob.glob('experiments/*/HYPOTHESIS.md')
+    if not os.path.exists(h.replace('HYPOTHESIS.md', 'RESULT.md'))
+)
+if pending:
+    latest_pending = max(pending, key=os.path.getmtime)
+    print(f'- Newest pending pre-registration: {latest_pending} — read it in full; its gate governs the next action.')
 frontier = 'docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md'
 if os.path.exists(frontier):
     print(f'- Next research launch packet: {frontier} — not a pre-registration; it authorizes no run.')

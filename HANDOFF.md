@@ -1,20 +1,28 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: א' יול 12 20:34:36 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Mon Jul 13 04:07:11 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+2eb0c81 iter49: commit hard-tier proof artifacts
+2ea71ef handoff: night consolidation after arxiv submission
 5f5fae1 handoff: record arxiv submission milestone
 4ec1962 handoff: iter50 published, iter49 still in flight
 2c89471 iter50: publish opportunity audit result and docs
 d76c6ba iter50: commit audit proof artifacts
 ee41aa6 iter50: add opportunity analyzer and tests
 5a3717a handoff: evening consolidation, caesar thread and dual iterations state
-fbd1b3d iter50: pre-register collision-opportunity audit
-cf42522 docs: regenerate handoff, iter49 run in flight
 ```
 Working tree: DIRTY — resolve before handoff:
 M CONTINUITY.md
+ M README.md
+ M scripts/make_handoff.py
+?? experiments/iter49_hugsim_hard_tier_gate/RESULT.md
+?? experiments/iter49_hugsim_hard_tier_gate/proof-hard/analyze_hard_tier.command.txt
+?? experiments/iter49_hugsim_hard_tier_gate/proof-hard/p1_opportunity.command.txt
+?? experiments/iter49_hugsim_hard_tier_gate/proof-hard/p1_opportunity_report.json
+?? experiments/iter49_hugsim_hard_tier_gate/proof-hard/transfer_pairs.md
+?? experiments/iter49_hugsim_hard_tier_gate/proof-hard/transfer_report.json
 
 ## Experiments (status inferred from files)
 
@@ -62,7 +70,7 @@ M CONTINUITY.md
 - experiments/iter46_hugsim_off_baseline: RESULT PUBLISHED
 - experiments/iter47_map_staging_and_off_completion: RESULT PUBLISHED
 - experiments/iter48_hugsim_transfer_gate: RESULT PUBLISHED
-- experiments/iter49_hugsim_hard_tier_gate: PRE-REGISTERED, result pending
+- experiments/iter49_hugsim_hard_tier_gate: RESULT PUBLISHED
 - experiments/iter4_gated: RESULT PUBLISHED
 - experiments/iter50_collision_opportunity_audit: RESULT PUBLISHED
 - experiments/iter5_tracked: RESULT PUBLISHED
@@ -77,20 +85,20 @@ M CONTINUITY.md
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 20:35:47 up 8 days, 10:16,  0 users,  load average: 8.19, 6.09, 5.39
-GPU_RUN_STATE=IN_FLIGHT_CONTAINERS
-hugsim_uniad_client	Up 6 minutes
-/var/log/sentinel-iter49-hard.log
+ 04:08:18 up 8 days, 17:49,  0 users,  load average: 0.00, 0.00, 0.00
+GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
+/var/log/sentinel-iter49-hard.log
 /var/log/sentinel-iter48-stage2.log
-/dev/root       310G  271G   40G  88% /
+/dev/root       310G  269G   42G  87% /
 Swap:          8.0Gi        76Mi       7.9Gi
 ```
 If any docker container named renderer/model/ncap (or a random-name ncap) is up, a run
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter50_collision_opportunity_audit/RESULT.md — read it before opening new work.
+- Newest completed experiment: experiments/iter49_hugsim_hard_tier_gate/RESULT.md — read it before opening new work.
+- Newest pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.

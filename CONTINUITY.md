@@ -241,9 +241,33 @@ events to prepare; they are a property the repository always has.
   does not measurably transfer to HUGSIM easy+medium at this N; the null is the measured
   external-validity boundary of the released union. Forbidden claims held: no
   NeuroNCAP-equivalence, deployment, benchmark-ranking, robustness, or safety claim.
-  Successors (manuscript fold-in of the boundary, expanded-N confirmation, hard-tier
-  extension) each require a fresh pre-registration; nothing further is authorized by this
-  iteration.
+  The named hard-tier extension is iteration 49; any further successor requires a fresh
+  pre-registration. Nothing further is authorized by this iteration.
+- Iteration 49 concluded:
+  experiments/iter49_hugsim_hard_tier_gate/RESULT.md, published as `TRANSFER_NULL` at full
+  weight — the hard/extreme-tier collision-regime transfer answer. The single registered
+  104-episode HUGSIM run (26 hard/extreme scenarios x 2 runs x 2 arms, within-launch
+  back-to-back pairing OFF r1 -> ON r1 -> OFF r2 -> ON r2 under the carried stochastic D0
+  verdict) reached `I49_HARD_DONE` at 23:12:34 UTC 2026-07-12 with `104/104` episodes
+  complete, `0` retries, `0` failed dirs, no `I49_ABORT_*` markers, and no containers left
+  up. Proof was collected from `sentinel-gpu` into `proof-hard/` and committed FIRST
+  (`2eb0c81`) before the analyzer ran. F1 void check passed mechanically: receipts'
+  `monitor_patch_sha` is byte-identical to the committed iteration-48 patch copy
+  (`6b39fd79...`), and all seven NeuroNCAP-frozen parameters match receipts and every ON
+  decision-log row. Primary: mean paired HD-Score delta (ON - OFF) over 52 pairs =
+  `-0.0089`, 95% scenario-clustered bootstrap CI `[-0.0438, +0.0203]` (26 clusters, 10k
+  draws, seed 49) — includes zero; median `+0.0011`, CI `[-0.0077, +0.0105]`; no
+  mean/median CI sign disagreement. The union operates on the harder tiers: `40/52` ON
+  episodes intervened, `275` fired frames, `526` brake frames (`22.3%` pooled), `58`
+  releases, and `0` step-cap episodes. F2 splat-noise mistuning NOT fired, F3 RC collapse
+  NOT fired (mean paired RC delta `-0.0403`, bar `-0.30`), F4/F5/F6/F7 not fired, and the
+  fresh hard/extreme OFF-OFF median |dHD| was `0.0113` vs the `0.15` bar. Descriptive tier
+  split only: hard mean `+0.0011`, extreme mean `-0.0189` — no tier claim. Iteration 50's
+  frozen P1 resolves Branch B REFUTED: `51/52` iteration-49 OFF episodes had primary
+  collision opportunity (`nc_min < 1.0`), but the transfer CI includes zero, so the transfer
+  failure is real, not opportunity-scarce. Forbidden claims held: no NeuroNCAP-equivalence,
+  deployment, benchmark-ranking, monitor-robustness, hard-vs-extreme, or safety claim.
+  Successors require fresh pre-registration.
 - Iteration 50 concluded:
   experiments/iter50_collision_opportunity_audit/RESULT.md, published as
   `OPPORTUNITY_AUDIT_COMPLETE` — an entirely offline collision-opportunity audit over
@@ -1319,3 +1343,18 @@ events to prepare; they are a property the repository always has.
   IN FLIGHT (~52/104 at 20:15 UTC, zero aborts, marker I49_HARD_DONE, on-done block in this
   file); iteration 50's frozen prediction P1 governs its interpretation. Hourly heartbeat
   carries: iter49 completion, arXiv announcement email, Caesar inbox, gcloud auth.
+- 2026-07-13: Codex — recovered after auth refresh, followed the committed I49 on-done block,
+  and completed iteration 49. Live probe found `I49_HARD_DONE` at 23:12:34 UTC 2026-07-12,
+  no Docker containers, `104` completed episode dirs, `0` failed dirs, root disk 87%, data
+  disk 88% with 122G free, swap healthy. Exported the registered proof set from
+  `/datasets/nuscenes-full/hugsim/iter49_runs/` plus `/var/log/sentinel-iter49-hard.log`;
+  box proof tar SHA256 `7b7573616691475baab9622100ebc08b5d54c1b73ec24d4019a75c1121976f3a`.
+  Local substrate check before commit: 104 evals/output/meta, 52 ON decision JSONLs, 0 large
+  files, receipts monitor_patch_sha byte-identical to the committed iter48 patch. Proof
+  committed FIRST as `2eb0c81` (`iter49: commit hard-tier proof artifacts`). Then ran the
+  committed analyzer ONCE from committed artifacts: verdict `TRANSFER_NULL`, mean paired HD
+  delta `-0.0089` CI `[-0.0438, +0.0203]`, median `+0.0011` CI `[-0.0077, +0.0105]`,
+  40/52 ON intervention episodes, 22.3% pooled brake frames, 58 releases, no falsifier fired.
+  Resolved iteration 50 P1 from iter49 OFF evals: 51/52 primary opportunity, Branch B
+  REFUTED. Published RESULT.md; updated README row 49/header/status/repo-map and this
+  continuity arc. Heavy artifacts remain on the box behind `heavy_manifest_iter49.txt`.

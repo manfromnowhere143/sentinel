@@ -1,0 +1,5 @@
+python3 experiments/iter49_hugsim_hard_tier_gate/analyze_hard_tier.py \
+  --episodes experiments/iter49_hugsim_hard_tier_gate/proof-hard/episodes \
+  --receipts experiments/iter49_hugsim_hard_tier_gate/proof-hard/receipts.json \
+  --out experiments/iter49_hugsim_hard_tier_gate/proof-hard/transfer_report.json \
+  --markdown-out experiments/iter49_hugsim_hard_tier_gate/proof-hard/transfer_pairs.md
