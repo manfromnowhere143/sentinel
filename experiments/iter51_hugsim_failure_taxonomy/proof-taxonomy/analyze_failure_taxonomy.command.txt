@@ -1,0 +1,8 @@
+python3 experiments/iter51_hugsim_failure_taxonomy/analyze_failure_taxonomy.py \
+  --iter48-episodes experiments/iter48_hugsim_transfer_gate/proof-stage2/episodes \
+  --iter48-transfer-report experiments/iter48_hugsim_transfer_gate/proof-stage2/transfer_report.json \
+  --iter49-episodes experiments/iter49_hugsim_hard_tier_gate/proof-hard/episodes \
+  --iter49-transfer-report experiments/iter49_hugsim_hard_tier_gate/proof-hard/transfer_report.json \
+  --iter49-p1-report experiments/iter49_hugsim_hard_tier_gate/proof-hard/p1_opportunity_report.json \
+  --out experiments/iter51_hugsim_failure_taxonomy/proof-taxonomy/failure_taxonomy_report.json \
+  --markdown-out experiments/iter51_hugsim_failure_taxonomy/proof-taxonomy/failure_pairs.md

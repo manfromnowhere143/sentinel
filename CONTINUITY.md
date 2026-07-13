@@ -293,6 +293,28 @@ events to prepare; they are a property the repository always has.
   REFUTED and the transfer failure is REAL, not opportunity-scarce; < 13/52 = NOT TESTABLE
   at the hard tier. No new safety/transfer/deployment claim; classification and prediction
   only; any further opportunity-conditioned analysis needs a fresh pre-registration.
+- Iteration 51 concluded:
+  experiments/iter51_hugsim_failure_taxonomy/RESULT.md, published as `TAXONOMY_COMPLETE` —
+  an entirely offline post-result taxonomy over committed iteration-48/49 HUGSIM proof only
+  (zero GPU, zero gcloud, zero box reads), pre-registered ALONE (`778304c`) after the
+  transfer nulls were already public. Analyzer/tests were committed separately (`71abe6d`)
+  and then run ONCE over the committed artifacts. Infrastructure passed: 104 paired HUGSIM
+  transfer episodes classified, both transfer-report point means reproduced exactly, and
+  iteration-49 P1 cross-check matched `51` recomputed vs `51` recorded. Combined category
+  counts: persistent_collision_late_by_proxy `34`, persistent_collision_early_by_proxy
+  `33`, persistent_collision_no_brake `18`, induced_collision `7`,
+  clean_no_off_opportunity `6`, converted_collision_no_material_gain `4`, and
+  converted_collision_material_gain `2`. The frozen dominance rule returned
+  `mixed_taxonomy` (`34/91 = 0.374` of OFF-opportunity pairs, below the 0.40 bar), not a
+  single-cause explanation. Main scientific content: only `6/91` OFF-opportunity pairs
+  converted from collision to no collision, and only `2` of those cleared the descriptive
+  material-gain deadband; `85/104` combined pairs remained collision-persistent. In
+  iteration 49 hard/extreme specifically, `51/52` opportunity pairs produced `0/52`
+  conversions; AttackPlanner scenes lean late-by-proxy (`15/30`), non-AttackPlanner
+  hard/extreme scenes lean early-by-proxy (`10/21`). No new safety/transfer/deployment/
+  robustness claim; timing labels are descriptive proxies only because OFF/ON HUGSIM
+  trajectories are stochastic. Next mature line is a fresh mechanism-cause audit, not
+  retuning or an expanded-N transfer run by default.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1358,3 +1380,12 @@ events to prepare; they are a property the repository always has.
   Resolved iteration 50 P1 from iter49 OFF evals: 51/52 primary opportunity, Branch B
   REFUTED. Published RESULT.md; updated README row 49/header/status/repo-map and this
   continuity arc. Heavy artifacts remain on the box behind `heavy_manifest_iter49.txt`.
+- 2026-07-13: Codex — opened and completed iteration 51 as the next autonomous offline move
+  after the HUGSIM transfer null. Pre-registered the HUGSIM transfer-failure taxonomy ALONE
+  (`778304c`), then added analyzer/tests (`71abe6d`, 231 tests green before analysis), then
+  ran the analyzer ONCE over committed iteration-48/49/50 proof. Result:
+  `TAXONOMY_COMPLETE`; infrastructure all-pass; combined HUGSIM taxonomy is mixed
+  (`34/91 = 0.374`, below 0.40 dominance bar), with only 6/91 OFF-opportunity pairs
+  converted and 85/104 pairs collision-persistent. Published RESULT.md and proof-taxonomy
+  artifacts, updated README and this continuity record. No GPU/gcloud/box read and no new
+  safety, transfer, deployment, robustness, or benchmark claim.

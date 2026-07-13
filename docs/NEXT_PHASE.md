@@ -368,3 +368,30 @@ intervention cost, and deployment trade-offs.
     full14/power trace capture with exact `ego2world` per monitor frame and exact offline replay
     identity as the only success condition. It authorizes no perturbation, no robustness claim, no
     selector, no deployment language, and no safety claim.
+
+## 2026-07-13 update after HUGSIM transfer closure
+
+Iterations 48 and 49 closed the HUGSIM transfer question for the released union. The answer is
+`TRANSFER_NULL` in both the easy+medium and hard/extreme regimes. Iteration 50 ruled out the
+simple opportunity-scarcity explanation: NeuroNCAP benefit concentrates where the OFF arm
+collides, but HUGSIM had abundant opportunity and the benefit did not port. Iteration 51 then
+classified the committed HUGSIM transfer pairs offline and found a mixed taxonomy: only `6/91`
+OFF-opportunity pairs converted from collision to no collision, `85/104` pairs remained
+collision-persistent, and no combined category crossed the frozen 40% dominance bar.
+
+The default next scientific line is therefore a fresh mechanism-cause audit, not an expanded-N
+transfer run and not retuning the released union. A strong successor should distinguish among:
+
+1. timing: whether late-by-proxy cases are true insufficient lead time or only stochastic
+   trajectory mismatch;
+2. hazard surface: whether the monitor is braking for the wrong detected object or wrong path
+   crossing geometry;
+3. planner/path geometry: whether HUGSIM collisions arise from executed-plan modes the stop rule
+   cannot change;
+4. metric composition: whether HD-Score changes are dominated by non-collision terms even when a
+   collision is converted;
+5. AttackPlanner structure: why hard/extreme adversarial scenes lean late-by-proxy while the
+   non-AttackPlanner hard/extreme subset leans early-by-proxy.
+
+Any such line requires a fresh `HYPOTHESIS.md`. Until then, no new HUGSIM transfer, safety,
+robustness, deployment, benchmark-ranking, or retuning claim is authorized.
