@@ -1,0 +1,14 @@
+{
+  "hugsim_sha": "62c690d39fd90020e68a196bd8bcc1c4d4191f2e",
+  "uniad_sim_sha": "5fb279e39912a5ac7f58e00d56b065cadcd0a749",
+  "ckpt_sha": "0ad0c2f5dc9788a41c313305779ea49346aeb742d1f6bb5ad25c46f9beffc990",
+  "shim_sha": "5bf69a1187478c52d49792d5871bd5732c6dd431ecd1f44b5e391f7adb80682c",
+  "image_id": "f73ef3884063",
+  "hugsim_patch_sha": "49eee7611e4b881d2bb6233e8767913019c6a097c6883762414005d5b2284ecd",
+  "score_calculator_sha_after_patch": "1588b5b912384dead87b521b828cf7a135e77eb79aad5d540074c7168f79e46f",
+  "monitor_patch_sha": "6b39fd79d00c7bdb937c6d240fbc4648661b235f1a3024912d62874937146c5c",
+  "e2e_py_patched_sha": "23cce8a2a559b60dc3de394ba890a28adc13b5b24d222936478dad6f83f9aea3",
+  "e2e_sh_patched_sha": "8b404adcbc7fea328a5fbbd10c5256656444739b3af79ca26676a45464471aa7",
+  "schedule": "eight ON episodes from Iter59 HYPOTHESIS",
+  "start_utc": "2026-07-13T07:45:43Z"
+}
