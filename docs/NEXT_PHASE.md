@@ -13,12 +13,14 @@ It adds a deeper Stanford/MIT/Tesla/Mobileye/NHTSA read to the existing frontier
 packet. The decision is narrow: Sentinel is aligned when framed as a runtime monitor,
 failure-localization, and safety-evidence system for opaque planners; it is not aligned when
 framed as a full autonomy stack, world model, robotaxi system, or deployment-ready safety case.
-That priority is now partly closed by iterations 84 and 85: the selected-vs-support
+That priority is now partly closed by iterations 84-86: the selected-vs-support
 path/arbitration split is proven on the fixed rows, and the closest-path-horizon/provenance
 timing decomposition shows support-object provenance arriving after the event in all three rows.
-The next local HUGSIM priority is a fresh mechanism-cause pre-registration that either tests a
-counterfactual object/geometry explanation for this split or chooses a different unresolved branch;
-it must not retune thresholds or make repair/safety claims.
+The exact bridge-time support-surface replay then blocked on the active `ttc_medium_a` row because
+the committed ON decision log has no exact `6.0 s` row. The next local HUGSIM priority is a fresh
+mechanism-cause pre-registration that either permits nearest-row/interval handling for that
+bridge-time question, tests a counterfactual object/geometry explanation for the split, or chooses
+a different unresolved branch; it must not retune thresholds or make repair/safety claims.
 
 ## New frontier packet after these lines closed
 
@@ -555,6 +557,10 @@ the support object's best provenance bridge is after the event timestamp in `3/3
 object has an earlier closest CPA horizon in only `1/3`, so the robust mechanism statement is
 path-geometry selection versus later support-object provenance, not a universal earlier-horizon
 rule.
+Iteration 86 then attempted exact bridge-time support-surface replay. The result is
+`HUGSIM_BRIDGE_TIME_SURFACE_REPLAY_BLOCKED`: object `9` classifies as bridge-time
+surface-arrival at `5.5 s`, object `10` classifies as bridge-time surface-miss at `4.0 s`, but
+the active `ttc_medium_a` support bridge timestamp `6.0 s` has no exact committed ON decision row.
 
 The default next scientific line is therefore not an expanded-N transfer run and not retuning the
 released union. After iteration 61, the actor-match audit points to wrong-object/wrong-hazard
@@ -591,6 +597,9 @@ no-finite-TTC/CPA-far in the other. Iteration 84 shows the selected side is cons
 on logged path geometry while the support side is consistently stronger on provenance bridge.
 Iteration 85 shows that support-object provenance is after the event in all three fixed rows,
 while selected earlier closest-horizon timing is not universal.
+Iteration 86 shows that exact bridge-time support-surface replay is under-supported for one row:
+the `6.0 s` provenance timestamp is not itself a logged decision row, so any continuation must
+pre-register nearest-row, interval, or interpolation semantics before re-answering it.
 Any successor should be a fresh mechanism-cause pre-registration that explains this
 selected-surface/provenance/support-temporal/co-occurrence/channel/arbitration/timing split, or
 chooses another branch. A strong

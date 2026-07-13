@@ -2065,3 +2065,13 @@ events to prepare; they are a property the repository always has.
   horizon is only `1/3`. No GPU/gcloud/box read, no actor-causality, repair, threshold-value,
   population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance,
   commercial-value, real-world/first-responder behavior, or retuning claim.
+- 2026-07-13: Codex — continued into iteration 86 as the HUGSIM bridge-time support-surface
+  replay after iteration 85. Pre-registered ALONE (`832ffe5`), added analyzer/tests (`f3866ba`,
+  369 tests green before analysis), then ran the analyzer ONCE over committed iteration-59 proof
+  plus iteration-81/83/85 reports. Result: `HUGSIM_BRIDGE_TIME_SURFACE_REPLAY_BLOCKED`; two rows
+  classified (`both_distinct_extreme` object `9` moves subthreshold -> borderline at `5.5 s`,
+  `ttc_medium_a` pre object `10` remains subthreshold at `4.0 s`), but the active
+  `ttc_medium_a` row has no exact committed ON decision row at the iteration-85 bridge timestamp
+  `6.0 s`. No GPU/gcloud/box read, no actor-causality, repair, threshold-value, population-rate,
+  safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value,
+  real-world/first-responder behavior, or retuning claim.
