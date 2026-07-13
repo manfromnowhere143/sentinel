@@ -4,7 +4,7 @@
 collision it is about to cause, and intervenes — measured where it actually matters: in closed
 loop, by whether the car crashes *and whether it can still drive*.**
 
-> **Honest status up front (55 registered iterations: 37 completed mechanism iterations + an
+> **Honest status up front (56 registered iterations: 37 completed mechanism iterations + an
 > independent verification pass +
 > the full official benchmark at power + a completed iteration-37 calibration null + an
 > iteration-38 opposite-direction S0 canary pass + completed iteration-39/40/41 defensibility
@@ -60,7 +60,10 @@ loop, by whether the car crashes *and whether it can still drive*.**
 > HUGSIM checkout at `62c690d39fd90020e68a196bd8bcc1c4d4191f2e` was verified, source-only scan
 > mapped instrumentation candidates to `sim/utils/score_calculator.py` and `closed_loop.py`, and
 > returned `COLLISION_INSTRUMENTATION_SOURCE_MAP_COMPLETE`; a future no-metric-change
-> instrumentation patch is designable, but not implemented or run):**
+> instrumentation patch is designable, but not implemented or run — + a completed iteration-56
+> HUGSIM provenance patch-design null: the first patch draft applied and compiled, but the frozen
+> static guard rejected the added `if score_nc == 0.0:` branch as metric/control-sensitive, so no
+> instrumentation patch or run is authorized):**
 > the introspective signal predicts the planner's collisions (AUROC 0.83). On the
 > complete 14-scene NeuroNCAP set at **20 seed-paired runs per pair** (799 episodes, the power
 > measurement), the unmonitored UniAD baseline **independently reproduces** (pooled 2.12 vs the
@@ -101,7 +104,7 @@ single-digit GPUs.
 
 ## The result
 
-Fifty-five registered iterations — thirty-seven completed mechanism iterations, plus the completed defensibility, robustness, and transfer gates of iterations 39-55 — under frozen pre-registrations converge on one closed-loop configuration — the
+Fifty-six registered iterations — thirty-seven completed mechanism iterations, plus the completed defensibility, robustness, and transfer gates of iterations 39-56 — under frozen pre-registrations converge on one closed-loop configuration — the
 **released union** (two label-free geometric detectors + a threat-cleared latch release) —
 measured on the **complete official 14-scene NeuroNCAP set at 20 seed-paired runs per pair**
 (799 episodes; hypotheses frozen before the run; the first 6 indices of every pair reproduce the
@@ -233,6 +236,7 @@ flowchart LR
   A52 --> A53["53 channels<br/>split"]
   A53 --> A54["54 prov support<br/>null"]
   A54 --> A55["55 source map<br/>complete"]
+  A55 --> A56["56 patch<br/>guard null"]
   classDef ask fill:#ffe,stroke:#a70,color:#111;
   classDef audit fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
   classDef win fill:#efe,stroke:#080,color:#111;
@@ -240,7 +244,7 @@ flowchart LR
   class O38 ask;
   class A39,A40,A41 audit;
   class A42,A45,A47 win;
-  class A43,A44,A46,A48,A49 bad;
+  class A43,A44,A46,A48,A49,A56 bad;
   class A50,A51,A52,A53,A54,A55 audit;
 ```
 
@@ -366,6 +370,7 @@ step; they are intentional stops, not hidden probe failures or unreported GPU ru
 | 53 | **HUGSIM first-fire channel audit** — offline post-result audit over committed iteration-48/49 HUGSIM proof only: reconstruct the released union's first fired row as TTC-only, CPA-only, both, no-fire, or unreconstructable; disclosed pre-freeze patch/prototype inspections, no inferential surprise claim | 104 paired HUGSIM transfer episodes; 92 ON-collision episodes; first-fire channel = actual OR predicate side on the first fired decision row | infrastructure all-pass: pair count matched iteration 52 (`104` vs `104`), timing-bin mismatches `0`, unreconstructable first-fire channels `0`; ON-collision first-fire channels: TTC-only `36`, CPA-only `33`, no-fire `22`, both `1`; pre-collision-fire ON collisions: CPA-only `19`, TTC-only `16`, both/no-fire `0` | **`FIRST_FIRE_CHANNEL_COMPLETE` — the pre-collision-fire persistent cases split across both sides of the union, so the HUGSIM failure is not one bad branch** | the stricter simultaneous TTC/CPA surface proxy from iteration 52 was too strict to describe the actual OR predicate, but reconstructing the OR does not rescue the transfer null; next mature line is object/path geometry and provenance, not threshold retuning. [`iter53_hugsim_first_fire_channel_audit`](experiments/iter53_hugsim_first_fire_channel_audit/RESULT.md) |
 | 54 | **HUGSIM provenance support audit** — offline support audit over committed iteration-48/49 HUGSIM proof only: reconstruct first-fire monitor argmin object/path provenance, then check whether HUGSIM eval artifacts log collision actor identity; disclosed schema/patch inspections, no inferential surprise claim | 104 paired HUGSIM ON episodes; 92 ON-collision episodes; iteration-53 report used only for pair/channel/timing cross-checks | infrastructure all-pass: pair count matched iteration 53 (`104` vs `104`), channel mismatches `0`, timing mismatches `0`; monitor-side provenance reconstructs cleanly: unique TTC object `40`, unique CPA object `36`, both-distinct objects `1`, no-fire `27`, reconstruction failures `0`; collision actor support `0/104` | **`PROVENANCE_SUPPORT_NULL` — committed logs support monitor-hazard reconstruction but not actor matching, because HUGSIM collision actor identity is not logged** | the next credible HUGSIM run needs collision actor/contact/proximity instrumentation before any actor-match claim; no safety, transfer, deployment, benchmark, actor-identity, or retuning claim. [`iter54_hugsim_provenance_support_audit`](experiments/iter54_hugsim_provenance_support_audit/RESULT.md) |
 | 55 | **HUGSIM collision instrumentation source audit** — source-only audit over the frozen HUGSIM checkout; verify source SHA and map where `eval.json` / `nc` / HD-Score and collision/proximity provenance can be instrumented in a future patch | frozen HUGSIM source at `62c690d39fd90020e68a196bd8bcc1c4d4191f2e`; 153 source-like files scanned, 103 candidates found | checkout identity matched the frozen SHA; labels all pass: metric source identified, collision geometry source identified, actor identity available in source, instrumentation point supported, source map not insufficient; top candidates: `sim/utils/score_calculator.py`, `closed_loop.py` | **`COLLISION_INSTRUMENTATION_SOURCE_MAP_COMPLETE` — a future no-metric-change provenance logging patch is designable from source** | no HUGSIM run, no implementation, no actor attribution, no safety/transfer/deployment/benchmark/retuning claim; the next step still needs a fresh instrumentation pre-registration. [`iter55_hugsim_collision_instrumentation_source_audit`](experiments/iter55_hugsim_collision_instrumentation_source_audit/RESULT.md) |
+| 56 | **HUGSIM provenance instrumentation patch design** — source-only patch-design gate after iteration 55; draft a no-metric-change `collision_provenance` sidecar patch and statically verify it before any run | frozen HUGSIM source at `62c690d39fd90020e68a196bd8bcc1c4d4191f2e`; one patch file against `sim/utils/score_calculator.py`; verifier applies patch to a clean temp clone and compiles changed Python | source SHA matched, patch applied cleanly, changed file allowed, required provenance fields present, Python compile passed; static metric/control guard failed on `if score_nc == 0.0:` because the frozen guard flags changed lines containing `score_nc =` | **`INSTRUMENTATION_PATCH_DESIGN_NULL` — first patch draft rejected by registered static guard** | patch is not authorized for a run; no actor attribution, HD-Score execution, safety/transfer/deployment/benchmark/retuning claim; successor needs fresh guard/patch pre-registration. [`iter56_hugsim_provenance_instrumentation_patch`](experiments/iter56_hugsim_provenance_instrumentation_patch/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -575,7 +580,10 @@ actor identity is not logged in any committed eval (`0/104` supported), so actor
 requires new instrumentation. Iteration 55 then verified the frozen HUGSIM source checkout and
 mapped the source-level instrumentation route to `sim/utils/score_calculator.py` and
 `closed_loop.py`; it authorizes only a future no-metric-change instrumentation pre-registration,
-not a run or actor attribution. Successors now require fresh pre-registrations. The
+not a run or actor attribution. Iteration 56 then drafted that first patch shape, but the
+registered static verifier returned `INSTRUMENTATION_PATCH_DESIGN_NULL`: the patch applied and
+compiled, yet the guard rejected the added `if score_nc == 0.0:` branch as metric/control
+sensitive. Successors now require fresh pre-registrations. The
 published RealADSim closed-loop anchor range remains loose context only —
 it supports no performance statement:
 
@@ -982,6 +990,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter53_hugsim_first_fire_channel_audit/`](experiments/iter53_hugsim_first_fire_channel_audit) | HUGSIM first-fire channel audit — FIRST_FIRE_CHANNEL_COMPLETE: ON-collision first-fire channels split TTC-only 36, CPA-only 33, no-fire 22, both 1; pre-collision-fire persistent cases split CPA-only 19 / TTC-only 16, so no single union branch explains the transfer failure |
 | [`experiments/iter54_hugsim_provenance_support_audit/`](experiments/iter54_hugsim_provenance_support_audit) | HUGSIM provenance support audit — PROVENANCE_SUPPORT_NULL: monitor first-fire argmins reconstruct from committed logs, but collision actor identity is not logged in HUGSIM evals, so actor matching requires new instrumentation |
 | [`experiments/iter55_hugsim_collision_instrumentation_source_audit/`](experiments/iter55_hugsim_collision_instrumentation_source_audit) | HUGSIM collision instrumentation source audit — COLLISION_INSTRUMENTATION_SOURCE_MAP_COMPLETE: frozen source checkout verified; future provenance instrumentation route mapped to `sim/utils/score_calculator.py` and `closed_loop.py`; no run or actor attribution |
+| [`experiments/iter56_hugsim_provenance_instrumentation_patch/`](experiments/iter56_hugsim_provenance_instrumentation_patch) | HUGSIM provenance instrumentation patch design — INSTRUMENTATION_PATCH_DESIGN_NULL: first `collision_provenance` sidecar patch applied and compiled, but the registered static guard rejected the `score_nc` branch; no patch authorized for a run |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/FRONTIER_POSITIONING_2026-07-11.md`](docs/research/FRONTIER_POSITIONING_2026-07-11.md) | source-verified mid-2026 benchmark/monitor/industry positioning; the binding 2.91-is-not-benchmark-SOTA framing rule |

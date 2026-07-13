@@ -1,0 +1,37 @@
+{
+  "addition_count": 84,
+  "audit": "hugsim_provenance_instrumentation_patch",
+  "changed_files": [
+    "sim/utils/score_calculator.py"
+  ],
+  "claim_boundary": "static patch-design gate only; no HUGSIM run, metric execution, actor-match, safety, transfer, deployment, benchmark, or retuning claim",
+  "compile": {
+    "compile_failures": [],
+    "compiled_python_files": [
+      "sim/utils/score_calculator.py"
+    ],
+    "python_compile_passed": true
+  },
+  "iteration": 56,
+  "labels": {
+    "changed_files_allowed": true,
+    "metric_control_guard_passed": false,
+    "patch_applies_cleanly": true,
+    "python_compile_passed": true,
+    "required_provenance_fields_present": true,
+    "source_sha_match": true,
+    "static_patch_supported": false
+  },
+  "patch_path": "/Users/danielwahnich/workspace/sentinel/experiments/iter56_hugsim_provenance_instrumentation_patch/proof-patch/hugsim_provenance_instrumentation.patch",
+  "problems": [
+    "forbidden_metric_or_control_change:sim/utils/score_calculator.py:score_nc =:if score_nc == 0.0:"
+  ],
+  "removal_count": 1,
+  "repository_identity": {
+    "expected_sha": "62c690d39fd90020e68a196bd8bcc1c4d4191f2e",
+    "head": "62c690d39fd90020e68a196bd8bcc1c4d4191f2e",
+    "sha_matches_expected": true
+  },
+  "source_root": "/private/tmp/sentinel-iter55-hugsim-source-20260713/HUGSIM",
+  "verdict": "INSTRUMENTATION_PATCH_DESIGN_NULL"
+}

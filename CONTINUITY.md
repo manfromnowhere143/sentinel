@@ -381,6 +381,16 @@ events to prepare; they are a property the repository always has.
   benchmark, real-world, HUGSIM-equivalence, or retuning claim. A later actor-match line still
   needs a fresh no-metric-change instrumentation pre-registration and proof that `nc`,
   HD-Score, scenarios, Sentinel thresholds, and planner behavior are unchanged.
+- Iteration 56 concluded:
+  experiments/iter56_hugsim_provenance_instrumentation_patch/RESULT.md, published as
+  `INSTRUMENTATION_PATCH_DESIGN_NULL` — a source-only patch-design gate over the frozen HUGSIM
+  checkout. The patch draft added a top-level `collision_provenance` sidecar in
+  `sim/utils/score_calculator.py`; the verifier confirmed SHA match, clean patch application,
+  allowed changed file, required provenance fields, and Python compile. The static guard failed
+  on `if score_nc == 0.0:` because the frozen guard treats changed lines containing `score_nc =`
+  as metric/control-sensitive. No patch is authorized for a run. No GPU, gcloud, simulator,
+  planner process, actor attribution, actor-match, safety/transfer/deployment/robustness,
+  benchmark, real-world, HD-Score-execution, or retuning claim.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1496,3 +1506,13 @@ events to prepare; they are a property the repository always has.
   artifacts, updated README/NEXT_PHASE/CONTINUITY. No GPU/gcloud/simulator/box read, no source
   edit, no actor attribution, no safety/transfer/deployment/robustness/benchmark, and no
   retuning claim.
+- 2026-07-13: Codex — continued into iteration 56 as the source-only HUGSIM provenance
+  instrumentation patch-design gate. Pre-registered ALONE (`a6429b6`), drafted a
+  `collision_provenance` sidecar patch against a temporary frozen HUGSIM checkout, added verifier
+  and tests (`87536ff`, 275 tests green before proof), then ran the verifier ONCE. Result:
+  `INSTRUMENTATION_PATCH_DESIGN_NULL`; the patch applied cleanly and
+  `sim/utils/score_calculator.py` compiled, but the registered static guard failed on the added
+  `if score_nc == 0.0:` branch. Published RESULT.md and proof-patch artifacts, updated
+  README/NEXT_PHASE/CONTINUITY. No GPU/gcloud/simulator/box read, no HUGSIM run, no patch
+  authorization, no actor attribution, no safety/transfer/deployment/robustness/benchmark, and
+  no retuning claim.
