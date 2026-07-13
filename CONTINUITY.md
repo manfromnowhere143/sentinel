@@ -459,6 +459,16 @@ events to prepare; they are a property the repository always has.
   `12.1690 m`, and no valid TTC. Contact-time evidence also stayed subthreshold. This closes
   the late-hazard-emergence explanation for that row only. No actor-causality, repair,
   population-rate, safety/transfer/deployment/robustness/benchmark, or retuning claim.
+- Iteration 64 concluded:
+  experiments/iter64_unsupported_temporal_surface_audit/RESULT.md, published as
+  `UNSUPPORTED_TEMPORAL_MATCH_COMPLETE` — an offline temporal object-surface audit for the two
+  iteration-61 rows that had no first-fire object support. It launched no GPU work and read no
+  live box state. Expanding to all pre-contact monitor objects yielded matches in both rows:
+  `ttc_extreme_short` best distance `1.6718 m` (`object_id=2`, decision `0.25 s`, foreground
+  `2.75 s`) and `cpa_medium_b` best distance `0.4325 m` (`object_id=6`, decision `2.25 s`,
+  foreground `6.50 s`). This shifts the mechanism question to first-fire/provenance timing, not
+  total pre-contact object absence. No actor-causality, repair, population-rate,
+  safety/transfer/deployment/robustness/benchmark, or retuning claim.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1647,3 +1657,10 @@ events to prepare; they are a property the repository always has.
   borderline frames `0`, min CPA `12.1690 m`, and min TTC `null`. No GPU/gcloud/box read, no
   actor-causality, repair, population-rate, safety/transfer/deployment/robustness/benchmark,
   or retuning claim.
+- 2026-07-13: Codex — continued into iteration 64 as the unsupported-row temporal surface audit.
+  Pre-registered ALONE (`ebdd344`), added analyzer/tests (`6807221`, 309 tests green before
+  analysis), then ran the analyzer ONCE over committed iteration-59/61 proof. Result:
+  `UNSUPPORTED_TEMPORAL_MATCH_COMPLETE`; both first-fire-unsupported rows have pre-contact
+  monitor-object matches (`ttc_extreme_short` best `1.6718 m`; `cpa_medium_b` best `0.4325 m`),
+  with `28,016` frozen bridge variants evaluated. No GPU/gcloud/box read, no actor-causality,
+  repair, population-rate, safety/transfer/deployment/robustness/benchmark, or retuning claim.

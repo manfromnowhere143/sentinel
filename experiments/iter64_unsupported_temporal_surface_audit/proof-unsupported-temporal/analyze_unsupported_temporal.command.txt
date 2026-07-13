@@ -1,0 +1,19 @@
+Working directory:
+/Users/danielwahnich/workspace/sentinel
+
+Command:
+python3 experiments/iter64_unsupported_temporal_surface_audit/analyze_unsupported_temporal.py --iter59-proof-root experiments/iter59_hugsim_actor_match_audit/proof-actor-match --iter59-report experiments/iter59_hugsim_actor_match_audit/proof-actor-match/actor_match_report.json --iter61-report experiments/iter61_monitor_object_surface_audit/proof-object-surface/object_surface_report.json --out experiments/iter64_unsupported_temporal_surface_audit/proof-unsupported-temporal/unsupported_temporal_report.json --markdown-out experiments/iter64_unsupported_temporal_surface_audit/proof-unsupported-temporal/unsupported_temporal.md
+
+Observed stdout:
+{
+  "verdict": "UNSUPPORTED_TEMPORAL_MATCH_COMPLETE",
+  "summary": {
+    "target_rows": 2,
+    "evaluated_rows": 2,
+    "row_label_counts": {
+      "pre_contact_object_match": 2
+    },
+    "minimum_distance_m": 0.4325280723170322,
+    "total_variants_evaluated": 28016
+  }
+}
