@@ -520,6 +520,15 @@ events to prepare; they are a property the repository always has.
   `split_object_visible_never_active_fire_before_best_bridge`. No actor-causality, repair,
   population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance,
   commercial-value, or retuning claim.
+- Iteration 70 concluded:
+  experiments/iter70_hugsim_structural_timing_audit/RESULT.md, published as
+  `HUGSIM_STRUCTURAL_TIMING_TAXONOMY_COMPLETE` — an offline structural timing/support audit over
+  the five iteration-69 structural rows. It launched no GPU work and read no live box state. The
+  five rows split into two `foreground_present_surface_silent` rows, two
+  `foreground_present_late_fire` rows, and one `foreground_absent_background_only` row. Both
+  late-fire rows first fire `1.75 s` after first foreground timestamp. No actor-causality,
+  repair, population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance,
+  commercial-value, or retuning claim.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1756,4 +1765,12 @@ events to prepare; they are a property the repository always has.
   rows classified, with five structural rows preserved and all three classifiable foreground
   rows refined by downstream evidence. No GPU/gcloud/box read, no actor-causality, repair,
   population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance,
+  commercial-value, or retuning claim.
+- 2026-07-13: Codex — continued into iteration 70 as the HUGSIM structural-row timing audit
+  after iteration 69. Pre-registered ALONE (`b7cb588`), added analyzer/tests (`4ceb190`, 330
+  tests green before analysis), then ran the analyzer ONCE over committed iteration-59 proof and
+  iteration-69 taxonomy. Result: `HUGSIM_STRUCTURAL_TIMING_TAXONOMY_COMPLETE`; two structural
+  rows are foreground-present surface-silent, two are foreground-present late-fire (`+1.75 s`),
+  and one is foreground-absent/background-only. No GPU/gcloud/box read, no actor-causality,
+  repair, population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance,
   commercial-value, or retuning claim.

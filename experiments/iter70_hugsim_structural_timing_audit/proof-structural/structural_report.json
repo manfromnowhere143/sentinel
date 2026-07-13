@@ -1,0 +1,211 @@
+{
+  "claim_boundary": "five-row structural timing/support audit only; no actor-causality, repair, transfer, safety, deployment, robustness, benchmark, population, HD-Score-invariance, commercial-value, or retuning claim",
+  "episodes": [
+    {
+      "audit_id": "mixed_extreme",
+      "decision_log": {
+        "brake_frames": 0,
+        "fired_frames": 0,
+        "first_fire_channel": "no_fire",
+        "first_fire_ts": null,
+        "min_cpa": 1.7866701580913789,
+        "min_ttc": 1000000000.0,
+        "monitor_frames": 23,
+        "object_rows": 23,
+        "pre_or_at_foreground_fire_frames": 0
+      },
+      "episode_dir": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/episodes/mixed_extreme__scene-0062-extreme-00__on",
+      "fire_minus_foreground_s": null,
+      "iter59_support_label": "no_monitor_fire",
+      "pre_or_at_foreground_fire": false,
+      "problems": [],
+      "report": {
+        "brake_frames": 0,
+        "fired_frames": 0,
+        "first_fire_channel": "no_fire",
+        "first_fire_ts": null,
+        "first_foreground_ts": 4.75,
+        "foreground_count": 2,
+        "monitor_frames": 23,
+        "monitor_object_id": null,
+        "monitor_provenance_label": "no_fire"
+      },
+      "scenario": "scene-0062-extreme-00",
+      "structural_label": "foreground_present_surface_silent"
+    },
+    {
+      "audit_id": "both_distinct_extreme",
+      "decision_log": {
+        "brake_frames": 4,
+        "fired_frames": 3,
+        "first_fire_channel": "ttc_only",
+        "first_fire_ts": 7.0,
+        "min_cpa": 1.5143188050049101,
+        "min_ttc": 0.3390786500785834,
+        "monitor_frames": 32,
+        "object_rows": 29,
+        "pre_or_at_foreground_fire_frames": 0
+      },
+      "episode_dir": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/episodes/both_distinct_extreme__scene-0138-extreme-00__on",
+      "fire_minus_foreground_s": 1.75,
+      "iter59_support_label": "post_collision_fire",
+      "pre_or_at_foreground_fire": false,
+      "problems": [],
+      "report": {
+        "brake_frames": 4,
+        "fired_frames": 3,
+        "first_fire_channel": "ttc_only",
+        "first_fire_ts": 7.0,
+        "first_foreground_ts": 5.25,
+        "foreground_count": 10,
+        "monitor_frames": 32,
+        "monitor_object_id": 9,
+        "monitor_provenance_label": "unique_ttc_object"
+      },
+      "scenario": "scene-0138-extreme-00",
+      "structural_label": "foreground_present_late_fire"
+    },
+    {
+      "audit_id": "nofire_hard_control",
+      "decision_log": {
+        "brake_frames": 0,
+        "fired_frames": 0,
+        "first_fire_channel": "no_fire",
+        "first_fire_ts": null,
+        "min_cpa": 3.17400573263169,
+        "min_ttc": 3.3043635686667807,
+        "monitor_frames": 41,
+        "object_rows": 41,
+        "pre_or_at_foreground_fire_frames": 0
+      },
+      "episode_dir": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/episodes/nofire_hard_control__scene-0041-hard-00__on",
+      "fire_minus_foreground_s": null,
+      "iter59_support_label": "no_monitor_fire",
+      "pre_or_at_foreground_fire": false,
+      "problems": [],
+      "report": {
+        "brake_frames": 0,
+        "fired_frames": 0,
+        "first_fire_channel": "no_fire",
+        "first_fire_ts": null,
+        "first_foreground_ts": 2.5,
+        "foreground_count": 9,
+        "monitor_frames": 41,
+        "monitor_object_id": null,
+        "monitor_provenance_label": "no_fire"
+      },
+      "scenario": "scene-0041-hard-00",
+      "structural_label": "foreground_present_surface_silent"
+    },
+    {
+      "audit_id": "cpa_medium_a",
+      "decision_log": {
+        "brake_frames": 11,
+        "fired_frames": 4,
+        "first_fire_channel": "ttc_only",
+        "first_fire_ts": 3.5,
+        "min_cpa": 1.375675775707289,
+        "min_ttc": 0.878160292925732,
+        "monitor_frames": 73,
+        "object_rows": 72,
+        "pre_or_at_foreground_fire_frames": 0
+      },
+      "episode_dir": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/episodes/cpa_medium_a__scene-0071-medium-00__on",
+      "fire_minus_foreground_s": null,
+      "iter59_support_label": "background_collision_only",
+      "pre_or_at_foreground_fire": false,
+      "problems": [],
+      "report": {
+        "brake_frames": 11,
+        "fired_frames": 4,
+        "first_fire_channel": "ttc_only",
+        "first_fire_ts": 3.5,
+        "first_foreground_ts": null,
+        "foreground_count": 0,
+        "monitor_frames": 73,
+        "monitor_object_id": 11,
+        "monitor_provenance_label": "unique_ttc_object"
+      },
+      "scenario": "scene-0071-medium-00",
+      "structural_label": "foreground_absent_background_only"
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "decision_log": {
+        "brake_frames": 4,
+        "fired_frames": 4,
+        "first_fire_channel": "cpa_only",
+        "first_fire_ts": 5.0,
+        "min_cpa": 0.5186193566379855,
+        "min_ttc": 1.3459088904827474,
+        "monitor_frames": 24,
+        "object_rows": 23,
+        "pre_or_at_foreground_fire_frames": 0
+      },
+      "episode_dir": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/episodes/ttc_medium_a__scene-0071-medium-01__on",
+      "fire_minus_foreground_s": 1.75,
+      "iter59_support_label": "post_collision_fire",
+      "pre_or_at_foreground_fire": false,
+      "problems": [],
+      "report": {
+        "brake_frames": 4,
+        "fired_frames": 4,
+        "first_fire_channel": "cpa_only",
+        "first_fire_ts": 5.0,
+        "first_foreground_ts": 3.25,
+        "foreground_count": 10,
+        "monitor_frames": 24,
+        "monitor_object_id": 24,
+        "monitor_provenance_label": "unique_cpa_object"
+      },
+      "scenario": "scene-0071-medium-01",
+      "structural_label": "foreground_present_late_fire"
+    }
+  ],
+  "fixed_rows": [
+    {
+      "audit_id": "mixed_extreme",
+      "scenario": "scene-0062-extreme-00",
+      "support_label": "no_monitor_fire"
+    },
+    {
+      "audit_id": "both_distinct_extreme",
+      "scenario": "scene-0138-extreme-00",
+      "support_label": "post_collision_fire"
+    },
+    {
+      "audit_id": "nofire_hard_control",
+      "scenario": "scene-0041-hard-00",
+      "support_label": "no_monitor_fire"
+    },
+    {
+      "audit_id": "cpa_medium_a",
+      "scenario": "scene-0071-medium-00",
+      "support_label": "background_collision_only"
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "scenario": "scene-0071-medium-01",
+      "support_label": "post_collision_fire"
+    }
+  ],
+  "infra_problems": [],
+  "inputs": {
+    "iter59_report": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/actor_match_report.json",
+    "iter69_report": "experiments/iter69_hugsim_mechanism_taxonomy/proof-taxonomy/taxonomy_report.json"
+  },
+  "iteration": 70,
+  "summary": {
+    "background_only_rows": 1,
+    "evaluated_rows": 5,
+    "late_fire_rows": 2,
+    "structural_label_counts": {
+      "foreground_absent_background_only": 1,
+      "foreground_present_late_fire": 2,
+      "foreground_present_surface_silent": 2
+    },
+    "surface_silent_rows": 2,
+    "target_rows": 5
+  },
+  "verdict": "HUGSIM_STRUCTURAL_TIMING_TAXONOMY_COMPLETE"
+}

@@ -466,6 +466,11 @@ The result is `HUGSIM_MECHANISM_TAXONOMY_COMPLETE`: five structural rows remain 
 classifiable foreground rows are refined by downstream evidence into
 `nontrigger_visible_never_hazard`, `same_object_late_fire_after_best_bridge`, and
 `split_object_visible_never_active_fire_before_best_bridge`.
+Iteration 70 then refined the five structural rows. The result is
+`HUGSIM_STRUCTURAL_TIMING_TAXONOMY_COMPLETE`: two rows are
+`foreground_present_surface_silent`, two rows are `foreground_present_late_fire`, and one row is
+`foreground_absent_background_only`; both late-fire rows first fire `1.75 s` after the first
+foreground timestamp.
 
 The default next scientific line is therefore not an expanded-N transfer run and not retuning the
 released union. After iteration 61, the actor-match audit points to wrong-object/wrong-hazard
@@ -478,10 +483,10 @@ timestamps. Iteration 66 splits those rows into late-emerging target hazard and 
 target object. Iteration 67 shows the split-object row is not globally trigger-unsupported, but
 the trigger is unsupported at the actual first-fire timestamp. Iteration 68 shows the fire-time
 support gap itself splits into before-fire and after-fire timing misalignment. Iteration 69 turns
-that into the current eight-row taxonomy: three refined classifiable mechanisms plus five
-structural no-fire/post-fire/background-only rows. Any successor should be a fresh
-mechanism-cause pre-registration that explains or tests one of those categories, not threshold
-tuning. A strong
+that into the eight-row taxonomy, and iteration 70 refines the structural side into surface-silent,
+late-fire, and background-only branches. Any successor should be a fresh mechanism-cause
+pre-registration that explains or tests one of those specific branches, not threshold tuning. A
+strong
 successor should distinguish among:
 
 1. hazard surface: whether the monitor is braking for the wrong detected object or wrong path
@@ -524,9 +529,10 @@ visible-never-active target row is a trigger/target split at first fire, but not
 trigger-absence case: the trigger also has later bridge support. Iteration 68 decomposes the
 trigger fire-time gap into one before-fire and one after-fire best-support case, so the next
 mechanism question is not just "which object?" but why the fire timestamp is misaligned with
-the bridge-supported geometry. Iteration 69 packages the full row set into the current taxonomy;
-the next hypothesis should choose one taxonomy branch and name what new evidence would falsify
-it.
+the bridge-supported geometry. Iteration 69 packages the full row set into the taxonomy, and
+iteration 70 splits the remaining structural rows into surface-silent, late-fire, and
+background-only branches. The next hypothesis should choose one taxonomy branch and name what new
+evidence would falsify it.
 
 Any such line requires a fresh `HYPOTHESIS.md`. Until then, no new HUGSIM transfer, safety,
 robustness, deployment, benchmark-ranking, or retuning claim is authorized.
