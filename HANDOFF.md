@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Mon Jul 13 15:21:26 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Mon Jul 13 15:35:52 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+f9bb68d iter85: publish path horizon timing split
+2f43d57 iter85: add path horizon timing tooling
+91900b5 iter85: preregister path horizon timing split
+5431d0a docs: add frontier alignment memory capsule
+03c8ece handoff: record iter84 arbitration state
 d2f6393 iter84: publish selected support arbitration split
 ff87574 iter84: add selected support arbitration tooling
 c24b227 iter84: preregister selected support arbitration
-3f3e6d9 handoff: record frontier alignment state
-4f894ff docs: add frontier problem alignment pulse
-3ba1756 handoff: record iter83 surface miss state
-80026dc iter83: publish bridge-supported surface miss decomposition
-92b8f74 iter83: add bridge-supported surface miss tooling
 ```
 Working tree: CLEAN
 
@@ -101,6 +101,7 @@ Working tree: CLEAN
 - experiments/iter82_hugsim_support_surface_bridge_cooccurrence: RESULT PUBLISHED
 - experiments/iter83_hugsim_bridge_supported_surface_miss_decomposition: RESULT PUBLISHED
 - experiments/iter84_hugsim_selected_support_arbitration: RESULT PUBLISHED
+- experiments/iter85_hugsim_path_horizon_bridge_timing: RESULT PUBLISHED
 - experiments/iter8_union: RESULT PUBLISHED
 - experiments/iter9_evade: RESULT PUBLISHED
 - experiments/union_validation: RESULT PUBLISHED
@@ -110,7 +111,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 15:22:35 up 9 days,  5:03,  0 users,  load average: 0.00, 0.00, 0.00
+ 15:36:59 up 9 days,  5:18,  0 users,  load average: 0.00, 0.00, 0.00
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-iter59-actor-match.log
@@ -122,7 +123,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter84_hugsim_selected_support_arbitration/RESULT.md — read it before opening new work.
+- Newest completed experiment: experiments/iter85_hugsim_path_horizon_bridge_timing/RESULT.md — read it before opening new work.
 - Newest pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
