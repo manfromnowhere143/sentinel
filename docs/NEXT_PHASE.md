@@ -513,6 +513,11 @@ collision-provenance row, without filtering by class. The result is
 `HUGSIM_SELECTED_ALL_PROVENANCE_NO_SUPPORT_COMPLETE`: all eligible provenance rows in the fixed
 episodes are foreground (`30/30`), and all three selected objects remain outside even the
 ambiguous bridge band.
+Iteration 81 then followed the foreground-supported support objects through every committed ON
+decision frame. The result is `HUGSIM_SUPPORT_OBJECT_EVER_ACTIVE_COMPLETE`: the support-object
+side is mixed, with `both_distinct_extreme` object `9` becoming borderline at `5.5 s` and active
+at `7.0 s` after foreground support, while `ttc_medium_a` object `10` stays visible across
+`15` frames and never becomes active or borderline.
 
 The default next scientific line is therefore not an expanded-N transfer run and not retuning the
 released union. After iteration 61, the actor-match audit points to wrong-object/wrong-hazard
@@ -539,9 +544,11 @@ object set can contain bridge-supported objects. Iteration 78 shows those bridge
 objects are nonselected and subthreshold rather than already-active or borderline hazards.
 Iteration 79 shows the selected objects are active/borderline surface candidates while the
 foreground-supported objects stay subthreshold. Iteration 80 shows the selected objects also do
-not bridge to any logged provenance row in these fixed episodes. Any successor should be a fresh
-mechanism-cause pre-registration that explains this selected-surface/provenance split, or chooses
-another branch. A strong
+not bridge to any logged provenance row in these fixed episodes. Iteration 81 shows the
+support-object side is temporally mixed: one support object reaches the released surface only
+later, while another stays visible-never-surface. Any successor should be a fresh
+mechanism-cause pre-registration that explains this selected-surface/provenance/support-temporal
+split, or chooses another branch. A strong
 successor should distinguish among:
 
 1. hazard surface: whether the monitor is braking for the wrong detected object or wrong path
@@ -588,12 +595,13 @@ the bridge-supported geometry. Iteration 69 packages the full row set into the t
 iteration 70 splits the remaining structural rows into surface-silent, late-fire, and
 background-only branches. Iteration 71 closes the near-margin explanation for the surface-silent
 branch under the registered bands, and iteration 72 shows the late-fire rows are near but not
-crossing before contact. Iterations 73-80 refine the late-fire branch into cross-channel,
+crossing before contact. Iterations 73-81 refine the late-fire branch into cross-channel,
 cross-object, selected objects that are active/borderline but unsupported by any logged
 provenance row, plus separate full-set foreground support that remains nonselected and
-subthreshold. The next hypothesis should explain why released hazard-surface selection and
-logged collision provenance split across different objects at these event rows, or choose another
-branch and name what new evidence would falsify it.
+subthreshold or only late-surfacing. The next hypothesis should explain why released
+hazard-surface selection, logged collision provenance, and support-object temporal surface split
+across different objects at these event rows, or choose another branch and name what new evidence
+would falsify it.
 
 Any such line requires a fresh `HYPOTHESIS.md`. Until then, no new HUGSIM transfer, safety,
 robustness, deployment, benchmark-ranking, or retuning claim is authorized.

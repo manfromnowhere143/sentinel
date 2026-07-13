@@ -1,0 +1,211 @@
+{
+  "claim_boundary": "two-object descriptive temporal surface audit only; no actor-causality, repair, threshold-value, transfer, safety, deployment, robustness, benchmark, population, HD-Score-invariance, commercial-value, or retuning claim",
+  "fixed_support_objects": [
+    {
+      "audit_id": "both_distinct_extreme",
+      "scenario": "scene-0138-extreme-00",
+      "support_events": [
+        {
+          "event_ts": 5.0,
+          "role": "pre",
+          "selected_object_id": 5,
+          "support_band": "ambiguous"
+        }
+      ],
+      "support_object_id": 9
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "scenario": "scene-0071-medium-01",
+      "support_events": [
+        {
+          "event_ts": 2.5,
+          "role": "pre",
+          "selected_object_id": 6,
+          "support_band": "match"
+        },
+        {
+          "event_ts": 5.0,
+          "role": "active",
+          "selected_object_id": 24,
+          "support_band": "match"
+        }
+      ],
+      "support_object_id": 10
+    }
+  ],
+  "infra_problems": [],
+  "inputs": {
+    "iter59_report": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/actor_match_report.json",
+    "iter78_report": "experiments/iter78_hugsim_support_object_ranking/proof-ranking/ranking_report.json",
+    "iter79_report": "experiments/iter79_hugsim_selected_surface_decomposition/proof-selected/selected_report.json",
+    "iter80_report": "experiments/iter80_hugsim_selected_all_provenance_bridge/proof-all-provenance/all_provenance_report.json"
+  },
+  "iteration": 81,
+  "objects": [
+    {
+      "absent_frame_count": 23,
+      "active_frame_count": 3,
+      "audit_id": "both_distinct_extreme",
+      "best_cpa_frame": {
+        "cpa_active_logged_threshold": false,
+        "cpa_borderline_registered": false,
+        "cpa_rank": 1,
+        "frame_index": 29,
+        "min_cpa": 4.6300844503433005,
+        "relative_to_first_foreground": "after",
+        "state": "active",
+        "ts": 7.25,
+        "ttc": 1.1479245305493568,
+        "ttc_active_logged_threshold": true,
+        "ttc_borderline_registered": false,
+        "ttc_rank": 1
+      },
+      "best_ttc_frame": {
+        "cpa_active_logged_threshold": false,
+        "cpa_borderline_registered": false,
+        "cpa_rank": 2,
+        "frame_index": 30,
+        "min_cpa": 11.641265448817324,
+        "relative_to_first_foreground": "after",
+        "state": "active",
+        "ts": 7.5,
+        "ttc": 0.3390786500785835,
+        "ttc_active_logged_threshold": true,
+        "ttc_borderline_registered": false,
+        "ttc_rank": 1
+      },
+      "borderline_frame_count": 2,
+      "decision_frame_count": 32,
+      "first_active_frame": {
+        "cpa_active_logged_threshold": false,
+        "cpa_borderline_registered": false,
+        "cpa_rank": 2,
+        "frame_index": 28,
+        "min_cpa": 6.564718217642953,
+        "relative_to_first_foreground": "after",
+        "state": "active",
+        "ts": 7.0,
+        "ttc": 1.7413070186181279,
+        "ttc_active_logged_threshold": true,
+        "ttc_borderline_registered": false,
+        "ttc_rank": 1
+      },
+      "first_active_relative_to_first_foreground": "after",
+      "first_active_ts": 7.0,
+      "first_borderline_frame": {
+        "cpa_active_logged_threshold": false,
+        "cpa_borderline_registered": false,
+        "cpa_rank": 2,
+        "frame_index": 22,
+        "min_cpa": 21.520798149009224,
+        "relative_to_first_foreground": "after",
+        "state": "borderline",
+        "ts": 5.5,
+        "ttc": 4.776101409133555,
+        "ttc_active_logged_threshold": false,
+        "ttc_borderline_registered": true,
+        "ttc_rank": 1
+      },
+      "first_borderline_relative_to_first_foreground": "after",
+      "first_borderline_ts": 5.5,
+      "first_foreground_ts": 5.25,
+      "first_present_ts": 5.0,
+      "last_present_ts": 7.75,
+      "min_cpa": 4.6300844503433005,
+      "min_finite_ttc": 0.3390786500785835,
+      "present_frame_count": 9,
+      "problems": [],
+      "row_label": "support_object_ever_active",
+      "scenario": "scene-0138-extreme-00",
+      "support_events": [
+        {
+          "event_ts": 5.0,
+          "first_active_relative_to_event": "after",
+          "first_borderline_relative_to_event": "after",
+          "iter78_row_label": "support_object_nonselected_subthreshold",
+          "iter79_support_state": "subthreshold",
+          "iter80_row_label": "selected_all_provenance_no_support",
+          "role": "pre",
+          "selected_object_id": 5,
+          "support_band": "ambiguous"
+        }
+      ],
+      "support_object_id": 9
+    },
+    {
+      "absent_frame_count": 9,
+      "active_frame_count": 0,
+      "audit_id": "ttc_medium_a",
+      "best_cpa_frame": {
+        "cpa_active_logged_threshold": false,
+        "cpa_borderline_registered": false,
+        "cpa_rank": 2,
+        "frame_index": 15,
+        "min_cpa": 7.246414433836578,
+        "relative_to_first_foreground": "after",
+        "state": "subthreshold",
+        "ts": 3.75,
+        "ttc": null,
+        "ttc_active_logged_threshold": false,
+        "ttc_borderline_registered": false,
+        "ttc_rank": null
+      },
+      "best_ttc_frame": null,
+      "borderline_frame_count": 0,
+      "decision_frame_count": 24,
+      "first_active_frame": null,
+      "first_active_relative_to_first_foreground": "none",
+      "first_active_ts": null,
+      "first_borderline_frame": null,
+      "first_borderline_relative_to_first_foreground": "none",
+      "first_borderline_ts": null,
+      "first_foreground_ts": 3.25,
+      "first_present_ts": 2.25,
+      "last_present_ts": 5.75,
+      "min_cpa": 7.246414433836578,
+      "min_finite_ttc": null,
+      "present_frame_count": 15,
+      "problems": [],
+      "row_label": "support_object_visible_never_surface",
+      "scenario": "scene-0071-medium-01",
+      "support_events": [
+        {
+          "event_ts": 2.5,
+          "first_active_relative_to_event": "none",
+          "first_borderline_relative_to_event": "none",
+          "iter78_row_label": "support_object_nonselected_subthreshold",
+          "iter79_support_state": "subthreshold",
+          "iter80_row_label": "selected_all_provenance_no_support",
+          "role": "pre",
+          "selected_object_id": 6,
+          "support_band": "match"
+        },
+        {
+          "event_ts": 5.0,
+          "first_active_relative_to_event": "none",
+          "first_borderline_relative_to_event": "none",
+          "iter78_row_label": "support_object_nonselected_subthreshold",
+          "iter79_support_state": "subthreshold",
+          "iter80_row_label": "selected_all_provenance_no_support",
+          "role": "active",
+          "selected_object_id": 24,
+          "support_band": "match"
+        }
+      ],
+      "support_object_id": 10
+    }
+  ],
+  "summary": {
+    "borderline_only_objects": 0,
+    "evaluated_objects": 2,
+    "ever_active_objects": 1,
+    "object_label_counts": {
+      "support_object_ever_active": 1,
+      "support_object_visible_never_surface": 1
+    },
+    "target_objects": 2,
+    "visible_never_surface_objects": 1
+  },
+  "verdict": "HUGSIM_SUPPORT_OBJECT_EVER_ACTIVE_COMPLETE"
+}
