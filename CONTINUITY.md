@@ -2048,3 +2048,10 @@ events to prepare; they are a property the repository always has.
   actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/
   robustness/benchmark/HD-Score-invariance, commercial-value, real-world/first-responder behavior,
   or retuning claim.
+- 2026-07-13: Codex — added `docs/research/FRONTIER_ALIGNMENT_MEMORY_2026-07-13.md` as a
+  durable compressed memory capsule of the wide frontier pass. It records the reusable lessons:
+  long-tail failure discovery, validation/falsification/safety cases, supervised-autonomy claim
+  discipline, world-model simulation as later infrastructure, first-responder operational
+  semantics as uncovered scope, and Sentinel's defensible niche as runtime monitor/failure
+  localization/evidence ledger. It authorizes no run or claim; it is recall infrastructure for
+  future sessions.
