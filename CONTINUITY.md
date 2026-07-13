@@ -557,6 +557,16 @@ events to prepare; they are a property the repository always has.
   `+1.75 s` after first foreground timestamp. No actor-causality, repair, threshold-value,
   population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance,
   commercial-value, or retuning claim.
+- Iteration 74 concluded:
+  experiments/iter74_hugsim_late_fire_delay_barrier/RESULT.md, published as
+  `HUGSIM_LATE_FIRE_CROSS_CHANNEL_DELAY_COMPLETE` — an offline delay-barrier audit over the two
+  iteration-70 foreground-present late-fire rows. It launched no GPU work and read no live box
+  state. Both rows classify `cross_channel_late_activation`: `both_distinct_extreme` is CPA-near
+  before contact and TTC-active after contact, while `ttc_medium_a` is TTC-near before contact
+  and CPA-active after contact. Both first active crossings remain `+1.75 s` after first
+  foreground timestamp. No actor-causality, repair, threshold-value, population-rate,
+  safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value, or
+  retuning claim.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1826,3 +1836,12 @@ events to prepare; they are a property the repository always has.
   contact and first active only `+1.75 s` after first foreground timestamp. No GPU/gcloud/box
   read, no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/
   robustness/benchmark/HD-Score-invariance, commercial-value, or retuning claim.
+- 2026-07-13: Codex — continued into iteration 74 as the HUGSIM late-fire delay-barrier audit
+  after iteration 73. Pre-registered ALONE (`667f45f`), added analyzer/tests (`91fb28f`, 343
+  tests green before analysis), then ran the analyzer ONCE over committed iteration-59 proof plus
+  iteration-70/72/73 reports. Result: `HUGSIM_LATE_FIRE_CROSS_CHANNEL_DELAY_COMPLETE`; both
+  late-fire rows are cross-channel delay cases: CPA-near to TTC-active for
+  `both_distinct_extreme`, and TTC-near to CPA-active for `ttc_medium_a`. No GPU/gcloud/box read,
+  no actor-causality, repair, threshold-value, population-rate,
+  safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value, or
+  retuning claim.

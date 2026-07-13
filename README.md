@@ -4,7 +4,7 @@
 collision it is about to cause, and intervenes — measured where it actually matters: in closed
 loop, by whether the car crashes *and whether it can still drive*.**
 
-> **Honest status up front (73 registered iterations: 42 completed mechanism iterations + an
+> **Honest status up front (74 registered iterations: 43 completed mechanism iterations + an
 > independent verification pass +
 > the full official benchmark at power + a completed iteration-37 calibration null + an
 > iteration-38 opposite-direction S0 canary pass + completed iteration-39/40/41 defensibility
@@ -158,6 +158,12 @@ loop, by whether the car crashes *and whether it can still drive*.**
 > after contact; no threshold-value, repair, actor-causality, safety, transfer, deployment,
 > benchmark, population, commercial-value, or
 > retuning
+> claim — + a completed iteration-74 HUGSIM late-fire delay-barrier audit: both late-fire rows
+> are cross-channel delay cases — `both_distinct_extreme` is CPA-near before contact but
+> TTC-active after contact, while `ttc_medium_a` is TTC-near before contact but CPA-active after
+> contact; no threshold-value, repair, actor-causality, safety, transfer, deployment, benchmark,
+> population, commercial-value, or
+> retuning
 > claim):**
 > the introspective signal predicts the planner's collisions (AUROC 0.83). On the
 > complete 14-scene NeuroNCAP set at **20 seed-paired runs per pair** (799 episodes, the power
@@ -199,7 +205,7 @@ single-digit GPUs.
 
 ## The result
 
-Seventy-three registered iterations — forty-two completed mechanism iterations, plus the completed defensibility, robustness, and transfer gates of iterations 39-73 — under frozen pre-registrations converge on one closed-loop configuration — the
+Seventy-four registered iterations — forty-three completed mechanism iterations, plus the completed defensibility, robustness, and transfer gates of iterations 39-74 — under frozen pre-registrations converge on one closed-loop configuration — the
 **released union** (two label-free geometric detectors + a threat-cleared latch release) —
 measured on the **complete official 14-scene NeuroNCAP set at 20 seed-paired runs per pair**
 (799 episodes; hypotheses frozen before the run; the first 6 indices of every pair reproduce the
@@ -349,6 +355,7 @@ flowchart LR
   A70 --> A71["71"]
   A71 --> A72["72"]
   A72 --> A73["73"]
+  A73 --> A74["74"]
 ```
 
 The winning monitor is a **union of two individually-selective detectors**, chosen because the two
@@ -491,6 +498,7 @@ step; they are intentional stops, not hidden probe failures or unreported GPU ru
 | 71 | **HUGSIM surface-silent margin audit** — test the two foreground-present no-fire rows against frozen CPA/TTC margins before foreground contact | committed iteration-59 proof/report and iteration-70 structural timing report only; descriptive bands, not candidate thresholds | both fixed rows classify `surface_silent_far_margin`; no near-margin rows and no no-object rows; closest margins: `mixed_extreme` CPA `+2.6062 m`, `nofire_hard_control` TTC `+3.4560 s` and CPA `+6.4779 m` | **`HUGSIM_SURFACE_SILENT_MARGIN_COMPLETE` — the no-fire foreground rows are not small threshold misses under the registered bands** | two-row descriptive margin audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/retuning claim. [`iter71_hugsim_surface_silent_margin_audit`](experiments/iter71_hugsim_surface_silent_margin_audit/RESULT.md) |
 | 72 | **HUGSIM late-fire prefire margin audit** — test the two foreground-present late-fire rows against frozen CPA/TTC margins before foreground contact | committed iteration-59 proof/report and iteration-70 structural timing report only; descriptive bands, not candidate thresholds | both fixed rows classify near-margin before contact: `both_distinct_extreme` near CPA (`+0.5355 m`), `ttc_medium_a` near TTC (`+0.7742 s`); both first fires occur `+1.75 s` after foreground | **`HUGSIM_LATE_FIRE_PREFIRE_MARGIN_COMPLETE` — late-fire rows are near but not crossing before contact, unlike the far-margin no-fire rows** | two-row descriptive prefire margin audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/retuning claim. [`iter72_hugsim_late_fire_prefire_margin_audit`](experiments/iter72_hugsim_late_fire_prefire_margin_audit/RESULT.md) |
 | 73 | **HUGSIM structural margin-transition audit** — compare all four foreground-present structural rows on full decision-log margin timelines | committed iteration-59 proof/report plus iteration-70/71/72 reports only; full-log first-near and first-active timestamps relative to foreground contact | exact split: surface-silent rows are `silent_far_never_active` 2/2; late-fire rows are `late_prefire_near_postcontact_active` 2/2; late rows first active at `+1.75 s` | **`HUGSIM_MARGIN_TRANSITION_SPLIT_COMPLETE` — structural branch contrast is far/never-active vs near-before-contact/postcontact-active** | four-row descriptive margin-transition audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/retuning claim. [`iter73_hugsim_margin_transition_audit`](experiments/iter73_hugsim_margin_transition_audit/RESULT.md) |
+| 74 | **HUGSIM late-fire delay-barrier audit** — classify whether the two late-fire rows are same-channel or cross-channel post-contact activations | committed iteration-59 proof/report plus iteration-70/72/73 reports only; pre-contact near-channel sets vs first-active channel sets | both fixed rows classify `cross_channel_late_activation`: `both_distinct_extreme` CPA-near -> TTC-active, `ttc_medium_a` TTC-near -> CPA-active; both first active at `+1.75 s` | **`HUGSIM_LATE_FIRE_CROSS_CHANNEL_DELAY_COMPLETE` — the late-fire barrier is cross-channel in both fixed rows, not same-channel drift over threshold** | two-row descriptive delay-barrier audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/retuning claim. [`iter74_hugsim_late_fire_delay_barrier`](experiments/iter74_hugsim_late_fire_delay_barrier/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -744,6 +752,8 @@ first foreground contact.
 Iteration 73 then put all four foreground-present structural rows on one transition timeline:
 the silent rows never become active anywhere in the committed decision logs, while the late-fire
 rows are near before contact and first active only `+1.75 s` after contact.
+Iteration 74 then classified the two late-fire rows' delay barrier: both are cross-channel cases,
+with CPA-near becoming TTC-active in one row and TTC-near becoming CPA-active in the other.
 This is a mechanism-cause audit, not a repair or population-rate claim. Successors now require
 fresh pre-registrations. The
 published RealADSim closed-loop anchor range remains loose context only —
@@ -1170,6 +1180,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter71_hugsim_surface_silent_margin_audit/`](experiments/iter71_hugsim_surface_silent_margin_audit) | HUGSIM surface-silent margin audit — HUGSIM_SURFACE_SILENT_MARGIN_COMPLETE: both foreground-present no-fire rows are far from the frozen CPA/TTC trigger surfaces before foreground contact |
 | [`experiments/iter72_hugsim_late_fire_prefire_margin_audit/`](experiments/iter72_hugsim_late_fire_prefire_margin_audit) | HUGSIM late-fire prefire margin audit — HUGSIM_LATE_FIRE_PREFIRE_MARGIN_COMPLETE: both foreground-present late-fire rows are near, but not crossing, a frozen trigger surface before foreground contact |
 | [`experiments/iter73_hugsim_margin_transition_audit/`](experiments/iter73_hugsim_margin_transition_audit) | HUGSIM structural margin-transition audit — HUGSIM_MARGIN_TRANSITION_SPLIT_COMPLETE: foreground structural rows split into silent far/never-active versus late near-precontact/postcontact-active timelines |
+| [`experiments/iter74_hugsim_late_fire_delay_barrier/`](experiments/iter74_hugsim_late_fire_delay_barrier) | HUGSIM late-fire delay-barrier audit — HUGSIM_LATE_FIRE_CROSS_CHANNEL_DELAY_COMPLETE: both fixed late-fire rows are cross-channel activations from pre-contact near channel to post-contact active channel |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/FRONTIER_POSITIONING_2026-07-11.md`](docs/research/FRONTIER_POSITIONING_2026-07-11.md) | source-verified mid-2026 benchmark/monitor/industry positioning; the binding 2.91-is-not-benchmark-SOTA framing rule |

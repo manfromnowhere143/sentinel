@@ -1,0 +1,114 @@
+{
+  "claim_boundary": "two-row descriptive delay-barrier audit only; no actor-causality, repair, threshold-value, transfer, safety, deployment, robustness, benchmark, population, HD-Score-invariance, commercial-value, or retuning claim",
+  "episodes": [
+    {
+      "audit_id": "both_distinct_extreme",
+      "first_fire_ts": 7.0,
+      "first_foreground_ts": 5.25,
+      "problems": [],
+      "row_label": "cross_channel_late_activation",
+      "scenario": "scene-0138-extreme-00",
+      "timeline": {
+        "closest_pre_cpa_margin_m": 0.5354586791404059,
+        "closest_pre_cpa_ts": 5.0,
+        "closest_pre_cpa_value_m": 2.035458679140406,
+        "closest_pre_ttc_margin_s": null,
+        "closest_pre_ttc_ts": null,
+        "closest_pre_ttc_value_s": null,
+        "cpa_margin": 1.5,
+        "fired_frames": 3,
+        "first_active_channels": [
+          "ttc"
+        ],
+        "first_active_cpa_ts": null,
+        "first_active_offset_s": 1.75,
+        "first_active_relation_to_foreground": "after",
+        "first_active_ts": 7.0,
+        "first_active_ttc_ts": 7.0,
+        "first_fire_ts": 7.0,
+        "monitor_frames": 32,
+        "object_rows": 29,
+        "pre_foreground_active_any": false,
+        "pre_foreground_active_cpa": false,
+        "pre_foreground_active_ttc": false,
+        "pre_foreground_frames": 21,
+        "pre_foreground_near_channels": [
+          "cpa"
+        ],
+        "pre_foreground_near_cpa": true,
+        "pre_foreground_near_ttc": false,
+        "pre_foreground_object_rows": 20,
+        "ttc_thresh": 2.5
+      }
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "first_fire_ts": 5.0,
+      "first_foreground_ts": 3.25,
+      "problems": [],
+      "row_label": "cross_channel_late_activation",
+      "scenario": "scene-0071-medium-01",
+      "timeline": {
+        "closest_pre_cpa_margin_m": 3.0137256446355645,
+        "closest_pre_cpa_ts": 2.25,
+        "closest_pre_cpa_value_m": 4.5137256446355645,
+        "closest_pre_ttc_margin_s": 0.7742114811096417,
+        "closest_pre_ttc_ts": 2.5,
+        "closest_pre_ttc_value_s": 3.2742114811096417,
+        "cpa_margin": 1.5,
+        "fired_frames": 4,
+        "first_active_channels": [
+          "cpa"
+        ],
+        "first_active_cpa_ts": 5.0,
+        "first_active_offset_s": 1.75,
+        "first_active_relation_to_foreground": "after",
+        "first_active_ts": 5.0,
+        "first_active_ttc_ts": 5.5,
+        "first_fire_ts": 5.0,
+        "monitor_frames": 24,
+        "object_rows": 23,
+        "pre_foreground_active_any": false,
+        "pre_foreground_active_cpa": false,
+        "pre_foreground_active_ttc": false,
+        "pre_foreground_frames": 13,
+        "pre_foreground_near_channels": [
+          "ttc"
+        ],
+        "pre_foreground_near_cpa": false,
+        "pre_foreground_near_ttc": true,
+        "pre_foreground_object_rows": 12,
+        "ttc_thresh": 2.5
+      }
+    }
+  ],
+  "fixed_rows": [
+    {
+      "audit_id": "both_distinct_extreme",
+      "scenario": "scene-0138-extreme-00"
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "scenario": "scene-0071-medium-01"
+    }
+  ],
+  "infra_problems": [],
+  "inputs": {
+    "iter59_report": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/actor_match_report.json",
+    "iter70_report": "experiments/iter70_hugsim_structural_timing_audit/proof-structural/structural_report.json",
+    "iter72_report": "experiments/iter72_hugsim_late_fire_prefire_margin_audit/proof-prefire/prefire_report.json",
+    "iter73_report": "experiments/iter73_hugsim_margin_transition_audit/proof-transition/transition_report.json"
+  },
+  "iteration": 74,
+  "summary": {
+    "cross_channel_late_activation_rows": 2,
+    "dual_near_late_activation_rows": 0,
+    "evaluated_rows": 2,
+    "row_label_counts": {
+      "cross_channel_late_activation": 2
+    },
+    "same_channel_late_activation_rows": 0,
+    "target_rows": 2
+  },
+  "verdict": "HUGSIM_LATE_FIRE_CROSS_CHANNEL_DELAY_COMPLETE"
+}

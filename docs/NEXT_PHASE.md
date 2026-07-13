@@ -483,6 +483,10 @@ margin timelines. The result is `HUGSIM_MARGIN_TRANSITION_SPLIT_COMPLETE`: the t
 surface-silent rows are `silent_far_never_active`, while the two late-fire rows are
 `late_prefire_near_postcontact_active`; first active crossing in both late-fire rows is
 `+1.75 s` after foreground contact.
+Iteration 74 then classified the two late-fire rows' delay barrier. The result is
+`HUGSIM_LATE_FIRE_CROSS_CHANNEL_DELAY_COMPLETE`: both fixed rows are cross-channel activations,
+with `both_distinct_extreme` CPA-near before contact then TTC-active after contact, and
+`ttc_medium_a` TTC-near before contact then CPA-active after contact.
 
 The default next scientific line is therefore not an expanded-N transfer run and not retuning the
 released union. After iteration 61, the actor-match audit points to wrong-object/wrong-hazard
@@ -500,9 +504,11 @@ late-fire, and background-only branches. Iteration 71 shows the surface-silent b
 small threshold miss under the registered descriptive bands, while iteration 72 shows the
 late-fire branch is near-but-not-crossing before contact. Iteration 73 shows the branch
 difference is not generic threshold tuning: the silent branch never crosses an active surface,
-while the late-fire branch is near pre-contact but active only post-contact. Any successor should
-be a fresh mechanism-cause pre-registration that explains or tests why near pre-contact does not
-cross until after contact, or chooses another branch. A strong
+while the late-fire branch is near pre-contact but active only post-contact. Iteration 74 shows
+that the two late-fire rows are not same-channel threshold-drift cases; the pre-contact near
+channel differs from the post-contact active channel in both rows. Any successor should be a fresh
+mechanism-cause pre-registration that explains or tests cross-channel handoff, tests foreground
+object/path geometry around that handoff, or chooses another branch. A strong
 successor should distinguish among:
 
 1. hazard surface: whether the monitor is braking for the wrong detected object or wrong path
