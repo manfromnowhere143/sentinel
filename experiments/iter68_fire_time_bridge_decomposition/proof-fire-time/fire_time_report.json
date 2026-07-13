@@ -1,0 +1,189 @@
+{
+  "claim_boundary": "two-row fire-time bridge decomposition audit only; no transfer, safety, deployment, benchmark, actor-causality, repair, population, HD-Score-invariance, or retuning claim",
+  "episodes": [
+    {
+      "audit_id": "ttc_extreme_short",
+      "best_decision_relative_to_fire": "before",
+      "best_decision_ts": 0.25,
+      "best_foreground_ts": 2.75,
+      "best_lead_time_s": 2.5,
+      "best_temporal_source": "propagated_to_foreground",
+      "decision_delta_s": -1.25,
+      "distance_improvement_m": 5.255401886056369,
+      "fire_time_best_variant": {
+        "axis_order": "yx",
+        "decision_ts": 1.5,
+        "distance_m": 6.927225576937264,
+        "foreground_obs_index": 0,
+        "foreground_obs_name": "car",
+        "foreground_timestamp": 4.0,
+        "forward_sign": -1,
+        "frame_index": 6,
+        "hugsim_forward_lateral": [
+          5.3116230964660645,
+          0.5900144577026367
+        ],
+        "lateral_sign": 1,
+        "lead_time_s": 2.5,
+        "monitor_forward_lateral": [
+          11.902968944395841,
+          2.7208861353859044
+        ],
+        "object_id": 2,
+        "object_score": 0.8083551526069641,
+        "temporal_source": "frame_time"
+      },
+      "fire_time_distance_label": "no_support",
+      "fire_time_distance_m": 6.927225576937264,
+      "fire_time_foreground_ts": 4.0,
+      "fire_time_lead_time_s": 2.5,
+      "fire_time_temporal_source": "frame_time",
+      "first_fire_ts": 1.5,
+      "foreground_delta_s": -1.25,
+      "full_window_best_distance_label": "match",
+      "full_window_best_distance_m": 1.6718236908808954,
+      "problems": [],
+      "row_label": "fire_gap_best_before_fire",
+      "scenario": "scene-0038-extreme-00",
+      "trigger_best_variant": {
+        "axis_order": "yx",
+        "decision_ts": 0.25,
+        "distance_m": 1.6718236908808954,
+        "foreground_obs_index": 0,
+        "foreground_obs_name": "car",
+        "foreground_timestamp": 2.75,
+        "forward_sign": -1,
+        "frame_index": 1,
+        "hugsim_forward_lateral": [
+          4.429542064666748,
+          0.006428246386349201
+        ],
+        "lateral_sign": -1,
+        "lead_time_s": 2.5,
+        "monitor_forward_lateral": [
+          5.855110293576161,
+          0.8797836597861279
+        ],
+        "object_id": 2,
+        "object_score": 0.8884814381599426,
+        "temporal_source": "propagated_to_foreground"
+      },
+      "trigger_object_id": 2,
+      "vector_delta": {
+        "hugsim_forward_delta": -0.8820810317993164,
+        "hugsim_lateral_delta": -0.5835862113162875,
+        "monitor_forward_delta": -6.04785865081968,
+        "monitor_lateral_delta": -1.8411024755997765
+      }
+    },
+    {
+      "audit_id": "cpa_medium_b",
+      "best_decision_relative_to_fire": "after",
+      "best_decision_ts": 2.25,
+      "best_foreground_ts": 8.0,
+      "best_lead_time_s": 5.75,
+      "best_temporal_source": "propagated_to_foreground",
+      "decision_delta_s": 2.0,
+      "distance_improvement_m": 16.86509247184937,
+      "fire_time_best_variant": {
+        "axis_order": "yx",
+        "decision_ts": 0.25,
+        "distance_m": 19.69826047075051,
+        "foreground_obs_index": 0,
+        "foreground_obs_name": "car",
+        "foreground_timestamp": 6.25,
+        "forward_sign": 1,
+        "frame_index": 1,
+        "hugsim_forward_lateral": [
+          30.0,
+          -0.0
+        ],
+        "lateral_sign": -1,
+        "lead_time_s": 6.0,
+        "monitor_forward_lateral": [
+          11.656208359062255,
+          -7.178215224371207
+        ],
+        "object_id": 1,
+        "object_score": 0.5972379446029663,
+        "temporal_source": "frame_time"
+      },
+      "fire_time_distance_label": "no_support",
+      "fire_time_distance_m": 19.69826047075051,
+      "fire_time_foreground_ts": 6.25,
+      "fire_time_lead_time_s": 6.0,
+      "fire_time_temporal_source": "frame_time",
+      "first_fire_ts": 0.25,
+      "foreground_delta_s": 1.75,
+      "full_window_best_distance_label": "match",
+      "full_window_best_distance_m": 2.833167998901139,
+      "problems": [],
+      "row_label": "fire_gap_best_after_fire",
+      "scenario": "scene-0166-medium-00",
+      "trigger_best_variant": {
+        "axis_order": "yx",
+        "decision_ts": 2.25,
+        "distance_m": 2.833167998901139,
+        "foreground_obs_index": 0,
+        "foreground_obs_name": "car",
+        "foreground_timestamp": 8.0,
+        "forward_sign": 1,
+        "frame_index": 9,
+        "hugsim_forward_lateral": [
+          30.0,
+          -0.0
+        ],
+        "lateral_sign": -1,
+        "lead_time_s": 5.75,
+        "monitor_forward_lateral": [
+          28.23943915368046,
+          2.21974467369653
+        ],
+        "object_id": 1,
+        "object_score": 0.7668315172195435,
+        "temporal_source": "propagated_to_foreground"
+      },
+      "trigger_object_id": 1,
+      "vector_delta": {
+        "hugsim_forward_delta": 0.0,
+        "hugsim_lateral_delta": 0.0,
+        "monitor_forward_delta": 16.583230794618206,
+        "monitor_lateral_delta": 9.397959898067736
+      }
+    }
+  ],
+  "expected_targets": [
+    {
+      "audit_id": "ttc_extreme_short",
+      "scenario": "scene-0038-extreme-00",
+      "trigger_object_id": 2
+    },
+    {
+      "audit_id": "cpa_medium_b",
+      "scenario": "scene-0166-medium-00",
+      "trigger_object_id": 1
+    }
+  ],
+  "infra_problems": [],
+  "inputs": {
+    "iter59_report": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/actor_match_report.json",
+    "iter61_report": "experiments/iter61_monitor_object_surface_audit/proof-object-surface/object_surface_report.json",
+    "iter64_report": "experiments/iter64_unsupported_temporal_surface_audit/proof-unsupported-temporal/unsupported_temporal_report.json",
+    "iter65_report": "experiments/iter65_temporal_alignment_audit/proof-alignment/temporal_alignment_report.json",
+    "iter66_report": "experiments/iter66_matched_object_timeline_audit/proof-timeline/timeline_report.json",
+    "iter67_report": "experiments/iter67_trigger_target_bridge_audit/proof-trigger-target/trigger_target_report.json"
+  },
+  "iteration": 68,
+  "summary": {
+    "after_fire_rows": 1,
+    "before_fire_rows": 1,
+    "evaluated_rows": 2,
+    "median_distance_improvement_m": 16.86509247184937,
+    "row_label_counts": {
+      "fire_gap_best_after_fire": 1,
+      "fire_gap_best_before_fire": 1
+    },
+    "target_rows": 2
+  },
+  "verdict": "FIRE_TIME_BRIDGE_GAP_TEMPORAL_SPLIT_COMPLETE"
+}

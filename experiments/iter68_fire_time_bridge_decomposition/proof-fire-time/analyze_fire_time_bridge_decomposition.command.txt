@@ -1,0 +1,21 @@
+Working directory:
+/Users/danielwahnich/workspace/sentinel
+
+Command:
+python3 experiments/iter68_fire_time_bridge_decomposition/analyze_fire_time_bridge_decomposition.py --iter59-report experiments/iter59_hugsim_actor_match_audit/proof-actor-match/actor_match_report.json --iter61-report experiments/iter61_monitor_object_surface_audit/proof-object-surface/object_surface_report.json --iter64-report experiments/iter64_unsupported_temporal_surface_audit/proof-unsupported-temporal/unsupported_temporal_report.json --iter65-report experiments/iter65_temporal_alignment_audit/proof-alignment/temporal_alignment_report.json --iter66-report experiments/iter66_matched_object_timeline_audit/proof-timeline/timeline_report.json --iter67-report experiments/iter67_trigger_target_bridge_audit/proof-trigger-target/trigger_target_report.json --out experiments/iter68_fire_time_bridge_decomposition/proof-fire-time/fire_time_report.json --markdown-out experiments/iter68_fire_time_bridge_decomposition/proof-fire-time/fire_time.md
+
+Observed stdout:
+{
+  "verdict": "FIRE_TIME_BRIDGE_GAP_TEMPORAL_SPLIT_COMPLETE",
+  "summary": {
+    "target_rows": 2,
+    "evaluated_rows": 2,
+    "row_label_counts": {
+      "fire_gap_best_after_fire": 1,
+      "fire_gap_best_before_fire": 1
+    },
+    "before_fire_rows": 1,
+    "after_fire_rows": 1,
+    "median_distance_improvement_m": 16.86509247184937
+  }
+}

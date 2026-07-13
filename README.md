@@ -4,7 +4,7 @@
 collision it is about to cause, and intervenes — measured where it actually matters: in closed
 loop, by whether the car crashes *and whether it can still drive*.**
 
-> **Honest status up front (67 registered iterations: 37 completed mechanism iterations + an
+> **Honest status up front (68 registered iterations: 37 completed mechanism iterations + an
 > independent verification pass +
 > the full official benchmark at power + a completed iteration-37 calibration null + an
 > iteration-38 opposite-direction S0 canary pass + completed iteration-39/40/41 defensibility
@@ -122,6 +122,11 @@ loop, by whether the car crashes *and whether it can still drive*.**
 > support at the actual first-fire timestamp; no repair, actor-causality, safety, transfer,
 > deployment, benchmark, population, or
 > retuning
+> claim — + a completed iteration-68 fire-time bridge decomposition audit: the fire-time bridge
+> gap splits temporally, with `ttc_extreme_short` best trigger support `1.25 s` before first fire
+> and `cpa_medium_b` best trigger support `2.00 s` after first fire; no repair, actor-causality,
+> safety, transfer, deployment, benchmark, population, or
+> retuning
 > claim):**
 > the introspective signal predicts the planner's collisions (AUROC 0.83). On the
 > complete 14-scene NeuroNCAP set at **20 seed-paired runs per pair** (799 episodes, the power
@@ -163,7 +168,7 @@ single-digit GPUs.
 
 ## The result
 
-Sixty-seven registered iterations — thirty-seven completed mechanism iterations, plus the completed defensibility, robustness, and transfer gates of iterations 39-67 — under frozen pre-registrations converge on one closed-loop configuration — the
+Sixty-eight registered iterations — thirty-seven completed mechanism iterations, plus the completed defensibility, robustness, and transfer gates of iterations 39-68 — under frozen pre-registrations converge on one closed-loop configuration — the
 **released union** (two label-free geometric detectors + a threat-cleared latch release) —
 measured on the **complete official 14-scene NeuroNCAP set at 20 seed-paired runs per pair**
 (799 episodes; hypotheses frozen before the run; the first 6 indices of every pair reproduce the
@@ -307,6 +312,7 @@ flowchart LR
   A64 --> A65["65"]
   A65 --> A66["66"]
   A66 --> A67["67"]
+  A67 --> A68["68"]
   classDef ask fill:#ffe,stroke:#a70,color:#111;
   classDef audit fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
   classDef win fill:#efe,stroke:#080,color:#111;
@@ -315,7 +321,7 @@ flowchart LR
   class A39,A40,A41 audit;
   class A42,A45,A47 win;
   class A43,A44,A46,A48,A49,A56 bad;
-  class A50,A51,A52,A53,A54,A55,A57,A58,A59,A60,A61,A62,A63,A64,A65,A66,A67 audit;
+  class A50,A51,A52,A53,A54,A55,A57,A58,A59,A60,A61,A62,A63,A64,A65,A66,A67,A68 audit;
 ```
 
 The winning monitor is a **union of two individually-selective detectors**, chosen because the two
@@ -452,6 +458,7 @@ step; they are intentional stops, not hidden probe failures or unreported GPU ru
 | 65 | **Matched pre-contact temporal alignment audit** — reconstruct released CPA/TTC metrics for the two Iter64 matched objects at their matched decision timestamps | committed iteration-59/61/64 proof only; targets `ttc_extreme_short` `object_id=2` and `cpa_medium_b` `object_id=6` | both rows classify `matched_object_subthreshold`; `object_id=2` at `0.25 s`: min CPA `12.7240 m`, TTC `3.5763 s`; `object_id=6` at `2.25 s`: min CPA `9.3179 m`, TTC `null`; one matched object later equals first-fire object | **`TEMPORAL_ALIGNMENT_SUBTHRESHOLD_COMPLETE` — the pre-contact matches are visible geometry, not active released-union hazards at their matched timestamps** | two-row temporal/provenance alignment audit only; no actor-causality, repair, population mismatch-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/retuning claim. [`iter65_temporal_alignment_audit`](experiments/iter65_temporal_alignment_audit/RESULT.md) |
 | 66 | **Matched-object hazard timeline audit** — follow the two Iter65 target objects across every pre-contact decision frame | committed iteration-59/61/64/65 proof only; targets `ttc_extreme_short` `object_id=2` and `cpa_medium_b` `object_id=6`; released CPA/TTC thresholds unchanged | mixed labels: `object_id=2` becomes active TTC hazard at `1.50 s` after borderline frames at `0.25 s` and `0.50 s`; `object_id=6` is present in `13/25` pre-contact frames with zero active or borderline frames | **`MATCHED_OBJECT_TIMELINE_MIXED_COMPLETE` — one matched object is late-emerging, the other remains visible-never-active** | two-row target-object temporal surface audit only; no actor-causality, repair, population mismatch-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/retuning claim. [`iter66_matched_object_timeline_audit`](experiments/iter66_matched_object_timeline_audit/RESULT.md) |
 | 67 | **Trigger-target bridge audit** — compare each row's first-fire trigger object against the bridge-matched target object under the frozen bridge grid | committed iteration-59/61/64/65/66 proof only; targets `ttc_extreme_short` and `cpa_medium_b`; compare full pre-contact surface and first-fire trigger surface | one same-object target/trigger row and one split-object row; full-window target matches `1.6718 m` and `0.4325 m`; full-window trigger matches `1.6718 m` and `2.8332 m`; first-fire trigger distances are unsupported (`6.9272 m`, `19.6983 m`) | **`TRIGGER_TARGET_SAME_AND_SPLIT_COMPLETE` — the split row is not trigger-unsupported globally, but first-fire trigger support is absent at the fire timestamp** | two-row trigger/target bridge audit only; no actor-causality, repair, population mismatch-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/retuning claim. [`iter67_trigger_target_bridge_audit`](experiments/iter67_trigger_target_bridge_audit/RESULT.md) |
+| 68 | **Fire-time bridge decomposition audit** — decompose first-fire trigger support gaps against each trigger's best full-window bridge support | committed iteration-59/61/64/65/66/67 reports only; fixed first-fire trigger objects `2` and `1`; no geometry recomputation beyond frozen surfaces | temporal split: `ttc_extreme_short` best support occurs `1.25 s` before first fire (`6.9272 m` -> `1.6718 m`); `cpa_medium_b` best support occurs `2.00 s` after first fire (`19.6983 m` -> `2.8332 m`) | **`FIRE_TIME_BRIDGE_GAP_TEMPORAL_SPLIT_COMPLETE` — fire-time support gaps can be pre-fire or post-fire temporal misalignment** | two-row fire-time bridge decomposition only; no actor-causality, repair, population mismatch-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/retuning claim. [`iter68_fire_time_bridge_decomposition`](experiments/iter68_fire_time_bridge_decomposition/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -690,7 +697,8 @@ matched objects at their matched timestamps and found both subthreshold (`12.724
 `object_id=2` becomes a TTC hazard at first fire, while `object_id=6` remains visible-never-active.
 Iteration 67 compared first-fire trigger objects to those targets: `cpa_medium_b` is split-object,
 but both trigger and target have later full-window bridge support while the trigger lacks bridge
-support at the actual first-fire timestamp. This is a
+support at the actual first-fire timestamp. Iteration 68 decomposed that fire-time gap into one
+before-fire support case and one after-fire support case. This is a
 mechanism-cause audit, not a repair or population-rate claim. Successors now require fresh
 pre-registrations. The
 published RealADSim closed-loop anchor range remains loose context only —
@@ -1111,6 +1119,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter65_temporal_alignment_audit/`](experiments/iter65_temporal_alignment_audit) | matched pre-contact temporal alignment audit — TEMPORAL_ALIGNMENT_SUBTHRESHOLD_COMPLETE: both Iter64 matched objects were present but subthreshold at their matched decision timestamps |
 | [`experiments/iter66_matched_object_timeline_audit/`](experiments/iter66_matched_object_timeline_audit) | matched-object hazard timeline audit — MATCHED_OBJECT_TIMELINE_MIXED_COMPLETE: one Iter65 target becomes an active TTC hazard at first fire, while the other remains visible-never-active |
 | [`experiments/iter67_trigger_target_bridge_audit/`](experiments/iter67_trigger_target_bridge_audit) | trigger-target bridge audit — TRIGGER_TARGET_SAME_AND_SPLIT_COMPLETE: one row is same-object target/trigger, while the split row has full-window support for both objects but no first-fire trigger support at the fire timestamp |
+| [`experiments/iter68_fire_time_bridge_decomposition/`](experiments/iter68_fire_time_bridge_decomposition) | fire-time bridge decomposition audit — FIRE_TIME_BRIDGE_GAP_TEMPORAL_SPLIT_COMPLETE: one trigger's best bridge support is before first fire, while the other's is after first fire |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/FRONTIER_POSITIONING_2026-07-11.md`](docs/research/FRONTIER_POSITIONING_2026-07-11.md) | source-verified mid-2026 benchmark/monitor/industry positioning; the binding 2.91-is-not-benchmark-SOTA framing rule |

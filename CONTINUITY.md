@@ -499,6 +499,16 @@ events to prepare; they are a property the repository always has.
   `2.8332 m`, but first-fire trigger distance is unsupported at `19.6983 m`. No
   actor-causality, repair, population-rate,
   safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, or retuning claim.
+- Iteration 68 concluded:
+  experiments/iter68_fire_time_bridge_decomposition/RESULT.md, published as
+  `FIRE_TIME_BRIDGE_GAP_TEMPORAL_SPLIT_COMPLETE` — an offline fire-time bridge decomposition
+  audit for the two iteration-67 first-fire trigger objects. It launched no GPU work and read no
+  live box state. `ttc_extreme_short` trigger `object_id=2` has best bridge support before first
+  fire (`0.25 s`, `1.25 s` before fire; distance improves `6.9272 m` -> `1.6718 m`).
+  `cpa_medium_b` trigger `object_id=1` has best bridge support after first fire (`2.25 s`,
+  `2.00 s` after fire; distance improves `19.6983 m` -> `2.8332 m`). No actor-causality,
+  repair, population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance,
+  or retuning claim.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1718,5 +1728,13 @@ events to prepare; they are a property the repository always has.
   and one row is split-object. Both targets and both triggers have full-window bridge matches,
   but the first-fire trigger object has no bridge support at the fire timestamp in both rows
   (`6.9272 m`, `19.6983 m`). No GPU/gcloud/box read, no actor-causality, repair,
+  population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, or
+  retuning claim.
+- 2026-07-13: Codex — continued into iteration 68 as the fire-time bridge decomposition audit
+  after iteration 67. Pre-registered ALONE (`1dc576a`), added analyzer/tests (`de567b4`, 324
+  tests green before analysis), then ran the analyzer ONCE over committed iteration-59/61/64/65/
+  66/67 reports. Result: `FIRE_TIME_BRIDGE_GAP_TEMPORAL_SPLIT_COMPLETE`; one trigger's best
+  bridge support is before first fire (`ttc_extreme_short`, `-1.25 s`) and one is after first
+  fire (`cpa_medium_b`, `+2.00 s`). No GPU/gcloud/box read, no actor-causality, repair,
   population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, or
   retuning claim.

@@ -456,6 +456,10 @@ object under the same frozen bridge grid. The result is `TRIGGER_TARGET_SAME_AND
 `ttc_extreme_short` is same-object target/trigger, while `cpa_medium_b` is split-object; across
 the full pre-contact window both target and trigger have bridge matches, but at the actual
 first-fire timestamp the trigger object has no bridge support.
+Iteration 68 then decomposed that fire-time bridge gap. The result is
+`FIRE_TIME_BRIDGE_GAP_TEMPORAL_SPLIT_COMPLETE`: `ttc_extreme_short`'s trigger bridge support is
+best before first fire (`0.25 s`, `1.25 s` before fire), while `cpa_medium_b`'s trigger bridge
+support is best after first fire (`2.25 s`, `2.00 s` after fire).
 
 The default next scientific line is therefore not an expanded-N transfer run and not retuning the
 released union. After iteration 61, the actor-match audit points to wrong-object/wrong-hazard
@@ -466,8 +470,9 @@ the two first-fire-unsupported rows do have pre-contact object-surface support o
 first-fire frame. Iteration 65 shows those matches are not already-active hazards at the matched
 timestamps. Iteration 66 splits those rows into late-emerging target hazard and visible-never-active
 target object. Iteration 67 shows the split-object row is not globally trigger-unsupported, but
-the trigger is unsupported at the actual first-fire timestamp. The remaining audit rows are
-no-fire/post-fire/background-only failure modes. Any successor should be a fresh
+the trigger is unsupported at the actual first-fire timestamp. Iteration 68 shows the fire-time
+support gap itself splits into before-fire and after-fire timing misalignment. The remaining
+audit rows are no-fire/post-fire/background-only failure modes. Any successor should be a fresh
 mechanism-cause pre-registration that explains those categories, not threshold tuning. A strong
 successor should distinguish among:
 
@@ -508,7 +513,10 @@ is why collision-relevant geometry stays outside or arrives late to the released
 Iteration 66 shows both happen in the two target rows: one object arrives late to the TTC hazard
 surface at first fire, and one remains outside even while visible. Iteration 67 adds that the
 visible-never-active target row is a trigger/target split at first fire, but not a global
-trigger-absence case: the trigger also has later bridge support.
+trigger-absence case: the trigger also has later bridge support. Iteration 68 decomposes the
+trigger fire-time gap into one before-fire and one after-fire best-support case, so the next
+mechanism question is not just "which object?" but why the fire timestamp is misaligned with
+the bridge-supported geometry.
 
 Any such line requires a fresh `HYPOTHESIS.md`. Until then, no new HUGSIM transfer, safety,
 robustness, deployment, benchmark-ranking, or retuning claim is authorized.
