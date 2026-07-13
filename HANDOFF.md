@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Mon Jul 13 04:08:56 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Mon Jul 13 04:48:02 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+0b1d8cc iter51: publish HUGSIM failure taxonomy
+71abe6d iter51: add HUGSIM taxonomy analyzer
+778304c iter51: preregister HUGSIM failure taxonomy
+87f7f63 handoff: record iter49 clean state
 f3e1350 iter49: publish hard-tier transfer null
 2eb0c81 iter49: commit hard-tier proof artifacts
 2ea71ef handoff: night consolidation after arxiv submission
 5f5fae1 handoff: record arxiv submission milestone
-4ec1962 handoff: iter50 published, iter49 still in flight
-2c89471 iter50: publish opportunity audit result and docs
-d76c6ba iter50: commit audit proof artifacts
-ee41aa6 iter50: add opportunity analyzer and tests
 ```
 Working tree: CLEAN
 
@@ -64,6 +64,7 @@ Working tree: CLEAN
 - experiments/iter49_hugsim_hard_tier_gate: RESULT PUBLISHED
 - experiments/iter4_gated: RESULT PUBLISHED
 - experiments/iter50_collision_opportunity_audit: RESULT PUBLISHED
+- experiments/iter51_hugsim_failure_taxonomy: RESULT PUBLISHED
 - experiments/iter5_tracked: RESULT PUBLISHED
 - experiments/iter6_cpa: RESULT PUBLISHED
 - experiments/iter7_margin: RESULT PUBLISHED
@@ -76,7 +77,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 04:10:03 up 8 days, 17:51,  0 users,  load average: 0.00, 0.00, 0.00
+ 04:49:09 up 8 days, 18:30,  0 users,  load average: 0.00, 0.00, 0.00
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-iter49-hard.log
@@ -88,7 +89,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter49_hugsim_hard_tier_gate/RESULT.md — read it before opening new work.
+- Newest completed experiment: experiments/iter51_hugsim_failure_taxonomy/RESULT.md — read it before opening new work.
 - Newest pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
