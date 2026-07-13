@@ -2075,3 +2075,14 @@ events to prepare; they are a property the repository always has.
   `6.0 s`. No GPU/gcloud/box read, no actor-causality, repair, threshold-value, population-rate,
   safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value,
   real-world/first-responder behavior, or retuning claim.
+- 2026-07-13: Codex — continued into iteration 87 as the HUGSIM interval bridge-time
+  support-surface replay after iteration 86. Pre-registered ALONE (`d7aeb22`), added
+  analyzer/tests (`37e21d1`, 371 tests green before analysis), then ran the analyzer ONCE over
+  committed iteration-59 proof plus iteration-85/86 reports. Result:
+  `HUGSIM_INTERVAL_BRIDGE_TIME_SURFACE_REPLAY_MIXED_COMPLETE`; two rows use exact bridge
+  timestamps and one row uses the registered nearest-before replay row (`5.75 s` for bridge
+  timestamp `6.0 s`). Object `9` moves subthreshold -> borderline at exact `5.5 s`, while object
+  `10` remains subthreshold at exact `4.0 s` and nearest-before `5.75 s`. No GPU/gcloud/box read,
+  no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/
+  robustness/benchmark/HD-Score-invariance, commercial-value, real-world/first-responder
+  behavior, or retuning claim.

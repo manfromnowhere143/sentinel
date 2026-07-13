@@ -1,0 +1,281 @@
+{
+  "claim_boundary": "three-row descriptive interval bridge-time support-surface replay only; no actor-causality, repair, threshold-value, transfer, safety, deployment, robustness, benchmark, population, HD-Score-invariance, commercial-value, real-world behavior, or retuning claim",
+  "events": [
+    {
+      "audit_id": "both_distinct_extreme",
+      "bridge_ts": 5.5,
+      "event_metric": {
+        "active_cpa_margin_m": 20.134279246714645,
+        "active_ttc_margin_s": null,
+        "borderline_cpa_margin_m": 18.634279246714645,
+        "borderline_ttc_margin_s": null,
+        "closing": null,
+        "cpa_active_logged_threshold": false,
+        "cpa_borderline_registered": false,
+        "cpa_horizon_global_ts": 8.0,
+        "cpa_horizon_index": 6,
+        "cpa_horizon_offset_s": -2.0,
+        "cpa_horizon_time_s": 3.0,
+        "cpa_rank": 4,
+        "gap": 28.53856122908704,
+        "min_cpa": 21.634279246714645,
+        "object_id": 9,
+        "score": 0.9264162182807922,
+        "state": "subthreshold",
+        "ttc": null,
+        "ttc_active_logged_threshold": false,
+        "ttc_borderline_registered": false,
+        "ttc_rank": null
+      },
+      "event_role": "pre",
+      "event_ts": 5.0,
+      "problems": [],
+      "replay_metric": {
+        "active_cpa_margin_m": 20.020798149009224,
+        "active_ttc_margin_s": 2.276101409133555,
+        "borderline_cpa_margin_m": 18.520798149009224,
+        "borderline_ttc_margin_s": -0.2238985908664448,
+        "closing": 5.137224407893964,
+        "cpa_active_logged_threshold": false,
+        "cpa_borderline_registered": false,
+        "cpa_horizon_global_ts": 6.5,
+        "cpa_horizon_index": 2,
+        "cpa_horizon_offset_s": -4.5,
+        "cpa_horizon_time_s": 1.0,
+        "cpa_rank": 2,
+        "gap": 24.535904733577656,
+        "min_cpa": 21.520798149009224,
+        "object_id": 9,
+        "score": 0.5514006018638611,
+        "state": "borderline",
+        "ttc": 4.776101409133555,
+        "ttc_active_logged_threshold": false,
+        "ttc_borderline_registered": true,
+        "ttc_rank": 1
+      },
+      "row_label": "interval_support_surface_arrival",
+      "scenario": "scene-0138-extreme-00",
+      "selection": {
+        "alignment": "exact_bridge_ts",
+        "bridge_to_replay_offset_s": 0.0,
+        "bridge_ts": 5.5,
+        "event_ts": 5.0,
+        "replay_ts": 5.5
+      },
+      "support_bridge_band": "ambiguous",
+      "support_object_id": 9,
+      "transition": {
+        "cpa_rank_delta": -2,
+        "event_state": "subthreshold",
+        "finite_ttc_transition": "False->True",
+        "min_cpa_delta_m": -0.11348109770542081,
+        "replay_state": "borderline",
+        "state_transition": "subthreshold->borderline"
+      }
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "bridge_ts": 4.0,
+      "event_metric": {
+        "active_cpa_margin_m": 15.776402111954756,
+        "active_ttc_margin_s": null,
+        "borderline_cpa_margin_m": 14.276402111954756,
+        "borderline_ttc_margin_s": null,
+        "closing": null,
+        "cpa_active_logged_threshold": false,
+        "cpa_borderline_registered": false,
+        "cpa_horizon_global_ts": 5.5,
+        "cpa_horizon_index": 6,
+        "cpa_horizon_offset_s": 0.5,
+        "cpa_horizon_time_s": 3.0,
+        "cpa_rank": 7,
+        "gap": 19.08793412227526,
+        "min_cpa": 17.276402111954756,
+        "object_id": 10,
+        "score": 0.7401448488235474,
+        "state": "subthreshold",
+        "ttc": null,
+        "ttc_active_logged_threshold": false,
+        "ttc_borderline_registered": false,
+        "ttc_rank": null
+      },
+      "event_role": "pre",
+      "event_ts": 2.5,
+      "problems": [],
+      "replay_metric": {
+        "active_cpa_margin_m": 9.635406800051493,
+        "active_ttc_margin_s": null,
+        "borderline_cpa_margin_m": 8.135406800051493,
+        "borderline_ttc_margin_s": null,
+        "closing": null,
+        "cpa_active_logged_threshold": false,
+        "cpa_borderline_registered": false,
+        "cpa_horizon_global_ts": 5.5,
+        "cpa_horizon_index": 3,
+        "cpa_horizon_offset_s": -2.5,
+        "cpa_horizon_time_s": 1.5,
+        "cpa_rank": 2,
+        "gap": 14.548292293929913,
+        "min_cpa": 11.135406800051493,
+        "object_id": 10,
+        "score": 0.6831495761871338,
+        "state": "subthreshold",
+        "ttc": null,
+        "ttc_active_logged_threshold": false,
+        "ttc_borderline_registered": false,
+        "ttc_rank": null
+      },
+      "row_label": "interval_support_surface_miss",
+      "scenario": "scene-0071-medium-01",
+      "selection": {
+        "alignment": "exact_bridge_ts",
+        "bridge_to_replay_offset_s": 0.0,
+        "bridge_ts": 4.0,
+        "event_ts": 2.5,
+        "replay_ts": 4.0
+      },
+      "support_bridge_band": "match",
+      "support_object_id": 10,
+      "transition": {
+        "cpa_rank_delta": -5,
+        "event_state": "subthreshold",
+        "finite_ttc_transition": "False->False",
+        "min_cpa_delta_m": -6.1409953119032625,
+        "replay_state": "subthreshold",
+        "state_transition": "subthreshold->subthreshold"
+      }
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "bridge_ts": 6.0,
+      "event_metric": {
+        "active_cpa_margin_m": 12.057766187421446,
+        "active_ttc_margin_s": null,
+        "borderline_cpa_margin_m": 10.557766187421446,
+        "borderline_ttc_margin_s": null,
+        "closing": null,
+        "cpa_active_logged_threshold": false,
+        "cpa_borderline_registered": false,
+        "cpa_horizon_global_ts": 8.0,
+        "cpa_horizon_index": 6,
+        "cpa_horizon_offset_s": -2.0,
+        "cpa_horizon_time_s": 3.0,
+        "cpa_rank": 2,
+        "gap": 13.710598675382192,
+        "min_cpa": 13.557766187421446,
+        "object_id": 10,
+        "score": 0.6914266347885132,
+        "state": "subthreshold",
+        "ttc": null,
+        "ttc_active_logged_threshold": false,
+        "ttc_borderline_registered": false,
+        "ttc_rank": null
+      },
+      "event_role": "active",
+      "event_ts": 5.0,
+      "problems": [],
+      "replay_metric": {
+        "active_cpa_margin_m": 10.643435514611875,
+        "active_ttc_margin_s": null,
+        "borderline_cpa_margin_m": 9.143435514611875,
+        "borderline_ttc_margin_s": null,
+        "closing": null,
+        "cpa_active_logged_threshold": false,
+        "cpa_borderline_registered": false,
+        "cpa_horizon_global_ts": 8.25,
+        "cpa_horizon_index": 5,
+        "cpa_horizon_offset_s": -3.25,
+        "cpa_horizon_time_s": 2.5,
+        "cpa_rank": 3,
+        "gap": 13.63584309323762,
+        "min_cpa": 12.143435514611875,
+        "object_id": 10,
+        "score": 0.6905252933502197,
+        "state": "subthreshold",
+        "ttc": null,
+        "ttc_active_logged_threshold": false,
+        "ttc_borderline_registered": false,
+        "ttc_rank": null
+      },
+      "row_label": "interval_support_surface_miss",
+      "scenario": "scene-0071-medium-01",
+      "selection": {
+        "alignment": "nearest_before_bridge_ts",
+        "bridge_to_replay_offset_s": 0.25,
+        "bridge_ts": 6.0,
+        "event_ts": 5.0,
+        "replay_ts": 5.75
+      },
+      "support_bridge_band": "match",
+      "support_object_id": 10,
+      "transition": {
+        "cpa_rank_delta": 1,
+        "event_state": "subthreshold",
+        "finite_ttc_transition": "False->False",
+        "min_cpa_delta_m": -1.4143306728095713,
+        "replay_state": "subthreshold",
+        "state_transition": "subthreshold->subthreshold"
+      }
+    }
+  ],
+  "fixed_rows": [
+    {
+      "audit_id": "both_distinct_extreme",
+      "bridge_ts": 5.5,
+      "event_ts": 5.0,
+      "role": "pre",
+      "scenario": "scene-0138-extreme-00",
+      "support_bridge_band": "ambiguous",
+      "support_object_id": 9
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "bridge_ts": 4.0,
+      "event_ts": 2.5,
+      "role": "pre",
+      "scenario": "scene-0071-medium-01",
+      "support_bridge_band": "match",
+      "support_object_id": 10
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "bridge_ts": 6.0,
+      "event_ts": 5.0,
+      "role": "active",
+      "scenario": "scene-0071-medium-01",
+      "support_bridge_band": "match",
+      "support_object_id": 10
+    }
+  ],
+  "infra_problems": [],
+  "inputs": {
+    "iter59_report": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/actor_match_report.json",
+    "iter85_report": "experiments/iter85_hugsim_path_horizon_bridge_timing/proof-timing/path_horizon_bridge_timing_report.json",
+    "iter86_report": "experiments/iter86_hugsim_bridge_time_surface_replay/proof-bridge-time/bridge_time_surface_replay_report.json"
+  },
+  "iteration": 87,
+  "row_selection_rule": {
+    "exact_label": "exact_bridge_ts",
+    "fallback_label": "nearest_before_bridge_ts",
+    "future_after_bridge_rows_allowed": false,
+    "interpolation_allowed": false,
+    "max_fallback_offset_s": 0.5
+  },
+  "summary": {
+    "evaluated_rows": 3,
+    "replay_alignment_counts": {
+      "exact_bridge_ts": 2,
+      "nearest_before_bridge_ts": 1
+    },
+    "row_label_counts": {
+      "interval_support_surface_arrival": 1,
+      "interval_support_surface_miss": 2
+    },
+    "state_transition_counts": {
+      "subthreshold->borderline": 1,
+      "subthreshold->subthreshold": 2
+    },
+    "target_rows": 3
+  },
+  "verdict": "HUGSIM_INTERVAL_BRIDGE_TIME_SURFACE_REPLAY_MIXED_COMPLETE"
+}
