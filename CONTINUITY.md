@@ -586,6 +586,16 @@ events to prepare; they are a property the repository always has.
   No actor-causality, repair, threshold-value, population-rate,
   safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value, or
   retuning claim.
+- Iteration 77 concluded:
+  experiments/iter77_hugsim_event_object_set_bridge/RESULT.md, published as
+  `HUGSIM_EVENT_SET_FOREGROUND_SUPPORT_MIXED_COMPLETE` — an offline foreground-bridge audit over
+  the full logged object sets at the iteration-75 pre/active event rows. It launched no GPU work
+  and read no live box state. `both_distinct_extreme` has pre-event ambiguous support via object
+  `9` at `3.6899 m`, while active-event set remains no-support. `ttc_medium_a` has match support
+  in both event-row object sets via object `10` at `1.1245 m` and `1.2931 m`. This is selected
+  hazard-object versus object-set support evidence only. No actor-causality, repair,
+  threshold-value, population-rate, safety/transfer/deployment/robustness/benchmark/
+  HD-Score-invariance, commercial-value, or retuning claim.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1879,5 +1889,15 @@ events to prepare; they are a property the repository always has.
   `HUGSIM_SWITCH_FOREGROUND_BOTH_OR_AMBIGUOUS_COMPLETE`; both fixed rows are
   `no_foreground_bridge_support`, so neither side of the object switch reaches the frozen match
   or ambiguous foreground bridge band. No GPU/gcloud/box read, no actor-causality, repair,
+  threshold-value, population-rate, safety/transfer/deployment/robustness/benchmark/
+  HD-Score-invariance, commercial-value, or retuning claim.
+- 2026-07-13: Codex — continued into iteration 77 as the HUGSIM event object-set foreground
+  bridge audit after iteration 76. Pre-registered ALONE (`91bc32f`), added analyzer/tests
+  (`9a5d20e`, 351 tests green before analysis), then ran the analyzer ONCE over committed
+  iteration-59 proof plus iteration-70/72/73/74/75/76 reports. Result:
+  `HUGSIM_EVENT_SET_FOREGROUND_SUPPORT_MIXED_COMPLETE`; full event-row object sets recover
+  mixed foreground support (`both_distinct_extreme` pre-set ambiguous via object `9`,
+  `ttc_medium_a` both sets match via object `10`) even though selected switched objects remained
+  unsupported in iteration 76. No GPU/gcloud/box read, no actor-causality, repair,
   threshold-value, population-rate, safety/transfer/deployment/robustness/benchmark/
   HD-Score-invariance, commercial-value, or retuning claim.

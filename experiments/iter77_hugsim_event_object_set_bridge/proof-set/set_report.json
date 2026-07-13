@@ -1,0 +1,203 @@
+{
+  "claim_boundary": "two-row descriptive event-object-set foreground-bridge audit only; no actor-causality, repair, threshold-value, transfer, safety, deployment, robustness, benchmark, population, HD-Score-invariance, commercial-value, or retuning claim",
+  "episodes": [
+    {
+      "active_event_set": {
+        "best_distance_m": 10.834714044531188,
+        "best_variant": {
+          "axis_order": "yx",
+          "distance_m": 10.834714044531188,
+          "event_ts": 7.0,
+          "foreground_obs_index": 0,
+          "foreground_obs_name": "car",
+          "foreground_timestamp": 7.0,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            21.6810245513916,
+            -4.430612087249756
+          ],
+          "lateral_sign": -1,
+          "lead_time_s": 0.0,
+          "monitor_forward_lateral": [
+            10.947949065404329,
+            -2.9500314447785563
+          ],
+          "object_id": 9,
+          "object_role": "active",
+          "temporal_source": "event_row"
+        },
+        "distance_band": "no_support",
+        "evaluated_variant_count": 480,
+        "event_ts": 7.0,
+        "object_count": 3,
+        "object_ids": [
+          14,
+          9,
+          7
+        ],
+        "role": "active"
+      },
+      "active_minus_pre_distance_m": 7.144769216611518,
+      "audit_id": "both_distinct_extreme",
+      "foreground_count": 10,
+      "pre_event_set": {
+        "best_distance_m": 3.689944827919669,
+        "best_variant": {
+          "axis_order": "yx",
+          "distance_m": 3.689944827919669,
+          "event_ts": 5.0,
+          "foreground_obs_index": 0,
+          "foreground_obs_name": "car",
+          "foreground_timestamp": 5.5,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            25.084314346313477,
+            -4.190252304077148
+          ],
+          "lateral_sign": 1,
+          "lead_time_s": 0.5,
+          "monitor_forward_lateral": [
+            27.724378025201595,
+            -6.76818880533292
+          ],
+          "object_id": 9,
+          "object_role": "pre",
+          "temporal_source": "event_row"
+        },
+        "distance_band": "ambiguous",
+        "evaluated_variant_count": 640,
+        "event_ts": 5.0,
+        "object_count": 4,
+        "object_ids": [
+          9,
+          5,
+          12,
+          11
+        ],
+        "role": "pre"
+      },
+      "problems": [],
+      "row_label": "pre_set_foreground_ambiguous",
+      "scenario": "scene-0138-extreme-00"
+    },
+    {
+      "active_event_set": {
+        "best_distance_m": 1.2931299560453504,
+        "best_variant": {
+          "axis_order": "yx",
+          "distance_m": 1.2931299560453504,
+          "event_ts": 5.0,
+          "foreground_obs_index": 0,
+          "foreground_obs_name": "car",
+          "foreground_timestamp": 6.0,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            17.064964294433594,
+            -2.297835350036621
+          ],
+          "lateral_sign": -1,
+          "lead_time_s": 1.0,
+          "monitor_forward_lateral": [
+            15.776952908340945,
+            -2.412777737855667
+          ],
+          "object_id": 10,
+          "object_role": "active",
+          "temporal_source": "propagated_to_foreground"
+        },
+        "distance_band": "match",
+        "evaluated_variant_count": 960,
+        "event_ts": 5.0,
+        "object_count": 6,
+        "object_ids": [
+          17,
+          6,
+          10,
+          24,
+          3,
+          15
+        ],
+        "role": "active"
+      },
+      "active_minus_pre_distance_m": 0.1686749265522285,
+      "audit_id": "ttc_medium_a",
+      "foreground_count": 10,
+      "pre_event_set": {
+        "best_distance_m": 1.124455029493122,
+        "best_variant": {
+          "axis_order": "yx",
+          "distance_m": 1.124455029493122,
+          "event_ts": 2.5,
+          "foreground_obs_index": 0,
+          "foreground_obs_name": "car",
+          "foreground_timestamp": 4.0,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            18.059967041015625,
+            -2.1980018615722656
+          ],
+          "lateral_sign": -1,
+          "lead_time_s": 1.5,
+          "monitor_forward_lateral": [
+            19.019733885903477,
+            -1.612129250157126
+          ],
+          "object_id": 10,
+          "object_role": "pre",
+          "temporal_source": "event_row"
+        },
+        "distance_band": "match",
+        "evaluated_variant_count": 1280,
+        "event_ts": 2.5,
+        "object_count": 8,
+        "object_ids": [
+          10,
+          12,
+          0,
+          11,
+          6,
+          1,
+          3,
+          8
+        ],
+        "role": "pre"
+      },
+      "problems": [],
+      "row_label": "both_sets_foreground_match",
+      "scenario": "scene-0071-medium-01"
+    }
+  ],
+  "fixed_rows": [
+    {
+      "audit_id": "both_distinct_extreme",
+      "scenario": "scene-0138-extreme-00"
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "scenario": "scene-0071-medium-01"
+    }
+  ],
+  "infra_problems": [],
+  "inputs": {
+    "iter59_report": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/actor_match_report.json",
+    "iter70_report": "experiments/iter70_hugsim_structural_timing_audit/proof-structural/structural_report.json",
+    "iter72_report": "experiments/iter72_hugsim_late_fire_prefire_margin_audit/proof-prefire/prefire_report.json",
+    "iter73_report": "experiments/iter73_hugsim_margin_transition_audit/proof-transition/transition_report.json",
+    "iter74_report": "experiments/iter74_hugsim_late_fire_delay_barrier/proof-delay/delay_report.json",
+    "iter75_report": "experiments/iter75_hugsim_cross_channel_object_handoff/proof-handoff/handoff_report.json",
+    "iter76_report": "experiments/iter76_hugsim_switch_foreground_bridge/proof-bridge/bridge_report.json"
+  },
+  "iteration": 77,
+  "summary": {
+    "active_set_match_rows": 0,
+    "evaluated_rows": 2,
+    "no_support_rows": 0,
+    "pre_set_match_rows": 0,
+    "row_label_counts": {
+      "both_sets_foreground_match": 1,
+      "pre_set_foreground_ambiguous": 1
+    },
+    "target_rows": 2
+  },
+  "verdict": "HUGSIM_EVENT_SET_FOREGROUND_SUPPORT_MIXED_COMPLETE"
+}

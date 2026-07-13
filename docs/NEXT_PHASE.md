@@ -496,6 +496,11 @@ under the fixed bridge grid. The result is
 `HUGSIM_SWITCH_FOREGROUND_BOTH_OR_AMBIGUOUS_COMPLETE`: both rows classify
 `no_foreground_bridge_support`; neither the pre-contact near object nor the post-contact active
 object reaches the match or ambiguous support band.
+Iteration 77 then expanded the same bridge audit from the selected switched objects to every
+logged object in the fixed event rows. The result is
+`HUGSIM_EVENT_SET_FOREGROUND_SUPPORT_MIXED_COMPLETE`: `both_distinct_extreme` has pre-event
+ambiguous foreground support via object `9`, while `ttc_medium_a` has foreground matches in both
+event-row object sets via object `10`.
 
 The default next scientific line is therefore not an expanded-N transfer run and not retuning the
 released union. After iteration 61, the actor-match audit points to wrong-object/wrong-hazard
@@ -518,7 +523,8 @@ that the two late-fire rows are not same-channel threshold-drift cases; the pre-
 channel differs from the post-contact active channel in both rows. Iteration 75 shows that this is
 also an object switch, not a same-object channel flip. Any successor should be a fresh
 mechanism-cause pre-registration that explains why switched monitor objects still do not bridge
-to foreground provenance under the frozen support grid, or chooses another branch. A strong
+to foreground provenance even though the wider event-row object set can contain bridge-supported
+objects, or chooses another branch. A strong
 successor should distinguish among:
 
 1. hazard surface: whether the monitor is braking for the wrong detected object or wrong path
