@@ -1,0 +1,214 @@
+{
+  "claim_boundary": "three-event descriptive selected-object all-provenance bridge audit only; no actor-causality, repair, threshold-value, transfer, safety, deployment, robustness, benchmark, population, HD-Score-invariance, commercial-value, or retuning claim",
+  "events": [
+    {
+      "audit_id": "both_distinct_extreme",
+      "event_role": "pre",
+      "event_ts": 5.0,
+      "problems": [],
+      "provenance_count": 10,
+      "provenance_type_counts": {
+        "foreground": 10
+      },
+      "row_label": "selected_all_provenance_no_support",
+      "scenario": "scene-0138-extreme-00",
+      "selected_all_provenance_bridge": {
+        "best_distance_m": 13.448307863726438,
+        "best_variant": {
+          "axis_order": "yx",
+          "collision_type": "foreground",
+          "distance_m": 13.448307863726438,
+          "event_ts": 5.0,
+          "foreground_obs_index": 0,
+          "foreground_obs_name": "car",
+          "foreground_timestamp": 7.0,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            21.6810245513916,
+            -4.430612087249756
+          ],
+          "lateral_sign": 1,
+          "lead_time_s": 2.0,
+          "monitor_forward_lateral": [
+            8.26277582251381,
+            -5.329269668053409
+          ],
+          "object_id": 5,
+          "object_role": "pre",
+          "provenance_index": 7,
+          "temporal_source": "event_row"
+        },
+        "distance_band": "no_support",
+        "evaluated_variant_count": 160,
+        "event_ts": 5.0,
+        "provenance_count": 10,
+        "provenance_type_counts": {
+          "foreground": 10
+        },
+        "role": "pre",
+        "selected_object_id": 5
+      },
+      "selected_object_id": 5,
+      "selected_state": "borderline",
+      "support_band": "ambiguous",
+      "support_object_id": 9
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "event_role": "pre",
+      "event_ts": 2.5,
+      "problems": [],
+      "provenance_count": 10,
+      "provenance_type_counts": {
+        "foreground": 10
+      },
+      "row_label": "selected_all_provenance_no_support",
+      "scenario": "scene-0071-medium-01",
+      "selected_all_provenance_bridge": {
+        "best_distance_m": 8.123927089172518,
+        "best_variant": {
+          "axis_order": "yx",
+          "collision_type": "foreground",
+          "distance_m": 8.123927089172518,
+          "event_ts": 2.5,
+          "foreground_obs_index": 0,
+          "foreground_obs_name": "car",
+          "foreground_timestamp": 3.5,
+          "forward_sign": -1,
+          "hugsim_forward_lateral": [
+            17.064964294433594,
+            -2.297835350036621
+          ],
+          "lateral_sign": -1,
+          "lead_time_s": 1.0,
+          "monitor_forward_lateral": [
+            10.273643740476253,
+            -6.756103677940139
+          ],
+          "object_id": 6,
+          "object_role": "pre",
+          "provenance_index": 1,
+          "temporal_source": "event_row"
+        },
+        "distance_band": "no_support",
+        "evaluated_variant_count": 160,
+        "event_ts": 2.5,
+        "provenance_count": 10,
+        "provenance_type_counts": {
+          "foreground": 10
+        },
+        "role": "pre",
+        "selected_object_id": 6
+      },
+      "selected_object_id": 6,
+      "selected_state": "borderline",
+      "support_band": "match",
+      "support_object_id": 10
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "event_role": "active",
+      "event_ts": 5.0,
+      "problems": [],
+      "provenance_count": 10,
+      "provenance_type_counts": {
+        "foreground": 10
+      },
+      "row_label": "selected_all_provenance_no_support",
+      "scenario": "scene-0071-medium-01",
+      "selected_all_provenance_bridge": {
+        "best_distance_m": 8.440810417005599,
+        "best_variant": {
+          "axis_order": "yx",
+          "collision_type": "foreground",
+          "distance_m": 8.440810417005599,
+          "event_ts": 5.0,
+          "foreground_obs_index": 0,
+          "foreground_obs_name": "car",
+          "foreground_timestamp": 3.5,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            17.064964294433594,
+            -2.297835350036621
+          ],
+          "lateral_sign": 1,
+          "lead_time_s": 0.0,
+          "monitor_forward_lateral": [
+            8.735187699433933,
+            -0.9332466305954488
+          ],
+          "object_id": 24,
+          "object_role": "active",
+          "provenance_index": 1,
+          "temporal_source": "event_row"
+        },
+        "distance_band": "no_support",
+        "evaluated_variant_count": 160,
+        "event_ts": 5.0,
+        "provenance_count": 10,
+        "provenance_type_counts": {
+          "foreground": 10
+        },
+        "role": "active",
+        "selected_object_id": 24
+      },
+      "selected_object_id": 24,
+      "selected_state": "active",
+      "support_band": "match",
+      "support_object_id": 10
+    }
+  ],
+  "fixed_events": [
+    {
+      "audit_id": "both_distinct_extreme",
+      "event_ts": 5.0,
+      "role": "pre",
+      "scenario": "scene-0138-extreme-00",
+      "selected_object_id": 5,
+      "selected_state": "borderline",
+      "support_band": "ambiguous",
+      "support_object_id": 9
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "event_ts": 2.5,
+      "role": "pre",
+      "scenario": "scene-0071-medium-01",
+      "selected_object_id": 6,
+      "selected_state": "borderline",
+      "support_band": "match",
+      "support_object_id": 10
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "event_ts": 5.0,
+      "role": "active",
+      "scenario": "scene-0071-medium-01",
+      "selected_object_id": 24,
+      "selected_state": "active",
+      "support_band": "match",
+      "support_object_id": 10
+    }
+  ],
+  "infra_problems": [],
+  "inputs": {
+    "iter59_report": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/actor_match_report.json",
+    "iter77_report": "experiments/iter77_hugsim_event_object_set_bridge/proof-set/set_report.json",
+    "iter79_report": "experiments/iter79_hugsim_selected_surface_decomposition/proof-selected/selected_report.json"
+  },
+  "iteration": 80,
+  "summary": {
+    "ambiguous_events": 0,
+    "evaluated_events": 3,
+    "event_label_counts": {
+      "selected_all_provenance_no_support": 3
+    },
+    "match_events": 0,
+    "no_support_events": 3,
+    "provenance_type_counts": {
+      "foreground": 30
+    },
+    "target_events": 3
+  },
+  "verdict": "HUGSIM_SELECTED_ALL_PROVENANCE_NO_SUPPORT_COMPLETE"
+}

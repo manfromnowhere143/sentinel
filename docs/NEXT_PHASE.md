@@ -508,6 +508,11 @@ event objects and outside the registered active/borderline CPA/TTC bands.
 Iteration 79 then decomposed the selected objects in the same rows. The result is
 `HUGSIM_SELECTED_ACTIVE_SUPPORT_SUBTHRESHOLD_COMPLETE`: the selected objects are active or
 borderline under the logged surface, while the foreground-supported objects remain subthreshold.
+Iteration 80 then tested those selected active/borderline objects against every eligible logged
+collision-provenance row, without filtering by class. The result is
+`HUGSIM_SELECTED_ALL_PROVENANCE_NO_SUPPORT_COMPLETE`: all eligible provenance rows in the fixed
+episodes are foreground (`30/30`), and all three selected objects remain outside even the
+ambiguous bridge band.
 
 The default next scientific line is therefore not an expanded-N transfer run and not retuning the
 released union. After iteration 61, the actor-match audit points to wrong-object/wrong-hazard
@@ -533,8 +538,9 @@ objects still do not bridge to foreground provenance. Iteration 77 shows the wid
 object set can contain bridge-supported objects. Iteration 78 shows those bridge-supported
 objects are nonselected and subthreshold rather than already-active or borderline hazards.
 Iteration 79 shows the selected objects are active/borderline surface candidates while the
-foreground-supported objects stay subthreshold. Any successor should be a fresh mechanism-cause
-pre-registration that explains this selected-surface versus foreground-support split, or chooses
+foreground-supported objects stay subthreshold. Iteration 80 shows the selected objects also do
+not bridge to any logged provenance row in these fixed episodes. Any successor should be a fresh
+mechanism-cause pre-registration that explains this selected-surface/provenance split, or chooses
 another branch. A strong
 successor should distinguish among:
 
@@ -582,12 +588,12 @@ the bridge-supported geometry. Iteration 69 packages the full row set into the t
 iteration 70 splits the remaining structural rows into surface-silent, late-fire, and
 background-only branches. Iteration 71 closes the near-margin explanation for the surface-silent
 branch under the registered bands, and iteration 72 shows the late-fire rows are near but not
-crossing before contact. Iterations 73-79 refine the late-fire branch into cross-channel,
-cross-object, foreground-unsupported selected objects, plus separate full-set foreground support
-that remains nonselected and subthreshold while selected objects are active/borderline. The next
-hypothesis should explain why released hazard-surface selection and foreground bridge support
-split across different objects at these event rows, or choose another branch and name what new
-evidence would falsify it.
+crossing before contact. Iterations 73-80 refine the late-fire branch into cross-channel,
+cross-object, selected objects that are active/borderline but unsupported by any logged
+provenance row, plus separate full-set foreground support that remains nonselected and
+subthreshold. The next hypothesis should explain why released hazard-surface selection and
+logged collision provenance split across different objects at these event rows, or choose another
+branch and name what new evidence would falsify it.
 
 Any such line requires a fresh `HYPOTHESIS.md`. Until then, no new HUGSIM transfer, safety,
 robustness, deployment, benchmark-ranking, or retuning claim is authorized.

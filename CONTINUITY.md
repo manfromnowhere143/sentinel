@@ -616,6 +616,16 @@ events to prepare; they are a property the repository always has.
   only. No actor-causality, repair, threshold-value, population-rate,
   safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value, or
   retuning claim.
+- Iteration 80 concluded:
+  experiments/iter80_hugsim_selected_all_provenance_bridge/RESULT.md, published as
+  `HUGSIM_SELECTED_ALL_PROVENANCE_NO_SUPPORT_COMPLETE` — an offline all-provenance bridge audit
+  over the three iteration-79 selected active/borderline objects. It launched no GPU work and
+  read no live box state. All eligible logged provenance rows in the fixed episodes are
+  foreground (`30/30`), and all three selected objects classify
+  `selected_all_provenance_no_support`; best distances are `13.4483 m`, `8.1239 m`, and
+  `8.4408 m`. This is selected-object provenance-bridge evidence only. No actor-causality,
+  repair, threshold-value, population-rate, safety/transfer/deployment/robustness/benchmark/
+  HD-Score-invariance, commercial-value, or retuning claim.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1937,5 +1947,14 @@ events to prepare; they are a property the repository always has.
   `HUGSIM_SELECTED_ACTIVE_SUPPORT_SUBTHRESHOLD_COMPLETE`; selected objects are active/borderline
   while foreground-supported objects remain subthreshold. No GPU/gcloud/box read, no
   actor-causality, repair, threshold-value, population-rate,
+  safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value, or
+  retuning claim.
+- 2026-07-13: Codex — continued into iteration 80 as the HUGSIM selected-object all-provenance
+  bridge audit after iteration 79. Pre-registered ALONE (`833053a`), added analyzer/tests
+  (`76affe1`, 357 tests green before analysis), then ran the analyzer ONCE over committed
+  iteration-59 proof plus iteration-77/79 reports. Result:
+  `HUGSIM_SELECTED_ALL_PROVENANCE_NO_SUPPORT_COMPLETE`; all eligible logged provenance rows are
+  foreground, and the selected active/borderline objects do not bridge to any logged provenance
+  row. No GPU/gcloud/box read, no actor-causality, repair, threshold-value, population-rate,
   safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value, or
   retuning claim.
