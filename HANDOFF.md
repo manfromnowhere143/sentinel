@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Mon Jul 13 12:31:29 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Mon Jul 13 12:39:27 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+9a96de1 iter72: publish hugsim late fire prefire margin audit
+2f08900 iter72: add hugsim late fire prefire margin tooling
+165d99f iter72: preregister hugsim late fire prefire margin audit
+67d4a1b handoff: record iter71 surface silent margin state
 ab9ccb2 iter71: publish hugsim surface silent margin audit
 fe10de8 iter71: add hugsim surface silent margin tooling
 8c263bb iter71: preregister hugsim surface silent margin audit
 314315b handoff: record iter70 structural timing state
-28e40a7 iter70: publish hugsim structural timing audit
-4ceb190 iter70: add hugsim structural timing tooling
-b7cb588 iter70: preregister hugsim structural timing audit
-5254100 handoff: record iter69 mechanism taxonomy state
 ```
 Working tree: CLEAN
 
@@ -87,6 +87,7 @@ Working tree: CLEAN
 - experiments/iter6_cpa: RESULT PUBLISHED
 - experiments/iter70_hugsim_structural_timing_audit: RESULT PUBLISHED
 - experiments/iter71_hugsim_surface_silent_margin_audit: RESULT PUBLISHED
+- experiments/iter72_hugsim_late_fire_prefire_margin_audit: RESULT PUBLISHED
 - experiments/iter7_margin: RESULT PUBLISHED
 - experiments/iter8_union: RESULT PUBLISHED
 - experiments/iter9_evade: RESULT PUBLISHED
@@ -97,7 +98,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 12:32:37 up 9 days,  2:13,  0 users,  load average: 0.00, 0.00, 0.00
+ 12:40:36 up 9 days,  2:21,  0 users,  load average: 0.00, 0.00, 0.00
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-iter59-actor-match.log
@@ -109,7 +110,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter71_hugsim_surface_silent_margin_audit/RESULT.md — read it before opening new work.
+- Newest completed experiment: experiments/iter72_hugsim_late_fire_prefire_margin_audit/RESULT.md — read it before opening new work.
 - Newest pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
