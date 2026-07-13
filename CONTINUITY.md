@@ -401,6 +401,16 @@ events to prepare; they are a property the repository always has.
   metric execution, actor attribution, actor-match, safety/transfer/deployment/robustness,
   benchmark, real-world, HD-Score-invariance, or retuning claim. Any run still needs a fresh
   pre-registration.
+- Iteration 58 concluded:
+  experiments/iter58_hugsim_provenance_instrumented_canary/RESULT.md, published as
+  `PROVENANCE_CANARY_COMPLETE` — the first real HUGSIM execution of the byte-bound provenance
+  patch. The fresh pre-registration authorized exactly two episodes:
+  `scene-0013-hard-00` OFF r1 then ON r1. Both completed on the first attempt, both had
+  `nc_min = 0.0`, both emitted top-level `collision_provenance` lists (counts `11` and `13`),
+  scalar top-level metrics remained present, `details` rows stayed scalar-only, and the ON
+  episode carried the released-union decision log. This retires only the
+  instrumentation-execution blocker. No actor-match, HD-Score-invariance,
+  safety/transfer/deployment/robustness/benchmark, or retuning claim.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1535,3 +1545,13 @@ events to prepare; they are a property the repository always has.
   proof-refined artifacts, updated README/NEXT_PHASE/CONTINUITY. No GPU/gcloud/simulator/box read,
   no HUGSIM run, no actor attribution, no safety/transfer/deployment/robustness/benchmark, and no
   retuning claim.
+- 2026-07-13: Codex — continued into iteration 58 as the HUGSIM provenance execution canary
+  authorized by iteration 57. Pre-registered ALONE (`70c9d63`), added launcher/analyzer/tests
+  (`94756b9`, 282 tests green before launch), pushed the pre-run state, copied only byte-bound
+  artifacts to `sentinel-gpu`, verified source/patch/checkpoint/shim/image/scenario/map/D0 and
+  single-tenant gates, then launched exactly `scene-0013-hard-00` OFF r1 then ON r1. The run
+  reached `I58_CANARY_DONE`; raw proof was collected without heavy artifacts and committed FIRST
+  (`0405e28`). Analyzer verdict: `PROVENANCE_CANARY_COMPLETE`; both episodes completed
+  first-attempt with `nc_min = 0.0`, top-level `collision_provenance` counts `11` and `13`,
+  scalar metrics present, scalar-only `details`, and ON decision log present. No actor-match,
+  HD-Score-invariance, safety/transfer/deployment/robustness/benchmark, or retuning claim.
