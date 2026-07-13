@@ -1,0 +1,13 @@
+45c35f6765fd59e93d6ffd59ebfbb966d3ec8e9f6f1f93db8fe3614ea842fe6e  ./scene-0013-hard-00__off_r1/data.pkl
+401c1da8c3d8bce2c4f117a0ab66932cfb33e60bd974d95c6cf10e43bb0d3a8e  ./scene-0013-hard-00__off_r1/ground.ply
+f40f43ec0ed0f1640da734020226f78cb437291cd5467653b7221aaef799d0ef  ./scene-0013-hard-00__off_r1/infos.pkl
+756ce791962d60526c9470229b003eb0b60e9be31783ce009cddca17ab5d5f26  ./scene-0013-hard-00__off_r1/scene.ply
+76b1c320ffb4a10c0f18fddce6ff5105efb5022908050e5f9cfb4e304b55f13e  ./scene-0013-hard-00__off_r1/uniad/video.mp4
+0117b0dd8272257e1dc0b3ad4a94a59c6b985aba703ce522e786f5ee9ff0dfbe  ./scene-0013-hard-00__off_r1/video.mp4
+1916541a125a41f6e5b88d5587d7c62ffa7cce38ae37d9a84f7f06e4d532ed48  ./scene-0013-hard-00__on_r1/data.pkl
+401c1da8c3d8bce2c4f117a0ab66932cfb33e60bd974d95c6cf10e43bb0d3a8e  ./scene-0013-hard-00__on_r1/ground.ply
+8c71ecac794a7ad9ca100ec56bb7aa0ec97f778653878a54a71ee33db865b691  ./scene-0013-hard-00__on_r1/infos.pkl
+756ce791962d60526c9470229b003eb0b60e9be31783ce009cddca17ab5d5f26  ./scene-0013-hard-00__on_r1/scene.ply
+c788d8fd1bc7dd231e68c22d7bce2d40e97517addad63c03bdedb774d1e11ba8  ./scene-0013-hard-00__on_r1/uniad/video.mp4
+dc1a37bd1a50beb4ba591e9c4c5da9806121d5efa334035f37730cc760b7fabd  ./scene-0013-hard-00__on_r1/video.mp4
+/dev/nvme0n2   1081101176832 895946551296 130162270208  88% /datasets/nuscenes-full

@@ -1,0 +1,932 @@
+++ date -u
++ echo 'I58_START Mon Jul 13 07:20:41 UTC 2026'
+I58_START Mon Jul 13 07:20:41 UTC 2026
++ HUGSIM=/opt/sentinel-stack/HUGSIM
++ UNIAD_SIM=/opt/sentinel-stack/UniAD_SIM
++ SCEN_DIR=/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes
++ ZIP_DIR=/datasets/nuscenes-full/hugsim/scenes/nuscenes
++ SCENES_DIR=/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes
++ OUT_BASE=/datasets/nuscenes-full/hugsim/outputs/nusc_uniad
++ RUNS=/datasets/nuscenes-full/hugsim/iter58_runs
++ RUNS46=/datasets/nuscenes-full/hugsim/iter46_runs
++ MAPS_EXPANSION=/datasets/nuscenes-full/maps/expansion
++ REALCAR=/datasets/nuscenes-full/hugsim/3DRealCar
++ HUGSIM_PATCH=/tmp/iter58_hugsim_provenance.patch
++ MONITOR_PATCH=/tmp/iter58_client_patch.py
++ SHIM=/opt/sentinel-stack/hugsim-shim/sitecustomize.py
++ CKPT=/opt/sentinel-stack/UniAD/ckpts/uniad_base_e2e.pth
++ SCENARIO=scene-0013-hard-00
++ FROZEN_SCENARIO_SHA=6947a5381c09485f20d5fed55eef2406d868ce047bdd44864aad81902f54e48e
++ FROZEN_HUGSIM_SHA=62c690d39fd90020e68a196bd8bcc1c4d4191f2e
++ FROZEN_UNIADSIM_SHA=5fb279e39912a5ac7f58e00d56b065cadcd0a749
++ FROZEN_CKPT_SHA=0ad0c2f5dc9788a41c313305779ea49346aeb742d1f6bb5ad25c46f9beffc990
++ FROZEN_SHIM_SHA=5bf69a1187478c52d49792d5871bd5732c6dd431ecd1f44b5e391f7adb80682c
++ FROZEN_IMAGE_ID=f73ef3884063
++ FROZEN_MONITOR_PATCH_SHA=6b39fd79d00c7bdb937c6d240fbc4648661b235f1a3024912d62874937146c5c
++ FROZEN_HUGSIM_PATCH_SHA=49eee7611e4b881d2bb6233e8767913019c6a097c6883762414005d5b2284ecd
++ EPISODE_TIMEOUT=1200
++ DISK_MIN_GIB=20
++ export PIXI_HOME=/datasets/nuscenes-full/hugsim-envs/pixi-home
++ PIXI_HOME=/datasets/nuscenes-full/hugsim-envs/pixi-home
++ export PIXI_CACHE_DIR=/datasets/nuscenes-full/hugsim-envs/pixi-cache
++ PIXI_CACHE_DIR=/datasets/nuscenes-full/hugsim-envs/pixi-cache
++ export PATH=/datasets/nuscenes-full/hugsim-envs/pixi-home/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
++ PATH=/datasets/nuscenes-full/hugsim-envs/pixi-home/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
++ mkdir -p /datasets/nuscenes-full/hugsim/iter58_runs
+++ git -C /opt/sentinel-stack/HUGSIM rev-parse HEAD
++ '[' 62c690d39fd90020e68a196bd8bcc1c4d4191f2e = 62c690d39fd90020e68a196bd8bcc1c4d4191f2e ']'
+++ git -C /opt/sentinel-stack/UniAD_SIM rev-parse HEAD
++ '[' 5fb279e39912a5ac7f58e00d56b065cadcd0a749 = 5fb279e39912a5ac7f58e00d56b065cadcd0a749 ']'
+++ sha256sum /opt/sentinel-stack/UniAD/ckpts/uniad_base_e2e.pth
+++ cut '-d ' -f1
++ '[' 0ad0c2f5dc9788a41c313305779ea49346aeb742d1f6bb5ad25c46f9beffc990 = 0ad0c2f5dc9788a41c313305779ea49346aeb742d1f6bb5ad25c46f9beffc990 ']'
+++ sha256sum /opt/sentinel-stack/hugsim-shim/sitecustomize.py
+++ cut '-d ' -f1
++ '[' 5bf69a1187478c52d49792d5871bd5732c6dd431ecd1f44b5e391f7adb80682c = 5bf69a1187478c52d49792d5871bd5732c6dd431ecd1f44b5e391f7adb80682c ']'
+++ sha256sum /tmp/iter58_client_patch.py
+++ cut '-d ' -f1
++ '[' 6b39fd79d00c7bdb937c6d240fbc4648661b235f1a3024912d62874937146c5c = 6b39fd79d00c7bdb937c6d240fbc4648661b235f1a3024912d62874937146c5c ']'
++ docker images --format '{{.ID}}' uniad:latest
++ grep -q f73ef3884063
++ echo '6947a5381c09485f20d5fed55eef2406d868ce047bdd44864aad81902f54e48e  scene-0013-hard-00.yaml'
++ cd /datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes
++ sha256sum -c /datasets/nuscenes-full/hugsim/iter58_runs/scenario.sha256
+scene-0013-hard-00.yaml: OK
++ for loc in singapore-onenorth singapore-hollandvillage singapore-queenstown boston-seaport
++ '[' -s /datasets/nuscenes-full/maps/expansion/singapore-onenorth.json ']'
++ for loc in singapore-onenorth singapore-hollandvillage singapore-queenstown boston-seaport
++ '[' -s /datasets/nuscenes-full/maps/expansion/singapore-hollandvillage.json ']'
++ for loc in singapore-onenorth singapore-hollandvillage singapore-queenstown boston-seaport
++ '[' -s /datasets/nuscenes-full/maps/expansion/singapore-queenstown.json ']'
++ for loc in singapore-onenorth singapore-hollandvillage singapore-queenstown boston-seaport
++ '[' -s /datasets/nuscenes-full/maps/expansion/boston-seaport.json ']'
+++ cat /datasets/nuscenes-full/hugsim/iter46_runs/d0_verdict.txt
++ '[' stochastic = stochastic ']'
+++ docker ps -q
+++ wc -l
++ '[' 0 '!=' 0 ']'
++ apply_hugsim_patch
+++ sha256sum /tmp/iter58_hugsim_provenance.patch
+++ cut '-d ' -f1
++ '[' 49eee7611e4b881d2bb6233e8767913019c6a097c6883762414005d5b2284ecd = 49eee7611e4b881d2bb6233e8767913019c6a097c6883762414005d5b2284ecd ']'
++ git -C /opt/sentinel-stack/HUGSIM apply --check /tmp/iter58_hugsim_provenance.patch
++ git -C /opt/sentinel-stack/HUGSIM apply /tmp/iter58_hugsim_provenance.patch
++ echo I58_HUGSIM_PATCH_APPLIED
+I58_HUGSIM_PATCH_APPLIED
++ python3 -m py_compile /opt/sentinel-stack/HUGSIM/sim/utils/score_calculator.py
+++ python3 /tmp/iter58_client_patch.py
++ PATCH_OUT='ITER48_UNION_PATCHED
+ITER48_E2E_PY_SHA256=23cce8a2a559b60dc3de394ba890a28adc13b5b24d222936478dad6f83f9aea3
+ITER48_E2E_SH_SHA256=8b404adcbc7fea328a5fbbd10c5256656444739b3af79ca26676a45464471aa7'
++ echo 'ITER48_UNION_PATCHED
+ITER48_E2E_PY_SHA256=23cce8a2a559b60dc3de394ba890a28adc13b5b24d222936478dad6f83f9aea3
+ITER48_E2E_SH_SHA256=8b404adcbc7fea328a5fbbd10c5256656444739b3af79ca26676a45464471aa7'
+ITER48_UNION_PATCHED
+ITER48_E2E_PY_SHA256=23cce8a2a559b60dc3de394ba890a28adc13b5b24d222936478dad6f83f9aea3
+ITER48_E2E_SH_SHA256=8b404adcbc7fea328a5fbbd10c5256656444739b3af79ca26676a45464471aa7
++ echo 'ITER48_UNION_PATCHED
+ITER48_E2E_PY_SHA256=23cce8a2a559b60dc3de394ba890a28adc13b5b24d222936478dad6f83f9aea3
+ITER48_E2E_SH_SHA256=8b404adcbc7fea328a5fbbd10c5256656444739b3af79ca26676a45464471aa7'
++ grep -q ITER48_UNION_PATCHED
+++ echo 'ITER48_UNION_PATCHED
+ITER48_E2E_PY_SHA256=23cce8a2a559b60dc3de394ba890a28adc13b5b24d222936478dad6f83f9aea3
+ITER48_E2E_SH_SHA256=8b404adcbc7fea328a5fbbd10c5256656444739b3af79ca26676a45464471aa7'
+++ grep ITER48_E2E_PY_SHA256=
+++ cut -d= -f2
++ E2E_PY_SHA=23cce8a2a559b60dc3de394ba890a28adc13b5b24d222936478dad6f83f9aea3
+++ echo 'ITER48_UNION_PATCHED
+ITER48_E2E_PY_SHA256=23cce8a2a559b60dc3de394ba890a28adc13b5b24d222936478dad6f83f9aea3
+ITER48_E2E_SH_SHA256=8b404adcbc7fea328a5fbbd10c5256656444739b3af79ca26676a45464471aa7'
+++ grep ITER48_E2E_SH_SHA256=
+++ cut -d= -f2
++ E2E_SH_SHA=8b404adcbc7fea328a5fbbd10c5256656444739b3af79ca26676a45464471aa7
++ LINKED=0
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_04_22_10_35_34//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_04_22_10_35_34//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_06_04_13_44_39//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_06_04_13_44_39//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_06_04_15_34_51//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_06_04_15_34_51//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_06_04_15_45_41//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_06_04_15_45_41//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_06_04_16_00_28//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_06_04_16_00_28//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_14_01_13//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_14_01_13//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_14_05_04//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_14_05_04//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_14_11_39//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_14_11_39//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_27_18//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_27_18//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_30_39//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_30_39//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_33_04//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_33_04//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_35_44//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_35_44//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_39_05//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_39_05//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_42_20//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_42_20//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_57_03//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_57_03//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_59_33//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_59_33//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_16_07_37//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_16_07_37//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_16_10_59//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_16_10_59//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_16_20_24//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_16_20_24//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_17_18_50//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_17_18_50//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_17_26_25//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_17_26_25//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_17_29_14//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_17_29_14//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_17_52_36//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_17_52_36//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_39_21//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_39_21//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_41_48//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_41_48//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_45_45//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_45_45//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_48_48//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_48_48//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_51_10//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_51_10//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_53_41//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_53_41//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_02_40//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_02_40//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_12_08//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_12_08//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_14_52//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_14_52//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_20_29//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_20_29//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_23_13//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_23_13//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_25_45//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_25_45//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_29_47//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_29_47//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_32_17//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_32_17//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_35_19//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_35_19//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_38_58//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_38_58//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_41_28//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_41_28//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_44_26//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_44_26//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_47_09//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_47_09//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_50_36//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_50_36//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_58_12//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_58_12//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_03_37//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_03_37//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_16_48//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_16_48//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_18_44//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_18_44//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_21_00//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_21_00//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_23_11//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_23_11//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_25_20//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_25_20//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_27_44//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_27_44//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_30_07//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_30_07//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_33_12//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_33_12//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_36_05//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_36_05//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_39_20//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_39_20//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_41_49//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_41_49//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_50_01//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_50_01//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_52_22//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_52_22//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_54_50//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_54_50//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_00_42//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_00_42//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_02_27//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_02_27//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_06_01//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_06_01//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_17_38//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_17_38//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_31_52//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_31_52//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_40_08//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_40_08//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_41_03//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_41_03//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_56_50//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_56_50//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_58_02//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_58_02//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_02_48//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_02_48//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_21_58//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_21_58//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_22_03//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_22_03//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_25_32//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_25_32//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_42_30//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_42_30//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_42_31//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_42_31//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_45_27//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_45_27//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_12_10_02//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_12_10_02//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_12_10_06//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_12_10_06//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_07_43//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_07_43//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_11_17//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_11_17//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_11_47//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_11_47//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_14_58//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_14_58//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_18_38//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_18_38//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_20_15//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_20_15//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_25_58//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_25_58//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_30_09//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_30_09//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_15_31_37//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_15_31_37//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_15_42_29//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_15_42_29//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_15_57_10//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_15_57_10//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_15_58_29//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_15_58_29//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_03_36//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_03_36//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_08_40//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_08_40//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_10_02//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_10_02//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_13_36//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_13_36//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_13_43//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_13_43//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_16_38//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_16_38//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_24_36//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_24_36//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_40_16//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_40_16//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_40_36//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_40_36//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_48_24//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_48_24//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_05_43_00//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_05_43_00//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_05_48_00//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_05_48_00//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_06_00_52//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_06_00_52//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_06_04_22//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_06_04_22//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_06_06_31//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_06_06_31//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_08_18_02_27//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_08_18_02_27//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_20_54//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_20_54//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_28_04//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_28_04//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_33_58//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_33_58//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_38_08//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_38_08//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_42_06//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_42_06//postprocess/shadow.pth ']'
++ echo 'I58_REALCAR_COMPAT_LINKS linked=0'
+I58_REALCAR_COMPAT_LINKS linked=0
++ echo '{'
+++ git -C /opt/sentinel-stack/HUGSIM rev-parse HEAD
++ echo '  "hugsim_sha": "62c690d39fd90020e68a196bd8bcc1c4d4191f2e",'
+++ git -C /opt/sentinel-stack/UniAD_SIM rev-parse HEAD
++ echo '  "uniad_sim_sha": "5fb279e39912a5ac7f58e00d56b065cadcd0a749",'
+++ sha256sum /opt/sentinel-stack/UniAD/ckpts/uniad_base_e2e.pth
+++ cut '-d ' -f1
++ echo '  "ckpt_sha": "0ad0c2f5dc9788a41c313305779ea49346aeb742d1f6bb5ad25c46f9beffc990",'
+++ sha256sum /opt/sentinel-stack/hugsim-shim/sitecustomize.py
+++ cut '-d ' -f1
++ echo '  "shim_sha": "5bf69a1187478c52d49792d5871bd5732c6dd431ecd1f44b5e391f7adb80682c",'
+++ docker images --format '{{.ID}}' uniad:latest
++ echo '  "image_id": "f73ef3884063",'
++ echo '  "scenario": "scene-0013-hard-00",'
++ echo '  "scenario_sha": "6947a5381c09485f20d5fed55eef2406d868ce047bdd44864aad81902f54e48e",'
+++ sha256sum /tmp/iter58_hugsim_provenance.patch
+++ cut '-d ' -f1
++ echo '  "hugsim_patch_sha": "49eee7611e4b881d2bb6233e8767913019c6a097c6883762414005d5b2284ecd",'
+++ sha256sum /opt/sentinel-stack/HUGSIM/sim/utils/score_calculator.py
+++ cut '-d ' -f1
++ echo '  "score_calculator_sha_after_patch": "1588b5b912384dead87b521b828cf7a135e77eb79aad5d540074c7168f79e46f",'
+++ sha256sum /tmp/iter58_client_patch.py
+++ cut '-d ' -f1
++ echo '  "monitor_patch_sha": "6b39fd79d00c7bdb937c6d240fbc4648661b235f1a3024912d62874937146c5c",'
++ echo '  "e2e_py_patched_sha": "23cce8a2a559b60dc3de394ba890a28adc13b5b24d222936478dad6f83f9aea3",'
++ echo '  "e2e_sh_patched_sha": "8b404adcbc7fea328a5fbbd10c5256656444739b3af79ca26676a45464471aa7",'
++ echo '  "schedule": "scene-0013-hard-00 OFF r1 then ON r1",'
+++ date -u +%Y-%m-%dT%H:%M:%SZ
++ echo '  "start_utc": "2026-07-13T07:20:53Z"'
++ echo '}'
+++ date -u
++ echo 'I58_PROVENANCE_OK Mon Jul 13 07:20:53 UTC 2026'
+I58_PROVENANCE_OK Mon Jul 13 07:20:53 UTC 2026
++ run_one off
++ local arm=off run_idx=1 scene=scene-0013
++ local mode_dashed=hard-00
++ local mode=hard_00
++ local out_dir=/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00
++ local dest=/datasets/nuscenes-full/hugsim/iter58_runs/scene-0013-hard-00__off_r1
++ local enable=0
++ '[' off = on ']'
++ '[' -f /datasets/nuscenes-full/hugsim/iter58_runs/scene-0013-hard-00__off_r1/episode_meta.json ']'
++ prep_scene scene-0013
++ local scene=scene-0013
++ '[' '!' -d /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013 ']'
++ local cfg=/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/cfg.yaml
++ '[' '!' -f /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/cfg.yaml ']'
++ '[' -f /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/cfg.yaml.orig ']'
++ python3 - /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/cfg.yaml /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013
++ local attempt rc steps hd marker decisions
++ for attempt in 1 2
++ disk_guard
++ local avail
+++ df --output=avail -BG /datasets/nuscenes-full
+++ tail -1
+++ tr -dc 0-9
++ avail=122
++ '[' 122 -lt 20 ']'
+++ date -u
++ echo 'I58_EP_START scene-0013-hard-00 off r1 a1 Mon Jul 13 07:20:53 UTC 2026'
+I58_EP_START scene-0013-hard-00 off r1 a1 Mon Jul 13 07:20:53 UTC 2026
++ local t0
+++ date -u +%s
++ t0=1783927253
++ docker rm -f hugsim_uniad_client
++ rm -rf /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00
++ cd /opt/sentinel-stack/HUGSIM
++ SENTINEL_ENABLED=0
++ timeout 1200 pixi run python -u closed_loop.py --scenario_path /datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0013-hard-00.yaml --base_path configs/sim/nuscenes_base.yaml --camera_path configs/sim/nuscenes_camera.yaml --kinematic_path configs/sim/kinematic.yaml --ad uniad --ad_cuda 0
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/output.txt
+/opt/sentinel-stack/UniAD_SIM/tools/e2e.sh 0 /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00
+Loading data for matched scene tags: ['nusc_trainval-train-boston', 'singapore-nusc_trainval-train', 'nusc_trainval-train_val-boston', 'singapore-nusc_trainval-train_val', 'nusc_trainval-val-boston', 'singapore-nusc_trainval-val']
+Getting Scenes from nusc_trainval:   0%|          | 0/6 [00:00<?, ?it/s]Getting Scenes from nusc_trainval: 100%|██████████| 6/6 [00:00<00:00, 647.02it/s]
+Calculating Agent Data (Serially):   0%|          | 0/850 [00:00<?, ?it/s]Calculating Agent Data (Serially): 100%|██████████| 850/850 [00:00<00:00, 58614.34it/s]
+850 scenes in the scene index.
+Creating Agent Data Index (4 CPUs):   0%|          | 0/850 [00:00<?, ?it/s]Creating Agent Data Index (4 CPUs):  20%|██        | 171/850 [00:00<00:00, 1697.09it/s]Creating Agent Data Index (4 CPUs):  45%|████▌     | 384/850 [00:00<00:00, 1950.27it/s]Creating Agent Data Index (4 CPUs):  71%|███████   | 600/850 [00:00<00:00, 2036.16it/s]Creating Agent Data Index (4 CPUs):  97%|█████████▋| 821/850 [00:00<00:00, 2103.19it/s]Creating Agent Data Index (4 CPUs): 100%|██████████| 850/850 [00:00<00:00, 2050.50it/s]
+Structuring Agent Data Index:   0%|          | 0/850 [00:00<?, ?it/s]Structuring Agent Data Index: 100%|██████████| 850/850 [00:00<00:00, 13362.11it/s]
+/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/pandas/io/feather_format.py:123: FutureWarning: pyarrow.feather.read_feather is deprecated as of 24.0.0. Use pyarrow.ipc.open_file() / RecordBatchFileReader instead. Feather V2 is the Arrow IPC file format.
+  return feather.read_feather(
+Ready for simulation
+ego pose [0.0, -5.551115123125783e-17, 0.0]
+ego pose [0.0, -0.002826926030539508, 0.4375]
+ego pose [0.008258067940280917, -0.007502663217875831, 1.0292354373065349]
+ego pose [0.015824052528969353, -0.013495566402180716, 1.7255044280412135]
+ego pose [0.0013404067374172164, -0.019553974015440408, 2.5005397486965824]
+ego pose [-0.052593988772342296, -0.02533238772317421, 3.30983754731031]
+ego pose [-0.1308807487588809, -0.029417492316891142, 4.154078644747688]
+ego pose [-0.22128650162326802, -0.03927834104309296, 4.988799104311838]
+ego pose [-0.3282873275146276, -0.04652357123983411, 5.838361010273774]
+ego pose [-0.44221915446803384, -0.0579485220303551, 6.709101685310593]
+ego pose [-0.5581364595287606, -0.0698325936677832, 7.590164880747604]
+ego pose [-0.6731465892963424, -0.08306732811492318, 8.483338671059347]
+ego pose [-0.7830352684524865, -0.09115582923674488, 9.381954864983316]
+Collision with foreground
+MoviePy - Building video /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/video.mp4.
+MoviePy - Writing video /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/video.mp4
+
+frame_index:   0%|          | 0/13 [00:00<?, ?it/s, now=None]frame_index:  62%|██████▏   | 8/13 [00:00<00:00, 68.69it/s, now=None]                                                                     MoviePy - Done !
+MoviePy - video ready /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/video.mp4
+this pkl file contains 1 experiment records.
+current exp has 13 frames
+frame 0 / 13
+collision with obstacle detected! @ timestep5
+ego_poly: (11.043716839402826, -0.003992744512063884, -0.003143962519723268, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 1 / 13
+collision with obstacle detected! @ timestep5
+ego_poly: (11.005096105131937, 0.28050333365128566, 0.05291305634934121, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 2 / 13
+collision with obstacle detected! @ timestep5
+ego_poly: (9.941326322528685, 0.4597888437903046, 0.07975571465307862, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+collision with obstacle detected! @ timestep4
+ego_poly: (9.92298104077815, 0.3900700539161515, 0.10726354935507453, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 3 / 13
+collision with obstacle detected! @ timestep5
+ego_poly: (11.16877595247376, 0.8149248623193387, 0.11943616515330935, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+collision with obstacle detected! @ timestep4
+ego_poly: (11.205975116694011, 0.7949707953172009, 0.13203549584137683, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 4 / 13
+collision with obstacle detected! @ timestep4
+ego_poly: (10.188399390688984, 0.7498222697671882, 0.13016903195504378, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+collision with obstacle detected! @ timestep3
+ego_poly: (10.157556735762668, 0.6841248113423853, 0.11979498786949125, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 5 / 13
+collision with obstacle detected! @ timestep4
+ego_poly: (10.88983856967147, 0.8955448410312818, 0.10751435182304989, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+collision with obstacle detected! @ timestep3
+ego_poly: (10.84558604119449, 0.8838149174226613, 0.10693971513540253, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 6 / 13
+collision with obstacle detected! @ timestep3
+ego_poly: (9.739974428581673, 0.8229602262536997, 0.1280066947742042, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+collision with obstacle detected! @ timestep2
+ego_poly: (9.655458436357694, 0.8662937906669042, 0.10401417336585429, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 7 / 13
+collision with obstacle detected! @ timestep3
+ego_poly: (10.67372832628487, 0.9271553173870275, 0.11422249081455985, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+collision with obstacle detected! @ timestep2
+ego_poly: (10.556472202378874, 1.006121680072766, 0.08492235188349852, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 8 / 13
+collision with obstacle detected! @ timestep2
+ego_poly: (9.933473388570366, 0.9185936115679666, 0.09395162491981184, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+collision with obstacle detected! @ timestep1
+ego_poly: (9.933764201232304, 0.9135830367656765, 0.1482143085535274, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 9 / 13
+collision with obstacle detected! @ timestep2
+ego_poly: (10.74620711794633, 1.0204771130715484, 0.09443956153096945, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+collision with obstacle detected! @ timestep1
+ego_poly: (10.746428817018803, 1.0014981689018927, 0.15135167482573206, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 10 / 13
+collision with obstacle detected! @ timestep1
+ego_poly: (10.120636976536652, 0.8945258381299711, 0.12335852551280069, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+collision with obstacle detected! @ timestep0
+ego_poly: (10.120636976536652, 0.8945258381299711, 0.12168240925762139, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 11 / 13
+collision with obstacle detected! @ timestep1
+ego_poly: (10.99414494252988, 1.033933669329656, 0.13185722415468873, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+collision with obstacle detected! @ timestep0
+ego_poly: (10.99414494252988, 1.033933669329656, 0.11347024846210574, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 12 / 13
+collision with obstacle detected! @ timestep0
+ego_poly: (10.223134491448072, 0.878895901021023, 0.08617859131871167, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+collision with obstacle detected! @ timestep0
+ego_poly: (11.678524161804066, 1.0739392586733214, 0.08617859131871167, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+The score of experiment is (0.04395604395604395, 0.12158324458643947, 0.005344318443359976, {'nc': 0.15384615384615385, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.04395604395604395}, {0.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.2857142857142857}, 0.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.2857142857142857}, 0.75: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 1.0: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 1.25: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 1.5: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 1.75: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 2.0: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 2.25: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 2.5: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 2.75: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 3.0: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 3.25: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}}).
+=============================Results=============================
+'nc': 0.15384615384615385
+'dac': 1.0
+'ttc': 0.0
+'c': 1.0
+'pdms': 0.04395604395604395
+'rc': 0.12158324458643947
+'hdscore': 0.005344318443359976
+The AD algorithm is still running, remaining tolerant 100.
+The AD algorithm is still running, remaining tolerant 95.
+The AD algorithm completed with return code 0.
++ rc=0
++ echo 'I58_EP_RC=0 scene-0013-hard-00 off r1 a1'
+I58_EP_RC=0 scene-0013-hard-00 off r1 a1
++ docker rm -f hugsim_uniad_client
+++ python3 -c '
+import json, math
+try:
+    v = json.load(open('\''/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/eval.json'\'')).get('\''hdscore'\'')
+    print(v if isinstance(v, (int, float)) and math.isfinite(v) else '\''INVALID'\'')
+except Exception:
+    print('\''MISSING'\'')
+'
++ hd=0.005344318443359976
+++ grep -c sent /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/output.txt
++ steps=13
++ '[' -n 13 ']'
+++ grep -c 'SENTINEL_I48_UNION_PATCH_LOADED enabled=0' /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/output.txt
++ marker=1
++ '[' -n 1 ']'
++ decisions=1
++ '[' off = on ']'
++ '[' 0 = 0 ']'
++ '[' 0.005344318443359976 '!=' MISSING ']'
++ '[' 0.005344318443359976 '!=' INVALID ']'
++ '[' 13 -gt 0 ']'
++ '[' 1 -gt 0 ']'
++ '[' 1 = 1 ']'
++ rm -rf /datasets/nuscenes-full/hugsim/iter58_runs/scene-0013-hard-00__off_r1
++ mkdir -p /datasets/nuscenes-full/hugsim/iter58_runs/scene-0013-hard-00__off_r1
++ find /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00 -type p -delete
++ mv /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/data.pkl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/eval.json /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/ground.ply /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/infos.pkl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/output.txt /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/scene.ply /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/uniad /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/video.mp4 /datasets/nuscenes-full/hugsim/iter58_runs/scene-0013-hard-00__off_r1/
++ rmdir /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00
+++ date -u +%s
++ printf '{"scenario":"%s","arm":"%s","run":%s,"attempt":%s,"rc":%s,"hdscore":%s,"steps":%s,"start_epoch":%s,"end_epoch":%s}\n' scene-0013-hard-00 off 1 1 0 0.005344318443359976 13 1783927253 1783927374
++ echo 'I58_EP_DONE scene-0013-hard-00 off r1 ok hd=0.005344318443359976 steps=13'
+I58_EP_DONE scene-0013-hard-00 off r1 ok hd=0.005344318443359976 steps=13
++ return 0
++ run_one on
++ local arm=on run_idx=1 scene=scene-0013
++ local mode_dashed=hard-00
++ local mode=hard_00
++ local out_dir=/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00
++ local dest=/datasets/nuscenes-full/hugsim/iter58_runs/scene-0013-hard-00__on_r1
++ local enable=0
++ '[' on = on ']'
++ enable=1
++ '[' -f /datasets/nuscenes-full/hugsim/iter58_runs/scene-0013-hard-00__on_r1/episode_meta.json ']'
++ prep_scene scene-0013
++ local scene=scene-0013
++ '[' '!' -d /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013 ']'
++ local cfg=/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/cfg.yaml
++ '[' '!' -f /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/cfg.yaml ']'
++ '[' -f /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/cfg.yaml.orig ']'
++ python3 - /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/cfg.yaml /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013
++ local attempt rc steps hd marker decisions
++ for attempt in 1 2
++ disk_guard
++ local avail
+++ df --output=avail -BG /datasets/nuscenes-full
+++ tail -1
+++ tr -dc 0-9
++ avail=122
++ '[' 122 -lt 20 ']'
+++ date -u
++ echo 'I58_EP_START scene-0013-hard-00 on r1 a1 Mon Jul 13 07:22:54 UTC 2026'
+I58_EP_START scene-0013-hard-00 on r1 a1 Mon Jul 13 07:22:54 UTC 2026
++ local t0
+++ date -u +%s
++ t0=1783927374
++ docker rm -f hugsim_uniad_client
++ rm -rf /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00
++ cd /opt/sentinel-stack/HUGSIM
++ SENTINEL_ENABLED=1
++ timeout 1200 pixi run python -u closed_loop.py --scenario_path /datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0013-hard-00.yaml --base_path configs/sim/nuscenes_base.yaml --camera_path configs/sim/nuscenes_camera.yaml --kinematic_path configs/sim/kinematic.yaml --ad uniad --ad_cuda 0
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/output.txt
+/opt/sentinel-stack/UniAD_SIM/tools/e2e.sh 0 /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00
+Loading data for matched scene tags: ['boston-train-nusc_trainval', 'train-singapore-nusc_trainval', 'boston-train_val-nusc_trainval', 'train_val-singapore-nusc_trainval', 'boston-val-nusc_trainval', 'val-singapore-nusc_trainval']
+Getting Scenes from nusc_trainval:   0%|          | 0/6 [00:00<?, ?it/s]Getting Scenes from nusc_trainval: 100%|██████████| 6/6 [00:00<00:00, 751.94it/s]
+Calculating Agent Data (Serially):   0%|          | 0/850 [00:00<?, ?it/s]Calculating Agent Data (Serially): 100%|██████████| 850/850 [00:00<00:00, 59101.15it/s]
+850 scenes in the scene index.
+Creating Agent Data Index (4 CPUs):   0%|          | 0/850 [00:00<?, ?it/s]Creating Agent Data Index (4 CPUs):  20%|██        | 172/850 [00:00<00:00, 1712.42it/s]Creating Agent Data Index (4 CPUs):  46%|████▌     | 387/850 [00:00<00:00, 1964.79it/s]Creating Agent Data Index (4 CPUs):  70%|███████   | 596/850 [00:00<00:00, 2018.77it/s]Creating Agent Data Index (4 CPUs):  97%|█████████▋| 824/850 [00:00<00:00, 2117.36it/s]Creating Agent Data Index (4 CPUs): 100%|██████████| 850/850 [00:00<00:00, 2060.83it/s]
+Structuring Agent Data Index:   0%|          | 0/850 [00:00<?, ?it/s]Structuring Agent Data Index: 100%|██████████| 850/850 [00:00<00:00, 13400.18it/s]
+/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/pandas/io/feather_format.py:123: FutureWarning: pyarrow.feather.read_feather is deprecated as of 24.0.0. Use pyarrow.ipc.open_file() / RecordBatchFileReader instead. Feather V2 is the Arrow IPC file format.
+  return feather.read_feather(
+Ready for simulation
+ego pose [0.0, -5.551115123125783e-17, 0.0]
+ego pose [0.0, -0.002826926030539508, 0.4375]
+ego pose [0.00825821107146765, -0.0075026599592019775, 1.0292455151498878]
+ego pose [0.015823423918781294, -0.01349558565311244, 1.7254462250081208]
+ego pose [0.001337463395227289, -0.019553932559320607, 2.500724184384123]
+ego pose [-0.05252673206115914, -0.02532957597270899, 3.311318260770756]
+ego pose [-0.12868450208933152, -0.02943178137891862, 4.136891432231718]
+ego pose [-0.22934407300670073, -0.03933577618472909, 4.984684450035269]
+ego pose [-0.3415571431086539, -0.0466533278975557, 5.838591703014634]
+ego pose [-0.4301468736530833, -0.05531316394135159, 6.506490802282087]
+ego pose [-0.49448334380873704, -0.06176875691165865, 6.988464497763345]
+ego pose [-0.5372670540636696, -0.06588972622476007, 7.307566371437963]
+ego pose [-0.5656785715847562, -0.06901647824333079, 7.51886155458231]
+ego pose [-0.5845257780899965, -0.07111146143146324, 7.658760534856681]
+ego pose [-0.5970216413690269, -0.07221002452479257, 7.751398120794157]
+ego pose [-0.6053030389249744, -0.07322735866624652, 7.812740860241371]
+ego pose [-0.6107898604841656, -0.07418266151987181, 7.853360983494736]
+ego pose [-0.6144244766100195, -0.07426514717208284, 7.880259026336717]
+ego pose [-0.6431737817905129, -0.0774330854323587, 8.092967462859088]
+ego pose [-0.7003157197406202, -0.08356134296619298, 8.491029501763201]
+ego pose [-0.795699360208805, -0.08988233510070501, 9.036024978248522]
+ego pose [-0.9459296991443793, -0.09577943874008381, 9.660165408415596]
+ego pose [-1.1620794108187922, -0.10652149326971425, 10.309530924835663]
+ego pose [-1.4520834895471073, -0.11965383605814908, 10.978814823246855]
+ego pose [-1.8055670966016502, -0.1378879726975032, 11.658820579387399]
+ego pose [-2.095119118484133, -0.15407743040256974, 12.160095880243308]
+ego pose [-2.301396554809334, -0.16519538061600408, 12.49271913810627]
+Collision with background
+MoviePy - Building video /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/video.mp4.
+MoviePy - Writing video /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/video.mp4
+
+frame_index:   0%|          | 0/27 [00:00<?, ?it/s, now=None]frame_index:  33%|███▎      | 9/27 [00:00<00:00, 89.86it/s, now=None]frame_index:  96%|█████████▋| 26/27 [00:00<00:00, 131.33it/s, now=None]                                                                       MoviePy - Done !
+MoviePy - video ready /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/video.mp4
+this pkl file contains 1 experiment records.
+current exp has 27 frames
+frame 0 / 27
+collision with obstacle detected! @ timestep5
+ego_poly: (11.04371683938604, -0.0039927890986136, -0.00314396672353603, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 1 / 27
+collision with obstacle detected! @ timestep5
+ego_poly: (11.005369741918, 0.28022786678478895, 0.052869836839126404, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 2 / 27
+collision with obstacle detected! @ timestep5
+ego_poly: (9.942466334454915, 0.46074746814064843, 0.0799453793457978, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+collision with obstacle detected! @ timestep4
+ego_poly: (9.924295005768798, 0.39105015247438896, 0.10743532313764179, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 3 / 27
+collision with obstacle detected! @ timestep5
+ego_poly: (11.184266643542987, 0.816031341395779, 0.11941988759577532, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.124812126159668, 0.7258158922195435, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+collision with obstacle detected! @ timestep4
+ego_poly: (11.22051281549732, 0.7956540085460659, 0.13194117057009788, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 4 / 27
+collision with obstacle detected! @ timestep4
+ego_poly: (10.213841721195154, 0.7534676915406358, 0.1306262559701716, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+collision with obstacle detected! @ timestep3
+ego_poly: (10.180865261725632, 0.6887371989816891, 0.11979758401117073, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 5 / 27
+collision with obstacle detected! @ timestep4
+ego_poly: (10.965110796022703, 0.9760058944052461, 0.11912378119795466, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.124812126159668, 0.7258158922195435, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+collision with obstacle detected! @ timestep3
+ego_poly: (10.910951644685706, 0.9554962320442132, 0.12035549352911203, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 6 / 27
+collision with obstacle detected! @ timestep3
+ego_poly: (9.817125685078185, 0.8767293512888226, 0.12864627004982807, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+collision with obstacle detected! @ timestep2
+ego_poly: (9.692900833684043, 0.9091163350636575, 0.11404799967283606, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 7 / 27
+collision with obstacle detected! @ timestep3
+ego_poly: (10.605143540601201, 0.9578846797283259, 0.12355599203649764, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.124812126159668, 0.7258158922195435, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+collision with obstacle detected! @ timestep2
+ego_poly: (10.498702660957305, 1.021237879741789, 0.09663325249270611, 1.7148910969495772, 3.8379053235054017), obs_poly: (13.000332832336426, 0.7144217491149902, 0.0897215132071274, 1.7148910969495772, 3.8379053235054017)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 8 / 27
+comfortable: [True, True, True, True, True, True]
+frame 9 / 27
+comfortable: [True, True, True, True, True, True]
+frame 10 / 27
+comfortable: [True, True, True, True, True, True]
+frame 11 / 27
+comfortable: [True, True, True, True, True, True]
+frame 12 / 27
+comfortable: [True, True, True, True, True, True]
+frame 13 / 27
+comfortable: [True, True, True, True, True, True]
+frame 14 / 27
+comfortable: [True, True, True, True, True, True]
+frame 15 / 27
+comfortable: [True, True, True, True, True, True]
+frame 16 / 27
+comfortable: [True, True, True, True, True, True]
+frame 17 / 27
+collision with background detected! @ timestep4
+collision with background detected! @ timestep4
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, False, True, False, False, False]
+frame 18 / 27
+collision with background detected! @ timestep5
+collision with obstacle detected! @ timestep2
+ego_poly: (12.7731816486872, 1.5765491037259554, 0.28234832876048743, 1.7148910969495772, 3.8379053235054017), obs_poly: (16.374692916870117, 1.0381510257720947, 0.1022786260254458, 1.7148910969495772, 3.8379053235054017)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, False, True, False, False, False]
+frame 19 / 27
+collision with background detected! @ timestep4
+collision with obstacle detected! @ timestep2
+ego_poly: (13.419652511868065, 1.993747353191774, 0.4203938268295616, 1.7148910969495772, 3.8379053235054017), obs_poly: (16.744577407836914, 1.0739191770553589, 0.10379482651435623, 1.7148910969495772, 3.8379053235054017)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, False, True, False, False, True]
+frame 20 / 27
+collision with background detected! @ timestep4
+collision with background detected! @ timestep3
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, False, True, False, False, True]
+frame 21 / 27
+collision with background detected! @ timestep3
+collision with background detected! @ timestep2
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 22 / 27
+collision with background detected! @ timestep2
+collision with background detected! @ timestep1
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, False, True]
+frame 23 / 27
+collision with background detected! @ timestep2
+collision with background detected! @ timestep1
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 24 / 27
+comfortable: [True, True, True, True, True, True]
+frame 25 / 27
+comfortable: [True, True, True, True, True, True]
+frame 26 / 27
+comfortable: [True, True, True, True, True, True]
+The score of experiment is (0.4656084656084656, 0.15530706425275115, 0.07231228388487884, {'nc': 0.5185185185185185, 'dac': 0.9259259259259259, 'ttc': 0.4444444444444444, 'c': 0.8148148148148148, 'pdms': 0.4656084656084656}, {0.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.2857142857142857}, 0.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.2857142857142857}, 0.75: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 1.0: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 1.25: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 1.5: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 1.75: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 2.0: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 2.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 4.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 4.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 4.5: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 0.0, 'pdms': 0.0}, 4.75: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 0.0, 'pdms': 0.0}, 5.0: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 0.0, 'pdms': 0.0}, 5.25: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 0.0, 'pdms': 0.0}, 5.5: {'nc': 0.0, 'dac': 0.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 5.75: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 0.0, 'pdms': 0.0}, 6.0: {'nc': 0.0, 'dac': 0.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 6.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 6.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 6.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}}).
+=============================Results=============================
+'nc': 0.5185185185185185
+'dac': 0.9259259259259259
+'ttc': 0.4444444444444444
+'c': 0.8148148148148148
+'pdms': 0.4656084656084656
+'rc': 0.15530706425275115
+'hdscore': 0.07231228388487884
+The AD algorithm is still running, remaining tolerant 100.
+The AD algorithm is still running, remaining tolerant 95.
+The AD algorithm is still running, remaining tolerant 90.
+The AD algorithm completed with return code 0.
++ rc=0
++ echo 'I58_EP_RC=0 scene-0013-hard-00 on r1 a1'
+I58_EP_RC=0 scene-0013-hard-00 on r1 a1
++ docker rm -f hugsim_uniad_client
+++ python3 -c '
+import json, math
+try:
+    v = json.load(open('\''/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/eval.json'\'')).get('\''hdscore'\'')
+    print(v if isinstance(v, (int, float)) and math.isfinite(v) else '\''INVALID'\'')
+except Exception:
+    print('\''MISSING'\'')
+'
++ hd=0.07231228388487884
+++ grep -c sent /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/output.txt
++ steps=27
++ '[' -n 27 ']'
+++ grep -c 'SENTINEL_I48_UNION_PATCH_LOADED enabled=1' /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/output.txt
++ marker=1
++ '[' -n 1 ']'
++ decisions=1
++ '[' on = on ']'
++ decisions=0
++ '[' -s /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/sentinel_iter48_decisions.jsonl ']'
+++ grep -c 'SENTINEL_I48_DECISION frame=' /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/output.txt
++ '[' 27 -gt 0 ']'
++ decisions=1
++ '[' 0 = 0 ']'
++ '[' 0.07231228388487884 '!=' MISSING ']'
++ '[' 0.07231228388487884 '!=' INVALID ']'
++ '[' 27 -gt 0 ']'
++ '[' 1 -gt 0 ']'
++ '[' 1 = 1 ']'
++ rm -rf /datasets/nuscenes-full/hugsim/iter58_runs/scene-0013-hard-00__on_r1
++ mkdir -p /datasets/nuscenes-full/hugsim/iter58_runs/scene-0013-hard-00__on_r1
++ find /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00 -type p -delete
++ mv /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/data.pkl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/eval.json /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/ground.ply /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/infos.pkl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/output.txt /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/scene.ply /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/sentinel_iter48_decisions.jsonl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/uniad /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00/video.mp4 /datasets/nuscenes-full/hugsim/iter58_runs/scene-0013-hard-00__on_r1/
++ rmdir /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0013_hard_00
+++ date -u +%s
++ printf '{"scenario":"%s","arm":"%s","run":%s,"attempt":%s,"rc":%s,"hdscore":%s,"steps":%s,"start_epoch":%s,"end_epoch":%s}\n' scene-0013-hard-00 on 1 1 0 0.07231228388487884 27 1783927374 1783927524
++ echo 'I58_EP_DONE scene-0013-hard-00 on r1 ok hd=0.07231228388487884 steps=27'
+I58_EP_DONE scene-0013-hard-00 on r1 ok hd=0.07231228388487884 steps=27
++ return 0
++ cd /datasets/nuscenes-full/hugsim/iter58_runs
++ find . -path ./prior_launches -prune -o -type f '(' -name data.pkl -o -name infos.pkl -o -name video.mp4 -o -name '*.ply' ')' -print
++ sort
++ xargs -r sha256sum
++ df -B1 /datasets/nuscenes-full
++ tail -1
+++ date -u
++ echo 'I58_CANARY_DONE Mon Jul 13 07:25:25 UTC 2026'
+I58_CANARY_DONE Mon Jul 13 07:25:25 UTC 2026
