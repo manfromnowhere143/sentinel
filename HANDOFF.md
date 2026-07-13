@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Mon Jul 13 13:05:01 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Mon Jul 13 13:14:20 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+1f55e0d iter75: publish hugsim object handoff audit
+03f805c iter75: add hugsim object handoff tooling
+a9f1750 iter75: preregister hugsim object handoff audit
+51a50d7 handoff: record iter74 late fire delay state
 95793b4 iter74: publish hugsim late fire delay audit
 91fb28f iter74: add hugsim late fire delay tooling
 667f45f iter74: preregister hugsim late fire delay audit
 b3c8865 handoff: record iter73 margin transition state
-0ad899b iter73: publish hugsim margin transition audit
-b73361e iter73: add hugsim margin transition tooling
-6fc6c5d iter73: preregister hugsim margin transition audit
-95bd03b handoff: record iter72 late fire prefire margin state
 ```
 Working tree: CLEAN
 
@@ -90,6 +90,7 @@ Working tree: CLEAN
 - experiments/iter72_hugsim_late_fire_prefire_margin_audit: RESULT PUBLISHED
 - experiments/iter73_hugsim_margin_transition_audit: RESULT PUBLISHED
 - experiments/iter74_hugsim_late_fire_delay_barrier: RESULT PUBLISHED
+- experiments/iter75_hugsim_cross_channel_object_handoff: RESULT PUBLISHED
 - experiments/iter7_margin: RESULT PUBLISHED
 - experiments/iter8_union: RESULT PUBLISHED
 - experiments/iter9_evade: RESULT PUBLISHED
@@ -100,7 +101,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 13:06:10 up 9 days,  2:47,  0 users,  load average: 0.00, 0.00, 0.00
+ 13:15:28 up 9 days,  2:56,  0 users,  load average: 0.00, 0.00, 0.00
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-iter59-actor-match.log
@@ -112,7 +113,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter74_hugsim_late_fire_delay_barrier/RESULT.md — read it before opening new work.
+- Newest completed experiment: experiments/iter75_hugsim_cross_channel_object_handoff/RESULT.md — read it before opening new work.
 - Newest pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
