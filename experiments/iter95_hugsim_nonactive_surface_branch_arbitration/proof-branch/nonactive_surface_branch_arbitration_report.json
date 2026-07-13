@@ -1,0 +1,172 @@
+{
+  "claim_boundary": "two-row descriptive non-active surface branch arbitration only; no actor-causality, repair, threshold-value, transfer, safety, deployment, robustness, benchmark, population-rate, HD-Score-invariance, commercial-value, real-world behavior, first-responder behavior, or retuning claim",
+  "events": [
+    {
+      "audit_id": "both_distinct_extreme",
+      "event_role": "pre",
+      "measurements": {
+        "path_better_cpa_rank_than_provenance": true,
+        "path_bridge_distance_m": 9.049123028502123,
+        "path_cpa_rank": 1,
+        "path_has_finite_ttc": false,
+        "path_lower_cpa_than_provenance": true,
+        "path_min_cpa": 6.49094537582306,
+        "provenance_bridge_distance_m": 0.987644974002337,
+        "provenance_closer_bridge_than_path": true,
+        "provenance_cpa_rank": 2,
+        "provenance_has_finite_ttc": true,
+        "provenance_min_cpa": 21.520798149009224,
+        "surface_matches_path": false,
+        "surface_matches_provenance": true
+      },
+      "path_best": {
+        "active_cpa_margin_m": 4.99094537582306,
+        "active_ttc_margin_s": null,
+        "bridge_band": "no_support",
+        "bridge_best_distance_m": 9.049123028502123,
+        "cpa_rank": 1,
+        "joint_class": "subthreshold_no_bridge_support",
+        "min_cpa": 6.49094537582306,
+        "object_id": 5,
+        "state": "subthreshold",
+        "ttc": null,
+        "ttc_rank": null
+      },
+      "problems": [],
+      "provenance_best": {
+        "active_cpa_margin_m": 20.020798149009224,
+        "active_ttc_margin_s": 2.276101409133555,
+        "bridge_band": "match",
+        "bridge_best_distance_m": 0.987644974002337,
+        "cpa_rank": 2,
+        "joint_class": "borderline_bridge_supported",
+        "min_cpa": 21.520798149009224,
+        "object_id": 9,
+        "state": "borderline",
+        "ttc": 4.776101409133555,
+        "ttc_rank": 1
+      },
+      "replay_alignment": "exact_bridge_ts",
+      "replay_ts": 5.5,
+      "row_label": "nonactive_surface_provenance_ttc_borderline_over_path_cpa",
+      "scenario": "scene-0138-extreme-00",
+      "surface_best": {
+        "active_cpa_margin_m": 20.020798149009224,
+        "active_ttc_margin_s": 2.276101409133555,
+        "bridge_band": "match",
+        "bridge_best_distance_m": 0.987644974002337,
+        "cpa_rank": 2,
+        "joint_class": "borderline_bridge_supported",
+        "min_cpa": 21.520798149009224,
+        "object_id": 9,
+        "state": "borderline",
+        "ttc": 4.776101409133555,
+        "ttc_rank": 1
+      }
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "event_role": "pre",
+      "measurements": {
+        "path_better_cpa_rank_than_provenance": true,
+        "path_bridge_distance_m": 3.2792928823035705,
+        "path_cpa_rank": 1,
+        "path_has_finite_ttc": false,
+        "path_lower_cpa_than_provenance": true,
+        "path_min_cpa": 6.32985199064016,
+        "provenance_bridge_distance_m": 0.7077149882625609,
+        "provenance_closer_bridge_than_path": true,
+        "provenance_cpa_rank": 5,
+        "provenance_has_finite_ttc": false,
+        "provenance_min_cpa": 17.48458457065019,
+        "surface_matches_path": true,
+        "surface_matches_provenance": false
+      },
+      "path_best": {
+        "active_cpa_margin_m": 4.82985199064016,
+        "active_ttc_margin_s": null,
+        "bridge_band": "ambiguous",
+        "bridge_best_distance_m": 3.2792928823035705,
+        "cpa_rank": 1,
+        "joint_class": "subthreshold_bridge_supported",
+        "min_cpa": 6.32985199064016,
+        "object_id": 19,
+        "state": "subthreshold",
+        "ttc": null,
+        "ttc_rank": null
+      },
+      "problems": [],
+      "provenance_best": {
+        "active_cpa_margin_m": 15.984584570650188,
+        "active_ttc_margin_s": null,
+        "bridge_band": "match",
+        "bridge_best_distance_m": 0.7077149882625609,
+        "cpa_rank": 5,
+        "joint_class": "subthreshold_bridge_supported",
+        "min_cpa": 17.48458457065019,
+        "object_id": 3,
+        "state": "subthreshold",
+        "ttc": null,
+        "ttc_rank": null
+      },
+      "replay_alignment": "exact_bridge_ts",
+      "replay_ts": 4.0,
+      "row_label": "nonactive_surface_path_cpa_over_provenance_bridge",
+      "scenario": "scene-0071-medium-01",
+      "surface_best": {
+        "active_cpa_margin_m": 4.82985199064016,
+        "active_ttc_margin_s": null,
+        "bridge_band": "ambiguous",
+        "bridge_best_distance_m": 3.2792928823035705,
+        "cpa_rank": 1,
+        "joint_class": "subthreshold_bridge_supported",
+        "min_cpa": 6.32985199064016,
+        "object_id": 19,
+        "state": "subthreshold",
+        "ttc": null,
+        "ttc_rank": null
+      }
+    }
+  ],
+  "fixed_rows": [
+    {
+      "audit_id": "both_distinct_extreme",
+      "event_role": "pre",
+      "iter92_label": "path_best_no_bridge_provenance_best_nonactive",
+      "iter93_label": "surface_follows_provenance_nonactive",
+      "replay_alignment": "exact_bridge_ts",
+      "replay_ts": 5.5,
+      "scenario": "scene-0138-extreme-00"
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "event_role": "pre",
+      "iter92_label": "path_best_bridge_supported_nonactive",
+      "iter93_label": "surface_follows_path_nonactive",
+      "replay_alignment": "exact_bridge_ts",
+      "replay_ts": 4.0,
+      "scenario": "scene-0071-medium-01"
+    }
+  ],
+  "infra_problems": [],
+  "inputs": {
+    "iter92_report": "experiments/iter92_hugsim_path_proximity_arbitration/proof-arbitration/path_proximity_arbitration_report.json",
+    "iter93_report": "experiments/iter93_hugsim_surface_winner_alignment/proof-alignment/surface_winner_alignment_report.json",
+    "iter94_report": "experiments/iter94_hugsim_active_row_surface_margin_arbitration/proof-margin/active_row_surface_margin_arbitration_report.json"
+  },
+  "iteration": 95,
+  "summary": {
+    "evaluated_rows": 2,
+    "path_cpa_rank_better_events": 2,
+    "provenance_closer_bridge_events": 2,
+    "provenance_finite_ttc_events": 1,
+    "row_label_counts": {
+      "nonactive_surface_path_cpa_over_provenance_bridge": 1,
+      "nonactive_surface_provenance_ttc_borderline_over_path_cpa": 1
+    },
+    "surface_matches_path_events": 1,
+    "surface_matches_provenance_events": 1,
+    "target_rows": 2
+  },
+  "verdict": "HUGSIM_NONACTIVE_SURFACE_BRANCH_ARBITRATION_SPLIT_COMPLETE"
+}

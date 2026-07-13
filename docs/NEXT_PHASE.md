@@ -13,7 +13,7 @@ It adds a deeper Stanford/MIT/Tesla/Mobileye/NHTSA read to the existing frontier
 packet. The decision is narrow: Sentinel is aligned when framed as a runtime monitor,
 failure-localization, and safety-evidence system for opaque planners; it is not aligned when
 framed as a full autonomy stack, world model, robotaxi system, or deployment-ready safety case.
-That priority is now partly closed by iterations 84-94: the selected-vs-support
+That priority is now partly closed by iterations 84-95: the selected-vs-support
 path/arbitration split is proven on the fixed rows, and the closest-path-horizon/provenance
 timing decomposition shows support-object provenance arriving after the event in all three rows.
 The exact bridge-time support-surface replay then blocked on the active `ttc_medium_a` row because
@@ -31,11 +31,12 @@ CPA/path-best and provenance-best objects differ in all three fixed replay rows.
 surface-winner audit showed mixed selector alignment: surface follows path in two rows and
 provenance in one row, with the active row following path. The active-row margin arbitration then
 explained that branch: object `24` is the only active CPA/path/surface candidate, while all three
-bridge-supported provenance candidates are non-active, TTC-null, and CPA-far. The next local
-HUGSIM priority is a fresh mechanism-cause pre-registration that either tests whether this
-active-row margin pattern generalizes beyond the fixed row, decomposes the remaining non-active
-surface/provenance branches, or chooses another unresolved branch; it must not retune thresholds
-or make repair/safety claims.
+bridge-supported provenance candidates are non-active, TTC-null, and CPA-far. The non-active
+branch arbitration then split the remaining two rows into a provenance/TTC-borderline branch and
+a path/CPA branch. The next local HUGSIM priority is a fresh mechanism-cause pre-registration
+that either tests the fixed branch taxonomy against a larger committed row set, connects the
+branch taxonomy back to HUGSIM collision outcomes under a preregistered evidence boundary, or
+chooses another unresolved branch; it must not retune thresholds or make repair/safety claims.
 
 ## New frontier packet after these lines closed
 
@@ -604,6 +605,10 @@ Iteration 94 then decomposed that active row's margin. The result is
 CPA/path/surface candidate and has active CPA margin `-0.4990 m`, while all three
 bridge-supported provenance candidates are non-active, TTC-null, and CPA-far, with the nearest
 bridge-supported active CPA margin at `+10.6434 m`.
+Iteration 95 then decomposed the two non-active rows. The result is
+`HUGSIM_NONACTIVE_SURFACE_BRANCH_ARBITRATION_SPLIT_COMPLETE`: `both_distinct_extreme` follows a
+provenance/TTC-borderline branch through object `9`, while `ttc_medium_a` pre follows a path/CPA
+branch through object `19`.
 
 The default next scientific line is therefore not an expanded-N transfer run and not retuning the
 released union. After iteration 61, the actor-match audit points to wrong-object/wrong-hazard
@@ -660,9 +665,11 @@ the active failure row follows path rather than provenance.
 Iteration 94 closes the immediate active-row surface-margin arbitration: the active row's
 path-following surface winner is the only active CPA candidate, while bridge-supported provenance
 candidates remain non-active and CPA-far.
-Any successor should be a fresh mechanism-cause pre-registration that either tests whether this
-active-row margin pattern generalizes, decomposes the remaining non-active surface/provenance
-branches, or chooses another branch. A strong
+Iteration 95 closes the immediate non-active branch arbitration: the two non-active rows split
+into provenance/TTC-borderline and path/CPA branches.
+Any successor should be a fresh mechanism-cause pre-registration that either tests this fixed-row
+branch taxonomy against a larger committed row set, connects it back to HUGSIM collision outcomes
+under a preregistered evidence boundary, or chooses another branch. A strong
 successor should distinguish among:
 
 1. hazard surface: whether the monitor is braking for the wrong detected object or wrong path

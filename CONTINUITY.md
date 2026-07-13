@@ -2156,3 +2156,15 @@ events to prepare; they are a property the repository always has.
   `10` at `+10.6434 m`. No raw-log read, GPU/gcloud/box read, actor-causality, repair,
   threshold-value, population-rate, safety/transfer/deployment/robustness/benchmark/
   HD-Score-invariance, commercial-value, real-world/first-responder behavior, or retuning claim.
+- 2026-07-13: Codex — continued into iteration 95 as the HUGSIM non-active surface branch
+  arbitration after iteration 94. Pre-registered ALONE (`f964d9e`), added analyzer/tests
+  (`2453187`, 389 tests green before analysis), then ran the analyzer ONCE over committed
+  iteration-92/93/94 reports. Result:
+  `HUGSIM_NONACTIVE_SURFACE_BRANCH_ARBITRATION_SPLIT_COMPLETE`; `both_distinct_extreme` pre
+  follows provenance object `9`, which is bridge-matched and TTC-borderline (`ttc=4.7761 s`),
+  despite path object `5` having better CPA/rank, while `ttc_medium_a` pre follows path object
+  `19` because both candidates are subthreshold/TTC-null and path wins CPA/rank despite
+  provenance object `3` having closer bridge support. No raw-log read, GPU/gcloud/box read,
+  actor-causality, repair, threshold-value, population-rate,
+  safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value,
+  real-world/first-responder behavior, or retuning claim.
