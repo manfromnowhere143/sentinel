@@ -4,7 +4,7 @@
 collision it is about to cause, and intervenes — measured where it actually matters: in closed
 loop, by whether the car crashes *and whether it can still drive*.**
 
-> **Honest status up front (82 registered iterations: 51 completed mechanism iterations + an
+> **Honest status up front (83 registered iterations: 52 completed mechanism iterations + an
 > independent verification pass +
 > the full official benchmark at power + a completed iteration-37 calibration null + an
 > iteration-38 opposite-direction S0 canary pass + completed iteration-39/40/41 defensibility
@@ -216,6 +216,14 @@ loop, by whether the car crashes *and whether it can still drive*.**
 > present frames and never reaches active or borderline surface; no threshold-value, repair,
 > actor-causality, safety, transfer, deployment, benchmark, population, commercial-value, or
 > retuning
+> claim — + a completed iteration-83 HUGSIM bridge-supported surface-miss decomposition:
+> across `18` bridge-supported support-object frames there are zero active frames; object `9`
+> is a TTC-borderline-only miss (`1` borderline frame, closest active TTC margin `+2.2761 s`,
+> closest active CPA margin `+17.6718 m`), while object `10` has `15` bridge-supported
+> subthreshold frames with no finite TTC and closest active CPA margin `+5.7464 m`; no
+> threshold-value, repair, actor-causality, safety, transfer, deployment, benchmark,
+> population, commercial-value, or
+> retuning
 > claim):**
 > the introspective signal predicts the planner's collisions (AUROC 0.83). On the
 > complete 14-scene NeuroNCAP set at **20 seed-paired runs per pair** (799 episodes, the power
@@ -257,7 +265,7 @@ single-digit GPUs.
 
 ## The result
 
-Eighty-two registered iterations — fifty-one completed mechanism iterations, plus the completed defensibility, robustness, and transfer gates of iterations 39-82 — under frozen pre-registrations converge on one closed-loop configuration — the
+Eighty-three registered iterations — fifty-two completed mechanism iterations, plus the completed defensibility, robustness, and transfer gates of iterations 39-83 — under frozen pre-registrations converge on one closed-loop configuration — the
 **released union** (two label-free geometric detectors + a threat-cleared latch release) —
 measured on the **complete official 14-scene NeuroNCAP set at 20 seed-paired runs per pair**
 (799 episodes; hypotheses frozen before the run; the first 6 indices of every pair reproduce the
@@ -562,6 +570,7 @@ step; they are intentional stops, not hidden probe failures or unreported GPU ru
 | 80 | **HUGSIM selected-object all-provenance bridge audit** — test whether the iteration-79 selected active/borderline objects bridge to any logged collision-provenance row, without filtering by class | committed iteration-59 proof/report plus iteration-77/79 reports only; same three selected event objects | all eligible logged provenance rows are foreground (`30/30`), and all three selected objects classify `selected_all_provenance_no_support`; best distances are `13.4483 m`, `8.1239 m`, and `8.4408 m` | **`HUGSIM_SELECTED_ALL_PROVENANCE_NO_SUPPORT_COMPLETE` — selected active/borderline objects do not bridge to any logged provenance row in the fixed events** | three-event descriptive selected-object all-provenance bridge audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/retuning claim. [`iter80_hugsim_selected_all_provenance_bridge`](experiments/iter80_hugsim_selected_all_provenance_bridge/RESULT.md) |
 | 81 | **HUGSIM support-object temporal surface audit** — follow the iteration-78 foreground-supported support objects across every committed ON decision frame | committed iteration-59 proof/report plus iteration-78/79/80 reports only; fixed support objects `9` and `10` | two-object split: `both_distinct_extreme` support object `9` later becomes borderline at `5.5 s` and active at `7.0 s`; `ttc_medium_a` support object `10` is visible in `15` frames with zero active or borderline frames | **`HUGSIM_SUPPORT_OBJECT_EVER_ACTIVE_COMPLETE` — one foreground-supported object eventually reaches the released surface, while the other remains visible-never-surface** | two-object descriptive temporal surface audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/retuning claim. [`iter81_hugsim_support_object_temporal_surface`](experiments/iter81_hugsim_support_object_temporal_surface/RESULT.md) |
 | 82 | **HUGSIM support-object surface/provenance co-occurrence audit** — test whether foreground bridge support and released CPA/TTC surface activation co-occur on the same fixed support objects | committed iteration-59 proof/report plus iteration-81 report only; fixed support objects `9` and `10`; same iteration-76 bridge bands | object `9` has bridge support and surface co-occurrence only at borderline (`1` borderline+bridge frame, zero active+bridge frames; best surface bridge `0.9876 m`); object `10` has bridge support in `15/15` present frames but zero active/borderline frames | **`HUGSIM_SUPPORT_SURFACE_BRIDGE_BORDERLINE_ONLY_COMPLETE` — support/provenance alignment exists, but active released-surface co-occurrence does not** | two-object descriptive surface/provenance co-occurrence audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/retuning claim. [`iter82_hugsim_support_surface_bridge_cooccurrence`](experiments/iter82_hugsim_support_surface_bridge_cooccurrence/RESULT.md) |
+| 83 | **HUGSIM bridge-supported surface-miss decomposition** — decompose released CPA/TTC channels on bridge-supported support-object frames | committed iteration-59 proof/report plus iteration-82 report only; fixed support objects `9` and `10`; same bridge-supported frames recomputed from frozen logs | mixed miss over `18` bridge-supported frames: object `9` is TTC-borderline-only (`3` bridge-supported frames, `1` borderline, zero active; closest active TTC margin `+2.2761 s`), while object `10` has `15` bridge-supported subthreshold frames with zero finite TTC and closest active CPA margin `+5.7464 m` | **`HUGSIM_BRIDGE_SUPPORTED_SURFACE_MISS_MIXED_COMPLETE` — active support is blocked by different surface-channel failures in the two support objects** | two-object descriptive bridge-supported surface-miss decomposition only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/retuning claim. [`iter83_hugsim_bridge_supported_surface_miss_decomposition`](experiments/iter83_hugsim_bridge_supported_surface_miss_decomposition/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -635,7 +644,7 @@ selectivity/side-blindness trade of iterations 4–7, and the three refuted evas
 kept, with every number and link, in [`docs/CAMPAIGN.md`](docs/CAMPAIGN.md). The summary table
 above is the same history in one screen.
 
-**Net, stated plainly — 51 completed mechanism iterations plus an independent verification pass,
+**Net, stated plainly — 52 completed mechanism iterations plus an independent verification pass,
 with iteration 37 closed as a pre-registered calibration null, iteration 38 active at S0
 (calibration deprioritized), iterations 39/40/41 completed as defensibility audits (claim
 narrowing; timing/cost budget; degradation replay-support null), iteration 42 completed as
@@ -841,6 +850,9 @@ released surface. Both fixed support objects have bridge support, but only objec
 surface co-occurrence, and only at the borderline level (`1` borderline+bridge frame, zero
 active+bridge frames); object `10` has bridge support in `15/15` present frames and never
 reaches active or borderline surface.
+Iteration 83 then decomposed the bridge-supported frames by released surface channel: object `9`
+is a TTC-borderline-only miss, while object `10` is bridge-supported but has no finite TTC and
+stays CPA-far from active.
 This is a mechanism-cause audit, not a repair or population-rate claim. Successors now require
 fresh pre-registrations. The
 published RealADSim closed-loop anchor range remains loose context only —
@@ -1276,6 +1288,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter80_hugsim_selected_all_provenance_bridge/`](experiments/iter80_hugsim_selected_all_provenance_bridge) | HUGSIM selected-object all-provenance bridge audit — HUGSIM_SELECTED_ALL_PROVENANCE_NO_SUPPORT_COMPLETE: selected active/borderline objects do not bridge to any logged provenance row |
 | [`experiments/iter81_hugsim_support_object_temporal_surface/`](experiments/iter81_hugsim_support_object_temporal_surface) | HUGSIM support-object temporal surface audit — HUGSIM_SUPPORT_OBJECT_EVER_ACTIVE_COMPLETE: one foreground-supported object later reaches the released surface, while the other remains visible-never-surface |
 | [`experiments/iter82_hugsim_support_surface_bridge_cooccurrence/`](experiments/iter82_hugsim_support_surface_bridge_cooccurrence) | HUGSIM support-object surface/provenance co-occurrence audit — HUGSIM_SUPPORT_SURFACE_BRIDGE_BORDERLINE_ONLY_COMPLETE: one support object has borderline+bridge co-occurrence only, while the other has bridge support without surface activation |
+| [`experiments/iter83_hugsim_bridge_supported_surface_miss_decomposition/`](experiments/iter83_hugsim_bridge_supported_surface_miss_decomposition) | HUGSIM bridge-supported surface-miss decomposition — HUGSIM_BRIDGE_SUPPORTED_SURFACE_MISS_MIXED_COMPLETE: bridge-supported support objects split into TTC-borderline-only and no-finite-TTC/CPA-far misses |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/FRONTIER_POSITIONING_2026-07-11.md`](docs/research/FRONTIER_POSITIONING_2026-07-11.md) | source-verified mid-2026 benchmark/monitor/industry positioning; the binding 2.91-is-not-benchmark-SOTA framing rule |

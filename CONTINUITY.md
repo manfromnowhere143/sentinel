@@ -647,6 +647,18 @@ events to prepare; they are a property the repository always has.
   This is support-object surface/provenance co-occurrence evidence only. No actor-causality,
   repair, threshold-value, population-rate, safety/transfer/deployment/robustness/benchmark/
   HD-Score-invariance, commercial-value, or retuning claim.
+- Iteration 83 concluded:
+  experiments/iter83_hugsim_bridge_supported_surface_miss_decomposition/RESULT.md, published as
+  `HUGSIM_BRIDGE_SUPPORTED_SURFACE_MISS_MIXED_COMPLETE` — an offline channel decomposition over
+  bridge-supported support-object frames. It launched no GPU work and read no live box state.
+  Across `18` bridge-supported frames there are zero active frames. `both_distinct_extreme`
+  object `9` is `bridge_supported_borderline_ttc_only` (`3` bridge-supported frames, `1`
+  borderline, closest active TTC margin `+2.2761 s`, closest active CPA margin `+17.6718 m`).
+  `ttc_medium_a` object `10` is `bridge_supported_subthreshold_no_finite_ttc` (`15`
+  bridge-supported frames, zero finite TTC, closest active CPA margin `+5.7464 m`). This is
+  bridge-supported surface-miss decomposition evidence only. No actor-causality, repair,
+  threshold-value, population-rate, safety/transfer/deployment/robustness/benchmark/
+  HD-Score-invariance, commercial-value, or retuning claim.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1998,3 +2010,12 @@ events to prepare; they are a property the repository always has.
   actor-causality, repair, threshold-value, population-rate,
   safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value, or
   retuning claim.
+- 2026-07-13: Codex — continued into iteration 83 as the HUGSIM bridge-supported surface-miss
+  decomposition after iteration 82. Pre-registered ALONE (`3d6593d`), added analyzer/tests
+  (`92b8f74`, 363 tests green before analysis), then ran the analyzer ONCE over committed
+  iteration-59 proof plus iteration-82 report. Result:
+  `HUGSIM_BRIDGE_SUPPORTED_SURFACE_MISS_MIXED_COMPLETE`; object `9` is TTC-borderline-only on
+  bridge-supported frames, while object `10` is bridge-supported with no finite TTC and
+  CPA-far active margins. No GPU/gcloud/box read, no actor-causality, repair, threshold-value,
+  population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance,
+  commercial-value, or retuning claim.
