@@ -529,6 +529,15 @@ events to prepare; they are a property the repository always has.
   late-fire rows first fire `1.75 s` after first foreground timestamp. No actor-causality,
   repair, population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance,
   commercial-value, or retuning claim.
+- Iteration 71 concluded:
+  experiments/iter71_hugsim_surface_silent_margin_audit/RESULT.md, published as
+  `HUGSIM_SURFACE_SILENT_MARGIN_COMPLETE` — an offline descriptive margin audit over the two
+  iteration-70 foreground-present surface-silent rows. It launched no GPU work and read no live
+  box state. Both rows classify `surface_silent_far_margin`: `mixed_extreme` closest CPA margin
+  is `+2.6062 m`; `nofire_hard_control` closest valid TTC margin is `+3.4560 s` and closest CPA
+  margin is `+6.4779 m`. No actor-causality, repair, threshold-value, population-rate,
+  safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value, or
+  retuning claim.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1774,3 +1783,11 @@ events to prepare; they are a property the repository always has.
   and one is foreground-absent/background-only. No GPU/gcloud/box read, no actor-causality,
   repair, population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance,
   commercial-value, or retuning claim.
+- 2026-07-13: Codex — continued into iteration 71 as the HUGSIM surface-silent margin audit
+  after iteration 70. Pre-registered ALONE (`8c263bb`), added analyzer/tests (`fe10de8`, 333
+  tests green before analysis), then ran the analyzer ONCE over committed iteration-59 proof and
+  iteration-70 report. Result: `HUGSIM_SURFACE_SILENT_MARGIN_COMPLETE`; both fixed no-fire
+  foreground rows are far from the frozen trigger surfaces under registered descriptive bands.
+  No GPU/gcloud/box read, no actor-causality, repair, threshold-value, population-rate,
+  safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value, or
+  retuning claim.

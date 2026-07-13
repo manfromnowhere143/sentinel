@@ -1,0 +1,86 @@
+{
+  "claim_boundary": "two-row descriptive surface-silent margin audit only; no actor-causality, repair, threshold-value, transfer, safety, deployment, robustness, benchmark, population, HD-Score-invariance, commercial-value, or retuning claim",
+  "episodes": [
+    {
+      "audit_id": "mixed_extreme",
+      "episode_dir": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/episodes/mixed_extreme__scene-0062-extreme-00__on",
+      "first_foreground_ts": 4.75,
+      "foreground_count": 2,
+      "problems": [],
+      "row_label": "surface_silent_far_margin",
+      "scenario": "scene-0062-extreme-00",
+      "summary": {
+        "active_cpa_frames": 0,
+        "active_ttc_frames": 0,
+        "closest_cpa_margin_m": 2.6062450662694827,
+        "closest_cpa_ts": 2.5,
+        "closest_ttc_margin_s": null,
+        "closest_ttc_ts": null,
+        "cpa_margin": 1.5,
+        "min_cpa_m": 4.106245066269483,
+        "min_ttc_raw_s": 1000000000.0,
+        "min_valid_ttc_s": null,
+        "near_cpa_frames": 0,
+        "near_ttc_frames": 0,
+        "pre_foreground_fired_frames": 0,
+        "pre_foreground_monitor_frames": 19,
+        "pre_foreground_object_rows": 19,
+        "ttc_thresh": 2.5
+      }
+    },
+    {
+      "audit_id": "nofire_hard_control",
+      "episode_dir": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/episodes/nofire_hard_control__scene-0041-hard-00__on",
+      "first_foreground_ts": 2.5,
+      "foreground_count": 9,
+      "problems": [],
+      "row_label": "surface_silent_far_margin",
+      "scenario": "scene-0041-hard-00",
+      "summary": {
+        "active_cpa_frames": 0,
+        "active_ttc_frames": 0,
+        "closest_cpa_margin_m": 6.477878342783893,
+        "closest_cpa_ts": 2.0,
+        "closest_ttc_margin_s": 3.4560450365182938,
+        "closest_ttc_ts": 2.25,
+        "cpa_margin": 1.5,
+        "min_cpa_m": 7.977878342783893,
+        "min_ttc_raw_s": 5.956045036518294,
+        "min_valid_ttc_s": 5.956045036518294,
+        "near_cpa_frames": 0,
+        "near_ttc_frames": 0,
+        "pre_foreground_fired_frames": 0,
+        "pre_foreground_monitor_frames": 10,
+        "pre_foreground_object_rows": 10,
+        "ttc_thresh": 2.5
+      }
+    }
+  ],
+  "fixed_rows": [
+    {
+      "audit_id": "mixed_extreme",
+      "scenario": "scene-0062-extreme-00"
+    },
+    {
+      "audit_id": "nofire_hard_control",
+      "scenario": "scene-0041-hard-00"
+    }
+  ],
+  "infra_problems": [],
+  "inputs": {
+    "iter59_report": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/actor_match_report.json",
+    "iter70_report": "experiments/iter70_hugsim_structural_timing_audit/proof-structural/structural_report.json"
+  },
+  "iteration": 71,
+  "summary": {
+    "evaluated_rows": 2,
+    "far_margin_rows": 2,
+    "near_margin_rows": 0,
+    "no_object_rows": 0,
+    "row_label_counts": {
+      "surface_silent_far_margin": 2
+    },
+    "target_rows": 2
+  },
+  "verdict": "HUGSIM_SURFACE_SILENT_MARGIN_COMPLETE"
+}

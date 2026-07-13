@@ -471,6 +471,9 @@ Iteration 70 then refined the five structural rows. The result is
 `foreground_present_surface_silent`, two rows are `foreground_present_late_fire`, and one row is
 `foreground_absent_background_only`; both late-fire rows first fire `1.75 s` after the first
 foreground timestamp.
+Iteration 71 then audited the two `foreground_present_surface_silent` rows against frozen
+pre-foreground CPA/TTC margins. The result is `HUGSIM_SURFACE_SILENT_MARGIN_COMPLETE`: both
+surface-silent rows are `surface_silent_far_margin`, with no near-margin rows.
 
 The default next scientific line is therefore not an expanded-N transfer run and not retuning the
 released union. After iteration 61, the actor-match audit points to wrong-object/wrong-hazard
@@ -484,9 +487,10 @@ target object. Iteration 67 shows the split-object row is not globally trigger-u
 the trigger is unsupported at the actual first-fire timestamp. Iteration 68 shows the fire-time
 support gap itself splits into before-fire and after-fire timing misalignment. Iteration 69 turns
 that into the eight-row taxonomy, and iteration 70 refines the structural side into surface-silent,
-late-fire, and background-only branches. Any successor should be a fresh mechanism-cause
-pre-registration that explains or tests one of those specific branches, not threshold tuning. A
-strong
+late-fire, and background-only branches. Iteration 71 shows the surface-silent branch is not a
+small threshold miss under the registered descriptive bands. Any successor should be a fresh
+mechanism-cause pre-registration that explains or tests one of the remaining branches, not
+threshold tuning. A strong
 successor should distinguish among:
 
 1. hazard surface: whether the monitor is braking for the wrong detected object or wrong path
@@ -531,8 +535,9 @@ trigger fire-time gap into one before-fire and one after-fire best-support case,
 mechanism question is not just "which object?" but why the fire timestamp is misaligned with
 the bridge-supported geometry. Iteration 69 packages the full row set into the taxonomy, and
 iteration 70 splits the remaining structural rows into surface-silent, late-fire, and
-background-only branches. The next hypothesis should choose one taxonomy branch and name what new
-evidence would falsify it.
+background-only branches. Iteration 71 closes the near-margin explanation for the surface-silent
+branch under the registered bands. The next hypothesis should choose one remaining taxonomy branch
+and name what new evidence would falsify it.
 
 Any such line requires a fresh `HYPOTHESIS.md`. Until then, no new HUGSIM transfer, safety,
 robustness, deployment, benchmark-ranking, or retuning claim is authorized.
