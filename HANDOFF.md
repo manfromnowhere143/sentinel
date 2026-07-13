@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Mon Jul 13 14:33:40 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Mon Jul 13 14:43:28 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+ff67037 iter82: publish support surface bridge cooccurrence
+9abd95e iter82: add support surface bridge cooccurrence tooling
+6257a65 iter82: preregister support surface bridge cooccurrence
+893fdd2 handoff: record iter81 support object temporal state
 aa8e4a6 iter81: publish support object temporal surface
 5dec78a iter81: add hugsim support object temporal tooling
 9047f8c iter81: preregister hugsim support object temporal surface
 98c70bb handoff: record iter80 selected all-provenance state
-6efdc12 iter80: publish hugsim selected all-provenance bridge
-76affe1 iter80: add hugsim selected all-provenance tooling
-833053a iter80: preregister hugsim selected all-provenance bridge
-b8a1a6a handoff: record iter79 selected surface state
 ```
 Working tree: CLEAN
 
@@ -98,6 +98,7 @@ Working tree: CLEAN
 - experiments/iter7_margin: RESULT PUBLISHED
 - experiments/iter80_hugsim_selected_all_provenance_bridge: RESULT PUBLISHED
 - experiments/iter81_hugsim_support_object_temporal_surface: RESULT PUBLISHED
+- experiments/iter82_hugsim_support_surface_bridge_cooccurrence: RESULT PUBLISHED
 - experiments/iter8_union: RESULT PUBLISHED
 - experiments/iter9_evade: RESULT PUBLISHED
 - experiments/union_validation: RESULT PUBLISHED
@@ -107,7 +108,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 14:34:48 up 9 days,  4:15,  0 users,  load average: 0.00, 0.00, 0.00
+ 14:44:35 up 9 days,  4:25,  0 users,  load average: 0.00, 0.00, 0.00
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-iter59-actor-match.log
@@ -119,7 +120,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter81_hugsim_support_object_temporal_surface/RESULT.md — read it before opening new work.
+- Newest completed experiment: experiments/iter82_hugsim_support_surface_bridge_cooccurrence/RESULT.md — read it before opening new work.
 - Newest pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
