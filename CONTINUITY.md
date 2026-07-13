@@ -606,6 +606,16 @@ events to prepare; they are a property the repository always has.
   `13.5578 m` and no finite TTC. This is support-object ranking evidence only. No actor-causality,
   repair, threshold-value, population-rate, safety/transfer/deployment/robustness/benchmark/
   HD-Score-invariance, commercial-value, or retuning claim.
+- Iteration 79 concluded:
+  experiments/iter79_hugsim_selected_surface_decomposition/RESULT.md, published as
+  `HUGSIM_SELECTED_ACTIVE_SUPPORT_SUBTHRESHOLD_COMPLETE` — an offline selected-vs-support surface
+  audit over the three iteration-78 fixed events. It launched no GPU work and read no live box
+  state. Two selected objects are borderline (`object_id=5` CPA `2.0355 m`, `object_id=6` TTC
+  `3.2742 s`) and one selected object is active (`object_id=24` CPA `1.2791 m`), while all
+  foreground-supported objects remain subthreshold. This is selected-vs-support surface evidence
+  only. No actor-causality, repair, threshold-value, population-rate,
+  safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value, or
+  retuning claim.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1918,5 +1928,14 @@ events to prepare; they are a property the repository always has.
   `HUGSIM_SUPPORT_OBJECT_RANKING_MIXED_COMPLETE`; all three foreground-supported full-set
   objects are nonselected and subthreshold under the logged CPA/TTC surface. No GPU/gcloud/box
   read, no actor-causality, repair, threshold-value, population-rate,
+  safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value, or
+  retuning claim.
+- 2026-07-13: Codex — continued into iteration 79 as the HUGSIM selected-object surface
+  decomposition after iteration 78. Pre-registered ALONE (`c5f95df`), added analyzer/tests
+  (`d858f11`, 355 tests green before analysis), then ran the analyzer ONCE over committed
+  iteration-59 proof plus iteration-75/77/78 reports. Result:
+  `HUGSIM_SELECTED_ACTIVE_SUPPORT_SUBTHRESHOLD_COMPLETE`; selected objects are active/borderline
+  while foreground-supported objects remain subthreshold. No GPU/gcloud/box read, no
+  actor-causality, repair, threshold-value, population-rate,
   safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value, or
   retuning claim.

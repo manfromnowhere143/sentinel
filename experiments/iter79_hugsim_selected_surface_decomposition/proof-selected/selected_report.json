@@ -1,0 +1,246 @@
+{
+  "claim_boundary": "three-event descriptive selected-vs-support surface audit only; no actor-causality, repair, threshold-value, transfer, safety, deployment, robustness, benchmark, population, HD-Score-invariance, commercial-value, or retuning claim",
+  "events": [
+    {
+      "audit_id": "both_distinct_extreme",
+      "event_role": "pre",
+      "event_ts": 5.0,
+      "object_count": 4,
+      "problems": [],
+      "row_label": "selected_borderline_support_subthreshold",
+      "scenario": "scene-0138-extreme-00",
+      "selected_metric": {
+        "closing": null,
+        "cpa_active_logged_threshold": false,
+        "cpa_borderline_registered": true,
+        "cpa_cross": false,
+        "cpa_horizon_index": 4,
+        "cpa_rank": 1,
+        "gap": 9.83232296010991,
+        "min_cpa": 2.035458679140406,
+        "object_id": 5,
+        "score": 0.49427902698516846,
+        "ttc": null,
+        "ttc_active_logged_threshold": false,
+        "ttc_borderline_registered": false,
+        "ttc_cross": false,
+        "ttc_rank": null,
+        "velocity": [
+          3.665014691174065,
+          -0.380313292968367
+        ],
+        "world": [
+          -4.4327385645825075,
+          21.937853621504928
+        ]
+      },
+      "selected_object_id": 5,
+      "selected_state": "borderline",
+      "support_band": "ambiguous",
+      "support_metric": {
+        "closing": null,
+        "cpa_active_logged_threshold": false,
+        "cpa_borderline_registered": false,
+        "cpa_cross": false,
+        "cpa_horizon_index": 6,
+        "cpa_rank": 4,
+        "gap": 28.53856122908704,
+        "min_cpa": 21.634279246714645,
+        "object_id": 9,
+        "score": 0.9264162182807922,
+        "ttc": null,
+        "ttc_active_logged_threshold": false,
+        "ttc_borderline_registered": false,
+        "ttc_cross": false,
+        "ttc_rank": null,
+        "velocity": [
+          0.0,
+          0.0
+        ],
+        "world": [
+          -10.197229850376004,
+          40.58175531338361
+        ]
+      },
+      "support_object_id": 9,
+      "support_state": "subthreshold"
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "event_role": "pre",
+      "event_ts": 2.5,
+      "object_count": 8,
+      "problems": [],
+      "row_label": "selected_borderline_support_subthreshold",
+      "scenario": "scene-0071-medium-01",
+      "selected_metric": {
+        "closing": 3.7554213288184997,
+        "cpa_active_logged_threshold": false,
+        "cpa_borderline_registered": false,
+        "cpa_cross": false,
+        "cpa_horizon_index": 6,
+        "cpa_rank": 3,
+        "gap": 12.296043631221563,
+        "min_cpa": 9.24044996029241,
+        "object_id": 6,
+        "score": 0.4695853590965271,
+        "ttc": 3.274211481109643,
+        "ttc_active_logged_threshold": false,
+        "ttc_borderline_registered": true,
+        "ttc_cross": false,
+        "ttc_rank": 1,
+        "velocity": [
+          -2.6664694515029623,
+          2.6447068849493007
+        ],
+        "world": [
+          9.649777642548088,
+          -2.305576614733127
+        ]
+      },
+      "selected_object_id": 6,
+      "selected_state": "borderline",
+      "support_band": "match",
+      "support_metric": {
+        "closing": null,
+        "cpa_active_logged_threshold": false,
+        "cpa_borderline_registered": false,
+        "cpa_cross": false,
+        "cpa_horizon_index": 6,
+        "cpa_rank": 7,
+        "gap": 19.08793412227526,
+        "min_cpa": 17.276402111954756,
+        "object_id": 10,
+        "score": 0.7401448488235474,
+        "ttc": null,
+        "ttc_active_logged_threshold": false,
+        "ttc_borderline_registered": false,
+        "ttc_cross": false,
+        "ttc_rank": null,
+        "velocity": [
+          1.5027127804551128,
+          1.9100834955806931
+        ],
+        "world": [
+          -1.1565733519894366,
+          25.40336061870562
+        ]
+      },
+      "support_object_id": 10,
+      "support_state": "subthreshold"
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "event_role": "active",
+      "event_ts": 5.0,
+      "object_count": 6,
+      "problems": [],
+      "row_label": "selected_active_support_subthreshold",
+      "scenario": "scene-0071-medium-01",
+      "selected_metric": {
+        "closing": null,
+        "cpa_active_logged_threshold": true,
+        "cpa_borderline_registered": false,
+        "cpa_cross": true,
+        "cpa_horizon_index": 6,
+        "cpa_rank": 1,
+        "gap": 8.784899084537148,
+        "min_cpa": 1.2791009183078823,
+        "object_id": 24,
+        "score": 0.672976553440094,
+        "ttc": null,
+        "ttc_active_logged_threshold": false,
+        "ttc_borderline_registered": false,
+        "ttc_cross": false,
+        "ttc_rank": null,
+        "velocity": [
+          0.0,
+          0.0
+        ],
+        "world": [
+          -0.19838966260118696,
+          21.568529875589263
+        ]
+      },
+      "selected_object_id": 24,
+      "selected_state": "active",
+      "support_band": "match",
+      "support_metric": {
+        "closing": null,
+        "cpa_active_logged_threshold": false,
+        "cpa_borderline_registered": false,
+        "cpa_cross": false,
+        "cpa_horizon_index": 6,
+        "cpa_rank": 2,
+        "gap": 13.710598675382192,
+        "min_cpa": 13.557766187421446,
+        "object_id": 10,
+        "score": 0.6914266347885132,
+        "ttc": null,
+        "ttc_active_logged_threshold": false,
+        "ttc_borderline_registered": false,
+        "ttc_cross": false,
+        "ttc_rank": null,
+        "velocity": [
+          -1.85665634748932,
+          2.3874885309127194
+        ],
+        "world": [
+          3.9402010864494628,
+          26.635912942714754
+        ]
+      },
+      "support_object_id": 10,
+      "support_state": "subthreshold"
+    }
+  ],
+  "fixed_events": [
+    {
+      "audit_id": "both_distinct_extreme",
+      "event_ts": 5.0,
+      "role": "pre",
+      "scenario": "scene-0138-extreme-00",
+      "selected_object_id": 5,
+      "support_band": "ambiguous",
+      "support_object_id": 9
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "event_ts": 2.5,
+      "role": "pre",
+      "scenario": "scene-0071-medium-01",
+      "selected_object_id": 6,
+      "support_band": "match",
+      "support_object_id": 10
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "event_ts": 5.0,
+      "role": "active",
+      "scenario": "scene-0071-medium-01",
+      "selected_object_id": 24,
+      "support_band": "match",
+      "support_object_id": 10
+    }
+  ],
+  "infra_problems": [],
+  "inputs": {
+    "iter59_report": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/actor_match_report.json",
+    "iter75_report": "experiments/iter75_hugsim_cross_channel_object_handoff/proof-handoff/handoff_report.json",
+    "iter77_report": "experiments/iter77_hugsim_event_object_set_bridge/proof-set/set_report.json",
+    "iter78_report": "experiments/iter78_hugsim_support_object_ranking/proof-ranking/ranking_report.json"
+  },
+  "iteration": 79,
+  "summary": {
+    "evaluated_events": 3,
+    "event_label_counts": {
+      "selected_active_support_subthreshold": 1,
+      "selected_borderline_support_subthreshold": 2
+    },
+    "selected_active_events": 1,
+    "selected_borderline_events": 2,
+    "selected_subthreshold_events": 0,
+    "target_events": 3
+  },
+  "verdict": "HUGSIM_SELECTED_ACTIVE_SUPPORT_SUBTHRESHOLD_COMPLETE"
+}
