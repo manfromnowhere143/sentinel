@@ -576,6 +576,16 @@ events to prepare; they are a property the repository always has.
   No actor-causality, repair, threshold-value, population-rate,
   safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value, or
   retuning claim.
+- Iteration 76 concluded:
+  experiments/iter76_hugsim_switch_foreground_bridge/RESULT.md, published as
+  `HUGSIM_SWITCH_FOREGROUND_BOTH_OR_AMBIGUOUS_COMPLETE` — an offline foreground-bridge audit over
+  the two iteration-75 object-switch rows. It launched no GPU work and read no live box state.
+  Both rows classify `no_foreground_bridge_support`: neither the pre-contact near object nor the
+  post-contact active object reaches the frozen `<=3 m` match band or `(3,6] m` ambiguous band
+  against HUGSIM foreground collision provenance. Best distances remain `8.1239-13.4483 m`.
+  No actor-causality, repair, threshold-value, population-rate,
+  safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value, or
+  retuning claim.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1862,3 +1872,12 @@ events to prepare; they are a property the repository always has.
   `6` -> `24`). No GPU/gcloud/box read, no actor-causality, repair, threshold-value,
   population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance,
   commercial-value, or retuning claim.
+- 2026-07-13: Codex — continued into iteration 76 as the HUGSIM switch foreground-bridge audit
+  after iteration 75. Pre-registered ALONE (`f873c8c`), added analyzer/tests (`6f5d267`, 349
+  tests green before analysis), then ran the analyzer ONCE over committed iteration-59 proof plus
+  iteration-70/72/73/74/75 reports. Result:
+  `HUGSIM_SWITCH_FOREGROUND_BOTH_OR_AMBIGUOUS_COMPLETE`; both fixed rows are
+  `no_foreground_bridge_support`, so neither side of the object switch reaches the frozen match
+  or ambiguous foreground bridge band. No GPU/gcloud/box read, no actor-causality, repair,
+  threshold-value, population-rate, safety/transfer/deployment/robustness/benchmark/
+  HD-Score-invariance, commercial-value, or retuning claim.

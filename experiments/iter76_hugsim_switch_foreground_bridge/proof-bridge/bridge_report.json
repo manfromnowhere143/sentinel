@@ -1,0 +1,172 @@
+{
+  "claim_boundary": "two-row descriptive foreground-bridge audit only; no actor-causality, repair, threshold-value, transfer, safety, deployment, robustness, benchmark, population, HD-Score-invariance, commercial-value, or retuning claim",
+  "episodes": [
+    {
+      "active_event": {
+        "best_distance_m": 10.834714044531188,
+        "best_variant": {
+          "axis_order": "yx",
+          "distance_m": 10.834714044531188,
+          "event_ts": 7.0,
+          "foreground_obs_index": 0,
+          "foreground_obs_name": "car",
+          "foreground_timestamp": 7.0,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            21.6810245513916,
+            -4.430612087249756
+          ],
+          "lateral_sign": -1,
+          "lead_time_s": 0.0,
+          "monitor_forward_lateral": [
+            10.947949065404329,
+            -2.9500314447785563
+          ],
+          "object_id": 9,
+          "object_role": "active",
+          "temporal_source": "event_row"
+        },
+        "distance_band": "no_support",
+        "evaluated_variant_count": 160,
+        "event_ts": 7.0,
+        "object_id": 9,
+        "role": "active"
+      },
+      "active_minus_pre_distance_m": -2.61359381919525,
+      "audit_id": "both_distinct_extreme",
+      "foreground_count": 10,
+      "pre_event": {
+        "best_distance_m": 13.448307863726438,
+        "best_variant": {
+          "axis_order": "yx",
+          "distance_m": 13.448307863726438,
+          "event_ts": 5.0,
+          "foreground_obs_index": 0,
+          "foreground_obs_name": "car",
+          "foreground_timestamp": 7.0,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            21.6810245513916,
+            -4.430612087249756
+          ],
+          "lateral_sign": 1,
+          "lead_time_s": 2.0,
+          "monitor_forward_lateral": [
+            8.26277582251381,
+            -5.329269668053409
+          ],
+          "object_id": 5,
+          "object_role": "pre",
+          "temporal_source": "event_row"
+        },
+        "distance_band": "no_support",
+        "evaluated_variant_count": 160,
+        "event_ts": 5.0,
+        "object_id": 5,
+        "role": "pre"
+      },
+      "problems": [],
+      "row_label": "no_foreground_bridge_support",
+      "scenario": "scene-0138-extreme-00"
+    },
+    {
+      "active_event": {
+        "best_distance_m": 8.440810417005599,
+        "best_variant": {
+          "axis_order": "yx",
+          "distance_m": 8.440810417005599,
+          "event_ts": 5.0,
+          "foreground_obs_index": 0,
+          "foreground_obs_name": "car",
+          "foreground_timestamp": 3.5,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            17.064964294433594,
+            -2.297835350036621
+          ],
+          "lateral_sign": 1,
+          "lead_time_s": 0.0,
+          "monitor_forward_lateral": [
+            8.735187699433933,
+            -0.9332466305954488
+          ],
+          "object_id": 24,
+          "object_role": "active",
+          "temporal_source": "event_row"
+        },
+        "distance_band": "no_support",
+        "evaluated_variant_count": 160,
+        "event_ts": 5.0,
+        "object_id": 24,
+        "role": "active"
+      },
+      "active_minus_pre_distance_m": 0.3168833278330805,
+      "audit_id": "ttc_medium_a",
+      "foreground_count": 10,
+      "pre_event": {
+        "best_distance_m": 8.123927089172518,
+        "best_variant": {
+          "axis_order": "yx",
+          "distance_m": 8.123927089172518,
+          "event_ts": 2.5,
+          "foreground_obs_index": 0,
+          "foreground_obs_name": "car",
+          "foreground_timestamp": 3.5,
+          "forward_sign": -1,
+          "hugsim_forward_lateral": [
+            17.064964294433594,
+            -2.297835350036621
+          ],
+          "lateral_sign": -1,
+          "lead_time_s": 1.0,
+          "monitor_forward_lateral": [
+            10.273643740476253,
+            -6.756103677940139
+          ],
+          "object_id": 6,
+          "object_role": "pre",
+          "temporal_source": "event_row"
+        },
+        "distance_band": "no_support",
+        "evaluated_variant_count": 160,
+        "event_ts": 2.5,
+        "object_id": 6,
+        "role": "pre"
+      },
+      "problems": [],
+      "row_label": "no_foreground_bridge_support",
+      "scenario": "scene-0071-medium-01"
+    }
+  ],
+  "fixed_rows": [
+    {
+      "audit_id": "both_distinct_extreme",
+      "scenario": "scene-0138-extreme-00"
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "scenario": "scene-0071-medium-01"
+    }
+  ],
+  "infra_problems": [],
+  "inputs": {
+    "iter59_report": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/actor_match_report.json",
+    "iter70_report": "experiments/iter70_hugsim_structural_timing_audit/proof-structural/structural_report.json",
+    "iter72_report": "experiments/iter72_hugsim_late_fire_prefire_margin_audit/proof-prefire/prefire_report.json",
+    "iter73_report": "experiments/iter73_hugsim_margin_transition_audit/proof-transition/transition_report.json",
+    "iter74_report": "experiments/iter74_hugsim_late_fire_delay_barrier/proof-delay/delay_report.json",
+    "iter75_report": "experiments/iter75_hugsim_cross_channel_object_handoff/proof-handoff/handoff_report.json"
+  },
+  "iteration": 76,
+  "summary": {
+    "active_object_match_rows": 0,
+    "evaluated_rows": 2,
+    "no_support_rows": 2,
+    "pre_object_match_rows": 0,
+    "row_label_counts": {
+      "no_foreground_bridge_support": 2
+    },
+    "target_rows": 2
+  },
+  "verdict": "HUGSIM_SWITCH_FOREGROUND_BOTH_OR_AMBIGUOUS_COMPLETE"
+}

@@ -491,6 +491,11 @@ Iteration 75 then resolved that cross-channel handoff at object level. The resul
 `HUGSIM_CROSS_CHANNEL_OBJECT_SWITCH_COMPLETE`: both fixed rows switch responsible monitor object
 across the handoff (`both_distinct_extreme` object `5` -> `9`; `ttc_medium_a` object `6` ->
 `24`).
+Iteration 76 then tested those switched event objects against the HUGSIM foreground provenance
+under the fixed bridge grid. The result is
+`HUGSIM_SWITCH_FOREGROUND_BOTH_OR_AMBIGUOUS_COMPLETE`: both rows classify
+`no_foreground_bridge_support`; neither the pre-contact near object nor the post-contact active
+object reaches the match or ambiguous support band.
 
 The default next scientific line is therefore not an expanded-N transfer run and not retuning the
 released union. After iteration 61, the actor-match audit points to wrong-object/wrong-hazard
@@ -512,8 +517,8 @@ while the late-fire branch is near pre-contact but active only post-contact. Ite
 that the two late-fire rows are not same-channel threshold-drift cases; the pre-contact near
 channel differs from the post-contact active channel in both rows. Iteration 75 shows that this is
 also an object switch, not a same-object channel flip. Any successor should be a fresh
-mechanism-cause pre-registration that tests foreground object/path geometry around that
-cross-channel object switch, or chooses another branch. A strong
+mechanism-cause pre-registration that explains why switched monitor objects still do not bridge
+to foreground provenance under the frozen support grid, or chooses another branch. A strong
 successor should distinguish among:
 
 1. hazard surface: whether the monitor is braking for the wrong detected object or wrong path
