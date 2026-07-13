@@ -478,6 +478,11 @@ Iteration 72 then audited the two `foreground_present_late_fire` rows against th
 pre-foreground margin bands. The result is `HUGSIM_LATE_FIRE_PREFIRE_MARGIN_COMPLETE`: both rows
 were near a frozen trigger surface before foreground contact, but neither crossed until after
 contact; first fire remained `1.75 s` late in both rows.
+Iteration 73 then compared all four foreground-present structural rows on full decision-log
+margin timelines. The result is `HUGSIM_MARGIN_TRANSITION_SPLIT_COMPLETE`: the two
+surface-silent rows are `silent_far_never_active`, while the two late-fire rows are
+`late_prefire_near_postcontact_active`; first active crossing in both late-fire rows is
+`+1.75 s` after foreground contact.
 
 The default next scientific line is therefore not an expanded-N transfer run and not retuning the
 released union. After iteration 61, the actor-match audit points to wrong-object/wrong-hazard
@@ -493,9 +498,11 @@ support gap itself splits into before-fire and after-fire timing misalignment. I
 that into the eight-row taxonomy, and iteration 70 refines the structural side into surface-silent,
 late-fire, and background-only branches. Iteration 71 shows the surface-silent branch is not a
 small threshold miss under the registered descriptive bands, while iteration 72 shows the
-late-fire branch is near-but-not-crossing before contact. Any successor should be a fresh
-mechanism-cause pre-registration that explains or tests this branch difference, not threshold
-tuning. A strong
+late-fire branch is near-but-not-crossing before contact. Iteration 73 shows the branch
+difference is not generic threshold tuning: the silent branch never crosses an active surface,
+while the late-fire branch is near pre-contact but active only post-contact. Any successor should
+be a fresh mechanism-cause pre-registration that explains or tests why near pre-contact does not
+cross until after contact, or chooses another branch. A strong
 successor should distinguish among:
 
 1. hazard surface: whether the monitor is braking for the wrong detected object or wrong path

@@ -548,6 +548,15 @@ events to prepare; they are a property the repository always has.
   timestamp. No actor-causality, repair, threshold-value, population-rate,
   safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value, or
   retuning claim.
+- Iteration 73 concluded:
+  experiments/iter73_hugsim_margin_transition_audit/RESULT.md, published as
+  `HUGSIM_MARGIN_TRANSITION_SPLIT_COMPLETE` — an offline four-row margin-transition audit over
+  the foreground-present structural HUGSIM rows. It launched no GPU work and read no live box
+  state. The two surface-silent rows are `silent_far_never_active`; the two late-fire rows are
+  `late_prefire_near_postcontact_active`; both late-fire rows first cross an active surface
+  `+1.75 s` after first foreground timestamp. No actor-causality, repair, threshold-value,
+  population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance,
+  commercial-value, or retuning claim.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1809,3 +1818,11 @@ events to prepare; they are a property the repository always has.
   after first foreground timestamp. No GPU/gcloud/box read, no actor-causality, repair,
   threshold-value, population-rate, safety/transfer/deployment/robustness/benchmark/
   HD-Score-invariance, commercial-value, or retuning claim.
+- 2026-07-13: Codex — continued into iteration 73 as the HUGSIM structural margin-transition
+  audit after iteration 72. Pre-registered ALONE (`6fc6c5d`), added analyzer/tests (`b73361e`,
+  339 tests green before analysis), then ran the analyzer ONCE over committed iteration-59 proof
+  plus iteration-70/71/72 reports. Result: `HUGSIM_MARGIN_TRANSITION_SPLIT_COMPLETE`; the two
+  surface-silent rows are silent/far/never-active, while the two late-fire rows are near before
+  contact and first active only `+1.75 s` after first foreground timestamp. No GPU/gcloud/box
+  read, no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/
+  robustness/benchmark/HD-Score-invariance, commercial-value, or retuning claim.

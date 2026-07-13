@@ -1,0 +1,190 @@
+{
+  "claim_boundary": "four-row descriptive margin-transition audit only; no actor-causality, repair, threshold-value, transfer, safety, deployment, robustness, benchmark, population, HD-Score-invariance, commercial-value, or retuning claim",
+  "episodes": [
+    {
+      "audit_id": "mixed_extreme",
+      "first_fire_ts": null,
+      "first_foreground_ts": 4.75,
+      "problems": [],
+      "row_label": "silent_far_never_active",
+      "scenario": "scene-0062-extreme-00",
+      "structural_label": "foreground_present_surface_silent",
+      "timeline": {
+        "closest_cpa_margin_m": 0.28667015809137886,
+        "closest_cpa_ts": 5.25,
+        "closest_ttc_margin_s": null,
+        "closest_ttc_ts": null,
+        "cpa_margin": 1.5,
+        "fired_frames": 0,
+        "first_active_channel": null,
+        "first_active_cpa_ts": null,
+        "first_active_offset_s": null,
+        "first_active_relation_to_foreground": "never",
+        "first_active_ts": null,
+        "first_active_ttc_ts": null,
+        "first_fire_ts": null,
+        "first_near_cpa_ts": 5.0,
+        "first_near_offset_s": 0.25,
+        "first_near_ts": 5.0,
+        "first_near_ttc_ts": null,
+        "min_cpa_m": 1.7866701580913789,
+        "min_valid_ttc_s": null,
+        "monitor_frames": 23,
+        "object_rows": 23,
+        "pre_foreground_near_any": false,
+        "pre_foreground_near_cpa": false,
+        "pre_foreground_near_ttc": false,
+        "ttc_thresh": 2.5
+      }
+    },
+    {
+      "audit_id": "nofire_hard_control",
+      "first_fire_ts": null,
+      "first_foreground_ts": 2.5,
+      "problems": [],
+      "row_label": "silent_far_never_active",
+      "scenario": "scene-0041-hard-00",
+      "structural_label": "foreground_present_surface_silent",
+      "timeline": {
+        "closest_cpa_margin_m": 1.6740057326316902,
+        "closest_cpa_ts": 4.5,
+        "closest_ttc_margin_s": 0.8043635686667807,
+        "closest_ttc_ts": 6.0,
+        "cpa_margin": 1.5,
+        "fired_frames": 0,
+        "first_active_channel": null,
+        "first_active_cpa_ts": null,
+        "first_active_offset_s": null,
+        "first_active_relation_to_foreground": "never",
+        "first_active_ts": null,
+        "first_active_ttc_ts": null,
+        "first_fire_ts": null,
+        "first_near_cpa_ts": null,
+        "first_near_offset_s": 3.5,
+        "first_near_ts": 6.0,
+        "first_near_ttc_ts": 6.0,
+        "min_cpa_m": 3.17400573263169,
+        "min_valid_ttc_s": 3.3043635686667807,
+        "monitor_frames": 41,
+        "object_rows": 41,
+        "pre_foreground_near_any": false,
+        "pre_foreground_near_cpa": false,
+        "pre_foreground_near_ttc": false,
+        "ttc_thresh": 2.5
+      }
+    },
+    {
+      "audit_id": "both_distinct_extreme",
+      "first_fire_ts": 7.0,
+      "first_foreground_ts": 5.25,
+      "problems": [],
+      "row_label": "late_prefire_near_postcontact_active",
+      "scenario": "scene-0138-extreme-00",
+      "structural_label": "foreground_present_late_fire",
+      "timeline": {
+        "closest_cpa_margin_m": 0.014318805004910118,
+        "closest_cpa_ts": 5.25,
+        "closest_ttc_margin_s": -2.1609213499214164,
+        "closest_ttc_ts": 7.5,
+        "cpa_margin": 1.5,
+        "fired_frames": 3,
+        "first_active_channel": "ttc",
+        "first_active_cpa_ts": null,
+        "first_active_offset_s": 1.75,
+        "first_active_relation_to_foreground": "after",
+        "first_active_ts": 7.0,
+        "first_active_ttc_ts": 7.0,
+        "first_fire_ts": 7.0,
+        "first_near_cpa_ts": 5.0,
+        "first_near_offset_s": -0.25,
+        "first_near_ts": 5.0,
+        "first_near_ttc_ts": 6.75,
+        "min_cpa_m": 1.5143188050049101,
+        "min_valid_ttc_s": 0.3390786500785834,
+        "monitor_frames": 32,
+        "object_rows": 29,
+        "pre_foreground_near_any": true,
+        "pre_foreground_near_cpa": true,
+        "pre_foreground_near_ttc": false,
+        "ttc_thresh": 2.5
+      }
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "first_fire_ts": 5.0,
+      "first_foreground_ts": 3.25,
+      "problems": [],
+      "row_label": "late_prefire_near_postcontact_active",
+      "scenario": "scene-0071-medium-01",
+      "structural_label": "foreground_present_late_fire",
+      "timeline": {
+        "closest_cpa_margin_m": -0.9813806433620145,
+        "closest_cpa_ts": 5.5,
+        "closest_ttc_margin_s": -1.1540911095172526,
+        "closest_ttc_ts": 5.5,
+        "cpa_margin": 1.5,
+        "fired_frames": 4,
+        "first_active_channel": "cpa",
+        "first_active_cpa_ts": 5.0,
+        "first_active_offset_s": 1.75,
+        "first_active_relation_to_foreground": "after",
+        "first_active_ts": 5.0,
+        "first_active_ttc_ts": 5.5,
+        "first_fire_ts": 5.0,
+        "first_near_cpa_ts": 4.75,
+        "first_near_offset_s": -0.75,
+        "first_near_ts": 2.5,
+        "first_near_ttc_ts": 2.5,
+        "min_cpa_m": 0.5186193566379855,
+        "min_valid_ttc_s": 1.3459088904827474,
+        "monitor_frames": 24,
+        "object_rows": 23,
+        "pre_foreground_near_any": true,
+        "pre_foreground_near_cpa": false,
+        "pre_foreground_near_ttc": true,
+        "ttc_thresh": 2.5
+      }
+    }
+  ],
+  "fixed_rows": [
+    {
+      "audit_id": "mixed_extreme",
+      "scenario": "scene-0062-extreme-00",
+      "structural_label": "foreground_present_surface_silent"
+    },
+    {
+      "audit_id": "nofire_hard_control",
+      "scenario": "scene-0041-hard-00",
+      "structural_label": "foreground_present_surface_silent"
+    },
+    {
+      "audit_id": "both_distinct_extreme",
+      "scenario": "scene-0138-extreme-00",
+      "structural_label": "foreground_present_late_fire"
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "scenario": "scene-0071-medium-01",
+      "structural_label": "foreground_present_late_fire"
+    }
+  ],
+  "infra_problems": [],
+  "inputs": {
+    "iter59_report": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/actor_match_report.json",
+    "iter70_report": "experiments/iter70_hugsim_structural_timing_audit/proof-structural/structural_report.json",
+    "iter71_report": "experiments/iter71_hugsim_surface_silent_margin_audit/proof-margin/margin_report.json",
+    "iter72_report": "experiments/iter72_hugsim_late_fire_prefire_margin_audit/proof-prefire/prefire_report.json"
+  },
+  "iteration": 73,
+  "summary": {
+    "evaluated_rows": 4,
+    "late_prefire_near_postcontact_active_rows": 2,
+    "row_label_counts": {
+      "late_prefire_near_postcontact_active": 2,
+      "silent_far_never_active": 2
+    },
+    "silent_far_never_active_rows": 2,
+    "target_rows": 4
+  },
+  "verdict": "HUGSIM_MARGIN_TRANSITION_SPLIT_COMPLETE"
+}
