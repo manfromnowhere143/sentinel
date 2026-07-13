@@ -421,6 +421,16 @@ events to prepare; they are a property the repository always has.
   foreground rows were `actor_mismatch` by the frozen bridge, with distances `15.43 m`,
   `21.99 m`, and `37.04 m`. This is a bounded mechanism-cause audit only: no population
   mismatch-rate, repair, safety/transfer/deployment/robustness/benchmark, or retuning claim.
+- Iteration 60 concluded:
+  experiments/iter60_actor_bridge_sensitivity/RESULT.md, published as
+  `BRIDGE_AMBIGUOUS_NULL` — an offline bridge-sensitivity audit over only the three
+  iteration-59 classifiable foreground rows. It launched no GPU work and read no live box state.
+  The analyzer cross-checked the iteration-59 verdict and exactly three classifiable rows, then
+  evaluated `16` frozen bridge variants per row (first-fire vs propagated position, two axis
+  orders, four sign combinations). No row became `bridge_match_possible`; two rows remained
+  `robust_mismatch`, and `ttc_extreme_b` became `bridge_ambiguous_possible` at `5.6649 m`.
+  This narrows iteration 59: no robust all-row mismatch, actor-causality, repair,
+  safety/transfer/deployment/robustness/benchmark, population-rate, or retuning claim.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1576,3 +1586,11 @@ events to prepare; they are a property the repository always has.
   post-collision-fire, 1 background-only; all three classifiable foreground rows were
   `actor_mismatch` by the frozen bridge (15.43 m, 21.99 m, 37.04 m). No population
   actor-mismatch rate, repair, safety/transfer/deployment/robustness/benchmark, or retuning claim.
+- 2026-07-13: Codex — continued into iteration 60 as the offline actor-match bridge sensitivity
+  audit after iteration 59. Pre-registered ALONE (`ea8f42b`), added analyzer/tests (`5f4dd9b`,
+  290 tests green before analysis), then ran the analyzer ONCE over committed iteration-59 proof
+  and report. Result: `BRIDGE_AMBIGUOUS_NULL`; exactly three classifiable rows cross-checked,
+  48 frozen bridge variants evaluated, no `bridge_match_possible`, two `robust_mismatch`, and
+  one `bridge_ambiguous_possible` at `5.6649 m`. No GPU/gcloud/box read, no robust all-row
+  mismatch, actor-causality, repair, population-rate, safety/transfer/deployment/robustness/
+  benchmark, or retuning claim.

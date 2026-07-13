@@ -1,0 +1,939 @@
+{
+  "claim_boundary": "offline sensitivity audit over the three iteration-59 classifiable rows only; no transfer, safety, deployment, benchmark, retuning, repair, or population claim",
+  "classifiable_rows": [
+    {
+      "audit_id": "ttc_extreme_short",
+      "iter59_bridge_distance_m": 15.433032797668899,
+      "iter59_bridge_label": "actor_mismatch",
+      "scenario": "scene-0038-extreme-00"
+    },
+    {
+      "audit_id": "cpa_medium_b",
+      "iter59_bridge_distance_m": 21.986342860073755,
+      "iter59_bridge_label": "actor_mismatch",
+      "scenario": "scene-0166-medium-00"
+    },
+    {
+      "audit_id": "ttc_extreme_b",
+      "iter59_bridge_distance_m": 37.038033481762156,
+      "iter59_bridge_label": "actor_mismatch",
+      "scenario": "scene-0383-extreme-00"
+    }
+  ],
+  "episodes": [
+    {
+      "audit_id": "ttc_extreme_short",
+      "best_distance_m": 8.652459284308707,
+      "best_label": "robust_mismatch",
+      "best_variant": {
+        "axis_order": "yx",
+        "forward_sign": -1,
+        "hugsim_forward_lateral": [
+          3.520719051361084,
+          -0.5754401683807373
+        ],
+        "lateral_sign": -1,
+        "lead_time_s": 1.0,
+        "monitor_forward_lateral": [
+          11.902968944395841,
+          -2.7208861353859044
+        ],
+        "temporal_source": "first_fire"
+      },
+      "iter59_bridge_distance_m": 15.433032797668899,
+      "iter59_bridge_label": "actor_mismatch",
+      "problems": [],
+      "scenario": "scene-0038-extreme-00",
+      "variant_count": 16,
+      "variants": [
+        {
+          "axis_order": "yx",
+          "distance_m": 8.652459284308707,
+          "forward_sign": -1,
+          "hugsim_forward_lateral": [
+            3.520719051361084,
+            -0.5754401683807373
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": -1,
+          "lead_time_s": 1.0,
+          "monitor_forward_lateral": [
+            11.902968944395841,
+            -2.7208861353859044
+          ],
+          "temporal_source": "first_fire"
+        },
+        {
+          "axis_order": "yx",
+          "distance_m": 9.007101663142537,
+          "forward_sign": -1,
+          "hugsim_forward_lateral": [
+            3.520719051361084,
+            -0.5754401683807373
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": 1,
+          "lead_time_s": 1.0,
+          "monitor_forward_lateral": [
+            11.902968944395841,
+            2.7208861353859044
+          ],
+          "temporal_source": "first_fire"
+        },
+        {
+          "axis_order": "xy",
+          "distance_m": 10.387923041143603,
+          "forward_sign": -1,
+          "hugsim_forward_lateral": [
+            3.520719051361084,
+            -0.5754401683807373
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": 1,
+          "lead_time_s": 1.0,
+          "monitor_forward_lateral": [
+            9.600249543043141,
+            -8.998518828195703
+          ],
+          "temporal_source": "propagated_to_foreground"
+        },
+        {
+          "axis_order": "yx",
+          "distance_m": 10.557152771655993,
+          "forward_sign": -1,
+          "hugsim_forward_lateral": [
+            3.520719051361084,
+            -0.5754401683807373
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": 1,
+          "lead_time_s": 1.0,
+          "monitor_forward_lateral": [
+            8.998518828195703,
+            -9.600249543043141
+          ],
+          "temporal_source": "propagated_to_foreground"
+        },
+        {
+          "axis_order": "xy",
+          "distance_m": 11.341136709669751,
+          "forward_sign": -1,
+          "hugsim_forward_lateral": [
+            3.520719051361084,
+            -0.5754401683807373
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": -1,
+          "lead_time_s": 1.0,
+          "monitor_forward_lateral": [
+            9.600249543043141,
+            8.998518828195703
+          ],
+          "temporal_source": "propagated_to_foreground"
+        },
+        {
+          "axis_order": "xy",
+          "distance_m": 11.355731630543564,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            3.520719051361084,
+            -0.5754401683807373
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": 1,
+          "lead_time_s": 1.0,
+          "monitor_forward_lateral": [
+            2.7208861353859044,
+            -11.902968944395841
+          ],
+          "temporal_source": "first_fire"
+        },
+        {
+          "axis_order": "yx",
+          "distance_m": 11.55642468492168,
+          "forward_sign": -1,
+          "hugsim_forward_lateral": [
+            3.520719051361084,
+            -0.5754401683807373
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": -1,
+          "lead_time_s": 1.0,
+          "monitor_forward_lateral": [
+            8.998518828195703,
+            9.600249543043141
+          ],
+          "temporal_source": "propagated_to_foreground"
+        },
+        {
+          "axis_order": "xy",
+          "distance_m": 12.50401642190632,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            3.520719051361084,
+            -0.5754401683807373
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": -1,
+          "lead_time_s": 1.0,
+          "monitor_forward_lateral": [
+            2.7208861353859044,
+            11.902968944395841
+          ],
+          "temporal_source": "first_fire"
+        },
+        {
+          "axis_order": "xy",
+          "distance_m": 12.933311388761856,
+          "forward_sign": -1,
+          "hugsim_forward_lateral": [
+            3.520719051361084,
+            -0.5754401683807373
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": 1,
+          "lead_time_s": 1.0,
+          "monitor_forward_lateral": [
+            -2.7208861353859044,
+            -11.902968944395841
+          ],
+          "temporal_source": "first_fire"
+        },
+        {
+          "axis_order": "xy",
+          "distance_m": 13.952359273364934,
+          "forward_sign": -1,
+          "hugsim_forward_lateral": [
+            3.520719051361084,
+            -0.5754401683807373
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": -1,
+          "lead_time_s": 1.0,
+          "monitor_forward_lateral": [
+            -2.7208861353859044,
+            11.902968944395841
+          ],
+          "temporal_source": "first_fire"
+        },
+        {
+          "axis_order": "yx",
+          "distance_m": 15.433032797668899,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            3.520719051361084,
+            -0.5754401683807373
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": 1,
+          "lead_time_s": 1.0,
+          "monitor_forward_lateral": [
+            -8.998518828195703,
+            -9.600249543043141
+          ],
+          "temporal_source": "propagated_to_foreground"
+        },
+        {
+          "axis_order": "yx",
+          "distance_m": 15.572189627274483,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            3.520719051361084,
+            -0.5754401683807373
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": -1,
+          "lead_time_s": 1.0,
+          "monitor_forward_lateral": [
+            -11.902968944395841,
+            -2.7208861353859044
+          ],
+          "temporal_source": "first_fire"
+        },
+        {
+          "axis_order": "xy",
+          "distance_m": 15.591923260610676,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            3.520719051361084,
+            -0.5754401683807373
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": 1,
+          "lead_time_s": 1.0,
+          "monitor_forward_lateral": [
+            -9.600249543043141,
+            -8.998518828195703
+          ],
+          "temporal_source": "propagated_to_foreground"
+        },
+        {
+          "axis_order": "yx",
+          "distance_m": 15.771997923261344,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            3.520719051361084,
+            -0.5754401683807373
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": 1,
+          "lead_time_s": 1.0,
+          "monitor_forward_lateral": [
+            -11.902968944395841,
+            2.7208861353859044
+          ],
+          "temporal_source": "first_fire"
+        },
+        {
+          "axis_order": "yx",
+          "distance_m": 16.13307094722227,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            3.520719051361084,
+            -0.5754401683807373
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": -1,
+          "lead_time_s": 1.0,
+          "monitor_forward_lateral": [
+            -8.998518828195703,
+            9.600249543043141
+          ],
+          "temporal_source": "propagated_to_foreground"
+        },
+        {
+          "axis_order": "xy",
+          "distance_m": 16.24255237711946,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            3.520719051361084,
+            -0.5754401683807373
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": -1,
+          "lead_time_s": 1.0,
+          "monitor_forward_lateral": [
+            -9.600249543043141,
+            8.998518828195703
+          ],
+          "temporal_source": "propagated_to_foreground"
+        }
+      ]
+    },
+    {
+      "audit_id": "cpa_medium_b",
+      "best_distance_m": 19.69826047075051,
+      "best_label": "robust_mismatch",
+      "best_variant": {
+        "axis_order": "yx",
+        "forward_sign": 1,
+        "hugsim_forward_lateral": [
+          30.0,
+          -0.0
+        ],
+        "lateral_sign": -1,
+        "lead_time_s": 6.0,
+        "monitor_forward_lateral": [
+          11.656208359062255,
+          -7.178215224371207
+        ],
+        "temporal_source": "first_fire"
+      },
+      "iter59_bridge_distance_m": 21.986342860073755,
+      "iter59_bridge_label": "actor_mismatch",
+      "problems": [],
+      "scenario": "scene-0166-medium-00",
+      "variant_count": 16,
+      "variants": [
+        {
+          "axis_order": "yx",
+          "distance_m": 19.69826047075051,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            30.0,
+            -0.0
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": -1,
+          "lead_time_s": 6.0,
+          "monitor_forward_lateral": [
+            11.656208359062255,
+            -7.178215224371207
+          ],
+          "temporal_source": "first_fire"
+        },
+        {
+          "axis_order": "yx",
+          "distance_m": 19.69826047075051,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            30.0,
+            -0.0
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": 1,
+          "lead_time_s": 6.0,
+          "monitor_forward_lateral": [
+            11.656208359062255,
+            7.178215224371207
+          ],
+          "temporal_source": "first_fire"
+        },
+        {
+          "axis_order": "yx",
+          "distance_m": 21.986342860073755,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            30.0,
+            -0.0
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": -1,
+          "lead_time_s": 6.0,
+          "monitor_forward_lateral": [
+            8.484111103482928,
+            4.523913941870421
+          ],
+          "temporal_source": "propagated_to_foreground"
+        },
+        {
+          "axis_order": "yx",
+          "distance_m": 21.986342860073755,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            30.0,
+            -0.0
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": 1,
+          "lead_time_s": 6.0,
+          "monitor_forward_lateral": [
+            8.484111103482928,
+            -4.523913941870421
+          ],
+          "temporal_source": "propagated_to_foreground"
+        },
+        {
+          "axis_order": "xy",
+          "distance_m": 25.626179068581312,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            30.0,
+            -0.0
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": -1,
+          "lead_time_s": 6.0,
+          "monitor_forward_lateral": [
+            7.178215224371207,
+            -11.656208359062255
+          ],
+          "temporal_source": "first_fire"
+        },
+        {
+          "axis_order": "xy",
+          "distance_m": 25.626179068581312,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            30.0,
+            -0.0
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": 1,
+          "lead_time_s": 6.0,
+          "monitor_forward_lateral": [
+            7.178215224371207,
+            11.656208359062255
+          ],
+          "temporal_source": "first_fire"
+        },
+        {
+          "axis_order": "xy",
+          "distance_m": 26.851649894512377,
+          "forward_sign": -1,
+          "hugsim_forward_lateral": [
+            30.0,
+            -0.0
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": -1,
+          "lead_time_s": 6.0,
+          "monitor_forward_lateral": [
+            4.523913941870421,
+            -8.484111103482928
+          ],
+          "temporal_source": "propagated_to_foreground"
+        },
+        {
+          "axis_order": "xy",
+          "distance_m": 26.851649894512377,
+          "forward_sign": -1,
+          "hugsim_forward_lateral": [
+            30.0,
+            -0.0
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": 1,
+          "lead_time_s": 6.0,
+          "monitor_forward_lateral": [
+            4.523913941870421,
+            8.484111103482928
+          ],
+          "temporal_source": "propagated_to_foreground"
+        },
+        {
+          "axis_order": "xy",
+          "distance_m": 35.55110089831139,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            30.0,
+            -0.0
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": -1,
+          "lead_time_s": 6.0,
+          "monitor_forward_lateral": [
+            -4.523913941870421,
+            -8.484111103482928
+          ],
+          "temporal_source": "propagated_to_foreground"
+        },
+        {
+          "axis_order": "xy",
+          "distance_m": 35.55110089831139,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            30.0,
+            -0.0
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": 1,
+          "lead_time_s": 6.0,
+          "monitor_forward_lateral": [
+            -4.523913941870421,
+            8.484111103482928
+          ],
+          "temporal_source": "propagated_to_foreground"
+        },
+        {
+          "axis_order": "yx",
+          "distance_m": 38.74909811568094,
+          "forward_sign": -1,
+          "hugsim_forward_lateral": [
+            30.0,
+            -0.0
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": -1,
+          "lead_time_s": 6.0,
+          "monitor_forward_lateral": [
+            -8.484111103482928,
+            4.523913941870421
+          ],
+          "temporal_source": "propagated_to_foreground"
+        },
+        {
+          "axis_order": "yx",
+          "distance_m": 38.74909811568094,
+          "forward_sign": -1,
+          "hugsim_forward_lateral": [
+            30.0,
+            -0.0
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": 1,
+          "lead_time_s": 6.0,
+          "monitor_forward_lateral": [
+            -8.484111103482928,
+            -4.523913941870421
+          ],
+          "temporal_source": "propagated_to_foreground"
+        },
+        {
+          "axis_order": "xy",
+          "distance_m": 38.96263441528999,
+          "forward_sign": -1,
+          "hugsim_forward_lateral": [
+            30.0,
+            -0.0
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": -1,
+          "lead_time_s": 6.0,
+          "monitor_forward_lateral": [
+            -7.178215224371207,
+            -11.656208359062255
+          ],
+          "temporal_source": "first_fire"
+        },
+        {
+          "axis_order": "xy",
+          "distance_m": 38.96263441528999,
+          "forward_sign": -1,
+          "hugsim_forward_lateral": [
+            30.0,
+            -0.0
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": 1,
+          "lead_time_s": 6.0,
+          "monitor_forward_lateral": [
+            -7.178215224371207,
+            11.656208359062255
+          ],
+          "temporal_source": "first_fire"
+        },
+        {
+          "axis_order": "yx",
+          "distance_m": 42.27016049958886,
+          "forward_sign": -1,
+          "hugsim_forward_lateral": [
+            30.0,
+            -0.0
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": -1,
+          "lead_time_s": 6.0,
+          "monitor_forward_lateral": [
+            -11.656208359062255,
+            -7.178215224371207
+          ],
+          "temporal_source": "first_fire"
+        },
+        {
+          "axis_order": "yx",
+          "distance_m": 42.27016049958886,
+          "forward_sign": -1,
+          "hugsim_forward_lateral": [
+            30.0,
+            -0.0
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": 1,
+          "lead_time_s": 6.0,
+          "monitor_forward_lateral": [
+            -11.656208359062255,
+            7.178215224371207
+          ],
+          "temporal_source": "first_fire"
+        }
+      ]
+    },
+    {
+      "audit_id": "ttc_extreme_b",
+      "best_distance_m": 5.664876449943843,
+      "best_label": "bridge_ambiguous_possible",
+      "best_variant": {
+        "axis_order": "yx",
+        "forward_sign": -1,
+        "hugsim_forward_lateral": [
+          21.186262130737305,
+          0.4572702646255493
+        ],
+        "lateral_sign": 1,
+        "lead_time_s": 0.25,
+        "monitor_forward_lateral": [
+          18.030159492990993,
+          5.161506794939382
+        ],
+        "temporal_source": "first_fire"
+      },
+      "iter59_bridge_distance_m": 37.038033481762156,
+      "iter59_bridge_label": "actor_mismatch",
+      "problems": [],
+      "scenario": "scene-0383-extreme-00",
+      "variant_count": 16,
+      "variants": [
+        {
+          "axis_order": "yx",
+          "distance_m": 5.664876449943843,
+          "forward_sign": -1,
+          "hugsim_forward_lateral": [
+            21.186262130737305,
+            0.4572702646255493
+          ],
+          "label": "bridge_ambiguous_possible",
+          "lateral_sign": 1,
+          "lead_time_s": 0.25,
+          "monitor_forward_lateral": [
+            18.030159492990993,
+            5.161506794939382
+          ],
+          "temporal_source": "first_fire"
+        },
+        {
+          "axis_order": "yx",
+          "distance_m": 6.444504597335808,
+          "forward_sign": -1,
+          "hugsim_forward_lateral": [
+            21.186262130737305,
+            0.4572702646255493
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": -1,
+          "lead_time_s": 0.25,
+          "monitor_forward_lateral": [
+            18.030159492990993,
+            -5.161506794939382
+          ],
+          "temporal_source": "first_fire"
+        },
+        {
+          "axis_order": "yx",
+          "distance_m": 8.412323110067643,
+          "forward_sign": -1,
+          "hugsim_forward_lateral": [
+            21.186262130737305,
+            0.4572702646255493
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": 1,
+          "lead_time_s": 0.25,
+          "monitor_forward_lateral": [
+            15.352504562383114,
+            6.518165639225604
+          ],
+          "temporal_source": "propagated_to_foreground"
+        },
+        {
+          "axis_order": "yx",
+          "distance_m": 9.09337304937313,
+          "forward_sign": -1,
+          "hugsim_forward_lateral": [
+            21.186262130737305,
+            0.4572702646255493
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": -1,
+          "lead_time_s": 0.25,
+          "monitor_forward_lateral": [
+            15.352504562383114,
+            -6.518165639225604
+          ],
+          "temporal_source": "propagated_to_foreground"
+        },
+        {
+          "axis_order": "xy",
+          "distance_m": 20.905048659818785,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            21.186262130737305,
+            0.4572702646255493
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": -1,
+          "lead_time_s": 0.25,
+          "monitor_forward_lateral": [
+            6.518165639225604,
+            15.352504562383114
+          ],
+          "temporal_source": "propagated_to_foreground"
+        },
+        {
+          "axis_order": "xy",
+          "distance_m": 21.56622439753919,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            21.186262130737305,
+            0.4572702646255493
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": 1,
+          "lead_time_s": 0.25,
+          "monitor_forward_lateral": [
+            6.518165639225604,
+            -15.352504562383114
+          ],
+          "temporal_source": "propagated_to_foreground"
+        },
+        {
+          "axis_order": "xy",
+          "distance_m": 23.78232998266962,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            21.186262130737305,
+            0.4572702646255493
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": -1,
+          "lead_time_s": 0.25,
+          "monitor_forward_lateral": [
+            5.161506794939382,
+            18.030159492990993
+          ],
+          "temporal_source": "first_fire"
+        },
+        {
+          "axis_order": "xy",
+          "distance_m": 24.465850539374053,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            21.186262130737305,
+            0.4572702646255493
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": 1,
+          "lead_time_s": 0.25,
+          "monitor_forward_lateral": [
+            5.161506794939382,
+            -18.030159492990993
+          ],
+          "temporal_source": "first_fire"
+        },
+        {
+          "axis_order": "xy",
+          "distance_m": 31.45478219358998,
+          "forward_sign": -1,
+          "hugsim_forward_lateral": [
+            21.186262130737305,
+            0.4572702646255493
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": -1,
+          "lead_time_s": 0.25,
+          "monitor_forward_lateral": [
+            -6.518165639225604,
+            15.352504562383114
+          ],
+          "temporal_source": "propagated_to_foreground"
+        },
+        {
+          "axis_order": "xy",
+          "distance_m": 31.67035464268211,
+          "forward_sign": -1,
+          "hugsim_forward_lateral": [
+            21.186262130737305,
+            0.4572702646255493
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": -1,
+          "lead_time_s": 0.25,
+          "monitor_forward_lateral": [
+            -5.161506794939382,
+            18.030159492990993
+          ],
+          "temporal_source": "first_fire"
+        },
+        {
+          "axis_order": "xy",
+          "distance_m": 31.898029690590747,
+          "forward_sign": -1,
+          "hugsim_forward_lateral": [
+            21.186262130737305,
+            0.4572702646255493
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": 1,
+          "lead_time_s": 0.25,
+          "monitor_forward_lateral": [
+            -6.518165639225604,
+            -15.352504562383114
+          ],
+          "temporal_source": "propagated_to_foreground"
+        },
+        {
+          "axis_order": "xy",
+          "distance_m": 32.186798324835905,
+          "forward_sign": -1,
+          "hugsim_forward_lateral": [
+            21.186262130737305,
+            0.4572702646255493
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": 1,
+          "lead_time_s": 0.25,
+          "monitor_forward_lateral": [
+            -5.161506794939382,
+            -18.030159492990993
+          ],
+          "temporal_source": "first_fire"
+        },
+        {
+          "axis_order": "yx",
+          "distance_m": 37.038033481762156,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            21.186262130737305,
+            0.4572702646255493
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": 1,
+          "lead_time_s": 0.25,
+          "monitor_forward_lateral": [
+            -15.352504562383114,
+            6.518165639225604
+          ],
+          "temporal_source": "propagated_to_foreground"
+        },
+        {
+          "axis_order": "yx",
+          "distance_m": 37.19863139287549,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            21.186262130737305,
+            0.4572702646255493
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": -1,
+          "lead_time_s": 0.25,
+          "monitor_forward_lateral": [
+            -15.352504562383114,
+            -6.518165639225604
+          ],
+          "temporal_source": "propagated_to_foreground"
+        },
+        {
+          "axis_order": "yx",
+          "distance_m": 39.49756405530806,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            21.186262130737305,
+            0.4572702646255493
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": 1,
+          "lead_time_s": 0.25,
+          "monitor_forward_lateral": [
+            -18.030159492990993,
+            5.161506794939382
+          ],
+          "temporal_source": "first_fire"
+        },
+        {
+          "axis_order": "yx",
+          "distance_m": 39.61689514102686,
+          "forward_sign": 1,
+          "hugsim_forward_lateral": [
+            21.186262130737305,
+            0.4572702646255493
+          ],
+          "label": "robust_mismatch",
+          "lateral_sign": -1,
+          "lead_time_s": 0.25,
+          "monitor_forward_lateral": [
+            -18.030159492990993,
+            -5.161506794939382
+          ],
+          "temporal_source": "first_fire"
+        }
+      ]
+    }
+  ],
+  "infra_problems": [],
+  "inputs": {
+    "iter59_proof_root": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match",
+    "iter59_report": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/actor_match_report.json"
+  },
+  "iteration": 60,
+  "summary": {
+    "iter59_classifiable_rows": 3,
+    "minimum_distance_m": 5.664876449943843,
+    "sensitivity_counts": {
+      "bridge_ambiguous_possible": 1,
+      "robust_mismatch": 2
+    },
+    "variant_rows_evaluated": 3,
+    "variants_per_row": 16
+  },
+  "verdict": "BRIDGE_AMBIGUOUS_NULL"
+}

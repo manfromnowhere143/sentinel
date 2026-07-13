@@ -1,0 +1,20 @@
+Working directory:
+/Users/danielwahnich/workspace/sentinel
+
+Command:
+python3 experiments/iter60_actor_bridge_sensitivity/analyze_bridge_sensitivity.py --iter59-proof-root experiments/iter59_hugsim_actor_match_audit/proof-actor-match --iter59-report experiments/iter59_hugsim_actor_match_audit/proof-actor-match/actor_match_report.json --out experiments/iter60_actor_bridge_sensitivity/proof-bridge/bridge_sensitivity_report.json --markdown-out experiments/iter60_actor_bridge_sensitivity/proof-bridge/bridge_sensitivity.md
+
+Observed stdout:
+{
+  "verdict": "BRIDGE_AMBIGUOUS_NULL",
+  "summary": {
+    "iter59_classifiable_rows": 3,
+    "variant_rows_evaluated": 3,
+    "variants_per_row": 16,
+    "sensitivity_counts": {
+      "bridge_ambiguous_possible": 1,
+      "robust_mismatch": 2
+    },
+    "minimum_distance_m": 5.664876449943843
+  }
+}

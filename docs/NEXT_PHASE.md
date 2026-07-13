@@ -420,12 +420,18 @@ support audit. The result is `ACTOR_MATCH_AUDIT_COMPLETE`: all eight episodes co
 same-run foreground comparisons were classifiable, and all three were `actor_mismatch` by the
 frozen bridge (`15.43 m`, `21.99 m`, `37.04 m`). The other five rows were two no-fire collision
 rows, two post-collision-fire rows, and one background-only collision row.
+Iteration 60 then stress-tested only those three classifiable rows under the frozen bridge
+sensitivity grid: first-fire vs propagated position, two axis orders, and four sign combinations
+per row. The result is `BRIDGE_AMBIGUOUS_NULL`: no row became `bridge_match_possible`, but
+`ttc_extreme_b` became `bridge_ambiguous_possible` at `5.6649 m`, while the other two rows
+remained robust mismatches.
 
 The default next scientific line is therefore not an expanded-N transfer run and not retuning the
-released union. After iteration 59, the first actor-match audit points to a hazard-surface
-misalignment in the classifiable rows and to no-fire/post-fire/background-only failure modes in
-the rest. Any successor should be a fresh mechanism-cause pre-registration that explains those
-categories, not threshold tuning. A strong successor should distinguish among:
+released union. After iteration 60, the actor-match audit points to a hazard-surface
+misalignment or coordinate/contact ambiguity in the classifiable rows and to
+no-fire/post-fire/background-only failure modes in the rest. Any successor should be a fresh
+mechanism-cause pre-registration that explains those categories, not threshold tuning. A strong
+successor should distinguish among:
 
 1. hazard surface: whether the monitor is braking for the wrong detected object or wrong path
    crossing geometry;
@@ -449,7 +455,8 @@ patch-authorization blocker because the static guard returned null. Iteration 57
 static guard blocker. Iteration 58 removed only the execution blocker for a tiny canary; it does
 not prove actor match, HD-Score invariance, or transfer value. Iteration 59 supplies a bounded
 actor-match mechanism result only; it does not prove a population mismatch rate, repair, or
-deployment/safety claim.
+deployment/safety claim. Iteration 60 narrows that result: no bounded bridge variant produces a
+match, but one classifiable row is ambiguous, so robust all-row mismatch is also not authorized.
 
 Any such line requires a fresh `HYPOTHESIS.md`. Until then, no new HUGSIM transfer, safety,
 robustness, deployment, benchmark-ranking, or retuning claim is authorized.
