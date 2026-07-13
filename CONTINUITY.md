@@ -659,6 +659,16 @@ events to prepare; they are a property the repository always has.
   bridge-supported surface-miss decomposition evidence only. No actor-causality, repair,
   threshold-value, population-rate, safety/transfer/deployment/robustness/benchmark/
   HD-Score-invariance, commercial-value, or retuning claim.
+- Iteration 84 concluded:
+  experiments/iter84_hugsim_selected_support_arbitration/RESULT.md, published as
+  `HUGSIM_SELECTED_SURFACE_SUPPORT_BRIDGE_SPLIT_COMPLETE` — an offline selected/support
+  arbitration decomposition over the three fixed iteration-79 event rows. It launched no GPU work
+  and read no live box state. All three rows classify `selected_surface_support_bridge_split`:
+  selected objects have lower CPA and better CPA rank in `3/3`, selected bridge support in `0/3`,
+  support bridge support in `3/3`, and one selected object has finite TTC while its support object
+  has no finite TTC. This is selected/support arbitration evidence only. No actor-causality,
+  repair, threshold-value, population-rate, safety/transfer/deployment/robustness/benchmark/
+  HD-Score-invariance, commercial-value, real-world/first-responder behavior, or retuning claim.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -2028,3 +2038,13 @@ events to prepare; they are a property the repository always has.
   path/arbitration decomposition named as the highest-value local successor to iterations 79-83.
   The memo authorizes no GPU work, HUGSIM run, threshold change, repair, retuning, safety,
   benchmark, deployment, commercial-value, or real-world claim.
+- 2026-07-13: Codex — continued into iteration 84 as the HUGSIM selected/support
+  path-arbitration decomposition after the frontier-alignment pulse and iteration 83.
+  Pre-registered ALONE (`c24b227`), added analyzer/tests (`ff87574`, 365 tests green before
+  analysis), then ran the analyzer ONCE over committed iteration-59 proof plus iteration-79/80/83
+  reports. Result: `HUGSIM_SELECTED_SURFACE_SUPPORT_BRIDGE_SPLIT_COMPLETE`; all three fixed rows
+  have selected objects with lower CPA and better CPA rank, zero selected bridge support, and
+  support objects with better foreground/provenance bridge support. No GPU/gcloud/box read, no
+  actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/
+  robustness/benchmark/HD-Score-invariance, commercial-value, real-world/first-responder behavior,
+  or retuning claim.

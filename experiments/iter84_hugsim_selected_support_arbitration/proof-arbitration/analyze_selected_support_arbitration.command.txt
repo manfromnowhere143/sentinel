@@ -1,0 +1,1 @@
+python3 experiments/iter84_hugsim_selected_support_arbitration/analyze_selected_support_arbitration.py --out experiments/iter84_hugsim_selected_support_arbitration/proof-arbitration/arbitration_report.json --markdown-out experiments/iter84_hugsim_selected_support_arbitration/proof-arbitration/arbitration.md
