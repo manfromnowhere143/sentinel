@@ -1,0 +1,137 @@
+diff --git a/sim/utils/score_calculator.py b/sim/utils/score_calculator.py
+index 17f9a72..3adcba6 100644
+--- a/sim/utils/score_calculator.py
++++ b/sim/utils/score_calculator.py
+@@ -121,6 +121,7 @@ class ScoreCalculator:
+ 
+         self.pdms = 0.0
+         self.driving_score = None
++        self.collision_provenance = []
+         pass
+ 
+     def transform_to_ego_frame(self, traj, ego_box):
+@@ -370,6 +371,74 @@ class ScoreCalculator:
+         # Return 1.0 if all checks pass, 0.0 otherwise
+         return checks
+ 
++    def _jsonable(self, value):
++        if isinstance(value, np.ndarray):
++            return value.tolist()
++        if isinstance(value, torch.Tensor):
++            return value.detach().cpu().tolist()
++        if isinstance(value, (np.floating, np.integer)):
++            return value.item()
++        if isinstance(value, dict):
++            return {str(k): self._jsonable(v) for k, v in value.items()}
++        if isinstance(value, (list, tuple)):
++            return [self._jsonable(v) for v in value]
++        return value
++
++    def _calculate_no_collision_provenance(
++        self, ego_box, planned_traj, obs_meta_lists, scene_xyz, timestamp
++    ):
++        ego_x, ego_y, z, ego_w, ego_l, ego_h, ego_yaw = ego_box
++        ego_verts_local = ego_verts_canonic * np.array([ego_l, ego_w, ego_h])
++        for idx in range(planned_traj.shape[0]):
++            ego_x, ego_y, ego_yaw = planned_traj[idx]
++            ego_trans_mat = np.eye(4)
++            ego_trans_mat[:3, :3] = SCR.from_euler('z', ego_yaw).as_matrix()
++            ego_trans_mat[:3, 3] = np.array([ego_x, ego_y, z])
++            ego_verts_global = (ego_trans_mat[:3, :3] @ ego_verts_local.T).T + ego_trans_mat[:3, 3]
++            ego_verts_global = torch.from_numpy(ego_verts_global).float().cuda()
++            bk_collision = bg_collision_det(scene_xyz, ego_verts_global)
++            if bk_collision:
++                return {
++                    'source': 'nc',
++                    'timestamp': self._jsonable(timestamp),
++                    'trajectory_index': int(idx),
++                    'collision_type': 'background',
++                    'ego_box': self._jsonable(ego_box),
++                    'planned_ego_pose': self._jsonable((ego_x, ego_y, ego_yaw)),
++                    'background_point_threshold': 100,
++                }
++
++            ego_poly = create_rectangle(ego_x, ego_y, ego_w, ego_l, ego_yaw)
++            obs_meta_list = obs_meta_lists[idx if idx < len(obs_meta_lists) else -1]
++            nearest = None
++            for obs_meta in obs_meta_list:
++                obs = obs_meta['box']
++                obs_x, obs_y, _, obs_w, obs_l, _, obs_yaw = obs
++                obs_poly = create_rectangle(obs_x, obs_y, obs_w, obs_l, obs_yaw)
++                distance = float(ego_poly.distance(obs_poly))
++                if nearest is None or distance < nearest['distance']:
++                    nearest = {
++                        'obs_index': obs_meta['index'],
++                        'obs_name': obs_meta['name'],
++                        'distance': distance,
++                        'obs_box': self._jsonable(obs),
++                    }
++                if ego_poly.intersects(obs_poly):
++                    return {
++                        'source': 'nc',
++                        'timestamp': self._jsonable(timestamp),
++                        'trajectory_index': int(idx),
++                        'collision_type': 'foreground',
++                        'ego_box': self._jsonable(ego_box),
++                        'planned_ego_pose': self._jsonable((ego_x, ego_y, ego_yaw)),
++                        'obs_index': obs_meta['index'],
++                        'obs_name': obs_meta['name'],
++                        'obs_box': self._jsonable(obs),
++                        'contact_distance': distance,
++                        'nearest_foreground': nearest,
++                    }
++        return None
++
+     def _calculate_no_collision(self, ego_box, planned_traj, obs_lists, scene_xyz):
+         ego_x, ego_y, z, ego_w, ego_l, ego_h, ego_yaw = ego_box
+         ego_verts_local = ego_verts_canonic * np.array([ego_l, ego_w, ego_h])
+@@ -499,14 +568,22 @@ class ScoreCalculator:
+             current_timestamp = timestamp
+             current_frame_idx = i
+             obs_lists = []
++            obs_meta_lists = []
+             while current_timestamp <= planned_last_timestamp+1e-5:
+                 if abs(current_timestamp - self.data['frames'][current_frame_idx]['time_stamp']) < 1e-5:
+                     obs_list = []
++                    obs_meta_list = []
+                     for idx, obj in enumerate(self.data['frames'][current_frame_idx]['obj_boxes']):
+                         # obs_list.append(obj)
+                         if self.data['frames'][current_frame_idx]['obj_names'][idx] == 'car':
+                             obs_list.append(obj)
++                            obs_meta_list.append({
++                                'index': idx,
++                                'name': self.data['frames'][current_frame_idx]['obj_names'][idx],
++                                'box': obj,
++                            })
+                     obs_lists.append(obs_list)
++                    obs_meta_lists.append(obs_meta_list)
+                     current_timestamp += frame['planned_traj']['timestep']
+ 
+                 current_frame_idx += 1
+@@ -523,6 +600,11 @@ class ScoreCalculator:
+ 
+             score_nc = self._calculate_no_collision(
+                 frame['ego_box'], planned_traj, obs_lists, self.data['scene_xyz'])
++            if score_nc == 0.0:
++                provenance = self._calculate_no_collision_provenance(
++                    frame['ego_box'], planned_traj, obs_meta_lists, self.data['scene_xyz'], timestamp)
++                if provenance is not None:
++                    self.collision_provenance.append(provenance)
+             score_dac = self._calculate_drivable_area_compliance(
+                 self.data['ground_xy'], planned_traj, ego_w, ego_l)
+             
+@@ -579,6 +661,7 @@ def calculate(data):
+         final_score_dict['rc'] = score[1]
+         final_score_dict['hdscore'] = score[2]
+         final_score_dict['details'] = score[-1]
++        final_score_dict['collision_provenance'] = score_calc.collision_provenance
+         return final_score_dict
+     
+     assert len(data) == 1, "only support single experiment now"
+@@ -637,4 +720,4 @@ if __name__ == "__main__":
+     data = parse_data(args.test_path)
+     
+     # Call the main function with the loaded data
+-    calculate(data)
+\ No newline at end of file
++    calculate(data)
