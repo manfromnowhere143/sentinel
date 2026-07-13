@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Mon Jul 13 14:55:42 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Mon Jul 13 15:10:05 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+4f894ff docs: add frontier problem alignment pulse
+3ba1756 handoff: record iter83 surface miss state
 80026dc iter83: publish bridge-supported surface miss decomposition
 92b8f74 iter83: add bridge-supported surface miss tooling
 3d6593d iter83: preregister bridge-supported surface miss decomposition
 1f08568 handoff: record iter82 support cooccurrence state
 ff67037 iter82: publish support surface bridge cooccurrence
 9abd95e iter82: add support surface bridge cooccurrence tooling
-6257a65 iter82: preregister support surface bridge cooccurrence
-893fdd2 handoff: record iter81 support object temporal state
 ```
 Working tree: CLEAN
 
@@ -109,7 +109,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 14:56:50 up 9 days,  4:37,  0 users,  load average: 0.00, 0.00, 0.00
+ 15:11:13 up 9 days,  4:52,  0 users,  load average: 0.00, 0.00, 0.00
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-iter59-actor-match.log
