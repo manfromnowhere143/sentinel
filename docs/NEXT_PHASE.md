@@ -13,7 +13,7 @@ It adds a deeper Stanford/MIT/Tesla/Mobileye/NHTSA read to the existing frontier
 packet. The decision is narrow: Sentinel is aligned when framed as a runtime monitor,
 failure-localization, and safety-evidence system for opaque planners; it is not aligned when
 framed as a full autonomy stack, world model, robotaxi system, or deployment-ready safety case.
-That priority is now partly closed by iterations 84-93: the selected-vs-support
+That priority is now partly closed by iterations 84-94: the selected-vs-support
 path/arbitration split is proven on the fixed rows, and the closest-path-horizon/provenance
 timing decomposition shows support-object provenance arriving after the event in all three rows.
 The exact bridge-time support-surface replay then blocked on the active `ttc_medium_a` row because
@@ -29,10 +29,13 @@ the active object is path-near but provenance-far, while bridge-supported object
 provenance-near but path-inactive. The path-proximity arbitration audit then showed the
 CPA/path-best and provenance-best objects differ in all three fixed replay rows. The next local
 surface-winner audit showed mixed selector alignment: surface follows path in two rows and
-provenance in one row, with the active row following path. The next local HUGSIM priority is a
-fresh mechanism-cause pre-registration that explains why the active released surface follows
-path-near non-provenance geometry in `ttc_medium_a`, or chooses a different unresolved branch; it
-must not retune thresholds or make repair/safety claims.
+provenance in one row, with the active row following path. The active-row margin arbitration then
+explained that branch: object `24` is the only active CPA/path/surface candidate, while all three
+bridge-supported provenance candidates are non-active, TTC-null, and CPA-far. The next local
+HUGSIM priority is a fresh mechanism-cause pre-registration that either tests whether this
+active-row margin pattern generalizes beyond the fixed row, decomposes the remaining non-active
+surface/provenance branches, or chooses another unresolved branch; it must not retune thresholds
+or make repair/safety claims.
 
 ## New frontier packet after these lines closed
 
@@ -596,6 +599,11 @@ differ in all three fixed replay rows, with zero same-object events.
 Iteration 93 then classified the released surface winner. The result is
 `HUGSIM_SURFACE_WINNER_ALIGNMENT_MIXED_COMPLETE`: surface follows path in two rows and provenance
 in one row; the active row follows path and remains no-support.
+Iteration 94 then decomposed that active row's margin. The result is
+`HUGSIM_ACTIVE_ROW_SURFACE_MARGIN_ARBITRATION_COMPLETE`: object `24` is the only active
+CPA/path/surface candidate and has active CPA margin `-0.4990 m`, while all three
+bridge-supported provenance candidates are non-active, TTC-null, and CPA-far, with the nearest
+bridge-supported active CPA margin at `+10.6434 m`.
 
 The default next scientific line is therefore not an expanded-N transfer run and not retuning the
 released union. After iteration 61, the actor-match audit points to wrong-object/wrong-hazard
@@ -649,9 +657,12 @@ Iteration 92 closes the immediate path/provenance arbitration audit: path proxim
 proximity choose different logged objects in every fixed replay row.
 Iteration 93 closes the immediate surface-winner alignment audit: surface selection is mixed, and
 the active failure row follows path rather than provenance.
-Any successor should be a fresh mechanism-cause pre-registration that explains this
-selected-surface/provenance/support-temporal/co-occurrence/channel/arbitration/timing/active-gap/geometry/path-proximity/surface-winner split, or
-chooses another branch. A strong
+Iteration 94 closes the immediate active-row surface-margin arbitration: the active row's
+path-following surface winner is the only active CPA candidate, while bridge-supported provenance
+candidates remain non-active and CPA-far.
+Any successor should be a fresh mechanism-cause pre-registration that either tests whether this
+active-row margin pattern generalizes, decomposes the remaining non-active surface/provenance
+branches, or chooses another branch. A strong
 successor should distinguish among:
 
 1. hazard surface: whether the monitor is braking for the wrong detected object or wrong path

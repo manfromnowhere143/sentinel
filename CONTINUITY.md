@@ -2145,3 +2145,14 @@ events to prepare; they are a property the repository always has.
   raw-log read, GPU/gcloud/box read, actor-causality, repair, threshold-value, population-rate,
   safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value,
   real-world/first-responder behavior, or retuning claim.
+- 2026-07-13: Codex — continued into iteration 94 as the HUGSIM active-row surface margin
+  arbitration after iteration 93. Pre-registered ALONE (`16449c2`), added analyzer/tests
+  (`fab51e0`, 386 tests green before analysis), then ran the analyzer ONCE over committed
+  iteration-91/92/93 reports. Result:
+  `HUGSIM_ACTIVE_ROW_SURFACE_MARGIN_ARBITRATION_COMPLETE`; in the active `ttc_medium_a` row,
+  object `24` is the only active CPA/path/surface candidate (`active_cpa_margin_m=-0.4990`,
+  `cpa_rank=1`, bridge `no_support`), while all three bridge-supported candidates are
+  subthreshold, TTC-null, and CPA-far; the nearest bridge-supported active CPA margin is object
+  `10` at `+10.6434 m`. No raw-log read, GPU/gcloud/box read, actor-causality, repair,
+  threshold-value, population-rate, safety/transfer/deployment/robustness/benchmark/
+  HD-Score-invariance, commercial-value, real-world/first-responder behavior, or retuning claim.

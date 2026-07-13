@@ -1,0 +1,127 @@
+{
+  "claim_boundary": "one-row descriptive active-row margin arbitration only; no actor-causality, repair, threshold-value, transfer, safety, deployment, robustness, benchmark, population-rate, HD-Score-invariance, commercial-value, real-world behavior, first-responder behavior, or retuning claim",
+  "events": [
+    {
+      "active_candidate": {
+        "active_cpa_margin_m": -0.49901426957705985,
+        "active_ttc_margin_s": null,
+        "bridge_band": "no_support",
+        "bridge_best_distance_m": 10.951828022656175,
+        "cpa_rank": 1,
+        "joint_class": "active_no_bridge_support",
+        "min_cpa": 1.0009857304229401,
+        "object_id": 24,
+        "state": "active",
+        "ttc": null,
+        "ttc_rank": null
+      },
+      "audit_id": "ttc_medium_a",
+      "bridge_supported_candidates": [
+        {
+          "active_cpa_margin_m": 17.92671009900369,
+          "active_ttc_margin_s": null,
+          "bridge_band": "ambiguous",
+          "bridge_best_distance_m": 3.7598179926411346,
+          "cpa_rank": 5,
+          "joint_class": "subthreshold_bridge_supported",
+          "min_cpa": 19.42671009900369,
+          "object_id": 6,
+          "state": "subthreshold",
+          "ttc": null,
+          "ttc_rank": null
+        },
+        {
+          "active_cpa_margin_m": 17.99972504369191,
+          "active_ttc_margin_s": null,
+          "bridge_band": "ambiguous",
+          "bridge_best_distance_m": 3.7751774764720607,
+          "cpa_rank": 6,
+          "joint_class": "subthreshold_bridge_supported",
+          "min_cpa": 19.49972504369191,
+          "object_id": 13,
+          "state": "subthreshold",
+          "ttc": null,
+          "ttc_rank": null
+        },
+        {
+          "active_cpa_margin_m": 10.643435514611875,
+          "active_ttc_margin_s": null,
+          "bridge_band": "ambiguous",
+          "bridge_best_distance_m": 4.2467564543528615,
+          "cpa_rank": 3,
+          "joint_class": "subthreshold_bridge_supported",
+          "min_cpa": 12.143435514611875,
+          "object_id": 10,
+          "state": "subthreshold",
+          "ttc": null,
+          "ttc_rank": null
+        }
+      ],
+      "event_role": "active",
+      "measurements": {
+        "active_better_cpa_rank_than_all_bridge": true,
+        "active_bridge_band": "no_support",
+        "active_candidate_count": 1,
+        "active_cpa_margin_m": -0.49901426957705985,
+        "active_cpa_margin_negative": true,
+        "active_cpa_rank": 1,
+        "active_lower_cpa_than_all_bridge": true,
+        "active_min_cpa": 1.0009857304229401,
+        "active_object_id": 24,
+        "active_same_as_path_and_surface": true,
+        "active_state": "active",
+        "active_ttc": null,
+        "bridge_active_or_borderline_count": 0,
+        "bridge_all_no_finite_ttc": true,
+        "bridge_all_nonactive": true,
+        "bridge_all_positive_active_cpa_margin": true,
+        "bridge_finite_ttc_count": 0,
+        "bridge_nonpositive_active_cpa_margin_count": 0,
+        "bridge_supported_count": 3,
+        "bridge_surface_near": false,
+        "min_bridge_active_cpa_margin_m": 10.643435514611875,
+        "min_bridge_active_cpa_margin_object_id": 10,
+        "path_best_object_id": 24,
+        "surface_best_object_id": 24
+      },
+      "problems": [],
+      "replay_alignment": "nearest_before_bridge_ts",
+      "replay_ts": 5.75,
+      "row_label": "active_row_cpa_margin_overrides_provenance",
+      "scenario": "scene-0071-medium-01"
+    }
+  ],
+  "fixed_row": {
+    "audit_id": "ttc_medium_a",
+    "event_role": "active",
+    "replay_alignment": "nearest_before_bridge_ts",
+    "replay_ts": 5.75,
+    "scenario": "scene-0071-medium-01"
+  },
+  "infra_problems": [],
+  "inputs": {
+    "iter91_report": "experiments/iter91_hugsim_active_gap_geometry_decomposition/proof-geometry/active_gap_geometry_report.json",
+    "iter92_report": "experiments/iter92_hugsim_path_proximity_arbitration/proof-arbitration/path_proximity_arbitration_report.json",
+    "iter93_report": "experiments/iter93_hugsim_surface_winner_alignment/proof-alignment/surface_winner_alignment_report.json"
+  },
+  "iteration": 94,
+  "summary": {
+    "active_better_cpa_rank_than_all_bridge": true,
+    "active_candidate_count": 1,
+    "active_cpa_margin_m": -0.49901426957705985,
+    "active_lower_cpa_than_all_bridge": true,
+    "active_object_id": 24,
+    "bridge_active_or_borderline_count": 0,
+    "bridge_finite_ttc_count": 0,
+    "bridge_nonpositive_active_cpa_margin_count": 0,
+    "bridge_supported_count": 3,
+    "evaluated_rows": 1,
+    "min_bridge_active_cpa_margin_m": 10.643435514611875,
+    "min_bridge_active_cpa_margin_object_id": 10,
+    "row_label_counts": {
+      "active_row_cpa_margin_overrides_provenance": 1
+    },
+    "target_rows": 1
+  },
+  "verdict": "HUGSIM_ACTIVE_ROW_SURFACE_MARGIN_ARBITRATION_COMPLETE"
+}
