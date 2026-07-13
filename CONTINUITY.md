@@ -538,6 +538,16 @@ events to prepare; they are a property the repository always has.
   margin is `+6.4779 m`. No actor-causality, repair, threshold-value, population-rate,
   safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value, or
   retuning claim.
+- Iteration 72 concluded:
+  experiments/iter72_hugsim_late_fire_prefire_margin_audit/RESULT.md, published as
+  `HUGSIM_LATE_FIRE_PREFIRE_MARGIN_COMPLETE` — an offline descriptive prefire margin audit over
+  the two iteration-70 foreground-present late-fire rows. It launched no GPU work and read no live
+  box state. Both rows were near a frozen trigger surface before foreground contact but did not
+  cross before contact: `both_distinct_extreme` was near CPA (`+0.5355 m`), and `ttc_medium_a`
+  was near TTC (`+0.7742 s`). Both first fires remained `+1.75 s` after first foreground
+  timestamp. No actor-causality, repair, threshold-value, population-rate,
+  safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value, or
+  retuning claim.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1791,3 +1801,11 @@ events to prepare; they are a property the repository always has.
   No GPU/gcloud/box read, no actor-causality, repair, threshold-value, population-rate,
   safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value, or
   retuning claim.
+- 2026-07-13: Codex — continued into iteration 72 as the HUGSIM late-fire prefire margin audit
+  after iteration 71. Pre-registered ALONE (`165d99f`), added analyzer/tests (`2f08900`, 336
+  tests green before analysis), then ran the analyzer ONCE over committed iteration-59 proof and
+  iteration-70 report. Result: `HUGSIM_LATE_FIRE_PREFIRE_MARGIN_COMPLETE`; both late-fire rows
+  were near but not crossing a frozen trigger surface before contact, and both fired `+1.75 s`
+  after first foreground timestamp. No GPU/gcloud/box read, no actor-causality, repair,
+  threshold-value, population-rate, safety/transfer/deployment/robustness/benchmark/
+  HD-Score-invariance, commercial-value, or retuning claim.

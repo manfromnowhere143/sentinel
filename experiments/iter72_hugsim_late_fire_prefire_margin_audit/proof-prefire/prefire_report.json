@@ -1,0 +1,89 @@
+{
+  "claim_boundary": "two-row descriptive late-fire prefire margin audit only; no actor-causality, repair, threshold-value, transfer, safety, deployment, robustness, benchmark, population, HD-Score-invariance, commercial-value, or retuning claim",
+  "episodes": [
+    {
+      "audit_id": "both_distinct_extreme",
+      "episode_dir": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/episodes/both_distinct_extreme__scene-0138-extreme-00__on",
+      "fire_delay_s": 1.75,
+      "first_fire_ts": 7.0,
+      "first_foreground_ts": 5.25,
+      "problems": [],
+      "row_label": "late_fire_prefire_near_cpa_margin",
+      "scenario": "scene-0138-extreme-00",
+      "summary": {
+        "active_cpa_frames": 0,
+        "active_ttc_frames": 0,
+        "closest_cpa_margin_m": 0.5354586791404059,
+        "closest_cpa_ts": 5.0,
+        "closest_ttc_margin_s": null,
+        "closest_ttc_ts": null,
+        "cpa_margin": 1.5,
+        "min_cpa_m": 2.035458679140406,
+        "min_ttc_raw_s": 1000000000.0,
+        "min_valid_ttc_s": null,
+        "near_cpa_frames": 1,
+        "near_ttc_frames": 0,
+        "pre_foreground_fired_frames": 0,
+        "pre_foreground_monitor_frames": 21,
+        "pre_foreground_object_rows": 20,
+        "ttc_thresh": 2.5
+      }
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "episode_dir": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/episodes/ttc_medium_a__scene-0071-medium-01__on",
+      "fire_delay_s": 1.75,
+      "first_fire_ts": 5.0,
+      "first_foreground_ts": 3.25,
+      "problems": [],
+      "row_label": "late_fire_prefire_near_ttc_margin",
+      "scenario": "scene-0071-medium-01",
+      "summary": {
+        "active_cpa_frames": 0,
+        "active_ttc_frames": 0,
+        "closest_cpa_margin_m": 3.0137256446355645,
+        "closest_cpa_ts": 2.25,
+        "closest_ttc_margin_s": 0.7742114811096417,
+        "closest_ttc_ts": 2.5,
+        "cpa_margin": 1.5,
+        "min_cpa_m": 4.5137256446355645,
+        "min_ttc_raw_s": 3.2742114811096417,
+        "min_valid_ttc_s": 3.2742114811096417,
+        "near_cpa_frames": 0,
+        "near_ttc_frames": 1,
+        "pre_foreground_fired_frames": 0,
+        "pre_foreground_monitor_frames": 13,
+        "pre_foreground_object_rows": 12,
+        "ttc_thresh": 2.5
+      }
+    }
+  ],
+  "fixed_rows": [
+    {
+      "audit_id": "both_distinct_extreme",
+      "scenario": "scene-0138-extreme-00"
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "scenario": "scene-0071-medium-01"
+    }
+  ],
+  "infra_problems": [],
+  "inputs": {
+    "iter59_report": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/actor_match_report.json",
+    "iter70_report": "experiments/iter70_hugsim_structural_timing_audit/proof-structural/structural_report.json"
+  },
+  "iteration": 72,
+  "summary": {
+    "evaluated_rows": 2,
+    "far_margin_rows": 0,
+    "near_margin_rows": 2,
+    "no_object_rows": 0,
+    "row_label_counts": {
+      "late_fire_prefire_near_cpa_margin": 1,
+      "late_fire_prefire_near_ttc_margin": 1
+    },
+    "target_rows": 2
+  },
+  "verdict": "HUGSIM_LATE_FIRE_PREFIRE_MARGIN_COMPLETE"
+}

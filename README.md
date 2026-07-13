@@ -4,7 +4,7 @@
 collision it is about to cause, and intervenes — measured where it actually matters: in closed
 loop, by whether the car crashes *and whether it can still drive*.**
 
-> **Honest status up front (71 registered iterations: 40 completed mechanism iterations + an
+> **Honest status up front (72 registered iterations: 41 completed mechanism iterations + an
 > independent verification pass +
 > the full official benchmark at power + a completed iteration-37 calibration null + an
 > iteration-38 opposite-direction S0 canary pass + completed iteration-39/40/41 defensibility
@@ -146,6 +146,12 @@ loop, by whether the car crashes *and whether it can still drive*.**
 > CPA margin `+6.478 m`); no threshold-value, repair, actor-causality, safety, transfer,
 > deployment, benchmark, population, commercial-value, or
 > retuning
+> claim — + a completed iteration-72 HUGSIM late-fire prefire margin audit: both late-fire rows
+> are near a frozen trigger surface before foreground contact (`both_distinct_extreme` CPA margin
+> `+0.5355 m`; `ttc_medium_a` TTC margin `+0.7742 s`) but first fire still occurs `+1.75 s`
+> after first foreground contact; no threshold-value, repair, actor-causality, safety, transfer,
+> deployment, benchmark, population, commercial-value, or
+> retuning
 > claim):**
 > the introspective signal predicts the planner's collisions (AUROC 0.83). On the
 > complete 14-scene NeuroNCAP set at **20 seed-paired runs per pair** (799 episodes, the power
@@ -187,7 +193,7 @@ single-digit GPUs.
 
 ## The result
 
-Seventy-one registered iterations — forty completed mechanism iterations, plus the completed defensibility, robustness, and transfer gates of iterations 39-71 — under frozen pre-registrations converge on one closed-loop configuration — the
+Seventy-two registered iterations — forty-one completed mechanism iterations, plus the completed defensibility, robustness, and transfer gates of iterations 39-72 — under frozen pre-registrations converge on one closed-loop configuration — the
 **released union** (two label-free geometric detectors + a threat-cleared latch release) —
 measured on the **complete official 14-scene NeuroNCAP set at 20 seed-paired runs per pair**
 (799 episodes; hypotheses frozen before the run; the first 6 indices of every pair reproduce the
@@ -313,7 +319,7 @@ flowchart LR
   A46 --> A47["47"]
   A47 --> A48["48"]
   A48 --> A49["49"]
-  A49 --> A50["50 opp"]
+  A49 --> A50["50"]
   A50 --> A51["51"]
   A51 --> A52["52"]
   A52 --> A53["53"]
@@ -335,15 +341,7 @@ flowchart LR
   A68 --> A69["69"]
   A69 --> A70["70"]
   A70 --> A71["71"]
-  classDef ask fill:#ffe,stroke:#a70,color:#111;
-  classDef audit fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
-  classDef win fill:#efe,stroke:#080,color:#111;
-  classDef bad fill:#fee,stroke:#c00,color:#111;
-  class O38 ask;
-  class A39,A40,A41 audit;
-  class A42,A45,A47 win;
-  class A43,A44,A46,A48,A49,A56 bad;
-  class A50,A51,A52,A53,A54,A55,A57,A58,A59,A60,A61,A62,A63,A64,A65,A66,A67,A68,A69,A70,A71 audit;
+  A71 --> A72["72"]
 ```
 
 The winning monitor is a **union of two individually-selective detectors**, chosen because the two
@@ -484,6 +482,7 @@ step; they are intentional stops, not hidden probe failures or unreported GPU ru
 | 69 | **HUGSIM mechanism taxonomy synthesis** — synthesize the eight iteration-59 ON actor-match rows from committed downstream reports only | committed iteration-59/61/63/64/65/66/67/68 reports; no GPU, live box read, new HUGSIM episode, threshold change, or retuning | all eight rows classified; structural rows preserved (`no_monitor_fire` 2, `post_collision_fire` 2, `background_collision_only` 1); all three classifiable foreground rows refined | **`HUGSIM_MECHANISM_TAXONOMY_COMPLETE` — the mechanism map is mixed: non-trigger visible-never-hazard, same-object late fire after best bridge, and split-object visible-never-active fire before best bridge** | eight-row evidence synthesis only; no actor-causality, repair, population mismatch-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/retuning claim. [`iter69_hugsim_mechanism_taxonomy`](experiments/iter69_hugsim_mechanism_taxonomy/RESULT.md) |
 | 70 | **HUGSIM structural-row timing audit** — refine the five iteration-69 structural rows using committed iteration-59 proof and decision logs | committed iteration-59 proof/report and iteration-69 taxonomy only; report/log cross-check for monitor frames, fired/brake counts, first-fire timestamp, and channel | all five structural rows classified: surface-silent foreground-present `2`, late-fire foreground-present `2`, foreground-absent/background-only `1`; both late-fire rows fire `+1.75 s` after first foreground timestamp | **`HUGSIM_STRUCTURAL_TIMING_TAXONOMY_COMPLETE` — the structural side is not one bucket: two no-fire foreground cases, two late-fire foreground cases, and one true background-only case** | five-row structural timing/support audit only; no actor-causality, repair, population mismatch-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/retuning claim. [`iter70_hugsim_structural_timing_audit`](experiments/iter70_hugsim_structural_timing_audit/RESULT.md) |
 | 71 | **HUGSIM surface-silent margin audit** — test the two foreground-present no-fire rows against frozen CPA/TTC margins before foreground contact | committed iteration-59 proof/report and iteration-70 structural timing report only; descriptive bands, not candidate thresholds | both fixed rows classify `surface_silent_far_margin`; no near-margin rows and no no-object rows; closest margins: `mixed_extreme` CPA `+2.6062 m`, `nofire_hard_control` TTC `+3.4560 s` and CPA `+6.4779 m` | **`HUGSIM_SURFACE_SILENT_MARGIN_COMPLETE` — the no-fire foreground rows are not small threshold misses under the registered bands** | two-row descriptive margin audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/retuning claim. [`iter71_hugsim_surface_silent_margin_audit`](experiments/iter71_hugsim_surface_silent_margin_audit/RESULT.md) |
+| 72 | **HUGSIM late-fire prefire margin audit** — test the two foreground-present late-fire rows against frozen CPA/TTC margins before foreground contact | committed iteration-59 proof/report and iteration-70 structural timing report only; descriptive bands, not candidate thresholds | both fixed rows classify near-margin before contact: `both_distinct_extreme` near CPA (`+0.5355 m`), `ttc_medium_a` near TTC (`+0.7742 s`); both first fires occur `+1.75 s` after foreground | **`HUGSIM_LATE_FIRE_PREFIRE_MARGIN_COMPLETE` — late-fire rows are near but not crossing before contact, unlike the far-margin no-fire rows** | two-row descriptive prefire margin audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/retuning claim. [`iter72_hugsim_late_fire_prefire_margin_audit`](experiments/iter72_hugsim_late_fire_prefire_margin_audit/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -731,6 +730,9 @@ two foreground-present rows are surface-silent, two foreground-present rows are 
 (`+1.75 s` after first foreground contact), and one row is foreground-absent/background-only.
 Iteration 71 then audited the two surface-silent rows' frozen trigger margins before foreground
 contact; both were far-margin rows, not near misses against the registered CPA/TTC bands.
+Iteration 72 then audited the two late-fire rows' pre-foreground margins; both were near a frozen
+trigger surface before contact, but not crossing, and first fire still arrived `+1.75 s` after
+first foreground contact.
 This is a mechanism-cause audit, not a repair or population-rate claim. Successors now require
 fresh pre-registrations. The
 published RealADSim closed-loop anchor range remains loose context only —
@@ -1155,6 +1157,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter69_hugsim_mechanism_taxonomy/`](experiments/iter69_hugsim_mechanism_taxonomy) | HUGSIM mechanism taxonomy synthesis — HUGSIM_MECHANISM_TAXONOMY_COMPLETE: all eight iteration-59 rows classified; five structural labels preserved and all three classifiable foreground rows refined by downstream evidence |
 | [`experiments/iter70_hugsim_structural_timing_audit/`](experiments/iter70_hugsim_structural_timing_audit) | HUGSIM structural-row timing audit — HUGSIM_STRUCTURAL_TIMING_TAXONOMY_COMPLETE: five structural rows split into two foreground-present surface-silent rows, two foreground-present late-fire rows, and one foreground-absent/background-only row |
 | [`experiments/iter71_hugsim_surface_silent_margin_audit/`](experiments/iter71_hugsim_surface_silent_margin_audit) | HUGSIM surface-silent margin audit — HUGSIM_SURFACE_SILENT_MARGIN_COMPLETE: both foreground-present no-fire rows are far from the frozen CPA/TTC trigger surfaces before foreground contact |
+| [`experiments/iter72_hugsim_late_fire_prefire_margin_audit/`](experiments/iter72_hugsim_late_fire_prefire_margin_audit) | HUGSIM late-fire prefire margin audit — HUGSIM_LATE_FIRE_PREFIRE_MARGIN_COMPLETE: both foreground-present late-fire rows are near, but not crossing, a frozen trigger surface before foreground contact |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/FRONTIER_POSITIONING_2026-07-11.md`](docs/research/FRONTIER_POSITIONING_2026-07-11.md) | source-verified mid-2026 benchmark/monitor/industry positioning; the binding 2.91-is-not-benchmark-SOTA framing rule |
