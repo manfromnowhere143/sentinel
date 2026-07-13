@@ -2086,3 +2086,13 @@ events to prepare; they are a property the repository always has.
   no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/
   robustness/benchmark/HD-Score-invariance, commercial-value, real-world/first-responder
   behavior, or retuning claim.
+- 2026-07-13: Codex — continued into iteration 88 as the HUGSIM bridge/surface margin residual
+  decomposition after iteration 87. Pre-registered ALONE (`ff61fee`), added analyzer/tests
+  (`dfa85ba`, 373 tests green before analysis), then ran the analyzer ONCE over committed
+  iteration-85/87 reports. Result: `HUGSIM_BRIDGE_SURFACE_MARGIN_RESIDUAL_SPLIT_COMPLETE`; object
+  `9` is TTC-borderline/CPA-far at replay (`ttc=4.7761 s`, active TTC margin `+2.2761 s`,
+  active CPA margin `+20.0208 m`), while object `10` is no-finite-TTC/CPA-far in both replay rows
+  (active CPA margins `+9.6354 m` and `+10.6434 m`). No GPU/gcloud/box read, no raw decision-log
+  read, no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/
+  robustness/benchmark/HD-Score-invariance, commercial-value, real-world/first-responder
+  behavior, or retuning claim.
