@@ -334,6 +334,22 @@ events to prepare; they are a property the repository always has.
   as the default repair story. No actor-identity, safety/transfer/deployment/robustness,
   benchmark, real-world, monitor-performance, or retuning claim; the TTC/CPA surface is a
   scalar proxy and not the full firing predicate.
+- Iteration 53 concluded:
+  experiments/iter53_hugsim_first_fire_channel_audit/RESULT.md, published as
+  `FIRST_FIRE_CHANNEL_COMPLETE` — an offline post-result first-fire-channel audit over
+  committed iteration 48/49 HUGSIM proof only (zero GPU, zero gcloud, zero box reads), with
+  the pre-freeze patch inspection and prototype aggregate disclosed in the HYPOTHESIS rather
+  than hidden. Analyzer/tests were committed separately and run ONCE over committed artifacts.
+  Infrastructure passed: `104` pairs read, pair count cross-checked against iteration 52
+  exactly (`104` vs `104`), timing-bin mismatches `0`, and unreconstructable first-fire
+  channels `0`. Combined first-fire channels over all `104` ON-arm pairs: ttc_only `40`,
+  cpa_only `36`, no_fire `27`, both `1`. Over the `92` ON-collision episodes: ttc_only `36`,
+  cpa_only `33`, no_fire `22`, both `1`. Over the `35` pre-collision-fire ON-collision
+  episodes: cpa_only `19`, ttc_only `16`, both/no_fire/unreconstructable `0`. This shows the
+  pre-collision-fire persistent family is split across both sides of the released OR predicate,
+  not one bad union branch. No actor-identity, safety/transfer/deployment/robustness, benchmark,
+  real-world, monitor-performance, HUGSIM-equivalence, or retuning claim; next mature line is
+  object/path geometry and provenance under a fresh pre-registration.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1417,3 +1433,13 @@ events to prepare; they are a property the repository always has.
   present 0. Published RESULT.md and proof-timing artifacts, updated README/NEXT_PHASE/
   CONTINUITY. No GPU/gcloud/box read and no actor-identity, safety, transfer, deployment,
   robustness, benchmark, or retuning claim.
+- 2026-07-13: Codex — opened and completed iteration 53 as the next HUGSIM mechanism-cause
+  audit. Disclosed the pre-freeze patch/prototype inspection in the HYPOTHESIS (`b5758f3`),
+  added analyzer/tests (`92c8cdd`), then ran the analyzer ONCE over committed iteration-48/49
+  HUGSIM proof plus the iteration-52 timing report for cross-checks. Result:
+  `FIRST_FIRE_CHANNEL_COMPLETE`; pair count matched iteration 52 `104` vs `104`, timing-bin
+  mismatches `0`, unreconstructable channels `0`; ON-collision first-fire channels =
+  ttc_only `36`, cpa_only `33`, no_fire `22`, both `1`; pre-collision-fire channels =
+  cpa_only `19`, ttc_only `16`. Published RESULT.md and proof-channel artifacts, updated
+  README/NEXT_PHASE/CONTINUITY. No GPU/gcloud/box read and no actor-identity, safety,
+  transfer, deployment, robustness, benchmark, or retuning claim.

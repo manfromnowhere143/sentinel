@@ -1,0 +1,6 @@
+python3 experiments/iter53_hugsim_first_fire_channel_audit/analyze_first_fire_channel.py \
+  --iter48-episodes experiments/iter48_hugsim_transfer_gate/proof-stage2/episodes \
+  --iter49-episodes experiments/iter49_hugsim_hard_tier_gate/proof-hard/episodes \
+  --iter52-report experiments/iter52_hugsim_on_collision_timing_audit/proof-timing/on_collision_timing_report.json \
+  --out experiments/iter53_hugsim_first_fire_channel_audit/proof-channel/first_fire_channel_report.json \
+  --markdown-out experiments/iter53_hugsim_first_fire_channel_audit/proof-channel/first_fire_channel_pairs.md

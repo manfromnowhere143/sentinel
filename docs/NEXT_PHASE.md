@@ -381,10 +381,18 @@ collision-persistent, and no combined category crossed the frozen 40% dominance 
 Iteration 52 then tightened the timing side of that mechanism story: among `92` ON-collision
 episodes, `57` were absent/post-collision braking and `35` had pre-collision braking; all `22`
 no-brake ON-collision cases had zero frozen TTC/CPA surface-proxy rows, but `26` long-lead
-brake cases still collided.
+brake cases still collided. Iteration 53 then reconstructed the actual first-fire side of the
+released OR predicate. Among the same `92` ON-collision episodes, first-fire channels split
+TTC-only `36`, CPA-only `33`, no-fire `22`, and both `1`; among the `35` pre-collision-fire
+ON-collision episodes the split was CPA-only `19` / TTC-only `16`. The stricter simultaneous
+TTC+CPA proxy from iteration 52 was too strict to describe the actual OR predicate, but
+reconstructing the OR showed that the persistent failures are not one bad union branch.
 
 The default next scientific line is therefore a fresh mechanism-cause audit, not an expanded-N
-transfer run and not retuning the released union. A strong successor should distinguish among:
+transfer run and not retuning the released union. After iteration 53, the strongest successor is
+object/path geometry and provenance: identify which detected object/path pair fired the monitor,
+which object or condition produced the HUGSIM collision, and whether those are the same hazard.
+A strong successor should distinguish among:
 
 1. hazard surface: whether the monitor is braking for the wrong detected object or wrong path
    crossing geometry;
@@ -398,7 +406,9 @@ transfer run and not retuning the released union. A strong successor should dist
 Pure "brake earlier" is no longer the default next hypothesis because iteration 52 found
 `35/92` ON-collision cases with pre-collision braking, including `26` long-lead cases. Any timing
 successor must specifically explain why those pre-collision-brake cases still collide, not merely
-move the first brake earlier.
+move the first brake earlier. Pure "fix the TTC branch" or "fix the CPA branch" is also no longer
+the default next hypothesis because iteration 53 found the pre-collision-fire failures split
+across both channels.
 
 Any such line requires a fresh `HYPOTHESIS.md`. Until then, no new HUGSIM transfer, safety,
 robustness, deployment, benchmark-ranking, or retuning claim is authorized.
