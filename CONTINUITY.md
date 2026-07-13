@@ -489,6 +489,16 @@ events to prepare; they are a property the repository always has.
   active or borderline frames, min CPA `7.9669 m`, and no valid TTC. No actor-causality, repair,
   population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, or
   retuning claim.
+- Iteration 67 concluded:
+  experiments/iter67_trigger_target_bridge_audit/RESULT.md, published as
+  `TRIGGER_TARGET_SAME_AND_SPLIT_COMPLETE` — an offline trigger/target bridge audit for the two
+  iteration-66 rows. It launched no GPU work and read no live box state. `ttc_extreme_short` is
+  same-object target/trigger (`object_id=2`), with full-window bridge match `1.6718 m` but
+  first-fire trigger distance `6.9272 m`. `cpa_medium_b` is split-object: target `object_id=6`
+  has bridge match `0.4325 m`, trigger `object_id=1` has later full-window bridge match
+  `2.8332 m`, but first-fire trigger distance is unsupported at `19.6983 m`. No
+  actor-causality, repair, population-rate,
+  safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, or retuning claim.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1701,3 +1711,12 @@ events to prepare; they are a property the repository always has.
   `object_id=6` remains visible-never-active across `13/25` pre-contact frames. No GPU/gcloud/
   box read, no actor-causality, repair, population-rate,
   safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, or retuning claim.
+- 2026-07-13: Codex — continued into iteration 67 as the trigger-target bridge audit after
+  iteration 66. Pre-registered ALONE (`4ee7f95`), added analyzer/tests (`3ccaaa7`, 320 tests
+  green before analysis), then ran the analyzer ONCE over committed iteration-59/61/64/65/66
+  proof. Result: `TRIGGER_TARGET_SAME_AND_SPLIT_COMPLETE`; one row is same-object target/trigger
+  and one row is split-object. Both targets and both triggers have full-window bridge matches,
+  but the first-fire trigger object has no bridge support at the fire timestamp in both rows
+  (`6.9272 m`, `19.6983 m`). No GPU/gcloud/box read, no actor-causality, repair,
+  population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, or
+  retuning claim.
