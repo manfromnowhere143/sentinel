@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Mon Jul 13 11:20:17 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Mon Jul 13 11:30:16 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+9513c28 iter67: publish trigger target bridge audit
+3ccaaa7 iter67: add trigger target bridge tooling
+4ee7f95 iter67: preregister trigger target bridge audit
+beb1667 handoff: record iter66 matched object timeline state
 28464bc iter66: publish matched object timeline audit
 151b018 iter66: add matched object timeline tooling
 f56c92e iter66: preregister matched object timeline audit
 2a1de79 handoff: record iter65 temporal alignment state
-6e5c2bc iter65: publish temporal alignment audit
-cf516a9 iter65: add temporal alignment tooling
-2ae2c07 iter65: preregister temporal alignment audit
-c28743c handoff: record iter64 unsupported temporal state
 ```
 Working tree: CLEAN
 
@@ -81,6 +81,7 @@ Working tree: CLEAN
 - experiments/iter64_unsupported_temporal_surface_audit: RESULT PUBLISHED
 - experiments/iter65_temporal_alignment_audit: RESULT PUBLISHED
 - experiments/iter66_matched_object_timeline_audit: RESULT PUBLISHED
+- experiments/iter67_trigger_target_bridge_audit: RESULT PUBLISHED
 - experiments/iter6_cpa: RESULT PUBLISHED
 - experiments/iter7_margin: RESULT PUBLISHED
 - experiments/iter8_union: RESULT PUBLISHED
@@ -92,7 +93,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 11:21:27 up 9 days,  1:02,  0 users,  load average: 0.01, 0.01, 0.00
+ 11:31:24 up 9 days,  1:12,  0 users,  load average: 0.00, 0.00, 0.00
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-iter59-actor-match.log
@@ -104,7 +105,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter66_matched_object_timeline_audit/RESULT.md — read it before opening new work.
+- Newest completed experiment: experiments/iter67_trigger_target_bridge_audit/RESULT.md — read it before opening new work.
 - Newest pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
