@@ -431,12 +431,17 @@ those same three classifiable rows. The result is `OBJECT_SURFACE_NONTRIGGER_MAT
 `ttc_extreme_b` has a non-triggering first-fire object match (`object_id=16`, `2.0686 m`) while
 the triggering object remains ambiguous (`object_id=1`, `5.6649 m`), and the other two rows have
 no first-fire object support.
+Iteration 62 then audited that matched non-trigger object's first-fire ranking. The result is
+`MATCHED_OBJECT_SUBTHRESHOLD_COMPLETE`: the matched object (`object_id=16`) was visible but had
+`min_cpa=22.7648 m`, CPA rank `9/9`, and no valid TTC, while the actual first-fire trigger
+(`object_id=1`) was TTC-only with `ttc=2.1303 s` and TTC rank `1`.
 
 The default next scientific line is therefore not an expanded-N transfer run and not retuning the
 released union. After iteration 61, the actor-match audit points to wrong-object/wrong-hazard
-selection in at least one classifiable row, to unsupported first-fire object surfaces in two
-classifiable rows, and to no-fire/post-fire/background-only failure modes in the rest. Any
-successor should be a fresh
+selection in at least one classifiable row, and iteration 62 shows that the collision-near
+object in that row was outside the frozen first-fire hazard surface rather than merely losing an
+argmin tie. Two classifiable rows still lack first-fire object support, and the remaining audit
+rows are no-fire/post-fire/background-only failure modes. Any successor should be a fresh
 mechanism-cause pre-registration that explains those categories, not threshold tuning. A strong
 successor should distinguish among:
 
@@ -465,7 +470,9 @@ actor-match mechanism result only; it does not prove a population mismatch rate,
 deployment/safety claim. Iteration 60 narrows that result: no bounded bridge variant produces a
 match, but one classifiable row is ambiguous, so robust all-row mismatch is also not authorized.
 Iteration 61 narrows it further: one row has a non-triggering monitor-object match, while two
-rows still lack any first-fire monitor object support.
+rows still lack any first-fire monitor object support. Iteration 62 shows that the matched
+non-triggering object was subthreshold at first fire, not an active hazard that simply lost
+argmin provenance.
 
 Any such line requires a fresh `HYPOTHESIS.md`. Until then, no new HUGSIM transfer, safety,
 robustness, deployment, benchmark-ranking, or retuning claim is authorized.

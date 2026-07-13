@@ -441,6 +441,15 @@ events to prepare; they are a property the repository always has.
   had a non-triggering object match (`object_id=16`, `2.0686 m`) while the triggering object
   remained ambiguous (`object_id=1`, `5.6649 m`). No actor-causality, repair, population-rate,
   safety/transfer/deployment/robustness/benchmark, or retuning claim.
+- Iteration 62 concluded:
+  experiments/iter62_nontrigger_ranking_audit/RESULT.md, published as
+  `MATCHED_OBJECT_SUBTHRESHOLD_COMPLETE` — a one-row offline selector audit for the iteration-61
+  matched non-trigger object. It launched no GPU work and read no live box state. The analyzer
+  reconstructed first-fire CPA/TTC metrics for all 9 objects in `ttc_extreme_b`. The matched
+  non-trigger object (`object_id=16`) was visible but subthreshold: `min_cpa=22.7648 m`, CPA
+  rank `9/9`, no valid TTC. The trigger (`object_id=1`) was TTC-only with `ttc=2.1303 s` and
+  TTC rank `1`. No actor-causality, repair, population-rate, safety/transfer/deployment/
+  robustness/benchmark, or retuning claim.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1613,3 +1622,11 @@ events to prepare; they are a property the repository always has.
   at `2.0686 m`, while trigger `object_id=1` remains ambiguous at `5.6649 m`. No GPU/gcloud/box
   read, no actor-causality, repair, population-rate, safety/transfer/deployment/robustness/
   benchmark, or retuning claim.
+- 2026-07-13: Codex — continued into iteration 62 as the one-row ranking audit for the iteration
+  61 matched non-trigger object. Pre-registered ALONE (`e27e587`), added analyzer/tests
+  (`32d2b5f`, 299 tests green before analysis), then ran the analyzer ONCE over committed
+  iteration-59 and iteration-61 proof. Result: `MATCHED_OBJECT_SUBTHRESHOLD_COMPLETE`; matched
+  non-trigger `object_id=16` had `min_cpa=22.7648 m`, CPA rank `9/9`, no valid TTC, while
+  trigger `object_id=1` had `ttc=2.1303 s` and TTC rank `1`. No GPU/gcloud/box read, no
+  actor-causality, repair, population-rate, safety/transfer/deployment/robustness/benchmark,
+  or retuning claim.

@@ -1,0 +1,260 @@
+{
+  "claim_boundary": "one-row first-fire object ranking audit only; no transfer, safety, deployment, benchmark, actor-causality, repair, population, or retuning claim",
+  "infra_problems": [],
+  "inputs": {
+    "iter59_proof_root": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match",
+    "iter59_report": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/actor_match_report.json",
+    "iter61_report": "experiments/iter61_monitor_object_surface_audit/proof-object-surface/object_surface_report.json"
+  },
+  "iteration": 62,
+  "matched_object": {
+    "closing": null,
+    "cpa_cross": false,
+    "cpa_horizon_index": 1,
+    "cpa_rank": 9,
+    "gap": 20.173361858421636,
+    "is_matched_nontrigger_object": true,
+    "is_trigger_object": false,
+    "min_cpa": 22.764754524017974,
+    "object_id": 16,
+    "score": 0.7100042700767517,
+    "ttc": null,
+    "ttc_cross": false,
+    "ttc_rank": null,
+    "velocity": [
+      8.519117661161204,
+      2.863492710943092
+    ],
+    "world": [
+      6.98720368302952,
+      4.4188345392960855
+    ]
+  },
+  "matched_object_label": "matched_object_subthreshold",
+  "objects": [
+    {
+      "closing": null,
+      "cpa_cross": false,
+      "cpa_horizon_index": 1,
+      "cpa_rank": 2,
+      "gap": 7.338208878690303,
+      "is_matched_nontrigger_object": false,
+      "is_trigger_object": false,
+      "min_cpa": 7.816600215555673,
+      "object_id": 0,
+      "score": 0.46335306763648987,
+      "ttc": null,
+      "ttc_cross": false,
+      "ttc_rank": null,
+      "velocity": [
+        2.8135382040106833,
+        -1.1594129554184747
+      ],
+      "world": [
+        -5.691048334420884,
+        18.17647978082141
+      ]
+    },
+    {
+      "closing": 8.803507308891879,
+      "cpa_cross": false,
+      "cpa_horizon_index": 3,
+      "cpa_rank": 3,
+      "gap": 18.754407323428747,
+      "is_matched_nontrigger_object": false,
+      "is_trigger_object": true,
+      "min_cpa": 15.119705268273568,
+      "object_id": 1,
+      "score": 0.9534411430358887,
+      "ttc": 2.130333589260053,
+      "ttc_cross": true,
+      "ttc_rank": 1,
+      "velocity": [
+        2.4483553299072582,
+        11.754628814400803
+      ],
+      "world": [
+        9.329903206389645,
+        7.147646515158158
+      ]
+    },
+    {
+      "closing": null,
+      "cpa_cross": false,
+      "cpa_horizon_index": 1,
+      "cpa_rank": 9,
+      "gap": 20.173361858421636,
+      "is_matched_nontrigger_object": true,
+      "is_trigger_object": false,
+      "min_cpa": 22.764754524017974,
+      "object_id": 16,
+      "score": 0.7100042700767517,
+      "ttc": null,
+      "ttc_cross": false,
+      "ttc_rank": null,
+      "velocity": [
+        8.519117661161204,
+        2.863492710943092
+      ],
+      "world": [
+        6.98720368302952,
+        4.4188345392960855
+      ]
+    },
+    {
+      "closing": null,
+      "cpa_cross": false,
+      "cpa_horizon_index": 1,
+      "cpa_rank": 1,
+      "gap": 4.093602732611085,
+      "is_matched_nontrigger_object": false,
+      "is_trigger_object": false,
+      "min_cpa": 5.955963379631434,
+      "object_id": 19,
+      "score": 0.6845118999481201,
+      "ttc": null,
+      "ttc_cross": false,
+      "ttc_rank": null,
+      "velocity": [
+        1.5921228063705257,
+        1.7510764096266485
+      ],
+      "world": [
+        3.719044889534871,
+        22.77477981747461
+      ]
+    },
+    {
+      "closing": null,
+      "cpa_cross": false,
+      "cpa_horizon_index": 1,
+      "cpa_rank": 7,
+      "gap": 18.818978283501927,
+      "is_matched_nontrigger_object": false,
+      "is_trigger_object": false,
+      "min_cpa": 19.7705729721474,
+      "object_id": 20,
+      "score": 0.43467867374420166,
+      "ttc": null,
+      "ttc_cross": false,
+      "ttc_rank": null,
+      "velocity": [
+        5.694681261183405,
+        -3.652092743093135
+      ],
+      "world": [
+        -12.20225387081814,
+        8.591235933089365
+      ]
+    },
+    {
+      "closing": null,
+      "cpa_cross": false,
+      "cpa_horizon_index": 1,
+      "cpa_rank": 6,
+      "gap": 18.689180815229964,
+      "is_matched_nontrigger_object": false,
+      "is_trigger_object": false,
+      "min_cpa": 19.752893315004048,
+      "object_id": 21,
+      "score": 0.4464007318019867,
+      "ttc": null,
+      "ttc_cross": false,
+      "ttc_rank": null,
+      "velocity": [
+        5.3968371981807195,
+        -3.7190757090656916
+      ],
+      "world": [
+        -12.070690466515998,
+        8.6518137246469
+      ]
+    },
+    {
+      "closing": null,
+      "cpa_cross": false,
+      "cpa_horizon_index": 1,
+      "cpa_rank": 5,
+      "gap": 18.68332386264353,
+      "is_matched_nontrigger_object": false,
+      "is_trigger_object": false,
+      "min_cpa": 19.67570532603139,
+      "object_id": 22,
+      "score": 0.4144904613494873,
+      "ttc": null,
+      "ttc_cross": false,
+      "ttc_rank": null,
+      "velocity": [
+        5.591743397700839,
+        -3.6914236634138433
+      ],
+      "world": [
+        -12.125059541817564,
+        8.703290882411011
+      ]
+    },
+    {
+      "closing": null,
+      "cpa_cross": false,
+      "cpa_horizon_index": 1,
+      "cpa_rank": 8,
+      "gap": 20.42466774314302,
+      "is_matched_nontrigger_object": false,
+      "is_trigger_object": false,
+      "min_cpa": 21.192236189675317,
+      "object_id": 24,
+      "score": 0.43968451023101807,
+      "ttc": null,
+      "ttc_cross": false,
+      "ttc_rank": null,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "world": [
+        -12.782614152320548,
+        7.0041746613519535
+      ]
+    },
+    {
+      "closing": null,
+      "cpa_cross": false,
+      "cpa_horizon_index": 1,
+      "cpa_rank": 4,
+      "gap": 18.11367892470197,
+      "is_matched_nontrigger_object": false,
+      "is_trigger_object": false,
+      "min_cpa": 19.100773910182458,
+      "object_id": 26,
+      "score": 0.35419580340385437,
+      "ttc": null,
+      "ttc_cross": false,
+      "ttc_rank": null,
+      "velocity": [
+        5.589207736814387,
+        -3.853852059581186
+      ],
+      "world": [
+        -12.052724962740058,
+        9.383159248788388
+      ]
+    }
+  ],
+  "row_problems": [],
+  "summary": {
+    "matched_object_cpa_rank": 9,
+    "matched_object_label": "matched_object_subthreshold",
+    "matched_object_min_cpa": 22.764754524017974,
+    "matched_object_ttc": null,
+    "matched_object_ttc_rank": null,
+    "object_count": 9
+  },
+  "target": {
+    "audit_id": "ttc_extreme_b",
+    "first_fire_channel": "ttc_only",
+    "matched_object_id": 16,
+    "scenario": "scene-0383-extreme-00",
+    "trigger_object_id": 1
+  },
+  "verdict": "MATCHED_OBJECT_SUBTHRESHOLD_COMPLETE"
+}

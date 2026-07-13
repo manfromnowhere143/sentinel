@@ -1,0 +1,18 @@
+Working directory:
+/Users/danielwahnich/workspace/sentinel
+
+Command:
+python3 experiments/iter62_nontrigger_ranking_audit/analyze_nontrigger_ranking.py --iter59-proof-root experiments/iter59_hugsim_actor_match_audit/proof-actor-match --iter59-report experiments/iter59_hugsim_actor_match_audit/proof-actor-match/actor_match_report.json --iter61-report experiments/iter61_monitor_object_surface_audit/proof-object-surface/object_surface_report.json --out experiments/iter62_nontrigger_ranking_audit/proof-ranking/nontrigger_ranking_report.json --markdown-out experiments/iter62_nontrigger_ranking_audit/proof-ranking/nontrigger_ranking.md
+
+Observed stdout:
+{
+  "verdict": "MATCHED_OBJECT_SUBTHRESHOLD_COMPLETE",
+  "summary": {
+    "object_count": 9,
+    "matched_object_label": "matched_object_subthreshold",
+    "matched_object_cpa_rank": 9,
+    "matched_object_ttc_rank": null,
+    "matched_object_min_cpa": 22.764754524017974,
+    "matched_object_ttc": null
+  }
+}
