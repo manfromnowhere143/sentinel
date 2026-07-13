@@ -13,7 +13,7 @@ It adds a deeper Stanford/MIT/Tesla/Mobileye/NHTSA read to the existing frontier
 packet. The decision is narrow: Sentinel is aligned when framed as a runtime monitor,
 failure-localization, and safety-evidence system for opaque planners; it is not aligned when
 framed as a full autonomy stack, world model, robotaxi system, or deployment-ready safety case.
-That priority is now partly closed by iterations 84-91: the selected-vs-support
+That priority is now partly closed by iterations 84-92: the selected-vs-support
 path/arbitration split is proven on the fixed rows, and the closest-path-horizon/provenance
 timing decomposition shows support-object provenance arriving after the event in all three rows.
 The exact bridge-time support-surface replay then blocked on the active `ttc_medium_a` row because
@@ -26,10 +26,11 @@ bridge support is common, but no active released-surface object is bridge-suppor
 active object in the fixed replay rows lacks provenance bridge support while bridge-supported
 objects remain non-active. The geometry successor then showed the split is path-vs-provenance:
 the active object is path-near but provenance-far, while bridge-supported objects are
-provenance-near but path-inactive. The next local HUGSIM priority is a fresh mechanism-cause
-pre-registration that explains why the released active surface follows path-near non-provenance
-geometry, or chooses a different unresolved branch; it must not retune thresholds or make
-repair/safety claims.
+provenance-near but path-inactive. The path-proximity arbitration audit then showed the
+CPA/path-best and provenance-best objects differ in all three fixed replay rows. The next local
+HUGSIM priority is a fresh mechanism-cause pre-registration that explains why the released active
+surface follows path-near non-provenance geometry, or chooses a different unresolved branch; it
+must not retune thresholds or make repair/safety claims.
 
 ## New frontier packet after these lines closed
 
@@ -587,6 +588,9 @@ for that active object while bridge-supported objects remain non-active.
 Iteration 91 then made that split geometric. The result is
 `HUGSIM_ACTIVE_GAP_PATH_PROVENANCE_DECOMPOSITION_COMPLETE`: the active row's active object is
 path-near but provenance-far, while bridge-supported objects are provenance-near but path-inactive.
+Iteration 92 then made the arbitration object explicit. The result is
+`HUGSIM_PATH_PROXIMITY_ARBITRATION_SPLIT_COMPLETE`: CPA/path-best and provenance-best objects
+differ in all three fixed replay rows, with zero same-object events.
 
 The default next scientific line is therefore not an expanded-N transfer run and not retuning the
 released union. After iteration 61, the actor-match audit points to wrong-object/wrong-hazard
@@ -636,8 +640,10 @@ Iteration 90 closes the immediate active-side provenance-gap audit: bridge-suppo
 non-active, and the only active replay-row object is unsupported by provenance bridge.
 Iteration 91 closes the immediate geometry decomposition: the active row is path-active but
 provenance-far, while provenance-near objects are path-inactive.
+Iteration 92 closes the immediate path/provenance arbitration audit: path proximity and provenance
+proximity choose different logged objects in every fixed replay row.
 Any successor should be a fresh mechanism-cause pre-registration that explains this
-selected-surface/provenance/support-temporal/co-occurrence/channel/arbitration/timing/active-gap/geometry split, or
+selected-surface/provenance/support-temporal/co-occurrence/channel/arbitration/timing/active-gap/geometry/path-proximity split, or
 chooses another branch. A strong
 successor should distinguish among:
 

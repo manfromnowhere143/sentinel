@@ -2126,3 +2126,13 @@ events to prepare; they are a property the repository always has.
   `4.2468 m`. No GPU/gcloud/box read, no actor-causality, repair, threshold-value,
   population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance,
   commercial-value, real-world/first-responder behavior, or retuning claim.
+- 2026-07-13: Codex — continued into iteration 92 as the HUGSIM path-proximity arbitration audit
+  after iteration 91. Pre-registered ALONE (`cf329be`), added analyzer/tests (`342b97d`, 381
+  tests green before analysis), then ran the analyzer ONCE over committed iteration-59 proof plus
+  iteration-91 report. Result: `HUGSIM_PATH_PROXIMITY_ARBITRATION_SPLIT_COMPLETE`; CPA/path-best
+  and provenance-best objects differ in all three fixed replay rows (`0/3` same-object events).
+  The active row's path/surface-best object `24` is active but bridge `no_support`
+  (`10.9518 m`), while provenance-best object `6` is subthreshold at `3.7598 m`. No
+  GPU/gcloud/box read, no actor-causality, repair, threshold-value, population-rate,
+  safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value,
+  real-world/first-responder behavior, or retuning claim.
