@@ -487,6 +487,10 @@ Iteration 74 then classified the two late-fire rows' delay barrier. The result i
 `HUGSIM_LATE_FIRE_CROSS_CHANNEL_DELAY_COMPLETE`: both fixed rows are cross-channel activations,
 with `both_distinct_extreme` CPA-near before contact then TTC-active after contact, and
 `ttc_medium_a` TTC-near before contact then CPA-active after contact.
+Iteration 75 then resolved that cross-channel handoff at object level. The result is
+`HUGSIM_CROSS_CHANNEL_OBJECT_SWITCH_COMPLETE`: both fixed rows switch responsible monitor object
+across the handoff (`both_distinct_extreme` object `5` -> `9`; `ttc_medium_a` object `6` ->
+`24`).
 
 The default next scientific line is therefore not an expanded-N transfer run and not retuning the
 released union. After iteration 61, the actor-match audit points to wrong-object/wrong-hazard
@@ -506,9 +510,10 @@ late-fire branch is near-but-not-crossing before contact. Iteration 73 shows the
 difference is not generic threshold tuning: the silent branch never crosses an active surface,
 while the late-fire branch is near pre-contact but active only post-contact. Iteration 74 shows
 that the two late-fire rows are not same-channel threshold-drift cases; the pre-contact near
-channel differs from the post-contact active channel in both rows. Any successor should be a fresh
-mechanism-cause pre-registration that explains or tests cross-channel handoff, tests foreground
-object/path geometry around that handoff, or chooses another branch. A strong
+channel differs from the post-contact active channel in both rows. Iteration 75 shows that this is
+also an object switch, not a same-object channel flip. Any successor should be a fresh
+mechanism-cause pre-registration that tests foreground object/path geometry around that
+cross-channel object switch, or chooses another branch. A strong
 successor should distinguish among:
 
 1. hazard surface: whether the monitor is braking for the wrong detected object or wrong path

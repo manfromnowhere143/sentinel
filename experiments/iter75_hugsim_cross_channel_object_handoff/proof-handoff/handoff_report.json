@@ -1,0 +1,191 @@
+{
+  "claim_boundary": "two-row descriptive object-handoff audit only; no actor-causality, repair, threshold-value, transfer, safety, deployment, robustness, benchmark, population, HD-Score-invariance, commercial-value, or retuning claim",
+  "episodes": [
+    {
+      "active_channel": "ttc",
+      "active_objects": {
+        "channel": "ttc",
+        "margin": -0.7586929813818721,
+        "min_value": 1.7413070186181279,
+        "mode": "active",
+        "object_ids": [
+          9
+        ],
+        "object_metrics": [
+          {
+            "channel_value": 1.7413070186181279,
+            "closing": 6.511454834775332,
+            "cpa_cross": false,
+            "cpa_horizon_index": 1,
+            "cpa_rank": 2,
+            "gap": 11.338442005209227,
+            "min_cpa": 6.564718217642953,
+            "object_id": 9,
+            "score": 0.40153825283050537,
+            "ttc": 1.7413070186181279,
+            "ttc_cross": true,
+            "ttc_rank": 1,
+            "velocity": [
+              1.974156997602222,
+              -7.993503306021694
+            ],
+            "world": [
+              7.4303033942192656,
+              31.2916746662641
+            ]
+          }
+        ],
+        "threshold": 2.5
+      },
+      "active_ts": 7.0,
+      "audit_id": "both_distinct_extreme",
+      "pre_channel": "cpa",
+      "pre_objects": {
+        "channel": "cpa",
+        "margin": 0.5354586791404059,
+        "min_value": 2.035458679140406,
+        "mode": "near",
+        "object_ids": [
+          5
+        ],
+        "object_metrics": [
+          {
+            "channel_value": 2.035458679140406,
+            "closing": null,
+            "cpa_cross": false,
+            "cpa_horizon_index": 4,
+            "cpa_rank": 1,
+            "gap": 9.83232296010991,
+            "min_cpa": 2.035458679140406,
+            "object_id": 5,
+            "score": 0.49427902698516846,
+            "ttc": null,
+            "ttc_cross": false,
+            "ttc_rank": null,
+            "velocity": [
+              3.665014691174065,
+              -0.380313292968367
+            ],
+            "world": [
+              -4.4327385645825075,
+              21.937853621504928
+            ]
+          }
+        ],
+        "threshold": 1.5
+      },
+      "pre_ts": 5.0,
+      "problems": [],
+      "row_label": "object_switch_cross_channel_handoff",
+      "scenario": "scene-0138-extreme-00"
+    },
+    {
+      "active_channel": "cpa",
+      "active_objects": {
+        "channel": "cpa",
+        "margin": -0.2208990816921177,
+        "min_value": 1.2791009183078823,
+        "mode": "active",
+        "object_ids": [
+          24
+        ],
+        "object_metrics": [
+          {
+            "channel_value": 1.2791009183078823,
+            "closing": null,
+            "cpa_cross": true,
+            "cpa_horizon_index": 6,
+            "cpa_rank": 1,
+            "gap": 8.784899084537148,
+            "min_cpa": 1.2791009183078823,
+            "object_id": 24,
+            "score": 0.672976553440094,
+            "ttc": null,
+            "ttc_cross": false,
+            "ttc_rank": null,
+            "velocity": [
+              0.0,
+              0.0
+            ],
+            "world": [
+              -0.19838966260118696,
+              21.568529875589263
+            ]
+          }
+        ],
+        "threshold": 1.5
+      },
+      "active_ts": 5.0,
+      "audit_id": "ttc_medium_a",
+      "pre_channel": "ttc",
+      "pre_objects": {
+        "channel": "ttc",
+        "margin": 0.774211481109643,
+        "min_value": 3.274211481109643,
+        "mode": "near",
+        "object_ids": [
+          6
+        ],
+        "object_metrics": [
+          {
+            "channel_value": 3.274211481109643,
+            "closing": 3.7554213288184997,
+            "cpa_cross": false,
+            "cpa_horizon_index": 6,
+            "cpa_rank": 3,
+            "gap": 12.296043631221563,
+            "min_cpa": 9.24044996029241,
+            "object_id": 6,
+            "score": 0.4695853590965271,
+            "ttc": 3.274211481109643,
+            "ttc_cross": false,
+            "ttc_rank": 1,
+            "velocity": [
+              -2.6664694515029623,
+              2.6447068849493007
+            ],
+            "world": [
+              9.649777642548088,
+              -2.305576614733127
+            ]
+          }
+        ],
+        "threshold": 2.5
+      },
+      "pre_ts": 2.5,
+      "problems": [],
+      "row_label": "object_switch_cross_channel_handoff",
+      "scenario": "scene-0071-medium-01"
+    }
+  ],
+  "fixed_rows": [
+    {
+      "audit_id": "both_distinct_extreme",
+      "scenario": "scene-0138-extreme-00"
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "scenario": "scene-0071-medium-01"
+    }
+  ],
+  "infra_problems": [],
+  "inputs": {
+    "iter59_report": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/actor_match_report.json",
+    "iter70_report": "experiments/iter70_hugsim_structural_timing_audit/proof-structural/structural_report.json",
+    "iter72_report": "experiments/iter72_hugsim_late_fire_prefire_margin_audit/proof-prefire/prefire_report.json",
+    "iter73_report": "experiments/iter73_hugsim_margin_transition_audit/proof-transition/transition_report.json",
+    "iter74_report": "experiments/iter74_hugsim_late_fire_delay_barrier/proof-delay/delay_report.json"
+  },
+  "iteration": 75,
+  "summary": {
+    "evaluated_rows": 2,
+    "multiobject_rows": 0,
+    "object_switch_rows": 2,
+    "row_label_counts": {
+      "object_switch_cross_channel_handoff": 2
+    },
+    "same_object_rows": 0,
+    "target_rows": 2
+  },
+  "verdict": "HUGSIM_CROSS_CHANNEL_OBJECT_SWITCH_COMPLETE"
+}

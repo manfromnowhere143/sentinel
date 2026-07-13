@@ -567,6 +567,15 @@ events to prepare; they are a property the repository always has.
   foreground timestamp. No actor-causality, repair, threshold-value, population-rate,
   safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value, or
   retuning claim.
+- Iteration 75 concluded:
+  experiments/iter75_hugsim_cross_channel_object_handoff/RESULT.md, published as
+  `HUGSIM_CROSS_CHANNEL_OBJECT_SWITCH_COMPLETE` — an offline object-handoff audit over the two
+  iteration-74 cross-channel late-fire rows. It launched no GPU work and read no live box state.
+  Both rows classify `object_switch_cross_channel_handoff`: `both_distinct_extreme` switches
+  responsible monitor object `5` -> `9`, and `ttc_medium_a` switches object `6` -> `24`.
+  No actor-causality, repair, threshold-value, population-rate,
+  safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value, or
+  retuning claim.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1845,3 +1854,11 @@ events to prepare; they are a property the repository always has.
   no actor-causality, repair, threshold-value, population-rate,
   safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value, or
   retuning claim.
+- 2026-07-13: Codex — continued into iteration 75 as the HUGSIM cross-channel object-handoff
+  audit after iteration 74. Pre-registered ALONE (`a9f1750`), added analyzer/tests (`03f805c`,
+  346 tests green before analysis), then ran the analyzer ONCE over committed iteration-59 proof
+  plus iteration-70/72/73/74 reports. Result: `HUGSIM_CROSS_CHANNEL_OBJECT_SWITCH_COMPLETE`;
+  both fixed late-fire cross-channel cases switch responsible monitor object (`5` -> `9` and
+  `6` -> `24`). No GPU/gcloud/box read, no actor-causality, repair, threshold-value,
+  population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance,
+  commercial-value, or retuning claim.
