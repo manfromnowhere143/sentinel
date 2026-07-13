@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Mon Jul 13 18:34:49 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Mon Jul 13 18:47:46 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+bb6fbb5 iter90: publish active surface provenance gap
+5f174e8 iter90: add active surface provenance gap tooling
+1caef74 iter90: preregister active surface provenance gap
+fbb7f4c handoff: record iter89 joint candidate state
 1f8fba7 iter89: publish joint bridge surface candidate split
 6ba45c9 iter89: add joint bridge surface candidate tooling
 762d58d iter89: preregister joint bridge surface candidate audit
 dd0114c handoff: record iter88 residual state
-4598a60 iter88: publish bridge surface residual split
-dfa85ba iter88: add bridge surface residual tooling
-ff61fee iter88: preregister bridge surface residual
-e8910f7 handoff: record iter87 interval replay state
 ```
 Working tree: CLEAN
 
@@ -107,6 +107,7 @@ Working tree: CLEAN
 - experiments/iter88_hugsim_bridge_surface_margin_residual: RESULT PUBLISHED
 - experiments/iter89_hugsim_joint_bridge_surface_candidate_audit: RESULT PUBLISHED
 - experiments/iter8_union: RESULT PUBLISHED
+- experiments/iter90_hugsim_active_surface_provenance_gap: RESULT PUBLISHED
 - experiments/iter9_evade: RESULT PUBLISHED
 - experiments/union_validation: RESULT PUBLISHED
 - experiments/vad_generalization: RESULT PUBLISHED
@@ -115,7 +116,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 18:35:58 up 9 days,  8:17,  0 users,  load average: 0.00, 0.00, 0.00
+ 18:48:58 up 9 days,  8:30,  0 users,  load average: 0.00, 0.00, 0.00
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-iter59-actor-match.log
@@ -127,7 +128,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter89_hugsim_joint_bridge_surface_candidate_audit/RESULT.md — read it before opening new work.
+- Newest completed experiment: experiments/iter90_hugsim_active_surface_provenance_gap/RESULT.md — read it before opening new work.
 - Newest pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
