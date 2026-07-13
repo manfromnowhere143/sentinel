@@ -4,7 +4,7 @@
 collision it is about to cause, and intervenes — measured where it actually matters: in closed
 loop, by whether the car crashes *and whether it can still drive*.**
 
-> **Honest status up front (77 registered iterations: 46 completed mechanism iterations + an
+> **Honest status up front (78 registered iterations: 47 completed mechanism iterations + an
 > independent verification pass +
 > the full official benchmark at power + a completed iteration-37 calibration null + an
 > iteration-38 opposite-direction S0 canary pass + completed iteration-39/40/41 defensibility
@@ -181,6 +181,14 @@ loop, by whether the car crashes *and whether it can still drive*.**
 > still not upgrading to actor-causality or repair; no threshold-value, repair, actor-causality,
 > safety, transfer, deployment, benchmark, population, commercial-value, or
 > retuning
+> claim — + a completed iteration-78 HUGSIM support-object ranking audit: all three
+> foreground-supported full-set objects are nonselected and subthreshold under the logged
+> CPA/TTC surface
+> (`9` vs selected `5`, `10` vs selected `6`, `10` vs selected `24`; min CPA
+> `21.63/17.28/13.56 m`, no finite TTC), so the support-object lead is not an already-active or
+> borderline hazard lost at final selection; no threshold-value, repair, actor-causality, safety,
+> transfer, deployment, benchmark, population, commercial-value, or
+> retuning
 > claim):**
 > the introspective signal predicts the planner's collisions (AUROC 0.83). On the
 > complete 14-scene NeuroNCAP set at **20 seed-paired runs per pair** (799 episodes, the power
@@ -222,7 +230,7 @@ single-digit GPUs.
 
 ## The result
 
-Seventy-seven registered iterations — forty-six completed mechanism iterations, plus the completed defensibility, robustness, and transfer gates of iterations 39-77 — under frozen pre-registrations converge on one closed-loop configuration — the
+Seventy-eight registered iterations — forty-seven completed mechanism iterations, plus the completed defensibility, robustness, and transfer gates of iterations 39-78 — under frozen pre-registrations converge on one closed-loop configuration — the
 **released union** (two label-free geometric detectors + a threat-cleared latch release) —
 measured on the **complete official 14-scene NeuroNCAP set at 20 seed-paired runs per pair**
 (799 episodes; hypotheses frozen before the run; the first 6 indices of every pair reproduce the
@@ -522,6 +530,7 @@ step; they are intentional stops, not hidden probe failures or unreported GPU ru
 | 75 | **HUGSIM cross-channel object-handoff audit** — classify whether the Iter74 cross-channel handoff keeps the same monitor object or switches object id | committed iteration-59 proof/report plus iteration-70/72/73/74 reports only; per-object CPA/TTC reconstruction at pre-near and first-active timestamps | both fixed rows classify `object_switch_cross_channel_handoff`: `both_distinct_extreme` object `5` -> `9`, `ttc_medium_a` object `6` -> `24` | **`HUGSIM_CROSS_CHANNEL_OBJECT_SWITCH_COMPLETE` — cross-channel late fire is also cross-object in both fixed rows** | two-row descriptive object-handoff audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/retuning claim. [`iter75_hugsim_cross_channel_object_handoff`](experiments/iter75_hugsim_cross_channel_object_handoff/RESULT.md) |
 | 76 | **HUGSIM switch foreground-bridge audit** — test whether the pre-near or post-active switched object has bounded foreground collision-provenance support | committed iteration-59 proof/report plus iteration-70/72/73/74/75 reports only; iteration-61 bridge family, 3 m match and 6 m ambiguous bands | both fixed rows classify `no_foreground_bridge_support`; best distances: `13.4483/10.8347 m` for pre/active in `both_distinct_extreme`, `8.1239/8.4408 m` in `ttc_medium_a` | **`HUGSIM_SWITCH_FOREGROUND_BOTH_OR_AMBIGUOUS_COMPLETE` — neither switched object bridges to foreground under the frozen support grid** | two-row descriptive foreground-bridge audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/retuning claim. [`iter76_hugsim_switch_foreground_bridge`](experiments/iter76_hugsim_switch_foreground_bridge/RESULT.md) |
 | 77 | **HUGSIM event object-set foreground-bridge audit** — test whether any object in the full pre/active event-row object sets bridges to foreground | committed iteration-59 proof/report plus iteration-70/72/73/74/75/76 reports only; all logged objects at the fixed pre and active timestamps, same bridge bands | mixed support: `both_distinct_extreme` pre set ambiguous via object `9` (`3.6899 m`) while active set no-support; `ttc_medium_a` both sets match via object `10` (`1.1245/1.2931 m`) | **`HUGSIM_EVENT_SET_FOREGROUND_SUPPORT_MIXED_COMPLETE` — foreground support exists in the full object set, but not necessarily on the selected hazard object** | two-row descriptive event-object-set foreground-bridge audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/retuning claim. [`iter77_hugsim_event_object_set_bridge`](experiments/iter77_hugsim_event_object_set_bridge/RESULT.md) |
+| 78 | **HUGSIM support-object ranking audit** — classify the iteration-77 foreground-supported objects against the logged monitor surface and iteration-75 selected objects | committed iteration-59 proof/report plus iteration-70/72/73/74/75/76/77 reports only; fixed support events: `both_distinct_extreme` pre object `9`, `ttc_medium_a` pre/active object `10` | all three fixed support events classify `support_object_nonselected_subthreshold`; support ids differ from selected ids (`9` vs `5`, `10` vs `6`, `10` vs `24`), CPA ranks are `4/7/2`, min CPA values are `21.6343/17.2764/13.5578 m`, and TTC is non-finite | **`HUGSIM_SUPPORT_OBJECT_RANKING_MIXED_COMPLETE` — foreground-supported full-set objects are neither selected nor near the frozen hazard surface** | three-event descriptive support-object ranking audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/retuning claim. [`iter78_hugsim_support_object_ranking`](experiments/iter78_hugsim_support_object_ranking/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -784,6 +793,9 @@ the fixed bridge grid; neither side of either switch reached match or ambiguous 
 Iteration 77 then expanded from selected switched objects to full event-row object sets: foreground
 support reappeared in mixed form, showing support can exist in the monitor stream while the
 selected hazard object remains wrong or unsupported.
+Iteration 78 then ranked the foreground-supported objects themselves against the logged monitor
+surface. All three fixed support events are `support_object_nonselected_subthreshold`: the support
+objects are not the selected event objects and do not cross the active or borderline CPA/TTC bands.
 This is a mechanism-cause audit, not a repair or population-rate claim. Successors now require
 fresh pre-registrations. The
 published RealADSim closed-loop anchor range remains loose context only —
@@ -1214,6 +1226,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter75_hugsim_cross_channel_object_handoff/`](experiments/iter75_hugsim_cross_channel_object_handoff) | HUGSIM cross-channel object-handoff audit — HUGSIM_CROSS_CHANNEL_OBJECT_SWITCH_COMPLETE: both fixed cross-channel late-fire rows switch responsible monitor object |
 | [`experiments/iter76_hugsim_switch_foreground_bridge/`](experiments/iter76_hugsim_switch_foreground_bridge) | HUGSIM switch foreground-bridge audit — HUGSIM_SWITCH_FOREGROUND_BOTH_OR_AMBIGUOUS_COMPLETE: neither switched event object reaches foreground bridge match or ambiguous support |
 | [`experiments/iter77_hugsim_event_object_set_bridge/`](experiments/iter77_hugsim_event_object_set_bridge) | HUGSIM event object-set foreground-bridge audit — HUGSIM_EVENT_SET_FOREGROUND_SUPPORT_MIXED_COMPLETE: full event-row object sets recover mixed foreground support not carried by selected switched objects |
+| [`experiments/iter78_hugsim_support_object_ranking/`](experiments/iter78_hugsim_support_object_ranking) | HUGSIM support-object ranking audit — HUGSIM_SUPPORT_OBJECT_RANKING_MIXED_COMPLETE: all fixed foreground-supported full-set objects are nonselected and subthreshold under the logged monitor surface |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/FRONTIER_POSITIONING_2026-07-11.md`](docs/research/FRONTIER_POSITIONING_2026-07-11.md) | source-verified mid-2026 benchmark/monitor/industry positioning; the binding 2.91-is-not-benchmark-SOTA framing rule |

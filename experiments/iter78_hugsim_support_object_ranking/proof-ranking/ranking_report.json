@@ -1,0 +1,168 @@
+{
+  "claim_boundary": "three-event descriptive support-object ranking audit only; no actor-causality, repair, threshold-value, transfer, safety, deployment, robustness, benchmark, population, HD-Score-invariance, commercial-value, or retuning claim",
+  "events": [
+    {
+      "audit_id": "both_distinct_extreme",
+      "event_role": "pre",
+      "event_ts": 5.0,
+      "is_selected_object": false,
+      "object_count": 4,
+      "problems": [],
+      "row_label": "support_object_nonselected_subthreshold",
+      "scenario": "scene-0138-extreme-00",
+      "selected_object_id": 5,
+      "support_band": "ambiguous",
+      "support_object_id": 9,
+      "support_object_metric": {
+        "closing": null,
+        "cpa_active_logged_threshold": false,
+        "cpa_borderline_registered": false,
+        "cpa_cross": false,
+        "cpa_horizon_index": 6,
+        "cpa_rank": 4,
+        "gap": 28.53856122908704,
+        "min_cpa": 21.634279246714645,
+        "object_id": 9,
+        "score": 0.9264162182807922,
+        "ttc": null,
+        "ttc_active_logged_threshold": false,
+        "ttc_borderline_registered": false,
+        "ttc_cross": false,
+        "ttc_rank": null,
+        "velocity": [
+          0.0,
+          0.0
+        ],
+        "world": [
+          -10.197229850376004,
+          40.58175531338361
+        ]
+      }
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "event_role": "pre",
+      "event_ts": 2.5,
+      "is_selected_object": false,
+      "object_count": 8,
+      "problems": [],
+      "row_label": "support_object_nonselected_subthreshold",
+      "scenario": "scene-0071-medium-01",
+      "selected_object_id": 6,
+      "support_band": "match",
+      "support_object_id": 10,
+      "support_object_metric": {
+        "closing": null,
+        "cpa_active_logged_threshold": false,
+        "cpa_borderline_registered": false,
+        "cpa_cross": false,
+        "cpa_horizon_index": 6,
+        "cpa_rank": 7,
+        "gap": 19.08793412227526,
+        "min_cpa": 17.276402111954756,
+        "object_id": 10,
+        "score": 0.7401448488235474,
+        "ttc": null,
+        "ttc_active_logged_threshold": false,
+        "ttc_borderline_registered": false,
+        "ttc_cross": false,
+        "ttc_rank": null,
+        "velocity": [
+          1.5027127804551128,
+          1.9100834955806931
+        ],
+        "world": [
+          -1.1565733519894366,
+          25.40336061870562
+        ]
+      }
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "event_role": "active",
+      "event_ts": 5.0,
+      "is_selected_object": false,
+      "object_count": 6,
+      "problems": [],
+      "row_label": "support_object_nonselected_subthreshold",
+      "scenario": "scene-0071-medium-01",
+      "selected_object_id": 24,
+      "support_band": "match",
+      "support_object_id": 10,
+      "support_object_metric": {
+        "closing": null,
+        "cpa_active_logged_threshold": false,
+        "cpa_borderline_registered": false,
+        "cpa_cross": false,
+        "cpa_horizon_index": 6,
+        "cpa_rank": 2,
+        "gap": 13.710598675382192,
+        "min_cpa": 13.557766187421446,
+        "object_id": 10,
+        "score": 0.6914266347885132,
+        "ttc": null,
+        "ttc_active_logged_threshold": false,
+        "ttc_borderline_registered": false,
+        "ttc_cross": false,
+        "ttc_rank": null,
+        "velocity": [
+          -1.85665634748932,
+          2.3874885309127194
+        ],
+        "world": [
+          3.9402010864494628,
+          26.635912942714754
+        ]
+      }
+    }
+  ],
+  "fixed_events": [
+    {
+      "audit_id": "both_distinct_extreme",
+      "iter77_row_label": "pre_set_foreground_ambiguous",
+      "object_id": 9,
+      "role": "pre",
+      "scenario": "scene-0138-extreme-00",
+      "support_band": "ambiguous"
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "iter77_row_label": "both_sets_foreground_match",
+      "object_id": 10,
+      "role": "pre",
+      "scenario": "scene-0071-medium-01",
+      "support_band": "match"
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "iter77_row_label": "both_sets_foreground_match",
+      "object_id": 10,
+      "role": "active",
+      "scenario": "scene-0071-medium-01",
+      "support_band": "match"
+    }
+  ],
+  "infra_problems": [],
+  "inputs": {
+    "iter59_report": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/actor_match_report.json",
+    "iter70_report": "experiments/iter70_hugsim_structural_timing_audit/proof-structural/structural_report.json",
+    "iter72_report": "experiments/iter72_hugsim_late_fire_prefire_margin_audit/proof-prefire/prefire_report.json",
+    "iter73_report": "experiments/iter73_hugsim_margin_transition_audit/proof-transition/transition_report.json",
+    "iter74_report": "experiments/iter74_hugsim_late_fire_delay_barrier/proof-delay/delay_report.json",
+    "iter75_report": "experiments/iter75_hugsim_cross_channel_object_handoff/proof-handoff/handoff_report.json",
+    "iter76_report": "experiments/iter76_hugsim_switch_foreground_bridge/proof-bridge/bridge_report.json",
+    "iter77_report": "experiments/iter77_hugsim_event_object_set_bridge/proof-set/set_report.json"
+  },
+  "iteration": 78,
+  "summary": {
+    "evaluated_events": 3,
+    "event_label_counts": {
+      "support_object_nonselected_subthreshold": 3
+    },
+    "nonselected_active_events": 0,
+    "nonselected_borderline_events": 0,
+    "selected_events": 0,
+    "target_events": 3
+  },
+  "verdict": "HUGSIM_SUPPORT_OBJECT_RANKING_MIXED_COMPLETE"
+}

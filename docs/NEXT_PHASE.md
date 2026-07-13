@@ -501,6 +501,10 @@ logged object in the fixed event rows. The result is
 `HUGSIM_EVENT_SET_FOREGROUND_SUPPORT_MIXED_COMPLETE`: `both_distinct_extreme` has pre-event
 ambiguous foreground support via object `9`, while `ttc_medium_a` has foreground matches in both
 event-row object sets via object `10`.
+Iteration 78 then ranked those foreground-supported objects against the logged monitor surface.
+The result is `HUGSIM_SUPPORT_OBJECT_RANKING_MIXED_COMPLETE`: all three fixed support events are
+`support_object_nonselected_subthreshold`, with support objects different from the selected
+event objects and outside the registered active/borderline CPA/TTC bands.
 
 The default next scientific line is therefore not an expanded-N transfer run and not retuning the
 released union. After iteration 61, the actor-match audit points to wrong-object/wrong-hazard
@@ -521,10 +525,12 @@ difference is not generic threshold tuning: the silent branch never crosses an a
 while the late-fire branch is near pre-contact but active only post-contact. Iteration 74 shows
 that the two late-fire rows are not same-channel threshold-drift cases; the pre-contact near
 channel differs from the post-contact active channel in both rows. Iteration 75 shows that this is
-also an object switch, not a same-object channel flip. Any successor should be a fresh
-mechanism-cause pre-registration that explains why switched monitor objects still do not bridge
-to foreground provenance even though the wider event-row object set can contain bridge-supported
-objects, or chooses another branch. A strong
+also an object switch, not a same-object channel flip. Iteration 76 shows the selected switched
+objects still do not bridge to foreground provenance. Iteration 77 shows the wider event-row
+object set can contain bridge-supported objects. Iteration 78 shows those bridge-supported
+objects are nonselected and subthreshold rather than already-active or borderline hazards. Any
+successor should be a fresh mechanism-cause pre-registration that explains this
+foreground-support/selection-surface gap, or chooses another branch. A strong
 successor should distinguish among:
 
 1. hazard surface: whether the monitor is braking for the wrong detected object or wrong path
@@ -571,9 +577,11 @@ the bridge-supported geometry. Iteration 69 packages the full row set into the t
 iteration 70 splits the remaining structural rows into surface-silent, late-fire, and
 background-only branches. Iteration 71 closes the near-margin explanation for the surface-silent
 branch under the registered bands, and iteration 72 shows the late-fire rows are near but not
-crossing before contact. The next hypothesis should explain why near-margin late-fire rows cross
-late while far-margin surface-silent rows never fire, or choose another branch and name what new
-evidence would falsify it.
+crossing before contact. Iterations 73-78 refine the late-fire branch into cross-channel,
+cross-object, foreground-unsupported selected objects, plus separate full-set foreground support
+that remains nonselected and subthreshold. The next hypothesis should explain why
+foreground-supported objects sit outside the selected hazard surface at these event rows, or
+choose another branch and name what new evidence would falsify it.
 
 Any such line requires a fresh `HYPOTHESIS.md`. Until then, no new HUGSIM transfer, safety,
 robustness, deployment, benchmark-ranking, or retuning claim is authorized.

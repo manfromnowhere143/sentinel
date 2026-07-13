@@ -596,6 +596,16 @@ events to prepare; they are a property the repository always has.
   hazard-object versus object-set support evidence only. No actor-causality, repair,
   threshold-value, population-rate, safety/transfer/deployment/robustness/benchmark/
   HD-Score-invariance, commercial-value, or retuning claim.
+- Iteration 78 concluded:
+  experiments/iter78_hugsim_support_object_ranking/RESULT.md, published as
+  `HUGSIM_SUPPORT_OBJECT_RANKING_MIXED_COMPLETE` — an offline ranking audit over the three
+  iteration-77 foreground-supported full-object-set events. It launched no GPU work and read no
+  live box state. All three fixed support events classify
+  `support_object_nonselected_subthreshold`: support objects `9`, `10`, and `10` differ from
+  selected event objects `5`, `6`, and `24`, with min CPA values `21.6343 m`, `17.2764 m`, and
+  `13.5578 m` and no finite TTC. This is support-object ranking evidence only. No actor-causality,
+  repair, threshold-value, population-rate, safety/transfer/deployment/robustness/benchmark/
+  HD-Score-invariance, commercial-value, or retuning claim.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1901,3 +1911,12 @@ events to prepare; they are a property the repository always has.
   unsupported in iteration 76. No GPU/gcloud/box read, no actor-causality, repair,
   threshold-value, population-rate, safety/transfer/deployment/robustness/benchmark/
   HD-Score-invariance, commercial-value, or retuning claim.
+- 2026-07-13: Codex — continued into iteration 78 as the HUGSIM support-object ranking audit
+  after iteration 77. Pre-registered ALONE (`b7d90d6`), added analyzer/tests (`eea3883`, 353
+  tests green before analysis), then ran the analyzer ONCE over committed iteration-59 proof plus
+  iteration-70/72/73/74/75/76/77 reports. Result:
+  `HUGSIM_SUPPORT_OBJECT_RANKING_MIXED_COMPLETE`; all three foreground-supported full-set
+  objects are nonselected and subthreshold under the logged CPA/TTC surface. No GPU/gcloud/box
+  read, no actor-causality, repair, threshold-value, population-rate,
+  safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value, or
+  retuning claim.
