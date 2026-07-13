@@ -509,6 +509,17 @@ events to prepare; they are a property the repository always has.
   `2.00 s` after fire; distance improves `19.6983 m` -> `2.8332 m`). No actor-causality,
   repair, population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance,
   or retuning claim.
+- Iteration 69 concluded:
+  experiments/iter69_hugsim_mechanism_taxonomy/RESULT.md, published as
+  `HUGSIM_MECHANISM_TAXONOMY_COMPLETE` — an offline evidence synthesis over the eight
+  iteration-59 HUGSIM ON actor-match rows. It launched no GPU work and read no live box state.
+  All eight rows were classified: five structural labels were preserved (`no_monitor_fire` 2,
+  `post_collision_fire` 2, `background_collision_only` 1), and all three classifiable foreground
+  rows were refined as `nontrigger_visible_never_hazard`,
+  `same_object_late_fire_after_best_bridge`, and
+  `split_object_visible_never_active_fire_before_best_bridge`. No actor-causality, repair,
+  population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance,
+  commercial-value, or retuning claim.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1738,3 +1749,11 @@ events to prepare; they are a property the repository always has.
   fire (`cpa_medium_b`, `+2.00 s`). No GPU/gcloud/box read, no actor-causality, repair,
   population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, or
   retuning claim.
+- 2026-07-13: Codex — continued into iteration 69 as the HUGSIM mechanism taxonomy synthesis
+  after iteration 68. Pre-registered ALONE (`ee4f60b`), added analyzer/tests (`4ec0278`, 327
+  tests green before analysis), then ran the analyzer ONCE over committed iteration-59/61/63/64/
+  65/66/67/68 reports. Result: `HUGSIM_MECHANISM_TAXONOMY_COMPLETE`; all eight iteration-59
+  rows classified, with five structural rows preserved and all three classifiable foreground
+  rows refined by downstream evidence. No GPU/gcloud/box read, no actor-causality, repair,
+  population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance,
+  commercial-value, or retuning claim.

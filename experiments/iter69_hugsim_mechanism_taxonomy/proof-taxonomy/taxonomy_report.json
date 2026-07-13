@@ -1,0 +1,270 @@
+{
+  "claim_boundary": "eight-row evidence synthesis over committed HUGSIM audit reports only; no actor-causality, repair, transfer, safety, deployment, robustness, benchmark, population, HD-Score-invariance, commercial-value, or retuning claim",
+  "episodes": [
+    {
+      "audit_id": "ttc_extreme_short",
+      "first_fire_channel": "ttc_only",
+      "first_fire_ts": 1.5,
+      "iter59_support_label": "classifiable_foreground",
+      "mechanism_label": "same_object_late_fire_after_best_bridge",
+      "monitor_object_id": 2,
+      "object_details": {
+        "iter61_best_nontrigger_distance_m": 11.426245372207385,
+        "iter61_best_nontrigger_object_id": 4,
+        "iter61_trigger_object_id": 2,
+        "iter66_target_object_id": 2,
+        "iter67_first_fire_ts": 1.5,
+        "iter67_target_object_id": 2,
+        "iter67_trigger_object_id": 2,
+        "iter68_first_fire_ts": 1.5,
+        "iter68_trigger_object_id": 2
+      },
+      "refined_by_downstream": true,
+      "refinement_evidence": [
+        "iter61:no_monitor_object_support",
+        "iter64:pre_contact_object_match",
+        "iter65:matched_object_subthreshold",
+        "iter66:target_object_ever_active_hazard",
+        "iter67:same_object_target_trigger_match",
+        "iter68:fire_gap_best_before_fire"
+      ],
+      "scenario": "scene-0038-extreme-00",
+      "source_labels": {
+        "iter59": "classifiable_foreground",
+        "iter61": "no_monitor_object_support",
+        "iter64": "pre_contact_object_match",
+        "iter65": "matched_object_subthreshold",
+        "iter66": "target_object_ever_active_hazard",
+        "iter67": "same_object_target_trigger_match",
+        "iter68": "fire_gap_best_before_fire"
+      },
+      "unmet_refinement_evidence": []
+    },
+    {
+      "audit_id": "mixed_extreme",
+      "first_fire_channel": "no_fire",
+      "first_fire_ts": null,
+      "iter59_support_label": "no_monitor_fire",
+      "mechanism_label": "no_monitor_fire",
+      "monitor_object_id": null,
+      "object_details": {},
+      "refined_by_downstream": false,
+      "refinement_evidence": [
+        "iter59:no_monitor_fire"
+      ],
+      "scenario": "scene-0062-extreme-00",
+      "source_labels": {
+        "iter59": "no_monitor_fire"
+      },
+      "unmet_refinement_evidence": []
+    },
+    {
+      "audit_id": "both_distinct_extreme",
+      "first_fire_channel": "ttc_only",
+      "first_fire_ts": 7.0,
+      "iter59_support_label": "post_collision_fire",
+      "mechanism_label": "post_collision_fire",
+      "monitor_object_id": 9,
+      "object_details": {},
+      "refined_by_downstream": false,
+      "refinement_evidence": [
+        "iter59:post_collision_fire"
+      ],
+      "scenario": "scene-0138-extreme-00",
+      "source_labels": {
+        "iter59": "post_collision_fire"
+      },
+      "unmet_refinement_evidence": []
+    },
+    {
+      "audit_id": "nofire_hard_control",
+      "first_fire_channel": "no_fire",
+      "first_fire_ts": null,
+      "iter59_support_label": "no_monitor_fire",
+      "mechanism_label": "no_monitor_fire",
+      "monitor_object_id": null,
+      "object_details": {},
+      "refined_by_downstream": false,
+      "refinement_evidence": [
+        "iter59:no_monitor_fire"
+      ],
+      "scenario": "scene-0041-hard-00",
+      "source_labels": {
+        "iter59": "no_monitor_fire"
+      },
+      "unmet_refinement_evidence": []
+    },
+    {
+      "audit_id": "cpa_medium_a",
+      "first_fire_channel": "ttc_only",
+      "first_fire_ts": 3.5,
+      "iter59_support_label": "background_collision_only",
+      "mechanism_label": "background_collision_only",
+      "monitor_object_id": 11,
+      "object_details": {},
+      "refined_by_downstream": false,
+      "refinement_evidence": [
+        "iter59:background_collision_only"
+      ],
+      "scenario": "scene-0071-medium-00",
+      "source_labels": {
+        "iter59": "background_collision_only"
+      },
+      "unmet_refinement_evidence": []
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "first_fire_channel": "cpa_only",
+      "first_fire_ts": 5.0,
+      "iter59_support_label": "post_collision_fire",
+      "mechanism_label": "post_collision_fire",
+      "monitor_object_id": 24,
+      "object_details": {},
+      "refined_by_downstream": false,
+      "refinement_evidence": [
+        "iter59:post_collision_fire"
+      ],
+      "scenario": "scene-0071-medium-01",
+      "source_labels": {
+        "iter59": "post_collision_fire"
+      },
+      "unmet_refinement_evidence": []
+    },
+    {
+      "audit_id": "cpa_medium_b",
+      "first_fire_channel": "cpa_only",
+      "first_fire_ts": 0.25,
+      "iter59_support_label": "classifiable_foreground",
+      "mechanism_label": "split_object_visible_never_active_fire_before_best_bridge",
+      "monitor_object_id": 1,
+      "object_details": {
+        "iter61_best_nontrigger_distance_m": 8.096935319476609,
+        "iter61_best_nontrigger_object_id": 0,
+        "iter61_trigger_object_id": 1,
+        "iter66_target_object_id": 6,
+        "iter67_first_fire_ts": 0.25,
+        "iter67_target_object_id": 6,
+        "iter67_trigger_object_id": 1,
+        "iter68_first_fire_ts": 0.25,
+        "iter68_trigger_object_id": 1
+      },
+      "refined_by_downstream": true,
+      "refinement_evidence": [
+        "iter61:no_monitor_object_support",
+        "iter64:pre_contact_object_match",
+        "iter65:matched_object_subthreshold",
+        "iter66:target_object_visible_never_active",
+        "iter67:split_target_match_trigger_match",
+        "iter68:fire_gap_best_after_fire"
+      ],
+      "scenario": "scene-0166-medium-00",
+      "source_labels": {
+        "iter59": "classifiable_foreground",
+        "iter61": "no_monitor_object_support",
+        "iter64": "pre_contact_object_match",
+        "iter65": "matched_object_subthreshold",
+        "iter66": "target_object_visible_never_active",
+        "iter67": "split_target_match_trigger_match",
+        "iter68": "fire_gap_best_after_fire"
+      },
+      "unmet_refinement_evidence": []
+    },
+    {
+      "audit_id": "ttc_extreme_b",
+      "first_fire_channel": "ttc_only",
+      "first_fire_ts": 7.0,
+      "iter59_support_label": "classifiable_foreground",
+      "mechanism_label": "nontrigger_visible_never_hazard",
+      "monitor_object_id": 1,
+      "object_details": {
+        "iter61_best_nontrigger_distance_m": 2.068628866595313,
+        "iter61_best_nontrigger_object_id": 16,
+        "iter61_trigger_object_id": 1,
+        "iter63_object_id": 16,
+        "iter63_trigger_object_id": 1
+      },
+      "refined_by_downstream": true,
+      "refinement_evidence": [
+        "iter61:nontrigger_object_match",
+        "iter63:visible_never_hazard"
+      ],
+      "scenario": "scene-0383-extreme-00",
+      "source_labels": {
+        "iter59": "classifiable_foreground",
+        "iter61": "nontrigger_object_match",
+        "iter63": "visible_never_hazard"
+      },
+      "unmet_refinement_evidence": []
+    }
+  ],
+  "expected_rows": [
+    {
+      "audit_id": "ttc_extreme_short",
+      "scenario": "scene-0038-extreme-00",
+      "support_label": "classifiable_foreground"
+    },
+    {
+      "audit_id": "mixed_extreme",
+      "scenario": "scene-0062-extreme-00",
+      "support_label": "no_monitor_fire"
+    },
+    {
+      "audit_id": "both_distinct_extreme",
+      "scenario": "scene-0138-extreme-00",
+      "support_label": "post_collision_fire"
+    },
+    {
+      "audit_id": "nofire_hard_control",
+      "scenario": "scene-0041-hard-00",
+      "support_label": "no_monitor_fire"
+    },
+    {
+      "audit_id": "cpa_medium_a",
+      "scenario": "scene-0071-medium-00",
+      "support_label": "background_collision_only"
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "scenario": "scene-0071-medium-01",
+      "support_label": "post_collision_fire"
+    },
+    {
+      "audit_id": "cpa_medium_b",
+      "scenario": "scene-0166-medium-00",
+      "support_label": "classifiable_foreground"
+    },
+    {
+      "audit_id": "ttc_extreme_b",
+      "scenario": "scene-0383-extreme-00",
+      "support_label": "classifiable_foreground"
+    }
+  ],
+  "infra_problems": [],
+  "inputs": {
+    "iter59": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/actor_match_report.json",
+    "iter61": "experiments/iter61_monitor_object_surface_audit/proof-object-surface/object_surface_report.json",
+    "iter63": "experiments/iter63_temporal_emergence_audit/proof-temporal/temporal_emergence_report.json",
+    "iter64": "experiments/iter64_unsupported_temporal_surface_audit/proof-unsupported-temporal/unsupported_temporal_report.json",
+    "iter65": "experiments/iter65_temporal_alignment_audit/proof-alignment/temporal_alignment_report.json",
+    "iter66": "experiments/iter66_matched_object_timeline_audit/proof-timeline/timeline_report.json",
+    "iter67": "experiments/iter67_trigger_target_bridge_audit/proof-trigger-target/trigger_target_report.json",
+    "iter68": "experiments/iter68_fire_time_bridge_decomposition/proof-fire-time/fire_time_report.json"
+  },
+  "iteration": 69,
+  "summary": {
+    "classifiable_rows": 3,
+    "mechanism_counts": {
+      "background_collision_only": 1,
+      "no_monitor_fire": 2,
+      "nontrigger_visible_never_hazard": 1,
+      "post_collision_fire": 2,
+      "same_object_late_fire_after_best_bridge": 1,
+      "split_object_visible_never_active_fire_before_best_bridge": 1
+    },
+    "refined_classifiable_rows": 3,
+    "structural_rows": 5,
+    "total_rows": 8,
+    "unrefined_classifiable_rows": 0
+  },
+  "verdict": "HUGSIM_MECHANISM_TAXONOMY_COMPLETE"
+}
