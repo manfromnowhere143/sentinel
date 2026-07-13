@@ -13,7 +13,7 @@ It adds a deeper Stanford/MIT/Tesla/Mobileye/NHTSA read to the existing frontier
 packet. The decision is narrow: Sentinel is aligned when framed as a runtime monitor,
 failure-localization, and safety-evidence system for opaque planners; it is not aligned when
 framed as a full autonomy stack, world model, robotaxi system, or deployment-ready safety case.
-That priority is now partly closed by iterations 84-89: the selected-vs-support
+That priority is now partly closed by iterations 84-90: the selected-vs-support
 path/arbitration split is proven on the fixed rows, and the closest-path-horizon/provenance
 timing decomposition shows support-object provenance arriving after the event in all three rows.
 The exact bridge-time support-surface replay then blocked on the active `ttc_medium_a` row because
@@ -21,9 +21,13 @@ the committed ON decision log has no exact `6.0 s` row. The interval replay succ
 that row with a fixed at-or-before rule and returned a mixed support-side result: one borderline
 arrival and two surface misses. The margin-residual decomposition then split those support-side
 rows into one TTC-borderline/CPA-far case and two no-finite-TTC/CPA-far cases. The next local
-HUGSIM priority is a fresh mechanism-cause pre-registration that explains why active path-surface
-objects lack provenance bridge support, or chooses a different unresolved branch; it must not
-retune thresholds or make repair/safety claims.
+HUGSIM steps then closed the simple object-arbitration counterfactual and active-side gap:
+bridge support is common, but no active released-surface object is bridge-supported, and the only
+active object in the fixed replay rows lacks provenance bridge support while bridge-supported
+objects remain non-active. The next local HUGSIM priority is a fresh mechanism-cause
+pre-registration that explains why the released active surface and logged provenance support split
+this way, or chooses a different unresolved branch; it must not retune thresholds or make
+repair/safety claims.
 
 ## New frontier packet after these lines closed
 
@@ -574,6 +578,10 @@ TTC-borderline/CPA-far, while object `10` is no-finite-TTC/CPA-far in both repla
 Iteration 89 then enumerated every logged object at the fixed replay rows. The result is
 `HUGSIM_JOINT_BRIDGE_SURFACE_NO_ACTIVE_CANDIDATE_SPLIT_COMPLETE`: `11` objects are
 bridge-supported across the three rows, but `0/3` rows contain any active+bridge-supported object.
+Iteration 90 then decomposed the active side. The result is
+`HUGSIM_ACTIVE_SURFACE_PROVENANCE_GAP_COMPLETE`: two rows have no active object but do have
+bridge-supported non-active objects, and the one row with an active object has no bridge support
+for that active object while bridge-supported objects remain non-active.
 
 The default next scientific line is therefore not an expanded-N transfer run and not retuning the
 released union. After iteration 61, the actor-match audit points to wrong-object/wrong-hazard
@@ -619,8 +627,10 @@ Iteration 88 decomposes that mixed support side into one TTC-borderline/CPA-far 
 no-finite-TTC/CPA-far residuals.
 Iteration 89 closes the simple object-arbitration counterfactual: bridge support is common, but
 no active released-surface candidate is bridge-supported in the fixed replay rows.
+Iteration 90 closes the immediate active-side provenance-gap audit: bridge-supported objects are
+non-active, and the only active replay-row object is unsupported by provenance bridge.
 Any successor should be a fresh mechanism-cause pre-registration that explains this
-selected-surface/provenance/support-temporal/co-occurrence/channel/arbitration/timing split, or
+selected-surface/provenance/support-temporal/co-occurrence/channel/arbitration/timing/active-gap split, or
 chooses another branch. A strong
 successor should distinguish among:
 

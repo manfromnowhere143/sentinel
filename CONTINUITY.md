@@ -2106,3 +2106,12 @@ events to prepare; they are a property the repository always has.
   but subthreshold in both rows. No GPU/gcloud/box read, no actor-causality, repair,
   threshold-value, population-rate, safety/transfer/deployment/robustness/benchmark/
   HD-Score-invariance, commercial-value, real-world/first-responder behavior, or retuning claim.
+- 2026-07-13: Codex — continued into iteration 90 as the HUGSIM active-surface provenance gap
+  audit after iteration 89. Pre-registered ALONE (`1caef74`), added analyzer/tests (`5f174e8`,
+  377 tests green before analysis), then ran the analyzer ONCE over committed iteration-59 proof
+  plus iteration-87/89 reports. Result: `HUGSIM_ACTIVE_SURFACE_PROVENANCE_GAP_COMPLETE`; across
+  the three replay rows, bridge-supported objects total `11`, all `11` are non-active,
+  active+bridge-supported objects are `0`, and the only active object is active/no-bridge. No
+  GPU/gcloud/box read, no actor-causality, repair, threshold-value, population-rate,
+  safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value,
+  real-world/first-responder behavior, or retuning claim.
