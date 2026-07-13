@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Mon Jul 13 07:04:08 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Mon Jul 13 07:33:00 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+aebb4e8 iter58: publish provenance canary
+0405e28 iter58: commit provenance canary proof
+94756b9 iter58: add provenance canary tooling
+70c9d63 iter58: preregister HUGSIM provenance canary
+e7a46dd handoff: record iter57 guard state
 b444a37 iter57: publish guard refinement
 e2bc0c0 iter57: add refined patch guard
 ce852b3 iter57: preregister patch guard refinement
-b771726 handoff: record iter56 patch state
-ab5f999 iter56: publish patch design null
-87536ff iter56: add patch verifier
-a6429b6 iter56: preregister HUGSIM provenance patch
-1d78b65 handoff: record iter55 source state
 ```
 Working tree: CLEAN
 
@@ -71,6 +71,7 @@ Working tree: CLEAN
 - experiments/iter55_hugsim_collision_instrumentation_source_audit: RESULT PUBLISHED
 - experiments/iter56_hugsim_provenance_instrumentation_patch: RESULT PUBLISHED
 - experiments/iter57_hugsim_patch_guard_refinement: RESULT PUBLISHED
+- experiments/iter58_hugsim_provenance_instrumented_canary: RESULT PUBLISHED
 - experiments/iter5_tracked: RESULT PUBLISHED
 - experiments/iter6_cpa: RESULT PUBLISHED
 - experiments/iter7_margin: RESULT PUBLISHED
@@ -83,11 +84,11 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 07:05:17 up 8 days, 20:46,  0 users,  load average: 0.00, 0.00, 0.00
+ 07:34:07 up 8 days, 21:15,  0 users,  load average: 0.00, 0.32, 0.44
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
+/var/log/sentinel-iter58-provenance-canary.log
 /var/log/sentinel-iter49-hard.log
-/var/log/sentinel-iter48-stage2.log
 /dev/root       310G  269G   42G  87% /
 Swap:          8.0Gi        76Mi       7.9Gi
 ```
@@ -95,7 +96,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter57_hugsim_patch_guard_refinement/RESULT.md — read it before opening new work.
+- Newest completed experiment: experiments/iter58_hugsim_provenance_instrumented_canary/RESULT.md — read it before opening new work.
 - Newest pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
