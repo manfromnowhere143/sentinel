@@ -479,6 +479,16 @@ events to prepare; they are a property the repository always has.
   `9.3179 m` and no valid TTC. One matched object later equals the first-fire object; the other
   does not. No actor-causality, repair, population-rate,
   safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, or retuning claim.
+- Iteration 66 concluded:
+  experiments/iter66_matched_object_timeline_audit/RESULT.md, published as
+  `MATCHED_OBJECT_TIMELINE_MIXED_COMPLETE` — an offline target-object temporal surface audit for
+  the two iteration-65 matched objects. It launched no GPU work and read no live box state.
+  `ttc_extreme_short` `object_id=2` was present in `7/10` pre-contact frames, had TTC-borderline
+  frames at `0.25 s` and `0.50 s`, and became an active TTC hazard exactly at first fire
+  (`1.50 s`). `cpa_medium_b` `object_id=6` was present in `13/25` pre-contact frames with zero
+  active or borderline frames, min CPA `7.9669 m`, and no valid TTC. No actor-causality, repair,
+  population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, or
+  retuning claim.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1683,3 +1693,11 @@ events to prepare; they are a property the repository always has.
   the first-fire object; the other does not. No GPU/gcloud/box read, no actor-causality, repair,
   population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, or
   retuning claim.
+- 2026-07-13: Codex — continued into iteration 66 as the matched-object hazard timeline audit
+  after iteration 65. Pre-registered ALONE (`f56c92e`), added analyzer/tests (`151b018`, 317
+  tests green before analysis), then ran the analyzer ONCE over committed iteration-59/61/64/65
+  proof. Result: `MATCHED_OBJECT_TIMELINE_MIXED_COMPLETE`; `ttc_extreme_short` `object_id=2`
+  becomes an active TTC hazard at first fire after two borderline frames, while `cpa_medium_b`
+  `object_id=6` remains visible-never-active across `13/25` pre-contact frames. No GPU/gcloud/
+  box read, no actor-causality, repair, population-rate,
+  safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, or retuning claim.

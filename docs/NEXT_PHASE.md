@@ -447,6 +447,10 @@ Iteration 65 then reconstructed those two matched monitor objects at their match
 timestamps. The result is `TEMPORAL_ALIGNMENT_SUBTHRESHOLD_COMPLETE`: both objects were present
 but subthreshold (`object_id=2`: min CPA `12.7240 m`, TTC `3.5763 s`; `object_id=6`: min CPA
 `9.3179 m`, no valid TTC).
+Iteration 66 then followed those same two target objects through every pre-contact decision
+frame. The result is `MATCHED_OBJECT_TIMELINE_MIXED_COMPLETE`: `ttc_extreme_short` `object_id=2`
+becomes an active TTC hazard exactly at first fire (`1.50 s`) after two TTC-borderline frames,
+while `cpa_medium_b` `object_id=6` remains visible-never-active in `13/25` pre-contact frames.
 
 The default next scientific line is therefore not an expanded-N transfer run and not retuning the
 released union. After iteration 61, the actor-match audit points to wrong-object/wrong-hazard
@@ -455,7 +459,8 @@ object in that row was outside the frozen first-fire hazard surface rather than 
 argmin tie. Iteration 63 shows it also never becomes hazardous before contact. Iteration 64 shows
 the two first-fire-unsupported rows do have pre-contact object-surface support outside the
 first-fire frame. Iteration 65 shows those matches are not already-active hazards at the matched
-timestamps. The remaining audit rows are no-fire/post-fire/background-only failure modes. Any
+timestamps. Iteration 66 splits those rows into late-emerging target hazard and visible-never-active
+target object. The remaining audit rows are no-fire/post-fire/background-only failure modes. Any
 successor should be a fresh
 mechanism-cause pre-registration that explains those categories, not threshold tuning. A strong
 successor should distinguish among:
@@ -494,6 +499,8 @@ matches exist in both, so the next mechanism question is timing/provenance align
 broad object absence. Iteration 65 answers that immediate timing question for the best matches:
 both are visible but subthreshold at the matched timestamps, so the remaining mechanism question
 is why collision-relevant geometry stays outside or arrives late to the released hazard surface.
+Iteration 66 shows both happen in the two target rows: one object arrives late to the TTC hazard
+surface at first fire, and one remains outside even while visible.
 
 Any such line requires a fresh `HYPOTHESIS.md`. Until then, no new HUGSIM transfer, safety,
 robustness, deployment, benchmark-ranking, or retuning claim is authorized.

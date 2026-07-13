@@ -1,0 +1,22 @@
+Working directory:
+/Users/danielwahnich/workspace/sentinel
+
+Command:
+python3 experiments/iter66_matched_object_timeline_audit/analyze_matched_object_timeline.py --iter59-proof-root experiments/iter59_hugsim_actor_match_audit/proof-actor-match --iter59-report experiments/iter59_hugsim_actor_match_audit/proof-actor-match/actor_match_report.json --iter61-report experiments/iter61_monitor_object_surface_audit/proof-object-surface/object_surface_report.json --iter64-report experiments/iter64_unsupported_temporal_surface_audit/proof-unsupported-temporal/unsupported_temporal_report.json --iter65-report experiments/iter65_temporal_alignment_audit/proof-alignment/temporal_alignment_report.json --out experiments/iter66_matched_object_timeline_audit/proof-timeline/timeline_report.json --markdown-out experiments/iter66_matched_object_timeline_audit/proof-timeline/timeline.md
+
+Observed stdout:
+{
+  "verdict": "MATCHED_OBJECT_TIMELINE_MIXED_COMPLETE",
+  "summary": {
+    "target_rows": 2,
+    "evaluated_rows": 2,
+    "row_label_counts": {
+      "target_object_ever_active_hazard": 1,
+      "target_object_visible_never_active": 1
+    },
+    "total_pre_contact_frames": 35,
+    "total_present_frames": 20,
+    "total_hazard_frames": 1,
+    "total_borderline_frames": 2
+  }
+}
