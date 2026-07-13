@@ -1,9 +1,10 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Mon Jul 13 04:07:11 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Mon Jul 13 04:08:56 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+f3e1350 iter49: publish hard-tier transfer null
 2eb0c81 iter49: commit hard-tier proof artifacts
 2ea71ef handoff: night consolidation after arxiv submission
 5f5fae1 handoff: record arxiv submission milestone
@@ -11,18 +12,8 @@ Generated: Mon Jul 13 04:07:11 UTC 2026 by scripts/make_handoff.py. Read CONTINU
 2c89471 iter50: publish opportunity audit result and docs
 d76c6ba iter50: commit audit proof artifacts
 ee41aa6 iter50: add opportunity analyzer and tests
-5a3717a handoff: evening consolidation, caesar thread and dual iterations state
 ```
-Working tree: DIRTY — resolve before handoff:
-M CONTINUITY.md
- M README.md
- M scripts/make_handoff.py
-?? experiments/iter49_hugsim_hard_tier_gate/RESULT.md
-?? experiments/iter49_hugsim_hard_tier_gate/proof-hard/analyze_hard_tier.command.txt
-?? experiments/iter49_hugsim_hard_tier_gate/proof-hard/p1_opportunity.command.txt
-?? experiments/iter49_hugsim_hard_tier_gate/proof-hard/p1_opportunity_report.json
-?? experiments/iter49_hugsim_hard_tier_gate/proof-hard/transfer_pairs.md
-?? experiments/iter49_hugsim_hard_tier_gate/proof-hard/transfer_report.json
+Working tree: CLEAN
 
 ## Experiments (status inferred from files)
 
@@ -85,7 +76,7 @@ M CONTINUITY.md
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 04:08:18 up 8 days, 17:49,  0 users,  load average: 0.00, 0.00, 0.00
+ 04:10:03 up 8 days, 17:51,  0 users,  load average: 0.00, 0.00, 0.00
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-iter49-hard.log
