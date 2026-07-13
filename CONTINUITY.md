@@ -2115,3 +2115,14 @@ events to prepare; they are a property the repository always has.
   GPU/gcloud/box read, no actor-causality, repair, threshold-value, population-rate,
   safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value,
   real-world/first-responder behavior, or retuning claim.
+- 2026-07-13: Codex — continued into iteration 91 as the HUGSIM active-gap geometry
+  decomposition after iteration 90. Pre-registered ALONE (`4397619`), added analyzer/tests
+  (`db6b1cb`, 379 tests green before analysis), then ran the analyzer ONCE over committed
+  iteration-59 proof plus iteration-90 report. Result:
+  `HUGSIM_ACTIVE_GAP_PATH_PROVENANCE_DECOMPOSITION_COMPLETE`; two rows are
+  provenance-near/path-inactive, and the active `ttc_medium_a` row is
+  path-active/provenance-far: object `24` is active by CPA (`min_cpa=1.0010 m`) but bridge
+  `no_support` at `10.9518 m`, while nearest bridge-supported object `10` is subthreshold at
+  `4.2468 m`. No GPU/gcloud/box read, no actor-causality, repair, threshold-value,
+  population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance,
+  commercial-value, real-world/first-responder behavior, or retuning claim.
