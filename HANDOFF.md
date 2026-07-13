@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Mon Jul 13 08:36:58 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Mon Jul 13 08:43:58 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+00c25c6 iter62: publish nontrigger ranking audit
+32d2b5f iter62: add nontrigger ranking tooling
+e27e587 iter62: preregister nontrigger ranking audit
+35124be handoff: record iter61 object surface state
 361288d iter61: publish object surface audit
 2598b79 iter61: add object surface tooling
 7688075 iter61: preregister object surface audit
 3e09f4a handoff: record iter60 bridge state
-84eb003 iter60: publish bridge sensitivity audit
-5f4dd9b iter60: add bridge sensitivity tooling
-ea8f42b iter60: preregister bridge sensitivity audit
-2cc0a72 handoff: record iter59 actor match state
 ```
 Working tree: CLEAN
 
@@ -76,6 +76,7 @@ Working tree: CLEAN
 - experiments/iter5_tracked: RESULT PUBLISHED
 - experiments/iter60_actor_bridge_sensitivity: RESULT PUBLISHED
 - experiments/iter61_monitor_object_surface_audit: RESULT PUBLISHED
+- experiments/iter62_nontrigger_ranking_audit: RESULT PUBLISHED
 - experiments/iter6_cpa: RESULT PUBLISHED
 - experiments/iter7_margin: RESULT PUBLISHED
 - experiments/iter8_union: RESULT PUBLISHED
@@ -87,7 +88,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 08:38:05 up 8 days, 22:19,  0 users,  load average: 0.00, 0.00, 0.47
+ 08:45:06 up 8 days, 22:26,  0 users,  load average: 0.00, 0.00, 0.28
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-iter59-actor-match.log
@@ -99,7 +100,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter61_monitor_object_surface_audit/RESULT.md — read it before opening new work.
+- Newest completed experiment: experiments/iter62_nontrigger_ranking_audit/RESULT.md — read it before opening new work.
 - Newest pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
