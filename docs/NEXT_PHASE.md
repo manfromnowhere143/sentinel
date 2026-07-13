@@ -5,6 +5,18 @@ is stated with the evidence that motivates it, the mechanism, the pre-registerab
 cost. Ordering is by expected knowledge-per-GPU-hour; the decision rules at the bottom say what
 runs when.
 
+## Frontier problem alignment pulse — 2026-07-13
+
+The newest source-backed alignment note is
+[`research/FRONTIER_PROBLEM_ALIGNMENT_2026-07-13.md`](research/FRONTIER_PROBLEM_ALIGNMENT_2026-07-13.md).
+It adds a deeper Stanford/MIT/Tesla/Mobileye/NHTSA read to the existing frontier-positioning
+packet. The decision is narrow: Sentinel is aligned when framed as a runtime monitor,
+failure-localization, and safety-evidence system for opaque planners; it is not aligned when
+framed as a full autonomy stack, world model, robotaxi system, or deployment-ready safety case.
+The immediate next HUGSIM priority remains a fresh pre-registration that explains the
+iterations 79-83 selected-surface/provenance/support/TTC-CPA/time split, with a selected-vs-support
+path/arbitration decomposition as the highest-value local next experiment.
+
 ## New frontier packet after these lines closed
 
 After iterations 19–21 closed the tested frozen-planner candidate-head routes, the recommended

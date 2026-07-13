@@ -2019,3 +2019,12 @@ events to prepare; they are a property the repository always has.
   CPA-far active margins. No GPU/gcloud/box read, no actor-causality, repair, threshold-value,
   population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance,
   commercial-value, or retuning claim.
+- 2026-07-13: Codex — added `docs/research/FRONTIER_PROBLEM_ALIGNMENT_2026-07-13.md`, a
+  source-backed alignment pulse after the operator requested a deeper Stanford/MIT/Tesla/Mobileye
+  read. It records that Sentinel is aligned only as a runtime monitor/failure-localization/
+  safety-evidence system for opaque planners, not as a full autonomy stack, world model,
+  robotaxi product, deployment-ready safety case, or first-responder/real-world claim. The
+  immediate next research action remains a fresh HUGSIM pre-registration, with selected-vs-support
+  path/arbitration decomposition named as the highest-value local successor to iterations 79-83.
+  The memo authorizes no GPU work, HUGSIM run, threshold change, repair, retuning, safety,
+  benchmark, deployment, commercial-value, or real-world claim.
