@@ -350,6 +350,24 @@ events to prepare; they are a property the repository always has.
   not one bad union branch. No actor-identity, safety/transfer/deployment/robustness, benchmark,
   real-world, monitor-performance, HUGSIM-equivalence, or retuning claim; next mature line is
   object/path geometry and provenance under a fresh pre-registration.
+- Iteration 54 concluded:
+  experiments/iter54_hugsim_provenance_support_audit/RESULT.md, published as
+  `PROVENANCE_SUPPORT_NULL` — an offline support audit over committed iteration 48/49 HUGSIM
+  proof only (zero GPU, zero gcloud, zero box reads), with the pre-freeze schema/patch
+  inspections disclosed in the HYPOTHESIS rather than hidden. Analyzer/tests were committed
+  separately and run ONCE over committed artifacts. Infrastructure passed: `104` pairs read,
+  pair count cross-checked against iteration 53 exactly (`104` vs `104`), channel mismatches
+  `0`, timing mismatches `0`, and argmin reconstruction failures `0`. Monitor-side first-fire
+  provenance is reconstructable from committed logs: unique_ttc_object `40`,
+  unique_cpa_object `36`, both_distinct_objects `1`, no_fire `27`; among `92` ON-collision
+  episodes: unique_ttc_object `36`, unique_cpa_object `33`, both_distinct_objects `1`,
+  no_fire `22`; among `35` pre-collision-fire ON-collision episodes: unique_cpa_object `19`,
+  unique_ttc_object `16`. Collision-actor identity is not logged in the committed HUGSIM evals:
+  `0/104` actor-supported, `0/92` among ON-collision episodes; eval schemas expose scalar metric
+  keys only (`c`, `dac`, `nc`, `pdms`, `ttc`, plus top-level `hdscore`, `rc`, `details`). No
+  actor-identity, actor-match, safety/transfer/deployment/robustness, benchmark, real-world,
+  monitor-performance, HUGSIM-equivalence, or retuning claim. A later actor-match line needs
+  fresh instrumentation.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1443,3 +1461,15 @@ events to prepare; they are a property the repository always has.
   cpa_only `19`, ttc_only `16`. Published RESULT.md and proof-channel artifacts, updated
   README/NEXT_PHASE/CONTINUITY. No GPU/gcloud/box read and no actor-identity, safety,
   transfer, deployment, robustness, benchmark, or retuning claim.
+- 2026-07-13: Codex — opened and completed iteration 54 as the provenance support audit after
+  iteration 53. Disclosed pre-freeze schema/patch inspections in the HYPOTHESIS (`1ba7663`),
+  added analyzer/tests (`7c5a3fd`, 266 tests green before analysis), then ran the analyzer
+  ONCE over committed iteration-48/49 HUGSIM proof plus the iteration-53 report for
+  cross-checks. Result: `PROVENANCE_SUPPORT_NULL`; pair count matched iteration 53 `104` vs
+  `104`, channel mismatches `0`, timing mismatches `0`; monitor-side first-fire argmins
+  reconstruct cleanly (unique TTC object `40`, unique CPA object `36`, both-distinct `1`,
+  no-fire `27`), but collision actor identity is not logged in any committed HUGSIM eval
+  (`0/104` supported, `0/92` among ON-collision episodes). Published RESULT.md and
+  proof-provenance artifacts, updated README/NEXT_PHASE/CONTINUITY. No GPU/gcloud/box read and
+  no actor-identity, actor-match, safety, transfer, deployment, robustness, benchmark, or
+  retuning claim.

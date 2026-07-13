@@ -4,7 +4,7 @@
 collision it is about to cause, and intervenes — measured where it actually matters: in closed
 loop, by whether the car crashes *and whether it can still drive*.**
 
-> **Honest status up front (53 registered iterations: 37 completed mechanism iterations + an
+> **Honest status up front (54 registered iterations: 37 completed mechanism iterations + an
 > independent verification pass +
 > the full official benchmark at power + a completed iteration-37 calibration null + an
 > iteration-38 opposite-direction S0 canary pass + completed iteration-39/40/41 defensibility
@@ -52,7 +52,11 @@ loop, by whether the car crashes *and whether it can still drive*.**
 > repair story is insufficient — + a completed iteration-53 first-fire channel audit: across
 > the same 92 ON-collision episodes, first-fire channels split as 36 TTC-only, 33 CPA-only,
 > 22 no-fire, and 1 both; the 35 pre-collision-fire collisions split 19 CPA-only / 16
-> TTC-only, so the HUGSIM failure is not one bad union branch):**
+> TTC-only, so the HUGSIM failure is not one bad union branch — + a completed iteration-54
+> provenance support audit: monitor-side first-fire object/path argmins reconstruct cleanly
+> (40 unique TTC objects, 36 unique CPA objects, 1 both-distinct case, 27 no-fire), but HUGSIM
+> collision actor identity is not logged in any of the 104 committed evals, so actor-match claims
+> require new instrumentation):**
 > the introspective signal predicts the planner's collisions (AUROC 0.83). On the
 > complete 14-scene NeuroNCAP set at **20 seed-paired runs per pair** (799 episodes, the power
 > measurement), the unmonitored UniAD baseline **independently reproduces** (pooled 2.12 vs the
@@ -93,7 +97,7 @@ single-digit GPUs.
 
 ## The result
 
-Fifty-three registered iterations — thirty-seven completed mechanism iterations, plus the completed defensibility, robustness, and transfer gates of iterations 39-53 — under frozen pre-registrations converge on one closed-loop configuration — the
+Fifty-four registered iterations — thirty-seven completed mechanism iterations, plus the completed defensibility, robustness, and transfer gates of iterations 39-54 — under frozen pre-registrations converge on one closed-loop configuration — the
 **released union** (two label-free geometric detectors + a threat-cleared latch release) —
 measured on the **complete official 14-scene NeuroNCAP set at 20 seed-paired runs per pair**
 (799 episodes; hypotheses frozen before the run; the first 6 indices of every pair reproduce the
@@ -208,21 +212,22 @@ And the defensibility arc that follows:
 
 ```mermaid
 flowchart LR
-  O38["38 opposite sign<br/>pre-reg only"] --> A39["39 claim audit"]
+  O38["38 opposite<br/>pre-reg"] --> A39["39 claim audit"]
   A39 --> A40["40 timing/cost"]
   A40 --> A41["41 replay null"]
-  A41 --> A42["42 trace replay<br/>identity pass"]
-  A42 --> A43["43 perturbation gate<br/>jitter-fragile"]
-  A43 --> A44["44 smoothing repair<br/>no-repair null"]
-  A44 --> A45["45 HUGSIM infra<br/>lane open"]
-  A45 --> A46["46 OFF baseline<br/>completion null"]
-  A46 --> A47["47 completion pass<br/>52/52 OFF arm"]
-  A47 --> A48["48 transfer gate<br/>TRANSFER_NULL"]
-  A48 --> A49["49 hard tier<br/>TRANSFER_NULL"]
-  A49 --> A50["50 opportunity audit<br/>P1 refuted"]
-  A50 --> A51["51 failure taxonomy<br/>mixed"]
-  A51 --> A52["52 timing<br/>absent/post + pre"]
+  A41 --> A42["42 trace<br/>pass"]
+  A42 --> A43["43 perturb<br/>fragile"]
+  A43 --> A44["44 smoothing<br/>null"]
+  A44 --> A45["45 HUGSIM<br/>open"]
+  A45 --> A46["46 OFF<br/>null"]
+  A46 --> A47["47 completion<br/>pass"]
+  A47 --> A48["48 transfer<br/>null"]
+  A48 --> A49["49 hard<br/>null"]
+  A49 --> A50["50 opportunity<br/>refuted"]
+  A50 --> A51["51 taxonomy<br/>mixed"]
+  A51 --> A52["52 timing<br/>split"]
   A52 --> A53["53 channels<br/>split"]
+  A53 --> A54["54 prov support<br/>null"]
   classDef ask fill:#ffe,stroke:#a70,color:#111;
   classDef audit fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
   classDef win fill:#efe,stroke:#080,color:#111;
@@ -231,7 +236,7 @@ flowchart LR
   class A39,A40,A41 audit;
   class A42,A45,A47 win;
   class A43,A44,A46,A48,A49 bad;
-  class A50,A51,A52,A53 audit;
+  class A50,A51,A52,A53,A54 audit;
 ```
 
 The winning monitor is a **union of two individually-selective detectors**, chosen because the two
@@ -354,6 +359,7 @@ step; they are intentional stops, not hidden probe failures or unreported GPU ru
 | 51 | **HUGSIM transfer-failure taxonomy** — offline post-result audit over committed iteration-48/49 HUGSIM proof only: classify each paired episode by OFF collision opportunity, ON collision persistence/conversion, ON brake timing proxy, and descriptive HD materiality; zero GPU/gcloud/box reads and no retuning | 104 paired HUGSIM transfer episodes; primary categories frozen before the analyzer ran; `MATERIAL_HD_BAR = 0.03` descriptive only; dominance label requires one category to cover at least 40% of OFF-opportunity pairs | infrastructure all-pass: transfer means reproduced exactly; P1 cross-check matched `51` recomputed vs `51` recorded; combined counts: persistent late-by-proxy `34`, persistent early-by-proxy `33`, persistent no-brake `18`, induced collision `7`, clean no-opportunity `6`, converted no-material-gain `4`, converted material-gain `2`; combined largest category `34/91 = 0.374`, below the dominance bar | **`TAXONOMY_COMPLETE` — mixed taxonomy, not a single-cause failure; only `6/91` OFF-opportunity pairs convert, and only `2` conversions clear the descriptive material-gain deadband** | hard/extreme is the sharpest boundary: `51/52` opportunity pairs, `0/52` conversions, all opportunity pairs persistent; AttackPlanner scenarios lean late-by-proxy (`15/30`), non-AttackPlanner hard/extreme scenarios lean early-by-proxy (`10/21`); no safety/transfer/deployment/robustness claim, and the timing labels are descriptive proxies only. [`iter51_hugsim_failure_taxonomy`](experiments/iter51_hugsim_failure_taxonomy/RESULT.md) |
 | 52 | **HUGSIM ON-collision timing audit** — offline post-result audit over committed iteration-48/49 HUGSIM proof only: for ON-collision episodes, compare first ON collision time, first brake time, and frozen TTC/CPA surface-proxy entry; disclosed prototype counts, no inferential surprise claim | 92 ON-collision episodes out of 104 paired transfer episodes; timing bins: unknown, no-brake/no-surface-proxy, no-brake/surface-proxy-present, post-collision first brake, short-lead brake, long-lead brake; surface proxy = `min_ttc <= 2.5` and `min_cpa <= 1.5` | infrastructure all-pass: pair count and ON-collision count cross-checked against iteration 51 (`104`, `92`); combined bins: post-collision first brake `35`, long-lead brake `26`, no-brake/no-surface-proxy `22`, short-lead brake `9`, no-brake/surface-proxy-present `0`, unknown `0`; family split absent/post `57`, pre-collision brake `35` | **`TIMING_AUDIT_COMPLETE` — absent/post-collision braking is larger than pre-collision braking, but 35 pre-collision-brake collisions (26 long-lead) make a pure brake-earlier repair story insufficient** | all 22 no-brake ON-collision cases had zero frozen TTC/CPA surface-proxy rows, so they are surface-miss by this scalar proxy; hard/extreme remains sharp (`52/52` ON collisions, absent/post `33`, pre `19`); no actor-identity, safety, transfer, robustness, deployment, or retuning claim. [`iter52_hugsim_on_collision_timing_audit`](experiments/iter52_hugsim_on_collision_timing_audit/RESULT.md) |
 | 53 | **HUGSIM first-fire channel audit** — offline post-result audit over committed iteration-48/49 HUGSIM proof only: reconstruct the released union's first fired row as TTC-only, CPA-only, both, no-fire, or unreconstructable; disclosed pre-freeze patch/prototype inspections, no inferential surprise claim | 104 paired HUGSIM transfer episodes; 92 ON-collision episodes; first-fire channel = actual OR predicate side on the first fired decision row | infrastructure all-pass: pair count matched iteration 52 (`104` vs `104`), timing-bin mismatches `0`, unreconstructable first-fire channels `0`; ON-collision first-fire channels: TTC-only `36`, CPA-only `33`, no-fire `22`, both `1`; pre-collision-fire ON collisions: CPA-only `19`, TTC-only `16`, both/no-fire `0` | **`FIRST_FIRE_CHANNEL_COMPLETE` — the pre-collision-fire persistent cases split across both sides of the union, so the HUGSIM failure is not one bad branch** | the stricter simultaneous TTC/CPA surface proxy from iteration 52 was too strict to describe the actual OR predicate, but reconstructing the OR does not rescue the transfer null; next mature line is object/path geometry and provenance, not threshold retuning. [`iter53_hugsim_first_fire_channel_audit`](experiments/iter53_hugsim_first_fire_channel_audit/RESULT.md) |
+| 54 | **HUGSIM provenance support audit** — offline support audit over committed iteration-48/49 HUGSIM proof only: reconstruct first-fire monitor argmin object/path provenance, then check whether HUGSIM eval artifacts log collision actor identity; disclosed schema/patch inspections, no inferential surprise claim | 104 paired HUGSIM ON episodes; 92 ON-collision episodes; iteration-53 report used only for pair/channel/timing cross-checks | infrastructure all-pass: pair count matched iteration 53 (`104` vs `104`), channel mismatches `0`, timing mismatches `0`; monitor-side provenance reconstructs cleanly: unique TTC object `40`, unique CPA object `36`, both-distinct objects `1`, no-fire `27`, reconstruction failures `0`; collision actor support `0/104` | **`PROVENANCE_SUPPORT_NULL` — committed logs support monitor-hazard reconstruction but not actor matching, because HUGSIM collision actor identity is not logged** | the next credible HUGSIM run needs collision actor/contact/proximity instrumentation before any actor-match claim; no safety, transfer, deployment, benchmark, actor-identity, or retuning claim. [`iter54_hugsim_provenance_support_audit`](experiments/iter54_hugsim_provenance_support_audit/RESULT.md) |
 
 > **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
 > and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
@@ -556,7 +562,11 @@ pre-collision braking, including `26` long-lead cases that still collided; every
 case also had zero frozen TTC/CPA surface-proxy rows. Iteration 53 then reconstructed the
 actual first-fire side of the released OR predicate: ON-collision first fires split as
 TTC-only `36`, CPA-only `33`, no-fire `22`, both `1`, and the pre-collision-fire subset split
-CPA-only `19` / TTC-only `16`, so the failure is not one bad union branch. Successors now require fresh
+CPA-only `19` / TTC-only `16`, so the failure is not one bad union branch. Iteration 54 then
+audited provenance support: monitor-side first-fire argmins reconstruct cleanly (unique TTC
+object `40`, unique CPA object `36`, both-distinct `1`, no-fire `27`), but HUGSIM collision
+actor identity is not logged in any committed eval (`0/104` supported), so actor matching
+requires new instrumentation. Successors now require fresh
 pre-registrations. The
 published RealADSim closed-loop anchor range remains loose context only —
 it supports no performance statement:
@@ -813,7 +823,8 @@ opportunity density does not rescue the frozen released union, and iteration 51 
 that failure as mixed collision persistence rather than a single retunable cause, with
 iteration 52 splitting ON-collision persistence into absent/post braking and pre-collision
 braking, and iteration 53 showing that pre-collision first fires split across CPA-only and
-TTC-only channels), then the
+TTC-only channels, and iteration 54 proving actor-match evidence is not present in committed
+HUGSIM evals), then the
 deployment-flip successor; these rank ahead of any new intervention iteration, and the
 linear-steering mechanism line is closed
 ([docs/research/INTERVENTION_MECHANISM_VERDICT_2026-07-11.md](docs/research/INTERVENTION_MECHANISM_VERDICT_2026-07-11.md)).
@@ -961,6 +972,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter51_hugsim_failure_taxonomy/`](experiments/iter51_hugsim_failure_taxonomy) | HUGSIM transfer-failure taxonomy — TAXONOMY_COMPLETE: 104 committed transfer pairs classified offline; only 6/91 OFF-opportunity pairs converted, 85/104 remained collision-persistent, and the combined taxonomy is mixed rather than a single-cause failure |
 | [`experiments/iter52_hugsim_on_collision_timing_audit/`](experiments/iter52_hugsim_on_collision_timing_audit) | HUGSIM ON-collision timing audit — TIMING_AUDIT_COMPLETE: 92 ON-collision episodes decomposed into absent/post braking vs pre-collision braking; no-brake cases all missed the frozen TTC/CPA surface proxy, but 26 long-lead brake cases still collided |
 | [`experiments/iter53_hugsim_first_fire_channel_audit/`](experiments/iter53_hugsim_first_fire_channel_audit) | HUGSIM first-fire channel audit — FIRST_FIRE_CHANNEL_COMPLETE: ON-collision first-fire channels split TTC-only 36, CPA-only 33, no-fire 22, both 1; pre-collision-fire persistent cases split CPA-only 19 / TTC-only 16, so no single union branch explains the transfer failure |
+| [`experiments/iter54_hugsim_provenance_support_audit/`](experiments/iter54_hugsim_provenance_support_audit) | HUGSIM provenance support audit — PROVENANCE_SUPPORT_NULL: monitor first-fire argmins reconstruct from committed logs, but collision actor identity is not logged in HUGSIM evals, so actor matching requires new instrumentation |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/FRONTIER_POSITIONING_2026-07-11.md`](docs/research/FRONTIER_POSITIONING_2026-07-11.md) | source-verified mid-2026 benchmark/monitor/industry positioning; the binding 2.91-is-not-benchmark-SOTA framing rule |

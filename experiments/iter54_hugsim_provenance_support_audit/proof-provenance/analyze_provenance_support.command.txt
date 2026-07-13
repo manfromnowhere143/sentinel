@@ -1,0 +1,6 @@
+python3 experiments/iter54_hugsim_provenance_support_audit/analyze_provenance_support.py \
+  --iter48-episodes experiments/iter48_hugsim_transfer_gate/proof-stage2/episodes \
+  --iter49-episodes experiments/iter49_hugsim_hard_tier_gate/proof-hard/episodes \
+  --iter53-report experiments/iter53_hugsim_first_fire_channel_audit/proof-channel/first_fire_channel_report.json \
+  --out experiments/iter54_hugsim_provenance_support_audit/proof-provenance/provenance_support_report.json \
+  --markdown-out experiments/iter54_hugsim_provenance_support_audit/proof-provenance/provenance_support_pairs.md

@@ -387,12 +387,17 @@ TTC-only `36`, CPA-only `33`, no-fire `22`, and both `1`; among the `35` pre-col
 ON-collision episodes the split was CPA-only `19` / TTC-only `16`. The stricter simultaneous
 TTC+CPA proxy from iteration 52 was too strict to describe the actual OR predicate, but
 reconstructing the OR showed that the persistent failures are not one bad union branch.
+Iteration 54 then audited provenance support. The monitor side is reconstructable from committed
+decision logs: first-fire argmins resolve to unique TTC objects `40` times, unique CPA objects
+`36` times, one both-distinct case, and `27` no-fire episodes, with zero reconstruction failures.
+But HUGSIM collision actor identity is not logged in any of the `104` committed eval artifacts
+(`0/104` actor-supported; top-level eval keys are scalar metrics plus `details`, and detail keys
+are `c`, `dac`, `nc`, `pdms`, `ttc`). The result is `PROVENANCE_SUPPORT_NULL`.
 
-The default next scientific line is therefore a fresh mechanism-cause audit, not an expanded-N
-transfer run and not retuning the released union. After iteration 53, the strongest successor is
-object/path geometry and provenance: identify which detected object/path pair fired the monitor,
-which object or condition produced the HUGSIM collision, and whether those are the same hazard.
-A strong successor should distinguish among:
+The default next scientific line is therefore not an expanded-N transfer run and not retuning the
+released union. After iteration 54, any true actor-match successor requires new instrumentation
+first: log collision actor/object identity, simulator contact state, or enough per-step proximity
+state to bind the HUGSIM `nc` drop to an actor. A strong successor should distinguish among:
 
 1. hazard surface: whether the monitor is braking for the wrong detected object or wrong path
    crossing geometry;
@@ -408,7 +413,9 @@ Pure "brake earlier" is no longer the default next hypothesis because iteration 
 successor must specifically explain why those pre-collision-brake cases still collide, not merely
 move the first brake earlier. Pure "fix the TTC branch" or "fix the CPA branch" is also no longer
 the default next hypothesis because iteration 53 found the pre-collision-fire failures split
-across both channels.
+across both channels. A pure offline "which actor did we hit?" audit is also not authorized from
+the current proof, because iteration 54 found that collision actor identity is not present in the
+committed eval artifacts.
 
 Any such line requires a fresh `HYPOTHESIS.md`. Until then, no new HUGSIM transfer, safety,
 robustness, deployment, benchmark-ranking, or retuning claim is authorized.
