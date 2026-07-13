@@ -1,0 +1,43 @@
+{
+  "addition_count": 84,
+  "audit": "hugsim_patch_guard_refinement",
+  "changed_files": [
+    "sim/utils/score_calculator.py"
+  ],
+  "claim_boundary": "refined static guard only; no HUGSIM run, metric execution, actor-match, safety, transfer, deployment, benchmark, or retuning claim",
+  "compile": {
+    "compile_failures": [],
+    "compiled_python_files": [
+      "sim/utils/score_calculator.py"
+    ],
+    "python_compile_passed": true
+  },
+  "iteration": 57,
+  "labels": {
+    "changed_files_allowed": true,
+    "control_call_guard_passed": true,
+    "metric_assignment_guard_passed": true,
+    "patch_applies_cleanly": true,
+    "patch_sha_match": true,
+    "python_compile_passed": true,
+    "refined_guard_supported": true,
+    "required_provenance_fields_present": true,
+    "score_list_guard_passed": true,
+    "source_sha_match": true
+  },
+  "patch_identity": {
+    "expected_sha256": "49eee7611e4b881d2bb6233e8767913019c6a097c6883762414005d5b2284ecd",
+    "sha256": "49eee7611e4b881d2bb6233e8767913019c6a097c6883762414005d5b2284ecd",
+    "sha_matches_expected": true
+  },
+  "patch_path": "/Users/danielwahnich/workspace/sentinel/experiments/iter56_hugsim_provenance_instrumentation_patch/proof-patch/hugsim_provenance_instrumentation.patch",
+  "problems": [],
+  "removal_count": 1,
+  "repository_identity": {
+    "expected_sha": "62c690d39fd90020e68a196bd8bcc1c4d4191f2e",
+    "head": "62c690d39fd90020e68a196bd8bcc1c4d4191f2e",
+    "sha_matches_expected": true
+  },
+  "source_root": "/private/tmp/sentinel-iter55-hugsim-source-20260713/HUGSIM",
+  "verdict": "PATCH_GUARD_REFINEMENT_COMPLETE"
+}

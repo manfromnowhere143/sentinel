@@ -403,14 +403,19 @@ Iteration 56 then attempted that first patch-design gate. The draft patch applie
 temporary frozen checkout and `sim/utils/score_calculator.py` compiled, but the pre-registered
 static guard rejected the added `if score_nc == 0.0:` branch as metric/control-sensitive. The
 result is `INSTRUMENTATION_PATCH_DESIGN_NULL`. The draft patch is not authorized for a run.
+Iteration 57 then bound the same patch by SHA256
+`49eee7611e4b881d2bb6233e8767913019c6a097c6883762414005d5b2284ecd` and refined the guard to
+reject metric/control assignments while permitting read-only score comparisons. The result is
+`PATCH_GUARD_REFINEMENT_COMPLETE`: the byte-identical patch applies, compiles, stays within the
+allowed changed file, keeps provenance out of scalar `score_list` rows, and is statically
+supported as additive by source diff inspection.
 
 The default next scientific line is therefore not an expanded-N transfer run and not retuning the
-released union. After iteration 56, any true actor-match successor requires a fresh
-guard/patch pre-registration first: either narrow the static verifier so it distinguishes
-read-only branching on an existing score variable from metric assignment changes, or draft a
-different patch shape that avoids the frozen guard pattern entirely. The successor still must
-prove that `nc`, HD-Score, scenario selection, Sentinel thresholds, and planner behavior are
-unchanged before any HUGSIM run. A strong successor should distinguish among:
+released union. After iteration 57, any true actor-match successor requires a fresh
+instrumented-run pre-registration first. That successor must apply the byte-bound patch under a
+receipt, prove that `nc`, HD-Score, scenario selection, Sentinel thresholds, and planner behavior
+are unchanged as far as the run envelope can prove, and only then inspect the new provenance
+sidecar. A strong successor should distinguish among:
 
 1. hazard surface: whether the monitor is braking for the wrong detected object or wrong path
    crossing geometry;
@@ -430,7 +435,8 @@ across both channels. A pure offline "which actor did we hit?" audit is also not
 the current proof, because iteration 54 found that collision actor identity is not present in the
 committed eval artifacts. Iteration 55 removes the source-location blocker only; it does not
 retroactively add actor identity to any committed HUGSIM result. Iteration 56 did not remove the
-patch-authorization blocker because the static guard returned null.
+patch-authorization blocker because the static guard returned null. Iteration 57 removed only that
+static guard blocker; it still did not run HUGSIM or prove execution-time metric invariance.
 
 Any such line requires a fresh `HYPOTHESIS.md`. Until then, no new HUGSIM transfer, safety,
 robustness, deployment, benchmark-ranking, or retuning claim is authorized.

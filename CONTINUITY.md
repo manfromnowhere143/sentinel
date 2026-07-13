@@ -391,6 +391,16 @@ events to prepare; they are a property the repository always has.
   as metric/control-sensitive. No patch is authorized for a run. No GPU, gcloud, simulator,
   planner process, actor attribution, actor-match, safety/transfer/deployment/robustness,
   benchmark, real-world, HD-Score-execution, or retuning claim.
+- Iteration 57 concluded:
+  experiments/iter57_hugsim_patch_guard_refinement/RESULT.md, published as
+  `PATCH_GUARD_REFINEMENT_COMPLETE` — a refined static verifier over the byte-identical iteration
+  56 patch SHA256 `49eee7611e4b881d2bb6233e8767913019c6a097c6883762414005d5b2284ecd`.
+  The verifier confirmed patch SHA match, source SHA match, clean patch application, allowed
+  changed file, required provenance fields, no metric/control assignment changes, no control-call
+  changes, no provenance inside scalar `score_list` rows, and Python compile. No HUGSIM run,
+  metric execution, actor attribution, actor-match, safety/transfer/deployment/robustness,
+  benchmark, real-world, HD-Score-invariance, or retuning claim. Any run still needs a fresh
+  pre-registration.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1516,3 +1526,12 @@ events to prepare; they are a property the repository always has.
   README/NEXT_PHASE/CONTINUITY. No GPU/gcloud/simulator/box read, no HUGSIM run, no patch
   authorization, no actor attribution, no safety/transfer/deployment/robustness/benchmark, and
   no retuning claim.
+- 2026-07-13: Codex — continued into iteration 57 as the patch guard-refinement successor to the
+  iteration-56 null. Pre-registered ALONE (`ce852b3`) with the Iter56 patch SHA bound, added the
+  refined verifier/tests (`e2bc0c0`, 279 tests green before proof), then ran the verifier ONCE.
+  Result: `PATCH_GUARD_REFINEMENT_COMPLETE`; byte-identical patch SHA matched, source SHA matched,
+  patch applied cleanly, `sim/utils/score_calculator.py` compiled, and refined guards passed for
+  metric assignments, control calls, and scalar `score_list` isolation. Published RESULT.md and
+  proof-refined artifacts, updated README/NEXT_PHASE/CONTINUITY. No GPU/gcloud/simulator/box read,
+  no HUGSIM run, no actor attribution, no safety/transfer/deployment/robustness/benchmark, and no
+  retuning claim.
