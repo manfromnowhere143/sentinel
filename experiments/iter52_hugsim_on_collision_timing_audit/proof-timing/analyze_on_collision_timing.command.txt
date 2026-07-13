@@ -1,0 +1,6 @@
+python3 experiments/iter52_hugsim_on_collision_timing_audit/analyze_on_collision_timing.py \
+  --iter48-episodes experiments/iter48_hugsim_transfer_gate/proof-stage2/episodes \
+  --iter49-episodes experiments/iter49_hugsim_hard_tier_gate/proof-hard/episodes \
+  --iter51-report experiments/iter51_hugsim_failure_taxonomy/proof-taxonomy/failure_taxonomy_report.json \
+  --out experiments/iter52_hugsim_on_collision_timing_audit/proof-timing/on_collision_timing_report.json \
+  --markdown-out experiments/iter52_hugsim_on_collision_timing_audit/proof-timing/on_collision_timing_pairs.md

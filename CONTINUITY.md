@@ -315,6 +315,25 @@ events to prepare; they are a property the repository always has.
   robustness claim; timing labels are descriptive proxies only because OFF/ON HUGSIM
   trajectories are stochastic. Next mature line is a fresh mechanism-cause audit, not
   retuning or an expanded-N transfer run by default.
+- Iteration 52 concluded:
+  experiments/iter52_hugsim_on_collision_timing_audit/RESULT.md, published as
+  `TIMING_AUDIT_COMPLETE` — an offline post-result timing audit over committed iteration
+  48/49 HUGSIM proof only (zero GPU, zero gcloud, zero box reads), with a pre-freeze
+  prototype timing probe disclosed in the HYPOTHESIS rather than hidden. Analyzer/tests
+  committed separately (`b1721ca`) and run ONCE over committed artifacts. Infrastructure
+  passed: 104 pairs read and ON-collision count cross-checked against iteration 51 exactly
+  (`92` vs `92`). Combined ON-collision timing bins: post_collision_first_brake `35`,
+  long_lead_brake `26`, no_brake_no_surface_proxy `22`, short_lead_brake `9`,
+  no_brake_surface_proxy_present `0`, unknown_collision_time `0`. Family split:
+  absent_or_post_collision_brake `57/92`, pre_collision_brake `35/92`. Dataset split:
+  iter48 ON collisions `40` (absent/post `24`, pre `16`); iter49 ON collisions `52`
+  (absent/post `33`, pre `19`). All 22 no-brake ON-collision cases had zero frozen
+  TTC/CPA surface-proxy rows (`min_ttc <= 2.5` and `min_cpa <= 1.5` never simultaneous),
+  so they are surface misses by this scalar proxy. But `35/92` ON-collision cases braked
+  before collision, including `26` long-lead cases, so pure "brake earlier" is insufficient
+  as the default repair story. No actor-identity, safety/transfer/deployment/robustness,
+  benchmark, real-world, monitor-performance, or retuning claim; the TTC/CPA surface is a
+  scalar proxy and not the full firing predicate.
 - Iteration 19 concluded: the diversity head's offline gate FAILED D1 at 0/37 feasible
   escapes (D3 passed) — the pre-registered falsifier fired; the collapse is located in the
   planner's internal planning representation (experiments/iter19_diversity_head/RESULT.md).
@@ -1389,3 +1408,12 @@ events to prepare; they are a property the repository always has.
   converted and 85/104 pairs collision-persistent. Published RESULT.md and proof-taxonomy
   artifacts, updated README and this continuity record. No GPU/gcloud/box read and no new
   safety, transfer, deployment, robustness, or benchmark claim.
+- 2026-07-13: Codex — opened and completed iteration 52 as the next mechanism-cause audit.
+  Disclosed the pre-freeze prototype timing probe in the HYPOTHESIS (`48a37e1`), added
+  analyzer/tests (`b1721ca`, 244 tests green before analysis), then ran the analyzer ONCE
+  over committed iteration-48/49/51 proof. Result: `TIMING_AUDIT_COMPLETE`; 92 ON-collision
+  episodes cross-checked exactly against iter51; bins = post-collision first brake 35,
+  long-lead brake 26, no-brake/no-surface-proxy 22, short-lead brake 9, no-brake/surface
+  present 0. Published RESULT.md and proof-timing artifacts, updated README/NEXT_PHASE/
+  CONTINUITY. No GPU/gcloud/box read and no actor-identity, safety, transfer, deployment,
+  robustness, benchmark, or retuning claim.

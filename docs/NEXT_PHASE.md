@@ -378,20 +378,27 @@ collides, but HUGSIM had abundant opportunity and the benefit did not port. Iter
 classified the committed HUGSIM transfer pairs offline and found a mixed taxonomy: only `6/91`
 OFF-opportunity pairs converted from collision to no collision, `85/104` pairs remained
 collision-persistent, and no combined category crossed the frozen 40% dominance bar.
+Iteration 52 then tightened the timing side of that mechanism story: among `92` ON-collision
+episodes, `57` were absent/post-collision braking and `35` had pre-collision braking; all `22`
+no-brake ON-collision cases had zero frozen TTC/CPA surface-proxy rows, but `26` long-lead
+brake cases still collided.
 
 The default next scientific line is therefore a fresh mechanism-cause audit, not an expanded-N
 transfer run and not retuning the released union. A strong successor should distinguish among:
 
-1. timing: whether late-by-proxy cases are true insufficient lead time or only stochastic
-   trajectory mismatch;
-2. hazard surface: whether the monitor is braking for the wrong detected object or wrong path
+1. hazard surface: whether the monitor is braking for the wrong detected object or wrong path
    crossing geometry;
-3. planner/path geometry: whether HUGSIM collisions arise from executed-plan modes the stop rule
+2. planner/path geometry: whether HUGSIM collisions arise from executed-plan modes the stop rule
    cannot change;
-4. metric composition: whether HD-Score changes are dominated by non-collision terms even when a
+3. metric composition: whether HD-Score changes are dominated by non-collision terms even when a
    collision is converted;
-5. AttackPlanner structure: why hard/extreme adversarial scenes lean late-by-proxy while the
-   non-AttackPlanner hard/extreme subset leans early-by-proxy.
+4. AttackPlanner structure: why hard/extreme adversarial scenes have many absent/post cases
+   while a substantial pre-collision-brake subset still persists.
+
+Pure "brake earlier" is no longer the default next hypothesis because iteration 52 found
+`35/92` ON-collision cases with pre-collision braking, including `26` long-lead cases. Any timing
+successor must specifically explain why those pre-collision-brake cases still collide, not merely
+move the first brake earlier.
 
 Any such line requires a fresh `HYPOTHESIS.md`. Until then, no new HUGSIM transfer, safety,
 robustness, deployment, benchmark-ranking, or retuning claim is authorized.
