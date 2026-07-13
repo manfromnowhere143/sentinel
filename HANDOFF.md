@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Mon Jul 13 15:44:19 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Mon Jul 13 15:53:32 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+03ece8c iter87: publish interval bridge time replay
+37e21d1 iter87: add interval bridge time replay tooling
+d7aeb22 iter87: preregister interval bridge time replay
+5f2f27e handoff: record iter86 bridge time state
 5358191 iter86: publish bridge time surface replay block
 f3866ba iter86: add bridge time surface replay tooling
 832ffe5 iter86: preregister bridge time surface replay
 1128a73 handoff: record iter85 timing state
-f9bb68d iter85: publish path horizon timing split
-2f43d57 iter85: add path horizon timing tooling
-91900b5 iter85: preregister path horizon timing split
-5431d0a docs: add frontier alignment memory capsule
 ```
 Working tree: CLEAN
 
@@ -103,6 +103,7 @@ Working tree: CLEAN
 - experiments/iter84_hugsim_selected_support_arbitration: RESULT PUBLISHED
 - experiments/iter85_hugsim_path_horizon_bridge_timing: RESULT PUBLISHED
 - experiments/iter86_hugsim_bridge_time_surface_replay: RESULT PUBLISHED
+- experiments/iter87_hugsim_interval_bridge_time_surface_replay: RESULT PUBLISHED
 - experiments/iter8_union: RESULT PUBLISHED
 - experiments/iter9_evade: RESULT PUBLISHED
 - experiments/union_validation: RESULT PUBLISHED
@@ -112,7 +113,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 15:45:26 up 9 days,  5:26,  0 users,  load average: 0.00, 0.00, 0.00
+ 15:54:40 up 9 days,  5:35,  0 users,  load average: 0.00, 0.00, 0.00
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-iter59-actor-match.log
@@ -124,7 +125,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter86_hugsim_bridge_time_surface_replay/RESULT.md — read it before opening new work.
+- Newest completed experiment: experiments/iter87_hugsim_interval_bridge_time_surface_replay/RESULT.md — read it before opening new work.
 - Newest pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
