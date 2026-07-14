@@ -1,0 +1,37 @@
+{
+ "captured_at_utc": "2026-07-14",
+ "host": "sentinel-gpu",
+ "zone": "us-west1-a",
+ "machine_type": "g2-standard-8",
+ "gpu": "NVIDIA L4",
+ "nvidia_driver": "580.159.03",
+ "kernel": "6.8.0-1060-gcp",
+ "disk_root_avail": "42G",
+ "swap_active": "/swapfile 8G",
+ "swap_persisted_fstab": true,
+ "swap_note": "8 GB swapfile is the recorded fix for the memory-exhaustion freezes that cost the power run five host freezes and forced off/side-0921 to n=19. It was active but absent from /etc/fstab; persisted 2026-07-14 before this iteration, so a stop/start cannot silently reintroduce the freeze.",
+ "docker_image_ids": {
+  "uniad:latest": "sha256:f73ef38840631211983ea0dde0cf1ecdfa6dbc84ef6cd0bfb900427da6d601cb",
+  "ncap:latest": "sha256:c7ffab2e73d3896b1a6cdfbcd2db0910c250a9cbf078cc61a4b43baa6f6d92ce",
+  "neurad:latest": "sha256:4b36caf2054d37b4febeddeae08b310f906ec632fec4095b5dc4497323433e5c"
+ },
+ "uniad_checkpoint_path": "/opt/sentinel-stack/UniAD/ckpts/uniad_base_e2e.pth",
+ "uniad_checkpoint_sha256": "0ad0c2f5dc9788a41c313305779ea49346aeb742d1f6bb5ad25c46f9beffc990",
+ "uniad_checkpoint_bytes": 996345538,
+ "uniad_git_head": "4827b8be0823e90862caa75d9d146b2ae800b72f",
+ "ncap_git_head": "ecdcf284e2b7b83c537f3292a06c0adddff55811",
+ "uniad_track_py_sha256": "905dcbc652eb526b0cd7fd2a51534cfcdefdd293ca8417b37091c825e61aa3b8",
+ "uniad_track_py_note": "projects/mmdet3d_plugin/uniad/detectors/uniad_track.py carries the recorded CPU-fallback shim for the cuSOLVER failure on L4 sm_89 (iteration 1 blocker insight 8). It is load-bearing, it is NOT reset by the launcher, and it is pinned here so the iteration-134 G2 exact-reproduction gate is interpretable against the committed power-run evidence.",
+ "uniad_modified_tracked_paths": [
+  " M inference/server.py",
+  " M projects/mmdet3d_plugin/uniad/detectors/uniad_track.py"
+ ],
+ "uniad_server_py_note": "inference/server.py is dirty from a prior iteration (mtime 2026-07-11, iteration-42 era). The launcher runs 'git checkout -- inference/runner.py inference/server.py' before applying each arm's patch, so this stale state cannot reach any episode.",
+ "box_quiescence_check": {
+  "logged_in_users": 0,
+  "running_containers": 0,
+  "root_crontab": "none",
+  "sentinel_processes": 0,
+  "note": "verified immediately before launch: no parallel session, no scheduled job, and no container can contend for the GPU or mutate the stack mid-run"
+ }
+}
