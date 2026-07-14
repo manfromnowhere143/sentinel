@@ -1,0 +1,1659 @@
+{
+  "claim_boundary": "offline support-preserving candidate design only; no actor-causality, actor-match support upgrade, repair, threshold-value, transfer, safety, deployment, robustness, benchmark, population-rate, HD-Score-invariance, real-world behavior, first-responder behavior, acquisition-value, retuning, production, commercial, schedule-selection, launch-manifest, or GPU-approval claim",
+  "event": {
+    "measurements": {
+      "fallback_pressure_rows": [
+        {
+          "brake_frames": 11,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "ttc_residual_risk_probe",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "short_lead_fire",
+          "fired_frames": 7,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 0.25,
+          "first_fire_ts": 6.25,
+          "first_on_nc_time": 6.5,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 1,
+          "scenario": "scene-0062-extreme-00",
+          "scenario_nonclassifiable_sources": [
+            "iter59:no_monitor_fire"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "extreme"
+        },
+        {
+          "brake_frames": 15,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "ttc_residual_risk_probe",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "short_lead_fire",
+          "fired_frames": 10,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 0.0,
+          "first_fire_ts": 3.25,
+          "first_on_nc_time": 3.25,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 2,
+          "scenario": "scene-0071-extreme-00",
+          "scenario_nonclassifiable_sources": [
+            "iter109:observed_post_collision_fire"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "extreme"
+        },
+        {
+          "brake_frames": 71,
+          "dataset": "iter48_easy_medium",
+          "design_label": "ttc_residual_risk_probe",
+          "exact_nonclassifiable_sources": [
+            "iter109:observed_post_collision_fire"
+          ],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 30,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 27.0,
+          "first_fire_ts": 10.75,
+          "first_on_nc_time": 37.75,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 1,
+          "scenario": "scene-0138-medium-01",
+          "scenario_nonclassifiable_sources": [
+            "iter109:observed_post_collision_fire",
+            "iter109:observed_post_collision_fire"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "medium"
+        },
+        {
+          "brake_frames": 51,
+          "dataset": "iter48_easy_medium",
+          "design_label": "ttc_residual_risk_probe",
+          "exact_nonclassifiable_sources": [
+            "iter109:observed_post_collision_fire"
+          ],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 20,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 18.0,
+          "first_fire_ts": 13.5,
+          "first_on_nc_time": 31.5,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 2,
+          "scenario": "scene-0138-medium-01",
+          "scenario_nonclassifiable_sources": [
+            "iter109:observed_post_collision_fire",
+            "iter109:observed_post_collision_fire"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "medium"
+        },
+        {
+          "brake_frames": 8,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "ttc_residual_risk_probe",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 2,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 16.75,
+          "first_fire_ts": 9.75,
+          "first_on_nc_time": 26.5,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 2,
+          "scenario": "scene-0062-hard-00",
+          "scenario_nonclassifiable_sources": [
+            "iter104:background_collision_only"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "hard"
+        },
+        {
+          "brake_frames": 18,
+          "dataset": "iter48_easy_medium",
+          "design_label": "ttc_residual_risk_probe",
+          "exact_nonclassifiable_sources": [
+            "iter109:observed_background_only"
+          ],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 6,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 5.5,
+          "first_fire_ts": 2.75,
+          "first_on_nc_time": 8.25,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 2,
+          "scenario": "scene-0071-easy-00",
+          "scenario_nonclassifiable_sources": [
+            "iter109:observed_background_only"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "easy"
+        },
+        {
+          "brake_frames": 18,
+          "dataset": "iter48_easy_medium",
+          "design_label": "ttc_residual_risk_probe",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 6,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 2.25,
+          "first_fire_ts": 4.25,
+          "first_on_nc_time": 6.5,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 1,
+          "scenario": "scene-0071-easy-00",
+          "scenario_nonclassifiable_sources": [
+            "iter109:observed_background_only"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "easy"
+        },
+        {
+          "brake_frames": 5,
+          "dataset": "iter48_easy_medium",
+          "design_label": "ttc_residual_risk_probe",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 2,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 1.75,
+          "first_fire_ts": 2.0,
+          "first_on_nc_time": 3.75,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 1,
+          "scenario": "scene-0071-medium-01",
+          "scenario_nonclassifiable_sources": [
+            "iter59:post_collision_fire"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "medium"
+        },
+        {
+          "brake_frames": 9,
+          "dataset": "iter48_easy_medium",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "short_lead_fire",
+          "fired_frames": 4,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 0.0,
+          "first_fire_ts": 8.25,
+          "first_on_nc_time": 8.25,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 2,
+          "scenario": "scene-0064-medium-00",
+          "scenario_nonclassifiable_sources": [],
+          "scenario_positive_sources": [],
+          "tier": "medium"
+        },
+        {
+          "brake_frames": 7,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "short_lead_fire",
+          "fired_frames": 2,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 0.0,
+          "first_fire_ts": 5.25,
+          "first_on_nc_time": 5.25,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 2,
+          "scenario": "scene-0138-extreme-00",
+          "scenario_nonclassifiable_sources": [
+            "iter104:post_collision_fire",
+            "iter59:post_collision_fire"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "extreme"
+        },
+        {
+          "brake_frames": 12,
+          "dataset": "iter48_easy_medium",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [
+            "iter109:observed_empty_collision_provenance"
+          ],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 3,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 14.5,
+          "first_fire_ts": 0.5,
+          "first_on_nc_time": 15.0,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 2,
+          "scenario": "scene-0166-easy-00",
+          "scenario_nonclassifiable_sources": [
+            "iter109:observed_empty_collision_provenance"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "easy"
+        },
+        {
+          "brake_frames": 37,
+          "dataset": "iter48_easy_medium",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [
+            "iter109:observed_background_only"
+          ],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 16,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 13.0,
+          "first_fire_ts": 1.25,
+          "first_on_nc_time": 14.25,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 2,
+          "scenario": "scene-0166-medium-01",
+          "scenario_nonclassifiable_sources": [
+            "iter109:observed_background_only"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "medium"
+        },
+        {
+          "brake_frames": 12,
+          "dataset": "iter48_easy_medium",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [
+            "iter109:observed_background_only"
+          ],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 5,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 9.75,
+          "first_fire_ts": 8.0,
+          "first_on_nc_time": 17.75,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 2,
+          "scenario": "scene-0064-easy-00",
+          "scenario_nonclassifiable_sources": [
+            "iter109:observed_background_only"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "easy"
+        },
+        {
+          "brake_frames": 46,
+          "dataset": "iter48_easy_medium",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [
+            "iter104:background_collision_only"
+          ],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 17,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 6.25,
+          "first_fire_ts": 9.75,
+          "first_on_nc_time": 16.0,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 1,
+          "scenario": "scene-0038-medium-01",
+          "scenario_nonclassifiable_sources": [
+            "iter104:background_collision_only"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "medium"
+        },
+        {
+          "brake_frames": 9,
+          "dataset": "iter48_easy_medium",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 3,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 6.0,
+          "first_fire_ts": 0.25,
+          "first_on_nc_time": 6.25,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 2,
+          "scenario": "scene-0166-medium-00",
+          "scenario_nonclassifiable_sources": [],
+          "scenario_positive_sources": [
+            "iter59:classifiable_foreground:actor_mismatch"
+          ],
+          "tier": "medium"
+        },
+        {
+          "brake_frames": 5,
+          "dataset": "iter48_easy_medium",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [
+            "iter104:background_collision_only"
+          ],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 2,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 5.75,
+          "first_fire_ts": 12.75,
+          "first_on_nc_time": 18.5,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 2,
+          "scenario": "scene-0062-medium-00",
+          "scenario_nonclassifiable_sources": [
+            "iter104:background_collision_only"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "medium"
+        },
+        {
+          "brake_frames": 4,
+          "dataset": "iter48_easy_medium",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 1,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 5.75,
+          "first_fire_ts": 0.25,
+          "first_on_nc_time": 6.0,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 1,
+          "scenario": "scene-0166-medium-00",
+          "scenario_nonclassifiable_sources": [],
+          "scenario_positive_sources": [
+            "iter59:classifiable_foreground:actor_mismatch"
+          ],
+          "tier": "medium"
+        },
+        {
+          "brake_frames": 29,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [
+            "iter109:observed_background_only"
+          ],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 11,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 5.5,
+          "first_fire_ts": 8.0,
+          "first_on_nc_time": 13.5,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 2,
+          "scenario": "scene-0064-hard-00",
+          "scenario_nonclassifiable_sources": [
+            "iter109:observed_background_only",
+            "iter109:observed_background_only"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "hard"
+        },
+        {
+          "brake_frames": 27,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [
+            "iter109:observed_background_only"
+          ],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 8,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 5.25,
+          "first_fire_ts": 8.25,
+          "first_on_nc_time": 13.5,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 1,
+          "scenario": "scene-0064-hard-00",
+          "scenario_nonclassifiable_sources": [
+            "iter109:observed_background_only",
+            "iter109:observed_background_only"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "hard"
+        },
+        {
+          "brake_frames": 40,
+          "dataset": "iter48_easy_medium",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 15,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 4.75,
+          "first_fire_ts": 1.5,
+          "first_on_nc_time": 6.25,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 2,
+          "scenario": "scene-0071-medium-00",
+          "scenario_nonclassifiable_sources": [
+            "iter59:background_collision_only"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "medium"
+        },
+        {
+          "brake_frames": 19,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [
+            "iter109:observed_post_collision_fire"
+          ],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 12,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 4.25,
+          "first_fire_ts": 3.75,
+          "first_on_nc_time": 8.0,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 1,
+          "scenario": "scene-0138-hard-00",
+          "scenario_nonclassifiable_sources": [
+            "iter109:observed_post_collision_fire"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "hard"
+        },
+        {
+          "brake_frames": 26,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [
+            "iter109:observed_post_collision_fire"
+          ],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 19,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 4.0,
+          "first_fire_ts": 2.75,
+          "first_on_nc_time": 6.75,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 1,
+          "scenario": "scene-0071-extreme-00",
+          "scenario_nonclassifiable_sources": [
+            "iter109:observed_post_collision_fire"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "extreme"
+        },
+        {
+          "brake_frames": 4,
+          "dataset": "iter48_easy_medium",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 1,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 4.0,
+          "first_fire_ts": 1.5,
+          "first_on_nc_time": 5.5,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 1,
+          "scenario": "scene-0071-medium-00",
+          "scenario_nonclassifiable_sources": [
+            "iter59:background_collision_only"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "medium"
+        },
+        {
+          "brake_frames": 28,
+          "dataset": "iter48_easy_medium",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [
+            "iter109:observed_background_only"
+          ],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 9,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 3.0,
+          "first_fire_ts": 9.5,
+          "first_on_nc_time": 12.5,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 1,
+          "scenario": "scene-0064-medium-01",
+          "scenario_nonclassifiable_sources": [
+            "iter109:observed_background_only"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "medium"
+        },
+        {
+          "brake_frames": 13,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 5,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 2.0,
+          "first_fire_ts": 5.25,
+          "first_on_nc_time": 7.25,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 2,
+          "scenario": "scene-0062-extreme-00",
+          "scenario_nonclassifiable_sources": [
+            "iter59:no_monitor_fire"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "extreme"
+        },
+        {
+          "brake_frames": 21,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 14,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 2.0,
+          "first_fire_ts": 3.75,
+          "first_on_nc_time": 5.75,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 2,
+          "scenario": "scene-0167-hard-00",
+          "scenario_nonclassifiable_sources": [],
+          "scenario_positive_sources": [],
+          "tier": "hard"
+        },
+        {
+          "brake_frames": 35,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 10,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 1.25,
+          "first_fire_ts": 3.75,
+          "first_on_nc_time": 5.0,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 2,
+          "scenario": "scene-0166-hard-00",
+          "scenario_nonclassifiable_sources": [],
+          "scenario_positive_sources": [],
+          "tier": "hard"
+        }
+      ],
+      "fresh_primary_rows": [
+        {
+          "brake_frames": 9,
+          "dataset": "iter48_easy_medium",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "short_lead_fire",
+          "fired_frames": 4,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 0.0,
+          "first_fire_ts": 8.25,
+          "first_on_nc_time": 8.25,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 2,
+          "scenario": "scene-0064-medium-00",
+          "scenario_nonclassifiable_sources": [],
+          "scenario_positive_sources": [],
+          "tier": "medium"
+        },
+        {
+          "brake_frames": 21,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 14,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 2.0,
+          "first_fire_ts": 3.75,
+          "first_on_nc_time": 5.75,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 2,
+          "scenario": "scene-0167-hard-00",
+          "scenario_nonclassifiable_sources": [],
+          "scenario_positive_sources": [],
+          "tier": "hard"
+        },
+        {
+          "brake_frames": 35,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 10,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 1.25,
+          "first_fire_ts": 3.75,
+          "first_on_nc_time": 5.0,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 2,
+          "scenario": "scene-0166-hard-00",
+          "scenario_nonclassifiable_sources": [],
+          "scenario_positive_sources": [],
+          "tier": "hard"
+        }
+      ],
+      "support_preserving_core_rows": [
+        {
+          "brake_frames": 7,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "exact_ttc_classifiable_anchor",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [
+            "iter109:classifiable_success:actor_mismatch"
+          ],
+          "fire_timing_label": "short_lead_fire",
+          "fired_frames": 6,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 0.25,
+          "first_fire_ts": 5.25,
+          "first_on_nc_time": 5.5,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 2,
+          "scenario": "scene-0411-hard-00",
+          "scenario_nonclassifiable_sources": [],
+          "scenario_positive_sources": [
+            "iter109:classifiable_success:actor_mismatch"
+          ],
+          "tier": "hard"
+        },
+        {
+          "brake_frames": 10,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "exact_ttc_classifiable_anchor",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [
+            "iter109:classifiable_success:actor_mismatch"
+          ],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 7,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 4.5,
+          "first_fire_ts": 1.75,
+          "first_on_nc_time": 6.25,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 1,
+          "scenario": "scene-0411-extreme-00",
+          "scenario_nonclassifiable_sources": [],
+          "scenario_positive_sources": [
+            "iter109:classifiable_success:actor_mismatch"
+          ],
+          "tier": "extreme"
+        },
+        {
+          "brake_frames": 4,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "exact_ttc_classifiable_anchor",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [
+            "iter104:classifiable_foreground:actor_mismatch"
+          ],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 1,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 1.5,
+          "first_fire_ts": 7.0,
+          "first_on_nc_time": 8.5,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 1,
+          "scenario": "scene-0038-hard-00",
+          "scenario_nonclassifiable_sources": [
+            "iter104:background_collision_only"
+          ],
+          "scenario_positive_sources": [
+            "iter104:classifiable_foreground:actor_mismatch"
+          ],
+          "tier": "hard"
+        },
+        {
+          "brake_frames": 11,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "ttc_classifiable_scenario_analogue",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "short_lead_fire",
+          "fired_frames": 5,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 1.0,
+          "first_fire_ts": 1.5,
+          "first_on_nc_time": 2.5,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 1,
+          "scenario": "scene-0038-extreme-00",
+          "scenario_nonclassifiable_sources": [],
+          "scenario_positive_sources": [
+            "iter59:classifiable_foreground:actor_mismatch"
+          ],
+          "tier": "extreme"
+        },
+        {
+          "brake_frames": 11,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "ttc_classifiable_scenario_analogue",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "short_lead_fire",
+          "fired_frames": 7,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 0.75,
+          "first_fire_ts": 1.75,
+          "first_on_nc_time": 2.5,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 2,
+          "scenario": "scene-0038-extreme-00",
+          "scenario_nonclassifiable_sources": [],
+          "scenario_positive_sources": [
+            "iter59:classifiable_foreground:actor_mismatch"
+          ],
+          "tier": "extreme"
+        },
+        {
+          "brake_frames": 12,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "ttc_classifiable_scenario_analogue",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "short_lead_fire",
+          "fired_frames": 8,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 0.75,
+          "first_fire_ts": 5.5,
+          "first_on_nc_time": 6.25,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 2,
+          "scenario": "scene-0383-extreme-00",
+          "scenario_nonclassifiable_sources": [],
+          "scenario_positive_sources": [
+            "iter59:classifiable_foreground:actor_mismatch"
+          ],
+          "tier": "extreme"
+        },
+        {
+          "brake_frames": 5,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "ttc_classifiable_scenario_analogue",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "short_lead_fire",
+          "fired_frames": 5,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 0.25,
+          "first_fire_ts": 5.75,
+          "first_on_nc_time": 6.0,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 1,
+          "scenario": "scene-0411-hard-00",
+          "scenario_nonclassifiable_sources": [],
+          "scenario_positive_sources": [
+            "iter109:classifiable_success:actor_mismatch"
+          ],
+          "tier": "hard"
+        },
+        {
+          "brake_frames": 13,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "ttc_classifiable_scenario_analogue",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 8,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 3.0,
+          "first_fire_ts": 1.75,
+          "first_on_nc_time": 4.75,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 2,
+          "scenario": "scene-0411-extreme-00",
+          "scenario_nonclassifiable_sources": [],
+          "scenario_positive_sources": [
+            "iter109:classifiable_success:actor_mismatch"
+          ],
+          "tier": "extreme"
+        }
+      ],
+      "timing_eligible_rows": [
+        {
+          "brake_frames": 7,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "exact_ttc_classifiable_anchor",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [
+            "iter109:classifiable_success:actor_mismatch"
+          ],
+          "fire_timing_label": "short_lead_fire",
+          "fired_frames": 6,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 0.25,
+          "first_fire_ts": 5.25,
+          "first_on_nc_time": 5.5,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 2,
+          "scenario": "scene-0411-hard-00",
+          "scenario_nonclassifiable_sources": [],
+          "scenario_positive_sources": [
+            "iter109:classifiable_success:actor_mismatch"
+          ],
+          "tier": "hard"
+        },
+        {
+          "brake_frames": 10,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "exact_ttc_classifiable_anchor",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [
+            "iter109:classifiable_success:actor_mismatch"
+          ],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 7,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 4.5,
+          "first_fire_ts": 1.75,
+          "first_on_nc_time": 6.25,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 1,
+          "scenario": "scene-0411-extreme-00",
+          "scenario_nonclassifiable_sources": [],
+          "scenario_positive_sources": [
+            "iter109:classifiable_success:actor_mismatch"
+          ],
+          "tier": "extreme"
+        },
+        {
+          "brake_frames": 4,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "exact_ttc_classifiable_anchor",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [
+            "iter104:classifiable_foreground:actor_mismatch"
+          ],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 1,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 1.5,
+          "first_fire_ts": 7.0,
+          "first_on_nc_time": 8.5,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 1,
+          "scenario": "scene-0038-hard-00",
+          "scenario_nonclassifiable_sources": [
+            "iter104:background_collision_only"
+          ],
+          "scenario_positive_sources": [
+            "iter104:classifiable_foreground:actor_mismatch"
+          ],
+          "tier": "hard"
+        },
+        {
+          "brake_frames": 11,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "ttc_classifiable_scenario_analogue",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "short_lead_fire",
+          "fired_frames": 5,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 1.0,
+          "first_fire_ts": 1.5,
+          "first_on_nc_time": 2.5,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 1,
+          "scenario": "scene-0038-extreme-00",
+          "scenario_nonclassifiable_sources": [],
+          "scenario_positive_sources": [
+            "iter59:classifiable_foreground:actor_mismatch"
+          ],
+          "tier": "extreme"
+        },
+        {
+          "brake_frames": 11,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "ttc_classifiable_scenario_analogue",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "short_lead_fire",
+          "fired_frames": 7,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 0.75,
+          "first_fire_ts": 1.75,
+          "first_on_nc_time": 2.5,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 2,
+          "scenario": "scene-0038-extreme-00",
+          "scenario_nonclassifiable_sources": [],
+          "scenario_positive_sources": [
+            "iter59:classifiable_foreground:actor_mismatch"
+          ],
+          "tier": "extreme"
+        },
+        {
+          "brake_frames": 12,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "ttc_classifiable_scenario_analogue",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "short_lead_fire",
+          "fired_frames": 8,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 0.75,
+          "first_fire_ts": 5.5,
+          "first_on_nc_time": 6.25,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 2,
+          "scenario": "scene-0383-extreme-00",
+          "scenario_nonclassifiable_sources": [],
+          "scenario_positive_sources": [
+            "iter59:classifiable_foreground:actor_mismatch"
+          ],
+          "tier": "extreme"
+        },
+        {
+          "brake_frames": 5,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "ttc_classifiable_scenario_analogue",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "short_lead_fire",
+          "fired_frames": 5,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 0.25,
+          "first_fire_ts": 5.75,
+          "first_on_nc_time": 6.0,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 1,
+          "scenario": "scene-0411-hard-00",
+          "scenario_nonclassifiable_sources": [],
+          "scenario_positive_sources": [
+            "iter109:classifiable_success:actor_mismatch"
+          ],
+          "tier": "hard"
+        },
+        {
+          "brake_frames": 13,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "ttc_classifiable_scenario_analogue",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 8,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 3.0,
+          "first_fire_ts": 1.75,
+          "first_on_nc_time": 4.75,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 2,
+          "scenario": "scene-0411-extreme-00",
+          "scenario_nonclassifiable_sources": [],
+          "scenario_positive_sources": [
+            "iter109:classifiable_success:actor_mismatch"
+          ],
+          "tier": "extreme"
+        },
+        {
+          "brake_frames": 11,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "ttc_residual_risk_probe",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "short_lead_fire",
+          "fired_frames": 7,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 0.25,
+          "first_fire_ts": 6.25,
+          "first_on_nc_time": 6.5,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 1,
+          "scenario": "scene-0062-extreme-00",
+          "scenario_nonclassifiable_sources": [
+            "iter59:no_monitor_fire"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "extreme"
+        },
+        {
+          "brake_frames": 15,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "ttc_residual_risk_probe",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "short_lead_fire",
+          "fired_frames": 10,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 0.0,
+          "first_fire_ts": 3.25,
+          "first_on_nc_time": 3.25,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 2,
+          "scenario": "scene-0071-extreme-00",
+          "scenario_nonclassifiable_sources": [
+            "iter109:observed_post_collision_fire"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "extreme"
+        },
+        {
+          "brake_frames": 71,
+          "dataset": "iter48_easy_medium",
+          "design_label": "ttc_residual_risk_probe",
+          "exact_nonclassifiable_sources": [
+            "iter109:observed_post_collision_fire"
+          ],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 30,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 27.0,
+          "first_fire_ts": 10.75,
+          "first_on_nc_time": 37.75,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 1,
+          "scenario": "scene-0138-medium-01",
+          "scenario_nonclassifiable_sources": [
+            "iter109:observed_post_collision_fire",
+            "iter109:observed_post_collision_fire"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "medium"
+        },
+        {
+          "brake_frames": 51,
+          "dataset": "iter48_easy_medium",
+          "design_label": "ttc_residual_risk_probe",
+          "exact_nonclassifiable_sources": [
+            "iter109:observed_post_collision_fire"
+          ],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 20,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 18.0,
+          "first_fire_ts": 13.5,
+          "first_on_nc_time": 31.5,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 2,
+          "scenario": "scene-0138-medium-01",
+          "scenario_nonclassifiable_sources": [
+            "iter109:observed_post_collision_fire",
+            "iter109:observed_post_collision_fire"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "medium"
+        },
+        {
+          "brake_frames": 8,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "ttc_residual_risk_probe",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 2,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 16.75,
+          "first_fire_ts": 9.75,
+          "first_on_nc_time": 26.5,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 2,
+          "scenario": "scene-0062-hard-00",
+          "scenario_nonclassifiable_sources": [
+            "iter104:background_collision_only"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "hard"
+        },
+        {
+          "brake_frames": 18,
+          "dataset": "iter48_easy_medium",
+          "design_label": "ttc_residual_risk_probe",
+          "exact_nonclassifiable_sources": [
+            "iter109:observed_background_only"
+          ],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 6,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 5.5,
+          "first_fire_ts": 2.75,
+          "first_on_nc_time": 8.25,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 2,
+          "scenario": "scene-0071-easy-00",
+          "scenario_nonclassifiable_sources": [
+            "iter109:observed_background_only"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "easy"
+        },
+        {
+          "brake_frames": 18,
+          "dataset": "iter48_easy_medium",
+          "design_label": "ttc_residual_risk_probe",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 6,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 2.25,
+          "first_fire_ts": 4.25,
+          "first_on_nc_time": 6.5,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 1,
+          "scenario": "scene-0071-easy-00",
+          "scenario_nonclassifiable_sources": [
+            "iter109:observed_background_only"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "easy"
+        },
+        {
+          "brake_frames": 5,
+          "dataset": "iter48_easy_medium",
+          "design_label": "ttc_residual_risk_probe",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 2,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 1.75,
+          "first_fire_ts": 2.0,
+          "first_on_nc_time": 3.75,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 1,
+          "scenario": "scene-0071-medium-01",
+          "scenario_nonclassifiable_sources": [
+            "iter59:post_collision_fire"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "medium"
+        },
+        {
+          "brake_frames": 9,
+          "dataset": "iter48_easy_medium",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "short_lead_fire",
+          "fired_frames": 4,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 0.0,
+          "first_fire_ts": 8.25,
+          "first_on_nc_time": 8.25,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 2,
+          "scenario": "scene-0064-medium-00",
+          "scenario_nonclassifiable_sources": [],
+          "scenario_positive_sources": [],
+          "tier": "medium"
+        },
+        {
+          "brake_frames": 7,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "short_lead_fire",
+          "fired_frames": 2,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 0.0,
+          "first_fire_ts": 5.25,
+          "first_on_nc_time": 5.25,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 2,
+          "scenario": "scene-0138-extreme-00",
+          "scenario_nonclassifiable_sources": [
+            "iter104:post_collision_fire",
+            "iter59:post_collision_fire"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "extreme"
+        },
+        {
+          "brake_frames": 12,
+          "dataset": "iter48_easy_medium",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [
+            "iter109:observed_empty_collision_provenance"
+          ],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 3,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 14.5,
+          "first_fire_ts": 0.5,
+          "first_on_nc_time": 15.0,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 2,
+          "scenario": "scene-0166-easy-00",
+          "scenario_nonclassifiable_sources": [
+            "iter109:observed_empty_collision_provenance"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "easy"
+        },
+        {
+          "brake_frames": 37,
+          "dataset": "iter48_easy_medium",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [
+            "iter109:observed_background_only"
+          ],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 16,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 13.0,
+          "first_fire_ts": 1.25,
+          "first_on_nc_time": 14.25,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 2,
+          "scenario": "scene-0166-medium-01",
+          "scenario_nonclassifiable_sources": [
+            "iter109:observed_background_only"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "medium"
+        },
+        {
+          "brake_frames": 12,
+          "dataset": "iter48_easy_medium",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [
+            "iter109:observed_background_only"
+          ],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 5,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 9.75,
+          "first_fire_ts": 8.0,
+          "first_on_nc_time": 17.75,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 2,
+          "scenario": "scene-0064-easy-00",
+          "scenario_nonclassifiable_sources": [
+            "iter109:observed_background_only"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "easy"
+        },
+        {
+          "brake_frames": 46,
+          "dataset": "iter48_easy_medium",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [
+            "iter104:background_collision_only"
+          ],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 17,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 6.25,
+          "first_fire_ts": 9.75,
+          "first_on_nc_time": 16.0,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 1,
+          "scenario": "scene-0038-medium-01",
+          "scenario_nonclassifiable_sources": [
+            "iter104:background_collision_only"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "medium"
+        },
+        {
+          "brake_frames": 9,
+          "dataset": "iter48_easy_medium",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 3,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 6.0,
+          "first_fire_ts": 0.25,
+          "first_on_nc_time": 6.25,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 2,
+          "scenario": "scene-0166-medium-00",
+          "scenario_nonclassifiable_sources": [],
+          "scenario_positive_sources": [
+            "iter59:classifiable_foreground:actor_mismatch"
+          ],
+          "tier": "medium"
+        },
+        {
+          "brake_frames": 5,
+          "dataset": "iter48_easy_medium",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [
+            "iter104:background_collision_only"
+          ],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 2,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 5.75,
+          "first_fire_ts": 12.75,
+          "first_on_nc_time": 18.5,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 2,
+          "scenario": "scene-0062-medium-00",
+          "scenario_nonclassifiable_sources": [
+            "iter104:background_collision_only"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "medium"
+        },
+        {
+          "brake_frames": 4,
+          "dataset": "iter48_easy_medium",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 1,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 5.75,
+          "first_fire_ts": 0.25,
+          "first_on_nc_time": 6.0,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 1,
+          "scenario": "scene-0166-medium-00",
+          "scenario_nonclassifiable_sources": [],
+          "scenario_positive_sources": [
+            "iter59:classifiable_foreground:actor_mismatch"
+          ],
+          "tier": "medium"
+        },
+        {
+          "brake_frames": 29,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [
+            "iter109:observed_background_only"
+          ],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 11,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 5.5,
+          "first_fire_ts": 8.0,
+          "first_on_nc_time": 13.5,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 2,
+          "scenario": "scene-0064-hard-00",
+          "scenario_nonclassifiable_sources": [
+            "iter109:observed_background_only",
+            "iter109:observed_background_only"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "hard"
+        },
+        {
+          "brake_frames": 27,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [
+            "iter109:observed_background_only"
+          ],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 8,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 5.25,
+          "first_fire_ts": 8.25,
+          "first_on_nc_time": 13.5,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 1,
+          "scenario": "scene-0064-hard-00",
+          "scenario_nonclassifiable_sources": [
+            "iter109:observed_background_only",
+            "iter109:observed_background_only"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "hard"
+        },
+        {
+          "brake_frames": 40,
+          "dataset": "iter48_easy_medium",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 15,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 4.75,
+          "first_fire_ts": 1.5,
+          "first_on_nc_time": 6.25,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 2,
+          "scenario": "scene-0071-medium-00",
+          "scenario_nonclassifiable_sources": [
+            "iter59:background_collision_only"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "medium"
+        },
+        {
+          "brake_frames": 19,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [
+            "iter109:observed_post_collision_fire"
+          ],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 12,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 4.25,
+          "first_fire_ts": 3.75,
+          "first_on_nc_time": 8.0,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 1,
+          "scenario": "scene-0138-hard-00",
+          "scenario_nonclassifiable_sources": [
+            "iter109:observed_post_collision_fire"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "hard"
+        },
+        {
+          "brake_frames": 26,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [
+            "iter109:observed_post_collision_fire"
+          ],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 19,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 4.0,
+          "first_fire_ts": 2.75,
+          "first_on_nc_time": 6.75,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 1,
+          "scenario": "scene-0071-extreme-00",
+          "scenario_nonclassifiable_sources": [
+            "iter109:observed_post_collision_fire"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "extreme"
+        },
+        {
+          "brake_frames": 4,
+          "dataset": "iter48_easy_medium",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 1,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 4.0,
+          "first_fire_ts": 1.5,
+          "first_on_nc_time": 5.5,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 1,
+          "scenario": "scene-0071-medium-00",
+          "scenario_nonclassifiable_sources": [
+            "iter59:background_collision_only"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "medium"
+        },
+        {
+          "brake_frames": 28,
+          "dataset": "iter48_easy_medium",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [
+            "iter109:observed_background_only"
+          ],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 9,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 3.0,
+          "first_fire_ts": 9.5,
+          "first_on_nc_time": 12.5,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 1,
+          "scenario": "scene-0064-medium-01",
+          "scenario_nonclassifiable_sources": [
+            "iter109:observed_background_only"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "medium"
+        },
+        {
+          "brake_frames": 13,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 5,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 2.0,
+          "first_fire_ts": 5.25,
+          "first_on_nc_time": 7.25,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 2,
+          "scenario": "scene-0062-extreme-00",
+          "scenario_nonclassifiable_sources": [
+            "iter59:no_monitor_fire"
+          ],
+          "scenario_positive_sources": [],
+          "tier": "extreme"
+        },
+        {
+          "brake_frames": 21,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 14,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 2.0,
+          "first_fire_ts": 3.75,
+          "first_on_nc_time": 5.75,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 2,
+          "scenario": "scene-0167-hard-00",
+          "scenario_nonclassifiable_sources": [],
+          "scenario_positive_sources": [],
+          "tier": "hard"
+        },
+        {
+          "brake_frames": 35,
+          "dataset": "iter49_hard_extreme",
+          "design_label": "cpa_residual_risk_fallback",
+          "exact_nonclassifiable_sources": [],
+          "exact_positive_sources": [],
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 10,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 1.25,
+          "first_fire_ts": 3.75,
+          "first_on_nc_time": 5.0,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 2,
+          "scenario": "scene-0166-hard-00",
+          "scenario_nonclassifiable_sources": [],
+          "scenario_positive_sources": [],
+          "tier": "hard"
+        }
+      ],
+      "unsupported_labels": []
+    }
+  },
+  "infra_problems": [],
+  "inputs": {
+    "iter104_report": "experiments/iter104_hugsim_provenance_batch_actor_match_audit/proof-actor-match/provenance_batch_actor_match_report.json",
+    "iter109_report": "experiments/iter109_hugsim_timing_aware_support_yield_decomposition/proof-decomposition/timing_aware_support_yield_decomposition_report.json",
+    "iter52_report": "experiments/iter52_hugsim_on_collision_timing_audit/proof-timing/on_collision_timing_report.json",
+    "iter54_report": "experiments/iter54_hugsim_provenance_support_audit/proof-provenance/provenance_support_report.json",
+    "iter59_report": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/actor_match_report.json"
+  },
+  "iteration": 110,
+  "prior_evidence_summary": {
+    "exact_nonclassifiable_count": 23,
+    "exact_positive_count": 3,
+    "prior_scenario_count": 27,
+    "scenario_nonclassifiable_count": 22,
+    "scenario_positive_count": 6
+  },
+  "summary": {
+    "core_channel_counts": {
+      "ttc_only": 8
+    },
+    "core_timing_counts": {
+      "long_lead_fire": 3,
+      "short_lead_fire": 5
+    },
+    "design_label_counts": {
+      "cpa_residual_risk_fallback": 19,
+      "exact_ttc_classifiable_anchor": 3,
+      "ttc_classifiable_scenario_analogue": 5,
+      "ttc_residual_risk_probe": 8
+    },
+    "exact_ttc_classifiable_anchor_count": 3,
+    "fallback_label_counts": {
+      "cpa_residual_risk_fallback": 19,
+      "ttc_residual_risk_probe": 8
+    },
+    "fallback_pressure_count": 27,
+    "fresh_primary_channel_counts": {
+      "cpa_only": 3
+    },
+    "fresh_primary_count": 3,
+    "full_13_support_preserving_available": false,
+    "infra_problem_count": 0,
+    "min_core_floor": 4,
+    "prior_support_scenario_count": 27,
+    "support_preserving_core_count": 8,
+    "target_slot_count": 13,
+    "timing_eligible_count": 35,
+    "ttc_classifiable_scenario_analogue_count": 5
+  },
+  "verdict": "HUGSIM_SUPPORT_PRESERVING_CANDIDATE_DESIGN_CORE_COMPLETE"
+}

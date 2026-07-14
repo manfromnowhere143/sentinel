@@ -85,7 +85,14 @@ complete: the support failure splits into `7/13` foreground-absent or empty-prov
 `4/13` observed post-collision-fire timing inversions. The sharpest actionable split is channel
 selection: `2/5` `ttc_only` slots were classifiable, while `0/8` `cpa_only` slots were
 classifiable. The next local HUGSIM priority is offline support-preserving candidate design that
-uses those residual labels before proposing any new GPU schedule.
+uses those residual labels before proposing any new GPU schedule. That successor is now complete:
+`35` timing-eligible rows were labeled, yielding an `8`-row TTC-only support-preserving core
+(`3` exact classifiable anchors plus `5` scenario-level analogues). The full `13`-slot
+support-preserving bar is not available from the committed pool: the fallback pressure rows are
+`8` TTC residual-risk probes plus `19` CPA fallback rows, and the fresh primary pool after
+excluding prior-support scenarios is only `3` CPA rows. The next local HUGSIM priority, if this
+line proceeds toward execution, is an offline launch-manifest preflight for the `8`-row core
+only; it still authorizes no GPU run.
 
 ## New frontier packet after these lines closed
 
