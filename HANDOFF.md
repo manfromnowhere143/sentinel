@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Tue Jul 14 10:09:45 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Tue Jul 14 10:16:33 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+62559b1 iter120: publish selected fire object lifecycle
+508f576 iter120: add selected fire object lifecycle tooling
+77a3e3b iter120: preregister selected fire object lifecycle
+7e4c9fe handoff: record iter119 loss replacement state
 dd37914 iter119: publish support core loss replacement
 43dee63 iter119: add support core loss replacement tooling
 eddb0e6 iter119: preregister support core loss replacement
 6553a08 handoff: record iter118 object lifecycle state
-c3aae0b iter118: publish support core object lifecycle
-a336d29 iter118: add support core object lifecycle tooling
-f5f01ea iter118: preregister support core object lifecycle
-02fcc7c handoff: record iter117 event window state
 ```
 Working tree: CLEAN
 
@@ -41,6 +41,7 @@ Working tree: CLEAN
 - experiments/iter118_hugsim_support_core_object_lifecycle: RESULT PUBLISHED
 - experiments/iter119_hugsim_support_core_loss_replacement_audit: RESULT PUBLISHED
 - experiments/iter11_early_evade: RESULT PUBLISHED
+- experiments/iter120_hugsim_support_core_selected_fire_object_lifecycle: RESULT PUBLISHED
 - experiments/iter12_plan_selection: RESULT PUBLISHED
 - experiments/iter13_rss_baseline: RESULT PUBLISHED
 - experiments/iter15_latch_release: RESULT PUBLISHED
@@ -145,7 +146,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 10:10:54 up 9 days, 23:51,  0 users,  load average: 0.07, 0.02, 0.00
+ 10:17:42 up 9 days, 23:58,  0 users,  load average: 0.00, 0.00, 0.00
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-iter112-support-core-batch.log
@@ -157,7 +158,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter119_hugsim_support_core_loss_replacement_audit/RESULT.md — read it before opening new work.
+- Newest completed experiment: experiments/iter120_hugsim_support_core_selected_fire_object_lifecycle/RESULT.md — read it before opening new work.
 - Newest pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
