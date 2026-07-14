@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Tue Jul 14 08:21:03 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Tue Jul 14 08:28:04 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+ba3b298 iter111: publish support core manifest
+3141080 iter111: add support core manifest tooling
+a7fad33 iter111: preregister support core manifest
+60cbc0e handoff: record iter110 support preserving state
 5b7e533 iter110: publish support preserving design
 b591a58 iter110: add support preserving design tooling
 eedf819 iter110: preregister support preserving design
 6616c89 handoff: record iter109 support yield state
-1a2e4cd iter109: publish support yield decomposition
-a564216 iter109: add support yield decomposition tooling
-554fd70 iter109: preregister support yield decomposition
-0327aac handoff: record iter108 actor match state
 ```
 Working tree: CLEAN
 
@@ -31,6 +31,7 @@ Working tree: CLEAN
 - experiments/iter109_hugsim_timing_aware_support_yield_decomposition: RESULT PUBLISHED
 - experiments/iter10_brakevade: RESULT PUBLISHED
 - experiments/iter110_hugsim_support_preserving_candidate_design: RESULT PUBLISHED
+- experiments/iter111_hugsim_support_core_launch_manifest: RESULT PUBLISHED
 - experiments/iter11_early_evade: RESULT PUBLISHED
 - experiments/iter12_plan_selection: RESULT PUBLISHED
 - experiments/iter13_rss_baseline: RESULT PUBLISHED
@@ -136,7 +137,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 08:22:12 up 9 days, 22:03,  0 users,  load average: 0.00, 0.00, 0.46
+ 08:29:13 up 9 days, 22:10,  0 users,  load average: 0.00, 0.00, 0.28
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-iter107-timing-aware-batch.log
@@ -148,7 +149,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter110_hugsim_support_preserving_candidate_design/RESULT.md — read it before opening new work.
+- Newest completed experiment: experiments/iter111_hugsim_support_core_launch_manifest/RESULT.md — read it before opening new work.
 - Newest pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
