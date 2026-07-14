@@ -94,8 +94,14 @@ excluding prior-support scenarios is only `3` CPA rows. The next local HUGSIM pr
 line proceeds toward execution, is an offline launch-manifest preflight for the `8`-row core
 only; it still authorizes no GPU run. That preflight is now complete: the `8` support-core slots
 are all `ttc_only`, all `iter49_hard_extreme`, all SHA-bound to the frozen scenario manifest, and
-preserve `3` duplicate scenario groups by `slot_id`. Execution remains a separate pre-registered
-run step, not something authorized by the manifest result itself.
+preserve `3` duplicate scenario groups by `slot_id`. The execution successor is now complete as
+well: all `8/8` support-core slots ran on first attempt under the byte-bound HUGSIM provenance
+patch and released-union monitor patch, `8/8` proof artifact sets are complete, `8/8` evals expose
+the top-level `collision_provenance` key, total provenance rows are `44`, and all `3` duplicate
+scenario groups remained distinct by `slot_id`. The next local HUGSIM priority is a separately
+pre-registered actor-match support audit over the committed iteration-112 proof, reusing the frozen
+iteration-59 classifier; it must not claim repair, safety, retuning, deployment, or commercial
+value.
 
 ## New frontier packet after these lines closed
 

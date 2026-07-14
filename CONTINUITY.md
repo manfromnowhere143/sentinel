@@ -2230,3 +2230,15 @@ events to prepare; they are a property the repository always has.
   threshold-value, population-rate, safety/transfer/deployment/robustness/benchmark,
   HD-Score-invariance, commercial-value, real-world/first-responder behavior, retuning, GPU
   approval, or approval-to-run claim.
+- 2026-07-14: Codex — completed iteration 112 as the HUGSIM support-core batch execution after
+  the iteration-111 launch manifest. Pre-registered ALONE (`9ffc507`), added launcher/analyzer/tests
+  (`f5aa89c`), collected and pushed raw GPU proof before analysis (`bced67b`), then ran the
+  analyzer ONCE over the committed proof. Result:
+  `HUGSIM_SUPPORT_CORE_BATCH_EXECUTION_COMPLETE`; all `8/8` manifest slots completed on first
+  attempt, `8/8` proof artifact sets are complete, `8/8` evals expose top-level
+  `collision_provenance`, total collision-provenance rows are `44`, and all `3` duplicate scenario
+  groups were preserved by `slot_id`. The next honest step is a separately pre-registered
+  actor-match support audit over the committed iteration-112 proof. No actor-causality,
+  actor-match interpretation, repair, threshold-value, safety/transfer/deployment/robustness/
+  benchmark/HD-Score-invariance, commercial-value, real-world/first-responder behavior, retuning,
+  production, or commercial claim.
