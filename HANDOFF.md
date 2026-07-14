@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Tue Jul 14 11:22:48 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Tue Jul 14 11:30:16 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+36b34a2 iter129: publish artifact naming preflight
+af0e25a iter129: add artifact naming preflight tooling
+6583e19 iter129: preregister artifact naming preflight
+0face1e handoff: record iter128 source pool state
 7d794b4 iter128: publish source pool mutation preflight
 bfe5aec iter128: add source pool mutation preflight tooling
 eea89ef iter128: preregister source pool mutation preflight
 058e280 handoff: record iter127 alignment audit state
-eb1bc1d iter127: publish post iter126 alignment audit
-b5c74ce iter127: add post iter126 alignment audit
-a5eae87 iter127: preregister post iter126 alignment audit
-c1fa286 handoff: record iter126 candidate manifest state
 ```
 Working tree: CLEAN
 
@@ -50,6 +50,7 @@ Working tree: CLEAN
 - experiments/iter126_support_core_candidate_manifest_preflight: RESULT PUBLISHED
 - experiments/iter127_post_iter126_mission_alignment_audit: RESULT PUBLISHED
 - experiments/iter128_support_core_source_pool_mutation_preflight: RESULT PUBLISHED
+- experiments/iter129_support_core_artifact_naming_preflight: RESULT PUBLISHED
 - experiments/iter12_plan_selection: RESULT PUBLISHED
 - experiments/iter13_rss_baseline: RESULT PUBLISHED
 - experiments/iter15_latch_release: RESULT PUBLISHED
@@ -154,7 +155,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 11:23:58 up 10 days,  1:05,  0 users,  load average: 0.00, 0.00, 0.00
+ 11:31:24 up 10 days,  1:12,  0 users,  load average: 0.00, 0.00, 0.00
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-iter112-support-core-batch.log
@@ -166,7 +167,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter128_support_core_source_pool_mutation_preflight/RESULT.md — read it before opening new work.
+- Newest completed experiment: experiments/iter129_support_core_artifact_naming_preflight/RESULT.md — read it before opening new work.
 - Newest pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
