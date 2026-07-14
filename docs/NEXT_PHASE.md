@@ -117,7 +117,13 @@ object lies within the frozen `6.0 m` actor-support band after propagation to th
 collision timestamp. The selected object is nearest in `5/8` rows and not nearest in `3/8`, but
 every row remains a whole-set mismatch. The next local HUGSIM priority is an offline timeline audit
 over the same committed decision logs: determine whether a close collision-actor candidate appears
-before first fire, after first fire, or never appears under the frozen bridge.
+before first fire, after first fire, or never appears under the frozen bridge. That timeline audit
+is now complete: `7/8` rows have at least one support frame before collision, with first support
+appearing `pre_fire` in `5/8`, `post_fire_pre_collision` in `2/8`, and `never_before_collision`
+in `1/8`. At first fire, all rows still remain outside the frozen support band (`7.62-24.81 m`),
+so the next local HUGSIM priority is an offline event-window decomposition of persistence,
+selected-object identity, and released CPA/TTC surface state around first-support and first-fire
+frames, not a new GPU batch and not a repair/safety claim.
 
 ## New frontier packet after these lines closed
 

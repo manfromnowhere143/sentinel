@@ -2276,3 +2276,15 @@ events to prepare; they are a property the repository always has.
   appears under the frozen bridge. No actor-causality, repair, threshold-value,
   safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value,
   real-world/first-responder behavior, retuning, production, or commercial claim.
+- 2026-07-14: Codex — continued into iteration 116 as the HUGSIM support-core collision-actor
+  timeline audit after iteration 115. Pre-registered ALONE (`05f90d0`), added analyzer/tests
+  (`e9688e5`, targeted ruff/tests/docs green), then ran the analyzer ONCE over committed
+  iteration-112/115 artifacts. Result: `HUGSIM_SUPPORT_CORE_COLLISION_ACTOR_TIMELINE_COMPLETE`;
+  all `8` rows classified with `0` problem rows, `7/8` rows have at least one support frame before
+  collision, first support appears `pre_fire` in `5/8`, `post_fire_pre_collision` in `2/8`, and
+  `never_before_collision` in `1/8`, while at-fire nearest distances remain
+  `7.624207359121617-24.812496764606966 m`. Next honest step: offline event-window decomposition
+  of persistence, selected-object identity, and released CPA/TTC surface state around first-support
+  and first-fire frames. No actor-causality, repair, threshold-value, safety/transfer/deployment/
+  robustness/benchmark/HD-Score-invariance, commercial-value, real-world/first-responder behavior,
+  retuning, production, or commercial claim.

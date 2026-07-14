@@ -1,0 +1,290 @@
+{
+  "claim_boundary": "descriptive collision-actor monitor-set timeline audit of eight committed support-core rows only; no repair, actor-causality, threshold-value, transfer, safety, deployment, robustness, benchmark, population-rate, HD-Score-invariance, real-world behavior, first-responder behavior, acquisition-value, retuning, production, or commercial claim",
+  "infra_problems": [],
+  "inputs": {
+    "iter115_report": "experiments/iter115_hugsim_support_core_monitor_set_ordering/proof-ordering/support_core_monitor_set_ordering_report.json",
+    "iter59_analyzer": "experiments/iter59_hugsim_actor_match_audit/analyze_actor_match.py",
+    "proof_root": "experiments/iter112_hugsim_support_core_batch_execution/proof-execution"
+  },
+  "iteration": 116,
+  "summary": {
+    "at_fire_min_distance_m": {
+      "max": 24.812496764606966,
+      "min": 7.624207359121617
+    },
+    "best_distance_m": {
+      "max": 10.051852932919369,
+      "min": 1.5056697220919042
+    },
+    "best_phase_counts": {
+      "post_fire_pre_collision": 3,
+      "pre_fire": 5
+    },
+    "considered_frame_count": {
+      "max": 30.0,
+      "min": 11.0
+    },
+    "first_support_phase_counts": {
+      "never_before_collision": 1,
+      "post_fire_pre_collision": 2,
+      "pre_fire": 5
+    },
+    "post_fire_pre_collision_min_distance_m": {
+      "max": 24.666640987462266,
+      "min": 5.638200876604923
+    },
+    "pre_fire_min_distance_m": {
+      "max": 11.43639711767452,
+      "min": 1.5056697220919042
+    },
+    "problem_row_count": 0,
+    "row_count": 8,
+    "support_any_count": 7,
+    "support_frame_count": {
+      "max": 8.0,
+      "min": 0.0
+    }
+  },
+  "timeline_rows": [
+    {
+      "at_fire_min_distance_m": 12.724592460878268,
+      "best_distance_m": 2.889279073064421,
+      "best_object_id": 2,
+      "best_phase": "pre_fire",
+      "best_ts": 0.75,
+      "considered_frame_count": 22,
+      "first_fire_ts": 5.0,
+      "first_foreground_ts": 5.25,
+      "first_support_distance_m": 2.889279073064421,
+      "first_support_object_id": 2,
+      "first_support_phase": "pre_fire",
+      "first_support_ts": 0.75,
+      "phase_frame_counts": {
+        "at_fire": 1,
+        "post_fire_pre_collision": 1,
+        "pre_fire": 20
+      },
+      "post_fire_pre_collision_min_distance_m": 24.666640987462266,
+      "pre_fire_min_distance_m": 2.889279073064421,
+      "problems": [],
+      "run": 2,
+      "scenario": "scene-0411-hard-00",
+      "slot_id": "i111_s01_iter49_hard_extreme_exact_ttc_classifiable_anchor_short_lead_fire_ttc_only_scene_0411_hard_00_r2",
+      "slot_index": 1,
+      "support_frame_count": 1,
+      "support_phase_counts": {
+        "pre_fire": 1
+      }
+    },
+    {
+      "at_fire_min_distance_m": 7.624207359121617,
+      "best_distance_m": 4.259200249926439,
+      "best_object_id": 4,
+      "best_phase": "pre_fire",
+      "best_ts": 0.75,
+      "considered_frame_count": 20,
+      "first_fire_ts": 1.75,
+      "first_foreground_ts": 4.75,
+      "first_support_distance_m": 4.259200249926439,
+      "first_support_object_id": 4,
+      "first_support_phase": "pre_fire",
+      "first_support_ts": 0.75,
+      "phase_frame_counts": {
+        "at_fire": 1,
+        "post_fire_pre_collision": 12,
+        "pre_fire": 7
+      },
+      "post_fire_pre_collision_min_distance_m": 7.056946908578134,
+      "pre_fire_min_distance_m": 4.259200249926439,
+      "problems": [],
+      "run": 1,
+      "scenario": "scene-0411-extreme-00",
+      "slot_id": "i111_s02_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0411_extreme_00_r1",
+      "slot_index": 2,
+      "support_frame_count": 1,
+      "support_phase_counts": {
+        "pre_fire": 1
+      }
+    },
+    {
+      "at_fire_min_distance_m": 14.472507961609738,
+      "best_distance_m": 10.051852932919369,
+      "best_object_id": 25,
+      "best_phase": "post_fire_pre_collision",
+      "best_ts": 4.25,
+      "considered_frame_count": 30,
+      "first_fire_ts": 4.0,
+      "first_foreground_ts": 7.25,
+      "first_support_distance_m": null,
+      "first_support_object_id": null,
+      "first_support_phase": "never_before_collision",
+      "first_support_ts": null,
+      "phase_frame_counts": {
+        "at_fire": 1,
+        "post_fire_pre_collision": 13,
+        "pre_fire": 16
+      },
+      "post_fire_pre_collision_min_distance_m": 10.051852932919369,
+      "pre_fire_min_distance_m": 11.43639711767452,
+      "problems": [],
+      "run": 1,
+      "scenario": "scene-0038-hard-00",
+      "slot_id": "i111_s03_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0038_hard_00_r1",
+      "slot_index": 3,
+      "support_frame_count": 0,
+      "support_phase_counts": {}
+    },
+    {
+      "at_fire_min_distance_m": 15.460122021736504,
+      "best_distance_m": 5.638200876604923,
+      "best_object_id": 13,
+      "best_phase": "post_fire_pre_collision",
+      "best_ts": 2.5,
+      "considered_frame_count": 11,
+      "first_fire_ts": 1.5,
+      "first_foreground_ts": 2.5,
+      "first_support_distance_m": 5.8356419209329236,
+      "first_support_object_id": 8,
+      "first_support_phase": "post_fire_pre_collision",
+      "first_support_ts": 1.75,
+      "phase_frame_counts": {
+        "at_fire": 1,
+        "post_fire_pre_collision": 4,
+        "pre_fire": 6
+      },
+      "post_fire_pre_collision_min_distance_m": 5.638200876604923,
+      "pre_fire_min_distance_m": 9.814849860027191,
+      "problems": [],
+      "run": 1,
+      "scenario": "scene-0038-extreme-00",
+      "slot_id": "i111_s04_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r1",
+      "slot_index": 4,
+      "support_frame_count": 2,
+      "support_phase_counts": {
+        "post_fire_pre_collision": 2
+      }
+    },
+    {
+      "at_fire_min_distance_m": 15.541003639773562,
+      "best_distance_m": 5.647095932359166,
+      "best_object_id": 14,
+      "best_phase": "post_fire_pre_collision",
+      "best_ts": 2.5,
+      "considered_frame_count": 11,
+      "first_fire_ts": 1.5,
+      "first_foreground_ts": 2.5,
+      "first_support_distance_m": 5.647095932359166,
+      "first_support_object_id": 14,
+      "first_support_phase": "post_fire_pre_collision",
+      "first_support_ts": 2.5,
+      "phase_frame_counts": {
+        "at_fire": 1,
+        "post_fire_pre_collision": 4,
+        "pre_fire": 6
+      },
+      "post_fire_pre_collision_min_distance_m": 5.647095932359166,
+      "pre_fire_min_distance_m": 9.846701909939755,
+      "problems": [],
+      "run": 2,
+      "scenario": "scene-0038-extreme-00",
+      "slot_id": "i111_s05_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r2",
+      "slot_index": 5,
+      "support_frame_count": 1,
+      "support_phase_counts": {
+        "post_fire_pre_collision": 1
+      }
+    },
+    {
+      "at_fire_min_distance_m": 23.221048739940226,
+      "best_distance_m": 1.651081390885113,
+      "best_object_id": 3,
+      "best_phase": "pre_fire",
+      "best_ts": 1.25,
+      "considered_frame_count": 30,
+      "first_fire_ts": 6.75,
+      "first_foreground_ts": 7.25,
+      "first_support_distance_m": 2.6002425517192336,
+      "first_support_object_id": 2,
+      "first_support_phase": "pre_fire",
+      "first_support_ts": 0.25,
+      "phase_frame_counts": {
+        "at_fire": 1,
+        "post_fire_pre_collision": 2,
+        "pre_fire": 27
+      },
+      "post_fire_pre_collision_min_distance_m": 23.662499453674187,
+      "pre_fire_min_distance_m": 1.651081390885113,
+      "problems": [],
+      "run": 2,
+      "scenario": "scene-0383-extreme-00",
+      "slot_id": "i111_s06_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0383_extreme_00_r2",
+      "slot_index": 6,
+      "support_frame_count": 8,
+      "support_phase_counts": {
+        "pre_fire": 8
+      }
+    },
+    {
+      "at_fire_min_distance_m": 23.180715225043926,
+      "best_distance_m": 1.5056697220919042,
+      "best_object_id": 3,
+      "best_phase": "pre_fire",
+      "best_ts": 2.5,
+      "considered_frame_count": 25,
+      "first_fire_ts": 5.75,
+      "first_foreground_ts": 6.0,
+      "first_support_distance_m": 2.0670184007969374,
+      "first_support_object_id": 2,
+      "first_support_phase": "pre_fire",
+      "first_support_ts": 0.75,
+      "phase_frame_counts": {
+        "at_fire": 1,
+        "post_fire_pre_collision": 1,
+        "pre_fire": 23
+      },
+      "post_fire_pre_collision_min_distance_m": 23.7097557759953,
+      "pre_fire_min_distance_m": 1.5056697220919042,
+      "problems": [],
+      "run": 1,
+      "scenario": "scene-0411-hard-00",
+      "slot_id": "i111_s07_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0411_hard_00_r1",
+      "slot_index": 7,
+      "support_frame_count": 2,
+      "support_phase_counts": {
+        "pre_fire": 2
+      }
+    },
+    {
+      "at_fire_min_distance_m": 24.812496764606966,
+      "best_distance_m": 3.95802218200769,
+      "best_object_id": 4,
+      "best_phase": "pre_fire",
+      "best_ts": 0.75,
+      "considered_frame_count": 25,
+      "first_fire_ts": 5.75,
+      "first_foreground_ts": 6.0,
+      "first_support_distance_m": 3.95802218200769,
+      "first_support_object_id": 4,
+      "first_support_phase": "pre_fire",
+      "first_support_ts": 0.75,
+      "phase_frame_counts": {
+        "at_fire": 1,
+        "post_fire_pre_collision": 1,
+        "pre_fire": 23
+      },
+      "post_fire_pre_collision_min_distance_m": 5.758225076231357,
+      "pre_fire_min_distance_m": 3.95802218200769,
+      "problems": [],
+      "run": 2,
+      "scenario": "scene-0411-extreme-00",
+      "slot_id": "i111_s08_iter49_hard_extreme_ttc_classifiable_scenario_analogue_long_lead_fire_ttc_only_scene_0411_extreme_00_r2",
+      "slot_index": 8,
+      "support_frame_count": 2,
+      "support_phase_counts": {
+        "post_fire_pre_collision": 1,
+        "pre_fire": 1
+      }
+    }
+  ],
+  "verdict": "HUGSIM_SUPPORT_CORE_COLLISION_ACTOR_TIMELINE_COMPLETE"
+}
