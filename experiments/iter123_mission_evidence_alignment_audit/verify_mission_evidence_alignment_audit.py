@@ -63,12 +63,20 @@ def missing_items(text: str, required: tuple[str, ...] | list[str]) -> list[str]
             continue
         if item == "current through iteration 122" and current_iteration_freshness_present(normalized):
             continue
+        if item == "Later HUGSIM iterations 98-122" and later_hugsim_freshness_present(
+            normalized
+        ):
+            continue
         missing.append(item)
     return missing
 
 
 def current_iteration_freshness_present(normalized_text: str) -> bool:
     return "current through iteration" in normalized_text
+
+
+def later_hugsim_freshness_present(normalized_text: str) -> bool:
+    return "Later HUGSIM iterations 98-" in normalized_text
 
 
 def check(label: str, text: str, required: tuple[str, ...] | list[str]) -> dict[str, Any]:

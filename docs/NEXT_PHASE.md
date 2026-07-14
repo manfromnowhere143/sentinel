@@ -217,6 +217,15 @@ generated artifact, scenario generation, slot selection, HUGSIM run, GPU launch,
 repair, or claim upgrade. The remaining bounded lanes are a generated-artifact schema/metadata
 preflight before any reserved file is written, an external one-page claim ledger, explicit
 mission/rulebook boundary work, or a higher-fidelity perturbation successor.
+That schema/metadata preflight is now complete:
+[`research/SUPPORT_CORE_ARTIFACT_SCHEMA_PREFLIGHT_2026-07-14.md`](research/SUPPORT_CORE_ARTIFACT_SCHEMA_PREFLIGHT_2026-07-14.md)
+and iteration 130 freezes `3` artifact-type schemas and `30` path-to-schema bindings for all
+reserved future paths, with zero true authorization flags, existing bound paths, duplicate paths,
+bad schema references, missing content rows, or forbidden keys. This still authorizes no reserved
+path creation, generated artifact, scenario generation, slot selection, HUGSIM run, GPU launch,
+learning/update, repair, or claim upgrade. The remaining bounded lanes are a schema-instance
+creation preflight before any reserved file is written, an external one-page claim ledger,
+explicit mission/rulebook boundary work, or a higher-fidelity perturbation successor.
 
 ## New frontier packet after these lines closed
 

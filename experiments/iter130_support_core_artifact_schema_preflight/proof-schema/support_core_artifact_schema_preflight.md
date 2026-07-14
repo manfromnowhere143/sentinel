@@ -1,0 +1,303 @@
+# Iteration 130 - support-core generated-artifact schema preflight
+
+Verdict: `SUPPORT_CORE_ARTIFACT_SCHEMA_PREFLIGHT_COMPLETE`
+
+## Summary
+
+- `artifact_reservation_count`: `10`
+- `reserved_destination_root`: `future_artifacts/support_core_blindspot_generation`
+- `reserved_relative_path_count`: `30`
+- `schema_spec_count`: `3`
+- `schema_artifact_types`: `['scenario_spec', 'provenance_receipt', 'validation_manifest']`
+- `schema_binding_count`: `30`
+- `schema_binding_type_counts`: `{'scenario_spec': 10, 'provenance_receipt': 10, 'validation_manifest': 10}`
+- `reservation_schema_binding_counts`: `{'scar_001_scbs_001_branch_stress_blindspot_never_supported_selected_nearest': 3, 'scar_002_scbs_002_counterfactual_control_blindspot_never_supported_selected_nearest': 3, 'scar_003_scbs_003_branch_stress_blindspot_post_fire_support_selected_nearest': 3, 'scar_004_scbs_004_counterfactual_control_blindspot_post_fire_support_selected_nearest': 3, 'scar_005_scbs_005_branch_stress_blindspot_pre_support_drifted_selected_not_nearest': 3, 'scar_006_scbs_006_counterfactual_control_blindspot_pre_support_drifted_selected_not_nearest': 3, 'scar_007_scbs_007_branch_stress_blindspot_pre_support_lost_absent_selected_nearest': 3, 'scar_008_scbs_008_counterfactual_control_blindspot_pre_support_lost_absent_selected_nearest': 3, 'scar_009_scbs_009_branch_stress_blindspot_pre_support_lost_absent_selected_not_nearest': 3, 'scar_010_scbs_010_counterfactual_control_blindspot_pre_support_lost_absent_selected_not_nearest': 3}`
+- `true_authorization_count`: `0`
+- `missing_reservation_content_count`: `0`
+- `missing_schema_content_count`: `0`
+- `missing_binding_content_count`: `0`
+- `bad_reserved_path_count`: `0`
+- `existing_reserved_path_count`: `0`
+- `existing_bound_path_count`: `0`
+- `duplicate_reserved_path_count`: `0`
+- `bad_schema_reference_count`: `0`
+- `forbidden_key_count`: `0`
+
+## Schema specs
+
+### `scschema_scenario_spec_v1`
+
+- artifact type: `scenario_spec`
+- schema version: `iter130.support_core_artifact_schema.v1`
+- allowed payload sections:
+  - `symbolic_scene_blueprint`
+  - `mutation_operator_parameters`
+  - `source_context_summary`
+  - `validation_expectations`
+
+### `scschema_provenance_receipt_v1`
+
+- artifact type: `provenance_receipt`
+- schema version: `iter130.support_core_artifact_schema.v1`
+- allowed payload sections:
+  - `source_manifest_references`
+  - `operator_binding_references`
+  - `reservation_integrity_checks`
+  - `future_creation_receipt`
+
+### `scschema_validation_manifest_v1`
+
+- artifact type: `validation_manifest`
+- schema version: `iter130.support_core_artifact_schema.v1`
+- allowed payload sections:
+  - `schema_checks`
+  - `path_checks`
+  - `boundary_checks`
+  - `duplicate_handling_checks`
+  - `future_gate_checks`
+
+## Schema bindings
+
+### `scschema_bind_001_scenario_spec_scar_001_scbs_001_branch_stress_blindspot_never_supported_selected_nearest`
+
+- reservation: `scar_001_scbs_001_branch_stress_blindspot_never_supported_selected_nearest`
+- artifact type: `scenario_spec`
+- schema: `scschema_scenario_spec_v1`
+- reserved path: `future_artifacts/support_core_blindspot_generation/scbs_001_branch_stress_blindspot_never_supported_selected_nearest/scenario_spec/scartifact_001_scbs_001_branch_stress_blindspot_never_supported_selected_nearest.scenario_spec.json`
+- creation authorized: `False`
+
+### `scschema_bind_001_provenance_receipt_scar_001_scbs_001_branch_stress_blindspot_never_supported_selected_nearest`
+
+- reservation: `scar_001_scbs_001_branch_stress_blindspot_never_supported_selected_nearest`
+- artifact type: `provenance_receipt`
+- schema: `scschema_provenance_receipt_v1`
+- reserved path: `future_artifacts/support_core_blindspot_generation/scbs_001_branch_stress_blindspot_never_supported_selected_nearest/provenance_receipt/scartifact_001_scbs_001_branch_stress_blindspot_never_supported_selected_nearest.provenance_receipt.json`
+- creation authorized: `False`
+
+### `scschema_bind_001_validation_manifest_scar_001_scbs_001_branch_stress_blindspot_never_supported_selected_nearest`
+
+- reservation: `scar_001_scbs_001_branch_stress_blindspot_never_supported_selected_nearest`
+- artifact type: `validation_manifest`
+- schema: `scschema_validation_manifest_v1`
+- reserved path: `future_artifacts/support_core_blindspot_generation/scbs_001_branch_stress_blindspot_never_supported_selected_nearest/validation_manifest/scartifact_001_scbs_001_branch_stress_blindspot_never_supported_selected_nearest.validation_manifest.json`
+- creation authorized: `False`
+
+### `scschema_bind_002_scenario_spec_scar_002_scbs_002_counterfactual_control_blindspot_never_supported_selected_nearest`
+
+- reservation: `scar_002_scbs_002_counterfactual_control_blindspot_never_supported_selected_nearest`
+- artifact type: `scenario_spec`
+- schema: `scschema_scenario_spec_v1`
+- reserved path: `future_artifacts/support_core_blindspot_generation/scbs_002_counterfactual_control_blindspot_never_supported_selected_nearest/scenario_spec/scartifact_002_scbs_002_counterfactual_control_blindspot_never_supported_selected_nearest.scenario_spec.json`
+- creation authorized: `False`
+
+### `scschema_bind_002_provenance_receipt_scar_002_scbs_002_counterfactual_control_blindspot_never_supported_selected_nearest`
+
+- reservation: `scar_002_scbs_002_counterfactual_control_blindspot_never_supported_selected_nearest`
+- artifact type: `provenance_receipt`
+- schema: `scschema_provenance_receipt_v1`
+- reserved path: `future_artifacts/support_core_blindspot_generation/scbs_002_counterfactual_control_blindspot_never_supported_selected_nearest/provenance_receipt/scartifact_002_scbs_002_counterfactual_control_blindspot_never_supported_selected_nearest.provenance_receipt.json`
+- creation authorized: `False`
+
+### `scschema_bind_002_validation_manifest_scar_002_scbs_002_counterfactual_control_blindspot_never_supported_selected_nearest`
+
+- reservation: `scar_002_scbs_002_counterfactual_control_blindspot_never_supported_selected_nearest`
+- artifact type: `validation_manifest`
+- schema: `scschema_validation_manifest_v1`
+- reserved path: `future_artifacts/support_core_blindspot_generation/scbs_002_counterfactual_control_blindspot_never_supported_selected_nearest/validation_manifest/scartifact_002_scbs_002_counterfactual_control_blindspot_never_supported_selected_nearest.validation_manifest.json`
+- creation authorized: `False`
+
+### `scschema_bind_003_scenario_spec_scar_003_scbs_003_branch_stress_blindspot_post_fire_support_selected_nearest`
+
+- reservation: `scar_003_scbs_003_branch_stress_blindspot_post_fire_support_selected_nearest`
+- artifact type: `scenario_spec`
+- schema: `scschema_scenario_spec_v1`
+- reserved path: `future_artifacts/support_core_blindspot_generation/scbs_003_branch_stress_blindspot_post_fire_support_selected_nearest/scenario_spec/scartifact_003_scbs_003_branch_stress_blindspot_post_fire_support_selected_nearest.scenario_spec.json`
+- creation authorized: `False`
+
+### `scschema_bind_003_provenance_receipt_scar_003_scbs_003_branch_stress_blindspot_post_fire_support_selected_nearest`
+
+- reservation: `scar_003_scbs_003_branch_stress_blindspot_post_fire_support_selected_nearest`
+- artifact type: `provenance_receipt`
+- schema: `scschema_provenance_receipt_v1`
+- reserved path: `future_artifacts/support_core_blindspot_generation/scbs_003_branch_stress_blindspot_post_fire_support_selected_nearest/provenance_receipt/scartifact_003_scbs_003_branch_stress_blindspot_post_fire_support_selected_nearest.provenance_receipt.json`
+- creation authorized: `False`
+
+### `scschema_bind_003_validation_manifest_scar_003_scbs_003_branch_stress_blindspot_post_fire_support_selected_nearest`
+
+- reservation: `scar_003_scbs_003_branch_stress_blindspot_post_fire_support_selected_nearest`
+- artifact type: `validation_manifest`
+- schema: `scschema_validation_manifest_v1`
+- reserved path: `future_artifacts/support_core_blindspot_generation/scbs_003_branch_stress_blindspot_post_fire_support_selected_nearest/validation_manifest/scartifact_003_scbs_003_branch_stress_blindspot_post_fire_support_selected_nearest.validation_manifest.json`
+- creation authorized: `False`
+
+### `scschema_bind_004_scenario_spec_scar_004_scbs_004_counterfactual_control_blindspot_post_fire_support_selected_nearest`
+
+- reservation: `scar_004_scbs_004_counterfactual_control_blindspot_post_fire_support_selected_nearest`
+- artifact type: `scenario_spec`
+- schema: `scschema_scenario_spec_v1`
+- reserved path: `future_artifacts/support_core_blindspot_generation/scbs_004_counterfactual_control_blindspot_post_fire_support_selected_nearest/scenario_spec/scartifact_004_scbs_004_counterfactual_control_blindspot_post_fire_support_selected_nearest.scenario_spec.json`
+- creation authorized: `False`
+
+### `scschema_bind_004_provenance_receipt_scar_004_scbs_004_counterfactual_control_blindspot_post_fire_support_selected_nearest`
+
+- reservation: `scar_004_scbs_004_counterfactual_control_blindspot_post_fire_support_selected_nearest`
+- artifact type: `provenance_receipt`
+- schema: `scschema_provenance_receipt_v1`
+- reserved path: `future_artifacts/support_core_blindspot_generation/scbs_004_counterfactual_control_blindspot_post_fire_support_selected_nearest/provenance_receipt/scartifact_004_scbs_004_counterfactual_control_blindspot_post_fire_support_selected_nearest.provenance_receipt.json`
+- creation authorized: `False`
+
+### `scschema_bind_004_validation_manifest_scar_004_scbs_004_counterfactual_control_blindspot_post_fire_support_selected_nearest`
+
+- reservation: `scar_004_scbs_004_counterfactual_control_blindspot_post_fire_support_selected_nearest`
+- artifact type: `validation_manifest`
+- schema: `scschema_validation_manifest_v1`
+- reserved path: `future_artifacts/support_core_blindspot_generation/scbs_004_counterfactual_control_blindspot_post_fire_support_selected_nearest/validation_manifest/scartifact_004_scbs_004_counterfactual_control_blindspot_post_fire_support_selected_nearest.validation_manifest.json`
+- creation authorized: `False`
+
+### `scschema_bind_005_scenario_spec_scar_005_scbs_005_branch_stress_blindspot_pre_support_drifted_selected_not_nearest`
+
+- reservation: `scar_005_scbs_005_branch_stress_blindspot_pre_support_drifted_selected_not_nearest`
+- artifact type: `scenario_spec`
+- schema: `scschema_scenario_spec_v1`
+- reserved path: `future_artifacts/support_core_blindspot_generation/scbs_005_branch_stress_blindspot_pre_support_drifted_selected_not_nearest/scenario_spec/scartifact_005_scbs_005_branch_stress_blindspot_pre_support_drifted_selected_not_nearest.scenario_spec.json`
+- creation authorized: `False`
+
+### `scschema_bind_005_provenance_receipt_scar_005_scbs_005_branch_stress_blindspot_pre_support_drifted_selected_not_nearest`
+
+- reservation: `scar_005_scbs_005_branch_stress_blindspot_pre_support_drifted_selected_not_nearest`
+- artifact type: `provenance_receipt`
+- schema: `scschema_provenance_receipt_v1`
+- reserved path: `future_artifacts/support_core_blindspot_generation/scbs_005_branch_stress_blindspot_pre_support_drifted_selected_not_nearest/provenance_receipt/scartifact_005_scbs_005_branch_stress_blindspot_pre_support_drifted_selected_not_nearest.provenance_receipt.json`
+- creation authorized: `False`
+
+### `scschema_bind_005_validation_manifest_scar_005_scbs_005_branch_stress_blindspot_pre_support_drifted_selected_not_nearest`
+
+- reservation: `scar_005_scbs_005_branch_stress_blindspot_pre_support_drifted_selected_not_nearest`
+- artifact type: `validation_manifest`
+- schema: `scschema_validation_manifest_v1`
+- reserved path: `future_artifacts/support_core_blindspot_generation/scbs_005_branch_stress_blindspot_pre_support_drifted_selected_not_nearest/validation_manifest/scartifact_005_scbs_005_branch_stress_blindspot_pre_support_drifted_selected_not_nearest.validation_manifest.json`
+- creation authorized: `False`
+
+### `scschema_bind_006_scenario_spec_scar_006_scbs_006_counterfactual_control_blindspot_pre_support_drifted_selected_not_nearest`
+
+- reservation: `scar_006_scbs_006_counterfactual_control_blindspot_pre_support_drifted_selected_not_nearest`
+- artifact type: `scenario_spec`
+- schema: `scschema_scenario_spec_v1`
+- reserved path: `future_artifacts/support_core_blindspot_generation/scbs_006_counterfactual_control_blindspot_pre_support_drifted_selected_not_nearest/scenario_spec/scartifact_006_scbs_006_counterfactual_control_blindspot_pre_support_drifted_selected_not_nearest.scenario_spec.json`
+- creation authorized: `False`
+
+### `scschema_bind_006_provenance_receipt_scar_006_scbs_006_counterfactual_control_blindspot_pre_support_drifted_selected_not_nearest`
+
+- reservation: `scar_006_scbs_006_counterfactual_control_blindspot_pre_support_drifted_selected_not_nearest`
+- artifact type: `provenance_receipt`
+- schema: `scschema_provenance_receipt_v1`
+- reserved path: `future_artifacts/support_core_blindspot_generation/scbs_006_counterfactual_control_blindspot_pre_support_drifted_selected_not_nearest/provenance_receipt/scartifact_006_scbs_006_counterfactual_control_blindspot_pre_support_drifted_selected_not_nearest.provenance_receipt.json`
+- creation authorized: `False`
+
+### `scschema_bind_006_validation_manifest_scar_006_scbs_006_counterfactual_control_blindspot_pre_support_drifted_selected_not_nearest`
+
+- reservation: `scar_006_scbs_006_counterfactual_control_blindspot_pre_support_drifted_selected_not_nearest`
+- artifact type: `validation_manifest`
+- schema: `scschema_validation_manifest_v1`
+- reserved path: `future_artifacts/support_core_blindspot_generation/scbs_006_counterfactual_control_blindspot_pre_support_drifted_selected_not_nearest/validation_manifest/scartifact_006_scbs_006_counterfactual_control_blindspot_pre_support_drifted_selected_not_nearest.validation_manifest.json`
+- creation authorized: `False`
+
+### `scschema_bind_007_scenario_spec_scar_007_scbs_007_branch_stress_blindspot_pre_support_lost_absent_selected_nearest`
+
+- reservation: `scar_007_scbs_007_branch_stress_blindspot_pre_support_lost_absent_selected_nearest`
+- artifact type: `scenario_spec`
+- schema: `scschema_scenario_spec_v1`
+- reserved path: `future_artifacts/support_core_blindspot_generation/scbs_007_branch_stress_blindspot_pre_support_lost_absent_selected_nearest/scenario_spec/scartifact_007_scbs_007_branch_stress_blindspot_pre_support_lost_absent_selected_nearest.scenario_spec.json`
+- creation authorized: `False`
+
+### `scschema_bind_007_provenance_receipt_scar_007_scbs_007_branch_stress_blindspot_pre_support_lost_absent_selected_nearest`
+
+- reservation: `scar_007_scbs_007_branch_stress_blindspot_pre_support_lost_absent_selected_nearest`
+- artifact type: `provenance_receipt`
+- schema: `scschema_provenance_receipt_v1`
+- reserved path: `future_artifacts/support_core_blindspot_generation/scbs_007_branch_stress_blindspot_pre_support_lost_absent_selected_nearest/provenance_receipt/scartifact_007_scbs_007_branch_stress_blindspot_pre_support_lost_absent_selected_nearest.provenance_receipt.json`
+- creation authorized: `False`
+
+### `scschema_bind_007_validation_manifest_scar_007_scbs_007_branch_stress_blindspot_pre_support_lost_absent_selected_nearest`
+
+- reservation: `scar_007_scbs_007_branch_stress_blindspot_pre_support_lost_absent_selected_nearest`
+- artifact type: `validation_manifest`
+- schema: `scschema_validation_manifest_v1`
+- reserved path: `future_artifacts/support_core_blindspot_generation/scbs_007_branch_stress_blindspot_pre_support_lost_absent_selected_nearest/validation_manifest/scartifact_007_scbs_007_branch_stress_blindspot_pre_support_lost_absent_selected_nearest.validation_manifest.json`
+- creation authorized: `False`
+
+### `scschema_bind_008_scenario_spec_scar_008_scbs_008_counterfactual_control_blindspot_pre_support_lost_absent_selected_nearest`
+
+- reservation: `scar_008_scbs_008_counterfactual_control_blindspot_pre_support_lost_absent_selected_nearest`
+- artifact type: `scenario_spec`
+- schema: `scschema_scenario_spec_v1`
+- reserved path: `future_artifacts/support_core_blindspot_generation/scbs_008_counterfactual_control_blindspot_pre_support_lost_absent_selected_nearest/scenario_spec/scartifact_008_scbs_008_counterfactual_control_blindspot_pre_support_lost_absent_selected_nearest.scenario_spec.json`
+- creation authorized: `False`
+
+### `scschema_bind_008_provenance_receipt_scar_008_scbs_008_counterfactual_control_blindspot_pre_support_lost_absent_selected_nearest`
+
+- reservation: `scar_008_scbs_008_counterfactual_control_blindspot_pre_support_lost_absent_selected_nearest`
+- artifact type: `provenance_receipt`
+- schema: `scschema_provenance_receipt_v1`
+- reserved path: `future_artifacts/support_core_blindspot_generation/scbs_008_counterfactual_control_blindspot_pre_support_lost_absent_selected_nearest/provenance_receipt/scartifact_008_scbs_008_counterfactual_control_blindspot_pre_support_lost_absent_selected_nearest.provenance_receipt.json`
+- creation authorized: `False`
+
+### `scschema_bind_008_validation_manifest_scar_008_scbs_008_counterfactual_control_blindspot_pre_support_lost_absent_selected_nearest`
+
+- reservation: `scar_008_scbs_008_counterfactual_control_blindspot_pre_support_lost_absent_selected_nearest`
+- artifact type: `validation_manifest`
+- schema: `scschema_validation_manifest_v1`
+- reserved path: `future_artifacts/support_core_blindspot_generation/scbs_008_counterfactual_control_blindspot_pre_support_lost_absent_selected_nearest/validation_manifest/scartifact_008_scbs_008_counterfactual_control_blindspot_pre_support_lost_absent_selected_nearest.validation_manifest.json`
+- creation authorized: `False`
+
+### `scschema_bind_009_scenario_spec_scar_009_scbs_009_branch_stress_blindspot_pre_support_lost_absent_selected_not_nearest`
+
+- reservation: `scar_009_scbs_009_branch_stress_blindspot_pre_support_lost_absent_selected_not_nearest`
+- artifact type: `scenario_spec`
+- schema: `scschema_scenario_spec_v1`
+- reserved path: `future_artifacts/support_core_blindspot_generation/scbs_009_branch_stress_blindspot_pre_support_lost_absent_selected_not_nearest/scenario_spec/scartifact_009_scbs_009_branch_stress_blindspot_pre_support_lost_absent_selected_not_nearest.scenario_spec.json`
+- creation authorized: `False`
+
+### `scschema_bind_009_provenance_receipt_scar_009_scbs_009_branch_stress_blindspot_pre_support_lost_absent_selected_not_nearest`
+
+- reservation: `scar_009_scbs_009_branch_stress_blindspot_pre_support_lost_absent_selected_not_nearest`
+- artifact type: `provenance_receipt`
+- schema: `scschema_provenance_receipt_v1`
+- reserved path: `future_artifacts/support_core_blindspot_generation/scbs_009_branch_stress_blindspot_pre_support_lost_absent_selected_not_nearest/provenance_receipt/scartifact_009_scbs_009_branch_stress_blindspot_pre_support_lost_absent_selected_not_nearest.provenance_receipt.json`
+- creation authorized: `False`
+
+### `scschema_bind_009_validation_manifest_scar_009_scbs_009_branch_stress_blindspot_pre_support_lost_absent_selected_not_nearest`
+
+- reservation: `scar_009_scbs_009_branch_stress_blindspot_pre_support_lost_absent_selected_not_nearest`
+- artifact type: `validation_manifest`
+- schema: `scschema_validation_manifest_v1`
+- reserved path: `future_artifacts/support_core_blindspot_generation/scbs_009_branch_stress_blindspot_pre_support_lost_absent_selected_not_nearest/validation_manifest/scartifact_009_scbs_009_branch_stress_blindspot_pre_support_lost_absent_selected_not_nearest.validation_manifest.json`
+- creation authorized: `False`
+
+### `scschema_bind_010_scenario_spec_scar_010_scbs_010_counterfactual_control_blindspot_pre_support_lost_absent_selected_not_nearest`
+
+- reservation: `scar_010_scbs_010_counterfactual_control_blindspot_pre_support_lost_absent_selected_not_nearest`
+- artifact type: `scenario_spec`
+- schema: `scschema_scenario_spec_v1`
+- reserved path: `future_artifacts/support_core_blindspot_generation/scbs_010_counterfactual_control_blindspot_pre_support_lost_absent_selected_not_nearest/scenario_spec/scartifact_010_scbs_010_counterfactual_control_blindspot_pre_support_lost_absent_selected_not_nearest.scenario_spec.json`
+- creation authorized: `False`
+
+### `scschema_bind_010_provenance_receipt_scar_010_scbs_010_counterfactual_control_blindspot_pre_support_lost_absent_selected_not_nearest`
+
+- reservation: `scar_010_scbs_010_counterfactual_control_blindspot_pre_support_lost_absent_selected_not_nearest`
+- artifact type: `provenance_receipt`
+- schema: `scschema_provenance_receipt_v1`
+- reserved path: `future_artifacts/support_core_blindspot_generation/scbs_010_counterfactual_control_blindspot_pre_support_lost_absent_selected_not_nearest/provenance_receipt/scartifact_010_scbs_010_counterfactual_control_blindspot_pre_support_lost_absent_selected_not_nearest.provenance_receipt.json`
+- creation authorized: `False`
+
+### `scschema_bind_010_validation_manifest_scar_010_scbs_010_counterfactual_control_blindspot_pre_support_lost_absent_selected_not_nearest`
+
+- reservation: `scar_010_scbs_010_counterfactual_control_blindspot_pre_support_lost_absent_selected_not_nearest`
+- artifact type: `validation_manifest`
+- schema: `scschema_validation_manifest_v1`
+- reserved path: `future_artifacts/support_core_blindspot_generation/scbs_010_counterfactual_control_blindspot_pre_support_lost_absent_selected_not_nearest/validation_manifest/scartifact_010_scbs_010_counterfactual_control_blindspot_pre_support_lost_absent_selected_not_nearest.validation_manifest.json`
+- creation authorized: `False`
+
+## Boundary
+
+generated-artifact schema and metadata preflight only; no reserved path creation, generated scenario artifact, scenario generation, execution-slot selection, GPU launch, HUGSIM run, learning/update step, repair, actor-causality, threshold-value, transfer upgrade, safety, deployment, robustness, benchmark, population-rate, HD-Score-invariance, real-world behavior, first-responder behavior, acquisition-value, retuning, production, commercial claim, or frontier-stack equivalence claim

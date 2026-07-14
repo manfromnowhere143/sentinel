@@ -2439,3 +2439,15 @@ events to prepare; they are a property the repository always has.
   selection, GPU launch, HUGSIM run, learning/update, repair, threshold-value, safety/deployment/
   robustness/benchmark/population-rate/HD-Score-invariance, commercial-value, real-world/
   first-responder behavior, retuning, production, or commercial claim.
+- 2026-07-14: Codex — continued into iteration 130 as the generated-artifact schema/metadata
+  preflight before any reserved support-core artifact file exists. Pre-registered ALONE
+  (`07dc9fc`), added the generator/tests (`499935f`, targeted ruff/tests/docs green), then ran the
+  generator ONCE over committed iteration-129 surfaces. Result:
+  `SUPPORT_CORE_ARTIFACT_SCHEMA_PREFLIGHT_COMPLETE`; `3` artifact-type schema specs and `30`
+  path-to-schema bindings cover all `10` reservations and all `30` reserved future paths, with
+  `0` true authorization flags, `0` missing content rows, `0` existing reserved/bound paths, `0`
+  duplicate paths, `0` bad schema references, and `0` forbidden keys. This is still
+  schema/metadata preflight only; no reserved path creation, generated artifact, scenario
+  generation, slot selection, GPU launch, HUGSIM run, learning/update, repair, threshold-value,
+  safety/deployment/robustness/benchmark/population-rate/HD-Score-invariance, commercial-value,
+  real-world/first-responder behavior, retuning, production, or commercial claim.
