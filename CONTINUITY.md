@@ -2465,3 +2465,16 @@ events to prepare; they are a property the repository always has.
   run, learning/update, repair, threshold-value, safety/deployment/robustness/benchmark/
   population-rate/HD-Score-invariance, commercial-value, real-world/first-responder behavior,
   retuning, production, or commercial claim.
+- 2026-07-14: Codex — continued into iteration 132 as the schema-instance template and
+  validator-contract preflight before any reserved support-core artifact file exists.
+  Pre-registered ALONE (`5faa681`), added the generator/tests (`ffd113f`, targeted ruff/tests/docs
+  green), then ran the generator ONCE over committed iteration-130 schema surfaces. Result:
+  `SUPPORT_CORE_SCHEMA_INSTANCE_CREATION_PREFLIGHT_COMPLETE`; `3` inert schema-instance templates,
+  `1` validator contract, and `30` instance bindings cover all `10` reservations and all `30`
+  reserved future paths, with `0` true authorization flags, `0` missing schema/template/validator/
+  binding content rows, `0` existing reserved or instance-bound paths, `0` duplicate paths, `0`
+  bad schema/template/validator/instance-binding references, and `0` forbidden keys. This is still
+  schema-instance creation preflight only; no reserved path creation, generated artifact, scenario
+  generation, slot selection, GPU launch, HUGSIM run, learning/update, repair, threshold-value,
+  safety/deployment/robustness/benchmark/population-rate/HD-Score-invariance, commercial-value,
+  real-world/first-responder behavior, retuning, production, or commercial claim.

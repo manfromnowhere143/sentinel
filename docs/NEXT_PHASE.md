@@ -234,6 +234,17 @@ targeted blind-spot preparation, and safety-evidence infrastructure. The next hi
 lanes remain: schema-instance creation preflight before writing any reserved path, a one-page
 external claim ledger, explicit mission/rulebook boundary work, or a separated
 candidate-generation/execution/analysis/monitor-update sequence.
+That schema-instance creation preflight is now complete:
+[`research/SUPPORT_CORE_SCHEMA_INSTANCE_CREATION_PREFLIGHT_2026-07-14.md`](research/SUPPORT_CORE_SCHEMA_INSTANCE_CREATION_PREFLIGHT_2026-07-14.md)
+and iteration 132 freezes `3` inert instance templates, `1` validator contract, and `30`
+reserved-path-to-template bindings for all `10` support-core artifact reservations. It has zero
+true authorization flags, missing content rows, existing reserved or instance-bound paths,
+duplicate paths, bad references, or forbidden keys. This still authorizes no reserved path
+creation, generated artifact, scenario generation, slot selection, HUGSIM run, GPU launch,
+learning/update, repair, or claim upgrade. The remaining bounded lanes are a freshly
+pre-registered reserved-file/stub creation gate that reruns the validator immediately before any
+write, a one-page external claim ledger, explicit mission/rulebook boundary work, or a separated
+candidate-generation/execution/analysis/monitor-update sequence.
 
 ## New frontier packet after these lines closed
 
