@@ -2312,3 +2312,15 @@ events to prepare; they are a property the repository always has.
   repair, threshold-value, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance,
   commercial-value, real-world/first-responder behavior, retuning, production, or commercial
   claim.
+- 2026-07-14: Codex — continued into iteration 119 as the HUGSIM support-core support-loss and
+  replacement audit after iteration 118. Pre-registered ALONE (`eddb0e6`), added analyzer/tests
+  (`43dee63`, targeted ruff/tests/docs green), then ran the analyzer ONCE over committed
+  iteration-112/117/118 artifacts. Result: `HUGSIM_SUPPORT_CORE_LOSS_REPLACEMENT_COMPLETE`; all
+  `8` rows classified with `0` problem rows, last same-object support ends `1.0-6.0 s` before
+  first fire where measurable, selected is first-fire nearest in `5/8` and not nearest in `3/8`,
+  first-fire nearest is the first-support object in only `1/8`, and all first-fire nearest
+  distances remain outside support (`7.624207359121617-24.812496764606966 m`). Next honest step:
+  offline selected-fire-object backward lifecycle audit. No actor-causality, repair,
+  threshold-value, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance,
+  commercial-value, real-world/first-responder behavior, retuning, production, or commercial
+  claim.

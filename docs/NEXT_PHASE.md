@@ -135,7 +135,13 @@ band; no first-support object is still supported at fire; and the two active-sur
 are different-object, not same-object continuity. The next local HUGSIM priority is an offline
 support-loss/replacement audit: quantify last-support-to-fire and last-presence-to-fire gaps, then
 identify the first-fire replacement object's distance, surface state, and relationship to the
-selected object.
+selected object. That replacement audit is now complete: last same-object support ends `1.0-6.0 s`
+before fire where measurable, selected is nearest at fire in `5/8` rows and not nearest in `3/8`,
+and every first-fire nearest replacement is still outside the frozen support band
+(`7.62-24.81 m`). The next local HUGSIM priority is an offline selected-fire-object backward
+lifecycle audit: determine whether the selected first-fire object ever enters the support band
+before fire, when it first appears, whether it becomes surface-active before first fire, and whether
+selected-nearest rows differ from selected-not-nearest rows.
 
 ## New frontier packet after these lines closed
 

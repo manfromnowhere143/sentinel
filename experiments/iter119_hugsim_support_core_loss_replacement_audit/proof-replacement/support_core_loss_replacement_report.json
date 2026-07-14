@@ -1,0 +1,380 @@
+{
+  "claim_boundary": "descriptive support-core support-loss and first-fire replacement audit of eight committed rows only; no repair, actor-causality, threshold-value, transfer, safety, deployment, robustness, benchmark, population-rate, HD-Score-invariance, real-world behavior, first-responder behavior, acquisition-value, retuning, production, or commercial claim",
+  "infra_problems": [],
+  "inputs": {
+    "iter117_report": "experiments/iter117_hugsim_support_core_event_window_decomposition/proof-event-window/support_core_event_window_report.json",
+    "iter118_report": "experiments/iter118_hugsim_support_core_object_lifecycle/proof-lifecycle/support_core_object_lifecycle_report.json",
+    "iter59_analyzer": "experiments/iter59_hugsim_actor_match_audit/analyze_actor_match.py",
+    "proof_root": "experiments/iter112_hugsim_support_core_batch_execution/proof-execution"
+  },
+  "iteration": 119,
+  "replacement_rows": [
+    {
+      "fire_minus_last_presence_s": 1.25,
+      "fire_minus_last_support_s": 4.25,
+      "fire_nearest_distance_m": 12.724592460878268,
+      "fire_nearest_is_first_support_object": false,
+      "fire_nearest_object_id": 10,
+      "fire_object_count": 3,
+      "first_fire_ts": 5.0,
+      "first_foreground_ts": 5.25,
+      "first_support_object_distance_at_fire_m": null,
+      "first_support_object_id": 2,
+      "first_support_object_present_at_fire": false,
+      "first_support_phase": "pre_fire",
+      "problems": [],
+      "replacement_label": "pre_fire_lost_absent_selected_not_nearest",
+      "run": 2,
+      "scenario": "scene-0411-hard-00",
+      "selected_distance_m": 23.793069683037515,
+      "selected_is_fire_nearest": false,
+      "selected_object_id": 12,
+      "selected_rank_by_collision_distance": 2,
+      "slot_id": "i111_s01_iter49_hard_extreme_exact_ttc_classifiable_anchor_short_lead_fire_ttc_only_scene_0411_hard_00_r2",
+      "slot_index": 1,
+      "top3_fire_object_distances": [
+        {
+          "distance_m": 12.724592460878268,
+          "monitor_forward_m": -0.632244105522116,
+          "monitor_lateral_m": 2.5555190854701837,
+          "object_id": 10
+        },
+        {
+          "distance_m": 23.793069683037515,
+          "monitor_forward_m": -11.600185726096788,
+          "monitor_lateral_m": 4.0690542754198695,
+          "object_id": 12
+        },
+        {
+          "distance_m": 26.64019664930484,
+          "monitor_forward_m": -14.6511108918473,
+          "monitor_lateral_m": -1.7039710963994705,
+          "object_id": 13
+        }
+      ]
+    },
+    {
+      "fire_minus_last_presence_s": 0.0,
+      "fire_minus_last_support_s": 1.0,
+      "fire_nearest_distance_m": 7.624207359121617,
+      "fire_nearest_is_first_support_object": true,
+      "fire_nearest_object_id": 4,
+      "fire_object_count": 3,
+      "first_fire_ts": 1.75,
+      "first_foreground_ts": 4.75,
+      "first_support_object_distance_at_fire_m": 7.624207359121617,
+      "first_support_object_id": 4,
+      "first_support_object_present_at_fire": true,
+      "first_support_phase": "pre_fire",
+      "problems": [],
+      "replacement_label": "pre_fire_drifted_selected_not_nearest",
+      "run": 1,
+      "scenario": "scene-0411-extreme-00",
+      "selected_distance_m": 24.59033959495813,
+      "selected_is_fire_nearest": false,
+      "selected_object_id": 2,
+      "selected_rank_by_collision_distance": 3,
+      "slot_id": "i111_s02_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0411_extreme_00_r1",
+      "slot_index": 2,
+      "top3_fire_object_distances": [
+        {
+          "distance_m": 7.624207359121617,
+          "monitor_forward_m": 7.641571500218651,
+          "monitor_lateral_m": -6.697563982249721,
+          "object_id": 4
+        },
+        {
+          "distance_m": 13.72405418281831,
+          "monitor_forward_m": 22.439793577486796,
+          "monitor_lateral_m": 3.465151947830761,
+          "object_id": 3
+        },
+        {
+          "distance_m": 24.59033959495813,
+          "monitor_forward_m": 27.204197114168448,
+          "monitor_lateral_m": -15.695109318731024,
+          "object_id": 2
+        }
+      ]
+    },
+    {
+      "fire_minus_last_presence_s": null,
+      "fire_minus_last_support_s": null,
+      "fire_nearest_distance_m": 14.472507961609738,
+      "fire_nearest_is_first_support_object": false,
+      "fire_nearest_object_id": 25,
+      "fire_object_count": 5,
+      "first_fire_ts": 4.0,
+      "first_foreground_ts": 7.25,
+      "first_support_object_distance_at_fire_m": null,
+      "first_support_object_id": null,
+      "first_support_object_present_at_fire": null,
+      "first_support_phase": "never_before_collision",
+      "problems": [],
+      "replacement_label": "never_supported_reference_selected_nearest",
+      "run": 1,
+      "scenario": "scene-0038-hard-00",
+      "selected_distance_m": 14.472507961609738,
+      "selected_is_fire_nearest": true,
+      "selected_object_id": 25,
+      "selected_rank_by_collision_distance": 1,
+      "slot_id": "i111_s03_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0038_hard_00_r1",
+      "slot_index": 3,
+      "top3_fire_object_distances": [
+        {
+          "distance_m": 14.472507961609738,
+          "monitor_forward_m": 10.971191503263102,
+          "monitor_lateral_m": 1.6329758093261906,
+          "object_id": 25
+        },
+        {
+          "distance_m": 17.622281278951714,
+          "monitor_forward_m": 12.87234352968378,
+          "monitor_lateral_m": -6.153051082203578,
+          "object_id": 1
+        },
+        {
+          "distance_m": 23.760515282688324,
+          "monitor_forward_m": 10.337359768711828,
+          "monitor_lateral_m": -11.964382062572572,
+          "object_id": 15
+        }
+      ]
+    },
+    {
+      "fire_minus_last_presence_s": null,
+      "fire_minus_last_support_s": null,
+      "fire_nearest_distance_m": 15.460122021736504,
+      "fire_nearest_is_first_support_object": false,
+      "fire_nearest_object_id": 2,
+      "fire_object_count": 5,
+      "first_fire_ts": 1.5,
+      "first_foreground_ts": 2.5,
+      "first_support_object_distance_at_fire_m": null,
+      "first_support_object_id": 8,
+      "first_support_object_present_at_fire": false,
+      "first_support_phase": "post_fire_pre_collision",
+      "problems": [],
+      "replacement_label": "post_fire_support_selected_nearest",
+      "run": 1,
+      "scenario": "scene-0038-extreme-00",
+      "selected_distance_m": 15.460122021736504,
+      "selected_is_fire_nearest": true,
+      "selected_object_id": 2,
+      "selected_rank_by_collision_distance": 1,
+      "slot_id": "i111_s04_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r1",
+      "slot_index": 4,
+      "top3_fire_object_distances": [
+        {
+          "distance_m": 15.460122021736504,
+          "monitor_forward_m": -9.111840352881082,
+          "monitor_lateral_m": -9.477600551361178,
+          "object_id": 2
+        },
+        {
+          "distance_m": 19.37572379130718,
+          "monitor_forward_m": 11.286092966688571,
+          "monitor_lateral_m": -18.327510634144346,
+          "object_id": 4
+        },
+        {
+          "distance_m": 20.03268446965267,
+          "monitor_forward_m": 10.833953995138499,
+          "monitor_lateral_m": -19.225758947829707,
+          "object_id": 3
+        }
+      ]
+    },
+    {
+      "fire_minus_last_presence_s": null,
+      "fire_minus_last_support_s": null,
+      "fire_nearest_distance_m": 15.541003639773562,
+      "fire_nearest_is_first_support_object": false,
+      "fire_nearest_object_id": 2,
+      "fire_object_count": 4,
+      "first_fire_ts": 1.5,
+      "first_foreground_ts": 2.5,
+      "first_support_object_distance_at_fire_m": null,
+      "first_support_object_id": 14,
+      "first_support_object_present_at_fire": false,
+      "first_support_phase": "post_fire_pre_collision",
+      "problems": [],
+      "replacement_label": "post_fire_support_selected_nearest",
+      "run": 2,
+      "scenario": "scene-0038-extreme-00",
+      "selected_distance_m": 15.541003639773562,
+      "selected_is_fire_nearest": true,
+      "selected_object_id": 2,
+      "selected_rank_by_collision_distance": 1,
+      "slot_id": "i111_s05_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r2",
+      "slot_index": 5,
+      "top3_fire_object_distances": [
+        {
+          "distance_m": 15.541003639773562,
+          "monitor_forward_m": -9.125541889094475,
+          "monitor_lateral_m": -9.558770915991254,
+          "object_id": 2
+        },
+        {
+          "distance_m": 19.460010245602042,
+          "monitor_forward_m": 11.32976319512283,
+          "monitor_lateral_m": -18.42067238401406,
+          "object_id": 4
+        },
+        {
+          "distance_m": 20.113494295313476,
+          "monitor_forward_m": 10.959510177215858,
+          "monitor_lateral_m": -19.282050515242485,
+          "object_id": 3
+        }
+      ]
+    },
+    {
+      "fire_minus_last_presence_s": 4.75,
+      "fire_minus_last_support_s": 6.0,
+      "fire_nearest_distance_m": 23.221048739940226,
+      "fire_nearest_is_first_support_object": false,
+      "fire_nearest_object_id": 18,
+      "fire_object_count": 10,
+      "first_fire_ts": 6.75,
+      "first_foreground_ts": 7.25,
+      "first_support_object_distance_at_fire_m": null,
+      "first_support_object_id": 2,
+      "first_support_object_present_at_fire": false,
+      "first_support_phase": "pre_fire",
+      "problems": [],
+      "replacement_label": "pre_fire_lost_absent_selected_not_nearest",
+      "run": 2,
+      "scenario": "scene-0383-extreme-00",
+      "selected_distance_m": 36.09143899155716,
+      "selected_is_fire_nearest": false,
+      "selected_object_id": 1,
+      "selected_rank_by_collision_distance": 8,
+      "slot_id": "i111_s06_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0383_extreme_00_r2",
+      "slot_index": 6,
+      "top3_fire_object_distances": [
+        {
+          "distance_m": 23.221048739940226,
+          "monitor_forward_m": -2.069580246059151,
+          "monitor_lateral_m": 4.535369350791186,
+          "object_id": 18
+        },
+        {
+          "distance_m": 23.259122671111022,
+          "monitor_forward_m": -1.0229263857348885,
+          "monitor_lateral_m": -5.794269874264233,
+          "object_id": 0
+        },
+        {
+          "distance_m": 32.13234975018606,
+          "monitor_forward_m": -5.410408518068409,
+          "monitor_lateral_m": -16.58873803684378,
+          "object_id": 21
+        }
+      ]
+    },
+    {
+      "fire_minus_last_presence_s": 2.25,
+      "fire_minus_last_support_s": 5.0,
+      "fire_nearest_distance_m": 23.180715225043926,
+      "fire_nearest_is_first_support_object": false,
+      "fire_nearest_object_id": 12,
+      "fire_object_count": 1,
+      "first_fire_ts": 5.75,
+      "first_foreground_ts": 6.0,
+      "first_support_object_distance_at_fire_m": null,
+      "first_support_object_id": 2,
+      "first_support_object_present_at_fire": false,
+      "first_support_phase": "pre_fire",
+      "problems": [],
+      "replacement_label": "pre_fire_lost_absent_selected_nearest",
+      "run": 1,
+      "scenario": "scene-0411-hard-00",
+      "selected_distance_m": 23.180715225043926,
+      "selected_is_fire_nearest": true,
+      "selected_object_id": 12,
+      "selected_rank_by_collision_distance": 1,
+      "slot_id": "i111_s07_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0411_hard_00_r1",
+      "slot_index": 7,
+      "top3_fire_object_distances": [
+        {
+          "distance_m": 23.180715225043926,
+          "monitor_forward_m": -9.312291665924478,
+          "monitor_lateral_m": 4.840799081364322,
+          "object_id": 12
+        }
+      ]
+    },
+    {
+      "fire_minus_last_presence_s": 2.5,
+      "fire_minus_last_support_s": 5.0,
+      "fire_nearest_distance_m": 24.812496764606966,
+      "fire_nearest_is_first_support_object": false,
+      "fire_nearest_object_id": 17,
+      "fire_object_count": 1,
+      "first_fire_ts": 5.75,
+      "first_foreground_ts": 6.0,
+      "first_support_object_distance_at_fire_m": null,
+      "first_support_object_id": 4,
+      "first_support_object_present_at_fire": false,
+      "first_support_phase": "pre_fire",
+      "problems": [],
+      "replacement_label": "pre_fire_lost_absent_selected_nearest",
+      "run": 2,
+      "scenario": "scene-0411-extreme-00",
+      "selected_distance_m": 24.812496764606966,
+      "selected_is_fire_nearest": true,
+      "selected_object_id": 17,
+      "selected_rank_by_collision_distance": 1,
+      "slot_id": "i111_s08_iter49_hard_extreme_ttc_classifiable_scenario_analogue_long_lead_fire_ttc_only_scene_0411_extreme_00_r2",
+      "slot_index": 8,
+      "top3_fire_object_distances": [
+        {
+          "distance_m": 24.812496764606966,
+          "monitor_forward_m": -11.27820774602445,
+          "monitor_lateral_m": 1.7183135128430767,
+          "object_id": 17
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "fire_minus_last_presence_s": {
+      "max": 4.75,
+      "min": 0.0
+    },
+    "fire_minus_last_support_s": {
+      "max": 6.0,
+      "min": 1.0
+    },
+    "fire_nearest_distance_m": {
+      "max": 24.812496764606966,
+      "min": 7.624207359121617
+    },
+    "fire_nearest_is_first_support_object_count": 1,
+    "first_support_object_distance_at_fire_m": {
+      "max": 7.624207359121617,
+      "min": 7.624207359121617
+    },
+    "problem_row_count": 0,
+    "replacement_label_counts": {
+      "never_supported_reference_selected_nearest": 1,
+      "post_fire_support_selected_nearest": 2,
+      "pre_fire_drifted_selected_not_nearest": 1,
+      "pre_fire_lost_absent_selected_nearest": 2,
+      "pre_fire_lost_absent_selected_not_nearest": 2
+    },
+    "row_count": 8,
+    "selected_distance_m": {
+      "max": 36.09143899155716,
+      "min": 14.472507961609738
+    },
+    "selected_is_fire_nearest_count": 5,
+    "selected_not_fire_nearest_count": 3,
+    "selected_rank_by_collision_distance": {
+      "max": 8.0,
+      "min": 1.0
+    }
+  },
+  "verdict": "HUGSIM_SUPPORT_CORE_LOSS_REPLACEMENT_COMPLETE"
+}
