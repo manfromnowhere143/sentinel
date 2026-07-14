@@ -2300,3 +2300,15 @@ events to prepare; they are a property the repository always has.
   vs different-object later active support). No actor-causality, repair, threshold-value,
   safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value,
   real-world/first-responder behavior, retuning, production, or commercial claim.
+- 2026-07-14: Codex — continued into iteration 118 as the HUGSIM support-core support-object
+  lifecycle audit after iteration 117. Pre-registered ALONE (`f5f01ea`), added analyzer/tests
+  (`a336d29`, targeted ruff/tests/docs green), then ran the analyzer ONCE over committed
+  iteration-112/117 artifacts. Result: `HUGSIM_SUPPORT_CORE_OBJECT_LIFECYCLE_COMPLETE`; all `8`
+  rows classified with `0` problem rows, first-support objects are absent at fire in `4` pre-fire
+  rows, drifted outside support in `1`, never still supported at fire (`0/7`), and later
+  active-surface support is different-object only (`2` frames, `0` same-object). Next honest step:
+  offline support-loss/replacement audit quantifying last-support-to-fire and
+  last-presence-to-fire gaps plus first-fire replacement identity/distance. No actor-causality,
+  repair, threshold-value, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance,
+  commercial-value, real-world/first-responder behavior, retuning, production, or commercial
+  claim.

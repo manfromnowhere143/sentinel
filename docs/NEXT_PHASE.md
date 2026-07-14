@@ -129,7 +129,13 @@ is `active` in all `8` rows, first-support objects persist to first fire in only
 equals the first-fire selected object. The next local HUGSIM priority is an offline support-object
 lifecycle audit from first support to fire: last presence, last support, disappearance or drift
 outside the support band, and whether the later active support frames are same-object or
-different-object post-fire support.
+different-object post-fire support. That lifecycle audit is now complete: among the five pre-fire
+support rows, four first-support objects are absent at fire and one has drifted outside the support
+band; no first-support object is still supported at fire; and the two active-surface support frames
+are different-object, not same-object continuity. The next local HUGSIM priority is an offline
+support-loss/replacement audit: quantify last-support-to-fire and last-presence-to-fire gaps, then
+identify the first-fire replacement object's distance, surface state, and relationship to the
+selected object.
 
 ## New frontier packet after these lines closed
 
