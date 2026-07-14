@@ -182,6 +182,15 @@ requires a fresh `HYPOTHESIS.md`. The remaining bounded lanes are a higher-fidel
 successor, explicit mission/rulebook boundary definition, external one-page claim ledger, or a
 separate preflight that turns the design surface into a candidate-generation manifest without
 running it.
+That separate preflight is now complete:
+[`research/SUPPORT_CORE_CANDIDATE_GENERATION_MANIFEST_2026-07-14.md`](research/SUPPORT_CORE_CANDIDATE_GENERATION_MANIFEST_2026-07-14.md)
+and iteration 126 define `10` symbolic future candidate specs: exactly one `branch_stress` and one
+`counterfactual_control` candidate for each of the five iteration-125 archetypes, covering all `8`
+source slots with zero true authorization flags, zero generated scenario paths, and zero launch
+commands. This still authorizes no generation or HUGSIM run. The remaining bounded lanes are a
+higher-fidelity perturbation successor, explicit mission/rulebook boundary definition, external
+one-page claim ledger, or a fresh preflight for candidate-source-pool and mutation-operator
+freezing before any scenario generation.
 
 ## New frontier packet after these lines closed
 

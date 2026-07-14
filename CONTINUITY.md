@@ -2393,3 +2393,14 @@ events to prepare; they are a property the repository always has.
   design surface only; no scenario generation, GPU launch, HUGSIM run, repair, threshold-value,
   safety/deployment/robustness/benchmark/population-rate/HD-Score-invariance, commercial-value,
   real-world/first-responder behavior, retuning, production, or commercial claim.
+- 2026-07-14: Codex — continued into iteration 126 as the support-core candidate-generation
+  manifest preflight after iteration 125. Pre-registered ALONE (`11c6c8b`), added the
+  generator/tests (`81f8bc0`, targeted ruff/tests/docs green), then ran the generator ONCE over
+  committed iteration-125 report/result/design-note surfaces. Result:
+  `SUPPORT_CORE_CANDIDATE_MANIFEST_PREFLIGHT_COMPLETE`; `10` inert future candidate specs cover
+  all five design archetypes with exactly one `branch_stress` and one `counterfactual_control`
+  role per archetype, all `8` source slots covered, `0` true authorization flags, `0` generated
+  scenario paths, `0` launch commands, and `0` metric/threshold change instructions. This is a
+  symbolic manifest only; no scenario generation, GPU launch, HUGSIM run, repair, threshold-value,
+  safety/deployment/robustness/benchmark/population-rate/HD-Score-invariance, commercial-value,
+  real-world/first-responder behavior, retuning, production, or commercial claim.
