@@ -1,0 +1,533 @@
+{
+  "artifact_reservations": [
+    {
+      "artifact_stem": "scartifact_001_scbs_001_branch_stress_blindspot_never_supported_selected_nearest",
+      "binding_id": "scbind_001_scbs_001_branch_stress_blindspot_never_supported_selected_nearest",
+      "candidate_id": "scbs_001_branch_stress_blindspot_never_supported_selected_nearest",
+      "commercial_claim_authorized": false,
+      "deployment_authorized": false,
+      "duplicate_handling_rule": "preserve candidate_id, source_pool_id, and source_slot_id; repeated scenarios remain distinct by source_slot_id",
+      "execution_authorized": false,
+      "execution_slot_selection_authorized": false,
+      "generated_artifact_authorized": false,
+      "gpu_authorized": false,
+      "hugsim_run_authorized": false,
+      "learning_update_authorized": false,
+      "metric_change_authorized": false,
+      "mutation_family": "unsupported_nearest_reference_pressure",
+      "operator_id": "scop_unsupported_nearest_reference_pressure",
+      "path_collision_key": "scbs_001_branch_stress_blindspot_never_supported_selected_nearest|scsp_001_scbs_001_branch_stress_blindspot_never_supported_selected_nearest|scop_unsupported_nearest_reference_pressure",
+      "planner_code_change_authorized": false,
+      "production_authorized": false,
+      "repair_authorized": false,
+      "required_future_creation_checks": [
+        "fresh HYPOTHESIS.md authorizes artifact creation",
+        "reserved path does not already exist immediately before creation",
+        "candidate_id/source_pool_id/operator_id are copied into artifact metadata",
+        "duplicate source scenarios remain keyed by source_slot_id",
+        "no HUGSIM execution or GPU launch is implied by artifact creation",
+        "claim boundary is copied into any future generation result"
+      ],
+      "reservation_id": "scar_001_scbs_001_branch_stress_blindspot_never_supported_selected_nearest",
+      "reserved_destination_root": "future_artifacts/support_core_blindspot_generation",
+      "reserved_path_creation_authorized": false,
+      "reserved_relative_paths": {
+        "provenance_receipt": "future_artifacts/support_core_blindspot_generation/scbs_001_branch_stress_blindspot_never_supported_selected_nearest/provenance_receipt/scartifact_001_scbs_001_branch_stress_blindspot_never_supported_selected_nearest.provenance_receipt.json",
+        "scenario_spec": "future_artifacts/support_core_blindspot_generation/scbs_001_branch_stress_blindspot_never_supported_selected_nearest/scenario_spec/scartifact_001_scbs_001_branch_stress_blindspot_never_supported_selected_nearest.scenario_spec.json",
+        "validation_manifest": "future_artifacts/support_core_blindspot_generation/scbs_001_branch_stress_blindspot_never_supported_selected_nearest/validation_manifest/scartifact_001_scbs_001_branch_stress_blindspot_never_supported_selected_nearest.validation_manifest.json"
+      },
+      "runtime_code_change_authorized": false,
+      "safety_claim_authorized": false,
+      "scenario_generation_authorized": false,
+      "source_pool_id": "scsp_001_scbs_001_branch_stress_blindspot_never_supported_selected_nearest",
+      "source_scenarios": [
+        "scene-0038-hard-00"
+      ],
+      "source_slot_ids": [
+        "i111_s03_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0038_hard_00_r1"
+      ],
+      "threshold_change_authorized": false
+    },
+    {
+      "artifact_stem": "scartifact_002_scbs_002_counterfactual_control_blindspot_never_supported_selected_nearest",
+      "binding_id": "scbind_002_scbs_002_counterfactual_control_blindspot_never_supported_selected_nearest",
+      "candidate_id": "scbs_002_counterfactual_control_blindspot_never_supported_selected_nearest",
+      "commercial_claim_authorized": false,
+      "deployment_authorized": false,
+      "duplicate_handling_rule": "preserve candidate_id, source_pool_id, and source_slot_id; repeated scenarios remain distinct by source_slot_id",
+      "execution_authorized": false,
+      "execution_slot_selection_authorized": false,
+      "generated_artifact_authorized": false,
+      "gpu_authorized": false,
+      "hugsim_run_authorized": false,
+      "learning_update_authorized": false,
+      "metric_change_authorized": false,
+      "mutation_family": "introduce_pre_fire_support_reference_control",
+      "operator_id": "scop_introduce_pre_fire_support_reference_control",
+      "path_collision_key": "scbs_002_counterfactual_control_blindspot_never_supported_selected_nearest|scsp_002_scbs_002_counterfactual_control_blindspot_never_supported_selected_nearest|scop_introduce_pre_fire_support_reference_control",
+      "planner_code_change_authorized": false,
+      "production_authorized": false,
+      "repair_authorized": false,
+      "required_future_creation_checks": [
+        "fresh HYPOTHESIS.md authorizes artifact creation",
+        "reserved path does not already exist immediately before creation",
+        "candidate_id/source_pool_id/operator_id are copied into artifact metadata",
+        "duplicate source scenarios remain keyed by source_slot_id",
+        "no HUGSIM execution or GPU launch is implied by artifact creation",
+        "claim boundary is copied into any future generation result"
+      ],
+      "reservation_id": "scar_002_scbs_002_counterfactual_control_blindspot_never_supported_selected_nearest",
+      "reserved_destination_root": "future_artifacts/support_core_blindspot_generation",
+      "reserved_path_creation_authorized": false,
+      "reserved_relative_paths": {
+        "provenance_receipt": "future_artifacts/support_core_blindspot_generation/scbs_002_counterfactual_control_blindspot_never_supported_selected_nearest/provenance_receipt/scartifact_002_scbs_002_counterfactual_control_blindspot_never_supported_selected_nearest.provenance_receipt.json",
+        "scenario_spec": "future_artifacts/support_core_blindspot_generation/scbs_002_counterfactual_control_blindspot_never_supported_selected_nearest/scenario_spec/scartifact_002_scbs_002_counterfactual_control_blindspot_never_supported_selected_nearest.scenario_spec.json",
+        "validation_manifest": "future_artifacts/support_core_blindspot_generation/scbs_002_counterfactual_control_blindspot_never_supported_selected_nearest/validation_manifest/scartifact_002_scbs_002_counterfactual_control_blindspot_never_supported_selected_nearest.validation_manifest.json"
+      },
+      "runtime_code_change_authorized": false,
+      "safety_claim_authorized": false,
+      "scenario_generation_authorized": false,
+      "source_pool_id": "scsp_002_scbs_002_counterfactual_control_blindspot_never_supported_selected_nearest",
+      "source_scenarios": [
+        "scene-0038-hard-00"
+      ],
+      "source_slot_ids": [
+        "i111_s03_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0038_hard_00_r1"
+      ],
+      "threshold_change_authorized": false
+    },
+    {
+      "artifact_stem": "scartifact_003_scbs_003_branch_stress_blindspot_post_fire_support_selected_nearest",
+      "binding_id": "scbind_003_scbs_003_branch_stress_blindspot_post_fire_support_selected_nearest",
+      "candidate_id": "scbs_003_branch_stress_blindspot_post_fire_support_selected_nearest",
+      "commercial_claim_authorized": false,
+      "deployment_authorized": false,
+      "duplicate_handling_rule": "preserve candidate_id, source_pool_id, and source_slot_id; repeated scenarios remain distinct by source_slot_id",
+      "execution_authorized": false,
+      "execution_slot_selection_authorized": false,
+      "generated_artifact_authorized": false,
+      "gpu_authorized": false,
+      "hugsim_run_authorized": false,
+      "learning_update_authorized": false,
+      "metric_change_authorized": false,
+      "mutation_family": "post_fire_support_delay_pressure",
+      "operator_id": "scop_post_fire_support_delay_pressure",
+      "path_collision_key": "scbs_003_branch_stress_blindspot_post_fire_support_selected_nearest|scsp_003_scbs_003_branch_stress_blindspot_post_fire_support_selected_nearest|scop_post_fire_support_delay_pressure",
+      "planner_code_change_authorized": false,
+      "production_authorized": false,
+      "repair_authorized": false,
+      "required_future_creation_checks": [
+        "fresh HYPOTHESIS.md authorizes artifact creation",
+        "reserved path does not already exist immediately before creation",
+        "candidate_id/source_pool_id/operator_id are copied into artifact metadata",
+        "duplicate source scenarios remain keyed by source_slot_id",
+        "no HUGSIM execution or GPU launch is implied by artifact creation",
+        "claim boundary is copied into any future generation result"
+      ],
+      "reservation_id": "scar_003_scbs_003_branch_stress_blindspot_post_fire_support_selected_nearest",
+      "reserved_destination_root": "future_artifacts/support_core_blindspot_generation",
+      "reserved_path_creation_authorized": false,
+      "reserved_relative_paths": {
+        "provenance_receipt": "future_artifacts/support_core_blindspot_generation/scbs_003_branch_stress_blindspot_post_fire_support_selected_nearest/provenance_receipt/scartifact_003_scbs_003_branch_stress_blindspot_post_fire_support_selected_nearest.provenance_receipt.json",
+        "scenario_spec": "future_artifacts/support_core_blindspot_generation/scbs_003_branch_stress_blindspot_post_fire_support_selected_nearest/scenario_spec/scartifact_003_scbs_003_branch_stress_blindspot_post_fire_support_selected_nearest.scenario_spec.json",
+        "validation_manifest": "future_artifacts/support_core_blindspot_generation/scbs_003_branch_stress_blindspot_post_fire_support_selected_nearest/validation_manifest/scartifact_003_scbs_003_branch_stress_blindspot_post_fire_support_selected_nearest.validation_manifest.json"
+      },
+      "runtime_code_change_authorized": false,
+      "safety_claim_authorized": false,
+      "scenario_generation_authorized": false,
+      "source_pool_id": "scsp_003_scbs_003_branch_stress_blindspot_post_fire_support_selected_nearest",
+      "source_scenarios": [
+        "scene-0038-extreme-00"
+      ],
+      "source_slot_ids": [
+        "i111_s04_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r1",
+        "i111_s05_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r2"
+      ],
+      "threshold_change_authorized": false
+    },
+    {
+      "artifact_stem": "scartifact_004_scbs_004_counterfactual_control_blindspot_post_fire_support_selected_nearest",
+      "binding_id": "scbind_004_scbs_004_counterfactual_control_blindspot_post_fire_support_selected_nearest",
+      "candidate_id": "scbs_004_counterfactual_control_blindspot_post_fire_support_selected_nearest",
+      "commercial_claim_authorized": false,
+      "deployment_authorized": false,
+      "duplicate_handling_rule": "preserve candidate_id, source_pool_id, and source_slot_id; repeated scenarios remain distinct by source_slot_id",
+      "execution_authorized": false,
+      "execution_slot_selection_authorized": false,
+      "generated_artifact_authorized": false,
+      "gpu_authorized": false,
+      "hugsim_run_authorized": false,
+      "learning_update_authorized": false,
+      "metric_change_authorized": false,
+      "mutation_family": "shift_post_fire_evidence_to_pre_fire_control",
+      "operator_id": "scop_shift_post_fire_evidence_to_pre_fire_control",
+      "path_collision_key": "scbs_004_counterfactual_control_blindspot_post_fire_support_selected_nearest|scsp_004_scbs_004_counterfactual_control_blindspot_post_fire_support_selected_nearest|scop_shift_post_fire_evidence_to_pre_fire_control",
+      "planner_code_change_authorized": false,
+      "production_authorized": false,
+      "repair_authorized": false,
+      "required_future_creation_checks": [
+        "fresh HYPOTHESIS.md authorizes artifact creation",
+        "reserved path does not already exist immediately before creation",
+        "candidate_id/source_pool_id/operator_id are copied into artifact metadata",
+        "duplicate source scenarios remain keyed by source_slot_id",
+        "no HUGSIM execution or GPU launch is implied by artifact creation",
+        "claim boundary is copied into any future generation result"
+      ],
+      "reservation_id": "scar_004_scbs_004_counterfactual_control_blindspot_post_fire_support_selected_nearest",
+      "reserved_destination_root": "future_artifacts/support_core_blindspot_generation",
+      "reserved_path_creation_authorized": false,
+      "reserved_relative_paths": {
+        "provenance_receipt": "future_artifacts/support_core_blindspot_generation/scbs_004_counterfactual_control_blindspot_post_fire_support_selected_nearest/provenance_receipt/scartifact_004_scbs_004_counterfactual_control_blindspot_post_fire_support_selected_nearest.provenance_receipt.json",
+        "scenario_spec": "future_artifacts/support_core_blindspot_generation/scbs_004_counterfactual_control_blindspot_post_fire_support_selected_nearest/scenario_spec/scartifact_004_scbs_004_counterfactual_control_blindspot_post_fire_support_selected_nearest.scenario_spec.json",
+        "validation_manifest": "future_artifacts/support_core_blindspot_generation/scbs_004_counterfactual_control_blindspot_post_fire_support_selected_nearest/validation_manifest/scartifact_004_scbs_004_counterfactual_control_blindspot_post_fire_support_selected_nearest.validation_manifest.json"
+      },
+      "runtime_code_change_authorized": false,
+      "safety_claim_authorized": false,
+      "scenario_generation_authorized": false,
+      "source_pool_id": "scsp_004_scbs_004_counterfactual_control_blindspot_post_fire_support_selected_nearest",
+      "source_scenarios": [
+        "scene-0038-extreme-00"
+      ],
+      "source_slot_ids": [
+        "i111_s04_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r1",
+        "i111_s05_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r2"
+      ],
+      "threshold_change_authorized": false
+    },
+    {
+      "artifact_stem": "scartifact_005_scbs_005_branch_stress_blindspot_pre_support_drifted_selected_not_nearest",
+      "binding_id": "scbind_005_scbs_005_branch_stress_blindspot_pre_support_drifted_selected_not_nearest",
+      "candidate_id": "scbs_005_branch_stress_blindspot_pre_support_drifted_selected_not_nearest",
+      "commercial_claim_authorized": false,
+      "deployment_authorized": false,
+      "duplicate_handling_rule": "preserve candidate_id, source_pool_id, and source_slot_id; repeated scenarios remain distinct by source_slot_id",
+      "execution_authorized": false,
+      "execution_slot_selection_authorized": false,
+      "generated_artifact_authorized": false,
+      "gpu_authorized": false,
+      "hugsim_run_authorized": false,
+      "learning_update_authorized": false,
+      "metric_change_authorized": false,
+      "mutation_family": "support_drift_outside_band_sweep",
+      "operator_id": "scop_support_drift_outside_band_sweep",
+      "path_collision_key": "scbs_005_branch_stress_blindspot_pre_support_drifted_selected_not_nearest|scsp_005_scbs_005_branch_stress_blindspot_pre_support_drifted_selected_not_nearest|scop_support_drift_outside_band_sweep",
+      "planner_code_change_authorized": false,
+      "production_authorized": false,
+      "repair_authorized": false,
+      "required_future_creation_checks": [
+        "fresh HYPOTHESIS.md authorizes artifact creation",
+        "reserved path does not already exist immediately before creation",
+        "candidate_id/source_pool_id/operator_id are copied into artifact metadata",
+        "duplicate source scenarios remain keyed by source_slot_id",
+        "no HUGSIM execution or GPU launch is implied by artifact creation",
+        "claim boundary is copied into any future generation result"
+      ],
+      "reservation_id": "scar_005_scbs_005_branch_stress_blindspot_pre_support_drifted_selected_not_nearest",
+      "reserved_destination_root": "future_artifacts/support_core_blindspot_generation",
+      "reserved_path_creation_authorized": false,
+      "reserved_relative_paths": {
+        "provenance_receipt": "future_artifacts/support_core_blindspot_generation/scbs_005_branch_stress_blindspot_pre_support_drifted_selected_not_nearest/provenance_receipt/scartifact_005_scbs_005_branch_stress_blindspot_pre_support_drifted_selected_not_nearest.provenance_receipt.json",
+        "scenario_spec": "future_artifacts/support_core_blindspot_generation/scbs_005_branch_stress_blindspot_pre_support_drifted_selected_not_nearest/scenario_spec/scartifact_005_scbs_005_branch_stress_blindspot_pre_support_drifted_selected_not_nearest.scenario_spec.json",
+        "validation_manifest": "future_artifacts/support_core_blindspot_generation/scbs_005_branch_stress_blindspot_pre_support_drifted_selected_not_nearest/validation_manifest/scartifact_005_scbs_005_branch_stress_blindspot_pre_support_drifted_selected_not_nearest.validation_manifest.json"
+      },
+      "runtime_code_change_authorized": false,
+      "safety_claim_authorized": false,
+      "scenario_generation_authorized": false,
+      "source_pool_id": "scsp_005_scbs_005_branch_stress_blindspot_pre_support_drifted_selected_not_nearest",
+      "source_scenarios": [
+        "scene-0411-extreme-00"
+      ],
+      "source_slot_ids": [
+        "i111_s02_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0411_extreme_00_r1"
+      ],
+      "threshold_change_authorized": false
+    },
+    {
+      "artifact_stem": "scartifact_006_scbs_006_counterfactual_control_blindspot_pre_support_drifted_selected_not_nearest",
+      "binding_id": "scbind_006_scbs_006_counterfactual_control_blindspot_pre_support_drifted_selected_not_nearest",
+      "candidate_id": "scbs_006_counterfactual_control_blindspot_pre_support_drifted_selected_not_nearest",
+      "commercial_claim_authorized": false,
+      "deployment_authorized": false,
+      "duplicate_handling_rule": "preserve candidate_id, source_pool_id, and source_slot_id; repeated scenarios remain distinct by source_slot_id",
+      "execution_authorized": false,
+      "execution_slot_selection_authorized": false,
+      "generated_artifact_authorized": false,
+      "gpu_authorized": false,
+      "hugsim_run_authorized": false,
+      "learning_update_authorized": false,
+      "metric_change_authorized": false,
+      "mutation_family": "support_band_border_continuity_control",
+      "operator_id": "scop_support_band_border_continuity_control",
+      "path_collision_key": "scbs_006_counterfactual_control_blindspot_pre_support_drifted_selected_not_nearest|scsp_006_scbs_006_counterfactual_control_blindspot_pre_support_drifted_selected_not_nearest|scop_support_band_border_continuity_control",
+      "planner_code_change_authorized": false,
+      "production_authorized": false,
+      "repair_authorized": false,
+      "required_future_creation_checks": [
+        "fresh HYPOTHESIS.md authorizes artifact creation",
+        "reserved path does not already exist immediately before creation",
+        "candidate_id/source_pool_id/operator_id are copied into artifact metadata",
+        "duplicate source scenarios remain keyed by source_slot_id",
+        "no HUGSIM execution or GPU launch is implied by artifact creation",
+        "claim boundary is copied into any future generation result"
+      ],
+      "reservation_id": "scar_006_scbs_006_counterfactual_control_blindspot_pre_support_drifted_selected_not_nearest",
+      "reserved_destination_root": "future_artifacts/support_core_blindspot_generation",
+      "reserved_path_creation_authorized": false,
+      "reserved_relative_paths": {
+        "provenance_receipt": "future_artifacts/support_core_blindspot_generation/scbs_006_counterfactual_control_blindspot_pre_support_drifted_selected_not_nearest/provenance_receipt/scartifact_006_scbs_006_counterfactual_control_blindspot_pre_support_drifted_selected_not_nearest.provenance_receipt.json",
+        "scenario_spec": "future_artifacts/support_core_blindspot_generation/scbs_006_counterfactual_control_blindspot_pre_support_drifted_selected_not_nearest/scenario_spec/scartifact_006_scbs_006_counterfactual_control_blindspot_pre_support_drifted_selected_not_nearest.scenario_spec.json",
+        "validation_manifest": "future_artifacts/support_core_blindspot_generation/scbs_006_counterfactual_control_blindspot_pre_support_drifted_selected_not_nearest/validation_manifest/scartifact_006_scbs_006_counterfactual_control_blindspot_pre_support_drifted_selected_not_nearest.validation_manifest.json"
+      },
+      "runtime_code_change_authorized": false,
+      "safety_claim_authorized": false,
+      "scenario_generation_authorized": false,
+      "source_pool_id": "scsp_006_scbs_006_counterfactual_control_blindspot_pre_support_drifted_selected_not_nearest",
+      "source_scenarios": [
+        "scene-0411-extreme-00"
+      ],
+      "source_slot_ids": [
+        "i111_s02_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0411_extreme_00_r1"
+      ],
+      "threshold_change_authorized": false
+    },
+    {
+      "artifact_stem": "scartifact_007_scbs_007_branch_stress_blindspot_pre_support_lost_absent_selected_nearest",
+      "binding_id": "scbind_007_scbs_007_branch_stress_blindspot_pre_support_lost_absent_selected_nearest",
+      "candidate_id": "scbs_007_branch_stress_blindspot_pre_support_lost_absent_selected_nearest",
+      "commercial_claim_authorized": false,
+      "deployment_authorized": false,
+      "duplicate_handling_rule": "preserve candidate_id, source_pool_id, and source_slot_id; repeated scenarios remain distinct by source_slot_id",
+      "execution_authorized": false,
+      "execution_slot_selection_authorized": false,
+      "generated_artifact_authorized": false,
+      "gpu_authorized": false,
+      "hugsim_run_authorized": false,
+      "learning_update_authorized": false,
+      "metric_change_authorized": false,
+      "mutation_family": "support_loss_gap_sweep",
+      "operator_id": "scop_support_loss_gap_sweep",
+      "path_collision_key": "scbs_007_branch_stress_blindspot_pre_support_lost_absent_selected_nearest|scsp_007_scbs_007_branch_stress_blindspot_pre_support_lost_absent_selected_nearest|scop_support_loss_gap_sweep",
+      "planner_code_change_authorized": false,
+      "production_authorized": false,
+      "repair_authorized": false,
+      "required_future_creation_checks": [
+        "fresh HYPOTHESIS.md authorizes artifact creation",
+        "reserved path does not already exist immediately before creation",
+        "candidate_id/source_pool_id/operator_id are copied into artifact metadata",
+        "duplicate source scenarios remain keyed by source_slot_id",
+        "no HUGSIM execution or GPU launch is implied by artifact creation",
+        "claim boundary is copied into any future generation result"
+      ],
+      "reservation_id": "scar_007_scbs_007_branch_stress_blindspot_pre_support_lost_absent_selected_nearest",
+      "reserved_destination_root": "future_artifacts/support_core_blindspot_generation",
+      "reserved_path_creation_authorized": false,
+      "reserved_relative_paths": {
+        "provenance_receipt": "future_artifacts/support_core_blindspot_generation/scbs_007_branch_stress_blindspot_pre_support_lost_absent_selected_nearest/provenance_receipt/scartifact_007_scbs_007_branch_stress_blindspot_pre_support_lost_absent_selected_nearest.provenance_receipt.json",
+        "scenario_spec": "future_artifacts/support_core_blindspot_generation/scbs_007_branch_stress_blindspot_pre_support_lost_absent_selected_nearest/scenario_spec/scartifact_007_scbs_007_branch_stress_blindspot_pre_support_lost_absent_selected_nearest.scenario_spec.json",
+        "validation_manifest": "future_artifacts/support_core_blindspot_generation/scbs_007_branch_stress_blindspot_pre_support_lost_absent_selected_nearest/validation_manifest/scartifact_007_scbs_007_branch_stress_blindspot_pre_support_lost_absent_selected_nearest.validation_manifest.json"
+      },
+      "runtime_code_change_authorized": false,
+      "safety_claim_authorized": false,
+      "scenario_generation_authorized": false,
+      "source_pool_id": "scsp_007_scbs_007_branch_stress_blindspot_pre_support_lost_absent_selected_nearest",
+      "source_scenarios": [
+        "scene-0411-extreme-00",
+        "scene-0411-hard-00"
+      ],
+      "source_slot_ids": [
+        "i111_s07_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0411_hard_00_r1",
+        "i111_s08_iter49_hard_extreme_ttc_classifiable_scenario_analogue_long_lead_fire_ttc_only_scene_0411_extreme_00_r2"
+      ],
+      "threshold_change_authorized": false
+    },
+    {
+      "artifact_stem": "scartifact_008_scbs_008_counterfactual_control_blindspot_pre_support_lost_absent_selected_nearest",
+      "binding_id": "scbind_008_scbs_008_counterfactual_control_blindspot_pre_support_lost_absent_selected_nearest",
+      "candidate_id": "scbs_008_counterfactual_control_blindspot_pre_support_lost_absent_selected_nearest",
+      "commercial_claim_authorized": false,
+      "deployment_authorized": false,
+      "duplicate_handling_rule": "preserve candidate_id, source_pool_id, and source_slot_id; repeated scenarios remain distinct by source_slot_id",
+      "execution_authorized": false,
+      "execution_slot_selection_authorized": false,
+      "generated_artifact_authorized": false,
+      "gpu_authorized": false,
+      "hugsim_run_authorized": false,
+      "learning_update_authorized": false,
+      "metric_change_authorized": false,
+      "mutation_family": "same_object_visibility_continuity_control",
+      "operator_id": "scop_same_object_visibility_continuity_control",
+      "path_collision_key": "scbs_008_counterfactual_control_blindspot_pre_support_lost_absent_selected_nearest|scsp_008_scbs_008_counterfactual_control_blindspot_pre_support_lost_absent_selected_nearest|scop_same_object_visibility_continuity_control",
+      "planner_code_change_authorized": false,
+      "production_authorized": false,
+      "repair_authorized": false,
+      "required_future_creation_checks": [
+        "fresh HYPOTHESIS.md authorizes artifact creation",
+        "reserved path does not already exist immediately before creation",
+        "candidate_id/source_pool_id/operator_id are copied into artifact metadata",
+        "duplicate source scenarios remain keyed by source_slot_id",
+        "no HUGSIM execution or GPU launch is implied by artifact creation",
+        "claim boundary is copied into any future generation result"
+      ],
+      "reservation_id": "scar_008_scbs_008_counterfactual_control_blindspot_pre_support_lost_absent_selected_nearest",
+      "reserved_destination_root": "future_artifacts/support_core_blindspot_generation",
+      "reserved_path_creation_authorized": false,
+      "reserved_relative_paths": {
+        "provenance_receipt": "future_artifacts/support_core_blindspot_generation/scbs_008_counterfactual_control_blindspot_pre_support_lost_absent_selected_nearest/provenance_receipt/scartifact_008_scbs_008_counterfactual_control_blindspot_pre_support_lost_absent_selected_nearest.provenance_receipt.json",
+        "scenario_spec": "future_artifacts/support_core_blindspot_generation/scbs_008_counterfactual_control_blindspot_pre_support_lost_absent_selected_nearest/scenario_spec/scartifact_008_scbs_008_counterfactual_control_blindspot_pre_support_lost_absent_selected_nearest.scenario_spec.json",
+        "validation_manifest": "future_artifacts/support_core_blindspot_generation/scbs_008_counterfactual_control_blindspot_pre_support_lost_absent_selected_nearest/validation_manifest/scartifact_008_scbs_008_counterfactual_control_blindspot_pre_support_lost_absent_selected_nearest.validation_manifest.json"
+      },
+      "runtime_code_change_authorized": false,
+      "safety_claim_authorized": false,
+      "scenario_generation_authorized": false,
+      "source_pool_id": "scsp_008_scbs_008_counterfactual_control_blindspot_pre_support_lost_absent_selected_nearest",
+      "source_scenarios": [
+        "scene-0411-extreme-00",
+        "scene-0411-hard-00"
+      ],
+      "source_slot_ids": [
+        "i111_s07_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0411_hard_00_r1",
+        "i111_s08_iter49_hard_extreme_ttc_classifiable_scenario_analogue_long_lead_fire_ttc_only_scene_0411_extreme_00_r2"
+      ],
+      "threshold_change_authorized": false
+    },
+    {
+      "artifact_stem": "scartifact_009_scbs_009_branch_stress_blindspot_pre_support_lost_absent_selected_not_nearest",
+      "binding_id": "scbind_009_scbs_009_branch_stress_blindspot_pre_support_lost_absent_selected_not_nearest",
+      "candidate_id": "scbs_009_branch_stress_blindspot_pre_support_lost_absent_selected_not_nearest",
+      "commercial_claim_authorized": false,
+      "deployment_authorized": false,
+      "duplicate_handling_rule": "preserve candidate_id, source_pool_id, and source_slot_id; repeated scenarios remain distinct by source_slot_id",
+      "execution_authorized": false,
+      "execution_slot_selection_authorized": false,
+      "generated_artifact_authorized": false,
+      "gpu_authorized": false,
+      "hugsim_run_authorized": false,
+      "learning_update_authorized": false,
+      "metric_change_authorized": false,
+      "mutation_family": "support_loss_gap_sweep",
+      "operator_id": "scop_support_loss_gap_sweep",
+      "path_collision_key": "scbs_009_branch_stress_blindspot_pre_support_lost_absent_selected_not_nearest|scsp_009_scbs_009_branch_stress_blindspot_pre_support_lost_absent_selected_not_nearest|scop_support_loss_gap_sweep",
+      "planner_code_change_authorized": false,
+      "production_authorized": false,
+      "repair_authorized": false,
+      "required_future_creation_checks": [
+        "fresh HYPOTHESIS.md authorizes artifact creation",
+        "reserved path does not already exist immediately before creation",
+        "candidate_id/source_pool_id/operator_id are copied into artifact metadata",
+        "duplicate source scenarios remain keyed by source_slot_id",
+        "no HUGSIM execution or GPU launch is implied by artifact creation",
+        "claim boundary is copied into any future generation result"
+      ],
+      "reservation_id": "scar_009_scbs_009_branch_stress_blindspot_pre_support_lost_absent_selected_not_nearest",
+      "reserved_destination_root": "future_artifacts/support_core_blindspot_generation",
+      "reserved_path_creation_authorized": false,
+      "reserved_relative_paths": {
+        "provenance_receipt": "future_artifacts/support_core_blindspot_generation/scbs_009_branch_stress_blindspot_pre_support_lost_absent_selected_not_nearest/provenance_receipt/scartifact_009_scbs_009_branch_stress_blindspot_pre_support_lost_absent_selected_not_nearest.provenance_receipt.json",
+        "scenario_spec": "future_artifacts/support_core_blindspot_generation/scbs_009_branch_stress_blindspot_pre_support_lost_absent_selected_not_nearest/scenario_spec/scartifact_009_scbs_009_branch_stress_blindspot_pre_support_lost_absent_selected_not_nearest.scenario_spec.json",
+        "validation_manifest": "future_artifacts/support_core_blindspot_generation/scbs_009_branch_stress_blindspot_pre_support_lost_absent_selected_not_nearest/validation_manifest/scartifact_009_scbs_009_branch_stress_blindspot_pre_support_lost_absent_selected_not_nearest.validation_manifest.json"
+      },
+      "runtime_code_change_authorized": false,
+      "safety_claim_authorized": false,
+      "scenario_generation_authorized": false,
+      "source_pool_id": "scsp_009_scbs_009_branch_stress_blindspot_pre_support_lost_absent_selected_not_nearest",
+      "source_scenarios": [
+        "scene-0383-extreme-00",
+        "scene-0411-hard-00"
+      ],
+      "source_slot_ids": [
+        "i111_s01_iter49_hard_extreme_exact_ttc_classifiable_anchor_short_lead_fire_ttc_only_scene_0411_hard_00_r2",
+        "i111_s06_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0383_extreme_00_r2"
+      ],
+      "threshold_change_authorized": false
+    },
+    {
+      "artifact_stem": "scartifact_010_scbs_010_counterfactual_control_blindspot_pre_support_lost_absent_selected_not_nearest",
+      "binding_id": "scbind_010_scbs_010_counterfactual_control_blindspot_pre_support_lost_absent_selected_not_nearest",
+      "candidate_id": "scbs_010_counterfactual_control_blindspot_pre_support_lost_absent_selected_not_nearest",
+      "commercial_claim_authorized": false,
+      "deployment_authorized": false,
+      "duplicate_handling_rule": "preserve candidate_id, source_pool_id, and source_slot_id; repeated scenarios remain distinct by source_slot_id",
+      "execution_authorized": false,
+      "execution_slot_selection_authorized": false,
+      "generated_artifact_authorized": false,
+      "gpu_authorized": false,
+      "hugsim_run_authorized": false,
+      "learning_update_authorized": false,
+      "metric_change_authorized": false,
+      "mutation_family": "same_object_visibility_continuity_control",
+      "operator_id": "scop_same_object_visibility_continuity_control",
+      "path_collision_key": "scbs_010_counterfactual_control_blindspot_pre_support_lost_absent_selected_not_nearest|scsp_010_scbs_010_counterfactual_control_blindspot_pre_support_lost_absent_selected_not_nearest|scop_same_object_visibility_continuity_control",
+      "planner_code_change_authorized": false,
+      "production_authorized": false,
+      "repair_authorized": false,
+      "required_future_creation_checks": [
+        "fresh HYPOTHESIS.md authorizes artifact creation",
+        "reserved path does not already exist immediately before creation",
+        "candidate_id/source_pool_id/operator_id are copied into artifact metadata",
+        "duplicate source scenarios remain keyed by source_slot_id",
+        "no HUGSIM execution or GPU launch is implied by artifact creation",
+        "claim boundary is copied into any future generation result"
+      ],
+      "reservation_id": "scar_010_scbs_010_counterfactual_control_blindspot_pre_support_lost_absent_selected_not_nearest",
+      "reserved_destination_root": "future_artifacts/support_core_blindspot_generation",
+      "reserved_path_creation_authorized": false,
+      "reserved_relative_paths": {
+        "provenance_receipt": "future_artifacts/support_core_blindspot_generation/scbs_010_counterfactual_control_blindspot_pre_support_lost_absent_selected_not_nearest/provenance_receipt/scartifact_010_scbs_010_counterfactual_control_blindspot_pre_support_lost_absent_selected_not_nearest.provenance_receipt.json",
+        "scenario_spec": "future_artifacts/support_core_blindspot_generation/scbs_010_counterfactual_control_blindspot_pre_support_lost_absent_selected_not_nearest/scenario_spec/scartifact_010_scbs_010_counterfactual_control_blindspot_pre_support_lost_absent_selected_not_nearest.scenario_spec.json",
+        "validation_manifest": "future_artifacts/support_core_blindspot_generation/scbs_010_counterfactual_control_blindspot_pre_support_lost_absent_selected_not_nearest/validation_manifest/scartifact_010_scbs_010_counterfactual_control_blindspot_pre_support_lost_absent_selected_not_nearest.validation_manifest.json"
+      },
+      "runtime_code_change_authorized": false,
+      "safety_claim_authorized": false,
+      "scenario_generation_authorized": false,
+      "source_pool_id": "scsp_010_scbs_010_counterfactual_control_blindspot_pre_support_lost_absent_selected_not_nearest",
+      "source_scenarios": [
+        "scene-0383-extreme-00",
+        "scene-0411-hard-00"
+      ],
+      "source_slot_ids": [
+        "i111_s01_iter49_hard_extreme_exact_ttc_classifiable_anchor_short_lead_fire_ttc_only_scene_0411_hard_00_r2",
+        "i111_s06_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0383_extreme_00_r2"
+      ],
+      "threshold_change_authorized": false
+    }
+  ],
+  "claim_boundary": "generated-artifact naming and destination preflight only; no generated scenario artifact, scenario generation, execution-slot selection, GPU launch, HUGSIM run, learning/update step, repair, actor-causality, threshold-value, transfer upgrade, safety, deployment, robustness, benchmark, population-rate, HD-Score-invariance, real-world behavior, first-responder behavior, acquisition-value, retuning, production, commercial claim, or frontier-stack equivalence claim",
+  "future_generation_requirements": [
+    "fresh HYPOTHESIS.md authorizes creation of reserved paths",
+    "reserved paths are rechecked for nonexistence immediately before creation",
+    "generated artifact metadata carries candidate_id, source_pool_id, operator_id, and binding_id",
+    "scenario generation remains separate from execution-slot selection",
+    "HUGSIM/GPU execution remains a later separately registered step",
+    "learning/update and repair claims remain forbidden unless later evidence proves them"
+  ],
+  "inputs": {
+    "iter126_report": "experiments/iter126_support_core_candidate_manifest_preflight/proof-manifest/support_core_candidate_manifest_report.json",
+    "iter128_note": "docs/research/SUPPORT_CORE_SOURCE_POOL_MUTATION_PREFLIGHT_2026-07-14.md",
+    "iter128_report": "experiments/iter128_support_core_source_pool_mutation_preflight/proof-preflight/support_core_source_pool_mutation_preflight_report.json",
+    "iter128_result": "experiments/iter128_support_core_source_pool_mutation_preflight/RESULT.md"
+  },
+  "iteration": 129,
+  "problems": [],
+  "summary": {
+    "artifact_reservation_count": 10,
+    "bad_reserved_path_count": 0,
+    "binding_count": 10,
+    "candidate_count": 10,
+    "duplicate_reserved_path_count": 0,
+    "existing_reserved_path_count": 0,
+    "forbidden_key_count": 0,
+    "forbidden_text_count": 0,
+    "missing_reservation_content_count": 0,
+    "operator_count": 8,
+    "reservation_type_counts": {
+      "provenance_receipt": 10,
+      "scenario_spec": 10,
+      "validation_manifest": 10
+    },
+    "reserved_destination_root": "future_artifacts/support_core_blindspot_generation",
+    "reserved_relative_path_count": 30,
+    "source_pool_count": 10,
+    "true_authorization_count": 0
+  },
+  "verdict": "SUPPORT_CORE_ARTIFACT_NAMING_PREFLIGHT_COMPLETE"
+}

@@ -208,6 +208,15 @@ scenario-generation execution, slot selection, HUGSIM run, GPU launch, learning/
 claim upgrade. The remaining bounded lanes are a generated-artifact naming/destination preflight
 before any scenario file is created, an external one-page claim ledger, explicit mission/rulebook
 boundary work, or a higher-fidelity perturbation successor.
+That naming/destination preflight is now complete:
+[`research/SUPPORT_CORE_ARTIFACT_NAMING_PREFLIGHT_2026-07-14.md`](research/SUPPORT_CORE_ARTIFACT_NAMING_PREFLIGHT_2026-07-14.md)
+and iteration 129 reserve `10` future artifact groups and `30` planned paths under
+`future_artifacts/support_core_blindspot_generation`, with all paths unique, under the frozen
+root, and nonexistent in the current worktree. This still authorizes no reserved path creation,
+generated artifact, scenario generation, slot selection, HUGSIM run, GPU launch, learning/update,
+repair, or claim upgrade. The remaining bounded lanes are a generated-artifact schema/metadata
+preflight before any reserved file is written, an external one-page claim ledger, explicit
+mission/rulebook boundary work, or a higher-fidelity perturbation successor.
 
 ## New frontier packet after these lines closed
 

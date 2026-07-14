@@ -2427,3 +2427,15 @@ events to prepare; they are a property the repository always has.
   HUGSIM run, learning/update, repair, threshold-value, safety/deployment/robustness/benchmark/
   population-rate/HD-Score-invariance, commercial-value, real-world/first-responder behavior,
   retuning, production, or commercial claim.
+- 2026-07-14: Codex — continued into iteration 129 as the generated-artifact naming/destination
+  preflight before any support-core scenario file exists. Pre-registered ALONE (`6583e19`), added
+  the generator/tests (`af0e25a`, targeted ruff/tests/docs green), then ran the generator ONCE
+  over committed iteration-128/126 surfaces. Result:
+  `SUPPORT_CORE_ARTIFACT_NAMING_PREFLIGHT_COMPLETE`; `10` future artifact reservations and `30`
+  planned relative paths under `future_artifacts/support_core_blindspot_generation` are unique,
+  under the frozen root, and nonexistent in the current worktree, with `0` true authorization
+  flags, `0` forbidden keys, and `0` forbidden text findings. This is still naming/destination
+  preflight only; no reserved path creation, generated artifact, scenario generation, slot
+  selection, GPU launch, HUGSIM run, learning/update, repair, threshold-value, safety/deployment/
+  robustness/benchmark/population-rate/HD-Score-invariance, commercial-value, real-world/
+  first-responder behavior, retuning, production, or commercial claim.
