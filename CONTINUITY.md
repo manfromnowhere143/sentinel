@@ -2347,3 +2347,15 @@ events to prepare; they are a property the repository always has.
   No actor-causality, repair, threshold-value, safety/transfer/deployment/robustness/benchmark/
   HD-Score-invariance, commercial-value, real-world/first-responder behavior, retuning,
   production, or commercial claim.
+- 2026-07-14: Codex — continued into iteration 122 as the HUGSIM support-core taxonomy
+  documentation integration after iteration 121. Pre-registered ALONE (`1fa33f2`), added the
+  bounded mechanism note plus technical-report/manuscript integration and verifier/tests
+  (`32d2978`, targeted ruff/tests/docs green), then ran the verifier ONCE over committed
+  markdown/json surfaces. Result: `SUPPORT_CORE_TAXONOMY_DOCUMENTATION_COMPLETE`; the mechanism
+  note, technical report, and manuscript link iteration 121, preserve the `8/8` two-track split
+  and `8/8` selected-never-supported counts, and carry the exact claim boundary. This closes the
+  documentation gap only; it adds no HUGSIM evidence and does not upgrade the transfer null. Next
+  operator-requested action: mission-level evidence/alignment audit across Sentinel's results,
+  claims, docs, and next-step framing. No actor-causality, repair, threshold-value, transfer
+  upgrade, safety/deployment/robustness/benchmark/HD-Score-invariance, commercial-value,
+  real-world/first-responder behavior, retuning, production, or commercial claim.

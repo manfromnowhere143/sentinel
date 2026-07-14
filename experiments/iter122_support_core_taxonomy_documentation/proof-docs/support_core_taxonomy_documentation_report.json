@@ -1,0 +1,68 @@
+{
+  "checks": [
+    {
+      "label": "iter121-result-verdict",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "HUGSIM_SUPPORT_CORE_TWO_TRACK_SYNTHESIS_COMPLETE"
+      ]
+    },
+    {
+      "label": "mechanism-note",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "iter112_hugsim_support_core_batch_execution",
+        "iter113_hugsim_support_core_actor_match_audit",
+        "iter114_hugsim_support_core_mismatch_geometry_decomposition",
+        "iter115_hugsim_support_core_monitor_set_ordering",
+        "iter116_hugsim_support_core_collision_actor_timeline",
+        "iter117_hugsim_support_core_event_window_decomposition",
+        "iter118_hugsim_support_core_object_lifecycle",
+        "iter119_hugsim_support_core_loss_replacement_audit",
+        "iter120_hugsim_support_core_selected_fire_object_lifecycle",
+        "iter121_hugsim_support_core_two_track_synthesis",
+        "descriptive support-core taxonomy only; no repair, actor-causality, threshold-value, transfer upgrade, safety, deployment, robustness, benchmark, population-rate, HD-Score-invariance, real-world behavior, first-responder behavior, acquisition-value, retuning, production, or commercial claim",
+        "8/8",
+        "support-core two-track taxonomy"
+      ]
+    },
+    {
+      "label": "technical-report",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "SUPPORT_CORE_TWO_TRACK_TAXONOMY_2026-07-14.md",
+        "iter121_hugsim_support_core_two_track_synthesis",
+        "descriptive support-core taxonomy only; no repair, actor-causality, threshold-value, transfer upgrade, safety, deployment, robustness, benchmark, population-rate, HD-Score-invariance, real-world behavior, first-responder behavior, acquisition-value, retuning, production, or commercial claim"
+      ]
+    },
+    {
+      "label": "manuscript",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "SUPPORT_CORE_TWO_TRACK_TAXONOMY_2026-07-14.md",
+        "iter121_hugsim_support_core_two_track_synthesis",
+        "descriptive support-core taxonomy only; no repair, actor-causality, threshold-value, transfer upgrade, safety, deployment, robustness, benchmark, population-rate, HD-Score-invariance, real-world behavior, first-responder behavior, acquisition-value, retuning, production, or commercial claim"
+      ]
+    }
+  ],
+  "claim_boundary": "descriptive support-core taxonomy only; no repair, actor-causality, threshold-value, transfer upgrade, safety, deployment, robustness, benchmark, population-rate, HD-Score-invariance, real-world behavior, first-responder behavior, acquisition-value, retuning, production, or commercial claim",
+  "inputs": {
+    "iter121_report": "experiments/iter121_hugsim_support_core_two_track_synthesis/proof-synthesis/support_core_two_track_synthesis_report.json",
+    "iter121_result": "experiments/iter121_hugsim_support_core_two_track_synthesis/RESULT.md",
+    "manuscript": "docs/paper/MANUSCRIPT.md",
+    "mechanism_note": "docs/research/SUPPORT_CORE_TWO_TRACK_TAXONOMY_2026-07-14.md",
+    "technical_report": "docs/REPORT.md"
+  },
+  "iteration": 122,
+  "problems": [],
+  "summary": {
+    "iter121_verdict": "HUGSIM_SUPPORT_CORE_TWO_TRACK_SYNTHESIS_COMPLETE",
+    "selected_never_supported_count": 8,
+    "two_track_split_count": 8
+  },
+  "verdict": "SUPPORT_CORE_TAXONOMY_DOCUMENTATION_COMPLETE"
+}

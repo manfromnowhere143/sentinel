@@ -153,6 +153,13 @@ fire, or is absent as a reference branch; the selected fire-side object is never
 collision. The next local action is documentation integration of this support-core taxonomy and
 claim boundary into the technical report/manuscript or a dedicated mechanism note, not another
 same-row raw-log audit.
+That documentation integration is now complete: the dedicated
+[`research/SUPPORT_CORE_TWO_TRACK_TAXONOMY_2026-07-14.md`](research/SUPPORT_CORE_TWO_TRACK_TAXONOMY_2026-07-14.md)
+note, [`REPORT.md`](REPORT.md), and [`paper/MANUSCRIPT.md`](paper/MANUSCRIPT.md) all carry the
+bounded two-track taxonomy and the exact claim boundary, with iteration 122's verifier returning
+`SUPPORT_CORE_TAXONOMY_DOCUMENTATION_COMPLETE`. The next operator-requested move is a
+mission-level evidence/alignment audit across Sentinel's results, claims, docs, and next-step
+framing, not a new HUGSIM GPU run.
 
 ## New frontier packet after these lines closed
 
