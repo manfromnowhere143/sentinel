@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Tue Jul 14 04:45:34 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Tue Jul 14 05:49:35 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+7217ae3 iter103: publish provenance batch execution
+1ba1b3e iter103: collect provenance batch proof
+864fe8d handoff: record iter103 in flight
 8f7d8f7 iter103: add provenance batch execution tooling
 c4d8cb0 iter103: preregister provenance batch execution
 f91b3ac handoff: record iter102 launch manifest state
 aecc8f1 iter102: publish launch manifest preflight
 7dde731 iter102: add launch manifest tooling
-2605ed0 iter102: preregister launch manifest preflight
-35ea1e2 handoff: record iter101 design state
-546f78b iter101: publish provenance batch design
 ```
 Working tree: CLEAN
 
@@ -22,7 +22,7 @@ Working tree: CLEAN
 - experiments/iter100_hugsim_structural_expansion_support_audit: RESULT PUBLISHED
 - experiments/iter101_hugsim_provenance_batch_candidate_design: RESULT PUBLISHED
 - experiments/iter102_hugsim_provenance_batch_launch_manifest: RESULT PUBLISHED
-- experiments/iter103_hugsim_provenance_batch_execution: PRE-REGISTERED, result pending
+- experiments/iter103_hugsim_provenance_batch_execution: RESULT PUBLISHED
 - experiments/iter10_brakevade: RESULT PUBLISHED
 - experiments/iter11_early_evade: RESULT PUBLISHED
 - experiments/iter12_plan_selection: RESULT PUBLISHED
@@ -129,21 +129,20 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 04:46:41 up 9 days, 18:27,  0 users,  load average: 0.85, 0.22, 0.07
-GPU_RUN_STATE=IN_FLIGHT_CONTAINERS
-hugsim_uniad_client	Up 13 seconds
-/var/log/sentinel-iter103-provenance-batch.log
+ 05:50:44 up 9 days, 19:31,  0 users,  load average: 0.00, 0.97, 2.61
+GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
+/var/log/sentinel-iter103-provenance-batch.log
 /var/log/sentinel-iter59-actor-match.log
-/dev/root       310G  271G   40G  88% /
+/dev/root       310G  269G   42G  87% /
 Swap:          8.0Gi        75Mi       7.9Gi
 ```
 If any docker container named renderer/model/ncap (or a random-name ncap) is up, a run
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter102_hugsim_provenance_batch_launch_manifest/RESULT.md — read it before opening new work.
-- Newest pending pre-registration: experiments/iter103_hugsim_provenance_batch_execution/HYPOTHESIS.md — read it in full; its gate governs the next action.
+- Newest completed experiment: experiments/iter103_hugsim_provenance_batch_execution/RESULT.md — read it before opening new work.
+- Newest pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
