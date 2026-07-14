@@ -105,7 +105,13 @@ value. That audit is now complete: all `8/8` support-core slots are `classifiabl
 against the frozen floor of `4`, including all `3` exact anchors and all `5` scenario analogues.
 All `8` bridge labels are `actor_mismatch`, with `0` matches and `0` ambiguous rows. The next
 local HUGSIM priority is an offline mismatch-geometry decomposition over the committed
-iteration-113 report and iteration-112 proof, not a GPU run and not a repair/safety claim.
+iteration-113 report and iteration-112 proof, not a GPU run and not a repair/safety claim. That
+decomposition is now complete: all `8` mismatch vectors are classified, `8/8` are
+`forward_dominant`, `7/8` place the monitor object far behind the first foreground collision actor,
+and the geometry split is `5` far-behind/lateral-near, `2` far-behind/lateral-far, and `1`
+far-ahead/lateral-far. The next local HUGSIM priority is an offline monitor-object/collision-actor
+temporal and object-set ordering audit over the same committed rows; launching more GPU before that
+would skip the newly exposed longitudinal mismatch structure.
 
 ## New frontier packet after these lines closed
 

@@ -2254,3 +2254,14 @@ events to prepare; they are a property the repository always has.
   threshold-value, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance,
   commercial-value, real-world/first-responder behavior, retuning, production, or commercial
   claim.
+- 2026-07-14: Codex — continued into iteration 114 as the HUGSIM support-core mismatch-geometry
+  decomposition after iteration 113. Pre-registered ALONE (`b08709e`), added analyzer/tests
+  (`e7bfc37`, targeted ruff/tests/docs green), then ran the analyzer ONCE over the committed
+  iteration-113 report only. Result: `HUGSIM_SUPPORT_CORE_MISMATCH_GEOMETRY_COMPLETE`; all `8`
+  mismatch vectors classified with `0` problem rows, `8/8` are `forward_dominant`, `7/8` place
+  the monitor object far behind the first foreground collision actor, and the geometry split is
+  `5` far-behind/lateral-near, `2` far-behind/lateral-far, `1` far-ahead/lateral-far. Next honest
+  step: offline monitor-object/collision-actor temporal and object-set ordering over the same
+  committed rows. No actor-causality, repair, threshold-value, safety/transfer/deployment/
+  robustness/benchmark/HD-Score-invariance, commercial-value, real-world/first-responder
+  behavior, retuning, production, or commercial claim.
