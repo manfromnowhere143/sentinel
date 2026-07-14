@@ -76,9 +76,13 @@ now complete as well: all `13/13` timing-aware manifest slots ran on first attem
 byte-bound HUGSIM provenance patch and released-union monitor patch, `13/13` proof artifact sets
 are complete, `13/13` evals expose the top-level `collision_provenance` key, total provenance
 rows increased to `252`, and both duplicate scenario groups remained distinct by `slot_id`. The
-next local HUGSIM priority is a separate actor-match support audit over the iteration-107 proof,
-comparing its foreground-classifiable support yield against the iteration-104 `1/13` support null
-without making repair, actor-causality, or safety claims.
+actor-match support audit over that proof is now complete too. It improved support from `1/13`
+to `2/13` foreground-classifiable rows, but still failed the registered floor of `4`; the
+remaining rows split into `6` background-only, `4` post-collision-fire, and `1`
+no-collision-provenance cases, and both classifiable rows were actor mismatches under the frozen
+bridge. The next local HUGSIM priority is a residual support-yield decomposition over the
+iteration-105/107/108 artifacts: explain why the timing-aware design still produces mostly
+unclassifiable rows before authorizing another GPU schedule.
 
 ## New frontier packet after these lines closed
 
