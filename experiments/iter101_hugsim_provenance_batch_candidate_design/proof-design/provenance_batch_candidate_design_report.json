@@ -1,0 +1,930 @@
+{
+  "claim_boundary": "offline candidate-schedule design only; no actor-causality, repair, threshold-value, transfer, safety, deployment, robustness, benchmark, population-rate, HD-Score-invariance, commercial-value, real-world behavior, first-responder behavior, retuning, GPU approval, or approval-to-run claim",
+  "event": {
+    "measurements": {
+      "all_strata_covered": true,
+      "carried_singleton_count": 1,
+      "carried_singleton_rows": [
+        {
+          "attackplanner": true,
+          "brake_frames": 10,
+          "dataset": "iter49_hard_extreme",
+          "fire_timing_label": "post_collision_fire",
+          "fired_frames": 5,
+          "first_fire_channel": "both",
+          "first_fire_lead_time": -1.75,
+          "first_fire_ts": 5.25,
+          "first_on_nc_time": 3.5,
+          "monitor_frames": 33,
+          "monitor_provenance_label": "both_distinct_objects",
+          "run": 1,
+          "scenario": "scene-0138-extreme-00",
+          "selection_role": "carried_existing_singleton",
+          "stratum": [
+            "iter49_hard_extreme",
+            "both_distinct_objects"
+          ],
+          "tier": "extreme"
+        }
+      ],
+      "existing_instrumented_scenarios": [
+        "scene-0038-extreme-00",
+        "scene-0041-hard-00",
+        "scene-0062-extreme-00",
+        "scene-0071-medium-00",
+        "scene-0071-medium-01",
+        "scene-0138-extreme-00",
+        "scene-0166-medium-00",
+        "scene-0383-extreme-00"
+      ],
+      "on_collision_stratum_counts": {
+        "iter48_easy_medium / no_fire": 10,
+        "iter48_easy_medium / unique_cpa_object": 16,
+        "iter48_easy_medium / unique_ttc_object": 14,
+        "iter49_hard_extreme / both_distinct_objects": 1,
+        "iter49_hard_extreme / no_fire": 12,
+        "iter49_hard_extreme / unique_cpa_object": 17,
+        "iter49_hard_extreme / unique_ttc_object": 22
+      },
+      "selected_new_count": 12,
+      "selected_new_rows": [
+        {
+          "attackplanner": false,
+          "brake_frames": 0,
+          "dataset": "iter48_easy_medium",
+          "fire_timing_label": "no_fire",
+          "fired_frames": 0,
+          "first_fire_channel": "no_fire",
+          "first_fire_lead_time": null,
+          "first_fire_ts": null,
+          "first_on_nc_time": 3.5,
+          "monitor_frames": 15,
+          "monitor_provenance_label": "no_fire",
+          "run": 1,
+          "scenario": "scene-0013-easy-00",
+          "selection_role": "new_candidate",
+          "stratum": [
+            "iter48_easy_medium",
+            "no_fire"
+          ],
+          "tier": "easy"
+        },
+        {
+          "attackplanner": false,
+          "brake_frames": 0,
+          "dataset": "iter48_easy_medium",
+          "fire_timing_label": "no_fire",
+          "fired_frames": 0,
+          "first_fire_channel": "no_fire",
+          "first_fire_lead_time": null,
+          "first_fire_ts": null,
+          "first_on_nc_time": 2.75,
+          "monitor_frames": 15,
+          "monitor_provenance_label": "no_fire",
+          "run": 2,
+          "scenario": "scene-0013-easy-00",
+          "selection_role": "new_candidate",
+          "stratum": [
+            "iter48_easy_medium",
+            "no_fire"
+          ],
+          "tier": "easy"
+        },
+        {
+          "attackplanner": false,
+          "brake_frames": 46,
+          "dataset": "iter48_easy_medium",
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 17,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 6.25,
+          "first_fire_ts": 9.75,
+          "first_on_nc_time": 16.0,
+          "monitor_frames": 139,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 1,
+          "scenario": "scene-0038-medium-01",
+          "selection_role": "new_candidate",
+          "stratum": [
+            "iter48_easy_medium",
+            "unique_cpa_object"
+          ],
+          "tier": "medium"
+        },
+        {
+          "attackplanner": false,
+          "brake_frames": 5,
+          "dataset": "iter48_easy_medium",
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 2,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 5.75,
+          "first_fire_ts": 12.75,
+          "first_on_nc_time": 18.5,
+          "monitor_frames": 80,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 2,
+          "scenario": "scene-0062-medium-00",
+          "selection_role": "new_candidate",
+          "stratum": [
+            "iter48_easy_medium",
+            "unique_cpa_object"
+          ],
+          "tier": "medium"
+        },
+        {
+          "attackplanner": false,
+          "brake_frames": 34,
+          "dataset": "iter48_easy_medium",
+          "fire_timing_label": "post_collision_fire",
+          "fired_frames": 13,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": -10.0,
+          "first_fire_ts": 11.5,
+          "first_on_nc_time": 1.5,
+          "monitor_frames": 182,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 1,
+          "scenario": "scene-0051-easy-00",
+          "selection_role": "new_candidate",
+          "stratum": [
+            "iter48_easy_medium",
+            "unique_ttc_object"
+          ],
+          "tier": "easy"
+        },
+        {
+          "attackplanner": false,
+          "brake_frames": 23,
+          "dataset": "iter48_easy_medium",
+          "fire_timing_label": "post_collision_fire",
+          "fired_frames": 7,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": -9.75,
+          "first_fire_ts": 11.5,
+          "first_on_nc_time": 1.75,
+          "monitor_frames": 170,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 2,
+          "scenario": "scene-0051-easy-00",
+          "selection_role": "new_candidate",
+          "stratum": [
+            "iter48_easy_medium",
+            "unique_ttc_object"
+          ],
+          "tier": "easy"
+        },
+        {
+          "attackplanner": true,
+          "brake_frames": 0,
+          "dataset": "iter49_hard_extreme",
+          "fire_timing_label": "no_fire",
+          "fired_frames": 0,
+          "first_fire_channel": "no_fire",
+          "first_fire_lead_time": null,
+          "first_fire_ts": null,
+          "first_on_nc_time": 3.25,
+          "monitor_frames": 24,
+          "monitor_provenance_label": "no_fire",
+          "run": 2,
+          "scenario": "scene-0041-extreme-00",
+          "selection_role": "new_candidate",
+          "stratum": [
+            "iter49_hard_extreme",
+            "no_fire"
+          ],
+          "tier": "extreme"
+        },
+        {
+          "attackplanner": false,
+          "brake_frames": 0,
+          "dataset": "iter49_hard_extreme",
+          "fire_timing_label": "no_fire",
+          "fired_frames": 0,
+          "first_fire_channel": "no_fire",
+          "first_fire_lead_time": null,
+          "first_fire_ts": null,
+          "first_on_nc_time": 16.25,
+          "monitor_frames": 101,
+          "monitor_provenance_label": "no_fire",
+          "run": 1,
+          "scenario": "scene-0062-hard-00",
+          "selection_role": "new_candidate",
+          "stratum": [
+            "iter49_hard_extreme",
+            "no_fire"
+          ],
+          "tier": "hard"
+        },
+        {
+          "attackplanner": true,
+          "brake_frames": 2,
+          "dataset": "iter49_hard_extreme",
+          "fire_timing_label": "post_collision_fire",
+          "fired_frames": 2,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": -2.25,
+          "first_fire_ts": 2.5,
+          "first_on_nc_time": 0.25,
+          "monitor_frames": 12,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 1,
+          "scenario": "scene-0013-extreme-00",
+          "selection_role": "new_candidate",
+          "stratum": [
+            "iter49_hard_extreme",
+            "unique_cpa_object"
+          ],
+          "tier": "extreme"
+        },
+        {
+          "attackplanner": true,
+          "brake_frames": 2,
+          "dataset": "iter49_hard_extreme",
+          "fire_timing_label": "post_collision_fire",
+          "fired_frames": 2,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": -2.25,
+          "first_fire_ts": 2.5,
+          "first_on_nc_time": 0.25,
+          "monitor_frames": 12,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 2,
+          "scenario": "scene-0013-extreme-00",
+          "selection_role": "new_candidate",
+          "stratum": [
+            "iter49_hard_extreme",
+            "unique_cpa_object"
+          ],
+          "tier": "extreme"
+        },
+        {
+          "attackplanner": false,
+          "brake_frames": 4,
+          "dataset": "iter49_hard_extreme",
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 1,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 1.5,
+          "first_fire_ts": 7.0,
+          "first_on_nc_time": 8.5,
+          "monitor_frames": 36,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 1,
+          "scenario": "scene-0038-hard-00",
+          "selection_role": "new_candidate",
+          "stratum": [
+            "iter49_hard_extreme",
+            "unique_ttc_object"
+          ],
+          "tier": "hard"
+        },
+        {
+          "attackplanner": false,
+          "brake_frames": 6,
+          "dataset": "iter49_hard_extreme",
+          "fire_timing_label": "post_collision_fire",
+          "fired_frames": 2,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": -2.25,
+          "first_fire_ts": 7.0,
+          "first_on_nc_time": 4.75,
+          "monitor_frames": 34,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 2,
+          "scenario": "scene-0038-hard-00",
+          "selection_role": "new_candidate",
+          "stratum": [
+            "iter49_hard_extreme",
+            "unique_ttc_object"
+          ],
+          "tier": "hard"
+        }
+      ],
+      "selected_rows": [
+        {
+          "attackplanner": false,
+          "brake_frames": 0,
+          "dataset": "iter48_easy_medium",
+          "fire_timing_label": "no_fire",
+          "fired_frames": 0,
+          "first_fire_channel": "no_fire",
+          "first_fire_lead_time": null,
+          "first_fire_ts": null,
+          "first_on_nc_time": 3.5,
+          "monitor_frames": 15,
+          "monitor_provenance_label": "no_fire",
+          "run": 1,
+          "scenario": "scene-0013-easy-00",
+          "selection_role": "new_candidate",
+          "stratum": [
+            "iter48_easy_medium",
+            "no_fire"
+          ],
+          "tier": "easy"
+        },
+        {
+          "attackplanner": false,
+          "brake_frames": 0,
+          "dataset": "iter48_easy_medium",
+          "fire_timing_label": "no_fire",
+          "fired_frames": 0,
+          "first_fire_channel": "no_fire",
+          "first_fire_lead_time": null,
+          "first_fire_ts": null,
+          "first_on_nc_time": 2.75,
+          "monitor_frames": 15,
+          "monitor_provenance_label": "no_fire",
+          "run": 2,
+          "scenario": "scene-0013-easy-00",
+          "selection_role": "new_candidate",
+          "stratum": [
+            "iter48_easy_medium",
+            "no_fire"
+          ],
+          "tier": "easy"
+        },
+        {
+          "attackplanner": false,
+          "brake_frames": 46,
+          "dataset": "iter48_easy_medium",
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 17,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 6.25,
+          "first_fire_ts": 9.75,
+          "first_on_nc_time": 16.0,
+          "monitor_frames": 139,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 1,
+          "scenario": "scene-0038-medium-01",
+          "selection_role": "new_candidate",
+          "stratum": [
+            "iter48_easy_medium",
+            "unique_cpa_object"
+          ],
+          "tier": "medium"
+        },
+        {
+          "attackplanner": false,
+          "brake_frames": 5,
+          "dataset": "iter48_easy_medium",
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 2,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": 5.75,
+          "first_fire_ts": 12.75,
+          "first_on_nc_time": 18.5,
+          "monitor_frames": 80,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 2,
+          "scenario": "scene-0062-medium-00",
+          "selection_role": "new_candidate",
+          "stratum": [
+            "iter48_easy_medium",
+            "unique_cpa_object"
+          ],
+          "tier": "medium"
+        },
+        {
+          "attackplanner": false,
+          "brake_frames": 34,
+          "dataset": "iter48_easy_medium",
+          "fire_timing_label": "post_collision_fire",
+          "fired_frames": 13,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": -10.0,
+          "first_fire_ts": 11.5,
+          "first_on_nc_time": 1.5,
+          "monitor_frames": 182,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 1,
+          "scenario": "scene-0051-easy-00",
+          "selection_role": "new_candidate",
+          "stratum": [
+            "iter48_easy_medium",
+            "unique_ttc_object"
+          ],
+          "tier": "easy"
+        },
+        {
+          "attackplanner": false,
+          "brake_frames": 23,
+          "dataset": "iter48_easy_medium",
+          "fire_timing_label": "post_collision_fire",
+          "fired_frames": 7,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": -9.75,
+          "first_fire_ts": 11.5,
+          "first_on_nc_time": 1.75,
+          "monitor_frames": 170,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 2,
+          "scenario": "scene-0051-easy-00",
+          "selection_role": "new_candidate",
+          "stratum": [
+            "iter48_easy_medium",
+            "unique_ttc_object"
+          ],
+          "tier": "easy"
+        },
+        {
+          "attackplanner": true,
+          "brake_frames": 0,
+          "dataset": "iter49_hard_extreme",
+          "fire_timing_label": "no_fire",
+          "fired_frames": 0,
+          "first_fire_channel": "no_fire",
+          "first_fire_lead_time": null,
+          "first_fire_ts": null,
+          "first_on_nc_time": 3.25,
+          "monitor_frames": 24,
+          "monitor_provenance_label": "no_fire",
+          "run": 2,
+          "scenario": "scene-0041-extreme-00",
+          "selection_role": "new_candidate",
+          "stratum": [
+            "iter49_hard_extreme",
+            "no_fire"
+          ],
+          "tier": "extreme"
+        },
+        {
+          "attackplanner": false,
+          "brake_frames": 0,
+          "dataset": "iter49_hard_extreme",
+          "fire_timing_label": "no_fire",
+          "fired_frames": 0,
+          "first_fire_channel": "no_fire",
+          "first_fire_lead_time": null,
+          "first_fire_ts": null,
+          "first_on_nc_time": 16.25,
+          "monitor_frames": 101,
+          "monitor_provenance_label": "no_fire",
+          "run": 1,
+          "scenario": "scene-0062-hard-00",
+          "selection_role": "new_candidate",
+          "stratum": [
+            "iter49_hard_extreme",
+            "no_fire"
+          ],
+          "tier": "hard"
+        },
+        {
+          "attackplanner": true,
+          "brake_frames": 2,
+          "dataset": "iter49_hard_extreme",
+          "fire_timing_label": "post_collision_fire",
+          "fired_frames": 2,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": -2.25,
+          "first_fire_ts": 2.5,
+          "first_on_nc_time": 0.25,
+          "monitor_frames": 12,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 1,
+          "scenario": "scene-0013-extreme-00",
+          "selection_role": "new_candidate",
+          "stratum": [
+            "iter49_hard_extreme",
+            "unique_cpa_object"
+          ],
+          "tier": "extreme"
+        },
+        {
+          "attackplanner": true,
+          "brake_frames": 2,
+          "dataset": "iter49_hard_extreme",
+          "fire_timing_label": "post_collision_fire",
+          "fired_frames": 2,
+          "first_fire_channel": "cpa_only",
+          "first_fire_lead_time": -2.25,
+          "first_fire_ts": 2.5,
+          "first_on_nc_time": 0.25,
+          "monitor_frames": 12,
+          "monitor_provenance_label": "unique_cpa_object",
+          "run": 2,
+          "scenario": "scene-0013-extreme-00",
+          "selection_role": "new_candidate",
+          "stratum": [
+            "iter49_hard_extreme",
+            "unique_cpa_object"
+          ],
+          "tier": "extreme"
+        },
+        {
+          "attackplanner": false,
+          "brake_frames": 4,
+          "dataset": "iter49_hard_extreme",
+          "fire_timing_label": "long_lead_fire",
+          "fired_frames": 1,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": 1.5,
+          "first_fire_ts": 7.0,
+          "first_on_nc_time": 8.5,
+          "monitor_frames": 36,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 1,
+          "scenario": "scene-0038-hard-00",
+          "selection_role": "new_candidate",
+          "stratum": [
+            "iter49_hard_extreme",
+            "unique_ttc_object"
+          ],
+          "tier": "hard"
+        },
+        {
+          "attackplanner": false,
+          "brake_frames": 6,
+          "dataset": "iter49_hard_extreme",
+          "fire_timing_label": "post_collision_fire",
+          "fired_frames": 2,
+          "first_fire_channel": "ttc_only",
+          "first_fire_lead_time": -2.25,
+          "first_fire_ts": 7.0,
+          "first_on_nc_time": 4.75,
+          "monitor_frames": 34,
+          "monitor_provenance_label": "unique_ttc_object",
+          "run": 2,
+          "scenario": "scene-0038-hard-00",
+          "selection_role": "new_candidate",
+          "stratum": [
+            "iter49_hard_extreme",
+            "unique_ttc_object"
+          ],
+          "tier": "hard"
+        },
+        {
+          "attackplanner": true,
+          "brake_frames": 10,
+          "dataset": "iter49_hard_extreme",
+          "fire_timing_label": "post_collision_fire",
+          "fired_frames": 5,
+          "first_fire_channel": "both",
+          "first_fire_lead_time": -1.75,
+          "first_fire_ts": 5.25,
+          "first_on_nc_time": 3.5,
+          "monitor_frames": 33,
+          "monitor_provenance_label": "both_distinct_objects",
+          "run": 1,
+          "scenario": "scene-0138-extreme-00",
+          "selection_role": "carried_existing_singleton",
+          "stratum": [
+            "iter49_hard_extreme",
+            "both_distinct_objects"
+          ],
+          "tier": "extreme"
+        }
+      ],
+      "selected_total_count": 13,
+      "strata": {
+        "iter48_easy_medium / no_fire": {
+          "eligible_after_existing_scenario_exclusion": 10,
+          "selected": [
+            {
+              "attackplanner": false,
+              "brake_frames": 0,
+              "dataset": "iter48_easy_medium",
+              "fire_timing_label": "no_fire",
+              "fired_frames": 0,
+              "first_fire_channel": "no_fire",
+              "first_fire_lead_time": null,
+              "first_fire_ts": null,
+              "first_on_nc_time": 3.5,
+              "monitor_frames": 15,
+              "monitor_provenance_label": "no_fire",
+              "run": 1,
+              "scenario": "scene-0013-easy-00",
+              "selection_role": "new_candidate",
+              "stratum": [
+                "iter48_easy_medium",
+                "no_fire"
+              ],
+              "tier": "easy"
+            },
+            {
+              "attackplanner": false,
+              "brake_frames": 0,
+              "dataset": "iter48_easy_medium",
+              "fire_timing_label": "no_fire",
+              "fired_frames": 0,
+              "first_fire_channel": "no_fire",
+              "first_fire_lead_time": null,
+              "first_fire_ts": null,
+              "first_on_nc_time": 2.75,
+              "monitor_frames": 15,
+              "monitor_provenance_label": "no_fire",
+              "run": 2,
+              "scenario": "scene-0013-easy-00",
+              "selection_role": "new_candidate",
+              "stratum": [
+                "iter48_easy_medium",
+                "no_fire"
+              ],
+              "tier": "easy"
+            }
+          ],
+          "selected_count": 2,
+          "selected_role": "new_candidate",
+          "source_count": 10
+        },
+        "iter48_easy_medium / unique_cpa_object": {
+          "eligible_after_existing_scenario_exclusion": 12,
+          "selected": [
+            {
+              "attackplanner": false,
+              "brake_frames": 46,
+              "dataset": "iter48_easy_medium",
+              "fire_timing_label": "long_lead_fire",
+              "fired_frames": 17,
+              "first_fire_channel": "cpa_only",
+              "first_fire_lead_time": 6.25,
+              "first_fire_ts": 9.75,
+              "first_on_nc_time": 16.0,
+              "monitor_frames": 139,
+              "monitor_provenance_label": "unique_cpa_object",
+              "run": 1,
+              "scenario": "scene-0038-medium-01",
+              "selection_role": "new_candidate",
+              "stratum": [
+                "iter48_easy_medium",
+                "unique_cpa_object"
+              ],
+              "tier": "medium"
+            },
+            {
+              "attackplanner": false,
+              "brake_frames": 5,
+              "dataset": "iter48_easy_medium",
+              "fire_timing_label": "long_lead_fire",
+              "fired_frames": 2,
+              "first_fire_channel": "cpa_only",
+              "first_fire_lead_time": 5.75,
+              "first_fire_ts": 12.75,
+              "first_on_nc_time": 18.5,
+              "monitor_frames": 80,
+              "monitor_provenance_label": "unique_cpa_object",
+              "run": 2,
+              "scenario": "scene-0062-medium-00",
+              "selection_role": "new_candidate",
+              "stratum": [
+                "iter48_easy_medium",
+                "unique_cpa_object"
+              ],
+              "tier": "medium"
+            }
+          ],
+          "selected_count": 2,
+          "selected_role": "new_candidate",
+          "source_count": 16
+        },
+        "iter48_easy_medium / unique_ttc_object": {
+          "eligible_after_existing_scenario_exclusion": 12,
+          "selected": [
+            {
+              "attackplanner": false,
+              "brake_frames": 34,
+              "dataset": "iter48_easy_medium",
+              "fire_timing_label": "post_collision_fire",
+              "fired_frames": 13,
+              "first_fire_channel": "ttc_only",
+              "first_fire_lead_time": -10.0,
+              "first_fire_ts": 11.5,
+              "first_on_nc_time": 1.5,
+              "monitor_frames": 182,
+              "monitor_provenance_label": "unique_ttc_object",
+              "run": 1,
+              "scenario": "scene-0051-easy-00",
+              "selection_role": "new_candidate",
+              "stratum": [
+                "iter48_easy_medium",
+                "unique_ttc_object"
+              ],
+              "tier": "easy"
+            },
+            {
+              "attackplanner": false,
+              "brake_frames": 23,
+              "dataset": "iter48_easy_medium",
+              "fire_timing_label": "post_collision_fire",
+              "fired_frames": 7,
+              "first_fire_channel": "ttc_only",
+              "first_fire_lead_time": -9.75,
+              "first_fire_ts": 11.5,
+              "first_on_nc_time": 1.75,
+              "monitor_frames": 170,
+              "monitor_provenance_label": "unique_ttc_object",
+              "run": 2,
+              "scenario": "scene-0051-easy-00",
+              "selection_role": "new_candidate",
+              "stratum": [
+                "iter48_easy_medium",
+                "unique_ttc_object"
+              ],
+              "tier": "easy"
+            }
+          ],
+          "selected_count": 2,
+          "selected_role": "new_candidate",
+          "source_count": 14
+        },
+        "iter49_hard_extreme / both_distinct_objects": {
+          "eligible_after_existing_scenario_exclusion": 0,
+          "selected": [
+            {
+              "attackplanner": true,
+              "brake_frames": 10,
+              "dataset": "iter49_hard_extreme",
+              "fire_timing_label": "post_collision_fire",
+              "fired_frames": 5,
+              "first_fire_channel": "both",
+              "first_fire_lead_time": -1.75,
+              "first_fire_ts": 5.25,
+              "first_on_nc_time": 3.5,
+              "monitor_frames": 33,
+              "monitor_provenance_label": "both_distinct_objects",
+              "run": 1,
+              "scenario": "scene-0138-extreme-00",
+              "selection_role": "carried_existing_singleton",
+              "stratum": [
+                "iter49_hard_extreme",
+                "both_distinct_objects"
+              ],
+              "tier": "extreme"
+            }
+          ],
+          "selected_count": 1,
+          "selected_role": "carried_existing_singleton",
+          "source_count": 1
+        },
+        "iter49_hard_extreme / no_fire": {
+          "eligible_after_existing_scenario_exclusion": 10,
+          "selected": [
+            {
+              "attackplanner": true,
+              "brake_frames": 0,
+              "dataset": "iter49_hard_extreme",
+              "fire_timing_label": "no_fire",
+              "fired_frames": 0,
+              "first_fire_channel": "no_fire",
+              "first_fire_lead_time": null,
+              "first_fire_ts": null,
+              "first_on_nc_time": 3.25,
+              "monitor_frames": 24,
+              "monitor_provenance_label": "no_fire",
+              "run": 2,
+              "scenario": "scene-0041-extreme-00",
+              "selection_role": "new_candidate",
+              "stratum": [
+                "iter49_hard_extreme",
+                "no_fire"
+              ],
+              "tier": "extreme"
+            },
+            {
+              "attackplanner": false,
+              "brake_frames": 0,
+              "dataset": "iter49_hard_extreme",
+              "fire_timing_label": "no_fire",
+              "fired_frames": 0,
+              "first_fire_channel": "no_fire",
+              "first_fire_lead_time": null,
+              "first_fire_ts": null,
+              "first_on_nc_time": 16.25,
+              "monitor_frames": 101,
+              "monitor_provenance_label": "no_fire",
+              "run": 1,
+              "scenario": "scene-0062-hard-00",
+              "selection_role": "new_candidate",
+              "stratum": [
+                "iter49_hard_extreme",
+                "no_fire"
+              ],
+              "tier": "hard"
+            }
+          ],
+          "selected_count": 2,
+          "selected_role": "new_candidate",
+          "source_count": 12
+        },
+        "iter49_hard_extreme / unique_cpa_object": {
+          "eligible_after_existing_scenario_exclusion": 15,
+          "selected": [
+            {
+              "attackplanner": true,
+              "brake_frames": 2,
+              "dataset": "iter49_hard_extreme",
+              "fire_timing_label": "post_collision_fire",
+              "fired_frames": 2,
+              "first_fire_channel": "cpa_only",
+              "first_fire_lead_time": -2.25,
+              "first_fire_ts": 2.5,
+              "first_on_nc_time": 0.25,
+              "monitor_frames": 12,
+              "monitor_provenance_label": "unique_cpa_object",
+              "run": 1,
+              "scenario": "scene-0013-extreme-00",
+              "selection_role": "new_candidate",
+              "stratum": [
+                "iter49_hard_extreme",
+                "unique_cpa_object"
+              ],
+              "tier": "extreme"
+            },
+            {
+              "attackplanner": true,
+              "brake_frames": 2,
+              "dataset": "iter49_hard_extreme",
+              "fire_timing_label": "post_collision_fire",
+              "fired_frames": 2,
+              "first_fire_channel": "cpa_only",
+              "first_fire_lead_time": -2.25,
+              "first_fire_ts": 2.5,
+              "first_on_nc_time": 0.25,
+              "monitor_frames": 12,
+              "monitor_provenance_label": "unique_cpa_object",
+              "run": 2,
+              "scenario": "scene-0013-extreme-00",
+              "selection_role": "new_candidate",
+              "stratum": [
+                "iter49_hard_extreme",
+                "unique_cpa_object"
+              ],
+              "tier": "extreme"
+            }
+          ],
+          "selected_count": 2,
+          "selected_role": "new_candidate",
+          "source_count": 17
+        },
+        "iter49_hard_extreme / unique_ttc_object": {
+          "eligible_after_existing_scenario_exclusion": 17,
+          "selected": [
+            {
+              "attackplanner": false,
+              "brake_frames": 4,
+              "dataset": "iter49_hard_extreme",
+              "fire_timing_label": "long_lead_fire",
+              "fired_frames": 1,
+              "first_fire_channel": "ttc_only",
+              "first_fire_lead_time": 1.5,
+              "first_fire_ts": 7.0,
+              "first_on_nc_time": 8.5,
+              "monitor_frames": 36,
+              "monitor_provenance_label": "unique_ttc_object",
+              "run": 1,
+              "scenario": "scene-0038-hard-00",
+              "selection_role": "new_candidate",
+              "stratum": [
+                "iter49_hard_extreme",
+                "unique_ttc_object"
+              ],
+              "tier": "hard"
+            },
+            {
+              "attackplanner": false,
+              "brake_frames": 6,
+              "dataset": "iter49_hard_extreme",
+              "fire_timing_label": "post_collision_fire",
+              "fired_frames": 2,
+              "first_fire_channel": "ttc_only",
+              "first_fire_lead_time": -2.25,
+              "first_fire_ts": 7.0,
+              "first_on_nc_time": 4.75,
+              "monitor_frames": 34,
+              "monitor_provenance_label": "unique_ttc_object",
+              "run": 2,
+              "scenario": "scene-0038-hard-00",
+              "selection_role": "new_candidate",
+              "stratum": [
+                "iter49_hard_extreme",
+                "unique_ttc_object"
+              ],
+              "tier": "hard"
+            }
+          ],
+          "selected_count": 2,
+          "selected_role": "new_candidate",
+          "source_count": 22
+        }
+      }
+    },
+    "problems": [],
+    "row_label": "provenance_batch_design_balanced_with_carried_singleton"
+  },
+  "infra_problems": [],
+  "inputs": {
+    "iter100_report": "experiments/iter100_hugsim_structural_expansion_support_audit/proof-expansion/structural_expansion_support_report.json",
+    "iter54_report": "experiments/iter54_hugsim_provenance_support_audit/proof-provenance/provenance_support_report.json",
+    "iter59_report": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/actor_match_report.json"
+  },
+  "iteration": 101,
+  "summary": {
+    "all_strata_covered": true,
+    "carried_singleton_count": 1,
+    "existing_instrumented_scenario_count": 8,
+    "selected_new_count": 12,
+    "selected_total_count": 13
+  },
+  "verdict": "HUGSIM_PROVENANCE_BATCH_CANDIDATE_DESIGN_COMPLETE"
+}

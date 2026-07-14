@@ -2219,3 +2219,14 @@ events to prepare; they are a property the repository always has.
   episode read, GPU/gcloud/box read, actor-causality, repair, threshold-value, population-rate,
   safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value,
   real-world/first-responder behavior, retuning, or approval-to-run claim.
+- 2026-07-14: Codex — continued into iteration 101 as the HUGSIM provenance batch candidate
+  design after iteration 100. Pre-registered ALONE (`498d0a5`), added analyzer/tests (`6886108`,
+  focused tests and ruff green before analysis), then ran the analyzer ONCE over committed
+  iteration-54/59/100 reports. Result: `HUGSIM_PROVENANCE_BATCH_CANDIDATE_DESIGN_COMPLETE`; the
+  future instrumented-batch candidate schedule now has `12` new rows across the six
+  non-singleton dataset/provenance strata plus `1` carried existing both-distinct singleton
+  reference (`scene-0138-extreme-00` run 1). This is a schedule only and authorizes no run. No
+  raw-log/raw-eval/raw episode read, GPU/gcloud/box read, actor-causality, repair,
+  threshold-value, population-rate, safety/transfer/deployment/robustness/benchmark,
+  HD-Score-invariance, commercial-value, real-world/first-responder behavior, retuning, GPU
+  approval, or approval-to-run claim.

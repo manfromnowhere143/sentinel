@@ -46,6 +46,9 @@ monitor-side provenance-supported rows, but `0/104` collision-actor-supported ro
 HUGSIM priority is therefore either a fresh pre-registration for collision-provenance
 instrumentation, or a different unresolved report-level branch that does not require actor
 identity; it must not retune thresholds or make repair/safety claims.
+The candidate-design successor then froze the future instrumentation schedule without launching
+it: `12` new rows across six non-singleton dataset/provenance strata plus the carried
+both-distinct singleton reference. That design remains a schedule only, not run approval.
 
 ## New frontier packet after these lines closed
 
@@ -636,6 +639,10 @@ reports. The result is `HUGSIM_STRUCTURAL_EXPANSION_SUPPORT_BOUNDARY_NULL`: the 
 transfer pool has `104` ON rows and `77` monitor-side provenance-supported rows, but `0/104`
 collision-actor-supported rows, so a larger structural bridge claim requires fresh
 collision-provenance instrumentation or another evidence source.
+Iteration 101 then froze a candidate schedule for such a future instrumented batch. The result is
+`HUGSIM_PROVENANCE_BATCH_CANDIDATE_DESIGN_COMPLETE`: `12` new candidate rows cover the six
+non-singleton dataset/provenance strata and `1` carried existing singleton preserves the rare
+both-distinct monitor-provenance case. It authorizes no GPU run by itself.
 
 The default next scientific line is therefore not an expanded-N transfer run and not retuning the
 released union. After iteration 61, the actor-match audit points to wrong-object/wrong-hazard
