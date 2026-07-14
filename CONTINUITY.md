@@ -2478,3 +2478,19 @@ events to prepare; they are a property the repository always has.
   generation, slot selection, GPU launch, HUGSIM run, learning/update, repair, threshold-value,
   safety/deployment/robustness/benchmark/population-rate/HD-Score-invariance, commercial-value,
   real-world/first-responder behavior, retuning, production, or commercial claim.
+- 2026-07-14: Codex — pivoted into iteration 133 as the adversarial NeuroNCAP placebo semantics
+  control design requested by the post-Iter132 critique. Pre-registered ALONE (`639265b`), added
+  the generator/tests (`d3c179b`, focused ruff/tests/docs green), then ran the generator ONCE over
+  committed full-power NeuroNCAP, iteration-13 RSS-style baseline, iteration-50 opportunity-audit,
+  iteration-132, and handoff surfaces. Result:
+  `NEURONCAP_PLACEBO_SEMANTICS_CONTROL_DESIGN_COMPLETE`; `1` primary
+  `semantics_scrambled_budget_matched_placebo` arm, `3` future arms, and `4` future verdict
+  classes freeze a sham-control protocol that preserves the released union's latched-stop/release
+  actuator family while removing live Sentinel risk score use, planner-risk introspection,
+  TTC/CPA triggers, learned prediction, and outcome feedback. Counts: `0` semantic-trigger leaks,
+  `0` true authorization flags, `0` source problems, and no GPU/NeuroNCAP/HUGSIM execution
+  authorization. This is still placebo-control design only; no GPU launch, NeuroNCAP execution,
+  HUGSIM run, generated artifact, scenario generation, slot selection, learning/update, repair,
+  threshold-value, safety/deployment/robustness/benchmark-ranking/population-rate/
+  HD-Score-invariance, commercial-value, real-world/first-responder behavior, retuning,
+  production, or commercial claim.

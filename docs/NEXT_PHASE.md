@@ -245,6 +245,17 @@ learning/update, repair, or claim upgrade. The remaining bounded lanes are a fre
 pre-registered reserved-file/stub creation gate that reruns the validator immediately before any
 write, a one-page external claim ledger, explicit mission/rulebook boundary work, or a separated
 candidate-generation/execution/analysis/monitor-update sequence.
+The placebo-control design fork is now complete:
+[`research/NEURONCAP_PLACEBO_SEMANTICS_CONTROL_DESIGN_2026-07-14.md`](research/NEURONCAP_PLACEBO_SEMANTICS_CONTROL_DESIGN_2026-07-14.md)
+and iteration 133 freezes a future NeuroNCAP sham-control protocol with `1` primary
+`semantics_scrambled_budget_matched_placebo` arm, `3` future arms, `4` verdict classes, zero
+semantic-trigger leaks, and zero execution authorizations. It preserves the released union's
+latched-stop/release actuator family while forbidding live Sentinel risk score use, planner-risk
+introspection, TTC/CPA triggers, learned prediction, and outcome feedback. This still authorizes
+no GPU launch, NeuroNCAP execution, HUGSIM execution, generated artifact, scenario generation,
+slot selection, learning/update, repair, or claim upgrade. The next highest-value empirical lane
+is a fresh launch-manifest preflight for the placebo run, followed only with explicit operator GPU
+approval by an OFF/released-union/placebo execution.
 
 ## New frontier packet after these lines closed
 
