@@ -147,7 +147,12 @@ is now complete: all `8` selected first-fire objects are
 at fire, or after fire before first foreground collision. The next local HUGSIM priority is a
 report-level two-track support-core synthesis: join first-support object lifecycle, selected
 fire-object lifecycle, and first-fire replacement rank into one row taxonomy without rerunning raw
-reconstruction or launching GPU.
+reconstruction or launching GPU. That synthesis is now complete: all `8/8` rows preserve the
+two-track split. The support-side object disappears, drifts outside support, appears only after
+fire, or is absent as a reference branch; the selected fire-side object is never supported before
+collision. The next local action is documentation integration of this support-core taxonomy and
+claim boundary into the technical report/manuscript or a dedicated mechanism note, not another
+same-row raw-log audit.
 
 ## New frontier packet after these lines closed
 

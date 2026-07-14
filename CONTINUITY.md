@@ -2336,3 +2336,14 @@ events to prepare; they are a property the repository always has.
   lifecycle, and first-fire replacement rank. No actor-causality, repair, threshold-value,
   safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value,
   real-world/first-responder behavior, retuning, production, or commercial claim.
+- 2026-07-14: Codex — continued into iteration 121 as the HUGSIM support-core two-track synthesis
+  after iteration 120. Pre-registered ALONE (`f5cbd1e`), added analyzer/tests (`6a921ab`,
+  targeted ruff/tests/docs green), then ran the analyzer ONCE over committed iteration-118/119/120
+  reports only. Result: `HUGSIM_SUPPORT_CORE_TWO_TRACK_SYNTHESIS_COMPLETE`; all `8/8` rows
+  preserve the two-track split, selected lifecycle is `selected_never_supported_before_collision`
+  in all rows, and support-side branches split across absent, drifted, post-fire, and
+  never-supported reference cases. Next honest step: documentation integration of the support-core
+  taxonomy and claim boundary into the technical report/manuscript or a dedicated mechanism note.
+  No actor-causality, repair, threshold-value, safety/transfer/deployment/robustness/benchmark/
+  HD-Score-invariance, commercial-value, real-world/first-responder behavior, retuning,
+  production, or commercial claim.
