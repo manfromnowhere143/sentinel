@@ -36,10 +36,16 @@ Mobileye/NHTSA/Waymo/NVIDIA research pass. The longer source-backed memo is
    highest when it produces pre-registered mechanisms, falsifiers, negative results, and exact
    claim boundaries.
 
-7. The latest HUGSIM mechanism result after the research pass is iteration 84:
-   `HUGSIM_SELECTED_SURFACE_SUPPORT_BRIDGE_SPLIT_COMPLETE`. In the fixed rows, released
-   hazard-surface selection follows logged path geometry, while logged collision provenance
-   bridges to different surface-ineligible support objects.
+7. Historical note: at the time of the July 13 research pass, the latest HUGSIM mechanism result
+   was iteration 84, `HUGSIM_SELECTED_SURFACE_SUPPORT_BRIDGE_SPLIT_COMPLETE`. In the fixed rows,
+   released hazard-surface selection followed logged path geometry, while logged collision
+   provenance bridged to different surface-ineligible support objects.
+
+8. Post-iteration-122 update: the HUGSIM mechanism line continued through the support-core branch
+   and now has a bounded documentation integration:
+   [`SUPPORT_CORE_TWO_TRACK_TAXONOMY_2026-07-14.md`](SUPPORT_CORE_TWO_TRACK_TAXONOMY_2026-07-14.md).
+   Future sessions should read that note, iteration 122, and `docs/NEXT_PHASE.md` before treating
+   the old iteration-84 recommendation as current.
 
 ## Working memory for future sessions
 
@@ -49,10 +55,9 @@ Mobileye/NHTSA/Waymo/NVIDIA research pass. The longer source-backed memo is
   world-model-based, robotaxi-grade, or commercially validated.
 - Do describe Sentinel as a disciplined monitor/evidence system whose HUGSIM branch has moved
   from transfer null to mechanism decomposition.
-- The next scientific question should explain the iteration-84 arbitration split: why the
-  released surface picks the path-geometry object while provenance points to another object, and
-  whether that split is due to path horizon, coordinate bridge, timing, collision metric
-  semantics, planner mode, or HUGSIM/AttackPlanner structure.
+- The old next-scientific-question note about the iteration-84 arbitration split is now historical:
+  later iterations decomposed that branch and the support-core line through iteration 122. Use
+  `docs/NEXT_PHASE.md` and the support-core taxonomy note as the current HUGSIM state.
 - Any next experiment still requires a fresh `HYPOTHESIS.md` before analyzer work, no GPU unless
   pre-registered, and no threshold/repair/safety/transfer/deployment claim unless proven.
 

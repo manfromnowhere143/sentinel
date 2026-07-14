@@ -4,8 +4,8 @@
 collision it is about to cause, and intervenes — measured where it actually matters: in closed
 loop, by whether the car crashes *and whether it can still drive*.**
 
-> **Honest status up front (93 registered iterations: 62 completed mechanism iterations + an
-> independent verification pass +
+> **Honest status up front (current through iteration 122; the status table below is canonical.
+> The core Sentinel result arc includes an independent verification pass +
 > the full official benchmark at power + a completed iteration-37 calibration null + an
 > iteration-38 opposite-direction S0 canary pass + completed iteration-39/40/41 defensibility
 > audits + a completed iteration-42 exact-trace replay-support pass + a completed iteration-43
@@ -279,7 +279,9 @@ loop, by whether the car crashes *and whether it can still drive*.**
 > become near after foreground contact; no threshold-value, repair, actor-causality, safety,
 > transfer, deployment, benchmark, population, commercial-value, real-world, first-responder, or
 > retuning
-> claim):**
+> claim). Later HUGSIM iterations 98-122 are surfaced in the status table, `docs/NEXT_PHASE.md`,
+> and the dedicated support-core taxonomy note; this opener is not the canonical per-iteration
+> ledger:**
 > the introspective signal predicts the planner's collisions (AUROC 0.83). On the
 > complete 14-scene NeuroNCAP set at **20 seed-paired runs per pair** (799 episodes, the power
 > measurement), the unmonitored UniAD baseline **independently reproduces** (pooled 2.12 vs the
@@ -320,7 +322,10 @@ single-digit GPUs.
 
 ## The result
 
-Ninety-three registered iterations — sixty-two completed mechanism iterations, plus the completed defensibility, robustness, and transfer gates of iterations 39-93 — under frozen pre-registrations converge on one closed-loop configuration — the
+Across the registered campaign through iteration 122 — including the original monitor validation,
+independent verification, full14 power run, defensibility/robustness gates, VAD/HUGSIM
+external-validity tests, and HUGSIM support-core mechanism documentation line — the core
+closed-loop configuration remains the
 **released union** (two label-free geometric detectors + a threat-cleared latch release) —
 measured on the **complete official 14-scene NeuroNCAP set at 20 seed-paired runs per pair**
 (799 episodes; hypotheses frozen before the run; the first 6 indices of every pair reproduce the
