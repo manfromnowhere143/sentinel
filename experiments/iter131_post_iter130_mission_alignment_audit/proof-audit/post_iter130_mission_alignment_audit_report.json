@@ -1,0 +1,178 @@
+{
+  "checks": [
+    {
+      "label": "audit-note-sections",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "## Source Refresh",
+        "## Alignment Verdict",
+        "## Claim Hierarchy",
+        "## Defensible Strengths",
+        "## Reviewer Attack Surface",
+        "## Freshness Fixes",
+        "## Accuracy Improvements",
+        "## Claim Boundary"
+      ]
+    },
+    {
+      "label": "audit-note-boundary",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "This audit authorizes no reserved path creation, generated scenario artifact, scenario generation, execution-slot selection, GPU launch, HUGSIM run, learning/update step, repair, actor-causality, threshold-value, transfer upgrade, safety, deployment, robustness, benchmark, population-rate, HD-Score-invariance, real-world behavior, first-responder behavior, acquisition-value, retuning, production, commercial claim, or claim that Sentinel matches or exceeds Tesla, Mobileye, SpaceX, Waymo, NVIDIA, or any current frontier autonomy stack."
+      ]
+    },
+    {
+      "label": "audit-note-source-anchors",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "https://www.mobileye.com/blog/diagnosing-the-long-tail-how-mobileye-turns-edge-cases-into-targeted-training/",
+        "https://www.mobileye.com/blog/adas-regulations-overview-what-every-automaker-needs-to-know/",
+        "https://www.tesla.com/support/fsd/v14-trial",
+        "https://arxiv.org/abs/2607.03755",
+        "https://arxiv.org/abs/2606.06996"
+      ]
+    },
+    {
+      "label": "audit-note-claim-hierarchy",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "Proven empirical result",
+        "Published nulls",
+        "Mechanism evidence",
+        "Design/preflight artifact",
+        "Iterations 125-130 are design/preflight artifacts"
+      ]
+    },
+    {
+      "label": "audit-note-improvement-lanes",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "schema-instance creation preflight",
+        "one-page claim ledger",
+        "mission/rulebook boundary",
+        "candidate generation, execution, analysis, and monitor update as separate hypotheses"
+      ]
+    },
+    {
+      "label": "audit-note-frontier-niche",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "runtime monitoring, failure localization",
+        "safety evidence ledger around opaque planners",
+        "not a full autonomy stack"
+      ]
+    },
+    {
+      "label": "readme-current-through-130",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "current through iteration 130 or newer",
+        "iter130_support_core_artifact_schema_preflight",
+        "SUPPORT_CORE_ARTIFACT_SCHEMA_PREFLIGHT_2026-07-14.md"
+      ]
+    },
+    {
+      "label": "next-phase-post-130",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "SUPPORT_CORE_ARTIFACT_SCHEMA_PREFLIGHT_2026-07-14.md",
+        "schema-instance creation preflight",
+        "iteration 130 freezes `3` artifact-type schemas"
+      ]
+    },
+    {
+      "label": "continuity-post-130",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "SUPPORT_CORE_ARTIFACT_SCHEMA_PREFLIGHT_COMPLETE",
+        "no reserved path creation",
+        "no generated artifact"
+      ]
+    },
+    {
+      "label": "handoff-post-130",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "Newest completed experiment: experiments/iter130_support_core_artifact_schema_preflight/RESULT.md",
+        "GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS"
+      ]
+    },
+    {
+      "label": "frontier-memory-post-130",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "Post-iteration-130 update",
+        "SUPPORT_CORE_SOURCE_POOL_MUTATION_PREFLIGHT_2026-07-14.md",
+        "SUPPORT_CORE_ARTIFACT_NAMING_PREFLIGHT_2026-07-14.md",
+        "SUPPORT_CORE_ARTIFACT_SCHEMA_PREFLIGHT_2026-07-14.md",
+        "authorize no reserved path creation"
+      ]
+    },
+    {
+      "label": "iter130-result-present",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "SUPPORT_CORE_ARTIFACT_SCHEMA_PREFLIGHT_COMPLETE"
+      ]
+    },
+    {
+      "label": "iter130-report-counts",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "artifact_reservation_count=10",
+        "reserved_relative_path_count=30",
+        "schema_spec_count=3",
+        "schema_binding_count=30",
+        "true_authorization_count=0",
+        "existing_bound_path_count=0",
+        "duplicate_reserved_path_count=0",
+        "bad_schema_reference_count=0",
+        "forbidden_key_count=0"
+      ]
+    },
+    {
+      "label": "iter130-note-boundary",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "authorizes no reserved path creation",
+        "schema contracts",
+        "Binding Counts"
+      ]
+    }
+  ],
+  "claim_boundary": "This audit authorizes no reserved path creation, generated scenario artifact, scenario generation, execution-slot selection, GPU launch, HUGSIM run, learning/update step, repair, actor-causality, threshold-value, transfer upgrade, safety, deployment, robustness, benchmark, population-rate, HD-Score-invariance, real-world behavior, first-responder behavior, acquisition-value, retuning, production, commercial claim, or claim that Sentinel matches or exceeds Tesla, Mobileye, SpaceX, Waymo, NVIDIA, or any current frontier autonomy stack.",
+  "inputs": {
+    "audit_note": "docs/research/SENTINEL_POST_ITER130_MISSION_ALIGNMENT_AUDIT_2026-07-14.md",
+    "continuity": "CONTINUITY.md",
+    "frontier_memory": "docs/research/FRONTIER_ALIGNMENT_MEMORY_2026-07-13.md",
+    "handoff": "HANDOFF.md",
+    "iter130_note": "docs/research/SUPPORT_CORE_ARTIFACT_SCHEMA_PREFLIGHT_2026-07-14.md",
+    "iter130_report": "experiments/iter130_support_core_artifact_schema_preflight/proof-schema/support_core_artifact_schema_preflight_report.json",
+    "iter130_result": "experiments/iter130_support_core_artifact_schema_preflight/RESULT.md",
+    "next_phase": "docs/NEXT_PHASE.md",
+    "readme": "README.md"
+  },
+  "iteration": 131,
+  "problems": [],
+  "summary": {
+    "check_count": 14,
+    "passed_check_count": 14,
+    "problem_count": 0,
+    "source_anchor_count": 5
+  },
+  "verdict": "POST_ITER130_MISSION_ALIGNMENT_AUDIT_COMPLETE"
+}

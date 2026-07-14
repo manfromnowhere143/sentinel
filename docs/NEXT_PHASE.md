@@ -226,6 +226,14 @@ path creation, generated artifact, scenario generation, slot selection, HUGSIM r
 learning/update, repair, or claim upgrade. The remaining bounded lanes are a schema-instance
 creation preflight before any reserved file is written, an external one-page claim ledger,
 explicit mission/rulebook boundary work, or a higher-fidelity perturbation successor.
+The post-Iter130 mission audit is now complete:
+[`research/SENTINEL_POST_ITER130_MISSION_ALIGNMENT_AUDIT_2026-07-14.md`](research/SENTINEL_POST_ITER130_MISSION_ALIGNMENT_AUDIT_2026-07-14.md)
+and iteration 131 verifies `14/14` mission-alignment checks with zero problems. It classifies the
+current state as aligned only under a bounded frame: runtime monitoring, failure localization,
+targeted blind-spot preparation, and safety-evidence infrastructure. The next highest-accuracy
+lanes remain: schema-instance creation preflight before writing any reserved path, a one-page
+external claim ledger, explicit mission/rulebook boundary work, or a separated
+candidate-generation/execution/analysis/monitor-update sequence.
 
 ## New frontier packet after these lines closed
 
