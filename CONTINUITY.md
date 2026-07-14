@@ -2198,3 +2198,13 @@ events to prepare; they are a property the repository always has.
   GPU/gcloud/box read, actor-causality, repair, threshold-value, population-rate,
   safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value,
   real-world/first-responder behavior, or retuning claim.
+- 2026-07-14: Codex — continued into iteration 99 as the HUGSIM structural bridge coverage audit
+  after iteration 98. Pre-registered ALONE (`5a5564c`), added analyzer/tests (`7cd825a`, focused
+  tests and ruff green before analysis), then ran the analyzer ONCE over committed
+  iteration-70/96/97/98 reports. Result: `HUGSIM_STRUCTURAL_BRIDGE_COVERAGE_COMPLETE`; all five
+  fixed iteration-70 structural rows are covered exactly once by compatible bridge sources:
+  late-fire rows by iteration 96 (`2`), surface-silent rows by iteration 97 (`2`), and the
+  background-only row by iteration 98 (`1`), with `0` uncovered and `0` duplicate/incompatible
+  rows. No raw-log/raw-eval read, GPU/gcloud/box read, actor-causality, repair, threshold-value,
+  population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance,
+  commercial-value, real-world/first-responder behavior, or retuning claim.

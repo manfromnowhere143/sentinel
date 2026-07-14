@@ -1,0 +1,270 @@
+{
+  "claim_boundary": "five-row descriptive structural-bridge coverage audit only; no actor-causality, repair, threshold-value, transfer, safety, deployment, robustness, benchmark, population-rate, HD-Score-invariance, commercial-value, real-world behavior, first-responder behavior, or retuning claim",
+  "events": [
+    {
+      "audit_id": "mixed_extreme",
+      "measurements": {
+        "bridge_hit_count": 1,
+        "bridge_measurements": [
+          {
+            "bridge_row_label": "surface_silent_far_never_active_post_foreground_near",
+            "bridge_source": "iter97_surface_silent",
+            "first_foreground_ts": 4.75,
+            "foreground_count": 2,
+            "iter59_support_label": "no_monitor_fire",
+            "iter70_fired_frames": 0,
+            "iter70_first_fire_ts": null,
+            "iter70_pre_or_at_foreground_fire": false,
+            "iter71_active_cpa_frames": 0,
+            "iter71_active_ttc_frames": 0,
+            "iter71_closest_cpa_margin_m": 2.6062450662694827,
+            "iter71_closest_ttc_margin_s": null,
+            "iter71_pre_foreground_fired_frames": 0,
+            "iter71_row_label": "surface_silent_far_margin",
+            "iter73_first_active_offset_s": null,
+            "iter73_first_active_relation_to_foreground": "never",
+            "iter73_first_near_offset_s": 0.25,
+            "iter73_pre_foreground_near_any": false,
+            "iter73_pre_foreground_near_cpa": false,
+            "iter73_pre_foreground_near_ttc": false,
+            "iter73_row_label": "silent_far_never_active",
+            "structural_label": "foreground_present_surface_silent"
+          }
+        ],
+        "bridge_row_labels": [
+          "surface_silent_far_never_active_post_foreground_near"
+        ],
+        "bridge_source_compatible": true,
+        "bridge_sources": [
+          "iter97_surface_silent"
+        ],
+        "covered_exactly_once": true,
+        "iter59_support_label": "no_monitor_fire",
+        "iter70_first_fire_channel": "no_fire",
+        "iter70_first_fire_ts": null,
+        "iter70_first_foreground_ts": 4.75,
+        "structural_label": "foreground_present_surface_silent"
+      },
+      "problems": [],
+      "row_label": "structural_surface_silent_bridge_covered",
+      "scenario": "scene-0062-extreme-00"
+    },
+    {
+      "audit_id": "cpa_medium_a",
+      "measurements": {
+        "bridge_hit_count": 1,
+        "bridge_measurements": [
+          {
+            "bridge_row_label": "background_only_ttc_fire_foreground_absent",
+            "bridge_source": "iter98_background_only",
+            "foreground_support_absent": true,
+            "iter59_brake_frames": 11,
+            "iter59_fired_frames": 4,
+            "iter59_first_fire_channel": "ttc_only",
+            "iter59_first_fire_ts": 3.5,
+            "iter59_first_foreground_ts": null,
+            "iter59_foreground_count": 0,
+            "iter59_monitor_object_id": 11,
+            "iter59_monitor_provenance_label": "unique_ttc_object",
+            "iter59_support_label": "background_collision_only",
+            "iter69_first_fire_channel": "ttc_only",
+            "iter69_first_fire_ts": 3.5,
+            "iter69_mechanism_label": "background_collision_only",
+            "iter69_monitor_object_id": 11,
+            "iter69_support_label": "background_collision_only",
+            "iter70_brake_frames": 11,
+            "iter70_decision_first_fire_channel": "ttc_only",
+            "iter70_decision_first_fire_ts": 3.5,
+            "iter70_fired_frames": 4,
+            "iter70_first_foreground_ts": null,
+            "iter70_foreground_count": 0,
+            "iter70_monitor_object_id": 11,
+            "iter70_monitor_provenance_label": "unique_ttc_object",
+            "iter70_pre_or_at_foreground_fire": false,
+            "iter70_report_first_fire_ts": 3.5,
+            "iter70_structural_label": "foreground_absent_background_only",
+            "iter70_support_label": "background_collision_only",
+            "monitor_fire_present": true
+          }
+        ],
+        "bridge_row_labels": [
+          "background_only_ttc_fire_foreground_absent"
+        ],
+        "bridge_source_compatible": true,
+        "bridge_sources": [
+          "iter98_background_only"
+        ],
+        "covered_exactly_once": true,
+        "iter59_support_label": "background_collision_only",
+        "iter70_first_fire_channel": "ttc_only",
+        "iter70_first_fire_ts": 3.5,
+        "iter70_first_foreground_ts": null,
+        "structural_label": "foreground_absent_background_only"
+      },
+      "problems": [],
+      "row_label": "structural_background_only_bridge_covered",
+      "scenario": "scene-0071-medium-00"
+    },
+    {
+      "audit_id": "both_distinct_extreme",
+      "measurements": {
+        "bridge_hit_count": 1,
+        "bridge_measurements": [
+          {
+            "bridge_row_label": "late_fire_with_provenance_ttc_branch",
+            "bridge_source": "iter96_late_fire",
+            "fire_minus_foreground_s": 1.75,
+            "first_fire_channel": "ttc_only",
+            "first_fire_ts": 7.0,
+            "first_foreground_ts": 5.25
+          }
+        ],
+        "bridge_row_labels": [
+          "late_fire_with_provenance_ttc_branch"
+        ],
+        "bridge_source_compatible": true,
+        "bridge_sources": [
+          "iter96_late_fire"
+        ],
+        "covered_exactly_once": true,
+        "iter59_support_label": "post_collision_fire",
+        "iter70_first_fire_channel": "ttc_only",
+        "iter70_first_fire_ts": 7.0,
+        "iter70_first_foreground_ts": 5.25,
+        "structural_label": "foreground_present_late_fire"
+      },
+      "problems": [],
+      "row_label": "structural_late_fire_bridge_covered",
+      "scenario": "scene-0138-extreme-00"
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "measurements": {
+        "bridge_hit_count": 1,
+        "bridge_measurements": [
+          {
+            "bridge_row_label": "late_fire_with_path_cpa_branch",
+            "bridge_source": "iter96_late_fire",
+            "fire_minus_foreground_s": 1.75,
+            "first_fire_channel": "cpa_only",
+            "first_fire_ts": 5.0,
+            "first_foreground_ts": 3.25
+          }
+        ],
+        "bridge_row_labels": [
+          "late_fire_with_path_cpa_branch"
+        ],
+        "bridge_source_compatible": true,
+        "bridge_sources": [
+          "iter96_late_fire"
+        ],
+        "covered_exactly_once": true,
+        "iter59_support_label": "post_collision_fire",
+        "iter70_first_fire_channel": "cpa_only",
+        "iter70_first_fire_ts": 5.0,
+        "iter70_first_foreground_ts": 3.25,
+        "structural_label": "foreground_present_late_fire"
+      },
+      "problems": [],
+      "row_label": "structural_late_fire_bridge_covered",
+      "scenario": "scene-0071-medium-01"
+    },
+    {
+      "audit_id": "nofire_hard_control",
+      "measurements": {
+        "bridge_hit_count": 1,
+        "bridge_measurements": [
+          {
+            "bridge_row_label": "surface_silent_far_never_active_post_foreground_near",
+            "bridge_source": "iter97_surface_silent",
+            "first_foreground_ts": 2.5,
+            "foreground_count": 9,
+            "iter59_support_label": "no_monitor_fire",
+            "iter70_fired_frames": 0,
+            "iter70_first_fire_ts": null,
+            "iter70_pre_or_at_foreground_fire": false,
+            "iter71_active_cpa_frames": 0,
+            "iter71_active_ttc_frames": 0,
+            "iter71_closest_cpa_margin_m": 6.477878342783893,
+            "iter71_closest_ttc_margin_s": 3.4560450365182938,
+            "iter71_pre_foreground_fired_frames": 0,
+            "iter71_row_label": "surface_silent_far_margin",
+            "iter73_first_active_offset_s": null,
+            "iter73_first_active_relation_to_foreground": "never",
+            "iter73_first_near_offset_s": 3.5,
+            "iter73_pre_foreground_near_any": false,
+            "iter73_pre_foreground_near_cpa": false,
+            "iter73_pre_foreground_near_ttc": false,
+            "iter73_row_label": "silent_far_never_active",
+            "structural_label": "foreground_present_surface_silent"
+          }
+        ],
+        "bridge_row_labels": [
+          "surface_silent_far_never_active_post_foreground_near"
+        ],
+        "bridge_source_compatible": true,
+        "bridge_sources": [
+          "iter97_surface_silent"
+        ],
+        "covered_exactly_once": true,
+        "iter59_support_label": "no_monitor_fire",
+        "iter70_first_fire_channel": "no_fire",
+        "iter70_first_fire_ts": null,
+        "iter70_first_foreground_ts": 2.5,
+        "structural_label": "foreground_present_surface_silent"
+      },
+      "problems": [],
+      "row_label": "structural_surface_silent_bridge_covered",
+      "scenario": "scene-0041-hard-00"
+    }
+  ],
+  "fixed_rows": [
+    {
+      "audit_id": "mixed_extreme",
+      "scenario": "scene-0062-extreme-00"
+    },
+    {
+      "audit_id": "both_distinct_extreme",
+      "scenario": "scene-0138-extreme-00"
+    },
+    {
+      "audit_id": "nofire_hard_control",
+      "scenario": "scene-0041-hard-00"
+    },
+    {
+      "audit_id": "cpa_medium_a",
+      "scenario": "scene-0071-medium-00"
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "scenario": "scene-0071-medium-01"
+    }
+  ],
+  "infra_problems": [],
+  "inputs": {
+    "iter70_report": "experiments/iter70_hugsim_structural_timing_audit/proof-structural/structural_report.json",
+    "iter96_report": "experiments/iter96_hugsim_branch_outcome_bridge/proof-outcome/branch_outcome_bridge_report.json",
+    "iter97_report": "experiments/iter97_hugsim_surface_silent_outcome_margin_bridge/proof-silent-outcome/surface_silent_outcome_margin_bridge_report.json",
+    "iter98_report": "experiments/iter98_hugsim_background_only_outcome_bridge/proof-background-outcome/background_only_outcome_bridge_report.json"
+  },
+  "iteration": 99,
+  "summary": {
+    "bridge_source_counts": {
+      "iter96_late_fire": 2,
+      "iter97_surface_silent": 2,
+      "iter98_background_only": 1
+    },
+    "compatible_rows": 5,
+    "covered_rows": 5,
+    "duplicate_or_incompatible_rows": 0,
+    "evaluated_rows": 5,
+    "row_label_counts": {
+      "structural_background_only_bridge_covered": 1,
+      "structural_late_fire_bridge_covered": 2,
+      "structural_surface_silent_bridge_covered": 2
+    },
+    "target_rows": 5,
+    "uncovered_rows": 0
+  },
+  "verdict": "HUGSIM_STRUCTURAL_BRIDGE_COVERAGE_COMPLETE"
+}

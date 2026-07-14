@@ -1,0 +1,1 @@
+python3 experiments/iter99_hugsim_structural_bridge_coverage_audit/analyze_structural_bridge_coverage.py --out experiments/iter99_hugsim_structural_bridge_coverage_audit/proof-coverage/structural_bridge_coverage_report.json --markdown-out experiments/iter99_hugsim_structural_bridge_coverage_audit/proof-coverage/structural_bridge_coverage.md
