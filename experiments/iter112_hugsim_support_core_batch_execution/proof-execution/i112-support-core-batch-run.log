@@ -1,0 +1,2375 @@
+++ date -u
++ echo 'I112_START Tue Jul 14 08:39:39 UTC 2026'
+I112_START Tue Jul 14 08:39:39 UTC 2026
++ HUGSIM=/opt/sentinel-stack/HUGSIM
++ UNIAD_SIM=/opt/sentinel-stack/UniAD_SIM
++ SCEN_DIR=/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes
++ ZIP_DIR=/datasets/nuscenes-full/hugsim/scenes/nuscenes
++ SCENES_DIR=/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes
++ OUT_BASE=/datasets/nuscenes-full/hugsim/outputs/nusc_uniad
++ RUNS=/datasets/nuscenes-full/hugsim/iter112_runs
++ RUNS46=/datasets/nuscenes-full/hugsim/iter46_runs
++ MAPS_EXPANSION=/datasets/nuscenes-full/maps/expansion
++ REALCAR=/datasets/nuscenes-full/hugsim/3DRealCar
++ HUGSIM_PATCH=/tmp/iter112_hugsim_provenance.patch
++ MONITOR_PATCH=/tmp/iter112_client_patch.py
++ MANIFEST=/tmp/iter112_support_core_launch_manifest.json
++ SHIM=/opt/sentinel-stack/hugsim-shim/sitecustomize.py
++ CKPT=/opt/sentinel-stack/UniAD/ckpts/uniad_base_e2e.pth
++ FROZEN_MANIFEST_SHA=a33888b174684b65758e74c949b05b695fda40ef3ddf0c7d9ee439a6ee818e99
++ FROZEN_HUGSIM_SHA=62c690d39fd90020e68a196bd8bcc1c4d4191f2e
++ FROZEN_UNIADSIM_SHA=5fb279e39912a5ac7f58e00d56b065cadcd0a749
++ FROZEN_CKPT_SHA=0ad0c2f5dc9788a41c313305779ea49346aeb742d1f6bb5ad25c46f9beffc990
++ FROZEN_SHIM_SHA=5bf69a1187478c52d49792d5871bd5732c6dd431ecd1f44b5e391f7adb80682c
++ FROZEN_IMAGE_ID=f73ef3884063
++ FROZEN_MONITOR_PATCH_SHA=6b39fd79d00c7bdb937c6d240fbc4648661b235f1a3024912d62874937146c5c
++ FROZEN_HUGSIM_PATCH_SHA=49eee7611e4b881d2bb6233e8767913019c6a097c6883762414005d5b2284ecd
++ EPISODE_TIMEOUT=1200
++ DISK_MIN_GIB=20
++ export PIXI_HOME=/datasets/nuscenes-full/hugsim-envs/pixi-home
++ PIXI_HOME=/datasets/nuscenes-full/hugsim-envs/pixi-home
++ export PIXI_CACHE_DIR=/datasets/nuscenes-full/hugsim-envs/pixi-cache
++ PIXI_CACHE_DIR=/datasets/nuscenes-full/hugsim-envs/pixi-cache
++ export PATH=/datasets/nuscenes-full/hugsim-envs/pixi-home/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
++ PATH=/datasets/nuscenes-full/hugsim-envs/pixi-home/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
++ mkdir -p /datasets/nuscenes-full/hugsim/iter112_runs
+++ git -C /opt/sentinel-stack/HUGSIM rev-parse HEAD
++ '[' 62c690d39fd90020e68a196bd8bcc1c4d4191f2e = 62c690d39fd90020e68a196bd8bcc1c4d4191f2e ']'
+++ git -C /opt/sentinel-stack/UniAD_SIM rev-parse HEAD
++ '[' 5fb279e39912a5ac7f58e00d56b065cadcd0a749 = 5fb279e39912a5ac7f58e00d56b065cadcd0a749 ']'
+++ sha256sum /opt/sentinel-stack/UniAD/ckpts/uniad_base_e2e.pth
+++ cut '-d ' -f1
++ '[' 0ad0c2f5dc9788a41c313305779ea49346aeb742d1f6bb5ad25c46f9beffc990 = 0ad0c2f5dc9788a41c313305779ea49346aeb742d1f6bb5ad25c46f9beffc990 ']'
+++ sha256sum /opt/sentinel-stack/hugsim-shim/sitecustomize.py
+++ cut '-d ' -f1
++ '[' 5bf69a1187478c52d49792d5871bd5732c6dd431ecd1f44b5e391f7adb80682c = 5bf69a1187478c52d49792d5871bd5732c6dd431ecd1f44b5e391f7adb80682c ']'
+++ sha256sum /tmp/iter112_client_patch.py
+++ cut '-d ' -f1
++ '[' 6b39fd79d00c7bdb937c6d240fbc4648661b235f1a3024912d62874937146c5c = 6b39fd79d00c7bdb937c6d240fbc4648661b235f1a3024912d62874937146c5c ']'
++ docker images --format '{{.ID}}' uniad:latest
++ grep -q f73ef3884063
++ write_manifest_files
+++ sha256sum /tmp/iter112_support_core_launch_manifest.json
+++ cut '-d ' -f1
++ '[' a33888b174684b65758e74c949b05b695fda40ef3ddf0c7d9ee439a6ee818e99 = a33888b174684b65758e74c949b05b695fda40ef3ddf0c7d9ee439a6ee818e99 ']'
++ echo 'a33888b174684b65758e74c949b05b695fda40ef3ddf0c7d9ee439a6ee818e99  iter112_support_core_launch_manifest.json'
++ python3 - /tmp/iter112_support_core_launch_manifest.json /datasets/nuscenes-full/hugsim/iter112_runs/frozen_scenarios_iter112.sha256 /datasets/nuscenes-full/hugsim/iter112_runs/slot_schedule_iter112.tsv
++ cd /datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes
++ sha256sum -c /datasets/nuscenes-full/hugsim/iter112_runs/frozen_scenarios_iter112.sha256
+scene-0411-hard-00.yaml: OK
+scene-0411-extreme-00.yaml: OK
+scene-0038-hard-00.yaml: OK
+scene-0038-extreme-00.yaml: OK
+scene-0038-extreme-00.yaml: OK
+scene-0383-extreme-00.yaml: OK
+scene-0411-hard-00.yaml: OK
+scene-0411-extreme-00.yaml: OK
++ for loc in singapore-onenorth singapore-hollandvillage singapore-queenstown boston-seaport
++ '[' -s /datasets/nuscenes-full/maps/expansion/singapore-onenorth.json ']'
++ for loc in singapore-onenorth singapore-hollandvillage singapore-queenstown boston-seaport
++ '[' -s /datasets/nuscenes-full/maps/expansion/singapore-hollandvillage.json ']'
++ for loc in singapore-onenorth singapore-hollandvillage singapore-queenstown boston-seaport
++ '[' -s /datasets/nuscenes-full/maps/expansion/singapore-queenstown.json ']'
++ for loc in singapore-onenorth singapore-hollandvillage singapore-queenstown boston-seaport
++ '[' -s /datasets/nuscenes-full/maps/expansion/boston-seaport.json ']'
+++ cat /datasets/nuscenes-full/hugsim/iter46_runs/d0_verdict.txt
++ '[' stochastic = stochastic ']'
+++ docker ps -q
+++ wc -l
++ '[' 0 '!=' 0 ']'
++ apply_hugsim_patch
+++ sha256sum /tmp/iter112_hugsim_provenance.patch
+++ cut '-d ' -f1
++ '[' 49eee7611e4b881d2bb6233e8767913019c6a097c6883762414005d5b2284ecd = 49eee7611e4b881d2bb6233e8767913019c6a097c6883762414005d5b2284ecd ']'
++ git -C /opt/sentinel-stack/HUGSIM apply --check /tmp/iter112_hugsim_provenance.patch
+error: patch failed: sim/utils/score_calculator.py:121
+error: sim/utils/score_calculator.py: patch does not apply
++ git -C /opt/sentinel-stack/HUGSIM apply --reverse --check /tmp/iter112_hugsim_provenance.patch
++ echo I112_HUGSIM_PATCH_ALREADY_APPLIED
+I112_HUGSIM_PATCH_ALREADY_APPLIED
++ python3 -m py_compile /opt/sentinel-stack/HUGSIM/sim/utils/score_calculator.py
+++ python3 /tmp/iter112_client_patch.py
++ PATCH_OUT='ITER48_UNION_PATCHED
+ITER48_E2E_PY_SHA256=23cce8a2a559b60dc3de394ba890a28adc13b5b24d222936478dad6f83f9aea3
+ITER48_E2E_SH_SHA256=8b404adcbc7fea328a5fbbd10c5256656444739b3af79ca26676a45464471aa7'
++ echo 'ITER48_UNION_PATCHED
+ITER48_E2E_PY_SHA256=23cce8a2a559b60dc3de394ba890a28adc13b5b24d222936478dad6f83f9aea3
+ITER48_E2E_SH_SHA256=8b404adcbc7fea328a5fbbd10c5256656444739b3af79ca26676a45464471aa7'
+ITER48_UNION_PATCHED
+ITER48_E2E_PY_SHA256=23cce8a2a559b60dc3de394ba890a28adc13b5b24d222936478dad6f83f9aea3
+ITER48_E2E_SH_SHA256=8b404adcbc7fea328a5fbbd10c5256656444739b3af79ca26676a45464471aa7
++ echo 'ITER48_UNION_PATCHED
+ITER48_E2E_PY_SHA256=23cce8a2a559b60dc3de394ba890a28adc13b5b24d222936478dad6f83f9aea3
+ITER48_E2E_SH_SHA256=8b404adcbc7fea328a5fbbd10c5256656444739b3af79ca26676a45464471aa7'
++ grep -q ITER48_UNION_PATCHED
+++ echo 'ITER48_UNION_PATCHED
+ITER48_E2E_PY_SHA256=23cce8a2a559b60dc3de394ba890a28adc13b5b24d222936478dad6f83f9aea3
+ITER48_E2E_SH_SHA256=8b404adcbc7fea328a5fbbd10c5256656444739b3af79ca26676a45464471aa7'
+++ grep ITER48_E2E_PY_SHA256=
+++ cut -d= -f2
++ E2E_PY_SHA=23cce8a2a559b60dc3de394ba890a28adc13b5b24d222936478dad6f83f9aea3
+++ echo 'ITER48_UNION_PATCHED
+ITER48_E2E_PY_SHA256=23cce8a2a559b60dc3de394ba890a28adc13b5b24d222936478dad6f83f9aea3
+ITER48_E2E_SH_SHA256=8b404adcbc7fea328a5fbbd10c5256656444739b3af79ca26676a45464471aa7'
+++ grep ITER48_E2E_SH_SHA256=
+++ cut -d= -f2
++ E2E_SH_SHA=8b404adcbc7fea328a5fbbd10c5256656444739b3af79ca26676a45464471aa7
++ LINKED=0
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_04_22_10_35_34//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_04_22_10_35_34//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_06_04_13_44_39//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_06_04_13_44_39//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_06_04_15_34_51//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_06_04_15_34_51//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_06_04_15_45_41//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_06_04_15_45_41//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_06_04_16_00_28//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_06_04_16_00_28//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_14_01_13//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_14_01_13//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_14_05_04//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_14_05_04//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_14_11_39//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_14_11_39//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_27_18//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_27_18//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_30_39//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_30_39//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_33_04//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_33_04//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_35_44//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_35_44//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_39_05//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_39_05//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_42_20//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_42_20//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_57_03//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_57_03//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_59_33//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_59_33//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_16_07_37//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_16_07_37//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_16_10_59//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_16_10_59//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_16_20_24//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_16_20_24//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_17_18_50//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_17_18_50//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_17_26_25//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_17_26_25//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_17_29_14//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_17_29_14//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_17_52_36//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_17_52_36//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_39_21//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_39_21//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_41_48//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_41_48//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_45_45//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_45_45//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_48_48//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_48_48//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_51_10//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_51_10//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_53_41//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_53_41//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_02_40//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_02_40//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_12_08//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_12_08//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_14_52//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_14_52//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_20_29//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_20_29//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_23_13//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_23_13//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_25_45//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_25_45//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_29_47//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_29_47//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_32_17//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_32_17//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_35_19//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_35_19//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_38_58//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_38_58//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_41_28//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_41_28//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_44_26//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_44_26//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_47_09//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_47_09//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_50_36//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_50_36//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_58_12//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_58_12//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_03_37//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_03_37//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_16_48//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_16_48//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_18_44//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_18_44//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_21_00//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_21_00//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_23_11//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_23_11//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_25_20//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_25_20//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_27_44//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_27_44//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_30_07//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_30_07//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_33_12//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_33_12//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_36_05//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_36_05//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_39_20//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_39_20//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_41_49//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_41_49//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_50_01//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_50_01//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_52_22//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_52_22//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_54_50//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_54_50//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_00_42//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_00_42//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_02_27//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_02_27//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_06_01//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_06_01//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_17_38//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_17_38//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_31_52//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_31_52//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_40_08//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_40_08//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_41_03//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_41_03//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_56_50//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_56_50//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_58_02//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_58_02//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_02_48//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_02_48//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_21_58//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_21_58//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_22_03//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_22_03//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_25_32//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_25_32//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_42_30//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_42_30//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_42_31//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_42_31//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_45_27//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_45_27//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_12_10_02//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_12_10_02//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_12_10_06//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_12_10_06//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_07_43//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_07_43//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_11_17//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_11_17//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_11_47//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_11_47//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_14_58//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_14_58//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_18_38//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_18_38//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_20_15//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_20_15//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_25_58//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_25_58//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_30_09//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_30_09//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_15_31_37//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_15_31_37//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_15_42_29//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_15_42_29//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_15_57_10//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_15_57_10//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_15_58_29//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_15_58_29//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_03_36//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_03_36//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_08_40//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_08_40//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_10_02//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_10_02//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_13_36//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_13_36//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_13_43//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_13_43//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_16_38//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_16_38//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_24_36//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_24_36//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_40_16//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_40_16//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_40_36//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_40_36//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_48_24//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_48_24//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_05_43_00//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_05_43_00//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_05_48_00//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_05_48_00//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_06_00_52//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_06_00_52//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_06_04_22//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_06_04_22//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_06_06_31//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_06_06_31//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_08_18_02_27//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_08_18_02_27//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_20_54//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_20_54//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_28_04//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_28_04//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_33_58//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_33_58//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_38_08//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_38_08//postprocess/shadow.pth ']'
++ for car in "$REALCAR"/*/
++ '[' -f /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_42_06//gs.pth ']'
++ '[' '!' -e /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_42_06//postprocess/shadow.pth ']'
++ echo 'I112_REALCAR_COMPAT_LINKS linked=0'
+I112_REALCAR_COMPAT_LINKS linked=0
++ echo '{'
+++ sha256sum /tmp/iter112_support_core_launch_manifest.json
+++ cut '-d ' -f1
++ echo '  "manifest_sha": "a33888b174684b65758e74c949b05b695fda40ef3ddf0c7d9ee439a6ee818e99",'
+++ git -C /opt/sentinel-stack/HUGSIM rev-parse HEAD
++ echo '  "hugsim_sha": "62c690d39fd90020e68a196bd8bcc1c4d4191f2e",'
+++ git -C /opt/sentinel-stack/UniAD_SIM rev-parse HEAD
++ echo '  "uniad_sim_sha": "5fb279e39912a5ac7f58e00d56b065cadcd0a749",'
+++ sha256sum /opt/sentinel-stack/UniAD/ckpts/uniad_base_e2e.pth
+++ cut '-d ' -f1
++ echo '  "ckpt_sha": "0ad0c2f5dc9788a41c313305779ea49346aeb742d1f6bb5ad25c46f9beffc990",'
+++ sha256sum /opt/sentinel-stack/hugsim-shim/sitecustomize.py
+++ cut '-d ' -f1
++ echo '  "shim_sha": "5bf69a1187478c52d49792d5871bd5732c6dd431ecd1f44b5e391f7adb80682c",'
+++ docker images --format '{{.ID}}' uniad:latest
++ echo '  "image_id": "f73ef3884063",'
+++ sha256sum /tmp/iter112_hugsim_provenance.patch
+++ cut '-d ' -f1
++ echo '  "hugsim_patch_sha": "49eee7611e4b881d2bb6233e8767913019c6a097c6883762414005d5b2284ecd",'
+++ sha256sum /opt/sentinel-stack/HUGSIM/sim/utils/score_calculator.py
+++ cut '-d ' -f1
++ echo '  "score_calculator_sha_after_patch": "1588b5b912384dead87b521b828cf7a135e77eb79aad5d540074c7168f79e46f",'
+++ sha256sum /tmp/iter112_client_patch.py
+++ cut '-d ' -f1
++ echo '  "monitor_patch_sha": "6b39fd79d00c7bdb937c6d240fbc4648661b235f1a3024912d62874937146c5c",'
++ echo '  "e2e_py_patched_sha": "23cce8a2a559b60dc3de394ba890a28adc13b5b24d222936478dad6f83f9aea3",'
++ echo '  "e2e_sh_patched_sha": "8b404adcbc7fea328a5fbbd10c5256656444739b3af79ca26676a45464471aa7",'
++ echo '  "schedule": "eight ON slots from Iter111 support-core manifest",'
++ echo '  "slot_count": 8,'
+++ date -u +%Y-%m-%dT%H:%M:%SZ
++ echo '  "start_utc": "2026-07-14T08:39:51Z"'
++ echo '}'
+++ date -u
++ echo 'I112_SUPPORT_CORE_OK Tue Jul 14 08:39:51 UTC 2026'
+I112_SUPPORT_CORE_OK Tue Jul 14 08:39:51 UTC 2026
++ IFS='	'
++ read -r slot_id scenario _scenario_sha
++ run_one i111_s01_iter49_hard_extreme_exact_ttc_classifiable_anchor_short_lead_fire_ttc_only_scene_0411_hard_00_r2 scene-0411-hard-00
++ local slot_id=i111_s01_iter49_hard_extreme_exact_ttc_classifiable_anchor_short_lead_fire_ttc_only_scene_0411_hard_00_r2 scenario=scene-0411-hard-00
++ local scene=scene-0411
++ local mode_dashed=hard-00
++ local mode=hard_00
++ local out_dir=/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00
++ local dest=/datasets/nuscenes-full/hugsim/iter112_runs/i111_s01_iter49_hard_extreme_exact_ttc_classifiable_anchor_short_lead_fire_ttc_only_scene_0411_hard_00_r2__scene-0411-hard-00__on
++ '[' -f /datasets/nuscenes-full/hugsim/iter112_runs/i111_s01_iter49_hard_extreme_exact_ttc_classifiable_anchor_short_lead_fire_ttc_only_scene_0411_hard_00_r2__scene-0411-hard-00__on/episode_meta.json ']'
++ prep_scene scene-0411
++ local scene=scene-0411
++ '[' '!' -d /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0411 ']'
++ local cfg=/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0411/cfg.yaml
++ '[' '!' -f /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0411/cfg.yaml ']'
++ '[' -f /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0411/cfg.yaml.orig ']'
++ python3 - /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0411/cfg.yaml /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0411
++ local attempt rc steps hd marker decisions provenance
++ for attempt in 1 2
++ disk_guard
++ local avail
+++ df --output=avail -BG /datasets/nuscenes-full
+++ tail -1
+++ tr -dc 0-9
++ avail=114
++ '[' 114 -lt 20 ']'
+++ date -u
++ echo 'I112_SLOT_START i111_s01_iter49_hard_extreme_exact_ttc_classifiable_anchor_short_lead_fire_ttc_only_scene_0411_hard_00_r2 scene-0411-hard-00 on a1 Tue Jul 14 08:39:51 UTC 2026'
+I112_SLOT_START i111_s01_iter49_hard_extreme_exact_ttc_classifiable_anchor_short_lead_fire_ttc_only_scene_0411_hard_00_r2 scene-0411-hard-00 on a1 Tue Jul 14 08:39:51 UTC 2026
++ local t0
+++ date -u +%s
++ t0=1784018391
++ docker rm -f hugsim_uniad_client
++ rm -rf /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00
++ cd /opt/sentinel-stack/HUGSIM
++ SENTINEL_ENABLED=1
++ timeout 1200 pixi run python -u closed_loop.py --scenario_path /datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0411-hard-00.yaml --base_path configs/sim/nuscenes_base.yaml --camera_path configs/sim/nuscenes_camera.yaml --kinematic_path configs/sim/kinematic.yaml --ad uniad --ad_cuda 0
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/output.txt
+/opt/sentinel-stack/UniAD_SIM/tools/e2e.sh 0 /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00
+/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/spline_planner.py:102: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.acce_grid = torch.tensor(acce_grid).to(self.device)
+/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/forward_sampler.py:24: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.accels = torch.tensor(acce_grid,device=self.device)
+/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/forward_sampler.py:26: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.dhm_grid = torch.tensor(dhm_grid,device=self.device)
+Ready for simulation
+ego pose [0.0, -1.0808430643926773e-34, 0.0]
+ego pose [0.0, -0.001726138371843387, 0.4375]
+ego pose [0.008028279680451528, -0.003934313516273375, 1.0469823312156503]
+ego pose [0.014721508807775736, -0.006230228501514534, 1.749391352326246]
+ego pose [-0.0007318547949292896, -0.012641341874659087, 2.49145043280984]
+ego pose [-0.05379710524138885, -0.02251590112456529, 3.2420875229433337]
+ego pose [-0.15607553265697793, -0.0300403770212248, 4.016987311774084]
+ego pose [-0.286123633773211, -0.035086528085388, 4.797267219009317]
+ego pose [-0.44664723417327495, -0.03135551580249417, 5.554681204814581]
+ego pose [-0.6423751818312409, -0.031242807342602427, 6.302373903239639]
+ego pose [-0.8573956886601022, -0.032520770692651906, 7.0236597387516655]
+ego pose [-1.0706743258358369, -0.03646311737479701, 7.726806130682059]
+ego pose [-1.2673060723571121, -0.04264760402936365, 8.432069543811835]
+ego pose [-1.4166956923340297, -0.05134899010241642, 9.09465341363756]
+ego pose [-1.5230525593775481, -0.0606825413955381, 9.749298146821047]
+ego pose [-1.5924387445058497, -0.061590208522422876, 10.45101855449956]
+ego pose [-1.6027538842260185, -0.05957652449704584, 11.132150970395047]
+ego pose [-1.5774998311110053, -0.05840121087047794, 11.789280126485506]
+ego pose [-1.530549143084984, -0.05418342555613123, 12.442469500475829]
+ego pose [-1.476027542889996, -0.04763709899290636, 13.086027606091248]
+ego pose [-1.4213713135286112, -0.05840553838370158, 13.713445269917468]
+ego pose [-1.3716564592894067, -0.06234199561253519, 14.152936154033197]
+ego pose [-1.3336745571772828, -0.0658065648854277, 14.442790132519626]
+ego pose [-1.3063494505893742, -0.06615502735145382, 14.634050961471534]
+ego pose [-1.287321965009971, -0.0644503816134474, 14.76031721768123]
+ego pose [-1.2743242227395182, -0.06358034563491313, 14.84370508837843]
+ego pose [-1.2655501556973072, -0.06292201458953633, 14.89878529530872]
+Collision with foreground
+MoviePy - Building video /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/video.mp4.
+MoviePy - Writing video /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/video.mp4
+
+frame_index:   0%|          | 0/27 [00:00<?, ?it/s, now=None]frame_index:  41%|████      | 11/27 [00:00<00:00, 109.14it/s, now=None]frame_index:  89%|████████▉ | 24/27 [00:00<00:00, 117.73it/s, now=None]                                                                       MoviePy - Done !
+MoviePy - video ready /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/video.mp4
+this pkl file contains 1 experiment records.
+current exp has 27 frames
+frame 0 / 27
+comfortable: [True, True, True, True, True, True]
+frame 1 / 27
+comfortable: [True, True, True, True, True, True]
+frame 2 / 27
+comfortable: [True, True, True, True, True, True]
+frame 3 / 27
+comfortable: [True, True, True, True, True, True]
+frame 4 / 27
+comfortable: [True, True, True, True, True, True]
+frame 5 / 27
+comfortable: [True, True, True, True, True, True]
+frame 6 / 27
+comfortable: [True, True, True, True, True, True]
+frame 7 / 27
+comfortable: [True, True, True, True, True, True]
+frame 8 / 27
+collision with background detected! @ timestep5
+ failed to pass ttc collision check, t=1
+comfortable: [True, True, True, True, True, True]
+frame 9 / 27
+comfortable: [True, True, True, True, True, True]
+frame 10 / 27
+comfortable: [True, True, True, True, True, True]
+frame 11 / 27
+comfortable: [True, True, True, True, True, True]
+frame 12 / 27
+comfortable: [True, True, True, True, True, True]
+frame 13 / 27
+comfortable: [True, True, True, True, True, True]
+frame 14 / 27
+comfortable: [True, True, True, True, True, True]
+frame 15 / 27
+collision with background detected! @ timestep4
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, False, False]
+frame 16 / 27
+collision with background detected! @ timestep3
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, False, True]
+frame 17 / 27
+collision with background detected! @ timestep5
+collision with background detected! @ timestep4
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, False, False]
+frame 18 / 27
+collision with background detected! @ timestep3
+collision with background detected! @ timestep4
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, False, False]
+frame 19 / 27
+collision with background detected! @ timestep4
+collision with background detected! @ timestep4
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, False, False]
+frame 20 / 27
+collision with obstacle detected! @ timestep3
+ego_poly: (14.152936154033197, 1.3716564592894067, -0.130295673490932, 1.6479559659957885, 4.115467357635498), obs_poly: (11.906682968139648, 0.389748752117157, 0.04524626034575352, 1.6479559659957885, 4.115467357635498)
+collision with obstacle detected! @ timestep3
+ego_poly: (14.152936154033197, 1.3716564592894067, -0.130295673490932, 1.6479559659957885, 4.115467357635498), obs_poly: (11.906682968139648, 0.389748752117157, 0.04524626034575352, 1.6479559659957885, 4.115467357635498)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 21 / 27
+comfortable: [True, True, True, True, True, True]
+frame 22 / 27
+collision with obstacle detected! @ timestep2
+ego_poly: (14.634050961471534, 1.3063494505893742, -0.14956797485182302, 1.6479559659957885, 4.115467357635498), obs_poly: (11.906682968139648, 0.389748752117157, 0.04524626034575352, 1.6479559659957885, 4.115467357635498)
+collision with obstacle detected! @ timestep2
+ego_poly: (14.634050961471534, 1.3063494505893742, -0.14956797485182302, 1.6479559659957885, 4.115467357635498), obs_poly: (11.906682968139648, 0.389748752117157, 0.04524626034575352, 1.6479559659957885, 4.115467357635498)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 23 / 27
+comfortable: [True, True, True, True, True, True]
+frame 24 / 27
+collision with obstacle detected! @ timestep1
+ego_poly: (14.84370508837843, 1.2743242227395182, -0.15796894356559266, 1.6479559659957885, 4.115467357635498), obs_poly: (11.906682968139648, 0.389748752117157, 0.04524626034575352, 1.6479559659957885, 4.115467357635498)
+collision with obstacle detected! @ timestep1
+ego_poly: (14.84370508837843, 1.2743242227395182, -0.15796894356559266, 1.6479559659957885, 4.115467357635498), obs_poly: (11.906682968139648, 0.389748752117157, 0.04524626034575352, 1.6479559659957885, 4.115467357635498)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 25 / 27
+comfortable: [True, True, True, True, True, True]
+frame 26 / 27
+collision with obstacle detected! @ timestep0
+ego_poly: (14.935175373595394, 1.259670917893413, -0.16163701517792095, 1.6479559659957885, 4.115467357635498), obs_poly: (11.906682968139648, 0.389748752117157, 0.04524626034575352, 1.6479559659957885, 4.115467357635498)
+collision with obstacle detected! @ timestep0
+ego_poly: (14.935175373595394, 1.259670917893413, -0.16163701517792095, 1.6479559659957885, 4.115467357635498), obs_poly: (11.906682968139648, 0.389748752117157, 0.04524626034575352, 1.6479559659957885, 4.115467357635498)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+The score of experiment is (0.6402116402116401, 0.12687645248414042, 0.08122778174910576, {'nc': 0.7407407407407407, 'dac': 1.0, 'ttc': 0.6296296296296297, 'c': 0.8148148148148148, 'pdms': 0.6402116402116401}, {0.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 0.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 0.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.2857142857142857}, 2.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 4.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 0.0, 'c': 0.0, 'pdms': 0.0}, 4.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 0.0, 'c': 0.0, 'pdms': 0.0}, 4.5: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 0.0, 'pdms': 0.0}, 4.75: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 0.0, 'pdms': 0.0}, 5.0: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 0.0, 'pdms': 0.0}, 5.25: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 5.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 5.75: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 6.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 6.25: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 6.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 6.75: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}}).
+=============================Results=============================
+'nc': 0.7407407407407407
+'dac': 1.0
+'ttc': 0.6296296296296297
+'c': 0.8148148148148148
+'pdms': 0.6402116402116401
+'rc': 0.12687645248414042
+'hdscore': 0.08122778174910576
+The AD algorithm is still running, remaining tolerant 100.
+The AD algorithm is still running, remaining tolerant 95.
+The AD algorithm is still running, remaining tolerant 90.
+The AD algorithm completed with return code 0.
++ rc=0
++ echo 'I112_SLOT_RC=0 i111_s01_iter49_hard_extreme_exact_ttc_classifiable_anchor_short_lead_fire_ttc_only_scene_0411_hard_00_r2 scene-0411-hard-00 on a1'
+I112_SLOT_RC=0 i111_s01_iter49_hard_extreme_exact_ttc_classifiable_anchor_short_lead_fire_ttc_only_scene_0411_hard_00_r2 scene-0411-hard-00 on a1
++ docker rm -f hugsim_uniad_client
+++ python3 -c '
+import json, math
+try:
+    v = json.load(open('\''/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/eval.json'\'')).get('\''hdscore'\'')
+    print(v if isinstance(v, (int, float)) and math.isfinite(v) else '\''INVALID'\'')
+except Exception:
+    print('\''MISSING'\'')
+'
++ hd=0.08122778174910576
+++ python3 -c '
+import json
+try:
+    data = json.load(open('\''/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/eval.json'\''))
+    print(1 if '\''collision_provenance'\'' in data else 0)
+except Exception:
+    print(0)
+'
++ provenance=1
+++ grep -c sent /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/output.txt
++ steps=27
++ '[' -n 27 ']'
+++ grep -c 'SENTINEL_I48_UNION_PATCH_LOADED enabled=1' /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/output.txt
++ marker=1
++ '[' -n 1 ']'
++ decisions=0
++ '[' -s /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/sentinel_iter48_decisions.jsonl ']'
+++ grep -c 'SENTINEL_I48_DECISION frame=' /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/output.txt
++ '[' 27 -gt 0 ']'
++ decisions=1
++ '[' 0 = 0 ']'
++ '[' 0.08122778174910576 '!=' MISSING ']'
++ '[' 0.08122778174910576 '!=' INVALID ']'
++ '[' 1 = 1 ']'
++ '[' 27 -gt 0 ']'
++ '[' 1 -gt 0 ']'
++ '[' 1 = 1 ']'
++ rm -rf /datasets/nuscenes-full/hugsim/iter112_runs/i111_s01_iter49_hard_extreme_exact_ttc_classifiable_anchor_short_lead_fire_ttc_only_scene_0411_hard_00_r2__scene-0411-hard-00__on
++ mkdir -p /datasets/nuscenes-full/hugsim/iter112_runs/i111_s01_iter49_hard_extreme_exact_ttc_classifiable_anchor_short_lead_fire_ttc_only_scene_0411_hard_00_r2__scene-0411-hard-00__on
++ find /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00 -type p -delete
++ mv /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/data.pkl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/eval.json /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/ground.ply /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/infos.pkl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/output.txt /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/scene.ply /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/sentinel_iter48_decisions.jsonl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/uniad /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/video.mp4 /datasets/nuscenes-full/hugsim/iter112_runs/i111_s01_iter49_hard_extreme_exact_ttc_classifiable_anchor_short_lead_fire_ttc_only_scene_0411_hard_00_r2__scene-0411-hard-00__on/
++ rmdir /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00
+++ date -u +%s
++ printf '{"slot_id":"%s","scenario":"%s","arm":"on","attempt":%s,"rc":%s,"hdscore":%s,"steps":%s,"start_epoch":%s,"end_epoch":%s}\n' i111_s01_iter49_hard_extreme_exact_ttc_classifiable_anchor_short_lead_fire_ttc_only_scene_0411_hard_00_r2 scene-0411-hard-00 1 0 0.08122778174910576 27 1784018391 1784018542
++ echo 'I112_SLOT_DONE i111_s01_iter49_hard_extreme_exact_ttc_classifiable_anchor_short_lead_fire_ttc_only_scene_0411_hard_00_r2 scene-0411-hard-00 on ok hd=0.08122778174910576 steps=27'
+I112_SLOT_DONE i111_s01_iter49_hard_extreme_exact_ttc_classifiable_anchor_short_lead_fire_ttc_only_scene_0411_hard_00_r2 scene-0411-hard-00 on ok hd=0.08122778174910576 steps=27
++ return 0
++ IFS='	'
++ read -r slot_id scenario _scenario_sha
++ run_one i111_s02_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0411_extreme_00_r1 scene-0411-extreme-00
++ local slot_id=i111_s02_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0411_extreme_00_r1 scenario=scene-0411-extreme-00
++ local scene=scene-0411
++ local mode_dashed=extreme-00
++ local mode=extreme_00
++ local out_dir=/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00
++ local dest=/datasets/nuscenes-full/hugsim/iter112_runs/i111_s02_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0411_extreme_00_r1__scene-0411-extreme-00__on
++ '[' -f /datasets/nuscenes-full/hugsim/iter112_runs/i111_s02_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0411_extreme_00_r1__scene-0411-extreme-00__on/episode_meta.json ']'
++ prep_scene scene-0411
++ local scene=scene-0411
++ '[' '!' -d /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0411 ']'
++ local cfg=/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0411/cfg.yaml
++ '[' '!' -f /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0411/cfg.yaml ']'
++ '[' -f /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0411/cfg.yaml.orig ']'
++ python3 - /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0411/cfg.yaml /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0411
++ local attempt rc steps hd marker decisions provenance
++ for attempt in 1 2
++ disk_guard
++ local avail
+++ df --output=avail -BG /datasets/nuscenes-full
+++ tail -1
+++ tr -dc 0-9
++ avail=114
++ '[' 114 -lt 20 ']'
+++ date -u
++ echo 'I112_SLOT_START i111_s02_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0411_extreme_00_r1 scene-0411-extreme-00 on a1 Tue Jul 14 08:42:22 UTC 2026'
+I112_SLOT_START i111_s02_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0411_extreme_00_r1 scene-0411-extreme-00 on a1 Tue Jul 14 08:42:22 UTC 2026
++ local t0
+++ date -u +%s
++ t0=1784018542
++ docker rm -f hugsim_uniad_client
++ rm -rf /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00
++ cd /opt/sentinel-stack/HUGSIM
++ SENTINEL_ENABLED=1
++ timeout 1200 pixi run python -u closed_loop.py --scenario_path /datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0411-extreme-00.yaml --base_path configs/sim/nuscenes_base.yaml --camera_path configs/sim/nuscenes_camera.yaml --kinematic_path configs/sim/kinematic.yaml --ad uniad --ad_cuda 0
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/output.txt
+/opt/sentinel-stack/UniAD_SIM/tools/e2e.sh 0 /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00
+/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/spline_planner.py:102: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.acce_grid = torch.tensor(acce_grid).to(self.device)
+/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/forward_sampler.py:24: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.accels = torch.tensor(acce_grid,device=self.device)
+/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/forward_sampler.py:26: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.dhm_grid = torch.tensor(dhm_grid,device=self.device)
+Ready for simulation
+ego pose [0.0, -1.0808430643926773e-34, 0.0]
+ego pose [0.0, -0.001726138371843387, 0.4375]
+ego pose [0.009629456156667923, -0.003952106203297712, 1.0624258144565055]
+ego pose [0.021905758137923954, -0.0063821869322810984, 1.7975068062329107]
+ego pose [0.014526867212138524, -0.014440155435861595, 2.6094505858019903]
+ego pose [-0.03504872901268789, -0.02438106547917142, 3.4340619793152283]
+ego pose [-0.13926049306315458, -0.03312927063171993, 4.2962713364168446]
+ego pose [-0.2712880593329123, -0.03376296577838367, 5.165533797359188]
+ego pose [-0.3983382740550355, -0.032281233994103986, 5.845497828530162]
+ego pose [-0.5024233428975847, -0.0323648697706951, 6.33886987443449]
+ego pose [-0.5765573478993573, -0.03269396248499143, 6.664018673309914]
+ego pose [-0.6278771830524231, -0.033239921879333716, 6.878513981765405]
+ego pose [-0.7118996253968247, -0.03554168427626968, 7.219077082727807]
+ego pose [-0.8186133221185748, -0.038065951786825675, 7.655022612496042]
+ego pose [-0.9335472858781548, -0.04356726892686798, 8.166512965525264]
+ego pose [-1.0417587122952976, -0.048406333416195005, 8.765141309435721]
+ego pose [-1.1160426674602761, -0.06101547302656608, 9.441642402722517]
+ego pose [-1.135065488647632, -0.06462513198932168, 10.170277479745515]
+ego pose [-1.0890064927061551, -0.06269671457898307, 10.886796493889051]
+ego pose [-1.0231635012627356, -0.06509513864635957, 11.41319242971251]
+ego pose [-0.9652672491275678, -0.06409171441894675, 11.757080269052883]
+ego pose [-0.9209765224869148, -0.06308277358376699, 11.981987646963066]
+ego pose [-0.8891901451702631, -0.062447544705740134, 12.129264536136027]
+ego pose [-0.8671472550202672, -0.06203634026472479, 12.225809908424788]
+ego pose [-0.8521645527220683, -0.06177988780696275, 12.289146066933602]
+ego pose [-0.8421042585679986, -0.06159031414015204, 12.330719101375985]
+ego pose [-0.8353998087924637, -0.06151497754252697, 12.358020897122662]
+Collision with foreground
+MoviePy - Building video /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/video.mp4.
+MoviePy - Writing video /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/video.mp4
+
+frame_index:   0%|          | 0/27 [00:00<?, ?it/s, now=None]frame_index:  37%|███▋      | 10/27 [00:00<00:00, 98.48it/s, now=None]frame_index:  93%|█████████▎| 25/27 [00:00<00:00, 126.69it/s, now=None]                                                                       MoviePy - Done !
+MoviePy - video ready /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/video.mp4
+this pkl file contains 1 experiment records.
+current exp has 27 frames
+frame 0 / 27
+comfortable: [True, True, True, True, True, True]
+frame 1 / 27
+comfortable: [True, True, True, True, True, True]
+frame 2 / 27
+comfortable: [True, True, True, True, True, True]
+frame 3 / 27
+comfortable: [True, True, True, True, True, True]
+frame 4 / 27
+comfortable: [True, True, True, True, True, True]
+frame 5 / 27
+comfortable: [True, True, True, True, True, True]
+frame 6 / 27
+comfortable: [True, True, True, True, True, True]
+frame 7 / 27
+comfortable: [True, True, True, True, True, True]
+frame 8 / 27
+comfortable: [True, True, True, True, True, True]
+frame 9 / 27
+comfortable: [True, True, True, True, True, True]
+frame 10 / 27
+comfortable: [True, True, True, True, True, True]
+frame 11 / 27
+comfortable: [True, True, True, True, True, True]
+frame 12 / 27
+comfortable: [True, True, True, True, True, True]
+frame 13 / 27
+comfortable: [True, True, True, True, True, True]
+frame 14 / 27
+comfortable: [True, True, True, True, True, True]
+frame 15 / 27
+comfortable: [True, True, True, True, True, True]
+frame 16 / 27
+comfortable: [True, True, True, True, True, True]
+frame 17 / 27
+comfortable: [True, True, True, True, False, False]
+frame 18 / 27
+collision with obstacle detected! @ timestep4
+ego_poly: (11.41319242971251, 1.0231635012627356, -0.1667937990488754, 1.6528551697731018, 4.08380401134491), obs_poly: (8.97520923614502, 0.8090962767601013, -0.034316285833461135, 1.6528551697731018, 4.08380401134491)
+collision with obstacle detected! @ timestep4
+ego_poly: (11.41319242971251, 1.0231635012627356, -0.1667937990488754, 1.6528551697731018, 4.08380401134491), obs_poly: (8.97520923614502, 0.8090962767601013, -0.034316285833461135, 1.6528551697731018, 4.08380401134491)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 19 / 27
+comfortable: [True, True, True, True, True, True]
+frame 20 / 27
+collision with obstacle detected! @ timestep3
+ego_poly: (11.981987646963066, 0.9209765224869148, -0.21256679891318767, 1.6528551697731018, 4.08380401134491), obs_poly: (8.97520923614502, 0.8090962767601013, -0.034316285833461135, 1.6528551697731018, 4.08380401134491)
+collision with obstacle detected! @ timestep3
+ego_poly: (11.981987646963066, 0.9209765224869148, -0.21256679891318767, 1.6528551697731018, 4.08380401134491), obs_poly: (8.97520923614502, 0.8090962767601013, -0.034316285833461135, 1.6528551697731018, 4.08380401134491)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 21 / 27
+comfortable: [True, True, True, True, True, True]
+frame 22 / 27
+collision with obstacle detected! @ timestep2
+ego_poly: (12.225809908424788, 0.8671472550202672, -0.2322883179838081, 1.6528551697731018, 4.08380401134491), obs_poly: (8.97520923614502, 0.8090962767601013, -0.034316285833461135, 1.6528551697731018, 4.08380401134491)
+collision with obstacle detected! @ timestep2
+ego_poly: (12.225809908424788, 0.8671472550202672, -0.2322883179838081, 1.6528551697731018, 4.08380401134491), obs_poly: (8.97520923614502, 0.8090962767601013, -0.034316285833461135, 1.6528551697731018, 4.08380401134491)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 23 / 27
+comfortable: [True, True, True, True, True, True]
+frame 24 / 27
+collision with obstacle detected! @ timestep1
+ego_poly: (12.330719101375985, 0.8421042585679986, -0.24080312163763015, 1.6528551697731018, 4.08380401134491), obs_poly: (8.97520923614502, 0.8090962767601013, -0.034316285833461135, 1.6528551697731018, 4.08380401134491)
+collision with obstacle detected! @ timestep1
+ego_poly: (12.330719101375985, 0.8421042585679986, -0.24080312163763015, 1.6528551697731018, 4.08380401134491), obs_poly: (8.97520923614502, 0.8090962767601013, -0.034316285833461135, 1.6528551697731018, 4.08380401134491)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 25 / 27
+comfortable: [True, True, True, True, True, True]
+frame 26 / 27
+collision with obstacle detected! @ timestep0
+ego_poly: (12.37595541635136, 0.8309534395791082, -0.24448090476383977, 1.6528551697731018, 4.08380401134491), obs_poly: (8.97520923614502, 0.8090962767601013, -0.034316285833461135, 1.6528551697731018, 4.08380401134491)
+collision with obstacle detected! @ timestep0
+ego_poly: (12.37595541635136, 0.8309534395791082, -0.24448090476383977, 1.6528551697731018, 4.08380401134491), obs_poly: (8.97520923614502, 0.8090962767601013, -0.034316285833461135, 1.6528551697731018, 4.08380401134491)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+The score of experiment is (0.8042328042328043, 0.10426480748696688, 0.08385317850803686, {'nc': 0.8148148148148148, 'dac': 1.0, 'ttc': 0.8148148148148148, 'c': 0.9629629629629629, 'pdms': 0.8042328042328043}, {0.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 0.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 0.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 4.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 4.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 4.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 0.0, 'pdms': 0.7142857142857143}, 4.75: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 5.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 5.25: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 5.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 5.75: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 6.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 6.25: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 6.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 6.75: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}}).
+=============================Results=============================
+'nc': 0.8148148148148148
+'dac': 1.0
+'ttc': 0.8148148148148148
+'c': 0.9629629629629629
+'pdms': 0.8042328042328043
+'rc': 0.10426480748696688
+'hdscore': 0.08385317850803686
+The AD algorithm is still running, remaining tolerant 100.
+The AD algorithm is still running, remaining tolerant 95.
+The AD algorithm is still running, remaining tolerant 90.
+The AD algorithm completed with return code 0.
++ rc=0
++ echo 'I112_SLOT_RC=0 i111_s02_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0411_extreme_00_r1 scene-0411-extreme-00 on a1'
+I112_SLOT_RC=0 i111_s02_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0411_extreme_00_r1 scene-0411-extreme-00 on a1
++ docker rm -f hugsim_uniad_client
+++ python3 -c '
+import json, math
+try:
+    v = json.load(open('\''/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/eval.json'\'')).get('\''hdscore'\'')
+    print(v if isinstance(v, (int, float)) and math.isfinite(v) else '\''INVALID'\'')
+except Exception:
+    print('\''MISSING'\'')
+'
++ hd=0.08385317850803686
+++ python3 -c '
+import json
+try:
+    data = json.load(open('\''/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/eval.json'\''))
+    print(1 if '\''collision_provenance'\'' in data else 0)
+except Exception:
+    print(0)
+'
++ provenance=1
+++ grep -c sent /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/output.txt
++ steps=27
++ '[' -n 27 ']'
+++ grep -c 'SENTINEL_I48_UNION_PATCH_LOADED enabled=1' /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/output.txt
++ marker=1
++ '[' -n 1 ']'
++ decisions=0
++ '[' -s /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/sentinel_iter48_decisions.jsonl ']'
+++ grep -c 'SENTINEL_I48_DECISION frame=' /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/output.txt
++ '[' 27 -gt 0 ']'
++ decisions=1
++ '[' 0 = 0 ']'
++ '[' 0.08385317850803686 '!=' MISSING ']'
++ '[' 0.08385317850803686 '!=' INVALID ']'
++ '[' 1 = 1 ']'
++ '[' 27 -gt 0 ']'
++ '[' 1 -gt 0 ']'
++ '[' 1 = 1 ']'
++ rm -rf /datasets/nuscenes-full/hugsim/iter112_runs/i111_s02_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0411_extreme_00_r1__scene-0411-extreme-00__on
++ mkdir -p /datasets/nuscenes-full/hugsim/iter112_runs/i111_s02_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0411_extreme_00_r1__scene-0411-extreme-00__on
++ find /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00 -type p -delete
++ mv /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/data.pkl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/eval.json /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/ground.ply /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/infos.pkl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/output.txt /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/scene.ply /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/sentinel_iter48_decisions.jsonl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/uniad /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/video.mp4 /datasets/nuscenes-full/hugsim/iter112_runs/i111_s02_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0411_extreme_00_r1__scene-0411-extreme-00__on/
++ rmdir /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00
+++ date -u +%s
++ printf '{"slot_id":"%s","scenario":"%s","arm":"on","attempt":%s,"rc":%s,"hdscore":%s,"steps":%s,"start_epoch":%s,"end_epoch":%s}\n' i111_s02_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0411_extreme_00_r1 scene-0411-extreme-00 1 0 0.08385317850803686 27 1784018542 1784018694
++ echo 'I112_SLOT_DONE i111_s02_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0411_extreme_00_r1 scene-0411-extreme-00 on ok hd=0.08385317850803686 steps=27'
+I112_SLOT_DONE i111_s02_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0411_extreme_00_r1 scene-0411-extreme-00 on ok hd=0.08385317850803686 steps=27
++ return 0
++ IFS='	'
++ read -r slot_id scenario _scenario_sha
++ run_one i111_s03_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0038_hard_00_r1 scene-0038-hard-00
++ local slot_id=i111_s03_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0038_hard_00_r1 scenario=scene-0038-hard-00
++ local scene=scene-0038
++ local mode_dashed=hard-00
++ local mode=hard_00
++ local out_dir=/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_hard_00
++ local dest=/datasets/nuscenes-full/hugsim/iter112_runs/i111_s03_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0038_hard_00_r1__scene-0038-hard-00__on
++ '[' -f /datasets/nuscenes-full/hugsim/iter112_runs/i111_s03_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0038_hard_00_r1__scene-0038-hard-00__on/episode_meta.json ']'
++ prep_scene scene-0038
++ local scene=scene-0038
++ '[' '!' -d /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038 ']'
++ local cfg=/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/cfg.yaml
++ '[' '!' -f /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/cfg.yaml ']'
++ '[' -f /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/cfg.yaml.orig ']'
++ python3 - /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/cfg.yaml /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038
++ local attempt rc steps hd marker decisions provenance
++ for attempt in 1 2
++ disk_guard
++ local avail
+++ df --output=avail -BG /datasets/nuscenes-full
+++ tail -1
+++ tr -dc 0-9
++ avail=114
++ '[' 114 -lt 20 ']'
+++ date -u
++ echo 'I112_SLOT_START i111_s03_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0038_hard_00_r1 scene-0038-hard-00 on a1 Tue Jul 14 08:44:54 UTC 2026'
+I112_SLOT_START i111_s03_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0038_hard_00_r1 scene-0038-hard-00 on a1 Tue Jul 14 08:44:54 UTC 2026
++ local t0
+++ date -u +%s
++ t0=1784018694
++ docker rm -f hugsim_uniad_client
++ rm -rf /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_hard_00
++ cd /opt/sentinel-stack/HUGSIM
++ SENTINEL_ENABLED=1
++ timeout 1200 pixi run python -u closed_loop.py --scenario_path /datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0038-hard-00.yaml --base_path configs/sim/nuscenes_base.yaml --camera_path configs/sim/nuscenes_camera.yaml --kinematic_path configs/sim/kinematic.yaml --ad uniad --ad_cuda 0
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_hard_00/output.txt
+/opt/sentinel-stack/UniAD_SIM/tools/e2e.sh 0 /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_hard_00
+Ready for simulation
+ego pose [0.0, -3.2146299438905488e-34, 0.0]
+ego pose [0.0, -0.012187308463684031, 0.4375]
+ego pose [-0.009578943439283309, -0.0017492868626743567, 1.0583583930473939]
+ego pose [-0.05303620052525408, 0.005866223171563129, 1.806318495547238]
+ego pose [-0.1520646550360926, -0.013239745171198476, 2.6300001319872006]
+ego pose [-0.3221765780464788, -0.013368877920577987, 3.5040756926539287]
+ego pose [-0.5698539936374055, -0.01436196559497536, 4.406620813501307]
+ego pose [-0.8933730196219303, -0.02023255454743191, 5.302049666783875]
+ego pose [-1.2792110054327746, -0.025084905849568684, 6.186260705440695]
+ego pose [-1.678480544587488, -0.03215580229280382, 7.03287127114917]
+ego pose [-2.0605583491981347, -0.042435038178314025, 7.856608097792894]
+ego pose [-2.405178051890217, -0.051034953858377315, 8.684855757300392]
+ego pose [-2.6967845203521286, -0.05845015247889074, 9.543028174579023]
+ego pose [-2.9226304235789766, -0.06393515643824153, 10.388699953009974]
+ego pose [-3.093744095592043, -0.07145505457985984, 11.231051697440098]
+ego pose [-3.2442898912647853, -0.07652552591672739, 12.090582645154878]
+ego pose [-3.3911752912674737, -0.08155466701606658, 12.956140142872364]
+ego pose [-3.516630135859623, -0.08515687905916265, 13.63507889305409]
+ego pose [-3.612955059582501, -0.08965687992623607, 14.128700606049781]
+ego pose [-3.679012084498443, -0.09326522292418249, 14.455040123779488]
+ego pose [-3.723732396076248, -0.09621493907135556, 14.670855472448249]
+ego pose [-3.807711228113349, -0.09875066924519188, 15.070017076446725]
+ego pose [-3.9252396372220635, -0.10146238163290705, 15.621613710411294]
+ego pose [-4.051285634540686, -0.10619491172870277, 16.268117243323506]
+ego pose [-4.155698256555267, -0.11761311464005225, 16.971352142399475]
+ego pose [-4.219255012029041, -0.13457939104290018, 17.68714391650328]
+ego pose [-4.240285804976368, -0.1383324190588506, 18.41524307044013]
+ego pose [-4.237448614199919, -0.14572716326313734, 19.158589238394967]
+ego pose [-4.230516735636977, -0.1445100490821425, 19.88913634833264]
+ego pose [-4.218932898018148, -0.14082497686007808, 20.600519965297647]
+ego pose [-4.193071088238727, -0.14043550673206673, 21.262279181642924]
+ego pose [-4.162016274296833, -0.13938492902480323, 21.908930330445187]
+ego pose [-4.146975123562842, -0.1366188689231585, 22.368580708797964]
+ego pose [-4.140231755827786, -0.13451092390722777, 22.67285606956225]
+ego pose [-4.1371679399252965, -0.1332148324048995, 22.874239337544157]
+ego pose [-4.135751673782068, -0.13335994622525185, 23.007517128108613]
+Collision with foreground
+MoviePy - Building video /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_hard_00/video.mp4.
+MoviePy - Writing video /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_hard_00/video.mp4
+
+frame_index:   0%|          | 0/36 [00:00<?, ?it/s, now=None]frame_index:  28%|██▊       | 10/36 [00:00<00:00, 95.32it/s, now=None]frame_index:  67%|██████▋   | 24/36 [00:00<00:00, 118.27it/s, now=None]                                                                       MoviePy - Done !
+MoviePy - video ready /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_hard_00/video.mp4
+this pkl file contains 1 experiment records.
+current exp has 36 frames
+frame 0 / 36
+comfortable: [True, True, True, True, True, True]
+frame 1 / 36
+comfortable: [True, True, True, True, True, True]
+frame 2 / 36
+comfortable: [True, True, True, True, True, True]
+frame 3 / 36
+comfortable: [True, True, True, True, True, True]
+frame 4 / 36
+comfortable: [True, True, True, True, True, True]
+frame 5 / 36
+comfortable: [True, True, True, True, True, True]
+frame 6 / 36
+comfortable: [True, True, True, True, True, True]
+frame 7 / 36
+comfortable: [True, True, True, True, True, True]
+frame 8 / 36
+comfortable: [True, True, True, True, True, True]
+frame 9 / 36
+comfortable: [True, True, True, True, True, True]
+frame 10 / 36
+comfortable: [True, True, True, True, True, True]
+frame 11 / 36
+comfortable: [True, True, True, True, True, True]
+frame 12 / 36
+comfortable: [True, True, True, True, True, True]
+frame 13 / 36
+comfortable: [True, True, True, True, True, True]
+frame 14 / 36
+comfortable: [True, True, True, False, True, True]
+frame 15 / 36
+collision with obstacle detected! @ timestep5
+ego_poly: (25.76775934747593, 6.7336499545380155, 0.05306919028255316, 1.7945964813232422, 3.9275957107543946), obs_poly: (27.44537353515625, 8.804718017578125, -2.683185233625138, 1.7945964813232422, 3.9275957107543946)
+ failed to pass ttc collision check, t=1
+comfortable: [True, True, True, True, True, True]
+frame 16 / 36
+comfortable: [True, True, True, True, True, True]
+frame 17 / 36
+comfortable: [True, True, True, True, True, True]
+frame 18 / 36
+comfortable: [True, True, True, True, True, True]
+frame 19 / 36
+comfortable: [True, True, True, True, True, True]
+frame 20 / 36
+comfortable: [True, False, True, False, False, True]
+frame 21 / 36
+comfortable: [True, False, True, False, False, False]
+frame 22 / 36
+comfortable: [True, True, True, False, False, False]
+frame 23 / 36
+comfortable: [True, True, True, False, True, True]
+frame 24 / 36
+comfortable: [True, True, True, False, True, True]
+frame 25 / 36
+comfortable: [True, False, False, False, False, True]
+frame 26 / 36
+collision with obstacle detected! @ timestep1
+ego_poly: (24.38780421788675, 7.08577677074101, -0.6626353293488126, 1.7945964813232422, 3.9275957107543946), obs_poly: (26.100234985351562, 8.140937805175781, -2.683185233625138, 1.7945964813232422, 3.9275957107543946)
+ failed to pass ttc collision check, t=1
+comfortable: [True, True, True, True, False, False]
+frame 27 / 36
+collision with obstacle detected! @ timestep1
+ego_poly: (25.108106757947837, 6.178471582755398, -0.4975894553058322, 1.7945964813232422, 3.9275957107543946), obs_poly: (25.65185546875, 7.919677734375, -2.683185233625138, 1.7945964813232422, 3.9275957107543946)
+ failed to pass ttc collision check, t=1
+comfortable: [True, True, True, False, False, False]
+frame 28 / 36
+collision with obstacle detected! @ timestep2
+ego_poly: (23.50495099693098, 4.803374136869377, -0.27723459006154616, 1.7945964813232422, 3.9275957107543946), obs_poly: (24.306716918945312, 7.255897521972656, -2.683185233625138, 1.7945964813232422, 3.9275957107543946)
+collision with obstacle detected! @ timestep1
+ego_poly: (24.105847946913332, 6.438138302022321, -0.42780046437249963, 1.7945964813232422, 3.9275957107543946), obs_poly: (25.203475952148438, 7.698417663574219, -2.683185233625138, 1.7945964813232422, 3.9275957107543946)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, False, True]
+frame 29 / 36
+collision with obstacle detected! @ timestep1
+ego_poly: (24.058130083842237, 5.564265472563775, -0.7702675553222177, 1.7945964813232422, 3.9275957107543946), obs_poly: (24.755096435546875, 7.4771575927734375, -2.683185233625138, 1.7945964813232422, 3.9275957107543946)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, False, False]
+frame 30 / 36
+comfortable: [True, False, False, False, False, False]
+frame 31 / 36
+collision with obstacle detected! @ timestep2
+ego_poly: (22.368580708797964, 4.146975123562842, -0.02215842921522693, 1.7945964813232422, 3.9275957107543946), obs_poly: (22.961578369140625, 6.5921173095703125, -2.683185233625138, 1.7945964813232422, 3.9275957107543946)
+collision with obstacle detected! @ timestep2
+ego_poly: (22.368580708797964, 4.146975123562842, -0.02215842921522693, 1.7945964813232422, 3.9275957107543946), obs_poly: (22.961578369140625, 6.5921173095703125, -2.683185233625138, 1.7945964813232422, 3.9275957107543946)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 32 / 36
+comfortable: [True, True, True, True, True, True]
+frame 33 / 36
+collision with obstacle detected! @ timestep1
+ego_poly: (22.874239337544157, 4.1371679399252965, -0.010626022776773485, 1.7945964813232422, 3.9275957107543946), obs_poly: (22.961578369140625, 6.5921173095703125, -2.683185233625138, 1.7945964813232422, 3.9275957107543946)
+collision with obstacle detected! @ timestep1
+ego_poly: (22.874239337544157, 4.1371679399252965, -0.010626022776773485, 1.7945964813232422, 3.9275957107543946), obs_poly: (22.961578369140625, 6.5921173095703125, -2.683185233625138, 1.7945964813232422, 3.9275957107543946)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 34 / 36
+comfortable: [True, True, True, True, True, True]
+frame 35 / 36
+collision with obstacle detected! @ timestep0
+ego_poly: (23.095718993988186, 4.13508191222034, -0.005587184303833419, 1.7945964813232422, 3.9275957107543946), obs_poly: (22.961578369140625, 6.5921173095703125, -2.683185233625138, 1.7945964813232422, 3.9275957107543946)
+collision with obstacle detected! @ timestep0
+ego_poly: (23.095718993988186, 4.13508191222034, -0.005587184303833419, 1.7945964813232422, 3.9275957107543946), obs_poly: (22.961578369140625, 6.5921173095703125, -2.683185233625138, 1.7945964813232422, 3.9275957107543946)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+The score of experiment is (0.7222222222222224, 0.18073316283034954, 0.13052950648858583, {'nc': 0.8888888888888888, 'dac': 1.0, 'ttc': 0.7777777777777778, 'c': 0.6666666666666666, 'pdms': 0.7222222222222224}, {0.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 0.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 0.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 0.0, 'pdms': 0.7142857142857143}, 4.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.2857142857142857}, 4.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 4.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 4.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 5.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 5.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 0.0, 'pdms': 0.7142857142857143}, 5.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 0.0, 'pdms': 0.7142857142857143}, 5.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 0.0, 'pdms': 0.7142857142857143}, 6.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 0.0, 'pdms': 0.7142857142857143}, 6.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 0.0, 'pdms': 0.7142857142857143}, 6.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 0.0, 'pdms': 0.7142857142857143}, 6.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 0.0, 'c': 0.0, 'pdms': 0.0}, 7.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 0.0, 'c': 0.0, 'pdms': 0.0}, 7.25: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 0.0, 'pdms': 0.0}, 7.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 0.0, 'c': 0.0, 'pdms': 0.0}, 7.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 0.0, 'pdms': 0.7142857142857143}, 8.0: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 8.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 8.5: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 8.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 9.0: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}}).
+=============================Results=============================
+'nc': 0.8888888888888888
+'dac': 1.0
+'ttc': 0.7777777777777778
+'c': 0.6666666666666666
+'pdms': 0.7222222222222224
+'rc': 0.18073316283034954
+'hdscore': 0.13052950648858583
+The AD algorithm is still running, remaining tolerant 100.
+The AD algorithm is still running, remaining tolerant 95.
+The AD algorithm is still running, remaining tolerant 90.
+The AD algorithm completed with return code 0.
++ rc=0
++ echo 'I112_SLOT_RC=0 i111_s03_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0038_hard_00_r1 scene-0038-hard-00 on a1'
+I112_SLOT_RC=0 i111_s03_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0038_hard_00_r1 scene-0038-hard-00 on a1
++ docker rm -f hugsim_uniad_client
+++ python3 -c '
+import json, math
+try:
+    v = json.load(open('\''/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_hard_00/eval.json'\'')).get('\''hdscore'\'')
+    print(v if isinstance(v, (int, float)) and math.isfinite(v) else '\''INVALID'\'')
+except Exception:
+    print('\''MISSING'\'')
+'
++ hd=0.13052950648858583
+++ python3 -c '
+import json
+try:
+    data = json.load(open('\''/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_hard_00/eval.json'\''))
+    print(1 if '\''collision_provenance'\'' in data else 0)
+except Exception:
+    print(0)
+'
++ provenance=1
+++ grep -c sent /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_hard_00/output.txt
++ steps=36
++ '[' -n 36 ']'
+++ grep -c 'SENTINEL_I48_UNION_PATCH_LOADED enabled=1' /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_hard_00/output.txt
++ marker=1
++ '[' -n 1 ']'
++ decisions=0
++ '[' -s /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_hard_00/sentinel_iter48_decisions.jsonl ']'
+++ grep -c 'SENTINEL_I48_DECISION frame=' /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_hard_00/output.txt
++ '[' 36 -gt 0 ']'
++ decisions=1
++ '[' 0 = 0 ']'
++ '[' 0.13052950648858583 '!=' MISSING ']'
++ '[' 0.13052950648858583 '!=' INVALID ']'
++ '[' 1 = 1 ']'
++ '[' 36 -gt 0 ']'
++ '[' 1 -gt 0 ']'
++ '[' 1 = 1 ']'
++ rm -rf /datasets/nuscenes-full/hugsim/iter112_runs/i111_s03_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0038_hard_00_r1__scene-0038-hard-00__on
++ mkdir -p /datasets/nuscenes-full/hugsim/iter112_runs/i111_s03_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0038_hard_00_r1__scene-0038-hard-00__on
++ find /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_hard_00 -type p -delete
++ mv /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_hard_00/data.pkl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_hard_00/eval.json /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_hard_00/ground.ply /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_hard_00/infos.pkl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_hard_00/output.txt /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_hard_00/scene.ply /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_hard_00/sentinel_iter48_decisions.jsonl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_hard_00/uniad /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_hard_00/video.mp4 /datasets/nuscenes-full/hugsim/iter112_runs/i111_s03_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0038_hard_00_r1__scene-0038-hard-00__on/
++ rmdir /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_hard_00
+++ date -u +%s
++ printf '{"slot_id":"%s","scenario":"%s","arm":"on","attempt":%s,"rc":%s,"hdscore":%s,"steps":%s,"start_epoch":%s,"end_epoch":%s}\n' i111_s03_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0038_hard_00_r1 scene-0038-hard-00 1 0 0.13052950648858583 36 1784018694 1784018871
++ echo 'I112_SLOT_DONE i111_s03_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0038_hard_00_r1 scene-0038-hard-00 on ok hd=0.13052950648858583 steps=36'
+I112_SLOT_DONE i111_s03_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0038_hard_00_r1 scene-0038-hard-00 on ok hd=0.13052950648858583 steps=36
++ return 0
++ IFS='	'
++ read -r slot_id scenario _scenario_sha
++ run_one i111_s04_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r1 scene-0038-extreme-00
++ local slot_id=i111_s04_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r1 scenario=scene-0038-extreme-00
++ local scene=scene-0038
++ local mode_dashed=extreme-00
++ local mode=extreme_00
++ local out_dir=/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00
++ local dest=/datasets/nuscenes-full/hugsim/iter112_runs/i111_s04_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r1__scene-0038-extreme-00__on
++ '[' -f /datasets/nuscenes-full/hugsim/iter112_runs/i111_s04_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r1__scene-0038-extreme-00__on/episode_meta.json ']'
++ prep_scene scene-0038
++ local scene=scene-0038
++ '[' '!' -d /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038 ']'
++ local cfg=/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/cfg.yaml
++ '[' '!' -f /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/cfg.yaml ']'
++ '[' -f /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/cfg.yaml.orig ']'
++ python3 - /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/cfg.yaml /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038
++ local attempt rc steps hd marker decisions provenance
++ for attempt in 1 2
++ disk_guard
++ local avail
+++ df --output=avail -BG /datasets/nuscenes-full
+++ tail -1
+++ tr -dc 0-9
++ avail=114
++ '[' 114 -lt 20 ']'
+++ date -u
++ echo 'I112_SLOT_START i111_s04_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r1 scene-0038-extreme-00 on a1 Tue Jul 14 08:47:51 UTC 2026'
+I112_SLOT_START i111_s04_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r1 scene-0038-extreme-00 on a1 Tue Jul 14 08:47:51 UTC 2026
++ local t0
+++ date -u +%s
++ t0=1784018871
++ docker rm -f hugsim_uniad_client
++ rm -rf /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00
++ cd /opt/sentinel-stack/HUGSIM
++ SENTINEL_ENABLED=1
++ timeout 1200 pixi run python -u closed_loop.py --scenario_path /datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0038-extreme-00.yaml --base_path configs/sim/nuscenes_base.yaml --camera_path configs/sim/nuscenes_camera.yaml --kinematic_path configs/sim/kinematic.yaml --ad uniad --ad_cuda 0
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/output.txt
+/opt/sentinel-stack/UniAD_SIM/tools/e2e.sh 0 /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00
+/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/spline_planner.py:102: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.acce_grid = torch.tensor(acce_grid).to(self.device)
+/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/forward_sampler.py:24: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.accels = torch.tensor(acce_grid,device=self.device)
+/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/forward_sampler.py:26: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.dhm_grid = torch.tensor(dhm_grid,device=self.device)
+Ready for simulation
+ego pose [0.0, -3.2146299438905488e-34, 0.0]
+ego pose [0.0, -0.012187308463684031, 0.4375]
+ego pose [-0.010015817598368091, -0.001755321428048277, 1.0608946444736866]
+ego pose [-0.053494416454194824, 0.005898478954445216, 1.796043762661303]
+ego pose [-0.1527210317912426, -0.013311448111599277, 2.6048246484351463]
+ego pose [-0.32012417383554775, -0.013438695231587918, 3.4507005667317485]
+ego pose [-0.5627754737207451, -0.014339714629265645, 4.311474897674006]
+ego pose [-0.8112353993236581, -0.016362973272209994, 4.973188742540442]
+ego pose [-1.0211059898090888, -0.020896687492564167, 5.448214875865001]
+ego pose [-1.171484728871559, -0.02194450131936859, 5.754886251134773]
+ego pose [-1.2755946002655454, -0.022491192316959018, 5.953910179520725]
+ego pose [-1.3462882040990243, -0.022819213032017192, 6.0836069662158785]
+ego pose [-1.3937280279229487, -0.02417874434302429, 6.168362840741773]
+ego pose [-1.4253355305817197, -0.02549149706254365, 6.223867556621528]
+ego pose [-1.4462973215219164, -0.02554258750830574, 6.2602658578217865]
+ego pose [-1.561466362700418, -0.029504494031413152, 6.458779371596466]
+ego pose [-1.7738662171170734, -0.032066322063314, 6.8176353527760885]
+ego pose [-2.06146893491944, -0.03430500962095221, 7.303154471641708]
+ego pose [-2.246830687842157, -0.039507054306178, 7.631218036951418]
+ego pose [-2.366435465424133, -0.04141438215391375, 7.849756532101577]
+ego pose [-2.444220163184825, -0.042714881371858054, 7.994942663023748]
+ego pose [-2.49508212531649, -0.044168616479508774, 8.09123520437731]
+Collision with foreground
+MoviePy - Building video /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/video.mp4.
+MoviePy - Writing video /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/video.mp4
+
+frame_index:   0%|          | 0/22 [00:00<?, ?it/s, now=None]frame_index:  50%|█████     | 11/22 [00:00<00:00, 105.49it/s, now=None]                                                                       MoviePy - Done !
+MoviePy - video ready /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/video.mp4
+this pkl file contains 1 experiment records.
+current exp has 22 frames
+frame 0 / 22
+comfortable: [True, True, True, True, True, True]
+frame 1 / 22
+comfortable: [True, True, True, True, True, True]
+frame 2 / 22
+comfortable: [True, True, True, True, True, True]
+frame 3 / 22
+comfortable: [True, True, True, True, True, True]
+frame 4 / 22
+comfortable: [True, True, True, True, True, True]
+frame 5 / 22
+comfortable: [True, True, True, True, False, True]
+frame 6 / 22
+comfortable: [True, True, True, True, True, True]
+frame 7 / 22
+comfortable: [True, True, True, True, True, True]
+frame 8 / 22
+comfortable: [True, True, True, True, True, True]
+frame 9 / 22
+collision with obstacle detected! @ timestep5
+ego_poly: (5.953910179520725, 1.2755946002655454, 0.49904897467203824, 1.7071942806243896, 3.8995777368545532), obs_poly: (3.5266048908233643, -0.5733838677406311, 0.5454031486713165, 1.7071942806243896, 3.8995777368545532)
+collision with obstacle detected! @ timestep5
+ego_poly: (5.953910179520725, 1.2755946002655454, 0.49904897467203824, 1.7071942806243896, 3.8995777368545532), obs_poly: (3.5266048908233643, -0.5733838677406311, 0.5454031486713165, 1.7071942806243896, 3.8995777368545532)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 10 / 22
+collision with obstacle detected! @ timestep5
+ego_poly: (6.0836069662158785, 1.3462882040990243, 0.5102775291430413, 1.7071942806243896, 3.8995777368545532), obs_poly: (4.452735424041748, 0.012617722153663635, 0.5588318379561494, 1.7071942806243896, 3.8995777368545532)
+collision with obstacle detected! @ timestep5
+ego_poly: (6.0836069662158785, 1.3462882040990243, 0.5102775291430413, 1.7071942806243896, 3.8995777368545532), obs_poly: (4.452735424041748, 0.012617722153663635, 0.5588318379561494, 1.7071942806243896, 3.8995777368545532)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 11 / 22
+collision with obstacle detected! @ timestep4
+ego_poly: (6.168362840741773, 1.3937280279229487, 0.5176579601277397, 1.7071942806243896, 3.8995777368545532), obs_poly: (3.5266048908233643, -0.5733838677406311, 0.5454031486713165, 1.7071942806243896, 3.8995777368545532)
+collision with obstacle detected! @ timestep4
+ego_poly: (6.168362840741773, 1.3937280279229487, 0.5176579601277397, 1.7071942806243896, 3.8995777368545532), obs_poly: (3.5266048908233643, -0.5733838677406311, 0.5454031486713165, 1.7071942806243896, 3.8995777368545532)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 12 / 22
+collision with obstacle detected! @ timestep4
+ego_poly: (6.223867556621528, 1.4253355305817197, 0.5225105820827336, 1.7071942806243896, 3.8995777368545532), obs_poly: (4.452735424041748, 0.012617722153663635, 0.5588318379561494, 1.7071942806243896, 3.8995777368545532)
+collision with obstacle detected! @ timestep4
+ego_poly: (6.223867556621528, 1.4253355305817197, 0.5225105820827336, 1.7071942806243896, 3.8995777368545532), obs_poly: (4.452735424041748, 0.012617722153663635, 0.5588318379561494, 1.7071942806243896, 3.8995777368545532)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 13 / 22
+collision with obstacle detected! @ timestep3
+ego_poly: (6.2602658578217865, 1.4462973215219164, 0.5257014031624336, 1.7071942806243896, 3.8995777368545532), obs_poly: (3.5266048908233643, -0.5733838677406311, 0.5454031486713165, 1.7071942806243896, 3.8995777368545532)
+collision with obstacle detected! @ timestep3
+ego_poly: (6.2602658578217865, 1.4462973215219164, 0.5257014031624336, 1.7071942806243896, 3.8995777368545532), obs_poly: (3.5266048908233643, -0.5733838677406311, 0.5454031486713165, 1.7071942806243896, 3.8995777368545532)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 14 / 22
+comfortable: [True, True, True, True, True, True]
+frame 15 / 22
+comfortable: [True, True, True, True, True, True]
+frame 16 / 22
+comfortable: [True, True, True, True, True, True]
+frame 17 / 22
+collision with obstacle detected! @ timestep2
+ego_poly: (7.631218036951418, 2.246830687842157, 0.5007631899577067, 1.7071942806243896, 3.8995777368545532), obs_poly: (5.363021373748779, 0.5993602871894836, 0.5689210164995666, 1.7071942806243896, 3.8995777368545532)
+collision with obstacle detected! @ timestep2
+ego_poly: (7.631218036951418, 2.246830687842157, 0.5007631899577067, 1.7071942806243896, 3.8995777368545532), obs_poly: (5.363021373748779, 0.5993602871894836, 0.5689210164995666, 1.7071942806243896, 3.8995777368545532)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 18 / 22
+comfortable: [True, True, True, True, True, True]
+frame 19 / 22
+collision with obstacle detected! @ timestep1
+ego_poly: (7.994942663023748, 2.444220163184825, 0.4859542343463289, 1.7071942806243896, 3.8995777368545532), obs_poly: (5.363021373748779, 0.5993602871894836, 0.5689210164995666, 1.7071942806243896, 3.8995777368545532)
+collision with obstacle detected! @ timestep1
+ego_poly: (7.994942663023748, 2.444220163184825, 0.4859542343463289, 1.7071942806243896, 3.8995777368545532), obs_poly: (5.363021373748779, 0.5993602871894836, 0.5689210164995666, 1.7071942806243896, 3.8995777368545532)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 20 / 22
+comfortable: [True, True, True, True, True, True]
+frame 21 / 22
+collision with obstacle detected! @ timestep0
+ego_poly: (8.155030245409398, 2.5284619508437394, 0.47949039813882854, 1.7071942806243896, 3.8995777368545532), obs_poly: (5.363021373748779, 0.5993602871894836, 0.5689210164995666, 1.7071942806243896, 3.8995777368545532)
+collision with obstacle detected! @ timestep0
+ego_poly: (8.155030245409398, 2.5284619508437394, 0.47949039813882854, 1.7071942806243896, 3.8995777368545532), obs_poly: (5.363021373748779, 0.5993602871894836, 0.5689210164995666, 1.7071942806243896, 3.8995777368545532)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+The score of experiment is (0.6233766233766235, 0.07217959647627167, 0.044995073128065464, {'nc': 0.6363636363636364, 'dac': 1.0, 'ttc': 0.6363636363636364, 'c': 0.9545454545454546, 'pdms': 0.6233766233766235}, {0.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 0.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 0.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 0.0, 'pdms': 0.7142857142857143}, 1.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.5: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 2.75: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 3.0: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 3.25: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 3.5: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 3.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 4.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 4.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 4.5: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 4.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 5.0: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 5.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 5.5: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}}).
+=============================Results=============================
+'nc': 0.6363636363636364
+'dac': 1.0
+'ttc': 0.6363636363636364
+'c': 0.9545454545454546
+'pdms': 0.6233766233766235
+'rc': 0.07217959647627167
+'hdscore': 0.044995073128065464
+The AD algorithm is still running, remaining tolerant 100.
+The AD algorithm is still running, remaining tolerant 95.
+The AD algorithm is still running, remaining tolerant 90.
+The AD algorithm completed with return code 0.
++ rc=0
++ echo 'I112_SLOT_RC=0 i111_s04_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r1 scene-0038-extreme-00 on a1'
+I112_SLOT_RC=0 i111_s04_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r1 scene-0038-extreme-00 on a1
++ docker rm -f hugsim_uniad_client
+++ python3 -c '
+import json, math
+try:
+    v = json.load(open('\''/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/eval.json'\'')).get('\''hdscore'\'')
+    print(v if isinstance(v, (int, float)) and math.isfinite(v) else '\''INVALID'\'')
+except Exception:
+    print('\''MISSING'\'')
+'
++ hd=0.044995073128065464
+++ python3 -c '
+import json
+try:
+    data = json.load(open('\''/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/eval.json'\''))
+    print(1 if '\''collision_provenance'\'' in data else 0)
+except Exception:
+    print(0)
+'
++ provenance=1
+++ grep -c sent /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/output.txt
++ steps=22
++ '[' -n 22 ']'
+++ grep -c 'SENTINEL_I48_UNION_PATCH_LOADED enabled=1' /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/output.txt
++ marker=1
++ '[' -n 1 ']'
++ decisions=0
++ '[' -s /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/sentinel_iter48_decisions.jsonl ']'
+++ grep -c 'SENTINEL_I48_DECISION frame=' /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/output.txt
++ '[' 22 -gt 0 ']'
++ decisions=1
++ '[' 0 = 0 ']'
++ '[' 0.044995073128065464 '!=' MISSING ']'
++ '[' 0.044995073128065464 '!=' INVALID ']'
++ '[' 1 = 1 ']'
++ '[' 22 -gt 0 ']'
++ '[' 1 -gt 0 ']'
++ '[' 1 = 1 ']'
++ rm -rf /datasets/nuscenes-full/hugsim/iter112_runs/i111_s04_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r1__scene-0038-extreme-00__on
++ mkdir -p /datasets/nuscenes-full/hugsim/iter112_runs/i111_s04_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r1__scene-0038-extreme-00__on
++ find /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00 -type p -delete
++ mv /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/data.pkl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/eval.json /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/ground.ply /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/infos.pkl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/output.txt /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/scene.ply /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/sentinel_iter48_decisions.jsonl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/uniad /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/video.mp4 /datasets/nuscenes-full/hugsim/iter112_runs/i111_s04_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r1__scene-0038-extreme-00__on/
++ rmdir /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00
+++ date -u +%s
++ printf '{"slot_id":"%s","scenario":"%s","arm":"on","attempt":%s,"rc":%s,"hdscore":%s,"steps":%s,"start_epoch":%s,"end_epoch":%s}\n' i111_s04_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r1 scene-0038-extreme-00 1 0 0.044995073128065464 22 1784018871 1784019009
++ echo 'I112_SLOT_DONE i111_s04_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r1 scene-0038-extreme-00 on ok hd=0.044995073128065464 steps=22'
+I112_SLOT_DONE i111_s04_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r1 scene-0038-extreme-00 on ok hd=0.044995073128065464 steps=22
++ return 0
++ IFS='	'
++ read -r slot_id scenario _scenario_sha
++ run_one i111_s05_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r2 scene-0038-extreme-00
++ local slot_id=i111_s05_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r2 scenario=scene-0038-extreme-00
++ local scene=scene-0038
++ local mode_dashed=extreme-00
++ local mode=extreme_00
++ local out_dir=/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00
++ local dest=/datasets/nuscenes-full/hugsim/iter112_runs/i111_s05_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r2__scene-0038-extreme-00__on
++ '[' -f /datasets/nuscenes-full/hugsim/iter112_runs/i111_s05_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r2__scene-0038-extreme-00__on/episode_meta.json ']'
++ prep_scene scene-0038
++ local scene=scene-0038
++ '[' '!' -d /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038 ']'
++ local cfg=/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/cfg.yaml
++ '[' '!' -f /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/cfg.yaml ']'
++ '[' -f /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/cfg.yaml.orig ']'
++ python3 - /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/cfg.yaml /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038
++ local attempt rc steps hd marker decisions provenance
++ for attempt in 1 2
++ disk_guard
++ local avail
+++ df --output=avail -BG /datasets/nuscenes-full
+++ tail -1
+++ tr -dc 0-9
++ avail=114
++ '[' 114 -lt 20 ']'
+++ date -u
++ echo 'I112_SLOT_START i111_s05_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r2 scene-0038-extreme-00 on a1 Tue Jul 14 08:50:09 UTC 2026'
+I112_SLOT_START i111_s05_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r2 scene-0038-extreme-00 on a1 Tue Jul 14 08:50:09 UTC 2026
++ local t0
+++ date -u +%s
++ t0=1784019009
++ docker rm -f hugsim_uniad_client
++ rm -rf /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00
++ cd /opt/sentinel-stack/HUGSIM
++ SENTINEL_ENABLED=1
++ timeout 1200 pixi run python -u closed_loop.py --scenario_path /datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0038-extreme-00.yaml --base_path configs/sim/nuscenes_base.yaml --camera_path configs/sim/nuscenes_camera.yaml --kinematic_path configs/sim/kinematic.yaml --ad uniad --ad_cuda 0
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/output.txt
+/opt/sentinel-stack/UniAD_SIM/tools/e2e.sh 0 /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00
+/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/spline_planner.py:102: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.acce_grid = torch.tensor(acce_grid).to(self.device)
+/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/forward_sampler.py:24: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.accels = torch.tensor(acce_grid,device=self.device)
+/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/forward_sampler.py:26: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.dhm_grid = torch.tensor(dhm_grid,device=self.device)
+Ready for simulation
+ego pose [0.0, -3.2146299438905488e-34, 0.0]
+ego pose [0.0, -0.012187308463684031, 0.4375]
+ego pose [-0.010014560039721173, -0.0017551260823794163, 1.0608003640161776]
+ego pose [-0.053482526117087203, 0.005899430567758795, 1.7957301995630675]
+ego pose [-0.15273767264627042, -0.013312257862919367, 2.604523403793774]
+ego pose [-0.32004050328223116, -0.013439523037818165, 3.450234437179461]
+ego pose [-0.562641810798248, -0.01433970618416819, 4.311178928017621]
+ego pose [-0.8112543262776237, -0.016362215625336747, 4.97299592780092]
+ego pose [-1.0213348717814354, -0.020894729589431896, 5.448093498619863]
+ego pose [-1.1718870698436543, -0.021941378475649954, 5.754785170345315]
+ego pose [-1.2761321766522284, -0.022487065904502217, 5.953822970562067]
+ego pose [-1.3469188778147865, -0.022814291708473076, 6.083519276487909]
+ego pose [-1.3944235311387232, -0.02417334823958294, 6.168274146936301]
+ego pose [-1.5354370848237318, -0.029437276659899425, 6.415552402980178]
+ego pose [-1.7737834200852332, -0.03210010057739819, 6.823138174058135]
+ego pose [-2.0836973471977323, -0.03542217362884508, 7.352499966872195]
+ego pose [-2.4235114013675823, -0.04241234091722748, 7.963568312414181]
+ego pose [-2.750314501548171, -0.04966730417240419, 8.627553602584936]
+ego pose [-3.0432186305484015, -0.05603961550522839, 9.350611498971123]
+ego pose [-3.2895295746113384, -0.060334699892680636, 10.12329727214169]
+ego pose [-3.4787563702145405, -0.0652446384192011, 10.910679782843372]
+ego pose [-3.621581707442013, -0.06949713279081171, 11.703304981184775]
+ego pose [-3.7507856800377373, -0.07464797338193281, 12.549787621020585]
+ego pose [-3.8538686249623026, -0.07826647065457364, 13.21058203283047]
+ego pose [-3.92912862952834, -0.08047106081150376, 13.685947788919174]
+ego pose [-3.979455910913064, -0.0838289828623967, 14.000616689657871]
+ego pose [-4.012994687612134, -0.08640700594142146, 14.20892967507888]
+Collision with foreground
+MoviePy - Building video /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/video.mp4.
+MoviePy - Writing video /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/video.mp4
+
+frame_index:   0%|          | 0/27 [00:00<?, ?it/s, now=None]frame_index:  44%|████▍     | 12/27 [00:00<00:00, 118.38it/s, now=None]                                                                       MoviePy - Done !
+MoviePy - video ready /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/video.mp4
+this pkl file contains 1 experiment records.
+current exp has 27 frames
+frame 0 / 27
+comfortable: [True, True, True, True, True, True]
+frame 1 / 27
+comfortable: [True, True, True, True, True, True]
+frame 2 / 27
+comfortable: [True, True, True, True, True, True]
+frame 3 / 27
+comfortable: [True, True, True, True, True, True]
+frame 4 / 27
+comfortable: [True, True, True, True, True, True]
+frame 5 / 27
+comfortable: [True, True, True, True, False, True]
+frame 6 / 27
+comfortable: [True, True, True, True, True, True]
+frame 7 / 27
+comfortable: [True, True, True, True, True, True]
+frame 8 / 27
+comfortable: [True, True, True, True, True, True]
+frame 9 / 27
+collision with obstacle detected! @ timestep5
+ego_poly: (5.953822970562067, 1.2761321766522284, 0.4996037609333236, 1.7071942806243896, 3.8995777368545532), obs_poly: (3.558939218521118, -0.5795319080352783, 0.5454031486713165, 1.7071942806243896, 3.8995777368545532)
+collision with obstacle detected! @ timestep5
+ego_poly: (5.953822970562067, 1.2761321766522284, 0.4996037609333236, 1.7071942806243896, 3.8995777368545532), obs_poly: (3.558939218521118, -0.5795319080352783, 0.5454031486713165, 1.7071942806243896, 3.8995777368545532)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 10 / 27
+collision with obstacle detected! @ timestep5
+ego_poly: (6.083519276487909, 1.3469188778147865, 0.5108648199503674, 1.7071942806243896, 3.8995777368545532), obs_poly: (4.58109712600708, -0.007920479401946068, 0.5208422080282515, 1.7071942806243896, 3.8995777368545532)
+collision with obstacle detected! @ timestep5
+ego_poly: (6.083519276487909, 1.3469188778147865, 0.5108648199503674, 1.7071942806243896, 3.8995777368545532), obs_poly: (4.58109712600708, -0.007920479401946068, 0.5208422080282515, 1.7071942806243896, 3.8995777368545532)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 11 / 27
+collision with obstacle detected! @ timestep4
+ego_poly: (6.168274146936301, 1.3944235311387232, 0.5182667477561885, 1.7071942806243896, 3.8995777368545532), obs_poly: (3.558939218521118, -0.5795319080352783, 0.5454031486713165, 1.7071942806243896, 3.8995777368545532)
+collision with obstacle detected! @ timestep4
+ego_poly: (6.168274146936301, 1.3944235311387232, 0.5182667477561885, 1.7071942806243896, 3.8995777368545532), obs_poly: (3.558939218521118, -0.5795319080352783, 0.5454031486713165, 1.7071942806243896, 3.8995777368545532)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 12 / 27
+comfortable: [True, True, True, True, True, True]
+frame 13 / 27
+comfortable: [True, True, True, True, True, True]
+frame 14 / 27
+comfortable: [True, True, True, True, True, True]
+frame 15 / 27
+comfortable: [True, True, True, True, True, True]
+frame 16 / 27
+comfortable: [True, True, True, True, True, True]
+frame 17 / 27
+comfortable: [True, True, True, True, True, True]
+frame 18 / 27
+comfortable: [True, True, True, True, True, True]
+frame 19 / 27
+comfortable: [True, True, True, False, False, True]
+frame 20 / 27
+comfortable: [True, True, True, True, True, True]
+frame 21 / 27
+comfortable: [True, True, True, True, True, True]
+frame 22 / 27
+collision with obstacle detected! @ timestep2
+ego_poly: (13.21058203283047, 3.8538686249623026, 0.15701696993952197, 1.7071942806243896, 3.8995777368545532), obs_poly: (11.646645545959473, 3.448545455932617, 0.4330517587859939, 1.7071942806243896, 3.8995777368545532)
+collision with obstacle detected! @ timestep2
+ego_poly: (13.21058203283047, 3.8538686249623026, 0.15701696993952197, 1.7071942806243896, 3.8995777368545532), obs_poly: (11.646645545959473, 3.448545455932617, 0.4330517587859939, 1.7071942806243896, 3.8995777368545532)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 23 / 27
+collision with obstacle detected! @ timestep1
+ego_poly: (13.685947788919174, 3.92912862952834, 0.15859408638072134, 1.7071942806243896, 3.8995777368545532), obs_poly: (10.36395263671875, 2.861189603805542, 0.4418641782243329, 1.7071942806243896, 3.8995777368545532)
+collision with obstacle detected! @ timestep1
+ego_poly: (13.685947788919174, 3.92912862952834, 0.15859408638072134, 1.7071942806243896, 3.8995777368545532), obs_poly: (10.36395263671875, 2.861189603805542, 0.4418641782243329, 1.7071942806243896, 3.8995777368545532)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 24 / 27
+collision with obstacle detected! @ timestep1
+ego_poly: (14.000616689657871, 3.979455910913064, 0.15963195517015796, 1.7071942806243896, 3.8995777368545532), obs_poly: (11.646645545959473, 3.448545455932617, 0.4330517587859939, 1.7071942806243896, 3.8995777368545532)
+collision with obstacle detected! @ timestep1
+ego_poly: (14.000616689657871, 3.979455910913064, 0.15963195517015796, 1.7071942806243896, 3.8995777368545532), obs_poly: (11.646645545959473, 3.448545455932617, 0.4330517587859939, 1.7071942806243896, 3.8995777368545532)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 25 / 27
+comfortable: [True, True, True, True, True, True]
+frame 26 / 27
+collision with obstacle detected! @ timestep0
+ego_poly: (14.346853443719, 4.035297686832174, 0.1607710310885931, 1.7071942806243896, 3.8995777368545532), obs_poly: (11.646645545959473, 3.448545455932617, 0.4330517587859939, 1.7071942806243896, 3.8995777368545532)
+collision with obstacle detected! @ timestep0
+ego_poly: (14.346853443719, 4.035297686832174, 0.1607710310885931, 1.7071942806243896, 3.8995777368545532), obs_poly: (11.646645545959473, 3.448545455932617, 0.4330517587859939, 1.7071942806243896, 3.8995777368545532)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+The score of experiment is (0.7195767195767196, 0.11651037226484796, 0.08383815147100172, {'nc': 0.7407407407407407, 'dac': 1.0, 'ttc': 0.7407407407407407, 'c': 0.9259259259259259, 'pdms': 0.7195767195767196}, {0.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 0.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 0.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 0.0, 'pdms': 0.7142857142857143}, 1.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.5: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 2.75: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 3.0: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 3.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 4.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 4.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 4.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 4.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 5.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 0.0, 'pdms': 0.7142857142857143}, 5.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 5.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 5.75: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 6.0: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 6.25: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 6.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 6.75: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}}).
+=============================Results=============================
+'nc': 0.7407407407407407
+'dac': 1.0
+'ttc': 0.7407407407407407
+'c': 0.9259259259259259
+'pdms': 0.7195767195767196
+'rc': 0.11651037226484796
+'hdscore': 0.08383815147100172
+The AD algorithm is still running, remaining tolerant 100.
+The AD algorithm is still running, remaining tolerant 95.
+The AD algorithm is still running, remaining tolerant 90.
+The AD algorithm completed with return code 0.
++ rc=0
++ echo 'I112_SLOT_RC=0 i111_s05_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r2 scene-0038-extreme-00 on a1'
+I112_SLOT_RC=0 i111_s05_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r2 scene-0038-extreme-00 on a1
++ docker rm -f hugsim_uniad_client
+++ python3 -c '
+import json, math
+try:
+    v = json.load(open('\''/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/eval.json'\'')).get('\''hdscore'\'')
+    print(v if isinstance(v, (int, float)) and math.isfinite(v) else '\''INVALID'\'')
+except Exception:
+    print('\''MISSING'\'')
+'
++ hd=0.08383815147100172
+++ python3 -c '
+import json
+try:
+    data = json.load(open('\''/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/eval.json'\''))
+    print(1 if '\''collision_provenance'\'' in data else 0)
+except Exception:
+    print(0)
+'
++ provenance=1
+++ grep -c sent /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/output.txt
++ steps=27
++ '[' -n 27 ']'
+++ grep -c 'SENTINEL_I48_UNION_PATCH_LOADED enabled=1' /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/output.txt
++ marker=1
++ '[' -n 1 ']'
++ decisions=0
++ '[' -s /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/sentinel_iter48_decisions.jsonl ']'
+++ grep -c 'SENTINEL_I48_DECISION frame=' /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/output.txt
++ '[' 27 -gt 0 ']'
++ decisions=1
++ '[' 0 = 0 ']'
++ '[' 0.08383815147100172 '!=' MISSING ']'
++ '[' 0.08383815147100172 '!=' INVALID ']'
++ '[' 1 = 1 ']'
++ '[' 27 -gt 0 ']'
++ '[' 1 -gt 0 ']'
++ '[' 1 = 1 ']'
++ rm -rf /datasets/nuscenes-full/hugsim/iter112_runs/i111_s05_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r2__scene-0038-extreme-00__on
++ mkdir -p /datasets/nuscenes-full/hugsim/iter112_runs/i111_s05_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r2__scene-0038-extreme-00__on
++ find /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00 -type p -delete
++ mv /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/data.pkl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/eval.json /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/ground.ply /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/infos.pkl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/output.txt /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/scene.ply /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/sentinel_iter48_decisions.jsonl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/uniad /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00/video.mp4 /datasets/nuscenes-full/hugsim/iter112_runs/i111_s05_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r2__scene-0038-extreme-00__on/
++ rmdir /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0038_extreme_00
+++ date -u +%s
++ printf '{"slot_id":"%s","scenario":"%s","arm":"on","attempt":%s,"rc":%s,"hdscore":%s,"steps":%s,"start_epoch":%s,"end_epoch":%s}\n' i111_s05_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r2 scene-0038-extreme-00 1 0 0.08383815147100172 27 1784019009 1784019160
++ echo 'I112_SLOT_DONE i111_s05_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r2 scene-0038-extreme-00 on ok hd=0.08383815147100172 steps=27'
+I112_SLOT_DONE i111_s05_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r2 scene-0038-extreme-00 on ok hd=0.08383815147100172 steps=27
++ return 0
++ IFS='	'
++ read -r slot_id scenario _scenario_sha
++ run_one i111_s06_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0383_extreme_00_r2 scene-0383-extreme-00
++ local slot_id=i111_s06_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0383_extreme_00_r2 scenario=scene-0383-extreme-00
++ local scene=scene-0383
++ local mode_dashed=extreme-00
++ local mode=extreme_00
++ local out_dir=/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0383_extreme_00
++ local dest=/datasets/nuscenes-full/hugsim/iter112_runs/i111_s06_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0383_extreme_00_r2__scene-0383-extreme-00__on
++ '[' -f /datasets/nuscenes-full/hugsim/iter112_runs/i111_s06_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0383_extreme_00_r2__scene-0383-extreme-00__on/episode_meta.json ']'
++ prep_scene scene-0383
++ local scene=scene-0383
++ '[' '!' -d /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0383 ']'
++ local cfg=/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0383/cfg.yaml
++ '[' '!' -f /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0383/cfg.yaml ']'
++ '[' -f /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0383/cfg.yaml.orig ']'
++ python3 - /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0383/cfg.yaml /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0383
++ local attempt rc steps hd marker decisions provenance
++ for attempt in 1 2
++ disk_guard
++ local avail
+++ df --output=avail -BG /datasets/nuscenes-full
+++ tail -1
+++ tr -dc 0-9
++ avail=114
++ '[' 114 -lt 20 ']'
+++ date -u
++ echo 'I112_SLOT_START i111_s06_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0383_extreme_00_r2 scene-0383-extreme-00 on a1 Tue Jul 14 08:52:40 UTC 2026'
+I112_SLOT_START i111_s06_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0383_extreme_00_r2 scene-0383-extreme-00 on a1 Tue Jul 14 08:52:40 UTC 2026
++ local t0
+++ date -u +%s
++ t0=1784019160
++ docker rm -f hugsim_uniad_client
++ rm -rf /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0383_extreme_00
++ cd /opt/sentinel-stack/HUGSIM
++ SENTINEL_ENABLED=1
++ timeout 1200 pixi run python -u closed_loop.py --scenario_path /datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0383-extreme-00.yaml --base_path configs/sim/nuscenes_base.yaml --camera_path configs/sim/nuscenes_camera.yaml --kinematic_path configs/sim/kinematic.yaml --ad uniad --ad_cuda 0
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0383_extreme_00/output.txt
+/opt/sentinel-stack/UniAD_SIM/tools/e2e.sh 0 /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0383_extreme_00
+/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/spline_planner.py:102: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.acce_grid = torch.tensor(acce_grid).to(self.device)
+/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/forward_sampler.py:24: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.accels = torch.tensor(acce_grid,device=self.device)
+/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/forward_sampler.py:26: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.dhm_grid = torch.tensor(dhm_grid,device=self.device)
+Ready for simulation
+ego pose [0.0, 0.0, 0.0]
+ego pose [0.0, -0.0036875023615722115, 0.4375]
+ego pose [0.009701000927218685, -0.009643622121638029, 1.0624247079296913]
+ego pose [0.020330186913529807, -0.016481982666980463, 1.7963714271917577]
+ego pose [0.031086029890229364, -0.019430127416044135, 2.569009131225488]
+ego pose [0.037299417977243746, -0.022954388279643287, 3.378934422002059]
+ego pose [0.013274485833018823, -0.022730000312271043, 4.205513468411098]
+ego pose [-0.031076208444440985, -0.019356214402291207, 5.046774097593506]
+ego pose [-0.09012699542780755, -0.026196515275382654, 5.91678836757735]
+ego pose [-0.1575137841015818, -0.031571320335129764, 6.820757652536502]
+ego pose [-0.23263188931544745, -0.03596783034738466, 7.744545381613777]
+ego pose [-0.3141314825161269, -0.04912250799581882, 8.681218771766504]
+ego pose [-0.4017846288589392, -0.055869679632512576, 9.632637480704188]
+ego pose [-0.4955304069543268, -0.05949591933175338, 10.586551639843245]
+ego pose [-0.591637083646252, -0.0639455234012833, 11.528891663864473]
+ego pose [-0.6853451148869376, -0.06749058975147497, 12.45410069424284]
+ego pose [-0.7718732980964927, -0.07138606084750425, 13.361326560802665]
+ego pose [-0.8462454961886261, -0.07572138792980973, 14.24452181391557]
+ego pose [-0.9029984405730985, -0.08213833392329284, 15.102315002751373]
+ego pose [-0.9679199506641359, -0.0874094302042789, 15.918993091694423]
+ego pose [-1.0530538909963587, -0.09104267457300701, 16.684951725590828]
+ego pose [-1.1424239064696238, -0.09624135179707924, 17.416811686951892]
+ego pose [-1.232315104931115, -0.10184137505781538, 18.1477904913495]
+ego pose [-1.3044501691780142, -0.10784913659422178, 18.898101159770366]
+ego pose [-1.334458513099882, -0.11551311904801444, 19.644998776436182]
+ego pose [-1.33173639755527, -0.11971730337250451, 20.405836986949048]
+ego pose [-1.298803375959427, -0.12637239173920065, 21.231721509681062]
+ego pose [-1.2503709342138027, -0.13323242344509162, 22.079609642653747]
+ego pose [-1.2217551196105498, -0.13652659917030072, 22.740760928101736]
+ego pose [-1.2057723511170764, -0.14281439914226945, 23.21476181191084]
+ego pose [-1.1972725999468823, -0.14293387107055835, 23.528621458846832]
+ego pose [-1.192552340301243, -0.1446642515861419, 23.736430559455364]
+ego pose [-1.1898240953277812, -0.14692471949681735, 23.87400942262805]
+ego pose [-1.188191669351768, -0.14805571962570754, 23.965088467806837]
+ego pose [-1.1871870418265231, -0.14917215752632357, 24.02538592299889]
+ego pose [-1.1865553220515672, -0.149190132588052, 24.065302733823007]
+ego pose [-1.1861517224068743, -0.1500053756011553, 24.091728407456646]
+Collision with foreground
+MoviePy - Building video /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0383_extreme_00/video.mp4.
+MoviePy - Writing video /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0383_extreme_00/video.mp4
+
+frame_index:   0%|          | 0/37 [00:00<?, ?it/s, now=None]frame_index:  27%|██▋       | 10/37 [00:00<00:00, 90.95it/s, now=None]frame_index:  68%|██████▊   | 25/37 [00:00<00:00, 123.82it/s, now=None]                                                                       MoviePy - Done !
+MoviePy - video ready /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0383_extreme_00/video.mp4
+this pkl file contains 1 experiment records.
+current exp has 37 frames
+frame 0 / 37
+comfortable: [True, True, True, True, True, True]
+frame 1 / 37
+comfortable: [True, True, True, True, True, True]
+frame 2 / 37
+comfortable: [True, True, True, True, True, True]
+frame 3 / 37
+comfortable: [True, True, True, True, True, True]
+frame 4 / 37
+comfortable: [True, True, True, True, True, True]
+frame 5 / 37
+comfortable: [True, True, True, True, True, True]
+frame 6 / 37
+comfortable: [True, True, True, True, True, True]
+frame 7 / 37
+comfortable: [True, True, True, True, True, True]
+frame 8 / 37
+comfortable: [True, True, True, True, True, True]
+frame 9 / 37
+comfortable: [True, True, True, True, True, True]
+frame 10 / 37
+comfortable: [True, True, True, True, True, True]
+frame 11 / 37
+comfortable: [True, True, True, True, True, True]
+frame 12 / 37
+comfortable: [True, True, True, True, True, True]
+frame 13 / 37
+comfortable: [True, True, True, True, True, True]
+frame 14 / 37
+comfortable: [True, True, True, True, True, True]
+frame 15 / 37
+comfortable: [True, True, True, True, True, True]
+frame 16 / 37
+comfortable: [True, True, True, True, True, True]
+frame 17 / 37
+comfortable: [True, True, True, True, True, True]
+frame 18 / 37
+comfortable: [True, True, True, True, True, True]
+frame 19 / 37
+comfortable: [True, True, True, True, True, True]
+frame 20 / 37
+comfortable: [True, True, True, True, True, True]
+frame 21 / 37
+comfortable: [True, True, True, True, True, True]
+frame 22 / 37
+comfortable: [True, True, True, True, True, True]
+frame 23 / 37
+comfortable: [True, True, True, True, True, True]
+frame 24 / 37
+comfortable: [True, True, True, True, True, True]
+frame 25 / 37
+comfortable: [True, True, True, True, True, True]
+frame 26 / 37
+comfortable: [True, True, True, True, True, True]
+frame 27 / 37
+comfortable: [True, True, True, True, True, True]
+frame 28 / 37
+collision with obstacle detected! @ timestep4
+ego_poly: (23.21476181191084, 1.2057723511170764, -0.02707475860164713, 1.6916833102703095, 3.7730753302574156), obs_poly: (20.982471466064453, 1.7389401197433472, 0.0022921954187609117, 1.6916833102703095, 3.7730753302574156)
+collision with obstacle detected! @ timestep4
+ego_poly: (23.21476181191084, 1.2057723511170764, -0.02707475860164713, 1.6916833102703095, 3.7730753302574156), obs_poly: (20.982471466064453, 1.7389401197433472, 0.0022921954187609117, 1.6916833102703095, 3.7730753302574156)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 29 / 37
+comfortable: [True, True, True, True, True, True]
+frame 30 / 37
+collision with obstacle detected! @ timestep3
+ego_poly: (23.736430559455364, 1.192552340301243, -0.019827809097579113, 1.6916833102703095, 3.7730753302574156), obs_poly: (20.982471466064453, 1.7389401197433472, 0.0022921954187609117, 1.6916833102703095, 3.7730753302574156)
+collision with obstacle detected! @ timestep3
+ego_poly: (23.736430559455364, 1.192552340301243, -0.019827809097579113, 1.6916833102703095, 3.7730753302574156), obs_poly: (20.982471466064453, 1.7389401197433472, 0.0022921954187609117, 1.6916833102703095, 3.7730753302574156)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 31 / 37
+comfortable: [True, True, True, True, True, True]
+frame 32 / 37
+collision with obstacle detected! @ timestep2
+ego_poly: (23.965088467806837, 1.188191669351768, -0.01665965134930902, 1.6916833102703095, 3.7730753302574156), obs_poly: (20.982471466064453, 1.7389401197433472, 0.0022921954187609117, 1.6916833102703095, 3.7730753302574156)
+collision with obstacle detected! @ timestep2
+ego_poly: (23.965088467806837, 1.188191669351768, -0.01665965134930902, 1.6916833102703095, 3.7730753302574156), obs_poly: (20.982471466064453, 1.7389401197433472, 0.0022921954187609117, 1.6916833102703095, 3.7730753302574156)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 33 / 37
+comfortable: [True, True, True, True, True, True]
+frame 34 / 37
+collision with obstacle detected! @ timestep1
+ego_poly: (24.065302733823007, 1.1865553220515672, -0.015271825150073578, 1.6916833102703095, 3.7730753302574156), obs_poly: (20.982471466064453, 1.7389401197433472, 0.0022921954187609117, 1.6916833102703095, 3.7730753302574156)
+collision with obstacle detected! @ timestep1
+ego_poly: (24.065302733823007, 1.1865553220515672, -0.015271825150073578, 1.6916833102703095, 3.7730753302574156), obs_poly: (20.982471466064453, 1.7389401197433472, 0.0022921954187609117, 1.6916833102703095, 3.7730753302574156)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 35 / 37
+comfortable: [True, True, True, True, True, True]
+frame 36 / 37
+collision with obstacle detected! @ timestep0
+ego_poly: (24.109222822386325, 1.1858909330608431, -0.014663655949389775, 1.6916833102703095, 3.7730753302574156), obs_poly: (20.982471466064453, 1.7389401197433472, 0.0022921954187609117, 1.6916833102703095, 3.7730753302574156)
+collision with obstacle detected! @ timestep0
+ego_poly: (24.109222822386325, 1.1858909330608431, -0.014663655949389775, 1.6916833102703095, 3.7730753302574156), obs_poly: (20.982471466064453, 1.7389401197433472, 0.0022921954187609117, 1.6916833102703095, 3.7730753302574156)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+The score of experiment is (0.8648648648648649, 0.41143890584378884, 0.35583905370273633, {'nc': 0.8648648648648649, 'dac': 1.0, 'ttc': 0.8648648648648649, 'c': 1.0, 'pdms': 0.8648648648648649}, {0.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 0.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 0.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 4.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 4.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 4.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 4.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 5.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 5.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 5.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 5.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 6.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 6.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 6.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 6.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 7.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 7.25: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 7.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 7.75: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 8.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 8.25: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 8.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 8.75: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 9.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 9.25: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}}).
+=============================Results=============================
+'nc': 0.8648648648648649
+'dac': 1.0
+'ttc': 0.8648648648648649
+'c': 1.0
+'pdms': 0.8648648648648649
+'rc': 0.41143890584378884
+'hdscore': 0.35583905370273633
+The AD algorithm is still running, remaining tolerant 100.
+The AD algorithm is still running, remaining tolerant 95.
+The AD algorithm is still running, remaining tolerant 90.
+The AD algorithm is still running, remaining tolerant 85.
+The AD algorithm completed with return code 0.
++ rc=0
++ echo 'I112_SLOT_RC=0 i111_s06_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0383_extreme_00_r2 scene-0383-extreme-00 on a1'
+I112_SLOT_RC=0 i111_s06_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0383_extreme_00_r2 scene-0383-extreme-00 on a1
++ docker rm -f hugsim_uniad_client
+++ python3 -c '
+import json, math
+try:
+    v = json.load(open('\''/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0383_extreme_00/eval.json'\'')).get('\''hdscore'\'')
+    print(v if isinstance(v, (int, float)) and math.isfinite(v) else '\''INVALID'\'')
+except Exception:
+    print('\''MISSING'\'')
+'
++ hd=0.35583905370273633
+++ python3 -c '
+import json
+try:
+    data = json.load(open('\''/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0383_extreme_00/eval.json'\''))
+    print(1 if '\''collision_provenance'\'' in data else 0)
+except Exception:
+    print(0)
+'
++ provenance=1
+++ grep -c sent /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0383_extreme_00/output.txt
++ steps=37
++ '[' -n 37 ']'
+++ grep -c 'SENTINEL_I48_UNION_PATCH_LOADED enabled=1' /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0383_extreme_00/output.txt
++ marker=1
++ '[' -n 1 ']'
++ decisions=0
++ '[' -s /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0383_extreme_00/sentinel_iter48_decisions.jsonl ']'
+++ grep -c 'SENTINEL_I48_DECISION frame=' /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0383_extreme_00/output.txt
++ '[' 37 -gt 0 ']'
++ decisions=1
++ '[' 0 = 0 ']'
++ '[' 0.35583905370273633 '!=' MISSING ']'
++ '[' 0.35583905370273633 '!=' INVALID ']'
++ '[' 1 = 1 ']'
++ '[' 37 -gt 0 ']'
++ '[' 1 -gt 0 ']'
++ '[' 1 = 1 ']'
++ rm -rf /datasets/nuscenes-full/hugsim/iter112_runs/i111_s06_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0383_extreme_00_r2__scene-0383-extreme-00__on
++ mkdir -p /datasets/nuscenes-full/hugsim/iter112_runs/i111_s06_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0383_extreme_00_r2__scene-0383-extreme-00__on
++ find /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0383_extreme_00 -type p -delete
++ mv /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0383_extreme_00/data.pkl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0383_extreme_00/eval.json /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0383_extreme_00/ground.ply /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0383_extreme_00/infos.pkl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0383_extreme_00/output.txt /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0383_extreme_00/scene.ply /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0383_extreme_00/sentinel_iter48_decisions.jsonl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0383_extreme_00/uniad /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0383_extreme_00/video.mp4 /datasets/nuscenes-full/hugsim/iter112_runs/i111_s06_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0383_extreme_00_r2__scene-0383-extreme-00__on/
++ rmdir /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0383_extreme_00
+++ date -u +%s
++ printf '{"slot_id":"%s","scenario":"%s","arm":"on","attempt":%s,"rc":%s,"hdscore":%s,"steps":%s,"start_epoch":%s,"end_epoch":%s}\n' i111_s06_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0383_extreme_00_r2 scene-0383-extreme-00 1 0 0.35583905370273633 37 1784019160 1784019343
++ echo 'I112_SLOT_DONE i111_s06_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0383_extreme_00_r2 scene-0383-extreme-00 on ok hd=0.35583905370273633 steps=37'
+I112_SLOT_DONE i111_s06_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0383_extreme_00_r2 scene-0383-extreme-00 on ok hd=0.35583905370273633 steps=37
++ return 0
++ IFS='	'
++ read -r slot_id scenario _scenario_sha
++ run_one i111_s07_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0411_hard_00_r1 scene-0411-hard-00
++ local slot_id=i111_s07_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0411_hard_00_r1 scenario=scene-0411-hard-00
++ local scene=scene-0411
++ local mode_dashed=hard-00
++ local mode=hard_00
++ local out_dir=/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00
++ local dest=/datasets/nuscenes-full/hugsim/iter112_runs/i111_s07_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0411_hard_00_r1__scene-0411-hard-00__on
++ '[' -f /datasets/nuscenes-full/hugsim/iter112_runs/i111_s07_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0411_hard_00_r1__scene-0411-hard-00__on/episode_meta.json ']'
++ prep_scene scene-0411
++ local scene=scene-0411
++ '[' '!' -d /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0411 ']'
++ local cfg=/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0411/cfg.yaml
++ '[' '!' -f /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0411/cfg.yaml ']'
++ '[' -f /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0411/cfg.yaml.orig ']'
++ python3 - /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0411/cfg.yaml /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0411
++ local attempt rc steps hd marker decisions provenance
++ for attempt in 1 2
++ disk_guard
++ local avail
+++ df --output=avail -BG /datasets/nuscenes-full
+++ tail -1
+++ tr -dc 0-9
++ avail=113
++ '[' 113 -lt 20 ']'
+++ date -u
++ echo 'I112_SLOT_START i111_s07_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0411_hard_00_r1 scene-0411-hard-00 on a1 Tue Jul 14 08:55:43 UTC 2026'
+I112_SLOT_START i111_s07_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0411_hard_00_r1 scene-0411-hard-00 on a1 Tue Jul 14 08:55:43 UTC 2026
++ local t0
+++ date -u +%s
++ t0=1784019343
++ docker rm -f hugsim_uniad_client
++ rm -rf /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00
++ cd /opt/sentinel-stack/HUGSIM
++ SENTINEL_ENABLED=1
++ timeout 1200 pixi run python -u closed_loop.py --scenario_path /datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0411-hard-00.yaml --base_path configs/sim/nuscenes_base.yaml --camera_path configs/sim/nuscenes_camera.yaml --kinematic_path configs/sim/kinematic.yaml --ad uniad --ad_cuda 0
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/output.txt
+/opt/sentinel-stack/UniAD_SIM/tools/e2e.sh 0 /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00
+/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/spline_planner.py:102: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.acce_grid = torch.tensor(acce_grid).to(self.device)
+/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/forward_sampler.py:24: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.accels = torch.tensor(acce_grid,device=self.device)
+/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/forward_sampler.py:26: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.dhm_grid = torch.tensor(dhm_grid,device=self.device)
+Ready for simulation
+ego pose [0.0, -1.0808430643926773e-34, 0.0]
+ego pose [0.0, -0.001726138371843387, 0.4375]
+ego pose [0.008028082788157222, -0.003934298333821865, 1.0469672730331605]
+ego pose [0.014722429470150223, -0.006229900996863574, 1.7492701712610301]
+ego pose [-0.0007099785624546905, -0.012638377540245781, 2.4907164529242825]
+ego pose [-0.05367485953066713, -0.022506118903195264, 3.2404905752889275]
+ego pose [-0.1559747829922229, -0.030029867374541455, 4.0154393075744625]
+ego pose [-0.2859063774692857, -0.035079062397754254, 4.795246487632509]
+ego pose [-0.4458537431308832, -0.031365048020295584, 5.549976137157978]
+ego pose [-0.6407658109744436, -0.031280831787495335, 6.295520047947874]
+ego pose [-0.8500980134838823, -0.03260565788609396, 6.99917970905509]
+ego pose [-1.065943421162494, -0.03591411247834793, 7.682625205975739]
+ego pose [-1.2733206721311654, -0.04196326743468523, 8.363396364481156]
+ego pose [-1.4515572162006594, -0.049910056655008785, 9.03621962222687]
+ego pose [-1.5834400781767783, -0.060098919565857514, 9.699430503853371]
+ego pose [-1.659644433935955, -0.061553435878931494, 10.401388887581989]
+ego pose [-1.6653678040592728, -0.059358529687018734, 11.091562555056463]
+ego pose [-1.6195650596319529, -0.058244221638868776, 11.760590283480553]
+ego pose [-1.5432121542702284, -0.05433476433820224, 12.413247738676539]
+ego pose [-1.4468052865373788, -0.047920544624583436, 13.069812859272092]
+ego pose [-1.347674022246138, -0.05917849355540605, 13.713321293818701]
+ego pose [-1.2493311701126102, -0.06600887364034165, 14.355932634378162]
+ego pose [-1.1347270758018826, -0.06184192249711561, 15.036799515688642]
+ego pose [-0.9971333436208435, -0.04781934550056978, 15.742468628299736]
+ego pose [-0.8786585002214229, -0.03204418012759907, 16.260553136972508]
+ego pose [-0.7926205708855476, -0.023217766392074846, 16.60101686170647]
+ego pose [-0.7324249979860584, -0.016441224657930544, 16.82511338336291]
+ego pose [-0.6911991938934458, -0.012236230098428613, 16.9727891447583]
+Collision with foreground
+MoviePy - Building video /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/video.mp4.
+MoviePy - Writing video /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/video.mp4
+
+frame_index:   0%|          | 0/28 [00:00<?, ?it/s, now=None]frame_index:  39%|███▉      | 11/28 [00:00<00:00, 107.15it/s, now=None]frame_index:  96%|█████████▋| 27/28 [00:00<00:00, 134.25it/s, now=None]                                                                       MoviePy - Done !
+MoviePy - video ready /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/video.mp4
+this pkl file contains 1 experiment records.
+current exp has 28 frames
+frame 0 / 28
+comfortable: [True, True, True, True, True, True]
+frame 1 / 28
+comfortable: [True, True, True, True, True, True]
+frame 2 / 28
+comfortable: [True, True, True, True, True, True]
+frame 3 / 28
+comfortable: [True, True, True, True, True, True]
+frame 4 / 28
+comfortable: [True, True, True, True, True, True]
+frame 5 / 28
+comfortable: [True, True, True, True, True, True]
+frame 6 / 28
+comfortable: [True, True, True, True, True, True]
+frame 7 / 28
+comfortable: [True, True, True, True, True, True]
+frame 8 / 28
+collision with background detected! @ timestep5
+ failed to pass ttc collision check, t=1
+comfortable: [True, True, True, True, True, True]
+frame 9 / 28
+comfortable: [True, True, True, True, True, True]
+frame 10 / 28
+comfortable: [True, True, True, True, True, True]
+frame 11 / 28
+comfortable: [True, True, True, True, True, True]
+frame 12 / 28
+comfortable: [True, True, True, True, True, True]
+frame 13 / 28
+comfortable: [True, True, True, True, True, True]
+frame 14 / 28
+comfortable: [True, True, True, True, True, True]
+frame 15 / 28
+collision with background detected! @ timestep4
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, False, False]
+frame 16 / 28
+collision with background detected! @ timestep3
+ failed to pass ttc collision check, t=1
+comfortable: [True, True, True, True, False, False]
+frame 17 / 28
+collision with background detected! @ timestep3
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, False, False]
+frame 18 / 28
+comfortable: [True, True, True, True, False, True]
+frame 19 / 28
+comfortable: [True, True, True, True, False, False]
+frame 20 / 28
+comfortable: [True, True, True, True, True, True]
+frame 21 / 28
+comfortable: [True, True, True, True, True, True]
+frame 22 / 28
+comfortable: [True, True, True, True, True, True]
+frame 23 / 28
+collision with obstacle detected! @ timestep2
+ego_poly: (16.260553136972508, 0.8786585002214229, -0.2475258023637778, 1.6479559659957885, 4.115467357635498), obs_poly: (13.357340812683105, 1.4580956531062839e-06, 4.371138739855951e-08, 1.6479559659957885, 4.115467357635498)
+collision with obstacle detected! @ timestep2
+ego_poly: (16.260553136972508, 0.8786585002214229, -0.2475258023637778, 1.6479559659957885, 4.115467357635498), obs_poly: (13.357340812683105, 1.4580956531062839e-06, 4.371138739855951e-08, 1.6479559659957885, 4.115467357635498)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 24 / 28
+comfortable: [True, True, True, True, True, True]
+frame 25 / 28
+collision with obstacle detected! @ timestep1
+ego_poly: (16.82511338336291, 0.7324249979860584, -0.27223361290391734, 1.6479559659957885, 4.115467357635498), obs_poly: (13.357340812683105, 1.4580956531062839e-06, 4.371138739855951e-08, 1.6479559659957885, 4.115467357635498)
+collision with obstacle detected! @ timestep1
+ego_poly: (16.82511338336291, 0.7324249979860584, -0.27223361290391734, 1.6479559659957885, 4.115467357635498), obs_poly: (13.357340812683105, 1.4580956531062839e-06, 4.371138739855951e-08, 1.6479559659957885, 4.115467357635498)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 26 / 28
+comfortable: [True, True, True, True, True, True]
+frame 27 / 28
+collision with obstacle detected! @ timestep0
+ego_poly: (17.070185961984848, 0.6633282405753329, -0.2829880479607347, 1.6479559659957885, 4.115467357635498), obs_poly: (13.357340812683105, 1.4580956531062839e-06, 4.371138739855951e-08, 1.6479559659957885, 4.115467357635498)
+collision with obstacle detected! @ timestep0
+ego_poly: (17.070185961984848, 0.6633282405753329, -0.2829880479607347, 1.6479559659957885, 4.115467357635498), obs_poly: (13.357340812683105, 1.4580956531062839e-06, 4.371138739855951e-08, 1.6479559659957885, 4.115467357635498)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+The score of experiment is (0.7397959183673469, 0.15074429998115696, 0.11152001784320285, {'nc': 0.8928571428571429, 'dac': 1.0, 'ttc': 0.75, 'c': 0.8214285714285714, 'pdms': 0.7397959183673469}, {0.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 0.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 0.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.2857142857142857}, 2.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 4.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 0.0, 'c': 0.0, 'pdms': 0.0}, 4.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 0.0, 'c': 0.0, 'pdms': 0.0}, 4.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 0.0, 'c': 0.0, 'pdms': 0.0}, 4.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 0.0, 'pdms': 0.7142857142857143}, 5.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 0.0, 'pdms': 0.7142857142857143}, 5.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 5.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 5.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 6.0: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 6.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 6.5: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 6.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 7.0: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}}).
+=============================Results=============================
+'nc': 0.8928571428571429
+'dac': 1.0
+'ttc': 0.75
+'c': 0.8214285714285714
+'pdms': 0.7397959183673469
+'rc': 0.15074429998115696
+'hdscore': 0.11152001784320285
+The AD algorithm is still running, remaining tolerant 100.
+The AD algorithm is still running, remaining tolerant 95.
+The AD algorithm is still running, remaining tolerant 90.
+The AD algorithm completed with return code 0.
++ rc=0
++ echo 'I112_SLOT_RC=0 i111_s07_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0411_hard_00_r1 scene-0411-hard-00 on a1'
+I112_SLOT_RC=0 i111_s07_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0411_hard_00_r1 scene-0411-hard-00 on a1
++ docker rm -f hugsim_uniad_client
+++ python3 -c '
+import json, math
+try:
+    v = json.load(open('\''/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/eval.json'\'')).get('\''hdscore'\'')
+    print(v if isinstance(v, (int, float)) and math.isfinite(v) else '\''INVALID'\'')
+except Exception:
+    print('\''MISSING'\'')
+'
++ hd=0.11152001784320285
+++ python3 -c '
+import json
+try:
+    data = json.load(open('\''/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/eval.json'\''))
+    print(1 if '\''collision_provenance'\'' in data else 0)
+except Exception:
+    print(0)
+'
++ provenance=1
+++ grep -c sent /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/output.txt
++ steps=28
++ '[' -n 28 ']'
+++ grep -c 'SENTINEL_I48_UNION_PATCH_LOADED enabled=1' /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/output.txt
++ marker=1
++ '[' -n 1 ']'
++ decisions=0
++ '[' -s /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/sentinel_iter48_decisions.jsonl ']'
+++ grep -c 'SENTINEL_I48_DECISION frame=' /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/output.txt
++ '[' 28 -gt 0 ']'
++ decisions=1
++ '[' 0 = 0 ']'
++ '[' 0.11152001784320285 '!=' MISSING ']'
++ '[' 0.11152001784320285 '!=' INVALID ']'
++ '[' 1 = 1 ']'
++ '[' 28 -gt 0 ']'
++ '[' 1 -gt 0 ']'
++ '[' 1 = 1 ']'
++ rm -rf /datasets/nuscenes-full/hugsim/iter112_runs/i111_s07_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0411_hard_00_r1__scene-0411-hard-00__on
++ mkdir -p /datasets/nuscenes-full/hugsim/iter112_runs/i111_s07_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0411_hard_00_r1__scene-0411-hard-00__on
++ find /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00 -type p -delete
++ mv /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/data.pkl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/eval.json /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/ground.ply /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/infos.pkl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/output.txt /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/scene.ply /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/sentinel_iter48_decisions.jsonl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/uniad /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00/video.mp4 /datasets/nuscenes-full/hugsim/iter112_runs/i111_s07_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0411_hard_00_r1__scene-0411-hard-00__on/
++ rmdir /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_hard_00
+++ date -u +%s
++ printf '{"slot_id":"%s","scenario":"%s","arm":"on","attempt":%s,"rc":%s,"hdscore":%s,"steps":%s,"start_epoch":%s,"end_epoch":%s}\n' i111_s07_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0411_hard_00_r1 scene-0411-hard-00 1 0 0.11152001784320285 28 1784019343 1784019496
++ echo 'I112_SLOT_DONE i111_s07_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0411_hard_00_r1 scene-0411-hard-00 on ok hd=0.11152001784320285 steps=28'
+I112_SLOT_DONE i111_s07_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0411_hard_00_r1 scene-0411-hard-00 on ok hd=0.11152001784320285 steps=28
++ return 0
++ IFS='	'
++ read -r slot_id scenario _scenario_sha
++ run_one i111_s08_iter49_hard_extreme_ttc_classifiable_scenario_analogue_long_lead_fire_ttc_only_scene_0411_extreme_00_r2 scene-0411-extreme-00
++ local slot_id=i111_s08_iter49_hard_extreme_ttc_classifiable_scenario_analogue_long_lead_fire_ttc_only_scene_0411_extreme_00_r2 scenario=scene-0411-extreme-00
++ local scene=scene-0411
++ local mode_dashed=extreme-00
++ local mode=extreme_00
++ local out_dir=/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00
++ local dest=/datasets/nuscenes-full/hugsim/iter112_runs/i111_s08_iter49_hard_extreme_ttc_classifiable_scenario_analogue_long_lead_fire_ttc_only_scene_0411_extreme_00_r2__scene-0411-extreme-00__on
++ '[' -f /datasets/nuscenes-full/hugsim/iter112_runs/i111_s08_iter49_hard_extreme_ttc_classifiable_scenario_analogue_long_lead_fire_ttc_only_scene_0411_extreme_00_r2__scene-0411-extreme-00__on/episode_meta.json ']'
++ prep_scene scene-0411
++ local scene=scene-0411
++ '[' '!' -d /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0411 ']'
++ local cfg=/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0411/cfg.yaml
++ '[' '!' -f /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0411/cfg.yaml ']'
++ '[' -f /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0411/cfg.yaml.orig ']'
++ python3 - /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0411/cfg.yaml /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0411
++ local attempt rc steps hd marker decisions provenance
++ for attempt in 1 2
++ disk_guard
++ local avail
+++ df --output=avail -BG /datasets/nuscenes-full
+++ tail -1
+++ tr -dc 0-9
++ avail=113
++ '[' 113 -lt 20 ']'
+++ date -u
++ echo 'I112_SLOT_START i111_s08_iter49_hard_extreme_ttc_classifiable_scenario_analogue_long_lead_fire_ttc_only_scene_0411_extreme_00_r2 scene-0411-extreme-00 on a1 Tue Jul 14 08:58:16 UTC 2026'
+I112_SLOT_START i111_s08_iter49_hard_extreme_ttc_classifiable_scenario_analogue_long_lead_fire_ttc_only_scene_0411_extreme_00_r2 scene-0411-extreme-00 on a1 Tue Jul 14 08:58:16 UTC 2026
++ local t0
+++ date -u +%s
++ t0=1784019496
++ docker rm -f hugsim_uniad_client
++ rm -rf /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00
++ cd /opt/sentinel-stack/HUGSIM
++ SENTINEL_ENABLED=1
++ timeout 1200 pixi run python -u closed_loop.py --scenario_path /datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0411-extreme-00.yaml --base_path configs/sim/nuscenes_base.yaml --camera_path configs/sim/nuscenes_camera.yaml --kinematic_path configs/sim/kinematic.yaml --ad uniad --ad_cuda 0
+/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/output.txt
+/opt/sentinel-stack/UniAD_SIM/tools/e2e.sh 0 /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00
+/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/spline_planner.py:102: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.acce_grid = torch.tensor(acce_grid).to(self.device)
+/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/forward_sampler.py:24: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.accels = torch.tensor(acce_grid,device=self.device)
+/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/forward_sampler.py:26: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.dhm_grid = torch.tensor(dhm_grid,device=self.device)
+Ready for simulation
+ego pose [0.0, -1.0808430643926773e-34, 0.0]
+ego pose [0.0, -0.001726138371843387, 0.4375]
+ego pose [0.009630198511489548, -0.003952107370729364, 1.0624258030171496]
+ego pose [0.021910060590213012, -0.006380460103572401, 1.796868444851818]
+ego pose [0.014601727552783675, -0.014428357163767457, 2.6066882800686213]
+ego pose [-0.034486846816880974, -0.024326687058237897, 3.426106343342603]
+ego pose [-0.13754430128007186, -0.03303401302182283, 4.280635894506304]
+ego pose [-0.26817999982698126, -0.03374134710908462, 5.141865258126775]
+ego pose [-0.4211530163622777, -0.03226802198973413, 5.963278764423435]
+ego pose [-0.5795238136806604, -0.0330776044165106, 6.70900934223206]
+ego pose [-0.7372079818810444, -0.03678703006716689, 7.412847112807456]
+ego pose [-0.8776908177521974, -0.04308080633674674, 8.09125695921314]
+ego pose [-0.9904692185522666, -0.049686540290061275, 8.778609425386028]
+ego pose [-1.0569502258395214, -0.06240186130907361, 9.484997095017356]
+ego pose [-1.0570248664856945, -0.0653036847574314, 10.225527183869847]
+ego pose [-0.9875171199415672, -0.06396635047271822, 10.944481875733512]
+ego pose [-0.8763410472809743, -0.06569495071651903, 11.627526524434932]
+ego pose [-0.7255267288971822, -0.06294113780253442, 12.300600350716305]
+ego pose [-0.5516375837656076, -0.05736546185332642, 12.973386454108352]
+ego pose [-0.3662742331154122, -0.06779942589863319, 13.670867316795082]
+ego pose [-0.17161346820589907, -0.07952491941454669, 14.352945374820747]
+ego pose [0.03470687218108434, -0.0777621335874016, 15.02724827123462]
+ego pose [0.24699900043766165, -0.0703454639356054, 15.674712289783024]
+ego pose [0.4496922168017915, -0.06153614673777025, 16.305747973523438]
+ego pose [0.5811417214778332, -0.055360218938013864, 16.7624991143641]
+ego pose [0.6615488411112024, -0.049010973689387144, 17.06599565955746]
+ego pose [0.7118616029885427, -0.04554919799502873, 17.26719463792961]
+ego pose [0.7438754379414483, -0.043964105417794566, 17.400407981501033]
+ego pose [0.7644897019120919, -0.04303080096779221, 17.488536228878072]
+ego pose [0.7778743622286737, -0.04235963525691396, 17.546808793369713]
+ego pose [0.7866143810118904, -0.04181898416318118, 17.58532693514856]
+Collision with foreground
+MoviePy - Building video /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/video.mp4.
+MoviePy - Writing video /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/video.mp4
+
+frame_index:   0%|          | 0/31 [00:00<?, ?it/s, now=None]frame_index:  32%|███▏      | 10/31 [00:00<00:00, 98.25it/s, now=None]frame_index:  68%|██████▊   | 21/31 [00:00<00:00, 102.58it/s, now=None]                                                                       MoviePy - Done !
+MoviePy - video ready /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/video.mp4
+this pkl file contains 1 experiment records.
+current exp has 31 frames
+frame 0 / 31
+comfortable: [True, True, True, True, True, True]
+frame 1 / 31
+comfortable: [True, True, True, True, True, True]
+frame 2 / 31
+comfortable: [True, True, True, True, True, True]
+frame 3 / 31
+comfortable: [True, True, True, True, True, True]
+frame 4 / 31
+comfortable: [True, True, True, True, True, True]
+frame 5 / 31
+comfortable: [True, True, True, True, True, True]
+frame 6 / 31
+comfortable: [True, True, True, True, True, True]
+frame 7 / 31
+comfortable: [True, True, True, True, True, True]
+frame 8 / 31
+comfortable: [True, True, True, True, True, True]
+frame 9 / 31
+comfortable: [True, True, True, True, True, True]
+frame 10 / 31
+comfortable: [True, True, True, True, True, True]
+frame 11 / 31
+comfortable: [True, True, True, True, True, True]
+frame 12 / 31
+comfortable: [True, True, True, True, True, True]
+frame 13 / 31
+comfortable: [True, True, True, True, True, True]
+frame 14 / 31
+collision with background detected! @ timestep4
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, False, False]
+frame 15 / 31
+collision with background detected! @ timestep4
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, False, True, True, False, False]
+frame 16 / 31
+comfortable: [True, True, True, True, True, True]
+frame 17 / 31
+comfortable: [True, True, True, True, True, True]
+frame 18 / 31
+comfortable: [True, True, True, True, True, True]
+frame 19 / 31
+comfortable: [True, True, True, True, True, True]
+frame 20 / 31
+comfortable: [True, True, True, True, True, True]
+frame 21 / 31
+comfortable: [True, True, True, True, True, True]
+frame 22 / 31
+comfortable: [True, True, True, True, False, True]
+frame 23 / 31
+collision with obstacle detected! @ timestep3
+ego_poly: (16.7624991143641, -0.5811417214778332, -0.258985802603507, 1.6528551697731018, 4.08380401134491), obs_poly: (13.464774131774902, -0.1377154439687729, -0.16141590005396012, 1.6528551697731018, 4.08380401134491)
+collision with obstacle detected! @ timestep3
+ego_poly: (16.7624991143641, -0.5811417214778332, -0.258985802603507, 1.6528551697731018, 4.08380401134491), obs_poly: (13.464774131774902, -0.1377154439687729, -0.16141590005396012, 1.6528551697731018, 4.08380401134491)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 24 / 31
+collision with obstacle detected! @ timestep3
+ego_poly: (17.06599565955746, -0.6615488411112024, -0.24503955496277557, 1.6528551697731018, 4.08380401134491), obs_poly: (14.86677074432373, -0.36600613594055176, -0.16141590005396012, 1.6528551697731018, 4.08380401134491)
+collision with obstacle detected! @ timestep3
+ego_poly: (17.06599565955746, -0.6615488411112024, -0.24503955496277557, 1.6528551697731018, 4.08380401134491), obs_poly: (14.86677074432373, -0.36600613594055176, -0.16141590005396012, 1.6528551697731018, 4.08380401134491)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 25 / 31
+comfortable: [True, True, True, True, True, True]
+frame 26 / 31
+collision with obstacle detected! @ timestep2
+ego_poly: (17.400407981501033, -0.7438754379414483, -0.22978075196507608, 1.6528551697731018, 4.08380401134491), obs_poly: (14.86677074432373, -0.36600613594055176, -0.16141590005396012, 1.6528551697731018, 4.08380401134491)
+collision with obstacle detected! @ timestep2
+ego_poly: (17.400407981501033, -0.7438754379414483, -0.22978075196507608, 1.6528551697731018, 4.08380401134491), obs_poly: (14.86677074432373, -0.36600613594055176, -0.16141590005396012, 1.6528551697731018, 4.08380401134491)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 27 / 31
+comfortable: [True, True, True, True, True, True]
+frame 28 / 31
+collision with obstacle detected! @ timestep1
+ego_poly: (17.546808793369713, -0.7778743622286737, -0.22312838441416566, 1.6528551697731018, 4.08380401134491), obs_poly: (14.86677074432373, -0.36600613594055176, -0.16141590005396012, 1.6528551697731018, 4.08380401134491)
+collision with obstacle detected! @ timestep1
+ego_poly: (17.546808793369713, -0.7778743622286737, -0.22312838441416566, 1.6528551697731018, 4.08380401134491), obs_poly: (14.86677074432373, -0.36600613594055176, -0.16141590005396012, 1.6528551697731018, 4.08380401134491)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 29 / 31
+comfortable: [True, True, True, True, True, True]
+frame 30 / 31
+collision with obstacle detected! @ timestep0
+ego_poly: (17.610782461648338, -0.7923436405023104, -0.2202258249282184, 1.6528551697731018, 4.08380401134491), obs_poly: (14.86677074432373, -0.36600613594055176, -0.16141590005396012, 1.6528551697731018, 4.08380401134491)
+collision with obstacle detected! @ timestep0
+ego_poly: (17.610782461648338, -0.7923436405023104, -0.2202258249282184, 1.6528551697731018, 4.08380401134491), obs_poly: (14.86677074432373, -0.36600613594055176, -0.16141590005396012, 1.6528551697731018, 4.08380401134491)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+The score of experiment is (0.7649769585253456, 0.15639721123045033, 0.11964026296891593, {'nc': 0.8387096774193549, 'dac': 1.0, 'ttc': 0.7741935483870968, 'c': 0.9032258064516129, 'pdms': 0.7649769585253456}, {0.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 0.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 0.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 0.0, 'c': 0.0, 'pdms': 0.0}, 4.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 0.0, 'c': 0.0, 'pdms': 0.0}, 4.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 4.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 4.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 5.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 5.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 5.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 5.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 0.0, 'pdms': 0.7142857142857143}, 6.0: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 6.25: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 6.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 6.75: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 7.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 7.25: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 7.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 7.75: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}}).
+=============================Results=============================
+'nc': 0.8387096774193549
+'dac': 1.0
+'ttc': 0.7741935483870968
+'c': 0.9032258064516129
+'pdms': 0.7649769585253456
+'rc': 0.15639721123045033
+'hdscore': 0.11964026296891593
+The AD algorithm is still running, remaining tolerant 100.
+The AD algorithm is still running, remaining tolerant 95.
+The AD algorithm is still running, remaining tolerant 90.
+The AD algorithm completed with return code 0.
++ rc=0
++ echo 'I112_SLOT_RC=0 i111_s08_iter49_hard_extreme_ttc_classifiable_scenario_analogue_long_lead_fire_ttc_only_scene_0411_extreme_00_r2 scene-0411-extreme-00 on a1'
+I112_SLOT_RC=0 i111_s08_iter49_hard_extreme_ttc_classifiable_scenario_analogue_long_lead_fire_ttc_only_scene_0411_extreme_00_r2 scene-0411-extreme-00 on a1
++ docker rm -f hugsim_uniad_client
+++ python3 -c '
+import json, math
+try:
+    v = json.load(open('\''/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/eval.json'\'')).get('\''hdscore'\'')
+    print(v if isinstance(v, (int, float)) and math.isfinite(v) else '\''INVALID'\'')
+except Exception:
+    print('\''MISSING'\'')
+'
++ hd=0.11964026296891593
+++ python3 -c '
+import json
+try:
+    data = json.load(open('\''/datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/eval.json'\''))
+    print(1 if '\''collision_provenance'\'' in data else 0)
+except Exception:
+    print(0)
+'
++ provenance=1
+++ grep -c sent /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/output.txt
++ steps=31
++ '[' -n 31 ']'
+++ grep -c 'SENTINEL_I48_UNION_PATCH_LOADED enabled=1' /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/output.txt
++ marker=1
++ '[' -n 1 ']'
++ decisions=0
++ '[' -s /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/sentinel_iter48_decisions.jsonl ']'
+++ grep -c 'SENTINEL_I48_DECISION frame=' /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/output.txt
++ '[' 31 -gt 0 ']'
++ decisions=1
++ '[' 0 = 0 ']'
++ '[' 0.11964026296891593 '!=' MISSING ']'
++ '[' 0.11964026296891593 '!=' INVALID ']'
++ '[' 1 = 1 ']'
++ '[' 31 -gt 0 ']'
++ '[' 1 -gt 0 ']'
++ '[' 1 = 1 ']'
++ rm -rf /datasets/nuscenes-full/hugsim/iter112_runs/i111_s08_iter49_hard_extreme_ttc_classifiable_scenario_analogue_long_lead_fire_ttc_only_scene_0411_extreme_00_r2__scene-0411-extreme-00__on
++ mkdir -p /datasets/nuscenes-full/hugsim/iter112_runs/i111_s08_iter49_hard_extreme_ttc_classifiable_scenario_analogue_long_lead_fire_ttc_only_scene_0411_extreme_00_r2__scene-0411-extreme-00__on
++ find /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00 -type p -delete
++ mv /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/data.pkl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/eval.json /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/ground.ply /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/infos.pkl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/output.txt /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/scene.ply /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/sentinel_iter48_decisions.jsonl /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/uniad /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00/video.mp4 /datasets/nuscenes-full/hugsim/iter112_runs/i111_s08_iter49_hard_extreme_ttc_classifiable_scenario_analogue_long_lead_fire_ttc_only_scene_0411_extreme_00_r2__scene-0411-extreme-00__on/
++ rmdir /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0411_extreme_00
+++ date -u +%s
++ printf '{"slot_id":"%s","scenario":"%s","arm":"on","attempt":%s,"rc":%s,"hdscore":%s,"steps":%s,"start_epoch":%s,"end_epoch":%s}\n' i111_s08_iter49_hard_extreme_ttc_classifiable_scenario_analogue_long_lead_fire_ttc_only_scene_0411_extreme_00_r2 scene-0411-extreme-00 1 0 0.11964026296891593 31 1784019496 1784019659
++ echo 'I112_SLOT_DONE i111_s08_iter49_hard_extreme_ttc_classifiable_scenario_analogue_long_lead_fire_ttc_only_scene_0411_extreme_00_r2 scene-0411-extreme-00 on ok hd=0.11964026296891593 steps=31'
+I112_SLOT_DONE i111_s08_iter49_hard_extreme_ttc_classifiable_scenario_analogue_long_lead_fire_ttc_only_scene_0411_extreme_00_r2 scene-0411-extreme-00 on ok hd=0.11964026296891593 steps=31
++ return 0
++ IFS='	'
++ read -r slot_id scenario _scenario_sha
++ cd /datasets/nuscenes-full/hugsim/iter112_runs
++ find . -path ./prior_launches -prune -o -type f '(' -name data.pkl -o -name infos.pkl -o -name video.mp4 -o -name '*.ply' ')' -print
++ sort
++ xargs -r sha256sum
++ df -B1 /datasets/nuscenes-full
++ tail -1
+++ date -u
++ echo 'I112_SUPPORT_CORE_BATCH_DONE Tue Jul 14 09:01:02 UTC 2026'
+I112_SUPPORT_CORE_BATCH_DONE Tue Jul 14 09:01:02 UTC 2026

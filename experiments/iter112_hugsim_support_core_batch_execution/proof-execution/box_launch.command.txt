@@ -1,0 +1,1 @@
+gcloud compute ssh sentinel-gpu --zone us-west1-a --tunnel-through-iap --command 'sudo bash -c '"'"'setsid nohup bash /tmp/iter112_run_support_core_batch_execution.sh </dev/null >/var/log/sentinel-iter112-support-core-batch.log 2>&1 &'"'"''
