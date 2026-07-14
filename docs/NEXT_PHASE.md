@@ -69,13 +69,16 @@ HUGSIM priority was support-yield redesign. That successor is now complete: usin
 iteration-52/54/59/104 reports, the timing-aware design found `20` primary eligible rows after
 excluding already instrumented scenarios and selected `13` future slots across `11` unique
 scenarios, both datasets, both channels, all four tiers, and a `12` long-lead / `1` short-lead
-fire mix. This still authorizes no GPU launch. The next local HUGSIM priority is a launch-manifest
-preflight for the iteration-105 schedule. That preflight is now complete: all `13` slots are
-scenario-SHA-bound, frozen stack gates matched, duplicate groups are preserved by `slot_id`, and
-the manifest has `11` unique scenarios with `2` duplicate scenario groups. This still authorizes
-no GPU launch. The next local HUGSIM priority is a separate execution pre-registration over the
-iteration-106 manifest, with the GPU command, collection contract, and no-retuning/no-metric-change
-boundary frozen before launch.
+fire mix. The launch-manifest preflight for that schedule then bound all `13` slots to scenario
+SHAs, matched frozen stack gates, preserved both duplicate groups by `slot_id`, and froze a
+manifest with `11` unique scenarios and `2` duplicate scenario groups. The execution successor is
+now complete as well: all `13/13` timing-aware manifest slots ran on first attempt under the
+byte-bound HUGSIM provenance patch and released-union monitor patch, `13/13` proof artifact sets
+are complete, `13/13` evals expose the top-level `collision_provenance` key, total provenance
+rows increased to `252`, and both duplicate scenario groups remained distinct by `slot_id`. The
+next local HUGSIM priority is a separate actor-match support audit over the iteration-107 proof,
+comparing its foreground-classifiable support yield against the iteration-104 `1/13` support null
+without making repair, actor-causality, or safety claims.
 
 ## New frontier packet after these lines closed
 
