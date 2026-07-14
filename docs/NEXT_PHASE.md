@@ -101,7 +101,11 @@ the top-level `collision_provenance` key, total provenance rows are `44`, and al
 scenario groups remained distinct by `slot_id`. The next local HUGSIM priority is a separately
 pre-registered actor-match support audit over the committed iteration-112 proof, reusing the frozen
 iteration-59 classifier; it must not claim repair, safety, retuning, deployment, or commercial
-value.
+value. That audit is now complete: all `8/8` support-core slots are `classifiable_foreground`
+against the frozen floor of `4`, including all `3` exact anchors and all `5` scenario analogues.
+All `8` bridge labels are `actor_mismatch`, with `0` matches and `0` ambiguous rows. The next
+local HUGSIM priority is an offline mismatch-geometry decomposition over the committed
+iteration-113 report and iteration-112 proof, not a GPU run and not a repair/safety claim.
 
 ## New frontier packet after these lines closed
 

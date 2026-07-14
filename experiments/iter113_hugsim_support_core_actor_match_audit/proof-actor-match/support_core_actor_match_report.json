@@ -1,0 +1,429 @@
+{
+  "claim_boundary": "bounded 8-slot support-core actor-match support audit only; no repair, threshold-value, transfer, safety, deployment, robustness, benchmark, population-rate, HD-Score-invariance, real-world behavior, first-responder behavior, acquisition-value, retuning, production, or commercial claim",
+  "episodes": [
+    {
+      "audit_id": "i111_s01_iter49_hard_extreme_exact_ttc_classifiable_anchor_short_lead_fire_ttc_only_scene_0411_hard_00_r2",
+      "brake_frames": 7,
+      "bridge_distance_m": 23.793069683037515,
+      "bridge_label": "actor_mismatch",
+      "dataset": "iter49_hard_extreme",
+      "design_label": "exact_ttc_classifiable_anchor",
+      "detail_problems": [],
+      "details_scalar_only": true,
+      "episode_dir": "experiments/iter112_hugsim_support_core_batch_execution/proof-execution/i111_s01_iter49_hard_extreme_exact_ttc_classifiable_anchor_short_lead_fire_ttc_only_scene_0411_hard_00_r2__scene-0411-hard-00__on",
+      "exact_positive_sources": [
+        "iter109:classifiable_success:actor_mismatch"
+      ],
+      "fire_timing_label": "short_lead_fire",
+      "fired_frames": 6,
+      "first_fire_channel": "ttc_only",
+      "first_fire_lead_time": 0.25,
+      "first_fire_ts": 5.0,
+      "first_foreground_obs_index": 0,
+      "first_foreground_obs_name": "car",
+      "first_foreground_ts": 5.25,
+      "foreground_count": 4,
+      "hugsim_forward_lateral": [
+        11.906682968139648,
+        0.389748752117157
+      ],
+      "lead_time_s": 0.25,
+      "monitor_forward_lateral": [
+        -11.600185726096788,
+        4.0690542754198695
+      ],
+      "monitor_frames": 27,
+      "monitor_object_id": 12,
+      "monitor_provenance_label": "unique_ttc_object",
+      "nc_min": 0.0,
+      "problems": [],
+      "provenance_count": 7,
+      "provenance_is_list": true,
+      "provenance_present": true,
+      "run": 2,
+      "scalar_metrics_present": true,
+      "scenario": "scene-0411-hard-00",
+      "scenario_positive_sources": [
+        "iter109:classifiable_success:actor_mismatch"
+      ],
+      "slot_id": "i111_s01_iter49_hard_extreme_exact_ttc_classifiable_anchor_short_lead_fire_ttc_only_scene_0411_hard_00_r2",
+      "slot_index": 1,
+      "support_label": "classifiable_foreground",
+      "tier": "hard"
+    },
+    {
+      "audit_id": "i111_s02_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0411_extreme_00_r1",
+      "brake_frames": 13,
+      "bridge_distance_m": 24.59033959495813,
+      "bridge_label": "actor_mismatch",
+      "dataset": "iter49_hard_extreme",
+      "design_label": "exact_ttc_classifiable_anchor",
+      "detail_problems": [],
+      "details_scalar_only": true,
+      "episode_dir": "experiments/iter112_hugsim_support_core_batch_execution/proof-execution/i111_s02_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0411_extreme_00_r1__scene-0411-extreme-00__on",
+      "exact_positive_sources": [
+        "iter109:classifiable_success:actor_mismatch"
+      ],
+      "fire_timing_label": "long_lead_fire",
+      "fired_frames": 8,
+      "first_fire_channel": "ttc_only",
+      "first_fire_lead_time": 4.5,
+      "first_fire_ts": 1.75,
+      "first_foreground_obs_index": 0,
+      "first_foreground_obs_name": "car",
+      "first_foreground_ts": 4.75,
+      "foreground_count": 5,
+      "hugsim_forward_lateral": [
+        8.97520923614502,
+        0.8090962767601013
+      ],
+      "lead_time_s": 3.0,
+      "monitor_forward_lateral": [
+        27.204197114168448,
+        -15.695109318731024
+      ],
+      "monitor_frames": 27,
+      "monitor_object_id": 2,
+      "monitor_provenance_label": "unique_ttc_object",
+      "nc_min": 0.0,
+      "problems": [],
+      "provenance_count": 5,
+      "provenance_is_list": true,
+      "provenance_present": true,
+      "run": 1,
+      "scalar_metrics_present": true,
+      "scenario": "scene-0411-extreme-00",
+      "scenario_positive_sources": [
+        "iter109:classifiable_success:actor_mismatch"
+      ],
+      "slot_id": "i111_s02_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0411_extreme_00_r1",
+      "slot_index": 2,
+      "support_label": "classifiable_foreground",
+      "tier": "extreme"
+    },
+    {
+      "audit_id": "i111_s03_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0038_hard_00_r1",
+      "brake_frames": 9,
+      "bridge_distance_m": 14.472507961609738,
+      "bridge_label": "actor_mismatch",
+      "dataset": "iter49_hard_extreme",
+      "design_label": "exact_ttc_classifiable_anchor",
+      "detail_problems": [],
+      "details_scalar_only": true,
+      "episode_dir": "experiments/iter112_hugsim_support_core_batch_execution/proof-execution/i111_s03_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0038_hard_00_r1__scene-0038-hard-00__on",
+      "exact_positive_sources": [
+        "iter104:classifiable_foreground:actor_mismatch"
+      ],
+      "fire_timing_label": "long_lead_fire",
+      "fired_frames": 3,
+      "first_fire_channel": "ttc_only",
+      "first_fire_lead_time": 1.5,
+      "first_fire_ts": 4.0,
+      "first_foreground_obs_index": 0,
+      "first_foreground_obs_name": "car",
+      "first_foreground_ts": 7.25,
+      "foreground_count": 4,
+      "hugsim_forward_lateral": [
+        24.306716918945312,
+        7.255897521972656
+      ],
+      "lead_time_s": 3.25,
+      "monitor_forward_lateral": [
+        10.971191503263102,
+        1.6329758093261906
+      ],
+      "monitor_frames": 36,
+      "monitor_object_id": 25,
+      "monitor_provenance_label": "unique_cpa_object",
+      "nc_min": 0.0,
+      "problems": [],
+      "provenance_count": 4,
+      "provenance_is_list": true,
+      "provenance_present": true,
+      "run": 1,
+      "scalar_metrics_present": true,
+      "scenario": "scene-0038-hard-00",
+      "scenario_positive_sources": [
+        "iter104:classifiable_foreground:actor_mismatch"
+      ],
+      "slot_id": "i111_s03_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0038_hard_00_r1",
+      "slot_index": 3,
+      "support_label": "classifiable_foreground",
+      "tier": "hard"
+    },
+    {
+      "audit_id": "i111_s04_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r1",
+      "brake_frames": 13,
+      "bridge_distance_m": 15.460122021736504,
+      "bridge_label": "actor_mismatch",
+      "dataset": "iter49_hard_extreme",
+      "design_label": "ttc_classifiable_scenario_analogue",
+      "detail_problems": [],
+      "details_scalar_only": true,
+      "episode_dir": "experiments/iter112_hugsim_support_core_batch_execution/proof-execution/i111_s04_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r1__scene-0038-extreme-00__on",
+      "exact_positive_sources": [],
+      "fire_timing_label": "short_lead_fire",
+      "fired_frames": 5,
+      "first_fire_channel": "ttc_only",
+      "first_fire_lead_time": 1.0,
+      "first_fire_ts": 1.5,
+      "first_foreground_obs_index": 0,
+      "first_foreground_obs_name": "car",
+      "first_foreground_ts": 2.5,
+      "foreground_count": 8,
+      "hugsim_forward_lateral": [
+        3.5266048908233643,
+        -0.5733838677406311
+      ],
+      "lead_time_s": 1.0,
+      "monitor_forward_lateral": [
+        -9.111840352881082,
+        -9.477600551361178
+      ],
+      "monitor_frames": 22,
+      "monitor_object_id": 2,
+      "monitor_provenance_label": "unique_ttc_object",
+      "nc_min": 0.0,
+      "problems": [],
+      "provenance_count": 8,
+      "provenance_is_list": true,
+      "provenance_present": true,
+      "run": 1,
+      "scalar_metrics_present": true,
+      "scenario": "scene-0038-extreme-00",
+      "scenario_positive_sources": [
+        "iter59:classifiable_foreground:actor_mismatch"
+      ],
+      "slot_id": "i111_s04_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r1",
+      "slot_index": 4,
+      "support_label": "classifiable_foreground",
+      "tier": "extreme"
+    },
+    {
+      "audit_id": "i111_s05_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r2",
+      "brake_frames": 11,
+      "bridge_distance_m": 15.541003639773562,
+      "bridge_label": "actor_mismatch",
+      "dataset": "iter49_hard_extreme",
+      "design_label": "ttc_classifiable_scenario_analogue",
+      "detail_problems": [],
+      "details_scalar_only": true,
+      "episode_dir": "experiments/iter112_hugsim_support_core_batch_execution/proof-execution/i111_s05_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r2__scene-0038-extreme-00__on",
+      "exact_positive_sources": [],
+      "fire_timing_label": "short_lead_fire",
+      "fired_frames": 5,
+      "first_fire_channel": "ttc_only",
+      "first_fire_lead_time": 0.75,
+      "first_fire_ts": 1.5,
+      "first_foreground_obs_index": 0,
+      "first_foreground_obs_name": "car",
+      "first_foreground_ts": 2.5,
+      "foreground_count": 7,
+      "hugsim_forward_lateral": [
+        3.558939218521118,
+        -0.5795319080352783
+      ],
+      "lead_time_s": 1.0,
+      "monitor_forward_lateral": [
+        -9.125541889094475,
+        -9.558770915991254
+      ],
+      "monitor_frames": 27,
+      "monitor_object_id": 2,
+      "monitor_provenance_label": "unique_ttc_object",
+      "nc_min": 0.0,
+      "problems": [],
+      "provenance_count": 7,
+      "provenance_is_list": true,
+      "provenance_present": true,
+      "run": 2,
+      "scalar_metrics_present": true,
+      "scenario": "scene-0038-extreme-00",
+      "scenario_positive_sources": [
+        "iter59:classifiable_foreground:actor_mismatch"
+      ],
+      "slot_id": "i111_s05_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r2",
+      "slot_index": 5,
+      "support_label": "classifiable_foreground",
+      "tier": "extreme"
+    },
+    {
+      "audit_id": "i111_s06_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0383_extreme_00_r2",
+      "brake_frames": 10,
+      "bridge_distance_m": 36.09143899155716,
+      "bridge_label": "actor_mismatch",
+      "dataset": "iter49_hard_extreme",
+      "design_label": "ttc_classifiable_scenario_analogue",
+      "detail_problems": [],
+      "details_scalar_only": true,
+      "episode_dir": "experiments/iter112_hugsim_support_core_batch_execution/proof-execution/i111_s06_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0383_extreme_00_r2__scene-0383-extreme-00__on",
+      "exact_positive_sources": [],
+      "fire_timing_label": "short_lead_fire",
+      "fired_frames": 8,
+      "first_fire_channel": "ttc_only",
+      "first_fire_lead_time": 0.75,
+      "first_fire_ts": 6.75,
+      "first_foreground_obs_index": 0,
+      "first_foreground_obs_name": "car",
+      "first_foreground_ts": 7.25,
+      "foreground_count": 5,
+      "hugsim_forward_lateral": [
+        20.982471466064453,
+        1.7389401197433472
+      ],
+      "lead_time_s": 0.5,
+      "monitor_forward_lateral": [
+        -15.072047232302321,
+        0.10687090846183
+      ],
+      "monitor_frames": 37,
+      "monitor_object_id": 1,
+      "monitor_provenance_label": "unique_ttc_object",
+      "nc_min": 0.0,
+      "problems": [],
+      "provenance_count": 5,
+      "provenance_is_list": true,
+      "provenance_present": true,
+      "run": 2,
+      "scalar_metrics_present": true,
+      "scenario": "scene-0383-extreme-00",
+      "scenario_positive_sources": [
+        "iter59:classifiable_foreground:actor_mismatch"
+      ],
+      "slot_id": "i111_s06_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0383_extreme_00_r2",
+      "slot_index": 6,
+      "support_label": "classifiable_foreground",
+      "tier": "extreme"
+    },
+    {
+      "audit_id": "i111_s07_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0411_hard_00_r1",
+      "brake_frames": 5,
+      "bridge_distance_m": 23.180715225043926,
+      "bridge_label": "actor_mismatch",
+      "dataset": "iter49_hard_extreme",
+      "design_label": "ttc_classifiable_scenario_analogue",
+      "detail_problems": [],
+      "details_scalar_only": true,
+      "episode_dir": "experiments/iter112_hugsim_support_core_batch_execution/proof-execution/i111_s07_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0411_hard_00_r1__scene-0411-hard-00__on",
+      "exact_positive_sources": [],
+      "fire_timing_label": "short_lead_fire",
+      "fired_frames": 5,
+      "first_fire_channel": "ttc_only",
+      "first_fire_lead_time": 0.25,
+      "first_fire_ts": 5.75,
+      "first_foreground_obs_index": 0,
+      "first_foreground_obs_name": "car",
+      "first_foreground_ts": 6.0,
+      "foreground_count": 3,
+      "hugsim_forward_lateral": [
+        13.357340812683105,
+        1.4580956531062839e-06
+      ],
+      "lead_time_s": 0.25,
+      "monitor_forward_lateral": [
+        -9.312291665924478,
+        4.840799081364322
+      ],
+      "monitor_frames": 28,
+      "monitor_object_id": 12,
+      "monitor_provenance_label": "unique_ttc_object",
+      "nc_min": 0.0,
+      "problems": [],
+      "provenance_count": 3,
+      "provenance_is_list": true,
+      "provenance_present": true,
+      "run": 1,
+      "scalar_metrics_present": true,
+      "scenario": "scene-0411-hard-00",
+      "scenario_positive_sources": [
+        "iter109:classifiable_success:actor_mismatch"
+      ],
+      "slot_id": "i111_s07_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0411_hard_00_r1",
+      "slot_index": 7,
+      "support_label": "classifiable_foreground",
+      "tier": "hard"
+    },
+    {
+      "audit_id": "i111_s08_iter49_hard_extreme_ttc_classifiable_scenario_analogue_long_lead_fire_ttc_only_scene_0411_extreme_00_r2",
+      "brake_frames": 8,
+      "bridge_distance_m": 24.812496764606966,
+      "bridge_label": "actor_mismatch",
+      "dataset": "iter49_hard_extreme",
+      "design_label": "ttc_classifiable_scenario_analogue",
+      "detail_problems": [],
+      "details_scalar_only": true,
+      "episode_dir": "experiments/iter112_hugsim_support_core_batch_execution/proof-execution/i111_s08_iter49_hard_extreme_ttc_classifiable_scenario_analogue_long_lead_fire_ttc_only_scene_0411_extreme_00_r2__scene-0411-extreme-00__on",
+      "exact_positive_sources": [],
+      "fire_timing_label": "long_lead_fire",
+      "fired_frames": 8,
+      "first_fire_channel": "ttc_only",
+      "first_fire_lead_time": 3.0,
+      "first_fire_ts": 5.75,
+      "first_foreground_obs_index": 0,
+      "first_foreground_obs_name": "car",
+      "first_foreground_ts": 6.0,
+      "foreground_count": 5,
+      "hugsim_forward_lateral": [
+        13.464774131774902,
+        -0.1377154439687729
+      ],
+      "lead_time_s": 0.25,
+      "monitor_forward_lateral": [
+        -11.27820774602445,
+        1.7183135128430767
+      ],
+      "monitor_frames": 31,
+      "monitor_object_id": 17,
+      "monitor_provenance_label": "unique_ttc_object",
+      "nc_min": 0.0,
+      "problems": [],
+      "provenance_count": 5,
+      "provenance_is_list": true,
+      "provenance_present": true,
+      "run": 2,
+      "scalar_metrics_present": true,
+      "scenario": "scene-0411-extreme-00",
+      "scenario_positive_sources": [
+        "iter109:classifiable_success:actor_mismatch"
+      ],
+      "slot_id": "i111_s08_iter49_hard_extreme_ttc_classifiable_scenario_analogue_long_lead_fire_ttc_only_scene_0411_extreme_00_r2",
+      "slot_index": 8,
+      "support_label": "classifiable_foreground",
+      "tier": "extreme"
+    }
+  ],
+  "infra_problems": [],
+  "inputs": {
+    "iter112_report": "experiments/iter112_hugsim_support_core_batch_execution/proof-execution/support_core_batch_execution_report.json",
+    "iter59_analyzer": "experiments/iter59_hugsim_actor_match_audit/analyze_actor_match.py",
+    "manifest": "experiments/iter111_hugsim_support_core_launch_manifest/proof-launch-manifest/support_core_launch_manifest.json",
+    "proof_root": "experiments/iter112_hugsim_support_core_batch_execution/proof-execution"
+  },
+  "iteration": 113,
+  "summary": {
+    "actor_ambiguous": 0,
+    "actor_match": 0,
+    "actor_mismatch": 8,
+    "bridge_counts": {
+      "actor_mismatch": 8
+    },
+    "classifiable_delta_vs_iter108": 6,
+    "classifiable_foreground": 8,
+    "completed_rows": 8,
+    "design_classifiable_counts": {
+      "exact_ttc_classifiable_anchor": 3,
+      "ttc_classifiable_scenario_analogue": 5
+    },
+    "design_counts": {
+      "exact_ttc_classifiable_anchor": 3,
+      "ttc_classifiable_scenario_analogue": 5
+    },
+    "iter108_classifiable_baseline": 2,
+    "min_classifiable_bar": 4,
+    "slot_count": 8,
+    "support_counts": {
+      "classifiable_foreground": 8
+    }
+  },
+  "verdict": "HUGSIM_SUPPORT_CORE_ACTOR_MATCH_AUDIT_COMPLETE"
+}

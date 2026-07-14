@@ -2242,3 +2242,15 @@ events to prepare; they are a property the repository always has.
   actor-match interpretation, repair, threshold-value, safety/transfer/deployment/robustness/
   benchmark/HD-Score-invariance, commercial-value, real-world/first-responder behavior, retuning,
   production, or commercial claim.
+- 2026-07-14: Codex — continued into iteration 113 as the HUGSIM support-core actor-match support
+  audit after iteration 112. Pre-registered ALONE (`3bc6027`), added analyzer/tests (`a3d7439`,
+  targeted ruff/tests/docs green), then ran the analyzer ONCE over committed iteration-111/112
+  artifacts. Result: `HUGSIM_SUPPORT_CORE_ACTOR_MATCH_AUDIT_COMPLETE`; `8/8` slots are
+  `classifiable_foreground` against the frozen floor of `4`, all `3` exact anchors and all `5`
+  scenario analogues remained classifiable, and all `8` bridge labels are `actor_mismatch` with
+  `0` matches and `0` ambiguous rows. This solves the registered support floor for these rows but
+  does not prove repair, safety, or causal effect. Next honest step: offline mismatch-geometry
+  decomposition over the committed support-core report/proof. No actor-causality, repair,
+  threshold-value, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance,
+  commercial-value, real-world/first-responder behavior, retuning, production, or commercial
+  claim.
