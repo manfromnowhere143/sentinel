@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Tue Jul 14 12:06:58 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Tue Jul 14 12:18:41 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+21fbafa iter133: publish placebo semantics control design
+d3c179b iter133: add placebo semantics control tooling
+639265b iter133: preregister placebo semantics control
+1743776 handoff: record iter132 schema instance state
 e8d4931 iter132: publish schema instance preflight
 ffd113f iter132: add schema instance preflight tooling
 5faa681 iter132: preregister schema instance preflight
 143b863 handoff: record iter131 mission audit state
-7d8e453 iter131: accept newer handoff freshness
-fe3fc2e iter131: publish post iter130 mission audit
-4e51b4b iter131: add post iter130 mission audit
-49aad02 iter131: preregister post iter130 mission audit
 ```
 Working tree: CLEAN
 
@@ -55,6 +55,7 @@ Working tree: CLEAN
 - experiments/iter130_support_core_artifact_schema_preflight: RESULT PUBLISHED
 - experiments/iter131_post_iter130_mission_alignment_audit: RESULT PUBLISHED
 - experiments/iter132_support_core_schema_instance_creation_preflight: RESULT PUBLISHED
+- experiments/iter133_neuroncap_placebo_semantics_control_design: RESULT PUBLISHED
 - experiments/iter13_rss_baseline: RESULT PUBLISHED
 - experiments/iter15_latch_release: RESULT PUBLISHED
 - experiments/iter16_soft_stop: RESULT PUBLISHED
@@ -158,7 +159,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 12:08:08 up 10 days,  1:49,  0 users,  load average: 0.00, 0.00, 0.00
+ 12:19:49 up 10 days,  2:00,  0 users,  load average: 0.00, 0.00, 0.00
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-iter112-support-core-batch.log
@@ -170,7 +171,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter132_support_core_schema_instance_creation_preflight/RESULT.md — read it before opening new work.
+- Newest completed experiment: experiments/iter133_neuroncap_placebo_semantics_control_design/RESULT.md — read it before opening new work.
 - Newest pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
@@ -180,14 +181,14 @@ is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT 
 - Run: ruff check . && pytest -q && python3 scripts/validate_docs.py
 - All three must pass before and after your changes; CI enforces the same on push.
 
-## Operator continuation appendix — current through Iter132
+## Operator continuation appendix — current through Iter133
 
-This appendix was added after the generated handoff so the next Codex/Claude session does not
-restart from vibes or from the project narrative.
+This appendix was added after the generated snapshot so the next session can recover the mission
+state without chat history.
 
 ### Active goal to continue
 
-Current active goal in the Codex goal tool:
+Current active goal:
 
 > Continue the Sentinel mission actively from Iter101 without stopping at status: choose and execute
 > the next scientifically justified iteration with preregistration, gates, publication, and handoff.
@@ -202,74 +203,72 @@ mission objective itself is genuinely complete; keep state changes committed, pu
 off.
 ```
 
-### Iter132 final state
+### Iter133 final state
 
-- Latest result: `experiments/iter132_support_core_schema_instance_creation_preflight/RESULT.md`.
-- Latest verdict: `SUPPORT_CORE_SCHEMA_INSTANCE_CREATION_PREFLIGHT_COMPLETE`.
+- Latest result: `experiments/iter133_neuroncap_placebo_semantics_control_design/RESULT.md`.
+- Latest verdict: `NEURONCAP_PLACEBO_SEMANTICS_CONTROL_DESIGN_COMPLETE`.
 - Commits:
-  - `5faa681` — pre-registered Iter132 alone.
-  - `ffd113f` — added Iter132 generator/verifier and tests.
-  - `e8d4931` — published Iter132 proof, result, note, README/NEXT_PHASE/CONTINUITY updates.
-- Proof counts: `3` inert schema-instance templates, `1` validator contract, `30`
-  reserved-path-to-template instance bindings, `10` reservations, `30` reserved relative paths.
-- Negative checks: `0` true authorization flags, `0` missing schema/template/validator/binding
-  content rows, `0` existing reserved or instance-bound paths, `0` duplicate paths, `0` bad
-  references, `0` forbidden keys.
-- Boundary: no `future_artifacts/` directory exists; no reserved path was created; no generated
-  artifact, scenario generation, execution-slot selection, GPU launch, HUGSIM run, learning/update,
-  repair, threshold, metric, deployment, safety, benchmark, production, commercial, acquisition,
-  or frontier-equivalence claim was made.
-- Gates run after publication:
-  - `ruff check .` — passed.
-  - `pytest -q` — `532 passed in 31.96s`.
-  - `python3 scripts/validate_docs.py` — `389 markdown files clean; all RESULT experiments surfaced
-    in README`.
+  - `639265b` — pre-registered Iter133 alone.
+  - `d3c179b` — added Iter133 generator/verifier and tests.
+  - `21fbafa` — published Iter133 proof, result, note, README/NEXT_PHASE/CONTINUITY updates.
+- Proof counts: `1` primary placebo arm, `3` future arms, `4` future verdict classes, `0`
+  semantic-trigger leaks, `0` true authorization flags, `0` source problems.
+- Primary placebo arm: `semantics_scrambled_budget_matched_placebo`.
+- Frozen source anchors:
+  - full-power NeuroNCAP: `799` measured episodes; released-union NCAP delta `+0.783` with CI
+    `[+0.605, +0.928]`; safe-progress delta `-0.032` with CI `[-0.127, +0.065]`.
+  - iteration 13 RSS-style baseline: same observed kinematics and same latched-stop actuator as
+    the union; union-minus-RSS safe-progress `+1.345` with CI `[+0.944, +1.701]`.
+  - iteration 50 opportunity audit: `A1_CONFIRMED`, Spearman rho `+0.7003`, benefit concentrated
+    where OFF-arm collision opportunity exists.
+- Boundary: Iter133 authorizes no GPU launch, NeuroNCAP execution, HUGSIM execution, generated
+  artifact, reserved path creation, scenario generation, execution-slot selection, learning/update,
+  repair, threshold/metric/planner-code change, safety/deployment/production/commercial claim, or
+  frontier-stack equivalence claim.
+- Gates before handoff:
+  - focused Iter133 gates: `ruff` passed, `pytest -q tests/test_iter133...` passed with `6 passed`,
+    docs guard passed.
+  - full publication gates: `ruff check .` passed, `pytest -q` passed with `538 passed`, and
+    `python3 scripts/validate_docs.py` passed with all RESULT experiments surfaced in README.
 
-### Direct answer to the incoming audit/critique
+### Response to the outside critique
 
-I broadly agree with the critique and it should govern the next fork:
+The critique is now incorporated into the mission path. The repo should not keep self-extending
+the support-core preflight chain as if that were empirical progress. Iter133 moved the mission
+back toward adversarial empirical falsification: it freezes the placebo/sham semantics control
+needed to test whether the NeuroNCAP gain is truly semantic or can be explained by generic
+braking/timing opportunity.
 
-- The core publishable science is still the frozen NeuroNCAP result arc, the independent
-  verification discipline, the honest HUGSIM transfer nulls, and the mechanism forensics through
-  the support-core/two-track analysis.
-- Iterations 125-132 are valuable only as controlled evidence infrastructure for future generated
-  support-core artifacts. They are not new empirical improvement, not a repair, not a deployment
-  claim, and not a reason to say Tesla/Mobileye would be behind today.
-- The project must not keep extending a self-grading preflight chain just because each preflight
-  can pass its own bars. The next high-value move should put pressure back on empirical
-  falsification or an externally legible claim boundary.
-- Strongest next scientific fork: pre-register an adversarial empirical test that asks whether the
-  NeuroNCAP gain depends on Sentinel's introspective risk semantics or can be reproduced by a
-  placebo/sham intervention with matched timing, actuator budget, and opportunity. Keep this as a
-  proper experiment with frozen controls, no hidden tuning, and full null publication.
-- Conservative alternate fork if generation must continue first: a reserved-file/stub creation gate
-  that writes only validator-checked placeholder JSON for the already reserved paths. It must be
-  freshly pre-registered and must not run generation, HUGSIM, GPU, learning, repair, or claim
-  upgrade. This is lower scientific value than the adversarial empirical fork.
+Frozen critique anchors preserved for Iter133 reproducibility:
+
+- Iterations 125-132 are valuable only as controlled evidence infrastructure.
+- They are not new empirical improvement.
+- The strongest next test is a placebo/sham intervention with matched timing, actuator budget, and
+  opportunity.
 
 ### Recommended next move
 
-Prefer Iter133 as an adversarial placebo/control design, not another inert preflight:
+Prefer Iter134 as a launch-manifest preflight for the placebo run, not an execution:
 
-`experiments/iter133_neuronncap_placebo_semantics_control_design/`
+`experiments/iter134_neuroncap_placebo_launch_manifest_preflight/`
 
 Frozen question:
 
-> Can we design a seed-paired, no-hidden-tuning NeuroNCAP control that matches Sentinel's actuation
-> opportunity and intervention budget while removing the load-bearing introspective risk semantics,
-> so the next empirical run can distinguish semantic monitoring value from generic braking or timing
-> artifacts?
+> Can the Iter133 placebo-control design be converted into a hash-bound launch manifest for a
+> future OFF/released-union/placebo NeuroNCAP run, with donor schedule ids, scenario ids, run
+> indices, patch files, analyzer files, and environment receipts frozen before any GPU work?
 
-Minimum bars before any run:
+Minimum bars:
 
-- use only committed NeuroNCAP result/control surfaces until a fresh `HYPOTHESIS.md` is committed;
-- freeze the placebo/sham rule, matching policy, opportunity definition, seed pairing, actuator
-  budget, and null verdicts before execution;
-- require independent verification and full null publication;
-- no GPU launch until the design/preflight result says the launch manifest is ready and the operator
-  explicitly approves the run;
-- no Tesla/Mobileye/frontier/commercial/deployment claim.
+- read Iter133 `RESULT.md` and proof report first;
+- no GPU launch and no NeuroNCAP execution in Iter134;
+- bind all future arms, scenario pairs, run indices, donor schedule ids, donor-exclusion receipts,
+  actuator-budget summaries, patch hashes, analyzer hashes, and environment receipts;
+- fail closed if the placebo schedule uses live Sentinel risk score, TTC/CPA triggers,
+  planner-risk introspection, learned prediction, outcome feedback, hidden tuning, or target
+  scenario/seed donors;
+- publish null/infra-null at full weight;
+- refresh README/NEXT_PHASE/CONTINUITY/HANDOFF and run full gates before push.
 
-If the new session decides this is too broad for one iteration, first do a bounded design/preflight
-that outputs the frozen placebo-control protocol and exact launch-manifest requirements, then stop
-only after committing/pushing the result and refreshing this handoff.
+Only after that manifest preflight exists should the operator decide whether to approve GPU for an
+actual OFF/released-union/placebo execution.
