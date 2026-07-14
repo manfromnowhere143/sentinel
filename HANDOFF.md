@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Tue Jul 14 11:52:44 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Tue Jul 14 12:06:58 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+e8d4931 iter132: publish schema instance preflight
+ffd113f iter132: add schema instance preflight tooling
+5faa681 iter132: preregister schema instance preflight
+143b863 handoff: record iter131 mission audit state
 7d8e453 iter131: accept newer handoff freshness
 fe3fc2e iter131: publish post iter130 mission audit
 4e51b4b iter131: add post iter130 mission audit
 49aad02 iter131: preregister post iter130 mission audit
-bbc9344 handoff: record iter130 artifact schema state
-16aa099 iter130: publish artifact schema preflight
-499935f iter130: add artifact schema preflight tooling
-07dc9fc iter130: preregister artifact schema preflight
 ```
 Working tree: CLEAN
 
@@ -54,6 +54,7 @@ Working tree: CLEAN
 - experiments/iter12_plan_selection: RESULT PUBLISHED
 - experiments/iter130_support_core_artifact_schema_preflight: RESULT PUBLISHED
 - experiments/iter131_post_iter130_mission_alignment_audit: RESULT PUBLISHED
+- experiments/iter132_support_core_schema_instance_creation_preflight: RESULT PUBLISHED
 - experiments/iter13_rss_baseline: RESULT PUBLISHED
 - experiments/iter15_latch_release: RESULT PUBLISHED
 - experiments/iter16_soft_stop: RESULT PUBLISHED
@@ -157,7 +158,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 11:53:53 up 10 days,  1:34,  0 users,  load average: 0.00, 0.00, 0.00
+ 12:08:08 up 10 days,  1:49,  0 users,  load average: 0.00, 0.00, 0.00
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-iter112-support-core-batch.log
@@ -169,7 +170,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter131_post_iter130_mission_alignment_audit/RESULT.md — read it before opening new work.
+- Newest completed experiment: experiments/iter132_support_core_schema_instance_creation_preflight/RESULT.md — read it before opening new work.
 - Newest pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
@@ -179,87 +180,96 @@ is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT 
 - Run: ruff check . && pytest -q && python3 scripts/validate_docs.py
 - All three must pass before and after your changes; CI enforces the same on push.
 
-## Operator continuation appendix
+## Operator continuation appendix — current through Iter132
 
-This section was added after the dynamic snapshot so the next session can recover the exact
-mission intent without relying on chat history.
+This appendix was added after the generated handoff so the next Codex/Claude session does not
+restart from vibes or from the project narrative.
 
-### Current state after this shift
+### Active goal to continue
 
-- Latest completed experiment: `experiments/iter131_post_iter130_mission_alignment_audit/RESULT.md`.
-- Latest verdict: `POST_ITER130_MISSION_ALIGNMENT_AUDIT_COMPLETE`.
-- Iteration 131 verifier result: `14/14` checks passed, `0` problems, `5` source anchors.
-- Iteration 130 proof remains the latest artifact-preflight substrate:
-  `3` schema specs, `30` schema bindings, `10` reservations, `30` reserved paths, `0` true
-  authorization flags, `0` existing bound paths, `0` duplicate reserved paths, `0` bad schema
-  references, and `0` forbidden keys.
-- GPU state at handoff generation: `GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS`.
-- Full gates after the final verifier compatibility fix: `ruff check .` passed, `pytest -q`
-  passed with `526 passed`, and `python3 scripts/validate_docs.py` passed with all RESULT
-  experiments surfaced in README.
+Current active goal in the Codex goal tool:
 
-### Mission claim hierarchy to preserve
+> Continue the Sentinel mission actively from Iter101 without stopping at status: choose and execute
+> the next scientifically justified iteration with preregistration, gates, publication, and handoff.
 
-- Proven empirical result: NeuroNCAP released-union monitor improved the frozen UniAD benchmark
-  score under the registered full-power run, while deployment metric stayed a null.
-- Published nulls: HUGSIM transfer remained null; perturbation and velocity-smoothing work did
-  not prove repair.
-- Mechanism evidence: HUGSIM support-core iterations 112-121 explain selected-fire-object versus
-  support-object separation on committed support-core rows.
-- Design/preflight artifacts: iterations 125-130 prepare future support-core generation with
-  archetypes, candidate manifest, source pools, mutation operators, reserved paths, and schema
-  metadata. They do not create scenarios or prove outcome improvement.
-
-### Hard boundaries
-
-Do not claim generated scenarios, HUGSIM improvement, repair, safety, deployment, production,
-commercial value, real-world behavior, first-responder readiness, driver-supervision compliance,
-mission feasibility, or parity/superiority to Tesla, Mobileye, SpaceX, Waymo, NVIDIA, or any
-frontier autonomy stack. Do not create reserved future artifact paths, run HUGSIM, use GPU, select
-execution slots, run learning/update, retune thresholds, change planner/action code, or change
-metrics without a fresh committed `HYPOTHESIS.md`.
-
-### Best next move
-
-The highest-accuracy next iteration is likely:
-
-`iter132_support_core_schema_instance_creation_preflight`
-
-Purpose: freeze the exact schema-instance object shape and validator for the three artifact types
-before writing any reserved path. It should still create no reserved future files. Suggested bars:
-
-- read Iter130 report/result/schema note;
-- verify the Iter130 counts and no-authorization flags;
-- define an inert schema-instance template per artifact type;
-- define a validator contract for identity, metadata, boundary, payload-section names, forbidden
-  fields, and path nonexistence;
-- bind templates to all `30` reserved paths without writing those paths;
-- output report/note/RESULT and keep the claim boundary unchanged.
-
-Alternative bounded lanes if the operator chooses not to start Iter132:
-
-- one-page external claim ledger;
-- explicit mission/rulebook boundary note;
-- higher-fidelity perturbation successor;
-- separated candidate-generation/execution/analysis/monitor-update plan.
-
-### Autonomous continuation prompt
-
-Use this prompt for the next Codex session if you want the same autonomous behavior inside the
-active turn:
+Do not mark this goal complete. The mission is ongoing. A new session should be told:
 
 ```text
-Work autonomously in /Users/danielwahnich/workspace/sentinel toward the Sentinel mission goals.
-First read CONTINUITY.md, HANDOFF.md, docs/NEXT_PHASE.md, and the newest RESULT.md named in
-HANDOFF. Continue from the newest completed experiment, choose the next bounded scientifically
-justified step, preregister before data, implement, verify, publish, commit, push, and refresh
-HANDOFF. Keep the standards high: frozen bars, explicit falsifiers, nulls published at full
-weight, no unearned claims, no GPU/run/creation unless a fresh HYPOTHESIS.md authorizes it. Do not
-stop after planning if the next step is discoverable locally; keep going until the next verified,
-committed, pushed handoff is ready, or until a real blocker requires user input.
+Create/continue the active goal: Continue the Sentinel mission actively from Iter101 without
+stopping at status. Choose and execute the next scientifically justified iteration with
+pre-registration, gates, publication, and handoff. Do not declare the goal complete unless the
+mission objective itself is genuinely complete; keep state changes committed, pushed, and handed
+off.
 ```
 
-There is no durable background daemon that keeps working after the session or tool turn ends. The
-autonomous behavior comes from giving the next active session a clear objective plus permission to
-continue through implementation, verification, commit, push, and handoff. If the UI exposes a
-goal/objective field, use the same text above as the objective.
+### Iter132 final state
+
+- Latest result: `experiments/iter132_support_core_schema_instance_creation_preflight/RESULT.md`.
+- Latest verdict: `SUPPORT_CORE_SCHEMA_INSTANCE_CREATION_PREFLIGHT_COMPLETE`.
+- Commits:
+  - `5faa681` — pre-registered Iter132 alone.
+  - `ffd113f` — added Iter132 generator/verifier and tests.
+  - `e8d4931` — published Iter132 proof, result, note, README/NEXT_PHASE/CONTINUITY updates.
+- Proof counts: `3` inert schema-instance templates, `1` validator contract, `30`
+  reserved-path-to-template instance bindings, `10` reservations, `30` reserved relative paths.
+- Negative checks: `0` true authorization flags, `0` missing schema/template/validator/binding
+  content rows, `0` existing reserved or instance-bound paths, `0` duplicate paths, `0` bad
+  references, `0` forbidden keys.
+- Boundary: no `future_artifacts/` directory exists; no reserved path was created; no generated
+  artifact, scenario generation, execution-slot selection, GPU launch, HUGSIM run, learning/update,
+  repair, threshold, metric, deployment, safety, benchmark, production, commercial, acquisition,
+  or frontier-equivalence claim was made.
+- Gates run after publication:
+  - `ruff check .` — passed.
+  - `pytest -q` — `532 passed in 31.96s`.
+  - `python3 scripts/validate_docs.py` — `389 markdown files clean; all RESULT experiments surfaced
+    in README`.
+
+### Direct answer to the incoming audit/critique
+
+I broadly agree with the critique and it should govern the next fork:
+
+- The core publishable science is still the frozen NeuroNCAP result arc, the independent
+  verification discipline, the honest HUGSIM transfer nulls, and the mechanism forensics through
+  the support-core/two-track analysis.
+- Iterations 125-132 are valuable only as controlled evidence infrastructure for future generated
+  support-core artifacts. They are not new empirical improvement, not a repair, not a deployment
+  claim, and not a reason to say Tesla/Mobileye would be behind today.
+- The project must not keep extending a self-grading preflight chain just because each preflight
+  can pass its own bars. The next high-value move should put pressure back on empirical
+  falsification or an externally legible claim boundary.
+- Strongest next scientific fork: pre-register an adversarial empirical test that asks whether the
+  NeuroNCAP gain depends on Sentinel's introspective risk semantics or can be reproduced by a
+  placebo/sham intervention with matched timing, actuator budget, and opportunity. Keep this as a
+  proper experiment with frozen controls, no hidden tuning, and full null publication.
+- Conservative alternate fork if generation must continue first: a reserved-file/stub creation gate
+  that writes only validator-checked placeholder JSON for the already reserved paths. It must be
+  freshly pre-registered and must not run generation, HUGSIM, GPU, learning, repair, or claim
+  upgrade. This is lower scientific value than the adversarial empirical fork.
+
+### Recommended next move
+
+Prefer Iter133 as an adversarial placebo/control design, not another inert preflight:
+
+`experiments/iter133_neuronncap_placebo_semantics_control_design/`
+
+Frozen question:
+
+> Can we design a seed-paired, no-hidden-tuning NeuroNCAP control that matches Sentinel's actuation
+> opportunity and intervention budget while removing the load-bearing introspective risk semantics,
+> so the next empirical run can distinguish semantic monitoring value from generic braking or timing
+> artifacts?
+
+Minimum bars before any run:
+
+- use only committed NeuroNCAP result/control surfaces until a fresh `HYPOTHESIS.md` is committed;
+- freeze the placebo/sham rule, matching policy, opportunity definition, seed pairing, actuator
+  budget, and null verdicts before execution;
+- require independent verification and full null publication;
+- no GPU launch until the design/preflight result says the launch manifest is ready and the operator
+  explicitly approves the run;
+- no Tesla/Mobileye/frontier/commercial/deployment claim.
+
+If the new session decides this is too broad for one iteration, first do a bounded design/preflight
+that outputs the frozen placebo-control protocol and exact launch-manifest requirements, then stop
+only after committing/pushing the result and refreshing this handoff.
