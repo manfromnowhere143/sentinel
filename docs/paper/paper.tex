@@ -1,5 +1,7 @@
 \documentclass[11pt]{article}
 \usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{amsmath}
@@ -313,24 +315,30 @@ they map the mechanism space for runtime driving assurance more sharply than the
 number does, and they name the next constraint to remove.
 
 \begin{thebibliography}{99}\small
-\bibitem{neuroncap} Ljungbergh et al. NeuroNCAP: Photorealistic closed-loop safety testing for
-autonomous driving. arXiv:2404.07762, 2024.
-\bibitem{bevplanner} Li et al. Is ego status all you need for open-loop end-to-end autonomous
-driving? arXiv:2312.03031, 2023.
+\bibitem{neuroncap} W. Ljungbergh, A. Tonderski, J. Johnander, H. Caesar, K. {\AA}str{\"o}m,
+M. Felsberg, and C. Petersson. NeuroNCAP: Photorealistic closed-loop safety testing for
+autonomous driving. In \emph{European Conference on Computer Vision (ECCV)}, 2024.
+DOI:10.1007/978-3-031-73404-5\_10; arXiv:2404.07762.
+\bibitem{bevplanner} Z. Li, Z. Yu, S. Lan, J. Li, J. Kautz, T. Lu, and J. M. Alvarez. Is ego
+status all you need for open-loop end-to-end autonomous driving? In \emph{IEEE/CVF Conference on
+Computer Vision and Pattern Recognition (CVPR)}, 2024. arXiv:2312.03031.
 \bibitem{bridgead} Zhang et al. Bridging past and future in end-to-end autonomous driving
 (BridgeAD). CVPR 2025; arXiv:2503.14182.
 \bibitem{dmad} Shen et al. Divide and merge: motion and semantic learning in end-to-end
 autonomous driving (DMAD). arXiv:2502.07631, 2025.
 \bibitem{imagidrive} ImagiDrive: driving-world-model imagination with a VLM agent. ICRA 2026;
 arXiv:2508.11428.
-\bibitem{catplan} CATPlan/RiskMonitor: collision prediction for end-to-end planners.
-arXiv:2503.07425, 2025.
+\bibitem{catplan} Z. Xiong, S. Liu, N. Helgesen, J. Johnander, and P.-E. Forss{\'e}n. Collision
+risk estimation via loss prediction in end-to-end autonomous driving. arXiv:2503.07425, 2025.
+(v1 titled ``CATPlan: Loss-based collision prediction in end-to-end autonomous driving''.)
 \bibitem{argus} Argus: runtime monitoring and takeover for end-to-end drivers. arXiv:2511.09032,
 ASE 2025.
 \bibitem{centaur} Centaur: test-time adaptation for robust planning. arXiv:2503.11650, 2025.
 \bibitem{diver} DIVER: diversified trajectory generation. arXiv:2507.04049, 2025.
 \bibitem{gtrs} GTRS: trajectory scoring at scale. arXiv:2506.06664, 2025.
-\bibitem{diffusiondrive} DiffusionDrive. arXiv:2411.15139, 2024.
+\bibitem{diffusiondrive} DiffusionDrive: Truncated diffusion model for end-to-end autonomous
+driving. In \emph{IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}, 2025.
+arXiv:2411.15139.
 \bibitem{awta} Annealed winner-takes-all. arXiv:2409.11172, 2024.
 \bibitem{modecollapse} Mode collapse happens: evaluating critical interactions in joint
 trajectory prediction. arXiv:2506.23164, 2025.
