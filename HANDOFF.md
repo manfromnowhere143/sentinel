@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Tue Jul 14 05:58:14 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Tue Jul 14 06:10:29 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+43e33b6 iter105: publish timing aware provenance batch design
+223edd1 iter105: add timing aware batch design tooling
+2091c59 iter105: preregister timing aware provenance batch design
+b6c1bd3 handoff: record iter104 actor match state
 6b77b7f iter104: publish batch actor match support audit
 57d465d iter104: add batch actor match tooling
 d3a1453 iter104: preregister batch actor match audit
 cdd941a handoff: record iter103 completion state
-7217ae3 iter103: publish provenance batch execution
-1ba1b3e iter103: collect provenance batch proof
-864fe8d handoff: record iter103 in flight
-8f7d8f7 iter103: add provenance batch execution tooling
 ```
 Working tree: CLEAN
 
@@ -24,6 +24,7 @@ Working tree: CLEAN
 - experiments/iter102_hugsim_provenance_batch_launch_manifest: RESULT PUBLISHED
 - experiments/iter103_hugsim_provenance_batch_execution: RESULT PUBLISHED
 - experiments/iter104_hugsim_provenance_batch_actor_match_audit: RESULT PUBLISHED
+- experiments/iter105_hugsim_timing_aware_provenance_batch_design: RESULT PUBLISHED
 - experiments/iter10_brakevade: RESULT PUBLISHED
 - experiments/iter11_early_evade: RESULT PUBLISHED
 - experiments/iter12_plan_selection: RESULT PUBLISHED
@@ -130,7 +131,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 05:59:23 up 9 days, 19:40,  0 users,  load average: 0.00, 0.16, 1.48
+ 06:11:37 up 9 days, 19:52,  0 users,  load average: 0.00, 0.00, 0.64
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-iter103-provenance-batch.log
@@ -142,7 +143,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter104_hugsim_provenance_batch_actor_match_audit/RESULT.md — read it before opening new work.
+- Newest completed experiment: experiments/iter105_hugsim_timing_aware_provenance_batch_design/RESULT.md — read it before opening new work.
 - Newest pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
