@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Tue Jul 14 10:49:04 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Tue Jul 14 10:56:40 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+c68cc78 iter125: publish support core blind spot design
+5e6249e iter125: add support core blind spot design tooling
+882ee5f iter125: preregister support core blind spot design
+262d2a0 handoff: record iter124 freshness state
 d471114 iter124: publish manuscript report freshness
 509fa79 iter124: add manuscript report freshness checks
 39e3ad5 iter124: preregister manuscript report freshness
 8293184 handoff: record iter123 mission audit state
-45efba5 iter123: publish mission evidence audit
-51e09d2 iter123: add mission evidence audit
-fa3359c iter123: preregister mission evidence audit
-8cd9280 handoff: record iter122 taxonomy docs state
 ```
 Working tree: CLEAN
 
@@ -46,6 +46,7 @@ Working tree: CLEAN
 - experiments/iter122_support_core_taxonomy_documentation: RESULT PUBLISHED
 - experiments/iter123_mission_evidence_alignment_audit: RESULT PUBLISHED
 - experiments/iter124_manuscript_report_freshness: RESULT PUBLISHED
+- experiments/iter125_support_core_blind_spot_scenario_design: RESULT PUBLISHED
 - experiments/iter12_plan_selection: RESULT PUBLISHED
 - experiments/iter13_rss_baseline: RESULT PUBLISHED
 - experiments/iter15_latch_release: RESULT PUBLISHED
@@ -150,7 +151,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 10:50:12 up 10 days, 31 min,  0 users,  load average: 0.00, 0.00, 0.00
+ 10:57:48 up 10 days, 38 min,  0 users,  load average: 0.00, 0.00, 0.00
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-iter112-support-core-batch.log
@@ -162,7 +163,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter124_manuscript_report_freshness/RESULT.md — read it before opening new work.
+- Newest completed experiment: experiments/iter125_support_core_blind_spot_scenario_design/RESULT.md — read it before opening new work.
 - Newest pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
