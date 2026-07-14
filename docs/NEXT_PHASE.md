@@ -160,6 +160,14 @@ bounded two-track taxonomy and the exact claim boundary, with iteration 122's ve
 `SUPPORT_CORE_TAXONOMY_DOCUMENTATION_COMPLETE`. The next operator-requested move is a
 mission-level evidence/alignment audit across Sentinel's results, claims, docs, and next-step
 framing, not a new HUGSIM GPU run.
+That audit is now complete:
+[`research/SENTINEL_MISSION_EVIDENCE_ALIGNMENT_AUDIT_2026-07-14.md`](research/SENTINEL_MISSION_EVIDENCE_ALIGNMENT_AUDIT_2026-07-14.md)
+records the defensible strengths, reviewer attack surface, freshness fixes, and bounded next
+actions. The immediate fixes were README current-state wording and the frontier-memory capsule's
+stale iteration-84 endpoint. The next choice should be one of the audit's bounded lanes:
+publication-quality manuscript/report freshness, blind-spot/scenario-generation design seeded by
+HUGSIM support-core failures, a higher-fidelity perturbation successor, explicit mission/rulebook
+boundary definition, or an external one-page claim ledger.
 
 ## New frontier packet after these lines closed
 

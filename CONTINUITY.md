@@ -2359,3 +2359,16 @@ events to prepare; they are a property the repository always has.
   claims, docs, and next-step framing. No actor-causality, repair, threshold-value, transfer
   upgrade, safety/deployment/robustness/benchmark/HD-Score-invariance, commercial-value,
   real-world/first-responder behavior, retuning, production, or commercial claim.
+- 2026-07-14: Codex — continued into iteration 123 as the operator-requested mission evidence and
+  frontier-alignment audit after iteration 122. Pre-registered ALONE (`fa3359c`), added the
+  source-backed audit note, verifier/tests, and surgical README/frontier-memory freshness fixes
+  (`51e09d2`, targeted ruff/tests/docs green), then ran the verifier ONCE. Result:
+  `MISSION_EVIDENCE_ALIGNMENT_AUDIT_COMPLETE`; all `7` checks passed with `0` problems and `7`
+  source anchors. The audit fixed two concrete freshness issues: README no longer says the current
+  campaign is only "Ninety-three registered iterations", and the July 13 frontier memory now marks
+  iteration 84 as historical and points to the iteration-122 support-core taxonomy note. Next
+  bounded options: manuscript/report freshness pass, blind-spot/scenario-generation design,
+  higher-fidelity perturbation successor, explicit mission/rulebook boundary, or one-page external
+  claim ledger. No actor-causality, repair, threshold-value, transfer upgrade, safety/deployment/
+  robustness/benchmark/population-rate/HD-Score-invariance, commercial-value, real-world/
+  first-responder behavior, retuning, production, or commercial claim.

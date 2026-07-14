@@ -1,0 +1,95 @@
+{
+  "checks": [
+    {
+      "label": "audit-note-sections",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "## Source Refresh",
+        "## Defensible Strengths",
+        "## Reviewer Attack Surface",
+        "## Freshness Fixes",
+        "## Next Bounded Actions",
+        "## Claim Boundary"
+      ]
+    },
+    {
+      "label": "audit-note-boundary",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "This audit authorizes no repair, actor-causality, threshold-value, transfer upgrade, safety, deployment, robustness, benchmark, population-rate, HD-Score-invariance, real-world behavior, first-responder behavior, acquisition-value, retuning, production, commercial claim, or claim that Sentinel matches or exceeds Tesla, Mobileye, SpaceX, Waymo, NVIDIA, or any current frontier autonomy stack."
+      ]
+    },
+    {
+      "label": "audit-note-source-anchors",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "https://www.mobileye.com/blog/diagnosing-the-long-tail-how-mobileye-turns-edge-cases-into-targeted-training/",
+        "https://www.mobileye.com/opinion/driving-the-long-tail/",
+        "https://www.tesla.com/support/fsd/v14-trial",
+        "https://arxiv.org/abs/2607.03755",
+        "https://arxiv.org/abs/2606.06996",
+        "https://arxiv.org/html/2607.10975v1",
+        "https://arxiv.org/html/2607.04953v1"
+      ]
+    },
+    {
+      "label": "audit-note-core-terms",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "NeuroNCAP",
+        "HUGSIM transfer null",
+        "support-core taxonomy",
+        "Reviewer Attack Surface",
+        "Next Bounded Actions"
+      ]
+    },
+    {
+      "label": "readme-freshness",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "current through iteration 122",
+        "iter122_support_core_taxonomy_documentation",
+        "Later HUGSIM iterations 98-122"
+      ]
+    },
+    {
+      "label": "frontier-memory-freshness",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "Post-iteration-122 update",
+        "SUPPORT_CORE_TWO_TRACK_TAXONOMY_2026-07-14.md",
+        "iteration-84 recommendation as current"
+      ]
+    },
+    {
+      "label": "iter122-result-present",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "SUPPORT_CORE_TAXONOMY_DOCUMENTATION_COMPLETE"
+      ]
+    }
+  ],
+  "claim_boundary": "This audit authorizes no repair, actor-causality, threshold-value, transfer upgrade, safety, deployment, robustness, benchmark, population-rate, HD-Score-invariance, real-world behavior, first-responder behavior, acquisition-value, retuning, production, commercial claim, or claim that Sentinel matches or exceeds Tesla, Mobileye, SpaceX, Waymo, NVIDIA, or any current frontier autonomy stack.",
+  "inputs": {
+    "audit_note": "docs/research/SENTINEL_MISSION_EVIDENCE_ALIGNMENT_AUDIT_2026-07-14.md",
+    "frontier_memory": "docs/research/FRONTIER_ALIGNMENT_MEMORY_2026-07-13.md",
+    "iter122_result": "experiments/iter122_support_core_taxonomy_documentation/RESULT.md",
+    "readme": "README.md"
+  },
+  "iteration": 123,
+  "problems": [],
+  "summary": {
+    "check_count": 7,
+    "passed_check_count": 7,
+    "problem_count": 0,
+    "source_anchor_count": 7
+  },
+  "verdict": "MISSION_EVIDENCE_ALIGNMENT_AUDIT_COMPLETE"
+}
