@@ -59,11 +59,15 @@ pre-registration if launcher semantics change.
 That execution successor is now complete: all `13/13` manifest slots ran on first attempt under
 the byte-bound HUGSIM provenance patch and released-union monitor patch, with `13/13` proof
 artifact sets complete, `13/13` evals exposing the top-level `collision_provenance` key, `217`
-total provenance rows, and all four duplicate scenario groups preserved by `slot_id`. This
-retires the launch/execution blocker only. It still does not classify actor matches or claim a
-repair. The next local HUGSIM priority is a fresh pre-registration over the committed Iter103
-proof that asks which slots are classifiable for monitor-hazard versus HUGSIM collision-actor
-comparison.
+total provenance rows, and all four duplicate scenario groups preserved by `slot_id`. The
+actor-match support successor then reused the frozen iteration-59 classifier over that proof.
+Infrastructure passed, but support did not: only `1/13` slots was `classifiable_foreground`
+against the preregistered floor of `4`, with the remaining slots split across background-only,
+post-collision-fire, and no-monitor-fire cases. That one classifiable row was an
+`actor_mismatch`, but the support floor prevents a stronger actor-match story. The next local
+HUGSIM priority is support-yield redesign: a fresh pre-registration for a provenance batch biased
+toward pre-or-at-foreground monitor fires with foreground collision provenance, preserving
+byte-bound instrumentation, slot-level manifest keys, and no retuning.
 
 ## New frontier packet after these lines closed
 
