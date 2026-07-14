@@ -20,6 +20,11 @@
  "uniad_checkpoint_bytes": 996345538,
  "uniad_git_head": "4827b8be0823e90862caa75d9d146b2ae800b72f",
  "ncap_git_head": "ecdcf284e2b7b83c537f3292a06c0adddff55811",
+ "ncap_compose_script_path": "/opt/sentinel-stack/neuro-ncap/scripts/_docker_compose_release.sh",
+ "ncap_compose_script_sha256": "9f8804b523faa8ec3b6770a69b4b4bc9595c2b36e4b98422a588b9a3e1fe8e5d",
+ "ncap_compose_script_note": "This harness script was ALREADY modified relative to upstream before iteration 134: the SENTINEL_* '-e' forwarding list is not upstream NeuroNCAP. Iteration 134 appended exactly '-e SENTINEL_PLACEBO_PAIR -e SENTINEL_PLACEBO_SCHEDULE' to the MODEL container block (line 58) only. The renderer block (line 40) was NOT touched, per the iteration-2 finding that the monitor env belongs on the model block. The disclosed smoke proved the change is necessary: without it SENTINEL_PLACEBO_PAIR never reaches the container, the schedule lookup misses on every frame, and the placebo silently never fires. The added variables are inert for the off and union arms, which do not read them; the G2 exact-reproduction gate tests that claim mechanically rather than assuming it.",
+ "ncap_compose_script_env_added": ["SENTINEL_PLACEBO_PAIR", "SENTINEL_PLACEBO_SCHEDULE"],
+ "sentinel_release_k_note": "SENTINEL_RELEASE_K is NOT in the compose script's forwarding list and was not forwarded during the power run either. The union reads os.environ.get('SENTINEL_RELEASE_K', '4'), so the frozen K=4 came from the in-code default, not the environment. Iteration 134 changes nothing here: the same default carries, so the union arm is parameter-identical to the committed power-run arm.",
  "uniad_track_py_sha256": "905dcbc652eb526b0cd7fd2a51534cfcdefdd293ca8417b37091c825e61aa3b8",
  "uniad_track_py_note": "projects/mmdet3d_plugin/uniad/detectors/uniad_track.py carries the recorded CPU-fallback shim for the cuSOLVER failure on L4 sm_89 (iteration 1 blocker insight 8). It is load-bearing, it is NOT reset by the launcher, and it is pinned here so the iteration-134 G2 exact-reproduction gate is interpretable against the committed power-run evidence.",
  "uniad_modified_tracked_paths": [

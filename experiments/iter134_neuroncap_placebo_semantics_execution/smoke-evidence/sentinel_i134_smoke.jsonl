@@ -1,0 +1,26 @@
+{"reset": true, "run": 0, "pair": "frontal/0923"}
+{"frame": true, "run": 0, "k": 0}
+{"frame": true, "run": 0, "k": 1}
+{"frame": true, "run": 0, "k": 2}
+{"frame": true, "run": 0, "k": 3}
+{"frame": true, "run": 0, "k": 4}
+{"frame": true, "run": 0, "k": 5}
+{"frame": true, "run": 0, "k": 6}
+{"frame": true, "run": 0, "k": 7}
+{"brake": true, "run": 0, "k": 7, "pair": "frontal/0923", "donor": "frontal/0103/1"}
+{"frame": true, "run": 0, "k": 8}
+{"brake": true, "run": 0, "k": 8, "pair": "frontal/0923", "donor": "frontal/0103/1"}
+{"frame": true, "run": 0, "k": 9}
+{"brake": true, "run": 0, "k": 9, "pair": "frontal/0923", "donor": "frontal/0103/1"}
+{"frame": true, "run": 0, "k": 10}
+{"brake": true, "run": 0, "k": 10, "pair": "frontal/0923", "donor": "frontal/0103/1"}
+{"frame": true, "run": 0, "k": 11}
+{"brake": true, "run": 0, "k": 11, "pair": "frontal/0923", "donor": "frontal/0103/1"}
+{"frame": true, "run": 0, "k": 12}
+{"brake": true, "run": 0, "k": 12, "pair": "frontal/0923", "donor": "frontal/0103/1"}
+{"frame": true, "run": 0, "k": 13}
+{"brake": true, "run": 0, "k": 13, "pair": "frontal/0923", "donor": "frontal/0103/1"}
+{"frame": true, "run": 0, "k": 14}
+{"brake": true, "run": 0, "k": 14, "pair": "frontal/0923", "donor": "frontal/0103/1"}
+{"frame": true, "run": 0, "k": 15}
+{"frame": true, "run": 0, "k": 16}
