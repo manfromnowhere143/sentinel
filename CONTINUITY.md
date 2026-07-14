@@ -2627,3 +2627,43 @@ events to prepare; they are a property the repository always has.
   it before any venue does -> submit to a peer-reviewed venue (TMLR fits a null-bearing campaign;
   RA-L / IEEE T-ITS give an unambiguous DOI) -> arXiv becomes an optional appeal afterward, not
   the goal. Do not touch the paper before iteration 134 lands.
+
+- **CLAIM-LEVEL AUDIT OF `paper.tex` (2026-07-14). Two claims the campaign's own evidence
+  contradicts. Binding on the rewrite.** The earlier entry audited presentation. This audits
+  claims against committed evidence, which is what a referee does first.
+
+  **(a) The Limitations section states a bound that was already false at submission.** It reads
+  "This campaign uses one simulator (NeuroNCAP with the NeuRAD renderer) ... and two planners."
+  By 2026-07-12 the campaign had run a SECOND closed-loop simulator across iterations 45-49 and
+  published `TRANSFER_NULL` twice (iterations 48 and 49), in the same repository, the same day.
+  The section written to demonstrate scope-awareness asserts a scope the evidence had already
+  broken. Fix: state the second simulator and its null in Limitations AND in the result framing.
+
+  **(b) Abstract result (5) is a universal negative inferred from two failed probes, unhedged.**
+  `paper.tex:54`: "The collapse therefore sits in the planner's internal planning representation,
+  not in any decoder above it." Supporting evidence is iteration 19 (D1 escape-rate bar,
+  pre-registered at >30%, observed 0/37) and iteration 21 (BEV conditioning also fails). Those
+  license "no decoder WE TRIED recovered escapes." They do not license "not in ANY decoder above
+  it" -- the standard probing fallacy (a probe's failure is not the representation's silence).
+  The inference is not pre-registered in iteration 19's HYPOTHESIS, which registers only the D1
+  escape-rate bar. Nothing in the Limitations section hedges it.
+
+  **Aggravating and unmentioned: the campaign TRIED to establish (5) causally and failed.**
+  Iteration 31 `INFRASTRUCTURE_NULL_S0_CANARY_ALPHA_ZERO_REPRODUCTION_FAIL`; iteration 33
+  `CALIBRATION_NULL_NO_USABLE_ALPHA`; iteration 37 `CALIBRATION_NULL_NO_USABLE_ALPHA`; iteration
+  38 the opposite-direction control. The representation-intervention arc that would have licensed
+  a causal localization returned nulls, and the paper asserts the localization without reporting
+  the attempt.
+
+  **The supported wording, for the rewrite:** "We could not recover feasible escapes from the
+  planner's planning embeddings with two separately trained generators (0/37 dangerous frames).
+  Whether a stronger decoder could remains untested; our attempts to establish the localization
+  causally, by intervening on the representation, returned calibration nulls -- no usable
+  intervention strength existed." This reports a real negative, names its limit, and leaves the
+  causal question open. It is stronger than the current claim because it cannot be attacked.
+
+  **Rewrite is bound to all of it:** fold in the iteration 48/49 boundary (result AND Limitations),
+  fold in iteration 134's control, soften (5) to what two probes support, cut the abstract from
+  `564` words / SIX results to ONE claim, venue the `14` bare-arXiv references, drop the
+  campaign-report sections ("Negative results I/II", "the incident record"). Nothing here depends
+  on iteration 134 except the headline claim itself.

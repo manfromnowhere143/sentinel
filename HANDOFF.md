@@ -1,9 +1,10 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Tue Jul 14 15:48:22 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Tue Jul 14 16:12:36 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+480e745 docs: record the arxiv rejection and its mechanism
 0334b80 handoff: refresh baton and log the iter131 idle-box amendment
 5796929 iter131: stop requiring an idle box for the audit to pass
 428d674 handoff: warn that iter134 is in flight, do not relaunch
@@ -11,7 +12,6 @@ Generated: Tue Jul 14 15:48:22 UTC 2026 by scripts/make_handoff.py. Read CONTINU
 dc0bb23 iter134: smoke proves placebo fires on donor schedule
 2b9f560 iter134: add placebo tooling and launch manifest
 647bab0 iter134: preregister placebo semantics execution
-8095ee9 handoff: record iter133 placebo control state
 ```
 Working tree: DIRTY — resolve before handoff:
 M CONTINUITY.md
@@ -161,16 +161,16 @@ M CONTINUITY.md
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 15:49:30 up 10 days,  5:30,  0 users,  load average: 1.06, 1.17, 1.15
+ 16:13:45 up 10 days,  5:54,  0 users,  load average: 1.22, 1.23, 1.19
 GPU_RUN_STATE=IN_FLIGHT_CONTAINERS
-cranky_cartwright	Up 36 minutes
-model	Up 36 minutes
-renderer	Up 36 minutes
+adoring_elion	Up 21 minutes
+model	Up 21 minutes
+renderer	Up 21 minutes
 /var/log/sentinel-i134.log
 /var/log/sentinel-vitals.log
 /var/log/sentinel-i134-smoke.log
 /dev/root       310G  273G   38G  88% /
-Swap:          8.0Gi       4.8Gi       3.2Gi
+Swap:          8.0Gi       4.3Gi       3.7Gi
 ```
 If any docker container named renderer/model/ncap (or a random-name ncap) is up, a run
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
@@ -189,26 +189,20 @@ is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT 
 ## OPERATOR STOP — A RUN IS IN FLIGHT (read before touching the box)
 
 **Iteration 134 is executing on `sentinel-gpu`.** Launched 2026-07-14 12:59:10 UTC. `1,200`
-episodes, three arms, one launch. Log `/var/log/sentinel-i134.log`. Done marker
-**`I134_PLACEBO_DONE`**. Observed pace ~136 s/episode implies ~45 h (inside the pre-registered
-30-55 GPU-h expectation; ceiling 80). **DO NOT relaunch while containers are up** — the probe
-above reports `GPU_RUN_STATE=` mechanically.
+episodes, three arms. Log `/var/log/sentinel-i134.log`. Done marker **`I134_PLACEBO_DONE`**.
+Observed ~136 s/episode implies ~45 h (inside the pre-registered 30-55 GPU-h; ceiling 80).
+**DO NOT relaunch while containers are up** — the probe above reports `GPU_RUN_STATE=`.
 
-Iteration 134 is an EXECUTION, not a preflight. An earlier appendix recommended 134 be a
-launch-manifest preflight; superseded before launch. The hash-bound manifest it asked for exists
-as step 1 of the execution: `experiments/iter134_.../launch_manifest.json`. Operator GPU approval
-is on record. Commits: `647bab0` pre-reg alone, `2b9f560` tooling+manifest, `dc0bb23` disclosed
-smoke, `5c30941` launch record + on-done block.
+On `I134_PLACEBO_DONE` follow `CONTINUITY.md` -> "### On I134_PLACEBO_DONE" verbatim: proof
+committed FIRST, G0 re-verified, analyzer ONCE from committed artifacts, verdict at FULL WEIGHT.
+G2 can veto any semantic reading if the box drifted.
 
-**On `I134_PLACEBO_DONE`, follow `CONTINUITY.md` -> "### On I134_PLACEBO_DONE" verbatim.** Proof
-committed FIRST, G0 re-verified, analyzer ONCE from committed artifacts, verdict at FULL WEIGHT in
-whichever of the four frozen classes fires. G2 can veto any semantic reading if the box drifted.
-
-**PAPER: arXiv REJECTED the submission (2026-07-14).** Appeal needs a conventional-journal DOI.
-`iter124`'s manuscript freshness gate is DEFECTIVE — it validated `MANUSCRIPT.md`, which was never
-submitted, while the submitted `paper.tex` omits the HUGSIM transfer boundary entirely. Do not
-trust that gate. Do not touch the paper until 134 lands; see the CONTINUITY entry for the full
-moderation audit and the fixed rewrite sequence.
+**PAPER: arXiv REJECTED (2026-07-14).** Appeal needs a conventional-journal DOI. Do not touch the
+paper until 134 lands. Two CONTINUITY entries bind the rewrite: the rejection mechanism
+(`iter124`'s freshness gate validated `MANUSCRIPT.md`, which was never submitted, while the
+submitted `paper.tex` omits HUGSIM entirely — DO NOT TRUST THAT GATE) and the claim-level audit
+(Limitations falsely says "one simulator"; abstract result (5) is a universal negative from two
+failed probes while the causal-intervention arc returned only nulls).
 
 Frozen critique anchors preserved for Iter133 reproducibility:
 
