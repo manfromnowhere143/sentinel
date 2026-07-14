@@ -80,9 +80,12 @@ actor-match support audit over that proof is now complete too. It improved suppo
 to `2/13` foreground-classifiable rows, but still failed the registered floor of `4`; the
 remaining rows split into `6` background-only, `4` post-collision-fire, and `1`
 no-collision-provenance cases, and both classifiable rows were actor mismatches under the frozen
-bridge. The next local HUGSIM priority is a residual support-yield decomposition over the
-iteration-105/107/108 artifacts: explain why the timing-aware design still produces mostly
-unclassifiable rows before authorizing another GPU schedule.
+bridge. The residual support-yield decomposition over the iteration-105/107/108 artifacts is now
+complete: the support failure splits into `7/13` foreground-absent or empty-provenance rows and
+`4/13` observed post-collision-fire timing inversions. The sharpest actionable split is channel
+selection: `2/5` `ttc_only` slots were classifiable, while `0/8` `cpa_only` slots were
+classifiable. The next local HUGSIM priority is offline support-preserving candidate design that
+uses those residual labels before proposing any new GPU schedule.
 
 ## New frontier packet after these lines closed
 
