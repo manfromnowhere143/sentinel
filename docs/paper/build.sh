@@ -18,6 +18,15 @@ set -euo pipefail
 export PATH="/Library/TeX/texbin:$PATH"
 cd "$(dirname "$0")"
 
+# Determinism: pdflatex stamps a creation date into the PDF and tar embeds mtimes, so an
+# unchanged source would otherwise produce different bytes on every build -- the paper would be
+# the one artifact in this repository that cannot reproduce. Pin the clock to the last commit
+# that touched paper.tex, so identical source => identical bytes, and a changed PDF always means
+# a changed source.
+SOURCE_DATE_EPOCH="$(git log -1 --format=%ct -- paper.tex 2>/dev/null || echo 1)"
+export SOURCE_DATE_EPOCH
+export FORCE_SOURCE_DATE=1
+
 command -v pdflatex >/dev/null || {
   echo "FAIL: pdflatex not found. Install with: brew install --cask basictex"
   echo "      then: eval \"\$(/usr/libexec/path_helper)\""
@@ -46,8 +55,25 @@ fi
 # the tarball must be rebuilt from the SAME source, never hand-assembled
 echo "== rebuilding submission tarball from this source =="
 rm -f sentinel-arxiv-submission.tar.gz
-tar czf sentinel-arxiv-submission.tar.gz ./paper.tex ./figures/fig1_benchmark.pdf \
-    ./figures/fig2_leadtime.pdf ./figures/fig3_routing.pdf
+# built deterministically (pinned mtime/uid/gid, no gzip timestamp) so identical source always
+# yields an identical tarball; bsdtar on macOS cannot pin mtime, so do it in python
+python3 - "$SOURCE_DATE_EPOCH" <<'PY'
+import gzip, io, sys, tarfile
+epoch = int(sys.argv[1])
+members = ["./paper.tex", "./figures/fig1_benchmark.pdf",
+           "./figures/fig2_leadtime.pdf", "./figures/fig3_routing.pdf"]
+buf = io.BytesIO()
+with tarfile.open(fileobj=buf, mode="w", format=tarfile.USTAR_FORMAT) as tar:
+    for name in members:
+        info = tar.gettarinfo(name)
+        info.mtime, info.uid, info.gid, info.uname, info.gname = epoch, 0, 0, "", ""
+        with open(name, "rb") as fh:
+            tar.addfile(info, fh)
+with open("sentinel-arxiv-submission.tar.gz", "wb") as out:
+    # mtime=0 keeps the gzip header timestamp out of the bytes
+    with gzip.GzipFile(fileobj=out, mode="wb", mtime=0) as gz:
+        gz.write(buf.getvalue())
+PY
 tar tzf sentinel-arxiv-submission.tar.gz
 
 echo "== shipped artifact SHA256 (drift is visible here) =="
