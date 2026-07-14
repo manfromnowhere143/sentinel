@@ -1,19 +1,20 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Tue Jul 14 12:18:41 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Tue Jul 14 13:22:43 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+5c30941 iter134: record launch and on-done protocol
+dc0bb23 iter134: smoke proves placebo fires on donor schedule
+2b9f560 iter134: add placebo tooling and launch manifest
+647bab0 iter134: preregister placebo semantics execution
+8095ee9 handoff: record iter133 placebo control state
 21fbafa iter133: publish placebo semantics control design
 d3c179b iter133: add placebo semantics control tooling
 639265b iter133: preregister placebo semantics control
-1743776 handoff: record iter132 schema instance state
-e8d4931 iter132: publish schema instance preflight
-ffd113f iter132: add schema instance preflight tooling
-5faa681 iter132: preregister schema instance preflight
-143b863 handoff: record iter131 mission audit state
 ```
-Working tree: CLEAN
+Working tree: DIRTY — resolve before handoff:
+ M scripts/make_handoff.py
 
 ## Experiments (status inferred from files)
 
@@ -56,6 +57,7 @@ Working tree: CLEAN
 - experiments/iter131_post_iter130_mission_alignment_audit: RESULT PUBLISHED
 - experiments/iter132_support_core_schema_instance_creation_preflight: RESULT PUBLISHED
 - experiments/iter133_neuroncap_placebo_semantics_control_design: RESULT PUBLISHED
+- experiments/iter134_neuroncap_placebo_semantics_execution: PRE-REGISTERED, result pending
 - experiments/iter13_rss_baseline: RESULT PUBLISHED
 - experiments/iter15_latch_release: RESULT PUBLISHED
 - experiments/iter16_soft_stop: RESULT PUBLISHED
@@ -159,20 +161,23 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 12:19:49 up 10 days,  2:00,  0 users,  load average: 0.00, 0.00, 0.00
-GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
+ 13:23:52 up 10 days,  3:04,  0 users,  load average: 1.23, 1.12, 1.02
+GPU_RUN_STATE=IN_FLIGHT_CONTAINERS
+infallible_tharp	Up 24 minutes
+model	Up 24 minutes
+renderer	Up 24 minutes
 /var/log/sentinel-vitals.log
-/var/log/sentinel-iter112-support-core-batch.log
-/var/log/sentinel-iter107-timing-aware-batch.log
-/dev/root       310G  269G   42G  87% /
-Swap:          8.0Gi        75Mi       7.9Gi
+/var/log/sentinel-i134.log
+/var/log/sentinel-i134-smoke.log
+/dev/root       310G  270G   41G  88% /
+Swap:          8.0Gi       4.1Gi       3.9Gi
 ```
 If any docker container named renderer/model/ncap (or a random-name ncap) is up, a run
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
 - Newest completed experiment: experiments/iter133_neuroncap_placebo_semantics_control_design/RESULT.md — read it before opening new work.
-- Newest pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — read it in full; its gate governs the next action.
+- Newest pending pre-registration: experiments/iter134_neuroncap_placebo_semantics_execution/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
@@ -181,63 +186,33 @@ is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT 
 - Run: ruff check . && pytest -q && python3 scripts/validate_docs.py
 - All three must pass before and after your changes; CI enforces the same on push.
 
-## Operator continuation appendix — current through Iter133
+## OPERATOR STOP — A RUN IS IN FLIGHT (read before touching the box)
 
-This appendix was added after the generated snapshot so the next session can recover the mission
-state without chat history.
+**Iteration 134 is executing on `sentinel-gpu` right now.** Launched 2026-07-14 12:59:10 UTC.
+`1,200` episodes, three arms, one launch. Log `/var/log/sentinel-i134.log`. Done marker
+**`I134_PLACEBO_DONE`**. Expected 30-55 GPU-h from launch, ceiling 80.
 
-### Active goal to continue
+**DO NOT relaunch anything while containers are up.** The probe above resolves this mechanically:
+`GPU_RUN_STATE=IN_FLIGHT_CONTAINERS` means a run owns the box. Confirm ownership from the newest
+`/var/log/sentinel-*.log`, which is `sentinel-i134.log`.
 
-Current active goal:
+Iteration 134 is an EXECUTION, not a preflight. An earlier handoff appendix recommended that 134
+be a launch-manifest preflight; that recommendation was superseded before launch. The
+hash-bound launch manifest that recommendation asked for was built, and it is
+`experiments/iter134_neuroncap_placebo_semantics_execution/launch_manifest.json` — it exists as
+step 1 of the execution rather than as a separate iteration. Operator GPU approval is on record.
 
-> Continue the Sentinel mission actively from Iter101 without stopping at status: choose and execute
-> the next scientifically justified iteration with preregistration, gates, publication, and handoff.
+Commits: `647bab0` pre-registration alone, `2b9f560` tooling and manifest, `dc0bb23` disclosed
+smoke, `5c30941` launch record and the verbatim on-done block.
 
-Do not mark this goal complete. The mission is ongoing. A new session should be told:
-
-```text
-Create/continue the active goal: Continue the Sentinel mission actively from Iter101 without
-stopping at status. Choose and execute the next scientifically justified iteration with
-pre-registration, gates, publication, and handoff. Do not declare the goal complete unless the
-mission objective itself is genuinely complete; keep state changes committed, pushed, and handed
-off.
-```
-
-### Iter133 final state
-
-- Latest result: `experiments/iter133_neuroncap_placebo_semantics_control_design/RESULT.md`.
-- Latest verdict: `NEURONCAP_PLACEBO_SEMANTICS_CONTROL_DESIGN_COMPLETE`.
-- Commits:
-  - `639265b` — pre-registered Iter133 alone.
-  - `d3c179b` — added Iter133 generator/verifier and tests.
-  - `21fbafa` — published Iter133 proof, result, note, README/NEXT_PHASE/CONTINUITY updates.
-- Proof counts: `1` primary placebo arm, `3` future arms, `4` future verdict classes, `0`
-  semantic-trigger leaks, `0` true authorization flags, `0` source problems.
-- Primary placebo arm: `semantics_scrambled_budget_matched_placebo`.
-- Frozen source anchors:
-  - full-power NeuroNCAP: `799` measured episodes; released-union NCAP delta `+0.783` with CI
-    `[+0.605, +0.928]`; safe-progress delta `-0.032` with CI `[-0.127, +0.065]`.
-  - iteration 13 RSS-style baseline: same observed kinematics and same latched-stop actuator as
-    the union; union-minus-RSS safe-progress `+1.345` with CI `[+0.944, +1.701]`.
-  - iteration 50 opportunity audit: `A1_CONFIRMED`, Spearman rho `+0.7003`, benefit concentrated
-    where OFF-arm collision opportunity exists.
-- Boundary: Iter133 authorizes no GPU launch, NeuroNCAP execution, HUGSIM execution, generated
-  artifact, reserved path creation, scenario generation, execution-slot selection, learning/update,
-  repair, threshold/metric/planner-code change, safety/deployment/production/commercial claim, or
-  frontier-stack equivalence claim.
-- Gates before handoff:
-  - focused Iter133 gates: `ruff` passed, `pytest -q tests/test_iter133...` passed with `6 passed`,
-    docs guard passed.
-  - full publication gates: `ruff check .` passed, `pytest -q` passed with `538 passed`, and
-    `python3 scripts/validate_docs.py` passed with all RESULT experiments surfaced in README.
-
-### Response to the outside critique
-
-The critique is now incorporated into the mission path. The repo should not keep self-extending
-the support-core preflight chain as if that were empirical progress. Iter133 moved the mission
-back toward adversarial empirical falsification: it freezes the placebo/sham semantics control
-needed to test whether the NeuroNCAP gain is truly semantic or can be explained by generic
-braking/timing opportunity.
+**On `I134_PLACEBO_DONE`, follow `CONTINUITY.md` -> "### On I134_PLACEBO_DONE" verbatim.** The
+order is load-bearing: proof committed FIRST, G0 re-verified, analyzer run ONCE from committed
+artifacts with no edits, verdict published at FULL WEIGHT in whichever of the four frozen classes
+it returns. `PLACEBO_EXPLAINS_GAIN` takes the `2.12 -> 2.91` headline rather than denting it, and
+publishes exactly as readily as `SEMANTIC_VALUE_CONFIRMED`. Do not soften either. G2 decides
+whether any semantic verdict is readable at all; if the carried `off`/`union` arms do not
+reproduce the committed power-run per-episode scores exactly, the verdict is
+`PLACEBO_CONTROL_INFRA_NULL` and the drift is documented.
 
 Frozen critique anchors preserved for Iter133 reproducibility:
 
@@ -245,30 +220,3 @@ Frozen critique anchors preserved for Iter133 reproducibility:
 - They are not new empirical improvement.
 - The strongest next test is a placebo/sham intervention with matched timing, actuator budget, and
   opportunity.
-
-### Recommended next move
-
-Prefer Iter134 as a launch-manifest preflight for the placebo run, not an execution:
-
-`experiments/iter134_neuroncap_placebo_launch_manifest_preflight/`
-
-Frozen question:
-
-> Can the Iter133 placebo-control design be converted into a hash-bound launch manifest for a
-> future OFF/released-union/placebo NeuroNCAP run, with donor schedule ids, scenario ids, run
-> indices, patch files, analyzer files, and environment receipts frozen before any GPU work?
-
-Minimum bars:
-
-- read Iter133 `RESULT.md` and proof report first;
-- no GPU launch and no NeuroNCAP execution in Iter134;
-- bind all future arms, scenario pairs, run indices, donor schedule ids, donor-exclusion receipts,
-  actuator-budget summaries, patch hashes, analyzer hashes, and environment receipts;
-- fail closed if the placebo schedule uses live Sentinel risk score, TTC/CPA triggers,
-  planner-risk introspection, learned prediction, outcome feedback, hidden tuning, or target
-  scenario/seed donors;
-- publish null/infra-null at full weight;
-- refresh README/NEXT_PHASE/CONTINUITY/HANDOFF and run full gates before push.
-
-Only after that manifest preflight exists should the operator decide whether to approve GPU for an
-actual OFF/released-union/placebo execution.

@@ -20,7 +20,7 @@ def sh(cmd, timeout=90):
 
 
 print('# HANDOFF — dynamic state snapshot\n')
-print(f"Generated: {sh('date -u')} by scripts/make_handoff.py. Read CONTINUITY.md first.\n")
+print(f"Generated: {sh('LC_ALL=C date -u')} by scripts/make_handoff.py. Read CONTINUITY.md first.\n")
 
 print('## Repository state\n```')
 print(sh('git log --oneline -8'))
