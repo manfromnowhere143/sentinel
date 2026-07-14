@@ -2179,3 +2179,12 @@ events to prepare; they are a property the repository always has.
   actor-causality, repair, threshold-value, population-rate,
   safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value,
   real-world/first-responder behavior, or retuning claim.
+- 2026-07-14: Codex — continued into iteration 97 as the HUGSIM surface-silent outcome margin
+  bridge after iteration 96. Pre-registered ALONE (`d8610f3`), added analyzer/tests (`8f79976`,
+  395 tests green before analysis), then ran the analyzer ONCE over committed iteration-70/71/73
+  reports. Result: `HUGSIM_SURFACE_SILENT_OUTCOME_MARGIN_BRIDGE_COMPLETE`; both
+  foreground-present no-fire rows are far-margin, never-active, zero-fire rows with zero
+  pre-foreground-near flags and only post-foreground near approaches (`+0.25 s` and `+3.50 s`).
+  No raw-log read, GPU/gcloud/box read, actor-causality, repair, threshold-value,
+  population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance,
+  commercial-value, real-world/first-responder behavior, or retuning claim.

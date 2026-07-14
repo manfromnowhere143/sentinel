@@ -1,0 +1,92 @@
+{
+  "claim_boundary": "two-row descriptive surface-silent outcome/margin bridge only; no actor-causality, repair, threshold-value, transfer, safety, deployment, robustness, benchmark, population-rate, HD-Score-invariance, commercial-value, real-world behavior, first-responder behavior, or retuning claim",
+  "events": [
+    {
+      "audit_id": "mixed_extreme",
+      "measurements": {
+        "first_foreground_ts": 4.75,
+        "foreground_count": 2,
+        "iter59_support_label": "no_monitor_fire",
+        "iter70_fired_frames": 0,
+        "iter70_first_fire_ts": null,
+        "iter70_pre_or_at_foreground_fire": false,
+        "iter71_active_cpa_frames": 0,
+        "iter71_active_ttc_frames": 0,
+        "iter71_closest_cpa_margin_m": 2.6062450662694827,
+        "iter71_closest_ttc_margin_s": null,
+        "iter71_pre_foreground_fired_frames": 0,
+        "iter71_row_label": "surface_silent_far_margin",
+        "iter73_first_active_offset_s": null,
+        "iter73_first_active_relation_to_foreground": "never",
+        "iter73_first_near_offset_s": 0.25,
+        "iter73_pre_foreground_near_any": false,
+        "iter73_pre_foreground_near_cpa": false,
+        "iter73_pre_foreground_near_ttc": false,
+        "iter73_row_label": "silent_far_never_active",
+        "structural_label": "foreground_present_surface_silent"
+      },
+      "problems": [],
+      "row_label": "surface_silent_far_never_active_post_foreground_near",
+      "scenario": "scene-0062-extreme-00"
+    },
+    {
+      "audit_id": "nofire_hard_control",
+      "measurements": {
+        "first_foreground_ts": 2.5,
+        "foreground_count": 9,
+        "iter59_support_label": "no_monitor_fire",
+        "iter70_fired_frames": 0,
+        "iter70_first_fire_ts": null,
+        "iter70_pre_or_at_foreground_fire": false,
+        "iter71_active_cpa_frames": 0,
+        "iter71_active_ttc_frames": 0,
+        "iter71_closest_cpa_margin_m": 6.477878342783893,
+        "iter71_closest_ttc_margin_s": 3.4560450365182938,
+        "iter71_pre_foreground_fired_frames": 0,
+        "iter71_row_label": "surface_silent_far_margin",
+        "iter73_first_active_offset_s": null,
+        "iter73_first_active_relation_to_foreground": "never",
+        "iter73_first_near_offset_s": 3.5,
+        "iter73_pre_foreground_near_any": false,
+        "iter73_pre_foreground_near_cpa": false,
+        "iter73_pre_foreground_near_ttc": false,
+        "iter73_row_label": "silent_far_never_active",
+        "structural_label": "foreground_present_surface_silent"
+      },
+      "problems": [],
+      "row_label": "surface_silent_far_never_active_post_foreground_near",
+      "scenario": "scene-0041-hard-00"
+    }
+  ],
+  "fixed_rows": [
+    {
+      "audit_id": "mixed_extreme",
+      "scenario": "scene-0062-extreme-00"
+    },
+    {
+      "audit_id": "nofire_hard_control",
+      "scenario": "scene-0041-hard-00"
+    }
+  ],
+  "infra_problems": [],
+  "inputs": {
+    "iter70_report": "experiments/iter70_hugsim_structural_timing_audit/proof-structural/structural_report.json",
+    "iter71_report": "experiments/iter71_hugsim_surface_silent_margin_audit/proof-margin/margin_report.json",
+    "iter73_report": "experiments/iter73_hugsim_margin_transition_audit/proof-transition/transition_report.json"
+  },
+  "iteration": 97,
+  "summary": {
+    "evaluated_rows": 2,
+    "far_margin_rows": 2,
+    "never_active_rows": 2,
+    "post_foreground_near_rows": 2,
+    "pre_foreground_near_rows": 0,
+    "row_label_counts": {
+      "surface_silent_far_never_active_post_foreground_near": 2
+    },
+    "surface_silent_rows": 2,
+    "target_rows": 2,
+    "zero_fire_rows": 2
+  },
+  "verdict": "HUGSIM_SURFACE_SILENT_OUTCOME_MARGIN_BRIDGE_COMPLETE"
+}
