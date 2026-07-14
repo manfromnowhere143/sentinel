@@ -2372,3 +2372,13 @@ events to prepare; they are a property the repository always has.
   claim ledger. No actor-causality, repair, threshold-value, transfer upgrade, safety/deployment/
   robustness/benchmark/population-rate/HD-Score-invariance, commercial-value, real-world/
   first-responder behavior, retuning, production, or commercial claim.
+- 2026-07-14: Codex — continued into iteration 124 as the manuscript/report freshness pass after
+  iteration 123. Pre-registered ALONE (`39e3ad5`), added bounded report/manuscript edits plus
+  verifier/tests (`509fa79`, targeted ruff/tests/docs green), then ran the verifier ONCE. Result:
+  `MANUSCRIPT_REPORT_FRESHNESS_COMPLETE`; all `6` checks passed with `0` problems. The technical
+  report now says refreshed 2026-07-14 after iterations 122-123, the manuscript no longer says
+  "all nineteen iterations", and both durable paper surfaces explicitly name the HUGSIM transfer
+  null, link the support-core taxonomy and mission-audit notes, and carry the bounded claim
+  boundary. No actor-causality, repair, threshold-value, transfer upgrade, safety/deployment/
+  robustness/benchmark/population-rate/HD-Score-invariance, commercial-value, real-world/
+  first-responder behavior, retuning, production, or commercial claim.

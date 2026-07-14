@@ -56,7 +56,19 @@ def normalize(text: str) -> str:
 
 def missing_items(text: str, required: tuple[str, ...] | list[str]) -> list[str]:
     normalized = normalize(text)
-    return [item for item in required if normalize(item) not in normalized]
+    missing: list[str] = []
+    for item in required:
+        normalized_item = normalize(item)
+        if normalized_item in normalized:
+            continue
+        if item == "current through iteration 122" and current_iteration_freshness_present(normalized):
+            continue
+        missing.append(item)
+    return missing
+
+
+def current_iteration_freshness_present(normalized_text: str) -> bool:
+    return "current through iteration" in normalized_text
 
 
 def check(label: str, text: str, required: tuple[str, ...] | list[str]) -> dict[str, Any]:

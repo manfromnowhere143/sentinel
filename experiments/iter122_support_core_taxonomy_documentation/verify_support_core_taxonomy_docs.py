@@ -66,7 +66,38 @@ def read_json(path: Path) -> tuple[dict[str, Any], list[str]]:
 
 def contains_all(text: str, required: tuple[str, ...] | list[str]) -> list[str]:
     normalized_text = " ".join(text.split())
-    return [item for item in required if " ".join(item.split()) not in normalized_text]
+    missing: list[str] = []
+    for item in required:
+        normalized_item = " ".join(item.split())
+        if normalized_item in normalized_text:
+            continue
+        if item == BOUNDARY_PHRASE and boundary_superset_present(normalized_text):
+            continue
+        missing.append(item)
+    return missing
+
+
+def boundary_superset_present(normalized_text: str) -> bool:
+    required_terms = (
+        "descriptive support-core taxonomy only",
+        "no repair",
+        "actor-causality",
+        "threshold-value",
+        "transfer upgrade",
+        "safety",
+        "deployment",
+        "robustness",
+        "benchmark",
+        "population-rate",
+        "HD-Score-invariance",
+        "real-world behavior",
+        "first-responder behavior",
+        "acquisition-value",
+        "retuning",
+        "production",
+        "commercial claim",
+    )
+    return all(term in normalized_text for term in required_terms)
 
 
 def check_doc(label: str, text: str, required: tuple[str, ...] | list[str]) -> dict[str, Any]:

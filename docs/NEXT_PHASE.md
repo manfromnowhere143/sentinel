@@ -168,6 +168,12 @@ stale iteration-84 endpoint. The next choice should be one of the audit's bounde
 publication-quality manuscript/report freshness, blind-spot/scenario-generation design seeded by
 HUGSIM support-core failures, a higher-fidelity perturbation successor, explicit mission/rulebook
 boundary definition, or an external one-page claim ledger.
+The publication-quality manuscript/report freshness pass is now complete: `docs/REPORT.md` and
+`docs/paper/MANUSCRIPT.md` no longer carry the stale July 10 / nineteen-iteration markers, both
+surfaces explicitly name the HUGSIM transfer null, both link the support-core taxonomy and mission
+audit notes, and iteration 124's verifier returned `MANUSCRIPT_REPORT_FRESHNESS_COMPLETE`. The
+remaining bounded lanes are now blind-spot/scenario-generation design, higher-fidelity perturbation
+successor, explicit mission/rulebook boundary definition, or an external one-page claim ledger.
 
 ## New frontier packet after these lines closed
 

@@ -1,0 +1,55 @@
+{
+  "checks": [
+    {
+      "label": "report-stale-markers",
+      "missing": [],
+      "passed": true,
+      "unexpected": []
+    },
+    {
+      "label": "manuscript-stale-markers",
+      "missing": [],
+      "passed": true,
+      "unexpected": []
+    },
+    {
+      "label": "report-required-freshness",
+      "missing": [],
+      "passed": true,
+      "unexpected": []
+    },
+    {
+      "label": "manuscript-required-freshness",
+      "missing": [],
+      "passed": true,
+      "unexpected": []
+    },
+    {
+      "label": "iter122-result",
+      "missing": [],
+      "passed": true,
+      "unexpected": []
+    },
+    {
+      "label": "iter123-result",
+      "missing": [],
+      "passed": true,
+      "unexpected": []
+    }
+  ],
+  "claim_boundary": "descriptive support-core taxonomy only; no repair, actor-causality, threshold-value, transfer upgrade, safety, deployment, robustness, benchmark, population-rate, HD-Score-invariance, real-world behavior, first-responder behavior, acquisition-value, retuning, production, commercial claim, or frontier-stack-equivalence claim",
+  "inputs": {
+    "iter122_result": "experiments/iter122_support_core_taxonomy_documentation/RESULT.md",
+    "iter123_result": "experiments/iter123_mission_evidence_alignment_audit/RESULT.md",
+    "manuscript": "docs/paper/MANUSCRIPT.md",
+    "report": "docs/REPORT.md"
+  },
+  "iteration": 124,
+  "problems": [],
+  "summary": {
+    "check_count": 6,
+    "passed_check_count": 6,
+    "problem_count": 0
+  },
+  "verdict": "MANUSCRIPT_REPORT_FRESHNESS_COMPLETE"
+}
