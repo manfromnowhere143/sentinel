@@ -92,7 +92,10 @@ support-preserving bar is not available from the committed pool: the fallback pr
 `8` TTC residual-risk probes plus `19` CPA fallback rows, and the fresh primary pool after
 excluding prior-support scenarios is only `3` CPA rows. The next local HUGSIM priority, if this
 line proceeds toward execution, is an offline launch-manifest preflight for the `8`-row core
-only; it still authorizes no GPU run.
+only; it still authorizes no GPU run. That preflight is now complete: the `8` support-core slots
+are all `ttc_only`, all `iter49_hard_extreme`, all SHA-bound to the frozen scenario manifest, and
+preserve `3` duplicate scenario groups by `slot_id`. Execution remains a separate pre-registered
+run step, not something authorized by the manifest result itself.
 
 ## New frontier packet after these lines closed
 
