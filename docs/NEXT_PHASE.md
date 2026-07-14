@@ -199,6 +199,15 @@ same claim boundary: no generation, run, learning/update, mission-feasibility, r
 supervision, deployment, safety, or frontier-stack claim. The remaining bounded lanes are a fresh
 candidate-source-pool/mutation-operator preflight before any generation, an external one-page claim
 ledger, explicit mission/rulebook boundary work, or a higher-fidelity perturbation successor.
+That source-pool/mutation-operator preflight is now complete:
+[`research/SUPPORT_CORE_SOURCE_POOL_MUTATION_PREFLIGHT_2026-07-14.md`](research/SUPPORT_CORE_SOURCE_POOL_MUTATION_PREFLIGHT_2026-07-14.md)
+and iteration 128 freeze `10` source pools, `8` mutation operators, and `10` candidate-to-operator
+bindings over the iteration-126 symbolic manifest, covering all `8` source slots with zero true
+authorization flags and zero forbidden keys. This still authorizes no generated artifact,
+scenario-generation execution, slot selection, HUGSIM run, GPU launch, learning/update, repair, or
+claim upgrade. The remaining bounded lanes are a generated-artifact naming/destination preflight
+before any scenario file is created, an external one-page claim ledger, explicit mission/rulebook
+boundary work, or a higher-fidelity perturbation successor.
 
 ## New frontier packet after these lines closed
 

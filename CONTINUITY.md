@@ -2416,3 +2416,14 @@ events to prepare; they are a property the repository always has.
   perturbation successor. No scenario generation, GPU launch, HUGSIM run, learning/update, repair,
   threshold-value, safety/deployment/robustness/benchmark/population-rate/HD-Score-invariance,
   commercial-value, real-world/first-responder behavior, retuning, production, or commercial claim.
+- 2026-07-14: Codex — continued into iteration 128 as the source-pool/mutation-operator preflight
+  before any support-core scenario generation. Pre-registered ALONE (`eea89ef`), added the
+  generator/tests (`bfe5aec`, targeted ruff/tests/docs green), then ran the generator ONCE over
+  committed iteration-126/127 surfaces. Result:
+  `SUPPORT_CORE_SOURCE_POOL_MUTATION_PREFLIGHT_COMPLETE`; `10` source pools, `8` mutation
+  operators, and `10` candidate-to-operator bindings cover all `8` source slots with `0` true
+  authorization flags, `0` missing preflight content rows, and `0` forbidden keys. This is still
+  pre-generation only; no generated artifact, scenario generation, slot selection, GPU launch,
+  HUGSIM run, learning/update, repair, threshold-value, safety/deployment/robustness/benchmark/
+  population-rate/HD-Score-invariance, commercial-value, real-world/first-responder behavior,
+  retuning, production, or commercial claim.
