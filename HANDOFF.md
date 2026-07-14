@@ -1,9 +1,10 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Tue Jul 14 13:25:49 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Tue Jul 14 15:48:22 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+0334b80 handoff: refresh baton and log the iter131 idle-box amendment
 5796929 iter131: stop requiring an idle box for the audit to pass
 428d674 handoff: warn that iter134 is in flight, do not relaunch
 5c30941 iter134: record launch and on-done protocol
@@ -11,7 +12,6 @@ dc0bb23 iter134: smoke proves placebo fires on donor schedule
 2b9f560 iter134: add placebo tooling and launch manifest
 647bab0 iter134: preregister placebo semantics execution
 8095ee9 handoff: record iter133 placebo control state
-21fbafa iter133: publish placebo semantics control design
 ```
 Working tree: DIRTY — resolve before handoff:
 M CONTINUITY.md
@@ -161,16 +161,16 @@ M CONTINUITY.md
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 13:26:57 up 10 days,  3:08,  0 users,  load average: 1.21, 1.13, 1.03
+ 15:49:30 up 10 days,  5:30,  0 users,  load average: 1.06, 1.17, 1.15
 GPU_RUN_STATE=IN_FLIGHT_CONTAINERS
-infallible_tharp	Up 27 minutes
-model	Up 27 minutes
-renderer	Up 27 minutes
+cranky_cartwright	Up 36 minutes
+model	Up 36 minutes
+renderer	Up 36 minutes
 /var/log/sentinel-i134.log
 /var/log/sentinel-vitals.log
 /var/log/sentinel-i134-smoke.log
-/dev/root       310G  270G   40G  88% /
-Swap:          8.0Gi       4.1Gi       3.9Gi
+/dev/root       310G  273G   38G  88% /
+Swap:          8.0Gi       4.8Gi       3.2Gi
 ```
 If any docker container named renderer/model/ncap (or a random-name ncap) is up, a run
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
@@ -188,31 +188,27 @@ is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT 
 
 ## OPERATOR STOP — A RUN IS IN FLIGHT (read before touching the box)
 
-**Iteration 134 is executing on `sentinel-gpu` right now.** Launched 2026-07-14 12:59:10 UTC.
-`1,200` episodes, three arms, one launch. Log `/var/log/sentinel-i134.log`. Done marker
-**`I134_PLACEBO_DONE`**. Expected 30-55 GPU-h from launch, ceiling 80.
+**Iteration 134 is executing on `sentinel-gpu`.** Launched 2026-07-14 12:59:10 UTC. `1,200`
+episodes, three arms, one launch. Log `/var/log/sentinel-i134.log`. Done marker
+**`I134_PLACEBO_DONE`**. Observed pace ~136 s/episode implies ~45 h (inside the pre-registered
+30-55 GPU-h expectation; ceiling 80). **DO NOT relaunch while containers are up** — the probe
+above reports `GPU_RUN_STATE=` mechanically.
 
-**DO NOT relaunch anything while containers are up.** The probe above resolves this mechanically:
-`GPU_RUN_STATE=IN_FLIGHT_CONTAINERS` means a run owns the box. Confirm ownership from the newest
-`/var/log/sentinel-*.log`, which is `sentinel-i134.log`.
+Iteration 134 is an EXECUTION, not a preflight. An earlier appendix recommended 134 be a
+launch-manifest preflight; superseded before launch. The hash-bound manifest it asked for exists
+as step 1 of the execution: `experiments/iter134_.../launch_manifest.json`. Operator GPU approval
+is on record. Commits: `647bab0` pre-reg alone, `2b9f560` tooling+manifest, `dc0bb23` disclosed
+smoke, `5c30941` launch record + on-done block.
 
-Iteration 134 is an EXECUTION, not a preflight. An earlier handoff appendix recommended that 134
-be a launch-manifest preflight; that recommendation was superseded before launch. The hash-bound
-launch manifest it asked for was built and is
-`experiments/iter134_neuroncap_placebo_semantics_execution/launch_manifest.json` — it exists as
-step 1 of the execution rather than as a separate iteration. Operator GPU approval is on record.
+**On `I134_PLACEBO_DONE`, follow `CONTINUITY.md` -> "### On I134_PLACEBO_DONE" verbatim.** Proof
+committed FIRST, G0 re-verified, analyzer ONCE from committed artifacts, verdict at FULL WEIGHT in
+whichever of the four frozen classes fires. G2 can veto any semantic reading if the box drifted.
 
-Commits: `647bab0` pre-registration alone, `2b9f560` tooling and manifest, `dc0bb23` disclosed
-smoke, `5c30941` launch record and the verbatim on-done block.
-
-**On `I134_PLACEBO_DONE`, follow `CONTINUITY.md` -> "### On I134_PLACEBO_DONE" verbatim.** The
-order is load-bearing: proof committed FIRST, G0 re-verified, analyzer run ONCE from committed
-artifacts with no edits, verdict published at FULL WEIGHT in whichever of the four frozen classes
-it returns. `PLACEBO_EXPLAINS_GAIN` takes the `2.12 -> 2.91` headline rather than denting it, and
-publishes exactly as readily as `SEMANTIC_VALUE_CONFIRMED`. Do not soften either. G2 decides
-whether any semantic verdict is readable at all; if the carried `off`/`union` arms do not
-reproduce the committed power-run per-episode scores exactly, the verdict is
-`PLACEBO_CONTROL_INFRA_NULL` and the drift is documented.
+**PAPER: arXiv REJECTED the submission (2026-07-14).** Appeal needs a conventional-journal DOI.
+`iter124`'s manuscript freshness gate is DEFECTIVE — it validated `MANUSCRIPT.md`, which was never
+submitted, while the submitted `paper.tex` omits the HUGSIM transfer boundary entirely. Do not
+trust that gate. Do not touch the paper until 134 lands; see the CONTINUITY entry for the full
+moderation audit and the fixed rewrite sequence.
 
 Frozen critique anchors preserved for Iter133 reproducibility:
 

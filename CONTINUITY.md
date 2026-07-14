@@ -2583,3 +2583,47 @@ events to prepare; they are a property the repository always has.
   Also fixed: the generator stamped a locale-dependent date (`LC_ALL=C` now pinned), so the
   `Tue Jul 14` convention holds for every operator. Note the structural floor: the baton records
   `git log` and is then committed, so it is always exactly one commit behind its own commit.
+
+- **THE arXiv REJECTION AND ITS MECHANISM (2026-07-14). The manuscript freshness gate checked a
+  file that was never submitted.** arXiv moderation rejected `submit/7790500` (cs.RO): "would
+  benefit from additional review and revision that is outside of the services we provide." Appeal
+  requires a conventional-journal DOI. Root cause of the substantive defect, found mechanically:
+
+  `iter124_manuscript_report_freshness` sets `MANUSCRIPT_PATH = docs/paper/MANUSCRIPT.md` and
+  requires the term **"HUGSIM transfer null"**. It PASSED (`MANUSCRIPT_REPORT_FRESHNESS_COMPLETE`,
+  zero problems). But `MANUSCRIPT.md` is NOT the manuscript. The arXiv tarball
+  (`docs/paper/sentinel-arxiv-submission.tar.gz`) contains exactly `./paper.tex` + 3 figures.
+  `MANUSCRIPT.md` mentions HUGSIM `4` times; **`paper.tex` mentions it `0` times**. The gate had
+  the RIGHT requirement pointed at the WRONG artifact, so it certified freshness while the
+  submitted paper omitted the campaign's own measured external-validity boundary.
+
+  This is the same species as the iteration-134 placebo plumbing bug: a check that passes without
+  touching the thing it claims to verify. The smoke caught that one before launch; nothing caught
+  this one before submission. Iteration 48's own record had named the fix FIRST in its
+  defensibility order ("manuscript fold-in of the boundary"); iterations 125-133 audited filename
+  schemas instead while this gate stayed green.
+
+  **DO NOT TRUST `iter124`'s gate.** It is defective. Its committed RESULT stands as the record of
+  what it checked on the day; it is not retrofitted, because that would rewrite history. The fix
+  lands WITH the post-iteration-134 rewrite, not before, because a gate corrected now would
+  correctly go red and block the iteration-134 publication for no operational benefit. **The
+  corrected gate must bind the SUBMITTED ARTIFACT** (the tarball's `paper.tex`), not a sibling
+  markdown file.
+
+  **Full moderation audit of `paper.tex` (2026-07-14), for the rewrite:** abstract is `564` words
+  enumerating SIX results (norm 150-250; arXiv's abstract field caps near 1920 characters, so it
+  cannot fit -- this is the likely origin of the recorded "mangled paste" saga); no institutional
+  affiliation (a GitHub URL sits where an institution goes); `14` references, nearly all bare
+  arXiv preprints with no venues (BridgeAD is CVPR 2025 and the bibitem does not say so);
+  structure is a campaign report, not a paper ("Negative results I/II", "the incident record",
+  "across nineteen pre-registered campaign iterations", 11 sections in 341 TeX lines). Holger
+  Caesar independently flagged the same text as "LLM(?) style"; the same-evening fix was
+  LANGUAGE-ONLY (em dashes purged, terms defined) and never touched the shape both readers were
+  reacting to.
+
+  **Sequence, fixed:** iteration 134 lands -> it decides WHICH paper exists (semantics confirmed /
+  placebo explains the gain / infra null) -> fold in the iteration 48+49 transfer boundary AND the
+  iteration 134 control -> cut the abstract to ONE claim -> venue the references -> Caesar reads
+  it before any venue does -> submit to a peer-reviewed venue (TMLR fits a null-bearing campaign;
+  RA-L / IEEE T-ITS give an unambiguous DOI) -> arXiv becomes an optional appeal afterward, not
+  the goal. Do not touch the paper before iteration 134 lands.
