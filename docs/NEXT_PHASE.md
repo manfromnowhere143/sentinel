@@ -174,6 +174,14 @@ surfaces explicitly name the HUGSIM transfer null, both link the support-core ta
 audit notes, and iteration 124's verifier returned `MANUSCRIPT_REPORT_FRESHNESS_COMPLETE`. The
 remaining bounded lanes are now blind-spot/scenario-generation design, higher-fidelity perturbation
 successor, explicit mission/rulebook boundary definition, or an external one-page claim ledger.
+The blind-spot/scenario-generation design lane is now complete as a design surface, not execution:
+[`research/SUPPORT_CORE_BLIND_SPOT_SCENARIO_DESIGN_2026-07-14.md`](research/SUPPORT_CORE_BLIND_SPOT_SCENARIO_DESIGN_2026-07-14.md)
+and iteration 125 define five support-core archetypes covering all `8` source rows exactly once.
+Any successor that generates scenarios, selects slots, launches HUGSIM, or claims improvement still
+requires a fresh `HYPOTHESIS.md`. The remaining bounded lanes are a higher-fidelity perturbation
+successor, explicit mission/rulebook boundary definition, external one-page claim ledger, or a
+separate preflight that turns the design surface into a candidate-generation manifest without
+running it.
 
 ## New frontier packet after these lines closed
 

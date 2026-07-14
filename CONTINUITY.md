@@ -2382,3 +2382,14 @@ events to prepare; they are a property the repository always has.
   boundary. No actor-causality, repair, threshold-value, transfer upgrade, safety/deployment/
   robustness/benchmark/population-rate/HD-Score-invariance, commercial-value, real-world/
   first-responder behavior, retuning, production, or commercial claim.
+- 2026-07-14: Codex — continued into iteration 125 as the support-core blind-spot/scenario design
+  lane after iteration 124. Pre-registered ALONE (`882ee5f`), added the generator/tests
+  (`5e6249e`, targeted ruff/tests/docs green), then ran the generator ONCE over committed
+  iteration-121/122/123/124 surfaces. Result:
+  `SUPPORT_CORE_BLIND_SPOT_SCENARIO_DESIGN_COMPLETE`; five archetypes cover all `8` support-core
+  rows exactly once, with `0` duplicate and `0` missing slots. Archetypes split into `3`
+  selected-nearest and `2` selected-not-nearest classes, and timing-gap classes split into `3`
+  measured support-gap, `1` post-fire support, and `1` no-pre-fire-support archetype. This is a
+  design surface only; no scenario generation, GPU launch, HUGSIM run, repair, threshold-value,
+  safety/deployment/robustness/benchmark/population-rate/HD-Score-invariance, commercial-value,
+  real-world/first-responder behavior, retuning, production, or commercial claim.
