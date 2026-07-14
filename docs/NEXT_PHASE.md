@@ -49,6 +49,13 @@ identity; it must not retune thresholds or make repair/safety claims.
 The candidate-design successor then froze the future instrumentation schedule without launching
 it: `12` new rows across six non-singleton dataset/provenance strata plus the carried
 both-distinct singleton reference. That design remains a schedule only, not run approval.
+The launch-manifest preflight successor then converted that schedule into a slot-level future-run
+manifest: `13` execution slots, `9` unique scenarios, `4` duplicate scenario groups, and `13/13`
+scenario-SHA-bound slots with frozen iteration-59 stack gates. The key rule is now explicit:
+future execution must key destination paths, retry state, done markers, and collection checks by
+`slot_id`, not by scenario, so repeated scenarios are not deduplicated away. This still authorizes
+no GPU launch by itself; the next run requires a separate operator-approved launch step or a fresh
+pre-registration if launcher semantics change.
 
 ## New frontier packet after these lines closed
 
