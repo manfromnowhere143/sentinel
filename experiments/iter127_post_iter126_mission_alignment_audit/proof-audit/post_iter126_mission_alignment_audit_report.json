@@ -1,0 +1,116 @@
+{
+  "checks": [
+    {
+      "label": "audit-note-sections",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "## Source Refresh",
+        "## Alignment Verdict",
+        "## Defensible Strengths",
+        "## Reviewer Attack Surface",
+        "## Freshness Fixes",
+        "## Next Bounded Actions",
+        "## Claim Boundary"
+      ]
+    },
+    {
+      "label": "audit-note-boundary",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "This audit authorizes no scenario-generation execution, GPU launch, HUGSIM run, repair, actor-causality, threshold-value, transfer upgrade, safety, deployment, robustness, benchmark, population-rate, HD-Score-invariance, real-world behavior, first-responder behavior, acquisition-value, retuning, production, commercial claim, or claim that Sentinel matches or exceeds Tesla, Mobileye, SpaceX, Waymo, NVIDIA, or any current frontier autonomy stack."
+      ]
+    },
+    {
+      "label": "audit-note-source-anchors",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "https://www.mobileye.com/blog/diagnosing-the-long-tail-how-mobileye-turns-edge-cases-into-targeted-training/",
+        "https://www.mobileye.com/blog/adas-regulations-overview-what-every-automaker-needs-to-know/",
+        "https://www.tesla.com/support/fsd/v14-trial",
+        "https://arxiv.org/abs/2607.03755",
+        "https://arxiv.org/abs/2606.06996"
+      ]
+    },
+    {
+      "label": "audit-note-core-terms",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "iteration 126",
+        "candidate-generation manifest",
+        "design/preflight",
+        "empirical results",
+        "Reviewer Attack Surface",
+        "Next Bounded Actions"
+      ]
+    },
+    {
+      "label": "readme-current-through-126",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "current through iteration 126 or newer",
+        "iter126_support_core_candidate_manifest_preflight"
+      ]
+    },
+    {
+      "label": "next-phase-current-through-126",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "SUPPORT_CORE_CANDIDATE_GENERATION_MANIFEST_2026-07-14.md",
+        "iteration 126",
+        "fresh preflight for candidate-source-pool"
+      ]
+    },
+    {
+      "label": "frontier-memory-post-126",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "Post-iteration-126 update",
+        "SUPPORT_CORE_CANDIDATE_GENERATION_MANIFEST_2026-07-14.md",
+        "Do not treat iteration 122 as the current endpoint"
+      ]
+    },
+    {
+      "label": "iter126-result-present",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "SUPPORT_CORE_CANDIDATE_MANIFEST_PREFLIGHT_COMPLETE"
+      ]
+    },
+    {
+      "label": "manifest-note-boundary",
+      "missing": [],
+      "passed": true,
+      "required": [
+        "authorizes no scenario generation",
+        "execution=false",
+        "hugsim_run=false"
+      ]
+    }
+  ],
+  "claim_boundary": "This audit authorizes no scenario-generation execution, GPU launch, HUGSIM run, repair, actor-causality, threshold-value, transfer upgrade, safety, deployment, robustness, benchmark, population-rate, HD-Score-invariance, real-world behavior, first-responder behavior, acquisition-value, retuning, production, commercial claim, or claim that Sentinel matches or exceeds Tesla, Mobileye, SpaceX, Waymo, NVIDIA, or any current frontier autonomy stack.",
+  "inputs": {
+    "audit_note": "docs/research/SENTINEL_POST_ITER126_MISSION_ALIGNMENT_AUDIT_2026-07-14.md",
+    "frontier_memory": "docs/research/FRONTIER_ALIGNMENT_MEMORY_2026-07-13.md",
+    "iter126_result": "experiments/iter126_support_core_candidate_manifest_preflight/RESULT.md",
+    "manifest_note": "docs/research/SUPPORT_CORE_CANDIDATE_GENERATION_MANIFEST_2026-07-14.md",
+    "next_phase": "docs/NEXT_PHASE.md",
+    "readme": "README.md"
+  },
+  "iteration": 127,
+  "problems": [],
+  "summary": {
+    "check_count": 9,
+    "passed_check_count": 9,
+    "problem_count": 0,
+    "source_anchor_count": 5
+  },
+  "verdict": "POST_ITER126_MISSION_ALIGNMENT_AUDIT_COMPLETE"
+}

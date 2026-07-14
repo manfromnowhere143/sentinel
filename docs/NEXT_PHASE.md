@@ -191,6 +191,14 @@ commands. This still authorizes no generation or HUGSIM run. The remaining bound
 higher-fidelity perturbation successor, explicit mission/rulebook boundary definition, external
 one-page claim ledger, or a fresh preflight for candidate-source-pool and mutation-operator
 freezing before any scenario generation.
+The operator-requested post-Iter126 hostile audit is now complete:
+[`research/SENTINEL_POST_ITER126_MISSION_ALIGNMENT_AUDIT_2026-07-14.md`](research/SENTINEL_POST_ITER126_MISSION_ALIGNMENT_AUDIT_2026-07-14.md)
+and iteration 127 verify that the candidate manifest is real roadmap-alignment progress but still
+design/preflight only. The audit fixed frontier-memory freshness through iteration 126 and kept the
+same claim boundary: no generation, run, learning/update, mission-feasibility, regulation,
+supervision, deployment, safety, or frontier-stack claim. The remaining bounded lanes are a fresh
+candidate-source-pool/mutation-operator preflight before any generation, an external one-page claim
+ledger, explicit mission/rulebook boundary work, or a higher-fidelity perturbation successor.
 
 ## New frontier packet after these lines closed
 

@@ -2404,3 +2404,15 @@ events to prepare; they are a property the repository always has.
   symbolic manifest only; no scenario generation, GPU launch, HUGSIM run, repair, threshold-value,
   safety/deployment/robustness/benchmark/population-rate/HD-Score-invariance, commercial-value,
   real-world/first-responder behavior, retuning, production, or commercial claim.
+- 2026-07-14: Codex — stopped for the operator-requested post-Iter126 hostile mission alignment
+  audit as iteration 127. Pre-registered ALONE (`a5eae87`), added the audit note, verifier/tests,
+  and frontier-memory post-126 freshness fix (`b5c74ce`, targeted ruff/tests/docs green), then ran
+  the verifier ONCE. Result: `POST_ITER126_MISSION_ALIGNMENT_AUDIT_COMPLETE`; all `9/9` checks
+  passed with `0` problems and `5` current Mobileye/Tesla/arXiv source anchors. The audit verdict:
+  iterations 125-126 are real roadmap-alignment progress because they convert the support-core
+  failure taxonomy into a paired candidate-generation manifest, but they remain design/preflight
+  only. Next bounded lanes: candidate-source-pool/mutation-operator preflight before generation,
+  one-page external claim ledger, explicit mission/rulebook boundary work, or higher-fidelity
+  perturbation successor. No scenario generation, GPU launch, HUGSIM run, learning/update, repair,
+  threshold-value, safety/deployment/robustness/benchmark/population-rate/HD-Score-invariance,
+  commercial-value, real-world/first-responder behavior, retuning, production, or commercial claim.

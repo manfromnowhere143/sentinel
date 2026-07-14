@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -78,6 +79,21 @@ def check(label: str, text: str, required: tuple[str, ...] | list[str]) -> dict[
     return {"label": label, "required": list(required), "missing": missing, "passed": not missing}
 
 
+def current_through_at_least(text: str, minimum_iteration: int) -> bool:
+    matches = [int(value) for value in re.findall(r"current through iteration (\d+)", text)]
+    return bool(matches) and max(matches) >= minimum_iteration
+
+
+def check_readme_freshness(text: str) -> dict[str, Any]:
+    missing: list[str] = []
+    if not current_through_at_least(text, 126):
+        missing.append("current through iteration 126 or newer")
+    if "iter126_support_core_candidate_manifest_preflight" not in text:
+        missing.append("iter126_support_core_candidate_manifest_preflight")
+    required = ["current through iteration 126 or newer", "iter126_support_core_candidate_manifest_preflight"]
+    return {"label": "readme-current-through-126", "required": required, "missing": missing, "passed": not missing}
+
+
 def choose_verdict(problems: list[str], checks: list[dict[str, Any]]) -> str:
     if problems or any(not item["passed"] for item in checks):
         return INFRA_NULL_VERDICT
@@ -116,11 +132,7 @@ def build_report(repo_root: Path) -> dict[str, Any]:
                 "Next Bounded Actions",
             ],
         ),
-        check(
-            "readme-current-through-126",
-            readme_text,
-            ["current through iteration 126", "iter126_support_core_candidate_manifest_preflight"],
-        ),
+        check_readme_freshness(readme_text),
         check(
             "next-phase-current-through-126",
             next_phase_text,
