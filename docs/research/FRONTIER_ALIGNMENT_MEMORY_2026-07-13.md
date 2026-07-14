@@ -47,6 +47,14 @@ Mobileye/NHTSA/Waymo/NVIDIA research pass. The longer source-backed memo is
    Future sessions should read that note, iteration 122, and `docs/NEXT_PHASE.md` before treating
    the old iteration-84 recommendation as current.
 
+9. Post-iteration-126 update: the support-core branch now has a blind-spot design surface and a
+   candidate-generation manifest:
+   [`SUPPORT_CORE_BLIND_SPOT_SCENARIO_DESIGN_2026-07-14.md`](SUPPORT_CORE_BLIND_SPOT_SCENARIO_DESIGN_2026-07-14.md)
+   and
+   [`SUPPORT_CORE_CANDIDATE_GENERATION_MANIFEST_2026-07-14.md`](SUPPORT_CORE_CANDIDATE_GENERATION_MANIFEST_2026-07-14.md).
+   These are design/preflight artifacts only. They authorize no scenario generation, HUGSIM run,
+   GPU launch, repair, safety, deployment, retuning, production, or commercial claim.
+
 ## Working memory for future sessions
 
 - Do not spend the next session on open-ended frontier research unless a new current event or
@@ -58,6 +66,9 @@ Mobileye/NHTSA/Waymo/NVIDIA research pass. The longer source-backed memo is
 - The old next-scientific-question note about the iteration-84 arbitration split is now historical:
   later iterations decomposed that branch and the support-core line through iteration 122. Use
   `docs/NEXT_PHASE.md` and the support-core taxonomy note as the current HUGSIM state.
+- Do not treat iteration 122 as the current endpoint. Future sessions should also read the
+  iteration-125 blind-spot design note and the iteration-126 candidate manifest note before
+  proposing scenario generation.
 - Any next experiment still requires a fresh `HYPOTHESIS.md` before analyzer work, no GPU unless
   pre-registered, and no threshold/repair/safety/transfer/deployment claim unless proven.
 
