@@ -111,7 +111,13 @@ decomposition is now complete: all `8` mismatch vectors are classified, `8/8` ar
 and the geometry split is `5` far-behind/lateral-near, `2` far-behind/lateral-far, and `1`
 far-ahead/lateral-far. The next local HUGSIM priority is an offline monitor-object/collision-actor
 temporal and object-set ordering audit over the same committed rows; launching more GPU before that
-would skip the newly exposed longitudinal mismatch structure.
+would skip the newly exposed longitudinal mismatch structure. That first-fire monitor-set ordering
+audit is now complete: all `8/8` rows classify as `nearest_actor_mismatch`, so no first-fire monitor
+object lies within the frozen `6.0 m` actor-support band after propagation to the first foreground
+collision timestamp. The selected object is nearest in `5/8` rows and not nearest in `3/8`, but
+every row remains a whole-set mismatch. The next local HUGSIM priority is an offline timeline audit
+over the same committed decision logs: determine whether a close collision-actor candidate appears
+before first fire, after first fire, or never appears under the frozen bridge.
 
 ## New frontier packet after these lines closed
 

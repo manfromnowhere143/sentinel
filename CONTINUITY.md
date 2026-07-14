@@ -2265,3 +2265,14 @@ events to prepare; they are a property the repository always has.
   committed rows. No actor-causality, repair, threshold-value, safety/transfer/deployment/
   robustness/benchmark/HD-Score-invariance, commercial-value, real-world/first-responder
   behavior, retuning, production, or commercial claim.
+- 2026-07-14: Codex — continued into iteration 115 as the HUGSIM support-core monitor-set ordering
+  audit after iteration 114. Pre-registered ALONE (`dad164a`), added analyzer/tests (`cf871f6`,
+  targeted ruff/tests/docs green), then ran the analyzer ONCE over committed iteration-112/113/114
+  artifacts. Result: `HUGSIM_SUPPORT_CORE_MONITOR_SET_ORDERING_COMPLETE`; all `8/8` first-fire
+  monitor object sets classify as `nearest_actor_mismatch`, nearest object distance is
+  `7.624207359121617-24.812496764606966 m`, selected object is nearest in `5/8` rows and not
+  nearest in `3/8`, but every row remains a whole-set mismatch. Next honest step: offline timeline
+  audit asking whether a close collision-actor candidate appears before fire, after fire, or never
+  appears under the frozen bridge. No actor-causality, repair, threshold-value,
+  safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value,
+  real-world/first-responder behavior, retuning, production, or commercial claim.
