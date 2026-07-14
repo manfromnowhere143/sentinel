@@ -2288,3 +2288,15 @@ events to prepare; they are a property the repository always has.
   and first-fire frames. No actor-causality, repair, threshold-value, safety/transfer/deployment/
   robustness/benchmark/HD-Score-invariance, commercial-value, real-world/first-responder behavior,
   retuning, production, or commercial claim.
+- 2026-07-14: Codex — continued into iteration 117 as the HUGSIM support-core event-window
+  decomposition after iteration 116. Pre-registered ALONE (`c42b195`), added analyzer/tests
+  (`525a3bd`, targeted ruff/tests/docs green), then ran the analyzer ONCE over committed
+  iteration-112/115/116 artifacts. Result: `HUGSIM_SUPPORT_CORE_EVENT_WINDOW_COMPLETE`; all `8`
+  rows classified with `0` problem rows, first-support surface state is `far` in all `7`
+  supported rows, first-fire surface state is `active` in all `8`, first-support objects persist
+  to first fire in only `1/7`, and first-support objects equal the selected first-fire object in
+  `0/7`. Next honest step: offline support-object lifecycle audit from first support to fire
+  (last presence, last support, disappearance or drift outside the support band, and same-object
+  vs different-object later active support). No actor-causality, repair, threshold-value,
+  safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value,
+  real-world/first-responder behavior, retuning, production, or commercial claim.

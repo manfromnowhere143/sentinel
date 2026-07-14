@@ -1,0 +1,632 @@
+{
+  "claim_boundary": "descriptive support-core event-window decomposition of eight committed rows only; no repair, actor-causality, threshold-value, transfer, safety, deployment, robustness, benchmark, population-rate, HD-Score-invariance, real-world behavior, first-responder behavior, acquisition-value, retuning, production, or commercial claim",
+  "event_window_rows": [
+    {
+      "fire_minus_first_support_s": 4.25,
+      "fire_nearest_distance_m": 12.724592460878268,
+      "fire_nearest_object_id": 10,
+      "first_fire_event": {
+        "actor_support": false,
+        "brake": true,
+        "fired": true,
+        "frame_index": 20,
+        "min_cpa": 3.1626420110800586,
+        "min_ttc_valid_s": 2.179602161178699,
+        "nearest_distance_m": 12.724592460878268,
+        "nearest_object_id": 10,
+        "object_count": 3,
+        "phase": "at_fire",
+        "surface_state": "active",
+        "ts": 5.0
+      },
+      "first_fire_ts": 5.0,
+      "first_foreground_event": {
+        "actor_support": false,
+        "brake": true,
+        "fired": false,
+        "frame_index": 21,
+        "min_cpa": 8.790969621669596,
+        "min_ttc_valid_s": 2.7664892275077517,
+        "nearest_distance_m": 24.666640987462266,
+        "nearest_object_id": 12,
+        "object_count": 3,
+        "phase": "post_fire_pre_collision",
+        "surface_state": "borderline",
+        "ts": 5.25
+      },
+      "first_foreground_ts": 5.25,
+      "first_support_event": {
+        "actor_support": true,
+        "brake": false,
+        "fired": false,
+        "frame_index": 3,
+        "min_cpa": 3.792820626460948,
+        "min_ttc_valid_s": null,
+        "nearest_distance_m": 2.889279073064421,
+        "nearest_object_id": 2,
+        "object_count": 3,
+        "phase": "pre_fire",
+        "surface_state": "far",
+        "ts": 0.75
+      },
+      "first_support_object_id": 2,
+      "first_support_phase": "pre_fire",
+      "first_support_ts": 0.75,
+      "pre_fire_support_frame_count": 1,
+      "pre_fire_support_surface_counts": {
+        "far": 1
+      },
+      "problems": [],
+      "row_label": "pre_fire_support_surface_far_only",
+      "run": 2,
+      "scenario": "scene-0411-hard-00",
+      "selected_object_id": 12,
+      "slot_id": "i111_s01_iter49_hard_extreme_exact_ttc_classifiable_anchor_short_lead_fire_ttc_only_scene_0411_hard_00_r2",
+      "slot_index": 1,
+      "support_frame_count": 1,
+      "support_object_distance_at_fire_m": null,
+      "support_object_present_at_fire": false,
+      "support_object_same_as_fire_nearest": false,
+      "support_object_same_as_selected": false,
+      "support_phase_counts": {
+        "pre_fire": 1
+      },
+      "support_surface_counts": {
+        "far": 1
+      }
+    },
+    {
+      "fire_minus_first_support_s": 1.0,
+      "fire_nearest_distance_m": 7.624207359121617,
+      "fire_nearest_object_id": 4,
+      "first_fire_event": {
+        "actor_support": false,
+        "brake": true,
+        "fired": true,
+        "frame_index": 7,
+        "min_cpa": 5.414817044734736,
+        "min_ttc_valid_s": 1.178597441901282,
+        "nearest_distance_m": 7.624207359121617,
+        "nearest_object_id": 4,
+        "object_count": 3,
+        "phase": "at_fire",
+        "surface_state": "active",
+        "ts": 1.75
+      },
+      "first_fire_ts": 1.75,
+      "first_foreground_event": {
+        "actor_support": false,
+        "brake": true,
+        "fired": false,
+        "frame_index": 19,
+        "min_cpa": 8.857028615959711,
+        "min_ttc_valid_s": null,
+        "nearest_distance_m": 9.155768244176702,
+        "nearest_object_id": 3,
+        "object_count": 3,
+        "phase": "post_fire_pre_collision",
+        "surface_state": "far",
+        "ts": 4.75
+      },
+      "first_foreground_ts": 4.75,
+      "first_support_event": {
+        "actor_support": true,
+        "brake": false,
+        "fired": false,
+        "frame_index": 3,
+        "min_cpa": 4.772278403459415,
+        "min_ttc_valid_s": null,
+        "nearest_distance_m": 4.259200249926439,
+        "nearest_object_id": 4,
+        "object_count": 3,
+        "phase": "pre_fire",
+        "surface_state": "far",
+        "ts": 0.75
+      },
+      "first_support_object_id": 4,
+      "first_support_phase": "pre_fire",
+      "first_support_ts": 0.75,
+      "pre_fire_support_frame_count": 1,
+      "pre_fire_support_surface_counts": {
+        "far": 1
+      },
+      "problems": [],
+      "row_label": "pre_fire_support_surface_far_only",
+      "run": 1,
+      "scenario": "scene-0411-extreme-00",
+      "selected_object_id": 2,
+      "slot_id": "i111_s02_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0411_extreme_00_r1",
+      "slot_index": 2,
+      "support_frame_count": 1,
+      "support_object_distance_at_fire_m": 7.624207359121617,
+      "support_object_present_at_fire": true,
+      "support_object_same_as_fire_nearest": true,
+      "support_object_same_as_selected": false,
+      "support_phase_counts": {
+        "pre_fire": 1
+      },
+      "support_surface_counts": {
+        "far": 1
+      }
+    },
+    {
+      "fire_minus_first_support_s": null,
+      "fire_nearest_distance_m": 14.472507961609738,
+      "fire_nearest_object_id": 25,
+      "first_fire_event": {
+        "actor_support": false,
+        "brake": true,
+        "fired": true,
+        "frame_index": 16,
+        "min_cpa": 1.4649324175071077,
+        "min_ttc_valid_s": 5.778679205220046,
+        "nearest_distance_m": 14.472507961609738,
+        "nearest_object_id": 25,
+        "object_count": 5,
+        "phase": "at_fire",
+        "surface_state": "active",
+        "ts": 4.0
+      },
+      "first_fire_ts": 4.0,
+      "first_foreground_event": {
+        "actor_support": false,
+        "brake": false,
+        "fired": false,
+        "frame_index": 29,
+        "min_cpa": 5.41431644226717,
+        "min_ttc_valid_s": null,
+        "nearest_distance_m": 20.545123440757774,
+        "nearest_object_id": 25,
+        "object_count": 4,
+        "phase": "post_fire_pre_collision",
+        "surface_state": "far",
+        "ts": 7.25
+      },
+      "first_foreground_ts": 7.25,
+      "first_support_event": null,
+      "first_support_object_id": null,
+      "first_support_phase": "never_before_collision",
+      "first_support_ts": null,
+      "pre_fire_support_frame_count": 0,
+      "pre_fire_support_surface_counts": {},
+      "problems": [],
+      "row_label": "never_supported_before_collision",
+      "run": 1,
+      "scenario": "scene-0038-hard-00",
+      "selected_object_id": 25,
+      "slot_id": "i111_s03_iter49_hard_extreme_exact_ttc_classifiable_anchor_long_lead_fire_ttc_only_scene_0038_hard_00_r1",
+      "slot_index": 3,
+      "support_frame_count": 0,
+      "support_object_distance_at_fire_m": null,
+      "support_object_present_at_fire": null,
+      "support_object_same_as_fire_nearest": null,
+      "support_object_same_as_selected": null,
+      "support_phase_counts": {},
+      "support_surface_counts": {}
+    },
+    {
+      "fire_minus_first_support_s": -0.25,
+      "fire_nearest_distance_m": 15.460122021736504,
+      "fire_nearest_object_id": 2,
+      "first_fire_event": {
+        "actor_support": false,
+        "brake": true,
+        "fired": true,
+        "frame_index": 6,
+        "min_cpa": 12.63198978948216,
+        "min_ttc_valid_s": 2.237707583308153,
+        "nearest_distance_m": 15.460122021736504,
+        "nearest_object_id": 2,
+        "object_count": 5,
+        "phase": "at_fire",
+        "surface_state": "active",
+        "ts": 1.5
+      },
+      "first_fire_ts": 1.5,
+      "first_foreground_event": {
+        "actor_support": true,
+        "brake": true,
+        "fired": true,
+        "frame_index": 10,
+        "min_cpa": 3.649411808009352,
+        "min_ttc_valid_s": 2.3710519359261575,
+        "nearest_distance_m": 5.638200876604923,
+        "nearest_object_id": 13,
+        "object_count": 6,
+        "phase": "post_fire_pre_collision",
+        "surface_state": "active",
+        "ts": 2.5
+      },
+      "first_foreground_ts": 2.5,
+      "first_support_event": {
+        "actor_support": true,
+        "brake": true,
+        "fired": false,
+        "frame_index": 7,
+        "min_cpa": 4.0187692486452224,
+        "min_ttc_valid_s": null,
+        "nearest_distance_m": 5.8356419209329236,
+        "nearest_object_id": 8,
+        "object_count": 5,
+        "phase": "post_fire_pre_collision",
+        "surface_state": "far",
+        "ts": 1.75
+      },
+      "first_support_object_id": 8,
+      "first_support_phase": "post_fire_pre_collision",
+      "first_support_ts": 1.75,
+      "pre_fire_support_frame_count": 0,
+      "pre_fire_support_surface_counts": {},
+      "problems": [],
+      "row_label": "post_fire_support_only",
+      "run": 1,
+      "scenario": "scene-0038-extreme-00",
+      "selected_object_id": 2,
+      "slot_id": "i111_s04_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r1",
+      "slot_index": 4,
+      "support_frame_count": 2,
+      "support_object_distance_at_fire_m": null,
+      "support_object_present_at_fire": false,
+      "support_object_same_as_fire_nearest": false,
+      "support_object_same_as_selected": false,
+      "support_phase_counts": {
+        "post_fire_pre_collision": 2
+      },
+      "support_surface_counts": {
+        "active": 1,
+        "far": 1
+      }
+    },
+    {
+      "fire_minus_first_support_s": -1.0,
+      "fire_nearest_distance_m": 15.541003639773562,
+      "fire_nearest_object_id": 2,
+      "first_fire_event": {
+        "actor_support": false,
+        "brake": true,
+        "fired": true,
+        "frame_index": 6,
+        "min_cpa": 12.673175831728482,
+        "min_ttc_valid_s": 2.2360093666315377,
+        "nearest_distance_m": 15.541003639773562,
+        "nearest_object_id": 2,
+        "object_count": 4,
+        "phase": "at_fire",
+        "surface_state": "active",
+        "ts": 1.5
+      },
+      "first_fire_ts": 1.5,
+      "first_foreground_event": {
+        "actor_support": true,
+        "brake": true,
+        "fired": false,
+        "frame_index": 10,
+        "min_cpa": 3.620611355044023,
+        "min_ttc_valid_s": null,
+        "nearest_distance_m": 5.647095932359166,
+        "nearest_object_id": 14,
+        "object_count": 5,
+        "phase": "post_fire_pre_collision",
+        "surface_state": "far",
+        "ts": 2.5
+      },
+      "first_foreground_ts": 2.5,
+      "first_support_event": {
+        "actor_support": true,
+        "brake": true,
+        "fired": false,
+        "frame_index": 10,
+        "min_cpa": 3.620611355044023,
+        "min_ttc_valid_s": null,
+        "nearest_distance_m": 5.647095932359166,
+        "nearest_object_id": 14,
+        "object_count": 5,
+        "phase": "post_fire_pre_collision",
+        "surface_state": "far",
+        "ts": 2.5
+      },
+      "first_support_object_id": 14,
+      "first_support_phase": "post_fire_pre_collision",
+      "first_support_ts": 2.5,
+      "pre_fire_support_frame_count": 0,
+      "pre_fire_support_surface_counts": {},
+      "problems": [],
+      "row_label": "post_fire_support_only",
+      "run": 2,
+      "scenario": "scene-0038-extreme-00",
+      "selected_object_id": 2,
+      "slot_id": "i111_s05_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0038_extreme_00_r2",
+      "slot_index": 5,
+      "support_frame_count": 1,
+      "support_object_distance_at_fire_m": null,
+      "support_object_present_at_fire": false,
+      "support_object_same_as_fire_nearest": false,
+      "support_object_same_as_selected": false,
+      "support_phase_counts": {
+        "post_fire_pre_collision": 1
+      },
+      "support_surface_counts": {
+        "far": 1
+      }
+    },
+    {
+      "fire_minus_first_support_s": 6.5,
+      "fire_nearest_distance_m": 23.221048739940226,
+      "fire_nearest_object_id": 18,
+      "first_fire_event": {
+        "actor_support": false,
+        "brake": true,
+        "fired": true,
+        "frame_index": 27,
+        "min_cpa": 5.98415483605311,
+        "min_ttc_valid_s": 2.1667784073304595,
+        "nearest_distance_m": 23.221048739940226,
+        "nearest_object_id": 18,
+        "object_count": 10,
+        "phase": "at_fire",
+        "surface_state": "active",
+        "ts": 6.75
+      },
+      "first_fire_ts": 6.75,
+      "first_foreground_event": {
+        "actor_support": false,
+        "brake": true,
+        "fired": false,
+        "frame_index": 29,
+        "min_cpa": 7.2324045824980265,
+        "min_ttc_valid_s": 2.8474217201094256,
+        "nearest_distance_m": 24.299765481450933,
+        "nearest_object_id": 0,
+        "object_count": 12,
+        "phase": "post_fire_pre_collision",
+        "surface_state": "borderline",
+        "ts": 7.25
+      },
+      "first_foreground_ts": 7.25,
+      "first_support_event": {
+        "actor_support": true,
+        "brake": false,
+        "fired": false,
+        "frame_index": 1,
+        "min_cpa": 12.148453633738463,
+        "min_ttc_valid_s": null,
+        "nearest_distance_m": 2.6002425517192336,
+        "nearest_object_id": 2,
+        "object_count": 3,
+        "phase": "pre_fire",
+        "surface_state": "far",
+        "ts": 0.25
+      },
+      "first_support_object_id": 2,
+      "first_support_phase": "pre_fire",
+      "first_support_ts": 0.25,
+      "pre_fire_support_frame_count": 8,
+      "pre_fire_support_surface_counts": {
+        "far": 8
+      },
+      "problems": [],
+      "row_label": "pre_fire_support_surface_far_only",
+      "run": 2,
+      "scenario": "scene-0383-extreme-00",
+      "selected_object_id": 1,
+      "slot_id": "i111_s06_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0383_extreme_00_r2",
+      "slot_index": 6,
+      "support_frame_count": 8,
+      "support_object_distance_at_fire_m": null,
+      "support_object_present_at_fire": false,
+      "support_object_same_as_fire_nearest": false,
+      "support_object_same_as_selected": false,
+      "support_phase_counts": {
+        "pre_fire": 8
+      },
+      "support_surface_counts": {
+        "far": 8
+      }
+    },
+    {
+      "fire_minus_first_support_s": 5.0,
+      "fire_nearest_distance_m": 23.180715225043926,
+      "fire_nearest_object_id": 12,
+      "first_fire_event": {
+        "actor_support": false,
+        "brake": true,
+        "fired": true,
+        "frame_index": 23,
+        "min_cpa": 10.189463732837424,
+        "min_ttc_valid_s": 2.2008969866008092,
+        "nearest_distance_m": 23.180715225043926,
+        "nearest_object_id": 12,
+        "object_count": 1,
+        "phase": "at_fire",
+        "surface_state": "active",
+        "ts": 5.75
+      },
+      "first_fire_ts": 5.75,
+      "first_foreground_event": {
+        "actor_support": false,
+        "brake": true,
+        "fired": true,
+        "frame_index": 24,
+        "min_cpa": 8.422078115078575,
+        "min_ttc_valid_s": 2.100903067745959,
+        "nearest_distance_m": 23.7097557759953,
+        "nearest_object_id": 12,
+        "object_count": 2,
+        "phase": "post_fire_pre_collision",
+        "surface_state": "active",
+        "ts": 6.0
+      },
+      "first_foreground_ts": 6.0,
+      "first_support_event": {
+        "actor_support": true,
+        "brake": false,
+        "fired": false,
+        "frame_index": 3,
+        "min_cpa": 3.733581273642973,
+        "min_ttc_valid_s": null,
+        "nearest_distance_m": 2.0670184007969374,
+        "nearest_object_id": 2,
+        "object_count": 3,
+        "phase": "pre_fire",
+        "surface_state": "far",
+        "ts": 0.75
+      },
+      "first_support_object_id": 2,
+      "first_support_phase": "pre_fire",
+      "first_support_ts": 0.75,
+      "pre_fire_support_frame_count": 2,
+      "pre_fire_support_surface_counts": {
+        "far": 2
+      },
+      "problems": [],
+      "row_label": "pre_fire_support_surface_far_only",
+      "run": 1,
+      "scenario": "scene-0411-hard-00",
+      "selected_object_id": 12,
+      "slot_id": "i111_s07_iter49_hard_extreme_ttc_classifiable_scenario_analogue_short_lead_fire_ttc_only_scene_0411_hard_00_r1",
+      "slot_index": 7,
+      "support_frame_count": 2,
+      "support_object_distance_at_fire_m": null,
+      "support_object_present_at_fire": false,
+      "support_object_same_as_fire_nearest": false,
+      "support_object_same_as_selected": false,
+      "support_phase_counts": {
+        "pre_fire": 2
+      },
+      "support_surface_counts": {
+        "far": 2
+      }
+    },
+    {
+      "fire_minus_first_support_s": 5.0,
+      "fire_nearest_distance_m": 24.812496764606966,
+      "fire_nearest_object_id": 17,
+      "first_fire_event": {
+        "actor_support": false,
+        "brake": true,
+        "fired": true,
+        "frame_index": 23,
+        "min_cpa": 7.027359517545575,
+        "min_ttc_valid_s": 1.999977444740255,
+        "nearest_distance_m": 24.812496764606966,
+        "nearest_object_id": 17,
+        "object_count": 1,
+        "phase": "at_fire",
+        "surface_state": "active",
+        "ts": 5.75
+      },
+      "first_fire_ts": 5.75,
+      "first_foreground_event": {
+        "actor_support": true,
+        "brake": true,
+        "fired": true,
+        "frame_index": 24,
+        "min_cpa": 5.931613481494271,
+        "min_ttc_valid_s": 1.9283171948668025,
+        "nearest_distance_m": 5.758225076231357,
+        "nearest_object_id": 25,
+        "object_count": 2,
+        "phase": "post_fire_pre_collision",
+        "surface_state": "active",
+        "ts": 6.0
+      },
+      "first_foreground_ts": 6.0,
+      "first_support_event": {
+        "actor_support": true,
+        "brake": false,
+        "fired": false,
+        "frame_index": 3,
+        "min_cpa": 4.780319904482941,
+        "min_ttc_valid_s": null,
+        "nearest_distance_m": 3.95802218200769,
+        "nearest_object_id": 4,
+        "object_count": 3,
+        "phase": "pre_fire",
+        "surface_state": "far",
+        "ts": 0.75
+      },
+      "first_support_object_id": 4,
+      "first_support_phase": "pre_fire",
+      "first_support_ts": 0.75,
+      "pre_fire_support_frame_count": 1,
+      "pre_fire_support_surface_counts": {
+        "far": 1
+      },
+      "problems": [],
+      "row_label": "pre_fire_support_surface_far_only",
+      "run": 2,
+      "scenario": "scene-0411-extreme-00",
+      "selected_object_id": 17,
+      "slot_id": "i111_s08_iter49_hard_extreme_ttc_classifiable_scenario_analogue_long_lead_fire_ttc_only_scene_0411_extreme_00_r2",
+      "slot_index": 8,
+      "support_frame_count": 2,
+      "support_object_distance_at_fire_m": null,
+      "support_object_present_at_fire": false,
+      "support_object_same_as_fire_nearest": false,
+      "support_object_same_as_selected": false,
+      "support_phase_counts": {
+        "post_fire_pre_collision": 1,
+        "pre_fire": 1
+      },
+      "support_surface_counts": {
+        "active": 1,
+        "far": 1
+      }
+    }
+  ],
+  "infra_problems": [],
+  "inputs": {
+    "iter115_report": "experiments/iter115_hugsim_support_core_monitor_set_ordering/proof-ordering/support_core_monitor_set_ordering_report.json",
+    "iter116_report": "experiments/iter116_hugsim_support_core_collision_actor_timeline/proof-timeline/support_core_collision_actor_timeline_report.json",
+    "iter59_analyzer": "experiments/iter59_hugsim_actor_match_audit/analyze_actor_match.py",
+    "proof_root": "experiments/iter112_hugsim_support_core_batch_execution/proof-execution"
+  },
+  "iteration": 117,
+  "summary": {
+    "fire_minus_first_support_s": {
+      "max": 6.5,
+      "min": -1.0
+    },
+    "fire_nearest_distance_m": {
+      "max": 24.812496764606966,
+      "min": 7.624207359121617
+    },
+    "first_fire_surface_state_counts": {
+      "active": 8
+    },
+    "first_support_surface_state_counts": {
+      "far": 7
+    },
+    "pre_fire_support_frame_count": {
+      "max": 8.0,
+      "min": 0.0
+    },
+    "problem_row_count": 0,
+    "row_count": 8,
+    "row_label_counts": {
+      "never_supported_before_collision": 1,
+      "post_fire_support_only": 2,
+      "pre_fire_support_surface_far_only": 5
+    },
+    "support_frame_count": {
+      "max": 8.0,
+      "min": 0.0
+    },
+    "support_object_distance_at_fire_m": {
+      "max": 7.624207359121617,
+      "min": 7.624207359121617
+    },
+    "support_object_present_at_fire_count": 1,
+    "support_object_same_as_fire_nearest_count": 1,
+    "support_object_same_as_selected_count": 0,
+    "support_phase_counts": {
+      "post_fire_pre_collision": 4,
+      "pre_fire": 13
+    },
+    "support_surface_counts": {
+      "active": 2,
+      "far": 15
+    }
+  },
+  "verdict": "HUGSIM_SUPPORT_CORE_EVENT_WINDOW_COMPLETE"
+}

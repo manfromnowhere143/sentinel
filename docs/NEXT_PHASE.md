@@ -123,7 +123,13 @@ appearing `pre_fire` in `5/8`, `post_fire_pre_collision` in `2/8`, and `never_be
 in `1/8`. At first fire, all rows still remain outside the frozen support band (`7.62-24.81 m`),
 so the next local HUGSIM priority is an offline event-window decomposition of persistence,
 selected-object identity, and released CPA/TTC surface state around first-support and first-fire
-frames, not a new GPU batch and not a repair/safety claim.
+frames, not a new GPU batch and not a repair/safety claim. That event-window decomposition is now
+complete: first-support surface state is `far` in all `7` supported rows, first-fire surface state
+is `active` in all `8` rows, first-support objects persist to first fire in only `1/7`, and none
+equals the first-fire selected object. The next local HUGSIM priority is an offline support-object
+lifecycle audit from first support to fire: last presence, last support, disappearance or drift
+outside the support band, and whether the later active support frames are same-object or
+different-object post-fire support.
 
 ## New frontier packet after these lines closed
 
