@@ -141,7 +141,13 @@ and every first-fire nearest replacement is still outside the frozen support ban
 (`7.62-24.81 m`). The next local HUGSIM priority is an offline selected-fire-object backward
 lifecycle audit: determine whether the selected first-fire object ever enters the support band
 before fire, when it first appears, whether it becomes surface-active before first fire, and whether
-selected-nearest rows differ from selected-not-nearest rows.
+selected-nearest rows differ from selected-not-nearest rows. That selected-object lifecycle audit
+is now complete: all `8` selected first-fire objects are
+`selected_never_supported_before_collision`, with zero selected-object support frames before fire,
+at fire, or after fire before first foreground collision. The next local HUGSIM priority is a
+report-level two-track support-core synthesis: join first-support object lifecycle, selected
+fire-object lifecycle, and first-fire replacement rank into one row taxonomy without rerunning raw
+reconstruction or launching GPU.
 
 ## New frontier packet after these lines closed
 

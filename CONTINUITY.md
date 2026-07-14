@@ -2324,3 +2324,15 @@ events to prepare; they are a property the repository always has.
   threshold-value, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance,
   commercial-value, real-world/first-responder behavior, retuning, production, or commercial
   claim.
+- 2026-07-14: Codex — continued into iteration 120 as the HUGSIM support-core selected fire-object
+  backward lifecycle audit after iteration 119. Pre-registered ALONE (`77a3e3b`), added
+  analyzer/tests (`508f576`, targeted ruff/tests/docs green), then ran the analyzer ONCE over
+  committed iteration-112/119 artifacts. Result:
+  `HUGSIM_SUPPORT_CORE_SELECTED_FIRE_OBJECT_COMPLETE`; all `8` selected first-fire objects are
+  `selected_never_supported_before_collision`, selected support-frame count is `0` in every row,
+  selected closest pre-fire distance is `9.814849860027191-26.576615026308698 m`, and selected
+  at-fire distance is `14.472507961609738-36.09143899155716 m`. Next honest step: report-level
+  two-track support-core synthesis joining first-support object lifecycle, selected fire-object
+  lifecycle, and first-fire replacement rank. No actor-causality, repair, threshold-value,
+  safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value,
+  real-world/first-responder behavior, retuning, production, or commercial claim.
