@@ -65,9 +65,13 @@ Infrastructure passed, but support did not: only `1/13` slots was `classifiable_
 against the preregistered floor of `4`, with the remaining slots split across background-only,
 post-collision-fire, and no-monitor-fire cases. That one classifiable row was an
 `actor_mismatch`, but the support floor prevents a stronger actor-match story. The next local
-HUGSIM priority is support-yield redesign: a fresh pre-registration for a provenance batch biased
-toward pre-or-at-foreground monitor fires with foreground collision provenance, preserving
-byte-bound instrumentation, slot-level manifest keys, and no retuning.
+HUGSIM priority was support-yield redesign. That successor is now complete: using only committed
+iteration-52/54/59/104 reports, the timing-aware design found `20` primary eligible rows after
+excluding already instrumented scenarios and selected `13` future slots across `11` unique
+scenarios, both datasets, both channels, all four tiers, and a `12` long-lead / `1` short-lead
+fire mix. This still authorizes no GPU launch. The next local HUGSIM priority is a launch-manifest
+preflight for the iteration-105 schedule: bind scenario hashes, frozen stack receipts, and
+slot-id semantics before any operator-approved execution step.
 
 ## New frontier packet after these lines closed
 
