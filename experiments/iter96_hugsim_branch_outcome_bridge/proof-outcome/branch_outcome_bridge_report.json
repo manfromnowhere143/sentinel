@@ -1,0 +1,89 @@
+{
+  "claim_boundary": "two-row descriptive branch-taxonomy/outcome bridge only; no actor-causality, repair, threshold-value, transfer, safety, deployment, robustness, benchmark, population-rate, HD-Score-invariance, commercial-value, real-world behavior, first-responder behavior, or retuning claim",
+  "events": [
+    {
+      "audit_id": "both_distinct_extreme",
+      "branch_label_count": 1,
+      "branch_labels": [
+        "nonactive_surface_provenance_ttc_borderline_over_path_cpa"
+      ],
+      "fire_minus_foreground_s": 1.75,
+      "first_fire_channel": "ttc_only",
+      "first_fire_ts": 7.0,
+      "first_foreground_ts": 5.25,
+      "has_active_cpa_branch": false,
+      "has_path_cpa_branch": false,
+      "has_provenance_ttc_branch": true,
+      "iter59_support_label": "post_collision_fire",
+      "pre_or_at_foreground_fire": false,
+      "pre_or_at_foreground_fire_frames": 0,
+      "problems": [],
+      "row_label": "late_fire_with_provenance_ttc_branch",
+      "scenario": "scene-0138-extreme-00",
+      "structural_label": "foreground_present_late_fire"
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "branch_label_count": 2,
+      "branch_labels": [
+        "nonactive_surface_path_cpa_over_provenance_bridge",
+        "active_row_cpa_margin_overrides_provenance"
+      ],
+      "fire_minus_foreground_s": 1.75,
+      "first_fire_channel": "cpa_only",
+      "first_fire_ts": 5.0,
+      "first_foreground_ts": 3.25,
+      "has_active_cpa_branch": true,
+      "has_path_cpa_branch": true,
+      "has_provenance_ttc_branch": false,
+      "iter59_support_label": "post_collision_fire",
+      "pre_or_at_foreground_fire": false,
+      "pre_or_at_foreground_fire_frames": 0,
+      "problems": [],
+      "row_label": "late_fire_with_path_cpa_branch",
+      "scenario": "scene-0071-medium-01",
+      "structural_label": "foreground_present_late_fire"
+    }
+  ],
+  "fixed_rows": [
+    {
+      "audit_id": "both_distinct_extreme",
+      "expected_iter94_labels": [],
+      "expected_iter95_labels": [
+        "nonactive_surface_provenance_ttc_borderline_over_path_cpa"
+      ],
+      "scenario": "scene-0138-extreme-00"
+    },
+    {
+      "audit_id": "ttc_medium_a",
+      "expected_iter94_labels": [
+        "active_row_cpa_margin_overrides_provenance"
+      ],
+      "expected_iter95_labels": [
+        "nonactive_surface_path_cpa_over_provenance_bridge"
+      ],
+      "scenario": "scene-0071-medium-01"
+    }
+  ],
+  "infra_problems": [],
+  "inputs": {
+    "iter70_report": "experiments/iter70_hugsim_structural_timing_audit/proof-structural/structural_report.json",
+    "iter94_report": "experiments/iter94_hugsim_active_row_surface_margin_arbitration/proof-margin/active_row_surface_margin_arbitration_report.json",
+    "iter95_report": "experiments/iter95_hugsim_nonactive_surface_branch_arbitration/proof-branch/nonactive_surface_branch_arbitration_report.json"
+  },
+  "iteration": 96,
+  "summary": {
+    "active_cpa_branch_rows": 1,
+    "evaluated_rows": 2,
+    "late_fire_rows": 2,
+    "no_pre_foreground_fire_rows": 2,
+    "path_cpa_branch_rows": 1,
+    "provenance_ttc_branch_rows": 1,
+    "row_label_counts": {
+      "late_fire_with_path_cpa_branch": 1,
+      "late_fire_with_provenance_ttc_branch": 1
+    },
+    "target_rows": 2
+  },
+  "verdict": "HUGSIM_BRANCH_TAXONOMY_LATE_FIRE_OUTCOME_BRIDGE_COMPLETE"
+}

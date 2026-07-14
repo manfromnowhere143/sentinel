@@ -13,7 +13,7 @@ It adds a deeper Stanford/MIT/Tesla/Mobileye/NHTSA read to the existing frontier
 packet. The decision is narrow: Sentinel is aligned when framed as a runtime monitor,
 failure-localization, and safety-evidence system for opaque planners; it is not aligned when
 framed as a full autonomy stack, world model, robotaxi system, or deployment-ready safety case.
-That priority is now partly closed by iterations 84-95: the selected-vs-support
+That priority is now partly closed by iterations 84-96: the selected-vs-support
 path/arbitration split is proven on the fixed rows, and the closest-path-horizon/provenance
 timing decomposition shows support-object provenance arriving after the event in all three rows.
 The exact bridge-time support-surface replay then blocked on the active `ttc_medium_a` row because
@@ -33,10 +33,12 @@ provenance in one row, with the active row following path. The active-row margin
 explained that branch: object `24` is the only active CPA/path/surface candidate, while all three
 bridge-supported provenance candidates are non-active, TTC-null, and CPA-far. The non-active
 branch arbitration then split the remaining two rows into a provenance/TTC-borderline branch and
-a path/CPA branch. The next local HUGSIM priority is a fresh mechanism-cause pre-registration
-that either tests the fixed branch taxonomy against a larger committed row set, connects the
-branch taxonomy back to HUGSIM collision outcomes under a preregistered evidence boundary, or
-chooses another unresolved branch; it must not retune thresholds or make repair/safety claims.
+a path/CPA branch. The branch-outcome bridge then showed those different branches both sit inside
+the same late-fire/no-pre-fire outcome class for the two post-collision-fire rows. The next local
+HUGSIM priority is a fresh mechanism-cause pre-registration that either tests this branch/outcome
+bridge against a larger committed row set, decomposes the surface-silent branch with the same
+discipline, or chooses another unresolved branch; it must not retune thresholds or make
+repair/safety claims.
 
 ## New frontier packet after these lines closed
 
@@ -609,6 +611,10 @@ Iteration 95 then decomposed the two non-active rows. The result is
 `HUGSIM_NONACTIVE_SURFACE_BRANCH_ARBITRATION_SPLIT_COMPLETE`: `both_distinct_extreme` follows a
 provenance/TTC-borderline branch through object `9`, while `ttc_medium_a` pre follows a path/CPA
 branch through object `19`.
+Iteration 96 then joined those branches back to outcome timing. The result is
+`HUGSIM_BRANCH_TAXONOMY_LATE_FIRE_OUTCOME_BRIDGE_COMPLETE`: the two late-fire rows have different
+branch labels, but both fire `+1.75 s` after foreground contact and both have zero pre-or-at
+foreground fire frames.
 
 The default next scientific line is therefore not an expanded-N transfer run and not retuning the
 released union. After iteration 61, the actor-match audit points to wrong-object/wrong-hazard
@@ -667,9 +673,11 @@ path-following surface winner is the only active CPA candidate, while bridge-sup
 candidates remain non-active and CPA-far.
 Iteration 95 closes the immediate non-active branch arbitration: the two non-active rows split
 into provenance/TTC-borderline and path/CPA branches.
-Any successor should be a fresh mechanism-cause pre-registration that either tests this fixed-row
-branch taxonomy against a larger committed row set, connects it back to HUGSIM collision outcomes
-under a preregistered evidence boundary, or chooses another branch. A strong
+Iteration 96 closes the immediate branch/outcome bridge: different fixed-row surface branches can
+sit inside the same late-fire/no-pre-fire outcome class.
+Any successor should be a fresh mechanism-cause pre-registration that either tests this
+branch/outcome bridge against a larger committed row set, decomposes the surface-silent branch
+with the same discipline, or chooses another branch. A strong
 successor should distinguish among:
 
 1. hazard surface: whether the monitor is braking for the wrong detected object or wrong path

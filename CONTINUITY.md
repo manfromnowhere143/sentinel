@@ -2168,3 +2168,14 @@ events to prepare; they are a property the repository always has.
   actor-causality, repair, threshold-value, population-rate,
   safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value,
   real-world/first-responder behavior, or retuning claim.
+- 2026-07-14: Codex — continued into iteration 96 as the HUGSIM branch taxonomy outcome bridge
+  after iteration 95. Pre-registered ALONE (`91ddad5`), added analyzer/tests (`8a16f79`, 392
+  tests green before analysis), then ran the analyzer ONCE over committed iteration-70/94/95
+  reports. Result: `HUGSIM_BRANCH_TAXONOMY_LATE_FIRE_OUTCOME_BRIDGE_COMPLETE`; the two
+  post-collision-fire structural rows have different branch explanations
+  (`both_distinct_extreme` provenance/TTC-borderline, `ttc_medium_a` path/CPA plus active CPA),
+  but both are `foreground_present_late_fire`, both fire `+1.75 s` after foreground contact, and
+  both have zero pre-or-at foreground fire frames. No raw-log read, GPU/gcloud/box read,
+  actor-causality, repair, threshold-value, population-rate,
+  safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value,
+  real-world/first-responder behavior, or retuning claim.
