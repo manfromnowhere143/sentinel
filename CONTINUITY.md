@@ -2559,3 +2559,27 @@ events to prepare; they are a property the repository always has.
    acquisition-value, or frontier-equivalence claim. A `PLACEBO_EXPLAINS_GAIN` verdict is a
    statement about what the NeuroNCAP score can distinguish under this control, on these scenes,
    at this N. It is NOT a claim that any other published NeuroNCAP result is wrong.
+
+- **Iteration 131's audit required an IDLE GPU box to pass (amended 2026-07-14, `5796929`).**
+  Found while regenerating the baton for the iteration-134 launch. `check_handoff_freshness` in
+  `experiments/iter131_post_iter130_mission_alignment_audit/` required the literal string
+  `GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS` in `HANDOFF.md`, which froze "the box is idle" as a
+  required property of the repository: `pytest -q` could be green ONLY while no experiment was
+  running. A repo-health audit failed for the sole reason that science was in flight. That is the
+  iterations 122-133 posture encoded into CI. Amended to require the probe verdict to be PRESENT
+  (`GPU_RUN_STATE=`) rather than to hold one value; both `IDLE_NO_DOCKER_CONTAINERS` and
+  `IN_FLIGHT_CONTAINERS` are truthful reports, and only a missing or unreachable probe is a stale
+  baton. The committed iteration-131 report is untouched and still passes under the weaker
+  requirement; its `required` list reflects what was checked on the day, and the amendment reason
+  is on the record in the verifier itself. Only iteration 131 carried this coupling.
+
+- **Baton hazard, corrected same shift (`428d674`).** After the iteration-134 launch, `HANDOFF.md`
+  was 4 commits stale AND described iteration 134 as a launch-manifest preflight while a live
+  1,200-episode GPU run was in flight. An operator reading that baton would have concluded the box
+  was free and could have relaunched over the run, which the baton protocol exists to prevent.
+  Root cause of the staleness: `scripts/make_handoff.py` emits to STDOUT, so running it without
+  redirecting to `HANDOFF.md` silently leaves the file untouched. The regenerated baton now leads
+  with an OPERATOR STOP block and carries the live probe's `GPU_RUN_STATE=IN_FLIGHT_CONTAINERS`.
+  Also fixed: the generator stamped a locale-dependent date (`LC_ALL=C` now pinned), so the
+  `Tue Jul 14` convention holds for every operator. Note the structural floor: the baton records
+  `git log` and is then committed, so it is always exactly one commit behind its own commit.

@@ -1,20 +1,20 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Tue Jul 14 13:22:43 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Tue Jul 14 13:25:49 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+5796929 iter131: stop requiring an idle box for the audit to pass
+428d674 handoff: warn that iter134 is in flight, do not relaunch
 5c30941 iter134: record launch and on-done protocol
 dc0bb23 iter134: smoke proves placebo fires on donor schedule
 2b9f560 iter134: add placebo tooling and launch manifest
 647bab0 iter134: preregister placebo semantics execution
 8095ee9 handoff: record iter133 placebo control state
 21fbafa iter133: publish placebo semantics control design
-d3c179b iter133: add placebo semantics control tooling
-639265b iter133: preregister placebo semantics control
 ```
 Working tree: DIRTY — resolve before handoff:
- M scripts/make_handoff.py
+M CONTINUITY.md
 
 ## Experiments (status inferred from files)
 
@@ -161,15 +161,15 @@ Working tree: DIRTY — resolve before handoff:
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 13:23:52 up 10 days,  3:04,  0 users,  load average: 1.23, 1.12, 1.02
+ 13:26:57 up 10 days,  3:08,  0 users,  load average: 1.21, 1.13, 1.03
 GPU_RUN_STATE=IN_FLIGHT_CONTAINERS
-infallible_tharp	Up 24 minutes
-model	Up 24 minutes
-renderer	Up 24 minutes
-/var/log/sentinel-vitals.log
+infallible_tharp	Up 27 minutes
+model	Up 27 minutes
+renderer	Up 27 minutes
 /var/log/sentinel-i134.log
+/var/log/sentinel-vitals.log
 /var/log/sentinel-i134-smoke.log
-/dev/root       310G  270G   41G  88% /
+/dev/root       310G  270G   40G  88% /
 Swap:          8.0Gi       4.1Gi       3.9Gi
 ```
 If any docker container named renderer/model/ncap (or a random-name ncap) is up, a run
@@ -197,8 +197,8 @@ is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT 
 `/var/log/sentinel-*.log`, which is `sentinel-i134.log`.
 
 Iteration 134 is an EXECUTION, not a preflight. An earlier handoff appendix recommended that 134
-be a launch-manifest preflight; that recommendation was superseded before launch. The
-hash-bound launch manifest that recommendation asked for was built, and it is
+be a launch-manifest preflight; that recommendation was superseded before launch. The hash-bound
+launch manifest it asked for was built and is
 `experiments/iter134_neuroncap_placebo_semantics_execution/launch_manifest.json` — it exists as
 step 1 of the execution rather than as a separate iteration. Operator GPU approval is on record.
 
