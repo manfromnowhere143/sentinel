@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Tue Jul 14 03:46:23 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Tue Jul 14 03:52:22 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+1b0cb6f iter97: publish silent outcome bridge
+8f79976 iter97: add silent outcome bridge tooling
+d8610f3 iter97: preregister silent outcome bridge
+4763a13 handoff: record iter96 outcome state
 e3aee61 iter96: publish branch outcome bridge
 8a16f79 iter96: add branch outcome bridge tooling
 91ddad5 iter96: preregister branch outcome bridge
 cc6b40e handoff: record iter95 branch state
-b93e408 iter95: publish nonactive branch arbitration
-2453187 iter95: add nonactive branch arbitration tooling
-f964d9e iter95: preregister nonactive branch arbitration
-ee8608a handoff: record iter94 margin state
 ```
 Working tree: CLEAN
 
@@ -114,6 +114,7 @@ Working tree: CLEAN
 - experiments/iter94_hugsim_active_row_surface_margin_arbitration: RESULT PUBLISHED
 - experiments/iter95_hugsim_nonactive_surface_branch_arbitration: RESULT PUBLISHED
 - experiments/iter96_hugsim_branch_outcome_bridge: RESULT PUBLISHED
+- experiments/iter97_hugsim_surface_silent_outcome_margin_bridge: RESULT PUBLISHED
 - experiments/iter9_evade: RESULT PUBLISHED
 - experiments/union_validation: RESULT PUBLISHED
 - experiments/vad_generalization: RESULT PUBLISHED
@@ -122,7 +123,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 03:47:31 up 9 days, 17:28,  0 users,  load average: 0.01, 0.02, 0.00
+ 03:53:29 up 9 days, 17:34,  0 users,  load average: 0.00, 0.00, 0.00
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-iter59-actor-match.log
@@ -134,7 +135,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter96_hugsim_branch_outcome_bridge/RESULT.md — read it before opening new work.
+- Newest completed experiment: experiments/iter97_hugsim_surface_silent_outcome_margin_bridge/RESULT.md — read it before opening new work.
 - Newest pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
