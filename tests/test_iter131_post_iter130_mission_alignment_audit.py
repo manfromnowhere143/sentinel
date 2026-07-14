@@ -31,6 +31,16 @@ def test_current_through_at_least_accepts_newer_readme() -> None:
     assert not audit.current_through_at_least(text, 132)
 
 
+def test_handoff_freshness_accepts_newer_experiment() -> None:
+    text = (
+        "Newest completed experiment: "
+        "experiments/iter131_post_iter130_mission_alignment_audit/RESULT.md\n"
+        "GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS"
+    )
+
+    assert audit.check_handoff_freshness(text)["passed"]
+
+
 def test_verdict_blocks_failed_check() -> None:
     checks = [{"label": "x", "passed": False, "missing": ["needed"]}]
 

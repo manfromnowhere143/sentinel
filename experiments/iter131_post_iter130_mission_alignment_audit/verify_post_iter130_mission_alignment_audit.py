@@ -122,6 +122,25 @@ def check_readme_freshness(text: str) -> dict[str, Any]:
     return {"label": "readme-current-through-130", "required": required, "missing": missing, "passed": not missing}
 
 
+def check_handoff_freshness(text: str) -> dict[str, Any]:
+    missing: list[str] = []
+    matches = [
+        int(value)
+        for value in re.findall(
+            r"Newest completed experiment: experiments/iter(\d+)_", text
+        )
+    ]
+    if not matches or max(matches) < 130:
+        missing.append("newest completed experiment is iteration 130 or newer")
+    if "GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS" not in text:
+        missing.append("GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS")
+    required = [
+        "newest completed experiment is iteration 130 or newer",
+        "GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS",
+    ]
+    return {"label": "handoff-post-130", "required": required, "missing": missing, "passed": not missing}
+
+
 def check_iter130_report(report: dict[str, Any]) -> dict[str, Any]:
     summary = report.get("summary") if isinstance(report.get("summary"), dict) else {}
     missing: list[str] = []
@@ -230,14 +249,7 @@ def build_report(repo_root: Path) -> dict[str, Any]:
                 "no generated artifact",
             ],
         ),
-        check(
-            "handoff-post-130",
-            handoff_text,
-            [
-                "Newest completed experiment: experiments/iter130_support_core_artifact_schema_preflight/RESULT.md",
-                "GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS",
-            ],
-        ),
+        check_handoff_freshness(handoff_text),
         check(
             "frontier-memory-post-130",
             memory_text,
