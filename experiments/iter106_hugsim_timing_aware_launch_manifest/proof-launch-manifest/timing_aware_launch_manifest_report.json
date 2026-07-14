@@ -1,0 +1,121 @@
+{
+  "claim_boundary": "offline timing-aware launch-manifest preflight only; no GPU approval, launch authorization, actor-causality, actor-match result, repair, threshold-value, transfer, safety, deployment, robustness, benchmark, population-rate, HD-Score-invariance, real-world behavior, acquisition-value, retuning, production, or commercial claim",
+  "event": {
+    "measurements": {
+      "duplicate_slot_policy": {
+        "destination_paths_must_include_slot_id": true,
+        "done_markers_must_include_slot_id": true,
+        "primary_execution_key": "slot_id",
+        "scenario_deduplication_allowed": false
+      },
+      "launcher_constants": {
+        "DISK_MIN_GIB": "20",
+        "EPISODE_TIMEOUT": "1200",
+        "FROZEN_CKPT_SHA": "0ad0c2f5dc9788a41c313305779ea49346aeb742d1f6bb5ad25c46f9beffc990",
+        "FROZEN_HUGSIM_PATCH_SHA": "49eee7611e4b881d2bb6233e8767913019c6a097c6883762414005d5b2284ecd",
+        "FROZEN_HUGSIM_SHA": "62c690d39fd90020e68a196bd8bcc1c4d4191f2e",
+        "FROZEN_IMAGE_ID": "f73ef3884063",
+        "FROZEN_MONITOR_PATCH_SHA": "6b39fd79d00c7bdb937c6d240fbc4648661b235f1a3024912d62874937146c5c",
+        "FROZEN_SHIM_SHA": "5bf69a1187478c52d49792d5871bd5732c6dd431ecd1f44b5e391f7adb80682c",
+        "FROZEN_UNIADSIM_SHA": "5fb279e39912a5ac7f58e00d56b065cadcd0a749"
+      },
+      "summary": {
+        "duplicate_scenario_count": 2,
+        "duplicate_scenarios": {
+          "scene-0064-hard-00": 2,
+          "scene-0138-medium-01": 2
+        },
+        "duplicate_slot_count": 4,
+        "scenario_sha_bound_count": 13,
+        "selected_channel_counts": {
+          "cpa_only": 8,
+          "ttc_only": 5
+        },
+        "selected_dataset_counts": {
+          "iter48_easy_medium": 7,
+          "iter49_hard_extreme": 6
+        },
+        "selected_tier_counts": {
+          "easy": 3,
+          "extreme": 2,
+          "hard": 4,
+          "medium": 4
+        },
+        "selected_timing_counts": {
+          "long_lead_fire": 12,
+          "short_lead_fire": 1
+        },
+        "slot_count": 13,
+        "stack_gate_count": 11,
+        "unique_scenario_count": 11,
+        "unique_scenarios": [
+          "scene-0064-easy-00",
+          "scene-0064-hard-00",
+          "scene-0064-medium-01",
+          "scene-0071-easy-00",
+          "scene-0071-extreme-00",
+          "scene-0138-hard-00",
+          "scene-0138-medium-01",
+          "scene-0166-easy-00",
+          "scene-0166-medium-01",
+          "scene-0411-extreme-00",
+          "scene-0411-hard-00"
+        ]
+      }
+    },
+    "problems": []
+  },
+  "infra_problems": [],
+  "inputs": {
+    "iter105_report": "experiments/iter105_hugsim_timing_aware_provenance_batch_design/proof-design/timing_aware_provenance_batch_design_report.json",
+    "iter48_manifest": "experiments/iter48_hugsim_transfer_gate/proof-stage2/frozen_scenarios.sha256",
+    "iter49_manifest": "experiments/iter49_hugsim_hard_tier_gate/proof-hard/frozen_scenarios_hard.sha256",
+    "iter59_launcher": "experiments/iter59_hugsim_actor_match_audit/run_actor_match_audit.sh",
+    "iter59_receipts": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/receipts.json"
+  },
+  "iteration": 106,
+  "summary": {
+    "duplicate_scenario_count": 2,
+    "duplicate_scenarios": {
+      "scene-0064-hard-00": 2,
+      "scene-0138-medium-01": 2
+    },
+    "duplicate_slot_count": 4,
+    "scenario_sha_bound_count": 13,
+    "selected_channel_counts": {
+      "cpa_only": 8,
+      "ttc_only": 5
+    },
+    "selected_dataset_counts": {
+      "iter48_easy_medium": 7,
+      "iter49_hard_extreme": 6
+    },
+    "selected_tier_counts": {
+      "easy": 3,
+      "extreme": 2,
+      "hard": 4,
+      "medium": 4
+    },
+    "selected_timing_counts": {
+      "long_lead_fire": 12,
+      "short_lead_fire": 1
+    },
+    "slot_count": 13,
+    "stack_gate_count": 11,
+    "unique_scenario_count": 11,
+    "unique_scenarios": [
+      "scene-0064-easy-00",
+      "scene-0064-hard-00",
+      "scene-0064-medium-01",
+      "scene-0071-easy-00",
+      "scene-0071-extreme-00",
+      "scene-0138-hard-00",
+      "scene-0138-medium-01",
+      "scene-0166-easy-00",
+      "scene-0166-medium-01",
+      "scene-0411-extreme-00",
+      "scene-0411-hard-00"
+    ]
+  },
+  "verdict": "HUGSIM_TIMING_AWARE_LAUNCH_MANIFEST_COMPLETE"
+}

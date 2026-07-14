@@ -70,8 +70,12 @@ iteration-52/54/59/104 reports, the timing-aware design found `20` primary eligi
 excluding already instrumented scenarios and selected `13` future slots across `11` unique
 scenarios, both datasets, both channels, all four tiers, and a `12` long-lead / `1` short-lead
 fire mix. This still authorizes no GPU launch. The next local HUGSIM priority is a launch-manifest
-preflight for the iteration-105 schedule: bind scenario hashes, frozen stack receipts, and
-slot-id semantics before any operator-approved execution step.
+preflight for the iteration-105 schedule. That preflight is now complete: all `13` slots are
+scenario-SHA-bound, frozen stack gates matched, duplicate groups are preserved by `slot_id`, and
+the manifest has `11` unique scenarios with `2` duplicate scenario groups. This still authorizes
+no GPU launch. The next local HUGSIM priority is a separate execution pre-registration over the
+iteration-106 manifest, with the GPU command, collection contract, and no-retuning/no-metric-change
+boundary frozen before launch.
 
 ## New frontier packet after these lines closed
 
