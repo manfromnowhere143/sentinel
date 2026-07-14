@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Tue Jul 14 09:25:28 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Tue Jul 14 09:35:43 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+18fac2c iter115: publish support core monitor set ordering
+cf871f6 iter115: add support core monitor set ordering tooling
+dad164a iter115: preregister support core monitor set ordering
+258ca42 handoff: record iter114 mismatch geometry state
 14f1ec1 iter114: publish support core mismatch geometry
 e7bfc37 iter114: add support core mismatch geometry tooling
 b08709e iter114: preregister support core mismatch geometry
 a465501 handoff: record iter113 support core actor match state
-cd13b9a iter113: publish support core actor match audit
-a3d7439 iter113: add support core actor match tooling
-3bc6027 iter113: preregister support core actor match audit
-50ec764 handoff: record iter112 support core execution state
 ```
 Working tree: CLEAN
 
@@ -35,6 +35,7 @@ Working tree: CLEAN
 - experiments/iter112_hugsim_support_core_batch_execution: RESULT PUBLISHED
 - experiments/iter113_hugsim_support_core_actor_match_audit: RESULT PUBLISHED
 - experiments/iter114_hugsim_support_core_mismatch_geometry_decomposition: RESULT PUBLISHED
+- experiments/iter115_hugsim_support_core_monitor_set_ordering: RESULT PUBLISHED
 - experiments/iter11_early_evade: RESULT PUBLISHED
 - experiments/iter12_plan_selection: RESULT PUBLISHED
 - experiments/iter13_rss_baseline: RESULT PUBLISHED
@@ -140,7 +141,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 09:26:37 up 9 days, 23:07,  0 users,  load average: 0.08, 0.03, 0.50
+ 09:36:51 up 9 days, 23:17,  0 users,  load average: 0.00, 0.00, 0.24
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-iter112-support-core-batch.log
@@ -152,7 +153,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter114_hugsim_support_core_mismatch_geometry_decomposition/RESULT.md — read it before opening new work.
+- Newest completed experiment: experiments/iter115_hugsim_support_core_monitor_set_ordering/RESULT.md — read it before opening new work.
 - Newest pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
