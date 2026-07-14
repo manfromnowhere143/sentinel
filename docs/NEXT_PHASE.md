@@ -56,6 +56,14 @@ future execution must key destination paths, retry state, done markers, and coll
 `slot_id`, not by scenario, so repeated scenarios are not deduplicated away. This still authorizes
 no GPU launch by itself; the next run requires a separate operator-approved launch step or a fresh
 pre-registration if launcher semantics change.
+That execution successor is now complete: all `13/13` manifest slots ran on first attempt under
+the byte-bound HUGSIM provenance patch and released-union monitor patch, with `13/13` proof
+artifact sets complete, `13/13` evals exposing the top-level `collision_provenance` key, `217`
+total provenance rows, and all four duplicate scenario groups preserved by `slot_id`. This
+retires the launch/execution blocker only. It still does not classify actor matches or claim a
+repair. The next local HUGSIM priority is a fresh pre-registration over the committed Iter103
+proof that asks which slots are classifiable for monitor-hazard versus HUGSIM collision-actor
+comparison.
 
 ## New frontier packet after these lines closed
 
