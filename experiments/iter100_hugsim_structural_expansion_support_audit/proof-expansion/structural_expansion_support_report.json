@@ -1,0 +1,57 @@
+{
+  "claim_boundary": "report-level expansion-support boundary only; no actor-causality, repair, threshold-value, transfer, safety, deployment, robustness, benchmark, population-rate, HD-Score-invariance, commercial-value, real-world behavior, first-responder behavior, retuning, or approval-to-run claim",
+  "event": {
+    "measurements": {
+      "actor_match_audit_rows": 8,
+      "actor_match_classifiable_foreground_rows": 3,
+      "actor_match_structural_rows": 5,
+      "broad_committed_transfer_pairs": 104,
+      "broad_on_collision_pairs": 92,
+      "can_expand_from_committed_reports": false,
+      "collision_actor_identity_fields": [],
+      "collision_actor_not_logged_pairs": 104,
+      "collision_actor_supported_pairs": 0,
+      "larger_committed_pool_exists": true,
+      "monitor_provenance_counts": {
+        "ambiguous_cpa_object": 0,
+        "ambiguous_ttc_object": 0,
+        "argmin_reconstruction_failed": 0,
+        "both_distinct_objects": 1,
+        "no_fire": 27,
+        "schema_unsupported": 0,
+        "unique_both_same_object": 0,
+        "unique_cpa_object": 36,
+        "unique_ttc_object": 40
+      },
+      "monitor_side_supported_pairs": 77,
+      "new_instrumentation_required_for_larger_structural_bridge": true,
+      "on_collision_collision_actor_not_logged_pairs": 92,
+      "on_collision_collision_actor_supported_pairs": 0,
+      "structural_bridge_compatible_rows": 5,
+      "structural_bridge_covered_rows": 5
+    },
+    "problems": [],
+    "row_label": "expansion_boundary_no_collision_actor_support"
+  },
+  "infra_problems": [],
+  "inputs": {
+    "iter54_report": "experiments/iter54_hugsim_provenance_support_audit/proof-provenance/provenance_support_report.json",
+    "iter59_report": "experiments/iter59_hugsim_actor_match_audit/proof-actor-match/actor_match_report.json",
+    "iter99_report": "experiments/iter99_hugsim_structural_bridge_coverage_audit/proof-coverage/structural_bridge_coverage_report.json"
+  },
+  "iteration": 100,
+  "summary": {
+    "actor_match_audit_rows": 8,
+    "actor_match_structural_rows": 5,
+    "broad_committed_transfer_pairs": 104,
+    "broad_on_collision_pairs": 92,
+    "can_expand_from_committed_reports": false,
+    "collision_actor_not_logged_pairs": 104,
+    "collision_actor_supported_pairs": 0,
+    "larger_committed_pool_exists": true,
+    "monitor_side_supported_pairs": 77,
+    "new_instrumentation_required_for_larger_structural_bridge": true,
+    "structural_bridge_covered_rows": 5
+  },
+  "verdict": "HUGSIM_STRUCTURAL_EXPANSION_SUPPORT_BOUNDARY_NULL"
+}

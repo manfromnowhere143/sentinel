@@ -2208,3 +2208,14 @@ events to prepare; they are a property the repository always has.
   rows. No raw-log/raw-eval read, GPU/gcloud/box read, actor-causality, repair, threshold-value,
   population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance,
   commercial-value, real-world/first-responder behavior, or retuning claim.
+- 2026-07-14: Codex — continued into iteration 100 as the HUGSIM structural expansion support
+  audit after iteration 99. Pre-registered ALONE (`ed539e6`), added analyzer/tests (`ac20787`,
+  focused tests and ruff green before analysis), then ran the analyzer ONCE over committed
+  iteration-54/59/99 reports. Result: `HUGSIM_STRUCTURAL_EXPANSION_SUPPORT_BOUNDARY_NULL`; the
+  broad committed transfer pool has `104` ON rows and `77` monitor-side provenance-supported rows,
+  but `0/104` collision-actor-supported rows, so the five-row structural bridge map cannot expand
+  from existing committed reports alone. New collision-provenance instrumentation or another
+  evidence source is required before any larger structural bridge claim. No raw-log/raw-eval/raw
+  episode read, GPU/gcloud/box read, actor-causality, repair, threshold-value, population-rate,
+  safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value,
+  real-world/first-responder behavior, retuning, or approval-to-run claim.

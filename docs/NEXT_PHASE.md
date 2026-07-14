@@ -40,9 +40,12 @@ rows with only post-foreground near approaches. The background-only bridge then 
 background-only row has no foreground support but preserves a live TTC-only monitor fire on object
 `11`. The structural coverage audit then confirmed iterations 96-98 cover all five fixed
 structural rows exactly once, with zero uncovered and zero duplicate/incompatible rows. The next
-local HUGSIM priority is a fresh mechanism-cause pre-registration that either tests the structural
-bridge map against a larger committed row set or chooses another unresolved branch; it must not
-retune thresholds or make repair/safety claims.
+support-boundary audit then tested whether that structural bridge map can expand from existing
+committed reports. It cannot: the broad committed transfer pool has `104` ON rows and `77`
+monitor-side provenance-supported rows, but `0/104` collision-actor-supported rows. The next local
+HUGSIM priority is therefore either a fresh pre-registration for collision-provenance
+instrumentation, or a different unresolved report-level branch that does not require actor
+identity; it must not retune thresholds or make repair/safety claims.
 
 ## New frontier packet after these lines closed
 
@@ -628,6 +631,11 @@ foreground support while preserving a live `ttc_only` monitor fire at `3.5 s` on
 Iteration 99 then audited structural bridge coverage across iterations 96-98. The result is
 `HUGSIM_STRUCTURAL_BRIDGE_COVERAGE_COMPLETE`: all five fixed structural rows are covered exactly
 once by their compatible bridge source, with zero uncovered and zero duplicate/incompatible rows.
+Iteration 100 then audited whether this structural bridge map can expand from existing committed
+reports. The result is `HUGSIM_STRUCTURAL_EXPANSION_SUPPORT_BOUNDARY_NULL`: the broad committed
+transfer pool has `104` ON rows and `77` monitor-side provenance-supported rows, but `0/104`
+collision-actor-supported rows, so a larger structural bridge claim requires fresh
+collision-provenance instrumentation or another evidence source.
 
 The default next scientific line is therefore not an expanded-N transfer run and not retuning the
 released union. After iteration 61, the actor-match audit points to wrong-object/wrong-hazard
