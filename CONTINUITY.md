@@ -2494,3 +2494,68 @@ events to prepare; they are a property the repository always has.
   threshold-value, safety/deployment/robustness/benchmark-ranking/population-rate/
   HD-Score-invariance, commercial-value, real-world/first-responder behavior, retuning,
   production, or commercial claim.
+
+- **Iteration 134 LAUNCHED IN FLIGHT (2026-07-14 12:59:10 UTC, pre-reg `647bab0` alone, tooling
+  `2b9f560`, smoke `dc0bb23`): the placebo semantics execution.** The first iteration since 49 to
+  ask the benchmark a question rather than ask the repository a question. Three arms in ONE
+  launch, arm-major, 20 pairs x 20 runs x 3 = `1,200` episodes: `off` (union binary,
+  `SENTINEL_ENABLED=0`), `union` (iteration 15's released `server_patch_union_release.py`, carried
+  byte-identical, sha `d0338d5c...`), and `semantics_scrambled_budget_matched_placebo`. Log
+  `/var/log/sentinel-i134.log`, done marker **`I134_PLACEBO_DONE`**, expected 30-55 GPU-h, ceiling
+  80. Launch record: `I134_PROVENANCE_OK 6 files byte-identical`, `UNION_RELEASE_PATCHED`,
+  `I134_ARM_START off enabled=0`.
+
+  **Corrections this shift, both material.** (1) The released union is iteration 15's latched ZERO
+  trajectory, NOT iteration 16's crawl; the campaign memory said crawl. Three confirmations: the
+  power-run launch marker `patch=/tmp/server_patch_union_release.py extra=SENTINEL_RELEASE_K=4`;
+  `full14_power/RESULT.md` stating the decision rule fired for the released union because the
+  crawl failed its safety gate; and the committed decision log carrying `1,205` `brake` rows and
+  `0` `crawl` rows. Building the placebo on the crawl actuator would have voided the iteration
+  while looking rigorous. (2) `SENTINEL_RELEASE_K` was never forwarded into the model container,
+  in the power run either; the frozen K=4 came from the in-code default. The union arm is still
+  parameter-identical to the committed arm.
+
+  **The smoke earned its cost.** Attempt 1: `schedule_missing: 17`, `0` brake rows, reset row
+  carrying `pair: ""`. `SENTINEL_PLACEBO_PAIR` is not in the `-e` forwarding list of
+  `neuro-ncap/scripts/_docker_compose_release.sh` (the iteration-2 finding resurfacing). Over
+  1,200 episodes a never-firing placebo scores as OFF, and the analyzer returns
+  `PLACEBO_HARM_OR_NULL` with a valid CI: a false confirmation of the exact headline this
+  iteration exists to attack, caused by a missing `-e` flag. Fix: two variables appended to the
+  MODEL block only (line 58), renderer untouched, script sha `9f8804b5...` recorded in
+  `env_receipts.json`. Attempt 2 fired at exactly the donor frames `[7..14]`, donor
+  `frontal/0103/1`, `0` misses, `0` errors.
+
+  **Frozen properties, verified mechanically before launch:** donor rule `q=(p+1)%len(class)`,
+  `j=(i+1)%20` excludes target pair and target seed by construction and is a bijection within
+  class, so scheduled brake budget equals the union's `1,205` EXACTLY (per class and total) and
+  `230/400` targets carry a brake, matching iteration 42's committed `230` intervention episodes.
+  G1 leak guard: `0` forbidden terms in the placebo, `16` in the union, so the guard is
+  discriminating and not vacuous.
+
+### On I134_PLACEBO_DONE
+
+1. Check for `I134_ABORT_*` markers and confirm no containers are up. NEVER relaunch while
+   containers are up.
+2. Collect `/var/log/sentinel-i134.log`, the `i134-off` / `i134-union` / `i134-placebo` run roots,
+   and `/opt/sentinel-stack/UniAD/sentinel_i134_{off,union,placebo}.jsonl` into `proof/`.
+   **Commit proof FIRST.**
+3. Re-verify G0 on the box (patch and analyzer SHA256 still byte-identical to the manifest) and
+   record it. A mismatch voids.
+4. Run the committed analyzer ONCE, from the committed artifacts, no edits:
+   `analyze_placebo134.py <log> <runs root> <committed p14 merged log> <donor_schedules.json>
+   <placebo decision log> <report.json>`.
+5. **G2 is the gate that decides whether any semantic verdict is readable at all**: every `off`
+   and `union` episode must reproduce the committed `full14_power` per-episode `ncap_score`
+   exactly. This box staged and dropped ~61 GB of HUGSIM assets and was cleaned since the power
+   run. If G2 fails, the verdict is `PLACEBO_CONTROL_INFRA_NULL` and the drift is documented; do
+   not reach for a semantic reading. Known exception: committed `off/side-0921` is at `n=19`.
+6. Publish `RESULT.md` at FULL WEIGHT in whichever of the four frozen classes the analyzer
+   returns. `PLACEBO_EXPLAINS_GAIN` downgrades the headline and is published exactly as readily as
+   `SEMANTIC_VALUE_CONFIRMED`. Do not soften either.
+7. README row 134, `docs/NEXT_PHASE.md`, CONTINUITY arc, regenerate HANDOFF, full gates, push.
+
+   Claim boundary stands regardless of verdict: no HUGSIM/transfer claim, no rescue of the
+   iteration 48/49 nulls, no benchmark-ranking, deployment, safety, production, commercial,
+   acquisition-value, or frontier-equivalence claim. A `PLACEBO_EXPLAINS_GAIN` verdict is a
+   statement about what the NeuroNCAP score can distinguish under this control, on these scenes,
+   at this N. It is NOT a claim that any other published NeuroNCAP result is wrong.
