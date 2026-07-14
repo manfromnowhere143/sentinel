@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Tue Jul 14 10:22:37 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Tue Jul 14 10:33:03 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+b2f7dc7 iter122: publish support core taxonomy docs
+32d2978 iter122: add support core taxonomy docs
+1fa33f2 iter122: preregister support core taxonomy docs
+dabaf7b handoff: record iter121 two track synthesis state
 28e2458 iter121: publish support core two track synthesis
 6a921ab iter121: add support core two track synthesis tooling
 f5cbd1e iter121: preregister support core two track synthesis
 9f7b795 handoff: record iter120 selected object state
-62559b1 iter120: publish selected fire object lifecycle
-508f576 iter120: add selected fire object lifecycle tooling
-77a3e3b iter120: preregister selected fire object lifecycle
-7e4c9fe handoff: record iter119 loss replacement state
 ```
 Working tree: CLEAN
 
@@ -43,6 +43,7 @@ Working tree: CLEAN
 - experiments/iter11_early_evade: RESULT PUBLISHED
 - experiments/iter120_hugsim_support_core_selected_fire_object_lifecycle: RESULT PUBLISHED
 - experiments/iter121_hugsim_support_core_two_track_synthesis: RESULT PUBLISHED
+- experiments/iter122_support_core_taxonomy_documentation: RESULT PUBLISHED
 - experiments/iter12_plan_selection: RESULT PUBLISHED
 - experiments/iter13_rss_baseline: RESULT PUBLISHED
 - experiments/iter15_latch_release: RESULT PUBLISHED
@@ -147,7 +148,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 10:23:45 up 10 days, 4 min,  0 users,  load average: 0.00, 0.00, 0.00
+ 10:34:10 up 10 days, 15 min,  0 users,  load average: 0.00, 0.00, 0.00
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-iter112-support-core-batch.log
@@ -159,7 +160,7 @@ If any docker container named renderer/model/ncap (or a random-name ncap) is up,
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter121_hugsim_support_core_two_track_synthesis/RESULT.md — read it before opening new work.
+- Newest completed experiment: experiments/iter122_support_core_taxonomy_documentation/RESULT.md — read it before opening new work.
 - Newest pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — read it in full; its gate governs the next action.
 - Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
