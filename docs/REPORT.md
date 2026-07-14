@@ -1,9 +1,11 @@
 # Sentinel: a label-free runtime safety monitor for frozen UniAD, with measured cross-planner limits
 
-**Technical report — 2026-07-02, updated 2026-07-10.** Every number below regenerates from
-evidence committed in this repository; reproduction commands are in the
+**Technical report — 2026-07-02, refreshed 2026-07-14 after iterations 122-123.** Every number
+below regenerates from evidence committed in this repository; reproduction commands are in the
 [README](../README.md#reproduce--repository-map). Scope is stated plainly throughout; the
-full-benchmark (14-scene) measurement and its latch-release refinement are reported in §10.
+full-benchmark (14-scene) measurement and its latch-release refinement are reported in §10. The
+HUGSIM transfer null and support-core taxonomy are reported as external-validity/mechanism evidence,
+not as a repair or benchmark upgrade.
 
 ## Abstract
 
@@ -231,18 +233,23 @@ closing speed. **Selectivity is a property of tracking quality, not of the decis
 on one planner is not a plug-in for another.
 
 The later HUGSIM line is a second external-validity boundary, not a new NeuroNCAP benchmark
-result. Blind transfer of the released union did not carry the measured NeuroNCAP gain; the
-successor work therefore localized the support-core mechanism instead of claiming a repaired
-monitor. The committed [support-core two-track taxonomy](research/SUPPORT_CORE_TWO_TRACK_TAXONOMY_2026-07-14.md)
+result. The HUGSIM transfer null showed that blind transfer of the released union did not carry
+the measured NeuroNCAP gain; the successor work therefore localized the support-core mechanism
+instead of claiming a repaired monitor. The committed
+[support-core two-track taxonomy](research/SUPPORT_CORE_TWO_TRACK_TAXONOMY_2026-07-14.md)
 joins iterations 112-121 and reports that all `8/8` support-core rows preserve a split between
-the support-side object or branch and the selected fire-side object:
-the support side disappears, drifts outside support, appears only after fire, or is absent as a
-reference branch, while the selected first-fire object is never supported before collision
+the support-side object or branch and the selected fire-side object: the support side disappears,
+drifts outside support, appears only after fire, or is absent as a reference branch, while the
+selected first-fire object is never supported before collision
 ([iteration 121](../experiments/iter121_hugsim_support_core_two_track_synthesis/RESULT.md)).
-The claim boundary is explicit: descriptive support-core taxonomy only; no repair,
+The iteration-123 mission audit
+([`MISSION_EVIDENCE_ALIGNMENT_AUDIT_COMPLETE`](research/SENTINEL_MISSION_EVIDENCE_ALIGNMENT_AUDIT_2026-07-14.md))
+therefore treats the next lanes as publication freshness, blind-spot/scenario design,
+higher-fidelity perturbation testing, mission/rulebook boundary definition, or an external claim
+ledger. The claim boundary is explicit: descriptive support-core taxonomy only; no repair,
 actor-causality, threshold-value, transfer upgrade, safety, deployment, robustness, benchmark,
 population-rate, HD-Score-invariance, real-world behavior, first-responder behavior,
-acquisition-value, retuning, production, or commercial claim.
+acquisition-value, retuning, production, commercial claim, or frontier-stack-equivalence claim.
 
 ## 8. The verification pass
 
@@ -258,11 +265,13 @@ the apparatus). Full report: [experiments/VERIFICATION.md](../experiments/VERIFI
 
 Two nuScenes sequences carried all sub-benchmark method-development results; the full official
 14-scene benchmark then extended this at 6 runs per pair and the power measurement at 20 runs per
-pair. One simulator (NeuroNCAP/NeuRAD), whose deterministic episode
-replay we characterize and exploit rather than hide; n=20 per cell; the VAD stack required an
-ID-association layer whose quality bounds the transfer conclusion; the RSS baseline is the
-longitudinal closing-speed form, not a full RSS implementation (disclosed in the patch). No
-fleet data, no retraining, single-digit GPU-hours per experiment — deliberately: every gain is
+pair. One simulator (NeuroNCAP/NeuRAD), whose deterministic episode replay we characterize and
+exploit rather than hide; n=20 per cell; the VAD stack required an ID-association layer whose
+quality bounds the transfer conclusion; the HUGSIM support-core taxonomy is an eight-row mechanism
+decomposition, not a population-rate estimate; the RSS baseline is the longitudinal closing-speed
+form, not a full RSS implementation (disclosed in the patch). No fleet data, no hardware-in-loop or
+vehicle-in-loop perturbation validation, no mission-level route-feasibility assurance, no rulebook
+controller, no retraining, single-digit GPU-hours per experiment — deliberately: every gain is
 attributable to the monitor, and everything is reproducible from this repository.
 
 ## 10. The full-benchmark measurement

@@ -102,7 +102,7 @@ determinism is verified at scale: the 20-run measurement's first six indices rep
 earlier 6-run measurement exactly, on every scenario pair, in both arms, across five
 machine-freezing infrastructure incidents, one host migration, and four relaunches.
 
-The methodological spine, held for all nineteen iterations: hypotheses and falsifiers frozen
+The methodological spine, held across the registered campaign: hypotheses and falsifiers frozen
 in writing before data; seed-paired within-pair bootstrap confidence intervals on every delta;
 per-frame monitor decision logs, per-run trajectories, and run logs committed for every arm;
 nulls published with the same weight as wins; and when a document disagreed with a log, the log
@@ -217,16 +217,20 @@ layer, unit-testable offline against the committed VAD and routing logs before a
 time, is the motivated next mechanism.
 
 The HUGSIM successor line adds a second, bounded external-validity result rather than a new
-headline benchmark claim. After blind transfer failed to carry the NeuroNCAP gain, iterations
-112-121 localized the support-core branch into a committed
+headline benchmark claim. The HUGSIM transfer null showed that blind transfer failed to carry the
+NeuroNCAP gain, so iterations 112-121 localized the support-core branch into a committed
 [support-core two-track taxonomy](../research/SUPPORT_CORE_TWO_TRACK_TAXONOMY_2026-07-14.md):
 all `8/8` rows preserve a split between the support-side object or branch and the selected
 fire-side object, and the selected first-fire object is never supported before collision
 ([iteration 121](../../experiments/iter121_hugsim_support_core_two_track_synthesis/RESULT.md)).
-This is descriptive support-core taxonomy only; no repair, actor-causality, threshold-value,
-transfer upgrade, safety, deployment, robustness, benchmark, population-rate,
+The iteration-123 mission audit
+([`MISSION_EVIDENCE_ALIGNMENT_AUDIT_COMPLETE`](../research/SENTINEL_MISSION_EVIDENCE_ALIGNMENT_AUDIT_2026-07-14.md))
+keeps the next lanes bounded to manuscript/report freshness, blind-spot/scenario design,
+higher-fidelity perturbation testing, mission/rulebook boundary definition, or an external claim
+ledger. This is descriptive support-core taxonomy only; no repair, actor-causality,
+threshold-value, transfer upgrade, safety, deployment, robustness, benchmark, population-rate,
 HD-Score-invariance, real-world behavior, first-responder behavior, acquisition-value, retuning,
-production, or commercial claim.
+production, commercial claim, or frontier-stack-equivalence claim.
 
 ## 9. Verification, reproducibility, and the incident record
 
@@ -246,12 +250,15 @@ the repository README.
 
 ## 10. Limitations
 
-One simulator (NeuroNCAP/NeuRAD), whose deterministic replay we characterize and exploit; 20
-runs per pair against the published 100-run protocol; two planners; the VAD transfer bounded
-by an identity-association layer's quality; the RSS baseline is the longitudinal form, not a
-full implementation; no fleet data or real-vehicle validation. Frontal head-on prevention (as
-opposed to mitigation) remains open and is, on this evidence, not reachable by maneuver
-invention from a label-free monitor.
+One simulator for the headline result (NeuroNCAP/NeuRAD), whose deterministic replay we
+characterize and exploit; 20 runs per pair against the published 100-run protocol; two planners;
+the VAD transfer bounded by an identity-association layer's quality; HUGSIM contributes a measured
+external-validity null and an eight-row support-core taxonomy, not a population-rate or repair
+claim; the RSS baseline is the longitudinal form, not a full implementation; no fleet data,
+hardware-in-loop perturbation validation, vehicle-in-loop perturbation validation, mission-level
+route-feasibility assurance, rulebook-priority controller, or real-vehicle validation. Frontal
+head-on prevention (as opposed to mitigation) remains open and is, on this evidence, not reachable
+by maneuver invention from a label-free monitor.
 
 ## 11. Conclusion
 
