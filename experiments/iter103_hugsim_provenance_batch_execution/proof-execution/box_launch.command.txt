@@ -1,0 +1,1 @@
+gcloud compute ssh sentinel-gpu --zone us-west1-a --tunnel-through-iap --quiet --command "sudo bash -c 'setsid nohup bash /tmp/iter103_run_provenance_batch_execution.sh </dev/null >/var/log/sentinel-iter103-provenance-batch.log 2>&1 &' && sleep 2 && sudo tail -80 /var/log/sentinel-iter103-provenance-batch.log"

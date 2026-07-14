@@ -1,0 +1,558 @@
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 11.1.1
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+ERROR: mmdet3d 0.17.1 has requirement networkx<2.3,>=2.2, but you'll have networkx 2.5 which is incompatible.
+ERROR: mmdet3d 0.17.1 has requirement numpy<1.20.0, but you'll have numpy 1.22.4 which is incompatible.
+ERROR: jupyter-packaging 0.12.3 has requirement setuptools>=60.2.0, but you'll have setuptools 59.5.0 which is incompatible.
+[iter45-shim] cuSOLVER-backed linalg ops routed via CPU (torch 1.9.1+cu111 )
+[iter45-shim] cuSOLVER-backed linalg ops routed via CPU (torch 1.9.1+cu111 )
+SENTINEL_I48_UNION_PATCH_LOADED enabled=1 params={"cpa_margin": 1.5, "dt": 0.5, "max_gap": 30.0, "min_closing": 3.0, "min_score": 0.3, "release_k": 4, "ttc_thresh": 2.5}
+projects.mmdet3d_plugin
+load checkpoint from local path: ckpts/uniad_base_e2e.pth
+2026-07-14 06:58:36,436 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.0.conv2 is upgraded to version 2.
+2026-07-14 06:58:36,442 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.1.conv2 is upgraded to version 2.
+2026-07-14 06:58:36,446 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.2.conv2 is upgraded to version 2.
+2026-07-14 06:58:36,449 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.3.conv2 is upgraded to version 2.
+2026-07-14 06:58:36,453 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.4.conv2 is upgraded to version 2.
+2026-07-14 06:58:36,457 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.5.conv2 is upgraded to version 2.
+2026-07-14 06:58:36,461 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.6.conv2 is upgraded to version 2.
+2026-07-14 06:58:36,465 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.7.conv2 is upgraded to version 2.
+2026-07-14 06:58:36,468 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.8.conv2 is upgraded to version 2.
+2026-07-14 06:58:36,472 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.9.conv2 is upgraded to version 2.
+2026-07-14 06:58:36,476 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.10.conv2 is upgraded to version 2.
+2026-07-14 06:58:36,480 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.11.conv2 is upgraded to version 2.
+2026-07-14 06:58:36,484 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.12.conv2 is upgraded to version 2.
+2026-07-14 06:58:36,487 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.13.conv2 is upgraded to version 2.
+2026-07-14 06:58:36,491 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.14.conv2 is upgraded to version 2.
+2026-07-14 06:58:36,495 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.15.conv2 is upgraded to version 2.
+2026-07-14 06:58:36,499 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.16.conv2 is upgraded to version 2.
+2026-07-14 06:58:36,503 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.17.conv2 is upgraded to version 2.
+2026-07-14 06:58:36,506 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.18.conv2 is upgraded to version 2.
+2026-07-14 06:58:36,510 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.19.conv2 is upgraded to version 2.
+2026-07-14 06:58:36,514 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.20.conv2 is upgraded to version 2.
+2026-07-14 06:58:36,518 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.21.conv2 is upgraded to version 2.
+2026-07-14 06:58:36,522 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.22.conv2 is upgraded to version 2.
+2026-07-14 06:58:36,526 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.0.conv2 is upgraded to version 2.
+2026-07-14 06:58:36,532 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.1.conv2 is upgraded to version 2.
+2026-07-14 06:58:36,536 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.2.conv2 is upgraded to version 2.
+Ready for recieving
+received
+SENTINEL_I48_DECISION frame=0 fired=0 brake=0 release=0 clear=0 min_cpa=11.0111 min_ttc=1000000000.0000 objs=4
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0000_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0000_cam.jpg
+SENTINEL_I48_DECISION frame=1 fired=0 brake=0 release=0 clear=0 min_cpa=4.7732 min_ttc=1000000000.0000 objs=6
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0001_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0001_cam.jpg
+SENTINEL_I48_DECISION frame=2 fired=0 brake=0 release=0 clear=0 min_cpa=4.7466 min_ttc=1000000000.0000 objs=7
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0002_bev.jpg
+SENTINEL_I48_DECISION frame=3 fired=0 brake=0 release=0 clear=0 min_cpa=4.2091 min_ttc=1000000000.0000 objs=7
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0002_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0003_bev.jpg
+SENTINEL_I48_DECISION frame=4 fired=0 brake=0 release=0 clear=0 min_cpa=4.2962 min_ttc=1000000000.0000 objs=7
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0003_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0004_bev.jpg
+SENTINEL_I48_DECISION frame=5 fired=0 brake=0 release=0 clear=0 min_cpa=4.8138 min_ttc=1000000000.0000 objs=7
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0004_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0005_bev.jpg
+SENTINEL_I48_DECISION frame=6 fired=0 brake=0 release=0 clear=0 min_cpa=5.4799 min_ttc=1000000000.0000 objs=7
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0005_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0006_bev.jpg
+SENTINEL_I48_DECISION frame=7 fired=0 brake=0 release=0 clear=0 min_cpa=6.4019 min_ttc=1000000000.0000 objs=7
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0006_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0007_bev.jpg
+SENTINEL_I48_DECISION frame=8 fired=0 brake=0 release=0 clear=0 min_cpa=9.9561 min_ttc=1000000000.0000 objs=8
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0007_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0008_bev.jpg
+SENTINEL_I48_DECISION frame=9 fired=0 brake=0 release=0 clear=0 min_cpa=11.8426 min_ttc=1000000000.0000 objs=7
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0008_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0009_bev.jpg
+SENTINEL_I48_DECISION frame=10 fired=0 brake=0 release=0 clear=0 min_cpa=12.6246 min_ttc=1000000000.0000 objs=5
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0009_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0010_bev.jpg
+SENTINEL_I48_DECISION frame=11 fired=0 brake=0 release=0 clear=0 min_cpa=4.9698 min_ttc=1000000000.0000 objs=8
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0010_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0011_bev.jpg
+SENTINEL_I48_DECISION frame=12 fired=0 brake=0 release=0 clear=0 min_cpa=12.9967 min_ttc=1000000000.0000 objs=4
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0011_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0012_bev.jpg
+SENTINEL_I48_DECISION frame=13 fired=0 brake=0 release=0 clear=0 min_cpa=4.7980 min_ttc=1000000000.0000 objs=6
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0012_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0013_bev.jpg
+SENTINEL_I48_DECISION frame=14 fired=0 brake=0 release=0 clear=0 min_cpa=13.3088 min_ttc=1000000000.0000 objs=4
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0013_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0014_bev.jpg
+SENTINEL_I48_DECISION frame=15 fired=0 brake=0 release=0 clear=0 min_cpa=3.6551 min_ttc=1000000000.0000 objs=4
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0014_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0015_bev.jpg
+SENTINEL_I48_DECISION frame=16 fired=0 brake=0 release=0 clear=0 min_cpa=14.7064 min_ttc=1000000000.0000 objs=3
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0015_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0016_bev.jpg
+SENTINEL_I48_DECISION frame=17 fired=0 brake=0 release=0 clear=0 min_cpa=14.9671 min_ttc=1000000000.0000 objs=4
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0016_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0017_bev.jpg
+SENTINEL_I48_DECISION frame=18 fired=0 brake=0 release=0 clear=0 min_cpa=15.3680 min_ttc=1000000000.0000 objs=2
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0017_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0018_bev.jpg
+SENTINEL_I48_DECISION frame=19 fired=0 brake=0 release=0 clear=0 min_cpa=14.9376 min_ttc=1000000000.0000 objs=3
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0018_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0019_bev.jpg
+SENTINEL_I48_DECISION frame=20 fired=0 brake=0 release=0 clear=0 min_cpa=14.0592 min_ttc=1000000000.0000 objs=3
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0019_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0020_bev.jpg
+SENTINEL_I48_DECISION frame=21 fired=0 brake=0 release=0 clear=0 min_cpa=17.9794 min_ttc=1000000000.0000 objs=2
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0020_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0021_bev.jpg
+SENTINEL_I48_DECISION frame=22 fired=0 brake=0 release=0 clear=0 min_cpa=18.5070 min_ttc=1000000000.0000 objs=2
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0021_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0022_bev.jpg
+SENTINEL_I48_DECISION frame=23 fired=0 brake=0 release=0 clear=0 min_cpa=12.7459 min_ttc=1000000000.0000 objs=3
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0022_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0023_bev.jpg
+SENTINEL_I48_DECISION frame=24 fired=0 brake=0 release=0 clear=0 min_cpa=11.7354 min_ttc=1000000000.0000 objs=3
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0024_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0023_cam.jpg
+SENTINEL_I48_DECISION frame=25 fired=0 brake=0 release=0 clear=0 min_cpa=11.1756 min_ttc=1000000000.0000 objs=3
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0024_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0025_bev.jpg
+SENTINEL_I48_DECISION frame=26 fired=0 brake=0 release=0 clear=0 min_cpa=10.6642 min_ttc=1000000000.0000 objs=3
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0025_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0026_bev.jpg
+SENTINEL_I48_DECISION frame=27 fired=0 brake=0 release=0 clear=0 min_cpa=21.4066 min_ttc=1000000000.0000 objs=3
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0026_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0027_bev.jpg
+SENTINEL_I48_DECISION frame=28 fired=0 brake=0 release=0 clear=0 min_cpa=9.4335 min_ttc=1000000000.0000 objs=3
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0027_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0028_bev.jpg
+SENTINEL_I48_DECISION frame=29 fired=0 brake=0 release=0 clear=0 min_cpa=9.5236 min_ttc=1000000000.0000 objs=3
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0028_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0029_bev.jpg
+SENTINEL_I48_DECISION frame=30 fired=0 brake=0 release=0 clear=0 min_cpa=8.6219 min_ttc=1000000000.0000 objs=2
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0029_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0030_bev.jpg
+SENTINEL_I48_DECISION frame=31 fired=0 brake=0 release=0 clear=0 min_cpa=7.7212 min_ttc=1000000000.0000 objs=2
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0030_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0031_bev.jpg
+SENTINEL_I48_DECISION frame=32 fired=0 brake=0 release=0 clear=0 min_cpa=6.9657 min_ttc=1000000000.0000 objs=2
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0031_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0032_bev.jpg
+SENTINEL_I48_DECISION frame=33 fired=0 brake=0 release=0 clear=0 min_cpa=6.6057 min_ttc=1000000000.0000 objs=2
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0032_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0033_bev.jpg
+SENTINEL_I48_DECISION frame=34 fired=0 brake=0 release=0 clear=0 min_cpa=24.7114 min_ttc=1000000000.0000 objs=1
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0033_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0034_bev.jpg
+SENTINEL_I48_DECISION frame=35 fired=0 brake=0 release=0 clear=0 min_cpa=6.2591 min_ttc=1000000000.0000 objs=2
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0035_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0034_cam.jpg
+SENTINEL_I48_DECISION frame=36 fired=0 brake=0 release=0 clear=0 min_cpa=6.4943 min_ttc=1000000000.0000 objs=2
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0036_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0035_cam.jpg
+SENTINEL_I48_DECISION frame=37 fired=0 brake=0 release=0 clear=0 min_cpa=6.6351 min_ttc=1000000000.0000 objs=2
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0037_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0036_cam.jpg
+SENTINEL_I48_DECISION frame=38 fired=0 brake=0 release=0 clear=0 min_cpa=6.8734 min_ttc=1000000000.0000 objs=2
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0038_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0037_cam.jpg
+SENTINEL_I48_DECISION frame=39 fired=0 brake=0 release=0 clear=0 min_cpa=6.9957 min_ttc=1000000000.0000 objs=2
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0039_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0038_cam.jpg
+SENTINEL_I48_DECISION frame=40 fired=0 brake=0 release=0 clear=0 min_cpa=7.0968 min_ttc=1000000000.0000 objs=2
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0040_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0039_cam.jpg
+SENTINEL_I48_DECISION frame=41 fired=0 brake=0 release=0 clear=0 min_cpa=6.9715 min_ttc=1000000000.0000 objs=2
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0040_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0041_bev.jpg
+SENTINEL_I48_DECISION frame=42 fired=0 brake=0 release=0 clear=0 min_cpa=7.0789 min_ttc=1000000000.0000 objs=2
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0042_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0041_cam.jpg
+SENTINEL_I48_DECISION frame=43 fired=0 brake=0 release=0 clear=0 min_cpa=7.1548 min_ttc=1000000000.0000 objs=2
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0043_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0042_cam.jpg
+SENTINEL_I48_DECISION frame=44 fired=0 brake=0 release=0 clear=0 min_cpa=7.3889 min_ttc=1000000000.0000 objs=3
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0044_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0043_cam.jpg
+SENTINEL_I48_DECISION frame=45 fired=0 brake=0 release=0 clear=0 min_cpa=7.4228 min_ttc=1000000000.0000 objs=2
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0045_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0044_cam.jpg
+SENTINEL_I48_DECISION frame=46 fired=0 brake=0 release=0 clear=0 min_cpa=7.4770 min_ttc=1000000000.0000 objs=2
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0046_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0045_cam.jpg
+SENTINEL_I48_DECISION frame=47 fired=0 brake=0 release=0 clear=0 min_cpa=7.5654 min_ttc=1000000000.0000 objs=2
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0047_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0046_cam.jpg
+SENTINEL_I48_DECISION frame=48 fired=0 brake=0 release=0 clear=0 min_cpa=7.8660 min_ttc=1000000000.0000 objs=2
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0048_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0047_cam.jpg
+SENTINEL_I48_DECISION frame=49 fired=0 brake=0 release=0 clear=0 min_cpa=7.5840 min_ttc=1000000000.0000 objs=1
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0049_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0048_cam.jpg
+SENTINEL_I48_DECISION frame=50 fired=0 brake=0 release=0 clear=0 min_cpa=8.6154 min_ttc=1000000000.0000 objs=3
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0050_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0049_cam.jpg
+SENTINEL_I48_DECISION frame=51 fired=0 brake=0 release=0 clear=0 min_cpa=8.0931 min_ttc=1000000000.0000 objs=3
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0051_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0050_cam.jpg
+SENTINEL_I48_DECISION frame=52 fired=0 brake=0 release=0 clear=0 min_cpa=9.1057 min_ttc=1000000000.0000 objs=3
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0051_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0052_bev.jpg
+SENTINEL_I48_DECISION frame=53 fired=0 brake=0 release=0 clear=0 min_cpa=9.4742 min_ttc=1000000000.0000 objs=3
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0053_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0052_cam.jpg
+SENTINEL_I48_DECISION frame=54 fired=0 brake=0 release=0 clear=0 min_cpa=9.6255 min_ttc=1000000000.0000 objs=3
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0054_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0053_cam.jpg
+SENTINEL_I48_DECISION frame=55 fired=0 brake=0 release=0 clear=0 min_cpa=10.6462 min_ttc=1000000000.0000 objs=3
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0055_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0054_cam.jpg
+SENTINEL_I48_DECISION frame=56 fired=0 brake=0 release=0 clear=0 min_cpa=11.0600 min_ttc=1000000000.0000 objs=2
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0056_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0055_cam.jpg
+SENTINEL_I48_DECISION frame=57 fired=0 brake=0 release=0 clear=0 min_cpa=11.5387 min_ttc=1000000000.0000 objs=2
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0057_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0056_cam.jpg
+SENTINEL_I48_DECISION frame=58 fired=0 brake=0 release=0 clear=0 min_cpa=12.2277 min_ttc=1000000000.0000 objs=2
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0057_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0058_bev.jpg
+SENTINEL_I48_DECISION frame=59 fired=0 brake=0 release=0 clear=0 min_cpa=13.1652 min_ttc=1000000000.0000 objs=4
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0059_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0058_cam.jpg
+SENTINEL_I48_DECISION frame=60 fired=0 brake=0 release=0 clear=0 min_cpa=13.3397 min_ttc=1000000000.0000 objs=5
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0060_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0059_cam.jpg
+SENTINEL_I48_DECISION frame=61 fired=0 brake=0 release=0 clear=0 min_cpa=14.3083 min_ttc=1000000000.0000 objs=5
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0061_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0060_cam.jpg
+SENTINEL_I48_DECISION frame=62 fired=0 brake=0 release=0 clear=0 min_cpa=14.1484 min_ttc=1000000000.0000 objs=4
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0062_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0061_cam.jpg
+SENTINEL_I48_DECISION frame=63 fired=0 brake=0 release=0 clear=0 min_cpa=15.4119 min_ttc=1000000000.0000 objs=5
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0063_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0062_cam.jpg
+SENTINEL_I48_DECISION frame=64 fired=0 brake=0 release=0 clear=0 min_cpa=16.1598 min_ttc=1000000000.0000 objs=5
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0063_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0064_bev.jpg
+SENTINEL_I48_DECISION frame=65 fired=0 brake=0 release=0 clear=0 min_cpa=16.9843 min_ttc=1000000000.0000 objs=5
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0064_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0065_bev.jpg
+SENTINEL_I48_DECISION frame=66 fired=0 brake=0 release=0 clear=0 min_cpa=13.8756 min_ttc=1000000000.0000 objs=7
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0065_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0066_bev.jpg
+SENTINEL_I48_DECISION frame=67 fired=0 brake=0 release=0 clear=0 min_cpa=15.1624 min_ttc=1000000000.0000 objs=5
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0067_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0066_cam.jpg
+SENTINEL_I48_DECISION frame=68 fired=0 brake=0 release=0 clear=0 min_cpa=19.0082 min_ttc=1000000000.0000 objs=6
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0067_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0068_bev.jpg
+SENTINEL_I48_DECISION frame=69 fired=0 brake=0 release=0 clear=0 min_cpa=19.6185 min_ttc=1000000000.0000 objs=7
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0068_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0069_bev.jpg
+SENTINEL_I48_DECISION frame=70 fired=0 brake=0 release=0 clear=0 min_cpa=20.0720 min_ttc=1000000000.0000 objs=6
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0069_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0070_bev.jpg
+SENTINEL_I48_DECISION frame=71 fired=0 brake=0 release=0 clear=0 min_cpa=15.9870 min_ttc=1000000000.0000 objs=7
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0070_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0071_bev.jpg
+SENTINEL_I48_DECISION frame=72 fired=0 brake=0 release=0 clear=0 min_cpa=16.3305 min_ttc=1000000000.0000 objs=6
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0071_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0072_bev.jpg
+SENTINEL_I48_DECISION frame=73 fired=0 brake=0 release=0 clear=0 min_cpa=15.8951 min_ttc=1000000000.0000 objs=8
+sent
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0072_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0073_bev.jpg
+SENTINEL_I48_DECISION frame=74 fired=0 brake=0 release=0 clear=0 min_cpa=16.0978 min_ttc=1000000000.0000 objs=8
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0073_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0074_bev.jpg
+SENTINEL_I48_DECISION frame=75 fired=0 brake=0 release=0 clear=0 min_cpa=17.3346 min_ttc=1000000000.0000 objs=8
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0074_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0075_bev.jpg
+SENTINEL_I48_DECISION frame=76 fired=0 brake=0 release=0 clear=0 min_cpa=18.3469 min_ttc=1000000000.0000 objs=8
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0075_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0076_bev.jpg
+SENTINEL_I48_DECISION frame=77 fired=0 brake=0 release=0 clear=0 min_cpa=17.9052 min_ttc=1000000000.0000 objs=7
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0077_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0076_cam.jpg
+SENTINEL_I48_DECISION frame=78 fired=0 brake=0 release=0 clear=0 min_cpa=5.0661 min_ttc=1000000000.0000 objs=9
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0077_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0078_bev.jpg
+SENTINEL_I48_DECISION frame=79 fired=0 brake=0 release=0 clear=0 min_cpa=5.2942 min_ttc=1000000000.0000 objs=8
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0079_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0078_cam.jpg
+SENTINEL_I48_DECISION frame=80 fired=0 brake=0 release=0 clear=0 min_cpa=5.4777 min_ttc=1000000000.0000 objs=10
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0079_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0080_bev.jpg
+SENTINEL_I48_DECISION frame=81 fired=0 brake=0 release=0 clear=0 min_cpa=5.6268 min_ttc=1000000000.0000 objs=12
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0080_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0081_bev.jpg
+SENTINEL_I48_DECISION frame=82 fired=0 brake=0 release=0 clear=0 min_cpa=5.4609 min_ttc=1000000000.0000 objs=10
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0082_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0081_cam.jpg
+SENTINEL_I48_DECISION frame=83 fired=1 brake=1 release=0 clear=0 min_cpa=0.6959 min_ttc=2.9306 objs=12
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0082_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0083_bev.jpg
+SENTINEL_I48_DECISION frame=84 fired=0 brake=1 release=0 clear=1 min_cpa=5.5663 min_ttc=1000000000.0000 objs=11
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0083_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0084_bev.jpg
+SENTINEL_I48_DECISION frame=85 fired=0 brake=1 release=0 clear=2 min_cpa=5.2045 min_ttc=1000000000.0000 objs=11
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0085_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0084_cam.jpg
+SENTINEL_I48_DECISION frame=86 fired=1 brake=1 release=0 clear=0 min_cpa=0.7447 min_ttc=1000000000.0000 objs=15
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0085_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0086_bev.jpg
+SENTINEL_I48_DECISION frame=87 fired=0 brake=1 release=0 clear=1 min_cpa=5.3074 min_ttc=1000000000.0000 objs=13
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0087_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0086_cam.jpg
+SENTINEL_I48_DECISION frame=88 fired=0 brake=1 release=0 clear=2 min_cpa=5.5725 min_ttc=1000000000.0000 objs=13
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0087_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0088_bev.jpg
+SENTINEL_I48_DECISION frame=89 fired=0 brake=1 release=0 clear=3 min_cpa=5.7600 min_ttc=1000000000.0000 objs=13
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0088_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0089_bev.jpg
+SENTINEL_I48_DECISION frame=90 fired=0 brake=0 release=1 clear=0 min_cpa=5.7782 min_ttc=1000000000.0000 objs=14
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0089_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0090_bev.jpg
+SENTINEL_I48_DECISION frame=91 fired=0 brake=0 release=0 clear=0 min_cpa=5.1577 min_ttc=1000000000.0000 objs=13
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0090_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0091_bev.jpg
+SENTINEL_I48_DECISION frame=92 fired=0 brake=0 release=0 clear=0 min_cpa=5.2136 min_ttc=1000000000.0000 objs=12
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0092_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0091_cam.jpg
+SENTINEL_I48_DECISION frame=93 fired=0 brake=0 release=0 clear=0 min_cpa=5.3799 min_ttc=1000000000.0000 objs=12
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0092_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0093_bev.jpg
+SENTINEL_I48_DECISION frame=94 fired=0 brake=0 release=0 clear=0 min_cpa=6.6226 min_ttc=1000000000.0000 objs=15
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0093_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0094_bev.jpg
+SENTINEL_I48_DECISION frame=95 fired=0 brake=0 release=0 clear=0 min_cpa=6.6922 min_ttc=1000000000.0000 objs=14
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0094_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0095_bev.jpg
+SENTINEL_I48_DECISION frame=96 fired=0 brake=0 release=0 clear=0 min_cpa=6.8313 min_ttc=1000000000.0000 objs=15
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0095_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0096_bev.jpg
+SENTINEL_I48_DECISION frame=97 fired=0 brake=0 release=0 clear=0 min_cpa=7.0249 min_ttc=6.4146 objs=13
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0097_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0096_cam.jpg
+SENTINEL_I48_DECISION frame=98 fired=0 brake=0 release=0 clear=0 min_cpa=6.9052 min_ttc=1000000000.0000 objs=13
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0097_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0098_bev.jpg
+SENTINEL_I48_DECISION frame=99 fired=0 brake=0 release=0 clear=0 min_cpa=6.8663 min_ttc=1000000000.0000 objs=13
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0098_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0099_bev.jpg
+SENTINEL_I48_DECISION frame=100 fired=0 brake=0 release=0 clear=0 min_cpa=6.5079 min_ttc=1000000000.0000 objs=14
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0099_cam.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0100_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/outputs/nusc_uniad/scene-0062_medium_00/uniad/0100_cam.jpg
+OpenCV: FFMPEG: tag 0x58564944/'DIVX' is not supported with codec id 12 and format 'mp4 / MP4 (MPEG-4 Part 14)'
+OpenCV: FFMPEG: fallback to use tag 0x7634706d/'mp4v'
