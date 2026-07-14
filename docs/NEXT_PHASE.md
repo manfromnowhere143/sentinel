@@ -13,7 +13,7 @@ It adds a deeper Stanford/MIT/Tesla/Mobileye/NHTSA read to the existing frontier
 packet. The decision is narrow: Sentinel is aligned when framed as a runtime monitor,
 failure-localization, and safety-evidence system for opaque planners; it is not aligned when
 framed as a full autonomy stack, world model, robotaxi system, or deployment-ready safety case.
-That priority is now partly closed by iterations 84-97: the selected-vs-support
+That priority is now partly closed by iterations 84-98: the selected-vs-support
 path/arbitration split is proven on the fixed rows, and the closest-path-horizon/provenance
 timing decomposition shows support-object provenance arriving after the event in all three rows.
 The exact bridge-time support-surface replay then blocked on the active `ttc_medium_a` row because
@@ -34,11 +34,13 @@ explained that branch: object `24` is the only active CPA/path/surface candidate
 bridge-supported provenance candidates are non-active, TTC-null, and CPA-far. The non-active
 branch arbitration then split the remaining two rows into a provenance/TTC-borderline branch and
 a path/CPA branch. The branch-outcome bridge then showed those different branches both sit inside
-the same late-fire/no-pre-fire outcome class for the two post-collision-fire rows. The next local
-HUGSIM priority is a fresh mechanism-cause pre-registration that either tests this branch/outcome
-bridge against a larger committed row set, decomposes the background-only branch with the same
-discipline, or chooses another unresolved branch; it must not retune thresholds or make
-repair/safety claims.
+the same late-fire/no-pre-fire outcome class for the two post-collision-fire rows. The
+surface-silent bridge then showed the two foreground-present no-fire rows are far/never-active
+rows with only post-foreground near approaches. The background-only bridge then showed the lone
+background-only row has no foreground support but preserves a live TTC-only monitor fire on object
+`11`. The next local HUGSIM priority is a fresh mechanism-cause pre-registration that either tests
+the structural bridge map against a larger committed row set or chooses another unresolved branch;
+it must not retune thresholds or make repair/safety claims.
 
 ## New frontier packet after these lines closed
 
@@ -618,6 +620,9 @@ foreground fire frames.
 Iteration 97 then joined the surface-silent branch back to margin/timeline evidence. The result is
 `HUGSIM_SURFACE_SILENT_OUTCOME_MARGIN_BRIDGE_COMPLETE`: both foreground-present no-fire rows are
 far-margin, never-active rows with only post-foreground near approaches.
+Iteration 98 then joined the background-only branch back to provenance/timing evidence. The result
+is `HUGSIM_BACKGROUND_ONLY_OUTCOME_BRIDGE_COMPLETE`: the lone background-only row has zero
+foreground support while preserving a live `ttc_only` monitor fire at `3.5 s` on object `11`.
 
 The default next scientific line is therefore not an expanded-N transfer run and not retuning the
 released union. After iteration 61, the actor-match audit points to wrong-object/wrong-hazard

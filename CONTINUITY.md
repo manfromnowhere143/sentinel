@@ -2188,3 +2188,13 @@ events to prepare; they are a property the repository always has.
   No raw-log read, GPU/gcloud/box read, actor-causality, repair, threshold-value,
   population-rate, safety/transfer/deployment/robustness/benchmark/HD-Score-invariance,
   commercial-value, real-world/first-responder behavior, or retuning claim.
+- 2026-07-14: Codex — continued into iteration 98 as the HUGSIM background-only outcome bridge
+  after iteration 97. Pre-registered ALONE (`49454a6`), added analyzer/tests (`b6b8240`, focused
+  tests and ruff green before analysis), then ran the analyzer ONCE over committed
+  iteration-59/69/70 reports. Result: `HUGSIM_BACKGROUND_ONLY_OUTCOME_BRIDGE_COMPLETE`; the lone
+  `cpa_medium_a` background-only row has zero foreground support, no first foreground timestamp,
+  first fire at `3.5 s`, `ttc_only` first-fire channel, `4` fired frames, `11` brake frames, and
+  preserved monitor object `11` with `unique_ttc_object` provenance. No raw-log/raw-eval read,
+  GPU/gcloud/box read, actor-causality, repair, threshold-value, population-rate,
+  safety/transfer/deployment/robustness/benchmark/HD-Score-invariance, commercial-value,
+  real-world/first-responder behavior, or retuning claim.
