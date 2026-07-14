@@ -216,6 +216,18 @@ monitor consumes, quantifiable in identity-switch rate. A lightweight associatio
 layer, unit-testable offline against the committed VAD and routing logs before any closed-loop
 time, is the motivated next mechanism.
 
+The HUGSIM successor line adds a second, bounded external-validity result rather than a new
+headline benchmark claim. After blind transfer failed to carry the NeuroNCAP gain, iterations
+112-121 localized the support-core branch into a committed
+[support-core two-track taxonomy](../research/SUPPORT_CORE_TWO_TRACK_TAXONOMY_2026-07-14.md):
+all `8/8` rows preserve a split between the support-side object or branch and the selected
+fire-side object, and the selected first-fire object is never supported before collision
+([iteration 121](../../experiments/iter121_hugsim_support_core_two_track_synthesis/RESULT.md)).
+This is descriptive support-core taxonomy only; no repair, actor-causality, threshold-value,
+transfer upgrade, safety, deployment, robustness, benchmark, population-rate,
+HD-Score-invariance, real-world behavior, first-responder behavior, acquisition-value, retuning,
+production, or commercial claim.
+
 ## 9. Verification, reproducibility, and the incident record
 
 An independent verification pass re-derived every claim from raw evidence. It discovered the

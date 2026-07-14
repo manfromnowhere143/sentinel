@@ -230,6 +230,20 @@ closing speed. **Selectivity is a property of tracking quality, not of the decis
 — named as the prime suspect in a pre-run amendment, confirmed by the data. A monitor validated
 on one planner is not a plug-in for another.
 
+The later HUGSIM line is a second external-validity boundary, not a new NeuroNCAP benchmark
+result. Blind transfer of the released union did not carry the measured NeuroNCAP gain; the
+successor work therefore localized the support-core mechanism instead of claiming a repaired
+monitor. The committed [support-core two-track taxonomy](research/SUPPORT_CORE_TWO_TRACK_TAXONOMY_2026-07-14.md)
+joins iterations 112-121 and reports that all `8/8` support-core rows preserve a split between
+the support-side object or branch and the selected fire-side object:
+the support side disappears, drifts outside support, appears only after fire, or is absent as a
+reference branch, while the selected first-fire object is never supported before collision
+([iteration 121](../experiments/iter121_hugsim_support_core_two_track_synthesis/RESULT.md)).
+The claim boundary is explicit: descriptive support-core taxonomy only; no repair,
+actor-causality, threshold-value, transfer upgrade, safety, deployment, robustness, benchmark,
+population-rate, HD-Score-invariance, real-world behavior, first-responder behavior,
+acquisition-value, retuning, production, or commercial claim.
+
 ## 8. The verification pass
 
 An independent audit re-derived every claim from raw committed evidence. It found the original
