@@ -55,6 +55,17 @@ Mobileye/NHTSA/Waymo/NVIDIA research pass. The longer source-backed memo is
    These are design/preflight artifacts only. They authorize no scenario generation, HUGSIM run,
    GPU launch, repair, safety, deployment, retuning, production, or commercial claim.
 
+10. Post-iteration-130 update: the support-core branch now has a three-step artifact preflight
+    chain after the candidate manifest:
+    [`SUPPORT_CORE_SOURCE_POOL_MUTATION_PREFLIGHT_2026-07-14.md`](SUPPORT_CORE_SOURCE_POOL_MUTATION_PREFLIGHT_2026-07-14.md),
+    [`SUPPORT_CORE_ARTIFACT_NAMING_PREFLIGHT_2026-07-14.md`](SUPPORT_CORE_ARTIFACT_NAMING_PREFLIGHT_2026-07-14.md),
+    and
+    [`SUPPORT_CORE_ARTIFACT_SCHEMA_PREFLIGHT_2026-07-14.md`](SUPPORT_CORE_ARTIFACT_SCHEMA_PREFLIGHT_2026-07-14.md).
+    These freeze source pools, mutation operators, reserved future paths, and schema/metadata
+    bindings before any file exists. They authorize no reserved path creation, scenario
+    generation, HUGSIM run, GPU launch, learning/update, repair, safety, deployment, retuning,
+    production, or commercial claim.
+
 ## Working memory for future sessions
 
 - Do not spend the next session on open-ended frontier research unless a new current event or
@@ -67,8 +78,8 @@ Mobileye/NHTSA/Waymo/NVIDIA research pass. The longer source-backed memo is
   later iterations decomposed that branch and the support-core line through iteration 122. Use
   `docs/NEXT_PHASE.md` and the support-core taxonomy note as the current HUGSIM state.
 - Do not treat iteration 122 as the current endpoint. Future sessions should also read the
-  iteration-125 blind-spot design note and the iteration-126 candidate manifest note before
-  proposing scenario generation.
+  iteration-125 blind-spot design note, the iteration-126 candidate manifest note, and the
+  iteration-128/129/130 preflight notes before proposing scenario generation.
 - Any next experiment still requires a fresh `HYPOTHESIS.md` before analyzer work, no GPU unless
   pre-registered, and no threshold/repair/safety/transfer/deployment claim unless proven.
 
