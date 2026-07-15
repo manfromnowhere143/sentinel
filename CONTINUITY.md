@@ -2667,3 +2667,37 @@ events to prepare; they are a property the repository always has.
   `564` words / SIX results to ONE claim, venue the `14` bare-arXiv references, drop the
   campaign-report sections ("Negative results I/II", "the incident record"). Nothing here depends
   on iteration 134 except the headline claim itself.
+
+- **ITER134 IN-FLIGHT VERIFICATION (2026-07-15, disclosed health checks, NOT the analyzer).** Three
+  things are established while the run is still executing. A successor should NOT redo them, and
+  should NOT treat them as the analyzer's output: the analyzer still runs ONCE, over committed
+  proof, per the on-done block.
+
+  **(1) G2 EARLY CHECK PASSED on the completed OFF arm: 20/20 pairs reproduce the committed
+  power-run per-episode `ncap_score` EXACTLY, zero mismatches.** This was an ad-hoc read of a
+  pre-registered validity gate on the arm that has no bearing on the union-vs-placebo primary,
+  done to avoid discovering drift 38 h in. It means the box has NOT drifted since `full14_power`
+  despite the HUGSIM stage-and-strip, the iteration-45 cleanup, the persisted swapfile, a 20 GB
+  docker build-cache prune, and the iteration-134 compose-script edit. **The placebo comparison
+  will therefore be interpretable; the `PLACEBO_CONTROL_INFRA_NULL` branch is effectively closed.**
+  It also proves mechanically, over 399 shared episodes, that appending
+  `-e SENTINEL_PLACEBO_PAIR -e SENTINEL_PLACEBO_SCHEDULE` to the model block is inert for the
+  carried arms. That claim was asserted at launch and is now tested.
+
+  **(2) The persisted swapfile RECOVERED the episode the power run permanently lost.** Fresh
+  `off/side-0921` completed `20/20` (run_19 `ncap_score` 5.0); the committed power-run arm carries
+  `n=19` because run_19 reproducibly froze the pre-swap host across 3 attempts and 2 physical
+  hosts. The fresh OFF arm is `400/400` -- MORE complete than the evidence it reproduces. The
+  swapfile was live but absent from `/etc/fstab` when found on 2026-07-14; one stop/start would
+  have deleted it silently.
+
+  **(3) The placebo fires correctly in the real arm, not just in the smoke.** At 208 completed
+  placebo episodes: `schedule_missing 0`, `intervene_err 0`, and every checked episode fired on
+  exactly its frozen donor frames from exactly its assigned donor. Realized/scheduled brake budget
+  = **0.843** overall (stationary `0.841`, frontal `0.867`), the pre-registered truncation effect
+  (episodes end before a donor's late frames because braking changes episode length). It is
+  consistent across classes, not concentrated, and directionally conservative for the placebo. It
+  is DISCLOSED, measured by the analyzer, and must be stated in the RESULT -- never corrected post
+  hoc. Note the per-class schedule density differs sharply by design: stationary donors are sparse
+  (clean scenes, the union rarely fired), frontal/side dense. A low placebo brake rate during the
+  stationary class is EXPECTED and is not evidence of a broken control.

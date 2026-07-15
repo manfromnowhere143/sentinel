@@ -1,17 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Tue Jul 14 16:12:36 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Wed Jul 15 22:24:53 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+542b432 paper: verify all 14 citations against source
+4310960 paper: make the build byte-reproducible
+cba0960 paper: untrack latex build intermediates
+5d8811a paper: reproducible build, correct four citations
+2e4eb7e docs: claim-level audit of the paper before the rewrite
 480e745 docs: record the arxiv rejection and its mechanism
 0334b80 handoff: refresh baton and log the iter131 idle-box amendment
 5796929 iter131: stop requiring an idle box for the audit to pass
-428d674 handoff: warn that iter134 is in flight, do not relaunch
-5c30941 iter134: record launch and on-done protocol
-dc0bb23 iter134: smoke proves placebo fires on donor schedule
-2b9f560 iter134: add placebo tooling and launch manifest
-647bab0 iter134: preregister placebo semantics execution
 ```
 Working tree: DIRTY — resolve before handoff:
 M CONTINUITY.md
@@ -161,16 +161,16 @@ M CONTINUITY.md
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 16:13:45 up 10 days,  5:54,  0 users,  load average: 1.22, 1.23, 1.19
+ 22:26:03 up 11 days, 12:07,  0 users,  load average: 1.26, 1.18, 1.13
 GPU_RUN_STATE=IN_FLIGHT_CONTAINERS
-adoring_elion	Up 21 minutes
-model	Up 21 minutes
-renderer	Up 21 minutes
-/var/log/sentinel-i134.log
+agitated_merkle	Up 5 minutes
+model	Up 5 minutes
+renderer	Up 5 minutes
 /var/log/sentinel-vitals.log
+/var/log/sentinel-i134.log
 /var/log/sentinel-i134-smoke.log
-/dev/root       310G  273G   38G  88% /
-Swap:          8.0Gi       4.3Gi       3.7Gi
+/dev/root       310G  281G   30G  91% /
+Swap:          8.0Gi       720Mi       7.3Gi
 ```
 If any docker container named renderer/model/ncap (or a random-name ncap) is up, a run
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
@@ -189,20 +189,57 @@ is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT 
 ## OPERATOR STOP — A RUN IS IN FLIGHT (read before touching the box)
 
 **Iteration 134 is executing on `sentinel-gpu`.** Launched 2026-07-14 12:59:10 UTC. `1,200`
-episodes, three arms. Log `/var/log/sentinel-i134.log`. Done marker **`I134_PLACEBO_DONE`**.
-Observed ~136 s/episode implies ~45 h (inside the pre-registered 30-55 GPU-h; ceiling 80).
-**DO NOT relaunch while containers are up** — the probe above reports `GPU_RUN_STATE=`.
+episodes, three arms, arm-major. Log `/var/log/sentinel-i134.log`. Done marker
+**`I134_PLACEBO_DONE`**. ~115 s/episode.
 
-On `I134_PLACEBO_DONE` follow `CONTINUITY.md` -> "### On I134_PLACEBO_DONE" verbatim: proof
-committed FIRST, G0 re-verified, analyzer ONCE from committed artifacts, verdict at FULL WEIGHT.
-G2 can veto any semantic reading if the box drifted.
+**DO NOT relaunch while containers are up.** The live probe above reports `GPU_RUN_STATE=`
+mechanically; `IN_FLIGHT_CONTAINERS` means a run owns the box. Confirm ownership from the newest
+`/var/log/sentinel-*.log` (`sentinel-i134.log`). Episodes are deterministic per run index, so a
+crash is RESUMABLE and completed pairs stay valid — do not panic-restart from zero.
 
-**PAPER: arXiv REJECTED (2026-07-14).** Appeal needs a conventional-journal DOI. Do not touch the
-paper until 134 lands. Two CONTINUITY entries bind the rewrite: the rejection mechanism
-(`iter124`'s freshness gate validated `MANUSCRIPT.md`, which was never submitted, while the
-submitted `paper.tex` omits HUGSIM entirely — DO NOT TRUST THAT GATE) and the claim-level audit
-(Limitations falsely says "one simulator"; abstract result (5) is a universal negative from two
-failed probes while the causal-intervention arc returned only nulls).
+### State as of 2026-07-15 22:25 UTC (~1010/1200, ETA ~2026-07-16 03:45 UTC)
+
+- `off` arm: **DONE, 400/400** — and G2-verified exact against the committed power run (see the
+  CONTINUITY in-flight-verification entry). Includes `side-0921` at **20/20**; the committed power
+  run has `n=19`.
+- `union` arm: **DONE, 400/400**.
+- `placebo` arm: **RUNNING** (~210/400), verified firing on its frozen donor schedule,
+  `schedule_missing 0`, `intervene_err 0`, realized/scheduled budget `0.843`.
+- Health: `0` aborts across the whole run; peak memory `28762/32093` (freeze line is `31.6`);
+  swap persisted in `/etc/fstab`; disk ~31 G free against ~6 G still needed (a 20 GB docker
+  build-cache prune on 2026-07-14 bought the margin; images were NOT pruned and `vad:latest` is
+  deliberately kept because the paper reports VAD results).
+
+### On `I134_PLACEBO_DONE`
+
+Follow `CONTINUITY.md` -> "### On I134_PLACEBO_DONE" **verbatim**. The order is load-bearing:
+check aborts and that no containers are up -> collect artifacts and **commit proof FIRST** ->
+re-verify G0 (patch + analyzer SHA256 still byte-identical to `launch_manifest.json`) -> run the
+committed analyzer **ONCE**, no edits -> publish `RESULT.md` at **FULL WEIGHT** in whichever of the
+four frozen classes it returns.
+
+`PLACEBO_EXPLAINS_GAIN` takes the `2.12 -> 2.91` headline rather than denting it, and publishes
+exactly as readily as `SEMANTIC_VALUE_CONFIRMED`. Do not soften either. Do not read per-episode
+outcomes before the analyzer runs.
+
+Commits: `647bab0` pre-reg ALONE, `2b9f560` tooling+manifest, `dc0bb23` disclosed smoke,
+`5c30941` launch record + on-done block.
+
+### PAPER — do not touch until 134 lands
+
+arXiv **REJECTED** the submission (2026-07-14); appeal requires a conventional-journal DOI, so the
+next submission is to a PEER-REVIEWED VENUE (TMLR / RA-L / IEEE T-ITS), not arXiv. Two CONTINUITY
+entries bind the rewrite: the rejection mechanism (**`iter124`'s freshness gate validated
+`MANUSCRIPT.md`, which was never submitted, while the shipped `paper.tex` omits HUGSIM entirely —
+DO NOT TRUST THAT GATE**) and the claim-level audit (Limitations falsely says "one simulator";
+abstract result (5) asserts a universal negative over decoders from two failed probes while the
+causal-intervention arc returned only nulls).
+
+Since then: `docs/paper/build.sh` makes source -> PDF -> tarball one **byte-reproducible** act and
+fails closed if the tarball's `paper.tex` differs from source; all `14` citations verified against
+the actual papers (NeuroNCAP is **ECCV 2024**, not CVPR as `CLAUDE.md` still says; DMAD is
+**NeurIPS 2025**; AWTA is **ICRA 2025**; four entries had invented titles and no authors). Requires
+BasicTeX (`brew install --cask basictex`).
 
 Frozen critique anchors preserved for Iter133 reproducibility:
 
