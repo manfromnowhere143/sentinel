@@ -2983,3 +2983,38 @@ transfer boundary fold-in and the claim-(5) hedge are unchanged and still bindin
   Analytic authority then requires an
   atomic local state-only -> final-manifest-only -> offline-baton-plus-activation-receipt chain,
   published and green on `origin/master`; `MISSION_STATE.json` alone is never launch authority.
+
+- **ITER135 GENERATION-THREE SOURCE AND RECEIPT ACCEPTED; ATOMIC PREFLIGHT BATON
+  (2026-07-16).** Generation-three source `1820fcfd65483fa9c7429dd54fe65dbf91dc6b35`
+  is the direct child of accepted generation-two baton
+  `ee0c0c953ace80b53f3cce97ddd7eb262fb22a2d` and changes exactly the preregistered 25
+  paths with four executable and 21 regular modes. Before publication, independent release audit
+  and full local Python 3.10, 3.11, and 3.14 lanes each passed `1106` tests with one intentional
+  skip; Ruff, Bash syntax, ShellCheck without user configuration, the 402-file docs guard,
+  mission-state validation, and diff checks were also green. GitHub Actions run `29521656943`
+  then completed exactly `check (3.10)` and `check (3.11)` successfully for that source SHA before
+  the receipt changed. The historical red generation-one attempts remain immutable and disclosed;
+  this accepted source supersedes their portability and control-plane defects without rewriting
+  them.
+
+  Receipt-only child `755489f36ae2b8cefad183341edefd7c30c047e7` carries payload digest
+  `daa0ef73299db0b36f387650400340d309c11eee2e2b078347a6e9f4974de543` and the exact
+  generation-three publication block: it supersedes
+  `b0eca127ff1d522aefa6164271de7bce3bcaf1a7`, names
+  `ee0c0c953ace80b53f3cce97ddd7eb262fb22a2d` as recovery parent, and records reason code
+  `PRE_SMOKE_CONTROL_GAPS_INTERPRETER_SUMMARY_AND_LAUNCH_AUTHORIZATION`. Generation, independent
+  pre-push replay, GitHub Actions run `29523937532`, exact two-check authority replay, and
+  independent post-push replay all passed. The receipt remains mode 0600, immutable, and
+  deny-delete protected.
+
+  State-only T3 `d9e2610` advances the exact mission phase and action contract to
+  `TOOLING_FROZEN_PREFLIGHT_REQUIRED`. T3 is intentionally not a remotely valid standalone tip;
+  this immediately following B3 documentation baton completes the atomic local pair. Only B3 may
+  be pushed, and no host preparation is authorized until that B3 SHA is current `master` with
+  exactly the two required successful GitHub Actions checks. No remote host, Docker container,
+  GPU process, environment receipt, launch manifest, smoke run, analytic episode, analytic
+  evidence, or benchmark result was created by generation-three publication. Claims remain
+  unchanged: semantic attribution `UNRESOLVED`, HUGSIM `TRANSFER_NULL`, and production readiness
+  `NOT_ESTABLISHED`. After B3 is green, the next bounded sequence is exact atomic H host packet ->
+  E environment receipt -> P committed incomplete manifest -> S nonanalytic smoke evidence;
+  analytic execution remains forbidden.
