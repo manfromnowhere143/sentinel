@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -226,16 +227,33 @@ def validate_source_inputs(
             "This still authorizes no reserved path creation, generated scenario artifact, scenario generation",
         ],
     )
-    require_contains(
-        problems,
-        "handoff-critique",
-        handoff_text,
-        [
+    # AMENDED 2026-07-16 after the generator-owned HANDOFF contract replaced the old manual
+    # suffix. The design originally anchored three critique sentences in that suffix. Requiring
+    # those mutable sentences forever made a completed historical design fail whenever HANDOFF was
+    # correctly regenerated. Preserve the original path for historical reproduction, but accept
+    # the canonical-state handoff once the experiment lineage has advanced beyond this design.
+    legacy_handoff_critique = all(
+        canonical(needle) in canonical(handoff_text)
+        for needle in (
             "Iterations 125-132 are valuable only as controlled evidence infrastructure",
             "not new empirical improvement",
             "placebo/sham intervention with matched timing, actuator budget, and opportunity",
-        ],
+        )
     )
+    canonical_completed = [
+        int(value)
+        for value in re.findall(
+            r"Canonical completed experiment: experiments/iter(\d+)_", handoff_text
+        )
+    ]
+    canonical_successor_handoff = (
+        "Canonical mission state (`MISSION_STATE.json`)" in handoff_text
+        and canonical_completed
+        and max(canonical_completed) >= 133
+        and "Canonical next action:" in handoff_text
+    )
+    if not legacy_handoff_critique and not canonical_successor_handoff:
+        problems.append("handoff-lineage-missing:legacy critique or canonical completed iter>=133")
 
     integrity = opportunity_report.get("integrity")
     a1 = opportunity_report.get("a1")

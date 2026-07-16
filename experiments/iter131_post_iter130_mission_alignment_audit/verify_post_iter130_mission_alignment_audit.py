@@ -127,7 +127,7 @@ def check_handoff_freshness(text: str) -> dict[str, Any]:
     matches = [
         int(value)
         for value in re.findall(
-            r"Newest completed experiment: experiments/iter(\d+)_", text
+            r"(?:Newest|Canonical) completed experiment: experiments/iter(\d+)_", text
         )
     ]
     if not matches or max(matches) < 130:
