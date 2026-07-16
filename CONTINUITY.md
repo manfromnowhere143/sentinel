@@ -2701,3 +2701,76 @@ events to prepare; they are a property the repository always has.
   hoc. Note the per-class schedule density differs sharply by design: stationary donors are sparse
   (clean scenes, the union rarely fired), frontal/side dense. A low placebo brake rate during the
   stationary class is EXPECTED and is not evidence of a broken control.
+
+- **ITER134 PUBLISHED `PLACEBO_HARM_OR_NULL` (2026-07-16; pre-reg `647bab0` ALONE, tooling
+  `2b9f560`, smoke `dc0bb23`, launch `5c30941`, PROOF-FIRST `b1a6714`). THE SEMANTICS QUESTION IS
+  NOT RESOLVED, IN EITHER DIRECTION.** On-done flow executed verbatim: `I134_PLACEBO_DONE`
+  02:44:27 UTC, 1,200/1,200 episodes, 0 aborts, 0 `__failed`, 0 containers up; proof committed
+  FIRST (336 MB, all 5 artifacts byte-identical to the box, both split files rejoin to the box
+  SHAs); G0 re-verified at collection (6/6 hash-bound files byte-identical, box AND repo); analyzer
+  run ONCE from committed artifacts, unedited.
+
+  **Results:** OFF NCAP `2.135` / union `2.906` / placebo `2.538`; collisions `52%`/`43%`/`50%`;
+  safe-progress `2.395`/`2.362`/**`2.085`**. PRIMARY union-placebo **`+0.3683` CI
+  `[-0.1901, +0.8866]` includes zero**; placebo-off `+0.4026` CI `[-0.0038, +0.8947]` includes
+  zero; union-off `+0.7708` CI `[+0.3315, +1.2151]` excludes zero.
+
+  **The union's benefit REPRODUCED**: `+0.7708` vs the committed `+0.783`; under the power run's own
+  method CI `[+0.6087, +0.9226]` vs committed `[+0.605, +0.928]`. G2 exact: all 800 carried episodes
+  match the committed power run per-episode, ZERO mismatches, on a box that since staged+stripped
+  ~61 GB of HUGSIM, was cleaned, gained swap, lost 20 GB of build cache, and had 2 env vars appended
+  to the model `-e` list (proving that change inert rather than asserting it). The fresh union
+  re-emitted iteration 42's EXACT `1,205` brake frames and `156` releases. `off/side-0921` completed
+  `20/20` where the power run carries `n=19` -- **the persisted swapfile recovered the episode the
+  power run permanently lost**.
+
+  **THE PRE-REGISTERED CONFOUND FIRED -- read this before designing the successor.** HYPOTHESIS.md
+  said in advance: "if it brakes less and scores worse, that's a confound I'd have to state plainly
+  rather than claim a semantic win." It braked less (`859/1205`, `0.713`) and scored worse. So
+  `union-placebo = +0.368` is consistent with the semantics, with the 40% larger dose, or both;
+  **this design cannot separate them and no semantic claim is made in either direction.**
+  Mechanism, and the iteration's most useful finding: the placebo braking at borrowed times CAUSED
+  collisions (`50%` vs `43%`), collisions ended episodes early, early endings ate the remaining
+  scheduled brakes. **Closed-loop budget matching is unreachable by an open-loop frame schedule:
+  the intervention determines how much of its own budget it can spend.** Scheduled equality was
+  exact by bijection (`1205 = 1205`) and did not survive the loop. Realization decayed from `0.843`
+  at 208 eps to `0.713` at 400 as the arm entered the collision-dense frontal/side classes -- it
+  degrades exactly where dose matters most.
+
+  **METHOD DISAGREEMENT, DISCLOSED NOT EXPLOITED.** Pair-clustered (pre-registered PRIMARY):
+  union-placebo CI `[-0.1901, +0.8866]`, includes zero. Run-index resampling (the method behind the
+  committed `+0.783`): CI `[+0.1464, +0.5723]`, **excludes zero** -- it WOULD license
+  `SEMANTIC_VALUE_CONFIRMED`. **NOT ADOPTED.** The primary was frozen before the run; picking the
+  method that flatters the hypothesis after seeing both is the exact failure this apparatus exists
+  to prevent. Any successor that quietly adopts run-index as primary is voiding the campaign's
+  discipline. The pair-clustered primary is UNDERPOWERED at 20 clusters, and 14 scenes is the whole
+  official set, so **power must come from design, not scale.**
+
+  **Disclosed analyzer defect (NOT fixed, because it is hash-bound and was run once):**
+  `placebo_realized_frames` reports `0` -- placebo frame rows carry `run`/`k` but no `pair`, and
+  `realized_brakes()` skips rows lacking `pair`. Brake counting is unaffected and correct (`859`,
+  grep-confirmed). No reported number depends on the frame count. A successor may fix it under a
+  fresh pre-registration.
+
+### NEXT: iteration 135 must be a DOSE-MATCHED control (fresh pre-registration required)
+
+The semantics question is open and the blocker is specific: dose. Defensibility order:
+
+1. **Dose-response placebo** -- the placebo at several budget multiples. If the union outperforms
+   EVERY dose of semantics-free braking, the semantics are load-bearing regardless of exact
+   matching. Most rigorous, most expensive. THIS IS THE RECOMMENDED PATH.
+2. **Closed-loop budget controller** -- placebo brakes until budget spent rather than at fixed
+   frame indices (~100% realization). It changes the timing distribution; that change must be
+   registered and MEASURED, never assumed benign.
+3. **Union truncated to the placebo's realized dose** -- cheapest; must be frozen before any
+   outcome is read.
+
+Do NOT re-run iteration 134's design. It is now known to be confounded by construction in a closed
+loop. Box is IDLE, containers down; iter134 run roots (~35 GB of rendered frames) remain in
+`/opt/sentinel-stack/neuro-ncap/outoutput/i134-*` and are reproducible -- safe to delete for disk
+if needed; the per-episode json, all decision logs, and the run log are committed.
+
+**PAPER: iteration 134 changes what the rewrite says.** The paper may now report the first placebo
+control applied to a runtime monitor on this benchmark, its null, AND the methodological finding
+(closed-loop budget entanglement). It may NOT claim the semantics are load-bearing. The 48/49
+transfer boundary fold-in and the claim-(5) hedge are unchanged and still binding.

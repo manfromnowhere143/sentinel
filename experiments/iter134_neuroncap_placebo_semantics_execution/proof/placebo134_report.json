@@ -1,0 +1,76 @@
+{
+ "comparability_runidx_union_minus_off": {
+  "ci_ncap": [
+   0.6087,
+   0.9226
+  ],
+  "delta_ncap": 0.7708
+ },
+ "comparability_runidx_union_minus_placebo": {
+  "ci_ncap": [
+   0.1464,
+   0.5723
+  ],
+  "delta_ncap": 0.3683
+ },
+ "g2_mismatch_count": 0,
+ "g2_mismatches": [],
+ "off_collision_rate": 0.5225,
+ "off_episodes": 400,
+ "off_ncap": 2.135,
+ "off_safe_progress": 2.3948,
+ "placebo_budget_realization": 0.7129,
+ "placebo_collision_rate": 0.505,
+ "placebo_episodes": 400,
+ "placebo_minus_off_ci_excludes_zero": false,
+ "placebo_ncap": 2.5376,
+ "placebo_realized_brake_frames": 859,
+ "placebo_realized_frames": 0,
+ "placebo_safe_progress": 2.0849,
+ "placebo_scheduled_brake_frames": 1205,
+ "primary_union_minus_placebo": {
+  "ci_ncap": [
+   -0.1901,
+   0.8866
+  ],
+  "ci_safe_progress": [
+   -0.1506,
+   0.709
+  ],
+  "delta_ncap": 0.3683,
+  "delta_safe_progress": 0.2774
+ },
+ "problem_count": 0,
+ "problems": [],
+ "schema": "iter134.placebo_semantics_execution.v1",
+ "secondary_placebo_minus_off": {
+  "ci_ncap": [
+   -0.0038,
+   0.8947
+  ],
+  "ci_safe_progress": [
+   -0.7256,
+   0.0985
+  ],
+  "delta_ncap": 0.4026,
+  "delta_safe_progress": -0.3099
+ },
+ "secondary_union_minus_off": {
+  "ci_ncap": [
+   0.3315,
+   1.2151
+  ],
+  "ci_safe_progress": [
+   -0.4717,
+   0.3643
+  ],
+  "delta_ncap": 0.7708,
+  "delta_safe_progress": -0.0325
+ },
+ "union_collision_rate": 0.4275,
+ "union_episodes": 400,
+ "union_minus_placebo_ci_excludes_zero": false,
+ "union_ncap": 2.9058,
+ "union_safe_progress": 2.3623,
+ "verdict": "PLACEBO_HARM_OR_NULL"
+}
