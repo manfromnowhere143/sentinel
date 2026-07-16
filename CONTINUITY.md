@@ -3085,3 +3085,19 @@ transfer boundary fold-in and the claim-(5) hedge are unchanged and still bindin
   validation reads no live branch state, so a branch run and a `master` run validate identical
   bytes. B1, B2, and B3 remain disclosed red history. This amendment prevents a fourth such tip; it
   does not revise the record of the first three.
+
+  Generation-four publication record, 2026-07-17. Source F4 `052404fb13aee8395f538a92cc3c898c13f06adc`
+  carries the exact eleven paths and reported success on Python 3.10 and 3.11 before `master` moved.
+  Receipt R4 `c3e891b9e41f2291` was generated on the canonical macOS host from a clean tree with
+  `origin/master` already at F4, returned `I135_TOOLING_VERIFICATION_OK` with `problem_count=0`, and
+  independently replayed `I135_TOOLING_VERIFICATION_OK` on a clean tree after commit. Its publication
+  block is exactly generation four, superseding receipt `755489f36ae2b8cefad183341edefd7c30c047e7`,
+  recovery parent `30b6390b3e165fc517ec6a7d1d7a26502ea45e2a`, reason code
+  `B3_CI_STRUCTURAL_GIT_READER_TOOLCHAIN_ROOT_FAILURE`. The superseded R3 blob was confirmed
+  byte-identical to its committed object before the working copy was unlocked, and the receipt's two
+  working-copy protections, the `uchg` flag and the `user:danielwahnich deny delete` ACL, were
+  restored after generation. The state child and this baton were created locally and only the baton
+  tip was pushed. The trusted-roots defect that produced B1 through B3 no longer appears in
+  validation; the residual pre-commit diagnostics were the expected `current repository is dirty` and
+  `complete state-only and offline-baton transition is missing`, both of which clear once the state
+  child and baton exist. No host, Docker, GPU, smoke, or analytic action was taken.
