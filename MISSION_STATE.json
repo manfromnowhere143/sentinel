@@ -6,14 +6,15 @@
   "current_result": "experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md",
   "current_verdict": "PLACEBO_HARM_OR_NULL",
   "run_state": "IDLE",
-  "active_hypothesis": null,
+  "active_hypothesis": "experiments/iter135_neuroncap_blind_braking_dose_response/HYPOTHESIS.md",
   "next_program": {
     "iteration": 135,
     "name": "semantics-free placebo dose-response causal closure",
-    "phase": "PREREGISTRATION_REQUIRED",
+    "phase": "PREREGISTERED_TOOLING_REQUIRED",
     "authorized_actions": [
-      "write and commit the iteration-135 pre-registration",
-      "build and validate tooling only after that pre-registration is committed"
+      "build and validate only the tooling and tests frozen by the active iteration-135 hypothesis",
+      "inventory storage and provenance before any safe cleanup or live smoke",
+      "publish a read-only external-benchmark commercial, license, compute, and integration preflight"
     ],
     "forbidden_actions": [
       "GPU launch before the iteration-135 hypothesis, analyzer, manifest, provenance, storage, and smoke gates are frozen",
@@ -41,7 +42,7 @@
   },
   "storage_gate": {
     "minimum_local_free_gib_before_new_proof_collection": 15,
-    "minimum_remote_root_free_gib_before_gpu_launch": 50,
+    "minimum_remote_root_free_gib_before_gpu_launch": 100,
     "policy": "preserve committed proof and hashes; delete only hash-verified duplicates, reproducible renders, and caches"
   }
 }
