@@ -74,13 +74,19 @@ GENERATION_TWO_RECEIPT_COMMIT = "b0eca127ff1d522aefa6164271de7bce3bcaf1a7"
 GENERATION_TWO_STATE_COMMIT = "71a137faa268c63d73ae5d1ec0f8409306f446e5"
 GENERATION_TWO_BATON_COMMIT = "ee0c0c953ace80b53f3cce97ddd7eb262fb22a2d"
 GENERATION_THREE_SOURCE_PARENT = GENERATION_TWO_BATON_COMMIT
+GENERATION_THREE_SOURCE_COMMIT = "1820fcfd65483fa9c7429dd54fe65dbf91dc6b35"
+GENERATION_THREE_RECEIPT_COMMIT = "755489f36ae2b8cefad183341edefd7c30c047e7"
+GENERATION_THREE_STATE_COMMIT = "d9e261075d27d5d717debebe5c881fa4d6e882c5"
+GENERATION_THREE_BATON_COMMIT = "30b6390b3e165fc517ec6a7d1d7a26502ea45e2a"
 GENERATION_THREE_REASON = (
     "PRE_SMOKE_CONTROL_GAPS_INTERPRETER_SUMMARY_AND_LAUNCH_AUTHORIZATION"
 )
+GENERATION_FOUR_SOURCE_PARENT = GENERATION_THREE_BATON_COMMIT
+GENERATION_FOUR_REASON = "B3_CI_STRUCTURAL_GIT_READER_TOOLCHAIN_ROOT_FAILURE"
 # Compatibility aliases used by the receipt generator and focused hostile tests. They always name
-# the active generation-three source publication, never the historical generation-two recovery.
-RECOVERY_SOURCE_PARENT = GENERATION_THREE_SOURCE_PARENT
-RECOVERY_REASON = GENERATION_THREE_REASON
+# the active generation-four source publication, never a historical recovery.
+RECOVERY_SOURCE_PARENT = GENERATION_FOUR_SOURCE_PARENT
+RECOVERY_REASON = GENERATION_FOUR_REASON
 POST_FREEZE_EXACT_PATHS = {
     "CONTINUITY.md",
     "HANDOFF.md",
@@ -239,12 +245,25 @@ GENERATION_THREE_SOURCE_COMMIT_PATHS = (
     "tests/test_iter135_tooling_verifier.py",
     "tests/test_mission_state.py",
 )
-RECOVERY_SOURCE_COMMIT_PATHS = GENERATION_THREE_SOURCE_COMMIT_PATHS
+GENERATION_FOUR_SOURCE_COMMIT_PATHS = (
+    "CONTINUITY.md",
+    "HANDOFF.md",
+    "MISSION_STATE.json",
+    f"{EXPERIMENT_REL}/authorize_launch135.py",
+    f"{EXPERIMENT_REL}/run_dose135.sh",
+    f"{EXPERIMENT_REL}/verify_tooling135.py",
+    "scripts/mission_state.py",
+    "tests/test_iter135_launch_authorization.py",
+    "tests/test_iter135_launcher.py",
+    "tests/test_iter135_tooling_verifier.py",
+    "tests/test_mission_state.py",
+)
+RECOVERY_SOURCE_COMMIT_PATHS = GENERATION_FOUR_SOURCE_COMMIT_PATHS
 EXPECTED_RECOVERY_PUBLICATION = {
-    "generation": 3,
-    "supersedes_receipt_commit": GENERATION_TWO_RECEIPT_COMMIT,
-    "recovery_parent": GENERATION_THREE_SOURCE_PARENT,
-    "reason_code": GENERATION_THREE_REASON,
+    "generation": 4,
+    "supersedes_receipt_commit": GENERATION_THREE_RECEIPT_COMMIT,
+    "recovery_parent": GENERATION_FOUR_SOURCE_PARENT,
+    "reason_code": GENERATION_FOUR_REASON,
 }
 
 # Compatibility names describe only the immutable first freeze.  Recovery publication checks use
@@ -479,10 +498,10 @@ def _stable_external_file(path: Path) -> dict[str, Any]:
     }
 
 
-def _sanitized_environment(toolchain: Mapping[str, Mapping[str, Any]]) -> dict[str, str]:
+def _sanitized_environment_for_paths(paths: Sequence[str]) -> dict[str, str]:
     directories = []
-    for name in TOOL_NAMES:
-        path = str(Path(str(toolchain[name]["path"])).parent)
+    for executable in paths:
+        path = str(Path(executable).parent)
         if path not in directories:
             directories.append(path)
     for path in ("/usr/bin", "/bin", "/usr/sbin", "/sbin"):
@@ -498,6 +517,18 @@ def _sanitized_environment(toolchain: Mapping[str, Mapping[str, Any]]) -> dict[s
         "PYTHONNOUSERSITE": "1",
         "TZ": "UTC",
     }
+
+
+def _sanitized_environment(toolchain: Mapping[str, Mapping[str, Any]]) -> dict[str, str]:
+    return _sanitized_environment_for_paths(
+        [str(toolchain[name]["path"]) for name in TOOL_NAMES]
+    )
+
+
+def _sanitized_git_environment(git: Mapping[str, Any]) -> dict[str, str]:
+    """Build a Git-only environment without consulting the verification toolchain."""
+
+    return _sanitized_environment_for_paths([str(git["path"])])
 
 
 @lru_cache(maxsize=8)
@@ -549,6 +580,53 @@ def resolve_toolchain() -> dict[str, dict[str, Any]]:
             )
         )
     return _resolve_toolchain_cached(tuple(candidates))
+
+
+@lru_cache(maxsize=8)
+def _resolve_git_cached(
+    candidate: tuple[str, int, int, int, int, int],
+) -> dict[str, Any]:
+    """Bind and version only the trusted Git executable needed for history reads."""
+
+    path_text, *_identity = candidate
+    receipt = _stable_external_file(Path(path_text))
+    completed = subprocess.run(  # noqa: S603 - exact physical Git binary resolved above
+        (receipt["path"], *TOOL_VERSION_ARGS["git"]),
+        cwd=REPO_ROOT,
+        env=_sanitized_git_environment(receipt),
+        check=False,
+        stdin=subprocess.DEVNULL,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        timeout=10,
+    )
+    if completed.returncode != 0:
+        raise VerificationError("Git executable version probe failed")
+    first_line = completed.stdout.decode("utf-8", errors="replace").splitlines()
+    receipt["version"] = first_line[0] if first_line else ""
+    return receipt
+
+
+def resolve_git() -> dict[str, Any]:
+    """Resolve one physical trusted Git binary without resolving pytest, Ruff, or peers."""
+
+    located = shutil.which("git")
+    if not located:
+        raise VerificationError("required Git executable is missing")
+    physical = Path(located).resolve(strict=True)
+    if not _allowed_tool_path(physical):
+        raise VerificationError("Git executable is outside trusted roots")
+    observed = physical.stat(follow_symlinks=False)
+    return _resolve_git_cached(
+        (
+            str(physical),
+            observed.st_dev,
+            observed.st_ino,
+            observed.st_size,
+            observed.st_mtime_ns,
+            observed.st_ctime_ns,
+        )
+    )
 
 
 def _utc_from_ns(value: int) -> str:
@@ -777,10 +855,10 @@ def default_runner(command: tuple[str, ...], cwd: Path) -> RawCommandResult:
 
 
 def _git_bytes(repo_root: Path, argv: Sequence[str]) -> bytes:
-    toolchain = resolve_toolchain()
+    git = resolve_git()
     completed = subprocess.run(  # noqa: S603 - fixed git command and validated source paths
-        (toolchain["git"]["path"], "-C", str(repo_root), *argv),
-        env=_sanitized_environment(toolchain),
+        (git["path"], "-C", str(repo_root), *argv),
+        env=_sanitized_git_environment(git),
         check=False,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
@@ -906,10 +984,10 @@ def default_structural_git_probe(
 def default_ancestry_probe(repo_root: Path, ancestor: str, descendant: str) -> bool:
     """Return whether ANCESTOR is reachable from DESCENDANT, failing closed on Git errors."""
 
-    toolchain = resolve_toolchain()
+    git = resolve_git()
     completed = subprocess.run(  # noqa: S603 - commits are validated lowercase 40-hex IDs
         (
-            toolchain["git"]["path"],
+            git["path"],
             "-C",
             str(repo_root),
             "merge-base",
@@ -917,7 +995,7 @@ def default_ancestry_probe(repo_root: Path, ancestor: str, descendant: str) -> b
             ancestor,
             descendant,
         ),
-        env=_sanitized_environment(toolchain),
+        env=_sanitized_git_environment(git),
         check=False,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
@@ -998,7 +1076,7 @@ def run_verification(
     wall_clock_ns: Clock = time.time_ns,
     monotonic_clock_ns: Clock = time.monotonic_ns,
 ) -> dict[str, Any]:
-    """Run the generation-three control-refreeze pipeline and return its in-memory receipt."""
+    """Run the generation-four control-refreeze pipeline and return its in-memory receipt."""
 
     root = repo_root.resolve(strict=True)
     wall_start = wall_clock_ns()
@@ -1048,14 +1126,14 @@ def run_verification(
         problems.append(
             _problem(
                 "SOURCE_PARENT",
-                "generation-three source HEAD is not the direct child of the accepted B2 baton",
+                "generation-four source HEAD is not the direct child of the accepted B3 baton",
             )
         )
     if git_start.commit_paths != tuple(sorted(RECOVERY_SOURCE_COMMIT_PATHS)):
         problems.append(
             _problem(
                 "SOURCE_COMMIT_SCOPE",
-                "generation-three source HEAD path set is not the exact preregistered refreeze set",
+                "generation-four source HEAD path set is not the exact preregistered refreeze set",
             )
         )
 
@@ -1447,7 +1525,7 @@ def validate_published_receipt_structure(
     git_probe: GitProbe = default_structural_git_probe,
     ancestry_probe: AncestryProbe = default_ancestry_probe,
 ) -> list[str]:
-    """Validate the explicit generation-three refreeze proof after state-only descendants exist.
+    """Validate the explicit generation-four refreeze proof after state-only descendants exist.
 
     Independent command replay is deliberately performed at the exact replacement receipt commit by
     :func:`validate_receipt`.  This post-transition validator instead proves that the committed
@@ -1463,7 +1541,7 @@ def validate_published_receipt_structure(
     if receipt.get("schema") != SCHEMA:
         errors.append("schema mismatch")
     if receipt.get("publication") != EXPECTED_RECOVERY_PUBLICATION:
-        errors.append("generation-three publication block mismatch")
+        errors.append("generation-four publication block mismatch")
     if receipt.get("verdict") != OK_VERDICT:
         errors.append("receipt verdict is not green")
     if receipt.get("problem_count") != 0 or receipt.get("problems") != []:
@@ -1489,7 +1567,7 @@ def validate_published_receipt_structure(
         if not _valid_commit(source_commit):
             raise VerificationError("receipt source commit is malformed")
         empty_status = _sha256_bytes(b"")
-        expected_source_paths = tuple(sorted(GENERATION_THREE_SOURCE_COMMIT_PATHS))
+        expected_source_paths = tuple(sorted(RECOVERY_SOURCE_COMMIT_PATHS))
         if (
             claimed_start.get("dirty_entries") != []
             or claimed_start.get("porcelain_v1_z_sha256") != empty_status
@@ -1509,7 +1587,7 @@ def validate_published_receipt_structure(
 
         source_parents, source_paths = _git_commit_row(root, source_commit)
         if source_parents != (RECOVERY_SOURCE_PARENT,) or source_paths != expected_source_paths:
-            raise VerificationError("actual generation-three source topology or path scope is wrong")
+            raise VerificationError("actual generation-four source topology or path scope is wrong")
 
         inventory = _source_inventory_from_tree(root, source_commit)
         if receipt.get("inventory") != inventory.as_dict():
@@ -1579,16 +1657,17 @@ def validate_published_receipt_structure(
             line for line in history_raw.decode("ascii", errors="strict").splitlines() if line
         )
         if (
-            len(receipt_history) != 3
+            len(receipt_history) != 4
             or not _valid_commit(receipt_history[0])
             or receipt_history[1:] != (
+                GENERATION_THREE_RECEIPT_COMMIT,
                 GENERATION_TWO_RECEIPT_COMMIT,
                 GENERATION_ONE_RECEIPT_COMMIT,
             )
         ):
             raise VerificationError(
-                "canonical receipt history is not exact generation-three, generation-two, "
-                "then generation-one"
+                "canonical receipt history is not exact generation-four, generation-three, "
+                "generation-two, then generation-one"
             )
         receipt_commit = receipt_history[0]
 
@@ -1636,15 +1715,45 @@ def validate_published_receipt_structure(
         ):
             raise VerificationError("generation-two baton topology or path scope changed")
 
+        generation_three_source_parents, generation_three_source_paths = _git_commit_row(
+            root, GENERATION_THREE_SOURCE_COMMIT
+        )
+        if generation_three_source_parents != (GENERATION_THREE_SOURCE_PARENT,) or (
+            generation_three_source_paths
+            != tuple(sorted(GENERATION_THREE_SOURCE_COMMIT_PATHS))
+        ):
+            raise VerificationError("generation-three source topology or path scope changed")
+        generation_three_receipt_parents, generation_three_receipt_paths = _git_commit_row(
+            root, GENERATION_THREE_RECEIPT_COMMIT
+        )
+        if generation_three_receipt_parents != (GENERATION_THREE_SOURCE_COMMIT,) or (
+            generation_three_receipt_paths != (RECEIPT_REL,)
+        ):
+            raise VerificationError("generation-three receipt topology or path scope changed")
+        generation_three_state_parents, generation_three_state_paths = _git_commit_row(
+            root, GENERATION_THREE_STATE_COMMIT
+        )
+        if generation_three_state_parents != (GENERATION_THREE_RECEIPT_COMMIT,) or (
+            generation_three_state_paths != ("MISSION_STATE.json",)
+        ):
+            raise VerificationError("generation-three state topology or path scope changed")
+        generation_three_baton_parents, generation_three_baton_paths = _git_commit_row(
+            root, GENERATION_THREE_BATON_COMMIT
+        )
+        if generation_three_baton_parents != (GENERATION_THREE_STATE_COMMIT,) or (
+            generation_three_baton_paths != ("CONTINUITY.md", "HANDOFF.md")
+        ):
+            raise VerificationError("generation-three baton topology or path scope changed")
+
         receipt_parents, receipt_paths = _git_commit_row(root, receipt_commit)
         if receipt_parents != (source_commit,) or receipt_paths != (RECEIPT_REL,):
-            raise VerificationError("generation-three receipt is not the exact receipt-only child")
+            raise VerificationError("generation-four receipt is not the exact receipt-only child")
 
         receipt_path = root / RECEIPT_REL
         current_receipt_bytes = _read_stable_regular_file(receipt_path)
         if _git_file_bytes(root, receipt_commit, RECEIPT_REL) != current_receipt_bytes:
             raise VerificationError(
-                "canonical receipt bytes differ from generation-three receipt commit bytes"
+                "canonical receipt bytes differ from generation-four receipt commit bytes"
             )
         committed_receipt = _parse_receipt_json(current_receipt_bytes)
         if committed_receipt != dict(receipt):
@@ -1656,9 +1765,9 @@ def validate_published_receipt_structure(
         if not _valid_commit(current_git.upstream_head):
             raise VerificationError("origin/master commit is malformed or missing")
         if not ancestry_probe(root, receipt_commit, current_git.head):
-            raise VerificationError("generation-three receipt is not an ancestor of current HEAD")
+            raise VerificationError("generation-four receipt is not an ancestor of current HEAD")
         if not ancestry_probe(root, receipt_commit, current_git.upstream_head):
-            raise VerificationError("generation-three receipt is not published on origin/master")
+            raise VerificationError("generation-four receipt is not published on origin/master")
         if current_git.upstream_head != current_git.head and not ancestry_probe(
             root, current_git.upstream_head, current_git.head
         ):
@@ -1687,7 +1796,7 @@ def validate_receipt(
     ancestry_probe: AncestryProbe = default_ancestry_probe,
     toolchain_resolver: ToolchainResolver = resolve_toolchain,
 ) -> list[str]:
-    """Replay every generation-three command and claim against current source bytes."""
+    """Replay every generation-four command and claim against current source bytes."""
 
     errors: list[str] = []
     if not isinstance(receipt, Mapping):
@@ -1697,7 +1806,7 @@ def validate_receipt(
     if receipt.get("schema") != SCHEMA:
         errors.append("schema mismatch")
     if receipt.get("publication") != EXPECTED_RECOVERY_PUBLICATION:
-        errors.append("generation-three publication block mismatch")
+        errors.append("generation-four publication block mismatch")
     if receipt.get("verdict") != OK_VERDICT:
         errors.append("receipt verdict is not green")
     problems = receipt.get("problems")

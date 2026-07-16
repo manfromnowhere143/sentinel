@@ -551,6 +551,7 @@ def _publication(
     tamper_environment_deep: bool = False,
     tooling_receipt_root_mutation: str | None = None,
     tooling_receipt_nested_mutation: bool = False,
+    tooling_publication_overrides: dict[str, object] | None = None,
     publish_activation: bool = True,
 ) -> tuple[Path, dict[str, str]]:
     repo = tmp_path
@@ -598,8 +599,8 @@ def _publication(
     _commit(repo, "hypothesis registration", f"{auth.EXPERIMENT_REL}/HYPOTHESIS.md")
     _write(repo, f"{auth.EXPERIMENT_REL}/HYPOTHESIS.md", "hypothesis v2 frozen\n")
     _commit(repo, "hypothesis amendment", f"{auth.EXPERIMENT_REL}/HYPOTHESIS.md")
-    _write(repo, "source-freeze-marker.txt", "generation three\n")
-    source_commit = _commit(repo, "generation three source freeze", "source-freeze-marker.txt")
+    _write(repo, "source-freeze-marker.txt", "generation four\n")
+    source_commit = _commit(repo, "generation four source freeze", "source-freeze-marker.txt")
 
     source_parents = _git(repo, "show", "-s", "--format=%P", source_commit).decode().split()
     source_paths = sorted(
@@ -627,17 +628,15 @@ def _publication(
         "commit_paths": source_paths,
     }
 
+    publication = dict(auth.EXPECTED_TOOLING_PUBLICATION)
+    if tooling_publication_overrides:
+        publication.update(tooling_publication_overrides)
     receipt = {
         "schema": "iter135.tooling_verification.v2",
         "verdict": "I135_TOOLING_VERIFICATION_OK",
         "problem_count": 0,
         "problems": [],
-        "publication": {
-            "generation": 3,
-            "supersedes_receipt_commit": "b" * 40,
-            "recovery_parent": source_parents[0],
-            "reason_code": "FROZEN_TEST_GENERATION_THREE",
-        },
+        "publication": publication,
         "repository": {
             "root": "/Users/danielwahnich/workspace/sentinel",
             "git_start": git_state,
@@ -666,17 +665,17 @@ def _publication(
         ).hexdigest()
     _write(repo, auth.TOOLING_RECEIPT_REL, receipt)
     tooling_receipt = _commit(
-        repo, "generation three receipt", auth.TOOLING_RECEIPT_REL
+        repo, "generation four receipt", auth.TOOLING_RECEIPT_REL
     )
     _write(repo, auth.MISSION_REL, _preflight_state())
     # Force a state-only commit without altering the semantic state bytes consumed by smoke.
     (repo / auth.MISSION_REL).write_text(
         json.dumps(_preflight_state(), indent=1, sort_keys=True) + "\n"
     )
-    tooling_state = _commit(repo, "generation three state", auth.MISSION_REL)
+    tooling_state = _commit(repo, "generation four state", auth.MISSION_REL)
     _write(repo, "CONTINUITY.md", "tooling baton\n")
     _write(repo, "HANDOFF.md", "GPU_RUN_STATE=NOT_PROBED_OFFLINE_GENERATION\n")
-    tooling_baton = _commit(repo, "generation three baton", "CONTINUITY.md", "HANDOFF.md")
+    tooling_baton = _commit(repo, "generation four baton", "CONTINUITY.md", "HANDOFF.md")
 
     packet_files: dict[str, dict[str, object]] = {}
     packet_authority_artifacts: list[dict[str, object]] = []
@@ -970,6 +969,55 @@ def test_controller_rejects_nonexact_tooling_receipt_root_before_preflight_repla
     monkeypatch.setattr(auth, "_module_from_checkout", replay_must_not_start)
 
     with pytest.raises(auth.AuthorizationError, match="root field set is not exact"):
+        auth._tooling_source_commit(repo, commits["tooling_receipt"])
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    (
+        ("generation", 3),
+        ("supersedes_receipt_commit", "0" * 40),
+        ("recovery_parent", "1" * 40),
+        ("reason_code", "UNREGISTERED_GENERATION_FOUR_REASON"),
+    ),
+)
+def test_controller_requires_exact_generation_four_tooling_publication(
+    tmp_path: Path,
+    field: str,
+    value: object,
+) -> None:
+    repo, commits = _publication(
+        tmp_path,
+        tooling_publication_overrides={field: value},
+    )
+
+    with pytest.raises(
+        auth.AuthorizationError,
+        match="exact green generation-four source",
+    ):
+        auth._tooling_source_commit(repo, commits["tooling_receipt"])
+
+
+def test_controller_propagates_frozen_generation_history_rejection(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repo, commits = _publication(tmp_path)
+
+    def hostile_history_validator(_receipt, *, repo_root):
+        assert repo_root == repo
+        return [
+            "canonical receipt history is not exact generation-four, generation-three, "
+            "generation-two, then generation-one"
+        ]
+
+    monkeypatch.setattr(
+        auth,
+        "_load_frozen_tooling_receipt_validator",
+        lambda _repo, _source: hostile_history_validator,
+    )
+
+    with pytest.raises(auth.AuthorizationError, match="receipt history is not exact"):
         auth._tooling_source_commit(repo, commits["tooling_receipt"])
 
 

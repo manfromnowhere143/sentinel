@@ -785,6 +785,31 @@ oid = re.compile(r"^[0-9a-f]{40}$")
 sha = re.compile(r"^[0-9a-f]{64}$")
 
 
+# BEGIN I135_TOOLING_PUBLICATION_CONTRACT_PYTHON
+EXPECTED_TOOLING_PUBLICATION = {
+    "generation": 4,
+    "supersedes_receipt_commit": "755489f36ae2b8cefad183341edefd7c30c047e7",
+    "recovery_parent": "30b6390b3e165fc517ec6a7d1d7a26502ea45e2a",
+    "reason_code": "B3_CI_STRUCTURAL_GIT_READER_TOOLCHAIN_ROOT_FAILURE",
+}
+
+
+def tooling_receipt_is_exact(tooling: object) -> bool:
+    if not isinstance(tooling, dict):
+        return False
+    tooling_source = tooling.get("repository", {}).get("git_start", {}).get("head")
+    return (
+        tooling.get("schema") == "iter135.tooling_verification.v2"
+        and tooling.get("verdict") == "I135_TOOLING_VERIFICATION_OK"
+        and tooling.get("publication") == EXPECTED_TOOLING_PUBLICATION
+        and isinstance(tooling_source, str)
+        and oid.fullmatch(tooling_source) is not None
+    )
+
+
+# END I135_TOOLING_PUBLICATION_CONTRACT_PYTHON
+
+
 def stable_physical(path: Path, label: str) -> tuple[bytes, os.stat_result]:
     if path.is_symlink() or not path.is_file() or path.resolve(strict=True) != path:
         raise SystemExit(f"{label} is not a physical regular file: {path}")
@@ -1007,7 +1032,6 @@ tooling_payload, _row = stable_physical(
     experiment / "tooling_verification_receipt.json", "tooling verification receipt"
 )
 tooling = json.loads(tooling_payload)
-tooling_source = tooling.get("repository", {}).get("git_start", {}).get("head")
 if (
     host_packet.get("schema") != "iter135.host_packet_manifest.v1"
     or oid.fullmatch(host_packet.get("source_commit", "")) is None
@@ -1021,10 +1045,7 @@ if (
     or smoke.get("verdict") != "I135_LIVE_SMOKE_OK"
     or smoke.get("nonanalytic") is not True
     or smoke.get("analytic_episode_count") != 0
-    or tooling.get("schema") != "iter135.tooling_verification.v2"
-    or tooling.get("verdict") != "I135_TOOLING_VERIFICATION_OK"
-    or tooling.get("publication", {}).get("generation") != 3
-    or oid.fullmatch(tooling_source or "") is None
+    or not tooling_receipt_is_exact(tooling)
     or oid.fullmatch(commits.get("tooling_receipt", "")) is None
 ):
     raise SystemExit("activation source, tooling, host, environment, or smoke contract drift")

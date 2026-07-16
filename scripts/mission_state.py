@@ -245,11 +245,30 @@ GENERATION_THREE_SOURCE_COMMIT_PATHS = (
     "tests/test_iter135_tooling_verifier.py",
     "tests/test_mission_state.py",
 )
+GENERATION_THREE_SOURCE_COMMIT = "1820fcfd65483fa9c7429dd54fe65dbf91dc6b35"
+GENERATION_THREE_RECEIPT_COMMIT = "755489f36ae2b8cefad183341edefd7c30c047e7"
+GENERATION_THREE_STATE_COMMIT = "d9e261075d27d5d717debebe5c881fa4d6e882c5"
+GENERATION_THREE_BATON_COMMIT = "30b6390b3e165fc517ec6a7d1d7a26502ea45e2a"
+GENERATION_FOUR_SOURCE_PARENT = GENERATION_THREE_BATON_COMMIT
+GENERATION_FOUR_REASON_CODE = "B3_CI_STRUCTURAL_GIT_READER_TOOLCHAIN_ROOT_FAILURE"
+GENERATION_FOUR_SOURCE_COMMIT_PATHS = (
+    "CONTINUITY.md",
+    "HANDOFF.md",
+    "MISSION_STATE.json",
+    f"{ITER135_EXPERIMENT_REL}/authorize_launch135.py",
+    f"{ITER135_EXPERIMENT_REL}/run_dose135.sh",
+    f"{ITER135_EXPERIMENT_REL}/verify_tooling135.py",
+    "scripts/mission_state.py",
+    "tests/test_iter135_launch_authorization.py",
+    "tests/test_iter135_launcher.py",
+    "tests/test_iter135_tooling_verifier.py",
+    "tests/test_mission_state.py",
+)
 EXPECTED_RECOVERY_PUBLICATION = {
-    "generation": 3,
-    "supersedes_receipt_commit": GENERATION_TWO_RECEIPT_COMMIT,
-    "recovery_parent": GENERATION_THREE_SOURCE_PARENT,
-    "reason_code": GENERATION_THREE_REASON_CODE,
+    "generation": 4,
+    "supersedes_receipt_commit": GENERATION_THREE_RECEIPT_COMMIT,
+    "recovery_parent": GENERATION_FOUR_SOURCE_PARENT,
+    "reason_code": GENERATION_FOUR_REASON_CODE,
 }
 
 # Compatibility name: this is always the immutable generation-one 31-path baseline. Recovery
@@ -643,12 +662,20 @@ def _validate_tooling_publication(
                 problems.append(f"tooling_publication:{label}_source_not_pushed")
 
         publication_generation = publication.get("generation")
-        if publication_generation == 3:
+        if publication_generation == 4:
+            expected_source_parent = GENERATION_FOUR_SOURCE_PARENT
+            expected_source_paths = tuple(sorted(GENERATION_FOUR_SOURCE_COMMIT_PATHS))
+        elif publication_generation == 3:
             expected_source_parent = GENERATION_THREE_SOURCE_PARENT
             expected_source_paths = tuple(sorted(GENERATION_THREE_SOURCE_COMMIT_PATHS))
-        else:  # Generation-two compatibility is retained only for isolated historical tests.
+        elif publication_generation == 2:
+            # Generation-two compatibility is retained only for isolated historical tests.
             expected_source_parent = RECOVERY_SOURCE_PARENT
             expected_source_paths = tuple(sorted(RECOVERY_SOURCE_COMMIT_PATHS))
+        else:
+            raise ToolingPublicationError(
+                f"unsupported publication generation: {publication_generation!r}"
+            )
         actual_source_parents, actual_source_paths = _commit_row(root, source_commit)
         if git_start.get("parents") != list(actual_source_parents):
             problems.append("tooling_publication:source_parent_claim_mismatch")
@@ -662,7 +689,7 @@ def _validate_tooling_publication(
         if actual_source_paths != expected_source_paths:
             problems.append("tooling_publication:recovery_source_commit_scope")
 
-        if publication_generation == 3:
+        if publication_generation in {3, 4}:
             try:
                 frozen_errors = _load_tooling_receipt_validator(root, source_commit)(
                     receipt,
@@ -712,7 +739,7 @@ def _validate_tooling_publication(
         if recovery_parent_paths != ("CONTINUITY.md", "HANDOFF.md"):
             problems.append("tooling_publication:generation_one_baton_scope")
 
-        if publication_generation == 3:
+        if publication_generation in {3, 4}:
             generation_two_parents, generation_two_paths = _commit_row(
                 root, GENERATION_TWO_SOURCE_COMMIT
             )
@@ -742,6 +769,36 @@ def _validate_tooling_publication(
             if generation_two_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_two_baton_scope")
 
+        if publication_generation == 4:
+            generation_three_parents, generation_three_paths = _commit_row(
+                root, GENERATION_THREE_SOURCE_COMMIT
+            )
+            if generation_three_parents != (GENERATION_THREE_SOURCE_PARENT,):
+                problems.append("tooling_publication:generation_three_source_parent")
+            if generation_three_paths != tuple(sorted(GENERATION_THREE_SOURCE_COMMIT_PATHS)):
+                problems.append("tooling_publication:generation_three_source_commit_scope")
+            generation_three_receipt_parents, generation_three_receipt_paths = _commit_row(
+                root, GENERATION_THREE_RECEIPT_COMMIT
+            )
+            if generation_three_receipt_parents != (GENERATION_THREE_SOURCE_COMMIT,):
+                problems.append("tooling_publication:generation_three_receipt_parent")
+            if generation_three_receipt_paths != (TOOLING_RECEIPT_REL.as_posix(),):
+                problems.append("tooling_publication:generation_three_receipt_scope")
+            generation_three_state_parents, generation_three_state_paths = _commit_row(
+                root, GENERATION_THREE_STATE_COMMIT
+            )
+            if generation_three_state_parents != (GENERATION_THREE_RECEIPT_COMMIT,):
+                problems.append("tooling_publication:generation_three_state_parent")
+            if generation_three_state_paths != ("MISSION_STATE.json",):
+                problems.append("tooling_publication:generation_three_state_scope")
+            generation_three_baton_parents, generation_three_baton_paths = _commit_row(
+                root, GENERATION_THREE_BATON_COMMIT
+            )
+            if generation_three_baton_parents != (GENERATION_THREE_STATE_COMMIT,):
+                problems.append("tooling_publication:generation_three_baton_parent")
+            if generation_three_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
+                problems.append("tooling_publication:generation_three_baton_scope")
+
         current_commit = _git(root, "rev-parse", "HEAD").decode("ascii").strip()
         receipt_history = tuple(
             line
@@ -756,11 +813,19 @@ def _validate_tooling_publication(
             .splitlines()
             if line
         )
-        expected_receipt_history_tail = (
-            (GENERATION_TWO_RECEIPT_COMMIT, GENERATION_ONE_RECEIPT_COMMIT)
-            if publication_generation == 3
-            else (GENERATION_ONE_RECEIPT_COMMIT,)
-        )
+        if publication_generation == 4:
+            expected_receipt_history_tail = (
+                GENERATION_THREE_RECEIPT_COMMIT,
+                GENERATION_TWO_RECEIPT_COMMIT,
+                GENERATION_ONE_RECEIPT_COMMIT,
+            )
+        elif publication_generation == 3:
+            expected_receipt_history_tail = (
+                GENERATION_TWO_RECEIPT_COMMIT,
+                GENERATION_ONE_RECEIPT_COMMIT,
+            )
+        else:
+            expected_receipt_history_tail = (GENERATION_ONE_RECEIPT_COMMIT,)
         if (
             len(receipt_history) != len(expected_receipt_history_tail) + 1
             or not _oid(receipt_history[0])
@@ -768,7 +833,7 @@ def _validate_tooling_publication(
         ):
             problems.append(f"tooling_publication:receipt_history:{list(receipt_history)}")
         if not receipt_history or not _oid(receipt_history[0]):
-            raise ToolingPublicationError("generation-two receipt commit is missing")
+            raise ToolingPublicationError("active generation receipt commit is missing")
         receipt_commit = receipt_history[0]
         receipt_commit_parents, receipt_commit_paths = _commit_row(root, receipt_commit)
         if receipt_commit_parents != (source_commit,):
@@ -791,7 +856,7 @@ def _validate_tooling_publication(
             .splitlines()
         )
         if len(ancestry) < 2:
-            generation_label = "three" if publication_generation == 3 else "two"
+            generation_label = {2: "two", 3: "three", 4: "four"}[publication_generation]
             problems.append(
                 f"tooling_publication:generation_{generation_label}_commit_count:{len(ancestry)}"
             )
@@ -815,7 +880,7 @@ def _validate_tooling_publication(
             if baton_commit_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:baton_commit_scope")
             authorization_references: Mapping[str, str] = {}
-            if publication_generation == 3:
+            if publication_generation in {3, 4}:
                 upstream_for_controller = (
                     _git(root, "rev-parse", "origin/master").decode("ascii").strip()
                 )
@@ -865,7 +930,12 @@ def _validate_tooling_publication(
                     | set(RECOVERY_SOURCE_COMMIT_PATHS)
                     | (
                         set(GENERATION_THREE_SOURCE_COMMIT_PATHS)
-                        if publication_generation == 3
+                        if publication_generation in {3, 4}
+                        else set()
+                    )
+                    | (
+                        set(GENERATION_FOUR_SOURCE_COMMIT_PATHS)
+                        if publication_generation == 4
                         else set()
                     )
                     | {ITER135_HYPOTHESIS_REL}

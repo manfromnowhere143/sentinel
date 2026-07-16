@@ -15,6 +15,8 @@ from scripts.mission_state import (
     CANONICAL_REPOSITORY,
     EMPTY_GIT_STATUS_SHA256,
     EXPECTED_SOURCE_COMMIT_PATHS,
+    GENERATION_FOUR_REASON_CODE,
+    GENERATION_FOUR_SOURCE_COMMIT_PATHS,
     GENERATION_THREE_REASON_CODE,
     GENERATION_THREE_SOURCE_COMMIT_PATHS,
     LAUNCH_AUTHORIZED_ACTIONS,
@@ -444,7 +446,13 @@ def _commit_generation_three_publication(
         elif relative == "HANDOFF.md":
             path.write_text("generation three source handoff\n")
         elif relative.endswith("/authorize_launch135.py"):
-            path.write_bytes((source_repo / relative).read_bytes())
+            path.write_bytes(
+                _git(
+                    source_repo,
+                    "show",
+                    f"{mission_state.GENERATION_THREE_SOURCE_COMMIT}:{relative}",
+                )
+            )
         elif relative.endswith("/verify_tooling135.py"):
             path.write_text(
                 "def validate_published_receipt_structure(receipt, *args, **kwargs):\n"
@@ -538,6 +546,191 @@ def _commit_generation_three_publication(
         "generation_three_receipt": receipt_commit,
         "generation_three_state": state_commit,
         "generation_three_baton": baton_commit,
+    }
+
+
+def _commit_generation_four_publication(
+    repo: Path,
+    state: dict,
+    monkeypatch: pytest.MonkeyPatch,
+    *,
+    publication_overrides: dict[str, object] | None = None,
+    include_receipt: bool = True,
+    include_baton: bool = True,
+    source_paths: tuple[str, ...] = GENERATION_FOUR_SOURCE_COMMIT_PATHS,
+    extra_receipt_history: bool = False,
+    wrong_source_parent: bool = False,
+    hostile_generation_three_baton: bool = False,
+) -> dict[str, str]:
+    generation_three = _commit_generation_three_publication(repo, state, monkeypatch)
+    generation_three_baton = generation_three["generation_three_baton"]
+    monkeypatch.setattr(
+        mission_state,
+        "GENERATION_THREE_SOURCE_COMMIT",
+        generation_three["generation_three_source"],
+    )
+    monkeypatch.setattr(
+        mission_state,
+        "GENERATION_THREE_RECEIPT_COMMIT",
+        generation_three["generation_three_receipt"],
+    )
+    monkeypatch.setattr(
+        mission_state,
+        "GENERATION_THREE_STATE_COMMIT",
+        generation_three["generation_three_state"],
+    )
+    monkeypatch.setattr(
+        mission_state,
+        "GENERATION_THREE_BATON_COMMIT",
+        generation_three_baton,
+    )
+    if wrong_source_parent or hostile_generation_three_baton:
+        unexpected = repo / "unexpected-generation-three-topology.txt"
+        unexpected.write_text("not the frozen generation-three baton\n")
+        _git(repo, "add", unexpected.name)
+        _git(repo, "commit", "-m", "unexpected generation-three topology edge")
+        synthetic_parent = _git(repo, "rev-parse", "HEAD").decode().strip()
+        if hostile_generation_three_baton:
+            monkeypatch.setattr(
+                mission_state,
+                "GENERATION_THREE_BATON_COMMIT",
+                synthetic_parent,
+            )
+            generation_three_baton = synthetic_parent
+    monkeypatch.setattr(
+        mission_state,
+        "GENERATION_FOUR_SOURCE_PARENT",
+        generation_three_baton,
+    )
+    expected_publication = {
+        "generation": 4,
+        "supersedes_receipt_commit": generation_three["generation_three_receipt"],
+        "recovery_parent": generation_three_baton,
+        "reason_code": GENERATION_FOUR_REASON_CODE,
+    }
+    monkeypatch.setattr(mission_state, "EXPECTED_RECOVERY_PUBLICATION", expected_publication)
+
+    preregistered_state = copy.deepcopy(state)
+    _set_preregistered_phase(preregistered_state)
+    source_repo = Path(__file__).resolve().parents[1]
+    for relative in source_paths:
+        path = repo / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        if relative == "MISSION_STATE.json":
+            path.write_text(json.dumps(preregistered_state, indent=2) + "\n")
+        elif relative == "CONTINUITY.md":
+            path.write_text("generation four source recovery\n")
+        elif relative == "HANDOFF.md":
+            path.write_text("generation four source handoff\n")
+        elif relative.endswith("/authorize_launch135.py"):
+            controller_source = (source_repo / relative).read_text()
+            controller_source = controller_source.replace(
+                launch_controller.GENERATION_THREE_RECEIPT_COMMIT,
+                generation_three["generation_three_receipt"],
+            ).replace(
+                launch_controller.GENERATION_THREE_BATON_COMMIT,
+                generation_three_baton,
+            )
+            path.write_text(controller_source)
+        elif relative.endswith("/verify_tooling135.py"):
+            path.write_text(
+                "def validate_published_receipt_structure(receipt, *args, **kwargs):\n"
+                "    return []\n"
+            )
+        else:
+            path.write_text(f"generation four source: {relative}\n")
+    _git(repo, "add", *source_paths)
+    _git(repo, "commit", "-m", "generation four source")
+    source_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
+    _git(repo, "update-ref", "refs/remotes/origin/master", source_commit)
+    if not include_receipt:
+        state.clear()
+        state.update(preregistered_state)
+        return {
+            **generation_three,
+            "generation_four_source": source_commit,
+        }
+
+    source_commit_paths = sorted(
+        item.decode()
+        for item in _git(
+            repo,
+            "diff-tree",
+            "--root",
+            "--no-commit-id",
+            "--name-only",
+            "-r",
+            "-z",
+            source_commit,
+        ).split(b"\0")
+        if item
+    )
+    source_parents = _git(repo, "show", "-s", "--format=%P", source_commit).decode().split()
+    git_state = {
+        "head": source_commit,
+        "dirty_entries": [],
+        "porcelain_v1_z_sha256": EMPTY_GIT_STATUS_SHA256,
+        "branch": "master",
+        "upstream": "origin/master",
+        "upstream_head": source_commit,
+        "parents": source_parents,
+        "commit_paths": source_commit_paths,
+    }
+    publication = dict(expected_publication)
+    if publication_overrides:
+        publication.update(publication_overrides)
+    receipt = {
+        "schema": "iter135.tooling_verification.v2",
+        "verdict": "I135_TOOLING_VERIFICATION_OK",
+        "problem_count": 0,
+        "problems": [],
+        "publication": publication,
+        "repository": {
+            "root": CANONICAL_REPOSITORY,
+            "git_start": git_state,
+            "git_end": git_state,
+            "git_head_stable": True,
+            "git_state_stable": True,
+            "repository_clean_state_stable": True,
+        },
+    }
+    _complete_tooling_receipt(receipt)
+    receipt_path = repo / TOOLING_RECEIPT_REL
+    receipt_path.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n")
+    _git(repo, "add", TOOLING_RECEIPT_REL.as_posix())
+    _git(repo, "commit", "-m", "generation four receipt")
+    receipt_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
+    _git(repo, "update-ref", "refs/remotes/origin/master", receipt_commit)
+
+    if extra_receipt_history:
+        receipt["timing"]["wall_duration_ns"] += 1
+        receipt["receipt_payload_sha256"] = hashlib.sha256(
+            _canonical_json(
+                {key: value for key, value in receipt.items() if key != "receipt_payload_sha256"}
+            )
+        ).hexdigest()
+        receipt_path.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n")
+        _git(repo, "add", TOOLING_RECEIPT_REL.as_posix())
+        _git(repo, "commit", "-m", "unexpected second generation four receipt")
+
+    (repo / "MISSION_STATE.json").write_text(json.dumps(state, indent=2) + "\n")
+    _git(repo, "add", "MISSION_STATE.json")
+    _git(repo, "commit", "-m", "generation four state")
+    state_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
+    if include_baton:
+        (repo / "CONTINUITY.md").write_text("generation four tooling transition\n")
+        (repo / "HANDOFF.md").write_text("generation four tooling handoff\n")
+        _git(repo, "add", "CONTINUITY.md", "HANDOFF.md")
+        _git(repo, "commit", "-m", "generation four tooling baton")
+    baton_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
+    if include_baton:
+        _git(repo, "update-ref", "refs/remotes/origin/master", baton_commit)
+    return {
+        **generation_three,
+        "generation_four_source": source_commit,
+        "generation_four_receipt": receipt_commit,
+        "generation_four_state": state_commit,
+        "generation_four_baton": baton_commit,
     }
 
 
@@ -969,6 +1162,170 @@ def test_tooling_phase_accepts_exact_generation_three_controller_publication(
     _commit_generation_three_publication(repo, state, monkeypatch)
 
     assert validate_state(state, repo) == []
+
+
+def test_generation_four_source_ci_accepts_preregistered_rollback_before_new_receipt(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    commits = _commit_generation_four_publication(
+        repo,
+        state,
+        monkeypatch,
+        include_receipt=False,
+    )
+
+    assert state["next_program"]["phase"] == "PREREGISTERED_TOOLING_REQUIRED"
+    assert _git(repo, "rev-parse", "HEAD").decode().strip() == commits["generation_four_source"]
+    assert validate_state(state, repo) == []
+
+
+def test_tooling_phase_accepts_exact_generation_four_recovery_topology(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_four_publication(repo, state, monkeypatch)
+
+    assert validate_state(state, repo) == []
+
+
+@pytest.mark.parametrize(
+    ("field", "bad_value"),
+    [
+        ("generation", 3),
+        ("supersedes_receipt_commit", "0" * 40),
+        ("recovery_parent", "1" * 40),
+        ("reason_code", "UNREGISTERED_GENERATION_FOUR_REASON"),
+    ],
+)
+def test_generation_four_publication_claim_is_exact(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    field: str,
+    bad_value: object,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_four_publication(
+        repo,
+        state,
+        monkeypatch,
+        publication_overrides={field: bad_value},
+    )
+
+    assert any(
+        problem.startswith(f"tooling_publication:receipt_publication_{field}:")
+        for problem in validate_state(state, repo)
+    )
+
+
+def test_generation_four_source_scope_is_exactly_the_eleven_path_recovery(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    wrong_scope = (*GENERATION_FOUR_SOURCE_COMMIT_PATHS, "unexpected-generation-four.txt")
+    _commit_generation_four_publication(
+        repo,
+        state,
+        monkeypatch,
+        source_paths=wrong_scope,
+    )
+
+    assert len(GENERATION_FOUR_SOURCE_COMMIT_PATHS) == 11
+    assert "tooling_publication:recovery_source_commit_scope" in validate_state(state, repo)
+
+
+def test_generation_four_source_must_be_direct_child_of_frozen_generation_three_baton(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_four_publication(
+        repo,
+        state,
+        monkeypatch,
+        wrong_source_parent=True,
+    )
+
+    assert "tooling_publication:recovery_source_parent" in validate_state(state, repo)
+
+
+def test_generation_four_rejects_hostile_generation_three_baton_topology(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_four_publication(
+        repo,
+        state,
+        monkeypatch,
+        hostile_generation_three_baton=True,
+    )
+
+    problems = validate_state(state, repo)
+
+    assert "tooling_publication:generation_three_baton_parent" in problems
+    assert "tooling_publication:generation_three_baton_scope" in problems
+
+
+def test_generation_four_receipt_history_is_exactly_four_to_three_to_two_to_one(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    commits = _commit_generation_four_publication(repo, state, monkeypatch)
+
+    history = _git(
+        repo,
+        "log",
+        "--format=%H",
+        "--",
+        TOOLING_RECEIPT_REL.as_posix(),
+    ).decode().splitlines()
+
+    assert history == [
+        commits["generation_four_receipt"],
+        commits["generation_three_receipt"],
+        commits["recovery_receipt"],
+        commits["generation_one_receipt"],
+    ]
+    assert validate_state(state, repo) == []
+
+
+def test_generation_four_rejects_nonexact_receipt_history(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_four_publication(
+        repo,
+        state,
+        monkeypatch,
+        extra_receipt_history=True,
+    )
+
+    assert any(
+        problem.startswith("tooling_publication:receipt_history:")
+        for problem in validate_state(state, repo)
+    )
+
+
+def test_generation_four_tooling_phase_rejects_missing_baton(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_four_publication(
+        repo,
+        state,
+        monkeypatch,
+        include_baton=False,
+    )
+
+    assert "tooling_publication:generation_four_commit_count:1" in validate_state(state, repo)
 
 
 @pytest.mark.parametrize(

@@ -3018,3 +3018,70 @@ transfer boundary fold-in and the claim-(5) hedge are unchanged and still bindin
   `NOT_ESTABLISHED`. After B3 is green, the next bounded sequence is exact atomic H host packet ->
   E environment receipt -> P committed incomplete manifest -> S nonanalytic smoke evidence;
   analytic execution remains forbidden.
+
+- **ITER135 GENERATION-THREE BATON FAILED REMOTE CI; GENERATION-FOUR RECOVERY
+  PREREGISTERED BEFORE LIVE ACTION (2026-07-16).** Atomic B3 tip
+  `30b6390b3e165fc517ec6a7d1d7a26502ea45e2a` correctly prevented a standalone T3
+  workflow, but GitHub Actions run `29525917761` failed both exact matrix checks during pytest.
+  Each lane reported `2 failed, 1105 passed`; docs did not run. The two symptoms were the canonical
+  mission-state test and handoff generator, both downstream of one structural error: the frozen
+  generation-three published-receipt validator used `_git_bytes` for Git-only tree/history reads,
+  while `_git_bytes` unnecessarily called the full verification-toolchain resolver. On GitHub's
+  setup-python runners, `pytest` is physically under `/opt/hostedtoolcache`, outside the frozen
+  macOS-oriented trusted roots, so validation rejected `pytest` before executing the Git read.
+  The local candidate passed because its physical pytest path is under `/opt/homebrew`. This is a
+  portability and dependency-minimization defect in the control plane, not benchmark evidence.
+
+  B3 remains visible and red; it is not authority for host preparation. No remote host, SSH
+  mutation, Docker operation, GPU process, environment receipt, manifest, smoke run, analytic
+  episode, or result followed the failure. Canonical state is rolled back locally to
+  `PREREGISTERED_TOOLING_REQUIRED`. The generation-four fix gives structural Git reads a dedicated
+  resolver that validates only the physical Git executable actually used, while full receipt
+  generation and independent replay retain the complete six-tool contract. A hostile test must
+  prove that published structural validation neither resolves nor trusts an out-of-root current
+  pytest/Ruff executable.
+
+  Generation four has source parent `30b6390b3e165fc517ec6a7d1d7a26502ea45e2a`, supersedes
+  receipt `755489f36ae2b8cefad183341edefd7c30c047e7`, names B3 as recovery parent, and uses
+  reason code `B3_CI_STRUCTURAL_GIT_READER_TOOLCHAIN_ROOT_FAILURE`. Cross-layer replay before F4
+  found that both the frozen launch controller and the downstream analytic launcher required
+  generation three exactly; an R4/R3 bridge would split mission and launch authority, while a
+  controller-only change would fail later at analytic activation. The scope was therefore expanded
+  before publication from seven to nine and then to the exact eleven paths below. No host or
+  evidence action had begun.
+
+  1. `CONTINUITY.md`
+  2. `HANDOFF.md`
+  3. `MISSION_STATE.json`
+  4. `experiments/iter135_neuroncap_blind_braking_dose_response/authorize_launch135.py`
+  5. `experiments/iter135_neuroncap_blind_braking_dose_response/run_dose135.sh`
+  6. `experiments/iter135_neuroncap_blind_braking_dose_response/verify_tooling135.py`
+  7. `scripts/mission_state.py`
+  8. `tests/test_iter135_launch_authorization.py`
+  9. `tests/test_iter135_launcher.py`
+  10. `tests/test_iter135_tooling_verifier.py`
+  11. `tests/test_mission_state.py`
+
+  Publication cadence is exact recovery source -> matching remote green -> generation-four
+  receipt-only child plus independent replay -> matching remote green -> fresh local state-only
+  child immediately followed by its documentation baton -> push only the baton tip -> matching
+  remote green. Receipt history must then be generation four, three, two, one. Until that chain
+  closes, H/E/P/S and every analytic action remain forbidden. The hypothesis, schedules,
+  estimands, thresholds, retry policy, and claims are unchanged.
+
+  Disclosed procedural amendment, generation four. Each publication in the cadence above is first
+  pushed to a disposable validation branch and is fast-forwarded onto `master` only after that
+  exact head SHA reports a successful GitHub Actions conclusion on both Python lanes. The
+  fast-forward moves the ref to the identical commit object, so parents, tree, path scope, and
+  every receipt binding are unchanged, and the published `master` history and its SHAs are exactly
+  what a direct push would have produced. The amendment adds a remote green before `master` moves
+  instead of only after; it removes no gate and weakens no check.
+
+  It exists because generations one through three each passed every local check and failed only on
+  Linux. `ALLOWED_TOOL_ROOTS` admits the local `/opt/homebrew/bin/pytest` and rejects the hosted
+  runner's `/opt/hostedtoolcache/Python/<version>/x64/bin/pytest`, so no test on the authoring host
+  can observe the defect. Mission state binds the receipt only at the state child, so the source
+  and receipt children reported green and the failure landed on the baton tip each time. Structural
+  validation reads no live branch state, so a branch run and a `master` run validate identical
+  bytes. B1, B2, and B3 remain disclosed red history. This amendment prevents a fourth such tip; it
+  does not revise the record of the first three.

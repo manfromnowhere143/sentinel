@@ -162,6 +162,15 @@ TOOLING_PUBLICATION_FIELDS = {
     "recovery_parent",
     "reason_code",
 }
+GENERATION_THREE_RECEIPT_COMMIT = "755489f36ae2b8cefad183341edefd7c30c047e7"
+GENERATION_THREE_BATON_COMMIT = "30b6390b3e165fc517ec6a7d1d7a26502ea45e2a"
+GENERATION_FOUR_REASON = "B3_CI_STRUCTURAL_GIT_READER_TOOLCHAIN_ROOT_FAILURE"
+EXPECTED_TOOLING_PUBLICATION = {
+    "generation": 4,
+    "supersedes_receipt_commit": GENERATION_THREE_RECEIPT_COMMIT,
+    "recovery_parent": GENERATION_THREE_BATON_COMMIT,
+    "reason_code": GENERATION_FOUR_REASON,
+}
 TOOLING_REPOSITORY_FIELDS = {
     "root",
     "git_start",
@@ -423,7 +432,7 @@ def _tooling_source_commit(repo: Path, tooling_receipt_commit: str) -> str:
         or receipt.get("problems") != []
         or not isinstance(publication, Mapping)
         or set(publication) != TOOLING_PUBLICATION_FIELDS
-        or publication.get("generation") != 3
+        or publication != EXPECTED_TOOLING_PUBLICATION
         or not isinstance(repository, Mapping)
         or set(repository) != TOOLING_REPOSITORY_FIELDS
         or not isinstance(start, Mapping)
@@ -450,7 +459,7 @@ def _tooling_source_commit(repo: Path, tooling_receipt_commit: str) -> str:
         or _SHA256_RE.fullmatch(receipt["file_content_set_sha256"]) is None
         or claimed_payload_sha256 != hashlib.sha256(_canonical_json(payload)).hexdigest()
     ):
-        raise AuthorizationError("tooling receipt does not bind a green generation-three source")
+        raise AuthorizationError("tooling receipt does not bind the exact green generation-four source")
     try:
         validator = _load_frozen_tooling_receipt_validator(repo, source_commit)
         frozen_errors = validator(receipt, repo_root=repo)
@@ -1190,7 +1199,7 @@ def _deep_replay_publication(
     tooling_baton_commit: str,
     commits: Sequence[str],
 ) -> list[str]:
-    """Replay H/E/P/S[/A/F] from frozen generation-three source in isolation."""
+    """Replay H/E/P/S[/A/F] from the frozen generation-four source in isolation."""
 
     problems: list[str] = []
     try:

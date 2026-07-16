@@ -6,6 +6,7 @@ import hashlib
 import io
 import json
 import os
+import re
 import subprocess
 import sys
 import time
@@ -82,6 +83,16 @@ def launch_activation_program() -> str:
     start = text.index("verify_launch_activation() {")
     block = text[start : text.index("\n\ncleanup_containers() {", start)]
     return block.split("<<'PY'\n", 1)[1].split("\nPY\n}", 1)[0]
+
+
+def tooling_publication_contract_namespace() -> dict[str, object]:
+    text = LAUNCHER.read_text()
+    program = text.split("# BEGIN I135_TOOLING_PUBLICATION_CONTRACT_PYTHON\n", 1)[
+        1
+    ].split("# END I135_TOOLING_PUBLICATION_CONTRACT_PYTHON", 1)[0]
+    namespace: dict[str, object] = {"oid": re.compile(r"^[0-9a-f]{40}$")}
+    exec(compile(program, str(LAUNCHER), "exec"), namespace)
+    return namespace
 
 
 def analytic_lock_publisher_program() -> str:
@@ -632,7 +643,14 @@ def test_local_activation_then_github_projection_feeds_exact_lock_payload(
             {
                 "schema": "iter135.tooling_verification.v2",
                 "verdict": "I135_TOOLING_VERIFICATION_OK",
-                "publication": {"generation": 3},
+                "publication": {
+                    "generation": 4,
+                    "supersedes_receipt_commit": (
+                        "755489f36ae2b8cefad183341edefd7c30c047e7"
+                    ),
+                    "recovery_parent": "30b6390b3e165fc517ec6a7d1d7a26502ea45e2a",
+                    "reason_code": "B3_CI_STRUCTURAL_GIT_READER_TOOLCHAIN_ROOT_FAILURE",
+                },
                 "repository": {"git_start": {"head": "9" * 40}},
             },
             sort_keys=True,
@@ -850,6 +868,77 @@ def test_local_activation_then_github_projection_feeds_exact_lock_payload(
         int(remote_fields[2]),
         int(remote_fields[3]),
     ]
+
+
+@pytest.mark.parametrize(
+    ("field", "hostile"),
+    [
+        ("generation", 3),
+        ("supersedes_receipt_commit", "0" * 40),
+        ("recovery_parent", "1" * 40),
+        ("reason_code", "UNREGISTERED_GENERATION_FOUR_REASON"),
+    ],
+)
+def test_analytic_tooling_publication_contract_rejects_each_hostile_field(
+    field: str, hostile: object
+) -> None:
+    namespace = tooling_publication_contract_namespace()
+    validate = namespace["tooling_receipt_is_exact"]
+    publication = dict(namespace["EXPECTED_TOOLING_PUBLICATION"])
+    tooling = {
+        "schema": "iter135.tooling_verification.v2",
+        "verdict": "I135_TOOLING_VERIFICATION_OK",
+        "publication": publication,
+        "repository": {"git_start": {"head": "9" * 40}},
+    }
+    assert validate(tooling) is True
+
+    publication[field] = hostile
+
+    assert validate(tooling) is False
+
+
+@pytest.mark.parametrize("mutation", ["missing", "extra"])
+def test_analytic_tooling_publication_contract_requires_exact_field_set(
+    mutation: str,
+) -> None:
+    namespace = tooling_publication_contract_namespace()
+    validate = namespace["tooling_receipt_is_exact"]
+    publication = dict(namespace["EXPECTED_TOOLING_PUBLICATION"])
+    if mutation == "missing":
+        publication.pop("reason_code")
+    else:
+        publication["unregistered"] = True
+    tooling = {
+        "schema": "iter135.tooling_verification.v2",
+        "verdict": "I135_TOOLING_VERIFICATION_OK",
+        "publication": publication,
+        "repository": {"git_start": {"head": "9" * 40}},
+    }
+
+    assert validate(tooling) is False
+
+
+@pytest.mark.parametrize("mutation", ["schema", "verdict", "source"])
+def test_analytic_tooling_receipt_retains_schema_verdict_and_source_oid_gates(
+    mutation: str,
+) -> None:
+    namespace = tooling_publication_contract_namespace()
+    validate = namespace["tooling_receipt_is_exact"]
+    tooling = {
+        "schema": "iter135.tooling_verification.v2",
+        "verdict": "I135_TOOLING_VERIFICATION_OK",
+        "publication": dict(namespace["EXPECTED_TOOLING_PUBLICATION"]),
+        "repository": {"git_start": {"head": "9" * 40}},
+    }
+    if mutation == "schema":
+        tooling["schema"] = "iter135.tooling_verification.hostile"
+    elif mutation == "verdict":
+        tooling["verdict"] = "I135_TOOLING_VERIFICATION_FAILED"
+    else:
+        tooling["repository"]["git_start"]["head"] = "not-an-oid"
+
+    assert validate(tooling) is False
 
 
 def test_launcher_pins_exact_v3_interpreter_and_rechecks_each_block() -> None:

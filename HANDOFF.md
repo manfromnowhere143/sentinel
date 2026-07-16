@@ -1,9 +1,10 @@
 # HANDOFF — dynamic state snapshot
 
-Generation-three atomic preflight-baton snapshot, 2026-07-16. Read CONTINUITY.md first.
+Generation-four CI-portability recovery snapshot, 2026-07-16. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+30b6390 handoff: accept iter135 generation-three tooling freeze [REMOTE CI RED]
 d9e2610 mission: accept iter135 generation-three tooling freeze
 755489f iter135: publish generation-three tooling receipt
 1820fcf iter135: refreeze generation-three control authority
@@ -13,30 +14,37 @@ b0eca12 iter135: publish generation-two tooling receipt
 90773c3 iter135: refreeze generation-two tooling recovery
 c868040 handoff: record iter135 tooling freeze
 ```
-Accepted generation-three source `1820fcfd65483fa9c7429dd54fe65dbf91dc6b35` and receipt
-`755489f36ae2b8cefad183341edefd7c30c047e7` are green on `origin/master`. State-only T3
-`d9e2610` and this immediately following B3 baton are one local publication unit. T3 is
-structurally incomplete by itself and must never be pushed alone. Host preparation remains blocked
-until the pushed B3 tip has exactly the two required successful GitHub Actions checks.
+Generation-three source `1820fcfd65483fa9c7429dd54fe65dbf91dc6b35` and receipt
+`755489f36ae2b8cefad183341edefd7c30c047e7` are green, but B3 baton
+`30b6390b3e165fc517ec6a7d1d7a26502ea45e2a` is not accepted authority. GitHub Actions run
+`29525917761` failed both Python lanes because the frozen structural receipt validator resolved
+the entire current executable set before Git-only reads and rejected setup-python's hosted
+`pytest` path. No host or evidence action followed. Mission state is rolled back locally while an
+exact eleven-path generation-four recovery is built. A pre-publication cross-layer replay expanded
+the original seven-path draft first to include the launch controller and then the downstream
+analytic launcher, with both test surfaces, so every consumer binds the same generation-four
+receipt instead of bridging R4 mission state to stale R3 authority or failing at later activation.
 
 ## Canonical mission state (`MISSION_STATE.json`)
 
 - Current: iteration 134 / PLACEBO_HARM_OR_NULL / run IDLE / next
-  iteration 135 / TOOLING_FROZEN_PREFLIGHT_REQUIRED
+  iteration 135 / PREREGISTERED_TOOLING_REQUIRED
 - Current result: experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md
 - Next program: semantics-free placebo dose-response causal closure
 - Authorized now:
-  - prepare the exact hash-bound sentinel-gpu host contract and atomically commit
-    `host_packet_manifest.json` and `host_preparation_receipt.json`
-  - capture and commit the read-only iteration-135 environment receipt on sentinel-gpu
-  - generate and commit only the hash-addressed incomplete pre-smoke manifest; no analytic episodes
-  - run exactly the hash-bound four-run nonanalytic G5 smoke after the incomplete pre-smoke manifest is committed
-  - validate, collect, and commit the exact nonanalytic smoke raw evidence, recomputed receipt, and mechanically generated `SMOKE.md`
+  - build and validate only the tooling and tests frozen by the active iteration-135 hypothesis
+  - inventory storage and provenance before any safe cleanup or live smoke
+  - publish a read-only external-benchmark commercial, license, compute, and integration preflight
 - Forbidden now:
-  - run any iteration-135 analytic episode before smoke evidence and the final launch manifest are committed green
-  - remove or bypass the permanent analytic launch lock
-  - rerun iteration 134 or adapt iteration-135 schedules, estimands, verdicts, or policies after evidence
-  - place any iteration-135 analytic output on the remote root filesystem
+  - GPU launch before the iteration-135 hypothesis, analyzer, manifest, provenance, storage, and smoke gates are frozen
+  - rerun iteration 134
+  - adopt run-index resampling as the iteration-135 primary after observing iteration-134 results
+
+Generation four changes no scientific or execution payload. It makes structural Git reads resolve
+and attest only Git instead of unnecessarily requiring the current `pytest`, Ruff, shell, and
+Python launchers to live under the macOS-oriented trusted roots. The recovery adds hostile hosted-
+toolcache coverage and retains every generation-one through generation-three commit as disclosed
+history. Host preparation, Docker, GPU, smoke, and analytic execution remain forbidden.
 
 The generation-three refreeze adds Python 3.10 CI, a hash-bound one-shot host-preparation
 controller, exact GitHub branch/check and committed-artifact authority, environment schema v3 with
@@ -247,9 +255,9 @@ is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT 
 - Canonical completed experiment: experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md — read it before opening new work.
 - Active pending pre-registration: experiments/iter135_neuroncap_blind_braking_dose_response/HYPOTHESIS.md — read it with MISSION_STATE.json; neither file overrides the other.
 - Deprecated pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — historical only; it does not govern the next action.
-- Canonical next action: push and remotely validate only this B3 baton tip. Never push the
-  intermediate T3 state-only tip. After B3 is exactly green, execute the committed H -> E -> P -> S
-  preflight and nonanalytic-smoke sequence without skipping, retrying, or reordering a stage.
+- Canonical next action: publish and remotely validate the exact generation-four recovery source,
+  then its replacement receipt, then a fresh atomic state-only-plus-baton pair. Push only that
+  pair's baton tip. Host preparation remains blocked until the new baton is exactly green.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
 
