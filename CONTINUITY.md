@@ -2842,3 +2842,28 @@ transfer boundary fold-in and the claim-(5) hedge are unchanged and still bindin
   Until that sequence closes, only local tooling repair, validation, and the already authorized
   read-only external-benchmark commercial/license/compute/integration preflight are permitted.
   The live host/environment preflight, smoke, and analytic execution remain unauthorized.
+
+- **ITER135 GENERATION-TWO TOOLING PUBLICATION ACCEPTED; PREFLIGHT ONLY (2026-07-16).**
+  Recovery source `90773c3686e0e01562a62f3d0f21ddaf594de7d4` is the direct child of failed
+  baton `c868040f542f9277fc99a451a108138848e80b33` and changes exactly the nine disclosed
+  recovery paths. Its local gate passed `855` tests, Ruff, the 402-file docs guard,
+  mission-state validation, Bash syntax, ShellCheck with no user config, Python compilation, and
+  diff checks. GitHub Actions run `29500610027` then passed checkout, Ruff, the full Linux test
+  suite, and docs for that exact source SHA before any receipt mutation was made.
+
+  Replacement receipt `b0eca127ff1d522aefa6164271de7bce3bcaf1a7` is the receipt-only direct child
+  of the recovery source. It remains schema `iter135.tooling_verification.v2` and carries the exact
+  generation-2 publication block: it supersedes
+  `0b5b2d9a4956606fe0619f53288a64d2da58284a`, names
+  `c868040f542f9277fc99a451a108138848e80b33` as recovery parent, and records reason code
+  `H3_PHASE_TRANSITION_SUITE_AND_CI_PORTABILITY_FAILURE`. Receipt history is exactly replacement
+  then generation one. Generation, independent pre-push replay, GitHub Actions run `29501234053`,
+  and independent post-push replay all passed before the state moved.
+
+  Fresh state-only commit `71a137faa268c63d73ae5d1ec0f8409306f446e5` advances the canonical phase to
+  `TOOLING_FROZEN_PREFLIGHT_REQUIRED`; this offline baton records that transition. No remote host,
+  Docker, GPU, live smoke, environment receipt, manifest, analytic episode, analytic evidence, or
+  benchmark result was created by recovery or publication. The next authorized work is the exact
+  hash-bound host contract and read-only environment receipt. Analytic execution remains forbidden
+  until committed smoke evidence and a final launch manifest pass their own gates. Every later push
+  remains blocked on its matching GitHub Actions result.
