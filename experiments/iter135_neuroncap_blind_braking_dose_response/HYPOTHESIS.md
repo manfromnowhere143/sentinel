@@ -3,6 +3,23 @@
 Frozen on 2026-07-16 before any iteration-135 extractor, schedule generator, patch, analyzer,
 manifest, smoke artifact, or analytic GPU episode exists. This file must be committed alone.
 
+## Pre-data amendment 1 - compose-block execution order
+
+Frozen in a second hypothesis-only commit before any Iteration-135 tooling commit, smoke, or
+analytic episode. Inspection of the already committed NeuroNCAP launcher established that one
+compose invocation runs all 20 indices for one `(arm, pair)` block. The original per-cell six-arm
+rotation would have required `2,400` model/container startups rather than `120`, invalidating the
+frozen compute ceiling without improving the inferential pairing.
+
+The execution unit is therefore amended, before data, to a **pair-major 20-run arm block**. For
+global pair index `p`, run the cyclic rotation by `p mod 6` of the same six-arm base order. There
+are exactly `20 pairs x 6 arm blocks = 120` compose invocations and 20 run indices inside each
+block. Every arm still occupies every pair/run cell exactly once and appears in each within-pair
+temporal block position three or four times. Scenario-pair inference, common run identities,
+scheduled doses, outcomes, margins, estimators, verdicts, resource gates, and episode count do not
+change. The superseded per-cell rotation below is replaced in place so the executable contract is
+unambiguous; this amendment records why.
+
 Iteration 135 is the terminal causal-diligence experiment on the current NeuroNCAP suite. It asks
 one confirmatory question at the originally frozen matched budget and uses three additional doses
 only to look for evidence that would weaken that interpretation. It is not a product-readiness or
@@ -146,16 +163,17 @@ Six fresh arms, `20 pairs x 20 runs = 400` episodes per arm:
 
 Total: `2,400` analytic episodes. No prior episode substitutes for a fresh cell.
 
-Execution is pair/run-major. For canonical cell index
-`n = 20 * global_pair_index + run_index`, run the cyclic rotation by `n mod 6` of:
+Execution is pair-major in 20-run arm blocks. For canonical global pair index `p`, run the cyclic
+rotation by `p mod 6` of:
 
 ```text
 [off_baseline, released_union_semantic_reference, blind_0_5x,
  blind_1_0x, blind_1_5x, blind_2_0x]
 ```
 
-Every arm therefore occurs once per cell and occupies each within-cell temporal position 66 or 67
-times. The manifest must materialize all `2,400` cells and their exact order before launch.
+Each block runs indices `0..19` before the next arm block. Every arm therefore occurs once per
+pair/run cell and occupies each within-pair temporal block position three or four times. The
+manifest must materialize all `120` blocks, all `2,400` cells, and their exact order before launch.
 
 OFF and union use the same byte-identical released-union patch; only `SENTINEL_ENABLED` differs.
 Union parameters remain:
