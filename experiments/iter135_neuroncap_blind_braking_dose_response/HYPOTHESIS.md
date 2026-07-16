@@ -44,6 +44,15 @@ analyzer, and verifier lanes. The required-artifact inventory below is expanded 
 surface and remove the superseded monolithic test path. This is a provenance correction only; no
 design, data, gate, estimator, verdict, or resource rule changes.
 
+## Pre-data amendment 4 - nonanalytic smoke authorization boundary
+
+Frozen in a fifth hypothesis-only commit before any Iteration-135 tooling commit, live smoke, or
+analytic episode. G5 necessarily exercises the live GPU, but its four one-run dose checks are
+nonanalytic canaries with an analytic episode count of zero. References below to a locked "GPU
+launch" are clarified to mean the 2,400-episode **analytic GPU launch**. The preflight phase may
+authorize only the exact hash-bound G5 smoke; it cannot authorize any analytic episode. This is an
+authorization clarification only and changes no evidence, design, outcome, or resource rule.
+
 Iteration 135 is the terminal causal-diligence experiment on the current NeuroNCAP suite. It asks
 one confirmatory question at the originally frozen matched budget and uses three additional doses
 only to look for evidence that would weaken that interpretation. It is not a product-readiness or
@@ -484,8 +493,8 @@ single-L4 GPU-hours before smoke and aborted-partial-work overhead. Frozen budge
 - local collection gate `15 GiB`.
 
 The operator's 2026-07-16 instruction authorizes continued mission work and safe cleanup. It does
-not override any gate above. GPU launch remains separately locked until all tooling, provenance,
-storage, smoke, and live-idle checks are committed and green.
+not override any gate above. The analytic GPU launch remains separately locked until all tooling,
+provenance, storage, smoke, and live-idle checks are committed and green.
 
 ## Protocol
 
