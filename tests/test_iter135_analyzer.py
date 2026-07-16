@@ -18,6 +18,37 @@ analyzer = a
 DATASET_SNAPSHOT_ID = "66308:13501"
 DOCKER_SNAPSHOT_ID = "66308:13502"
 ANALYTIC_LOCK_ID = "66308:13503"
+PYTHON_WRAPPER_SHA256 = "d" * 64
+PYTHON_BINARY_SHA256 = "e" * 64
+PYTHON_BINARY_IDENTITY = "66305:13504"
+
+
+def _github_launch_authority(manifest_sha256: str) -> dict:
+    activation_commit = "f" * 40
+    authority = {
+        "schema": "iter135.github_launch_authority.v1",
+        "repository": "manfromnowhere143/sentinel",
+        "branch": "master",
+        "activation_commit": activation_commit,
+        "final_manifest_commit": "a" * 40,
+        "activation_receipt_sha256": "b" * 64,
+        "manifest_sha256": manifest_sha256,
+        "checks": [
+            {
+                "name": name,
+                "id": check_id,
+                "head_sha": activation_commit,
+                "app_slug": "github-actions",
+                "status": "completed",
+                "conclusion": "success",
+            }
+            for name, check_id in (("check (3.10)", 310), ("check (3.11)", 311))
+        ],
+    }
+    authority["authority_payload_sha256"] = hashlib.sha256(
+        json.dumps(authority, sort_keys=True, separators=(",", ":")).encode()
+    ).hexdigest()
+    return authority
 
 
 def _dataset_receipt() -> dict:
@@ -200,6 +231,10 @@ def _runtime_evidence(manifest_sha: str, manifest: dict) -> dict[str, bytes]:
         "manifest_sha256": manifest_sha,
         "dataset_runtime_snapshot_sha256": hashlib.sha256(dataset_payload).hexdigest(),
         "docker_runtime_snapshot_sha256": hashlib.sha256(docker_payload).hexdigest(),
+        "python_wrapper_sha256": PYTHON_WRAPPER_SHA256,
+        "python_binary_sha256": PYTHON_BINARY_SHA256,
+        "python_binary_identity": PYTHON_BINARY_IDENTITY,
+        "github_launch_authority": _github_launch_authority(manifest_sha),
         "pid": 135,
         "created_at_utc": "2026-07-16T00:00:00Z",
     }
@@ -221,7 +256,10 @@ def _runtime_log(manifest_sha: str, evidence: dict[str, bytes]) -> bytes:
         f"I135_DOCKER_SNAPSHOT_OK sha256={docker_sha} id={DOCKER_SNAPSHOT_ID}\n",
         "I135_ANALYTIC_ARMED lock=/var/lib/sentinel/i135-analytic.lock "
         f"lock_id={ANALYTIC_LOCK_ID} "
-        "output_root=/datasets/nuscenes-full/sentinel-i135-outoutput\n",
+        "output_root=/datasets/nuscenes-full/sentinel-i135-outoutput "
+        f"python_wrapper_sha256={PYTHON_WRAPPER_SHA256} "
+        f"python_binary_sha256={PYTHON_BINARY_SHA256} "
+        f"python_binary_identity={PYTHON_BINARY_IDENTITY}\n",
         "I135_DATASET_RUNTIME_OK phase=analytic-arm files=28\n",
         "I135_DOCKER_RUNTIME_OK phase=analytic-arm daemon_id=sentinel-daemon-135\n",
     ]
@@ -244,6 +282,9 @@ def _runtime_log(manifest_sha: str, evidence: dict[str, bytes]) -> bytes:
             f"dataset_runtime_snapshot_id={DATASET_SNAPSHOT_ID} "
             f"docker_runtime_snapshot_sha256={docker_sha} "
             f"docker_runtime_snapshot_id={DOCKER_SNAPSHOT_ID} "
+            f"python_wrapper_sha256={PYTHON_WRAPPER_SHA256} "
+            f"python_binary_sha256={PYTHON_BINARY_SHA256} "
+            f"python_binary_identity={PYTHON_BINARY_IDENTITY} "
             "launch_lock_retained=/var/lib/sentinel/i135-analytic.lock "
             f"launch_lock_id={ANALYTIC_LOCK_ID} elapsed_seconds=360 "
             "prior_smoke_gpu_seconds=7 blocks=120 episodes=2400 "
@@ -334,6 +375,10 @@ def _validity_receipt(manifest_path: Path, manifest: dict, runtime_facts: dict) 
                 "dataset_runtime_snapshot_sha256"
             ],
             "docker_runtime_snapshot_sha256": lock["docker_runtime_snapshot_sha256"],
+            "python_wrapper_sha256": lock["python_wrapper_sha256"],
+            "python_binary_sha256": lock["python_binary_sha256"],
+            "python_binary_identity": lock["python_binary_identity"],
+            "github_launch_authority": lock["github_launch_authority"],
             "pid": lock["pid"],
             "created_at_utc": lock["created_at_utc"],
         },
@@ -660,6 +705,11 @@ def test_receipt_is_manifest_bound_and_all_resource_falsifiers_fail_closed(tmp_p
 
 
 def test_manifest_dataset_missing_environment_mismatch_and_archive_drift_fail_closed():
+    legacy = _manifest()
+    legacy["environment_receipts"]["schema"] = "iter135.environment_receipts.v2"
+    _facts, problems = a.validate_manifest_dataset(legacy)
+    assert "manifest:environment-receipts-v3" in problems
+
     missing = _manifest()
     missing.pop("dataset_receipt")
     _facts, problems = a.validate_manifest_dataset(missing)

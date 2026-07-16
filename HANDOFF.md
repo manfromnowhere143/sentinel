@@ -1,10 +1,10 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Thu Jul 16 13:18:58 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generation-three source refreeze snapshot, 2026-07-16. Read CONTINUITY.md first.
 
 ## Repository state
 ```
-bd23f19 handoff: accept iter135 generation-two tooling freeze
+ee0c0c9 handoff: accept iter135 generation-two tooling freeze
 71a137f mission: accept iter135 generation-two tooling freeze
 b0eca12 iter135: publish generation-two tooling receipt
 90773c3 iter135: refreeze generation-two tooling recovery
@@ -13,24 +13,79 @@ d8f091c mission: authorize iter135 preflight phase
 0b5b2d9 iter135: publish tooling verification receipt
 2d94cf4 iter135: freeze dose-response execution tooling
 ```
-Working tree: CLEAN
+Accepted parent: `ee0c0c953ace80b53f3cce97ddd7eb262fb22a2d` on `origin/master`.
+The exact 25-path generation-three source refreeze is being published from this parent; its
+receipt, state advance, and baton do not exist yet at this snapshot.
 
 ## Canonical mission state (`MISSION_STATE.json`)
 
-- Current: iteration 134 / PLACEBO_HARM_OR_NULL / run IDLE / next iteration 135 TOOLING_FROZEN_PREFLIGHT_REQUIRED
+- Current: iteration 134 / PLACEBO_HARM_OR_NULL / run IDLE / next
+  iteration 135 / PREREGISTERED_TOOLING_REQUIRED
 - Current result: experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md
 - Next program: semantics-free placebo dose-response causal closure
 - Authorized now:
-  - prepare only the exact hash-bound sentinel-gpu host contract, including the dedicated iteration-135 output root
-  - capture and commit the read-only iteration-135 environment receipt on sentinel-gpu
-  - generate and commit only the hash-addressed incomplete pre-smoke manifest; no analytic episodes
-  - run exactly the hash-bound four-run nonanalytic G5 smoke after the incomplete pre-smoke manifest is committed
-  - validate, collect, and commit the exact nonanalytic smoke evidence and receipt
+  - build and validate only the tooling and tests frozen by the active iteration-135 hypothesis
+  - inventory storage and provenance before any safe cleanup or live smoke
+  - publish a read-only external-benchmark commercial, license, compute, and integration preflight
 - Forbidden now:
-  - run any iteration-135 analytic episode before smoke evidence and the final launch manifest are committed green
-  - remove or bypass the permanent analytic launch lock
-  - rerun iteration 134 or adapt iteration-135 schedules, estimands, verdicts, or policies after evidence
-  - place any iteration-135 analytic output on the remote root filesystem
+  - GPU launch before the iteration-135 hypothesis, analyzer, manifest, provenance, storage, and smoke gates are frozen
+  - rerun iteration 134
+  - adopt run-index resampling as the iteration-135 primary after observing iteration-134 results
+
+The generation-three refreeze adds Python 3.10 CI, a hash-bound one-shot host-preparation
+controller, exact GitHub branch/check and committed-artifact authority, environment schema v3 with
+physical-interpreter and Docker client/daemon identity, sanitized descriptor-pinned launchers,
+source-bound reconstruction of host/smoke/final evidence, deterministic `SMOKE.md`, and a separate
+activation receipt. Construction prefixes remain non-authoritative. It does not change the
+hypothesis, schedules, estimands, thresholds, retry policy, or analytic payload semantics. No live
+evidence was created.
+
+The H authority proof is exactly seven GitHub GETs and zero `/git/blobs/` GETs: branch, checks,
+commit, one exact untruncated recursive tree, terminal branch/check replay before mutation, and a
+final branch replay. Stable local bytes are bound to that tree with Git's native blob identity
+`sha1(b"blob " + str(len(payload)).encode() + b"\0" + payload)` plus exact path, blob type,
+integer size, and `100644`/`100755` mode; receipts retain SHA-256, bytes, Git OID, and mode. SHA-1
+is trusted here only as Git object identity, never as the sole content digest. The E authority
+proof uses eight GETs because two JSON payloads are additionally replayed through the Contents API.
+There are no retries. This 7/8-call budget is deliberately below GitHub's documented public,
+unauthenticated primary budget, while still failing closed if shared-IP headroom is already gone.
+Official references: [Git hash-object](https://git-scm.com/docs/git-hash-object.html),
+[GitHub recursive trees](https://docs.github.com/en/rest/git/trees), and
+[GitHub REST rate limits](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api).
+
+After those commits exist, a trusted clean SSH/systemd parent must first
+`cd /opt/sentinel-stack/iter135`, then invoke each launcher through `/usr/bin/env -i` with only the
+required authority variables and `PATH=/usr/bin:/bin:/usr/sbin:/sbin`. The launchers require that
+physical working directory, `SHLVL=1`, and the exact startup-variable set. This clean-parent
+boundary is mandatory: the launchers reject loader-variable contamination, but source code cannot
+undo a native loader hook that ran before Bash read its first byte. Smoke requires both
+`SENTINEL_SMOKE_INPUT_MANIFEST_COMMIT=P` and
+`SENTINEL_SMOKE_INPUT_MANIFEST_SHA256=<the committed P blob SHA-256>`. Analytic launch requires
+`SENTINEL_LAUNCH_MANIFEST_SHA256=<F blob SHA-256>`,
+`SENTINEL_LAUNCH_ACTIVATION_COMMIT=B`, and
+`SENTINEL_LAUNCH_ACTIVATION_SHA256=<the committed B activation-receipt blob SHA-256>`. A hash or
+commit supplied alone is not authority.
+
+The authoritative smoke invocation is:
+
+```bash
+cd /opt/sentinel-stack/iter135
+/usr/bin/env -i PATH=/usr/bin:/bin:/usr/sbin:/sbin \
+  SENTINEL_SMOKE_INPUT_MANIFEST_COMMIT='<P-commit-sha>' \
+  SENTINEL_SMOKE_INPUT_MANIFEST_SHA256='<committed-P-blob-sha256>' \
+  /bin/bash -p /opt/sentinel-stack/iter135/run_smoke135.sh
+```
+
+The authoritative analytic invocation is:
+
+```bash
+cd /opt/sentinel-stack/iter135
+/usr/bin/env -i PATH=/usr/bin:/bin:/usr/sbin:/sbin \
+  SENTINEL_LAUNCH_MANIFEST_SHA256='<committed-F-blob-sha256>' \
+  SENTINEL_LAUNCH_ACTIVATION_COMMIT='<B-commit-sha>' \
+  SENTINEL_LAUNCH_ACTIVATION_SHA256='<committed-B-activation-receipt-blob-sha256>' \
+  /bin/bash -p /opt/sentinel-stack/iter135/run_dose135.sh
+```
 
 ## Experiments (status inferred from files)
 
@@ -186,7 +241,10 @@ is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT 
 - Canonical completed experiment: experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md — read it before opening new work.
 - Active pending pre-registration: experiments/iter135_neuroncap_blind_braking_dose_response/HYPOTHESIS.md — read it with MISSION_STATE.json; neither file overrides the other.
 - Deprecated pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — historical only; it does not govern the next action.
-- Canonical next action: iteration 135 / TOOLING_FROZEN_PREFLIGHT_REQUIRED / semantics-free placebo dose-response causal closure.
+- Canonical next action: publish and remotely validate the exact generation-three tooling source,
+  then its replacement receipt, then the atomic local state-only-plus-baton pair before any host
+  preparation. Push only the pair's baton tip: the intermediate state-only tip is structurally
+  incomplete and must never be pushed as a knowingly red CI target.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
 

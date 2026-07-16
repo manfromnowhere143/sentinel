@@ -4,6 +4,7 @@ import copy
 import hashlib
 import importlib.util
 import json
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -22,6 +23,33 @@ def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def github_pre_smoke_authority(manifest_sha256: str) -> dict[str, object]:
+    commit = "f" * 40
+    authority: dict[str, object] = {
+        "schema": "iter135.github_pre_smoke_authority.v1",
+        "repository": "manfromnowhere143/sentinel",
+        "branch": "master",
+        "pre_smoke_commit": commit,
+        "environment_parent": "e" * 40,
+        "manifest_sha256": manifest_sha256,
+        "checks": [
+            {
+                "name": name,
+                "id": check_id,
+                "head_sha": commit,
+                "app_slug": "github-actions",
+                "status": "completed",
+                "conclusion": "success",
+            }
+            for name, check_id in (("check (3.10)", 310), ("check (3.11)", 311))
+        ],
+    }
+    authority["authority_payload_sha256"] = hashlib.sha256(
+        json.dumps(authority, sort_keys=True, separators=(",", ":")).encode()
+    ).hexdigest()
+    return authority
+
+
 def ready_git_receipt() -> dict:
     return {
         "schema": "iter135.git_provenance.v1",
@@ -33,6 +61,83 @@ def ready_git_receipt() -> dict:
         "dirty_lines": [],
         "problem_count": 0,
         "problems": [],
+    }
+
+
+def publication_authority(commit: str, artifacts: list[dict] | None = None) -> dict:
+    return {
+        "schema": manifest.EXPECTED_PUBLICATION_AUTHORITY_SCHEMA,
+        "repository": manifest.EXPECTED_PUBLICATION_REPOSITORY,
+        "branch": manifest.EXPECTED_PUBLICATION_BRANCH,
+        "source_commit": commit,
+        "branch_head_sha": commit,
+        "required_checks": list(manifest.EXPECTED_PUBLICATION_CHECKS),
+        "checks": [
+            {
+                "name": name,
+                "id": 510 + index,
+                "status": "completed",
+                "conclusion": "success",
+                "head_sha": commit,
+                "app_slug": "github-actions",
+            }
+            for index, name in enumerate(manifest.EXPECTED_PUBLICATION_CHECKS)
+        ],
+        "artifacts": artifacts or [],
+        "verified": True,
+    }
+
+
+def docker_runtime_receipt() -> dict:
+    return {
+        "schema": manifest.EXPECTED_DOCKER_RUNTIME_SCHEMA,
+        "client": {
+            "invocation_path": "/usr/bin/docker",
+            "physical_path": "/usr/bin/docker",
+            "realpath": "/usr/bin/docker",
+            "sha256": "8" * 64,
+            "bytes": 38_000_000,
+            "version": {
+                "version": "27.5.1",
+                "api_version": "1.47",
+                "git_commit": "4c9b3b0",
+                "go_version": "go1.22.11",
+                "os": "linux",
+                "arch": "amd64",
+                "build_time": "2025-01-22T13:41:17.000000000+00:00",
+                "context": "default",
+            },
+        },
+        "context": {"name": "default", "endpoint": "unix:///var/run/docker.sock"},
+        "daemon": {
+            "info": {
+                "id": "SENTINELENGINE",
+                "name": "sentinel-gpu",
+                "server_version": "27.5.1",
+                "docker_root_dir": "/var/lib/docker",
+                "driver": "overlay2",
+                "operating_system": "Ubuntu 22.04.5 LTS",
+                "os_type": "linux",
+                "architecture": "x86_64",
+                "ncpu": 8,
+                "mem_total": 33_000_000_000,
+                "kernel_version": "6.8.0",
+                "cgroup_driver": "systemd",
+                "cgroup_version": "2",
+            },
+            "version": {
+                "platform_name": "Docker Engine - Community",
+                "version": "27.5.1",
+                "api_version": "1.47",
+                "min_api_version": "1.24",
+                "git_commit": "4c9b3b0",
+                "go_version": "go1.22.11",
+                "os": "linux",
+                "arch": "amd64",
+                "build_time": "2025-01-22T13:41:17.000000000+00:00",
+                "experimental": False,
+            },
+        },
     }
 
 
@@ -55,9 +160,11 @@ def mission_state(phase: str = "LAUNCH_AUTHORIZED") -> dict:
             "authorized_actions": list(phase_actions[0]),
             "forbidden_actions": list(phase_actions[1]),
         },
-        "claim_state": {},
-        "deprecated_pending_hypotheses": [],
-        "paper_state": {},
+        "claim_state": copy.deepcopy(manifest.EXPECTED_MISSION_CLAIM_STATE),
+        "deprecated_pending_hypotheses": copy.deepcopy(
+            manifest.EXPECTED_DEPRECATED_HYPOTHESES
+        ),
+        "paper_state": copy.deepcopy(manifest.EXPECTED_PAPER_STATE),
         "storage_gate": {
             "minimum_local_free_gib_before_new_proof_collection": 15,
             "remote_execution_filesystem_path": "/datasets/nuscenes-full",
@@ -101,7 +208,114 @@ def expected_execution_order():
 """
 
 
+def write_host_evidence(exp: Path, state_path: Path) -> None:
+    source_commit = subprocess.run(
+        ("git", "-C", str(REPO), "rev-parse", "HEAD"),
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    packet_state_payload = subprocess.run(
+        ("git", "-C", str(REPO), "show", f"{source_commit}:MISSION_STATE.json"),
+        check=True,
+        capture_output=True,
+    ).stdout
+    packet_files: dict[str, dict[str, object]] = {}
+    observed_files: dict[str, dict[str, object]] = {}
+    for name in manifest.HOST_PACKET_FILE_NAMES:
+        mode = 0o755 if name in manifest.HOST_PACKET_EXECUTABLE_FILES else 0o644
+        if name == "MISSION_STATE.json":
+            digest = hashlib.sha256(packet_state_payload).hexdigest()
+            byte_count = len(packet_state_payload)
+        else:
+            path = exp / name
+            digest = sha256(path)
+            byte_count = path.stat().st_size
+        row: dict[str, object] = {
+            "sha256": digest,
+            "bytes": byte_count,
+            "mode": mode,
+        }
+        packet_files[name] = row
+        observed_files[name] = {
+            "path": f"/opt/sentinel-stack/.iter135-packet/{name}",
+            **row,
+        }
+    packet = {
+        "schema": manifest.EXPECTED_HOST_PACKET_SCHEMA,
+        "source_commit": source_commit,
+        "files": packet_files,
+    }
+    packet_path = exp / manifest.HOST_PACKET_MANIFEST_REL
+    packet_path.write_text(json.dumps(packet, sort_keys=True) + "\n")
+    packet_binding = {
+        "path": "/opt/sentinel-stack/.iter135-packet/host_packet_manifest.json",
+        "sha256": sha256(packet_path),
+        "bytes": packet_path.stat().st_size,
+        "mode": 0o644,
+    }
+    source_artifacts = []
+    for name, row in packet_files.items():
+        payload = packet_state_payload if name == "MISSION_STATE.json" else (exp / name).read_bytes()
+        source_artifacts.append(
+            {
+                "path": (
+                    "MISSION_STATE.json"
+                    if name == "MISSION_STATE.json"
+                    else f"{manifest.EXPERIMENT_REL}/{name}"
+                ),
+                "sha256": row["sha256"],
+                "bytes": row["bytes"],
+                "git_blob_oid": manifest._git_blob_oid(payload),
+                "git_mode": "100755" if row["mode"] == 0o755 else "100644",
+            }
+        )
+    source_artifacts.sort(key=lambda row: row["path"])
+    preparation = {
+        "schema": manifest.EXPECTED_HOST_PREPARATION_SCHEMA,
+        "verdict": manifest.EXPECTED_HOST_PREPARATION_VERDICT,
+        "started_at_utc": "2026-07-16T09:58:00Z",
+        "finished_at_utc": "2026-07-16T09:59:00Z",
+        "host": "sentinel-gpu",
+        "problem_count": 0,
+        "problems": [],
+        "packet_manifest_sha256": packet_binding["sha256"],
+        "publication_authority": publication_authority(source_commit, source_artifacts),
+        "packet": {
+            "schema": manifest.EXPECTED_HOST_PACKET_SCHEMA,
+            "source_commit": packet["source_commit"],
+            "manifest": packet_binding,
+            "independently_supplied_manifest_sha256": packet_binding["sha256"],
+            "files": observed_files,
+        },
+        "controller": observed_files["prepare_host135.py"],
+        "repositories": {},
+        "compose": {},
+        "storage": {},
+        "forbidden_paths": {},
+        "actions": [],
+        "invocation": {},
+        "receipt_payload_sha256": None,
+    }
+    payload = dict(preparation)
+    payload.pop("receipt_payload_sha256")
+    preparation["receipt_payload_sha256"] = manifest._canonical_json_sha256(payload)
+    (exp / manifest.HOST_PREPARATION_RECEIPT_REL).write_text(
+        json.dumps(preparation, sort_keys=True) + "\n"
+    )
+
+
 def environment_receipt(exp: Path) -> dict:
+    preparation_path = exp / manifest.HOST_PREPARATION_RECEIPT_REL
+    packet_path = exp / manifest.HOST_PACKET_MANIFEST_REL
+    preparation = json.loads(preparation_path.read_text())
+    gpu = copy.deepcopy(manifest.EXPECTED_GPU_IDENTITY)
+    box = {
+        "idle": True,
+        "all_containers": 0,
+        "gpu_compute_processes": 0,
+        "known_evaluation_processes": 0,
+    }
     remote_files = {
         role: {"path": path, "sha256": digest, "bytes": byte_count}
         for role, (path, digest, byte_count) in manifest.EXPECTED_REMOTE_FILES.items()
@@ -169,19 +383,66 @@ def environment_receipt(exp: Path) -> dict:
         "host": "sentinel-gpu",
         "problem_count": 0,
         "problems": [],
-        "gpu": {
-            "model": "NVIDIA L4",
-            "count": 1,
-            "uuid": "GPU-9604ae8a-e823-3a38-5a57-0420cd29bc07",
-            "driver_version": "580.159.03",
-            "memory_total_mib": 23034,
+        "interpreter": {
+            "invocation_path": "/usr/bin/python3",
+            "physical_path": "/usr/bin/python3.10",
+            "realpath": "/usr/bin/python3.10",
+            "sha256": "9" * 64,
+            "bytes": 6_831_264,
+            "version": "3.10.14",
+            "implementation": "CPython",
         },
-        "box": {
-            "idle": True,
-            "all_containers": 0,
-            "gpu_compute_processes": 0,
-            "known_evaluation_processes": 0,
+        "invocation": {
+            "sanitized": True,
+            "isolated": True,
+            "environment": copy.deepcopy(manifest.EXPECTED_CAPTURE_ENVIRONMENT),
+            "argv": [
+                "/usr/bin/python3.10",
+                "-I",
+                "/opt/sentinel-stack/iter135/capture_environment135.py",
+                "--local-free-bytes",
+                str(45 * 1024**3),
+            ],
+            "canonical_script": "/opt/sentinel-stack/iter135/capture_environment135.py",
         },
+        "host_preparation": {
+            "receipt_file": {
+                "path": "/opt/sentinel-stack/iter135/host_preparation_receipt.json",
+                "sha256": sha256(preparation_path),
+                "bytes": preparation_path.stat().st_size,
+            },
+            "evidence": preparation,
+        },
+        "host_publication_authority": publication_authority(
+            "f" * 40,
+            [
+                {
+                    "path": f"{manifest.EXPERIMENT_REL}/{manifest.HOST_PACKET_MANIFEST_REL}",
+                    "sha256": sha256(packet_path),
+                    "bytes": packet_path.stat().st_size,
+                    "git_blob_oid": manifest._git_blob_oid(packet_path.read_bytes()),
+                    "git_mode": "100644",
+                },
+                {
+                    "path": (
+                        f"{manifest.EXPERIMENT_REL}/{manifest.HOST_PREPARATION_RECEIPT_REL}"
+                    ),
+                    "sha256": sha256(preparation_path),
+                    "bytes": preparation_path.stat().st_size,
+                    "git_blob_oid": manifest._git_blob_oid(
+                        preparation_path.read_bytes()
+                    ),
+                    "git_mode": "100644",
+                },
+            ],
+        ),
+        "docker_runtime": docker_runtime_receipt(),
+        "runtime_snapshots": {
+            "before_dataset_hashing": {"gpu": copy.deepcopy(gpu), "box": copy.deepcopy(box)},
+            "after_dataset_hashing": {"gpu": copy.deepcopy(gpu), "box": copy.deepcopy(box)},
+        },
+        "gpu": gpu,
+        "box": box,
         "storage": {
             "remote_output_free_bytes": 120 * 1024**3,
             "projected_output_bytes": manifest.PROJECTED_OUTPUT_BYTES,
@@ -217,6 +478,9 @@ def smoke_receipt(exp: Path, env: dict) -> dict:
     )
     raw_dir = exp / "smoke-evidence/raw"
     raw_dir.mkdir(parents=True)
+    (raw_dir / "pre_smoke_mission_state.json").write_bytes(
+        smoke_state_path.read_bytes()
+    )
     (raw_dir / "environment_receipt.json").write_bytes(
         (exp / manifest.ENV_RECEIPT_REL).read_bytes()
     )
@@ -226,6 +490,8 @@ def smoke_receipt(exp: Path, env: dict) -> dict:
         "server_patch_blind_dose.py",
         "run_smoke135.sh",
         "validate_smoke135.py",
+        "host_packet_manifest.json",
+        "host_preparation_receipt.json",
         "env_receipts.json",
     )
     image_ids = {name: row["image_id"] for name, row in sorted(env["container_images"].items())}
@@ -241,7 +507,7 @@ def smoke_receipt(exp: Path, env: dict) -> dict:
             "sha256": sha256(smoke_state_path),
             "bytes": smoke_state_path.stat().st_size,
         },
-        "git_provenance": {},
+        "git_provenance": {"head": "e" * 40},
         "design": {},
         "planned_blocks": 120,
         "planned_episodes": 2400,
@@ -250,7 +516,7 @@ def smoke_receipt(exp: Path, env: dict) -> dict:
         "execution_cells": [],
         "hash_bound_files": {
             name: {
-                "source_path": name,
+                "source_path": f"{manifest.EXPERIMENT_REL}/{name}",
                 "sha256": sha256(exp / name),
                 "bytes": (exp / name).stat().st_size,
             }
@@ -264,6 +530,18 @@ def smoke_receipt(exp: Path, env: dict) -> dict:
         "storage_gate": {},
         "resource_gate": {},
         "smoke_receipt": None,
+        "host_packet_manifest": {
+            "source_path": f"{manifest.EXPERIMENT_REL}/{manifest.HOST_PACKET_MANIFEST_REL}",
+            "sha256": sha256(exp / manifest.HOST_PACKET_MANIFEST_REL),
+            "bytes": (exp / manifest.HOST_PACKET_MANIFEST_REL).stat().st_size,
+        },
+        "host_preparation_receipt": {
+            "source_path": (
+                f"{manifest.EXPERIMENT_REL}/{manifest.HOST_PREPARATION_RECEIPT_REL}"
+            ),
+            "sha256": sha256(exp / manifest.HOST_PREPARATION_RECEIPT_REL),
+            "bytes": (exp / manifest.HOST_PREPARATION_RECEIPT_REL).stat().st_size,
+        },
         "tooling_verification_receipt": {},
         "gates": {
             "g0_preregistration": True,
@@ -310,10 +588,17 @@ def smoke_receipt(exp: Path, env: dict) -> dict:
             "canonical_runner_identity": "66305:1001",
             "persistent_smoke_lock": "/var/lib/sentinel/i135-smoke.lock",
             "persistent_smoke_lock_identity": "66305:1002",
+            "persistent_smoke_lock_sha256": "9" * 64,
+            "github_pre_smoke_authority": github_pre_smoke_authority(
+                sha256(pre_manifest_path)
+            ),
             "retry_policy": "one_shot_no_retry_lock_retained",
             "docker_wrapper_sha256": "a" * 64,
             "docker_binary_sha256": "b" * 64,
             "docker_binary_identity": "66305:1003",
+            "python_wrapper_sha256": "c" * 64,
+            "python_binary_sha256": "d" * 64,
+            "python_binary_identity": "66305:1005",
             "container_control_root_identity": "66308:1004",
             "environment_receipt_sha256": sha256(raw_dir / "environment_receipt.json"),
             "schedule_sha256": sha256(exp / "dose_schedules.json"),
@@ -466,7 +751,7 @@ def smoke_receipt(exp: Path, env: dict) -> dict:
 
 def make_fixture(tmp_path: Path, phase: str = "LAUNCH_AUTHORIZED") -> tuple[Path, Path]:
     exp = tmp_path / "iter135"
-    exp.mkdir()
+    exp.mkdir(parents=True)
     for name in manifest.REQUIRED_PAYLOAD_NAMES:
         source = SOURCE_EXP / name
         target = exp / name
@@ -484,7 +769,7 @@ def make_fixture(tmp_path: Path, phase: str = "LAUNCH_AUTHORIZED") -> tuple[Path
                 source.read_text()
                 .replace(
                     'ENV_SCHEMA = "iter135.environment_receipts.v1"',
-                    'ENV_SCHEMA = "iter135.environment_receipts.v2"',
+                    'ENV_SCHEMA = "iter135.environment_receipts.v3"',
                 )
                 .replace(
                     'MANIFEST_SCHEMA = "iter135.launch_manifest.v1"',
@@ -517,10 +802,22 @@ def make_fixture(tmp_path: Path, phase: str = "LAUNCH_AUTHORIZED") -> tuple[Path
             }
         )
     )
+    write_host_evidence(exp, state_path)
     env = environment_receipt(exp)
     (exp / manifest.ENV_RECEIPT_REL).write_text(json.dumps(env))
     smoke = smoke_receipt(exp, env)
-    (exp / manifest.SMOKE_RECEIPT_REL).write_text(json.dumps(smoke))
+    validator_path = exp / "validate_smoke135.py"
+    validator_spec = importlib.util.spec_from_file_location(
+        "iter135_fixture_smoke_bundle", validator_path
+    )
+    assert validator_spec is not None and validator_spec.loader is not None
+    validator = importlib.util.module_from_spec(validator_spec)
+    validator_spec.loader.exec_module(validator)
+    receipt_bytes = validator.canonical_smoke_receipt_bytes(smoke)
+    (exp / manifest.SMOKE_RECEIPT_REL).write_bytes(receipt_bytes)
+    (exp / manifest.SMOKE_SUMMARY_REL).write_bytes(
+        validator.render_smoke_summary(smoke, receipt_bytes)
+    )
     return exp, state_path
 
 
@@ -602,6 +899,83 @@ def test_dataset_generator_replays_all_committed_iter28_archive_proofs() -> None
     assert manifest.iter28_dataset_proof_problems(REPO) == []
 
 
+def test_publication_authority_rejects_red_or_unbound_matrix_check() -> None:
+    commit = "a" * 40
+    authority = publication_authority(commit)
+    assert manifest.validate_publication_authority(
+        authority, expected_commit=commit, expected_artifacts=[]
+    ) == []
+
+    red = copy.deepcopy(authority)
+    red["checks"][0]["conclusion"] = "failure"
+    assert "publication-authority:check:check (3.10):conclusion" in (
+        manifest.validate_publication_authority(
+            red, expected_commit=commit, expected_artifacts=[]
+        )
+    )
+
+    wrong_head = copy.deepcopy(authority)
+    wrong_head["checks"][1]["head_sha"] = "b" * 40
+    assert "publication-authority:check:check (3.11):head-sha" in (
+        manifest.validate_publication_authority(
+            wrong_head, expected_commit=commit, expected_artifacts=[]
+        )
+    )
+
+
+def test_publication_authority_requires_persisted_git_blob_identity_and_mode() -> None:
+    commit = "a" * 40
+    artifact = {
+        "path": f"{manifest.EXPERIMENT_REL}/host_packet_manifest.json",
+        "sha256": "b" * 64,
+        "bytes": 123,
+        "git_blob_oid": "c" * 40,
+        "git_mode": "100644",
+    }
+    authority = publication_authority(commit, [artifact])
+
+    assert manifest.validate_publication_authority(authority) == []
+    for field in ("git_blob_oid", "git_mode"):
+        hostile = copy.deepcopy(authority)
+        del hostile["artifacts"][0][field]
+        assert "publication-authority:artifacts" in (
+            manifest.validate_publication_authority(hostile)
+        )
+    hostile_oid = copy.deepcopy(authority)
+    hostile_oid["artifacts"][0]["git_blob_oid"] = "d" * 64
+    assert "publication-authority:artifacts" in (
+        manifest.validate_publication_authority(hostile_oid)
+    )
+    hostile_mode = copy.deepcopy(authority)
+    hostile_mode["artifacts"][0]["git_mode"] = "100664"
+    assert "publication-authority:artifacts" in (
+        manifest.validate_publication_authority(hostile_mode)
+    )
+
+
+def test_docker_runtime_receipt_rejects_client_or_daemon_drift() -> None:
+    runtime = docker_runtime_receipt()
+    assert manifest.validate_docker_runtime_receipt(runtime) == []
+
+    binary_drift = copy.deepcopy(runtime)
+    binary_drift["client"]["physical_path"] = "/tmp/docker"
+    assert "environment:docker-runtime:client:realpath-drift" in (
+        manifest.validate_docker_runtime_receipt(binary_drift)
+    )
+
+    daemon_drift = copy.deepcopy(runtime)
+    daemon_drift["daemon"]["version"]["version"] = "28.0.0"
+    assert "environment:docker-runtime:daemon-version-drift" in (
+        manifest.validate_docker_runtime_receipt(daemon_drift)
+    )
+
+    architecture_drift = copy.deepcopy(runtime)
+    architecture_drift["daemon"]["version"]["arch"] = "arm64"
+    assert "environment:docker-runtime:daemon-arch-drift" in (
+        manifest.validate_docker_runtime_receipt(architecture_drift)
+    )
+
+
 def test_all_green_receipts_and_authorized_state_are_required_for_launch(tmp_path: Path) -> None:
     report = build_ready(tmp_path)
 
@@ -613,6 +987,12 @@ def test_all_green_receipts_and_authorized_state_are_required_for_launch(tmp_pat
     assert all(report["gates"].values())
     assert report["gates"]["tooling_verification"] is True
     assert report["tooling_verification_receipt"] is not None
+    assert report["host_packet_manifest"] == report["hash_bound_files"][
+        manifest.HOST_PACKET_MANIFEST_REL
+    ]
+    assert report["host_preparation_receipt"] == report["hash_bound_files"][
+        manifest.HOST_PREPARATION_RECEIPT_REL
+    ]
     assert report["planned_blocks"] == 120
     assert report["planned_episodes"] == 2400
     assert report["design"]["retry_policy"] == ("no_automatic_retry_abort_on_first_block_failure")
@@ -645,6 +1025,28 @@ def test_non_authorized_mission_phase_cannot_be_overridden_by_green_evidence(
     assert report["gates"]["mission_state"] is False
     assert report["mission_phase"] == manifest.PREFLIGHT_MISSION_PHASE
     assert not any(problem.startswith("mission-state:phase:") for problem in report["problems"])
+
+
+def test_frozen_host_packet_and_smoke_replay_survive_launch_state_transition(
+    tmp_path: Path,
+) -> None:
+    exp, state_path = make_fixture(tmp_path, phase=manifest.PREFLIGHT_MISSION_PHASE)
+    packet_before = (exp / manifest.HOST_PACKET_MANIFEST_REL).read_bytes()
+    smoke_before = (exp / manifest.SMOKE_RECEIPT_REL).read_bytes()
+
+    state_path.write_text(json.dumps(mission_state(manifest.EXPECTED_MISSION_PHASE)))
+    report = manifest.build_manifest(
+        repo_root=REPO,
+        experiment_dir=exp,
+        mission_state_path=state_path,
+        git_provenance=ready_git_receipt(),
+    )
+
+    assert report["verdict"] == manifest.READY_VERDICT
+    assert report["launch_authorized"] is True
+    assert report["problems"] == []
+    assert (exp / manifest.HOST_PACKET_MANIFEST_REL).read_bytes() == packet_before
+    assert (exp / manifest.SMOKE_RECEIPT_REL).read_bytes() == smoke_before
 
 
 def test_unknown_mission_phase_is_rejected_as_a_problem(tmp_path: Path) -> None:
@@ -725,7 +1127,35 @@ def test_mission_state_rejects_extra_top_level_field(tmp_path: Path) -> None:
 
     assert "mission-state:field-set" in report["problems"]
     assert report["gates"]["mission_state"] is False
-    assert report["launch_authorized"] is False
+
+
+@pytest.mark.parametrize(
+    ("field", "value", "problem"),
+    [
+        ("claim_state", {"production_readiness": "ESTABLISHED"}, "mission-state:claim-state"),
+        ("deprecated_pending_hypotheses", [], "mission-state:deprecated-hypotheses"),
+        ("paper_state", {"status": "SUBMISSION_READY"}, "mission-state:paper-state"),
+    ],
+)
+def test_manifest_consumer_freezes_exact_claim_paper_and_deprecated_state(
+    field: str, value: object, problem: str
+) -> None:
+    state = mission_state()
+    state[field] = value
+
+    assert problem in manifest.validate_mission_state(state)
+
+
+@pytest.mark.parametrize("payload", ['{"x":1,"x":2}', '{"x":NaN}', '{"x":Infinity}'])
+def test_manifest_json_loader_rejects_duplicate_and_nonfinite_state(
+    tmp_path: Path, payload: str
+) -> None:
+    path = tmp_path / "MISSION_STATE.json"
+    path.write_text(payload)
+    problems: list[str] = []
+
+    assert manifest._load_json(path, "MISSION_STATE.json", problems) is None
+    assert problems and problems[0].startswith("invalid-json:MISSION_STATE.json:ValueError")
 
 
 def test_pre_smoke_phase_has_exactly_one_missing_evidence_problem(tmp_path: Path) -> None:
@@ -768,6 +1198,41 @@ def test_missing_future_evidence_is_reported_without_fabricated_receipts(tmp_pat
     assert report["dataset_receipt"] is None
     assert report["container_images"] is None
     assert report["smoke_receipt"] is None
+
+
+@pytest.mark.parametrize("mutation", ["packet-byte", "packet-link", "embedded-evidence"])
+def test_host_packet_and_preparation_cross_binding_fail_closed(
+    tmp_path: Path, mutation: str
+) -> None:
+    exp, state_path = make_fixture(tmp_path)
+    packet_path = exp / manifest.HOST_PACKET_MANIFEST_REL
+    preparation_path = exp / manifest.HOST_PREPARATION_RECEIPT_REL
+    env_path = exp / manifest.ENV_RECEIPT_REL
+    if mutation == "packet-byte":
+        packet = json.loads(packet_path.read_text())
+        packet["files"]["authorize_launch135.py"]["sha256"] = "0" * 64
+        packet_path.write_text(json.dumps(packet, sort_keys=True) + "\n")
+    elif mutation == "packet-link":
+        preparation = json.loads(preparation_path.read_text())
+        preparation["packet_manifest_sha256"] = "0" * 64
+        preparation_path.write_text(json.dumps(preparation, sort_keys=True) + "\n")
+    else:
+        env = json.loads(env_path.read_text())
+        env["host_preparation"]["evidence"]["host"] = "forged-host"
+        env_path.write_text(json.dumps(env, sort_keys=True) + "\n")
+
+    report = manifest.build_manifest(
+        repo_root=REPO,
+        experiment_dir=exp,
+        mission_state_path=state_path,
+        git_provenance=ready_git_receipt(),
+    )
+
+    assert report["launch_authorized"] is False
+    assert any(
+        problem.startswith(("host-packet:", "host-preparation:", "environment:"))
+        for problem in report["problems"]
+    )
 
 
 def test_environment_image_or_checkpoint_drift_fails_closed(tmp_path: Path) -> None:
@@ -1181,6 +1646,34 @@ def test_raw_smoke_mutation_is_recomputed_and_fails_closed(tmp_path: Path) -> No
     assert report["launch_authorized"] is False
     assert "smoke:recomputation-mismatch" in report["problems"]
     assert "smoke:dose:blind_1_0x:pass-through" in report["problems"]
+
+
+def test_final_manifest_requires_exact_generated_smoke_summary(tmp_path: Path) -> None:
+    exp, state_path = make_fixture(tmp_path)
+    summary_path = exp / manifest.SMOKE_SUMMARY_REL
+    summary_path.unlink()
+
+    missing = manifest.build_manifest(
+        repo_root=REPO,
+        experiment_dir=exp,
+        mission_state_path=state_path,
+        git_provenance=ready_git_receipt(),
+    )
+    assert missing["launch_authorized"] is False
+    assert "smoke:summary-missing" in missing["problems"]
+    assert manifest.SMOKE_SUMMARY_REL in missing["missing_artifacts"]
+
+    exp, state_path = make_fixture(tmp_path / "mutated")
+    summary_path = exp / manifest.SMOKE_SUMMARY_REL
+    summary_path.write_bytes(summary_path.read_bytes() + b"\n")
+    mutated = manifest.build_manifest(
+        repo_root=REPO,
+        experiment_dir=exp,
+        mission_state_path=state_path,
+        git_provenance=ready_git_receipt(),
+    )
+    assert mutated["launch_authorized"] is False
+    assert "smoke:summary-mismatch" in mutated["problems"]
 
 
 def test_manifest_is_deterministic_and_build_does_not_write_launch_file(tmp_path: Path) -> None:

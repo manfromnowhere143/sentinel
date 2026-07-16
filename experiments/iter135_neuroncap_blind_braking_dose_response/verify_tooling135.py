@@ -37,6 +37,27 @@ from typing import Any, Callable, Mapping, Sequence
 SCHEMA = "iter135.tooling_verification.v2"
 OK_VERDICT = "I135_TOOLING_VERIFICATION_OK"
 FAIL_VERDICT = "I135_TOOLING_VERIFICATION_FAILED"
+RECEIPT_FIELDS = frozenset(
+    {
+        "schema",
+        "publication",
+        "verdict",
+        "problem_count",
+        "problems",
+        "repository",
+        "inventory",
+        "inventory_sha256",
+        "toolchain",
+        "environment_contract",
+        "files",
+        "file_content_set_sha256",
+        "command_contract",
+        "commands",
+        "timing",
+        "receipt_payload_sha256",
+    }
+)
+RECEIPT_PAYLOAD_FIELDS = RECEIPT_FIELDS - {"receipt_payload_sha256"}
 
 HERE = Path(__file__).resolve().parent
 REPO_ROOT = HERE.parents[1]
@@ -47,16 +68,52 @@ RECEIPT_REL = f"{EXPERIMENT_REL}/tooling_verification_receipt.json"
 GENERATION_ONE_SOURCE_PARENT = "3fcb607fea8e1a251c2c82da385dd096dd650909"
 GENERATION_ONE_SOURCE_COMMIT = "2d94cf45acb337ff3ba923da1d1de6e6dda6dab7"
 GENERATION_ONE_RECEIPT_COMMIT = "0b5b2d9a4956606fe0619f53288a64d2da58284a"
-RECOVERY_SOURCE_PARENT = "c868040f542f9277fc99a451a108138848e80b33"
-RECOVERY_REASON = "H3_PHASE_TRANSITION_SUITE_AND_CI_PORTABILITY_FAILURE"
+GENERATION_TWO_SOURCE_PARENT = "c868040f542f9277fc99a451a108138848e80b33"
+GENERATION_TWO_SOURCE_COMMIT = "90773c3686e0e01562a62f3d0f21ddaf594de7d4"
+GENERATION_TWO_RECEIPT_COMMIT = "b0eca127ff1d522aefa6164271de7bce3bcaf1a7"
+GENERATION_TWO_STATE_COMMIT = "71a137faa268c63d73ae5d1ec0f8409306f446e5"
+GENERATION_TWO_BATON_COMMIT = "ee0c0c953ace80b53f3cce97ddd7eb262fb22a2d"
+GENERATION_THREE_SOURCE_PARENT = GENERATION_TWO_BATON_COMMIT
+GENERATION_THREE_REASON = (
+    "PRE_SMOKE_CONTROL_GAPS_INTERPRETER_SUMMARY_AND_LAUNCH_AUTHORIZATION"
+)
+# Compatibility aliases used by the receipt generator and focused hostile tests. They always name
+# the active generation-three source publication, never the historical generation-two recovery.
+RECOVERY_SOURCE_PARENT = GENERATION_THREE_SOURCE_PARENT
+RECOVERY_REASON = GENERATION_THREE_REASON
 POST_FREEZE_EXACT_PATHS = {
     "CONTINUITY.md",
     "HANDOFF.md",
     "MISSION_STATE.json",
     f"{EXPERIMENT_REL}/env_receipts.json",
+    f"{EXPERIMENT_REL}/host_packet_manifest.json",
+    f"{EXPERIMENT_REL}/host_preparation_receipt.json",
     f"{EXPERIMENT_REL}/launch_manifest.json",
+    f"{EXPERIMENT_REL}/launch_activation_receipt.json",
 }
-POST_FREEZE_PATH_PREFIXES = (f"{EXPERIMENT_REL}/smoke-evidence/",)
+SMOKE_DOSES = ("blind_0_5x", "blind_1_0x", "blind_1_5x", "blind_2_0x")
+SMOKE_EVIDENCE_PATHS = tuple(
+    sorted(
+        {
+            f"{EXPERIMENT_REL}/smoke-evidence/SMOKE.md",
+            f"{EXPERIMENT_REL}/smoke-evidence/smoke_receipt.json",
+            f"{EXPERIMENT_REL}/smoke-evidence/raw/execution.jsonl",
+            f"{EXPERIMENT_REL}/smoke-evidence/raw/pre_smoke_manifest.json",
+            f"{EXPERIMENT_REL}/smoke-evidence/raw/environment_receipt.json",
+            f"{EXPERIMENT_REL}/smoke-evidence/raw/pre_smoke_mission_state.json",
+            *{
+                f"{EXPERIMENT_REL}/smoke-evidence/raw/{dose}.{suffix}"
+                for dose in SMOKE_DOSES
+                for suffix in ("decisions.jsonl", "model-env.bin", "compose.log")
+            },
+        }
+    )
+)
+HOST_PACKET_MANIFEST_REL = f"{EXPERIMENT_REL}/host_packet_manifest.json"
+HOST_PREPARATION_RECEIPT_REL = f"{EXPERIMENT_REL}/host_preparation_receipt.json"
+ENVIRONMENT_RECEIPT_REL = f"{EXPERIMENT_REL}/env_receipts.json"
+LAUNCH_MANIFEST_REL = f"{EXPERIMENT_REL}/launch_manifest.json"
+LAUNCH_ACTIVATION_RECEIPT_REL = f"{EXPERIMENT_REL}/launch_activation_receipt.json"
 
 # These are mandatory members of the frozen surface.  Discovery is deliberately open to
 # additional test/Python files so a newly added Iter135 source cannot silently escape the receipt.
@@ -64,6 +121,8 @@ REQUIRED_TEST_FILES = (
     "tests/test_iter135_analyzer.py",
     "tests/test_iter135_environment_capture.py",
     "tests/test_iter135_harness_patches.py",
+    "tests/test_iter135_host_preparation.py",
+    "tests/test_iter135_launch_authorization.py",
     "tests/test_iter135_launch_manifest.py",
     "tests/test_iter135_launcher.py",
     "tests/test_iter135_proof_collector.py",
@@ -74,12 +133,14 @@ REQUIRED_TEST_FILES = (
 )
 REQUIRED_PYTHON_TOOL_FILES = (
     f"{EXPERIMENT_REL}/analyze_dose135.py",
+    f"{EXPERIMENT_REL}/authorize_launch135.py",
     f"{EXPERIMENT_REL}/capture_environment135.py",
     f"{EXPERIMENT_REL}/collect_proof135.py",
     f"{EXPERIMENT_REL}/extract_union_windows.py",
     f"{EXPERIMENT_REL}/generate_nested_dose_schedules.py",
     f"{EXPERIMENT_REL}/make_launch_manifest.py",
     f"{EXPERIMENT_REL}/patch_compose_dose_env.py",
+    f"{EXPERIMENT_REL}/prepare_host135.py",
     f"{EXPERIMENT_REL}/server_patch_blind_dose.py",
     f"{EXPERIMENT_REL}/server_patch_union_release.py",
     f"{EXPERIMENT_REL}/validate_smoke135.py",
@@ -140,7 +201,7 @@ GENERATION_ONE_SOURCE_COMMIT_PATHS = (
     "tests/test_iter135_tooling_verifier.py",
     "tests/test_mission_state.py",
 )
-RECOVERY_SOURCE_COMMIT_PATHS = (
+GENERATION_TWO_SOURCE_COMMIT_PATHS = (
     ".github/workflows/ci.yml",
     "CONTINUITY.md",
     "HANDOFF.md",
@@ -151,11 +212,39 @@ RECOVERY_SOURCE_COMMIT_PATHS = (
     "tests/test_iter135_tooling_verifier.py",
     "tests/test_mission_state.py",
 )
+GENERATION_THREE_SOURCE_COMMIT_PATHS = (
+    ".github/workflows/ci.yml",
+    "CONTINUITY.md",
+    "HANDOFF.md",
+    "MISSION_STATE.json",
+    f"{EXPERIMENT_REL}/analyze_dose135.py",
+    f"{EXPERIMENT_REL}/authorize_launch135.py",
+    f"{EXPERIMENT_REL}/capture_environment135.py",
+    f"{EXPERIMENT_REL}/collect_proof135.py",
+    f"{EXPERIMENT_REL}/make_launch_manifest.py",
+    f"{EXPERIMENT_REL}/prepare_host135.py",
+    f"{EXPERIMENT_REL}/run_dose135.sh",
+    f"{EXPERIMENT_REL}/run_smoke135.sh",
+    f"{EXPERIMENT_REL}/validate_smoke135.py",
+    f"{EXPERIMENT_REL}/verify_tooling135.py",
+    "scripts/mission_state.py",
+    "tests/test_iter135_analyzer.py",
+    "tests/test_iter135_environment_capture.py",
+    "tests/test_iter135_host_preparation.py",
+    "tests/test_iter135_launch_authorization.py",
+    "tests/test_iter135_launch_manifest.py",
+    "tests/test_iter135_launcher.py",
+    "tests/test_iter135_proof_collector.py",
+    "tests/test_iter135_smoke_pipeline.py",
+    "tests/test_iter135_tooling_verifier.py",
+    "tests/test_mission_state.py",
+)
+RECOVERY_SOURCE_COMMIT_PATHS = GENERATION_THREE_SOURCE_COMMIT_PATHS
 EXPECTED_RECOVERY_PUBLICATION = {
-    "generation": 2,
-    "supersedes_receipt_commit": GENERATION_ONE_RECEIPT_COMMIT,
-    "recovery_parent": RECOVERY_SOURCE_PARENT,
-    "reason_code": RECOVERY_REASON,
+    "generation": 3,
+    "supersedes_receipt_commit": GENERATION_TWO_RECEIPT_COMMIT,
+    "recovery_parent": GENERATION_THREE_SOURCE_PARENT,
+    "reason_code": GENERATION_THREE_REASON,
 }
 
 # Compatibility names describe only the immutable first freeze.  Recovery publication checks use
@@ -302,6 +391,30 @@ def _canonical_json(value: Any) -> bytes:
         ensure_ascii=True,
         allow_nan=False,
     ).encode("utf-8")
+
+
+def _strict_json_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    value: dict[str, Any] = {}
+    for key, item in pairs:
+        if key in value:
+            raise VerificationError(f"duplicate receipt JSON key: {key}")
+        value[key] = item
+    return value
+
+
+def _reject_nonfinite_json(value: str) -> None:
+    raise VerificationError(f"non-finite receipt JSON number: {value}")
+
+
+def _parse_receipt_json(payload: str | bytes) -> dict[str, Any]:
+    value = json.loads(
+        payload,
+        object_pairs_hook=_strict_json_object,
+        parse_constant=_reject_nonfinite_json,
+    )
+    if not isinstance(value, dict):
+        raise VerificationError("receipt JSON root is not an object")
+    return value
 
 
 def _sha256_bytes(value: bytes) -> str:
@@ -885,7 +998,7 @@ def run_verification(
     wall_clock_ns: Clock = time.time_ns,
     monotonic_clock_ns: Clock = time.monotonic_ns,
 ) -> dict[str, Any]:
-    """Run the generation-two recovery receipt pipeline and return its in-memory receipt."""
+    """Run the generation-three control-refreeze pipeline and return its in-memory receipt."""
 
     root = repo_root.resolve(strict=True)
     wall_start = wall_clock_ns()
@@ -935,14 +1048,14 @@ def run_verification(
         problems.append(
             _problem(
                 "SOURCE_PARENT",
-                "recovery source HEAD is not the direct child of the recorded failed H3",
+                "generation-three source HEAD is not the direct child of the accepted B2 baton",
             )
         )
     if git_start.commit_paths != tuple(sorted(RECOVERY_SOURCE_COMMIT_PATHS)):
         problems.append(
             _problem(
                 "SOURCE_COMMIT_SCOPE",
-                "recovery source HEAD path set is not the exact nine-path refreeze set",
+                "generation-three source HEAD path set is not the exact preregistered refreeze set",
             )
         )
 
@@ -1075,7 +1188,11 @@ def run_verification(
             "monotonic_duration_ns": max(0, monotonic_end - monotonic_start),
         },
     }
+    if set(receipt) != RECEIPT_PAYLOAD_FIELDS:
+        raise VerificationError("generated receipt payload field set drift")
     receipt["receipt_payload_sha256"] = _sha256_bytes(_canonical_json(receipt))
+    if set(receipt) != RECEIPT_FIELDS:
+        raise VerificationError("generated receipt field set drift")
     return receipt
 
 
@@ -1267,10 +1384,60 @@ def _linear_publication_chain(
     raise VerificationError("publication chain exceeded the bounded history walk")
 
 
-def _post_freeze_path_allowed(relative_path: str) -> bool:
-    return relative_path in POST_FREEZE_EXACT_PATHS or relative_path.startswith(
-        POST_FREEZE_PATH_PREFIXES
+def _validate_post_baton_chain(
+    chain: Sequence[tuple[str, tuple[str, ...]]],
+) -> None:
+    """Require the only publication order that can end in analytic authority.
+
+    Partial prefixes through smoke are valid preflight states.  Exact A and A/F prefixes are also
+    valid only while constructing the deterministic final manifest and activation baton; they are
+    never launch authority.  This function proves path topology.  The mission-state controller
+    requires complete A/F/B and separately proves artifact bytes, phases, hashes, and publication.
+    """
+
+    expected_prefixes = (
+        (HOST_PACKET_MANIFEST_REL, HOST_PREPARATION_RECEIPT_REL),
+        (ENVIRONMENT_RECEIPT_REL,),
+        (LAUNCH_MANIFEST_REL,),
     )
+    cursor = 0
+    for expected in expected_prefixes:
+        if cursor >= len(chain):
+            return
+        commit, paths = chain[cursor]
+        if paths != expected:
+            raise VerificationError(
+                f"post-freeze commit {commit} violates evidence order: {list(paths)}!={list(expected)}"
+            )
+        cursor += 1
+
+    if cursor >= len(chain):
+        return
+    smoke_commit, smoke_paths = chain[cursor]
+    if smoke_paths != SMOKE_EVIDENCE_PATHS:
+        raise VerificationError(
+            f"post-freeze commit {smoke_commit} is not the exact smoke-evidence freeze"
+        )
+    cursor += 1
+    if cursor >= len(chain):
+        return
+
+    launch_tail = chain[cursor:]
+    expected_launch_paths = (
+        ("MISSION_STATE.json",),
+        (LAUNCH_MANIFEST_REL,),
+        ("CONTINUITY.md", "HANDOFF.md", LAUNCH_ACTIVATION_RECEIPT_REL),
+    )
+    if len(launch_tail) > len(expected_launch_paths):
+        raise VerificationError(
+            "launch transition has commits beyond the exact state, final-manifest, and "
+            "activation-baton sequence"
+        )
+    for (commit, paths), expected in zip(launch_tail, expected_launch_paths):
+        if paths != expected:
+            raise VerificationError(
+                f"launch-transition commit {commit} has wrong scope: {list(paths)}!={list(expected)}"
+            )
 
 
 def validate_published_receipt_structure(
@@ -1280,7 +1447,7 @@ def validate_published_receipt_structure(
     git_probe: GitProbe = default_structural_git_probe,
     ancestry_probe: AncestryProbe = default_ancestry_probe,
 ) -> list[str]:
-    """Validate the explicit generation-two refreeze proof after state-only descendants exist.
+    """Validate the explicit generation-three refreeze proof after state-only descendants exist.
 
     Independent command replay is deliberately performed at the exact replacement receipt commit by
     :func:`validate_receipt`.  This post-transition validator instead proves that the committed
@@ -1289,10 +1456,14 @@ def validate_published_receipt_structure(
     """
 
     errors: list[str] = []
+    if not isinstance(receipt, Mapping):
+        return ["receipt root is not an object"]
+    if set(receipt) != RECEIPT_FIELDS:
+        errors.append("receipt root field set mismatch")
     if receipt.get("schema") != SCHEMA:
         errors.append("schema mismatch")
     if receipt.get("publication") != EXPECTED_RECOVERY_PUBLICATION:
-        errors.append("generation-two publication block mismatch")
+        errors.append("generation-three publication block mismatch")
     if receipt.get("verdict") != OK_VERDICT:
         errors.append("receipt verdict is not green")
     if receipt.get("problem_count") != 0 or receipt.get("problems") != []:
@@ -1318,7 +1489,7 @@ def validate_published_receipt_structure(
         if not _valid_commit(source_commit):
             raise VerificationError("receipt source commit is malformed")
         empty_status = _sha256_bytes(b"")
-        expected_source_paths = tuple(sorted(RECOVERY_SOURCE_COMMIT_PATHS))
+        expected_source_paths = tuple(sorted(GENERATION_THREE_SOURCE_COMMIT_PATHS))
         if (
             claimed_start.get("dirty_entries") != []
             or claimed_start.get("porcelain_v1_z_sha256") != empty_status
@@ -1338,7 +1509,7 @@ def validate_published_receipt_structure(
 
         source_parents, source_paths = _git_commit_row(root, source_commit)
         if source_parents != (RECOVERY_SOURCE_PARENT,) or source_paths != expected_source_paths:
-            raise VerificationError("actual recovery source topology or path scope is wrong")
+            raise VerificationError("actual generation-three source topology or path scope is wrong")
 
         inventory = _source_inventory_from_tree(root, source_commit)
         if receipt.get("inventory") != inventory.as_dict():
@@ -1408,12 +1579,16 @@ def validate_published_receipt_structure(
             line for line in history_raw.decode("ascii", errors="strict").splitlines() if line
         )
         if (
-            len(receipt_history) != 2
+            len(receipt_history) != 3
             or not _valid_commit(receipt_history[0])
-            or receipt_history[1] != GENERATION_ONE_RECEIPT_COMMIT
+            or receipt_history[1:] != (
+                GENERATION_TWO_RECEIPT_COMMIT,
+                GENERATION_ONE_RECEIPT_COMMIT,
+            )
         ):
             raise VerificationError(
-                "canonical receipt history is not exact generation-two then generation-one"
+                "canonical receipt history is not exact generation-three, generation-two, "
+                "then generation-one"
             )
         receipt_commit = receipt_history[0]
 
@@ -1432,15 +1607,46 @@ def validate_published_receipt_structure(
         ):
             raise VerificationError("generation-one receipt topology or path scope changed")
 
+        generation_two_source_parents, generation_two_source_paths = _git_commit_row(
+            root, GENERATION_TWO_SOURCE_COMMIT
+        )
+        if generation_two_source_parents != (GENERATION_TWO_SOURCE_PARENT,) or (
+            generation_two_source_paths != tuple(sorted(GENERATION_TWO_SOURCE_COMMIT_PATHS))
+        ):
+            raise VerificationError("generation-two source topology or path scope changed")
+        generation_two_receipt_parents, generation_two_receipt_paths = _git_commit_row(
+            root, GENERATION_TWO_RECEIPT_COMMIT
+        )
+        if generation_two_receipt_parents != (GENERATION_TWO_SOURCE_COMMIT,) or (
+            generation_two_receipt_paths != (RECEIPT_REL,)
+        ):
+            raise VerificationError("generation-two receipt topology or path scope changed")
+        generation_two_state_parents, generation_two_state_paths = _git_commit_row(
+            root, GENERATION_TWO_STATE_COMMIT
+        )
+        if generation_two_state_parents != (GENERATION_TWO_RECEIPT_COMMIT,) or (
+            generation_two_state_paths != ("MISSION_STATE.json",)
+        ):
+            raise VerificationError("generation-two state topology or path scope changed")
+        generation_two_baton_parents, generation_two_baton_paths = _git_commit_row(
+            root, GENERATION_TWO_BATON_COMMIT
+        )
+        if generation_two_baton_parents != (GENERATION_TWO_STATE_COMMIT,) or (
+            generation_two_baton_paths != ("CONTINUITY.md", "HANDOFF.md")
+        ):
+            raise VerificationError("generation-two baton topology or path scope changed")
+
         receipt_parents, receipt_paths = _git_commit_row(root, receipt_commit)
         if receipt_parents != (source_commit,) or receipt_paths != (RECEIPT_REL,):
-            raise VerificationError("replacement receipt is not the exact receipt-only child")
+            raise VerificationError("generation-three receipt is not the exact receipt-only child")
 
         receipt_path = root / RECEIPT_REL
         current_receipt_bytes = _read_stable_regular_file(receipt_path)
         if _git_file_bytes(root, receipt_commit, RECEIPT_REL) != current_receipt_bytes:
-            raise VerificationError("canonical receipt bytes differ from replacement commit bytes")
-        committed_receipt = json.loads(current_receipt_bytes.decode("utf-8"))
+            raise VerificationError(
+                "canonical receipt bytes differ from generation-three receipt commit bytes"
+            )
+        committed_receipt = _parse_receipt_json(current_receipt_bytes)
         if committed_receipt != dict(receipt):
             raise VerificationError("supplied receipt differs from the committed canonical receipt")
 
@@ -1450,9 +1656,9 @@ def validate_published_receipt_structure(
         if not _valid_commit(current_git.upstream_head):
             raise VerificationError("origin/master commit is malformed or missing")
         if not ancestry_probe(root, receipt_commit, current_git.head):
-            raise VerificationError("replacement receipt is not an ancestor of current HEAD")
+            raise VerificationError("generation-three receipt is not an ancestor of current HEAD")
         if not ancestry_probe(root, receipt_commit, current_git.upstream_head):
-            raise VerificationError("replacement receipt is not published on origin/master")
+            raise VerificationError("generation-three receipt is not published on origin/master")
         if current_git.upstream_head != current_git.head and not ancestry_probe(
             root, current_git.upstream_head, current_git.head
         ):
@@ -1466,12 +1672,7 @@ def validate_published_receipt_structure(
         if chain[1][1] != ("CONTINUITY.md", "HANDOFF.md"):
             raise VerificationError("offline baton H+3 has the wrong path scope")
         if len(chain) > 2:
-            for commit, paths in chain[2:]:
-                rejected = [path for path in paths if not _post_freeze_path_allowed(path)]
-                if rejected:
-                    raise VerificationError(
-                        f"post-freeze commit {commit} changed unauthorized paths: {rejected}"
-                    )
+            _validate_post_baton_chain(chain[2:])
     except Exception as exc:
         errors.append(f"published receipt structure invalid: {type(exc).__name__}: {exc}")
     return errors
@@ -1486,13 +1687,17 @@ def validate_receipt(
     ancestry_probe: AncestryProbe = default_ancestry_probe,
     toolchain_resolver: ToolchainResolver = resolve_toolchain,
 ) -> list[str]:
-    """Replay every generation-two command and claim against current source bytes."""
+    """Replay every generation-three command and claim against current source bytes."""
 
     errors: list[str] = []
+    if not isinstance(receipt, Mapping):
+        return ["receipt root is not an object"]
+    if set(receipt) != RECEIPT_FIELDS:
+        errors.append("receipt root field set mismatch")
     if receipt.get("schema") != SCHEMA:
         errors.append("schema mismatch")
     if receipt.get("publication") != EXPECTED_RECOVERY_PUBLICATION:
-        errors.append("generation-two publication block mismatch")
+        errors.append("generation-three publication block mismatch")
     if receipt.get("verdict") != OK_VERDICT:
         errors.append("receipt verdict is not green")
     problems = receipt.get("problems")
@@ -1748,10 +1953,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = _parse_args(argv)
     if args.verify_receipt is not None:
         try:
-            receipt = json.loads(args.verify_receipt.read_text(encoding="utf-8"))
+            receipt = _parse_receipt_json(args.verify_receipt.read_bytes())
             errors = validate_receipt(receipt)
         except Exception as exc:
-            errors = [f"receipt read failed: {type(exc).__name__}: {exc}"]
+            errors = [f"receipt read failed: {type(exc).__name__}"]
         print(OK_VERDICT if not errors else FAIL_VERDICT)
         if errors:
             print(f"problem_count={len(errors)}")

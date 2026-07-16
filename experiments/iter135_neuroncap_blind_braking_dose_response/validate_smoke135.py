@@ -14,8 +14,10 @@ import argparse
 import hashlib
 import json
 import math
+import os
 import re
 import sys
+import tempfile
 from collections.abc import Mapping, Sequence
 from pathlib import Path
 from typing import Any
@@ -23,13 +25,16 @@ from typing import Any
 
 HERE = Path(__file__).resolve().parent
 RAW_REL = Path("smoke-evidence/raw")
+RAW_MISSION_STATE_NAME = "pre_smoke_mission_state.json"
 RECEIPT_REL = Path("smoke-evidence/smoke_receipt.json")
+SUMMARY_REL = Path("smoke-evidence/SMOKE.md")
 
 RECEIPT_SCHEMA = "iter135.smoke_receipt.v1"
+SUMMARY_SCHEMA = "iter135.smoke_summary.v1"
 RAW_SCHEMA = "iter135.smoke_execution.v1"
 OK_VERDICT = "I135_LIVE_SMOKE_OK"
 FAIL_VERDICT = "I135_LIVE_SMOKE_INFRA_NULL"
-ENV_SCHEMA = "iter135.environment_receipts.v2"
+ENV_SCHEMA = "iter135.environment_receipts.v3"
 ENV_VERDICT = "I135_ENVIRONMENT_PREFLIGHT_OK"
 MANIFEST_SCHEMA = "iter135.launch_manifest.v2"
 PRE_SMOKE_VERDICT = "I135_TOOLING_MANIFEST_INCOMPLETE"
@@ -57,10 +62,8 @@ MISSION_STATE_FIELDS = {
     "storage_gate",
 }
 PREFLIGHT_AUTHORIZED_ACTIONS = [
-    (
-        "prepare only the exact hash-bound sentinel-gpu host contract, including the dedicated "
-        "iteration-135 output root"
-    ),
+    "prepare the exact hash-bound sentinel-gpu host contract and atomically commit "
+    "host_packet_manifest.json and host_preparation_receipt.json",
     "capture and commit the read-only iteration-135 environment receipt on sentinel-gpu",
     (
         "generate and commit only the hash-addressed incomplete pre-smoke manifest; no analytic "
@@ -70,7 +73,8 @@ PREFLIGHT_AUTHORIZED_ACTIONS = [
         "run exactly the hash-bound four-run nonanalytic G5 smoke after the incomplete pre-smoke "
         "manifest is committed"
     ),
-    "validate, collect, and commit the exact nonanalytic smoke evidence and receipt",
+    "validate, collect, and commit the exact nonanalytic smoke raw evidence, recomputed receipt, "
+    "and mechanically generated SMOKE.md",
 ]
 PREFLIGHT_FORBIDDEN_ACTIONS = [
     (
@@ -102,12 +106,58 @@ MISSION_STORAGE_GATE = {
         "reproducible renders, and caches"
     ),
 }
+MISSION_CLAIM_STATE = {
+    "neuroncap_union_gain": "ESTABLISHED_ON_NEURONCAP",
+    "semantic_attribution": "UNRESOLVED",
+    "hugsim_transfer": "TRANSFER_NULL",
+    "production_readiness": "NOT_ESTABLISHED",
+}
+MISSION_DEPRECATED_HYPOTHESES = [
+    "experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md"
+]
+MISSION_PAPER_STATE = {
+    "status": "ARCHIVED_NOT_SUBMISSION_READY",
+    "next_route": "peer-reviewed venue after a full evidence rewrite",
+    "blocking_omissions": [
+        "HUGSIM transfer null",
+        "iteration-134 placebo result",
+        "resolved wording for the decoder universal-negative overclaim",
+    ],
+}
 DATASET_SCHEMA = "iter135.nuscenes_dataset_receipt.v1"
 DATASET_CONTRACT_SHA256 = (
     "ae22656f62044fbc649a5ef8976c708249b6c62dabe475fb8c347b7558fe3e8b"
 )
 
 BLIND_DOSES = ("blind_0_5x", "blind_1_0x", "blind_1_5x", "blind_2_0x")
+SUMMARY_PROVENANCE_FIELDS = (
+    "pre_smoke_manifest_sha256",
+    "environment_receipt_sha256",
+    "dataset_contract_sha256",
+    "dataset_receipt_payload_sha256",
+    "schedule_sha256",
+    "blind_patch_sha256",
+    "remote_compose_sha256",
+    "runner_sha256",
+    "validator_sha256",
+    "canonical_runner_sha256",
+    "docker_wrapper_sha256",
+    "docker_binary_sha256",
+    "python_wrapper_sha256",
+    "python_binary_sha256",
+    "github_pre_smoke_authority",
+)
+SUMMARY_DOSE_RESULT_FIELDS = (
+    "schedule_id",
+    "expected_brake_frames",
+    "observed_brake_frames",
+    "frame_count",
+    "pass_through_exact",
+    "zero_actuator_exact",
+    "identity_fields",
+    "schedule_missing",
+    "intervene_errors",
+)
 REQUIRED_MODEL_ENV = (
     "SENTINEL_ENABLED",
     "SENTINEL_DOSE_PAIR",
@@ -237,6 +287,12 @@ ENVIRONMENT_FIELDS = {
     "host",
     "problem_count",
     "problems",
+    "interpreter",
+    "invocation",
+    "host_preparation",
+    "host_publication_authority",
+    "docker_runtime",
+    "runtime_snapshots",
     "gpu",
     "box",
     "storage",
@@ -268,6 +324,8 @@ MANIFEST_FIELDS = {
     "storage_gate",
     "resource_gate",
     "smoke_receipt",
+    "host_packet_manifest",
+    "host_preparation_receipt",
     "tooling_verification_receipt",
     "gates",
     "missing_artifacts",
@@ -309,10 +367,15 @@ SESSION_START_FIELDS = {
     "canonical_runner_identity",
     "persistent_smoke_lock",
     "persistent_smoke_lock_identity",
+    "persistent_smoke_lock_sha256",
+    "github_pre_smoke_authority",
     "retry_policy",
     "docker_wrapper_sha256",
     "docker_binary_sha256",
     "docker_binary_identity",
+    "python_wrapper_sha256",
+    "python_binary_sha256",
+    "python_binary_identity",
     "container_control_root_identity",
     "environment_receipt_sha256",
     "schedule_sha256",
@@ -369,6 +432,149 @@ SESSION_FINISH_FIELDS = {
 }
 
 
+class SmokeBundleError(RuntimeError):
+    """A canonical smoke receipt/summary bundle could not be published safely."""
+
+
+def _canonical_json_bytes(value: Any) -> bytes:
+    return json.dumps(
+        value,
+        sort_keys=True,
+        separators=(",", ":"),
+        ensure_ascii=True,
+        allow_nan=False,
+    ).encode("utf-8")
+
+
+def canonical_smoke_receipt_bytes(receipt: Mapping[str, Any]) -> bytes:
+    """Return the one accepted on-disk serialization of a recomputed smoke receipt."""
+
+    return (
+        json.dumps(
+            dict(receipt),
+            indent=1,
+            sort_keys=True,
+            ensure_ascii=True,
+            allow_nan=False,
+        )
+        + "\n"
+    ).encode("utf-8")
+
+
+def _raw_artifact_summary(receipt: Mapping[str, Any]) -> dict[str, Any]:
+    artifacts = receipt.get("artifacts")
+    if not isinstance(artifacts, list) or not all(
+        isinstance(row, Mapping) for row in artifacts
+    ):
+        return {"count": None, "content_set_sha256": None}
+    normalized = sorted(
+        (dict(row) for row in artifacts),
+        key=lambda row: str(row.get("path")),
+    )
+    return {
+        "count": len(normalized),
+        "content_set_sha256": hashlib.sha256(
+            _canonical_json_bytes(normalized)
+        ).hexdigest(),
+    }
+
+
+def smoke_summary_payload(
+    receipt: Mapping[str, Any],
+    receipt_bytes: bytes | None = None,
+) -> dict[str, Any]:
+    """Project a receipt into the exact bounded human-facing smoke summary payload.
+
+    ``receipt_bytes`` must be the canonical serialization of ``receipt``.  This makes the
+    relationship deliberately one-way: raw evidence produces the receipt bytes, and those bytes
+    produce the Markdown summary.  The summary is never inserted into the receipt's raw artifact
+    list, so no self-referential hash cycle exists.
+    """
+
+    canonical_receipt = canonical_smoke_receipt_bytes(receipt)
+    if receipt_bytes is None:
+        receipt_bytes = canonical_receipt
+    elif receipt_bytes != canonical_receipt:
+        raise SmokeBundleError("smoke receipt bytes are not canonical")
+
+    raw_dose_results = receipt.get("dose_results")
+    dose_results = raw_dose_results if isinstance(raw_dose_results, Mapping) else {}
+    projected_doses: list[dict[str, Any]] = []
+    for dose in BLIND_DOSES:
+        raw_result = dose_results.get(dose)
+        result = raw_result if isinstance(raw_result, Mapping) else {}
+        projected_doses.append(
+            {
+                "dose": dose,
+                **{field: result.get(field) for field in SUMMARY_DOSE_RESULT_FIELDS},
+            }
+        )
+
+    return {
+        "schema": SUMMARY_SCHEMA,
+        "source_receipt": {
+            "path": RECEIPT_REL.as_posix(),
+            "schema": receipt.get("schema"),
+            "sha256": hashlib.sha256(receipt_bytes).hexdigest(),
+            "bytes": len(receipt_bytes),
+        },
+        "outcome": {
+            "verdict": receipt.get("verdict"),
+            "problem_count": receipt.get("problem_count"),
+            "problems": receipt.get("problems"),
+        },
+        "execution_boundary": {
+            "nonanalytic": receipt.get("nonanalytic"),
+            "analytic_episode_count": receipt.get("analytic_episode_count"),
+            "gpu_seconds": receipt.get("gpu_seconds"),
+            "gpu_elapsed_ns": receipt.get("gpu_elapsed_ns"),
+            "retry_policy": receipt.get("retry_policy"),
+            "persistent_smoke_lock": receipt.get("persistent_smoke_lock"),
+            "persistent_smoke_lock_identity": receipt.get(
+                "persistent_smoke_lock_identity"
+            ),
+            "persistent_smoke_lock_sha256": receipt.get(
+                "persistent_smoke_lock_sha256"
+            ),
+        },
+        "provenance": {
+            field: receipt.get(field) for field in SUMMARY_PROVENANCE_FIELDS
+        },
+        "runtime_checks": {
+            "gpu_identity": receipt.get("gpu_identity"),
+            "model_environment_forwarded": receipt.get(
+                "model_environment_forwarded"
+            ),
+            "pair_present_on_every_frame": receipt.get(
+                "pair_present_on_every_frame"
+            ),
+        },
+        "dose_results": projected_doses,
+        "raw_artifacts": _raw_artifact_summary(receipt),
+    }
+
+
+def render_smoke_summary(
+    receipt: Mapping[str, Any],
+    receipt_bytes: bytes | None = None,
+) -> bytes:
+    """Render the exact generated ``SMOKE.md`` bytes for a recomputed receipt."""
+
+    payload = smoke_summary_payload(receipt, receipt_bytes)
+    summary_json = json.dumps(
+        payload,
+        indent=2,
+        sort_keys=True,
+        ensure_ascii=True,
+        allow_nan=False,
+    )
+    return (
+        "# Iteration 135 G5 smoke summary\n\n"
+        "This file is generated from `smoke-evidence/smoke_receipt.json`; do not edit.\n\n"
+        f"```json\n{summary_json}\n```\n"
+    ).encode("utf-8")
+
+
 def sha256_file(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as stream:
@@ -389,6 +595,75 @@ def _canonical_json_sha256(value: Mapping[str, Any]) -> str:
         ensure_ascii=True,
     ).encode("utf-8")
     return hashlib.sha256(payload).hexdigest()
+
+
+def _validate_github_pre_smoke_authority(
+    authority: object,
+    *,
+    manifest_sha256: str,
+    problems: list[str],
+) -> None:
+    expected_fields = {
+        "schema",
+        "repository",
+        "branch",
+        "pre_smoke_commit",
+        "environment_parent",
+        "manifest_sha256",
+        "checks",
+        "authority_payload_sha256",
+    }
+    if not isinstance(authority, Mapping) or set(authority) != expected_fields:
+        problems.append("execution:github-pre-smoke-authority-field-set")
+        return
+    canonical = dict(authority)
+    claimed_sha = canonical.pop("authority_payload_sha256")
+    pre_smoke_commit = authority.get("pre_smoke_commit")
+    environment_parent = authority.get("environment_parent")
+    if (
+        authority.get("schema") != "iter135.github_pre_smoke_authority.v1"
+        or authority.get("repository") != "manfromnowhere143/sentinel"
+        or authority.get("branch") != "master"
+        or not isinstance(pre_smoke_commit, str)
+        or re.fullmatch(r"[0-9a-f]{40}", pre_smoke_commit) is None
+        or not isinstance(environment_parent, str)
+        or re.fullmatch(r"[0-9a-f]{40}", environment_parent) is None
+        or pre_smoke_commit == environment_parent
+        or authority.get("manifest_sha256") != manifest_sha256
+        or claimed_sha != _canonical_json_sha256(canonical)
+    ):
+        problems.append("execution:github-pre-smoke-authority-binding")
+    checks = authority.get("checks")
+    if not isinstance(checks, list) or len(checks) != 2:
+        problems.append("execution:github-pre-smoke-check-set")
+        return
+    check_ids: list[int] = []
+    for row, name in zip(checks, ("check (3.10)", "check (3.11)")):
+        if not isinstance(row, Mapping) or set(row) != {
+            "name",
+            "id",
+            "head_sha",
+            "app_slug",
+            "status",
+            "conclusion",
+        }:
+            problems.append("execution:github-pre-smoke-check-field-set")
+            continue
+        check_id = row.get("id")
+        if (
+            row.get("name") != name
+            or type(check_id) is not int
+            or check_id <= 0
+            or row.get("head_sha") != pre_smoke_commit
+            or row.get("app_slug") != "github-actions"
+            or row.get("status") != "completed"
+            or row.get("conclusion") != "success"
+        ):
+            problems.append("execution:github-pre-smoke-check-binding")
+        else:
+            check_ids.append(check_id)
+    if len(check_ids) != 2 or len(set(check_ids)) != 2:
+        problems.append("execution:github-pre-smoke-check-ids")
 
 
 def _validate_preflight_mission_state(
@@ -415,6 +690,10 @@ def _validate_preflight_mission_state(
         != "experiments/iter135_neuroncap_blind_braking_dose_response/HYPOTHESIS.md"
         or state.get("next_program") != PREFLIGHT_PROGRAM
         or state.get("storage_gate") != MISSION_STORAGE_GATE
+        or state.get("claim_state") != MISSION_CLAIM_STATE
+        or state.get("deprecated_pending_hypotheses")
+        != MISSION_DEPRECATED_HYPOTHESES
+        or state.get("paper_state") != MISSION_PAPER_STATE
     ):
         problems.append("mission-state:authority-contract")
 
@@ -575,13 +854,30 @@ def _validate_dataset_receipt(receipt: object, problems: list[str]) -> Mapping[s
     return receipt
 
 
+def _strict_json_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    result: dict[str, Any] = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError(f"duplicate JSON key: {key}")
+        result[key] = value
+    return result
+
+
+def _reject_nonfinite_json(value: str) -> None:
+    raise ValueError(f"non-finite JSON number: {value}")
+
+
 def _load_json(path: Path, label: str, problems: list[str]) -> dict[str, Any] | None:
     if path.is_symlink() or not path.is_file():
         problems.append(f"{label}:missing-or-nonregular")
         return None
     try:
-        value = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
+        value = json.loads(
+            path.read_text(encoding="utf-8"),
+            object_pairs_hook=_strict_json_object,
+            parse_constant=_reject_nonfinite_json,
+        )
+    except (OSError, UnicodeDecodeError, ValueError) as error:
         problems.append(f"{label}:invalid-json:{type(error).__name__}")
         return None
     if not isinstance(value, dict):
@@ -929,6 +1225,7 @@ def recompute_smoke_receipt(
     expected_names = {
         "execution.jsonl",
         "pre_smoke_manifest.json",
+        RAW_MISSION_STATE_NAME,
         "environment_receipt.json",
         *{f"{dose}.decisions.jsonl" for dose in BLIND_DOSES},
         *{f"{dose}.model-env.bin" for dose in BLIND_DOSES},
@@ -952,7 +1249,7 @@ def recompute_smoke_receipt(
     runner_path = experiment_dir / "run_smoke135.sh"
     validator_path = experiment_dir / "validate_smoke135.py"
     canonical_env_path = experiment_dir / "env_receipts.json"
-    mission_state_path = experiment_dir / "MISSION_STATE.json"
+    mission_state_path = raw_dir / RAW_MISSION_STATE_NAME
     schedule = _load_json(schedule_path, "schedule", problems)
     if isinstance(schedule, Mapping):
         if schedule.get("schema") != "iter135.nested_dose_schedules.v1":
@@ -1074,6 +1371,9 @@ def recompute_smoke_receipt(
             for name, actual in local_hashes.items():
                 row = bound.get(name)
                 local_path = experiment_dir / name
+                expected_source_path = (
+                    f"experiments/iter135_neuroncap_blind_braking_dose_response/{name}"
+                )
                 expected_bytes = (
                     local_path.stat().st_size
                     if local_path.is_file() and not local_path.is_symlink()
@@ -1082,7 +1382,7 @@ def recompute_smoke_receipt(
                 if (
                     not isinstance(row, Mapping)
                     or set(row) != {"source_path", "sha256", "bytes"}
-                    or row.get("source_path") != name
+                    or row.get("source_path") != expected_source_path
                     or row.get("sha256") != actual
                     or row.get("bytes") != expected_bytes
                 ):
@@ -1171,13 +1471,40 @@ def recompute_smoke_receipt(
         start["persistent_smoke_lock_identity"]
     ) is None:
         problems.append("execution:persistent-lock-identity")
+    if not _is_sha256(start.get("persistent_smoke_lock_sha256")):
+        problems.append("execution:persistent-lock-sha256")
     if start.get("retry_policy") != "one_shot_no_retry_lock_retained":
         problems.append("execution:retry-policy")
+    authority = start.get("github_pre_smoke_authority")
+    _validate_github_pre_smoke_authority(
+        authority,
+        manifest_sha256=manifest_sha256,
+        problems=problems,
+    )
+    if (
+        isinstance(authority, Mapping)
+        and isinstance(pre_manifest, Mapping)
+        and authority.get("environment_parent")
+        != (
+            pre_manifest.get("git_provenance", {}).get("head")
+            if isinstance(pre_manifest.get("git_provenance"), Mapping)
+            else None
+        )
+    ):
+        problems.append("execution:github-pre-smoke-environment-parent")
     if not _is_sha256(start.get("docker_wrapper_sha256")):
         problems.append("execution:docker-wrapper-sha256")
     if not _is_sha256(start.get("docker_binary_sha256")):
         problems.append("execution:docker-binary-sha256")
-    for field in ("docker_binary_identity", "container_control_root_identity"):
+    if not _is_sha256(start.get("python_wrapper_sha256")):
+        problems.append("execution:python-wrapper-sha256")
+    if not _is_sha256(start.get("python_binary_sha256")):
+        problems.append("execution:python-binary-sha256")
+    for field in (
+        "docker_binary_identity",
+        "python_binary_identity",
+        "container_control_root_identity",
+    ):
         value = start.get(field)
         if not isinstance(value, str) or IDENTITY_RE.fullmatch(value) is None:
             problems.append(f"execution:{field.replace('_', '-')}")
@@ -1436,10 +1763,15 @@ def recompute_smoke_receipt(
         "canonical_runner_identity": start.get("canonical_runner_identity"),
         "persistent_smoke_lock": start.get("persistent_smoke_lock"),
         "persistent_smoke_lock_identity": start.get("persistent_smoke_lock_identity"),
+        "persistent_smoke_lock_sha256": start.get("persistent_smoke_lock_sha256"),
+        "github_pre_smoke_authority": start.get("github_pre_smoke_authority"),
         "retry_policy": start.get("retry_policy"),
         "docker_wrapper_sha256": start.get("docker_wrapper_sha256"),
         "docker_binary_sha256": start.get("docker_binary_sha256"),
         "docker_binary_identity": start.get("docker_binary_identity"),
+        "python_wrapper_sha256": start.get("python_wrapper_sha256"),
+        "python_binary_sha256": start.get("python_binary_sha256"),
+        "python_binary_identity": start.get("python_binary_identity"),
         "container_control_root_identity": start.get("container_control_root_identity"),
         "container_receipts": container_receipts_by_dose,
         "gpu_identity": dict(environment_gpu),
@@ -1452,11 +1784,174 @@ def recompute_smoke_receipt(
     }
 
 
-def _write_json(path: Path, value: Mapping[str, Any]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_name(f".{path.name}.tmp")
-    temporary.write_text(json.dumps(value, indent=1, sort_keys=True) + "\n", encoding="utf-8")
-    temporary.replace(path)
+def validate_smoke_bundle_bytes(
+    receipt: Mapping[str, Any],
+    receipt_bytes: bytes | None,
+    summary_bytes: bytes | None,
+) -> list[str]:
+    """Validate stored bundle bytes against a freshly recomputed receipt object."""
+
+    problems: list[str] = []
+    expected_receipt = canonical_smoke_receipt_bytes(receipt)
+    if receipt_bytes is None:
+        problems.append("smoke:receipt-missing")
+        return problems
+    if receipt_bytes != expected_receipt:
+        problems.append("smoke:receipt-canonical-bytes")
+    expected_summary = render_smoke_summary(receipt, expected_receipt)
+    if summary_bytes is None:
+        problems.append("smoke:summary-missing")
+    elif summary_bytes != expected_summary:
+        problems.append("smoke:summary-mismatch")
+    return problems
+
+
+def _physical_regular_bytes(path: Path) -> bytes | None:
+    absolute = path.absolute()
+    if path.is_symlink() or not path.is_file():
+        return None
+    try:
+        if path.resolve(strict=True) != absolute:
+            return None
+        return path.read_bytes()
+    except OSError:
+        return None
+
+
+def validate_smoke_bundle(
+    experiment_dir: Path = HERE,
+    receipt: Mapping[str, Any] | None = None,
+    *,
+    raw_dir: Path | None = None,
+    receipt_path: Path | None = None,
+    summary_path: Path | None = None,
+) -> list[str]:
+    """Validate the canonical receipt and generated summary at physical paths.
+
+    A missing receipt intentionally produces only ``smoke:receipt-missing``.  This preserves the
+    pre-smoke manifest's exact one-problem contract; ``SMOKE.md`` becomes required only after a
+    receipt exists.
+    """
+
+    experiment_dir = Path(experiment_dir).absolute()
+    receipt_path = Path(receipt_path or experiment_dir / RECEIPT_REL).absolute()
+    summary_path = Path(summary_path or experiment_dir / SUMMARY_REL).absolute()
+    receipt_bytes = _physical_regular_bytes(receipt_path)
+    if receipt_bytes is None:
+        return [
+            "smoke:receipt-nonregular"
+            if receipt_path.exists() or receipt_path.is_symlink()
+            else "smoke:receipt-missing"
+        ]
+    if receipt is None:
+        receipt = recompute_smoke_receipt(experiment_dir, raw_dir)
+    summary_bytes = _physical_regular_bytes(summary_path)
+    problems = validate_smoke_bundle_bytes(receipt, receipt_bytes, summary_bytes)
+    if summary_bytes is None and (summary_path.exists() or summary_path.is_symlink()):
+        problems = [
+            "smoke:summary-nonregular" if row == "smoke:summary-missing" else row
+            for row in problems
+        ]
+    return sorted(set(problems))
+
+
+def _stage_bundle_file(path: Path, payload: bytes, mode: int) -> Path:
+    descriptor, temporary_text = tempfile.mkstemp(
+        dir=path.parent,
+        prefix=f".{path.name}.",
+        suffix=".tmp",
+    )
+    temporary = Path(temporary_text)
+    try:
+        os.fchmod(descriptor, mode)
+        with os.fdopen(descriptor, "wb", closefd=True) as stream:
+            descriptor = -1
+            stream.write(payload)
+            stream.flush()
+            os.fsync(stream.fileno())
+    except Exception:
+        if descriptor >= 0:
+            os.close(descriptor)
+        temporary.unlink(missing_ok=True)
+        raise
+    return temporary
+
+
+def _publish_smoke_bundle(
+    receipt_path: Path,
+    summary_path: Path,
+    receipt_bytes: bytes,
+    summary_bytes: bytes,
+) -> None:
+    receipt_path = receipt_path.absolute()
+    summary_path = summary_path.absolute()
+    if receipt_path == summary_path or receipt_path.parent != summary_path.parent:
+        raise SmokeBundleError("smoke bundle outputs must be distinct siblings")
+    parent = receipt_path.parent
+    parent.mkdir(parents=True, exist_ok=True)
+    if parent.is_symlink() or parent.resolve(strict=True) != parent:
+        raise SmokeBundleError("smoke bundle parent must be a physical directory")
+    for path in (receipt_path, summary_path):
+        if path.exists() or path.is_symlink():
+            if path.is_symlink() or not path.is_file() or path.resolve(strict=True) != path:
+                raise SmokeBundleError(f"unsafe smoke bundle output: {path.name}")
+
+    receipt_temporary: Path | None = _stage_bundle_file(receipt_path, receipt_bytes, 0o600)
+    summary_temporary: Path | None = None
+    try:
+        summary_temporary = _stage_bundle_file(summary_path, summary_bytes, 0o644)
+        # The receipt is the publication anchor and is replaced last.  A crash between replacements
+        # can expose only an inconsistent bundle, which the byte validator rejects fail-closed.
+        os.replace(summary_temporary, summary_path)
+        summary_temporary = None
+        os.replace(receipt_temporary, receipt_path)
+        receipt_temporary = None
+        directory_descriptor = os.open(parent, os.O_RDONLY | os.O_DIRECTORY)
+        try:
+            os.fsync(directory_descriptor)
+        finally:
+            os.close(directory_descriptor)
+    finally:
+        if receipt_temporary is not None:
+            receipt_temporary.unlink(missing_ok=True)
+        if summary_temporary is not None:
+            summary_temporary.unlink(missing_ok=True)
+
+
+def write_recomputed_smoke_bundle(
+    experiment_dir: Path = HERE,
+    raw_dir: Path | None = None,
+    *,
+    receipt_path: Path | None = None,
+    summary_path: Path | None = None,
+) -> dict[str, Any]:
+    """Recompute, publish, and independently replay the receipt/summary bundle."""
+
+    experiment_dir = Path(experiment_dir).absolute()
+    receipt_path = Path(receipt_path or experiment_dir / RECEIPT_REL).absolute()
+    summary_path = Path(summary_path or experiment_dir / SUMMARY_REL).absolute()
+
+    initial = recompute_smoke_receipt(experiment_dir, raw_dir)
+    receipt_bytes = canonical_smoke_receipt_bytes(initial)
+    replay_before_publish = recompute_smoke_receipt(experiment_dir, raw_dir)
+    if canonical_smoke_receipt_bytes(replay_before_publish) != receipt_bytes:
+        raise SmokeBundleError("raw smoke evidence drifted before bundle publication")
+    summary_bytes = render_smoke_summary(initial, receipt_bytes)
+    _publish_smoke_bundle(receipt_path, summary_path, receipt_bytes, summary_bytes)
+
+    replay_after_publish = recompute_smoke_receipt(experiment_dir, raw_dir)
+    if canonical_smoke_receipt_bytes(replay_after_publish) != receipt_bytes:
+        raise SmokeBundleError("raw smoke evidence drifted after bundle publication")
+    bundle_problems = validate_smoke_bundle(
+        experiment_dir,
+        replay_after_publish,
+        raw_dir=raw_dir,
+        receipt_path=receipt_path,
+        summary_path=summary_path,
+    )
+    if bundle_problems:
+        raise SmokeBundleError(f"published smoke bundle is invalid: {bundle_problems}")
+    return replay_after_publish
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -1464,13 +1959,23 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--experiment-dir", type=Path, default=HERE)
     parser.add_argument("--raw-dir", type=Path)
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--summary-output", type=Path)
     args = parser.parse_args(argv)
     output = args.output or args.experiment_dir / RECEIPT_REL
-    receipt = recompute_smoke_receipt(args.experiment_dir, args.raw_dir)
-    _write_json(output, receipt)
+    summary_output = args.summary_output or output.with_name(SUMMARY_REL.name)
+    try:
+        receipt = write_recomputed_smoke_bundle(
+            args.experiment_dir,
+            args.raw_dir,
+            receipt_path=output,
+            summary_path=summary_output,
+        )
+    except (OSError, SmokeBundleError, ValueError) as error:
+        print(f"I135_SMOKE_BUNDLE_FAIL {type(error).__name__}: {error}", file=sys.stderr)
+        return 2
     print(
         f"{receipt['verdict']} problems={receipt['problem_count']} "
-        f"gpu_seconds={receipt['gpu_seconds']} output={output}",
+        f"gpu_seconds={receipt['gpu_seconds']} output={output} summary={summary_output}",
         file=sys.stderr,
     )
     return 0 if receipt["verdict"] == OK_VERDICT else 2

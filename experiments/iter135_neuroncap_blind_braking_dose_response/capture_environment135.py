@@ -15,20 +15,26 @@ from __future__ import annotations
 
 import argparse
 import ast
+import base64
 import hashlib
 import json
 import os
+import platform
 import re
 import shutil
 import socket
+import ssl
 import stat
 import subprocess
 import sys
 import tempfile
 import types
+import urllib.error
+import urllib.parse
+import urllib.request
 from collections.abc import Callable, Mapping, Sequence
 from dataclasses import dataclass
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -36,8 +42,65 @@ from typing import Any
 HERE = Path(__file__).resolve().parent
 CANONICAL_MANIFEST_PATH = HERE / "make_launch_manifest.py"
 CANONICAL_PATCHER_PATH = HERE / "patch_compose_dose_env.py"
+CANONICAL_PREPARER_PATH = HERE / "prepare_host135.py"
+CANONICAL_PACKET_MANIFEST_PATH = HERE / "host_packet_manifest.json"
+CANONICAL_PREPARATION_RECEIPT_PATH = HERE / "host_preparation_receipt.json"
 DEFAULT_OUTPUT = HERE / "env_receipts.json"
 INCOMPLETE_VERDICT = "I135_ENVIRONMENT_PREFLIGHT_INCOMPLETE"
+EXPECTED_ENVIRONMENT_SCHEMA = "iter135.environment_receipts.v3"
+EXPECTED_PREPARATION_SCHEMA = "iter135.host_preparation_receipt.v1"
+EXPECTED_PREPARATION_VERDICT = "I135_HOST_PREPARATION_OK"
+EXPECTED_PACKET_SCHEMA = "iter135.host_packet_manifest.v1"
+PUBLICATION_AUTHORITY_SCHEMA = "iter135.github_publication_authority.v1"
+DOCKER_RUNTIME_SCHEMA = "iter135.docker_runtime_receipt.v1"
+EXPECTED_INSTALL_ROOT = "/opt/sentinel-stack/iter135"
+EXPECTED_ANALYTIC_ROOT = "/datasets/nuscenes-full/sentinel-i135-outoutput"
+EXPECTED_PREPARATION_PACKET_FILES = {
+    "MISSION_STATE.json",
+    "HYPOTHESIS.md",
+    "extract_union_windows.py",
+    "generate_nested_dose_schedules.py",
+    "dose_schedules.json",
+    "server_patch_union_release.py",
+    "server_patch_blind_dose.py",
+    "analyze_dose135.py",
+    "collect_proof135.py",
+    "run_dose135.sh",
+    "run_smoke135.sh",
+    "validate_smoke135.py",
+    "capture_environment135.py",
+    "verify_tooling135.py",
+    "patch_compose_dose_env.py",
+    "make_launch_manifest.py",
+    "authorize_launch135.py",
+    "tooling_verification_receipt.json",
+    "prepare_host135.py",
+}
+EXPERIMENT_REPOSITORY_ROOT = "experiments/iter135_neuroncap_blind_braking_dose_response"
+HOST_PUBLICATION_ARTIFACT_PATHS = (
+    f"{EXPERIMENT_REPOSITORY_ROOT}/host_packet_manifest.json",
+    f"{EXPERIMENT_REPOSITORY_ROOT}/host_preparation_receipt.json",
+)
+
+GITHUB_REPOSITORY = "manfromnowhere143/sentinel"
+GITHUB_BRANCH = "master"
+GITHUB_API_ROOT = f"https://api.github.com/repos/{GITHUB_REPOSITORY}"
+REQUIRED_GITHUB_CHECKS = ("check (3.10)", "check (3.11)")
+EXPECTED_CHECK_APP = "github-actions"
+MAX_GITHUB_RESPONSE_BYTES = 1 << 20
+MAX_GITHUB_CHECK_RUNS = 100
+MAX_GITHUB_TREE_RESPONSE_BYTES = 16 << 20
+MAX_GITHUB_TREE_ENTRIES = 20_000
+DOCKER_ARCHITECTURE_ALIASES = {
+    "amd64": "amd64",
+    "x86_64": "amd64",
+    "arm64": "arm64",
+    "aarch64": "arm64",
+}
+
+
+def _packet_repository_path(name: str) -> str:
+    return name if name == "MISSION_STATE.json" else f"{EXPERIMENT_REPOSITORY_ROOT}/{name}"
 
 EXPECTED_HOST = "sentinel-gpu"
 EXPECTED_GPU_MODEL = "NVIDIA L4"
@@ -53,6 +116,8 @@ _IMAGE_ID_RE = re.compile(r"^sha256:[0-9a-f]{64}$")
 _REPO_DIGEST_RE = re.compile(r"^[^@\s]+@sha256:[0-9a-f]{64}$")
 _GPU_UUID_RE = re.compile(r"^GPU-[0-9a-f-]+$", re.IGNORECASE)
 _DRIVER_RE = re.compile(r"^[0-9]+(?:\.[0-9]+)+$")
+_PYTHON_VERSION_RE = re.compile(r"^[0-9]+\.[0-9]+\.[0-9]+$")
+_COMMIT_RE = re.compile(r"^[0-9a-f]{40}$")
 _EVALUATOR_RE = re.compile(
     r"(CarlaUE4|leaderboard[^ ]*evaluator|"
     r"/(?:NeuroNCAP|neuro-ncap|neuro_ncap)/(?:main\.py|neuro_ncap/)|"
@@ -60,9 +125,482 @@ _EVALUATOR_RE = re.compile(
     re.IGNORECASE,
 )
 
+SANITIZED_ENVIRONMENT = {
+    "DOCKER_CONFIG": "/nonexistent",
+    "DOCKER_HOST": "unix:///var/run/docker.sock",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_OPTIONAL_LOCKS": "0",
+    "GIT_TERMINAL_PROMPT": "0",
+    "HOME": "/nonexistent",
+    "LANG": "C",
+    "LC_ALL": "C",
+    "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONHASHSEED": "0",
+    "PYTHONNOUSERSITE": "1",
+    "SENTINEL_I135_CAPTURE_SANITIZED": "1",
+    "TZ": "UTC",
+}
+PREPARATION_SANITIZED_ENVIRONMENT = {
+    key: value
+    for key, value in SANITIZED_ENVIRONMENT.items()
+    if key != "SENTINEL_I135_CAPTURE_SANITIZED"
+}
+PREPARATION_SANITIZED_ENVIRONMENT["SENTINEL_I135_PREPARE_SANITIZED"] = "1"
+
 
 class CaptureError(RuntimeError):
     """A bounded probe could not produce trustworthy evidence."""
+
+
+class _NoRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, request, fp, code, msg, headers, new_url):
+        raise CaptureError("host-publication-authority:redirect")
+
+
+def _strict_json_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    result: dict[str, Any] = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError("duplicate-key")
+        result[key] = value
+    return result
+
+
+def _reject_nonfinite_json(_value: str) -> None:
+    raise ValueError("non-finite-number")
+
+
+def _git_blob_oid(payload: bytes) -> str:
+    header = f"blob {len(payload)}\0".encode("ascii")
+    return hashlib.sha1(header + payload, usedforsecurity=False).hexdigest()
+
+
+def _fetch_json(url: str) -> Any:
+    """Fetch one bounded GitHub API document over authenticated-server TLS."""
+
+    parsed = urllib.parse.urlparse(url)
+    if (
+        parsed.scheme != "https"
+        or parsed.hostname != "api.github.com"
+        or parsed.username is not None
+        or parsed.password is not None
+        or parsed.fragment
+    ):
+        raise CaptureError("host-publication-authority:url")
+    request = urllib.request.Request(
+        url,
+        headers={
+            "Accept": "application/vnd.github+json",
+            "User-Agent": "sentinel-iter135-environment-authority/1",
+            "X-GitHub-Api-Version": "2022-11-28",
+        },
+        method="GET",
+    )
+    context = ssl.create_default_context()
+    context.minimum_version = ssl.TLSVersion.TLSv1_2
+    opener = urllib.request.build_opener(
+        urllib.request.ProxyHandler({}),
+        urllib.request.HTTPSHandler(context=context),
+        _NoRedirect(),
+    )
+    try:
+        with opener.open(request, timeout=15) as response:
+            if response.geturl() != url:
+                raise CaptureError("host-publication-authority:redirect")
+            if response.status != 200:
+                raise CaptureError("host-publication-authority:http-status")
+            content_type = response.headers.get_content_type()
+            if content_type not in {"application/json", "application/vnd.github+json"}:
+                raise CaptureError("host-publication-authority:content-type")
+            response_limit = (
+                MAX_GITHUB_TREE_RESPONSE_BYTES
+                if "/git/trees/" in parsed.path
+                else MAX_GITHUB_RESPONSE_BYTES
+            )
+            declared = response.headers.get("Content-Length")
+            if declared is not None:
+                try:
+                    declared_bytes = int(declared, 10)
+                except ValueError as error:
+                    raise CaptureError("host-publication-authority:content-length") from error
+                if declared_bytes < 0 or declared_bytes > response_limit:
+                    raise CaptureError("host-publication-authority:content-length")
+            payload = response.read(response_limit + 1)
+    except CaptureError:
+        raise
+    except (OSError, TimeoutError, urllib.error.URLError) as error:
+        raise CaptureError(
+            f"host-publication-authority:transport:{type(error).__name__}"
+        ) from error
+    if len(payload) > response_limit:
+        raise CaptureError("host-publication-authority:response-size")
+    try:
+        return json.loads(
+            payload,
+            object_pairs_hook=_strict_json_object,
+            parse_constant=_reject_nonfinite_json,
+        )
+    except (UnicodeDecodeError, ValueError) as error:
+        raise CaptureError("host-publication-authority:json") from error
+
+
+def _project_exact_checks(
+    document: object,
+    source_commit: str,
+    *,
+    prefix: str = "host-publication-authority",
+) -> list[dict[str, Any]]:
+    runs = document.get("check_runs") if isinstance(document, Mapping) else None
+    total_count = document.get("total_count") if isinstance(document, Mapping) else None
+    if (
+        type(total_count) is not int
+        or not isinstance(runs, list)
+        or total_count != len(runs)
+        or total_count != len(REQUIRED_GITHUB_CHECKS)
+    ):
+        raise CaptureError(f"{prefix}:check-run-envelope")
+    selected: dict[str, Mapping[str, Any]] = {}
+    for run in runs:
+        if not isinstance(run, Mapping):
+            raise CaptureError(f"{prefix}:check-run-row")
+        name = run.get("name")
+        if name not in REQUIRED_GITHUB_CHECKS:
+            raise CaptureError(f"{prefix}:unexpected-check")
+        if name in selected:
+            raise CaptureError(f"{prefix}:duplicate-check:{name}")
+        selected[name] = run
+    if set(selected) != set(REQUIRED_GITHUB_CHECKS):
+        raise CaptureError(f"{prefix}:required-check-set")
+    checks: list[dict[str, Any]] = []
+    for name in REQUIRED_GITHUB_CHECKS:
+        row = selected[name]
+        app = row.get("app")
+        check_id = row.get("id")
+        projected = {
+            "name": name,
+            "id": check_id,
+            "status": row.get("status"),
+            "conclusion": row.get("conclusion"),
+            "head_sha": row.get("head_sha"),
+            "app_slug": app.get("slug") if isinstance(app, Mapping) else None,
+        }
+        if projected != {
+            "name": name,
+            "id": check_id,
+            "status": "completed",
+            "conclusion": "success",
+            "head_sha": source_commit,
+            "app_slug": EXPECTED_CHECK_APP,
+        } or type(check_id) is not int or check_id <= 0:
+            raise CaptureError(f"{prefix}:check-not-green:{name}")
+        checks.append(projected)
+    if len({row["id"] for row in checks}) != len(checks):
+        raise CaptureError(f"{prefix}:duplicate-check-id")
+    return checks
+
+
+def verify_publication_authority(
+    source_commit: str,
+    fetch_json: Callable[[str], Any] = _fetch_json,
+    *,
+    commit_tree_sha: str,
+    artifact_payloads: Mapping[str, bytes] | None = None,
+) -> dict[str, Any]:
+    """Require current master and both exact Python matrix checks for the H commit."""
+
+    if not isinstance(source_commit, str) or not _COMMIT_RE.fullmatch(source_commit):
+        raise CaptureError("host-publication-authority:source-commit")
+    branch_url = f"{GITHUB_API_ROOT}/branches/{GITHUB_BRANCH}"
+    checks_url = (
+        f"{GITHUB_API_ROOT}/commits/{source_commit}/check-runs?filter=latest&per_page="
+        f"{MAX_GITHUB_CHECK_RUNS}&page=1"
+    )
+    try:
+        branch_document = fetch_json(branch_url)
+        checks_document = fetch_json(checks_url)
+    except CaptureError:
+        raise
+    except Exception as error:
+        raise CaptureError(
+            f"host-publication-authority:fetch:{type(error).__name__}"
+        ) from error
+    branch_commit = (
+        branch_document.get("commit") if isinstance(branch_document, Mapping) else None
+    )
+    branch_head = branch_commit.get("sha") if isinstance(branch_commit, Mapping) else None
+    if (
+        not isinstance(branch_document, Mapping)
+        or branch_document.get("name") != GITHUB_BRANCH
+        or branch_head != source_commit
+    ):
+        raise CaptureError("host-publication-authority:branch-head")
+    checks = _project_exact_checks(checks_document, source_commit)
+    if not isinstance(commit_tree_sha, str) or _COMMIT_RE.fullmatch(commit_tree_sha) is None:
+        raise CaptureError("host-publication-authority:commit-tree")
+    tree_url = f"{GITHUB_API_ROOT}/git/trees/{commit_tree_sha}?recursive=1"
+    try:
+        tree_document = fetch_json(tree_url)
+    except CaptureError:
+        raise
+    except Exception as error:
+        raise CaptureError(
+            f"host-publication-authority:tree-fetch:{type(error).__name__}"
+        ) from error
+    tree_rows = tree_document.get("tree") if isinstance(tree_document, Mapping) else None
+    if (
+        not isinstance(tree_document, Mapping)
+        or tree_document.get("sha") != commit_tree_sha
+        or tree_document.get("truncated") is not False
+        or not isinstance(tree_rows, list)
+        or len(tree_rows) > MAX_GITHUB_TREE_ENTRIES
+    ):
+        raise CaptureError("host-publication-authority:tree-envelope")
+    selected_tree: dict[str, Mapping[str, Any]] = {}
+    for row in tree_rows:
+        if not isinstance(row, Mapping):
+            raise CaptureError("host-publication-authority:tree-row")
+        path = row.get("path")
+        if not isinstance(path, str):
+            raise CaptureError("host-publication-authority:tree-row")
+        if path not in HOST_PUBLICATION_ARTIFACT_PATHS:
+            continue
+        if path in selected_tree:
+            raise CaptureError(
+                f"host-publication-authority:duplicate-tree-path:{path}"
+            )
+        selected_tree[path] = row
+    if set(selected_tree) != set(HOST_PUBLICATION_ARTIFACT_PATHS):
+        raise CaptureError("host-publication-authority:tree-artifact-set")
+    payloads = dict(artifact_payloads or {})
+    if set(payloads) != set(HOST_PUBLICATION_ARTIFACT_PATHS):
+        raise CaptureError("host-publication-authority:artifact-set")
+    artifacts: list[dict[str, Any]] = []
+    for path in HOST_PUBLICATION_ARTIFACT_PATHS:
+        payload = payloads[path]
+        if not isinstance(payload, bytes) or not payload or len(payload) > MAX_GITHUB_RESPONSE_BYTES:
+            raise CaptureError(f"host-publication-authority:artifact-payload:{Path(path).name}")
+        git_blob_oid = _git_blob_oid(payload)
+        tree_row = selected_tree[path]
+        if (
+            tree_row.get("path") != path
+            or tree_row.get("type") != "blob"
+            or tree_row.get("mode") != "100644"
+            or type(tree_row.get("size")) is not int
+            or tree_row.get("size") != len(payload)
+            or tree_row.get("sha") != git_blob_oid
+        ):
+            raise CaptureError(
+                f"host-publication-authority:tree-artifact:{Path(path).name}"
+            )
+        encoded_path = urllib.parse.quote(path, safe="/")
+        content_url = f"{GITHUB_API_ROOT}/contents/{encoded_path}?ref={source_commit}"
+        try:
+            document = fetch_json(content_url)
+        except CaptureError:
+            raise
+        except Exception as error:
+            raise CaptureError(
+                f"host-publication-authority:artifact-fetch:{type(error).__name__}"
+            ) from error
+        content = document.get("content") if isinstance(document, Mapping) else None
+        encoded = "".join(content.splitlines()) if isinstance(content, str) else ""
+        try:
+            committed = base64.b64decode(encoded, validate=True)
+        except (ValueError, base64.binascii.Error) as error:
+            raise CaptureError(
+                f"host-publication-authority:artifact-base64:{Path(path).name}"
+            ) from error
+        if (
+            not isinstance(document, Mapping)
+            or document.get("type") != "file"
+            or document.get("path") != path
+            or document.get("sha") != git_blob_oid
+            or document.get("encoding") != "base64"
+            or type(document.get("size")) is not int
+            or document.get("size") != len(payload)
+            or committed != payload
+        ):
+            raise CaptureError(
+                f"host-publication-authority:artifact-drift:{Path(path).name}"
+            )
+        artifacts.append(
+            {
+                "path": path,
+                "sha256": hashlib.sha256(payload).hexdigest(),
+                "bytes": len(payload),
+                "git_blob_oid": git_blob_oid,
+                "git_mode": "100644",
+            }
+        )
+    return {
+        "schema": PUBLICATION_AUTHORITY_SCHEMA,
+        "repository": GITHUB_REPOSITORY,
+        "branch": GITHUB_BRANCH,
+        "source_commit": source_commit,
+        "branch_head_sha": branch_head,
+        "required_checks": list(REQUIRED_GITHUB_CHECKS),
+        "checks": checks,
+        "artifacts": artifacts,
+        "verified": True,
+    }
+
+
+def verify_host_commit_topology(
+    host_commit: str,
+    packet_source_commit: str,
+    fetch_json: Callable[[str], Any] = _fetch_json,
+) -> str:
+    """Prove H is the sole-child publication of the authorized B3 packet."""
+
+    if not isinstance(host_commit, str) or _COMMIT_RE.fullmatch(host_commit) is None:
+        raise CaptureError("host-publication-authority:topology-host-commit")
+    if (
+        not isinstance(packet_source_commit, str)
+        or _COMMIT_RE.fullmatch(packet_source_commit) is None
+    ):
+        raise CaptureError("host-publication-authority:topology-packet-commit")
+    url = f"{GITHUB_API_ROOT}/commits/{host_commit}?per_page=100&page=1"
+    try:
+        document = fetch_json(url)
+    except CaptureError:
+        raise
+    except Exception as error:
+        raise CaptureError(
+            f"host-publication-authority:topology-fetch:{type(error).__name__}"
+        ) from error
+    parents = document.get("parents") if isinstance(document, Mapping) else None
+    commit = document.get("commit") if isinstance(document, Mapping) else None
+    tree = commit.get("tree") if isinstance(commit, Mapping) else None
+    tree_sha = tree.get("sha") if isinstance(tree, Mapping) else None
+    if (
+        not isinstance(document, Mapping)
+        or document.get("sha") != host_commit
+        or not isinstance(parents, list)
+        or len(parents) != 1
+        or not isinstance(parents[0], Mapping)
+        or parents[0].get("sha") != packet_source_commit
+        or not isinstance(tree_sha, str)
+        or _COMMIT_RE.fullmatch(tree_sha) is None
+    ):
+        raise CaptureError("host-publication-authority:commit-parent")
+    files = document.get("files")
+    if not isinstance(files, list):
+        raise CaptureError("host-publication-authority:changed-paths")
+    filenames: list[str] = []
+    for row in files:
+        filename = row.get("filename") if isinstance(row, Mapping) else None
+        if not isinstance(filename, str) or row.get("previous_filename") is not None:
+            raise CaptureError("host-publication-authority:changed-paths")
+        filenames.append(filename)
+    if len(filenames) != len(set(filenames)) or set(filenames) != set(
+        HOST_PUBLICATION_ARTIFACT_PATHS
+    ):
+        raise CaptureError("host-publication-authority:changed-paths")
+    return tree_sha
+
+
+def verify_current_authority(
+    source_commit: str,
+    fetch_json: Callable[[str], Any] = _fetch_json,
+) -> list[dict[str, Any]]:
+    """Replay exact master and check-run authority before returning green E."""
+
+    try:
+        document = fetch_json(f"{GITHUB_API_ROOT}/branches/{GITHUB_BRANCH}")
+        checks_document = fetch_json(
+            f"{GITHUB_API_ROOT}/commits/{source_commit}/check-runs?"
+            f"filter=latest&per_page={MAX_GITHUB_CHECK_RUNS}&page=1"
+        )
+    except CaptureError:
+        raise
+    except Exception as error:
+        raise CaptureError(
+            f"host-publication-authority:branch-recheck-fetch:{type(error).__name__}"
+        ) from error
+    commit = document.get("commit") if isinstance(document, Mapping) else None
+    if (
+        not isinstance(document, Mapping)
+        or document.get("name") != GITHUB_BRANCH
+        or not isinstance(commit, Mapping)
+        or commit.get("sha") != source_commit
+    ):
+        raise CaptureError("host-publication-authority:branch-recheck")
+    return _project_exact_checks(
+        checks_document,
+        source_commit,
+        prefix="host-publication-authority:terminal",
+    )
+
+
+def _publication_authority_problems(
+    authority: Any,
+    *,
+    source_commit: Any,
+    artifacts: list[dict[str, Any]],
+    label: str,
+) -> list[str]:
+    problems: list[str] = []
+    expected_fields = {
+        "schema",
+        "repository",
+        "branch",
+        "source_commit",
+        "branch_head_sha",
+        "required_checks",
+        "checks",
+        "artifacts",
+        "verified",
+    }
+    if not isinstance(authority, Mapping) or set(authority) != expected_fields:
+        return [f"{label}:field-set"]
+    checks = authority.get("checks")
+    if (
+        authority.get("schema") != PUBLICATION_AUTHORITY_SCHEMA
+        or authority.get("repository") != GITHUB_REPOSITORY
+        or authority.get("branch") != GITHUB_BRANCH
+        or not isinstance(source_commit, str)
+        or _COMMIT_RE.fullmatch(source_commit) is None
+        or authority.get("source_commit") != source_commit
+        or authority.get("branch_head_sha") != source_commit
+        or authority.get("required_checks") != list(REQUIRED_GITHUB_CHECKS)
+        or authority.get("artifacts") != artifacts
+        or authority.get("verified") is not True
+    ):
+        problems.append(f"{label}:contract")
+    check_ids: list[int] = []
+    if not isinstance(checks, list) or len(checks) != len(REQUIRED_GITHUB_CHECKS):
+        problems.append(f"{label}:check-set")
+    else:
+        for row, name in zip(checks, REQUIRED_GITHUB_CHECKS):
+            check_id = row.get("id") if isinstance(row, Mapping) else None
+            if (
+                not isinstance(row, Mapping)
+                or set(row)
+                != {"name", "id", "status", "conclusion", "head_sha", "app_slug"}
+                or row.get("name") != name
+                or type(check_id) is not int
+                or check_id <= 0
+                or row.get("status") != "completed"
+                or row.get("conclusion") != "success"
+                or row.get("head_sha") != source_commit
+                or row.get("app_slug") != EXPECTED_CHECK_APP
+            ):
+                problems.append(f"{label}:check-binding:{name}")
+            else:
+                check_ids.append(check_id)
+        if len(check_ids) != len(REQUIRED_GITHUB_CHECKS) or len(set(check_ids)) != len(
+            check_ids
+        ):
+            problems.append(f"{label}:check-ids")
+    return problems
+
+
+def _default_docker_client_path() -> Path:
+    located = shutil.which("docker", path=SANITIZED_ENVIRONMENT["PATH"])
+    if located is None:
+        raise CaptureError("docker-runtime:client-missing")
+    return Path(located)
 
 
 @dataclass(frozen=True)
@@ -103,6 +641,7 @@ def _run_command(argv: Sequence[str]) -> bytes:
     try:
         completed = subprocess.run(
             list(argv),
+            env=SANITIZED_ENVIRONMENT,
             stdin=subprocess.DEVNULL,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
@@ -119,14 +658,22 @@ def _run_command(argv: Sequence[str]) -> bytes:
 @dataclass(frozen=True)
 class Hooks:
     run: Callable[[Sequence[str]], bytes] = _run_command
+    fetch_json: Callable[[str], Any] = _fetch_json
     hostname: Callable[[], str] = socket.gethostname
     disk_free: Callable[[Path], int] = lambda path: shutil.disk_usage(path).free
     device: Callable[[Path], int] = lambda path: path.stat().st_dev
-    now: Callable[[], datetime] = lambda: datetime.now(UTC)
+    now: Callable[[], datetime] = lambda: datetime.now(timezone.utc)
     pid: Callable[[], int] = os.getpid
     dataset_read: Callable[[Path], tuple[dict[str, Any], list[str]]] = lambda path: (
         _read_dataset_file(path)
     )
+    interpreter_receipt: Callable[[], tuple[dict[str, Any], list[str]]] | None = None
+    invocation_receipt: Callable[[], tuple[dict[str, Any], list[str]]] | None = None
+    preparation_receipt: Callable[[], tuple[dict[str, Any], list[str]]] | None = None
+    host_artifact_payloads: (
+        Callable[[], tuple[dict[str, bytes], list[str]]] | None
+    ) = None
+    docker_client_path: Callable[[], Path] = _default_docker_client_path
 
 
 def _stat_identity(value: os.stat_result) -> tuple[int, int, int, int, int, int]:
@@ -228,6 +775,649 @@ def stable_read(
     return receipt, data, sorted(set(problems))
 
 
+def _host_artifact_payloads() -> tuple[dict[str, bytes], list[str]]:
+    payloads: dict[str, bytes] = {}
+    problems: list[str] = []
+    local_paths = (
+        CANONICAL_PACKET_MANIFEST_PATH,
+        CANONICAL_PREPARATION_RECEIPT_PATH,
+    )
+    for repository_path, local_path in zip(
+        HOST_PUBLICATION_ARTIFACT_PATHS, local_paths, strict=True
+    ):
+        _receipt, payload, file_problems = stable_read(local_path, collect_bytes=True)
+        problems.extend(
+            f"host-publication-artifact:{Path(repository_path).name}:{item}"
+            for item in file_problems
+        )
+        if payload is not None:
+            payloads[repository_path] = payload
+    return payloads, sorted(set(problems))
+
+
+def _bounded_text(value: Any, label: str, *, maximum: int = 256) -> str:
+    if (
+        not isinstance(value, str)
+        or not value
+        or len(value) > maximum
+        or any(ord(character) < 32 or ord(character) == 127 for character in value)
+    ):
+        raise CaptureError(f"docker-runtime:{label}")
+    return value
+
+
+def _bounded_positive_integer(value: Any, label: str) -> int:
+    if type(value) is not int or value <= 0 or value >= 2**63:
+        raise CaptureError(f"docker-runtime:{label}")
+    return value
+
+
+def _normalized_docker_architecture(value: str) -> str:
+    return DOCKER_ARCHITECTURE_ALIASES.get(value, value)
+
+
+def _docker_json(hooks: Hooks, client: Path, *arguments: str) -> Mapping[str, Any]:
+    payload = hooks.run((str(client), *arguments))
+    if len(payload) > MAX_GITHUB_RESPONSE_BYTES:
+        raise CaptureError("docker-runtime:command-response-size")
+    try:
+        value = json.loads(payload)
+    except (UnicodeDecodeError, json.JSONDecodeError) as error:
+        raise CaptureError("docker-runtime:command-json") from error
+    if not isinstance(value, Mapping):
+        raise CaptureError("docker-runtime:command-object")
+    return value
+
+
+def _docker_text(hooks: Hooks, client: Path, *arguments: str) -> str:
+    payload = hooks.run((str(client), *arguments))
+    if len(payload) > 4096:
+        raise CaptureError("docker-runtime:command-response-size")
+    try:
+        value = payload.decode("utf-8").strip()
+    except UnicodeDecodeError as error:
+        raise CaptureError("docker-runtime:command-text") from error
+    return _bounded_text(value, "command-text")
+
+
+def _client_version_projection(value: Any) -> dict[str, str]:
+    if not isinstance(value, Mapping):
+        raise CaptureError("docker-runtime:client-version")
+    return {
+        "version": _bounded_text(value.get("Version"), "client-version:version"),
+        "api_version": _bounded_text(value.get("ApiVersion"), "client-version:api-version"),
+        "git_commit": _bounded_text(value.get("GitCommit"), "client-version:git-commit"),
+        "go_version": _bounded_text(value.get("GoVersion"), "client-version:go-version"),
+        "os": _bounded_text(value.get("Os"), "client-version:os"),
+        "arch": _bounded_text(value.get("Arch"), "client-version:arch"),
+        "build_time": _bounded_text(value.get("BuildTime"), "client-version:build-time"),
+        "context": _bounded_text(value.get("Context"), "client-version:context"),
+    }
+
+
+def _daemon_version_projection(value: Any) -> dict[str, Any]:
+    if not isinstance(value, Mapping):
+        raise CaptureError("docker-runtime:daemon-version")
+    platform_row = value.get("Platform")
+    if not isinstance(platform_row, Mapping):
+        raise CaptureError("docker-runtime:daemon-version:platform")
+    experimental = value.get("Experimental")
+    if type(experimental) is not bool:
+        raise CaptureError("docker-runtime:daemon-version:experimental")
+    return {
+        "platform_name": _bounded_text(
+            platform_row.get("Name"), "daemon-version:platform-name"
+        ),
+        "version": _bounded_text(value.get("Version"), "daemon-version:version"),
+        "api_version": _bounded_text(value.get("ApiVersion"), "daemon-version:api-version"),
+        "min_api_version": _bounded_text(
+            value.get("MinAPIVersion"), "daemon-version:min-api-version"
+        ),
+        "git_commit": _bounded_text(value.get("GitCommit"), "daemon-version:git-commit"),
+        "go_version": _bounded_text(value.get("GoVersion"), "daemon-version:go-version"),
+        "os": _bounded_text(value.get("Os"), "daemon-version:os"),
+        "arch": _bounded_text(value.get("Arch"), "daemon-version:arch"),
+        "build_time": _bounded_text(value.get("BuildTime"), "daemon-version:build-time"),
+        "experimental": experimental,
+    }
+
+
+def _daemon_info_projection(value: Mapping[str, Any]) -> dict[str, Any]:
+    return {
+        "id": _bounded_text(value.get("ID"), "daemon-info:id"),
+        "name": _bounded_text(value.get("Name"), "daemon-info:name"),
+        "server_version": _bounded_text(
+            value.get("ServerVersion"), "daemon-info:server-version"
+        ),
+        "docker_root_dir": _bounded_text(
+            value.get("DockerRootDir"), "daemon-info:docker-root-dir", maximum=1024
+        ),
+        "driver": _bounded_text(value.get("Driver"), "daemon-info:driver"),
+        "operating_system": _bounded_text(
+            value.get("OperatingSystem"), "daemon-info:operating-system"
+        ),
+        "os_type": _bounded_text(value.get("OSType"), "daemon-info:os-type"),
+        "architecture": _bounded_text(
+            value.get("Architecture"), "daemon-info:architecture"
+        ),
+        "ncpu": _bounded_positive_integer(value.get("NCPU"), "daemon-info:ncpu"),
+        "mem_total": _bounded_positive_integer(
+            value.get("MemTotal"), "daemon-info:mem-total"
+        ),
+        "kernel_version": _bounded_text(
+            value.get("KernelVersion"), "daemon-info:kernel-version"
+        ),
+        "cgroup_driver": _bounded_text(
+            value.get("CgroupDriver"), "daemon-info:cgroup-driver"
+        ),
+        "cgroup_version": _bounded_text(
+            value.get("CgroupVersion"), "daemon-info:cgroup-version"
+        ),
+    }
+
+
+def _docker_client_identity(path: Path) -> tuple[int, int, int, int, int, int]:
+    try:
+        info = path.lstat()
+        resolved = path.resolve(strict=True)
+    except (OSError, RuntimeError) as error:
+        raise CaptureError(f"docker-runtime:client-identity:{type(error).__name__}") from error
+    if resolved != path or not stat.S_ISREG(info.st_mode):
+        raise CaptureError("docker-runtime:client-identity")
+    return _stat_identity(info)
+
+
+def _revalidate_docker_client(
+    path: Path | None,
+    client_receipt: Mapping[str, Any] | None,
+    expected_identity: tuple[int, int, int, int, int, int] | None,
+    *,
+    label: str,
+    problems: list[str],
+) -> bool:
+    """Rehash the exact physical client around every Docker-dependent phase."""
+
+    if path is None or client_receipt is None or expected_identity is None:
+        return False
+    try:
+        before = _docker_client_identity(path)
+        observed, _payload, read_problems = stable_read(path)
+        after = _docker_client_identity(path)
+        if (
+            read_problems
+            or before != expected_identity
+            or after != expected_identity
+            or observed.get("sha256") != client_receipt.get("sha256")
+            or observed.get("bytes") != client_receipt.get("bytes")
+            or client_receipt.get("physical_path") != str(path)
+            or client_receipt.get("realpath") != str(path)
+            or not os.access(path, os.X_OK)
+        ):
+            raise CaptureError("docker-runtime:client-drift")
+    except (CaptureError, OSError):
+        problems.append(f"docker-runtime:client-drift:{label}")
+        return False
+    return True
+
+
+def _probe_docker_runtime(
+    hooks: Hooks,
+    *,
+    expected_host: str,
+    problems: list[str],
+) -> tuple[
+    dict[str, Any] | None,
+    Path | None,
+    tuple[int, int, int, int, int, int] | None,
+]:
+    """Bind a fixed, non-secret projection of the client, endpoint, and daemon."""
+
+    try:
+        invocation_path = Path(hooks.docker_client_path()).absolute()
+        physical_path = invocation_path.resolve(strict=True)
+        client_identity = _docker_client_identity(physical_path)
+        client_file, _payload, client_problems = stable_read(physical_path)
+        if client_problems:
+            raise CaptureError("docker-runtime:client-file")
+        if not os.access(physical_path, os.X_OK):
+            raise CaptureError("docker-runtime:client-executable")
+        version_document = _docker_json(
+            hooks, physical_path, "version", "--format", "{{json .}}"
+        )
+        info_document = _docker_json(hooks, physical_path, "info", "--format", "{{json .}}")
+        context_name = _docker_text(hooks, physical_path, "context", "show")
+        endpoint_payload = hooks.run(
+            (
+                str(physical_path),
+                "context",
+                "inspect",
+                "--format",
+                "{{json .Endpoints.docker.Host}}",
+                context_name,
+            )
+        )
+        if len(endpoint_payload) > 4096:
+            raise CaptureError("docker-runtime:context-endpoint-size")
+        try:
+            endpoint = json.loads(endpoint_payload)
+        except (UnicodeDecodeError, json.JSONDecodeError) as error:
+            raise CaptureError("docker-runtime:context-endpoint-json") from error
+        endpoint = _bounded_text(endpoint, "context-endpoint", maximum=1024)
+        client_version = _client_version_projection(version_document.get("Client"))
+        daemon_version = _daemon_version_projection(version_document.get("Server"))
+        daemon_info = _daemon_info_projection(info_document)
+        if (
+            context_name != "default"
+            or endpoint != "unix:///var/run/docker.sock"
+            or client_version["context"] != context_name
+            or daemon_info["name"] != expected_host
+            or daemon_info["server_version"] != daemon_version["version"]
+            or daemon_info["os_type"] != daemon_version["os"]
+            or _normalized_docker_architecture(daemon_info["architecture"])
+            != _normalized_docker_architecture(daemon_version["arch"])
+            or not Path(daemon_info["docker_root_dir"]).is_absolute()
+        ):
+            raise CaptureError("docker-runtime:identity")
+        receipt = {
+                "schema": DOCKER_RUNTIME_SCHEMA,
+                "client": {
+                    "invocation_path": str(invocation_path),
+                    "physical_path": str(physical_path),
+                    "realpath": str(physical_path),
+                    "sha256": client_file["sha256"],
+                    "bytes": client_file["bytes"],
+                    "version": client_version,
+                },
+                "context": {"name": context_name, "endpoint": endpoint},
+                "daemon": {"info": daemon_info, "version": daemon_version},
+            }
+        revalidation_problems: list[str] = []
+        if not _revalidate_docker_client(
+            physical_path,
+            receipt["client"],
+            client_identity,
+            label="runtime-probe",
+            problems=revalidation_problems,
+        ):
+            raise CaptureError(revalidation_problems[0])
+        return receipt, physical_path, client_identity
+    except (CaptureError, OSError) as error:
+        code = str(error) if isinstance(error, CaptureError) else f"docker-runtime:{type(error).__name__}"
+        problems.append(code)
+        return None, None, None
+
+
+def _canonical_json_bytes(value: Any) -> bytes:
+    return json.dumps(
+        value,
+        sort_keys=True,
+        separators=(",", ":"),
+        ensure_ascii=True,
+        allow_nan=False,
+    ).encode("utf-8")
+
+
+def _interpreter_receipt() -> tuple[dict[str, Any], list[str]]:
+    """Bind the physical interpreter that executes every host probe."""
+
+    problems: list[str] = []
+    invocation_path = Path(sys.executable).absolute()
+    try:
+        physical_path = invocation_path.resolve(strict=True)
+    except (OSError, RuntimeError) as error:
+        physical_path = invocation_path
+        problems.append(f"interpreter:resolve:{type(error).__name__}")
+    executable, _payload, file_problems = stable_read(physical_path)
+    problems.extend(f"interpreter:{item}" for item in file_problems)
+    version = platform.python_version()
+    implementation = platform.python_implementation()
+    if not _PYTHON_VERSION_RE.fullmatch(version):
+        problems.append("interpreter:version-format")
+    if sys.version_info < (3, 10):
+        problems.append("interpreter:minimum-version")
+    if implementation not in {"CPython"}:
+        problems.append("interpreter:implementation")
+    return (
+        {
+            "invocation_path": str(invocation_path),
+            "physical_path": str(physical_path),
+            "realpath": str(physical_path),
+            "sha256": executable.get("sha256"),
+            "bytes": executable.get("bytes"),
+            "version": version,
+            "implementation": implementation,
+        },
+        sorted(set(problems)),
+    )
+
+
+def _invocation_receipt() -> tuple[dict[str, Any], list[str]]:
+    """Prove that the command was re-executed with the frozen minimal environment."""
+
+    problems: list[str] = []
+    observed = dict(os.environ)
+    if observed != SANITIZED_ENVIRONMENT:
+        problems.append("invocation:environment")
+    if sys.flags.isolated != 1:
+        problems.append("invocation:not-isolated")
+    script = Path(sys.argv[0]).absolute() if sys.argv else Path("")
+    if script != Path(__file__).absolute() or script != HERE / "capture_environment135.py":
+        problems.append("invocation:canonical-script")
+    try:
+        physical_interpreter = str(Path(sys.executable).resolve(strict=True))
+    except (OSError, RuntimeError):
+        physical_interpreter = str(Path(sys.executable).absolute())
+        problems.append("invocation:interpreter-realpath")
+    return (
+        {
+            "sanitized": not problems,
+            "isolated": sys.flags.isolated == 1,
+            "environment": dict(SANITIZED_ENVIRONMENT),
+            "argv": [physical_interpreter, "-I", *sys.argv],
+            "canonical_script": str(HERE / "capture_environment135.py"),
+        },
+        sorted(set(problems)),
+    )
+
+
+def _same_file_claim(actual: Mapping[str, Any], claimed: Mapping[str, Any]) -> bool:
+    return all(actual.get(field) == claimed.get(field) for field in ("sha256", "bytes", "mode"))
+
+
+def _stable_claim(path: Path) -> tuple[dict[str, Any], list[str]]:
+    row, _payload, problems = stable_read(path)
+    try:
+        row["mode"] = stat.S_IMODE(path.stat(follow_symlinks=False).st_mode)
+    except OSError as error:
+        problems.append(f"path:mode:{path}:{type(error).__name__}")
+        row["mode"] = None
+    return row, problems
+
+
+def _canonical_utc(value: Any) -> datetime | None:
+    if not isinstance(value, str) or not value.endswith("Z"):
+        return None
+    try:
+        parsed = datetime.fromisoformat(value[:-1] + "+00:00")
+    except ValueError:
+        return None
+    if parsed.tzinfo != timezone.utc or parsed.isoformat().replace("+00:00", "Z") != value:
+        return None
+    return parsed
+
+
+def load_and_validate_preparation_receipt(
+    receipt_path: Path = CANONICAL_PREPARATION_RECEIPT_PATH,
+    *,
+    install_root: Path = HERE,
+    controller_path: Path = CANONICAL_PREPARER_PATH,
+    packet_manifest_path: Path = CANONICAL_PACKET_MANIFEST_PATH,
+    analytic_root: Path = Path(EXPECTED_ANALYTIC_ROOT),
+) -> tuple[dict[str, Any], list[str]]:
+    """Load and independently replay the one-shot host-preparation receipt."""
+
+    problems: list[str] = []
+    receipt_file, payload, file_problems = stable_read(receipt_path, collect_bytes=True)
+    problems.extend(f"preparation:receipt:{item}" for item in file_problems)
+    if payload is None:
+        return {"receipt_file": receipt_file, "evidence": None}, sorted(set(problems))
+    try:
+        receipt = json.loads(
+            payload,
+            object_pairs_hook=_strict_json_object,
+            parse_constant=_reject_nonfinite_json,
+        )
+    except (UnicodeDecodeError, ValueError) as error:
+        problems.append(f"preparation:receipt-json:{type(error).__name__}")
+        return {"receipt_file": receipt_file, "evidence": None}, sorted(set(problems))
+    expected_fields = {
+        "schema",
+        "verdict",
+        "started_at_utc",
+        "finished_at_utc",
+        "host",
+        "problem_count",
+        "problems",
+        "publication_authority",
+        "packet_manifest_sha256",
+        "packet",
+        "controller",
+        "repositories",
+        "compose",
+        "storage",
+        "forbidden_paths",
+        "actions",
+        "invocation",
+        "receipt_payload_sha256",
+    }
+    if not isinstance(receipt, dict) or set(receipt) != expected_fields:
+        problems.append("preparation:field-set")
+        receipt = receipt if isinstance(receipt, dict) else {}
+    if receipt.get("schema") != EXPECTED_PREPARATION_SCHEMA:
+        problems.append("preparation:schema")
+    if receipt.get("verdict") != EXPECTED_PREPARATION_VERDICT:
+        problems.append("preparation:verdict")
+    if receipt.get("problem_count") != 0 or receipt.get("problems") != []:
+        problems.append("preparation:problem-metadata")
+    if receipt.get("host") != EXPECTED_HOST:
+        problems.append("preparation:host")
+    started = _canonical_utc(receipt.get("started_at_utc"))
+    finished = _canonical_utc(receipt.get("finished_at_utc"))
+    if started is None or finished is None or started > finished:
+        problems.append("preparation:timestamps")
+    claimed_payload_sha = receipt.get("receipt_payload_sha256")
+    hash_payload = dict(receipt)
+    hash_payload.pop("receipt_payload_sha256", None)
+    if claimed_payload_sha != hashlib.sha256(_canonical_json_bytes(hash_payload)).hexdigest():
+        problems.append("preparation:receipt-payload-sha256")
+
+    packet = receipt.get("packet")
+    manifest_sha = receipt.get("packet_manifest_sha256")
+    if not isinstance(manifest_sha, str) or not _SHA256_RE.fullmatch(manifest_sha):
+        problems.append("preparation:packet-manifest-sha256")
+    if not isinstance(packet, dict) or set(packet) != {
+        "schema",
+        "source_commit",
+        "manifest",
+        "independently_supplied_manifest_sha256",
+        "files",
+    }:
+        problems.append("preparation:packet")
+        packet = {}
+    if packet.get("schema") != EXPECTED_PACKET_SCHEMA:
+        problems.append("preparation:packet-schema")
+    if not isinstance(packet.get("source_commit"), str) or not re.fullmatch(
+        r"[0-9a-f]{40}", packet["source_commit"]
+    ):
+        problems.append("preparation:packet-source-commit")
+    if packet.get("independently_supplied_manifest_sha256") != manifest_sha:
+        problems.append("preparation:packet-independent-sha256")
+    manifest_claim = packet.get("manifest")
+    manifest_actual, manifest_payload, raw_manifest_problems = stable_read(
+        packet_manifest_path, collect_bytes=True
+    )
+    try:
+        manifest_actual["mode"] = stat.S_IMODE(
+            packet_manifest_path.stat(follow_symlinks=False).st_mode
+        )
+    except OSError:
+        manifest_actual["mode"] = None
+    manifest_problems = list(raw_manifest_problems)
+    problems.extend(f"preparation:packet-manifest:{item}" for item in manifest_problems)
+    if (
+        not isinstance(manifest_claim, dict)
+        or not _same_file_claim(manifest_actual, manifest_claim)
+        or manifest_actual.get("sha256") != manifest_sha
+    ):
+        problems.append("preparation:packet-manifest-binding")
+
+    files = packet.get("files")
+    if not isinstance(files, dict) or set(files) != EXPECTED_PREPARATION_PACKET_FILES:
+        problems.append("preparation:packet-file-set")
+        files = {}
+    preparation_artifacts: list[dict[str, Any]] = []
+    for name in EXPECTED_PREPARATION_PACKET_FILES:
+        claim = files.get(name)
+        installed_path = install_root / name
+        actual, installed_payload, item_problems = stable_read(
+            installed_path, collect_bytes=True
+        )
+        try:
+            actual["mode"] = stat.S_IMODE(
+                installed_path.stat(follow_symlinks=False).st_mode
+            )
+        except OSError as error:
+            item_problems.append(f"path:mode:{installed_path}:{type(error).__name__}")
+            actual["mode"] = None
+        problems.extend(
+            f"preparation:packet-file:{name}:{item}" for item in item_problems
+        )
+        if not isinstance(claim, dict) or not _same_file_claim(actual, claim):
+            problems.append(f"preparation:packet-file:{name}:binding")
+        git_mode = {
+            0o644: "100644",
+            0o755: "100755",
+        }.get(actual.get("mode"))
+        preparation_artifacts.append(
+            {
+                "path": _packet_repository_path(name),
+                "sha256": actual.get("sha256"),
+                "bytes": actual.get("bytes"),
+                "git_blob_oid": (
+                    _git_blob_oid(installed_payload)
+                    if isinstance(installed_payload, bytes)
+                    else None
+                ),
+                "git_mode": git_mode,
+            }
+        )
+    preparation_artifacts.sort(key=lambda row: row["path"])
+    problems.extend(
+        _publication_authority_problems(
+            receipt.get("publication_authority"),
+            source_commit=packet.get("source_commit"),
+            artifacts=preparation_artifacts,
+            label="preparation:publication-authority",
+        )
+    )
+    manifest_document = None
+    if manifest_payload is not None:
+        try:
+            manifest_document = json.loads(
+                manifest_payload,
+                object_pairs_hook=_strict_json_object,
+                parse_constant=_reject_nonfinite_json,
+            )
+        except (UnicodeDecodeError, ValueError) as error:
+            problems.append(
+                f"preparation:packet-manifest-json:{type(error).__name__}"
+            )
+    expected_manifest_files = {
+        name: {
+            "sha256": claim.get("sha256"),
+            "bytes": claim.get("bytes"),
+            "mode": claim.get("mode"),
+        }
+        for name, claim in files.items()
+        if isinstance(name, str) and isinstance(claim, dict)
+    }
+    if (
+        not isinstance(manifest_document, dict)
+        or manifest_document.get("schema") != EXPECTED_PACKET_SCHEMA
+        or manifest_document.get("source_commit") != packet.get("source_commit")
+        or manifest_document.get("files") != expected_manifest_files
+    ):
+        problems.append("preparation:packet-manifest-replay")
+
+    controller_claim = receipt.get("controller")
+    controller_actual, controller_problems = _stable_claim(controller_path)
+    problems.extend(f"preparation:controller:{item}" for item in controller_problems)
+    if (
+        not isinstance(controller_claim, dict)
+        or not _same_file_claim(controller_actual, controller_claim)
+        or not isinstance(files.get("prepare_host135.py"), dict)
+        or not _same_file_claim(controller_actual, files["prepare_host135.py"])
+    ):
+        problems.append("preparation:controller-binding")
+
+    actions = receipt.get("actions")
+    expected_actions = [
+        "normalize_uniad_server_from_verified_head_blob",
+        "atomically_patch_compose_from_exact_preimage",
+        "create_absent_empty_analytic_root",
+        "atomically_install_verified_packet",
+    ]
+    if (
+        not isinstance(actions, list)
+        or [row.get("action") if isinstance(row, dict) else None for row in actions]
+        != expected_actions
+        or any(row.get("performed") is not True for row in actions[1:] if isinstance(row, dict))
+    ):
+        problems.append("preparation:actions")
+    forbidden_paths = receipt.get("forbidden_paths")
+    if (
+        not isinstance(forbidden_paths, dict)
+        or not forbidden_paths
+        or any(value is not False for value in forbidden_paths.values())
+    ):
+        problems.append("preparation:forbidden-paths")
+    elif not {str(install_root), str(analytic_root)}.issubset(forbidden_paths):
+        problems.append("preparation:forbidden-path-set")
+    else:
+        expected_present = {str(install_root), str(analytic_root)}
+        for path_text in forbidden_paths:
+            if os.path.lexists(path_text) != (path_text in expected_present):
+                problems.append(f"preparation:forbidden-path-drift:{path_text}")
+    invocation = receipt.get("invocation")
+    if (
+        not isinstance(invocation, dict)
+        or set(invocation)
+        != {
+            "environment",
+            "environment_matches",
+            "isolated",
+            "python_implementation",
+            "python_version",
+        }
+        or invocation.get("environment") != PREPARATION_SANITIZED_ENVIRONMENT
+        or invocation.get("environment_matches") is not True
+        or invocation.get("isolated") is not True
+        or invocation.get("python_implementation") != "CPython"
+        or not isinstance(invocation.get("python_version"), str)
+        or not _PYTHON_VERSION_RE.fullmatch(invocation["python_version"])
+    ):
+        problems.append("preparation:invocation")
+    repositories = receipt.get("repositories")
+    if (
+        not isinstance(repositories, dict)
+        or set(repositories) != {"before", "after"}
+        or any(
+            not isinstance(repositories.get(phase), dict)
+            or set(repositories[phase]) != {"uniad", "neuroncap", "neurad"}
+            for phase in ("before", "after")
+        )
+    ):
+        problems.append("preparation:repositories")
+    if not isinstance(receipt.get("compose"), dict):
+        problems.append("preparation:compose")
+    storage = receipt.get("storage")
+    if (
+        not isinstance(storage, dict)
+        or storage.get("analytic_root") != str(analytic_root)
+        or storage.get("analytic_root_realpath") != str(analytic_root)
+        or storage.get("analytic_root_is_symlink") is not False
+        or storage.get("analytic_root_empty") is not True
+    ):
+        problems.append("preparation:storage")
+    try:
+        resolved_install = Path(install_root).resolve(strict=True)
+    except (OSError, RuntimeError):
+        resolved_install = None
+    if resolved_install != Path(install_root):
+        problems.append("preparation:install-root")
+    return {"receipt_file": receipt_file, "evidence": receipt}, sorted(set(problems))
+
+
 def _read_dataset_file(path: Path) -> tuple[dict[str, Any], list[str]]:
     receipt, _data, problems = stable_read(path)
     return receipt, problems
@@ -282,6 +1472,8 @@ def load_contract(path: Path = CANONICAL_MANIFEST_PATH) -> Contract:
         if path.parent.resolve(strict=True) != expected_parent:
             raise CaptureError("canonical-manifest:outside-iter135")
     module = _load_module_from_stable_bytes(path, "iter135_environment_contract")
+    if str(module.EXPECTED_ENV_SCHEMA) != EXPECTED_ENVIRONMENT_SCHEMA:
+        raise CaptureError("canonical-manifest:environment-schema")
     remote_files = {
         str(role): (str(row[0]), str(row[1]), int(row[2]))
         for role, row in module.EXPECTED_REMOTE_FILES.items()
@@ -341,7 +1533,7 @@ def load_contract(path: Path = CANONICAL_MANIFEST_PATH) -> Contract:
     ):
         raise CaptureError("canonical-manifest:dataset-contract-paths")
     return Contract(
-        schema=str(module.EXPECTED_ENV_SCHEMA),
+        schema=EXPECTED_ENVIRONMENT_SCHEMA,
         ready_verdict=str(module.EXPECTED_ENV_VERDICT),
         remote_files=remote_files,
         repositories=repositories,
@@ -622,13 +1814,16 @@ def _probe_images(
     contract: Contract,
     hooks: Hooks,
     problems: list[str],
+    docker_client: Path | None,
 ) -> dict[str, dict[str, Any]]:
     receipts: dict[str, dict[str, Any]] = {}
     for name, expected_id in sorted(contract.image_ids.items()):
         image_id: Any = None
         repo_digests: Any = None
         try:
-            raw = json.loads(hooks.run(["docker", "image", "inspect", name]))
+            if docker_client is None:
+                raise CaptureError("docker-client-unavailable")
+            raw = json.loads(hooks.run([str(docker_client), "image", "inspect", name]))
             if not isinstance(raw, list) or len(raw) != 1 or not isinstance(raw[0], dict):
                 raise CaptureError("image-inspect-schema")
             image_id = raw[0].get("Id")
@@ -658,6 +1853,7 @@ def _probe_gpu_and_idle(
     contract: Contract,
     hooks: Hooks,
     problems: list[str],
+    docker_client: Path | None,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     gpu: dict[str, Any] = {
         "model": None,
@@ -714,8 +1910,14 @@ def _probe_gpu_and_idle(
     compute_count: int | None = None
     evaluator_count: int | None = None
     try:
+        if docker_client is None:
+            raise CaptureError("docker-client-unavailable")
         containers = [
-            row for row in hooks.run(["docker", "ps", "-aq", "--no-trunc"]).splitlines() if row
+            row
+            for row in hooks.run(
+                [str(docker_client), "ps", "-aq", "--no-trunc"]
+            ).splitlines()
+            if row
         ]
         container_count = len(containers)
     except CaptureError as error:
@@ -1123,12 +2325,80 @@ def _probe_storage(
 def capture_environment(
     contract: Contract,
     *,
+    host_commit: str,
     local_free_bytes: int,
     patcher_path: Path = CANONICAL_PATCHER_PATH,
     hooks: Hooks = Hooks(),
 ) -> dict[str, Any]:
     problems: list[str] = []
-    started = hooks.now().astimezone(UTC).isoformat().replace("+00:00", "Z")
+    started = hooks.now().astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
+    artifact_payloads, artifact_problems = (
+        hooks.host_artifact_payloads()
+        if hooks.host_artifact_payloads is not None
+        else _host_artifact_payloads()
+    )
+    problems.extend(artifact_problems)
+    interpreter, interpreter_problems = (
+        hooks.interpreter_receipt()
+        if hooks.interpreter_receipt is not None
+        else _interpreter_receipt()
+    )
+    problems.extend(interpreter_problems)
+    invocation, invocation_problems = (
+        hooks.invocation_receipt()
+        if hooks.invocation_receipt is not None
+        else _invocation_receipt()
+    )
+    problems.extend(invocation_problems)
+    host_preparation, preparation_problems = (
+        hooks.preparation_receipt()
+        if hooks.preparation_receipt is not None
+        else load_and_validate_preparation_receipt()
+    )
+    problems.extend(preparation_problems)
+    preparation_evidence = (
+        host_preparation.get("evidence")
+        if isinstance(host_preparation, Mapping)
+        else None
+    )
+    preparation_packet = (
+        preparation_evidence.get("packet")
+        if isinstance(preparation_evidence, Mapping)
+        else None
+    )
+    packet_source_commit = (
+        preparation_packet.get("source_commit")
+        if isinstance(preparation_packet, Mapping)
+        else None
+    )
+    try:
+        host_commit_tree_sha = verify_host_commit_topology(
+            host_commit,
+            packet_source_commit,
+            hooks.fetch_json,
+        )
+        host_publication_authority = verify_publication_authority(
+            host_commit,
+            hooks.fetch_json,
+            commit_tree_sha=host_commit_tree_sha,
+            artifact_payloads=artifact_payloads,
+        )
+    except CaptureError as error:
+        host_publication_authority = None
+        problems.append(str(error))
+    preparation_file = (
+        host_preparation.get("receipt_file")
+        if isinstance(host_preparation, Mapping)
+        else None
+    )
+    preparation_payload = artifact_payloads.get(HOST_PUBLICATION_ARTIFACT_PATHS[1])
+    if (
+        not isinstance(preparation_file, Mapping)
+        or not isinstance(preparation_payload, bytes)
+        or preparation_file.get("sha256") != hashlib.sha256(preparation_payload).hexdigest()
+        or preparation_file.get("bytes") != len(preparation_payload)
+    ):
+        problems.append("host-publication-artifact:preparation-receipt-binding")
     host = hooks.hostname()
     if host != contract.host:
         problems.append("host:identity")
@@ -1142,9 +2412,85 @@ def capture_environment(
             continue
         if remote.get("path") != f"{repository.get('path')}/{relative_path}":
             problems.append(f"repository:{repo_id}:untracked-binding:{relative_path}")
-    images = _probe_images(contract, hooks, problems)
-    gpu, box = _probe_gpu_and_idle(contract, hooks, problems)
+    docker_runtime, docker_client, docker_client_identity = _probe_docker_runtime(
+        hooks,
+        expected_host=contract.host,
+        problems=problems,
+    )
+    docker_client_receipt = (
+        docker_runtime.get("client") if isinstance(docker_runtime, Mapping) else None
+    )
+    image_client = (
+        docker_client
+        if _revalidate_docker_client(
+            docker_client,
+            docker_client_receipt,
+            docker_client_identity,
+            label="images-before",
+            problems=problems,
+        )
+        else None
+    )
+    images = _probe_images(contract, hooks, problems, image_client)
+    if docker_client is not None:
+        _revalidate_docker_client(
+            docker_client,
+            docker_client_receipt,
+            docker_client_identity,
+            label="images-after",
+            problems=problems,
+        )
+    before_runtime_problems: list[str] = []
+    before_runtime_client = (
+        docker_client
+        if _revalidate_docker_client(
+            docker_client,
+            docker_client_receipt,
+            docker_client_identity,
+            label="runtime-before-dataset-before",
+            problems=problems,
+        )
+        else None
+    )
+    gpu_before, box_before = _probe_gpu_and_idle(
+        contract, hooks, before_runtime_problems, before_runtime_client
+    )
+    if docker_client is not None:
+        _revalidate_docker_client(
+            docker_client,
+            docker_client_receipt,
+            docker_client_identity,
+            label="runtime-before-dataset-after",
+            problems=problems,
+        )
+    problems.extend(before_runtime_problems)
     dataset = _probe_dataset(contract, hooks, problems)
+    after_runtime_problems: list[str] = []
+    after_runtime_client = (
+        docker_client
+        if _revalidate_docker_client(
+            docker_client,
+            docker_client_receipt,
+            docker_client_identity,
+            label="runtime-after-dataset-before",
+            problems=problems,
+        )
+        else None
+    )
+    gpu_after, box_after = _probe_gpu_and_idle(
+        contract, hooks, after_runtime_problems, after_runtime_client
+    )
+    if docker_client is not None:
+        _revalidate_docker_client(
+            docker_client,
+            docker_client_receipt,
+            docker_client_identity,
+            label="runtime-after-dataset-after",
+            problems=problems,
+        )
+    problems.extend(after_runtime_problems)
+    if gpu_before != gpu_after or box_before != box_after:
+        problems.append("runtime-snapshots:drift")
     storage, storage_devices = _probe_storage(contract, hooks, local_free_bytes, problems)
     dataset_identity = dataset.get("identity")
     if not isinstance(dataset_identity, dict) or (
@@ -1153,8 +2499,24 @@ def capture_environment(
         or dataset_identity.get("root_st_dev") != storage_devices.get("root_st_dev")
     ):
         problems.append("dataset:storage-device-link")
+    if docker_client is not None:
+        _revalidate_docker_client(
+            docker_client,
+            docker_client_receipt,
+            docker_client_identity,
+            label="final",
+            problems=problems,
+        )
+    if host_publication_authority is not None:
+        try:
+            host_publication_authority["checks"] = verify_current_authority(
+                host_commit,
+                hooks.fetch_json,
+            )
+        except CaptureError as error:
+            problems.append(str(error))
     all_problems = sorted(set(problems))
-    captured = hooks.now().astimezone(UTC).isoformat().replace("+00:00", "Z")
+    captured = hooks.now().astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
     return {
         "schema": contract.schema,
         "verdict": contract.ready_verdict if not all_problems else INCOMPLETE_VERDICT,
@@ -1163,8 +2525,17 @@ def capture_environment(
         "host": host,
         "problem_count": len(all_problems),
         "problems": all_problems,
-        "gpu": gpu,
-        "box": box,
+        "host_publication_authority": host_publication_authority,
+        "interpreter": interpreter,
+        "invocation": invocation,
+        "host_preparation": host_preparation,
+        "docker_runtime": docker_runtime,
+        "runtime_snapshots": {
+            "before_dataset_hashing": {"gpu": gpu_before, "box": box_before},
+            "after_dataset_hashing": {"gpu": gpu_after, "box": box_after},
+        },
+        "gpu": gpu_after,
+        "box": box_after,
         "dataset": dataset,
         "storage": storage,
         "storage_devices": storage_devices,
@@ -1221,8 +2592,40 @@ def _nonnegative_integer(value: str) -> int:
     return parsed
 
 
+def _commit(value: str) -> str:
+    if _COMMIT_RE.fullmatch(value) is None:
+        raise argparse.ArgumentTypeError("must be a lowercase 40-hex commit")
+    return value
+
+
+def _reexec_with_sanitized_environment() -> None:
+    if os.environ.get("SENTINEL_I135_CAPTURE_SANITIZED") == "1":
+        return
+    script = Path(__file__).absolute()
+    if script != HERE / "capture_environment135.py" or script.is_symlink():
+        raise CaptureError("invocation:canonical-script")
+    try:
+        physical_interpreter = Path(sys.executable).resolve(strict=True)
+    except (OSError, RuntimeError) as error:
+        raise CaptureError("invocation:physical-interpreter") from error
+    if physical_interpreter.is_symlink() or not physical_interpreter.is_file():
+        raise CaptureError("invocation:physical-interpreter")
+    os.execve(
+        physical_interpreter,
+        [str(physical_interpreter), "-I", str(script), *sys.argv[1:]],
+        SANITIZED_ENVIRONMENT,
+    )
+
+
 def main(argv: Sequence[str] | None = None) -> int:
+    if argv is None:
+        try:
+            _reexec_with_sanitized_environment()
+        except CaptureError as error:
+            print(f"I135_ENVIRONMENT_CAPTURE_FAIL {error}", file=sys.stderr)
+            return 2
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--host-commit", required=True, type=_commit)
     parser.add_argument("--local-free-bytes", required=True, type=_nonnegative_integer)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     args = parser.parse_args(argv)
@@ -1230,6 +2633,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         contract = load_contract()
         receipt = capture_environment(
             contract,
+            host_commit=args.host_commit,
             local_free_bytes=args.local_free_bytes,
         )
         atomic_write_json(args.output, receipt)

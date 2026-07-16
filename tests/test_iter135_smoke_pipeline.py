@@ -1,11 +1,15 @@
 from __future__ import annotations
 
+import base64
 import hashlib
 import importlib.util
 import json
+import platform
 import os
 import re
+import stat
 import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -40,14 +44,149 @@ IMAGE_IDS = {
 }
 
 
+def github_pre_smoke_authority(manifest_sha256: str) -> dict[str, object]:
+    commit = "f" * 40
+    authority: dict[str, object] = {
+        "schema": "iter135.github_pre_smoke_authority.v1",
+        "repository": "manfromnowhere143/sentinel",
+        "branch": "master",
+        "pre_smoke_commit": commit,
+        "environment_parent": "e" * 40,
+        "manifest_sha256": manifest_sha256,
+        "checks": [
+            {
+                "name": name,
+                "id": check_id,
+                "head_sha": commit,
+                "app_slug": "github-actions",
+                "status": "completed",
+                "conclusion": "success",
+            }
+            for name, check_id in (("check (3.10)", 310), ("check (3.11)", 311))
+        ],
+    }
+    authority["authority_payload_sha256"] = hashlib.sha256(
+        json.dumps(authority, sort_keys=True, separators=(",", ":")).encode()
+    ).hexdigest()
+    return authority
+
+
 def docker_wrapper_payload() -> str:
     match = re.search(
-        r"payload = r'''(#!/bin/bash\n.*?)'''\ndescriptor = os\.open",
+        r"payload = r'''(#!/bin/bash(?: -p)?\n.*?)'''\ndescriptor = os\.open",
         RUNNER_PATH.read_text(),
         flags=re.DOTALL,
     )
     assert match is not None
     return match.group(1)
+
+
+def python_wrapper_payload() -> str:
+    tail = RUNNER_PATH.read_text().split("# I135_PINNED_PYTHON_WRAPPER\n", 1)[1]
+    match = re.search(
+        r"payload = r'''(#!/bin/bash -p\n.*?)'''\ndescriptor = os\.open",
+        tail,
+        flags=re.DOTALL,
+    )
+    assert match is not None
+    return match.group(1)
+
+
+def pre_smoke_bound_contract_namespace() -> dict[str, object]:
+    text = RUNNER_PATH.read_text()
+    program = text.split("# BEGIN I135_PRE_SMOKE_BOUND_CONTRACT_PYTHON\n", 1)[1].split(
+        "# END I135_PRE_SMOKE_BOUND_CONTRACT_PYTHON", 1
+    )[0]
+    namespace: dict[str, object] = {"hashlib": hashlib}
+    exec(compile(program, str(RUNNER_PATH), "exec"), namespace)
+    return namespace
+
+
+def github_smoke_authority_namespace() -> dict[str, object]:
+    text = RUNNER_PATH.read_text()
+    program = text.split("# BEGIN I135_GITHUB_SMOKE_AUTHORITY_PYTHON\n", 1)[1].split(
+        "# END I135_GITHUB_SMOKE_AUTHORITY_PYTHON", 1
+    )[0]
+    namespace: dict[str, object] = {"__name__": "iter135_github_smoke_authority_test"}
+    exec(compile(program, str(RUNNER_PATH), "exec"), namespace)
+    return namespace
+
+
+def publication_authority(commit: str, artifacts: list[dict[str, object]]) -> dict:
+    return {
+        "schema": manifest_contract.EXPECTED_PUBLICATION_AUTHORITY_SCHEMA,
+        "repository": manifest_contract.EXPECTED_PUBLICATION_REPOSITORY,
+        "branch": manifest_contract.EXPECTED_PUBLICATION_BRANCH,
+        "source_commit": commit,
+        "branch_head_sha": commit,
+        "required_checks": list(manifest_contract.EXPECTED_PUBLICATION_CHECKS),
+        "checks": [
+            {
+                "name": name,
+                "id": 510 + index,
+                "status": "completed",
+                "conclusion": "success",
+                "head_sha": commit,
+                "app_slug": "github-actions",
+            }
+            for index, name in enumerate(manifest_contract.EXPECTED_PUBLICATION_CHECKS)
+        ],
+        "artifacts": artifacts,
+        "verified": True,
+    }
+
+
+def docker_runtime_receipt() -> dict:
+    return {
+        "schema": manifest_contract.EXPECTED_DOCKER_RUNTIME_SCHEMA,
+        "client": {
+            "invocation_path": "/usr/bin/docker",
+            "physical_path": "/usr/bin/docker",
+            "realpath": "/usr/bin/docker",
+            "sha256": "8" * 64,
+            "bytes": 38_000_000,
+            "version": {
+                "version": "27.5.1",
+                "api_version": "1.47",
+                "git_commit": "4c9b3b0",
+                "go_version": "go1.22.11",
+                "os": "linux",
+                "arch": "amd64",
+                "build_time": "2025-01-22T13:41:17.000000000+00:00",
+                "context": "default",
+            },
+        },
+        "context": {"name": "default", "endpoint": "unix:///var/run/docker.sock"},
+        "daemon": {
+            "info": {
+                "id": "SENTINELENGINE",
+                "name": "sentinel-gpu",
+                "server_version": "27.5.1",
+                "docker_root_dir": "/var/lib/docker",
+                "driver": "overlay2",
+                "operating_system": "Ubuntu 22.04.5 LTS",
+                "os_type": "linux",
+                "architecture": "x86_64",
+                "ncpu": 8,
+                "mem_total": 33_000_000_000,
+                "kernel_version": "6.8.0",
+                "cgroup_driver": "systemd",
+                "cgroup_version": "2",
+            },
+            "version": {
+                "platform_name": "Docker Engine - Community",
+                "version": "27.5.1",
+                "api_version": "1.47",
+                "min_api_version": "1.24",
+                "git_commit": "4c9b3b0",
+                "go_version": "go1.22.11",
+                "os": "linux",
+                "arch": "amd64",
+                "build_time": "2025-01-22T13:41:17.000000000+00:00",
+                "experimental": False,
+            },
+        },
+    }
 
 
 def dataset_receipt() -> dict[str, object]:
@@ -117,6 +256,35 @@ def write_json(path: Path, value: object) -> None:
     path.write_text(json.dumps(value, indent=1, sort_keys=True) + "\n", encoding="utf-8")
 
 
+def parse_smoke_summary(payload: bytes) -> dict[str, object]:
+    text = payload.decode("utf-8")
+    prefix = (
+        "# Iteration 135 G5 smoke summary\n\n"
+        "This file is generated from `smoke-evidence/smoke_receipt.json`; do not edit.\n\n"
+        "```json\n"
+    )
+    assert text.startswith(prefix)
+    assert text.endswith("\n```\n")
+    value = json.loads(text[len(prefix) : -len("\n```\n")])
+    assert isinstance(value, dict)
+    return value
+
+
+def render_summary_payload(payload: dict[str, object]) -> bytes:
+    summary_json = json.dumps(
+        payload,
+        indent=2,
+        sort_keys=True,
+        ensure_ascii=True,
+        allow_nan=False,
+    )
+    return (
+        "# Iteration 135 G5 smoke summary\n\n"
+        "This file is generated from `smoke-evidence/smoke_receipt.json`; do not edit.\n\n"
+        f"```json\n{summary_json}\n```\n"
+    ).encode("utf-8")
+
+
 def decision_rows(dose: str, expected_frames: list[int]) -> list[dict]:
     rows = [
         {
@@ -182,9 +350,11 @@ def preflight_mission_state() -> dict[str, object]:
             "experiments/iter135_neuroncap_blind_braking_dose_response/HYPOTHESIS.md"
         ),
         "next_program": json.loads(json.dumps(smoke.PREFLIGHT_PROGRAM)),
-        "claim_state": {},
-        "deprecated_pending_hypotheses": [],
-        "paper_state": {},
+        "claim_state": json.loads(json.dumps(smoke.MISSION_CLAIM_STATE)),
+        "deprecated_pending_hypotheses": json.loads(
+            json.dumps(smoke.MISSION_DEPRECATED_HYPOTHESES)
+        ),
+        "paper_state": json.loads(json.dumps(smoke.MISSION_PAPER_STATE)),
         "storage_gate": json.loads(json.dumps(smoke.MISSION_STORAGE_GATE)),
     }
 
@@ -194,6 +364,9 @@ def make_fixture(tmp_path: Path) -> Path:
     raw = exp / smoke.RAW_REL
     raw.mkdir(parents=True)
     write_json(exp / "MISSION_STATE.json", preflight_mission_state())
+    (raw / smoke.RAW_MISSION_STATE_NAME).write_bytes(
+        (exp / "MISSION_STATE.json").read_bytes()
+    )
 
     schedule = {
         "schema": "iter135.nested_dose_schedules.v1",
@@ -218,6 +391,60 @@ def make_fixture(tmp_path: Path) -> Path:
     (exp / "run_smoke135.sh").write_bytes(RUNNER_PATH.read_bytes())
     (exp / "validate_smoke135.py").write_bytes(VALIDATOR_PATH.read_bytes())
 
+    host_packet = {
+        "schema": "iter135.host_packet_manifest.v1",
+        "source_commit": "a" * 40,
+        "files": {},
+    }
+    write_json(exp / "host_packet_manifest.json", host_packet)
+    host_packet_payload = (exp / "host_packet_manifest.json").read_bytes()
+    host_preparation = {
+        "schema": "iter135.host_preparation_receipt.v1",
+        "verdict": "I135_HOST_PREPARATION_OK",
+        "started_at_utc": "2026-07-16T09:58:00Z",
+        "finished_at_utc": "2026-07-16T09:58:30Z",
+        "host": "sentinel-gpu",
+        "problem_count": 0,
+        "problems": [],
+        "packet_manifest_sha256": hashlib.sha256(host_packet_payload).hexdigest(),
+        "packet": {
+            "schema": "iter135.host_packet_manifest.v1",
+            "source_commit": "a" * 40,
+            "manifest": {
+                "path": "/opt/sentinel-stack/iter135/host_packet_manifest.json",
+                "sha256": hashlib.sha256(host_packet_payload).hexdigest(),
+                "bytes": len(host_packet_payload),
+                "mode": 0o644,
+            },
+            "independently_supplied_manifest_sha256": hashlib.sha256(
+                host_packet_payload
+            ).hexdigest(),
+            "files": {},
+        },
+        "controller": {},
+        "repositories": {"before": {}, "after": {}},
+        "compose": {},
+        "storage": {},
+        "forbidden_paths": {},
+        "actions": [],
+        "invocation": {
+            "environment": {},
+            "isolated": True,
+            "python_implementation": "CPython",
+            "python_version": platform.python_version(),
+        },
+    }
+    host_preparation["receipt_payload_sha256"] = hashlib.sha256(
+        json.dumps(
+            host_preparation,
+            sort_keys=True,
+            separators=(",", ":"),
+            ensure_ascii=True,
+        ).encode()
+    ).hexdigest()
+    write_json(exp / "host_preparation_receipt.json", host_preparation)
+    host_preparation_payload = (exp / "host_preparation_receipt.json").read_bytes()
+
     dataset = dataset_receipt()
     remote_files = {
         role: {"path": path, "sha256": digest, "bytes": byte_count}
@@ -237,6 +464,88 @@ def make_fixture(tmp_path: Path) -> Path:
         "host": "sentinel-gpu",
         "problem_count": 0,
         "problems": [],
+        "interpreter": {
+            "invocation_path": "/usr/bin/python3",
+            "physical_path": "/usr/bin/python3",
+            "realpath": "/usr/bin/python3",
+            "sha256": "b" * 64,
+            "bytes": 1,
+            "version": "3.10.12",
+            "implementation": "CPython",
+        },
+        "invocation": {
+            "sanitized": True,
+            "isolated": True,
+            "environment": dict(manifest_contract.EXPECTED_CAPTURE_ENVIRONMENT),
+            "argv": [
+                "/usr/bin/python3",
+                "-I",
+                "/opt/sentinel-stack/iter135/capture_environment135.py",
+            ],
+            "canonical_script": "/opt/sentinel-stack/iter135/capture_environment135.py",
+        },
+        "host_preparation": {
+            "receipt_file": {
+                "path": "/opt/sentinel-stack/iter135/host_preparation_receipt.json",
+                "sha256": hashlib.sha256(host_preparation_payload).hexdigest(),
+                "bytes": len(host_preparation_payload),
+            },
+            "evidence": host_preparation,
+        },
+        "host_publication_authority": publication_authority(
+            "a" * 40,
+            [
+                {
+                    "path": (
+                        "experiments/iter135_neuroncap_blind_braking_dose_response/"
+                        "host_packet_manifest.json"
+                    ),
+                    "sha256": hashlib.sha256(host_packet_payload).hexdigest(),
+                    "bytes": len(host_packet_payload),
+                },
+                {
+                    "path": (
+                        "experiments/iter135_neuroncap_blind_braking_dose_response/"
+                        "host_preparation_receipt.json"
+                    ),
+                    "sha256": hashlib.sha256(host_preparation_payload).hexdigest(),
+                    "bytes": len(host_preparation_payload),
+                },
+            ],
+        ),
+        "docker_runtime": docker_runtime_receipt(),
+        "runtime_snapshots": {
+            "before_dataset_hashing": {
+                "gpu": {
+                    "model": "NVIDIA L4",
+                    "count": 1,
+                    "uuid": "GPU-9604ae8a-e823-3a38-5a57-0420cd29bc07",
+                    "driver_version": "580.159.03",
+                    "memory_total_mib": 23034,
+                },
+                "box": {
+                    "idle": True,
+                    "all_containers": 0,
+                    "gpu_compute_processes": 0,
+                    "known_evaluation_processes": 0,
+                },
+            },
+            "after_dataset_hashing": {
+                "gpu": {
+                    "model": "NVIDIA L4",
+                    "count": 1,
+                    "uuid": "GPU-9604ae8a-e823-3a38-5a57-0420cd29bc07",
+                    "driver_version": "580.159.03",
+                    "memory_total_mib": 23034,
+                },
+                "box": {
+                    "idle": True,
+                    "all_containers": 0,
+                    "gpu_compute_processes": 0,
+                    "known_evaluation_processes": 0,
+                },
+            },
+        },
         "dataset": dataset,
         "gpu": {
             "model": "NVIDIA L4",
@@ -285,9 +594,16 @@ def make_fixture(tmp_path: Path) -> Path:
         "run_smoke135.sh",
         "validate_smoke135.py",
         "env_receipts.json",
+        "host_packet_manifest.json",
+        "host_preparation_receipt.json",
     ):
         path = exp / name
-        bound[name] = {"source_path": name, "sha256": sha256(path), "bytes": path.stat().st_size}
+        source_path = f"experiments/iter135_neuroncap_blind_braking_dose_response/{name}"
+        bound[name] = {
+            "source_path": source_path,
+            "sha256": sha256(path),
+            "bytes": path.stat().st_size,
+        }
     manifest_environment = json.loads(json.dumps(environment))
     manifest_environment["docker_image_ids"] = IMAGE_IDS
     pre_manifest = {
@@ -300,7 +616,7 @@ def make_fixture(tmp_path: Path) -> Path:
             "sha256": sha256(exp / "MISSION_STATE.json"),
             "bytes": (exp / "MISSION_STATE.json").stat().st_size,
         },
-        "git_provenance": {},
+        "git_provenance": {"head": "e" * 40},
         "design": {},
         "planned_blocks": 120,
         "planned_episodes": 2400,
@@ -316,6 +632,8 @@ def make_fixture(tmp_path: Path) -> Path:
         "storage_gate": {},
         "resource_gate": {},
         "smoke_receipt": None,
+        "host_packet_manifest": bound["host_packet_manifest.json"],
+        "host_preparation_receipt": bound["host_preparation_receipt.json"],
         "tooling_verification_receipt": {},
         "gates": smoke.PRE_SMOKE_GATES,
         "missing_artifacts": [str(smoke.RECEIPT_REL)],
@@ -338,10 +656,17 @@ def make_fixture(tmp_path: Path) -> Path:
             "canonical_runner_identity": "66305:1001",
             "persistent_smoke_lock": "/var/lib/sentinel/i135-smoke.lock",
             "persistent_smoke_lock_identity": "66305:1002",
+            "persistent_smoke_lock_sha256": "9" * 64,
+            "github_pre_smoke_authority": github_pre_smoke_authority(
+                sha256(raw / "pre_smoke_manifest.json")
+            ),
             "retry_policy": "one_shot_no_retry_lock_retained",
             "docker_wrapper_sha256": "a" * 64,
             "docker_binary_sha256": "b" * 64,
             "docker_binary_identity": "66305:1003",
+            "python_wrapper_sha256": "c" * 64,
+            "python_binary_sha256": "d" * 64,
+            "python_binary_identity": "66305:1005",
             "container_control_root_identity": "66308:1004",
             "environment_receipt_sha256": sha256(raw / "environment_receipt.json"),
             "schedule_sha256": sha256(exp / "dose_schedules.json"),
@@ -450,12 +775,14 @@ def rebind_execution_headers(exp: Path) -> None:
 
 def rebind_mission_state(exp: Path) -> None:
     state_path = exp / "MISSION_STATE.json"
+    raw_state_path = exp / smoke.RAW_REL / smoke.RAW_MISSION_STATE_NAME
+    raw_state_path.write_bytes(state_path.read_bytes())
     manifest_path = exp / smoke.RAW_REL / "pre_smoke_manifest.json"
     manifest = json.loads(manifest_path.read_text())
     manifest["mission_state"] = {
         "source_path": "MISSION_STATE.json",
-        "sha256": sha256(state_path),
-        "bytes": state_path.stat().st_size,
+        "sha256": sha256(raw_state_path),
+        "bytes": raw_state_path.stat().st_size,
     }
     write_json(manifest_path, manifest)
     rebind_execution_headers(exp)
@@ -523,6 +850,13 @@ def test_recompute_green_receipt_from_raw_evidence(tmp_path: Path) -> None:
     ]
     assert receipt["canonical_runner_sha256"] == receipt["runner_sha256"]
     assert receipt["persistent_smoke_lock"] == "/var/lib/sentinel/i135-smoke.lock"
+    assert receipt["persistent_smoke_lock_sha256"] == "9" * 64
+    assert receipt["github_pre_smoke_authority"] == github_pre_smoke_authority(
+        receipt["pre_smoke_manifest_sha256"]
+    )
+    assert receipt["python_wrapper_sha256"] == "c" * 64
+    assert receipt["python_binary_sha256"] == "d" * 64
+    assert receipt["python_binary_identity"] == "66305:1005"
     assert receipt["retry_policy"] == "one_shot_no_retry_lock_retained"
     assert set(receipt["container_receipts"]) == set(smoke.BLIND_DOSES)
     observed_container_ids = {
@@ -531,7 +865,7 @@ def test_recompute_green_receipt_from_raw_evidence(tmp_path: Path) -> None:
         for container_id in dose_receipts.values()
     }
     assert len(observed_container_ids) == 12
-    assert len(receipt["artifacts"]) == 15
+    assert len(receipt["artifacts"]) == 16
     assert all(row["path"].startswith("smoke-evidence/raw/") for row in receipt["artifacts"])
     assert all(sha256(exp / row["path"]) == row["sha256"] for row in receipt["artifacts"])
     for dose, frames in DOSE_FRAMES.items():
@@ -544,7 +878,223 @@ def test_recompute_green_receipt_from_raw_evidence(tmp_path: Path) -> None:
         assert result["frame_count"] == 5
 
 
-def test_environment_and_manifest_must_use_exact_v2_schemas(tmp_path: Path) -> None:
+def test_smoke_summary_is_deterministic_one_way_projection(tmp_path: Path) -> None:
+    exp = make_fixture(tmp_path)
+    receipt = smoke.recompute_smoke_receipt(exp)
+    receipt_bytes = smoke.canonical_smoke_receipt_bytes(receipt)
+
+    first = smoke.render_smoke_summary(receipt, receipt_bytes)
+    second = smoke.render_smoke_summary(receipt)
+
+    assert first == second
+    with pytest.raises(smoke.SmokeBundleError, match="receipt bytes are not canonical"):
+        smoke.render_smoke_summary(receipt, receipt_bytes + b" ")
+    summary = parse_smoke_summary(first)
+    assert set(summary) == {
+        "schema",
+        "source_receipt",
+        "outcome",
+        "execution_boundary",
+        "provenance",
+        "runtime_checks",
+        "dose_results",
+        "raw_artifacts",
+    }
+    assert summary["schema"] == smoke.SUMMARY_SCHEMA
+    assert summary["source_receipt"] == {
+        "path": smoke.RECEIPT_REL.as_posix(),
+        "schema": smoke.RECEIPT_SCHEMA,
+        "sha256": hashlib.sha256(receipt_bytes).hexdigest(),
+        "bytes": len(receipt_bytes),
+    }
+    assert summary["outcome"] == {
+        "verdict": smoke.OK_VERDICT,
+        "problem_count": 0,
+        "problems": [],
+    }
+    assert summary["execution_boundary"]["persistent_smoke_lock_sha256"] == "9" * 64
+    assert summary["provenance"]["github_pre_smoke_authority"] == receipt[
+        "github_pre_smoke_authority"
+    ]
+    assert [row["dose"] for row in summary["dose_results"]] == list(smoke.BLIND_DOSES)
+    assert summary["raw_artifacts"]["count"] == 16
+    expected_artifact_set = sorted(receipt["artifacts"], key=lambda row: row["path"])
+    expected_artifact_digest = hashlib.sha256(
+        json.dumps(
+            expected_artifact_set,
+            sort_keys=True,
+            separators=(",", ":"),
+            ensure_ascii=True,
+            allow_nan=False,
+        ).encode()
+    ).hexdigest()
+    assert summary["raw_artifacts"]["content_set_sha256"] == expected_artifact_digest
+    assert all(row["path"] != smoke.SUMMARY_REL.as_posix() for row in receipt["artifacts"])
+
+    replay = smoke.write_recomputed_smoke_bundle(exp)
+    receipt_path = exp / smoke.RECEIPT_REL
+    summary_path = exp / smoke.SUMMARY_REL
+    assert replay == receipt
+    assert receipt_path.read_bytes() == receipt_bytes
+    assert summary_path.read_bytes() == first
+    assert smoke.validate_smoke_bundle(exp, replay) == []
+    assert stat.S_IMODE(receipt_path.stat().st_mode) == 0o600
+    assert stat.S_IMODE(summary_path.stat().st_mode) == 0o644
+    assert list(summary_path.parent.glob(".*.tmp")) == []
+
+
+def test_smoke_bundle_preserves_single_pre_smoke_missing_problem(tmp_path: Path) -> None:
+    exp = make_fixture(tmp_path)
+
+    assert smoke.validate_smoke_bundle(exp) == ["smoke:receipt-missing"]
+
+    receipt = smoke.write_recomputed_smoke_bundle(exp)
+    summary_path = exp / smoke.SUMMARY_REL
+    summary_path.unlink()
+    assert smoke.validate_smoke_bundle(exp, receipt) == ["smoke:summary-missing"]
+
+    summary_path.symlink_to(exp / smoke.RECEIPT_REL)
+    assert smoke.validate_smoke_bundle(exp, receipt) == ["smoke:summary-nonregular"]
+
+
+@pytest.mark.parametrize(
+    ("mutation", "expected_problem"),
+    [
+        ("summary-byte", "smoke:summary-mismatch"),
+        ("receipt-reformat", "smoke:receipt-canonical-bytes"),
+        ("dose-order", "smoke:summary-mismatch"),
+        ("dose-missing", "smoke:summary-mismatch"),
+    ],
+)
+def test_smoke_bundle_rejects_summary_and_receipt_mutations(
+    tmp_path: Path,
+    mutation: str,
+    expected_problem: str,
+) -> None:
+    exp = make_fixture(tmp_path)
+    receipt = smoke.write_recomputed_smoke_bundle(exp)
+    receipt_path = exp / smoke.RECEIPT_REL
+    summary_path = exp / smoke.SUMMARY_REL
+    if mutation == "summary-byte":
+        summary_path.write_bytes(summary_path.read_bytes() + b" ")
+    elif mutation == "receipt-reformat":
+        receipt_path.write_text(json.dumps(json.loads(receipt_path.read_text())))
+    else:
+        payload = parse_smoke_summary(summary_path.read_bytes())
+        if mutation == "dose-order":
+            payload["dose_results"].reverse()
+        else:
+            payload["dose_results"].pop()
+        summary_path.write_bytes(render_summary_payload(payload))
+
+    assert expected_problem in smoke.validate_smoke_bundle(exp, receipt)
+
+
+def test_stale_bundle_fails_after_raw_artifact_mutation(tmp_path: Path) -> None:
+    exp = make_fixture(tmp_path)
+    old_receipt = smoke.write_recomputed_smoke_bundle(exp)
+    old_artifact = next(
+        row
+        for row in old_receipt["artifacts"]
+        if row["path"].endswith("blind_0_5x.compose.log")
+    )
+    artifact_path = exp / old_artifact["path"]
+    artifact_path.write_text("SMOKE COMPOSE COMPLETE\npost-publication mutation\n")
+
+    recomputed = smoke.recompute_smoke_receipt(exp)
+    new_artifact = next(
+        row
+        for row in recomputed["artifacts"]
+        if row["path"].endswith("blind_0_5x.compose.log")
+    )
+    assert new_artifact["sha256"] != old_artifact["sha256"]
+    assert smoke.validate_smoke_bundle(exp, recomputed) == [
+        "smoke:receipt-canonical-bytes",
+        "smoke:summary-mismatch",
+    ]
+
+
+def test_cross_receipt_summary_copy_is_rejected(tmp_path: Path) -> None:
+    green = make_fixture(tmp_path / "green")
+    red = make_fixture(tmp_path / "red")
+    green_receipt = smoke.write_recomputed_smoke_bundle(green)
+    (red / smoke.RAW_REL / "blind_0_5x.compose.log").write_text(
+        "RuntimeError: independent red smoke\n"
+    )
+    red_receipt = smoke.write_recomputed_smoke_bundle(red)
+    assert red_receipt["verdict"] == smoke.FAIL_VERDICT
+
+    (green / smoke.SUMMARY_REL).write_bytes((red / smoke.SUMMARY_REL).read_bytes())
+
+    assert smoke.validate_smoke_bundle(green, green_receipt) == [
+        "smoke:summary-mismatch"
+    ]
+
+
+def test_red_smoke_bundle_is_truthful_and_never_self_referential(tmp_path: Path) -> None:
+    exp = make_fixture(tmp_path)
+    (exp / smoke.RAW_REL / "blind_0_5x.compose.log").write_text(
+        "Traceback (most recent call last):\nRuntimeError: injected\n"
+    )
+
+    receipt = smoke.write_recomputed_smoke_bundle(exp)
+    summary = parse_smoke_summary((exp / smoke.SUMMARY_REL).read_bytes())
+
+    assert receipt["verdict"] == smoke.FAIL_VERDICT
+    assert receipt["problem_count"] > 0
+    assert summary["outcome"] == {
+        "verdict": smoke.FAIL_VERDICT,
+        "problem_count": receipt["problem_count"],
+        "problems": receipt["problems"],
+    }
+    assert smoke.validate_smoke_bundle(exp, receipt) == []
+    artifact_paths = {row["path"] for row in receipt["artifacts"]}
+    assert smoke.SUMMARY_REL.as_posix() not in artifact_paths
+    assert smoke.RECEIPT_REL.as_posix() not in artifact_paths
+
+
+def test_smoke_bundle_writer_rejects_symlink_output_before_publication(
+    tmp_path: Path,
+) -> None:
+    exp = make_fixture(tmp_path)
+    summary_path = exp / smoke.SUMMARY_REL
+    summary_path.parent.mkdir(parents=True, exist_ok=True)
+    summary_path.symlink_to(exp / smoke.RAW_REL / "execution.jsonl")
+
+    with pytest.raises(smoke.SmokeBundleError, match="unsafe smoke bundle output"):
+        smoke.write_recomputed_smoke_bundle(exp)
+
+    assert not (exp / smoke.RECEIPT_REL).exists()
+    assert list(summary_path.parent.glob(".*.tmp")) == []
+
+
+def test_smoke_bundle_writer_rejects_raw_recompute_drift_before_publication(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    exp = make_fixture(tmp_path)
+    original = smoke.recompute_smoke_receipt
+    calls = 0
+
+    def drifting_recompute(*args, **kwargs):
+        nonlocal calls
+        calls += 1
+        receipt = original(*args, **kwargs)
+        if calls == 2:
+            receipt = json.loads(json.dumps(receipt))
+            receipt["problem_count"] += 1
+        return receipt
+
+    monkeypatch.setattr(smoke, "recompute_smoke_receipt", drifting_recompute)
+
+    with pytest.raises(smoke.SmokeBundleError, match="drifted before bundle publication"):
+        smoke.write_recomputed_smoke_bundle(exp)
+
+    assert not (exp / smoke.RECEIPT_REL).exists()
+    assert not (exp / smoke.SUMMARY_REL).exists()
+
+
+def test_environment_v3_and_manifest_v2_must_use_exact_schemas(tmp_path: Path) -> None:
     exp = make_fixture(tmp_path)
     environment = json.loads((exp / "env_receipts.json").read_text())
     environment["schema"] = "iter135.environment_receipts.v1"
@@ -609,6 +1159,38 @@ def test_smoke_replay_rejects_workspace_boundary_self_declaration(
     assert receipt["verdict"] == smoke.FAIL_VERDICT
     assert expected_problem in receipt["problems"]
     assert "pre-manifest:mission-state-receipt" not in receipt["problems"]
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("claim_state", {"production_readiness": "ESTABLISHED"}),
+        ("deprecated_pending_hypotheses", []),
+        ("paper_state", {"status": "SUBMISSION_READY"}),
+    ],
+)
+def test_smoke_consumer_freezes_exact_claim_paper_and_deprecated_state(
+    field: str, value: object
+) -> None:
+    state = preflight_mission_state()
+    state[field] = value
+    problems: list[str] = []
+
+    smoke._validate_preflight_mission_state(state, problems)
+
+    assert "mission-state:authority-contract" in problems
+
+
+@pytest.mark.parametrize("payload", ['{"x":1,"x":2}', '{"x":NaN}', '{"x":-Infinity}'])
+def test_smoke_json_loader_rejects_duplicate_and_nonfinite_state(
+    tmp_path: Path, payload: str
+) -> None:
+    path = tmp_path / "mission.json"
+    path.write_text(payload)
+    problems: list[str] = []
+
+    assert smoke._load_json(path, "mission-state", problems) is None
+    assert problems and problems[0].startswith("mission-state:invalid-json:ValueError")
 
 
 def test_dataset_contract_drift_fails_after_every_hash_link_is_rebound(
@@ -704,6 +1286,90 @@ def test_missing_durable_session_identity_fails_closed(tmp_path: Path) -> None:
 
 
 @pytest.mark.parametrize(
+    "field",
+    [
+        "persistent_smoke_lock_sha256",
+        "github_pre_smoke_authority",
+        "python_wrapper_sha256",
+        "python_binary_sha256",
+        "python_binary_identity",
+    ],
+)
+def test_missing_new_runtime_authority_field_fails_closed(
+    tmp_path: Path, field: str
+) -> None:
+    exp = make_fixture(tmp_path)
+    path = exp / smoke.RAW_REL / "execution.jsonl"
+    rows = [json.loads(line) for line in path.read_text().splitlines()]
+    del rows[0][field]
+    write_jsonl(path, rows)
+
+    receipt = smoke.recompute_smoke_receipt(exp)
+
+    assert receipt["verdict"] == smoke.FAIL_VERDICT
+    assert "execution:session-start-field-set" in receipt["problems"]
+
+
+def test_github_pre_smoke_authority_rejects_every_hostile_component() -> None:
+    manifest_sha = "1" * 64
+    base = github_pre_smoke_authority(manifest_sha)
+    mutations: list[dict[str, object]] = []
+    for field, value in (
+        ("schema", "wrong"),
+        ("repository", "attacker/repository"),
+        ("branch", "attacker"),
+        ("pre_smoke_commit", "0" * 40),
+        ("environment_parent", "0" * 40),
+        ("manifest_sha256", "0" * 64),
+        ("authority_payload_sha256", "0" * 64),
+    ):
+        mutation = json.loads(json.dumps(base))
+        mutation[field] = value
+        mutations.append(mutation)
+    for field, value in (
+        ("name", "unexpected"),
+        ("id", 0),
+        ("head_sha", "0" * 40),
+        ("app_slug", "attacker"),
+        ("status", "queued"),
+        ("conclusion", "failure"),
+    ):
+        mutation = json.loads(json.dumps(base))
+        mutation["checks"][0][field] = value
+        mutations.append(mutation)
+    duplicate_ids = json.loads(json.dumps(base))
+    duplicate_ids["checks"][1]["id"] = duplicate_ids["checks"][0]["id"]
+    mutations.append(duplicate_ids)
+    missing = json.loads(json.dumps(base))
+    del missing["repository"]
+    mutations.append(missing)
+
+    for mutation in mutations:
+        problems: list[str] = []
+        smoke._validate_github_pre_smoke_authority(
+            mutation,
+            manifest_sha256=manifest_sha,
+            problems=problems,
+        )
+        assert problems, mutation
+
+
+def test_session_github_pre_smoke_authority_mutation_fails_receipt(
+    tmp_path: Path,
+) -> None:
+    exp = make_fixture(tmp_path)
+    path = exp / smoke.RAW_REL / "execution.jsonl"
+    rows = [json.loads(line) for line in path.read_text().splitlines()]
+    rows[0]["github_pre_smoke_authority"]["repository"] = "attacker/repository"
+    write_jsonl(path, rows)
+
+    receipt = smoke.recompute_smoke_receipt(exp)
+
+    assert receipt["verdict"] == smoke.FAIL_VERDICT
+    assert "execution:github-pre-smoke-authority-binding" in receipt["problems"]
+
+
+@pytest.mark.parametrize(
     ("field", "value", "expected_problem"),
     [
         (
@@ -712,7 +1378,11 @@ def test_missing_durable_session_identity_fails_closed(tmp_path: Path) -> None:
             "execution:persistent-lock-path",
         ),
         ("retry_policy", "automatic_retry", "execution:retry-policy"),
+        ("persistent_smoke_lock_sha256", "not-a-digest", "execution:persistent-lock-sha256"),
         ("docker_wrapper_sha256", "sha256:not-a-digest", "execution:docker-wrapper-sha256"),
+        ("python_wrapper_sha256", "not-a-digest", "execution:python-wrapper-sha256"),
+        ("python_binary_sha256", "not-a-digest", "execution:python-binary-sha256"),
+        ("python_binary_identity", "not-an-id", "execution:python-binary-identity"),
         ("canonical_runner_sha256", "f" * 64, "execution:canonical-runner-hash"),
     ],
 )
@@ -933,7 +1603,8 @@ def test_runner_is_one_shot_hash_gated_and_syntax_valid() -> None:
     assert "manifest-required-tooling-set" in text
     assert "remote:{role}:drift" in text
     assert "path.resolve(strict=True) != path" in text
-    assert '"docker", "image", "inspect"' in text
+    assert 'DOCKER_FD_PATH=/proc/$$/fd/11' in text
+    assert 'docker_binary, "image", "inspect"' in text
     assert "NVIDIA L4" in text
     assert "gpu-compute-process-present" in text
     assert "gpu-compute-process-probe-failed" in text
@@ -1010,11 +1681,18 @@ def test_runner_publishes_and_retains_durable_one_shot_lock() -> None:
 
     assert "LOCK=/var/lib/sentinel/i135-smoke.lock" in text
     assert "/var/lock/sentinel-i135-smoke.lock" not in text
-    assert '"schema": "iter135.smoke_lock.v1"' in text
+    assert '"schema": "iter135.smoke_lock.v2"' in text
     assert '"retry_policy": "one_shot_no_retry_lock_retained"' in text
     assert "os.link(temporary, lock, follow_symlinks=False)" in text
     assert "os.fsync(stream.fileno())" in text
     assert "os.fsync(parent_descriptor)" in text
+    assert "iter135.smoke_lock.v1" not in text
+    assert text.count("iter135.smoke_lock.v2") >= 3
+    assert '"github_pre_smoke_authority": authority' in text
+    assert '"repository": "manfromnowhere143/sentinel"' in text
+    assert '"branch": "master"' in text
+    assert 'hashlib.sha256(lock_payload).hexdigest() != expected_lock_sha' in text
+    assert '"persistent_smoke_lock_sha256": hashlib.sha256(lock_payload).hexdigest()' in text
     assert "os.chmod(temporary, 0o444)" in text
     assert "Once the durable one-shot path is published it is never removed" in text
     assert 'rm -f "$LOCK"' not in text
@@ -1110,6 +1788,7 @@ print(f"{identity.st_dev}:{identity.st_ino}")
         "PATH": f"{tool_bin}:{os.environ['PATH']}",
         "FAKE_DOCKER_ARGS": str(args_path),
         "SENTINEL_DOCKER_BIN": str(fake_docker),
+        "SENTINEL_DOCKER_EXECUTABLE": str(fake_docker),
         "SENTINEL_DOCKER_BIN_ID": (
             f"{fake_docker.stat().st_dev}:{fake_docker.stat().st_ino}"
         ),
@@ -1173,6 +1852,160 @@ print(f"{identity.st_dev}:{identity.st_ino}")
     )
     assert copied_run.returncode == 125
     assert "wrapper-identity-drift" in copied_run.stderr
+
+
+def test_pinned_python_and_owned_kill_wrappers_run_frozen_harness_tail(
+    tmp_path: Path,
+) -> None:
+    control = tmp_path / "control"
+    cid_dir = control / "dose-0"
+    cid_dir.mkdir(parents=True, mode=0o700)
+    docker_wrapper = control / "docker"
+    docker_wrapper.write_text(docker_wrapper_payload())
+    docker_wrapper.chmod(0o500)
+    python_wrapper = control / "python"
+    python_wrapper.write_text(python_wrapper_payload())
+    python_wrapper.chmod(0o500)
+
+    fake_docker = tmp_path / "docker-real"
+    fake_docker.write_text(
+        """#!/bin/bash -p
+set -euo pipefail
+COMMAND=$1
+shift
+case "$COMMAND" in
+  run)
+    NAME=
+    CID_FILE=
+    PREVIOUS=
+    for ARG in "$@"; do
+      if [ "$PREVIOUS" = "--name" ]; then NAME=$ARG; fi
+      if [ "$PREVIOUS" = "--cidfile" ]; then CID_FILE=$ARG; fi
+      PREVIOUS=$ARG
+    done
+    case "$NAME" in
+      renderer) CID=$(printf 'a%.0s' {1..64}) ;;
+      model) CID=$(printf 'b%.0s' {1..64}) ;;
+      *) CID=$(printf 'c%.0s' {1..64}) ;;
+    esac
+    printf '%s\n' "$CID" > "$CID_FILE"
+    printf 'run:%s\n' "${NAME:-ncap}" >> "$FAKE_DOCKER_LOG"
+    ;;
+  inspect)
+    CID=
+    for ARG in "$@"; do CID=$ARG; done
+    case "$CID" in
+      a*) ROLE=renderer ;;
+      b*) ROLE=model ;;
+      *) exit 44 ;;
+    esac
+    printf '%s|/%s|iter135|%s|nonanalytic-smoke|%s|%s\n' \
+      "$CID" "$ROLE" "$SENTINEL_MANIFEST_SHA256" \
+      "$SENTINEL_SMOKE_DOSE_ORDINAL" "$ROLE"
+    ;;
+  kill)
+    printf 'kill:%s\n' "$1" >> "$FAKE_DOCKER_LOG"
+    ;;
+  *) exit 45 ;;
+esac
+"""
+    )
+    fake_docker.chmod(0o500)
+    tool_bin = tmp_path / "bin"
+    tool_bin.mkdir()
+    portable_stat = tool_bin / "stat"
+    portable_stat.write_text(
+        """#!/usr/bin/env python3
+import os
+import stat
+import sys
+
+if sys.argv[1:3] == ["-Lc", "%d:%i"] and len(sys.argv) == 4:
+    row = os.stat(sys.argv[3], follow_symlinks=True)
+    print(f"{row.st_dev}:{row.st_ino}")
+elif sys.argv[1:3] == ["-Lc", "%a"] and len(sys.argv) == 4:
+    print(format(stat.S_IMODE(os.stat(sys.argv[3]).st_mode), "o"))
+else:
+    raise SystemExit(64)
+"""
+    )
+    portable_stat.chmod(0o500)
+    harness = tmp_path / "frozen-harness.sh"
+    renderer_image = "sha256:4b36caf2054d37b4febeddeae08b310f906ec632fec4095b5dc4497323433e5c"
+    model_image = "sha256:f73ef38840631211983ea0dde0cf1ecdfa6dbc84ef6cd0bfb900427da6d601cb"
+    harness.write_text(
+        "#!/bin/bash -p\n"
+        "set -euo pipefail\n"
+        "PORT=$(python -c 'print(4242)')\n"
+        "[ \"$PORT\" = 4242 ]\n"
+        f"docker run --name renderer {renderer_image}\n"
+        f"docker run --name model {model_image}\n"
+        "docker kill renderer\n"
+        "docker kill model\n"
+    )
+    harness.chmod(0o500)
+    python_binary = Path(sys.executable).resolve()
+    log = tmp_path / "docker.log"
+    environment = {
+        **os.environ,
+        "PATH": f"{control}:{tool_bin}:{os.environ['PATH']}",
+        "FAKE_DOCKER_LOG": str(log),
+        "SENTINEL_DOCKER_BIN": str(fake_docker),
+        "SENTINEL_DOCKER_EXECUTABLE": str(fake_docker),
+        "SENTINEL_DOCKER_BIN_ID": f"{fake_docker.stat().st_dev}:{fake_docker.stat().st_ino}",
+        "SENTINEL_DOCKER_BIN_SHA256": sha256(fake_docker),
+        "SENTINEL_DOCKER_WRAPPER_SHA256": sha256(docker_wrapper),
+        "SENTINEL_PYTHON_BIN": str(python_binary),
+        "SENTINEL_PYTHON_EXECUTABLE": str(python_binary),
+        "SENTINEL_PYTHON_BIN_ID": f"{python_binary.stat().st_dev}:{python_binary.stat().st_ino}",
+        "SENTINEL_PYTHON_BIN_SHA256": sha256(python_binary),
+        "SENTINEL_PYTHON_WRAPPER_SHA256": sha256(python_wrapper),
+        "SENTINEL_MANIFEST_SHA256": "1" * 64,
+        "SENTINEL_SMOKE_DOSE_ORDINAL": "0",
+        "SENTINEL_CONTAINER_CONTROL_ROOT": str(control),
+        "SENTINEL_CONTAINER_CONTROL_ROOT_ID": f"{control.stat().st_dev}:{control.stat().st_ino}",
+        "SENTINEL_CONTAINER_CID_DIR": str(cid_dir),
+    }
+    completed = subprocess.run(
+        [str(harness)],
+        env=environment,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert completed.returncode == 0, completed.stderr
+    rows = log.read_text().splitlines()
+    assert rows[:2] == ["run:renderer", "run:model"]
+    assert rows[2:] == ["kill:" + "a" * 64, "kill:" + "b" * 64]
+
+
+def test_pre_smoke_bound_contract_rejects_extra_and_noncanonical_sources(
+    tmp_path: Path,
+) -> None:
+    validate = pre_smoke_bound_contract_namespace()["validate_pre_smoke_bound_contract"]
+    required = {"a.txt", "b.txt"}
+    for name in required:
+        (tmp_path / name).write_text(name)
+
+    def receipt(name: str) -> dict[str, object]:
+        payload = (tmp_path / name).read_bytes()
+        return {
+            "source_path": (
+                "experiments/iter135_neuroncap_blind_braking_dose_response/" + name
+            ),
+            "sha256": hashlib.sha256(payload).hexdigest(),
+            "bytes": len(payload),
+        }
+
+    exact = {name: receipt(name) for name in required}
+    assert validate(exact, tmp_path, required) == ([], exact)
+    extra = {**exact, "extra.txt": receipt("a.txt")}
+    assert validate(extra, tmp_path, required)[0] == ["manifest-required-tooling-set"]
+    noncanonical = json.loads(json.dumps(exact))
+    noncanonical["a.txt"]["source_path"] = "/tmp/a.txt"
+    assert validate(noncanonical, tmp_path, required)[0] == [
+        "bound-file:a.txt:source-path"
+    ]
 
 
 def test_runner_has_exact_required_command_floor() -> None:
@@ -1242,11 +2075,319 @@ def test_runner_requires_exact_pre_smoke_authority_and_live_host_contract() -> N
     assert "25 * 1024**3" in text
 
 
+def _green_smoke_check_runs(commit: str) -> dict[str, object]:
+    return {
+        "total_count": 2,
+        "check_runs": [
+            {
+                "id": index,
+                "name": f"check ({version})",
+                "head_sha": commit,
+                "status": "completed",
+                "conclusion": "success",
+                "app": {"slug": "github-actions"},
+            }
+            for index, version in enumerate(("3.10", "3.11"), start=100)
+        ]
+    }
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        b'{"outer":{"x":1,"x":2}}',
+        b'{"x":NaN}',
+        b'{"x":Infinity}',
+        b'{"x":-Infinity}',
+    ],
+)
+def test_github_smoke_authority_strict_json_rejects_hostile_payloads(
+    payload: bytes,
+) -> None:
+    namespace = github_smoke_authority_namespace()
+
+    with pytest.raises(ValueError, match="duplicate JSON key|non-finite JSON number"):
+        namespace["strict_json_loads"](payload)
+
+
+@pytest.mark.parametrize("mutation", ["duplicate-key", "non-finite"])
+def test_github_smoke_authority_rejects_hostile_committed_manifest_artifact(
+    tmp_path: Path, mutation: str
+) -> None:
+    namespace = github_smoke_authority_namespace()
+    parent = "c" * 40
+    provenance = json.dumps({"head": parent}, separators=(",", ":"))
+    if mutation == "duplicate-key":
+        payload = (
+            f'{{"git_provenance":{provenance},"git_provenance":{provenance}}}'
+        ).encode()
+    else:
+        payload = f'{{"git_provenance":{provenance},"hostile":Infinity}}'.encode()
+    manifest_path = tmp_path / "launch_manifest.json"
+    manifest_path.write_bytes(payload)
+    original_argv = namespace["sys"].argv
+    namespace["sys"].argv = [
+        "authority",
+        "a" * 40,
+        hashlib.sha256(payload).hexdigest(),
+        str(manifest_path),
+    ]
+    try:
+        with pytest.raises(
+            ValueError, match="duplicate JSON key|non-finite JSON number"
+        ):
+            namespace["main"]()
+    finally:
+        namespace["sys"].argv = original_argv
+
+
+@pytest.mark.parametrize(
+    ("mutation", "message"),
+    [
+        ("pending", "not green"),
+        ("failure", "not green"),
+        ("wrong-head", "identity drift"),
+        ("wrong-app", "identity drift"),
+        ("missing", "incomplete"),
+        ("page-incomplete", "incomplete"),
+        ("duplicate", "missing"),
+    ],
+)
+def test_github_smoke_gate_rejects_hostile_ci_json(
+    mutation: str, message: str
+) -> None:
+    namespace = github_smoke_authority_namespace()
+    validate_ci = namespace["validate_ci"]
+    commit = "a" * 40
+    payload = _green_smoke_check_runs(commit)
+    if mutation == "pending":
+        payload["check_runs"][0]["status"] = "queued"
+        payload["check_runs"][0]["conclusion"] = None
+    elif mutation == "failure":
+        payload["check_runs"][0]["conclusion"] = "failure"
+    elif mutation == "wrong-head":
+        payload["check_runs"][0]["head_sha"] = "b" * 40
+    elif mutation == "wrong-app":
+        payload["check_runs"][0]["app"] = {"slug": "untrusted"}
+    elif mutation == "missing":
+        payload["check_runs"] = payload["check_runs"][:1]
+        payload["total_count"] = 1
+    elif mutation == "page-incomplete":
+        payload["total_count"] = 3
+    else:
+        payload["check_runs"][1]["name"] = "check (3.10)"
+
+    with pytest.raises(ValueError, match=message):
+        validate_ci(payload, commit)
+
+
+def test_github_smoke_gate_rejects_master_tree_and_manifest_blob_drift() -> None:
+    namespace = github_smoke_authority_namespace()
+    validate_ref = namespace["validate_ref"]
+    validate_commit_scope = namespace["validate_commit_scope"]
+    manifest_blob_oid = namespace["manifest_blob_oid"]
+    validate_blob = namespace["validate_blob"]
+    commit = "a" * 40
+    environment_parent = "c" * 40
+    tree_oid = "d" * 40
+    with pytest.raises(ValueError, match="current canonical GitHub master"):
+        validate_ref(
+            {
+                "ref": "refs/heads/master",
+                "object": {"type": "commit", "sha": "b" * 40},
+            },
+            commit,
+        )
+    with pytest.raises(ValueError, match="truncated"):
+        manifest_blob_oid({"truncated": True, "tree": []})
+    exact_commit = {
+        "sha": commit,
+        "parents": [{"sha": environment_parent}],
+        "files": [
+            {
+                "filename": namespace["MANIFEST_REPOSITORY_PATH"],
+                "status": "added",
+            }
+        ],
+        "commit": {"tree": {"sha": tree_oid}},
+    }
+    assert validate_commit_scope(exact_commit, commit, environment_parent) == tree_oid
+    wrong_parent = json.loads(json.dumps(exact_commit))
+    wrong_parent["parents"][0]["sha"] = "e" * 40
+    with pytest.raises(ValueError, match="parent E"):
+        validate_commit_scope(wrong_parent, commit, environment_parent)
+    extra_scope = json.loads(json.dumps(exact_commit))
+    extra_scope["files"].append({"filename": "unexpected.txt", "status": "added"})
+    with pytest.raises(ValueError, match="changed-path scope"):
+        validate_commit_scope(extra_scope, commit, environment_parent)
+    renamed_scope = json.loads(json.dumps(exact_commit))
+    renamed_scope["files"][0]["status"] = "renamed"
+    renamed_scope["files"][0]["previous_filename"] = "old.json"
+    with pytest.raises(ValueError, match="changed-path scope"):
+        validate_commit_scope(renamed_scope, commit, environment_parent)
+
+    deployed = b'{"pre_smoke":true}\n'
+    oid = hashlib.sha1(f"blob {len(deployed)}\0".encode() + deployed).hexdigest()
+    payload = {
+        "sha": oid,
+        "encoding": "base64",
+        "size": len(deployed),
+        "content": base64.b64encode(deployed).decode(),
+    }
+    validate_blob(payload, oid, deployed, hashlib.sha256(deployed).hexdigest())
+    with pytest.raises(ValueError, match="does not equal the GitHub P blob"):
+        validate_blob(
+            payload,
+            oid,
+            deployed + b" ",
+            hashlib.sha256(deployed + b" ").hexdigest(),
+        )
+
+
+def test_github_smoke_gate_rechecks_master_after_ci_scope_and_blob(
+    tmp_path: Path,
+) -> None:
+    namespace = github_smoke_authority_namespace()
+    commit = "a" * 40
+    environment_parent = "b" * 40
+    tree_oid = "c" * 40
+    manifest = {"git_provenance": {"head": environment_parent}}
+    manifest_path = tmp_path / "launch_manifest.json"
+    manifest_path.write_text(json.dumps(manifest, sort_keys=True) + "\n")
+    deployed = manifest_path.read_bytes()
+    blob_oid = hashlib.sha1(f"blob {len(deployed)}\0".encode() + deployed).hexdigest()
+    green_ref = {
+        "ref": "refs/heads/master",
+        "object": {"type": "commit", "sha": commit},
+    }
+    red_ref = {
+        "ref": "refs/heads/master",
+        "object": {"type": "commit", "sha": "d" * 40},
+    }
+    responses = [
+        green_ref,
+        _green_smoke_check_runs(commit),
+        {
+            "sha": commit,
+            "parents": [{"sha": environment_parent}],
+            "files": [
+                {
+                    "filename": namespace["MANIFEST_REPOSITORY_PATH"],
+                    "status": "added",
+                }
+            ],
+            "commit": {"tree": {"sha": tree_oid}},
+        },
+        {
+            "truncated": False,
+            "tree": [
+                {
+                    "path": namespace["MANIFEST_REPOSITORY_PATH"],
+                    "type": "blob",
+                    "sha": blob_oid,
+                }
+            ],
+        },
+        {
+            "sha": blob_oid,
+            "encoding": "base64",
+            "size": len(deployed),
+            "content": base64.b64encode(deployed).decode(),
+        },
+        red_ref,
+    ]
+    requests: list[str] = []
+
+    def fake_github_json(relative: str) -> object:
+        requests.append(relative)
+        return responses.pop(0)
+
+    namespace["github_json"] = fake_github_json
+    original_argv = namespace["sys"].argv
+    namespace["sys"].argv = [
+        "authority",
+        commit,
+        hashlib.sha256(deployed).hexdigest(),
+        str(manifest_path),
+    ]
+    try:
+        with pytest.raises(ValueError, match="current canonical GitHub master"):
+            namespace["main"]()
+    finally:
+        namespace["sys"].argv = original_argv
+    assert requests[-1] == "/git/ref/heads/master"
+    assert not responses
+
+
+def test_smoke_runner_rejects_shell_spoofing_and_pins_interpreter_fd(
+    tmp_path: Path,
+) -> None:
+    text = RUNNER_PATH.read_text()
+    assert text.startswith("#!/bin/bash -p\n")
+    assert "done < <(compgen -e)" in text
+    assert "SENTINEL_SMOKE_INPUT_MANIFEST_SHA256)" in text
+    assert 'BOOTSTRAP_ENV_COUNT" != "5"' in text
+    assert '"${PWD-}" != "/opt/sentinel-stack/iter135"' in text
+    assert '"${SHLVL-}" != "1"' in text
+    assert "/usr/bin/env)" not in text
+    assert 'if [ "${PATH-}" != "$CANONICAL_PATH" ]' in text
+    assert 'exec 10< "$PYTHON_BIN"' in text
+    assert 'PYTHON_FD_PATH=/proc/$$/fd/10' in text
+    assert '"$PYTHON_FD_PATH" -I "$@"' in text
+
+    original = tmp_path / "python3"
+    replacement = tmp_path / "replacement"
+    original.write_bytes(b"captured interpreter")
+    replacement.write_bytes(b"hostile replacement")
+    descriptor = os.open(original, os.O_RDONLY)
+    try:
+        pinned = os.fstat(descriptor)
+        os.replace(replacement, original)
+        live = original.stat()
+        assert (live.st_dev, live.st_ino) != (pinned.st_dev, pinned.st_ino)
+    finally:
+        os.close(descriptor)
+    assert "python-interpreter-initial-drift" in text
+    assert '"$(sha256sum "$PYTHON_FD_PATH"' in text
+
+
+def test_smoke_runner_requires_p_current_green_github_and_canonical_receipts() -> None:
+    text = RUNNER_PATH.read_text()
+    assert "SENTINEL_SMOKE_INPUT_MANIFEST_COMMIT" in text
+    assert "https://api.github.com/repos/manfromnowhere143/sentinel" in text
+    assert 'EXPECTED_CHECKS = {"check (3.10)", "check (3.11)"}' in text
+    assert "ProxyHandler({})" in text
+    assert "ssl.create_default_context()" in text
+    assert "deployed pre-smoke manifest does not equal the GitHub P blob" in text
+    assert 'cp "$MISSION_STATE_SOURCE" "$RAW_DIR/pre_smoke_mission_state.json"' in text
+    assert (
+        'f"experiments/iter135_neuroncap_blind_braking_dose_response/{name}"'
+        in text
+    )
+
+
+def test_smoke_runner_replays_exact_v3_docker_runtime_through_pinned_fd() -> None:
+    text = RUNNER_PATH.read_text()
+    assert 'DOCKER_FD_PATH=/proc/$$/fd/11' in text
+    assert 'SENTINEL_DOCKER_EXECUTABLE="$DOCKER_FD_PATH"' in text
+    assert 'exec "$SENTINEL_DOCKER_EXECUTABLE" run' in text
+    assert 'runtime_executable = f"/proc/self/fd/{runtime_descriptor}"' in text
+    assert '"schema": "iter135.docker_runtime_receipt.v1"' in text
+    assert '"version", "--format", "{{json .}}"' in text
+    assert '"info", "--format", "{{json .}}"' in text
+    assert '"context",\n    "inspect"' in text
+    assert "live Docker client/context/daemon drift from v3 receipt" in text
+    assert '"x86_64": "amd64"' in text
+    assert '"aarch64": "arm64"' in text
+    assert text.count("verify_docker_v3_runtime") >= 4
+    assert '"$(verify_docker_v3_runtime)" = "$DOCKER_RUNTIME_SHA"' in text
+
+
 def test_runner_requires_v2_dataset_provenance_without_self_declaration() -> None:
     text = RUNNER_PATH.read_text()
 
     assert 'manifest.get("schema") != "iter135.launch_manifest.v2"' in text
-    assert 'environment.get("schema") != "iter135.environment_receipts.v2"' in text
+    assert 'environment.get("schema") != "iter135.environment_receipts.v3"' in text
     assert '"dataset_receipt"' in text
     assert '"dataset"' in text
     assert '"g7_dataset_provenance": True' in text

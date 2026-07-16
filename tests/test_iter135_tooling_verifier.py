@@ -151,6 +151,7 @@ def test_green_receipt_binds_complete_discovered_surface_and_exact_commands(
     receipt, runner = run_green(root)
     inventory = verifier.discover_inventory(root)
 
+    assert set(receipt) == verifier.RECEIPT_FIELDS
     assert receipt["verdict"] == verifier.OK_VERDICT
     assert receipt["problem_count"] == 0
     assert receipt["inventory"] == inventory.as_dict()
@@ -166,8 +167,24 @@ def test_green_receipt_binds_complete_discovered_surface_and_exact_commands(
         "CONTINUITY.md",
         "HANDOFF.md",
         "MISSION_STATE.json",
+        f"{verifier.EXPERIMENT_REL}/analyze_dose135.py",
+        f"{verifier.EXPERIMENT_REL}/authorize_launch135.py",
+        f"{verifier.EXPERIMENT_REL}/capture_environment135.py",
+        f"{verifier.EXPERIMENT_REL}/collect_proof135.py",
+        f"{verifier.EXPERIMENT_REL}/make_launch_manifest.py",
+        f"{verifier.EXPERIMENT_REL}/prepare_host135.py",
+        f"{verifier.EXPERIMENT_REL}/run_dose135.sh",
+        f"{verifier.EXPERIMENT_REL}/run_smoke135.sh",
+        f"{verifier.EXPERIMENT_REL}/validate_smoke135.py",
         f"{verifier.EXPERIMENT_REL}/verify_tooling135.py",
         "scripts/mission_state.py",
+        "tests/test_iter135_analyzer.py",
+        "tests/test_iter135_environment_capture.py",
+        "tests/test_iter135_host_preparation.py",
+        "tests/test_iter135_launch_authorization.py",
+        "tests/test_iter135_launch_manifest.py",
+        "tests/test_iter135_launcher.py",
+        "tests/test_iter135_proof_collector.py",
         "tests/test_iter135_smoke_pipeline.py",
         "tests/test_iter135_tooling_verifier.py",
         "tests/test_mission_state.py",
@@ -415,7 +432,7 @@ def test_generation_one_source_cannot_mint_a_second_generation_one_receipt(
     assert receipt["publication"] == verifier.EXPECTED_RECOVERY_PUBLICATION
 
 
-def test_replay_rejects_missing_or_forged_generation_two_publication(
+def test_replay_rejects_missing_or_forged_generation_three_publication(
     tmp_path: Path,
 ) -> None:
     root = make_repo(tmp_path)
@@ -441,7 +458,7 @@ def test_replay_rejects_missing_or_forged_generation_two_publication(
 
         errors = replay_validate(forged, root, git_probe=stable_git)
 
-        assert "generation-two publication block mismatch" in errors
+        assert "generation-three publication block mismatch" in errors
 
 
 @pytest.mark.parametrize(
@@ -727,6 +744,10 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
     parents = {
         verifier.GENERATION_ONE_SOURCE_COMMIT: (verifier.GENERATION_ONE_SOURCE_PARENT,),
         verifier.GENERATION_ONE_RECEIPT_COMMIT: (verifier.GENERATION_ONE_SOURCE_COMMIT,),
+        verifier.GENERATION_TWO_SOURCE_COMMIT: (verifier.GENERATION_TWO_SOURCE_PARENT,),
+        verifier.GENERATION_TWO_RECEIPT_COMMIT: (verifier.GENERATION_TWO_SOURCE_COMMIT,),
+        verifier.GENERATION_TWO_STATE_COMMIT: (verifier.GENERATION_TWO_RECEIPT_COMMIT,),
+        verifier.GENERATION_TWO_BATON_COMMIT: (verifier.GENERATION_TWO_STATE_COMMIT,),
         source: (verifier.RECOVERY_SOURCE_PARENT,),
         receipt_commit: (source,),
         state_commit: (receipt_commit,),
@@ -738,13 +759,23 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
             sorted(verifier.GENERATION_ONE_SOURCE_COMMIT_PATHS)
         ),
         verifier.GENERATION_ONE_RECEIPT_COMMIT: (verifier.RECEIPT_REL,),
+        verifier.GENERATION_TWO_SOURCE_COMMIT: tuple(
+            sorted(verifier.GENERATION_TWO_SOURCE_COMMIT_PATHS)
+        ),
+        verifier.GENERATION_TWO_RECEIPT_COMMIT: (verifier.RECEIPT_REL,),
+        verifier.GENERATION_TWO_STATE_COMMIT: ("MISSION_STATE.json",),
+        verifier.GENERATION_TWO_BATON_COMMIT: ("CONTINUITY.md", "HANDOFF.md"),
         source: tuple(sorted(verifier.RECOVERY_SOURCE_COMMIT_PATHS)),
         receipt_commit: (verifier.RECEIPT_REL,),
         state_commit: ("MISSION_STATE.json",),
         baton_commit: ("CONTINUITY.md", "HANDOFF.md"),
         later_commit: (verifier.REQUIRED_PYTHON_TOOL_FILES[0],),
     }
-    receipt_history = [receipt_commit, verifier.GENERATION_ONE_RECEIPT_COMMIT]
+    receipt_history = [
+        receipt_commit,
+        verifier.GENERATION_TWO_RECEIPT_COMMIT,
+        verifier.GENERATION_ONE_RECEIPT_COMMIT,
+    ]
 
     def fake_git(_root: Path, argv: tuple[str, ...]) -> bytes:
         if argv[0] == "rev-list":
@@ -813,7 +844,7 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
         git_probe=lambda _root, _paths: publication_git(baton_commit, detached_origin),
         ancestry_probe=receipt_missing_from_origin,
     )
-    assert any("replacement receipt is not published on origin/master" in error for error in errors)
+    assert any("generation-three receipt is not published on origin/master" in error for error in errors)
 
     wrong_root = copy.deepcopy(receipt)
     wrong_root["repository"]["root"] = str(root)
@@ -840,7 +871,7 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
         git_probe=lambda _root, _paths: publication_git(later_commit),
         ancestry_probe=stable_ancestry,
     )
-    assert any("changed unauthorized paths" in error for error in errors)
+    assert any("violates evidence order" in error for error in errors)
 
     receipt_history.pop()
     errors = verifier.validate_published_receipt_structure(
@@ -849,7 +880,7 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
         git_probe=lambda _root, _paths: publication_git(baton_commit),
         ancestry_probe=stable_ancestry,
     )
-    assert any("receipt history is not exact generation-two" in error for error in errors)
+    assert any("receipt history is not exact generation-three" in error for error in errors)
     receipt_history.append(verifier.GENERATION_ONE_RECEIPT_COMMIT)
 
     paths[verifier.GENERATION_ONE_SOURCE_COMMIT] = ("MISSION_STATE.json",)
@@ -884,7 +915,63 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
         git_probe=lambda _root, _paths: publication_git(baton_commit),
         ancestry_probe=stable_ancestry,
     )
-    assert any("actual recovery source topology or path scope is wrong" in error for error in errors)
+    assert any(
+        "actual generation-three source topology or path scope is wrong" in error
+        for error in errors
+    )
+
+
+def test_post_baton_chain_accepts_only_exact_evidence_and_atomic_launch_order() -> None:
+    exp = verifier.EXPERIMENT_REL
+    exact = [
+        (
+            "1" * 40,
+            (
+                f"{exp}/host_packet_manifest.json",
+                f"{exp}/host_preparation_receipt.json",
+            ),
+        ),
+        ("2" * 40, (f"{exp}/env_receipts.json",)),
+        ("3" * 40, (f"{exp}/launch_manifest.json",)),
+        (
+            "4" * 40,
+            verifier.SMOKE_EVIDENCE_PATHS,
+        ),
+        ("5" * 40, ("MISSION_STATE.json",)),
+        ("6" * 40, (f"{exp}/launch_manifest.json",)),
+        (
+            "7" * 40,
+            (
+                "CONTINUITY.md",
+                "HANDOFF.md",
+                f"{exp}/launch_activation_receipt.json",
+            ),
+        ),
+    ]
+
+    for prefix_length in range(5):
+        verifier._validate_post_baton_chain(exact[:prefix_length])  # noqa: SLF001
+    verifier._validate_post_baton_chain(exact)  # noqa: SLF001
+
+    with pytest.raises(verifier.VerificationError, match="violates evidence order"):
+        verifier._validate_post_baton_chain([exact[1]])  # noqa: SLF001
+    # A and A/F are deterministic construction prefixes, never launch authority by themselves.
+    verifier._validate_post_baton_chain(exact[:5])  # noqa: SLF001
+    verifier._validate_post_baton_chain(exact[:6])  # noqa: SLF001
+    with pytest.raises(verifier.VerificationError, match="wrong scope"):
+        hostile = [*exact[:-1], ("7" * 40, ("CONTINUITY.md", "HANDOFF.md"))]
+        verifier._validate_post_baton_chain(hostile)  # noqa: SLF001
+
+    smoke_index = 3
+    for hostile_paths in (
+        verifier.SMOKE_EVIDENCE_PATHS[:-1],
+        tuple(sorted((*verifier.SMOKE_EVIDENCE_PATHS, f"{exp}/smoke-evidence/extra.txt"))),
+        (f"{exp}/smoke-evidence/arbitrary-prefixed-path.txt",),
+    ):
+        hostile = list(exact)
+        hostile[smoke_index] = ("4" * 40, hostile_paths)
+        with pytest.raises(verifier.VerificationError, match="exact smoke-evidence freeze"):
+            verifier._validate_post_baton_chain(hostile)  # noqa: SLF001
 
 
 def test_non_ancestor_current_head_rejects_otherwise_exact_receipt(tmp_path: Path) -> None:
@@ -1048,3 +1135,64 @@ def test_receipt_payload_digest_detects_structural_tampering(tmp_path: Path) -> 
     errors = replay_validate(forged, root, git_probe=stable_git)
 
     assert "receipt payload digest mismatch" in errors
+
+
+@pytest.mark.parametrize("mutation", ["extra", "missing"])
+def test_receipt_root_field_set_is_exact_in_both_validators(
+    tmp_path: Path, mutation: str
+) -> None:
+    root = make_repo(tmp_path)
+    receipt, _runner = run_green(root)
+    forged = copy.deepcopy(receipt)
+    if mutation == "extra":
+        forged["unregistered_root_claim"] = True
+    else:
+        forged.pop("timing")
+    refresh_payload_digest(forged)
+
+    replay_errors = replay_validate(forged, root, git_probe=stable_git)
+    structural_errors = verifier.validate_published_receipt_structure(forged, root)
+
+    assert "receipt root field set mismatch" in replay_errors
+    assert "receipt root field set mismatch" in structural_errors
+
+
+@pytest.mark.parametrize(
+    ("payload", "problem"),
+    [
+        ('{"schema":"first","schema":"second"}', "duplicate receipt JSON key"),
+        ('{"value":NaN}', "non-finite receipt JSON number"),
+        ('{"value":Infinity}', "non-finite receipt JSON number"),
+        ('{"value":-Infinity}', "non-finite receipt JSON number"),
+    ],
+)
+def test_receipt_parser_rejects_duplicate_and_nonfinite_json(
+    payload: str, problem: str
+) -> None:
+    with pytest.raises(verifier.VerificationError, match=problem):
+        verifier._parse_receipt_json(payload)  # noqa: SLF001
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        '{"schema":"secret-one","schema":"secret-two"}',
+        '{"secret-value":NaN}',
+        "[]",
+    ],
+)
+def test_verify_receipt_cli_fails_closed_without_disclosing_hostile_json(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+    payload: str,
+) -> None:
+    receipt_path = tmp_path / "hostile-receipt.json"
+    receipt_path.write_text(payload, encoding="utf-8")
+
+    return_code = verifier.main(["--verify-receipt", str(receipt_path)])
+    captured = capsys.readouterr()
+
+    assert return_code == 2
+    assert captured.out.splitlines() == [verifier.FAIL_VERDICT, "problem_count=1"]
+    assert captured.err == ""
+    assert "secret" not in captured.out

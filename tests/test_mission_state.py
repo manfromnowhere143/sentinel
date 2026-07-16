@@ -2,9 +2,11 @@ from __future__ import annotations
 
 import copy
 import hashlib
+import importlib.util
 import json
 from pathlib import Path
 import subprocess
+import sys
 
 import pytest
 
@@ -13,6 +15,8 @@ from scripts.mission_state import (
     CANONICAL_REPOSITORY,
     EMPTY_GIT_STATUS_SHA256,
     EXPECTED_SOURCE_COMMIT_PATHS,
+    GENERATION_THREE_REASON_CODE,
+    GENERATION_THREE_SOURCE_COMMIT_PATHS,
     LAUNCH_AUTHORIZED_ACTIONS,
     LAUNCH_FORBIDDEN_ACTIONS,
     PREREGISTERED_AUTHORIZED_ACTIONS,
@@ -24,8 +28,19 @@ from scripts.mission_state import (
     TOOLING_RECEIPT_REL,
     _canonical_json,
     load_state,
+    validate_local_launch_candidate,
     validate_state,
 )
+
+
+AUTH_MODULE_PATH = (
+    Path(__file__).resolve().parents[1]
+    / "experiments/iter135_neuroncap_blind_braking_dose_response/authorize_launch135.py"
+)
+AUTH_SPEC = importlib.util.spec_from_file_location("mission_state_launch_controller", AUTH_MODULE_PATH)
+assert AUTH_SPEC is not None and AUTH_SPEC.loader is not None
+launch_controller = importlib.util.module_from_spec(AUTH_SPEC)
+AUTH_SPEC.loader.exec_module(launch_controller)
 
 
 def _git(repo: Path, *arguments: str) -> bytes:
@@ -37,6 +52,137 @@ def _git(repo: Path, *arguments: str) -> bytes:
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
     ).stdout
+
+
+def _complete_tooling_receipt(receipt: dict) -> dict:
+    receipt.update(
+        {
+            "inventory": {
+                "contract": "frozen fixture inventory",
+                "tests": [],
+                "python_tools": [],
+                "python_files": [],
+                "shell_files": [],
+                "data_files": [],
+                "control_files": [],
+                "tested_files": [],
+            },
+            "inventory_sha256": "1" * 64,
+            "toolchain": {},
+            "environment_contract": {},
+            "files": {},
+            "file_content_set_sha256": "2" * 64,
+            "command_contract": [],
+            "commands": [],
+            "timing": {
+                "started_at_utc": "2026-07-16T00:00:00Z",
+                "finished_at_utc": "2026-07-16T00:00:01Z",
+                "wall_duration_ns": 1_000_000_000,
+                "monotonic_duration_ns": 1_000_000_000,
+            },
+        }
+    )
+    receipt["receipt_payload_sha256"] = hashlib.sha256(_canonical_json(receipt)).hexdigest()
+    return receipt
+
+
+def test_actual_frozen_module_loaders_restore_sys_modules_lifecycle(
+    tmp_path: Path,
+) -> None:
+    _git(tmp_path, "init", "-b", "master")
+    _git(tmp_path, "config", "user.name", "Sentinel Test")
+    _git(tmp_path, "config", "user.email", "sentinel-test@example.invalid")
+    source_root = Path(__file__).resolve().parents[1]
+    for relative in (
+        mission_state.TOOLING_VALIDATOR_REL,
+        mission_state.LAUNCH_CONTROLLER_REL,
+    ):
+        target = tmp_path / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes((source_root / relative).read_bytes())
+    _git(
+        tmp_path,
+        "add",
+        mission_state.TOOLING_VALIDATOR_REL.as_posix(),
+        mission_state.LAUNCH_CONTROLLER_REL.as_posix(),
+    )
+    _git(tmp_path, "commit", "-m", "actual frozen controller sources")
+    source_commit = _git(tmp_path, "rev-parse", "HEAD").decode().strip()
+    mission_module_name = "sentinel_iter135_tooling_receipt_validator"
+    controller_module_name = "iter135_frozen_tooling_receipt_validator"
+    launch_module_name = "sentinel_iter135_launch_controller"
+    previous_mission_module = sys.modules.get(mission_module_name)
+    previous_controller_module = sys.modules.get(controller_module_name)
+    previous_launch_module = sys.modules.get(launch_module_name)
+
+    mission_validator = mission_state._load_tooling_receipt_validator(
+        tmp_path,
+        source_commit,
+    )
+    controller_validator = launch_controller._load_frozen_tooling_receipt_validator(
+        tmp_path,
+        source_commit,
+    )
+    launch_validator = mission_state._load_launch_controller(tmp_path, source_commit)
+
+    assert callable(mission_validator)
+    assert callable(controller_validator)
+    assert callable(launch_validator)
+    assert sys.modules.get(mission_module_name) is previous_mission_module
+    assert sys.modules.get(controller_module_name) is previous_controller_module
+    assert sys.modules.get(launch_module_name) is previous_launch_module
+
+
+def _structural_launch_controller(
+    repo: Path,
+    *,
+    phase: str,
+    tooling_receipt_commit: str,
+    tooling_baton_commit: str,
+    descendants: list[str],
+    upstream_commit: str,
+    candidate: bool = False,
+) -> dict:
+    del tooling_receipt_commit, tooling_baton_commit
+    problems: list[str] = []
+    expected_count = 7 if phase == "LAUNCH_AUTHORIZED" else 4
+    if phase == "LAUNCH_AUTHORIZED" and len(descendants) != expected_count:
+        problems.append(f"authorization:launch-descendant-count:{len(descendants)}")
+    expected_upstream = (
+        descendants[3]
+        if candidate and len(descendants) >= 4
+        else descendants[-1] if descendants else None
+    )
+    if upstream_commit != expected_upstream:
+        problems.append(
+            "authorization:preflight-not-on-origin-master"
+            if candidate
+            else "authorization:head-not-on-origin-master"
+        )
+    references = {}
+    if len(descendants) >= 7:
+        references = {
+            "MISSION_STATE.json": descendants[4],
+            launch_controller.MANIFEST_REL: descendants[5],
+            launch_controller.ACTIVATION_REL: descendants[6],
+        }
+    if candidate:
+        problems.append("authorization:candidate-non-authoritative")
+    return {
+        "problems": problems,
+        "references": references,
+        "authority": "non-authoritative-local-candidate" if candidate else "origin-published",
+        "launch_authorized": not candidate and not problems,
+        "candidate_valid": candidate and problems == ["authorization:candidate-non-authoritative"],
+    }
+
+
+def _use_structural_launch_controller(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(
+        mission_state,
+        "_load_launch_controller",
+        lambda _repo, _source_commit: _structural_launch_controller,
+    )
 
 
 def _minimal_state_repo(tmp_path: Path) -> tuple[Path, dict]:
@@ -201,7 +347,7 @@ def _commit_recovery_publication(
     }
     if publication_overrides:
         receipt["publication"].update(publication_overrides)
-    receipt["receipt_payload_sha256"] = hashlib.sha256(_canonical_json(receipt)).hexdigest()
+    _complete_tooling_receipt(receipt)
     receipt_path.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n")
     _git(repo, "add", TOOLING_RECEIPT_REL.as_posix())
     _git(repo, "commit", "-m", "generation two receipt only")
@@ -209,7 +355,7 @@ def _commit_recovery_publication(
     _git(repo, "update-ref", "refs/remotes/origin/master", receipt_commit)
 
     if extra_receipt_history:
-        receipt["unexpected_history_entry"] = True
+        receipt["timing"]["wall_duration_ns"] += 1
         receipt["receipt_payload_sha256"] = hashlib.sha256(
             _canonical_json(
                 {key: value for key, value in receipt.items() if key != "receipt_payload_sha256"}
@@ -234,6 +380,7 @@ def _commit_recovery_publication(
         (repo / "HANDOFF.md").write_text("GPU_RUN_STATE=NOT_PROBED_OFFLINE_GENERATION\n")
         _git(repo, "add", "CONTINUITY.md", "HANDOFF.md")
         _git(repo, "commit", "-m", "generation two offline baton")
+    baton_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
 
     return {
         "generation_one_source": generation_one_source,
@@ -243,11 +390,386 @@ def _commit_recovery_publication(
         "recovery_source": source_commit,
         "recovery_receipt": receipt_commit,
         "recovery_state": state_commit,
+        "recovery_baton": baton_commit,
+    }
+
+
+def _commit_generation_three_publication(
+    repo: Path,
+    state: dict,
+    monkeypatch: pytest.MonkeyPatch,
+    *,
+    publication_overrides: dict[str, object] | None = None,
+    receipt_root_mutation: str | None = None,
+    receipt_nested_mutation: bool = False,
+    include_baton: bool = True,
+    source_paths: tuple[str, ...] = GENERATION_THREE_SOURCE_COMMIT_PATHS,
+) -> dict[str, str]:
+    generation_two = _commit_recovery_publication(repo, state, monkeypatch)
+    generation_two_baton = generation_two["recovery_baton"]
+    monkeypatch.setattr(
+        mission_state, "GENERATION_TWO_SOURCE_COMMIT", generation_two["recovery_source"]
+    )
+    monkeypatch.setattr(
+        mission_state, "GENERATION_TWO_RECEIPT_COMMIT", generation_two["recovery_receipt"]
+    )
+    monkeypatch.setattr(
+        mission_state, "GENERATION_TWO_STATE_COMMIT", generation_two["recovery_state"]
+    )
+    monkeypatch.setattr(mission_state, "GENERATION_TWO_BATON_COMMIT", generation_two_baton)
+    monkeypatch.setattr(mission_state, "GENERATION_THREE_SOURCE_PARENT", generation_two_baton)
+    expected_publication = {
+        "generation": 3,
+        "supersedes_receipt_commit": generation_two["recovery_receipt"],
+        "recovery_parent": generation_two_baton,
+        "reason_code": GENERATION_THREE_REASON_CODE,
+    }
+    monkeypatch.setattr(mission_state, "EXPECTED_RECOVERY_PUBLICATION", expected_publication)
+    monkeypatch.setattr(
+        mission_state,
+        "_load_tooling_receipt_validator",
+        lambda _repo, _source_commit: lambda _receipt, **_kwargs: [],
+    )
+
+    preregistered_state = copy.deepcopy(state)
+    _set_preregistered_phase(preregistered_state)
+    source_repo = Path(__file__).resolve().parents[1]
+    for relative in source_paths:
+        path = repo / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        if relative == "MISSION_STATE.json":
+            path.write_text(json.dumps(preregistered_state, indent=2) + "\n")
+        elif relative == "CONTINUITY.md":
+            path.write_text("generation three source transition\n")
+        elif relative == "HANDOFF.md":
+            path.write_text("generation three source handoff\n")
+        elif relative.endswith("/authorize_launch135.py"):
+            path.write_bytes((source_repo / relative).read_bytes())
+        elif relative.endswith("/verify_tooling135.py"):
+            path.write_text(
+                "def validate_published_receipt_structure(receipt, *args, **kwargs):\n"
+                "    return ['nested receipt invalid'] if receipt.get('commands') else []\n"
+            )
+        else:
+            path.write_text(f"generation three source: {relative}\n")
+    _git(repo, "add", *source_paths)
+    _git(repo, "commit", "-m", "generation three source")
+    source_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
+    _git(repo, "update-ref", "refs/remotes/origin/master", source_commit)
+    source_paths = sorted(
+        item.decode()
+        for item in _git(
+            repo,
+            "diff-tree",
+            "--root",
+            "--no-commit-id",
+            "--name-only",
+            "-r",
+            "-z",
+            source_commit,
+        ).split(b"\0")
+        if item
+    )
+    git_state = {
+        "head": source_commit,
+        "dirty_entries": [],
+        "porcelain_v1_z_sha256": EMPTY_GIT_STATUS_SHA256,
+        "branch": "master",
+        "upstream": "origin/master",
+        "upstream_head": source_commit,
+        "parents": [generation_two_baton],
+        "commit_paths": source_paths,
+    }
+    publication = dict(expected_publication)
+    if publication_overrides:
+        publication.update(publication_overrides)
+    receipt = {
+        "schema": "iter135.tooling_verification.v2",
+        "verdict": "I135_TOOLING_VERIFICATION_OK",
+        "problem_count": 0,
+        "problems": [],
+        "publication": publication,
+        "repository": {
+            "root": CANONICAL_REPOSITORY,
+            "git_start": git_state,
+            "git_end": git_state,
+            "git_head_stable": True,
+            "git_state_stable": True,
+            "repository_clean_state_stable": True,
+        },
+    }
+    _complete_tooling_receipt(receipt)
+    if receipt_nested_mutation:
+        receipt["commands"] = [{"forged": True}]
+    if receipt_root_mutation == "extra":
+        receipt["unexpected_root"] = True
+    elif receipt_root_mutation == "missing":
+        receipt.pop("timing")
+    elif receipt_root_mutation is not None:
+        raise AssertionError(f"unsupported receipt mutation: {receipt_root_mutation}")
+    if receipt_root_mutation is not None or receipt_nested_mutation:
+        receipt["receipt_payload_sha256"] = hashlib.sha256(
+            _canonical_json(
+                {key: value for key, value in receipt.items() if key != "receipt_payload_sha256"}
+            )
+        ).hexdigest()
+    receipt_path = repo / TOOLING_RECEIPT_REL
+    receipt_path.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n")
+    _git(repo, "add", TOOLING_RECEIPT_REL.as_posix())
+    _git(repo, "commit", "-m", "generation three receipt")
+    receipt_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
+    _git(repo, "update-ref", "refs/remotes/origin/master", receipt_commit)
+
+    (repo / "MISSION_STATE.json").write_text(json.dumps(state, indent=2) + "\n")
+    _git(repo, "add", "MISSION_STATE.json")
+    _git(repo, "commit", "-m", "generation three state")
+    state_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
+    if include_baton:
+        (repo / "CONTINUITY.md").write_text("generation three tooling transition\n")
+        (repo / "HANDOFF.md").write_text("generation three tooling handoff\n")
+        _git(repo, "add", "CONTINUITY.md", "HANDOFF.md")
+        _git(repo, "commit", "-m", "generation three tooling baton")
+    baton_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
+    if include_baton:
+        _git(repo, "update-ref", "refs/remotes/origin/master", baton_commit)
+    return {
+        **generation_two,
+        "generation_three_source": source_commit,
+        "generation_three_receipt": receipt_commit,
+        "generation_three_state": state_commit,
+        "generation_three_baton": baton_commit,
+    }
+
+
+def _append_launch_authorization_chain(
+    repo: Path, state: dict, commits: dict[str, str]
+) -> dict[str, str]:
+    experiment = repo / mission_state.ITER135_EXPERIMENT_REL
+
+    def commit_json(relative: str, value: dict, message: str) -> str:
+        path = repo / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n")
+        _git(repo, "add", relative)
+        _git(repo, "commit", "-m", message)
+        return _git(repo, "rev-parse", "HEAD").decode().strip()
+
+    host_packet = {
+        "schema": launch_controller.HOST_PACKET_SCHEMA,
+        "source_commit": commits["generation_three_baton"],
+        "files": {},
+    }
+    host_packet_path = repo / launch_controller.HOST_PACKET_REL
+    host_packet_path.parent.mkdir(parents=True, exist_ok=True)
+    host_packet_path.write_text(json.dumps(host_packet, indent=2, sort_keys=True) + "\n")
+    host_packet_payload = host_packet_path.read_bytes()
+    host_path = repo / launch_controller.HOST_REL
+    host_receipt = {
+        "schema": launch_controller.HOST_SCHEMA,
+        "verdict": launch_controller.HOST_VERDICT,
+        "problem_count": 0,
+        "problems": [],
+        "packet_manifest_sha256": hashlib.sha256(host_packet_payload).hexdigest(),
+        "packet": {
+            "schema": launch_controller.HOST_PACKET_SCHEMA,
+            "source_commit": host_packet["source_commit"],
+            "manifest": {"sha256": hashlib.sha256(host_packet_payload).hexdigest()},
+        },
+    }
+    host_receipt["receipt_payload_sha256"] = hashlib.sha256(
+        launch_controller._canonical_json(host_receipt)
+    ).hexdigest()
+    host_path.write_text(json.dumps(host_receipt, indent=2, sort_keys=True) + "\n")
+    _git(repo, "add", launch_controller.HOST_PACKET_REL, launch_controller.HOST_REL)
+    _git(repo, "commit", "-m", "host preparation")
+    host_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
+    host_payload = (repo / launch_controller.HOST_REL).read_bytes()
+    environment_commit = commit_json(
+        launch_controller.ENV_REL,
+        {
+            "schema": launch_controller.ENV_SCHEMA,
+            "verdict": launch_controller.ENV_VERDICT,
+            "problem_count": 0,
+            "problems": [],
+        },
+        "environment receipt",
+    )
+    environment_payload = (repo / launch_controller.ENV_REL).read_bytes()
+    pre_smoke_commit = commit_json(
+        launch_controller.MANIFEST_REL,
+        {
+            "schema": launch_controller.MANIFEST_SCHEMA,
+            "verdict": launch_controller.PRE_SMOKE_VERDICT,
+            "launch_authorized": False,
+            "mission_phase": launch_controller.TOOLING_PHASE,
+            "missing_artifacts": ["smoke-evidence/smoke_receipt.json"],
+            "problem_count": 1,
+            "problems": ["smoke:receipt-missing"],
+        },
+        "pre-smoke manifest",
+    )
+    pre_smoke_payload = (repo / launch_controller.MANIFEST_REL).read_bytes()
+    for relative in launch_controller.SMOKE_EVIDENCE_PATHS:
+        path = repo / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(f"evidence:{relative}\n")
+    (repo / launch_controller.SMOKE_RECEIPT_REL).write_text(
+        json.dumps(
+            {
+                "schema": launch_controller.SMOKE_SCHEMA,
+                "verdict": launch_controller.SMOKE_VERDICT,
+                "problem_count": 0,
+                "problems": [],
+                "nonanalytic": True,
+                "analytic_episode_count": 0,
+            },
+            sort_keys=True,
+        )
+        + "\n"
+    )
+    (repo / launch_controller.RAW_PRE_MANIFEST_REL).write_bytes(pre_smoke_payload)
+    (repo / launch_controller.RAW_ENV_REL).write_bytes(environment_payload)
+    _git(repo, "add", *launch_controller.SMOKE_EVIDENCE_PATHS)
+    _git(repo, "commit", "-m", "smoke evidence")
+    smoke_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
+    smoke_payload = (repo / launch_controller.SMOKE_RECEIPT_REL).read_bytes()
+
+    launch_state = copy.deepcopy(state)
+    launch_state["next_program"]["phase"] = "LAUNCH_AUTHORIZED"
+    launch_state["next_program"]["authorized_actions"] = list(LAUNCH_AUTHORIZED_ACTIONS)
+    launch_state["next_program"]["forbidden_actions"] = list(LAUNCH_FORBIDDEN_ACTIONS)
+    (repo / "MISSION_STATE.json").write_text(json.dumps(launch_state, indent=2) + "\n")
+    _git(repo, "add", "MISSION_STATE.json")
+    _git(repo, "commit", "-m", "launch authorization state")
+    state_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
+    state_payload = (repo / "MISSION_STATE.json").read_bytes()
+
+    def binding(source_path: str, payload: bytes) -> dict[str, object]:
+        return {
+            "source_path": source_path,
+            "sha256": hashlib.sha256(payload).hexdigest(),
+            "bytes": len(payload),
+        }
+
+    host_binding = binding("host_preparation_receipt.json", host_payload)
+    host_packet_binding = binding("host_packet_manifest.json", host_packet_payload)
+    final_manifest_commit = commit_json(
+        launch_controller.MANIFEST_REL,
+        {
+            "schema": launch_controller.MANIFEST_SCHEMA,
+            "verdict": launch_controller.FINAL_MANIFEST_VERDICT,
+            "launch_authorized": True,
+            "mission_phase": "LAUNCH_AUTHORIZED",
+            "problem_count": 0,
+            "problems": [],
+            "gates": {"all": True},
+            "host_preparation_receipt": host_binding,
+            "host_packet_manifest": host_packet_binding,
+            "mission_state": binding("MISSION_STATE.json", state_payload),
+            "hash_bound_files": {
+                "host_packet_manifest.json": host_packet_binding,
+                "host_preparation_receipt.json": host_binding,
+                "env_receipts.json": binding("env_receipts.json", environment_payload),
+                "smoke-evidence/smoke_receipt.json": binding(
+                    "smoke-evidence/smoke_receipt.json", smoke_payload
+                ),
+            },
+        },
+        "final launch manifest",
+    )
+    activation = launch_controller.build_activation_receipt(
+        repo,
+        tooling_receipt_commit=commits["generation_three_receipt"],
+        host_commit=host_commit,
+        environment_commit=environment_commit,
+        pre_smoke_manifest_commit=pre_smoke_commit,
+        smoke_commit=smoke_commit,
+        state_commit=state_commit,
+        final_manifest_commit=final_manifest_commit,
+    )
+    activation_path = experiment / "launch_activation_receipt.json"
+    activation_path.write_text(json.dumps(activation, indent=2, sort_keys=True) + "\n")
+    (repo / "CONTINUITY.md").write_text("launch activation transition\n")
+    (repo / "HANDOFF.md").write_text("launch activation handoff\n")
+    _git(repo, "add", "CONTINUITY.md", "HANDOFF.md", launch_controller.ACTIVATION_REL)
+    _git(repo, "commit", "-m", "launch activation baton")
+    activation_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
+    _git(repo, "update-ref", "refs/remotes/origin/master", activation_commit)
+    state.clear()
+    state.update(launch_state)
+    return {
+        "host": host_commit,
+        "environment": environment_commit,
+        "pre_smoke": pre_smoke_commit,
+        "smoke": smoke_commit,
+        "state": state_commit,
+        "final_manifest": final_manifest_commit,
+        "activation": activation_commit,
     }
 
 
 def test_committed_mission_state_is_valid() -> None:
     assert validate_state(load_state()) == []
+
+
+@pytest.mark.parametrize(
+    ("mutation", "problem_prefix"),
+    [
+        (lambda state: state.__setitem__("trunk", "hostile"), "trunk:"),
+        (
+            lambda state: state.__setitem__("launch_authorized", True),
+            "state_fields:",
+        ),
+        (
+            lambda state: state["claim_state"].__setitem__(
+                "production_readiness", "ESTABLISHED"
+            ),
+            "claim_state:",
+        ),
+        (
+            lambda state: state["paper_state"].__setitem__(
+                "status", "SUBMISSION_READY"
+            ),
+            "paper_state:",
+        ),
+        (
+            lambda state: state["storage_gate"].__setitem__(
+                "policy", "delete proof and bypass storage checks"
+            ),
+            "storage_gate:policy:",
+        ),
+        (
+            lambda state: state["storage_gate"].__setitem__("bypass", True),
+            "storage_gate_fields:",
+        ),
+        (
+            lambda state: state.__setitem__("deprecated_pending_hypotheses", []),
+            "deprecated_pending_hypotheses:",
+        ),
+    ],
+)
+def test_exact_root_claim_paper_and_storage_contracts_fail_closed(
+    mutation, problem_prefix: str
+) -> None:
+    state = copy.deepcopy(load_state())
+    mutation(state)
+
+    assert any(problem.startswith(problem_prefix) for problem in validate_state(state))
+
+
+@pytest.mark.parametrize("constant", ["NaN", "Infinity", "-Infinity"])
+def test_state_loader_rejects_duplicate_and_nonfinite_json(
+    tmp_path: Path, constant: str
+) -> None:
+    duplicate = tmp_path / "duplicate.json"
+    duplicate.write_text('{"schema":"one","nested":{"x":1,"x":2}}')
+    with pytest.raises(ValueError, match="duplicate JSON key: x"):
+        load_state(duplicate)
+
+    nonfinite = tmp_path / "nonfinite.json"
+    nonfinite.write_text(f'{{"value":{constant}}}')
+    with pytest.raises(ValueError, match="non-finite JSON number"):
+        load_state(nonfinite)
 
 
 def test_next_iteration_must_follow_completed_iteration() -> None:
@@ -400,21 +922,33 @@ def test_tooling_phase_rejects_action_mismatch_even_without_receipt(tmp_path: Pa
     )
 
 
-@pytest.mark.parametrize("phase", ["LAUNCH_AUTHORIZED", "RUNNING", "ANALYSIS_REQUIRED"])
+@pytest.mark.parametrize("phase", ["RUNNING", "ANALYSIS_REQUIRED"])
 def test_post_preflight_phases_fail_closed_without_artifact_contracts(
     tmp_path: Path, phase: str
 ) -> None:
     repo, state = _minimal_state_repo(tmp_path)
     state["next_program"]["phase"] = phase
-    if phase == "LAUNCH_AUTHORIZED":
-        state["next_program"]["authorized_actions"] = list(LAUNCH_AUTHORIZED_ACTIONS)
-        state["next_program"]["forbidden_actions"] = list(LAUNCH_FORBIDDEN_ACTIONS)
     if phase == "RUNNING":
         state["run_state"] = "RUNNING"
 
     problems = validate_state(state, repo)
 
     assert f"phase_artifact_contract:{phase}:not_implemented" in problems
+
+
+def test_launch_phase_requires_published_generation_three_activation_chain(tmp_path: Path) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    state["next_program"]["phase"] = "LAUNCH_AUTHORIZED"
+    state["next_program"]["authorized_actions"] = list(LAUNCH_AUTHORIZED_ACTIONS)
+    state["next_program"]["forbidden_actions"] = list(LAUNCH_FORBIDDEN_ACTIONS)
+
+    problems = validate_state(state, repo)
+
+    assert not any(
+        problem == "phase_artifact_contract:LAUNCH_AUTHORIZED:not_implemented"
+        for problem in problems
+    )
+    assert any(problem.startswith("tooling_publication:receipt_missing:") for problem in problems)
 
 
 def test_tooling_phase_accepts_exact_generation_two_recovery_topology(
@@ -425,6 +959,337 @@ def test_tooling_phase_accepts_exact_generation_two_recovery_topology(
     _commit_recovery_publication(repo, state, monkeypatch)
 
     assert validate_state(state, repo) == []
+
+
+def test_tooling_phase_accepts_exact_generation_three_controller_publication(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_three_publication(repo, state, monkeypatch)
+
+    assert validate_state(state, repo) == []
+
+
+@pytest.mark.parametrize(
+    ("field", "bad_value"),
+    [
+        ("generation", 2),
+        ("supersedes_receipt_commit", "0" * 40),
+        ("recovery_parent", "1" * 40),
+        ("reason_code", "UNREGISTERED_REASON"),
+    ],
+)
+def test_generation_three_publication_claim_is_exact(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    field: str,
+    bad_value: object,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_three_publication(
+        repo,
+        state,
+        monkeypatch,
+        publication_overrides={field: bad_value},
+    )
+
+    assert any(
+        problem.startswith(f"tooling_publication:receipt_publication_{field}:")
+        for problem in validate_state(state, repo)
+    )
+
+
+@pytest.mark.parametrize("mutation", ["extra", "missing"])
+def test_tooling_transition_rejects_nonexact_receipt_root_before_controller(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    mutation: str,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_three_publication(
+        repo,
+        state,
+        monkeypatch,
+        receipt_root_mutation=mutation,
+    )
+
+    def controller_must_not_load(*_args, **_kwargs):
+        pytest.fail("launch controller loaded after a nonexact tooling receipt root")
+
+    monkeypatch.setattr(mission_state, "_load_launch_controller", controller_must_not_load)
+
+    problems = validate_state(state, repo)
+
+    assert any(
+        problem.startswith("tooling_publication:structural_probe:ToolingPublicationError:")
+        and "receipt root field set is not exact" in problem
+        for problem in problems
+    )
+
+
+def test_tooling_transition_routes_nested_receipt_to_frozen_validator_before_controller(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_three_publication(
+        repo,
+        state,
+        monkeypatch,
+        receipt_nested_mutation=True,
+    )
+
+    def frozen_validator(_repo: Path, _source_commit: str):
+        def validate(receipt: dict, **_kwargs):
+            return ["executed command set incomplete"] if receipt.get("commands") else []
+
+        return validate
+
+    def controller_must_not_load(*_args, **_kwargs):
+        pytest.fail("launch controller loaded after frozen receipt validation failed")
+
+    monkeypatch.setattr(mission_state, "_load_tooling_receipt_validator", frozen_validator)
+    monkeypatch.setattr(mission_state, "_load_launch_controller", controller_must_not_load)
+
+    problems = validate_state(state, repo)
+
+    assert any(
+        "published tooling receipt failed frozen validation: "
+        "executed command set incomplete" in problem
+        for problem in problems
+    )
+
+
+def test_generation_three_tooling_phase_rejects_missing_baton(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_three_publication(repo, state, monkeypatch, include_baton=False)
+
+    assert "tooling_publication:generation_three_commit_count:1" in validate_state(state, repo)
+
+
+def test_generation_three_source_scope_is_exactly_the_25_path_controller_freeze(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    wrong_scope = (*GENERATION_THREE_SOURCE_COMMIT_PATHS, "unexpected-generation-three.txt")
+    _commit_generation_three_publication(
+        repo,
+        state,
+        monkeypatch,
+        source_paths=wrong_scope,
+    )
+
+    assert len(GENERATION_THREE_SOURCE_COMMIT_PATHS) == 25
+    assert "tooling_publication:recovery_source_commit_scope" in validate_state(state, repo)
+
+
+def test_launch_phase_accepts_only_complete_origin_contained_h_e_p_s_a_f_b(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    generation = _commit_generation_three_publication(repo, state, monkeypatch)
+    _append_launch_authorization_chain(repo, state, generation)
+    _use_structural_launch_controller(monkeypatch)
+
+    assert validate_state(state, repo) == []
+
+
+def test_launch_phase_rejects_activation_baton_not_on_origin_master(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    generation = _commit_generation_three_publication(repo, state, monkeypatch)
+    launch = _append_launch_authorization_chain(repo, state, generation)
+    _git(repo, "update-ref", "refs/remotes/origin/master", launch["final_manifest"])
+    _use_structural_launch_controller(monkeypatch)
+
+    assert "authorization:head-not-on-origin-master" in validate_state(state, repo)
+
+
+def test_launch_phase_rejects_origin_advanced_beyond_exact_activation_tip(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    generation = _commit_generation_three_publication(repo, state, monkeypatch)
+    launch = _append_launch_authorization_chain(repo, state, generation)
+    tree = _git(repo, "rev-parse", f"{launch['activation']}^{{tree}}").decode().strip()
+    advanced = _git(
+        repo,
+        "commit-tree",
+        tree,
+        "-p",
+        launch["activation"],
+        "-m",
+        "unreviewed origin advancement",
+    ).decode().strip()
+    _git(repo, "update-ref", "refs/remotes/origin/master", advanced)
+    _use_structural_launch_controller(monkeypatch)
+
+    assert "authorization:head-not-on-origin-master" in validate_state(state, repo)
+
+
+def test_local_launch_candidate_is_validated_but_never_grants_authority(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    generation = _commit_generation_three_publication(repo, state, monkeypatch)
+    launch = _append_launch_authorization_chain(repo, state, generation)
+    _git(repo, "update-ref", "refs/remotes/origin/master", launch["smoke"])
+    _use_structural_launch_controller(monkeypatch)
+
+    result = validate_local_launch_candidate(repo)
+
+    assert result["candidate_valid"] is True
+    assert result["authoritative"] is False
+    assert result["launch_authorized"] is False
+    assert result["problems"] == ["authorization:candidate-non-authoritative"]
+
+
+def test_local_launch_candidate_rejects_origin_advanced_beyond_exact_smoke_tip(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    generation = _commit_generation_three_publication(repo, state, monkeypatch)
+    launch = _append_launch_authorization_chain(repo, state, generation)
+    tree = _git(repo, "rev-parse", f"{launch['smoke']}^{{tree}}").decode().strip()
+    advanced = _git(
+        repo,
+        "commit-tree",
+        tree,
+        "-p",
+        launch["smoke"],
+        "-m",
+        "unreviewed preflight advancement",
+    ).decode().strip()
+    _git(repo, "update-ref", "refs/remotes/origin/master", advanced)
+    _use_structural_launch_controller(monkeypatch)
+
+    result = validate_local_launch_candidate(repo)
+
+    assert result["candidate_valid"] is False
+    assert result["authoritative"] is False
+    assert result["launch_authorized"] is False
+    assert result["problems"] == ["authorization:preflight-not-on-origin-master"]
+
+
+@pytest.mark.parametrize(
+    ("mutation", "expected_problem"),
+    [
+        (lambda state: state.__setitem__("launch_authorized", True), "candidate:state-field-set"),
+        (
+            lambda state: state.__setitem__("canonical_repository", "/tmp/hostile"),
+            "candidate:state-canonical-repository",
+        ),
+        (lambda state: state.__setitem__("trunk", "dev"), "candidate:state-trunk"),
+        (
+            lambda state: state.__setitem__("current_completed_iteration", 133),
+            "candidate:state-current-iteration",
+        ),
+        (
+            lambda state: state.__setitem__("current_result", "experiments/iter133/RESULT.md"),
+            "candidate:state-current-result",
+        ),
+        (
+            lambda state: state.__setitem__("current_verdict", "UNREVIEWED"),
+            "candidate:state-current-verdict",
+        ),
+        (
+            lambda state: state["claim_state"].__setitem__("production_readiness", "READY"),
+            "candidate:state-claim-state",
+        ),
+        (
+            lambda state: state.__setitem__("deprecated_pending_hypotheses", []),
+            "candidate:state-deprecated-hypotheses",
+        ),
+        (
+            lambda state: state["paper_state"].__setitem__("status", "SUBMISSION_READY"),
+            "candidate:state-paper-state",
+        ),
+        (
+            lambda state: state["storage_gate"].__setitem__("policy", "delete proof"),
+            "candidate:state-storage-gate",
+        ),
+        (
+            lambda state: state["next_program"].__setitem__(
+                "phase", "TOOLING_FROZEN_PREFLIGHT_REQUIRED"
+            ),
+            "candidate:state-next-program",
+        ),
+        (
+            lambda state: state["next_program"]["authorized_actions"].append(
+                "unregistered launch"
+            ),
+            "candidate:state-next-program",
+        ),
+        (lambda state: state.__setitem__("run_state", "RUNNING"), "candidate:state-run-state"),
+    ],
+)
+def test_local_launch_candidate_rejects_hostile_state_before_topology(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    mutation,
+    expected_problem: str,
+) -> None:
+    state = copy.deepcopy(load_state())
+    state["next_program"]["phase"] = "LAUNCH_AUTHORIZED"
+    state["next_program"]["authorized_actions"] = list(LAUNCH_AUTHORIZED_ACTIONS)
+    state["next_program"]["forbidden_actions"] = list(LAUNCH_FORBIDDEN_ACTIONS)
+    mutation(state)
+    (tmp_path / "MISSION_STATE.json").write_text(json.dumps(state) + "\n")
+
+    def topology_must_not_run(*_args, **_kwargs):
+        pytest.fail("candidate topology ran before exact mission-state validation")
+
+    monkeypatch.setattr(mission_state, "_validate_tooling_publication", topology_must_not_run)
+
+    result = validate_local_launch_candidate(tmp_path)
+
+    assert result["candidate_valid"] is False
+    assert result["authoritative"] is False
+    assert result["launch_authorized"] is False
+    assert expected_problem in result["problems"]
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        '{"trunk":"master","trunk":"hostile"}',
+        '{"value":NaN}',
+        '{"value":Infinity}',
+        "[]",
+    ],
+)
+def test_local_launch_candidate_rejects_ambiguous_state_before_topology(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    payload: str,
+) -> None:
+    (tmp_path / "MISSION_STATE.json").write_text(payload)
+
+    def topology_must_not_run(*_args, **_kwargs):
+        pytest.fail("candidate topology ran after malformed mission state")
+
+    monkeypatch.setattr(mission_state, "_validate_tooling_publication", topology_must_not_run)
+
+    result = validate_local_launch_candidate(tmp_path)
+
+    assert result["candidate_valid"] is False
+    assert result["authoritative"] is False
+    assert result["launch_authorized"] is False
+    assert result["problems"] == ["candidate:mission-state:ValueError"]
 
 
 def test_tooling_phase_accepts_detached_alternate_ci_checkout(

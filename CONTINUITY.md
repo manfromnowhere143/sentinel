@@ -44,6 +44,30 @@ both workspaces; ordinary Sentinel work grants no such authority.
    assumptions. Prefer external-validity falsification, hidden-assumption discovery, and
    reproducibility over incremental benchmark optimization when those goals conflict.
 
+## Iteration-135 Git publication trust and request budget
+
+The host-preparation publication gate treats the Git commit tree and Git's native SHA-1 blob
+object identity as one provenance layer. For each stable local payload it computes exactly
+`sha1(b"blob " + str(len(payload)).encode() + b"\0" + payload)` and requires the recursive tree
+row to match the exact path, blob type, `100644`/`100755` mode, integer size, and object ID. This is
+an explicit Git-object-identity trust assumption, not a claim that SHA-1 is a modern standalone
+content-security digest. Every receipt also retains the independently computed SHA-256, byte
+count, Git blob OID, and Git mode. Tests compare the implementation with `git hash-object`; see
+the official [Git hash-object documentation](https://git-scm.com/docs/git-hash-object.html) and
+[GitHub tree response contract](https://docs.github.com/en/rest/git/trees).
+
+The green H path has a fixed seven-GET budget: initial branch, checks, commit, and one exact
+untruncated recursive tree; terminal branch and checks immediately before the first mutation;
+and a final branch check. It makes zero `/git/blobs/` calls and never retries. This replaces the
+former 26-GET design, leaving 19 calls of design headroom. The E proof is fixed at eight GETs
+because it additionally verifies two committed JSON payloads through the Contents API while
+binding their OIDs and `100644` modes to one recursive tree. GitHub currently documents a
+60-request/hour primary limit for unauthenticated public-repository traffic, associated with the
+originating IP; a fresh window therefore leaves 53 requests after H, but shared-IP usage can make
+the actual remainder smaller. Any rate or transport failure is terminal for the one-shot attempt,
+not permission to retry. See GitHub's official
+[REST rate-limit documentation](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api).
+
 ## The baton protocol (one operator at a time — hard rule; PERMANENT, BIDIRECTIONAL)
 
 **Standing rule for every operator (Claude, Codex, or human): stay handoff-ready at all
@@ -2867,3 +2891,95 @@ transfer boundary fold-in and the claim-(5) hedge are unchanged and still bindin
   hash-bound host contract and read-only environment receipt. Analytic execution remains forbidden
   until committed smoke evidence and a final launch manifest pass their own gates. Every later push
   remains blocked on its matching GitHub Actions result.
+
+- **ITER135 GENERATION-THREE CONTROL REFREEZE PREREGISTERED BEFORE LIVE EVIDENCE (2026-07-16).**
+  A read-only continuation audit found three control-plane gaps before any host preparation,
+  environment capture, or G5 execution: the capture program used Python-3.11-only `datetime.UTC`
+  although the repository declares Python >=3.10; the hypothesis-required `smoke-evidence/SMOKE.md`
+  was not mechanically generated or gated; and `scripts/mission_state.py` intentionally rejected
+  `LAUNCH_AUTHORIZED`, making a later analytic authorization structurally impossible. The remote
+  Python probe produced no bytes and was interrupted without mutation. These are tooling and
+  lifecycle defects, not benchmark observations. No remote file, Docker container, GPU process,
+  environment receipt, manifest, smoke artifact, analytic episode, or result was created.
+
+  Integration review before the source commit found two consequences that could not honestly be
+  hidden inside the original 21-path draft: the materially enlarged environment document must be
+  schema v3 all the way through the analyzer and proof collector, and the generated
+  `host_packet_manifest.json` must be independently committed and hash-bound beside
+  `host_preparation_receipt.json`. The scope was therefore expanded before publication to the
+  exact 25 paths below. No evidence had been observed and no live action had started when this
+  amendment was made.
+
+  A hostile pre-publication replay then found further authority defects inside that same disclosed
+  surface: shallow receipts could bless fabricated host/smoke/final evidence; launchers did not
+  require the supplied commit to be current `master` with both Python matrix checks green; shell
+  startup state and path lookup could spoof control tools; H/E/P stage order and committed blob
+  identity were not machine-bound; state phase drift could invalidate otherwise frozen evidence;
+  and the Docker client/daemon plus physical interpreter were not pinned strongly enough across
+  capture and execution. These findings were made before F3 and before any host, smoke, or analytic
+  action. Generation three therefore includes source-bound reconstruction, exact GitHub
+  publication and artifact attestations, sanitized isolated bootstrap, descriptor-pinned Python,
+  committed parent/blob checks, a bounded Docker runtime receipt, and a non-authoritative local
+  candidate replay used only to avoid the receipt publication deadlock. Construction prefixes can
+  be validated, but they never authorize launch.
+
+  A second independent red-team pass, still before F3, found concrete integration failures that
+  unit-level green could have missed: incomplete or duplicate GitHub check pages, missing exact P/B
+  parent-and-path proofs, mutable-master races, an inherited-environment escape around Git
+  provenance, the frozen NeuroNCAP harness's unpinned bare `python`, and its required terminal
+  `docker kill` calls being rejected by the smoke wrapper. It also found that per-block GitHub
+  polling would make the no-retry analytic run depend on 610 unauthenticated requests, and that the
+  new Python wrapper and terminal GitHub observations were not retained deeply enough in evidence.
+  Generation three now requires an exact clean-parent `env -i` startup contract, page-complete
+  unique CI projections, terminal tip replay immediately before each permanent lock, pinned Python
+  and narrowly owned container termination for the real harness, launch-time-only remote authority,
+  and authority/interpreter hashes propagated through smoke and analytic proof. The state-only T3
+  transition and its B3 baton are also an atomic local publication pair so a knowingly incomplete
+  T3 tip is never pushed. All of these findings preceded live evidence and leave the scientific
+  design unchanged.
+
+  The mission is therefore rolled back locally to `PREREGISTERED_TOOLING_REQUIRED` while an exact
+  generation-three source is built. Its stable reason code is
+  `PRE_SMOKE_CONTROL_GAPS_INTERPRETER_SUMMARY_AND_LAUNCH_AUTHORIZATION`; its source parent is the
+  accepted generation-two baton `ee0c0c953ace80b53f3cce97ddd7eb262fb22a2d`; and its replacement
+  receipt must supersede `b0eca127ff1d522aefa6164271de7bce3bcaf1a7`. The exact source scope is:
+
+  1. `.github/workflows/ci.yml`
+  2. `CONTINUITY.md`
+  3. `HANDOFF.md`
+  4. `MISSION_STATE.json`
+  5. `experiments/iter135_neuroncap_blind_braking_dose_response/analyze_dose135.py`
+  6. `experiments/iter135_neuroncap_blind_braking_dose_response/authorize_launch135.py`
+  7. `experiments/iter135_neuroncap_blind_braking_dose_response/capture_environment135.py`
+  8. `experiments/iter135_neuroncap_blind_braking_dose_response/collect_proof135.py`
+  9. `experiments/iter135_neuroncap_blind_braking_dose_response/make_launch_manifest.py`
+  10. `experiments/iter135_neuroncap_blind_braking_dose_response/prepare_host135.py`
+  11. `experiments/iter135_neuroncap_blind_braking_dose_response/run_dose135.sh`
+  12. `experiments/iter135_neuroncap_blind_braking_dose_response/run_smoke135.sh`
+  13. `experiments/iter135_neuroncap_blind_braking_dose_response/validate_smoke135.py`
+  14. `experiments/iter135_neuroncap_blind_braking_dose_response/verify_tooling135.py`
+  15. `scripts/mission_state.py`
+  16. `tests/test_iter135_analyzer.py`
+  17. `tests/test_iter135_environment_capture.py`
+  18. `tests/test_iter135_host_preparation.py`
+  19. `tests/test_iter135_launch_authorization.py`
+  20. `tests/test_iter135_launch_manifest.py`
+  21. `tests/test_iter135_launcher.py`
+  22. `tests/test_iter135_proof_collector.py`
+  23. `tests/test_iter135_smoke_pipeline.py`
+  24. `tests/test_iter135_tooling_verifier.py`
+  25. `tests/test_mission_state.py`
+
+  The scientific hypothesis, schedules, estimands, decision thresholds, retry policy, and analytic
+  payload semantics are unchanged. The commit graph is `B2 -> F3 -> R3 -> T3 -> B3`, but the
+  green-only push cadence is deliberately `F3`, `R3`, then `B3`: `T3` and its immediately following
+  `B3` baton are constructed as one local atomic publication pair because the state-only `T3` tip is
+  structurally incomplete and would be red by design. Stage-appropriate local validation or replay
+  is required before each push, and matching green GitHub CI is required at each pushed tip before
+  any later mutation.
+  Receipt history must be exactly generation three, generation two, then generation one. After B3, the
+  preflight evidence order is exact atomic host packet manifest plus host-preparation receipt ->
+  environment receipt -> committed incomplete pre-smoke manifest -> exact smoke evidence.
+  Analytic authority then requires an
+  atomic local state-only -> final-manifest-only -> offline-baton-plus-activation-receipt chain,
+  published and green on `origin/master`; `MISSION_STATE.json` alone is never launch authority.

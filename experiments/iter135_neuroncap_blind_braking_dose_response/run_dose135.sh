@@ -1,8 +1,73 @@
-#!/bin/bash
+#!/bin/bash -p
 # Iteration 135: six arms x 20 scenario pairs, executed as 120 pair-major 20-run blocks.
 # The launcher is inert unless the committed manifest explicitly authorizes launch and every
 # provenance, environment, storage, idle, and resource gate passes on the execution host.
 
+# Deployment precondition: invoke this file from a trusted, sanitized `env -i` or
+# equivalently locked-down systemd unit. These checks detect inherited contamination;
+# they cannot undo native dynamic-loader code that ran before Bash read its first byte.
+# Privileged-mode Bash suppresses BASH_ENV processing and imported shell functions.
+HOSTILE_LOADER_VARIABLE=
+if [[ ${LD_PRELOAD+x} ]]; then
+  HOSTILE_LOADER_VARIABLE=LD_PRELOAD
+elif [[ ${LD_AUDIT+x} ]]; then
+  HOSTILE_LOADER_VARIABLE=LD_AUDIT
+elif [[ ${LD_LIBRARY_PATH+x} ]]; then
+  HOSTILE_LOADER_VARIABLE=LD_LIBRARY_PATH
+elif [[ ${DYLD_INSERT_LIBRARIES+x} ]]; then
+  HOSTILE_LOADER_VARIABLE=DYLD_INSERT_LIBRARIES
+elif [[ ${DYLD_LIBRARY_PATH+x} ]]; then
+  HOSTILE_LOADER_VARIABLE=DYLD_LIBRARY_PATH
+fi
+if [ -n "$HOSTILE_LOADER_VARIABLE" ]; then
+  echo "I135_ABORT hostile-dynamic-loader:$HOSTILE_LOADER_VARIABLE" >&2
+  exit 1
+fi
+CANONICAL_PATH=/usr/bin:/bin:/usr/sbin:/sbin
+BOOTSTRAP_ENV_PROBLEM=
+BOOTSTRAP_ENV_COUNT=0
+while IFS= read -r BOOTSTRAP_NAME; do
+  BOOTSTRAP_ENV_COUNT=$((BOOTSTRAP_ENV_COUNT + 1))
+  case "$BOOTSTRAP_NAME" in
+    PATH|PWD|SHLVL|SENTINEL_LAUNCH_MANIFEST_SHA256|SENTINEL_LAUNCH_ACTIVATION_COMMIT|SENTINEL_LAUNCH_ACTIVATION_SHA256)
+      ;;
+    *)
+      BOOTSTRAP_ENV_PROBLEM=$BOOTSTRAP_NAME
+      break
+      ;;
+  esac
+done < <(compgen -e)
+if [ -n "$BOOTSTRAP_ENV_PROBLEM" ]; then
+  echo "I135_ABORT hostile-bootstrap-environment:$BOOTSTRAP_ENV_PROBLEM" >&2
+  exit 1
+fi
+if [ "$BOOTSTRAP_ENV_COUNT" != "6" ]; then
+  echo "I135_ABORT bootstrap-environment-field-set" >&2
+  exit 1
+fi
+if [ "${PATH-}" != "$CANONICAL_PATH" ]; then
+  echo "I135_ABORT hostile-bootstrap-path" >&2
+  exit 1
+fi
+if [ "${PWD-}" != "/opt/sentinel-stack/iter135" ] \
+  || [ "$(pwd -P)" != "/opt/sentinel-stack/iter135" ]; then
+  echo "I135_ABORT hostile-bootstrap-working-directory" >&2
+  exit 1
+fi
+if [ "${SHLVL-}" != "1" ]; then
+  echo "I135_ABORT hostile-bootstrap-shell-level" >&2
+  exit 1
+fi
+export PATH=$CANONICAL_PATH LC_ALL=C LANG=C TZ=UTC HOME=/nonexistent \
+  DOCKER_CONFIG=/nonexistent DOCKER_HOST=unix:///var/run/docker.sock \
+  GIT_CONFIG_NOSYSTEM=1 GIT_OPTIONAL_LOCKS=0 GIT_TERMINAL_PROMPT=0
+unset BASH_ENV ENV CDPATH GLOBIGNORE DOCKER_CONTEXT DOCKER_TLS_VERIFY DOCKER_CERT_PATH \
+  HTTP_PROXY HTTPS_PROXY ALL_PROXY NO_PROXY http_proxy https_proxy all_proxy no_proxy \
+  SSL_CERT_FILE SSL_CERT_DIR SSLKEYLOGFILE GIT_CONFIG_COUNT GIT_CONFIG_PARAMETERS \
+  GIT_SSH GIT_SSH_COMMAND LD_PRELOAD LD_AUDIT LD_LIBRARY_PATH \
+  DYLD_INSERT_LIBRARIES DYLD_LIBRARY_PATH
+IFS=$' \t\n'
+umask 077
 set -euo pipefail
 exec 3>&1 4>&2
 
@@ -12,6 +77,8 @@ RUNNER_SOURCE=$I135/run_dose135.sh
 MANIFEST_SOURCE=$I135/launch_manifest.json
 MANIFEST=$MANIFEST_SOURCE
 MISSION_STATE_SOURCE=$I135/MISSION_STATE.json
+ACTIVATION_SOURCE=$I135/launch_activation_receipt.json
+ENV_SOURCE=$I135/env_receipts.json
 SCHED=$I135/dose_schedules.json
 UNION_PATCH=$I135/server_patch_union_release.py
 BLIND_PATCH=$I135/server_patch_blind_dose.py
@@ -37,6 +104,17 @@ MISSION_STATE_FD_OPEN=0
 MISSION_STATE_BASELINE_SHA=
 MISSION_STATE_BASELINE_ID=
 MISSION_STATE_BASELINE_BYTES=
+ACTIVATION_FD_OPEN=0
+ACTIVATION_BASELINE_SHA=
+ACTIVATION_BASELINE_ID=
+ACTIVATION_BASELINE_BYTES=
+EXPECTED_ACTIVATION_COMMIT=${SENTINEL_LAUNCH_ACTIVATION_COMMIT:-}
+EXPECTED_ACTIVATION_SHA=${SENTINEL_LAUNCH_ACTIVATION_SHA256:-}
+GITHUB_ACTIVATION_COMMIT=
+GITHUB_FINAL_MANIFEST_COMMIT=
+GITHUB_CHECK_310_ID=
+GITHUB_CHECK_311_ID=
+LOCAL_FINAL_MANIFEST_COMMIT=
 PREFLIGHT_LOCK_OWNED=0
 ANALYTIC_LOCK_OWNED=0
 ANALYTIC_LOCK_ID=
@@ -58,15 +136,27 @@ CONTAINER_CONTROL_ROOT_ID=
 CURRENT_BLOCK_CID_DIR=
 CURRENT_BLOCK_ORDINAL=
 DOCKER_BIN=
+DOCKER_COMMAND=
+DOCKER_FD_PATH=
+DOCKER_FD_OPEN=0
 DOCKER_BIN_ID=
 DOCKER_BIN_SHA=
+DOCKER_BIN_BYTES=
 DOCKER_WRAPPER_SHA=
+PYTHON_WRAPPER_SHA=
+PYTHON_BIN=
+PYTHON_FD_PATH=
+PYTHON_FD_OPEN=0
+PYTHON_BIN_ID=
+PYTHON_BIN_SHA=
+PYTHON_BIN_BYTES=
+PYTHON_BIN_VERSION=
 DOCKER_CONTROL_TIMEOUT_SECONDS=5
 CONTAINER_QUIET_SECONDS=5
 CONTAINER_QUIESCENCE_CEILING_SECONDS=20
 
 bounded_docker() {
-  local BINARY=${DOCKER_BIN:-}
+  local BINARY=${DOCKER_FD_PATH:-${DOCKER_BIN:-}}
   if [ -z "$BINARY" ]; then
     BINARY=$(command -v docker) || return 127
   fi
@@ -147,14 +237,15 @@ def stable_physical_file(path: Path, label: str) -> tuple[bytes, os.stat_result]
     finally:
         os.close(descriptor)
     path_after = path.stat(follow_symlinks=False)
-    identity = lambda row: (
-        row.st_dev,
-        row.st_ino,
-        row.st_size,
-        row.st_mtime_ns,
-        row.st_ctime_ns,
-        stat.S_IMODE(row.st_mode),
-    )
+    def identity(row):
+        return (
+            row.st_dev,
+            row.st_ino,
+            row.st_size,
+            row.st_mtime_ns,
+            row.st_ctime_ns,
+            stat.S_IMODE(row.st_mode),
+        )
     payload = b"".join(chunks)
     if (
         not stat.S_ISREG(before.st_mode)
@@ -258,7 +349,24 @@ if (
 ):
     raise SystemExit("deployed mission state is not the launch manifest's bound current state")
 
-state = json.loads(state_payload)
+def strict_object(pairs):
+    value = {}
+    for key, item in pairs:
+        if key in value:
+            raise SystemExit(f"duplicate mission-state JSON key: {key}")
+        value[key] = item
+    return value
+
+
+def reject_nonfinite(value):
+    raise SystemExit(f"non-finite mission-state JSON number: {value}")
+
+
+state = json.loads(
+    state_payload,
+    object_pairs_hook=strict_object,
+    parse_constant=reject_nonfinite,
+)
 expected_state_fields = {
     "schema",
     "canonical_repository",
@@ -326,9 +434,607 @@ expected_storage = {
         "reproducible renders, and caches"
     ),
 }
-if state.get("storage_gate") != expected_storage:
+expected_claim_state = {
+    "neuroncap_union_gain": "ESTABLISHED_ON_NEURONCAP",
+    "semantic_attribution": "UNRESOLVED",
+    "hugsim_transfer": "TRANSFER_NULL",
+    "production_readiness": "NOT_ESTABLISHED",
+}
+expected_deprecated = [
+    "experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md"
+]
+expected_paper_state = {
+    "status": "ARCHIVED_NOT_SUBMISSION_READY",
+    "next_route": "peer-reviewed venue after a full evidence rewrite",
+    "blocking_omissions": [
+        "HUGSIM transfer null",
+        "iteration-134 placebo result",
+        "resolved wording for the decoder universal-negative overclaim",
+    ],
+}
+if (
+    state.get("storage_gate") != expected_storage
+    or state.get("claim_state") != expected_claim_state
+    or state.get("deprecated_pending_hypotheses") != expected_deprecated
+    or state.get("paper_state") != expected_paper_state
+):
     raise SystemExit("current mission state storage contract drift")
 print(state_sha, state_identity, len(state_payload))
+PY
+}
+
+verify_github_launch_authority() {
+  python3 - "$EXPECTED_ACTIVATION_COMMIT" "$EXPECTED_ACTIVATION_SHA" \
+    "$ACTIVATION_SOURCE" <<'PY'
+# BEGIN I135_GITHUB_LAUNCH_AUTHORITY_PYTHON
+import base64
+import hashlib
+import json
+import os
+import re
+import ssl
+import stat
+import sys
+import urllib.parse
+import urllib.request
+from pathlib import Path
+
+API_ROOT = "https://api.github.com/repos/manfromnowhere143/sentinel"
+ACTIVATION_REPOSITORY_PATH = (
+    "experiments/iter135_neuroncap_blind_braking_dose_response/"
+    "launch_activation_receipt.json"
+)
+EXPECTED_CHECKS = {"check (3.10)", "check (3.11)"}
+OID = re.compile(r"^[0-9a-f]{40}$")
+SHA256 = re.compile(r"^[0-9a-f]{64}$")
+
+
+class NoRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, request, fp, code, msg, headers, new_url):
+        raise RuntimeError(f"GitHub API redirect rejected: {code}")
+
+
+def strict_json_object(pairs: list[tuple[str, object]]) -> dict[str, object]:
+    document: dict[str, object] = {}
+    for key, value in pairs:
+        if key in document:
+            raise ValueError(f"duplicate JSON key rejected: {key}")
+        document[key] = value
+    return document
+
+
+def reject_nonfinite_json(value: str) -> None:
+    raise ValueError(f"non-finite JSON number rejected: {value}")
+
+
+def strict_json_loads(payload: bytes) -> object:
+    return json.loads(
+        payload,
+        object_pairs_hook=strict_json_object,
+        parse_constant=reject_nonfinite_json,
+    )
+
+
+def stable_physical_bytes(path: Path) -> bytes:
+    path = path.absolute()
+    if path.is_symlink() or not path.is_file() or path.resolve(strict=True) != path:
+        raise SystemExit(f"deployed activation receipt is not physical: {path}")
+    descriptor = os.open(path, os.O_RDONLY | os.O_CLOEXEC | getattr(os, "O_NOFOLLOW", 0))
+    try:
+        before = os.fstat(descriptor)
+        chunks = []
+        while chunk := os.read(descriptor, 1 << 20):
+            chunks.append(chunk)
+        after = os.fstat(descriptor)
+    finally:
+        os.close(descriptor)
+    final = path.stat(follow_symlinks=False)
+    def identity(row):
+        return (
+            row.st_dev,
+            row.st_ino,
+            row.st_size,
+            row.st_mtime_ns,
+            row.st_ctime_ns,
+            stat.S_IMODE(row.st_mode),
+        )
+    payload = b"".join(chunks)
+    if (
+        not stat.S_ISREG(before.st_mode)
+        or identity(before) != identity(after)
+        or identity(after) != identity(final)
+        or len(payload) != before.st_size
+    ):
+        raise SystemExit("deployed activation receipt changed while read")
+    return payload
+
+
+def validate_ref(payload: object, expected_commit: str) -> None:
+    if not isinstance(payload, dict):
+        raise ValueError("GitHub master ref is not an object")
+    target = payload.get("object")
+    if (
+        payload.get("ref") != "refs/heads/master"
+        or not isinstance(target, dict)
+        or target.get("type") != "commit"
+        or target.get("sha") != expected_commit
+    ):
+        raise ValueError("activation B is not the current canonical GitHub master")
+
+
+def validate_ci(payload: object, expected_commit: str) -> list[dict[str, object]]:
+    if not isinstance(payload, dict) or not isinstance(payload.get("check_runs"), list):
+        raise ValueError("GitHub check-runs response is malformed")
+    check_runs = payload["check_runs"]
+    if (
+        type(payload.get("total_count")) is not int
+        or payload["total_count"] != len(check_runs)
+        or payload["total_count"] != len(EXPECTED_CHECKS)
+        or payload["total_count"] > 100
+    ):
+        raise ValueError("GitHub check-runs page is incomplete or not the exact CI matrix")
+    grouped = {name: [] for name in EXPECTED_CHECKS}
+    for row in check_runs:
+        if not isinstance(row, dict) or row.get("name") not in EXPECTED_CHECKS:
+            raise ValueError("GitHub check-runs contains an unexpected matrix row")
+        app = row.get("app")
+        if (
+            row.get("head_sha") != expected_commit
+            or not isinstance(app, dict)
+            or app.get("slug") != "github-actions"
+            or type(row.get("id")) is not int
+            or row["id"] <= 0
+        ):
+            raise ValueError(f"GitHub CI identity drift: {row.get('name')}")
+        grouped[row["name"]].append(row)
+    projection = []
+    for name, rows in grouped.items():
+        if len(rows) != 1:
+            raise ValueError(f"required GitHub CI check missing: {name}")
+        latest = max(rows, key=lambda row: row["id"])
+        if latest.get("status") != "completed" or latest.get("conclusion") != "success":
+            raise ValueError(f"required GitHub CI check is not green: {name}")
+        projection.append(
+            {
+                "name": name,
+                "id": latest["id"],
+                "head_sha": expected_commit,
+                "app_slug": "github-actions",
+                "status": "completed",
+                "conclusion": "success",
+            }
+        )
+    projection.sort(key=lambda row: row["name"])
+    if len({row["id"] for row in projection}) != len(projection):
+        raise ValueError("GitHub CI check IDs are not unique")
+    return projection
+
+
+def validate_commit(payload: object, expected_commit: str) -> str:
+    if not isinstance(payload, dict) or payload.get("sha") != expected_commit:
+        raise ValueError("GitHub activation commit response drift")
+    parents = payload.get("parents")
+    if (
+        not isinstance(parents, list)
+        or len(parents) != 1
+        or not isinstance(parents[0], dict)
+        or OID.fullmatch(parents[0].get("sha", "")) is None
+    ):
+        raise ValueError("activation B must have exactly one final-manifest parent F")
+    files = payload.get("files")
+    expected_paths = {
+        "CONTINUITY.md",
+        "HANDOFF.md",
+        ACTIVATION_REPOSITORY_PATH,
+    }
+    if not isinstance(files, list) or len(files) != len(expected_paths):
+        raise ValueError("activation B changed-path scope is not exact")
+    observed_paths = []
+    for row in files:
+        if (
+            not isinstance(row, dict)
+            or row.get("filename") not in expected_paths
+            or row.get("status") not in {"added", "modified"}
+            or "previous_filename" in row
+        ):
+            raise ValueError("activation B changed-path scope is not exact")
+        observed_paths.append(row["filename"])
+    if len(set(observed_paths)) != len(expected_paths) or set(observed_paths) != expected_paths:
+        raise ValueError("activation B changed-path scope is not exact")
+    return parents[0]["sha"]
+
+
+def validate_activation_blob(
+    payload: object,
+    deployed: bytes,
+    expected_sha: str,
+    expected_final_manifest: str,
+) -> None:
+    if (
+        not isinstance(payload, dict)
+        or payload.get("type") != "file"
+        or payload.get("path") != ACTIVATION_REPOSITORY_PATH
+        or payload.get("encoding") != "base64"
+        or type(payload.get("size")) is not int
+        or OID.fullmatch(payload.get("sha", "")) is None
+        or not isinstance(payload.get("content"), str)
+    ):
+        raise ValueError("GitHub activation blob response is malformed")
+    encoded = payload["content"].replace("\n", "").replace("\r", "")
+    remote = base64.b64decode(encoded, validate=True)
+    git_oid = hashlib.sha1(
+        f"blob {len(remote)}\0".encode() + remote, usedforsecurity=False
+    ).hexdigest()
+    if (
+        payload["size"] != len(remote)
+        or git_oid != payload["sha"]
+        or remote != deployed
+        or hashlib.sha256(remote).hexdigest() != expected_sha
+    ):
+        raise ValueError("deployed activation receipt does not equal the GitHub B blob")
+    activation = strict_json_loads(remote)
+    commits = activation.get("commits") if isinstance(activation, dict) else None
+    if (
+        not isinstance(commits, dict)
+        or commits.get("final_manifest") != expected_final_manifest
+        or commits.get("baton_parent") != expected_final_manifest
+    ):
+        raise ValueError("activation B parent does not equal receipt-bound F")
+
+
+def github_json(relative: str) -> object:
+    if not relative.startswith("/") or ".." in relative:
+        raise ValueError("unsafe GitHub API relative path")
+    url = API_ROOT + relative
+    context = ssl.create_default_context()
+    context.minimum_version = ssl.TLSVersion.TLSv1_2
+    context.check_hostname = True
+    context.verify_mode = ssl.CERT_REQUIRED
+    opener = urllib.request.build_opener(
+        urllib.request.ProxyHandler({}), urllib.request.HTTPSHandler(context=context), NoRedirect()
+    )
+    request = urllib.request.Request(
+        url,
+        headers={
+            "Accept": "application/vnd.github+json",
+            "User-Agent": "sentinel-iter135-publication-gate",
+            "X-GitHub-Api-Version": "2022-11-28",
+        },
+        method="GET",
+    )
+    with opener.open(request, timeout=20) as response:
+        if response.status != 200 or response.geturl() != url:
+            raise ValueError(f"GitHub API response drift: {response.status}")
+        content_type = response.headers.get_content_type()
+        if content_type not in {"application/json", "application/vnd.github+json"}:
+            raise ValueError(f"GitHub API content type drift: {content_type}")
+        raw = response.read(8 * 1024 * 1024 + 1)
+    if len(raw) > 8 * 1024 * 1024:
+        raise ValueError("GitHub API response exceeds frozen byte ceiling")
+    return strict_json_loads(raw)
+
+
+def main() -> None:
+    expected_commit, expected_sha, activation_text = sys.argv[1:]
+    if OID.fullmatch(expected_commit) is None or SHA256.fullmatch(expected_sha) is None:
+        raise SystemExit("independent activation commit or SHA-256 is malformed")
+    deployed = stable_physical_bytes(Path(activation_text))
+    if hashlib.sha256(deployed).hexdigest() != expected_sha:
+        raise SystemExit("independent activation receipt SHA-256 drift")
+    validate_ref(github_json("/git/ref/heads/master"), expected_commit)
+    ci_projection = validate_ci(
+        github_json(
+            f"/commits/{expected_commit}/check-runs?filter=latest&per_page=100&page=1"
+        ),
+        expected_commit,
+    )
+    final_manifest = validate_commit(
+        github_json(f"/commits/{expected_commit}?per_page=100&page=1"), expected_commit
+    )
+    quoted_path = urllib.parse.quote(ACTIVATION_REPOSITORY_PATH, safe="/")
+    validate_activation_blob(
+        github_json(f"/contents/{quoted_path}?ref={expected_commit}"),
+        deployed,
+        expected_sha,
+        final_manifest,
+    )
+    validate_ref(github_json("/git/ref/heads/master"), expected_commit)
+    print(
+        expected_commit,
+        final_manifest,
+        *(str(row["id"]) for row in ci_projection),
+    )
+
+
+if __name__ == "__main__":
+    main()
+# END I135_GITHUB_LAUNCH_AUTHORITY_PYTHON
+PY
+}
+
+verify_launch_activation() {
+  python3 - "$ACTIVATION_SOURCE" "$MISSION_STATE_SOURCE" "$MANIFEST_SOURCE" \
+    "$I135" "$EXPECTED_ACTIVATION_COMMIT" "$EXPECTED_ACTIVATION_SHA" \
+    "/proc/$$/fd/5" "$ACTIVATION_BASELINE_ID" \
+    "$ACTIVATION_BASELINE_SHA" "$EXPECTED_MANIFEST_SHA" <<'PY'
+import hashlib
+import json
+import os
+import re
+import stat
+import sys
+from pathlib import Path
+
+(
+    activation_text,
+    state_text,
+    manifest_text,
+    experiment_text,
+    expected_activation_commit,
+    expected_activation_sha,
+    pinned_descriptor_path,
+    expected_activation_identity,
+    expected_activation_baseline_sha,
+    expected_manifest_sha,
+) = sys.argv[1:]
+activation_path = Path(activation_text).absolute()
+state_path = Path(state_text).absolute()
+manifest_path = Path(manifest_text).absolute()
+experiment = Path(experiment_text).absolute()
+oid = re.compile(r"^[0-9a-f]{40}$")
+sha = re.compile(r"^[0-9a-f]{64}$")
+
+
+def stable_physical(path: Path, label: str) -> tuple[bytes, os.stat_result]:
+    if path.is_symlink() or not path.is_file() or path.resolve(strict=True) != path:
+        raise SystemExit(f"{label} is not a physical regular file: {path}")
+    descriptor = os.open(path, os.O_RDONLY | os.O_NOFOLLOW)
+    try:
+        before = os.fstat(descriptor)
+        chunks = []
+        while chunk := os.read(descriptor, 1024 * 1024):
+            chunks.append(chunk)
+        after = os.fstat(descriptor)
+    finally:
+        os.close(descriptor)
+    final = path.stat(follow_symlinks=False)
+    identity = lambda row: (
+        row.st_dev,
+        row.st_ino,
+        row.st_size,
+        row.st_mtime_ns,
+        row.st_ctime_ns,
+        stat.S_IMODE(row.st_mode),
+    )
+    payload = b"".join(chunks)
+    if (
+        not stat.S_ISREG(before.st_mode)
+        or identity(before) != identity(after)
+        or identity(after) != identity(final)
+        or len(payload) != before.st_size
+    ):
+        raise SystemExit(f"{label} changed while read")
+    return payload, before
+
+
+def stable_pinned(path: str) -> tuple[bytes, os.stat_result]:
+    descriptor = os.open(path, os.O_RDONLY)
+    try:
+        before = os.fstat(descriptor)
+        os.lseek(descriptor, 0, os.SEEK_SET)
+        chunks = []
+        while chunk := os.read(descriptor, 1024 * 1024):
+            chunks.append(chunk)
+        after = os.fstat(descriptor)
+    finally:
+        os.close(descriptor)
+    payload = b"".join(chunks)
+    identity = lambda row: (
+        row.st_dev,
+        row.st_ino,
+        row.st_size,
+        row.st_mtime_ns,
+        row.st_ctime_ns,
+        stat.S_IMODE(row.st_mode),
+    )
+    if not stat.S_ISREG(before.st_mode) or identity(before) != identity(after):
+        raise SystemExit("pinned activation receipt changed while read")
+    return payload, before
+
+
+def binding(path: str, payload: bytes) -> dict[str, object]:
+    return {
+        "path": path,
+        "sha256": hashlib.sha256(payload).hexdigest(),
+        "bytes": len(payload),
+    }
+
+
+if (
+    oid.fullmatch(expected_activation_commit) is None
+    or sha.fullmatch(expected_activation_sha) is None
+):
+    raise SystemExit("independently supplied activation authority is malformed")
+activation_payload, activation_row = stable_physical(activation_path, "activation receipt")
+pinned_payload, pinned_row = stable_pinned(pinned_descriptor_path)
+identity = lambda row: (
+    row.st_dev,
+    row.st_ino,
+    row.st_size,
+    row.st_mtime_ns,
+    row.st_ctime_ns,
+    stat.S_IMODE(row.st_mode),
+)
+if identity(activation_row) != identity(pinned_row) or activation_payload != pinned_payload:
+    raise SystemExit("activation receipt no longer matches its pinned authority")
+activation_identity = ":".join(str(value) for value in identity(activation_row))
+activation_sha = hashlib.sha256(activation_payload).hexdigest()
+if activation_sha != expected_activation_sha:
+    raise SystemExit("activation receipt differs from independently supplied SHA-256")
+if expected_activation_identity and activation_identity != expected_activation_identity:
+    raise SystemExit("activation receipt identity drift")
+if expected_activation_baseline_sha and activation_sha != expected_activation_baseline_sha:
+    raise SystemExit("activation receipt hash drift")
+
+activation = json.loads(activation_payload)
+if set(activation) != {
+    "schema",
+    "verdict",
+    "problem_count",
+    "problems",
+    "phase",
+    "commits",
+    "artifacts",
+    "receipt_payload_sha256",
+}:
+    raise SystemExit("activation receipt field set drift")
+canonical = dict(activation)
+claimed_payload_sha = canonical.pop("receipt_payload_sha256", None)
+actual_payload_sha = hashlib.sha256(
+    json.dumps(
+        canonical,
+        sort_keys=True,
+        separators=(",", ":"),
+        ensure_ascii=True,
+        allow_nan=False,
+    ).encode()
+).hexdigest()
+if (
+    activation.get("schema") != "iter135.launch_activation.v1"
+    or activation.get("verdict") != "I135_LAUNCH_ACTIVATION_OK"
+    or activation.get("problem_count") != 0
+    or activation.get("problems") != []
+    or activation.get("phase") != "LAUNCH_AUTHORIZED"
+    or claimed_payload_sha != actual_payload_sha
+):
+    raise SystemExit("activation receipt is not exactly green")
+
+commits = activation.get("commits")
+expected_commit_fields = {
+    "tooling_receipt",
+    "host_preparation",
+    "environment",
+    "pre_smoke_manifest",
+    "smoke",
+    "state",
+    "final_manifest",
+    "baton_parent",
+}
+if (
+    not isinstance(commits, dict)
+    or set(commits) != expected_commit_fields
+    or any(oid.fullmatch(value) is None for value in commits.values())
+    or commits.get("baton_parent") != commits.get("final_manifest")
+    or len(set(commits.values())) != 7
+    or expected_activation_commit in commits.values()
+):
+    raise SystemExit("activation commit topology drift")
+
+relative_root = "experiments/iter135_neuroncap_blind_braking_dose_response"
+physical = {
+    "mission_state": ("MISSION_STATE.json", state_path),
+    "host_preparation": (
+        f"{relative_root}/host_preparation_receipt.json",
+        experiment / "host_preparation_receipt.json",
+    ),
+    "host_packet_manifest": (
+        f"{relative_root}/host_packet_manifest.json",
+        experiment / "host_packet_manifest.json",
+    ),
+    "environment": (f"{relative_root}/env_receipts.json", experiment / "env_receipts.json"),
+    "pre_smoke_manifest": (
+        f"{relative_root}/launch_manifest.json",
+        experiment / "smoke-evidence/raw/pre_smoke_manifest.json",
+    ),
+    "smoke_receipt": (
+        f"{relative_root}/smoke-evidence/smoke_receipt.json",
+        experiment / "smoke-evidence/smoke_receipt.json",
+    ),
+    "final_manifest": (f"{relative_root}/launch_manifest.json", manifest_path),
+}
+artifacts = activation.get("artifacts")
+if not isinstance(artifacts, dict) or set(artifacts) != set(physical):
+    raise SystemExit("activation artifact set drift")
+payloads = {}
+for role, (repository_path, local_path) in physical.items():
+    payload, _row = stable_physical(local_path, f"activation artifact {role}")
+    payloads[role] = payload
+    if artifacts.get(role) != binding(repository_path, payload):
+        raise SystemExit(f"activation artifact binding drift: {role}")
+
+manifest_payload = payloads["final_manifest"]
+if hashlib.sha256(manifest_payload).hexdigest() != expected_manifest_sha:
+    raise SystemExit("activation final manifest SHA-256 drift")
+manifest = json.loads(manifest_payload)
+state_payload = payloads["mission_state"]
+if manifest.get("git_provenance", {}).get("head") != commits.get("state"):
+    raise SystemExit("final manifest does not bind the exact state commit")
+if manifest.get("mission_state") != {
+    "source_path": "MISSION_STATE.json",
+    "sha256": hashlib.sha256(state_payload).hexdigest(),
+    "bytes": len(state_payload),
+}:
+    raise SystemExit("final manifest mission state binding drift")
+bound = manifest.get("hash_bound_files")
+expected_bound_payloads = {
+    "host_packet_manifest.json": payloads["host_packet_manifest"],
+    "host_preparation_receipt.json": payloads["host_preparation"],
+    "env_receipts.json": payloads["environment"],
+    "smoke-evidence/smoke_receipt.json": payloads["smoke_receipt"],
+}
+if not isinstance(bound, dict):
+    raise SystemExit("final manifest hash-bound set missing")
+for name, payload in expected_bound_payloads.items():
+    expected = {
+        "source_path": f"{relative_root}/{name}",
+        "sha256": hashlib.sha256(payload).hexdigest(),
+        "bytes": len(payload),
+    }
+    if bound.get(name) != expected:
+        raise SystemExit(f"final manifest artifact link drift: {name}")
+if (
+    manifest.get("host_packet_manifest") != bound.get("host_packet_manifest.json")
+    or manifest.get("host_preparation_receipt") != bound.get("host_preparation_receipt.json")
+    or manifest.get("smoke_receipt") != bound.get("smoke-evidence/smoke_receipt.json")
+):
+    raise SystemExit("final manifest evidence pointer drift")
+
+host_packet = json.loads(payloads["host_packet_manifest"])
+host_preparation = json.loads(payloads["host_preparation"])
+environment = json.loads(payloads["environment"])
+smoke = json.loads(payloads["smoke_receipt"])
+tooling_payload, _row = stable_physical(
+    experiment / "tooling_verification_receipt.json", "tooling verification receipt"
+)
+tooling = json.loads(tooling_payload)
+tooling_source = tooling.get("repository", {}).get("git_start", {}).get("head")
+if (
+    host_packet.get("schema") != "iter135.host_packet_manifest.v1"
+    or oid.fullmatch(host_packet.get("source_commit", "")) is None
+    or host_preparation.get("schema") != "iter135.host_preparation_receipt.v1"
+    or host_preparation.get("verdict") != "I135_HOST_PREPARATION_OK"
+    or host_preparation.get("packet_manifest_sha256")
+    != hashlib.sha256(payloads["host_packet_manifest"]).hexdigest()
+    or environment.get("schema") != "iter135.environment_receipts.v3"
+    or environment.get("verdict") != "I135_ENVIRONMENT_PREFLIGHT_OK"
+    or smoke.get("schema") != "iter135.smoke_receipt.v1"
+    or smoke.get("verdict") != "I135_LIVE_SMOKE_OK"
+    or smoke.get("nonanalytic") is not True
+    or smoke.get("analytic_episode_count") != 0
+    or tooling.get("schema") != "iter135.tooling_verification.v2"
+    or tooling.get("verdict") != "I135_TOOLING_VERIFICATION_OK"
+    or tooling.get("publication", {}).get("generation") != 3
+    or oid.fullmatch(tooling_source or "") is None
+    or oid.fullmatch(commits.get("tooling_receipt", "")) is None
+):
+    raise SystemExit("activation source, tooling, host, environment, or smoke contract drift")
+
+print(
+    activation_sha,
+    activation_identity,
+    len(activation_payload),
+    commits["final_manifest"],
+)
 PY
 }
 
@@ -391,6 +1097,10 @@ cleanup_containers() {
 }
 
 cleanup() {
+  if [ "$ACTIVATION_FD_OPEN" = "1" ]; then
+    exec 5>&- || true
+    ACTIVATION_FD_OPEN=0
+  fi
   if [ "$MISSION_STATE_FD_OPEN" = "1" ]; then
     exec 6>&- || true
     MISSION_STATE_FD_OPEN=0
@@ -528,6 +1238,14 @@ PY
     exec 8>&- || true
     PREFLIGHT_LOCK_OWNED=0
   fi
+  if [ "$PYTHON_FD_OPEN" = "1" ]; then
+    exec 10>&- || true
+    PYTHON_FD_OPEN=0
+  fi
+  if [ "$DOCKER_FD_OPEN" = "1" ]; then
+    exec 11>&- || true
+    DOCKER_FD_OPEN=0
+  fi
 }
 
 abort() {
@@ -544,7 +1262,140 @@ for REQUIRED_COMMAND in awk chmod cp date docker find findmnt flock git grep mkd
     exit 1
   fi
 done
-DOCKER_BIN=$(readlink -f "$(command -v docker)") || {
+if ! [[ $EXPECTED_ACTIVATION_COMMIT =~ ^[0-9a-f]{40}$ \
+  && $EXPECTED_ACTIVATION_SHA =~ ^[0-9a-f]{64}$ ]]; then
+  echo "I135_ABORT independent-activation-commit-or-sha256-missing-or-malformed" >&2
+  exit 1
+fi
+for AUTHORITY_PATH in "$ENV_SOURCE" "$ACTIVATION_SOURCE" "$MISSION_STATE_SOURCE" \
+  "$MANIFEST_SOURCE"; do
+  if [ -L "$AUTHORITY_PATH" ] || [ ! -f "$AUTHORITY_PATH" ]; then
+    echo "I135_ABORT authority-input-not-physical:$AUTHORITY_PATH" >&2
+    exit 1
+  fi
+done
+
+# Freeze the exact physical CPython interpreter captured in the v3 host receipt.  Every later
+# Python call goes through this immutable path with isolated mode enabled.
+PYTHON_COMMAND=$(command -v python3) || {
+  echo "I135_ABORT python-command-resolution" >&2
+  exit 1
+}
+PYTHON_BIN=$(readlink -f "$PYTHON_COMMAND") || {
+  echo "I135_ABORT python-physical-path" >&2
+  exit 1
+}
+if [ ! -f "$PYTHON_BIN" ] || [ ! -x "$PYTHON_BIN" ] || [ -L "$PYTHON_BIN" ]; then
+  echo "I135_ABORT python-physical-binary:$PYTHON_BIN" >&2
+  exit 1
+fi
+if ! exec 10< "$PYTHON_BIN"; then
+  echo "I135_ABORT python-pinned-fd-open:$PYTHON_BIN" >&2
+  exit 1
+fi
+PYTHON_FD_OPEN=1
+PYTHON_FD_PATH=/proc/$$/fd/10
+if [ ! -e "$PYTHON_FD_PATH" ]; then
+  echo "I135_ABORT python-pinned-fd-missing" >&2
+  exit 1
+fi
+PYTHON_BIN_ID=$(stat -Lc '%d:%i' "$PYTHON_FD_PATH") || {
+  echo "I135_ABORT python-physical-identity" >&2
+  exit 1
+}
+if [ "$(stat -Lc '%d:%i' "$PYTHON_BIN")" != "$PYTHON_BIN_ID" ]; then
+  echo "I135_ABORT python-path-raced-before-pin" >&2
+  exit 1
+fi
+PYTHON_BIN_SHA=$(sha256sum "$PYTHON_FD_PATH" | awk '{print $1}') || {
+  echo "I135_ABORT python-physical-sha256" >&2
+  exit 1
+}
+PYTHON_BIN_BYTES=$(stat -Lc '%s' "$PYTHON_FD_PATH") || {
+  echo "I135_ABORT python-physical-bytes" >&2
+  exit 1
+}
+PYTHON_BIN_VERSION=$("$PYTHON_FD_PATH" -I -c \
+  'import platform; print(platform.python_version())') || {
+  echo "I135_ABORT python-physical-version" >&2
+  exit 1
+}
+"$PYTHON_FD_PATH" -I - "$ENV_SOURCE" "$PYTHON_BIN" "$PYTHON_BIN_SHA" \
+  "$PYTHON_BIN_BYTES" "$PYTHON_BIN_VERSION" <<'PY' || {
+import json
+import platform
+import sys
+from pathlib import Path
+
+environment = json.loads(Path(sys.argv[1]).read_bytes())
+physical_path, sha256, byte_count, version = sys.argv[2:]
+interpreter = environment.get("interpreter")
+invocation = environment.get("invocation")
+if environment.get("schema") != "iter135.environment_receipts.v3":
+    raise SystemExit("environment schema does not bind the generation-three interpreter")
+if not isinstance(interpreter, dict) or set(interpreter) != {
+    "invocation_path",
+    "physical_path",
+    "realpath",
+    "sha256",
+    "bytes",
+    "version",
+    "implementation",
+}:
+    raise SystemExit("environment interpreter receipt is malformed")
+if (
+    interpreter.get("invocation_path") != physical_path
+    or interpreter.get("physical_path") != physical_path
+    or interpreter.get("realpath") != physical_path
+    or interpreter.get("sha256") != sha256
+    or interpreter.get("bytes") != int(byte_count)
+    or interpreter.get("version") != version
+    or interpreter.get("version") != platform.python_version()
+    or interpreter.get("implementation") != "CPython"
+    or platform.python_implementation() != "CPython"
+):
+    raise SystemExit("captured physical interpreter drift")
+if (
+    not isinstance(invocation, dict)
+    or invocation.get("sanitized") is not True
+    or invocation.get("isolated") is not True
+    or not isinstance(invocation.get("argv"), list)
+    or len(invocation["argv"]) < 3
+    or invocation["argv"][:3]
+    != [physical_path, "-I", "/opt/sentinel-stack/iter135/capture_environment135.py"]
+):
+    raise SystemExit("captured isolated invocation drift")
+PY
+  echo "I135_ABORT python-environment-binding" >&2
+  exit 1
+}
+readonly PYTHON_BIN PYTHON_FD_PATH PYTHON_BIN_ID PYTHON_BIN_SHA PYTHON_BIN_BYTES \
+  PYTHON_BIN_VERSION
+python3() {
+  "$PYTHON_FD_PATH" -I "$@"
+}
+verify_python_interpreter_binding() {
+  [ -e "$PYTHON_FD_PATH" ] \
+    && [ "$(stat -Lc '%d:%i' "$PYTHON_FD_PATH")" = "$PYTHON_BIN_ID" ] \
+    && [ "$(stat -Lc '%s' "$PYTHON_FD_PATH")" = "$PYTHON_BIN_BYTES" ] \
+    && [ "$(sha256sum "$PYTHON_FD_PATH" | awk '{print $1}')" = "$PYTHON_BIN_SHA" ] \
+    && [ -f "$PYTHON_BIN" ] && [ -x "$PYTHON_BIN" ] && [ ! -L "$PYTHON_BIN" ] \
+    && [ "$(readlink -f "$PYTHON_BIN")" = "$PYTHON_BIN" ] \
+    && [ "$(stat -Lc '%d:%i' "$PYTHON_BIN")" = "$PYTHON_BIN_ID" ] \
+    && [ "$(stat -Lc '%s' "$PYTHON_BIN")" = "$PYTHON_BIN_BYTES" ] \
+    && [ "$(sha256sum "$PYTHON_BIN" | awk '{print $1}')" = "$PYTHON_BIN_SHA" ] \
+    && [ "$("$PYTHON_FD_PATH" -I -c 'import platform; print(platform.python_version())')" \
+      = "$PYTHON_BIN_VERSION" ]
+}
+verify_python_interpreter_binding || {
+  echo "I135_ABORT python-interpreter-initial-drift" >&2
+  exit 1
+}
+DOCKER_COMMAND=$(command -v docker) || {
+  echo "I135_ABORT docker-command-resolution" >&2
+  exit 1
+}
+DOCKER_BIN=$(readlink -f "$DOCKER_COMMAND") || {
   echo "I135_ABORT docker-binary-realpath" >&2
   exit 1
 }
@@ -552,14 +1403,292 @@ if [ ! -f "$DOCKER_BIN" ] || [ ! -x "$DOCKER_BIN" ] || [ -L "$DOCKER_BIN" ]; the
   echo "I135_ABORT docker-binary-physical:$DOCKER_BIN" >&2
   exit 1
 fi
-DOCKER_BIN_ID=$(stat -Lc '%d:%i' "$DOCKER_BIN") || {
+if ! exec 11< "$DOCKER_BIN"; then
+  echo "I135_ABORT docker-pinned-fd-open:$DOCKER_BIN" >&2
+  exit 1
+fi
+DOCKER_FD_OPEN=1
+DOCKER_FD_PATH=/proc/$$/fd/11
+DOCKER_BIN_ID=$(stat -Lc '%d:%i' "$DOCKER_FD_PATH") || {
   echo "I135_ABORT docker-binary-identity" >&2
   exit 1
 }
-DOCKER_BIN_SHA=$(sha256sum "$DOCKER_BIN" | awk '{print $1}') || {
+if [ "$(stat -Lc '%d:%i' "$DOCKER_BIN")" != "$DOCKER_BIN_ID" ]; then
+  echo "I135_ABORT docker-path-raced-before-pin" >&2
+  exit 1
+fi
+DOCKER_BIN_SHA=$(sha256sum "$DOCKER_FD_PATH" | awk '{print $1}') || {
   echo "I135_ABORT docker-binary-sha256" >&2
   exit 1
 }
+DOCKER_BIN_BYTES=$(stat -Lc '%s' "$DOCKER_FD_PATH") || {
+  echo "I135_ABORT docker-binary-bytes" >&2
+  exit 1
+}
+readonly DOCKER_COMMAND DOCKER_BIN DOCKER_FD_PATH DOCKER_BIN_ID DOCKER_BIN_SHA \
+  DOCKER_BIN_BYTES
+verify_docker_client_binding() {
+  [ -e "$DOCKER_FD_PATH" ] \
+    && [ "$(stat -Lc '%d:%i' "$DOCKER_FD_PATH")" = "$DOCKER_BIN_ID" ] \
+    && [ "$(stat -Lc '%s' "$DOCKER_FD_PATH")" = "$DOCKER_BIN_BYTES" ] \
+    && [ "$(sha256sum "$DOCKER_FD_PATH" | awk '{print $1}')" = "$DOCKER_BIN_SHA" ] \
+    && [ -f "$DOCKER_BIN" ] && [ -x "$DOCKER_BIN" ] && [ ! -L "$DOCKER_BIN" ] \
+    && [ "$(readlink -f "$DOCKER_BIN")" = "$DOCKER_BIN" ] \
+    && [ "$(stat -Lc '%d:%i' "$DOCKER_BIN")" = "$DOCKER_BIN_ID" ] \
+    && [ "$(stat -Lc '%s' "$DOCKER_BIN")" = "$DOCKER_BIN_BYTES" ] \
+    && [ "$(sha256sum "$DOCKER_BIN" | awk '{print $1}')" = "$DOCKER_BIN_SHA" ]
+}
+verify_docker_client_binding || {
+  echo "I135_ABORT docker-client-initial-drift" >&2
+  exit 1
+}
+verify_docker_v3_runtime() {
+  python3 - "$ENV_SOURCE" "$DOCKER_COMMAND" "$DOCKER_BIN" "$DOCKER_FD_PATH" \
+    "$DOCKER_BIN_ID" "$DOCKER_BIN_SHA" "$DOCKER_BIN_BYTES" <<'PY'
+# BEGIN I135_DOCKER_RUNTIME_PYTHON
+import hashlib
+import json
+import os
+import stat
+import subprocess
+import sys
+from pathlib import Path
+
+env_text, invocation_text, physical_text, executable_text, expected_id, expected_sha, size_text = (
+    sys.argv[1:]
+)
+invocation = Path(invocation_text).absolute()
+physical = Path(physical_text).absolute()
+executable = Path(executable_text)
+expected_size = int(size_text)
+receipt = json.loads(Path(env_text).read_bytes()).get("docker_runtime")
+
+
+def stable_digest(path):
+    descriptor = os.open(path, os.O_RDONLY | os.O_CLOEXEC)
+    try:
+        before = os.fstat(descriptor)
+        digest = hashlib.sha256()
+        size = 0
+        while chunk := os.read(descriptor, 1 << 20):
+            digest.update(chunk)
+            size += len(chunk)
+        after = os.fstat(descriptor)
+    finally:
+        os.close(descriptor)
+    def identity(row):
+        return (
+            row.st_dev,
+            row.st_ino,
+            row.st_size,
+            row.st_mtime_ns,
+            row.st_ctime_ns,
+            stat.S_IMODE(row.st_mode),
+        )
+    if identity(before) != identity(after) or size != before.st_size:
+        raise SystemExit("Docker client changed while read")
+    return digest.hexdigest(), size, before, identity(before)
+
+
+if (
+    not invocation.is_file()
+    or invocation.resolve(strict=True) != physical
+    or physical.is_symlink()
+    or not physical.is_file()
+    or physical.resolve(strict=True) != physical
+    or not executable.exists()
+):
+    raise SystemExit("Docker client physical path drift")
+fd_sha, fd_size, fd_row, fd_identity = stable_digest(executable)
+path_sha, path_size, path_row, path_identity = stable_digest(physical)
+if (
+    f"{fd_row.st_dev}:{fd_row.st_ino}" != expected_id
+    or fd_identity != path_identity
+    or fd_sha != path_sha
+    or fd_sha != expected_sha
+    or fd_size != path_size
+    or fd_size != expected_size
+):
+    raise SystemExit("Docker client pinned FD or pathname drift")
+runtime_descriptor = os.open(executable, os.O_RDONLY | os.O_CLOEXEC)
+runtime_executable = f"/proc/self/fd/{runtime_descriptor}"
+
+docker_env = {
+    "DOCKER_CONFIG": "/nonexistent",
+    "DOCKER_HOST": "unix:///var/run/docker.sock",
+    "HOME": "/nonexistent",
+    "LANG": "C",
+    "LC_ALL": "C",
+    "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
+    "TZ": "UTC",
+}
+
+
+def run(*args):
+    value = subprocess.run(
+        [runtime_executable, *args],
+        check=True,
+        capture_output=True,
+        env=docker_env,
+        timeout=20,
+        pass_fds=(runtime_descriptor,),
+    )
+    if len(value.stdout) > 4 * 1024 * 1024 or len(value.stderr) > 64 * 1024:
+        raise SystemExit("Docker probe byte ceiling")
+    return value.stdout
+
+
+def document(*args):
+    value = json.loads(run(*args))
+    if not isinstance(value, dict):
+        raise SystemExit("Docker probe object schema")
+    return value
+
+
+def bounded(value, label, maximum=512):
+    if (
+        not isinstance(value, str)
+        or not value
+        or len(value) > maximum
+        or any(ord(character) < 32 or ord(character) == 127 for character in value)
+    ):
+        raise SystemExit(f"Docker text field drift:{label}")
+    return value
+
+
+def project(source, fields, prefix):
+    if not isinstance(source, dict):
+        raise SystemExit(f"Docker projection source drift:{prefix}")
+    return {
+        target: bounded(source.get(origin), f"{prefix}:{target}")
+        for target, origin in fields.items()
+    }
+
+
+version = document("version", "--format", "{{json .}}")
+info = document("info", "--format", "{{json .}}")
+client_raw = version.get("Client")
+server_raw = version.get("Server")
+platform_raw = server_raw.get("Platform") if isinstance(server_raw, dict) else None
+client_version = project(
+    client_raw,
+    {
+        "version": "Version",
+        "api_version": "ApiVersion",
+        "git_commit": "GitCommit",
+        "go_version": "GoVersion",
+        "os": "Os",
+        "arch": "Arch",
+        "build_time": "BuildTime",
+        "context": "Context",
+    },
+    "client",
+)
+daemon_version = project(
+    server_raw,
+    {
+        "version": "Version",
+        "api_version": "ApiVersion",
+        "min_api_version": "MinAPIVersion",
+        "git_commit": "GitCommit",
+        "go_version": "GoVersion",
+        "os": "Os",
+        "arch": "Arch",
+        "build_time": "BuildTime",
+    },
+    "daemon",
+)
+daemon_version["platform_name"] = bounded(
+    platform_raw.get("Name") if isinstance(platform_raw, dict) else None,
+    "daemon:platform_name",
+)
+experimental = server_raw.get("Experimental") if isinstance(server_raw, dict) else None
+if type(experimental) is not bool:
+    raise SystemExit("Docker daemon experimental field drift")
+daemon_version["experimental"] = experimental
+daemon_info = project(
+    info,
+    {
+        "id": "ID",
+        "name": "Name",
+        "server_version": "ServerVersion",
+        "docker_root_dir": "DockerRootDir",
+        "driver": "Driver",
+        "operating_system": "OperatingSystem",
+        "os_type": "OSType",
+        "architecture": "Architecture",
+        "kernel_version": "KernelVersion",
+        "cgroup_driver": "CgroupDriver",
+        "cgroup_version": "CgroupVersion",
+    },
+    "info",
+)
+for target, origin, maximum in (
+    ("ncpu", "NCPU", 1_000_000),
+    ("mem_total", "MemTotal", 2**63 - 1),
+):
+    value = info.get(origin)
+    if type(value) is not int or not (0 < value <= maximum):
+        raise SystemExit(f"Docker integer field drift:{target}")
+    daemon_info[target] = value
+context_name = bounded(run("context", "show").decode().strip(), "context:name")
+endpoint = bounded(
+    json.loads(
+        run(
+            "context",
+            "inspect",
+            "--format",
+            "{{json .Endpoints.docker.Host}}",
+            context_name,
+        )
+    ),
+    "context:endpoint",
+    maximum=1024,
+)
+live = {
+    "schema": "iter135.docker_runtime_receipt.v1",
+    "client": {
+        "invocation_path": str(invocation),
+        "physical_path": str(physical),
+        "realpath": str(physical),
+        "sha256": fd_sha,
+        "bytes": fd_size,
+        "version": client_version,
+    },
+    "context": {"name": context_name, "endpoint": endpoint},
+    "daemon": {"info": daemon_info, "version": daemon_version},
+}
+architecture_family = {
+    "amd64": "amd64",
+    "x86_64": "amd64",
+    "arm64": "arm64",
+    "aarch64": "arm64",
+}
+if (
+    context_name != "default"
+    or endpoint != "unix:///var/run/docker.sock"
+    or client_version["context"] != context_name
+    or daemon_info["server_version"] != daemon_version["version"]
+    or daemon_info["os_type"] != daemon_version["os"]
+    or architecture_family.get(daemon_info["architecture"], daemon_info["architecture"])
+    != architecture_family.get(daemon_version["arch"], daemon_version["arch"])
+    or not Path(daemon_info["docker_root_dir"]).is_absolute()
+    or receipt != live
+):
+    raise SystemExit("live Docker client/context/daemon drift from v3 receipt")
+print(hashlib.sha256(json.dumps(live, sort_keys=True, separators=(",", ":")).encode()).hexdigest())
+# END I135_DOCKER_RUNTIME_PYTHON
+PY
+}
+DOCKER_RUNTIME_RECEIPT_SHA=$(verify_docker_v3_runtime) || {
+  echo "I135_ABORT docker-v3-runtime-binding" >&2
+  exit 1
+}
+if ! [[ $DOCKER_RUNTIME_RECEIPT_SHA =~ ^[0-9a-f]{64}$ ]]; then
+  echo "I135_ABORT docker-v3-runtime-binding-output" >&2
+  exit 1
+fi
+readonly DOCKER_RUNTIME_RECEIPT_SHA
 EXECUTING_RUNNER_RECEIPT=$(python3 - "$RUNNER_SOURCE" "${BASH_SOURCE[0]}" <<'PY'
 import hashlib
 import os
@@ -689,10 +1818,28 @@ if ! [[ "$MISSION_STATE_BASELINE_SHA" =~ ^[0-9a-f]{64}$ \
   && "$MISSION_STATE_BASELINE_BYTES" =~ ^[1-9][0-9]*$ ]]; then
   abort "mission-state-binding-output:$MISSION_STATE_BINDING"
 fi
+if ! exec 5< "$ACTIVATION_SOURCE"; then
+  abort "launch-activation-pinned-open:$ACTIVATION_SOURCE"
+fi
+ACTIVATION_FD_OPEN=1
+# The pinned activation receipt is sufficient for reversible preflight.  The public
+# GitHub authority is intentionally sampled exactly once, at the final analytic arm,
+# so a later network transient cannot invalidate an already-started 120-block run.
+ACTIVATION_BINDING=$(verify_launch_activation) \
+  || abort "launch-activation-authority"
+read -r ACTIVATION_BASELINE_SHA ACTIVATION_BASELINE_ID \
+  ACTIVATION_BASELINE_BYTES LOCAL_FINAL_MANIFEST_COMMIT <<<"$ACTIVATION_BINDING"
+if ! [[ "$ACTIVATION_BASELINE_SHA" =~ ^[0-9a-f]{64}$ \
+  && "$ACTIVATION_BASELINE_ID" =~ ^([0-9]+:){5}[0-9]+$ \
+  && "$ACTIVATION_BASELINE_BYTES" =~ ^[1-9][0-9]*$ \
+  && "$LOCAL_FINAL_MANIFEST_COMMIT" =~ ^[0-9a-f]{40}$ ]]; then
+  abort "launch-activation-binding-output:$ACTIVATION_BINDING"
+fi
 
 echo "I135_PREFLIGHT_INVOCATION at=$(date -u +%Y-%m-%dT%H:%M:%SZ) pid=$$ manifest_sha256=${EXPECTED_MANIFEST_SHA:-missing}"
 echo "I135_EXECUTING_RUNNER_OK sha256=$EXECUTING_RUNNER_SHA id=$EXECUTING_RUNNER_ID bytes=$EXECUTING_RUNNER_BYTES"
 echo "I135_MISSION_STATE_OK sha256=$MISSION_STATE_BASELINE_SHA id=$MISSION_STATE_BASELINE_ID bytes=$MISSION_STATE_BASELINE_BYTES"
+echo "I135_LAUNCH_ACTIVATION_OK commit=$EXPECTED_ACTIVATION_COMMIT sha256=$ACTIVATION_BASELINE_SHA id=$ACTIVATION_BASELINE_ID bytes=$ACTIVATION_BASELINE_BYTES"
 
 CONTAINER_IDS=$(bounded_docker ps -aq --no-trunc) || abort "container-probe-before-launch"
 if [ -n "$CONTAINER_IDS" ]; then
@@ -738,11 +1885,12 @@ PY
 
 # Recompute the frozen execution plan and verify every launch-bound local/remote receipt.
 python3 - "$MANIFEST" "$EXPECTED_MANIFEST_SHA" "$EXECUTING_RUNNER_SHA" \
-  "$DOCKER_BIN" "$DOCKER_BIN_ID" "$DOCKER_BIN_SHA" <<'PY' \
+  "$DOCKER_BIN" "$DOCKER_BIN_ID" "$DOCKER_BIN_SHA" "$DOCKER_FD_PATH" <<'PY' \
   || abort "preflight"
 import hashlib
 import json
 import os
+import platform
 import shutil
 import socket
 import subprocess
@@ -756,6 +1904,7 @@ expected_executing_runner_sha256 = sys.argv[3]
 docker_binary = Path(sys.argv[4])
 expected_docker_identity = sys.argv[5]
 expected_docker_sha256 = sys.argv[6]
+docker_executable = sys.argv[7]
 problems = []
 environment_devices = None
 
@@ -822,6 +1971,8 @@ expected_manifest_fields = {
     "storage_gate",
     "resource_gate",
     "smoke_receipt",
+    "host_packet_manifest",
+    "host_preparation_receipt",
     "tooling_verification_receipt",
     "gates",
     "missing_artifacts",
@@ -1000,6 +2151,7 @@ if not isinstance(hash_bound, dict) or not hash_bound:
 else:
     required_payloads = {
         "HYPOTHESIS.md",
+        "authorize_launch135.py",
         "extract_union_windows.py",
         "generate_nested_dose_schedules.py",
         "dose_schedules.json",
@@ -1011,16 +2163,21 @@ else:
         "run_smoke135.sh",
         "validate_smoke135.py",
         "capture_environment135.py",
+        "prepare_host135.py",
         "verify_tooling135.py",
         "tooling_verification_receipt.json",
         "patch_compose_dose_env.py",
         "make_launch_manifest.py",
         "env_receipts.json",
+        "host_packet_manifest.json",
+        "host_preparation_receipt.json",
+        "smoke-evidence/SMOKE.md",
         "smoke-evidence/smoke_receipt.json",
     }
     smoke_raw_names = {
         "smoke-evidence/raw/execution.jsonl",
         "smoke-evidence/raw/pre_smoke_manifest.json",
+        "smoke-evidence/raw/pre_smoke_mission_state.json",
         "smoke-evidence/raw/environment_receipt.json",
         *{
             f"smoke-evidence/raw/{dose}.{suffix}"
@@ -1042,9 +2199,8 @@ else:
         source_path = receipt.get("source_path")
         if (
             not isinstance(source_path, str)
-            or not source_path
-            or Path(source_path).is_absolute()
-            or ".." in Path(source_path).parts
+            or source_path
+            != f"experiments/iter135_neuroncap_blind_braking_dose_response/{name}"
         ):
             problems.append(f"payload-source-path:{name}:{source_path}")
         path = (payload_root / name).absolute()
@@ -1073,6 +2229,14 @@ else:
         "smoke-evidence/smoke_receipt.json"
     ):
         problems.append("smoke-receipt:hash-binding-drift")
+    if manifest.get("host_packet_manifest") != hash_bound.get(
+        "host_packet_manifest.json"
+    ):
+        problems.append("host-packet-manifest:hash-binding-drift")
+    if manifest.get("host_preparation_receipt") != hash_bound.get(
+        "host_preparation_receipt.json"
+    ):
+        problems.append("host-preparation-receipt:hash-binding-drift")
     if manifest.get("tooling_verification_receipt") != hash_bound.get(
         "tooling_verification_receipt.json"
     ):
@@ -1231,6 +2395,12 @@ else:
         "host",
         "problem_count",
         "problems",
+        "interpreter",
+        "invocation",
+        "host_preparation",
+        "host_publication_authority",
+        "docker_runtime",
+        "runtime_snapshots",
         "gpu",
         "box",
         "storage",
@@ -1243,7 +2413,7 @@ else:
     }
     if set(environment) != expected_environment_fields:
         problems.append("environment-receipts:field-set")
-    if environment.get("schema") != "iter135.environment_receipts.v2":
+    if environment.get("schema") != "iter135.environment_receipts.v3":
         problems.append(f"environment-receipts:schema:{environment.get('schema')}")
     if environment.get("verdict") != "I135_ENVIRONMENT_PREFLIGHT_OK":
         problems.append(f"environment-receipts:verdict:{environment.get('verdict')}")
@@ -1270,6 +2440,88 @@ else:
         }
         if environment_file != embedded_environment:
             problems.append("environment-file:embedded-receipt-drift")
+
+    interpreter = environment.get("interpreter")
+    live_interpreter = Path(sys.executable).resolve(strict=True)
+    if (
+        not isinstance(interpreter, dict)
+        or set(interpreter)
+        != {
+            "invocation_path",
+            "physical_path",
+            "realpath",
+            "sha256",
+            "bytes",
+            "version",
+            "implementation",
+        }
+        or interpreter.get("physical_path") != str(live_interpreter)
+        or interpreter.get("realpath") != str(live_interpreter)
+        or interpreter.get("sha256")
+        != hashlib.sha256(live_interpreter.read_bytes()).hexdigest()
+        or interpreter.get("bytes") != live_interpreter.stat().st_size
+        or interpreter.get("version") != platform.python_version()
+        or interpreter.get("implementation") != platform.python_implementation()
+        or sys.flags.isolated != 1
+    ):
+        problems.append("environment-interpreter:contract-drift")
+    invocation = environment.get("invocation")
+    expected_capture_environment = {
+        "DOCKER_CONFIG": "/nonexistent",
+        "DOCKER_HOST": "unix:///var/run/docker.sock",
+        "GIT_CONFIG_NOSYSTEM": "1",
+        "GIT_OPTIONAL_LOCKS": "0",
+        "GIT_TERMINAL_PROMPT": "0",
+        "HOME": "/nonexistent",
+        "LANG": "C",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONHASHSEED": "0",
+        "PYTHONNOUSERSITE": "1",
+        "SENTINEL_I135_CAPTURE_SANITIZED": "1",
+        "TZ": "UTC",
+    }
+    if (
+        not isinstance(invocation, dict)
+        or set(invocation)
+        != {"sanitized", "isolated", "environment", "argv", "canonical_script"}
+        or invocation.get("sanitized") is not True
+        or invocation.get("isolated") is not True
+        or invocation.get("environment") != expected_capture_environment
+        or invocation.get("canonical_script")
+        != "/opt/sentinel-stack/iter135/capture_environment135.py"
+        or not isinstance(invocation.get("argv"), list)
+        or len(invocation["argv"]) < 3
+        or invocation["argv"][:3]
+        != [
+            str(live_interpreter),
+            "-I",
+            "/opt/sentinel-stack/iter135/capture_environment135.py",
+        ]
+    ):
+        problems.append("environment-invocation:contract-drift")
+    preparation_link = environment.get("host_preparation")
+    preparation_path = payload_root / "host_preparation_receipt.json"
+    try:
+        preparation_payload = preparation_path.read_bytes()
+        preparation_evidence = json.loads(preparation_payload)
+    except (OSError, json.JSONDecodeError) as error:
+        problems.append(f"environment-host-preparation:read:{type(error).__name__}")
+        preparation_payload = b""
+        preparation_evidence = None
+    expected_preparation_file = {
+        "path": "/opt/sentinel-stack/iter135/host_preparation_receipt.json",
+        "sha256": hashlib.sha256(preparation_payload).hexdigest(),
+        "bytes": len(preparation_payload),
+    }
+    if (
+        not isinstance(preparation_link, dict)
+        or set(preparation_link) != {"receipt_file", "evidence"}
+        or preparation_link.get("receipt_file") != expected_preparation_file
+        or preparation_link.get("evidence") != preparation_evidence
+    ):
+        problems.append("environment-host-preparation:contract-drift")
 
     dataset = manifest.get("dataset_receipt")
     environment_dataset = environment.get("dataset")
@@ -1542,6 +2794,26 @@ else:
     }
     if environment.get("box") != expected_box:
         problems.append("environment-box:contract-drift")
+    runtime_snapshots = environment.get("runtime_snapshots")
+    frozen_gpu = {
+        "model": "NVIDIA L4",
+        "count": 1,
+        "uuid": "GPU-9604ae8a-e823-3a38-5a57-0420cd29bc07",
+        "driver_version": "580.159.03",
+        "memory_total_mib": 23034,
+    }
+    if (
+        not isinstance(runtime_snapshots, dict)
+        or set(runtime_snapshots) != {"before_dataset_hashing", "after_dataset_hashing"}
+        or any(
+            not isinstance(runtime_snapshots.get(phase), dict)
+            or set(runtime_snapshots[phase]) != {"gpu", "box"}
+            or runtime_snapshots[phase].get("gpu") != frozen_gpu
+            or runtime_snapshots[phase].get("box") != expected_box
+            for phase in ("before_dataset_hashing", "after_dataset_hashing")
+        )
+    ):
+        problems.append("environment-runtime-snapshots:contract-drift")
     environment_devices = environment.get("storage_devices")
     expected_device_fields = {"filesystem_st_dev", "mount_st_dev", "root_st_dev"}
     if (
@@ -1606,7 +2878,7 @@ else:
         for image, expected in sorted(image_ids.items()):
             try:
                 actual = subprocess.check_output(
-                    [str(docker_binary), "image", "inspect", "--format={{.Id}}", image],
+                    [docker_executable, "image", "inspect", "--format={{.Id}}", image],
                     text=True,
                     timeout=5,
                 ).strip()
@@ -1949,7 +3221,7 @@ PY
 OUTPUT_ROOT_ID=$(stat -Lc '%d:%i' "$OUTPUT_ROOT") || abort "storage-output-root-identity"
 
 RUNTIME_SNAPSHOT=$(python3 - "$MANIFEST_SOURCE" "$EXPECTED_MANIFEST_SHA" \
-  "$DOCKER_BIN" "$DOCKER_BIN_ID" "$DOCKER_BIN_SHA" <<'PY'
+  "$DOCKER_BIN" "$DOCKER_BIN_ID" "$DOCKER_BIN_SHA" "$DOCKER_FD_PATH" <<'PY'
 import hashlib
 import json
 import os
@@ -1964,6 +3236,7 @@ expected_manifest_sha = sys.argv[2]
 docker_binary = Path(sys.argv[3])
 expected_docker_identity = sys.argv[4]
 expected_docker_sha = sys.argv[5]
+docker_executable = sys.argv[6]
 if (
     source_manifest.is_symlink()
     or not source_manifest.is_file()
@@ -2152,7 +3425,7 @@ prepared.append(
 
 def docker_text(*args: str) -> str:
     completed = subprocess.run(
-        [str(docker_binary), *args],
+        [docker_executable, *args],
         stdin=subprocess.DEVNULL,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
@@ -2174,10 +3447,15 @@ if (
     or hashlib.sha256(docker_binary.read_bytes()).hexdigest() != expected_docker_sha
 ):
     raise SystemExit("Docker runtime client binary drift")
-if any(
-    os.environ.get(name)
+if {
+    name: os.environ.get(name)
     for name in ("DOCKER_HOST", "DOCKER_CONTEXT", "DOCKER_TLS_VERIFY", "DOCKER_CERT_PATH")
-):
+} != {
+    "DOCKER_HOST": "unix:///var/run/docker.sock",
+    "DOCKER_CONTEXT": None,
+    "DOCKER_TLS_VERIFY": None,
+    "DOCKER_CERT_PATH": None,
+}:
     raise SystemExit("Docker runtime environment override is forbidden")
 docker_context = docker_text("context", "show")
 docker_endpoint = json.loads(
@@ -2630,7 +3908,7 @@ verify_docker_runtime_identity() {
   local PHASE=$1
   python3 - "$DOCKER_RUNTIME_SNAPSHOT" "$DOCKER_RUNTIME_SNAPSHOT_ID" \
     "$DOCKER_RUNTIME_SNAPSHOT_SHA" "$DOCKER_BIN" "$DOCKER_BIN_ID" \
-    "$DOCKER_BIN_SHA" "$EXPECTED_MANIFEST_SHA" "$PHASE" <<'PY'
+    "$DOCKER_BIN_SHA" "$EXPECTED_MANIFEST_SHA" "$PHASE" "$DOCKER_FD_PATH" <<'PY'
 import hashlib
 import json
 import os
@@ -2648,6 +3926,7 @@ from pathlib import Path
     expected_docker_sha,
     expected_manifest_sha,
     phase,
+    docker_executable,
 ) = sys.argv[1:]
 if phase not in {"analytic-arm", "before", "after", "before-done"}:
     raise SystemExit(f"Docker runtime phase drift: {phase}")
@@ -2697,16 +3976,21 @@ if expected.get("client") != {
     "st_ino": docker_stat.st_ino,
 }:
     raise SystemExit("Docker runtime client receipt drift")
-if any(
-    os.environ.get(name)
+if {
+    name: os.environ.get(name)
     for name in ("DOCKER_HOST", "DOCKER_CONTEXT", "DOCKER_TLS_VERIFY", "DOCKER_CERT_PATH")
-):
+} != {
+    "DOCKER_HOST": "unix:///var/run/docker.sock",
+    "DOCKER_CONTEXT": None,
+    "DOCKER_TLS_VERIFY": None,
+    "DOCKER_CERT_PATH": None,
+}:
     raise SystemExit("Docker runtime environment override appeared")
 
 
 def command(*args: str) -> str:
     completed = subprocess.run(
-        [str(docker_binary), *args],
+        [docker_executable, *args],
         stdin=subprocess.DEVNULL,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
@@ -2839,11 +4123,19 @@ import sys
 from pathlib import Path
 
 path = Path(sys.argv[1])
-payload = r'''#!/bin/bash
+payload = r'''#!/bin/bash -p
 set -euo pipefail
 
 : "${SENTINEL_DOCKER_BIN:?SENTINEL_DOCKER_BIN must be set}"
+: "${SENTINEL_DOCKER_EXECUTABLE:?SENTINEL_DOCKER_EXECUTABLE must be set}"
+: "${SENTINEL_DOCKER_BIN_ID:?SENTINEL_DOCKER_BIN_ID must be set}"
 : "${SENTINEL_DOCKER_BIN_SHA256:?SENTINEL_DOCKER_BIN_SHA256 must be set}"
+: "${SENTINEL_DOCKER_WRAPPER_SHA256:?SENTINEL_DOCKER_WRAPPER_SHA256 must be set}"
+: "${SENTINEL_MANIFEST_SHA256:?SENTINEL_MANIFEST_SHA256 must be set}"
+: "${SENTINEL_BLOCK_ORDINAL:?SENTINEL_BLOCK_ORDINAL must be set}"
+: "${SENTINEL_CONTAINER_CONTROL_ROOT:?SENTINEL_CONTAINER_CONTROL_ROOT must be set}"
+: "${SENTINEL_CONTAINER_CONTROL_ROOT_ID:?SENTINEL_CONTAINER_CONTROL_ROOT_ID must be set}"
+: "${SENTINEL_CONTAINER_CID_DIR:?SENTINEL_CONTAINER_CID_DIR must be set}"
 if [ ! -f "$SENTINEL_DOCKER_BIN" ] || [ ! -x "$SENTINEL_DOCKER_BIN" ] \
   || [ -L "$SENTINEL_DOCKER_BIN" ]; then
   echo "I135_DOCKER_WRAPPER_FAIL docker-binary" >&2
@@ -2854,19 +4146,85 @@ if [ "$OBSERVED_DOCKER_SHA" != "$SENTINEL_DOCKER_BIN_SHA256" ]; then
   echo "I135_DOCKER_WRAPPER_FAIL docker-binary-drift" >&2
   exit 125
 fi
+OBSERVED_DOCKER_EXECUTABLE_ID=$(stat -Lc '%d:%i' "$SENTINEL_DOCKER_EXECUTABLE" \
+  2>/dev/null || stat -f '%d:%i' "$SENTINEL_DOCKER_EXECUTABLE" 2>/dev/null || true)
+if [ ! -e "$SENTINEL_DOCKER_EXECUTABLE" ] \
+  || [ "$OBSERVED_DOCKER_EXECUTABLE_ID" != "$SENTINEL_DOCKER_BIN_ID" ] \
+  || [ "$(sha256sum "$SENTINEL_DOCKER_EXECUTABLE" | awk '{print $1}')" \
+    != "$SENTINEL_DOCKER_BIN_SHA256" ]; then
+  echo "I135_DOCKER_WRAPPER_FAIL docker-pinned-executable-drift" >&2
+  exit 125
+fi
+OBSERVED_WRAPPER_MODE=$(stat -Lc '%a' "$0" 2>/dev/null \
+  || stat -f '%Lp' "$0" 2>/dev/null || true)
+OBSERVED_CONTROL_ROOT_ID=$(stat -Lc '%d:%i' "$SENTINEL_CONTAINER_CONTROL_ROOT" \
+  2>/dev/null || stat -f '%d:%i' "$SENTINEL_CONTAINER_CONTROL_ROOT" 2>/dev/null || true)
+if [ "$0" != "$SENTINEL_CONTAINER_CONTROL_ROOT/docker" ] \
+  || [ -L "$0" ] || [ ! -f "$0" ] \
+  || [ "$OBSERVED_WRAPPER_MODE" != "500" ] \
+  || [ "$(sha256sum "$0" | awk '{print $1}')" != "$SENTINEL_DOCKER_WRAPPER_SHA256" ] \
+  || [ -L "$SENTINEL_CONTAINER_CONTROL_ROOT" ] \
+  || [ ! -d "$SENTINEL_CONTAINER_CONTROL_ROOT" ] \
+  || [ "$OBSERVED_CONTROL_ROOT_ID" != "$SENTINEL_CONTAINER_CONTROL_ROOT_ID" ]; then
+  echo "I135_DOCKER_WRAPPER_FAIL wrapper-identity-drift" >&2
+  exit 125
+fi
+if ! [[ "$SENTINEL_MANIFEST_SHA256" =~ ^[0-9a-f]{64}$ ]] \
+  || ! [[ "$SENTINEL_BLOCK_ORDINAL" =~ ^([0-9]|[1-9][0-9]|1[01][0-9])$ ]] \
+  || [ "$SENTINEL_CONTAINER_CID_DIR" \
+    != "$SENTINEL_CONTAINER_CONTROL_ROOT/block-$SENTINEL_BLOCK_ORDINAL" ] \
+  || [ -L "$SENTINEL_CONTAINER_CID_DIR" ] \
+  || [ ! -d "$SENTINEL_CONTAINER_CID_DIR" ]; then
+  echo "I135_DOCKER_WRAPPER_FAIL control-contract" >&2
+  exit 125
+fi
 if [ "$#" -lt 1 ]; then
   echo "I135_DOCKER_WRAPPER_FAIL command-missing" >&2
   exit 125
 fi
 COMMAND=$1
 shift
-if [ "$COMMAND" != "run" ]; then
-  exec "$SENTINEL_DOCKER_BIN" "$COMMAND" "$@"
+if [ "$COMMAND" = "kill" ]; then
+  if [ "$#" != "1" ]; then
+    echo "I135_DOCKER_WRAPPER_FAIL kill-arity" >&2
+    exit 125
+  fi
+  case "$1" in
+    renderer|model) ROLE=$1 ;;
+    *)
+      echo "I135_DOCKER_WRAPPER_FAIL kill-role:$1" >&2
+      exit 125
+      ;;
+  esac
+  CID_FILE=$SENTINEL_CONTAINER_CID_DIR/$ROLE.cid
+  if [ -L "$CID_FILE" ] || [ ! -f "$CID_FILE" ]; then
+    echo "I135_DOCKER_WRAPPER_FAIL kill-cid-file:$ROLE" >&2
+    exit 125
+  fi
+  CID=$(<"$CID_FILE")
+  if ! [[ "$CID" =~ ^[0-9a-f]{64}$ ]]; then
+    echo "I135_DOCKER_WRAPPER_FAIL kill-cid:$ROLE" >&2
+    exit 125
+  fi
+  INSPECT=$(
+    "$SENTINEL_DOCKER_EXECUTABLE" inspect --format \
+      '{{.Id}}|{{.Name}}|{{index .Config.Labels "sentinel.mission"}}|{{index .Config.Labels "sentinel.manifest"}}|{{index .Config.Labels "sentinel.mode"}}|{{index .Config.Labels "sentinel.block"}}|{{index .Config.Labels "sentinel.role"}}' \
+      "$CID"
+  ) || {
+    echo "I135_DOCKER_WRAPPER_FAIL kill-inspect:$ROLE" >&2
+    exit 125
+  }
+  EXPECTED_INSPECT="$CID|/$ROLE|iter135|$SENTINEL_MANIFEST_SHA256|analytic|$SENTINEL_BLOCK_ORDINAL|$ROLE"
+  if [ "$INSPECT" != "$EXPECTED_INSPECT" ]; then
+    echo "I135_DOCKER_WRAPPER_FAIL kill-ownership:$ROLE" >&2
+    exit 125
+  fi
+  exec "$SENTINEL_DOCKER_EXECUTABLE" kill "$CID"
 fi
-: "${SENTINEL_MANIFEST_SHA256:?SENTINEL_MANIFEST_SHA256 must be set}"
-: "${SENTINEL_BLOCK_ORDINAL:?SENTINEL_BLOCK_ORDINAL must be set}"
-: "${SENTINEL_CONTAINER_CONTROL_ROOT:?SENTINEL_CONTAINER_CONTROL_ROOT must be set}"
-: "${SENTINEL_CONTAINER_CID_DIR:?SENTINEL_CONTAINER_CID_DIR must be set}"
+if [ "$COMMAND" != "run" ]; then
+  echo "I135_DOCKER_WRAPPER_FAIL unexpected-command:$COMMAND" >&2
+  exit 125
+fi
 if ! [[ "$SENTINEL_MANIFEST_SHA256" =~ ^[0-9a-f]{64}$ ]] \
   || ! [[ "$SENTINEL_BLOCK_ORDINAL" =~ ^([0-9]|[1-9][0-9]|1[01][0-9])$ ]] \
   || [ "$SENTINEL_CONTAINER_CID_DIR" \
@@ -2927,9 +4285,10 @@ if [ -e "$CID_FILE" ] || [ -L "$CID_FILE" ]; then
   echo "I135_DOCKER_WRAPPER_FAIL cid-preexists:$ROLE" >&2
   exit 125
 fi
-exec "$SENTINEL_DOCKER_BIN" run \
+exec "$SENTINEL_DOCKER_EXECUTABLE" run \
   --label sentinel.mission=iter135 \
   --label "sentinel.manifest=$SENTINEL_MANIFEST_SHA256" \
+  --label sentinel.mode=analytic \
   --label "sentinel.block=$SENTINEL_BLOCK_ORDINAL" \
   --label "sentinel.role=$ROLE" \
   --cidfile "$CID_FILE" \
@@ -2945,18 +4304,104 @@ print(hashlib.sha256(payload.encode()).hexdigest())
 PY
 ) || abort "docker-wrapper-create"
 
+# I135_PINNED_PYTHON_WRAPPER
+PYTHON_WRAPPER_SHA=$(python3 - "$CONTAINER_CONTROL_ROOT/python" <<'PY'
+import hashlib
+import os
+import sys
+from pathlib import Path
+
+path = Path(sys.argv[1])
+payload = r'''#!/bin/bash -p
+set -euo pipefail
+
+: "${SENTINEL_PYTHON_BIN:?SENTINEL_PYTHON_BIN must be set}"
+: "${SENTINEL_PYTHON_EXECUTABLE:?SENTINEL_PYTHON_EXECUTABLE must be set}"
+: "${SENTINEL_PYTHON_BIN_ID:?SENTINEL_PYTHON_BIN_ID must be set}"
+: "${SENTINEL_PYTHON_BIN_SHA256:?SENTINEL_PYTHON_BIN_SHA256 must be set}"
+: "${SENTINEL_PYTHON_WRAPPER_SHA256:?SENTINEL_PYTHON_WRAPPER_SHA256 must be set}"
+: "${SENTINEL_CONTAINER_CONTROL_ROOT:?SENTINEL_CONTAINER_CONTROL_ROOT must be set}"
+: "${SENTINEL_CONTAINER_CONTROL_ROOT_ID:?SENTINEL_CONTAINER_CONTROL_ROOT_ID must be set}"
+if [ "$0" != "$SENTINEL_CONTAINER_CONTROL_ROOT/python" ] \
+  || [ -L "$0" ] || [ ! -f "$0" ] \
+  || [ "$(stat -Lc '%a' "$0")" != "500" ] \
+  || [ "$(sha256sum "$0" | awk '{print $1}')" != "$SENTINEL_PYTHON_WRAPPER_SHA256" ] \
+  || [ -L "$SENTINEL_CONTAINER_CONTROL_ROOT" ] \
+  || [ ! -d "$SENTINEL_CONTAINER_CONTROL_ROOT" ] \
+  || [ "$(stat -Lc '%d:%i' "$SENTINEL_CONTAINER_CONTROL_ROOT")" \
+    != "$SENTINEL_CONTAINER_CONTROL_ROOT_ID" ]; then
+  echo "I135_PYTHON_WRAPPER_FAIL wrapper-identity-drift" >&2
+  exit 126
+fi
+if [ -L "$SENTINEL_PYTHON_BIN" ] || [ ! -f "$SENTINEL_PYTHON_BIN" ] \
+  || [ ! -x "$SENTINEL_PYTHON_BIN" ] \
+  || [ "$(stat -Lc '%d:%i' "$SENTINEL_PYTHON_BIN")" != "$SENTINEL_PYTHON_BIN_ID" ] \
+  || [ "$(sha256sum "$SENTINEL_PYTHON_BIN" | awk '{print $1}')" \
+    != "$SENTINEL_PYTHON_BIN_SHA256" ] \
+  || [ ! -e "$SENTINEL_PYTHON_EXECUTABLE" ] \
+  || [ "$(stat -Lc '%d:%i' "$SENTINEL_PYTHON_EXECUTABLE")" \
+    != "$SENTINEL_PYTHON_BIN_ID" ] \
+  || [ "$(sha256sum "$SENTINEL_PYTHON_EXECUTABLE" | awk '{print $1}')" \
+    != "$SENTINEL_PYTHON_BIN_SHA256" ]; then
+  echo "I135_PYTHON_WRAPPER_FAIL interpreter-drift" >&2
+  exit 126
+fi
+exec "$SENTINEL_PYTHON_EXECUTABLE" -I "$@"
+'''
+descriptor = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o500)
+with os.fdopen(descriptor, "wb") as stream:
+    stream.write(payload.encode())
+    stream.flush()
+    os.fsync(stream.fileno())
+os.chmod(path, 0o500)
+print(hashlib.sha256(payload.encode()).hexdigest())
+PY
+) || abort "python-wrapper-create"
+
 verify_container_control() {
   python3 - "$CONTAINER_CONTROL_ROOT" "$CONTAINER_CONTROL_ROOT_ID" \
-    "$DOCKER_WRAPPER_SHA" "$DOCKER_BIN" "$DOCKER_BIN_ID" "$DOCKER_BIN_SHA" <<'PY'
+    "$DOCKER_WRAPPER_SHA" "$PYTHON_WRAPPER_SHA" \
+    "$DOCKER_BIN" "$DOCKER_BIN_ID" "$DOCKER_BIN_SHA" \
+    "$PYTHON_BIN" "$PYTHON_BIN_ID" "$PYTHON_BIN_SHA" <<'PY'
 import hashlib
+import re
 import stat
 import sys
 from pathlib import Path
 
 root = Path(sys.argv[1])
-root_identity, wrapper_sha, docker_text, docker_identity, docker_sha = sys.argv[2:]
+(
+    root_identity,
+    docker_wrapper_sha,
+    python_wrapper_sha,
+    docker_text,
+    docker_identity,
+    docker_sha,
+    python_text,
+    python_identity,
+    python_sha,
+) = sys.argv[2:]
 docker = Path(docker_text)
-wrapper = root / "docker"
+python = Path(python_text)
+docker_wrapper = root / "docker"
+python_wrapper = root / "python"
+unexpected = []
+for child in root.iterdir() if root.is_dir() else ():
+    if child.name in {"docker", "python"}:
+        continue
+    if re.fullmatch(r"block-(?:[0-9]|[1-9][0-9]|1[01][0-9])", child.name):
+        if (
+            child.is_symlink()
+            or not child.is_dir()
+            or stat.S_IMODE(child.stat().st_mode) != 0o700
+        ):
+            unexpected.append(child.name)
+        continue
+    if child.name == "watchdog.ready":
+        if child.is_symlink() or not child.is_file():
+            unexpected.append(child.name)
+        continue
+    unexpected.append(child.name)
 if (
     root.parent != Path("/tmp")
     or not root.name.startswith("sentinel-i135-control.")
@@ -2964,16 +4409,27 @@ if (
     or not root.is_dir()
     or root.resolve(strict=True) != root
     or f"{root.stat().st_dev}:{root.stat().st_ino}" != root_identity
-    or wrapper.is_symlink()
-    or not wrapper.is_file()
-    or wrapper.resolve(strict=True) != wrapper
-    or stat.S_IMODE(wrapper.stat().st_mode) != 0o500
-    or hashlib.sha256(wrapper.read_bytes()).hexdigest() != wrapper_sha
+    or unexpected
+    or docker_wrapper.is_symlink()
+    or not docker_wrapper.is_file()
+    or docker_wrapper.resolve(strict=True) != docker_wrapper
+    or stat.S_IMODE(docker_wrapper.stat().st_mode) != 0o500
+    or hashlib.sha256(docker_wrapper.read_bytes()).hexdigest() != docker_wrapper_sha
+    or python_wrapper.is_symlink()
+    or not python_wrapper.is_file()
+    or python_wrapper.resolve(strict=True) != python_wrapper
+    or stat.S_IMODE(python_wrapper.stat().st_mode) != 0o500
+    or hashlib.sha256(python_wrapper.read_bytes()).hexdigest() != python_wrapper_sha
     or docker.is_symlink()
     or not docker.is_file()
     or docker.resolve(strict=True) != docker
     or f"{docker.stat().st_dev}:{docker.stat().st_ino}" != docker_identity
     or hashlib.sha256(docker.read_bytes()).hexdigest() != docker_sha
+    or python.is_symlink()
+    or not python.is_file()
+    or python.resolve(strict=True) != python
+    or f"{python.stat().st_dev}:{python.stat().st_ino}" != python_identity
+    or hashlib.sha256(python.read_bytes()).hexdigest() != python_sha
 ):
     raise SystemExit("container control contract drift")
 PY
@@ -3084,7 +4540,7 @@ verify_block_runtime_inputs() {
   python3 - "$MANIFEST" "$SCHEDULE_TARGET" "$STACK/UniAD/inference/server.py" \
     "$EXPECTED_SERVER_SHA" "$SCENARIO_CLASS" "$SEQUENCE" "$PHASE" \
     "$MODEL_IMAGE" "$RENDERING_IMAGE" "$NCAP_IMAGE" \
-    "$DOCKER_BIN" "$DOCKER_BIN_ID" "$DOCKER_BIN_SHA" <<'PY'
+    "$DOCKER_BIN" "$DOCKER_BIN_ID" "$DOCKER_BIN_SHA" "$DOCKER_FD_PATH" <<'PY'
 import hashlib
 import json
 import os
@@ -3107,6 +4563,7 @@ from pathlib import Path
     docker_text,
     docker_identity,
     docker_sha256,
+    docker_executable,
 ) = sys.argv[1:]
 if phase not in {"before", "after"}:
     raise SystemExit(f"invalid runtime verification phase: {phase}")
@@ -3251,7 +4708,7 @@ for name, expected_image in expected_images.items():
     if not isinstance(row, dict) or row.get("image_id") != expected_image:
         raise SystemExit(f"runtime image receipt drift: {name}")
     observed = subprocess.run(
-        [str(docker_binary), "image", "inspect", "--format", "{{.Id}}", expected_image],
+        [docker_executable, "image", "inspect", "--format", "{{.Id}}", expected_image],
         check=True,
         capture_output=True,
         text=True,
@@ -3974,10 +5431,19 @@ PY
   timeout --signal=TERM --kill-after=60s "$COMPOSE_TIMEOUT_SECONDS" env \
     PATH="$CONTAINER_CONTROL_ROOT:$PATH" \
     SENTINEL_DOCKER_BIN="$DOCKER_BIN" \
+    SENTINEL_DOCKER_EXECUTABLE="$DOCKER_FD_PATH" \
+    SENTINEL_DOCKER_BIN_ID="$DOCKER_BIN_ID" \
     SENTINEL_DOCKER_BIN_SHA256="$DOCKER_BIN_SHA" \
+    SENTINEL_DOCKER_WRAPPER_SHA256="$DOCKER_WRAPPER_SHA" \
+    SENTINEL_PYTHON_BIN="$PYTHON_BIN" \
+    SENTINEL_PYTHON_EXECUTABLE="$PYTHON_FD_PATH" \
+    SENTINEL_PYTHON_BIN_ID="$PYTHON_BIN_ID" \
+    SENTINEL_PYTHON_BIN_SHA256="$PYTHON_BIN_SHA" \
+    SENTINEL_PYTHON_WRAPPER_SHA256="$PYTHON_WRAPPER_SHA" \
     SENTINEL_MANIFEST_SHA256="$EXPECTED_MANIFEST_SHA" \
     SENTINEL_BLOCK_ORDINAL="$ORDINAL" \
     SENTINEL_CONTAINER_CONTROL_ROOT="$CONTAINER_CONTROL_ROOT" \
+    SENTINEL_CONTAINER_CONTROL_ROOT_ID="$CONTAINER_CONTROL_ROOT_ID" \
     SENTINEL_CONTAINER_CID_DIR="$CURRENT_BLOCK_CID_DIR" \
     BASE_DIR="$BASE_DIR" NUSCENES_PATH="$NUSCENES_PATH" \
     MODEL_NAME="$MODEL_NAME" MODEL_FOLDER="$MODEL_FOLDER" \
@@ -4146,9 +5612,14 @@ fi
 
 publish_analytic_lock() {
   python3 - "$LOCK" "$EXPECTED_MANIFEST_SHA" "$DATASET_RUNTIME_SNAPSHOT_SHA" \
-    "$DOCKER_RUNTIME_SNAPSHOT_SHA" "$$" <<'PY'
+    "$DOCKER_RUNTIME_SNAPSHOT_SHA" "$EXPECTED_ACTIVATION_SHA" \
+    "$GITHUB_ACTIVATION_COMMIT" "$GITHUB_FINAL_MANIFEST_COMMIT" \
+    "$GITHUB_CHECK_310_ID" "$GITHUB_CHECK_311_ID" \
+    "$PYTHON_WRAPPER_SHA" "$PYTHON_BIN_SHA" "$PYTHON_BIN_ID" "$$" <<'PY'
+import hashlib
 import json
 import os
+import re
 import sys
 import tempfile
 from datetime import datetime, timezone
@@ -4158,7 +5629,15 @@ lock = Path(sys.argv[1])
 manifest_sha256 = sys.argv[2]
 dataset_snapshot_sha256 = sys.argv[3]
 docker_snapshot_sha256 = sys.argv[4]
-pid = int(sys.argv[5])
+activation_receipt_sha256 = sys.argv[5]
+activation_commit = sys.argv[6]
+final_manifest_commit = sys.argv[7]
+check_310_id = int(sys.argv[8])
+check_311_id = int(sys.argv[9])
+python_wrapper_sha256 = sys.argv[10]
+python_binary_sha256 = sys.argv[11]
+python_binary_identity = sys.argv[12]
+pid = int(sys.argv[13])
 if (
     not lock.parent.is_dir()
     or lock.parent.is_symlink()
@@ -4171,13 +5650,63 @@ if (
     or any(character not in "0123456789abcdef" for character in dataset_snapshot_sha256)
     or len(docker_snapshot_sha256) != 64
     or any(character not in "0123456789abcdef" for character in docker_snapshot_sha256)
+    or re.fullmatch(r"[0-9a-f]{64}", activation_receipt_sha256) is None
+    or re.fullmatch(r"[0-9a-f]{40}", activation_commit) is None
+    or re.fullmatch(r"[0-9a-f]{40}", final_manifest_commit) is None
+    or activation_commit == final_manifest_commit
+    or check_310_id <= 0
+    or check_311_id <= 0
+    or check_310_id == check_311_id
+    or re.fullmatch(r"[0-9a-f]{64}", python_wrapper_sha256) is None
+    or re.fullmatch(r"[0-9a-f]{64}", python_binary_sha256) is None
+    or re.fullmatch(r"[0-9]+:[0-9]+", python_binary_identity) is None
 ):
     raise SystemExit("analytic lock publication contract drift")
+authority = {
+    "schema": "iter135.github_launch_authority.v1",
+    "repository": "manfromnowhere143/sentinel",
+    "branch": "master",
+    "activation_commit": activation_commit,
+    "final_manifest_commit": final_manifest_commit,
+    "activation_receipt_sha256": activation_receipt_sha256,
+    "manifest_sha256": manifest_sha256,
+    "checks": [
+        {
+            "name": "check (3.10)",
+            "id": check_310_id,
+            "head_sha": activation_commit,
+            "app_slug": "github-actions",
+            "status": "completed",
+            "conclusion": "success",
+        },
+        {
+            "name": "check (3.11)",
+            "id": check_311_id,
+            "head_sha": activation_commit,
+            "app_slug": "github-actions",
+            "status": "completed",
+            "conclusion": "success",
+        },
+    ],
+}
+authority["authority_payload_sha256"] = hashlib.sha256(
+    json.dumps(
+        authority,
+        sort_keys=True,
+        separators=(",", ":"),
+        ensure_ascii=True,
+        allow_nan=False,
+    ).encode()
+).hexdigest()
 payload = {
-    "schema": "iter135.analytic_lock.v2",
+    "schema": "iter135.analytic_lock.v3",
     "manifest_sha256": manifest_sha256,
     "dataset_runtime_snapshot_sha256": dataset_snapshot_sha256,
     "docker_runtime_snapshot_sha256": docker_snapshot_sha256,
+    "python_wrapper_sha256": python_wrapper_sha256,
+    "python_binary_sha256": python_binary_sha256,
+    "python_binary_identity": python_binary_identity,
+    "github_launch_authority": authority,
     "pid": pid,
     "created_at_utc": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
 }
@@ -4266,8 +5795,37 @@ verify_dataset_runtime_identity analytic-arm \
   || abort "dataset-identity-at-final-analytic-arm"
 verify_docker_runtime_identity analytic-arm \
   || abort "docker-identity-at-final-analytic-arm"
+verify_docker_client_binding \
+  || abort "docker-client-revoked-at-final-analytic-arm"
+[ "$(verify_docker_v3_runtime)" = "$DOCKER_RUNTIME_RECEIPT_SHA" ] \
+  || abort "docker-v3-runtime-revoked-at-final-analytic-arm"
 verify_current_mission_state >/dev/null \
   || abort "mission-state-revoked-at-final-analytic-arm"
+verify_python_interpreter_binding \
+  || abort "python-interpreter-revoked-at-final-analytic-arm"
+FINAL_LOCAL_ACTIVATION_BINDING=$(verify_launch_activation) \
+  || abort "launch-activation-revoked-at-final-analytic-arm"
+if [ "$FINAL_LOCAL_ACTIVATION_BINDING" \
+  != "$ACTIVATION_BASELINE_SHA $ACTIVATION_BASELINE_ID $ACTIVATION_BASELINE_BYTES $LOCAL_FINAL_MANIFEST_COMMIT" ]; then
+  abort "launch-activation-binding-drift-at-final-analytic-arm"
+fi
+GITHUB_LAUNCH_BINDING=$(verify_github_launch_authority) \
+  || abort "github-launch-authority-revoked-at-final-analytic-arm"
+read -r GITHUB_ACTIVATION_COMMIT GITHUB_FINAL_MANIFEST_COMMIT \
+  GITHUB_CHECK_310_ID GITHUB_CHECK_311_ID \
+  <<<"$GITHUB_LAUNCH_BINDING"
+if ! [[ "$GITHUB_ACTIVATION_COMMIT" =~ ^[0-9a-f]{40}$ \
+  && "$GITHUB_FINAL_MANIFEST_COMMIT" =~ ^[0-9a-f]{40}$ \
+  && "$GITHUB_CHECK_310_ID" =~ ^[1-9][0-9]*$ \
+  && "$GITHUB_CHECK_311_ID" =~ ^[1-9][0-9]*$ ]] \
+  || [ "$GITHUB_ACTIVATION_COMMIT" != "$EXPECTED_ACTIVATION_COMMIT" ] \
+  || [ "$GITHUB_FINAL_MANIFEST_COMMIT" != "$LOCAL_FINAL_MANIFEST_COMMIT" ] \
+  || [ "$GITHUB_FINAL_MANIFEST_COMMIT" = "$GITHUB_ACTIVATION_COMMIT" ] \
+  || [ "$GITHUB_CHECK_310_ID" = "$GITHUB_CHECK_311_ID" ]; then
+  abort "github-launch-publication-output:$GITHUB_LAUNCH_BINDING"
+fi
+readonly GITHUB_ACTIVATION_COMMIT GITHUB_FINAL_MANIFEST_COMMIT \
+  GITHUB_CHECK_310_ID GITHUB_CHECK_311_ID
 ANALYTIC_LOCK_ID=$(publish_analytic_lock) || abort "analytic-lock-receipt"
 ANALYTIC_LOCK_OWNED=1
 
@@ -4593,7 +6151,7 @@ echo "I135_RUNTIME_SNAPSHOT_OK manifest_sha256=$EXPECTED_MANIFEST_SHA path=$RUNT
 echo "I135_DATASET_SNAPSHOT_OK sha256=$DATASET_RUNTIME_SNAPSHOT_SHA id=$DATASET_RUNTIME_SNAPSHOT_ID files=28"
 echo "I135_DOCKER_SNAPSHOT_OK sha256=$DOCKER_RUNTIME_SNAPSHOT_SHA id=$DOCKER_RUNTIME_SNAPSHOT_ID"
 echo "I135_EXECUTING_RUNNER_OK sha256=$EXECUTING_RUNNER_SHA id=$EXECUTING_RUNNER_ID bytes=$EXECUTING_RUNNER_BYTES"
-echo "I135_ANALYTIC_ARMED lock=$LOCK lock_id=$ANALYTIC_LOCK_ID output_root=$OUTPUT_ROOT"
+echo "I135_ANALYTIC_ARMED lock=$LOCK lock_id=$ANALYTIC_LOCK_ID output_root=$OUTPUT_ROOT python_wrapper_sha256=$PYTHON_WRAPPER_SHA python_binary_sha256=$PYTHON_BIN_SHA python_binary_identity=$PYTHON_BIN_ID"
 echo "I135_WATCHDOG_ARMED pid=$ANALYTIC_WATCHDOG_PID term_after_seconds=$WATCHDOG_TERM_AFTER kill_grace_seconds=180"
 
 EXECUTED_BLOCKS=0
@@ -4624,6 +6182,14 @@ while IFS=$'\t' read -r ORDINAL ARM_ID SCENARIO SEQ; do
   fi
   verify_current_mission_state >/dev/null \
     || abort "mission-state-revoked-before-block:$ORDINAL"
+  verify_python_interpreter_binding \
+    || abort "python-interpreter-revoked-before-block:$ORDINAL"
+  verify_docker_client_binding \
+    || abort "docker-client-revoked-before-block:$ORDINAL"
+  [ "$(verify_docker_v3_runtime)" = "$DOCKER_RUNTIME_RECEIPT_SHA" ] \
+    || abort "docker-v3-runtime-revoked-before-block:$ORDINAL"
+  verify_launch_activation >/dev/null \
+    || abort "launch-activation-revoked-before-block:$ORDINAL"
   if [ "$ANALYTIC_STARTED" = "0" ]; then
     ANALYTIC_STARTED=1
     echo "I135_ANALYTIC_EXECUTION_STARTED ordinal=$ORDINAL"
@@ -4671,8 +6237,17 @@ verify_dataset_runtime_identity before-done \
   || abort "dataset-identity-before-done"
 verify_docker_runtime_identity before-done \
   || abort "docker-identity-before-done"
+verify_docker_client_binding || abort "docker-client-revoked-before-done"
+[ "$(verify_docker_v3_runtime)" = "$DOCKER_RUNTIME_RECEIPT_SHA" ] \
+  || abort "docker-v3-runtime-revoked-before-done"
 verify_output_storage_identity before-done 0 \
   || abort "storage-identity-before-done"
+verify_current_mission_state >/dev/null \
+  || abort "mission-state-revoked-before-done"
+verify_python_interpreter_binding \
+  || abort "python-interpreter-revoked-before-done"
+verify_launch_activation >/dev/null \
+  || abort "launch-activation-revoked-before-done"
 read -r END_FREE_BYTES OUTPUT_BYTES <<<"$(python3 - "$OUTPUT_ROOT" <<'PY'
 import os
 import shutil
@@ -4752,8 +6327,13 @@ for row in rows:
         raise SystemExit(f"live evaluator remains: {pid}:{command}")
 PY
 python3 - "$LOCK" "$ANALYTIC_LOCK_ID" "$EXPECTED_MANIFEST_SHA" \
-  "$DATASET_RUNTIME_SNAPSHOT_SHA" "$DOCKER_RUNTIME_SNAPSHOT_SHA" "$$" <<'PY' \
+  "$DATASET_RUNTIME_SNAPSHOT_SHA" "$DOCKER_RUNTIME_SNAPSHOT_SHA" \
+  "$EXPECTED_ACTIVATION_SHA" "$GITHUB_ACTIVATION_COMMIT" \
+  "$GITHUB_FINAL_MANIFEST_COMMIT" "$GITHUB_CHECK_310_ID" \
+  "$GITHUB_CHECK_311_ID" "$PYTHON_WRAPPER_SHA" "$PYTHON_BIN_SHA" \
+  "$PYTHON_BIN_ID" "$$" <<'PY' \
   || abort "analytic-lock-drift-before-done"
+import hashlib
 import json
 import stat
 import sys
@@ -4764,7 +6344,14 @@ expected_identity = sys.argv[2]
 expected_manifest = sys.argv[3]
 expected_dataset_snapshot = sys.argv[4]
 expected_docker_snapshot = sys.argv[5]
-expected_pid = int(sys.argv[6])
+expected_activation_sha = sys.argv[6]
+expected_activation_commit = sys.argv[7]
+expected_final_manifest = sys.argv[8]
+expected_check_ids = [int(sys.argv[9]), int(sys.argv[10])]
+expected_python_wrapper = sys.argv[11]
+expected_python_sha = sys.argv[12]
+expected_python_identity = sys.argv[13]
+expected_pid = int(sys.argv[14])
 if (
     lock.is_symlink()
     or not lock.is_file()
@@ -4781,18 +6368,73 @@ if (
         "manifest_sha256",
         "dataset_runtime_snapshot_sha256",
         "docker_runtime_snapshot_sha256",
+        "python_wrapper_sha256",
+        "python_binary_sha256",
+        "python_binary_identity",
+        "github_launch_authority",
         "pid",
         "created_at_utc",
     }
-    or payload.get("schema") != "iter135.analytic_lock.v2"
+    or payload.get("schema") != "iter135.analytic_lock.v3"
     or payload.get("manifest_sha256") != expected_manifest
     or payload.get("dataset_runtime_snapshot_sha256") != expected_dataset_snapshot
     or payload.get("docker_runtime_snapshot_sha256") != expected_docker_snapshot
+    or payload.get("python_wrapper_sha256") != expected_python_wrapper
+    or payload.get("python_binary_sha256") != expected_python_sha
+    or payload.get("python_binary_identity") != expected_python_identity
     or payload.get("pid") != expected_pid
     or not isinstance(payload.get("created_at_utc"), str)
     or not payload["created_at_utc"].endswith("Z")
 ):
     raise SystemExit("analytic lock receipt contract drift")
+authority = payload.get("github_launch_authority")
+if not isinstance(authority, dict) or set(authority) != {
+    "schema",
+    "repository",
+    "branch",
+    "activation_commit",
+    "final_manifest_commit",
+    "activation_receipt_sha256",
+    "manifest_sha256",
+    "checks",
+    "authority_payload_sha256",
+}:
+    raise SystemExit("analytic lock GitHub authority field-set drift")
+claimed_authority_sha = authority.get("authority_payload_sha256")
+canonical_authority = dict(authority)
+canonical_authority.pop("authority_payload_sha256")
+actual_authority_sha = hashlib.sha256(
+    json.dumps(
+        canonical_authority,
+        sort_keys=True,
+        separators=(",", ":"),
+        ensure_ascii=True,
+        allow_nan=False,
+    ).encode()
+).hexdigest()
+expected_checks = [
+    {
+        "name": name,
+        "id": check_id,
+        "head_sha": expected_activation_commit,
+        "app_slug": "github-actions",
+        "status": "completed",
+        "conclusion": "success",
+    }
+    for name, check_id in zip(("check (3.10)", "check (3.11)"), expected_check_ids)
+]
+if (
+    authority.get("schema") != "iter135.github_launch_authority.v1"
+    or authority.get("repository") != "manfromnowhere143/sentinel"
+    or authority.get("branch") != "master"
+    or authority.get("activation_commit") != expected_activation_commit
+    or authority.get("final_manifest_commit") != expected_final_manifest
+    or authority.get("activation_receipt_sha256") != expected_activation_sha
+    or authority.get("manifest_sha256") != expected_manifest
+    or authority.get("checks") != expected_checks
+    or claimed_authority_sha != actual_authority_sha
+):
+    raise SystemExit("analytic lock GitHub authority binding drift")
 PY
 FINAL_LOG_ID=$(stat -Lc '%d:%i' "$CANONICAL_LOG") || abort "canonical-log-missing-before-done"
 if [ "$FINAL_LOG_ID" != "$CANONICAL_LOG_ID" ]; then
@@ -4802,5 +6444,5 @@ FINAL_ELAPSED=$(monotonic_elapsed) || abort "G9-monotonic-clock-before-done"
 if [ "$FINAL_ELAPSED" -gt "$CEILING_SECONDS" ]; then
   abort "G9-ceiling-before-done:$FINAL_ELAPSED"
 fi
-echo "I135_DONE_METADATA at=$(date -u +%Y-%m-%dT%H:%M:%SZ) manifest_sha256=$EXPECTED_MANIFEST_SHA runtime_snapshot=$RUNTIME_SNAPSHOT dataset_runtime_snapshot_sha256=$DATASET_RUNTIME_SNAPSHOT_SHA dataset_runtime_snapshot_id=$DATASET_RUNTIME_SNAPSHOT_ID docker_runtime_snapshot_sha256=$DOCKER_RUNTIME_SNAPSHOT_SHA docker_runtime_snapshot_id=$DOCKER_RUNTIME_SNAPSHOT_ID launch_lock_retained=$LOCK launch_lock_id=$ANALYTIC_LOCK_ID elapsed_seconds=$FINAL_ELAPSED prior_smoke_gpu_seconds=$PRIOR_SMOKE_SECONDS blocks=$EXECUTED_BLOCKS episodes=$((EXECUTED_BLOCKS * 20)) output_root=$OUTPUT_ROOT output_device=/dev/nvme0n2 output_uuid=9a98277e-b21f-4ffc-8f14-3f2235b43103 start_free_bytes=$START_FREE_BYTES end_free_bytes=$END_FREE_BYTES output_bytes=$OUTPUT_BYTES"
+echo "I135_DONE_METADATA at=$(date -u +%Y-%m-%dT%H:%M:%SZ) manifest_sha256=$EXPECTED_MANIFEST_SHA runtime_snapshot=$RUNTIME_SNAPSHOT dataset_runtime_snapshot_sha256=$DATASET_RUNTIME_SNAPSHOT_SHA dataset_runtime_snapshot_id=$DATASET_RUNTIME_SNAPSHOT_ID docker_runtime_snapshot_sha256=$DOCKER_RUNTIME_SNAPSHOT_SHA docker_runtime_snapshot_id=$DOCKER_RUNTIME_SNAPSHOT_ID python_wrapper_sha256=$PYTHON_WRAPPER_SHA python_binary_sha256=$PYTHON_BIN_SHA python_binary_identity=$PYTHON_BIN_ID launch_lock_retained=$LOCK launch_lock_id=$ANALYTIC_LOCK_ID elapsed_seconds=$FINAL_ELAPSED prior_smoke_gpu_seconds=$PRIOR_SMOKE_SECONDS blocks=$EXECUTED_BLOCKS episodes=$((EXECUTED_BLOCKS * 20)) output_root=$OUTPUT_ROOT output_device=/dev/nvme0n2 output_uuid=9a98277e-b21f-4ffc-8f14-3f2235b43103 start_free_bytes=$START_FREE_BYTES end_free_bytes=$END_FREE_BYTES output_bytes=$OUTPUT_BYTES"
 echo "I135_DOSE_DONE"

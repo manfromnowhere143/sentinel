@@ -27,6 +27,37 @@ DEFAULT_DOCKER_SNAPSHOT_SHA256 = "c" * 64
 DEFAULT_DATASET_SNAPSHOT_ID = "66308:13501"
 DEFAULT_DOCKER_SNAPSHOT_ID = "66308:13502"
 DEFAULT_LOCK_ID = "66308:13503"
+PYTHON_WRAPPER_SHA256 = "d" * 64
+PYTHON_BINARY_SHA256 = "e" * 64
+PYTHON_BINARY_IDENTITY = "66305:13504"
+
+
+def _github_launch_authority(manifest_sha256: str) -> dict:
+    activation_commit = "f" * 40
+    authority = {
+        "schema": "iter135.github_launch_authority.v1",
+        "repository": "manfromnowhere143/sentinel",
+        "branch": "master",
+        "activation_commit": activation_commit,
+        "final_manifest_commit": "a" * 40,
+        "activation_receipt_sha256": "b" * 64,
+        "manifest_sha256": manifest_sha256,
+        "checks": [
+            {
+                "name": name,
+                "id": check_id,
+                "head_sha": activation_commit,
+                "app_slug": "github-actions",
+                "status": "completed",
+                "conclusion": "success",
+            }
+            for name, check_id in (("check (3.10)", 310), ("check (3.11)", 311))
+        ],
+    }
+    authority["authority_payload_sha256"] = hashlib.sha256(
+        json.dumps(authority, sort_keys=True, separators=(",", ":")).encode()
+    ).hexdigest()
+    return authority
 
 
 def _write_json(path: Path, value) -> None:
@@ -268,6 +299,10 @@ def _runtime_evidence(
         "manifest_sha256": manifest_sha256,
         "dataset_runtime_snapshot_sha256": hashlib.sha256(dataset_payload).hexdigest(),
         "docker_runtime_snapshot_sha256": hashlib.sha256(docker_payload).hexdigest(),
+        "python_wrapper_sha256": PYTHON_WRAPPER_SHA256,
+        "python_binary_sha256": PYTHON_BINARY_SHA256,
+        "python_binary_identity": PYTHON_BINARY_IDENTITY,
+        "github_launch_authority": _github_launch_authority(manifest_sha256),
         "pid": 135,
         "created_at_utc": "2026-07-16T00:00:00Z",
     }
@@ -308,7 +343,10 @@ def _make_log(
         f"I135_DATASET_SNAPSHOT_OK sha256={dataset_sha} id={dataset_id} files=28\n",
         f"I135_DOCKER_SNAPSHOT_OK sha256={docker_sha} id={docker_id}\n",
         f"I135_ANALYTIC_ARMED lock={c.EXPECTED_LAUNCH_LOCK} lock_id={lock_id} "
-        f"output_root={c.EXPECTED_OUTPUT_ROOT}\n",
+        f"output_root={c.EXPECTED_OUTPUT_ROOT} "
+        f"python_wrapper_sha256={PYTHON_WRAPPER_SHA256} "
+        f"python_binary_sha256={PYTHON_BINARY_SHA256} "
+        f"python_binary_identity={PYTHON_BINARY_IDENTITY}\n",
         "I135_DATASET_RUNTIME_OK phase=analytic-arm files=28\n",
         "I135_DOCKER_RUNTIME_OK phase=analytic-arm daemon_id=sentinel-daemon-135\n",
     ]
@@ -348,6 +386,9 @@ def _make_log(
         f"dataset_runtime_snapshot_id={dataset_id} "
         f"docker_runtime_snapshot_sha256={docker_sha} "
         f"docker_runtime_snapshot_id={docker_id} "
+        f"python_wrapper_sha256={PYTHON_WRAPPER_SHA256} "
+        f"python_binary_sha256={PYTHON_BINARY_SHA256} "
+        f"python_binary_identity={PYTHON_BINARY_IDENTITY} "
         f"launch_lock_retained={c.EXPECTED_LAUNCH_LOCK} "
         f"launch_lock_id={lock_id} "
         f"elapsed_seconds={ELAPSED_SECONDS} prior_smoke_gpu_seconds={PRIOR_SMOKE_SECONDS} "
@@ -572,6 +613,12 @@ def test_validity_receipt_is_mechanically_derived(complete_collection):
             lambda manifest: manifest["gates"].update(g7_dataset_provenance=False),
             "gate-not-green:g7_dataset_provenance",
         ),
+        (
+            lambda manifest: manifest["environment_receipts"].update(
+                schema="iter135.environment_receipts.v2"
+            ),
+            "environment-receipts-v3",
+        ),
         (lambda manifest: manifest.pop("dataset_receipt"), "dataset-environment-mismatch"),
     ],
 )
@@ -647,6 +694,10 @@ def test_runtime_evidence_binds_snapshot_and_lock_bytes_to_logged_source_ids(tmp
     )
     assert receipts["dataset_runtime_snapshot"]["file_count"] == 28
     assert receipts["analytic_lock"]["source_id"] == DEFAULT_LOCK_ID
+    assert receipts["analytic_lock"]["github_launch_authority"] == (
+        _github_launch_authority(c.sha256_file(manifest_path))
+    )
+    assert receipts["analytic_lock"]["python_wrapper_sha256"] == PYTHON_WRAPPER_SHA256
 
     drifted_ids = {**source_ids, "dataset_runtime_snapshot": "66308:99999"}
     with pytest.raises(c.ProofCollectionError, match="dataset:source-id"):
@@ -667,6 +718,21 @@ def test_runtime_evidence_binds_snapshot_and_lock_bytes_to_logged_source_ids(tmp
     with pytest.raises(c.ProofCollectionError, match="analytic-lock:dataset"):
         c.validate_runtime_evidence_payloads(
             drifted_payloads,
+            source_ids=source_ids,
+            manifest=manifest,
+            manifest_facts=manifest_facts,
+            log_receipt=log_receipt,
+        )
+
+    hostile_lock = json.loads(payloads["analytic_lock"])
+    hostile_lock["github_launch_authority"]["repository"] = "attacker/repository"
+    hostile_payloads = {
+        **payloads,
+        "analytic_lock": (json.dumps(hostile_lock, sort_keys=True) + "\n").encode(),
+    }
+    with pytest.raises(c.ProofCollectionError, match="github-authority-binding"):
+        c.validate_runtime_evidence_payloads(
+            hostile_payloads,
             source_ids=source_ids,
             manifest=manifest,
             manifest_facts=manifest_facts,

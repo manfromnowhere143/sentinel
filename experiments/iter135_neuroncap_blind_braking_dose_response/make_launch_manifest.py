@@ -41,6 +41,7 @@ REPO_ROOT = HERE.parents[1]
 MISSION_STATE_PATH = REPO_ROOT / "MISSION_STATE.json"
 
 HYPOTHESIS_REL = "experiments/iter135_neuroncap_blind_braking_dose_response/HYPOTHESIS.md"
+EXPERIMENT_REL = "experiments/iter135_neuroncap_blind_braking_dose_response"
 ACTIVE_HYPOTHESIS = HYPOTHESIS_REL
 EXPECTED_CANONICAL_REPOSITORY = "/Users/danielwahnich/workspace/sentinel"
 EXPECTED_MISSION_SCHEMA = "sentinel.mission_state.v1"
@@ -65,19 +66,38 @@ EXPECTED_MISSION_STATE_FIELDS = {
     "paper_state",
     "storage_gate",
 }
+EXPECTED_MISSION_CLAIM_STATE = {
+    "neuroncap_union_gain": "ESTABLISHED_ON_NEURONCAP",
+    "semantic_attribution": "UNRESOLVED",
+    "hugsim_transfer": "TRANSFER_NULL",
+    "production_readiness": "NOT_ESTABLISHED",
+}
+EXPECTED_DEPRECATED_HYPOTHESES = [
+    "experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md"
+]
+EXPECTED_PAPER_STATE = {
+    "status": "ARCHIVED_NOT_SUBMISSION_READY",
+    "next_route": "peer-reviewed venue after a full evidence rewrite",
+    "blocking_omissions": [
+        "HUGSIM transfer null",
+        "iteration-134 placebo result",
+        "resolved wording for the decoder universal-negative overclaim",
+    ],
+}
 EXPECTED_MISSION_PHASE = "LAUNCH_AUTHORIZED"
 PREFLIGHT_MISSION_PHASE = "TOOLING_FROZEN_PREFLIGHT_REQUIRED"
 ALLOWED_MISSION_PHASES = {PREFLIGHT_MISSION_PHASE, EXPECTED_MISSION_PHASE}
 EXPECTED_PROGRAM_NAME = "semantics-free placebo dose-response causal closure"
 PREFLIGHT_AUTHORIZED_ACTIONS = (
-    "prepare only the exact hash-bound sentinel-gpu host contract, including the dedicated "
-    "iteration-135 output root",
+    "prepare the exact hash-bound sentinel-gpu host contract and atomically commit "
+    "host_packet_manifest.json and host_preparation_receipt.json",
     "capture and commit the read-only iteration-135 environment receipt on sentinel-gpu",
     "generate and commit only the hash-addressed incomplete pre-smoke manifest; no analytic "
     "episodes",
     "run exactly the hash-bound four-run nonanalytic G5 smoke after the incomplete pre-smoke "
     "manifest is committed",
-    "validate, collect, and commit the exact nonanalytic smoke evidence and receipt",
+    "validate, collect, and commit the exact nonanalytic smoke raw evidence, recomputed receipt, "
+    "and mechanically generated SMOKE.md",
 )
 PREFLIGHT_FORBIDDEN_ACTIONS = (
     "run any iteration-135 analytic episode before smoke evidence and the final launch manifest "
@@ -621,6 +641,47 @@ SOURCE_ARTIFACTS = {
 
 REQUIRED_PAYLOAD_NAMES = (
     "HYPOTHESIS.md",
+    "authorize_launch135.py",
+    "extract_union_windows.py",
+    "generate_nested_dose_schedules.py",
+    "dose_schedules.json",
+    "server_patch_union_release.py",
+    "server_patch_blind_dose.py",
+    "analyze_dose135.py",
+    "collect_proof135.py",
+    "run_dose135.sh",
+    "run_smoke135.sh",
+    "validate_smoke135.py",
+    "capture_environment135.py",
+    "prepare_host135.py",
+    "verify_tooling135.py",
+    "patch_compose_dose_env.py",
+    "make_launch_manifest.py",
+)
+
+EXPECTED_ENV_SCHEMA = "iter135.environment_receipts.v3"
+EXPECTED_ENV_VERDICT = "I135_ENVIRONMENT_PREFLIGHT_OK"
+EXPECTED_HOST_PACKET_SCHEMA = "iter135.host_packet_manifest.v1"
+EXPECTED_HOST_PREPARATION_SCHEMA = "iter135.host_preparation_receipt.v1"
+EXPECTED_HOST_PREPARATION_VERDICT = "I135_HOST_PREPARATION_OK"
+EXPECTED_PUBLICATION_AUTHORITY_SCHEMA = "iter135.github_publication_authority.v1"
+EXPECTED_PUBLICATION_REPOSITORY = "manfromnowhere143/sentinel"
+EXPECTED_PUBLICATION_BRANCH = "master"
+EXPECTED_PUBLICATION_CHECKS = ("check (3.10)", "check (3.11)")
+EXPECTED_DOCKER_RUNTIME_SCHEMA = "iter135.docker_runtime_receipt.v1"
+EXPECTED_SMOKE_SCHEMA = "iter135.smoke_receipt.v1"
+EXPECTED_SMOKE_VERDICT = "I135_LIVE_SMOKE_OK"
+EXPECTED_TOOLING_SCHEMA = "iter135.tooling_verification.v2"
+EXPECTED_TOOLING_VERDICT = "I135_TOOLING_VERIFICATION_OK"
+ENV_RECEIPT_REL = "env_receipts.json"
+HOST_PACKET_MANIFEST_REL = "host_packet_manifest.json"
+HOST_PREPARATION_RECEIPT_REL = "host_preparation_receipt.json"
+SMOKE_RECEIPT_REL = "smoke-evidence/smoke_receipt.json"
+SMOKE_SUMMARY_REL = "smoke-evidence/SMOKE.md"
+TOOLING_RECEIPT_REL = "tooling_verification_receipt.json"
+HOST_PACKET_FILE_NAMES = (
+    "MISSION_STATE.json",
+    "HYPOTHESIS.md",
     "extract_union_windows.py",
     "generate_nested_dose_schedules.py",
     "dose_schedules.json",
@@ -635,17 +696,32 @@ REQUIRED_PAYLOAD_NAMES = (
     "verify_tooling135.py",
     "patch_compose_dose_env.py",
     "make_launch_manifest.py",
+    "authorize_launch135.py",
+    TOOLING_RECEIPT_REL,
+    "prepare_host135.py",
 )
-
-EXPECTED_ENV_SCHEMA = "iter135.environment_receipts.v2"
-EXPECTED_ENV_VERDICT = "I135_ENVIRONMENT_PREFLIGHT_OK"
-EXPECTED_SMOKE_SCHEMA = "iter135.smoke_receipt.v1"
-EXPECTED_SMOKE_VERDICT = "I135_LIVE_SMOKE_OK"
-EXPECTED_TOOLING_SCHEMA = "iter135.tooling_verification.v2"
-EXPECTED_TOOLING_VERDICT = "I135_TOOLING_VERIFICATION_OK"
-ENV_RECEIPT_REL = "env_receipts.json"
-SMOKE_RECEIPT_REL = "smoke-evidence/smoke_receipt.json"
-TOOLING_RECEIPT_REL = "tooling_verification_receipt.json"
+HOST_PACKET_EXECUTABLE_FILES = {
+    "capture_environment135.py",
+    "run_smoke135.sh",
+    "validate_smoke135.py",
+    "prepare_host135.py",
+}
+EXPECTED_CAPTURE_ENVIRONMENT = {
+    "DOCKER_CONFIG": "/nonexistent",
+    "DOCKER_HOST": "unix:///var/run/docker.sock",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_OPTIONAL_LOCKS": "0",
+    "GIT_TERMINAL_PROMPT": "0",
+    "HOME": "/nonexistent",
+    "LANG": "C",
+    "LC_ALL": "C",
+    "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONHASHSEED": "0",
+    "PYTHONNOUSERSITE": "1",
+    "SENTINEL_I135_CAPTURE_SANITIZED": "1",
+    "TZ": "UTC",
+}
 
 RISK_TOKENS = (
     "aux_outputs",
@@ -707,6 +783,64 @@ def file_receipt(path: Path, source_path: str) -> dict[str, Any]:
         "source_path": source_path,
         "sha256": sha256_file(path),
         "bytes": path.stat().st_size,
+    }
+
+
+def _git_blob_oid(payload: bytes) -> str:
+    header = f"blob {len(payload)}\0".encode("ascii")
+    return hashlib.sha1(header + payload, usedforsecurity=False).hexdigest()
+
+
+def authority_artifact_receipt(
+    path: Path, source_path: str, *, git_mode: str
+) -> dict[str, Any] | None:
+    if git_mode not in {"100644", "100755"}:
+        return None
+    try:
+        payload = path.read_bytes()
+    except OSError:
+        return None
+    return {
+        "path": source_path,
+        "sha256": hashlib.sha256(payload).hexdigest(),
+        "bytes": len(payload),
+        "git_blob_oid": _git_blob_oid(payload),
+        "git_mode": git_mode,
+    }
+
+
+def git_blob_receipt(
+    repo_root: Path, commit: str, relative_path: str
+) -> dict[str, Any] | None:
+    """Read one committed blob without consulting mutable worktree bytes."""
+
+    if not isinstance(commit, str) or re.fullmatch(r"[0-9a-f]{40}", commit) is None:
+        return None
+    completed = subprocess.run(  # noqa: S603 - fixed Git binary and validated revision/path
+        ("/usr/bin/git", "-C", str(Path(repo_root)), "show", f"{commit}:{relative_path}"),
+        env={
+            "GIT_CONFIG_NOSYSTEM": "1",
+            "GIT_OPTIONAL_LOCKS": "0",
+            "GIT_TERMINAL_PROMPT": "0",
+            "HOME": "/nonexistent",
+            "LANG": "C",
+            "LC_ALL": "C",
+            "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
+        },
+        stdin=subprocess.DEVNULL,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.DEVNULL,
+        timeout=10,
+        check=False,
+    )
+    if completed.returncode != 0:
+        return None
+    return {
+        "source_path": relative_path,
+        "sha256": hashlib.sha256(completed.stdout).hexdigest(),
+        "bytes": len(completed.stdout),
+        "git_blob_oid": _git_blob_oid(completed.stdout),
+        "git_mode": "100644",
     }
 
 
@@ -813,12 +947,29 @@ def validate_execution_plan(
     return problems
 
 
+def _strict_json_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    result: dict[str, Any] = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError(f"duplicate JSON key: {key}")
+        result[key] = value
+    return result
+
+
+def _reject_nonfinite_json(value: str) -> None:
+    raise ValueError(f"non-finite JSON number: {value}")
+
+
 def _load_json(path: Path, label: str, problems: list[str]) -> dict[str, Any] | None:
     if not path.is_file():
         return None
     try:
-        value = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
+        value = json.loads(
+            path.read_text(encoding="utf-8"),
+            object_pairs_hook=_strict_json_object,
+            parse_constant=_reject_nonfinite_json,
+        )
+    except (OSError, UnicodeDecodeError, ValueError) as error:
         problems.append(f"invalid-json:{label}:{type(error).__name__}")
         return None
     if not isinstance(value, dict):
@@ -851,6 +1002,12 @@ def validate_mission_state(state: Mapping[str, Any] | None) -> list[str]:
         problems.append("mission-state:current-verdict")
     if state.get("active_hypothesis") != ACTIVE_HYPOTHESIS:
         problems.append("mission-state:active-hypothesis")
+    if state.get("claim_state") != EXPECTED_MISSION_CLAIM_STATE:
+        problems.append("mission-state:claim-state")
+    if state.get("deprecated_pending_hypotheses") != EXPECTED_DEPRECATED_HYPOTHESES:
+        problems.append("mission-state:deprecated-hypotheses")
+    if state.get("paper_state") != EXPECTED_PAPER_STATE:
+        problems.append("mission-state:paper-state")
     next_program = state.get("next_program")
     expected_program_fields = {
         "iteration",
@@ -913,6 +1070,433 @@ def validate_mission_state(state: Mapping[str, Any] | None) -> list[str]:
 
 def _valid_sha256(value: Any) -> bool:
     return isinstance(value, str) and _SHA256_RE.fullmatch(value) is not None
+
+
+def _valid_bounded_text(value: Any, *, maximum: int = 256) -> bool:
+    return (
+        isinstance(value, str)
+        and 0 < len(value) <= maximum
+        and all(ord(character) >= 32 and ord(character) != 127 for character in value)
+    )
+
+
+def _docker_architecture_family(value: Any) -> Any:
+    return {
+        "amd64": "amd64",
+        "x86_64": "amd64",
+        "arm64": "arm64",
+        "aarch64": "arm64",
+    }.get(value, value)
+
+
+def validate_publication_authority(
+    authority: Any,
+    *,
+    expected_commit: str | None = None,
+    expected_artifacts: Sequence[Mapping[str, Any]] | None = None,
+    label: str = "publication-authority",
+) -> list[str]:
+    """Validate the bounded GitHub branch/check attestation used as launch authority."""
+
+    problems: list[str] = []
+    expected_fields = {
+        "schema",
+        "repository",
+        "branch",
+        "source_commit",
+        "branch_head_sha",
+        "required_checks",
+        "checks",
+        "artifacts",
+        "verified",
+    }
+    if not isinstance(authority, Mapping) or set(authority) != expected_fields:
+        return [f"{label}:field-set"]
+    if authority.get("schema") != EXPECTED_PUBLICATION_AUTHORITY_SCHEMA:
+        problems.append(f"{label}:schema")
+    if authority.get("repository") != EXPECTED_PUBLICATION_REPOSITORY:
+        problems.append(f"{label}:repository")
+    if authority.get("branch") != EXPECTED_PUBLICATION_BRANCH:
+        problems.append(f"{label}:branch")
+    source_commit = authority.get("source_commit")
+    if not isinstance(source_commit, str) or re.fullmatch(r"[0-9a-f]{40}", source_commit) is None:
+        problems.append(f"{label}:source-commit")
+    if expected_commit is not None and source_commit != expected_commit:
+        problems.append(f"{label}:expected-commit")
+    if authority.get("branch_head_sha") != source_commit:
+        problems.append(f"{label}:branch-head")
+    if authority.get("required_checks") != list(EXPECTED_PUBLICATION_CHECKS):
+        problems.append(f"{label}:required-checks")
+    if authority.get("verified") is not True:
+        problems.append(f"{label}:verified")
+
+    artifacts = authority.get("artifacts")
+    if expected_artifacts is not None:
+        if artifacts != [dict(row) for row in expected_artifacts]:
+            problems.append(f"{label}:artifacts")
+    elif not isinstance(artifacts, list) or not all(
+        isinstance(row, Mapping)
+        and set(row)
+        == {"path", "sha256", "bytes", "git_blob_oid", "git_mode"}
+        and _valid_bounded_text(row.get("path"), maximum=1024)
+        and _valid_sha256(row.get("sha256"))
+        and type(row.get("bytes")) is int
+        and 0 < row["bytes"] <= 2**40
+        and isinstance(row.get("git_blob_oid"), str)
+        and re.fullmatch(r"[0-9a-f]{40}", row["git_blob_oid"]) is not None
+        and row.get("git_mode") in {"100644", "100755"}
+        for row in artifacts
+    ):
+        problems.append(f"{label}:artifacts")
+
+    checks = authority.get("checks")
+    if not isinstance(checks, list) or len(checks) != len(EXPECTED_PUBLICATION_CHECKS):
+        problems.append(f"{label}:checks")
+    else:
+        check_ids: list[int] = []
+        for expected_name, row in zip(EXPECTED_PUBLICATION_CHECKS, checks, strict=True):
+            if not isinstance(row, Mapping) or set(row) != {
+                "name",
+                "id",
+                "status",
+                "conclusion",
+                "head_sha",
+                "app_slug",
+            }:
+                problems.append(f"{label}:check:{expected_name}:field-set")
+                continue
+            check_id = row.get("id")
+            if type(check_id) is not int or check_id <= 0:
+                problems.append(f"{label}:check:{expected_name}:id")
+            else:
+                check_ids.append(check_id)
+            if row.get("name") != expected_name:
+                problems.append(f"{label}:check:{expected_name}:name")
+            if row.get("status") != "completed":
+                problems.append(f"{label}:check:{expected_name}:status")
+            if row.get("conclusion") != "success":
+                problems.append(f"{label}:check:{expected_name}:conclusion")
+            if row.get("head_sha") != source_commit:
+                problems.append(f"{label}:check:{expected_name}:head-sha")
+            if row.get("app_slug") != "github-actions":
+                problems.append(f"{label}:check:{expected_name}:app")
+        if len(check_ids) != len(EXPECTED_PUBLICATION_CHECKS) or len(set(check_ids)) != len(
+            check_ids
+        ):
+            problems.append(f"{label}:check-ids")
+    return sorted(set(problems))
+
+
+def validate_docker_runtime_receipt(receipt: Any) -> list[str]:
+    """Validate the bounded Docker client/context/daemon identity captured before smoke."""
+
+    label = "environment:docker-runtime"
+    problems: list[str] = []
+    if not isinstance(receipt, Mapping) or set(receipt) != {
+        "schema",
+        "client",
+        "context",
+        "daemon",
+    }:
+        return [f"{label}:field-set"]
+    if receipt.get("schema") != EXPECTED_DOCKER_RUNTIME_SCHEMA:
+        problems.append(f"{label}:schema")
+
+    client = receipt.get("client")
+    client_fields = {
+        "invocation_path",
+        "physical_path",
+        "realpath",
+        "sha256",
+        "bytes",
+        "version",
+    }
+    client_version_fields = {
+        "version",
+        "api_version",
+        "git_commit",
+        "go_version",
+        "os",
+        "arch",
+        "build_time",
+        "context",
+    }
+    if not isinstance(client, Mapping) or set(client) != client_fields:
+        problems.append(f"{label}:client-field-set")
+        client = {}
+    for field in ("invocation_path", "physical_path", "realpath"):
+        value = client.get(field)
+        if not _valid_bounded_text(value, maximum=1024) or not Path(value).is_absolute():
+            problems.append(f"{label}:client:{field}")
+    if client.get("physical_path") != client.get("realpath"):
+        problems.append(f"{label}:client:realpath-drift")
+    if not _valid_sha256(client.get("sha256")):
+        problems.append(f"{label}:client:sha256")
+    if type(client.get("bytes")) is not int or not (0 < client["bytes"] <= 2**40):
+        problems.append(f"{label}:client:bytes")
+    client_version = client.get("version")
+    if not isinstance(client_version, Mapping) or set(client_version) != client_version_fields:
+        problems.append(f"{label}:client-version-field-set")
+        client_version = {}
+    for field in client_version_fields:
+        if not _valid_bounded_text(client_version.get(field)):
+            problems.append(f"{label}:client-version:{field}")
+
+    context = receipt.get("context")
+    if not isinstance(context, Mapping) or set(context) != {"name", "endpoint"}:
+        problems.append(f"{label}:context-field-set")
+        context = {}
+    if context.get("name") != "default":
+        problems.append(f"{label}:context:name")
+    if context.get("endpoint") != "unix:///var/run/docker.sock":
+        problems.append(f"{label}:context:endpoint")
+    if client_version.get("context") != context.get("name"):
+        problems.append(f"{label}:client-context-drift")
+
+    daemon = receipt.get("daemon")
+    if not isinstance(daemon, Mapping) or set(daemon) != {"info", "version"}:
+        problems.append(f"{label}:daemon-field-set")
+        daemon = {}
+    info = daemon.get("info")
+    info_fields = {
+        "id",
+        "name",
+        "server_version",
+        "docker_root_dir",
+        "driver",
+        "operating_system",
+        "os_type",
+        "architecture",
+        "ncpu",
+        "mem_total",
+        "kernel_version",
+        "cgroup_driver",
+        "cgroup_version",
+    }
+    if not isinstance(info, Mapping) or set(info) != info_fields:
+        problems.append(f"{label}:daemon-info-field-set")
+        info = {}
+    for field in info_fields - {"ncpu", "mem_total", "docker_root_dir"}:
+        if not _valid_bounded_text(info.get(field)):
+            problems.append(f"{label}:daemon-info:{field}")
+    docker_root = info.get("docker_root_dir")
+    if not _valid_bounded_text(docker_root, maximum=1024) or not Path(docker_root).is_absolute():
+        problems.append(f"{label}:daemon-info:docker_root_dir")
+    if type(info.get("ncpu")) is not int or not (0 < info["ncpu"] <= 1_000_000):
+        problems.append(f"{label}:daemon-info:ncpu")
+    if type(info.get("mem_total")) is not int or not (0 < info["mem_total"] <= 2**63 - 1):
+        problems.append(f"{label}:daemon-info:mem_total")
+
+    daemon_version = daemon.get("version")
+    daemon_version_fields = {
+        "platform_name",
+        "version",
+        "api_version",
+        "min_api_version",
+        "git_commit",
+        "go_version",
+        "os",
+        "arch",
+        "build_time",
+        "experimental",
+    }
+    if not isinstance(daemon_version, Mapping) or set(daemon_version) != daemon_version_fields:
+        problems.append(f"{label}:daemon-version-field-set")
+        daemon_version = {}
+    for field in daemon_version_fields - {"experimental"}:
+        if not _valid_bounded_text(daemon_version.get(field)):
+            problems.append(f"{label}:daemon-version:{field}")
+    if type(daemon_version.get("experimental")) is not bool:
+        problems.append(f"{label}:daemon-version:experimental")
+    if info.get("server_version") != daemon_version.get("version"):
+        problems.append(f"{label}:daemon-version-drift")
+    if info.get("os_type") != daemon_version.get("os"):
+        problems.append(f"{label}:daemon-os-drift")
+    if _docker_architecture_family(info.get("architecture")) != (
+        _docker_architecture_family(daemon_version.get("arch"))
+    ):
+        problems.append(f"{label}:daemon-arch-drift")
+    return sorted(set(problems))
+
+
+def validate_host_preparation_evidence(
+    packet_manifest: Any,
+    preparation_receipt: Any,
+    *,
+    packet_binding: Mapping[str, Any] | None,
+    expected_file_bindings: Mapping[str, Mapping[str, Any] | None],
+) -> list[str]:
+    """Independently bind the generated packet document to the preparation receipt."""
+
+    problems: list[str] = []
+    if not isinstance(packet_manifest, dict) or set(packet_manifest) != {
+        "schema",
+        "source_commit",
+        "files",
+    }:
+        problems.append("host-packet:field-set")
+        packet_manifest = {}
+    if packet_manifest.get("schema") != EXPECTED_HOST_PACKET_SCHEMA:
+        problems.append("host-packet:schema")
+    source_commit = packet_manifest.get("source_commit")
+    if not isinstance(source_commit, str) or not re.fullmatch(r"[0-9a-f]{40}", source_commit):
+        problems.append("host-packet:source-commit")
+    files = packet_manifest.get("files")
+    if not isinstance(files, dict) or set(files) != set(HOST_PACKET_FILE_NAMES):
+        problems.append("host-packet:file-set")
+        files = {}
+    for name in HOST_PACKET_FILE_NAMES:
+        row = files.get(name)
+        expected = expected_file_bindings.get(name)
+        expected_mode = 0o755 if name in HOST_PACKET_EXECUTABLE_FILES else 0o644
+        if not isinstance(row, dict) or set(row) != {"sha256", "bytes", "mode"}:
+            problems.append(f"host-packet:file:{name}:field-set")
+            continue
+        if (
+            not _valid_sha256(row.get("sha256"))
+            or type(row.get("bytes")) is not int
+            or row["bytes"] <= 0
+            or row.get("mode") != expected_mode
+        ):
+            problems.append(f"host-packet:file:{name}:receipt")
+        if (
+            not isinstance(expected, Mapping)
+            or row.get("sha256") != expected.get("sha256")
+            or row.get("bytes") != expected.get("bytes")
+        ):
+            problems.append(f"host-packet:file:{name}:local-binding")
+
+    expected_packet_source_artifacts = sorted(
+        (
+            {
+                "path": (
+                    "MISSION_STATE.json"
+                    if name == "MISSION_STATE.json"
+                    else f"{EXPERIMENT_REL}/{name}"
+                ),
+                "sha256": (
+                    files[name].get("sha256")
+                    if isinstance(files.get(name), Mapping)
+                    else None
+                ),
+                "bytes": (
+                    files[name].get("bytes")
+                    if isinstance(files.get(name), Mapping)
+                    else None
+                ),
+                "git_blob_oid": (
+                    expected_file_bindings[name].get("git_blob_oid")
+                    if isinstance(expected_file_bindings.get(name), Mapping)
+                    else None
+                ),
+                "git_mode": (
+                    expected_file_bindings[name].get("git_mode")
+                    if isinstance(expected_file_bindings.get(name), Mapping)
+                    else None
+                ),
+            }
+            for name in HOST_PACKET_FILE_NAMES
+        ),
+        key=lambda row: str(row["path"]),
+    )
+
+    packet_digest = packet_binding.get("sha256") if isinstance(packet_binding, Mapping) else None
+    packet_bytes = packet_binding.get("bytes") if isinstance(packet_binding, Mapping) else None
+    expected_preparation_fields = {
+        "schema",
+        "verdict",
+        "started_at_utc",
+        "finished_at_utc",
+        "host",
+        "problem_count",
+        "problems",
+        "packet_manifest_sha256",
+        "publication_authority",
+        "packet",
+        "controller",
+        "repositories",
+        "compose",
+        "storage",
+        "forbidden_paths",
+        "actions",
+        "invocation",
+        "receipt_payload_sha256",
+    }
+    if not isinstance(preparation_receipt, dict) or set(preparation_receipt) != (
+        expected_preparation_fields
+    ):
+        problems.append("host-preparation:field-set")
+        preparation_receipt = {}
+    if preparation_receipt.get("schema") != EXPECTED_HOST_PREPARATION_SCHEMA:
+        problems.append("host-preparation:schema")
+    if preparation_receipt.get("verdict") != EXPECTED_HOST_PREPARATION_VERDICT:
+        problems.append("host-preparation:verdict")
+    if (
+        preparation_receipt.get("problem_count") != 0
+        or preparation_receipt.get("problems") != []
+    ):
+        problems.append("host-preparation:problem-metadata")
+    if preparation_receipt.get("packet_manifest_sha256") != packet_digest:
+        problems.append("host-preparation:packet-manifest-sha256")
+    problems.extend(
+        validate_publication_authority(
+            preparation_receipt.get("publication_authority"),
+            expected_commit=source_commit if isinstance(source_commit, str) else None,
+            expected_artifacts=expected_packet_source_artifacts,
+            label="host-preparation:publication-authority",
+        )
+    )
+    receipt_payload = dict(preparation_receipt)
+    claimed_payload_sha = receipt_payload.pop("receipt_payload_sha256", None)
+    if not _valid_sha256(claimed_payload_sha) or claimed_payload_sha != (
+        _canonical_json_sha256(receipt_payload)
+    ):
+        problems.append("host-preparation:receipt-payload-sha256")
+
+    packet = preparation_receipt.get("packet")
+    if not isinstance(packet, dict) or set(packet) != {
+        "schema",
+        "source_commit",
+        "manifest",
+        "independently_supplied_manifest_sha256",
+        "files",
+    }:
+        problems.append("host-preparation:packet-field-set")
+        packet = {}
+    if (
+        packet.get("schema") != EXPECTED_HOST_PACKET_SCHEMA
+        or packet.get("source_commit") != source_commit
+        or packet.get("independently_supplied_manifest_sha256") != packet_digest
+    ):
+        problems.append("host-preparation:packet-contract")
+    manifest_claim = packet.get("manifest")
+    if (
+        not isinstance(manifest_claim, dict)
+        or set(manifest_claim) != {"path", "sha256", "bytes", "mode"}
+        or manifest_claim.get("sha256") != packet_digest
+        or manifest_claim.get("bytes") != packet_bytes
+        or manifest_claim.get("mode") != 0o644
+    ):
+        problems.append("host-preparation:packet-manifest-binding")
+    observed_files = packet.get("files")
+    if not isinstance(observed_files, dict) or set(observed_files) != set(HOST_PACKET_FILE_NAMES):
+        problems.append("host-preparation:packet-file-set")
+        observed_files = {}
+    for name in HOST_PACKET_FILE_NAMES:
+        observed = observed_files.get(name)
+        claimed = files.get(name)
+        if (
+            not isinstance(observed, dict)
+            or set(observed) != {"path", "sha256", "bytes", "mode"}
+            or not isinstance(observed.get("path"), str)
+            or Path(observed["path"]).name != name
+            or not isinstance(claimed, dict)
+            or any(observed.get(field) != claimed.get(field) for field in ("sha256", "bytes", "mode"))
+        ):
+            problems.append(f"host-preparation:packet-file:{name}:binding")
+    if preparation_receipt.get("controller") != observed_files.get("prepare_host135.py"):
+        problems.append("host-preparation:controller-binding")
+    return sorted(set(problems))
 
 
 def dataset_contract_problems() -> list[str]:
@@ -1211,7 +1795,11 @@ def _validate_remote_file(
 
 
 def validate_environment_receipt(
-    receipt: Mapping[str, Any] | None, bound_hashes: Mapping[str, Mapping[str, Any]]
+    receipt: Mapping[str, Any] | None,
+    bound_hashes: Mapping[str, Mapping[str, Any]],
+    *,
+    expected_host_preparation: Mapping[str, Any] | None = None,
+    expected_host_authority_artifacts: Sequence[Mapping[str, Any]] | None = None,
 ) -> list[str]:
     if receipt is None:
         return ["environment:receipt-missing"]
@@ -1224,6 +1812,12 @@ def validate_environment_receipt(
         "host",
         "problem_count",
         "problems",
+        "interpreter",
+        "invocation",
+        "host_preparation",
+        "host_publication_authority",
+        "docker_runtime",
+        "runtime_snapshots",
         "gpu",
         "box",
         "storage",
@@ -1249,6 +1843,118 @@ def validate_environment_receipt(
         problems.append("environment:capture-started-at")
     if receipt.get("host") != EXPECTED_HOST:
         problems.append("environment:host")
+
+    interpreter = receipt.get("interpreter")
+    expected_interpreter_fields = {
+        "invocation_path",
+        "physical_path",
+        "realpath",
+        "sha256",
+        "bytes",
+        "version",
+        "implementation",
+    }
+    if not isinstance(interpreter, dict) or set(interpreter) != expected_interpreter_fields:
+        problems.append("environment:interpreter-field-set")
+    else:
+        for field in ("invocation_path", "physical_path", "realpath"):
+            value = interpreter.get(field)
+            if not isinstance(value, str) or not Path(value).is_absolute():
+                problems.append(f"environment:interpreter:{field}")
+        if interpreter.get("physical_path") != interpreter.get("realpath"):
+            problems.append("environment:interpreter:realpath-drift")
+        if not _valid_sha256(interpreter.get("sha256")):
+            problems.append("environment:interpreter:sha256")
+        if type(interpreter.get("bytes")) is not int or interpreter["bytes"] <= 0:
+            problems.append("environment:interpreter:bytes")
+        version = interpreter.get("version")
+        try:
+            version_tuple = tuple(int(part) for part in version.split("."))
+        except (AttributeError, ValueError):
+            version_tuple = ()
+        if len(version_tuple) != 3 or version_tuple < (3, 10, 0):
+            problems.append("environment:interpreter:minimum-version")
+        if interpreter.get("implementation") != "CPython":
+            problems.append("environment:interpreter:implementation")
+
+    invocation = receipt.get("invocation")
+    if not isinstance(invocation, dict) or set(invocation) != {
+        "sanitized",
+        "isolated",
+        "environment",
+        "argv",
+        "canonical_script",
+    }:
+        problems.append("environment:invocation-field-set")
+    else:
+        if invocation.get("sanitized") is not True:
+            problems.append("environment:invocation:sanitized")
+        if invocation.get("isolated") is not True:
+            problems.append("environment:invocation:isolated")
+        if invocation.get("environment") != EXPECTED_CAPTURE_ENVIRONMENT:
+            problems.append("environment:invocation:environment")
+        argv = invocation.get("argv")
+        if (
+            not isinstance(argv, list)
+            or len(argv) < 3
+            or not isinstance(interpreter, dict)
+            or argv[0] != interpreter.get("physical_path")
+            or argv[1] != "-I"
+            or argv[2] != "/opt/sentinel-stack/iter135/capture_environment135.py"
+        ):
+            problems.append("environment:invocation:argv")
+        if invocation.get("canonical_script") != (
+            "/opt/sentinel-stack/iter135/capture_environment135.py"
+        ):
+            problems.append("environment:invocation:canonical-script")
+
+    host_preparation = receipt.get("host_preparation")
+    if not isinstance(host_preparation, dict) or set(host_preparation) != {
+        "receipt_file",
+        "evidence",
+    }:
+        problems.append("environment:host-preparation-field-set")
+    else:
+        preparation_file = host_preparation.get("receipt_file")
+        preparation_evidence = host_preparation.get("evidence")
+        expected_preparation = bound_hashes.get(HOST_PREPARATION_RECEIPT_REL, {})
+        if (
+            not isinstance(preparation_file, dict)
+            or set(preparation_file) != {"path", "sha256", "bytes"}
+            or preparation_file.get("path")
+            != "/opt/sentinel-stack/iter135/host_preparation_receipt.json"
+            or preparation_file.get("sha256") != expected_preparation.get("sha256")
+            or preparation_file.get("bytes") != expected_preparation.get("bytes")
+        ):
+            problems.append("environment:host-preparation-binding")
+        if not isinstance(preparation_evidence, dict):
+            problems.append("environment:host-preparation-evidence")
+        else:
+            if preparation_evidence != expected_host_preparation:
+                problems.append("environment:host-preparation-evidence-drift")
+            if preparation_evidence.get("schema") != EXPECTED_HOST_PREPARATION_SCHEMA:
+                problems.append("environment:host-preparation-schema")
+            if preparation_evidence.get("verdict") != EXPECTED_HOST_PREPARATION_VERDICT:
+                problems.append("environment:host-preparation-verdict")
+            if (
+                preparation_evidence.get("problem_count") != 0
+                or preparation_evidence.get("problems") != []
+            ):
+                problems.append("environment:host-preparation-problems")
+
+    expected_host_artifacts = [
+        dict(row) for row in (expected_host_authority_artifacts or [])
+    ]
+    if len(expected_host_artifacts) != 2:
+        problems.append("environment:host-publication-authority:artifact-bindings")
+    problems.extend(
+        validate_publication_authority(
+            receipt.get("host_publication_authority"),
+            expected_artifacts=expected_host_artifacts,
+            label="environment:host-publication-authority",
+        )
+    )
+    problems.extend(validate_docker_runtime_receipt(receipt.get("docker_runtime")))
 
     dataset = receipt.get("dataset")
     problems.extend(validate_dataset_receipt(dataset if isinstance(dataset, dict) else None))
@@ -1285,6 +1991,13 @@ def validate_environment_receipt(
     }
     if not isinstance(box, dict) or box != expected_box:
         problems.append("environment:box-idle")
+    runtime_snapshots = receipt.get("runtime_snapshots")
+    expected_runtime_snapshots = {
+        "before_dataset_hashing": {"gpu": EXPECTED_GPU_IDENTITY, "box": expected_box},
+        "after_dataset_hashing": {"gpu": EXPECTED_GPU_IDENTITY, "box": expected_box},
+    }
+    if runtime_snapshots != expected_runtime_snapshots:
+        problems.append("environment:runtime-snapshots")
 
     storage = receipt.get("storage")
     if not isinstance(storage, dict):
@@ -1604,7 +2317,7 @@ def validate_smoke_receipt(
     return problems, artifact_paths
 
 
-def _load_smoke_recomputer(validator_path: Path):
+def _load_smoke_validator_api(validator_path: Path):
     module_name = "iter135_smoke_recomputer"
     module = types.ModuleType(module_name)
     module.__file__ = str(validator_path)
@@ -1612,10 +2325,15 @@ def _load_smoke_recomputer(validator_path: Path):
     try:
         source = validator_path.read_text(encoding="utf-8")
         exec(compile(source, str(validator_path), "exec"), module.__dict__)
-        recomputer = module.recompute_smoke_receipt
+        api = (
+            module.recompute_smoke_receipt,
+            module.canonical_smoke_receipt_bytes,
+            module.render_smoke_summary,
+            module.validate_smoke_bundle_bytes,
+        )
     finally:
         sys.modules.pop(module_name, None)
-    return recomputer
+    return api
 
 
 def _load_tooling_receipt_validator(verifier_path: Path):
@@ -1882,8 +2600,11 @@ def build_manifest(
     repo_root: Path = REPO_ROOT,
     experiment_dir: Path = HERE,
     mission_state_path: Path | None = None,
+    host_packet_manifest_path: Path | None = None,
+    host_preparation_receipt_path: Path | None = None,
     env_receipt_path: Path | None = None,
     smoke_receipt_path: Path | None = None,
+    smoke_summary_path: Path | None = None,
     payload_overrides: Mapping[str, Path] | None = None,
     git_provenance: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
@@ -1892,8 +2613,16 @@ def build_manifest(
     repo_root = Path(repo_root)
     experiment_dir = Path(experiment_dir)
     mission_state_path = Path(mission_state_path or repo_root / "MISSION_STATE.json")
+    host_packet_manifest_path = Path(
+        host_packet_manifest_path or experiment_dir / HOST_PACKET_MANIFEST_REL
+    )
+    host_preparation_receipt_path = Path(
+        host_preparation_receipt_path
+        or experiment_dir / HOST_PREPARATION_RECEIPT_REL
+    )
     env_receipt_path = Path(env_receipt_path or experiment_dir / ENV_RECEIPT_REL)
     smoke_receipt_path = Path(smoke_receipt_path or experiment_dir / SMOKE_RECEIPT_REL)
+    smoke_summary_path = Path(smoke_summary_path or experiment_dir / SMOKE_SUMMARY_REL)
     overrides = dict(payload_overrides or {})
 
     problems: list[str] = []
@@ -1929,10 +2658,7 @@ def build_manifest(
             problems.append(f"missing:payload:{name}")
             missing.append(name)
             continue
-        try:
-            source_rel = str(source.resolve().relative_to(repo_root.resolve()))
-        except ValueError:
-            source_rel = str(source)
+        source_rel = f"{EXPERIMENT_REL}/{name}"
         receipt = file_receipt(source, source_rel)
         bound_files[name] = receipt
         bound_paths.append(source)
@@ -1950,7 +2676,9 @@ def build_manifest(
     )
     if tooling_receipt_path.is_file():
         tooling_rel = str(tooling_receipt_path.resolve().relative_to(experiment_dir.resolve()))
-        bound_files[tooling_rel] = file_receipt(tooling_receipt_path, tooling_rel)
+        bound_files[tooling_rel] = file_receipt(
+            tooling_receipt_path, f"{EXPERIMENT_REL}/{tooling_rel}"
+        )
         bound_paths.append(tooling_receipt_path)
     else:
         missing.append(TOOLING_RECEIPT_REL)
@@ -1987,10 +2715,81 @@ def build_manifest(
     problems.extend(runtime_problems)
     problems.extend(consumer_problems)
 
+    host_packet_manifest = _load_json(
+        host_packet_manifest_path,
+        HOST_PACKET_MANIFEST_REL,
+        problems,
+    )
+    if host_packet_manifest_path.is_file():
+        packet_rel = str(
+            host_packet_manifest_path.resolve().relative_to(experiment_dir.resolve())
+        )
+        bound_files[packet_rel] = file_receipt(
+            host_packet_manifest_path, f"{EXPERIMENT_REL}/{packet_rel}"
+        )
+        bound_paths.append(host_packet_manifest_path)
+    else:
+        missing.append(HOST_PACKET_MANIFEST_REL)
+
+    host_preparation_receipt = _load_json(
+        host_preparation_receipt_path,
+        HOST_PREPARATION_RECEIPT_REL,
+        problems,
+    )
+    if host_preparation_receipt_path.is_file():
+        host_rel = str(
+            host_preparation_receipt_path.resolve().relative_to(experiment_dir.resolve())
+        )
+        bound_files[host_rel] = file_receipt(
+            host_preparation_receipt_path, f"{EXPERIMENT_REL}/{host_rel}"
+        )
+        bound_paths.append(host_preparation_receipt_path)
+    else:
+        missing.append(HOST_PREPARATION_RECEIPT_REL)
+
+    expected_packet_bindings: dict[str, Mapping[str, Any] | None] = {}
+    for name in HOST_PACKET_FILE_NAMES:
+        binding = bound_files.get(name)
+        source_path = Path(overrides.get(name, experiment_dir / name))
+        authority_binding = authority_artifact_receipt(
+            source_path,
+            (
+                "MISSION_STATE.json"
+                if name == "MISSION_STATE.json"
+                else f"{EXPERIMENT_REL}/{name}"
+            ),
+            git_mode=("100755" if name in HOST_PACKET_EXECUTABLE_FILES else "100644"),
+        )
+        expected_packet_bindings[name] = (
+            {**dict(binding), **dict(authority_binding)}
+            if isinstance(binding, Mapping) and isinstance(authority_binding, Mapping)
+            else None
+        )
+    if isinstance(host_packet_manifest, Mapping):
+        packet_mission_receipt = git_blob_receipt(
+            repo_root,
+            host_packet_manifest.get("source_commit"),
+            "MISSION_STATE.json",
+        )
+        if packet_mission_receipt is None:
+            problems.append("host-packet:source-mission-state")
+        expected_packet_bindings["MISSION_STATE.json"] = packet_mission_receipt
+    else:
+        expected_packet_bindings["MISSION_STATE.json"] = None
+    host_preparation_problems = validate_host_preparation_evidence(
+        host_packet_manifest,
+        host_preparation_receipt,
+        packet_binding=bound_files.get(HOST_PACKET_MANIFEST_REL),
+        expected_file_bindings=expected_packet_bindings,
+    )
+    problems.extend(host_preparation_problems)
+
     env_receipt = _load_json(env_receipt_path, ENV_RECEIPT_REL, problems)
     if env_receipt_path.is_file():
         env_rel = str(env_receipt_path.resolve().relative_to(experiment_dir.resolve()))
-        bound_files[env_rel] = file_receipt(env_receipt_path, env_rel)
+        bound_files[env_rel] = file_receipt(
+            env_receipt_path, f"{EXPERIMENT_REL}/{env_rel}"
+        )
         bound_paths.append(env_receipt_path)
     else:
         missing.append(ENV_RECEIPT_REL)
@@ -1999,14 +2798,38 @@ def build_manifest(
         if isinstance(env_receipt, dict) and isinstance(env_receipt.get("dataset"), dict)
         else None
     )
-    environment_problems = validate_environment_receipt(env_receipt, bound_files)
+    expected_host_authority_artifacts = [
+        row
+        for row in (
+            authority_artifact_receipt(
+                host_packet_manifest_path,
+                f"{EXPERIMENT_REL}/{HOST_PACKET_MANIFEST_REL}",
+                git_mode="100644",
+            ),
+            authority_artifact_receipt(
+                host_preparation_receipt_path,
+                f"{EXPERIMENT_REL}/{HOST_PREPARATION_RECEIPT_REL}",
+                git_mode="100644",
+            ),
+        )
+        if row is not None
+    ]
+    environment_problems = validate_environment_receipt(
+        env_receipt,
+        bound_files,
+        expected_host_preparation=host_preparation_receipt,
+        expected_host_authority_artifacts=expected_host_authority_artifacts,
+    )
     problems.extend(environment_problems)
 
     smoke_receipt = _load_json(smoke_receipt_path, SMOKE_RECEIPT_REL, problems)
     recomputed_smoke_receipt: dict[str, Any] | None = None
+    smoke_bundle_problems: list[str] = []
     if smoke_receipt_path.is_file():
         smoke_rel = str(smoke_receipt_path.resolve().relative_to(experiment_dir.resolve()))
-        bound_files[smoke_rel] = file_receipt(smoke_receipt_path, smoke_rel)
+        bound_files[smoke_rel] = file_receipt(
+            smoke_receipt_path, f"{EXPERIMENT_REL}/{smoke_rel}"
+        )
         bound_paths.append(smoke_receipt_path)
         smoke_validator_path = Path(
             overrides.get("validate_smoke135.py", experiment_dir / "validate_smoke135.py")
@@ -2015,7 +2838,9 @@ def build_manifest(
             problems.append("smoke:recomputer-missing")
         else:
             try:
-                recomputer = _load_smoke_recomputer(smoke_validator_path)
+                recomputer, canonicalizer, renderer, bundle_validator = (
+                    _load_smoke_validator_api(smoke_validator_path)
+                )
                 candidate = recomputer(experiment_dir)
             except Exception as error:  # the launch gate must fail closed on validator faults
                 problems.append(f"smoke:recompute-error:{type(error).__name__}")
@@ -2026,6 +2851,56 @@ def build_manifest(
                     recomputed_smoke_receipt = candidate
                     if smoke_receipt != recomputed_smoke_receipt:
                         problems.append("smoke:recomputation-mismatch")
+                    try:
+                        stored_receipt_bytes = smoke_receipt_path.read_bytes()
+                        summary_bytes = (
+                            smoke_summary_path.read_bytes()
+                            if smoke_summary_path.is_file()
+                            and not smoke_summary_path.is_symlink()
+                            and smoke_summary_path.resolve(strict=True)
+                            == smoke_summary_path.absolute()
+                            else None
+                        )
+                        smoke_bundle_problems.extend(
+                            bundle_validator(
+                                recomputed_smoke_receipt,
+                                stored_receipt_bytes,
+                                summary_bytes,
+                            )
+                        )
+                        # Exercise both exposed projections independently; a partial or substituted
+                        # validator API cannot authorize the manifest.
+                        canonical_bytes = canonicalizer(recomputed_smoke_receipt)
+                        if canonical_bytes != stored_receipt_bytes:
+                            smoke_bundle_problems.append("smoke:receipt-canonical-bytes")
+                        if summary_bytes is not None and renderer(
+                            recomputed_smoke_receipt, canonical_bytes
+                        ) != summary_bytes:
+                            smoke_bundle_problems.append("smoke:summary-mismatch")
+                    except Exception as error:
+                        smoke_bundle_problems.append(
+                            f"smoke:bundle-validation-error:{type(error).__name__}"
+                        )
+        if smoke_summary_path.is_file() and not smoke_summary_path.is_symlink():
+            try:
+                if smoke_summary_path.resolve(strict=True) != smoke_summary_path.absolute():
+                    raise ValueError("summary path is not physical")
+                summary_rel = str(
+                    smoke_summary_path.resolve().relative_to(experiment_dir.resolve())
+                )
+                bound_files[summary_rel] = file_receipt(
+                    smoke_summary_path, f"{EXPERIMENT_REL}/{summary_rel}"
+                )
+                bound_paths.append(smoke_summary_path)
+            except (OSError, ValueError):
+                smoke_bundle_problems.append("smoke:summary-nonregular")
+        else:
+            missing.append(SMOKE_SUMMARY_REL)
+            smoke_bundle_problems.append(
+                "smoke:summary-nonregular"
+                if smoke_summary_path.exists() or smoke_summary_path.is_symlink()
+                else "smoke:summary-missing"
+            )
     else:
         missing.append(SMOKE_RECEIPT_REL)
     smoke_problems, smoke_artifacts = validate_smoke_receipt(
@@ -2039,6 +2914,7 @@ def build_manifest(
         smoke_problems.append("smoke:recomputation-unavailable")
     if smoke_receipt_path.is_file() and smoke_receipt != recomputed_smoke_receipt:
         smoke_problems.append("smoke:recomputation-mismatch")
+    smoke_problems.extend(smoke_bundle_problems)
     problems.extend(smoke_problems)
     recomputed_artifact_hashes = {
         row.get("path"): row.get("sha256")
@@ -2052,7 +2928,9 @@ def build_manifest(
     for artifact_path in smoke_artifacts:
         if artifact_path.is_file():
             rel = str(artifact_path.resolve().relative_to(experiment_dir.resolve()))
-            artifact_receipt = file_receipt(artifact_path, rel)
+            artifact_receipt = file_receipt(
+                artifact_path, f"{EXPERIMENT_REL}/{rel}"
+            )
             if artifact_receipt["sha256"] != recomputed_artifact_hashes.get(rel):
                 problems.append(f"smoke:artifact-post-recompute-drift:{rel}")
                 smoke_problems.append(f"smoke:artifact-post-recompute-drift:{rel}")
@@ -2208,6 +3086,16 @@ def build_manifest(
         },
         "smoke_receipt": (
             bound_files.get(SMOKE_RECEIPT_REL) if smoke_receipt_path.is_file() else None
+        ),
+        "host_packet_manifest": (
+            bound_files.get(HOST_PACKET_MANIFEST_REL)
+            if host_packet_manifest_path.is_file()
+            else None
+        ),
+        "host_preparation_receipt": (
+            bound_files.get(HOST_PREPARATION_RECEIPT_REL)
+            if host_preparation_receipt_path.is_file()
+            else None
         ),
         "tooling_verification_receipt": (
             bound_files.get(TOOLING_RECEIPT_REL) if tooling_receipt_path.is_file() else None

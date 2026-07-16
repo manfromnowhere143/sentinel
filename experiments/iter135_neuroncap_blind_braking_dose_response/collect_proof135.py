@@ -35,11 +35,11 @@ SCHEMA = "iter135.raw_proof_receipt.v1"
 VALIDITY_SCHEMA = "iter135.analyzer_validity_receipt.v2"
 COMMITTED_SCHEMA = "iter135.committed_proof_receipt.v1"
 MANIFEST_SCHEMA = "iter135.launch_manifest.v2"
-ENVIRONMENT_SCHEMA = "iter135.environment_receipts.v2"
+ENVIRONMENT_SCHEMA = "iter135.environment_receipts.v3"
 DATASET_SCHEMA = "iter135.nuscenes_dataset_receipt.v1"
 DATASET_RUNTIME_SCHEMA = "iter135.dataset_runtime_snapshot.v1"
 DOCKER_RUNTIME_SCHEMA = "iter135.docker_runtime_snapshot.v1"
-ANALYTIC_LOCK_SCHEMA = "iter135.analytic_lock.v2"
+ANALYTIC_LOCK_SCHEMA = "iter135.analytic_lock.v3"
 DONE_MARKER = "I135_DOSE_DONE"
 MINIMUM_LOCAL_FREE_BYTES = 15 * 1024**3
 TOTAL_GPU_CEILING_SECONDS = 110 * 60 * 60
@@ -403,7 +403,7 @@ def validate_manifest_dataset(manifest: Mapping[str, Any]) -> dict[str, Any]:
     dataset = manifest.get("dataset_receipt")
     environment = manifest.get("environment_receipts")
     if not isinstance(environment, dict) or environment.get("schema") != ENVIRONMENT_SCHEMA:
-        raise ProofCollectionError("launch-manifest:environment-receipts-v2")
+        raise ProofCollectionError("launch-manifest:environment-receipts-v3")
     if not isinstance(dataset, dict) or environment.get("dataset") != dataset:
         raise ProofCollectionError("launch-manifest:dataset-environment-mismatch")
     expected_fields = {
@@ -788,6 +788,10 @@ def _validate_analytic_lock(
         "manifest_sha256",
         "dataset_runtime_snapshot_sha256",
         "docker_runtime_snapshot_sha256",
+        "python_wrapper_sha256",
+        "python_binary_sha256",
+        "python_binary_identity",
+        "github_launch_authority",
         "pid",
         "created_at_utc",
     }:
@@ -805,6 +809,9 @@ def _validate_analytic_lock(
             "dataset_runtime_snapshot_sha256"
         ],
         "docker_runtime_snapshot_sha256": log_receipt["docker_runtime_snapshot_sha256"],
+        "python_wrapper_sha256": log_receipt["python_wrapper_sha256"],
+        "python_binary_sha256": log_receipt["python_binary_sha256"],
+        "python_binary_identity": log_receipt["python_binary_identity"],
         "pid": log_receipt["invocation_pid"],
     }
     for field, value in expected.items():
@@ -817,6 +824,76 @@ def _validate_analytic_lock(
         is None
     ):
         raise ProofCollectionError("analytic-lock:created-at-utc")
+    authority = lock.get("github_launch_authority")
+    authority_fields = {
+        "schema",
+        "repository",
+        "branch",
+        "activation_commit",
+        "final_manifest_commit",
+        "activation_receipt_sha256",
+        "manifest_sha256",
+        "checks",
+        "authority_payload_sha256",
+    }
+    if not isinstance(authority, dict) or set(authority) != authority_fields:
+        raise ProofCollectionError("analytic-lock:github-authority-field-set")
+    claimed_authority_sha = authority.get("authority_payload_sha256")
+    authority_payload = dict(authority)
+    authority_payload.pop("authority_payload_sha256")
+    actual_authority_sha = hashlib.sha256(
+        json.dumps(
+            authority_payload,
+            sort_keys=True,
+            separators=(",", ":"),
+            ensure_ascii=True,
+            allow_nan=False,
+        ).encode()
+    ).hexdigest()
+    activation_commit = authority.get("activation_commit")
+    final_manifest_commit = authority.get("final_manifest_commit")
+    checks = authority.get("checks")
+    if (
+        authority.get("schema") != "iter135.github_launch_authority.v1"
+        or authority.get("repository") != "manfromnowhere143/sentinel"
+        or authority.get("branch") != "master"
+        or not isinstance(activation_commit, str)
+        or re.fullmatch(r"[0-9a-f]{40}", activation_commit) is None
+        or not isinstance(final_manifest_commit, str)
+        or re.fullmatch(r"[0-9a-f]{40}", final_manifest_commit) is None
+        or activation_commit == final_manifest_commit
+        or _HEX_SHA256.fullmatch(str(authority.get("activation_receipt_sha256"))) is None
+        or authority.get("manifest_sha256") != expected["manifest_sha256"]
+        or claimed_authority_sha != actual_authority_sha
+        or not isinstance(checks, list)
+        or len(checks) != 2
+    ):
+        raise ProofCollectionError("analytic-lock:github-authority-binding")
+    check_ids: list[int] = []
+    for row, name in zip(checks, ("check (3.10)", "check (3.11)")):
+        if not isinstance(row, dict) or set(row) != {
+            "name",
+            "id",
+            "head_sha",
+            "app_slug",
+            "status",
+            "conclusion",
+        }:
+            raise ProofCollectionError("analytic-lock:github-check-field-set")
+        check_id = row.get("id")
+        if (
+            row.get("name") != name
+            or type(check_id) is not int
+            or check_id <= 0
+            or row.get("head_sha") != activation_commit
+            or row.get("app_slug") != "github-actions"
+            or row.get("status") != "completed"
+            or row.get("conclusion") != "success"
+        ):
+            raise ProofCollectionError("analytic-lock:github-check-binding")
+        check_ids.append(check_id)
+    if len(set(check_ids)) != 2:
+        raise ProofCollectionError("analytic-lock:github-check-ids")
     return {
         "source_path": EXPECTED_LAUNCH_LOCK,
         "source_id": source_id,
@@ -824,6 +901,7 @@ def _validate_analytic_lock(
         "sha256": sha256_bytes(payload),
         "bytes": len(payload),
         **expected,
+        "github_launch_authority": authority,
         "created_at_utc": created_at,
     }
 
@@ -1110,7 +1188,14 @@ def validate_run_log_payload(payload: bytes, manifest_facts: Mapping[str, Any]) 
                 _key_value_tokens(
                     line,
                     "I135_ANALYTIC_ARMED ",
-                    exact_fields={"lock", "lock_id", "output_root"},
+                    exact_fields={
+                        "lock",
+                        "lock_id",
+                        "output_root",
+                        "python_wrapper_sha256",
+                        "python_binary_sha256",
+                        "python_binary_identity",
+                    },
                 )
             )
         if line.startswith("I135_LIVE_IDLE_OK "):
@@ -1288,6 +1373,9 @@ def validate_run_log_payload(payload: bytes, manifest_facts: Mapping[str, Any]) 
         "dataset_runtime_snapshot_id",
         "docker_runtime_snapshot_sha256",
         "docker_runtime_snapshot_id",
+        "python_wrapper_sha256",
+        "python_binary_sha256",
+        "python_binary_identity",
         "launch_lock_retained",
         "launch_lock_id",
         "elapsed_seconds",
@@ -1326,6 +1414,9 @@ def validate_run_log_payload(payload: bytes, manifest_facts: Mapping[str, Any]) 
         "dataset_runtime_snapshot_id": dataset_snapshot["id"],
         "docker_runtime_snapshot_sha256": docker_snapshot["sha256"],
         "docker_runtime_snapshot_id": docker_snapshot["id"],
+        "python_wrapper_sha256": analytic_armed_rows[0]["python_wrapper_sha256"],
+        "python_binary_sha256": analytic_armed_rows[0]["python_binary_sha256"],
+        "python_binary_identity": analytic_armed_rows[0]["python_binary_identity"],
         "launch_lock_retained": EXPECTED_LAUNCH_LOCK,
         "launch_lock_id": analytic_armed_rows[0]["lock_id"],
         "output_root": EXPECTED_OUTPUT_ROOT,
@@ -1341,7 +1432,15 @@ def validate_run_log_payload(payload: bytes, manifest_facts: Mapping[str, Any]) 
         "lock": EXPECTED_LAUNCH_LOCK,
         "lock_id": metadata["launch_lock_id"],
         "output_root": EXPECTED_OUTPUT_ROOT,
-    } or re.fullmatch(r"[0-9]+:[0-9]+", metadata["launch_lock_id"]) is None:
+        "python_wrapper_sha256": metadata["python_wrapper_sha256"],
+        "python_binary_sha256": metadata["python_binary_sha256"],
+        "python_binary_identity": metadata["python_binary_identity"],
+    } or (
+        re.fullmatch(r"[0-9]+:[0-9]+", metadata["launch_lock_id"]) is None
+        or _HEX_SHA256.fullmatch(metadata["python_wrapper_sha256"]) is None
+        or _HEX_SHA256.fullmatch(metadata["python_binary_sha256"]) is None
+        or re.fullmatch(r"[0-9]+:[0-9]+", metadata["python_binary_identity"]) is None
+    ):
         raise ProofCollectionError("launcher-log:analytic-armed-identity")
     if start_free_bytes < manifest_facts["minimum_remote_free_bytes"]:
         raise ProofCollectionError("launcher-log:start-free-below-minimum")
@@ -1370,6 +1469,9 @@ def validate_run_log_payload(payload: bytes, manifest_facts: Mapping[str, Any]) 
         "dataset_runtime_snapshot_id": dataset_snapshot["id"],
         "docker_runtime_snapshot_sha256": docker_snapshot["sha256"],
         "docker_runtime_snapshot_id": docker_snapshot["id"],
+        "python_wrapper_sha256": metadata["python_wrapper_sha256"],
+        "python_binary_sha256": metadata["python_binary_sha256"],
+        "python_binary_identity": metadata["python_binary_identity"],
         "launch_lock_retained": EXPECTED_LAUNCH_LOCK,
         "launch_lock_id": metadata["launch_lock_id"],
         "dataset_runtime_check_counts": expected_runtime_phase_counts,
@@ -1930,6 +2032,10 @@ def _build_validity_receipt(
         "docker_runtime_snapshot_sha256": analytic_lock[
             "docker_runtime_snapshot_sha256"
         ],
+        "python_wrapper_sha256": analytic_lock["python_wrapper_sha256"],
+        "python_binary_sha256": analytic_lock["python_binary_sha256"],
+        "python_binary_identity": analytic_lock["python_binary_identity"],
+        "github_launch_authority": analytic_lock["github_launch_authority"],
         "pid": analytic_lock["pid"],
         "created_at_utc": analytic_lock["created_at_utc"],
     }
@@ -1973,7 +2079,7 @@ def _build_validity_receipt(
             ),
             "dataset_provenance": (
                 "launch_manifest.gates.g7_dataset_provenance == true; top-level dataset_receipt "
-                "equals environment_receipts.dataset; the v2 environment binding, frozen nuScenes "
+                "equals environment_receipts.dataset; the v3 environment binding, frozen nuScenes "
                 "contract, packaged dataset runtime snapshot, DONE hash, and derived runtime "
                 "snapshot contract all match"
             ),
