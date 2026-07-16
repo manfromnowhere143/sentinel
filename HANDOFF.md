@@ -1,19 +1,32 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Thu Jul 16 05:19:56 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Thu Jul 16 06:19:29 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+510ac3a tests: decouple historical audits from handoff prose
+a63bde8 mission: make iter134 truth fail-closed
+e6308d5 handoff: iter134 done, box idle, next is dose-matched
 19d2a8a iter134: publish placebo harm or null verdict
 b1a6714 iter134: commit run proof before analysis
 99a17da readme: point five claims at the evidence that holds them
 54559ba handoff: record in-flight state and verification
 542b432 paper: verify all 14 citations against source
-4310960 paper: make the build byte-reproducible
-cba0960 paper: untrack latex build intermediates
-5d8811a paper: reproducible build, correct four citations
 ```
 Working tree: CLEAN
+
+## Canonical mission state (`MISSION_STATE.json`)
+
+- Current: iteration 134 / PLACEBO_HARM_OR_NULL / run IDLE / next iteration 135 PREREGISTRATION_REQUIRED
+- Current result: experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md
+- Next program: semantics-free placebo dose-response causal closure
+- Authorized now:
+  - write and commit the iteration-135 pre-registration
+  - build and validate tooling only after that pre-registration is committed
+- Forbidden now:
+  - GPU launch before the iteration-135 hypothesis, analyzer, manifest, provenance, storage, and smoke gates are frozen
+  - rerun iteration 134
+  - adopt run-index resampling as the iteration-135 primary after observing iteration-134 results
 
 ## Experiments (status inferred from files)
 
@@ -160,91 +173,24 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 05:21:06 up 11 days, 19:02,  0 users,  load average: 0.00, 0.00, 0.00
+ 06:20:38 up 11 days, 20:01,  0 users,  load average: 0.00, 0.02, 0.03
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-i134.log
 /var/log/sentinel-i134-smoke.log
 /dev/root       310G  285G   26G  92% /
-Swap:          8.0Gi        90Mi       7.9Gi
+Swap:          8.0Gi        89Mi       7.9Gi
 ```
 If any docker container named renderer/model/ncap (or a random-name ncap) is up, a run
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
 
 ## Open threads (from the newest experiment docs)
-- Newest completed experiment: experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md — read it before opening new work.
-- Newest pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — read it in full; its gate governs the next action.
-- Next research launch packet: docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md — not a pre-registration; it authorizes no run.
+- Canonical completed experiment: experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md — read it before opening new work.
+- Deprecated pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — historical only; it does not govern the next action.
+- Canonical next action: iteration 135 / PREREGISTRATION_REQUIRED / semantics-free placebo dose-response causal closure.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
 
 ## Verification before you act
 - Run: ruff check . && pytest -q && python3 scripts/validate_docs.py
 - All three must pass before and after your changes; CI enforces the same on push.
-
-## BOX IS IDLE — no run in flight. Iteration 134 is COMPLETE and PUBLISHED.
-
-The live probe above should report `GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS`. If it reports
-`IN_FLIGHT_CONTAINERS`, something else was launched after this snapshot: identify it from the
-newest `/var/log/sentinel-*.log` and DO NOT relaunch over it.
-
-### Iteration 134 final state — `PLACEBO_HARM_OR_NULL`
-
-Ran 2026-07-14 12:59:10 UTC to `I134_PLACEBO_DONE` 2026-07-16 02:44:27 UTC. `1,200/1,200`
-episodes, `0` aborts, `0` failed dirs, ~37.75 h. On-done flow executed verbatim: proof committed
-FIRST (`b1a6714`, 336 MB, byte-verified against the box), G0 re-verified at collection (6/6),
-analyzer run ONCE from committed artifacts unedited, verdict published at full weight (`19d2a8a`).
-
-- **The semantics question is NOT resolved, in either direction.** PRIMARY union-placebo `+0.3683`
-  CI `[-0.1901, +0.8866]` includes zero; placebo-off `+0.4026` CI `[-0.0038, +0.8947]` includes
-  zero.
-- **The union's benefit REPRODUCED**: union-off `+0.7708` vs the committed `+0.783`.
-- **G2 exact**: all 800 carried episodes match the committed power run per-episode, `0` mismatches.
-  The fresh union re-emitted iteration 42's exact `1,205` brakes / `156` releases.
-  `off/side-0921` completed `20/20` where the power run carries `n=19`.
-- **THE PRE-REGISTERED CONFOUND FIRED**: the placebo realized only `859/1205` (`0.713`) of its
-  dose. It braked less AND scored worse, so union-placebo is consistent with semantics, with the
-  40% larger dose, or both. Closed-loop budget matching is unreachable by an open-loop schedule.
-- **Method disagreement, disclosed not exploited**: run-index resampling WOULD exclude zero
-  (`[+0.1464, +0.5723]`). NOT adopted — the pair-clustered primary was frozen first. **A successor
-  that quietly adopts run-index as primary is voiding the campaign's discipline.**
-
-Read `CONTINUITY.md` -> the ITER134 entry and "### NEXT: iteration 135 must be a DOSE-MATCHED
-control" before opening any new work on this lane.
-
-### Next move: iteration 135, dose-matched (fresh pre-registration REQUIRED)
-
-Recommended: **dose-response placebo** at several budget multiples — if the union outperforms EVERY
-dose of semantics-free braking, the semantics are load-bearing regardless of the matching problem.
-Alternatives: closed-loop budget controller; union truncated to the placebo's realized dose.
-**Do NOT re-run iteration 134's design — it is confounded by construction in a closed loop.**
-The pair-clustered primary is underpowered at 20 clusters and 14 scenes is the whole official set:
-power must come from DESIGN, not scale.
-
-Box housekeeping: iter134 run roots (~35 GB of rendered frames) sit in
-`/opt/sentinel-stack/neuro-ncap/outoutput/i134-*`. They are reproducible and safe to delete for
-disk; the per-episode json, all three decision logs, and the run log are committed under
-`experiments/iter134_neuroncap_placebo_semantics_execution/proof/`.
-
-### PAPER — arXiv REJECTED (2026-07-14); next submission is a PEER-REVIEWED VENUE, not arXiv
-
-Appeal requires a conventional-journal DOI. Three CONTINUITY entries bind the rewrite: the
-rejection mechanism (**`iter124`'s freshness gate validated `MANUSCRIPT.md`, which was never
-submitted, while the shipped `paper.tex` omits HUGSIM entirely — DO NOT TRUST THAT GATE**), the
-claim-level audit (Limitations falsely says "one simulator"; abstract result (5) asserts a universal
-negative over decoders from two failed probes while the causal-intervention arc returned only
-nulls), and the iteration-134 entry (the paper may now report the first placebo control on this
-benchmark, its null, and the closed-loop budget-entanglement finding — it may NOT claim the
-semantics are load-bearing).
-
-`docs/paper/build.sh` makes source -> PDF -> tarball one byte-reproducible act and fails closed if
-the tarball's `paper.tex` differs from source (needs BasicTeX). All 14 citations verified against
-the actual papers; the README score tracker was forensically audited (141 rows, 0 verdict
-inflation, 5 misrouted citations fixed at `99a17da`).
-
-Frozen critique anchors preserved for Iter133 reproducibility:
-
-- Iterations 125-132 are valuable only as controlled evidence infrastructure.
-- They are not new empirical improvement.
-- The strongest next test is a placebo/sham intervention with matched timing, actuator budget, and
-  opportunity.
