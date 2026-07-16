@@ -1,28 +1,29 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Thu Jul 16 06:19:29 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Thu Jul 16 06:42:46 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+c6a29c2 tests: follow canonical handoff phase
+bb48d33 mission: activate iter135 tooling phase
+fdb23cd iter135: preregister blind-braking dose response
+066a548 handoff: derive baton from canonical mission state
 510ac3a tests: decouple historical audits from handoff prose
 a63bde8 mission: make iter134 truth fail-closed
 e6308d5 handoff: iter134 done, box idle, next is dose-matched
 19d2a8a iter134: publish placebo harm or null verdict
-b1a6714 iter134: commit run proof before analysis
-99a17da readme: point five claims at the evidence that holds them
-54559ba handoff: record in-flight state and verification
-542b432 paper: verify all 14 citations against source
 ```
 Working tree: CLEAN
 
 ## Canonical mission state (`MISSION_STATE.json`)
 
-- Current: iteration 134 / PLACEBO_HARM_OR_NULL / run IDLE / next iteration 135 PREREGISTRATION_REQUIRED
+- Current: iteration 134 / PLACEBO_HARM_OR_NULL / run IDLE / next iteration 135 PREREGISTERED_TOOLING_REQUIRED
 - Current result: experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md
 - Next program: semantics-free placebo dose-response causal closure
 - Authorized now:
-  - write and commit the iteration-135 pre-registration
-  - build and validate tooling only after that pre-registration is committed
+  - build and validate only the tooling and tests frozen by the active iteration-135 hypothesis
+  - inventory storage and provenance before any safe cleanup or live smoke
+  - publish a read-only external-benchmark commercial, license, compute, and integration preflight
 - Forbidden now:
   - GPU launch before the iteration-135 hypothesis, analyzer, manifest, provenance, storage, and smoke gates are frozen
   - rerun iteration 134
@@ -70,6 +71,7 @@ Working tree: CLEAN
 - experiments/iter132_support_core_schema_instance_creation_preflight: RESULT PUBLISHED
 - experiments/iter133_neuroncap_placebo_semantics_control_design: RESULT PUBLISHED
 - experiments/iter134_neuroncap_placebo_semantics_execution: RESULT PUBLISHED
+- experiments/iter135_neuroncap_blind_braking_dose_response: PRE-REGISTERED, result pending
 - experiments/iter13_rss_baseline: RESULT PUBLISHED
 - experiments/iter15_latch_release: RESULT PUBLISHED
 - experiments/iter16_soft_stop: RESULT PUBLISHED
@@ -173,7 +175,7 @@ Working tree: CLEAN
 ## GPU box quick-state (live probe)
 ```
 sentinel-gpu
- 06:20:38 up 11 days, 20:01,  0 users,  load average: 0.00, 0.02, 0.03
+ 06:43:56 up 11 days, 20:25,  0 users,  load average: 0.00, 0.00, 0.00
 GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS
 /var/log/sentinel-vitals.log
 /var/log/sentinel-i134.log
@@ -186,8 +188,9 @@ is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT 
 
 ## Open threads (from the newest experiment docs)
 - Canonical completed experiment: experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md — read it before opening new work.
+- Active pending pre-registration: experiments/iter135_neuroncap_blind_braking_dose_response/HYPOTHESIS.md — read it with MISSION_STATE.json; neither file overrides the other.
 - Deprecated pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — historical only; it does not govern the next action.
-- Canonical next action: iteration 135 / PREREGISTRATION_REQUIRED / semantics-free placebo dose-response causal closure.
+- Canonical next action: iteration 135 / PREREGISTERED_TOOLING_REQUIRED / semantics-free placebo dose-response causal closure.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
 
