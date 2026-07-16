@@ -1,0 +1,37 @@
+# Iteration 134 proof artifacts, collected 2026-07-16 after I134_PLACEBO_DONE (Thu Jul 16 02:44:27 UTC).
+# Committed BEFORE the analyzer was run, per the on-done protocol in CONTINUITY.md.
+# SHA256 computed on the box; the split parts rejoin to the whole-file digests below, verified locally.
+
+# whole-file digests (as produced on sentinel-gpu)
+3d8c7e9e63aadf90e1cc6ab301cc9b7145cbc1b6dd7ba12de6369ded083e851c  sentinel_i134_off.jsonl.gz      (rejoin part-a00 + part-a01)
+f06178aba6d7b5fd7424469891795f039eca65dd8eb4942f0b0706ccd838a21c  sentinel_i134_union.jsonl.gz    (rejoin part-aa + part-ab)
+aeb45f4ea3cdbcc1e9e299b143d2463068d3aa0c69fefe4d6045aba5ca9a620a  sentinel_i134_placebo.jsonl.gz
+b6e7522c7f709d550c51df5de6ed7b67339335ee3e74f0b1e068f377b2ce8315  i134-runs.tar.gz
+55c5a77e898f1a1834a984dd02c576f128c0ac445c71f9721256beaac2b04b14  sentinel-i134.log.gz
+
+# rejoin:
+#   cat sentinel_i134_off.jsonl.gz.part-a00 sentinel_i134_off.jsonl.gz.part-a01 > sentinel_i134_off.jsonl.gz
+#   cat sentinel_i134_union.jsonl.gz.part-aa sentinel_i134_union.jsonl.gz.part-ab > sentinel_i134_union.jsonl.gz
+# (split only to stay under the 100 MB per-file limit, exactly as the power run's proof does)
+
+# contents
+#   i134-runs.tar.gz          per-episode ego_poses.json / metrics.json / actors.json for all 1200
+#                             episodes across i134-off, i134-union, i134-placebo. 1200 ego_poses.json
+#                             verified present on the box. The 35 GB of rendered camera frames are NOT
+#                             collected: the analyzer does not read them and they are reproducible.
+#   sentinel-i134.log.gz      the full run log: per-pair markers, per-episode ncap_score/impact_speed,
+#                             arm start/done markers, the I134_PROVENANCE_OK gate, I134_PLACEBO_DONE.
+#   sentinel_i134_off.jsonl   OFF arm decision log (union binary, SENTINEL_ENABLED=0: frame rows only).
+#   sentinel_i134_union.jsonl UNION arm decision log (frame rows + brake/release rows).
+#   sentinel_i134_placebo.jsonl  PLACEBO arm decision log. Small BY DESIGN: the placebo observes no
+#                             world state, so it logs only reset/frame/brake rows and the donor id.
+#                             That size difference is itself evidence the control is semantics-free.
+
+# run record
+#   launch            2026-07-14 12:59:10 UTC
+#   I134_ARM_DONE off        (400/400)
+#   I134_ARM_DONE union      (400/400)
+#   I134_ARM_DONE placebo    (400/400)  Thu Jul 16 02:44:27 UTC
+#   I134_PLACEBO_DONE        Thu Jul 16 02:44:27 UTC
+#   episodes 1200/1200 · I134_ABORT 0 · __failed dirs 0 · containers 0 at completion
+#   ~37.75 h wall, ~115 s/episode, inside the pre-registered 30-55 GPU-h expectation (ceiling 80)
