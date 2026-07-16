@@ -15,6 +15,11 @@
 # Usage: bash docs/paper/build.sh
 set -euo pipefail
 
+if [[ "${BUILD_SUBMISSION_ARCHIVE:-0}" == "1" && "${ALLOW_ARCHIVED_PAPER_BUILD:-0}" == "1" ]]; then
+  echo "FAIL: choose BUILD_SUBMISSION_ARCHIVE=1 or ALLOW_ARCHIVED_PAPER_BUILD=1, not both"
+  exit 1
+fi
+
 export PATH="/Library/TeX/texbin:$PATH"
 cd "$(dirname "$0")"
 
@@ -52,8 +57,20 @@ if grep -qiE "undefined (citation|reference)" /tmp/paper_build_2.log; then
   exit 1
 fi
 
+if [[ "${BUILD_SUBMISSION_ARCHIVE:-0}" != "1" && "${ALLOW_ARCHIVED_PAPER_BUILD:-0}" != "1" ]]; then
+  echo "DRAFT_BUILD_OK: PDF compiled; submission archive intentionally not created."
+  echo "Read STATUS.md. BUILD_SUBMISSION_ARCHIVE=1 is evidence-gated;"
+  echo "ALLOW_ARCHIVED_PAPER_BUILD=1 reproduces the archived package only."
+  exit 0
+fi
+
+if [[ "${BUILD_SUBMISSION_ARCHIVE:-0}" == "1" ]]; then
+  echo "== current-evidence submission gate =="
+  python3 ../../scripts/paper_evidence.py
+fi
+
 # the tarball must be rebuilt from the SAME source, never hand-assembled
-echo "== rebuilding submission tarball from this source =="
+echo "== rebuilding archive from this source =="
 rm -f sentinel-arxiv-submission.tar.gz
 # built deterministically (pinned mtime/uid/gid, no gzip timestamp) so identical source always
 # yields an identical tarball; bsdtar on macOS cannot pin mtime, so do it in python

@@ -1,0 +1,47 @@
+{
+  "schema": "sentinel.mission_state.v1",
+  "canonical_repository": "/Users/danielwahnich/workspace/sentinel",
+  "trunk": "master",
+  "current_completed_iteration": 134,
+  "current_result": "experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md",
+  "current_verdict": "PLACEBO_HARM_OR_NULL",
+  "run_state": "IDLE",
+  "active_hypothesis": null,
+  "next_program": {
+    "iteration": 135,
+    "name": "semantics-free placebo dose-response causal closure",
+    "phase": "PREREGISTRATION_REQUIRED",
+    "authorized_actions": [
+      "write and commit the iteration-135 pre-registration",
+      "build and validate tooling only after that pre-registration is committed"
+    ],
+    "forbidden_actions": [
+      "GPU launch before the iteration-135 hypothesis, analyzer, manifest, provenance, storage, and smoke gates are frozen",
+      "rerun iteration 134",
+      "adopt run-index resampling as the iteration-135 primary after observing iteration-134 results"
+    ]
+  },
+  "claim_state": {
+    "neuroncap_union_gain": "ESTABLISHED_ON_NEURONCAP",
+    "semantic_attribution": "UNRESOLVED",
+    "hugsim_transfer": "TRANSFER_NULL",
+    "production_readiness": "NOT_ESTABLISHED"
+  },
+  "deprecated_pending_hypotheses": [
+    "experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md"
+  ],
+  "paper_state": {
+    "status": "ARCHIVED_NOT_SUBMISSION_READY",
+    "next_route": "peer-reviewed venue after a full evidence rewrite",
+    "blocking_omissions": [
+      "HUGSIM transfer null",
+      "iteration-134 placebo result",
+      "resolved wording for the decoder universal-negative overclaim"
+    ]
+  },
+  "storage_gate": {
+    "minimum_local_free_gib_before_new_proof_collection": 15,
+    "minimum_remote_root_free_gib_before_gpu_launch": 50,
+    "policy": "preserve committed proof and hashes; delete only hash-verified duplicates, reproducible renders, and caches"
+  }
+}

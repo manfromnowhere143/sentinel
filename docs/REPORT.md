@@ -1,11 +1,20 @@
 # Sentinel: a label-free runtime safety monitor for frozen UniAD, with measured cross-planner limits
 
-**Technical report — 2026-07-02, refreshed 2026-07-14 after iterations 122-123.** Every number
+**Technical report — 2026-07-02, refreshed 2026-07-16 through iteration 134.** Every number
 below regenerates from evidence committed in this repository; reproduction commands are in the
 [README](../README.md#reproduce--repository-map). Scope is stated plainly throughout; the
 full-benchmark (14-scene) measurement and its latch-release refinement are reported in §10. The
 HUGSIM transfer null and support-core taxonomy are reported as external-validity/mechanism evidence,
 not as a repair or benchmark upgrade.
+
+**Current evidence addendum.** Iteration 134 completed `1,200/1,200` NeuroNCAP episodes and
+published `PLACEBO_HARM_OR_NULL`. The released union reproduced its gain over OFF (`+0.7708`,
+pair-clustered CI `[+0.3315,+1.2151]`), while union minus the semantics-free placebo was `+0.3683`
+with CI `[-0.1901,+0.8866]`. The placebo realized `859/1205` scheduled brake frames because
+closed-loop episode termination removed later opportunities. Therefore the gain is measured but
+its semantic attribution remains unresolved; the result does not upgrade the HUGSIM null or any
+production, safety-case, or acquisition claim. The next causal question requires a fresh
+multi-dose semantics-free control, not a rerun or a post-hoc change of resampling method.
 
 ## Abstract
 
@@ -265,14 +274,15 @@ the apparatus). Full report: [experiments/VERIFICATION.md](../experiments/VERIFI
 
 Two nuScenes sequences carried all sub-benchmark method-development results; the full official
 14-scene benchmark then extended this at 6 runs per pair and the power measurement at 20 runs per
-pair. One simulator (NeuroNCAP/NeuRAD), whose deterministic episode replay we characterize and
-exploit rather than hide; n=20 per cell; the VAD stack required an ID-association layer whose
+pair. Two closed-loop simulators were used: NeuroNCAP/NeuRAD for the positive benchmark result and
+HUGSIM for a transfer null; n=20 per NeuroNCAP cell; the VAD stack required an ID-association layer whose
 quality bounds the transfer conclusion; the HUGSIM support-core taxonomy is an eight-row mechanism
 decomposition, not a population-rate estimate; the RSS baseline is the longitudinal closing-speed
 form, not a full RSS implementation (disclosed in the patch). No fleet data, no hardware-in-loop or
 vehicle-in-loop perturbation validation, no mission-level route-feasibility assurance, no rulebook
-controller, no retraining, single-digit GPU-hours per experiment — deliberately: every gain is
-attributable to the monitor, and everything is reproducible from this repository.
+controller, no retraining, single-digit GPU-hours per experiment. Arm changes are isolated and
+everything is reproducible from this repository; iteration 134 explicitly leaves the released
+rule's semantic attribution unresolved.
 
 ## 10. The full-benchmark measurement
 

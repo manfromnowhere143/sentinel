@@ -17,7 +17,13 @@ import re
 import subprocess
 import sys
 
+from mission_state import load_state, validate_state
+
 fails = []
+
+mission_state = load_state()
+for problem in validate_state(mission_state):
+    fails.append(f'MISSION_STATE.json: {problem}')
 
 tracked = subprocess.run(['git', 'ls-files', '*.md'], capture_output=True, text=True).stdout.split()
 
@@ -41,6 +47,64 @@ for result in sorted(glob.glob('experiments/*/RESULT.md')):
     d = os.path.dirname(result)
     if d not in readme:
         fails.append(f'README.md: experiment with a RESULT is not referenced -> {d}')
+
+completed = mission_state['current_completed_iteration']
+verdict = mission_state['current_verdict']
+next_program = mission_state['next_program']
+surface_requirements = {
+    'README.md': [
+        f'current through iteration {completed}',
+        verdict,
+        mission_state['current_result'],
+    ],
+    'docs/NEXT_PHASE.md': [
+        f'Canonical current decision: iteration {completed} is complete',
+        f"Iteration {next_program['iteration']}",
+        next_program['name'],
+    ],
+    'docs/REPORT.md': [
+        f'refreshed 2026-07-16 through iteration {completed}',
+        verdict,
+    ],
+    'docs/paper/STATUS.md': [
+        mission_state['paper_state']['status'],
+        'HUGSIM transfer null',
+        'iteration-134 placebo result',
+    ],
+    'HANDOFF.md': [
+        'Canonical mission state (`MISSION_STATE.json`)',
+        f"iteration {completed} / {verdict}",
+        f"iteration {next_program['iteration']} / {next_program['phase']}",
+    ],
+}
+for path, required in surface_requirements.items():
+    if not os.path.exists(path):
+        fails.append(f'{path}: required current-state surface is missing')
+        continue
+    text = open(path, errors='replace').read()
+    normalized_text = ' '.join(text.split())
+    for phrase in required:
+        if ' '.join(phrase.split()) not in normalized_text:
+            fails.append(f'{path}: current-state phrase missing -> {phrase}')
+
+surface_forbidden = {
+    'README.md': [
+        'current through iteration 133',
+        'arXiv submission is in moderation/announcement watch',
+    ],
+    'docs/REPORT.md': [
+        'refreshed 2026-07-14 after iterations 122-123',
+        'One simulator (NeuroNCAP/NeuRAD)',
+    ],
+    'docs/paper/MANUSCRIPT.md': ['venue decision: arXiv first'],
+    'HANDOFF.md': ['its gate governs the next action'],
+}
+for path, forbidden in surface_forbidden.items():
+    text = open(path, errors='replace').read()
+    normalized_text = ' '.join(text.split())
+    for phrase in forbidden:
+        if ' '.join(phrase.split()) in normalized_text:
+            fails.append(f'{path}: forbidden stale phrase present -> {phrase}')
 
 if fails:
     print('DOCS GUARD FAILED:')

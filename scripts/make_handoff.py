@@ -10,6 +10,8 @@ import glob
 import os
 import subprocess
 
+from mission_state import current_summary, load_state, validate_state
+
 
 def sh(cmd, timeout=90):
     try:
@@ -22,6 +24,11 @@ def sh(cmd, timeout=90):
 print('# HANDOFF — dynamic state snapshot\n')
 print(f"Generated: {sh('LC_ALL=C date -u')} by scripts/make_handoff.py. Read CONTINUITY.md first.\n")
 
+mission_state = load_state()
+state_problems = validate_state(mission_state)
+if state_problems:
+    raise SystemExit('MISSION_STATE.json invalid:\n - ' + '\n - '.join(state_problems))
+
 print('## Repository state\n```')
 print(sh('git log --oneline -8'))
 print('```')
@@ -30,6 +37,19 @@ dirty = '\n'.join(
     if line.strip() and not line.endswith('HANDOFF.md')
 )
 print(f'Working tree: {"CLEAN" if not dirty else "DIRTY — resolve before handoff:" + chr(10) + dirty}\n')
+
+next_program = mission_state['next_program']
+print('## Canonical mission state (`MISSION_STATE.json`)\n')
+print(f"- Current: {current_summary(mission_state)}")
+print(f"- Current result: {mission_state['current_result']}")
+print(f"- Next program: {next_program['name']}")
+print('- Authorized now:')
+for action in next_program['authorized_actions']:
+    print(f'  - {action}')
+print('- Forbidden now:')
+for action in next_program['forbidden_actions']:
+    print(f'  - {action}')
+print()
 
 print('## Experiments (status inferred from files)\n')
 for d in sorted(glob.glob('experiments/*/')):
@@ -50,26 +70,29 @@ gpu_probe_cmd = (
     'ls -t /var/log/sentinel-*.log | head -3; df -h / | tail -1; free -h | tail -1" '
     '2>/dev/null'
 )
-probe = sh(gpu_probe_cmd, timeout=70)
+probe = (
+    'GPU_RUN_STATE=NOT_PROBED_OFFLINE_GENERATION'
+    if os.environ.get('SENTINEL_HANDOFF_SKIP_LIVE_PROBE') == '1'
+    else sh(gpu_probe_cmd, timeout=70)
+)
 print(probe if probe else 'BOX UNREACHABLE (auth lapsed? box down?) — ask Daniel: ! gcloud auth login')
 print('```')
 print('If any docker container named renderer/model/ncap (or a random-name ncap) is up, a run')
 print('is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.\n')
 
 print('## Open threads (from the newest experiment docs)')
-results = sorted(glob.glob('experiments/*/RESULT.md'), key=os.path.getmtime)
-if results:
-    print(f'- Newest completed experiment: {results[-1]} — read it before opening new work.')
+print(f"- Canonical completed experiment: {mission_state['current_result']} — read it before opening new work.")
 pending = sorted(
     h for h in glob.glob('experiments/*/HYPOTHESIS.md')
     if not os.path.exists(h.replace('HYPOTHESIS.md', 'RESULT.md'))
 )
-if pending:
-    latest_pending = max(pending, key=os.path.getmtime)
-    print(f'- Newest pending pre-registration: {latest_pending} — read it in full; its gate governs the next action.')
-frontier = 'docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md'
-if os.path.exists(frontier):
-    print(f'- Next research launch packet: {frontier} — not a pre-registration; it authorizes no run.')
+deprecated = set(mission_state.get('deprecated_pending_hypotheses', []))
+active_hypothesis = mission_state.get('active_hypothesis')
+if active_hypothesis:
+    print(f'- Active pending pre-registration: {active_hypothesis} — read it with MISSION_STATE.json; neither file overrides the other.')
+for legacy in sorted(deprecated.intersection(pending)):
+    print(f'- Deprecated pending pre-registration: {legacy} — historical only; it does not govern the next action.')
+print(f"- Canonical next action: iteration {next_program['iteration']} / {next_program['phase']} / {next_program['name']}.")
 for f in ('docs/NEXT_PHASE.md', 'docs/paper/MANUSCRIPT.md'):
     if os.path.exists(f):
         print(f'- {f}: check its status ledger/decision rules.')

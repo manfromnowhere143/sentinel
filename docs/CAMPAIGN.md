@@ -1,7 +1,9 @@
-# The campaign, iteration by iteration — the honest arc in full
+# Archived early campaign arc — iterations 2 through 42
 
-Moved from the README for weight; every item links to its experiment directory with per-run
-numbers and the exact patch. The summary table lives in the README score tracker.
+This historical narrative stops at iteration 42 and is not the canonical current-state surface.
+Every item links to its experiment directory with per-run numbers and the exact patch. The complete
+experiment ledger through the current iteration lives in the README score tracker; live authority
+lives in `MISSION_STATE.json` and `HANDOFF.md`.
 
 
 **Iteration 2 won on safety; iteration 3 showed that win is not yet deployable, and corrected an
@@ -409,10 +411,9 @@ over-claim.** That arc, in order:
     deployment, or safety robustness claim is authorized.
     [`../experiments/iter41_sensor_input_degradation_gate/RESULT.md`](../experiments/iter41_sensor_input_degradation_gate/RESULT.md).
 
-44. **Iter 42 — exact trace replay support gate: pre-registered.** This is the direct repair for
-    Iter41's hidden artifact assumption. The gate may run only the released-union best arm on the
-    frozen full14/power scenario/run set, logging exact `ego2world` with every monitor frame. It
-    must then reproduce online fired/brake/release/latch state exactly offline. A pass authorizes
-    only a future offline object-stream perturbation pre-registration; it is not a degradation,
-    benchmark, deployment, or safety result.
-    [`../experiments/iter42_exact_trace_replay_support/HYPOTHESIS.md`](../experiments/iter42_exact_trace_replay_support/HYPOTHESIS.md).
+44. **Iter 42 — exact trace replay support gate: pass.** The direct repair for Iter41's hidden
+    artifact assumption completed on the frozen full14/power released-union arm. The committed
+    trace contains `400/400` resets and `6,474` frames; offline replay reproduced every online
+    fired/brake/release/latch decision with zero mismatches. This is replay support for future
+    perturbation work, not a degradation, benchmark, deployment, or safety result.
+    [`../experiments/iter42_exact_trace_replay_support/RESULT.md`](../experiments/iter42_exact_trace_replay_support/RESULT.md).

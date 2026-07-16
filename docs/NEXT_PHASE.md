@@ -1,6 +1,32 @@
-# Next phase — candidate lines after the power run
+# Next phase — canonical current decision and historical option ledger
 
-Written while the 20-run power measurement executes; nothing here presumes its outcome. Each line
+## Canonical current decision: iteration 134 is complete
+
+`MISSION_STATE.json` is authoritative. Iteration 134 completed `1,200/1,200` episodes with
+`PLACEBO_HARM_OR_NULL`: the released union's NeuroNCAP gain reproduced, but semantic attribution
+did not resolve because the semantics-free placebo realized only `859/1205` scheduled brake
+frames. No run is in flight, iteration 134 must not be repeated, and the older iteration-38
+pre-registration is historical rather than governing.
+
+The only current causal successor is **Iteration 135: semantics-free placebo dose-response causal
+closure**. It requires a fresh pre-registration. Its primary inference must remain pair-clustered;
+realized dose is post-treatment mechanism evidence and cannot be used after the fact to repair the
+primary comparison. The preferred design measures the released union against a frozen family of
+clock-only placebo policies spanning multiple assigned dose rates and evaluates whether the union
+lies outside their safety/progress/actuation frontier. A failure to do so downgrades the semantic
+mechanism claim rather than triggering threshold tuning.
+
+In parallel, a pinned Bench2Drive-Robust feasibility lane may prepare the next external benchmark
+for frame loss, state error, partial observation, and control latency. That lane authorizes no
+claim and must not contaminate Iteration 135. No GPU launch is authorized until the Iteration-135
+hypothesis, analyzer, launch manifest, provenance, storage, and smoke gates are committed.
+
+The material below is retained as a historical decision ledger. Statements such as “the next
+priority” describe their point in the campaign unless explicitly repeated in the canonical block
+above.
+
+Originally written while the 20-run power measurement executed; nothing in the historical ledger
+presumed its outcome. Each line
 is stated with the evidence that motivates it, the mechanism, the pre-registerable bar, and the
 cost. Ordering is by expected knowledge-per-GPU-hour; the decision rules at the bottom say what
 runs when.

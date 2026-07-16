@@ -4,7 +4,8 @@
 collision it is about to cause, and intervenes — measured where it actually matters: in closed
 loop, by whether the car crashes *and whether it can still drive*.**
 
-> **Honest status up front (current through iteration 133; the status table below is canonical.
+> **Honest status up front (current through iteration 134; `MISSION_STATE.json` is the
+> canonical live-state contract and the status table below is the evidence ledger.
 > The core Sentinel result arc includes an independent verification pass +
 > the full official benchmark at power + a completed iteration-37 calibration null + an
 > iteration-38 opposite-direction S0 canary pass + completed iteration-39/40/41 defensibility
@@ -330,7 +331,7 @@ confound named in the pre-registration that fired. See row 134 and
 [`iter134`](experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md). The number below
 is a measurement; its mechanism is under test.
 
-Across the registered campaign through iteration 122 — including the original monitor validation,
+Across the registered campaign through iteration 134 — including the original monitor validation,
 independent verification, full14 power run, defensibility/robustness gates, VAD/HUGSIM
 external-validity tests, and HUGSIM support-core mechanism documentation line — the core
 closed-loop configuration remains the
@@ -758,36 +759,18 @@ Sentinel runs**, which is stated here rather than implied).
 
 ## Status — where it really stands (the honest current truth)
 
-The full iteration-by-iteration arc — including the iteration-3 self-correction, the
+The early mechanism arc through iteration 42 — including the iteration-3 self-correction, the
 selectivity/side-blindness trade of iterations 4–7, and the three refuted evasion designs — is
-kept, with every number and link, in [`docs/CAMPAIGN.md`](docs/CAMPAIGN.md). The summary table
-above is the same history in one screen.
+kept in the archived [`docs/CAMPAIGN.md`](docs/CAMPAIGN.md). The summary table above is the
+canonical experiment ledger through iteration 134.
 
-**Net, stated plainly — 52 completed mechanism iterations plus an independent verification pass,
-with iteration 37 closed as a pre-registered calibration null, iteration 38 active at S0
-(calibration deprioritized), iterations 39/40/41 completed as defensibility audits (claim
-narrowing; timing/cost budget; degradation replay-support null), iteration 42 completed as
-the exact-trace replay-support pass — offline replay reproduces every online monitor decision
-exactly — iteration 43 completed as the authorized object-stream perturbation gate with a
-mild-fragile finding: in replay, 5 cm per-frame position jitter already breaks the frozen
-stability bars (mostly by adding false interventions), while detection dropout, score
-attenuation, and identity churn stay stable at mild levels — and iteration 44 completed as the
-velocity temporal-smoothing repair gate with a no-repair null: all four frozen smoothed
-estimators halve the jitter over-firing but erase 15-21 genuine interventions on the clean
-trace, so the fragility is not repaired by low-pass filtering the velocity and the released
-union stands unchanged — iteration 45 completed as the HUGSIM infrastructure-gate pass that
-opens the second-benchmark transfer lane, iteration 46 completed as the HUGSIM Stage-1
-monitor-OFF baseline completion null (38 of 52 episodes; the seven `load_HD_map` scenarios
-blocked on the unstaged map-expansion pack), iteration 47 completed as the completion
-pass: Stage A staged that pack with provenance receipts, Stage B completed all 14 failed
-episodes first-attempt, and the full 52-episode monitor-OFF arm now stands — and iteration 48
-completed as THE transfer verdict of the second-benchmark line, a **transfer null**: all 104
-OFF-vs-released-union HUGSIM episodes completed under the seven NeuroNCAP-frozen parameters
-with zero retuning, the monitor fired and braked in 37/52 ON episodes (26.9% pooled brake
-frames, 134 latch releases, no RC collapse), and the mean paired HD-Score delta is −0.017
-with a 95% scenario-clustered CI [−0.055, +0.026] that includes zero — the NeuroNCAP benefit
-does not measurably transfer to HUGSIM easy+medium scenarios at this N, and the null stands
-as the measured external-validity boundary of the released union.**
+**Net, stated plainly:** iteration 134 is complete with `PLACEBO_HARM_OR_NULL`; no run is in
+flight. The released union's NeuroNCAP gain reproduced (`+0.7708`, pair-clustered CI
+`[+0.3315,+1.2151]`), but semantic attribution remains unresolved because the semantics-free
+placebo realized only `859/1205` scheduled brake frames. HUGSIM transfer remains null, the
+5 cm position-jitter fragility remains unrepaired, and none of these results establishes
+production readiness. The only current successor program is a freshly pre-registered iteration
+135 dose-response causal control; iteration 38 is historical and does not govern current work.
 The
 **released union (iteration 15) is the best configuration** of the campaign: at the 20-run
 power scale it lifts the independently reproduced baseline **2.12 → 2.91 (CI [+0.605, +0.928])**,
@@ -811,7 +794,16 @@ the remedy. Iteration 29 is therefore the first research gate on the newly stage
 root, and iteration 30 is the first diagnostic localization gate on that root's committed research
 evidence.
 
-**What's next.** The benchmark campaign is complete and consolidated. Iterations 22, 23, 24, 25,
+**Current next program.** Iteration 135 must close the semantic-attribution debt with a frozen
+semantics-free dose-response control. It must preserve the pair-clustered primary, treat realized
+dose as post-treatment mechanism evidence rather than a covariate that repairs the comparison,
+and authorize no GPU launch until its hypothesis, analyzer, manifest, provenance, storage, and
+smoke gates are committed. In parallel, the next external benchmark lane is a pinned
+Bench2Drive-Robust feasibility gate for deployment faults; it does not change the Iter135 causal
+question.
+
+**Historical mechanism record.** The benchmark campaign through iteration 134 is consolidated.
+Iterations 22, 23, 24, 25,
 and 26 are closed as Stage 1 data/availability/infrastructure/capacity nulls; iterations 27 and 28
 closed the storage and official trainval staging blockers; iteration 29 passed the first
 full-trainval support atlas while failing the optional strict-collapse note; iteration 30 passed
@@ -1021,9 +1013,10 @@ fresh pre-registrations. The
 published RealADSim closed-loop anchor range remains loose context only —
 it supports no performance statement:
 
-- **The manuscript — full draft and compiled PDF committed**
-  ([`docs/paper/`](docs/paper/MANUSCRIPT.md)); the arXiv submission package is built and the
-  arXiv submission is in moderation/announcement watch.
+- **The paper artifact is archived, not submission-ready.** The 2026-07-12 source/PDF/tarball is
+  retained for reproduction, while [`docs/paper/STATUS.md`](docs/paper/STATUS.md) blocks reuse
+  until the HUGSIM transfer null, iteration 134, and claim-language corrections are integrated for
+  a peer-reviewed venue.
 - **Iteration 22 is completed as an S0 data-null.**
   [`experiments/iter22_causal_planner_interpretability/RESULT.md`](experiments/iter22_causal_planner_interpretability/RESULT.md)
   reports that baseline extraction completed, but the committed timestamp join failed on all
@@ -1141,13 +1134,14 @@ it supports no performance statement:
   builder, UniAD patch, feeder, run scripts, analyzer, and tests are now added, and the direction
   artifact is committed with an exact negative-of-iter37 sign-equivalence receipt. S0 canary
   passed: alpha-zero parity restored, alpha `0.50` changed `track_query` on `24/24` target rows,
-  and `sdc_traj_query_last` stayed unchanged on `24/24`. Calibration is authorized but not
-  launched. It is deprioritized: the 2026-07-11 intervention-mechanism verdict
+  and `sdc_traj_query_last` stayed unchanged on `24/24`. This pending hypothesis is now explicitly
+  deprecated by `MISSION_STATE.json`; calibration is not a current authorized action. The
+  2026-07-11 intervention-mechanism verdict
   ([docs/research/INTERVENTION_MECHANISM_VERDICT_2026-07-11.md](docs/research/INTERVENTION_MECHANISM_VERDICT_2026-07-11.md))
   closes the linear-centroid family after five consecutive pre-registered nulls.
-  It may test only whether the iter37 causal handle was real with the opposite sign; it
-  does not rescue iter37 and authorizes no heldout, iteration-12, selector, closed-loop,
-  deployment, or safety claim unless calibration and heldout pass.
+  recorded what it could have tested, but the current mission state closes that lane. It does not
+  rescue iter37 and authorizes no calibration, heldout, iteration-12, selector, closed-loop,
+  deployment, or safety work.
 - **Iteration 39 is completed as an external-validity claim audit and doc-narrowing result.**
   [`experiments/iter39_external_validity_claim_audit/RESULT.md`](experiments/iter39_external_validity_claim_audit/RESULT.md)
   reports S0/S1/S2 PASS, then S3 found three active-doc wording problems. The report and
@@ -1335,8 +1329,8 @@ Completed lines, kept for the record:
 Scope throughout, stated plainly: the method was developed on 2 public-mini scenes at
 single-digit-to-20 runs and then measured on the complete official 14-scene set — first at 6
 seed-paired runs per pair, then at 20 (the published protocol uses 100; the first-6 indices of
-the 20-run measurement reproduce the 6-run measurement exactly); one simulator, one L4, public
-data only.
+the 20-run measurement reproduce the 6-run measurement exactly); two closed-loop simulators,
+one L4 at a time, public data only.
 
 ## Reproduce & repository map
 
@@ -1368,7 +1362,8 @@ ablations) is one switch. Each experiment directory is self-describing:
 | path | what it holds |
 |---|---|
 | [`PREREGISTRATION.md`](PREREGISTRATION.md) · [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | frozen win bar; research-loop design |
-| [`docs/REPORT.md`](docs/REPORT.md) | **the technical report** — the whole campaign in one document, every number wired to committed evidence |
+| [`MISSION_STATE.json`](MISSION_STATE.json) | canonical live state: completed result, active/deprecated hypotheses, next program, paper status, and storage launch gates |
+| [`docs/REPORT.md`](docs/REPORT.md) | **the technical report** — evidence synthesis refreshed through iteration 134, with every reported number wired to committed evidence |
 | [`docs/RELATED_WORK.md`](docs/RELATED_WORK.md) | verified field positioning (2023–2026): what is published, what is not, where each claim here stands |
 | [`experiments/iter1_reproduce/`](experiments/iter1_reproduce) · [`iter1b_partial_baseline/`](experiments/iter1b_partial_baseline) | stack stood up; baseline reproduced + collision corpus |
 | [`experiments/iter2_monitor/`](experiments/iter2_monitor) | the signal (G1, AUROC 0.83), the first A/B, the ablation, and the corrected over-claim |
@@ -1502,6 +1497,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/iter131_post_iter130_mission_alignment_audit/`](experiments/iter131_post_iter130_mission_alignment_audit) | Post-Iter130 mission alignment audit — POST_ITER130_MISSION_ALIGNMENT_AUDIT_COMPLETE: 14/14 checks passed; claim hierarchy and frontier alignment are current through the schema preflight |
 | [`experiments/iter132_support_core_schema_instance_creation_preflight/`](experiments/iter132_support_core_schema_instance_creation_preflight) | HUGSIM support-core schema-instance creation preflight — SUPPORT_CORE_SCHEMA_INSTANCE_CREATION_PREFLIGHT_COMPLETE: 3 inert templates, 1 validator contract, and 30 instance bindings cover every reserved future artifact path without authorizing creation |
 | [`experiments/iter133_neuroncap_placebo_semantics_control_design/`](experiments/iter133_neuroncap_placebo_semantics_control_design) | NeuroNCAP placebo semantics control design — NEURONCAP_PLACEBO_SEMANTICS_CONTROL_DESIGN_COMPLETE: one semantics-scrambled budget-matched placebo arm and four future verdict classes freeze the next adversarial empirical fork |
+| [`experiments/iter134_neuroncap_placebo_semantics_execution/`](experiments/iter134_neuroncap_placebo_semantics_execution) | NeuroNCAP placebo semantics execution — PLACEBO_HARM_OR_NULL: 1,200/1,200 episodes; union gain reproduced, but union-vs-placebo semantic attribution remains unresolved because the placebo realized only 859/1,205 scheduled brake frames |
 | [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
 | [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
 | [`docs/research/FRONTIER_POSITIONING_2026-07-11.md`](docs/research/FRONTIER_POSITIONING_2026-07-11.md) | source-verified mid-2026 benchmark/monitor/industry positioning; the binding 2.91-is-not-benchmark-SOTA framing rule |
@@ -1522,7 +1518,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`docs/research/INTERVENTION_MECHANISM_VERDICT_2026-07-11.md`](docs/research/INTERVENTION_MECHANISM_VERDICT_2026-07-11.md) | survey verdict closing the linear-steering line; conditions for any future intervention iteration |
 | [`docs/research/BOX_CLEANUP_2026-07-12.md`](docs/research/BOX_CLEANUP_2026-07-12.md) | verified-deletion disk-cleanup record for `sentinel-gpu` before the HUGSIM lane; every deleted item SHA-verified against committed artifacts |
 | [`docs/research/ITER22_HYPOTHESIS_DRAFT.md`](docs/research/ITER22_HYPOTHESIS_DRAFT.md) · [`docs/research/ITER22_ADVERSARIAL_REVIEW.md`](docs/research/ITER22_ADVERSARIAL_REVIEW.md) | planning-only iter22 draft and adversarial review; not pre-registrations |
-| [`docs/paper/MANUSCRIPT.md`](docs/paper/MANUSCRIPT.md) · [`docs/paper/paper.pdf`](docs/paper/paper.pdf) | the manuscript (full draft; compiled PDF; arXiv package committed) |
+| [`docs/paper/STATUS.md`](docs/paper/STATUS.md) · [`docs/paper/MANUSCRIPT.md`](docs/paper/MANUSCRIPT.md) · [`docs/paper/paper.pdf`](docs/paper/paper.pdf) | archived 2026-07-12 submission artifact and rewrite source; not submission-ready until the HUGSIM and iteration-134 evidence boundaries are integrated |
 | [`scripts/validate_docs.py`](scripts/validate_docs.py) | CI docs guard: diagram budgets, link health, story completeness — enforced on every push |
 
 Every result folder carries a `RESULT.md` with the real per-run numbers, the exact server patch, and the

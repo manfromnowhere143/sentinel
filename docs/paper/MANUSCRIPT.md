@@ -284,6 +284,9 @@ NeuroNCAP (arXiv 2404.07762) · UniAD (CVPR 2023) · VAD (ICCV 2023) · CATPlan/
 
 ### Draft status
 
+**Current route: peer-reviewed evidence rewrite. The 2026-07-12 LaTeX/PDF/tarball is archived and
+not submission-ready; see [`STATUS.md`](STATUS.md).**
+
 - [x] Abstract — final numbers incl. iteration 17 and the convergence finding
 - [x] §1 Introduction · §2 Related work (verified-sweep positioning)
 - [x] §3 Apparatus · §4 Monitor · §5 Benchmark result — full prose
@@ -293,7 +296,8 @@ NeuroNCAP (arXiv 2404.07762) · UniAD (CVPR 2023) · VAD (ICCV 2023) · CATPlan/
 - [x] Figures 1–3 rendered from committed evidence (figures/make_figures.py — validated
       palette, grayscale-safe): per-class benchmark bars; lead-time events; routing audit
 - [ ] Figure 0: campaign two-act arc (vector redraw of the README diagrams)
-- [ ] LaTeX conversion for arXiv (venue decision: arXiv first, per 2026-07-05)
+- [ ] Rewrite the shipped LaTeX for a peer-reviewed venue with HUGSIM and iteration 134 included;
+      arXiv appeal is optional only after a resolving publication/DOI
 - [x] Accessibility revision of `paper.tex` applied per external expert feedback (2026-07-12):
       plain-language rewrite, every term of art defined at first use, no change to any number,
       claim, citation, or section structure
