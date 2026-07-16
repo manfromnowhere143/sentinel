@@ -975,13 +975,13 @@ def test_controller_rejects_nonexact_tooling_receipt_root_before_preflight_repla
 @pytest.mark.parametrize(
     ("field", "value"),
     (
-        ("generation", 3),
+        ("generation", 4),
         ("supersedes_receipt_commit", "0" * 40),
         ("recovery_parent", "1" * 40),
-        ("reason_code", "UNREGISTERED_GENERATION_FOUR_REASON"),
+        ("reason_code", "UNREGISTERED_GENERATION_FIVE_REASON"),
     ),
 )
-def test_controller_requires_exact_generation_four_tooling_publication(
+def test_controller_requires_exact_generation_five_tooling_publication(
     tmp_path: Path,
     field: str,
     value: object,
@@ -993,7 +993,7 @@ def test_controller_requires_exact_generation_four_tooling_publication(
 
     with pytest.raises(
         auth.AuthorizationError,
-        match="exact green generation-four source",
+        match="exact green generation-five source",
     ):
         auth._tooling_source_commit(repo, commits["tooling_receipt"])
 

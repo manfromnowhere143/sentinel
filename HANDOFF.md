@@ -1,54 +1,46 @@
 # HANDOFF — dynamic state snapshot
 
-Generation-four accepted tooling freeze, 2026-07-17. Read CONTINUITY.md first.
+Generation-five host-contract recovery snapshot, 2026-07-17. Read CONTINUITY.md first.
 
 ## Repository state
 ```
-B4      handoff: accept iter135 generation-four tooling freeze
-T4      mission: accept iter135 generation-four tooling freeze
+F5      iter135: refreeze generation-five tooling recovery
+27c7f02 handoff: accept iter135 generation-four tooling freeze
+0137eeb mission: accept iter135 generation-four tooling freeze
 c3e891b iter135: publish generation-four tooling receipt
 052404f iter135: refreeze generation-four tooling recovery
 30b6390 handoff: accept iter135 generation-three tooling freeze [REMOTE CI RED]
-d9e2610 mission: accept iter135 generation-three tooling freeze
-755489f iter135: publish generation-three tooling receipt
-1820fcf iter135: refreeze generation-three control authority
-ee0c0c9 handoff: accept iter135 generation-two tooling freeze
 ```
-Generation-four source `052404fb13aee8395f538a92cc3c898c13f06adc` and receipt
-`c3e891b9e41f2291` supersede the generation-three receipt
-`755489f36ae2b8cefad183341edefd7c30c047e7`. B3 baton
-`30b6390b3e165fc517ec6a7d1d7a26502ea45e2a` remains disclosed red history and was never accepted
-authority. GitHub Actions run `29525917761` failed both Python lanes because the frozen structural
-receipt validator resolved the entire current executable set before Git-only reads and rejected
-setup-python's hosted `pytest` path. No host or evidence action followed. Generation four gives
-structural Git reads a dedicated resolver that binds only the physical Git executable, while full
-receipt generation and independent replay retain the complete six-tool contract. A pre-publication
-cross-layer replay expanded the original seven-path draft first to include the launch controller
-and then the downstream analytic launcher, with both test surfaces, so every consumer binds the
-same generation-four receipt instead of bridging R4 mission state to stale R3 authority or failing
-at later activation.
+The generation-four chain is accepted and green on every commit: source
+`052404fb13aee8395f538a92cc3c898c13f06adc`, receipt `c3e891b9e41f2291b47edc9cec7abffd5259f674`,
+state `0137eeb97442f7af92eaefeb57befcd53c8c2319`, baton
+`27c7f02b5474dd156c4a7686de774a6f408df42e`. Each was validated on a disposable branch and
+fast-forwarded onto `master` only after that exact head SHA reported success on both Python lanes,
+per the disclosed procedural amendment in CONTINUITY.md.
 
-Each generation-four publication was validated on a disposable branch and fast-forwarded onto
-`master` only after that exact head SHA reported success on both Python lanes, per the disclosed
-procedural amendment in CONTINUITY.md. No generation-four commit reached `master` unproven.
+Generation five is an exact thirteen-path host-contract recovery on top of that baton. A full
+pre-flight countdown against the live host proved the frozen `prepare_host135.py` contract
+unsatisfiable: it required UniAD's untracked set to be exactly empty, but
+`/opt/sentinel-stack/UniAD/checkpoints` is a load-bearing symlink to the gitignored `ckpts` payload
+that the tracked `base_e2e.py` reads its motion anchors through. The contract now names that
+exception explicitly. Mission state is rolled back locally to `PREREGISTERED_TOOLING_REQUIRED`
+while the generation-five chain is published. No host, Docker, GPU, smoke, or analytic action was
+taken; the packet was never installed and the one-shot controller was never fired.
 
 ## Canonical mission state (`MISSION_STATE.json`)
 
 - Current: iteration 134 / PLACEBO_HARM_OR_NULL / run IDLE / next
-  iteration 135 / TOOLING_FROZEN_PREFLIGHT_REQUIRED
+  iteration 135 / PREREGISTERED_TOOLING_REQUIRED
 - Current result: experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md
 - Next program: semantics-free placebo dose-response causal closure
 - Authorized now:
-  - prepare the exact hash-bound sentinel-gpu host contract and atomically commit host_packet_manifest.json and host_preparation_receipt.json
-  - capture and commit the read-only iteration-135 environment receipt on sentinel-gpu
-  - generate and commit only the hash-addressed incomplete pre-smoke manifest; no analytic episodes
-  - run exactly the hash-bound four-run nonanalytic G5 smoke after the incomplete pre-smoke manifest is committed
-  - validate, collect, and commit the exact nonanalytic smoke raw evidence, recomputed receipt, and mechanically generated SMOKE.md
+  - build and validate only the tooling and tests frozen by the active iteration-135 hypothesis
+  - inventory storage and provenance before any safe cleanup or live smoke
+  - publish a read-only external-benchmark commercial, license, compute, and integration preflight
 - Forbidden now:
-  - run any iteration-135 analytic episode before smoke evidence and the final launch manifest are committed green
-  - remove or bypass the permanent analytic launch lock
-  - rerun iteration 134 or adapt iteration-135 schedules, estimands, verdicts, or policies after evidence
-  - place any iteration-135 analytic output on the remote root filesystem
+  - GPU launch before the iteration-135 hypothesis, analyzer, manifest, provenance, storage, and smoke gates are frozen
+  - rerun iteration 134
+  - adopt run-index resampling as the iteration-135 primary after observing iteration-134 results
 
 Generation four changes no scientific or execution payload. It makes structural Git reads resolve
 and attest only Git instead of unnecessarily requiring the current `pytest`, Ruff, shell, and

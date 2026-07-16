@@ -100,6 +100,17 @@ EXPECTED_PACKET_MODES = {
 }
 
 UNIAD_HEAD = "4827b8be0823e90862caa75d9d146b2ae800b72f"
+# UniAD's untracked set is required to be exactly this tuple, not empty.  `checkpoints` is a
+# load-bearing symlink to the gitignored `ckpts` payload: the tracked config
+# `projects/configs/stage2_e2e/base_e2e.py` reads `anchor_info_path=
+# "checkpoints/motion_anchor_infos_mode6.pkl"`, which only resolves through it.  Removing the link
+# to satisfy an empty-untracked contract would pass host preparation and then fail the later smoke
+# run.  The link cannot be tracked or gitignored either: UniAD is third-party and its `.gitignore`
+# is tracked, so editing it would violate the frozen dirty-path contract instead.  Excluding the
+# link via `.git/info/exclude` was rejected: it would empty the observation without changing the
+# host, making the receipt attest an untracked set that does not exist.  The receipt must state
+# what is true, so the contract names the exception explicitly.
+UNIAD_REQUIRED_UNTRACKED = ("checkpoints",)
 NEURONCAP_HEAD = "ecdcf284e2b7b83c537f3292a06c0adddff55811"
 NEURAD_HEAD = "b25f717b23d85c865d469bf52a0bd03b244014be"
 UNIAD_SERVER_SHA256 = "066a3fc31a2c78960255cedf659018bab4190ac5dee7e7c5ec14d1031043c424"
@@ -540,6 +551,7 @@ class HostConfig:
     uniad_server_rel: str = "inference/server.py"
     compose_rel: str = "scripts/_docker_compose_release.sh"
     expected_uniad_head: str = UNIAD_HEAD
+    expected_uniad_untracked: tuple[str, ...] = UNIAD_REQUIRED_UNTRACKED
     expected_neuroncap_head: str = NEURONCAP_HEAD
     expected_neurad_head: str = NEURAD_HEAD
     expected_server_sha256: str = UNIAD_SERVER_SHA256
@@ -1097,7 +1109,7 @@ def prepare_host(
             head=config.expected_uniad_head,
             staged=[],
             dirty=before_repositories["uniad"]["dirty_tracked_paths"],
-            untracked=[],
+            untracked=list(config.expected_uniad_untracked),
         )
         _validate_repository_snapshot(
             before_repositories["neuroncap"],
@@ -1222,7 +1234,7 @@ def prepare_host(
             head=config.expected_uniad_head,
             staged=[],
             dirty=["projects/mmdet3d_plugin/uniad/detectors/uniad_track.py"],
-            untracked=[],
+            untracked=list(config.expected_uniad_untracked),
         )
         _validate_repository_snapshot(
             after_repositories["neuroncap"],

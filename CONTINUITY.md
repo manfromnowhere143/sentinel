@@ -3101,3 +3101,46 @@ transfer boundary fold-in and the claim-(5) hedge are unchanged and still bindin
   validation; the residual pre-commit diagnostics were the expected `current repository is dirty` and
   `complete state-only and offline-baton transition is missing`, both of which clear once the state
   child and baton exist. No host, Docker, GPU, smoke, or analytic action was taken.
+
+  Generation five, 2026-07-17. Source parent is the generation-four baton
+  `27c7f02b5474dd156c4a7686de774a6f408df42e`, it supersedes receipt
+  `c3e891b9e41f2291b47edc9cec7abffd5259f674`, and its reason code is
+  `B4_H_CONTRACT_UNIAD_LOAD_BEARING_UNTRACKED_SYMLINK`. It exists because a full pre-flight
+  countdown against the live host proved the frozen host contract unsatisfiable. Generation four's
+  `prepare_host135.py` required UniAD's untracked set to be exactly empty, but
+  `/opt/sentinel-stack/UniAD/checkpoints` is a symlink to the gitignored `ckpts` payload and the
+  tracked config `projects/configs/stage2_e2e/base_e2e.py` reads
+  `anchor_info_path="checkpoints/motion_anchor_infos_mode6.pkl"` through it. Removing the link to
+  satisfy the empty contract would have passed host preparation and then failed the later smoke run,
+  and the one-shot controller does not retry. The link cannot be tracked or gitignored either:
+  UniAD is third-party and its `.gitignore` is tracked, so editing it violates the frozen dirty-path
+  contract instead. Generation five therefore names the exception explicitly, and the contract now
+  requires UniAD's untracked set to be exactly `("checkpoints",)` with hostile coverage proving it
+  rejects an empty set, an extra stray artifact, and a missing link.
+
+  Excluding the link through `.git/info/exclude` was considered and REJECTED. It would empty the
+  observation without changing the host, so the receipt would attest an untracked set that does not
+  exist. The receipt must state what is true. That rejection is recorded here so no later shift
+  rediscovers the shortcut and mistakes it for a fix.
+
+  A cross-layer replay before publication expanded the scope from a nine-path draft to the exact
+  thirteen paths below. As in generation four, both the frozen launch controller and the analytic
+  launcher bind the tooling generation exactly: `authorize_launch135.py` and the embedded contract
+  in `run_dose135.sh` each pinned generation four, so a scope changing only the host contract would
+  have left both consumers demanding a superseded receipt. Generation five changes no hypothesis,
+  schedule, estimand, threshold, retry policy, or analytic payload. No host, Docker, GPU, smoke, or
+  analytic action was taken.
+
+  1. `CONTINUITY.md`
+  2. `HANDOFF.md`
+  3. `MISSION_STATE.json`
+  4. `experiments/iter135_neuroncap_blind_braking_dose_response/authorize_launch135.py`
+  5. `experiments/iter135_neuroncap_blind_braking_dose_response/prepare_host135.py`
+  6. `experiments/iter135_neuroncap_blind_braking_dose_response/run_dose135.sh`
+  7. `experiments/iter135_neuroncap_blind_braking_dose_response/verify_tooling135.py`
+  8. `scripts/mission_state.py`
+  9. `tests/test_iter135_host_preparation.py`
+  10. `tests/test_iter135_launch_authorization.py`
+  11. `tests/test_iter135_launcher.py`
+  12. `tests/test_iter135_tooling_verifier.py`
+  13. `tests/test_mission_state.py`

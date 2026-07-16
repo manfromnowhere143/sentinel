@@ -644,12 +644,12 @@ def test_local_activation_then_github_projection_feeds_exact_lock_payload(
                 "schema": "iter135.tooling_verification.v2",
                 "verdict": "I135_TOOLING_VERIFICATION_OK",
                 "publication": {
-                    "generation": 4,
+                    "generation": 5,
                     "supersedes_receipt_commit": (
-                        "755489f36ae2b8cefad183341edefd7c30c047e7"
+                        "c3e891b9e41f2291b47edc9cec7abffd5259f674"
                     ),
-                    "recovery_parent": "30b6390b3e165fc517ec6a7d1d7a26502ea45e2a",
-                    "reason_code": "B3_CI_STRUCTURAL_GIT_READER_TOOLCHAIN_ROOT_FAILURE",
+                    "recovery_parent": "27c7f02b5474dd156c4a7686de774a6f408df42e",
+                    "reason_code": "B4_H_CONTRACT_UNIAD_LOAD_BEARING_UNTRACKED_SYMLINK",
                 },
                 "repository": {"git_start": {"head": "9" * 40}},
             },
@@ -876,7 +876,7 @@ def test_local_activation_then_github_projection_feeds_exact_lock_payload(
         ("generation", 3),
         ("supersedes_receipt_commit", "0" * 40),
         ("recovery_parent", "1" * 40),
-        ("reason_code", "UNREGISTERED_GENERATION_FOUR_REASON"),
+        ("reason_code", "UNREGISTERED_GENERATION_FIVE_REASON"),
     ],
 )
 def test_analytic_tooling_publication_contract_rejects_each_hostile_field(

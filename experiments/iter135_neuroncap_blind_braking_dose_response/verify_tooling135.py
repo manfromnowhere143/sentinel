@@ -83,10 +83,16 @@ GENERATION_THREE_REASON = (
 )
 GENERATION_FOUR_SOURCE_PARENT = GENERATION_THREE_BATON_COMMIT
 GENERATION_FOUR_REASON = "B3_CI_STRUCTURAL_GIT_READER_TOOLCHAIN_ROOT_FAILURE"
+GENERATION_FOUR_SOURCE_COMMIT = "052404fb13aee8395f538a92cc3c898c13f06adc"
+GENERATION_FOUR_RECEIPT_COMMIT = "c3e891b9e41f2291b47edc9cec7abffd5259f674"
+GENERATION_FOUR_STATE_COMMIT = "0137eeb97442f7af92eaefeb57befcd53c8c2319"
+GENERATION_FOUR_BATON_COMMIT = "27c7f02b5474dd156c4a7686de774a6f408df42e"
+GENERATION_FIVE_SOURCE_PARENT = GENERATION_FOUR_BATON_COMMIT
+GENERATION_FIVE_REASON = "B4_H_CONTRACT_UNIAD_LOAD_BEARING_UNTRACKED_SYMLINK"
 # Compatibility aliases used by the receipt generator and focused hostile tests. They always name
-# the active generation-four source publication, never a historical recovery.
-RECOVERY_SOURCE_PARENT = GENERATION_FOUR_SOURCE_PARENT
-RECOVERY_REASON = GENERATION_FOUR_REASON
+# the active generation-five source publication, never a historical recovery.
+RECOVERY_SOURCE_PARENT = GENERATION_FIVE_SOURCE_PARENT
+RECOVERY_REASON = GENERATION_FIVE_REASON
 POST_FREEZE_EXACT_PATHS = {
     "CONTINUITY.md",
     "HANDOFF.md",
@@ -258,12 +264,27 @@ GENERATION_FOUR_SOURCE_COMMIT_PATHS = (
     "tests/test_iter135_tooling_verifier.py",
     "tests/test_mission_state.py",
 )
-RECOVERY_SOURCE_COMMIT_PATHS = GENERATION_FOUR_SOURCE_COMMIT_PATHS
+GENERATION_FIVE_SOURCE_COMMIT_PATHS = (
+    "CONTINUITY.md",
+    "HANDOFF.md",
+    "MISSION_STATE.json",
+    f"{EXPERIMENT_REL}/authorize_launch135.py",
+    f"{EXPERIMENT_REL}/prepare_host135.py",
+    f"{EXPERIMENT_REL}/run_dose135.sh",
+    f"{EXPERIMENT_REL}/verify_tooling135.py",
+    "scripts/mission_state.py",
+    "tests/test_iter135_host_preparation.py",
+    "tests/test_iter135_launch_authorization.py",
+    "tests/test_iter135_launcher.py",
+    "tests/test_iter135_tooling_verifier.py",
+    "tests/test_mission_state.py",
+)
+RECOVERY_SOURCE_COMMIT_PATHS = GENERATION_FIVE_SOURCE_COMMIT_PATHS
 EXPECTED_RECOVERY_PUBLICATION = {
-    "generation": 4,
-    "supersedes_receipt_commit": GENERATION_THREE_RECEIPT_COMMIT,
-    "recovery_parent": GENERATION_FOUR_SOURCE_PARENT,
-    "reason_code": GENERATION_FOUR_REASON,
+    "generation": 5,
+    "supersedes_receipt_commit": GENERATION_FOUR_RECEIPT_COMMIT,
+    "recovery_parent": GENERATION_FIVE_SOURCE_PARENT,
+    "reason_code": GENERATION_FIVE_REASON,
 }
 
 # Compatibility names describe only the immutable first freeze.  Recovery publication checks use

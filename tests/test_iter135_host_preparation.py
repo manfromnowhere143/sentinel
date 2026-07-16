@@ -76,7 +76,18 @@ class FakeRunner:
                 return nul(["docker/Dockerfile", "scripts/_docker_compose_release.sh"])
             return nul(["Dockerfile"])
         if args == ("ls-files", "--others", "--exclude-standard", "-z"):
-            return nul(["Dockerfile.bak"] if repo_id == "neurad" else [])
+            if repo_id == "neurad":
+                return nul(["Dockerfile.bak"])
+            if repo_id == "uniad":
+                # The real host keeps the load-bearing `checkpoints` -> `ckpts` symlink untracked.
+                return nul(
+                    list(
+                        self.fixture.get(
+                            "uniad_untracked", prepare.UNIAD_REQUIRED_UNTRACKED
+                        )
+                    )
+                )
+            return nul([])
         if args == ("show", "HEAD:inference/server.py") and repo_id == "uniad":
             return self.fixture["baseline"]
         raise AssertionError(f"unexpected command: {command}")
@@ -527,6 +538,43 @@ def test_independent_packet_manifest_mismatch_preserves_red_attempt_without_muta
     assert fixture["compose"].read_bytes() == fixture["compose_before"]
     assert not fixture["analytic"].exists()
     assert not fixture["install"].exists()
+
+
+@pytest.mark.parametrize(
+    "untracked",
+    [
+        (),
+        ("checkpoints", "stray_artifact.json"),
+        ("stray_artifact.json",),
+        ("bev_diversity_head.pt", "checkpoints"),
+    ],
+)
+def test_uniad_untracked_drift_blocks_before_host_mutation(
+    tmp_path: Path, untracked: tuple[str, ...]
+) -> None:
+    """The untracked contract must name the load-bearing symlink and reject anything else.
+
+    An empty set is rejected too: `checkpoints` -> `ckpts` is required by the tracked config
+    `base_e2e.py`, so a host missing it would pass preparation and fail the later smoke run.
+    """
+
+    config, hooks, _runner, manifest_sha, fixture = build_fixture(tmp_path)
+    fixture["uniad_untracked"] = untracked
+
+    receipt, output = prepare.prepare_host(manifest_sha, config=config, hooks=hooks)
+
+    assert receipt["verdict"] == prepare.INCOMPLETE_VERDICT
+    assert receipt["problems"] == [f"repository:untracked:{config.uniad_repo}"]
+    assert output.is_file()
+    # Nothing on the host may be touched when the contract is not satisfied.
+    assert fixture["server"].read_bytes() == b"residual server\n"
+    assert fixture["compose"].read_bytes() == fixture["compose_before"]
+    assert not fixture["install"].exists()
+
+
+def test_uniad_required_untracked_is_exactly_the_load_bearing_symlink() -> None:
+    assert prepare.UNIAD_REQUIRED_UNTRACKED == ("checkpoints",)
+    assert prepare.HostConfig().expected_uniad_untracked == ("checkpoints",)
 
 
 def test_publication_authority_blocks_before_host_mutation(tmp_path: Path) -> None:

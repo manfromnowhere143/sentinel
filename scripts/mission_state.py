@@ -251,6 +251,27 @@ GENERATION_THREE_STATE_COMMIT = "d9e261075d27d5d717debebe5c881fa4d6e882c5"
 GENERATION_THREE_BATON_COMMIT = "30b6390b3e165fc517ec6a7d1d7a26502ea45e2a"
 GENERATION_FOUR_SOURCE_PARENT = GENERATION_THREE_BATON_COMMIT
 GENERATION_FOUR_REASON_CODE = "B3_CI_STRUCTURAL_GIT_READER_TOOLCHAIN_ROOT_FAILURE"
+GENERATION_FOUR_SOURCE_COMMIT = "052404fb13aee8395f538a92cc3c898c13f06adc"
+GENERATION_FOUR_RECEIPT_COMMIT = "c3e891b9e41f2291b47edc9cec7abffd5259f674"
+GENERATION_FOUR_STATE_COMMIT = "0137eeb97442f7af92eaefeb57befcd53c8c2319"
+GENERATION_FOUR_BATON_COMMIT = "27c7f02b5474dd156c4a7686de774a6f408df42e"
+GENERATION_FIVE_SOURCE_PARENT = GENERATION_FOUR_BATON_COMMIT
+GENERATION_FIVE_REASON_CODE = "B4_H_CONTRACT_UNIAD_LOAD_BEARING_UNTRACKED_SYMLINK"
+GENERATION_FIVE_SOURCE_COMMIT_PATHS = (
+    "CONTINUITY.md",
+    "HANDOFF.md",
+    "MISSION_STATE.json",
+    f"{ITER135_EXPERIMENT_REL}/authorize_launch135.py",
+    f"{ITER135_EXPERIMENT_REL}/prepare_host135.py",
+    f"{ITER135_EXPERIMENT_REL}/run_dose135.sh",
+    f"{ITER135_EXPERIMENT_REL}/verify_tooling135.py",
+    "scripts/mission_state.py",
+    "tests/test_iter135_host_preparation.py",
+    "tests/test_iter135_launch_authorization.py",
+    "tests/test_iter135_launcher.py",
+    "tests/test_iter135_tooling_verifier.py",
+    "tests/test_mission_state.py",
+)
 GENERATION_FOUR_SOURCE_COMMIT_PATHS = (
     "CONTINUITY.md",
     "HANDOFF.md",
@@ -265,10 +286,10 @@ GENERATION_FOUR_SOURCE_COMMIT_PATHS = (
     "tests/test_mission_state.py",
 )
 EXPECTED_RECOVERY_PUBLICATION = {
-    "generation": 4,
-    "supersedes_receipt_commit": GENERATION_THREE_RECEIPT_COMMIT,
-    "recovery_parent": GENERATION_FOUR_SOURCE_PARENT,
-    "reason_code": GENERATION_FOUR_REASON_CODE,
+    "generation": 5,
+    "supersedes_receipt_commit": GENERATION_FOUR_RECEIPT_COMMIT,
+    "recovery_parent": GENERATION_FIVE_SOURCE_PARENT,
+    "reason_code": GENERATION_FIVE_REASON_CODE,
 }
 
 # Compatibility name: this is always the immutable generation-one 31-path baseline. Recovery
@@ -662,7 +683,10 @@ def _validate_tooling_publication(
                 problems.append(f"tooling_publication:{label}_source_not_pushed")
 
         publication_generation = publication.get("generation")
-        if publication_generation == 4:
+        if publication_generation == 5:
+            expected_source_parent = GENERATION_FIVE_SOURCE_PARENT
+            expected_source_paths = tuple(sorted(GENERATION_FIVE_SOURCE_COMMIT_PATHS))
+        elif publication_generation == 4:
             expected_source_parent = GENERATION_FOUR_SOURCE_PARENT
             expected_source_paths = tuple(sorted(GENERATION_FOUR_SOURCE_COMMIT_PATHS))
         elif publication_generation == 3:
@@ -689,7 +713,7 @@ def _validate_tooling_publication(
         if actual_source_paths != expected_source_paths:
             problems.append("tooling_publication:recovery_source_commit_scope")
 
-        if publication_generation in {3, 4}:
+        if publication_generation in {3, 4, 5}:
             try:
                 frozen_errors = _load_tooling_receipt_validator(root, source_commit)(
                     receipt,
@@ -739,7 +763,7 @@ def _validate_tooling_publication(
         if recovery_parent_paths != ("CONTINUITY.md", "HANDOFF.md"):
             problems.append("tooling_publication:generation_one_baton_scope")
 
-        if publication_generation in {3, 4}:
+        if publication_generation in {3, 4, 5}:
             generation_two_parents, generation_two_paths = _commit_row(
                 root, GENERATION_TWO_SOURCE_COMMIT
             )
@@ -769,7 +793,37 @@ def _validate_tooling_publication(
             if generation_two_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_two_baton_scope")
 
-        if publication_generation == 4:
+        if publication_generation == 5:
+            generation_four_parents, generation_four_paths = _commit_row(
+                root, GENERATION_FOUR_SOURCE_COMMIT
+            )
+            if generation_four_parents != (GENERATION_FOUR_SOURCE_PARENT,):
+                problems.append("tooling_publication:generation_four_source_parent")
+            if generation_four_paths != tuple(sorted(GENERATION_FOUR_SOURCE_COMMIT_PATHS)):
+                problems.append("tooling_publication:generation_four_source_commit_scope")
+            generation_four_receipt_parents, generation_four_receipt_paths = _commit_row(
+                root, GENERATION_FOUR_RECEIPT_COMMIT
+            )
+            if generation_four_receipt_parents != (GENERATION_FOUR_SOURCE_COMMIT,):
+                problems.append("tooling_publication:generation_four_receipt_parent")
+            if generation_four_receipt_paths != (TOOLING_RECEIPT_REL.as_posix(),):
+                problems.append("tooling_publication:generation_four_receipt_scope")
+            generation_four_state_parents, generation_four_state_paths = _commit_row(
+                root, GENERATION_FOUR_STATE_COMMIT
+            )
+            if generation_four_state_parents != (GENERATION_FOUR_RECEIPT_COMMIT,):
+                problems.append("tooling_publication:generation_four_state_parent")
+            if generation_four_state_paths != ("MISSION_STATE.json",):
+                problems.append("tooling_publication:generation_four_state_scope")
+            generation_four_baton_parents, generation_four_baton_paths = _commit_row(
+                root, GENERATION_FOUR_BATON_COMMIT
+            )
+            if generation_four_baton_parents != (GENERATION_FOUR_STATE_COMMIT,):
+                problems.append("tooling_publication:generation_four_baton_parent")
+            if generation_four_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
+                problems.append("tooling_publication:generation_four_baton_scope")
+
+        if publication_generation in {4, 5}:
             generation_three_parents, generation_three_paths = _commit_row(
                 root, GENERATION_THREE_SOURCE_COMMIT
             )
@@ -813,7 +867,14 @@ def _validate_tooling_publication(
             .splitlines()
             if line
         )
-        if publication_generation == 4:
+        if publication_generation == 5:
+            expected_receipt_history_tail = (
+                GENERATION_FOUR_RECEIPT_COMMIT,
+                GENERATION_THREE_RECEIPT_COMMIT,
+                GENERATION_TWO_RECEIPT_COMMIT,
+                GENERATION_ONE_RECEIPT_COMMIT,
+            )
+        elif publication_generation == 4:
             expected_receipt_history_tail = (
                 GENERATION_THREE_RECEIPT_COMMIT,
                 GENERATION_TWO_RECEIPT_COMMIT,
@@ -856,7 +917,9 @@ def _validate_tooling_publication(
             .splitlines()
         )
         if len(ancestry) < 2:
-            generation_label = {2: "two", 3: "three", 4: "four"}[publication_generation]
+            generation_label = {2: "two", 3: "three", 4: "four", 5: "five"}[
+                publication_generation
+            ]
             problems.append(
                 f"tooling_publication:generation_{generation_label}_commit_count:{len(ancestry)}"
             )
@@ -880,7 +943,7 @@ def _validate_tooling_publication(
             if baton_commit_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:baton_commit_scope")
             authorization_references: Mapping[str, str] = {}
-            if publication_generation in {3, 4}:
+            if publication_generation in {3, 4, 5}:
                 upstream_for_controller = (
                     _git(root, "rev-parse", "origin/master").decode("ascii").strip()
                 )
@@ -930,12 +993,12 @@ def _validate_tooling_publication(
                     | set(RECOVERY_SOURCE_COMMIT_PATHS)
                     | (
                         set(GENERATION_THREE_SOURCE_COMMIT_PATHS)
-                        if publication_generation in {3, 4}
+                        if publication_generation in {3, 4, 5}
                         else set()
                     )
                     | (
                         set(GENERATION_FOUR_SOURCE_COMMIT_PATHS)
-                        if publication_generation == 4
+                        if publication_generation in {4, 5}
                         else set()
                     )
                     | {ITER135_HYPOTHESIS_REL}
