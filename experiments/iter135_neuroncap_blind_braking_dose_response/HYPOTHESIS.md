@@ -20,6 +20,21 @@ scheduled doses, outcomes, margins, estimators, verdicts, resource gates, and ep
 change. The superseded per-cell rotation below is replaced in place so the executable contract is
 unambiguous; this amendment records why.
 
+## Pre-data amendment 2 - zero-retry block execution
+
+Frozen in a third hypothesis-only commit before any Iteration-135 tooling commit, live smoke, or
+analytic episode. Tooling construction exposed that the compose interface has no clean mechanism
+to resume only the unfinished run indices inside a 20-run block. Retrying a partially completed
+block would therefore duplicate completed cells and make the retained analytic attempt depend on
+post-treatment execution state.
+
+The execution policy is amended to **zero retries**. The first failed or timed-out analytic block
+aborts the launch, retains its evidence and permanent launch lock, and publishes
+`PLACEBO_DOSE_INFRA_NULL`; it is never automatically or manually relaunched as part of this
+preregistration. This amendment changes only the infrastructure-failure path. The design,
+schedule, estimands, verdicts, complete-run requirements, and total resource ceiling do not
+change.
+
 Iteration 135 is the terminal causal-diligence experiment on the current NeuroNCAP suite. It asks
 one confirmatory question at the originally frozen matched budget and uses three additional doses
 only to look for evidence that would weaken that interpretation. It is not a product-readiness or
@@ -419,9 +434,10 @@ Sentinel-owned fault harness under a fresh pre-registration.
 - **G6 drift:** all 400 fresh OFF and 400 fresh union episodes reproduce Iteration 134 per-episode
   NCAP and impact speed exactly. Canonical fixed-horizon path lengths must agree within `1e-6` m.
   Fresh union emits exactly `1,205` brake rows and `156` release rows. Any mismatch is infra-null.
-- **G7 completion:** every arm completes `400/400` analytic cells. One retry is allowed only after
-  an explicit infrastructure failure; both attempts and the reason are retained. A second failure,
-  a score-motivated retry, or any missing analytic cell is infra-null.
+- **G7 completion:** every arm completes `400/400` analytic cells with zero retries. The first
+  failed or timed-out block aborts the launch, retains its evidence and permanent launch lock, and
+  yields infra-null. Any automatic or manual analytic relaunch under this preregistration is a
+  protocol violation and also yields infra-null.
 - **G8 storage:** before launch, the remote execution/evidence filesystem has at least `100 GiB`
   free and projected output plus `25 GiB` reserve; before collection, local disk has at least
   `15 GiB` free. Cleanup may remove only hash-verified duplicates, reproducible renders, and caches.
@@ -449,12 +465,12 @@ Nulls and infra-nulls publish at full weight.
 ## Compute, storage, and retry budget
 
 Iteration 134 averaged approximately 115 seconds per episode. `2,400` episodes project to `76.7`
-single-L4 GPU-hours before smoke/retry overhead. Frozen budget:
+single-L4 GPU-hours before smoke and aborted-partial-work overhead. Frozen budget:
 
 - expected analytic window: `65-90` GPU-hours;
-- absolute total ceiling including smoke and retries: `110` GPU-hours;
+- absolute total ceiling including smoke and any aborted partial work: `110` GPU-hours;
 - one L4 only; no parallel-host mixture;
-- maximum one infrastructure retry per cell;
+- zero analytic retries; abort and retain evidence on the first failed or timed-out block;
 - remote free-space gate `100 GiB` plus projected-output reserve;
 - local collection gate `15 GiB`.
 
