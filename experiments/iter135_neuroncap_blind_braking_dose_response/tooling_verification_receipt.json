@@ -72,7 +72,7 @@
       "stderr_bytes": 0,
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "stdout_bytes": 341,
-      "stdout_sha256": "2aa25b546cd1a901f39853ee5c225da12852b1ce4e32158d0a3bda33b4fb5137"
+      "stdout_sha256": "89b1ced393b7070d4ac68ec1755c40ff583fe23392793f6cdbdf5ef2403e318f"
     },
     {
       "argv": [
@@ -135,8 +135,8 @@
       "return_code": 0,
       "stderr_bytes": 0,
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "stdout_bytes": 981,
-      "stdout_sha256": "37c18720721ee387e26fdc64db24f974f62b2bedc84eb4b4be19442533bd9651"
+      "stdout_bytes": 991,
+      "stdout_sha256": "69c9523a3a8c28dba68bed4c7c1f6910c51421aace6d83c9eab38b20f8a92617"
     },
     {
       "argv": [
@@ -171,49 +171,49 @@
     "PYTHONNOUSERSITE": "1",
     "TZ": "UTC"
   },
-  "file_content_set_sha256": "c26ac1ec60e806a5d3ee1fd00af2832709c3fffe7d78169a6afd65eaa6bdaa14",
+  "file_content_set_sha256": "63a8a2a0dace665215089092d52555051396329d8ca49beb295cbef448ccd10f",
   "files": {
     ".github/workflows/ci.yml": {
-      "bytes": 356,
+      "bytes": 395,
       "execution_identity": {
-        "ctime_ns": 1783538913527395208,
+        "ctime_ns": 1784206585417303041,
         "device": 16777234,
         "inode": 290502074,
         "mode": 33188,
-        "mtime_ns": 1783538913527395208
+        "mtime_ns": 1784205429327270833
       },
-      "sha256": "415f15f6643113464708e35969607a81aed5cdfee534a66490faee43bea182ec"
+      "sha256": "a09e4eeeac64faf22939421363acad66b9fcf6221c866865075d79b595c88cdc"
     },
     "CONTINUITY.md": {
-      "bytes": 232126,
+      "bytes": 236879,
       "execution_identity": {
-        "ctime_ns": 1784204117858860291,
+        "ctime_ns": 1784205760839123291,
         "device": 16777234,
         "inode": 306165084,
         "mode": 33188,
-        "mtime_ns": 1784201195436517249
+        "mtime_ns": 1784205748346653708
       },
-      "sha256": "7ebee5697429306287df576f4c38617abed156dc64a72b6cfac42b673313fb38"
+      "sha256": "f81e08a84f5d2b2233dc7e0aac4f67159e5435cfd493089687325afa2682a2ae"
     },
     "HANDOFF.md": {
-      "bytes": 12741,
+      "bytes": 12474,
       "execution_identity": {
-        "ctime_ns": 1784184173615899166,
+        "ctime_ns": 1784206577102899374,
         "device": 16777234,
         "inode": 303078777,
         "mode": 33188,
-        "mtime_ns": 1784184173615899166
+        "mtime_ns": 1784206577099146249
       },
-      "sha256": "a9687a22300f3ec3f78e17e53fc8ce242eeed59c736fad511814a4e45888a39d"
+      "sha256": "b1da94d0cb490f79ad8f2aae98840ca2660e12f75ca85134438f0838b3c86313"
     },
     "MISSION_STATE.json": {
       "bytes": 2610,
       "execution_identity": {
-        "ctime_ns": 1784204117866428791,
+        "ctime_ns": 1784205673867452124,
         "device": 16777234,
         "inode": 332998308,
         "mode": 33188,
-        "mtime_ns": 1784201195437671458
+        "mtime_ns": 1784205649818060124
       },
       "sha256": "42726775f1291ec03067961443f73b51f426047b5c282412bcd45232181c8145"
     },
@@ -438,15 +438,15 @@
       "sha256": "c2493454bab45a4a0e8ef0c93e6be79caf25a44cb7360e06386732e305836cc8"
     },
     "experiments/iter135_neuroncap_blind_braking_dose_response/verify_tooling135.py": {
-      "bytes": 66472,
+      "bytes": 70669,
       "execution_identity": {
-        "ctime_ns": 1784204117982814541,
+        "ctime_ns": 1784206472079440749,
         "device": 16777234,
         "inode": 336549443,
         "mode": 33188,
-        "mtime_ns": 1784203723103958208
+        "mtime_ns": 1784206419665657208
       },
-      "sha256": "524eec56e884e4fc12d5b8cc967ff99bda96599045dff8a483a3f6cf20ac44d5"
+      "sha256": "230ec0c3962e71a295d6b91a5c638164c472b18ead0e2fbeaa55f4803f7d76c6"
     },
     "pyproject.toml": {
       "bytes": 456,
@@ -460,15 +460,15 @@
       "sha256": "8fb39d624018233bc609360769c774d51b9e2c868e4257f488cd8b1f859f710c"
     },
     "scripts/mission_state.py": {
-      "bytes": 29445,
+      "bytes": 32869,
       "execution_identity": {
-        "ctime_ns": 1784204117990191708,
+        "ctime_ns": 1784206397735422833,
         "device": 16777234,
         "inode": 332998309,
         "mode": 33188,
-        "mtime_ns": 1784203683366873083
+        "mtime_ns": 1784206341688501666
       },
-      "sha256": "ea9215976f1298ed2805f2fc4f5691af76d932faba2bcdeb364936c75750dcdb"
+      "sha256": "c4803f65ca89f82d204356973fcef1676a3722a984b1b550f4f6ca30bc46a32d"
     },
     "scripts/validate_docs.py": {
       "bytes": 4324,
@@ -570,37 +570,37 @@
       "sha256": "2e4d6c9ddb5e893fcd4b8bf1cd9fe12e8a8520b83c93cd1aa804cd8a757a5567"
     },
     "tests/test_iter135_smoke_pipeline.py": {
-      "bytes": 50140,
+      "bytes": 50229,
       "execution_identity": {
-        "ctime_ns": 1784203294741426249,
+        "ctime_ns": 1784205352898706666,
         "device": 16777234,
         "inode": 336214158,
         "mode": 33188,
-        "mtime_ns": 1784203196965620708
+        "mtime_ns": 1784205325345783833
       },
-      "sha256": "949b2d723ea2925a8b95e1263d2509e55ca2a1559f545ceef8b495ddc7178f3a"
+      "sha256": "b006130d90536d48873e2db09c6226c6885cf8e268e576bc86c50f6f17e08741"
     },
     "tests/test_iter135_tooling_verifier.py": {
-      "bytes": 27760,
+      "bytes": 37734,
       "execution_identity": {
-        "ctime_ns": 1784204118055866749,
+        "ctime_ns": 1784206472079457749,
         "device": 16777234,
         "inode": 336594153,
         "mode": 33188,
-        "mtime_ns": 1784203765270224124
+        "mtime_ns": 1784206453575622124
       },
-      "sha256": "9901e7a7775334b5d4d4898697e95c95d0b8ecc9f0a4638e3e3dc83de826a795"
+      "sha256": "97abc6f43eaa9b815d3e87c032b924d50ac08be6985e305ac091d49506e83a7c"
     },
     "tests/test_mission_state.py": {
-      "bytes": 13418,
+      "bytes": 21975,
       "execution_identity": {
-        "ctime_ns": 1784204118064941208,
+        "ctime_ns": 1784206397735438833,
         "device": 16777234,
         "inode": 332998310,
         "mode": 33188,
-        "mtime_ns": 1784203621874096999
+        "mtime_ns": 1784206350042710999
       },
-      "sha256": "18057ae20078202c35bafe2ab58aa912f6ce47280d8ea5a206ff3b5ed4542436"
+      "sha256": "9736d3e3f090bc88835035f91279028be5dfc7373564098a8bd1cc21bd31e75f"
     }
   },
   "inventory": {
@@ -722,96 +722,58 @@
   "inventory_sha256": "259e6c38d237fe7fdccd21982f3d1125d405aaaf4c5f35757991a2de4549105e",
   "problem_count": 0,
   "problems": [],
-  "receipt_payload_sha256": "365ea9d2169f4dca5584fafe335c46f22b5f0d40c8a30be805e3ed2a6883b445",
+  "publication": {
+    "generation": 2,
+    "reason_code": "H3_PHASE_TRANSITION_SUITE_AND_CI_PORTABILITY_FAILURE",
+    "recovery_parent": "c868040f542f9277fc99a451a108138848e80b33",
+    "supersedes_receipt_commit": "0b5b2d9a4956606fe0619f53288a64d2da58284a"
+  },
+  "receipt_payload_sha256": "ac71bf02b8b3c1a2137a0107dc6202a27d2b4e6913c800847a88589e2cb3fe10",
   "repository": {
     "git_end": {
       "branch": "master",
       "commit_paths": [
+        ".github/workflows/ci.yml",
         "CONTINUITY.md",
+        "HANDOFF.md",
         "MISSION_STATE.json",
-        "README.md",
-        "docs/research/BENCH2DRIVE_ROBUST_PREFLIGHT_2026-07-16.md",
-        "docs/research/FRONTIER_ALIGNMENT_MEMORY_2026-07-13.md",
-        "experiments/iter135_neuroncap_blind_braking_dose_response/analyze_dose135.py",
-        "experiments/iter135_neuroncap_blind_braking_dose_response/capture_environment135.py",
-        "experiments/iter135_neuroncap_blind_braking_dose_response/collect_proof135.py",
-        "experiments/iter135_neuroncap_blind_braking_dose_response/dose_schedules.json",
-        "experiments/iter135_neuroncap_blind_braking_dose_response/extract_union_windows.py",
-        "experiments/iter135_neuroncap_blind_braking_dose_response/generate_nested_dose_schedules.py",
-        "experiments/iter135_neuroncap_blind_braking_dose_response/make_launch_manifest.py",
-        "experiments/iter135_neuroncap_blind_braking_dose_response/patch_compose_dose_env.py",
-        "experiments/iter135_neuroncap_blind_braking_dose_response/run_dose135.sh",
-        "experiments/iter135_neuroncap_blind_braking_dose_response/run_smoke135.sh",
-        "experiments/iter135_neuroncap_blind_braking_dose_response/server_patch_blind_dose.py",
-        "experiments/iter135_neuroncap_blind_braking_dose_response/server_patch_union_release.py",
-        "experiments/iter135_neuroncap_blind_braking_dose_response/validate_smoke135.py",
         "experiments/iter135_neuroncap_blind_braking_dose_response/verify_tooling135.py",
         "scripts/mission_state.py",
-        "tests/test_iter135_analyzer.py",
-        "tests/test_iter135_environment_capture.py",
-        "tests/test_iter135_harness_patches.py",
-        "tests/test_iter135_launch_manifest.py",
-        "tests/test_iter135_launcher.py",
-        "tests/test_iter135_proof_collector.py",
-        "tests/test_iter135_runtime_patches.py",
-        "tests/test_iter135_schedule_tools.py",
         "tests/test_iter135_smoke_pipeline.py",
         "tests/test_iter135_tooling_verifier.py",
         "tests/test_mission_state.py"
       ],
       "dirty_entries": [],
-      "head": "2d94cf45acb337ff3ba923da1d1de6e6dda6dab7",
+      "head": "90773c3686e0e01562a62f3d0f21ddaf594de7d4",
       "parents": [
-        "3fcb607fea8e1a251c2c82da385dd096dd650909"
+        "c868040f542f9277fc99a451a108138848e80b33"
       ],
       "porcelain_v1_z_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "upstream": "origin/master",
-      "upstream_head": "2d94cf45acb337ff3ba923da1d1de6e6dda6dab7"
+      "upstream_head": "90773c3686e0e01562a62f3d0f21ddaf594de7d4"
     },
     "git_head_stable": true,
     "git_start": {
       "branch": "master",
       "commit_paths": [
+        ".github/workflows/ci.yml",
         "CONTINUITY.md",
+        "HANDOFF.md",
         "MISSION_STATE.json",
-        "README.md",
-        "docs/research/BENCH2DRIVE_ROBUST_PREFLIGHT_2026-07-16.md",
-        "docs/research/FRONTIER_ALIGNMENT_MEMORY_2026-07-13.md",
-        "experiments/iter135_neuroncap_blind_braking_dose_response/analyze_dose135.py",
-        "experiments/iter135_neuroncap_blind_braking_dose_response/capture_environment135.py",
-        "experiments/iter135_neuroncap_blind_braking_dose_response/collect_proof135.py",
-        "experiments/iter135_neuroncap_blind_braking_dose_response/dose_schedules.json",
-        "experiments/iter135_neuroncap_blind_braking_dose_response/extract_union_windows.py",
-        "experiments/iter135_neuroncap_blind_braking_dose_response/generate_nested_dose_schedules.py",
-        "experiments/iter135_neuroncap_blind_braking_dose_response/make_launch_manifest.py",
-        "experiments/iter135_neuroncap_blind_braking_dose_response/patch_compose_dose_env.py",
-        "experiments/iter135_neuroncap_blind_braking_dose_response/run_dose135.sh",
-        "experiments/iter135_neuroncap_blind_braking_dose_response/run_smoke135.sh",
-        "experiments/iter135_neuroncap_blind_braking_dose_response/server_patch_blind_dose.py",
-        "experiments/iter135_neuroncap_blind_braking_dose_response/server_patch_union_release.py",
-        "experiments/iter135_neuroncap_blind_braking_dose_response/validate_smoke135.py",
         "experiments/iter135_neuroncap_blind_braking_dose_response/verify_tooling135.py",
         "scripts/mission_state.py",
-        "tests/test_iter135_analyzer.py",
-        "tests/test_iter135_environment_capture.py",
-        "tests/test_iter135_harness_patches.py",
-        "tests/test_iter135_launch_manifest.py",
-        "tests/test_iter135_launcher.py",
-        "tests/test_iter135_proof_collector.py",
-        "tests/test_iter135_runtime_patches.py",
-        "tests/test_iter135_schedule_tools.py",
         "tests/test_iter135_smoke_pipeline.py",
         "tests/test_iter135_tooling_verifier.py",
         "tests/test_mission_state.py"
       ],
       "dirty_entries": [],
-      "head": "2d94cf45acb337ff3ba923da1d1de6e6dda6dab7",
+      "head": "90773c3686e0e01562a62f3d0f21ddaf594de7d4",
       "parents": [
-        "3fcb607fea8e1a251c2c82da385dd096dd650909"
+        "c868040f542f9277fc99a451a108138848e80b33"
       ],
       "porcelain_v1_z_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "upstream": "origin/master",
-      "upstream_head": "2d94cf45acb337ff3ba923da1d1de6e6dda6dab7"
+      "upstream_head": "90773c3686e0e01562a62f3d0f21ddaf594de7d4"
     },
     "git_state_stable": true,
     "repository_clean_state_stable": true,
@@ -819,10 +781,10 @@
   },
   "schema": "iter135.tooling_verification.v2",
   "timing": {
-    "finished_at_utc": "2026-07-16T12:19:53.351427Z",
-    "monotonic_duration_ns": 90500749333,
-    "started_at_utc": "2026-07-16T12:18:22.850676Z",
-    "wall_duration_ns": 90500751000
+    "finished_at_utc": "2026-07-16T13:08:04.817464Z",
+    "monotonic_duration_ns": 112893686917,
+    "started_at_utc": "2026-07-16T13:06:11.923775Z",
+    "wall_duration_ns": 112893689000
   },
   "toolchain": {
     "bash": {
