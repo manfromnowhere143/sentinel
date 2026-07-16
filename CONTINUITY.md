@@ -2783,3 +2783,27 @@ if needed; the per-episode json, all decision logs, and the run log are committe
 control applied to a runtime monitor on this benchmark, its null, AND the methodological finding
 (closed-loop budget entanglement). It may NOT claim the semantics are load-bearing. The 48/49
 transfer boundary fold-in and the claim-(5) hedge are unchanged and still binding.
+
+- **ITER135 TOOLING FREEZE PUBLISHED; PREFLIGHT ONLY (2026-07-16).** The exact source-only freeze
+  is `2d94cf4` (31 paths, direct child of final preregistration amendment `3fcb607`); receipt-only
+  `0b5b2d9` independently replayed green both before and after push. The frozen command contract
+  passed `284` focused tests, `840` repository-wide tests, Ruff, Bash syntax, ShellCheck with no
+  user config, the 402-file docs guard, mission-state validation, and compilation of all `64`
+  embedded Python heredocs. Source and receipt files carry immutable and deny-delete protection.
+  State-only `d8f091c` advances the mission to `TOOLING_FROZEN_PREFLIGHT_REQUIRED`; it does not
+  authorize an analytic episode.
+
+  The hardening is substantive: exact dataset/device/ctime receipts; read-only compose refreeze;
+  durable smoke/analytic locks and journals; raw proof replay with TOCTOU checks; a physical,
+  manifest-bound `MISSION_STATE.json` pinned on an open descriptor and revalidated before every
+  analytic block; and a machine-enforced source H -> receipt H+1 -> state H+2 publication chain.
+  No remote host, Docker, GPU, live smoke, manifest, environment receipt, analytic evidence, or
+  benchmark result was created during the freeze.
+
+  Product direction is a benchmark-independent **Deployment Assurance Runtime** with typed
+  observation, decision, fallback, latency, and evidence receipts. Bench2Drive-Robust remains an
+  external falsifier, not a source of borrowed claims: commercial rights, asset provenance, and
+  compute/integration gates must pass before acquisition. The next authorized action is the exact
+  read-only host/environment preflight, followed by a committed incomplete manifest and only then
+  the four-run nonanalytic G5 smoke. Tesla/Mobileye parity, deployment readiness, benchmark SOTA,
+  safety, production, commercial value, and acquisition interest remain unestablished.
