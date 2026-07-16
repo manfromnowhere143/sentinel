@@ -1,36 +1,33 @@
 # HANDOFF — dynamic state snapshot
 
-Generated: Thu Jul 16 12:25:57 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
+Generated: Thu Jul 16 12:56:09 UTC 2026 by scripts/make_handoff.py. Read CONTINUITY.md first.
 
 ## Repository state
 ```
+fe42d54 prospective iter135 generation-two recovery source
+c868040 handoff: record iter135 tooling freeze
 d8f091c mission: authorize iter135 preflight phase
 0b5b2d9 iter135: publish tooling verification receipt
 2d94cf4 iter135: freeze dose-response execution tooling
 3fcb607 iter135: clarify smoke authorization boundary
 d572c5e iter135: freeze complete evidence inventory
 36daa1a iter135: amend execution to zero retries
-9103e69 iter135: amend execution to compose blocks
-402a288 handoff: record iter135 preregistration
 ```
 Working tree: CLEAN
 
 ## Canonical mission state (`MISSION_STATE.json`)
 
-- Current: iteration 134 / PLACEBO_HARM_OR_NULL / run IDLE / next iteration 135 TOOLING_FROZEN_PREFLIGHT_REQUIRED
+- Current: iteration 134 / PLACEBO_HARM_OR_NULL / run IDLE / next iteration 135 PREREGISTERED_TOOLING_REQUIRED
 - Current result: experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md
 - Next program: semantics-free placebo dose-response causal closure
 - Authorized now:
-  - prepare only the exact hash-bound sentinel-gpu host contract, including the dedicated iteration-135 output root
-  - capture and commit the read-only iteration-135 environment receipt on sentinel-gpu
-  - generate and commit only the hash-addressed incomplete pre-smoke manifest; no analytic episodes
-  - run exactly the hash-bound four-run nonanalytic G5 smoke after the incomplete pre-smoke manifest is committed
-  - validate, collect, and commit the exact nonanalytic smoke evidence and receipt
+  - build and validate only the tooling and tests frozen by the active iteration-135 hypothesis
+  - inventory storage and provenance before any safe cleanup or live smoke
+  - publish a read-only external-benchmark commercial, license, compute, and integration preflight
 - Forbidden now:
-  - run any iteration-135 analytic episode before smoke evidence and the final launch manifest are committed green
-  - remove or bypass the permanent analytic launch lock
-  - rerun iteration 134 or adapt iteration-135 schedules, estimands, verdicts, or policies after evidence
-  - place any iteration-135 analytic output on the remote root filesystem
+  - GPU launch before the iteration-135 hypothesis, analyzer, manifest, provenance, storage, and smoke gates are frozen
+  - rerun iteration 134
+  - adopt run-index resampling as the iteration-135 primary after observing iteration-134 results
 
 ## Experiments (status inferred from files)
 
@@ -186,7 +183,7 @@ is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT 
 - Canonical completed experiment: experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md — read it before opening new work.
 - Active pending pre-registration: experiments/iter135_neuroncap_blind_braking_dose_response/HYPOTHESIS.md — read it with MISSION_STATE.json; neither file overrides the other.
 - Deprecated pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — historical only; it does not govern the next action.
-- Canonical next action: iteration 135 / TOOLING_FROZEN_PREFLIGHT_REQUIRED / semantics-free placebo dose-response causal closure.
+- Canonical next action: iteration 135 / PREREGISTERED_TOOLING_REQUIRED / semantics-free placebo dose-response causal closure.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
 

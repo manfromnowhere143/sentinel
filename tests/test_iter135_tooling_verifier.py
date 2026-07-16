@@ -50,6 +50,25 @@ class RecordingRunner:
         )
 
 
+def fake_toolchain() -> dict[str, dict[str, Any]]:
+    """Return deterministic trusted-root rows without depending on CI's ambient executables."""
+
+    return {
+        name: {
+            "path": f"/usr/bin/{name}",
+            "sha256": hashlib.sha256(f"iter135-fixture-{name}".encode()).hexdigest(),
+            "bytes": 100 + index,
+            "device": 1,
+            "inode": 1_000 + index,
+            "mode": 0o755,
+            "mtime_ns": 1_000_000 + index,
+            "ctime_ns": 2_000_000 + index,
+            "version": f"{name} deterministic-fixture-v1",
+        }
+        for index, name in enumerate(verifier.TOOL_NAMES)
+    }
+
+
 def stable_git(_root: Path, _paths: tuple[str, ...]) -> Any:
     return verifier.GitState(
         head="a" * 40,
@@ -58,8 +77,8 @@ def stable_git(_root: Path, _paths: tuple[str, ...]) -> Any:
         branch="master",
         upstream="origin/master",
         upstream_head="a" * 40,
-        parents=(verifier.EXPECTED_PREREGISTRATION_HEAD,),
-        commit_paths=tuple(sorted(verifier.EXPECTED_SOURCE_COMMIT_PATHS)),
+        parents=(verifier.RECOVERY_SOURCE_PARENT,),
+        commit_paths=tuple(sorted(verifier.RECOVERY_SOURCE_COMMIT_PATHS)),
     )
 
 
@@ -69,6 +88,7 @@ def stable_ancestry(_root: Path, _ancestor: str, _descendant: str) -> bool:
 
 def replay_validate(receipt: dict[str, Any], root: Path, **kwargs: Any) -> list[str]:
     kwargs.setdefault("runner", RecordingRunner())
+    kwargs.setdefault("toolchain_resolver", fake_toolchain)
     return verifier.validate_receipt(receipt, root, **kwargs)
 
 
@@ -101,6 +121,7 @@ def run_green(root: Path, runner: RecordingRunner | None = None) -> tuple[dict, 
         root,
         runner=active_runner,
         git_probe=stable_git,
+        toolchain_resolver=fake_toolchain,
         wall_clock_ns=SequenceClock(1_000_000_000, 4_000_000_000),
         monotonic_clock_ns=SequenceClock(10_000, 20_000),
     )
@@ -136,9 +157,21 @@ def test_green_receipt_binds_complete_discovered_surface_and_exact_commands(
     assert set(receipt["files"]) == set(inventory.tested_files)
     assert verifier.RECEIPT_REL not in receipt["files"]
     assert receipt["command_contract"] == [
-        list(command) for command in verifier.build_commands(inventory)
+        list(command) for command in verifier.build_commands(inventory, fake_toolchain())
     ]
-    assert runner.commands == list(verifier.build_commands(inventory))
+    assert runner.commands == list(verifier.build_commands(inventory, fake_toolchain()))
+    assert receipt["publication"] == verifier.EXPECTED_RECOVERY_PUBLICATION
+    assert verifier.RECOVERY_SOURCE_COMMIT_PATHS == (
+        ".github/workflows/ci.yml",
+        "CONTINUITY.md",
+        "HANDOFF.md",
+        "MISSION_STATE.json",
+        f"{verifier.EXPERIMENT_REL}/verify_tooling135.py",
+        "scripts/mission_state.py",
+        "tests/test_iter135_smoke_pipeline.py",
+        "tests/test_iter135_tooling_verifier.py",
+        "tests/test_mission_state.py",
+    )
     assert len(receipt["commands"]) == 8
     assert Path(receipt["commands"][3]["argv"][0]).name == "shellcheck"
     assert Path(receipt["commands"][4]["argv"][0]).name == "ruff"
@@ -206,7 +239,7 @@ def test_default_git_cleanliness_probe_is_repository_global(monkeypatch: Any, tm
             return b"a" * 40 + b" " + b"0" * 40 + b"\n"
         if argv[0] == "diff-tree":
             return b"\0".join(
-                path.encode() for path in verifier.EXPECTED_SOURCE_COMMIT_PATHS
+                path.encode() for path in verifier.RECOVERY_SOURCE_COMMIT_PATHS
             ) + b"\0"
         return b""
 
@@ -221,6 +254,40 @@ def test_default_git_cleanliness_probe_is_repository_global(monkeypatch: Any, tm
         "-z",
         "--untracked-files=all",
     )
+
+
+def test_published_structural_probe_supports_detached_head_without_upstream(
+    monkeypatch: Any, tmp_path: Path
+) -> None:
+    calls: list[tuple[str, ...]] = []
+
+    def fake_git(_root: Path, argv: tuple[str, ...]) -> bytes:
+        calls.append(argv)
+        if argv == ("rev-parse", "--verify", "HEAD^{commit}"):
+            return b"a" * 40 + b"\n"
+        if argv == (
+            "rev-parse",
+            "--verify",
+            "refs/remotes/origin/master^{commit}",
+        ):
+            return b"b" * 40 + b"\n"
+        if argv[0] == "rev-list":
+            return b"a" * 40 + b" " + b"c" * 40 + b"\n"
+        if argv[0] == "diff-tree":
+            return b"MISSION_STATE.json\0"
+        if argv[0] == "status":
+            return b""
+        raise AssertionError(f"unexpected Git command: {argv}")
+
+    monkeypatch.setattr(verifier, "_git_bytes", fake_git)
+
+    state = verifier.default_structural_git_probe(tmp_path, ())
+
+    assert state.head == "a" * 40
+    assert state.upstream_head == "b" * 40
+    assert state.branch == ""
+    assert state.upstream == ""
+    assert not any(argv[0] == "symbolic-ref" or "@{u}" in argv for argv in calls)
 
 
 def test_toolchain_resolution_rejects_path_precedence_shim(
@@ -241,7 +308,7 @@ def test_toolchain_resolution_rejects_path_precedence_shim(
 def test_sanitized_environment_drops_inherited_pytest_controls(monkeypatch: Any) -> None:
     monkeypatch.setenv("PYTEST_ADDOPTS", "--collect-only")
     monkeypatch.setenv("PYTEST_PLUGINS", "hostile_plugin")
-    environment = verifier._sanitized_environment(verifier.resolve_toolchain())  # noqa: SLF001
+    environment = verifier._sanitized_environment(fake_toolchain())  # noqa: SLF001
 
     assert "PYTEST_ADDOPTS" not in environment
     assert "PYTEST_PLUGINS" not in environment
@@ -263,7 +330,7 @@ def test_source_verification_requires_pushed_master_and_exact_commit_scope(
             branch="feature",
             upstream="origin/feature",
             upstream_head="b" * 40,
-            parents=(verifier.EXPECTED_PREREGISTRATION_HEAD,),
+            parents=(verifier.RECOVERY_SOURCE_PARENT,),
             commit_paths=(verifier.REQUIRED_TEST_FILES[0],),
         )
 
@@ -272,6 +339,7 @@ def test_source_verification_requires_pushed_master_and_exact_commit_scope(
         root,
         runner=runner,
         git_probe=unpublishable_git,
+        toolchain_resolver=fake_toolchain,
         wall_clock_ns=SequenceClock(1, 2),
         monotonic_clock_ns=SequenceClock(1, 2),
     )
@@ -285,7 +353,7 @@ def test_source_verification_requires_pushed_master_and_exact_commit_scope(
     } <= problem_codes(receipt)
 
 
-def test_source_verification_rejects_non_preregistered_parent(tmp_path: Path) -> None:
+def test_source_verification_rejects_wrong_recovery_parent(tmp_path: Path) -> None:
     root = make_repo(tmp_path)
 
     def wrong_parent_git(_root: Path, _paths: tuple[str, ...]) -> Any:
@@ -306,12 +374,107 @@ def test_source_verification_rejects_non_preregistered_parent(tmp_path: Path) ->
         root,
         runner=runner,
         git_probe=wrong_parent_git,
+        toolchain_resolver=fake_toolchain,
         wall_clock_ns=SequenceClock(1, 2),
         monotonic_clock_ns=SequenceClock(1, 2),
     )
 
     assert runner.commands == []
     assert "SOURCE_PARENT" in problem_codes(receipt)
+
+
+def test_generation_one_source_cannot_mint_a_second_generation_one_receipt(
+    tmp_path: Path,
+) -> None:
+    root = make_repo(tmp_path)
+
+    def generation_one_git(_root: Path, _paths: tuple[str, ...]) -> Any:
+        return verifier.GitState(
+            head=verifier.GENERATION_ONE_SOURCE_COMMIT,
+            dirty_entries=(),
+            porcelain_sha256=hashlib.sha256(b"").hexdigest(),
+            branch="master",
+            upstream="origin/master",
+            upstream_head=verifier.GENERATION_ONE_SOURCE_COMMIT,
+            parents=(verifier.GENERATION_ONE_SOURCE_PARENT,),
+            commit_paths=tuple(sorted(verifier.GENERATION_ONE_SOURCE_COMMIT_PATHS)),
+        )
+
+    runner = RecordingRunner()
+    receipt = verifier.run_verification(
+        root,
+        runner=runner,
+        git_probe=generation_one_git,
+        toolchain_resolver=fake_toolchain,
+        wall_clock_ns=SequenceClock(1, 2),
+        monotonic_clock_ns=SequenceClock(1, 2),
+    )
+
+    assert runner.commands == []
+    assert {"SOURCE_PARENT", "SOURCE_COMMIT_SCOPE"} <= problem_codes(receipt)
+    assert receipt["publication"] == verifier.EXPECTED_RECOVERY_PUBLICATION
+
+
+def test_replay_rejects_missing_or_forged_generation_two_publication(
+    tmp_path: Path,
+) -> None:
+    root = make_repo(tmp_path)
+    receipt, _runner = run_green(root)
+
+    for publication in (
+        None,
+        {
+            **verifier.EXPECTED_RECOVERY_PUBLICATION,
+            "supersedes_receipt_commit": "f" * 40,
+        },
+        {
+            **verifier.EXPECTED_RECOVERY_PUBLICATION,
+            "reason_code": "UNRECORDED_REASON",
+        },
+    ):
+        forged = copy.deepcopy(receipt)
+        if publication is None:
+            forged.pop("publication")
+        else:
+            forged["publication"] = publication
+        refresh_payload_digest(forged)
+
+        errors = replay_validate(forged, root, git_probe=stable_git)
+
+        assert "generation-two publication block mismatch" in errors
+
+
+@pytest.mark.parametrize(
+    ("field", "forged_value", "expected_error"),
+    (
+        (
+            "parents",
+            [verifier.GENERATION_ONE_SOURCE_PARENT],
+            "claimed source parent mismatch at start",
+        ),
+        (
+            "commit_paths",
+            sorted(verifier.GENERATION_ONE_SOURCE_COMMIT_PATHS),
+            "claimed source commit scope mismatch at start",
+        ),
+    ),
+)
+def test_replay_rejects_generation_one_or_nonexact_recovery_source_claims(
+    field: str,
+    forged_value: list[str],
+    expected_error: str,
+    tmp_path: Path,
+) -> None:
+    root = make_repo(tmp_path)
+    receipt, _runner = run_green(root)
+    forged = copy.deepcopy(receipt)
+    for label in ("git_start", "git_end"):
+        forged["repository"][label][field] = forged_value
+    refresh_payload_digest(forged)
+
+    errors = replay_validate(forged, root, git_probe=stable_git)
+
+    assert expected_error in errors
 
 
 def test_content_drift_during_test_execution_is_fail_closed(tmp_path: Path) -> None:
@@ -427,7 +590,8 @@ def test_git_head_or_dirty_state_drift_is_fail_closed(tmp_path: Path) -> None:
             branch="master",
             upstream="origin/master",
             upstream_head=("a" if calls == 1 else "b") * 40,
-            commit_paths=tuple(sorted(verifier.EXPECTED_SOURCE_COMMIT_PATHS)),
+            parents=(verifier.RECOVERY_SOURCE_PARENT,),
+            commit_paths=tuple(sorted(verifier.RECOVERY_SOURCE_COMMIT_PATHS)),
         )
 
     runner = RecordingRunner()
@@ -435,6 +599,7 @@ def test_git_head_or_dirty_state_drift_is_fail_closed(tmp_path: Path) -> None:
         root,
         runner=runner,
         git_probe=drifting_git,
+        toolchain_resolver=fake_toolchain,
         wall_clock_ns=SequenceClock(1, 2),
         monotonic_clock_ns=SequenceClock(1, 2),
     )
@@ -456,7 +621,8 @@ def test_dirty_tested_paths_at_verification_time_cannot_emit_green(tmp_path: Pat
             branch="master",
             upstream="origin/master",
             upstream_head="a" * 40,
-            commit_paths=tuple(sorted(verifier.EXPECTED_SOURCE_COMMIT_PATHS)),
+            parents=(verifier.RECOVERY_SOURCE_PARENT,),
+            commit_paths=tuple(sorted(verifier.RECOVERY_SOURCE_COMMIT_PATHS)),
         )
 
     runner = RecordingRunner()
@@ -464,6 +630,7 @@ def test_dirty_tested_paths_at_verification_time_cannot_emit_green(tmp_path: Pat
         root,
         runner=runner,
         git_probe=dirty_git,
+        toolchain_resolver=fake_toolchain,
         wall_clock_ns=SequenceClock(1, 2),
         monotonic_clock_ns=SequenceClock(1, 2),
     )
@@ -532,11 +699,14 @@ def test_receipt_only_commit_can_be_replayed_before_push(tmp_path: Path) -> None
     assert errors == []
 
 
-def test_published_structure_binds_exact_h_to_h3_and_rejects_later_tool_drift(
+def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_history(
     monkeypatch: Any, tmp_path: Path
 ) -> None:
     root = make_repo(tmp_path)
     receipt, _runner = run_green(root)
+    assert str(root) != verifier.CANONICAL_REPOSITORY
+    receipt["repository"]["root"] = verifier.CANONICAL_REPOSITORY
+    refresh_payload_digest(receipt)
     receipt_path = root / verifier.RECEIPT_REL
     receipt_path.write_text(
         json.dumps(receipt, sort_keys=True, indent=2) + "\n",
@@ -555,19 +725,26 @@ def test_published_structure_binds_exact_h_to_h3_and_rejects_later_tool_drift(
         )
     )
     parents = {
-        source: (verifier.EXPECTED_PREREGISTRATION_HEAD,),
+        verifier.GENERATION_ONE_SOURCE_COMMIT: (verifier.GENERATION_ONE_SOURCE_PARENT,),
+        verifier.GENERATION_ONE_RECEIPT_COMMIT: (verifier.GENERATION_ONE_SOURCE_COMMIT,),
+        source: (verifier.RECOVERY_SOURCE_PARENT,),
         receipt_commit: (source,),
         state_commit: (receipt_commit,),
         baton_commit: (state_commit,),
         later_commit: (baton_commit,),
     }
     paths = {
-        source: tuple(sorted(verifier.EXPECTED_SOURCE_COMMIT_PATHS)),
+        verifier.GENERATION_ONE_SOURCE_COMMIT: tuple(
+            sorted(verifier.GENERATION_ONE_SOURCE_COMMIT_PATHS)
+        ),
+        verifier.GENERATION_ONE_RECEIPT_COMMIT: (verifier.RECEIPT_REL,),
+        source: tuple(sorted(verifier.RECOVERY_SOURCE_COMMIT_PATHS)),
         receipt_commit: (verifier.RECEIPT_REL,),
         state_commit: ("MISSION_STATE.json",),
         baton_commit: ("CONTINUITY.md", "HANDOFF.md"),
         later_commit: (verifier.REQUIRED_PYTHON_TOOL_FILES[0],),
     }
+    receipt_history = [receipt_commit, verifier.GENERATION_ONE_RECEIPT_COMMIT]
 
     def fake_git(_root: Path, argv: tuple[str, ...]) -> bytes:
         if argv[0] == "rev-list":
@@ -584,22 +761,28 @@ def test_published_structure_binds_exact_h_to_h3_and_rejects_later_tool_drift(
             assert commit == source
             return (root / relative).read_bytes()
         if argv[0] == "log":
-            return f"{receipt_commit}\n".encode()
+            return ("\n".join(receipt_history) + "\n").encode()
         raise AssertionError(f"unexpected Git command: {argv}")
 
     monkeypatch.setattr(verifier, "_git_bytes", fake_git)
 
-    def publication_git(head: str) -> Any:
+    def publication_git(head: str, origin_head: str | None = None) -> Any:
         return verifier.GitState(
             head=head,
             dirty_entries=(),
             porcelain_sha256=hashlib.sha256(b"").hexdigest(),
-            branch="master",
-            upstream="origin/master",
-            upstream_head=head,
+            upstream_head=head if origin_head is None else origin_head,
             parents=parents[head],
             commit_paths=paths[head],
         )
+
+    errors = verifier.validate_published_receipt_structure(
+        receipt,
+        root,
+        git_probe=lambda _root, _paths: publication_git(state_commit),
+        ancestry_probe=stable_ancestry,
+    )
+    assert any("complete state-only and offline-baton transition is missing" in error for error in errors)
 
     errors = verifier.validate_published_receipt_structure(
         receipt,
@@ -612,10 +795,96 @@ def test_published_structure_binds_exact_h_to_h3_and_rejects_later_tool_drift(
     errors = verifier.validate_published_receipt_structure(
         receipt,
         root,
+        git_probe=lambda _root, _paths: publication_git(baton_commit, ""),
+        ancestry_probe=stable_ancestry,
+    )
+    assert any("origin/master commit is malformed or missing" in error for error in errors)
+
+    detached_origin = "f" * 40
+
+    def receipt_missing_from_origin(
+        _root: Path, ancestor: str, descendant: str
+    ) -> bool:
+        return not (ancestor == receipt_commit and descendant == detached_origin)
+
+    errors = verifier.validate_published_receipt_structure(
+        receipt,
+        root,
+        git_probe=lambda _root, _paths: publication_git(baton_commit, detached_origin),
+        ancestry_probe=receipt_missing_from_origin,
+    )
+    assert any("replacement receipt is not published on origin/master" in error for error in errors)
+
+    wrong_root = copy.deepcopy(receipt)
+    wrong_root["repository"]["root"] = str(root)
+    refresh_payload_digest(wrong_root)
+    receipt_path.write_text(
+        json.dumps(wrong_root, sort_keys=True, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    errors = verifier.validate_published_receipt_structure(
+        wrong_root,
+        root,
+        git_probe=lambda _root, _paths: publication_git(baton_commit),
+        ancestry_probe=stable_ancestry,
+    )
+    assert any("canonical repository identity is malformed" in error for error in errors)
+    receipt_path.write_text(
+        json.dumps(receipt, sort_keys=True, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+    errors = verifier.validate_published_receipt_structure(
+        receipt,
+        root,
         git_probe=lambda _root, _paths: publication_git(later_commit),
         ancestry_probe=stable_ancestry,
     )
     assert any("changed unauthorized paths" in error for error in errors)
+
+    receipt_history.pop()
+    errors = verifier.validate_published_receipt_structure(
+        receipt,
+        root,
+        git_probe=lambda _root, _paths: publication_git(baton_commit),
+        ancestry_probe=stable_ancestry,
+    )
+    assert any("receipt history is not exact generation-two" in error for error in errors)
+    receipt_history.append(verifier.GENERATION_ONE_RECEIPT_COMMIT)
+
+    paths[verifier.GENERATION_ONE_SOURCE_COMMIT] = ("MISSION_STATE.json",)
+    errors = verifier.validate_published_receipt_structure(
+        receipt,
+        root,
+        git_probe=lambda _root, _paths: publication_git(baton_commit),
+        ancestry_probe=stable_ancestry,
+    )
+    assert any("generation-one source topology or path scope changed" in error for error in errors)
+    paths[verifier.GENERATION_ONE_SOURCE_COMMIT] = tuple(
+        sorted(verifier.GENERATION_ONE_SOURCE_COMMIT_PATHS)
+    )
+
+    paths[verifier.GENERATION_ONE_RECEIPT_COMMIT] = (
+        verifier.RECEIPT_REL,
+        "unexpected.json",
+    )
+    errors = verifier.validate_published_receipt_structure(
+        receipt,
+        root,
+        git_probe=lambda _root, _paths: publication_git(baton_commit),
+        ancestry_probe=stable_ancestry,
+    )
+    assert any("generation-one receipt topology or path scope changed" in error for error in errors)
+    paths[verifier.GENERATION_ONE_RECEIPT_COMMIT] = (verifier.RECEIPT_REL,)
+
+    parents[source] = ("f" * 40,)
+    errors = verifier.validate_published_receipt_structure(
+        receipt,
+        root,
+        git_probe=lambda _root, _paths: publication_git(baton_commit),
+        ancestry_probe=stable_ancestry,
+    )
+    assert any("actual recovery source topology or path scope is wrong" in error for error in errors)
 
 
 def test_non_ancestor_current_head_rejects_otherwise_exact_receipt(tmp_path: Path) -> None:
@@ -699,6 +968,7 @@ def test_runner_exception_is_hashed_without_log_disclosure(tmp_path: Path) -> No
         root,
         runner=exploding_runner,
         git_probe=stable_git,
+        toolchain_resolver=fake_toolchain,
         wall_clock_ns=SequenceClock(1, 2),
         monotonic_clock_ns=SequenceClock(1, 2),
     )
@@ -718,6 +988,7 @@ def test_atomic_writer_round_trips_and_refuses_output_symlink(tmp_path: Path) ->
         root,
         runner=RecordingRunner(),
         git_probe=stable_git,
+        toolchain_resolver=fake_toolchain,
         wall_clock_ns=SequenceClock(1, 2),
         monotonic_clock_ns=SequenceClock(1, 2),
     )
@@ -744,6 +1015,7 @@ def test_receipt_writer_cannot_overwrite_frozen_data_source(tmp_path: Path) -> N
             root,
             runner=RecordingRunner(),
             git_probe=stable_git,
+            toolchain_resolver=fake_toolchain,
             wall_clock_ns=SequenceClock(1, 2),
             monotonic_clock_ns=SequenceClock(1, 2),
         )

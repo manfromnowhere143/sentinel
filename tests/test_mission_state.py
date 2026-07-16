@@ -8,11 +8,17 @@ import subprocess
 
 import pytest
 
+import scripts.mission_state as mission_state
 from scripts.mission_state import (
+    CANONICAL_REPOSITORY,
     EMPTY_GIT_STATUS_SHA256,
     EXPECTED_SOURCE_COMMIT_PATHS,
     LAUNCH_AUTHORIZED_ACTIONS,
     LAUNCH_FORBIDDEN_ACTIONS,
+    PREREGISTERED_AUTHORIZED_ACTIONS,
+    PREREGISTERED_FORBIDDEN_ACTIONS,
+    RECOVERY_REASON_CODE,
+    RECOVERY_SOURCE_COMMIT_PATHS,
     TOOLING_FROZEN_AUTHORIZED_ACTIONS,
     TOOLING_FROZEN_FORBIDDEN_ACTIONS,
     TOOLING_RECEIPT_REL,
@@ -35,7 +41,6 @@ def _git(repo: Path, *arguments: str) -> bytes:
 
 def _minimal_state_repo(tmp_path: Path) -> tuple[Path, dict]:
     state = copy.deepcopy(load_state())
-    state["canonical_repository"] = str(tmp_path)
     required_files = (
         state["current_result"],
         state["active_hypothesis"],
@@ -56,13 +61,31 @@ def _set_tooling_phase(state: dict) -> None:
     state["next_program"]["forbidden_actions"] = list(TOOLING_FROZEN_FORBIDDEN_ACTIONS)
 
 
-def _commit_source_and_green_receipt(repo: Path) -> None:
+def _set_preregistered_phase(state: dict) -> None:
+    state["next_program"]["phase"] = "PREREGISTERED_TOOLING_REQUIRED"
+    state["next_program"]["authorized_actions"] = list(PREREGISTERED_AUTHORIZED_ACTIONS)
+    state["next_program"]["forbidden_actions"] = list(PREREGISTERED_FORBIDDEN_ACTIONS)
+
+
+def _commit_recovery_publication(
+    repo: Path,
+    state: dict,
+    monkeypatch: pytest.MonkeyPatch,
+    *,
+    publication_overrides: dict[str, object] | None = None,
+    recovery_paths: tuple[str, ...] = RECOVERY_SOURCE_COMMIT_PATHS,
+    generation_one_paths: tuple[str, ...] = EXPECTED_SOURCE_COMMIT_PATHS,
+    topology_extra_commit: bool = False,
+    extra_receipt_history: bool = False,
+    include_baton: bool = True,
+) -> dict[str, str]:
     _git(repo, "init", "-b", "master")
     _git(repo, "config", "user.name", "Sentinel Test")
     _git(repo, "config", "user.email", "sentinel-test@example.invalid")
     _git(repo, "add", ".")
     _git(repo, "commit", "-m", "baseline")
-    for relative in EXPECTED_SOURCE_COMMIT_PATHS:
+    generation_one_source_parent = _git(repo, "rev-parse", "HEAD").decode().strip()
+    for relative in generation_one_paths:
         path = repo / relative
         path.parent.mkdir(parents=True, exist_ok=True)
         if relative == "MISSION_STATE.json":
@@ -70,7 +93,63 @@ def _commit_source_and_green_receipt(repo: Path) -> None:
         else:
             path.write_text(f"frozen source: {relative}\n")
     _git(repo, "add", *EXPECTED_SOURCE_COMMIT_PATHS)
-    _git(repo, "commit", "-m", "source freeze")
+    extras = sorted(set(generation_one_paths) - set(EXPECTED_SOURCE_COMMIT_PATHS))
+    if extras:
+        _git(repo, "add", *extras)
+    _git(repo, "commit", "-m", "generation one source freeze")
+    generation_one_source = _git(repo, "rev-parse", "HEAD").decode().strip()
+
+    receipt_path = repo / TOOLING_RECEIPT_REL
+    receipt_path.parent.mkdir(parents=True, exist_ok=True)
+    receipt_path.write_text('{"generation":1,"status":"superseded-after-ci-failure"}\n')
+    _git(repo, "add", TOOLING_RECEIPT_REL.as_posix())
+    _git(repo, "commit", "-m", "generation one receipt")
+    generation_one_receipt = _git(repo, "rev-parse", "HEAD").decode().strip()
+
+    (repo / "MISSION_STATE.json").write_text(json.dumps(state, indent=2) + "\n")
+    _git(repo, "add", "MISSION_STATE.json")
+    _git(repo, "commit", "-m", "generation one state transition")
+    generation_one_state = _git(repo, "rev-parse", "HEAD").decode().strip()
+
+    (repo / "CONTINUITY.md").write_text("generation one transition log\n")
+    (repo / "HANDOFF.md").write_text("GPU_RUN_STATE=NOT_PROBED_OFFLINE_GENERATION\n")
+    _git(repo, "add", "CONTINUITY.md", "HANDOFF.md")
+    _git(repo, "commit", "-m", "generation one offline baton")
+    recovery_parent = _git(repo, "rev-parse", "HEAD").decode().strip()
+
+    monkeypatch.setattr(
+        mission_state, "GENERATION_ONE_SOURCE_PARENT", generation_one_source_parent
+    )
+    monkeypatch.setattr(mission_state, "GENERATION_ONE_SOURCE_COMMIT", generation_one_source)
+    monkeypatch.setattr(mission_state, "GENERATION_ONE_RECEIPT_COMMIT", generation_one_receipt)
+    monkeypatch.setattr(mission_state, "GENERATION_ONE_STATE_COMMIT", generation_one_state)
+    monkeypatch.setattr(mission_state, "RECOVERY_SOURCE_PARENT", recovery_parent)
+    monkeypatch.setattr(
+        mission_state,
+        "EXPECTED_RECOVERY_PUBLICATION",
+        {
+            "generation": 2,
+            "supersedes_receipt_commit": generation_one_receipt,
+            "recovery_parent": recovery_parent,
+            "reason_code": RECOVERY_REASON_CODE,
+        },
+    )
+
+    preregistered_state = copy.deepcopy(state)
+    _set_preregistered_phase(preregistered_state)
+    for relative in recovery_paths:
+        path = repo / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        if relative == "MISSION_STATE.json":
+            path.write_text(json.dumps(preregistered_state, indent=2) + "\n")
+        elif relative == "CONTINUITY.md":
+            path.write_text("generation two recovery source log\n")
+        elif relative == "HANDOFF.md":
+            path.write_text("generation two recovery source baton\n")
+        else:
+            path.write_text(f"generation two recovery source: {relative}\n")
+    _git(repo, "add", *recovery_paths)
+    _git(repo, "commit", "-m", "generation two recovery source")
     source_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
     _git(repo, "remote", "add", "origin", ".")
     _git(repo, "update-ref", "refs/remotes/origin/master", source_commit)
@@ -105,8 +184,14 @@ def _commit_source_and_green_receipt(repo: Path) -> None:
         "verdict": "I135_TOOLING_VERIFICATION_OK",
         "problem_count": 0,
         "problems": [],
+        "publication": {
+            "generation": 2,
+            "supersedes_receipt_commit": generation_one_receipt,
+            "recovery_parent": recovery_parent,
+            "reason_code": RECOVERY_REASON_CODE,
+        },
         "repository": {
-            "root": str(repo),
+            "root": CANONICAL_REPOSITORY,
             "git_start": git_state,
             "git_end": git_state,
             "git_head_stable": True,
@@ -114,32 +199,51 @@ def _commit_source_and_green_receipt(repo: Path) -> None:
             "repository_clean_state_stable": True,
         },
     }
+    if publication_overrides:
+        receipt["publication"].update(publication_overrides)
     receipt["receipt_payload_sha256"] = hashlib.sha256(_canonical_json(receipt)).hexdigest()
-    receipt_path = repo / TOOLING_RECEIPT_REL
-    receipt_path.parent.mkdir(parents=True, exist_ok=True)
     receipt_path.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n")
     _git(repo, "add", TOOLING_RECEIPT_REL.as_posix())
-    _git(repo, "commit", "-m", "receipt only")
+    _git(repo, "commit", "-m", "generation two receipt only")
     receipt_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
     _git(repo, "update-ref", "refs/remotes/origin/master", receipt_commit)
 
+    if extra_receipt_history:
+        receipt["unexpected_history_entry"] = True
+        receipt["receipt_payload_sha256"] = hashlib.sha256(
+            _canonical_json(
+                {key: value for key, value in receipt.items() if key != "receipt_payload_sha256"}
+            )
+        ).hexdigest()
+        receipt_path.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n")
+        _git(repo, "add", TOOLING_RECEIPT_REL.as_posix())
+        _git(repo, "commit", "-m", "unexpected second recovery receipt")
 
-def _commit_state_transition(repo: Path, state: dict, *, extra_path: str | None = None) -> None:
+    if topology_extra_commit:
+        (repo / "unexpected-topology.txt").write_text("unexpected\n")
+        _git(repo, "add", "unexpected-topology.txt")
+        _git(repo, "commit", "-m", "unexpected topology edge")
+
     (repo / "MISSION_STATE.json").write_text(json.dumps(state, indent=2) + "\n")
     _git(repo, "add", "MISSION_STATE.json")
-    if extra_path is not None:
-        extra = repo / extra_path
-        extra.parent.mkdir(parents=True, exist_ok=True)
-        extra.write_text("unexpected\n")
-        _git(repo, "add", extra_path)
-    _git(repo, "commit", "-m", "state transition")
+    _git(repo, "commit", "-m", "generation two state transition")
+    state_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
 
+    if include_baton:
+        (repo / "CONTINUITY.md").write_text("generation two transition log\n")
+        (repo / "HANDOFF.md").write_text("GPU_RUN_STATE=NOT_PROBED_OFFLINE_GENERATION\n")
+        _git(repo, "add", "CONTINUITY.md", "HANDOFF.md")
+        _git(repo, "commit", "-m", "generation two offline baton")
 
-def _commit_offline_baton(repo: Path) -> None:
-    (repo / "CONTINUITY.md").write_text("offline transition log\n")
-    (repo / "HANDOFF.md").write_text("GPU_RUN_STATE=NOT_PROBED_OFFLINE_GENERATION\n")
-    _git(repo, "add", "CONTINUITY.md", "HANDOFF.md")
-    _git(repo, "commit", "-m", "offline baton")
+    return {
+        "generation_one_source": generation_one_source,
+        "generation_one_receipt": generation_one_receipt,
+        "generation_one_state": generation_one_state,
+        "recovery_parent": recovery_parent,
+        "recovery_source": source_commit,
+        "recovery_receipt": receipt_commit,
+        "recovery_state": state_commit,
+    }
 
 
 def test_committed_mission_state_is_valid() -> None:
@@ -224,8 +328,21 @@ def test_workspace_boundary_is_machine_enforced() -> None:
     assert any(problem.startswith("workspace_boundary:") for problem in problems)
 
 
+def test_canonical_identity_is_independent_of_physical_checkout_path(tmp_path: Path) -> None:
+    alternate_checkout = tmp_path / "alternate-checkout"
+    alternate_checkout.mkdir()
+    repo, state = _minimal_state_repo(alternate_checkout)
+    _set_preregistered_phase(state)
+
+    problems = validate_state(state, repo)
+
+    assert state["canonical_repository"] == CANONICAL_REPOSITORY
+    assert problems == []
+
+
 def test_preregistered_phase_actions_are_exact() -> None:
     state = copy.deepcopy(load_state())
+    _set_preregistered_phase(state)
     state["next_program"]["authorized_actions"].append("unfrozen extra action")
     state["next_program"]["forbidden_actions"].reverse()
 
@@ -300,42 +417,149 @@ def test_post_preflight_phases_fail_closed_without_artifact_contracts(
     assert f"phase_artifact_contract:{phase}:not_implemented" in problems
 
 
-def test_tooling_phase_accepts_exact_published_h_h1_h2_topology(tmp_path: Path) -> None:
+def test_tooling_phase_accepts_exact_generation_two_recovery_topology(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     repo, state = _minimal_state_repo(tmp_path)
-    _commit_source_and_green_receipt(repo)
     _set_tooling_phase(state)
-    _commit_state_transition(repo, state)
+    _commit_recovery_publication(repo, state, monkeypatch)
 
     assert validate_state(state, repo) == []
 
 
-def test_tooling_phase_rejects_h2_with_extra_path(tmp_path: Path) -> None:
+def test_tooling_phase_accepts_detached_alternate_ci_checkout(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     repo, state = _minimal_state_repo(tmp_path)
-    _commit_source_and_green_receipt(repo)
     _set_tooling_phase(state)
-    _commit_state_transition(repo, state, extra_path="unexpected.txt")
+    _commit_recovery_publication(repo, state, monkeypatch)
+    _git(repo, "checkout", "--detach", "HEAD")
+
+    assert validate_state(state, repo) == []
+
+
+def test_tooling_phase_rejects_origin_without_generation_two_receipt(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    commits = _commit_recovery_publication(repo, state, monkeypatch)
+    _git(repo, "update-ref", "refs/remotes/origin/master", commits["recovery_source"])
+
+    assert "tooling_publication:receipt_commit_not_published" in validate_state(state, repo)
+
+
+@pytest.mark.parametrize(
+    ("field", "bad_value"),
+    [
+        ("generation", 1),
+        ("supersedes_receipt_commit", "0" * 40),
+        ("recovery_parent", "1" * 40),
+        ("reason_code", "UNSTABLE_FREE_TEXT_REASON"),
+    ],
+)
+def test_tooling_phase_rejects_wrong_recovery_publication_claim(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    field: str,
+    bad_value: object,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_recovery_publication(
+        repo,
+        state,
+        monkeypatch,
+        publication_overrides={field: bad_value},
+    )
+
+    problems = validate_state(state, repo)
+
+    assert any(
+        problem.startswith(f"tooling_publication:receipt_publication_{field}:")
+        for problem in problems
+    )
+
+
+def test_tooling_phase_rejects_wrong_recovery_source_scope(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    wrong_scope = (*RECOVERY_SOURCE_COMMIT_PATHS, "unexpected-recovery-source.txt")
+    _commit_recovery_publication(
+        repo,
+        state,
+        monkeypatch,
+        recovery_paths=wrong_scope,
+    )
+
+    assert "tooling_publication:recovery_source_commit_scope" in validate_state(state, repo)
+
+
+def test_tooling_phase_keeps_generation_one_scope_as_separate_immutable_baseline(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    wrong_baseline = (*EXPECTED_SOURCE_COMMIT_PATHS, "unexpected-generation-one-source.txt")
+    _commit_recovery_publication(
+        repo,
+        state,
+        monkeypatch,
+        generation_one_paths=wrong_baseline,
+    )
+
+    assert "tooling_publication:generation_one_source_commit_scope" in validate_state(state, repo)
+
+
+def test_tooling_phase_rejects_wrong_recovery_topology(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_recovery_publication(
+        repo,
+        state,
+        monkeypatch,
+        topology_extra_commit=True,
+    )
 
     problems = validate_state(state, repo)
 
     assert "tooling_publication:state_commit_not_state_only" in problems
+    assert "tooling_publication:baton_commit_scope" in problems
 
 
-def test_tooling_phase_accepts_exact_offline_baton_h3(tmp_path: Path) -> None:
+def test_tooling_phase_rejects_incomplete_generation_two_baton(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     repo, state = _minimal_state_repo(tmp_path)
-    _commit_source_and_green_receipt(repo)
     _set_tooling_phase(state)
-    _commit_state_transition(repo, state)
-    _commit_offline_baton(repo)
+    _commit_recovery_publication(repo, state, monkeypatch, include_baton=False)
 
-    assert validate_state(state, repo) == []
+    assert "tooling_publication:generation_two_commit_count:1" in validate_state(state, repo)
 
 
-def test_tooling_phase_accepts_authorized_preflight_descendant(tmp_path: Path) -> None:
+def test_tooling_phase_rejects_nonexact_receipt_history(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     repo, state = _minimal_state_repo(tmp_path)
-    _commit_source_and_green_receipt(repo)
     _set_tooling_phase(state)
-    _commit_state_transition(repo, state)
-    _commit_offline_baton(repo)
+    _commit_recovery_publication(repo, state, monkeypatch, extra_receipt_history=True)
+
+    assert any(
+        problem.startswith("tooling_publication:receipt_history:")
+        for problem in validate_state(state, repo)
+    )
+
+
+def test_tooling_phase_accepts_authorized_preflight_descendant(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_recovery_publication(repo, state, monkeypatch)
     environment_receipt = repo / (
         "experiments/iter135_neuroncap_blind_braking_dose_response/env_receipts.json"
     )
@@ -348,13 +572,13 @@ def test_tooling_phase_accepts_authorized_preflight_descendant(tmp_path: Path) -
 
 @pytest.mark.parametrize("relative_path", ["README.md", "MISSION_STATE.json"])
 def test_tooling_phase_rejects_frozen_tool_or_state_descendant(
-    tmp_path: Path, relative_path: str
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    relative_path: str,
 ) -> None:
     repo, state = _minimal_state_repo(tmp_path)
-    _commit_source_and_green_receipt(repo)
     _set_tooling_phase(state)
-    _commit_state_transition(repo, state)
-    _commit_offline_baton(repo)
+    _commit_recovery_publication(repo, state, monkeypatch)
     frozen = repo / relative_path
     frozen.write_text(frozen.read_text() + "\n")
     _git(repo, "add", relative_path)

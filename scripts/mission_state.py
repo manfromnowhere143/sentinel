@@ -16,6 +16,7 @@ from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 STATE_PATH = REPO_ROOT / "MISSION_STATE.json"
+CANONICAL_REPOSITORY = "/Users/danielwahnich/workspace/sentinel"
 EXPECTED_SCHEMA = "sentinel.mission_state.v1"
 EXPECTED_PROGRAM_NAME = "semantics-free placebo dose-response causal closure"
 EXPECTED_NEXT_PROGRAM_FIELDS = {
@@ -40,7 +41,13 @@ PREFLIGHT_MUTABLE_PATHS = {
     f"{ITER135_EXPERIMENT_REL}/launch_manifest.json",
 }
 PREFLIGHT_MUTABLE_PREFIXES = (f"{ITER135_EXPERIMENT_REL}/smoke-evidence/",)
-EXPECTED_SOURCE_COMMIT_PATHS = (
+GENERATION_ONE_SOURCE_PARENT = "3fcb607fea8e1a251c2c82da385dd096dd650909"
+GENERATION_ONE_SOURCE_COMMIT = "2d94cf45acb337ff3ba923da1d1de6e6dda6dab7"
+GENERATION_ONE_RECEIPT_COMMIT = "0b5b2d9a4956606fe0619f53288a64d2da58284a"
+GENERATION_ONE_STATE_COMMIT = "d8f091c6886d3231fd68382836d16fd23f1101bb"
+RECOVERY_SOURCE_PARENT = "c868040f542f9277fc99a451a108138848e80b33"
+RECOVERY_REASON_CODE = "H3_PHASE_TRANSITION_SUITE_AND_CI_PORTABILITY_FAILURE"
+GENERATION_ONE_SOURCE_COMMIT_PATHS = (
     "CONTINUITY.md",
     "MISSION_STATE.json",
     "README.md",
@@ -73,6 +80,27 @@ EXPECTED_SOURCE_COMMIT_PATHS = (
     "tests/test_iter135_tooling_verifier.py",
     "tests/test_mission_state.py",
 )
+RECOVERY_SOURCE_COMMIT_PATHS = (
+    ".github/workflows/ci.yml",
+    "CONTINUITY.md",
+    "HANDOFF.md",
+    "MISSION_STATE.json",
+    f"{ITER135_EXPERIMENT_REL}/verify_tooling135.py",
+    "scripts/mission_state.py",
+    "tests/test_iter135_smoke_pipeline.py",
+    "tests/test_iter135_tooling_verifier.py",
+    "tests/test_mission_state.py",
+)
+EXPECTED_RECOVERY_PUBLICATION = {
+    "generation": 2,
+    "supersedes_receipt_commit": GENERATION_ONE_RECEIPT_COMMIT,
+    "recovery_parent": RECOVERY_SOURCE_PARENT,
+    "reason_code": RECOVERY_REASON_CODE,
+}
+
+# Compatibility name: this is always the immutable generation-one 31-path baseline. Recovery
+# publication has its own paired parent/scope contract and must never redefine this surface.
+EXPECTED_SOURCE_COMMIT_PATHS = GENERATION_ONE_SOURCE_COMMIT_PATHS
 
 PREREGISTERED_AUTHORIZED_ACTIONS = (
     "build and validate only the tooling and tests frozen by the active iteration-135 hypothesis",
@@ -257,8 +285,30 @@ def _preflight_mutable(relative_path: str) -> bool:
     )
 
 
+def _commit_row(repo: Path, commit: str) -> tuple[tuple[str, ...], tuple[str, ...]]:
+    _git(repo, "rev-parse", "--verify", f"{commit}^{{commit}}")
+    parents = tuple(
+        _git(repo, "show", "-s", "--format=%P", commit).decode("ascii").strip().split()
+    )
+    paths = tuple(
+        _nul_paths(
+            _git(
+                repo,
+                "diff-tree",
+                "--root",
+                "--no-commit-id",
+                "--name-only",
+                "-r",
+                "-z",
+                commit,
+            )
+        )
+    )
+    return parents, paths
+
+
 def _validate_tooling_publication(repo: Path) -> list[str]:
-    """Validate receipt structure and Git topology without executing its command contract."""
+    """Validate the exact generation-two recovery publication without replaying commands."""
 
     problems: list[str] = []
     try:
@@ -293,6 +343,20 @@ def _validate_tooling_publication(repo: Path) -> list[str]:
             )
         if receipt.get("problems") != []:
             problems.append("tooling_publication:receipt_problems_nonempty_or_malformed")
+        publication = receipt.get("publication")
+        if not isinstance(publication, Mapping):
+            problems.append("tooling_publication:receipt_publication_malformed")
+            publication = {}
+        if set(publication) != set(EXPECTED_RECOVERY_PUBLICATION):
+            problems.append(
+                f"tooling_publication:receipt_publication_fields:{sorted(publication)}"
+            )
+        for field, expected in EXPECTED_RECOVERY_PUBLICATION.items():
+            if publication.get(field) != expected:
+                problems.append(
+                    f"tooling_publication:receipt_publication_{field}:"
+                    f"{publication.get(field)!r}"
+                )
         payload = dict(receipt)
         claimed_payload_sha256 = payload.pop("receipt_payload_sha256", None)
         actual_payload_sha256 = hashlib.sha256(_canonical_json(payload)).hexdigest()
@@ -302,7 +366,7 @@ def _validate_tooling_publication(repo: Path) -> list[str]:
         repository = receipt.get("repository")
         if not isinstance(repository, Mapping):
             raise ToolingPublicationError("receipt repository block is malformed")
-        if repository.get("root") != str(root):
+        if repository.get("root") != CANONICAL_REPOSITORY:
             problems.append(f"tooling_publication:repository_root:{repository.get('root')!r}")
         git_start = repository.get("git_start")
         git_end = repository.get("git_end")
@@ -334,101 +398,98 @@ def _validate_tooling_publication(repo: Path) -> list[str]:
             if claimed.get("upstream_head") != source_commit:
                 problems.append(f"tooling_publication:{label}_source_not_pushed")
 
-        _git(root, "rev-parse", "--verify", f"{source_commit}^{{commit}}")
-        actual_source_parents = (
-            _git(root, "show", "-s", "--format=%P", source_commit).decode("ascii").strip().split()
-        )
-        if git_start.get("parents") != actual_source_parents:
+        actual_source_parents, actual_source_paths = _commit_row(root, source_commit)
+        expected_recovery_paths = tuple(sorted(RECOVERY_SOURCE_COMMIT_PATHS))
+        if git_start.get("parents") != list(actual_source_parents):
             problems.append("tooling_publication:source_parent_claim_mismatch")
-        actual_source_paths = _nul_paths(
-            _git(
-                root,
-                "diff-tree",
-                "--root",
-                "--no-commit-id",
-                "--name-only",
-                "-r",
-                "-z",
-                source_commit,
-            )
-        )
         if (
-            git_start.get("commit_paths") != actual_source_paths
-            or git_end.get("commit_paths") != actual_source_paths
+            git_start.get("commit_paths") != list(actual_source_paths)
+            or git_end.get("commit_paths") != list(actual_source_paths)
         ):
             problems.append("tooling_publication:source_path_claim_mismatch")
-        if actual_source_paths != sorted(EXPECTED_SOURCE_COMMIT_PATHS):
-            problems.append("tooling_publication:source_commit_scope")
+        if actual_source_parents != (RECOVERY_SOURCE_PARENT,):
+            problems.append("tooling_publication:recovery_source_parent")
+        if actual_source_paths != expected_recovery_paths:
+            problems.append("tooling_publication:recovery_source_commit_scope")
+
+        generation_one_parents, generation_one_paths = _commit_row(
+            root, GENERATION_ONE_SOURCE_COMMIT
+        )
+        if generation_one_parents != (GENERATION_ONE_SOURCE_PARENT,):
+            problems.append("tooling_publication:generation_one_source_parent")
+        if generation_one_paths != tuple(sorted(GENERATION_ONE_SOURCE_COMMIT_PATHS)):
+            problems.append("tooling_publication:generation_one_source_commit_scope")
+        old_receipt_parents, old_receipt_paths = _commit_row(
+            root, GENERATION_ONE_RECEIPT_COMMIT
+        )
+        if old_receipt_parents != (GENERATION_ONE_SOURCE_COMMIT,):
+            problems.append("tooling_publication:generation_one_receipt_parent")
+        if old_receipt_paths != (TOOLING_RECEIPT_REL.as_posix(),):
+            problems.append("tooling_publication:generation_one_receipt_scope")
+        old_state_parents, old_state_paths = _commit_row(root, GENERATION_ONE_STATE_COMMIT)
+        if old_state_parents != (GENERATION_ONE_RECEIPT_COMMIT,):
+            problems.append("tooling_publication:generation_one_state_parent")
+        if old_state_paths != ("MISSION_STATE.json",):
+            problems.append("tooling_publication:generation_one_state_scope")
+        recovery_parent_parents, recovery_parent_paths = _commit_row(
+            root, RECOVERY_SOURCE_PARENT
+        )
+        if recovery_parent_parents != (GENERATION_ONE_STATE_COMMIT,):
+            problems.append("tooling_publication:generation_one_baton_parent")
+        if recovery_parent_paths != ("CONTINUITY.md", "HANDOFF.md"):
+            problems.append("tooling_publication:generation_one_baton_scope")
 
         current_commit = _git(root, "rev-parse", "HEAD").decode("ascii").strip()
-        current_branch = _git(root, "symbolic-ref", "--short", "HEAD").decode("utf-8").strip()
-        current_upstream = (
-            _git(root, "rev-parse", "--abbrev-ref", "--symbolic-full-name", "@{upstream}")
-            .decode("utf-8")
-            .strip()
+        receipt_history = tuple(
+            line
+            for line in _git(
+                root,
+                "log",
+                "--format=%H",
+                "--",
+                TOOLING_RECEIPT_REL.as_posix(),
+            )
+            .decode("ascii")
+            .splitlines()
+            if line
         )
-        if current_branch != "master":
-            problems.append(f"tooling_publication:current_branch:{current_branch!r}")
-        if current_upstream != "origin/master":
-            problems.append(f"tooling_publication:current_upstream:{current_upstream!r}")
+        if (
+            len(receipt_history) != 2
+            or not _oid(receipt_history[0])
+            or receipt_history[1:] != (GENERATION_ONE_RECEIPT_COMMIT,)
+        ):
+            problems.append(f"tooling_publication:receipt_history:{list(receipt_history)}")
+        if not receipt_history or not _oid(receipt_history[0]):
+            raise ToolingPublicationError("generation-two receipt commit is missing")
+        receipt_commit = receipt_history[0]
+        receipt_commit_parents, receipt_commit_paths = _commit_row(root, receipt_commit)
+        if receipt_commit_parents != (source_commit,):
+            problems.append("tooling_publication:receipt_not_direct_recovery_source_child")
+        if receipt_commit_paths != (TOOLING_RECEIPT_REL.as_posix(),):
+            problems.append("tooling_publication:receipt_commit_not_receipt_only")
+        committed_receipt = _git(root, "show", f"{receipt_commit}:{TOOLING_RECEIPT_REL.as_posix()}")
+        if committed_receipt != raw_receipt:
+            problems.append("tooling_publication:receipt_bytes_not_committed")
+
         ancestry = (
             _git(
                 root,
                 "rev-list",
                 "--reverse",
                 "--ancestry-path",
-                f"{source_commit}..{current_commit}",
+                f"{receipt_commit}..{current_commit}",
             )
             .decode("ascii")
             .splitlines()
         )
-        if not ancestry:
-            raise ToolingPublicationError("receipt-only child commit is missing")
-        receipt_commit = ancestry[0]
-        receipt_commit_line = (
-            _git(root, "rev-list", "--parents", "-n", "1", receipt_commit).decode("ascii").split()
-        )
-        if receipt_commit_line != [receipt_commit, source_commit]:
-            problems.append("tooling_publication:receipt_not_direct_source_child")
-        receipt_commit_paths = _nul_paths(
-            _git(
-                root,
-                "diff-tree",
-                "--root",
-                "--no-commit-id",
-                "--name-only",
-                "-r",
-                "-z",
-                receipt_commit,
-            )
-        )
-        if receipt_commit_paths != [TOOLING_RECEIPT_REL.as_posix()]:
-            problems.append("tooling_publication:receipt_commit_not_receipt_only")
-        committed_receipt = _git(root, "show", f"{receipt_commit}:{TOOLING_RECEIPT_REL.as_posix()}")
-        if committed_receipt != raw_receipt:
-            problems.append("tooling_publication:receipt_bytes_not_committed")
         if len(ancestry) < 2:
-            problems.append(f"tooling_publication:publication_commit_count:{len(ancestry)}")
+            problems.append(f"tooling_publication:generation_two_commit_count:{len(ancestry)}")
         else:
-            state_commit = ancestry[1]
-            state_commit_line = (
-                _git(root, "rev-list", "--parents", "-n", "1", state_commit).decode("ascii").split()
-            )
-            if state_commit_line != [state_commit, receipt_commit]:
+            state_commit, baton_commit = ancestry[:2]
+            state_commit_parents, state_commit_paths = _commit_row(root, state_commit)
+            if state_commit_parents != (receipt_commit,):
                 problems.append("tooling_publication:state_not_direct_receipt_child")
-            state_commit_paths = _nul_paths(
-                _git(
-                    root,
-                    "diff-tree",
-                    "--root",
-                    "--no-commit-id",
-                    "--name-only",
-                    "-r",
-                    "-z",
-                    state_commit,
-                )
-            )
-            if state_commit_paths != ["MISSION_STATE.json"]:
+            if state_commit_paths != ("MISSION_STATE.json",):
                 problems.append("tooling_publication:state_commit_not_state_only")
             committed_state = _git(root, "show", f"{state_commit}:MISSION_STATE.json")
             try:
@@ -437,78 +498,64 @@ def _validate_tooling_publication(repo: Path) -> list[str]:
                 raise ToolingPublicationError("committed mission state is missing") from exc
             if physical_state != committed_state:
                 problems.append("tooling_publication:mission_state_bytes_not_committed")
-            if len(ancestry) >= 3:
-                baton_commit = ancestry[2]
-                baton_commit_line = (
-                    _git(root, "rev-list", "--parents", "-n", "1", baton_commit)
-                    .decode("ascii")
-                    .split()
-                )
-                if baton_commit_line != [baton_commit, state_commit]:
-                    problems.append("tooling_publication:baton_not_direct_state_child")
-                baton_paths = _nul_paths(
-                    _git(
-                        root,
-                        "diff-tree",
-                        "--root",
-                        "--no-commit-id",
-                        "--name-only",
-                        "-r",
-                        "-z",
-                        baton_commit,
+            baton_commit_parents, baton_commit_paths = _commit_row(root, baton_commit)
+            if baton_commit_parents != (state_commit,):
+                problems.append("tooling_publication:baton_not_direct_state_child")
+            if baton_commit_paths != ("CONTINUITY.md", "HANDOFF.md"):
+                problems.append("tooling_publication:baton_commit_scope")
+            previous_commit = baton_commit
+            for descendant in ancestry[2:]:
+                descendant_parents, descendant_paths = _commit_row(root, descendant)
+                if descendant_parents != (previous_commit,):
+                    problems.append("tooling_publication:preflight_history_not_linear")
+                if not descendant_paths or not all(
+                    _preflight_mutable(relative) for relative in descendant_paths
+                ):
+                    problems.append(
+                        f"tooling_publication:preflight_descendant_scope:{list(descendant_paths)}"
                     )
-                )
-                if baton_paths != ["CONTINUITY.md", "HANDOFF.md"]:
-                    problems.append("tooling_publication:baton_commit_scope")
-                previous_commit = baton_commit
-                for descendant in ancestry[3:]:
-                    descendant_line = (
-                        _git(root, "rev-list", "--parents", "-n", "1", descendant)
-                        .decode("ascii")
-                        .split()
-                    )
-                    if descendant_line != [descendant, previous_commit]:
-                        problems.append("tooling_publication:preflight_history_not_linear")
-                    descendant_paths = _nul_paths(
-                        _git(
-                            root,
-                            "diff-tree",
-                            "--root",
-                            "--no-commit-id",
-                            "--name-only",
-                            "-r",
-                            "-z",
-                            descendant,
-                        )
-                    )
-                    if not descendant_paths or not all(
-                        _preflight_mutable(relative) for relative in descendant_paths
-                    ):
-                        problems.append(
-                            f"tooling_publication:preflight_descendant_scope:{descendant_paths}"
-                        )
-                    previous_commit = descendant
+                previous_commit = descendant
 
-            immutable_paths = sorted(
-                (set(EXPECTED_SOURCE_COMMIT_PATHS) - {"CONTINUITY.md", "MISSION_STATE.json"})
-                | {
-                    ITER135_HYPOTHESIS_REL,
-                    "MISSION_STATE.json",
-                    TOOLING_RECEIPT_REL.as_posix(),
-                }
+            immutable_source_paths = sorted(
+                (
+                    set(GENERATION_ONE_SOURCE_COMMIT_PATHS)
+                    | set(RECOVERY_SOURCE_COMMIT_PATHS)
+                    | {ITER135_HYPOTHESIS_REL}
+                )
+                - {"CONTINUITY.md", "HANDOFF.md", "MISSION_STATE.json"}
             )
-            for relative in immutable_paths:
-                h2_blob = _git(root, "show", f"{state_commit}:{relative}")
+            for relative in immutable_source_paths:
+                recovery_blob = _git(root, "show", f"{source_commit}:{relative}")
                 current_blob = _git(root, "show", f"{current_commit}:{relative}")
-                if current_blob != h2_blob:
+                if current_blob != recovery_blob:
                     problems.append(f"tooling_publication:immutable_path_changed:{relative}")
                 try:
                     physical_blob = _read_regular_file(root / relative, root)
                 except FileNotFoundError as exc:
                     raise ToolingPublicationError(f"immutable path is missing: {relative}") from exc
-                if physical_blob != h2_blob:
+                if physical_blob != recovery_blob:
                     problems.append(
                         f"tooling_publication:immutable_worktree_path_changed:{relative}"
+                    )
+            for relative, reference_commit in (
+                ("MISSION_STATE.json", state_commit),
+                (TOOLING_RECEIPT_REL.as_posix(), receipt_commit),
+            ):
+                reference_blob = _git(root, "show", f"{reference_commit}:{relative}")
+                current_blob = _git(root, "show", f"{current_commit}:{relative}")
+                if current_blob != reference_blob:
+                    problems.append(f"tooling_publication:immutable_path_changed:{relative}")
+                physical_blob = _read_regular_file(root / relative, root)
+                if physical_blob != reference_blob:
+                    problems.append(
+                        f"tooling_publication:immutable_worktree_path_changed:{relative}"
+                    )
+            for relative in ("CONTINUITY.md", "HANDOFF.md"):
+                current_blob = _git(root, "show", f"{current_commit}:{relative}")
+                physical_blob = _read_regular_file(root / relative, root)
+                if physical_blob != current_blob:
+                    problems.append(
+                        f"tooling_publication:mutable_worktree_path_changed:{relative}"
                     )
         upstream_commit = _git(root, "rev-parse", "origin/master").decode("ascii").strip()
         upstream_contains_receipt = subprocess.run(  # noqa: S603 - fixed local Git probe
@@ -553,7 +600,7 @@ def validate_state(state: dict, repo: Path = REPO_ROOT) -> list[str]:
     if state.get("schema") != EXPECTED_SCHEMA:
         problems.append(f"schema:{state.get('schema')!r}!={EXPECTED_SCHEMA!r}")
 
-    if state.get("canonical_repository") != str(repo):
+    if state.get("canonical_repository") != CANONICAL_REPOSITORY:
         problems.append(f"canonical_repository:{state.get('canonical_repository')!r}")
     expected_boundary = {
         "isolated_from": "/Users/danielwahnich/workspace/aweb",

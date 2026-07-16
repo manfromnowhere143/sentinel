@@ -2807,3 +2807,38 @@ transfer boundary fold-in and the claim-(5) hedge are unchanged and still bindin
   read-only host/environment preflight, followed by a committed incomplete manifest and only then
   the four-run nonanalytic G5 smoke. Tesla/Mobileye parity, deployment readiness, benchmark SOTA,
   safety, production, commercial value, and acquisition interest remain unestablished.
+
+- **ITER135 TOOLING PUBLICATION REFROZEN AFTER LOCAL AND GITHUB CI FAILURES (2026-07-16).**
+  This entry supersedes the green/publication claims in the immediately preceding
+  `ITER135 TOOLING FREEZE PUBLISHED` entry. It does not rewrite the historical commits. Source
+  `2d94cf45acb337ff3ba923da1d1de6e6dda6dab7` and receipt
+  `0b5b2d9a4956606fe0619f53288a64d2da58284a` were pushed, but both GitHub Actions runs were red:
+  `22 failed, 818 passed`. Their receipt replays establish a macOS-local pass only, not an accepted
+  cross-platform publication. The defects were portability and publication-control defects, not benchmark
+  evidence: canonical repository identity was incorrectly coupled to the physical macOS checkout;
+  verifier unit helpers resolved the host toolchain instead of receiving a deterministic test
+  toolchain; a hostile smoke test invoked macOS-only `stat -f`; and the shallow CI checkout could
+  not prove the required ancestry. The subsequent local H3 publication gate was also red: `1
+  failed, 839 passed`, because a preregistration-action hostile test read the newly advanced phase
+  instead of establishing its own fixture. Calling that sequence green was wrong.
+
+  **Nothing live happened.** No remote host, Docker, GPU, live smoke, analytic episode, environment
+  receipt, launch manifest, or benchmark evidence was touched. Commits
+  `d8f091c6886d3231fd68382836d16fd23f1101bb` and
+  `c868040f542f9277fc99a451a108138848e80b33`
+  remain in history as disclosed failed publication attempts; they are not authority to advance.
+  Mission state is rolled back to `PREREGISTERED_TOOLING_REQUIRED` while an explicit generation-2
+  replacement receipt supersedes `0b5b2d9a4956606fe0619f53288a64d2da58284a`, names
+  `c868040f542f9277fc99a451a108138848e80b33` as its recovery parent, and carries reason code
+  `H3_PHASE_TRANSITION_SUITE_AND_CI_PORTABILITY_FAILURE`. The recovery source is constrained to exactly the nine
+  disclosed portability, verifier, state, CI, and recovery-document paths; the original 31-path
+  frozen surface remains independently immutable.
+
+  **Publication discipline is now a blocking invariant:** after every push, the matching GitHub
+  Actions run must finish green before any later publication mutation is committed or pushed.
+  Local success is necessary but is not remote CI success. The recovery sequence is source
+  refreeze -> remotely green source -> generation-2 receipt and independent replay -> remotely
+  green receipt -> fresh state-only advance and regenerated baton -> remotely green final head.
+  Until that sequence closes, only local tooling repair, validation, and the already authorized
+  read-only external-benchmark commercial/license/compute/integration preflight are permitted.
+  The live host/environment preflight, smoke, and analytic execution remain unauthorized.

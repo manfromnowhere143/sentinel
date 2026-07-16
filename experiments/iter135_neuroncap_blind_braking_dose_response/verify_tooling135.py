@@ -40,10 +40,15 @@ FAIL_VERDICT = "I135_TOOLING_VERIFICATION_FAILED"
 
 HERE = Path(__file__).resolve().parent
 REPO_ROOT = HERE.parents[1]
+CANONICAL_REPOSITORY = "/Users/danielwahnich/workspace/sentinel"
 DEFAULT_RECEIPT = HERE / "tooling_verification_receipt.json"
 EXPERIMENT_REL = "experiments/iter135_neuroncap_blind_braking_dose_response"
 RECEIPT_REL = f"{EXPERIMENT_REL}/tooling_verification_receipt.json"
-EXPECTED_PREREGISTRATION_HEAD = "3fcb607fea8e1a251c2c82da385dd096dd650909"
+GENERATION_ONE_SOURCE_PARENT = "3fcb607fea8e1a251c2c82da385dd096dd650909"
+GENERATION_ONE_SOURCE_COMMIT = "2d94cf45acb337ff3ba923da1d1de6e6dda6dab7"
+GENERATION_ONE_RECEIPT_COMMIT = "0b5b2d9a4956606fe0619f53288a64d2da58284a"
+RECOVERY_SOURCE_PARENT = "c868040f542f9277fc99a451a108138848e80b33"
+RECOVERY_REASON = "H3_PHASE_TRANSITION_SUITE_AND_CI_PORTABILITY_FAILURE"
 POST_FREEZE_EXACT_PATHS = {
     "CONTINUITY.md",
     "HANDOFF.md",
@@ -102,7 +107,7 @@ REQUIRED_CONTROL_FILES = (
     "tests/test_mission_state.py",
     f"{EXPERIMENT_REL}/HYPOTHESIS.md",
 )
-EXPECTED_SOURCE_COMMIT_PATHS = (
+GENERATION_ONE_SOURCE_COMMIT_PATHS = (
     "CONTINUITY.md",
     "MISSION_STATE.json",
     "README.md",
@@ -135,6 +140,29 @@ EXPECTED_SOURCE_COMMIT_PATHS = (
     "tests/test_iter135_tooling_verifier.py",
     "tests/test_mission_state.py",
 )
+RECOVERY_SOURCE_COMMIT_PATHS = (
+    ".github/workflows/ci.yml",
+    "CONTINUITY.md",
+    "HANDOFF.md",
+    "MISSION_STATE.json",
+    f"{EXPERIMENT_REL}/verify_tooling135.py",
+    "scripts/mission_state.py",
+    "tests/test_iter135_smoke_pipeline.py",
+    "tests/test_iter135_tooling_verifier.py",
+    "tests/test_mission_state.py",
+)
+EXPECTED_RECOVERY_PUBLICATION = {
+    "generation": 2,
+    "supersedes_receipt_commit": GENERATION_ONE_RECEIPT_COMMIT,
+    "recovery_parent": RECOVERY_SOURCE_PARENT,
+    "reason_code": RECOVERY_REASON,
+}
+
+# Compatibility names describe only the immutable first freeze.  Recovery publication checks use
+# the separate paired parent/scope contract above; never substitute the nine recovery paths for
+# the full generation-one frozen surface.
+EXPECTED_PREREGISTRATION_HEAD = GENERATION_ONE_SOURCE_PARENT
+EXPECTED_SOURCE_COMMIT_PATHS = GENERATION_ONE_SOURCE_COMMIT_PATHS
 
 DISCOVERY_CONTRACT = (
     "required frozen members plus every top-level experiment *.py and every top-level "
@@ -244,6 +272,7 @@ class GitState:
 Runner = Callable[[tuple[str, ...], Path], Any]
 GitProbe = Callable[[Path, tuple[str, ...]], GitState]
 AncestryProbe = Callable[[Path, str, str], bool]
+ToolchainResolver = Callable[[], dict[str, dict[str, Any]]]
 Clock = Callable[[], int]
 
 TOOL_NAMES = ("pytest", "bash", "shellcheck", "ruff", "python3", "git")
@@ -720,6 +749,47 @@ def default_git_probe(repo_root: Path, relative_paths: tuple[str, ...]) -> GitSt
     )
 
 
+def default_structural_git_probe(
+    repo_root: Path, relative_paths: tuple[str, ...]
+) -> GitState:
+    """Inspect published history without requiring a checked-out branch or configured upstream."""
+
+    head = _git_bytes(repo_root, ("rev-parse", "--verify", "HEAD^{commit}"))
+    head_text = head.decode("ascii", errors="strict").strip()
+    if not _valid_commit(head_text):
+        raise VerificationError("structural Git HEAD is not a lowercase 40-hex commit")
+    origin_head = _git_bytes(
+        repo_root,
+        ("rev-parse", "--verify", "refs/remotes/origin/master^{commit}"),
+    ).decode("ascii", errors="strict").strip()
+    if not _valid_commit(origin_head):
+        raise VerificationError("origin/master is not a lowercase 40-hex commit")
+    parents, commit_paths = _git_commit_row(repo_root, head_text)
+    del relative_paths
+    status = _git_bytes(
+        repo_root,
+        (
+            "status",
+            "--porcelain=v1",
+            "-z",
+            "--untracked-files=all",
+        ),
+    )
+    entries = tuple(
+        field.decode("utf-8", errors="surrogateescape")
+        for field in status.split(b"\0")
+        if field
+    )
+    return GitState(
+        head=head_text,
+        dirty_entries=entries,
+        porcelain_sha256=_sha256_bytes(status),
+        upstream_head=origin_head,
+        parents=parents,
+        commit_paths=commit_paths,
+    )
+
+
 def default_ancestry_probe(repo_root: Path, ancestor: str, descendant: str) -> bool:
     """Return whether ANCESTOR is reachable from DESCENDANT, failing closed on Git errors."""
 
@@ -811,10 +881,11 @@ def run_verification(
     *,
     runner: Runner = default_runner,
     git_probe: GitProbe = default_git_probe,
+    toolchain_resolver: ToolchainResolver = resolve_toolchain,
     wall_clock_ns: Clock = time.time_ns,
     monotonic_clock_ns: Clock = time.monotonic_ns,
 ) -> dict[str, Any]:
-    """Run the complete receipt pipeline and return the in-memory receipt."""
+    """Run the generation-two recovery receipt pipeline and return its in-memory receipt."""
 
     root = repo_root.resolve(strict=True)
     wall_start = wall_clock_ns()
@@ -823,7 +894,7 @@ def run_verification(
     commands: list[dict[str, Any]] = []
 
     try:
-        toolchain = resolve_toolchain()
+        toolchain = toolchain_resolver()
         inventory = discover_inventory(root)
         initial = snapshot_files(root, inventory.tested_files)
         # Close discovery-to-snapshot races before any validation command executes.
@@ -860,18 +931,18 @@ def run_verification(
         problems.append(
             _problem("SOURCE_NOT_PUSHED", "source HEAD does not equal the frozen upstream HEAD")
         )
-    if git_start.parents != (EXPECTED_PREREGISTRATION_HEAD,):
+    if git_start.parents != (RECOVERY_SOURCE_PARENT,):
         problems.append(
             _problem(
                 "SOURCE_PARENT",
-                "source HEAD is not the direct child of the final preregistration amendment",
+                "recovery source HEAD is not the direct child of the recorded failed H3",
             )
         )
-    if git_start.commit_paths != tuple(sorted(EXPECTED_SOURCE_COMMIT_PATHS)):
+    if git_start.commit_paths != tuple(sorted(RECOVERY_SOURCE_COMMIT_PATHS)):
         problems.append(
             _problem(
                 "SOURCE_COMMIT_SCOPE",
-                "source HEAD path set is not the exact frozen source-only publication set",
+                "recovery source HEAD path set is not the exact nine-path refreeze set",
             )
         )
 
@@ -888,7 +959,7 @@ def run_verification(
                     )
                 )
                 return False
-            if resolve_toolchain() != toolchain:
+            if toolchain_resolver() != toolchain:
                 problems.append(_problem("TOOLCHAIN_DRIFT", f"{label}: executable receipt changed"))
                 return False
             observed_git = git_probe(root, inventory.tested_files)
@@ -973,6 +1044,7 @@ def run_verification(
 
     receipt: dict[str, Any] = {
         "schema": SCHEMA,
+        "publication": dict(EXPECTED_RECOVERY_PUBLICATION),
         "verdict": OK_VERDICT if not problems else FAIL_VERDICT,
         "problem_count": len(problems),
         "problems": problems,
@@ -1205,12 +1277,12 @@ def validate_published_receipt_structure(
     receipt: Mapping[str, Any],
     repo_root: Path = REPO_ROOT,
     *,
-    git_probe: GitProbe = default_git_probe,
+    git_probe: GitProbe = default_structural_git_probe,
     ancestry_probe: AncestryProbe = default_ancestry_probe,
 ) -> list[str]:
-    """Validate the immutable H/H+1 receipt proof after state-only descendants exist.
+    """Validate the explicit generation-two refreeze proof after state-only descendants exist.
 
-    Independent command replay is deliberately performed at the exact receipt-only H+1 commit by
+    Independent command replay is deliberately performed at the exact replacement receipt commit by
     :func:`validate_receipt`.  This post-transition validator instead proves that the committed
     receipt still binds the exact published source tree and that every later commit follows the
     narrow state/baton/preflight-artifact topology without changing frozen tooling.
@@ -1219,6 +1291,8 @@ def validate_published_receipt_structure(
     errors: list[str] = []
     if receipt.get("schema") != SCHEMA:
         errors.append("schema mismatch")
+    if receipt.get("publication") != EXPECTED_RECOVERY_PUBLICATION:
+        errors.append("generation-two publication block mismatch")
     if receipt.get("verdict") != OK_VERDICT:
         errors.append("receipt verdict is not green")
     if receipt.get("problem_count") != 0 or receipt.get("problems") != []:
@@ -1231,8 +1305,11 @@ def validate_published_receipt_structure(
     try:
         root = repo_root.resolve(strict=True)
         repository = receipt.get("repository")
-        if not isinstance(repository, Mapping) or repository.get("root") != str(root):
-            raise VerificationError("receipt repository root is malformed")
+        if (
+            not isinstance(repository, Mapping)
+            or repository.get("root") != CANONICAL_REPOSITORY
+        ):
+            raise VerificationError("receipt canonical repository identity is malformed")
         claimed_start = repository.get("git_start")
         claimed_end = repository.get("git_end")
         if not isinstance(claimed_start, Mapping) or claimed_start != claimed_end:
@@ -1241,14 +1318,14 @@ def validate_published_receipt_structure(
         if not _valid_commit(source_commit):
             raise VerificationError("receipt source commit is malformed")
         empty_status = _sha256_bytes(b"")
-        expected_source_paths = tuple(sorted(EXPECTED_SOURCE_COMMIT_PATHS))
+        expected_source_paths = tuple(sorted(RECOVERY_SOURCE_COMMIT_PATHS))
         if (
             claimed_start.get("dirty_entries") != []
             or claimed_start.get("porcelain_v1_z_sha256") != empty_status
             or claimed_start.get("branch") != "master"
             or claimed_start.get("upstream") != "origin/master"
             or claimed_start.get("upstream_head") != source_commit
-            or claimed_start.get("parents") != [EXPECTED_PREREGISTRATION_HEAD]
+            or claimed_start.get("parents") != [RECOVERY_SOURCE_PARENT]
             or claimed_start.get("commit_paths") != list(expected_source_paths)
         ):
             raise VerificationError("receipt source publication claim is malformed")
@@ -1260,8 +1337,8 @@ def validate_published_receipt_structure(
             raise VerificationError("receipt repository stability flags are not green")
 
         source_parents, source_paths = _git_commit_row(root, source_commit)
-        if source_parents != (EXPECTED_PREREGISTRATION_HEAD,) or source_paths != expected_source_paths:
-            raise VerificationError("actual source commit topology or path scope is wrong")
+        if source_parents != (RECOVERY_SOURCE_PARENT,) or source_paths != expected_source_paths:
+            raise VerificationError("actual recovery source topology or path scope is wrong")
 
         inventory = _source_inventory_from_tree(root, source_commit)
         if receipt.get("inventory") != inventory.as_dict():
@@ -1330,17 +1407,39 @@ def validate_published_receipt_structure(
         receipt_history = tuple(
             line for line in history_raw.decode("ascii", errors="strict").splitlines() if line
         )
-        if len(receipt_history) != 1 or not _valid_commit(receipt_history[0]):
-            raise VerificationError("canonical receipt does not have exactly one history commit")
+        if (
+            len(receipt_history) != 2
+            or not _valid_commit(receipt_history[0])
+            or receipt_history[1] != GENERATION_ONE_RECEIPT_COMMIT
+        ):
+            raise VerificationError(
+                "canonical receipt history is not exact generation-two then generation-one"
+            )
         receipt_commit = receipt_history[0]
+
+        old_source_parents, old_source_paths = _git_commit_row(
+            root, GENERATION_ONE_SOURCE_COMMIT
+        )
+        if old_source_parents != (GENERATION_ONE_SOURCE_PARENT,) or old_source_paths != tuple(
+            sorted(GENERATION_ONE_SOURCE_COMMIT_PATHS)
+        ):
+            raise VerificationError("generation-one source topology or path scope changed")
+        old_receipt_parents, old_receipt_paths = _git_commit_row(
+            root, GENERATION_ONE_RECEIPT_COMMIT
+        )
+        if old_receipt_parents != (GENERATION_ONE_SOURCE_COMMIT,) or old_receipt_paths != (
+            RECEIPT_REL,
+        ):
+            raise VerificationError("generation-one receipt topology or path scope changed")
+
         receipt_parents, receipt_paths = _git_commit_row(root, receipt_commit)
         if receipt_parents != (source_commit,) or receipt_paths != (RECEIPT_REL,):
-            raise VerificationError("receipt commit is not the exact receipt-only H+1")
+            raise VerificationError("replacement receipt is not the exact receipt-only child")
 
         receipt_path = root / RECEIPT_REL
         current_receipt_bytes = _read_stable_regular_file(receipt_path)
         if _git_file_bytes(root, receipt_commit, RECEIPT_REL) != current_receipt_bytes:
-            raise VerificationError("canonical receipt bytes differ from committed H+1 bytes")
+            raise VerificationError("canonical receipt bytes differ from replacement commit bytes")
         committed_receipt = json.loads(current_receipt_bytes.decode("utf-8"))
         if committed_receipt != dict(receipt):
             raise VerificationError("supplied receipt differs from the committed canonical receipt")
@@ -1348,21 +1447,23 @@ def validate_published_receipt_structure(
         current_git = git_probe(root, inventory.tested_files)
         if current_git.dirty_entries or current_git.porcelain_sha256 != empty_status:
             raise VerificationError("current repository is dirty")
-        if current_git.branch != "master" or current_git.upstream != "origin/master":
-            raise VerificationError("current publication branch/upstream is wrong")
+        if not _valid_commit(current_git.upstream_head):
+            raise VerificationError("origin/master commit is malformed or missing")
         if not ancestry_probe(root, receipt_commit, current_git.head):
-            raise VerificationError("receipt H+1 is not an ancestor of current HEAD")
+            raise VerificationError("replacement receipt is not an ancestor of current HEAD")
         if not ancestry_probe(root, receipt_commit, current_git.upstream_head):
-            raise VerificationError("receipt H+1 is not published on origin/master")
+            raise VerificationError("replacement receipt is not published on origin/master")
         if current_git.upstream_head != current_git.head and not ancestry_probe(
             root, current_git.upstream_head, current_git.head
         ):
             raise VerificationError("origin/master is not an ancestor of current HEAD")
 
         chain = _linear_publication_chain(root, receipt_commit, current_git.head)
-        if not chain or chain[0][1] != ("MISSION_STATE.json",):
+        if len(chain) < 2:
+            raise VerificationError("complete state-only and offline-baton transition is missing")
+        if chain[0][1] != ("MISSION_STATE.json",):
             raise VerificationError("state-only H+2 is missing or has the wrong path scope")
-        if len(chain) >= 2 and chain[1][1] != ("CONTINUITY.md", "HANDOFF.md"):
+        if chain[1][1] != ("CONTINUITY.md", "HANDOFF.md"):
             raise VerificationError("offline baton H+3 has the wrong path scope")
         if len(chain) > 2:
             for commit, paths in chain[2:]:
@@ -1383,12 +1484,15 @@ def validate_receipt(
     runner: Runner = default_runner,
     git_probe: GitProbe = default_git_probe,
     ancestry_probe: AncestryProbe = default_ancestry_probe,
+    toolchain_resolver: ToolchainResolver = resolve_toolchain,
 ) -> list[str]:
-    """Replay every command and non-command claim against the current repository bytes."""
+    """Replay every generation-two command and claim against current source bytes."""
 
     errors: list[str] = []
     if receipt.get("schema") != SCHEMA:
         errors.append("schema mismatch")
+    if receipt.get("publication") != EXPECTED_RECOVERY_PUBLICATION:
+        errors.append("generation-two publication block mismatch")
     if receipt.get("verdict") != OK_VERDICT:
         errors.append("receipt verdict is not green")
     problems = receipt.get("problems")
@@ -1404,7 +1508,7 @@ def validate_receipt(
 
     try:
         root = repo_root.resolve(strict=True)
-        current_toolchain = resolve_toolchain()
+        current_toolchain = toolchain_resolver()
         inventory = discover_inventory(root)
         if receipt.get("repository", {}).get("root") != str(root):
             errors.append("repository root mismatch")
@@ -1477,7 +1581,7 @@ def validate_receipt(
             ) != current:
                 errors.append(f"command_{index} pre-replay source drift")
                 break
-            if resolve_toolchain() != current_toolchain:
+            if toolchain_resolver() != current_toolchain:
                 errors.append(f"command_{index} pre-replay toolchain drift")
                 break
             if git_probe(root, inventory.tested_files) != replay_git_start:
@@ -1494,7 +1598,7 @@ def validate_receipt(
             if git_probe(root, inventory.tested_files) != replay_git_start:
                 errors.append(f"command_{index} post-replay Git drift")
                 break
-            if resolve_toolchain() != current_toolchain:
+            if toolchain_resolver() != current_toolchain:
                 errors.append(f"command_{index} post-replay toolchain drift")
                 break
 
@@ -1521,9 +1625,9 @@ def validate_receipt(
                     errors.append(f"claimed source upstream was not origin/master at {label}")
                 if state.get("upstream_head") != state.get("head"):
                     errors.append(f"claimed source commit was not pushed at {label}")
-                if state.get("parents") != [EXPECTED_PREREGISTRATION_HEAD]:
+                if state.get("parents") != [RECOVERY_SOURCE_PARENT]:
                     errors.append(f"claimed source parent mismatch at {label}")
-                if state.get("commit_paths") != sorted(EXPECTED_SOURCE_COMMIT_PATHS):
+                if state.get("commit_paths") != sorted(RECOVERY_SOURCE_COMMIT_PATHS):
                     errors.append(f"claimed source commit scope mismatch at {label}")
             if not isinstance(claimed_head, str) or len(claimed_head) != 40 or any(
                 char not in "0123456789abcdef" for char in claimed_head

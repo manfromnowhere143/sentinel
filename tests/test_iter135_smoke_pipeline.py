@@ -1091,12 +1091,15 @@ done
     tool_bin.mkdir()
     portable_stat = tool_bin / "stat"
     portable_stat.write_text(
-        """#!/bin/bash
-set -euo pipefail
-if [ "$1" != "-Lc" ] || [ "$2" != "%d:%i" ] || [ "$#" != "3" ]; then
-  exit 64
-fi
-/usr/bin/stat -f '%d:%i' "$3"
+        """#!/usr/bin/env python3
+import os
+import sys
+
+if len(sys.argv) != 4 or sys.argv[1:3] != ["-Lc", "%d:%i"]:
+    raise SystemExit(64)
+
+identity = os.stat(sys.argv[3], follow_symlinks=True)
+print(f"{identity.st_dev}:{identity.st_ino}")
 """
     )
     portable_stat.chmod(0o500)
