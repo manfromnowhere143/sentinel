@@ -35,6 +35,15 @@ preregistration. This amendment changes only the infrastructure-failure path. Th
 schedule, estimands, verdicts, complete-run requirements, and total resource ceiling do not
 change.
 
+## Pre-data amendment 3 - complete tooling and evidence inventory
+
+Frozen in a fourth hypothesis-only commit before any Iteration-135 tooling commit, live smoke, or
+analytic episode. Tooling construction decomposed the originally named monolithic test surface
+into independently reviewable schedule, patch, manifest, launcher, smoke, environment, proof,
+analyzer, and verifier lanes. The required-artifact inventory below is expanded to name that exact
+surface and remove the superseded monolithic test path. This is a provenance correction only; no
+design, data, gate, estimator, verdict, or resource rule changes.
+
 Iteration 135 is the terminal causal-diligence experiment on the current NeuroNCAP suite. It asks
 one confirmatory question at the originally frozen matched budget and uses three additional doses
 only to look for evidence that would weaken that interpretation. It is not a product-readiness or
@@ -509,11 +518,18 @@ experiments/iter135_neuroncap_blind_braking_dose_response/
   dose_schedules.json
   server_patch_union_release.py
   server_patch_blind_dose.py
+  patch_compose_dose_env.py
   analyze_dose135.py
+  collect_proof135.py
+  capture_environment135.py
   make_launch_manifest.py
   launch_manifest.json
   env_receipts.json
   run_dose135.sh
+  run_smoke135.sh
+  validate_smoke135.py
+  verify_tooling135.py
+  tooling_verification_receipt.json
   smoke-evidence/SMOKE.md
   smoke-evidence/*
   proof/SHA256SUMS.txt
@@ -523,7 +539,16 @@ experiments/iter135_neuroncap_blind_braking_dose_response/
   proof/dose135_report.json
   RESULT.md
 
-tests/test_iter135_neuroncap_blind_braking_dose_response.py
+tests/test_iter135_analyzer.py
+tests/test_iter135_environment_capture.py
+tests/test_iter135_harness_patches.py
+tests/test_iter135_launch_manifest.py
+tests/test_iter135_launcher.py
+tests/test_iter135_proof_collector.py
+tests/test_iter135_runtime_patches.py
+tests/test_iter135_schedule_tools.py
+tests/test_iter135_smoke_pipeline.py
+tests/test_iter135_tooling_verifier.py
 ```
 
 ## Claim boundary
