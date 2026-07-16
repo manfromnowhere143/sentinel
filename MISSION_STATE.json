@@ -1,6 +1,15 @@
 {
   "schema": "sentinel.mission_state.v1",
   "canonical_repository": "/Users/danielwahnich/workspace/sentinel",
+  "workspace_boundary": {
+    "isolated_from": "/Users/danielwahnich/workspace/aweb",
+    "recovery_sources": [
+      "MISSION_STATE.json",
+      "CONTINUITY.md",
+      "HANDOFF.md"
+    ],
+    "cross_workspace_access_requires_explicit_operator_request": true
+  },
   "trunk": "master",
   "current_completed_iteration": 134,
   "current_result": "experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md",
@@ -42,7 +51,10 @@
   },
   "storage_gate": {
     "minimum_local_free_gib_before_new_proof_collection": 15,
-    "minimum_remote_root_free_gib_before_gpu_launch": 100,
+    "remote_execution_filesystem_path": "/datasets/nuscenes-full",
+    "analytic_output_root": "/datasets/nuscenes-full/sentinel-i135-outoutput",
+    "minimum_remote_execution_filesystem_free_gib_before_gpu_launch": 100,
+    "minimum_remote_execution_filesystem_reserve_gib_after_projected_output": 25,
     "policy": "preserve committed proof and hashes; delete only hash-verified duplicates, reproducible renders, and caches"
   }
 }

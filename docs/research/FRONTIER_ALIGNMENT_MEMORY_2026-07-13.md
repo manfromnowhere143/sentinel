@@ -66,6 +66,16 @@ Mobileye/NHTSA/Waymo/NVIDIA research pass. The longer source-backed memo is
     generation, HUGSIM run, GPU launch, learning/update, repair, safety, deployment, retuning,
     production, or commercial claim.
 
+11. Post-iteration-134 update: the dose-matched causal closure is the active iteration-135
+    program, while the read-only Bench2Drive-Robust preflight identifies the next product object as
+    a benchmark-independent **Sentinel Deployment Assurance Runtime** with typed time, state,
+    decision, fallback, latency, and evidence receipts. Read
+    [`BENCH2DRIVE_ROBUST_PREFLIGHT_2026-07-16.md`](BENCH2DRIVE_ROBUST_PREFLIGHT_2026-07-16.md).
+    Its current action is code-only extraction and golden replay from Sentinel-owned evidence. It
+    explicitly forbids upstream payload acquisition, CARLA/GPU execution, active control, or any
+    Bench2Drive, Tesla, Mobileye, production, safety, or commercial-performance claim before the
+    rights and staged gate ladder pass.
+
 ## Working memory for future sessions
 
 - Do not spend the next session on open-ended frontier research unless a new current event or
@@ -80,6 +90,9 @@ Mobileye/NHTSA/Waymo/NVIDIA research pass. The longer source-backed memo is
 - Do not treat iteration 122 as the current endpoint. Future sessions should also read the
   iteration-125 blind-spot design note, the iteration-126 candidate manifest note, and the
   iteration-128/129/130 preflight notes before proposing scenario generation.
+- Do not default to more open-ended benchmark research. Finish the active iteration-135 gate
+  sequence, then prefer the code-only Deployment Assurance Runtime contract/golden-replay lane;
+  external benchmarks are falsifiers and evidence sources, not product dependencies.
 - Any next experiment still requires a fresh `HYPOTHESIS.md` before analyzer work, no GPU unless
   pre-registered, and no threshold/repair/safety/transfer/deployment claim unless proven.
 

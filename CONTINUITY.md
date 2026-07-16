@@ -6,6 +6,16 @@ before touching anything. Generate the *dynamic* state snapshot with
 `python3 scripts/make_handoff.py` — it assembles current git/experiment/box state
 automatically; this file carries the invariants that do not change per shift.
 
+## Workspace boundary (permanent)
+
+Sentinel's only canonical worktree is `/Users/danielwahnich/workspace/sentinel`. Sentinel is a
+standalone repository and mission-control surface, completely isolated from
+`/Users/danielwahnich/workspace/aweb`. Never run Aweb bootstrap commands to recover Sentinel,
+never infer Sentinel state from Aweb files or tools, and never store canonical Sentinel memory in
+an Aweb project directory. Start from `MISSION_STATE.json`, this file, and `HANDOFF.md` in the
+Sentinel repository. Cross-workspace access requires a new, explicit operator request naming
+both workspaces; ordinary Sentinel work grants no such authority.
+
 ## The standard (non-negotiable, verbatim from 19 iterations of practice)
 
 1. **Pre-register before data.** Every experiment gets a HYPOTHESIS.md with numeric bars and
@@ -26,9 +36,8 @@ automatically; this file carries the invariants that do not change per shift.
    drifted 2026-07-12, corrected forward; pushed history stands). CI must be green on
    every push — it runs ruff + pytest + `scripts/validate_docs.py` (diagram budgets, link
    health, README story completeness).
-7. **Memory at every state change** (Claude shifts: the aweb-sentinel file under
-   `~/.claude/projects/-Users-danielwahnich-workspace-aweb/memory/`; other operators: update
-   THIS file's "shift log" section and the dynamic snapshot instead).
+7. **Memory at every state change.** Update THIS file's "shift log" section and the dynamic
+   Sentinel snapshot. Never use an Aweb project directory as canonical Sentinel memory.
 8. **Defensibility over impressiveness.** When choosing between a stronger-looking repository
    story and a more defensible scientific claim, choose the defensible claim. A narrower result
    that survives hostile scrutiny is worth more than a larger claim resting on untested
