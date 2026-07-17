@@ -3210,3 +3210,10 @@ transfer boundary fold-in and the claim-(5) hedge are unchanged and still bindin
   committed in-repo), leaving the untracked set exactly the load-bearing `checkpoints` symlink,
   and the anchor path still resolves. The scope is the exact thirteen paths of the generation-five
   recovery. No further host action was taken.
+
+  Generation-seven publication record, 2026-07-17. Source F7 `7cb0c442` carries the exact thirteen
+  paths and reported success on both Python lanes before `master` moved. Receipt R7 `470ec333`
+  returned `I135_TOOLING_VERIFICATION_OK` with `problem_count=0` and independently replayed green
+  on a clean tree after commit. The superseded R6 blob was confirmed byte-identical to its
+  committed object before unlock, and both working-copy protections were restored after
+  generation. Only the baton tip was pushed.

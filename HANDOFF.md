@@ -1,40 +1,44 @@
 # HANDOFF — dynamic state snapshot
 
-Generation-seven envelope recovery snapshot, 2026-07-17. Read CONTINUITY.md first.
+Generation-seven accepted tooling freeze, 2026-07-17. Read CONTINUITY.md first.
 
 ## Repository state
 ```
-F7      iter135: refreeze generation-seven tooling recovery
+B7      handoff: accept iter135 generation-seven tooling freeze
+c44639d mission: accept iter135 generation-seven tooling freeze
+470ec33 iter135: publish generation-seven tooling receipt
+7cb0c44 iter135: refreeze generation-seven tooling recovery
 a37d1fc handoff: accept iter135 generation-six tooling freeze
-b2d4980 mission: accept iter135 generation-six tooling freeze
-4fb4d81 iter135: publish generation-six tooling receipt
-b4e0f82 iter135: refreeze generation-six tooling recovery
 ```
-Host-preparation attempt one failed closed on `publication-authority:check-run-envelope` before
-any host mutation; the red receipt (SHA-256
-`91b2d5d512d5a9aa7f7f4701d14fca8c5beeb99f7aa30519af678bf71ad135fb`) is preserved on the box. Every
+Generation-seven source `7cb0c442` and receipt commit `470ec333` supersede the generation-six
+receipt `4fb4d819d56f6a6c6331abfa4e8039bf8bedf7be`. Host-preparation attempt one failed closed on
+`publication-authority:check-run-envelope` before any host mutation (red receipt SHA-256
+`91b2d5d512d5a9aa7f7f4701d14fca8c5beeb99f7aa30519af678bf71ad135fb`, preserved on the box): every
 SHA published under the branch-validation amendment carries the probe run plus the master run per
-check name, and the frozen proof demanded exactly two runs. Generation seven amends the envelope
-to bind authority to the newest run per required name without weakening any other bound. The UniAD
-untracked set is already exactly the `checkpoints` symlink (41 strays archived to
-`/opt/sentinel-stack/archive-uniad-pre-i135/`). Mission state is rolled back locally while the
-generation-seven chain is published. After B7: rebuild the packet from the new baton, remove
+check name, and the frozen proof demanded exactly two runs. Generation seven binds authority to
+the newest run per required name; every run must still be a completed github-actions run for the
+exact source commit, and a red run newer than a green one still fails closed. UniAD untracked is
+exactly the `checkpoints` symlink (41 strays archived to
+`/opt/sentinel-stack/archive-uniad-pre-i135/`). Next: rebuild the packet from this baton, remove
 AppleDouble `._*` files after extraction, dress-rehearse, and fire attempt two.
 
 ## Canonical mission state (`MISSION_STATE.json`)
 
 - Current: iteration 134 / PLACEBO_HARM_OR_NULL / run IDLE / next
-  iteration 135 / PREREGISTERED_TOOLING_REQUIRED
+  iteration 135 / TOOLING_FROZEN_PREFLIGHT_REQUIRED
 - Current result: experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md
 - Next program: semantics-free placebo dose-response causal closure
 - Authorized now:
-  - build and validate only the tooling and tests frozen by the active iteration-135 hypothesis
-  - inventory storage and provenance before any safe cleanup or live smoke
-  - publish a read-only external-benchmark commercial, license, compute, and integration preflight
+  - prepare the exact hash-bound sentinel-gpu host contract and atomically commit host_packet_manifest.json and host_preparation_receipt.json
+  - capture and commit the read-only iteration-135 environment receipt on sentinel-gpu
+  - generate and commit only the hash-addressed incomplete pre-smoke manifest; no analytic episodes
+  - run exactly the hash-bound four-run nonanalytic G5 smoke after the incomplete pre-smoke manifest is committed
+  - validate, collect, and commit the exact nonanalytic smoke raw evidence, recomputed receipt, and mechanically generated SMOKE.md
 - Forbidden now:
-  - GPU launch before the iteration-135 hypothesis, analyzer, manifest, provenance, storage, and smoke gates are frozen
-  - rerun iteration 134
-  - adopt run-index resampling as the iteration-135 primary after observing iteration-134 results
+  - run any iteration-135 analytic episode before smoke evidence and the final launch manifest are committed green
+  - remove or bypass the permanent analytic launch lock
+  - rerun iteration 134 or adapt iteration-135 schedules, estimands, verdicts, or policies after evidence
+  - place any iteration-135 analytic output on the remote root filesystem
 
 Generation four changes no scientific or execution payload. It makes structural Git reads resolve
 and attest only Git instead of unnecessarily requiring the current `pytest`, Ruff, shell, and
