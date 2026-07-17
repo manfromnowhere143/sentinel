@@ -420,6 +420,10 @@ def test_published_structural_validation_resolves_only_trusted_git(
         verifier.GENERATION_EIGHT_RECEIPT_COMMIT: (verifier.GENERATION_EIGHT_SOURCE_COMMIT,),
         verifier.GENERATION_EIGHT_STATE_COMMIT: (verifier.GENERATION_EIGHT_RECEIPT_COMMIT,),
         verifier.GENERATION_EIGHT_BATON_COMMIT: (verifier.GENERATION_EIGHT_STATE_COMMIT,),
+        verifier.GENERATION_NINE_SOURCE_COMMIT: (verifier.GENERATION_NINE_SOURCE_PARENT,),
+        verifier.GENERATION_NINE_RECEIPT_COMMIT: (verifier.GENERATION_NINE_SOURCE_COMMIT,),
+        verifier.GENERATION_NINE_STATE_COMMIT: (verifier.GENERATION_NINE_RECEIPT_COMMIT,),
+        verifier.GENERATION_NINE_BATON_COMMIT: (verifier.GENERATION_NINE_STATE_COMMIT,),
         source: (verifier.RECOVERY_SOURCE_PARENT,),
         receipt_commit: (source,),
     }
@@ -468,6 +472,12 @@ def test_published_structural_validation_resolves_only_trusted_git(
         verifier.GENERATION_EIGHT_RECEIPT_COMMIT: (verifier.RECEIPT_REL,),
         verifier.GENERATION_EIGHT_STATE_COMMIT: ("MISSION_STATE.json",),
         verifier.GENERATION_EIGHT_BATON_COMMIT: ("CONTINUITY.md", "HANDOFF.md"),
+        verifier.GENERATION_NINE_SOURCE_COMMIT: tuple(
+            sorted(verifier.GENERATION_NINE_SOURCE_COMMIT_PATHS)
+        ),
+        verifier.GENERATION_NINE_RECEIPT_COMMIT: (verifier.RECEIPT_REL,),
+        verifier.GENERATION_NINE_STATE_COMMIT: ("MISSION_STATE.json",),
+        verifier.GENERATION_NINE_BATON_COMMIT: ("CONTINUITY.md", "HANDOFF.md"),
         source: tuple(sorted(verifier.RECOVERY_SOURCE_COMMIT_PATHS)),
         receipt_commit: (verifier.RECEIPT_REL,),
     }
@@ -516,6 +526,7 @@ def test_published_structural_validation_resolves_only_trusted_git(
     )
     receipt_history = (
         receipt_commit,
+        verifier.GENERATION_NINE_RECEIPT_COMMIT,
         verifier.GENERATION_EIGHT_RECEIPT_COMMIT,
         verifier.GENERATION_SEVEN_RECEIPT_COMMIT,
         verifier.GENERATION_SIX_RECEIPT_COMMIT,
@@ -1005,6 +1016,10 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
         verifier.GENERATION_EIGHT_RECEIPT_COMMIT: (verifier.GENERATION_EIGHT_SOURCE_COMMIT,),
         verifier.GENERATION_EIGHT_STATE_COMMIT: (verifier.GENERATION_EIGHT_RECEIPT_COMMIT,),
         verifier.GENERATION_EIGHT_BATON_COMMIT: (verifier.GENERATION_EIGHT_STATE_COMMIT,),
+        verifier.GENERATION_NINE_SOURCE_COMMIT: (verifier.GENERATION_NINE_SOURCE_PARENT,),
+        verifier.GENERATION_NINE_RECEIPT_COMMIT: (verifier.GENERATION_NINE_SOURCE_COMMIT,),
+        verifier.GENERATION_NINE_STATE_COMMIT: (verifier.GENERATION_NINE_RECEIPT_COMMIT,),
+        verifier.GENERATION_NINE_BATON_COMMIT: (verifier.GENERATION_NINE_STATE_COMMIT,),
         source: (verifier.RECOVERY_SOURCE_PARENT,),
         receipt_commit: (source,),
         state_commit: (receipt_commit,),
@@ -1056,6 +1071,12 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
         verifier.GENERATION_EIGHT_RECEIPT_COMMIT: (verifier.RECEIPT_REL,),
         verifier.GENERATION_EIGHT_STATE_COMMIT: ("MISSION_STATE.json",),
         verifier.GENERATION_EIGHT_BATON_COMMIT: ("CONTINUITY.md", "HANDOFF.md"),
+        verifier.GENERATION_NINE_SOURCE_COMMIT: tuple(
+            sorted(verifier.GENERATION_NINE_SOURCE_COMMIT_PATHS)
+        ),
+        verifier.GENERATION_NINE_RECEIPT_COMMIT: (verifier.RECEIPT_REL,),
+        verifier.GENERATION_NINE_STATE_COMMIT: ("MISSION_STATE.json",),
+        verifier.GENERATION_NINE_BATON_COMMIT: ("CONTINUITY.md", "HANDOFF.md"),
         source: tuple(sorted(verifier.RECOVERY_SOURCE_COMMIT_PATHS)),
         receipt_commit: (verifier.RECEIPT_REL,),
         state_commit: ("MISSION_STATE.json",),
@@ -1064,6 +1085,7 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
     }
     receipt_history = [
         receipt_commit,
+        verifier.GENERATION_NINE_RECEIPT_COMMIT,
         verifier.GENERATION_EIGHT_RECEIPT_COMMIT,
         verifier.GENERATION_SEVEN_RECEIPT_COMMIT,
         verifier.GENERATION_SIX_RECEIPT_COMMIT,
@@ -1141,7 +1163,7 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
         git_probe=lambda _root, _paths: publication_git(baton_commit, detached_origin),
         ancestry_probe=receipt_missing_from_origin,
     )
-    assert any("generation-nine receipt is not published on origin/master" in error for error in errors)
+    assert any("generation-ten receipt is not published on origin/master" in error for error in errors)
 
     wrong_root = copy.deepcopy(receipt)
     wrong_root["repository"]["root"] = str(root)
@@ -1177,7 +1199,7 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
         git_probe=lambda _root, _paths: publication_git(baton_commit),
         ancestry_probe=stable_ancestry,
     )
-    assert any("receipt history is not exact generation-nine" in error for error in errors)
+    assert any("receipt history is not exact generation-ten" in error for error in errors)
     receipt_history.append(verifier.GENERATION_ONE_RECEIPT_COMMIT)
 
     paths[verifier.GENERATION_ONE_SOURCE_COMMIT] = ("MISSION_STATE.json",)

@@ -1,48 +1,44 @@
 # HANDOFF — dynamic state snapshot
 
-Generation-nine accepted tooling freeze, 2026-07-17. Read CONTINUITY.md first.
+Generation-ten envelope-reconciliation snapshot, 2026-07-17. Read CONTINUITY.md first.
 
 ## Repository state
 ```
-B9      handoff: accept iter135 generation-nine tooling freeze
+F10     iter135: refreeze generation-ten tooling recovery
+023d7ca iter135: commit host preparation evidence
+150e04d handoff: accept iter135 generation-nine tooling freeze
 a0b0947 mission: accept iter135 generation-nine tooling freeze
 133c7c9 iter135: publish generation-nine tooling receipt
-9dabc72 iter135: refreeze generation-nine tooling recovery
-833a00c handoff: accept iter135 generation-eight tooling freeze
 ```
-Host-preparation attempt five returned `I135_HOST_PREPARATION_OK` with `problems=0` under the
-generation-eight baton (packet `0e06e7ec…` bound to B8, receipt `c432e716…`). Its stage-zero
-commit proved the generation-eight replay-timeout amendment works, then executed the remaining
-never-run validation layers and exposed the same pre-generation-five fossil in every frozen
-mirror of the host contract: the controller's receipt deep-check, the environment capture, the
-smoke launcher, and the analytic launcher all still required the UniAD untracked set to be
-empty, while the real, generation-five-accepted state is exactly the load-bearing `checkpoints`
-symlink; the deep replay also passed three-field binding rows where the frozen evidence
-validator reads five fields. An exhaustive audit against the attempt-five receipt found no
-other stale expectation. Generation nine reconciles all mirrors at once and adds the explicit
-symlink contract (type and exact `ckpts` target) with hostile coverage. Next: de-prepare
-the box (invert the compose patch by exact preimage SHA, remove the empty analytic root,
-archive the B8-bound install), rebuild the packet from B9, dress-rehearse, run the FULL
-countdown, fire attempt six under sudo, then commit stage zero (exactly the two evidence
-paths, parent B9) and proceed E, P, S.
+Host-preparation attempt six returned `I135_HOST_PREPARATION_OK` with `problems=0` on the
+first firing under the generation-nine baton, and its stage-zero commit `023d7ca6` PUBLISHED
+green on `master` — the full deep replay passed for the first time in mission history. A
+pre-flight sweep before the environment capture then found the generation-ten defect at zero
+cost: the generation-seven check-run envelope fix was applied only to the host-preparation
+controller, while the capture, the smoke launcher, and the analytic launcher still require the
+exact pre-amendment run count; every amendment-published SHA permanently carries the probe run
+plus the master run per required name, so E, S, and activation would each have failed closed
+one generation apart. Generation ten ports the newest-run-per-name envelope to all three with
+hostile coverage. Mission state is rolled back locally while the generation-ten chain is
+published. After B10: de-prepare attempt six (invert the compose patch by exact preimage SHA,
+remove the empty analytic root, archive the B9-bound install), rebuild the packet from B10,
+dress-rehearse, run the FULL countdown, fire attempt seven under sudo, then commit stage zero
+(exactly the two evidence paths, parent B10) and proceed E, P, S.
 
 ## Canonical mission state (`MISSION_STATE.json`)
 
 - Current: iteration 134 / PLACEBO_HARM_OR_NULL / run IDLE / next
-  iteration 135 / TOOLING_FROZEN_PREFLIGHT_REQUIRED
+  iteration 135 / PREREGISTERED_TOOLING_REQUIRED
 - Current result: experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md
 - Next program: semantics-free placebo dose-response causal closure
 - Authorized now:
-  - prepare the exact hash-bound sentinel-gpu host contract and atomically commit host_packet_manifest.json and host_preparation_receipt.json
-  - capture and commit the read-only iteration-135 environment receipt on sentinel-gpu
-  - generate and commit only the hash-addressed incomplete pre-smoke manifest; no analytic episodes
-  - run exactly the hash-bound four-run nonanalytic G5 smoke after the incomplete pre-smoke manifest is committed
-  - validate, collect, and commit the exact nonanalytic smoke raw evidence, recomputed receipt, and mechanically generated SMOKE.md
+  - build and validate only the tooling and tests frozen by the active iteration-135 hypothesis
+  - inventory storage and provenance before any safe cleanup or live smoke
+  - publish a read-only external-benchmark commercial, license, compute, and integration preflight
 - Forbidden now:
-  - run any iteration-135 analytic episode before smoke evidence and the final launch manifest are committed green
-  - remove or bypass the permanent analytic launch lock
-  - rerun iteration 134 or adapt iteration-135 schedules, estimands, verdicts, or policies after evidence
-  - place any iteration-135 analytic output on the remote root filesystem
+  - GPU launch before the iteration-135 hypothesis, analyzer, manifest, provenance, storage, and smoke gates are frozen
+  - rerun iteration 134
+  - adopt run-index resampling as the iteration-135 primary after observing iteration-134 results
 
 Generation four changes no scientific or execution payload. It makes structural Git reads resolve
 and attest only Git instead of unnecessarily requiring the current `pytest`, Ruff, shell, and
@@ -259,10 +255,11 @@ is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT 
 - Canonical completed experiment: experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md — read it before opening new work.
 - Active pending pre-registration: experiments/iter135_neuroncap_blind_braking_dose_response/HYPOTHESIS.md — read it with MISSION_STATE.json; neither file overrides the other.
 - Deprecated pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — historical only; it does not govern the next action.
-- Canonical next action: de-prepare attempt five on the box (invert the compose patch by exact
-  preimage SHA, remove the empty analytic root, archive the B8-bound install), rebuild the
-  packet from this baton, dress-rehearse, run the FULL countdown, fire attempt six under sudo,
-  then commit stage zero (exactly the two evidence paths, parent B9) and proceed E, P, S.
+- Canonical next action: publish and remotely validate the exact generation-ten recovery
+  source, then its replacement receipt, then a fresh atomic state-only-plus-baton pair. Push
+  only that pair's baton tip. Host re-preparation (de-prepare attempt six, rebuild the packet
+  from B10, dress-rehearse, fire attempt seven under sudo) remains blocked until the new baton
+  is exactly green.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
 

@@ -1008,7 +1008,7 @@ def test_host_commit_rejects_same_size_different_contents_blob(tmp_path: Path) -
         (["check (3.10)"], "host-publication-authority:check-run-envelope"),
         (
             ["check (3.10)", "check (3.10)"],
-            "host-publication-authority:duplicate-check:check (3.10)",
+            "host-publication-authority:required-check-set",
         ),
         (
             ["check (3.10)", "unexpected green check"],
@@ -1016,7 +1016,7 @@ def test_host_commit_rejects_same_size_different_contents_blob(tmp_path: Path) -
         ),
         (
             [*capture.REQUIRED_GITHUB_CHECKS, "unexpected green check"],
-            "host-publication-authority:check-run-envelope",
+            "host-publication-authority:unexpected-check",
         ),
     ],
 )
@@ -1726,3 +1726,74 @@ def test_declared_python_minimum_and_ci_matrix_cover_python_310() -> None:
     assert problems == []
     assert interpreter["implementation"] == "CPython"
     assert isinstance(interpreter["sha256"], str) and len(interpreter["sha256"]) == 64
+
+
+def _amendment_check_runs(commit: str) -> dict[str, object]:
+    """The permanent shape of every amendment-published SHA: one red disposable-branch probe
+    run plus one newer green master run per required check name."""
+
+    rows = []
+    for index, name in enumerate(capture.REQUIRED_GITHUB_CHECKS):
+        rows.append(
+            {
+                "id": 100 + index,
+                "name": name,
+                "head_sha": commit,
+                "status": "completed",
+                "conclusion": "failure",
+                "app": {"slug": "github-actions"},
+            }
+        )
+        rows.append(
+            {
+                "id": 200 + index,
+                "name": name,
+                "head_sha": commit,
+                "status": "completed",
+                "conclusion": "success",
+                "app": {"slug": "github-actions"},
+            }
+        )
+    return {"total_count": len(rows), "check_runs": rows}
+
+
+def test_check_envelope_accepts_probe_plus_master_runs() -> None:
+    commit = "a" * 40
+    checks = capture._project_exact_checks(_amendment_check_runs(commit), commit)
+    assert [row["id"] for row in checks] == [200, 201]
+    assert all(row["conclusion"] == "success" for row in checks)
+
+
+def test_check_envelope_rejects_red_run_newer_than_green() -> None:
+    commit = "a" * 40
+    document = _amendment_check_runs(commit)
+    for row in document["check_runs"]:
+        if row["id"] >= 200:
+            row["conclusion"] = "failure"
+        else:
+            row["conclusion"] = "success"
+    with pytest.raises(capture.CaptureError, match="check-not-green"):
+        capture._project_exact_checks(document, commit)
+
+
+def test_check_envelope_rejects_pending_probe_row() -> None:
+    commit = "a" * 40
+    document = _amendment_check_runs(commit)
+    document["check_runs"][0]["status"] = "in_progress"
+    document["check_runs"][0]["conclusion"] = None
+    with pytest.raises(capture.CaptureError, match="check-not-green"):
+        capture._project_exact_checks(document, commit)
+
+
+def test_check_envelope_rejects_triplicate_and_duplicate_ids() -> None:
+    commit = "a" * 40
+    document = _amendment_check_runs(commit)
+    document["check_runs"].append(dict(document["check_runs"][1], id=300))
+    document["total_count"] = len(document["check_runs"])
+    with pytest.raises(capture.CaptureError, match="check-run-envelope"):
+        capture._project_exact_checks(document, commit)
+
+    document = _amendment_check_runs(commit)
+    document["check_runs"][1]["id"] = 100
+    with pytest.raises(capture.CaptureError, match="duplicate-check"):
+        capture._project_exact_checks(document, commit)

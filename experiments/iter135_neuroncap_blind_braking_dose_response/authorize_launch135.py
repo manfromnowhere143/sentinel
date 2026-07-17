@@ -175,11 +175,17 @@ GENERATION_EIGHT_REASON = "B7_STAGE_ZERO_DEEP_REPLAY_CHECKOUT_TIMEOUT_UNSATISFIA
 GENERATION_EIGHT_RECEIPT_COMMIT = "faf8a2d0a35be2ad053dae1946893cf69f024f5c"
 GENERATION_EIGHT_BATON_COMMIT = "833a00cd930b44e3fac63edb09c6590efd128933"
 GENERATION_NINE_REASON = "B8_STAGE_ZERO_HOST_STATE_MIRRORS_STALE_ACROSS_FROZEN_TOOLS"
+GENERATION_NINE_RECEIPT_COMMIT = "133c7c924a3f47a8e1ff9bf9f975e4e99902fea2"
+# Generation ten's source parent is the published generation-nine stage-zero commit, the exact
+# master tip when the remaining check-run-envelope fossils were found (the generation-six
+# precedent: the source parent is the published tip, not necessarily a baton).
+GENERATION_NINE_STAGE_ZERO_COMMIT = "023d7ca638de5f3bde29ef9c6068bc64ecf711f2"
+GENERATION_TEN_REASON = "E_PREFLIGHT_CHECK_RUN_ENVELOPE_FOSSILS_IN_CAPTURE_AND_LAUNCHERS"
 EXPECTED_TOOLING_PUBLICATION = {
-    "generation": 9,
-    "supersedes_receipt_commit": GENERATION_EIGHT_RECEIPT_COMMIT,
-    "recovery_parent": GENERATION_EIGHT_BATON_COMMIT,
-    "reason_code": GENERATION_NINE_REASON,
+    "generation": 10,
+    "supersedes_receipt_commit": GENERATION_NINE_RECEIPT_COMMIT,
+    "recovery_parent": GENERATION_NINE_STAGE_ZERO_COMMIT,
+    "reason_code": GENERATION_TEN_REASON,
 }
 TOOLING_REPOSITORY_FIELDS = {
     "root",
@@ -469,7 +475,7 @@ def _tooling_source_commit(repo: Path, tooling_receipt_commit: str) -> str:
         or _SHA256_RE.fullmatch(receipt["file_content_set_sha256"]) is None
         or claimed_payload_sha256 != hashlib.sha256(_canonical_json(payload)).hexdigest()
     ):
-        raise AuthorizationError("tooling receipt does not bind the exact green generation-nine source")
+        raise AuthorizationError("tooling receipt does not bind the exact green generation-ten source")
     try:
         validator = _load_frozen_tooling_receipt_validator(repo, source_commit)
         frozen_errors = validator(receipt, repo_root=repo)
@@ -1231,7 +1237,7 @@ def _deep_replay_publication(
     tooling_baton_commit: str,
     commits: Sequence[str],
 ) -> list[str]:
-    """Replay H/E/P/S[/A/F] from the frozen generation-nine source in isolation."""
+    """Replay H/E/P/S[/A/F] from the frozen generation-ten source in isolation."""
 
     problems: list[str] = []
     try:

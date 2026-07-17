@@ -595,11 +595,15 @@ def validate_ci(payload: object, expected_commit: str) -> list[dict[str, object]
     if not isinstance(payload, dict) or not isinstance(payload.get("check_runs"), list):
         raise ValueError("GitHub check-runs response is malformed")
     check_runs = payload["check_runs"]
+    # Amendment-published SHAs permanently carry the disposable-branch probe run plus the
+    # authoritative master run per required name; authority binds to the newest run per name
+    # (ids are chronologically monotonic), matching the generation-seven envelope in the
+    # host-preparation controller. A red run newer than a green one still fails closed.
     if (
         type(payload.get("total_count")) is not int
         or payload["total_count"] != len(check_runs)
-        or payload["total_count"] != len(EXPECTED_CHECKS)
-        or payload["total_count"] > 100
+        or payload["total_count"] < len(EXPECTED_CHECKS)
+        or payload["total_count"] > 2 * len(EXPECTED_CHECKS)
     ):
         raise ValueError("GitHub check-runs page is incomplete or not the exact CI matrix")
     grouped = {name: [] for name in EXPECTED_CHECKS}
@@ -613,12 +617,13 @@ def validate_ci(payload: object, expected_commit: str) -> list[dict[str, object]
             or app.get("slug") != "github-actions"
             or type(row.get("id")) is not int
             or row["id"] <= 0
+            or row.get("status") != "completed"
         ):
             raise ValueError(f"GitHub CI identity drift: {row.get('name')}")
         grouped[row["name"]].append(row)
     projection = []
     for name, rows in grouped.items():
-        if len(rows) != 1:
+        if not 1 <= len(rows) <= 2 or len({row["id"] for row in rows}) != len(rows):
             raise ValueError(f"required GitHub CI check missing: {name}")
         latest = max(rows, key=lambda row: row["id"])
         if latest.get("status") != "completed" or latest.get("conclusion") != "success":

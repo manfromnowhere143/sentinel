@@ -2148,7 +2148,7 @@ def test_github_smoke_authority_rejects_hostile_committed_manifest_artifact(
 @pytest.mark.parametrize(
     ("mutation", "message"),
     [
-        ("pending", "not green"),
+        ("pending", "identity drift"),
         ("failure", "not green"),
         ("wrong-head", "identity drift"),
         ("wrong-app", "identity drift"),
@@ -2444,3 +2444,37 @@ def test_pre_smoke_manifest_must_hash_bind_new_pipeline(tmp_path: Path, name: st
 
     assert receipt["verdict"] == smoke.FAIL_VERDICT
     assert f"pre-manifest:hash:{name}" in receipt["problems"]
+
+
+
+def test_github_smoke_gate_accepts_amendment_published_run_shape() -> None:
+    """Every amendment-published SHA carries a red probe run plus a newer green master run per
+    name; authority binds to the newest run per name, and a newer red still fails closed."""
+
+    namespace = github_smoke_authority_namespace()
+    validate_ci = namespace["validate_ci"]
+    commit = "a" * 40
+    payload = _green_smoke_check_runs(commit)
+    probe_rows = [
+        {
+            "id": row["id"] - 5,
+            "name": row["name"],
+            "head_sha": commit,
+            "status": "completed",
+            "conclusion": "failure",
+            "app": {"slug": "github-actions"},
+        }
+        for row in payload["check_runs"]
+    ]
+    payload["check_runs"] = probe_rows + payload["check_runs"]
+    payload["total_count"] = len(payload["check_runs"])
+
+    projection = validate_ci(payload, commit)
+
+    assert [row["conclusion"] for row in projection] == ["success", "success"]
+    assert [row["id"] for row in projection] == [100, 101]
+
+    for row in payload["check_runs"]:
+        row["conclusion"] = "failure" if row["id"] >= 100 else "success"
+    with pytest.raises(ValueError, match="not green"):
+        validate_ci(payload, commit)

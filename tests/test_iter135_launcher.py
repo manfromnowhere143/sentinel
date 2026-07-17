@@ -644,12 +644,12 @@ def test_local_activation_then_github_projection_feeds_exact_lock_payload(
                 "schema": "iter135.tooling_verification.v2",
                 "verdict": "I135_TOOLING_VERIFICATION_OK",
                 "publication": {
-                    "generation": 9,
+                    "generation": 10,
                     "supersedes_receipt_commit": (
-                        "faf8a2d0a35be2ad053dae1946893cf69f024f5c"
+                        "133c7c924a3f47a8e1ff9bf9f975e4e99902fea2"
                     ),
-                    "recovery_parent": "833a00cd930b44e3fac63edb09c6590efd128933",
-                    "reason_code": "B8_STAGE_ZERO_HOST_STATE_MIRRORS_STALE_ACROSS_FROZEN_TOOLS",
+                    "recovery_parent": "023d7ca638de5f3bde29ef9c6068bc64ecf711f2",
+                    "reason_code": "E_PREFLIGHT_CHECK_RUN_ENVELOPE_FOSSILS_IN_CAPTURE_AND_LAUNCHERS",
                 },
                 "repository": {"git_start": {"head": "9" * 40}},
             },
@@ -876,7 +876,7 @@ def test_local_activation_then_github_projection_feeds_exact_lock_payload(
         ("generation", 3),
         ("supersedes_receipt_commit", "0" * 40),
         ("recovery_parent", "1" * 40),
-        ("reason_code", "UNREGISTERED_GENERATION_NINE_REASON"),
+        ("reason_code", "UNREGISTERED_GENERATION_TEN_REASON"),
     ],
 )
 def test_analytic_tooling_publication_contract_rejects_each_hostile_field(
@@ -1037,7 +1037,7 @@ def test_github_launch_authority_rejects_hostile_committed_activation_artifact(
 @pytest.mark.parametrize(
     ("mutation", "message"),
     [
-        ("pending", "not green"),
+        ("pending", "identity drift"),
         ("failure", "not green"),
         ("wrong-head", "identity drift"),
         ("wrong-app", "identity drift"),
@@ -2154,3 +2154,37 @@ def test_launcher_pins_uniad_checkpoints_symlink_contract() -> None:
     assert "live-repository-checkpoints-symlink" in text
     assert 'checkpoints_target != "ckpts"' in text
     assert 'path != "checkpoints" and path != "checkpoints/"' in text
+
+
+
+def test_github_launch_gate_accepts_amendment_published_run_shape() -> None:
+    """Every amendment-published SHA carries a red probe run plus a newer green master run per
+    name; authority binds to the newest run per name, and a newer red still fails closed."""
+
+    namespace = github_launch_authority_namespace()
+    validate_ci = namespace["validate_ci"]
+    commit = "a" * 40
+    payload = _green_check_runs(commit)
+    probe_rows = [
+        {
+            "id": row["id"] - 5,
+            "name": row["name"],
+            "head_sha": commit,
+            "status": "completed",
+            "conclusion": "failure",
+            "app": {"slug": "github-actions"},
+        }
+        for row in payload["check_runs"]
+    ]
+    payload["check_runs"] = probe_rows + payload["check_runs"]
+    payload["total_count"] = len(payload["check_runs"])
+
+    projection = validate_ci(payload, commit)
+
+    assert [row["conclusion"] for row in projection] == ["success", "success"]
+    assert [row["id"] for row in projection] == [10, 11]
+
+    for row in payload["check_runs"]:
+        row["conclusion"] = "failure" if row["id"] >= 10 else "success"
+    with pytest.raises(ValueError, match="not green"):
+        validate_ci(payload, commit)

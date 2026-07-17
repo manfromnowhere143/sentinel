@@ -251,27 +251,54 @@ def _project_exact_checks(
     *,
     prefix: str = "host-publication-authority",
 ) -> list[dict[str, Any]]:
+    # Every SHA published under the disclosed branch-validation amendment permanently carries the
+    # disposable-branch probe run plus the authoritative `master` run per required check name
+    # (the probe is red by design, since head-not-on-origin-master can only resolve on `master`).
+    # GitHub check-run ids are chronologically monotonic, so authority binds to the newest run per
+    # name: it must be green, every run must still be a completed github-actions run for this
+    # exact commit, and a red run newer than a green one therefore still fails closed. This is the
+    # same envelope generation seven froze into the host-preparation controller; the exact-count
+    # envelope below it replaced made every amendment-published SHA unverifiable.
     runs = document.get("check_runs") if isinstance(document, Mapping) else None
     total_count = document.get("total_count") if isinstance(document, Mapping) else None
     if (
         type(total_count) is not int
         or not isinstance(runs, list)
         or total_count != len(runs)
-        or total_count != len(REQUIRED_GITHUB_CHECKS)
+        or total_count < len(REQUIRED_GITHUB_CHECKS)
+        or total_count > 2 * len(REQUIRED_GITHUB_CHECKS)
     ):
         raise CaptureError(f"{prefix}:check-run-envelope")
-    selected: dict[str, Mapping[str, Any]] = {}
+    grouped: dict[str, list[Mapping[str, Any]]] = {}
     for run in runs:
         if not isinstance(run, Mapping):
             raise CaptureError(f"{prefix}:check-run-row")
         name = run.get("name")
         if name not in REQUIRED_GITHUB_CHECKS:
             raise CaptureError(f"{prefix}:unexpected-check")
-        if name in selected:
-            raise CaptureError(f"{prefix}:duplicate-check:{name}")
-        selected[name] = run
-    if set(selected) != set(REQUIRED_GITHUB_CHECKS):
+        run_id = run.get("id")
+        if type(run_id) is not int or run_id <= 0:
+            raise CaptureError(f"{prefix}:check-run-row")
+        grouped.setdefault(name, []).append(run)
+    if set(grouped) != set(REQUIRED_GITHUB_CHECKS):
         raise CaptureError(f"{prefix}:required-check-set")
+    selected: dict[str, Mapping[str, Any]] = {}
+    for name, rows in grouped.items():
+        if len(rows) > 2:
+            raise CaptureError(f"{prefix}:duplicate-check:{name}")
+        identities = [row["id"] for row in rows]
+        if len(set(identities)) != len(identities):
+            raise CaptureError(f"{prefix}:duplicate-check:{name}")
+        for row in rows:
+            app = row.get("app")
+            if (
+                row.get("status") != "completed"
+                or row.get("head_sha") != source_commit
+                or not isinstance(app, Mapping)
+                or app.get("slug") != EXPECTED_CHECK_APP
+            ):
+                raise CaptureError(f"{prefix}:check-not-green:{name}")
+        selected[name] = max(rows, key=lambda row: row["id"])
     checks: list[dict[str, Any]] = []
     for name in REQUIRED_GITHUB_CHECKS:
         row = selected[name]

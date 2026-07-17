@@ -3384,3 +3384,61 @@ transfer boundary fold-in and the claim-(5) hedge are unchanged and still bindin
   were restored after generation. The state child and this baton were created locally and only
   this pair's baton tip completed the publication; the disposable validation branches were
   deleted after publication. No host, Docker, GPU, smoke, or analytic action was taken.
+
+  Host-preparation attempt six and the stage-zero publication, 2026-07-17. After B9 the box was
+  de-prepared from attempt five with the disclosed verify-by-sha inversion (compose restored to
+  `9f8804b5…`/3380, the empty analytic root removed, the B8-bound install archived to
+  `/opt/sentinel-stack/archive-iter135-b8-install/`, nothing deleted), the packet was rebuilt
+  from B9 (manifest SHA-256
+  `fea86cd07e767f568d042fc39a55b978060406bb150dc2e7b33021e9cdd3a39c`), dress-rehearsed, and the
+  one-shot controller fired attempt six under sudo: `I135_HOST_PREPARATION_OK` with `problems=0`
+  on the first firing. The evidence pair was fetched byte-identical and committed as stage zero
+  `023d7ca638de5f3bde29ef9c6068bc64ecf711f2` with parent B9 and exactly the two evidence paths.
+  The local probe and the disposable-branch probe (`ci-validate-h6`, run 29571771707, branch
+  deleted after publication) each reported exactly the one by-design diagnostic, and the
+  `master` run for the stage-zero commit succeeded: the full deep replay, including the
+  generation-eight checkout bound and every generation-nine host contract, passed for the first
+  time in mission history.
+
+  Generation ten, 2026-07-17. Source parent is the published generation-nine stage-zero commit
+  `023d7ca638de5f3bde29ef9c6068bc64ecf711f2`, the exact `master` tip at discovery (the
+  generation-six precedent: the source parent is the published tip, not necessarily a baton). It
+  supersedes receipt `133c7c924a3f47a8e1ff9bf9f975e4e99902fea2` and its reason code is
+  `E_PREFLIGHT_CHECK_RUN_ENVELOPE_FOSSILS_IN_CAPTURE_AND_LAUNCHERS`. Before firing the
+  environment capture, a pre-flight sweep of every live GitHub fetcher found that the
+  generation-seven envelope amendment had been applied only to the host-preparation controller:
+  the environment capture, the smoke launcher, and the analytic launcher still required the
+  exact pre-amendment run count, and every amendment-published SHA permanently carries the
+  disposable-branch probe run plus the authoritative `master` run per required check name. The
+  capture would have failed closed at E validating the stage-zero commit, the smoke launcher at
+  S, and the analytic launcher at activation, each one generation apart. No attempt burned: the
+  fossil was found before the capture ever ran, and the sweep lesson is recorded — when a frozen
+  lesson is applied, grep every tool for the pattern class, not only the tool that failed.
+
+  Generation ten ports the exact newest-run-per-name envelope into all three: the run total may
+  be between one and two runs per required name, every run must still be a completed
+  github-actions run for the exact commit, authority binds to the greatest run id per name which
+  must be green, a red or pending run newer than a green one still fails closed, and duplicate
+  ids and triplicate rows are rejected. Hostile coverage asserts the amendment-published
+  four-run shape is accepted and each deviation refused, in the capture and in both launchers'
+  extracted validators. The consequence is the same as generations eight and nine and is
+  accepted openly: the packet must rebuild from and bind B10, so the B9-bound install will be
+  archived, the packet rebuilt, and the controller re-fired under sudo as attempt seven,
+  followed by a fresh stage-zero commit. The scope is the exact fifteen paths of the
+  generation-nine recovery. No host action was taken in this generation's source publication.
+
+  1. `CONTINUITY.md`
+  2. `HANDOFF.md`
+  3. `MISSION_STATE.json`
+  4. `experiments/iter135_neuroncap_blind_braking_dose_response/authorize_launch135.py`
+  5. `experiments/iter135_neuroncap_blind_braking_dose_response/capture_environment135.py`
+  6. `experiments/iter135_neuroncap_blind_braking_dose_response/run_dose135.sh`
+  7. `experiments/iter135_neuroncap_blind_braking_dose_response/run_smoke135.sh`
+  8. `experiments/iter135_neuroncap_blind_braking_dose_response/verify_tooling135.py`
+  9. `scripts/mission_state.py`
+  10. `tests/test_iter135_environment_capture.py`
+  11. `tests/test_iter135_launch_authorization.py`
+  12. `tests/test_iter135_launcher.py`
+  13. `tests/test_iter135_smoke_pipeline.py`
+  14. `tests/test_iter135_tooling_verifier.py`
+  15. `tests/test_mission_state.py`
