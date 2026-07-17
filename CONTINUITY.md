@@ -3305,3 +3305,70 @@ transfer boundary fold-in and the claim-(5) hedge are unchanged and still bindin
   branches, including the stage-zero probe branch `ci-validate-h`, were deleted after
   publication, and the probe's red check runs on `504dadf` remain in the repository's GitHub
   check-run record. No host, Docker, GPU, smoke, or analytic action was taken.
+
+  Host-preparation attempt five, 2026-07-17, fired from the generation-eight baton after a
+  disclosed de-preparation of attempt four (the compose preimage `9f8804b5…`/3380 was
+  reconstructed by inverting the patcher's four exact replacements and accepted only because its
+  SHA-256 matched byte-exactly; the empty analytic root was removed; the attempt-four install
+  moved to `/opt/sentinel-stack/archive-iter135-b7-install/`, nothing deleted) and a full
+  countdown that read complete untracked sets. It returned `I135_HOST_PREPARATION_OK` with
+  `problems=0` on the first firing: packet manifest SHA-256
+  `0e06e7eca6fe8da37115219a29a55f35b0f598637fa8c7169780f7cabd8a5162` bound to B8, receipt
+  SHA-256 `c432e7163c1a7e97695408ea38408e6491454e8c601791ba76a9da9b431d1be7`.
+
+  Generation nine, 2026-07-17. Source parent is the generation-eight baton
+  `833a00cd930b44e3fac63edb09c6590efd128933`, it supersedes receipt
+  `faf8a2d0a35be2ad053dae1946893cf69f024f5c`, and its reason code is
+  `B8_STAGE_ZERO_HOST_STATE_MIRRORS_STALE_ACROSS_FROZEN_TOOLS`. The stage-zero commit of the
+  attempt-five evidence (local `adc142c6…`, parent B8, preserved unpushed on
+  `evidence/stage0-b8-attempt`) proved the generation-eight timeout amendment works, and then
+  executed the remaining never-run validation layers, which reported two problems beyond the
+  expected branch diagnostic: `host:repository:uniad:untracked` and
+  `host:validator:host-preparation:publication-authority:artifacts`. Root causes: the launch
+  controller's receipt deep-check still required the UniAD untracked set to be exactly empty in
+  both its before and after snapshots, the same pre-generation-five fossil that generation five
+  had already corrected in the host contract itself; and the deep replay passed a three-field
+  binding projection where the frozen evidence validator reads five fields, so its expected
+  authority artifacts carried null Git identities and could never match a true receipt.
+
+  Instead of amending one defect per generation, an exhaustive audit of every frozen tool was
+  run against the attempt-five receipt and the live host as ground truth. It found the same
+  fossil in every frozen mirror of the host contract: the environment capture treats any UniAD
+  untracked entry as unexpected, the smoke launcher requires the UniAD untracked set to equal
+  an empty required list, and the analytic launcher's live-repository check does the same. Each
+  would have failed closed at its own first live stage. The audit also verified the rest of the
+  surface is sound: compose pins expect the post-preparation output with the input recorded as
+  source, the NeuroNCAP and neurad expectations match reality everywhere, capture's emitted
+  artifact rows are exactly the five-field shape the controller expects, and the storage,
+  mount, forbidden-path, and image pins are correct.
+
+  Generation nine therefore reconciles every mirror at once and adds the explicit contract the
+  reality deserves: the UniAD checkout carries exactly one untracked entry, the load-bearing
+  `checkpoints` symlink, verified by type and exact target (`ckpts`) at the controller, the
+  capture, the smoke launcher, and the analytic launcher. The symlink cannot be hash-bound like
+  the regular-file untracked requirements, so `required_untracked_paths` keeps its meaning
+  (hash-bound untracked regular files; UniAD's list stays empty) and the symlink is validated
+  in code everywhere it is observed, with hostile coverage for a missing entry, a wrong target,
+  a regular-file impostor, and stray artifacts. The binding wiring now passes the full
+  five-field rows to the frozen evidence validator while the committed packet manifest keeps
+  its exact three-field shape. The consequence for the host evidence is the same as generation
+  eight's and is accepted openly: the B8-bound install will be archived, the packet rebuilt
+  from B9, and the one-shot controller re-fired under sudo as attempt six. The scope is the
+  exact fifteen paths below. No further host action was taken in this generation's source
+  publication.
+
+  1. `CONTINUITY.md`
+  2. `HANDOFF.md`
+  3. `MISSION_STATE.json`
+  4. `experiments/iter135_neuroncap_blind_braking_dose_response/authorize_launch135.py`
+  5. `experiments/iter135_neuroncap_blind_braking_dose_response/capture_environment135.py`
+  6. `experiments/iter135_neuroncap_blind_braking_dose_response/run_dose135.sh`
+  7. `experiments/iter135_neuroncap_blind_braking_dose_response/run_smoke135.sh`
+  8. `experiments/iter135_neuroncap_blind_braking_dose_response/verify_tooling135.py`
+  9. `scripts/mission_state.py`
+  10. `tests/test_iter135_environment_capture.py`
+  11. `tests/test_iter135_launch_authorization.py`
+  12. `tests/test_iter135_launcher.py`
+  13. `tests/test_iter135_smoke_pipeline.py`
+  14. `tests/test_iter135_tooling_verifier.py`
+  15. `tests/test_mission_state.py`

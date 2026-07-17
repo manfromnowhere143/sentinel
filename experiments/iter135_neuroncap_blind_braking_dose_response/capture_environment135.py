@@ -1747,6 +1747,23 @@ def _probe_repositories(
         elif repo_id == "neurad":
             unexpected = [path for path in untracked if path not in required]
             observed_required = sorted(path for path in untracked if path in required)
+        elif repo_id == "uniad":
+            # The UniAD checkout carries exactly one untracked entry: the load-bearing
+            # `checkpoints` symlink through which the tracked configuration resolves its
+            # motion anchors into the gitignored `ckpts` payload. It is a directory
+            # symlink, so it cannot be hash-bound like the regular-file untracked
+            # requirements; its presence, type, and exact target are the contract.
+            unexpected = [path for path in untracked if path != "checkpoints"]
+            observed_required = sorted(path for path in untracked if path in required)
+            checkpoints_link = repo / "checkpoints"
+            if untracked.count("checkpoints") != 1:
+                problems.append(f"repository:{repo_id}:checkpoints-untracked-missing")
+            try:
+                link_target = os.readlink(checkpoints_link)
+            except OSError:
+                link_target = None
+            if not checkpoints_link.is_symlink() or link_target != "ckpts":
+                problems.append(f"repository:{repo_id}:checkpoints-symlink")
         else:
             unexpected = list(untracked)
             observed_required = sorted(path for path in untracked if path in required)

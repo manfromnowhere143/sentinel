@@ -419,6 +419,8 @@ def fixture(
     }
     for path in repositories.values():
         path.mkdir()
+    (repositories["uniad"] / "ckpts").mkdir()
+    (repositories["uniad"] / "checkpoints").symlink_to("ckpts")
     backup = repositories["neurad"] / "Dockerfile.bak"
     backup.write_bytes(b"frozen backup\n")
     source, final = compose_pair()
@@ -565,6 +567,8 @@ def fixture(
             "untracked": (
                 ["outoutput/old/run_0/metrics.json"]
                 if repo_id == "neuroncap"
+                else ["checkpoints"]
+                if repo_id == "uniad"
                 else list(expected["required_untracked_paths"])
             ),
         }
@@ -1260,6 +1264,41 @@ def test_repository_head_status_and_untracked_code_are_rejected(tmp_path: Path) 
         "repository:neurad:required-untracked",
     ):
         assert problem in receipt["problems"]
+
+
+def test_uniad_checkpoints_symlink_contract_is_enforced(tmp_path: Path) -> None:
+    """The load-bearing `checkpoints` symlink must exist, be a symlink, target `ckpts`,
+    and be the only untracked entry; every deviation must fail closed."""
+
+    # Missing untracked entry: the link exists physically but git does not report it.
+    contract, hooks, runner, _paths = fixture(tmp_path)
+    uniad = str(contract.repositories["uniad"]["path"])
+    runner.repositories[uniad]["untracked"] = []
+    receipt = run_capture(contract, hooks)
+    assert "repository:uniad:checkpoints-untracked-missing" in receipt["problems"]
+
+    # Wrong target: the symlink points somewhere other than `ckpts`.
+    contract, hooks, runner, paths = fixture(tmp_path / "wrong-target")
+    uniad_root = Path(contract.repositories["uniad"]["path"])
+    (uniad_root / "checkpoints").unlink()
+    (uniad_root / "checkpoints").symlink_to("elsewhere")
+    receipt = run_capture(contract, hooks)
+    assert "repository:uniad:checkpoints-symlink" in receipt["problems"]
+
+    # Regular file impostor instead of a symlink.
+    contract, hooks, runner, paths = fixture(tmp_path / "regular-file")
+    uniad_root = Path(contract.repositories["uniad"]["path"])
+    (uniad_root / "checkpoints").unlink()
+    (uniad_root / "checkpoints").write_bytes(b"not a symlink\n")
+    receipt = run_capture(contract, hooks)
+    assert "repository:uniad:checkpoints-symlink" in receipt["problems"]
+
+    # Extra stray artifact next to the contractual link.
+    contract, hooks, runner, paths = fixture(tmp_path / "extra-stray")
+    uniad = str(contract.repositories["uniad"]["path"])
+    runner.repositories[uniad]["untracked"] = ["checkpoints", "stray_weights.pt"]
+    receipt = run_capture(contract, hooks)
+    assert "repository:uniad:unexpected-untracked:1" in receipt["problems"]
 
 
 def test_image_gpu_container_and_evaluator_drift_are_rejected(tmp_path: Path) -> None:

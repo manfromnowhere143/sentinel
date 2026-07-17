@@ -644,12 +644,12 @@ def test_local_activation_then_github_projection_feeds_exact_lock_payload(
                 "schema": "iter135.tooling_verification.v2",
                 "verdict": "I135_TOOLING_VERIFICATION_OK",
                 "publication": {
-                    "generation": 8,
+                    "generation": 9,
                     "supersedes_receipt_commit": (
-                        "470ec333b29f3da8e8b2ee696982f2503ea66161"
+                        "faf8a2d0a35be2ad053dae1946893cf69f024f5c"
                     ),
-                    "recovery_parent": "04801441ce17e104ed2e78a4dd02370d4ffdde17",
-                    "reason_code": "B7_STAGE_ZERO_DEEP_REPLAY_CHECKOUT_TIMEOUT_UNSATISFIABLE",
+                    "recovery_parent": "833a00cd930b44e3fac63edb09c6590efd128933",
+                    "reason_code": "B8_STAGE_ZERO_HOST_STATE_MIRRORS_STALE_ACROSS_FROZEN_TOOLS",
                 },
                 "repository": {"git_start": {"head": "9" * 40}},
             },
@@ -876,7 +876,7 @@ def test_local_activation_then_github_projection_feeds_exact_lock_payload(
         ("generation", 3),
         ("supersedes_receipt_commit", "0" * 40),
         ("recovery_parent", "1" * 40),
-        ("reason_code", "UNREGISTERED_GENERATION_EIGHT_REASON"),
+        ("reason_code", "UNREGISTERED_GENERATION_NINE_REASON"),
     ],
 )
 def test_analytic_tooling_publication_contract_rejects_each_hostile_field(
@@ -2143,3 +2143,14 @@ else:
     )
     assert rejected.returncode == 125
     assert "unexpected-command:rm" in rejected.stderr
+
+
+def test_launcher_pins_uniad_checkpoints_symlink_contract() -> None:
+    """The analytic launcher must verify the load-bearing UniAD `checkpoints` symlink
+    explicitly: exactly one contractual untracked entry, symlink type, exact `ckpts` target."""
+
+    text = LAUNCHER.read_text()
+    assert 'elif repository_id == "uniad":' in text
+    assert "live-repository-checkpoints-symlink" in text
+    assert 'checkpoints_target != "ckpts"' in text
+    assert 'path != "checkpoints" and path != "checkpoints/"' in text

@@ -247,7 +247,18 @@ def receipt(path, source_path):
 
 def validate_host_preparation_evidence(packet, host, *, packet_binding, expected_file_bindings):
     problems = []
-    if packet.get("files") != expected_file_bindings:
+    # The frozen validator reads git_blob_oid and git_mode from the bindings, so the
+    # controller must pass the FULL binding rows, never the three-field packet projection.
+    if not all(
+        isinstance(row, dict) and "git_blob_oid" in row and "git_mode" in row
+        for row in expected_file_bindings.values()
+    ):
+        problems.append("binding-fields")
+    projected = {
+        name: {"sha256": row.get("sha256"), "bytes": row.get("bytes"), "mode": row.get("mode")}
+        for name, row in expected_file_bindings.items()
+    }
+    if packet.get("files") != projected:
         problems.append("packet-files")
     if not isinstance(host.get("repositories"), dict) or not isinstance(host.get("storage"), dict):
         problems.append("deep-host")
@@ -443,7 +454,7 @@ def _host_receipt(
                         "inference/server.py",
                         "projects/mmdet3d_plugin/uniad/detectors/uniad_track.py",
                     ],
-                    untracked=[],
+                    untracked=["checkpoints"],
                 ),
                 "neuroncap": _host_repository_row(
                     "neuroncap",
@@ -458,7 +469,7 @@ def _host_receipt(
                 "uniad": _host_repository_row(
                     "uniad",
                     dirty=["projects/mmdet3d_plugin/uniad/detectors/uniad_track.py"],
-                    untracked=[],
+                    untracked=["checkpoints"],
                 ),
                 "neuroncap": _host_repository_row(
                     "neuroncap",
@@ -975,13 +986,13 @@ def test_controller_rejects_nonexact_tooling_receipt_root_before_preflight_repla
 @pytest.mark.parametrize(
     ("field", "value"),
     (
-        ("generation", 7),
+        ("generation", 8),
         ("supersedes_receipt_commit", "0" * 40),
         ("recovery_parent", "1" * 40),
-        ("reason_code", "UNREGISTERED_GENERATION_EIGHT_REASON"),
+        ("reason_code", "UNREGISTERED_GENERATION_NINE_REASON"),
     ),
 )
-def test_controller_requires_exact_generation_eight_tooling_publication(
+def test_controller_requires_exact_generation_nine_tooling_publication(
     tmp_path: Path,
     field: str,
     value: object,
@@ -993,7 +1004,7 @@ def test_controller_requires_exact_generation_eight_tooling_publication(
 
     with pytest.raises(
         auth.AuthorizationError,
-        match="exact green generation-eight source",
+        match="exact green generation-nine source",
     ):
         auth._tooling_source_commit(repo, commits["tooling_receipt"])
 

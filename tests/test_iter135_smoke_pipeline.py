@@ -1625,6 +1625,10 @@ def test_runner_is_one_shot_hash_gated_and_syntax_valid() -> None:
     assert "unexpected-untracked" in text
     assert "untracked != required_untracked" in text
     assert "any(path not in untracked" not in text
+    assert 'elif repository_id == "uniad":' in text
+    assert 'if untracked != ["checkpoints"]:' in text
+    assert "checkpoints-symlink" in text
+    assert 'link_target != "ckpts"' in text
     assert "time.monotonic_ns()" in text
     assert "date +%s%N" not in text
     assert smoke.EXPECTED_BLIND_PATCHED_SERVER_SHA256 in text

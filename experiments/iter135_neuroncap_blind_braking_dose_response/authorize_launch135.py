@@ -172,11 +172,14 @@ GENERATION_SIX_BATON_COMMIT = "a37d1fc0fc9b96604e68e37006c0a8b3515984bb"
 GENERATION_SEVEN_RECEIPT_COMMIT = "470ec333b29f3da8e8b2ee696982f2503ea66161"
 GENERATION_SEVEN_BATON_COMMIT = "04801441ce17e104ed2e78a4dd02370d4ffdde17"
 GENERATION_EIGHT_REASON = "B7_STAGE_ZERO_DEEP_REPLAY_CHECKOUT_TIMEOUT_UNSATISFIABLE"
+GENERATION_EIGHT_RECEIPT_COMMIT = "faf8a2d0a35be2ad053dae1946893cf69f024f5c"
+GENERATION_EIGHT_BATON_COMMIT = "833a00cd930b44e3fac63edb09c6590efd128933"
+GENERATION_NINE_REASON = "B8_STAGE_ZERO_HOST_STATE_MIRRORS_STALE_ACROSS_FROZEN_TOOLS"
 EXPECTED_TOOLING_PUBLICATION = {
-    "generation": 8,
-    "supersedes_receipt_commit": GENERATION_SEVEN_RECEIPT_COMMIT,
-    "recovery_parent": GENERATION_SEVEN_BATON_COMMIT,
-    "reason_code": GENERATION_EIGHT_REASON,
+    "generation": 9,
+    "supersedes_receipt_commit": GENERATION_EIGHT_RECEIPT_COMMIT,
+    "recovery_parent": GENERATION_EIGHT_BATON_COMMIT,
+    "reason_code": GENERATION_NINE_REASON,
 }
 TOOLING_REPOSITORY_FIELDS = {
     "root",
@@ -466,7 +469,7 @@ def _tooling_source_commit(repo: Path, tooling_receipt_commit: str) -> str:
         or _SHA256_RE.fullmatch(receipt["file_content_set_sha256"]) is None
         or claimed_payload_sha256 != hashlib.sha256(_canonical_json(payload)).hexdigest()
     ):
-        raise AuthorizationError("tooling receipt does not bind the exact green generation-eight source")
+        raise AuthorizationError("tooling receipt does not bind the exact green generation-nine source")
     try:
         validator = _load_frozen_tooling_receipt_validator(repo, source_commit)
         frozen_errors = validator(receipt, repo_root=repo)
@@ -777,7 +780,12 @@ def _validate_host_receipt_deep(
                     ["inference/server.py", "projects/mmdet3d_plugin/uniad/detectors/uniad_track.py"],
                     ["projects/mmdet3d_plugin/uniad/detectors/uniad_track.py"],
                 ),
-                untracked=[],
+                # The UniAD checkout carries exactly one untracked entry: the load-bearing
+                # `checkpoints` symlink through which the tracked config resolves its motion
+                # anchors. Generation five accepted that reality in the host contract; this
+                # mirror expectation was left at the pre-generation-five empty set and could
+                # never accept a true receipt.
+                untracked=["checkpoints"],
             )
         )
         problems.extend(
@@ -785,7 +793,7 @@ def _validate_host_receipt_deep(
                 after.get("uniad"),
                 label="uniad",
                 dirty=["projects/mmdet3d_plugin/uniad/detectors/uniad_track.py"],
-                untracked=[],
+                untracked=["checkpoints"],
             )
         )
         for rows in (before, after):
@@ -1223,7 +1231,7 @@ def _deep_replay_publication(
     tooling_baton_commit: str,
     commits: Sequence[str],
 ) -> list[str]:
-    """Replay H/E/P/S[/A/F] from the frozen generation-eight source in isolation."""
+    """Replay H/E/P/S[/A/F] from the frozen generation-nine source in isolation."""
 
     problems: list[str] = []
     try:
@@ -1259,6 +1267,12 @@ def _deep_replay_publication(
             ):
                 problems.append("host:capture-packet-contract-drift")
             expected_files = _packet_bindings(repo, tooling_baton_commit, packet_names)
+            # The committed packet manifest carries exactly three fields per file, so the
+            # exact-rebuild comparison below uses this projection. The frozen evidence
+            # validator additionally reads `git_blob_oid` and `git_mode` from its
+            # `expected_file_bindings` argument, so it must receive the FULL binding rows;
+            # passing this projection there made the authority-artifact expectation `None`
+            # and unconditionally red.
             expected_packet_files = {
                 name: {
                     field: row[field]
@@ -1296,7 +1310,7 @@ def _deep_replay_publication(
                 packet,
                 host,
                 packet_binding=packet_binding,
-                expected_file_bindings=expected_packet_files,
+                expected_file_bindings=expected_files,
             )
             if not isinstance(host_validator_problems, list) or any(
                 not isinstance(item, str) for item in host_validator_problems

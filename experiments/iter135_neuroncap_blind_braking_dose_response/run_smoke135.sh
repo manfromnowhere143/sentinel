@@ -1763,6 +1763,21 @@ for repository_id, receipt in sorted(repositories.items()):
             problems.append(
                 f"repository:{repository_id}:unexpected-untracked:{unexpected_untracked}"
             )
+    elif repository_id == "uniad":
+        # Exactly one untracked entry is contractual: the load-bearing `checkpoints`
+        # symlink resolving the tracked config's motion anchors into `ckpts`.
+        if untracked != ["checkpoints"]:
+            problems.append(
+                f"repository:{repository_id}:unexpected-untracked:"
+                f"expected=['checkpoints']:actual={untracked}"
+            )
+        checkpoints_link = path / "checkpoints"
+        try:
+            link_target = str(checkpoints_link.readlink())
+        except OSError:
+            link_target = None
+        if not checkpoints_link.is_symlink() or link_target != "ckpts":
+            problems.append(f"repository:{repository_id}:checkpoints-symlink")
     elif untracked != required_untracked:
         problems.append(
             f"repository:{repository_id}:unexpected-untracked:"
