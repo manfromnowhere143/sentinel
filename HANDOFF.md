@@ -1,31 +1,32 @@
 # HANDOFF — dynamic state snapshot
 
-Generation-six structural-validator recovery snapshot, 2026-07-17. Read CONTINUITY.md first.
+Generation-six accepted tooling freeze, 2026-07-17. Read CONTINUITY.md first.
 
 ## Repository state
 ```
-F6      iter135: refreeze generation-six tooling recovery
+B6      handoff: accept iter135 generation-six tooling freeze
+b2d4980 mission: accept iter135 generation-six tooling freeze
+4fb4d81 iter135: publish generation-six tooling receipt
+b4e0f82 iter135: refreeze generation-six tooling recovery
 1f70e36 iter135: publish generation-five tooling receipt
 27c1921 iter135: refreeze generation-five tooling recovery
 27c7f02 handoff: accept iter135 generation-four tooling freeze
-0137eeb mission: accept iter135 generation-four tooling freeze
 c3e891b iter135: publish generation-four tooling receipt
 052404f iter135: refreeze generation-four tooling recovery
-30b6390 handoff: accept iter135 generation-three tooling freeze [REMOTE CI RED]
 ```
-Generation five (source `27c19216387bc211810e7ae8379040f3eee13bd7`, receipt
-`1f70e367cd1ffcc2c3dab1c801d0e195a1341ef2`) fixed the host contract but failed its own structural
-probe at the local state-acceptance step: the frozen validator's receipt-history check was still
-hardcoded to the four-entry generation-four shape. The docs guard caught it BEFORE any
-generation-five state or baton was pushed; master never went red and no generation-five state or
-baton commit exists. Generation six is an exact ten-path recovery parented directly off the
-generation-five receipt. It extends the frozen history check to the six-generation chain, adds the
-missing generation-four and generation-five topology rows, and rebinds every consumer
-(`verify_tooling135.py`, `scripts/mission_state.py`, `authorize_launch135.py`, and the embedded
-contract in `run_dose135.sh`) to the generation-six publication. MISSION_STATE.json is excluded
-from the scope because generation five already rolled it back. Every publication is validated on a
-disposable branch and fast-forwarded onto `master` only after that exact head SHA reports success
-on both Python lanes. No host, Docker, GPU, smoke, or analytic action was taken.
+Generation-six source `b4e0f82fd2ba` and receipt commit `4fb4d81` supersede the generation-five
+receipt `1f70e367cd1ffcc2c3dab1c801d0e195a1341ef2`. Generation five fixed the host contract but
+failed its own structural probe at the local state-acceptance step: the frozen validator's
+receipt-history check was still hardcoded to the four-entry generation-four shape. The docs guard
+caught it BEFORE any generation-five state or baton was pushed; master never went red and no
+generation-five state or baton commit exists. Generation six extends the frozen history check to
+the exact six-generation chain, adds the missing generation-four and generation-five topology
+rows, and rebinds every consumer (`verify_tooling135.py`, `scripts/mission_state.py`,
+`authorize_launch135.py`, and the embedded contract in `run_dose135.sh`) to the generation-six
+publication. The independent replay of the generation-six receipt returned
+`I135_TOOLING_VERIFICATION_OK` against the real six-entry history. Every publication was validated
+on a disposable branch and fast-forwarded onto `master` only after that exact head SHA reported
+success on both Python lanes. No host, Docker, GPU, smoke, or analytic action was taken.
 
 Before host preparation can run, the live box must be brought to the frozen contract: UniAD
 currently carries 42 untracked entries, and the contract accepts exactly the `checkpoints`
@@ -38,17 +39,20 @@ staging.
 ## Canonical mission state (`MISSION_STATE.json`)
 
 - Current: iteration 134 / PLACEBO_HARM_OR_NULL / run IDLE / next
-  iteration 135 / PREREGISTERED_TOOLING_REQUIRED
+  iteration 135 / TOOLING_FROZEN_PREFLIGHT_REQUIRED
 - Current result: experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md
 - Next program: semantics-free placebo dose-response causal closure
 - Authorized now:
-  - build and validate only the tooling and tests frozen by the active iteration-135 hypothesis
-  - inventory storage and provenance before any safe cleanup or live smoke
-  - publish a read-only external-benchmark commercial, license, compute, and integration preflight
+  - prepare the exact hash-bound sentinel-gpu host contract and atomically commit host_packet_manifest.json and host_preparation_receipt.json
+  - capture and commit the read-only iteration-135 environment receipt on sentinel-gpu
+  - generate and commit only the hash-addressed incomplete pre-smoke manifest; no analytic episodes
+  - run exactly the hash-bound four-run nonanalytic G5 smoke after the incomplete pre-smoke manifest is committed
+  - validate, collect, and commit the exact nonanalytic smoke raw evidence, recomputed receipt, and mechanically generated SMOKE.md
 - Forbidden now:
-  - GPU launch before the iteration-135 hypothesis, analyzer, manifest, provenance, storage, and smoke gates are frozen
-  - rerun iteration 134
-  - adopt run-index resampling as the iteration-135 primary after observing iteration-134 results
+  - run any iteration-135 analytic episode before smoke evidence and the final launch manifest are committed green
+  - remove or bypass the permanent analytic launch lock
+  - rerun iteration 134 or adapt iteration-135 schedules, estimands, verdicts, or policies after evidence
+  - place any iteration-135 analytic output on the remote root filesystem
 
 Generation four changes no scientific or execution payload. It makes structural Git reads resolve
 and attest only Git instead of unnecessarily requiring the current `pytest`, Ruff, shell, and
