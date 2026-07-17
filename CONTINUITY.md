@@ -3518,6 +3518,24 @@ transfer boundary fold-in and the claim-(5) hedge are unchanged and still bindin
   21. `tests/test_iter135_tooling_verifier.py`
   22. `tests/test_mission_state.py`
 
+  Generation-eleven publication record, 2026-07-17. Source F11 `b71fc34a` carries the exact
+  twenty-two paths and reported success on both Python lanes before `master` moved; an earlier
+  twenty-path draft of the source failed its disposable-branch probe on the launch-manifest
+  generator's own dataset self-check and the proof-collector's file counts, was never pushed to
+  `master`, and its red probe run on commit `71d6fe0e` remains in the repository's GitHub
+  check-run record as disclosed history. Receipt R11 `97dc88ea` was generated on the canonical
+  macOS host from a clean tree with `origin/master` already at F11, returned
+  `I135_TOOLING_VERIFICATION_OK` with `problem_count=0`, and independently replayed
+  `I135_TOOLING_VERIFICATION_OK` on a clean tree after commit, the first replay of the extended
+  eleven-entry history check against the real receipt history. The superseded R10 blob was
+  confirmed byte-identical to its committed object before the working copy was unlocked, and the
+  receipt's two working-copy protections, the `uchg` flag and the `user:danielwahnich deny
+  delete` ACL, were restored after generation. The state child and this baton were created
+  locally and only this pair's baton tip completed the publication; the disposable validation
+  branches were deleted after publication. With this source, the repository's Apache-2.0
+  `LICENSE` is published on the default branch. No host, Docker, GPU, smoke, or analytic action
+  was taken.
+
   1. `CONTINUITY.md`
   2. `HANDOFF.md`
   3. `MISSION_STATE.json`
