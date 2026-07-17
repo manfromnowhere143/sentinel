@@ -19,16 +19,19 @@
   "next_program": {
     "iteration": 135,
     "name": "semantics-free placebo dose-response causal closure",
-    "phase": "PREREGISTERED_TOOLING_REQUIRED",
+    "phase": "TOOLING_FROZEN_PREFLIGHT_REQUIRED",
     "authorized_actions": [
-      "build and validate only the tooling and tests frozen by the active iteration-135 hypothesis",
-      "inventory storage and provenance before any safe cleanup or live smoke",
-      "publish a read-only external-benchmark commercial, license, compute, and integration preflight"
+      "prepare the exact hash-bound sentinel-gpu host contract and atomically commit host_packet_manifest.json and host_preparation_receipt.json",
+      "capture and commit the read-only iteration-135 environment receipt on sentinel-gpu",
+      "generate and commit only the hash-addressed incomplete pre-smoke manifest; no analytic episodes",
+      "run exactly the hash-bound four-run nonanalytic G5 smoke after the incomplete pre-smoke manifest is committed",
+      "validate, collect, and commit the exact nonanalytic smoke raw evidence, recomputed receipt, and mechanically generated SMOKE.md"
     ],
     "forbidden_actions": [
-      "GPU launch before the iteration-135 hypothesis, analyzer, manifest, provenance, storage, and smoke gates are frozen",
-      "rerun iteration 134",
-      "adopt run-index resampling as the iteration-135 primary after observing iteration-134 results"
+      "run any iteration-135 analytic episode before smoke evidence and the final launch manifest are committed green",
+      "remove or bypass the permanent analytic launch lock",
+      "rerun iteration 134 or adapt iteration-135 schedules, estimands, verdicts, or policies after evidence",
+      "place any iteration-135 analytic output on the remote root filesystem"
     ]
   },
   "claim_state": {
