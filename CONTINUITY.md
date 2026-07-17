@@ -3291,3 +3291,17 @@ transfer boundary fold-in and the claim-(5) hedge are unchanged and still bindin
   9. `tests/test_iter135_launcher.py`
   10. `tests/test_iter135_tooling_verifier.py`
   11. `tests/test_mission_state.py`
+
+  Generation-eight publication record, 2026-07-17. Source F8 `ba615b59` carries the exact eleven
+  paths and reported success on both Python lanes before `master` moved. Receipt R8 `faf8a2d0`
+  was generated on the canonical macOS host from a clean tree with `origin/master` already at F8,
+  returned `I135_TOOLING_VERIFICATION_OK` with `problem_count=0`, and independently replayed
+  `I135_TOOLING_VERIFICATION_OK` on a clean tree after commit, the first replay of the extended
+  eight-entry history check against the real receipt history. The superseded R7 blob was
+  confirmed byte-identical to its committed object before the working copy was unlocked, and the
+  receipt's two working-copy protections, the `uchg` flag and the `user:danielwahnich deny
+  delete` ACL, were restored after generation. The state child and this baton were created
+  locally and only this pair's baton tip completed the publication; the disposable validation
+  branches, including the stage-zero probe branch `ci-validate-h`, were deleted after
+  publication, and the probe's red check runs on `504dadf` remain in the repository's GitHub
+  check-run record. No host, Docker, GPU, smoke, or analytic action was taken.

@@ -1,42 +1,49 @@
 # HANDOFF — dynamic state snapshot
 
-Generation-eight replay-timeout recovery snapshot, 2026-07-17. Read CONTINUITY.md first.
+Generation-eight accepted tooling freeze, 2026-07-17. Read CONTINUITY.md first.
 
 ## Repository state
 ```
-F8      iter135: refreeze generation-eight tooling recovery
+B8      handoff: accept iter135 generation-eight tooling freeze
+346465c mission: accept iter135 generation-eight tooling freeze
+faf8a2d iter135: publish generation-eight tooling receipt
+ba615b5 iter135: refreeze generation-eight tooling recovery
 0480144 handoff: accept iter135 generation-seven tooling freeze
-c44639d mission: accept iter135 generation-seven tooling freeze
-470ec33 iter135: publish generation-seven tooling receipt
-7cb0c44 iter135: refreeze generation-seven tooling recovery
 ```
-Host preparation is GREEN on the box: after the disclosed attempt one, attempts two and three
-failed closed pre-mutation (stale NeuroNCAP scripts archived; the controller needs sudo on the
-root-owned UniAD tree) and attempt four returned `I135_HOST_PREPARATION_OK` with `problems=0`
-(receipt SHA-256 `c50edd61c7651f034e35584a5666d2c83c5831a14a68fe451885ba02ca2e5680`, packet bound
-to B7). The stage-zero commit of that evidence then exposed a frozen-tooling defect: the deep
-replay's ten-second Git bound cannot materialize the multi-gibibyte evidence tree, on the
-canonical host (~14-18 s) or on either hosted CI lane (branch probe `ci-validate-h`, commit
-`504dadf`, run 29551282124). `master` never moved. Generation eight gives the replay checkout a
-dedicated 600-second fail-closed bound; every other Git probe keeps ten seconds. Because the
-committed packet must bind the new baton, the B7-bound install will be archived to
-`/opt/sentinel-stack/archive-iter135-b7-install/` after B8, the packet rebuilt from B8,
-dress-rehearsed, and attempt five fired under sudo; then stage zero recommits.
+Generation-eight source `ba615b59` and receipt commit `faf8a2d0` supersede the generation-seven
+receipt `470ec333b29f3da8e8b2ee696982f2503ea66161`. Host preparation is GREEN on the box: after
+the disclosed attempt one, attempts two and three failed closed pre-mutation (stale NeuroNCAP
+scripts archived; the controller needs sudo on the root-owned UniAD tree) and attempt four
+returned `I135_HOST_PREPARATION_OK` with `problems=0` (receipt SHA-256
+`c50edd61c7651f034e35584a5666d2c83c5831a14a68fe451885ba02ca2e5680`, packet bound to B7). The
+stage-zero commit of that evidence exposed the generation-eight defect: the deep replay's
+ten-second Git bound cannot materialize the multi-gibibyte evidence tree, on the canonical host
+(~14-18 s measured) or on either hosted CI lane (probe commit `504dadf`, run 29551282124).
+`master` never went red. Generation eight gives the replay checkout a dedicated 600-second
+fail-closed bound; every other Git probe keeps ten seconds. Because the committed packet must
+bind this baton, next: archive the B7-bound install to
+`/opt/sentinel-stack/archive-iter135-b7-install/`, rebuild the packet from B8, remove AppleDouble
+`._*` files after extraction, dress-rehearse, run the FULL untracked-set countdown, and fire
+attempt five under sudo; then commit stage zero (exactly the two evidence paths, parent B8) and
+proceed E, P, S.
 
 ## Canonical mission state (`MISSION_STATE.json`)
 
 - Current: iteration 134 / PLACEBO_HARM_OR_NULL / run IDLE / next
-  iteration 135 / PREREGISTERED_TOOLING_REQUIRED
+  iteration 135 / TOOLING_FROZEN_PREFLIGHT_REQUIRED
 - Current result: experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md
 - Next program: semantics-free placebo dose-response causal closure
 - Authorized now:
-  - build and validate only the tooling and tests frozen by the active iteration-135 hypothesis
-  - inventory storage and provenance before any safe cleanup or live smoke
-  - publish a read-only external-benchmark commercial, license, compute, and integration preflight
+  - prepare the exact hash-bound sentinel-gpu host contract and atomically commit host_packet_manifest.json and host_preparation_receipt.json
+  - capture and commit the read-only iteration-135 environment receipt on sentinel-gpu
+  - generate and commit only the hash-addressed incomplete pre-smoke manifest; no analytic episodes
+  - run exactly the hash-bound four-run nonanalytic G5 smoke after the incomplete pre-smoke manifest is committed
+  - validate, collect, and commit the exact nonanalytic smoke raw evidence, recomputed receipt, and mechanically generated SMOKE.md
 - Forbidden now:
-  - GPU launch before the iteration-135 hypothesis, analyzer, manifest, provenance, storage, and smoke gates are frozen
-  - rerun iteration 134
-  - adopt run-index resampling as the iteration-135 primary after observing iteration-134 results
+  - run any iteration-135 analytic episode before smoke evidence and the final launch manifest are committed green
+  - remove or bypass the permanent analytic launch lock
+  - rerun iteration 134 or adapt iteration-135 schedules, estimands, verdicts, or policies after evidence
+  - place any iteration-135 analytic output on the remote root filesystem
 
 Generation four changes no scientific or execution payload. It makes structural Git reads resolve
 and attest only Git instead of unnecessarily requiring the current `pytest`, Ruff, shell, and
