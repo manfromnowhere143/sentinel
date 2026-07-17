@@ -16,14 +16,14 @@
       "sha256": "fe1b3e402ec637c1ea7de49442bf8f4909f413345034f6c5119db1841f01c2a9"
     },
     "authorize_launch135.py": {
-      "bytes": 77082,
+      "bytes": 77592,
       "mode": 420,
-      "sha256": "62d43657adfac99cfd7c280ec1f0b82f7f7879d55cfd31fa1fa26718b8533b1f"
+      "sha256": "df7b59afaf01d5e753d8ab84f140f5fc24653a7c31d427c3dbe73f744be33696"
     },
     "capture_environment135.py": {
-      "bytes": 106370,
+      "bytes": 108036,
       "mode": 493,
-      "sha256": "06bbf30993d52e915bf3f8dcb40f6c511b9c548b6a9c39d4e5cd0e029b10ac3f"
+      "sha256": "18c26eb441084a770a36d7fd425787fb896b74e0635d19606bbc88be10b12837"
     },
     "collect_proof135.py": {
       "bytes": 112612,
@@ -61,14 +61,14 @@
       "sha256": "dc276317709bd14ae82bc932da9ef2b72437171c701b2bd285902c3c08410a00"
     },
     "run_dose135.sh": {
-      "bytes": 241906,
+      "bytes": 242398,
       "mode": 420,
-      "sha256": "4768fea55a289f30944072f4a4cde85bbc9a670e31b5fe226212a36010df308e"
+      "sha256": "fbf22ec7fb766258a4f23ac7ad9dca5a5bfa73fc30f95c74a512085b722c6cf6"
     },
     "run_smoke135.sh": {
-      "bytes": 148978,
+      "bytes": 149464,
       "mode": 493,
-      "sha256": "9bd7483fdb78237e5606d013aa7696d78a4a39fd9dc31325d6c3b39ed25031fa"
+      "sha256": "6531c9f4c2911d06f580f3e3c368dd04415518804888ef25314a43a5c6b5a39f"
     },
     "server_patch_blind_dose.py": {
       "bytes": 3915,
@@ -81,9 +81,9 @@
       "sha256": "d0338d5cee088d2271ee886b86ccac6f03775bf94991b4128013015159b91189"
     },
     "tooling_verification_receipt.json": {
-      "bytes": 35342,
+      "bytes": 35349,
       "mode": 420,
-      "sha256": "708b89a78ab0f04fdb2e48b3334a43ab4e0dfa0ab86c857bdcc2fa34b233e091"
+      "sha256": "c807adc9cbab5c1058618c9a86651cafe38471a22707d57862e29c66876c13e2"
     },
     "validate_smoke135.py": {
       "bytes": 77808,
@@ -91,11 +91,11 @@
       "sha256": "ae8e4e11307226ca523f1e515d194c512c9f84428809971922872d02fae322d8"
     },
     "verify_tooling135.py": {
-      "bytes": 98442,
+      "bytes": 102047,
       "mode": 420,
-      "sha256": "ff2ae0700da1eb7a621e15b20647a0256736105006bb13965f040d932eae5510"
+      "sha256": "cca6d0d663888490009162cd56ba48e1070c865f70c4f820c3db2975cd81c6bb"
     }
   },
   "schema": "iter135.host_packet_manifest.v1",
-  "source_commit": "150e04dd9f996b545393061250fd8448bac795c5"
+  "source_commit": "1693d928da4ec2089bb3c60e777e2d1b1e72b3cc"
 }
