@@ -3144,3 +3144,30 @@ transfer boundary fold-in and the claim-(5) hedge are unchanged and still bindin
   11. `tests/test_iter135_launcher.py`
   12. `tests/test_iter135_tooling_verifier.py`
   13. `tests/test_mission_state.py`
+
+  Generation six, 2026-07-17. Source parent and superseded receipt are both the generation-five
+  receipt `1f70e367cd1ffcc2c3dab1c801d0e195a1341ef2`, and the reason code is
+  `T5_FROZEN_STRUCTURAL_VALIDATOR_STALE_RECEIPT_HISTORY`. Generation five published its source
+  `27c19216387bc211810e7ae8379040f3eee13bd7` and receipt and then failed its own structural probe
+  at the local state-acceptance step: the frozen validator's receipt-history check was still
+  hardcoded to the four-entry generation-four shape, so it could never accept the five-entry
+  history its own publication created. The defect was caught by the docs guard BEFORE the
+  generation-five state child or baton was pushed; no generation-five state or baton commit
+  exists, master never went red, and the local state-only attempt was discarded unpushed and is
+  disclosed here. Generation six extends the frozen history check to the exact six-generation
+  chain, adds the missing generation-four and generation-five topology rows, and binds every
+  consumer to the generation-six publication. The scope is the exact ten paths below;
+  MISSION_STATE.json is excluded because generation five already rolled it back and an unchanged
+  file cannot appear in a commit's path set. No host, Docker, GPU, smoke, or analytic action was
+  taken.
+
+  1. `CONTINUITY.md`
+  2. `HANDOFF.md`
+  3. `experiments/iter135_neuroncap_blind_braking_dose_response/authorize_launch135.py`
+  4. `experiments/iter135_neuroncap_blind_braking_dose_response/run_dose135.sh`
+  5. `experiments/iter135_neuroncap_blind_braking_dose_response/verify_tooling135.py`
+  6. `scripts/mission_state.py`
+  7. `tests/test_iter135_launch_authorization.py`
+  8. `tests/test_iter135_launcher.py`
+  9. `tests/test_iter135_tooling_verifier.py`
+  10. `tests/test_mission_state.py`

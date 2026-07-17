@@ -1,31 +1,39 @@
 # HANDOFF — dynamic state snapshot
 
-Generation-five host-contract recovery snapshot, 2026-07-17. Read CONTINUITY.md first.
+Generation-six structural-validator recovery snapshot, 2026-07-17. Read CONTINUITY.md first.
 
 ## Repository state
 ```
-F5      iter135: refreeze generation-five tooling recovery
+F6      iter135: refreeze generation-six tooling recovery
+1f70e36 iter135: publish generation-five tooling receipt
+27c1921 iter135: refreeze generation-five tooling recovery
 27c7f02 handoff: accept iter135 generation-four tooling freeze
 0137eeb mission: accept iter135 generation-four tooling freeze
 c3e891b iter135: publish generation-four tooling receipt
 052404f iter135: refreeze generation-four tooling recovery
 30b6390 handoff: accept iter135 generation-three tooling freeze [REMOTE CI RED]
 ```
-The generation-four chain is accepted and green on every commit: source
-`052404fb13aee8395f538a92cc3c898c13f06adc`, receipt `c3e891b9e41f2291b47edc9cec7abffd5259f674`,
-state `0137eeb97442f7af92eaefeb57befcd53c8c2319`, baton
-`27c7f02b5474dd156c4a7686de774a6f408df42e`. Each was validated on a disposable branch and
-fast-forwarded onto `master` only after that exact head SHA reported success on both Python lanes,
-per the disclosed procedural amendment in CONTINUITY.md.
+Generation five (source `27c19216387bc211810e7ae8379040f3eee13bd7`, receipt
+`1f70e367cd1ffcc2c3dab1c801d0e195a1341ef2`) fixed the host contract but failed its own structural
+probe at the local state-acceptance step: the frozen validator's receipt-history check was still
+hardcoded to the four-entry generation-four shape. The docs guard caught it BEFORE any
+generation-five state or baton was pushed; master never went red and no generation-five state or
+baton commit exists. Generation six is an exact ten-path recovery parented directly off the
+generation-five receipt. It extends the frozen history check to the six-generation chain, adds the
+missing generation-four and generation-five topology rows, and rebinds every consumer
+(`verify_tooling135.py`, `scripts/mission_state.py`, `authorize_launch135.py`, and the embedded
+contract in `run_dose135.sh`) to the generation-six publication. MISSION_STATE.json is excluded
+from the scope because generation five already rolled it back. Every publication is validated on a
+disposable branch and fast-forwarded onto `master` only after that exact head SHA reports success
+on both Python lanes. No host, Docker, GPU, smoke, or analytic action was taken.
 
-Generation five is an exact thirteen-path host-contract recovery on top of that baton. A full
-pre-flight countdown against the live host proved the frozen `prepare_host135.py` contract
-unsatisfiable: it required UniAD's untracked set to be exactly empty, but
-`/opt/sentinel-stack/UniAD/checkpoints` is a load-bearing symlink to the gitignored `ckpts` payload
-that the tracked `base_e2e.py` reads its motion anchors through. The contract now names that
-exception explicitly. Mission state is rolled back locally to `PREREGISTERED_TOOLING_REQUIRED`
-while the generation-five chain is published. No host, Docker, GPU, smoke, or analytic action was
-taken; the packet was never installed and the one-shot controller was never fired.
+Before host preparation can run, the live box must be brought to the frozen contract: UniAD
+currently carries 42 untracked entries, and the contract accepts exactly the `checkpoints`
+symlink. The 41 stray artifacts (stale iteration 7-38 feeders and weights plus iteration-134
+jsonl files whose evidence is already committed in-repo) must be moved to an archive directory
+outside the UniAD tree, and that host action must be recorded here and in CONTINUITY. Any
+previously staged host packet is stale; rebuild the packet from the generation-six baton before
+staging.
 
 ## Canonical mission state (`MISSION_STATE.json`)
 
