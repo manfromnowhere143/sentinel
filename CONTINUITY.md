@@ -3582,18 +3582,19 @@ transfer boundary fold-in and the claim-(5) hedge are unchanged and still bindin
   10. `tests/test_iter135_tooling_verifier.py`
   11. `tests/test_mission_state.py`
 
-  1. `CONTINUITY.md`
-  2. `HANDOFF.md`
-  3. `MISSION_STATE.json`
-  4. `experiments/iter135_neuroncap_blind_braking_dose_response/authorize_launch135.py`
-  5. `experiments/iter135_neuroncap_blind_braking_dose_response/capture_environment135.py`
-  6. `experiments/iter135_neuroncap_blind_braking_dose_response/run_dose135.sh`
-  7. `experiments/iter135_neuroncap_blind_braking_dose_response/run_smoke135.sh`
-  8. `experiments/iter135_neuroncap_blind_braking_dose_response/verify_tooling135.py`
-  9. `scripts/mission_state.py`
-  10. `tests/test_iter135_environment_capture.py`
-  11. `tests/test_iter135_launch_authorization.py`
-  12. `tests/test_iter135_launcher.py`
-  13. `tests/test_iter135_smoke_pipeline.py`
-  14. `tests/test_iter135_tooling_verifier.py`
-  15. `tests/test_mission_state.py`
+  Generation-twelve publication record, 2026-07-17. Source F12 `00f427f1` carries the exact
+  eleven paths; its first disposable-branch probe hit a transient hosted-runner
+  `CalledProcessError` on the Python 3.10 lane, which a targeted re-run cleared to success
+  before `master` moved, both attempts remaining in the check-run record. Receipt R12
+  `fa073e69` was generated on the canonical macOS host from a clean tree with `origin/master`
+  already at F12, returned `I135_TOOLING_VERIFICATION_OK` with `problem_count=0`, and
+  independently replayed `I135_TOOLING_VERIFICATION_OK` on a clean tree after commit, the first
+  replay of the extended twelve-entry history check against the real receipt history. The
+  superseded R11 blob was confirmed byte-identical to its committed object before the working
+  copy was unlocked, and the receipt's two working-copy protections were restored after
+  generation. The state child and this baton were created locally and only this pair's baton
+  tip completed the publication; the disposable validation branches were deleted after
+  publication. This baton also removes a stray duplicate scope-path list that a prior edit had
+  left at the end of this file; the removed list is cosmetic prose and no frozen path-set
+  constant, gate, or receipt referenced it. No host, Docker, GPU, smoke, or analytic action was
+  taken.
