@@ -1,14 +1,14 @@
 # HANDOFF — dynamic state snapshot
 
-Generation-nine host-reality reconciliation snapshot, 2026-07-17. Read CONTINUITY.md first.
+Generation-nine accepted tooling freeze, 2026-07-17. Read CONTINUITY.md first.
 
 ## Repository state
 ```
-F9      iter135: refreeze generation-nine tooling recovery
+B9      handoff: accept iter135 generation-nine tooling freeze
+a0b0947 mission: accept iter135 generation-nine tooling freeze
+133c7c9 iter135: publish generation-nine tooling receipt
+9dabc72 iter135: refreeze generation-nine tooling recovery
 833a00c handoff: accept iter135 generation-eight tooling freeze
-346465c mission: accept iter135 generation-eight tooling freeze
-faf8a2d iter135: publish generation-eight tooling receipt
-ba615b5 iter135: refreeze generation-eight tooling recovery
 ```
 Host-preparation attempt five returned `I135_HOST_PREPARATION_OK` with `problems=0` under the
 generation-eight baton (packet `0e06e7ec…` bound to B8, receipt `c432e716…`). Its stage-zero
@@ -20,7 +20,7 @@ empty, while the real, generation-five-accepted state is exactly the load-bearin
 symlink; the deep replay also passed three-field binding rows where the frozen evidence
 validator reads five fields. An exhaustive audit against the attempt-five receipt found no
 other stale expectation. Generation nine reconciles all mirrors at once and adds the explicit
-symlink contract (type and exact `ckpts` target) with hostile coverage. After B9: de-prepare
+symlink contract (type and exact `ckpts` target) with hostile coverage. Next: de-prepare
 the box (invert the compose patch by exact preimage SHA, remove the empty analytic root,
 archive the B8-bound install), rebuild the packet from B9, dress-rehearse, run the FULL
 countdown, fire attempt six under sudo, then commit stage zero (exactly the two evidence
@@ -29,17 +29,20 @@ paths, parent B9) and proceed E, P, S.
 ## Canonical mission state (`MISSION_STATE.json`)
 
 - Current: iteration 134 / PLACEBO_HARM_OR_NULL / run IDLE / next
-  iteration 135 / PREREGISTERED_TOOLING_REQUIRED
+  iteration 135 / TOOLING_FROZEN_PREFLIGHT_REQUIRED
 - Current result: experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md
 - Next program: semantics-free placebo dose-response causal closure
 - Authorized now:
-  - build and validate only the tooling and tests frozen by the active iteration-135 hypothesis
-  - inventory storage and provenance before any safe cleanup or live smoke
-  - publish a read-only external-benchmark commercial, license, compute, and integration preflight
+  - prepare the exact hash-bound sentinel-gpu host contract and atomically commit host_packet_manifest.json and host_preparation_receipt.json
+  - capture and commit the read-only iteration-135 environment receipt on sentinel-gpu
+  - generate and commit only the hash-addressed incomplete pre-smoke manifest; no analytic episodes
+  - run exactly the hash-bound four-run nonanalytic G5 smoke after the incomplete pre-smoke manifest is committed
+  - validate, collect, and commit the exact nonanalytic smoke raw evidence, recomputed receipt, and mechanically generated SMOKE.md
 - Forbidden now:
-  - GPU launch before the iteration-135 hypothesis, analyzer, manifest, provenance, storage, and smoke gates are frozen
-  - rerun iteration 134
-  - adopt run-index resampling as the iteration-135 primary after observing iteration-134 results
+  - run any iteration-135 analytic episode before smoke evidence and the final launch manifest are committed green
+  - remove or bypass the permanent analytic launch lock
+  - rerun iteration 134 or adapt iteration-135 schedules, estimands, verdicts, or policies after evidence
+  - place any iteration-135 analytic output on the remote root filesystem
 
 Generation four changes no scientific or execution payload. It makes structural Git reads resolve
 and attest only Git instead of unnecessarily requiring the current `pytest`, Ruff, shell, and
@@ -256,11 +259,10 @@ is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT 
 - Canonical completed experiment: experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md — read it before opening new work.
 - Active pending pre-registration: experiments/iter135_neuroncap_blind_braking_dose_response/HYPOTHESIS.md — read it with MISSION_STATE.json; neither file overrides the other.
 - Deprecated pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — historical only; it does not govern the next action.
-- Canonical next action: publish and remotely validate the exact generation-nine recovery
-  source, then its replacement receipt, then a fresh atomic state-only-plus-baton pair. Push only
-  that pair's baton tip. Host re-preparation (de-prepare attempt five, rebuild the packet from
-  B9, dress-rehearse, fire attempt six under sudo) remains blocked until the new baton is
-  exactly green.
+- Canonical next action: de-prepare attempt five on the box (invert the compose patch by exact
+  preimage SHA, remove the empty analytic root, archive the B8-bound install), rebuild the
+  packet from this baton, dress-rehearse, run the FULL countdown, fire attempt six under sudo,
+  then commit stage zero (exactly the two evidence paths, parent B9) and proceed E, P, S.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
 

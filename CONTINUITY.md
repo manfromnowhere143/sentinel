@@ -3372,3 +3372,15 @@ transfer boundary fold-in and the claim-(5) hedge are unchanged and still bindin
   13. `tests/test_iter135_smoke_pipeline.py`
   14. `tests/test_iter135_tooling_verifier.py`
   15. `tests/test_mission_state.py`
+
+  Generation-nine publication record, 2026-07-17. Source F9 `9dabc72e` carries the exact fifteen
+  paths and reported success on both Python lanes before `master` moved. Receipt R9 `133c7c92`
+  was generated on the canonical macOS host from a clean tree with `origin/master` already at F9,
+  returned `I135_TOOLING_VERIFICATION_OK` with `problem_count=0`, and independently replayed
+  `I135_TOOLING_VERIFICATION_OK` on a clean tree after commit, the first replay of the extended
+  nine-entry history check against the real receipt history. The superseded R8 blob was confirmed
+  byte-identical to its committed object before the working copy was unlocked, and the receipt's
+  two working-copy protections, the `uchg` flag and the `user:danielwahnich deny delete` ACL,
+  were restored after generation. The state child and this baton were created locally and only
+  this pair's baton tip completed the publication; the disposable validation branches were
+  deleted after publication. No host, Docker, GPU, smoke, or analytic action was taken.
