@@ -15,7 +15,6 @@ from __future__ import annotations
 
 import argparse
 import ast
-import base64
 import hashlib
 import json
 import os
@@ -88,6 +87,10 @@ GITHUB_API_ROOT = f"https://api.github.com/repos/{GITHUB_REPOSITORY}"
 REQUIRED_GITHUB_CHECKS = ("check (3.10)", "check (3.11)")
 EXPECTED_CHECK_APP = "github-actions"
 MAX_GITHUB_RESPONSE_BYTES = 1 << 20
+# The committed host-preparation receipt is a multi-megabyte JSON document, far above the
+# one-mebibyte JSON-envelope inline limit of the Contents API; its byte-exact replay uses the
+# raw media type on the same endpoint under this dedicated hard bound.
+MAX_ARTIFACT_RESPONSE_BYTES = 32 << 20
 MAX_GITHUB_CHECK_RUNS = 100
 MAX_GITHUB_TREE_RESPONSE_BYTES = 16 << 20
 MAX_GITHUB_TREE_ENTRIES = 20_000
@@ -108,7 +111,7 @@ EXPECTED_GPU_UUID = "GPU-9604ae8a-e823-3a38-5a57-0420cd29bc07"
 EXPECTED_GPU_DRIVER = "580.159.03"
 EXPECTED_GPU_MEMORY_MIB = 23_034
 EXPECTED_CANONICAL_DATASET_CONTRACT_SHA256 = (
-    "ae22656f62044fbc649a5ef8976c708249b6c62dabe475fb8c347b7558fe3e8b"
+    "f61363c91fa6e0f3db24a6df2e32afc16ad02ebc44e3c4af66132fcc317760c2"
 )
 
 _SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
@@ -245,6 +248,67 @@ def _fetch_json(url: str) -> Any:
         raise CaptureError("host-publication-authority:json") from error
 
 
+def _fetch_raw(url: str) -> bytes:
+    """Fetch one bounded raw-media GitHub Contents payload over authenticated-server TLS.
+
+    Same endpoint and GET budget as the JSON-envelope fetch; the raw media type is the only way
+    the Contents API returns the exact bytes of a blob above its one-mebibyte inline limit.
+    """
+
+    parsed = urllib.parse.urlparse(url)
+    if (
+        parsed.scheme != "https"
+        or parsed.hostname != "api.github.com"
+        or parsed.username is not None
+        or parsed.password is not None
+        or parsed.fragment
+    ):
+        raise CaptureError("host-publication-authority:url")
+    request = urllib.request.Request(
+        url,
+        headers={
+            "Accept": "application/vnd.github.raw+json",
+            "User-Agent": "sentinel-iter135-environment-authority/1",
+            "X-GitHub-Api-Version": "2022-11-28",
+        },
+        method="GET",
+    )
+    context = ssl.create_default_context()
+    context.minimum_version = ssl.TLSVersion.TLSv1_2
+    opener = urllib.request.build_opener(
+        urllib.request.ProxyHandler({}),
+        urllib.request.HTTPSHandler(context=context),
+        _NoRedirect(),
+    )
+    try:
+        with opener.open(request, timeout=60) as response:
+            if response.geturl() != url:
+                raise CaptureError("host-publication-authority:redirect")
+            if response.status != 200:
+                raise CaptureError("host-publication-authority:http-status")
+            content_type = response.headers.get_content_type()
+            if content_type != "application/vnd.github.raw+json":
+                raise CaptureError("host-publication-authority:content-type")
+            declared = response.headers.get("Content-Length")
+            if declared is not None:
+                try:
+                    declared_bytes = int(declared, 10)
+                except ValueError as error:
+                    raise CaptureError("host-publication-authority:content-length") from error
+                if declared_bytes < 0 or declared_bytes > MAX_ARTIFACT_RESPONSE_BYTES:
+                    raise CaptureError("host-publication-authority:content-length")
+            payload = response.read(MAX_ARTIFACT_RESPONSE_BYTES + 1)
+    except CaptureError:
+        raise
+    except (OSError, TimeoutError, urllib.error.URLError) as error:
+        raise CaptureError(
+            f"host-publication-authority:transport:{type(error).__name__}"
+        ) from error
+    if len(payload) > MAX_ARTIFACT_RESPONSE_BYTES:
+        raise CaptureError("host-publication-authority:response-size")
+    return payload
+
+
 def _project_exact_checks(
     document: object,
     source_commit: str,
@@ -333,6 +397,7 @@ def verify_publication_authority(
     *,
     commit_tree_sha: str,
     artifact_payloads: Mapping[str, bytes] | None = None,
+    fetch_raw: Callable[[str], bytes] = _fetch_raw,
 ) -> dict[str, Any]:
     """Require current master and both exact Python matrix checks for the H commit."""
 
@@ -405,7 +470,11 @@ def verify_publication_authority(
     artifacts: list[dict[str, Any]] = []
     for path in HOST_PUBLICATION_ARTIFACT_PATHS:
         payload = payloads[path]
-        if not isinstance(payload, bytes) or not payload or len(payload) > MAX_GITHUB_RESPONSE_BYTES:
+        if (
+            not isinstance(payload, bytes)
+            or not payload
+            or len(payload) > MAX_ARTIFACT_RESPONSE_BYTES
+        ):
             raise CaptureError(f"host-publication-authority:artifact-payload:{Path(path).name}")
         git_blob_oid = _git_blob_oid(payload)
         tree_row = selected_tree[path]
@@ -420,34 +489,21 @@ def verify_publication_authority(
             raise CaptureError(
                 f"host-publication-authority:tree-artifact:{Path(path).name}"
             )
+        # The recursive tree above already binds the exact path, blob type, `100644` mode,
+        # integer size, and Git blob identity of the committed artifact. The raw-media fetch
+        # completes the proof with the committed bytes themselves, which the JSON envelope
+        # cannot inline above one mebibyte. Same endpoint, same single GET per artifact.
         encoded_path = urllib.parse.quote(path, safe="/")
         content_url = f"{GITHUB_API_ROOT}/contents/{encoded_path}?ref={source_commit}"
         try:
-            document = fetch_json(content_url)
+            committed = fetch_raw(content_url)
         except CaptureError:
             raise
         except Exception as error:
             raise CaptureError(
                 f"host-publication-authority:artifact-fetch:{type(error).__name__}"
             ) from error
-        content = document.get("content") if isinstance(document, Mapping) else None
-        encoded = "".join(content.splitlines()) if isinstance(content, str) else ""
-        try:
-            committed = base64.b64decode(encoded, validate=True)
-        except (ValueError, base64.binascii.Error) as error:
-            raise CaptureError(
-                f"host-publication-authority:artifact-base64:{Path(path).name}"
-            ) from error
-        if (
-            not isinstance(document, Mapping)
-            or document.get("type") != "file"
-            or document.get("path") != path
-            or document.get("sha") != git_blob_oid
-            or document.get("encoding") != "base64"
-            or type(document.get("size")) is not int
-            or document.get("size") != len(payload)
-            or committed != payload
-        ):
+        if not isinstance(committed, bytes) or committed != payload:
             raise CaptureError(
                 f"host-publication-authority:artifact-drift:{Path(path).name}"
             )
@@ -650,6 +706,7 @@ class Contract:
     dataset_archives: Mapping[str, tuple[str, int]]
     dataset_metadata_files: tuple[str, ...]
     dataset_map_anchors: tuple[str, ...]
+    dataset_map_directories: Mapping[str, tuple[str, ...]]
     image_ids: Mapping[str, str]
     compose_input_sha256: str
     compose_output_sha256: str
@@ -686,6 +743,7 @@ def _run_command(argv: Sequence[str]) -> bytes:
 class Hooks:
     run: Callable[[Sequence[str]], bytes] = _run_command
     fetch_json: Callable[[str], Any] = _fetch_json
+    fetch_raw: Callable[[str], bytes] = _fetch_raw
     hostname: Callable[[], str] = socket.gethostname
     disk_free: Callable[[Path], int] = lambda path: shutil.disk_usage(path).free
     device: Callable[[Path], int] = lambda path: path.stat().st_dev
@@ -882,13 +940,38 @@ def _client_version_projection(value: Any) -> dict[str, str]:
     }
 
 
+def _daemon_engine_details(value: Mapping[str, Any]) -> Mapping[str, Any]:
+    # Docker Engine 29 moved GitCommit, GoVersion, BuildTime, and Experimental out of the
+    # top-level Server object into the Engine component's Details map (Experimental became the
+    # string "true"/"false" there). Older engines carry them at the top level. Read the Engine
+    # component when present so both generations of output validate exactly.
+    components = value.get("Components")
+    if isinstance(components, list):
+        for row in components:
+            if isinstance(row, Mapping) and row.get("Name") == "Engine":
+                details = row.get("Details")
+                if isinstance(details, Mapping):
+                    return details
+    return {}
+
+
+def _daemon_field(value: Mapping[str, Any], details: Mapping[str, Any], name: str) -> Any:
+    field = value.get(name)
+    if field is None:
+        field = details.get(name)
+    return field
+
+
 def _daemon_version_projection(value: Any) -> dict[str, Any]:
     if not isinstance(value, Mapping):
         raise CaptureError("docker-runtime:daemon-version")
     platform_row = value.get("Platform")
     if not isinstance(platform_row, Mapping):
         raise CaptureError("docker-runtime:daemon-version:platform")
-    experimental = value.get("Experimental")
+    details = _daemon_engine_details(value)
+    experimental = _daemon_field(value, details, "Experimental")
+    if experimental in ("true", "false"):
+        experimental = experimental == "true"
     if type(experimental) is not bool:
         raise CaptureError("docker-runtime:daemon-version:experimental")
     return {
@@ -900,11 +983,17 @@ def _daemon_version_projection(value: Any) -> dict[str, Any]:
         "min_api_version": _bounded_text(
             value.get("MinAPIVersion"), "daemon-version:min-api-version"
         ),
-        "git_commit": _bounded_text(value.get("GitCommit"), "daemon-version:git-commit"),
-        "go_version": _bounded_text(value.get("GoVersion"), "daemon-version:go-version"),
+        "git_commit": _bounded_text(
+            _daemon_field(value, details, "GitCommit"), "daemon-version:git-commit"
+        ),
+        "go_version": _bounded_text(
+            _daemon_field(value, details, "GoVersion"), "daemon-version:go-version"
+        ),
         "os": _bounded_text(value.get("Os"), "daemon-version:os"),
         "arch": _bounded_text(value.get("Arch"), "daemon-version:arch"),
-        "build_time": _bounded_text(value.get("BuildTime"), "daemon-version:build-time"),
+        "build_time": _bounded_text(
+            _daemon_field(value, details, "BuildTime"), "daemon-version:build-time"
+        ),
         "experimental": experimental,
     }
 
@@ -1487,6 +1576,10 @@ def _dataset_contract_from_module(module: types.ModuleType) -> dict[str, Any]:
         "archives": archives,
         "metadata_json_names": [str(value) for value in module.EXPECTED_DATASET_METADATA_FILES],
         "map_anchor_names": [str(value) for value in module.EXPECTED_DATASET_MAP_ANCHORS],
+        "map_directory_names": {
+            str(name): [str(value) for value in files]
+            for name, files in sorted(module.EXPECTED_DATASET_MAP_DIRECTORIES.items())
+        },
     }
 
 
@@ -1535,6 +1628,7 @@ def load_contract(path: Path = CANONICAL_MANIFEST_PATH) -> Contract:
     expected_archive_names = {
         "v1.0-trainval_meta.tgz",
         *(f"v1.0-trainval{index:02d}_blobs.tgz" for index in range(1, 11)),
+        "nuScenes-map-expansion-v1.3.zip",
     }
     archives = {
         name: (str(row["sha256"]), int(row["bytes"]))
@@ -1544,9 +1638,14 @@ def load_contract(path: Path = CANONICAL_MANIFEST_PATH) -> Contract:
         set(archives) != expected_archive_names
         or len(dataset_contract["metadata_json_names"]) != 13
         or len(set(dataset_contract["metadata_json_names"])) != 13
-        or len(dataset_contract["map_anchor_names"]) != 4
-        or len(set(dataset_contract["map_anchor_names"])) != 4
-        or sum(row[1] for row in archives.values()) != 314_886_603_672
+        or len(dataset_contract["map_anchor_names"]) != 5
+        or len(set(dataset_contract["map_anchor_names"])) != 5
+        or len(dataset_contract["map_directory_names"]) != 3
+        or {
+            name: len(files)
+            for name, files in dataset_contract["map_directory_names"].items()
+        } != {"basemap": 4, "expansion": 4, "prediction": 1}
+        or sum(row[1] for row in archives.values()) != 315_285_139_203
     ):
         raise CaptureError("canonical-manifest:dataset-contract-topology")
     dataset_root = str(dataset_contract["dataset_root"])
@@ -1578,6 +1677,10 @@ def load_contract(path: Path = CANONICAL_MANIFEST_PATH) -> Contract:
         dataset_archives=archives,
         dataset_metadata_files=tuple(dataset_contract["metadata_json_names"]),
         dataset_map_anchors=tuple(dataset_contract["map_anchor_names"]),
+        dataset_map_directories={
+            str(name): tuple(str(value) for value in files)
+            for name, files in sorted(dataset_contract["map_directory_names"].items())
+        },
         image_ids=dict(module.EXPECTED_IMAGE_IDS),
         compose_input_sha256=str(module.EXPECTED_COMPOSE_INPUT_SHA256),
         compose_output_sha256=str(module.EXPECTED_COMPOSE_OUTPUT_SHA256),
@@ -2033,6 +2136,10 @@ def _dataset_contract_payload(contract: Contract) -> dict[str, Any]:
         },
         "metadata_json_names": list(contract.dataset_metadata_files),
         "map_anchor_names": list(contract.dataset_map_anchors),
+        "map_directory_names": {
+            name: list(files)
+            for name, files in sorted(contract.dataset_map_directories.items())
+        },
     }
 
 
@@ -2041,6 +2148,7 @@ def _dataset_directory_snapshot(
     expected_names: set[str] | None,
     label: str,
     problems: list[str],
+    expected_directories: set[str] | None = None,
 ) -> tuple[dict[str, Any], tuple[Any, ...] | None]:
     identity: dict[str, Any] = {"realpath": None, "is_symlink": None}
     components, component_problems = _component_snapshot(path)
@@ -2055,15 +2163,24 @@ def _dataset_directory_snapshot(
         if not stat.S_ISDIR(directory.st_mode):
             problems.append(f"dataset:{label}:not-directory")
         entries: list[tuple[str, tuple[int, int, int, int, int, int]]] = []
+        allowed_directories = expected_directories or set()
         for child in sorted(path.iterdir(), key=lambda item: item.name):
             child_info = child.lstat()
             entries.append((child.name, _stat_identity(child_info)))
+            if child.name in allowed_directories:
+                # A contract-pinned subdirectory must be a physical directory; its own
+                # file set is validated by a dedicated snapshot.
+                if stat.S_ISLNK(child_info.st_mode) or not stat.S_ISDIR(child_info.st_mode):
+                    problems.append(f"dataset:{label}:nonphysical-directory:{child.name}")
+                continue
             if expected_names is not None and (
                 stat.S_ISLNK(child_info.st_mode) or not stat.S_ISREG(child_info.st_mode)
             ):
                 problems.append(f"dataset:{label}:nonphysical-file:{child.name}")
         observed_names = {name for name, _info in entries}
-        if expected_names is not None and observed_names != expected_names:
+        if expected_names is not None and observed_names != (
+            expected_names | allowed_directories
+        ):
             problems.append(f"dataset:{label}:file-set")
         snapshot: tuple[Any, ...] | None = (
             tuple(components),
@@ -2130,8 +2247,21 @@ def _probe_dataset(
         metadata_root, set(contract.dataset_metadata_files), "metadata", problems
     )
     map_identity, maps_before = _dataset_directory_snapshot(
-        map_root, set(contract.dataset_map_anchors), "maps", problems
+        map_root,
+        set(contract.dataset_map_anchors),
+        "maps",
+        problems,
+        expected_directories=set(contract.dataset_map_directories),
     )
+    map_directory_snapshots: dict[str, tuple[Any, ...] | None] = {}
+    for directory_name, directory_files in sorted(contract.dataset_map_directories.items()):
+        _directory_identity, directory_before = _dataset_directory_snapshot(
+            map_root / directory_name,
+            set(directory_files),
+            f"maps:{directory_name}",
+            problems,
+        )
+        map_directory_snapshots[directory_name] = directory_before
 
     archives: dict[str, dict[str, Any]] = {}
     for name, (expected_digest, expected_bytes) in sorted(contract.dataset_archives.items()):
@@ -2160,8 +2290,21 @@ def _probe_dataset(
         metadata_root, set(contract.dataset_metadata_files), "metadata-after", problems
     )
     _map_after_identity, maps_after = _dataset_directory_snapshot(
-        map_root, set(contract.dataset_map_anchors), "maps-after", problems
+        map_root,
+        set(contract.dataset_map_anchors),
+        "maps-after",
+        problems,
+        expected_directories=set(contract.dataset_map_directories),
     )
+    for directory_name, directory_files in sorted(contract.dataset_map_directories.items()):
+        _directory_identity, directory_after = _dataset_directory_snapshot(
+            map_root / directory_name,
+            set(directory_files),
+            f"maps:{directory_name}-after",
+            problems,
+        )
+        if map_directory_snapshots.get(directory_name) != directory_after:
+            problems.append(f"dataset:maps:{directory_name}:unstable-directory")
     for label, before, after in (
         ("root", root_before, root_after),
         ("archives", archives_before, archives_after),
@@ -2426,6 +2569,7 @@ def capture_environment(
             hooks.fetch_json,
             commit_tree_sha=host_commit_tree_sha,
             artifact_payloads=artifact_payloads,
+            fetch_raw=hooks.fetch_raw,
         )
     except CaptureError as error:
         host_publication_authority = None

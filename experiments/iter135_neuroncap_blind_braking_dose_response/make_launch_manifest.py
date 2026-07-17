@@ -310,8 +310,15 @@ EXPECTED_DATASET_ARCHIVES: dict[str, tuple[str, int]] = {
         "046aa7c5ff2cab63a25eaa6210e00bd8197f835e5324457d305a2a16a262f57a",
         41_727_447_974,
     ),
+    # Staged by iteration 47 from the public Motional bucket (see
+    # experiments/iter47_map_staging_and_off_completion); its extraction is the maps
+    # basemap/expansion/prediction content pinned below.
+    "nuScenes-map-expansion-v1.3.zip": (
+        "9dbc80a095b6b28d9b79fc9a43471a750dc92ca78c6d0db288fd92b34be5a144",
+        398_535_531,
+    ),
 }
-EXPECTED_DATASET_ARCHIVE_TOTAL_BYTES = 314_886_603_672
+EXPECTED_DATASET_ARCHIVE_TOTAL_BYTES = 315_285_139_203
 EXPECTED_DATASET_METADATA_FILES = (
     "attribute.json",
     "calibrated_sensor.json",
@@ -332,15 +339,43 @@ EXPECTED_DATASET_MAP_ANCHORS = (
     "37819e65e09e5547b8a3ceaefba56bb2.png",
     "53992ee3023e5494b90c316c183be829.png",
     "93406b464a165eaba6d9de76ca09f5da.png",
+    "LICENSE",
 )
+# The nuScenes map-expansion v1.3 pack extracted by iteration 47. Iteration 135 never reads
+# these payloads; the contract pins the directory shape so the shared evidence volume's true
+# state validates exactly instead of being reported as unexpected.
+EXPECTED_DATASET_MAP_DIRECTORIES = {
+    "basemap": (
+        "boston-seaport.png",
+        "singapore-hollandvillage.png",
+        "singapore-onenorth.png",
+        "singapore-queenstown.png",
+    ),
+    "expansion": (
+        "boston-seaport.json",
+        "singapore-hollandvillage.json",
+        "singapore-onenorth.json",
+        "singapore-queenstown.json",
+    ),
+    "prediction": ("prediction_scenes.json",),
+}
 EXPECTED_DATASET_PROOF_BASIS = {
     "iteration": 28,
     "result_path": "experiments/iter28_nuscenes_trainval_staging/RESULT.md",
     "receipt_directory": ("experiments/iter28_nuscenes_trainval_staging/proof-staging/uploads"),
-    "archive_count": 11,
+    "archive_count": 12,
     "archive_total_bytes": EXPECTED_DATASET_ARCHIVE_TOTAL_BYTES,
+    "map_expansion_result_path": (
+        "experiments/iter47_map_staging_and_off_completion/RESULT.md"
+    ),
 }
 ITER28_DATASET_PROOF_DIRECTORY_REL = Path(EXPECTED_DATASET_PROOF_BASIS["receipt_directory"])
+# The map-expansion archive was staged by iteration 47, not iteration 28; its byte proof is the
+# committed iteration-47 staging receipt and is replayed separately below.
+MAP_EXPANSION_ARCHIVE_NAME = "nuScenes-map-expansion-v1.3.zip"
+ITER47_MAP_EXPANSION_PROOF_REL = Path(
+    "experiments/iter47_map_staging_and_off_completion/proof-staging/staging_receipts.json"
+)
 
 
 def canonical_dataset_contract_payload() -> dict[str, Any]:
@@ -361,6 +396,10 @@ def canonical_dataset_contract_payload() -> dict[str, Any]:
         },
         "metadata_json_names": list(EXPECTED_DATASET_METADATA_FILES),
         "map_anchor_names": list(EXPECTED_DATASET_MAP_ANCHORS),
+        "map_directory_names": {
+            name: list(files)
+            for name, files in sorted(EXPECTED_DATASET_MAP_DIRECTORIES.items())
+        },
     }
 
 
@@ -377,7 +416,7 @@ def _canonical_json_sha256(value: Any) -> str:
 # Independent constant: changing any path, filename, archive digest, byte count, device identity,
 # or proof locator makes manifest generation fail closed until the change is explicitly audited.
 EXPECTED_DATASET_CONTRACT_SHA256 = (
-    "ae22656f62044fbc649a5ef8976c708249b6c62dabe475fb8c347b7558fe3e8b"
+    "f61363c91fa6e0f3db24a6df2e32afc16ad02ebc44e3c4af66132fcc317760c2"
 )
 
 # Role -> (absolute execution-host path, SHA256, byte length).  Every file below is read by the
@@ -1506,10 +1545,11 @@ def dataset_contract_problems() -> list[str]:
     expected_archive_names = {
         "v1.0-trainval_meta.tgz",
         *(f"v1.0-trainval{index:02d}_blobs.tgz" for index in range(1, 11)),
+        "nuScenes-map-expansion-v1.3.zip",
     }
     if set(EXPECTED_DATASET_ARCHIVES) != expected_archive_names:
         problems.append("dataset-contract:archive-set")
-    if len(EXPECTED_DATASET_ARCHIVES) != 11:
+    if len(EXPECTED_DATASET_ARCHIVES) != 12:
         problems.append("dataset-contract:archive-count")
     if sum(row[1] for row in EXPECTED_DATASET_ARCHIVES.values()) != (
         EXPECTED_DATASET_ARCHIVE_TOTAL_BYTES
@@ -1525,12 +1565,22 @@ def dataset_contract_problems() -> list[str]:
         or len(set(EXPECTED_DATASET_METADATA_FILES)) != 13
     ):
         problems.append("dataset-contract:metadata-set")
-    if len(EXPECTED_DATASET_MAP_ANCHORS) != 4 or len(set(EXPECTED_DATASET_MAP_ANCHORS)) != 4:
+    if len(EXPECTED_DATASET_MAP_ANCHORS) != 5 or len(set(EXPECTED_DATASET_MAP_ANCHORS)) != 5:
         problems.append("dataset-contract:map-set")
+    if set(EXPECTED_DATASET_MAP_DIRECTORIES) != {"basemap", "expansion", "prediction"} or {
+        name: len(files) for name, files in EXPECTED_DATASET_MAP_DIRECTORIES.items()
+    } != {"basemap": 4, "expansion": 4, "prediction": 1}:
+        problems.append("dataset-contract:map-directory-set")
     names = (
         *EXPECTED_DATASET_ARCHIVES,
         *EXPECTED_DATASET_METADATA_FILES,
         *EXPECTED_DATASET_MAP_ANCHORS,
+        *(
+            name
+            for files in EXPECTED_DATASET_MAP_DIRECTORIES.values()
+            for name in files
+        ),
+        *EXPECTED_DATASET_MAP_DIRECTORIES,
     )
     if any(Path(name).name != name or name in {"", ".", ".."} for name in names):
         problems.append("dataset-contract:unsafe-name")
@@ -1547,7 +1597,11 @@ def iter28_dataset_proof_problems(repo_root: Path) -> list[str]:
     proof_root = Path(repo_root) / ITER28_DATASET_PROOF_DIRECTORY_REL
     if proof_root.is_symlink() or not proof_root.is_dir():
         return ["dataset-proof:directory"]
-    expected_names = {f"{name}.json" for name in EXPECTED_DATASET_ARCHIVES}
+    expected_names = {
+        f"{name}.json"
+        for name in EXPECTED_DATASET_ARCHIVES
+        if name != MAP_EXPANSION_ARCHIVE_NAME
+    }
     try:
         observed_names = {path.name for path in proof_root.iterdir()}
     except OSError as error:
@@ -1555,6 +1609,8 @@ def iter28_dataset_proof_problems(repo_root: Path) -> list[str]:
     if observed_names != expected_names:
         problems.append("dataset-proof:file-set")
     for name, (expected_digest, expected_bytes) in EXPECTED_DATASET_ARCHIVES.items():
+        if name == MAP_EXPANSION_ARCHIVE_NAME:
+            continue
         path = proof_root / f"{name}.json"
         if path.is_symlink() or not path.is_file():
             problems.append(f"dataset-proof:{name}:file")
@@ -1595,6 +1651,38 @@ def iter28_dataset_proof_problems(repo_root: Path) -> list[str]:
             expected_verify_rows
         ):
             problems.append(f"dataset-proof:{name}:verify-stdout")
+
+    # The map-expansion archive's byte proof is the committed iteration-47 staging receipt.
+    expansion_digest, expansion_bytes = EXPECTED_DATASET_ARCHIVES[MAP_EXPANSION_ARCHIVE_NAME]
+    expansion_path = Path(repo_root) / ITER47_MAP_EXPANSION_PROOF_REL
+    if expansion_path.is_symlink() or not expansion_path.is_file():
+        problems.append(f"dataset-proof:{MAP_EXPANSION_ARCHIVE_NAME}:file")
+    else:
+        try:
+            expansion_proof = json.loads(expansion_path.read_text(encoding="utf-8"))
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
+            problems.append(
+                f"dataset-proof:{MAP_EXPANSION_ARCHIVE_NAME}:json:{type(error).__name__}"
+            )
+            expansion_proof = None
+        if expansion_proof is not None:
+            expansion_archive = (
+                expansion_proof.get("archive") if isinstance(expansion_proof, dict) else None
+            )
+            expected_expansion_archive = {
+                "canonical_name": MAP_EXPANSION_ARCHIVE_NAME,
+                "remote_path": (
+                    f"{EXPECTED_DATASET_ARCHIVE_ROOT}/{MAP_EXPANSION_ARCHIVE_NAME}"
+                ),
+                "bytes": expansion_bytes,
+                "sha256": expansion_digest,
+            }
+            if expansion_archive != expected_expansion_archive:
+                problems.append(f"dataset-proof:{MAP_EXPANSION_ARCHIVE_NAME}:archive")
+            if not isinstance(expansion_proof, dict) or expansion_proof.get(
+                "experiment"
+            ) != "iter47_map_staging_and_off_completion":
+                problems.append(f"dataset-proof:{MAP_EXPANSION_ARCHIVE_NAME}:experiment")
     return sorted(set(problems))
 
 

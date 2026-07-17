@@ -150,10 +150,24 @@ GENERATION_NINE_BATON_COMMIT = "150e04dd9f996b545393061250fd8448bac795c5"
 GENERATION_NINE_STAGE_ZERO_COMMIT = "023d7ca638de5f3bde29ef9c6068bc64ecf711f2"
 GENERATION_TEN_SOURCE_PARENT = GENERATION_NINE_STAGE_ZERO_COMMIT
 GENERATION_TEN_REASON = "E_PREFLIGHT_CHECK_RUN_ENVELOPE_FOSSILS_IN_CAPTURE_AND_LAUNCHERS"
+GENERATION_TEN_SOURCE_COMMIT = "214758fd4783cc8e50c72585b0cd56b24e6d2c87"
+GENERATION_TEN_RECEIPT_COMMIT = "146d52e5b662bf6af0fd26925367c6218822fa39"
+GENERATION_TEN_STATE_COMMIT = "165aa47ba5c40ffa9d7e3d2a735209f2fff4dd8b"
+GENERATION_TEN_BATON_COMMIT = "1693d928da4ec2089bb3c60e777e2d1b1e72b3cc"
+# Generation eleven exists because the first live environment capture failed closed with
+# twenty-three problems that reduced to four contract-versus-reality families: the dataset
+# contract omitted the iteration-47 map-expansion archive and its extracted map directories,
+# the daemon-version projection required fields Docker 29 relocated, the artifact replay
+# demanded a JSON-inline payload the Contents API cannot return above one mebibyte, and the
+# image and idle probes cascaded from the daemon failure. The capture is repeatable, no
+# one-shot burned, and the repository also gains its Apache-2.0 LICENSE in this scope.
+GENERATION_TEN_STAGE_ZERO_COMMIT = "50511a9261e904f4367b390bcc5fa85572e09c26"
+GENERATION_ELEVEN_SOURCE_PARENT = GENERATION_TEN_STAGE_ZERO_COMMIT
+GENERATION_ELEVEN_REASON = "E1_ENVIRONMENT_CONTRACTS_STALE_DATASET_DOCKER_ARTIFACT_REPLAY"
 # Compatibility aliases used by the receipt generator and focused hostile tests. They always name
-# the active generation-ten source publication, never a historical recovery.
-RECOVERY_SOURCE_PARENT = GENERATION_TEN_SOURCE_PARENT
-RECOVERY_REASON = GENERATION_TEN_REASON
+# the active generation-eleven source publication, never a historical recovery.
+RECOVERY_SOURCE_PARENT = GENERATION_ELEVEN_SOURCE_PARENT
+RECOVERY_REASON = GENERATION_ELEVEN_REASON
 POST_FREEZE_EXACT_PATHS = {
     "CONTINUITY.md",
     "HANDOFF.md",
@@ -414,12 +428,36 @@ GENERATION_TEN_SOURCE_COMMIT_PATHS = (
     "tests/test_iter135_tooling_verifier.py",
     "tests/test_mission_state.py",
 )
-RECOVERY_SOURCE_COMMIT_PATHS = GENERATION_TEN_SOURCE_COMMIT_PATHS
+GENERATION_ELEVEN_SOURCE_COMMIT_PATHS = (
+    "CONTINUITY.md",
+    "HANDOFF.md",
+    "LICENSE",
+    "MISSION_STATE.json",
+    f"{EXPERIMENT_REL}/analyze_dose135.py",
+    f"{EXPERIMENT_REL}/authorize_launch135.py",
+    f"{EXPERIMENT_REL}/capture_environment135.py",
+    f"{EXPERIMENT_REL}/collect_proof135.py",
+    f"{EXPERIMENT_REL}/make_launch_manifest.py",
+    f"{EXPERIMENT_REL}/run_dose135.sh",
+    f"{EXPERIMENT_REL}/run_smoke135.sh",
+    f"{EXPERIMENT_REL}/validate_smoke135.py",
+    f"{EXPERIMENT_REL}/verify_tooling135.py",
+    "scripts/mission_state.py",
+    "tests/test_iter135_environment_capture.py",
+    "tests/test_iter135_launch_authorization.py",
+    "tests/test_iter135_launch_manifest.py",
+    "tests/test_iter135_launcher.py",
+    "tests/test_iter135_proof_collector.py",
+    "tests/test_iter135_smoke_pipeline.py",
+    "tests/test_iter135_tooling_verifier.py",
+    "tests/test_mission_state.py",
+)
+RECOVERY_SOURCE_COMMIT_PATHS = GENERATION_ELEVEN_SOURCE_COMMIT_PATHS
 EXPECTED_RECOVERY_PUBLICATION = {
-    "generation": 10,
-    "supersedes_receipt_commit": GENERATION_NINE_RECEIPT_COMMIT,
-    "recovery_parent": GENERATION_TEN_SOURCE_PARENT,
-    "reason_code": GENERATION_TEN_REASON,
+    "generation": 11,
+    "supersedes_receipt_commit": GENERATION_TEN_RECEIPT_COMMIT,
+    "recovery_parent": GENERATION_ELEVEN_SOURCE_PARENT,
+    "reason_code": GENERATION_ELEVEN_REASON,
 }
 
 # Compatibility names describe only the immutable first freeze.  Recovery publication checks use
@@ -1813,9 +1851,10 @@ def validate_published_receipt_structure(
             line for line in history_raw.decode("ascii", errors="strict").splitlines() if line
         )
         if (
-            len(receipt_history) != 10
+            len(receipt_history) != 11
             or not _valid_commit(receipt_history[0])
             or receipt_history[1:] != (
+                GENERATION_TEN_RECEIPT_COMMIT,
                 GENERATION_NINE_RECEIPT_COMMIT,
                 GENERATION_EIGHT_RECEIPT_COMMIT,
                 GENERATION_SEVEN_RECEIPT_COMMIT,
@@ -1828,9 +1867,10 @@ def validate_published_receipt_structure(
             )
         ):
             raise VerificationError(
-                "canonical receipt history is not exact generation-ten, generation-nine, "
-                "generation-eight, generation-seven, generation-six, generation-five, "
-                "generation-four, generation-three, generation-two, then generation-one"
+                "canonical receipt history is not exact generation-eleven, generation-ten, "
+                "generation-nine, generation-eight, generation-seven, generation-six, "
+                "generation-five, generation-four, generation-three, generation-two, then "
+                "generation-one"
             )
         receipt_commit = receipt_history[0]
 
@@ -2065,16 +2105,46 @@ def validate_published_receipt_structure(
             generation_nine_baton_paths != ("CONTINUITY.md", "HANDOFF.md")
         ):
             raise VerificationError("generation-nine baton topology or path scope changed")
+        generation_ten_source_parents, generation_ten_source_paths = _git_commit_row(
+            root, GENERATION_TEN_SOURCE_COMMIT
+        )
+        if generation_ten_source_parents != (GENERATION_TEN_SOURCE_PARENT,) or (
+            generation_ten_source_paths != tuple(sorted(GENERATION_TEN_SOURCE_COMMIT_PATHS))
+        ):
+            raise VerificationError("generation-ten source topology or path scope changed")
+        generation_ten_receipt_parents, generation_ten_receipt_paths = _git_commit_row(
+            root, GENERATION_TEN_RECEIPT_COMMIT
+        )
+        if generation_ten_receipt_parents != (GENERATION_TEN_SOURCE_COMMIT,) or (
+            generation_ten_receipt_paths != (RECEIPT_REL,)
+        ):
+            raise VerificationError("generation-ten receipt topology or path scope changed")
+        generation_ten_state_parents, generation_ten_state_paths = _git_commit_row(
+            root, GENERATION_TEN_STATE_COMMIT
+        )
+        if generation_ten_state_parents != (GENERATION_TEN_RECEIPT_COMMIT,) or (
+            generation_ten_state_paths != ("MISSION_STATE.json",)
+        ):
+            raise VerificationError("generation-ten state topology or path scope changed")
+        generation_ten_baton_parents, generation_ten_baton_paths = _git_commit_row(
+            root, GENERATION_TEN_BATON_COMMIT
+        )
+        if generation_ten_baton_parents != (GENERATION_TEN_STATE_COMMIT,) or (
+            generation_ten_baton_paths != ("CONTINUITY.md", "HANDOFF.md")
+        ):
+            raise VerificationError("generation-ten baton topology or path scope changed")
 
         receipt_parents, receipt_paths = _git_commit_row(root, receipt_commit)
         if receipt_parents != (source_commit,) or receipt_paths != (RECEIPT_REL,):
-            raise VerificationError("generation-ten receipt is not the exact receipt-only child")
+            raise VerificationError(
+                "generation-eleven receipt is not the exact receipt-only child"
+            )
 
         receipt_path = root / RECEIPT_REL
         current_receipt_bytes = _read_stable_regular_file(receipt_path)
         if _git_file_bytes(root, receipt_commit, RECEIPT_REL) != current_receipt_bytes:
             raise VerificationError(
-                "canonical receipt bytes differ from generation-ten receipt commit bytes"
+                "canonical receipt bytes differ from generation-eleven receipt commit bytes"
             )
         committed_receipt = _parse_receipt_json(current_receipt_bytes)
         if committed_receipt != dict(receipt):
@@ -2086,9 +2156,9 @@ def validate_published_receipt_structure(
         if not _valid_commit(current_git.upstream_head):
             raise VerificationError("origin/master commit is malformed or missing")
         if not ancestry_probe(root, receipt_commit, current_git.head):
-            raise VerificationError("generation-ten receipt is not an ancestor of current HEAD")
+            raise VerificationError("generation-eleven receipt is not an ancestor of current HEAD")
         if not ancestry_probe(root, receipt_commit, current_git.upstream_head):
-            raise VerificationError("generation-ten receipt is not published on origin/master")
+            raise VerificationError("generation-eleven receipt is not published on origin/master")
         if current_git.upstream_head != current_git.head and not ancestry_probe(
             root, current_git.upstream_head, current_git.head
         ):

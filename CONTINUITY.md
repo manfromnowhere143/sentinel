@@ -3440,6 +3440,84 @@ transfer boundary fold-in and the claim-(5) hedge are unchanged and still bindin
   branches were deleted after publication. No host, Docker, GPU, smoke, or analytic action was
   taken.
 
+  Host-preparation attempt seven and the generation-ten stage-zero publication, 2026-07-17.
+  After B10 the box was de-prepared from attempt six with the verify-by-sha inversion, the
+  packet was rebuilt from B10 (manifest SHA-256
+  `a29450c0444abf89ee6c475dba1068673ad7573f12ea2accd9b7d2b62ff91d9b`), and attempt seven
+  returned `I135_HOST_PREPARATION_OK` with `problems=0` on the first firing. Stage zero was
+  republished as `50511a9261e904f4367b390bcc5fa85572e09c26` with parent B10; the local and
+  disposable-branch probes each reported exactly the one by-design diagnostic and the `master`
+  run succeeded.
+
+  Environment-capture attempt one, 2026-07-17, fired on the box against the stage-zero commit
+  and failed closed exactly as designed: `I135_ENVIRONMENT_PREFLIGHT_INCOMPLETE` with
+  twenty-three problems, the red receipt preserved on the box at
+  `/opt/sentinel-stack/iter135/env_receipts.json`. One process failure is disclosed plainly:
+  the pre-capture countdown that the generation-ten audit itself prescribed (GPU, image,
+  dataset-contract, and daemon pins verified on the box before firing) was not run, and it
+  would have caught most of the twenty-three before the attempt. The countdown is a mandatory
+  step before every stage from here on. The capture is repeatable and no one-shot was burned.
+
+  Generation eleven, 2026-07-17. Source parent is the published generation-ten stage-zero
+  commit `50511a9261e904f4367b390bcc5fa85572e09c26`, it supersedes receipt
+  `146d52e5b662bf6af0fd26925367c6218822fa39`, and its reason code is
+  `E1_ENVIRONMENT_CONTRACTS_STALE_DATASET_DOCKER_ARTIFACT_REPLAY`. The twenty-three problems
+  reduced to four contract-versus-reality families, each verified against the live host before
+  any fix was written. First, the dataset contract omitted what the campaign itself had staged:
+  the iteration-47 map-expansion archive `nuScenes-map-expansion-v1.3.zip` (SHA-256
+  `9dbc80a095b6b28d9b79fc9a43471a750dc92ca78c6d0db288fd92b34be5a144`, 398,535,531 bytes,
+  re-verified live against the iteration-47 record), its extracted `basemap`, `expansion`, and
+  `prediction` map directories, and the pack's `LICENSE` file beside the four bitmap anchors.
+  The contract now pins the archive with its hash, the three directories with their exact file
+  sets, and the fifth anchor; the archive total is 315,285,139,203 bytes across twelve
+  archives. Second, Docker 29.6.1 relocated `GitCommit`, `GoVersion`, `BuildTime`, and
+  `Experimental` from the top-level Server object into the Engine component's details, with
+  `Experimental` becoming a string; the daemon projection now reads both generations of output
+  exactly and still fails closed on anything else, and the eleven image and idle problems were
+  pure cascade from that one failure, since a missing docker client fails every downstream
+  probe. Third, the artifact replay demanded a JSON-inline payload that the Contents API cannot
+  return above one mebibyte, while the committed host receipt is eight megabytes; the replay
+  now requests the raw media type on the same endpoint with the same single GET per artifact
+  and a dedicated thirty-two-mebibyte bound, and it weakens nothing, because the recursive tree
+  already binds the exact path, blob type, mode, size, and Git blob identity, and the raw bytes
+  must still equal the local payload exactly. Fourth, the dataset-contract digest and its
+  dependent constants were swept through every frozen copy: the canonical manifest, the
+  capture, both launchers, the smoke validator, the proof collector, and the analyzer, so the
+  class dies in one generation, with the new digest
+  `f61363c91fa6e0f3db24a6df2e32afc16ad02ebc44e3c4af66132fcc317760c2`. Hostile coverage asserts
+  both Docker output generations and rejects a malformed experimental field, accepts
+  multi-megabyte artifact payloads while rejecting a single flipped byte, and enforces the map
+  directory contract against strays, missing files, and symlink impostors. The repository also
+  gains its Apache-2.0 `LICENSE` in this scope, at the operator's explicit request, so the
+  public repository carries the same license as its sibling projects. The scope is the exact
+  twenty-two paths below, including the launch-manifest generator's own self-check, the
+  iteration-47 staging-receipt replay that gives the map-expansion archive its committed byte
+  proof, and the two additional test surfaces those changes bind. No host action was taken in
+  this generation's source publication.
+
+  1. `CONTINUITY.md`
+  2. `HANDOFF.md`
+  3. `LICENSE`
+  4. `MISSION_STATE.json`
+  5. `experiments/iter135_neuroncap_blind_braking_dose_response/analyze_dose135.py`
+  6. `experiments/iter135_neuroncap_blind_braking_dose_response/authorize_launch135.py`
+  7. `experiments/iter135_neuroncap_blind_braking_dose_response/capture_environment135.py`
+  8. `experiments/iter135_neuroncap_blind_braking_dose_response/collect_proof135.py`
+  9. `experiments/iter135_neuroncap_blind_braking_dose_response/make_launch_manifest.py`
+  10. `experiments/iter135_neuroncap_blind_braking_dose_response/run_dose135.sh`
+  11. `experiments/iter135_neuroncap_blind_braking_dose_response/run_smoke135.sh`
+  12. `experiments/iter135_neuroncap_blind_braking_dose_response/validate_smoke135.py`
+  13. `experiments/iter135_neuroncap_blind_braking_dose_response/verify_tooling135.py`
+  14. `scripts/mission_state.py`
+  15. `tests/test_iter135_environment_capture.py`
+  16. `tests/test_iter135_launch_authorization.py`
+  17. `tests/test_iter135_launch_manifest.py`
+  18. `tests/test_iter135_launcher.py`
+  19. `tests/test_iter135_proof_collector.py`
+  20. `tests/test_iter135_smoke_pipeline.py`
+  21. `tests/test_iter135_tooling_verifier.py`
+  22. `tests/test_mission_state.py`
+
   1. `CONTINUITY.md`
   2. `HANDOFF.md`
   3. `MISSION_STATE.json`

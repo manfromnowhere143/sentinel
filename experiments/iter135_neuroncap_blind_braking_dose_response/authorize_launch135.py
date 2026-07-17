@@ -181,11 +181,17 @@ GENERATION_NINE_RECEIPT_COMMIT = "133c7c924a3f47a8e1ff9bf9f975e4e99902fea2"
 # precedent: the source parent is the published tip, not necessarily a baton).
 GENERATION_NINE_STAGE_ZERO_COMMIT = "023d7ca638de5f3bde29ef9c6068bc64ecf711f2"
 GENERATION_TEN_REASON = "E_PREFLIGHT_CHECK_RUN_ENVELOPE_FOSSILS_IN_CAPTURE_AND_LAUNCHERS"
+GENERATION_TEN_RECEIPT_COMMIT = "146d52e5b662bf6af0fd26925367c6218822fa39"
+# Generation eleven's source parent is the published generation-ten stage-zero commit, the
+# master tip when the first live environment capture failed closed against stale dataset,
+# Docker 29, and artifact-replay contracts.
+GENERATION_TEN_STAGE_ZERO_COMMIT = "50511a9261e904f4367b390bcc5fa85572e09c26"
+GENERATION_ELEVEN_REASON = "E1_ENVIRONMENT_CONTRACTS_STALE_DATASET_DOCKER_ARTIFACT_REPLAY"
 EXPECTED_TOOLING_PUBLICATION = {
-    "generation": 10,
-    "supersedes_receipt_commit": GENERATION_NINE_RECEIPT_COMMIT,
-    "recovery_parent": GENERATION_NINE_STAGE_ZERO_COMMIT,
-    "reason_code": GENERATION_TEN_REASON,
+    "generation": 11,
+    "supersedes_receipt_commit": GENERATION_TEN_RECEIPT_COMMIT,
+    "recovery_parent": GENERATION_TEN_STAGE_ZERO_COMMIT,
+    "reason_code": GENERATION_ELEVEN_REASON,
 }
 TOOLING_REPOSITORY_FIELDS = {
     "root",
@@ -475,7 +481,7 @@ def _tooling_source_commit(repo: Path, tooling_receipt_commit: str) -> str:
         or _SHA256_RE.fullmatch(receipt["file_content_set_sha256"]) is None
         or claimed_payload_sha256 != hashlib.sha256(_canonical_json(payload)).hexdigest()
     ):
-        raise AuthorizationError("tooling receipt does not bind the exact green generation-ten source")
+        raise AuthorizationError("tooling receipt does not bind the exact green generation-eleven source")
     try:
         validator = _load_frozen_tooling_receipt_validator(repo, source_commit)
         frozen_errors = validator(receipt, repo_root=repo)
@@ -1237,7 +1243,7 @@ def _deep_replay_publication(
     tooling_baton_commit: str,
     commits: Sequence[str],
 ) -> list[str]:
-    """Replay H/E/P/S[/A/F] from the frozen generation-ten source in isolation."""
+    """Replay H/E/P/S[/A/F] from the frozen generation-eleven source in isolation."""
 
     problems: list[str] = []
     try:

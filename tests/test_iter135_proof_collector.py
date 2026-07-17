@@ -587,7 +587,7 @@ def test_validity_receipt_is_mechanically_derived(complete_collection):
     assert "G7" not in receipt["gates"]
     assert receipt["dataset_provenance"]["manifest_gate"] == "g7_dataset_provenance"
     assert receipt["dataset_provenance"]["passed"] is True
-    assert receipt["dataset_provenance"]["runtime_snapshot_contract"]["file_count"] == 28
+    assert receipt["dataset_provenance"]["runtime_snapshot_contract"]["file_count"] == 30
     assert receipt["docker_runtime_provenance"]["context"] == "default"
     assert receipt["analytic_lock_provenance"]["source_id"] == DEFAULT_LOCK_ID
     assert receipt["analytic_gpu_hours"] == pytest.approx(ELAPSED_SECONDS / 3600)
@@ -692,7 +692,7 @@ def test_runtime_evidence_binds_snapshot_and_lock_bytes_to_logged_source_ids(tmp
         manifest_facts=manifest_facts,
         log_receipt=log_receipt,
     )
-    assert receipts["dataset_runtime_snapshot"]["file_count"] == 28
+    assert receipts["dataset_runtime_snapshot"]["file_count"] == 30
     assert receipts["analytic_lock"]["source_id"] == DEFAULT_LOCK_ID
     assert receipts["analytic_lock"]["github_launch_authority"] == (
         _github_launch_authority(c.sha256_file(manifest_path))

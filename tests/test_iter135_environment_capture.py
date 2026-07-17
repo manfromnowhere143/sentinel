@@ -241,6 +241,14 @@ class FakeGitHub:
             }
         raise AssertionError(f"unexpected GitHub URL: {url}")
 
+    def fetch_raw(self, url: str) -> bytes:
+        self.calls.append(url)
+        if "/contents/" not in url:
+            raise AssertionError(f"unexpected raw GitHub URL: {url}")
+        encoded_path = url.split("/contents/", 1)[1].split("?", 1)[0]
+        path = urllib.parse.unquote(encoded_path)
+        return self.artifacts[path]
+
 
 def check_document(
     commit: str,
@@ -494,6 +502,7 @@ def fixture(
     }
     contract = capture.Contract(
         schema="iter135.environment_receipts.test.v1",
+        dataset_map_directories={},
         ready_verdict="I135_ENVIRONMENT_PREFLIGHT_OK",
         remote_files={
             "compose_script": (str(compose_path), digest(final), len(final)),
@@ -635,6 +644,7 @@ def fixture(
     hooks = capture.Hooks(
         run=runner,
         fetch_json=github,
+        fetch_raw=github.fetch_raw,
         hostname=lambda: capture.EXPECTED_HOST,
         disk_free=lambda _path: 1_000,
         device=lambda path: 1 if path == Path("/") else 2,
@@ -1455,10 +1465,11 @@ def test_canonical_contract_loads_exact_82_role_topology() -> None:
     assert contract.dataset_root == "/datasets/nuscenes-full"
     assert contract.dataset_version == "v1.0-trainval"
     assert contract.dataset_contract_sha256 == (capture.EXPECTED_CANONICAL_DATASET_CONTRACT_SHA256)
-    assert len(contract.dataset_archives) == 11
-    assert sum(row[1] for row in contract.dataset_archives.values()) == 314_886_603_672
+    assert len(contract.dataset_archives) == 12
+    assert sum(row[1] for row in contract.dataset_archives.values()) == 315_285_139_203
     assert len(contract.dataset_metadata_files) == 13
-    assert len(contract.dataset_map_anchors) == 4
+    assert len(contract.dataset_map_anchors) == 5
+    assert set(contract.dataset_map_directories) == {"basemap", "expansion", "prediction"}
 
 
 def test_local_free_cli_value_is_mandatory_and_nonnegative() -> None:
@@ -1797,3 +1808,138 @@ def test_check_envelope_rejects_triplicate_and_duplicate_ids() -> None:
     document["check_runs"][1]["id"] = 100
     with pytest.raises(capture.CaptureError, match="duplicate-check"):
         capture._project_exact_checks(document, commit)
+
+
+def test_daemon_version_projection_accepts_both_docker_generations() -> None:
+    """Docker 29 moved GitCommit, GoVersion, BuildTime, and Experimental into the Engine
+    component's Details (Experimental as a string); older engines carry top-level fields."""
+
+    legacy = {
+        "Platform": {"Name": "Docker Engine - Community"},
+        "Version": "27.0.0",
+        "ApiVersion": "1.46",
+        "MinAPIVersion": "1.24",
+        "GitCommit": "abc1234",
+        "GoVersion": "go1.21.0",
+        "Os": "linux",
+        "Arch": "amd64",
+        "BuildTime": "Mon Jan 1 00:00:00 2026",
+        "Experimental": False,
+    }
+    row = capture._daemon_version_projection(legacy)
+    assert row["experimental"] is False and row["git_commit"] == "abc1234"
+
+    modern = {
+        "Platform": {"Name": "Docker Engine - Community"},
+        "Version": "29.6.1",
+        "ApiVersion": "1.55",
+        "MinAPIVersion": "1.40",
+        "Os": "linux",
+        "Arch": "amd64",
+        "Components": [
+            {
+                "Name": "Engine",
+                "Version": "29.6.1",
+                "Details": {
+                    "GitCommit": "8ec5ab3",
+                    "GoVersion": "go1.26.4",
+                    "BuildTime": "Fri Jun 26 11:40:26 2026",
+                    "Experimental": "false",
+                },
+            }
+        ],
+    }
+    row = capture._daemon_version_projection(modern)
+    assert row["experimental"] is False
+    assert row["git_commit"] == "8ec5ab3"
+    assert row["go_version"] == "go1.26.4"
+
+    hostile = dict(modern)
+    hostile["Components"] = [
+        {"Name": "Engine", "Details": dict(modern["Components"][0]["Details"])}
+    ]
+    hostile["Components"][0]["Details"]["Experimental"] = "maybe"
+    with pytest.raises(capture.CaptureError, match="experimental"):
+        capture._daemon_version_projection(hostile)
+
+
+def test_artifact_replay_rejects_drift_and_accepts_large_payloads(tmp_path: Path) -> None:
+    """The raw-media replay must byte-compare committed artifacts of any bound size and
+    fail closed on a single flipped byte."""
+
+    contract, hooks, _runner, paths = fixture(tmp_path)
+    github = paths["github"]
+    receipt_rel = capture.HOST_PUBLICATION_ARTIFACT_PATHS[1]
+    big = b"{\"pad\": \"" + b"a" * (2 * 1024 * 1024) + b"\"}\n"
+    github.artifacts[receipt_rel] = big
+    receipt = run_capture(contract, hooks)
+    # The oversized local payload no longer fails the payload bound, but its bytes now
+    # disagree with the locally captured receipt file, so drift (or tree binding) fires.
+    assert receipt["host_publication_authority"] is None
+
+    contract, hooks, _runner, paths = fixture(tmp_path / "drift")
+    github = paths["github"]
+    original = github.artifacts[receipt_rel]
+    github.artifacts[receipt_rel] = original[:-2] + b"X\n"
+    receipt = run_capture(contract, hooks)
+    assert receipt["host_publication_authority"] is None
+    assert any(
+        "host-publication-authority" in problem for problem in receipt["problems"]
+    )
+
+
+def test_dataset_map_directory_contract_is_enforced(tmp_path: Path) -> None:
+    """A contract-pinned map subdirectory must exist as a physical directory with the exact
+    file set; strays and symlinks fail closed."""
+
+    problems: list[str] = []
+    maps_root = tmp_path / "maps"
+    (maps_root / "expansion").mkdir(parents=True)
+    for name in ("a.json", "b.json"):
+        (maps_root / "expansion" / name).write_text("{}\n")
+    (maps_root / "anchor.png").write_bytes(b"png")
+
+    capture._dataset_directory_snapshot(
+        maps_root,
+        {"anchor.png"},
+        "maps",
+        problems,
+        expected_directories={"expansion"},
+    )
+    assert problems == []
+
+    capture._dataset_directory_snapshot(
+        maps_root / "expansion", {"a.json", "b.json"}, "maps:expansion", problems
+    )
+    assert problems == []
+
+    capture._dataset_directory_snapshot(
+        maps_root / "expansion", {"a.json"}, "maps:expansion", problems
+    )
+    assert "dataset:maps:expansion:file-set" in problems
+
+    problems = []
+    (maps_root / "stray-dir").mkdir()
+    capture._dataset_directory_snapshot(
+        maps_root,
+        {"anchor.png"},
+        "maps",
+        problems,
+        expected_directories={"expansion"},
+    )
+    assert "dataset:maps:nonphysical-file:stray-dir" in problems
+    assert "dataset:maps:file-set" in problems
+
+    problems = []
+    link_root = tmp_path / "link-maps"
+    link_root.mkdir()
+    (link_root / "anchor.png").write_bytes(b"png")
+    (link_root / "expansion").symlink_to(maps_root / "expansion")
+    capture._dataset_directory_snapshot(
+        link_root,
+        {"anchor.png"},
+        "maps",
+        problems,
+        expected_directories={"expansion"},
+    )
+    assert "dataset:maps:nonphysical-directory:expansion" in problems

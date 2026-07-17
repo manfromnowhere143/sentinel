@@ -1008,7 +1008,7 @@ def test_all_green_receipts_and_authorized_state_are_required_for_launch(tmp_pat
     assert report["dataset_receipt"]["contract_sha256"] == (
         manifest.EXPECTED_DATASET_CONTRACT_SHA256
     )
-    assert len(report["dataset_receipt"]["archives"]) == 11
+    assert len(report["dataset_receipt"]["archives"]) == 12
     assert (
         sum(row["bytes"] for row in report["dataset_receipt"]["archives"].values())
         == manifest.EXPECTED_DATASET_ARCHIVE_TOTAL_BYTES

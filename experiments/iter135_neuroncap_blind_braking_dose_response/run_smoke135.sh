@@ -1565,7 +1565,7 @@ if (
     or namespace.get("EXPECTED_ENV_SCHEMA") != "iter135.environment_receipts.v3"
     or namespace.get("EXPECTED_DATASET_SCHEMA") != "iter135.nuscenes_dataset_receipt.v1"
     or namespace.get("EXPECTED_DATASET_CONTRACT_SHA256")
-    != "ae22656f62044fbc649a5ef8976c708249b6c62dabe475fb8c347b7558fe3e8b"
+    != "f61363c91fa6e0f3db24a6df2e32afc16ad02ebc44e3c4af66132fcc317760c2"
 ):
     problems.append("dataset-validator-frozen-constant-drift")
 if manifest.get("dataset_receipt") != dataset:
@@ -3154,7 +3154,7 @@ if (
     or not isinstance(dataset, dict)
     or dataset.get("schema") != "iter135.nuscenes_dataset_receipt.v1"
     or dataset.get("contract_sha256")
-    != "ae22656f62044fbc649a5ef8976c708249b6c62dabe475fb8c347b7558fe3e8b"
+    != "f61363c91fa6e0f3db24a6df2e32afc16ad02ebc44e3c4af66132fcc317760c2"
     or not isinstance(identity, dict)
     or identity.get("dataset_root") != str(dataset_root)
     or identity.get("dataset_realpath") != str(dataset_root)

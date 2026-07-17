@@ -2398,7 +2398,7 @@ def test_runner_requires_v2_dataset_provenance_without_self_declaration() -> Non
     assert "validate_dataset_receipt" in text
     assert "manifest-dataset-receipt-drift" in text
     assert "dataset-validator-frozen-constant-drift" in text
-    assert "ae22656f62044fbc649a5ef8976c708249b6c62dabe475fb8c347b7558fe3e8b" in text
+    assert "f61363c91fa6e0f3db24a6df2e32afc16ad02ebc44e3c4af66132fcc317760c2" in text
     assert "live-dataset-device-drift" in text
     assert "live-dataset-mount-identity" in text
     assert "live-dataset-sha256" in text

@@ -126,7 +126,7 @@ MISSION_PAPER_STATE = {
 }
 DATASET_SCHEMA = "iter135.nuscenes_dataset_receipt.v1"
 DATASET_CONTRACT_SHA256 = (
-    "ae22656f62044fbc649a5ef8976c708249b6c62dabe475fb8c347b7558fe3e8b"
+    "f61363c91fa6e0f3db24a6df2e32afc16ad02ebc44e3c4af66132fcc317760c2"
 )
 
 BLIND_DOSES = ("blind_0_5x", "blind_1_0x", "blind_1_5x", "blind_2_0x")
@@ -204,8 +204,11 @@ DATASET_PROOF_BASIS = {
     "iteration": 28,
     "result_path": "experiments/iter28_nuscenes_trainval_staging/RESULT.md",
     "receipt_directory": "experiments/iter28_nuscenes_trainval_staging/proof-staging/uploads",
-    "archive_count": 11,
-    "archive_total_bytes": 314_886_603_672,
+    "archive_count": 12,
+    "archive_total_bytes": 315_285_139_203,
+    "map_expansion_result_path": (
+        "experiments/iter47_map_staging_and_off_completion/RESULT.md"
+    ),
 }
 DATASET_ARCHIVES = {
     "v1.0-trainval_meta.tgz": (
@@ -252,6 +255,10 @@ DATASET_ARCHIVES = {
         "046aa7c5ff2cab63a25eaa6210e00bd8197f835e5324457d305a2a16a262f57a",
         41_727_447_974,
     ),
+    "nuScenes-map-expansion-v1.3.zip": (
+        "9dbc80a095b6b28d9b79fc9a43471a750dc92ca78c6d0db288fd92b34be5a144",
+        398_535_531,
+    ),
 }
 DATASET_METADATA_FILES = {
     "attribute.json",
@@ -273,6 +280,7 @@ DATASET_MAP_ANCHORS = {
     "37819e65e09e5547b8a3ceaefba56bb2.png",
     "53992ee3023e5494b90c316c183be829.png",
     "93406b464a165eaba6d9de76ca09f5da.png",
+    "LICENSE",
 }
 ERROR_RE = re.compile(
     rb"(?:Traceback \(most recent call last\)|RuntimeError|CUDA error|"

@@ -792,10 +792,10 @@ sha = re.compile(r"^[0-9a-f]{64}$")
 
 # BEGIN I135_TOOLING_PUBLICATION_CONTRACT_PYTHON
 EXPECTED_TOOLING_PUBLICATION = {
-    "generation": 10,
-    "supersedes_receipt_commit": "133c7c924a3f47a8e1ff9bf9f975e4e99902fea2",
-    "recovery_parent": "023d7ca638de5f3bde29ef9c6068bc64ecf711f2",
-    "reason_code": "E_PREFLIGHT_CHECK_RUN_ENVELOPE_FOSSILS_IN_CAPTURE_AND_LAUNCHERS",
+    "generation": 11,
+    "supersedes_receipt_commit": "146d52e5b662bf6af0fd26925367c6218822fa39",
+    "recovery_parent": "50511a9261e904f4367b390bcc5fa85572e09c26",
+    "reason_code": "E1_ENVIRONMENT_CONTRACTS_STALE_DATASET_DOCKER_ARTIFACT_REPLAY",
 }
 
 
@@ -2617,6 +2617,7 @@ else:
         "37819e65e09e5547b8a3ceaefba56bb2.png",
         "53992ee3023e5494b90c316c183be829.png",
         "93406b464a165eaba6d9de76ca09f5da.png",
+        "LICENSE",
     }
     expected_dataset_fields = {
         "schema",
@@ -2636,7 +2637,7 @@ else:
     if dataset.get("schema") != "iter135.nuscenes_dataset_receipt.v1":
         problems.append("dataset-receipt:schema")
     if dataset.get("contract_sha256") != (
-        "ae22656f62044fbc649a5ef8976c708249b6c62dabe475fb8c347b7558fe3e8b"
+        "f61363c91fa6e0f3db24a6df2e32afc16ad02ebc44e3c4af66132fcc317760c2"
     ):
         problems.append("dataset-receipt:contract-sha256")
     expected_proof_basis = {
@@ -2645,8 +2646,8 @@ else:
         "receipt_directory": (
             "experiments/iter28_nuscenes_trainval_staging/proof-staging/uploads"
         ),
-        "archive_count": 11,
-        "archive_total_bytes": 314886603672,
+        "archive_count": 12,
+        "archive_total_bytes": 315285139203,
     }
     if dataset.get("proof_basis") != expected_proof_basis:
         problems.append("dataset-receipt:proof-basis")
