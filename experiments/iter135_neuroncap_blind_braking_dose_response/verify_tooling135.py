@@ -109,10 +109,22 @@ GENERATION_SIX_BATON_COMMIT = "a37d1fc0fc9b96604e68e37006c0a8b3515984bb"
 # to the newest run per required name.
 GENERATION_SEVEN_SOURCE_PARENT = GENERATION_SIX_BATON_COMMIT
 GENERATION_SEVEN_REASON = "H1_CHECK_RUN_ENVELOPE_INCOMPATIBLE_WITH_BRANCH_VALIDATION"
+GENERATION_SEVEN_SOURCE_COMMIT = "7cb0c442a5649542168db44e1abfd715f4a404e0"
+GENERATION_SEVEN_RECEIPT_COMMIT = "470ec333b29f3da8e8b2ee696982f2503ea66161"
+GENERATION_SEVEN_STATE_COMMIT = "c44639d8f475d79f35cf0e9a0dc6967f3b06fe78"
+GENERATION_SEVEN_BATON_COMMIT = "04801441ce17e104ed2e78a4dd02370d4ffdde17"
+# Generation eight exists because the first descendant validation (the stage-zero host-evidence
+# commit) proved the frozen ten-second Git probe timeout cannot materialize the multi-gibibyte
+# committed evidence tree during the deep replay's isolated checkout: ~14-18 seconds measured on
+# the canonical operator host, and the identical TimeoutExpired on both hosted CI lanes. The
+# amended controller gives the replay checkout its own hard six-hundred-second fail-closed bound;
+# every other Git probe keeps the ten-second bound.
+GENERATION_EIGHT_SOURCE_PARENT = GENERATION_SEVEN_BATON_COMMIT
+GENERATION_EIGHT_REASON = "B7_STAGE_ZERO_DEEP_REPLAY_CHECKOUT_TIMEOUT_UNSATISFIABLE"
 # Compatibility aliases used by the receipt generator and focused hostile tests. They always name
-# the active generation-seven source publication, never a historical recovery.
-RECOVERY_SOURCE_PARENT = GENERATION_SEVEN_SOURCE_PARENT
-RECOVERY_REASON = GENERATION_SEVEN_REASON
+# the active generation-eight source publication, never a historical recovery.
+RECOVERY_SOURCE_PARENT = GENERATION_EIGHT_SOURCE_PARENT
+RECOVERY_REASON = GENERATION_EIGHT_REASON
 POST_FREEZE_EXACT_PATHS = {
     "CONTINUITY.md",
     "HANDOFF.md",
@@ -326,12 +338,25 @@ GENERATION_SEVEN_SOURCE_COMMIT_PATHS = (
     "tests/test_iter135_tooling_verifier.py",
     "tests/test_mission_state.py",
 )
-RECOVERY_SOURCE_COMMIT_PATHS = GENERATION_SEVEN_SOURCE_COMMIT_PATHS
+GENERATION_EIGHT_SOURCE_COMMIT_PATHS = (
+    "CONTINUITY.md",
+    "HANDOFF.md",
+    "MISSION_STATE.json",
+    f"{EXPERIMENT_REL}/authorize_launch135.py",
+    f"{EXPERIMENT_REL}/run_dose135.sh",
+    f"{EXPERIMENT_REL}/verify_tooling135.py",
+    "scripts/mission_state.py",
+    "tests/test_iter135_launch_authorization.py",
+    "tests/test_iter135_launcher.py",
+    "tests/test_iter135_tooling_verifier.py",
+    "tests/test_mission_state.py",
+)
+RECOVERY_SOURCE_COMMIT_PATHS = GENERATION_EIGHT_SOURCE_COMMIT_PATHS
 EXPECTED_RECOVERY_PUBLICATION = {
-    "generation": 7,
-    "supersedes_receipt_commit": GENERATION_SIX_RECEIPT_COMMIT,
-    "recovery_parent": GENERATION_SEVEN_SOURCE_PARENT,
-    "reason_code": GENERATION_SEVEN_REASON,
+    "generation": 8,
+    "supersedes_receipt_commit": GENERATION_SEVEN_RECEIPT_COMMIT,
+    "recovery_parent": GENERATION_EIGHT_SOURCE_PARENT,
+    "reason_code": GENERATION_EIGHT_REASON,
 }
 
 # Compatibility names describe only the immutable first freeze.  Recovery publication checks use
@@ -1725,9 +1750,10 @@ def validate_published_receipt_structure(
             line for line in history_raw.decode("ascii", errors="strict").splitlines() if line
         )
         if (
-            len(receipt_history) != 7
+            len(receipt_history) != 8
             or not _valid_commit(receipt_history[0])
             or receipt_history[1:] != (
+                GENERATION_SEVEN_RECEIPT_COMMIT,
                 GENERATION_SIX_RECEIPT_COMMIT,
                 GENERATION_FIVE_RECEIPT_COMMIT,
                 GENERATION_FOUR_RECEIPT_COMMIT,
@@ -1737,9 +1763,9 @@ def validate_published_receipt_structure(
             )
         ):
             raise VerificationError(
-                "canonical receipt history is not exact generation-seven, generation-six, "
-                "generation-five, generation-four, generation-three, generation-two, then "
-                "generation-one"
+                "canonical receipt history is not exact generation-eight, generation-seven, "
+                "generation-six, generation-five, generation-four, generation-three, "
+                "generation-two, then generation-one"
             )
         receipt_commit = receipt_history[0]
 
@@ -1888,16 +1914,45 @@ def validate_published_receipt_structure(
             generation_six_baton_paths != ("CONTINUITY.md", "HANDOFF.md")
         ):
             raise VerificationError("generation-six baton topology or path scope changed")
+        generation_seven_source_parents, generation_seven_source_paths = _git_commit_row(
+            root, GENERATION_SEVEN_SOURCE_COMMIT
+        )
+        if generation_seven_source_parents != (GENERATION_SEVEN_SOURCE_PARENT,) or (
+            generation_seven_source_paths
+            != tuple(sorted(GENERATION_SEVEN_SOURCE_COMMIT_PATHS))
+        ):
+            raise VerificationError("generation-seven source topology or path scope changed")
+        generation_seven_receipt_parents, generation_seven_receipt_paths = _git_commit_row(
+            root, GENERATION_SEVEN_RECEIPT_COMMIT
+        )
+        if generation_seven_receipt_parents != (GENERATION_SEVEN_SOURCE_COMMIT,) or (
+            generation_seven_receipt_paths != (RECEIPT_REL,)
+        ):
+            raise VerificationError("generation-seven receipt topology or path scope changed")
+        generation_seven_state_parents, generation_seven_state_paths = _git_commit_row(
+            root, GENERATION_SEVEN_STATE_COMMIT
+        )
+        if generation_seven_state_parents != (GENERATION_SEVEN_RECEIPT_COMMIT,) or (
+            generation_seven_state_paths != ("MISSION_STATE.json",)
+        ):
+            raise VerificationError("generation-seven state topology or path scope changed")
+        generation_seven_baton_parents, generation_seven_baton_paths = _git_commit_row(
+            root, GENERATION_SEVEN_BATON_COMMIT
+        )
+        if generation_seven_baton_parents != (GENERATION_SEVEN_STATE_COMMIT,) or (
+            generation_seven_baton_paths != ("CONTINUITY.md", "HANDOFF.md")
+        ):
+            raise VerificationError("generation-seven baton topology or path scope changed")
 
         receipt_parents, receipt_paths = _git_commit_row(root, receipt_commit)
         if receipt_parents != (source_commit,) or receipt_paths != (RECEIPT_REL,):
-            raise VerificationError("generation-seven receipt is not the exact receipt-only child")
+            raise VerificationError("generation-eight receipt is not the exact receipt-only child")
 
         receipt_path = root / RECEIPT_REL
         current_receipt_bytes = _read_stable_regular_file(receipt_path)
         if _git_file_bytes(root, receipt_commit, RECEIPT_REL) != current_receipt_bytes:
             raise VerificationError(
-                "canonical receipt bytes differ from generation-seven receipt commit bytes"
+                "canonical receipt bytes differ from generation-eight receipt commit bytes"
             )
         committed_receipt = _parse_receipt_json(current_receipt_bytes)
         if committed_receipt != dict(receipt):
@@ -1909,9 +1964,9 @@ def validate_published_receipt_structure(
         if not _valid_commit(current_git.upstream_head):
             raise VerificationError("origin/master commit is malformed or missing")
         if not ancestry_probe(root, receipt_commit, current_git.head):
-            raise VerificationError("generation-seven receipt is not an ancestor of current HEAD")
+            raise VerificationError("generation-eight receipt is not an ancestor of current HEAD")
         if not ancestry_probe(root, receipt_commit, current_git.upstream_head):
-            raise VerificationError("generation-seven receipt is not published on origin/master")
+            raise VerificationError("generation-eight receipt is not published on origin/master")
         if current_git.upstream_head != current_git.head and not ancestry_probe(
             root, current_git.upstream_head, current_git.head
         ):

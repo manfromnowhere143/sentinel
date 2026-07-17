@@ -269,6 +269,29 @@ GENERATION_SIX_STATE_COMMIT = "b2d4980dcf786427cee518f2998f8e9ec8225dc0"
 GENERATION_SIX_BATON_COMMIT = "a37d1fc0fc9b96604e68e37006c0a8b3515984bb"
 GENERATION_SEVEN_SOURCE_PARENT = GENERATION_SIX_BATON_COMMIT
 GENERATION_SEVEN_REASON_CODE = "H1_CHECK_RUN_ENVELOPE_INCOMPATIBLE_WITH_BRANCH_VALIDATION"
+GENERATION_SEVEN_SOURCE_COMMIT = "7cb0c442a5649542168db44e1abfd715f4a404e0"
+GENERATION_SEVEN_RECEIPT_COMMIT = "470ec333b29f3da8e8b2ee696982f2503ea66161"
+GENERATION_SEVEN_STATE_COMMIT = "c44639d8f475d79f35cf0e9a0dc6967f3b06fe78"
+GENERATION_SEVEN_BATON_COMMIT = "04801441ce17e104ed2e78a4dd02370d4ffdde17"
+# Generation eight exists because the first descendant validation (the stage-zero host-evidence
+# commit) proved the frozen ten-second Git probe timeout cannot materialize the multi-gibibyte
+# committed evidence tree during the launch controller's deep-replay checkout, on the canonical
+# operator host or on either hosted CI lane. The amendment gives that checkout its own hard bound.
+GENERATION_EIGHT_SOURCE_PARENT = GENERATION_SEVEN_BATON_COMMIT
+GENERATION_EIGHT_REASON_CODE = "B7_STAGE_ZERO_DEEP_REPLAY_CHECKOUT_TIMEOUT_UNSATISFIABLE"
+GENERATION_EIGHT_SOURCE_COMMIT_PATHS = (
+    "CONTINUITY.md",
+    "HANDOFF.md",
+    "MISSION_STATE.json",
+    f"{ITER135_EXPERIMENT_REL}/authorize_launch135.py",
+    f"{ITER135_EXPERIMENT_REL}/run_dose135.sh",
+    f"{ITER135_EXPERIMENT_REL}/verify_tooling135.py",
+    "scripts/mission_state.py",
+    "tests/test_iter135_launch_authorization.py",
+    "tests/test_iter135_launcher.py",
+    "tests/test_iter135_tooling_verifier.py",
+    "tests/test_mission_state.py",
+)
 GENERATION_SEVEN_SOURCE_COMMIT_PATHS = (
     "CONTINUITY.md",
     "HANDOFF.md",
@@ -325,10 +348,10 @@ GENERATION_FOUR_SOURCE_COMMIT_PATHS = (
     "tests/test_mission_state.py",
 )
 EXPECTED_RECOVERY_PUBLICATION = {
-    "generation": 7,
-    "supersedes_receipt_commit": GENERATION_SIX_RECEIPT_COMMIT,
-    "recovery_parent": GENERATION_SEVEN_SOURCE_PARENT,
-    "reason_code": GENERATION_SEVEN_REASON_CODE,
+    "generation": 8,
+    "supersedes_receipt_commit": GENERATION_SEVEN_RECEIPT_COMMIT,
+    "recovery_parent": GENERATION_EIGHT_SOURCE_PARENT,
+    "reason_code": GENERATION_EIGHT_REASON_CODE,
 }
 
 # Compatibility name: this is always the immutable generation-one 31-path baseline. Recovery
@@ -722,7 +745,10 @@ def _validate_tooling_publication(
                 problems.append(f"tooling_publication:{label}_source_not_pushed")
 
         publication_generation = publication.get("generation")
-        if publication_generation == 7:
+        if publication_generation == 8:
+            expected_source_parent = GENERATION_EIGHT_SOURCE_PARENT
+            expected_source_paths = tuple(sorted(GENERATION_EIGHT_SOURCE_COMMIT_PATHS))
+        elif publication_generation == 7:
             expected_source_parent = GENERATION_SEVEN_SOURCE_PARENT
             expected_source_paths = tuple(sorted(GENERATION_SEVEN_SOURCE_COMMIT_PATHS))
         elif publication_generation == 6:
@@ -758,7 +784,7 @@ def _validate_tooling_publication(
         if actual_source_paths != expected_source_paths:
             problems.append("tooling_publication:recovery_source_commit_scope")
 
-        if publication_generation in {3, 4, 5, 6, 7}:
+        if publication_generation in {3, 4, 5, 6, 7, 8}:
             try:
                 frozen_errors = _load_tooling_receipt_validator(root, source_commit)(
                     receipt,
@@ -808,7 +834,7 @@ def _validate_tooling_publication(
         if recovery_parent_paths != ("CONTINUITY.md", "HANDOFF.md"):
             problems.append("tooling_publication:generation_one_baton_scope")
 
-        if publication_generation in {3, 4, 5, 6, 7}:
+        if publication_generation in {3, 4, 5, 6, 7, 8}:
             generation_two_parents, generation_two_paths = _commit_row(
                 root, GENERATION_TWO_SOURCE_COMMIT
             )
@@ -838,7 +864,37 @@ def _validate_tooling_publication(
             if generation_two_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_two_baton_scope")
 
-        if publication_generation == 7:
+        if publication_generation == 8:
+            generation_seven_parents, generation_seven_paths = _commit_row(
+                root, GENERATION_SEVEN_SOURCE_COMMIT
+            )
+            if generation_seven_parents != (GENERATION_SEVEN_SOURCE_PARENT,):
+                problems.append("tooling_publication:generation_seven_source_parent")
+            if generation_seven_paths != tuple(sorted(GENERATION_SEVEN_SOURCE_COMMIT_PATHS)):
+                problems.append("tooling_publication:generation_seven_source_commit_scope")
+            generation_seven_receipt_parents, generation_seven_receipt_paths = _commit_row(
+                root, GENERATION_SEVEN_RECEIPT_COMMIT
+            )
+            if generation_seven_receipt_parents != (GENERATION_SEVEN_SOURCE_COMMIT,):
+                problems.append("tooling_publication:generation_seven_receipt_parent")
+            if generation_seven_receipt_paths != (TOOLING_RECEIPT_REL.as_posix(),):
+                problems.append("tooling_publication:generation_seven_receipt_scope")
+            generation_seven_state_parents, generation_seven_state_paths = _commit_row(
+                root, GENERATION_SEVEN_STATE_COMMIT
+            )
+            if generation_seven_state_parents != (GENERATION_SEVEN_RECEIPT_COMMIT,):
+                problems.append("tooling_publication:generation_seven_state_parent")
+            if generation_seven_state_paths != ("MISSION_STATE.json",):
+                problems.append("tooling_publication:generation_seven_state_scope")
+            generation_seven_baton_parents, generation_seven_baton_paths = _commit_row(
+                root, GENERATION_SEVEN_BATON_COMMIT
+            )
+            if generation_seven_baton_parents != (GENERATION_SEVEN_STATE_COMMIT,):
+                problems.append("tooling_publication:generation_seven_baton_parent")
+            if generation_seven_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
+                problems.append("tooling_publication:generation_seven_baton_scope")
+
+        if publication_generation in {7, 8}:
             generation_six_parents, generation_six_paths = _commit_row(
                 root, GENERATION_SIX_SOURCE_COMMIT
             )
@@ -868,7 +924,7 @@ def _validate_tooling_publication(
             if generation_six_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_six_baton_scope")
 
-        if publication_generation in {6, 7}:
+        if publication_generation in {6, 7, 8}:
             generation_five_parents, generation_five_paths = _commit_row(
                 root, GENERATION_FIVE_SOURCE_COMMIT
             )
@@ -884,7 +940,7 @@ def _validate_tooling_publication(
             if generation_five_receipt_paths != (TOOLING_RECEIPT_REL.as_posix(),):
                 problems.append("tooling_publication:generation_five_receipt_scope")
 
-        if publication_generation in {5, 6, 7}:
+        if publication_generation in {5, 6, 7, 8}:
             generation_four_parents, generation_four_paths = _commit_row(
                 root, GENERATION_FOUR_SOURCE_COMMIT
             )
@@ -914,7 +970,7 @@ def _validate_tooling_publication(
             if generation_four_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_four_baton_scope")
 
-        if publication_generation in {4, 5, 6, 7}:
+        if publication_generation in {4, 5, 6, 7, 8}:
             generation_three_parents, generation_three_paths = _commit_row(
                 root, GENERATION_THREE_SOURCE_COMMIT
             )
@@ -958,7 +1014,17 @@ def _validate_tooling_publication(
             .splitlines()
             if line
         )
-        if publication_generation == 7:
+        if publication_generation == 8:
+            expected_receipt_history_tail = (
+                GENERATION_SEVEN_RECEIPT_COMMIT,
+                GENERATION_SIX_RECEIPT_COMMIT,
+                GENERATION_FIVE_RECEIPT_COMMIT,
+                GENERATION_FOUR_RECEIPT_COMMIT,
+                GENERATION_THREE_RECEIPT_COMMIT,
+                GENERATION_TWO_RECEIPT_COMMIT,
+                GENERATION_ONE_RECEIPT_COMMIT,
+            )
+        elif publication_generation == 7:
             expected_receipt_history_tail = (
                 GENERATION_SIX_RECEIPT_COMMIT,
                 GENERATION_FIVE_RECEIPT_COMMIT,
@@ -1025,9 +1091,15 @@ def _validate_tooling_publication(
             .splitlines()
         )
         if len(ancestry) < 2:
-            generation_label = {2: "two", 3: "three", 4: "four", 5: "five", 6: "six", 7: "seven"}[
-                publication_generation
-            ]
+            generation_label = {
+                2: "two",
+                3: "three",
+                4: "four",
+                5: "five",
+                6: "six",
+                7: "seven",
+                8: "eight",
+            }[publication_generation]
             problems.append(
                 f"tooling_publication:generation_{generation_label}_commit_count:{len(ancestry)}"
             )
@@ -1051,7 +1123,7 @@ def _validate_tooling_publication(
             if baton_commit_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:baton_commit_scope")
             authorization_references: Mapping[str, str] = {}
-            if publication_generation in {3, 4, 5, 6, 7}:
+            if publication_generation in {3, 4, 5, 6, 7, 8}:
                 upstream_for_controller = (
                     _git(root, "rev-parse", "origin/master").decode("ascii").strip()
                 )
@@ -1101,22 +1173,27 @@ def _validate_tooling_publication(
                     | set(RECOVERY_SOURCE_COMMIT_PATHS)
                     | (
                         set(GENERATION_THREE_SOURCE_COMMIT_PATHS)
-                        if publication_generation in {3, 4, 5, 6, 7}
+                        if publication_generation in {3, 4, 5, 6, 7, 8}
                         else set()
                     )
                     | (
                         set(GENERATION_FOUR_SOURCE_COMMIT_PATHS)
-                        if publication_generation in {4, 5, 6, 7}
+                        if publication_generation in {4, 5, 6, 7, 8}
                         else set()
                     )
                     | (
                         set(GENERATION_FIVE_SOURCE_COMMIT_PATHS)
-                        if publication_generation in {5, 6, 7}
+                        if publication_generation in {5, 6, 7, 8}
                         else set()
                     )
                     | (
                         set(GENERATION_SIX_SOURCE_COMMIT_PATHS)
-                        if publication_generation in {6, 7}
+                        if publication_generation in {6, 7, 8}
+                        else set()
+                    )
+                    | (
+                        set(GENERATION_SEVEN_SOURCE_COMMIT_PATHS)
+                        if publication_generation in {7, 8}
                         else set()
                     )
                     | {ITER135_HYPOTHESIS_REL}

@@ -169,12 +169,14 @@ GENERATION_FOUR_BATON_COMMIT = "27c7f02b5474dd156c4a7686de774a6f408df42e"
 GENERATION_FIVE_RECEIPT_COMMIT = "1f70e367cd1ffcc2c3dab1c801d0e195a1341ef2"
 GENERATION_SIX_RECEIPT_COMMIT = "4fb4d819d56f6a6c6331abfa4e8039bf8bedf7be"
 GENERATION_SIX_BATON_COMMIT = "a37d1fc0fc9b96604e68e37006c0a8b3515984bb"
-GENERATION_SEVEN_REASON = "H1_CHECK_RUN_ENVELOPE_INCOMPATIBLE_WITH_BRANCH_VALIDATION"
+GENERATION_SEVEN_RECEIPT_COMMIT = "470ec333b29f3da8e8b2ee696982f2503ea66161"
+GENERATION_SEVEN_BATON_COMMIT = "04801441ce17e104ed2e78a4dd02370d4ffdde17"
+GENERATION_EIGHT_REASON = "B7_STAGE_ZERO_DEEP_REPLAY_CHECKOUT_TIMEOUT_UNSATISFIABLE"
 EXPECTED_TOOLING_PUBLICATION = {
-    "generation": 7,
-    "supersedes_receipt_commit": GENERATION_SIX_RECEIPT_COMMIT,
-    "recovery_parent": GENERATION_SIX_BATON_COMMIT,
-    "reason_code": GENERATION_SEVEN_REASON,
+    "generation": 8,
+    "supersedes_receipt_commit": GENERATION_SEVEN_RECEIPT_COMMIT,
+    "recovery_parent": GENERATION_SEVEN_BATON_COMMIT,
+    "reason_code": GENERATION_EIGHT_REASON,
 }
 TOOLING_REPOSITORY_FIELDS = {
     "root",
@@ -255,7 +257,7 @@ def _strict_json_object(payload: bytes, label: str) -> dict[str, Any]:
     return value
 
 
-def _git(repo: Path, *arguments: str) -> bytes:
+def _git(repo: Path, *arguments: str, timeout: int = 10) -> bytes:
     completed = subprocess.run(  # noqa: S603 - fixed Git executable and bounded argv
         ("/usr/bin/git", "-c", "core.hooksPath=/dev/null", *arguments),
         cwd=repo,
@@ -271,7 +273,7 @@ def _git(repo: Path, *arguments: str) -> bytes:
         stdin=subprocess.DEVNULL,
         stdout=subprocess.PIPE,
         stderr=subprocess.DEVNULL,
-        timeout=10,
+        timeout=timeout,
         check=False,
     )
     if completed.returncode != 0:
@@ -464,7 +466,7 @@ def _tooling_source_commit(repo: Path, tooling_receipt_commit: str) -> str:
         or _SHA256_RE.fullmatch(receipt["file_content_set_sha256"]) is None
         or claimed_payload_sha256 != hashlib.sha256(_canonical_json(payload)).hexdigest()
     ):
-        raise AuthorizationError("tooling receipt does not bind the exact green generation-seven source")
+        raise AuthorizationError("tooling receipt does not bind the exact green generation-eight source")
     try:
         validator = _load_frozen_tooling_receipt_validator(repo, source_commit)
         frozen_errors = validator(receipt, repo_root=repo)
@@ -526,8 +528,25 @@ def _module_from_checkout(
     return module
 
 
+# Materializing a replay working tree writes the full committed evidence tree (multiple GiB and
+# growing with every published stage), so it gets its own generous hang bound instead of the
+# ten-second probe timeout. Generation seven froze the probe timeout for every Git call; the first
+# descendant validation then proved the checkout cannot finish inside ten seconds on either the
+# canonical operator host (~14-18 s measured) or the hosted CI runners. The bound below is still a
+# hard fail-closed ceiling, not permission to hang.
+REPLAY_CHECKOUT_TIMEOUT_SECONDS = 600
+
+
 def _checkout(repo: Path, checkout: Path, commit: str) -> None:
-    _git(checkout, "checkout", "--detach", "--force", "--quiet", commit)
+    _git(
+        checkout,
+        "checkout",
+        "--detach",
+        "--force",
+        "--quiet",
+        commit,
+        timeout=REPLAY_CHECKOUT_TIMEOUT_SECONDS,
+    )
     head = _git(checkout, "rev-parse", "HEAD").decode("ascii").strip()
     if head != commit:
         raise AuthorizationError("isolated materialization checked out the wrong commit")
@@ -1204,7 +1223,7 @@ def _deep_replay_publication(
     tooling_baton_commit: str,
     commits: Sequence[str],
 ) -> list[str]:
-    """Replay H/E/P/S[/A/F] from the frozen generation-seven source in isolation."""
+    """Replay H/E/P/S[/A/F] from the frozen generation-eight source in isolation."""
 
     problems: list[str] = []
     try:

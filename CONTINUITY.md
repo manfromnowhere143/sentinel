@@ -3217,3 +3217,77 @@ transfer boundary fold-in and the claim-(5) hedge are unchanged and still bindin
   on a clean tree after commit. The superseded R6 blob was confirmed byte-identical to its
   committed object before unlock, and both working-copy protections were restored after
   generation. Only the baton tip was pushed.
+
+  Host-preparation completion record, 2026-07-17. After the disclosed attempt one, attempts two
+  through four were fired from the generation-seven baton, and each red attempt failed closed
+  before any host mutation with its receipt preserved in
+  `/opt/sentinel-stack/evidence-h-attempts/`. Attempt two failed on
+  `repository:untracked:/opt/sentinel-stack/NeuroNCAP`: three stale operator scripts the
+  countdown missed because it sampled four rows instead of reading the full untracked set; they
+  were archived to `/opt/sentinel-stack/archive-neuroncap-pre-i135/` and the lesson is recorded
+  (verify full sets, never samples). Attempt three failed on `internal:PermissionError`: the
+  UniAD tree is root-owned, so the one-shot controller must run under sudo. Attempt four returned
+  `I135_HOST_PREPARATION_OK` with `problems=0`. The green receipt (SHA-256
+  `c50edd61c7651f034e35584a5666d2c83c5831a14a68fe451885ba02ca2e5680`, packet manifest SHA-256
+  `d4a482bfd5a03e9ae1d6d14be869e93b662c819918d59d6b0cd0f3034a0190f8`, source commit B7
+  `04801441ce17e104ed2e78a4dd02370d4ffdde17`) was installed with the packet at
+  `/opt/sentinel-stack/iter135/`.
+
+  Generation eight, 2026-07-17. Source parent is the generation-seven baton
+  `04801441ce17e104ed2e78a4dd02370d4ffdde17`, it supersedes receipt
+  `470ec333b29f3da8e8b2ee696982f2503ea66161`, and its reason code is
+  `B7_STAGE_ZERO_DEEP_REPLAY_CHECKOUT_TIMEOUT_UNSATISFIABLE`. It exists because the stage-zero
+  publication of the green host evidence could not validate. The evidence pair was fetched
+  byte-identical, verified against every frozen binding, and committed locally as
+  `504dadfcdbbec91e28944f25270ffc579c272495` with parent B7 and exactly the two evidence paths.
+  The first descendant validation in mission history then reported
+  `authorization:deep-replay:TimeoutExpired`: the frozen controller caps every Git call at ten
+  seconds, and the deep replay's isolated no-checkout clone must materialize the full
+  multi-gibibyte committed evidence tree at its first checkout. That checkout measured 18.07
+  seconds on the canonical operator host with all objects loose and 13.98 to 14.84 seconds after
+  a full repack; `git archive HEAD` costs about eleven wall seconds against 3.7 CPU-seconds, so
+  the cost is I/O- and write-bound, not a local misconfiguration. The disposable validation
+  branch `ci-validate-h`, the amendment's own probe, then proved both hosted CI lanes fail with
+  the identical TimeoutExpired on commit `504dadf` (run 29551282124). `master` never moved and
+  never went red; the local branch was reset back to B7. The probe commit remains preserved on
+  `ci-validate-h` and the local branch `evidence/stage0-b7-probe` until this entry publishes,
+  after which the remote branch is deleted; its red check runs remain in the repository's GitHub
+  check-run record. This code path could not have been observed earlier: every prior validation
+  ran with an empty descendant list, and the hostile suite exercises the controller only against
+  small fixture repositories.
+
+  The amendment is minimal. `_git` gains an explicit per-call timeout parameter defaulting to the
+  frozen ten seconds, and the replay checkout alone passes a dedicated
+  `REPLAY_CHECKOUT_TIMEOUT_SECONDS = 600` hard bound: still fail-closed protection against a
+  hang, sized roughly thirty times above the measured cost so committed-evidence growth through
+  the smoke stage cannot re-fire the defect. Hostile coverage pins the constant, proves every
+  other Git probe still carries the ten-second bound, and proves a checkout exceeding even the
+  dedicated bound still raises. A sparse-checkout redesign of the replay was considered and
+  rejected: it would change replay semantics to cure a performance defect that a bounded timeout
+  states honestly. During diagnosis the repository's 7,344 loose objects were repacked
+  (`git repack -a -d --keep-unreachable`; nothing pruned, no object identity changed); that is
+  disclosed as storage maintenance, it halves the replay cost, and it cannot bring the checkout
+  under ten seconds on its own.
+
+  The consequence for the host evidence is accepted openly: under generation eight the committed
+  stage-zero packet must rebuild from and bind B8, so the B7-bound artifacts on the box can never
+  be committed. After B8 is green, the installed `/opt/sentinel-stack/iter135/` tree, including
+  its receipt, moves to `/opt/sentinel-stack/archive-iter135-b7-install/` (the same disclosed
+  nothing-deleted archive pattern as the UniAD and NeuroNCAP stray sweeps), the packet is rebuilt
+  from B8, dress-rehearsed, and the one-shot controller fires attempt five under sudo. Host
+  repositories are untouched since attempt four, so the recorded countdown facts (UniAD untracked
+  exactly `checkpoints`, the NeuroNCAP and neurad dirty sets, mount identity, and free-space
+  margins) remain valid. The scope is the exact eleven paths below. No further host action was
+  taken in this generation's source publication.
+
+  1. `CONTINUITY.md`
+  2. `HANDOFF.md`
+  3. `MISSION_STATE.json`
+  4. `experiments/iter135_neuroncap_blind_braking_dose_response/authorize_launch135.py`
+  5. `experiments/iter135_neuroncap_blind_braking_dose_response/run_dose135.sh`
+  6. `experiments/iter135_neuroncap_blind_braking_dose_response/verify_tooling135.py`
+  7. `scripts/mission_state.py`
+  8. `tests/test_iter135_launch_authorization.py`
+  9. `tests/test_iter135_launcher.py`
+  10. `tests/test_iter135_tooling_verifier.py`
+  11. `tests/test_mission_state.py`

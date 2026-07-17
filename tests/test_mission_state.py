@@ -21,6 +21,8 @@ from scripts.mission_state import (
     GENERATION_SIX_SOURCE_COMMIT_PATHS,
     GENERATION_SEVEN_REASON_CODE,
     GENERATION_SEVEN_SOURCE_COMMIT_PATHS,
+    GENERATION_EIGHT_REASON_CODE,
+    GENERATION_EIGHT_SOURCE_COMMIT_PATHS,
     GENERATION_FOUR_REASON_CODE,
     GENERATION_FOUR_SOURCE_COMMIT_PATHS,
     GENERATION_THREE_REASON_CODE,
@@ -634,10 +636,10 @@ def _commit_generation_four_publication(
             # expectation before writing it into the synthetic repository.
             controller_source = (source_repo / relative).read_text()
             controller_source = controller_source.replace(
-                '    "generation": 7,\n'
-                '    "supersedes_receipt_commit": GENERATION_SIX_RECEIPT_COMMIT,\n'
-                '    "recovery_parent": GENERATION_SIX_BATON_COMMIT,\n'
-                '    "reason_code": GENERATION_SEVEN_REASON,\n',
+                '    "generation": 8,\n'
+                '    "supersedes_receipt_commit": GENERATION_SEVEN_RECEIPT_COMMIT,\n'
+                '    "recovery_parent": GENERATION_SEVEN_BATON_COMMIT,\n'
+                '    "reason_code": GENERATION_EIGHT_REASON,\n',
                 '    "generation": 4,\n'
                 '    "supersedes_receipt_commit": GENERATION_THREE_RECEIPT_COMMIT,\n'
                 '    "recovery_parent": GENERATION_THREE_BATON_COMMIT,\n'
@@ -811,10 +813,10 @@ def _commit_generation_five_publication(
             # synthetic SHA substitution.
             controller_source = (source_repo / relative).read_text()
             controller_source = controller_source.replace(
-                '''    "generation": 7,
-    "supersedes_receipt_commit": GENERATION_SIX_RECEIPT_COMMIT,
-    "recovery_parent": GENERATION_SIX_BATON_COMMIT,
-    "reason_code": GENERATION_SEVEN_REASON,
+                '''    "generation": 8,
+    "supersedes_receipt_commit": GENERATION_SEVEN_RECEIPT_COMMIT,
+    "recovery_parent": GENERATION_SEVEN_BATON_COMMIT,
+    "reason_code": GENERATION_EIGHT_REASON,
 ''',
                 '    "generation": 5,\n'
                 '    "supersedes_receipt_commit": GENERATION_FOUR_RECEIPT_COMMIT,\n'
@@ -982,10 +984,10 @@ def _commit_generation_six_publication(
             # synthetic SHA substitution.
             controller_source = (source_repo / relative).read_text()
             controller_source = controller_source.replace(
-                '    "generation": 7,\n'
-                '    "supersedes_receipt_commit": GENERATION_SIX_RECEIPT_COMMIT,\n'
-                '    "recovery_parent": GENERATION_SIX_BATON_COMMIT,\n'
-                '    "reason_code": GENERATION_SEVEN_REASON,\n',
+                '    "generation": 8,\n'
+                '    "supersedes_receipt_commit": GENERATION_SEVEN_RECEIPT_COMMIT,\n'
+                '    "recovery_parent": GENERATION_SEVEN_BATON_COMMIT,\n'
+                '    "reason_code": GENERATION_EIGHT_REASON,\n',
                 '    "generation": 6,\n'
                 '    "supersedes_receipt_commit": GENERATION_FIVE_RECEIPT_COMMIT,\n'
                 '    "recovery_parent": GENERATION_FIVE_RECEIPT_COMMIT,\n'
@@ -1130,13 +1132,24 @@ def _commit_generation_seven_publication(
         elif relative == "HANDOFF.md":
             path.write_text("generation seven source handoff\n")
         elif relative.endswith("/authorize_launch135.py"):
+            # The live controller now binds the generation-eight publication, so this
+            # generation-seven-era fixture rewrites the live literals back to the
+            # generation-seven shape bound to the fixture chain.
             controller_source = (source_repo / relative).read_text()
-            controller_source = controller_source.replace(
-                launch_controller.GENERATION_SIX_RECEIPT_COMMIT,
-                generation_six["generation_six_receipt"],
-            ).replace(
-                launch_controller.GENERATION_SIX_BATON_COMMIT,
-                generation_six_baton,
+            controller_source = (
+                controller_source.replace(
+                    launch_controller.GENERATION_SEVEN_RECEIPT_COMMIT,
+                    generation_six["generation_six_receipt"],
+                )
+                .replace(
+                    launch_controller.GENERATION_SEVEN_BATON_COMMIT,
+                    generation_six_baton,
+                )
+                .replace('"generation": 8,', '"generation": 7,')
+                .replace(
+                    launch_controller.GENERATION_EIGHT_REASON,
+                    GENERATION_SEVEN_REASON_CODE,
+                )
             )
             path.write_text(controller_source)
         elif relative.endswith("/verify_tooling135.py"):
@@ -1218,6 +1231,150 @@ def _commit_generation_seven_publication(
         "generation_seven_receipt": receipt_commit,
         "generation_seven_state": state_commit,
         "generation_seven_baton": baton_commit,
+    }
+
+
+def _commit_generation_eight_publication(
+    repo: Path,
+    state: dict,
+    monkeypatch: pytest.MonkeyPatch,
+    *,
+    publication_overrides: dict[str, object] | None = None,
+    include_receipt: bool = True,
+    include_baton: bool = True,
+    source_paths: tuple[str, ...] = GENERATION_EIGHT_SOURCE_COMMIT_PATHS,
+    wrong_source_parent: bool = False,
+) -> dict[str, str]:
+    """Build the exact generation-eight topology on top of a complete generation-seven chain."""
+
+    generation_seven = _commit_generation_seven_publication(repo, state, monkeypatch)
+    generation_seven_baton = generation_seven["generation_seven_baton"]
+    for name, key in (
+        ("GENERATION_SEVEN_SOURCE_COMMIT", "generation_seven_source"),
+        ("GENERATION_SEVEN_RECEIPT_COMMIT", "generation_seven_receipt"),
+        ("GENERATION_SEVEN_STATE_COMMIT", "generation_seven_state"),
+        ("GENERATION_SEVEN_BATON_COMMIT", "generation_seven_baton"),
+    ):
+        monkeypatch.setattr(mission_state, name, generation_seven[key])
+    if wrong_source_parent:
+        unexpected = repo / "unexpected-generation-seven-topology.txt"
+        unexpected.write_text("not the frozen generation-seven baton\n")
+        _git(repo, "add", unexpected.name)
+        _git(repo, "commit", "-m", "unexpected generation-seven topology edge")
+    monkeypatch.setattr(
+        mission_state, "GENERATION_EIGHT_SOURCE_PARENT", generation_seven_baton
+    )
+    expected_publication = {
+        "generation": 8,
+        "supersedes_receipt_commit": generation_seven["generation_seven_receipt"],
+        "recovery_parent": generation_seven_baton,
+        "reason_code": GENERATION_EIGHT_REASON_CODE,
+    }
+    monkeypatch.setattr(mission_state, "EXPECTED_RECOVERY_PUBLICATION", expected_publication)
+
+    preregistered_state = copy.deepcopy(state)
+    _set_preregistered_phase(preregistered_state)
+    source_repo = Path(__file__).resolve().parents[1]
+    for relative in source_paths:
+        path = repo / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        if relative == "MISSION_STATE.json":
+            path.write_text(json.dumps(preregistered_state, indent=2) + "\n")
+        elif relative == "CONTINUITY.md":
+            path.write_text("generation eight source recovery\n")
+        elif relative == "HANDOFF.md":
+            path.write_text("generation eight source handoff\n")
+        elif relative.endswith("/authorize_launch135.py"):
+            # The live controller already binds generation eight; rebind its frozen
+            # generation-seven receipt and baton literals to this fixture chain.
+            controller_source = (source_repo / relative).read_text()
+            controller_source = controller_source.replace(
+                launch_controller.GENERATION_SEVEN_RECEIPT_COMMIT,
+                generation_seven["generation_seven_receipt"],
+            ).replace(
+                launch_controller.GENERATION_SEVEN_BATON_COMMIT,
+                generation_seven_baton,
+            )
+            path.write_text(controller_source)
+        elif relative.endswith("/verify_tooling135.py"):
+            path.write_text(
+                "# generation eight\n"
+                "def validate_published_receipt_structure(receipt, *args, **kwargs):\n"
+                "    return []\n"
+            )
+        else:
+            path.write_text(f"generation eight source: {relative}\n")
+    _git(repo, "add", *source_paths)
+    _git(repo, "commit", "-m", "generation eight source")
+    source_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
+    _git(repo, "update-ref", "refs/remotes/origin/master", source_commit)
+    if not include_receipt:
+        state.clear()
+        state.update(preregistered_state)
+        return {**generation_seven, "generation_eight_source": source_commit}
+
+    source_commit_paths = sorted(
+        item.decode()
+        for item in _git(
+            repo, "diff-tree", "--root", "--no-commit-id", "--name-only", "-r", "-z", source_commit
+        ).split(b"\0")
+        if item
+    )
+    source_parents = _git(repo, "show", "-s", "--format=%P", source_commit).decode().split()
+    git_state = {
+        "head": source_commit,
+        "dirty_entries": [],
+        "porcelain_v1_z_sha256": EMPTY_GIT_STATUS_SHA256,
+        "branch": "master",
+        "upstream": "origin/master",
+        "upstream_head": source_commit,
+        "parents": source_parents,
+        "commit_paths": source_commit_paths,
+    }
+    publication = dict(expected_publication)
+    if publication_overrides:
+        publication.update(publication_overrides)
+    receipt = {
+        "schema": "iter135.tooling_verification.v2",
+        "verdict": "I135_TOOLING_VERIFICATION_OK",
+        "problem_count": 0,
+        "problems": [],
+        "publication": publication,
+        "repository": {
+            "root": CANONICAL_REPOSITORY,
+            "git_start": git_state,
+            "git_end": git_state,
+            "git_head_stable": True,
+            "git_state_stable": True,
+            "repository_clean_state_stable": True,
+        },
+    }
+    _complete_tooling_receipt(receipt)
+    receipt_path = repo / TOOLING_RECEIPT_REL
+    receipt_path.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n")
+    _git(repo, "add", TOOLING_RECEIPT_REL.as_posix())
+    _git(repo, "commit", "-m", "generation eight receipt")
+    receipt_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
+    _git(repo, "update-ref", "refs/remotes/origin/master", receipt_commit)
+
+    (repo / "MISSION_STATE.json").write_text(json.dumps(state, indent=2) + "\n")
+    _git(repo, "add", "MISSION_STATE.json")
+    _git(repo, "commit", "-m", "generation eight state")
+    state_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
+    if include_baton:
+        (repo / "CONTINUITY.md").write_text("generation eight tooling transition\n")
+        (repo / "HANDOFF.md").write_text("generation eight tooling handoff\n")
+        _git(repo, "add", "CONTINUITY.md", "HANDOFF.md")
+        _git(repo, "commit", "-m", "generation eight tooling baton")
+    baton_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
+    if include_baton:
+        _git(repo, "update-ref", "refs/remotes/origin/master", baton_commit)
+    return {
+        **generation_seven,
+        "generation_eight_source": source_commit,
+        "generation_eight_receipt": receipt_commit,
+        "generation_eight_state": state_commit,
+        "generation_eight_baton": baton_commit,
     }
 
 
@@ -1756,6 +1913,134 @@ def test_generation_four_rejects_hostile_generation_three_baton_topology(
 
     assert "tooling_publication:generation_three_baton_parent" in problems
     assert "tooling_publication:generation_three_baton_scope" in problems
+
+
+def test_generation_eight_tooling_phase_accepts_exact_recovery_topology(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_eight_publication(repo, state, monkeypatch)
+
+    assert validate_state(state, repo) == []
+
+
+def test_generation_eight_receipt_history_is_exactly_eight_generations(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    commits = _commit_generation_eight_publication(repo, state, monkeypatch)
+
+    history = _git(
+        repo, "log", "--format=%H", "--", TOOLING_RECEIPT_REL.as_posix()
+    ).decode().splitlines()
+
+    assert history == [
+        commits["generation_eight_receipt"],
+        commits["generation_seven_receipt"],
+        commits["generation_six_receipt"],
+        commits["generation_five_receipt"],
+        commits["generation_four_receipt"],
+        commits["generation_three_receipt"],
+        commits["recovery_receipt"],
+        commits["generation_one_receipt"],
+    ]
+    assert validate_state(state, repo) == []
+
+
+@pytest.mark.parametrize(
+    ("override", "expected"),
+    [
+        ({"generation": 7}, "tooling_publication:receipt_publication_generation:7"),
+        (
+            {"supersedes_receipt_commit": "f" * 40},
+            "tooling_publication:receipt_publication_supersedes_receipt_commit:"
+            f"{'f' * 40!r}",
+        ),
+        (
+            {"reason_code": "NOT_THE_FROZEN_REASON"},
+            "tooling_publication:receipt_publication_reason_code:'NOT_THE_FROZEN_REASON'",
+        ),
+    ],
+)
+def test_generation_eight_publication_claim_is_exact(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    override: dict[str, object],
+    expected: str,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_eight_publication(
+        repo, state, monkeypatch, publication_overrides=override
+    )
+
+    assert expected in validate_state(state, repo)
+
+
+def test_generation_eight_source_scope_is_exactly_the_eleven_path_recovery(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    assert mission_state.GENERATION_EIGHT_SOURCE_COMMIT_PATHS == (
+        "CONTINUITY.md",
+        "HANDOFF.md",
+        "MISSION_STATE.json",
+        f"{mission_state.ITER135_EXPERIMENT_REL}/authorize_launch135.py",
+        f"{mission_state.ITER135_EXPERIMENT_REL}/run_dose135.sh",
+        f"{mission_state.ITER135_EXPERIMENT_REL}/verify_tooling135.py",
+        "scripts/mission_state.py",
+        "tests/test_iter135_launch_authorization.py",
+        "tests/test_iter135_launcher.py",
+        "tests/test_iter135_tooling_verifier.py",
+        "tests/test_mission_state.py",
+    )
+
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_eight_publication(
+        repo,
+        state,
+        monkeypatch,
+        source_paths=GENERATION_EIGHT_SOURCE_COMMIT_PATHS + ("README.md",),
+    )
+
+    assert "tooling_publication:recovery_source_commit_scope" in validate_state(state, repo)
+
+
+def test_generation_eight_source_must_be_direct_child_of_generation_seven_baton(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_eight_publication(repo, state, monkeypatch, wrong_source_parent=True)
+
+    assert "tooling_publication:recovery_source_parent" in validate_state(state, repo)
+
+
+def test_generation_eight_tooling_phase_rejects_missing_baton(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_eight_publication(repo, state, monkeypatch, include_baton=False)
+
+    assert validate_state(state, repo) != []
+
+
+def test_generation_eight_rejects_hostile_generation_seven_baton_topology(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    commits = _commit_generation_eight_publication(repo, state, monkeypatch)
+    monkeypatch.setattr(
+        mission_state, "GENERATION_SEVEN_BATON_COMMIT", commits["generation_seven_state"]
+    )
+
+    problems = validate_state(state, repo)
+
+    assert "tooling_publication:generation_seven_baton_scope" in problems
 
 
 def test_generation_seven_tooling_phase_accepts_exact_recovery_topology(

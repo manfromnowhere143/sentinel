@@ -975,13 +975,13 @@ def test_controller_rejects_nonexact_tooling_receipt_root_before_preflight_repla
 @pytest.mark.parametrize(
     ("field", "value"),
     (
-        ("generation", 6),
+        ("generation", 7),
         ("supersedes_receipt_commit", "0" * 40),
         ("recovery_parent", "1" * 40),
-        ("reason_code", "UNREGISTERED_GENERATION_SEVEN_REASON"),
+        ("reason_code", "UNREGISTERED_GENERATION_EIGHT_REASON"),
     ),
 )
-def test_controller_requires_exact_generation_seven_tooling_publication(
+def test_controller_requires_exact_generation_eight_tooling_publication(
     tmp_path: Path,
     field: str,
     value: object,
@@ -993,7 +993,7 @@ def test_controller_requires_exact_generation_seven_tooling_publication(
 
     with pytest.raises(
         auth.AuthorizationError,
-        match="exact green generation-seven source",
+        match="exact green generation-eight source",
     ):
         auth._tooling_source_commit(repo, commits["tooling_receipt"])
 
@@ -1202,3 +1202,42 @@ def test_structural_controller_rejects_bound_artifact_drift_without_replay_cost(
 
     assert expected_problem in result["problems"]
     assert result["launch_authorized"] is False
+
+
+def test_replay_checkout_uses_dedicated_bound_and_probes_stay_at_ten_seconds(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """The generation-eight amendment: materializing the multi-gibibyte replay tree gets its own
+    hard six-hundred-second ceiling, while every other Git probe keeps the ten-second bound."""
+
+    assert auth.REPLAY_CHECKOUT_TIMEOUT_SECONDS == 600
+
+    commit = "a" * 40
+    observed: list[tuple[tuple[str, ...], object]] = []
+
+    def recording_run(argv: tuple[str, ...], **kwargs: object) -> types.SimpleNamespace:
+        observed.append((tuple(argv), kwargs.get("timeout")))
+        return types.SimpleNamespace(returncode=0, stdout=commit.encode() + b"\n")
+
+    monkeypatch.setattr(auth.subprocess, "run", recording_run)
+    auth._checkout(tmp_path, tmp_path, commit)
+
+    checkout_calls = [row for row in observed if "checkout" in row[0]]
+    probe_calls = [row for row in observed if "rev-parse" in row[0]]
+    assert len(checkout_calls) == 1
+    assert checkout_calls[0][1] == auth.REPLAY_CHECKOUT_TIMEOUT_SECONDS
+    assert len(probe_calls) == 1
+    assert probe_calls[0][1] == 10
+
+
+def test_replay_checkout_timeout_still_fails_closed(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """A checkout that exceeds even the dedicated bound must still raise, never hang or pass."""
+
+    def timing_out_run(argv: tuple[str, ...], **kwargs: object) -> types.SimpleNamespace:
+        raise subprocess.TimeoutExpired(argv, kwargs.get("timeout"))
+
+    monkeypatch.setattr(auth.subprocess, "run", timing_out_run)
+    with pytest.raises(subprocess.TimeoutExpired):
+        auth._checkout(tmp_path, tmp_path, "a" * 40)

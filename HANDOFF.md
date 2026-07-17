@@ -1,44 +1,42 @@
 # HANDOFF — dynamic state snapshot
 
-Generation-seven accepted tooling freeze, 2026-07-17. Read CONTINUITY.md first.
+Generation-eight replay-timeout recovery snapshot, 2026-07-17. Read CONTINUITY.md first.
 
 ## Repository state
 ```
-B7      handoff: accept iter135 generation-seven tooling freeze
+F8      iter135: refreeze generation-eight tooling recovery
+0480144 handoff: accept iter135 generation-seven tooling freeze
 c44639d mission: accept iter135 generation-seven tooling freeze
 470ec33 iter135: publish generation-seven tooling receipt
 7cb0c44 iter135: refreeze generation-seven tooling recovery
-a37d1fc handoff: accept iter135 generation-six tooling freeze
 ```
-Generation-seven source `7cb0c442` and receipt commit `470ec333` supersede the generation-six
-receipt `4fb4d819d56f6a6c6331abfa4e8039bf8bedf7be`. Host-preparation attempt one failed closed on
-`publication-authority:check-run-envelope` before any host mutation (red receipt SHA-256
-`91b2d5d512d5a9aa7f7f4701d14fca8c5beeb99f7aa30519af678bf71ad135fb`, preserved on the box): every
-SHA published under the branch-validation amendment carries the probe run plus the master run per
-check name, and the frozen proof demanded exactly two runs. Generation seven binds authority to
-the newest run per required name; every run must still be a completed github-actions run for the
-exact source commit, and a red run newer than a green one still fails closed. UniAD untracked is
-exactly the `checkpoints` symlink (41 strays archived to
-`/opt/sentinel-stack/archive-uniad-pre-i135/`). Next: rebuild the packet from this baton, remove
-AppleDouble `._*` files after extraction, dress-rehearse, and fire attempt two.
+Host preparation is GREEN on the box: after the disclosed attempt one, attempts two and three
+failed closed pre-mutation (stale NeuroNCAP scripts archived; the controller needs sudo on the
+root-owned UniAD tree) and attempt four returned `I135_HOST_PREPARATION_OK` with `problems=0`
+(receipt SHA-256 `c50edd61c7651f034e35584a5666d2c83c5831a14a68fe451885ba02ca2e5680`, packet bound
+to B7). The stage-zero commit of that evidence then exposed a frozen-tooling defect: the deep
+replay's ten-second Git bound cannot materialize the multi-gibibyte evidence tree, on the
+canonical host (~14-18 s) or on either hosted CI lane (branch probe `ci-validate-h`, commit
+`504dadf`, run 29551282124). `master` never moved. Generation eight gives the replay checkout a
+dedicated 600-second fail-closed bound; every other Git probe keeps ten seconds. Because the
+committed packet must bind the new baton, the B7-bound install will be archived to
+`/opt/sentinel-stack/archive-iter135-b7-install/` after B8, the packet rebuilt from B8,
+dress-rehearsed, and attempt five fired under sudo; then stage zero recommits.
 
 ## Canonical mission state (`MISSION_STATE.json`)
 
 - Current: iteration 134 / PLACEBO_HARM_OR_NULL / run IDLE / next
-  iteration 135 / TOOLING_FROZEN_PREFLIGHT_REQUIRED
+  iteration 135 / PREREGISTERED_TOOLING_REQUIRED
 - Current result: experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md
 - Next program: semantics-free placebo dose-response causal closure
 - Authorized now:
-  - prepare the exact hash-bound sentinel-gpu host contract and atomically commit host_packet_manifest.json and host_preparation_receipt.json
-  - capture and commit the read-only iteration-135 environment receipt on sentinel-gpu
-  - generate and commit only the hash-addressed incomplete pre-smoke manifest; no analytic episodes
-  - run exactly the hash-bound four-run nonanalytic G5 smoke after the incomplete pre-smoke manifest is committed
-  - validate, collect, and commit the exact nonanalytic smoke raw evidence, recomputed receipt, and mechanically generated SMOKE.md
+  - build and validate only the tooling and tests frozen by the active iteration-135 hypothesis
+  - inventory storage and provenance before any safe cleanup or live smoke
+  - publish a read-only external-benchmark commercial, license, compute, and integration preflight
 - Forbidden now:
-  - run any iteration-135 analytic episode before smoke evidence and the final launch manifest are committed green
-  - remove or bypass the permanent analytic launch lock
-  - rerun iteration 134 or adapt iteration-135 schedules, estimands, verdicts, or policies after evidence
-  - place any iteration-135 analytic output on the remote root filesystem
+  - GPU launch before the iteration-135 hypothesis, analyzer, manifest, provenance, storage, and smoke gates are frozen
+  - rerun iteration 134
+  - adopt run-index resampling as the iteration-135 primary after observing iteration-134 results
 
 Generation four changes no scientific or execution payload. It makes structural Git reads resolve
 and attest only Git instead of unnecessarily requiring the current `pytest`, Ruff, shell, and
@@ -255,9 +253,11 @@ is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT 
 - Canonical completed experiment: experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md — read it before opening new work.
 - Active pending pre-registration: experiments/iter135_neuroncap_blind_braking_dose_response/HYPOTHESIS.md — read it with MISSION_STATE.json; neither file overrides the other.
 - Deprecated pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — historical only; it does not govern the next action.
-- Canonical next action: publish and remotely validate the exact generation-four recovery source,
-  then its replacement receipt, then a fresh atomic state-only-plus-baton pair. Push only that
-  pair's baton tip. Host preparation remains blocked until the new baton is exactly green.
+- Canonical next action: publish and remotely validate the exact generation-eight recovery
+  source, then its replacement receipt, then a fresh atomic state-only-plus-baton pair. Push only
+  that pair's baton tip. Host re-preparation (archive the B7-bound install, rebuild the packet
+  from B8, dress-rehearse, fire attempt five under sudo) remains blocked until the new baton is
+  exactly green.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
 
