@@ -167,12 +167,14 @@ GENERATION_THREE_BATON_COMMIT = "30b6390b3e165fc517ec6a7d1d7a26502ea45e2a"
 GENERATION_FOUR_RECEIPT_COMMIT = "c3e891b9e41f2291b47edc9cec7abffd5259f674"
 GENERATION_FOUR_BATON_COMMIT = "27c7f02b5474dd156c4a7686de774a6f408df42e"
 GENERATION_FIVE_RECEIPT_COMMIT = "1f70e367cd1ffcc2c3dab1c801d0e195a1341ef2"
-GENERATION_SIX_REASON = "T5_FROZEN_STRUCTURAL_VALIDATOR_STALE_RECEIPT_HISTORY"
+GENERATION_SIX_RECEIPT_COMMIT = "4fb4d819d56f6a6c6331abfa4e8039bf8bedf7be"
+GENERATION_SIX_BATON_COMMIT = "a37d1fc0fc9b96604e68e37006c0a8b3515984bb"
+GENERATION_SEVEN_REASON = "H1_CHECK_RUN_ENVELOPE_INCOMPATIBLE_WITH_BRANCH_VALIDATION"
 EXPECTED_TOOLING_PUBLICATION = {
-    "generation": 6,
-    "supersedes_receipt_commit": GENERATION_FIVE_RECEIPT_COMMIT,
-    "recovery_parent": GENERATION_FIVE_RECEIPT_COMMIT,
-    "reason_code": GENERATION_SIX_REASON,
+    "generation": 7,
+    "supersedes_receipt_commit": GENERATION_SIX_RECEIPT_COMMIT,
+    "recovery_parent": GENERATION_SIX_BATON_COMMIT,
+    "reason_code": GENERATION_SEVEN_REASON,
 }
 TOOLING_REPOSITORY_FIELDS = {
     "root",
@@ -462,7 +464,7 @@ def _tooling_source_commit(repo: Path, tooling_receipt_commit: str) -> str:
         or _SHA256_RE.fullmatch(receipt["file_content_set_sha256"]) is None
         or claimed_payload_sha256 != hashlib.sha256(_canonical_json(payload)).hexdigest()
     ):
-        raise AuthorizationError("tooling receipt does not bind the exact green generation-six source")
+        raise AuthorizationError("tooling receipt does not bind the exact green generation-seven source")
     try:
         validator = _load_frozen_tooling_receipt_validator(repo, source_commit)
         frozen_errors = validator(receipt, repo_root=repo)
@@ -1202,7 +1204,7 @@ def _deep_replay_publication(
     tooling_baton_commit: str,
     commits: Sequence[str],
 ) -> list[str]:
-    """Replay H/E/P/S[/A/F] from the frozen generation-six source in isolation."""
+    """Replay H/E/P/S[/A/F] from the frozen generation-seven source in isolation."""
 
     problems: list[str] = []
     try:

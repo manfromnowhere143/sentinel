@@ -3185,3 +3185,28 @@ transfer boundary fold-in and the claim-(5) hedge are unchanged and still bindin
   passed at the generation-six state acceptance; the only residual pre-baton diagnostic was the
   expected HANDOFF current-state phrase, which this baton resolves. No host, Docker, GPU, smoke,
   or analytic action was taken.
+
+  Generation seven, 2026-07-17. Source parent is the generation-six baton
+  `a37d1fc0fc9b96604e68e37006c0a8b3515984bb`, it supersedes receipt
+  `4fb4d819d56f6a6c6331abfa4e8039bf8bedf7be`, and its reason code is
+  `H1_CHECK_RUN_ENVELOPE_INCOMPATIBLE_WITH_BRANCH_VALIDATION`. Host-preparation attempt one was
+  fired against the generation-six baton after a fully green countdown, the packet dress
+  rehearsal, and the UniAD archive action, and it failed closed with the single problem
+  `publication-authority:check-run-envelope` before any host mutation: `/opt/sentinel-stack/iter135`
+  was never created and the server, compose, and repositories are untouched. The red receipt is
+  preserved at `/opt/sentinel-stack/.iter135-packet/host_preparation_receipt.json` with SHA-256
+  `91b2d5d512d5a9aa7f7f4701d14fca8c5beeb99f7aa30519af678bf71ad135fb`. Root cause: the frozen proof
+  required exactly two check runs on the source commit, but every SHA published under the
+  disclosed branch-validation amendment permanently carries the probe run plus the master run per
+  check name (the baton probe is red by design, since `authorization:head-not-on-origin-master`
+  can only resolve on `master`). GitHub's `filter=latest` keeps one run per check suite, not per
+  name, so the envelope could never pass for any amendment-published SHA. Generation seven amends
+  the envelope to bind authority to the newest run per required name, with every run still
+  required to be a completed github-actions run for the exact source commit and a red run newer
+  than a green one still failing closed. Hostile coverage now includes the exact attempt-one shape
+  accepting, a newer red rejecting, triplicates, duplicate ids, and pending probe rows. The UniAD
+  host archive action is also recorded here: the 41 stray untracked artifacts were moved to
+  `/opt/sentinel-stack/archive-uniad-pre-i135/` (nothing deleted; iteration-134 evidence is
+  committed in-repo), leaving the untracked set exactly the load-bearing `checkpoints` symlink,
+  and the anchor path still resolves. The scope is the exact thirteen paths of the generation-five
+  recovery. No further host action was taken.

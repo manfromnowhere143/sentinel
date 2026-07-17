@@ -255,27 +255,57 @@ def _project_exact_checks(
     *,
     prefix: str = "publication-authority",
 ) -> list[dict[str, Any]]:
+    # The disclosed branch-validation amendment (CONTINUITY.md, generation four) validates every
+    # publication on a disposable branch before fast-forwarding the identical commit onto
+    # `master`, so a published SHA legitimately carries up to two check runs per required name:
+    # the earlier probe (which is red for baton tips, whose head-not-on-origin-master problem can
+    # only resolve on `master`) and the later authoritative `master` run. GitHub check-run ids are
+    # chronologically monotonic, so authority binds to the newest run per name: it must be green,
+    # every run must still be a completed github-actions run for this exact commit, and a red run
+    # newer than a green one therefore still fails closed. A fixed total of exactly
+    # len(REQUIRED_GITHUB_CHECKS) runs is no longer required; that pre-amendment envelope made
+    # every amendment-published SHA unverifiable (host preparation attempt one, receipt sha256
+    # 91b2d5d512d5a9aa7f7f4701d14fca8c5beeb99f7aa30519af678bf71ad135fb).
     runs = document.get("check_runs") if isinstance(document, Mapping) else None
     total_count = document.get("total_count") if isinstance(document, Mapping) else None
     if (
         type(total_count) is not int
         or not isinstance(runs, list)
         or total_count != len(runs)
-        or total_count != len(REQUIRED_GITHUB_CHECKS)
+        or total_count < len(REQUIRED_GITHUB_CHECKS)
+        or total_count > 2 * len(REQUIRED_GITHUB_CHECKS)
     ):
         raise PreparationError(f"{prefix}:check-run-envelope")
-    selected: dict[str, Mapping[str, Any]] = {}
+    grouped: dict[str, list[Mapping[str, Any]]] = {}
     for run in runs:
         if not isinstance(run, Mapping):
             raise PreparationError(f"{prefix}:check-run-row")
         name = run.get("name")
         if name not in REQUIRED_GITHUB_CHECKS:
             raise PreparationError(f"{prefix}:unexpected-check")
-        if name in selected:
-            raise PreparationError(f"{prefix}:duplicate-check:{name}")
-        selected[name] = run
-    if set(selected) != set(REQUIRED_GITHUB_CHECKS):
+        run_id = run.get("id")
+        if type(run_id) is not int or run_id <= 0:
+            raise PreparationError(f"{prefix}:check-run-row")
+        grouped.setdefault(name, []).append(run)
+    if set(grouped) != set(REQUIRED_GITHUB_CHECKS):
         raise PreparationError(f"{prefix}:required-check-set")
+    selected: dict[str, Mapping[str, Any]] = {}
+    for name, rows in grouped.items():
+        if len(rows) > 2:
+            raise PreparationError(f"{prefix}:duplicate-check:{name}")
+        identities = [row["id"] for row in rows]
+        if len(set(identities)) != len(identities):
+            raise PreparationError(f"{prefix}:duplicate-check:{name}")
+        for row in rows:
+            app = row.get("app")
+            if (
+                row.get("status") != "completed"
+                or row.get("head_sha") != source_commit
+                or not isinstance(app, Mapping)
+                or app.get("slug") != EXPECTED_CHECK_APP
+            ):
+                raise PreparationError(f"{prefix}:check-not-green:{name}")
+        selected[name] = max(rows, key=lambda row: row["id"])
     checks: list[dict[str, Any]] = []
     for name in REQUIRED_GITHUB_CHECKS:
         row = selected[name]

@@ -597,9 +597,9 @@ def test_publication_authority_blocks_before_host_mutation(tmp_path: Path) -> No
     ("mutation", "problem"),
     [
         ("missing", "publication-authority:check-run-envelope"),
-        ("duplicate", "publication-authority:duplicate-check:check (3.10)"),
+        ("duplicate", "publication-authority:required-check-set"),
         ("unexpected", "publication-authority:unexpected-check"),
-        ("extra", "publication-authority:check-run-envelope"),
+        ("extra", "publication-authority:unexpected-check"),
         ("pending", "publication-authority:check-not-green:check (3.10)"),
         ("wrong-app", "publication-authority:check-not-green:check (3.10)"),
     ],
@@ -634,6 +634,106 @@ def test_publication_authority_requires_exact_green_python_matrix(
         f"{prepare.GITHUB_API_ROOT}/commits/{github.source_commit}/check-runs?"
         "filter=latest&per_page=100&page=1"
     ]
+
+
+def _amendment_check_document(commit: str, rows: list[tuple[str, int, str | None]]) -> dict:
+    """Build a check-runs document from (name, id, conclusion) rows; None means in_progress."""
+
+    return {
+        "total_count": len(rows),
+        "check_runs": [
+            {
+                "name": name,
+                "id": check_id,
+                "status": "completed" if conclusion is not None else "in_progress",
+                "conclusion": conclusion,
+                "head_sha": commit,
+                "app": {"slug": "github-actions"},
+            }
+            for name, check_id, conclusion in rows
+        ],
+    }
+
+
+def test_branch_probe_then_green_master_run_is_accepted(tmp_path: Path) -> None:
+    """The disclosed amendment's shape: an earlier red probe run plus a newer green master run
+    per required check must authorize; the newest verdict per name is what binds."""
+
+    config, hooks, _runner, manifest_sha, fixture = build_fixture(tmp_path)
+    github = fixture["github"]
+    document = _amendment_check_document(
+        github.source_commit,
+        [
+            ("check (3.10)", 310, "failure"),
+            ("check (3.11)", 311, "failure"),
+            ("check (3.10)", 410, "success"),
+            ("check (3.11)", 411, "success"),
+        ],
+    )
+    github.check_documents = [document, dict(document)]
+
+    receipt, _output = prepare.prepare_host(manifest_sha, config=config, hooks=hooks)
+
+    assert receipt["verdict"] == prepare.READY_VERDICT
+    assert receipt["problems"] == []
+
+
+@pytest.mark.parametrize(
+    ("rows", "problem"),
+    [
+        (
+            [
+                ("check (3.10)", 410, "success"),
+                ("check (3.11)", 411, "success"),
+                ("check (3.10)", 510, "failure"),
+                ("check (3.11)", 511, "success"),
+            ],
+            "publication-authority:check-not-green:check (3.10)",
+        ),
+        (
+            [
+                ("check (3.10)", 310, "failure"),
+                ("check (3.10)", 311, "failure"),
+                ("check (3.10)", 410, "success"),
+                ("check (3.11)", 411, "success"),
+            ],
+            "publication-authority:duplicate-check:check (3.10)",
+        ),
+        (
+            [
+                ("check (3.10)", 410, "success"),
+                ("check (3.10)", 410, "success"),
+                ("check (3.11)", 411, "success"),
+            ],
+            "publication-authority:duplicate-check:check (3.10)",
+        ),
+        (
+            [
+                ("check (3.10)", 310, None),
+                ("check (3.10)", 410, "success"),
+                ("check (3.11)", 411, "success"),
+            ],
+            "publication-authority:check-not-green:check (3.10)",
+        ),
+    ],
+)
+def test_newest_run_must_be_green_and_row_pathologies_fail_closed(
+    tmp_path: Path, rows: list[tuple[str, int, str | None]], problem: str
+) -> None:
+    """A red run NEWER than a green one still fails; triplicates, duplicate ids, and pending
+    probe rows fail closed. The amendment never weakens the newest verdict."""
+
+    config, hooks, _runner, manifest_sha, fixture = build_fixture(tmp_path)
+    github = fixture["github"]
+    document = _amendment_check_document(github.source_commit, rows)
+    github.check_documents = [document, dict(document)]
+
+    receipt, _output = prepare.prepare_host(manifest_sha, config=config, hooks=hooks)
+
+    assert receipt["verdict"] == prepare.INCOMPLETE_VERDICT
+    assert receipt["problems"] == [problem]
+    assert fixture["server"].read_bytes() == b"residual server\n"
+    assert not fixture["install"].exists()
 
 
 def test_publication_authority_rejects_wrong_tree_blob_oid_before_mutation(
