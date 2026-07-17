@@ -268,7 +268,24 @@ def validate_host_preparation_evidence(packet, host, *, packet_binding, expected
         problems.append("publication-authority")
     return problems
 
-def validate_environment_receipt(receipt_value, bound_hashes, *, expected_host_preparation=None):
+def validate_environment_receipt(
+    receipt_value,
+    bound_hashes,
+    *,
+    expected_host_preparation=None,
+    expected_host_authority_artifacts=None,
+):
+    # The frozen validator reads the patcher binding and the two host-authority artifact
+    # rows; the controller must supply both or a true receipt can never validate.
+    if "patch_compose_dose_env.py" not in bound_hashes:
+        return ["patcher-binding-missing"]
+    if not isinstance(expected_host_authority_artifacts, list) or len(
+        expected_host_authority_artifacts
+    ) != 2 or not all(
+        isinstance(row, dict) and "git_blob_oid" in row and "git_mode" in row
+        for row in expected_host_authority_artifacts
+    ):
+        return ["host-authority-artifacts-missing"]
     if (
         receipt_value.get("deep_probe") != "remote-probes-replayed"
         or receipt_value.get("host_preparation", {}).get("evidence") != expected_host_preparation
@@ -986,13 +1003,13 @@ def test_controller_rejects_nonexact_tooling_receipt_root_before_preflight_repla
 @pytest.mark.parametrize(
     ("field", "value"),
     (
-        ("generation", 10),
+        ("generation", 11),
         ("supersedes_receipt_commit", "0" * 40),
         ("recovery_parent", "1" * 40),
-        ("reason_code", "UNREGISTERED_GENERATION_ELEVEN_REASON"),
+        ("reason_code", "UNREGISTERED_GENERATION_TWELVE_REASON"),
     ),
 )
-def test_controller_requires_exact_generation_eleven_tooling_publication(
+def test_controller_requires_exact_generation_twelve_tooling_publication(
     tmp_path: Path,
     field: str,
     value: object,
@@ -1004,7 +1021,7 @@ def test_controller_requires_exact_generation_eleven_tooling_publication(
 
     with pytest.raises(
         auth.AuthorizationError,
-        match="exact green generation-eleven source",
+        match="exact green generation-twelve source",
     ):
         auth._tooling_source_commit(repo, commits["tooling_receipt"])
 

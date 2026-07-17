@@ -792,10 +792,10 @@ sha = re.compile(r"^[0-9a-f]{64}$")
 
 # BEGIN I135_TOOLING_PUBLICATION_CONTRACT_PYTHON
 EXPECTED_TOOLING_PUBLICATION = {
-    "generation": 11,
-    "supersedes_receipt_commit": "146d52e5b662bf6af0fd26925367c6218822fa39",
-    "recovery_parent": "50511a9261e904f4367b390bcc5fa85572e09c26",
-    "reason_code": "E1_ENVIRONMENT_CONTRACTS_STALE_DATASET_DOCKER_ARTIFACT_REPLAY",
+    "generation": 12,
+    "supersedes_receipt_commit": "97dc88eaa44831eb329d86579f49a4a10a3347e4",
+    "recovery_parent": "a698cbbe3cf6c9e1320c74ab2748f576e68b114e",
+    "reason_code": "E2_COMMIT_VALIDATOR_WIRING_PATCHER_AND_AUTHORITY_ARTIFACTS",
 }
 
 

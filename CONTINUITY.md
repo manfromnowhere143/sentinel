@@ -3536,6 +3536,52 @@ transfer boundary fold-in and the claim-(5) hedge are unchanged and still bindin
   `LICENSE` is published on the default branch. No host, Docker, GPU, smoke, or analytic action
   was taken.
 
+  Host-preparation attempt eight, the generation-eleven stage zero, and the first green
+  environment capture, 2026-07-17. After B11 the box was de-prepared from attempt seven with
+  the verify-by-sha inversion (the red first-capture receipt preserved inside the archived
+  install at `/opt/sentinel-stack/archive-iter135-b10-install/`), the packet was rebuilt from
+  B11 (manifest SHA-256
+  `58250f28967919c89c26e547f81ff9c175bf140a2e4807cd62e018ba04f6ee8b`), and attempt eight
+  returned `I135_HOST_PREPARATION_OK` with `problems=0` on the first firing, the fourth
+  consecutive first-shot green. Stage zero was republished as
+  `a698cbbe3cf6c9e1320c74ab2748f576e68b114e` with parent B11 and published green. The
+  environment capture then ran detached against that commit with the complete pre-capture
+  countdown verified first, and returned `I135_ENVIRONMENT_PREFLIGHT_OK` with `problems=0`,
+  the first green environment receipt in mission history: Docker 29.6.1 parsed exactly, the
+  eight-megabyte host receipt replayed byte-exactly through the raw media type, and the
+  twelve-archive dataset contract bound with the map-expansion directories.
+
+  Generation twelve, 2026-07-17. Source parent is the published generation-eleven stage-zero
+  commit `a698cbbe3cf6c9e1320c74ab2748f576e68b114e`, it supersedes receipt
+  `97dc88eaa44831eb329d86579f49a4a10a3347e4`, and its reason code is
+  `E2_COMMIT_VALIDATOR_WIRING_PATCHER_AND_AUTHORITY_ARTIFACTS`. The green environment receipt
+  was committed locally and the first live E-commit validation reported exactly two problems
+  beyond the by-design branch diagnostic, both wiring defects in the frozen launch
+  controller's call into the frozen environment validator: the validator reads the compose
+  patcher's binding from the bound-hash map, but the controller supplied only the two
+  stage-zero artifact bindings; and the validator requires the two host-authority artifact
+  rows as an explicit argument, which the controller never passed, so its length check fired
+  unconditionally. A true green receipt therefore could not validate. The fix threads the
+  patcher binding (the packet's `patch_compose_dose_env.py` blob at the tooling baton) and
+  the two five-field artifact rows through the call, constructing them once and reusing them
+  for the controller's own authority check; the launch-authorization suite's stub validator
+  now demands both, so the wiring can never regress silently. The local environment commit
+  was reset and is preserved on `evidence/stageE-b11-attempt`; the capture is repeatable and
+  will be re-fired against the generation-twelve stage zero. The scope is the exact eleven
+  paths below. No host action was taken in this generation's source publication.
+
+  1. `CONTINUITY.md`
+  2. `HANDOFF.md`
+  3. `MISSION_STATE.json`
+  4. `experiments/iter135_neuroncap_blind_braking_dose_response/authorize_launch135.py`
+  5. `experiments/iter135_neuroncap_blind_braking_dose_response/run_dose135.sh`
+  6. `experiments/iter135_neuroncap_blind_braking_dose_response/verify_tooling135.py`
+  7. `scripts/mission_state.py`
+  8. `tests/test_iter135_launch_authorization.py`
+  9. `tests/test_iter135_launcher.py`
+  10. `tests/test_iter135_tooling_verifier.py`
+  11. `tests/test_mission_state.py`
+
   1. `CONTINUITY.md`
   2. `HANDOFF.md`
   3. `MISSION_STATE.json`

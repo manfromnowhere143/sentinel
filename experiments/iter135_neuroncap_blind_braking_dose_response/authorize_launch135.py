@@ -187,11 +187,16 @@ GENERATION_TEN_RECEIPT_COMMIT = "146d52e5b662bf6af0fd26925367c6218822fa39"
 # Docker 29, and artifact-replay contracts.
 GENERATION_TEN_STAGE_ZERO_COMMIT = "50511a9261e904f4367b390bcc5fa85572e09c26"
 GENERATION_ELEVEN_REASON = "E1_ENVIRONMENT_CONTRACTS_STALE_DATASET_DOCKER_ARTIFACT_REPLAY"
+GENERATION_ELEVEN_RECEIPT_COMMIT = "97dc88eaa44831eb329d86579f49a4a10a3347e4"
+# Generation twelve's source parent is the published generation-eleven stage-zero commit, the
+# master tip when the first live E-commit validation exposed the controller's wiring defects.
+GENERATION_ELEVEN_STAGE_ZERO_COMMIT = "a698cbbe3cf6c9e1320c74ab2748f576e68b114e"
+GENERATION_TWELVE_REASON = "E2_COMMIT_VALIDATOR_WIRING_PATCHER_AND_AUTHORITY_ARTIFACTS"
 EXPECTED_TOOLING_PUBLICATION = {
-    "generation": 11,
-    "supersedes_receipt_commit": GENERATION_TEN_RECEIPT_COMMIT,
-    "recovery_parent": GENERATION_TEN_STAGE_ZERO_COMMIT,
-    "reason_code": GENERATION_ELEVEN_REASON,
+    "generation": 12,
+    "supersedes_receipt_commit": GENERATION_ELEVEN_RECEIPT_COMMIT,
+    "recovery_parent": GENERATION_ELEVEN_STAGE_ZERO_COMMIT,
+    "reason_code": GENERATION_TWELVE_REASON,
 }
 TOOLING_REPOSITORY_FIELDS = {
     "root",
@@ -481,7 +486,7 @@ def _tooling_source_commit(repo: Path, tooling_receipt_commit: str) -> str:
         or _SHA256_RE.fullmatch(receipt["file_content_set_sha256"]) is None
         or claimed_payload_sha256 != hashlib.sha256(_canonical_json(payload)).hexdigest()
     ):
-        raise AuthorizationError("tooling receipt does not bind the exact green generation-eleven source")
+        raise AuthorizationError("tooling receipt does not bind the exact green generation-twelve source")
     try:
         validator = _load_frozen_tooling_receipt_validator(repo, source_commit)
         frozen_errors = validator(receipt, repo_root=repo)
@@ -1243,7 +1248,7 @@ def _deep_replay_publication(
     tooling_baton_commit: str,
     commits: Sequence[str],
 ) -> list[str]:
-    """Replay H/E/P/S[/A/F] from the frozen generation-eleven source in isolation."""
+    """Replay H/E/P/S[/A/F] from the frozen generation-twelve source in isolation."""
 
     problems: list[str] = []
     try:
@@ -1360,6 +1365,15 @@ def _deep_replay_publication(
                 )
                 if not callable(environment_validator):
                     raise AuthorizationError("frozen environment validator is missing")
+                # The frozen environment validator additionally reads the compose patcher's
+                # binding from `bound_hashes` and requires the two host-authority artifact
+                # rows to be supplied explicitly; omitting either made its checks fire
+                # against a true receipt at the first live E-commit validation.
+                patcher_payload = _blob(
+                    repo,
+                    tooling_baton_commit,
+                    f"{EXPERIMENT_REL}/patch_compose_dose_env.py",
+                )
                 bound_hashes = {
                     "host_packet_manifest.json": packet_binding,
                     "host_preparation_receipt.json": {
@@ -1367,11 +1381,33 @@ def _deep_replay_publication(
                         "sha256": hashlib.sha256(host_payload).hexdigest(),
                         "bytes": len(host_payload),
                     },
+                    "patch_compose_dose_env.py": {
+                        "source_path": f"{EXPERIMENT_REL}/patch_compose_dose_env.py",
+                        "sha256": hashlib.sha256(patcher_payload).hexdigest(),
+                        "bytes": len(patcher_payload),
+                    },
                 }
+                expected_host_artifacts = [
+                    {
+                        "path": HOST_PACKET_REL,
+                        "sha256": hashlib.sha256(packet_payload).hexdigest(),
+                        "bytes": len(packet_payload),
+                        "git_blob_oid": _git_blob_oid(packet_payload),
+                        "git_mode": "100644",
+                    },
+                    {
+                        "path": HOST_REL,
+                        "sha256": hashlib.sha256(host_payload).hexdigest(),
+                        "bytes": len(host_payload),
+                        "git_blob_oid": _git_blob_oid(host_payload),
+                        "git_mode": "100644",
+                    },
+                ]
                 environment_problems = environment_validator(
                     environment,
                     bound_hashes,
                     expected_host_preparation=host,
+                    expected_host_authority_artifacts=expected_host_artifacts,
                 )
                 if not isinstance(environment_problems, list) or any(
                     not isinstance(item, str) for item in environment_problems
@@ -1392,22 +1428,6 @@ def _deep_replay_publication(
                     or host_preparation["receipt_file"].get("bytes") != len(host_payload)
                 ):
                     problems.append("environment:host-preparation-deep-link")
-                expected_host_artifacts = [
-                    {
-                        "path": HOST_PACKET_REL,
-                        "sha256": hashlib.sha256(packet_payload).hexdigest(),
-                        "bytes": len(packet_payload),
-                        "git_blob_oid": _git_blob_oid(packet_payload),
-                        "git_mode": "100644",
-                    },
-                    {
-                        "path": HOST_REL,
-                        "sha256": hashlib.sha256(host_payload).hexdigest(),
-                        "bytes": len(host_payload),
-                        "git_blob_oid": _git_blob_oid(host_payload),
-                        "git_mode": "100644",
-                    },
-                ]
                 problems.extend(
                     _validate_publication_authority(
                         environment.get("host_publication_authority"),
