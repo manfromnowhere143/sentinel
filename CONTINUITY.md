@@ -3427,6 +3427,19 @@ transfer boundary fold-in and the claim-(5) hedge are unchanged and still bindin
   followed by a fresh stage-zero commit. The scope is the exact fifteen paths of the
   generation-nine recovery. No host action was taken in this generation's source publication.
 
+  Generation-ten publication record, 2026-07-17. Source F10 `214758fd` carries the exact fifteen
+  paths and reported success on both Python lanes before `master` moved. Receipt R10 `146d52e5`
+  was generated on the canonical macOS host from a clean tree with `origin/master` already at
+  F10, returned `I135_TOOLING_VERIFICATION_OK` with `problem_count=0`, and independently
+  replayed `I135_TOOLING_VERIFICATION_OK` on a clean tree after commit, the first replay of the
+  extended ten-entry history check against the real receipt history. The superseded R9 blob was
+  confirmed byte-identical to its committed object before the working copy was unlocked, and the
+  receipt's two working-copy protections, the `uchg` flag and the `user:danielwahnich deny
+  delete` ACL, were restored after generation. The state child and this baton were created
+  locally and only this pair's baton tip completed the publication; the disposable validation
+  branches were deleted after publication. No host, Docker, GPU, smoke, or analytic action was
+  taken.
+
   1. `CONTINUITY.md`
   2. `HANDOFF.md`
   3. `MISSION_STATE.json`
