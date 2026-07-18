@@ -197,11 +197,18 @@ GENERATION_TWELVE_RECEIPT_COMMIT = "fa073e6903be65ff449fc7566df751395d585929"
 # (the E commit), the master tip when the pre-smoke rebuild's origin/master hazard was found.
 GENERATION_TWELVE_ENV_COMMIT = "2c70393f95dcad0871bee24647dd93a151d7b954"
 GENERATION_THIRTEEN_REASON = "E3_PRESMOKE_REBUILD_ORIGIN_MASTER_AHEAD_OF_STAGE_PARENT"
+GENERATION_THIRTEEN_RECEIPT_COMMIT = "688182ad3b7afbb0d58141accbcf554981e6fb20"
+# Generation fourteen's source parent is the published generation-thirteen pre-smoke launch
+# manifest tip (the P commit), the master tip when the live smoke preflight exposed that the
+# Docker Engine 29 daemon-schema fossil generation eleven repaired in the environment capture
+# was still frozen into both live launchers.
+GENERATION_THIRTEEN_MANIFEST_COMMIT = "1ba42bbb869c652fd6d3d951a3c92ec404f61e72"
+GENERATION_FOURTEEN_REASON = "S1_SMOKE_AND_DOSE_DOCKER29_DAEMON_EXPERIMENTAL_SCHEMA_FOSSIL"
 EXPECTED_TOOLING_PUBLICATION = {
-    "generation": 13,
-    "supersedes_receipt_commit": GENERATION_TWELVE_RECEIPT_COMMIT,
-    "recovery_parent": GENERATION_TWELVE_ENV_COMMIT,
-    "reason_code": GENERATION_THIRTEEN_REASON,
+    "generation": 14,
+    "supersedes_receipt_commit": GENERATION_THIRTEEN_RECEIPT_COMMIT,
+    "recovery_parent": GENERATION_THIRTEEN_MANIFEST_COMMIT,
+    "reason_code": GENERATION_FOURTEEN_REASON,
 }
 TOOLING_REPOSITORY_FIELDS = {
     "root",
@@ -491,7 +498,7 @@ def _tooling_source_commit(repo: Path, tooling_receipt_commit: str) -> str:
         or _SHA256_RE.fullmatch(receipt["file_content_set_sha256"]) is None
         or claimed_payload_sha256 != hashlib.sha256(_canonical_json(payload)).hexdigest()
     ):
-        raise AuthorizationError("tooling receipt does not bind the exact green generation-thirteen source")
+        raise AuthorizationError("tooling receipt does not bind the exact green generation-fourteen source")
     try:
         validator = _load_frozen_tooling_receipt_validator(repo, source_commit)
         frozen_errors = validator(receipt, repo_root=repo)

@@ -190,10 +190,24 @@ GENERATION_TWELVE_BATON_COMMIT = "265fe62e84f685f1308b7974e49c34c8ab9db56d"
 GENERATION_TWELVE_ENV_COMMIT = "2c70393f95dcad0871bee24647dd93a151d7b954"
 GENERATION_THIRTEEN_SOURCE_PARENT = GENERATION_TWELVE_ENV_COMMIT
 GENERATION_THIRTEEN_REASON = "E3_PRESMOKE_REBUILD_ORIGIN_MASTER_AHEAD_OF_STAGE_PARENT"
+GENERATION_THIRTEEN_SOURCE_COMMIT = "b0de93a781e4c8929212e278701a3ca7cba27b2d"
+GENERATION_THIRTEEN_RECEIPT_COMMIT = "688182ad3b7afbb0d58141accbcf554981e6fb20"
+GENERATION_THIRTEEN_STATE_COMMIT = "70fda528d0223d099e387f48dbf5b8feae8b793f"
+GENERATION_THIRTEEN_BATON_COMMIT = "2cde00658562b981cd4ab38051b8e08e621b3d83"
+# Generation fourteen exists because Docker Engine 29 moved the daemon `Experimental` flag out of
+# the top-level Server object into the Engine component's Details map as the string "true"/"false".
+# Generation eleven repaired that projection in the environment capture only; the identical frozen
+# assertion survived in both live launchers, so the nonanalytic smoke aborted at preflight with
+# `docker-v3-runtime-binding` and the analytic launcher would have aborted the same way. Generation
+# fourteen reads the top level first and falls back to the Engine component in both launchers, so
+# each daemon generation projects to the same bool and every other recorded byte is unchanged.
+GENERATION_THIRTEEN_MANIFEST_COMMIT = "1ba42bbb869c652fd6d3d951a3c92ec404f61e72"
+GENERATION_FOURTEEN_SOURCE_PARENT = GENERATION_THIRTEEN_MANIFEST_COMMIT
+GENERATION_FOURTEEN_REASON = "S1_SMOKE_AND_DOSE_DOCKER29_DAEMON_EXPERIMENTAL_SCHEMA_FOSSIL"
 # Compatibility aliases used by the receipt generator and focused hostile tests. They always name
-# the active generation-thirteen source publication, never a historical recovery.
-RECOVERY_SOURCE_PARENT = GENERATION_THIRTEEN_SOURCE_PARENT
-RECOVERY_REASON = GENERATION_THIRTEEN_REASON
+# the active generation-fourteen source publication, never a historical recovery.
+RECOVERY_SOURCE_PARENT = GENERATION_FOURTEEN_SOURCE_PARENT
+RECOVERY_REASON = GENERATION_FOURTEEN_REASON
 POST_FREEZE_EXACT_PATHS = {
     "CONTINUITY.md",
     "HANDOFF.md",
@@ -492,12 +506,17 @@ GENERATION_TWELVE_SOURCE_COMMIT_PATHS = (
     "tests/test_mission_state.py",
 )
 GENERATION_THIRTEEN_SOURCE_COMMIT_PATHS = GENERATION_TWELVE_SOURCE_COMMIT_PATHS
-RECOVERY_SOURCE_COMMIT_PATHS = GENERATION_THIRTEEN_SOURCE_COMMIT_PATHS
+# Generation fourteen repairs the Docker Engine 29 daemon-schema fossil inside the nonanalytic
+# smoke launcher as well, so its scope is the generation-thirteen set plus run_smoke135.sh.
+GENERATION_FOURTEEN_SOURCE_COMMIT_PATHS = tuple(
+    sorted({*GENERATION_THIRTEEN_SOURCE_COMMIT_PATHS, f"{EXPERIMENT_REL}/run_smoke135.sh"})
+)
+RECOVERY_SOURCE_COMMIT_PATHS = GENERATION_FOURTEEN_SOURCE_COMMIT_PATHS
 EXPECTED_RECOVERY_PUBLICATION = {
-    "generation": 13,
-    "supersedes_receipt_commit": GENERATION_TWELVE_RECEIPT_COMMIT,
-    "recovery_parent": GENERATION_THIRTEEN_SOURCE_PARENT,
-    "reason_code": GENERATION_THIRTEEN_REASON,
+    "generation": 14,
+    "supersedes_receipt_commit": GENERATION_THIRTEEN_RECEIPT_COMMIT,
+    "recovery_parent": GENERATION_FOURTEEN_SOURCE_PARENT,
+    "reason_code": GENERATION_FOURTEEN_REASON,
 }
 
 # Compatibility names describe only the immutable first freeze.  Recovery publication checks use
@@ -1891,9 +1910,10 @@ def validate_published_receipt_structure(
             line for line in history_raw.decode("ascii", errors="strict").splitlines() if line
         )
         if (
-            len(receipt_history) != 13
+            len(receipt_history) != 14
             or not _valid_commit(receipt_history[0])
             or receipt_history[1:] != (
+                GENERATION_THIRTEEN_RECEIPT_COMMIT,
                 GENERATION_TWELVE_RECEIPT_COMMIT,
                 GENERATION_ELEVEN_RECEIPT_COMMIT,
                 GENERATION_TEN_RECEIPT_COMMIT,
@@ -1909,7 +1929,8 @@ def validate_published_receipt_structure(
             )
         ):
             raise VerificationError(
-                "canonical receipt history is not exact generation-thirteen, generation-twelve, "
+                "canonical receipt history is not exact generation-fourteen, "
+                "generation-thirteen, generation-twelve, "
                 "generation-eleven, generation-ten, generation-nine, generation-eight, "
                 "generation-seven, generation-six, generation-five, generation-four, "
                 "generation-three, generation-two, then generation-one"
@@ -2237,14 +2258,14 @@ def validate_published_receipt_structure(
         receipt_parents, receipt_paths = _git_commit_row(root, receipt_commit)
         if receipt_parents != (source_commit,) or receipt_paths != (RECEIPT_REL,):
             raise VerificationError(
-                "generation-thirteen receipt is not the exact receipt-only child"
+                "generation-fourteen receipt is not the exact receipt-only child"
             )
 
         receipt_path = root / RECEIPT_REL
         current_receipt_bytes = _read_stable_regular_file(receipt_path)
         if _git_file_bytes(root, receipt_commit, RECEIPT_REL) != current_receipt_bytes:
             raise VerificationError(
-                "canonical receipt bytes differ from generation-thirteen receipt commit bytes"
+                "canonical receipt bytes differ from generation-fourteen receipt commit bytes"
             )
         committed_receipt = _parse_receipt_json(current_receipt_bytes)
         if committed_receipt != dict(receipt):
@@ -2256,9 +2277,9 @@ def validate_published_receipt_structure(
         if not _valid_commit(current_git.upstream_head):
             raise VerificationError("origin/master commit is malformed or missing")
         if not ancestry_probe(root, receipt_commit, current_git.head):
-            raise VerificationError("generation-thirteen receipt is not an ancestor of current HEAD")
+            raise VerificationError("generation-fourteen receipt is not an ancestor of current HEAD")
         if not ancestry_probe(root, receipt_commit, current_git.upstream_head):
-            raise VerificationError("generation-thirteen receipt is not published on origin/master")
+            raise VerificationError("generation-fourteen receipt is not published on origin/master")
         if current_git.upstream_head != current_git.head and not ancestry_probe(
             root, current_git.upstream_head, current_git.head
         ):

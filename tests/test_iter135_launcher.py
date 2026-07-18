@@ -644,12 +644,12 @@ def test_local_activation_then_github_projection_feeds_exact_lock_payload(
                 "schema": "iter135.tooling_verification.v2",
                 "verdict": "I135_TOOLING_VERIFICATION_OK",
                 "publication": {
-                    "generation": 13,
+                    "generation": 14,
                     "supersedes_receipt_commit": (
-                        "fa073e6903be65ff449fc7566df751395d585929"
+                        "688182ad3b7afbb0d58141accbcf554981e6fb20"
                     ),
-                    "recovery_parent": "2c70393f95dcad0871bee24647dd93a151d7b954",
-                    "reason_code": "E3_PRESMOKE_REBUILD_ORIGIN_MASTER_AHEAD_OF_STAGE_PARENT",
+                    "recovery_parent": "1ba42bbb869c652fd6d3d951a3c92ec404f61e72",
+                    "reason_code": "S1_SMOKE_AND_DOSE_DOCKER29_DAEMON_EXPERIMENTAL_SCHEMA_FOSSIL",
                 },
                 "repository": {"git_start": {"head": "9" * 40}},
             },

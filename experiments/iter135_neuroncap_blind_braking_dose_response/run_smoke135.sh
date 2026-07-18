@@ -411,7 +411,26 @@ server_raw = version.get("Server")
 if not isinstance(client_raw, dict) or not isinstance(server_raw, dict):
     raise SystemExit("Docker version client/server schema drift")
 platform_raw = server_raw.get("Platform")
-if not isinstance(platform_raw, dict) or type(server_raw.get("Experimental")) is not bool:
+# Docker Engine 29 moved Experimental out of the top-level Server object into the Engine
+# component's Details map, where it is the string "true"/"false"; older engines carry it at the
+# top level as a bool. Read the top level first and fall back to the Engine component so both
+# daemon generations project to the same bool. Every other daemon field is still read from the
+# top level exactly as before, so this changes no other recorded byte.
+engine_details_raw = {}
+components_raw = server_raw.get("Components")
+if isinstance(components_raw, list):
+    for component_row in components_raw:
+        if isinstance(component_row, dict) and component_row.get("Name") == "Engine":
+            details_row = component_row.get("Details")
+            if isinstance(details_row, dict):
+                engine_details_raw = details_row
+            break
+experimental_raw = server_raw.get("Experimental")
+if experimental_raw is None:
+    experimental_raw = engine_details_raw.get("Experimental")
+if experimental_raw in ("true", "false"):
+    experimental_raw = experimental_raw == "true"
+if not isinstance(platform_raw, dict) or type(experimental_raw) is not bool:
     raise SystemExit("Docker daemon version schema drift")
 client_version = {
     "version": text(client_raw.get("Version"), "client:version"),
@@ -435,7 +454,7 @@ daemon_version = {
     "os": text(server_raw.get("Os"), "daemon:os"),
     "arch": text(server_raw.get("Arch"), "daemon:arch"),
     "build_time": text(server_raw.get("BuildTime"), "daemon:build-time"),
-    "experimental": server_raw["Experimental"],
+    "experimental": experimental_raw,
 }
 daemon_info = {
     "id": text(info.get("ID"), "info:id"),

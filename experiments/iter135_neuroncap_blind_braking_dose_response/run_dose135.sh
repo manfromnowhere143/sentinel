@@ -792,10 +792,10 @@ sha = re.compile(r"^[0-9a-f]{64}$")
 
 # BEGIN I135_TOOLING_PUBLICATION_CONTRACT_PYTHON
 EXPECTED_TOOLING_PUBLICATION = {
-    "generation": 13,
-    "supersedes_receipt_commit": "fa073e6903be65ff449fc7566df751395d585929",
-    "recovery_parent": "2c70393f95dcad0871bee24647dd93a151d7b954",
-    "reason_code": "E3_PRESMOKE_REBUILD_ORIGIN_MASTER_AHEAD_OF_STAGE_PARENT",
+    "generation": 14,
+    "supersedes_receipt_commit": "688182ad3b7afbb0d58141accbcf554981e6fb20",
+    "recovery_parent": "1ba42bbb869c652fd6d3d951a3c92ec404f61e72",
+    "reason_code": "S1_SMOKE_AND_DOSE_DOCKER29_DAEMON_EXPERIMENTAL_SCHEMA_FOSSIL",
 }
 
 
@@ -1628,7 +1628,25 @@ daemon_version["platform_name"] = bounded(
     platform_raw.get("Name") if isinstance(platform_raw, dict) else None,
     "daemon:platform_name",
 )
+# Docker Engine 29 moved Experimental out of the top-level Server object into the Engine
+# component's Details map, where it is the string "true"/"false"; older engines carry it at the
+# top level as a bool. Read the top level first and fall back to the Engine component so both
+# daemon generations project to the same bool. Every other daemon field is still read from the
+# top level exactly as before, so this changes no other recorded byte.
+engine_details_raw = {}
+components_raw = server_raw.get("Components") if isinstance(server_raw, dict) else None
+if isinstance(components_raw, list):
+    for component_row in components_raw:
+        if isinstance(component_row, dict) and component_row.get("Name") == "Engine":
+            details_row = component_row.get("Details")
+            if isinstance(details_row, dict):
+                engine_details_raw = details_row
+            break
 experimental = server_raw.get("Experimental") if isinstance(server_raw, dict) else None
+if experimental is None:
+    experimental = engine_details_raw.get("Experimental")
+if experimental in ("true", "false"):
+    experimental = experimental == "true"
 if type(experimental) is not bool:
     raise SystemExit("Docker daemon experimental field drift")
 daemon_version["experimental"] = experimental

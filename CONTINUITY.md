@@ -3663,3 +3663,41 @@ transfer boundary fold-in and the claim-(5) hedge are unchanged and still bindin
   baton tip completed the publication, and every disposable validation branch was deleted after
   it went green. `master` was never left red at any step. No host, Docker, GPU, smoke, or analytic
   action was taken in this generation's publication.
+
+  Generation fourteen, 2026-07-18. Source parent is the published generation-thirteen pre-smoke
+  launch-manifest commit `1ba42bbb869c652fd6d3d951a3c92ec404f61e72` (the P stage), it supersedes
+  receipt `688182ad3b7afbb0d58141accbcf554981e6fb20`, and its reason code is
+  `S1_SMOKE_AND_DOSE_DOCKER29_DAEMON_EXPERIMENTAL_SCHEMA_FOSSIL`. Under generation thirteen the
+  preflight chain re-derived green (H attempt ten `cf48bcd`, E `8b6f1ba`, P `1ba42bb`), and firing
+  the nonanalytic smoke exposed the last frozen instance of a defect generation eleven had already
+  repaired in the environment capture: Docker Engine 29 removed the top-level Server `Experimental`
+  boolean and now reports it only inside the Engine component's `Details` map as the string
+  `"true"`/`"false"`. The frozen assertion `type(server_raw.get("Experimental")) is not bool`
+  survived in both live launchers, so the smoke aborted at preflight with `docker-v3-runtime-binding`
+  and the analytic launcher would have aborted identically. Generation fourteen reads the top level
+  first and falls back to the Engine component in `run_smoke135.sh` (also curing a latent
+  `server_raw["Experimental"]` direct index that would have raised `KeyError` past the type check)
+  and `run_dose135.sh`, coercing the `"true"/"false"` strings to a bool before the assertion, so
+  both daemon generations project identically and every other recorded byte is unchanged. The
+  live-daemon shape was verified directly (only `Experimental` moved; `GitCommit`, `GoVersion`,
+  `BuildTime`, `ApiVersion` remain top-level, and `BuildTime` differs by location — so reading the
+  top level first is load-bearing for byte-stability against the environment receipt). The
+  `analyze_dose135.py` and `collect_proof135.py` readers validate the recorded snapshot, not the
+  live daemon; their strict bool assertions are correct and unchanged, and the repaired writers
+  satisfy them. The scope is the exact twelve paths below — the generation-thirteen eleven plus
+  `run_smoke135.sh`. Because this baton advances the tip past the current preflight commits, the
+  H, E, P, S chain is re-derived as descendants of the generation-fourteen baton. No host, Docker,
+  GPU, smoke, or analytic action was taken in this generation's source publication.
+
+  1. `CONTINUITY.md`
+  2. `HANDOFF.md`
+  3. `MISSION_STATE.json`
+  4. `experiments/iter135_neuroncap_blind_braking_dose_response/authorize_launch135.py`
+  5. `experiments/iter135_neuroncap_blind_braking_dose_response/run_dose135.sh`
+  6. `experiments/iter135_neuroncap_blind_braking_dose_response/run_smoke135.sh`
+  7. `experiments/iter135_neuroncap_blind_braking_dose_response/verify_tooling135.py`
+  8. `scripts/mission_state.py`
+  9. `tests/test_iter135_launch_authorization.py`
+  10. `tests/test_iter135_launcher.py`
+  11. `tests/test_iter135_tooling_verifier.py`
+  12. `tests/test_mission_state.py`

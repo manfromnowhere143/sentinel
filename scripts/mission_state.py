@@ -352,6 +352,31 @@ GENERATION_THIRTEEN_SOURCE_COMMIT_PATHS = (
     "tests/test_iter135_tooling_verifier.py",
     "tests/test_mission_state.py",
 )
+# Generation fourteen exists because Docker Engine 29 moved the daemon `Experimental` flag out of
+# the top-level Server object into the Engine component's Details map as the string "true"/"false".
+# Generation eleven repaired that projection in the environment capture only, so the identical
+# frozen assertion survived in both live launchers: the nonanalytic smoke aborted at preflight with
+# `docker-v3-runtime-binding` and the analytic launcher would have aborted the same way. Generation
+# fourteen reads the top level first and falls back to the Engine component in both launchers, so
+# each daemon generation projects to the same bool and no other recorded byte changes. Its scope is
+# the generation-thirteen set plus the nonanalytic smoke launcher.
+GENERATION_THIRTEEN_MANIFEST_COMMIT = "1ba42bbb869c652fd6d3d951a3c92ec404f61e72"
+GENERATION_THIRTEEN_SOURCE_COMMIT = "b0de93a781e4c8929212e278701a3ca7cba27b2d"
+GENERATION_THIRTEEN_RECEIPT_COMMIT = "688182ad3b7afbb0d58141accbcf554981e6fb20"
+GENERATION_THIRTEEN_STATE_COMMIT = "70fda528d0223d099e387f48dbf5b8feae8b793f"
+GENERATION_THIRTEEN_BATON_COMMIT = "2cde00658562b981cd4ab38051b8e08e621b3d83"
+GENERATION_FOURTEEN_SOURCE_PARENT = GENERATION_THIRTEEN_MANIFEST_COMMIT
+GENERATION_FOURTEEN_REASON_CODE = (
+    "S1_SMOKE_AND_DOSE_DOCKER29_DAEMON_EXPERIMENTAL_SCHEMA_FOSSIL"
+)
+GENERATION_FOURTEEN_SOURCE_COMMIT_PATHS = tuple(
+    sorted(
+        {
+            *GENERATION_THIRTEEN_SOURCE_COMMIT_PATHS,
+            f"{ITER135_EXPERIMENT_REL}/run_smoke135.sh",
+        }
+    )
+)
 GENERATION_TWELVE_SOURCE_COMMIT_PATHS = (
     "CONTINUITY.md",
     "HANDOFF.md",
@@ -492,10 +517,10 @@ GENERATION_FOUR_SOURCE_COMMIT_PATHS = (
     "tests/test_mission_state.py",
 )
 EXPECTED_RECOVERY_PUBLICATION = {
-    "generation": 13,
-    "supersedes_receipt_commit": GENERATION_TWELVE_RECEIPT_COMMIT,
-    "recovery_parent": GENERATION_THIRTEEN_SOURCE_PARENT,
-    "reason_code": GENERATION_THIRTEEN_REASON_CODE,
+    "generation": 14,
+    "supersedes_receipt_commit": GENERATION_THIRTEEN_RECEIPT_COMMIT,
+    "recovery_parent": GENERATION_FOURTEEN_SOURCE_PARENT,
+    "reason_code": GENERATION_FOURTEEN_REASON_CODE,
 }
 
 # Compatibility name: this is always the immutable generation-one 31-path baseline. Recovery
@@ -889,7 +914,10 @@ def _validate_tooling_publication(
                 problems.append(f"tooling_publication:{label}_source_not_pushed")
 
         publication_generation = publication.get("generation")
-        if publication_generation == 13:
+        if publication_generation == 14:
+            expected_source_parent = GENERATION_FOURTEEN_SOURCE_PARENT
+            expected_source_paths = tuple(sorted(GENERATION_FOURTEEN_SOURCE_COMMIT_PATHS))
+        elif publication_generation == 13:
             expected_source_parent = GENERATION_THIRTEEN_SOURCE_PARENT
             expected_source_paths = tuple(sorted(GENERATION_THIRTEEN_SOURCE_COMMIT_PATHS))
         elif publication_generation == 12:
@@ -1023,7 +1051,44 @@ def _validate_tooling_publication(
             if generation_two_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_two_baton_scope")
 
-        if publication_generation == 13:
+        if publication_generation == 14:
+            generation_thirteen_parents, generation_thirteen_paths = _commit_row(
+                root, GENERATION_THIRTEEN_SOURCE_COMMIT
+            )
+            if generation_thirteen_parents != (GENERATION_THIRTEEN_SOURCE_PARENT,):
+                problems.append("tooling_publication:generation_thirteen_source_parent")
+            if generation_thirteen_paths != tuple(
+                sorted(GENERATION_THIRTEEN_SOURCE_COMMIT_PATHS)
+            ):
+                problems.append(
+                    "tooling_publication:generation_thirteen_source_commit_scope"
+                )
+            (
+                generation_thirteen_receipt_parents,
+                generation_thirteen_receipt_paths,
+            ) = _commit_row(root, GENERATION_THIRTEEN_RECEIPT_COMMIT)
+            if generation_thirteen_receipt_parents != (GENERATION_THIRTEEN_SOURCE_COMMIT,):
+                problems.append("tooling_publication:generation_thirteen_receipt_parent")
+            if generation_thirteen_receipt_paths != (TOOLING_RECEIPT_REL.as_posix(),):
+                problems.append("tooling_publication:generation_thirteen_receipt_scope")
+            (
+                generation_thirteen_state_parents,
+                generation_thirteen_state_paths,
+            ) = _commit_row(root, GENERATION_THIRTEEN_STATE_COMMIT)
+            if generation_thirteen_state_parents != (GENERATION_THIRTEEN_RECEIPT_COMMIT,):
+                problems.append("tooling_publication:generation_thirteen_state_parent")
+            if generation_thirteen_state_paths != ("MISSION_STATE.json",):
+                problems.append("tooling_publication:generation_thirteen_state_scope")
+            (
+                generation_thirteen_baton_parents,
+                generation_thirteen_baton_paths,
+            ) = _commit_row(root, GENERATION_THIRTEEN_BATON_COMMIT)
+            if generation_thirteen_baton_parents != (GENERATION_THIRTEEN_STATE_COMMIT,):
+                problems.append("tooling_publication:generation_thirteen_baton_parent")
+            if generation_thirteen_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
+                problems.append("tooling_publication:generation_thirteen_baton_scope")
+
+        if publication_generation in {13, 14}:
             generation_twelve_parents, generation_twelve_paths = _commit_row(
                 root, GENERATION_TWELVE_SOURCE_COMMIT
             )
@@ -1053,7 +1118,7 @@ def _validate_tooling_publication(
             if generation_twelve_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_twelve_baton_scope")
 
-        if publication_generation in {12, 13}:
+        if publication_generation in {13, 14}:
             generation_eleven_parents, generation_eleven_paths = _commit_row(
                 root, GENERATION_ELEVEN_SOURCE_COMMIT
             )
@@ -1323,7 +1388,23 @@ def _validate_tooling_publication(
             .splitlines()
             if line
         )
-        if publication_generation == 13:
+        if publication_generation == 14:
+            expected_receipt_history_tail = (
+                GENERATION_THIRTEEN_RECEIPT_COMMIT,
+                GENERATION_TWELVE_RECEIPT_COMMIT,
+                GENERATION_ELEVEN_RECEIPT_COMMIT,
+                GENERATION_TEN_RECEIPT_COMMIT,
+                GENERATION_NINE_RECEIPT_COMMIT,
+                GENERATION_EIGHT_RECEIPT_COMMIT,
+                GENERATION_SEVEN_RECEIPT_COMMIT,
+                GENERATION_SIX_RECEIPT_COMMIT,
+                GENERATION_FIVE_RECEIPT_COMMIT,
+                GENERATION_FOUR_RECEIPT_COMMIT,
+                GENERATION_THREE_RECEIPT_COMMIT,
+                GENERATION_TWO_RECEIPT_COMMIT,
+                GENERATION_ONE_RECEIPT_COMMIT,
+            )
+        elif publication_generation == 13:
             expected_receipt_history_tail = (
                 GENERATION_TWELVE_RECEIPT_COMMIT,
                 GENERATION_ELEVEN_RECEIPT_COMMIT,
@@ -1478,6 +1559,7 @@ def _validate_tooling_publication(
                 11: "eleven",
                 12: "twelve",
                 13: "thirteen",
+                14: "fourteen",
             }[publication_generation]
             problems.append(
                 f"tooling_publication:generation_{generation_label}_commit_count:{len(ancestry)}"
@@ -1597,7 +1679,7 @@ def _validate_tooling_publication(
                     )
                     | (
                         set(GENERATION_TWELVE_SOURCE_COMMIT_PATHS)
-                        if publication_generation in {12, 13}
+                        if publication_generation in {13, 14}
                         else set()
                     )
                     | {ITER135_HYPOTHESIS_REL}
