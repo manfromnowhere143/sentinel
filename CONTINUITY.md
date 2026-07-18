@@ -3643,3 +3643,23 @@ transfer boundary fold-in and the claim-(5) hedge are unchanged and still bindin
   9. `tests/test_iter135_launcher.py`
   10. `tests/test_iter135_tooling_verifier.py`
   11. `tests/test_mission_state.py`
+
+  Generation-thirteen publication record, 2026-07-18. Source F13 `b0de93a4` carries the exact
+  eleven paths. Its first disposable-branch probe (`04113b8`) failed the docs guard on both
+  Python lanes: an F-source commit rolls `MISSION_STATE.json` back to
+  `PREREGISTERED_TOOLING_REQUIRED`, but the HANDOFF mission-state block still carried the
+  accepted `TOOLING_FROZEN_PREFLIGHT_REQUIRED` phrase from the B12 base, and the docs guard binds
+  the HANDOFF phase phrase to the committed mission state. The source was amended to restore the
+  valid F-source mission-state block (verified against F12's committed pattern), superseding
+  `04113b8` with `b0de93a`, preserving the exact eleven-path scope; the re-pushed probe went
+  green on both lanes after a targeted re-run cleared one transient hosted-runner
+  `CalledProcessError`, and `master` fast-forwarded and confirmed green. Receipt R13 `688182a`
+  was generated on the canonical macOS host from a clean tree with `origin/master` already at
+  F13, returned `I135_TOOLING_VERIFICATION_OK` with `problem_count=0`, and independently replayed
+  the same verdict against the extended thirteen-entry receipt history; the superseded R12 blob
+  was confirmed byte-identical to its committed object before the working copy was unlocked, and
+  the receipt's two working-copy protections (`uchg` and the deny-delete ACL) were restored after
+  generation. The state child T13 `70fda52` and this baton were created locally; only this pair's
+  baton tip completed the publication, and every disposable validation branch was deleted after
+  it went green. `master` was never left red at any step. No host, Docker, GPU, smoke, or analytic
+  action was taken in this generation's publication.

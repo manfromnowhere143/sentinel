@@ -1,15 +1,16 @@
 # HANDOFF — dynamic state snapshot
 
-Generation-thirteen tooling recovery in publication (pre-smoke rebuild origin/master fix),
-2026-07-17. Read CONTINUITY.md first.
+Generation-thirteen accepted tooling freeze (pre-smoke rebuild origin/master fix),
+2026-07-18. Read CONTINUITY.md first.
 
 ## Repository state
 ```
-F13     iter135: refreeze generation-thirteen tooling recovery   (in publication)
+B13     handoff: accept iter135 generation-thirteen tooling freeze
+70fda52 mission: accept iter135 generation-thirteen tooling freeze
+688182a iter135: publish generation-thirteen tooling receipt
+b0de93a iter135: refreeze generation-thirteen tooling recovery
 2c70393 iter135: commit environment preflight receipt            (E, gen-13 source parent)
 dd6901f iter135: commit host preparation evidence                (H)
-265fe62 handoff: accept iter135 generation-twelve tooling freeze (B12)
-09c2006 mission: accept iter135 generation-twelve tooling freeze
 ```
 Stages H and E were committed and published green under generation twelve (H `dd6901f`, E
 `2c70393`); the environment stage is complete. Generating the incomplete pre-smoke manifest (P)
@@ -36,17 +37,20 @@ B13.
 ## Canonical mission state (`MISSION_STATE.json`)
 
 - Current: iteration 134 / PLACEBO_HARM_OR_NULL / run IDLE / next
-  iteration 135 / PREREGISTERED_TOOLING_REQUIRED
+  iteration 135 / TOOLING_FROZEN_PREFLIGHT_REQUIRED
 - Current result: experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md
 - Next program: semantics-free placebo dose-response causal closure
 - Authorized now:
-  - build and validate only the tooling and tests frozen by the active iteration-135 hypothesis
-  - inventory storage and provenance before any safe cleanup or live smoke
-  - publish a read-only external-benchmark commercial, license, compute, and integration preflight
+  - prepare the exact hash-bound sentinel-gpu host contract and atomically commit host_packet_manifest.json and host_preparation_receipt.json
+  - capture and commit the read-only iteration-135 environment receipt on sentinel-gpu
+  - generate and commit only the hash-addressed incomplete pre-smoke manifest; no analytic episodes
+  - run exactly the hash-bound four-run nonanalytic G5 smoke after the incomplete pre-smoke manifest is committed
+  - validate, collect, and commit the exact nonanalytic smoke raw evidence, recomputed receipt, and mechanically generated SMOKE.md
 - Forbidden now:
-  - GPU launch before the iteration-135 hypothesis, analyzer, manifest, provenance, storage, and smoke gates are frozen
-  - rerun iteration 134
-  - adopt run-index resampling as the iteration-135 primary after observing iteration-134 results
+  - run any iteration-135 analytic episode before smoke evidence and the final launch manifest are committed green
+  - remove or bypass the permanent analytic launch lock
+  - rerun iteration 134 or adapt iteration-135 schedules, estimands, verdicts, or policies after evidence
+  - place any iteration-135 analytic output on the remote root filesystem
 
 Generation four changes no scientific or execution payload. It makes structural Git reads resolve
 and attest only Git instead of unnecessarily requiring the current `pytest`, Ruff, shell, and
@@ -263,12 +267,13 @@ is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT 
 - Canonical completed experiment: experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md — read it before opening new work.
 - Active pending pre-registration: experiments/iter135_neuroncap_blind_braking_dose_response/HYPOTHESIS.md — read it with MISSION_STATE.json; neither file overrides the other.
 - Deprecated pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — historical only; it does not govern the next action.
-- Canonical next action: de-prepare attempt eight on the box (compose preimage inversion by
-  exact SHA, remove the empty analytic root, archive the B11-bound install with its green
-  receipts), rebuild the packet from this baton, dress-rehearse, run the FULL countdown, fire
-  attempt nine under sudo, commit stage zero (parent B12), re-fire E detached with the full
-  pre-capture countdown, commit E (expect only the by-design diagnostic now that the E-commit
-  validator wiring is fixed), then P and S.
+- Canonical next action: de-prepare attempt nine on the box (compose preimage inversion to
+  `9f8804b5…`/3380 by exact SHA, remove the empty analytic root, archive the B12-bound install
+  with its green H `dd6901f` + E `2c70393` receipts), rebuild the packet from this baton (B13),
+  dress-rehearse, run the FULL countdown, fire host-preparation attempt ten under sudo, commit
+  stage zero (parent B13), re-fire E detached with the full pre-capture countdown, commit E
+  (expect only the by-design diagnostic), then commit P — which now validates clean because the
+  generation-thirteen pin fixes the deep-replay origin/master rebuild — then stage S.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.
 
