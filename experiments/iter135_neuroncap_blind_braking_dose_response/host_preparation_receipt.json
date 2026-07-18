@@ -60,7 +60,7 @@
   "path": "/opt/sentinel-stack/.iter135-packet/prepare_host135.py",
   "sha256": "dc276317709bd14ae82bc932da9ef2b72437171c701b2bd285902c3c08410a00"
  },
- "finished_at_utc": "2026-07-18T07:51:15.562988Z",
+ "finished_at_utc": "2026-07-18T16:54:26.072409Z",
  "forbidden_paths": {
   "/datasets/nuscenes-full/sentinel-i135-outoutput": false,
   "/datasets/nuscenes-full/sentinel-i135-smoke-evidence": false,
@@ -116,10 +116,10 @@
     "sha256": "e77789607c8db289561051b66a46e6f42a70cd447db6bd7128910584e9e1a039"
    },
    "authorize_launch135.py": {
-    "bytes": 81153,
+    "bytes": 81739,
     "mode": 420,
     "path": "/opt/sentinel-stack/.iter135-packet/authorize_launch135.py",
-    "sha256": "b3d9519d656af71ac28e1b136f2d6dffe27eb32f2da64ba26d394f0cd1d572c8"
+    "sha256": "805fe6f77bafc9086c15718cc77b6e58c642c13fbd7555bf9528ed58803d678d"
    },
    "capture_environment135.py": {
     "bytes": 114481,
@@ -170,16 +170,16 @@
     "sha256": "dc276317709bd14ae82bc932da9ef2b72437171c701b2bd285902c3c08410a00"
    },
    "run_dose135.sh": {
-    "bytes": 242409,
+    "bytes": 243466,
     "mode": 420,
     "path": "/opt/sentinel-stack/.iter135-packet/run_dose135.sh",
-    "sha256": "a9908e263b7d4b194a044f7d6bb4d739bc37439cf999ba9c32cbc3f5d1e739e7"
+    "sha256": "a8021d37a1fdaa2c8ab5499bbf2c75fa3a052fdfe88afa7b0b6934defb866a6b"
    },
    "run_smoke135.sh": {
-    "bytes": 149464,
+    "bytes": 150520,
     "mode": 493,
     "path": "/opt/sentinel-stack/.iter135-packet/run_smoke135.sh",
-    "sha256": "c81e4f115aa52720fd4fdc146157333b7495f4587854da91da6331b292fcbb98"
+    "sha256": "ef3d51c42f8ecd8aa6f1052c5e364d1adcc80786551627acf0e767443cbc00ea"
    },
    "server_patch_blind_dose.py": {
     "bytes": 3915,
@@ -194,10 +194,10 @@
     "sha256": "d0338d5cee088d2271ee886b86ccac6f03775bf94991b4128013015159b91189"
    },
    "tooling_verification_receipt.json": {
-    "bytes": 34779,
+    "bytes": 34955,
     "mode": 420,
     "path": "/opt/sentinel-stack/.iter135-packet/tooling_verification_receipt.json",
-    "sha256": "fb11aeba5fbc97359e4b70d9155e900abfb338886e550aa001ec20d01e5f003f"
+    "sha256": "9b3b8f6baf1febf947af8783d3c2d416bbb711bcbddbeaec70fc98fe4ecefaab"
    },
    "validate_smoke135.py": {
     "bytes": 78080,
@@ -206,23 +206,23 @@
     "sha256": "39c72161ae60507778a8b4ea801b3128f33574b1b04524f4fad73e074b193deb"
    },
    "verify_tooling135.py": {
-    "bytes": 112082,
+    "bytes": 113752,
     "mode": 420,
     "path": "/opt/sentinel-stack/.iter135-packet/verify_tooling135.py",
-    "sha256": "081708917b9d8e064430f1084181c4121da21650e42287a3d1e23ca8e7caf70b"
+    "sha256": "4189820dbaa38dee38016af84e4e97e5690419023eb4e65b49c2f41af6c2deb2"
    }
   },
-  "independently_supplied_manifest_sha256": "89d91fca246e26467a341e20cce81677496eb30fb4cd5e6fc6e732e2ffe900cc",
+  "independently_supplied_manifest_sha256": "43fbd96f86bcf59bed6c911a21b43abf9c1a661abef20e7da0cfc8dba6939d15",
   "manifest": {
    "bytes": 3227,
    "mode": 420,
    "path": "/opt/sentinel-stack/.iter135-packet/host_packet_manifest.json",
-   "sha256": "89d91fca246e26467a341e20cce81677496eb30fb4cd5e6fc6e732e2ffe900cc"
+   "sha256": "43fbd96f86bcf59bed6c911a21b43abf9c1a661abef20e7da0cfc8dba6939d15"
   },
   "schema": "iter135.host_packet_manifest.v1",
-  "source_commit": "2cde00658562b981cd4ab38051b8e08e621b3d83"
+  "source_commit": "69bd2e2face00ccabb426382347eb04e8a0dbe83"
  },
- "packet_manifest_sha256": "89d91fca246e26467a341e20cce81677496eb30fb4cd5e6fc6e732e2ffe900cc",
+ "packet_manifest_sha256": "43fbd96f86bcf59bed6c911a21b43abf9c1a661abef20e7da0cfc8dba6939d15",
  "problem_count": 0,
  "problems": [],
  "publication_authority": {
@@ -249,11 +249,11 @@
     "sha256": "e77789607c8db289561051b66a46e6f42a70cd447db6bd7128910584e9e1a039"
    },
    {
-    "bytes": 81153,
-    "git_blob_oid": "0bbdf36a1ab99849369bab570f2cc8b30660deb8",
+    "bytes": 81739,
+    "git_blob_oid": "eb02bf9749f26d4570d4dc3b5545c42a316484b5",
     "git_mode": "100644",
     "path": "experiments/iter135_neuroncap_blind_braking_dose_response/authorize_launch135.py",
-    "sha256": "b3d9519d656af71ac28e1b136f2d6dffe27eb32f2da64ba26d394f0cd1d572c8"
+    "sha256": "805fe6f77bafc9086c15718cc77b6e58c642c13fbd7555bf9528ed58803d678d"
    },
    {
     "bytes": 114481,
@@ -312,18 +312,18 @@
     "sha256": "dc276317709bd14ae82bc932da9ef2b72437171c701b2bd285902c3c08410a00"
    },
    {
-    "bytes": 242409,
-    "git_blob_oid": "555155b8d5e55bf19046600258cf70f6cf1a6985",
+    "bytes": 243466,
+    "git_blob_oid": "4b615fca1b770c4f51693b1a7738efb22b32505c",
     "git_mode": "100644",
     "path": "experiments/iter135_neuroncap_blind_braking_dose_response/run_dose135.sh",
-    "sha256": "a9908e263b7d4b194a044f7d6bb4d739bc37439cf999ba9c32cbc3f5d1e739e7"
+    "sha256": "a8021d37a1fdaa2c8ab5499bbf2c75fa3a052fdfe88afa7b0b6934defb866a6b"
    },
    {
-    "bytes": 149464,
-    "git_blob_oid": "6d581b994d9f5dd874325a9308f8505bd81364b4",
+    "bytes": 150520,
+    "git_blob_oid": "1cfaa4d2f386f6070eb1e40efd43d7fe272a076d",
     "git_mode": "100755",
     "path": "experiments/iter135_neuroncap_blind_braking_dose_response/run_smoke135.sh",
-    "sha256": "c81e4f115aa52720fd4fdc146157333b7495f4587854da91da6331b292fcbb98"
+    "sha256": "ef3d51c42f8ecd8aa6f1052c5e364d1adcc80786551627acf0e767443cbc00ea"
    },
    {
     "bytes": 3915,
@@ -340,11 +340,11 @@
     "sha256": "d0338d5cee088d2271ee886b86ccac6f03775bf94991b4128013015159b91189"
    },
    {
-    "bytes": 34779,
-    "git_blob_oid": "86b6b2994cda789f3cefa5aed5bc89045e950bde",
+    "bytes": 34955,
+    "git_blob_oid": "7bd70a912d80e8ba453091aa4032ab38211f0dd3",
     "git_mode": "100644",
     "path": "experiments/iter135_neuroncap_blind_braking_dose_response/tooling_verification_receipt.json",
-    "sha256": "fb11aeba5fbc97359e4b70d9155e900abfb338886e550aa001ec20d01e5f003f"
+    "sha256": "9b3b8f6baf1febf947af8783d3c2d416bbb711bcbddbeaec70fc98fe4ecefaab"
    },
    {
     "bytes": 78080,
@@ -354,29 +354,29 @@
     "sha256": "39c72161ae60507778a8b4ea801b3128f33574b1b04524f4fad73e074b193deb"
    },
    {
-    "bytes": 112082,
-    "git_blob_oid": "e64aba20f518dab044026bb190c0d78f76366f64",
+    "bytes": 113752,
+    "git_blob_oid": "f6045c8633fbfe6b494874048bec3311fac9fc61",
     "git_mode": "100644",
     "path": "experiments/iter135_neuroncap_blind_braking_dose_response/verify_tooling135.py",
-    "sha256": "081708917b9d8e064430f1084181c4121da21650e42287a3d1e23ca8e7caf70b"
+    "sha256": "4189820dbaa38dee38016af84e4e97e5690419023eb4e65b49c2f41af6c2deb2"
    }
   ],
   "branch": "master",
-  "branch_head_sha": "2cde00658562b981cd4ab38051b8e08e621b3d83",
+  "branch_head_sha": "69bd2e2face00ccabb426382347eb04e8a0dbe83",
   "checks": [
    {
     "app_slug": "github-actions",
     "conclusion": "success",
-    "head_sha": "2cde00658562b981cd4ab38051b8e08e621b3d83",
-    "id": 88058109143,
+    "head_sha": "69bd2e2face00ccabb426382347eb04e8a0dbe83",
+    "id": 88101545377,
     "name": "check (3.10)",
     "status": "completed"
    },
    {
     "app_slug": "github-actions",
     "conclusion": "success",
-    "head_sha": "2cde00658562b981cd4ab38051b8e08e621b3d83",
-    "id": 88058109133,
+    "head_sha": "69bd2e2face00ccabb426382347eb04e8a0dbe83",
+    "id": 88101545399,
     "name": "check (3.11)",
     "status": "completed"
    }
@@ -387,10 +387,10 @@
    "check (3.11)"
   ],
   "schema": "iter135.github_publication_authority.v1",
-  "source_commit": "2cde00658562b981cd4ab38051b8e08e621b3d83",
+  "source_commit": "69bd2e2face00ccabb426382347eb04e8a0dbe83",
   "verified": true
  },
- "receipt_payload_sha256": "850f74796710fa13886d88a5544cb21efdb3c40e848ada513462dff942d8c862",
+ "receipt_payload_sha256": "ea39d72e0b138f7518a3bee6e6579570ce0e175b343f7422e35de7eed2b636fe",
  "repositories": {
   "after": {
    "neurad": {
@@ -100038,7 +100038,7 @@
   }
  },
  "schema": "iter135.host_preparation_receipt.v1",
- "started_at_utc": "2026-07-18T07:51:13.228888Z",
+ "started_at_utc": "2026-07-18T16:54:23.860121Z",
  "storage": {
   "analytic_root": "/datasets/nuscenes-full/sentinel-i135-outoutput",
   "analytic_root_empty": true,
