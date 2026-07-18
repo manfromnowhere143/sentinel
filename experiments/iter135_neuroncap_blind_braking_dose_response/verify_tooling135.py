@@ -177,10 +177,23 @@ GENERATION_ELEVEN_BATON_COMMIT = "19428eb4d51a22552d803ab4ce4c34177373938f"
 GENERATION_ELEVEN_STAGE_ZERO_COMMIT = "a698cbbe3cf6c9e1320c74ab2748f576e68b114e"
 GENERATION_TWELVE_SOURCE_PARENT = GENERATION_ELEVEN_STAGE_ZERO_COMMIT
 GENERATION_TWELVE_REASON = "E2_COMMIT_VALIDATOR_WIRING_PATCHER_AND_AUTHORITY_ARTIFACTS"
+GENERATION_TWELVE_SOURCE_COMMIT = "00f427f139f728a13d21e2d66a3abc6b35f6b31b"
+GENERATION_TWELVE_RECEIPT_COMMIT = "fa073e6903be65ff449fc7566df751395d585929"
+GENERATION_TWELVE_STATE_COMMIT = "09c200606fbd57497f7be9e93e0ef78d857ae4fd"
+GENERATION_TWELVE_BATON_COMMIT = "265fe62e84f685f1308b7974e49c34c8ab9db56d"
+# Generation thirteen exists because the pre-smoke (and, by the same structure, the final)
+# deep-replay rebuild ran the manifest builder's tooling-receipt gate inside an isolated clone
+# whose origin/master had advanced past the stage parent, injecting a spurious
+# `origin/master is not an ancestor of current HEAD` problem that no committed P/F could match.
+# Generation thirteen pins the isolated checkout's origin/master back to the exact stage parent
+# before each rebuild, replaying the manifest under the ref state it was generated in.
+GENERATION_TWELVE_ENV_COMMIT = "2c70393f95dcad0871bee24647dd93a151d7b954"
+GENERATION_THIRTEEN_SOURCE_PARENT = GENERATION_TWELVE_ENV_COMMIT
+GENERATION_THIRTEEN_REASON = "E3_PRESMOKE_REBUILD_ORIGIN_MASTER_AHEAD_OF_STAGE_PARENT"
 # Compatibility aliases used by the receipt generator and focused hostile tests. They always name
-# the active generation-twelve source publication, never a historical recovery.
-RECOVERY_SOURCE_PARENT = GENERATION_TWELVE_SOURCE_PARENT
-RECOVERY_REASON = GENERATION_TWELVE_REASON
+# the active generation-thirteen source publication, never a historical recovery.
+RECOVERY_SOURCE_PARENT = GENERATION_THIRTEEN_SOURCE_PARENT
+RECOVERY_REASON = GENERATION_THIRTEEN_REASON
 POST_FREEZE_EXACT_PATHS = {
     "CONTINUITY.md",
     "HANDOFF.md",
@@ -478,12 +491,13 @@ GENERATION_TWELVE_SOURCE_COMMIT_PATHS = (
     "tests/test_iter135_tooling_verifier.py",
     "tests/test_mission_state.py",
 )
-RECOVERY_SOURCE_COMMIT_PATHS = GENERATION_TWELVE_SOURCE_COMMIT_PATHS
+GENERATION_THIRTEEN_SOURCE_COMMIT_PATHS = GENERATION_TWELVE_SOURCE_COMMIT_PATHS
+RECOVERY_SOURCE_COMMIT_PATHS = GENERATION_THIRTEEN_SOURCE_COMMIT_PATHS
 EXPECTED_RECOVERY_PUBLICATION = {
-    "generation": 12,
-    "supersedes_receipt_commit": GENERATION_ELEVEN_RECEIPT_COMMIT,
-    "recovery_parent": GENERATION_TWELVE_SOURCE_PARENT,
-    "reason_code": GENERATION_TWELVE_REASON,
+    "generation": 13,
+    "supersedes_receipt_commit": GENERATION_TWELVE_RECEIPT_COMMIT,
+    "recovery_parent": GENERATION_THIRTEEN_SOURCE_PARENT,
+    "reason_code": GENERATION_THIRTEEN_REASON,
 }
 
 # Compatibility names describe only the immutable first freeze.  Recovery publication checks use
@@ -1877,9 +1891,10 @@ def validate_published_receipt_structure(
             line for line in history_raw.decode("ascii", errors="strict").splitlines() if line
         )
         if (
-            len(receipt_history) != 12
+            len(receipt_history) != 13
             or not _valid_commit(receipt_history[0])
             or receipt_history[1:] != (
+                GENERATION_TWELVE_RECEIPT_COMMIT,
                 GENERATION_ELEVEN_RECEIPT_COMMIT,
                 GENERATION_TEN_RECEIPT_COMMIT,
                 GENERATION_NINE_RECEIPT_COMMIT,
@@ -1894,10 +1909,10 @@ def validate_published_receipt_structure(
             )
         ):
             raise VerificationError(
-                "canonical receipt history is not exact generation-twelve, generation-eleven, "
-                "generation-ten, generation-nine, generation-eight, generation-seven, "
-                "generation-six, generation-five, generation-four, generation-three, "
-                "generation-two, then generation-one"
+                "canonical receipt history is not exact generation-thirteen, generation-twelve, "
+                "generation-eleven, generation-ten, generation-nine, generation-eight, "
+                "generation-seven, generation-six, generation-five, generation-four, "
+                "generation-three, generation-two, then generation-one"
             )
         receipt_commit = receipt_history[0]
 
@@ -2189,18 +2204,47 @@ def validate_published_receipt_structure(
             generation_eleven_baton_paths != ("CONTINUITY.md", "HANDOFF.md")
         ):
             raise VerificationError("generation-eleven baton topology or path scope changed")
+        generation_twelve_source_parents, generation_twelve_source_paths = _git_commit_row(
+            root, GENERATION_TWELVE_SOURCE_COMMIT
+        )
+        if generation_twelve_source_parents != (GENERATION_TWELVE_SOURCE_PARENT,) or (
+            generation_twelve_source_paths
+            != tuple(sorted(GENERATION_TWELVE_SOURCE_COMMIT_PATHS))
+        ):
+            raise VerificationError("generation-twelve source topology or path scope changed")
+        generation_twelve_receipt_parents, generation_twelve_receipt_paths = _git_commit_row(
+            root, GENERATION_TWELVE_RECEIPT_COMMIT
+        )
+        if generation_twelve_receipt_parents != (GENERATION_TWELVE_SOURCE_COMMIT,) or (
+            generation_twelve_receipt_paths != (RECEIPT_REL,)
+        ):
+            raise VerificationError("generation-twelve receipt topology or path scope changed")
+        generation_twelve_state_parents, generation_twelve_state_paths = _git_commit_row(
+            root, GENERATION_TWELVE_STATE_COMMIT
+        )
+        if generation_twelve_state_parents != (GENERATION_TWELVE_RECEIPT_COMMIT,) or (
+            generation_twelve_state_paths != ("MISSION_STATE.json",)
+        ):
+            raise VerificationError("generation-twelve state topology or path scope changed")
+        generation_twelve_baton_parents, generation_twelve_baton_paths = _git_commit_row(
+            root, GENERATION_TWELVE_BATON_COMMIT
+        )
+        if generation_twelve_baton_parents != (GENERATION_TWELVE_STATE_COMMIT,) or (
+            generation_twelve_baton_paths != ("CONTINUITY.md", "HANDOFF.md")
+        ):
+            raise VerificationError("generation-twelve baton topology or path scope changed")
 
         receipt_parents, receipt_paths = _git_commit_row(root, receipt_commit)
         if receipt_parents != (source_commit,) or receipt_paths != (RECEIPT_REL,):
             raise VerificationError(
-                "generation-twelve receipt is not the exact receipt-only child"
+                "generation-thirteen receipt is not the exact receipt-only child"
             )
 
         receipt_path = root / RECEIPT_REL
         current_receipt_bytes = _read_stable_regular_file(receipt_path)
         if _git_file_bytes(root, receipt_commit, RECEIPT_REL) != current_receipt_bytes:
             raise VerificationError(
-                "canonical receipt bytes differ from generation-twelve receipt commit bytes"
+                "canonical receipt bytes differ from generation-thirteen receipt commit bytes"
             )
         committed_receipt = _parse_receipt_json(current_receipt_bytes)
         if committed_receipt != dict(receipt):
@@ -2212,9 +2256,9 @@ def validate_published_receipt_structure(
         if not _valid_commit(current_git.upstream_head):
             raise VerificationError("origin/master commit is malformed or missing")
         if not ancestry_probe(root, receipt_commit, current_git.head):
-            raise VerificationError("generation-twelve receipt is not an ancestor of current HEAD")
+            raise VerificationError("generation-thirteen receipt is not an ancestor of current HEAD")
         if not ancestry_probe(root, receipt_commit, current_git.upstream_head):
-            raise VerificationError("generation-twelve receipt is not published on origin/master")
+            raise VerificationError("generation-thirteen receipt is not published on origin/master")
         if current_git.upstream_head != current_git.head and not ancestry_probe(
             root, current_git.upstream_head, current_git.head
         ):

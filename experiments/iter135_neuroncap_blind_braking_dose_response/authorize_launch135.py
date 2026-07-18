@@ -192,11 +192,16 @@ GENERATION_ELEVEN_RECEIPT_COMMIT = "97dc88eaa44831eb329d86579f49a4a10a3347e4"
 # master tip when the first live E-commit validation exposed the controller's wiring defects.
 GENERATION_ELEVEN_STAGE_ZERO_COMMIT = "a698cbbe3cf6c9e1320c74ab2748f576e68b114e"
 GENERATION_TWELVE_REASON = "E2_COMMIT_VALIDATOR_WIRING_PATCHER_AND_AUTHORITY_ARTIFACTS"
+GENERATION_TWELVE_RECEIPT_COMMIT = "fa073e6903be65ff449fc7566df751395d585929"
+# Generation thirteen's source parent is the published generation-twelve environment-receipt tip
+# (the E commit), the master tip when the pre-smoke rebuild's origin/master hazard was found.
+GENERATION_TWELVE_ENV_COMMIT = "2c70393f95dcad0871bee24647dd93a151d7b954"
+GENERATION_THIRTEEN_REASON = "E3_PRESMOKE_REBUILD_ORIGIN_MASTER_AHEAD_OF_STAGE_PARENT"
 EXPECTED_TOOLING_PUBLICATION = {
-    "generation": 12,
-    "supersedes_receipt_commit": GENERATION_ELEVEN_RECEIPT_COMMIT,
-    "recovery_parent": GENERATION_ELEVEN_STAGE_ZERO_COMMIT,
-    "reason_code": GENERATION_TWELVE_REASON,
+    "generation": 13,
+    "supersedes_receipt_commit": GENERATION_TWELVE_RECEIPT_COMMIT,
+    "recovery_parent": GENERATION_TWELVE_ENV_COMMIT,
+    "reason_code": GENERATION_THIRTEEN_REASON,
 }
 TOOLING_REPOSITORY_FIELDS = {
     "root",
@@ -486,7 +491,7 @@ def _tooling_source_commit(repo: Path, tooling_receipt_commit: str) -> str:
         or _SHA256_RE.fullmatch(receipt["file_content_set_sha256"]) is None
         or claimed_payload_sha256 != hashlib.sha256(_canonical_json(payload)).hexdigest()
     ):
-        raise AuthorizationError("tooling receipt does not bind the exact green generation-twelve source")
+        raise AuthorizationError("tooling receipt does not bind the exact green generation-thirteen source")
     try:
         validator = _load_frozen_tooling_receipt_validator(repo, source_commit)
         frozen_errors = validator(receipt, repo_root=repo)
@@ -1248,7 +1253,7 @@ def _deep_replay_publication(
     tooling_baton_commit: str,
     commits: Sequence[str],
 ) -> list[str]:
-    """Replay H/E/P/S[/A/F] from the frozen generation-twelve source in isolation."""
+    """Replay H/E/P/S[/A/F] from the frozen generation-thirteen source in isolation."""
 
     problems: list[str] = []
     try:
@@ -1449,6 +1454,15 @@ def _deep_replay_publication(
                 # P was generated with E as clean HEAD.  Recompute its provenance with fixed Git
                 # and feed that observation into the frozen builder; never trust P's own claim.
                 _checkout(repo, checkout, commits[1])
+                # The frozen manifest builder runs a tooling-receipt gate that requires
+                # origin/master to be an ancestor of the current HEAD.  P was generated when its
+                # parent (commits[1]) was the clean HEAD and origin/master pointed at it; but by
+                # replay time the tip has advanced past commits[1], and the isolated --shared
+                # clone inherits that advanced tip as origin/master, which would inject a spurious
+                # `origin/master is not an ancestor of current HEAD` problem into the rebuild.
+                # Pin origin/master back to the exact stage parent so the rebuild sees the same
+                # ref state P was generated under; every other gate is unchanged.
+                _git(checkout, "update-ref", "refs/remotes/origin/master", commits[1])
                 manifest_builder = _module_from_checkout(
                     repo,
                     checkout,
@@ -1538,6 +1552,11 @@ def _deep_replay_publication(
 
             if len(commits) >= 6:
                 _checkout(repo, checkout, commits[4])
+                # Same replay-time origin/master hazard as the pre-smoke rebuild above: the final
+                # manifest was generated with commits[4] as the clean HEAD, so pin origin/master
+                # to it before rebuilding so the builder's tooling-receipt gate sees the exact ref
+                # state F was generated under instead of the advanced replay tip.
+                _git(checkout, "update-ref", "refs/remotes/origin/master", commits[4])
                 manifest_builder = _module_from_checkout(
                     repo,
                     checkout,

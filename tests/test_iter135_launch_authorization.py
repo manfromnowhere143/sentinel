@@ -1003,13 +1003,13 @@ def test_controller_rejects_nonexact_tooling_receipt_root_before_preflight_repla
 @pytest.mark.parametrize(
     ("field", "value"),
     (
-        ("generation", 11),
+        ("generation", 12),
         ("supersedes_receipt_commit", "0" * 40),
         ("recovery_parent", "1" * 40),
-        ("reason_code", "UNREGISTERED_GENERATION_TWELVE_REASON"),
+        ("reason_code", "UNREGISTERED_GENERATION_THIRTEEN_REASON"),
     ),
 )
-def test_controller_requires_exact_generation_twelve_tooling_publication(
+def test_controller_requires_exact_generation_thirteen_tooling_publication(
     tmp_path: Path,
     field: str,
     value: object,
@@ -1021,7 +1021,7 @@ def test_controller_requires_exact_generation_twelve_tooling_publication(
 
     with pytest.raises(
         auth.AuthorizationError,
-        match="exact green generation-twelve source",
+        match="exact green generation-thirteen source",
     ):
         auth._tooling_source_commit(repo, commits["tooling_receipt"])
 
@@ -1269,3 +1269,33 @@ def test_replay_checkout_timeout_still_fails_closed(
     monkeypatch.setattr(auth.subprocess, "run", timing_out_run)
     with pytest.raises(subprocess.TimeoutExpired):
         auth._checkout(tmp_path, tmp_path, "a" * 40)
+
+
+def test_deep_replay_pins_origin_master_to_stage_parent_before_manifest_rebuilds() -> None:
+    """Generation-thirteen regression guard: the pre-smoke (P) and final (F) manifest rebuilds
+    in the deep replay must pin the isolated checkout's origin/master back to the stage parent
+    BEFORE invoking the frozen manifest builder, so the builder's tooling-receipt gate sees the
+    ref state the manifest was generated under instead of the advanced replay tip. The fixtures
+    stub the tooling verifier, so this source-level check is the guard that keeps the pin in
+    place; without it a true green P/F can never match its rebuild (origin/master would be a
+    descendant, not an ancestor, of the stage-parent checkout)."""
+
+    source = MODULE_PATH.read_text(encoding="utf-8")
+
+    # Pre-smoke (P) rebuild: checkout commits[1], then pin origin/master to commits[1].
+    p_marker = 'observed_p = _observed_git_provenance('
+    p_region = source[: source.index(p_marker)]
+    p_checkout = p_region.rindex("_checkout(repo, checkout, commits[1])")
+    p_pin = p_region.rindex(
+        '_git(checkout, "update-ref", "refs/remotes/origin/master", commits[1])'
+    )
+    assert p_checkout < p_pin, "P rebuild must pin origin/master after checkout, before builder"
+
+    # Final (F) rebuild: checkout commits[4], then pin origin/master to commits[4].
+    f_marker = 'observed_f = _observed_git_provenance('
+    f_region = source[: source.index(f_marker)]
+    f_checkout = f_region.rindex("_checkout(repo, checkout, commits[4])")
+    f_pin = f_region.rindex(
+        '_git(checkout, "update-ref", "refs/remotes/origin/master", commits[4])'
+    )
+    assert f_checkout < f_pin, "F rebuild must pin origin/master after checkout, before builder"

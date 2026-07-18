@@ -1,48 +1,52 @@
 # HANDOFF — dynamic state snapshot
 
-Generation-twelve accepted tooling freeze, 2026-07-17. Read CONTINUITY.md first.
+Generation-thirteen tooling recovery in publication (pre-smoke rebuild origin/master fix),
+2026-07-17. Read CONTINUITY.md first.
 
 ## Repository state
 ```
-B12     handoff: accept iter135 generation-twelve tooling freeze
+F13     iter135: refreeze generation-thirteen tooling recovery   (in publication)
+2c70393 iter135: commit environment preflight receipt            (E, gen-13 source parent)
+dd6901f iter135: commit host preparation evidence                (H)
+265fe62 handoff: accept iter135 generation-twelve tooling freeze (B12)
 09c2006 mission: accept iter135 generation-twelve tooling freeze
-fa073e6 iter135: publish generation-twelve tooling receipt
-00f427f iter135: refreeze generation-twelve tooling recovery
-a698cbb iter135: commit host preparation evidence
 ```
-Attempt eight fired green first-shot under B11 (fourth consecutive), stage zero republished
-green as `a698cbbe`, and the environment capture returned `I135_ENVIRONMENT_PREFLIGHT_OK`
-with `problems=0` — the first green E receipt in mission history. Its commit validation then
-exposed exactly two wiring defects in the frozen controller's call into the environment
-validator (the compose-patcher binding absent from the bound hashes; the two host-authority
-artifact rows never supplied, firing the length check unconditionally). Generation twelve
-threads both through the call, with the launch-authorization stub validator demanding them
-as hostile coverage. The green E receipt is preserved on `evidence/stageE-b11-attempt` and
-in the operator scratchpad; the capture is repeatable. Mission state is rolled back locally
-while the generation-twelve chain is published. After B12: de-prepare attempt eight (compose
-preimage inversion by exact SHA, remove the empty analytic root, archive the B11-bound
-install with its green receipts), rebuild the packet from B12, dress-rehearse, run the FULL
-countdown, fire attempt nine under sudo, commit stage zero (parent B12), re-fire E detached
-with the complete pre-capture countdown, commit E (expecting only the by-design diagnostic),
-then P and S.
+Stages H and E were committed and published green under generation twelve (H `dd6901f`, E
+`2c70393`); the environment stage is complete. Generating the incomplete pre-smoke manifest (P)
+then exposed a deep-replay defect: the manifest builder's tooling-receipt gate requires
+`origin/master` to be an ancestor of HEAD, but the deep replay rebuilds P in an isolated clone
+checked out to the stage parent E while `origin/master` points at the advanced tip, injecting a
+spurious problem that no committed P can match (the final-manifest rebuild shares the flaw). The
+fixtures stubbed the verifier, so tests missed it. Generation thirteen pins the isolated
+checkout's `origin/master` back to the exact stage parent before the pre-smoke and final
+rebuilds; the fix was proven by byte-level reproduction (bug reproduced with origin/master
+ahead → 2 problems, mismatch; fixed with the pin → 1 problem, byte-identical to target) before
+any publication, and a regression guard keeps both pins in place. Mission state is rolled back
+locally while the generation-thirteen chain publishes.
+
+AFTER B13: the tip has advanced past E, so the preflight chain re-derives from the new baton.
+De-prepare the box (invert the compose patch to preimage `9f8804b5…`/3380 by exact SHA, remove
+the empty analytic root, archive the current install with its green H+E receipts), rebuild the
+packet from B13, run the FULL countdown, fire host-preparation attempt ten under sudo, commit
+stage zero (parent B13), re-capture E detached and commit it, then commit P (which now validates
+with only the by-design diagnostic), then stage S (the four-run nonanalytic smoke). The prepared
+host and the green H/E receipts are unchanged; re-derivation re-commits the same evidence under
+B13.
 
 ## Canonical mission state (`MISSION_STATE.json`)
 
 - Current: iteration 134 / PLACEBO_HARM_OR_NULL / run IDLE / next
-  iteration 135 / TOOLING_FROZEN_PREFLIGHT_REQUIRED
+  iteration 135 / PREREGISTERED_TOOLING_REQUIRED
 - Current result: experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md
 - Next program: semantics-free placebo dose-response causal closure
 - Authorized now:
-  - prepare the exact hash-bound sentinel-gpu host contract and atomically commit host_packet_manifest.json and host_preparation_receipt.json
-  - capture and commit the read-only iteration-135 environment receipt on sentinel-gpu
-  - generate and commit only the hash-addressed incomplete pre-smoke manifest; no analytic episodes
-  - run exactly the hash-bound four-run nonanalytic G5 smoke after the incomplete pre-smoke manifest is committed
-  - validate, collect, and commit the exact nonanalytic smoke raw evidence, recomputed receipt, and mechanically generated SMOKE.md
+  - build and validate only the tooling and tests frozen by the active iteration-135 hypothesis
+  - inventory storage and provenance before any safe cleanup or live smoke
+  - publish a read-only external-benchmark commercial, license, compute, and integration preflight
 - Forbidden now:
-  - run any iteration-135 analytic episode before smoke evidence and the final launch manifest are committed green
-  - remove or bypass the permanent analytic launch lock
-  - rerun iteration 134 or adapt iteration-135 schedules, estimands, verdicts, or policies after evidence
-  - place any iteration-135 analytic output on the remote root filesystem
+  - GPU launch before the iteration-135 hypothesis, analyzer, manifest, provenance, storage, and smoke gates are frozen
+  - rerun iteration 134
+  - adopt run-index resampling as the iteration-135 primary after observing iteration-134 results
 
 Generation four changes no scientific or execution payload. It makes structural Git reads resolve
 and attest only Git instead of unnecessarily requiring the current `pytest`, Ruff, shell, and

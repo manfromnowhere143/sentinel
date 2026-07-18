@@ -3598,3 +3598,48 @@ transfer boundary fold-in and the claim-(5) hedge are unchanged and still bindin
   left at the end of this file; the removed list is cosmetic prose and no frozen path-set
   constant, gate, or receipt referenced it. No host, Docker, GPU, smoke, or analytic action was
   taken.
+
+  Environment stage published; pre-smoke (P) generation exposed generation thirteen, 2026-07-17.
+  With H and E committed and published green, the incomplete pre-smoke manifest generated
+  correctly (`I135_TOOLING_MANIFEST_INCOMPLETE`, one missing artifact, one `smoke:receipt-missing`
+  problem) but its commit validation failed reliably, on the operator host and on both CI lanes,
+  with `pre-smoke:exact-rebuild-mismatch` and `pre-smoke:problem-contract`. Root cause, confirmed
+  by byte-level reproduction under the true failure condition: the deep replay rebuilds P in an
+  isolated `--shared` clone checked out to the stage parent E, but that clone's `origin/master`
+  resolves to the advanced tip; the frozen manifest builder runs a tooling-receipt gate that
+  requires `origin/master` to be an ancestor of the current HEAD, so at the E checkout it injects
+  a spurious `origin/master is not an ancestor of current HEAD` problem, giving the rebuild two
+  problems where the committed P — generated when origin/master equalled E — has one. No P content
+  can reconcile the two. The final-manifest rebuild shares the identical structure and would fail
+  the same way at launch. The test suite did not catch it because the generation fixtures stub the
+  tooling verifier, so the origin/master dependency never ran under test.
+
+  Generation thirteen, 2026-07-17. Source parent is the published generation-twelve
+  environment-receipt commit `2c70393f95dcad0871bee24647dd93a151d7b954`, it supersedes receipt
+  `fa073e6903be65ff449fc7566df751395d585929`, and its reason code is
+  `E3_PRESMOKE_REBUILD_ORIGIN_MASTER_AHEAD_OF_STAGE_PARENT`. It pins the isolated deep-replay
+  checkout's `origin/master` back to the exact stage parent (`commits[1]` for the pre-smoke
+  rebuild, `commits[4]` for the final-manifest rebuild) immediately after checkout and before the
+  builder runs, so each manifest is replayed under the ref state it was generated in; every other
+  gate is unchanged. The fix was proven before publication: with `origin/master` pointed at the
+  advanced tip the rebuild carries the spurious problem and mismatches the target byte-for-byte,
+  and with the pin the rebuild carries exactly `['smoke:receipt-missing']` and matches the
+  generation target byte-for-byte. A regression guard asserts both pins remain in place before
+  their respective builder calls, closing the stubbed-verifier blind spot. The scope is the exact
+  eleven paths below. Because this baton advances the tip past the environment receipt, the
+  preflight H, E, P, S chain is re-derived as descendants of the generation-thirteen baton; the
+  committed H and E evidence and the prepared host are unchanged, so re-derivation re-commits the
+  same evidence under the new baton. No host, Docker, GPU, smoke, or analytic action was taken in
+  this generation's source publication.
+
+  1. `CONTINUITY.md`
+  2. `HANDOFF.md`
+  3. `MISSION_STATE.json`
+  4. `experiments/iter135_neuroncap_blind_braking_dose_response/authorize_launch135.py`
+  5. `experiments/iter135_neuroncap_blind_braking_dose_response/run_dose135.sh`
+  6. `experiments/iter135_neuroncap_blind_braking_dose_response/verify_tooling135.py`
+  7. `scripts/mission_state.py`
+  8. `tests/test_iter135_launch_authorization.py`
+  9. `tests/test_iter135_launcher.py`
+  10. `tests/test_iter135_tooling_verifier.py`
+  11. `tests/test_mission_state.py`
