@@ -1,15 +1,17 @@
 # HANDOFF — dynamic state snapshot
 
-Generation-fourteen tooling recovery in publication (Docker-29 daemon-schema fossil fix),
+Generation-fourteen accepted tooling freeze (Docker-29 daemon-schema fossil fix),
 2026-07-18. Read CONTINUITY.md first.
 
 ## Repository state
 ```
-F14     iter135: refreeze generation-fourteen tooling recovery   (in publication)
+B14     handoff: accept iter135 generation-fourteen tooling freeze
+a084198 mission: accept iter135 generation-fourteen tooling freeze
+b260ca5 iter135: publish generation-fourteen tooling receipt
+4a62cc4 iter135: refreeze generation-fourteen tooling recovery
 1ba42bb iter135: commit incomplete pre-smoke launch manifest     (P, gen-14 source parent)
 8b6f1ba iter135: commit environment preflight receipt            (E)
 cf48bcd iter135: commit host preparation evidence                (H, attempt 10)
-2cde006 handoff: accept iter135 generation-thirteen tooling freeze (B13)
 ```
 Generation thirteen published green (F13 `b0de93a` → R13 `688182a` → T13 `70fda52` → B13
 `2cde006`) and the preflight chain re-derived cleanly under B13: H attempt ten green first-shot
@@ -38,17 +40,20 @@ with the corrected bootstrap (invoke from `/opt/sentinel-stack/iter135` with no 
 ## Canonical mission state (`MISSION_STATE.json`)
 
 - Current: iteration 134 / PLACEBO_HARM_OR_NULL / run IDLE / next
-  iteration 135 / PREREGISTERED_TOOLING_REQUIRED
+  iteration 135 / TOOLING_FROZEN_PREFLIGHT_REQUIRED
 - Current result: experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md
 - Next program: semantics-free placebo dose-response causal closure
 - Authorized now:
-  - build and validate only the tooling and tests frozen by the active iteration-135 hypothesis
-  - inventory storage and provenance before any safe cleanup or live smoke
-  - publish a read-only external-benchmark commercial, license, compute, and integration preflight
+  - prepare the exact hash-bound sentinel-gpu host contract and atomically commit host_packet_manifest.json and host_preparation_receipt.json
+  - capture and commit the read-only iteration-135 environment receipt on sentinel-gpu
+  - generate and commit only the hash-addressed incomplete pre-smoke manifest; no analytic episodes
+  - run exactly the hash-bound four-run nonanalytic G5 smoke after the incomplete pre-smoke manifest is committed
+  - validate, collect, and commit the exact nonanalytic smoke raw evidence, recomputed receipt, and mechanically generated SMOKE.md
 - Forbidden now:
-  - GPU launch before the iteration-135 hypothesis, analyzer, manifest, provenance, storage, and smoke gates are frozen
-  - rerun iteration 134
-  - adopt run-index resampling as the iteration-135 primary after observing iteration-134 results
+  - run any iteration-135 analytic episode before smoke evidence and the final launch manifest are committed green
+  - remove or bypass the permanent analytic launch lock
+  - rerun iteration 134 or adapt iteration-135 schedules, estimands, verdicts, or policies after evidence
+  - place any iteration-135 analytic output on the remote root filesystem
   - remove or bypass the permanent analytic launch lock
   - rerun iteration 134 or adapt iteration-135 schedules, estimands, verdicts, or policies after evidence
   - place any iteration-135 analytic output on the remote root filesystem

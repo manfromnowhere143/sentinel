@@ -3701,3 +3701,19 @@ transfer boundary fold-in and the claim-(5) hedge are unchanged and still bindin
   10. `tests/test_iter135_launcher.py`
   11. `tests/test_iter135_tooling_verifier.py`
   12. `tests/test_mission_state.py`
+
+  Generation-fourteen publication record, 2026-07-18. Source F14 `4a62cc4` carries the exact
+  twelve paths and went green on both Python lanes first try (the docs-guard phase phrase matched
+  `PREREGISTERED_TOOLING_REQUIRED` this time). Its first `master` run flaked on a single
+  git-subprocess `CalledProcessError` in a `test_mission_state` fixture; the same commit had passed
+  the disposable-branch validation on both lanes and the full local suite (1,238 passed), so the
+  red was recovered by a targeted re-run whose newest-per-name check-runs are green. Receipt R14
+  `b260ca5` was generated on the canonical macOS host from a clean tree with `origin/master`
+  already at F14, returned `I135_TOOLING_VERIFICATION_OK` with `problem_count=0`, and replayed the
+  extended fourteen-entry receipt history; the superseded R13 blob was confirmed byte-identical to
+  its committed object before the working copy was unlocked, and the receipt's two working-copy
+  protections (`uchg` and the deny-delete ACL) were restored after generation. The state child T14
+  `a084198` and this baton were created locally; only this pair's baton tip completed the
+  publication, and every disposable validation branch was deleted after it went green. `master`
+  was never left red at any step (the one flaked run was recovered before any dependent action).
+  No host, Docker, GPU, smoke, or analytic action was taken in this generation's publication.
