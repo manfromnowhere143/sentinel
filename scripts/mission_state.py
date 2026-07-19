@@ -377,6 +377,44 @@ GENERATION_FOURTEEN_SOURCE_COMMIT_PATHS = tuple(
         }
     )
 )
+# Generation fifteen exists because the first B14 host-evidence descendant proved frozen
+# control-plane fossils before any smoke or analytic action. First, generation fourteen was
+# omitted from the mission-state validator's exact frozen-controller generations, so an otherwise
+# valid H descendant fell into the generic preflight-scope path and failed closed. Second, all four
+# live GitHub readers treated commit-level check rows as master authority. That both mixed old
+# rerun attempts and allowed same-SHA disposable-branch suites to impersonate the canonical run.
+# The repair selects the latest exact `ci.yml` push on `master` by workflow run number, validates
+# only its exact current-attempt jobs, and replays workflow identity around the job observation. It
+# also closes the generation-controller omissions through generation fifteen. No scientific,
+# schedule, estimand, policy, smoke, or analytic payload changes.
+GENERATION_FOURTEEN_SOURCE_COMMIT = "4a62cc4127e9dc2fcea2dcbdd0acd3c6d790259b"
+GENERATION_FOURTEEN_RECEIPT_COMMIT = "b260ca5b0910c4d499c13e42add97affd726b77c"
+GENERATION_FOURTEEN_STATE_COMMIT = "a084198d89ece710a490363bdbf53f548cbd0456"
+GENERATION_FOURTEEN_BATON_COMMIT = "69bd2e2face00ccabb426382347eb04e8a0dbe83"
+GENERATION_FIFTEEN_SOURCE_PARENT = GENERATION_FOURTEEN_BATON_COMMIT
+GENERATION_FIFTEEN_REASON_CODE = (
+    "B14_H_DESCENDANT_CONTROLLER_OMISSION_GITHUB_RUN_AUTHORITY_"
+    "AND_CI_FIXTURE_RESOURCE_FOSSILS"
+)
+GENERATION_FIFTEEN_SOURCE_COMMIT_PATHS = (
+    "CONTINUITY.md",
+    "HANDOFF.md",
+    "MISSION_STATE.json",
+    f"{ITER135_EXPERIMENT_REL}/authorize_launch135.py",
+    f"{ITER135_EXPERIMENT_REL}/capture_environment135.py",
+    f"{ITER135_EXPERIMENT_REL}/prepare_host135.py",
+    f"{ITER135_EXPERIMENT_REL}/run_dose135.sh",
+    f"{ITER135_EXPERIMENT_REL}/run_smoke135.sh",
+    f"{ITER135_EXPERIMENT_REL}/verify_tooling135.py",
+    "scripts/mission_state.py",
+    "tests/test_iter135_environment_capture.py",
+    "tests/test_iter135_host_preparation.py",
+    "tests/test_iter135_launch_authorization.py",
+    "tests/test_iter135_launcher.py",
+    "tests/test_iter135_smoke_pipeline.py",
+    "tests/test_iter135_tooling_verifier.py",
+    "tests/test_mission_state.py",
+)
 GENERATION_TWELVE_SOURCE_COMMIT_PATHS = (
     "CONTINUITY.md",
     "HANDOFF.md",
@@ -517,11 +555,12 @@ GENERATION_FOUR_SOURCE_COMMIT_PATHS = (
     "tests/test_mission_state.py",
 )
 EXPECTED_RECOVERY_PUBLICATION = {
-    "generation": 14,
-    "supersedes_receipt_commit": GENERATION_THIRTEEN_RECEIPT_COMMIT,
-    "recovery_parent": GENERATION_FOURTEEN_SOURCE_PARENT,
-    "reason_code": GENERATION_FOURTEEN_REASON_CODE,
+    "generation": 15,
+    "supersedes_receipt_commit": GENERATION_FOURTEEN_RECEIPT_COMMIT,
+    "recovery_parent": GENERATION_FIFTEEN_SOURCE_PARENT,
+    "reason_code": GENERATION_FIFTEEN_REASON_CODE,
 }
+CONTROLLED_PUBLICATION_GENERATIONS = frozenset(range(3, 16))
 
 # Compatibility name: this is always the immutable generation-one 31-path baseline. Recovery
 # publication has its own paired parent/scope contract and must never redefine this surface.
@@ -914,7 +953,10 @@ def _validate_tooling_publication(
                 problems.append(f"tooling_publication:{label}_source_not_pushed")
 
         publication_generation = publication.get("generation")
-        if publication_generation == 14:
+        if publication_generation == 15:
+            expected_source_parent = GENERATION_FIFTEEN_SOURCE_PARENT
+            expected_source_paths = tuple(sorted(GENERATION_FIFTEEN_SOURCE_COMMIT_PATHS))
+        elif publication_generation == 14:
             expected_source_parent = GENERATION_FOURTEEN_SOURCE_PARENT
             expected_source_paths = tuple(sorted(GENERATION_FOURTEEN_SOURCE_COMMIT_PATHS))
         elif publication_generation == 13:
@@ -971,7 +1013,7 @@ def _validate_tooling_publication(
         if actual_source_paths != expected_source_paths:
             problems.append("tooling_publication:recovery_source_commit_scope")
 
-        if publication_generation in {3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13}:
+        if publication_generation in CONTROLLED_PUBLICATION_GENERATIONS:
             try:
                 frozen_errors = _load_tooling_receipt_validator(root, source_commit)(
                     receipt,
@@ -1021,7 +1063,7 @@ def _validate_tooling_publication(
         if recovery_parent_paths != ("CONTINUITY.md", "HANDOFF.md"):
             problems.append("tooling_publication:generation_one_baton_scope")
 
-        if publication_generation in {3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13}:
+        if publication_generation in CONTROLLED_PUBLICATION_GENERATIONS:
             generation_two_parents, generation_two_paths = _commit_row(
                 root, GENERATION_TWO_SOURCE_COMMIT
             )
@@ -1051,7 +1093,44 @@ def _validate_tooling_publication(
             if generation_two_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_two_baton_scope")
 
-        if publication_generation == 14:
+        if publication_generation == 15:
+            generation_fourteen_parents, generation_fourteen_paths = _commit_row(
+                root, GENERATION_FOURTEEN_SOURCE_COMMIT
+            )
+            if generation_fourteen_parents != (GENERATION_FOURTEEN_SOURCE_PARENT,):
+                problems.append("tooling_publication:generation_fourteen_source_parent")
+            if generation_fourteen_paths != tuple(
+                sorted(GENERATION_FOURTEEN_SOURCE_COMMIT_PATHS)
+            ):
+                problems.append(
+                    "tooling_publication:generation_fourteen_source_commit_scope"
+                )
+            (
+                generation_fourteen_receipt_parents,
+                generation_fourteen_receipt_paths,
+            ) = _commit_row(root, GENERATION_FOURTEEN_RECEIPT_COMMIT)
+            if generation_fourteen_receipt_parents != (GENERATION_FOURTEEN_SOURCE_COMMIT,):
+                problems.append("tooling_publication:generation_fourteen_receipt_parent")
+            if generation_fourteen_receipt_paths != (TOOLING_RECEIPT_REL.as_posix(),):
+                problems.append("tooling_publication:generation_fourteen_receipt_scope")
+            (
+                generation_fourteen_state_parents,
+                generation_fourteen_state_paths,
+            ) = _commit_row(root, GENERATION_FOURTEEN_STATE_COMMIT)
+            if generation_fourteen_state_parents != (GENERATION_FOURTEEN_RECEIPT_COMMIT,):
+                problems.append("tooling_publication:generation_fourteen_state_parent")
+            if generation_fourteen_state_paths != ("MISSION_STATE.json",):
+                problems.append("tooling_publication:generation_fourteen_state_scope")
+            (
+                generation_fourteen_baton_parents,
+                generation_fourteen_baton_paths,
+            ) = _commit_row(root, GENERATION_FOURTEEN_BATON_COMMIT)
+            if generation_fourteen_baton_parents != (GENERATION_FOURTEEN_STATE_COMMIT,):
+                problems.append("tooling_publication:generation_fourteen_baton_parent")
+            if generation_fourteen_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
+                problems.append("tooling_publication:generation_fourteen_baton_scope")
+
+        if publication_generation in {14, 15}:
             generation_thirteen_parents, generation_thirteen_paths = _commit_row(
                 root, GENERATION_THIRTEEN_SOURCE_COMMIT
             )
@@ -1088,7 +1167,7 @@ def _validate_tooling_publication(
             if generation_thirteen_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_thirteen_baton_scope")
 
-        if publication_generation in {13, 14}:
+        if publication_generation in {13, 14, 15}:
             generation_twelve_parents, generation_twelve_paths = _commit_row(
                 root, GENERATION_TWELVE_SOURCE_COMMIT
             )
@@ -1118,7 +1197,7 @@ def _validate_tooling_publication(
             if generation_twelve_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_twelve_baton_scope")
 
-        if publication_generation in {13, 14}:
+        if publication_generation in {12, 13, 14, 15}:
             generation_eleven_parents, generation_eleven_paths = _commit_row(
                 root, GENERATION_ELEVEN_SOURCE_COMMIT
             )
@@ -1148,7 +1227,7 @@ def _validate_tooling_publication(
             if generation_eleven_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_eleven_baton_scope")
 
-        if publication_generation in {11, 12, 13}:
+        if publication_generation in {11, 12, 13, 14, 15}:
             generation_ten_parents, generation_ten_paths = _commit_row(
                 root, GENERATION_TEN_SOURCE_COMMIT
             )
@@ -1178,7 +1257,7 @@ def _validate_tooling_publication(
             if generation_ten_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_ten_baton_scope")
 
-        if publication_generation in {10, 11, 12, 13}:
+        if publication_generation in {10, 11, 12, 13, 14, 15}:
             generation_nine_parents, generation_nine_paths = _commit_row(
                 root, GENERATION_NINE_SOURCE_COMMIT
             )
@@ -1208,7 +1287,7 @@ def _validate_tooling_publication(
             if generation_nine_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_nine_baton_scope")
 
-        if publication_generation in {9, 10, 11, 12, 13}:
+        if publication_generation in {9, 10, 11, 12, 13, 14, 15}:
             generation_eight_parents, generation_eight_paths = _commit_row(
                 root, GENERATION_EIGHT_SOURCE_COMMIT
             )
@@ -1238,7 +1317,7 @@ def _validate_tooling_publication(
             if generation_eight_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_eight_baton_scope")
 
-        if publication_generation in {8, 9, 10, 11, 12, 13}:
+        if publication_generation in {8, 9, 10, 11, 12, 13, 14, 15}:
             generation_seven_parents, generation_seven_paths = _commit_row(
                 root, GENERATION_SEVEN_SOURCE_COMMIT
             )
@@ -1268,7 +1347,7 @@ def _validate_tooling_publication(
             if generation_seven_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_seven_baton_scope")
 
-        if publication_generation in {7, 8, 9, 10, 11, 12, 13}:
+        if publication_generation in {7, 8, 9, 10, 11, 12, 13, 14, 15}:
             generation_six_parents, generation_six_paths = _commit_row(
                 root, GENERATION_SIX_SOURCE_COMMIT
             )
@@ -1298,7 +1377,7 @@ def _validate_tooling_publication(
             if generation_six_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_six_baton_scope")
 
-        if publication_generation in {6, 7, 8, 9, 10, 11, 12, 13}:
+        if publication_generation in {6, 7, 8, 9, 10, 11, 12, 13, 14, 15}:
             generation_five_parents, generation_five_paths = _commit_row(
                 root, GENERATION_FIVE_SOURCE_COMMIT
             )
@@ -1314,7 +1393,7 @@ def _validate_tooling_publication(
             if generation_five_receipt_paths != (TOOLING_RECEIPT_REL.as_posix(),):
                 problems.append("tooling_publication:generation_five_receipt_scope")
 
-        if publication_generation in {5, 6, 7, 8, 9, 10, 11, 12, 13}:
+        if publication_generation in {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}:
             generation_four_parents, generation_four_paths = _commit_row(
                 root, GENERATION_FOUR_SOURCE_COMMIT
             )
@@ -1344,7 +1423,7 @@ def _validate_tooling_publication(
             if generation_four_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_four_baton_scope")
 
-        if publication_generation in {4, 5, 6, 7, 8, 9, 10, 11, 12, 13}:
+        if publication_generation in {4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}:
             generation_three_parents, generation_three_paths = _commit_row(
                 root, GENERATION_THREE_SOURCE_COMMIT
             )
@@ -1388,7 +1467,24 @@ def _validate_tooling_publication(
             .splitlines()
             if line
         )
-        if publication_generation == 14:
+        if publication_generation == 15:
+            expected_receipt_history_tail = (
+                GENERATION_FOURTEEN_RECEIPT_COMMIT,
+                GENERATION_THIRTEEN_RECEIPT_COMMIT,
+                GENERATION_TWELVE_RECEIPT_COMMIT,
+                GENERATION_ELEVEN_RECEIPT_COMMIT,
+                GENERATION_TEN_RECEIPT_COMMIT,
+                GENERATION_NINE_RECEIPT_COMMIT,
+                GENERATION_EIGHT_RECEIPT_COMMIT,
+                GENERATION_SEVEN_RECEIPT_COMMIT,
+                GENERATION_SIX_RECEIPT_COMMIT,
+                GENERATION_FIVE_RECEIPT_COMMIT,
+                GENERATION_FOUR_RECEIPT_COMMIT,
+                GENERATION_THREE_RECEIPT_COMMIT,
+                GENERATION_TWO_RECEIPT_COMMIT,
+                GENERATION_ONE_RECEIPT_COMMIT,
+            )
+        elif publication_generation == 14:
             expected_receipt_history_tail = (
                 GENERATION_THIRTEEN_RECEIPT_COMMIT,
                 GENERATION_TWELVE_RECEIPT_COMMIT,
@@ -1560,6 +1656,7 @@ def _validate_tooling_publication(
                 12: "twelve",
                 13: "thirteen",
                 14: "fourteen",
+                15: "fifteen",
             }[publication_generation]
             problems.append(
                 f"tooling_publication:generation_{generation_label}_commit_count:{len(ancestry)}"
@@ -1584,7 +1681,7 @@ def _validate_tooling_publication(
             if baton_commit_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:baton_commit_scope")
             authorization_references: Mapping[str, str] = {}
-            if publication_generation in {3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13}:
+            if publication_generation in CONTROLLED_PUBLICATION_GENERATIONS:
                 upstream_for_controller = (
                     _git(root, "rev-parse", "origin/master").decode("ascii").strip()
                 )
@@ -1628,62 +1725,31 @@ def _validate_tooling_publication(
                         )
                     previous_commit = descendant
 
+            source_paths_by_generation = (
+                (3, GENERATION_THREE_SOURCE_COMMIT_PATHS),
+                (4, GENERATION_FOUR_SOURCE_COMMIT_PATHS),
+                (5, GENERATION_FIVE_SOURCE_COMMIT_PATHS),
+                (6, GENERATION_SIX_SOURCE_COMMIT_PATHS),
+                (7, GENERATION_SEVEN_SOURCE_COMMIT_PATHS),
+                (8, GENERATION_EIGHT_SOURCE_COMMIT_PATHS),
+                (9, GENERATION_NINE_SOURCE_COMMIT_PATHS),
+                (10, GENERATION_TEN_SOURCE_COMMIT_PATHS),
+                (11, GENERATION_ELEVEN_SOURCE_COMMIT_PATHS),
+                (12, GENERATION_TWELVE_SOURCE_COMMIT_PATHS),
+                (13, GENERATION_THIRTEEN_SOURCE_COMMIT_PATHS),
+                (14, GENERATION_FOURTEEN_SOURCE_COMMIT_PATHS),
+                (15, GENERATION_FIFTEEN_SOURCE_COMMIT_PATHS),
+            )
+            immutable_source_path_set = (
+                set(GENERATION_ONE_SOURCE_COMMIT_PATHS)
+                | set(RECOVERY_SOURCE_COMMIT_PATHS)
+                | {ITER135_HYPOTHESIS_REL}
+            )
+            for generation, generation_paths in source_paths_by_generation:
+                if publication_generation >= generation:
+                    immutable_source_path_set.update(generation_paths)
             immutable_source_paths = sorted(
-                (
-                    set(GENERATION_ONE_SOURCE_COMMIT_PATHS)
-                    | set(RECOVERY_SOURCE_COMMIT_PATHS)
-                    | (
-                        set(GENERATION_THREE_SOURCE_COMMIT_PATHS)
-                        if publication_generation in {3, 4, 5, 6, 7, 8, 9, 10, 11, 12}
-                        else set()
-                    )
-                    | (
-                        set(GENERATION_FOUR_SOURCE_COMMIT_PATHS)
-                        if publication_generation in {4, 5, 6, 7, 8, 9, 10, 11, 12}
-                        else set()
-                    )
-                    | (
-                        set(GENERATION_FIVE_SOURCE_COMMIT_PATHS)
-                        if publication_generation in {5, 6, 7, 8, 9, 10, 11, 12}
-                        else set()
-                    )
-                    | (
-                        set(GENERATION_SIX_SOURCE_COMMIT_PATHS)
-                        if publication_generation in {6, 7, 8, 9, 10, 11, 12}
-                        else set()
-                    )
-                    | (
-                        set(GENERATION_SEVEN_SOURCE_COMMIT_PATHS)
-                        if publication_generation in {7, 8, 9, 10, 11, 12}
-                        else set()
-                    )
-                    | (
-                        set(GENERATION_EIGHT_SOURCE_COMMIT_PATHS)
-                        if publication_generation in {8, 9, 10, 11, 12}
-                        else set()
-                    )
-                    | (
-                        set(GENERATION_NINE_SOURCE_COMMIT_PATHS)
-                        if publication_generation in {9, 10, 11, 12}
-                        else set()
-                    )
-                    | (
-                        set(GENERATION_TEN_SOURCE_COMMIT_PATHS)
-                        if publication_generation in {10, 11, 12}
-                        else set()
-                    )
-                    | (
-                        set(GENERATION_ELEVEN_SOURCE_COMMIT_PATHS)
-                        if publication_generation in {11, 12, 13}
-                        else set()
-                    )
-                    | (
-                        set(GENERATION_TWELVE_SOURCE_COMMIT_PATHS)
-                        if publication_generation in {13, 14}
-                        else set()
-                    )
-                    | {ITER135_HYPOTHESIS_REL}
-                )
+                immutable_source_path_set
                 - {"CONTINUITY.md", "HANDOFF.md", "MISSION_STATE.json"}
             )
             for relative in immutable_source_paths:

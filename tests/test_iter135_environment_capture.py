@@ -8,7 +8,7 @@ import subprocess
 import sys
 import urllib.parse
 from dataclasses import replace
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
@@ -28,6 +28,93 @@ SPEC.loader.exec_module(capture)
 
 def digest(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
+
+
+WORKFLOW_RUN_ID = 7_410
+CHECK_SUITE_ID = 8_410
+
+
+def github_timestamp(minute: int) -> str:
+    value = datetime(2026, 7, 18, 12, 0, tzinfo=timezone.utc) + timedelta(
+        minutes=minute
+    )
+    return value.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def workflow_run_row(
+    commit: str,
+    *,
+    run_id: int = WORKFLOW_RUN_ID,
+    suite_id: int = CHECK_SUITE_ID,
+    run_number: int = 741,
+    run_attempt: int = 1,
+    minute: int = 0,
+    branch: str = "master",
+    event: str = "push",
+    status: str = "completed",
+    conclusion: str | None = "success",
+) -> dict[str, Any]:
+    run_url = f"{capture.GITHUB_API_ROOT}/actions/runs/{run_id}"
+    return {
+        "id": run_id,
+        "check_suite_id": suite_id,
+        "workflow_id": capture.GITHUB_WORKFLOW_ID,
+        "name": capture.GITHUB_WORKFLOW_NAME,
+        "path": capture.GITHUB_WORKFLOW_PATH,
+        "head_branch": branch,
+        "head_sha": commit,
+        "event": event,
+        "status": status,
+        "conclusion": conclusion,
+        "run_number": run_number,
+        "run_attempt": run_attempt,
+        "created_at": github_timestamp(minute),
+        "run_started_at": (
+            github_timestamp(minute + 1) if status != "queued" else None
+        ),
+        "updated_at": github_timestamp(minute + 30),
+        "url": run_url,
+        "jobs_url": f"{run_url}/jobs",
+    }
+
+
+def workflow_document(
+    commit: str, rows: list[dict[str, Any]] | None = None
+) -> dict[str, Any]:
+    selected = rows or [workflow_run_row(commit)]
+    return {"total_count": len(selected), "workflow_runs": selected}
+
+
+def job_document(
+    commit: str,
+    *,
+    run_id: int = WORKFLOW_RUN_ID,
+    ids: tuple[int, int] = (410, 411),
+    names: tuple[str, ...] = capture.REQUIRED_GITHUB_CHECKS,
+    status: str = "completed",
+    conclusion: str | None = "success",
+) -> dict[str, Any]:
+    rows = []
+    for index, (name, check_id) in enumerate(zip(names, ids, strict=False)):
+        rows.append(
+            {
+                "name": name,
+                "id": check_id,
+                "run_id": run_id,
+                "run_attempt": 1,
+                "head_sha": commit,
+                "head_branch": capture.GITHUB_BRANCH,
+                "workflow_name": capture.GITHUB_WORKFLOW_NAME,
+                "status": status,
+                "conclusion": conclusion,
+                "started_at": github_timestamp(10 + index),
+                "completed_at": github_timestamp(11 + index),
+                "url": f"{capture.GITHUB_API_ROOT}/actions/jobs/{check_id}",
+                "run_url": f"{capture.GITHUB_API_ROOT}/actions/runs/{run_id}",
+                "check_run_url": f"{capture.GITHUB_API_ROOT}/check-runs/{check_id}",
+            }
+        )
+    return {"total_count": len(rows), "jobs": rows}
 
 
 @pytest.mark.parametrize("payload", [b"", b"host authority\n", bytes(range(256))])
@@ -168,7 +255,6 @@ class FakeGitHub:
         self.branch_heads: list[str] = []
         self.status = "completed"
         self.conclusion = "success"
-        self.app_slug = "github-actions"
         self.artifacts = dict(artifacts)
         self.parent_commit = "a" * 40
         self.commit_sha = HOST_COMMIT
@@ -188,6 +274,7 @@ class FakeGitHub:
         self.changed_paths = list(capture.HOST_PUBLICATION_ARTIFACT_PATHS)
         self.previous_filename: str | None = None
         self.names = list(capture.REQUIRED_GITHUB_CHECKS)
+        self.workflow_documents: list[dict[str, Any]] = []
         self.check_documents: list[dict[str, Any]] = []
         self.calls: list[str] = []
 
@@ -196,21 +283,20 @@ class FakeGitHub:
         if "/branches/master" in url:
             head = self.branch_heads.pop(0) if self.branch_heads else self.branch_head
             return {"name": "master", "commit": {"sha": head}}
-        if "/check-runs?" in url:
+        if "/actions/workflows/" in url:
+            if self.workflow_documents:
+                return self.workflow_documents.pop(0)
+            return workflow_document(HOST_COMMIT)
+        if "/actions/runs/" in url and "/jobs?" in url:
             if self.check_documents:
                 return self.check_documents.pop(0)
-            rows = [
-                {
-                    "name": name,
-                    "id": 410 + index,
-                    "status": self.status,
-                    "conclusion": self.conclusion,
-                    "head_sha": HOST_COMMIT,
-                    "app": {"slug": self.app_slug},
-                }
-                for index, name in enumerate(self.names)
-            ]
-            return {"total_count": len(rows), "check_runs": rows}
+            return job_document(
+                HOST_COMMIT,
+                names=tuple(self.names),
+                ids=tuple(410 + index for index in range(len(self.names))),
+                status=self.status,
+                conclusion=self.conclusion,
+            )
         if f"/commits/{HOST_COMMIT}?" in url:
             files = [{"filename": path} for path in self.changed_paths]
             if self.previous_filename is not None and files:
@@ -257,20 +343,12 @@ def check_document(
     status: str = "completed",
     conclusion: str | None = "success",
 ) -> dict[str, Any]:
-    return {
-        "total_count": 2,
-        "check_runs": [
-            {
-                "name": name,
-                "id": check_id,
-                "status": status,
-                "conclusion": conclusion,
-                "head_sha": commit,
-                "app": {"slug": "github-actions"},
-            }
-            for name, check_id in zip(capture.REQUIRED_GITHUB_CHECKS, ids)
-        ],
-    }
+    return job_document(
+        commit,
+        ids=ids,
+        status=status,
+        conclusion=conclusion,
+    )
 
 
 @pytest.mark.parametrize(
@@ -373,6 +451,135 @@ def test_github_transport_rejects_duplicate_and_nonfinite_json(
     )
     with pytest.raises(capture.CaptureError, match="host-publication-authority:json"):
         capture._fetch_json(requested)
+
+
+def test_github_transport_emits_cache_bypass_headers(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    requested = f"{capture.GITHUB_API_ROOT}/branches/master"
+    observed_requests = []
+
+    class Headers(dict):
+        def get_content_type(self):
+            return "application/json"
+
+    class Response:
+        status = 200
+        headers = Headers({"Content-Length": "2"})
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return False
+
+        def geturl(self):
+            return requested
+
+        def read(self, _limit):
+            return b"{}"
+
+    class Opener:
+        def open(self, request, timeout):
+            assert timeout == 15
+            observed_requests.append(request)
+            return Response()
+
+    monkeypatch.setattr(
+        capture.urllib.request, "build_opener", lambda *_handlers: Opener()
+    )
+
+    assert capture._fetch_json(requested) == {}
+    assert len(observed_requests) == 1
+    assert observed_requests[0].get_header("Cache-control") == "no-cache"
+    assert observed_requests[0].get_header("Pragma") == "no-cache"
+
+
+def test_github_raw_transport_emits_cache_bypass_headers(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    requested = (
+        f"{capture.GITHUB_API_ROOT}/contents/"
+        "experiments/iter135_neuroncap_blind_braking_dose_response/payload.bin"
+        f"?ref={HOST_COMMIT}"
+    )
+    observed_requests = []
+
+    class Headers(dict):
+        def get_content_type(self):
+            return "application/vnd.github.raw+json"
+
+    class Response:
+        status = 200
+        headers = Headers({"Content-Length": "7"})
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return False
+
+        def geturl(self):
+            return requested
+
+        def read(self, _limit):
+            return b"payload"
+
+    class Opener:
+        def open(self, request, timeout):
+            assert timeout == 60
+            observed_requests.append(request)
+            return Response()
+
+    monkeypatch.setattr(
+        capture.urllib.request, "build_opener", lambda *_handlers: Opener()
+    )
+
+    assert capture._fetch_raw(requested) == b"payload"
+    assert len(observed_requests) == 1
+    assert observed_requests[0].get_header("Cache-control") == "no-cache"
+    assert observed_requests[0].get_header("Pragma") == "no-cache"
+
+
+def test_workflow_run_transport_uses_its_dedicated_bounded_ceiling(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    requested = (
+        f"{capture.GITHUB_API_ROOT}/actions/workflows/{capture.GITHUB_WORKFLOW_FILE}/runs"
+    )
+
+    class Headers(dict):
+        def get_content_type(self):
+            return "application/json"
+
+    class Response:
+        status = 200
+        headers = Headers({"Content-Length": "2"})
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return False
+
+        def geturl(self):
+            return requested
+
+        def read(self, limit):
+            assert limit == capture.MAX_GITHUB_WORKFLOW_RESPONSE_BYTES + 1
+            return b"{}"
+
+    class Opener:
+        def open(self, _request, timeout):
+            assert timeout == 15
+            return Response()
+
+    monkeypatch.setattr(
+        capture.urllib.request, "build_opener", lambda *_handlers: Opener()
+    )
+
+    assert capture._fetch_json(requested) == {}
+    assert 2 << 20 <= capture.MAX_GITHUB_WORKFLOW_RESPONSE_BYTES <= 8 << 20
 
 
 def patch_constants() -> dict[str, str]:
@@ -876,24 +1083,34 @@ def test_green_capture_is_raw_exact_and_read_only(tmp_path: Path) -> None:
         assert forbidden not in flattened
     github = paths["github"]
     branch_url = f"{capture.GITHUB_API_ROOT}/branches/{capture.GITHUB_BRANCH}"
-    checks_url = (
-        f"{capture.GITHUB_API_ROOT}/commits/{HOST_COMMIT}/check-runs?"
-        "filter=latest&per_page=100&page=1"
+    workflows_url = (
+        f"{capture.GITHUB_API_ROOT}/actions/workflows/{capture.GITHUB_WORKFLOW_FILE}/runs?"
+        f"branch={capture.GITHUB_BRANCH}&event=push&head_sha={HOST_COMMIT}&"
+        f"per_page={capture.MAX_GITHUB_WORKFLOW_RUNS}&page=1"
+    )
+    jobs_url = (
+        f"{capture.GITHUB_API_ROOT}/actions/runs/{WORKFLOW_RUN_ID}/attempts/1/jobs?"
+        f"per_page={capture.MAX_GITHUB_JOBS}&page=1"
     )
     expected_urls = [
         f"{capture.GITHUB_API_ROOT}/commits/{HOST_COMMIT}?per_page=100&page=1",
         branch_url,
-        checks_url,
+        workflows_url,
+        jobs_url,
+        workflows_url,
         f"{capture.GITHUB_API_ROOT}/git/trees/{github.tree_sha}?recursive=1",
         *[
             f"{capture.GITHUB_API_ROOT}/contents/{urllib.parse.quote(path, safe='/')}?ref={HOST_COMMIT}"
             for path in capture.HOST_PUBLICATION_ARTIFACT_PATHS
         ],
         branch_url,
-        checks_url,
+        workflows_url,
+        jobs_url,
+        workflows_url,
+        branch_url,
     ]
     assert github.calls == expected_urls
-    assert len(github.calls) == 8
+    assert len(github.calls) == 13
     assert not any("/git/blobs/" in url for url in github.calls)
 
 
@@ -1015,7 +1232,7 @@ def test_host_commit_rejects_same_size_different_contents_blob(tmp_path: Path) -
 @pytest.mark.parametrize(
     ("names", "problem"),
     [
-        (["check (3.10)"], "host-publication-authority:check-run-envelope"),
+        (["check (3.10)"], "host-publication-authority:job-envelope"),
         (
             ["check (3.10)", "check (3.10)"],
             "host-publication-authority:required-check-set",
@@ -1026,7 +1243,7 @@ def test_host_commit_rejects_same_size_different_contents_blob(tmp_path: Path) -
         ),
         (
             [*capture.REQUIRED_GITHUB_CHECKS, "unexpected green check"],
-            "host-publication-authority:unexpected-check",
+            "host-publication-authority:job-envelope",
         ),
     ],
 )
@@ -1041,10 +1258,10 @@ def test_host_commit_check_page_is_exact_and_page_complete(
 
     assert receipt["host_publication_authority"] is None
     assert problem in receipt["problems"]
-    checks_calls = [url for url in github.calls if "/check-runs?" in url]
-    assert checks_calls == [
-        f"{capture.GITHUB_API_ROOT}/commits/{HOST_COMMIT}/check-runs?"
-        "filter=latest&per_page=100&page=1"
+    job_calls = [url for url in github.calls if "/attempts/" in url and "/jobs?" in url]
+    assert job_calls == [
+        f"{capture.GITHUB_API_ROOT}/actions/runs/{WORKFLOW_RUN_ID}/attempts/1/jobs?"
+        f"per_page={capture.MAX_GITHUB_JOBS}&page=1"
     ]
 
 
@@ -1109,6 +1326,50 @@ def test_terminal_check_replay_blocks_green_capture_with_stable_master(
     assert "host-publication-authority:terminal:check-not-green:check (3.10)" in receipt[
         "problems"
     ]
+    assert receipt["verdict"] == capture.INCOMPLETE_VERDICT
+
+
+def test_workflow_rerun_started_during_initial_authority_proof_fails_closed(
+    tmp_path: Path,
+) -> None:
+    contract, hooks, _runner, paths = fixture(tmp_path)
+    github = paths["github"]
+    github.workflow_documents = [
+        workflow_document(HOST_COMMIT),
+        workflow_document(
+            HOST_COMMIT,
+            [workflow_run_row(HOST_COMMIT, run_attempt=2)],
+        ),
+    ]
+
+    receipt = run_capture(contract, hooks)
+
+    assert "host-publication-authority:workflow-run-replay" in receipt["problems"]
+    assert receipt["host_publication_authority"] is None
+    assert receipt["verdict"] == capture.INCOMPLETE_VERDICT
+
+
+def test_workflow_rerun_started_during_terminal_authority_proof_fails_closed(
+    tmp_path: Path,
+) -> None:
+    contract, hooks, _runner, paths = fixture(tmp_path)
+    github = paths["github"]
+    github.workflow_documents = [
+        workflow_document(HOST_COMMIT),
+        workflow_document(HOST_COMMIT),
+        workflow_document(HOST_COMMIT),
+        workflow_document(
+            HOST_COMMIT,
+            [workflow_run_row(HOST_COMMIT, run_attempt=2)],
+        ),
+    ]
+
+    receipt = run_capture(contract, hooks)
+
+    assert (
+        "host-publication-authority:terminal:workflow-run-replay"
+        in receipt["problems"]
+    )
     assert receipt["verdict"] == capture.INCOMPLETE_VERDICT
 
 
@@ -1739,75 +2000,256 @@ def test_declared_python_minimum_and_ci_matrix_cover_python_310() -> None:
     assert isinstance(interpreter["sha256"], str) and len(interpreter["sha256"]) == 64
 
 
-def _amendment_check_runs(commit: str) -> dict[str, object]:
-    """The permanent shape of every amendment-published SHA: one red disposable-branch probe
-    run plus one newer green master run per required check name."""
+def test_workflow_run_number_selects_latest_despite_nonmonotonic_ids_and_times() -> None:
+    commit = "a" * 40
+    rows = [
+        workflow_run_row(
+            commit,
+            run_id=9_999,
+            suite_id=19_999,
+            run_number=740,
+            minute=20,
+            status="completed",
+            conclusion="failure",
+        ),
+        workflow_run_row(
+            commit,
+            run_id=1,
+            suite_id=2,
+            run_number=741,
+            minute=0,
+        ),
+    ]
+    selected = capture._project_exact_workflow_run(workflow_document(commit, rows), commit)
+    assert selected["id"] == 1
+    assert selected["run_number"] == 741
 
-    rows = []
-    for index, name in enumerate(capture.REQUIRED_GITHUB_CHECKS):
-        rows.append(
-            {
-                "id": 100 + index,
-                "name": name,
-                "head_sha": commit,
-                "status": "completed",
-                "conclusion": "failure",
-                "app": {"slug": "github-actions"},
-            }
+
+def test_same_sha_validation_branch_cannot_mask_failed_master_workflow() -> None:
+    commit = "a" * 40
+    rows = [
+        workflow_run_row(
+            commit,
+            run_id=1,
+            suite_id=11,
+            run_number=740,
+            status="completed",
+            conclusion="failure",
+        ),
+        workflow_run_row(
+            commit,
+            run_id=2,
+            suite_id=12,
+            run_number=741,
+            branch="ci-validate-b14",
+        ),
+    ]
+
+    with pytest.raises(capture.CaptureError, match="workflow-run-binding"):
+        capture._project_exact_workflow_run(workflow_document(commit, rows), commit)
+
+
+@pytest.mark.parametrize(
+    "mutation",
+    [
+        "event",
+        "path",
+        "head",
+        "workflow-id",
+        "workflow-name",
+        "run-url",
+        "jobs-url",
+    ],
+)
+def test_workflow_run_identity_fields_are_exact(mutation: str) -> None:
+    commit = "a" * 40
+    row = workflow_run_row(commit)
+    if mutation == "event":
+        row["event"] = "workflow_dispatch"
+    elif mutation == "path":
+        row["path"] = ".github/workflows/other.yml"
+    elif mutation == "head":
+        row["head_sha"] = "b" * 40
+    elif mutation == "workflow-id":
+        row["workflow_id"] += 1
+    elif mutation == "workflow-name":
+        row["name"] = "other"
+    elif mutation == "run-url":
+        row["url"] += "/hostile"
+    else:
+        row["jobs_url"] += "/hostile"
+
+    with pytest.raises(capture.CaptureError, match="workflow-run-binding"):
+        capture._project_exact_workflow_run(workflow_document(commit, [row]), commit)
+
+
+@pytest.mark.parametrize(
+    "hostile_workflow_id",
+    [True, float(capture.GITHUB_WORKFLOW_ID)],
+)
+def test_workflow_run_workflow_id_requires_exact_json_integer(
+    hostile_workflow_id: object,
+) -> None:
+    commit = "a" * 40
+    row = workflow_run_row(commit)
+    row["workflow_id"] = hostile_workflow_id
+
+    with pytest.raises(capture.CaptureError, match="workflow-run-binding"):
+        capture._project_exact_workflow_run(workflow_document(commit, [row]), commit)
+
+
+@pytest.mark.parametrize("mutation", ["noncanonical", "reversed"])
+def test_workflow_run_timestamps_are_canonical_and_ordered(mutation: str) -> None:
+    commit = "a" * 40
+    row = workflow_run_row(commit)
+    if mutation == "noncanonical":
+        row["created_at"] = "2026-7-18t12:0:0z"
+    else:
+        row["created_at"] = github_timestamp(31)
+
+    with pytest.raises(capture.CaptureError, match="workflow-run-timestamp"):
+        capture._project_exact_workflow_run(workflow_document(commit, [row]), commit)
+
+
+@pytest.mark.parametrize(
+    ("status", "conclusion"),
+    [("completed", "failure"), ("queued", None), ("in_progress", None)],
+)
+def test_latest_canonical_workflow_run_must_be_green(
+    status: str, conclusion: str | None
+) -> None:
+    commit = "a" * 40
+    rows = [
+        workflow_run_row(commit, run_id=1, suite_id=11, run_number=740),
+        workflow_run_row(
+            commit,
+            run_id=2,
+            suite_id=12,
+            run_number=741,
+            minute=3,
+            status=status,
+            conclusion=conclusion,
+        ),
+    ]
+
+    with pytest.raises(capture.CaptureError, match="workflow-run-not-green"):
+        capture._project_exact_workflow_run(workflow_document(commit, rows), commit)
+
+
+def test_workflow_history_accepts_exact_page_ceiling_and_rejects_truncation() -> None:
+    commit = "a" * 40
+    rows = [
+        workflow_run_row(
+            commit,
+            run_id=10_000 + index,
+            suite_id=20_000 + index,
+            run_number=100 + index,
+            minute=index * 3,
         )
-        rows.append(
-            {
-                "id": 200 + index,
-                "name": name,
-                "head_sha": commit,
-                "status": "completed",
-                "conclusion": "success",
-                "app": {"slug": "github-actions"},
-            }
-        )
-    return {"total_count": len(rows), "check_runs": rows}
+        for index in range(capture.MAX_GITHUB_WORKFLOW_RUNS)
+    ]
+    selected = capture._project_exact_workflow_run(
+        workflow_document(commit, rows),
+        commit,
+    )
+    assert selected["run_number"] == 199
+
+    truncated = {"total_count": 101, "workflow_runs": rows}
+    with pytest.raises(capture.CaptureError, match="workflow-run-envelope"):
+        capture._project_exact_workflow_run(truncated, commit)
 
 
-def test_check_envelope_accepts_probe_plus_master_runs() -> None:
+@pytest.mark.parametrize(
+    ("mutation", "problem"),
+    [
+        ("missing-started", "check-timestamp"),
+        ("malformed-completed", "check-timestamp"),
+        ("noncanonical-time", "check-timestamp"),
+        ("reversed-time", "check-timestamp"),
+        ("outside-workflow", "check-timestamp"),
+        ("wrong-run", "check-not-green"),
+        ("wrong-attempt", "check-not-green"),
+        ("wrong-head", "check-not-green"),
+        ("wrong-branch", "check-not-green"),
+        ("wrong-workflow", "check-not-green"),
+        ("duplicate-id", "duplicate-check-id"),
+    ],
+)
+def test_exact_attempt_jobs_fail_closed_on_hostile_bindings(
+    mutation: str, problem: str
+) -> None:
     commit = "a" * 40
-    checks = capture._project_exact_checks(_amendment_check_runs(commit), commit)
-    assert [row["id"] for row in checks] == [200, 201]
-    assert all(row["conclusion"] == "success" for row in checks)
+    workflow = capture._project_exact_workflow_run(workflow_document(commit), commit)
+    document = job_document(commit)
+    first, second = document["jobs"]
+    if mutation == "missing-started":
+        first.pop("started_at")
+    elif mutation == "malformed-completed":
+        first["completed_at"] = "not-a-time"
+    elif mutation == "noncanonical-time":
+        first["started_at"] = "2026-7-18t12:10:0z"
+    elif mutation == "reversed-time":
+        first["started_at"] = github_timestamp(20)
+        first["completed_at"] = github_timestamp(19)
+    elif mutation == "outside-workflow":
+        first["started_at"] = github_timestamp(31)
+        first["completed_at"] = github_timestamp(32)
+    elif mutation == "wrong-run":
+        first["run_id"] = WORKFLOW_RUN_ID + 1
+    elif mutation == "wrong-attempt":
+        first["run_attempt"] = 2
+    elif mutation == "wrong-head":
+        first["head_sha"] = "b" * 40
+    elif mutation == "wrong-branch":
+        first["head_branch"] = "ci-validate"
+    elif mutation == "wrong-workflow":
+        first["workflow_name"] = "other"
+    else:
+        second["id"] = first["id"]
+
+    with pytest.raises(capture.CaptureError, match=problem):
+        capture._project_exact_checks(document, commit, workflow)
 
 
-def test_check_envelope_rejects_red_run_newer_than_green() -> None:
+@pytest.mark.parametrize(
+    ("selected_run_id", "hostile_run_id"),
+    [(1, True), (WORKFLOW_RUN_ID, float(WORKFLOW_RUN_ID))],
+)
+def test_exact_attempt_job_run_id_requires_exact_json_integer(
+    selected_run_id: int,
+    hostile_run_id: object,
+) -> None:
     commit = "a" * 40
-    document = _amendment_check_runs(commit)
-    for row in document["check_runs"]:
-        if row["id"] >= 200:
-            row["conclusion"] = "failure"
-        else:
-            row["conclusion"] = "success"
+    workflow = capture._project_exact_workflow_run(
+        workflow_document(
+            commit,
+            [workflow_run_row(commit, run_id=selected_run_id)],
+        ),
+        commit,
+    )
+    document = job_document(commit, run_id=selected_run_id)
+    document["jobs"][0]["run_id"] = hostile_run_id
+
     with pytest.raises(capture.CaptureError, match="check-not-green"):
-        capture._project_exact_checks(document, commit)
+        capture._project_exact_checks(document, commit, workflow)
 
 
-def test_check_envelope_rejects_pending_probe_row() -> None:
+@pytest.mark.parametrize("mutation", ["missing", "bool", "float"])
+def test_exact_attempt_job_run_attempt_requires_positive_exact_json_integer(
+    mutation: str,
+) -> None:
     commit = "a" * 40
-    document = _amendment_check_runs(commit)
-    document["check_runs"][0]["status"] = "in_progress"
-    document["check_runs"][0]["conclusion"] = None
+    workflow = capture._project_exact_workflow_run(workflow_document(commit), commit)
+    document = job_document(commit)
+    if mutation == "missing":
+        document["jobs"][0].pop("run_attempt")
+    elif mutation == "bool":
+        document["jobs"][0]["run_attempt"] = True
+    else:
+        document["jobs"][0]["run_attempt"] = 1.0
+
     with pytest.raises(capture.CaptureError, match="check-not-green"):
-        capture._project_exact_checks(document, commit)
-
-
-def test_check_envelope_rejects_triplicate_and_duplicate_ids() -> None:
-    commit = "a" * 40
-    document = _amendment_check_runs(commit)
-    document["check_runs"].append(dict(document["check_runs"][1], id=300))
-    document["total_count"] = len(document["check_runs"])
-    with pytest.raises(capture.CaptureError, match="check-run-envelope"):
-        capture._project_exact_checks(document, commit)
-
-    document = _amendment_check_runs(commit)
-    document["check_runs"][1]["id"] = 100
-    with pytest.raises(capture.CaptureError, match="duplicate-check"):
-        capture._project_exact_checks(document, commit)
+        capture._project_exact_checks(document, commit, workflow)
 
 
 def test_daemon_version_projection_accepts_both_docker_generations() -> None:

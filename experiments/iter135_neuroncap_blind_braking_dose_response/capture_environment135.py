@@ -84,14 +84,20 @@ HOST_PUBLICATION_ARTIFACT_PATHS = (
 GITHUB_REPOSITORY = "manfromnowhere143/sentinel"
 GITHUB_BRANCH = "master"
 GITHUB_API_ROOT = f"https://api.github.com/repos/{GITHUB_REPOSITORY}"
+GITHUB_WORKFLOW_ID = 304353015
+GITHUB_WORKFLOW_NAME = "ci"
+GITHUB_WORKFLOW_FILE = "ci.yml"
+GITHUB_WORKFLOW_PATH = ".github/workflows/ci.yml"
 REQUIRED_GITHUB_CHECKS = ("check (3.10)", "check (3.11)")
 EXPECTED_CHECK_APP = "github-actions"
 MAX_GITHUB_RESPONSE_BYTES = 1 << 20
+MAX_GITHUB_WORKFLOW_RESPONSE_BYTES = 8 << 20
 # The committed host-preparation receipt is a multi-megabyte JSON document, far above the
 # one-mebibyte JSON-envelope inline limit of the Contents API; its byte-exact replay uses the
 # raw media type on the same endpoint under this dedicated hard bound.
 MAX_ARTIFACT_RESPONSE_BYTES = 32 << 20
-MAX_GITHUB_CHECK_RUNS = 100
+MAX_GITHUB_WORKFLOW_RUNS = 100
+MAX_GITHUB_JOBS = 100
 MAX_GITHUB_TREE_RESPONSE_BYTES = 16 << 20
 MAX_GITHUB_TREE_ENTRIES = 20_000
 DOCKER_ARCHITECTURE_ALIASES = {
@@ -195,6 +201,8 @@ def _fetch_json(url: str) -> Any:
         url,
         headers={
             "Accept": "application/vnd.github+json",
+            "Cache-Control": "no-cache",
+            "Pragma": "no-cache",
             "User-Agent": "sentinel-iter135-environment-authority/1",
             "X-GitHub-Api-Version": "2022-11-28",
         },
@@ -216,11 +224,12 @@ def _fetch_json(url: str) -> Any:
             content_type = response.headers.get_content_type()
             if content_type not in {"application/json", "application/vnd.github+json"}:
                 raise CaptureError("host-publication-authority:content-type")
-            response_limit = (
-                MAX_GITHUB_TREE_RESPONSE_BYTES
-                if "/git/trees/" in parsed.path
-                else MAX_GITHUB_RESPONSE_BYTES
-            )
+            if "/git/trees/" in parsed.path:
+                response_limit = MAX_GITHUB_TREE_RESPONSE_BYTES
+            elif "/actions/workflows/" in parsed.path and parsed.path.endswith("/runs"):
+                response_limit = MAX_GITHUB_WORKFLOW_RESPONSE_BYTES
+            else:
+                response_limit = MAX_GITHUB_RESPONSE_BYTES
             declared = response.headers.get("Content-Length")
             if declared is not None:
                 try:
@@ -268,6 +277,8 @@ def _fetch_raw(url: str) -> bytes:
         url,
         headers={
             "Accept": "application/vnd.github.raw+json",
+            "Cache-Control": "no-cache",
+            "Pragma": "no-cache",
             "User-Agent": "sentinel-iter135-environment-authority/1",
             "X-GitHub-Api-Version": "2022-11-28",
         },
@@ -309,64 +320,212 @@ def _fetch_raw(url: str) -> bytes:
     return payload
 
 
-def _project_exact_checks(
+def _canonical_github_utc(value: object) -> datetime | None:
+    if not isinstance(value, str):
+        return None
+    try:
+        parsed = datetime.strptime(value, "%Y-%m-%dT%H:%M:%SZ").replace(
+            tzinfo=timezone.utc
+        )
+    except ValueError:
+        return None
+    return parsed if parsed.strftime("%Y-%m-%dT%H:%M:%SZ") == value else None
+
+
+def _project_exact_workflow_run(
     document: object,
     source_commit: str,
     *,
     prefix: str = "host-publication-authority",
-) -> list[dict[str, Any]]:
-    # Every SHA published under the disclosed branch-validation amendment permanently carries the
-    # disposable-branch probe run plus the authoritative `master` run per required check name
-    # (the probe is red by design, since head-not-on-origin-master can only resolve on `master`).
-    # GitHub check-run ids are chronologically monotonic, so authority binds to the newest run per
-    # name: it must be green, every run must still be a completed github-actions run for this
-    # exact commit, and a red run newer than a green one therefore still fails closed. This is the
-    # same envelope generation seven froze into the host-preparation controller; the exact-count
-    # envelope below it replaced made every amendment-published SHA unverifiable.
-    runs = document.get("check_runs") if isinstance(document, Mapping) else None
+) -> dict[str, Any]:
+    """Select the exact latest push run of the canonical workflow on ``master``."""
+
+    runs = document.get("workflow_runs") if isinstance(document, Mapping) else None
     total_count = document.get("total_count") if isinstance(document, Mapping) else None
     if (
         type(total_count) is not int
         or not isinstance(runs, list)
         or total_count != len(runs)
-        or total_count < len(REQUIRED_GITHUB_CHECKS)
-        or total_count > 2 * len(REQUIRED_GITHUB_CHECKS)
+        or total_count < 1
+        or total_count > MAX_GITHUB_WORKFLOW_RUNS
     ):
-        raise CaptureError(f"{prefix}:check-run-envelope")
-    grouped: dict[str, list[Mapping[str, Any]]] = {}
+        raise CaptureError(f"{prefix}:workflow-run-envelope")
+    projected: list[dict[str, Any]] = []
+    run_ids: set[int] = set()
+    suite_ids: set[int] = set()
+    run_numbers: set[int] = set()
     for run in runs:
         if not isinstance(run, Mapping):
-            raise CaptureError(f"{prefix}:check-run-row")
+            raise CaptureError(f"{prefix}:workflow-run-row")
+        run_id = run.get("id")
+        suite_id = run.get("check_suite_id")
+        run_number = run.get("run_number")
+        run_attempt = run.get("run_attempt")
+        if (
+            type(run_id) is not int
+            or run_id <= 0
+            or type(suite_id) is not int
+            or suite_id <= 0
+            or type(run_number) is not int
+            or run_number <= 0
+            or type(run_attempt) is not int
+            or run_attempt <= 0
+        ):
+            raise CaptureError(f"{prefix}:workflow-run-row")
+        if (
+            run_id in run_ids
+            or suite_id in suite_ids
+            or run_number in run_numbers
+        ):
+            raise CaptureError(f"{prefix}:workflow-run-identity")
+        run_ids.add(run_id)
+        suite_ids.add(suite_id)
+        run_numbers.add(run_number)
+        created_at = _canonical_github_utc(run.get("created_at"))
+        updated_at = _canonical_github_utc(run.get("updated_at"))
+        started_value = run.get("run_started_at")
+        run_started_at = (
+            _canonical_github_utc(started_value) if started_value is not None else None
+        )
+        if (
+            created_at is None
+            or updated_at is None
+            or created_at > updated_at
+            or (
+                started_value is not None
+                and run_started_at is not None
+                and not (created_at <= run_started_at <= updated_at)
+            )
+            or (started_value is not None and run_started_at is None)
+        ):
+            raise CaptureError(f"{prefix}:workflow-run-timestamp")
+        expected_run_url = f"{GITHUB_API_ROOT}/actions/runs/{run_id}"
+        if (
+            type(run.get("workflow_id")) is not int
+            or run.get("workflow_id") != GITHUB_WORKFLOW_ID
+            or run.get("name") != GITHUB_WORKFLOW_NAME
+            or run.get("path") != GITHUB_WORKFLOW_PATH
+            or run.get("head_branch") != GITHUB_BRANCH
+            or run.get("head_sha") != source_commit
+            or run.get("event") != "push"
+            or not isinstance(run.get("status"), str)
+            or (
+                run.get("conclusion") is not None
+                and not isinstance(run.get("conclusion"), str)
+            )
+            or run.get("url") != expected_run_url
+            or run.get("jobs_url") != f"{expected_run_url}/jobs"
+        ):
+            raise CaptureError(f"{prefix}:workflow-run-binding")
+        projected.append(
+            {
+                "id": run_id,
+                "check_suite_id": suite_id,
+                "workflow_id": GITHUB_WORKFLOW_ID,
+                "name": GITHUB_WORKFLOW_NAME,
+                "path": GITHUB_WORKFLOW_PATH,
+                "head_branch": GITHUB_BRANCH,
+                "head_sha": source_commit,
+                "event": "push",
+                "status": run.get("status"),
+                "conclusion": run.get("conclusion"),
+                "run_number": run_number,
+                "run_attempt": run_attempt,
+                "created_at": run.get("created_at"),
+                "run_started_at": started_value,
+                "updated_at": run.get("updated_at"),
+            }
+        )
+    selected = max(projected, key=lambda row: row["run_number"])
+    if (
+        selected["status"] != "completed"
+        or selected["conclusion"] != "success"
+        or selected["run_started_at"] is None
+    ):
+        raise CaptureError(f"{prefix}:workflow-run-not-green")
+    return selected
+
+
+def _project_exact_checks(
+    document: object,
+    source_commit: str,
+    workflow_run: Mapping[str, Any],
+    *,
+    prefix: str = "host-publication-authority",
+) -> list[dict[str, Any]]:
+    """Validate the two jobs from the selected workflow run's exact current attempt."""
+
+    runs = document.get("jobs") if isinstance(document, Mapping) else None
+    total_count = document.get("total_count") if isinstance(document, Mapping) else None
+    if (
+        type(total_count) is not int
+        or not isinstance(runs, list)
+        or total_count != len(runs)
+        or total_count != len(REQUIRED_GITHUB_CHECKS)
+        or total_count > MAX_GITHUB_JOBS
+    ):
+        raise CaptureError(f"{prefix}:job-envelope")
+    selected: dict[str, Mapping[str, Any]] = {}
+    identities: set[int] = set()
+    for run in runs:
+        if not isinstance(run, Mapping):
+            raise CaptureError(f"{prefix}:job-row")
         name = run.get("name")
         if name not in REQUIRED_GITHUB_CHECKS:
             raise CaptureError(f"{prefix}:unexpected-check")
         run_id = run.get("id")
         if type(run_id) is not int or run_id <= 0:
-            raise CaptureError(f"{prefix}:check-run-row")
-        grouped.setdefault(name, []).append(run)
-    if set(grouped) != set(REQUIRED_GITHUB_CHECKS):
+            raise CaptureError(f"{prefix}:job-row")
+        if run_id in identities:
+            raise CaptureError(f"{prefix}:duplicate-check-id")
+        identities.add(run_id)
+        if name in selected:
+            raise CaptureError(f"{prefix}:required-check-set")
+        started_at = _canonical_github_utc(run.get("started_at"))
+        completed_at = _canonical_github_utc(run.get("completed_at"))
+        workflow_created_at = _canonical_github_utc(workflow_run.get("created_at"))
+        workflow_updated_at = _canonical_github_utc(workflow_run.get("updated_at"))
+        if (
+            started_at is None
+            or completed_at is None
+            or workflow_created_at is None
+            or workflow_updated_at is None
+            or not (
+                workflow_created_at
+                <= started_at
+                <= completed_at
+                <= workflow_updated_at
+            )
+        ):
+            raise CaptureError(f"{prefix}:check-timestamp:{name}")
+        expected_run_id = workflow_run.get("id")
+        expected_run_attempt = workflow_run.get("run_attempt")
+        job_run_id = run.get("run_id")
+        job_run_attempt = run.get("run_attempt")
+        if (
+            run.get("status") != "completed"
+            or run.get("conclusion") != "success"
+            or type(job_run_id) is not int
+            or job_run_id <= 0
+            or job_run_id != expected_run_id
+            or type(job_run_attempt) is not int
+            or job_run_attempt <= 0
+            or job_run_attempt != expected_run_attempt
+            or run.get("head_sha") != source_commit
+            or run.get("head_branch") != GITHUB_BRANCH
+            or run.get("workflow_name") != GITHUB_WORKFLOW_NAME
+            or run.get("url") != f"{GITHUB_API_ROOT}/actions/jobs/{run_id}"
+            or run.get("run_url") != f"{GITHUB_API_ROOT}/actions/runs/{expected_run_id}"
+            or run.get("check_run_url")
+            != f"{GITHUB_API_ROOT}/check-runs/{run_id}"
+        ):
+            raise CaptureError(f"{prefix}:check-not-green:{name}")
+        selected[name] = run
+    if set(selected) != set(REQUIRED_GITHUB_CHECKS):
         raise CaptureError(f"{prefix}:required-check-set")
-    selected: dict[str, Mapping[str, Any]] = {}
-    for name, rows in grouped.items():
-        if len(rows) > 2:
-            raise CaptureError(f"{prefix}:duplicate-check:{name}")
-        identities = [row["id"] for row in rows]
-        if len(set(identities)) != len(identities):
-            raise CaptureError(f"{prefix}:duplicate-check:{name}")
-        for row in rows:
-            app = row.get("app")
-            if (
-                row.get("status") != "completed"
-                or row.get("head_sha") != source_commit
-                or not isinstance(app, Mapping)
-                or app.get("slug") != EXPECTED_CHECK_APP
-            ):
-                raise CaptureError(f"{prefix}:check-not-green:{name}")
-        selected[name] = max(rows, key=lambda row: row["id"])
     checks: list[dict[str, Any]] = []
     for name in REQUIRED_GITHUB_CHECKS:
         row = selected[name]
-        app = row.get("app")
         check_id = row.get("id")
         projected = {
             "name": name,
@@ -374,7 +533,7 @@ def _project_exact_checks(
             "status": row.get("status"),
             "conclusion": row.get("conclusion"),
             "head_sha": row.get("head_sha"),
-            "app_slug": app.get("slug") if isinstance(app, Mapping) else None,
+            "app_slug": EXPECTED_CHECK_APP,
         }
         if projected != {
             "name": name,
@@ -399,18 +558,19 @@ def verify_publication_authority(
     artifact_payloads: Mapping[str, bytes] | None = None,
     fetch_raw: Callable[[str], bytes] = _fetch_raw,
 ) -> dict[str, Any]:
-    """Require current master and both exact Python matrix checks for the H commit."""
+    """Require current master and its exact latest successful ``ci.yml`` push attempt."""
 
     if not isinstance(source_commit, str) or not _COMMIT_RE.fullmatch(source_commit):
         raise CaptureError("host-publication-authority:source-commit")
     branch_url = f"{GITHUB_API_ROOT}/branches/{GITHUB_BRANCH}"
-    checks_url = (
-        f"{GITHUB_API_ROOT}/commits/{source_commit}/check-runs?filter=latest&per_page="
-        f"{MAX_GITHUB_CHECK_RUNS}&page=1"
+    workflow_runs_url = (
+        f"{GITHUB_API_ROOT}/actions/workflows/{GITHUB_WORKFLOW_FILE}/runs?"
+        f"branch={GITHUB_BRANCH}&event=push&head_sha={source_commit}&"
+        f"per_page={MAX_GITHUB_WORKFLOW_RUNS}&page=1"
     )
     try:
         branch_document = fetch_json(branch_url)
-        checks_document = fetch_json(checks_url)
+        workflow_runs_document = fetch_json(workflow_runs_url)
     except CaptureError:
         raise
     except Exception as error:
@@ -427,7 +587,36 @@ def verify_publication_authority(
         or branch_head != source_commit
     ):
         raise CaptureError("host-publication-authority:branch-head")
-    checks = _project_exact_checks(checks_document, source_commit)
+    workflow_run = _project_exact_workflow_run(
+        workflow_runs_document,
+        source_commit,
+    )
+    jobs_url = (
+        f"{GITHUB_API_ROOT}/actions/runs/{workflow_run['id']}/attempts/"
+        f"{workflow_run['run_attempt']}/jobs?per_page={MAX_GITHUB_JOBS}&page=1"
+    )
+    try:
+        jobs_document = fetch_json(jobs_url)
+    except CaptureError:
+        raise
+    except Exception as error:
+        raise CaptureError(
+            f"host-publication-authority:jobs-fetch:{type(error).__name__}"
+        ) from error
+    checks = _project_exact_checks(jobs_document, source_commit, workflow_run)
+    try:
+        workflow_replay_document = fetch_json(workflow_runs_url)
+    except CaptureError:
+        raise
+    except Exception as error:
+        raise CaptureError(
+            f"host-publication-authority:workflow-replay-fetch:{type(error).__name__}"
+        ) from error
+    if _project_exact_workflow_run(
+        workflow_replay_document,
+        source_commit,
+    ) != workflow_run:
+        raise CaptureError("host-publication-authority:workflow-run-replay")
     if not isinstance(commit_tree_sha, str) or _COMMIT_RE.fullmatch(commit_tree_sha) is None:
         raise CaptureError("host-publication-authority:commit-tree")
     tree_url = f"{GITHUB_API_ROOT}/git/trees/{commit_tree_sha}?recursive=1"
@@ -587,13 +776,14 @@ def verify_current_authority(
     source_commit: str,
     fetch_json: Callable[[str], Any] = _fetch_json,
 ) -> list[dict[str, Any]]:
-    """Replay exact master and check-run authority before returning green E."""
+    """Replay exact master, workflow run, and attempt jobs before returning green E."""
 
     try:
         document = fetch_json(f"{GITHUB_API_ROOT}/branches/{GITHUB_BRANCH}")
-        checks_document = fetch_json(
-            f"{GITHUB_API_ROOT}/commits/{source_commit}/check-runs?"
-            f"filter=latest&per_page={MAX_GITHUB_CHECK_RUNS}&page=1"
+        workflow_runs_document = fetch_json(
+            f"{GITHUB_API_ROOT}/actions/workflows/{GITHUB_WORKFLOW_FILE}/runs?"
+            f"branch={GITHUB_BRANCH}&event=push&head_sha={source_commit}&"
+            f"per_page={MAX_GITHUB_WORKFLOW_RUNS}&page=1"
         )
     except CaptureError:
         raise
@@ -609,11 +799,62 @@ def verify_current_authority(
         or commit.get("sha") != source_commit
     ):
         raise CaptureError("host-publication-authority:branch-recheck")
-    return _project_exact_checks(
-        checks_document,
+    workflow_run = _project_exact_workflow_run(
+        workflow_runs_document,
         source_commit,
         prefix="host-publication-authority:terminal",
     )
+    try:
+        jobs_document = fetch_json(
+            f"{GITHUB_API_ROOT}/actions/runs/{workflow_run['id']}/attempts/"
+            f"{workflow_run['run_attempt']}/jobs?per_page={MAX_GITHUB_JOBS}&page=1"
+        )
+    except CaptureError:
+        raise
+    except Exception as error:
+        raise CaptureError(
+            f"host-publication-authority:branch-recheck-fetch:{type(error).__name__}"
+        ) from error
+    checks = _project_exact_checks(
+        jobs_document,
+        source_commit,
+        workflow_run,
+        prefix="host-publication-authority:terminal",
+    )
+    try:
+        workflow_replay_document = fetch_json(
+            f"{GITHUB_API_ROOT}/actions/workflows/{GITHUB_WORKFLOW_FILE}/runs?"
+            f"branch={GITHUB_BRANCH}&event=push&head_sha={source_commit}&"
+            f"per_page={MAX_GITHUB_WORKFLOW_RUNS}&page=1"
+        )
+        branch_replay_document = fetch_json(
+            f"{GITHUB_API_ROOT}/branches/{GITHUB_BRANCH}"
+        )
+    except CaptureError:
+        raise
+    except Exception as error:
+        raise CaptureError(
+            f"host-publication-authority:branch-recheck-fetch:{type(error).__name__}"
+        ) from error
+    if _project_exact_workflow_run(
+        workflow_replay_document,
+        source_commit,
+        prefix="host-publication-authority:terminal",
+    ) != workflow_run:
+        raise CaptureError("host-publication-authority:terminal:workflow-run-replay")
+    branch_replay_commit = (
+        branch_replay_document.get("commit")
+        if isinstance(branch_replay_document, Mapping)
+        else None
+    )
+    if (
+        not isinstance(branch_replay_document, Mapping)
+        or branch_replay_document.get("name") != GITHUB_BRANCH
+        or not isinstance(branch_replay_commit, Mapping)
+        or branch_replay_commit.get("sha") != source_commit
+    ):
+        raise CaptureError("host-publication-authority:branch-recheck")
+    return checks
 
 
 def _publication_authority_problems(

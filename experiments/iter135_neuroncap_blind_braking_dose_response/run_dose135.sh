@@ -477,6 +477,7 @@ import stat
 import sys
 import urllib.parse
 import urllib.request
+from datetime import datetime, timezone
 from pathlib import Path
 
 API_ROOT = "https://api.github.com/repos/manfromnowhere143/sentinel"
@@ -485,6 +486,12 @@ ACTIVATION_REPOSITORY_PATH = (
     "launch_activation_receipt.json"
 )
 EXPECTED_CHECKS = {"check (3.10)", "check (3.11)"}
+WORKFLOW_ID = 304353015
+WORKFLOW_NAME = "ci"
+WORKFLOW_FILE = "ci.yml"
+WORKFLOW_PATH = ".github/workflows/ci.yml"
+MAX_WORKFLOW_RUNS = 100
+MAX_JOBS = 100
 OID = re.compile(r"^[0-9a-f]{40}$")
 SHA256 = re.compile(r"^[0-9a-f]{64}$")
 
@@ -513,6 +520,20 @@ def strict_json_loads(payload: bytes) -> object:
         object_pairs_hook=strict_json_object,
         parse_constant=reject_nonfinite_json,
     )
+
+
+def canonical_github_utc(value: object) -> datetime:
+    if not isinstance(value, str):
+        raise ValueError("GitHub timestamp is not text")
+    try:
+        parsed = datetime.strptime(value, "%Y-%m-%dT%H:%M:%SZ").replace(
+            tzinfo=timezone.utc
+        )
+    except ValueError as error:
+        raise ValueError("GitHub timestamp is malformed") from error
+    if parsed.strftime("%Y-%m-%dT%H:%M:%SZ") != value:
+        raise ValueError("GitHub timestamp is not canonical UTC")
+    return parsed
 
 
 def stable_physical_bytes(path: Path) -> bytes:
@@ -562,54 +583,178 @@ def validate_ref(payload: object, expected_commit: str) -> None:
         raise ValueError("activation B is not the current canonical GitHub master")
 
 
-def validate_ci(payload: object, expected_commit: str) -> list[dict[str, object]]:
-    if not isinstance(payload, dict) or not isinstance(payload.get("check_runs"), list):
-        raise ValueError("GitHub check-runs response is malformed")
-    check_runs = payload["check_runs"]
-    # Amendment-published SHAs permanently carry the disposable-branch probe run plus the
-    # authoritative master run per required name; authority binds to the newest run per name
-    # (ids are chronologically monotonic), matching the generation-seven envelope in the
-    # host-preparation controller. A red run newer than a green one still fails closed.
+def validate_workflow_runs(payload: object, expected_commit: str) -> dict[str, object]:
+    if not isinstance(payload, dict) or not isinstance(payload.get("workflow_runs"), list):
+        raise ValueError("GitHub workflow-runs response is malformed")
+    runs = payload["workflow_runs"]
     if (
         type(payload.get("total_count")) is not int
-        or payload["total_count"] != len(check_runs)
-        or payload["total_count"] < len(EXPECTED_CHECKS)
-        or payload["total_count"] > 2 * len(EXPECTED_CHECKS)
+        or payload["total_count"] != len(runs)
+        or payload["total_count"] < 1
+        or payload["total_count"] > MAX_WORKFLOW_RUNS
     ):
-        raise ValueError("GitHub check-runs page is incomplete or not the exact CI matrix")
-    grouped = {name: [] for name in EXPECTED_CHECKS}
-    for row in check_runs:
-        if not isinstance(row, dict) or row.get("name") not in EXPECTED_CHECKS:
-            raise ValueError("GitHub check-runs contains an unexpected matrix row")
-        app = row.get("app")
-        if (
-            row.get("head_sha") != expected_commit
-            or not isinstance(app, dict)
-            or app.get("slug") != "github-actions"
-            or type(row.get("id")) is not int
-            or row["id"] <= 0
-            or row.get("status") != "completed"
-        ):
-            raise ValueError(f"GitHub CI identity drift: {row.get('name')}")
-        grouped[row["name"]].append(row)
+        raise ValueError("GitHub workflow-runs page is incomplete")
+    run_ids = set()
+    suite_ids = set()
+    run_numbers = set()
     projection = []
-    for name, rows in grouped.items():
-        if not 1 <= len(rows) <= 2 or len({row["id"] for row in rows}) != len(rows):
-            raise ValueError(f"required GitHub CI check missing: {name}")
-        latest = max(rows, key=lambda row: row["id"])
-        if latest.get("status") != "completed" or latest.get("conclusion") != "success":
-            raise ValueError(f"required GitHub CI check is not green: {name}")
+    for row in runs:
+        if not isinstance(row, dict):
+            raise ValueError("GitHub workflow-run row is malformed")
+        run_id = row.get("id")
+        suite_id = row.get("check_suite_id")
+        run_number = row.get("run_number")
+        run_attempt = row.get("run_attempt")
+        if (
+            type(run_id) is not int
+            or run_id <= 0
+            or type(suite_id) is not int
+            or suite_id <= 0
+            or type(run_number) is not int
+            or run_number <= 0
+            or type(run_attempt) is not int
+            or run_attempt <= 0
+            or run_id in run_ids
+            or suite_id in suite_ids
+            or run_number in run_numbers
+        ):
+            raise ValueError("GitHub workflow-run identity drift")
+        run_ids.add(run_id)
+        suite_ids.add(suite_id)
+        run_numbers.add(run_number)
+        try:
+            created_at = canonical_github_utc(row.get("created_at"))
+            updated_at = canonical_github_utc(row.get("updated_at"))
+            started_value = row.get("run_started_at")
+            started_at = (
+                canonical_github_utc(started_value)
+                if started_value is not None
+                else None
+            )
+        except ValueError as error:
+            raise ValueError("GitHub workflow-run timestamp drift") from error
+        if (
+            created_at > updated_at
+            or (started_at is not None and not (created_at <= started_at <= updated_at))
+        ):
+            raise ValueError("GitHub workflow-run timestamp drift")
+        expected_url = f"{API_ROOT}/actions/runs/{run_id}"
+        if (
+            type(row.get("workflow_id")) is not int
+            or row.get("workflow_id") != WORKFLOW_ID
+            or row.get("name") != WORKFLOW_NAME
+            or row.get("path") != WORKFLOW_PATH
+            or row.get("head_branch") != "master"
+            or row.get("head_sha") != expected_commit
+            or row.get("event") != "push"
+            or not isinstance(row.get("status"), str)
+            or (
+                row.get("conclusion") is not None
+                and not isinstance(row.get("conclusion"), str)
+            )
+            or row.get("url") != expected_url
+            or row.get("jobs_url") != f"{expected_url}/jobs"
+        ):
+            raise ValueError("GitHub workflow-run binding drift")
         projection.append(
             {
-                "name": name,
-                "id": latest["id"],
-                "head_sha": expected_commit,
-                "app_slug": "github-actions",
-                "status": "completed",
-                "conclusion": "success",
+                "id": run_id,
+                "check_suite_id": suite_id,
+                "run_number": run_number,
+                "run_attempt": run_attempt,
+                "status": row.get("status"),
+                "conclusion": row.get("conclusion"),
+                "created_at": row.get("created_at"),
+                "run_started_at": started_value,
+                "updated_at": row.get("updated_at"),
             }
         )
-    projection.sort(key=lambda row: row["name"])
+    selected = max(projection, key=lambda row: row["run_number"])
+    if (
+        selected["status"] != "completed"
+        or selected["conclusion"] != "success"
+        or selected["run_started_at"] is None
+    ):
+        raise ValueError("latest canonical GitHub workflow run is not green")
+    return selected
+
+
+def validate_ci(
+    payload: object, expected_commit: str, workflow_run: dict[str, object]
+) -> list[dict[str, object]]:
+    if not isinstance(payload, dict) or not isinstance(payload.get("jobs"), list):
+        raise ValueError("GitHub workflow jobs response is malformed")
+    jobs = payload["jobs"]
+    if (
+        type(payload.get("total_count")) is not int
+        or payload["total_count"] != len(jobs)
+        or payload["total_count"] != len(EXPECTED_CHECKS)
+        or payload["total_count"] > MAX_JOBS
+    ):
+        raise ValueError("GitHub workflow jobs page is incomplete or not the exact CI matrix")
+    selected = {}
+    identities = set()
+    expected_run_id = workflow_run["id"]
+    expected_run_attempt = workflow_run["run_attempt"]
+    for row in jobs:
+        if not isinstance(row, dict) or row.get("name") not in EXPECTED_CHECKS:
+            raise ValueError("GitHub workflow jobs contain an unexpected matrix row")
+        check_id = row.get("id")
+        if (
+            type(check_id) is not int
+            or check_id <= 0
+            or check_id in identities
+            or row["name"] in selected
+        ):
+            raise ValueError("GitHub CI check IDs or names are not unique")
+        identities.add(check_id)
+        job_run_id = row.get("run_id")
+        job_run_attempt = row.get("run_attempt")
+        try:
+            started_at = canonical_github_utc(row.get("started_at"))
+            completed_at = canonical_github_utc(row.get("completed_at"))
+            workflow_created_at = canonical_github_utc(workflow_run.get("created_at"))
+            workflow_updated_at = canonical_github_utc(workflow_run.get("updated_at"))
+        except ValueError as error:
+            raise ValueError(f"GitHub CI timestamp drift: {row.get('name')}") from error
+        if not (
+            workflow_created_at
+            <= started_at
+            <= completed_at
+            <= workflow_updated_at
+        ):
+            raise ValueError(f"GitHub CI timestamp drift: {row.get('name')}")
+        if (
+            type(job_run_id) is not int
+            or job_run_id <= 0
+            or job_run_id != expected_run_id
+            or type(job_run_attempt) is not int
+            or job_run_attempt <= 0
+            or job_run_attempt != expected_run_attempt
+            or row.get("head_sha") != expected_commit
+            or row.get("head_branch") != "master"
+            or row.get("workflow_name") != WORKFLOW_NAME
+            or row.get("status") != "completed"
+            or row.get("conclusion") != "success"
+            or row.get("url") != f"{API_ROOT}/actions/jobs/{check_id}"
+            or row.get("run_url") != f"{API_ROOT}/actions/runs/{expected_run_id}"
+            or row.get("check_run_url") != f"{API_ROOT}/check-runs/{check_id}"
+        ):
+            raise ValueError(f"GitHub CI identity or conclusion drift: {row.get('name')}")
+        selected[row["name"]] = row
+    if set(selected) != EXPECTED_CHECKS:
+        raise ValueError("required GitHub CI check missing")
+    projection = [
+        {
+            "name": name,
+            "id": selected[name]["id"],
+            "head_sha": expected_commit,
+            "app_slug": "github-actions",
+            "status": "completed",
+            "conclusion": "success",
+        }
+        for name in sorted(EXPECTED_CHECKS)
+    ]
     if len({row["id"] for row in projection}) != len(projection):
         raise ValueError("GitHub CI check IDs are not unique")
     return projection
@@ -702,6 +847,8 @@ def github_json(relative: str) -> object:
         url,
         headers={
             "Accept": "application/vnd.github+json",
+            "Cache-Control": "no-cache",
+            "Pragma": "no-cache",
             "User-Agent": "sentinel-iter135-publication-gate",
             "X-GitHub-Api-Version": "2022-11-28",
         },
@@ -727,11 +874,21 @@ def main() -> None:
     if hashlib.sha256(deployed).hexdigest() != expected_sha:
         raise SystemExit("independent activation receipt SHA-256 drift")
     validate_ref(github_json("/git/ref/heads/master"), expected_commit)
+    workflow_runs_path = (
+        f"/actions/workflows/{WORKFLOW_FILE}/runs?branch=master&event=push&"
+        f"head_sha={expected_commit}&per_page={MAX_WORKFLOW_RUNS}&page=1"
+    )
+    workflow_run = validate_workflow_runs(
+        github_json(workflow_runs_path),
+        expected_commit,
+    )
     ci_projection = validate_ci(
         github_json(
-            f"/commits/{expected_commit}/check-runs?filter=latest&per_page=100&page=1"
+            f"/actions/runs/{workflow_run['id']}/attempts/"
+            f"{workflow_run['run_attempt']}/jobs?per_page={MAX_JOBS}&page=1"
         ),
         expected_commit,
+        workflow_run,
     )
     final_manifest = validate_commit(
         github_json(f"/commits/{expected_commit}?per_page=100&page=1"), expected_commit
@@ -743,6 +900,12 @@ def main() -> None:
         expected_sha,
         final_manifest,
     )
+    validate_ref(github_json("/git/ref/heads/master"), expected_commit)
+    if validate_workflow_runs(
+        github_json(workflow_runs_path),
+        expected_commit,
+    ) != workflow_run:
+        raise ValueError("canonical GitHub workflow run changed during authority proof")
     validate_ref(github_json("/git/ref/heads/master"), expected_commit)
     print(
         expected_commit,
@@ -792,10 +955,13 @@ sha = re.compile(r"^[0-9a-f]{64}$")
 
 # BEGIN I135_TOOLING_PUBLICATION_CONTRACT_PYTHON
 EXPECTED_TOOLING_PUBLICATION = {
-    "generation": 14,
-    "supersedes_receipt_commit": "688182ad3b7afbb0d58141accbcf554981e6fb20",
-    "recovery_parent": "1ba42bbb869c652fd6d3d951a3c92ec404f61e72",
-    "reason_code": "S1_SMOKE_AND_DOSE_DOCKER29_DAEMON_EXPERIMENTAL_SCHEMA_FOSSIL",
+    "generation": 15,
+    "supersedes_receipt_commit": "b260ca5b0910c4d499c13e42add97affd726b77c",
+    "recovery_parent": "69bd2e2face00ccabb426382347eb04e8a0dbe83",
+    "reason_code": (
+        "B14_H_DESCENDANT_CONTROLLER_OMISSION_GITHUB_RUN_AUTHORITY_"
+        "AND_CI_FIXTURE_RESOURCE_FOSSILS"
+    ),
 }
 
 

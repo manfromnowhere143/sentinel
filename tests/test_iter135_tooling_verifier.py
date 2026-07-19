@@ -14,8 +14,7 @@ import pytest
 
 REPO = Path(__file__).resolve().parents[1]
 MODULE_PATH = (
-    REPO
-    / "experiments/iter135_neuroncap_blind_braking_dose_response/verify_tooling135.py"
+    REPO / "experiments/iter135_neuroncap_blind_braking_dose_response/verify_tooling135.py"
 )
 SPEC = importlib.util.spec_from_file_location("iter135_tooling_verifier", MODULE_PATH)
 assert SPEC is not None and SPEC.loader is not None
@@ -167,12 +166,17 @@ def test_green_receipt_binds_complete_discovered_surface_and_exact_commands(
         "HANDOFF.md",
         "MISSION_STATE.json",
         f"{verifier.EXPERIMENT_REL}/authorize_launch135.py",
+        f"{verifier.EXPERIMENT_REL}/capture_environment135.py",
+        f"{verifier.EXPERIMENT_REL}/prepare_host135.py",
         f"{verifier.EXPERIMENT_REL}/run_dose135.sh",
         f"{verifier.EXPERIMENT_REL}/run_smoke135.sh",
         f"{verifier.EXPERIMENT_REL}/verify_tooling135.py",
         "scripts/mission_state.py",
+        "tests/test_iter135_environment_capture.py",
+        "tests/test_iter135_host_preparation.py",
         "tests/test_iter135_launch_authorization.py",
         "tests/test_iter135_launcher.py",
+        "tests/test_iter135_smoke_pipeline.py",
         "tests/test_iter135_tooling_verifier.py",
         "tests/test_mission_state.py",
     )
@@ -226,7 +230,9 @@ def test_forged_green_from_failed_run_is_rejected_by_independent_replay(
     assert "command_2 independent replay failed" in errors
 
 
-def test_default_git_cleanliness_probe_is_repository_global(monkeypatch: Any, tmp_path: Path) -> None:
+def test_default_git_cleanliness_probe_is_repository_global(
+    monkeypatch: Any, tmp_path: Path
+) -> None:
     calls: list[tuple[str, ...]] = []
 
     def fake_git(_root: Path, argv: tuple[str, ...]) -> bytes:
@@ -242,9 +248,9 @@ def test_default_git_cleanliness_probe_is_repository_global(monkeypatch: Any, tm
         if argv[0] == "rev-list":
             return b"a" * 40 + b" " + b"0" * 40 + b"\n"
         if argv[0] == "diff-tree":
-            return b"\0".join(
-                path.encode() for path in verifier.RECOVERY_SOURCE_COMMIT_PATHS
-            ) + b"\0"
+            return (
+                b"\0".join(path.encode() for path in verifier.RECOVERY_SOURCE_COMMIT_PATHS) + b"\0"
+            )
         return b""
 
     monkeypatch.setattr(verifier, "_git_bytes", fake_git)
@@ -309,9 +315,7 @@ def test_toolchain_resolution_rejects_path_precedence_shim(
     verifier._resolve_toolchain_cached.cache_clear()  # noqa: SLF001
 
 
-def test_git_resolution_rejects_path_precedence_shim(
-    monkeypatch: Any, tmp_path: Path
-) -> None:
+def test_git_resolution_rejects_path_precedence_shim(monkeypatch: Any, tmp_path: Path) -> None:
     shim = tmp_path / "git"
     shim.write_text("#!/bin/sh\nexit 0\n", encoding="utf-8")
     shim.chmod(0o755)
@@ -433,18 +437,14 @@ def test_published_structural_validation_resolves_only_trusted_git(
         verifier.GENERATION_TWELVE_RECEIPT_COMMIT: (verifier.GENERATION_TWELVE_SOURCE_COMMIT,),
         verifier.GENERATION_TWELVE_STATE_COMMIT: (verifier.GENERATION_TWELVE_RECEIPT_COMMIT,),
         verifier.GENERATION_TWELVE_BATON_COMMIT: (verifier.GENERATION_TWELVE_STATE_COMMIT,),
-        verifier.GENERATION_THIRTEEN_SOURCE_COMMIT: (
-            verifier.GENERATION_THIRTEEN_SOURCE_PARENT,
-        ),
-        verifier.GENERATION_THIRTEEN_RECEIPT_COMMIT: (
-            verifier.GENERATION_THIRTEEN_SOURCE_COMMIT,
-        ),
-        verifier.GENERATION_THIRTEEN_STATE_COMMIT: (
-            verifier.GENERATION_THIRTEEN_RECEIPT_COMMIT,
-        ),
-        verifier.GENERATION_THIRTEEN_BATON_COMMIT: (
-            verifier.GENERATION_THIRTEEN_STATE_COMMIT,
-        ),
+        verifier.GENERATION_THIRTEEN_SOURCE_COMMIT: (verifier.GENERATION_THIRTEEN_SOURCE_PARENT,),
+        verifier.GENERATION_THIRTEEN_RECEIPT_COMMIT: (verifier.GENERATION_THIRTEEN_SOURCE_COMMIT,),
+        verifier.GENERATION_THIRTEEN_STATE_COMMIT: (verifier.GENERATION_THIRTEEN_RECEIPT_COMMIT,),
+        verifier.GENERATION_THIRTEEN_BATON_COMMIT: (verifier.GENERATION_THIRTEEN_STATE_COMMIT,),
+        verifier.GENERATION_FOURTEEN_SOURCE_COMMIT: (verifier.GENERATION_FOURTEEN_SOURCE_PARENT,),
+        verifier.GENERATION_FOURTEEN_RECEIPT_COMMIT: (verifier.GENERATION_FOURTEEN_SOURCE_COMMIT,),
+        verifier.GENERATION_FOURTEEN_STATE_COMMIT: (verifier.GENERATION_FOURTEEN_RECEIPT_COMMIT,),
+        verifier.GENERATION_FOURTEEN_BATON_COMMIT: (verifier.GENERATION_FOURTEEN_STATE_COMMIT,),
         source: (verifier.RECOVERY_SOURCE_PARENT,),
         receipt_commit: (source,),
     }
@@ -523,6 +523,12 @@ def test_published_structural_validation_resolves_only_trusted_git(
         verifier.GENERATION_THIRTEEN_RECEIPT_COMMIT: (verifier.RECEIPT_REL,),
         verifier.GENERATION_THIRTEEN_STATE_COMMIT: ("MISSION_STATE.json",),
         verifier.GENERATION_THIRTEEN_BATON_COMMIT: ("CONTINUITY.md", "HANDOFF.md"),
+        verifier.GENERATION_FOURTEEN_SOURCE_COMMIT: tuple(
+            sorted(verifier.GENERATION_FOURTEEN_SOURCE_COMMIT_PATHS)
+        ),
+        verifier.GENERATION_FOURTEEN_RECEIPT_COMMIT: (verifier.RECEIPT_REL,),
+        verifier.GENERATION_FOURTEEN_STATE_COMMIT: ("MISSION_STATE.json",),
+        verifier.GENERATION_FOURTEEN_BATON_COMMIT: ("CONTINUITY.md", "HANDOFF.md"),
         source: tuple(sorted(verifier.RECOVERY_SOURCE_COMMIT_PATHS)),
         receipt_commit: (verifier.RECEIPT_REL,),
     }
@@ -571,6 +577,7 @@ def test_published_structural_validation_resolves_only_trusted_git(
     )
     receipt_history = (
         receipt_commit,
+        verifier.GENERATION_FOURTEEN_RECEIPT_COMMIT,
         verifier.GENERATION_THIRTEEN_RECEIPT_COMMIT,
         verifier.GENERATION_TWELVE_RECEIPT_COMMIT,
         verifier.GENERATION_ELEVEN_RECEIPT_COMMIT,
@@ -753,7 +760,7 @@ def test_replay_rejects_missing_or_forged_generation_four_publication(
 
         errors = replay_validate(forged, root, git_probe=stable_git)
 
-        assert "generation-four publication block mismatch" in errors
+        assert "generation-fifteen publication block mismatch" in errors
 
 
 @pytest.mark.parametrize(
@@ -1081,18 +1088,14 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
         verifier.GENERATION_TWELVE_RECEIPT_COMMIT: (verifier.GENERATION_TWELVE_SOURCE_COMMIT,),
         verifier.GENERATION_TWELVE_STATE_COMMIT: (verifier.GENERATION_TWELVE_RECEIPT_COMMIT,),
         verifier.GENERATION_TWELVE_BATON_COMMIT: (verifier.GENERATION_TWELVE_STATE_COMMIT,),
-        verifier.GENERATION_THIRTEEN_SOURCE_COMMIT: (
-            verifier.GENERATION_THIRTEEN_SOURCE_PARENT,
-        ),
-        verifier.GENERATION_THIRTEEN_RECEIPT_COMMIT: (
-            verifier.GENERATION_THIRTEEN_SOURCE_COMMIT,
-        ),
-        verifier.GENERATION_THIRTEEN_STATE_COMMIT: (
-            verifier.GENERATION_THIRTEEN_RECEIPT_COMMIT,
-        ),
-        verifier.GENERATION_THIRTEEN_BATON_COMMIT: (
-            verifier.GENERATION_THIRTEEN_STATE_COMMIT,
-        ),
+        verifier.GENERATION_THIRTEEN_SOURCE_COMMIT: (verifier.GENERATION_THIRTEEN_SOURCE_PARENT,),
+        verifier.GENERATION_THIRTEEN_RECEIPT_COMMIT: (verifier.GENERATION_THIRTEEN_SOURCE_COMMIT,),
+        verifier.GENERATION_THIRTEEN_STATE_COMMIT: (verifier.GENERATION_THIRTEEN_RECEIPT_COMMIT,),
+        verifier.GENERATION_THIRTEEN_BATON_COMMIT: (verifier.GENERATION_THIRTEEN_STATE_COMMIT,),
+        verifier.GENERATION_FOURTEEN_SOURCE_COMMIT: (verifier.GENERATION_FOURTEEN_SOURCE_PARENT,),
+        verifier.GENERATION_FOURTEEN_RECEIPT_COMMIT: (verifier.GENERATION_FOURTEEN_SOURCE_COMMIT,),
+        verifier.GENERATION_FOURTEEN_STATE_COMMIT: (verifier.GENERATION_FOURTEEN_RECEIPT_COMMIT,),
+        verifier.GENERATION_FOURTEEN_BATON_COMMIT: (verifier.GENERATION_FOURTEEN_STATE_COMMIT,),
         source: (verifier.RECOVERY_SOURCE_PARENT,),
         receipt_commit: (source,),
         state_commit: (receipt_commit,),
@@ -1174,6 +1177,12 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
         verifier.GENERATION_THIRTEEN_RECEIPT_COMMIT: (verifier.RECEIPT_REL,),
         verifier.GENERATION_THIRTEEN_STATE_COMMIT: ("MISSION_STATE.json",),
         verifier.GENERATION_THIRTEEN_BATON_COMMIT: ("CONTINUITY.md", "HANDOFF.md"),
+        verifier.GENERATION_FOURTEEN_SOURCE_COMMIT: tuple(
+            sorted(verifier.GENERATION_FOURTEEN_SOURCE_COMMIT_PATHS)
+        ),
+        verifier.GENERATION_FOURTEEN_RECEIPT_COMMIT: (verifier.RECEIPT_REL,),
+        verifier.GENERATION_FOURTEEN_STATE_COMMIT: ("MISSION_STATE.json",),
+        verifier.GENERATION_FOURTEEN_BATON_COMMIT: ("CONTINUITY.md", "HANDOFF.md"),
         source: tuple(sorted(verifier.RECOVERY_SOURCE_COMMIT_PATHS)),
         receipt_commit: (verifier.RECEIPT_REL,),
         state_commit: ("MISSION_STATE.json",),
@@ -1182,6 +1191,7 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
     }
     receipt_history = [
         receipt_commit,
+        verifier.GENERATION_FOURTEEN_RECEIPT_COMMIT,
         verifier.GENERATION_THIRTEEN_RECEIPT_COMMIT,
         verifier.GENERATION_TWELVE_RECEIPT_COMMIT,
         verifier.GENERATION_ELEVEN_RECEIPT_COMMIT,
@@ -1233,7 +1243,9 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
         git_probe=lambda _root, _paths: publication_git(state_commit),
         ancestry_probe=stable_ancestry,
     )
-    assert any("complete state-only and offline-baton transition is missing" in error for error in errors)
+    assert any(
+        "complete state-only and offline-baton transition is missing" in error for error in errors
+    )
 
     errors = verifier.validate_published_receipt_structure(
         receipt,
@@ -1253,9 +1265,7 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
 
     detached_origin = "f" * 40
 
-    def receipt_missing_from_origin(
-        _root: Path, ancestor: str, descendant: str
-    ) -> bool:
+    def receipt_missing_from_origin(_root: Path, ancestor: str, descendant: str) -> bool:
         return not (ancestor == receipt_commit and descendant == detached_origin)
 
     errors = verifier.validate_published_receipt_structure(
@@ -1264,7 +1274,9 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
         git_probe=lambda _root, _paths: publication_git(baton_commit, detached_origin),
         ancestry_probe=receipt_missing_from_origin,
     )
-    assert any("generation-fourteen receipt is not published on origin/master" in error for error in errors)
+    assert any(
+        "generation-fifteen receipt is not published on origin/master" in error for error in errors
+    )
 
     wrong_root = copy.deepcopy(receipt)
     wrong_root["repository"]["root"] = str(root)
@@ -1300,7 +1312,7 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
         git_probe=lambda _root, _paths: publication_git(baton_commit),
         ancestry_probe=stable_ancestry,
     )
-    assert any("receipt history is not exact generation-fourteen" in error for error in errors)
+    assert any("receipt history is not exact generation-fifteen" in error for error in errors)
     receipt_history.append(verifier.GENERATION_ONE_RECEIPT_COMMIT)
 
     paths[verifier.GENERATION_ONE_SOURCE_COMMIT] = ("MISSION_STATE.json",)
@@ -1335,10 +1347,57 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
         git_probe=lambda _root, _paths: publication_git(baton_commit),
         ancestry_probe=stable_ancestry,
     )
-    assert any("generation-three source topology or path scope changed" in error for error in errors)
+    assert any(
+        "generation-three source topology or path scope changed" in error for error in errors
+    )
     paths[verifier.GENERATION_THREE_SOURCE_COMMIT] = tuple(
         sorted(verifier.GENERATION_THREE_SOURCE_COMMIT_PATHS)
     )
+
+    paths[verifier.GENERATION_FOURTEEN_SOURCE_COMMIT] = ("MISSION_STATE.json",)
+    errors = verifier.validate_published_receipt_structure(
+        receipt,
+        root,
+        git_probe=lambda _root, _paths: publication_git(baton_commit),
+        ancestry_probe=stable_ancestry,
+    )
+    assert any(
+        "generation-fourteen source topology or path scope changed" in error for error in errors
+    )
+    paths[verifier.GENERATION_FOURTEEN_SOURCE_COMMIT] = tuple(
+        sorted(verifier.GENERATION_FOURTEEN_SOURCE_COMMIT_PATHS)
+    )
+
+    for transition_commit, transition_name in (
+        (verifier.GENERATION_FOURTEEN_RECEIPT_COMMIT, "receipt"),
+        (verifier.GENERATION_FOURTEEN_STATE_COMMIT, "state"),
+        (verifier.GENERATION_FOURTEEN_BATON_COMMIT, "baton"),
+    ):
+        expected_error = f"generation-fourteen {transition_name} topology or path scope changed"
+        expected_parents = parents[transition_commit]
+        parents[transition_commit] = ("f" * 40,)
+        errors = verifier.validate_published_receipt_structure(
+            receipt,
+            root,
+            git_probe=lambda _root, _paths: publication_git(baton_commit),
+            ancestry_probe=stable_ancestry,
+        )
+        assert any(expected_error in error for error in errors)
+        parents[transition_commit] = expected_parents
+
+        expected_paths = paths[transition_commit]
+        paths[transition_commit] = (
+            *expected_paths,
+            "unexpected-generation-fourteen.txt",
+        )
+        errors = verifier.validate_published_receipt_structure(
+            receipt,
+            root,
+            git_probe=lambda _root, _paths: publication_git(baton_commit),
+            ancestry_probe=stable_ancestry,
+        )
+        assert any(expected_error in error for error in errors)
+        paths[transition_commit] = expected_paths
 
     parents[source] = ("f" * 40,)
     errors = verifier.validate_published_receipt_structure(
@@ -1348,7 +1407,7 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
         ancestry_probe=stable_ancestry,
     )
     assert any(
-        "actual generation-four source topology or path scope is wrong" in error
+        "actual generation-fifteen source topology or path scope is wrong" in error
         for error in errors
     )
 
@@ -1570,9 +1629,7 @@ def test_receipt_payload_digest_detects_structural_tampering(tmp_path: Path) -> 
 
 
 @pytest.mark.parametrize("mutation", ["extra", "missing"])
-def test_receipt_root_field_set_is_exact_in_both_validators(
-    tmp_path: Path, mutation: str
-) -> None:
+def test_receipt_root_field_set_is_exact_in_both_validators(tmp_path: Path, mutation: str) -> None:
     root = make_repo(tmp_path)
     receipt, _runner = run_green(root)
     forged = copy.deepcopy(receipt)
@@ -1598,9 +1655,7 @@ def test_receipt_root_field_set_is_exact_in_both_validators(
         ('{"value":-Infinity}', "non-finite receipt JSON number"),
     ],
 )
-def test_receipt_parser_rejects_duplicate_and_nonfinite_json(
-    payload: str, problem: str
-) -> None:
+def test_receipt_parser_rejects_duplicate_and_nonfinite_json(payload: str, problem: str) -> None:
     with pytest.raises(verifier.VerificationError, match=problem):
         verifier._parse_receipt_json(payload)  # noqa: SLF001
 

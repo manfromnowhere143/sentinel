@@ -16,12 +16,7 @@ import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-LAUNCHER = (
-    ROOT
-    / "experiments"
-    / "iter135_neuroncap_blind_braking_dose_response"
-    / "run_dose135.sh"
-)
+LAUNCHER = ROOT / "experiments" / "iter135_neuroncap_blind_braking_dose_response" / "run_dose135.sh"
 SMOKE_LAUNCHER = LAUNCHER.with_name("run_smoke135.sh")
 
 
@@ -52,7 +47,7 @@ def shell_function(name: str, next_name: str) -> str:
 def container_receipt_rows_program() -> str:
     text = LAUNCHER.read_text()
     marker = (
-        'container_receipt_rows() {\n'
+        "container_receipt_rows() {\n"
         '  python3 - "$CURRENT_BLOCK_CID_DIR" "$CURRENT_BLOCK_ORDINAL" <<\'PY\'\n'
     )
     return text.split(marker, 1)[1].split("\nPY\n}", 1)[0]
@@ -62,13 +57,7 @@ def stable_dataset_file_program() -> str:
     text = LAUNCHER.read_text()
     start = text.index("def stable_dataset_file(")
     end = text.index("\n\n\ndataset_root = Path", start)
-    return (
-        "import hashlib\n"
-        "import os\n"
-        "import stat\n"
-        "from pathlib import Path\n\n"
-        + text[start:end]
-    )
+    return "import hashlib\nimport os\nimport stat\nfrom pathlib import Path\n\n" + text[start:end]
 
 
 def current_mission_state_program() -> str:
@@ -87,9 +76,9 @@ def launch_activation_program() -> str:
 
 def tooling_publication_contract_namespace() -> dict[str, object]:
     text = LAUNCHER.read_text()
-    program = text.split("# BEGIN I135_TOOLING_PUBLICATION_CONTRACT_PYTHON\n", 1)[
-        1
-    ].split("# END I135_TOOLING_PUBLICATION_CONTRACT_PYTHON", 1)[0]
+    program = text.split("# BEGIN I135_TOOLING_PUBLICATION_CONTRACT_PYTHON\n", 1)[1].split(
+        "# END I135_TOOLING_PUBLICATION_CONTRACT_PYTHON", 1
+    )[0]
     namespace: dict[str, object] = {"oid": re.compile(r"^[0-9a-f]{40}$")}
     exec(compile(program, str(LAUNCHER), "exec"), namespace)
     return namespace
@@ -130,9 +119,7 @@ def launch_authorized_state() -> dict:
         },
         "trunk": "master",
         "current_completed_iteration": 134,
-        "current_result": (
-            "experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md"
-        ),
+        "current_result": ("experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md"),
         "current_verdict": "PLACEBO_HARM_OR_NULL",
         "run_state": "IDLE",
         "active_hypothesis": (
@@ -253,11 +240,11 @@ def test_launcher_is_shell_syntax_valid() -> None:
 def test_launcher_binds_and_rechecks_current_mission_authority_before_execution() -> None:
     text = LAUNCHER.read_text()
     final_state_check = (
-        'verify_current_mission_state >/dev/null \\\n'
+        "verify_current_mission_state >/dev/null \\\n"
         '  || abort "mission-state-revoked-at-final-analytic-arm"'
     )
     block_state_check = (
-        'verify_current_mission_state >/dev/null \\\n'
+        "verify_current_mission_state >/dev/null \\\n"
         '    || abort "mission-state-revoked-before-block:$ORDINAL"'
     )
     loop = text[text.index("while IFS=$'\\t' read -r ORDINAL") :]
@@ -265,18 +252,16 @@ def test_launcher_binds_and_rechecks_current_mission_authority_before_execution(
     assert "MISSION_STATE_SOURCE=$I135/MISSION_STATE.json" in text
     assert 'exec 6< "$MISSION_STATE_SOURCE"' in text
     assert '"/proc/$$/fd/6"' in text
-    assert 'exec 6>&- || true' in text
+    assert "exec 6>&- || true" in text
     assert "deployed mission state is not the launch manifest's bound current state" in text
     assert 'state.get("workspace_boundary") != expected_workspace_boundary' in text
     assert 'state.get("run_state") != "IDLE"' in text
     assert '"phase": "LAUNCH_AUTHORIZED"' in text
-    assert text.index(final_state_check) < text.index(
-        "ANALYTIC_LOCK_ID=$(publish_analytic_lock)"
-    )
+    assert text.index(final_state_check) < text.index("ANALYTIC_LOCK_ID=$(publish_analytic_lock)")
     assert loop.index('abort "containers-present-before-block:$ORDINAL"') < loop.index(
         block_state_check
     )
-    assert loop.index(block_state_check) < loop.index('ANALYTIC_STARTED=1')
+    assert loop.index(block_state_check) < loop.index("ANALYTIC_STARTED=1")
     assert loop.index(block_state_check) < loop.index(
         'if run_block "$ORDINAL" "$ARM_ID" "$SCENARIO" "$SEQ"'
     )
@@ -292,9 +277,7 @@ def test_current_mission_authority_accepts_exact_bound_physical_state(
     )
     descriptor = os.open(state_path, os.O_RDONLY)
     try:
-        result = run_state_authority_check(
-            state_path, manifest_path, manifest_sha, descriptor
-        )
+        result = run_state_authority_check(state_path, manifest_path, manifest_sha, descriptor)
     finally:
         os.close(descriptor)
 
@@ -325,17 +308,13 @@ def test_current_mission_authority_rejects_semantically_revoked_state_even_if_re
     elif mutation == "authorized_actions":
         state["next_program"]["authorized_actions"] = []
     else:
-        state["workspace_boundary"]["isolated_from"] = (
-            "/Users/danielwahnich/workspace/sentinel"
-        )
+        state["workspace_boundary"]["isolated_from"] = "/Users/danielwahnich/workspace/sentinel"
     case = tmp_path / mutation
     case.mkdir()
     state_path, manifest_path, manifest_sha = write_state_authority(case, state)
     descriptor = os.open(state_path, os.O_RDONLY)
     try:
-        result = run_state_authority_check(
-            state_path, manifest_path, manifest_sha, descriptor
-        )
+        result = run_state_authority_check(state_path, manifest_path, manifest_sha, descriptor)
     finally:
         os.close(descriptor)
 
@@ -350,9 +329,7 @@ def test_current_mission_authority_rejects_in_place_revocation_after_binding(
     state_path, manifest_path, manifest_sha = write_state_authority(tmp_path, state)
     descriptor = os.open(state_path, os.O_RDONLY)
     try:
-        accepted = run_state_authority_check(
-            state_path, manifest_path, manifest_sha, descriptor
-        )
+        accepted = run_state_authority_check(state_path, manifest_path, manifest_sha, descriptor)
         assert accepted.returncode == 0, accepted.stderr
         expected_sha, expected_identity, _ = accepted.stdout.split()
         state["run_state"] = "RUNNING"
@@ -384,9 +361,7 @@ def test_current_mission_authority_rejects_atomic_replacement_after_binding(
     )
     descriptor = os.open(state_path, os.O_RDONLY)
     try:
-        accepted = run_state_authority_check(
-            state_path, manifest_path, manifest_sha, descriptor
-        )
+        accepted = run_state_authority_check(state_path, manifest_path, manifest_sha, descriptor)
         assert accepted.returncode == 0, accepted.stderr
         expected_sha, expected_identity, _ = accepted.stdout.split()
         replacement = tmp_path / "replacement.json"
@@ -452,7 +427,7 @@ def test_launcher_is_inert_without_all_fail_closed_gates() -> None:
     text = LAUNCHER.read_text()
 
     assert 'manifest.get("launch_authorized") is not True' in text
-    assert 'passed is not True' in text
+    assert "passed is not True" in text
     assert "payload-outside-root" in text
     assert "remote-artifacts:missing" in text
     assert "docker_image_ids" in text
@@ -474,7 +449,10 @@ def test_launcher_is_inert_without_all_fail_closed_gates() -> None:
     assert "live-gpu-topology" in text
     assert "live-gpu-process-present" in text
     assert "evaluator-process-present" in text
-    assert "for REQUIRED_COMMAND in awk chmod cp date docker find findmnt flock git grep mkdir mktemp" in text
+    assert (
+        "for REQUIRED_COMMAND in awk chmod cp date docker find findmnt flock git grep mkdir mktemp"
+        in text
+    )
     assert "nvidia-smi ps python3 readlink rm rmdir sha256sum sleep stat timeout tr wc" in text
     assert 'echo "I135_ABORT $REQUIRED_COMMAND-missing" >&2' in text
     assert "EXPECTED_MANIFEST_SHA=${SENTINEL_LAUNCH_MANIFEST_SHA256:-}" in text
@@ -531,9 +509,7 @@ def test_launcher_requires_independent_activation_baton_and_rechecks_it_at_bound
     assert "ProxyHandler({})" in text
     assert "ssl.create_default_context()" in text
     assert "activation B parent does not equal receipt-bound F" in text
-    assert text.index(final_activation) < text.index(
-        "ANALYTIC_LOCK_ID=$(publish_analytic_lock)"
-    )
+    assert text.index(final_activation) < text.index("ANALYTIC_LOCK_ID=$(publish_analytic_lock)")
     assert loop.index(block_activation) < loop.index("ANALYTIC_STARTED=1")
     assert 'abort "launch-activation-revoked-before-done"' in text
     assert 'manifest.get("host_packet_manifest") != bound.get(' in text
@@ -606,9 +582,7 @@ def test_local_activation_then_github_projection_feeds_exact_lock_payload(
         "verdict": "I135_HOST_PREPARATION_OK",
         "packet_manifest_sha256": hashlib.sha256(host_packet_payload).hexdigest(),
     }
-    host_preparation_payload = (
-        json.dumps(host_preparation, sort_keys=True) + "\n"
-    ).encode()
+    host_preparation_payload = (json.dumps(host_preparation, sort_keys=True) + "\n").encode()
     (experiment / "host_preparation_receipt.json").write_bytes(host_preparation_payload)
     environment_payload = (
         json.dumps(
@@ -622,9 +596,7 @@ def test_local_activation_then_github_projection_feeds_exact_lock_payload(
     ).encode()
     (experiment / "env_receipts.json").write_bytes(environment_payload)
     pre_smoke_payload = b'{"pre_smoke":true}\n'
-    (experiment / "smoke-evidence/raw/pre_smoke_manifest.json").write_bytes(
-        pre_smoke_payload
-    )
+    (experiment / "smoke-evidence/raw/pre_smoke_manifest.json").write_bytes(pre_smoke_payload)
     smoke_payload = (
         json.dumps(
             {
@@ -644,12 +616,13 @@ def test_local_activation_then_github_projection_feeds_exact_lock_payload(
                 "schema": "iter135.tooling_verification.v2",
                 "verdict": "I135_TOOLING_VERIFICATION_OK",
                 "publication": {
-                    "generation": 14,
-                    "supersedes_receipt_commit": (
-                        "688182ad3b7afbb0d58141accbcf554981e6fb20"
+                    "generation": 15,
+                    "supersedes_receipt_commit": ("b260ca5b0910c4d499c13e42add97affd726b77c"),
+                    "recovery_parent": "69bd2e2face00ccabb426382347eb04e8a0dbe83",
+                    "reason_code": (
+                        "B14_H_DESCENDANT_CONTROLLER_OMISSION_GITHUB_RUN_AUTHORITY_"
+                        "AND_CI_FIXTURE_RESOURCE_FOSSILS"
                     ),
-                    "recovery_parent": "1ba42bbb869c652fd6d3d951a3c92ec404f61e72",
-                    "reason_code": "S1_SMOKE_AND_DOSE_DOCKER29_DAEMON_EXPERIMENTAL_SCHEMA_FOSSIL",
                 },
                 "repository": {"git_start": {"head": "9" * 40}},
             },
@@ -695,23 +668,17 @@ def test_local_activation_then_github_projection_feeds_exact_lock_payload(
                 f"{relative_root}/host_preparation_receipt.json",
                 host_preparation_payload,
             ),
-            "env_receipts.json": bound(
-                f"{relative_root}/env_receipts.json", environment_payload
-            ),
+            "env_receipts.json": bound(f"{relative_root}/env_receipts.json", environment_payload),
             "smoke-evidence/smoke_receipt.json": bound(
                 f"{relative_root}/smoke-evidence/smoke_receipt.json", smoke_payload
             ),
         },
     }
-    manifest["host_packet_manifest"] = manifest["hash_bound_files"][
-        "host_packet_manifest.json"
-    ]
+    manifest["host_packet_manifest"] = manifest["hash_bound_files"]["host_packet_manifest.json"]
     manifest["host_preparation_receipt"] = manifest["hash_bound_files"][
         "host_preparation_receipt.json"
     ]
-    manifest["smoke_receipt"] = manifest["hash_bound_files"][
-        "smoke-evidence/smoke_receipt.json"
-    ]
+    manifest["smoke_receipt"] = manifest["hash_bound_files"]["smoke-evidence/smoke_receipt.json"]
     manifest_payload = (json.dumps(manifest, sort_keys=True) + "\n").encode()
     manifest_path = experiment / "launch_manifest.json"
     manifest_path.write_bytes(manifest_payload)
@@ -723,9 +690,7 @@ def test_local_activation_then_github_projection_feeds_exact_lock_payload(
         "host_packet_manifest": activation_bound(
             f"{relative_root}/host_packet_manifest.json", host_packet_payload
         ),
-        "environment": activation_bound(
-            f"{relative_root}/env_receipts.json", environment_payload
-        ),
+        "environment": activation_bound(f"{relative_root}/env_receipts.json", environment_payload),
         "pre_smoke_manifest": activation_bound(
             f"{relative_root}/launch_manifest.json", pre_smoke_payload
         ),
@@ -790,34 +755,55 @@ def test_local_activation_then_github_projection_feeds_exact_lock_payload(
         "ref": "refs/heads/master",
         "object": {"type": "commit", "sha": activation_commit},
     }
-    responses = [
-        ref,
-        _green_check_runs(activation_commit),
-        {
-            "sha": activation_commit,
-            "parents": [{"sha": commits["final_manifest"]}],
-            "files": [
-                {"filename": path, "status": "modified"}
-                for path in sorted(
-                    {
-                        "CONTINUITY.md",
-                        "HANDOFF.md",
-                        namespace["ACTIVATION_REPOSITORY_PATH"],
-                    }
-                )
-            ],
-        },
-        {
-            "type": "file",
-            "path": namespace["ACTIVATION_REPOSITORY_PATH"],
-            "sha": blob_oid,
-            "encoding": "base64",
-            "size": len(activation_payload),
-            "content": base64.b64encode(activation_payload).decode(),
-        },
-        ref,
-    ]
-    namespace["github_json"] = lambda _relative: responses.pop(0)
+    workflow_runs = _green_workflow_runs(activation_commit)
+    workflow_run = namespace["validate_workflow_runs"](workflow_runs, activation_commit)
+    jobs = _green_workflow_jobs(activation_commit, workflow_run)
+    workflow_runs_path = (
+        "/actions/workflows/ci.yml/runs?branch=master&event=push&"
+        f"head_sha={activation_commit}&per_page=100&page=1"
+    )
+    jobs_path = (
+        f"/actions/runs/{workflow_run['id']}/attempts/"
+        f"{workflow_run['run_attempt']}/jobs?per_page=100&page=1"
+    )
+    commit_document = {
+        "sha": activation_commit,
+        "parents": [{"sha": commits["final_manifest"]}],
+        "files": [
+            {"filename": path, "status": "modified"}
+            for path in sorted(
+                {
+                    "CONTINUITY.md",
+                    "HANDOFF.md",
+                    namespace["ACTIVATION_REPOSITORY_PATH"],
+                }
+            )
+        ],
+    }
+    blob_document = {
+        "type": "file",
+        "path": namespace["ACTIVATION_REPOSITORY_PATH"],
+        "sha": blob_oid,
+        "encoding": "base64",
+        "size": len(activation_payload),
+        "content": base64.b64encode(activation_payload).decode(),
+    }
+    responses = {
+        "/git/ref/heads/master": ref,
+        workflow_runs_path: workflow_runs,
+        jobs_path: jobs,
+        f"/commits/{activation_commit}?per_page=100&page=1": commit_document,
+        (
+            f"/contents/{namespace['ACTIVATION_REPOSITORY_PATH']}?ref={activation_commit}"
+        ): blob_document,
+    }
+    requests: list[str] = []
+
+    def fake_github_json(relative: str) -> object:
+        requests.append(relative)
+        return responses[relative]
+
+    namespace["github_json"] = fake_github_json
     original_argv = namespace["sys"].argv
     namespace["sys"].argv = [
         "authority",
@@ -834,6 +820,9 @@ def test_local_activation_then_github_projection_feeds_exact_lock_payload(
     remote_fields = output.getvalue().split()
     assert remote_fields[:2] == [activation_commit, commits["final_manifest"]]
     assert remote_fields[1] == local_fields[3]
+    assert workflow_runs_path in requests
+    assert jobs_path in requests
+    assert all("/check-runs" not in request for request in requests)
 
     lock = tmp_path / "analytic.lock"
     published = subprocess.run(
@@ -873,10 +862,10 @@ def test_local_activation_then_github_projection_feeds_exact_lock_payload(
 @pytest.mark.parametrize(
     ("field", "hostile"),
     [
-        ("generation", 3),
+        ("generation", 14),
         ("supersedes_receipt_commit", "0" * 40),
         ("recovery_parent", "1" * 40),
-        ("reason_code", "UNREGISTERED_GENERATION_THIRTEEN_REASON"),
+        ("reason_code", "UNREGISTERED_GENERATION_FIFTEEN_REASON"),
     ],
 )
 def test_analytic_tooling_publication_contract_rejects_each_hostile_field(
@@ -947,7 +936,7 @@ def test_launcher_pins_exact_v3_interpreter_and_rechecks_each_block() -> None:
 
     assert 'PYTHON_BIN=$(readlink -f "$PYTHON_COMMAND")' in text
     assert 'exec 10< "$PYTHON_BIN"' in text
-    assert 'PYTHON_FD_PATH=/proc/$$/fd/10' in text
+    assert "PYTHON_FD_PATH=/proc/$$/fd/10" in text
     assert '"$PYTHON_FD_PATH" -I "$@"' in text
     assert '"$(stat -Lc \'%d:%i\' "$PYTHON_FD_PATH")" = "$PYTHON_BIN_ID"' in text
     assert '"$(stat -Lc \'%d:%i\' "$PYTHON_BIN")" = "$PYTHON_BIN_ID"' in text
@@ -956,27 +945,79 @@ def test_launcher_pins_exact_v3_interpreter_and_rechecks_each_block() -> None:
     assert '"physical_path"' in text
     assert '"sha256"' in text
     assert '"version"' in text
-    assert loop.index("verify_python_interpreter_binding") < loop.index(
-        "ANALYTIC_STARTED=1"
-    )
+    assert loop.index("verify_python_interpreter_binding") < loop.index("ANALYTIC_STARTED=1")
     assert 'SENTINEL_DOCKER_EXECUTABLE="$DOCKER_FD_PATH"' in text
     assert 'exec "$SENTINEL_DOCKER_EXECUTABLE" run' in text
 
 
-def _green_check_runs(commit: str) -> dict[str, object]:
+def _workflow_run(
+    commit: str,
+    *,
+    run_id: int = 410,
+    suite_id: int = 510,
+    run_number: int = 610,
+    run_attempt: int = 2,
+    status: str = "completed",
+    conclusion: str | None = "success",
+    created_at: str = "2026-07-19T10:00:00Z",
+    run_started_at: str | None = "2026-07-19T10:00:01Z",
+    updated_at: str = "2026-07-19T10:01:00Z",
+) -> dict[str, object]:
+    api_root = "https://api.github.com/repos/manfromnowhere143/sentinel"
+    run_url = f"{api_root}/actions/runs/{run_id}"
+    return {
+        "id": run_id,
+        "check_suite_id": suite_id,
+        "workflow_id": 304353015,
+        "name": "ci",
+        "path": ".github/workflows/ci.yml",
+        "head_branch": "master",
+        "head_sha": commit,
+        "event": "push",
+        "status": status,
+        "conclusion": conclusion,
+        "run_number": run_number,
+        "run_attempt": run_attempt,
+        "created_at": created_at,
+        "run_started_at": run_started_at,
+        "updated_at": updated_at,
+        "url": run_url,
+        "jobs_url": f"{run_url}/jobs",
+    }
+
+
+def _green_workflow_runs(commit: str) -> dict[str, object]:
+    return {
+        "total_count": 1,
+        "workflow_runs": [_workflow_run(commit)],
+    }
+
+
+def _green_workflow_jobs(commit: str, workflow_run: dict[str, object]) -> dict[str, object]:
+    api_root = "https://api.github.com/repos/manfromnowhere143/sentinel"
+    run_id = workflow_run["id"]
+    run_attempt = workflow_run["run_attempt"]
     return {
         "total_count": 2,
-        "check_runs": [
+        "jobs": [
             {
                 "id": index,
+                "run_id": run_id,
+                "run_attempt": run_attempt,
                 "name": f"check ({version})",
                 "head_sha": commit,
+                "head_branch": "master",
+                "workflow_name": "ci",
                 "status": "completed",
                 "conclusion": "success",
-                "app": {"slug": "github-actions"},
+                "started_at": "2026-07-19T10:00:02Z",
+                "completed_at": "2026-07-19T10:00:30Z",
+                "url": f"{api_root}/actions/jobs/{index}",
+                "run_url": f"{api_root}/actions/runs/{run_id}",
+                "check_run_url": f"{api_root}/check-runs/{index}",
             }
             for index, version in enumerate(("3.10", "3.11"), start=10)
-        ]
+        ],
     }
 
 
@@ -998,6 +1039,52 @@ def test_github_launch_authority_strict_json_rejects_hostile_payloads(
         namespace["strict_json_loads"](payload)
 
 
+def test_github_launch_authority_transport_emits_cache_bypass_headers(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    namespace = github_launch_authority_namespace()
+    relative = "/git/ref/heads/master"
+    requested = namespace["API_ROOT"] + relative
+    observed_requests = []
+
+    class Headers(dict):
+        def get_content_type(self):
+            return "application/json"
+
+    class Response:
+        status = 200
+        headers = Headers()
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return False
+
+        def geturl(self):
+            return requested
+
+        def read(self, _limit):
+            return b"{}"
+
+    class Opener:
+        def open(self, request, timeout):
+            assert timeout == 20
+            observed_requests.append(request)
+            return Response()
+
+    monkeypatch.setattr(
+        namespace["urllib"].request,
+        "build_opener",
+        lambda *_handlers: Opener(),
+    )
+
+    assert namespace["github_json"](relative) == {}
+    assert len(observed_requests) == 1
+    assert observed_requests[0].get_header("Cache-control") == "no-cache"
+    assert observed_requests[0].get_header("Pragma") == "no-cache"
+
+
 @pytest.mark.parametrize("mutation", ["duplicate-key", "non-finite"])
 def test_github_launch_authority_rejects_hostile_committed_activation_artifact(
     mutation: str,
@@ -1013,9 +1100,7 @@ def test_github_launch_authority_rejects_hostile_committed_activation_artifact(
         deployed = f'{{"commits":{commits},"commits":{commits}}}'.encode()
     else:
         deployed = f'{{"commits":{commits},"hostile":NaN}}'.encode()
-    blob_oid = hashlib.sha1(
-        f"blob {len(deployed)}\0".encode() + deployed
-    ).hexdigest()
+    blob_oid = hashlib.sha1(f"blob {len(deployed)}\0".encode() + deployed).hexdigest()
     blob = {
         "type": "file",
         "path": namespace["ACTIVATION_REPOSITORY_PATH"],
@@ -1034,44 +1119,338 @@ def test_github_launch_authority_rejects_hostile_committed_activation_artifact(
         )
 
 
+def test_github_launch_gate_accepts_exact_green_workflow_attempt() -> None:
+    namespace = github_launch_authority_namespace()
+    validate_workflow_runs = namespace["validate_workflow_runs"]
+    validate_ci = namespace["validate_ci"]
+    commit = "a" * 40
+    workflow_run = validate_workflow_runs(_green_workflow_runs(commit), commit)
+
+    projection = validate_ci(_green_workflow_jobs(commit, workflow_run), commit, workflow_run)
+
+    assert workflow_run == {
+        "id": 410,
+        "check_suite_id": 510,
+        "run_number": 610,
+        "run_attempt": 2,
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-07-19T10:00:00Z",
+        "run_started_at": "2026-07-19T10:00:01Z",
+        "updated_at": "2026-07-19T10:01:00Z",
+    }
+    assert [row["id"] for row in projection] == [10, 11]
+
+
+def test_github_launch_gate_selects_latest_canonical_run_by_run_number() -> None:
+    namespace = github_launch_authority_namespace()
+    validate_workflow_runs = namespace["validate_workflow_runs"]
+    commit = "a" * 40
+    older_red = _workflow_run(
+        commit,
+        run_id=900,
+        suite_id=901,
+        run_number=609,
+        run_attempt=3,
+        status="completed",
+        conclusion="failure",
+        created_at="2026-07-19T11:00:00Z",
+        run_started_at="2026-07-19T11:00:01Z",
+        updated_at="2026-07-19T11:01:00Z",
+    )
+    newer_green = _workflow_run(
+        commit,
+        run_id=410,
+        suite_id=510,
+        run_number=610,
+        run_attempt=2,
+        created_at="2026-07-19T10:00:00Z",
+        run_started_at="2026-07-19T10:00:01Z",
+        updated_at="2026-07-19T10:01:00Z",
+    )
+
+    selected = validate_workflow_runs(
+        {"total_count": 2, "workflow_runs": [newer_green, older_red]}, commit
+    )
+
+    assert selected["id"] == 410
+    assert selected["run_number"] == 610
+    assert selected["run_attempt"] == 2
+
+
+def test_github_launch_gate_rejects_same_sha_validation_branch_before_selection() -> None:
+    namespace = github_launch_authority_namespace()
+    validate_workflow_runs = namespace["validate_workflow_runs"]
+    commit = "a" * 40
+    red_master = _workflow_run(
+        commit,
+        run_id=410,
+        suite_id=510,
+        run_number=610,
+        status="completed",
+        conclusion="failure",
+    )
+    green_validation = _workflow_run(
+        commit,
+        run_id=411,
+        suite_id=511,
+        run_number=611,
+    )
+    green_validation["head_branch"] = "ci-validate-generation-15"
+
+    with pytest.raises(ValueError, match="binding drift"):
+        validate_workflow_runs(
+            {
+                "total_count": 2,
+                "workflow_runs": [green_validation, red_master],
+            },
+            commit,
+        )
+
+
+@pytest.mark.parametrize(
+    ("field", "hostile"),
+    [
+        ("workflow_id", 1),
+        ("name", "hostile"),
+        ("path", ".github/workflows/hostile.yml"),
+        ("head_branch", "ci-validate-generation-15"),
+        ("head_sha", "b" * 40),
+        ("event", "workflow_dispatch"),
+        ("url", "https://api.github.com/hostile"),
+        ("jobs_url", "https://api.github.com/hostile/jobs"),
+    ],
+)
+def test_github_launch_gate_rejects_workflow_run_binding_drift(field: str, hostile: object) -> None:
+    namespace = github_launch_authority_namespace()
+    payload = _green_workflow_runs("a" * 40)
+    payload["workflow_runs"][0][field] = hostile
+
+    with pytest.raises(ValueError, match="binding drift"):
+        namespace["validate_workflow_runs"](payload, "a" * 40)
+
+
+@pytest.mark.parametrize("hostile_workflow_id", [True, 304353015.0])
+def test_github_launch_gate_workflow_id_requires_exact_json_integer(
+    hostile_workflow_id: object,
+) -> None:
+    namespace = github_launch_authority_namespace()
+    payload = _green_workflow_runs("a" * 40)
+    payload["workflow_runs"][0]["workflow_id"] = hostile_workflow_id
+
+    with pytest.raises(ValueError, match="binding drift"):
+        namespace["validate_workflow_runs"](payload, "a" * 40)
+
+
+@pytest.mark.parametrize(
+    ("status", "conclusion", "run_started_at"),
+    [
+        ("completed", "failure", "2026-07-19T10:00:01Z"),
+        ("queued", None, None),
+        ("in_progress", None, "2026-07-19T10:00:01Z"),
+    ],
+)
+def test_github_launch_gate_rejects_latest_non_green_workflow_run(
+    status: str, conclusion: str | None, run_started_at: str | None
+) -> None:
+    namespace = github_launch_authority_namespace()
+    payload = {
+        "total_count": 1,
+        "workflow_runs": [
+            _workflow_run(
+                "a" * 40,
+                status=status,
+                conclusion=conclusion,
+                run_started_at=run_started_at,
+            )
+        ],
+    }
+
+    with pytest.raises(ValueError, match="not green"):
+        namespace["validate_workflow_runs"](payload, "a" * 40)
+
+
+@pytest.mark.parametrize("field", ["id", "check_suite_id", "run_number"])
+def test_github_launch_gate_rejects_duplicate_workflow_identity(field: str) -> None:
+    namespace = github_launch_authority_namespace()
+    commit = "a" * 40
+    rows = [
+        _workflow_run(
+            commit,
+            run_id=410,
+            suite_id=510,
+            run_number=610,
+        ),
+        _workflow_run(
+            commit,
+            run_id=411,
+            suite_id=511,
+            run_number=611,
+        ),
+    ]
+    rows[1][field] = rows[0][field]
+
+    with pytest.raises(ValueError, match="identity drift"):
+        namespace["validate_workflow_runs"]({"total_count": 2, "workflow_runs": rows}, commit)
+
+
+@pytest.mark.parametrize(
+    ("field", "hostile"),
+    [
+        ("created_at", "not-a-timestamp"),
+        ("created_at", "2026-07-19T10:02:00Z"),
+        ("run_started_at", "2026-07-19T09:59:59Z"),
+        ("run_started_at", "2026-07-19T10:01:01Z"),
+        ("updated_at", "not-a-timestamp"),
+    ],
+)
+def test_github_launch_gate_rejects_malformed_or_reversed_workflow_timestamps(
+    field: str, hostile: str
+) -> None:
+    namespace = github_launch_authority_namespace()
+    payload = _green_workflow_runs("a" * 40)
+    payload["workflow_runs"][0][field] = hostile
+
+    with pytest.raises(ValueError, match="timestamp drift"):
+        namespace["validate_workflow_runs"](payload, "a" * 40)
+
+
+def test_github_launch_gate_enforces_complete_workflow_run_page_boundary() -> None:
+    namespace = github_launch_authority_namespace()
+    commit = "a" * 40
+    rows = [
+        _workflow_run(
+            commit,
+            run_id=1_000 + index,
+            suite_id=2_000 + index,
+            run_number=3_000 + index,
+            run_attempt=1,
+        )
+        for index in range(100)
+    ]
+
+    selected = namespace["validate_workflow_runs"](
+        {"total_count": 100, "workflow_runs": rows}, commit
+    )
+    assert selected["run_number"] == 3_099
+
+    with pytest.raises(ValueError, match="incomplete"):
+        namespace["validate_workflow_runs"]({"total_count": 101, "workflow_runs": rows}, commit)
+
+
 @pytest.mark.parametrize(
     ("mutation", "message"),
     [
-        ("pending", "identity drift"),
-        ("failure", "not green"),
-        ("wrong-head", "identity drift"),
-        ("wrong-app", "identity drift"),
+        ("pending", "identity or conclusion drift"),
+        ("failure", "identity or conclusion drift"),
+        ("wrong-run", "identity or conclusion drift"),
+        ("wrong-attempt", "identity or conclusion drift"),
+        ("wrong-head", "identity or conclusion drift"),
+        ("wrong-branch", "identity or conclusion drift"),
+        ("wrong-workflow", "identity or conclusion drift"),
+        ("wrong-job-url", "identity or conclusion drift"),
+        ("wrong-run-url", "identity or conclusion drift"),
+        ("wrong-check-url", "identity or conclusion drift"),
         ("missing", "incomplete"),
-        ("page-incomplete", "incomplete"),
-        ("duplicate", "missing"),
+        ("extra", "incomplete"),
+        ("duplicate-name", "not unique"),
+        ("duplicate-id", "not unique"),
+        ("unexpected", "unexpected"),
+        ("malformed-timestamp", "timestamp drift"),
+        ("reversed-timestamps", "timestamp drift"),
     ],
 )
-def test_github_launch_gate_rejects_hostile_ci_json(
-    mutation: str, message: str
-) -> None:
+def test_github_launch_gate_rejects_hostile_exact_attempt_jobs(mutation: str, message: str) -> None:
     namespace = github_launch_authority_namespace()
-    validate_ci = namespace["validate_ci"]
     commit = "a" * 40
-    payload = _green_check_runs(commit)
+    workflow_run = namespace["validate_workflow_runs"](_green_workflow_runs(commit), commit)
+    payload = _green_workflow_jobs(commit, workflow_run)
+    jobs = payload["jobs"]
     if mutation == "pending":
-        payload["check_runs"][0]["status"] = "in_progress"
-        payload["check_runs"][0]["conclusion"] = None
+        jobs[0]["status"] = "in_progress"
+        jobs[0]["conclusion"] = None
     elif mutation == "failure":
-        payload["check_runs"][0]["conclusion"] = "failure"
+        jobs[0]["conclusion"] = "failure"
+    elif mutation == "wrong-run":
+        jobs[0]["run_id"] = 999
+    elif mutation == "wrong-attempt":
+        jobs[0]["run_attempt"] = workflow_run["run_attempt"] + 1
     elif mutation == "wrong-head":
-        payload["check_runs"][0]["head_sha"] = "b" * 40
-    elif mutation == "wrong-app":
-        payload["check_runs"][0]["app"] = {"slug": "untrusted"}
+        jobs[0]["head_sha"] = "b" * 40
+    elif mutation == "wrong-branch":
+        jobs[0]["head_branch"] = "ci-validate-generation-15"
+    elif mutation == "wrong-workflow":
+        jobs[0]["workflow_name"] = "hostile"
+    elif mutation == "wrong-job-url":
+        jobs[0]["url"] = "https://api.github.com/hostile"
+    elif mutation == "wrong-run-url":
+        jobs[0]["run_url"] = "https://api.github.com/hostile"
+    elif mutation == "wrong-check-url":
+        jobs[0]["check_run_url"] = "https://api.github.com/hostile"
     elif mutation == "missing":
-        payload["check_runs"] = payload["check_runs"][:1]
+        payload["jobs"] = jobs[:1]
         payload["total_count"] = 1
-    elif mutation == "page-incomplete":
+    elif mutation == "extra":
+        payload["jobs"] = jobs + [{"name": "hostile"}]
         payload["total_count"] = 3
+    elif mutation == "duplicate-name":
+        jobs[1]["name"] = jobs[0]["name"]
+    elif mutation == "duplicate-id":
+        jobs[1]["id"] = jobs[0]["id"]
+    elif mutation == "unexpected":
+        jobs[1]["name"] = "unexpected check"
+    elif mutation == "malformed-timestamp":
+        jobs[0]["started_at"] = "not-a-timestamp"
     else:
-        payload["check_runs"][1]["name"] = "check (3.10)"
+        jobs[0]["started_at"] = "2026-07-19T10:00:31Z"
+        jobs[0]["completed_at"] = "2026-07-19T10:00:30Z"
 
     with pytest.raises(ValueError, match=message):
-        validate_ci(payload, commit)
+        namespace["validate_ci"](payload, commit, workflow_run)
+
+
+@pytest.mark.parametrize(
+    ("selected_run_id", "hostile_run_id"),
+    [(1, True), (410, 410.0)],
+)
+def test_github_launch_gate_job_run_id_requires_exact_json_integer(
+    selected_run_id: int,
+    hostile_run_id: object,
+) -> None:
+    namespace = github_launch_authority_namespace()
+    commit = "a" * 40
+    workflow_payload = {
+        "total_count": 1,
+        "workflow_runs": [_workflow_run(commit, run_id=selected_run_id)],
+    }
+    workflow_run = namespace["validate_workflow_runs"](workflow_payload, commit)
+    payload = _green_workflow_jobs(commit, workflow_run)
+    payload["jobs"][0]["run_id"] = hostile_run_id
+
+    with pytest.raises(ValueError, match="identity or conclusion drift"):
+        namespace["validate_ci"](payload, commit, workflow_run)
+
+
+@pytest.mark.parametrize("mutation", ["missing", "bool", "float"])
+def test_github_launch_gate_job_run_attempt_requires_positive_exact_json_integer(
+    mutation: str,
+) -> None:
+    namespace = github_launch_authority_namespace()
+    commit = "a" * 40
+    workflow_run = namespace["validate_workflow_runs"](
+        _green_workflow_runs(commit),
+        commit,
+    )
+    payload = _green_workflow_jobs(commit, workflow_run)
+    if mutation == "missing":
+        payload["jobs"][0].pop("run_attempt")
+    elif mutation == "bool":
+        payload["jobs"][0]["run_attempt"] = True
+    else:
+        payload["jobs"][0]["run_attempt"] = 2.0
+
+    with pytest.raises(ValueError, match="identity or conclusion drift"):
+        namespace["validate_ci"](payload, commit, workflow_run)
 
 
 def test_github_launch_gate_rejects_master_parent_and_activation_blob_drift() -> None:
@@ -1142,9 +1521,7 @@ def test_github_launch_gate_rejects_master_parent_and_activation_blob_drift() ->
             final_manifest,
         )
     with pytest.raises(ValueError, match="parent does not equal"):
-        validate_activation_blob(
-            payload, deployed, hashlib.sha256(deployed).hexdigest(), "d" * 40
-        )
+        validate_activation_blob(payload, deployed, hashlib.sha256(deployed).hexdigest(), "d" * 40)
 
 
 def test_github_launch_gate_rechecks_master_after_ci_scope_and_blob(
@@ -1171,36 +1548,57 @@ def test_github_launch_gate_rechecks_master_after_ci_scope_and_blob(
         "ref": "refs/heads/master",
         "object": {"type": "commit", "sha": "c" * 40},
     }
-    responses = [
-        green_ref,
-        _green_check_runs(commit),
-        {
-            "sha": commit,
-            "parents": [{"sha": final_manifest}],
-            "files": [
-                {"filename": "CONTINUITY.md", "status": "modified"},
-                {"filename": "HANDOFF.md", "status": "modified"},
-                {
-                    "filename": namespace["ACTIVATION_REPOSITORY_PATH"],
-                    "status": "added",
-                },
-            ],
-        },
-        {
-            "type": "file",
-            "path": namespace["ACTIVATION_REPOSITORY_PATH"],
-            "encoding": "base64",
-            "size": len(deployed),
-            "sha": blob_oid,
-            "content": base64.b64encode(deployed).decode(),
-        },
-        red_ref,
-    ]
+    workflow_runs = _green_workflow_runs(commit)
+    workflow_run = namespace["validate_workflow_runs"](workflow_runs, commit)
+    jobs = _green_workflow_jobs(commit, workflow_run)
+    workflow_runs_path = (
+        "/actions/workflows/ci.yml/runs?branch=master&event=push&"
+        f"head_sha={commit}&per_page=100&page=1"
+    )
+    jobs_path = (
+        f"/actions/runs/{workflow_run['id']}/attempts/"
+        f"{workflow_run['run_attempt']}/jobs?per_page=100&page=1"
+    )
+    commit_path = f"/commits/{commit}?per_page=100&page=1"
+    blob_path = f"/contents/{namespace['ACTIVATION_REPOSITORY_PATH']}?ref={commit}"
+    commit_document = {
+        "sha": commit,
+        "parents": [{"sha": final_manifest}],
+        "files": [
+            {"filename": "CONTINUITY.md", "status": "modified"},
+            {"filename": "HANDOFF.md", "status": "modified"},
+            {
+                "filename": namespace["ACTIVATION_REPOSITORY_PATH"],
+                "status": "added",
+            },
+        ],
+    }
+    blob_document = {
+        "type": "file",
+        "path": namespace["ACTIVATION_REPOSITORY_PATH"],
+        "encoding": "base64",
+        "size": len(deployed),
+        "sha": blob_oid,
+        "content": base64.b64encode(deployed).decode(),
+    }
     requests: list[str] = []
+    artifact_seen = False
 
     def fake_github_json(relative: str) -> object:
+        nonlocal artifact_seen
         requests.append(relative)
-        return responses.pop(0)
+        if relative == "/git/ref/heads/master":
+            return red_ref if artifact_seen else green_ref
+        if relative == workflow_runs_path:
+            return workflow_runs
+        if relative == jobs_path:
+            return jobs
+        if relative == commit_path:
+            return commit_document
+        if relative == blob_path:
+            artifact_seen = True
+            return blob_document
+        raise AssertionError(f"unexpected GitHub request: {relative}")
 
     namespace["github_json"] = fake_github_json
     original_argv = namespace["sys"].argv
@@ -1216,7 +1614,108 @@ def test_github_launch_gate_rechecks_master_after_ci_scope_and_blob(
     finally:
         namespace["sys"].argv = original_argv
     assert requests[-1] == "/git/ref/heads/master"
-    assert not responses
+    assert workflow_runs_path in requests
+    assert jobs_path in requests
+
+
+def test_github_launch_gate_rejects_rerun_attempt_race(
+    tmp_path: Path,
+) -> None:
+    namespace = github_launch_authority_namespace()
+    commit = "a" * 40
+    final_manifest = "b" * 40
+    activation = {
+        "commits": {
+            "final_manifest": final_manifest,
+            "baton_parent": final_manifest,
+        }
+    }
+    activation_path = tmp_path / "launch_activation_receipt.json"
+    activation_path.write_text(json.dumps(activation, sort_keys=True) + "\n")
+    deployed = activation_path.read_bytes()
+    blob_oid = hashlib.sha1(f"blob {len(deployed)}\0".encode() + deployed).hexdigest()
+    green_ref = {
+        "ref": "refs/heads/master",
+        "object": {"type": "commit", "sha": commit},
+    }
+    initial_workflow_runs = _green_workflow_runs(commit)
+    initial_workflow = namespace["validate_workflow_runs"](initial_workflow_runs, commit)
+    raced_workflow_runs = {
+        "total_count": 1,
+        "workflow_runs": [
+            _workflow_run(
+                commit,
+                run_attempt=initial_workflow["run_attempt"] + 1,
+                run_started_at="2026-07-19T10:02:00Z",
+                updated_at="2026-07-19T10:03:00Z",
+            )
+        ],
+    }
+    jobs = _green_workflow_jobs(commit, initial_workflow)
+    workflow_runs_path = (
+        "/actions/workflows/ci.yml/runs?branch=master&event=push&"
+        f"head_sha={commit}&per_page=100&page=1"
+    )
+    jobs_path = (
+        f"/actions/runs/{initial_workflow['id']}/attempts/"
+        f"{initial_workflow['run_attempt']}/jobs?per_page=100&page=1"
+    )
+    commit_path = f"/commits/{commit}?per_page=100&page=1"
+    blob_path = f"/contents/{namespace['ACTIVATION_REPOSITORY_PATH']}?ref={commit}"
+    requests: list[str] = []
+    workflow_request_count = 0
+
+    def fake_github_json(relative: str) -> object:
+        nonlocal workflow_request_count
+        requests.append(relative)
+        if relative == "/git/ref/heads/master":
+            return green_ref
+        if relative == workflow_runs_path:
+            workflow_request_count += 1
+            return initial_workflow_runs if workflow_request_count == 1 else raced_workflow_runs
+        if relative == jobs_path:
+            return jobs
+        if relative == commit_path:
+            return {
+                "sha": commit,
+                "parents": [{"sha": final_manifest}],
+                "files": [
+                    {"filename": "CONTINUITY.md", "status": "modified"},
+                    {"filename": "HANDOFF.md", "status": "modified"},
+                    {
+                        "filename": namespace["ACTIVATION_REPOSITORY_PATH"],
+                        "status": "added",
+                    },
+                ],
+            }
+        if relative == blob_path:
+            return {
+                "type": "file",
+                "path": namespace["ACTIVATION_REPOSITORY_PATH"],
+                "encoding": "base64",
+                "size": len(deployed),
+                "sha": blob_oid,
+                "content": base64.b64encode(deployed).decode(),
+            }
+        raise AssertionError(f"unexpected GitHub request: {relative}")
+
+    namespace["github_json"] = fake_github_json
+    original_argv = namespace["sys"].argv
+    namespace["sys"].argv = [
+        "authority",
+        commit,
+        hashlib.sha256(deployed).hexdigest(),
+        str(activation_path),
+    ]
+    try:
+        with pytest.raises(ValueError, match="workflow run changed"):
+            namespace["main"]()
+    finally:
+        namespace["sys"].argv = original_argv
+
+    assert workflow_request_count == 2
+    assert jobs_path in requests
+    assert all("/check-runs" not in request for request in requests)
 
 
 def test_launcher_rejects_shell_bootstrap_spoofing_and_path_replacement(
@@ -1245,7 +1744,7 @@ def test_launcher_rejects_shell_bootstrap_spoofing_and_path_replacement(
         assert (live.st_dev, live.st_ino) != (pinned.st_dev, pinned.st_ino)
     finally:
         os.close(descriptor)
-    assert 'python-interpreter-revoked-before-block:$ORDINAL' in text
+    assert "python-interpreter-revoked-before-block:$ORDINAL" in text
     assert '"$(sha256sum "$PYTHON_FD_PATH"' in text
 
 
@@ -1332,9 +1831,7 @@ def test_public_authority_network_calls_stay_outside_irreversible_loops() -> Non
     assert analytic.count(final_call) == 1
     final_activation = "FINAL_LOCAL_ACTIVATION_BINDING=$(verify_launch_activation)"
     assert analytic.index(final_activation) < analytic.index(final_call)
-    assert analytic.index(final_call) < analytic.index(
-        "ANALYTIC_LOCK_ID=$(publish_analytic_lock)"
-    )
+    assert analytic.index(final_call) < analytic.index("ANALYTIC_LOCK_ID=$(publish_analytic_lock)")
     terminal_tail = analytic[
         analytic.index(final_call) : analytic.index("ANALYTIC_LOCK_ID=$(publish_analytic_lock)")
     ]
@@ -1495,7 +1992,7 @@ def test_docker_v3_runtime_gate_binds_fd_daemon_and_architecture_aliases(
     text = LAUNCHER.read_text()
     assert '"x86_64": "amd64"' in text
     assert '"aarch64": "arm64"' in text
-    assert 'DOCKER_FD_PATH=/proc/$$/fd/11' in text
+    assert "DOCKER_FD_PATH=/proc/$$/fd/11" in text
     assert 'runtime_executable = f"/proc/self/fd/{runtime_descriptor}"' in text
     loop = text[text.index("while IFS=$'\\t' read -r ORDINAL") :]
     assert "verify_docker_v3_runtime" in loop
@@ -1548,15 +2045,15 @@ def test_dataset_snapshot_captures_ctime_and_rejects_cross_device_files(
 def test_dataset_runtime_proof_checks_every_frozen_role_and_preserves_raw_binding() -> None:
     text = LAUNCHER.read_text()
 
-    assert 'files=28' in text
-    assert 'if not isinstance(files, dict) or set(files) != expected_snapshot_roles' in text
+    assert "files=28" in text
+    assert "if not isinstance(files, dict) or set(files) != expected_snapshot_roles" in text
     assert 'live, live_sha = stable_live_receipt(path, hash_bytes=label != "archive")' in text
     assert 'if label != "archive" and live_sha != receipt.get("sha256")' in text
-    assert 'or before.st_dev != root_stat.st_dev' in text
+    assert "or before.st_dev != root_stat.st_dev" in text
     assert '"st_ctime_ns": before.st_ctime_ns' in text
-    assert 'dataset_runtime_snapshot_id=$DATASET_RUNTIME_SNAPSHOT_ID' in text
-    assert 'docker_runtime_snapshot_id=$DOCKER_RUNTIME_SNAPSHOT_ID' in text
-    assert 'launch_lock_id=$ANALYTIC_LOCK_ID' in text
+    assert "dataset_runtime_snapshot_id=$DATASET_RUNTIME_SNAPSHOT_ID" in text
+    assert "docker_runtime_snapshot_id=$DOCKER_RUNTIME_SNAPSHOT_ID" in text
+    assert "launch_lock_id=$ANALYTIC_LOCK_ID" in text
     canonical_redirect = "exec 1>&9 2>&1"
     logged_snapshot = (
         'echo "I135_DATASET_SNAPSHOT_OK sha256=$DATASET_RUNTIME_SNAPSHOT_SHA '
@@ -1569,7 +2066,7 @@ def test_launcher_requires_complete_raw_block_artifacts_and_decisions() -> None:
     text = LAUNCHER.read_text()
 
     assert 'for name in ("ego_poses.json", "metrics.json", "actors.json")' in text
-    assert 'if resets != list(range(20))' in text
+    assert "if resets != list(range(20))" in text
     assert '"block_identity": True' in text
     assert "decision-block-identity" in text
     assert 'row.get("schedule_missing") or row.get("intervene_err")' in text
@@ -1585,12 +2082,12 @@ def test_launcher_cannot_claim_completion_from_a_short_or_failed_plan() -> None:
     assert 'wc -l < "$BLOCK_PLAN"' in text
     assert 'if [ "$ORDINAL" != "$EXPECTED_ORDINAL" ]' in text
     assert 'verify_block_plan_row "$ORDINAL" "$ARM_ID" "$SCENARIO" "$SEQ"' in text
-    assert 'block plan row drift: {observed}!={expected}' in text
-    assert 'BLOCK_PLAN_FD_ID=$(stat -Lc' in text
-    assert 'done <&7' in text
-    assert 'EXECUTED_BLOCKS=$((EXECUTED_BLOCKS + 1))' in text
+    assert "block plan row drift: {observed}!={expected}" in text
+    assert "BLOCK_PLAN_FD_ID=$(stat -Lc" in text
+    assert "done <&7" in text
+    assert "EXECUTED_BLOCKS=$((EXECUTED_BLOCKS + 1))" in text
     assert 'if [ "$EXECUTED_BLOCKS" != "120" ]' in text
-    assert 'episodes=$((EXECUTED_BLOCKS * 20))' in text
+    assert "episodes=$((EXECUTED_BLOCKS * 20))" in text
 
 
 def test_launcher_preserves_failed_attempt_evidence_and_bounds_hung_blocks() -> None:
@@ -1605,11 +2102,11 @@ def test_launcher_preserves_failed_attempt_evidence_and_bounds_hung_blocks() -> 
     assert 'exec > "$CANONICAL_LOG"' not in text
     assert 'timeout --signal=TERM --kill-after=60s "$COMPOSE_TIMEOUT_SECONDS" env' in text
     assert "TERMINATION_RESERVE_SECONDS=300" in text
-    assert 'PRE_COMPOSE_ELAPSED=$(monotonic_elapsed)' in text
-    assert 'COMPOSE_WALL_REMAINING=$((CEILING_SECONDS - PRE_COMPOSE_ELAPSED))' in text
+    assert "PRE_COMPOSE_ELAPSED=$(monotonic_elapsed)" in text
+    assert "COMPOSE_WALL_REMAINING=$((CEILING_SECONDS - PRE_COMPOSE_ELAPSED))" in text
     assert 'abort "G7-block-failed' in text
     assert "os.link(temporary, lock, follow_symlinks=False)" in text
-    assert 'CURRENT_LOCK_ID=$(stat -Lc' in text
+    assert "CURRENT_LOCK_ID=$(stat -Lc" in text
     assert 'rm -f "$LOCK" || true' in text
     assert '[ "$ANALYTIC_STARTED" = "0" ]' in text
     assert "ANALYTIC_STARTED=1" in text
@@ -1640,12 +2137,12 @@ def test_launcher_has_a_non_destructive_preflight_and_owned_execution_boundary()
     assert 'docker rm -f "$ID"' in text
     assert 'REMAINING_IDS+=("$ID")' in text
     assert 'OWNED_CONTAINER_IDS=("${REMAINING_IDS[@]}")' in text
-    assert 'cleanup_containers || return 73' in text
+    assert "cleanup_containers || return 73" in text
     assert "docker rm -f renderer model ncap" not in text
     assert "--label sentinel.mission=iter135" in text
     assert '--cidfile "$CID_FILE"' in text
     assert "os.O_WRONLY | os.O_CREAT | os.O_EXCL" in text
-    assert text.index(permanent_lock) > text.index('execution-block-stream-count')
+    assert text.index(permanent_lock) > text.index("execution-block-stream-count")
     assert text.index(canonical_log) > text.index(permanent_lock)
     assert text.index(permanent_lock) < text.index("ANALYTIC_STAGING_IDS=$(python3")
     run_block = text[text.index("run_block() {") : text.index("BLOCK_PLAN=$(mktemp")]
@@ -1670,10 +2167,10 @@ def test_launcher_replays_exact_remote_and_repository_provenance() -> None:
     assert 'role = f"scenario:{scenario_class}/{sequence}"' in text
     assert "expected_remote_paths[role]" in text
     assert 'expected_remote_paths[f"renderer:{sequence}:checkpoint"]' in text
-    assert 'if set(remote_rows) != set(expected_remote_paths)' in text
-    assert 'path.resolve(strict=True) != path' in text
-    assert 'actual, byte_count = stable_sha256(path)' in text
-    assert 'repositories != expected_repositories' in text
+    assert "if set(remote_rows) != set(expected_remote_paths)" in text
+    assert "path.resolve(strict=True) != path" in text
+    assert "actual, byte_count = stable_sha256(path)" in text
+    assert "repositories != expected_repositories" in text
     assert '"diff", "--cached", "--name-only", "--no-renames", "-z"' in text
     assert '"status", "--porcelain=v1", "-z", "--untracked-files=normal"' in text
     assert 'path != "outoutput/" and not path.startswith("outoutput/")' in text
@@ -1693,8 +2190,7 @@ def test_launcher_freezes_zero_retry_and_exact_server_patch_outputs() -> None:
     baseline_check = '!= "$BASELINE_SERVER_SHA"'
     patch_call = 'python3 "$PATCH"'
     after_replay = (
-        'verify_block_runtime_inputs "$SCENARIO" "$SEQ" '
-        '"$EXPECTED_PATCHED_SERVER_SHA" after'
+        'verify_block_runtime_inputs "$SCENARIO" "$SEQ" "$EXPECTED_PATCHED_SERVER_SHA" after'
     )
     restore = 'git -C "$STACK/UniAD" checkout HEAD -- inference/server.py'
     assert run_block.index(baseline_check) < run_block.index("SERVER_TOUCHED=1")
@@ -1716,8 +2212,14 @@ def test_launcher_snapshots_and_rehashes_execution_inputs() -> None:
     assert 'f"renderer:{sequence}:checkpoint"' in text
     assert "runtime schedule target drift" in text
     assert "runtime image identity drift" in text
-    assert 'verify_block_runtime_inputs "$SCENARIO" "$SEQ" "$EXPECTED_PATCHED_SERVER_SHA" before' in text
-    assert 'verify_block_runtime_inputs "$SCENARIO" "$SEQ" "$EXPECTED_PATCHED_SERVER_SHA" after' in text
+    assert (
+        'verify_block_runtime_inputs "$SCENARIO" "$SEQ" "$EXPECTED_PATCHED_SERVER_SHA" before'
+        in text
+    )
+    assert (
+        'verify_block_runtime_inputs "$SCENARIO" "$SEQ" "$EXPECTED_PATCHED_SERVER_SHA" after'
+        in text
+    )
     assert 'verify_block_runtime_inputs "$SCENARIO" "$SEQ" "$BASELINE_SERVER_SHA" after' in text
 
 
@@ -1725,19 +2227,19 @@ def test_launcher_captures_provenance_labeled_container_ids_while_live() -> None
     text = LAUNCHER.read_text()
 
     assert 'SENTINEL_CONTAINER_CID_DIR="$CURRENT_BLOCK_CID_DIR"' in text
-    assert 'ACTIVE_COMPOSE_PID=$!' in text
+    assert "ACTIVE_COMPOSE_PID=$!" in text
     assert 'while compose_process_running "$ACTIVE_COMPOSE_PID"' in text
-    assert 'IDENTITY=$(bounded_docker inspect --format' in text
+    assert "IDENTITY=$(bounded_docker inspect --format" in text
     assert 'OBSERVED_MANIFEST" != "$EXPECTED_MANIFEST_SHA"' in text
     assert 'OBSERVED_BLOCK" != "$CURRENT_BLOCK_ORDINAL"' in text
     assert "I135_CONTAINER_OWNERSHIP_FAIL role-replacement" in text
     assert "I135_CONTAINER_RECEIPT role=$ROLE id=$ID" in text
-    assert 'if ! verify_container_receipts' in text
+    assert "if ! verify_container_receipts" in text
     assert 'verify_container_quiescence "after-block-$ORDINAL"' in text
     assert "container_receipt_rows()" in text
     assert "vanished-without-receipt" in text
     assert 'record_owned_container "$RECEIPT_ID" "$ROLE"' in text
-    assert text.count('LIVE_AFTER=$(bounded_docker ps -aq --no-trunc)') >= 2
+    assert text.count("LIVE_AFTER=$(bounded_docker ps -aq --no-trunc)") >= 2
     assert "CONTAINER_QUIET_SECONDS=5" in text
     assert "CONTAINER_QUIESCENCE_CEILING_SECONDS=20" in text
 
@@ -1749,20 +2251,20 @@ def test_launcher_binds_storage_and_per_block_output_identities() -> None:
     assert "verify_output_storage_identity before-block 0" in text
     assert "verify_output_storage_identity after-block 0" in text
     assert "verify_output_storage_identity before-done 0" in text
-    assert 'OUTPUT_ROOT_ID=$(stat -Lc' in text
+    assert "OUTPUT_ROOT_ID=$(stat -Lc" in text
     assert "os.O_DIRECTORY | os.O_NOFOLLOW" in text
     assert "os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW" in text
     assert 'f"{decision_identity[0]}:{decision_identity[1]}"' in text
     assert 'f"{output_identity[0]}:{output_identity[1]}"' in text
-    assert 'identity(output) != output_identity' in text
-    assert 'identity(decision) != decision_identity' in text
+    assert "identity(output) != output_identity" in text
+    assert "identity(decision) != decision_identity" in text
 
 
 def test_launcher_publishes_durable_lock_before_canonical_staging() -> None:
     text = LAUNCHER.read_text()
 
-    final_idle = 'evaluator-process-at-final-analytic-arm'
-    storage = 'storage-identity-at-final-analytic-arm'
+    final_idle = "evaluator-process-at-final-analytic-arm"
+    storage = "storage-identity-at-final-analytic-arm"
     lock = "ANALYTIC_LOCK_ID=$(publish_analytic_lock)"
     staging = "ANALYTIC_STAGING_IDS=$(python3"
     log = 'if ! exec 9> "$CANONICAL_LOG"'
@@ -1783,9 +2285,7 @@ def test_launcher_publishes_durable_lock_before_canonical_staging() -> None:
 
 
 @pytest.mark.parametrize("operation", ["ps", "inspect", "rm"])
-def test_bounded_docker_times_out_hung_control_operations(
-    tmp_path: Path, operation: str
-) -> None:
+def test_bounded_docker_times_out_hung_control_operations(tmp_path: Path, operation: str) -> None:
     fake = tmp_path / "docker"
     fake.write_text("#!/bin/bash\nsleep 30\n")
     fake.chmod(0o500)
@@ -1846,9 +2346,9 @@ def test_container_quiescence_resets_after_delayed_container_appearance(
         "set -euo pipefail\n"
         ': "${COUNTER:?}"\n'
         'count=$(cat "$COUNTER" 2>/dev/null || printf 0)\n'
-        'count=$((count + 1))\n'
+        "count=$((count + 1))\n"
         'printf \'%s\' "$count" > "$COUNTER"\n'
-        'if [ "$count" = 2 ]; then printf \'%064d\\n\' 1; fi\n'
+        "if [ \"$count\" = 2 ]; then printf '%064d\\n' 1; fi\n"
     )
     fake.chmod(0o500)
     program = (
@@ -1859,8 +2359,8 @@ def test_container_quiescence_resets_after_delayed_container_appearance(
         "CONTAINER_QUIESCENCE_CEILING_SECONDS=5\n"
         f'COUNTER="{counter}"\nexport COUNTER\n'
         f'OBSERVED="{observed}"\n'
-        "capture_owned_containers() { printf capture >> \"$OBSERVED\"; }\n"
-        "cleanup_containers() { printf cleanup >> \"$OBSERVED\"; }\n"
+        'capture_owned_containers() { printf capture >> "$OBSERVED"; }\n'
+        'cleanup_containers() { printf cleanup >> "$OBSERVED"; }\n'
         + shell_function("bounded_docker", "compose_process_running")
         + "\n"
         + shell_function("verify_container_quiescence", "verify_container_receipts")
@@ -1896,10 +2396,7 @@ def test_embedded_docker_wrapper_injects_exact_renderer_provenance(tmp_path: Pat
     capture = tmp_path / "argv"
     docker = tmp_path / "docker-real"
     docker.write_text(
-        "#!/bin/bash\n"
-        "set -euo pipefail\n"
-        ': "${CAPTURE:?}"\n'
-        'printf \'%s\\n\' "$@" > "$CAPTURE"\n'
+        '#!/bin/bash\nset -euo pipefail\n: "${CAPTURE:?}"\nprintf \'%s\\n\' "$@" > "$CAPTURE"\n'
     )
     docker.chmod(0o500)
     control = tmp_path / "sentinel-i135-control.test"
@@ -1908,9 +2405,7 @@ def test_embedded_docker_wrapper_injects_exact_renderer_provenance(tmp_path: Pat
     wrapper = control / "docker"
     wrapper.write_text(embedded_docker_wrapper())
     wrapper.chmod(0o500)
-    renderer_image = (
-        "sha256:4b36caf2054d37b4febeddeae08b310f906ec632fec4095b5dc4497323433e5c"
-    )
+    renderer_image = "sha256:4b36caf2054d37b4febeddeae08b310f906ec632fec4095b5dc4497323433e5c"
     manifest_sha = "a" * 64
     environment = {
         **os.environ,
@@ -1919,15 +2414,11 @@ def test_embedded_docker_wrapper_injects_exact_renderer_provenance(tmp_path: Pat
         "SENTINEL_DOCKER_EXECUTABLE": str(docker),
         "SENTINEL_DOCKER_BIN_ID": f"{docker.stat().st_dev}:{docker.stat().st_ino}",
         "SENTINEL_DOCKER_BIN_SHA256": hashlib.sha256(docker.read_bytes()).hexdigest(),
-        "SENTINEL_DOCKER_WRAPPER_SHA256": hashlib.sha256(
-            wrapper.read_bytes()
-        ).hexdigest(),
+        "SENTINEL_DOCKER_WRAPPER_SHA256": hashlib.sha256(wrapper.read_bytes()).hexdigest(),
         "SENTINEL_MANIFEST_SHA256": manifest_sha,
         "SENTINEL_BLOCK_ORDINAL": "7",
         "SENTINEL_CONTAINER_CONTROL_ROOT": str(control),
-        "SENTINEL_CONTAINER_CONTROL_ROOT_ID": (
-            f"{control.stat().st_dev}:{control.stat().st_ino}"
-        ),
+        "SENTINEL_CONTAINER_CONTROL_ROOT_ID": (f"{control.stat().st_dev}:{control.stat().st_ino}"),
         "SENTINEL_CONTAINER_CID_DIR": str(cid_dir),
     }
 
@@ -1992,15 +2483,11 @@ def test_embedded_docker_wrapper_rejects_unrecognized_named_container(
         "SENTINEL_DOCKER_EXECUTABLE": str(docker),
         "SENTINEL_DOCKER_BIN_ID": f"{docker.stat().st_dev}:{docker.stat().st_ino}",
         "SENTINEL_DOCKER_BIN_SHA256": hashlib.sha256(docker.read_bytes()).hexdigest(),
-        "SENTINEL_DOCKER_WRAPPER_SHA256": hashlib.sha256(
-            wrapper.read_bytes()
-        ).hexdigest(),
+        "SENTINEL_DOCKER_WRAPPER_SHA256": hashlib.sha256(wrapper.read_bytes()).hexdigest(),
         "SENTINEL_MANIFEST_SHA256": "a" * 64,
         "SENTINEL_BLOCK_ORDINAL": "7",
         "SENTINEL_CONTAINER_CONTROL_ROOT": str(control),
-        "SENTINEL_CONTAINER_CONTROL_ROOT_ID": (
-            f"{control.stat().st_dev}:{control.stat().st_ino}"
-        ),
+        "SENTINEL_CONTAINER_CONTROL_ROOT_ID": (f"{control.stat().st_dev}:{control.stat().st_ino}"),
         "SENTINEL_CONTAINER_CID_DIR": str(cid_dir),
     }
 
@@ -2101,12 +2588,8 @@ else:
         "SENTINEL_DOCKER_BIN": str(fake_docker),
         "SENTINEL_DOCKER_EXECUTABLE": str(fake_docker),
         "SENTINEL_DOCKER_BIN_ID": f"{fake_docker.stat().st_dev}:{fake_docker.stat().st_ino}",
-        "SENTINEL_DOCKER_BIN_SHA256": hashlib.sha256(
-            fake_docker.read_bytes()
-        ).hexdigest(),
-        "SENTINEL_DOCKER_WRAPPER_SHA256": hashlib.sha256(
-            wrapper.read_bytes()
-        ).hexdigest(),
+        "SENTINEL_DOCKER_BIN_SHA256": hashlib.sha256(fake_docker.read_bytes()).hexdigest(),
+        "SENTINEL_DOCKER_WRAPPER_SHA256": hashlib.sha256(wrapper.read_bytes()).hexdigest(),
         "SENTINEL_MANIFEST_SHA256": manifest_sha,
         "SENTINEL_BLOCK_ORDINAL": "7",
         "SENTINEL_CONTAINER_CONTROL_ROOT": str(control),
@@ -2154,37 +2637,3 @@ def test_launcher_pins_uniad_checkpoints_symlink_contract() -> None:
     assert "live-repository-checkpoints-symlink" in text
     assert 'checkpoints_target != "ckpts"' in text
     assert 'path != "checkpoints" and path != "checkpoints/"' in text
-
-
-
-def test_github_launch_gate_accepts_amendment_published_run_shape() -> None:
-    """Every amendment-published SHA carries a red probe run plus a newer green master run per
-    name; authority binds to the newest run per name, and a newer red still fails closed."""
-
-    namespace = github_launch_authority_namespace()
-    validate_ci = namespace["validate_ci"]
-    commit = "a" * 40
-    payload = _green_check_runs(commit)
-    probe_rows = [
-        {
-            "id": row["id"] - 5,
-            "name": row["name"],
-            "head_sha": commit,
-            "status": "completed",
-            "conclusion": "failure",
-            "app": {"slug": "github-actions"},
-        }
-        for row in payload["check_runs"]
-    ]
-    payload["check_runs"] = probe_rows + payload["check_runs"]
-    payload["total_count"] = len(payload["check_runs"])
-
-    projection = validate_ci(payload, commit)
-
-    assert [row["conclusion"] for row in projection] == ["success", "success"]
-    assert [row["id"] for row in projection] == [10, 11]
-
-    for row in payload["check_runs"]:
-        row["conclusion"] = "failure" if row["id"] >= 10 else "success"
-    with pytest.raises(ValueError, match="not green"):
-        validate_ci(payload, commit)

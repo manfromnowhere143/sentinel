@@ -1,62 +1,70 @@
 # HANDOFF — dynamic state snapshot
 
-Generation-fourteen accepted tooling freeze (Docker-29 daemon-schema fossil fix),
-2026-07-18. Read CONTINUITY.md first.
+Generation-fifteen control-integrity recovery in source validation, 2026-07-19.
+Read CONTINUITY.md first.
 
 ## Repository state
 ```
-B14     handoff: accept iter135 generation-fourteen tooling freeze
+F15     this exact seventeen-path source recovery (replacement commit assigned after validation;
+        unpublished candidate 619083e is red and superseded)
+B14     69bd2e2 handoff: accept iter135 generation-fourteen tooling freeze
 a084198 mission: accept iter135 generation-fourteen tooling freeze
 b260ca5 iter135: publish generation-fourteen tooling receipt
 4a62cc4 iter135: refreeze generation-fourteen tooling recovery
-1ba42bb iter135: commit incomplete pre-smoke launch manifest     (P, gen-14 source parent)
-8b6f1ba iter135: commit environment preflight receipt            (E)
-cf48bcd iter135: commit host preparation evidence                (H, attempt 10)
+4bd0a23 iter135: commit host preparation evidence                (H, attempt 11;
+         currently retained on evidence/stage0-h11-b14; briefly pushed to master, then removed)
 ```
-Generation thirteen published green (F13 `b0de93a` → R13 `688182a` → T13 `70fda52` → B13
-`2cde006`) and the preflight chain re-derived cleanly under B13: H attempt ten green first-shot
-(`cf48bcd`), E green (`8b6f1ba`), and P — the milestone the origin/master pin unblocked —
-validated with only the by-design diagnostic and published (`1ba42bb`). Firing stage S then
-exposed a Docker Engine 29 daemon-schema fossil: the daemon moved `Experimental` out of the
-top-level Server object into the Engine component's Details map as the string `"true"/"false"`.
-Generation eleven repaired that projection in the environment capture only, so the identical
-frozen assertion still lived in both live launchers — the nonanalytic smoke aborted at preflight
-with `docker-v3-runtime-binding`, and the analytic launcher would have aborted the same way.
-Generation fourteen reads the top level first and falls back to the Engine component in both
-launchers, so each daemon generation projects to the same bool and no other recorded byte
-changes; the `analyze` and `collect_proof` readers keep their strict bool assertions, which the
-repaired writers satisfy. Both stage-S preflight aborts failed closed with no lock or evidence,
-so the one-shot is intact. Mission state is rolled back locally while the generation-fourteen
-chain publishes.
+Generation fourteen published green (F14 `4a62cc4` → R14 `b260ca5` → T14 `a084198` → B14
+`69bd2e2`). The box was then de-prepared from attempt ten and rebuilt from B14. Host-preparation
+attempt eleven returned `I135_HOST_PREPARATION_OK`, `problem_count=0`; its exact manifest SHA-256
+is `43fbd96f86bcf59bed6c911a21b43abf9c1a661abef20e7da0cfc8dba6939d15` and its receipt
+SHA-256 is `1468761d6763fbd71542609ca884fdaacebe27e09029ad096d7da6f03ff3966d`.
+The H commit was pushed to `master` before its checks completed. Exact run 774 failed, after which
+`master` was restored to B14 and the commit was retained on
+`evidence/stage0-h11-b14`. `scripts/mission_state.py` omitted generation fourteen from the exact
+frozen-controller set, so the valid H descendant was misclassified by the generic
+descendant-scope path. The brief red-master interval was a publication-discipline failure and is
+not stage authority. A second
+pre-fire sweep found that all four live GitHub authority readers treated commit-level check rows
+as canonical `master` authority. That contract both mixed historical rerun attempts and allowed a
+later same-SHA disposable-branch workflow to mask an older red `master` run.
 
-AFTER B14: the tip has advanced past the current preflight commits, so the chain re-derives from
-the new baton. De-prepare the box (invert the compose patch to preimage `9f8804b5…`/3380 by exact
-SHA, remove the empty analytic root, archive the current install with its green receipts), rebuild
-the packet from B14, run the FULL countdown, fire host-preparation attempt eleven under sudo,
-commit stage zero (parent B14), re-capture E detached and commit it, commit P, then fire stage S
-with the corrected bootstrap (invoke from `/opt/sentinel-stack/iter135` with no wrapping shell,
-`SHLVL=1`, and both `SENTINEL_SMOKE_INPUT_MANIFEST_SHA256` and `_COMMIT` set).
+Generation fifteen repairs those control-plane fossils. It admits generations fourteen and
+fifteen to the exact frozen validators/controllers. Each live authority reader now selects the
+latest exact `.github/workflows/ci.yml` push on `master` by workflow `run_number`, validates only
+the selected run's exact `run_attempt` jobs, and replays the workflow row after the job observation
+to reject concurrent reruns. Every GitHub request forces cache revalidation, and every numeric
+workflow/job identity is required to be a positive exact JSON integer; booleans and numerically
+equal floats are rejected. Commit-level check IDs and timestamps are evidence identities, not
+branch or chronology authority. The repair does not change the hypothesis, schedules, estimands,
+verdict rule, intervention, simulator, or analytic payload. Mission state is rolled back to
+`PREREGISTERED_TOOLING_REQUIRED` while F15, R15, the state-only child, and B15 are independently
+validated and published. Until B15 is green,
+preserve the B14 install and its attempt-eleven evidence exactly; do not mutate the host.
+
+The first unpublished F15 candidate, `619083e`, passed the local suite (`1,402` passed, one
+expected skip) but failed disposable-branch Actions run 777 (`29680678241`). Python 3.11 was
+green; Python 3.10 reported two exit-128 failures from synthetic Git fixture commands at 92% while
+`1,401` tests passed. The fixture helper discarded Git stderr, so the exact operating-system cause
+is not recoverable from that run. This repeats generation fourteen's different synthetic Git
+exit-128 at the same 92% boundary. The candidate is not rerun or promoted. Its replacement retains
+Git stdout/stderr on failure and removes each isolated fixture's `.git` metadata after its test,
+bounding resource accumulation without deleting worktree evidence.
 
 ## Canonical mission state (`MISSION_STATE.json`)
 
 - Current: iteration 134 / PLACEBO_HARM_OR_NULL / run IDLE / next
-  iteration 135 / TOOLING_FROZEN_PREFLIGHT_REQUIRED
+  iteration 135 / PREREGISTERED_TOOLING_REQUIRED
 - Current result: experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md
 - Next program: semantics-free placebo dose-response causal closure
 - Authorized now:
-  - prepare the exact hash-bound sentinel-gpu host contract and atomically commit host_packet_manifest.json and host_preparation_receipt.json
-  - capture and commit the read-only iteration-135 environment receipt on sentinel-gpu
-  - generate and commit only the hash-addressed incomplete pre-smoke manifest; no analytic episodes
-  - run exactly the hash-bound four-run nonanalytic G5 smoke after the incomplete pre-smoke manifest is committed
-  - validate, collect, and commit the exact nonanalytic smoke raw evidence, recomputed receipt, and mechanically generated SMOKE.md
+  - build and validate only the tooling and tests frozen by the active iteration-135 hypothesis
+  - inventory storage and provenance before any safe cleanup or live smoke
+  - publish a read-only external-benchmark commercial, license, compute, and integration preflight
 - Forbidden now:
-  - run any iteration-135 analytic episode before smoke evidence and the final launch manifest are committed green
-  - remove or bypass the permanent analytic launch lock
-  - rerun iteration 134 or adapt iteration-135 schedules, estimands, verdicts, or policies after evidence
-  - place any iteration-135 analytic output on the remote root filesystem
-  - remove or bypass the permanent analytic launch lock
-  - rerun iteration 134 or adapt iteration-135 schedules, estimands, verdicts, or policies after evidence
-  - place any iteration-135 analytic output on the remote root filesystem
+  - GPU launch before the iteration-135 hypothesis, analyzer, manifest, provenance, storage, and smoke gates are frozen
+  - rerun iteration 134
+  - adopt run-index resampling as the iteration-135 primary after observing iteration-134 results
 
 Generation four changes no scientific or execution payload. It makes structural Git reads resolve
 and attest only Git instead of unnecessarily requiring the current `pytest`, Ruff, shell, and
@@ -72,15 +80,23 @@ activation receipt. Construction prefixes remain non-authoritative. It does not 
 hypothesis, schedules, estimands, thresholds, retry policy, or analytic payload semantics. No live
 evidence was created.
 
-The H authority proof is exactly seven GitHub GETs and zero `/git/blobs/` GETs: branch, checks,
-commit, one exact untruncated recursive tree, terminal branch/check replay before mutation, and a
-final branch replay. Stable local bytes are bound to that tree with Git's native blob identity
+The green H authority proof is exactly sixteen GitHub GETs and zero `/git/blobs/` GETs. Its
+initial six-call proof binds branch, canonical workflow run, commit, exact-attempt jobs, workflow
+replay, and one exact untruncated recursive tree. A five-call branch/workflow/jobs/workflow/branch
+observation is required immediately before the first mutation, and the same five-call observation
+is repeated after packet installation before a green receipt may be emitted. Stable local bytes
+are bound to the tree with Git's native blob identity
 `sha1(b"blob " + str(len(payload)).encode() + b"\0" + payload)` plus exact path, blob type,
 integer size, and `100644`/`100755` mode; receipts retain SHA-256, bytes, Git OID, and mode. SHA-1
-is trusted here only as Git object identity, never as the sole content digest. The E authority
-proof uses eight GETs because two JSON payloads are additionally replayed through the Contents API.
-There are no retries. This 7/8-call budget is deliberately below GitHub's documented public,
-unauthenticated primary budget, while still failing closed if shared-IP headroom is already gone.
+is trusted here only as Git object identity, never as the sole content digest. The green E
+authority proof uses thirteen GETs: one topology observation, the initial workflow/tree proof,
+two committed-payload reads, and the terminal five-call authority observation. There are no
+retries. Both readers remain below GitHub's documented public unauthenticated primary budget while
+failing closed if shared-IP headroom is already gone. Remote authority is established at the last
+successful observation; it is not represented as a perpetual lease.
+The live adversarial audit exhausted the shared unauthenticated window on 2026-07-19. Do not
+invoke any real one-shot H/E/S authority gate until the rate window has reset and sufficient
+headroom has been checked out of band.
 Official references: [Git hash-object](https://git-scm.com/docs/git-hash-object.html),
 [GitHub recursive trees](https://docs.github.com/en/rest/git/trees), and
 [GitHub REST rate limits](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api).
@@ -264,7 +280,11 @@ cd /opt/sentinel-stack/iter135
 
 ## GPU box quick-state (live probe)
 ```
-GPU_RUN_STATE=NOT_PROBED_OFFLINE_GENERATION
+GPU_RUN_STATE=IDLE_LAST_PROBED_2026-07-19
+HOST_INSTALL=B14_ATTEMPT_11_GREEN_PRESERVE_UNTIL_B15
+CONTAINERS=NONE
+SMOKE_OR_ANALYTIC_LOCKS=NONE
+ANALYTIC_ROOT=EXISTS_EMPTY
 ```
 If any docker container named renderer/model/ncap (or a random-name ncap) is up, a run
 is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT relaunch.
@@ -273,13 +293,13 @@ is IN FLIGHT — identify it from the newest /var/log/sentinel-*.log and DO NOT 
 - Canonical completed experiment: experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md — read it before opening new work.
 - Active pending pre-registration: experiments/iter135_neuroncap_blind_braking_dose_response/HYPOTHESIS.md — read it with MISSION_STATE.json; neither file overrides the other.
 - Deprecated pending pre-registration: experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md — historical only; it does not govern the next action.
-- Canonical next action: publish the generation-fourteen recovery source, then its receipt, then a
-  fresh atomic state-only-plus-baton pair; push only that pair's baton tip. Then de-prepare attempt
-  ten on the box (compose preimage inversion to `9f8804b5…`/3380 by exact SHA, remove the empty
-  analytic root, archive the B13-bound install with its green H `cf48bcd` + E `8b6f1ba` receipts),
-  rebuild the packet from the new baton (B14), run the FULL countdown, fire host-preparation attempt
-  eleven under sudo, commit stage zero (parent B14), re-fire E detached, commit E, commit P, then
-  fire stage S from `/opt/sentinel-stack/iter135` with no wrapping shell (`SHLVL=1`) and both
+- Canonical next action: validate and publish F15, generate and publish R15 from the exact clean
+  source commit, then publish its state-only child and B15 baton. Only after B15 and its required
+  checks are green: archive the B14 attempt-eleven install and receipts, invert the compose patch
+  only from exact SHA `a5ed766…` to preimage `9f8804b5…`/3380, remove the analytic root only if it
+  remains the exact empty physical directory, rebuild from B15, fire host-preparation attempt
+  twelve, commit H, re-fire and commit E, commit P, then fire S from
+  `/opt/sentinel-stack/iter135` with no wrapping shell (`SHLVL=1`) and both
   `SENTINEL_SMOKE_INPUT_MANIFEST_SHA256` and `SENTINEL_SMOKE_INPUT_MANIFEST_COMMIT` set.
 - docs/NEXT_PHASE.md: check its status ledger/decision rules.
 - docs/paper/MANUSCRIPT.md: check its status ledger/decision rules.

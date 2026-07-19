@@ -56,16 +56,18 @@ count, Git blob OID, and Git mode. Tests compare the implementation with `git ha
 the official [Git hash-object documentation](https://git-scm.com/docs/git-hash-object.html) and
 [GitHub tree response contract](https://docs.github.com/en/rest/git/trees).
 
-The green H path has a fixed seven-GET budget: initial branch, checks, commit, and one exact
-untruncated recursive tree; terminal branch and checks immediately before the first mutation;
-and a final branch check. It makes zero `/git/blobs/` calls and never retries. This replaces the
-former 26-GET design, leaving 19 calls of design headroom. The E proof is fixed at eight GETs
-because it additionally verifies two committed JSON payloads through the Contents API while
-binding their OIDs and `100644` modes to one recursive tree. GitHub currently documents a
+The green H path has a fixed sixteen-GET budget: an initial six-call
+branch/workflow/commit/jobs/workflow-replay/tree proof; a five-call
+branch/workflow/jobs/workflow-replay/branch observation immediately before the first mutation; and
+the same five-call observation after packet installation before the green receipt. It makes zero
+`/git/blobs/` calls and never retries. The E proof is fixed at thirteen GETs: one host-commit
+topology observation, an initial workflow/tree proof, two committed-payload reads through the
+Contents API, and a terminal five-call authority observation. GitHub currently documents a
 60-request/hour primary limit for unauthenticated public-repository traffic, associated with the
-originating IP; a fresh window therefore leaves 53 requests after H, but shared-IP usage can make
-the actual remainder smaller. Any rate or transport failure is terminal for the one-shot attempt,
-not permission to retry. See GitHub's official
+originating IP; H alone leaves 44 requests in a fresh window and E alone leaves 47, but shared-IP
+usage can make the actual remainder smaller. Any rate or transport failure is terminal for the
+one-shot attempt, not permission to retry. Authority is true only at the final successful remote
+observation; the receipt does not represent it as a perpetual lease. See GitHub's official
 [REST rate-limit documentation](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api).
 
 ## The baton protocol (one operator at a time — hard rule; PERMANENT, BIDIRECTIONAL)
@@ -3714,6 +3716,97 @@ transfer boundary fold-in and the claim-(5) hedge are unchanged and still bindin
   its committed object before the working copy was unlocked, and the receipt's two working-copy
   protections (`uchg` and the deny-delete ACL) were restored after generation. The state child T14
   `a084198` and this baton were created locally; only this pair's baton tip completed the
-  publication, and every disposable validation branch was deleted after it went green. `master`
-  was never left red at any step (the one flaked run was recovered before any dependent action).
-  No host, Docker, GPU, smoke, or analytic action was taken in this generation's publication.
+  publication, and every disposable validation branch was deleted after it went green. F14's
+  first `master` attempt was red until its exact full rerun completed; no dependent publication
+  action was taken during that interval. No host, Docker, GPU, smoke, or analytic action was taken
+  in this generation's publication.
+
+  Generation-fifteen recovery discovery and source scope, 2026-07-19. After B14
+  `69bd2e2face00ccabb426382347eb04e8a0dbe83`, host-preparation attempt eleven completed green on
+  `sentinel-gpu`: `I135_HOST_PREPARATION_OK`, `problem_count=0`, packet-manifest SHA-256
+  `43fbd96f86bcf59bed6c911a21b43abf9c1a661abef20e7da0cfc8dba6939d15`, and receipt SHA-256
+  `1468761d6763fbd71542609ca884fdaacebe27e09029ad096d7da6f03ff3966d`. The exact two evidence
+  files were committed at `4bd0a23`. Contrary to the earlier handoff wording, that commit was
+  briefly pushed to `master`: exact Actions run 774 failed, run 776 restored B14 as the branch
+  tip, and `4bd0a23` remains retained on `evidence/stage0-h11-b14`. The failure was
+  `tooling_publication:preflight_descendant_scope`: generation fourteen was absent from
+  `scripts/mission_state.py`'s exact frozen-validator and frozen-controller generation sets, so
+  the otherwise exact H descendant was sent through the generic preflight-scope validator. The
+  generic path rejects the H pair by design. The retained failed branch and the green host
+  receipt are evidence of the control omission, not stage authority on `master`. Pushing H before
+  its checks completed violated the publication invariant; restoration did not erase that event.
+
+  The same pre-fire audit found a second, independent authority fossil in all four live GitHub
+  readers: `prepare_host135.py`, `capture_environment135.py`, `run_smoke135.sh`, and
+  `run_dose135.sh` treated every check row for a commit SHA as interchangeable `master` evidence.
+  B14's retained rows span one disposable validation suite and two `master` suites; F14 also has a
+  rerun whose first and second attempts share timestamps. GitHub's check API does not make a
+  commit-level name/ID cohort equivalent to one workflow, branch, event, or attempt. A later green
+  same-SHA validation run could therefore mask an older red `master` run.
+
+  Generation fifteen instead reads one bounded complete workflow-run page filtered by exact head
+  SHA, `master`, and `push`; independently requires every returned row to bind workflow ID
+  `304353015`, name `ci`, path `.github/workflows/ci.yml`, branch, event, SHA, URLs, timestamps,
+  unique run/suite identities, and positive `run_number`/`run_attempt`; and chooses the greatest
+  workflow `run_number`, never an object ID or timestamp. The selected run must be completed and
+  successful. A dedicated 8 MiB transport ceiling admits a real bounded 100-run response without
+  weakening the smaller non-workflow JSON ceilings. Every request sends `Cache-Control: no-cache`
+  and `Pragma: no-cache`, because GitHub's otherwise cacheable workflow response can conceal a
+  rerun during an equality replay. Numeric workflow/job identities must be positive exact JSON
+  integers; booleans and numerically equal floats fail closed. Its exact attempt-jobs endpoint
+  must contain
+  exactly the two expected Python jobs, each bound to the selected run ID and attempt, `master`,
+  SHA, workflow name, success, canonical URLs, canonical UTC timestamps, and a job interval wholly
+  contained by the workflow interval. The workflow row is fetched again after the jobs and must
+  remain byte-for-byte equal under the validated projection; the branch is also replayed at each
+  terminal observation. Host preparation repeats that full five-call observation after packet
+  installation and before a green receipt, so a rerun begun during the mutation interval fails
+  closed. Zero, truncated, over-100, duplicate, cross-branch, wrong-event/path/SHA, pending, red,
+  wrong-attempt, noncanonical-time, extra-job, and concurrent-rerun shapes all fail closed. These
+  calls establish authority at their final observation, not a perpetual remote lease.
+
+  The first unpublished generation-fifteen source candidate, `619083e`, passed its exact local
+  suite (`1,402` passed, one expected skip) but failed disposable-branch Actions run 777
+  (`29680678241`). Python 3.11 was fully green. Python 3.10 reported two exit-128 failures from
+  synthetic Git fixture commands at the 92% boundary while `1,401` tests passed. The helper
+  captured but did not expose stderr, so the operating-system cause is unknowable from the
+  retained log. Generation fourteen's first remote run had failed at the same 92% boundary on a
+  different synthetic Git commit, which makes an unexamined rerun inadequate. The red candidate
+  is neither rerun nor promoted. Its replacement makes every failed synthetic Git command report
+  argv, return code, stdout, and stderr, and tears down each isolated fixture's `.git` metadata
+  after the test while preserving its worktree files. This bounds accumulated fixture resources
+  and makes any recurrence diagnosable; it changes no production or scientific behavior.
+
+  The adversarial live audit consumed the shared unauthenticated GitHub REST window on
+  2026-07-19. No real one-shot H/E/S authority gate may be fired until the window has reset and
+  sufficient request headroom has been checked out of band. Local and CI structural validation do
+  not confer that remote authority.
+
+  Generation fifteen's source parent is B14
+  `69bd2e2face00ccabb426382347eb04e8a0dbe83`, it supersedes R14
+  `b260ca5b0910c4d499c13e42add97affd726b77c`, and its reason code is
+  `B14_H_DESCENDANT_CONTROLLER_OMISSION_GITHUB_RUN_AUTHORITY_`
+  `AND_CI_FIXTURE_RESOURCE_FOSSILS`. The exact source scope is
+  the seventeen paths below. It changes no hypothesis, schedule, estimand, verdict rule, monitor,
+  braking policy, simulator, smoke payload, or analytic payload. The B14 install, its patched
+  compose file, empty analytic root, and attempt-eleven receipts remain preserved without host
+  mutation until F15, R15, the state-only child, and B15 are independently green. Only after B15
+  may the B14 install be archived and de-prepared, followed by a fresh B15-bound attempt twelve.
+
+  1. `CONTINUITY.md`
+  2. `HANDOFF.md`
+  3. `MISSION_STATE.json`
+  4. `experiments/iter135_neuroncap_blind_braking_dose_response/authorize_launch135.py`
+  5. `experiments/iter135_neuroncap_blind_braking_dose_response/capture_environment135.py`
+  6. `experiments/iter135_neuroncap_blind_braking_dose_response/prepare_host135.py`
+  7. `experiments/iter135_neuroncap_blind_braking_dose_response/run_dose135.sh`
+  8. `experiments/iter135_neuroncap_blind_braking_dose_response/run_smoke135.sh`
+  9. `experiments/iter135_neuroncap_blind_braking_dose_response/verify_tooling135.py`
+  10. `scripts/mission_state.py`
+  11. `tests/test_iter135_environment_capture.py`
+  12. `tests/test_iter135_host_preparation.py`
+  13. `tests/test_iter135_launch_authorization.py`
+  14. `tests/test_iter135_launcher.py`
+  15. `tests/test_iter135_smoke_pipeline.py`
+  16. `tests/test_iter135_tooling_verifier.py`
+  17. `tests/test_mission_state.py`

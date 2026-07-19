@@ -204,11 +204,17 @@ GENERATION_THIRTEEN_RECEIPT_COMMIT = "688182ad3b7afbb0d58141accbcf554981e6fb20"
 # was still frozen into both live launchers.
 GENERATION_THIRTEEN_MANIFEST_COMMIT = "1ba42bbb869c652fd6d3d951a3c92ec404f61e72"
 GENERATION_FOURTEEN_REASON = "S1_SMOKE_AND_DOSE_DOCKER29_DAEMON_EXPERIMENTAL_SCHEMA_FOSSIL"
+GENERATION_FOURTEEN_RECEIPT_COMMIT = "b260ca5b0910c4d499c13e42add97affd726b77c"
+GENERATION_FOURTEEN_BATON_COMMIT = "69bd2e2face00ccabb426382347eb04e8a0dbe83"
+GENERATION_FIFTEEN_REASON = (
+    "B14_H_DESCENDANT_CONTROLLER_OMISSION_GITHUB_RUN_AUTHORITY_"
+    "AND_CI_FIXTURE_RESOURCE_FOSSILS"
+)
 EXPECTED_TOOLING_PUBLICATION = {
-    "generation": 14,
-    "supersedes_receipt_commit": GENERATION_THIRTEEN_RECEIPT_COMMIT,
-    "recovery_parent": GENERATION_THIRTEEN_MANIFEST_COMMIT,
-    "reason_code": GENERATION_FOURTEEN_REASON,
+    "generation": 15,
+    "supersedes_receipt_commit": GENERATION_FOURTEEN_RECEIPT_COMMIT,
+    "recovery_parent": GENERATION_FOURTEEN_BATON_COMMIT,
+    "reason_code": GENERATION_FIFTEEN_REASON,
 }
 TOOLING_REPOSITORY_FIELDS = {
     "root",
@@ -498,7 +504,9 @@ def _tooling_source_commit(repo: Path, tooling_receipt_commit: str) -> str:
         or _SHA256_RE.fullmatch(receipt["file_content_set_sha256"]) is None
         or claimed_payload_sha256 != hashlib.sha256(_canonical_json(payload)).hexdigest()
     ):
-        raise AuthorizationError("tooling receipt does not bind the exact green generation-fourteen source")
+        raise AuthorizationError(
+            "tooling receipt does not bind the exact green generation-fifteen source"
+        )
     try:
         validator = _load_frozen_tooling_receipt_validator(repo, source_commit)
         frozen_errors = validator(receipt, repo_root=repo)
@@ -1260,7 +1268,7 @@ def _deep_replay_publication(
     tooling_baton_commit: str,
     commits: Sequence[str],
 ) -> list[str]:
-    """Replay H/E/P/S[/A/F] from the frozen generation-thirteen source in isolation."""
+    """Replay H/E/P/S[/A/F] from the active frozen tooling source in isolation."""
 
     problems: list[str] = []
     try:
