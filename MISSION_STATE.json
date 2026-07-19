@@ -19,19 +19,18 @@
   "next_program": {
     "iteration": 135,
     "name": "semantics-free placebo dose-response causal closure",
-    "phase": "PREREGISTERED_TOOLING_REQUIRED",
+    "phase": "CONTROL_HARDENING_REQUIRED",
     "authorized_actions": [
-      "perform only offline, repository-local, preregistered architecture, lifecycle, terminal-proof, CI, supply-chain, test, and publication-control work",
-      "retain and review evidence for the later control-hardening publication without changing external governance settings"
+      "implement and validate only offline, preregistered, source-bound lifecycle observation, terminal-proof, partial-proof, inconsistency, and fail-closed recovery controls",
+      "implement and validate separately reviewable hermetic CI, supply-chain, and publication-evidence controls without changing external governance settings"
     ],
     "forbidden_actions": [
-      "de-prepare, rebuild, normalize, clean, install, write, delete, or otherwise mutate any iteration-135 remote host, remote filesystem, host-side repository, packet, runtime, lock, container, GPU, or evidence path before lifecycle and hermetic CI controls are separately accepted",
-      "create, execute, publish, or advance any H, E, P, or S descendant; launch activation; live smoke; or analytic episode before lifecycle and hermetic CI controls are separately accepted",
+      "de-prepare, rebuild, normalize, clean, install, write, delete, mutate, inventory, or access any iteration-135 remote host, remote filesystem, host-side repository, packet, runtime, lock, container, GPU, credential, or external provider in a way that could create H, E, P, or S",
+      "create, execute, publish, or advance any H, E, P, or S descendant; launch activation; live smoke; or analytic episode",
       "infer IDLE, termination, completion, readiness, approval, or authority from static state, absent containers, absent processes, missing reviewers, timeouts, retry exhaustion, or incomplete proof",
       "run analyzers or publish iteration-135 data, results, claims, figures, paper text, or scientific conclusions",
       "change branch protection, rulesets, Actions policy, repository visibility, credentials, secrets, access control, or other external governance settings without explicit operator authorization",
-      "rerun iteration 134",
-      "adopt run-index resampling as the iteration-135 primary after observing iteration-134 results"
+      "rerun iteration 134 or adapt iteration-135 schedules, estimands, verdicts, or policies after evidence"
     ]
   },
   "claim_state": {
