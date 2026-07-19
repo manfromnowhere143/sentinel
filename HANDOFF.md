@@ -1,19 +1,24 @@
 # HANDOFF — retained mission snapshot
 
-Generation-fifteen control-integrity recovery is in source validation on 2026-07-19.
+Generation-fifteen control-integrity recovery has reached a local B15 publication candidate on
+2026-07-20.
 Read `CONTINUITY.md` first. This file is a repository snapshot, not live host authority.
 
 ## Repository and publication state
 
 ```text
 canonical branch       master
-accepted baton         B14 69bd2e2face00ccabb426382347eb04e8a0dbe83
-remote master          B14 at this source snapshot
+accepted source        F15 3bc8913fb8e7b09650fbf2b7370ac17a57f7e2d0
+accepted receipt       R15 80f4b37d7c7c1f2a917e68bdcb015f188299f1fe
+remote master          R15 at this B15 source snapshot
+local state child      T15 5366d8f714d8d1c49e99f238ba4e88733d7904ab
+local baton            B15 is the commit containing this snapshot; external acceptance pending
 superseded candidates  failed F15 4d8801605f1e285c5000b4220e965e97a8aff345;
                        pre-publication F15 132c01eab2414a628376631cdf1c24fa6d9a7ab9
-replacement F15        the commit containing this snapshot; acceptance requires exact external evidence
 run state              UNKNOWN
-iteration-135 phase    PREREGISTERED_TOOLING_REQUIRED
+iteration-135 phase    CONTROL_HARDENING_REQUIRED
+authority              none
+launch authorized      false
 host mutation          forbidden
 H/E/P/S descendants    forbidden
 ```
@@ -54,6 +59,105 @@ green runs are retained diagnostic evidence rather than promotion authority. The
 binds the HANDOFF action block to the exact canonical `MISSION_STATE.json` arrays and retains a
 positive and known-bad control-hardening fixture.
 
+## Accepted F15 and R15 evidence
+
+The accepted publication chain through the canonical remote tip is:
+
+```text
+B14 69bd2e2face00ccabb426382347eb04e8a0dbe83
+ └─ F15 3bc8913fb8e7b09650fbf2b7370ac17a57f7e2d0
+     └─ R15 80f4b37d7c7c1f2a917e68bdcb015f188299f1fe
+         └─ T15 5366d8f714d8d1c49e99f238ba4e88733d7904ab  local only
+             └─ B15 the commit containing this snapshot              local only
+```
+
+F15 is a direct B14 child with tree `1a16c0fb7031a401578afd41b78ed83e92008eb4`
+and exactly the registered nineteen paths. Its canonical committed-byte manifest SHA-256 is
+`c3828f74e3ea209d08c5aa75d7da3c55a85c4b309ddb36b7439ad173bb0db930`
+under the retained contract: a path-sorted UTF-8 canonical JSON array of
+`{bytes,mode,path,sha256}` rows, sorted keys, comma/colon separators, and no trailing newline.
+The modes remain sixteen `100644` and three `100755`; independent Git-blob replay found no
+working-byte, object-ID, or mode mismatch.
+
+The final F15 bytes passed repository-wide Ruff, all tests, and the documentation guard in both
+local lanes:
+
+- Python 3.10.19 / pytest 9.1.1 / NumPy 2.2.6 / scikit-learn 1.7.2:
+  `1,935 passed, 1 skipped` in 1,727.32 seconds;
+- Python 3.11.15 / pytest 9.1.1 / NumPy 2.4.6 / scikit-learn 1.9.0:
+  `1,935 passed, 1 skipped` in 1,693.20 seconds;
+- each lane's documentation guard reported 402 Markdown files clean and every RESULT surfaced
+  in `README.md`.
+
+All retained acceptance runs used workflow ID `304353015`, name `ci`, path
+`.github/workflows/ci.yml`, event `push`, attempt 1, exactly two successful jobs, and exact
+branch and workflow projection replay:
+
+- F15 disposable A: branch `ci-validate-f15-a-3bc8913fb8e7`,
+  [run 783 / `29701426376`](https://github.com/manfromnowhere143/sentinel/actions/runs/29701426376),
+  check suite `80426354852`, created/started `2026-07-19T19:52:11Z`, updated
+  `2026-07-19T19:59:18Z`. Jobs:
+  [3.10 / `88231009141`](https://github.com/manfromnowhere143/sentinel/actions/runs/29701426376/job/88231009141),
+  `19:52:13Z`–`19:59:17Z`; and
+  [3.11 / `88231009154`](https://github.com/manfromnowhere143/sentinel/actions/runs/29701426376/job/88231009154),
+  `19:52:13Z`–`19:58:48Z`.
+- F15 disposable B: branch `ci-validate-f15-b-3bc8913fb8e7`,
+  [run 784 / `29701428822`](https://github.com/manfromnowhere143/sentinel/actions/runs/29701428822),
+  check suite `80426360735`, created/started `2026-07-19T19:52:16Z`, updated
+  `2026-07-19T19:59:17Z`. Jobs:
+  [3.10 / `88231015086`](https://github.com/manfromnowhere143/sentinel/actions/runs/29701428822/job/88231015086),
+  `19:52:19Z`–`19:59:16Z`; and
+  [3.11 / `88231015067`](https://github.com/manfromnowhere143/sentinel/actions/runs/29701428822/job/88231015067),
+  `19:52:19Z`–`19:58:47Z`.
+- F15 canonical: branch `master`,
+  [run 785 / `29701663552`](https://github.com/manfromnowhere143/sentinel/actions/runs/29701663552),
+  check suite `80426919838`, created/started `2026-07-19T19:59:49Z`, updated
+  `2026-07-19T20:06:37Z`. Jobs:
+  [3.10 / `88231608750`](https://github.com/manfromnowhere143/sentinel/actions/runs/29701663552/job/88231608750),
+  `19:59:52Z`–`20:06:36Z`; and
+  [3.11 / `88231608751`](https://github.com/manfromnowhere143/sentinel/actions/runs/29701663552/job/88231608751),
+  `19:59:52Z`–`20:05:38Z`.
+- R15 disposable: branch `ci-validate-r15-80f4b37d7c7c`,
+  [run 786 / `29703998610`](https://github.com/manfromnowhere143/sentinel/actions/runs/29703998610),
+  check suite `80432704034`, created/started `2026-07-19T21:14:32Z`, updated
+  `2026-07-19T21:21:52Z`. Jobs:
+  [3.10 / `88237755340`](https://github.com/manfromnowhere143/sentinel/actions/runs/29703998610/job/88237755340),
+  `21:14:35Z`–`21:21:51Z`; and
+  [3.11 / `88237755333`](https://github.com/manfromnowhere143/sentinel/actions/runs/29703998610/job/88237755333),
+  `21:14:35Z`–`21:21:29Z`.
+- R15 canonical: branch `master`,
+  [run 787 / `29704232755`](https://github.com/manfromnowhere143/sentinel/actions/runs/29704232755),
+  check suite `80433282212`, created/started `2026-07-19T21:22:14Z`, updated
+  `2026-07-19T21:28:48Z`. Jobs:
+  [3.10 / `88238396944`](https://github.com/manfromnowhere143/sentinel/actions/runs/29704232755/job/88238396944),
+  `21:22:17Z`–`21:28:26Z`; and
+  [3.11 / `88238396913`](https://github.com/manfromnowhere143/sentinel/actions/runs/29704232755/job/88238396913),
+  `21:22:16Z`–`21:28:47Z`.
+
+R15 is the receipt-only direct F15 child. The protected receipt is 36,922 bytes with SHA-256
+`0d169cf0c58b1d6c597ae3381003bf3b06a2f630d6f8d51b7c82c6004406b0c8`
+and payload SHA-256
+`aac3cab0ddcf512766c0b9b18dfdfa38dd17a890f51322fd463ce7dc9fc21f5d`.
+Its exact publication block names generation integer 15, B14 as recovery parent, R14
+`b260ca5b0910c4d499c13e42add97affd726b77c` as the superseded receipt, and the frozen F15
+reason code. The one-shot verifier ran from `2026-07-19T20:08:30.961491Z` through
+`2026-07-19T20:38:39.041141Z`, returned `I135_TOOLING_VERIFICATION_OK`, exact integer zero,
+and an empty problem list. All eight retained command rows have exact integer return code zero.
+The committed receipt then independently replayed to `I135_TOOLING_VERIFICATION_OK`.
+
+The transaction wrapper's first read-only post-generation module load failed because the
+Python 3.14 `dataclass` module was not registered in `sys.modules`; its cleanup function also
+left shell `errexit` disabled, so the wrapper printed a nonauthoritative terminal marker after
+that failed check. That marker was quarantined and was not used as evidence. The generator was
+not rerun. A corrected strict loader verified the already relocked bytes, and the later
+committed-receipt replay independently passed.
+
+The working receipt matches the R15 Git blob and is a one-link regular file owned by
+`danielwahnich:staff`, mode `0600`, with exact `uchg` and the single ACL
+`user:danielwahnich deny delete`. The experiment-directory device and inode remained stable
+through generation. T15 changes only `MISSION_STATE.json`; B15 changes only this file and
+`CONTINUITY.md`. No host, GPU, H/E/P/S, smoke, analytic, result, or paper authority was created.
+
 ## Current-status correction
 
 The current-status sentences in `README.md` and `docs/NEXT_PHASE.md` that say no run is in
@@ -69,9 +173,10 @@ quarantined as unsupported positioning shorthand. It licenses no Sentinel state-
 claim. The same documentation generation must either replace it with a named benchmark,
 comparator, scope, evidence date, and retained sources or remove it.
 
-## Replacement F15 contract
+## Accepted F15 contract
 
-F15 is a source-only child of B14 with exactly these nineteen paths:
+F15 `3bc8913fb8e7b09650fbf2b7370ac17a57f7e2d0` is a source-only child of B14 with
+exactly these nineteen paths:
 
 1. `CONTINUITY.md`
 2. `HANDOFF.md`
@@ -178,23 +283,23 @@ retains known-bads against its former live behavior.
 ## Canonical mission state (`MISSION_STATE.json`)
 
 - Current: iteration 134 / PLACEBO_HARM_OR_NULL / run UNKNOWN / next
-  iteration 135 / PREREGISTERED_TOOLING_REQUIRED
+  iteration 135 / CONTROL_HARDENING_REQUIRED
 - Canonical completed experiment: experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md
 - Next program: semantics-free placebo dose-response causal closure
-- Canonical next action: iteration 135 / PREREGISTERED_TOOLING_REQUIRED / semantics-free
+- Canonical next action: iteration 135 / CONTROL_HARDENING_REQUIRED / semantics-free
   placebo dose-response causal closure.
 - Authorized now:
-  - perform only offline, repository-local, preregistered architecture, lifecycle,
-    terminal-proof, CI, supply-chain, test, and publication-control work;
-  - retain and review evidence for the later control-hardening publication without changing
-    external governance settings.
+  - implement and validate only offline, preregistered, source-bound lifecycle observation,
+    terminal-proof, partial-proof, inconsistency, and fail-closed recovery controls;
+  - implement and validate separately reviewable hermetic CI, supply-chain, and
+    publication-evidence controls without changing external governance settings.
 - Forbidden now:
-  - de-prepare, rebuild, normalize, clean, install, write, delete, or otherwise mutate any
-    iteration-135 remote host, remote filesystem, host-side repository, packet, runtime, lock,
-    container, GPU, or evidence path before lifecycle and hermetic CI controls are separately
-    accepted;
+  - de-prepare, rebuild, normalize, clean, install, write, delete, mutate, inventory, or access
+    any iteration-135 remote host, remote filesystem, host-side repository, packet, runtime,
+    lock, container, GPU, credential, or external provider in a way that could create H, E, P,
+    or S;
   - create, execute, publish, or advance any H, E, P, or S descendant; launch activation; live
-    smoke; or analytic episode before lifecycle and hermetic CI controls are separately accepted;
+    smoke; or analytic episode;
   - infer `IDLE`, termination, completion, readiness, approval, or authority from static state,
     absent containers, absent processes, missing reviewers, timeouts, retry exhaustion, or
     incomplete proof;
@@ -203,29 +308,30 @@ retains known-bads against its former live behavior.
   - change branch protection, rulesets, Actions policy, repository visibility, credentials,
     secrets, access control, or other external governance settings without explicit operator
     authorization;
-  - rerun iteration 134;
-  - adopt run-index resampling as the iteration-135 primary after observing iteration-134
-    results.
+  - rerun iteration 134 or adapt iteration-135 schedules, estimands, verdicts, or policies after
+    evidence.
 
 ## Publication sequence
 
-1. Freeze a clean replacement F15 whose parent is exact B14 and whose changed paths are the
-   registered nineteen.
-2. Require complete local validation in Python 3.10 and 3.11.
-3. Push the exact F15 SHA to two fresh disposable branches. Preserve every red run; do not use a
-   rerun to erase it.
-4. Only after both disposable runs are green, normally push the same SHA to `master` and require
-   a distinct green master run.
-5. Generate R15 from the exact accepted F15, independently replay it, publish it through
-   disposable and distinct master runs, and preserve the protected receipt controls.
-6. Construct T15 as the state-only `CONTROL_HARDENING_REQUIRED`/`UNKNOWN` child of R15 and B15 as
-   its immediately following documentation-only baton.
-7. Validate exact B15 on a disposable branch with `origin/master == R15`; this is explicitly
-   non-authoritative. Then normally publish exact B15 and require a distinct master run with
-   `origin/master == B15`.
+1. F15 and R15 are accepted at the exact SHAs and evidence identities above.
+2. T15 is the exact state-only R15 child `5366d8f714d8d1c49e99f238ba4e88733d7904ab`;
+   it must never be pushed as a standalone branch tip.
+3. B15 is the immediately following documentation-only child and the commit containing this
+   snapshot. Its SHA cannot be embedded in its own bytes.
+4. Validate exact B15 on one fresh disposable branch while `origin/master == R15`. This is
+   `non-authoritative-control-candidate`, with `authority=none`,
+   `launch_authorized=false`, and empty references.
+5. Only after that exact run succeeds, normally fast-forward `master` from R15 through T15 to
+   B15 and require a distinct master run that observes `origin/master == B15` and
+   `origin-published-control-baton`.
+6. If disposable validation fails, preserve the branch and run and leave `master` at R15. If
+   canonical B15 validation fails, preserve the red evidence and restore R15 only with an exact
+   `master:B15` lease.
+7. Retain final B15 SHA, run, check-suite, and job evidence externally; writing those future
+   values into this file would create a different B15.
 
-T15 is never published alone. F15, R15, T15, and B15 authorize no host access, H/E/P/S,
-activation, smoke, analytics, or scientific claim.
+F15, R15, T15, and B15 authorize no host access, H/E/P/S, activation, smoke, analytics, or
+scientific claim. B15 only advances the offline control-hardening stop.
 
 ## Retained host snapshot
 
@@ -277,9 +383,11 @@ not alter the frozen F15 hypothesis, schedule, estimand, or verdict.
 
 ## Next safe work
 
-- Finish replacement-F15 validation and independent GO review on one frozen byte hash.
-- Publish F15, then R15, then the atomic T15/B15 control baton using the sequence above.
-- Keep the B14 host and evidence unchanged.
+- Freeze and validate the exact B15 documentation-only child on one fresh disposable branch
+  while canonical `master` remains R15.
+- If and only if that candidate is exact green, publish the same B15 tip atomically through T15,
+  require a distinct canonical run, and preserve or restore under the sequence above.
+- Keep the preserved B14 host install and all host/evidence paths unchanged.
 - Correct the retracted current-status prose in `README.md` and `docs/NEXT_PHASE.md`, and the
   quarantined state-of-the-art shorthand in `docs/REPORT.md`, through a separately registered
   source generation; do not weaken the frozen receipt history to edit them.

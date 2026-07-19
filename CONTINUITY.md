@@ -4004,3 +4004,82 @@ transfer boundary fold-in and the claim-(5) hedge are unchanged and still bindin
   is failing: it names no benchmark, comparator, scope, evidence date, or retained source at the
   claim. It licenses no Sentinel state-of-the-art claim and must be qualified with those exact
   bounds or removed in that separate documentation generation.
+
+- **GENERATION-FIFTEEN F15/R15 ACCEPTED; T15/B15 CONTROL BATON CONSTRUCTED LOCALLY
+  (2026-07-20).** Accepted F15
+  `3bc8913fb8e7b09650fbf2b7370ac17a57f7e2d0` is the direct child of B14
+  `69bd2e2face00ccabb426382347eb04e8a0dbe83`, has exact tree
+  `1a16c0fb7031a401578afd41b78ed83e92008eb4`, and changes the registered nineteen paths
+  only. Its canonical committed-byte manifest SHA-256 is
+  `c3828f74e3ea209d08c5aa75d7da3c55a85c4b309ddb36b7439ad173bb0db930`
+  for the retained path-sorted `{bytes,mode,path,sha256}` JSON projection. Independent replay
+  found no Git-blob, working-byte, object-ID, or mode mismatch; the modes remain sixteen
+  `100644` and three `100755`.
+
+  The exact F15 bytes passed repository-wide Ruff, the documentation guard, and both complete
+  local suites: Python 3.10.19 / pytest 9.1.1 / NumPy 2.2.6 / scikit-learn 1.7.2 reported
+  `1,935 passed, 1 skipped` in 1,727.32 seconds; Python 3.11.15 / pytest 9.1.1 /
+  NumPy 2.4.6 / scikit-learn 1.9.0 reported `1,935 passed, 1 skipped` in 1,693.20 seconds.
+  The documentation guard reported 402 Markdown files clean in both lanes.
+
+  F15 then passed two fresh disposable runs and one distinct canonical run, all on workflow
+  `304353015` / `ci` / `.github/workflows/ci.yml`, event `push`, attempt 1, exactly two jobs,
+  and exact branch/workflow replay. Disposable A
+  `ci-validate-f15-a-3bc8913fb8e7` was run 783 / `29701426376`, check suite
+  `80426354852`, jobs `88231009141` (3.10) and `88231009154` (3.11), from
+  `2026-07-19T19:52:11Z` through `19:59:18Z`. Disposable B
+  `ci-validate-f15-b-3bc8913fb8e7` was run 784 / `29701428822`, check suite
+  `80426360735`, jobs `88231015086` (3.10) and `88231015067` (3.11), from
+  `19:52:16Z` through `19:59:17Z`. Canonical `master` run 785 / `29701663552`,
+  check suite `80426919838`, jobs `88231608750` (3.10) and `88231608751` (3.11),
+  ran from `19:59:49Z` through `20:06:37Z`. Full run and job URLs are retained in
+  `HANDOFF.md`.
+
+  R15 `80f4b37d7c7c1f2a917e68bdcb015f188299f1fe` is the receipt-only direct F15 child.
+  Its generation-15 receipt is 36,922 bytes, SHA-256
+  `0d169cf0c58b1d6c597ae3381003bf3b06a2f630d6f8d51b7c82c6004406b0c8`,
+  with payload SHA-256
+  `aac3cab0ddcf512766c0b9b18dfdfa38dd17a890f51322fd463ce7dc9fc21f5d`.
+  The exact publication block names B14 as recovery parent, R14
+  `b260ca5b0910c4d499c13e42add97affd726b77c` as the superseded receipt, and the frozen
+  generation-fifteen reason code. The one-shot generator ran from
+  `2026-07-19T20:08:30.961491Z` through `20:38:39.041141Z`, returned
+  `I135_TOOLING_VERIFICATION_OK`, exact integer zero, and an empty problem list; all eight
+  command rows have exact integer return code zero. The committed receipt independently replayed
+  to the same green verdict.
+
+  The transaction wrapper's first post-generation read-only import failed because its Python
+  3.14 `dataclass` module was not registered in `sys.modules`. Its cleanup function also left
+  shell `errexit` disabled, so a later wrapper marker printed despite that failed check. That
+  marker was quarantined and is not evidence. The generator was not rerun. A corrected strict
+  loader validated the already relocked bytes, and the independent committed replay passed.
+  The working receipt remains byte-identical to R15, one-link, owned by
+  `danielwahnich:staff`, mode `0600`, `uchg`, with the one ACL
+  `user:danielwahnich deny delete`; the containing directory's device and inode remained stable.
+
+  R15 passed disposable branch `ci-validate-r15-80f4b37d7c7c` run 786 /
+  `29703998610`, check suite `80432704034`, jobs `88237755340` (3.10) and
+  `88237755333` (3.11), from `2026-07-19T21:14:32Z` through `21:21:52Z`. It then
+  passed canonical `master` run 787 / `29704232755`, check suite `80433282212`, jobs
+  `88238396944` (3.10) and `88238396913` (3.11), from `21:22:14Z` through
+  `21:28:48Z`. Both were exact attempt-1 two-job successes with branch and workflow replay
+  equality.
+
+  T15 `5366d8f714d8d1c49e99f238ba4e88733d7904ab` is the local state-only direct R15
+  child. It retains run `UNKNOWN` and advances only to `CONTROL_HARDENING_REQUIRED`. B15 is its
+  immediately following documentation-only child and the commit containing the current
+  `HANDOFF.md`/`CONTINUITY.md` snapshot. T15 must never be pushed as a standalone tip. Exact B15
+  must first pass one fresh disposable run while `origin/master == R15`, with
+  `non-authoritative-control-candidate`, `authority=none`, `launch_authorized=false`, and empty
+  references. Only then may the same B15 tip fast-forward `master` atomically through T15 and
+  require a distinct `origin-published-control-baton` run. B15 cannot retain its own SHA or
+  future run IDs in its bytes; those final identities remain external evidence.
+
+  The canonical lifecycle remains `UNKNOWN`. T15/B15 grant no host, GPU, H/E/P/S, activation,
+  smoke, analytic, scientific, or paper authority. Authorized work is limited to offline,
+  preregistered source-bound lifecycle/terminal-proof and separately reviewable hermetic
+  CI/supply-chain/publication-evidence controls. The current blockers remain: correct the
+  retracted `README.md` and `docs/NEXT_PHASE.md` lifecycle prose and the quarantined
+  `docs/REPORT.md` positioning in a separately registered source generation; close raw terminal
+  provenance and successful raw-CLI/analyzer parity before analytic launch; and require the
+  source-clustered sensitivity across fourteen unique sequences for any future headline.
