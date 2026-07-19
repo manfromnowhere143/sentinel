@@ -377,6 +377,50 @@ GENERATION_FOURTEEN_SOURCE_COMMIT_PATHS = tuple(
         }
     )
 )
+# Generation fifteen exists because the first B14 host-evidence descendant proved frozen
+# control-plane fossils before any smoke or analytic action. First, generation fourteen was
+# omitted from the mission-state validator's exact frozen-controller generations, so an otherwise
+# valid H descendant fell into the generic preflight-scope path and failed closed. Second, all four
+# live GitHub readers treated commit-level check rows as master authority. That both mixed old
+# rerun attempts and allowed same-SHA disposable-branch suites to impersonate the canonical run.
+# The repair selects the latest exact `ci.yml` push on `master` by workflow run number, validates
+# only its exact current-attempt jobs, and replays workflow identity around the job observation. It
+# also closes the generation-controller omissions through generation fifteen. Finally, it makes
+# the static preregistration and control-hardening states `UNKNOWN`, so absence of a container or
+# process cannot be represented as proof that the dose runner is idle. No scientific, schedule,
+# estimand, policy, smoke, or analytic payload changes.
+GENERATION_FOURTEEN_SOURCE_COMMIT = "4a62cc4127e9dc2fcea2dcbdd0acd3c6d790259b"
+GENERATION_FOURTEEN_RECEIPT_COMMIT = "b260ca5b0910c4d499c13e42add97affd726b77c"
+GENERATION_FOURTEEN_STATE_COMMIT = "a084198d89ece710a490363bdbf53f548cbd0456"
+GENERATION_FOURTEEN_BATON_COMMIT = "69bd2e2face00ccabb426382347eb04e8a0dbe83"
+GENERATION_FIFTEEN_SOURCE_PARENT = GENERATION_FOURTEEN_BATON_COMMIT
+GENERATION_FIFTEEN_REASON_CODE = (
+    "B14_H_DESCENDANT_CONTROLLER_OMISSION_GITHUB_RUN_AUTHORITY_"
+    "AND_CI_FIXTURE_OBJECT_CONNECTIVITY_AND_RECEIPT_SCHEMA_EXACTNESS_"
+    "AND_FALSE_IDLE_LEGACY_HANDOFF_REMOTE_PROBE_"
+    "AND_RECEIPT_FAILURE_BOUNDARY_STOP"
+)
+GENERATION_FIFTEEN_SOURCE_COMMIT_PATHS = (
+    "CONTINUITY.md",
+    "HANDOFF.md",
+    "MISSION_STATE.json",
+    f"{ITER135_EXPERIMENT_REL}/authorize_launch135.py",
+    f"{ITER135_EXPERIMENT_REL}/capture_environment135.py",
+    f"{ITER135_EXPERIMENT_REL}/prepare_host135.py",
+    f"{ITER135_EXPERIMENT_REL}/run_dose135.sh",
+    f"{ITER135_EXPERIMENT_REL}/run_smoke135.sh",
+    f"{ITER135_EXPERIMENT_REL}/verify_tooling135.py",
+    "scripts/make_handoff.py",
+    "scripts/mission_state.py",
+    "tests/test_handoff_generator.py",
+    "tests/test_iter135_environment_capture.py",
+    "tests/test_iter135_host_preparation.py",
+    "tests/test_iter135_launch_authorization.py",
+    "tests/test_iter135_launcher.py",
+    "tests/test_iter135_smoke_pipeline.py",
+    "tests/test_iter135_tooling_verifier.py",
+    "tests/test_mission_state.py",
+)
 GENERATION_TWELVE_SOURCE_COMMIT_PATHS = (
     "CONTINUITY.md",
     "HANDOFF.md",
@@ -517,26 +561,68 @@ GENERATION_FOUR_SOURCE_COMMIT_PATHS = (
     "tests/test_mission_state.py",
 )
 EXPECTED_RECOVERY_PUBLICATION = {
-    "generation": 14,
-    "supersedes_receipt_commit": GENERATION_THIRTEEN_RECEIPT_COMMIT,
-    "recovery_parent": GENERATION_FOURTEEN_SOURCE_PARENT,
-    "reason_code": GENERATION_FOURTEEN_REASON_CODE,
+    "generation": 15,
+    "supersedes_receipt_commit": GENERATION_FOURTEEN_RECEIPT_COMMIT,
+    "recovery_parent": GENERATION_FIFTEEN_SOURCE_PARENT,
+    "reason_code": GENERATION_FIFTEEN_REASON_CODE,
 }
+CONTROLLED_PUBLICATION_GENERATIONS = frozenset(range(3, 16))
 
 # Compatibility name: this is always the immutable generation-one 31-path baseline. Recovery
 # publication has its own paired parent/scope contract and must never redefine this surface.
 EXPECTED_SOURCE_COMMIT_PATHS = GENERATION_ONE_SOURCE_COMMIT_PATHS
 
 PREREGISTERED_AUTHORIZED_ACTIONS = (
-    "build and validate only the tooling and tests frozen by the active iteration-135 hypothesis",
-    "inventory storage and provenance before any safe cleanup or live smoke",
-    "publish a read-only external-benchmark commercial, license, compute, and integration preflight",
+    "perform only offline, repository-local, preregistered architecture, lifecycle, "
+    "terminal-proof, CI, supply-chain, test, and publication-control work",
+    "retain and review evidence for the later control-hardening publication without changing "
+    "external governance settings",
 )
 PREREGISTERED_FORBIDDEN_ACTIONS = (
-    "GPU launch before the iteration-135 hypothesis, analyzer, manifest, provenance, storage, and smoke gates are frozen",
+    "de-prepare, rebuild, normalize, clean, install, write, delete, or otherwise mutate any "
+    "iteration-135 remote host, remote filesystem, host-side repository, packet, runtime, lock, "
+    "container, GPU, or evidence path before lifecycle and hermetic CI controls are separately "
+    "accepted",
+    "create, execute, publish, or advance any H, E, P, or S descendant; launch activation; live "
+    "smoke; or analytic episode before lifecycle and hermetic CI controls are separately accepted",
+    "infer IDLE, termination, completion, readiness, approval, or authority from static state, "
+    "absent containers, absent processes, missing reviewers, timeouts, retry exhaustion, or "
+    "incomplete proof",
+    "run analyzers or publish iteration-135 data, results, claims, figures, paper text, or "
+    "scientific conclusions",
+    "change branch protection, rulesets, Actions policy, repository visibility, credentials, "
+    "secrets, access control, or other external governance settings without explicit operator "
+    "authorization",
     "rerun iteration 134",
     "adopt run-index resampling as the iteration-135 primary after observing iteration-134 results",
 )
+CONTROL_HARDENING_AUTHORIZED_ACTIONS = (
+    "implement and validate only offline, preregistered, source-bound lifecycle observation, "
+    "terminal-proof, partial-proof, inconsistency, and fail-closed recovery controls",
+    "implement and validate separately reviewable hermetic CI, supply-chain, and "
+    "publication-evidence controls without changing external governance settings",
+)
+CONTROL_HARDENING_FORBIDDEN_ACTIONS = (
+    "de-prepare, rebuild, normalize, clean, install, write, delete, mutate, inventory, or access "
+    "any iteration-135 remote host, remote filesystem, host-side repository, packet, runtime, "
+    "lock, container, GPU, credential, or external provider in a way that could create H, E, P, "
+    "or S",
+    "create, execute, publish, or advance any H, E, P, or S descendant; launch activation; live "
+    "smoke; or analytic episode",
+    "infer IDLE, termination, completion, readiness, approval, or authority from static state, "
+    "absent containers, absent processes, missing reviewers, timeouts, retry exhaustion, or "
+    "incomplete proof",
+    "run analyzers or publish iteration-135 data, results, claims, figures, paper text, or "
+    "scientific conclusions",
+    "change branch protection, rulesets, Actions policy, repository visibility, credentials, "
+    "secrets, access control, or other external governance settings without explicit operator "
+    "authorization",
+    "rerun iteration 134 or adapt iteration-135 schedules, estimands, verdicts, or policies after "
+    "evidence",
+)
+CONTROL_PUBLICATION_CANDIDATE_STATUS = "non-authoritative-control-candidate"
+CONTROL_PUBLICATION_PUBLISHED_STATUS = "origin-published-control-baton"
+CONTROL_PUBLICATION_INVALID_UPSTREAM_STATUS = "invalid-control-publication-upstream"
 TOOLING_FROZEN_AUTHORIZED_ACTIONS = (
     "prepare the exact hash-bound sentinel-gpu host contract and atomically commit "
     "host_packet_manifest.json and host_preparation_receipt.json",
@@ -572,6 +658,10 @@ PHASE_ACTION_CONTRACTS = {
         PREREGISTERED_AUTHORIZED_ACTIONS,
         PREREGISTERED_FORBIDDEN_ACTIONS,
     ),
+    "CONTROL_HARDENING_REQUIRED": (
+        CONTROL_HARDENING_AUTHORIZED_ACTIONS,
+        CONTROL_HARDENING_FORBIDDEN_ACTIONS,
+    ),
     "TOOLING_FROZEN_PREFLIGHT_REQUIRED": (
         TOOLING_FROZEN_AUTHORIZED_ACTIONS,
         TOOLING_FROZEN_FORBIDDEN_ACTIONS,
@@ -579,6 +669,7 @@ PHASE_ACTION_CONTRACTS = {
     "LAUNCH_AUTHORIZED": (LAUNCH_AUTHORIZED_ACTIONS, LAUNCH_FORBIDDEN_ACTIONS),
 }
 ADVANCED_PHASES = {
+    "CONTROL_HARDENING_REQUIRED",
     "TOOLING_FROZEN_PREFLIGHT_REQUIRED",
     "LAUNCH_AUTHORIZED",
     "RUNNING",
@@ -587,7 +678,8 @@ ADVANCED_PHASES = {
 UNIMPLEMENTED_ARTIFACT_PHASES = {"RUNNING", "ANALYSIS_REQUIRED"}
 PHASE_RUN_STATES = {
     "PREREGISTRATION_REQUIRED": "IDLE",
-    "PREREGISTERED_TOOLING_REQUIRED": "IDLE",
+    "PREREGISTERED_TOOLING_REQUIRED": "UNKNOWN",
+    "CONTROL_HARDENING_REQUIRED": "UNKNOWN",
     "TOOLING_FROZEN_PREFLIGHT_REQUIRED": "IDLE",
     "LAUNCH_AUTHORIZED": "IDLE",
     "RUNNING": "RUNNING",
@@ -607,6 +699,32 @@ def _canonical_json(value: Any) -> bytes:
         ensure_ascii=True,
         allow_nan=False,
     ).encode("utf-8")
+
+
+def _exact_json_value(observed: object, expected: object) -> bool:
+    """Compare JSON values without bool/int or int/float equivalence."""
+
+    if type(observed) is not type(expected):
+        return False
+    if type(expected) is dict:
+        observed_dict = observed
+        expected_dict = expected
+        return set(observed_dict) == set(expected_dict) and all(
+            _exact_json_value(observed_dict[key], expected_dict[key])
+            for key in expected_dict
+        )
+    if type(expected) is list:
+        observed_list = observed
+        expected_list = expected
+        return len(observed_list) == len(expected_list) and all(
+            _exact_json_value(observed_item, expected_item)
+            for observed_item, expected_item in zip(
+                observed_list,
+                expected_list,
+                strict=True,
+            )
+        )
+    return observed == expected
 
 
 def _reject_duplicate_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
@@ -835,7 +953,7 @@ def _validate_tooling_publication(
         if receipt.get("problems") != []:
             problems.append("tooling_publication:receipt_problems_nonempty_or_malformed")
         publication = receipt.get("publication")
-        if not isinstance(publication, Mapping):
+        if type(publication) is not dict:
             problems.append("tooling_publication:receipt_publication_malformed")
             publication = {}
         if set(publication) != set(EXPECTED_RECOVERY_PUBLICATION):
@@ -843,7 +961,7 @@ def _validate_tooling_publication(
                 f"tooling_publication:receipt_publication_fields:{sorted(publication)}"
             )
         for field, expected in EXPECTED_RECOVERY_PUBLICATION.items():
-            if publication.get(field) != expected:
+            if not _exact_json_value(publication.get(field), expected):
                 problems.append(
                     f"tooling_publication:receipt_publication_{field}:"
                     f"{publication.get(field)!r}"
@@ -914,7 +1032,15 @@ def _validate_tooling_publication(
                 problems.append(f"tooling_publication:{label}_source_not_pushed")
 
         publication_generation = publication.get("generation")
-        if publication_generation == 14:
+        if type(publication_generation) is not int:
+            raise ToolingPublicationError(
+                "publication generation is not an exact integer: "
+                f"{publication_generation!r}"
+            )
+        if publication_generation == 15:
+            expected_source_parent = GENERATION_FIFTEEN_SOURCE_PARENT
+            expected_source_paths = tuple(sorted(GENERATION_FIFTEEN_SOURCE_COMMIT_PATHS))
+        elif publication_generation == 14:
             expected_source_parent = GENERATION_FOURTEEN_SOURCE_PARENT
             expected_source_paths = tuple(sorted(GENERATION_FOURTEEN_SOURCE_COMMIT_PATHS))
         elif publication_generation == 13:
@@ -971,7 +1097,7 @@ def _validate_tooling_publication(
         if actual_source_paths != expected_source_paths:
             problems.append("tooling_publication:recovery_source_commit_scope")
 
-        if publication_generation in {3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13}:
+        if publication_generation in CONTROLLED_PUBLICATION_GENERATIONS:
             try:
                 frozen_errors = _load_tooling_receipt_validator(root, source_commit)(
                     receipt,
@@ -1021,7 +1147,7 @@ def _validate_tooling_publication(
         if recovery_parent_paths != ("CONTINUITY.md", "HANDOFF.md"):
             problems.append("tooling_publication:generation_one_baton_scope")
 
-        if publication_generation in {3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13}:
+        if publication_generation in CONTROLLED_PUBLICATION_GENERATIONS:
             generation_two_parents, generation_two_paths = _commit_row(
                 root, GENERATION_TWO_SOURCE_COMMIT
             )
@@ -1051,7 +1177,44 @@ def _validate_tooling_publication(
             if generation_two_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_two_baton_scope")
 
-        if publication_generation == 14:
+        if publication_generation == 15:
+            generation_fourteen_parents, generation_fourteen_paths = _commit_row(
+                root, GENERATION_FOURTEEN_SOURCE_COMMIT
+            )
+            if generation_fourteen_parents != (GENERATION_FOURTEEN_SOURCE_PARENT,):
+                problems.append("tooling_publication:generation_fourteen_source_parent")
+            if generation_fourteen_paths != tuple(
+                sorted(GENERATION_FOURTEEN_SOURCE_COMMIT_PATHS)
+            ):
+                problems.append(
+                    "tooling_publication:generation_fourteen_source_commit_scope"
+                )
+            (
+                generation_fourteen_receipt_parents,
+                generation_fourteen_receipt_paths,
+            ) = _commit_row(root, GENERATION_FOURTEEN_RECEIPT_COMMIT)
+            if generation_fourteen_receipt_parents != (GENERATION_FOURTEEN_SOURCE_COMMIT,):
+                problems.append("tooling_publication:generation_fourteen_receipt_parent")
+            if generation_fourteen_receipt_paths != (TOOLING_RECEIPT_REL.as_posix(),):
+                problems.append("tooling_publication:generation_fourteen_receipt_scope")
+            (
+                generation_fourteen_state_parents,
+                generation_fourteen_state_paths,
+            ) = _commit_row(root, GENERATION_FOURTEEN_STATE_COMMIT)
+            if generation_fourteen_state_parents != (GENERATION_FOURTEEN_RECEIPT_COMMIT,):
+                problems.append("tooling_publication:generation_fourteen_state_parent")
+            if generation_fourteen_state_paths != ("MISSION_STATE.json",):
+                problems.append("tooling_publication:generation_fourteen_state_scope")
+            (
+                generation_fourteen_baton_parents,
+                generation_fourteen_baton_paths,
+            ) = _commit_row(root, GENERATION_FOURTEEN_BATON_COMMIT)
+            if generation_fourteen_baton_parents != (GENERATION_FOURTEEN_STATE_COMMIT,):
+                problems.append("tooling_publication:generation_fourteen_baton_parent")
+            if generation_fourteen_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
+                problems.append("tooling_publication:generation_fourteen_baton_scope")
+
+        if publication_generation in {14, 15}:
             generation_thirteen_parents, generation_thirteen_paths = _commit_row(
                 root, GENERATION_THIRTEEN_SOURCE_COMMIT
             )
@@ -1088,7 +1251,7 @@ def _validate_tooling_publication(
             if generation_thirteen_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_thirteen_baton_scope")
 
-        if publication_generation in {13, 14}:
+        if publication_generation in {13, 14, 15}:
             generation_twelve_parents, generation_twelve_paths = _commit_row(
                 root, GENERATION_TWELVE_SOURCE_COMMIT
             )
@@ -1118,7 +1281,7 @@ def _validate_tooling_publication(
             if generation_twelve_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_twelve_baton_scope")
 
-        if publication_generation in {13, 14}:
+        if publication_generation in {12, 13, 14, 15}:
             generation_eleven_parents, generation_eleven_paths = _commit_row(
                 root, GENERATION_ELEVEN_SOURCE_COMMIT
             )
@@ -1148,7 +1311,7 @@ def _validate_tooling_publication(
             if generation_eleven_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_eleven_baton_scope")
 
-        if publication_generation in {11, 12, 13}:
+        if publication_generation in {11, 12, 13, 14, 15}:
             generation_ten_parents, generation_ten_paths = _commit_row(
                 root, GENERATION_TEN_SOURCE_COMMIT
             )
@@ -1178,7 +1341,7 @@ def _validate_tooling_publication(
             if generation_ten_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_ten_baton_scope")
 
-        if publication_generation in {10, 11, 12, 13}:
+        if publication_generation in {10, 11, 12, 13, 14, 15}:
             generation_nine_parents, generation_nine_paths = _commit_row(
                 root, GENERATION_NINE_SOURCE_COMMIT
             )
@@ -1208,7 +1371,7 @@ def _validate_tooling_publication(
             if generation_nine_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_nine_baton_scope")
 
-        if publication_generation in {9, 10, 11, 12, 13}:
+        if publication_generation in {9, 10, 11, 12, 13, 14, 15}:
             generation_eight_parents, generation_eight_paths = _commit_row(
                 root, GENERATION_EIGHT_SOURCE_COMMIT
             )
@@ -1238,7 +1401,7 @@ def _validate_tooling_publication(
             if generation_eight_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_eight_baton_scope")
 
-        if publication_generation in {8, 9, 10, 11, 12, 13}:
+        if publication_generation in {8, 9, 10, 11, 12, 13, 14, 15}:
             generation_seven_parents, generation_seven_paths = _commit_row(
                 root, GENERATION_SEVEN_SOURCE_COMMIT
             )
@@ -1268,7 +1431,7 @@ def _validate_tooling_publication(
             if generation_seven_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_seven_baton_scope")
 
-        if publication_generation in {7, 8, 9, 10, 11, 12, 13}:
+        if publication_generation in {7, 8, 9, 10, 11, 12, 13, 14, 15}:
             generation_six_parents, generation_six_paths = _commit_row(
                 root, GENERATION_SIX_SOURCE_COMMIT
             )
@@ -1298,7 +1461,7 @@ def _validate_tooling_publication(
             if generation_six_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_six_baton_scope")
 
-        if publication_generation in {6, 7, 8, 9, 10, 11, 12, 13}:
+        if publication_generation in {6, 7, 8, 9, 10, 11, 12, 13, 14, 15}:
             generation_five_parents, generation_five_paths = _commit_row(
                 root, GENERATION_FIVE_SOURCE_COMMIT
             )
@@ -1314,7 +1477,7 @@ def _validate_tooling_publication(
             if generation_five_receipt_paths != (TOOLING_RECEIPT_REL.as_posix(),):
                 problems.append("tooling_publication:generation_five_receipt_scope")
 
-        if publication_generation in {5, 6, 7, 8, 9, 10, 11, 12, 13}:
+        if publication_generation in {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}:
             generation_four_parents, generation_four_paths = _commit_row(
                 root, GENERATION_FOUR_SOURCE_COMMIT
             )
@@ -1344,7 +1507,7 @@ def _validate_tooling_publication(
             if generation_four_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_four_baton_scope")
 
-        if publication_generation in {4, 5, 6, 7, 8, 9, 10, 11, 12, 13}:
+        if publication_generation in {4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}:
             generation_three_parents, generation_three_paths = _commit_row(
                 root, GENERATION_THREE_SOURCE_COMMIT
             )
@@ -1388,7 +1551,24 @@ def _validate_tooling_publication(
             .splitlines()
             if line
         )
-        if publication_generation == 14:
+        if publication_generation == 15:
+            expected_receipt_history_tail = (
+                GENERATION_FOURTEEN_RECEIPT_COMMIT,
+                GENERATION_THIRTEEN_RECEIPT_COMMIT,
+                GENERATION_TWELVE_RECEIPT_COMMIT,
+                GENERATION_ELEVEN_RECEIPT_COMMIT,
+                GENERATION_TEN_RECEIPT_COMMIT,
+                GENERATION_NINE_RECEIPT_COMMIT,
+                GENERATION_EIGHT_RECEIPT_COMMIT,
+                GENERATION_SEVEN_RECEIPT_COMMIT,
+                GENERATION_SIX_RECEIPT_COMMIT,
+                GENERATION_FIVE_RECEIPT_COMMIT,
+                GENERATION_FOUR_RECEIPT_COMMIT,
+                GENERATION_THREE_RECEIPT_COMMIT,
+                GENERATION_TWO_RECEIPT_COMMIT,
+                GENERATION_ONE_RECEIPT_COMMIT,
+            )
+        elif publication_generation == 14:
             expected_receipt_history_tail = (
                 GENERATION_THIRTEEN_RECEIPT_COMMIT,
                 GENERATION_TWELVE_RECEIPT_COMMIT,
@@ -1545,6 +1725,16 @@ def _validate_tooling_publication(
             .decode("ascii")
             .splitlines()
         )
+        if publication_generation == 15:
+            if phase != "CONTROL_HARDENING_REQUIRED":
+                problems.append(
+                    f"tooling_publication:generation_fifteen_phase:{phase}"
+                )
+            if len(ancestry) != 2:
+                problems.append(
+                    "tooling_publication:generation_fifteen_commit_count:"
+                    f"{len(ancestry)}"
+                )
         if len(ancestry) < 2:
             generation_label = {
                 2: "two",
@@ -1560,6 +1750,7 @@ def _validate_tooling_publication(
                 12: "twelve",
                 13: "thirteen",
                 14: "fourteen",
+                15: "fifteen",
             }[publication_generation]
             problems.append(
                 f"tooling_publication:generation_{generation_label}_commit_count:{len(ancestry)}"
@@ -1584,7 +1775,7 @@ def _validate_tooling_publication(
             if baton_commit_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:baton_commit_scope")
             authorization_references: Mapping[str, str] = {}
-            if publication_generation in {3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13}:
+            if publication_generation in CONTROLLED_PUBLICATION_GENERATIONS:
                 upstream_for_controller = (
                     _git(root, "rev-parse", "origin/master").decode("ascii").strip()
                 )
@@ -1597,14 +1788,121 @@ def _validate_tooling_publication(
                     upstream_commit=upstream_for_controller,
                     candidate=candidate,
                 )
-                if not isinstance(controller_result, Mapping):
+                if type(controller_result) is not dict:
                     raise ToolingPublicationError("launch controller returned a malformed result")
+                expected_controller_fields = {
+                    "problems",
+                    "references",
+                    "authority",
+                    "launch_authorized",
+                }
+                if phase == "CONTROL_HARDENING_REQUIRED":
+                    expected_controller_fields.add("control_publication_status")
+                elif candidate:
+                    expected_controller_fields.add("candidate_valid")
+                if set(controller_result) != expected_controller_fields:
+                    problems.append(
+                        "authorization:controller-field-set:"
+                        f"{sorted(repr(field) for field in controller_result)}"
+                    )
                 controller_problems = controller_result.get("problems")
                 if not isinstance(controller_problems, list) or any(
                     not isinstance(item, str) for item in controller_problems
                 ):
                     raise ToolingPublicationError("launch controller problems are malformed")
                 problems.extend(controller_problems)
+                if phase == "CONTROL_HARDENING_REQUIRED":
+                    expected_control_publication_status = (
+                        CONTROL_PUBLICATION_CANDIDATE_STATUS
+                        if upstream_for_controller == receipt_commit
+                        else CONTROL_PUBLICATION_PUBLISHED_STATUS
+                        if upstream_for_controller == baton_commit
+                        else CONTROL_PUBLICATION_INVALID_UPSTREAM_STATUS
+                    )
+                    observed_control_publication_status = controller_result.get(
+                        "control_publication_status"
+                    )
+                    if (
+                        type(observed_control_publication_status) is not str
+                        or observed_control_publication_status
+                        != expected_control_publication_status
+                    ):
+                        problems.append(
+                            "authorization:control-publication-status:"
+                            f"{observed_control_publication_status!r}!="
+                            f"{expected_control_publication_status!r}"
+                        )
+                    observed_control_authority = controller_result.get("authority")
+                    if (
+                        type(observed_control_authority) is not str
+                        or observed_control_authority != "none"
+                    ):
+                        problems.append(
+                            "authorization:control-publication-authority:"
+                            f"{observed_control_authority!r}"
+                        )
+                    if controller_result.get("launch_authorized") is not False:
+                        problems.append(
+                            "authorization:control-publication-launch-authorized:"
+                            f"{controller_result.get('launch_authorized')!r}"
+                        )
+                    observed_control_references = controller_result.get("references")
+                    if (
+                        type(observed_control_references) is not dict
+                        or observed_control_references != {}
+                    ):
+                        problems.append(
+                            "authorization:control-publication-references:"
+                            f"{observed_control_references!r}"
+                        )
+                elif candidate:
+                    expected_candidate_valid = sorted(set(controller_problems)) == [
+                        "authorization:candidate-non-authoritative"
+                    ]
+                    observed_candidate_valid = controller_result.get("candidate_valid")
+                    if (
+                        type(observed_candidate_valid) is not bool
+                        or observed_candidate_valid is not expected_candidate_valid
+                    ):
+                        problems.append(
+                            "authorization:candidate-valid:"
+                            f"{observed_candidate_valid!r}!={expected_candidate_valid!r}"
+                        )
+                    if (
+                        controller_result.get("authority")
+                        != "non-authoritative-local-candidate"
+                    ):
+                        problems.append(
+                            "authorization:candidate-authority:"
+                            f"{controller_result.get('authority')!r}"
+                        )
+                    if controller_result.get("launch_authorized") is not False:
+                        problems.append(
+                            "authorization:candidate-launch-authorized:"
+                            f"{controller_result.get('launch_authorized')!r}"
+                        )
+                else:
+                    expected_launch_authorized = (
+                        phase == "LAUNCH_AUTHORIZED" and not controller_problems
+                    )
+                    expected_authority = (
+                        "origin-published" if expected_launch_authorized else "none"
+                    )
+                    if controller_result.get("authority") != expected_authority:
+                        problems.append(
+                            "authorization:controller-authority:"
+                            f"{controller_result.get('authority')!r}!="
+                            f"{expected_authority!r}"
+                        )
+                    if (
+                        controller_result.get("launch_authorized")
+                        is not expected_launch_authorized
+                    ):
+                        problems.append(
+                            "authorization:controller-launch-authorized:"
+                            f"{controller_result.get('launch_authorized')!r}!="
+                            f"{expected_launch_authorized!r}"
+                        )
                 candidate_references = controller_result.get("references")
                 if isinstance(candidate_references, Mapping) and all(
                     isinstance(key, str) and isinstance(value, str)
@@ -1628,62 +1926,31 @@ def _validate_tooling_publication(
                         )
                     previous_commit = descendant
 
+            source_paths_by_generation = (
+                (3, GENERATION_THREE_SOURCE_COMMIT_PATHS),
+                (4, GENERATION_FOUR_SOURCE_COMMIT_PATHS),
+                (5, GENERATION_FIVE_SOURCE_COMMIT_PATHS),
+                (6, GENERATION_SIX_SOURCE_COMMIT_PATHS),
+                (7, GENERATION_SEVEN_SOURCE_COMMIT_PATHS),
+                (8, GENERATION_EIGHT_SOURCE_COMMIT_PATHS),
+                (9, GENERATION_NINE_SOURCE_COMMIT_PATHS),
+                (10, GENERATION_TEN_SOURCE_COMMIT_PATHS),
+                (11, GENERATION_ELEVEN_SOURCE_COMMIT_PATHS),
+                (12, GENERATION_TWELVE_SOURCE_COMMIT_PATHS),
+                (13, GENERATION_THIRTEEN_SOURCE_COMMIT_PATHS),
+                (14, GENERATION_FOURTEEN_SOURCE_COMMIT_PATHS),
+                (15, GENERATION_FIFTEEN_SOURCE_COMMIT_PATHS),
+            )
+            immutable_source_path_set = (
+                set(GENERATION_ONE_SOURCE_COMMIT_PATHS)
+                | set(RECOVERY_SOURCE_COMMIT_PATHS)
+                | {ITER135_HYPOTHESIS_REL}
+            )
+            for generation, generation_paths in source_paths_by_generation:
+                if publication_generation >= generation:
+                    immutable_source_path_set.update(generation_paths)
             immutable_source_paths = sorted(
-                (
-                    set(GENERATION_ONE_SOURCE_COMMIT_PATHS)
-                    | set(RECOVERY_SOURCE_COMMIT_PATHS)
-                    | (
-                        set(GENERATION_THREE_SOURCE_COMMIT_PATHS)
-                        if publication_generation in {3, 4, 5, 6, 7, 8, 9, 10, 11, 12}
-                        else set()
-                    )
-                    | (
-                        set(GENERATION_FOUR_SOURCE_COMMIT_PATHS)
-                        if publication_generation in {4, 5, 6, 7, 8, 9, 10, 11, 12}
-                        else set()
-                    )
-                    | (
-                        set(GENERATION_FIVE_SOURCE_COMMIT_PATHS)
-                        if publication_generation in {5, 6, 7, 8, 9, 10, 11, 12}
-                        else set()
-                    )
-                    | (
-                        set(GENERATION_SIX_SOURCE_COMMIT_PATHS)
-                        if publication_generation in {6, 7, 8, 9, 10, 11, 12}
-                        else set()
-                    )
-                    | (
-                        set(GENERATION_SEVEN_SOURCE_COMMIT_PATHS)
-                        if publication_generation in {7, 8, 9, 10, 11, 12}
-                        else set()
-                    )
-                    | (
-                        set(GENERATION_EIGHT_SOURCE_COMMIT_PATHS)
-                        if publication_generation in {8, 9, 10, 11, 12}
-                        else set()
-                    )
-                    | (
-                        set(GENERATION_NINE_SOURCE_COMMIT_PATHS)
-                        if publication_generation in {9, 10, 11, 12}
-                        else set()
-                    )
-                    | (
-                        set(GENERATION_TEN_SOURCE_COMMIT_PATHS)
-                        if publication_generation in {10, 11, 12}
-                        else set()
-                    )
-                    | (
-                        set(GENERATION_ELEVEN_SOURCE_COMMIT_PATHS)
-                        if publication_generation in {11, 12, 13}
-                        else set()
-                    )
-                    | (
-                        set(GENERATION_TWELVE_SOURCE_COMMIT_PATHS)
-                        if publication_generation in {13, 14}
-                        else set()
-                    )
-                    | {ITER135_HYPOTHESIS_REL}
-                )
+                immutable_source_path_set
                 - {"CONTINUITY.md", "HANDOFF.md", "MISSION_STATE.json"}
             )
             for relative in immutable_source_paths:
@@ -1863,11 +2130,11 @@ def _exact_launch_state_contract_problems(state: Mapping[str, Any]) -> list[str]
         ("storage_gate", EXPECTED_STORAGE_GATE, "candidate:state-storage-gate"),
     )
     for field, expected, problem in exact_fields:
-        if state.get(field) != expected:
+        if not _exact_json_value(state.get(field), expected):
             problems.append(problem)
 
     next_program = state.get("next_program")
-    if not isinstance(next_program, Mapping) or set(next_program) != EXPECTED_NEXT_PROGRAM_FIELDS:
+    if type(next_program) is not dict or set(next_program) != EXPECTED_NEXT_PROGRAM_FIELDS:
         problems.append("candidate:state-next-program-field-set")
     expected_next_program = {
         "iteration": EXPECTED_CURRENT_COMPLETED_ITERATION + 1,
@@ -1876,7 +2143,7 @@ def _exact_launch_state_contract_problems(state: Mapping[str, Any]) -> list[str]
         "authorized_actions": list(LAUNCH_AUTHORIZED_ACTIONS),
         "forbidden_actions": list(LAUNCH_FORBIDDEN_ACTIONS),
     }
-    if next_program != expected_next_program:
+    if not _exact_json_value(next_program, expected_next_program):
         problems.append("candidate:state-next-program")
     return sorted(set(problems))
 
@@ -1907,6 +2174,8 @@ def load_state(path: Path = STATE_PATH) -> dict:
 
 def validate_state(state: dict, repo: Path = REPO_ROOT) -> list[str]:
     problems: list[str] = []
+    if type(state) is not dict:
+        return ["state_document:not-object"]
     if set(state) != EXPECTED_STATE_FIELDS:
         problems.append(f"state_fields:{sorted(state)}")
     if state.get("schema") != EXPECTED_SCHEMA:
@@ -1916,11 +2185,14 @@ def validate_state(state: dict, repo: Path = REPO_ROOT) -> list[str]:
         problems.append(f"canonical_repository:{state.get('canonical_repository')!r}")
     if state.get("trunk") != "master":
         problems.append(f"trunk:{state.get('trunk')!r}")
-    if state.get("workspace_boundary") != EXPECTED_WORKSPACE_BOUNDARY:
+    if not _exact_json_value(
+        state.get("workspace_boundary"),
+        EXPECTED_WORKSPACE_BOUNDARY,
+    ):
         problems.append(f"workspace_boundary:{state.get('workspace_boundary')!r}")
 
     completed = state.get("current_completed_iteration")
-    if not isinstance(completed, int) or completed < 1:
+    if type(completed) is not int or completed < 1:
         problems.append(f"current_completed_iteration:{completed!r}")
 
     result = state.get("current_result")
@@ -1948,18 +2220,33 @@ def validate_state(state: dict, repo: Path = REPO_ROOT) -> list[str]:
             f"current_result:{result!r}!={completed_results[discovered_completed].relative_to(repo)}"
         )
 
-    next_program = state.get("next_program") or {}
+    observed_next_program = state.get("next_program")
+    if type(observed_next_program) is not dict:
+        problems.append("next_program_fields:not-object")
+        next_program: dict[str, Any] = {}
+    else:
+        next_program = observed_next_program
     if set(next_program) != EXPECTED_NEXT_PROGRAM_FIELDS:
-        problems.append(f"next_program_fields:{sorted(next_program)}")
+        problems.append(
+            "next_program_fields:"
+            f"{sorted(repr(field) for field in next_program)}"
+        )
     if next_program.get("name") != EXPECTED_PROGRAM_NAME:
         problems.append(f"next_program_name:{next_program.get('name')!r}")
     next_iteration = next_program.get("iteration")
-    if isinstance(completed, int) and next_iteration != completed + 1:
+    if (
+        type(completed) is int
+        and (
+            type(next_iteration) is not int
+            or next_iteration != completed + 1
+        )
+    ):
         problems.append(f"next_iteration:{next_iteration!r}!={completed + 1}")
     phase = next_program.get("phase")
-    if phase not in {
+    if type(phase) is not str or phase not in {
         "PREREGISTRATION_REQUIRED",
         "PREREGISTERED_TOOLING_REQUIRED",
+        "CONTROL_HARDENING_REQUIRED",
         "TOOLING_FROZEN_PREFLIGHT_REQUIRED",
         "LAUNCH_AUTHORIZED",
         "RUNNING",
@@ -1967,35 +2254,56 @@ def validate_state(state: dict, repo: Path = REPO_ROOT) -> list[str]:
     }:
         problems.append(f"next_phase:{phase!r}")
 
-    action_contract = PHASE_ACTION_CONTRACTS.get(phase)
+    action_contract = PHASE_ACTION_CONTRACTS.get(phase) if type(phase) is str else None
     if action_contract is not None:
         expected_authorized, expected_forbidden = action_contract
-        if next_program.get("authorized_actions") != list(expected_authorized):
+        if not _exact_json_value(
+            next_program.get("authorized_actions"),
+            list(expected_authorized),
+        ):
             problems.append(
                 f"phase_authorized_actions:{phase}:{next_program.get('authorized_actions')!r}"
             )
-        if next_program.get("forbidden_actions") != list(expected_forbidden):
+        if not _exact_json_value(
+            next_program.get("forbidden_actions"),
+            list(expected_forbidden),
+        ):
             problems.append(
                 f"phase_forbidden_actions:{phase}:{next_program.get('forbidden_actions')!r}"
             )
     elif phase == "PREREGISTRATION_REQUIRED":
         problems.append("phase_contract:PREREGISTRATION_REQUIRED:not_implemented")
 
-    if phase in ADVANCED_PHASES:
+    if type(phase) is str and phase in ADVANCED_PHASES:
         problems.extend(_validate_tooling_publication(repo, phase=phase))
-    if phase in UNIMPLEMENTED_ARTIFACT_PHASES:
+    if type(phase) is str and phase in UNIMPLEMENTED_ARTIFACT_PHASES:
         problems.append(f"phase_artifact_contract:{phase}:not_implemented")
 
-    if state.get("run_state") not in {"IDLE", "RUNNING", "UNKNOWN"}:
-        problems.append(f"run_state:{state.get('run_state')!r}")
-    expected_run_state = PHASE_RUN_STATES.get(phase)
+    observed_run_state = state.get("run_state")
+    if type(observed_run_state) is not str or observed_run_state not in {
+        "IDLE",
+        "RUNNING",
+        "UNKNOWN",
+    }:
+        problems.append(f"run_state:{observed_run_state!r}")
+    expected_run_state = PHASE_RUN_STATES.get(phase) if type(phase) is str else None
     if expected_run_state is not None and state.get("run_state") != expected_run_state:
         problems.append(
             f"phase_run_state:{phase}:{state.get('run_state')!r}!={expected_run_state!r}"
         )
 
-    deprecated = set(state.get("deprecated_pending_hypotheses", []))
-    if state.get("deprecated_pending_hypotheses") != EXPECTED_DEPRECATED_HYPOTHESES:
+    observed_deprecated = state.get("deprecated_pending_hypotheses")
+    if (
+        type(observed_deprecated) is list
+        and all(type(item) is str for item in observed_deprecated)
+    ):
+        deprecated = set(observed_deprecated)
+    else:
+        deprecated = set()
+    if not _exact_json_value(
+        observed_deprecated,
+        EXPECTED_DEPRECATED_HYPOTHESES,
+    ):
         problems.append(
             "deprecated_pending_hypotheses:"
             f"{state.get('deprecated_pending_hypotheses')!r}"
@@ -2024,30 +2332,37 @@ def validate_state(state: dict, repo: Path = REPO_ROOT) -> list[str]:
             f"unclassified={sorted(pending - classified)}:nonpending={sorted(classified - pending)}"
         )
 
-    storage = state.get("storage_gate") or {}
-    if not isinstance(storage, Mapping) or set(storage) != set(EXPECTED_STORAGE_GATE):
-        problems.append(f"storage_gate_fields:{sorted(storage) if isinstance(storage, Mapping) else []}")
+    observed_storage = state.get("storage_gate")
+    if not isinstance(observed_storage, Mapping):
+        storage: Mapping[str, Any] = {}
+    else:
+        storage = observed_storage
+    if type(observed_storage) is not dict or set(storage) != set(EXPECTED_STORAGE_GATE):
+        problems.append(
+            "storage_gate_fields:"
+            f"{sorted(repr(field) for field in storage)}"
+        )
     expected_thresholds = {
         "minimum_local_free_gib_before_new_proof_collection": 15,
         "minimum_remote_execution_filesystem_free_gib_before_gpu_launch": 100,
         "minimum_remote_execution_filesystem_reserve_gib_after_projected_output": 25,
     }
     for key, expected in expected_thresholds.items():
-        if storage.get(key) != expected:
+        if not _exact_json_value(storage.get(key), expected):
             problems.append(f"storage_gate:{key}:{storage.get(key)!r}")
     expected_paths = {
         "remote_execution_filesystem_path": "/datasets/nuscenes-full",
         "analytic_output_root": "/datasets/nuscenes-full/sentinel-i135-outoutput",
     }
     for key, expected in expected_paths.items():
-        if storage.get(key) != expected:
+        if not _exact_json_value(storage.get(key), expected):
             problems.append(f"storage_gate:{key}:{storage.get(key)!r}")
     if storage.get("policy") != EXPECTED_STORAGE_GATE["policy"]:
         problems.append(f"storage_gate:policy:{storage.get('policy')!r}")
 
-    if state.get("claim_state") != EXPECTED_CLAIM_STATE:
+    if not _exact_json_value(state.get("claim_state"), EXPECTED_CLAIM_STATE):
         problems.append(f"claim_state:{state.get('claim_state')!r}")
-    if state.get("paper_state") != EXPECTED_PAPER_STATE:
+    if not _exact_json_value(state.get("paper_state"), EXPECTED_PAPER_STATE):
         problems.append(f"paper_state:{state.get('paper_state')!r}")
 
     return problems

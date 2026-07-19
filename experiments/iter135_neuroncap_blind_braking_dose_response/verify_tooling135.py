@@ -58,6 +58,66 @@ RECEIPT_FIELDS = frozenset(
     }
 )
 RECEIPT_PAYLOAD_FIELDS = RECEIPT_FIELDS - {"receipt_payload_sha256"}
+REPOSITORY_FIELDS = frozenset(
+    {
+        "root",
+        "git_start",
+        "git_end",
+        "git_head_stable",
+        "git_state_stable",
+        "repository_clean_state_stable",
+    }
+)
+GIT_STATE_FIELDS = frozenset(
+    {
+        "head",
+        "dirty_entries",
+        "porcelain_v1_z_sha256",
+        "branch",
+        "upstream",
+        "upstream_head",
+        "parents",
+        "commit_paths",
+    }
+)
+TOOLCHAIN_ROW_FIELDS = frozenset(
+    {
+        "path",
+        "sha256",
+        "bytes",
+        "device",
+        "inode",
+        "mode",
+        "mtime_ns",
+        "ctime_ns",
+        "version",
+    }
+)
+FILE_ROW_FIELDS = frozenset({"sha256", "bytes", "execution_identity"})
+EXECUTION_IDENTITY_FIELDS = frozenset(
+    {"device", "inode", "mode", "mtime_ns", "ctime_ns"}
+)
+COMMAND_ROW_FIELDS = frozenset(
+    {
+        "argv",
+        "return_code",
+        "stdout_bytes",
+        "stdout_sha256",
+        "stderr_bytes",
+        "stderr_sha256",
+    }
+)
+TIMING_FIELDS = frozenset(
+    {
+        "started_at_utc",
+        "finished_at_utc",
+        "wall_duration_ns",
+        "monotonic_duration_ns",
+    }
+)
+# ``datetime`` serializes the wall-clock endpoints at microsecond resolution.  Each endpoint can
+# therefore differ from the corresponding nanosecond clock sample by less than one microsecond.
+WALL_TIMESTAMP_ROUNDING_BUDGET_NS = 2_000
 
 HERE = Path(__file__).resolve().parent
 REPO_ROOT = HERE.parents[1]
@@ -204,10 +264,21 @@ GENERATION_THIRTEEN_BATON_COMMIT = "2cde00658562b981cd4ab38051b8e08e621b3d83"
 GENERATION_THIRTEEN_MANIFEST_COMMIT = "1ba42bbb869c652fd6d3d951a3c92ec404f61e72"
 GENERATION_FOURTEEN_SOURCE_PARENT = GENERATION_THIRTEEN_MANIFEST_COMMIT
 GENERATION_FOURTEEN_REASON = "S1_SMOKE_AND_DOSE_DOCKER29_DAEMON_EXPERIMENTAL_SCHEMA_FOSSIL"
+GENERATION_FOURTEEN_SOURCE_COMMIT = "4a62cc4127e9dc2fcea2dcbdd0acd3c6d790259b"
+GENERATION_FOURTEEN_RECEIPT_COMMIT = "b260ca5b0910c4d499c13e42add97affd726b77c"
+GENERATION_FOURTEEN_STATE_COMMIT = "a084198d89ece710a490363bdbf53f548cbd0456"
+GENERATION_FOURTEEN_BATON_COMMIT = "69bd2e2face00ccabb426382347eb04e8a0dbe83"
+GENERATION_FIFTEEN_SOURCE_PARENT = GENERATION_FOURTEEN_BATON_COMMIT
+GENERATION_FIFTEEN_REASON = (
+    "B14_H_DESCENDANT_CONTROLLER_OMISSION_GITHUB_RUN_AUTHORITY_"
+    "AND_CI_FIXTURE_OBJECT_CONNECTIVITY_AND_RECEIPT_SCHEMA_EXACTNESS_"
+    "AND_FALSE_IDLE_LEGACY_HANDOFF_REMOTE_PROBE_"
+    "AND_RECEIPT_FAILURE_BOUNDARY_STOP"
+)
 # Compatibility aliases used by the receipt generator and focused hostile tests. They always name
-# the active generation-fourteen source publication, never a historical recovery.
-RECOVERY_SOURCE_PARENT = GENERATION_FOURTEEN_SOURCE_PARENT
-RECOVERY_REASON = GENERATION_FOURTEEN_REASON
+# the active generation-fifteen source publication, never a historical recovery.
+RECOVERY_SOURCE_PARENT = GENERATION_FIFTEEN_SOURCE_PARENT
+RECOVERY_REASON = GENERATION_FIFTEEN_REASON
 POST_FREEZE_EXACT_PATHS = {
     "CONTINUITY.md",
     "HANDOFF.md",
@@ -245,6 +316,7 @@ LAUNCH_ACTIVATION_RECEIPT_REL = f"{EXPERIMENT_REL}/launch_activation_receipt.jso
 # These are mandatory members of the frozen surface.  Discovery is deliberately open to
 # additional test/Python files so a newly added Iter135 source cannot silently escape the receipt.
 REQUIRED_TEST_FILES = (
+    "tests/test_handoff_generator.py",
     "tests/test_iter135_analyzer.py",
     "tests/test_iter135_environment_capture.py",
     "tests/test_iter135_harness_patches.py",
@@ -290,6 +362,7 @@ REQUIRED_CONTROL_FILES = (
     "docs/research/BENCH2DRIVE_ROBUST_PREFLIGHT_2026-07-16.md",
     "docs/research/FRONTIER_ALIGNMENT_MEMORY_2026-07-13.md",
     "pyproject.toml",
+    "scripts/make_handoff.py",
     "scripts/mission_state.py",
     "scripts/validate_docs.py",
     "tests/test_mission_state.py",
@@ -511,12 +584,33 @@ GENERATION_THIRTEEN_SOURCE_COMMIT_PATHS = GENERATION_TWELVE_SOURCE_COMMIT_PATHS
 GENERATION_FOURTEEN_SOURCE_COMMIT_PATHS = tuple(
     sorted({*GENERATION_THIRTEEN_SOURCE_COMMIT_PATHS, f"{EXPERIMENT_REL}/run_smoke135.sh"})
 )
-RECOVERY_SOURCE_COMMIT_PATHS = GENERATION_FOURTEEN_SOURCE_COMMIT_PATHS
+GENERATION_FIFTEEN_SOURCE_COMMIT_PATHS = (
+    "CONTINUITY.md",
+    "HANDOFF.md",
+    "MISSION_STATE.json",
+    f"{EXPERIMENT_REL}/authorize_launch135.py",
+    f"{EXPERIMENT_REL}/capture_environment135.py",
+    f"{EXPERIMENT_REL}/prepare_host135.py",
+    f"{EXPERIMENT_REL}/run_dose135.sh",
+    f"{EXPERIMENT_REL}/run_smoke135.sh",
+    f"{EXPERIMENT_REL}/verify_tooling135.py",
+    "scripts/make_handoff.py",
+    "scripts/mission_state.py",
+    "tests/test_handoff_generator.py",
+    "tests/test_iter135_environment_capture.py",
+    "tests/test_iter135_host_preparation.py",
+    "tests/test_iter135_launch_authorization.py",
+    "tests/test_iter135_launcher.py",
+    "tests/test_iter135_smoke_pipeline.py",
+    "tests/test_iter135_tooling_verifier.py",
+    "tests/test_mission_state.py",
+)
+RECOVERY_SOURCE_COMMIT_PATHS = GENERATION_FIFTEEN_SOURCE_COMMIT_PATHS
 EXPECTED_RECOVERY_PUBLICATION = {
-    "generation": 14,
-    "supersedes_receipt_commit": GENERATION_THIRTEEN_RECEIPT_COMMIT,
-    "recovery_parent": GENERATION_FOURTEEN_SOURCE_PARENT,
-    "reason_code": GENERATION_FOURTEEN_REASON,
+    "generation": 15,
+    "supersedes_receipt_commit": GENERATION_FOURTEEN_RECEIPT_COMMIT,
+    "recovery_parent": GENERATION_FIFTEEN_SOURCE_PARENT,
+    "reason_code": GENERATION_FIFTEEN_REASON,
 }
 
 # Compatibility names describe only the immutable first freeze.  Recovery publication checks use
@@ -527,8 +621,8 @@ EXPECTED_SOURCE_COMMIT_PATHS = GENERATION_ONE_SOURCE_COMMIT_PATHS
 
 DISCOVERY_CONTRACT = (
     "required frozen members plus every top-level experiment *.py and every top-level "
-    "tests/test_iter135_*.py; exact two shell launchers, dose_schedules.json, and frozen CI/test/"
-    "mission control inputs; receipt JSON excluded"
+    "tests/test_iter135_*.py; exact offline-handoff test, exact two shell launchers, "
+    "dose_schedules.json, and frozen CI/test/mission control inputs; receipt JSON excluded"
 )
 
 
@@ -665,6 +759,32 @@ def _canonical_json(value: Any) -> bytes:
     ).encode("utf-8")
 
 
+def _exact_json_value(observed: object, expected: object) -> bool:
+    """Compare JSON values without bool/int or int/float equivalence."""
+
+    if type(observed) is not type(expected):
+        return False
+    if type(expected) is dict:
+        observed_dict = observed
+        expected_dict = expected
+        return set(observed_dict) == set(expected_dict) and all(
+            _exact_json_value(observed_dict[key], expected_dict[key])
+            for key in expected_dict
+        )
+    if type(expected) is list:
+        observed_list = observed
+        expected_list = expected
+        return len(observed_list) == len(expected_list) and all(
+            _exact_json_value(observed_item, expected_item)
+            for observed_item, expected_item in zip(
+                observed_list,
+                expected_list,
+                strict=True,
+            )
+        )
+    return observed == expected
+
+
 def _strict_json_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
     value: dict[str, Any] = {}
     for key, item in pairs:
@@ -691,6 +811,236 @@ def _parse_receipt_json(payload: str | bytes) -> dict[str, Any]:
 
 def _sha256_bytes(value: bytes) -> str:
     return hashlib.sha256(value).hexdigest()
+
+
+def _is_exact_nonnegative_int(value: object) -> bool:
+    return type(value) is int and value >= 0
+
+
+def _is_sha256(value: object) -> bool:
+    return (
+        isinstance(value, str)
+        and len(value) == 64
+        and all(character in "0123456789abcdef" for character in value)
+    )
+
+
+def _canonical_utc_ns(value: object) -> int | None:
+    if not isinstance(value, str) or not value.endswith("Z"):
+        return None
+    try:
+        parsed = datetime.fromisoformat(f"{value[:-1]}+00:00")
+    except ValueError:
+        return None
+    if parsed.tzinfo != timezone.utc:
+        return None
+    if parsed.isoformat().replace("+00:00", "Z") != value:
+        return None
+    delta = parsed - datetime(1970, 1, 1, tzinfo=timezone.utc)
+    return (
+        (delta.days * 86_400 + delta.seconds) * 1_000_000_000
+        + delta.microseconds * 1_000
+    )
+
+
+def _nested_receipt_shape_errors(receipt: Mapping[str, Any]) -> list[str]:
+    """Validate exact JSON shapes that do not depend on the current checkout."""
+
+    errors: list[str] = []
+    problem_count = receipt.get("problem_count")
+    if type(problem_count) is not int or problem_count != 0:
+        errors.append("problem_count is not exact integer zero")
+
+    publication = receipt.get("publication")
+    if type(publication) is not dict:
+        errors.append("publication block malformed")
+    else:
+        if set(publication) != set(EXPECTED_RECOVERY_PUBLICATION):
+            errors.append("publication field set mismatch")
+        if type(publication.get("generation")) is not int:
+            errors.append("publication generation is not an exact integer")
+        for field in (
+            "supersedes_receipt_commit",
+            "recovery_parent",
+            "reason_code",
+        ):
+            if type(publication.get(field)) is not str:
+                errors.append(f"publication {field} malformed")
+
+    repository = receipt.get("repository")
+    if not isinstance(repository, Mapping):
+        errors.append("repository block malformed")
+    else:
+        if set(repository) != REPOSITORY_FIELDS:
+            errors.append("repository field set mismatch")
+        if not isinstance(repository.get("root"), str):
+            errors.append("repository root malformed")
+        for flag in (
+            "git_head_stable",
+            "git_state_stable",
+            "repository_clean_state_stable",
+        ):
+            if type(repository.get(flag)) is not bool:
+                errors.append(f"repository {flag} is not a JSON boolean")
+        for label in ("git_start", "git_end"):
+            state = repository.get(label)
+            if not isinstance(state, Mapping):
+                errors.append(f"repository {label} block malformed")
+                continue
+            if set(state) != GIT_STATE_FIELDS:
+                errors.append(f"repository {label} field set mismatch")
+            for commit_field in ("head", "upstream_head"):
+                if not _valid_commit(state.get(commit_field)):
+                    errors.append(f"repository {label} {commit_field} malformed")
+            if not _is_sha256(state.get("porcelain_v1_z_sha256")):
+                errors.append(f"repository {label} status digest malformed")
+            for text_field in ("branch", "upstream"):
+                if not isinstance(state.get(text_field), str):
+                    errors.append(f"repository {label} {text_field} malformed")
+            dirty_entries = state.get("dirty_entries")
+            if not isinstance(dirty_entries, list) or not all(
+                isinstance(value, str) for value in dirty_entries
+            ):
+                errors.append(f"repository {label} dirty_entries malformed")
+            parents = state.get("parents")
+            if not isinstance(parents, list) or not all(_valid_commit(value) for value in parents):
+                errors.append(f"repository {label} parents malformed")
+            commit_paths = state.get("commit_paths")
+            if not isinstance(commit_paths, list) or not all(
+                isinstance(value, str) for value in commit_paths
+            ):
+                errors.append(f"repository {label} commit_paths malformed")
+
+    toolchain = receipt.get("toolchain")
+    if not isinstance(toolchain, Mapping):
+        errors.append("toolchain block malformed")
+    else:
+        if set(toolchain) != set(TOOL_NAMES):
+            errors.append("toolchain field set mismatch")
+        for name in TOOL_NAMES:
+            row = toolchain.get(name)
+            if not isinstance(row, Mapping):
+                errors.append(f"toolchain row malformed: {name}")
+                continue
+            if set(row) != TOOLCHAIN_ROW_FIELDS:
+                errors.append(f"toolchain row field set mismatch: {name}")
+            if not isinstance(row.get("path"), str) or not isinstance(row.get("version"), str):
+                errors.append(f"toolchain text metadata malformed: {name}")
+            if not _is_sha256(row.get("sha256")):
+                errors.append(f"toolchain digest malformed: {name}")
+            for field in ("bytes", "device", "inode"):
+                if not _is_exact_nonnegative_int(row.get(field)):
+                    errors.append(f"toolchain {field} malformed: {name}")
+            mode = row.get("mode")
+            if not _is_exact_nonnegative_int(mode) or mode > 0o7777:
+                errors.append(f"toolchain mode malformed: {name}")
+            for field in ("mtime_ns", "ctime_ns"):
+                if type(row.get(field)) is not int:
+                    errors.append(f"toolchain {field} malformed: {name}")
+
+    files = receipt.get("files")
+    if not isinstance(files, Mapping):
+        errors.append("file binding map malformed")
+    else:
+        for relative_path, row in files.items():
+            if not isinstance(relative_path, str) or not isinstance(row, Mapping):
+                errors.append(f"file binding row malformed: {relative_path}")
+                continue
+            if set(row) != FILE_ROW_FIELDS:
+                errors.append(f"file binding row field set mismatch: {relative_path}")
+            if not _is_sha256(row.get("sha256")):
+                errors.append(f"file binding digest malformed: {relative_path}")
+            if not _is_exact_nonnegative_int(row.get("bytes")):
+                errors.append(f"file binding byte count malformed: {relative_path}")
+            identity = row.get("execution_identity")
+            if not isinstance(identity, Mapping):
+                errors.append(f"file execution_identity malformed: {relative_path}")
+                continue
+            if set(identity) != EXECUTION_IDENTITY_FIELDS:
+                errors.append(
+                    f"file execution_identity field set mismatch: {relative_path}"
+                )
+            for field in ("device", "inode"):
+                if not _is_exact_nonnegative_int(identity.get(field)):
+                    errors.append(
+                        f"file execution_identity {field} malformed: {relative_path}"
+                    )
+            mode = identity.get("mode")
+            if type(mode) is not int or not stat.S_ISREG(mode):
+                errors.append(f"file execution_identity mode malformed: {relative_path}")
+            for field in ("mtime_ns", "ctime_ns"):
+                if type(identity.get(field)) is not int:
+                    errors.append(
+                        f"file execution_identity {field} malformed: {relative_path}"
+                    )
+
+    command_contract = receipt.get("command_contract")
+    if not isinstance(command_contract, list) or not all(
+        isinstance(command, list)
+        and bool(command)
+        and all(isinstance(argument, str) for argument in command)
+        for command in command_contract
+    ):
+        errors.append("command contract shape malformed")
+
+    commands = receipt.get("commands")
+    if not isinstance(commands, list):
+        errors.append("command result set malformed")
+    else:
+        for index, row in enumerate(commands):
+            if not isinstance(row, Mapping):
+                errors.append(f"command_{index} record malformed")
+                continue
+            if set(row) != COMMAND_ROW_FIELDS:
+                errors.append(f"command_{index} field set mismatch")
+            argv = row.get("argv")
+            if not isinstance(argv, list) or not argv or not all(
+                isinstance(argument, str) for argument in argv
+            ):
+                errors.append(f"command_{index} argv malformed")
+            return_code = row.get("return_code")
+            if type(return_code) is not int or return_code != 0:
+                errors.append(f"command_{index} return_code is not exact integer zero")
+            for stream in ("stdout", "stderr"):
+                byte_count = row.get(f"{stream}_bytes")
+                digest = row.get(f"{stream}_sha256")
+                if not _is_exact_nonnegative_int(byte_count):
+                    errors.append(f"command_{index} {stream} byte count malformed")
+                if not _is_sha256(digest):
+                    errors.append(f"command_{index} {stream} digest malformed")
+                if (
+                    _is_exact_nonnegative_int(byte_count)
+                    and _is_sha256(digest)
+                    and ((byte_count == 0) != (digest == _sha256_bytes(b"")))
+                ):
+                    errors.append(
+                        f"command_{index} {stream} byte count and digest are inconsistent"
+                    )
+
+    timing = receipt.get("timing")
+    if not isinstance(timing, Mapping):
+        errors.append("timing block malformed")
+    else:
+        if set(timing) != TIMING_FIELDS:
+            errors.append("timing field set mismatch")
+        started_ns = _canonical_utc_ns(timing.get("started_at_utc"))
+        finished_ns = _canonical_utc_ns(timing.get("finished_at_utc"))
+        if started_ns is None:
+            errors.append("timing started_at_utc is not canonical UTC")
+        if finished_ns is None:
+            errors.append("timing finished_at_utc is not canonical UTC")
+        for field in ("wall_duration_ns", "monotonic_duration_ns"):
+            if not _is_exact_nonnegative_int(timing.get(field)):
+                errors.append(f"{field} malformed")
+        wall_duration = timing.get("wall_duration_ns")
+        if started_ns is not None and finished_ns is not None:
+            if finished_ns < started_ns:
+                errors.append("timing UTC timestamps are out of order")
+            elif _is_exact_nonnegative_int(wall_duration) and abs(
+                finished_ns - started_ns - wall_duration
+            ) > WALL_TIMESTAMP_ROUNDING_BUDGET_NS:
+                errors.append("timing wall duration is inconsistent with UTC timestamps")
+    return errors
 
 
 def _allowed_tool_path(path: Path) -> bool:
@@ -903,7 +1253,14 @@ def discover_inventory(repo_root: Path) -> Inventory:
     """Discover the exact focused surface, with frozen members as a mandatory floor."""
 
     root = repo_root.resolve(strict=True)
-    tests = _relative_regular_files(root, "tests/test_iter135_*.py")
+    tests = tuple(
+        sorted(
+            {
+                *_relative_regular_files(root, "tests/test_iter135_*.py"),
+                *_relative_regular_files(root, "tests/test_handoff_generator.py"),
+            }
+        )
+    )
     python_tools = _relative_regular_files(root, f"{EXPERIMENT_REL}/*.py")
     shell_discovered = _relative_regular_files(root, f"{EXPERIMENT_REL}/*.sh")
     forbidden_configs = [
@@ -1277,7 +1634,9 @@ def _command_record(command: tuple[str, ...], runner: Runner, cwd: Path) -> dict
     error_type: str | None = None
     try:
         result = runner(command, cwd)
-        returncode = int(result.returncode)
+        if type(result.returncode) is not int:
+            raise TypeError("runner-returncode-not-exact-integer")
+        returncode = result.returncode
         stdout = _to_bytes(result.stdout)
         stderr = _to_bytes(result.stderr)
     except Exception as exc:  # fail closed while retaining no exception/log plaintext
@@ -1329,7 +1688,7 @@ def run_verification(
     wall_clock_ns: Clock = time.time_ns,
     monotonic_clock_ns: Clock = time.monotonic_ns,
 ) -> dict[str, Any]:
-    """Run the generation-four control-refreeze pipeline and return its in-memory receipt."""
+    """Run the active generation-fifteen refreeze pipeline and return its in-memory receipt."""
 
     root = repo_root.resolve(strict=True)
     wall_start = wall_clock_ns()
@@ -1379,14 +1738,14 @@ def run_verification(
         problems.append(
             _problem(
                 "SOURCE_PARENT",
-                "generation-four source HEAD is not the direct child of the accepted B3 baton",
+                "generation-fifteen source HEAD is not the direct child of the accepted B14 baton",
             )
         )
     if git_start.commit_paths != tuple(sorted(RECOVERY_SOURCE_COMMIT_PATHS)):
         problems.append(
             _problem(
                 "SOURCE_COMMIT_SCOPE",
-                "generation-four source HEAD path set is not the exact preregistered refreeze set",
+                "generation-fifteen source HEAD path set is not the exact preregistered refreeze set",
             )
         )
 
@@ -1589,7 +1948,10 @@ def _source_inventory_from_tree(repo_root: Path, source_commit: str) -> Inventor
             path
             for path in tree_paths
             if PurePosixPath(path).parent.as_posix() == "tests"
-            and PurePosixPath(path).match("test_iter135_*.py")
+            and (
+                PurePosixPath(path).match("test_iter135_*.py")
+                or path == "tests/test_handoff_generator.py"
+            )
         )
     )
     python_tools = tuple(
@@ -1778,7 +2140,7 @@ def validate_published_receipt_structure(
     git_probe: GitProbe = default_structural_git_probe,
     ancestry_probe: AncestryProbe = default_ancestry_probe,
 ) -> list[str]:
-    """Validate the explicit generation-four refreeze proof after state-only descendants exist.
+    """Validate the explicit generation-fifteen refreeze after state-only descendants exist.
 
     Independent command replay is deliberately performed at the exact replacement receipt commit by
     :func:`validate_receipt`.  This post-transition validator instead proves that the committed
@@ -1793,12 +2155,20 @@ def validate_published_receipt_structure(
         errors.append("receipt root field set mismatch")
     if receipt.get("schema") != SCHEMA:
         errors.append("schema mismatch")
-    if receipt.get("publication") != EXPECTED_RECOVERY_PUBLICATION:
-        errors.append("generation-four publication block mismatch")
+    if not _exact_json_value(
+        receipt.get("publication"),
+        EXPECTED_RECOVERY_PUBLICATION,
+    ):
+        errors.append("generation-fifteen publication block mismatch")
     if receipt.get("verdict") != OK_VERDICT:
         errors.append("receipt verdict is not green")
-    if receipt.get("problem_count") != 0 or receipt.get("problems") != []:
+    if (
+        type(receipt.get("problem_count")) is not int
+        or receipt.get("problem_count") != 0
+        or receipt.get("problems") != []
+    ):
         errors.append("receipt problem metadata is not exactly green")
+    errors.extend(_nested_receipt_shape_errors(receipt))
     payload = dict(receipt)
     claimed_payload_hash = payload.pop("receipt_payload_sha256", None)
     if claimed_payload_hash != _sha256_bytes(_canonical_json(payload)):
@@ -1840,7 +2210,9 @@ def validate_published_receipt_structure(
 
         source_parents, source_paths = _git_commit_row(root, source_commit)
         if source_parents != (RECOVERY_SOURCE_PARENT,) or source_paths != expected_source_paths:
-            raise VerificationError("actual generation-four source topology or path scope is wrong")
+            raise VerificationError(
+                "actual generation-fifteen source topology or path scope is wrong"
+            )
 
         inventory = _source_inventory_from_tree(root, source_commit)
         if receipt.get("inventory") != inventory.as_dict():
@@ -1901,6 +2273,7 @@ def validate_published_receipt_structure(
             if (
                 not isinstance(row, Mapping)
                 or row.get("argv") != list(command)
+                or type(row.get("return_code")) is not int
                 or row.get("return_code") != 0
             ):
                 raise VerificationError(f"receipt command result is not green: {index}")
@@ -1910,9 +2283,10 @@ def validate_published_receipt_structure(
             line for line in history_raw.decode("ascii", errors="strict").splitlines() if line
         )
         if (
-            len(receipt_history) != 14
+            len(receipt_history) != 15
             or not _valid_commit(receipt_history[0])
             or receipt_history[1:] != (
+                GENERATION_FOURTEEN_RECEIPT_COMMIT,
                 GENERATION_THIRTEEN_RECEIPT_COMMIT,
                 GENERATION_TWELVE_RECEIPT_COMMIT,
                 GENERATION_ELEVEN_RECEIPT_COMMIT,
@@ -1929,8 +2303,8 @@ def validate_published_receipt_structure(
             )
         ):
             raise VerificationError(
-                "canonical receipt history is not exact generation-fourteen, "
-                "generation-thirteen, generation-twelve, "
+                "canonical receipt history is not exact generation-fifteen, "
+                "generation-fourteen, generation-thirteen, generation-twelve, "
                 "generation-eleven, generation-ten, generation-nine, generation-eight, "
                 "generation-seven, generation-six, generation-five, generation-four, "
                 "generation-three, generation-two, then generation-one"
@@ -2255,17 +2629,77 @@ def validate_published_receipt_structure(
         ):
             raise VerificationError("generation-twelve baton topology or path scope changed")
 
+        generation_thirteen_source_parents, generation_thirteen_source_paths = _git_commit_row(
+            root, GENERATION_THIRTEEN_SOURCE_COMMIT
+        )
+        if generation_thirteen_source_parents != (GENERATION_THIRTEEN_SOURCE_PARENT,) or (
+            generation_thirteen_source_paths
+            != tuple(sorted(GENERATION_THIRTEEN_SOURCE_COMMIT_PATHS))
+        ):
+            raise VerificationError("generation-thirteen source topology or path scope changed")
+        generation_thirteen_receipt_parents, generation_thirteen_receipt_paths = _git_commit_row(
+            root, GENERATION_THIRTEEN_RECEIPT_COMMIT
+        )
+        if generation_thirteen_receipt_parents != (GENERATION_THIRTEEN_SOURCE_COMMIT,) or (
+            generation_thirteen_receipt_paths != (RECEIPT_REL,)
+        ):
+            raise VerificationError("generation-thirteen receipt topology or path scope changed")
+        generation_thirteen_state_parents, generation_thirteen_state_paths = _git_commit_row(
+            root, GENERATION_THIRTEEN_STATE_COMMIT
+        )
+        if generation_thirteen_state_parents != (GENERATION_THIRTEEN_RECEIPT_COMMIT,) or (
+            generation_thirteen_state_paths != ("MISSION_STATE.json",)
+        ):
+            raise VerificationError("generation-thirteen state topology or path scope changed")
+        generation_thirteen_baton_parents, generation_thirteen_baton_paths = _git_commit_row(
+            root, GENERATION_THIRTEEN_BATON_COMMIT
+        )
+        if generation_thirteen_baton_parents != (GENERATION_THIRTEEN_STATE_COMMIT,) or (
+            generation_thirteen_baton_paths != ("CONTINUITY.md", "HANDOFF.md")
+        ):
+            raise VerificationError("generation-thirteen baton topology or path scope changed")
+
+        generation_fourteen_source_parents, generation_fourteen_source_paths = _git_commit_row(
+            root, GENERATION_FOURTEEN_SOURCE_COMMIT
+        )
+        if generation_fourteen_source_parents != (GENERATION_FOURTEEN_SOURCE_PARENT,) or (
+            generation_fourteen_source_paths
+            != tuple(sorted(GENERATION_FOURTEEN_SOURCE_COMMIT_PATHS))
+        ):
+            raise VerificationError("generation-fourteen source topology or path scope changed")
+        generation_fourteen_receipt_parents, generation_fourteen_receipt_paths = _git_commit_row(
+            root, GENERATION_FOURTEEN_RECEIPT_COMMIT
+        )
+        if generation_fourteen_receipt_parents != (GENERATION_FOURTEEN_SOURCE_COMMIT,) or (
+            generation_fourteen_receipt_paths != (RECEIPT_REL,)
+        ):
+            raise VerificationError("generation-fourteen receipt topology or path scope changed")
+        generation_fourteen_state_parents, generation_fourteen_state_paths = _git_commit_row(
+            root, GENERATION_FOURTEEN_STATE_COMMIT
+        )
+        if generation_fourteen_state_parents != (GENERATION_FOURTEEN_RECEIPT_COMMIT,) or (
+            generation_fourteen_state_paths != ("MISSION_STATE.json",)
+        ):
+            raise VerificationError("generation-fourteen state topology or path scope changed")
+        generation_fourteen_baton_parents, generation_fourteen_baton_paths = _git_commit_row(
+            root, GENERATION_FOURTEEN_BATON_COMMIT
+        )
+        if generation_fourteen_baton_parents != (GENERATION_FOURTEEN_STATE_COMMIT,) or (
+            generation_fourteen_baton_paths != ("CONTINUITY.md", "HANDOFF.md")
+        ):
+            raise VerificationError("generation-fourteen baton topology or path scope changed")
+
         receipt_parents, receipt_paths = _git_commit_row(root, receipt_commit)
         if receipt_parents != (source_commit,) or receipt_paths != (RECEIPT_REL,):
             raise VerificationError(
-                "generation-fourteen receipt is not the exact receipt-only child"
+                "generation-fifteen receipt is not the exact receipt-only child"
             )
 
         receipt_path = root / RECEIPT_REL
         current_receipt_bytes = _read_stable_regular_file(receipt_path)
         if _git_file_bytes(root, receipt_commit, RECEIPT_REL) != current_receipt_bytes:
             raise VerificationError(
-                "canonical receipt bytes differ from generation-fourteen receipt commit bytes"
+                "canonical receipt bytes differ from generation-fifteen receipt commit bytes"
             )
         committed_receipt = _parse_receipt_json(current_receipt_bytes)
         if committed_receipt != dict(receipt):
@@ -2277,9 +2711,9 @@ def validate_published_receipt_structure(
         if not _valid_commit(current_git.upstream_head):
             raise VerificationError("origin/master commit is malformed or missing")
         if not ancestry_probe(root, receipt_commit, current_git.head):
-            raise VerificationError("generation-fourteen receipt is not an ancestor of current HEAD")
+            raise VerificationError("generation-fifteen receipt is not an ancestor of current HEAD")
         if not ancestry_probe(root, receipt_commit, current_git.upstream_head):
-            raise VerificationError("generation-fourteen receipt is not published on origin/master")
+            raise VerificationError("generation-fifteen receipt is not published on origin/master")
         if current_git.upstream_head != current_git.head and not ancestry_probe(
             root, current_git.upstream_head, current_git.head
         ):
@@ -2308,7 +2742,7 @@ def validate_receipt(
     ancestry_probe: AncestryProbe = default_ancestry_probe,
     toolchain_resolver: ToolchainResolver = resolve_toolchain,
 ) -> list[str]:
-    """Replay every generation-four command and claim against current source bytes."""
+    """Replay every generation-fifteen command and claim against current source bytes."""
 
     errors: list[str] = []
     if not isinstance(receipt, Mapping):
@@ -2317,15 +2751,19 @@ def validate_receipt(
         errors.append("receipt root field set mismatch")
     if receipt.get("schema") != SCHEMA:
         errors.append("schema mismatch")
-    if receipt.get("publication") != EXPECTED_RECOVERY_PUBLICATION:
-        errors.append("generation-four publication block mismatch")
+    if not _exact_json_value(
+        receipt.get("publication"),
+        EXPECTED_RECOVERY_PUBLICATION,
+    ):
+        errors.append("generation-fifteen publication block mismatch")
     if receipt.get("verdict") != OK_VERDICT:
         errors.append("receipt verdict is not green")
     problems = receipt.get("problems")
     if not isinstance(problems, list) or problems:
         errors.append("receipt contains problems or malformed problem list")
-    if receipt.get("problem_count") != 0:
+    if type(receipt.get("problem_count")) is not int or receipt.get("problem_count") != 0:
         errors.append("problem_count is not zero")
+    errors.extend(_nested_receipt_shape_errors(receipt))
 
     payload = dict(receipt)
     claimed_payload_hash = payload.pop("receipt_payload_sha256", None)
@@ -2385,7 +2823,10 @@ def validate_receipt(
                     continue
                 if record.get("argv") != list(expected):
                     errors.append(f"command_{index} argv mismatch")
-                if record.get("return_code") != 0:
+                if (
+                    type(record.get("return_code")) is not int
+                    or record.get("return_code") != 0
+                ):
                     errors.append(f"command_{index} did not succeed")
                 for stream in ("stdout", "stderr"):
                     digest = record.get(f"{stream}_sha256")

@@ -114,6 +114,109 @@ def _authority_artifact(
     }
 
 
+@pytest.mark.parametrize("hostile_count", [False, 0.0])
+def test_green_receipt_requires_exact_integer_zero(hostile_count: object) -> None:
+    receipt = {
+        "schema": auth.ENV_SCHEMA,
+        "verdict": auth.ENV_VERDICT,
+        "problem_count": hostile_count,
+        "problems": [],
+    }
+
+    assert auth._green_receipt(
+        receipt,
+        auth.ENV_SCHEMA,
+        auth.ENV_VERDICT,
+        "environment",
+    ) == ["environment:problem-metadata"]
+
+
+@pytest.mark.parametrize("hostile_count", [True, 1.0])
+def test_pre_smoke_manifest_requires_exact_integer_problem_count(
+    hostile_count: object,
+) -> None:
+    manifest = {
+        "schema": auth.MANIFEST_SCHEMA,
+        "verdict": auth.PRE_SMOKE_VERDICT,
+        "launch_authorized": False,
+        "mission_phase": auth.TOOLING_PHASE,
+        "missing_artifacts": ["smoke-evidence/smoke_receipt.json"],
+        "problem_count": hostile_count,
+        "problems": ["smoke:receipt-missing"],
+    }
+
+    assert auth._validate_pre_smoke_manifest(manifest) == [
+        "pre-smoke:problem-contract"
+    ]
+
+
+@pytest.mark.parametrize(
+    "mutation",
+    [
+        "problem-count-bool",
+        "mission-state-bytes-float",
+        "host-packet-bytes-float",
+        "host-receipt-bytes-float",
+        "environment-bytes-float",
+        "smoke-bytes-float",
+    ],
+)
+def test_final_manifest_rejects_numeric_json_aliases(mutation: str) -> None:
+    state_payload = b'{"state":true}\n'
+    payloads = {
+        "host_packet_manifest.json": b'{"host_packet":true}\n',
+        "host_preparation_receipt.json": b'{"host":true}\n',
+        "env_receipts.json": b'{"environment":true}\n',
+        "smoke-evidence/smoke_receipt.json": b'{"smoke":true}\n',
+    }
+    bound = {
+        relative: _binding(relative, payload)
+        for relative, payload in payloads.items()
+    }
+    manifest = {
+        "schema": auth.MANIFEST_SCHEMA,
+        "verdict": auth.FINAL_MANIFEST_VERDICT,
+        "launch_authorized": True,
+        "mission_phase": auth.LAUNCH_PHASE,
+        "problem_count": 0,
+        "problems": [],
+        "gates": {"all": True},
+        "mission_state": _binding(auth.MISSION_REL, state_payload),
+        "hash_bound_files": bound,
+        "host_preparation_receipt": copy.deepcopy(
+            bound["host_preparation_receipt.json"]
+        ),
+        "host_packet_manifest": copy.deepcopy(bound["host_packet_manifest.json"]),
+    }
+    if mutation == "problem-count-bool":
+        manifest["problem_count"] = False
+    elif mutation == "mission-state-bytes-float":
+        manifest["mission_state"]["bytes"] = float(
+            manifest["mission_state"]["bytes"]
+        )
+    else:
+        relative = {
+            "host-packet-bytes-float": "host_packet_manifest.json",
+            "host-receipt-bytes-float": "host_preparation_receipt.json",
+            "environment-bytes-float": "env_receipts.json",
+            "smoke-bytes-float": "smoke-evidence/smoke_receipt.json",
+        }[mutation]
+        manifest["hash_bound_files"][relative]["bytes"] = float(
+            manifest["hash_bound_files"][relative]["bytes"]
+        )
+
+    problems = auth._validate_final_manifest(
+        manifest,
+        state_payload=state_payload,
+        host_packet_payload=payloads["host_packet_manifest.json"],
+        host_payload=payloads["host_preparation_receipt.json"],
+        env_payload=payloads["env_receipts.json"],
+        smoke_payload=payloads["smoke-evidence/smoke_receipt.json"],
+    )
+
+    assert problems
+
+
 def _publication_authority(commit: str, artifacts: list[dict] | None = None) -> dict:
     return {
         "schema": auth.PUBLICATION_AUTHORITY_SCHEMA,
@@ -537,14 +640,49 @@ def _host_receipt(
         "actions": [
             {
                 "action": "normalize_uniad_server_from_verified_head_blob",
-                "performed": True,
+                "performed": False,
+                "before": {
+                    "path": "/opt/sentinel-stack/UniAD/inference/server.py",
+                    "sha256": (
+                        "066a3fc31a2c78960255cedf659018bab4190ac5dee7e7c5ec14d1031043c424"
+                    ),
+                    "bytes": 4_519,
+                    "mode": 0o644,
+                },
+                "after": {
+                    "path": "/opt/sentinel-stack/UniAD/inference/server.py",
+                    "sha256": (
+                        "066a3fc31a2c78960255cedf659018bab4190ac5dee7e7c5ec14d1031043c424"
+                    ),
+                    "bytes": 4_519,
+                    "mode": 0o644,
+                },
             },
-            {"action": "atomically_patch_compose_from_exact_preimage", "performed": True},
-            {"action": "create_absent_empty_analytic_root", "performed": True},
-            {"action": "atomically_install_verified_packet", "performed": True},
+            {
+                "action": "atomically_patch_compose_from_exact_preimage",
+                "performed": True,
+                "before_sha256": (
+                    "9f8804b523faa8ec3b6770a69b4b4bc9595c2b36e4b98422a588b9a3e1fe8e5d"
+                ),
+                "after_sha256": (
+                    "a5ed766b8a4c7efd7b33cdb6a9bdf9a5878f63604695758ff5f2268b770cfada"
+                ),
+            },
+            {
+                "action": "create_absent_empty_analytic_root",
+                "performed": True,
+                "path": "/datasets/nuscenes-full/sentinel-i135-outoutput",
+            },
+            {
+                "action": "atomically_install_verified_packet",
+                "performed": True,
+                "from": "/opt/sentinel-stack/.iter135-packet",
+                "to": "/opt/sentinel-stack/iter135",
+            },
         ],
         "invocation": {
             "environment": dict(auth.HOST_SAFE_ENVIRONMENT),
+            "environment_matches": True,
             "isolated": True,
             "python_implementation": "CPython",
             "python_version": "3.10.14",
@@ -575,8 +713,11 @@ def _publication(
     tamper_host_packet_binding: bool = False,
     tamper_host_packet_source: bool = False,
     tamper_host_actions: bool = False,
+    host_exactness_mutation: str | None = None,
     tamper_host_authority_artifacts: bool = False,
     tamper_environment_deep: bool = False,
+    environment_host_evidence_numeric_alias: str | None = None,
+    activation_numeric_alias: str | None = None,
     tooling_receipt_root_mutation: str | None = None,
     tooling_receipt_nested_mutation: bool = False,
     tooling_publication_overrides: dict[str, object] | None = None,
@@ -740,6 +881,36 @@ def _publication(
         host["packet_manifest_sha256"] = "0" * 64
     if tamper_host_actions:
         host["actions"][2]["performed"] = False
+    if host_exactness_mutation == "compose-patcher-bytes-float":
+        host["compose"]["patcher"] = copy.deepcopy(host["compose"]["patcher"])
+        host["compose"]["patcher"]["bytes"] = float(host["compose"]["patcher"]["bytes"])
+    elif host_exactness_mutation == "compose-patcher-bytes-bool":
+        host["compose"]["patcher"] = copy.deepcopy(host["compose"]["patcher"])
+        host["compose"]["patcher"]["bytes"] = True
+    elif host_exactness_mutation == "storage-extra":
+        host["storage"]["unregistered_claim"] = 0
+    elif host_exactness_mutation == "storage-missing":
+        host["storage"].pop("mount_uuid")
+    elif host_exactness_mutation == "storage-device-float":
+        host["storage"]["dataset_st_dev"] = float(host["storage"]["dataset_st_dev"])
+    elif host_exactness_mutation == "storage-device-negative":
+        host["storage"]["dataset_st_dev"] = -2
+        host["storage"]["analytic_root_st_dev"] = -2
+        host["storage"]["root_st_dev"] = -1
+    elif host_exactness_mutation == "action-extra":
+        host["actions"][1]["unregistered_claim"] = 0
+    elif host_exactness_mutation == "action-omission":
+        host["actions"][2].pop("path")
+    elif host_exactness_mutation == "invocation-extra":
+        host["invocation"]["unregistered_claim"] = 0
+    elif host_exactness_mutation == "invocation-omission":
+        host["invocation"].pop("environment_matches")
+    elif host_exactness_mutation == "invocation-environment-alias":
+        host["invocation"]["environment"]["PYTHONHASHSEED"] = 0
+    elif host_exactness_mutation is not None:
+        raise AssertionError(
+            f"unsupported host exactness mutation: {host_exactness_mutation}"
+        )
     if tamper_host_authority_artifacts:
         host["publication_authority"]["artifacts"] = host["publication_authority"][
             "artifacts"
@@ -751,6 +922,18 @@ def _publication(
     host_commit = _commit(repo, "host preparation", auth.HOST_PACKET_REL, auth.HOST_REL)
     host_payload = (repo / auth.HOST_REL).read_bytes()
 
+    environment_host_evidence = copy.deepcopy(host)
+    if environment_host_evidence_numeric_alias == "problem-count-bool":
+        environment_host_evidence["problem_count"] = False
+    elif environment_host_evidence_numeric_alias == "storage-device-float":
+        environment_host_evidence["storage"]["dataset_st_dev"] = float(
+            environment_host_evidence["storage"]["dataset_st_dev"]
+        )
+    elif environment_host_evidence_numeric_alias is not None:
+        raise AssertionError(
+            "unsupported environment host-evidence numeric alias: "
+            f"{environment_host_evidence_numeric_alias}"
+        )
     environment = {
         "schema": auth.ENV_SCHEMA,
         "verdict": auth.ENV_VERDICT,
@@ -763,7 +946,7 @@ def _publication(
                 "sha256": hashlib.sha256(host_payload).hexdigest(),
                 "bytes": len(host_payload),
             },
-            "evidence": host,
+            "evidence": environment_host_evidence,
         },
         "host_publication_authority": _publication_authority(
             host_commit,
@@ -871,6 +1054,16 @@ def _publication(
         activation["receipt_payload_sha256"] = hashlib.sha256(
             auth._canonical_json(payload)
         ).hexdigest()
+    if activation_numeric_alias == "problem-count-bool":
+        activation["problem_count"] = False
+    elif activation_numeric_alias == "artifact-bytes-float":
+        activation["artifacts"]["mission_state"]["bytes"] = float(
+            activation["artifacts"]["mission_state"]["bytes"]
+        )
+    elif activation_numeric_alias is not None:
+        raise AssertionError(
+            f"unsupported activation numeric alias: {activation_numeric_alias}"
+        )
     _write(repo, auth.ACTIVATION_REL, activation)
     _write(repo, "CONTINUITY.md", "launch activation\n")
     _write(repo, "HANDOFF.md", "LAUNCH_ACTIVATION=COMMITTED\n")
@@ -915,6 +1108,50 @@ def _descendants(commits: dict[str, str]) -> list[str]:
     ]
 
 
+def _control_publication(
+    repo: Path,
+    commits: dict[str, str],
+    *,
+    receipt_commit: str | None = None,
+    baton_extra_path: bool = False,
+    state: dict | None = None,
+) -> tuple[str, str]:
+    active_receipt = receipt_commit or commits["tooling_receipt"]
+    _git(repo, "checkout", "--detach", active_receipt)
+    control_state = (
+        auth._control_hardening_expected_state()
+        if state is None
+        else copy.deepcopy(state)
+    )
+    _write(repo, auth.MISSION_REL, control_state)
+    state_commit = _commit(repo, "generation fifteen control state", auth.MISSION_REL)
+    _write(repo, "CONTINUITY.md", "control hardening transition\n")
+    _write(repo, "HANDOFF.md", "GPU_RUN_STATE=UNKNOWN\n")
+    baton_paths = ["CONTINUITY.md", "HANDOFF.md"]
+    if baton_extra_path:
+        _write(repo, "unexpected-control-baton.txt", "hostile scope\n")
+        baton_paths.append("unexpected-control-baton.txt")
+    baton_commit = _commit(repo, "generation fifteen control baton", *baton_paths)
+    return state_commit, baton_commit
+
+
+def test_control_hardening_state_mirror_matches_canonical_state_contract() -> None:
+    canonical = json.loads((REPO / auth.MISSION_REL).read_text())
+    canonical["run_state"] = "UNKNOWN"
+    canonical["next_program"] = {
+        "iteration": 135,
+        "name": "semantics-free placebo dose-response causal closure",
+        "phase": auth.CONTROL_HARDENING_PHASE,
+        "authorized_actions": list(auth.CONTROL_HARDENING_AUTHORIZED_ACTIONS),
+        "forbidden_actions": list(auth.CONTROL_HARDENING_FORBIDDEN_ACTIONS),
+    }
+
+    assert auth._exact_json_value(
+        auth._control_hardening_expected_state(),
+        canonical,
+    )
+
+
 def _validate(
     repo: Path,
     commits: dict[str, str],
@@ -944,6 +1181,263 @@ def test_true_recomputed_h_e_p_s_a_f_b_chain_is_launch_authority(tmp_path: Path)
     assert result["launch_authorized"] is True
     assert result["authority"] == "origin-published"
     assert result["references"][auth.MISSION_REL] == commits["state"]
+
+
+@pytest.mark.parametrize(
+    ("upstream_name", "expected_status"),
+    [
+        ("r15", auth.CONTROL_PUBLICATION_CANDIDATE_STATUS),
+        ("b15", auth.CONTROL_PUBLICATION_PUBLISHED_STATUS),
+    ],
+)
+def test_control_hardening_accepts_exact_non_authoritative_candidate_and_baton(
+    tmp_path: Path,
+    upstream_name: str,
+    expected_status: str,
+) -> None:
+    repo, commits = _publication(tmp_path)
+    _state, baton = _control_publication(repo, commits)
+    upstream = commits["tooling_receipt"] if upstream_name == "r15" else baton
+
+    result = auth.validate_publication_descendants(
+        repo,
+        phase=auth.CONTROL_HARDENING_PHASE,
+        tooling_receipt_commit=commits["tooling_receipt"],
+        tooling_baton_commit=baton,
+        descendants=[],
+        upstream_commit=upstream,
+    )
+
+    assert result == {
+        "problems": [],
+        "references": {},
+        "authority": "none",
+        "launch_authorized": False,
+        "control_publication_status": expected_status,
+    }
+
+
+@pytest.mark.parametrize(
+    ("descendants", "candidate", "upstream", "problem"),
+    [
+        (["f" * 40], False, "BATON", "authorization:control-hardening-descendant-count:1"),
+        ([], True, "BATON", "authorization:control-hardening-candidate"),
+    ],
+)
+def test_control_hardening_rejects_descendant_and_explicit_candidate_modes(
+    tmp_path: Path,
+    descendants: list[str],
+    candidate: bool,
+    upstream: str,
+    problem: str,
+) -> None:
+    repo, commits = _publication(tmp_path)
+    _state, baton = _control_publication(repo, commits)
+
+    result = auth.validate_publication_descendants(
+        repo,
+        phase=auth.CONTROL_HARDENING_PHASE,
+        tooling_receipt_commit=commits["tooling_receipt"],
+        tooling_baton_commit=baton,
+        descendants=descendants,
+        upstream_commit=baton if upstream == "BATON" else upstream,
+        candidate=candidate,
+    )
+
+    assert problem in result["problems"]
+    assert result["authority"] == "none"
+    assert result["launch_authorized"] is False
+    assert (
+        result["control_publication_status"]
+        == auth.CONTROL_PUBLICATION_PUBLISHED_STATUS
+    )
+    assert set(result) == {
+        "problems",
+        "references",
+        "authority",
+        "launch_authorized",
+        "control_publication_status",
+    }
+
+
+@pytest.mark.parametrize(
+    "mutation",
+    [
+        "minimal",
+        "extra-field",
+        "numeric-current-iteration",
+        "numeric-storage",
+        "numeric-workspace-boolean",
+        "numeric-next-iteration",
+    ],
+)
+def test_control_hardening_rejects_nonexact_t15_state(
+    tmp_path: Path,
+    mutation: str,
+) -> None:
+    repo, commits = _publication(tmp_path)
+    state = auth._control_hardening_expected_state()
+    if mutation == "minimal":
+        state = {
+            "schema": "sentinel.mission_state.v1",
+            "run_state": "UNKNOWN",
+            "next_program": state["next_program"],
+        }
+    elif mutation == "extra-field":
+        state["launch_authorized"] = False
+    elif mutation == "numeric-current-iteration":
+        state["current_completed_iteration"] = 134.0
+    elif mutation == "numeric-storage":
+        state["storage_gate"]["minimum_local_free_gib_before_new_proof_collection"] = (
+            15.0
+        )
+    elif mutation == "numeric-workspace-boolean":
+        state["workspace_boundary"][
+            "cross_workspace_access_requires_explicit_operator_request"
+        ] = 1
+    elif mutation == "numeric-next-iteration":
+        state["next_program"]["iteration"] = 135.0
+    else:
+        raise AssertionError(f"unsupported control-state mutation: {mutation}")
+    _state, baton = _control_publication(repo, commits, state=state)
+
+    result = auth.validate_publication_descendants(
+        repo,
+        phase=auth.CONTROL_HARDENING_PHASE,
+        tooling_receipt_commit=commits["tooling_receipt"],
+        tooling_baton_commit=baton,
+        descendants=[],
+        upstream_commit=baton,
+    )
+
+    assert "authorization:control-hardening-state-contract" in result["problems"]
+    assert result["launch_authorized"] is False
+
+
+@pytest.mark.parametrize(
+    "upstream_name",
+    ["t15", "b14", "source", "advanced", "unrelated"],
+)
+def test_control_hardening_rejects_every_non_r15_non_b15_upstream_exactly(
+    tmp_path: Path,
+    upstream_name: str,
+) -> None:
+    repo, commits = _publication(tmp_path)
+    state_commit, baton = _control_publication(repo, commits)
+    invalid_upstreams = {
+        "t15": state_commit,
+        "b14": auth.GENERATION_FOURTEEN_BATON_COMMIT,
+        "source": commits["source"],
+        "unrelated": "f" * 40,
+    }
+    if upstream_name == "advanced":
+        _git(repo, "commit", "--allow-empty", "-m", "unreviewed post-B15 advancement")
+        invalid_upstreams["advanced"] = _git(repo, "rev-parse", "HEAD").decode().strip()
+
+    result = auth.validate_publication_descendants(
+        repo,
+        phase=auth.CONTROL_HARDENING_PHASE,
+        tooling_receipt_commit=commits["tooling_receipt"],
+        tooling_baton_commit=baton,
+        descendants=[],
+        upstream_commit=invalid_upstreams[upstream_name],
+    )
+
+    assert result == {
+        "problems": [
+            "authorization:control-hardening-origin-master-not-r15-or-b15"
+        ],
+        "references": {},
+        "authority": "none",
+        "launch_authorized": False,
+        "control_publication_status": (
+            auth.CONTROL_PUBLICATION_INVALID_UPSTREAM_STATUS
+        ),
+    }
+
+
+def test_control_hardening_rejects_tampered_r15_receipt_through_frozen_replay(
+    tmp_path: Path,
+) -> None:
+    repo, commits = _publication(
+        tmp_path,
+        tooling_publication_overrides={"reason_code": "TAMPERED_R15"},
+    )
+    _state, baton = _control_publication(repo, commits)
+
+    result = auth.validate_publication_descendants(
+        repo,
+        phase=auth.CONTROL_HARDENING_PHASE,
+        tooling_receipt_commit=commits["tooling_receipt"],
+        tooling_baton_commit=baton,
+        descendants=[],
+        upstream_commit=baton,
+    )
+
+    assert any(
+        problem.startswith("authorization:frozen-source:AuthorizationError:")
+        for problem in result["problems"]
+    )
+    assert result["launch_authorized"] is False
+
+
+def test_control_hardening_rejects_receipt_reparented_to_tampered_f15_source(
+    tmp_path: Path,
+) -> None:
+    repo, commits = _publication(tmp_path)
+    original_receipt = _git(
+        repo,
+        "show",
+        f"{commits['tooling_receipt']}:{auth.TOOLING_RECEIPT_REL}",
+    )
+    _git(repo, "checkout", "--detach", commits["source"])
+    _write(repo, "tampered-source.txt", "unreviewed source descendant\n")
+    _commit(repo, "tampered generation fifteen source", "tampered-source.txt")
+    _write(repo, auth.TOOLING_RECEIPT_REL, original_receipt)
+    tampered_receipt = _commit(
+        repo,
+        "receipt reparented to tampered source",
+        auth.TOOLING_RECEIPT_REL,
+    )
+    _state, baton = _control_publication(
+        repo,
+        commits,
+        receipt_commit=tampered_receipt,
+    )
+
+    result = auth.validate_publication_descendants(
+        repo,
+        phase=auth.CONTROL_HARDENING_PHASE,
+        tooling_receipt_commit=tampered_receipt,
+        tooling_baton_commit=baton,
+        descendants=[],
+        upstream_commit=baton,
+    )
+
+    assert any(
+        problem.startswith("authorization:frozen-source:AuthorizationError:")
+        for problem in result["problems"]
+    )
+    assert result["launch_authorized"] is False
+
+
+def test_control_hardening_rejects_malformed_t15_b15_topology(
+    tmp_path: Path,
+) -> None:
+    repo, commits = _publication(tmp_path)
+    _state, baton = _control_publication(repo, commits, baton_extra_path=True)
+
+    result = auth.validate_publication_descendants(
+        repo,
+        phase=auth.CONTROL_HARDENING_PHASE,
+        tooling_receipt_commit=commits["tooling_receipt"],
+        tooling_baton_commit=baton,
+        descendants=[],
+        upstream_commit=baton,
+    )
+
+    assert "authorization:control-hardening-baton-scope" in result["problems"]
+    assert result["launch_authorized"] is False
 
 
 @pytest.mark.parametrize(
@@ -1003,13 +1497,14 @@ def test_controller_rejects_nonexact_tooling_receipt_root_before_preflight_repla
 @pytest.mark.parametrize(
     ("field", "value"),
     (
-        ("generation", 13),
+        ("generation", 14),
+        ("generation", 15.0),
         ("supersedes_receipt_commit", "0" * 40),
         ("recovery_parent", "1" * 40),
-        ("reason_code", "UNREGISTERED_GENERATION_FOURTEEN_REASON"),
+        ("reason_code", "UNREGISTERED_GENERATION_FIFTEEN_REASON"),
     ),
 )
-def test_controller_requires_exact_generation_fourteen_tooling_publication(
+def test_controller_requires_exact_generation_fifteen_tooling_publication(
     tmp_path: Path,
     field: str,
     value: object,
@@ -1021,7 +1516,7 @@ def test_controller_requires_exact_generation_fourteen_tooling_publication(
 
     with pytest.raises(
         auth.AuthorizationError,
-        match="exact green generation-fourteen source",
+        match="exact green generation-fifteen source",
     ):
         auth._tooling_source_commit(repo, commits["tooling_receipt"])
 
@@ -1120,6 +1615,27 @@ def test_launch_rejects_unpublished_activation_baton(
     assert result["launch_authorized"] is False
 
 
+@pytest.mark.parametrize(
+    "activation_numeric_alias",
+    ["problem-count-bool", "artifact-bytes-float"],
+)
+def test_launch_rejects_activation_numeric_json_aliases(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    activation_numeric_alias: str,
+) -> None:
+    repo, commits = _publication(
+        tmp_path,
+        activation_numeric_alias=activation_numeric_alias,
+    )
+    monkeypatch.setattr(auth, "_deep_replay_publication", lambda *args, **kwargs: [])
+
+    result = _validate(repo, commits)
+
+    assert "authorization:activation-receipt" in result["problems"]
+    assert result["launch_authorized"] is False
+
+
 def test_launch_rejects_origin_advanced_beyond_exact_activation_tip(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -1201,6 +1717,59 @@ def test_launch_rejects_handcrafted_shallow_green_evidence(
     tmp_path: Path, fixture_kwargs: dict, expected_problem: str
 ) -> None:
     repo, commits = _publication(tmp_path, **fixture_kwargs)
+
+    result = _validate(repo, commits)
+
+    assert expected_problem in result["problems"]
+    assert result["launch_authorized"] is False
+
+
+@pytest.mark.parametrize(
+    "environment_host_evidence_numeric_alias",
+    ["problem-count-bool", "storage-device-float"],
+)
+def test_launch_rejects_environment_host_evidence_numeric_json_aliases(
+    tmp_path: Path,
+    environment_host_evidence_numeric_alias: str,
+) -> None:
+    repo, commits = _publication(
+        tmp_path,
+        environment_host_evidence_numeric_alias=(
+            environment_host_evidence_numeric_alias
+        ),
+    )
+
+    result = _validate(repo, commits)
+
+    assert "environment:host-preparation-deep-link" in result["problems"]
+    assert result["launch_authorized"] is False
+
+
+@pytest.mark.parametrize(
+    ("host_exactness_mutation", "expected_problem"),
+    [
+        ("compose-patcher-bytes-float", "host:compose-patcher"),
+        ("compose-patcher-bytes-bool", "host:compose-patcher"),
+        ("storage-extra", "host:storage-field-set"),
+        ("storage-missing", "host:storage-field-set"),
+        ("storage-device-float", "host:storage-device"),
+        ("storage-device-negative", "host:storage-device"),
+        ("action-extra", "host:actions"),
+        ("action-omission", "host:actions"),
+        ("invocation-extra", "host:invocation"),
+        ("invocation-omission", "host:invocation"),
+        ("invocation-environment-alias", "host:invocation"),
+    ],
+)
+def test_launch_rejects_recursive_host_receipt_aliases_and_schema_drift(
+    tmp_path: Path,
+    host_exactness_mutation: str,
+    expected_problem: str,
+) -> None:
+    repo, commits = _publication(
+        tmp_path,
+        host_exactness_mutation=host_exactness_mutation,
+    )
 
     result = _validate(repo, commits)
 

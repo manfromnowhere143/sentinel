@@ -38,7 +38,105 @@ MISSION_REL = "MISSION_STATE.json"
 TOOLING_RECEIPT_REL = f"{EXPERIMENT_REL}/tooling_verification_receipt.json"
 
 TOOLING_PHASE = "TOOLING_FROZEN_PREFLIGHT_REQUIRED"
+CONTROL_HARDENING_PHASE = "CONTROL_HARDENING_REQUIRED"
 LAUNCH_PHASE = "LAUNCH_AUTHORIZED"
+CONTROL_PUBLICATION_CANDIDATE_STATUS = "non-authoritative-control-candidate"
+CONTROL_PUBLICATION_PUBLISHED_STATUS = "origin-published-control-baton"
+CONTROL_PUBLICATION_INVALID_UPSTREAM_STATUS = "invalid-control-publication-upstream"
+CONTROL_HARDENING_AUTHORIZED_ACTIONS = (
+    "implement and validate only offline, preregistered, source-bound lifecycle observation, "
+    "terminal-proof, partial-proof, inconsistency, and fail-closed recovery controls",
+    "implement and validate separately reviewable hermetic CI, supply-chain, and "
+    "publication-evidence controls without changing external governance settings",
+)
+CONTROL_HARDENING_FORBIDDEN_ACTIONS = (
+    "de-prepare, rebuild, normalize, clean, install, write, delete, mutate, inventory, or access "
+    "any iteration-135 remote host, remote filesystem, host-side repository, packet, runtime, "
+    "lock, container, GPU, credential, or external provider in a way that could create H, E, P, "
+    "or S",
+    "create, execute, publish, or advance any H, E, P, or S descendant; launch activation; live "
+    "smoke; or analytic episode",
+    "infer IDLE, termination, completion, readiness, approval, or authority from static state, "
+    "absent containers, absent processes, missing reviewers, timeouts, retry exhaustion, or "
+    "incomplete proof",
+    "run analyzers or publish iteration-135 data, results, claims, figures, paper text, or "
+    "scientific conclusions",
+    "change branch protection, rulesets, Actions policy, repository visibility, credentials, "
+    "secrets, access control, or other external governance settings without explicit operator "
+    "authorization",
+    "rerun iteration 134 or adapt iteration-135 schedules, estimands, verdicts, or policies after "
+    "evidence",
+)
+
+
+def _control_hardening_expected_state() -> dict[str, Any]:
+    """Return the complete frozen T15 state contract.
+
+    The controller is loaded from the immutable F15 source commit, so this mirror deliberately
+    does not import mutable working-tree mission-control code.
+    """
+
+    return {
+        "schema": "sentinel.mission_state.v1",
+        "canonical_repository": "/Users/danielwahnich/workspace/sentinel",
+        "workspace_boundary": {
+            "isolated_from": "/Users/danielwahnich/workspace/aweb",
+            "recovery_sources": [
+                "MISSION_STATE.json",
+                "CONTINUITY.md",
+                "HANDOFF.md",
+            ],
+            "cross_workspace_access_requires_explicit_operator_request": True,
+        },
+        "trunk": "master",
+        "current_completed_iteration": 134,
+        "current_result": (
+            "experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md"
+        ),
+        "current_verdict": "PLACEBO_HARM_OR_NULL",
+        "run_state": "UNKNOWN",
+        "active_hypothesis": (
+            "experiments/iter135_neuroncap_blind_braking_dose_response/HYPOTHESIS.md"
+        ),
+        "next_program": {
+            "iteration": 135,
+            "name": "semantics-free placebo dose-response causal closure",
+            "phase": CONTROL_HARDENING_PHASE,
+            "authorized_actions": list(CONTROL_HARDENING_AUTHORIZED_ACTIONS),
+            "forbidden_actions": list(CONTROL_HARDENING_FORBIDDEN_ACTIONS),
+        },
+        "claim_state": {
+            "neuroncap_union_gain": "ESTABLISHED_ON_NEURONCAP",
+            "semantic_attribution": "UNRESOLVED",
+            "hugsim_transfer": "TRANSFER_NULL",
+            "production_readiness": "NOT_ESTABLISHED",
+        },
+        "deprecated_pending_hypotheses": [
+            "experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md"
+        ],
+        "paper_state": {
+            "status": "ARCHIVED_NOT_SUBMISSION_READY",
+            "next_route": "peer-reviewed venue after a full evidence rewrite",
+            "blocking_omissions": [
+                "HUGSIM transfer null",
+                "iteration-134 placebo result",
+                "resolved wording for the decoder universal-negative overclaim",
+            ],
+        },
+        "storage_gate": {
+            "minimum_local_free_gib_before_new_proof_collection": 15,
+            "remote_execution_filesystem_path": "/datasets/nuscenes-full",
+            "analytic_output_root": (
+                "/datasets/nuscenes-full/sentinel-i135-outoutput"
+            ),
+            "minimum_remote_execution_filesystem_free_gib_before_gpu_launch": 100,
+            "minimum_remote_execution_filesystem_reserve_gib_after_projected_output": 25,
+            "policy": (
+                "preserve committed proof and hashes; delete only hash-verified duplicates, "
+                "reproducible renders, and caches"
+            ),
+        },
+    }
 HOST_SCHEMA = "iter135.host_preparation_receipt.v1"
 HOST_VERDICT = "I135_HOST_PREPARATION_OK"
 HOST_PACKET_SCHEMA = "iter135.host_packet_manifest.v1"
@@ -204,11 +302,19 @@ GENERATION_THIRTEEN_RECEIPT_COMMIT = "688182ad3b7afbb0d58141accbcf554981e6fb20"
 # was still frozen into both live launchers.
 GENERATION_THIRTEEN_MANIFEST_COMMIT = "1ba42bbb869c652fd6d3d951a3c92ec404f61e72"
 GENERATION_FOURTEEN_REASON = "S1_SMOKE_AND_DOSE_DOCKER29_DAEMON_EXPERIMENTAL_SCHEMA_FOSSIL"
+GENERATION_FOURTEEN_RECEIPT_COMMIT = "b260ca5b0910c4d499c13e42add97affd726b77c"
+GENERATION_FOURTEEN_BATON_COMMIT = "69bd2e2face00ccabb426382347eb04e8a0dbe83"
+GENERATION_FIFTEEN_REASON = (
+    "B14_H_DESCENDANT_CONTROLLER_OMISSION_GITHUB_RUN_AUTHORITY_"
+    "AND_CI_FIXTURE_OBJECT_CONNECTIVITY_AND_RECEIPT_SCHEMA_EXACTNESS_"
+    "AND_FALSE_IDLE_LEGACY_HANDOFF_REMOTE_PROBE_"
+    "AND_RECEIPT_FAILURE_BOUNDARY_STOP"
+)
 EXPECTED_TOOLING_PUBLICATION = {
-    "generation": 14,
-    "supersedes_receipt_commit": GENERATION_THIRTEEN_RECEIPT_COMMIT,
-    "recovery_parent": GENERATION_THIRTEEN_MANIFEST_COMMIT,
-    "reason_code": GENERATION_FOURTEEN_REASON,
+    "generation": 15,
+    "supersedes_receipt_commit": GENERATION_FOURTEEN_RECEIPT_COMMIT,
+    "recovery_parent": GENERATION_FOURTEEN_BATON_COMMIT,
+    "reason_code": GENERATION_FIFTEEN_REASON,
 }
 TOOLING_REPOSITORY_FIELDS = {
     "root",
@@ -258,6 +364,32 @@ def _canonical_json(value: Any) -> bytes:
         ensure_ascii=True,
         allow_nan=False,
     ).encode("utf-8")
+
+
+def _exact_json_value(observed: object, expected: object) -> bool:
+    """Compare JSON values without bool/int or int/float equivalence."""
+
+    if type(observed) is not type(expected):
+        return False
+    if type(expected) is dict:
+        observed_dict = observed
+        expected_dict = expected
+        return set(observed_dict) == set(expected_dict) and all(
+            _exact_json_value(observed_dict[key], expected_dict[key])
+            for key in expected_dict
+        )
+    if type(expected) is list:
+        observed_list = observed
+        expected_list = expected
+        return len(observed_list) == len(expected_list) and all(
+            _exact_json_value(observed_item, expected_item)
+            for observed_item, expected_item in zip(
+                observed_list,
+                expected_list,
+                strict=True,
+            )
+        )
+    return observed == expected
 
 
 def _git_blob_oid(payload: bytes) -> str:
@@ -465,40 +597,45 @@ def _tooling_source_commit(repo: Path, tooling_receipt_commit: str) -> str:
     payload = dict(receipt)
     claimed_payload_sha256 = payload.pop("receipt_payload_sha256", None)
     if (
-        receipt.get("schema") != "iter135.tooling_verification.v2"
+        type(receipt.get("schema")) is not str
+        or receipt.get("schema") != "iter135.tooling_verification.v2"
+        or type(receipt.get("verdict")) is not str
         or receipt.get("verdict") != "I135_TOOLING_VERIFICATION_OK"
+        or type(receipt.get("problem_count")) is not int
         or receipt.get("problem_count") != 0
-        or receipt.get("problems") != []
-        or not isinstance(publication, Mapping)
+        or not _exact_json_value(receipt.get("problems"), [])
+        or type(publication) is not dict
         or set(publication) != TOOLING_PUBLICATION_FIELDS
-        or publication != EXPECTED_TOOLING_PUBLICATION
-        or not isinstance(repository, Mapping)
+        or not _exact_json_value(publication, EXPECTED_TOOLING_PUBLICATION)
+        or type(repository) is not dict
         or set(repository) != TOOLING_REPOSITORY_FIELDS
-        or not isinstance(start, Mapping)
+        or type(start) is not dict
         or set(start) != TOOLING_GIT_STATE_FIELDS
         or start.get("head") != source_commit
-        or not isinstance(end, Mapping)
+        or type(end) is not dict
         or set(end) != TOOLING_GIT_STATE_FIELDS
-        or end != start
+        or not _exact_json_value(end, start)
         or repository.get("git_head_stable") is not True
         or repository.get("git_state_stable") is not True
         or repository.get("repository_clean_state_stable") is not True
-        or not isinstance(inventory, Mapping)
+        or type(inventory) is not dict
         or set(inventory) != TOOLING_INVENTORY_FIELDS
-        or not isinstance(timing, Mapping)
+        or type(timing) is not dict
         or set(timing) != TOOLING_TIMING_FIELDS
-        or not isinstance(receipt.get("toolchain"), Mapping)
-        or not isinstance(receipt.get("environment_contract"), Mapping)
-        or not isinstance(receipt.get("files"), Mapping)
-        or not isinstance(receipt.get("command_contract"), list)
-        or not isinstance(receipt.get("commands"), list)
-        or not isinstance(receipt.get("inventory_sha256"), str)
+        or type(receipt.get("toolchain")) is not dict
+        or type(receipt.get("environment_contract")) is not dict
+        or type(receipt.get("files")) is not dict
+        or type(receipt.get("command_contract")) is not list
+        or type(receipt.get("commands")) is not list
+        or type(receipt.get("inventory_sha256")) is not str
         or _SHA256_RE.fullmatch(receipt["inventory_sha256"]) is None
-        or not isinstance(receipt.get("file_content_set_sha256"), str)
+        or type(receipt.get("file_content_set_sha256")) is not str
         or _SHA256_RE.fullmatch(receipt["file_content_set_sha256"]) is None
         or claimed_payload_sha256 != hashlib.sha256(_canonical_json(payload)).hexdigest()
     ):
-        raise AuthorizationError("tooling receipt does not bind the exact green generation-fourteen source")
+        raise AuthorizationError(
+            "tooling receipt does not bind the exact green generation-fifteen source"
+        )
     try:
         validator = _load_frozen_tooling_receipt_validator(repo, source_commit)
         frozen_errors = validator(receipt, repo_root=repo)
@@ -773,8 +910,12 @@ def _validate_host_receipt_deep(
     manifest_claim = embedded.get("manifest") if isinstance(embedded, Mapping) else None
     if (
         not isinstance(manifest_claim, Mapping)
+        or set(manifest_claim) != {"path", "sha256", "bytes", "mode"}
+        or type(manifest_claim.get("path")) is not str
         or manifest_claim.get("sha256") != packet_digest
+        or type(manifest_claim.get("bytes")) is not int
         or manifest_claim.get("bytes") != len(packet_payload)
+        or type(manifest_claim.get("mode")) is not int
         or manifest_claim.get("mode") != 0o644
     ):
         problems.append("host:packet-manifest-binding")
@@ -782,11 +923,18 @@ def _validate_host_receipt_deep(
         row = observed_files.get(name) if isinstance(observed_files, Mapping) else None
         if (
             not isinstance(row, Mapping)
+            or set(row) != {"path", "sha256", "bytes", "mode"}
             or row.get("path") != f"/opt/sentinel-stack/.iter135-packet/{name}"
-            or any(row.get(field) != expected.get(field) for field in ("sha256", "bytes", "mode"))
+            or any(
+                not _exact_json_value(row.get(field), expected.get(field))
+                for field in ("sha256", "bytes", "mode")
+            )
         ):
             problems.append(f"host:packet-file:{name}")
-    if host.get("controller") != observed_files.get("prepare_host135.py"):
+    if not _exact_json_value(
+        host.get("controller"),
+        observed_files.get("prepare_host135.py"),
+    ):
         problems.append("host:controller-binding")
 
     repositories = host.get("repositories")
@@ -847,7 +995,10 @@ def _validate_host_receipt_deep(
     if not isinstance(compose, Mapping) or set(compose) != {"patcher", "before", "after"}:
         problems.append("host:compose")
     else:
-        if compose.get("patcher") != observed_files.get("patch_compose_dose_env.py"):
+        if not _exact_json_value(
+            compose.get("patcher"),
+            observed_files.get("patch_compose_dose_env.py"),
+        ):
             problems.append("host:compose-patcher")
         before_compose = compose.get("before")
         after_compose = compose.get("after")
@@ -858,10 +1009,13 @@ def _validate_host_receipt_deep(
         for label, (row, digest, byte_count) in zip(("before", "after"), expected_compose):
             if (
                 not isinstance(row, Mapping)
+                or set(row) != {"path", "sha256", "bytes", "mode"}
                 or row.get("path")
                 != "/opt/sentinel-stack/NeuroNCAP/scripts/_docker_compose_release.sh"
                 or row.get("sha256") != digest
+                or type(row.get("bytes")) is not int
                 or row.get("bytes") != byte_count
+                or type(row.get("mode")) is not int
                 or row.get("mode") not in (0o644, 0o755)
             ):
                 problems.append(f"host:compose-{label}")
@@ -870,21 +1024,49 @@ def _validate_host_receipt_deep(
     if not isinstance(storage, Mapping):
         problems.append("host:storage")
     else:
+        expected_storage_fields = {
+            "mount_target",
+            "mount_source",
+            "mount_fstype",
+            "mount_uuid",
+            "dataset_st_dev",
+            "root_st_dev",
+            "free_bytes_before",
+            "free_bytes_after",
+            "minimum_remote_free_bytes",
+            "projected_output_bytes",
+            "minimum_reserve_bytes",
+            "analytic_root",
+            "analytic_root_realpath",
+            "analytic_root_is_symlink",
+            "analytic_root_empty",
+            "analytic_root_st_dev",
+        }
+        if set(storage) != expected_storage_fields:
+            problems.append("host:storage-field-set")
         expected_mount = {
             "mount_target": "/datasets/nuscenes-full",
             "mount_source": "/dev/nvme0n2",
             "mount_fstype": "ext4",
             "mount_uuid": "9a98277e-b21f-4ffc-8f14-3f2235b43103",
         }
-        if any(storage.get(key) != value for key, value in expected_mount.items()):
+        if any(
+            not _exact_json_value(storage.get(key), value)
+            for key, value in expected_mount.items()
+        ):
             problems.append("host:storage-mount")
         dataset_device = storage.get("dataset_st_dev")
         root_device = storage.get("root_st_dev")
+        analytic_device = storage.get("analytic_root_st_dev")
         if (
             type(dataset_device) is not int
             or type(root_device) is not int
+            or type(analytic_device) is not int
+            or dataset_device < 0
+            or root_device < 0
+            or analytic_device < 0
             or dataset_device == root_device
-            or storage.get("analytic_root_st_dev") != dataset_device
+            or analytic_device != dataset_device
         ):
             problems.append("host:storage-device")
         free_before = storage.get("free_bytes_before")
@@ -896,6 +1078,7 @@ def _validate_host_receipt_deep(
             or type(free_after) is not int
             or type(projected) is not int
             or type(reserve) is not int
+            or type(storage.get("minimum_remote_free_bytes")) is not int
             or storage.get("minimum_remote_free_bytes") != 100 * 1024**3
             or projected != 72_380_432_384
             or free_before < 100 * 1024**3
@@ -922,27 +1105,118 @@ def _validate_host_receipt_deep(
     ):
         problems.append("host:forbidden-paths")
     actions = host.get("actions")
-    action_names = [
-        "normalize_uniad_server_from_verified_head_blob",
-        "atomically_patch_compose_from_exact_preimage",
-        "create_absent_empty_analytic_root",
-        "atomically_install_verified_packet",
-    ]
-    if (
-        not isinstance(actions, list)
-        or [row.get("action") if isinstance(row, Mapping) else None for row in actions]
-        != action_names
-        or any(
-            row.get("performed") is not True
-            for row in actions[1:]
-            if isinstance(row, Mapping)
-        )
-    ):
+    action_problems = False
+    if not isinstance(actions, list) or len(actions) != 4:
+        action_problems = True
+        actions = []
+    action_contracts = (
+        (
+            "normalize_uniad_server_from_verified_head_blob",
+            {"action", "performed", "before", "after"},
+        ),
+        (
+            "atomically_patch_compose_from_exact_preimage",
+            {"action", "performed", "before_sha256", "after_sha256"},
+        ),
+        (
+            "create_absent_empty_analytic_root",
+            {"action", "performed", "path"},
+        ),
+        (
+            "atomically_install_verified_packet",
+            {"action", "performed", "from", "to"},
+        ),
+    )
+    for index, (expected_name, expected_fields) in enumerate(action_contracts):
+        row = actions[index] if index < len(actions) else None
+        if (
+            not isinstance(row, Mapping)
+            or set(row) != expected_fields
+            or row.get("action") != expected_name
+            or type(row.get("performed")) is not bool
+        ):
+            action_problems = True
+    if len(actions) == 4 and all(isinstance(row, Mapping) for row in actions):
+        normalize = actions[0]
+        before_server = normalize.get("before")
+        after_server = normalize.get("after")
+        expected_server_path = "/opt/sentinel-stack/UniAD/inference/server.py"
+        for server_row in (before_server, after_server):
+            if (
+                not isinstance(server_row, Mapping)
+                or set(server_row) != {"path", "sha256", "bytes", "mode"}
+                or server_row.get("path") != expected_server_path
+                or not isinstance(server_row.get("sha256"), str)
+                or _SHA256_RE.fullmatch(server_row["sha256"]) is None
+                or type(server_row.get("bytes")) is not int
+                or server_row["bytes"] <= 0
+                or type(server_row.get("mode")) is not int
+                or server_row["mode"] not in (0o644, 0o755)
+            ):
+                action_problems = True
+        if isinstance(after_server, Mapping) and (
+            after_server.get("sha256")
+            != "066a3fc31a2c78960255cedf659018bab4190ac5dee7e7c5ec14d1031043c424"
+            or after_server.get("bytes") != 4_519
+        ):
+            action_problems = True
+        if isinstance(before_server, Mapping) and isinstance(after_server, Mapping):
+            expected_normalization = (
+                before_server.get("sha256") != after_server.get("sha256")
+            )
+            if normalize.get("performed") is not expected_normalization:
+                action_problems = True
+        compose_action = actions[1]
+        if (
+            compose_action.get("performed") is not True
+            or compose_action.get("before_sha256")
+            != "9f8804b523faa8ec3b6770a69b4b4bc9595c2b36e4b98422a588b9a3e1fe8e5d"
+            or compose_action.get("after_sha256")
+            != "a5ed766b8a4c7efd7b33cdb6a9bdf9a5878f63604695758ff5f2268b770cfada"
+            or not isinstance(compose, Mapping)
+            or compose_action.get("before_sha256")
+            != (
+                compose.get("before", {}).get("sha256")
+                if isinstance(compose.get("before"), Mapping)
+                else None
+            )
+            or compose_action.get("after_sha256")
+            != (
+                compose.get("after", {}).get("sha256")
+                if isinstance(compose.get("after"), Mapping)
+                else None
+            )
+        ):
+            action_problems = True
+        if (
+            actions[2].get("performed") is not True
+            or actions[2].get("path")
+            != "/datasets/nuscenes-full/sentinel-i135-outoutput"
+            or not isinstance(storage, Mapping)
+            or actions[2].get("path") != storage.get("analytic_root")
+        ):
+            action_problems = True
+        if (
+            actions[3].get("performed") is not True
+            or actions[3].get("from") != "/opt/sentinel-stack/.iter135-packet"
+            or actions[3].get("to") != "/opt/sentinel-stack/iter135"
+        ):
+            action_problems = True
+    if action_problems:
         problems.append("host:actions")
     invocation = host.get("invocation")
     if (
         not isinstance(invocation, Mapping)
-        or invocation.get("environment") != HOST_SAFE_ENVIRONMENT
+        or set(invocation)
+        != {
+            "environment",
+            "environment_matches",
+            "isolated",
+            "python_implementation",
+            "python_version",
+        }
+        or not _exact_json_value(invocation.get("environment"), HOST_SAFE_ENVIRONMENT)
+        or invocation.get("environment_matches") is not True
         or invocation.get("isolated") is not True
         or invocation.get("python_implementation") != "CPython"
         or not isinstance(invocation.get("python_version"), str)
@@ -1002,7 +1276,7 @@ def _validate_publication_authority(
         )
     ):
         problems.append(f"{label}:expected-artifact-contract")
-    if authority.get("artifacts") != expected_rows:
+    if not _exact_json_value(authority.get("artifacts"), expected_rows):
         problems.append(f"{label}:artifacts")
     checks = authority.get("checks")
     if not isinstance(checks, list) or len(checks) != len(PUBLICATION_CHECKS):
@@ -1174,7 +1448,11 @@ def _green_receipt(
         problems.append(f"{label}:schema")
     if receipt.get("verdict") != verdict:
         problems.append(f"{label}:verdict")
-    if receipt.get("problem_count") != 0 or receipt.get("problems") != []:
+    if (
+        type(receipt.get("problem_count")) is not int
+        or receipt.get("problem_count") != 0
+        or not _exact_json_value(receipt.get("problems"), [])
+    ):
         problems.append(f"{label}:problem-metadata")
     return problems
 
@@ -1191,9 +1469,14 @@ def _validate_pre_smoke_manifest(manifest: Mapping[str, Any]) -> list[str]:
         problems.append("pre-smoke:mission-phase")
     if manifest.get("missing_artifacts") != ["smoke-evidence/smoke_receipt.json"]:
         problems.append("pre-smoke:missing-artifacts")
-    if manifest.get("problem_count") != 1 or manifest.get("problems") != [
-        "smoke:receipt-missing"
-    ]:
+    if (
+        type(manifest.get("problem_count")) is not int
+        or manifest.get("problem_count") != 1
+        or not _exact_json_value(
+            manifest.get("problems"),
+            ["smoke:receipt-missing"],
+        )
+    ):
         problems.append("pre-smoke:problem-contract")
     return problems
 
@@ -1216,17 +1499,24 @@ def _validate_final_manifest(
         problems.append("final-manifest:launch-authorized")
     if manifest.get("mission_phase") != LAUNCH_PHASE:
         problems.append("final-manifest:mission-phase")
-    if manifest.get("problem_count") != 0 or manifest.get("problems") != []:
+    if (
+        type(manifest.get("problem_count")) is not int
+        or manifest.get("problem_count") != 0
+        or not _exact_json_value(manifest.get("problems"), [])
+    ):
         problems.append("final-manifest:problem-metadata")
     gates = manifest.get("gates")
     if not isinstance(gates, Mapping) or not gates or any(value is not True for value in gates.values()):
         problems.append("final-manifest:gates")
     state_binding = manifest.get("mission_state")
-    if state_binding != {
-        "source_path": MISSION_REL,
-        "sha256": hashlib.sha256(state_payload).hexdigest(),
-        "bytes": len(state_payload),
-    }:
+    if not _exact_json_value(
+        state_binding,
+        {
+            "source_path": MISSION_REL,
+            "sha256": hashlib.sha256(state_payload).hexdigest(),
+            "bytes": len(state_payload),
+        },
+    ):
         problems.append("final-manifest:mission-state-binding")
     bound = manifest.get("hash_bound_files")
     expected = {
@@ -1240,15 +1530,22 @@ def _validate_final_manifest(
     else:
         for relative, payload in expected.items():
             row = bound.get(relative)
-            if not isinstance(row, Mapping) or row.get("sha256") != hashlib.sha256(
-                payload
-            ).hexdigest() or row.get("bytes") != len(payload):
+            expected_row = {
+                "source_path": relative,
+                "sha256": hashlib.sha256(payload).hexdigest(),
+                "bytes": len(payload),
+            }
+            if not _exact_json_value(row, expected_row):
                 problems.append(f"final-manifest:binding:{relative}")
-        if manifest.get("host_preparation_receipt") != bound.get(
-            "host_preparation_receipt.json"
+        if not _exact_json_value(
+            manifest.get("host_preparation_receipt"),
+            bound.get("host_preparation_receipt.json"),
         ):
             problems.append("final-manifest:host-preparation-link")
-        if manifest.get("host_packet_manifest") != bound.get("host_packet_manifest.json"):
+        if not _exact_json_value(
+            manifest.get("host_packet_manifest"),
+            bound.get("host_packet_manifest.json"),
+        ):
             problems.append("final-manifest:host-packet-link")
     return problems
 
@@ -1260,7 +1557,7 @@ def _deep_replay_publication(
     tooling_baton_commit: str,
     commits: Sequence[str],
 ) -> list[str]:
-    """Replay H/E/P/S[/A/F] from the frozen generation-thirteen source in isolation."""
+    """Replay H/E/P/S[/A/F] from the active frozen tooling source in isolation."""
 
     problems: list[str] = []
     try:
@@ -1433,10 +1730,14 @@ def _deep_replay_publication(
                 host_preparation = environment.get("host_preparation")
                 if (
                     not isinstance(host_preparation, Mapping)
-                    or host_preparation.get("evidence") != host
+                    or not _exact_json_value(
+                        host_preparation.get("evidence"),
+                        host,
+                    )
                     or not isinstance(host_preparation.get("receipt_file"), Mapping)
                     or host_preparation["receipt_file"].get("sha256")
                     != hashlib.sha256(host_payload).hexdigest()
+                    or type(host_preparation["receipt_file"].get("bytes")) is not int
                     or host_preparation["receipt_file"].get("bytes") != len(host_payload)
                 ):
                     problems.append("environment:host-preparation-deep-link")
@@ -1533,6 +1834,7 @@ def _deep_replay_publication(
                 )
                 if (
                     recomputed_smoke.get("nonanalytic") is not True
+                    or type(recomputed_smoke.get("analytic_episode_count")) is not int
                     or recomputed_smoke.get("analytic_episode_count") != 0
                 ):
                     problems.append("smoke:analytic-boundary")
@@ -1550,11 +1852,14 @@ def _deep_replay_publication(
                     problems.append("smoke:pre-state-baton-link")
                 pre_manifest = _json_blob(repo, commits[2], MANIFEST_REL)
                 mission_binding = pre_manifest.get("mission_state")
-                if mission_binding != {
-                    "source_path": MISSION_REL,
-                    "sha256": hashlib.sha256(pre_state_payload).hexdigest(),
-                    "bytes": len(pre_state_payload),
-                }:
+                if not _exact_json_value(
+                    mission_binding,
+                    {
+                        "source_path": MISSION_REL,
+                        "sha256": hashlib.sha256(pre_state_payload).hexdigest(),
+                        "bytes": len(pre_state_payload),
+                    },
+                ):
                     problems.append("smoke:pre-state-manifest-link")
 
             if len(commits) >= 6:
@@ -1652,6 +1957,37 @@ def build_activation_receipt(
     return receipt
 
 
+def _control_hardening_baton_problems(
+    repo: Path,
+    *,
+    tooling_receipt_commit: str,
+    tooling_baton_commit: str,
+) -> list[str]:
+    """Bind B15 to the exact R15 -> T15(control state) -> B15 topology."""
+
+    problems: list[str] = []
+    try:
+        baton_parents, baton_paths = _commit_row(repo, tooling_baton_commit)
+        if len(baton_parents) != 1:
+            return ["authorization:control-hardening-baton-parent"]
+        state_commit = baton_parents[0]
+        if baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
+            problems.append("authorization:control-hardening-baton-scope")
+        state_parents, state_paths = _commit_row(repo, state_commit)
+        if state_parents != (tooling_receipt_commit,):
+            problems.append("authorization:control-hardening-state-parent")
+        if state_paths != (MISSION_REL,):
+            problems.append("authorization:control-hardening-state-scope")
+        state = _json_blob(repo, state_commit, MISSION_REL)
+        if not _exact_json_value(state, _control_hardening_expected_state()):
+            problems.append("authorization:control-hardening-state-contract")
+    except (OSError, subprocess.SubprocessError, AuthorizationError, json.JSONDecodeError) as exc:
+        problems.append(
+            f"authorization:control-hardening-baton-probe:{type(exc).__name__}:{exc}"
+        )
+    return problems
+
+
 def validate_publication_descendants(
     repo: Path,
     *,
@@ -1667,6 +2003,44 @@ def validate_publication_descendants(
     root = Path(repo).resolve(strict=True)
     problems: list[str] = []
     commits = tuple(descendants)
+    if phase == CONTROL_HARDENING_PHASE:
+        if upstream_commit == tooling_receipt_commit:
+            control_publication_status = CONTROL_PUBLICATION_CANDIDATE_STATUS
+        elif upstream_commit == tooling_baton_commit:
+            control_publication_status = CONTROL_PUBLICATION_PUBLISHED_STATUS
+        else:
+            control_publication_status = CONTROL_PUBLICATION_INVALID_UPSTREAM_STATUS
+            problems.append(
+                "authorization:control-hardening-origin-master-not-r15-or-b15"
+            )
+        if candidate:
+            problems.append("authorization:control-hardening-candidate")
+        if commits:
+            problems.append(
+                f"authorization:control-hardening-descendant-count:{len(commits)}"
+            )
+        problems.extend(
+            _deep_replay_publication(
+                root,
+                tooling_receipt_commit=tooling_receipt_commit,
+                tooling_baton_commit=tooling_baton_commit,
+                commits=(),
+            )
+        )
+        problems.extend(
+            _control_hardening_baton_problems(
+                root,
+                tooling_receipt_commit=tooling_receipt_commit,
+                tooling_baton_commit=tooling_baton_commit,
+            )
+        )
+        return {
+            "problems": sorted(set(problems)),
+            "references": {},
+            "authority": "none",
+            "launch_authorized": False,
+            "control_publication_status": control_publication_status,
+        }
     required = 4 if phase == TOOLING_PHASE else 7 if phase == LAUNCH_PHASE else -1
     if required < 0:
         return {
@@ -1781,7 +2155,11 @@ def validate_publication_descendants(
         if len(commits) >= 4:
             smoke = _json_blob(root, commits[3], SMOKE_RECEIPT_REL)
             problems.extend(_green_receipt(smoke, SMOKE_SCHEMA, SMOKE_VERDICT, "smoke"))
-            if smoke.get("nonanalytic") is not True or smoke.get("analytic_episode_count") != 0:
+            if (
+                smoke.get("nonanalytic") is not True
+                or type(smoke.get("analytic_episode_count")) is not int
+                or smoke.get("analytic_episode_count") != 0
+            ):
                 problems.append("smoke:analytic-boundary")
             if _blob(root, commits[3], RAW_PRE_MANIFEST_REL) != _blob(
                 root, commits[2], MANIFEST_REL
@@ -1821,7 +2199,7 @@ def validate_publication_descendants(
                 state_commit=commits[4],
                 final_manifest_commit=commits[5],
             )
-            if actual_activation != expected_activation:
+            if not _exact_json_value(actual_activation, expected_activation):
                 problems.append("authorization:activation-receipt")
             references[MISSION_REL] = commits[4]
             references[MANIFEST_REL] = commits[5]
@@ -1921,7 +2299,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     )
     if args.validate is not None:
         observed = _stable_json(args.validate)
-        if observed != receipt:
+        if not _exact_json_value(observed, receipt):
             print("I135_LAUNCH_ACTIVATION_INVALID")
             return 1
         print("I135_LAUNCH_ACTIVATION_OK")

@@ -4,15 +4,20 @@ import copy
 import hashlib
 import importlib.util
 import json
+import os
 from pathlib import Path
+import shutil
 import subprocess
 import sys
+import types
 
 import pytest
 
 import scripts.mission_state as mission_state
 from scripts.mission_state import (
     CANONICAL_REPOSITORY,
+    CONTROL_HARDENING_AUTHORIZED_ACTIONS,
+    CONTROL_HARDENING_FORBIDDEN_ACTIONS,
     EMPTY_GIT_STATUS_SHA256,
     EXPECTED_SOURCE_COMMIT_PATHS,
     GENERATION_FIVE_REASON_CODE,
@@ -35,6 +40,8 @@ from scripts.mission_state import (
     GENERATION_THIRTEEN_SOURCE_COMMIT_PATHS,
     GENERATION_FOURTEEN_REASON_CODE,
     GENERATION_FOURTEEN_SOURCE_COMMIT_PATHS,
+    GENERATION_FIFTEEN_REASON_CODE,
+    GENERATION_FIFTEEN_SOURCE_COMMIT_PATHS,
     GENERATION_FOUR_REASON_CODE,
     GENERATION_FOUR_SOURCE_COMMIT_PATHS,
     GENERATION_THREE_REASON_CODE,
@@ -50,8 +57,8 @@ from scripts.mission_state import (
     TOOLING_RECEIPT_REL,
     _canonical_json,
     load_state,
-    validate_local_launch_candidate,
-    validate_state,
+    validate_local_launch_candidate as _validate_local_launch_candidate_without_fixture_integrity,
+    validate_state as _validate_state_without_fixture_integrity,
 )
 
 
@@ -59,21 +66,1076 @@ AUTH_MODULE_PATH = (
     Path(__file__).resolve().parents[1]
     / "experiments/iter135_neuroncap_blind_braking_dose_response/authorize_launch135.py"
 )
-AUTH_SPEC = importlib.util.spec_from_file_location("mission_state_launch_controller", AUTH_MODULE_PATH)
+AUTH_SPEC = importlib.util.spec_from_file_location(
+    "mission_state_launch_controller", AUTH_MODULE_PATH
+)
 assert AUTH_SPEC is not None and AUTH_SPEC.loader is not None
 launch_controller = importlib.util.module_from_spec(AUTH_SPEC)
 AUTH_SPEC.loader.exec_module(launch_controller)
 
+SYNTHETIC_GIT_DURABILITY_CONFIG = (
+    "-c",
+    "commit.gpgSign=false",
+    "-c",
+    "core.createObject=rename",
+    "-c",
+    "core.fsync=committed,reference",
+    "-c",
+    "core.fsyncMethod=fsync",
+    "-c",
+    "core.hooksPath=/dev/null",
+    "-c",
+    "gc.auto=0",
+    "-c",
+    "maintenance.auto=false",
+)
+SYNTHETIC_GIT_CONNECTIVITY_ARGUMENTS = (
+    "fsck",
+    "--connectivity-only",
+    "--strict",
+    "--no-dangling",
+)
+SYNTHETIC_GIT_COMMAND_TIMEOUT_SECONDS = 120
+SYNTHETIC_GIT_OUTPUT_BYTE_LIMIT = 8 * 1024 * 1024
+SYNTHETIC_GIT_DIAGNOSTIC_BYTE_LIMIT = 16 * 1024
+SYNTHETIC_GIT_DIAGNOSTIC_TRUNCATION_MARKER = b"...<diagnostic truncated>"
+SYNTHETIC_GIT_ENVIRONMENT = {
+    "GIT_ATTR_NOSYSTEM": "1",
+    "GIT_AUTHOR_DATE": "2000-01-01T00:00:00Z",
+    "GIT_AUTHOR_EMAIL": "sentinel-test@example.invalid",
+    "GIT_AUTHOR_NAME": "Sentinel Test",
+    "GIT_COMMITTER_DATE": "2000-01-01T00:00:00Z",
+    "GIT_COMMITTER_EMAIL": "sentinel-test@example.invalid",
+    "GIT_COMMITTER_NAME": "Sentinel Test",
+    "GIT_CONFIG_GLOBAL": os.devnull,
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_OPTIONAL_LOCKS": "0",
+    "GIT_PAGER": "cat",
+    "GIT_TERMINAL_PROMPT": "0",
+    "HOME": "/nonexistent/sentinel-synthetic-git-home",
+    "LANG": "C",
+    "LC_ALL": "C",
+    "PATH": "/usr/bin:/bin",
+    "PAGER": "cat",
+    "TZ": "UTC",
+    "XDG_CONFIG_HOME": "/nonexistent/sentinel-synthetic-git-xdg",
+}
+_SYNTHETIC_GIT_REPOSITORIES: dict[Path, tuple[int, int]] = {}
+ACTIVE_BATON_SECTION_START = (
+    "## The baton protocol (one operator at a time — hard rule; PERMANENT, BIDIRECTIONAL)"
+)
+ACTIVE_BATON_SECTION_END = "## Operating surfaces"
+
+
+def _stale_generated_handoff_problems(document: str) -> list[str]:
+    """Reject legacy generated HANDOFF bytes that can manufacture false-IDLE state."""
+
+    lines = document.splitlines()
+    problems: list[str] = []
+    if any(
+        line.startswith("Generated: ") and "scripts/make_handoff.py" in line
+        for line in lines
+    ):
+        problems.append("active-handoff:legacy-generated-header")
+    if "## GPU box quick-state (live probe)" in lines:
+        problems.append("active-handoff:legacy-live-probe-section")
+    if "GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS" in lines:
+        problems.append("active-handoff:false-idle-container-absence")
+    return problems
+
+
+def test_active_handoff_is_not_a_legacy_generated_false_idle_snapshot() -> None:
+    handoff = (Path(__file__).resolve().parents[1] / "HANDOFF.md").read_text()
+
+    assert _stale_generated_handoff_problems(handoff) == []
+
+
+@pytest.mark.parametrize(
+    ("known_bad_line", "expected_problem"),
+    [
+        (
+            "Generated: Sun Jul 19 12:00:00 UTC 2026 by scripts/make_handoff.py. "
+            "Read CONTINUITY.md first.",
+            "active-handoff:legacy-generated-header",
+        ),
+        (
+            "## GPU box quick-state (live probe)",
+            "active-handoff:legacy-live-probe-section",
+        ),
+        (
+            "GPU_RUN_STATE=IDLE_NO_DOCKER_CONTAINERS",
+            "active-handoff:false-idle-container-absence",
+        ),
+    ],
+)
+def test_active_handoff_gate_fires_on_known_bad_generated_bytes(
+    known_bad_line: str,
+    expected_problem: str,
+) -> None:
+    handoff = (Path(__file__).resolve().parents[1] / "HANDOFF.md").read_text()
+
+    assert expected_problem in _stale_generated_handoff_problems(
+        f"{handoff.rstrip()}\n{known_bad_line}\n"
+    )
+
+
+def _handoff_mission_contract_problems(document: str) -> list[str]:
+    """Bind the active HANDOFF action bullets to the canonical preregistration contract."""
+
+    start_marker = "## Canonical mission state (`MISSION_STATE.json`)"
+    end_marker = "## Publication sequence"
+    if document.count(start_marker) != 1 or document.count(end_marker) != 1:
+        return ["active-handoff:mission-contract-section"]
+    start = document.index(start_marker)
+    end = document.index(end_marker, start)
+    section_lines = document[start:end].splitlines()
+    authorized_marker = "- Authorized now:"
+    forbidden_marker = "- Forbidden now:"
+    if (
+        section_lines.count(authorized_marker) != 1
+        or section_lines.count(forbidden_marker) != 1
+    ):
+        return ["active-handoff:mission-contract-structure"]
+    authorized_index = section_lines.index(authorized_marker)
+    forbidden_index = section_lines.index(forbidden_marker)
+    if authorized_index >= forbidden_index:
+        return ["active-handoff:mission-contract-structure"]
+
+    def parse_action_block(lines: list[str]) -> list[str] | None:
+        actions: list[str] = []
+        for line in lines:
+            if line.startswith("  - "):
+                actions.append(line[4:].strip())
+            elif line.startswith("    ") and actions:
+                actions[-1] = f"{actions[-1]} {line.strip()}"
+            elif line.strip():
+                return None
+        return [
+            " ".join(action.replace("`", "").rstrip(";.").split())
+            for action in actions
+        ]
+
+    observed_authorized = parse_action_block(
+        section_lines[authorized_index + 1 : forbidden_index]
+    )
+    observed_forbidden = parse_action_block(section_lines[forbidden_index + 1 :])
+    if observed_authorized is None or observed_forbidden is None:
+        return ["active-handoff:mission-contract-structure"]
+
+    problems: list[str] = []
+    for index, action in enumerate(PREREGISTERED_AUTHORIZED_ACTIONS):
+        if (
+            index >= len(observed_authorized)
+            or observed_authorized[index] != " ".join(action.split())
+        ):
+            problems.append(f"active-handoff:authorized-action:{index}")
+    for index in range(
+        len(PREREGISTERED_AUTHORIZED_ACTIONS),
+        len(observed_authorized),
+    ):
+        problems.append(f"active-handoff:authorized-action:extra:{index}")
+    for index, action in enumerate(PREREGISTERED_FORBIDDEN_ACTIONS):
+        if (
+            index >= len(observed_forbidden)
+            or observed_forbidden[index] != " ".join(action.split())
+        ):
+            problems.append(f"active-handoff:forbidden-action:{index}")
+    for index in range(
+        len(PREREGISTERED_FORBIDDEN_ACTIONS),
+        len(observed_forbidden),
+    ):
+        problems.append(f"active-handoff:forbidden-action:extra:{index}")
+    return problems
+
+
+def test_active_handoff_reproduces_exact_preregistration_action_contract() -> None:
+    handoff = (Path(__file__).resolve().parents[1] / "HANDOFF.md").read_text()
+
+    assert _handoff_mission_contract_problems(handoff) == []
+
+
+def test_active_handoff_contract_gate_fires_when_hermetic_boundary_is_removed() -> None:
+    handoff = (Path(__file__).resolve().parents[1] / "HANDOFF.md").read_text()
+    mutated = handoff.replace("hermetic CI controls", "CI controls")
+
+    assert _handoff_mission_contract_problems(mutated) == [
+        "active-handoff:forbidden-action:0",
+        "active-handoff:forbidden-action:1",
+    ]
+
+
+def test_active_handoff_contract_gate_fires_on_extra_authorized_action() -> None:
+    handoff = (Path(__file__).resolve().parents[1] / "HANDOFF.md").read_text()
+    mutated = handoff.replace(
+        "- Forbidden now:",
+        "  - launch arbitrary remote workload now;\n- Forbidden now:",
+        1,
+    )
+
+    assert _handoff_mission_contract_problems(mutated) == [
+        "active-handoff:authorized-action:extra:2"
+    ]
+
+
+def _active_baton_instruction_problems(document: str) -> list[str]:
+    """Reject active handoff instructions that can recreate a false-IDLE claim."""
+
+    if (
+        document.count(ACTIVE_BATON_SECTION_START) != 1
+        or document.count(ACTIVE_BATON_SECTION_END) != 1
+    ):
+        return ["active-baton:section-structure"]
+    start = document.index(ACTIVE_BATON_SECTION_START)
+    end = document.index(ACTIVE_BATON_SECTION_END, start)
+    section = document[start:end]
+    problems: list[str] = []
+    legacy_generator_commands = (
+        "runs `python3 scripts/make_handoff.py`",
+        "run `python3 scripts/make_handoff.py > HANDOFF.md`",
+    )
+    if any(command in section for command in legacy_generator_commands):
+        problems.append("active-baton:legacy-generator-command")
+    if "whether the GPU box is IDLE or a run is IN FLIGHT" in section:
+        problems.append("active-baton:binary-idle-in-flight-rule")
+    return problems
+
+
+def test_active_baton_instructions_do_not_infer_a_binary_runtime_state() -> None:
+    continuity = (Path(__file__).resolve().parents[1] / "CONTINUITY.md").read_text()
+
+    assert _active_baton_instruction_problems(continuity) == []
+
+
+@pytest.mark.parametrize(
+    ("known_bad_instruction", "expected_problem"),
+    [
+        (
+            "The incoming operator runs `python3 scripts/make_handoff.py`.\n",
+            "active-baton:legacy-generator-command",
+        ),
+        (
+            "State whether the GPU box is IDLE or a run is IN FLIGHT.\n",
+            "active-baton:binary-idle-in-flight-rule",
+        ),
+    ],
+)
+def test_active_baton_instruction_gate_fires_on_known_bad_rules(
+    known_bad_instruction: str,
+    expected_problem: str,
+) -> None:
+    continuity = (Path(__file__).resolve().parents[1] / "CONTINUITY.md").read_text()
+    mutated = continuity.replace(
+        ACTIVE_BATON_SECTION_END,
+        known_bad_instruction + ACTIVE_BATON_SECTION_END,
+        1,
+    )
+
+    assert expected_problem in _active_baton_instruction_problems(mutated)
+
+
+def _controller_source_for_publication(
+    *,
+    generation: int,
+    supersedes_receipt_commit: str,
+    recovery_parent: str,
+    reason_code: str,
+) -> str:
+    """Rebind the live controller's one active publication block for a historical fixture."""
+
+    source = AUTH_MODULE_PATH.read_text()
+    active_block = (
+        '    "generation": 15,\n'
+        '    "supersedes_receipt_commit": GENERATION_FOURTEEN_RECEIPT_COMMIT,\n'
+        '    "recovery_parent": GENERATION_FOURTEEN_BATON_COMMIT,\n'
+        '    "reason_code": GENERATION_FIFTEEN_REASON,\n'
+    )
+    if source.count(active_block) != 1:
+        raise AssertionError("live controller active publication block is not exact")
+    fixture_block = (
+        f'    "generation": {generation},\n'
+        f'    "supersedes_receipt_commit": "{supersedes_receipt_commit}",\n'
+        f'    "recovery_parent": "{recovery_parent}",\n'
+        f'    "reason_code": "{reason_code}",\n'
+    )
+    return source.replace(active_block, fixture_block)
+
+
+def _synthetic_git_environment() -> dict[str, str]:
+    return dict(SYNTHETIC_GIT_ENVIRONMENT)
+
+
+def _bounded_git_diagnostic(value: bytes | str | None) -> str:
+    if value is None:
+        return ""
+    raw = value.encode("utf-8", errors="replace") if isinstance(value, str) else value
+    encoded = raw.decode("utf-8", errors="replace").encode("utf-8")
+    if len(encoded) > SYNTHETIC_GIT_DIAGNOSTIC_BYTE_LIMIT:
+        retained_byte_count = (
+            SYNTHETIC_GIT_DIAGNOSTIC_BYTE_LIMIT
+            - len(SYNTHETIC_GIT_DIAGNOSTIC_TRUNCATION_MARKER)
+        )
+        retained_text = encoded[:retained_byte_count].decode(
+            "utf-8",
+            errors="ignore",
+        )
+        return (
+            retained_text
+            + SYNTHETIC_GIT_DIAGNOSTIC_TRUNCATION_MARKER.decode("ascii")
+        )
+    return encoded.decode("utf-8")
+
+
+def _synthetic_git_failure(
+    repo: Path,
+    command: tuple[str, ...],
+    *,
+    return_code: int | str,
+    stdout: bytes | str | None,
+    stderr: bytes | str | None,
+) -> AssertionError:
+    try:
+        free_bytes: int | str = shutil.disk_usage(repo).free
+    except OSError as diagnostic_error:
+        free_bytes = f"unavailable:{type(diagnostic_error).__name__}"
+    try:
+        filesystem = os.statvfs(repo)
+        free_inodes: int | str = filesystem.f_favail
+    except OSError as diagnostic_error:
+        free_inodes = f"unavailable:{type(diagnostic_error).__name__}"
+    return AssertionError(
+        f"synthetic Git command failed: cwd={str(repo)!r} argv={list(command)!r} "
+        f"return_code={return_code!r} free_bytes={free_bytes!r} "
+        f"free_inodes={free_inodes!r} stdout={_bounded_git_diagnostic(stdout)!r} "
+        f"stderr={_bounded_git_diagnostic(stderr)!r}"
+    )
+
+
+def _run_synthetic_git(repo: Path, *arguments: str) -> bytes:
+    effective_arguments = arguments
+    if arguments and arguments[0] == "init":
+        effective_arguments = (
+            "init",
+            "--object-format=sha1",
+            "--template=",
+            *arguments[1:],
+        )
+    command = (
+        "/usr/bin/git",
+        *SYNTHETIC_GIT_DURABILITY_CONFIG,
+        *effective_arguments,
+    )
+    try:
+        completed = subprocess.run(
+            command,
+            cwd=repo,
+            check=True,
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            env=_synthetic_git_environment(),
+            timeout=SYNTHETIC_GIT_COMMAND_TIMEOUT_SECONDS,
+        )
+    except subprocess.CalledProcessError as error:
+        raise _synthetic_git_failure(
+            repo,
+            command,
+            return_code=error.returncode,
+            stdout=error.stdout,
+            stderr=error.stderr,
+        ) from error
+    except subprocess.TimeoutExpired as error:
+        raise _synthetic_git_failure(
+            repo,
+            command,
+            return_code=f"timeout_after_{SYNTHETIC_GIT_COMMAND_TIMEOUT_SECONDS}s",
+            stdout=error.stdout,
+            stderr=error.stderr,
+        ) from error
+    except OSError as error:
+        raise _synthetic_git_failure(
+            repo,
+            command,
+            return_code=f"os_error:{type(error).__name__}",
+            stdout=None,
+            stderr=str(error),
+        ) from error
+    stdout = completed.stdout or b""
+    stderr = completed.stderr or b""
+    if not isinstance(stdout, bytes) or not isinstance(stderr, bytes):
+        raise _synthetic_git_failure(
+            repo,
+            command,
+            return_code="output_contract_violation",
+            stdout=stdout,
+            stderr=stderr,
+        )
+    if stderr:
+        raise _synthetic_git_failure(
+            repo,
+            command,
+            return_code="unexpected_success_stderr",
+            stdout=stdout,
+            stderr=stderr,
+        )
+    if len(stdout) > SYNTHETIC_GIT_OUTPUT_BYTE_LIMIT:
+        raise _synthetic_git_failure(
+            repo,
+            command,
+            return_code="output_contract_violation",
+            stdout=stdout,
+            stderr=stderr,
+        )
+    return stdout
+
+
+def _register_synthetic_git_repository(repo: Path) -> None:
+    """Capture the physical repository identity before Git can create metadata."""
+
+    physical_repo = repo.resolve(strict=True)
+    repository_stat = physical_repo.stat()
+    if not physical_repo.is_dir():
+        raise AssertionError(f"synthetic Git repository is not a directory: {repo}")
+    identity = (repository_stat.st_dev, repository_stat.st_ino)
+    previous_identity = _SYNTHETIC_GIT_REPOSITORIES.get(physical_repo)
+    if previous_identity is not None and previous_identity != identity:
+        raise AssertionError(
+            f"synthetic Git repository identity changed before registration: {physical_repo}"
+        )
+    _SYNTHETIC_GIT_REPOSITORIES[physical_repo] = identity
+
 
 def _git(repo: Path, *arguments: str) -> bytes:
-    return subprocess.run(
-        ("/usr/bin/git", *arguments),
-        cwd=repo,
-        check=True,
-        stdin=subprocess.DEVNULL,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-    ).stdout
+    if arguments and arguments[0] == "init":
+        _register_synthetic_git_repository(repo)
+    output = _run_synthetic_git(repo, *arguments)
+    if arguments and arguments[0] == "commit":
+        _run_synthetic_git(repo, *SYNTHETIC_GIT_CONNECTIVITY_ARGUMENTS)
+    return output
+
+
+def _assert_synthetic_git_connectivity(repo: Path) -> None:
+    """Reject an incomplete fixture graph before the policy validator can inspect it."""
+
+    _run_synthetic_git(repo, *SYNTHETIC_GIT_CONNECTIVITY_ARGUMENTS)
+
+
+def validate_state(
+    state: dict,
+    repo: Path = mission_state.REPO_ROOT,
+) -> list[str]:
+    """Gate synthetic Git connectivity separately from mission-policy validation."""
+
+    if repo.resolve() != mission_state.REPO_ROOT.resolve() and (repo / ".git").is_dir():
+        _assert_synthetic_git_connectivity(repo)
+    return _validate_state_without_fixture_integrity(state, repo)
+
+
+def validate_local_launch_candidate(
+    repo: Path = mission_state.REPO_ROOT,
+) -> dict:
+    """Gate synthetic Git connectivity before local candidate-policy validation."""
+
+    if repo.resolve() != mission_state.REPO_ROOT.resolve() and (repo / ".git").is_dir():
+        _assert_synthetic_git_connectivity(repo)
+    return _validate_local_launch_candidate_without_fixture_integrity(repo)
+
+
+def _remove_synthetic_git_metadata(root: Path) -> None:
+    """Bound per-test Git-object retention without deleting fixture worktree evidence."""
+
+    for current_root, directories, files in os.walk(root, topdown=True):
+        if ".git" in directories:
+            git_directory = Path(current_root) / ".git"
+            if git_directory.is_symlink():
+                git_directory.unlink()
+            else:
+                shutil.rmtree(git_directory)
+            directories.remove(".git")
+        if ".git" in files:
+            (Path(current_root) / ".git").unlink()
+
+
+def _emit_synthetic_git_failure_forensics(repo: Path) -> None:
+    print(f"failed synthetic Git repository diagnostics: {repo}", file=sys.stderr)
+    try:
+        _assert_synthetic_git_connectivity(repo)
+    except AssertionError as error:
+        print(_bounded_git_diagnostic(str(error)), file=sys.stderr)
+
+
+def _finalize_synthetic_git_repositories(
+    tmp_root: Path,
+    repositories: dict[Path, tuple[int, int]],
+    *,
+    failed: bool,
+) -> None:
+    root = tmp_root.resolve(strict=True)
+    errors: list[str] = []
+    for repo, expected_identity in sorted(repositories.items()):
+        try:
+            physical_repo = repo.resolve(strict=True)
+            if physical_repo != root and not physical_repo.is_relative_to(root):
+                raise AssertionError(
+                    f"synthetic Git repository escaped tmp_path: {repo}"
+                )
+            if physical_repo != repo:
+                raise AssertionError(
+                    f"synthetic Git repository path was replaced: {repo}"
+                )
+            repository_stat = physical_repo.stat()
+            observed_identity = (repository_stat.st_dev, repository_stat.st_ino)
+            if observed_identity != expected_identity:
+                raise AssertionError(
+                    "synthetic Git repository identity was replaced: "
+                    f"{repo} expected={expected_identity!r} "
+                    f"observed={observed_identity!r}"
+                )
+        except Exception as error:
+            errors.append(f"{repo}: validation: {type(error).__name__}: {error}")
+            continue
+        if failed:
+            try:
+                _emit_synthetic_git_failure_forensics(physical_repo)
+            except Exception as error:
+                errors.append(
+                    f"{repo}: forensics: {type(error).__name__}: {error}"
+                )
+        try:
+            metadata = physical_repo / ".git"
+            if metadata.is_symlink():
+                metadata.unlink()
+            elif metadata.is_dir():
+                physical_metadata = metadata.resolve(strict=True)
+                if not physical_metadata.is_relative_to(physical_repo):
+                    raise AssertionError(
+                        f"synthetic Git metadata escaped repository: {metadata}"
+                    )
+                shutil.rmtree(metadata)
+            elif metadata.is_file():
+                metadata.unlink()
+        except Exception as error:
+            errors.append(f"{repo}: cleanup: {type(error).__name__}: {error}")
+    if errors:
+        raise AssertionError(
+            "synthetic Git repository finalization failed after processing all "
+            "registrations:\n- "
+            + "\n- ".join(errors)
+        )
+
+
+@pytest.fixture(autouse=True)
+def _bound_synthetic_git_storage(
+    tmp_path: Path,
+    request: pytest.FixtureRequest,
+):
+    """Emit bounded failure diagnostics, then discard every isolated object database."""
+
+    failures_before = request.session.testsfailed
+    _SYNTHETIC_GIT_REPOSITORIES.clear()
+    yield
+    try:
+        _finalize_synthetic_git_repositories(
+            tmp_path,
+            dict(_SYNTHETIC_GIT_REPOSITORIES),
+            failed=request.session.testsfailed > failures_before,
+        )
+    finally:
+        _SYNTHETIC_GIT_REPOSITORIES.clear()
+
+
+def test_synthetic_git_cleanup_bounds_metadata_and_preserves_worktree(
+    tmp_path: Path,
+) -> None:
+    nested = tmp_path / "nested"
+    metadata = nested / ".git" / "objects"
+    metadata.mkdir(parents=True)
+    (metadata / "retained-until-teardown").write_bytes(b"synthetic object\n")
+    worktree = nested / "MISSION_STATE.json"
+    worktree.write_text("{}\n")
+    linked = tmp_path / "linked-worktree"
+    linked.mkdir()
+    (linked / ".git").write_text("gitdir: /nonexistent/synthetic.git\n")
+    linked_marker = linked / "HANDOFF.md"
+    linked_marker.write_text("preserve\n")
+
+    _remove_synthetic_git_metadata(tmp_path)
+
+    assert not (nested / ".git").exists()
+    assert worktree.read_text() == "{}\n"
+    assert not (linked / ".git").exists()
+    assert linked_marker.read_text() == "preserve\n"
+
+
+def test_failed_synthetic_git_repository_emits_forensics_before_cleanup(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    _git(tmp_path, "init", "-b", "master")
+    _git(tmp_path, "config", "user.name", "Sentinel Test")
+    _git(tmp_path, "config", "user.email", "sentinel-test@example.invalid")
+    marker = tmp_path / "reachable.txt"
+    marker.write_text("reachable object\n")
+    _git(tmp_path, "add", marker.name)
+    _git(tmp_path, "commit", "-m", "reachable object for failed-test forensics")
+    blob = _git(tmp_path, "rev-parse", f"HEAD:{marker.name}").decode().strip()
+    blob_object = tmp_path / ".git" / "objects" / blob[:2] / blob[2:]
+    assert blob_object.is_file()
+    blob_object.unlink()
+
+    _finalize_synthetic_git_repositories(
+        tmp_path,
+        dict(_SYNTHETIC_GIT_REPOSITORIES),
+        failed=True,
+    )
+
+    assert not (tmp_path / ".git").exists()
+    diagnostics = capsys.readouterr().err
+    assert "failed synthetic Git repository diagnostics" in diagnostics
+    assert "fsck" in diagnostics
+    assert "missing" in diagnostics
+    assert blob in diagnostics
+
+
+def test_partial_synthetic_git_initialization_is_registered_before_execution_and_cleaned(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    physical_repo = tmp_path.resolve(strict=True)
+
+    def fail_after_creating_metadata(command, **_kwargs):
+        assert physical_repo in _SYNTHETIC_GIT_REPOSITORIES
+        (tmp_path / ".git").mkdir()
+        raise subprocess.CalledProcessError(
+            128,
+            command,
+            output=b"",
+            stderr=b"fatal: injected partial initialization\n",
+        )
+
+    monkeypatch.setattr(subprocess, "run", fail_after_creating_metadata)
+
+    with pytest.raises(AssertionError, match="partial initialization"):
+        _git(tmp_path, "init", "-b", "master")
+
+    assert (tmp_path / ".git").is_dir()
+    _finalize_synthetic_git_repositories(
+        tmp_path,
+        dict(_SYNTHETIC_GIT_REPOSITORIES),
+        failed=False,
+    )
+    assert not (tmp_path / ".git").exists()
+
+
+def test_synthetic_git_finalizer_attempts_all_safe_cleanup_before_raising(
+    tmp_path: Path,
+) -> None:
+    missing = tmp_path / "a-missing"
+    missing.mkdir()
+    missing_stat = missing.stat()
+    missing_identity = (missing_stat.st_dev, missing_stat.st_ino)
+    replaced = tmp_path / "b-replaced"
+    (replaced / ".git").mkdir(parents=True)
+    replaced_stat = replaced.stat()
+    replaced_identity = (replaced_stat.st_dev, replaced_stat.st_ino)
+    parked_replaced = tmp_path / "parked-replaced"
+    replaced.rename(parked_replaced)
+    (replaced / ".git").mkdir(parents=True)
+    valid = tmp_path / "z-valid"
+    (valid / ".git").mkdir(parents=True)
+    valid_stat = valid.stat()
+    valid_identity = (valid_stat.st_dev, valid_stat.st_ino)
+    shutil.rmtree(missing)
+
+    with pytest.raises(AssertionError, match="processing all registrations") as raised:
+        _finalize_synthetic_git_repositories(
+            tmp_path,
+            {
+                missing: missing_identity,
+                replaced: replaced_identity,
+                valid: valid_identity,
+            },
+            failed=False,
+        )
+
+    assert "a-missing" in str(raised.value)
+    assert "b-replaced" in str(raised.value)
+    assert (replaced / ".git").is_dir()
+    assert not (valid / ".git").exists()
+    shutil.rmtree(replaced)
+    shutil.rmtree(parked_replaced)
+
+
+def test_synthetic_git_finalizer_cleans_metadata_when_forensics_raises(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    _git(tmp_path, "init", "-b", "master")
+
+    def fail_forensics(_repo: Path) -> None:
+        raise RuntimeError("injected forensic failure")
+
+    monkeypatch.setattr(
+        sys.modules[__name__],
+        "_emit_synthetic_git_failure_forensics",
+        fail_forensics,
+    )
+
+    with pytest.raises(AssertionError, match="injected forensic failure") as raised:
+        _finalize_synthetic_git_repositories(
+            tmp_path,
+            dict(_SYNTHETIC_GIT_REPOSITORIES),
+            failed=True,
+        )
+
+    assert "forensics: RuntimeError" in str(raised.value)
+    assert not (tmp_path / ".git").exists()
+
+
+def test_synthetic_git_finalizer_does_not_follow_a_replaced_repository_symlink(
+    tmp_path: Path,
+) -> None:
+    repo = tmp_path / "repo"
+    (repo / ".git").mkdir(parents=True)
+    repo_stat = repo.stat()
+    expected_identity = (repo_stat.st_dev, repo_stat.st_ino)
+    parked_repo = tmp_path / "parked-repo"
+    repo.rename(parked_repo)
+    external = tmp_path.parent / f"{tmp_path.name}-external-replacement"
+    external.mkdir()
+    marker = external / "must-survive"
+    marker.write_text("external replacement\n")
+    repo.symlink_to(external, target_is_directory=True)
+
+    with pytest.raises(AssertionError, match="escaped tmp_path|path was replaced"):
+        _finalize_synthetic_git_repositories(
+            tmp_path,
+            {repo: expected_identity},
+            failed=False,
+        )
+
+    assert marker.read_text() == "external replacement\n"
+    assert (parked_repo / ".git").is_dir()
+    repo.unlink()
+    shutil.rmtree(parked_repo)
+    shutil.rmtree(external)
+
+
+def test_synthetic_git_finalizer_does_not_clean_a_replaced_directory_identity(
+    tmp_path: Path,
+) -> None:
+    repo = tmp_path / "repo"
+    (repo / ".git").mkdir(parents=True)
+    repo_stat = repo.stat()
+    expected_identity = (repo_stat.st_dev, repo_stat.st_ino)
+    parked_repo = tmp_path / "parked-repo"
+    repo.rename(parked_repo)
+    replacement_metadata = repo / ".git"
+    replacement_metadata.mkdir(parents=True)
+    replacement_marker = replacement_metadata / "must-survive"
+    replacement_marker.write_text("replacement metadata\n")
+
+    with pytest.raises(AssertionError, match="identity was replaced"):
+        _finalize_synthetic_git_repositories(
+            tmp_path,
+            {repo: expected_identity},
+            failed=False,
+        )
+
+    assert replacement_marker.read_text() == "replacement metadata\n"
+    assert (parked_repo / ".git").is_dir()
+    shutil.rmtree(repo)
+    shutil.rmtree(parked_repo)
+
+
+def test_synthetic_git_finalizer_unlinks_metadata_symlink_without_following_it(
+    tmp_path: Path,
+) -> None:
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    repo_stat = repo.stat()
+    expected_identity = (repo_stat.st_dev, repo_stat.st_ino)
+    external = tmp_path.parent / f"{tmp_path.name}-external-metadata"
+    external.mkdir()
+    marker = external / "must-survive"
+    marker.write_text("external metadata\n")
+    (repo / ".git").symlink_to(external, target_is_directory=True)
+
+    _finalize_synthetic_git_repositories(
+        tmp_path,
+        {repo: expected_identity},
+        failed=False,
+    )
+
+    assert not (repo / ".git").exists()
+    assert marker.read_text() == "external metadata\n"
+    shutil.rmtree(external)
+
+
+def test_synthetic_git_cleanup_unlinks_metadata_symlink_without_following_it(
+    tmp_path: Path,
+) -> None:
+    external = tmp_path.parent / f"{tmp_path.name}-external-git"
+    external.mkdir()
+    marker = external / "must-survive"
+    marker.write_text("external metadata\n")
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    (repo / ".git").symlink_to(external, target_is_directory=True)
+
+    _remove_synthetic_git_metadata(tmp_path)
+
+    assert not (repo / ".git").exists()
+    assert marker.read_text() == "external metadata\n"
+    shutil.rmtree(external)
+
+
+def test_synthetic_git_failure_surfaces_retained_diagnostics(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def fail(*_args, **_kwargs):
+        raise subprocess.CalledProcessError(
+            128,
+            ("/usr/bin/git", "commit"),
+            output=b"partial stdout\n",
+            stderr=b"fatal: injected resource failure\n",
+        )
+
+    monkeypatch.setattr(subprocess, "run", fail)
+
+    with pytest.raises(AssertionError) as raised:
+        _git(tmp_path, "commit")
+
+    message = str(raised.value)
+    assert f"cwd={str(tmp_path)!r}" in message
+    assert "return_code=128" in message
+    assert "free_bytes=" in message
+    assert "free_inodes=" in message
+    assert "partial stdout" in message
+    assert "fatal: injected resource failure" in message
+
+
+def test_synthetic_git_success_output_limit_is_exact(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    exact_output = b"x" * SYNTHETIC_GIT_OUTPUT_BYTE_LIMIT
+    responses = iter((exact_output, exact_output + b"x"))
+
+    def succeed(command, **_kwargs):
+        return subprocess.CompletedProcess(
+            command,
+            0,
+            stdout=next(responses),
+            stderr=b"",
+        )
+
+    monkeypatch.setattr(subprocess, "run", succeed)
+
+    assert _run_synthetic_git(tmp_path, "status") == exact_output
+    with pytest.raises(AssertionError, match="output_contract_violation"):
+        _run_synthetic_git(tmp_path, "status")
+
+
+def test_synthetic_git_rejects_stderr_from_a_successful_command(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def succeed_with_warning(command, **_kwargs):
+        return subprocess.CompletedProcess(
+            command,
+            0,
+            stdout=b"",
+            stderr=b"warning: core.fsync setting was ignored\n",
+        )
+
+    monkeypatch.setattr(subprocess, "run", succeed_with_warning)
+
+    with pytest.raises(AssertionError, match="unexpected_success_stderr") as raised:
+        _run_synthetic_git(tmp_path, "status")
+
+    assert "core.fsync setting was ignored" in str(raised.value)
+
+
+def test_synthetic_git_diagnostic_limit_includes_the_truncation_marker() -> None:
+    exact = b"x" * SYNTHETIC_GIT_DIAGNOSTIC_BYTE_LIMIT
+    over = exact + b"x"
+
+    assert _bounded_git_diagnostic(exact).encode() == exact
+    bounded = _bounded_git_diagnostic(over).encode()
+    assert len(bounded) == SYNTHETIC_GIT_DIAGNOSTIC_BYTE_LIMIT
+    assert bounded.endswith(SYNTHETIC_GIT_DIAGNOSTIC_TRUNCATION_MARKER)
+    assert bounded.startswith(
+        b"x"
+        * (
+            SYNTHETIC_GIT_DIAGNOSTIC_BYTE_LIMIT
+            - len(SYNTHETIC_GIT_DIAGNOSTIC_TRUNCATION_MARKER)
+        )
+    )
+    hostile_invalid = _bounded_git_diagnostic(
+        b"\xff" * SYNTHETIC_GIT_DIAGNOSTIC_BYTE_LIMIT
+    ).encode("utf-8")
+    assert len(hostile_invalid) <= SYNTHETIC_GIT_DIAGNOSTIC_BYTE_LIMIT
+    assert hostile_invalid.endswith(SYNTHETIC_GIT_DIAGNOSTIC_TRUNCATION_MARKER)
+    multibyte = _bounded_git_diagnostic("€".encode() * 6_000).encode("utf-8")
+    assert len(multibyte) <= SYNTHETIC_GIT_DIAGNOSTIC_BYTE_LIMIT
+    assert multibyte.endswith(SYNTHETIC_GIT_DIAGNOSTIC_TRUNCATION_MARKER)
+
+
+@pytest.mark.parametrize(
+    ("error", "expected"),
+    [
+        (
+            subprocess.TimeoutExpired(
+                ("/usr/bin/git", "fsck"),
+                SYNTHETIC_GIT_COMMAND_TIMEOUT_SECONDS,
+                output=b"partial timeout output\n",
+                stderr=b"timeout diagnostic\n",
+            ),
+            f"timeout_after_{SYNTHETIC_GIT_COMMAND_TIMEOUT_SECONDS}s",
+        ),
+        (OSError("injected exec failure"), "os_error:OSError"),
+    ],
+)
+def test_synthetic_git_timeout_and_os_errors_are_diagnostic(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    error: BaseException,
+    expected: str,
+) -> None:
+    def fail(*_args, **_kwargs):
+        raise error
+
+    monkeypatch.setattr(subprocess, "run", fail)
+
+    with pytest.raises(AssertionError) as raised:
+        _git(tmp_path, "status")
+
+    message = str(raised.value)
+    assert expected in message
+    assert f"cwd={str(tmp_path)!r}" in message
+    if isinstance(error, subprocess.TimeoutExpired):
+        assert "partial timeout output" in message
+        assert "timeout diagnostic" in message
+
+
+def test_synthetic_git_commands_force_object_and_reference_durability(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    observed: list[tuple[str, ...]] = []
+    observed_environments: list[dict[str, str]] = []
+
+    def succeed(command, **kwargs):
+        observed.append(tuple(command))
+        observed_environments.append(kwargs["env"])
+        return subprocess.CompletedProcess(command, 0, stdout=b"", stderr=b"")
+
+    monkeypatch.setenv("GIT_DIR", "/hostile/inherited/git-dir")
+    monkeypatch.setenv("GIT_CONFIG_COUNT", "1")
+    monkeypatch.setenv("GIT_CONFIG_KEY_0", "core.hooksPath")
+    monkeypatch.setenv("GIT_CONFIG_VALUE_0", "/hostile/hooks")
+    monkeypatch.setenv("GIT_CONFIG_PARAMETERS", "'core.hooksPath'='/hostile/hooks'")
+    monkeypatch.setenv("GIT_DEFAULT_HASH", "sha256")
+    monkeypatch.setenv("GIT_EXEC_PATH", "/hostile/git-core")
+    monkeypatch.setenv("GIT_TEMPLATE_DIR", "/hostile/templates")
+    monkeypatch.setenv("LD_PRELOAD", "/hostile/library.so")
+    monkeypatch.setattr(subprocess, "run", succeed)
+
+    assert _git(tmp_path, "status", "--porcelain=v1") == b""
+    assert observed == [
+        (
+            "/usr/bin/git",
+            *SYNTHETIC_GIT_DURABILITY_CONFIG,
+            "status",
+            "--porcelain=v1",
+        )
+    ]
+    assert observed_environments == [SYNTHETIC_GIT_ENVIRONMENT]
+    assert "GIT_DIR" not in observed_environments[0]
+    assert "GIT_CONFIG_COUNT" not in observed_environments[0]
+    assert "GIT_CONFIG_KEY_0" not in observed_environments[0]
+    assert "GIT_CONFIG_VALUE_0" not in observed_environments[0]
+    assert "GIT_CONFIG_PARAMETERS" not in observed_environments[0]
+    assert "GIT_DEFAULT_HASH" not in observed_environments[0]
+    assert "GIT_EXEC_PATH" not in observed_environments[0]
+    assert "GIT_TEMPLATE_DIR" not in observed_environments[0]
+    assert "LD_PRELOAD" not in observed_environments[0]
+
+
+def test_synthetic_git_initialization_forces_sha1_without_host_templates(
+    tmp_path: Path,
+) -> None:
+    _git(tmp_path, "init", "-b", "master")
+
+    assert _git(tmp_path, "rev-parse", "--show-object-format") == b"sha1\n"
+    assert not (tmp_path / ".git" / "hooks").exists()
+
+
+def test_synthetic_git_commit_checks_graph_connectivity_before_returning(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    observed: list[tuple[str, ...]] = []
+
+    def corrupt_after_commit(command, **_kwargs):
+        observed.append(tuple(command))
+        if tuple(command[-len(SYNTHETIC_GIT_CONNECTIVITY_ARGUMENTS) :]) == (
+            SYNTHETIC_GIT_CONNECTIVITY_ARGUMENTS
+        ):
+            raise subprocess.CalledProcessError(
+                2,
+                command,
+                output=b"",
+                stderr=b"missing commit object\n",
+            )
+        return subprocess.CompletedProcess(command, 0, stdout=b"", stderr=b"")
+
+    monkeypatch.setattr(subprocess, "run", corrupt_after_commit)
+
+    with pytest.raises(AssertionError, match="missing commit object"):
+        _git(tmp_path, "commit", "-m", "synthetic commit")
+
+    assert observed == [
+        (
+            "/usr/bin/git",
+            *SYNTHETIC_GIT_DURABILITY_CONFIG,
+            "commit",
+            "-m",
+            "synthetic commit",
+        ),
+        (
+            "/usr/bin/git",
+            *SYNTHETIC_GIT_DURABILITY_CONFIG,
+            *SYNTHETIC_GIT_CONNECTIVITY_ARGUMENTS,
+        ),
+    ]
+
+
+def test_synthetic_git_connectivity_gate_rejects_a_missing_reachable_parent(
+    tmp_path: Path,
+) -> None:
+    _git(tmp_path, "init", "-b", "master")
+    _git(tmp_path, "config", "user.name", "Sentinel Test")
+    _git(tmp_path, "config", "user.email", "sentinel-test@example.invalid")
+    marker = tmp_path / "marker.txt"
+    marker.write_text("parent\n")
+    _git(tmp_path, "add", marker.name)
+    _git(tmp_path, "commit", "-m", "reachable parent")
+    marker.write_text("child\n")
+    _git(tmp_path, "add", marker.name)
+    _git(tmp_path, "commit", "-m", "reachable child")
+    parent = _git(tmp_path, "rev-parse", "HEAD^").decode().strip()
+    parent_object = tmp_path / ".git" / "objects" / parent[:2] / parent[2:]
+    assert parent_object.is_file()
+    parent_object.unlink()
+
+    with pytest.raises(AssertionError) as raised:
+        validate_state({}, tmp_path)
+
+    message = str(raised.value)
+    assert "fsck" in message
+    assert parent in message
 
 
 def _complete_tooling_receipt(receipt: dict) -> dict:
@@ -165,15 +1227,45 @@ def _structural_launch_controller(
     upstream_commit: str,
     candidate: bool = False,
 ) -> dict:
-    del tooling_receipt_commit, tooling_baton_commit
     problems: list[str] = []
+    if phase == "CONTROL_HARDENING_REQUIRED":
+        if upstream_commit == tooling_receipt_commit:
+            control_publication_status = (
+                mission_state.CONTROL_PUBLICATION_CANDIDATE_STATUS
+            )
+        elif upstream_commit == tooling_baton_commit:
+            control_publication_status = (
+                mission_state.CONTROL_PUBLICATION_PUBLISHED_STATUS
+            )
+        else:
+            control_publication_status = (
+                mission_state.CONTROL_PUBLICATION_INVALID_UPSTREAM_STATUS
+            )
+            problems.append(
+                "authorization:control-hardening-origin-master-not-r15-or-b15"
+            )
+        if candidate:
+            problems.append("authorization:control-hardening-candidate")
+        if descendants:
+            problems.append(
+                f"authorization:control-hardening-descendant-count:{len(descendants)}"
+            )
+        return {
+            "problems": sorted(set(problems)),
+            "references": {},
+            "authority": "none",
+            "launch_authorized": False,
+            "control_publication_status": control_publication_status,
+        }
     expected_count = 7 if phase == "LAUNCH_AUTHORIZED" else 4
     if phase == "LAUNCH_AUTHORIZED" and len(descendants) != expected_count:
         problems.append(f"authorization:launch-descendant-count:{len(descendants)}")
     expected_upstream = (
         descendants[3]
         if candidate and len(descendants) >= 4
-        else descendants[-1] if descendants else None
+        else descendants[-1]
+        if descendants
+        else None
     )
     if upstream_commit != expected_upstream:
         problems.append(
@@ -190,12 +1282,18 @@ def _structural_launch_controller(
         }
     if candidate:
         problems.append("authorization:candidate-non-authoritative")
+        return {
+            "problems": problems,
+            "references": references,
+            "authority": "non-authoritative-local-candidate",
+            "launch_authorized": False,
+            "candidate_valid": problems == ["authorization:candidate-non-authoritative"],
+        }
     return {
         "problems": problems,
         "references": references,
-        "authority": "non-authoritative-local-candidate" if candidate else "origin-published",
-        "launch_authorized": not candidate and not problems,
-        "candidate_valid": candidate and problems == ["authorization:candidate-non-authoritative"],
+        "authority": "origin-published" if not problems else "none",
+        "launch_authorized": not problems,
     }
 
 
@@ -224,15 +1322,28 @@ def _minimal_state_repo(tmp_path: Path) -> tuple[Path, dict]:
 
 
 def _set_tooling_phase(state: dict) -> None:
+    state["run_state"] = "IDLE"
     state["next_program"]["phase"] = "TOOLING_FROZEN_PREFLIGHT_REQUIRED"
     state["next_program"]["authorized_actions"] = list(TOOLING_FROZEN_AUTHORIZED_ACTIONS)
     state["next_program"]["forbidden_actions"] = list(TOOLING_FROZEN_FORBIDDEN_ACTIONS)
 
 
 def _set_preregistered_phase(state: dict) -> None:
+    state["run_state"] = "UNKNOWN"
     state["next_program"]["phase"] = "PREREGISTERED_TOOLING_REQUIRED"
     state["next_program"]["authorized_actions"] = list(PREREGISTERED_AUTHORIZED_ACTIONS)
     state["next_program"]["forbidden_actions"] = list(PREREGISTERED_FORBIDDEN_ACTIONS)
+
+
+def _set_control_hardening_phase(state: dict) -> None:
+    state["run_state"] = "UNKNOWN"
+    state["next_program"]["phase"] = "CONTROL_HARDENING_REQUIRED"
+    state["next_program"]["authorized_actions"] = list(
+        CONTROL_HARDENING_AUTHORIZED_ACTIONS
+    )
+    state["next_program"]["forbidden_actions"] = list(
+        CONTROL_HARDENING_FORBIDDEN_ACTIONS
+    )
 
 
 def _commit_recovery_publication(
@@ -285,9 +1396,7 @@ def _commit_recovery_publication(
     _git(repo, "commit", "-m", "generation one offline baton")
     recovery_parent = _git(repo, "rev-parse", "HEAD").decode().strip()
 
-    monkeypatch.setattr(
-        mission_state, "GENERATION_ONE_SOURCE_PARENT", generation_one_source_parent
-    )
+    monkeypatch.setattr(mission_state, "GENERATION_ONE_SOURCE_PARENT", generation_one_source_parent)
     monkeypatch.setattr(mission_state, "GENERATION_ONE_SOURCE_COMMIT", generation_one_source)
     monkeypatch.setattr(mission_state, "GENERATION_ONE_RECEIPT_COMMIT", generation_one_receipt)
     monkeypatch.setattr(mission_state, "GENERATION_ONE_STATE_COMMIT", generation_one_state)
@@ -632,7 +1741,6 @@ def _commit_generation_four_publication(
 
     preregistered_state = copy.deepcopy(state)
     _set_preregistered_phase(preregistered_state)
-    source_repo = Path(__file__).resolve().parents[1]
     for relative in source_paths:
         path = repo / relative
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -643,27 +1751,11 @@ def _commit_generation_four_publication(
         elif relative == "HANDOFF.md":
             path.write_text("generation four source handoff\n")
         elif relative.endswith("/authorize_launch135.py"):
-            # The live controller binds the ACTIVE generation. These historical generation-four
-            # tests need a generation-four-era controller, so rebind its frozen publication
-            # expectation before writing it into the synthetic repository.
-            controller_source = (source_repo / relative).read_text()
-            controller_source = controller_source.replace(
-                '    "generation": 14,\n'
-                '    "supersedes_receipt_commit": GENERATION_THIRTEEN_RECEIPT_COMMIT,\n'
-                '    "recovery_parent": GENERATION_THIRTEEN_MANIFEST_COMMIT,\n'
-                '    "reason_code": GENERATION_FOURTEEN_REASON,\n',
-                '    "generation": 4,\n'
-                '    "supersedes_receipt_commit": GENERATION_THREE_RECEIPT_COMMIT,\n'
-                '    "recovery_parent": GENERATION_THREE_BATON_COMMIT,\n'
-                '    "reason_code": '
-                '"B3_CI_STRUCTURAL_GIT_READER_TOOLCHAIN_ROOT_FAILURE",\n',
-            )
-            controller_source = controller_source.replace(
-                launch_controller.GENERATION_THREE_RECEIPT_COMMIT,
-                generation_three["generation_three_receipt"],
-            ).replace(
-                launch_controller.GENERATION_THREE_BATON_COMMIT,
-                generation_three_baton,
+            controller_source = _controller_source_for_publication(
+                generation=4,
+                supersedes_receipt_commit=generation_three["generation_three_receipt"],
+                recovery_parent=generation_three_baton,
+                reason_code=GENERATION_FOUR_REASON_CODE,
             )
             path.write_text(controller_source)
         elif relative.endswith("/verify_tooling135.py"):
@@ -810,7 +1902,6 @@ def _commit_generation_five_publication(
 
     preregistered_state = copy.deepcopy(state)
     _set_preregistered_phase(preregistered_state)
-    source_repo = Path(__file__).resolve().parents[1]
     for relative in source_paths:
         path = repo / relative
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -821,27 +1912,11 @@ def _commit_generation_five_publication(
         elif relative == "HANDOFF.md":
             path.write_text("generation five source handoff\n")
         elif relative.endswith("/authorize_launch135.py"):
-            # Rebind the live generation-six controller to its generation-five era before the
-            # synthetic SHA substitution.
-            controller_source = (source_repo / relative).read_text()
-            controller_source = controller_source.replace(
-                '''    "generation": 14,
-    "supersedes_receipt_commit": GENERATION_THIRTEEN_RECEIPT_COMMIT,
-    "recovery_parent": GENERATION_THIRTEEN_MANIFEST_COMMIT,
-    "reason_code": GENERATION_FOURTEEN_REASON,
-''',
-                '    "generation": 5,\n'
-                '    "supersedes_receipt_commit": GENERATION_FOUR_RECEIPT_COMMIT,\n'
-                '    "recovery_parent": GENERATION_FOUR_BATON_COMMIT,\n'
-                '    "reason_code": '
-                '"B4_H_CONTRACT_UNIAD_LOAD_BEARING_UNTRACKED_SYMLINK",\n',
-            )
-            controller_source = controller_source.replace(
-                launch_controller.GENERATION_FOUR_RECEIPT_COMMIT,
-                generation_four["generation_four_receipt"],
-            ).replace(
-                launch_controller.GENERATION_FOUR_BATON_COMMIT,
-                generation_four_baton,
+            controller_source = _controller_source_for_publication(
+                generation=5,
+                supersedes_receipt_commit=generation_four["generation_four_receipt"],
+                recovery_parent=generation_four_baton,
+                reason_code=GENERATION_FIVE_REASON_CODE,
             )
             path.write_text(controller_source)
         elif relative.endswith("/verify_tooling135.py"):
@@ -960,17 +2035,13 @@ def _commit_generation_six_publication(
         "GENERATION_FIVE_SOURCE_COMMIT",
         generation_five["generation_five_source"],
     )
-    monkeypatch.setattr(
-        mission_state, "GENERATION_FIVE_RECEIPT_COMMIT", generation_five_receipt
-    )
+    monkeypatch.setattr(mission_state, "GENERATION_FIVE_RECEIPT_COMMIT", generation_five_receipt)
     if wrong_source_parent:
         unexpected = repo / "unexpected-generation-five-topology.txt"
         unexpected.write_text("not the frozen generation-five receipt\n")
         _git(repo, "add", unexpected.name)
         _git(repo, "commit", "-m", "unexpected generation-five topology edge")
-    monkeypatch.setattr(
-        mission_state, "GENERATION_SIX_SOURCE_PARENT", generation_five_receipt
-    )
+    monkeypatch.setattr(mission_state, "GENERATION_SIX_SOURCE_PARENT", generation_five_receipt)
     expected_publication = {
         "generation": 6,
         "supersedes_receipt_commit": generation_five_receipt,
@@ -981,7 +2052,6 @@ def _commit_generation_six_publication(
 
     preregistered_state = copy.deepcopy(state)
     _set_preregistered_phase(preregistered_state)
-    source_repo = Path(__file__).resolve().parents[1]
     for relative in source_paths:
         path = repo / relative
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -992,23 +2062,11 @@ def _commit_generation_six_publication(
         elif relative == "HANDOFF.md":
             path.write_text("generation six source handoff\n")
         elif relative.endswith("/authorize_launch135.py"):
-            # Rebind the live generation-seven controller to its generation-six era before the
-            # synthetic SHA substitution.
-            controller_source = (source_repo / relative).read_text()
-            controller_source = controller_source.replace(
-                '    "generation": 14,\n'
-                '    "supersedes_receipt_commit": GENERATION_THIRTEEN_RECEIPT_COMMIT,\n'
-                '    "recovery_parent": GENERATION_THIRTEEN_MANIFEST_COMMIT,\n'
-                '    "reason_code": GENERATION_FOURTEEN_REASON,\n',
-                '    "generation": 6,\n'
-                '    "supersedes_receipt_commit": GENERATION_FIVE_RECEIPT_COMMIT,\n'
-                '    "recovery_parent": GENERATION_FIVE_RECEIPT_COMMIT,\n'
-                '    "reason_code": '
-                '"T5_FROZEN_STRUCTURAL_VALIDATOR_STALE_RECEIPT_HISTORY",\n',
-            )
-            controller_source = controller_source.replace(
-                launch_controller.GENERATION_FIVE_RECEIPT_COMMIT,
-                generation_five_receipt,
+            controller_source = _controller_source_for_publication(
+                generation=6,
+                supersedes_receipt_commit=generation_five_receipt,
+                recovery_parent=generation_five_receipt,
+                reason_code=GENERATION_SIX_REASON_CODE,
             )
             path.write_text(controller_source)
         elif relative.endswith("/verify_tooling135.py"):
@@ -1120,9 +2178,7 @@ def _commit_generation_seven_publication(
         unexpected.write_text("not the frozen generation-six baton\n")
         _git(repo, "add", unexpected.name)
         _git(repo, "commit", "-m", "unexpected generation-six topology edge")
-    monkeypatch.setattr(
-        mission_state, "GENERATION_SEVEN_SOURCE_PARENT", generation_six_baton
-    )
+    monkeypatch.setattr(mission_state, "GENERATION_SEVEN_SOURCE_PARENT", generation_six_baton)
     expected_publication = {
         "generation": 7,
         "supersedes_receipt_commit": generation_six["generation_six_receipt"],
@@ -1133,7 +2189,6 @@ def _commit_generation_seven_publication(
 
     preregistered_state = copy.deepcopy(state)
     _set_preregistered_phase(preregistered_state)
-    source_repo = Path(__file__).resolve().parents[1]
     for relative in source_paths:
         path = repo / relative
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -1144,24 +2199,11 @@ def _commit_generation_seven_publication(
         elif relative == "HANDOFF.md":
             path.write_text("generation seven source handoff\n")
         elif relative.endswith("/authorize_launch135.py"):
-            # The live controller now binds the generation-eight publication, so this
-            # generation-seven-era fixture rewrites the live literals back to the
-            # generation-seven shape bound to the fixture chain.
-            controller_source = (source_repo / relative).read_text()
-            controller_source = (
-                controller_source.replace(
-                    launch_controller.GENERATION_THIRTEEN_RECEIPT_COMMIT,
-                    generation_six["generation_six_receipt"],
-                )
-                .replace(
-                    launch_controller.GENERATION_THIRTEEN_MANIFEST_COMMIT,
-                    generation_six_baton,
-                )
-                .replace('"generation": 14,', '"generation": 7,')
-                .replace(
-                    launch_controller.GENERATION_FOURTEEN_REASON,
-                    GENERATION_SEVEN_REASON_CODE,
-                )
+            controller_source = _controller_source_for_publication(
+                generation=7,
+                supersedes_receipt_commit=generation_six["generation_six_receipt"],
+                recovery_parent=generation_six_baton,
+                reason_code=GENERATION_SEVEN_REASON_CODE,
             )
             path.write_text(controller_source)
         elif relative.endswith("/verify_tooling135.py"):
@@ -1273,9 +2315,7 @@ def _commit_generation_eight_publication(
         unexpected.write_text("not the frozen generation-seven baton\n")
         _git(repo, "add", unexpected.name)
         _git(repo, "commit", "-m", "unexpected generation-seven topology edge")
-    monkeypatch.setattr(
-        mission_state, "GENERATION_EIGHT_SOURCE_PARENT", generation_seven_baton
-    )
+    monkeypatch.setattr(mission_state, "GENERATION_EIGHT_SOURCE_PARENT", generation_seven_baton)
     expected_publication = {
         "generation": 8,
         "supersedes_receipt_commit": generation_seven["generation_seven_receipt"],
@@ -1286,7 +2326,6 @@ def _commit_generation_eight_publication(
 
     preregistered_state = copy.deepcopy(state)
     _set_preregistered_phase(preregistered_state)
-    source_repo = Path(__file__).resolve().parents[1]
     for relative in source_paths:
         path = repo / relative
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -1297,23 +2336,11 @@ def _commit_generation_eight_publication(
         elif relative == "HANDOFF.md":
             path.write_text("generation eight source handoff\n")
         elif relative.endswith("/authorize_launch135.py"):
-            # The live controller already binds generation eight; rebind its frozen
-            # generation-seven receipt and baton literals to this fixture chain.
-            controller_source = (source_repo / relative).read_text()
-            controller_source = (
-                controller_source.replace(
-                    launch_controller.GENERATION_THIRTEEN_RECEIPT_COMMIT,
-                    generation_seven["generation_seven_receipt"],
-                )
-                .replace(
-                    launch_controller.GENERATION_THIRTEEN_MANIFEST_COMMIT,
-                    generation_seven_baton,
-                )
-                .replace('"generation": 14,', '"generation": 8,')
-                .replace(
-                    launch_controller.GENERATION_FOURTEEN_REASON,
-                    GENERATION_EIGHT_REASON_CODE,
-                )
+            controller_source = _controller_source_for_publication(
+                generation=8,
+                supersedes_receipt_commit=generation_seven["generation_seven_receipt"],
+                recovery_parent=generation_seven_baton,
+                reason_code=GENERATION_EIGHT_REASON_CODE,
             )
             path.write_text(controller_source)
         elif relative.endswith("/verify_tooling135.py"):
@@ -1425,9 +2452,7 @@ def _commit_generation_nine_publication(
         unexpected.write_text("not the frozen generation-eight baton\n")
         _git(repo, "add", unexpected.name)
         _git(repo, "commit", "-m", "unexpected generation-eight topology edge")
-    monkeypatch.setattr(
-        mission_state, "GENERATION_NINE_SOURCE_PARENT", generation_eight_baton
-    )
+    monkeypatch.setattr(mission_state, "GENERATION_NINE_SOURCE_PARENT", generation_eight_baton)
     expected_publication = {
         "generation": 9,
         "supersedes_receipt_commit": generation_eight["generation_eight_receipt"],
@@ -1438,7 +2463,6 @@ def _commit_generation_nine_publication(
 
     preregistered_state = copy.deepcopy(state)
     _set_preregistered_phase(preregistered_state)
-    source_repo = Path(__file__).resolve().parents[1]
     for relative in source_paths:
         path = repo / relative
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -1449,23 +2473,11 @@ def _commit_generation_nine_publication(
         elif relative == "HANDOFF.md":
             path.write_text("generation nine source handoff\n")
         elif relative.endswith("/authorize_launch135.py"):
-            # The live controller already binds generation nine; rebind its frozen
-            # generation-eight receipt and baton literals to this fixture chain.
-            controller_source = (source_repo / relative).read_text()
-            controller_source = (
-                controller_source.replace(
-                    launch_controller.GENERATION_THIRTEEN_RECEIPT_COMMIT,
-                    generation_eight["generation_eight_receipt"],
-                )
-                .replace(
-                    launch_controller.GENERATION_THIRTEEN_MANIFEST_COMMIT,
-                    generation_eight_baton,
-                )
-                .replace('"generation": 14,', '"generation": 9,')
-                .replace(
-                    launch_controller.GENERATION_FOURTEEN_REASON,
-                    GENERATION_NINE_REASON_CODE,
-                )
+            controller_source = _controller_source_for_publication(
+                generation=9,
+                supersedes_receipt_commit=generation_eight["generation_eight_receipt"],
+                recovery_parent=generation_eight_baton,
+                reason_code=GENERATION_NINE_REASON_CODE,
             )
             path.write_text(controller_source)
         elif relative.endswith("/verify_tooling135.py"):
@@ -1577,9 +2589,7 @@ def _commit_generation_ten_publication(
         unexpected.write_text("not the frozen generation-nine tip\n")
         _git(repo, "add", unexpected.name)
         _git(repo, "commit", "-m", "unexpected generation-nine topology edge")
-    monkeypatch.setattr(
-        mission_state, "GENERATION_TEN_SOURCE_PARENT", generation_nine_baton
-    )
+    monkeypatch.setattr(mission_state, "GENERATION_TEN_SOURCE_PARENT", generation_nine_baton)
     expected_publication = {
         "generation": 10,
         "supersedes_receipt_commit": generation_nine["generation_nine_receipt"],
@@ -1590,7 +2600,6 @@ def _commit_generation_ten_publication(
 
     preregistered_state = copy.deepcopy(state)
     _set_preregistered_phase(preregistered_state)
-    source_repo = Path(__file__).resolve().parents[1]
     for relative in source_paths:
         path = repo / relative
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -1601,23 +2610,11 @@ def _commit_generation_ten_publication(
         elif relative == "HANDOFF.md":
             path.write_text("generation ten source handoff\n")
         elif relative.endswith("/authorize_launch135.py"):
-            # The live controller already binds generation ten; rebind its frozen
-            # generation-nine receipt and stage-zero parent literals to this fixture chain.
-            controller_source = (source_repo / relative).read_text()
-            controller_source = (
-                controller_source.replace(
-                    launch_controller.GENERATION_THIRTEEN_RECEIPT_COMMIT,
-                    generation_nine["generation_nine_receipt"],
-                )
-                .replace(
-                    launch_controller.GENERATION_THIRTEEN_MANIFEST_COMMIT,
-                    generation_nine_baton,
-                )
-                .replace('"generation": 14,', '"generation": 10,')
-                .replace(
-                    launch_controller.GENERATION_FOURTEEN_REASON,
-                    GENERATION_TEN_REASON_CODE,
-                )
+            controller_source = _controller_source_for_publication(
+                generation=10,
+                supersedes_receipt_commit=generation_nine["generation_nine_receipt"],
+                recovery_parent=generation_nine_baton,
+                reason_code=GENERATION_TEN_REASON_CODE,
             )
             path.write_text(controller_source)
         elif relative.endswith("/verify_tooling135.py"):
@@ -1729,9 +2726,7 @@ def _commit_generation_eleven_publication(
         unexpected.write_text("not the frozen generation-ten tip\n")
         _git(repo, "add", unexpected.name)
         _git(repo, "commit", "-m", "unexpected generation-ten topology edge")
-    monkeypatch.setattr(
-        mission_state, "GENERATION_ELEVEN_SOURCE_PARENT", generation_ten_baton
-    )
+    monkeypatch.setattr(mission_state, "GENERATION_ELEVEN_SOURCE_PARENT", generation_ten_baton)
     expected_publication = {
         "generation": 11,
         "supersedes_receipt_commit": generation_ten["generation_ten_receipt"],
@@ -1742,7 +2737,6 @@ def _commit_generation_eleven_publication(
 
     preregistered_state = copy.deepcopy(state)
     _set_preregistered_phase(preregistered_state)
-    source_repo = Path(__file__).resolve().parents[1]
     for relative in source_paths:
         path = repo / relative
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -1755,23 +2749,11 @@ def _commit_generation_eleven_publication(
         elif relative == "LICENSE":
             path.write_text("Apache License fixture\n")
         elif relative.endswith("/authorize_launch135.py"):
-            # The live controller already binds generation eleven; rebind its frozen
-            # generation-ten receipt and stage-zero parent literals to this fixture chain.
-            controller_source = (source_repo / relative).read_text()
-            controller_source = (
-                controller_source.replace(
-                    launch_controller.GENERATION_THIRTEEN_RECEIPT_COMMIT,
-                    generation_ten["generation_ten_receipt"],
-                )
-                .replace(
-                    launch_controller.GENERATION_THIRTEEN_MANIFEST_COMMIT,
-                    generation_ten_baton,
-                )
-                .replace('"generation": 14,', '"generation": 11,')
-                .replace(
-                    launch_controller.GENERATION_FOURTEEN_REASON,
-                    GENERATION_ELEVEN_REASON_CODE,
-                )
+            controller_source = _controller_source_for_publication(
+                generation=11,
+                supersedes_receipt_commit=generation_ten["generation_ten_receipt"],
+                recovery_parent=generation_ten_baton,
+                reason_code=GENERATION_ELEVEN_REASON_CODE,
             )
             path.write_text(controller_source)
         elif relative.endswith("/verify_tooling135.py"):
@@ -1883,9 +2865,7 @@ def _commit_generation_twelve_publication(
         unexpected.write_text("not the frozen generation-eleven tip\n")
         _git(repo, "add", unexpected.name)
         _git(repo, "commit", "-m", "unexpected generation-eleven topology edge")
-    monkeypatch.setattr(
-        mission_state, "GENERATION_TWELVE_SOURCE_PARENT", generation_eleven_baton
-    )
+    monkeypatch.setattr(mission_state, "GENERATION_TWELVE_SOURCE_PARENT", generation_eleven_baton)
     expected_publication = {
         "generation": 12,
         "supersedes_receipt_commit": generation_eleven["generation_eleven_receipt"],
@@ -1896,7 +2876,6 @@ def _commit_generation_twelve_publication(
 
     preregistered_state = copy.deepcopy(state)
     _set_preregistered_phase(preregistered_state)
-    source_repo = Path(__file__).resolve().parents[1]
     for relative in source_paths:
         path = repo / relative
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -1907,23 +2886,11 @@ def _commit_generation_twelve_publication(
         elif relative == "HANDOFF.md":
             path.write_text("generation twelve source handoff\n")
         elif relative.endswith("/authorize_launch135.py"):
-            # The live controller already binds generation twelve; rebind its frozen
-            # generation-eleven receipt and stage-zero parent literals to this fixture chain.
-            controller_source = (source_repo / relative).read_text()
-            controller_source = (
-                controller_source.replace(
-                    launch_controller.GENERATION_THIRTEEN_RECEIPT_COMMIT,
-                    generation_eleven["generation_eleven_receipt"],
-                )
-                .replace(
-                    launch_controller.GENERATION_THIRTEEN_MANIFEST_COMMIT,
-                    generation_eleven_baton,
-                )
-                .replace('"generation": 14,', '"generation": 12,')
-                .replace(
-                    launch_controller.GENERATION_FOURTEEN_REASON,
-                    GENERATION_TWELVE_REASON_CODE,
-                )
+            controller_source = _controller_source_for_publication(
+                generation=12,
+                supersedes_receipt_commit=generation_eleven["generation_eleven_receipt"],
+                recovery_parent=generation_eleven_baton,
+                reason_code=GENERATION_TWELVE_REASON_CODE,
             )
             path.write_text(controller_source)
         elif relative.endswith("/verify_tooling135.py"):
@@ -2035,9 +3002,7 @@ def _commit_generation_thirteen_publication(
         unexpected.write_text("not the frozen generation-twelve tip\n")
         _git(repo, "add", unexpected.name)
         _git(repo, "commit", "-m", "unexpected generation-twelve topology edge")
-    monkeypatch.setattr(
-        mission_state, "GENERATION_THIRTEEN_SOURCE_PARENT", generation_twelve_baton
-    )
+    monkeypatch.setattr(mission_state, "GENERATION_THIRTEEN_SOURCE_PARENT", generation_twelve_baton)
     expected_publication = {
         "generation": 13,
         "supersedes_receipt_commit": generation_twelve["generation_twelve_receipt"],
@@ -2048,7 +3013,6 @@ def _commit_generation_thirteen_publication(
 
     preregistered_state = copy.deepcopy(state)
     _set_preregistered_phase(preregistered_state)
-    source_repo = Path(__file__).resolve().parents[1]
     for relative in source_paths:
         path = repo / relative
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -2059,26 +3023,11 @@ def _commit_generation_thirteen_publication(
         elif relative == "HANDOFF.md":
             path.write_text("generation thirteen source handoff\n")
         elif relative.endswith("/authorize_launch135.py"):
-            # The live controller now binds generation fourteen; rebind it to the generation-
-            # thirteen era before the synthetic SHA substitution, then rewrite its frozen
-            # generation-twelve receipt and env-commit parent literals to this fixture chain.
-            controller_source = (source_repo / relative).read_text()
-            controller_source = (
-                controller_source.replace(
-                    '"generation": 14,', '"generation": 13,'
-                )
-                .replace(
-                    launch_controller.GENERATION_FOURTEEN_REASON,
-                    GENERATION_THIRTEEN_REASON_CODE,
-                )
-                .replace(
-                    launch_controller.GENERATION_THIRTEEN_RECEIPT_COMMIT,
-                    generation_twelve["generation_twelve_receipt"],
-                )
-                .replace(
-                    launch_controller.GENERATION_THIRTEEN_MANIFEST_COMMIT,
-                    generation_twelve_baton,
-                )
+            controller_source = _controller_source_for_publication(
+                generation=13,
+                supersedes_receipt_commit=generation_twelve["generation_twelve_receipt"],
+                recovery_parent=generation_twelve_baton,
+                reason_code=GENERATION_THIRTEEN_REASON_CODE,
             )
             path.write_text(controller_source)
         elif relative.endswith("/verify_tooling135.py"):
@@ -2203,7 +3152,6 @@ def _commit_generation_fourteen_publication(
 
     preregistered_state = copy.deepcopy(state)
     _set_preregistered_phase(preregistered_state)
-    source_repo = Path(__file__).resolve().parents[1]
     for relative in source_paths:
         path = repo / relative
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -2214,15 +3162,11 @@ def _commit_generation_fourteen_publication(
         elif relative == "HANDOFF.md":
             path.write_text("generation fourteen source handoff\n")
         elif relative.endswith("/authorize_launch135.py"):
-            # The live controller already binds generation fourteen; rebind its frozen
-            # generation-thirteen receipt and manifest parent literals to this fixture chain.
-            controller_source = (source_repo / relative).read_text()
-            controller_source = controller_source.replace(
-                launch_controller.GENERATION_THIRTEEN_RECEIPT_COMMIT,
-                generation_thirteen["generation_thirteen_receipt"],
-            ).replace(
-                launch_controller.GENERATION_THIRTEEN_MANIFEST_COMMIT,
-                generation_thirteen_baton,
+            controller_source = _controller_source_for_publication(
+                generation=14,
+                supersedes_receipt_commit=generation_thirteen["generation_thirteen_receipt"],
+                recovery_parent=generation_thirteen_baton,
+                reason_code=GENERATION_FOURTEEN_REASON_CODE,
             )
             path.write_text(controller_source)
         elif relative.endswith("/verify_tooling135.py"):
@@ -2304,6 +3248,159 @@ def _commit_generation_fourteen_publication(
         "generation_fourteen_receipt": receipt_commit,
         "generation_fourteen_state": state_commit,
         "generation_fourteen_baton": baton_commit,
+    }
+
+
+def _commit_generation_fifteen_publication(
+    repo: Path,
+    state: dict,
+    monkeypatch: pytest.MonkeyPatch,
+    *,
+    publication_overrides: dict[str, object] | None = None,
+    include_receipt: bool = True,
+    include_baton: bool = True,
+    source_paths: tuple[str, ...] = GENERATION_FIFTEEN_SOURCE_COMMIT_PATHS,
+    wrong_source_parent: bool = False,
+) -> dict[str, str]:
+    """Build generation fifteen on an exact synthetic generation-one-through-fourteen chain."""
+
+    generation_fourteen = _commit_generation_fourteen_publication(repo, state, monkeypatch)
+    generation_fourteen_baton = generation_fourteen["generation_fourteen_baton"]
+    for name, key in (
+        ("GENERATION_FOURTEEN_SOURCE_COMMIT", "generation_fourteen_source"),
+        ("GENERATION_FOURTEEN_RECEIPT_COMMIT", "generation_fourteen_receipt"),
+        ("GENERATION_FOURTEEN_STATE_COMMIT", "generation_fourteen_state"),
+        ("GENERATION_FOURTEEN_BATON_COMMIT", "generation_fourteen_baton"),
+    ):
+        monkeypatch.setattr(mission_state, name, generation_fourteen[key])
+    if wrong_source_parent:
+        unexpected = repo / "unexpected-generation-fourteen-topology.txt"
+        unexpected.write_text("not the frozen generation-fourteen tip\n")
+        _git(repo, "add", unexpected.name)
+        _git(repo, "commit", "-m", "unexpected generation-fourteen topology edge")
+    monkeypatch.setattr(
+        mission_state,
+        "GENERATION_FIFTEEN_SOURCE_PARENT",
+        generation_fourteen_baton,
+    )
+    expected_publication = {
+        "generation": 15,
+        "supersedes_receipt_commit": generation_fourteen["generation_fourteen_receipt"],
+        "recovery_parent": generation_fourteen_baton,
+        "reason_code": GENERATION_FIFTEEN_REASON_CODE,
+    }
+    monkeypatch.setattr(mission_state, "EXPECTED_RECOVERY_PUBLICATION", expected_publication)
+
+    preregistered_state = copy.deepcopy(state)
+    _set_preregistered_phase(preregistered_state)
+    for relative in source_paths:
+        path = repo / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        if relative == "MISSION_STATE.json":
+            path.write_text(json.dumps(preregistered_state, indent=2) + "\n")
+        elif relative == "CONTINUITY.md":
+            path.write_text("generation fifteen source recovery\n")
+        elif relative == "HANDOFF.md":
+            path.write_text("generation fifteen source handoff\n")
+        elif relative.endswith("/authorize_launch135.py"):
+            path.write_text(
+                _controller_source_for_publication(
+                    generation=15,
+                    supersedes_receipt_commit=generation_fourteen["generation_fourteen_receipt"],
+                    recovery_parent=generation_fourteen_baton,
+                    reason_code=GENERATION_FIFTEEN_REASON_CODE,
+                )
+            )
+        elif relative.endswith("/verify_tooling135.py"):
+            path.write_text(
+                "# generation fifteen\n"
+                "def validate_published_receipt_structure(receipt, *args, **kwargs):\n"
+                "    return []\n"
+            )
+        else:
+            path.write_text(f"generation fifteen source: {relative}\n")
+    _git(repo, "add", *source_paths)
+    _git(repo, "commit", "-m", "generation fifteen source")
+    source_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
+    _git(repo, "update-ref", "refs/remotes/origin/master", source_commit)
+    if not include_receipt:
+        state.clear()
+        state.update(preregistered_state)
+        return {**generation_fourteen, "generation_fifteen_source": source_commit}
+
+    source_commit_paths = sorted(
+        item.decode()
+        for item in _git(
+            repo,
+            "diff-tree",
+            "--root",
+            "--no-commit-id",
+            "--name-only",
+            "-r",
+            "-z",
+            source_commit,
+        ).split(b"\0")
+        if item
+    )
+    source_parents = _git(repo, "show", "-s", "--format=%P", source_commit).decode().split()
+    git_state = {
+        "head": source_commit,
+        "dirty_entries": [],
+        "porcelain_v1_z_sha256": EMPTY_GIT_STATUS_SHA256,
+        "branch": "master",
+        "upstream": "origin/master",
+        "upstream_head": source_commit,
+        "parents": source_parents,
+        "commit_paths": source_commit_paths,
+    }
+    publication = dict(expected_publication)
+    if publication_overrides:
+        publication.update(publication_overrides)
+    receipt = {
+        "schema": "iter135.tooling_verification.v2",
+        "verdict": "I135_TOOLING_VERIFICATION_OK",
+        "problem_count": 0,
+        "problems": [],
+        "publication": publication,
+        "repository": {
+            "root": CANONICAL_REPOSITORY,
+            "git_start": git_state,
+            "git_end": git_state,
+            "git_head_stable": True,
+            "git_state_stable": True,
+            "repository_clean_state_stable": True,
+        },
+    }
+    _complete_tooling_receipt(receipt)
+    receipt_path = repo / TOOLING_RECEIPT_REL
+    receipt_path.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n")
+    _git(repo, "add", TOOLING_RECEIPT_REL.as_posix())
+    _git(repo, "commit", "-m", "generation fifteen receipt")
+    receipt_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
+    _git(repo, "update-ref", "refs/remotes/origin/master", receipt_commit)
+
+    control_state = copy.deepcopy(state)
+    _set_control_hardening_phase(control_state)
+    state.clear()
+    state.update(control_state)
+    (repo / "MISSION_STATE.json").write_text(json.dumps(state, indent=2) + "\n")
+    _git(repo, "add", "MISSION_STATE.json")
+    _git(repo, "commit", "-m", "generation fifteen state")
+    state_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
+    if include_baton:
+        (repo / "CONTINUITY.md").write_text("generation fifteen tooling transition\n")
+        (repo / "HANDOFF.md").write_text("generation fifteen tooling handoff\n")
+        _git(repo, "add", "CONTINUITY.md", "HANDOFF.md")
+        _git(repo, "commit", "-m", "generation fifteen tooling baton")
+    baton_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
+    if include_baton:
+        _git(repo, "update-ref", "refs/remotes/origin/master", baton_commit)
+    return {
+        **generation_fourteen,
+        "generation_fifteen_source": source_commit,
+        "generation_fifteen_receipt": receipt_commit,
+        "generation_fifteen_state": state_commit,
+        "generation_fifteen_baton": baton_commit,
     }
 
 
@@ -2401,6 +3498,7 @@ def _append_launch_authorization_chain(
     smoke_payload = (repo / launch_controller.SMOKE_RECEIPT_REL).read_bytes()
 
     launch_state = copy.deepcopy(state)
+    launch_state["run_state"] = "IDLE"
     launch_state["next_program"]["phase"] = "LAUNCH_AUTHORIZED"
     launch_state["next_program"]["authorized_actions"] = list(LAUNCH_AUTHORIZED_ACTIONS)
     launch_state["next_program"]["forbidden_actions"] = list(LAUNCH_FORBIDDEN_ACTIONS)
@@ -2487,15 +3585,11 @@ def test_committed_mission_state_is_valid() -> None:
             "state_fields:",
         ),
         (
-            lambda state: state["claim_state"].__setitem__(
-                "production_readiness", "ESTABLISHED"
-            ),
+            lambda state: state["claim_state"].__setitem__("production_readiness", "ESTABLISHED"),
             "claim_state:",
         ),
         (
-            lambda state: state["paper_state"].__setitem__(
-                "status", "SUBMISSION_READY"
-            ),
+            lambda state: state["paper_state"].__setitem__("status", "SUBMISSION_READY"),
             "paper_state:",
         ),
         (
@@ -2523,10 +3617,53 @@ def test_exact_root_claim_paper_and_storage_contracts_fail_closed(
     assert any(problem.startswith(problem_prefix) for problem in validate_state(state))
 
 
-@pytest.mark.parametrize("constant", ["NaN", "Infinity", "-Infinity"])
-def test_state_loader_rejects_duplicate_and_nonfinite_json(
-    tmp_path: Path, constant: str
+@pytest.mark.parametrize(
+    ("mutation", "problem_prefix"),
+    [
+        (
+            lambda state: state["workspace_boundary"].__setitem__(
+                "cross_workspace_access_requires_explicit_operator_request",
+                1,
+            ),
+            "workspace_boundary:",
+        ),
+        (
+            lambda state: state["storage_gate"].__setitem__(
+                "minimum_local_free_gib_before_new_proof_collection",
+                15.0,
+            ),
+            "storage_gate:minimum_local_free_gib_before_new_proof_collection:",
+        ),
+        (
+            lambda state: state["next_program"].__setitem__("iteration", 135.0),
+            "next_iteration:",
+        ),
+    ],
+)
+def test_canonical_state_rejects_numeric_type_impostors(
+    mutation,
+    problem_prefix: str,
 ) -> None:
+    state = copy.deepcopy(load_state())
+    mutation(state)
+
+    assert any(
+        problem.startswith(problem_prefix)
+        for problem in validate_state(state)
+    )
+
+
+def test_canonical_state_returns_stable_problem_for_non_object_next_program() -> None:
+    state = copy.deepcopy(load_state())
+    state["next_program"] = ["x"]
+
+    problems = validate_state(state)
+
+    assert "next_program_fields:not-object" in problems
+
+
+@pytest.mark.parametrize("constant", ["NaN", "Infinity", "-Infinity"])
+def test_state_loader_rejects_duplicate_and_nonfinite_json(tmp_path: Path, constant: str) -> None:
     duplicate = tmp_path / "duplicate.json"
     duplicate.write_text('{"schema":"one","nested":{"x":1,"x":2}}')
     with pytest.raises(ValueError, match="duplicate JSON key: x"):
@@ -2646,6 +3783,70 @@ def test_preregistered_phase_actions_are_exact() -> None:
     )
 
 
+def test_preregistered_phase_is_an_exact_unknown_runtime_stop() -> None:
+    state = copy.deepcopy(load_state())
+    _set_preregistered_phase(state)
+
+    assert state["run_state"] == "UNKNOWN"
+    assert state["next_program"] == {
+        "iteration": 135,
+        "name": mission_state.EXPECTED_PROGRAM_NAME,
+        "phase": "PREREGISTERED_TOOLING_REQUIRED",
+        "authorized_actions": list(PREREGISTERED_AUTHORIZED_ACTIONS),
+        "forbidden_actions": list(PREREGISTERED_FORBIDDEN_ACTIONS),
+    }
+    forbidden = " ".join(PREREGISTERED_FORBIDDEN_ACTIONS)
+    for required_stop in (
+        "de-prepare",
+        "host",
+        "H, E, P, or S",
+        "launch activation",
+        "live smoke",
+        "analytic episode",
+        "infer IDLE",
+        "run analyzers",
+        "external governance settings",
+    ):
+        assert required_stop in forbidden
+
+    state["run_state"] = "IDLE"
+
+    assert (
+        "phase_run_state:PREREGISTERED_TOOLING_REQUIRED:'IDLE'!='UNKNOWN'"
+        in validate_state(state)
+    )
+
+
+def test_control_hardening_phase_actions_and_unknown_runtime_are_exact(
+    tmp_path: Path,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_control_hardening_phase(state)
+
+    problems = validate_state(state, repo)
+
+    assert state["run_state"] == "UNKNOWN"
+    assert state["next_program"]["authorized_actions"] == list(
+        CONTROL_HARDENING_AUTHORIZED_ACTIONS
+    )
+    assert state["next_program"]["forbidden_actions"] == list(
+        CONTROL_HARDENING_FORBIDDEN_ACTIONS
+    )
+    forbidden = " ".join(CONTROL_HARDENING_FORBIDDEN_ACTIONS)
+    for required_stop in (
+        "host",
+        "H, E, P, or S",
+        "launch activation",
+        "live smoke",
+        "analytic episode",
+        "infer IDLE",
+        "run analyzers",
+        "external governance settings",
+    ):
+        assert required_stop in forbidden
+    assert any(problem.startswith("tooling_publication:receipt_missing:") for problem in problems)
+
+
 def test_tooling_phase_fails_closed_without_receipt(tmp_path: Path) -> None:
     repo, state = _minimal_state_repo(tmp_path)
     _set_tooling_phase(state)
@@ -2696,6 +3897,8 @@ def test_post_preflight_phases_fail_closed_without_artifact_contracts(
     state["next_program"]["phase"] = phase
     if phase == "RUNNING":
         state["run_state"] = "RUNNING"
+    else:
+        state["run_state"] = "IDLE"
 
     problems = validate_state(state, repo)
 
@@ -2704,6 +3907,7 @@ def test_post_preflight_phases_fail_closed_without_artifact_contracts(
 
 def test_launch_phase_requires_published_generation_three_activation_chain(tmp_path: Path) -> None:
     repo, state = _minimal_state_repo(tmp_path)
+    state["run_state"] = "IDLE"
     state["next_program"]["phase"] = "LAUNCH_AUTHORIZED"
     state["next_program"]["authorized_actions"] = list(LAUNCH_AUTHORIZED_ACTIONS)
     state["next_program"]["forbidden_actions"] = list(LAUNCH_FORBIDDEN_ACTIONS)
@@ -2844,6 +4048,424 @@ def test_generation_four_rejects_hostile_generation_three_baton_topology(
     assert "tooling_publication:generation_three_baton_scope" in problems
 
 
+def test_generation_fifteen_control_phase_accepts_canonical_r15_t15_b15(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    commits = _commit_generation_fifteen_publication(repo, state, monkeypatch)
+
+    assert state["next_program"]["phase"] == "CONTROL_HARDENING_REQUIRED"
+    assert state["run_state"] == "UNKNOWN"
+    assert _git(repo, "rev-parse", "origin/master").decode().strip() == commits[
+        "generation_fifteen_baton"
+    ]
+    assert validate_state(state, repo) == []
+
+
+def test_generation_fifteen_control_phase_accepts_disposable_b15_with_origin_at_r15(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    commits = _commit_generation_fifteen_publication(repo, state, monkeypatch)
+    _git(
+        repo,
+        "update-ref",
+        "refs/remotes/origin/master",
+        commits["generation_fifteen_receipt"],
+    )
+
+    assert _git(repo, "rev-parse", "HEAD").decode().strip() == commits[
+        "generation_fifteen_baton"
+    ]
+    assert _git(repo, "rev-parse", "origin/master").decode().strip() == commits[
+        "generation_fifteen_receipt"
+    ]
+    assert validate_state(state, repo) == []
+
+
+def test_generation_fifteen_control_phase_invokes_frozen_controller_with_no_descendants(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    commits = _commit_generation_fifteen_publication(repo, state, monkeypatch)
+    observed: list[dict[str, object]] = []
+
+    def controller(_repo: Path, **kwargs):
+        observed.append(kwargs)
+        return {
+            "problems": [],
+            "references": {},
+            "authority": "none",
+            "launch_authorized": False,
+            "control_publication_status": (
+                mission_state.CONTROL_PUBLICATION_PUBLISHED_STATUS
+            ),
+        }
+
+    monkeypatch.setattr(
+        mission_state,
+        "_load_launch_controller",
+        lambda _repo, _source_commit: controller,
+    )
+
+    assert validate_state(state, repo) == []
+    assert observed == [
+        {
+            "phase": "CONTROL_HARDENING_REQUIRED",
+            "tooling_receipt_commit": commits["generation_fifteen_receipt"],
+            "tooling_baton_commit": commits["generation_fifteen_baton"],
+            "descendants": [],
+            "upstream_commit": commits["generation_fifteen_baton"],
+            "candidate": False,
+        }
+    ]
+
+
+def test_generation_fifteen_control_phase_rejects_every_post_b15_descendant(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    commits = _commit_generation_fifteen_publication(repo, state, monkeypatch)
+    _git(repo, "commit", "--allow-empty", "-m", "hostile post-B15 descendant")
+
+    problems = validate_state(state, repo)
+
+    assert "tooling_publication:generation_fifteen_commit_count:3" in problems
+    assert "authorization:control-hardening-descendant-count:1" in problems
+    assert _git(repo, "rev-parse", "origin/master").decode().strip() == commits[
+        "generation_fifteen_baton"
+    ]
+
+
+def test_generation_fifteen_control_phase_rejects_origin_advanced_beyond_b15(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    commits = _commit_generation_fifteen_publication(repo, state, monkeypatch)
+    _git(repo, "commit", "--allow-empty", "-m", "unreviewed origin advancement")
+    advanced = _git(repo, "rev-parse", "HEAD").decode().strip()
+    _git(repo, "update-ref", "refs/remotes/origin/master", advanced)
+    _git(repo, "reset", "--hard", commits["generation_fifteen_baton"])
+
+    problems = validate_state(state, repo)
+
+    assert (
+        "authorization:control-hardening-origin-master-not-r15-or-b15"
+        in problems
+    )
+
+
+@pytest.mark.parametrize(
+    ("mutation", "expected_problem"),
+    [
+        ("missing-status", "authorization:control-publication-status:"),
+        ("malformed-status", "authorization:control-publication-status:"),
+        ("wrong-status", "authorization:control-publication-status:"),
+        ("wrong-authority", "authorization:control-publication-authority:"),
+        (
+            "launch-authorized",
+            "authorization:control-publication-launch-authorized:",
+        ),
+        ("extra-field", "authorization:controller-field-set:"),
+        ("nonstring-field", "authorization:controller-field-set:"),
+        (
+            "unexpected-reference",
+            "authorization:control-publication-references:",
+        ),
+        (
+            "non-dict-empty-reference",
+            "authorization:control-publication-references:",
+        ),
+    ],
+)
+def test_generation_fifteen_control_phase_rejects_malformed_controller_claims(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    mutation: str,
+    expected_problem: str,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_fifteen_publication(repo, state, monkeypatch)
+    result: dict[str, object] = {
+        "problems": [],
+        "references": {},
+        "authority": "none",
+        "launch_authorized": False,
+        "control_publication_status": (
+            mission_state.CONTROL_PUBLICATION_PUBLISHED_STATUS
+        ),
+    }
+    if mutation == "missing-status":
+        result.pop("control_publication_status")
+    elif mutation == "malformed-status":
+        result["control_publication_status"] = []
+    elif mutation == "wrong-status":
+        result["control_publication_status"] = (
+            mission_state.CONTROL_PUBLICATION_CANDIDATE_STATUS
+        )
+    elif mutation == "wrong-authority":
+        result["authority"] = "origin-published"
+    elif mutation == "launch-authorized":
+        result["launch_authorized"] = True
+    elif mutation == "extra-field":
+        result["capability"] = "launch"
+    elif mutation == "nonstring-field":
+        result[7] = "launch"
+    elif mutation == "unexpected-reference":
+        result["references"] = {"MISSION_STATE.json": "f" * 40}
+    elif mutation == "non-dict-empty-reference":
+        result["references"] = types.MappingProxyType({})
+    else:
+        raise AssertionError(f"unsupported controller mutation: {mutation}")
+
+    monkeypatch.setattr(
+        mission_state,
+        "_load_launch_controller",
+        lambda _repo, _source_commit: lambda _root, **_kwargs: result,
+    )
+
+    assert any(
+        problem.startswith(expected_problem)
+        for problem in validate_state(state, repo)
+    )
+
+
+def test_generation_fifteen_rejects_tooling_phase_in_place_of_control_stop(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_fifteen_publication(repo, state, monkeypatch)
+    _set_tooling_phase(state)
+
+    problems = validate_state(state, repo)
+
+    assert (
+        "tooling_publication:generation_fifteen_phase:"
+        "TOOLING_FROZEN_PREFLIGHT_REQUIRED"
+    ) in problems
+
+
+def test_generation_fifteen_receipt_history_is_exactly_fifteen_generations(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    commits = _commit_generation_fifteen_publication(repo, state, monkeypatch)
+
+    history = (
+        _git(repo, "log", "--format=%H", "--", TOOLING_RECEIPT_REL.as_posix()).decode().splitlines()
+    )
+
+    assert history[0] == commits["generation_fifteen_receipt"]
+    assert history[1] == commits["generation_fourteen_receipt"]
+    assert len(history) == 15
+    assert validate_state(state, repo) == []
+
+
+@pytest.mark.parametrize(
+    ("override", "expected"),
+    [
+        ({"generation": 14}, "tooling_publication:receipt_publication_generation:14"),
+        ({"generation": 15.0}, "tooling_publication:receipt_publication_generation:15.0"),
+        (
+            {"supersedes_receipt_commit": "0" * 40},
+            f"tooling_publication:receipt_publication_supersedes_receipt_commit:'{('0' * 40)}'",
+        ),
+        (
+            {"recovery_parent": "1" * 40},
+            f"tooling_publication:receipt_publication_recovery_parent:'{('1' * 40)}'",
+        ),
+        (
+            {"reason_code": "NOT_THE_FROZEN_REASON"},
+            "tooling_publication:receipt_publication_reason_code:'NOT_THE_FROZEN_REASON'",
+        ),
+    ],
+)
+def test_generation_fifteen_publication_claim_is_exact(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    override: dict[str, object],
+    expected: str,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_fifteen_publication(repo, state, monkeypatch, publication_overrides=override)
+
+    assert expected in validate_state(state, repo)
+
+
+def test_generation_fifteen_source_scope_is_exactly_the_nineteen_path_recovery(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    assert len(GENERATION_FIFTEEN_SOURCE_COMMIT_PATHS) == 19
+    assert "scripts/make_handoff.py" in GENERATION_FIFTEEN_SOURCE_COMMIT_PATHS
+    assert "tests/test_handoff_generator.py" in GENERATION_FIFTEEN_SOURCE_COMMIT_PATHS
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_fifteen_publication(
+        repo,
+        state,
+        monkeypatch,
+        source_paths=GENERATION_FIFTEEN_SOURCE_COMMIT_PATHS + ("README.md",),
+    )
+
+    assert "tooling_publication:recovery_source_commit_scope" in validate_state(state, repo)
+
+
+def test_generation_fifteen_source_must_be_direct_child_of_the_published_b14_tip(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_fifteen_publication(repo, state, monkeypatch, wrong_source_parent=True)
+
+    assert "tooling_publication:recovery_source_parent" in validate_state(state, repo)
+
+
+def test_generation_fifteen_rejects_generation_fourteen_transition_parent_and_scope_drift(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    commits = _commit_generation_fifteen_publication(repo, state, monkeypatch)
+    commit_row = mission_state._commit_row
+    transitions = (
+        (
+            commits["generation_fourteen_receipt"],
+            "tooling_publication:generation_fourteen_receipt",
+        ),
+        (
+            commits["generation_fourteen_state"],
+            "tooling_publication:generation_fourteen_state",
+        ),
+        (
+            commits["generation_fourteen_baton"],
+            "tooling_publication:generation_fourteen_baton",
+        ),
+    )
+
+    for commit, problem_prefix in transitions:
+        for violation in ("parent", "scope"):
+
+            def hostile_commit_row(
+                root: Path,
+                candidate: str,
+                *,
+                target: str = commit,
+                hostile_field: str = violation,
+            ) -> tuple[tuple[str, ...], tuple[str, ...]]:
+                parents, paths = commit_row(root, candidate)
+                if candidate != target:
+                    return parents, paths
+                if hostile_field == "parent":
+                    return ("f" * 40,), paths
+                return parents, (*paths, "unexpected-generation-fourteen.txt")
+
+            monkeypatch.setattr(mission_state, "_commit_row", hostile_commit_row)
+
+            assert f"{problem_prefix}_{violation}" in validate_state(state, repo)
+
+
+def test_generation_fifteen_tooling_phase_rejects_missing_baton(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_fifteen_publication(repo, state, monkeypatch, include_baton=False)
+
+    assert validate_state(state, repo) != []
+
+
+@pytest.mark.parametrize(
+    "relative_path",
+    [".github/workflows/ci.yml", "LICENSE"],
+)
+def test_generation_fifteen_rejects_mutation_of_earlier_frozen_source_paths(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    relative_path: str,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_fifteen_publication(repo, state, monkeypatch)
+    frozen = repo / relative_path
+    frozen.write_text(frozen.read_text() + "hostile post-F15 mutation\n")
+    _git(repo, "add", relative_path)
+    _git(repo, "commit", "-m", "hostile post-F15 frozen-source mutation")
+
+    problems = validate_state(state, repo)
+
+    assert f"tooling_publication:immutable_path_changed:{relative_path}" in problems
+
+
+@pytest.mark.parametrize(
+    ("generation", "builder"),
+    [
+        (14, _commit_generation_fourteen_publication),
+        (15, _commit_generation_fifteen_publication),
+    ],
+)
+def test_generations_fourteen_and_fifteen_use_frozen_validator_and_launch_controller(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    generation: int,
+    builder,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    builder(repo, state, monkeypatch)
+    validator_calls: list[int] = []
+    controller_calls: list[int] = []
+
+    def validator(_receipt, **_kwargs):
+        validator_calls.append(generation)
+        return []
+
+    def controller(*_args, **_kwargs):
+        controller_calls.append(generation)
+        result: dict[str, object] = {
+            "problems": [],
+            "references": {},
+            "authority": "none",
+            "launch_authorized": False,
+        }
+        if generation == 15:
+            result.update(
+                {
+                    "control_publication_status": (
+                        mission_state.CONTROL_PUBLICATION_PUBLISHED_STATUS
+                    ),
+                }
+            )
+        return result
+
+    monkeypatch.setattr(
+        mission_state,
+        "_load_tooling_receipt_validator",
+        lambda _repo, _source_commit: validator,
+    )
+    monkeypatch.setattr(
+        mission_state,
+        "_load_launch_controller",
+        lambda _repo, _source_commit: controller,
+    )
+
+    assert validate_state(state, repo) == []
+    assert validator_calls == [generation]
+    assert controller_calls == [generation]
+
+
 def test_generation_fourteen_tooling_phase_accepts_exact_recovery_topology(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -2861,9 +4483,9 @@ def test_generation_fourteen_receipt_history_is_exactly_fourteen_generations(
     _set_tooling_phase(state)
     commits = _commit_generation_fourteen_publication(repo, state, monkeypatch)
 
-    history = _git(
-        repo, "log", "--format=%H", "--", TOOLING_RECEIPT_REL.as_posix()
-    ).decode().splitlines()
+    history = (
+        _git(repo, "log", "--format=%H", "--", TOOLING_RECEIPT_REL.as_posix()).decode().splitlines()
+    )
 
     assert history[0] == commits["generation_fourteen_receipt"]
     assert history[1] == commits["generation_thirteen_receipt"]
@@ -2933,9 +4555,9 @@ def test_generation_thirteen_receipt_history_is_exactly_thirteen_generations(
     _set_tooling_phase(state)
     commits = _commit_generation_thirteen_publication(repo, state, monkeypatch)
 
-    history = _git(
-        repo, "log", "--format=%H", "--", TOOLING_RECEIPT_REL.as_posix()
-    ).decode().splitlines()
+    history = (
+        _git(repo, "log", "--format=%H", "--", TOOLING_RECEIPT_REL.as_posix()).decode().splitlines()
+    )
 
     assert history[0] == commits["generation_thirteen_receipt"]
     assert history[1] == commits["generation_twelve_receipt"]
@@ -3016,9 +4638,7 @@ def test_generation_twelve_publication_claim_is_exact(
 ) -> None:
     repo, state = _minimal_state_repo(tmp_path)
     _set_tooling_phase(state)
-    _commit_generation_twelve_publication(
-        repo, state, monkeypatch, publication_overrides=override
-    )
+    _commit_generation_twelve_publication(repo, state, monkeypatch, publication_overrides=override)
 
     assert expected in validate_state(state, repo)
 
@@ -3072,6 +4692,23 @@ def test_generation_twelve_tooling_phase_rejects_missing_baton(
     assert validate_state(state, repo) != []
 
 
+def test_generation_twelve_rejects_hostile_generation_eleven_baton_topology(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    commits = _commit_generation_twelve_publication(repo, state, monkeypatch)
+    monkeypatch.setattr(
+        mission_state,
+        "GENERATION_ELEVEN_BATON_COMMIT",
+        commits["generation_eleven_state"],
+    )
+
+    problems = validate_state(state, repo)
+
+    assert "tooling_publication:generation_eleven_baton_scope" in problems
+
+
 def test_generation_eleven_tooling_phase_accepts_exact_recovery_topology(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -3089,9 +4726,9 @@ def test_generation_eleven_receipt_history_is_exactly_eleven_generations(
     _set_tooling_phase(state)
     commits = _commit_generation_eleven_publication(repo, state, monkeypatch)
 
-    history = _git(
-        repo, "log", "--format=%H", "--", TOOLING_RECEIPT_REL.as_posix()
-    ).decode().splitlines()
+    history = (
+        _git(repo, "log", "--format=%H", "--", TOOLING_RECEIPT_REL.as_posix()).decode().splitlines()
+    )
 
     assert history == [
         commits["generation_eleven_receipt"],
@@ -3115,8 +4752,7 @@ def test_generation_eleven_receipt_history_is_exactly_eleven_generations(
         ({"generation": 10}, "tooling_publication:receipt_publication_generation:10"),
         (
             {"supersedes_receipt_commit": "f" * 40},
-            "tooling_publication:receipt_publication_supersedes_receipt_commit:"
-            f"{'f' * 40!r}",
+            f"tooling_publication:receipt_publication_supersedes_receipt_commit:{'f' * 40!r}",
         ),
         (
             {"reason_code": "NOT_THE_FROZEN_REASON"},
@@ -3132,9 +4768,7 @@ def test_generation_eleven_publication_claim_is_exact(
 ) -> None:
     repo, state = _minimal_state_repo(tmp_path)
     _set_tooling_phase(state)
-    _commit_generation_eleven_publication(
-        repo, state, monkeypatch, publication_overrides=override
-    )
+    _commit_generation_eleven_publication(repo, state, monkeypatch, publication_overrides=override)
 
     assert expected in validate_state(state, repo)
 
@@ -3231,9 +4865,9 @@ def test_generation_ten_receipt_history_is_exactly_ten_generations(
     _set_tooling_phase(state)
     commits = _commit_generation_ten_publication(repo, state, monkeypatch)
 
-    history = _git(
-        repo, "log", "--format=%H", "--", TOOLING_RECEIPT_REL.as_posix()
-    ).decode().splitlines()
+    history = (
+        _git(repo, "log", "--format=%H", "--", TOOLING_RECEIPT_REL.as_posix()).decode().splitlines()
+    )
 
     assert history == [
         commits["generation_ten_receipt"],
@@ -3256,8 +4890,7 @@ def test_generation_ten_receipt_history_is_exactly_ten_generations(
         ({"generation": 9}, "tooling_publication:receipt_publication_generation:9"),
         (
             {"supersedes_receipt_commit": "f" * 40},
-            "tooling_publication:receipt_publication_supersedes_receipt_commit:"
-            f"{'f' * 40!r}",
+            f"tooling_publication:receipt_publication_supersedes_receipt_commit:{'f' * 40!r}",
         ),
         (
             {"reason_code": "NOT_THE_FROZEN_REASON"},
@@ -3273,9 +4906,7 @@ def test_generation_ten_publication_claim_is_exact(
 ) -> None:
     repo, state = _minimal_state_repo(tmp_path)
     _set_tooling_phase(state)
-    _commit_generation_ten_publication(
-        repo, state, monkeypatch, publication_overrides=override
-    )
+    _commit_generation_ten_publication(repo, state, monkeypatch, publication_overrides=override)
 
     assert expected in validate_state(state, repo)
 
@@ -3365,9 +4996,9 @@ def test_generation_nine_receipt_history_is_exactly_nine_generations(
     _set_tooling_phase(state)
     commits = _commit_generation_nine_publication(repo, state, monkeypatch)
 
-    history = _git(
-        repo, "log", "--format=%H", "--", TOOLING_RECEIPT_REL.as_posix()
-    ).decode().splitlines()
+    history = (
+        _git(repo, "log", "--format=%H", "--", TOOLING_RECEIPT_REL.as_posix()).decode().splitlines()
+    )
 
     assert history == [
         commits["generation_nine_receipt"],
@@ -3389,8 +5020,7 @@ def test_generation_nine_receipt_history_is_exactly_nine_generations(
         ({"generation": 8}, "tooling_publication:receipt_publication_generation:8"),
         (
             {"supersedes_receipt_commit": "f" * 40},
-            "tooling_publication:receipt_publication_supersedes_receipt_commit:"
-            f"{'f' * 40!r}",
+            f"tooling_publication:receipt_publication_supersedes_receipt_commit:{'f' * 40!r}",
         ),
         (
             {"reason_code": "NOT_THE_FROZEN_REASON"},
@@ -3406,9 +5036,7 @@ def test_generation_nine_publication_claim_is_exact(
 ) -> None:
     repo, state = _minimal_state_repo(tmp_path)
     _set_tooling_phase(state)
-    _commit_generation_nine_publication(
-        repo, state, monkeypatch, publication_overrides=override
-    )
+    _commit_generation_nine_publication(repo, state, monkeypatch, publication_overrides=override)
 
     assert expected in validate_state(state, repo)
 
@@ -3498,9 +5126,9 @@ def test_generation_eight_receipt_history_is_exactly_eight_generations(
     _set_tooling_phase(state)
     commits = _commit_generation_eight_publication(repo, state, monkeypatch)
 
-    history = _git(
-        repo, "log", "--format=%H", "--", TOOLING_RECEIPT_REL.as_posix()
-    ).decode().splitlines()
+    history = (
+        _git(repo, "log", "--format=%H", "--", TOOLING_RECEIPT_REL.as_posix()).decode().splitlines()
+    )
 
     assert history == [
         commits["generation_eight_receipt"],
@@ -3521,8 +5149,7 @@ def test_generation_eight_receipt_history_is_exactly_eight_generations(
         ({"generation": 7}, "tooling_publication:receipt_publication_generation:7"),
         (
             {"supersedes_receipt_commit": "f" * 40},
-            "tooling_publication:receipt_publication_supersedes_receipt_commit:"
-            f"{'f' * 40!r}",
+            f"tooling_publication:receipt_publication_supersedes_receipt_commit:{'f' * 40!r}",
         ),
         (
             {"reason_code": "NOT_THE_FROZEN_REASON"},
@@ -3538,9 +5165,7 @@ def test_generation_eight_publication_claim_is_exact(
 ) -> None:
     repo, state = _minimal_state_repo(tmp_path)
     _set_tooling_phase(state)
-    _commit_generation_eight_publication(
-        repo, state, monkeypatch, publication_overrides=override
-    )
+    _commit_generation_eight_publication(repo, state, monkeypatch, publication_overrides=override)
 
     assert expected in validate_state(state, repo)
 
@@ -3626,9 +5251,9 @@ def test_generation_seven_receipt_history_is_exactly_seven_generations(
     _set_tooling_phase(state)
     commits = _commit_generation_seven_publication(repo, state, monkeypatch)
 
-    history = _git(
-        repo, "log", "--format=%H", "--", TOOLING_RECEIPT_REL.as_posix()
-    ).decode().splitlines()
+    history = (
+        _git(repo, "log", "--format=%H", "--", TOOLING_RECEIPT_REL.as_posix()).decode().splitlines()
+    )
 
     assert history == [
         commits["generation_seven_receipt"],
@@ -3648,8 +5273,7 @@ def test_generation_seven_receipt_history_is_exactly_seven_generations(
         ({"generation": 6}, "tooling_publication:receipt_publication_generation:6"),
         (
             {"supersedes_receipt_commit": "f" * 40},
-            "tooling_publication:receipt_publication_supersedes_receipt_commit:"
-            f"{'f' * 40!r}",
+            f"tooling_publication:receipt_publication_supersedes_receipt_commit:{'f' * 40!r}",
         ),
         (
             {"reason_code": "NOT_THE_FROZEN_REASON"},
@@ -3665,9 +5289,7 @@ def test_generation_seven_publication_claim_is_exact(
 ) -> None:
     repo, state = _minimal_state_repo(tmp_path)
     _set_tooling_phase(state)
-    _commit_generation_seven_publication(
-        repo, state, monkeypatch, publication_overrides=override
-    )
+    _commit_generation_seven_publication(repo, state, monkeypatch, publication_overrides=override)
 
     assert expected in validate_state(state, repo)
 
@@ -3740,9 +5362,9 @@ def test_generation_six_receipt_history_is_exactly_six_generations(
     _set_tooling_phase(state)
     commits = _commit_generation_six_publication(repo, state, monkeypatch)
 
-    history = _git(
-        repo, "log", "--format=%H", "--", TOOLING_RECEIPT_REL.as_posix()
-    ).decode().splitlines()
+    history = (
+        _git(repo, "log", "--format=%H", "--", TOOLING_RECEIPT_REL.as_posix()).decode().splitlines()
+    )
 
     assert history == [
         commits["generation_six_receipt"],
@@ -3761,8 +5383,7 @@ def test_generation_six_receipt_history_is_exactly_six_generations(
         ({"generation": 5}, "tooling_publication:receipt_publication_generation:5"),
         (
             {"supersedes_receipt_commit": "f" * 40},
-            "tooling_publication:receipt_publication_supersedes_receipt_commit:"
-            f"{'f' * 40!r}",
+            f"tooling_publication:receipt_publication_supersedes_receipt_commit:{'f' * 40!r}",
         ),
         (
             {"reason_code": "NOT_THE_FROZEN_REASON"},
@@ -3778,9 +5399,7 @@ def test_generation_six_publication_claim_is_exact(
 ) -> None:
     repo, state = _minimal_state_repo(tmp_path)
     _set_tooling_phase(state)
-    _commit_generation_six_publication(
-        repo, state, monkeypatch, publication_overrides=override
-    )
+    _commit_generation_six_publication(repo, state, monkeypatch, publication_overrides=override)
 
     assert expected in validate_state(state, repo)
 
@@ -3853,9 +5472,9 @@ def test_generation_five_receipt_history_is_exactly_five_to_four_to_three_to_two
     _set_tooling_phase(state)
     commits = _commit_generation_five_publication(repo, state, monkeypatch)
 
-    history = _git(
-        repo, "log", "--format=%H", "--", TOOLING_RECEIPT_REL.as_posix()
-    ).decode().splitlines()
+    history = (
+        _git(repo, "log", "--format=%H", "--", TOOLING_RECEIPT_REL.as_posix()).decode().splitlines()
+    )
 
     assert history == [
         commits["generation_five_receipt"],
@@ -3873,8 +5492,7 @@ def test_generation_five_receipt_history_is_exactly_five_to_four_to_three_to_two
         ({"generation": 4}, "tooling_publication:receipt_publication_generation:4"),
         (
             {"supersedes_receipt_commit": "f" * 40},
-            "tooling_publication:receipt_publication_supersedes_receipt_commit:"
-            f"{'f' * 40!r}",
+            f"tooling_publication:receipt_publication_supersedes_receipt_commit:{'f' * 40!r}",
         ),
         (
             {"reason_code": "NOT_THE_FROZEN_REASON"},
@@ -3890,9 +5508,7 @@ def test_generation_five_publication_claim_is_exact(
 ) -> None:
     repo, state = _minimal_state_repo(tmp_path)
     _set_tooling_phase(state)
-    _commit_generation_five_publication(
-        repo, state, monkeypatch, publication_overrides=override
-    )
+    _commit_generation_five_publication(repo, state, monkeypatch, publication_overrides=override)
 
     assert expected in validate_state(state, repo)
 
@@ -3962,13 +5578,17 @@ def test_generation_four_receipt_history_is_exactly_four_to_three_to_two_to_one(
     _set_tooling_phase(state)
     commits = _commit_generation_four_publication(repo, state, monkeypatch)
 
-    history = _git(
-        repo,
-        "log",
-        "--format=%H",
-        "--",
-        TOOLING_RECEIPT_REL.as_posix(),
-    ).decode().splitlines()
+    history = (
+        _git(
+            repo,
+            "log",
+            "--format=%H",
+            "--",
+            TOOLING_RECEIPT_REL.as_posix(),
+        )
+        .decode()
+        .splitlines()
+    )
 
     assert history == [
         commits["generation_four_receipt"],
@@ -4165,15 +5785,19 @@ def test_launch_phase_rejects_origin_advanced_beyond_exact_activation_tip(
     generation = _commit_generation_three_publication(repo, state, monkeypatch)
     launch = _append_launch_authorization_chain(repo, state, generation)
     tree = _git(repo, "rev-parse", f"{launch['activation']}^{{tree}}").decode().strip()
-    advanced = _git(
-        repo,
-        "commit-tree",
-        tree,
-        "-p",
-        launch["activation"],
-        "-m",
-        "unreviewed origin advancement",
-    ).decode().strip()
+    advanced = (
+        _git(
+            repo,
+            "commit-tree",
+            tree,
+            "-p",
+            launch["activation"],
+            "-m",
+            "unreviewed origin advancement",
+        )
+        .decode()
+        .strip()
+    )
     _git(repo, "update-ref", "refs/remotes/origin/master", advanced)
     _use_structural_launch_controller(monkeypatch)
 
@@ -4198,6 +5822,34 @@ def test_local_launch_candidate_is_validated_but_never_grants_authority(
     assert result["problems"] == ["authorization:candidate-non-authoritative"]
 
 
+def test_local_launch_candidate_rejects_numeric_alias_for_controller_validity(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    generation = _commit_generation_three_publication(repo, state, monkeypatch)
+    launch = _append_launch_authorization_chain(repo, state, generation)
+    _git(repo, "update-ref", "refs/remotes/origin/master", launch["smoke"])
+
+    def controller(root: Path, **kwargs):
+        result = _structural_launch_controller(root, **kwargs)
+        result["candidate_valid"] = 1
+        return result
+
+    monkeypatch.setattr(
+        mission_state,
+        "_load_launch_controller",
+        lambda _repo, _source_commit: controller,
+    )
+
+    result = validate_local_launch_candidate(repo)
+
+    assert result["candidate_valid"] is False
+    assert result["authoritative"] is False
+    assert result["launch_authorized"] is False
+    assert result["problems"] == ["authorization:candidate-valid:1!=True"]
+
+
 def test_local_launch_candidate_rejects_origin_advanced_beyond_exact_smoke_tip(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -4206,15 +5858,19 @@ def test_local_launch_candidate_rejects_origin_advanced_beyond_exact_smoke_tip(
     generation = _commit_generation_three_publication(repo, state, monkeypatch)
     launch = _append_launch_authorization_chain(repo, state, generation)
     tree = _git(repo, "rev-parse", f"{launch['smoke']}^{{tree}}").decode().strip()
-    advanced = _git(
-        repo,
-        "commit-tree",
-        tree,
-        "-p",
-        launch["smoke"],
-        "-m",
-        "unreviewed preflight advancement",
-    ).decode().strip()
+    advanced = (
+        _git(
+            repo,
+            "commit-tree",
+            tree,
+            "-p",
+            launch["smoke"],
+            "-m",
+            "unreviewed preflight advancement",
+        )
+        .decode()
+        .strip()
+    )
     _git(repo, "update-ref", "refs/remotes/origin/master", advanced)
     _use_structural_launch_controller(monkeypatch)
 
@@ -4237,6 +5893,10 @@ def test_local_launch_candidate_rejects_origin_advanced_beyond_exact_smoke_tip(
         (lambda state: state.__setitem__("trunk", "dev"), "candidate:state-trunk"),
         (
             lambda state: state.__setitem__("current_completed_iteration", 133),
+            "candidate:state-current-iteration",
+        ),
+        (
+            lambda state: state.__setitem__("current_completed_iteration", 134.0),
             "candidate:state-current-iteration",
         ),
         (
@@ -4264,15 +5924,29 @@ def test_local_launch_candidate_rejects_origin_advanced_beyond_exact_smoke_tip(
             "candidate:state-storage-gate",
         ),
         (
+            lambda state: state["storage_gate"].__setitem__(
+                "minimum_local_free_gib_before_new_proof_collection", 15.0
+            ),
+            "candidate:state-storage-gate",
+        ),
+        (
+            lambda state: state["workspace_boundary"].__setitem__(
+                "cross_workspace_access_requires_explicit_operator_request", 1
+            ),
+            "candidate:state-workspace-boundary",
+        ),
+        (
             lambda state: state["next_program"].__setitem__(
                 "phase", "TOOLING_FROZEN_PREFLIGHT_REQUIRED"
             ),
             "candidate:state-next-program",
         ),
         (
-            lambda state: state["next_program"]["authorized_actions"].append(
-                "unregistered launch"
-            ),
+            lambda state: state["next_program"]["authorized_actions"].append("unregistered launch"),
+            "candidate:state-next-program",
+        ),
+        (
+            lambda state: state["next_program"].__setitem__("iteration", 135.0),
             "candidate:state-next-program",
         ),
         (lambda state: state.__setitem__("run_state", "RUNNING"), "candidate:state-run-state"),
@@ -4285,6 +5959,7 @@ def test_local_launch_candidate_rejects_hostile_state_before_topology(
     expected_problem: str,
 ) -> None:
     state = copy.deepcopy(load_state())
+    state["run_state"] = "IDLE"
     state["next_program"]["phase"] = "LAUNCH_AUTHORIZED"
     state["next_program"]["authorized_actions"] = list(LAUNCH_AUTHORIZED_ACTIONS)
     state["next_program"]["forbidden_actions"] = list(LAUNCH_FORBIDDEN_ACTIONS)
@@ -4339,7 +6014,7 @@ def test_tooling_phase_accepts_detached_alternate_ci_checkout(
     repo, state = _minimal_state_repo(tmp_path)
     _set_tooling_phase(state)
     _commit_recovery_publication(repo, state, monkeypatch)
-    _git(repo, "checkout", "--detach", "HEAD")
+    _git(repo, "checkout", "--detach", "--quiet", "HEAD")
 
     assert validate_state(state, repo) == []
 

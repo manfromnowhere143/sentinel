@@ -5,6 +5,7 @@ import hashlib
 import importlib.util
 import json
 import os
+import subprocess
 import sys
 from pathlib import Path
 from typing import Any
@@ -14,8 +15,7 @@ import pytest
 
 REPO = Path(__file__).resolve().parents[1]
 MODULE_PATH = (
-    REPO
-    / "experiments/iter135_neuroncap_blind_braking_dose_response/verify_tooling135.py"
+    REPO / "experiments/iter135_neuroncap_blind_braking_dose_response/verify_tooling135.py"
 )
 SPEC = importlib.util.spec_from_file_location("iter135_tooling_verifier", MODULE_PATH)
 assert SPEC is not None and SPEC.loader is not None
@@ -155,6 +155,8 @@ def test_green_receipt_binds_complete_discovered_surface_and_exact_commands(
     assert receipt["verdict"] == verifier.OK_VERDICT
     assert receipt["problem_count"] == 0
     assert receipt["inventory"] == inventory.as_dict()
+    assert "tests/test_handoff_generator.py" in inventory.tests
+    assert "scripts/make_handoff.py" in inventory.control_files
     assert set(receipt["files"]) == set(inventory.tested_files)
     assert verifier.RECEIPT_REL not in receipt["files"]
     assert receipt["command_contract"] == [
@@ -167,12 +169,19 @@ def test_green_receipt_binds_complete_discovered_surface_and_exact_commands(
         "HANDOFF.md",
         "MISSION_STATE.json",
         f"{verifier.EXPERIMENT_REL}/authorize_launch135.py",
+        f"{verifier.EXPERIMENT_REL}/capture_environment135.py",
+        f"{verifier.EXPERIMENT_REL}/prepare_host135.py",
         f"{verifier.EXPERIMENT_REL}/run_dose135.sh",
         f"{verifier.EXPERIMENT_REL}/run_smoke135.sh",
         f"{verifier.EXPERIMENT_REL}/verify_tooling135.py",
+        "scripts/make_handoff.py",
         "scripts/mission_state.py",
+        "tests/test_handoff_generator.py",
+        "tests/test_iter135_environment_capture.py",
+        "tests/test_iter135_host_preparation.py",
         "tests/test_iter135_launch_authorization.py",
         "tests/test_iter135_launcher.py",
+        "tests/test_iter135_smoke_pipeline.py",
         "tests/test_iter135_tooling_verifier.py",
         "tests/test_mission_state.py",
     )
@@ -190,6 +199,32 @@ def test_green_receipt_binds_complete_discovered_surface_and_exact_commands(
     assert receipt["timing"]["wall_duration_ns"] == 3_000_000_000
     assert receipt["timing"]["monotonic_duration_ns"] == 10_000
     assert replay_validate(receipt, root, git_probe=stable_git) == []
+
+
+def test_published_tree_inventory_classifies_exact_offline_handoff_test(
+    monkeypatch: Any,
+    tmp_path: Path,
+) -> None:
+    root = make_repo(tmp_path)
+    tree_paths = tuple(
+        sorted(
+            path.relative_to(root).as_posix()
+            for path in root.rglob("*")
+            if path.is_file()
+        )
+    )
+
+    def fake_tree(_root: Path, argv: tuple[str, ...]) -> bytes:
+        assert argv[:5] == ("ls-tree", "-r", "-z", "--name-only", "a" * 40)
+        return b"\0".join(path.encode() for path in tree_paths) + b"\0"
+
+    monkeypatch.setattr(verifier, "_git_bytes", fake_tree)
+
+    published = verifier._source_inventory_from_tree(root, "a" * 40)  # noqa: SLF001
+    discovered = verifier.discover_inventory(root)
+
+    assert published == discovered
+    assert "tests/test_handoff_generator.py" in published.tests
 
 
 def test_command_failure_cannot_emit_green_receipt(tmp_path: Path) -> None:
@@ -226,7 +261,9 @@ def test_forged_green_from_failed_run_is_rejected_by_independent_replay(
     assert "command_2 independent replay failed" in errors
 
 
-def test_default_git_cleanliness_probe_is_repository_global(monkeypatch: Any, tmp_path: Path) -> None:
+def test_default_git_cleanliness_probe_is_repository_global(
+    monkeypatch: Any, tmp_path: Path
+) -> None:
     calls: list[tuple[str, ...]] = []
 
     def fake_git(_root: Path, argv: tuple[str, ...]) -> bytes:
@@ -242,9 +279,9 @@ def test_default_git_cleanliness_probe_is_repository_global(monkeypatch: Any, tm
         if argv[0] == "rev-list":
             return b"a" * 40 + b" " + b"0" * 40 + b"\n"
         if argv[0] == "diff-tree":
-            return b"\0".join(
-                path.encode() for path in verifier.RECOVERY_SOURCE_COMMIT_PATHS
-            ) + b"\0"
+            return (
+                b"\0".join(path.encode() for path in verifier.RECOVERY_SOURCE_COMMIT_PATHS) + b"\0"
+            )
         return b""
 
     monkeypatch.setattr(verifier, "_git_bytes", fake_git)
@@ -309,9 +346,7 @@ def test_toolchain_resolution_rejects_path_precedence_shim(
     verifier._resolve_toolchain_cached.cache_clear()  # noqa: SLF001
 
 
-def test_git_resolution_rejects_path_precedence_shim(
-    monkeypatch: Any, tmp_path: Path
-) -> None:
+def test_git_resolution_rejects_path_precedence_shim(monkeypatch: Any, tmp_path: Path) -> None:
     shim = tmp_path / "git"
     shim.write_text("#!/bin/sh\nexit 0\n", encoding="utf-8")
     shim.chmod(0o755)
@@ -433,18 +468,14 @@ def test_published_structural_validation_resolves_only_trusted_git(
         verifier.GENERATION_TWELVE_RECEIPT_COMMIT: (verifier.GENERATION_TWELVE_SOURCE_COMMIT,),
         verifier.GENERATION_TWELVE_STATE_COMMIT: (verifier.GENERATION_TWELVE_RECEIPT_COMMIT,),
         verifier.GENERATION_TWELVE_BATON_COMMIT: (verifier.GENERATION_TWELVE_STATE_COMMIT,),
-        verifier.GENERATION_THIRTEEN_SOURCE_COMMIT: (
-            verifier.GENERATION_THIRTEEN_SOURCE_PARENT,
-        ),
-        verifier.GENERATION_THIRTEEN_RECEIPT_COMMIT: (
-            verifier.GENERATION_THIRTEEN_SOURCE_COMMIT,
-        ),
-        verifier.GENERATION_THIRTEEN_STATE_COMMIT: (
-            verifier.GENERATION_THIRTEEN_RECEIPT_COMMIT,
-        ),
-        verifier.GENERATION_THIRTEEN_BATON_COMMIT: (
-            verifier.GENERATION_THIRTEEN_STATE_COMMIT,
-        ),
+        verifier.GENERATION_THIRTEEN_SOURCE_COMMIT: (verifier.GENERATION_THIRTEEN_SOURCE_PARENT,),
+        verifier.GENERATION_THIRTEEN_RECEIPT_COMMIT: (verifier.GENERATION_THIRTEEN_SOURCE_COMMIT,),
+        verifier.GENERATION_THIRTEEN_STATE_COMMIT: (verifier.GENERATION_THIRTEEN_RECEIPT_COMMIT,),
+        verifier.GENERATION_THIRTEEN_BATON_COMMIT: (verifier.GENERATION_THIRTEEN_STATE_COMMIT,),
+        verifier.GENERATION_FOURTEEN_SOURCE_COMMIT: (verifier.GENERATION_FOURTEEN_SOURCE_PARENT,),
+        verifier.GENERATION_FOURTEEN_RECEIPT_COMMIT: (verifier.GENERATION_FOURTEEN_SOURCE_COMMIT,),
+        verifier.GENERATION_FOURTEEN_STATE_COMMIT: (verifier.GENERATION_FOURTEEN_RECEIPT_COMMIT,),
+        verifier.GENERATION_FOURTEEN_BATON_COMMIT: (verifier.GENERATION_FOURTEEN_STATE_COMMIT,),
         source: (verifier.RECOVERY_SOURCE_PARENT,),
         receipt_commit: (source,),
     }
@@ -523,6 +554,12 @@ def test_published_structural_validation_resolves_only_trusted_git(
         verifier.GENERATION_THIRTEEN_RECEIPT_COMMIT: (verifier.RECEIPT_REL,),
         verifier.GENERATION_THIRTEEN_STATE_COMMIT: ("MISSION_STATE.json",),
         verifier.GENERATION_THIRTEEN_BATON_COMMIT: ("CONTINUITY.md", "HANDOFF.md"),
+        verifier.GENERATION_FOURTEEN_SOURCE_COMMIT: tuple(
+            sorted(verifier.GENERATION_FOURTEEN_SOURCE_COMMIT_PATHS)
+        ),
+        verifier.GENERATION_FOURTEEN_RECEIPT_COMMIT: (verifier.RECEIPT_REL,),
+        verifier.GENERATION_FOURTEEN_STATE_COMMIT: ("MISSION_STATE.json",),
+        verifier.GENERATION_FOURTEEN_BATON_COMMIT: ("CONTINUITY.md", "HANDOFF.md"),
         source: tuple(sorted(verifier.RECOVERY_SOURCE_COMMIT_PATHS)),
         receipt_commit: (verifier.RECEIPT_REL,),
     }
@@ -571,6 +608,7 @@ def test_published_structural_validation_resolves_only_trusted_git(
     )
     receipt_history = (
         receipt_commit,
+        verifier.GENERATION_FOURTEEN_RECEIPT_COMMIT,
         verifier.GENERATION_THIRTEEN_RECEIPT_COMMIT,
         verifier.GENERATION_TWELVE_RECEIPT_COMMIT,
         verifier.GENERATION_ELEVEN_RECEIPT_COMMIT,
@@ -727,7 +765,7 @@ def test_generation_one_source_cannot_mint_a_second_generation_one_receipt(
     assert receipt["publication"] == verifier.EXPECTED_RECOVERY_PUBLICATION
 
 
-def test_replay_rejects_missing_or_forged_generation_four_publication(
+def test_receipt_validators_reject_missing_or_forged_generation_fifteen_publication(
     tmp_path: Path,
 ) -> None:
     root = make_repo(tmp_path)
@@ -743,6 +781,10 @@ def test_replay_rejects_missing_or_forged_generation_four_publication(
             **verifier.EXPECTED_RECOVERY_PUBLICATION,
             "reason_code": "UNRECORDED_REASON",
         },
+        {
+            **verifier.EXPECTED_RECOVERY_PUBLICATION,
+            "generation": 15.0,
+        },
     ):
         forged = copy.deepcopy(receipt)
         if publication is None:
@@ -752,8 +794,13 @@ def test_replay_rejects_missing_or_forged_generation_four_publication(
         refresh_payload_digest(forged)
 
         errors = replay_validate(forged, root, git_probe=stable_git)
+        structural_errors = verifier.validate_published_receipt_structure(
+            forged,
+            root,
+        )
 
-        assert "generation-four publication block mismatch" in errors
+        assert "generation-fifteen publication block mismatch" in errors
+        assert "generation-fifteen publication block mismatch" in structural_errors
 
 
 @pytest.mark.parametrize(
@@ -842,9 +889,19 @@ def test_test_set_drift_during_execution_is_fail_closed(tmp_path: Path) -> None:
     assert "COMMAND_SET_INCOMPLETE" in problem_codes(receipt)
 
 
-def test_missing_frozen_test_is_initialization_failure(tmp_path: Path) -> None:
+@pytest.mark.parametrize(
+    "relative",
+    [
+        "tests/test_handoff_generator.py",
+        "scripts/make_handoff.py",
+    ],
+)
+def test_missing_frozen_handoff_surface_is_initialization_failure(
+    tmp_path: Path,
+    relative: str,
+) -> None:
     root = make_repo(tmp_path)
-    (root / verifier.REQUIRED_TEST_FILES[0]).unlink()
+    (root / relative).unlink()
 
     receipt, runner = run_green(root)
 
@@ -1081,18 +1138,14 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
         verifier.GENERATION_TWELVE_RECEIPT_COMMIT: (verifier.GENERATION_TWELVE_SOURCE_COMMIT,),
         verifier.GENERATION_TWELVE_STATE_COMMIT: (verifier.GENERATION_TWELVE_RECEIPT_COMMIT,),
         verifier.GENERATION_TWELVE_BATON_COMMIT: (verifier.GENERATION_TWELVE_STATE_COMMIT,),
-        verifier.GENERATION_THIRTEEN_SOURCE_COMMIT: (
-            verifier.GENERATION_THIRTEEN_SOURCE_PARENT,
-        ),
-        verifier.GENERATION_THIRTEEN_RECEIPT_COMMIT: (
-            verifier.GENERATION_THIRTEEN_SOURCE_COMMIT,
-        ),
-        verifier.GENERATION_THIRTEEN_STATE_COMMIT: (
-            verifier.GENERATION_THIRTEEN_RECEIPT_COMMIT,
-        ),
-        verifier.GENERATION_THIRTEEN_BATON_COMMIT: (
-            verifier.GENERATION_THIRTEEN_STATE_COMMIT,
-        ),
+        verifier.GENERATION_THIRTEEN_SOURCE_COMMIT: (verifier.GENERATION_THIRTEEN_SOURCE_PARENT,),
+        verifier.GENERATION_THIRTEEN_RECEIPT_COMMIT: (verifier.GENERATION_THIRTEEN_SOURCE_COMMIT,),
+        verifier.GENERATION_THIRTEEN_STATE_COMMIT: (verifier.GENERATION_THIRTEEN_RECEIPT_COMMIT,),
+        verifier.GENERATION_THIRTEEN_BATON_COMMIT: (verifier.GENERATION_THIRTEEN_STATE_COMMIT,),
+        verifier.GENERATION_FOURTEEN_SOURCE_COMMIT: (verifier.GENERATION_FOURTEEN_SOURCE_PARENT,),
+        verifier.GENERATION_FOURTEEN_RECEIPT_COMMIT: (verifier.GENERATION_FOURTEEN_SOURCE_COMMIT,),
+        verifier.GENERATION_FOURTEEN_STATE_COMMIT: (verifier.GENERATION_FOURTEEN_RECEIPT_COMMIT,),
+        verifier.GENERATION_FOURTEEN_BATON_COMMIT: (verifier.GENERATION_FOURTEEN_STATE_COMMIT,),
         source: (verifier.RECOVERY_SOURCE_PARENT,),
         receipt_commit: (source,),
         state_commit: (receipt_commit,),
@@ -1174,6 +1227,12 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
         verifier.GENERATION_THIRTEEN_RECEIPT_COMMIT: (verifier.RECEIPT_REL,),
         verifier.GENERATION_THIRTEEN_STATE_COMMIT: ("MISSION_STATE.json",),
         verifier.GENERATION_THIRTEEN_BATON_COMMIT: ("CONTINUITY.md", "HANDOFF.md"),
+        verifier.GENERATION_FOURTEEN_SOURCE_COMMIT: tuple(
+            sorted(verifier.GENERATION_FOURTEEN_SOURCE_COMMIT_PATHS)
+        ),
+        verifier.GENERATION_FOURTEEN_RECEIPT_COMMIT: (verifier.RECEIPT_REL,),
+        verifier.GENERATION_FOURTEEN_STATE_COMMIT: ("MISSION_STATE.json",),
+        verifier.GENERATION_FOURTEEN_BATON_COMMIT: ("CONTINUITY.md", "HANDOFF.md"),
         source: tuple(sorted(verifier.RECOVERY_SOURCE_COMMIT_PATHS)),
         receipt_commit: (verifier.RECEIPT_REL,),
         state_commit: ("MISSION_STATE.json",),
@@ -1182,6 +1241,7 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
     }
     receipt_history = [
         receipt_commit,
+        verifier.GENERATION_FOURTEEN_RECEIPT_COMMIT,
         verifier.GENERATION_THIRTEEN_RECEIPT_COMMIT,
         verifier.GENERATION_TWELVE_RECEIPT_COMMIT,
         verifier.GENERATION_ELEVEN_RECEIPT_COMMIT,
@@ -1233,7 +1293,9 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
         git_probe=lambda _root, _paths: publication_git(state_commit),
         ancestry_probe=stable_ancestry,
     )
-    assert any("complete state-only and offline-baton transition is missing" in error for error in errors)
+    assert any(
+        "complete state-only and offline-baton transition is missing" in error for error in errors
+    )
 
     errors = verifier.validate_published_receipt_structure(
         receipt,
@@ -1253,9 +1315,7 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
 
     detached_origin = "f" * 40
 
-    def receipt_missing_from_origin(
-        _root: Path, ancestor: str, descendant: str
-    ) -> bool:
+    def receipt_missing_from_origin(_root: Path, ancestor: str, descendant: str) -> bool:
         return not (ancestor == receipt_commit and descendant == detached_origin)
 
     errors = verifier.validate_published_receipt_structure(
@@ -1264,7 +1324,9 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
         git_probe=lambda _root, _paths: publication_git(baton_commit, detached_origin),
         ancestry_probe=receipt_missing_from_origin,
     )
-    assert any("generation-fourteen receipt is not published on origin/master" in error for error in errors)
+    assert any(
+        "generation-fifteen receipt is not published on origin/master" in error for error in errors
+    )
 
     wrong_root = copy.deepcopy(receipt)
     wrong_root["repository"]["root"] = str(root)
@@ -1300,7 +1362,7 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
         git_probe=lambda _root, _paths: publication_git(baton_commit),
         ancestry_probe=stable_ancestry,
     )
-    assert any("receipt history is not exact generation-fourteen" in error for error in errors)
+    assert any("receipt history is not exact generation-fifteen" in error for error in errors)
     receipt_history.append(verifier.GENERATION_ONE_RECEIPT_COMMIT)
 
     paths[verifier.GENERATION_ONE_SOURCE_COMMIT] = ("MISSION_STATE.json",)
@@ -1335,10 +1397,57 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
         git_probe=lambda _root, _paths: publication_git(baton_commit),
         ancestry_probe=stable_ancestry,
     )
-    assert any("generation-three source topology or path scope changed" in error for error in errors)
+    assert any(
+        "generation-three source topology or path scope changed" in error for error in errors
+    )
     paths[verifier.GENERATION_THREE_SOURCE_COMMIT] = tuple(
         sorted(verifier.GENERATION_THREE_SOURCE_COMMIT_PATHS)
     )
+
+    paths[verifier.GENERATION_FOURTEEN_SOURCE_COMMIT] = ("MISSION_STATE.json",)
+    errors = verifier.validate_published_receipt_structure(
+        receipt,
+        root,
+        git_probe=lambda _root, _paths: publication_git(baton_commit),
+        ancestry_probe=stable_ancestry,
+    )
+    assert any(
+        "generation-fourteen source topology or path scope changed" in error for error in errors
+    )
+    paths[verifier.GENERATION_FOURTEEN_SOURCE_COMMIT] = tuple(
+        sorted(verifier.GENERATION_FOURTEEN_SOURCE_COMMIT_PATHS)
+    )
+
+    for transition_commit, transition_name in (
+        (verifier.GENERATION_FOURTEEN_RECEIPT_COMMIT, "receipt"),
+        (verifier.GENERATION_FOURTEEN_STATE_COMMIT, "state"),
+        (verifier.GENERATION_FOURTEEN_BATON_COMMIT, "baton"),
+    ):
+        expected_error = f"generation-fourteen {transition_name} topology or path scope changed"
+        expected_parents = parents[transition_commit]
+        parents[transition_commit] = ("f" * 40,)
+        errors = verifier.validate_published_receipt_structure(
+            receipt,
+            root,
+            git_probe=lambda _root, _paths: publication_git(baton_commit),
+            ancestry_probe=stable_ancestry,
+        )
+        assert any(expected_error in error for error in errors)
+        parents[transition_commit] = expected_parents
+
+        expected_paths = paths[transition_commit]
+        paths[transition_commit] = (
+            *expected_paths,
+            "unexpected-generation-fourteen.txt",
+        )
+        errors = verifier.validate_published_receipt_structure(
+            receipt,
+            root,
+            git_probe=lambda _root, _paths: publication_git(baton_commit),
+            ancestry_probe=stable_ancestry,
+        )
+        assert any(expected_error in error for error in errors)
+        paths[transition_commit] = expected_paths
 
     parents[source] = ("f" * 40,)
     errors = verifier.validate_published_receipt_structure(
@@ -1348,7 +1457,7 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
         ancestry_probe=stable_ancestry,
     )
     assert any(
-        "actual generation-four source topology or path scope is wrong" in error
+        "actual generation-fifteen source topology or path scope is wrong" in error
         for error in errors
     )
 
@@ -1499,6 +1608,35 @@ def test_runner_exception_is_hashed_without_log_disclosure(tmp_path: Path) -> No
     assert receipt["commands"][0]["runner_error_type"] == "RuntimeError"
 
 
+@pytest.mark.parametrize("hostile_returncode", [False, 0.0, True, 1.0])
+def test_runner_returncode_rejects_bool_and_float_aliases_before_receipt_generation(
+    tmp_path: Path,
+    hostile_returncode: object,
+) -> None:
+    root = make_repo(tmp_path)
+
+    def hostile_runner(_command: tuple[str, ...], _cwd: Path) -> Any:
+        return verifier.RawCommandResult(
+            returncode=hostile_returncode,
+            stdout=b"",
+            stderr=b"",
+        )
+
+    receipt = verifier.run_verification(
+        root,
+        runner=hostile_runner,
+        git_probe=stable_git,
+        toolchain_resolver=fake_toolchain,
+        wall_clock_ns=SequenceClock(1, 2),
+        monotonic_clock_ns=SequenceClock(1, 2),
+    )
+
+    assert receipt["verdict"] == verifier.FAIL_VERDICT
+    assert receipt["commands"][0]["return_code"] == 125
+    assert receipt["commands"][0]["runner_error_type"] == "TypeError"
+    assert "COMMAND_FAILED" in problem_codes(receipt)
+
+
 def test_atomic_writer_round_trips_and_refuses_output_symlink(tmp_path: Path) -> None:
     root = make_repo(tmp_path)
     output = root / verifier.EXPERIMENT_REL / "tooling_verification_receipt.json"
@@ -1557,6 +1695,166 @@ def test_receipt_writer_cannot_overwrite_control_plane(relative: str, tmp_path: 
     assert output.read_bytes() == original
 
 
+@pytest.mark.parametrize(
+    ("target", "forged_value", "expected_error"),
+    (
+        ("problem_count", False, "problem_count is not exact integer zero"),
+        ("problem_count", 0.0, "problem_count is not exact integer zero"),
+        ("return_code", False, "command_0 return_code is not exact integer zero"),
+        ("return_code", 0.0, "command_0 return_code is not exact integer zero"),
+    ),
+)
+def test_green_integer_claims_reject_bool_and_equal_valued_float_in_both_validators(
+    target: str,
+    forged_value: object,
+    expected_error: str,
+    tmp_path: Path,
+) -> None:
+    root = make_repo(tmp_path)
+    receipt, _runner = run_green(root)
+    forged = copy.deepcopy(receipt)
+    if target == "problem_count":
+        forged[target] = forged_value
+    else:
+        forged["commands"][0][target] = forged_value
+    refresh_payload_digest(forged)
+
+    replay_errors = replay_validate(forged, root, git_probe=stable_git)
+    structural_errors = verifier.validate_published_receipt_structure(forged, root)
+
+    assert expected_error in replay_errors
+    assert expected_error in structural_errors
+
+
+@pytest.mark.parametrize(
+    ("target", "expected_error"),
+    (
+        ("repository", "repository field set mismatch"),
+        ("git_start", "repository git_start field set mismatch"),
+        ("toolchain", "toolchain row field set mismatch: pytest"),
+        ("file", "file binding row field set mismatch:"),
+        ("execution_identity", "file execution_identity field set mismatch:"),
+        ("command", "command_0 field set mismatch"),
+        ("timing", "timing field set mismatch"),
+    ),
+)
+def test_nested_receipt_field_sets_are_exact_in_both_validators(
+    target: str,
+    expected_error: str,
+    tmp_path: Path,
+) -> None:
+    root = make_repo(tmp_path)
+    receipt, _runner = run_green(root)
+    forged = copy.deepcopy(receipt)
+    first_file = next(iter(forged["files"]))
+    targets = {
+        "repository": forged["repository"],
+        "git_start": forged["repository"]["git_start"],
+        "toolchain": forged["toolchain"]["pytest"],
+        "file": forged["files"][first_file],
+        "execution_identity": forged["files"][first_file]["execution_identity"],
+        "command": forged["commands"][0],
+        "timing": forged["timing"],
+    }
+    targets[target]["unregistered_claim"] = 0
+    refresh_payload_digest(forged)
+
+    replay_errors = replay_validate(forged, root, git_probe=stable_git)
+    structural_errors = verifier.validate_published_receipt_structure(forged, root)
+
+    assert any(expected_error in error for error in replay_errors)
+    assert any(expected_error in error for error in structural_errors)
+
+
+@pytest.mark.parametrize(
+    ("target", "expected_error"),
+    (
+        ("repository_flag", "repository git_head_stable is not a JSON boolean"),
+        ("toolchain_bytes", "toolchain bytes malformed: pytest"),
+        ("file_inode", "file execution_identity inode malformed:"),
+        ("stdout_bytes", "command_0 stdout byte count malformed"),
+        ("stdout_digest", "command_0 stdout digest malformed"),
+        (
+            "stderr_binding",
+            "command_0 stderr byte count and digest are inconsistent",
+        ),
+        ("wall_duration_ns", "wall_duration_ns malformed"),
+    ),
+)
+def test_nested_receipt_scalar_metadata_is_typed_and_bound_in_both_validators(
+    target: str,
+    expected_error: str,
+    tmp_path: Path,
+) -> None:
+    root = make_repo(tmp_path)
+    receipt, _runner = run_green(root)
+    forged = copy.deepcopy(receipt)
+    first_file = next(iter(forged["files"]))
+    if target == "repository_flag":
+        forged["repository"]["git_head_stable"] = 1
+    elif target == "toolchain_bytes":
+        value = forged["toolchain"]["pytest"]["bytes"]
+        forged["toolchain"]["pytest"]["bytes"] = float(value)
+    elif target == "file_inode":
+        value = forged["files"][first_file]["execution_identity"]["inode"]
+        forged["files"][first_file]["execution_identity"]["inode"] = float(value)
+    elif target == "stdout_bytes":
+        value = forged["commands"][0]["stdout_bytes"]
+        forged["commands"][0]["stdout_bytes"] = float(value)
+    elif target == "stdout_digest":
+        forged["commands"][0]["stdout_sha256"] = "A" * 64
+    elif target == "stderr_binding":
+        forged["commands"][0]["stderr_sha256"] = "0" * 64
+    else:
+        value = forged["timing"]["wall_duration_ns"]
+        forged["timing"]["wall_duration_ns"] = float(value)
+    refresh_payload_digest(forged)
+
+    replay_errors = replay_validate(forged, root, git_probe=stable_git)
+    structural_errors = verifier.validate_published_receipt_structure(forged, root)
+
+    assert any(expected_error in error for error in replay_errors)
+    assert any(expected_error in error for error in structural_errors)
+
+
+@pytest.mark.parametrize(
+    ("mutation", "expected_error"),
+    (
+        ("noncanonical_start", "timing started_at_utc is not canonical UTC"),
+        ("reverse", "timing UTC timestamps are out of order"),
+        (
+            "inconsistent_duration",
+            "timing wall duration is inconsistent with UTC timestamps",
+        ),
+    ),
+)
+def test_timing_claims_require_canonical_ordered_duration_consistency(
+    mutation: str,
+    expected_error: str,
+    tmp_path: Path,
+) -> None:
+    root = make_repo(tmp_path)
+    receipt, _runner = run_green(root)
+    forged = copy.deepcopy(receipt)
+    timing = forged["timing"]
+    if mutation == "noncanonical_start":
+        timing["started_at_utc"] = timing["started_at_utc"].removesuffix("Z") + "+00:00"
+    elif mutation == "reverse":
+        timing["started_at_utc"], timing["finished_at_utc"] = (
+            timing["finished_at_utc"],
+            timing["started_at_utc"],
+        )
+    else:
+        timing["wall_duration_ns"] += verifier.WALL_TIMESTAMP_ROUNDING_BUDGET_NS + 1
+    refresh_payload_digest(forged)
+
+    replay_errors = replay_validate(forged, root, git_probe=stable_git)
+    structural_errors = verifier.validate_published_receipt_structure(forged, root)
+
+    assert expected_error in replay_errors
+    assert expected_error in structural_errors
+
+
 def test_receipt_payload_digest_detects_structural_tampering(tmp_path: Path) -> None:
     root = make_repo(tmp_path)
     receipt, _runner = run_green(root)
@@ -1569,10 +1867,42 @@ def test_receipt_payload_digest_detects_structural_tampering(tmp_path: Path) -> 
     assert "receipt payload digest mismatch" in errors
 
 
+def test_retained_generation_fourteen_receipt_passes_stricter_nested_shape() -> None:
+    raw_receipt = subprocess.run(
+        (
+            "/usr/bin/git",
+            "-C",
+            str(REPO),
+            "show",
+            f"{verifier.GENERATION_FOURTEEN_RECEIPT_COMMIT}:{verifier.RECEIPT_REL}",
+        ),
+        cwd=REPO,
+        check=True,
+        stdin=subprocess.DEVNULL,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        timeout=10,
+        env={
+            "GIT_CONFIG_GLOBAL": os.devnull,
+            "GIT_CONFIG_NOSYSTEM": "1",
+            "GIT_OPTIONAL_LOCKS": "0",
+            "GIT_TERMINAL_PROMPT": "0",
+            "HOME": "/nonexistent/sentinel-r14-receipt-test",
+            "LANG": "C",
+            "LC_ALL": "C",
+            "PATH": "/usr/bin:/bin",
+        },
+    ).stdout
+    receipt = verifier._parse_receipt_json(  # noqa: SLF001
+        raw_receipt
+    )
+
+    assert receipt["publication"]["generation"] == 14
+    assert verifier._nested_receipt_shape_errors(receipt) == []  # noqa: SLF001
+
+
 @pytest.mark.parametrize("mutation", ["extra", "missing"])
-def test_receipt_root_field_set_is_exact_in_both_validators(
-    tmp_path: Path, mutation: str
-) -> None:
+def test_receipt_root_field_set_is_exact_in_both_validators(tmp_path: Path, mutation: str) -> None:
     root = make_repo(tmp_path)
     receipt, _runner = run_green(root)
     forged = copy.deepcopy(receipt)
@@ -1598,9 +1928,7 @@ def test_receipt_root_field_set_is_exact_in_both_validators(
         ('{"value":-Infinity}', "non-finite receipt JSON number"),
     ],
 )
-def test_receipt_parser_rejects_duplicate_and_nonfinite_json(
-    payload: str, problem: str
-) -> None:
+def test_receipt_parser_rejects_duplicate_and_nonfinite_json(payload: str, problem: str) -> None:
     with pytest.raises(verifier.VerificationError, match=problem):
         verifier._parse_receipt_json(payload)  # noqa: SLF001
 

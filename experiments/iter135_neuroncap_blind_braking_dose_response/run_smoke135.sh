@@ -526,6 +526,7 @@ import ssl
 import stat
 import sys
 import urllib.request
+from datetime import datetime, timezone
 from pathlib import Path
 
 API_ROOT = "https://api.github.com/repos/manfromnowhere143/sentinel"
@@ -533,6 +534,12 @@ MANIFEST_REPOSITORY_PATH = (
     "experiments/iter135_neuroncap_blind_braking_dose_response/launch_manifest.json"
 )
 EXPECTED_CHECKS = {"check (3.10)", "check (3.11)"}
+WORKFLOW_ID = 304353015
+WORKFLOW_NAME = "ci"
+WORKFLOW_FILE = "ci.yml"
+WORKFLOW_PATH = ".github/workflows/ci.yml"
+MAX_WORKFLOW_RUNS = 100
+MAX_JOBS = 100
 OID = re.compile(r"^[0-9a-f]{40}$")
 SHA256 = re.compile(r"^[0-9a-f]{64}$")
 
@@ -561,6 +568,20 @@ def strict_json_loads(payload: bytes) -> object:
         object_pairs_hook=strict_json_object,
         parse_constant=reject_nonfinite_json,
     )
+
+
+def canonical_github_utc(value: object) -> datetime:
+    if not isinstance(value, str):
+        raise ValueError("GitHub timestamp is not text")
+    try:
+        parsed = datetime.strptime(value, "%Y-%m-%dT%H:%M:%SZ").replace(
+            tzinfo=timezone.utc
+        )
+    except ValueError as error:
+        raise ValueError("GitHub timestamp is malformed") from error
+    if parsed.strftime("%Y-%m-%dT%H:%M:%SZ") != value:
+        raise ValueError("GitHub timestamp is not canonical UTC")
+    return parsed
 
 
 def stable_physical_bytes(path: Path) -> bytes:
@@ -610,54 +631,178 @@ def validate_ref(payload: object, expected_commit: str) -> None:
         raise ValueError("pre-smoke commit is not the current canonical GitHub master")
 
 
-def validate_ci(payload: object, expected_commit: str) -> list[dict[str, object]]:
-    if not isinstance(payload, dict) or not isinstance(payload.get("check_runs"), list):
-        raise ValueError("GitHub check-runs response is malformed")
-    check_runs = payload["check_runs"]
-    # Amendment-published SHAs permanently carry the disposable-branch probe run plus the
-    # authoritative master run per required name; authority binds to the newest run per name
-    # (ids are chronologically monotonic), matching the generation-seven envelope in the
-    # host-preparation controller. A red run newer than a green one still fails closed.
+def validate_workflow_runs(payload: object, expected_commit: str) -> dict[str, object]:
+    if not isinstance(payload, dict) or not isinstance(payload.get("workflow_runs"), list):
+        raise ValueError("GitHub workflow-runs response is malformed")
+    runs = payload["workflow_runs"]
     if (
         type(payload.get("total_count")) is not int
-        or payload["total_count"] != len(check_runs)
-        or payload["total_count"] < len(EXPECTED_CHECKS)
-        or payload["total_count"] > 2 * len(EXPECTED_CHECKS)
+        or payload["total_count"] != len(runs)
+        or payload["total_count"] < 1
+        or payload["total_count"] > MAX_WORKFLOW_RUNS
     ):
-        raise ValueError("GitHub check-runs page is incomplete or not the exact CI matrix")
-    grouped = {name: [] for name in EXPECTED_CHECKS}
-    for row in check_runs:
-        if not isinstance(row, dict) or row.get("name") not in EXPECTED_CHECKS:
-            raise ValueError("GitHub check-runs contains an unexpected matrix row")
-        app = row.get("app")
-        if (
-            row.get("head_sha") != expected_commit
-            or not isinstance(app, dict)
-            or app.get("slug") != "github-actions"
-            or type(row.get("id")) is not int
-            or row["id"] <= 0
-            or row.get("status") != "completed"
-        ):
-            raise ValueError(f"GitHub CI identity drift: {row.get('name')}")
-        grouped[row["name"]].append(row)
+        raise ValueError("GitHub workflow-runs page is incomplete")
+    run_ids = set()
+    suite_ids = set()
+    run_numbers = set()
     projection = []
-    for name, rows in grouped.items():
-        if not 1 <= len(rows) <= 2 or len({row["id"] for row in rows}) != len(rows):
-            raise ValueError(f"required GitHub CI check missing: {name}")
-        latest = max(rows, key=lambda row: row["id"])
-        if latest.get("status") != "completed" or latest.get("conclusion") != "success":
-            raise ValueError(f"required GitHub CI check is not green: {name}")
+    for row in runs:
+        if not isinstance(row, dict):
+            raise ValueError("GitHub workflow-run row is malformed")
+        run_id = row.get("id")
+        suite_id = row.get("check_suite_id")
+        run_number = row.get("run_number")
+        run_attempt = row.get("run_attempt")
+        if (
+            type(run_id) is not int
+            or run_id <= 0
+            or type(suite_id) is not int
+            or suite_id <= 0
+            or type(run_number) is not int
+            or run_number <= 0
+            or type(run_attempt) is not int
+            or run_attempt <= 0
+            or run_id in run_ids
+            or suite_id in suite_ids
+            or run_number in run_numbers
+        ):
+            raise ValueError("GitHub workflow-run identity drift")
+        run_ids.add(run_id)
+        suite_ids.add(suite_id)
+        run_numbers.add(run_number)
+        try:
+            created_at = canonical_github_utc(row.get("created_at"))
+            updated_at = canonical_github_utc(row.get("updated_at"))
+            started_value = row.get("run_started_at")
+            started_at = (
+                canonical_github_utc(started_value)
+                if started_value is not None
+                else None
+            )
+        except ValueError as error:
+            raise ValueError("GitHub workflow-run timestamp drift") from error
+        if (
+            created_at > updated_at
+            or (started_at is not None and not (created_at <= started_at <= updated_at))
+        ):
+            raise ValueError("GitHub workflow-run timestamp drift")
+        expected_url = f"{API_ROOT}/actions/runs/{run_id}"
+        if (
+            type(row.get("workflow_id")) is not int
+            or row.get("workflow_id") != WORKFLOW_ID
+            or row.get("name") != WORKFLOW_NAME
+            or row.get("path") != WORKFLOW_PATH
+            or row.get("head_branch") != "master"
+            or row.get("head_sha") != expected_commit
+            or row.get("event") != "push"
+            or not isinstance(row.get("status"), str)
+            or (
+                row.get("conclusion") is not None
+                and not isinstance(row.get("conclusion"), str)
+            )
+            or row.get("url") != expected_url
+            or row.get("jobs_url") != f"{expected_url}/jobs"
+        ):
+            raise ValueError("GitHub workflow-run binding drift")
         projection.append(
             {
-                "name": name,
-                "id": latest["id"],
-                "head_sha": expected_commit,
-                "app_slug": "github-actions",
-                "status": "completed",
-                "conclusion": "success",
+                "id": run_id,
+                "check_suite_id": suite_id,
+                "run_number": run_number,
+                "run_attempt": run_attempt,
+                "status": row.get("status"),
+                "conclusion": row.get("conclusion"),
+                "created_at": row.get("created_at"),
+                "run_started_at": started_value,
+                "updated_at": row.get("updated_at"),
             }
         )
-    projection.sort(key=lambda row: row["name"])
+    selected = max(projection, key=lambda row: row["run_number"])
+    if (
+        selected["status"] != "completed"
+        or selected["conclusion"] != "success"
+        or selected["run_started_at"] is None
+    ):
+        raise ValueError("latest canonical GitHub workflow run is not green")
+    return selected
+
+
+def validate_ci(
+    payload: object, expected_commit: str, workflow_run: dict[str, object]
+) -> list[dict[str, object]]:
+    if not isinstance(payload, dict) or not isinstance(payload.get("jobs"), list):
+        raise ValueError("GitHub workflow jobs response is malformed")
+    jobs = payload["jobs"]
+    if (
+        type(payload.get("total_count")) is not int
+        or payload["total_count"] != len(jobs)
+        or payload["total_count"] != len(EXPECTED_CHECKS)
+        or payload["total_count"] > MAX_JOBS
+    ):
+        raise ValueError("GitHub workflow jobs page is incomplete or not the exact CI matrix")
+    selected = {}
+    identities = set()
+    expected_run_id = workflow_run["id"]
+    expected_run_attempt = workflow_run["run_attempt"]
+    for row in jobs:
+        if not isinstance(row, dict) or row.get("name") not in EXPECTED_CHECKS:
+            raise ValueError("GitHub workflow jobs contain an unexpected matrix row")
+        check_id = row.get("id")
+        if (
+            type(check_id) is not int
+            or check_id <= 0
+            or check_id in identities
+            or row["name"] in selected
+        ):
+            raise ValueError("GitHub CI check IDs or names are not unique")
+        identities.add(check_id)
+        job_run_id = row.get("run_id")
+        job_run_attempt = row.get("run_attempt")
+        try:
+            started_at = canonical_github_utc(row.get("started_at"))
+            completed_at = canonical_github_utc(row.get("completed_at"))
+            workflow_created_at = canonical_github_utc(workflow_run.get("created_at"))
+            workflow_updated_at = canonical_github_utc(workflow_run.get("updated_at"))
+        except ValueError as error:
+            raise ValueError(f"GitHub CI timestamp drift: {row.get('name')}") from error
+        if not (
+            workflow_created_at
+            <= started_at
+            <= completed_at
+            <= workflow_updated_at
+        ):
+            raise ValueError(f"GitHub CI timestamp drift: {row.get('name')}")
+        if (
+            type(job_run_id) is not int
+            or job_run_id <= 0
+            or job_run_id != expected_run_id
+            or type(job_run_attempt) is not int
+            or job_run_attempt <= 0
+            or job_run_attempt != expected_run_attempt
+            or row.get("head_sha") != expected_commit
+            or row.get("head_branch") != "master"
+            or row.get("workflow_name") != WORKFLOW_NAME
+            or row.get("status") != "completed"
+            or row.get("conclusion") != "success"
+            or row.get("url") != f"{API_ROOT}/actions/jobs/{check_id}"
+            or row.get("run_url") != f"{API_ROOT}/actions/runs/{expected_run_id}"
+            or row.get("check_run_url") != f"{API_ROOT}/check-runs/{check_id}"
+        ):
+            raise ValueError(f"GitHub CI identity or conclusion drift: {row.get('name')}")
+        selected[row["name"]] = row
+    if set(selected) != EXPECTED_CHECKS:
+        raise ValueError("required GitHub CI check missing")
+    projection = [
+        {
+            "name": name,
+            "id": selected[name]["id"],
+            "head_sha": expected_commit,
+            "app_slug": "github-actions",
+            "status": "completed",
+            "conclusion": "success",
+        }
+        for name in sorted(EXPECTED_CHECKS)
+    ]
     if len({row["id"] for row in projection}) != len(projection):
         raise ValueError("GitHub CI check IDs are not unique")
     return projection
@@ -752,6 +897,8 @@ def github_json(relative: str) -> object:
         url,
         headers={
             "Accept": "application/vnd.github+json",
+            "Cache-Control": "no-cache",
+            "Pragma": "no-cache",
             "User-Agent": "sentinel-iter135-publication-gate",
             "X-GitHub-Api-Version": "2022-11-28",
         },
@@ -763,8 +910,8 @@ def github_json(relative: str) -> object:
         content_type = response.headers.get_content_type()
         if content_type not in {"application/json", "application/vnd.github+json"}:
             raise ValueError(f"GitHub API content type drift: {content_type}")
-        raw = response.read(32 * 1024 * 1024 + 1)
-    if len(raw) > 32 * 1024 * 1024:
+        raw = response.read(8 * 1024 * 1024 + 1)
+    if len(raw) > 8 * 1024 * 1024:
         raise ValueError("GitHub API response exceeds frozen byte ceiling")
     return strict_json_loads(raw)
 
@@ -784,11 +931,21 @@ def main() -> None:
     if OID.fullmatch(environment_parent or "") is None:
         raise SystemExit("pre-smoke manifest does not bind environment parent E")
     validate_ref(github_json("/git/ref/heads/master"), expected_commit)
+    workflow_runs_path = (
+        f"/actions/workflows/{WORKFLOW_FILE}/runs?branch=master&event=push&"
+        f"head_sha={expected_commit}&per_page={MAX_WORKFLOW_RUNS}&page=1"
+    )
+    workflow_run = validate_workflow_runs(
+        github_json(workflow_runs_path),
+        expected_commit,
+    )
     ci_projection = validate_ci(
         github_json(
-            f"/commits/{expected_commit}/check-runs?filter=latest&per_page=100&page=1"
+            f"/actions/runs/{workflow_run['id']}/attempts/"
+            f"{workflow_run['run_attempt']}/jobs?per_page={MAX_JOBS}&page=1"
         ),
         expected_commit,
+        workflow_run,
     )
     tree_oid = validate_commit_scope(
         github_json(f"/commits/{expected_commit}?per_page=100&page=1"),
@@ -797,6 +954,12 @@ def main() -> None:
     )
     blob_oid = manifest_blob_oid(github_json(f"/git/trees/{tree_oid}?recursive=1"))
     validate_blob(github_json(f"/git/blobs/{blob_oid}"), blob_oid, deployed, expected_sha)
+    validate_ref(github_json("/git/ref/heads/master"), expected_commit)
+    if validate_workflow_runs(
+        github_json(workflow_runs_path),
+        expected_commit,
+    ) != workflow_run:
+        raise ValueError("canonical GitHub workflow run changed during authority proof")
     validate_ref(github_json("/git/ref/heads/master"), expected_commit)
     print(
         expected_commit,
@@ -900,6 +1063,7 @@ if (
     or receipt.get("source_path")
     != "experiments/iter135_neuroncap_blind_braking_dose_response/run_smoke135.sh"
     or receipt.get("sha256") != actual
+    or type(receipt.get("bytes")) is not int
     or receipt.get("bytes") != byte_count
 ):
     raise SystemExit("runner manifest receipt drift")
@@ -972,15 +1136,37 @@ def digest(path):
     return value.hexdigest()
 
 
+def exact_json_value(observed, expected):
+    if type(observed) is not type(expected):
+        return False
+    if type(expected) is dict:
+        return set(observed) == set(expected) and all(
+            exact_json_value(observed[key], expected[key]) for key in expected
+        )
+    if type(expected) is list:
+        return len(observed) == len(expected) and all(
+            exact_json_value(observed_item, expected_item)
+            for observed_item, expected_item in zip(observed, expected, strict=True)
+        )
+    return observed == expected
+
+
 if manifest.get("schema") != "iter135.launch_manifest.v2":
     problems.append("manifest-schema")
 if manifest.get("verdict") != "I135_TOOLING_MANIFEST_INCOMPLETE":
     problems.append("manifest-verdict")
 if manifest.get("launch_authorized") is not False:
     problems.append("manifest-already-analytic")
-if manifest.get("missing_artifacts") != ["smoke-evidence/smoke_receipt.json"]:
+if not exact_json_value(
+    manifest.get("missing_artifacts"),
+    ["smoke-evidence/smoke_receipt.json"],
+):
     problems.append("manifest-missing-set")
-if manifest.get("problem_count") != 1 or manifest.get("problems") != ["smoke:receipt-missing"]:
+if (
+    type(manifest.get("problem_count")) is not int
+    or manifest.get("problem_count") != 1
+    or not exact_json_value(manifest.get("problems"), ["smoke:receipt-missing"])
+):
     problems.append("manifest-problem-set")
 expected_manifest_fields = {
     "schema",
@@ -1016,7 +1202,12 @@ if set(manifest) != expected_manifest_fields:
     problems.append("manifest-field-set")
 if manifest.get("mission_phase") != "TOOLING_FROZEN_PREFLIGHT_REQUIRED":
     problems.append("manifest-mission-phase")
-if manifest.get("planned_blocks") != 120 or manifest.get("planned_episodes") != 2400:
+if (
+    type(manifest.get("planned_blocks")) is not int
+    or manifest.get("planned_blocks") != 120
+    or type(manifest.get("planned_episodes")) is not int
+    or manifest.get("planned_episodes") != 2400
+):
     problems.append("manifest-analytic-plan-cardinality")
 expected_gates = {
     "g0_preregistration": True,
@@ -1033,7 +1224,7 @@ expected_gates = {
     "tooling_verification": True,
     "mission_state": False,
 }
-if manifest.get("gates") != expected_gates:
+if not exact_json_value(manifest.get("gates"), expected_gates):
     problems.append("manifest-pre-smoke-gate-contract")
 
 expected_authorized_actions = [
@@ -1100,8 +1291,12 @@ expected_program = {
 if (
     mission_state.get("schema") != "sentinel.mission_state.v1"
     or mission_state.get("canonical_repository") != "/Users/danielwahnich/workspace/sentinel"
-    or mission_state.get("workspace_boundary") != expected_workspace_boundary
+    or not exact_json_value(
+        mission_state.get("workspace_boundary"),
+        expected_workspace_boundary,
+    )
     or mission_state.get("trunk") != "master"
+    or type(mission_state.get("current_completed_iteration")) is not int
     or mission_state.get("current_completed_iteration") != 134
     or mission_state.get("current_result")
     != "experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md"
@@ -1109,7 +1304,7 @@ if (
     or mission_state.get("run_state") != "IDLE"
     or mission_state.get("active_hypothesis")
     != "experiments/iter135_neuroncap_blind_braking_dose_response/HYPOTHESIS.md"
-    or mission_state.get("next_program") != expected_program
+    or not exact_json_value(mission_state.get("next_program"), expected_program)
 ):
     problems.append("mission-state-authority-contract")
 expected_state_storage = {
@@ -1123,7 +1318,10 @@ expected_state_storage = {
         "reproducible renders, and caches"
     ),
 }
-if mission_state.get("storage_gate") != expected_state_storage:
+if not exact_json_value(
+    mission_state.get("storage_gate"),
+    expected_state_storage,
+):
     problems.append("mission-state-storage-contract")
 expected_claim_state = {
     "neuroncap_union_gain": "ESTABLISHED_ON_NEURONCAP",
@@ -1143,20 +1341,26 @@ expected_paper_state = {
         "resolved wording for the decoder universal-negative overclaim",
     ],
 }
-if (
-    mission_state.get("claim_state") != expected_claim_state
-    or mission_state.get("deprecated_pending_hypotheses") != expected_deprecated
-    or mission_state.get("paper_state") != expected_paper_state
+if not all(
+    (
+        exact_json_value(mission_state.get("claim_state"), expected_claim_state),
+        exact_json_value(
+            mission_state.get("deprecated_pending_hypotheses"),
+            expected_deprecated,
+        ),
+        exact_json_value(mission_state.get("paper_state"), expected_paper_state),
+    )
 ):
     problems.append("mission-state-claim-paper-contract")
 mission_receipt = manifest.get("mission_state")
 mission_payload = mission_state_path.read_bytes()
-if (
-    not isinstance(mission_receipt, dict)
-    or set(mission_receipt) != {"source_path", "sha256", "bytes"}
-    or mission_receipt.get("source_path") != "MISSION_STATE.json"
-    or mission_receipt.get("sha256") != hashlib.sha256(mission_payload).hexdigest()
-    or mission_receipt.get("bytes") != len(mission_payload)
+if not exact_json_value(
+    mission_receipt,
+    {
+        "source_path": "MISSION_STATE.json",
+        "sha256": hashlib.sha256(mission_payload).hexdigest(),
+        "bytes": len(mission_payload),
+    },
 ):
     problems.append("mission-state-receipt-drift")
 
@@ -1185,6 +1389,533 @@ required = {
     "tooling_verification_receipt.json",
 }
 # BEGIN I135_PRE_SMOKE_BOUND_CONTRACT_PYTHON
+def strict_bound_json_loads(payload):
+    import json
+
+    def strict_object(pairs):
+        value = {}
+        for key, item in pairs:
+            if key in value:
+                raise ValueError(f"duplicate authority JSON key: {key}")
+            value[key] = item
+        return value
+
+    def reject_nonfinite(value):
+        raise ValueError(f"non-finite authority JSON number: {value}")
+
+    return json.loads(
+        payload,
+        object_pairs_hook=strict_object,
+        parse_constant=reject_nonfinite,
+    )
+
+
+def exact_json_value(observed, expected):
+    if type(observed) is not type(expected):
+        return False
+    if type(expected) is dict:
+        return set(observed) == set(expected) and all(
+            exact_json_value(observed[key], expected[key]) for key in expected
+        )
+    if type(expected) is list:
+        return len(observed) == len(expected) and all(
+            exact_json_value(observed_item, expected_item)
+            for observed_item, expected_item in zip(observed, expected, strict=True)
+        )
+    return observed == expected
+
+
+def load_strict_bound_json(path, receipt, expected_source_path):
+    payload = path.read_bytes()
+    expected_receipt = {
+        "source_path": expected_source_path,
+        "sha256": hashlib.sha256(payload).hexdigest(),
+        "bytes": len(payload),
+    }
+    if not exact_json_value(receipt, expected_receipt):
+        raise ValueError("bound authority JSON payload drift")
+    return strict_bound_json_loads(payload), payload
+
+
+def bound_payload_receipt_matches(
+    payload,
+    bound_receipt,
+    manifest_receipt,
+    expected_source_path,
+):
+    expected_receipt = {
+        "source_path": expected_source_path,
+        "sha256": hashlib.sha256(payload).hexdigest(),
+        "bytes": len(payload),
+    }
+    return exact_json_value(bound_receipt, expected_receipt) and exact_json_value(
+        manifest_receipt,
+        expected_receipt,
+    )
+
+
+def zero_problem_receipt_metadata_matches(document, schema, verdict):
+    return (
+        type(document) is dict
+        and exact_json_value(document.get("schema"), schema)
+        and exact_json_value(document.get("verdict"), verdict)
+        and type(document.get("problem_count")) is int
+        and document.get("problem_count") == 0
+        and exact_json_value(document.get("problems"), [])
+    )
+
+
+SMOKE_DOSES = ("blind_0_5x", "blind_1_0x", "blind_1_5x", "blind_2_0x")
+SMOKE_SCHEDULE_ROW_FIELDS = {
+    "brake_frames",
+    "donor_brake_frames",
+    "donor_class",
+    "donor_frame_count",
+    "donor_run",
+    "donor_seq",
+    "dose_id",
+    "scheduled_brake_count",
+    "target_class",
+    "target_run",
+    "target_seq",
+}
+
+
+def validate_smoke_schedule(schedule):
+    schedule_problems = []
+    targets = []
+    if not zero_problem_receipt_metadata_matches(
+        schedule,
+        "iter135.nested_dose_schedules.v1",
+        "NESTED_DOSE_SCHEDULES_OK",
+    ):
+        schedule_problems.append("schedule:metadata")
+        return schedule_problems, targets
+    schedules = schedule.get("schedules")
+    if type(schedules) is not dict or set(schedules) != set(SMOKE_DOSES):
+        schedule_problems.append("schedule-dose-set")
+        return schedule_problems, targets
+    if (
+        type(schedule.get("schedule_count")) is not int
+        or schedule.get("schedule_count")
+        != sum(len(rows) for rows in schedules.values() if type(rows) is dict)
+    ):
+        schedule_problems.append("schedule-count")
+    for dose in SMOKE_DOSES:
+        rows = schedules.get(dose)
+        if type(rows) is not dict:
+            schedule_problems.append(f"schedule:{dose}:rows")
+            continue
+        candidate_keys = sorted(
+            key
+            for key in rows
+            if type(key) is str
+            and len(key.split("/")) == 3
+            and all(key.split("/")[:2])
+            and key.split("/")[2] == "0"
+        )
+        if not candidate_keys:
+            schedule_problems.append(f"schedule:{dose}:canonical-run-zero")
+            continue
+        target = candidate_keys[0]
+        row = rows[target]
+        scenario_class, sequence, run_text = target.split("/")
+        if type(row) is not dict or set(row) != SMOKE_SCHEDULE_ROW_FIELDS:
+            schedule_problems.append(f"schedule:{dose}:row-contract")
+            continue
+        brake_frames = row.get("brake_frames")
+        donor_brake_frames = row.get("donor_brake_frames")
+        donor_frame_count = row.get("donor_frame_count")
+        if (
+            not exact_json_value(row.get("dose_id"), dose)
+            or not exact_json_value(row.get("target_class"), scenario_class)
+            or not exact_json_value(row.get("target_seq"), sequence)
+            or type(row.get("target_run")) is not int
+            or row.get("target_run") != int(run_text)
+        ):
+            schedule_problems.append(f"schedule:{dose}:identity")
+        if (
+            not exact_json_value(row.get("donor_class"), scenario_class)
+            or type(row.get("donor_seq")) is not str
+            or not row.get("donor_seq")
+            or row.get("donor_seq") == sequence
+            or type(row.get("donor_run")) is not int
+            or row.get("donor_run") < 0
+            or row.get("donor_run") >= 20
+            or row.get("donor_run") == row.get("target_run")
+        ):
+            schedule_problems.append(f"schedule:{dose}:donor-identity")
+        if (
+            type(donor_frame_count) is not int
+            or donor_frame_count <= 0
+            or type(donor_brake_frames) is not list
+            or any(type(frame) is not int for frame in donor_brake_frames)
+            or donor_brake_frames != sorted(set(donor_brake_frames))
+            or any(
+                frame < 0 or frame >= donor_frame_count
+                for frame in donor_brake_frames
+                if type(frame) is int
+            )
+        ):
+            schedule_problems.append(f"schedule:{dose}:donor-frames")
+        if (
+            type(brake_frames) is not list
+            or not brake_frames
+            or any(type(frame) is not int for frame in brake_frames)
+            or brake_frames != sorted(set(brake_frames))
+            or any(
+                frame < 0 or frame >= donor_frame_count
+                for frame in brake_frames
+                if type(frame) is int and type(donor_frame_count) is int
+            )
+            or type(row.get("scheduled_brake_count")) is not int
+            or row.get("scheduled_brake_count") != len(brake_frames)
+        ):
+            schedule_problems.append(f"schedule:{dose}:brake-frames")
+        targets.append((dose, f"{dose}/{target}", scenario_class, sequence))
+    return schedule_problems, targets
+
+
+HOST_SAFE_ENVIRONMENT = {
+    "DOCKER_CONFIG": "/nonexistent",
+    "DOCKER_HOST": "unix:///var/run/docker.sock",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_OPTIONAL_LOCKS": "0",
+    "GIT_TERMINAL_PROMPT": "0",
+    "HOME": "/nonexistent",
+    "LANG": "C",
+    "LC_ALL": "C",
+    "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONHASHSEED": "0",
+    "PYTHONNOUSERSITE": "1",
+    "TZ": "UTC",
+}
+HOST_STORAGE_FIELDS = {
+    "mount_target",
+    "mount_source",
+    "mount_fstype",
+    "mount_uuid",
+    "dataset_st_dev",
+    "root_st_dev",
+    "free_bytes_before",
+    "free_bytes_after",
+    "minimum_remote_free_bytes",
+    "projected_output_bytes",
+    "minimum_reserve_bytes",
+    "analytic_root",
+    "analytic_root_realpath",
+    "analytic_root_is_symlink",
+    "analytic_root_empty",
+    "analytic_root_st_dev",
+}
+
+
+def validate_remote_artifact_contract(artifacts):
+    problems = []
+    if type(artifacts) is not list or len(artifacts) != 82:
+        return ["remote-artifacts:cardinality"], {}
+    by_role = {}
+    for index, row in enumerate(artifacts):
+        if type(row) is not dict or set(row) != {"role", "path", "sha256", "bytes"}:
+            problems.append(f"remote-artifacts:row:{index}:field-set")
+            continue
+        role = row.get("role")
+        path = row.get("path")
+        sha256 = row.get("sha256")
+        byte_count = row.get("bytes")
+        if (
+            type(role) is not str
+            or not role
+            or role in by_role
+            or type(path) is not str
+            or not Path(path).is_absolute()
+            or type(sha256) is not str
+            or len(sha256) != 64
+            or any(character not in "0123456789abcdef" for character in sha256)
+            or type(byte_count) is not int
+            or byte_count <= 0
+        ):
+            problems.append(f"remote-artifacts:row:{index}:contract")
+            continue
+        by_role[role] = row
+    if (
+        len(by_role) != 82
+        or sum(role.startswith("scenario:") for role in by_role) != 20
+        or sum(role.startswith("renderer:") for role in by_role) != 42
+        or "uniad_server_baseline" not in by_role
+    ):
+        problems.append("remote-artifacts:role-set")
+    return sorted(set(problems)), by_role
+
+
+def validate_receipt_sidecar_topology(experiment_path):
+    """Validate producer-owned disk commit state, never producer process return."""
+
+    root = Path(experiment_path).absolute()
+    problems = []
+    if root.is_symlink() or not root.is_dir() or root.resolve(strict=True) != root:
+        return ["receipt-topology:root"]
+    contracts = (
+        (
+            "host",
+            "host_preparation_receipt.json",
+            "host_preparation_receipt.json.ATTEMPT_IN_PROGRESS_NONAUTHORITATIVE",
+            "host_preparation_receipt.json.PENDING_RECEIPT_NONAUTHORITATIVE",
+        ),
+        (
+            "environment",
+            "env_receipts.json",
+            ".env_receipts.json.ATTEMPT_IN_PROGRESS_NONAUTHORITATIVE",
+            ".env_receipts.json.PENDING_RECEIPT_NONAUTHORITATIVE",
+        ),
+    )
+    for label, canonical_name, marker_name, pending_name in contracts:
+        canonical = root / canonical_name
+        marker = root / marker_name
+        pending = root / pending_name
+        if marker.exists() or marker.is_symlink():
+            problems.append(f"receipt-topology:{label}:attempt-marker")
+        try:
+            if (
+                canonical.is_symlink()
+                or pending.is_symlink()
+                or not canonical.is_file()
+                or not pending.is_file()
+                or canonical.resolve(strict=True) != canonical
+                or pending.resolve(strict=True) != pending
+            ):
+                raise OSError("nonphysical receipt leaf")
+            canonical_before = canonical.stat(follow_symlinks=False)
+            pending_before = pending.stat(follow_symlinks=False)
+            canonical_payload = canonical.read_bytes()
+            pending_payload = pending.read_bytes()
+            canonical_after = canonical.stat(follow_symlinks=False)
+            pending_after = pending.stat(follow_symlinks=False)
+        except OSError:
+            problems.append(f"receipt-topology:{label}:receipt-pair")
+            continue
+        identity = lambda row: (
+            row.st_dev,
+            row.st_ino,
+            row.st_mode,
+            row.st_size,
+            row.st_mtime_ns,
+            row.st_ctime_ns,
+        )
+        if (
+            identity(canonical_before) != identity(canonical_after)
+            or identity(pending_before) != identity(pending_after)
+            or canonical_before.st_dev != pending_before.st_dev
+            or canonical_before.st_ino != pending_before.st_ino
+            or canonical_before.st_nlink != 2
+            or pending_before.st_nlink != 2
+            or canonical_before.st_mode & 0o7777 != 0o444
+            or pending_before.st_mode & 0o7777 != 0o444
+            or len(canonical_payload) != canonical_before.st_size
+            or canonical_payload != pending_payload
+        ):
+            problems.append(f"receipt-topology:{label}:receipt-pair")
+    return sorted(set(problems))
+
+
+def validate_host_runtime_contract(host):
+    problems = []
+    if not isinstance(host, dict):
+        return ["host-runtime:type"]
+    packet = host.get("packet")
+    packet_files = packet.get("files") if isinstance(packet, dict) else None
+    compose = host.get("compose")
+    if (
+        not isinstance(compose, dict)
+        or set(compose) != {"patcher", "before", "after"}
+        or not isinstance(packet_files, dict)
+        or not exact_json_value(
+            compose.get("patcher"),
+            packet_files.get("patch_compose_dose_env.py"),
+        )
+    ):
+        problems.append("host-runtime:compose")
+    else:
+        compose_contracts = (
+            (
+                "before",
+                "9f8804b523faa8ec3b6770a69b4b4bc9595c2b36e4b98422a588b9a3e1fe8e5d",
+                3_380,
+            ),
+            (
+                "after",
+                "a5ed766b8a4c7efd7b33cdb6a9bdf9a5878f63604695758ff5f2268b770cfada",
+                3_613,
+            ),
+        )
+        for label, expected_sha, expected_bytes in compose_contracts:
+            row = compose.get(label)
+            if (
+                not isinstance(row, dict)
+                or set(row) != {"path", "sha256", "bytes", "mode"}
+                or row.get("path")
+                != "/opt/sentinel-stack/NeuroNCAP/scripts/_docker_compose_release.sh"
+                or row.get("sha256") != expected_sha
+                or type(row.get("bytes")) is not int
+                or row.get("bytes") != expected_bytes
+                or type(row.get("mode")) is not int
+                or row.get("mode") not in (0o644, 0o755)
+            ):
+                problems.append(f"host-runtime:compose-{label}")
+    storage = host.get("storage")
+    if not isinstance(storage, dict) or set(storage) != HOST_STORAGE_FIELDS:
+        problems.append("host-runtime:storage-schema")
+        storage = {}
+    integer_fields = (
+        "dataset_st_dev",
+        "root_st_dev",
+        "free_bytes_before",
+        "free_bytes_after",
+        "minimum_remote_free_bytes",
+        "projected_output_bytes",
+        "minimum_reserve_bytes",
+        "analytic_root_st_dev",
+    )
+    if (
+        any(type(storage.get(field)) is not int for field in integer_fields)
+        or storage.get("mount_target") != "/datasets/nuscenes-full"
+        or storage.get("mount_source") != "/dev/nvme0n2"
+        or storage.get("mount_fstype") != "ext4"
+        or storage.get("mount_uuid") != "9a98277e-b21f-4ffc-8f14-3f2235b43103"
+        or storage.get("minimum_remote_free_bytes") != 100 * 1024**3
+        or storage.get("projected_output_bytes") != 72_380_432_384
+        or storage.get("minimum_reserve_bytes") != 25 * 1024**3
+        or min(
+            storage.get("dataset_st_dev"),
+            storage.get("root_st_dev"),
+            storage.get("analytic_root_st_dev"),
+        )
+        < 0
+        or storage.get("dataset_st_dev") == storage.get("root_st_dev")
+        or storage.get("analytic_root_st_dev") != storage.get("dataset_st_dev")
+        or storage.get("analytic_root")
+        != "/datasets/nuscenes-full/sentinel-i135-outoutput"
+        or storage.get("analytic_root_realpath")
+        != "/datasets/nuscenes-full/sentinel-i135-outoutput"
+        or storage.get("analytic_root_is_symlink") is not False
+        or storage.get("analytic_root_empty") is not True
+    ):
+        problems.append("host-runtime:storage")
+    elif (
+        storage["free_bytes_before"] < storage["minimum_remote_free_bytes"]
+        or storage["free_bytes_after"] < storage["minimum_remote_free_bytes"]
+        or min(storage["free_bytes_before"], storage["free_bytes_after"])
+        - storage["projected_output_bytes"]
+        < storage["minimum_reserve_bytes"]
+    ):
+        problems.append("host-runtime:storage")
+    actions = host.get("actions")
+    action_contracts = (
+        (
+            "normalize_uniad_server_from_verified_head_blob",
+            {"action", "performed", "before", "after"},
+        ),
+        (
+            "atomically_patch_compose_from_exact_preimage",
+            {"action", "performed", "before_sha256", "after_sha256"},
+        ),
+        (
+            "create_absent_empty_analytic_root",
+            {"action", "performed", "path"},
+        ),
+        (
+            "atomically_install_verified_packet",
+            {"action", "performed", "from", "to"},
+        ),
+    )
+    if not isinstance(actions, list) or len(actions) != len(action_contracts):
+        problems.append("host-runtime:actions")
+        actions = []
+    if actions and all(isinstance(row, dict) for row in actions):
+        for row, (name, fields) in zip(actions, action_contracts, strict=True):
+            if (
+                not isinstance(row, dict)
+                or set(row) != fields
+                or row.get("action") != name
+                or type(row.get("performed")) is not bool
+            ):
+                problems.append("host-runtime:actions")
+        normalize = actions[0]
+        before_server = normalize.get("before") if isinstance(normalize, dict) else None
+        after_server = normalize.get("after") if isinstance(normalize, dict) else None
+        for row in (before_server, after_server):
+            if (
+                not isinstance(row, dict)
+                or set(row) != {"path", "sha256", "bytes", "mode"}
+                or row.get("path") != "/opt/sentinel-stack/UniAD/inference/server.py"
+                or not isinstance(row.get("sha256"), str)
+                or len(row["sha256"]) != 64
+                or any(character not in "0123456789abcdef" for character in row["sha256"])
+                or type(row.get("bytes")) is not int
+                or row["bytes"] <= 0
+                or type(row.get("mode")) is not int
+                or row["mode"] not in (0o644, 0o755)
+            ):
+                problems.append("host-runtime:actions")
+        if isinstance(after_server, dict) and (
+            after_server.get("sha256")
+            != "066a3fc31a2c78960255cedf659018bab4190ac5dee7e7c5ec14d1031043c424"
+            or after_server.get("bytes") != 4_519
+        ):
+            problems.append("host-runtime:actions")
+        if isinstance(before_server, dict) and isinstance(after_server, dict):
+            expected_normalization = (
+                before_server.get("sha256") != after_server.get("sha256")
+            )
+            if normalize.get("performed") is not expected_normalization:
+                problems.append("host-runtime:actions")
+        if (
+            actions[1].get("performed") is not True
+            or actions[1].get("before_sha256")
+            != (
+                compose.get("before", {}).get("sha256")
+                if isinstance(compose, dict) and isinstance(compose.get("before"), dict)
+                else None
+            )
+            or actions[1].get("after_sha256")
+            != (
+                compose.get("after", {}).get("sha256")
+                if isinstance(compose, dict) and isinstance(compose.get("after"), dict)
+                else None
+            )
+            or actions[2].get("performed") is not True
+            or actions[2].get("path") != storage.get("analytic_root")
+            or actions[3].get("performed") is not True
+            or actions[3].get("from") != "/opt/sentinel-stack/.iter135-packet"
+            or actions[3].get("to") != "/opt/sentinel-stack/iter135"
+        ):
+            problems.append("host-runtime:actions")
+    elif actions:
+        problems.append("host-runtime:actions")
+    invocation = host.get("invocation")
+    if (
+        not isinstance(invocation, dict)
+        or set(invocation)
+        != {
+            "environment",
+            "environment_matches",
+            "isolated",
+            "python_implementation",
+            "python_version",
+        }
+        or not exact_json_value(invocation.get("environment"), HOST_SAFE_ENVIRONMENT)
+        or invocation.get("environment_matches") is not True
+        or invocation.get("isolated") is not True
+        or invocation.get("python_implementation") != "CPython"
+        or not isinstance(invocation.get("python_version"), str)
+        or len(invocation["python_version"].split(".")) != 3
+        or any(not field.isdigit() for field in invocation["python_version"].split("."))
+    ):
+        problems.append("host-runtime:invocation")
+    return sorted(set(problems))
+
+
 def validate_pre_smoke_bound_contract(bound, experiment_path, required):
     contract_problems = []
     if not isinstance(bound, dict) or set(bound) != required:
@@ -1203,12 +1934,14 @@ def validate_pre_smoke_bound_contract(bound, experiment_path, required):
             continue
         expected_source_path = f"{canonical_root}/{relative}"
         payload = path.read_bytes()
+        expected_receipt = {
+            "source_path": expected_source_path,
+            "sha256": hashlib.sha256(payload).hexdigest(),
+            "bytes": len(payload),
+        }
         if receipt.get("source_path") != expected_source_path:
             contract_problems.append(f"bound-file:{relative}:source-path")
-        if (
-            receipt.get("sha256") != hashlib.sha256(payload).hexdigest()
-            or receipt.get("bytes") != len(payload)
-        ):
+        if not exact_json_value(receipt, expected_receipt):
             contract_problems.append(f"bound-file:{relative}:drift")
     return contract_problems, bound
 # END I135_PRE_SMOKE_BOUND_CONTRACT_PYTHON
@@ -1216,6 +1949,11 @@ def validate_pre_smoke_bound_contract(bound, experiment_path, required):
 
 bound_problems, bound = validate_pre_smoke_bound_contract(bound, experiment_path, required)
 problems.extend(bound_problems)
+remote_artifact_problems, _remote_artifacts_by_role = validate_remote_artifact_contract(
+    manifest.get("remote_artifacts")
+)
+problems.extend(remote_artifact_problems)
+problems.extend(validate_receipt_sidecar_topology(experiment_path))
 
 environment_bound = bound.get("env_receipts.json")
 if not isinstance(environment_bound, dict) or environment_bound.get("sha256") != digest(environment_path):
@@ -1227,27 +1965,32 @@ host_preparation_bound = bound.get("host_preparation_receipt.json")
 try:
     host_packet_payload = host_packet_path.read_bytes()
     host_preparation_payload = host_preparation_path.read_bytes()
-    host_packet = json.loads(host_packet_payload)
-    host_preparation = json.loads(host_preparation_payload)
-except (OSError, json.JSONDecodeError) as error:
+    host_packet = strict_bound_json_loads(host_packet_payload)
+    host_preparation = strict_bound_json_loads(host_preparation_payload)
+except (OSError, ValueError) as error:
     problems.append(f"host-contract-read:{type(error).__name__}")
     host_packet_payload = b""
     host_preparation_payload = b""
     host_packet = {}
     host_preparation = {}
-if (
-    not isinstance(host_packet_bound, dict)
-    or host_packet_bound.get("sha256") != hashlib.sha256(host_packet_payload).hexdigest()
-    or host_packet_bound.get("bytes") != len(host_packet_payload)
-    or manifest.get("host_packet_manifest") != host_packet_bound
+if not bound_payload_receipt_matches(
+    host_packet_payload,
+    host_packet_bound,
+    manifest.get("host_packet_manifest"),
+    (
+        "experiments/iter135_neuroncap_blind_braking_dose_response/"
+        "host_packet_manifest.json"
+    ),
 ):
     problems.append("host-packet-manifest-binding")
-if (
-    not isinstance(host_preparation_bound, dict)
-    or host_preparation_bound.get("sha256")
-    != hashlib.sha256(host_preparation_payload).hexdigest()
-    or host_preparation_bound.get("bytes") != len(host_preparation_payload)
-    or manifest.get("host_preparation_receipt") != host_preparation_bound
+if not bound_payload_receipt_matches(
+    host_preparation_payload,
+    host_preparation_bound,
+    manifest.get("host_preparation_receipt"),
+    (
+        "experiments/iter135_neuroncap_blind_braking_dose_response/"
+        "host_preparation_receipt.json"
+    ),
 ):
     problems.append("host-preparation-receipt-binding")
 if (
@@ -1274,11 +2017,11 @@ actual_host_payload_sha = hashlib.sha256(
 ).hexdigest()
 host_packet_evidence = host_preparation.get("packet") if isinstance(host_preparation, dict) else None
 if (
-    not isinstance(host_preparation, dict)
-    or host_preparation.get("schema") != "iter135.host_preparation_receipt.v1"
-    or host_preparation.get("verdict") != "I135_HOST_PREPARATION_OK"
-    or host_preparation.get("problem_count") != 0
-    or host_preparation.get("problems") != []
+    not zero_problem_receipt_metadata_matches(
+        host_preparation,
+        "iter135.host_preparation_receipt.v1",
+        "I135_HOST_PREPARATION_OK",
+    )
     or claimed_host_payload_sha != actual_host_payload_sha
     or host_preparation.get("packet_manifest_sha256")
     != hashlib.sha256(host_packet_payload).hexdigest()
@@ -1290,18 +2033,24 @@ if (
     != host_packet_evidence.get("files", {}).get("prepare_host135.py")
 ):
     problems.append("host-preparation-receipt-contract")
+problems.extend(validate_host_runtime_contract(host_preparation))
 tooling_path = experiment_path / "tooling_verification_receipt.json"
 tooling_bound = bound.get("tooling_verification_receipt.json")
 try:
-    tooling = json.loads(tooling_path.read_bytes())
-except (OSError, json.JSONDecodeError) as error:
+    tooling_payload_bytes = tooling_path.read_bytes()
+    tooling = strict_bound_json_loads(tooling_payload_bytes)
+except (OSError, ValueError) as error:
     problems.append(f"tooling-receipt-read:{type(error).__name__}")
+    tooling_payload_bytes = b""
     tooling = {}
-if (
-    not isinstance(tooling_bound, dict)
-    or tooling_bound != manifest.get("tooling_verification_receipt")
-    or tooling_bound.get("sha256") != digest(tooling_path)
-    or tooling_bound.get("bytes") != tooling_path.stat().st_size
+if not bound_payload_receipt_matches(
+    tooling_payload_bytes,
+    tooling_bound,
+    manifest.get("tooling_verification_receipt"),
+    (
+        "experiments/iter135_neuroncap_blind_braking_dose_response/"
+        "tooling_verification_receipt.json"
+    ),
 ):
     problems.append("tooling-receipt-binding")
 tooling_payload = dict(tooling)
@@ -1310,10 +2059,11 @@ actual_tooling_payload_sha = hashlib.sha256(
     json.dumps(tooling_payload, sort_keys=True, separators=(",", ":"), ensure_ascii=True).encode()
 ).hexdigest()
 if (
-    tooling.get("schema") != "iter135.tooling_verification.v2"
-    or tooling.get("verdict") != "I135_TOOLING_VERIFICATION_OK"
-    or tooling.get("problem_count") != 0
-    or tooling.get("problems") != []
+    not zero_problem_receipt_metadata_matches(
+        tooling,
+        "iter135.tooling_verification.v2",
+        "I135_TOOLING_VERIFICATION_OK",
+    )
     or claimed_tooling_payload_sha != actual_tooling_payload_sha
 ):
     problems.append("tooling-receipt-contract")
@@ -1321,7 +2071,11 @@ if environment.get("schema") != "iter135.environment_receipts.v3":
     problems.append("environment-schema")
 if environment.get("verdict") != "I135_ENVIRONMENT_PREFLIGHT_OK":
     problems.append("environment-verdict")
-if environment.get("problem_count") != 0 or environment.get("problems") != []:
+if (
+    type(environment.get("problem_count")) is not int
+    or environment.get("problem_count") != 0
+    or not exact_json_value(environment.get("problems"), [])
+):
     problems.append("environment-problem-metadata")
 expected_environment_fields = {
     "schema",
@@ -1365,6 +2119,7 @@ if (
     or interpreter.get("physical_path") != str(live_interpreter)
     or interpreter.get("realpath") != str(live_interpreter)
     or interpreter.get("sha256") != digest(live_interpreter)
+    or type(interpreter.get("bytes")) is not int
     or interpreter.get("bytes") != live_interpreter.stat().st_size
     or interpreter.get("version") != platform.python_version()
     or interpreter.get("implementation") != platform.python_implementation()
@@ -1393,7 +2148,10 @@ if (
     or set(invocation) != {"sanitized", "isolated", "environment", "argv", "canonical_script"}
     or invocation.get("sanitized") is not True
     or invocation.get("isolated") is not True
-    or invocation.get("environment") != expected_capture_environment
+    or not exact_json_value(
+        invocation.get("environment"),
+        expected_capture_environment,
+    )
     or invocation.get("canonical_script")
     != "/opt/sentinel-stack/iter135/capture_environment135.py"
     or not isinstance(invocation.get("argv"), list)
@@ -1415,8 +2173,14 @@ expected_preparation_file = {
 if (
     not isinstance(environment_preparation, dict)
     or set(environment_preparation) != {"receipt_file", "evidence"}
-    or environment_preparation.get("receipt_file") != expected_preparation_file
-    or environment_preparation.get("evidence") != host_preparation
+    or not exact_json_value(
+        environment_preparation.get("receipt_file"),
+        expected_preparation_file,
+    )
+    or not exact_json_value(
+        environment_preparation.get("evidence"),
+        host_preparation,
+    )
 ):
     problems.append("environment-host-preparation-contract")
 if environment.get("host") != "sentinel-gpu" or socket.gethostname() != "sentinel-gpu":
@@ -1428,7 +2192,7 @@ expected_gpu = {
     "driver_version": "580.159.03",
     "memory_total_mib": 23034,
 }
-if environment.get("gpu") != expected_gpu:
+if not exact_json_value(environment.get("gpu"), expected_gpu):
     problems.append("environment-frozen-gpu")
 expected_box = {
     "idle": True,
@@ -1436,7 +2200,7 @@ expected_box = {
     "gpu_compute_processes": 0,
     "known_evaluation_processes": 0,
 }
-if environment.get("box") != expected_box:
+if not exact_json_value(environment.get("box"), expected_box):
     problems.append("environment-box-contract")
 runtime_snapshots = environment.get("runtime_snapshots")
 if (
@@ -1445,8 +2209,8 @@ if (
     or any(
         not isinstance(runtime_snapshots.get(phase), dict)
         or set(runtime_snapshots[phase]) != {"gpu", "box"}
-        or runtime_snapshots[phase].get("gpu") != expected_gpu
-        or runtime_snapshots[phase].get("box") != expected_box
+        or not exact_json_value(runtime_snapshots[phase].get("gpu"), expected_gpu)
+        or not exact_json_value(runtime_snapshots[phase].get("box"), expected_box)
         for phase in ("before_dataset_hashing", "after_dataset_hashing")
     )
 ):
@@ -1564,6 +2328,7 @@ try:
         or not isinstance(manifest_tool_receipt, dict)
         or manifest_tool_receipt.get("sha256")
         != hashlib.sha256(manifest_tool_payload).hexdigest()
+        or type(manifest_tool_receipt.get("bytes")) is not int
         or manifest_tool_receipt.get("bytes") != len(manifest_tool_payload)
     ):
         raise RuntimeError("manifest tool binding drift")
@@ -1587,7 +2352,7 @@ if (
     != "f61363c91fa6e0f3db24a6df2e32afc16ad02ebc44e3c4af66132fcc317760c2"
 ):
     problems.append("dataset-validator-frozen-constant-drift")
-if manifest.get("dataset_receipt") != dataset:
+if not exact_json_value(manifest.get("dataset_receipt"), dataset):
     problems.append("manifest-dataset-receipt-drift")
 if isinstance(dataset, dict):
     identity = dataset.get("identity")
@@ -1645,7 +2410,10 @@ if isinstance(dataset, dict):
             if path.is_symlink() or not path.is_file() or path.resolve(strict=True) != path:
                 problems.append(f"live-dataset-file:{section}:{name}")
                 continue
-            if path.stat().st_size != receipt.get("bytes"):
+            if (
+                type(receipt.get("bytes")) is not int
+                or path.stat().st_size != receipt.get("bytes")
+            ):
                 problems.append(f"live-dataset-bytes:{section}:{name}")
             if rehash and digest(path) != receipt.get("sha256"):
                 problems.append(f"live-dataset-sha256:{section}:{name}")
@@ -1659,7 +2427,7 @@ expected_manifest_environment = {
         if isinstance(name, str) and isinstance(row, dict)
     },
 }
-if manifest_environment != expected_manifest_environment:
+if not exact_json_value(manifest_environment, expected_manifest_environment):
     problems.append("manifest-environment-receipt-drift")
 if manifest.get("container_images") != environment.get("container_images"):
     problems.append("manifest-container-images-drift")
@@ -1712,7 +2480,10 @@ expected_manifest_storage_values = {
     "observed_local_free_gib": storage.get("local_free_gib"),
     "projected_output_gib": storage.get("projected_output_gib"),
 }
-if any(manifest_storage.get(key) != value for key, value in expected_manifest_storage_values.items()):
+if any(
+    not exact_json_value(manifest_storage.get(key), value)
+    for key, value in expected_manifest_storage_values.items()
+):
     problems.append("manifest-storage-contract")
 
 remote_files = environment.get("remote_files")
@@ -1727,7 +2498,11 @@ for role, receipt in sorted(remote_files.items()):
     if path.is_symlink() or not path.is_file() or path.resolve(strict=True) != path:
         problems.append(f"remote:{role}:nonregular:{path}")
         continue
-    if receipt.get("bytes") != path.stat().st_size or receipt.get("sha256") != digest(path):
+    if (
+        type(receipt.get("bytes")) is not int
+        or receipt.get("bytes") != path.stat().st_size
+        or receipt.get("sha256") != digest(path)
+    ):
         problems.append(f"remote:{role}:drift")
 
 repositories = environment.get("repositories")
@@ -1838,39 +2613,22 @@ for name, expected_id in sorted(expected_images.items()):
     if tag_actual != expected_id or id_actual != expected_id:
         problems.append(f"image:{name}:drift")
 
-schedule = json.loads((experiment_path / "dose_schedules.json").read_text())
-doses = ("blind_0_5x", "blind_1_0x", "blind_1_5x", "blind_2_0x")
-schedules = schedule.get("schedules")
-if not isinstance(schedules, dict) or set(schedules) != set(doses):
-    problems.append("schedule-dose-set")
-    schedules = {}
-targets = []
-for dose in doses:
-    rows = schedules.get(dose)
-    candidates = []
-    if isinstance(rows, dict):
-        candidates = sorted(
-            (key, row)
-            for key, row in rows.items()
-            if isinstance(key, str)
-            and isinstance(row, dict)
-            and key.endswith("/0")
-            and isinstance(row.get("brake_frames"), list)
-            and row["brake_frames"]
-        )
-    if not candidates:
-        problems.append(f"schedule:{dose}:canonical-run-zero")
-        continue
-    target, row = candidates[0]
-    scenario_class, sequence, run_text = target.split("/")
-    if (
-        row.get("dose_id") != dose
-        or row.get("target_class") != scenario_class
-        or row.get("target_seq") != sequence
-        or row.get("target_run") != int(run_text)
-    ):
-        problems.append(f"schedule:{dose}:identity")
-    targets.append((dose, f"{dose}/{target}", scenario_class, sequence))
+schedule_path = experiment_path / "dose_schedules.json"
+try:
+    schedule, schedule_payload = load_strict_bound_json(
+        schedule_path,
+        bound.get("dose_schedules.json"),
+        (
+            "experiments/iter135_neuroncap_blind_braking_dose_response/"
+            "dose_schedules.json"
+        ),
+    )
+except (OSError, ValueError) as error:
+    problems.append(f"schedule-read:{type(error).__name__}")
+    schedule = {}
+    schedule_payload = b""
+schedule_problems, targets = validate_smoke_schedule(schedule)
+problems.extend(schedule_problems)
 
 if problems:
     print("I135_SMOKE_PROVENANCE_FAIL", *problems, sep="\n - ", file=sys.stderr)
@@ -2530,7 +3288,9 @@ if (
     or payload.get("pid") != expected_pid
     or payload.get("mode") != "nonanalytic_g5_smoke"
     or payload.get("nonanalytic") is not True
+    or type(payload.get("analytic_episode_count")) is not int
     or payload.get("analytic_episode_count") != 0
+    or type(payload.get("dose_invocation_count")) is not int
     or payload.get("dose_invocation_count") != 4
     or payload.get("retry_policy") != "one_shot_no_retry_lock_retained"
     or payload.get("smoke_output_root")
@@ -3090,6 +3850,7 @@ verify_smoke_runtime_inputs() {
 import hashlib
 import json
 import os
+import re
 import stat
 import subprocess
 import sys
@@ -3207,7 +3968,20 @@ for row in artifacts:
     if not isinstance(row, dict) or set(row) != {"role", "path", "sha256", "bytes"}:
         raise SystemExit("smoke runtime artifact schema drift")
     role = row.get("role")
-    if not isinstance(role, str) or role in by_role:
+    path = row.get("path")
+    sha256 = row.get("sha256")
+    byte_count = row.get("bytes")
+    if (
+        type(role) is not str
+        or not role
+        or role in by_role
+        or type(path) is not str
+        or not Path(path).is_absolute()
+        or type(sha256) is not str
+        or re.fullmatch(r"[0-9a-f]{64}", sha256) is None
+        or type(byte_count) is not int
+        or byte_count <= 0
+    ):
         raise SystemExit(f"smoke runtime artifact role drift: {role}")
     by_role[role] = row
 if (
