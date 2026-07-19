@@ -14,24 +14,24 @@
   "current_completed_iteration": 134,
   "current_result": "experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md",
   "current_verdict": "PLACEBO_HARM_OR_NULL",
-  "run_state": "IDLE",
+  "run_state": "UNKNOWN",
   "active_hypothesis": "experiments/iter135_neuroncap_blind_braking_dose_response/HYPOTHESIS.md",
   "next_program": {
     "iteration": 135,
     "name": "semantics-free placebo dose-response causal closure",
-    "phase": "TOOLING_FROZEN_PREFLIGHT_REQUIRED",
+    "phase": "PREREGISTERED_TOOLING_REQUIRED",
     "authorized_actions": [
-      "prepare the exact hash-bound sentinel-gpu host contract and atomically commit host_packet_manifest.json and host_preparation_receipt.json",
-      "capture and commit the read-only iteration-135 environment receipt on sentinel-gpu",
-      "generate and commit only the hash-addressed incomplete pre-smoke manifest; no analytic episodes",
-      "run exactly the hash-bound four-run nonanalytic G5 smoke after the incomplete pre-smoke manifest is committed",
-      "validate, collect, and commit the exact nonanalytic smoke raw evidence, recomputed receipt, and mechanically generated SMOKE.md"
+      "perform only offline, repository-local, preregistered architecture, lifecycle, terminal-proof, CI, supply-chain, test, and publication-control work",
+      "retain and review evidence for the later control-hardening publication without changing external governance settings"
     ],
     "forbidden_actions": [
-      "run any iteration-135 analytic episode before smoke evidence and the final launch manifest are committed green",
-      "remove or bypass the permanent analytic launch lock",
-      "rerun iteration 134 or adapt iteration-135 schedules, estimands, verdicts, or policies after evidence",
-      "place any iteration-135 analytic output on the remote root filesystem"
+      "de-prepare, rebuild, normalize, clean, install, write, delete, or otherwise mutate any iteration-135 remote host, remote filesystem, host-side repository, packet, runtime, lock, container, GPU, or evidence path before lifecycle and hermetic CI controls are separately accepted",
+      "create, execute, publish, or advance any H, E, P, or S descendant; launch activation; live smoke; or analytic episode before lifecycle and hermetic CI controls are separately accepted",
+      "infer IDLE, termination, completion, readiness, approval, or authority from static state, absent containers, absent processes, missing reviewers, timeouts, retry exhaustion, or incomplete proof",
+      "run analyzers or publish iteration-135 data, results, claims, figures, paper text, or scientific conclusions",
+      "change branch protection, rulesets, Actions policy, repository visibility, credentials, secrets, access control, or other external governance settings without explicit operator authorization",
+      "rerun iteration 134",
+      "adopt run-index resampling as the iteration-135 primary after observing iteration-134 results"
     ]
   },
   "claim_state": {

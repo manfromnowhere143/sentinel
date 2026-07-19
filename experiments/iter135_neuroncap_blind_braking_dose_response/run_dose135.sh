@@ -339,13 +339,30 @@ if expected_state_identity and state_identity != expected_state_identity:
 if expected_state_sha and state_sha != expected_state_sha:
     raise SystemExit(f"current mission state hash drift: {state_sha}!={expected_state_sha}")
 
+
+def exact_json_value(observed, expected):
+    if type(observed) is not type(expected):
+        return False
+    if type(expected) is dict:
+        return set(observed) == set(expected) and all(
+            exact_json_value(observed[key], expected[key]) for key in expected
+        )
+    if type(expected) is list:
+        return len(observed) == len(expected) and all(
+            exact_json_value(observed_item, expected_item)
+            for observed_item, expected_item in zip(observed, expected, strict=True)
+        )
+    return observed == expected
+
+
 state_receipt = manifest.get("mission_state")
-if (
-    not isinstance(state_receipt, dict)
-    or set(state_receipt) != {"source_path", "sha256", "bytes"}
-    or state_receipt.get("source_path") != "MISSION_STATE.json"
-    or state_receipt.get("sha256") != state_sha
-    or state_receipt.get("bytes") != len(state_payload)
+if not exact_json_value(
+    state_receipt,
+    {
+        "source_path": "MISSION_STATE.json",
+        "sha256": state_sha,
+        "bytes": len(state_payload),
+    },
 ):
     raise SystemExit("deployed mission state is not the launch manifest's bound current state")
 
@@ -411,8 +428,9 @@ expected_next_program = {
 if (
     state.get("schema") != "sentinel.mission_state.v1"
     or state.get("canonical_repository") != "/Users/danielwahnich/workspace/sentinel"
-    or state.get("workspace_boundary") != expected_workspace_boundary
+    or not exact_json_value(state.get("workspace_boundary"), expected_workspace_boundary)
     or state.get("trunk") != "master"
+    or type(state.get("current_completed_iteration")) is not int
     or state.get("current_completed_iteration") != 134
     or state.get("current_result")
     != "experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md"
@@ -420,7 +438,7 @@ if (
     or state.get("run_state") != "IDLE"
     or state.get("active_hypothesis")
     != "experiments/iter135_neuroncap_blind_braking_dose_response/HYPOTHESIS.md"
-    or state.get("next_program") != expected_next_program
+    or not exact_json_value(state.get("next_program"), expected_next_program)
 ):
     raise SystemExit("current mission state does not authorize this analytic launch")
 expected_storage = {
@@ -452,11 +470,16 @@ expected_paper_state = {
         "resolved wording for the decoder universal-negative overclaim",
     ],
 }
-if (
-    state.get("storage_gate") != expected_storage
-    or state.get("claim_state") != expected_claim_state
-    or state.get("deprecated_pending_hypotheses") != expected_deprecated
-    or state.get("paper_state") != expected_paper_state
+if not all(
+    (
+        exact_json_value(state.get("storage_gate"), expected_storage),
+        exact_json_value(state.get("claim_state"), expected_claim_state),
+        exact_json_value(
+            state.get("deprecated_pending_hypotheses"),
+            expected_deprecated,
+        ),
+        exact_json_value(state.get("paper_state"), expected_paper_state),
+    )
 ):
     raise SystemExit("current mission state storage contract drift")
 print(state_sha, state_identity, len(state_payload))
@@ -477,6 +500,7 @@ import stat
 import sys
 import urllib.parse
 import urllib.request
+from datetime import datetime, timezone
 from pathlib import Path
 
 API_ROOT = "https://api.github.com/repos/manfromnowhere143/sentinel"
@@ -485,6 +509,12 @@ ACTIVATION_REPOSITORY_PATH = (
     "launch_activation_receipt.json"
 )
 EXPECTED_CHECKS = {"check (3.10)", "check (3.11)"}
+WORKFLOW_ID = 304353015
+WORKFLOW_NAME = "ci"
+WORKFLOW_FILE = "ci.yml"
+WORKFLOW_PATH = ".github/workflows/ci.yml"
+MAX_WORKFLOW_RUNS = 100
+MAX_JOBS = 100
 OID = re.compile(r"^[0-9a-f]{40}$")
 SHA256 = re.compile(r"^[0-9a-f]{64}$")
 
@@ -513,6 +543,20 @@ def strict_json_loads(payload: bytes) -> object:
         object_pairs_hook=strict_json_object,
         parse_constant=reject_nonfinite_json,
     )
+
+
+def canonical_github_utc(value: object) -> datetime:
+    if not isinstance(value, str):
+        raise ValueError("GitHub timestamp is not text")
+    try:
+        parsed = datetime.strptime(value, "%Y-%m-%dT%H:%M:%SZ").replace(
+            tzinfo=timezone.utc
+        )
+    except ValueError as error:
+        raise ValueError("GitHub timestamp is malformed") from error
+    if parsed.strftime("%Y-%m-%dT%H:%M:%SZ") != value:
+        raise ValueError("GitHub timestamp is not canonical UTC")
+    return parsed
 
 
 def stable_physical_bytes(path: Path) -> bytes:
@@ -562,54 +606,178 @@ def validate_ref(payload: object, expected_commit: str) -> None:
         raise ValueError("activation B is not the current canonical GitHub master")
 
 
-def validate_ci(payload: object, expected_commit: str) -> list[dict[str, object]]:
-    if not isinstance(payload, dict) or not isinstance(payload.get("check_runs"), list):
-        raise ValueError("GitHub check-runs response is malformed")
-    check_runs = payload["check_runs"]
-    # Amendment-published SHAs permanently carry the disposable-branch probe run plus the
-    # authoritative master run per required name; authority binds to the newest run per name
-    # (ids are chronologically monotonic), matching the generation-seven envelope in the
-    # host-preparation controller. A red run newer than a green one still fails closed.
+def validate_workflow_runs(payload: object, expected_commit: str) -> dict[str, object]:
+    if not isinstance(payload, dict) or not isinstance(payload.get("workflow_runs"), list):
+        raise ValueError("GitHub workflow-runs response is malformed")
+    runs = payload["workflow_runs"]
     if (
         type(payload.get("total_count")) is not int
-        or payload["total_count"] != len(check_runs)
-        or payload["total_count"] < len(EXPECTED_CHECKS)
-        or payload["total_count"] > 2 * len(EXPECTED_CHECKS)
+        or payload["total_count"] != len(runs)
+        or payload["total_count"] < 1
+        or payload["total_count"] > MAX_WORKFLOW_RUNS
     ):
-        raise ValueError("GitHub check-runs page is incomplete or not the exact CI matrix")
-    grouped = {name: [] for name in EXPECTED_CHECKS}
-    for row in check_runs:
-        if not isinstance(row, dict) or row.get("name") not in EXPECTED_CHECKS:
-            raise ValueError("GitHub check-runs contains an unexpected matrix row")
-        app = row.get("app")
-        if (
-            row.get("head_sha") != expected_commit
-            or not isinstance(app, dict)
-            or app.get("slug") != "github-actions"
-            or type(row.get("id")) is not int
-            or row["id"] <= 0
-            or row.get("status") != "completed"
-        ):
-            raise ValueError(f"GitHub CI identity drift: {row.get('name')}")
-        grouped[row["name"]].append(row)
+        raise ValueError("GitHub workflow-runs page is incomplete")
+    run_ids = set()
+    suite_ids = set()
+    run_numbers = set()
     projection = []
-    for name, rows in grouped.items():
-        if not 1 <= len(rows) <= 2 or len({row["id"] for row in rows}) != len(rows):
-            raise ValueError(f"required GitHub CI check missing: {name}")
-        latest = max(rows, key=lambda row: row["id"])
-        if latest.get("status") != "completed" or latest.get("conclusion") != "success":
-            raise ValueError(f"required GitHub CI check is not green: {name}")
+    for row in runs:
+        if not isinstance(row, dict):
+            raise ValueError("GitHub workflow-run row is malformed")
+        run_id = row.get("id")
+        suite_id = row.get("check_suite_id")
+        run_number = row.get("run_number")
+        run_attempt = row.get("run_attempt")
+        if (
+            type(run_id) is not int
+            or run_id <= 0
+            or type(suite_id) is not int
+            or suite_id <= 0
+            or type(run_number) is not int
+            or run_number <= 0
+            or type(run_attempt) is not int
+            or run_attempt <= 0
+            or run_id in run_ids
+            or suite_id in suite_ids
+            or run_number in run_numbers
+        ):
+            raise ValueError("GitHub workflow-run identity drift")
+        run_ids.add(run_id)
+        suite_ids.add(suite_id)
+        run_numbers.add(run_number)
+        try:
+            created_at = canonical_github_utc(row.get("created_at"))
+            updated_at = canonical_github_utc(row.get("updated_at"))
+            started_value = row.get("run_started_at")
+            started_at = (
+                canonical_github_utc(started_value)
+                if started_value is not None
+                else None
+            )
+        except ValueError as error:
+            raise ValueError("GitHub workflow-run timestamp drift") from error
+        if (
+            created_at > updated_at
+            or (started_at is not None and not (created_at <= started_at <= updated_at))
+        ):
+            raise ValueError("GitHub workflow-run timestamp drift")
+        expected_url = f"{API_ROOT}/actions/runs/{run_id}"
+        if (
+            type(row.get("workflow_id")) is not int
+            or row.get("workflow_id") != WORKFLOW_ID
+            or row.get("name") != WORKFLOW_NAME
+            or row.get("path") != WORKFLOW_PATH
+            or row.get("head_branch") != "master"
+            or row.get("head_sha") != expected_commit
+            or row.get("event") != "push"
+            or not isinstance(row.get("status"), str)
+            or (
+                row.get("conclusion") is not None
+                and not isinstance(row.get("conclusion"), str)
+            )
+            or row.get("url") != expected_url
+            or row.get("jobs_url") != f"{expected_url}/jobs"
+        ):
+            raise ValueError("GitHub workflow-run binding drift")
         projection.append(
             {
-                "name": name,
-                "id": latest["id"],
-                "head_sha": expected_commit,
-                "app_slug": "github-actions",
-                "status": "completed",
-                "conclusion": "success",
+                "id": run_id,
+                "check_suite_id": suite_id,
+                "run_number": run_number,
+                "run_attempt": run_attempt,
+                "status": row.get("status"),
+                "conclusion": row.get("conclusion"),
+                "created_at": row.get("created_at"),
+                "run_started_at": started_value,
+                "updated_at": row.get("updated_at"),
             }
         )
-    projection.sort(key=lambda row: row["name"])
+    selected = max(projection, key=lambda row: row["run_number"])
+    if (
+        selected["status"] != "completed"
+        or selected["conclusion"] != "success"
+        or selected["run_started_at"] is None
+    ):
+        raise ValueError("latest canonical GitHub workflow run is not green")
+    return selected
+
+
+def validate_ci(
+    payload: object, expected_commit: str, workflow_run: dict[str, object]
+) -> list[dict[str, object]]:
+    if not isinstance(payload, dict) or not isinstance(payload.get("jobs"), list):
+        raise ValueError("GitHub workflow jobs response is malformed")
+    jobs = payload["jobs"]
+    if (
+        type(payload.get("total_count")) is not int
+        or payload["total_count"] != len(jobs)
+        or payload["total_count"] != len(EXPECTED_CHECKS)
+        or payload["total_count"] > MAX_JOBS
+    ):
+        raise ValueError("GitHub workflow jobs page is incomplete or not the exact CI matrix")
+    selected = {}
+    identities = set()
+    expected_run_id = workflow_run["id"]
+    expected_run_attempt = workflow_run["run_attempt"]
+    for row in jobs:
+        if not isinstance(row, dict) or row.get("name") not in EXPECTED_CHECKS:
+            raise ValueError("GitHub workflow jobs contain an unexpected matrix row")
+        check_id = row.get("id")
+        if (
+            type(check_id) is not int
+            or check_id <= 0
+            or check_id in identities
+            or row["name"] in selected
+        ):
+            raise ValueError("GitHub CI check IDs or names are not unique")
+        identities.add(check_id)
+        job_run_id = row.get("run_id")
+        job_run_attempt = row.get("run_attempt")
+        try:
+            started_at = canonical_github_utc(row.get("started_at"))
+            completed_at = canonical_github_utc(row.get("completed_at"))
+            workflow_created_at = canonical_github_utc(workflow_run.get("created_at"))
+            workflow_updated_at = canonical_github_utc(workflow_run.get("updated_at"))
+        except ValueError as error:
+            raise ValueError(f"GitHub CI timestamp drift: {row.get('name')}") from error
+        if not (
+            workflow_created_at
+            <= started_at
+            <= completed_at
+            <= workflow_updated_at
+        ):
+            raise ValueError(f"GitHub CI timestamp drift: {row.get('name')}")
+        if (
+            type(job_run_id) is not int
+            or job_run_id <= 0
+            or job_run_id != expected_run_id
+            or type(job_run_attempt) is not int
+            or job_run_attempt <= 0
+            or job_run_attempt != expected_run_attempt
+            or row.get("head_sha") != expected_commit
+            or row.get("head_branch") != "master"
+            or row.get("workflow_name") != WORKFLOW_NAME
+            or row.get("status") != "completed"
+            or row.get("conclusion") != "success"
+            or row.get("url") != f"{API_ROOT}/actions/jobs/{check_id}"
+            or row.get("run_url") != f"{API_ROOT}/actions/runs/{expected_run_id}"
+            or row.get("check_run_url") != f"{API_ROOT}/check-runs/{check_id}"
+        ):
+            raise ValueError(f"GitHub CI identity or conclusion drift: {row.get('name')}")
+        selected[row["name"]] = row
+    if set(selected) != EXPECTED_CHECKS:
+        raise ValueError("required GitHub CI check missing")
+    projection = [
+        {
+            "name": name,
+            "id": selected[name]["id"],
+            "head_sha": expected_commit,
+            "app_slug": "github-actions",
+            "status": "completed",
+            "conclusion": "success",
+        }
+        for name in sorted(EXPECTED_CHECKS)
+    ]
     if len({row["id"] for row in projection}) != len(projection):
         raise ValueError("GitHub CI check IDs are not unique")
     return projection
@@ -702,6 +870,8 @@ def github_json(relative: str) -> object:
         url,
         headers={
             "Accept": "application/vnd.github+json",
+            "Cache-Control": "no-cache",
+            "Pragma": "no-cache",
             "User-Agent": "sentinel-iter135-publication-gate",
             "X-GitHub-Api-Version": "2022-11-28",
         },
@@ -727,11 +897,21 @@ def main() -> None:
     if hashlib.sha256(deployed).hexdigest() != expected_sha:
         raise SystemExit("independent activation receipt SHA-256 drift")
     validate_ref(github_json("/git/ref/heads/master"), expected_commit)
+    workflow_runs_path = (
+        f"/actions/workflows/{WORKFLOW_FILE}/runs?branch=master&event=push&"
+        f"head_sha={expected_commit}&per_page={MAX_WORKFLOW_RUNS}&page=1"
+    )
+    workflow_run = validate_workflow_runs(
+        github_json(workflow_runs_path),
+        expected_commit,
+    )
     ci_projection = validate_ci(
         github_json(
-            f"/commits/{expected_commit}/check-runs?filter=latest&per_page=100&page=1"
+            f"/actions/runs/{workflow_run['id']}/attempts/"
+            f"{workflow_run['run_attempt']}/jobs?per_page={MAX_JOBS}&page=1"
         ),
         expected_commit,
+        workflow_run,
     )
     final_manifest = validate_commit(
         github_json(f"/commits/{expected_commit}?per_page=100&page=1"), expected_commit
@@ -743,6 +923,12 @@ def main() -> None:
         expected_sha,
         final_manifest,
     )
+    validate_ref(github_json("/git/ref/heads/master"), expected_commit)
+    if validate_workflow_runs(
+        github_json(workflow_runs_path),
+        expected_commit,
+    ) != workflow_run:
+        raise ValueError("canonical GitHub workflow run changed during authority proof")
     validate_ref(github_json("/git/ref/heads/master"), expected_commit)
     print(
         expected_commit,
@@ -792,11 +978,330 @@ sha = re.compile(r"^[0-9a-f]{64}$")
 
 # BEGIN I135_TOOLING_PUBLICATION_CONTRACT_PYTHON
 EXPECTED_TOOLING_PUBLICATION = {
-    "generation": 14,
-    "supersedes_receipt_commit": "688182ad3b7afbb0d58141accbcf554981e6fb20",
-    "recovery_parent": "1ba42bbb869c652fd6d3d951a3c92ec404f61e72",
-    "reason_code": "S1_SMOKE_AND_DOSE_DOCKER29_DAEMON_EXPERIMENTAL_SCHEMA_FOSSIL",
+    "generation": 15,
+    "supersedes_receipt_commit": "b260ca5b0910c4d499c13e42add97affd726b77c",
+    "recovery_parent": "69bd2e2face00ccabb426382347eb04e8a0dbe83",
+    "reason_code": (
+        "B14_H_DESCENDANT_CONTROLLER_OMISSION_GITHUB_RUN_AUTHORITY_"
+        "AND_CI_FIXTURE_OBJECT_CONNECTIVITY_AND_RECEIPT_SCHEMA_EXACTNESS_"
+        "AND_FALSE_IDLE_LEGACY_HANDOFF_REMOTE_PROBE_"
+        "AND_RECEIPT_FAILURE_BOUNDARY_STOP"
+    ),
 }
+
+
+def exact_json_value(observed: object, expected: object) -> bool:
+    if type(observed) is not type(expected):
+        return False
+    if type(expected) is dict:
+        return set(observed) == set(expected) and all(
+            exact_json_value(observed[key], expected[key])
+            for key in expected
+        )
+    if type(expected) is list:
+        return len(observed) == len(expected) and all(
+            exact_json_value(observed_item, expected_item)
+            for observed_item, expected_item in zip(
+                observed,
+                expected,
+                strict=True,
+            )
+        )
+    return observed == expected
+
+
+HOST_SAFE_ENVIRONMENT = {
+    "DOCKER_CONFIG": "/nonexistent",
+    "DOCKER_HOST": "unix:///var/run/docker.sock",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_OPTIONAL_LOCKS": "0",
+    "GIT_TERMINAL_PROMPT": "0",
+    "HOME": "/nonexistent",
+    "LANG": "C",
+    "LC_ALL": "C",
+    "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONHASHSEED": "0",
+    "PYTHONNOUSERSITE": "1",
+    "TZ": "UTC",
+}
+HOST_STORAGE_FIELDS = {
+    "mount_target",
+    "mount_source",
+    "mount_fstype",
+    "mount_uuid",
+    "dataset_st_dev",
+    "root_st_dev",
+    "free_bytes_before",
+    "free_bytes_after",
+    "minimum_remote_free_bytes",
+    "projected_output_bytes",
+    "minimum_reserve_bytes",
+    "analytic_root",
+    "analytic_root_realpath",
+    "analytic_root_is_symlink",
+    "analytic_root_empty",
+    "analytic_root_st_dev",
+}
+
+
+def validate_receipt_sidecar_topology(experiment_path) -> list[str]:
+    """Validate producer-owned disk commit state, never producer process return."""
+
+    root = Path(experiment_path).absolute()
+    problems = []
+    if root.is_symlink() or not root.is_dir() or root.resolve(strict=True) != root:
+        return ["receipt-topology:root"]
+    contracts = (
+        (
+            "host",
+            "host_preparation_receipt.json",
+            "host_preparation_receipt.json.ATTEMPT_IN_PROGRESS_NONAUTHORITATIVE",
+            "host_preparation_receipt.json.PENDING_RECEIPT_NONAUTHORITATIVE",
+        ),
+        (
+            "environment",
+            "env_receipts.json",
+            ".env_receipts.json.ATTEMPT_IN_PROGRESS_NONAUTHORITATIVE",
+            ".env_receipts.json.PENDING_RECEIPT_NONAUTHORITATIVE",
+        ),
+    )
+    for label, canonical_name, marker_name, pending_name in contracts:
+        canonical = root / canonical_name
+        marker = root / marker_name
+        pending = root / pending_name
+        if marker.exists() or marker.is_symlink():
+            problems.append(f"receipt-topology:{label}:attempt-marker")
+        try:
+            if (
+                canonical.is_symlink()
+                or pending.is_symlink()
+                or not canonical.is_file()
+                or not pending.is_file()
+                or canonical.resolve(strict=True) != canonical
+                or pending.resolve(strict=True) != pending
+            ):
+                raise OSError("nonphysical receipt leaf")
+            canonical_before = canonical.stat(follow_symlinks=False)
+            pending_before = pending.stat(follow_symlinks=False)
+            canonical_payload = canonical.read_bytes()
+            pending_payload = pending.read_bytes()
+            canonical_after = canonical.stat(follow_symlinks=False)
+            pending_after = pending.stat(follow_symlinks=False)
+        except OSError:
+            problems.append(f"receipt-topology:{label}:receipt-pair")
+            continue
+        identity = lambda row: (
+            row.st_dev,
+            row.st_ino,
+            row.st_mode,
+            row.st_size,
+            row.st_mtime_ns,
+            row.st_ctime_ns,
+        )
+        if (
+            identity(canonical_before) != identity(canonical_after)
+            or identity(pending_before) != identity(pending_after)
+            or canonical_before.st_dev != pending_before.st_dev
+            or canonical_before.st_ino != pending_before.st_ino
+            or canonical_before.st_nlink != 2
+            or pending_before.st_nlink != 2
+            or canonical_before.st_mode & 0o7777 != 0o444
+            or pending_before.st_mode & 0o7777 != 0o444
+            or len(canonical_payload) != canonical_before.st_size
+            or canonical_payload != pending_payload
+        ):
+            problems.append(f"receipt-topology:{label}:receipt-pair")
+    return sorted(set(problems))
+
+
+def validate_host_runtime_contract(host: object) -> list[str]:
+    problems = []
+    if not isinstance(host, dict):
+        return ["host-runtime:type"]
+    packet = host.get("packet")
+    packet_files = packet.get("files") if isinstance(packet, dict) else None
+    compose = host.get("compose")
+    if (
+        not isinstance(compose, dict)
+        or set(compose) != {"patcher", "before", "after"}
+        or not isinstance(packet_files, dict)
+        or not exact_json_value(
+            compose.get("patcher"),
+            packet_files.get("patch_compose_dose_env.py"),
+        )
+    ):
+        problems.append("host-runtime:compose")
+    else:
+        for label, expected_sha, expected_bytes in (
+            (
+                "before",
+                "9f8804b523faa8ec3b6770a69b4b4bc9595c2b36e4b98422a588b9a3e1fe8e5d",
+                3_380,
+            ),
+            (
+                "after",
+                "a5ed766b8a4c7efd7b33cdb6a9bdf9a5878f63604695758ff5f2268b770cfada",
+                3_613,
+            ),
+        ):
+            row = compose.get(label)
+            if (
+                not isinstance(row, dict)
+                or set(row) != {"path", "sha256", "bytes", "mode"}
+                or row.get("path")
+                != "/opt/sentinel-stack/NeuroNCAP/scripts/_docker_compose_release.sh"
+                or row.get("sha256") != expected_sha
+                or type(row.get("bytes")) is not int
+                or row.get("bytes") != expected_bytes
+                or type(row.get("mode")) is not int
+                or row.get("mode") not in (0o644, 0o755)
+            ):
+                problems.append(f"host-runtime:compose-{label}")
+    storage = host.get("storage")
+    if not isinstance(storage, dict) or set(storage) != HOST_STORAGE_FIELDS:
+        problems.append("host-runtime:storage-schema")
+        storage = {}
+    integer_fields = (
+        "dataset_st_dev",
+        "root_st_dev",
+        "free_bytes_before",
+        "free_bytes_after",
+        "minimum_remote_free_bytes",
+        "projected_output_bytes",
+        "minimum_reserve_bytes",
+        "analytic_root_st_dev",
+    )
+    if (
+        any(type(storage.get(field)) is not int for field in integer_fields)
+        or storage.get("mount_target") != "/datasets/nuscenes-full"
+        or storage.get("mount_source") != "/dev/nvme0n2"
+        or storage.get("mount_fstype") != "ext4"
+        or storage.get("mount_uuid") != "9a98277e-b21f-4ffc-8f14-3f2235b43103"
+        or storage.get("minimum_remote_free_bytes") != 100 * 1024**3
+        or storage.get("projected_output_bytes") != 72_380_432_384
+        or storage.get("minimum_reserve_bytes") != 25 * 1024**3
+        or storage.get("dataset_st_dev") == storage.get("root_st_dev")
+        or storage.get("analytic_root_st_dev") != storage.get("dataset_st_dev")
+        or storage.get("analytic_root")
+        != "/datasets/nuscenes-full/sentinel-i135-outoutput"
+        or storage.get("analytic_root_realpath")
+        != "/datasets/nuscenes-full/sentinel-i135-outoutput"
+        or storage.get("analytic_root_is_symlink") is not False
+        or storage.get("analytic_root_empty") is not True
+    ):
+        problems.append("host-runtime:storage")
+    elif (
+        storage["free_bytes_before"] < storage["minimum_remote_free_bytes"]
+        or storage["free_bytes_after"] < storage["minimum_remote_free_bytes"]
+        or min(storage["free_bytes_before"], storage["free_bytes_after"])
+        - storage["projected_output_bytes"]
+        < storage["minimum_reserve_bytes"]
+    ):
+        problems.append("host-runtime:storage")
+    actions = host.get("actions")
+    action_contracts = (
+        (
+            "normalize_uniad_server_from_verified_head_blob",
+            {"action", "performed", "before", "after"},
+        ),
+        (
+            "atomically_patch_compose_from_exact_preimage",
+            {"action", "performed", "before_sha256", "after_sha256"},
+        ),
+        (
+            "create_absent_empty_analytic_root",
+            {"action", "performed", "path"},
+        ),
+        (
+            "atomically_install_verified_packet",
+            {"action", "performed", "from", "to"},
+        ),
+    )
+    if not isinstance(actions, list) or len(actions) != len(action_contracts):
+        problems.append("host-runtime:actions")
+        actions = []
+    if actions and all(isinstance(row, dict) for row in actions):
+        for row, (name, fields) in zip(actions, action_contracts, strict=True):
+            if (
+                set(row) != fields
+                or row.get("action") != name
+                or type(row.get("performed")) is not bool
+            ):
+                problems.append("host-runtime:actions")
+        normalize = actions[0]
+        before_server = normalize.get("before")
+        after_server = normalize.get("after")
+        for row in (before_server, after_server):
+            if (
+                not isinstance(row, dict)
+                or set(row) != {"path", "sha256", "bytes", "mode"}
+                or row.get("path") != "/opt/sentinel-stack/UniAD/inference/server.py"
+                or not isinstance(row.get("sha256"), str)
+                or len(row["sha256"]) != 64
+                or any(character not in "0123456789abcdef" for character in row["sha256"])
+                or type(row.get("bytes")) is not int
+                or row["bytes"] <= 0
+                or type(row.get("mode")) is not int
+                or row["mode"] not in (0o644, 0o755)
+            ):
+                problems.append("host-runtime:actions")
+        if isinstance(after_server, dict) and (
+            after_server.get("sha256")
+            != "066a3fc31a2c78960255cedf659018bab4190ac5dee7e7c5ec14d1031043c424"
+            or after_server.get("bytes") != 4_519
+        ):
+            problems.append("host-runtime:actions")
+        if isinstance(before_server, dict) and isinstance(after_server, dict):
+            expected_normalization = (
+                before_server.get("sha256") != after_server.get("sha256")
+            )
+            if normalize.get("performed") is not expected_normalization:
+                problems.append("host-runtime:actions")
+        if (
+            actions[1].get("performed") is not True
+            or actions[1].get("before_sha256")
+            != (
+                compose.get("before", {}).get("sha256")
+                if isinstance(compose, dict) and isinstance(compose.get("before"), dict)
+                else None
+            )
+            or actions[1].get("after_sha256")
+            != (
+                compose.get("after", {}).get("sha256")
+                if isinstance(compose, dict) and isinstance(compose.get("after"), dict)
+                else None
+            )
+            or actions[2].get("performed") is not True
+            or actions[2].get("path") != storage.get("analytic_root")
+            or actions[3].get("performed") is not True
+            or actions[3].get("from") != "/opt/sentinel-stack/.iter135-packet"
+            or actions[3].get("to") != "/opt/sentinel-stack/iter135"
+        ):
+            problems.append("host-runtime:actions")
+    elif actions:
+        problems.append("host-runtime:actions")
+    invocation = host.get("invocation")
+    if (
+        not isinstance(invocation, dict)
+        or set(invocation)
+        != {
+            "environment",
+            "environment_matches",
+            "isolated",
+            "python_implementation",
+            "python_version",
+        }
+        or not exact_json_value(invocation.get("environment"), HOST_SAFE_ENVIRONMENT)
+        or invocation.get("environment_matches") is not True
+        or invocation.get("isolated") is not True
+        or invocation.get("python_implementation") != "CPython"
+        or not isinstance(invocation.get("python_version"), str)
+        or len(invocation["python_version"].split(".")) != 3
+        or any(not field.isdigit() for field in invocation["python_version"].split("."))
+    ):
+        problems.append("host-runtime:invocation")
+    return sorted(set(problems))
 
 
 def tooling_receipt_is_exact(tooling: object) -> bool:
@@ -806,7 +1311,13 @@ def tooling_receipt_is_exact(tooling: object) -> bool:
     return (
         tooling.get("schema") == "iter135.tooling_verification.v2"
         and tooling.get("verdict") == "I135_TOOLING_VERIFICATION_OK"
-        and tooling.get("publication") == EXPECTED_TOOLING_PUBLICATION
+        and type(tooling.get("problem_count")) is int
+        and tooling.get("problem_count") == 0
+        and exact_json_value(tooling.get("problems"), [])
+        and exact_json_value(
+            tooling.get("publication"),
+            EXPECTED_TOOLING_PUBLICATION,
+        )
         and isinstance(tooling_source, str)
         and oid.fullmatch(tooling_source) is not None
     )
@@ -932,8 +1443,9 @@ actual_payload_sha = hashlib.sha256(
 if (
     activation.get("schema") != "iter135.launch_activation.v1"
     or activation.get("verdict") != "I135_LAUNCH_ACTIVATION_OK"
+    or type(activation.get("problem_count")) is not int
     or activation.get("problem_count") != 0
-    or activation.get("problems") != []
+    or not exact_json_value(activation.get("problems"), [])
     or activation.get("phase") != "LAUNCH_AUTHORIZED"
     or claimed_payload_sha != actual_payload_sha
 ):
@@ -989,7 +1501,10 @@ payloads = {}
 for role, (repository_path, local_path) in physical.items():
     payload, _row = stable_physical(local_path, f"activation artifact {role}")
     payloads[role] = payload
-    if artifacts.get(role) != binding(repository_path, payload):
+    if not exact_json_value(
+        artifacts.get(role),
+        binding(repository_path, payload),
+    ):
         raise SystemExit(f"activation artifact binding drift: {role}")
 
 manifest_payload = payloads["final_manifest"]
@@ -999,11 +1514,14 @@ manifest = json.loads(manifest_payload)
 state_payload = payloads["mission_state"]
 if manifest.get("git_provenance", {}).get("head") != commits.get("state"):
     raise SystemExit("final manifest does not bind the exact state commit")
-if manifest.get("mission_state") != {
-    "source_path": "MISSION_STATE.json",
-    "sha256": hashlib.sha256(state_payload).hexdigest(),
-    "bytes": len(state_payload),
-}:
+if not exact_json_value(
+    manifest.get("mission_state"),
+    {
+        "source_path": "MISSION_STATE.json",
+        "sha256": hashlib.sha256(state_payload).hexdigest(),
+        "bytes": len(state_payload),
+    },
+):
     raise SystemExit("final manifest mission state binding drift")
 bound = manifest.get("hash_bound_files")
 expected_bound_payloads = {
@@ -1020,12 +1538,21 @@ for name, payload in expected_bound_payloads.items():
         "sha256": hashlib.sha256(payload).hexdigest(),
         "bytes": len(payload),
     }
-    if bound.get(name) != expected:
+    if not exact_json_value(bound.get(name), expected):
         raise SystemExit(f"final manifest artifact link drift: {name}")
 if (
-    manifest.get("host_packet_manifest") != bound.get("host_packet_manifest.json")
-    or manifest.get("host_preparation_receipt") != bound.get("host_preparation_receipt.json")
-    or manifest.get("smoke_receipt") != bound.get("smoke-evidence/smoke_receipt.json")
+    not exact_json_value(
+        manifest.get("host_packet_manifest"),
+        bound.get("host_packet_manifest.json"),
+    )
+    or not exact_json_value(
+        manifest.get("host_preparation_receipt"),
+        bound.get("host_preparation_receipt.json"),
+    )
+    or not exact_json_value(
+        manifest.get("smoke_receipt"),
+        bound.get("smoke-evidence/smoke_receipt.json"),
+    )
 ):
     raise SystemExit("final manifest evidence pointer drift")
 
@@ -1037,18 +1564,39 @@ tooling_payload, _row = stable_physical(
     experiment / "tooling_verification_receipt.json", "tooling verification receipt"
 )
 tooling = json.loads(tooling_payload)
+host_runtime_problems = validate_host_runtime_contract(host_preparation)
+if host_runtime_problems:
+    raise SystemExit(
+        "activation host runtime contract drift: " + ",".join(host_runtime_problems)
+    )
+receipt_topology_problems = validate_receipt_sidecar_topology(experiment)
+if receipt_topology_problems:
+    raise SystemExit(
+        "activation receipt sidecar topology drift: "
+        + ",".join(receipt_topology_problems)
+    )
 if (
     host_packet.get("schema") != "iter135.host_packet_manifest.v1"
     or oid.fullmatch(host_packet.get("source_commit", "")) is None
     or host_preparation.get("schema") != "iter135.host_preparation_receipt.v1"
     or host_preparation.get("verdict") != "I135_HOST_PREPARATION_OK"
+    or type(host_preparation.get("problem_count")) is not int
+    or host_preparation.get("problem_count") != 0
+    or not exact_json_value(host_preparation.get("problems"), [])
     or host_preparation.get("packet_manifest_sha256")
     != hashlib.sha256(payloads["host_packet_manifest"]).hexdigest()
     or environment.get("schema") != "iter135.environment_receipts.v3"
     or environment.get("verdict") != "I135_ENVIRONMENT_PREFLIGHT_OK"
+    or type(environment.get("problem_count")) is not int
+    or environment.get("problem_count") != 0
+    or not exact_json_value(environment.get("problems"), [])
     or smoke.get("schema") != "iter135.smoke_receipt.v1"
     or smoke.get("verdict") != "I135_LIVE_SMOKE_OK"
+    or type(smoke.get("problem_count")) is not int
+    or smoke.get("problem_count") != 0
+    or not exact_json_value(smoke.get("problems"), [])
     or smoke.get("nonanalytic") is not True
+    or type(smoke.get("analytic_episode_count")) is not int
     or smoke.get("analytic_episode_count") != 0
     or not tooling_receipt_is_exact(tooling)
     or oid.fullmatch(commits.get("tooling_receipt", "")) is None
@@ -1374,6 +1922,7 @@ if (
     or interpreter.get("physical_path") != physical_path
     or interpreter.get("realpath") != physical_path
     or interpreter.get("sha256") != sha256
+    or type(interpreter.get("bytes")) is not int
     or interpreter.get("bytes") != int(byte_count)
     or interpreter.get("version") != version
     or interpreter.get("version") != platform.python_version()
@@ -1488,6 +2037,25 @@ physical = Path(physical_text).absolute()
 executable = Path(executable_text)
 expected_size = int(size_text)
 receipt = json.loads(Path(env_text).read_bytes()).get("docker_runtime")
+
+
+def exact_json_value(observed, expected):
+    if type(observed) is not type(expected):
+        return False
+    if type(expected) is dict:
+        return set(observed) == set(expected) and all(
+            exact_json_value(observed[key], expected[key]) for key in expected
+        )
+    if type(expected) is list:
+        return len(observed) == len(expected) and all(
+            exact_json_value(observed_item, expected_item)
+            for observed_item, expected_item in zip(
+                observed,
+                expected,
+                strict=True,
+            )
+        )
+    return observed == expected
 
 
 def stable_digest(path):
@@ -1717,7 +2285,7 @@ if (
     or architecture_family.get(daemon_info["architecture"], daemon_info["architecture"])
     != architecture_family.get(daemon_version["arch"], daemon_version["arch"])
     or not Path(daemon_info["docker_root_dir"]).is_absolute()
-    or receipt != live
+    or not exact_json_value(receipt, live)
 ):
     raise SystemExit("live Docker client/context/daemon drift from v3 receipt")
 print(hashlib.sha256(json.dumps(live, sort_keys=True, separators=(",", ":")).encode()).hexdigest())
@@ -1978,6 +2546,36 @@ def parse_canonical_utc(value):
         return None
     return parsed
 
+
+# BEGIN I135_PREFLIGHT_EXACTNESS_PYTHON
+def exact_json_value(observed, expected):
+    if type(observed) is not type(expected):
+        return False
+    if type(expected) is dict:
+        return set(observed) == set(expected) and all(
+            exact_json_value(observed[key], expected[key]) for key in expected
+        )
+    if type(expected) is list:
+        return len(observed) == len(expected) and all(
+            exact_json_value(observed_item, expected_item)
+            for observed_item, expected_item in zip(
+                observed,
+                expected,
+                strict=True,
+            )
+        )
+    return observed == expected
+
+
+def exact_integer(observed, expected):
+    return type(observed) is int and observed == expected
+
+
+def nonnegative_integer(observed):
+    return type(observed) is int and observed >= 0
+# END I135_PREFLIGHT_EXACTNESS_PYTHON
+
+
 if (
     manifest_path.is_symlink()
     or not manifest_path.is_file()
@@ -2039,15 +2637,17 @@ if manifest.get("verdict") != "I135_TOOLING_MANIFEST_OK":
     problems.append(f"manifest-verdict:{manifest.get('verdict')}")
 if manifest.get("launch_authorized") is not True:
     problems.append("launch-authorized:false")
-if manifest.get("problem_count") != 0 or manifest.get("problems") != []:
+if not exact_integer(manifest.get("problem_count"), 0) or not exact_json_value(
+    manifest.get("problems"), []
+):
     problems.append("manifest-problem-metadata")
-if manifest.get("missing_artifacts") != []:
+if not exact_json_value(manifest.get("missing_artifacts"), []):
     problems.append(f"manifest-missing-artifacts:{manifest.get('missing_artifacts')}")
 if manifest.get("mission_phase") != "LAUNCH_AUTHORIZED":
     problems.append(f"manifest-mission-phase:{manifest.get('mission_phase')}")
-if manifest.get("planned_blocks") != 120:
+if not exact_integer(manifest.get("planned_blocks"), 120):
     problems.append(f"planned-blocks:{manifest.get('planned_blocks')}")
-if manifest.get("planned_episodes") != 2400:
+if not exact_integer(manifest.get("planned_episodes"), 2400):
     problems.append(f"planned-episodes:{manifest.get('planned_episodes')}")
 design = manifest.get("design")
 if not isinstance(design, dict):
@@ -2055,7 +2655,7 @@ if not isinstance(design, dict):
 else:
     if design.get("retry_policy") != "no_automatic_retry_abort_on_first_block_failure":
         problems.append(f"design:retry-policy:{design.get('retry_policy')}")
-    if design.get("allowed_retries") != 0:
+    if not exact_integer(design.get("allowed_retries"), 0):
         problems.append(f"design:allowed-retries:{design.get('allowed_retries')}")
 
 classes = {
@@ -2113,14 +2713,14 @@ expected_design = {
     "retry_policy": "no_automatic_retry_abort_on_first_block_failure",
     "allowed_retries": 0,
 }
-if design != expected_design:
+if not exact_json_value(design, expected_design):
     problems.append("design:contract-drift")
 expected_pair_order = [
     f"{scenario_class}/{sequence}"
     for scenario_class, sequences in classes.items()
     for sequence in sequences
 ]
-if manifest.get("pair_order") != expected_pair_order:
+if not exact_json_value(manifest.get("pair_order"), expected_pair_order):
     problems.append("pair-order-drift")
 expected_blocks = []
 expected_cells = []
@@ -2159,9 +2759,9 @@ for scenario_class, sequences in classes.items():
             block_ordinal += 1
         pair_index += 1
 
-if manifest.get("execution_blocks") != expected_blocks:
+if not exact_json_value(manifest.get("execution_blocks"), expected_blocks):
     problems.append("execution-block-order-drift")
-if manifest.get("execution_cells") != expected_cells:
+if not exact_json_value(manifest.get("execution_cells"), expected_cells):
     problems.append("execution-cell-order-drift")
 
 gates = manifest.get("gates")
@@ -2269,20 +2869,24 @@ else:
         or runner_receipt.get("sha256") != expected_executing_runner_sha256
     ):
         problems.append("executing-runner-manifest-binding")
-    if manifest.get("smoke_receipt") != hash_bound.get(
-        "smoke-evidence/smoke_receipt.json"
+    if not exact_json_value(
+        manifest.get("smoke_receipt"),
+        hash_bound.get("smoke-evidence/smoke_receipt.json"),
     ):
         problems.append("smoke-receipt:hash-binding-drift")
-    if manifest.get("host_packet_manifest") != hash_bound.get(
-        "host_packet_manifest.json"
+    if not exact_json_value(
+        manifest.get("host_packet_manifest"),
+        hash_bound.get("host_packet_manifest.json"),
     ):
         problems.append("host-packet-manifest:hash-binding-drift")
-    if manifest.get("host_preparation_receipt") != hash_bound.get(
-        "host_preparation_receipt.json"
+    if not exact_json_value(
+        manifest.get("host_preparation_receipt"),
+        hash_bound.get("host_preparation_receipt.json"),
     ):
         problems.append("host-preparation-receipt:hash-binding-drift")
-    if manifest.get("tooling_verification_receipt") != hash_bound.get(
-        "tooling_verification_receipt.json"
+    if not exact_json_value(
+        manifest.get("tooling_verification_receipt"),
+        hash_bound.get("tooling_verification_receipt.json"),
     ):
         problems.append("tooling-verification-receipt:hash-binding-drift")
 
@@ -2461,7 +3065,9 @@ else:
         problems.append(f"environment-receipts:schema:{environment.get('schema')}")
     if environment.get("verdict") != "I135_ENVIRONMENT_PREFLIGHT_OK":
         problems.append(f"environment-receipts:verdict:{environment.get('verdict')}")
-    if environment.get("problem_count") != 0 or environment.get("problems") != []:
+    if not exact_integer(environment.get("problem_count"), 0) or not exact_json_value(
+        environment.get("problems"), []
+    ):
         problems.append("environment-receipts:problems")
     captured_at = parse_canonical_utc(environment.get("captured_at_utc"))
     capture_started_at = parse_canonical_utc(environment.get("capture_started_at_utc"))
@@ -2482,7 +3088,7 @@ else:
         embedded_environment = {
             key: value for key, value in environment.items() if key != "docker_image_ids"
         }
-        if environment_file != embedded_environment:
+        if not exact_json_value(environment_file, embedded_environment):
             problems.append("environment-file:embedded-receipt-drift")
 
     interpreter = environment.get("interpreter")
@@ -2503,6 +3109,7 @@ else:
         or interpreter.get("realpath") != str(live_interpreter)
         or interpreter.get("sha256")
         != hashlib.sha256(live_interpreter.read_bytes()).hexdigest()
+        or type(interpreter.get("bytes")) is not int
         or interpreter.get("bytes") != live_interpreter.stat().st_size
         or interpreter.get("version") != platform.python_version()
         or interpreter.get("implementation") != platform.python_implementation()
@@ -2532,7 +3139,10 @@ else:
         != {"sanitized", "isolated", "environment", "argv", "canonical_script"}
         or invocation.get("sanitized") is not True
         or invocation.get("isolated") is not True
-        or invocation.get("environment") != expected_capture_environment
+        or not exact_json_value(
+            invocation.get("environment"),
+            expected_capture_environment,
+        )
         or invocation.get("canonical_script")
         != "/opt/sentinel-stack/iter135/capture_environment135.py"
         or not isinstance(invocation.get("argv"), list)
@@ -2562,8 +3172,14 @@ else:
     if (
         not isinstance(preparation_link, dict)
         or set(preparation_link) != {"receipt_file", "evidence"}
-        or preparation_link.get("receipt_file") != expected_preparation_file
-        or preparation_link.get("evidence") != preparation_evidence
+        or not exact_json_value(
+            preparation_link.get("receipt_file"),
+            expected_preparation_file,
+        )
+        or not exact_json_value(
+            preparation_link.get("evidence"),
+            preparation_evidence,
+        )
     ):
         problems.append("environment-host-preparation:contract-drift")
 
@@ -2650,7 +3266,7 @@ else:
     if not isinstance(dataset, dict) or set(dataset) != expected_dataset_fields:
         problems.append("dataset-receipt:field-set")
         dataset = dataset if isinstance(dataset, dict) else {}
-    if dataset != environment_dataset:
+    if not exact_json_value(dataset, environment_dataset):
         problems.append("dataset-receipt:environment-link")
     if dataset.get("schema") != "iter135.nuscenes_dataset_receipt.v1":
         problems.append("dataset-receipt:schema")
@@ -2667,7 +3283,7 @@ else:
         "archive_count": 12,
         "archive_total_bytes": 315285139203,
     }
-    if dataset.get("proof_basis") != expected_proof_basis:
+    if not exact_json_value(dataset.get("proof_basis"), expected_proof_basis):
         problems.append("dataset-receipt:proof-basis")
     canonical_dataset_payload = dict(dataset)
     declared_dataset_payload_sha = canonical_dataset_payload.pop(
@@ -2717,7 +3333,7 @@ else:
         problems.append("dataset-receipt:identity-field-set")
         dataset_identity = dataset_identity if isinstance(dataset_identity, dict) else {}
     for field, expected in expected_dataset_identity_values.items():
-        if dataset_identity.get(field) != expected:
+        if not exact_json_value(dataset_identity.get(field), expected):
             problems.append(f"dataset-receipt:identity:{field}")
     dataset_device = dataset_identity.get("dataset_st_dev")
     dataset_mount_device = dataset_identity.get("mount_st_dev")
@@ -2812,7 +3428,13 @@ else:
                 problems.append(f"dataset-receipt:{label}:{name}:path")
             if expected_sha is not None and receipt.get("sha256") != expected_sha:
                 problems.append(f"dataset-receipt:{label}:{name}:frozen-sha256")
-            if expected_bytes is not None and receipt.get("bytes") != expected_bytes:
+            if (
+                type(receipt.get("bytes")) is not int
+                or (
+                    expected_bytes is not None
+                    and receipt.get("bytes") != expected_bytes
+                )
+            ):
                 problems.append(f"dataset-receipt:{label}:{name}:frozen-bytes")
             try:
                 if path.is_symlink() or not path.is_file() or path.resolve(strict=True) != path:
@@ -2824,7 +3446,7 @@ else:
                     f"dataset-live:{label}:{name}:{type(error).__name__}:{error}"
                 )
                 continue
-            if live_bytes != receipt.get("bytes"):
+            if type(receipt.get("bytes")) is not int or live_bytes != receipt.get("bytes"):
                 problems.append(f"dataset-live:{label}:{name}:byte-drift")
 
     if environment.get("host") != "sentinel-gpu":
@@ -2837,7 +3459,7 @@ else:
         "gpu_compute_processes": 0,
         "known_evaluation_processes": 0,
     }
-    if environment.get("box") != expected_box:
+    if not exact_json_value(environment.get("box"), expected_box):
         problems.append("environment-box:contract-drift")
     runtime_snapshots = environment.get("runtime_snapshots")
     frozen_gpu = {
@@ -2853,8 +3475,8 @@ else:
         or any(
             not isinstance(runtime_snapshots.get(phase), dict)
             or set(runtime_snapshots[phase]) != {"gpu", "box"}
-            or runtime_snapshots[phase].get("gpu") != frozen_gpu
-            or runtime_snapshots[phase].get("box") != expected_box
+            or not exact_json_value(runtime_snapshots[phase].get("gpu"), frozen_gpu)
+            or not exact_json_value(runtime_snapshots[phase].get("box"), expected_box)
             for phase in ("before_dataset_hashing", "after_dataset_hashing")
         )
     ):
@@ -2888,7 +3510,7 @@ else:
             "driver_version": "580.159.03",
             "memory_total_mib": 23034,
         }
-        if gpu_receipt != expected_gpu:
+        if not exact_json_value(gpu_receipt, expected_gpu):
             problems.append(f"gpu-receipt:frozen-identity:{gpu_receipt}!={expected_gpu}")
         try:
             gpu_rows = subprocess.check_output(
@@ -2944,7 +3566,7 @@ else:
                 or image_receipt.get("image_id") != image_ids.get(image)
             ):
                 problems.append(f"container-image-receipt:{image}")
-    if manifest.get("container_images") != container_images:
+    if not exact_json_value(manifest.get("container_images"), container_images):
         problems.append("container-images:embedded-drift")
 
     environment_remote_files = environment.get("remote_files")
@@ -2955,9 +3577,15 @@ else:
     else:
         for role, launch_row in sorted(remote_rows.items()):
             environment_row = environment_remote_files.get(role)
-            if not isinstance(environment_row, dict) or any(
-                environment_row.get(field) != launch_row.get(field)
-                for field in ("path", "sha256", "bytes")
+            if not isinstance(environment_row, dict) or not exact_json_value(
+                {
+                    field: environment_row.get(field)
+                    for field in ("path", "sha256", "bytes")
+                },
+                {
+                    field: launch_row.get(field)
+                    for field in ("path", "sha256", "bytes")
+                },
             ):
                 problems.append(f"environment-remote-file-link:{role}")
 
@@ -3120,7 +3748,10 @@ else:
         problems.append("git-provenance:schema")
     if git_provenance.get("verdict") != "I135_GIT_PROVENANCE_OK":
         problems.append("git-provenance:verdict")
-    if git_provenance.get("problem_count") != 0 or git_provenance.get("problems") != []:
+    if not exact_integer(
+        git_provenance.get("problem_count"),
+        0,
+    ) or not exact_json_value(git_provenance.get("problems"), []):
         problems.append("git-provenance:problems")
     if git_provenance.get("dirty_lines") != []:
         problems.append("git-provenance:dirty")
@@ -3160,6 +3791,34 @@ storage = manifest.get("storage_gate")
 if not isinstance(storage, dict):
     problems.append("storage-gate:missing")
 else:
+    captured_storage = environment.get("storage") if isinstance(environment, dict) else None
+    if not isinstance(captured_storage, dict):
+        problems.append("storage-gate:environment-storage-missing")
+        captured_storage = {}
+    expected_storage_gate = {
+        "minimum_remote_free_gib": 100,
+        "minimum_reserve_gib": 25,
+        "minimum_local_free_gib": 15,
+        "minimum_remote_free_bytes": 100 * 1024**3,
+        "minimum_reserve_bytes": 25 * 1024**3,
+        "minimum_local_free_bytes": 15 * 1024**3,
+        "filesystem_path": captured_storage.get("filesystem_path"),
+        "projected_output_gib": captured_storage.get("projected_output_gib"),
+        "projected_output_bytes": captured_storage.get("projected_output_bytes"),
+        "observed_remote_free_gib": captured_storage.get("remote_output_free_gib"),
+        "observed_remote_free_bytes": captured_storage.get("remote_output_free_bytes"),
+        "observed_local_free_gib": captured_storage.get("local_free_gib"),
+        "observed_local_free_bytes": captured_storage.get("local_free_bytes"),
+        "filesystem_realpath": captured_storage.get("filesystem_realpath"),
+        "filesystem_is_symlink": captured_storage.get("filesystem_is_symlink"),
+        "filesystem_empty": captured_storage.get("filesystem_empty"),
+        "mount_target": captured_storage.get("mount_target"),
+        "mount_source": captured_storage.get("mount_source"),
+        "mount_fstype": captured_storage.get("mount_fstype"),
+        "mount_uuid": captured_storage.get("mount_uuid"),
+    }
+    if not exact_json_value(storage, expected_storage_gate):
+        problems.append("storage-gate:environment-projection-drift")
     storage_path = Path(storage.get("filesystem_path", ""))
     expected_output_root = Path("/datasets/nuscenes-full/sentinel-i135-outoutput")
     if storage_path != expected_output_root:
@@ -3224,11 +3883,11 @@ else:
         minimum = storage.get("minimum_remote_free_bytes")
         projected = storage.get("projected_output_bytes")
         reserve = storage.get("minimum_reserve_bytes")
-        if minimum != 100 * 1024**3:
+        if not exact_integer(minimum, 100 * 1024**3):
             problems.append(f"remote-minimum-bytes:{minimum}")
-        if projected != 72_380_432_384:
+        if not exact_integer(projected, 72_380_432_384):
             problems.append(f"projected-output-bytes:{projected}")
-        if reserve != 25 * 1024**3:
+        if not exact_integer(reserve, 25 * 1024**3):
             problems.append(f"reserve-bytes:{reserve}")
         if type(minimum) is int and free_bytes < minimum:
             problems.append(f"remote-free-bytes:{free_bytes}<{minimum}")
@@ -3251,27 +3910,43 @@ else:
     if (
         smoke_evidence.get("schema") != "iter135.smoke_receipt.v1"
         or smoke_evidence.get("verdict") != "I135_LIVE_SMOKE_OK"
-        or smoke_evidence.get("problem_count") != 0
-        or smoke_evidence.get("problems") != []
+        or not exact_integer(smoke_evidence.get("problem_count"), 0)
+        or not exact_json_value(smoke_evidence.get("problems"), [])
         or smoke_evidence.get("nonanalytic") is not True
-        or smoke_evidence.get("analytic_episode_count") != 0
+        or not exact_integer(smoke_evidence.get("analytic_episode_count"), 0)
     ):
         problems.append("smoke-evidence-receipt:contract")
     if (
         tooling_evidence.get("schema") != "iter135.tooling_verification.v2"
         or tooling_evidence.get("verdict") != "I135_TOOLING_VERIFICATION_OK"
-        or tooling_evidence.get("problem_count") != 0
-        or tooling_evidence.get("problems") != []
+        or not exact_integer(tooling_evidence.get("problem_count"), 0)
+        or not exact_json_value(tooling_evidence.get("problems"), [])
     ):
         problems.append("tooling-evidence-receipt:contract")
     total = resource.get("total_gpu_ceiling_seconds")
     prior = resource.get("prior_smoke_gpu_seconds")
     remaining = resource.get("remaining_analytic_seconds")
-    if total != 110 * 60 * 60 or type(prior) is not int or prior < 0:
+    expected_resource = (
+        {
+            "total_gpu_ceiling_seconds": 110 * 60 * 60,
+            "prior_smoke_gpu_seconds": smoke_evidence.get("gpu_seconds"),
+            "remaining_analytic_seconds": (
+                110 * 60 * 60 - smoke_evidence["gpu_seconds"]
+            ),
+        }
+        if nonnegative_integer(smoke_evidence.get("gpu_seconds"))
+        else None
+    )
+    if expected_resource is None or not exact_json_value(resource, expected_resource):
+        problems.append("resource-gate:receipt-projection-drift")
+    if not exact_integer(total, 110 * 60 * 60) or not nonnegative_integer(prior):
         problems.append("resource-gate:values")
-    elif remaining != total - prior or remaining <= 0:
+    elif type(remaining) is not int or remaining != total - prior or remaining <= 0:
         problems.append("resource-gate:remaining")
-    if prior != smoke_evidence.get("gpu_seconds"):
+    if (
+        not nonnegative_integer(smoke_evidence.get("gpu_seconds"))
+        or prior != smoke_evidence.get("gpu_seconds")
+    ):
         problems.append(
             f"resource-gate:smoke-link:{prior}!={smoke_evidence.get('gpu_seconds')}"
         )
@@ -3392,6 +4067,10 @@ def stable_dataset_file(
     expected_bytes: int,
     expected_device: int,
 ) -> dict:
+    if type(expected_bytes) is not int or expected_bytes < 0:
+        raise SystemExit(f"dataset snapshot receipt byte claim drift: {path}")
+    if type(expected_device) is not int or expected_device < 0:
+        raise SystemExit(f"dataset snapshot receipt device claim drift: {path}")
     if path.is_symlink() or not path.is_file() or path.resolve(strict=True) != path:
         raise SystemExit(f"dataset snapshot source is not physical: {path}")
     descriptor = os.open(path, os.O_RDONLY | os.O_NOFOLLOW)
@@ -3464,6 +4143,8 @@ for label, group in dataset_groups.items():
     for name, receipt in sorted(group.items()):
         if not isinstance(receipt, dict) or set(receipt) != {"path", "sha256", "bytes"}:
             raise SystemExit(f"dataset snapshot receipt drift: {label}:{name}")
+        if type(receipt.get("bytes")) is not int or receipt["bytes"] < 0:
+            raise SystemExit(f"dataset snapshot receipt byte claim drift: {label}:{name}")
         path = Path(receipt["path"])
         dataset_files[f"{label}:{name}"] = stable_dataset_file(
             path,
@@ -3826,6 +4507,26 @@ if (
 ):
     raise SystemExit("dataset runtime snapshot schema drift")
 
+
+def exact_json_value(observed, expected):
+    if type(observed) is not type(expected):
+        return False
+    if type(expected) is dict:
+        return set(observed) == set(expected) and all(
+            exact_json_value(observed[key], expected[key]) for key in expected
+        )
+    if type(expected) is list:
+        return len(observed) == len(expected) and all(
+            exact_json_value(observed_item, expected_item)
+            for observed_item, expected_item in zip(
+                observed,
+                expected,
+                strict=True,
+            )
+        )
+    return observed == expected
+
+
 root = Path("/datasets/nuscenes-full")
 root_receipt = snapshot.get("dataset_root")
 root_stat = root.stat(follow_symlinks=False)
@@ -3833,15 +4534,17 @@ if (
     root.is_symlink()
     or not stat.S_ISDIR(root_stat.st_mode)
     or root.resolve(strict=True) != root
-    or root_receipt
-    != {
-        "path": str(root),
-        "st_dev": root_stat.st_dev,
-        "st_ino": root_stat.st_ino,
-        "st_mode": stat.S_IMODE(root_stat.st_mode),
-        "st_mtime_ns": root_stat.st_mtime_ns,
-        "st_ctime_ns": root_stat.st_ctime_ns,
-    }
+    or not exact_json_value(
+        root_receipt,
+        {
+            "path": str(root),
+            "st_dev": root_stat.st_dev,
+            "st_ino": root_stat.st_ino,
+            "st_mode": stat.S_IMODE(root_stat.st_mode),
+            "st_mtime_ns": root_stat.st_mtime_ns,
+            "st_ctime_ns": root_stat.st_ctime_ns,
+        },
+    )
 ):
     raise SystemExit("dataset runtime root identity drift")
 mount_row = subprocess.run(
@@ -3859,6 +4562,9 @@ if mount_row != [
 identity_receipt = dataset_receipt.get("identity")
 if (
     not isinstance(identity_receipt, dict)
+    or type(identity_receipt.get("dataset_st_dev")) is not int
+    or type(identity_receipt.get("mount_st_dev")) is not int
+    or type(identity_receipt.get("root_st_dev")) is not int
     or identity_receipt.get("dataset_st_dev") != root_stat.st_dev
     or identity_receipt.get("mount_st_dev") != root_stat.st_dev
     or identity_receipt.get("root_st_dev") != Path("/").stat().st_dev
@@ -3962,11 +4668,12 @@ for label, (parent, receipts) in groups.items():
         live, live_sha = stable_live_receipt(path, hash_bytes=label != "archive")
         expected_live_identity = dict(frozen)
         expected_live_identity["sha256"] = None
-        if live != expected_live_identity:
+        if not exact_json_value(live, expected_live_identity):
             raise SystemExit(f"dataset runtime stat identity drift: {role}")
         if (
-            frozen.get("sha256") != receipt.get("sha256")
-            or frozen.get("bytes") != receipt.get("bytes")
+            type(receipt.get("bytes")) is not int
+            or not exact_json_value(frozen.get("sha256"), receipt.get("sha256"))
+            or not exact_json_value(frozen.get("bytes"), receipt.get("bytes"))
         ):
             raise SystemExit(f"dataset runtime receipt link drift: {role}")
         if label != "archive" and live_sha != receipt.get("sha256"):
@@ -4031,6 +4738,28 @@ if (
     or expected.get("manifest_sha256") != expected_manifest_sha
 ):
     raise SystemExit("Docker runtime snapshot schema drift")
+
+
+def exact_json_value(observed, expected_value):
+    if type(observed) is not type(expected_value):
+        return False
+    if type(expected_value) is dict:
+        return set(observed) == set(expected_value) and all(
+            exact_json_value(observed[key], expected_value[key])
+            for key in expected_value
+        )
+    if type(expected_value) is list:
+        return len(observed) == len(expected_value) and all(
+            exact_json_value(observed_item, expected_item)
+            for observed_item, expected_item in zip(
+                observed,
+                expected_value,
+                strict=True,
+            )
+        )
+    return observed == expected_value
+
+
 docker_stat = docker_binary.stat(follow_symlinks=False)
 if (
     docker_binary.is_symlink()
@@ -4040,12 +4769,15 @@ if (
     or hashlib.sha256(docker_binary.read_bytes()).hexdigest() != expected_docker_sha
 ):
     raise SystemExit("Docker runtime client drift")
-if expected.get("client") != {
-    "path": str(docker_binary),
-    "sha256": expected_docker_sha,
-    "st_dev": docker_stat.st_dev,
-    "st_ino": docker_stat.st_ino,
-}:
+if not exact_json_value(
+    expected.get("client"),
+    {
+        "path": str(docker_binary),
+        "sha256": expected_docker_sha,
+        "st_dev": docker_stat.st_dev,
+        "st_ino": docker_stat.st_ino,
+    },
+):
     raise SystemExit("Docker runtime client receipt drift")
 if {
     name: os.environ.get(name)
@@ -4140,9 +4872,9 @@ if (
     or not stat.S_ISSOCK(socket_stat.st_mode)
     or expected.get("context") != context
     or expected.get("endpoint") != endpoint
-    or expected.get("socket") != live_socket
-    or expected.get("daemon_info") != live_info
-    or expected.get("daemon_version") != live_version
+    or not exact_json_value(expected.get("socket"), live_socket)
+    or not exact_json_value(expected.get("daemon_info"), live_info)
+    or not exact_json_value(expected.get("daemon_version"), live_version)
 ):
     raise SystemExit("Docker runtime daemon identity drift")
 print(f"I135_DOCKER_RUNTIME_OK phase={phase} daemon_id={live_info['ID']}")
@@ -4153,7 +4885,10 @@ PRIOR_SMOKE_SECONDS=$(python3 - "$MANIFEST" <<'PY'
 import json
 import sys
 
-print(json.load(open(sys.argv[1]))["resource_gate"]["prior_smoke_gpu_seconds"])
+prior = json.load(open(sys.argv[1]))["resource_gate"]["prior_smoke_gpu_seconds"]
+if type(prior) is not int or prior < 0:
+    raise SystemExit("prior smoke GPU seconds is not an exact nonnegative integer")
+print(prior)
 PY
 )
 CEILING_SECONDS=$((TOTAL_CEILING_SECONDS - PRIOR_SMOKE_SECONDS))
@@ -4546,6 +5281,8 @@ if not isinstance(devices, dict) or set(devices) != {
     "root_st_dev",
 }:
     raise SystemExit("storage device receipt drift")
+if any(type(devices.get(field)) is not int for field in devices):
+    raise SystemExit("storage device receipt type drift")
 if (
     output != expected_root
     or output.is_symlink()
@@ -4730,6 +5467,8 @@ if len(selected_roles) != 23 or not selected_roles.issubset(by_role):
     raise SystemExit("runtime selected role-set drift")
 for role in sorted(selected_roles):
     row = by_role[role]
+    if type(row.get("bytes")) is not int or row["bytes"] < 0:
+        raise SystemExit(f"runtime artifact byte claim drift: {role}")
     path = Path(row["path"])
     actual_sha, actual_bytes = stable_receipt(path)
     if actual_sha != row["sha256"] or actual_bytes != row["bytes"]:
@@ -4754,6 +5493,7 @@ if not isinstance(schedule_receipt, dict) or set(schedule_receipt) != {
 schedule_sha, schedule_bytes = stable_receipt(schedule)
 if (
     stat.S_IMODE(schedule.stat().st_mode) != 0o444
+    or type(schedule_receipt.get("bytes")) is not int
     or schedule_sha != schedule_receipt["sha256"]
     or schedule_bytes != schedule_receipt["bytes"]
 ):

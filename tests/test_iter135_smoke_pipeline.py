@@ -97,7 +97,7 @@ def pre_smoke_bound_contract_namespace() -> dict[str, object]:
     program = text.split("# BEGIN I135_PRE_SMOKE_BOUND_CONTRACT_PYTHON\n", 1)[1].split(
         "# END I135_PRE_SMOKE_BOUND_CONTRACT_PYTHON", 1
     )[0]
-    namespace: dict[str, object] = {"hashlib": hashlib}
+    namespace: dict[str, object] = {"hashlib": hashlib, "Path": Path}
     exec(compile(program, str(RUNNER_PATH), "exec"), namespace)
     return namespace
 
@@ -238,9 +238,7 @@ def dataset_receipt() -> dict[str, object]:
             for name in manifest_contract.EXPECTED_DATASET_MAP_ANCHORS
         },
     }
-    receipt["receipt_payload_sha256"] = manifest_contract._dataset_receipt_payload_sha256(
-        receipt
-    )
+    receipt["receipt_payload_sha256"] = manifest_contract._dataset_receipt_payload_sha256(receipt)
     return receipt
 
 
@@ -254,6 +252,111 @@ def sha256(path: Path) -> str:
 def write_json(path: Path, value: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(value, indent=1, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def runtime_host_receipt() -> dict[str, object]:
+    patcher = {
+        "path": "/opt/sentinel-stack/.iter135-packet/patch_compose_dose_env.py",
+        "sha256": "c" * 64,
+        "bytes": 8_192,
+        "mode": 0o644,
+    }
+    server = {
+        "path": "/opt/sentinel-stack/UniAD/inference/server.py",
+        "sha256": "066a3fc31a2c78960255cedf659018bab4190ac5dee7e7c5ec14d1031043c424",
+        "bytes": 4_519,
+        "mode": 0o644,
+    }
+    return {
+        "packet": {"files": {"patch_compose_dose_env.py": dict(patcher)}},
+        "compose": {
+            "patcher": dict(patcher),
+            "before": {
+                "path": "/opt/sentinel-stack/NeuroNCAP/scripts/_docker_compose_release.sh",
+                "sha256": (
+                    "9f8804b523faa8ec3b6770a69b4b4bc9595c2b36e4b98422a588b9a3e1fe8e5d"
+                ),
+                "bytes": 3_380,
+                "mode": 0o755,
+            },
+            "after": {
+                "path": "/opt/sentinel-stack/NeuroNCAP/scripts/_docker_compose_release.sh",
+                "sha256": (
+                    "a5ed766b8a4c7efd7b33cdb6a9bdf9a5878f63604695758ff5f2268b770cfada"
+                ),
+                "bytes": 3_613,
+                "mode": 0o755,
+            },
+        },
+        "storage": {
+            "mount_target": "/datasets/nuscenes-full",
+            "mount_source": "/dev/nvme0n2",
+            "mount_fstype": "ext4",
+            "mount_uuid": "9a98277e-b21f-4ffc-8f14-3f2235b43103",
+            "dataset_st_dev": 66308,
+            "root_st_dev": 66305,
+            "free_bytes_before": 121 * 1024**3,
+            "free_bytes_after": 121 * 1024**3,
+            "minimum_remote_free_bytes": 100 * 1024**3,
+            "projected_output_bytes": 72_380_432_384,
+            "minimum_reserve_bytes": 25 * 1024**3,
+            "analytic_root": "/datasets/nuscenes-full/sentinel-i135-outoutput",
+            "analytic_root_realpath": "/datasets/nuscenes-full/sentinel-i135-outoutput",
+            "analytic_root_is_symlink": False,
+            "analytic_root_empty": True,
+            "analytic_root_st_dev": 66308,
+        },
+        "actions": [
+            {
+                "action": "normalize_uniad_server_from_verified_head_blob",
+                "performed": False,
+                "before": dict(server),
+                "after": dict(server),
+            },
+            {
+                "action": "atomically_patch_compose_from_exact_preimage",
+                "performed": True,
+                "before_sha256": (
+                    "9f8804b523faa8ec3b6770a69b4b4bc9595c2b36e4b98422a588b9a3e1fe8e5d"
+                ),
+                "after_sha256": (
+                    "a5ed766b8a4c7efd7b33cdb6a9bdf9a5878f63604695758ff5f2268b770cfada"
+                ),
+            },
+            {
+                "action": "create_absent_empty_analytic_root",
+                "performed": True,
+                "path": "/datasets/nuscenes-full/sentinel-i135-outoutput",
+            },
+            {
+                "action": "atomically_install_verified_packet",
+                "performed": True,
+                "from": "/opt/sentinel-stack/.iter135-packet",
+                "to": "/opt/sentinel-stack/iter135",
+            },
+        ],
+        "invocation": {
+            "environment": {
+                "DOCKER_CONFIG": "/nonexistent",
+                "DOCKER_HOST": "unix:///var/run/docker.sock",
+                "GIT_CONFIG_NOSYSTEM": "1",
+                "GIT_OPTIONAL_LOCKS": "0",
+                "GIT_TERMINAL_PROMPT": "0",
+                "HOME": "/nonexistent",
+                "LANG": "C",
+                "LC_ALL": "C",
+                "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
+                "PYTHONDONTWRITEBYTECODE": "1",
+                "PYTHONHASHSEED": "0",
+                "PYTHONNOUSERSITE": "1",
+                "TZ": "UTC",
+            },
+            "environment_matches": True,
+            "isolated": True,
+            "python_implementation": "CPython",
+            "python_version": "3.10.14",
+        },
+    }
 
 
 def parse_smoke_summary(payload: bytes) -> dict[str, object]:
@@ -308,9 +411,7 @@ def decision_rows(dose: str, expected_frames: list[int]) -> list[dict]:
                 "dose": dose,
                 "frame_index": frame_index,
                 "base_trajectory": base,
-                "returned_trajectory": (
-                    [[0.0, 0.0], [0.0, 0.0]] if scheduled else base
-                ),
+                "returned_trajectory": ([[0.0, 0.0], [0.0, 0.0]] if scheduled else base),
             }
         )
         if scheduled:
@@ -341,9 +442,7 @@ def preflight_mission_state() -> dict[str, object]:
         "workspace_boundary": json.loads(json.dumps(smoke.WORKSPACE_BOUNDARY)),
         "trunk": "master",
         "current_completed_iteration": 134,
-        "current_result": (
-            "experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md"
-        ),
+        "current_result": ("experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md"),
         "current_verdict": "PLACEBO_HARM_OR_NULL",
         "run_state": "IDLE",
         "active_hypothesis": (
@@ -364,9 +463,7 @@ def make_fixture(tmp_path: Path) -> Path:
     raw = exp / smoke.RAW_REL
     raw.mkdir(parents=True)
     write_json(exp / "MISSION_STATE.json", preflight_mission_state())
-    (raw / smoke.RAW_MISSION_STATE_NAME).write_bytes(
-        (exp / "MISSION_STATE.json").read_bytes()
-    )
+    (raw / smoke.RAW_MISSION_STATE_NAME).write_bytes((exp / "MISSION_STATE.json").read_bytes())
 
     schedule = {
         "schema": "iter135.nested_dose_schedules.v1",
@@ -579,8 +676,7 @@ def make_fixture(tmp_path: Path) -> Path:
         "repositories": json.loads(json.dumps(manifest_contract.EXPECTED_REPOSITORIES)),
         "remote_files": remote_files,
         "container_images": {
-            name: {"image_id": image_id, "repo_digests": []}
-            for name, image_id in IMAGE_IDS.items()
+            name: {"image_id": image_id, "repo_digests": []} for name, image_id in IMAGE_IDS.items()
         },
     }
     environment["remote_files"]["compose_script"]["sha256"] = COMPOSE_SHA
@@ -845,9 +941,7 @@ def test_recompute_green_receipt_from_raw_evidence(tmp_path: Path) -> None:
     assert all(receipt["model_environment_forwarded"].values())
     assert receipt["pair_present_on_every_frame"] is True
     assert receipt["dataset_contract_sha256"] == smoke.DATASET_CONTRACT_SHA256
-    assert receipt["dataset_receipt_payload_sha256"] == dataset_receipt()[
-        "receipt_payload_sha256"
-    ]
+    assert receipt["dataset_receipt_payload_sha256"] == dataset_receipt()["receipt_payload_sha256"]
     assert receipt["canonical_runner_sha256"] == receipt["runner_sha256"]
     assert receipt["persistent_smoke_lock"] == "/var/lib/sentinel/i135-smoke.lock"
     assert receipt["persistent_smoke_lock_sha256"] == "9" * 64
@@ -913,9 +1007,9 @@ def test_smoke_summary_is_deterministic_one_way_projection(tmp_path: Path) -> No
         "problems": [],
     }
     assert summary["execution_boundary"]["persistent_smoke_lock_sha256"] == "9" * 64
-    assert summary["provenance"]["github_pre_smoke_authority"] == receipt[
-        "github_pre_smoke_authority"
-    ]
+    assert (
+        summary["provenance"]["github_pre_smoke_authority"] == receipt["github_pre_smoke_authority"]
+    )
     assert [row["dose"] for row in summary["dose_results"]] == list(smoke.BLIND_DOSES)
     assert summary["raw_artifacts"]["count"] == 16
     expected_artifact_set = sorted(receipt["artifacts"], key=lambda row: row["path"])
@@ -994,18 +1088,14 @@ def test_stale_bundle_fails_after_raw_artifact_mutation(tmp_path: Path) -> None:
     exp = make_fixture(tmp_path)
     old_receipt = smoke.write_recomputed_smoke_bundle(exp)
     old_artifact = next(
-        row
-        for row in old_receipt["artifacts"]
-        if row["path"].endswith("blind_0_5x.compose.log")
+        row for row in old_receipt["artifacts"] if row["path"].endswith("blind_0_5x.compose.log")
     )
     artifact_path = exp / old_artifact["path"]
     artifact_path.write_text("SMOKE COMPOSE COMPLETE\npost-publication mutation\n")
 
     recomputed = smoke.recompute_smoke_receipt(exp)
     new_artifact = next(
-        row
-        for row in recomputed["artifacts"]
-        if row["path"].endswith("blind_0_5x.compose.log")
+        row for row in recomputed["artifacts"] if row["path"].endswith("blind_0_5x.compose.log")
     )
     assert new_artifact["sha256"] != old_artifact["sha256"]
     assert smoke.validate_smoke_bundle(exp, recomputed) == [
@@ -1026,9 +1116,7 @@ def test_cross_receipt_summary_copy_is_rejected(tmp_path: Path) -> None:
 
     (green / smoke.SUMMARY_REL).write_bytes((red / smoke.SUMMARY_REL).read_bytes())
 
-    assert smoke.validate_smoke_bundle(green, green_receipt) == [
-        "smoke:summary-mismatch"
-    ]
+    assert smoke.validate_smoke_bundle(green, green_receipt) == ["smoke:summary-mismatch"]
 
 
 def test_red_smoke_bundle_is_truthful_and_never_self_referential(tmp_path: Path) -> None:
@@ -1236,12 +1324,10 @@ def test_dataset_topology_cannot_self_declare_missing_or_drifted_files(
     elif case == "metadata-missing":
         del dataset["metadata_json"]["scene.json"]
     else:
-        dataset["map_anchors"]["36092f0b03a857c6a3403e25b4b7aab3.png"][
-            "path"
-        ] = "/datasets/nuscenes-full/maps/forged.png"
-    dataset["receipt_payload_sha256"] = (
-        manifest_contract._dataset_receipt_payload_sha256(dataset)
-    )
+        dataset["map_anchors"]["36092f0b03a857c6a3403e25b4b7aab3.png"]["path"] = (
+            "/datasets/nuscenes-full/maps/forged.png"
+        )
+    dataset["receipt_payload_sha256"] = manifest_contract._dataset_receipt_payload_sha256(dataset)
     rewrite_environment_with_bound_manifest(exp, environment)
 
     receipt = smoke.recompute_smoke_receipt(exp)
@@ -1295,9 +1381,7 @@ def test_missing_durable_session_identity_fails_closed(tmp_path: Path) -> None:
         "python_binary_identity",
     ],
 )
-def test_missing_new_runtime_authority_field_fails_closed(
-    tmp_path: Path, field: str
-) -> None:
+def test_missing_new_runtime_authority_field_fails_closed(tmp_path: Path, field: str) -> None:
     exp = make_fixture(tmp_path)
     path = exp / smoke.RAW_REL / "execution.jsonl"
     rows = [json.loads(line) for line in path.read_text().splitlines()]
@@ -1603,7 +1687,7 @@ def test_runner_is_one_shot_hash_gated_and_syntax_valid() -> None:
     assert "manifest-required-tooling-set" in text
     assert "remote:{role}:drift" in text
     assert "path.resolve(strict=True) != path" in text
-    assert 'DOCKER_FD_PATH=/proc/$$/fd/11' in text
+    assert "DOCKER_FD_PATH=/proc/$$/fd/11" in text
     assert 'docker_binary, "image", "inspect"' in text
     assert "NVIDIA L4" in text
     assert "gpu-compute-process-present" in text
@@ -1633,8 +1717,8 @@ def test_runner_is_one_shot_hash_gated_and_syntax_valid() -> None:
     assert "date +%s%N" not in text
     assert smoke.EXPECTED_BLIND_PATCHED_SERVER_SHA256 in text
     assert 'python3 - "$EXECUTION_LOG" "$REASON"' in text
-    assert 'sys.argv[2]' in text
-    assert "rm -rf \"$RAW_DIR\"" not in text
+    assert "sys.argv[2]" in text
+    assert 'rm -rf "$RAW_DIR"' not in text
     assert "assert_no_conflicting_containers" in text
     assert "assert_docker_empty" in text
     assert "assert_immutable_images" in text
@@ -1646,26 +1730,24 @@ def test_runner_is_one_shot_hash_gated_and_syntax_valid() -> None:
     assert 'docker rm -f "$ID"' in text
     assert "docker rm -f renderer model ncap" not in text
     assert 'docker rm -f "$NAME"' not in text
-    assert 'MODEL_IMAGE=$EXPECTED_UNIAD_IMAGE_ID' in text
-    assert 'RENDERING_IMAGE=$EXPECTED_NEURAD_IMAGE_ID' in text
-    assert 'NCAP_IMAGE=$EXPECTED_NCAP_IMAGE_ID' in text
+    assert "MODEL_IMAGE=$EXPECTED_UNIAD_IMAGE_ID" in text
+    assert "RENDERING_IMAGE=$EXPECTED_NEURAD_IMAGE_ID" in text
+    assert "NCAP_IMAGE=$EXPECTED_NCAP_IMAGE_ID" in text
     assert "sha256:f73ef38840631211983ea0dde0cf1ecdfa6dbc84ef6cd0bfb900427da6d601cb" in text
     assert "sha256:4b36caf2054d37b4febeddeae08b310f906ec632fec4095b5dc4497323433e5c" in text
     assert "sha256:c7ffab2e73d3896b1a6cdfbcd2db0910c250a9cbf078cc61a4b43baa6f6d92ce" in text
     assert "I135_SMOKE_PREEXISTING_CONTAINER" in text
     assert "I135_SMOKE_CONTAINER_OWNERSHIP_FAIL" in text
-    assert 'if ! ALL_CONTAINER_IDS=$(docker ps -aq --no-trunc)' in text
+    assert "if ! ALL_CONTAINER_IDS=$(docker ps -aq --no-trunc)" in text
     assert "if ! GPU_COMPUTE_PIDS=$(nvidia-smi" in text
-    assert text.index("No mutation happens above this line") < text.index(
-        "SMOKE_LOCK_ID=$(python3"
-    )
+    assert text.index("No mutation happens above this line") < text.index("SMOKE_LOCK_ID=$(python3")
     subprocess.run(["bash", "-n", str(RUNNER_PATH)], check=True)
 
 
 def test_runner_rejects_copied_or_path_aliased_execution_before_mutation() -> None:
     text = RUNNER_PATH.read_text()
 
-    assert 'RUNNER_SOURCE=$I135/run_smoke135.sh' in text
+    assert "RUNNER_SOURCE=$I135/run_smoke135.sh" in text
     assert '"$RUNNER_SOURCE" "$0" "${BASH_SOURCE[0]}"' in text
     assert 'expected = Path("/opt/sentinel-stack/iter135/run_smoke135.sh")' in text
     assert "canonical != expected or argv0 != expected or bash_source != expected" in text
@@ -1695,7 +1777,7 @@ def test_runner_publishes_and_retains_durable_one_shot_lock() -> None:
     assert '"github_pre_smoke_authority": authority' in text
     assert '"repository": "manfromnowhere143/sentinel"' in text
     assert '"branch": "master"' in text
-    assert 'hashlib.sha256(lock_payload).hexdigest() != expected_lock_sha' in text
+    assert "hashlib.sha256(lock_payload).hexdigest() != expected_lock_sha" in text
     assert '"persistent_smoke_lock_sha256": hashlib.sha256(lock_payload).hexdigest()' in text
     assert "os.chmod(temporary, 0o444)" in text
     assert "Once the durable one-shot path is published it is never removed" in text
@@ -1713,10 +1795,10 @@ def test_runner_uses_labeled_cidfile_ownership_and_id_only_cleanup() -> None:
 
     for label in (
         "--label sentinel.mission=iter135",
-        'sentinel.manifest=$SENTINEL_MANIFEST_SHA256',
+        "sentinel.manifest=$SENTINEL_MANIFEST_SHA256",
         "--label sentinel.mode=nonanalytic-smoke",
-        'sentinel.dose=$SENTINEL_SMOKE_DOSE_ORDINAL',
-        'sentinel.role=$ROLE',
+        "sentinel.dose=$SENTINEL_SMOKE_DOSE_ORDINAL",
+        "sentinel.role=$ROLE",
     ):
         assert label in text
     assert '--cidfile "$CID_FILE"' in text
@@ -1737,11 +1819,9 @@ def test_runner_uses_labeled_cidfile_ownership_and_id_only_cleanup() -> None:
     assert "docker rm -f renderer model ncap" not in text
     assert 'docker rm -f "$NAME"' not in text
     capture_function = text[
-        text.index("capture_owned_containers()") : text.index(
-            "assert_no_conflicting_containers()"
-        )
+        text.index("capture_owned_containers()") : text.index("assert_no_conflicting_containers()")
     ]
-    assert "--filter \"name=^/" not in capture_function
+    assert '--filter "name=^/' not in capture_function
 
 
 def test_generated_docker_wrapper_injects_provenance_and_rejects_copy(
@@ -1793,17 +1873,13 @@ print(f"{identity.st_dev}:{identity.st_ino}")
         "FAKE_DOCKER_ARGS": str(args_path),
         "SENTINEL_DOCKER_BIN": str(fake_docker),
         "SENTINEL_DOCKER_EXECUTABLE": str(fake_docker),
-        "SENTINEL_DOCKER_BIN_ID": (
-            f"{fake_docker.stat().st_dev}:{fake_docker.stat().st_ino}"
-        ),
+        "SENTINEL_DOCKER_BIN_ID": (f"{fake_docker.stat().st_dev}:{fake_docker.stat().st_ino}"),
         "SENTINEL_DOCKER_BIN_SHA256": sha256(fake_docker),
         "SENTINEL_DOCKER_WRAPPER_SHA256": sha256(wrapper),
         "SENTINEL_MANIFEST_SHA256": manifest_sha,
         "SENTINEL_SMOKE_DOSE_ORDINAL": "0",
         "SENTINEL_CONTAINER_CONTROL_ROOT": str(control),
-        "SENTINEL_CONTAINER_CONTROL_ROOT_ID": (
-            f"{control.stat().st_dev}:{control.stat().st_ino}"
-        ),
+        "SENTINEL_CONTAINER_CONTROL_ROOT_ID": (f"{control.stat().st_dev}:{control.stat().st_ino}"),
         "SENTINEL_CONTAINER_CID_DIR": str(cid_dir),
     }
     completed = subprocess.run(
@@ -1941,7 +2017,7 @@ else:
         "#!/bin/bash -p\n"
         "set -euo pipefail\n"
         "PORT=$(python -c 'print(4242)')\n"
-        "[ \"$PORT\" = 4242 ]\n"
+        '[ "$PORT" = 4242 ]\n'
         f"docker run --name renderer {renderer_image}\n"
         f"docker run --name model {model_image}\n"
         "docker kill renderer\n"
@@ -1994,9 +2070,7 @@ def test_pre_smoke_bound_contract_rejects_extra_and_noncanonical_sources(
     def receipt(name: str) -> dict[str, object]:
         payload = (tmp_path / name).read_bytes()
         return {
-            "source_path": (
-                "experiments/iter135_neuroncap_blind_braking_dose_response/" + name
-            ),
+            "source_path": ("experiments/iter135_neuroncap_blind_braking_dose_response/" + name),
             "sha256": hashlib.sha256(payload).hexdigest(),
             "bytes": len(payload),
         }
@@ -2008,8 +2082,339 @@ def test_pre_smoke_bound_contract_rejects_extra_and_noncanonical_sources(
     noncanonical = json.loads(json.dumps(exact))
     noncanonical["a.txt"]["source_path"] = "/tmp/a.txt"
     assert validate(noncanonical, tmp_path, required)[0] == [
-        "bound-file:a.txt:source-path"
+        "bound-file:a.txt:source-path",
+        "bound-file:a.txt:drift",
     ]
+    for hostile_bytes in (
+        float(exact["a.txt"]["bytes"]),
+        bool(exact["a.txt"]["bytes"]),
+    ):
+        numeric_alias = json.loads(json.dumps(exact))
+        numeric_alias["a.txt"]["bytes"] = hostile_bytes
+        assert validate(numeric_alias, tmp_path, required)[0] == [
+            "bound-file:a.txt:drift"
+        ]
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        b'{"x":1,"x":2}',
+        b'{"x":NaN}',
+        b'{"x":Infinity}',
+        b'{"x":-Infinity}',
+    ],
+)
+def test_pre_smoke_bound_authority_loader_rejects_ambiguous_json(
+    payload: bytes,
+) -> None:
+    namespace = pre_smoke_bound_contract_namespace()
+
+    with pytest.raises(
+        ValueError,
+        match="duplicate authority JSON key|non-finite authority JSON number",
+    ):
+        namespace["strict_bound_json_loads"](payload)
+
+
+def test_pre_smoke_uses_strict_single_read_payloads_for_bound_authority() -> None:
+    text = RUNNER_PATH.read_text()
+
+    assert "host_packet = strict_bound_json_loads(host_packet_payload)" in text
+    assert (
+        "host_preparation = strict_bound_json_loads(host_preparation_payload)"
+        in text
+    )
+    assert "tooling = strict_bound_json_loads(tooling_payload_bytes)" in text
+    assert (
+        "tooling_payload_bytes,\n    tooling_bound,"
+        in text
+    )
+    assert (
+        "schedule, schedule_payload = load_strict_bound_json("
+        in text
+    )
+
+
+def test_pre_smoke_bound_json_loader_rejects_changed_file_bytes(
+    tmp_path: Path,
+) -> None:
+    namespace = pre_smoke_bound_contract_namespace()
+    load = namespace["load_strict_bound_json"]
+    path = tmp_path / "dose_schedules.json"
+    original = b'{"schedules":{}}\n'
+    path.write_bytes(original)
+    receipt = {
+        "source_path": (
+            "experiments/iter135_neuroncap_blind_braking_dose_response/"
+            "dose_schedules.json"
+        ),
+        "sha256": hashlib.sha256(original).hexdigest(),
+        "bytes": len(original),
+    }
+
+    document, payload = load(path, receipt, receipt["source_path"])
+    assert document == {"schedules": {}}
+    assert payload == original
+
+    path.write_bytes(b'{"schedules":{"changed":{}}}\n')
+    with pytest.raises(ValueError, match=r"^bound authority JSON payload drift$"):
+        load(path, receipt, receipt["source_path"])
+
+
+@pytest.mark.parametrize("numeric_alias", [False, 0.0])
+def test_pre_smoke_zero_problem_receipt_metadata_rejects_numeric_aliases(
+    numeric_alias: object,
+) -> None:
+    validate = pre_smoke_bound_contract_namespace()[
+        "zero_problem_receipt_metadata_matches"
+    ]
+    document = {
+        "schema": "iter135.host_preparation_receipt.v1",
+        "verdict": "I135_HOST_PREPARATION_OK",
+        "problem_count": 0,
+        "problems": [],
+    }
+    assert validate(
+        document,
+        "iter135.host_preparation_receipt.v1",
+        "I135_HOST_PREPARATION_OK",
+    )
+
+    document["problem_count"] = numeric_alias
+    assert not validate(
+        document,
+        "iter135.host_preparation_receipt.v1",
+        "I135_HOST_PREPARATION_OK",
+    )
+
+
+@pytest.mark.parametrize("numeric_alias", [False, 3.0])
+@pytest.mark.parametrize("receipt_side", ["bound", "manifest"])
+def test_pre_smoke_bound_payload_receipt_rejects_byte_aliases(
+    numeric_alias: object,
+    receipt_side: str,
+) -> None:
+    validate = pre_smoke_bound_contract_namespace()[
+        "bound_payload_receipt_matches"
+    ]
+    payload = b"{}\n"
+    source_path = (
+        "experiments/iter135_neuroncap_blind_braking_dose_response/"
+        "tooling_verification_receipt.json"
+    )
+    receipt = {
+        "source_path": source_path,
+        "sha256": hashlib.sha256(payload).hexdigest(),
+        "bytes": len(payload),
+    }
+    assert validate(payload, receipt, receipt, source_path)
+
+    changed = dict(receipt)
+    changed["bytes"] = numeric_alias
+    bound_receipt = changed if receipt_side == "bound" else receipt
+    manifest_receipt = changed if receipt_side == "manifest" else receipt
+    assert not validate(
+        payload,
+        bound_receipt,
+        manifest_receipt,
+        source_path,
+    )
+
+
+def pre_smoke_schedule() -> dict[str, object]:
+    doses = ("blind_0_5x", "blind_1_0x", "blind_1_5x", "blind_2_0x")
+    return {
+        "schema": "iter135.nested_dose_schedules.v1",
+        "verdict": "NESTED_DOSE_SCHEDULES_OK",
+        "problem_count": 0,
+        "problems": [],
+        "schedule_count": len(doses),
+        "schedules": {
+            dose: {
+                "frontal/0103/0": {
+                    "brake_frames": [11, 12],
+                    "donor_brake_frames": [10, 11, 12, 13],
+                    "donor_class": "frontal",
+                    "donor_frame_count": 14,
+                    "donor_run": 7,
+                    "donor_seq": "0110",
+                    "dose_id": dose,
+                    "scheduled_brake_count": 2,
+                    "target_class": "frontal",
+                    "target_run": 0,
+                    "target_seq": "0103",
+                }
+            }
+            for dose in doses
+        },
+    }
+
+
+@pytest.mark.parametrize(
+    ("field", "numeric_alias", "expected_problem"),
+    [
+        ("target_run", False, "schedule:blind_0_5x:identity"),
+        ("target_run", 0.0, "schedule:blind_0_5x:identity"),
+        ("donor_run", False, "schedule:blind_0_5x:donor-identity"),
+        ("donor_run", 7.0, "schedule:blind_0_5x:donor-identity"),
+        ("donor_run", -1, "schedule:blind_0_5x:donor-identity"),
+        ("donor_run", 20, "schedule:blind_0_5x:donor-identity"),
+        ("donor_frame_count", False, "schedule:blind_0_5x:donor-frames"),
+        ("donor_frame_count", 14.0, "schedule:blind_0_5x:donor-frames"),
+        ("donor_brake_frames", [False], "schedule:blind_0_5x:donor-frames"),
+        ("donor_brake_frames", [10.0], "schedule:blind_0_5x:donor-frames"),
+        ("donor_brake_frames", [-1], "schedule:blind_0_5x:donor-frames"),
+        ("donor_brake_frames", [14], "schedule:blind_0_5x:donor-frames"),
+        ("brake_frames", [False], "schedule:blind_0_5x:brake-frames"),
+        ("brake_frames", [0.0], "schedule:blind_0_5x:brake-frames"),
+        ("brake_frames", [-1], "schedule:blind_0_5x:brake-frames"),
+        ("brake_frames", [14], "schedule:blind_0_5x:brake-frames"),
+        ("scheduled_brake_count", False, "schedule:blind_0_5x:brake-frames"),
+        ("scheduled_brake_count", 2.0, "schedule:blind_0_5x:brake-frames"),
+    ],
+)
+def test_pre_smoke_schedule_rejects_numeric_json_aliases(
+    field: str,
+    numeric_alias: object,
+    expected_problem: str,
+) -> None:
+    validate = pre_smoke_bound_contract_namespace()["validate_smoke_schedule"]
+    schedule = pre_smoke_schedule()
+    schedule["schedules"]["blind_0_5x"]["frontal/0103/0"][field] = numeric_alias
+
+    problems, _targets = validate(schedule)
+
+    assert expected_problem in problems
+
+
+@pytest.mark.parametrize("numeric_alias", [False, 4.0])
+def test_pre_smoke_schedule_count_rejects_numeric_json_alias(
+    numeric_alias: object,
+) -> None:
+    validate = pre_smoke_bound_contract_namespace()["validate_smoke_schedule"]
+    schedule = pre_smoke_schedule()
+    schedule["schedule_count"] = numeric_alias
+
+    problems, _targets = validate(schedule)
+
+    assert "schedule-count" in problems
+
+
+@pytest.mark.parametrize("hostile_bytes", [True, 7.0])
+def test_pre_smoke_remote_artifacts_reject_numeric_json_aliases(
+    hostile_bytes: object,
+) -> None:
+    validate = pre_smoke_bound_contract_namespace()["validate_remote_artifact_contract"]
+    roles = [
+        *[f"scenario:fixture/{index:02d}" for index in range(20)],
+        *[f"renderer:fixture:{index:02d}" for index in range(42)],
+        "uniad_server_baseline",
+        *[f"support:{index:02d}" for index in range(19)],
+    ]
+    exact = [
+        {
+            "role": role,
+            "path": f"/opt/sentinel-stack/fixture/{index:02d}",
+            "sha256": hashlib.sha256(role.encode()).hexdigest(),
+            "bytes": 7,
+        }
+        for index, role in enumerate(roles)
+    ]
+
+    assert validate(exact)[0] == []
+    hostile = json.loads(json.dumps(exact))
+    hostile[0]["bytes"] = hostile_bytes
+    problems, _by_role = validate(hostile)
+    assert "remote-artifacts:row:0:contract" in problems
+    assert "remote-artifacts:role-set" in problems
+
+
+@pytest.mark.parametrize(
+    ("mutation", "expected_problem"),
+    [
+        ("compose-patcher-bytes-float", "host-runtime:compose"),
+        ("compose-patcher-bytes-bool", "host-runtime:compose"),
+        ("storage-extra", "host-runtime:storage-schema"),
+        ("storage-missing", "host-runtime:storage-schema"),
+        ("storage-device-float", "host-runtime:storage"),
+        ("storage-device-negative", "host-runtime:storage"),
+        ("action-extra", "host-runtime:actions"),
+        ("action-omission", "host-runtime:actions"),
+        ("invocation-extra", "host-runtime:invocation"),
+        ("invocation-omission", "host-runtime:invocation"),
+        ("invocation-environment-alias", "host-runtime:invocation"),
+    ],
+)
+def test_pre_smoke_rejects_recursive_host_receipt_aliases_and_schema_drift(
+    mutation: str,
+    expected_problem: str,
+) -> None:
+    validate = pre_smoke_bound_contract_namespace()["validate_host_runtime_contract"]
+    host = json.loads(json.dumps(runtime_host_receipt()))
+    if mutation == "compose-patcher-bytes-float":
+        host["compose"]["patcher"]["bytes"] = float(host["compose"]["patcher"]["bytes"])
+    elif mutation == "compose-patcher-bytes-bool":
+        host["compose"]["patcher"]["bytes"] = True
+    elif mutation == "storage-extra":
+        host["storage"]["unregistered_claim"] = 0
+    elif mutation == "storage-missing":
+        host["storage"].pop("mount_uuid")
+    elif mutation == "storage-device-float":
+        host["storage"]["dataset_st_dev"] = float(host["storage"]["dataset_st_dev"])
+    elif mutation == "storage-device-negative":
+        host["storage"]["dataset_st_dev"] = -2
+        host["storage"]["analytic_root_st_dev"] = -2
+        host["storage"]["root_st_dev"] = -1
+    elif mutation == "action-extra":
+        host["actions"][1]["unregistered_claim"] = 0
+    elif mutation == "action-omission":
+        host["actions"][2].pop("path")
+    elif mutation == "invocation-extra":
+        host["invocation"]["unregistered_claim"] = 0
+    elif mutation == "invocation-omission":
+        host["invocation"].pop("environment_matches")
+    else:
+        host["invocation"]["environment"]["PYTHONHASHSEED"] = 0
+
+    assert validate(runtime_host_receipt()) == []
+    assert expected_problem in validate(host)
+
+
+def _write_receipt_pair(root: Path, canonical_name: str, pending_name: str) -> None:
+    canonical = root / canonical_name
+    canonical.write_bytes(f"{canonical_name}\n".encode())
+    canonical.chmod(0o444)
+    os.link(canonical, root / pending_name)
+
+
+def test_pre_smoke_requires_original_h_and_e_success_sidecar_topology(
+    tmp_path: Path,
+) -> None:
+    validate = pre_smoke_bound_contract_namespace()["validate_receipt_sidecar_topology"]
+    _write_receipt_pair(
+        tmp_path,
+        "host_preparation_receipt.json",
+        "host_preparation_receipt.json.PENDING_RECEIPT_NONAUTHORITATIVE",
+    )
+    _write_receipt_pair(
+        tmp_path,
+        "env_receipts.json",
+        ".env_receipts.json.PENDING_RECEIPT_NONAUTHORITATIVE",
+    )
+
+    assert validate(tmp_path) == []
+
+    marker = tmp_path / ".env_receipts.json.ATTEMPT_IN_PROGRESS_NONAUTHORITATIVE"
+    marker.write_text("non-authoritative attempt\n")
+    assert "receipt-topology:environment:attempt-marker" in validate(tmp_path)
+    marker.unlink()
+
+    pending = tmp_path / "host_preparation_receipt.json.PENDING_RECEIPT_NONAUTHORITATIVE"
+    pending.unlink()
+    pending.write_bytes((tmp_path / "host_preparation_receipt.json").read_bytes())
+    pending.chmod(0o444)
+    assert "receipt-topology:host:receipt-pair" in validate(tmp_path)
 
 
 def test_runner_has_exact_required_command_floor() -> None:
@@ -2052,7 +2457,7 @@ def test_runner_has_exact_required_command_floor() -> None:
 def test_runner_requires_exact_pre_smoke_authority_and_live_host_contract() -> None:
     text = RUNNER_PATH.read_text()
 
-    assert 'MISSION_STATE_SOURCE=$I135/MISSION_STATE.json' in text
+    assert "MISSION_STATE_SOURCE=$I135/MISSION_STATE.json" in text
     assert 'manifest.get("mission_phase") != "TOOLING_FROZEN_PREFLIGHT_REQUIRED"' in text
     assert '"tooling_verification": True' in text
     assert '"g5_live_smoke": False' in text
@@ -2066,7 +2471,8 @@ def test_runner_requires_exact_pre_smoke_authority_and_live_host_contract() -> N
     assert "expected_authorized_actions" in text
     assert "expected_forbidden_actions" in text
     assert "I135_TOOLING_VERIFICATION_OK" in text
-    assert 'tooling.get("schema") != "iter135.tooling_verification.v2"' in text
+    assert "zero_problem_receipt_metadata_matches(" in text
+    assert '"iter135.tooling_verification.v2"' in text
     assert "iter135.tooling_verification.v1" not in text
     assert "environment-live-host" in text
     assert "environment-frozen-gpu" in text
@@ -2079,20 +2485,74 @@ def test_runner_requires_exact_pre_smoke_authority_and_live_host_contract() -> N
     assert "25 * 1024**3" in text
 
 
-def _green_smoke_check_runs(commit: str) -> dict[str, object]:
+def _smoke_workflow_run(
+    commit: str,
+    *,
+    run_id: int = 4_100,
+    suite_id: int = 5_100,
+    run_number: int = 6_100,
+    run_attempt: int = 2,
+    status: str = "completed",
+    conclusion: str | None = "success",
+    created_at: str = "2026-07-19T10:00:00Z",
+    run_started_at: str | None = "2026-07-19T10:00:01Z",
+    updated_at: str = "2026-07-19T10:01:00Z",
+) -> dict[str, object]:
+    api_root = "https://api.github.com/repos/manfromnowhere143/sentinel"
+    run_url = f"{api_root}/actions/runs/{run_id}"
+    return {
+        "id": run_id,
+        "check_suite_id": suite_id,
+        "workflow_id": 304353015,
+        "name": "ci",
+        "path": ".github/workflows/ci.yml",
+        "head_branch": "master",
+        "head_sha": commit,
+        "event": "push",
+        "status": status,
+        "conclusion": conclusion,
+        "run_number": run_number,
+        "run_attempt": run_attempt,
+        "created_at": created_at,
+        "run_started_at": run_started_at,
+        "updated_at": updated_at,
+        "url": run_url,
+        "jobs_url": f"{run_url}/jobs",
+    }
+
+
+def _green_smoke_workflow_runs(commit: str) -> dict[str, object]:
+    return {
+        "total_count": 1,
+        "workflow_runs": [_smoke_workflow_run(commit)],
+    }
+
+
+def _green_smoke_workflow_jobs(commit: str, workflow_run: dict[str, object]) -> dict[str, object]:
+    api_root = "https://api.github.com/repos/manfromnowhere143/sentinel"
+    run_id = workflow_run["id"]
+    run_attempt = workflow_run["run_attempt"]
     return {
         "total_count": 2,
-        "check_runs": [
+        "jobs": [
             {
                 "id": index,
+                "run_id": run_id,
+                "run_attempt": run_attempt,
                 "name": f"check ({version})",
                 "head_sha": commit,
+                "head_branch": "master",
+                "workflow_name": "ci",
                 "status": "completed",
                 "conclusion": "success",
-                "app": {"slug": "github-actions"},
+                "started_at": "2026-07-19T10:00:02Z",
+                "completed_at": "2026-07-19T10:00:30Z",
+                "url": f"{api_root}/actions/jobs/{index}",
+                "run_url": f"{api_root}/actions/runs/{run_id}",
+                "check_run_url": f"{api_root}/check-runs/{index}",
             }
             for index, version in enumerate(("3.10", "3.11"), start=100)
-        ]
+        ],
     }
 
 
@@ -2114,6 +2574,52 @@ def test_github_smoke_authority_strict_json_rejects_hostile_payloads(
         namespace["strict_json_loads"](payload)
 
 
+def test_github_smoke_authority_transport_emits_cache_bypass_headers(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    namespace = github_smoke_authority_namespace()
+    relative = "/git/ref/heads/master"
+    requested = namespace["API_ROOT"] + relative
+    observed_requests = []
+
+    class Headers(dict):
+        def get_content_type(self):
+            return "application/json"
+
+    class Response:
+        status = 200
+        headers = Headers()
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return False
+
+        def geturl(self):
+            return requested
+
+        def read(self, _limit):
+            return b"{}"
+
+    class Opener:
+        def open(self, request, timeout):
+            assert timeout == 20
+            observed_requests.append(request)
+            return Response()
+
+    monkeypatch.setattr(
+        namespace["urllib"].request,
+        "build_opener",
+        lambda *_handlers: Opener(),
+    )
+
+    assert namespace["github_json"](relative) == {}
+    assert len(observed_requests) == 1
+    assert observed_requests[0].get_header("Cache-control") == "no-cache"
+    assert observed_requests[0].get_header("Pragma") == "no-cache"
+
+
 @pytest.mark.parametrize("mutation", ["duplicate-key", "non-finite"])
 def test_github_smoke_authority_rejects_hostile_committed_manifest_artifact(
     tmp_path: Path, mutation: str
@@ -2122,9 +2628,7 @@ def test_github_smoke_authority_rejects_hostile_committed_manifest_artifact(
     parent = "c" * 40
     provenance = json.dumps({"head": parent}, separators=(",", ":"))
     if mutation == "duplicate-key":
-        payload = (
-            f'{{"git_provenance":{provenance},"git_provenance":{provenance}}}'
-        ).encode()
+        payload = (f'{{"git_provenance":{provenance},"git_provenance":{provenance}}}').encode()
     else:
         payload = f'{{"git_provenance":{provenance},"hostile":Infinity}}'.encode()
     manifest_path = tmp_path / "launch_manifest.json"
@@ -2137,52 +2641,344 @@ def test_github_smoke_authority_rejects_hostile_committed_manifest_artifact(
         str(manifest_path),
     ]
     try:
-        with pytest.raises(
-            ValueError, match="duplicate JSON key|non-finite JSON number"
-        ):
+        with pytest.raises(ValueError, match="duplicate JSON key|non-finite JSON number"):
             namespace["main"]()
     finally:
         namespace["sys"].argv = original_argv
 
 
+def test_github_smoke_gate_accepts_exact_green_workflow_attempt() -> None:
+    namespace = github_smoke_authority_namespace()
+    validate_workflow_runs = namespace["validate_workflow_runs"]
+    validate_ci = namespace["validate_ci"]
+    commit = "a" * 40
+    workflow_run = validate_workflow_runs(_green_smoke_workflow_runs(commit), commit)
+
+    projection = validate_ci(_green_smoke_workflow_jobs(commit, workflow_run), commit, workflow_run)
+
+    assert workflow_run == {
+        "id": 4_100,
+        "check_suite_id": 5_100,
+        "run_number": 6_100,
+        "run_attempt": 2,
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-07-19T10:00:00Z",
+        "run_started_at": "2026-07-19T10:00:01Z",
+        "updated_at": "2026-07-19T10:01:00Z",
+    }
+    assert [row["id"] for row in projection] == [100, 101]
+
+
+def test_github_smoke_gate_selects_latest_canonical_run_by_run_number() -> None:
+    namespace = github_smoke_authority_namespace()
+    validate_workflow_runs = namespace["validate_workflow_runs"]
+    commit = "a" * 40
+    older_red = _smoke_workflow_run(
+        commit,
+        run_id=9_000,
+        suite_id=9_001,
+        run_number=6_099,
+        run_attempt=3,
+        status="completed",
+        conclusion="failure",
+        created_at="2026-07-19T11:00:00Z",
+        run_started_at="2026-07-19T11:00:01Z",
+        updated_at="2026-07-19T11:01:00Z",
+    )
+    newer_green = _smoke_workflow_run(
+        commit,
+        run_id=4_100,
+        suite_id=5_100,
+        run_number=6_100,
+        run_attempt=2,
+        created_at="2026-07-19T10:00:00Z",
+        run_started_at="2026-07-19T10:00:01Z",
+        updated_at="2026-07-19T10:01:00Z",
+    )
+
+    selected = validate_workflow_runs(
+        {"total_count": 2, "workflow_runs": [newer_green, older_red]}, commit
+    )
+
+    assert selected["id"] == 4_100
+    assert selected["run_number"] == 6_100
+    assert selected["run_attempt"] == 2
+
+
+def test_github_smoke_gate_rejects_same_sha_validation_branch_before_selection() -> None:
+    namespace = github_smoke_authority_namespace()
+    validate_workflow_runs = namespace["validate_workflow_runs"]
+    commit = "a" * 40
+    red_master = _smoke_workflow_run(
+        commit,
+        run_id=4_100,
+        suite_id=5_100,
+        run_number=6_100,
+        status="completed",
+        conclusion="failure",
+    )
+    green_validation = _smoke_workflow_run(
+        commit,
+        run_id=4_101,
+        suite_id=5_101,
+        run_number=6_101,
+    )
+    green_validation["head_branch"] = "ci-validate-generation-15"
+
+    with pytest.raises(ValueError, match="binding drift"):
+        validate_workflow_runs(
+            {
+                "total_count": 2,
+                "workflow_runs": [green_validation, red_master],
+            },
+            commit,
+        )
+
+
+@pytest.mark.parametrize(
+    ("field", "hostile"),
+    [
+        ("workflow_id", 1),
+        ("name", "hostile"),
+        ("path", ".github/workflows/hostile.yml"),
+        ("head_branch", "ci-validate-generation-15"),
+        ("head_sha", "b" * 40),
+        ("event", "workflow_dispatch"),
+        ("url", "https://api.github.com/hostile"),
+        ("jobs_url", "https://api.github.com/hostile/jobs"),
+    ],
+)
+def test_github_smoke_gate_rejects_workflow_run_binding_drift(field: str, hostile: object) -> None:
+    namespace = github_smoke_authority_namespace()
+    payload = _green_smoke_workflow_runs("a" * 40)
+    payload["workflow_runs"][0][field] = hostile
+
+    with pytest.raises(ValueError, match="binding drift"):
+        namespace["validate_workflow_runs"](payload, "a" * 40)
+
+
+@pytest.mark.parametrize("hostile_workflow_id", [True, 304353015.0])
+def test_github_smoke_gate_workflow_id_requires_exact_json_integer(
+    hostile_workflow_id: object,
+) -> None:
+    namespace = github_smoke_authority_namespace()
+    payload = _green_smoke_workflow_runs("a" * 40)
+    payload["workflow_runs"][0]["workflow_id"] = hostile_workflow_id
+
+    with pytest.raises(ValueError, match="binding drift"):
+        namespace["validate_workflow_runs"](payload, "a" * 40)
+
+
+@pytest.mark.parametrize(
+    ("status", "conclusion", "run_started_at"),
+    [
+        ("completed", "failure", "2026-07-19T10:00:01Z"),
+        ("queued", None, None),
+        ("in_progress", None, "2026-07-19T10:00:01Z"),
+    ],
+)
+def test_github_smoke_gate_rejects_latest_non_green_workflow_run(
+    status: str, conclusion: str | None, run_started_at: str | None
+) -> None:
+    namespace = github_smoke_authority_namespace()
+    payload = {
+        "total_count": 1,
+        "workflow_runs": [
+            _smoke_workflow_run(
+                "a" * 40,
+                status=status,
+                conclusion=conclusion,
+                run_started_at=run_started_at,
+            )
+        ],
+    }
+
+    with pytest.raises(ValueError, match="not green"):
+        namespace["validate_workflow_runs"](payload, "a" * 40)
+
+
+@pytest.mark.parametrize("field", ["id", "check_suite_id", "run_number"])
+def test_github_smoke_gate_rejects_duplicate_workflow_identity(field: str) -> None:
+    namespace = github_smoke_authority_namespace()
+    commit = "a" * 40
+    rows = [
+        _smoke_workflow_run(
+            commit,
+            run_id=4_100,
+            suite_id=5_100,
+            run_number=6_100,
+        ),
+        _smoke_workflow_run(
+            commit,
+            run_id=4_101,
+            suite_id=5_101,
+            run_number=6_101,
+        ),
+    ]
+    rows[1][field] = rows[0][field]
+
+    with pytest.raises(ValueError, match="identity drift"):
+        namespace["validate_workflow_runs"]({"total_count": 2, "workflow_runs": rows}, commit)
+
+
+@pytest.mark.parametrize(
+    ("field", "hostile"),
+    [
+        ("created_at", "not-a-timestamp"),
+        ("created_at", "2026-07-19T10:02:00Z"),
+        ("run_started_at", "2026-07-19T09:59:59Z"),
+        ("run_started_at", "2026-07-19T10:01:01Z"),
+        ("updated_at", "not-a-timestamp"),
+    ],
+)
+def test_github_smoke_gate_rejects_malformed_or_reversed_workflow_timestamps(
+    field: str, hostile: str
+) -> None:
+    namespace = github_smoke_authority_namespace()
+    payload = _green_smoke_workflow_runs("a" * 40)
+    payload["workflow_runs"][0][field] = hostile
+
+    with pytest.raises(ValueError, match="timestamp drift"):
+        namespace["validate_workflow_runs"](payload, "a" * 40)
+
+
+def test_github_smoke_gate_enforces_complete_workflow_run_page_boundary() -> None:
+    namespace = github_smoke_authority_namespace()
+    commit = "a" * 40
+    rows = [
+        _smoke_workflow_run(
+            commit,
+            run_id=10_000 + index,
+            suite_id=20_000 + index,
+            run_number=30_000 + index,
+            run_attempt=1,
+        )
+        for index in range(100)
+    ]
+
+    selected = namespace["validate_workflow_runs"](
+        {"total_count": 100, "workflow_runs": rows}, commit
+    )
+    assert selected["run_number"] == 30_099
+
+    with pytest.raises(ValueError, match="incomplete"):
+        namespace["validate_workflow_runs"]({"total_count": 101, "workflow_runs": rows}, commit)
+
+
 @pytest.mark.parametrize(
     ("mutation", "message"),
     [
-        ("pending", "identity drift"),
-        ("failure", "not green"),
-        ("wrong-head", "identity drift"),
-        ("wrong-app", "identity drift"),
+        ("pending", "identity or conclusion drift"),
+        ("failure", "identity or conclusion drift"),
+        ("wrong-run", "identity or conclusion drift"),
+        ("wrong-attempt", "identity or conclusion drift"),
+        ("wrong-head", "identity or conclusion drift"),
+        ("wrong-branch", "identity or conclusion drift"),
+        ("wrong-workflow", "identity or conclusion drift"),
+        ("wrong-job-url", "identity or conclusion drift"),
+        ("wrong-run-url", "identity or conclusion drift"),
+        ("wrong-check-url", "identity or conclusion drift"),
         ("missing", "incomplete"),
-        ("page-incomplete", "incomplete"),
-        ("duplicate", "missing"),
+        ("extra", "incomplete"),
+        ("duplicate-name", "not unique"),
+        ("duplicate-id", "not unique"),
+        ("unexpected", "unexpected"),
+        ("malformed-timestamp", "timestamp drift"),
+        ("reversed-timestamps", "timestamp drift"),
     ],
 )
-def test_github_smoke_gate_rejects_hostile_ci_json(
-    mutation: str, message: str
-) -> None:
+def test_github_smoke_gate_rejects_hostile_exact_attempt_jobs(mutation: str, message: str) -> None:
     namespace = github_smoke_authority_namespace()
-    validate_ci = namespace["validate_ci"]
     commit = "a" * 40
-    payload = _green_smoke_check_runs(commit)
+    workflow_run = namespace["validate_workflow_runs"](_green_smoke_workflow_runs(commit), commit)
+    payload = _green_smoke_workflow_jobs(commit, workflow_run)
+    jobs = payload["jobs"]
     if mutation == "pending":
-        payload["check_runs"][0]["status"] = "queued"
-        payload["check_runs"][0]["conclusion"] = None
+        jobs[0]["status"] = "in_progress"
+        jobs[0]["conclusion"] = None
     elif mutation == "failure":
-        payload["check_runs"][0]["conclusion"] = "failure"
+        jobs[0]["conclusion"] = "failure"
+    elif mutation == "wrong-run":
+        jobs[0]["run_id"] = 999
+    elif mutation == "wrong-attempt":
+        jobs[0]["run_attempt"] = workflow_run["run_attempt"] + 1
     elif mutation == "wrong-head":
-        payload["check_runs"][0]["head_sha"] = "b" * 40
-    elif mutation == "wrong-app":
-        payload["check_runs"][0]["app"] = {"slug": "untrusted"}
+        jobs[0]["head_sha"] = "b" * 40
+    elif mutation == "wrong-branch":
+        jobs[0]["head_branch"] = "ci-validate-generation-15"
+    elif mutation == "wrong-workflow":
+        jobs[0]["workflow_name"] = "hostile"
+    elif mutation == "wrong-job-url":
+        jobs[0]["url"] = "https://api.github.com/hostile"
+    elif mutation == "wrong-run-url":
+        jobs[0]["run_url"] = "https://api.github.com/hostile"
+    elif mutation == "wrong-check-url":
+        jobs[0]["check_run_url"] = "https://api.github.com/hostile"
     elif mutation == "missing":
-        payload["check_runs"] = payload["check_runs"][:1]
+        payload["jobs"] = jobs[:1]
         payload["total_count"] = 1
-    elif mutation == "page-incomplete":
+    elif mutation == "extra":
+        payload["jobs"] = jobs + [{"name": "hostile"}]
         payload["total_count"] = 3
+    elif mutation == "duplicate-name":
+        jobs[1]["name"] = jobs[0]["name"]
+    elif mutation == "duplicate-id":
+        jobs[1]["id"] = jobs[0]["id"]
+    elif mutation == "unexpected":
+        jobs[1]["name"] = "unexpected check"
+    elif mutation == "malformed-timestamp":
+        jobs[0]["started_at"] = "not-a-timestamp"
     else:
-        payload["check_runs"][1]["name"] = "check (3.10)"
+        jobs[0]["started_at"] = "2026-07-19T10:00:31Z"
+        jobs[0]["completed_at"] = "2026-07-19T10:00:30Z"
 
     with pytest.raises(ValueError, match=message):
-        validate_ci(payload, commit)
+        namespace["validate_ci"](payload, commit, workflow_run)
+
+
+@pytest.mark.parametrize(
+    ("selected_run_id", "hostile_run_id"),
+    [(1, True), (4_100, 4_100.0)],
+)
+def test_github_smoke_gate_job_run_id_requires_exact_json_integer(
+    selected_run_id: int,
+    hostile_run_id: object,
+) -> None:
+    namespace = github_smoke_authority_namespace()
+    commit = "a" * 40
+    workflow_payload = {
+        "total_count": 1,
+        "workflow_runs": [_smoke_workflow_run(commit, run_id=selected_run_id)],
+    }
+    workflow_run = namespace["validate_workflow_runs"](workflow_payload, commit)
+    payload = _green_smoke_workflow_jobs(commit, workflow_run)
+    payload["jobs"][0]["run_id"] = hostile_run_id
+
+    with pytest.raises(ValueError, match="identity or conclusion drift"):
+        namespace["validate_ci"](payload, commit, workflow_run)
+
+
+@pytest.mark.parametrize("mutation", ["missing", "bool", "float"])
+def test_github_smoke_gate_job_run_attempt_requires_positive_exact_json_integer(
+    mutation: str,
+) -> None:
+    namespace = github_smoke_authority_namespace()
+    commit = "a" * 40
+    workflow_run = namespace["validate_workflow_runs"](
+        _green_smoke_workflow_runs(commit),
+        commit,
+    )
+    payload = _green_smoke_workflow_jobs(commit, workflow_run)
+    if mutation == "missing":
+        payload["jobs"][0].pop("run_attempt")
+    elif mutation == "bool":
+        payload["jobs"][0]["run_attempt"] = True
+    else:
+        payload["jobs"][0]["run_attempt"] = 2.0
+
+    with pytest.raises(ValueError, match="identity or conclusion drift"):
+        namespace["validate_ci"](payload, commit, workflow_run)
 
 
 def test_github_smoke_gate_rejects_master_tree_and_manifest_blob_drift() -> None:
@@ -2268,43 +3064,67 @@ def test_github_smoke_gate_rechecks_master_after_ci_scope_and_blob(
         "ref": "refs/heads/master",
         "object": {"type": "commit", "sha": "d" * 40},
     }
-    responses = [
-        green_ref,
-        _green_smoke_check_runs(commit),
-        {
-            "sha": commit,
-            "parents": [{"sha": environment_parent}],
-            "files": [
-                {
-                    "filename": namespace["MANIFEST_REPOSITORY_PATH"],
-                    "status": "added",
-                }
-            ],
-            "commit": {"tree": {"sha": tree_oid}},
-        },
-        {
-            "truncated": False,
-            "tree": [
-                {
-                    "path": namespace["MANIFEST_REPOSITORY_PATH"],
-                    "type": "blob",
-                    "sha": blob_oid,
-                }
-            ],
-        },
-        {
-            "sha": blob_oid,
-            "encoding": "base64",
-            "size": len(deployed),
-            "content": base64.b64encode(deployed).decode(),
-        },
-        red_ref,
-    ]
+    workflow_runs = _green_smoke_workflow_runs(commit)
+    workflow_run = namespace["validate_workflow_runs"](workflow_runs, commit)
+    jobs = _green_smoke_workflow_jobs(commit, workflow_run)
+    workflow_runs_path = (
+        "/actions/workflows/ci.yml/runs?branch=master&event=push&"
+        f"head_sha={commit}&per_page=100&page=1"
+    )
+    jobs_path = (
+        f"/actions/runs/{workflow_run['id']}/attempts/"
+        f"{workflow_run['run_attempt']}/jobs?per_page=100&page=1"
+    )
+    commit_path = f"/commits/{commit}?per_page=100&page=1"
+    tree_path = f"/git/trees/{tree_oid}?recursive=1"
+    blob_path = f"/git/blobs/{blob_oid}"
+    commit_document = {
+        "sha": commit,
+        "parents": [{"sha": environment_parent}],
+        "files": [
+            {
+                "filename": namespace["MANIFEST_REPOSITORY_PATH"],
+                "status": "added",
+            }
+        ],
+        "commit": {"tree": {"sha": tree_oid}},
+    }
+    tree_document = {
+        "truncated": False,
+        "tree": [
+            {
+                "path": namespace["MANIFEST_REPOSITORY_PATH"],
+                "type": "blob",
+                "sha": blob_oid,
+            }
+        ],
+    }
+    blob_document = {
+        "sha": blob_oid,
+        "encoding": "base64",
+        "size": len(deployed),
+        "content": base64.b64encode(deployed).decode(),
+    }
     requests: list[str] = []
+    artifact_seen = False
 
     def fake_github_json(relative: str) -> object:
+        nonlocal artifact_seen
         requests.append(relative)
-        return responses.pop(0)
+        if relative == "/git/ref/heads/master":
+            return red_ref if artifact_seen else green_ref
+        if relative == workflow_runs_path:
+            return workflow_runs
+        if relative == jobs_path:
+            return jobs
+        if relative == commit_path:
+            return commit_document
+        if relative == tree_path:
+            return tree_document
+        if relative == blob_path:
+            artifact_seen = True
+            return blob_document
+        raise AssertionError(f"unexpected GitHub request: {relative}")
 
     namespace["github_json"] = fake_github_json
     original_argv = namespace["sys"].argv
@@ -2320,7 +3140,113 @@ def test_github_smoke_gate_rechecks_master_after_ci_scope_and_blob(
     finally:
         namespace["sys"].argv = original_argv
     assert requests[-1] == "/git/ref/heads/master"
-    assert not responses
+    assert workflow_runs_path in requests
+    assert jobs_path in requests
+
+
+def test_github_smoke_gate_rejects_rerun_attempt_race(
+    tmp_path: Path,
+) -> None:
+    namespace = github_smoke_authority_namespace()
+    commit = "a" * 40
+    environment_parent = "b" * 40
+    tree_oid = "c" * 40
+    manifest = {"git_provenance": {"head": environment_parent}}
+    manifest_path = tmp_path / "launch_manifest.json"
+    manifest_path.write_text(json.dumps(manifest, sort_keys=True) + "\n")
+    deployed = manifest_path.read_bytes()
+    blob_oid = hashlib.sha1(f"blob {len(deployed)}\0".encode() + deployed).hexdigest()
+    green_ref = {
+        "ref": "refs/heads/master",
+        "object": {"type": "commit", "sha": commit},
+    }
+    initial_workflow_runs = _green_smoke_workflow_runs(commit)
+    initial_workflow = namespace["validate_workflow_runs"](initial_workflow_runs, commit)
+    raced_workflow_runs = {
+        "total_count": 1,
+        "workflow_runs": [
+            _smoke_workflow_run(
+                commit,
+                run_attempt=initial_workflow["run_attempt"] + 1,
+                run_started_at="2026-07-19T10:02:00Z",
+                updated_at="2026-07-19T10:03:00Z",
+            )
+        ],
+    }
+    jobs = _green_smoke_workflow_jobs(commit, initial_workflow)
+    workflow_runs_path = (
+        "/actions/workflows/ci.yml/runs?branch=master&event=push&"
+        f"head_sha={commit}&per_page=100&page=1"
+    )
+    jobs_path = (
+        f"/actions/runs/{initial_workflow['id']}/attempts/"
+        f"{initial_workflow['run_attempt']}/jobs?per_page=100&page=1"
+    )
+    commit_path = f"/commits/{commit}?per_page=100&page=1"
+    tree_path = f"/git/trees/{tree_oid}?recursive=1"
+    blob_path = f"/git/blobs/{blob_oid}"
+    requests: list[str] = []
+    workflow_request_count = 0
+
+    def fake_github_json(relative: str) -> object:
+        nonlocal workflow_request_count
+        requests.append(relative)
+        if relative == "/git/ref/heads/master":
+            return green_ref
+        if relative == workflow_runs_path:
+            workflow_request_count += 1
+            return initial_workflow_runs if workflow_request_count == 1 else raced_workflow_runs
+        if relative == jobs_path:
+            return jobs
+        if relative == commit_path:
+            return {
+                "sha": commit,
+                "parents": [{"sha": environment_parent}],
+                "files": [
+                    {
+                        "filename": namespace["MANIFEST_REPOSITORY_PATH"],
+                        "status": "added",
+                    }
+                ],
+                "commit": {"tree": {"sha": tree_oid}},
+            }
+        if relative == tree_path:
+            return {
+                "truncated": False,
+                "tree": [
+                    {
+                        "path": namespace["MANIFEST_REPOSITORY_PATH"],
+                        "type": "blob",
+                        "sha": blob_oid,
+                    }
+                ],
+            }
+        if relative == blob_path:
+            return {
+                "sha": blob_oid,
+                "encoding": "base64",
+                "size": len(deployed),
+                "content": base64.b64encode(deployed).decode(),
+            }
+        raise AssertionError(f"unexpected GitHub request: {relative}")
+
+    namespace["github_json"] = fake_github_json
+    original_argv = namespace["sys"].argv
+    namespace["sys"].argv = [
+        "authority",
+        commit,
+        hashlib.sha256(deployed).hexdigest(),
+        str(manifest_path),
+    ]
+    try:
+        with pytest.raises(ValueError, match="workflow run changed"):
+            namespace["main"]()
+    finally:
+        namespace["sys"].argv = original_argv
+
+    assert workflow_request_count == 2
+    assert jobs_path in requests
+    assert all("/check-runs" not in request for request in requests)
 
 
 def test_smoke_runner_rejects_shell_spoofing_and_pins_interpreter_fd(
@@ -2336,7 +3262,7 @@ def test_smoke_runner_rejects_shell_spoofing_and_pins_interpreter_fd(
     assert "/usr/bin/env)" not in text
     assert 'if [ "${PATH-}" != "$CANONICAL_PATH" ]' in text
     assert 'exec 10< "$PYTHON_BIN"' in text
-    assert 'PYTHON_FD_PATH=/proc/$$/fd/10' in text
+    assert "PYTHON_FD_PATH=/proc/$$/fd/10" in text
     assert '"$PYTHON_FD_PATH" -I "$@"' in text
 
     original = tmp_path / "python3"
@@ -2364,15 +3290,12 @@ def test_smoke_runner_requires_p_current_green_github_and_canonical_receipts() -
     assert "ssl.create_default_context()" in text
     assert "deployed pre-smoke manifest does not equal the GitHub P blob" in text
     assert 'cp "$MISSION_STATE_SOURCE" "$RAW_DIR/pre_smoke_mission_state.json"' in text
-    assert (
-        'f"experiments/iter135_neuroncap_blind_braking_dose_response/{name}"'
-        in text
-    )
+    assert 'f"experiments/iter135_neuroncap_blind_braking_dose_response/{name}"' in text
 
 
 def test_smoke_runner_replays_exact_v3_docker_runtime_through_pinned_fd() -> None:
     text = RUNNER_PATH.read_text()
-    assert 'DOCKER_FD_PATH=/proc/$$/fd/11' in text
+    assert "DOCKER_FD_PATH=/proc/$$/fd/11" in text
     assert 'SENTINEL_DOCKER_EXECUTABLE="$DOCKER_FD_PATH"' in text
     assert 'exec "$SENTINEL_DOCKER_EXECUTABLE" run' in text
     assert 'runtime_executable = f"/proc/self/fd/{runtime_descriptor}"' in text
@@ -2444,37 +3367,3 @@ def test_pre_smoke_manifest_must_hash_bind_new_pipeline(tmp_path: Path, name: st
 
     assert receipt["verdict"] == smoke.FAIL_VERDICT
     assert f"pre-manifest:hash:{name}" in receipt["problems"]
-
-
-
-def test_github_smoke_gate_accepts_amendment_published_run_shape() -> None:
-    """Every amendment-published SHA carries a red probe run plus a newer green master run per
-    name; authority binds to the newest run per name, and a newer red still fails closed."""
-
-    namespace = github_smoke_authority_namespace()
-    validate_ci = namespace["validate_ci"]
-    commit = "a" * 40
-    payload = _green_smoke_check_runs(commit)
-    probe_rows = [
-        {
-            "id": row["id"] - 5,
-            "name": row["name"],
-            "head_sha": commit,
-            "status": "completed",
-            "conclusion": "failure",
-            "app": {"slug": "github-actions"},
-        }
-        for row in payload["check_runs"]
-    ]
-    payload["check_runs"] = probe_rows + payload["check_runs"]
-    payload["total_count"] = len(payload["check_runs"])
-
-    projection = validate_ci(payload, commit)
-
-    assert [row["conclusion"] for row in projection] == ["success", "success"]
-    assert [row["id"] for row in projection] == [100, 101]
-
-    for row in payload["check_runs"]:
-        row["conclusion"] = "failure" if row["id"] >= 100 else "success"
-    with pytest.raises(ValueError, match="not green"):
-        validate_ci(payload, commit)
