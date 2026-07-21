@@ -27,14 +27,14 @@ pre-registered campaign and an independent verification pass, we show: (1) a **u
 geometric detectors** (plan-vs-tracked-path closest approach; observed-closing time-to-collision)
 is *selective* (clean-scene behaviour identical to the unmonitored planner), removes most
 side-impacts (100% → 30%), halves frontal impact speed (13.9 → 6.7 m/s, median 2.5 s warning),
-and is **net-positive on a progress-aware deployment metric with a bootstrap CI excluding zero**
-(safe-progress +0.398, 95% CI [+0.133, +0.665], 20 unique episodes/scene); (2) an
-**RSS-style formal envelope on identical inputs achieves the best raw safety of the campaign by
-near-paralysis** — quantifying, apparently for the first time closed-loop, the over-conservatism
-the literature only asserts; (3) three evasive-maneuver designs are **refuted** with a structural
-reason — a stop is safe under false alarms, a swerve is not — later completed into a two-sided
-result by the softer-than-stop null (a crawl is unsafe under *true* alarms: the stop is a
-position guarantee, not merely speed reduction); (4) the planner's own candidate
+and is **net-positive on the registered progress-aware deployment metric with a bootstrap CI
+excluding zero** (safe-progress +0.398, 95% CI [+0.133, +0.665], 20 unique episodes/scene); (2) an
+**RSS-style formal envelope on identical inputs achieves the campaign's lowest collision measures
+by near-paralysis** — quantifying closed-loop over-conservatism within the scope of the verified
+2026-07-02 literature sweep; (3) three evasive-maneuver designs are **refuted** on the registered
+NeuroNCAP cells: stopping tolerated the measured false alarms better than the tested swerves. The
+softer-than-stop null supplies the other observed boundary: the crawl reached the registered
+crossing cells that the stop halted short of; (4) the planner's own candidate
 trajectories **collapse under threat** on two planners (UniAD: 14 m benign diversity → 4 cm in
 danger; VAD: partial, below a pre-registered viability bar), and two learned successor heads
 under the runtime selector also fail offline (planning-query and BEV conditioning: **0/37**
@@ -59,10 +59,11 @@ withdrawal is part of the record.
 ## 1. Problem and positioning
 
 Open-loop planning metrics are saturated and gameable (an ego-state MLP "wins" nuScenes L2); the
-honest axis is closed-loop safety, where the public state of the art is failing. The runtime-
-monitor literature on end-to-end planners ([verified sweep](RELATED_WORK.md)) offers learned
+honest axis is closed-loop safety. The runtime-
+monitor literature on end-to-end planners ([verified 2026-07-02 sweep](RELATED_WORK.md)) offers learned
 collision predictors with braking (RiskMonitor), generative takeover (Argus), and test-time
-weight updates (Centaur). Sentinel differs on four verified-unoccupied axes: label-free geometry
+weight updates (Centaur). Within that dated sweep, Sentinel differs on four then-unoccupied axes:
+label-free geometry
 instead of a trained monitor head; a deployment metric (progress × safety) with bootstrap CIs;
 an empirical measurement of formal-envelope over-conservatism; and threat-conditioned candidate
 diversity on frozen planners.
@@ -132,16 +133,15 @@ plan clears the object — is what plan-aware introspection buys.**
 Three designs to *prevent* (not soften) the frontal head-on were pre-registered, run, and
 refuted: steer-at-speed (worse than stopping), brake-and-steer-into-a-tracked-gap (equally
 worse), early-detection + time-gated lane change (no prevention, and **50% collisions on the
-benign scene** — re-confirmed at n=20: 25% vs OFF's 10%). The structural lesson the third null
-proves: **a committed stop degrades gracefully under the false positives every real monitor
-produces; an invented swerve causes the crash it was meant to avoid.** Evasion demands a
-precision that label-free monitoring does not have.
+benign scene** — re-confirmed at n=20: 25% vs OFF's 10%). In those registered cells, the committed
+stop degraded more gracefully under false positives than the tested swerves, one of which caused
+the collision it was intended to avoid. Generalizing that asymmetry requires additional evidence.
 
 ## 6. Negative results II: the planner has no plan B
 
-The natural escape from the stop's ceiling is to execute the planner's own safer candidate —
-safe on false alarms by construction. Pre-registered checkpoints measured whether a low-risk
-candidate *exists* when the executed plan is dangerous:
+The natural escape from the stop's ceiling is to execute a lower-risk planner candidate.
+False-alarm robustness was a hypothesis to test, not a construction guarantee. Pre-registered
+checkpoints measured whether such a candidate *exists* when the executed plan is dangerous:
 
 | | UniAD (command-conditioned head re-runs) | VAD (native ego_fut_preds, one pass) |
 |---|---|---|
@@ -319,12 +319,11 @@ re-parameterized to a 2.0 m/s crawl while latched, the speed fixed from committe
 evidence before the run — and the **pre-registered null published**: the crawl posts the
 campaign's highest safe-progress (2.544; +0.096 over the released union, CI [+0.033, +0.167])
 but drops the benchmark score 3.09 → 2.64 and fires the side falsifier (collisions 37% → 57%,
-bar 45%), with 0108's impacts landing at 4–5 m/s and zero score. The mechanism is precise: the
-stop is a **position guarantee**, not merely speed reduction — the crawl delivers the ego into
-the crossing point the stop halts short of. Together with iteration 11 the result is two-sided:
-a swerve is unsafe when the trigger is wrong; a crawl is unsafe when it is right; the committed
-stop is the only intervention tested that is safe in both cases, and the released union is its
-calibrated form — the campaign's best configuration.
+bar 45%), with 0108's impacts landing at 4–5 m/s and zero score. In those registered cells, the
+crawl delivered the ego into the crossing point where the tested stop halted short. Together with
+iteration 11, the result bounds the tested interventions on both false- and true-alarm cells: the
+stop is the only tested intervention that passed both named campaign-cell comparisons, and the
+released union is its calibrated form — the campaign's best measured configuration.
 
 Iteration 17 completed the intervention-softness line with threat-class routing — stop wherever
 a tracked object's projected path overlaps the planned corridor, crawl where none does. Its

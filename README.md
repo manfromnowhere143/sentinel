@@ -5,7 +5,7 @@ collision it is about to cause, and intervenes — measured where it actually ma
 loop, by whether the car crashes *and whether it can still drive*.**
 
 > **Honest status up front (current through iteration 134; `MISSION_STATE.json` is the
-> canonical live-state contract and the status table below is the evidence ledger.
+> canonical repository mission-state contract and the status table below is the evidence ledger.
 > The core Sentinel result arc includes an independent verification pass +
 > the full official benchmark at power + a completed iteration-37 calibration null + an
 > iteration-38 opposite-direction S0 canary pass + completed iteration-39/40/41 defensibility
@@ -292,10 +292,11 @@ loop, by whether the car crashes *and whether it can still drive*.**
 > indices 0–5 of every pair reproducing the earlier 6-run measurement exactly. Stated with equal
 > weight: on this repository's own deployment metric (safety × progress) the effect vs the
 > unmonitored planner is a **tight null (−0.03, 95% CI [−0.13, +0.07])** — the benchmark safety
-> gain costs approximately nothing in deployment terms, and iteration 16 showed the residual
-> cannot be bought back by softening the stop: a calibrated 2 m/s crawl recovers progress but
-> surrenders the stop's **position guarantee** (side collisions past the pre-registered
-> falsifier bar) — that null is published and the stop stands. The statistics here earned their precision the hard way: an
+> gain had approximately zero effect on that registered deployment metric. Iteration 16 showed
+> that one calibrated 2 m/s crawl recovered progress but lost the stop's measured
+> **stopping-location advantage on the registered crossing cells** (side collisions passed the
+> pre-registered falsifier bar) — that null is published. The statistics here earned their
+> precision the hard way: an
 > independent verification pass ([`experiments/VERIFICATION.md`](experiments/VERIFICATION.md))
 > **withdrew** an earlier headline — the original pooling had counted NeuroNCAP's deterministic
 > per-index episodes as independent replications — and the claim was re-established on 20
@@ -400,7 +401,7 @@ Act two — from a validated method to the benchmark, at power, with the mechani
 flowchart LR
   N12["iters 12-14<br/>no plan B, two planners ·<br/>RSS: safety by paralysis ·<br/>selectivity not portable"] --> F14["full benchmark, n=6<br/>baseline reproduced<br/><b>2.15 to 3.09</b>"]
   F14 --> R15["iter 15 · latch release<br/><b>best configuration</b>"]
-  R15 --> X16["iter 16 · crawl refuted<br/><b>the stop is a<br/>position guarantee</b>"]
+  R15 --> X16["iter 16 · crawl refuted<br/><b>measured crossing-cell<br/>stopping boundary</b>"]
   R15 --> P20["power run · n=20/pair<br/><b>2.12 to 2.91, CI excl. 0</b><br/>deployment: tight null"]
   P20 --> X17["iter 17 · routing refuted —<br/><b>deployment flip proven<br/>achievable</b>"]
   X17 --> X18["iter 18 · tracker offline gate<br/><b>12/13 — GPU stays off</b>"]
@@ -571,7 +572,7 @@ step; they are intentional stops, not hidden probe failures or unreported GPU ru
 | 14 | **second frozen planner (VAD)** — union transfer + native-mode diversity, after four fork-level runtime fixes; n=20/scene | VAD-OFF 2.30 vs VAD+union **0.75** (safe-prog, CI [−2.06, −1.03]) | VAD-OFF fails **stationary 85%** / side 65% (inverted profile!); union: both → **0%** but ego 2.4–3.8 m | **transfer: safety yes, selectivity NO** · **H-VAD-2: 21% escapes < 30% bar** | the union protects exactly where VAD fails, but over-brakes everywhere — decision logs attribute it to the TTC term reading jittery geometric-NN IDs (VAD exposes no tracker): **selectivity is a property of tracking quality, not the rule alone**. Candidates: partial diversity under threat (0.6 m spread, 1-in-5 escapes) — a two-planner collapse spectrum; no re-ranker per the frozen rule. [`vad_generalization`](experiments/vad_generalization/RESULT.md) |
 | f14 | **the full 14-scene benchmark** — OFF vs union, all official scenes, 240 seed-paired episodes | OFF **2.15** (published: 1.84 — independent reproduction, inside the pre-registered ±0.4 tolerance; DMAD's independent rerun at 2.11 corroborates the n=20 pooled 2.12, not this n=6 figure — see [`FRONTIER_POSITIONING`](docs/research/FRONTIER_POSITIONING_2026-07-11.md)) → union **3.09** | side 73→**37%** · stationary 32→**17%** · frontal 77→87% (mitigation) | **benchmark score +0.934, CI [+0.713, +1.155]** · safe-progress −0.17, CI includes 0 | split verdict, both halves first-class: decisive on the benchmark's metric (side survives its scene-luck falsifier on 3/4 unseen scenes; selectivity holds on clean scenes), and the deployment-metric win does **not** generalize (over-braking on unseen benign-progress scenes; frontal/0346 regression named). Open problem defined: brake-budget calibration. [`full14_benchmark`](experiments/full14_benchmark/RESULT.md) |
 | 15 | **threat-cleared latch release** — the stop releases after K=4 clear frames; one new mechanism, thresholds untouched | released **3.09** NCAP = union's · safe-prog 2.45 vs union 2.20 vs OFF 2.37 | safety cells **identical to the union** (44 releases, 0 reopened cases, oscillation 2/120) | **released − union +0.246, CI [+0.206, +0.293]** — strict improvement · vs OFF +0.08, CI includes 0 | **the new best configuration** (dominates the union: same benchmark score, significantly more driving). H15 partial: the deployment gap vs OFF narrows but stays open — a *cost-of-stopping* floor in fixed-horizon episodes, not a triggering flaw. Next mechanisms defined: smaller K under premature-release pressure, or a softer-than-stop intervention. [`iter15_latch_release`](experiments/iter15_latch_release/RESULT.md) |
-| 16 | **softer than a stop** — while latched, the planner's own plan re-parameterized to a 2.0 m/s crawl (speed fixed from committed impact evidence); K=4 release unchanged | crawl NCAP **2.64** vs released 3.09 · safe-prog **2.544** (the campaign's highest) | side 37→**57%** — past the pre-registered 45% falsifier bar (0108: 17→100%, impacts 4–5 m/s at zero score) · stationary at its 25% bar (0101 taps at 1.9–3.4 m/s) | crawl − released: NCAP **−0.450** CI [−0.525, −0.371] · safe-prog +0.096 CI [+0.033, +0.167] · vs OFF +0.171, CI includes 0 | **pre-registered null — the full stop stands.** The stop is a *position guarantee*, not just speed reduction: the crawl delivers the ego into the crossing point the stop halts short of. With iter 11 this is two-sided: a swerve is unsafe when the trigger is wrong; a crawl is unsafe when it is right; only the stop is safe in both. [`iter16_soft_stop`](experiments/iter16_soft_stop/RESULT.md) |
+| 16 | **softer than a stop** — while latched, the planner's own plan re-parameterized to a 2.0 m/s crawl (speed fixed from committed impact evidence); K=4 release unchanged | crawl NCAP **2.64** vs released 3.09 · safe-prog **2.544** (the campaign's highest) | side 37→**57%** — past the pre-registered 45% falsifier bar (0108: 17→100%, impacts 4–5 m/s at zero score) · stationary at its 25% bar (0101 taps at 1.9–3.4 m/s) | crawl − released: NCAP **−0.450** CI [−0.525, −0.371] · safe-prog +0.096 CI [+0.033, +0.167] · vs OFF +0.171, CI includes 0 | **pre-registered null — the full stop stands on the tested cells.** The crawl delivers the ego into a registered crossing point where the stop halts short. Together with iter 11, only the stop passed both named false- and true-alarm cell comparisons among the tested interventions. [`iter16_soft_stop`](experiments/iter16_soft_stop/RESULT.md) |
 | p20 | **the power run** — OFF vs released union at 20 runs/pair, all 14 scenes (799 episodes); H-P0 gate: first-6 of every pair must reproduce the committed 6-run evidence | OFF **2.12** (published 1.84 — reproduction holds) → released **2.91** | side 74→**44%** · stationary 29→**18%** · frontal 1.24→1.78 (78→90%, mitigation) · frontal/0346 regression **confirmed real** | **benchmark +0.783, CI [+0.605, +0.928]** at 3.3× power · safe-progress **−0.03, CI [−0.13, +0.07]** — tight null | **H-P0 PASS (first-6 exact, all pairs, both arms — through 5 machine freezes, 2 hosts, 4 relaunches**; root cause memory exhaustion, found by an on-box vitals watchdog, fixed with swap; off/side-0921 at n=19, its run_19 reproducibly froze the pre-swap host). The n=6 estimate (+0.934) was modestly optimistic; this replaces it as the headline. [`full14_power`](experiments/full14_power/RESULT.md) |
 | 17 | **threat-class routing** — stop wherever a tracked object's path overlaps the planned corridor (2.0 m, conservative); crawl only where none does; triggers/crawl/release unchanged | routed NCAP **2.92** vs released 3.09 · safe-prog **2.598** (new campaign high) | side 37→**47%** — past the 45% falsifier bar, carried by ONE pair (0108: 17→67%, a crossing the CV projection misses) · stationary 20% ✓ · frontal **1.97** (best of any arm) | routed − OFF safe-prog **+0.226, CI [+0.004, +0.421] — the campaign's FIRST deployment CI excluding zero vs the unmonitored planner** · routed − released: NCAP −0.170 (beyond the 0.15 tolerance), safe-prog +0.150 | **pre-registered null — the safety gate fails, the released union stands (its fourth surviving challenge).** But the deployment flip is now proven *achievable*. All three named successor predicates were then **refuted offline** on the committed log (a no-op; a dead trade; non-separable) — the routing line closes for per-frame geometric predicates, and the discriminating signal is tracking quality, converging with iteration 14. [`iter17_threat_routing`](experiments/iter17_threat_routing/RESULT.md) |
 | 18 | **the tracking layer, offline gate** — association + constant-velocity filter with coasting ([`sentinel/tracker.py`](sentinel/tracker.py), 6 unit tests); pre-registered offline bars on committed logs before any GPU | — (no closed-loop run: that is the point) | O2: **12/13** unsafe crawl frames convert to stops under tracker-based overlap — one miss at 2.2 m vs the frozen 2.0 m margin | **offline gate FAILED by one frame — per the gate rule, the GPU stayed off** | the tracker repairs the measured velocity-flicker class (raw-blind frames at 4.6–6.9 m → tracker sees the actor at 0.5–1.1 m) and retention stays 80%; the tempting margin-widening fix is named as overfitting-until-proven; an initial detection-gap reading was **retracted on the record** (an artifact of a starved diagnostic feed). [`iter18_tracker`](experiments/iter18_tracker/RESULT.md) |
@@ -764,26 +765,28 @@ selectivity/side-blindness trade of iterations 4–7, and the three refuted evas
 kept in the archived [`docs/CAMPAIGN.md`](docs/CAMPAIGN.md). The summary table above is the
 canonical experiment ledger through iteration 134.
 
-**Net, stated plainly:** iteration 134 is complete with `PLACEBO_HARM_OR_NULL`; no run is in
-flight. The released union's NeuroNCAP gain reproduced (`+0.7708`, pair-clustered CI
+**Net, stated plainly:** iteration 134's result is published as `PLACEBO_HARM_OR_NULL`; the
+current run state is `UNKNOWN` and is not inferred idle from absent containers or processes. The
+released union's NeuroNCAP gain reproduced (`+0.7708`, pair-clustered CI
 `[+0.3315,+1.2151]`), but semantic attribution remains unresolved because the semantics-free
 placebo realized only `859/1205` scheduled brake frames. HUGSIM transfer remains null, the
 5 cm position-jitter fragility remains unrepaired, and none of these results establishes
-production readiness. The only current successor program is a freshly pre-registered iteration
+production readiness. The only current successor program is the preregistered iteration
 135 dose-response causal control; iteration 38 is historical and does not govern current work.
 The
-**released union (iteration 15) is the best configuration** of the campaign: at the 20-run
+**released union (iteration 15) is the best measured configuration** of this campaign: at the 20-run
 power scale it lifts the independently reproduced baseline **2.12 → 2.91 (CI [+0.605, +0.928])**,
-keeps clean scenes identical to the unmonitored planner, and strictly dominates the plain union
-(identical safety on every cell, safe-progress +0.246, CI [+0.206, +0.293]). Its
+matched the unmonitored planner on the registered clean-scene cells and strictly dominates the
+plain union on the registered cells (identical collision measures on every cell, safe-progress
++0.246, CI [+0.206, +0.293]). Its
 deployment-metric effect vs the unmonitored planner is a **tight null** (−0.03, CI [−0.13,
-+0.07]) — the safety is bought at approximately zero net deployment cost, and iteration 16
-proved the residual is not recoverable by softening the stop. The mini-scene deployment win
++0.07]) — the measured collision-score gain had approximately zero effect on that registered
+deployment metric. Iteration 16 tested one named softening and failed its collision bar. The
+mini-scene deployment win
 stands as measured there (+0.398, [+0.133, +0.665], 20 unique episodes/scene — re-established
-after the original pooled version was withdrawn by audit). The frontal head-on *ceiling* is
-firmly established — a committed stop is the best frontal response, and **three separate evasion
-designs (iters 9, 10, 11) were tested and honestly refuted**, all worse than stopping, the last
-one dangerous on false alarms (re-confirmed at n=20: 25% clean-scene collisions vs OFF's 10%).
+after the original pooled version was withdrawn by audit). Across the tested NeuroNCAP frontal
+cells, the committed stop outperformed the three evaluated evasion designs (iters 9, 10, 11);
+the last also raised measured clean-scene collisions (re-confirmed at n=20: 25% vs OFF's 10%).
 
 **Data-scope checkpoint.** Iterations 1-17 and the power run used real NeuroNCAP/NeuRAD closed-loop
 evidence on public nuScenes scenes; iterations 19, 21, 22, and 23 used the registered non-evaluation
@@ -797,10 +800,12 @@ evidence.
 **Current next program.** Iteration 135 must close the semantic-attribution debt with a frozen
 semantics-free dose-response control. It must preserve the pair-clustered primary, treat realized
 dose as post-treatment mechanism evidence rather than a covariate that repairs the comparison,
-and authorize no GPU launch until its hypothesis, analyzer, manifest, provenance, storage, and
-smoke gates are committed. In parallel, the next external benchmark lane is a pinned
-Bench2Drive-Robust feasibility gate for deployment faults; it does not change the Iter135 causal
-question.
+and authorize no host or GPU work until the source-bound lifecycle-control baton, separately
+accepted CI/supply-chain baton, performing-controller replacement for static `IDLE`, raw terminal
+provenance, raw-CLI/analyzer parity, manifest, storage, and smoke gates are all accepted in their
+registered order. Its hypothesis is already preregistered. A pinned Bench2Drive-Robust feasibility
+gate remains a later external-benchmark option; the current control-hardening phase does not
+authorize that lane.
 
 **Historical mechanism record.** The benchmark campaign through iteration 134 is consolidated.
 Iterations 22, 23, 24, 25,
@@ -1378,7 +1383,7 @@ ablations) is one switch. Each experiment directory is self-describing:
 | [`experiments/vad_generalization/`](experiments/vad_generalization) | second frozen planner (VAD) — safety transfers, selectivity does not |
 | [`experiments/full14_benchmark/`](experiments/full14_benchmark) | **the full official 14-scene benchmark** — baseline reproduced; 2.15 → 3.09 |
 | [`experiments/iter15_latch_release/`](experiments/iter15_latch_release) | **threat-cleared latch release — the best configuration** |
-| [`experiments/iter16_soft_stop/`](experiments/iter16_soft_stop) | softer than a stop — the crawl null; the stop is a position guarantee |
+| [`experiments/iter16_soft_stop/`](experiments/iter16_soft_stop) | softer than a stop — the crawl null; measured crossing-cell stopping boundary |
 | [`experiments/full14_power/`](experiments/full14_power) | **the power measurement** — the benchmark result at n=20/pair; deployment resolved to a tight null |
 | [`experiments/iter17_threat_routing/`](experiments/iter17_threat_routing) | threat-class routing — the gate fails on one crossing; the deployment flip proven achievable; successors refuted offline |
 | [`experiments/iter18_tracker/`](experiments/iter18_tracker) | the tracking layer — offline gate failed by one frame; the GPU stayed off |

@@ -187,7 +187,7 @@ def _handoff_mission_contract_problems(
     """Bind the active HANDOFF action bullets to the canonical mission-state contract."""
 
     start_marker = "## Canonical mission state (`MISSION_STATE.json`)"
-    end_marker = "## Publication sequence"
+    end_marker = "## Execution lifecycle observation"
     if document.count(start_marker) != 1 or document.count(end_marker) != 1:
         return ["active-handoff:mission-contract-section"]
     start = document.index(start_marker)
@@ -296,7 +296,7 @@ def test_handoff_contract_tracks_control_hardening_state_and_known_bad() -> None
                 for action in state["next_program"]["forbidden_actions"]
             ),
             "",
-            "## Publication sequence",
+            "## Execution lifecycle observation",
         ]
     )
 
@@ -1321,6 +1321,33 @@ def _structural_launch_controller(
             "launch_authorized": False,
             "control_publication_status": control_publication_status,
         }
+    if phase == "CI_HARDENING_REQUIRED":
+        if upstream_commit == tooling_receipt_commit:
+            lifecycle_status = (
+                mission_state.LIFECYCLE_CONTROL_PUBLICATION_CANDIDATE_STATUS
+            )
+        elif upstream_commit == tooling_baton_commit:
+            lifecycle_status = (
+                mission_state.LIFECYCLE_CONTROL_PUBLICATION_PUBLISHED_STATUS
+            )
+        else:
+            lifecycle_status = (
+                mission_state.LIFECYCLE_CONTROL_PUBLICATION_INVALID_UPSTREAM_STATUS
+            )
+            problems.append(
+                "authorization:lifecycle-control-origin-master-not-r16-or-b16"
+            )
+        if descendants:
+            problems.append(
+                f"authorization:lifecycle-control-descendant-count:{len(descendants)}"
+            )
+        return {
+            "problems": sorted(set(problems)),
+            "references": {},
+            "authority": "none",
+            "launch_authorized": False,
+            "lifecycle_control_publication_status": lifecycle_status,
+        }
     expected_count = 7 if phase == "LAUNCH_AUTHORIZED" else 4
     if phase == "LAUNCH_AUTHORIZED" and len(descendants) != expected_count:
         problems.append(f"authorization:launch-descendant-count:{len(descendants)}")
@@ -1407,6 +1434,17 @@ def _set_control_hardening_phase(state: dict) -> None:
     )
     state["next_program"]["forbidden_actions"] = list(
         CONTROL_HARDENING_FORBIDDEN_ACTIONS
+    )
+
+
+def _set_ci_hardening_phase(state: dict) -> None:
+    state["run_state"] = "UNKNOWN"
+    state["next_program"]["phase"] = "CI_HARDENING_REQUIRED"
+    state["next_program"]["authorized_actions"] = list(
+        mission_state.CI_HARDENING_AUTHORIZED_ACTIONS
+    )
+    state["next_program"]["forbidden_actions"] = list(
+        mission_state.CI_HARDENING_FORBIDDEN_ACTIONS
     )
 
 
@@ -3386,6 +3424,12 @@ def _commit_generation_fifteen_publication(
     _git(repo, "add", *source_paths)
     _git(repo, "commit", "-m", "generation fifteen source")
     source_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
+    monkeypatch.setattr(mission_state, "GENERATION_FIFTEEN_SOURCE_COMMIT", source_commit)
+    monkeypatch.setattr(
+        mission_state,
+        "EXPECTED_GENERATION_FIFTEEN_PUBLICATION",
+        expected_publication,
+    )
     _git(repo, "update-ref", "refs/remotes/origin/master", source_commit)
     if not include_receipt:
         state.clear()
@@ -3441,6 +3485,7 @@ def _commit_generation_fifteen_publication(
     _git(repo, "add", TOOLING_RECEIPT_REL.as_posix())
     _git(repo, "commit", "-m", "generation fifteen receipt")
     receipt_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
+    monkeypatch.setattr(mission_state, "GENERATION_FIFTEEN_RECEIPT_COMMIT", receipt_commit)
     _git(repo, "update-ref", "refs/remotes/origin/master", receipt_commit)
 
     control_state = copy.deepcopy(state)
@@ -3451,12 +3496,14 @@ def _commit_generation_fifteen_publication(
     _git(repo, "add", "MISSION_STATE.json")
     _git(repo, "commit", "-m", "generation fifteen state")
     state_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
+    monkeypatch.setattr(mission_state, "GENERATION_FIFTEEN_STATE_COMMIT", state_commit)
     if include_baton:
         (repo / "CONTINUITY.md").write_text("generation fifteen tooling transition\n")
         (repo / "HANDOFF.md").write_text("generation fifteen tooling handoff\n")
         _git(repo, "add", "CONTINUITY.md", "HANDOFF.md")
         _git(repo, "commit", "-m", "generation fifteen tooling baton")
     baton_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
+    monkeypatch.setattr(mission_state, "GENERATION_FIFTEEN_BATON_COMMIT", baton_commit)
     if include_baton:
         _git(repo, "update-ref", "refs/remotes/origin/master", baton_commit)
     return {
@@ -3466,6 +3513,157 @@ def _commit_generation_fifteen_publication(
         "generation_fifteen_state": state_commit,
         "generation_fifteen_baton": baton_commit,
     }
+
+
+def _commit_generation_sixteen_publication(
+    repo: Path,
+    state: dict,
+    monkeypatch: pytest.MonkeyPatch,
+    *,
+    stage: str,
+    origin: str | None = None,
+    source_paths: tuple[str, ...] = mission_state.GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS,
+    wrong_source_parent: bool = False,
+) -> dict[str, str]:
+    """Build exact synthetic F16/R16/T16/B16 prefixes above accepted B15."""
+
+    if stage not in {"f16", "r16", "t16", "b16"}:
+        raise AssertionError(f"unsupported generation-sixteen stage: {stage}")
+    generation_fifteen = _commit_generation_fifteen_publication(
+        repo,
+        state,
+        monkeypatch,
+    )
+    b15 = generation_fifteen["generation_fifteen_baton"]
+    if wrong_source_parent:
+        extra = repo / "unexpected-post-b15-parent.txt"
+        extra.write_text("unexpected parent\n")
+        _git(repo, "add", extra.name)
+        _git(repo, "commit", "-m", "unexpected post-B15 parent")
+    monkeypatch.setattr(mission_state, "GENERATION_SIXTEEN_SOURCE_PARENT", b15)
+    monkeypatch.setattr(
+        mission_state,
+        "GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS",
+        source_paths,
+    )
+
+    for relative in source_paths:
+        path = repo / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(f"generation sixteen source: {relative}\n")
+    _git(repo, "add", *source_paths)
+    _git(repo, "commit", "-m", "generation sixteen lifecycle-control source")
+    source_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
+
+    expected_publication = {
+        "generation": 16,
+        "supersedes_receipt_commit": generation_fifteen[
+            "generation_fifteen_receipt"
+        ],
+        "recovery_parent": b15,
+        "reason_code": mission_state.GENERATION_SIXTEEN_REASON_CODE,
+    }
+    monkeypatch.setattr(
+        mission_state,
+        "EXPECTED_RECOVERY_PUBLICATION",
+        expected_publication,
+    )
+    monkeypatch.setattr(
+        mission_state,
+        "_load_tooling_receipt_validator",
+        lambda _repo, _source_commit: lambda _receipt, **_kwargs: [],
+    )
+    monkeypatch.setattr(
+        mission_state,
+        "_load_launch_controller",
+        lambda _repo, _source_commit: _structural_launch_controller,
+    )
+    commits = {
+        **generation_fifteen,
+        "generation_sixteen_source": source_commit,
+    }
+    if stage == "f16":
+        target = b15 if origin in {None, "b15"} else source_commit
+        _git(repo, "update-ref", "refs/remotes/origin/master", target)
+        return commits
+
+    source_commit_paths = sorted(
+        item.decode()
+        for item in _git(
+            repo,
+            "diff-tree",
+            "--root",
+            "--no-commit-id",
+            "--name-only",
+            "-r",
+            "-z",
+            source_commit,
+        ).split(b"\0")
+        if item
+    )
+    source_parents = _git(
+        repo,
+        "show",
+        "-s",
+        "--format=%P",
+        source_commit,
+    ).decode().split()
+    git_state = {
+        "head": source_commit,
+        "dirty_entries": [],
+        "porcelain_v1_z_sha256": EMPTY_GIT_STATUS_SHA256,
+        "branch": "master",
+        "upstream": "origin/master",
+        "upstream_head": source_commit,
+        "parents": source_parents,
+        "commit_paths": source_commit_paths,
+    }
+    receipt = {
+        "schema": "iter135.tooling_verification.v2",
+        "verdict": "I135_TOOLING_VERIFICATION_OK",
+        "problem_count": 0,
+        "problems": [],
+        "publication": expected_publication,
+        "repository": {
+            "root": CANONICAL_REPOSITORY,
+            "git_start": git_state,
+            "git_end": git_state,
+            "git_head_stable": True,
+            "git_state_stable": True,
+            "repository_clean_state_stable": True,
+        },
+    }
+    _complete_tooling_receipt(receipt)
+    receipt_path = repo / TOOLING_RECEIPT_REL
+    receipt_path.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n")
+    _git(repo, "add", TOOLING_RECEIPT_REL.as_posix())
+    _git(repo, "commit", "-m", "generation sixteen tooling receipt")
+    receipt_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
+    commits["generation_sixteen_receipt"] = receipt_commit
+    if stage == "r16":
+        target = source_commit if origin == "f16" else receipt_commit
+        _git(repo, "update-ref", "refs/remotes/origin/master", target)
+        return commits
+
+    _set_ci_hardening_phase(state)
+    (repo / "MISSION_STATE.json").write_text(json.dumps(state, indent=2) + "\n")
+    _git(repo, "add", "MISSION_STATE.json")
+    _git(repo, "commit", "-m", "generation sixteen CI hardening state")
+    state_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
+    commits["generation_sixteen_state"] = state_commit
+    if stage == "t16":
+        _git(repo, "update-ref", "refs/remotes/origin/master", receipt_commit)
+        return commits
+
+    (repo / "CONTINUITY.md").write_text("generation sixteen lifecycle-control transition\n")
+    (repo / "HANDOFF.md").write_text("generation sixteen lifecycle-control handoff\n")
+    _git(repo, "add", "CONTINUITY.md", "HANDOFF.md")
+    _git(repo, "commit", "-m", "generation sixteen lifecycle-control baton")
+    baton_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
+    commits["generation_sixteen_baton"] = baton_commit
+    target = receipt_commit if origin == "r16" else baton_commit
+    _git(repo, "update-ref", "refs/remotes/origin/master", target)
+    return commits
 
 
 def _append_launch_authorization_chain(
@@ -4200,8 +4398,7 @@ def test_generation_fifteen_control_phase_rejects_every_post_b15_descendant(
 
     problems = validate_state(state, repo)
 
-    assert "tooling_publication:generation_fifteen_commit_count:3" in problems
-    assert "authorization:control-hardening-descendant-count:1" in problems
+    assert "tooling_publication:pending_f16_source_scope" in problems
     assert _git(repo, "rev-parse", "origin/master").decode().strip() == commits[
         "generation_fifteen_baton"
     ]
@@ -4335,6 +4532,340 @@ def test_generation_fifteen_receipt_history_is_exactly_fifteen_generations(
     assert history[1] == commits["generation_fourteen_receipt"]
     assert len(history) == 15
     assert validate_state(state, repo) == []
+
+
+@pytest.mark.parametrize(
+    ("stage", "origin", "expected_phase", "origin_key"),
+    [
+        ("f16", "b15", "CONTROL_HARDENING_REQUIRED", "generation_fifteen_baton"),
+        ("f16", "f16", "CONTROL_HARDENING_REQUIRED", "generation_sixteen_source"),
+        ("r16", "f16", "CONTROL_HARDENING_REQUIRED", "generation_sixteen_source"),
+        ("r16", "r16", "CONTROL_HARDENING_REQUIRED", "generation_sixteen_receipt"),
+        ("t16", "r16", "CI_HARDENING_REQUIRED", "generation_sixteen_receipt"),
+        ("b16", "r16", "CI_HARDENING_REQUIRED", "generation_sixteen_receipt"),
+        ("b16", "b16", "CI_HARDENING_REQUIRED", "generation_sixteen_baton"),
+    ],
+)
+def test_generation_sixteen_accepts_each_exact_publication_stage_without_authority(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    stage: str,
+    origin: str,
+    expected_phase: str,
+    origin_key: str,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    commits = _commit_generation_sixteen_publication(
+        repo,
+        state,
+        monkeypatch,
+        stage=stage,
+        origin=origin,
+    )
+
+    assert state["next_program"]["phase"] == expected_phase
+    assert state["next_program"]["phase"] != "PREREGISTERED"
+    assert state["run_state"] == "UNKNOWN"
+    assert state["run_state"] != "IDLE"
+    assert _git(repo, "rev-parse", "origin/master").decode().strip() == commits[
+        origin_key
+    ]
+    assert validate_state(state, repo) == []
+
+
+def test_generation_sixteen_f16_must_be_direct_child_of_b15(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_sixteen_publication(
+        repo,
+        state,
+        monkeypatch,
+        stage="f16",
+        wrong_source_parent=True,
+    )
+
+    assert "tooling_publication:pending_f16_source_parent" in validate_state(state, repo)
+
+
+def test_generation_sixteen_f16_rejects_a_dirty_worktree(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_sixteen_publication(
+        repo,
+        state,
+        monkeypatch,
+        stage="f16",
+    )
+    (repo / "untracked-f16-residue.txt").write_text("uncommitted residue\n")
+
+    assert validate_state(state, repo) == [
+        "tooling_publication:pending_f16_worktree_dirty"
+    ]
+
+
+def test_generation_sixteen_f16_revalidates_b15_without_rerunning_its_controller(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    commits = _commit_generation_sixteen_publication(
+        repo,
+        state,
+        monkeypatch,
+        stage="f16",
+    )
+    validator_calls: list[dict[str, object]] = []
+
+    def validator(_receipt, **kwargs):
+        validator_calls.append(kwargs)
+        virtual_git = kwargs["git_probe"](repo, ())
+        assert virtual_git.head == commits["generation_fifteen_baton"]
+        assert virtual_git.upstream_head == commits["generation_fifteen_baton"]
+        assert virtual_git.dirty_entries == ()
+        assert virtual_git.porcelain_sha256 == EMPTY_GIT_STATUS_SHA256
+        assert kwargs["ancestry_probe"](
+            repo,
+            commits["generation_fifteen_receipt"],
+            commits["generation_fifteen_baton"],
+        )
+        return []
+
+    monkeypatch.setattr(
+        mission_state,
+        "_load_tooling_receipt_validator",
+        lambda _repo, _source_commit: validator,
+    )
+    monkeypatch.setattr(
+        mission_state,
+        "_load_launch_controller",
+        lambda _repo, _source_commit: (_ for _ in ()).throw(
+            AssertionError("pending F16 must not reinterpret itself as a B15 descendant")
+        ),
+    )
+
+    assert validate_state(state, repo) == []
+    assert len(validator_calls) == 1
+
+
+def test_generation_sixteen_f16_rejects_a_failed_frozen_b15_baseline(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_sixteen_publication(
+        repo,
+        state,
+        monkeypatch,
+        stage="f16",
+    )
+    monkeypatch.setattr(
+        mission_state,
+        "_load_tooling_receipt_validator",
+        lambda _repo, _source_commit: (
+            lambda _receipt, **_kwargs: ["hostile retained baseline"]
+        ),
+    )
+
+    assert any(
+        "generation-fifteen frozen baseline failed validation: "
+        "hostile retained baseline" in problem
+        for problem in validate_state(state, repo)
+    )
+
+
+def test_generation_sixteen_f16_scope_is_exactly_seventeen_paths(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    canonical_scope = tuple(mission_state.GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS)
+    assert len(canonical_scope) == 17
+    assert mission_state.GENERATION_SIXTEEN_SOURCE_MARKER_PATHS <= set(
+        canonical_scope
+    )
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_sixteen_publication(
+        repo,
+        state,
+        monkeypatch,
+        stage="f16",
+        source_paths=canonical_scope + ("unexpected-generation-sixteen.txt",),
+    )
+    monkeypatch.setattr(
+        mission_state,
+        "GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS",
+        canonical_scope,
+    )
+
+    assert "tooling_publication:pending_f16_source_scope" in validate_state(state, repo)
+
+
+def test_generation_sixteen_r16_is_receipt_only(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    commits = _commit_generation_sixteen_publication(
+        repo,
+        state,
+        monkeypatch,
+        stage="r16",
+    )
+    receipt_commit = commits["generation_sixteen_receipt"]
+    commit_row = mission_state._commit_row
+
+    def hostile_commit_row(root: Path, commit: str):
+        parents, paths = commit_row(root, commit)
+        if commit == receipt_commit:
+            return parents, (*paths, "unexpected-r16.txt")
+        return parents, paths
+
+    monkeypatch.setattr(mission_state, "_commit_row", hostile_commit_row)
+
+    assert "tooling_publication:receipt_commit_not_receipt_only" in validate_state(
+        state,
+        repo,
+    )
+
+
+def test_generation_sixteen_t16_is_state_only_and_directly_above_r16(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    commits = _commit_generation_sixteen_publication(
+        repo,
+        state,
+        monkeypatch,
+        stage="t16",
+    )
+    state_commit = commits["generation_sixteen_state"]
+    commit_row = mission_state._commit_row
+
+    def hostile_commit_row(root: Path, commit: str):
+        parents, paths = commit_row(root, commit)
+        if commit == state_commit:
+            return ("f" * 40,), (*paths, "unexpected-t16.txt")
+        return parents, paths
+
+    monkeypatch.setattr(mission_state, "_commit_row", hostile_commit_row)
+    problems = validate_state(state, repo)
+
+    assert "tooling_publication:state_not_direct_receipt_child" in problems
+    assert "tooling_publication:state_commit_not_state_only" in problems
+
+
+@pytest.mark.parametrize(
+    ("violation", "expected_problem"),
+    [
+        ("parent", "tooling_publication:baton_not_direct_state_child"),
+        ("scope", "tooling_publication:baton_commit_scope"),
+    ],
+)
+def test_generation_sixteen_b16_is_docs_only_and_directly_above_t16(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    violation: str,
+    expected_problem: str,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    commits = _commit_generation_sixteen_publication(
+        repo,
+        state,
+        monkeypatch,
+        stage="b16",
+    )
+    baton_commit = commits["generation_sixteen_baton"]
+    commit_row = mission_state._commit_row
+
+    def hostile_commit_row(root: Path, commit: str):
+        parents, paths = commit_row(root, commit)
+        if commit != baton_commit:
+            return parents, paths
+        if violation == "parent":
+            return ("f" * 40,), paths
+        return parents, (*paths, "unexpected-b16.txt")
+
+    monkeypatch.setattr(mission_state, "_commit_row", hostile_commit_row)
+
+    assert expected_problem in validate_state(state, repo)
+
+
+def test_generation_sixteen_rejects_upstream_at_t16(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    commits = _commit_generation_sixteen_publication(
+        repo,
+        state,
+        monkeypatch,
+        stage="b16",
+    )
+    _git(
+        repo,
+        "update-ref",
+        "refs/remotes/origin/master",
+        commits["generation_sixteen_state"],
+    )
+
+    problems = validate_state(state, repo)
+
+    assert "tooling_publication:generation_sixteen_origin" in problems
+    assert (
+        "authorization:lifecycle-control-origin-master-not-r16-or-b16"
+        in problems
+    )
+
+
+def test_generation_sixteen_rejects_any_controller_authority_claim(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_sixteen_publication(
+        repo,
+        state,
+        monkeypatch,
+        stage="b16",
+        origin="b16",
+    )
+
+    def controller(_repo: Path, **_kwargs):
+        return {
+            "problems": [],
+            "references": {},
+            "authority": "origin-published",
+            "launch_authorized": False,
+            "lifecycle_control_publication_status": (
+                mission_state.LIFECYCLE_CONTROL_PUBLICATION_PUBLISHED_STATUS
+            ),
+        }
+
+    monkeypatch.setattr(
+        mission_state,
+        "_load_launch_controller",
+        lambda _repo, _source_commit: controller,
+    )
+
+    assert (
+        "authorization:lifecycle-control-publication-authority:'origin-published'"
+        in validate_state(state, repo)
+    )
 
 
 @pytest.mark.parametrize(

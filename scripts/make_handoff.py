@@ -35,6 +35,7 @@ TOMBSTONE_PHASES = frozenset(
     {
         "PREREGISTERED_TOOLING_REQUIRED",
         "CONTROL_HARDENING_REQUIRED",
+        "CI_HARDENING_REQUIRED",
     }
 )
 
@@ -401,7 +402,8 @@ def render_handoff() -> str:
     active_hypothesis = mission_state.get("active_hypothesis")
     if active_hypothesis:
         emit(
-            f"- Active pending pre-registration: {active_hypothesis} — read it with "
+            f"- Active preregistered hypothesis / pending experiment: {active_hypothesis} — "
+            "read it with "
             "`MISSION_STATE.json`; neither file overrides the other."
         )
     for legacy_path in mission_state["deprecated_pending_hypotheses"]:
@@ -414,9 +416,9 @@ def render_handoff() -> str:
         f"{next_program['phase']} / {next_program['name']}."
     )
     emit(
-        "- Lifecycle correction: the frozen current-status prose in `README.md` and "
-        "`docs/NEXT_PHASE.md` that says no run is in flight is retracted as execution "
-        "evidence; lifecycle state remains `UNKNOWN`."
+        "- Lifecycle correction: earlier current-status prose in `README.md` and "
+        "`docs/NEXT_PHASE.md` said no run was in flight; both surfaces now report that "
+        "lifecycle is `UNKNOWN`."
     )
     emit("- docs/NEXT_PHASE.md: check its status ledger and decision rules.")
     emit("- docs/paper/MANUSCRIPT.md: check its status ledger and decision rules.")
@@ -425,7 +427,10 @@ def render_handoff() -> str:
     emit("## Verification before you act")
     emit()
     emit("- Run: `ruff check . && pytest -q && python3 scripts/validate_docs.py`")
-    emit("- All three must pass before and after changes; CI enforces the same on push.")
+    emit(
+        "- All three must pass before and after changes. The current workflow runs the same "
+        "commands on push; a green workflow is validation evidence, not authority."
+    )
 
     return output.getvalue()
 
