@@ -1135,6 +1135,57 @@ def _control_publication(
     return state_commit, baton_commit
 
 
+def _lifecycle_control_publication(
+    repo: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    *,
+    extra_source_path: bool = False,
+) -> tuple[str, str, str, str, str]:
+    """Build a compact exact B15 -> F16 -> R16 -> T16 -> B16 topology."""
+
+    _git(repo, "init", "-b", "master")
+    _git(repo, "config", "user.name", "Sentinel Test")
+    _git(repo, "config", "user.email", "sentinel-test@example.invalid")
+    _write(repo, auth.MISSION_REL, auth._control_hardening_expected_state())
+    _write(repo, "CONTINUITY.md", "accepted generation fifteen control baton\n")
+    _write(repo, "HANDOFF.md", "Lifecycle state: UNKNOWN\n")
+    b15 = _commit(
+        repo,
+        "accepted generation fifteen control baton",
+        auth.MISSION_REL,
+        "CONTINUITY.md",
+        "HANDOFF.md",
+    )
+    monkeypatch.setattr(auth, "GENERATION_FIFTEEN_BATON_COMMIT", b15)
+    monkeypatch.setattr(auth, "_frozen_generation_fifteen_problems", lambda _repo: [])
+
+    source_paths = list(auth.GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS)
+    for relative in source_paths:
+        _write(repo, relative, f"generation sixteen source: {relative}\n")
+    if extra_source_path:
+        source_paths.append("unexpected-generation-sixteen-source.txt")
+        _write(repo, source_paths[-1], "hostile source-scope expansion\n")
+    f16 = _commit(repo, "generation sixteen lifecycle-control source", *source_paths)
+
+    _write(repo, auth.TOOLING_RECEIPT_REL, {"generation": 16})
+    r16 = _commit(
+        repo,
+        "generation sixteen tooling receipt",
+        auth.TOOLING_RECEIPT_REL,
+    )
+    _write(repo, auth.MISSION_REL, auth._ci_hardening_expected_state())
+    t16 = _commit(repo, "generation sixteen CI hardening state", auth.MISSION_REL)
+    _write(repo, "CONTINUITY.md", "generation sixteen lifecycle-control baton\n")
+    _write(repo, "HANDOFF.md", "Lifecycle state: UNKNOWN\n")
+    b16 = _commit(
+        repo,
+        "generation sixteen lifecycle-control baton",
+        "CONTINUITY.md",
+        "HANDOFF.md",
+    )
+    return b15, f16, r16, t16, b16
+
+
 def test_control_hardening_state_mirror_matches_canonical_state_contract() -> None:
     canonical = json.loads((REPO / auth.MISSION_REL).read_text())
     canonical["run_state"] = "UNKNOWN"
@@ -1150,6 +1201,107 @@ def test_control_hardening_state_mirror_matches_canonical_state_contract() -> No
         auth._control_hardening_expected_state(),
         canonical,
     )
+
+
+def test_generation_sixteen_declares_the_exact_seventeen_path_f16_scope() -> None:
+    assert auth.GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS == (
+        "CONTINUITY.md",
+        "HANDOFF.md",
+        "README.md",
+        "docs/NEXT_PHASE.md",
+        "docs/REPORT.md",
+        "docs/research/ITER135_SOURCE_BOUND_LIFECYCLE_CONTROL_PREREGISTRATION_2026-07-21.md",
+        f"{auth.EXPERIMENT_REL}/authorize_launch135.py",
+        f"{auth.EXPERIMENT_REL}/validate_lifecycle135.py",
+        f"{auth.EXPERIMENT_REL}/verify_tooling135.py",
+        "scripts/make_handoff.py",
+        "scripts/mission_state.py",
+        "tests/test_handoff_generator.py",
+        "tests/test_iter131_post_iter130_mission_alignment_audit.py",
+        "tests/test_iter135_launch_authorization.py",
+        "tests/test_iter135_lifecycle_control.py",
+        "tests/test_iter135_tooling_verifier.py",
+        "tests/test_mission_state.py",
+    )
+
+
+def test_lifecycle_control_baton_accepts_only_exact_f16_r16_t16_b16_topology(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    _b15, _f16, r16, _t16, b16 = _lifecycle_control_publication(
+        tmp_path,
+        monkeypatch,
+    )
+
+    assert auth._ci_hardening_baton_problems(
+        tmp_path,
+        tooling_receipt_commit=r16,
+        tooling_baton_commit=b16,
+    ) == []
+
+
+def test_lifecycle_control_baton_rejects_f16_scope_expansion(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    _b15, _f16, r16, _t16, b16 = _lifecycle_control_publication(
+        tmp_path,
+        monkeypatch,
+        extra_source_path=True,
+    )
+
+    assert "authorization:lifecycle-control-source-scope" in (
+        auth._ci_hardening_baton_problems(
+            tmp_path,
+            tooling_receipt_commit=r16,
+            tooling_baton_commit=b16,
+        )
+    )
+
+
+@pytest.mark.parametrize(
+    ("upstream", "expected_status", "expected_problems"),
+    [
+        ("r16", auth.LIFECYCLE_CONTROL_PUBLICATION_CANDIDATE_STATUS, []),
+        ("b16", auth.LIFECYCLE_CONTROL_PUBLICATION_PUBLISHED_STATUS, []),
+        (
+            "t16",
+            auth.LIFECYCLE_CONTROL_PUBLICATION_INVALID_UPSTREAM_STATUS,
+            ["authorization:lifecycle-control-origin-master-not-r16-or-b16"],
+        ),
+    ],
+)
+def test_ci_hardening_publication_is_always_non_authoritative(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    upstream: str,
+    expected_status: str,
+    expected_problems: list[str],
+) -> None:
+    _b15, _f16, r16, t16, b16 = _lifecycle_control_publication(
+        tmp_path,
+        monkeypatch,
+    )
+    monkeypatch.setattr(auth, "_deep_replay_publication", lambda *_args, **_kwargs: [])
+    upstream_commit = {"r16": r16, "t16": t16, "b16": b16}[upstream]
+
+    result = auth.validate_publication_descendants(
+        tmp_path,
+        phase=auth.CI_HARDENING_PHASE,
+        tooling_receipt_commit=r16,
+        tooling_baton_commit=b16,
+        descendants=[],
+        upstream_commit=upstream_commit,
+    )
+
+    assert result == {
+        "problems": expected_problems,
+        "references": {},
+        "authority": "none",
+        "launch_authorized": False,
+        "lifecycle_control_publication_status": expected_status,
+    }
 
 
 def _validate(
