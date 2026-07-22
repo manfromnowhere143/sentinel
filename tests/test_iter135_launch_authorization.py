@@ -4,7 +4,9 @@ import copy
 import hashlib
 import importlib.util
 import json
+import os
 from pathlib import Path
+import shutil
 import subprocess
 import textwrap
 import types
@@ -55,16 +57,203 @@ PAYLOAD_NAMES = tuple(
     if name not in {"MISSION_STATE.json", "tooling_verification_receipt.json"}
 )
 
+SYNTHETIC_GIT_DURABILITY_CONFIG = (
+    "-c",
+    "commit.gpgSign=false",
+    "-c",
+    "core.createObject=rename",
+    "-c",
+    "core.fsync=committed,reference",
+    "-c",
+    "core.fsyncMethod=fsync",
+    "-c",
+    "core.hooksPath=/dev/null",
+    "-c",
+    "gc.auto=0",
+    "-c",
+    "maintenance.auto=false",
+)
+SYNTHETIC_GIT_CONNECTIVITY_ARGUMENTS = (
+    "fsck",
+    "--connectivity-only",
+    "--strict",
+    "--no-dangling",
+)
+SYNTHETIC_GIT_COMMAND_TIMEOUT_SECONDS = 120
+SYNTHETIC_GIT_OUTPUT_BYTE_LIMIT = 8 * 1024 * 1024
+SYNTHETIC_GIT_DIAGNOSTIC_BYTE_LIMIT = 16 * 1024
+SYNTHETIC_GIT_DIAGNOSTIC_TRUNCATION_MARKER = b"...<diagnostic truncated>"
+SYNTHETIC_GIT_ENVIRONMENT = {
+    "GIT_ATTR_NOSYSTEM": "1",
+    "GIT_AUTHOR_DATE": "2000-01-01T00:00:00Z",
+    "GIT_AUTHOR_EMAIL": "sentinel-test@example.invalid",
+    "GIT_AUTHOR_NAME": "Sentinel Test",
+    "GIT_COMMITTER_DATE": "2000-01-01T00:00:00Z",
+    "GIT_COMMITTER_EMAIL": "sentinel-test@example.invalid",
+    "GIT_COMMITTER_NAME": "Sentinel Test",
+    "GIT_CONFIG_GLOBAL": os.devnull,
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_OPTIONAL_LOCKS": "0",
+    "GIT_PAGER": "cat",
+    "GIT_TERMINAL_PROMPT": "0",
+    "HOME": "/nonexistent/sentinel-launch-fixture-git-home",
+    "LANG": "C",
+    "LC_ALL": "C",
+    "PATH": "/usr/bin:/bin",
+    "PAGER": "cat",
+    "TZ": "UTC",
+    "XDG_CONFIG_HOME": "/nonexistent/sentinel-launch-fixture-git-xdg",
+}
+_SYNTHETIC_GIT_REPOSITORIES: dict[Path, tuple[int, int]] = {}
+
+
+def _bounded_git_diagnostic(value: bytes | str | None) -> str:
+    if value is None:
+        return ""
+    raw = value.encode("utf-8", errors="replace") if isinstance(value, str) else value
+    encoded = raw.decode("utf-8", errors="replace").encode("utf-8")
+    if len(encoded) > SYNTHETIC_GIT_DIAGNOSTIC_BYTE_LIMIT:
+        retained_byte_count = (
+            SYNTHETIC_GIT_DIAGNOSTIC_BYTE_LIMIT
+            - len(SYNTHETIC_GIT_DIAGNOSTIC_TRUNCATION_MARKER)
+        )
+        retained_text = encoded[:retained_byte_count].decode(
+            "utf-8",
+            errors="ignore",
+        )
+        return (
+            retained_text
+            + SYNTHETIC_GIT_DIAGNOSTIC_TRUNCATION_MARKER.decode("ascii")
+        )
+    return encoded.decode("utf-8")
+
+
+def _synthetic_git_failure(
+    repo: Path,
+    command: tuple[str, ...],
+    *,
+    return_code: int | str,
+    stdout: bytes | str | None,
+    stderr: bytes | str | None,
+) -> AssertionError:
+    try:
+        free_bytes: int | str = shutil.disk_usage(repo).free
+    except OSError as diagnostic_error:
+        free_bytes = f"unavailable:{type(diagnostic_error).__name__}"
+    try:
+        filesystem = os.statvfs(repo)
+        free_inodes: int | str = filesystem.f_favail
+    except OSError as diagnostic_error:
+        free_inodes = f"unavailable:{type(diagnostic_error).__name__}"
+    return AssertionError(
+        f"synthetic Git command failed: cwd={str(repo)!r} argv={list(command)!r} "
+        f"return_code={return_code!r} free_bytes={free_bytes!r} "
+        f"free_inodes={free_inodes!r} stdout={_bounded_git_diagnostic(stdout)!r} "
+        f"stderr={_bounded_git_diagnostic(stderr)!r}"
+    )
+
+
+def _run_synthetic_git(repo: Path, *arguments: str) -> bytes:
+    effective_arguments = arguments
+    if arguments and arguments[0] == "init":
+        effective_arguments = (
+            "init",
+            "--object-format=sha1",
+            "--template=",
+            *arguments[1:],
+        )
+    elif arguments and arguments[0] == "checkout":
+        effective_arguments = ("checkout", "--quiet", *arguments[1:])
+    command = (
+        "/usr/bin/git",
+        *SYNTHETIC_GIT_DURABILITY_CONFIG,
+        *effective_arguments,
+    )
+    try:
+        completed = subprocess.run(
+            command,
+            cwd=repo,
+            check=True,
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            env=dict(SYNTHETIC_GIT_ENVIRONMENT),
+            timeout=SYNTHETIC_GIT_COMMAND_TIMEOUT_SECONDS,
+        )
+    except subprocess.CalledProcessError as error:
+        raise _synthetic_git_failure(
+            repo,
+            command,
+            return_code=error.returncode,
+            stdout=error.stdout,
+            stderr=error.stderr,
+        ) from error
+    except subprocess.TimeoutExpired as error:
+        raise _synthetic_git_failure(
+            repo,
+            command,
+            return_code=f"timeout_after_{SYNTHETIC_GIT_COMMAND_TIMEOUT_SECONDS}s",
+            stdout=error.stdout,
+            stderr=error.stderr,
+        ) from error
+    except OSError as error:
+        raise _synthetic_git_failure(
+            repo,
+            command,
+            return_code=f"os_error:{type(error).__name__}",
+            stdout=None,
+            stderr=str(error),
+        ) from error
+    stdout = completed.stdout or b""
+    stderr = completed.stderr or b""
+    if not isinstance(stdout, bytes) or not isinstance(stderr, bytes):
+        raise _synthetic_git_failure(
+            repo,
+            command,
+            return_code="output_contract_violation",
+            stdout=stdout,
+            stderr=stderr,
+        )
+    if stderr:
+        raise _synthetic_git_failure(
+            repo,
+            command,
+            return_code="unexpected_success_stderr",
+            stdout=stdout,
+            stderr=stderr,
+        )
+    if len(stdout) > SYNTHETIC_GIT_OUTPUT_BYTE_LIMIT:
+        raise _synthetic_git_failure(
+            repo,
+            command,
+            return_code="output_contract_violation",
+            stdout=stdout,
+            stderr=stderr,
+        )
+    return stdout
+
+
+def _register_synthetic_git_repository(repo: Path) -> None:
+    physical_repo = repo.resolve(strict=True)
+    repository_stat = physical_repo.stat()
+    if not physical_repo.is_dir():
+        raise AssertionError(f"synthetic Git repository is not a directory: {repo}")
+    identity = (repository_stat.st_dev, repository_stat.st_ino)
+    previous_identity = _SYNTHETIC_GIT_REPOSITORIES.get(physical_repo)
+    if previous_identity is not None and previous_identity != identity:
+        raise AssertionError(
+            f"synthetic Git repository identity changed before registration: {physical_repo}"
+        )
+    _SYNTHETIC_GIT_REPOSITORIES[physical_repo] = identity
+
 
 def _git(repo: Path, *arguments: str) -> bytes:
-    return subprocess.run(
-        ("/usr/bin/git", *arguments),
-        cwd=repo,
-        stdin=subprocess.DEVNULL,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        check=True,
-    ).stdout
+    if arguments and arguments[0] == "init":
+        _register_synthetic_git_repository(repo)
+    output = _run_synthetic_git(repo, *arguments)
+    if arguments and arguments[0] == "commit":
+        _run_synthetic_git(repo, *SYNTHETIC_GIT_CONNECTIVITY_ARGUMENTS)
+    return output
 
 
 def _write(repo: Path, relative: str, payload: bytes | str | dict) -> None:
@@ -82,6 +271,102 @@ def _commit(repo: Path, message: str, *paths: str) -> str:
     _git(repo, "add", *paths)
     _git(repo, "commit", "-m", message)
     return _git(repo, "rev-parse", "HEAD").decode().strip()
+
+
+def test_launch_fixture_git_commands_force_durable_isolated_inputs(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    observed: list[tuple[str, ...]] = []
+    observed_environments: list[dict[str, str]] = []
+
+    def succeed(command, **kwargs):
+        observed.append(tuple(command))
+        observed_environments.append(kwargs["env"])
+        return subprocess.CompletedProcess(command, 0, stdout=b"", stderr=b"")
+
+    monkeypatch.setenv("GIT_DIR", "/hostile/inherited/git-dir")
+    monkeypatch.setenv("GIT_CONFIG_COUNT", "1")
+    monkeypatch.setenv("GIT_CONFIG_KEY_0", "core.hooksPath")
+    monkeypatch.setenv("GIT_CONFIG_VALUE_0", "/hostile/hooks")
+    monkeypatch.setenv("GIT_CONFIG_PARAMETERS", "'core.hooksPath'='/hostile/hooks'")
+    monkeypatch.setenv("GIT_DEFAULT_HASH", "sha256")
+    monkeypatch.setenv("GIT_EXEC_PATH", "/hostile/git-core")
+    monkeypatch.setenv("GIT_TEMPLATE_DIR", "/hostile/templates")
+    monkeypatch.setenv("LD_PRELOAD", "/hostile/library.so")
+    monkeypatch.setattr(subprocess, "run", succeed)
+
+    assert _git(tmp_path, "status", "--porcelain=v1") == b""
+    assert observed == [
+        (
+            "/usr/bin/git",
+            *SYNTHETIC_GIT_DURABILITY_CONFIG,
+            "status",
+            "--porcelain=v1",
+        )
+    ]
+    assert observed_environments == [SYNTHETIC_GIT_ENVIRONMENT]
+    for hostile_name in (
+        "GIT_DIR",
+        "GIT_CONFIG_COUNT",
+        "GIT_CONFIG_KEY_0",
+        "GIT_CONFIG_VALUE_0",
+        "GIT_CONFIG_PARAMETERS",
+        "GIT_DEFAULT_HASH",
+        "GIT_EXEC_PATH",
+        "GIT_TEMPLATE_DIR",
+        "LD_PRELOAD",
+    ):
+        assert hostile_name not in observed_environments[0]
+
+
+def test_launch_fixture_git_initialization_forces_sha1_without_templates(
+    tmp_path: Path,
+) -> None:
+    _git(tmp_path, "init", "-b", "master")
+
+    assert _git(tmp_path, "rev-parse", "--show-object-format") == b"sha1\n"
+    assert not (tmp_path / ".git" / "hooks").exists()
+
+
+def test_launch_fixture_commit_requires_graph_connectivity(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    observed: list[tuple[str, ...]] = []
+
+    def corrupt_after_commit(command, **_kwargs):
+        observed.append(tuple(command))
+        if tuple(command[-len(SYNTHETIC_GIT_CONNECTIVITY_ARGUMENTS) :]) == (
+            SYNTHETIC_GIT_CONNECTIVITY_ARGUMENTS
+        ):
+            raise subprocess.CalledProcessError(
+                2,
+                command,
+                output=b"",
+                stderr=b"missing reachable object\n",
+            )
+        return subprocess.CompletedProcess(command, 0, stdout=b"", stderr=b"")
+
+    monkeypatch.setattr(subprocess, "run", corrupt_after_commit)
+
+    with pytest.raises(AssertionError, match="missing reachable object"):
+        _git(tmp_path, "commit", "-m", "synthetic commit")
+
+    assert observed == [
+        (
+            "/usr/bin/git",
+            *SYNTHETIC_GIT_DURABILITY_CONFIG,
+            "commit",
+            "-m",
+            "synthetic commit",
+        ),
+        (
+            "/usr/bin/git",
+            *SYNTHETIC_GIT_DURABILITY_CONFIG,
+            *SYNTHETIC_GIT_CONNECTIVITY_ARGUMENTS,
+        ),
+    ]
 
 
 def _load_module(path: Path, name: str) -> types.ModuleType:
@@ -1135,6 +1420,57 @@ def _control_publication(
     return state_commit, baton_commit
 
 
+def _lifecycle_control_publication(
+    repo: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    *,
+    extra_source_path: bool = False,
+) -> tuple[str, str, str, str, str]:
+    """Build a compact exact B15 -> F16 -> R16 -> T16 -> B16 topology."""
+
+    _git(repo, "init", "-b", "master")
+    _git(repo, "config", "user.name", "Sentinel Test")
+    _git(repo, "config", "user.email", "sentinel-test@example.invalid")
+    _write(repo, auth.MISSION_REL, auth._control_hardening_expected_state())
+    _write(repo, "CONTINUITY.md", "accepted generation fifteen control baton\n")
+    _write(repo, "HANDOFF.md", "Lifecycle state: UNKNOWN\n")
+    b15 = _commit(
+        repo,
+        "accepted generation fifteen control baton",
+        auth.MISSION_REL,
+        "CONTINUITY.md",
+        "HANDOFF.md",
+    )
+    monkeypatch.setattr(auth, "GENERATION_FIFTEEN_BATON_COMMIT", b15)
+    monkeypatch.setattr(auth, "_frozen_generation_fifteen_problems", lambda _repo: [])
+
+    source_paths = list(auth.GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS)
+    for relative in source_paths:
+        _write(repo, relative, f"generation sixteen source: {relative}\n")
+    if extra_source_path:
+        source_paths.append("unexpected-generation-sixteen-source.txt")
+        _write(repo, source_paths[-1], "hostile source-scope expansion\n")
+    f16 = _commit(repo, "generation sixteen lifecycle-control source", *source_paths)
+
+    _write(repo, auth.TOOLING_RECEIPT_REL, {"generation": 16})
+    r16 = _commit(
+        repo,
+        "generation sixteen tooling receipt",
+        auth.TOOLING_RECEIPT_REL,
+    )
+    _write(repo, auth.MISSION_REL, auth._ci_hardening_expected_state())
+    t16 = _commit(repo, "generation sixteen CI hardening state", auth.MISSION_REL)
+    _write(repo, "CONTINUITY.md", "generation sixteen lifecycle-control baton\n")
+    _write(repo, "HANDOFF.md", "Lifecycle state: UNKNOWN\n")
+    b16 = _commit(
+        repo,
+        "generation sixteen lifecycle-control baton",
+        "CONTINUITY.md",
+        "HANDOFF.md",
+    )
+    return b15, f16, r16, t16, b16
+
+
 def test_control_hardening_state_mirror_matches_canonical_state_contract() -> None:
     canonical = json.loads((REPO / auth.MISSION_REL).read_text())
     canonical["run_state"] = "UNKNOWN"
@@ -1150,6 +1486,107 @@ def test_control_hardening_state_mirror_matches_canonical_state_contract() -> No
         auth._control_hardening_expected_state(),
         canonical,
     )
+
+
+def test_generation_sixteen_declares_the_exact_seventeen_path_f16_scope() -> None:
+    assert auth.GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS == (
+        "CONTINUITY.md",
+        "HANDOFF.md",
+        "README.md",
+        "docs/NEXT_PHASE.md",
+        "docs/REPORT.md",
+        "docs/research/ITER135_SOURCE_BOUND_LIFECYCLE_CONTROL_PREREGISTRATION_2026-07-21.md",
+        f"{auth.EXPERIMENT_REL}/authorize_launch135.py",
+        f"{auth.EXPERIMENT_REL}/validate_lifecycle135.py",
+        f"{auth.EXPERIMENT_REL}/verify_tooling135.py",
+        "scripts/make_handoff.py",
+        "scripts/mission_state.py",
+        "tests/test_handoff_generator.py",
+        "tests/test_iter131_post_iter130_mission_alignment_audit.py",
+        "tests/test_iter135_launch_authorization.py",
+        "tests/test_iter135_lifecycle_control.py",
+        "tests/test_iter135_tooling_verifier.py",
+        "tests/test_mission_state.py",
+    )
+
+
+def test_lifecycle_control_baton_accepts_only_exact_f16_r16_t16_b16_topology(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    _b15, _f16, r16, _t16, b16 = _lifecycle_control_publication(
+        tmp_path,
+        monkeypatch,
+    )
+
+    assert auth._ci_hardening_baton_problems(
+        tmp_path,
+        tooling_receipt_commit=r16,
+        tooling_baton_commit=b16,
+    ) == []
+
+
+def test_lifecycle_control_baton_rejects_f16_scope_expansion(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    _b15, _f16, r16, _t16, b16 = _lifecycle_control_publication(
+        tmp_path,
+        monkeypatch,
+        extra_source_path=True,
+    )
+
+    assert "authorization:lifecycle-control-source-scope" in (
+        auth._ci_hardening_baton_problems(
+            tmp_path,
+            tooling_receipt_commit=r16,
+            tooling_baton_commit=b16,
+        )
+    )
+
+
+@pytest.mark.parametrize(
+    ("upstream", "expected_status", "expected_problems"),
+    [
+        ("r16", auth.LIFECYCLE_CONTROL_PUBLICATION_CANDIDATE_STATUS, []),
+        ("b16", auth.LIFECYCLE_CONTROL_PUBLICATION_PUBLISHED_STATUS, []),
+        (
+            "t16",
+            auth.LIFECYCLE_CONTROL_PUBLICATION_INVALID_UPSTREAM_STATUS,
+            ["authorization:lifecycle-control-origin-master-not-r16-or-b16"],
+        ),
+    ],
+)
+def test_ci_hardening_publication_is_always_non_authoritative(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    upstream: str,
+    expected_status: str,
+    expected_problems: list[str],
+) -> None:
+    _b15, _f16, r16, t16, b16 = _lifecycle_control_publication(
+        tmp_path,
+        monkeypatch,
+    )
+    monkeypatch.setattr(auth, "_deep_replay_publication", lambda *_args, **_kwargs: [])
+    upstream_commit = {"r16": r16, "t16": t16, "b16": b16}[upstream]
+
+    result = auth.validate_publication_descendants(
+        tmp_path,
+        phase=auth.CI_HARDENING_PHASE,
+        tooling_receipt_commit=r16,
+        tooling_baton_commit=b16,
+        descendants=[],
+        upstream_commit=upstream_commit,
+    )
+
+    assert result == {
+        "problems": expected_problems,
+        "references": {},
+        "authority": "none",
+        "launch_authorized": False,
+        "lifecycle_control_publication_status": expected_status,
+    }
 
 
 def _validate(
@@ -1799,6 +2236,111 @@ def test_structural_controller_rejects_bound_artifact_drift_without_replay_cost(
 
     assert expected_problem in result["problems"]
     assert result["launch_authorized"] is False
+
+
+def test_git_probe_failure_retains_bounded_diagnostics_without_retry(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    observed: list[tuple[str, ...]] = []
+    stderr = b"fatal: unable to read synthetic object\xff\n"
+
+    def fail_once(command, **kwargs):
+        observed.append(tuple(command))
+        assert kwargs["stderr"] is subprocess.PIPE
+        return subprocess.CompletedProcess(
+            command,
+            128,
+            stdout=b"partial-output",
+            stderr=stderr,
+        )
+
+    monkeypatch.setattr(auth.subprocess, "run", fail_once)
+
+    with pytest.raises(auth.AuthorizationError) as raised:
+        auth._git(tmp_path, "show", "a" * 40 + ":manifest.json")
+
+    message = str(raised.value)
+    assert len(observed) == 1
+    assert "Git probe failed: show return_code=128" in message
+    assert "stdout_bytes=14" in message
+    assert f"stdout_sha256={hashlib.sha256(b'partial-output').hexdigest()}" in message
+    assert "partial-output" not in message
+    assert f"stderr_bytes={len(stderr)}" in message
+    assert f"stderr_sha256={hashlib.sha256(stderr).hexdigest()}" in message
+    assert "fatal: unable to read synthetic object" in message
+    assert "\\\\xff\\n" in message
+    assert "stderr_preview_truncated=false" in message
+
+
+def test_git_probe_signal_diagnostic_is_one_line_and_size_bounded(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    observed: list[tuple[str, ...]] = []
+    stdout = b"PRIVATE-ARTIFACT-" + b"\xff" * (
+        auth.GIT_FAILURE_DIAGNOSTIC_RAW_BYTE_LIMIT + 512
+    )
+    stderr = b"\xff" * (auth.GIT_FAILURE_DIAGNOSTIC_RAW_BYTE_LIMIT + 512)
+
+    def fail_once(command, **_kwargs):
+        observed.append(tuple(command))
+        return subprocess.CompletedProcess(command, -9, stdout=stdout, stderr=stderr)
+
+    monkeypatch.setattr(auth.subprocess, "run", fail_once)
+
+    with pytest.raises(auth.AuthorizationError) as raised:
+        auth._git(tmp_path, "show", "b" * 40 + ":manifest.json")
+
+    message = str(raised.value)
+    assert len(observed) == 1
+    assert "return_code=-9" in message
+    assert f"stdout_bytes={len(stdout)}" in message
+    assert f"stdout_sha256={hashlib.sha256(stdout).hexdigest()}" in message
+    assert "PRIVATE-ARTIFACT" not in message
+    assert f"stderr_bytes={len(stderr)}" in message
+    assert f"stderr_sha256={hashlib.sha256(stderr).hexdigest()}" in message
+    assert "stderr_preview_truncated=true" in message
+    preview, truncated = auth._git_failure_preview(stderr)
+    assert truncated is True
+    assert preview.endswith(auth.GIT_FAILURE_DIAGNOSTIC_TRUNCATION_MARKER)
+    assert len(preview.encode("ascii")) == (
+        auth.GIT_FAILURE_DIAGNOSTIC_PREVIEW_BYTE_LIMIT
+    )
+    assert "\n" not in message
+    assert len(message.encode("utf-8")) < 4 * 1024
+
+
+def test_activation_builder_retains_first_git_failure_without_retry(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    observed: list[tuple[str, ...]] = []
+    stderr = b"fatal: missing activation source object\n"
+
+    def fail_once(command, **_kwargs):
+        observed.append(tuple(command))
+        return subprocess.CompletedProcess(command, 128, stdout=b"", stderr=stderr)
+
+    monkeypatch.setattr(auth.subprocess, "run", fail_once)
+
+    with pytest.raises(auth.AuthorizationError) as raised:
+        auth.build_activation_receipt(
+            tmp_path,
+            tooling_receipt_commit="a" * 40,
+            host_commit="b" * 40,
+            environment_commit="c" * 40,
+            pre_smoke_manifest_commit="d" * 40,
+            smoke_commit="e" * 40,
+            state_commit="f" * 40,
+            final_manifest_commit="1" * 40,
+        )
+
+    message = str(raised.value)
+    assert len(observed) == 1
+    assert "Git probe failed: show return_code=128" in message
+    assert f"stderr_sha256={hashlib.sha256(stderr).hexdigest()}" in message
+    assert "fatal: missing activation source object" in message
 
 
 def test_replay_checkout_uses_dedicated_bound_and_probes_stay_at_ten_seconds(

@@ -108,7 +108,8 @@ operator can reconstruct the exact repository state and the limits of the retain
   the first pair starts before leaving. Reboot WIPES /tmp (re-scp scripts) and drops swapon
   (`swapon /swapfile` — the memory-exhaustion fix; without swap the box HARD-FREEZES on heavy
   pairs: flat CPU + zero disk writes + dead ssh = wedge → check hypervisor metrics via the
-  Cloud Monitoring API, then `gcloud compute instances reset`, disk is safe). The compose
+  Cloud Monitoring API, then `gcloud compute instances reset`; disk persistence must be verified
+  after recovery). The compose
   script forwards a fixed `-e` list — new env vars need the sed-variant pattern
   (see experiments/iter19_diversity_head/eval_extract_run.sh).
 - **Determinism:** NeuroNCAP episodes replay exactly per run index. Every comparison is
@@ -117,7 +118,8 @@ operator can reconstruct the exact repository state and the limits of the retain
 
 ## Current campaign arc (static facts; control state comes from MISSION_STATE.json and HANDOFF.md)
 
-- Benchmark result (definitive, n=20/pair, 799 episodes): OFF 2.12 (published 1.84 reproduced)
+- Benchmark result (established on the registered full14 NeuroNCAP campaign, n=20/pair,
+  799 episodes): OFF 2.12 (published 1.84 reproduced)
   → released union 2.91, +0.783 CI [+0.605, +0.928]; deployment delta −0.03 CI [−0.13, +0.07].
 - Best configuration: the released union (iteration 15). Four challengers refuted (evasions,
   crawl, router, tracker-gate); deployment flip proven achievable (+0.226 CI excl. 0) but
@@ -4083,3 +4085,175 @@ transfer boundary fold-in and the claim-(5) hedge are unchanged and still bindin
   `docs/REPORT.md` positioning in a separately registered source generation; close raw terminal
   provenance and successful raw-CLI/analyzer parity before analytic launch; and require the
   source-clustered sensitivity across fourteen unique sequences for any future headline.
+
+- **GENERATION-SIXTEEN LIFECYCLE-CONTROL SOURCE CONSTRUCTION; NO PHASE ADVANCE
+  (2026-07-21).** A full takeover audit re-read this continuity record, the canonical and local
+  handoffs, mission state, iteration-134 result, iteration-135 preregistration, launch/control
+  sources, analyzer, CI workflow, architecture, paper state, and frontier-positioning records.
+  It independently reproduced the core scientific and control boundaries: the released union's
+  NeuroNCAP gain is established on that benchmark; semantic attribution remains unresolved;
+  HUGSIM transfer is null; 5 cm replay jitter remains fragile; VAD selectivity failed; and no
+  production-readiness claim is established.
+
+  The unpublished phase-advance candidate `08747ce0b23ae1a48afbfd0f413173fbfd06ff54`
+  is quarantined on local diagnostic branches. It treated the absence of mechanical enforcement
+  as permission to omit the two controls required by B15 and proposed
+  `TOOLING_FROZEN_PREFLIGHT_REQUIRED / IDLE` while the same handoff reported lifecycle
+  `UNKNOWN`. That is a governance contradiction, not proof closure. The candidate is not merged,
+  published, or authority. Generation sixteen is being rebuilt directly from accepted B15
+  `21509ef2cdb634c02fac9310b57b7608b9878530` and may advance only to
+  `CI_HARDENING_REQUIRED / UNKNOWN` after an independently green lifecycle-control publication.
+
+  The source-control design is recorded, without independent-preregistration authority, in the
+  preacceptance design record
+  `docs/research/ITER135_SOURCE_BOUND_LIFECYCLE_CONTROL_PREREGISTRATION_2026-07-21.md`.
+  The lifecycle-observation candidate is a pure offline validator with no subprocess, provider,
+  network, container, process, or host probe. Its contract strict-decodes bounded raw
+  receipt and source-specific observation bytes, requires detached trusted identity, freshness,
+  implementation, cgroup, lease, and receipt bindings, and derives lifecycle state rather than
+  trusting outer status or authority labels. It deliberately has no `IDLE` verdict. The strongest
+  possible non-running classification is point-in-time evidence, not a host permission. A later
+  performing controller must retain and atomically consume the original live lease descriptor;
+  an offline receipt cannot prove continued capability possession.
+
+  The same generation now separately records a preacceptance next-source content-binder design in
+  the local tooling verifier. Only after exact F16, R16, T16, and B16 acceptance may that mode
+  invoke the exact R16-bound local Python and Git executables to SHA-verify raw repository objects
+  without checkout, import, or candidate execution. Its detached roots, pre-execution bootstrap
+  axioms, output-filesystem assumptions, and lack of publication, lifecycle, host, launch, or
+  safety authority are explicit in the design record. This local-only exception is not a lifecycle
+  observation, provider action, or permission to advance F17.
+
+  Adversarial review rejected the first 42-test implementation after producing false-green
+  quiescence from stale receipts, a world-writable lease, self-asserted statuses, copied digests,
+  contradictory genesis metadata, hostile host identity, and repeated stored-receipt admission.
+  That implementation was replaced rather than patched around the fixtures. Its 49 focused tests
+  passed, but a second adversarial review still rejected it. The reviewer reproduced green output
+  from stale or arbitrarily reidentified observers, self-classified source assertions, Boolean
+  aliases for integer fields, effectively simultaneous or globally interleaved replay rounds, and
+  invalid terminal-cause/proof combinations. A documentation audit additionally showed that a
+  detached binding failure could coexist with the positive reduced verdict. The 49-test result is
+  therefore diagnostic working-snapshot evidence, not an accepted gate. A third implementation
+  replaced those assertions with bounded source-specific record arrays and parsers, externalized
+  all trust bindings, enforced globally dwell-separated rounds and terminal-proof semantics, and
+  erased every positive classification when any problem exists. Subsequent review still found
+  Boolean aliases for empty stream counts and singleton link counts, noncanonical Base64 pad-bit
+  aliases, multiple owners on canonical singleton lock paths, and zero-duration captures; each
+  reproduction was fixed and retained as a known-bad.
+
+  The rejected candidate's focused gate was green at 94 tests. The accompanying statement that an
+  independent review varied more than 2,160 scalar/structure cases is unsupported by a retained
+  enumerated case manifest and is retracted as acceptance evidence. A later audit found a direct
+  false-green class: `global_containers` claimed a complete global registry but applied an exact
+  iteration-135 binding, so foreign, unlabelled, and differently labelled running containers could
+  disappear from both rounds and permit false quiescence. Candidate
+  `050b9b831e780405c2d2bab595adb960d37909b8` is therefore rejected despite its green focused
+  suite. The correction must use an unfiltered mission-agnostic host registry, exact
+  mission/global projection consistency, blocking `HOST_OCCUPIED` for stable foreign occupancy,
+  `UNKNOWN` for global churn or subset disagreement, and quiescence only when both unfiltered
+  global rounds are empty. The design document first landed atomically with the rejected source,
+  so its earlier `preregistered` status was also unsupported; it is a preacceptance design record.
+
+  Integrated adversarial replay then found fail-closed but acceptance-blocking precedence
+  mismatches when stable foreign global occupancy coexisted with coherent active-plus-terminal
+  evidence or incomplete terminal evidence; a first fix could conversely mask cross-binding drift.
+  The reducer now checks non-global drift and positive bindings before foreign occupancy, then
+  lifecycle composition and terminal completeness. All three combined cases are retained hostile
+  fixtures. No prior green result covered them.
+
+  Generation sixteen can accept only a prospective offline receipt-schema/parser/reducer control.
+  It does not establish a source-bound host observation or actual
+  `QUIESCENCE_EVIDENCE_COMPLETE`: no accepted collector/query implementation, invocation,
+  retained pagination trust root, trusted clock acquisition, or live FD/OFD-lock capability
+  exists. This source construction does not establish that an observer ran or that the host is
+  quiescent.
+
+  The current `HANDOFF.md` is the exact deterministic offline tombstone emitted by
+  `scripts/make_handoff.py`. It contains no `GPU_RUN_STATE=` compatibility token and therefore
+  does not impersonate the iteration-131 point-in-time live-probe audit. The immutable historical
+  iteration-131 report remains COMPLETE at SHA-256
+  `a4a6e5324ac52ece55c0eb91d60b7bec80615a078943475ac744bed40e63248a`; a current replay is
+  intentionally INFRA_NULL because no live probe exists. `README.md` and `docs/NEXT_PHASE.md`
+  now state lifecycle `UNKNOWN` instead of "no run is in flight", and `docs/REPORT.md` no longer
+  makes the unbounded claim that the public state of the art is failing. No scientific number,
+  schedule, estimand, arm, threshold, seed, verdict order, intervention, runtime, or evidence
+  byte changed.
+
+  The independently reviewable CI/supply-chain baton remains outstanding. The accepted claim
+  target for that later generation is content-addressed CI inputs and replayable evidence—not a
+  fully hermetic GitHub-hosted runner, SLSA conformance, cryptographic authenticity, product SBOM,
+  or production readiness. Raw terminal provenance, complete raw-CLI/canonical-estimator parity,
+  the exact fourteen-source sensitivity, and the frozen comparator limitation also remain
+  pre-execution blockers. This source construction accessed no sentinel-gpu, provider, remote
+  host, GPU, H/E/P/S, smoke, analyzer, experiment, or scientific-publication surface.
+
+  The first repository-publication attempt on 2026-07-22 rejected source candidate
+  `bc2643ff190f46a69e11e763659ef051b15843d0`. Disposable branch
+  `ci-validate-f16-a-bc2643ff190f` created workflow `304353015` run 790 /
+  `29892016993`, check suite `80967411376`, event `push`, attempt 1, at the exact candidate SHA.
+  Its exact two jobs both failed in pytest: Python 3.10 job `88834158138` reported
+  `2 failed, 2185 passed, 1 skipped` from `2026-07-22T04:48:14Z` through `04:58:30Z`; Python
+  3.11 job `88834158151` reported the same two failures and counts through `04:56:01Z`. Both
+  failures exposed immediate Linux inode-number reuse in hostile next-source writer fixtures
+  after the writer closed its only staging descriptor. The protocol stopped on that first red
+  run: it was not rerun, disposable branch B was not created, `master` remained exact B15, the
+  red branch was not deleted, and no canonical fast-forward occurred. The rejected candidate and
+  run remain diagnostic evidence and grant no authority.
+
+  The replacement source retains the exclusive-open staging descriptor through every name and
+  directory postcondition and closes it last, preventing allocator reuse while device/inode
+  identity is relied upon. It also permanently relinquishes name ownership when absence,
+  unreadability, type drift, or identity replacement is observed; a foreign staging name is then
+  preserved. Deterministic replacement fixtures preallocate both live inodes instead of assuming
+  allocator behavior, and descriptor-close faults are classified separately in precommit,
+  committed, and indeterminate states. The acknowledged same-UID pathname check-to-link/unlink
+  race remains outside the portable POSIX guarantee and remains an explicit threat-model axiom.
+
+  Replacement candidate `9cc549358f0ebf86cda3dd99e8ca29c733375540` then passed disposable
+  branch A, `ci-validate-f16-a-9cc549358f0e`, in workflow run 791 / `29897129820`, check suite
+  `80981187910`, attempt 1. Python 3.10 job `88849562424` and Python 3.11 job `88849562411`
+  both completed successfully against the exact candidate. Distinct disposable branch B,
+  `ci-validate-f16-b-9cc549358f0e`, created run 792 / `29897856950`, check suite
+  `80983176804`, attempt 1. Its Python 3.11 job `88851750021` passed, but Python 3.10 job
+  `88851750002` failed pytest with `1 failed, 2189 passed, 1 skipped`. The sole failure was
+  `test_control_hardening_rejects_nonexact_t15_state[numeric-workspace-boolean]`, before the
+  policy mutation: a synthetic final-manifest commit had been returned, then an immediate
+  `git show COMMIT:launch_manifest.json` returned nonzero. The controller discarded the Git
+  return code and stderr, and the hosted temporary repository was not retained, so the low-level
+  cause is `inconclusive`; absence or corruption of the commit, tree, or blob is not established.
+  The protocol stopped: no rerun, no canonical fast-forward, no branch deletion, and `master`
+  remained exact B15.
+
+  The exact failed policy case subsequently passed 21/21 bounded local repetitions. All 46
+  relevant local synthetic-publication constructions passed, and all 45 retained diagnostic
+  repositories contained the exact final-manifest blob and passed full Git object-graph
+  validation. Together with the other three green hosted lanes and the failed westus3 runner's
+  290-second fetch and 917-second pytest duration, versus 75 seconds and 363 seconds on the green
+  eastus Python 3.10 runner, the evidence supports but does not prove a runner-local transient; it
+  rejects a deterministic numeric-alias or policy defect on the tested local stacks.
+
+  The next replacement hardens the shared synthetic Git fixture without retrying or weakening an
+  authority check: forced SHA-1 and empty templates, sanitized fixed environment, rename-based
+  object creation, committed-object/reference fsync, hooks/gc/maintenance disabled, bounded
+  execution and diagnostics, and strict graph-connectivity validation after every commit. The
+  controller's direct low-level exception now records the first failed Git probe's exact return
+  code, stdout count and digest without content, and bounded one-line stderr count, digest, and
+  escaped preview, then still fails closed without a retry. The exact activation-builder surface
+  retains those details; higher reducers may intentionally collapse them to stable problem codes,
+  so no universal end-to-end diagnostic-retention claim is made. Known-bads cover hostile inherited
+  Git configuration, missing reachable objects, nonzero exit, negative signal-style return,
+  all-invalid UTF-8 streams, and diagnostics whose escaped form exceeds the final bound. These
+  controls change no lifecycle verdict, scientific design, authority, schedule, threshold, launch
+  rule, or external governance setting.
+
+  Final integrated-source audit found that candidates `bc2643ff190f46a69e11e763659ef051b15843d0`,
+  `9cc549358f0ebf86cda3dd99e8ca29c733375540`, and
+  `64ccca8e47732b432319492ec16955c598ec50a7` all retained the lifecycle validator and lifecycle
+  test blobs byte-identical to rejected `050b9b831e780405c2d2bab595adb960d37909b8`.
+  Their binder hardening did not cure the filtered-global-container false green. Runs 790 through
+  792 therefore remain diagnostic history only and cannot validate the corrected v3 lifecycle
+  contract. The integrated replacement must be a new single direct child of accepted B15,
+  combine the corrected unfiltered-global-registry validator and hostile fixtures from
+  `0c63fbe5e5001745559df2d8cedb0b3725d74058` with the newest binder/Git-probe controls, and earn
+  entirely fresh local and hosted evidence. This integration changed no scientific design and
+  accessed no host, provider, GPU, H/E/P/S, smoke, analyzer, experiment, or outcome surface.

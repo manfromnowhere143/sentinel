@@ -55,11 +55,12 @@ def test_generator_uses_canonical_state_and_never_elevates_iter38() -> None:
     assert "Authority: NONE" in rendered
     assert make_handoff.OBSERVATION_STATUS in rendered
     assert "- Lifecycle state: UNKNOWN" in rendered
-    assert (
-        "the frozen current-status prose in `README.md` and `docs/NEXT_PHASE.md`"
-        in rendered
-    )
-    assert "is retracted as execution evidence" in rendered
+    assert "earlier current-status prose in `README.md` and `docs/NEXT_PHASE.md`" in rendered
+    assert "said no run was in flight" in rendered
+    assert "both surfaces now report that lifecycle is `UNKNOWN`" in rendered
+    assert "CI enforces the same" not in rendered
+    assert "a green workflow is validation evidence, not authority" in rendered
+    assert "is retracted as execution evidence" not in rendered
 
 
 def test_generator_does_not_invoke_subprocess(
@@ -80,6 +81,23 @@ def test_generator_does_not_invoke_subprocess(
         "forbidden_actions": list(mission_contract.CONTROL_HARDENING_FORBIDDEN_ACTIONS),
     }
     allowed_states.append(control_state)
+    for phase, authorized_actions, forbidden_actions in (
+        (
+            "CI_HARDENING_REQUIRED",
+            mission_contract.CI_HARDENING_AUTHORIZED_ACTIONS,
+            mission_contract.CI_HARDENING_FORBIDDEN_ACTIONS,
+        ),
+    ):
+        candidate_state = copy.deepcopy(canonical_state)
+        candidate_state["run_state"] = "UNKNOWN"
+        candidate_state["next_program"] = {
+            "iteration": 135,
+            "name": mission_contract.EXPECTED_PROGRAM_NAME,
+            "phase": phase,
+            "authorized_actions": list(authorized_actions),
+            "forbidden_actions": list(forbidden_actions),
+        }
+        allowed_states.append(candidate_state)
     for candidate_state in allowed_states:
         monkeypatch.setattr(
             make_handoff,
@@ -91,6 +109,7 @@ def test_generator_does_not_invoke_subprocess(
 
         assert make_handoff.OBSERVATION_STATUS in rendered
         assert "- Lifecycle state: UNKNOWN" in rendered
+        assert "deterministic repository-local tombstone" in rendered
 
     for phase in (
         "TOOLING_FROZEN_PREFLIGHT_REQUIRED",

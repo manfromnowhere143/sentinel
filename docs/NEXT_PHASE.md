@@ -5,21 +5,24 @@
 `MISSION_STATE.json` is authoritative. Iteration 134 completed `1,200/1,200` episodes with
 `PLACEBO_HARM_OR_NULL`: the released union's NeuroNCAP gain reproduced, but semantic attribution
 did not resolve because the semantics-free placebo realized only `859/1205` scheduled brake
-frames. No run is in flight, iteration 134 must not be repeated, and the older iteration-38
-pre-registration is historical rather than governing.
+frames. The current run state is `UNKNOWN` and is not inferred idle from absent containers or
+processes; iteration 134 must not be repeated, and the older iteration-38 pre-registration is
+historical rather than governing.
 
 The only current causal successor is **Iteration 135: semantics-free placebo dose-response causal
-closure**. It requires a fresh pre-registration. Its primary inference must remain pair-clustered;
-realized dose is post-treatment mechanism evidence and cannot be used after the fact to repair the
-primary comparison. The preferred design measures the released union against a frozen family of
-clock-only placebo policies spanning multiple assigned dose rates and evaluates whether the union
-lies outside their safety/progress/actuation frontier. A failure to do so downgrades the semantic
-mechanism claim rather than triggering threshold tuning.
+closure**. Its hypothesis is preregistered, but execution remains blocked. Its primary inference
+must remain pair-clustered; realized dose is post-treatment mechanism evidence and cannot be used
+after the fact to repair the primary comparison. The preferred design measures the released union
+against a frozen family of clock-only placebo policies spanning multiple assigned dose rates and
+evaluates whether the union lies outside their safety/progress/actuation frontier. A failure to do
+so downgrades the semantic mechanism claim rather than triggering threshold tuning.
 
-In parallel, a pinned Bench2Drive-Robust feasibility lane may prepare the next external benchmark
-for frame loss, state error, partial observation, and control latency. That lane authorizes no
-claim and must not contaminate Iteration 135. No GPU launch is authorized until the Iteration-135
-hypothesis, analyzer, launch manifest, provenance, storage, and smoke gates are committed.
+A pinned Bench2Drive-Robust feasibility lane remains a later external-benchmark option for frame
+loss, state error, partial observation, and control latency; the current control-hardening phase
+does not authorize that work. No host or GPU launch is authorized until the source-bound lifecycle
+control and separately accepted CI/supply-chain batons exist, every static-`IDLE` performing
+consumer is replaced, and raw terminal provenance, raw-CLI/analyzer parity, launch manifest,
+storage, and smoke gates are accepted in their registered order.
 
 The material below is retained as a historical decision ledger. Statements such as “the next
 priority” describe their point in the campaign unless explicitly repeated in the canonical block
@@ -428,9 +431,10 @@ evaluation, closed-loop work, or safety claims.
 **Motivation (measured, twice):** iterations 12 and 14 established that frozen planners hold no
 plan B precisely when it matters — UniAD's command-conditioned candidates collapse from 14 m of
 benign diversity to 4 cm under threat (0/37 escapes); VAD's native modes retain only partial
-diversity (21% escapes, below the 30% viability bar). The runtime selector mechanism is sound
-(introspection sees the danger); the missing ingredient is a candidate set that stays diverse
-under threat. To the verified corpus ([RELATED_WORK.md](RELATED_WORK.md)) no published system
+diversity (21% escapes, below the 30% viability bar). The working hypothesis was that the runtime
+selector could exploit a candidate set that stayed diverse under threat; subsequent candidate-head
+tests below failed that hypothesis's necessary escape-rate condition. In the dated verified corpus
+([RELATED_WORK.md](RELATED_WORK.md)) no published system
 trains a diversity-preserving candidate head for a *frozen* planner and selects among its outputs
 with a label-free runtime risk score.
 
@@ -439,8 +443,8 @@ of the planner untouched) trained on nuScenes train split with an explicit diver
 (winner-takes-all regression plus an inter-mode repulsion term), producing K candidates per
 frame. At runtime, the union's risk score ranks the candidates; the committed-stop floor remains
 (a candidate is executed only if its risk clears the plan's; otherwise the released stop fires).
-Safe on false alarms by construction — the iteration-11 asymmetry is respected because every
-candidate is trained on in-distribution driving.
+False-alarm robustness was an empirical requirement, not a construction guarantee: training on
+in-distribution driving alone could not establish it.
 
 **Pre-registerable bar (frozen before any training):** under-threat escape rate > 30% on the
 iteration-12 frame corpus (the exact bar the planner's own candidates failed); then closed-loop:
@@ -472,12 +476,13 @@ single-L4 feasible; the largest engineering lift of the three.
 
 ## Line 2 — threat-class routing (named by iteration 16's null)
 
-**Motivation (measured):** the crawl null proved the stop is a *position guarantee* — but it
+**Motivation (measured):** on the registered crawl cells, the stop halted short of crossings that
+the crawl entered — but it
 bought the campaign's highest safe-progress (2.544) and beat the released union on the deployment
 metric with a CI excluding zero. The safety cost was concentrated where geometry says it must be:
 the crossing (side) and in-path (stationary) classes. A router that stops for path-crossing and
 in-path threats and crawls only where the tracked geometry proves no path overlap keeps the
-position guarantee exactly where it is load-bearing.
+measured stopping-location advantage exactly where it was load-bearing in those cells.
 
 **Pre-registerable bar:** safety cells within the released-union's (side ≤ 45%, stationary ≤
 25%, NCAP within 0.15 of 3.09 — the iteration-16 bars, unchanged) AND safe-progress vs OFF
