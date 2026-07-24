@@ -19,15 +19,15 @@
   "next_program": {
     "iteration": 135,
     "name": "semantics-free placebo dose-response causal closure",
-    "phase": "CONTROL_HARDENING_REQUIRED",
+    "phase": "CI_HARDENING_REQUIRED",
     "authorized_actions": [
-      "implement and validate only offline, preregistered, source-bound lifecycle observation, terminal-proof, partial-proof, inconsistency, and fail-closed recovery controls",
-      "implement and validate separately reviewable hermetic CI, supply-chain, and publication-evidence controls without changing external governance settings"
+      "implement and validate only offline, content-addressed CI inputs, exact dependency locks, supply-chain manifests, independent evidence replay, and known-bad controls",
+      "retain the accepted lifecycle-control source without running a host observer or changing external governance settings"
     ],
     "forbidden_actions": [
-      "de-prepare, rebuild, normalize, clean, install, write, delete, mutate, inventory, or access any iteration-135 remote host, remote filesystem, host-side repository, packet, runtime, lock, container, GPU, credential, or external provider in a way that could create H, E, P, or S",
-      "create, execute, publish, or advance any H, E, P, or S descendant; launch activation; live smoke; or analytic episode",
-      "infer IDLE, termination, completion, readiness, approval, or authority from static state, absent containers, absent processes, missing reviewers, timeouts, retry exhaustion, or incomplete proof",
+      "access, inventory, prepare, mutate, or execute on any iteration-135 remote host, provider, filesystem, packet, runtime, lock, container, GPU, credential, or evidence path",
+      "create, execute, publish, or advance any H, E, P, or S descendant; lifecycle observation; launch activation; live smoke; or analytic episode",
+      "infer IDLE, termination, completion, readiness, approval, authority, hermeticity, authenticity, reproducibility, or SLSA conformance from a green workflow or incomplete proof",
       "run analyzers or publish iteration-135 data, results, claims, figures, paper text, or scientific conclusions",
       "change branch protection, rulesets, Actions policy, repository visibility, credentials, secrets, access control, or other external governance settings without explicit operator authorization",
       "rerun iteration 134 or adapt iteration-135 schedules, estimands, verdicts, or policies after evidence"
