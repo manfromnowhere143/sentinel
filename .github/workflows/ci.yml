@@ -15,7 +15,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - run: pip install ruff pytest numpy scikit-learn
+      # ruff is pinned to the exact locally verified version: the generation-16 receipt lane
+      # failed when a newer ruff shipped mid-ceremony and introduced new default findings.
+      # The full content-addressed toolchain lock is the CI_HARDENING (generation-17) mission.
+      - run: pip install ruff==0.15.20 pytest numpy scikit-learn
       - run: ruff check .
       - run: pytest -q
       - run: python scripts/validate_docs.py

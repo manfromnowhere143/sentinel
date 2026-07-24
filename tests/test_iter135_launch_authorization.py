@@ -1425,8 +1425,10 @@ def _lifecycle_control_publication(
     monkeypatch: pytest.MonkeyPatch,
     *,
     extra_source_path: bool = False,
-) -> tuple[str, str, str, str, str]:
-    """Build a compact exact B15 -> F16 -> R16 -> T16 -> B16 topology."""
+    extra_pin_path: bool = False,
+    skip_pin: bool = False,
+) -> tuple[str, str, str, str, str, str]:
+    """Build a compact exact B15 -> F16 -> pin -> R16 -> T16 -> B16 topology."""
 
     _git(repo, "init", "-b", "master")
     _git(repo, "config", "user.name", "Sentinel Test")
@@ -1451,6 +1453,18 @@ def _lifecycle_control_publication(
         source_paths.append("unexpected-generation-sixteen-source.txt")
         _write(repo, source_paths[-1], "hostile source-scope expansion\n")
     f16 = _commit(repo, "generation sixteen lifecycle-control source", *source_paths)
+    monkeypatch.setattr(auth, "GENERATION_SIXTEEN_SOURCE_COMMIT", f16)
+
+    if skip_pin:
+        pin = f16
+    else:
+        pin_paths = list(auth.CI_TOOLCHAIN_PIN_COMMIT_PATHS)
+        for relative in pin_paths:
+            _write(repo, relative, f"ci toolchain pin: {relative}\n")
+        if extra_pin_path:
+            pin_paths.append("unexpected-ci-toolchain-pin.txt")
+            _write(repo, pin_paths[-1], "hostile pin-scope expansion\n")
+        pin = _commit(repo, "ci toolchain pin", *pin_paths)
 
     _write(repo, auth.TOOLING_RECEIPT_REL, {"generation": 16})
     r16 = _commit(
@@ -1468,7 +1482,7 @@ def _lifecycle_control_publication(
         "CONTINUITY.md",
         "HANDOFF.md",
     )
-    return b15, f16, r16, t16, b16
+    return b15, f16, pin, r16, t16, b16
 
 
 def test_control_hardening_state_mirror_matches_canonical_state_contract() -> None:
@@ -1510,11 +1524,11 @@ def test_generation_sixteen_declares_the_exact_seventeen_path_f16_scope() -> Non
     )
 
 
-def test_lifecycle_control_baton_accepts_only_exact_f16_r16_t16_b16_topology(
+def test_lifecycle_control_baton_accepts_only_exact_f16_pin_r16_t16_b16_topology(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    _b15, _f16, r16, _t16, b16 = _lifecycle_control_publication(
+    _b15, _f16, _pin, r16, _t16, b16 = _lifecycle_control_publication(
         tmp_path,
         monkeypatch,
     )
@@ -1530,10 +1544,29 @@ def test_lifecycle_control_baton_rejects_f16_scope_expansion(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    _b15, _f16, r16, _t16, b16 = _lifecycle_control_publication(
+    _b15, _f16, _pin, r16, _t16, b16 = _lifecycle_control_publication(
         tmp_path,
         monkeypatch,
         extra_source_path=True,
+    )
+
+    assert "authorization:lifecycle-control-f16-scope" in (
+        auth._ci_hardening_baton_problems(
+            tmp_path,
+            tooling_receipt_commit=r16,
+            tooling_baton_commit=b16,
+        )
+    )
+
+
+def test_lifecycle_control_baton_rejects_pin_scope_expansion(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    _b15, _f16, _pin, r16, _t16, b16 = _lifecycle_control_publication(
+        tmp_path,
+        monkeypatch,
+        extra_pin_path=True,
     )
 
     assert "authorization:lifecycle-control-source-scope" in (
@@ -1543,6 +1576,25 @@ def test_lifecycle_control_baton_rejects_f16_scope_expansion(
             tooling_baton_commit=b16,
         )
     )
+
+
+def test_lifecycle_control_baton_rejects_receipt_that_skips_the_pin_commit(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    _b15, _f16, _pin, r16, _t16, b16 = _lifecycle_control_publication(
+        tmp_path,
+        monkeypatch,
+        skip_pin=True,
+    )
+    problems = auth._ci_hardening_baton_problems(
+        tmp_path,
+        tooling_receipt_commit=r16,
+        tooling_baton_commit=b16,
+    )
+
+    assert "authorization:lifecycle-control-source-parent" in problems
+    assert "authorization:lifecycle-control-source-scope" in problems
 
 
 @pytest.mark.parametrize(
@@ -1564,7 +1616,7 @@ def test_ci_hardening_publication_is_always_non_authoritative(
     expected_status: str,
     expected_problems: list[str],
 ) -> None:
-    _b15, _f16, r16, t16, b16 = _lifecycle_control_publication(
+    _b15, _f16, _pin, r16, t16, b16 = _lifecycle_control_publication(
         tmp_path,
         monkeypatch,
     )

@@ -398,7 +398,18 @@ GENERATION_SIXTEEN_REASON = (
 )
 # Compatibility aliases used by the receipt generator and focused hostile tests. They always name
 # the active generation-sixteen source publication, never a historical recovery.
-RECOVERY_SOURCE_PARENT = GENERATION_SIXTEEN_SOURCE_PARENT
+# The generation-sixteen lifecycle-control source published as F16. Its hash became citable the
+# moment it landed on canonical master, exactly like every earlier generation's commits.
+GENERATION_SIXTEEN_SOURCE_COMMIT = "51370ccac79fd141f774ca462a4fdd8b8f3f5b55"
+# The CI toolchain pin exists because the published CI lane installed an unpinned ruff and a
+# newer release failed the generation-sixteen receipt lane after local verification was green.
+# It amends the active generation-sixteen source with EXACTLY ONE additional commit: a single
+# direct child of F16 whose committed path set pins ruff in CI and teaches the three publication
+# validators (and their tests) this amended source resolution. The receipt is regenerated at the
+# pin commit; F16's own published shape stays enforced below. The full content-addressed
+# toolchain lock remains the CI_HARDENING (generation-seventeen) mission.
+CI_TOOLCHAIN_PIN_SOURCE_PARENT = GENERATION_SIXTEEN_SOURCE_COMMIT
+RECOVERY_SOURCE_PARENT = CI_TOOLCHAIN_PIN_SOURCE_PARENT
 RECOVERY_REASON = GENERATION_SIXTEEN_REASON
 POST_FREEZE_EXACT_PATHS = {
     "CONTINUITY.md",
@@ -749,7 +760,30 @@ GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS = (
     "tests/test_iter135_tooling_verifier.py",
     "tests/test_mission_state.py",
 )
-RECOVERY_SOURCE_COMMIT_PATHS = GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS
+# The exact committed path set of the CI toolchain pin commit — the active generation-sixteen
+# source amendment. It contains the machinery files themselves because the pin commit is
+# self-admitting in the established F16 bootstrap idiom.
+CI_TOOLCHAIN_PIN_COMMIT_PATHS = (
+    ".github/workflows/ci.yml",
+    f"{EXPERIMENT_REL}/authorize_launch135.py",
+    f"{EXPERIMENT_REL}/verify_tooling135.py",
+    "scripts/mission_state.py",
+    "tests/test_iter135_launch_authorization.py",
+    "tests/test_iter135_tooling_verifier.py",
+    "tests/test_mission_state.py",
+)
+# One reviewed documentation-correction tranche is pre-registered as the only lawful commit
+# after the generation-sixteen baton: a single direct child of B16 with exactly this path set,
+# leaving MISSION_STATE.json byte-identical to T16's. It is not a general docs allowance.
+DOCUMENTATION_CORRECTION_TRANCHE_COMMIT_PATHS = (
+    "REVIEWER.md",
+    "docs/CAMPAIGN.md",
+    "docs/paper/MANUSCRIPT.md",
+    "docs/paper/STATUS.md",
+    "scripts/mission_state.py",
+    "tests/test_mission_state.py",
+)
+RECOVERY_SOURCE_COMMIT_PATHS = CI_TOOLCHAIN_PIN_COMMIT_PATHS
 EXPECTED_RECOVERY_PUBLICATION = {
     "generation": 16,
     "supersedes_receipt_commit": GENERATION_FIFTEEN_RECEIPT_COMMIT,
@@ -4492,6 +4526,15 @@ def validate_published_receipt_structure(
             raise VerificationError(
                 "actual generation-sixteen source topology or path scope is wrong"
             )
+        lifecycle_source_parents, lifecycle_source_paths = _git_commit_row(
+            root, GENERATION_SIXTEEN_SOURCE_COMMIT
+        )
+        if lifecycle_source_parents != (GENERATION_SIXTEEN_SOURCE_PARENT,) or (
+            lifecycle_source_paths != tuple(sorted(GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS))
+        ):
+            raise VerificationError(
+                "published F16 lifecycle-control source topology or path scope changed"
+            )
 
         inventory = _source_inventory_from_tree(root, source_commit)
         if receipt.get("inventory") != inventory.as_dict():
@@ -5020,6 +5063,16 @@ def validate_published_receipt_structure(
             "MISSION_STATE.json",
         ):
             raise VerificationError("generation-sixteen source changed the accepted B15 state")
+        if _git_file_bytes(
+            root,
+            GENERATION_SIXTEEN_SOURCE_COMMIT,
+            "MISSION_STATE.json",
+        ) != _git_file_bytes(
+            root,
+            GENERATION_FIFTEEN_BATON_COMMIT,
+            "MISSION_STATE.json",
+        ):
+            raise VerificationError("F16 lifecycle-control source changed the accepted B15 state")
 
         current_git = git_probe(root, inventory.tested_files)
         if current_git.dirty_entries or current_git.porcelain_sha256 != empty_status:
@@ -5030,8 +5083,11 @@ def validate_published_receipt_structure(
             raise VerificationError("generation-sixteen receipt is not an ancestor of current HEAD")
 
         chain = _linear_publication_chain(root, receipt_commit, current_git.head)
-        if len(chain) > 2:
-            raise VerificationError("generation-sixteen has commits beyond exact T16 and B16")
+        if len(chain) > 3:
+            raise VerificationError(
+                "generation-sixteen has commits beyond exact T16, B16, "
+                "and the single documentation tranche"
+            )
         if chain:
             state_commit, state_paths = chain[0]
             if state_paths != ("MISSION_STATE.json",):
@@ -5041,16 +5097,33 @@ def validate_published_receipt_structure(
             )
             if not _exact_json_value(state, _expected_ci_hardening_state(root)):
                 raise VerificationError("T16 is not the exact CI_HARDENING_REQUIRED/UNKNOWN state")
-        if len(chain) == 2 and chain[1][1] != ("CONTINUITY.md", "HANDOFF.md"):
+        if len(chain) >= 2 and chain[1][1] != ("CONTINUITY.md", "HANDOFF.md"):
             raise VerificationError("B16 is not the exact documentation-only baton")
+        if len(chain) == 3:
+            # Exactly one pre-registered reviewed documentation tranche may follow B16.
+            tranche_commit, tranche_paths = chain[2]
+            if tranche_paths != tuple(
+                sorted(DOCUMENTATION_CORRECTION_TRANCHE_COMMIT_PATHS)
+            ):
+                raise VerificationError(
+                    "post-B16 commit is not the exact reviewed documentation tranche"
+                )
+            if _git_file_bytes(
+                root, tranche_commit, "MISSION_STATE.json"
+            ) != _git_file_bytes(root, chain[0][0], "MISSION_STATE.json"):
+                raise VerificationError("documentation tranche changed the accepted T16 state")
 
         allowed_upstream = {receipt_commit}
         if not chain:
             allowed_upstream.add(source_commit)
         elif len(chain) == 2:
             allowed_upstream.add(chain[1][0])
+        elif len(chain) == 3:
+            allowed_upstream = {chain[1][0], chain[2][0]}
         if current_git.upstream_head not in allowed_upstream:
-            raise VerificationError("origin/master is not exact F16, R16, or B16 for this stage")
+            raise VerificationError(
+                "origin/master is not the exact published commit for this stage"
+            )
         if current_git.upstream_head != source_commit and not ancestry_probe(
             root,
             receipt_commit,

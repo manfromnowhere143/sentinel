@@ -178,6 +178,22 @@ def test_generation_sixteen_publication_contract_matches_all_controllers() -> No
     assert verifier.EXPECTED_RECOVERY_PUBLICATION == publication
     assert mission_state.EXPECTED_RECOVERY_PUBLICATION == publication
     assert authorization.EXPECTED_LIFECYCLE_CONTROL_PUBLICATION == publication
+    assert (
+        verifier.GENERATION_SIXTEEN_SOURCE_COMMIT
+        == mission_state.GENERATION_SIXTEEN_SOURCE_COMMIT
+        == authorization.GENERATION_SIXTEEN_SOURCE_COMMIT
+        == "51370ccac79fd141f774ca462a4fdd8b8f3f5b55"
+    )
+    assert (
+        tuple(verifier.CI_TOOLCHAIN_PIN_COMMIT_PATHS)
+        == tuple(mission_state.CI_TOOLCHAIN_PIN_COMMIT_PATHS)
+        == tuple(authorization.CI_TOOLCHAIN_PIN_COMMIT_PATHS)
+    )
+    assert (
+        tuple(verifier.GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS)
+        == tuple(mission_state.GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS)
+        == tuple(authorization.GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS)
+    )
 
 
 def test_green_receipt_binds_complete_discovered_surface_and_exact_commands(
@@ -207,10 +223,13 @@ def test_green_receipt_binds_complete_discovered_surface_and_exact_commands(
     assert receipt["publication"] == verifier.EXPECTED_RECOVERY_PUBLICATION
     assert (
         verifier.RECOVERY_SOURCE_COMMIT_PATHS
-        == verifier.GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS
+        == verifier.CI_TOOLCHAIN_PIN_COMMIT_PATHS
     )
-    assert len(verifier.RECOVERY_SOURCE_COMMIT_PATHS) == 17
+    assert len(verifier.RECOVERY_SOURCE_COMMIT_PATHS) == 7
+    assert len(verifier.GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS) == 17
+    assert verifier.RECOVERY_SOURCE_PARENT == verifier.GENERATION_SIXTEEN_SOURCE_COMMIT
     assert "MISSION_STATE.json" not in verifier.RECOVERY_SOURCE_COMMIT_PATHS
+    assert "MISSION_STATE.json" not in verifier.GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS
     assert len(receipt["commands"]) == 8
     assert Path(receipt["commands"][3]["argv"][0]).name == "shellcheck"
     assert Path(receipt["commands"][4]["argv"][0]).name == "ruff"
@@ -511,6 +530,9 @@ def test_published_structural_validation_resolves_only_trusted_git(
         verifier.GENERATION_FIFTEEN_BATON_COMMIT: (
             verifier.GENERATION_FIFTEEN_STATE_COMMIT,
         ),
+        verifier.GENERATION_SIXTEEN_SOURCE_COMMIT: (
+            verifier.GENERATION_SIXTEEN_SOURCE_PARENT,
+        ),
         source: (verifier.RECOVERY_SOURCE_PARENT,),
         receipt_commit: (source,),
     }
@@ -601,6 +623,9 @@ def test_published_structural_validation_resolves_only_trusted_git(
         verifier.GENERATION_FIFTEEN_RECEIPT_COMMIT: (verifier.RECEIPT_REL,),
         verifier.GENERATION_FIFTEEN_STATE_COMMIT: ("MISSION_STATE.json",),
         verifier.GENERATION_FIFTEEN_BATON_COMMIT: ("CONTINUITY.md", "HANDOFF.md"),
+        verifier.GENERATION_SIXTEEN_SOURCE_COMMIT: tuple(
+            sorted(verifier.GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS)
+        ),
         source: tuple(sorted(verifier.RECOVERY_SOURCE_COMMIT_PATHS)),
         receipt_commit: (verifier.RECEIPT_REL,),
     }
@@ -622,6 +647,7 @@ def test_published_structural_validation_resolves_only_trusted_git(
             return receipt_path.read_bytes()
         if relative == "MISSION_STATE.json" and commit in {
             source,
+            verifier.GENERATION_SIXTEEN_SOURCE_COMMIT,
             verifier.GENERATION_FIFTEEN_BATON_COMMIT,
         }:
             return (root / relative).read_bytes()
@@ -1130,6 +1156,8 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
     state_commit = "c" * 40
     baton_commit = "d" * 40
     later_commit = "e" * 40
+    tranche_commit = "9" * 40
+    beyond_tranche_commit = "8" * 40
     source_tree = tuple(
         sorted(
             path.relative_to(root).as_posix()
@@ -1202,11 +1230,16 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
         verifier.GENERATION_FIFTEEN_BATON_COMMIT: (
             verifier.GENERATION_FIFTEEN_STATE_COMMIT,
         ),
+        verifier.GENERATION_SIXTEEN_SOURCE_COMMIT: (
+            verifier.GENERATION_SIXTEEN_SOURCE_PARENT,
+        ),
         source: (verifier.RECOVERY_SOURCE_PARENT,),
         receipt_commit: (source,),
         state_commit: (receipt_commit,),
         baton_commit: (state_commit,),
         later_commit: (baton_commit,),
+        tranche_commit: (baton_commit,),
+        beyond_tranche_commit: (tranche_commit,),
     }
     paths = {
         verifier.GENERATION_ONE_SOURCE_COMMIT: tuple(
@@ -1295,11 +1328,18 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
         verifier.GENERATION_FIFTEEN_RECEIPT_COMMIT: (verifier.RECEIPT_REL,),
         verifier.GENERATION_FIFTEEN_STATE_COMMIT: ("MISSION_STATE.json",),
         verifier.GENERATION_FIFTEEN_BATON_COMMIT: ("CONTINUITY.md", "HANDOFF.md"),
+        verifier.GENERATION_SIXTEEN_SOURCE_COMMIT: tuple(
+            sorted(verifier.GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS)
+        ),
         source: tuple(sorted(verifier.RECOVERY_SOURCE_COMMIT_PATHS)),
         receipt_commit: (verifier.RECEIPT_REL,),
         state_commit: ("MISSION_STATE.json",),
         baton_commit: ("CONTINUITY.md", "HANDOFF.md"),
         later_commit: (verifier.REQUIRED_PYTHON_TOOL_FILES[0],),
+        tranche_commit: tuple(
+            sorted(verifier.DOCUMENTATION_CORRECTION_TRANCHE_COMMIT_PATHS)
+        ),
+        beyond_tranche_commit: (verifier.REQUIRED_PYTHON_TOOL_FILES[0],),
     }
     receipt_history = [
         receipt_commit,
@@ -1322,6 +1362,7 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
     accepted_state_bytes = (root / "MISSION_STATE.json").read_bytes()
     ci_state = {"phase": "CI_HARDENING_REQUIRED", "run_state": "UNKNOWN"}
     ci_state_bytes = verifier._canonical_json(ci_state)  # noqa: SLF001
+    tranche_mission = {"bytes": ci_state_bytes}
     monkeypatch.setattr(
         verifier,
         "_expected_ci_hardening_state",
@@ -1341,10 +1382,16 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
             if commit == receipt_commit and relative == verifier.RECEIPT_REL:
                 return receipt_path.read_bytes()
             if relative == "MISSION_STATE.json":
-                if commit in {source, verifier.GENERATION_FIFTEEN_BATON_COMMIT}:
+                if commit in {
+                    source,
+                    verifier.GENERATION_SIXTEEN_SOURCE_COMMIT,
+                    verifier.GENERATION_FIFTEEN_BATON_COMMIT,
+                }:
                     return accepted_state_bytes
                 if commit == state_commit:
                     return ci_state_bytes
+                if commit == tranche_commit:
+                    return tranche_mission["bytes"]
             assert commit == source
             return (root / relative).read_bytes()
         if argv[0] == "log":
@@ -1370,7 +1417,7 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
         ancestry_probe=stable_ancestry,
     )
     assert any(
-        "origin/master is not exact F16, R16, or B16 for this stage" in error
+        "origin/master is not the exact published commit for this stage" in error
         for error in errors
     )
 
@@ -1402,7 +1449,7 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
         ancestry_probe=receipt_missing_from_origin,
     )
     assert any(
-        "origin/master is not exact F16, R16, or B16 for this stage" in error
+        "origin/master is not the exact published commit for this stage" in error
         for error in errors
     )
 
@@ -1431,7 +1478,75 @@ def test_published_structure_binds_exact_recovery_chain_and_rejects_hostile_hist
         git_probe=lambda _root, _paths: publication_git(later_commit),
         ancestry_probe=stable_ancestry,
     )
-    assert any("commits beyond exact T16 and B16" in error for error in errors)
+    assert any(
+        "post-B16 commit is not the exact reviewed documentation tranche" in error
+        for error in errors
+    )
+
+    errors = verifier.validate_published_receipt_structure(
+        receipt,
+        root,
+        git_probe=lambda _root, _paths: publication_git(tranche_commit),
+        ancestry_probe=stable_ancestry,
+    )
+    assert errors == []
+
+    errors = verifier.validate_published_receipt_structure(
+        receipt,
+        root,
+        git_probe=lambda _root, _paths: publication_git(tranche_commit, baton_commit),
+        ancestry_probe=stable_ancestry,
+    )
+    assert errors == []
+
+    errors = verifier.validate_published_receipt_structure(
+        receipt,
+        root,
+        git_probe=lambda _root, _paths: publication_git(tranche_commit, receipt_commit),
+        ancestry_probe=stable_ancestry,
+    )
+    assert any(
+        "origin/master is not the exact published commit for this stage" in error
+        for error in errors
+    )
+
+    errors = verifier.validate_published_receipt_structure(
+        receipt,
+        root,
+        git_probe=lambda _root, _paths: publication_git(beyond_tranche_commit),
+        ancestry_probe=stable_ancestry,
+    )
+    assert any(
+        "commits beyond exact T16, B16, and the single documentation tranche" in error
+        for error in errors
+    )
+
+    expected_tranche_paths = paths[tranche_commit]
+    paths[tranche_commit] = (*expected_tranche_paths, "docs/UNREVIEWED_EXTRA.md")
+    errors = verifier.validate_published_receipt_structure(
+        receipt,
+        root,
+        git_probe=lambda _root, _paths: publication_git(tranche_commit),
+        ancestry_probe=stable_ancestry,
+    )
+    assert any(
+        "post-B16 commit is not the exact reviewed documentation tranche" in error
+        for error in errors
+    )
+    paths[tranche_commit] = expected_tranche_paths
+
+    tranche_mission["bytes"] = accepted_state_bytes
+    errors = verifier.validate_published_receipt_structure(
+        receipt,
+        root,
+        git_probe=lambda _root, _paths: publication_git(tranche_commit),
+        ancestry_probe=stable_ancestry,
+    )
+    assert any(
+        "documentation tranche changed the accepted T16 state" in error
+        for error in errors
+    )
+    tranche_mission["bytes"] = ci_state_bytes
 
     receipt_history.pop()
     errors = verifier.validate_published_receipt_structure(

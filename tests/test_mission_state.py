@@ -3523,11 +3523,14 @@ def _commit_generation_sixteen_publication(
     stage: str,
     origin: str | None = None,
     source_paths: tuple[str, ...] = mission_state.GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS,
+    pin_paths: tuple[str, ...] = mission_state.CI_TOOLCHAIN_PIN_COMMIT_PATHS,
     wrong_source_parent: bool = False,
+    wrong_pin_parent: bool = False,
+    skip_pin: bool = False,
 ) -> dict[str, str]:
-    """Build exact synthetic F16/R16/T16/B16 prefixes above accepted B15."""
+    """Build exact synthetic F16/pin/R16/T16/B16 prefixes above accepted B15."""
 
-    if stage not in {"f16", "r16", "t16", "b16"}:
+    if stage not in {"f16", "pin", "r16", "t16", "b16"}:
         raise AssertionError(f"unsupported generation-sixteen stage: {stage}")
     generation_fifteen = _commit_generation_fifteen_publication(
         repo,
@@ -3554,6 +3557,11 @@ def _commit_generation_sixteen_publication(
     _git(repo, "add", *source_paths)
     _git(repo, "commit", "-m", "generation sixteen lifecycle-control source")
     source_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
+    monkeypatch.setattr(
+        mission_state,
+        "GENERATION_SIXTEEN_SOURCE_COMMIT",
+        source_commit,
+    )
 
     expected_publication = {
         "generation": 16,
@@ -3587,6 +3595,32 @@ def _commit_generation_sixteen_publication(
         _git(repo, "update-ref", "refs/remotes/origin/master", target)
         return commits
 
+    if skip_pin:
+        active_source_commit = source_commit
+    else:
+        if wrong_pin_parent:
+            extra = repo / "unexpected-post-f16-parent.txt"
+            extra.write_text("unexpected pin parent\n")
+            _git(repo, "add", extra.name)
+            _git(repo, "commit", "-m", "unexpected post-F16 parent")
+        monkeypatch.setattr(
+            mission_state,
+            "CI_TOOLCHAIN_PIN_COMMIT_PATHS",
+            pin_paths,
+        )
+        for relative in pin_paths:
+            path = repo / relative
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(f"ci toolchain pin: {relative}\n")
+        _git(repo, "add", *pin_paths)
+        _git(repo, "commit", "-m", "ci toolchain pin")
+        active_source_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
+        commits["ci_toolchain_pin"] = active_source_commit
+        if stage == "pin":
+            target = source_commit if origin in {None, "f16"} else active_source_commit
+            _git(repo, "update-ref", "refs/remotes/origin/master", target)
+            return commits
+
     source_commit_paths = sorted(
         item.decode()
         for item in _git(
@@ -3597,7 +3631,7 @@ def _commit_generation_sixteen_publication(
             "--name-only",
             "-r",
             "-z",
-            source_commit,
+            active_source_commit,
         ).split(b"\0")
         if item
     )
@@ -3606,15 +3640,15 @@ def _commit_generation_sixteen_publication(
         "show",
         "-s",
         "--format=%P",
-        source_commit,
+        active_source_commit,
     ).decode().split()
     git_state = {
-        "head": source_commit,
+        "head": active_source_commit,
         "dirty_entries": [],
         "porcelain_v1_z_sha256": EMPTY_GIT_STATUS_SHA256,
         "branch": "master",
         "upstream": "origin/master",
-        "upstream_head": source_commit,
+        "upstream_head": active_source_commit,
         "parents": source_parents,
         "commit_paths": source_commit_paths,
     }
@@ -3641,7 +3675,7 @@ def _commit_generation_sixteen_publication(
     receipt_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
     commits["generation_sixteen_receipt"] = receipt_commit
     if stage == "r16":
-        target = source_commit if origin == "f16" else receipt_commit
+        target = active_source_commit if origin in {"f16", "pin"} else receipt_commit
         _git(repo, "update-ref", "refs/remotes/origin/master", target)
         return commits
 
@@ -4398,7 +4432,7 @@ def test_generation_fifteen_control_phase_rejects_every_post_b15_descendant(
 
     problems = validate_state(state, repo)
 
-    assert "tooling_publication:pending_f16_source_scope" in problems
+    assert "tooling_publication:pending_ci_pin_source_scope" in problems
     assert _git(repo, "rev-parse", "origin/master").decode().strip() == commits[
         "generation_fifteen_baton"
     ]
@@ -4537,9 +4571,9 @@ def test_generation_fifteen_receipt_history_is_exactly_fifteen_generations(
 @pytest.mark.parametrize(
     ("stage", "origin", "expected_phase", "origin_key"),
     [
-        ("f16", "b15", "CONTROL_HARDENING_REQUIRED", "generation_fifteen_baton"),
-        ("f16", "f16", "CONTROL_HARDENING_REQUIRED", "generation_sixteen_source"),
-        ("r16", "f16", "CONTROL_HARDENING_REQUIRED", "generation_sixteen_source"),
+        ("pin", "f16", "CONTROL_HARDENING_REQUIRED", "generation_sixteen_source"),
+        ("pin", "pin", "CONTROL_HARDENING_REQUIRED", "ci_toolchain_pin"),
+        ("r16", "pin", "CONTROL_HARDENING_REQUIRED", "ci_toolchain_pin"),
         ("r16", "r16", "CONTROL_HARDENING_REQUIRED", "generation_sixteen_receipt"),
         ("t16", "r16", "CI_HARDENING_REQUIRED", "generation_sixteen_receipt"),
         ("b16", "r16", "CI_HARDENING_REQUIRED", "generation_sixteen_receipt"),
@@ -4574,7 +4608,7 @@ def test_generation_sixteen_accepts_each_exact_publication_stage_without_authori
     assert validate_state(state, repo) == []
 
 
-def test_generation_sixteen_f16_must_be_direct_child_of_b15(
+def test_generation_sixteen_f16_link_must_be_direct_child_of_b15(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -4584,14 +4618,60 @@ def test_generation_sixteen_f16_must_be_direct_child_of_b15(
         repo,
         state,
         monkeypatch,
-        stage="f16",
+        stage="pin",
         wrong_source_parent=True,
     )
 
-    assert "tooling_publication:pending_f16_source_parent" in validate_state(state, repo)
+    assert "tooling_publication:pending_ci_pin_f16_parent" in validate_state(state, repo)
 
 
-def test_generation_sixteen_f16_rejects_a_dirty_worktree(
+def test_ci_toolchain_pin_must_be_direct_child_of_f16(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_sixteen_publication(
+        repo,
+        state,
+        monkeypatch,
+        stage="pin",
+        wrong_pin_parent=True,
+    )
+
+    assert "tooling_publication:pending_ci_pin_source_parent" in validate_state(
+        state,
+        repo,
+    )
+
+
+def test_ci_toolchain_pin_rejects_a_second_pin_sibling(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_sixteen_publication(
+        repo,
+        state,
+        monkeypatch,
+        stage="pin",
+        origin="pin",
+    )
+    for relative in mission_state.CI_TOOLCHAIN_PIN_COMMIT_PATHS:
+        (repo / relative).write_text(f"second pin attempt: {relative}\n")
+    _git(repo, "add", *mission_state.CI_TOOLCHAIN_PIN_COMMIT_PATHS)
+    _git(repo, "commit", "-m", "second ci toolchain pin attempt")
+    second_pin = _git(repo, "rev-parse", "HEAD").decode().strip()
+    _git(repo, "update-ref", "refs/remotes/origin/master", second_pin)
+
+    assert "tooling_publication:pending_ci_pin_source_parent" in validate_state(
+        state,
+        repo,
+    )
+
+
+def test_f16_head_is_no_longer_a_valid_pending_stage(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -4602,15 +4682,15 @@ def test_generation_sixteen_f16_rejects_a_dirty_worktree(
         state,
         monkeypatch,
         stage="f16",
+        origin="f16",
     )
-    (repo / "untracked-f16-residue.txt").write_text("uncommitted residue\n")
+    problems = validate_state(state, repo)
 
-    assert validate_state(state, repo) == [
-        "tooling_publication:pending_f16_worktree_dirty"
-    ]
+    assert "tooling_publication:pending_ci_pin_source_parent" in problems
+    assert "tooling_publication:pending_ci_pin_source_scope" in problems
 
 
-def test_generation_sixteen_f16_revalidates_b15_without_rerunning_its_controller(
+def test_ci_toolchain_pin_rejects_origin_left_at_b15(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -4620,7 +4700,70 @@ def test_generation_sixteen_f16_revalidates_b15_without_rerunning_its_controller
         repo,
         state,
         monkeypatch,
-        stage="f16",
+        stage="pin",
+    )
+    _git(
+        repo,
+        "update-ref",
+        "refs/remotes/origin/master",
+        commits["generation_fifteen_baton"],
+    )
+
+    assert "tooling_publication:pending_ci_pin_origin_not_f16_or_pin" in validate_state(
+        state,
+        repo,
+    )
+
+
+def test_receipt_regenerated_without_the_pin_commit_is_rejected(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_sixteen_publication(
+        repo,
+        state,
+        monkeypatch,
+        stage="r16",
+        skip_pin=True,
+    )
+    problems = validate_state(state, repo)
+
+    assert "tooling_publication:recovery_source_parent" in problems
+    assert "tooling_publication:recovery_source_commit_scope" in problems
+
+
+def test_ci_toolchain_pin_rejects_a_dirty_worktree(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_sixteen_publication(
+        repo,
+        state,
+        monkeypatch,
+        stage="pin",
+    )
+    (repo / "untracked-pin-residue.txt").write_text("uncommitted residue\n")
+
+    assert validate_state(state, repo) == [
+        "tooling_publication:pending_ci_pin_worktree_dirty"
+    ]
+
+
+def test_ci_toolchain_pin_revalidates_b15_without_rerunning_its_controller(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    commits = _commit_generation_sixteen_publication(
+        repo,
+        state,
+        monkeypatch,
+        stage="pin",
     )
     validator_calls: list[dict[str, object]] = []
 
@@ -4655,7 +4798,7 @@ def test_generation_sixteen_f16_revalidates_b15_without_rerunning_its_controller
     assert len(validator_calls) == 1
 
 
-def test_generation_sixteen_f16_rejects_a_failed_frozen_b15_baseline(
+def test_ci_toolchain_pin_rejects_a_failed_frozen_b15_baseline(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -4665,7 +4808,7 @@ def test_generation_sixteen_f16_rejects_a_failed_frozen_b15_baseline(
         repo,
         state,
         monkeypatch,
-        stage="f16",
+        stage="pin",
     )
     monkeypatch.setattr(
         mission_state,
@@ -4697,7 +4840,7 @@ def test_generation_sixteen_f16_scope_is_exactly_seventeen_paths(
         repo,
         state,
         monkeypatch,
-        stage="f16",
+        stage="pin",
         source_paths=canonical_scope + ("unexpected-generation-sixteen.txt",),
     )
     monkeypatch.setattr(
@@ -4706,7 +4849,36 @@ def test_generation_sixteen_f16_scope_is_exactly_seventeen_paths(
         canonical_scope,
     )
 
-    assert "tooling_publication:pending_f16_source_scope" in validate_state(state, repo)
+    assert "tooling_publication:pending_ci_pin_f16_scope" in validate_state(state, repo)
+
+
+def test_ci_toolchain_pin_scope_is_exactly_seven_paths(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    canonical_pin_scope = tuple(mission_state.CI_TOOLCHAIN_PIN_COMMIT_PATHS)
+    assert len(canonical_pin_scope) == 7
+    assert ".github/workflows/ci.yml" in canonical_pin_scope
+    assert "scripts/mission_state.py" in canonical_pin_scope
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_generation_sixteen_publication(
+        repo,
+        state,
+        monkeypatch,
+        stage="pin",
+        pin_paths=canonical_pin_scope + ("unexpected-pin-path.txt",),
+    )
+    monkeypatch.setattr(
+        mission_state,
+        "CI_TOOLCHAIN_PIN_COMMIT_PATHS",
+        canonical_pin_scope,
+    )
+
+    assert "tooling_publication:pending_ci_pin_source_scope" in validate_state(
+        state,
+        repo,
+    )
 
 
 def test_generation_sixteen_r16_is_receipt_only(

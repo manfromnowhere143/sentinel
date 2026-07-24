@@ -456,6 +456,26 @@ GENERATION_SIXTEEN_SOURCE_MARKER_PATHS = frozenset(
         "tests/test_iter135_lifecycle_control.py",
     }
 )
+# The generation-sixteen lifecycle-control source published as F16. Its hash became citable the
+# moment it landed on canonical master, exactly like every earlier generation's commits.
+GENERATION_SIXTEEN_SOURCE_COMMIT = "51370ccac79fd141f774ca462a4fdd8b8f3f5b55"
+# The CI toolchain pin exists because the published CI lane installed an unpinned ruff and a
+# newer release failed the generation-sixteen receipt lane after local verification was green.
+# It amends the active generation-sixteen source with EXACTLY ONE additional commit: a single
+# direct child of F16 whose committed path set pins ruff in CI and teaches the three publication
+# validators (and their tests) this amended source resolution. The regenerated receipt is the
+# direct child of the pin commit; F16's own published shape stays enforced everywhere the source
+# chain is validated. The commit is self-admitting in the established F16 bootstrap idiom. The
+# full content-addressed toolchain lock remains the CI_HARDENING (generation-seventeen) mission.
+CI_TOOLCHAIN_PIN_COMMIT_PATHS = (
+    ".github/workflows/ci.yml",
+    f"{ITER135_EXPERIMENT_REL}/authorize_launch135.py",
+    f"{ITER135_EXPERIMENT_REL}/verify_tooling135.py",
+    "scripts/mission_state.py",
+    "tests/test_iter135_launch_authorization.py",
+    "tests/test_iter135_tooling_verifier.py",
+    "tests/test_mission_state.py",
+)
 GENERATION_TWELVE_SOURCE_COMMIT_PATHS = (
     "CONTINUITY.md",
     "HANDOFF.md",
@@ -990,7 +1010,12 @@ def _validate_pending_generation_sixteen_source(
     raw_receipt: bytes,
     receipt: Mapping[str, Any],
 ) -> list[str]:
-    """Validate an exact receipt-free F16 child while retaining the frozen B15 baseline."""
+    """Validate the exact receipt-free CI-toolchain-pin head above the published F16.
+
+    The pending head is the single admissible pre-receipt commit: the CI toolchain pin, a
+    direct child of the published generation-sixteen source F16, while the frozen B15 baseline
+    is revalidated unchanged. F16's own published shape is enforced as the pin's parent link.
+    """
 
     problems: list[str] = []
     try:
@@ -1123,20 +1148,32 @@ def _validate_pending_generation_sixteen_source(
         head = _git(repo, "rev-parse", "HEAD").decode("ascii").strip()
         upstream = _git(repo, "rev-parse", "origin/master").decode("ascii").strip()
         head_parents, head_paths = _commit_row(repo, head)
-        if head_parents != (GENERATION_FIFTEEN_BATON_COMMIT,):
-            problems.append("tooling_publication:pending_f16_source_parent")
-        if head_paths != tuple(sorted(GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS)):
-            problems.append("tooling_publication:pending_f16_source_scope")
+        if head_parents != (GENERATION_SIXTEEN_SOURCE_COMMIT,):
+            problems.append("tooling_publication:pending_ci_pin_source_parent")
+        if head_paths != tuple(sorted(CI_TOOLCHAIN_PIN_COMMIT_PATHS)):
+            problems.append("tooling_publication:pending_ci_pin_source_scope")
+        lifecycle_source_parents, lifecycle_source_paths = _commit_row(
+            repo, GENERATION_SIXTEEN_SOURCE_COMMIT
+        )
+        if lifecycle_source_parents != (GENERATION_SIXTEEN_SOURCE_PARENT,):
+            problems.append("tooling_publication:pending_ci_pin_f16_parent")
+        if lifecycle_source_paths != tuple(sorted(GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS)):
+            problems.append("tooling_publication:pending_ci_pin_f16_scope")
+        if (
+            _git(repo, "show", f"{GENERATION_SIXTEEN_SOURCE_COMMIT}:MISSION_STATE.json")
+            != accepted_state
+        ):
+            problems.append("tooling_publication:pending_ci_pin_f16_state_drift")
         if _git(repo, "show", f"{head}:MISSION_STATE.json") != accepted_state:
-            problems.append("tooling_publication:pending_f16_source_state_drift")
-        allowed_upstream = {GENERATION_FIFTEEN_BATON_COMMIT, head}
+            problems.append("tooling_publication:pending_ci_pin_source_state_drift")
+        allowed_upstream = {GENERATION_SIXTEEN_SOURCE_COMMIT, head}
         if _git(repo, "status", "--porcelain=v1", "-z"):
-            problems.append("tooling_publication:pending_f16_worktree_dirty")
+            problems.append("tooling_publication:pending_ci_pin_worktree_dirty")
         if upstream not in allowed_upstream:
-            problems.append("tooling_publication:pending_f16_origin_not_b15_or_f16")
+            problems.append("tooling_publication:pending_ci_pin_origin_not_f16_or_pin")
     except (OSError, subprocess.SubprocessError, ToolingPublicationError, ValueError) as exc:
         problems.append(
-            f"tooling_publication:pending_f16_probe:{type(exc).__name__}:{exc}"
+            f"tooling_publication:pending_ci_pin_probe:{type(exc).__name__}:{exc}"
         )
     return sorted(set(problems))
 
@@ -1202,7 +1239,10 @@ def _validate_tooling_publication(
         if (
             retained_generation_fifteen
             and head != GENERATION_FIFTEEN_BATON_COMMIT
-            and not GENERATION_SIXTEEN_SOURCE_MARKER_PATHS.isdisjoint(head_paths)
+            and (
+                not GENERATION_SIXTEEN_SOURCE_MARKER_PATHS.isdisjoint(head_paths)
+                or head_paths == tuple(sorted(CI_TOOLCHAIN_PIN_COMMIT_PATHS))
+            )
         ):
             problems.extend(
                 _validate_pending_generation_sixteen_source(
@@ -1213,7 +1253,7 @@ def _validate_tooling_publication(
             )
             return sorted(set(problems))
         if retained_generation_fifteen and head != GENERATION_FIFTEEN_BATON_COMMIT:
-            problems.append("tooling_publication:pending_f16_source_scope")
+            problems.append("tooling_publication:pending_ci_pin_source_scope")
         expected_publication = (
             EXPECTED_GENERATION_FIFTEEN_PUBLICATION
             if (
@@ -1305,8 +1345,11 @@ def _validate_tooling_publication(
                 f"{publication_generation!r}"
             )
         if publication_generation == 16:
-            expected_source_parent = GENERATION_SIXTEEN_SOURCE_PARENT
-            expected_source_paths = tuple(sorted(GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS))
+            # The active generation-sixteen source is the CI toolchain pin commit — the single
+            # amendment child of the published F16. F16's own shape is enforced below wherever
+            # the generation-sixteen chain is validated.
+            expected_source_parent = GENERATION_SIXTEEN_SOURCE_COMMIT
+            expected_source_paths = tuple(sorted(CI_TOOLCHAIN_PIN_COMMIT_PATHS))
         elif publication_generation == 15:
             expected_source_parent = GENERATION_FIFTEEN_SOURCE_PARENT
             expected_source_paths = tuple(sorted(GENERATION_FIFTEEN_SOURCE_COMMIT_PATHS))
@@ -1448,6 +1491,20 @@ def _validate_tooling_publication(
                 problems.append("tooling_publication:generation_two_baton_scope")
 
         if publication_generation == 16:
+            (
+                generation_sixteen_lifecycle_parents,
+                generation_sixteen_lifecycle_paths,
+            ) = _commit_row(root, GENERATION_SIXTEEN_SOURCE_COMMIT)
+            if generation_sixteen_lifecycle_parents != (GENERATION_SIXTEEN_SOURCE_PARENT,):
+                problems.append(
+                    "tooling_publication:generation_sixteen_lifecycle_source_parent"
+                )
+            if generation_sixteen_lifecycle_paths != tuple(
+                sorted(GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS)
+            ):
+                problems.append(
+                    "tooling_publication:generation_sixteen_lifecycle_source_scope"
+                )
             generation_fifteen_parents, generation_fifteen_paths = _commit_row(
                 root, GENERATION_FIFTEEN_SOURCE_COMMIT
             )

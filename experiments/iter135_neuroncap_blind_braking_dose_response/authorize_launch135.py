@@ -403,6 +403,22 @@ GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS = (
     "tests/test_iter135_tooling_verifier.py",
     "tests/test_mission_state.py",
 )
+# The generation-sixteen lifecycle-control source published as F16; citable once on master.
+GENERATION_SIXTEEN_SOURCE_COMMIT = "51370ccac79fd141f774ca462a4fdd8b8f3f5b55"
+# The CI toolchain pin amends the active generation-sixteen source with EXACTLY ONE additional
+# commit — a single direct child of F16 pinning ruff in CI and carrying the amended validators
+# and their tests — because an unpinned CI ruff release failed the receipt lane after local
+# verification was green. The regenerated receipt is the direct child of the pin commit; F16's
+# own published shape stays enforced wherever the source chain is validated.
+CI_TOOLCHAIN_PIN_COMMIT_PATHS = (
+    ".github/workflows/ci.yml",
+    f"{EXPERIMENT_REL}/authorize_launch135.py",
+    f"{EXPERIMENT_REL}/verify_tooling135.py",
+    "scripts/mission_state.py",
+    "tests/test_iter135_launch_authorization.py",
+    "tests/test_iter135_tooling_verifier.py",
+    "tests/test_mission_state.py",
+)
 EXPECTED_GENERATION_FIFTEEN_PUBLICATION = {
     "generation": 15,
     "supersedes_receipt_commit": GENERATION_FOURTEEN_RECEIPT_COMMIT,
@@ -2225,10 +2241,17 @@ def _ci_hardening_baton_problems(
             return sorted(set([*problems, "authorization:lifecycle-control-receipt-parent"]))
         source_commit = receipt_parents[0]
         source_parents, source_paths = _commit_row(repo, source_commit)
-        if source_parents != (GENERATION_FIFTEEN_BATON_COMMIT,):
+        if source_parents != (GENERATION_SIXTEEN_SOURCE_COMMIT,):
             problems.append("authorization:lifecycle-control-source-parent")
-        if source_paths != tuple(sorted(GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS)):
+        if source_paths != tuple(sorted(CI_TOOLCHAIN_PIN_COMMIT_PATHS)):
             problems.append("authorization:lifecycle-control-source-scope")
+        lifecycle_source_parents, lifecycle_source_paths = _commit_row(
+            repo, GENERATION_SIXTEEN_SOURCE_COMMIT
+        )
+        if lifecycle_source_parents != (GENERATION_FIFTEEN_BATON_COMMIT,):
+            problems.append("authorization:lifecycle-control-f16-parent")
+        if lifecycle_source_paths != tuple(sorted(GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS)):
+            problems.append("authorization:lifecycle-control-f16-scope")
         if _blob(repo, source_commit, MISSION_REL) != _blob(
             repo, GENERATION_FIFTEEN_BATON_COMMIT, MISSION_REL
         ):
