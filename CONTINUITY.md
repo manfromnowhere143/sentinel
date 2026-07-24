@@ -4257,3 +4257,76 @@ transfer boundary fold-in and the claim-(5) hedge are unchanged and still bindin
   `0c63fbe5e5001745559df2d8cedb0b3725d74058` with the newest binder/Git-probe controls, and earn
   entirely fresh local and hosted evidence. This integration changed no scientific design and
   accessed no host, provider, GPU, H/E/P/S, smoke, analyzer, experiment, or outcome surface.
+
+- **GENERATION-SIXTEEN F16/PIN/R16 ACCEPTED; T16/B16 CI-HARDENING BATON CONSTRUCTED
+  (2026-07-24).** Published F16 `51370ccac79fd141f774ca462a4fdd8b8f3f5b55` is the direct
+  child of B15 `21509ef2cdb634c02fac9310b57b7608b9878530` and integrates the lifecycle and
+  source-binding controls across the registered seventeen-path generation-sixteen source
+  scope. Its earlier validation lanes and canonical push were green before this cycle began.
+
+  A first receipt candidate at bare F16 was abandoned before any canonical push, for an
+  honest reason retained here: its disposable validation branch
+  `ci-validate-r16-5b9c976c1466` (run `30055848331`) failed on both jobs because
+  `.github/workflows/ci.yml` installed an unpinned `ruff`, and a newer upstream release
+  introduced 1,178 findings that the locally green `ruff 0.15.20` did not report. The
+  local gates at that candidate were fully green (`2237 passed, 1 skipped` in 1,876.18
+  seconds); the failure was toolchain drift, not source regression. The candidate commit
+  was never pushed to `master` and no canonical surface carried it. This is exactly the
+  failure class the CI-hardening phase exists to close, observed live at the boundary of
+  the phase that closes it.
+
+  The correction is the amended-source pin commit
+  `a5dc84c731c7272174c70b950ebc890b01330a3c`, a single direct child of F16 changing
+  exactly seven registered paths: the workflow pin `ruff==0.15.20`, the three
+  generation-governing modules re-registering the amended generation-sixteen source, and
+  their three test files with known-bad coverage for every new admission (wrong parent,
+  scope drift, stacked siblings, mission-state drift, origin drift, dirty worktree,
+  receipt-skipping-the-pin). F16's own published shape is retained as a mandatory link
+  check; no prior generation check was weakened. The pin passed disposable lane
+  `ci-validate-pin-a5dc84c731c7` run `30069904060` and canonical `master` run
+  `30070320925`, both two-job attempt-1 successes under the pinned toolchain.
+
+  During the abandoned first candidate, two operator sessions briefly ran the one-shot
+  generator concurrently in the shared worktree. The concurrent session killed its own
+  duplicate, yielded generation to the earlier run, and unsealed the working receipt after
+  verifying byte-identity with the committed R15 blob so the surviving write could land;
+  the seal was restored immediately after. The operator then designated a single carrying
+  window for the remaining ceremony. No receipt bytes from the duplicate were retained.
+
+  R16 `f417b77e1a8f` is the receipt-only direct child of the pin commit. Its
+  generation-sixteen receipt is 38,100 bytes, SHA-256
+  `31e851778869b46c75c1da78545aee469f48f3b6f54bd78d36d8d1c18422a391`, payload SHA-256
+  `95ecc7041c8f6f4349fc689b22070c0d1c80ba8e33985a13cc882b7223cf51b5`. The one-shot
+  generator ran from `2026-07-24T05:53:19.143364Z` through `06:26:19.535417Z` at the
+  pushed pin head with upstream equal, returned `I135_TOOLING_VERIFICATION_OK`, exact
+  integer zero problems, and all eight command rows with exact integer return code zero.
+  The publication block names B15 as recovery parent, R15
+  `80f4b37d7c7c1f2a917e68bdcb015f188299f1fe` as the superseded receipt, and the frozen
+  generation-sixteen reason code. R16 passed disposable lane
+  `ci-validate-r16-f417b77e1a8f` run `30072332927` and canonical `master` run
+  `30072842134`, both green. The working receipt is resealed: one hard link, mode `0600`,
+  `uchg`, ACL `user:danielwahnich deny delete`.
+
+  T16 `b553680` is the local state-only direct R16 child. It retains run `UNKNOWN` and
+  advances only to `CI_HARDENING_REQUIRED` with that phase's registered action arrays. B16
+  is its immediately following documentation-only child and the commit containing the
+  current `HANDOFF.md`/`CONTINUITY.md` snapshot. T16 must never be pushed as a standalone
+  tip. Exact B16 must first pass one fresh disposable run while `origin/master == R16`;
+  only then may the same B16 tip fast-forward `master` atomically through T16 and require
+  a distinct canonical green run.
+
+  After B16, the amended machinery admits exactly one further commit class: a single
+  documentation-correction tranche, the direct child of B16, changing exactly
+  `REVIEWER.md`, `docs/CAMPAIGN.md`, `docs/paper/MANUSCRIPT.md`, `docs/paper/STATUS.md`,
+  `scripts/mission_state.py`, and `tests/test_mission_state.py`. Its purpose is bounded
+  and registered: replace the decoder universal-negative overclaim with probe-licensed
+  wording on the living paper surfaces (the archived `paper.tex`, PDF, and tarball remain
+  byte-frozen retained artifacts), record the dated correction in the campaign ledger, and
+  add a one-page reviewer entry point. Any second descendant, path drift, or mission-state
+  drift fails closed.
+
+  The canonical lifecycle remains `UNKNOWN`. T16/B16 grant no host, GPU, H/E/P/S,
+  activation, smoke, analytic, scientific, or paper authority. Authorized work is limited
+  to offline content-addressed CI inputs, exact dependency locks, supply-chain manifests,
+  independent evidence replay, and known-bad controls. The standing blockers of the
+  generation-fifteen record remain except as amended here.
