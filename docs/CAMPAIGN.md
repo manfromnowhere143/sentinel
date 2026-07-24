@@ -183,8 +183,12 @@ over-claim.** That arc, in order:
     12's dangerous frames — 16 diverging candidates appeared, every one kinematically
     infeasible. The pre-registered falsifier fired exactly: the conditioning choice is
     refuted, not the mechanism class. Third measurement by a third route (commands 0/37; VAD
-    modes 21%; learned head 0/37): **the plan-B deficit sits in the planner's internal
-    planning representation**, not in any decoder above it.
+    modes 21%; learned head 0/37): **no decoder we tried recovers a feasible escape.**
+    *Correction 2026-07-24: this entry previously asserted the universal negative that the
+    deficit sits in the planning representation and in no decoder above it. The probes
+    license only the failure of the decoders we tried; the representation-intervention arc
+    that would have tested that localization causally returned nulls (iterations 31, 33, 37,
+    and 38).*
     [`../experiments/iter19_diversity_head/RESULT.md`](../experiments/iter19_diversity_head/RESULT.md).
 
 22. **Iter 20 — VAD tracker portability: the offline gate fails before GPU time.** The

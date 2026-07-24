@@ -24,11 +24,12 @@ demonstrating that a deployment-positive monitor is achievable (+0.226 vs the un
 planner, CI [+0.004, +0.421], voided by its safety gate); **(4)** an RSS-style formal envelope
 on identical inputs achieves the campaign's best raw safety **by near-paralysis**, quantifying
 closed-loop the over-conservatism the literature only asserts; **(5)** the plan-B deficit of
-end-to-end planners is **located**: candidates collapse under threat on two planners (UniAD:
+end-to-end planners is **probed**: candidates collapse under threat on two planners (UniAD:
 14 m benign diversity to 4 cm; VAD: partial, below a pre-registered viability bar), and a
 diversity-trained head reading the frozen planner's own planning-query embeddings — faithful
-on benign frames — yields **zero feasible escapes** on the same dangerous frames: the collapse
-sits in the planner's internal planning representation, not in any decoder above it; and **(6)** two independent
+on benign frames — yields **zero feasible escapes** on the same dangerous frames: no decoder we tried recovers
+an escape — consistent with collapse in the planning representation itself, though a failed
+probe cannot rule out decoders we did not try; and **(6)** two independent
 failure analyses — cross-planner selectivity transfer and routing safety — converge on a single
 binding constraint: **tracking quality**. One headline claim was withdrawn by our own audit and
 re-established on independent data; the withdrawal, six published nulls, and the raw per-frame
@@ -183,9 +184,11 @@ objective, conditioned on the frozen planner's own planning-query embeddings, on
 disjoint from all evaluation. It is a faithful generator (benign best-of-K error within its
 pre-registered fidelity bar) and its repulsion term forces divergence under threat — yet on
 the same 37 dangerous frames it yields **0 feasible escapes** (16 diverging candidates, every
-one violating kinematic limits). Three measurements by three routes agree: the deficit is not
-a decoder artifact but a property of the planning representation itself — under threat it no
-longer contains a feasible alternative to decode. Scene-level conditioning (bypassing the
+one violating kinematic limits). Three measurements by three routes agree: no decoder we tried
+recovers a feasible alternative under threat. That is evidence against a decoder artifact, but
+a probe's failure is not the representation's silence — the representation-intervention arc
+that would have established the localization causally returned nulls (iterations 31, 33, 37,
+and 38). Scene-level conditioning (bypassing the
 committed planning state) is the surviving variant, and it now carries a sharpened burden.
 
 **Stopping power is free; selectivity is not.** An RSS-style guaranteed-stopping envelope on

@@ -309,22 +309,36 @@ def test_handoff_contract_tracks_control_hardening_state_and_known_bad() -> None
     ) == ["active-handoff:authorized-action:1"]
 
 
-def test_active_handoff_contract_gate_fires_when_hermetic_boundary_is_removed() -> None:
-    handoff = (Path(__file__).resolve().parents[1] / "HANDOFF.md").read_text()
-    mutated = handoff.replace("hermetic CI", "CI")
-    next_program = load_state()["next_program"]
-    expected_problems = [
-        f"active-handoff:{kind}-action:{index}"
-        for kind, actions in (
-            ("authorized", next_program["authorized_actions"]),
-            ("forbidden", next_program["forbidden_actions"]),
-        )
-        for index, action in enumerate(actions)
-        if "hermetic CI" in action
-    ]
+def test_active_handoff_contract_gate_fires_when_an_authorized_boundary_is_reworded() -> None:
+    """Prove the live gate against a deliberately reworded authorized boundary.
 
-    assert expected_problems
-    assert _handoff_mission_contract_problems(mutated) == expected_problems
+    The mutation subject is derived from the rendered document itself — the first
+    authorized bullet of the live contract section — so the known-bad stays real in
+    every phase. A predecessor of this test hardcoded the CONTROL_HARDENING phrase
+    "hermetic CI" as its subject and went vacuous when T16 rotated the phase
+    vocabulary to the CI_HARDENING action arrays.
+    """
+
+    handoff = (Path(__file__).resolve().parents[1] / "HANDOFF.md").read_text()
+    assert load_state()["next_program"]["authorized_actions"]
+    start = handoff.index("## Canonical mission state (`MISSION_STATE.json`)")
+    end = handoff.index("## Execution lifecycle observation", start)
+    section = handoff[start:end]
+    authorized_marker = "- Authorized now:\n"
+    bullet_start = section.index(authorized_marker) + len(authorized_marker)
+    assert section[bullet_start:].startswith("  - ")
+    bullet_end = section.index("\n", bullet_start)
+    mutated_section = (
+        section[:bullet_start]
+        + "  - perform any convenient unreviewed action"
+        + section[bullet_end:]
+    )
+    mutated = handoff[:start] + mutated_section + handoff[end:]
+
+    assert mutated != handoff
+    assert _handoff_mission_contract_problems(mutated) == [
+        "active-handoff:authorized-action:0"
+    ]
 
 
 def test_active_handoff_contract_gate_fires_on_extra_authorized_action() -> None:
@@ -3700,6 +3714,56 @@ def _commit_generation_sixteen_publication(
     return commits
 
 
+def _commit_documentation_correction_tranche(
+    repo: Path,
+    state: dict,
+    monkeypatch: pytest.MonkeyPatch,
+    *,
+    origin: str = "tranche",
+    tranche_paths: tuple[str, ...] = (
+        mission_state.DOCUMENTATION_CORRECTION_TRANCHE_COMMIT_PATHS
+    ),
+    parent: str = "b16",
+) -> dict[str, str]:
+    """Build one synthetic documentation-correction tranche above exact B16."""
+
+    if origin not in {"r16", "t16", "b16", "tranche"}:
+        raise AssertionError(f"unsupported tranche origin: {origin}")
+    if parent not in {"t16", "b16"}:
+        raise AssertionError(f"unsupported tranche parent: {parent}")
+    commits = _commit_generation_sixteen_publication(
+        repo,
+        state,
+        monkeypatch,
+        stage="b16",
+        origin="b16",
+    )
+    if parent == "t16":
+        _git(
+            repo,
+            "checkout",
+            "--quiet",
+            "--detach",
+            commits["generation_sixteen_state"],
+        )
+    for relative in tranche_paths:
+        path = repo / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(f"documentation correction tranche: {relative}\n")
+    _git(repo, "add", *tranche_paths)
+    _git(repo, "commit", "-m", "documentation correction tranche")
+    tranche_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
+    commits["documentation_tranche"] = tranche_commit
+    target = {
+        "r16": commits["generation_sixteen_receipt"],
+        "t16": commits["generation_sixteen_state"],
+        "b16": commits["generation_sixteen_baton"],
+        "tranche": tranche_commit,
+    }[origin]
+    _git(repo, "update-ref", "refs/remotes/origin/master", target)
+    return commits
+
+
 def _append_launch_authorization_chain(
     repo: Path, state: dict, commits: dict[str, str]
 ) -> dict[str, str]:
@@ -5037,6 +5101,282 @@ def test_generation_sixteen_rejects_any_controller_authority_claim(
     assert (
         "authorization:lifecycle-control-publication-authority:'origin-published'"
         in validate_state(state, repo)
+    )
+
+
+@pytest.mark.parametrize("origin", ["b16", "tranche"])
+def test_documentation_correction_tranche_is_admitted_as_single_b16_child(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    origin: str,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    commits = _commit_documentation_correction_tranche(
+        repo,
+        state,
+        monkeypatch,
+        origin=origin,
+    )
+
+    assert state["next_program"]["phase"] == "CI_HARDENING_REQUIRED"
+    assert _git(repo, "rev-parse", "HEAD").decode().strip() == commits[
+        "documentation_tranche"
+    ]
+    assert validate_state(state, repo) == []
+
+
+def test_documentation_correction_tranche_revalidates_frozen_b16_and_masks_nothing_else(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    commits = _commit_documentation_correction_tranche(
+        repo,
+        state,
+        monkeypatch,
+        origin="tranche",
+    )
+    validator_calls: list[dict[str, object]] = []
+
+    def validator(_receipt, **kwargs):
+        validator_calls.append(kwargs)
+        virtual_git = kwargs["git_probe"](repo, ())
+        assert virtual_git.head == commits["generation_sixteen_baton"]
+        assert virtual_git.upstream_head == commits["generation_sixteen_baton"]
+        assert virtual_git.dirty_entries == ()
+        assert virtual_git.porcelain_sha256 == EMPTY_GIT_STATUS_SHA256
+        assert kwargs["ancestry_probe"](
+            repo,
+            commits["generation_sixteen_receipt"],
+            commits["generation_sixteen_baton"],
+        )
+        return []
+
+    monkeypatch.setattr(
+        mission_state,
+        "_load_tooling_receipt_validator",
+        lambda _repo, _source_commit: validator,
+    )
+    controller_calls: list[dict[str, object]] = []
+
+    def controller(_repo: Path, **kwargs):
+        controller_calls.append(kwargs)
+        return _structural_launch_controller(_repo, **kwargs)
+
+    monkeypatch.setattr(
+        mission_state,
+        "_load_launch_controller",
+        lambda _repo, _source_commit: controller,
+    )
+
+    assert validate_state(state, repo) == []
+    assert len(validator_calls) == 1
+    assert len(controller_calls) == 1
+    assert controller_calls[0]["descendants"] == []
+    assert controller_calls[0]["upstream_commit"] == commits["generation_sixteen_baton"]
+    assert controller_calls[0]["tooling_baton_commit"] == commits[
+        "generation_sixteen_baton"
+    ]
+
+
+def test_documentation_correction_tranche_must_be_direct_child_of_b16(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_documentation_correction_tranche(
+        repo,
+        state,
+        monkeypatch,
+        origin="tranche",
+        parent="t16",
+    )
+
+    assert "tooling_publication:baton_commit_scope" in validate_state(state, repo)
+
+
+@pytest.mark.parametrize(
+    "tranche_paths",
+    [
+        tuple(
+            relative
+            for relative in mission_state.DOCUMENTATION_CORRECTION_TRANCHE_COMMIT_PATHS
+            if relative != "REVIEWER.md"
+        ),
+        (
+            *mission_state.DOCUMENTATION_CORRECTION_TRANCHE_COMMIT_PATHS,
+            "docs/UNREVIEWED_EXTRA.md",
+        ),
+        ("docs/CAMPAIGN.md",),
+    ],
+    ids=["missing_path", "extra_path", "general_docs_commit"],
+)
+def test_documentation_correction_tranche_rejects_any_other_path_set(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    tranche_paths: tuple[str, ...],
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_documentation_correction_tranche(
+        repo,
+        state,
+        monkeypatch,
+        origin="tranche",
+        tranche_paths=tranche_paths,
+    )
+
+    assert "tooling_publication:generation_sixteen_commit_count:3" in validate_state(
+        state,
+        repo,
+    )
+
+
+def test_documentation_correction_tranche_rejects_a_second_descendant(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_documentation_correction_tranche(
+        repo,
+        state,
+        monkeypatch,
+        origin="tranche",
+    )
+    for relative in mission_state.DOCUMENTATION_CORRECTION_TRANCHE_COMMIT_PATHS:
+        (repo / relative).write_text(f"second tranche attempt: {relative}\n")
+    _git(repo, "add", *mission_state.DOCUMENTATION_CORRECTION_TRANCHE_COMMIT_PATHS)
+    _git(repo, "commit", "-m", "second documentation tranche attempt")
+    second_commit = _git(repo, "rev-parse", "HEAD").decode().strip()
+    _git(repo, "update-ref", "refs/remotes/origin/master", second_commit)
+
+    assert "tooling_publication:generation_sixteen_commit_count:4" in validate_state(
+        state,
+        repo,
+    )
+
+
+def test_documentation_correction_tranche_rejects_mission_state_drift(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_documentation_correction_tranche(
+        repo,
+        state,
+        monkeypatch,
+        origin="tranche",
+    )
+    (repo / "MISSION_STATE.json").write_text(json.dumps(state, indent=2) + "\n\n")
+
+    assert "tooling_publication:mission_state_bytes_not_committed" in validate_state(
+        state,
+        repo,
+    )
+
+
+def test_documentation_correction_tranche_rejects_a_dirty_worktree(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_documentation_correction_tranche(
+        repo,
+        state,
+        monkeypatch,
+        origin="tranche",
+    )
+    (repo / "untracked-tranche-residue.txt").write_text("uncommitted residue\n")
+
+    assert validate_state(state, repo) == [
+        "tooling_publication:documentation_tranche_worktree_dirty"
+    ]
+
+
+def test_documentation_correction_tranche_requires_ci_hardening_phase(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_documentation_correction_tranche(
+        repo,
+        state,
+        monkeypatch,
+        origin="tranche",
+    )
+    _set_control_hardening_phase(state)
+    problems = validate_state(state, repo)
+
+    assert "tooling_publication:generation_sixteen_commit_count:3" in problems
+    assert (
+        "tooling_publication:generation_sixteen_phase:CONTROL_HARDENING_REQUIRED"
+        in problems
+    )
+
+
+def test_documentation_correction_tranche_rejects_upstream_at_t16(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_documentation_correction_tranche(
+        repo,
+        state,
+        monkeypatch,
+        origin="t16",
+    )
+
+    assert "tooling_publication:generation_sixteen_origin" in validate_state(state, repo)
+
+
+def test_documentation_correction_tranche_keeps_other_immutable_paths_frozen(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repo, state = _minimal_state_repo(tmp_path)
+    _set_tooling_phase(state)
+    _commit_documentation_correction_tranche(
+        repo,
+        state,
+        monkeypatch,
+        origin="tranche",
+    )
+    (repo / "README.md").write_text("hostile post-tranche README rewrite\n")
+    problems = validate_state(state, repo)
+
+    assert "tooling_publication:immutable_worktree_path_changed:README.md" in problems
+
+
+def test_documentation_tranche_contract_matches_the_frozen_receipt_validator() -> None:
+    verifier_path = (
+        Path(__file__).resolve().parents[1]
+        / "experiments/iter135_neuroncap_blind_braking_dose_response/verify_tooling135.py"
+    )
+    verifier_spec = importlib.util.spec_from_file_location(
+        "mission_state_tranche_verifier",
+        verifier_path,
+    )
+    assert verifier_spec is not None and verifier_spec.loader is not None
+    verifier = importlib.util.module_from_spec(verifier_spec)
+    sys.modules[verifier_spec.name] = verifier
+    try:
+        verifier_spec.loader.exec_module(verifier)
+    finally:
+        sys.modules.pop(verifier_spec.name, None)
+
+    assert tuple(mission_state.DOCUMENTATION_CORRECTION_TRANCHE_COMMIT_PATHS) == tuple(
+        verifier.DOCUMENTATION_CORRECTION_TRANCHE_COMMIT_PATHS
+    )
+    assert tuple(mission_state.CI_TOOLCHAIN_PIN_COMMIT_PATHS) == tuple(
+        verifier.CI_TOOLCHAIN_PIN_COMMIT_PATHS
     )
 
 

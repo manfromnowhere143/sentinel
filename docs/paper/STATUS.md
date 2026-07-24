@@ -8,7 +8,9 @@ moderation-rejected, and its source is no longer evidence-complete.
 
 Before any peer-reviewed submission, the paper must be rewritten to include the HUGSIM transfer
 null, the iteration-134 placebo result and its dose-realization confound, and bounded wording for
-the decoder claim. It must state that the released implementation is benchmark-integrated rather
+the decoder claim. The bounded decoder wording now exists in `MANUSCRIPT.md`, which no longer
+asserts the universal negative; the archived `paper.tex`, PDF, and tarball retain it unchanged
+for auditability. It must state that the released implementation is benchmark-integrated rather
 than production-ready, distinguish the measured NeuroNCAP gain from unresolved semantic
 attribution, and route to a peer-reviewed venue before any optional arXiv appeal.
 

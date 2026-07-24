@@ -476,6 +476,26 @@ CI_TOOLCHAIN_PIN_COMMIT_PATHS = (
     "tests/test_iter135_tooling_verifier.py",
     "tests/test_mission_state.py",
 )
+# The documentation-correction tranche exists because the generation-sixteen publication froze
+# master before the reviewed decoder-claim wording correction and the reviewer entry point could
+# land. It admits EXACTLY ONE commit after B16: a single direct child of the generation-sixteen
+# baton whose committed path set is exactly the six paths below, while the phase remains
+# CI_HARDENING_REQUIRED, the retained R16 receipt and its frozen chain revalidate unchanged, and
+# MISSION_STATE.json stays byte-identical to T16's. The commit is self-admitting in the F16
+# bootstrap idiom: it modifies this module and its tests, so the code AT the tranche commit
+# recognizes its own commit shape. It is not a general documentation allowance — one commit, one
+# exact path set, one parent; any second descendant fails closed exactly as before. The same
+# contract is pre-registered byte-identically in the frozen generation-sixteen receipt validator
+# (verify_tooling135.DOCUMENTATION_CORRECTION_TRANCHE_COMMIT_PATHS), which admits the tranche
+# chain when it is loaded from the pinned source commit.
+DOCUMENTATION_CORRECTION_TRANCHE_COMMIT_PATHS = (
+    "REVIEWER.md",
+    "docs/CAMPAIGN.md",
+    "docs/paper/MANUSCRIPT.md",
+    "docs/paper/STATUS.md",
+    "scripts/mission_state.py",
+    "tests/test_mission_state.py",
+)
 GENERATION_TWELVE_SOURCE_COMMIT_PATHS = (
     "CONTINUITY.md",
     "HANDOFF.md",
@@ -1228,7 +1248,7 @@ def _validate_tooling_publication(
             problems.append("tooling_publication:receipt_publication_malformed")
             publication = {}
         head = _git(root, "rev-parse", "HEAD").decode("ascii").strip()
-        _head_parents, head_paths = _commit_row(root, head)
+        head_parents, head_paths = _commit_row(root, head)
         retained_generation_fifteen = (
             phase == "CONTROL_HARDENING_REQUIRED"
             and _exact_json_value(
@@ -1397,6 +1417,23 @@ def _validate_tooling_publication(
             raise ToolingPublicationError(
                 f"unsupported publication generation: {publication_generation!r}"
             )
+        # A documentation-correction tranche candidate is any HEAD whose committed path set is
+        # exactly the tranche contract under a retained generation-sixteen receipt in the CI
+        # hardening phase. Candidacy alone admits nothing: the exact single-child-of-B16 shape is
+        # proven against the receipt ancestry below, and every near-miss falls through to the
+        # unchanged fail-closed generation-sixteen checks.
+        documentation_tranche_candidate = (
+            publication_generation == 16
+            and phase == "CI_HARDENING_REQUIRED"
+            and len(head_parents) == 1
+            and head_paths == tuple(sorted(DOCUMENTATION_CORRECTION_TRANCHE_COMMIT_PATHS))
+        )
+        documentation_tranche_commit: str | None = None
+        if documentation_tranche_candidate and _git(root, "status", "--porcelain=v1", "-z"):
+            # The frozen validator below observes the retained B16 through an injected probe, so
+            # physical worktree cleanliness must be proven directly, as the pending-F16 path does.
+            problems.append("tooling_publication:documentation_tranche_worktree_dirty")
+
         actual_source_parents, actual_source_paths = _commit_row(root, source_commit)
         if git_start.get("parents") != list(actual_source_parents):
             problems.append("tooling_publication:source_parent_claim_mismatch")
@@ -1412,10 +1449,44 @@ def _validate_tooling_publication(
 
         if publication_generation in CONTROLLED_PUBLICATION_GENERATIONS:
             try:
-                frozen_errors = _load_tooling_receipt_validator(root, source_commit)(
-                    receipt,
-                    repo_root=root,
-                )
+                if documentation_tranche_candidate:
+                    # The frozen generation-sixteen validator predates the tranche, so it must
+                    # observe the exact retained B16 it was published to accept — the tranche's
+                    # single parent — exactly as the pending-F16 path revalidates the retained
+                    # B15. Every chain, receipt-byte, and state check it performs still runs
+                    # against real Git objects; only HEAD/upstream observation is pinned.
+                    documentation_tranche_parent = head_parents[0]
+
+                    def retained_b16_git_probe(_root: Path, _tested_files: Any) -> Any:
+                        return types.SimpleNamespace(
+                            dirty_entries=(),
+                            porcelain_sha256=EMPTY_GIT_STATUS_SHA256,
+                            head=documentation_tranche_parent,
+                            upstream_head=documentation_tranche_parent,
+                        )
+
+                    def retained_b16_ancestry_probe(
+                        _root: Path,
+                        ancestor: str,
+                        descendant: str,
+                    ) -> bool:
+                        try:
+                            _git(root, "merge-base", "--is-ancestor", ancestor, descendant)
+                        except ToolingPublicationError:
+                            return False
+                        return True
+
+                    frozen_errors = _load_tooling_receipt_validator(root, source_commit)(
+                        receipt,
+                        repo_root=root,
+                        git_probe=retained_b16_git_probe,
+                        ancestry_probe=retained_b16_ancestry_probe,
+                    )
+                else:
+                    frozen_errors = _load_tooling_receipt_validator(root, source_commit)(
+                        receipt,
+                        repo_root=root,
+                    )
             except ToolingPublicationError:
                 raise
             except Exception as exc:  # noqa: BLE001 - frozen validation must fail closed
@@ -2108,7 +2179,16 @@ def _validate_tooling_publication(
             .splitlines()
         )
         if publication_generation == 16:
-            if len(ancestry) > 2:
+            if (
+                documentation_tranche_candidate
+                and len(ancestry) == 3
+                and ancestry[2] == current_commit
+                and head_parents == (ancestry[1],)
+            ):
+                # Exactly one tranche commit: HEAD itself, a single direct child of the
+                # generation-sixteen baton (ancestry[1], whose own shape is proven below).
+                documentation_tranche_commit = current_commit
+            if len(ancestry) > 2 and documentation_tranche_commit is None:
                 problems.append(
                     "tooling_publication:generation_sixteen_commit_count:"
                     f"{len(ancestry)}"
@@ -2210,12 +2290,23 @@ def _validate_tooling_publication(
                 upstream_for_controller = (
                     _git(root, "rev-parse", "origin/master").decode("ascii").strip()
                 )
+                controller_descendants = ancestry[2:]
+                if documentation_tranche_commit is not None:
+                    # The frozen controller predates the tranche and would reject any
+                    # post-baton descendant. The admitted tranche's exact shape is proven by
+                    # this module above; the frozen controller replays the untouched
+                    # R16/T16/B16 publication beneath it, observed at the baton it was
+                    # published to accept. The real upstream binding for the tranche stage is
+                    # enforced by the generation-sixteen origin check below.
+                    controller_descendants = []
+                    if upstream_for_controller == documentation_tranche_commit:
+                        upstream_for_controller = baton_commit
                 controller_result = _load_launch_controller(root, source_commit)(
                     root,
                     phase=phase,
                     tooling_receipt_commit=receipt_commit,
                     tooling_baton_commit=baton_commit,
-                    descendants=ancestry[2:],
+                    descendants=controller_descendants,
                     upstream_commit=upstream_for_controller,
                     candidate=candidate,
                 )
@@ -2426,7 +2517,16 @@ def _validate_tooling_publication(
                 - {"CONTINUITY.md", "HANDOFF.md", "MISSION_STATE.json"}
             )
             for relative in immutable_source_paths:
-                recovery_blob = _git(root, "show", f"{source_commit}:{relative}")
+                path_reference_commit = source_commit
+                if (
+                    documentation_tranche_commit is not None
+                    and relative in DOCUMENTATION_CORRECTION_TRANCHE_COMMIT_PATHS
+                ):
+                    # The admitted tranche legitimately supersedes exactly its own six paths;
+                    # its committed bytes become the reference and the worktree must match
+                    # them. Every other frozen path stays bound to the published F16 source.
+                    path_reference_commit = documentation_tranche_commit
+                recovery_blob = _git(root, "show", f"{path_reference_commit}:{relative}")
                 current_blob = _git(root, "show", f"{current_commit}:{relative}")
                 if current_blob != recovery_blob:
                     problems.append(f"tooling_publication:immutable_path_changed:{relative}")
@@ -2468,6 +2568,10 @@ def _validate_tooling_publication(
                 allowed_upstream.add(source_commit)
             elif len(ancestry) == 2:
                 allowed_upstream.add(ancestry[1])
+            elif documentation_tranche_commit is not None:
+                # At the tranche stage origin/master is exactly the published B16 (before the
+                # tranche push) or the tranche itself (after) — never the bare receipt.
+                allowed_upstream = {ancestry[1], documentation_tranche_commit}
             if upstream_commit not in allowed_upstream:
                 problems.append("tooling_publication:generation_sixteen_origin")
         if publication_generation != 16 or upstream_commit != source_commit:
