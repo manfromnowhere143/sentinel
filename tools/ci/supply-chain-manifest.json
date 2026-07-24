@@ -1,0 +1,11 @@
+{
+  "lock_sha256": {
+    "3.10": "9ee6c706aaad03e05695b3d7a7afb22f98eec641d1464c6c73054bf053860536",
+    "3.11": "b0e94602cafa0aa2d9990b43497d5eb3770660c934ecabe24d4df2ea090b10a5"
+  },
+  "pinned_actions": {
+    "actions/checkout": "11d5960a326750d5838078e36cf38b85af677262",
+    "actions/setup-python": "a26af69be951a213d495a4c3e4e4022e16d87065"
+  },
+  "schema": "sentinel.supply_chain_manifest.v1"
+}
