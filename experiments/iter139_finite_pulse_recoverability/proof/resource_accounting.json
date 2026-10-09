@@ -1,0 +1,16 @@
+{
+  "billed_cost": null,
+  "episode_supervisor_seconds": 932.5692915916443,
+  "first_start_operation_to_stop_completion_seconds": 1953.422,
+  "initialized_episode_retries": 0,
+  "initialized_episodes": 8,
+  "postflight_bound_files": 471,
+  "postflight_free_gib": 109.73075103759766,
+  "provider_running_interval_seconds": 1802.635,
+  "provider_status": "TERMINATED",
+  "raw_files_retained": 88,
+  "remote_only_files_inventoried": 650,
+  "scope": "Same-provider timestamps; running interval is not a billing measurement. Original budget was not reset after stockout.",
+  "start_requests": 2,
+  "stop_requests": 1
+}

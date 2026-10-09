@@ -1,0 +1,27 @@
+"""Retrospective descriptive recount; no new treatment or endpoint decision."""
+import hashlib
+import json
+from pathlib import Path
+
+root = Path('/Users/danielwahnich/workspace/sentinel/experiments/iter139_finite_pulse_recoverability/proof')
+report = {}
+for p in sorted((root / 'live').glob('*/scene-0411_hard_00/iter139_trace.jsonl')):
+    rows = [json.loads(x) for x in p.read_text().splitlines()]
+    header, frames = rows[0], rows[1:-1]
+    residuals = [abs(f['after']['ego_velo'] - (f['before']['ego_velo'] + f['control'][0] * (f['after']['timestamp'] - f['time']))) for f in frames]
+    pulse = [] if header['onset'] is None else [f for f in frames if header['onset'] <= f['time'] < header['onset'] + header['duration']]
+    log = (p.parent.parent / 'driver.log').read_text().splitlines()
+    report[p.parts[-3]] = dict(
+        trace_sha256=hashlib.sha256(p.read_bytes()).hexdigest(),
+        frames=len(frames),
+        max_velocity_update_residual=max(residuals),
+        terminal_speed=frames[-1]['after']['ego_velo'],
+        actual_environment_log_lines=[line for line in log if line in ('Collision with foreground', 'Collision with background')],
+        pulse_start_speed=pulse[0]['before']['ego_velo'] if pulse else None,
+        pulse_end_speed=pulse[-1]['after']['ego_velo'] if pulse else None,
+        pulse_accelerations=[f['control'][0] for f in pulse],
+        pulse_steer_rates=[f['control'][1] for f in pulse],
+        pulse_times=[f['time'] for f in pulse],
+        scope='Observed acceleration, steering, scalar speed and environment log text only; no actor attribution or mediation claim',
+    )
+print(json.dumps(dict(status='descriptive',analysis_timing='post hoc after all live cells',episodes=report),indent=2,sort_keys=True))

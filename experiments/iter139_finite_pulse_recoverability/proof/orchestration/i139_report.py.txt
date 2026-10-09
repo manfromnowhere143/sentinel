@@ -1,0 +1,355 @@
+"""Produce closure documents from retained evidence; no change to the frozen analysis."""
+import datetime
+import json
+import subprocess
+from pathlib import Path
+
+root = Path('/Users/danielwahnich/workspace/sentinel')
+base = root / 'experiments/iter139_finite_pulse_recoverability'
+proof = base / 'proof'
+def load(name):
+    return json.loads((proof / name).read_text())
+grid = load('grid_analysis.json')
+recount = load('arithmetic_recount.stdout')
+actuation = load('actuation_recount.stdout')['episodes']
+ledger = load('episode_commit_ledger.json')
+arms = [e['arm'] for e in ledger]
+reports = {a: load('analysis/' + a + '.json') for a in arms}
+summaries = {a: reports[a]['reference' if a == 'reference_a' else 'candidate'] for a in arms}
+post = load('postflight_summary.json')
+provider = load('final_provider_state.stdout')
+assert len(arms) == 8 and grid['verdict'] == 'FINITE_PULSE_RECOVERY_NULL'
+assert recount['total_calls'] == 206 and provider['status'] == 'TERMINATED'
+start = load('provider_operation_1.stdout')
+stop = load('stop_operation_readback_2.stdout')
+dt = datetime.datetime.fromisoformat
+resources = dict(
+    provider_status=provider['status'],
+    start_requests=2,
+    stop_requests=1,
+    initialized_episodes=8,
+    initialized_episode_retries=0,
+    provider_running_interval_seconds=(dt(provider['lastStopTimestamp'])-dt(provider['lastStartTimestamp'])).total_seconds(),
+    first_start_operation_to_stop_completion_seconds=(dt(stop['endTime'])-dt(start['insertTime'])).total_seconds(),
+    episode_supervisor_seconds=sum(e['supervisor']['elapsed_seconds'] for e in ledger),
+    postflight_bound_files=post['bound_files'],
+    postflight_free_gib=post['free_gib'],
+    remote_only_files_inventoried=sum(len(load('live/'+a+'/remote_inventory.json')['remote_only']) for a in arms),
+    raw_files_retained=sum(len(load('live/'+a+'/remote_inventory.json')['retained']) for a in arms),
+    billed_cost=None,
+    scope='Same-provider timestamps; running interval is not a billing measurement. Original budget was not reset after stockout.'
+)
+(proof/'resource_accounting.json').write_text(json.dumps(resources,indent=2,sort_keys=True)+'\n')
+
+def fmt(x, digits=6):
+    return 'null' if x is None else f'{x:.{digits}f}'
+
+outcome_rows=[]
+for a in arms[2:]:
+    o=reports[a]['outcomes']; onset,duration=map(int,a.split('_')[1:])
+    outcome_rows.append(f"| `{a}` | {onset} / {duration} | {o['first_collision_time']:.1f} | {fmt(o['hazard_progress'])} | {fmt(o['final_route_completion'])} | {o['assigned_override_frames']} / {o['realized_override_frames']} / {o['changed_plan_frames']} | {'yes' if o['collision_free_through_hazard'] else 'no'} | no |")
+
+timing_rows=[]
+solver_rows=[]
+client_rows=[]
+for a,s in summaries.items():
+    n=s['frames']; c=s['complete_call_ms']; q=s['solver_ms']; client=s['client_roundtrip_ms']; adapter=s['adapter_ms']
+    timing_rows.append(f"| `{a}` | {n} | {c['p50']:.3f} | {c['p95']:.3f} | {c['p99']:.3f} | {s['complete_call_over_50ms']}/{n} |")
+    solver_rows.append(f"| `{a}` | {q['p50']:.3f} | {q['p95']:.3f} | {q['p99']:.3f} | {s['solver_over_50ms']}/{n} |")
+    client_rows.append(f"| `{a}` | {adapter['p50']:.3f} / {adapter['p95']:.3f} / {adapter['p99']:.3f} | {client['p50']:.3f} / {client['p95']:.3f} / {client['p99']:.3f} |")
+control_rows=[]
+for a in arms[2:]:
+    v=actuation[a]
+    control_rows.append(f"| `{a}` | {v['pulse_start_speed']:.6f} | {v['pulse_end_speed']:.6f} | {v['terminal_speed']:.6f} | {summaries[a]['monitor_brake_requests']} |")
+raw_rows='\n'.join(f"| `{e['arm']}` | `{e['raw_commit']}` | {e['supervisor']['elapsed_seconds']:.3f} |" for e in ledger)
+
+result=f'''# Iteration 139: finite pulse recovery null
+
+Status: **null / FINITE_PULSE_RECOVERY_NULL**, 2026-10-09.
+The complete, valid six-cell intervention grid produced **0/6 useful recoveries** on the
+disclosed development case `scene-0411-hard-00`. Every branch collided. This closes the frozen
+experiment; its grid, outcomes, tolerances and stopping rules were unchanged after evidence.
+
+One pulse, starting at 2 seconds and lasting 1 second, was collision-free at the reference
+hazard time of 6.5 seconds, with exactly the reference progress, but collided at 7.0 seconds.
+Its half-second delay fails the registered recovery endpoint. A check ending at the reference
+collision time would have overstated the benefit.
+
+## Registered outcomes
+
+The two references each contain 26 actions, collide at **T=6.5 simulated seconds**, and have
+raw route completion **R=0.11557062998555366**. Their driving traces are byte-identical;
+complete numerical controller records match and the independent Decimal comparison agrees.
+The trace SHA-256 is `df49e87e5eb0f1ba23ea787f5925a1fb1d2ea812b8c2a48bf4462628f3bfb7aa`.
+The retrospective recount also finds the reference frame bodies and footer equal to Iter138's
+reference, excluding the changed schema/identity header. This is evidence on this configuration.
+
+The frozen progress bar is **R-0.05=0.06557062998555366** at T. Useful recovery also requires
+collision-free route completion within the original horizon, the complete pulse and resumption,
+and at most two seconds of override. All six pulses and their resumptions were fully observed;
+none of these outcomes was censored, invalid or missing. They all failed through actual collision.
+
+| Arm | Onset / duration (s) | First collision (s) | Raw progress at T | Final raw progress | Assigned / realized / changed plan frames | Collision-free through T | Useful recovery |
+| --- | ---: | ---: | ---: | ---: | ---: | --- | --- |
+{chr(10).join(outcome_rows)}
+
+Progress is rounded here; exact values are in [grid_analysis.json](proof/grid_analysis.json).
+`null` at T means the episode already collided at 6.0 seconds and never observed T; it does not
+mean zero progress. Early collision is an observed failure of collision-free recovery.
+The late two-second pulse overrode eight frames but changed the incoming plan on only five;
+the other three incoming plans were already zero. Assigned override duration is not a measure
+of additional actuation dose. Realized quantities do not adjust the primary comparison.
+
+## Controller execution and independent verification
+
+All **206/206 live controller calls** passed replay using the separately imported original
+upstream controller source in the bound environment. All **206 stopping reasons were convergence**;
+there were zero iteration-limit, deadline or input-failure stops. Numerical mode has no wall
+deadline stop; zero deadline stops cannot establish timely execution. Actual incoming plan dtype
+was float32 and was preserved. All six pre-action prefixes and onset observations, states and
+typed incoming plans matched the reference under the preregistered rules. The independent Decimal
+implementation agreed on pulse timing, prefixes and outcomes.
+
+The exact source, runtime, image and data binding is in [EXECUTION_BINDING.md](EXECUTION_BINDING.md).
+Raw bytes were committed before each interpretation and before the next episode. The
+[commit ledger](proof/episode_commit_ledger.json) and per-arm reports in `proof/analysis/` retain
+the order. The [stdlib recount](proof/orchestration/i139_recount.py.txt) independently recomputed
+all retained timing quantiles, counts, stop reasons, terminal outcomes, monitor request counts,
+raw trace hashes and override/changed-frame counts; [its output](proof/arithmetic_recount.stdout)
+matched all eight reports. Original-source replay and Decimal validation are separate
+implementations, not independent humans or independent scientific replications.
+
+## Wall time, separate from simulation and stopping
+
+Nearest-rank quantiles below include all calls, including startup; units are milliseconds.
+With 24–28 calls per episode, p99 equals the observed maximum. These are dependent observations
+from one case, not tail-latency guarantees or a randomized timing comparison between arms.
+
+Complete controller adapter call:
+
+| Arm | Calls | p50 ms | p95 ms | p99 = max ms | >50 ms |
+| --- | ---: | ---: | ---: | ---: | ---: |
+{chr(10).join(timing_rows)}
+
+Full solver:
+
+| Arm | p50 ms | p95 ms | p99 = max ms | >50 ms |
+| --- | ---: | ---: | ---: | ---: |
+{chr(10).join(solver_rows)}
+
+Internal adapter and client roundtrip:
+
+| Arm | Internal adapter p50 / p95 / p99=max ms | Client roundtrip p50 / p95 / p99=max ms |
+| --- | ---: | ---: |
+{chr(10).join(client_rows)}
+
+In total, **166/206 complete calls** and **137/206 full solver calls** exceeded 50 ms. The
+threshold comes from the configured engineering budget; it is not a validated vehicle deadline.
+Client roundtrip includes transport, serialization/deserialization and client work, not isolated
+model inference. Timing boundaries retain the Iter138 contract. The simulator advances fixed
+0.25-second steps independently of wall time; stale-action consequences were not evaluated.
+Deterministic numerical output and poor wall-time behavior coexist in this evidence.
+
+## Descriptive actuation check after the grid
+
+This additional [raw recount](proof/actuation_recount.stdout) was written after all eight live
+episodes. It is descriptive and does not amend any endpoint or establish a causal mechanism.
+Every pulse has negative acceleration on each assigned frame and a lower speed at pulse end.
+All 206 velocity updates satisfy the logged `v_after = v_before + acc * dt` with zero floating
+residual in this recount. The zero plan also produces steering-rate commands; it is not a direct
+brake pedal or a guaranteed stopping maneuver.
+
+| Arm | Speed at pulse start (m/s) | Speed at pulse end (m/s) | Speed at collision (m/s) | Released-monitor brake requests |
+| --- | ---: | ---: | ---: | ---: |
+{chr(10).join(control_rows)}
+
+Each reference had eight released-monitor brake requests and speed 0.10744942905458194 m/s at
+collision. Each of the eight raw driver logs contains the environment's `Collision with foreground`
+line. This supports distinguishing actual environment collision from evaluator warnings about
+planned trajectories, but it does not identify an actor or prove a contact mechanism. Low ego
+speed alone does not establish low relative impact speed or low severity. The next design must
+check contact geometry and other-actor response before selecting a different intervention family.
+
+## Source and measurement corrections preserved
+
+Before execution, source review found that raw route completion can reach 10/9; the new schema
+accepts this range without clipping and has overshoot/invalid-range fixtures. Earlier Iter136/138
+observations did not exceed one and remain unchanged. The evaluator's `nc` aggregates checks on
+planned trajectories; it is not the probability of an executed episode avoiding collision.
+Its `rc` is a clipped maximum over frames. This experiment uses actual `env.step` collision flags
+and raw progress at the specified time and at termination. See [DESIGN_REVIEW.md](DESIGN_REVIEW.md)
+and the [bound evaluator source](proof/score_calculator.py.txt).
+
+## Validation and infrastructure closure
+
+**179 distinct focused tests passed:** 41 Iter139, 32 Iter138, 51 Iter137 and 55 Iter136.
+The 37 core Iter139 tests passed from extracted committed source; the four provider-readiness
+known-bads passed from the exact executed packet. Local tests used ambient Python 3.14 /
+NumPy 2.4.2. The bound host used Python 3.11.10 / NumPy 1.26.4 and single-thread pools; its
+generated-driver stub exercised 12 controller calls, pulse/resumption and route overshoot before
+live execution. The [fixture result](proof/runtime_integration_after_capacity.stdout) is synthetic,
+not an observed driving success. Collected fixture bytes are retained in `proof/supplemental/`.
+Implementation/test Ruff passed. Full, frozen-environment and hosted CI are not claimed.
+
+Initial lint failures and the test invocation that inherited incompatible home-directory pytest
+arguments are retained with their successful corrections. The first provider start failed from
+zone stockout. A local orchestration error attempted two dependent SSH connections; both failed
+at IAP before a successful host connection. The [pre-live correction](PRE_EXECUTION_INFRASTRUCTURE_CORRECTION.md)
+records the mistake and the provider-readiness guard added and tested before live execution.
+The second start succeeded within the frozen allowance. There were no initialized-episode retries,
+replacement machines, package/image installations or post-evidence source changes.
+
+Postflight matched all **471 bound files**, with no owned episode processes, containers or GPU
+applications and **{post['free_gib']:.3f} GiB** free. The owned shutdown timer was cancelled,
+the stop operation completed, and [provider readback](proof/final_provider_state.stdout) confirms
+**TERMINATED**. There were two start requests and one stop request. The provider start/stop
+interval was **{resources['provider_running_interval_seconds']:.3f} seconds**; first start-operation
+insertion through completed shutdown was **{resources['first_start_operation_to_stop_completion_seconds']:.3f} seconds**,
+inside the original 180-minute budget, which was not reset. Billed cost was not measured.
+[Resource accounting](proof/resource_accounting.json) uses same-provider timestamps.
+
+The repository retains **{resources['raw_files_retained']} raw collected episode files**, with their byte hashes checked.
+Another **{resources['remote_only_files_inventoried']} scene/image/video files** remain on the stopped host's persistent disk,
+with retained path/size/hash inventories; their content bytes are not in Git. Raw controller and
+state replay is narrower than a fully self-contained simulator/assets distribution.
+
+| Arm | Raw evidence commit, before interpretation | Supervisor wall seconds |
+| --- | --- | ---: |
+{raw_rows}
+
+Preregistration: `0b1ab853c78ad89db102483e590d7349c8998210`.
+Executed source: `6991f8f48559ce8f6539a05a8b0eef749639eb26`.
+Candidate branch: `research/iter139-finite-pulse`, local and unpushed. Canonical master remains
+F17. Iter135 remains deferred; Iter136/137/138 evidence and unrelated WIP are preserved.
+
+## Decision and claim boundary
+
+Close this six-cell experiment as null. No tested pulse achieved recovery; no inference follows
+about untested actions, continuous timing, other scenes, physical inevitability or the value of
+additional information. These dependent development trajectories do not support a population
+rate or confidence interval. The [next step](NEXT_STEP.md) is a bounded action/contact diagnostic
+on the new traces, followed by a separately frozen choice of action family or case family.
+Information ablations still require a demonstrated useful intervention opportunity and a strong
+responsive comparator. No safety, real-time operation, transfer, industrial superiority or
+state-of-the-art result is established by this experiment.
+'''
+(base/'RESULT.md').write_text(result)
+
+state= json.loads((base/'STATE.json').read_text())
+state.update(phase='complete',status=grid['status'],verdict=grid['verdict'],provider_status='TERMINATED',completed_episodes=8,observed_pulse_cells=6,useful_recoveries=0,live_controller_calls=206,stop_requests=1,result='RESULT.md',next_step='NEXT_STEP.md')
+(base/'STATE.json').write_text(json.dumps(state,indent=2,sort_keys=True)+'\n')
+(base/'STATUS.md').write_text('''# Iteration 139 status
+
+Complete: **null / FINITE_PULSE_RECOVERY_NULL**. All eight episodes validated; all six pulses
+collided, so none met useful recovery. The 2-second-onset, 1-second pulse delayed collision
+from 6.5 to 7.0 seconds. Read [RESULT.md](RESULT.md) for the complete grid and limitations.
+
+All 206 live controller calls passed original-source replay; all stopped by convergence.
+Complete calls exceeded 50 ms on 166/206 observations; full solver calls on 137/206. Timing
+and numerical repeatability remain distinct. The independent Decimal checks and arithmetic
+recount agree. All prefixes, complete pulses and resumptions validated; no episode retry.
+
+179 distinct focused tests passed; implementation/test Ruff passed. The bound-host stub
+passed before live execution. Full/frozen/hosted CI is not claimed. Initial tooling failures,
+zone stockout, failed dependent SSH attempts and their pre-live correction remain retained.
+
+Cloud host **TERMINATED**, confirmed by [provider readback](proof/final_provider_state.stdout).
+[Postflight](proof/postflight_summary.json) matched all 471 bound files and found no owned
+processes, containers or GPU applications. The run is closed; do not extend or retry its grid.
+
+Candidate branch: `research/iter139-finite-pulse`, local and unpushed. Canonical master and
+unrelated WIP remain unchanged. Read [NEXT_STEP.md](NEXT_STEP.md) before new research.
+''')
+binding=(base/'EXECUTION_BINDING.md').read_text()
+binding+='''
+## Final execution and closure
+
+All eight frozen episodes completed and validated without initialized-episode retry. The
+206 live calls independently replayed, and all six pulse prefixes and Decimal outcomes matched.
+The complete grid is null; see [RESULT.md](RESULT.md). Every raw episode was committed before
+interpretation; the [ledger](proof/episode_commit_ledger.json) retains those commits.
+
+Postflight matched all 471 bound files and found no owned active work. The final provider state
+is [TERMINATED](proof/final_provider_state.stdout), with a completed stop operation. The original
+resource budget was not reset after the failed start; [accounting](proof/resource_accounting.json)
+retains observed intervals and leaves billed cost unknown. The experiment is closed.
+'''
+(base/'EXECUTION_BINDING.md').write_text(binding)
+
+def candidate(path):
+    return subprocess.check_output(['git','show','research/iter139-finite-pulse:'+path],cwd=root).decode()
+prefix='''> **Active operator-directed candidate result, 2026-10-09:** Iter139 is complete as
+> **null / FINITE_PULSE_RECOVERY_NULL**: all six finite pulses collided, with 0/6 useful recoveries.
+> The 2-second-onset, 1-second pulse delayed collision from 6.5 to 7.0 s; it did not recover.
+> Both fresh references matched; all 206 live controller calls independently replayed and
+> stopped by convergence. Complete calls exceeded 50 ms on 166/206 observations.
+> Read [result](experiments/iter139_finite_pulse_recoverability/RESULT.md),
+> [state](experiments/iter139_finite_pulse_recoverability/STATE.json), and
+> [next step](experiments/iter139_finite_pulse_recoverability/NEXT_STEP.md).
+> Host is TERMINATED. Iter139 is closed; no grid expansion or retry.
+> Candidate branch: `research/iter139-finite-pulse`, unpushed; master remains F17.
+> Iter135 remains deferred. MISSION_STATE/HANDOFF retain their older publication snapshot.'''
+def update_cont(s):
+    start=s.index('> **Active operator-directed candidate result,');end=s.index('\n\n',start)
+    return s[:start]+prefix+s[end:]
+Path('/tmp/i139_CONTINUITY.md').write_text(update_cont(candidate('CONTINUITY.md')))
+(root/'CONTINUITY.md').write_text(update_cont((root/'CONTINUITY.md').read_text()))
+
+next_block='''## Active operator work on 2026-10-09
+
+[Iteration 139](../experiments/iter139_finite_pulse_recoverability/RESULT.md) is complete as
+**null / FINITE_PULSE_RECOVERY_NULL**. Two fresh references matched, and all six finite zero-plan
+pulses followed by resumed planning collided. None achieved useful recovery. One pulse was
+collision-free at the 6.5-second reference hazard time but collided at 7.0 seconds, demonstrating
+why that diagnostic alone cannot establish recovery. The complete grid and nulls remain visible.
+
+All 206 live controller calls passed original-source replay and stopped by convergence. All
+six prefixes and independent Decimal endpoints matched. Numerical repeatability is established
+only in the declared configuration; 166/206 complete calls and 137/206 solver calls exceeded
+50 ms. Fixed simulation time does not evaluate delayed actuation. The cloud host is TERMINATED.
+
+The [proposed next step](../experiments/iter139_finite_pulse_recoverability/NEXT_STEP.md) is a
+bounded contact/actuation diagnostic of these new traces to decide whether to change the action
+family or the development case family. The observed pulses did slow the vehicle; all logs name
+foreground collision, but actor attribution and relative impact severity remain unestablished.
+Do not restart a same-row descriptive audit sequence or tune the closed grid. A detector
+comparison should follow demonstrated useful action availability and use a strong responsive
+comparator with fixed resources, before independent-scene evaluation.
+
+[Iter138](../experiments/iter138_numerical_live_replay/RESULT.md) remains supported/REPLAY_MATCHED;
+[Iter137](../experiments/iter137_controller_execution_contract/RESULT.md) retains its bounded
+controller benchmark and [the independent audit](../experiments/iter138_numerical_live_replay/AUDIT137.md).
+[Iter136](../experiments/iter136_hugsim_recoverability_canary/RESULT.md) remains REPLAY_DIVERGED.
+These experiments are closed. Iter135 remains deferred and unchanged. Candidate branch
+`research/iter139-finite-pulse` is local and unpushed; canonical master remains F17. The accepted
+publication snapshot below remains historical.
+
+'''
+def update_next(s):
+    start=s.index('## Active operator work on 2026-10-09');end=s.index('## Canonical current decision:',start)
+    return s[:start]+next_block+s[end:]
+Path('/tmp/i139_NEXT_PHASE.md').write_text(update_next(candidate('docs/NEXT_PHASE.md')))
+(root/'docs/NEXT_PHASE.md').write_text(update_next((root/'docs/NEXT_PHASE.md').read_text()))
+
+readme_block='''## Local research update 2026-10-09
+
+[Iteration 139](experiments/iter139_finite_pulse_recoverability/RESULT.md) completed a frozen
+six-cell finite-pulse experiment after two matching references: **0/6 useful recoveries**.
+Every branch collided. One pulse delayed collision from 6.5 to 7.0 seconds while meeting the
+progress bar at the reference hazard time; full-route evaluation prevented calling that recovery.
+All 206 live controller calls passed original-source replay, and all stopped by convergence.
+166/206 complete calls exceeded 50 ms. The cloud host is confirmed stopped.
+
+This builds on [Iter138's matched live pair](experiments/iter138_numerical_live_replay/RESULT.md),
+[Iter137's controller benchmark](experiments/iter137_controller_execution_contract/RESULT.md)
+and [Iter136's failed replay gate](experiments/iter136_hugsim_recoverability_canary/RESULT.md).
+The null concerns this finite action library and this development case. The
+[next step](experiments/iter139_finite_pulse_recoverability/NEXT_STEP.md) examines action and
+contact mechanics before another information comparison. These are local research candidates;
+canonical master remains F17 and the accepted mission snapshot below remains historical.
+No industrial superiority, population safety or real-time operation is established.
+
+'''
+s=candidate('README.md');start=s.index('## Local research update 2026-10-09');end=s.index('> **Honest status up front',start)
+Path('/tmp/i139_README.md').write_text(s[:start]+readme_block+s[end:])
+print(json.dumps(resources,indent=2))

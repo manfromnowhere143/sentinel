@@ -6,20 +6,21 @@ loop, by whether the car crashes *and whether it can still drive*.**
 
 ## Local research update 2026-10-09
 
-[Iteration 138](experiments/iter138_numerical_live_replay/RESULT.md) passed its registered live
-replay gate: two fresh processes produced byte-identical 26-frame driving traces, and all 52
-controller calls passed independent replay. Both runs collided at 6.5 simulated seconds.
-In each run, 24/26 full controller adapter calls exceeded 50 ms; real-time validity and
-intervention benefit remain unestablished. The cloud host is confirmed stopped.
+[Iteration 139](experiments/iter139_finite_pulse_recoverability/RESULT.md) completed a frozen
+six-cell finite-pulse experiment after two matching references: **0/6 useful recoveries**.
+Every branch collided. One pulse delayed collision from 6.5 to 7.0 seconds while meeting the
+progress bar at the reference hazard time; full-route evaluation prevented calling that recovery.
+All 206 live controller calls passed original-source replay, and all stopped by convergence.
+166/206 complete calls exceeded 50 ms. The cloud host is confirmed stopped.
 
-This follows [Iter136's failed replay pair](experiments/iter136_hugsim_recoverability_canary/RESULT.md)
-and [Iter137's controller execution benchmark](experiments/iter137_controller_execution_contract/RESULT.md).
-An independent recount confirms Iter137's numbers while distinguishing 114 scheduled typed cases
-from 112 unique inputs in one driving scenario. The
-[proposed next experiment](experiments/iter138_numerical_live_replay/NEXT_EXPERIMENT_DESIGN.md)
-uses finite braking followed by resumed planning to test collision and progress together.
-These are local research candidates; canonical master remains F17 and the accepted mission
-snapshot below remains historical. No industrial superiority or population safety is established.
+This builds on [Iter138's matched live pair](experiments/iter138_numerical_live_replay/RESULT.md),
+[Iter137's controller benchmark](experiments/iter137_controller_execution_contract/RESULT.md)
+and [Iter136's failed replay gate](experiments/iter136_hugsim_recoverability_canary/RESULT.md).
+The null concerns this finite action library and this development case. The
+[next step](experiments/iter139_finite_pulse_recoverability/NEXT_STEP.md) examines action and
+contact mechanics before another information comparison. These are local research candidates;
+canonical master remains F17 and the accepted mission snapshot below remains historical.
+No industrial superiority, population safety or real-time operation is established.
 
 > **Honest status up front (current through iteration 134; `MISSION_STATE.json` is the
 > canonical repository mission-state contract and the status table below is the evidence ledger.

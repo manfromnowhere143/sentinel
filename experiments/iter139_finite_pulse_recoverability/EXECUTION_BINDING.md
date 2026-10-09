@@ -30,3 +30,15 @@ Raw episode proof is committed before interpretation and before the next arm. Co
 uses original upstream source in a separate process; Decimal pulse/prefix/outcome computation
 imports neither the producer nor the primary checker. The generated-driver host fixture is CPU
 only with stub state, not a simulator episode or observed recovery benefit.
+
+## Final execution and closure
+
+All eight frozen episodes completed and validated without initialized-episode retry. The
+206 live calls independently replayed, and all six pulse prefixes and Decimal outcomes matched.
+The complete grid is null; see [RESULT.md](RESULT.md). Every raw episode was committed before
+interpretation; the [ledger](proof/episode_commit_ledger.json) retains those commits.
+
+Postflight matched all 471 bound files and found no owned active work. The final provider state
+is [TERMINATED](proof/final_provider_state.stdout), with a completed stop operation. The original
+resource budget was not reset after the failed start; [accounting](proof/resource_accounting.json)
+retains observed intervals and leaves billed cost unknown. The experiment is closed.

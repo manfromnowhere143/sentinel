@@ -1,0 +1,252 @@
+{
+  "analysis_timing": "post hoc after all live cells",
+  "episodes": {
+    "pulse_0_1": {
+      "actual_environment_log_lines": [
+        "Collision with foreground"
+      ],
+      "frames": 26,
+      "max_velocity_update_residual": 0.0,
+      "pulse_accelerations": [
+        -1.3512363524311684,
+        -0.8947764949381739,
+        -0.592512991648478,
+        -0.3923567400044743
+      ],
+      "pulse_end_speed": 0.19227935524442635,
+      "pulse_start_speed": 1,
+      "pulse_steer_rates": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pulse_times": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "scope": "Observed acceleration, steering, scalar speed and environment log text only; no actor attribution or mediation claim",
+      "terminal_speed": 0.2491524939364823,
+      "trace_sha256": "50d5a8c564f8f02f51d108383cf00bed9554e5eadc0b011916115d7941dc4f29"
+    },
+    "pulse_0_2": {
+      "actual_environment_log_lines": [
+        "Collision with foreground"
+      ],
+      "frames": 24,
+      "max_velocity_update_residual": 0.0,
+      "pulse_accelerations": [
+        -1.3512363524311684,
+        -0.8947764949381739,
+        -0.592512991648478,
+        -0.3923567400044743,
+        -0.2598150792614865,
+        -0.17204718953387216,
+        -0.11392808631467091,
+        -0.07544214155273142
+      ],
+      "pulse_end_speed": 0.03697123107873611,
+      "pulse_start_speed": 1,
+      "pulse_steer_rates": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pulse_times": [
+        0,
+        0.25,
+        0.5,
+        0.75,
+        1.0,
+        1.25,
+        1.5,
+        1.75
+      ],
+      "scope": "Observed acceleration, steering, scalar speed and environment log text only; no actor attribution or mediation claim",
+      "terminal_speed": 0.23431854610076658,
+      "trace_sha256": "c0bfc0252c12d07203933f57f241dd5e8bf44ab754f1ff4ba06831437081c5ee"
+    },
+    "pulse_2_1": {
+      "actual_environment_log_lines": [
+        "Collision with foreground"
+      ],
+      "frames": 28,
+      "max_velocity_update_residual": 0.0,
+      "pulse_accelerations": [
+        -3.0,
+        -3.0,
+        -2.164819630291309,
+        -1.4315210874034254
+      ],
+      "pulse_end_speed": 0.6985621086356554,
+      "pulse_start_speed": 3.097647288059339,
+      "pulse_steer_rates": [
+        0.028442430148101855,
+        0.005438772887591731,
+        0.0014325022825457667,
+        0.0005678478911348983
+      ],
+      "pulse_times": [
+        2.0,
+        2.25,
+        2.5,
+        2.75
+      ],
+      "scope": "Observed acceleration, steering, scalar speed and environment log text only; no actor attribution or mediation claim",
+      "terminal_speed": 0.24817673022336476,
+      "trace_sha256": "cc0e68baf4b68c69d6a4feb163e721b6c8e0bafaed724e420e34851d58eb4812"
+    },
+    "pulse_2_2": {
+      "actual_environment_log_lines": [
+        "Collision with foreground"
+      ],
+      "frames": 24,
+      "max_velocity_update_residual": 0.0,
+      "pulse_accelerations": [
+        -3.0,
+        -3.0,
+        -2.164819630291309,
+        -1.4315210874034254,
+        -0.9465901352482571,
+        -0.6259230325998824,
+        -0.41388287088553805,
+        -0.27367361188729333
+      ],
+      "pulse_end_speed": 0.1335446959804127,
+      "pulse_start_speed": 3.097647288059339,
+      "pulse_steer_rates": [
+        0.028442430148101855,
+        0.005438772887591731,
+        0.0014325022825457667,
+        0.0005678478911348983,
+        0.00023670661727084874,
+        0.00010124639994027462,
+        4.383482690573093e-05,
+        1.908277241213785e-05
+      ],
+      "pulse_times": [
+        2.0,
+        2.25,
+        2.5,
+        2.75,
+        3.0,
+        3.25,
+        3.5,
+        3.75
+      ],
+      "scope": "Observed acceleration, steering, scalar speed and environment log text only; no actor attribution or mediation claim",
+      "terminal_speed": 0.1266933952620553,
+      "trace_sha256": "b74f231eaa78e0e9731d7e8e8735dfb96b10423fb4366ff2adb4dd5b268ec24f"
+    },
+    "pulse_4_1": {
+      "actual_environment_log_lines": [
+        "Collision with foreground"
+      ],
+      "frames": 26,
+      "max_velocity_update_residual": 0.0,
+      "pulse_accelerations": [
+        -3.0,
+        -2.6730131416803915,
+        -1.7611776941694754,
+        -1.160217447636024
+      ],
+      "pulse_end_speed": 0.5598213541102982,
+      "pulse_start_speed": 2.708423424981771,
+      "pulse_steer_rates": [
+        -0.0260625100669985,
+        -0.0041712831685975504,
+        -0.0015563900669082753,
+        -0.0006248764963115438
+      ],
+      "pulse_times": [
+        4.0,
+        4.25,
+        4.5,
+        4.75
+      ],
+      "scope": "Observed acceleration, steering, scalar speed and environment log text only; no actor attribution or mediation claim",
+      "terminal_speed": 0.32546372899481285,
+      "trace_sha256": "6756bf14266c7fb68af5e0d1ebfc10e2c6faca2ae7a36227f5dd02533878ea51"
+    },
+    "pulse_4_2": {
+      "actual_environment_log_lines": [
+        "Collision with foreground"
+      ],
+      "frames": 26,
+      "max_velocity_update_residual": 0.0,
+      "pulse_accelerations": [
+        -3.0,
+        -2.6730131416803915,
+        -1.7611776941694754,
+        -1.160217447636024,
+        -0.7642681801481482,
+        -0.5034297511266699,
+        -0.33160886729092703,
+        -0.2184293701817623
+      ],
+      "pulse_end_speed": 0.10538731192342132,
+      "pulse_start_speed": 2.708423424981771,
+      "pulse_steer_rates": [
+        -0.0260625100669985,
+        -0.0041712831685975504,
+        -0.0015563900669082753,
+        -0.0006248764963115438,
+        -0.0002613769741944827,
+        -0.00011154907097926658,
+        -4.804707127681329e-05,
+        -2.0779936189541104e-05
+      ],
+      "pulse_times": [
+        4.0,
+        4.25,
+        4.5,
+        4.75,
+        5.0,
+        5.25,
+        5.5,
+        5.75
+      ],
+      "scope": "Observed acceleration, steering, scalar speed and environment log text only; no actor attribution or mediation claim",
+      "terminal_speed": 0.04572491486388739,
+      "trace_sha256": "1e61fb9e95453b7d921b11b77efab49f9e19dd3d294991b21360c503b5d52f73"
+    },
+    "reference_a": {
+      "actual_environment_log_lines": [
+        "Collision with foreground"
+      ],
+      "frames": 26,
+      "max_velocity_update_residual": 0.0,
+      "pulse_accelerations": [],
+      "pulse_end_speed": null,
+      "pulse_start_speed": null,
+      "pulse_steer_rates": [],
+      "pulse_times": [],
+      "scope": "Observed acceleration, steering, scalar speed and environment log text only; no actor attribution or mediation claim",
+      "terminal_speed": 0.10744942905458194,
+      "trace_sha256": "df49e87e5eb0f1ba23ea787f5925a1fb1d2ea812b8c2a48bf4462628f3bfb7aa"
+    },
+    "reference_b": {
+      "actual_environment_log_lines": [
+        "Collision with foreground"
+      ],
+      "frames": 26,
+      "max_velocity_update_residual": 0.0,
+      "pulse_accelerations": [],
+      "pulse_end_speed": null,
+      "pulse_start_speed": null,
+      "pulse_steer_rates": [],
+      "pulse_times": [],
+      "scope": "Observed acceleration, steering, scalar speed and environment log text only; no actor attribution or mediation claim",
+      "terminal_speed": 0.10744942905458194,
+      "trace_sha256": "df49e87e5eb0f1ba23ea787f5925a1fb1d2ea812b8c2a48bf4462628f3bfb7aa"
+    }
+  },
+  "status": "descriptive"
+}

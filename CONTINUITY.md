@@ -1,12 +1,14 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
-> **Active operator-directed candidate result, 2026-10-09:** Iteration 139 is running;
-> phase: pulse_4_2. The original host is RUNNING with an owned shutdown timer.
-> Read [Iter139 state](experiments/iter139_finite_pulse_recoverability/STATE.json),
-> [protocol](experiments/iter139_finite_pulse_recoverability/HYPOTHESIS.md), and
-> [pre-execution infrastructure correction](experiments/iter139_finite_pulse_recoverability/PRE_EXECUTION_INFRASTRUCTURE_CORRECTION.md).
-> Iter138 remains supported/REPLAY_MATCHED: two identical 26-frame traces, both colliding
-> at 6.5 seconds. Iter136 remains REPLAY_DIVERGED. Both experiments are closed.
+> **Active operator-directed candidate result, 2026-10-09:** Iter139 is complete as
+> **null / FINITE_PULSE_RECOVERY_NULL**: all six finite pulses collided, with 0/6 useful recoveries.
+> The 2-second-onset, 1-second pulse delayed collision from 6.5 to 7.0 s; it did not recover.
+> Both fresh references matched; all 206 live controller calls independently replayed and
+> stopped by convergence. Complete calls exceeded 50 ms on 166/206 observations.
+> Read [result](experiments/iter139_finite_pulse_recoverability/RESULT.md),
+> [state](experiments/iter139_finite_pulse_recoverability/STATE.json), and
+> [next step](experiments/iter139_finite_pulse_recoverability/NEXT_STEP.md).
+> Host is TERMINATED. Iter139 is closed; no grid expansion or retry.
 > Candidate branch: `research/iter139-finite-pulse`, unpushed; master remains F17.
 > Iter135 remains deferred. MISSION_STATE/HANDOFF retain their older publication snapshot.
 
@@ -857,6 +859,14 @@ operator can reconstruct the exact repository state and the limits of the retain
 
 ## Shift log
 
+- 2026-10-09: Iter139 closed as null / FINITE_PULSE_RECOVERY_NULL on the local candidate
+  `research/iter139-finite-pulse`: two matching references, six valid finite pulses, zero useful
+  recoveries. All 206 live controller calls independently replayed; all converged, but 166/206
+  complete calls exceeded 50 ms. Raw evidence preceded interpretation. Postflight matched 471
+  bound files and provider readback confirmed TERMINATED. Read the
+  [result](experiments/iter139_finite_pulse_recoverability/RESULT.md) and
+  [next-step decision](experiments/iter139_finite_pulse_recoverability/NEXT_STEP.md). Iter135
+  remains deferred; accepted publication history and unrelated WIP remain unchanged.
 - 2026-06-30 → 2026-07-06: Claude (Fable 5) — iterations 1–19 (incl. the iter-19 gate null:
   collapse located in the planning representation), verification pass, benchmark + power runs,
   paper draft + figures + arXiv package, this continuity system.

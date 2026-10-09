@@ -1,0 +1,28 @@
+import base64,hashlib,json,shutil,subprocess,time
+from pathlib import Path
+control=Path('/datasets/nuscenes-full/hugsim/iter139_control_20261009');manifest=json.loads((control/'runtime_manifest.json').read_text())
+start=time.monotonic();bad=[]
+for name,expected in manifest['files'].items():
+ p=Path(name)
+ if p.is_symlink() or not p.is_file():bad.append([name,'missing or symlink']);continue
+ h=hashlib.sha256()
+ with p.open('rb') as f:
+  for b in iter(lambda:f.read(16*1024*1024),b''):h.update(b)
+ if h.hexdigest()!=expected:bad.append([name,h.hexdigest()])
+commands={}
+for key,argv in [('docker',['docker','ps','--format','{{.ID}} {{.Names}}']),('gpu',['nvidia-smi','--query-compute-apps=pid,process_name,used_memory','--format=csv,noheader']),('timer',['systemctl','is-active','sentinel-iter139-budget.timer'])]:
+ r=subprocess.run(argv,capture_output=True,text=True,timeout=30);commands[key]=dict(returncode=r.returncode,stdout=r.stdout,stderr=r.stderr)
+owned=[]
+for p in Path('/proc').glob('[0-9]*/cmdline'):
+ try:parts=p.read_bytes().split(b'\0')
+ except (OSError,ProcessLookupError):continue
+ if any(x.decode(errors='replace') in [str(control/'run_episode.py'),str(control/'iter139_closed_loop.py')] for x in parts):owned.append(dict(pid=p.parent.name,argv=[x.decode(errors='replace') for x in parts]))
+files={}
+for p in (control/'cpu_integration_fixture').rglob('*'):
+ if p.is_file() and p.suffix in ['.json','.jsonl','.pkl','.py'] and p.stat().st_size<2000000:
+  name='cpu_integration_fixture/'+str(p.relative_to(control/'cpu_integration_fixture'))
+  if p.suffix=='.py':name+='.txt'
+  files[name]=base64.b64encode(p.read_bytes()).decode()
+report=dict(bound_files=len(manifest['files']),changed_or_missing=bad,hash_seconds=time.monotonic()-start,commands=commands,owned_processes=owned,free_gib=shutil.disk_usage('/datasets/nuscenes-full').free/1024**3,manifest_sha256=hashlib.sha256((control/'runtime_manifest.json').read_bytes()).hexdigest(),files=files)
+print(json.dumps(report,sort_keys=True))
+assert not bad and not owned and commands['docker']['returncode']==0 and not commands['docker']['stdout'].strip() and commands['gpu']['returncode']==0 and not commands['gpu']['stdout'].strip()

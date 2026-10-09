@@ -2,35 +2,32 @@
 
 ## Active operator work on 2026-10-09
 
-[Iteration 138](../experiments/iter138_numerical_live_replay/RESULT.md) completed as
-**supported / REPLAY_MATCHED**: two fresh processes produced byte-identical 26-frame driving
-traces and matching numerical controller records. All 52 live calls independently replayed
-using original source. Both runs collided at 6.5 simulated seconds, with route completion
-0.11557062998555366. Actual incoming dtype was float32. No intervention ran.
+[Iteration 139](../experiments/iter139_finite_pulse_recoverability/RESULT.md) is complete as
+**null / FINITE_PULSE_RECOVERY_NULL**. Two fresh references matched, and all six finite zero-plan
+pulses followed by resumed planning collided. None achieved useful recovery. One pulse was
+collision-free at the 6.5-second reference hazard time but collided at 7.0 seconds, demonstrating
+why that diagnostic alone cannot establish recovery. The complete grid and nulls remain visible.
 
-In each reference the full solver exceeded 50 ms on 23/26 calls and the complete adapter call
-on 24/26. Client-roundtrip medians were about 1.72/1.71 seconds, including transport and client
-work. Fixed simulation time does not expose stale-action consequences. Numerical stopping,
-wall-time measurements and driving utility remain separate. Host readback confirms TERMINATED;
-[status](../experiments/iter138_numerical_live_replay/STATUS.md) retains closure evidence.
+All 206 live controller calls passed original-source replay and stopped by convergence. All
+six prefixes and independent Decimal endpoints matched. Numerical repeatability is established
+only in the declared configuration; 166/206 complete calls and 137/206 solver calls exceeded
+50 ms. Fixed simulation time does not evaluate delayed actuation. The cloud host is TERMINATED.
 
-The [independent Iter137 audit](../experiments/iter138_numerical_live_replay/AUDIT137.md)
-recounts all 912 records correctly. Its 114 scheduled typed cases comprise 112 unique inputs
-from 57 dependent decisions in one scenario. No population or real-time conclusion follows.
+The [proposed next step](../experiments/iter139_finite_pulse_recoverability/NEXT_STEP.md) is a
+bounded contact/actuation diagnostic of these new traces to decide whether to change the action
+family or the development case family. The observed pulses did slow the vehicle; all logs name
+foreground collision, but actor attribution and relative impact severity remain unestablished.
+Do not restart a same-row descriptive audit sequence or tune the closed grid. A detector
+comparison should follow demonstrated useful action availability and use a strong responsive
+comparator with fixed resources, before independent-scene evaluation.
 
-Next: separately preregister a finite braking-pulse experiment followed by resumed planning,
-with frozen onset/duration cells, exact pre-action prefix validation, collision/progress/cost
-outcomes and explicit censoring. The [proposed design](../experiments/iter138_numerical_live_replay/NEXT_EXPERIMENT_DESIGN.md)
-addresses the tension between permanent stopping and route-completion success. It contains no
-new intervention result. Establish a useful recovery opportunity before information ablations
-against a strong responsive baseline, then independent-scene evaluation.
-
-[Iter136](../experiments/iter136_hugsim_recoverability_canary/RESULT.md) remains closed as
-REPLAY_DIVERGED; do not retry or relax its tolerance. Iter138 is also closed; its passed pair
-applies only to the declared numerical controller and single-thread runtime. Iter135 remains
-deferred without protocol changes. Candidate branch `research/iter138-live-replay` is local and
-unpushed; canonical master remains F17. The accepted publication snapshot below is retained
-history and does not describe the current operator-directed candidate.
+[Iter138](../experiments/iter138_numerical_live_replay/RESULT.md) remains supported/REPLAY_MATCHED;
+[Iter137](../experiments/iter137_controller_execution_contract/RESULT.md) retains its bounded
+controller benchmark and [the independent audit](../experiments/iter138_numerical_live_replay/AUDIT137.md).
+[Iter136](../experiments/iter136_hugsim_recoverability_canary/RESULT.md) remains REPLAY_DIVERGED.
+These experiments are closed. Iter135 remains deferred and unchanged. Candidate branch
+`research/iter139-finite-pulse` is local and unpushed; canonical master remains F17. The accepted
+publication snapshot below remains historical.
 
 ## Canonical current decision: iteration 134 is complete
 
