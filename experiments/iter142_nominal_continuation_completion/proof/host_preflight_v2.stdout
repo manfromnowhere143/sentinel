@@ -1,0 +1,46 @@
+{
+  "host_utc": 1791561113.7061386,
+  "hostname": "sentinel-gpu",
+  "free_gib": 109.6159896850586,
+  "affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "hugsim": {
+    "returncode": 0,
+    "stdout": "62c690d39fd90020e68a196bd8bcc1c4d4191f2e\n",
+    "stderr": ""
+  },
+  "uniad": {
+    "returncode": 0,
+    "stdout": "5fb279e39912a5ac7f58e00d56b065cadcd0a749\n",
+    "stderr": ""
+  },
+  "containers": {
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "gpu_processes": {
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "processes": {
+    "returncode": 0,
+    "stdout": "    PID ELAPSED %CPU COMMAND\n      1      69  2.0 systemd\n      2      69  0.0 kthreadd\n      3      69  0.0 pool_workqueue_release\n      4      69  0.0 kworker/R-rcu_g\n      5      69  0.0 kworker/R-rcu_p\n      6      69  0.0 kworker/R-slub_\n      7      69  0.0 kworker/R-netns\n      8      69  0.0 kworker/0:0-rcu_gp\n      9      69  0.0 kworker/0:0H-events_highpri\n     10      69  0.1 kworker/0:1-events\n     11      69  0.0 kworker/u16:0-loop11\n     12      69  0.0 kworker/R-mm_pe\n     13      69  0.0 rcu_tasks_rude_kthread\n     14      69  0.0 rcu_tasks_trace_kthread\n     15      69  0.0 ksoftirqd/0\n     16      69  0.0 rcu_sched\n     17      69  0.0 migration/0\n     18      69  0.0 idle_inject/0\n     19      69  0.0 cpuhp/0\n     20      69  0.0 cpuhp/1\n     21      69  0.0 idle_inject/1\n     22      69  0.5 migration/1\n     23      69  0.0 ksoftirqd/1\n     24      69  0.0 kworker/1:0-events\n     25      69  0.0 kworker/1:0H-events_highpri\n     26      69  0.0 cpuhp/2\n     27      69  0.0 idle_inject/2\n     28      69  0.5 migration/2\n     29      69  0.0 ksoftirqd/2\n     30      69  0.0 kworker/2:0-cgroup_free\n     31      69  0.0 kworker/2:0H-kblockd\n     32      69  0.0 cpuhp/3\n     33      69  0.0 idle_inject/3\n     34      69  0.5 migration/3\n     35      69  0.0 ksoftirqd/3\n     36      69  0.0 kworker/3:0-events\n     37      69  0.0 kworker/3:0H-events_highpri\n     38      69  0.0 cpuhp/4\n     39      69  0.0 idle_inject/4\n     40      69  0.5 migration/4\n     41      69  0.0 ksoftirqd/4\n     42      69  0.0 kworker/4:0-events\n     43      69  0.0 kworker/4:0H-events_highpri\n     44      69  0.0 cpuhp/5\n     45      69  0.0 idle_inject/5\n     46      69  0.5 migration/5\n     47      69  0.0 ksoftirqd/5\n     48      69  0.0 kworker/5:0-events\n     49      69  0.0 kworker/5:0H-kblockd\n     50      69  0.0 cpuhp/6\n     51      69  0.0 idle_inject/6\n     52      69  0.5 migration/6\n     53      69  0.0 ksoftirqd/6\n     54      69  0.0 kworker/6:0-events\n     55      69  0.0 kworker/6:0H-events_highpri\n     56      69  0.0 cpuhp/7\n     57      69  0.0 idle_inject/7\n     58      69  0.5 migration/7\n     59      69  0.0 ksoftirqd/7\n     60      69  0.0 kworker/7:0-cgroup_bpf_destroy\n     61      69  0.0 kworker/7:0H-events_highpri\n     62      69  0.0 kdevtmpfs\n     63      69  0.0 kworker/R-inet_\n     64      69  0.0 kauditd\n     65      69  0.0 khungtaskd\n     66      69  0.0 oom_reaper\n     67      69  0.0 kworker/u16:1-events_unbound\n     68      69  0.0 kworker/R-write\n     69      69  0.0 kworker/u16:2-events_unbound\n     70      69  0.0 kcompactd0\n     71      69  0.0 ksmd\n     72      69  0.0 khugepaged\n     73      69  0.0 kworker/R-kinte\n     74      69  0.0 kworker/R-kbloc\n     75      69  0.0 kworker/R-blkcg\n     76      69  0.0 irq/9-acpi\n     77      69  0.0 kworker/1:1-events\n     78      69  0.0 kworker/6:1-cgroup_free\n     79      69  0.0 kworker/4:1-events\n     80      69  0.0 kworker/R-tpm_d\n     81      69  0.0 kworker/R-ata_s\n     82      69  0.0 kworker/R-md\n     83      69  0.0 kworker/R-md_bi\n     84      69  0.0 kworker/R-edac-\n     85      69  0.0 kworker/R-devfr\n     86      69  0.0 watchdogd\n     87      69  0.0 kworker/R-quota\n     88      69  0.0 kworker/0:1H-kblockd\n     89      69  0.0 kswapd0\n     90      69  0.0 ecryptfs-kthread\n     91      69  0.0 kworker/R-kthro\n     92      69  0.0 kworker/R-acpi_\n     93      69  0.0 hwrng\n     94      69  0.0 kworker/R-nvme-\n     95      69  0.0 kworker/R-nvme-\n     96      69  0.0 kworker/R-nvme-\n     97      69  0.0 kworker/R-nvme-\n     98      69  0.0 kworker/4:1H-kblockd\n     99      69  0.0 kworker/7:1-cgroup_release\n    100      69  0.0 kworker/u16:3-loop11\n    101      69  0.0 kworker/0:2-rcu_gp\n    102      69  0.0 kworker/R-mld\n    103      69  0.0 kworker/R-ipv6_\n    110      69  0.0 kworker/R-kstrp\n    111      69  0.0 kworker/2:1-cgroup_bpf_destroy\n    112      69  0.0 kworker/3:1-cgroup_free\n    114      69  0.0 kworker/u17:0\n    127      69  0.0 kworker/4:2-rcu_gp\n    128      69  0.0 kworker/4:3-events\n    129      68  0.0 kworker/R-charg\n    130      68  0.0 jbd2/nvme0n1p1-8\n    131      68  0.0 kworker/R-ext4-\n    133      68  0.0 kworker/3:1H-kblockd\n    134      68  0.0 kworker/7:1H-kblockd\n    155      68  0.0 kworker/5:1H\n    156      68  0.0 kworker/5:1-cgroup_release\n    159      68  0.0 kworker/2:1H-kblockd\n    165      68  0.0 kworker/1:1H-kblockd\n    168      68  0.0 kworker/6:1H-kblockd\n    177      67  0.3 systemd-journal\n    191      67  0.0 kworker/2:2-cgroup_release\n    199      67  0.0 kworker/1:2-events\n    204      67  0.0 kworker/7:2-events\n    208      67  0.0 kworker/2:3-cgroup_offline\n    209      67  0.0 kworker/2:4-events\n    210      67  0.0 kworker/2:5-events\n    213      67  0.0 kworker/R-kalua\n    215      67  0.0 kworker/R-kmpat\n    218      67  0.0 kworker/R-kmpat\n    219      67  0.0 kworker/R-kmpat\n    220      67  0.0 multipathd\n    223      67  0.0 kworker/6:2-events\n    225      67  0.2 systemd-udevd\n    268      67  0.0 kworker/R-crypt\n    291      67  0.0 kworker/3:2-events\n    356      67  0.0 nv_queue\n    357      67  0.0 nv_queue\n    358      67  0.0 nv_open_q\n    361      67  0.0 nvidia-modeset/kthread_q\n    362      67  0.0 nvidia-modeset/deferred_close_kthread_q\n    365      67  0.0 kworker/1:3\n    367      67  0.0 kworker/u16:4-events_unbound\n    369      66  0.0 kworker/u16:5-writeback\n    373      66  0.0 kworker/u16:6-events_power_efficient\n    378      66  0.0 kworker/u16:7-events_unbound\n    380      66  0.0 kworker/u16:8\n    404      66  0.0 UVM global queue\n    405      66  0.0 UVM deferred release queue\n    406      66  0.0 UVM Tools Event Queue\n    441      66  0.0 kworker/5:2-events\n    442      66  0.0 kworker/5:3-cgroup_release\n    455      66  0.0 kworker/7:3-inet_frag_wq\n    456      66  0.0 kworker/7:4\n    457      66  0.0 kworker/7:5\n    462      66  0.0 jbd2/nvme0n2-8\n    463      66  0.0 kworker/R-ext4-\n    552      65  0.0 systemd-network\n    554      65  0.1 systemd-resolve\n    589      62  0.0 dbus-daemon\n    601      62  0.0 chronyd\n    604      62  0.1 google_osconfig\n    605      62  0.0 chronyd\n    614      62  0.1 networkd-dispat\n    627      62  2.6 nvidia-persiste\n    629      62  0.0 irq/48-nvidia\n    630      62  0.0 irq/49-nvidia\n    631      62  0.0 irq/50-nvidia\n    632      62  0.0 irq/51-nvidia\n    633      62  0.0 irq/52-nvidia\n    634      62  0.0 irq/53-nvidia\n    635      62  0.0 nvidia\n    636      62  0.0 nv_queue\n    637      62  0.0 rsyslogd\n    646      62  4.6 snapd\n    669      62  0.3 containerd\n    682      62  0.0 kworker/6:3-cgroup_free\n    871      49  1.1 dockerd\n    872      49  0.2 google_guest_ag\n    877      49  0.0 agetty\n    880      49  0.0 agetty\n    901      49  0.0 polkitd\n   1140      49  0.1 systemd-logind\n   1143      49  0.0 cron\n   1461      42  0.0 sshd\n   1476       4  0.2 sshd\n   1479       2  4.5 systemd\n   1480       2  0.0 (sd-pam)\n   1581       1  0.0 sshd\n   1582       1  0.0 sudo\n   1583       1  2.0 python3\n   1599       0  0.0 ps\n",
+    "stderr": ""
+  },
+  "shutdown_timer": {
+    "returncode": 0,
+    "seconds": 5683,
+    "stdout": "",
+    "stderr": "Running timer as unit: sentinel-iter142-budget.timer\nWill run service as unit: sentinel-iter142-budget.service\n"
+  }
+}

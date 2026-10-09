@@ -1,3 +1,3 @@
 # Status
 
-local_validation: Coordinator boundary tests pass; final source and packet checks pending. Provider remains stopped.
+ready_for_reference: Deployment, retained inputs and host integration passed. Original shutdown budget is active; starting the three fresh episodes.

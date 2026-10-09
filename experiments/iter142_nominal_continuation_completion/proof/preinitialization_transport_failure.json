@@ -1,0 +1,8 @@
+{
+  "status": "failed",
+  "stage": "first SSH preflight",
+  "returncode": 255,
+  "error": "IAP failed to connect to backend port 22 after provider reported RUNNING; no host command connected or episode initialized.",
+  "action": "One bounded pre-initialization reconnection after boot readiness; original budget and source unchanged.",
+  "initialized_episode_retries": 0
+}

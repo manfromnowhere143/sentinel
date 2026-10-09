@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "gcloud",
+    "compute",
+    "operations",
+    "describe",
+    "operation-1791560990822-65d6a4c739092-a7fc31b3-7e7cc4b4",
+    "--project",
+    "sunlit-unison-487018-b0",
+    "--zone",
+    "us-west1-a",
+    "--format=json"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-09T15:48:38.469767+00:00",
+  "elapsed_seconds": 2.228591203689575,
+  "returncode": 0
+}
