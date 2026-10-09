@@ -1,0 +1,144 @@
+{
+  "candidate": {
+    "actual_dtypes": [
+      "<f4"
+    ],
+    "adapter_ms": {
+      "max": 88.441673,
+      "p50": 61.010592,
+      "p95": 81.593223,
+      "p99": 88.441673
+    },
+    "client_roundtrip_ms": {
+      "max": 15612.819144,
+      "p50": 1757.093091,
+      "p95": 2124.965768,
+      "p99": 15612.819144
+    },
+    "complete_call_ms": {
+      "max": 88.450536,
+      "p50": 61.023565,
+      "p95": 81.607514,
+      "p99": 88.450536
+    },
+    "complete_call_over_50ms": 22,
+    "files": {
+      "controller139.jsonl": "2206916443bb4d9a3739c2d76a9a228522209e536566a164a9e969b16b606e68",
+      "iter139_trace.jsonl": "6756bf14266c7fb68af5e0d1ebfc10e2c6faca2ae7a36227f5dd02533878ea51",
+      "sentinel_iter48_decisions.jsonl": "5299e627233bea6abbcc4c5bb719ad1950eb04ee78eb56ab303e24a00455a1b9"
+    },
+    "frames": 26,
+    "monitor_brake_requests": 4,
+    "route_completion": 0.11431442748571069,
+    "solver_ms": {
+      "max": 84.760433,
+      "p50": 57.10656,
+      "p95": 77.312235,
+      "p99": 84.760433
+    },
+    "solver_over_50ms": 17,
+    "stop_reasons": {
+      "converged": 26,
+      "deadline": 0,
+      "iteration_limit": 0
+    },
+    "terminal_reason": "collision",
+    "terminal_time": 6.5
+  },
+  "independent": {
+    "outcomes": {
+      "assigned_override_frames": 4,
+      "censored": false,
+      "changed_plan_frames": 4,
+      "collision_free_through_hazard": false,
+      "collision_observed": true,
+      "complete_pulse_observed": true,
+      "final_route_completion": 0.11431442748571069,
+      "first_collision_time": 6.5,
+      "hazard_progress": 0.11431442748571069,
+      "hazard_progress_bar_met": true,
+      "observed_hazard_horizon": true,
+      "onset_reached": true,
+      "override_seconds": 1.0,
+      "realized_override_frames": 4,
+      "reference_hazard_progress": 0.11557062998555366,
+      "reference_hazard_time": 6.5,
+      "resumption_observed": true,
+      "terminal_reason": "collision",
+      "terminal_time": 6.5,
+      "useful_recovery": false
+    },
+    "prefix": "matched",
+    "scope": "independent pulse timing, prefix and endpoint calculation"
+  },
+  "outcomes": {
+    "assigned_override_frames": 4,
+    "censored": false,
+    "changed_plan_frames": 4,
+    "collision_free_through_hazard": false,
+    "collision_observed": true,
+    "complete_pulse_observed": true,
+    "final_route_completion": 0.11431442748571069,
+    "first_collision_time": 6.5,
+    "hazard_progress": 0.11431442748571069,
+    "hazard_progress_bar_met": true,
+    "observed_hazard_horizon": true,
+    "onset_reached": true,
+    "override_seconds": 1.0,
+    "realized_override_frames": 4,
+    "reference_hazard_progress": 0.11557062998555366,
+    "reference_hazard_time": 6.5,
+    "resumption_observed": true,
+    "terminal_reason": "collision",
+    "terminal_time": 6.5,
+    "useful_recovery": false
+  },
+  "prefix": "matched",
+  "reference": {
+    "actual_dtypes": [
+      "<f4"
+    ],
+    "adapter_ms": {
+      "max": 92.125037,
+      "p50": 57.112411,
+      "p95": 86.246094,
+      "p99": 92.125037
+    },
+    "client_roundtrip_ms": {
+      "max": 32559.860162,
+      "p50": 1737.576003,
+      "p95": 2241.044259,
+      "p99": 32559.860162
+    },
+    "complete_call_ms": {
+      "max": 92.142668,
+      "p50": 57.120316,
+      "p95": 86.256487,
+      "p99": 92.142668
+    },
+    "complete_call_over_50ms": 19,
+    "files": {
+      "controller139.jsonl": "82e809d00b57e597e603e1e93b793c556040aa257ad9141abc3fb18b151b101d",
+      "iter139_trace.jsonl": "df49e87e5eb0f1ba23ea787f5925a1fb1d2ea812b8c2a48bf4462628f3bfb7aa",
+      "sentinel_iter48_decisions.jsonl": "79c2360b43221a11379dfe554b495865305e3586e96681d14537e31ef1ff0e39"
+    },
+    "frames": 26,
+    "monitor_brake_requests": 8,
+    "route_completion": 0.11557062998555366,
+    "solver_ms": {
+      "max": 84.354988,
+      "p50": 53.142161,
+      "p95": 80.096672,
+      "p99": 84.354988
+    },
+    "solver_over_50ms": 16,
+    "stop_reasons": {
+      "converged": 26,
+      "deadline": 0,
+      "iteration_limit": 0
+    },
+    "terminal_reason": "collision",
+    "terminal_time": 6.5
+  },
+  "status": "validated"
+}

@@ -1,0 +1,31 @@
+"""Retrospective stdlib recount of raw live counts and timing; no verifier imports."""
+from pathlib import Path
+import collections,hashlib,json,math
+root=Path('/Users/danielwahnich/workspace/sentinel/experiments/iter139_finite_pulse_recoverability/proof')
+results={};total=0
+for report_path in sorted((root/'analysis').glob('*.json')):
+ arm=report_path.stem;report=json.loads(report_path.read_text());summary=report['reference'] if arm=='reference_a' else report['candidate']
+ p=root/'live'/arm/'scene-0411_hard_00'
+ driving=[json.loads(x) for x in (p/'iter139_trace.jsonl').read_bytes().splitlines()]
+ contracts=[json.loads(x) for x in (p/'controller139.jsonl').read_bytes().splitlines()]
+ calls=contracts[1:-1];n=len(calls);assert n==len(driving)-2==summary['frames'];total+=n
+ sources={'adapter_ms':[r['receipt']['timing']['adapter_ns'] for r in calls],'solver_ms':[r['receipt']['timing']['solver_ns'] for r in calls],'complete_call_ms':[r['complete_call_ns'] for r in calls],'client_roundtrip_ms':[r['client_roundtrip_ns'] for r in calls]}
+ q={key:{label:sorted(v)[math.ceil(n*f)-1]/1000000 for label,f in [('p50',.5),('p95',.95),('p99',.99),('max',1.)]} for key,v in sources.items()}
+ assert all(summary[k]==v for k,v in q.items())
+ counts=dict(complete_call_over_50ms=sum(x>50000000 for x in sources['complete_call_ms']),solver_over_50ms=sum(x>50000000 for x in sources['solver_ms']))
+ assert all(summary[k]==v for k,v in counts.items())
+ stops=collections.Counter(r['receipt']['numerical']['stop_reason'] for r in calls)
+ assert all(stops[k]==v for k,v in summary['stop_reasons'].items())
+ decisions=[json.loads(x) for x in (p/'sentinel_iter48_decisions.jsonl').read_bytes().splitlines()]
+ assert sum(d['brake'] for d in decisions)==summary['monitor_brake_requests']
+ assert driving[-1]['reason']==summary['terminal_reason'] and driving[-2]['after']['timestamp']==summary['terminal_time'] and driving[-2]['route_completion']==summary['route_completion']
+ for name,h in summary['files'].items():assert hashlib.sha256((p/name).read_bytes()).hexdigest()==h
+ if arm.startswith('pulse_'):
+  s,d=map(int,arm.split('_')[1:]);observed=[r for r in driving[1:-1] if s<=r['time']<s+d];out=report['outcomes']
+  assert len(observed)==out['realized_override_frames'] and sum(r['incoming_plan']!=r['executed_plan'] for r in observed)==out['changed_plan_frames']
+ results[arm]=dict(frames=n,quantiles=q,counts=counts,stopping_reasons=dict(stops),monitor_brake_requests=summary['monitor_brake_requests'])
+a=root/'live/reference_a/scene-0411_hard_00/iter139_trace.jsonl';b=root/'live/reference_b/scene-0411_hard_00/iter139_trace.jsonl'
+assert a.read_bytes()==b.read_bytes()
+prior=Path('/Users/danielwahnich/workspace/sentinel/experiments/iter138_numerical_live_replay/proof/live/reference_a/scene-0411_hard_00/iter138_trace.jsonl')
+left=[json.loads(x) for x in a.read_bytes().splitlines()][1:];right=[json.loads(x) for x in prior.read_bytes().splitlines()][1:]
+print(json.dumps(dict(status='matched',validated_episodes=len(results),total_calls=total,reference_driving_byte_equality=True,reference_frame_bodies_equal_iter138=left==right,episode_results=results,scope='retrospective arithmetic and raw equality; no population inference'),indent=2,sort_keys=True))

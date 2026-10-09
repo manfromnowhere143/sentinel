@@ -1,0 +1,39 @@
+import json,sys
+from pathlib import Path
+sys.path.insert(0,'/tmp')
+from i139_ops import ssh,run,PROOF,BASE
+arm=sys.argv[1];assert arm in ['reference_a','reference_b','pulse_0_1','pulse_0_2','pulse_2_1','pulse_2_2','pulse_4_1','pulse_4_2']
+s='''import hashlib
+import json
+from pathlib import Path
+import shutil
+control=Path('/datasets/nuscenes-full/hugsim/iter139_control_20261009')
+source=Path('/datasets/nuscenes-full/hugsim/outputs/iter139-20261009')/ARM
+assert (source/'episode.json').is_file()
+target=control/'exports'/ARM
+target.mkdir(parents=True,exist_ok=False)
+def digest(p):
+ h=hashlib.sha256()
+ with p.open('rb') as f:
+  for b in iter(lambda:f.read(8*1024*1024),b''):h.update(b)
+ return h.hexdigest()
+retained={};omitted={}
+for p in sorted(source.rglob('*')):
+ if not p.is_file() or p.is_symlink():continue
+ rel=p.relative_to(source);record=dict(sha256=digest(p),bytes=p.stat().st_size)
+ if p.suffix in ('.json','.jsonl','.pkl','.log','.txt'):
+  dst=target/rel;dst.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(p,dst);retained[str(rel)]=record
+ else:omitted[str(rel)]=record
+inventory=dict(remote_root=str(source),retained=retained,remote_only=omitted)
+(target/'remote_inventory.json').write_text(json.dumps(inventory,indent=2,sort_keys=True)+'\\n')
+print(json.dumps(dict(retained_files=len(retained),retained_bytes=sum(r['bytes'] for r in retained.values()),remote_only_files=len(omitted),export=str(target)),indent=2))
+'''.replace('ARM',repr(arm))
+r=ssh(arm+'_export',s,timeout=90);assert r.returncode==0
+(PROOF/'live').mkdir(exist_ok=True)
+r=run(arm+'_collect',['gcloud','compute','scp','--recurse',f'sentinel-gpu:/datasets/nuscenes-full/hugsim/iter139_control_20261009/exports/{arm}',str(PROOF/'live'/arm),*BASE,'--tunnel-through-iap','--quiet'],timeout=120);assert r.returncode==0
+import hashlib
+folder=PROOF/'live'/arm
+inventory=json.loads((folder/'remote_inventory.json').read_text())
+for name,record in inventory['retained'].items():
+ raw=(folder/name).read_bytes();assert len(raw)==record['bytes'] and hashlib.sha256(raw).hexdigest()==record['sha256'],name
+print('Verified downloaded retained bytes:',len(inventory['retained']))
