@@ -1,0 +1,15 @@
+{
+  "argv": [
+    "ruff",
+    "check",
+    "experiments/iter138_numerical_live_replay/run_episode.py",
+    "experiments/iter138_numerical_live_replay/verify_live.py",
+    "experiments/iter138_numerical_live_replay/live_trace.py",
+    "experiments/iter138_numerical_live_replay/instrument.py",
+    "experiments/iter138_numerical_live_replay/audit137.py",
+    "tests/test_iter138_live_replay.py"
+  ],
+  "started_utc": "2026-10-09T13:24:49.891179+00:00",
+  "elapsed_seconds": 0.025578975677490234,
+  "returncode": 0
+}
