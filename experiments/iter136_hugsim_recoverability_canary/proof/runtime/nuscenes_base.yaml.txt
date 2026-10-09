@@ -1,0 +1,9 @@
+realcar_path: /datasets/nuscenes-full/hugsim/3DRealCar
+model_base: /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes
+uniad_path: /datasets/nuscenes-full/hugsim/iter136_control_20261009/e2e.sh
+vad_path:  /opt/sentinel-stack/VAD_SIM/tools/e2e.sh
+ltf_path: /opt/sentinel-stack/navsim/ltf_e2e.sh
+output_dir: /datasets/nuscenes-full/hugsim/outputs/nusc_
+HD_map:
+  path: /datasets/nuscenes-full
+  version: nusc_trainval

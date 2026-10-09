@@ -35,6 +35,14 @@ def test_live_runner_accepts_bounded_new_episode():
     runner.check_budget(111, 1230, False)
 
 
+@pytest.mark.parametrize('image,containers,gpu', [
+    ('changed', '', ''), ('expected', 'other-container', ''), ('expected', '', '42'),
+])
+def test_live_runner_rejects_changed_image_and_competing_work(image, containers, gpu):
+    with pytest.raises(ValueError):
+        runner.check_runtime_identity(image, 'expected', containers, gpu)
+
+
 def test_live_runner_rejects_changed_file_and_symlink(tmp_path):
     source = tmp_path / 'source.py'
     source.write_bytes(b'original')

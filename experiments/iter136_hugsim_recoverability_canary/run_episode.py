@@ -55,6 +55,15 @@ def command(argv):
     return result.stdout.strip()
 
 
+def check_runtime_identity(actual_image, expected_image, containers, gpu_processes):
+    if actual_image != expected_image:
+        raise ValueError('client image identity')
+    if containers:
+        raise ValueError('another container is running')
+    if gpu_processes:
+        raise ValueError('GPU process already running')
+
+
 def predecessors(arm, root):
     order = list(ARMS)
     for previous in order[:order.index(arm)]:
@@ -85,13 +94,10 @@ def main():
     with (CONTROL / 'episode.lock').open('a') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         check_files(manifest['files'])
-        if command(['docker', 'image', 'inspect', manifest['image_id'],
-                    '--format', '{{.Id}}']) != manifest['image_id']:
-            raise ValueError('client image identity')
-        if command(['docker', 'ps', '-q']):
-            raise ValueError('another container is running')
-        if command(['nvidia-smi', '--query-compute-apps=pid', '--format=csv,noheader']):
-            raise ValueError('GPU process already running')
+        check_runtime_identity(
+            command(['docker', 'image', 'inspect', manifest['image_id'], '--format', '{{.Id}}']),
+            manifest['image_id'], command(['docker', 'ps', '-q']),
+            command(['nvidia-smi', '--query-compute-apps=pid', '--format=csv,noheader']))
         run = OUTPUT / args.arm
         check_budget(shutil.disk_usage(OUTPUT.parent).free / 2**30,
                      manifest['deadline_epoch'] - time.time(), run.exists())
