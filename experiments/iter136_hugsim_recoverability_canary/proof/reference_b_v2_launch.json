@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "gcloud",
+    "compute",
+    "ssh",
+    "sentinel-gpu",
+    "--project",
+    "sunlit-unison-487018-b0",
+    "--zone",
+    "us-west1-a",
+    "--tunnel-through-iap",
+    "--command",
+    "sudo -n python3 /datasets/nuscenes-full/hugsim/iter136_control_20261009_v2/run_episode.py reference_b --manifest-sha256 ebb7b62cc4e079f9f7de04abfffd6496f71842071056acac94d658d6481bc1d1"
+  ],
+  "started_at_utc": "2026-10-09T10:39:58.006936+00:00",
+  "returncode": 0,
+  "finished_at_utc": "2026-10-09T10:42:26.026651+00:00"
+}

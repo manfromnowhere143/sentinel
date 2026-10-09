@@ -18,6 +18,7 @@ from experiments.iter136_hugsim_recoverability_canary import inspect_host
 from experiments.iter136_hugsim_recoverability_canary import probe_reset as reset
 from experiments.iter136_hugsim_recoverability_canary import replay_trace as trace
 from experiments.iter136_hugsim_recoverability_canary import run_episode as runner
+from experiments.iter136_hugsim_recoverability_canary import check_monitor_delivery as delivery
 
 
 ROOT = Path(__file__).resolve().parents[1] / "experiments/iter136_hugsim_recoverability_canary"
@@ -41,6 +42,32 @@ def test_live_runner_accepts_bounded_new_episode():
 def test_live_runner_rejects_changed_image_and_competing_work(image, containers, gpu):
     with pytest.raises(ValueError):
         runner.check_runtime_identity(image, 'expected', containers, gpu)
+
+
+@pytest.mark.parametrize('mutation', ['missing', 'error', 'parameters', 'plan', 'time',
+                                     'nonfinite', None])
+def test_monitor_delivery_checks_frozen_policy_contract(mutation):
+    rows = fixture(frames=2)
+    decisions = [dict(trace_version='iter48_hugsim_union_v1', params=delivery.PARAMS.copy(),
+                      frame_index=i, ts=i * 0.25, brake=False, traj=[[0.0, 1.0]] * 6)
+                 for i in range(2)]
+    if mutation == 'missing':
+        decisions.pop()
+    elif mutation == 'error':
+        decisions[0]['trace_error'] = 'interception failed'
+    elif mutation == 'parameters':
+        decisions[0]['params']['ttc_thresh'] = 3.0
+    elif mutation == 'plan':
+        decisions[0]['brake'] = True
+    elif mutation == 'time':
+        decisions[0]['ts'] = 0.25
+    elif mutation == 'nonfinite':
+        decisions[0]['traj'] = [[float('nan'), 1.0]] * 6
+    if mutation:
+        with pytest.raises(ValueError):
+            delivery.check(rows, decisions)
+    else:
+        assert delivery.check(rows, decisions)['status'] == 'matched'
 
 
 def test_live_runner_rejects_changed_file_and_symlink(tmp_path):

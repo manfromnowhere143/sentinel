@@ -1,0 +1,155 @@
+/datasets/nuscenes-full/hugsim/outputs/iter136-20261009-v2/reference_b/scene-0411_hard_00/output.txt
+/datasets/nuscenes-full/hugsim/iter136_control_20261009_v2/e2e.sh 0 /datasets/nuscenes-full/hugsim/outputs/iter136-20261009-v2/reference_b/scene-0411_hard_00
+/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/spline_planner.py:102: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.acce_grid = torch.tensor(acce_grid).to(self.device)
+/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/forward_sampler.py:24: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.accels = torch.tensor(acce_grid,device=self.device)
+/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/forward_sampler.py:26: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.dhm_grid = torch.tensor(dhm_grid,device=self.device)
+Ready for simulation
+ego pose [0.0, -1.0808430643926773e-34, 0.0]
+ego pose [0.0, -0.001726138371843387, 0.4375]
+ego pose [0.008029165611216292, -0.003934366794073673, 1.0470348593836278]
+ego pose [0.014734014007441315, -0.006230596013643971, 1.7495129094537218]
+ego pose [-0.0007003727354987048, -0.012642749090579802, 2.4917601038456967]
+ego pose [-0.05374148483011225, -0.02252701653859559, 3.2437997289178]
+ego pose [-0.1535381252259811, -0.030079020519986777, 4.02147119528132]
+ego pose [-0.29992699058433125, -0.035051312993355975, 4.799567735766475]
+ego pose [-0.47505524591611936, -0.03117527085107166, 5.5538016137371935]
+ego pose [-0.6829612336262834, -0.03049394568795442, 6.287926571537038]
+ego pose [-0.9050260664964428, -0.031222686120385763, 6.987020656749017]
+ego pose [-1.118941539586783, -0.034779910388570666, 7.653345358254421]
+ego pose [-1.317210389768753, -0.04101916358758051, 8.323622284543157]
+ego pose [-1.4753737665331215, -0.047782234399992754, 8.975100701083717]
+ego pose [-1.5903998847838308, -0.0597580831909882, 9.603186390546055]
+ego pose [-1.6683391574141955, -0.0612603306447102, 10.265130698866988]
+ego pose [-1.7105179241340827, -0.05894558639987713, 10.979866428264629]
+ego pose [-1.6960766841473105, -0.058066188813806846, 11.692161337381021]
+ego pose [-1.6323514535107506, -0.05323606840897713, 12.431667785957641]
+ego pose [-1.5085059204444642, -0.048039312677380874, 13.147981455386104]
+ego pose [-1.350428381925652, -0.0608187764864111, 13.835599989236702]
+ego pose [-1.1726132470051907, -0.06846030011903156, 14.525184560758088]
+ego pose [-0.9930545664918268, -0.0594201643017383, 15.221022697279416]
+ego pose [-0.8550773929750262, -0.05060340487647166, 15.733919919492678]
+ego pose [-0.7612789873681856, -0.04151914644248794, 16.072809789898432]
+ego pose [-0.6981155493822103, -0.03542275199291267, 16.29687302382893]
+ego pose [-0.6558367120264781, -0.03136918430297318, 16.445070908529164]
+ego pose [-0.6276429820374204, -0.02935486735354377, 16.543126250131102]
+ego pose [-0.6088886866077801, -0.027305799001092087, 16.60801685805068]
+Collision with foreground
+MoviePy - Building video /datasets/nuscenes-full/hugsim/outputs/iter136-20261009-v2/reference_b/scene-0411_hard_00/video.mp4.
+MoviePy - Writing video /datasets/nuscenes-full/hugsim/outputs/iter136-20261009-v2/reference_b/scene-0411_hard_00/video.mp4
+
+frame_index:   0%|          | 0/29 [00:00<?, ?it/s, now=None]frame_index:  38%|███▊      | 11/29 [00:00<00:00, 104.59it/s, now=None]frame_index:  76%|███████▌  | 22/29 [00:00<00:00, 88.92it/s, now=None]                                                                       MoviePy - Done !
+MoviePy - video ready /datasets/nuscenes-full/hugsim/outputs/iter136-20261009-v2/reference_b/scene-0411_hard_00/video.mp4
+this pkl file contains 1 experiment records.
+current exp has 29 frames
+frame 0 / 29
+comfortable: [True, True, True, True, True, True]
+frame 1 / 29
+comfortable: [True, True, True, True, True, True]
+frame 2 / 29
+comfortable: [True, True, True, True, True, True]
+frame 3 / 29
+comfortable: [True, True, True, True, True, True]
+frame 4 / 29
+comfortable: [True, True, True, True, True, True]
+frame 5 / 29
+comfortable: [True, True, True, True, True, True]
+frame 6 / 29
+comfortable: [True, True, True, True, True, True]
+frame 7 / 29
+collision with background detected! @ timestep5
+ failed to pass ttc collision check, t=1
+comfortable: [True, True, True, True, True, True]
+frame 8 / 29
+collision with background detected! @ timestep5
+ failed to pass ttc collision check, t=1
+comfortable: [True, True, True, True, True, True]
+frame 9 / 29
+comfortable: [True, True, True, True, True, True]
+frame 10 / 29
+comfortable: [True, True, True, True, True, True]
+frame 11 / 29
+comfortable: [True, True, True, True, True, True]
+frame 12 / 29
+comfortable: [True, True, True, True, True, True]
+frame 13 / 29
+comfortable: [True, True, True, True, True, True]
+frame 14 / 29
+comfortable: [True, True, True, True, True, True]
+frame 15 / 29
+comfortable: [True, True, True, True, True, True]
+frame 16 / 29
+comfortable: [True, True, True, True, False, True]
+frame 17 / 29
+comfortable: [True, True, True, True, True, True]
+frame 18 / 29
+collision with background detected! @ timestep3
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, False, False]
+frame 19 / 29
+collision with background detected! @ timestep3
+ failed to pass ttc collision check, t=1
+comfortable: [True, False, True, False, False, False]
+frame 20 / 29
+comfortable: [True, True, True, False, False, False]
+frame 21 / 29
+comfortable: [True, True, True, True, True, True]
+frame 22 / 29
+collision with obstacle detected! @ timestep3
+ego_poly: (15.733919919492678, 0.8550773929750262, -0.27002158920271846, 1.6479559659957885, 4.115467357635498), obs_poly: (14.894464492797852, 2.198733329772949, 0.036004919187183404, 1.6479559659957885, 4.115467357635498)
+collision with obstacle detected! @ timestep3
+ego_poly: (15.733919919492678, 0.8550773929750262, -0.27002158920271846, 1.6479559659957885, 4.115467357635498), obs_poly: (14.894464492797852, 2.198733329772949, 0.036004919187183404, 1.6479559659957885, 4.115467357635498)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 23 / 29
+collision with obstacle detected! @ timestep2
+ego_poly: (16.072809789898432, 0.7612789873681856, -0.2747697529829845, 1.6479559659957885, 4.115467357635498), obs_poly: (13.030972480773926, 2.134584665298462, 0.04024189443452375, 1.6479559659957885, 4.115467357635498)
+collision with obstacle detected! @ timestep2
+ego_poly: (16.072809789898432, 0.7612789873681856, -0.2747697529829845, 1.6479559659957885, 4.115467357635498), obs_poly: (13.030972480773926, 2.134584665298462, 0.04024189443452375, 1.6479559659957885, 4.115467357635498)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 24 / 29
+collision with obstacle detected! @ timestep2
+ego_poly: (16.29687302382893, 0.6981155493822103, -0.27790399902990814, 1.6479559659957885, 4.115467357635498), obs_poly: (14.894464492797852, 2.198733329772949, 0.036004919187183404, 1.6479559659957885, 4.115467357635498)
+collision with obstacle detected! @ timestep2
+ego_poly: (16.29687302382893, 0.6981155493822103, -0.27790399902990814, 1.6479559659957885, 4.115467357635498), obs_poly: (14.894464492797852, 2.198733329772949, 0.036004919187183404, 1.6479559659957885, 4.115467357635498)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 25 / 29
+collision with obstacle detected! @ timestep1
+ego_poly: (16.445070908529164, 0.6558367120264781, -0.27997637914500934, 1.6479559659957885, 4.115467357635498), obs_poly: (13.030972480773926, 2.134584665298462, 0.04024189443452375, 1.6479559659957885, 4.115467357635498)
+collision with obstacle detected! @ timestep1
+ego_poly: (16.445070908529164, 0.6558367120264781, -0.27997637914500934, 1.6479559659957885, 4.115467357635498), obs_poly: (13.030972480773926, 2.134584665298462, 0.04024189443452375, 1.6479559659957885, 4.115467357635498)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 26 / 29
+collision with obstacle detected! @ timestep1
+ego_poly: (16.543126250131102, 0.6276429820374204, -0.2813476901822283, 1.6479559659957885, 4.115467357635498), obs_poly: (14.894464492797852, 2.198733329772949, 0.036004919187183404, 1.6479559659957885, 4.115467357635498)
+collision with obstacle detected! @ timestep1
+ego_poly: (16.543126250131102, 0.6276429820374204, -0.2813476901822283, 1.6479559659957885, 4.115467357635498), obs_poly: (14.894464492797852, 2.198733329772949, 0.036004919187183404, 1.6479559659957885, 4.115467357635498)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 27 / 29
+comfortable: [True, True, True, True, True, True]
+frame 28 / 29
+collision with obstacle detected! @ timestep0
+ego_poly: (16.650965998161542, 0.5964335324441935, -0.2828562035358251, 1.6479559659957885, 4.115467357635498), obs_poly: (14.894464492797852, 2.198733329772949, 0.036004919187183404, 1.6479559659957885, 4.115467357635498)
+collision with obstacle detected! @ timestep0
+ego_poly: (16.650965998161542, 0.5964335324441935, -0.2828562035358251, 1.6479559659957885, 4.115467357635498), obs_poly: (14.894464492797852, 2.198733329772949, 0.036004919187183404, 1.6479559659957885, 4.115467357635498)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+The score of experiment is (0.6551724137931034, 0.14634759123170654, 0.0958829046000836, {'nc': 0.7931034482758621, 'dac': 1.0, 'ttc': 0.6551724137931034, 'c': 0.8620689655172413, 'pdms': 0.6551724137931034}, {0.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 0.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 0.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.2857142857142857}, 2.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.2857142857142857}, 2.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 4.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 4.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 0.0, 'pdms': 0.7142857142857143}, 4.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 4.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 0.0, 'c': 0.0, 'pdms': 0.0}, 5.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 0.0, 'c': 0.0, 'pdms': 0.0}, 5.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 0.0, 'pdms': 0.7142857142857143}, 5.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 5.75: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 6.0: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 6.25: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 6.5: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 6.75: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 7.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 7.25: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}}).
+=============================Results=============================
+'nc': 0.7931034482758621
+'dac': 1.0
+'ttc': 0.6551724137931034
+'c': 0.8620689655172413
+'pdms': 0.6551724137931034
+'rc': 0.14634759123170654
+'hdscore': 0.0958829046000836
+The AD algorithm is still running, remaining tolerant 100.
+The AD algorithm is still running, remaining tolerant 95.
+The AD algorithm is still running, remaining tolerant 90.
+The AD algorithm completed with return code 0.
