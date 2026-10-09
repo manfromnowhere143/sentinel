@@ -1,0 +1,8 @@
+{
+  "scope": "remove one hash-verified clean duplicate worktree; retained Git objects and other checkouts unchanged",
+  "path": "/Users/danielwahnich/sentinel-bootstrap-evidence/gen17-20260821/d16-detached-worktree",
+  "commit": "355010c4b668c85fcd2647586c56d7a21b8b88d0",
+  "total_bytes": 5573972213,
+  "status": "removed_verified_duplicate",
+  "free_bytes": 19941343232
+}

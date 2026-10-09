@@ -1,0 +1,19 @@
+{
+  "argv": [
+    "python3",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "tests/test_iter136_recoverability_canary.py",
+    "tests/test_iter137_controller_execution.py",
+    "tests/test_iter138_live_replay.py",
+    "tests/test_iter139_finite_pulse.py",
+    "tests/test_iter141_nominal_continuation.py"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-09T15:23:46.408475+00:00",
+  "elapsed_seconds": 31.951168060302734,
+  "returncode": 0
+}

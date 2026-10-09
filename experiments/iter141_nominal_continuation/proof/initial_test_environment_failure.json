@@ -1,0 +1,8 @@
+{
+  "status": "failed",
+  "scope": "test collection only; no tests executed",
+  "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 iter140 venv/bin/python -m pytest -q -p no:cacheprovider tests/test_iter141_nominal_continuation.py",
+  "exit_code": 2,
+  "error": "ModuleNotFoundError: No module named 'threadpoolctl'",
+  "correction": "Use existing ambient Python 3 with NumPy 2.4.2, threadpoolctl 3.6.0 and pytest 9.0.2. Bound host runtime remains separately required; no installation."
+}

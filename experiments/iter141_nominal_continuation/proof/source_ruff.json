@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "ruff",
+    "check",
+    "experiments/iter141_nominal_continuation",
+    "tests/test_iter141_nominal_continuation.py"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-09T15:24:18.360095+00:00",
+  "elapsed_seconds": 0.0467989444732666,
+  "returncode": 0
+}

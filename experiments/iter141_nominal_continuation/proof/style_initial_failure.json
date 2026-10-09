@@ -1,0 +1,1 @@
+{"status":"failed","command":"ruff check experiments/iter141_nominal_continuation tests/test_iter141_nominal_continuation.py --output-format concise","exit_code":1,"finding":"F401 unused json import in tests; removed before final source validation"}

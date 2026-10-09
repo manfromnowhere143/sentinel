@@ -2,33 +2,14 @@
 
 ## Active operator work on 2026-10-09
 
-[Iter140](../experiments/iter140_contact_actuation/RESULT.md) completed the bounded contact/
-actuation diagnostic: all 206 actions and eight terminal contacts reconstruct, with independent
-agreement on 412 before/after box pairs. All terminal actor centers are behind ego. Every pulse
-branch changes the actor path relative to the reference, so a fixed actor-path replay cannot
-represent these reactive encounters. The reconstruction passes; no useful recovery is established.
-
-[Iter139](../experiments/iter139_finite_pulse_recoverability/RESULT.md) remains null: all six
-finite pulses collided. One delayed collision by 0.5 seconds while meeting the reference-time
-progress bar. All 206 numerical calls replayed and converged, yet 166 complete calls and 137
-solver calls exceeded 50 ms. Timing remains distinct from numerical and geometric agreement.
-
-The [next decision](../experiments/iter140_contact_actuation/DECISION.md) proposes a bounded
-nominal-continuation canary: keep the monitor in shadow and return the frozen planner's nominal
-plan, with fresh replay/prefix checks and full-route outcomes. Earlier OFF results lower the
-expectation of success; this closes a specific execution-contract gap once. Freeze the exact
-model/control envelope and resources before any run. The source's mixed actor time steps and
-unenforced declared action bounds limit physical claims. No Iter141 protocol or episode exists.
-
-The broader goal remains a demonstrated useful action opportunity, then a specific information
-advantage beyond a strong responsive baseline, then held-out source scenes and fault/transfer
-evaluation. Do not expand the closed pulse grid or restart same-case descriptive taxonomies.
-[Iter138](../experiments/iter138_numerical_live_replay/RESULT.md) retains its matched live pair;
-[Iter137](../experiments/iter137_controller_execution_contract/RESULT.md) its bounded controller
-benchmark; [Iter136](../experiments/iter136_hugsim_recoverability_canary/RESULT.md) its replay failure.
-All are closed. Iter135 remains deferred and unchanged. Iter140 used local CPU only, with no
-provider access or cloud launch. Candidate `research/iter140-contact-actuation` is local/unpushed;
-canonical master remains F17. The accepted publication snapshot below remains historical.
+> **Active operator-directed candidate work, 2026-10-09:** Iter141 nominal-continuation
+> canary is preregistered; phase: local_validation. Local checks pass; final source validation and committed packet preparation are underway. No provider access or episode.
+> Read [protocol](experiments/iter141_nominal_continuation/HYPOTHESIS.md),
+> [design review](experiments/iter141_nominal_continuation/SOURCE_REVIEW.md), and
+> [state](experiments/iter141_nominal_continuation/STATE.json).
+> Iter140 reconstruction is complete; Iter139 remains null with 0/6 recoveries.
+> Candidate `research/iter141-nominal-continuation` is unpushed; master remains F17.
+> Iter135 remains deferred. MISSION_STATE/HANDOFF retain their publication snapshot.
 
 ## Canonical current decision: iteration 134 is complete
 

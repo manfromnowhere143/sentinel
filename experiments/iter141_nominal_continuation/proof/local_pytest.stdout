@@ -1,0 +1,786 @@
+EEEEEEEEEEEE......EEEEEEEEEEEEEE..........                               [100%]
+==================================== ERRORS ====================================
+________________ ERROR at setup of test_full_path_and_replicas _________________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x1067289d0>, _basetemp=PosixPath...s/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def captured(tmp_path_factory):
+        root=tmp_path_factory.mktemp('iter141');values={};replay=Replay()
+        for arm in ('reference_a','reference_b','nominal_a','nominal_b'):
+>           fixture.run(root/arm,arm)
+
+tests/test_iter141_nominal_continuation.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter141_nominal_continuation/fixture.py:85: in run
+    ns['create_gym_env']({},str(folder))
+/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90/iter1410/reference_a/driver.py:33: in create_gym_env
+    trace = Recorder(output, __file__)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter141_nominal_continuation/live_trace.py:54: in __init__
+    check_runtime(pools)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pools = []
+
+    def check_runtime(pools):
+        if not pools or any(p["num_threads"] != 1 for p in pools):
+>           raise ValueError("effective threadpool bound")
+E           ValueError: effective threadpool bound
+
+experiments/iter141_nominal_continuation/live_trace.py:22: ValueError
+---------------------------- Captured stdout setup -----------------------------
+SENTINEL_I48_UNION_PATCH_LOADED enabled=1 params={"cpa_margin": 1.5, "dt": 0.5, "max_gap": 30.0, "min_closing": 3.0, "min_score": 0.3, "release_k": 4, "ttc_thresh": 2.5}
+______________ ERROR at setup of test_linkage_known_bads[missing] ______________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x1067289d0>, _basetemp=PosixPath...s/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def captured(tmp_path_factory):
+        root=tmp_path_factory.mktemp('iter141');values={};replay=Replay()
+        for arm in ('reference_a','reference_b','nominal_a','nominal_b'):
+>           fixture.run(root/arm,arm)
+
+tests/test_iter141_nominal_continuation.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter141_nominal_continuation/fixture.py:85: in run
+    ns['create_gym_env']({},str(folder))
+/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90/iter1410/reference_a/driver.py:33: in create_gym_env
+    trace = Recorder(output, __file__)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter141_nominal_continuation/live_trace.py:54: in __init__
+    check_runtime(pools)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pools = []
+
+    def check_runtime(pools):
+        if not pools or any(p["num_threads"] != 1 for p in pools):
+>           raise ValueError("effective threadpool bound")
+E           ValueError: effective threadpool bound
+
+experiments/iter141_nominal_continuation/live_trace.py:22: ValueError
+_____________ ERROR at setup of test_linkage_known_bads[reordered] _____________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x1067289d0>, _basetemp=PosixPath...s/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def captured(tmp_path_factory):
+        root=tmp_path_factory.mktemp('iter141');values={};replay=Replay()
+        for arm in ('reference_a','reference_b','nominal_a','nominal_b'):
+>           fixture.run(root/arm,arm)
+
+tests/test_iter141_nominal_continuation.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter141_nominal_continuation/fixture.py:85: in run
+    ns['create_gym_env']({},str(folder))
+/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90/iter1410/reference_a/driver.py:33: in create_gym_env
+    trace = Recorder(output, __file__)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter141_nominal_continuation/live_trace.py:54: in __init__
+    check_runtime(pools)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pools = []
+
+    def check_runtime(pools):
+        if not pools or any(p["num_threads"] != 1 for p in pools):
+>           raise ValueError("effective threadpool bound")
+E           ValueError: effective threadpool bound
+
+experiments/iter141_nominal_continuation/live_trace.py:22: ValueError
+_______________ ERROR at setup of test_linkage_known_bads[mode] ________________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x1067289d0>, _basetemp=PosixPath...s/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def captured(tmp_path_factory):
+        root=tmp_path_factory.mktemp('iter141');values={};replay=Replay()
+        for arm in ('reference_a','reference_b','nominal_a','nominal_b'):
+>           fixture.run(root/arm,arm)
+
+tests/test_iter141_nominal_continuation.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter141_nominal_continuation/fixture.py:85: in run
+    ns['create_gym_env']({},str(folder))
+/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90/iter1410/reference_a/driver.py:33: in create_gym_env
+    trace = Recorder(output, __file__)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter141_nominal_continuation/live_trace.py:54: in __init__
+    check_runtime(pools)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pools = []
+
+    def check_runtime(pools):
+        if not pools or any(p["num_threads"] != 1 for p in pools):
+>           raise ValueError("effective threadpool bound")
+E           ValueError: effective threadpool bound
+
+experiments/iter141_nominal_continuation/live_trace.py:22: ValueError
+_______________ ERROR at setup of test_linkage_known_bads[dtype] _______________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x1067289d0>, _basetemp=PosixPath...s/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def captured(tmp_path_factory):
+        root=tmp_path_factory.mktemp('iter141');values={};replay=Replay()
+        for arm in ('reference_a','reference_b','nominal_a','nominal_b'):
+>           fixture.run(root/arm,arm)
+
+tests/test_iter141_nominal_continuation.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter141_nominal_continuation/fixture.py:85: in run
+    ns['create_gym_env']({},str(folder))
+/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90/iter1410/reference_a/driver.py:33: in create_gym_env
+    trace = Recorder(output, __file__)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter141_nominal_continuation/live_trace.py:54: in __init__
+    check_runtime(pools)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pools = []
+
+    def check_runtime(pools):
+        if not pools or any(p["num_threads"] != 1 for p in pools):
+>           raise ValueError("effective threadpool bound")
+E           ValueError: effective threadpool bound
+
+experiments/iter141_nominal_continuation/live_trace.py:22: ValueError
+_______________ ERROR at setup of test_linkage_known_bads[bytes] _______________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x1067289d0>, _basetemp=PosixPath...s/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def captured(tmp_path_factory):
+        root=tmp_path_factory.mktemp('iter141');values={};replay=Replay()
+        for arm in ('reference_a','reference_b','nominal_a','nominal_b'):
+>           fixture.run(root/arm,arm)
+
+tests/test_iter141_nominal_continuation.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter141_nominal_continuation/fixture.py:85: in run
+    ns['create_gym_env']({},str(folder))
+/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90/iter1410/reference_a/driver.py:33: in create_gym_env
+    trace = Recorder(output, __file__)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter141_nominal_continuation/live_trace.py:54: in __init__
+    check_runtime(pools)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pools = []
+
+    def check_runtime(pools):
+        if not pools or any(p["num_threads"] != 1 for p in pools):
+>           raise ValueError("effective threadpool bound")
+E           ValueError: effective threadpool bound
+
+experiments/iter141_nominal_continuation/live_trace.py:22: ValueError
+______________ ERROR at setup of test_linkage_known_bads[nominal] ______________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x1067289d0>, _basetemp=PosixPath...s/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def captured(tmp_path_factory):
+        root=tmp_path_factory.mktemp('iter141');values={};replay=Replay()
+        for arm in ('reference_a','reference_b','nominal_a','nominal_b'):
+>           fixture.run(root/arm,arm)
+
+tests/test_iter141_nominal_continuation.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter141_nominal_continuation/fixture.py:85: in run
+    ns['create_gym_env']({},str(folder))
+/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90/iter1410/reference_a/driver.py:33: in create_gym_env
+    trace = Recorder(output, __file__)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter141_nominal_continuation/live_trace.py:54: in __init__
+    check_runtime(pools)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pools = []
+
+    def check_runtime(pools):
+        if not pools or any(p["num_threads"] != 1 for p in pools):
+>           raise ValueError("effective threadpool bound")
+E           ValueError: effective threadpool bound
+
+experiments/iter141_nominal_continuation/live_trace.py:22: ValueError
+_____________ ERROR at setup of test_linkage_known_bads[proposed] ______________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x1067289d0>, _basetemp=PosixPath...s/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def captured(tmp_path_factory):
+        root=tmp_path_factory.mktemp('iter141');values={};replay=Replay()
+        for arm in ('reference_a','reference_b','nominal_a','nominal_b'):
+>           fixture.run(root/arm,arm)
+
+tests/test_iter141_nominal_continuation.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter141_nominal_continuation/fixture.py:85: in run
+    ns['create_gym_env']({},str(folder))
+/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90/iter1410/reference_a/driver.py:33: in create_gym_env
+    trace = Recorder(output, __file__)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter141_nominal_continuation/live_trace.py:54: in __init__
+    check_runtime(pools)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pools = []
+
+    def check_runtime(pools):
+        if not pools or any(p["num_threads"] != 1 for p in pools):
+>           raise ValueError("effective threadpool bound")
+E           ValueError: effective threadpool bound
+
+experiments/iter141_nominal_continuation/live_trace.py:22: ValueError
+_____________ ERROR at setup of test_linkage_known_bads[delivered] _____________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x1067289d0>, _basetemp=PosixPath...s/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def captured(tmp_path_factory):
+        root=tmp_path_factory.mktemp('iter141');values={};replay=Replay()
+        for arm in ('reference_a','reference_b','nominal_a','nominal_b'):
+>           fixture.run(root/arm,arm)
+
+tests/test_iter141_nominal_continuation.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter141_nominal_continuation/fixture.py:85: in run
+    ns['create_gym_env']({},str(folder))
+/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90/iter1410/reference_a/driver.py:33: in create_gym_env
+    trace = Recorder(output, __file__)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter141_nominal_continuation/live_trace.py:54: in __init__
+    check_runtime(pools)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pools = []
+
+    def check_runtime(pools):
+        if not pools or any(p["num_threads"] != 1 for p in pools):
+>           raise ValueError("effective threadpool bound")
+E           ValueError: effective threadpool bound
+
+experiments/iter141_nominal_continuation/live_trace.py:22: ValueError
+______________ ERROR at setup of test_linkage_known_bads[monitor] ______________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x1067289d0>, _basetemp=PosixPath...s/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def captured(tmp_path_factory):
+        root=tmp_path_factory.mktemp('iter141');values={};replay=Replay()
+        for arm in ('reference_a','reference_b','nominal_a','nominal_b'):
+>           fixture.run(root/arm,arm)
+
+tests/test_iter141_nominal_continuation.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter141_nominal_continuation/fixture.py:85: in run
+    ns['create_gym_env']({},str(folder))
+/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90/iter1410/reference_a/driver.py:33: in create_gym_env
+    trace = Recorder(output, __file__)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter141_nominal_continuation/live_trace.py:54: in __init__
+    check_runtime(pools)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pools = []
+
+    def check_runtime(pools):
+        if not pools or any(p["num_threads"] != 1 for p in pools):
+>           raise ValueError("effective threadpool bound")
+E           ValueError: effective threadpool bound
+
+experiments/iter141_nominal_continuation/live_trace.py:22: ValueError
+______________ ERROR at setup of test_linkage_known_bads[control] ______________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x1067289d0>, _basetemp=PosixPath...s/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def captured(tmp_path_factory):
+        root=tmp_path_factory.mktemp('iter141');values={};replay=Replay()
+        for arm in ('reference_a','reference_b','nominal_a','nominal_b'):
+>           fixture.run(root/arm,arm)
+
+tests/test_iter141_nominal_continuation.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter141_nominal_continuation/fixture.py:85: in run
+    ns['create_gym_env']({},str(folder))
+/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90/iter1410/reference_a/driver.py:33: in create_gym_env
+    trace = Recorder(output, __file__)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter141_nominal_continuation/live_trace.py:54: in __init__
+    check_runtime(pools)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pools = []
+
+    def check_runtime(pools):
+        if not pools or any(p["num_threads"] != 1 for p in pools):
+>           raise ValueError("effective threadpool bound")
+E           ValueError: effective threadpool bound
+
+experiments/iter141_nominal_continuation/live_trace.py:22: ValueError
+_______________ ERROR at setup of test_linkage_known_bads[time] ________________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x1067289d0>, _basetemp=PosixPath...s/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def captured(tmp_path_factory):
+        root=tmp_path_factory.mktemp('iter141');values={};replay=Replay()
+        for arm in ('reference_a','reference_b','nominal_a','nominal_b'):
+>           fixture.run(root/arm,arm)
+
+tests/test_iter141_nominal_continuation.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter141_nominal_continuation/fixture.py:85: in run
+    ns['create_gym_env']({},str(folder))
+/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90/iter1410/reference_a/driver.py:33: in create_gym_env
+    trace = Recorder(output, __file__)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter141_nominal_continuation/live_trace.py:54: in __init__
+    check_runtime(pools)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pools = []
+
+    def check_runtime(pools):
+        if not pools or any(p["num_threads"] != 1 for p in pools):
+>           raise ValueError("effective threadpool bound")
+E           ValueError: effective threadpool bound
+
+experiments/iter141_nominal_continuation/live_trace.py:22: ValueError
+____________ ERROR at setup of test_prefix_known_bads[observation] _____________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x1067289d0>, _basetemp=PosixPath...s/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def captured(tmp_path_factory):
+        root=tmp_path_factory.mktemp('iter141');values={};replay=Replay()
+        for arm in ('reference_a','reference_b','nominal_a','nominal_b'):
+>           fixture.run(root/arm,arm)
+
+tests/test_iter141_nominal_continuation.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter141_nominal_continuation/fixture.py:85: in run
+    ns['create_gym_env']({},str(folder))
+/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90/iter1410/reference_a/driver.py:33: in create_gym_env
+    trace = Recorder(output, __file__)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter141_nominal_continuation/live_trace.py:54: in __init__
+    check_runtime(pools)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pools = []
+
+    def check_runtime(pools):
+        if not pools or any(p["num_threads"] != 1 for p in pools):
+>           raise ValueError("effective threadpool bound")
+E           ValueError: effective threadpool bound
+
+experiments/iter141_nominal_continuation/live_trace.py:22: ValueError
+______________ ERROR at setup of test_prefix_known_bads[nominal] _______________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x1067289d0>, _basetemp=PosixPath...s/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def captured(tmp_path_factory):
+        root=tmp_path_factory.mktemp('iter141');values={};replay=Replay()
+        for arm in ('reference_a','reference_b','nominal_a','nominal_b'):
+>           fixture.run(root/arm,arm)
+
+tests/test_iter141_nominal_continuation.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter141_nominal_continuation/fixture.py:85: in run
+    ns['create_gym_env']({},str(folder))
+/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90/iter1410/reference_a/driver.py:33: in create_gym_env
+    trace = Recorder(output, __file__)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter141_nominal_continuation/live_trace.py:54: in __init__
+    check_runtime(pools)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pools = []
+
+    def check_runtime(pools):
+        if not pools or any(p["num_threads"] != 1 for p in pools):
+>           raise ValueError("effective threadpool bound")
+E           ValueError: effective threadpool bound
+
+experiments/iter141_nominal_continuation/live_trace.py:22: ValueError
+_____________ ERROR at setup of test_prefix_known_bads[numerical] ______________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x1067289d0>, _basetemp=PosixPath...s/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def captured(tmp_path_factory):
+        root=tmp_path_factory.mktemp('iter141');values={};replay=Replay()
+        for arm in ('reference_a','reference_b','nominal_a','nominal_b'):
+>           fixture.run(root/arm,arm)
+
+tests/test_iter141_nominal_continuation.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter141_nominal_continuation/fixture.py:85: in run
+    ns['create_gym_env']({},str(folder))
+/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90/iter1410/reference_a/driver.py:33: in create_gym_env
+    trace = Recorder(output, __file__)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter141_nominal_continuation/live_trace.py:54: in __init__
+    check_runtime(pools)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pools = []
+
+    def check_runtime(pools):
+        if not pools or any(p["num_threads"] != 1 for p in pools):
+>           raise ValueError("effective threadpool bound")
+E           ValueError: effective threadpool bound
+
+experiments/iter141_nominal_continuation/live_trace.py:22: ValueError
+______________ ERROR at setup of test_prefix_known_bads[runtime] _______________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x1067289d0>, _basetemp=PosixPath...s/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def captured(tmp_path_factory):
+        root=tmp_path_factory.mktemp('iter141');values={};replay=Replay()
+        for arm in ('reference_a','reference_b','nominal_a','nominal_b'):
+>           fixture.run(root/arm,arm)
+
+tests/test_iter141_nominal_continuation.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter141_nominal_continuation/fixture.py:85: in run
+    ns['create_gym_env']({},str(folder))
+/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90/iter1410/reference_a/driver.py:33: in create_gym_env
+    trace = Recorder(output, __file__)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter141_nominal_continuation/live_trace.py:54: in __init__
+    check_runtime(pools)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pools = []
+
+    def check_runtime(pools):
+        if not pools or any(p["num_threads"] != 1 for p in pools):
+>           raise ValueError("effective threadpool bound")
+E           ValueError: effective threadpool bound
+
+experiments/iter141_nominal_continuation/live_trace.py:22: ValueError
+___________________ ERROR at setup of test_replica_known_bad ___________________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x1067289d0>, _basetemp=PosixPath...s/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def captured(tmp_path_factory):
+        root=tmp_path_factory.mktemp('iter141');values={};replay=Replay()
+        for arm in ('reference_a','reference_b','nominal_a','nominal_b'):
+>           fixture.run(root/arm,arm)
+
+tests/test_iter141_nominal_continuation.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter141_nominal_continuation/fixture.py:85: in run
+    ns['create_gym_env']({},str(folder))
+/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90/iter1410/reference_a/driver.py:33: in create_gym_env
+    trace = Recorder(output, __file__)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter141_nominal_continuation/live_trace.py:54: in __init__
+    check_runtime(pools)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pools = []
+
+    def check_runtime(pools):
+        if not pools or any(p["num_threads"] != 1 for p in pools):
+>           raise ValueError("effective threadpool bound")
+E           ValueError: effective threadpool bound
+
+experiments/iter141_nominal_continuation/live_trace.py:22: ValueError
+___________ ERROR at setup of test_early_end_not_recovery[truncated] ___________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x1067289d0>, _basetemp=PosixPath...s/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def captured(tmp_path_factory):
+        root=tmp_path_factory.mktemp('iter141');values={};replay=Replay()
+        for arm in ('reference_a','reference_b','nominal_a','nominal_b'):
+>           fixture.run(root/arm,arm)
+
+tests/test_iter141_nominal_continuation.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter141_nominal_continuation/fixture.py:85: in run
+    ns['create_gym_env']({},str(folder))
+/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90/iter1410/reference_a/driver.py:33: in create_gym_env
+    trace = Recorder(output, __file__)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter141_nominal_continuation/live_trace.py:54: in __init__
+    check_runtime(pools)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pools = []
+
+    def check_runtime(pools):
+        if not pools or any(p["num_threads"] != 1 for p in pools):
+>           raise ValueError("effective threadpool bound")
+E           ValueError: effective threadpool bound
+
+experiments/iter141_nominal_continuation/live_trace.py:22: ValueError
+___________ ERROR at setup of test_early_end_not_recovery[collision] ___________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x1067289d0>, _basetemp=PosixPath...s/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def captured(tmp_path_factory):
+        root=tmp_path_factory.mktemp('iter141');values={};replay=Replay()
+        for arm in ('reference_a','reference_b','nominal_a','nominal_b'):
+>           fixture.run(root/arm,arm)
+
+tests/test_iter141_nominal_continuation.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter141_nominal_continuation/fixture.py:85: in run
+    ns['create_gym_env']({},str(folder))
+/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90/iter1410/reference_a/driver.py:33: in create_gym_env
+    trace = Recorder(output, __file__)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter141_nominal_continuation/live_trace.py:54: in __init__
+    check_runtime(pools)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pools = []
+
+    def check_runtime(pools):
+        if not pools or any(p["num_threads"] != 1 for p in pools):
+>           raise ValueError("effective threadpool bound")
+E           ValueError: effective threadpool bound
+
+experiments/iter141_nominal_continuation/live_trace.py:22: ValueError
+_______ ERROR at setup of test_early_end_not_recovery[other_termination] _______
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x1067289d0>, _basetemp=PosixPath...s/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def captured(tmp_path_factory):
+        root=tmp_path_factory.mktemp('iter141');values={};replay=Replay()
+        for arm in ('reference_a','reference_b','nominal_a','nominal_b'):
+>           fixture.run(root/arm,arm)
+
+tests/test_iter141_nominal_continuation.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter141_nominal_continuation/fixture.py:85: in run
+    ns['create_gym_env']({},str(folder))
+/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90/iter1410/reference_a/driver.py:33: in create_gym_env
+    trace = Recorder(output, __file__)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter141_nominal_continuation/live_trace.py:54: in __init__
+    check_runtime(pools)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pools = []
+
+    def check_runtime(pools):
+        if not pools or any(p["num_threads"] != 1 for p in pools):
+>           raise ValueError("effective threadpool bound")
+E           ValueError: effective threadpool bound
+
+experiments/iter141_nominal_continuation/live_trace.py:22: ValueError
+____________ ERROR at setup of test_hazard_survival_is_not_recovery ____________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x1067289d0>, _basetemp=PosixPath...s/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def captured(tmp_path_factory):
+        root=tmp_path_factory.mktemp('iter141');values={};replay=Replay()
+        for arm in ('reference_a','reference_b','nominal_a','nominal_b'):
+>           fixture.run(root/arm,arm)
+
+tests/test_iter141_nominal_continuation.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter141_nominal_continuation/fixture.py:85: in run
+    ns['create_gym_env']({},str(folder))
+/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90/iter1410/reference_a/driver.py:33: in create_gym_env
+    trace = Recorder(output, __file__)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter141_nominal_continuation/live_trace.py:54: in __init__
+    check_runtime(pools)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pools = []
+
+    def check_runtime(pools):
+        if not pools or any(p["num_threads"] != 1 for p in pools):
+>           raise ValueError("effective threadpool bound")
+E           ValueError: effective threadpool bound
+
+experiments/iter141_nominal_continuation/live_trace.py:22: ValueError
+____________ ERROR at setup of test_independent_known_bads[outcome] ____________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x1067289d0>, _basetemp=PosixPath...s/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def captured(tmp_path_factory):
+        root=tmp_path_factory.mktemp('iter141');values={};replay=Replay()
+        for arm in ('reference_a','reference_b','nominal_a','nominal_b'):
+>           fixture.run(root/arm,arm)
+
+tests/test_iter141_nominal_continuation.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter141_nominal_continuation/fixture.py:85: in run
+    ns['create_gym_env']({},str(folder))
+/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90/iter1410/reference_a/driver.py:33: in create_gym_env
+    trace = Recorder(output, __file__)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter141_nominal_continuation/live_trace.py:54: in __init__
+    check_runtime(pools)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pools = []
+
+    def check_runtime(pools):
+        if not pools or any(p["num_threads"] != 1 for p in pools):
+>           raise ValueError("effective threadpool bound")
+E           ValueError: effective threadpool bound
+
+experiments/iter141_nominal_continuation/live_trace.py:22: ValueError
+____________ ERROR at setup of test_independent_known_bads[control] ____________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x1067289d0>, _basetemp=PosixPath...s/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def captured(tmp_path_factory):
+        root=tmp_path_factory.mktemp('iter141');values={};replay=Replay()
+        for arm in ('reference_a','reference_b','nominal_a','nominal_b'):
+>           fixture.run(root/arm,arm)
+
+tests/test_iter141_nominal_continuation.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter141_nominal_continuation/fixture.py:85: in run
+    ns['create_gym_env']({},str(folder))
+/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90/iter1410/reference_a/driver.py:33: in create_gym_env
+    trace = Recorder(output, __file__)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter141_nominal_continuation/live_trace.py:54: in __init__
+    check_runtime(pools)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pools = []
+
+    def check_runtime(pools):
+        if not pools or any(p["num_threads"] != 1 for p in pools):
+>           raise ValueError("effective threadpool bound")
+E           ValueError: effective threadpool bound
+
+experiments/iter141_nominal_continuation/live_trace.py:22: ValueError
+_____________ ERROR at setup of test_independent_known_bads[bytes] _____________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x1067289d0>, _basetemp=PosixPath...s/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def captured(tmp_path_factory):
+        root=tmp_path_factory.mktemp('iter141');values={};replay=Replay()
+        for arm in ('reference_a','reference_b','nominal_a','nominal_b'):
+>           fixture.run(root/arm,arm)
+
+tests/test_iter141_nominal_continuation.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter141_nominal_continuation/fixture.py:85: in run
+    ns['create_gym_env']({},str(folder))
+/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90/iter1410/reference_a/driver.py:33: in create_gym_env
+    trace = Recorder(output, __file__)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter141_nominal_continuation/live_trace.py:54: in __init__
+    check_runtime(pools)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pools = []
+
+    def check_runtime(pools):
+        if not pools or any(p["num_threads"] != 1 for p in pools):
+>           raise ValueError("effective threadpool bound")
+E           ValueError: effective threadpool bound
+
+experiments/iter141_nominal_continuation/live_trace.py:22: ValueError
+____________ ERROR at setup of test_independent_known_bads[prefix] _____________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x1067289d0>, _basetemp=PosixPath...s/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def captured(tmp_path_factory):
+        root=tmp_path_factory.mktemp('iter141');values={};replay=Replay()
+        for arm in ('reference_a','reference_b','nominal_a','nominal_b'):
+>           fixture.run(root/arm,arm)
+
+tests/test_iter141_nominal_continuation.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter141_nominal_continuation/fixture.py:85: in run
+    ns['create_gym_env']({},str(folder))
+/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90/iter1410/reference_a/driver.py:33: in create_gym_env
+    trace = Recorder(output, __file__)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter141_nominal_continuation/live_trace.py:54: in __init__
+    check_runtime(pools)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pools = []
+
+    def check_runtime(pools):
+        if not pools or any(p["num_threads"] != 1 for p in pools):
+>           raise ValueError("effective threadpool bound")
+E           ValueError: effective threadpool bound
+
+experiments/iter141_nominal_continuation/live_trace.py:22: ValueError
+____________ ERROR at setup of test_independent_known_bads[missing] ____________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x1067289d0>, _basetemp=PosixPath...s/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def captured(tmp_path_factory):
+        root=tmp_path_factory.mktemp('iter141');values={};replay=Replay()
+        for arm in ('reference_a','reference_b','nominal_a','nominal_b'):
+>           fixture.run(root/arm,arm)
+
+tests/test_iter141_nominal_continuation.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter141_nominal_continuation/fixture.py:85: in run
+    ns['create_gym_env']({},str(folder))
+/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-90/iter1410/reference_a/driver.py:33: in create_gym_env
+    trace = Recorder(output, __file__)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter141_nominal_continuation/live_trace.py:54: in __init__
+    check_runtime(pools)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pools = []
+
+    def check_runtime(pools):
+        if not pools or any(p["num_threads"] != 1 for p in pools):
+>           raise ValueError("effective threadpool bound")
+E           ValueError: effective threadpool bound
+
+experiments/iter141_nominal_continuation/live_trace.py:22: ValueError
+=========================== short test summary info ============================
+ERROR tests/test_iter141_nominal_continuation.py::test_full_path_and_replicas
+ERROR tests/test_iter141_nominal_continuation.py::test_linkage_known_bads[missing]
+ERROR tests/test_iter141_nominal_continuation.py::test_linkage_known_bads[reordered]
+ERROR tests/test_iter141_nominal_continuation.py::test_linkage_known_bads[mode]
+ERROR tests/test_iter141_nominal_continuation.py::test_linkage_known_bads[dtype]
+ERROR tests/test_iter141_nominal_continuation.py::test_linkage_known_bads[bytes]
+ERROR tests/test_iter141_nominal_continuation.py::test_linkage_known_bads[nominal]
+ERROR tests/test_iter141_nominal_continuation.py::test_linkage_known_bads[proposed]
+ERROR tests/test_iter141_nominal_continuation.py::test_linkage_known_bads[delivered]
+ERROR tests/test_iter141_nominal_continuation.py::test_linkage_known_bads[monitor]
+ERROR tests/test_iter141_nominal_continuation.py::test_linkage_known_bads[control]
+ERROR tests/test_iter141_nominal_continuation.py::test_linkage_known_bads[time]
+ERROR tests/test_iter141_nominal_continuation.py::test_prefix_known_bads[observation]
+ERROR tests/test_iter141_nominal_continuation.py::test_prefix_known_bads[nominal]
+ERROR tests/test_iter141_nominal_continuation.py::test_prefix_known_bads[numerical]
+ERROR tests/test_iter141_nominal_continuation.py::test_prefix_known_bads[runtime]
+ERROR tests/test_iter141_nominal_continuation.py::test_replica_known_bad - Va...
+ERROR tests/test_iter141_nominal_continuation.py::test_early_end_not_recovery[truncated]
+ERROR tests/test_iter141_nominal_continuation.py::test_early_end_not_recovery[collision]
+ERROR tests/test_iter141_nominal_continuation.py::test_early_end_not_recovery[other_termination]
+ERROR tests/test_iter141_nominal_continuation.py::test_hazard_survival_is_not_recovery
+ERROR tests/test_iter141_nominal_continuation.py::test_independent_known_bads[outcome]
+ERROR tests/test_iter141_nominal_continuation.py::test_independent_known_bads[control]
+ERROR tests/test_iter141_nominal_continuation.py::test_independent_known_bads[bytes]
+ERROR tests/test_iter141_nominal_continuation.py::test_independent_known_bads[prefix]
+ERROR tests/test_iter141_nominal_continuation.py::test_independent_known_bads[missing]
+16 passed, 26 errors in 0.46s

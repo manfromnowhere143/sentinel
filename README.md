@@ -6,6 +6,16 @@ loop, by whether the car crashes *and whether it can still drive*.**
 
 ## Local research update 2026-10-09
 
+> **Active operator-directed candidate work, 2026-10-09:** Iter141 nominal-continuation
+> canary is preregistered; phase: local_validation. Local checks pass; final source validation and committed packet preparation are underway. No provider access or episode.
+> Read [protocol](experiments/iter141_nominal_continuation/HYPOTHESIS.md),
+> [design review](experiments/iter141_nominal_continuation/SOURCE_REVIEW.md), and
+> [state](experiments/iter141_nominal_continuation/STATE.json).
+> Iter140 reconstruction is complete; Iter139 remains null with 0/6 recoveries.
+> Candidate `research/iter141-nominal-continuation` is unpushed; master remains F17.
+> Iter135 remains deferred. MISSION_STATE/HANDOFF retain their publication snapshot.
+
+
 [Iteration 140](experiments/iter140_contact_actuation/RESULT.md) independently reconstructed
 206 actions and all eight terminal contacts from the latest development experiment. The actor's
 center was behind ego in every collision, and its path changed in every pulse branch. The

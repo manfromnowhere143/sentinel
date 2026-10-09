@@ -1,15 +1,13 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
-> **Active operator-directed candidate result, 2026-10-09:** Iter140 is complete as
-> supported / CONTACT_ACTUATION_RECONSTRUCTED: 206 actions and all eight contacts replayed;
-> 412 box-pair checks agree. Every terminal actor center was behind ego; actor paths differed
-> in all six pulses. This supports reconstruction; Iter139 remains null with 0/6 recoveries.
-> Read [result](experiments/iter140_contact_actuation/RESULT.md),
-> [state](experiments/iter140_contact_actuation/STATE.json), and
-> [next decision](experiments/iter140_contact_actuation/DECISION.md).
-> Local CPU only; no provider access or cloud launch. The next canary remains proposed.
-> Candidate: `research/iter140-contact-actuation`, unpushed; master remains F17.
-> Iter135 remains deferred; MISSION_STATE/HANDOFF retain their publication snapshot.
+> **Active operator-directed candidate work, 2026-10-09:** Iter141 nominal-continuation
+> canary is preregistered; phase: local_validation. Local checks pass; final source validation and committed packet preparation are underway. No provider access or episode.
+> Read [protocol](experiments/iter141_nominal_continuation/HYPOTHESIS.md),
+> [design review](experiments/iter141_nominal_continuation/SOURCE_REVIEW.md), and
+> [state](experiments/iter141_nominal_continuation/STATE.json).
+> Iter140 reconstruction is complete; Iter139 remains null with 0/6 recoveries.
+> Candidate `research/iter141-nominal-continuation` is unpushed; master remains F17.
+> Iter135 remains deferred. MISSION_STATE/HANDOFF retain their publication snapshot.
 
 **Purpose.** This campaign is operator-portable by design. Everything an incoming operator
 needs is in this repository plus the two live surfaces below. Read this file top to bottom
