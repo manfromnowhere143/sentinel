@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "/opt/homebrew/opt/python@3.14/bin/python3.14",
+    "/tmp/i142_final_check.py",
+    "--known-bad"
+  ],
+  "returncode": 1,
+  "expected_returncode": 1,
+  "scope": "corrupted proof is in-memory only; retained original bytes are never mutated"
+}

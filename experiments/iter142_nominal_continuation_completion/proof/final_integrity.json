@@ -1,0 +1,9 @@
+{
+  "argv": [
+    "/opt/homebrew/opt/python@3.14/bin/python3.14",
+    "/tmp/i142_final_check.py"
+  ],
+  "returncode": 0,
+  "expected_returncode": 0,
+  "scope": "candidate evidence integrity"
+}

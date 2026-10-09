@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "candidate_commit": "e23af9f3d709e84571f1eb0044c30b2a81db94b0",
+  "proof_hashes": 357,
+  "raw_files_by_arm": {
+    "reference_a": 12,
+    "reference_b": 12,
+    "nominal_a": 12,
+    "nominal_b": 12
+  },
+  "remote_only_files_by_arm": {
+    "reference_a": 82,
+    "reference_b": 82,
+    "nominal_a": 91,
+    "nominal_b": 91
+  },
+  "retained_input_files": 17,
+  "unchanged_source_test_files": 3,
+  "unchanged_preregistration_files": 2,
+  "correction_and_failed_marker_preserved": true,
+  "raw_commit_before_validation_schedule": true,
+  "document_links": 28,
+  "prior_experiments_unchanged": true,
+  "master_unchanged": true,
+  "staged_index_empty": true,
+  "root_readme_untouched": true,
+  "human_commit_identities": 10,
+  "provider_status": "TERMINATED",
+  "scope": "candidate integrity and direct delivery counts; no full/frozen/hosted CI"
+}

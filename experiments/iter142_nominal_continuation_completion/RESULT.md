@@ -164,6 +164,13 @@ observation only; the bound-host synthetic fixture uses the real check and passe
 Synthetic successful routes are fixture data, not live recoveries. No full,
 frozen-environment or hosted CI result for this candidate is claimed.
 
+The [closure integrity check](proof/final_integrity.stdout) passed on result commit
+`e23af9f3d709e84571f1eb0044c30b2a81db94b0`: 357 proof hashes, all 36 fresh and
+12 retained raw files against their original commits, 17 retained inputs, unchanged
+source/protocol, schedule ordering, links and human commit attribution. An
+[in-memory corrupted proof](proof/final_integrity_known_bad.stderr) was rejected.
+Prior experiments, canonical master and the root index remained unchanged.
+
 Postflight matched all **614 bound files**, with no owned processes, running
 containers or GPU applications and **109.255 GiB** free. Provider readback confirms
 [TERMINATED](proof/final_provider_state.stdout), last stop
