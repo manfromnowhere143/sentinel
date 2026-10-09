@@ -1,0 +1,108 @@
+{
+  "earliest_trace_difference": null,
+  "exact_controller": {
+    "frames": 26,
+    "matched": true
+  },
+  "independent_decimal": {
+    "matched": true,
+    "scope": "complete reference trace comparison only"
+  },
+  "primary": {
+    "first_difference": null,
+    "frames": 26,
+    "status": "REPLAY_MATCHED"
+  },
+  "reference_a": {
+    "actual_dtypes": [
+      "<f4"
+    ],
+    "adapter_ms": {
+      "max": 99.886635,
+      "p50": 62.961172,
+      "p95": 89.790381,
+      "p99": 99.886635
+    },
+    "client_roundtrip_ms": {
+      "max": 33115.657751,
+      "p50": 1720.88581,
+      "p95": 2234.848855,
+      "p99": 33115.657751
+    },
+    "complete_call_ms": {
+      "max": 99.902775,
+      "p50": 62.969862,
+      "p95": 89.805022,
+      "p99": 99.902775
+    },
+    "complete_call_over_50ms": 24,
+    "files": {
+      "controller138.jsonl": "52e43e86a9a5f4209841ddd91dc1f1131a1da4fdba8e45adc31cbd79ff4db7bc",
+      "iter138_trace.jsonl": "98d197e050f647b5e0406963cbc7c73bcc3ae713cb81937a0c96b24070f49ae0"
+    },
+    "frames": 26,
+    "route_completion": 0.11557062998555366,
+    "solver_ms": {
+      "max": 92.942816,
+      "p50": 59.410522,
+      "p95": 84.026104,
+      "p99": 92.942816
+    },
+    "solver_over_50ms": 23,
+    "stop_reasons": {
+      "converged": 26,
+      "deadline": 0,
+      "iteration_limit": 0
+    },
+    "terminal_reason": "collision",
+    "termination_time": 6.5
+  },
+  "reference_b": {
+    "actual_dtypes": [
+      "<f4"
+    ],
+    "adapter_ms": {
+      "max": 105.330157,
+      "p50": 62.87346,
+      "p95": 96.252108,
+      "p99": 105.330157
+    },
+    "client_roundtrip_ms": {
+      "max": 15489.515255,
+      "p50": 1708.811952,
+      "p95": 2113.65846,
+      "p99": 15489.515255
+    },
+    "complete_call_ms": {
+      "max": 105.345599,
+      "p50": 62.883269,
+      "p95": 96.265095,
+      "p99": 105.345599
+    },
+    "complete_call_over_50ms": 24,
+    "files": {
+      "controller138.jsonl": "e54fc28fa9ef4df657df3e6bee0e5d59ba687153520c5bb4a0b229aa8f4e6306",
+      "iter138_trace.jsonl": "98d197e050f647b5e0406963cbc7c73bcc3ae713cb81937a0c96b24070f49ae0"
+    },
+    "frames": 26,
+    "route_completion": 0.11557062998555366,
+    "solver_ms": {
+      "max": 98.945412,
+      "p50": 58.88814,
+      "p95": 89.713517,
+      "p99": 98.945412
+    },
+    "solver_over_50ms": 23,
+    "stop_reasons": {
+      "converged": 26,
+      "deadline": 0,
+      "iteration_limit": 0
+    },
+    "terminal_reason": "collision",
+    "termination_time": 6.5
+  },
+  "runtime_matched": true,
+  "scope": "live development reference; no intervention benefit claim",
+  "status": "supported",
+  "verdict": "REPLAY_MATCHED"
+}

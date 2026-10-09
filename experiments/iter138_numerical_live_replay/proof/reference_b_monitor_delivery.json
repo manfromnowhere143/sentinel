@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "python3",
+    "-m",
+    "experiments.iter136_hugsim_recoverability_canary.check_monitor_delivery",
+    "/Users/danielwahnich/workspace/sentinel/experiments/iter138_numerical_live_replay/proof/live/reference_b/scene-0411_hard_00/iter138_trace.jsonl",
+    "/Users/danielwahnich/workspace/sentinel/experiments/iter138_numerical_live_replay/proof/live/reference_b/scene-0411_hard_00/sentinel_iter48_decisions.jsonl"
+  ],
+  "started_utc": "2026-10-09T13:43:24.823102+00:00",
+  "elapsed_seconds": 0.050720930099487305,
+  "returncode": 0
+}

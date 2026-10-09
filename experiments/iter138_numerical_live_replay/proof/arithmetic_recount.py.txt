@@ -1,0 +1,23 @@
+"""Retrospective stdlib recount of reported Iter138 numbers; no production verifier imports."""
+from pathlib import Path
+import collections,hashlib,json,math
+p=Path('/Users/danielwahnich/workspace/sentinel/experiments/iter138_numerical_live_replay/proof')
+a=json.loads((p/'analysis.json').read_text());reports={};raw=[];numerical=[]
+for arm in ['reference_a','reference_b']:
+ folder=p/'live'/arm/'scene-0411_hard_00';t=(folder/'iter138_trace.jsonl').read_bytes();raw.append(t)
+ trace=[json.loads(x) for x in t.splitlines()];calls=[json.loads(x) for x in (folder/'controller138.jsonl').read_bytes().splitlines()][1:-1]
+ n=len(calls);assert n==len(trace)-2==a[arm]['frames']
+ assert all(r['frame']==i and r['time']==trace[i+1]['time'] and r['receipt']['numerical']['control']==trace[i+1]['control'] for i,r in enumerate(calls))
+ vals={'solver_ms':[r['receipt']['timing']['solver_ns'] for r in calls],'adapter_ms':[r['receipt']['timing']['adapter_ns'] for r in calls],'complete_call_ms':[r['complete_call_ns'] for r in calls],'client_roundtrip_ms':[r['client_roundtrip_ns'] for r in calls]}
+ quantiles={key:{name:sorted(v)[math.ceil(n*q)-1]/1000000 for name,q in [('p50',.50),('p95',.95),('p99',.99),('max',1.)]} for key,v in vals.items()}
+ for k,v in quantiles.items():assert v==a[arm][k],(arm,k)
+ counts=dict(complete_call_over_50ms=sum(x>50000000 for x in vals['complete_call_ms']),solver_over_50ms=sum(x>50000000 for x in vals['solver_ms']))
+ for k,v in counts.items():assert v==a[arm][k]
+ reasons=collections.Counter(r['receipt']['numerical']['stop_reason'] for r in calls)
+ assert all(reasons[k]==v for k,v in a[arm]['stop_reasons'].items())
+ assert trace[-1]['reason']==a[arm]['terminal_reason'] and trace[-2]['after']['timestamp']==a[arm]['termination_time'] and trace[-2]['route_completion']==a[arm]['route_completion']
+ assert sorted({r['receipt']['numerical']['input']['plan']['dtype'] for r in calls})==a[arm]['actual_dtypes']
+ numeric=[r['receipt']['numerical'] for r in calls];numerical.append(numeric)
+ reports[arm]=dict(frames=n,quantiles=quantiles,counts=counts,stop_reasons=dict(reasons),trace_sha256=hashlib.sha256(t).hexdigest())
+assert raw[0]==raw[1] and numerical[0]==numerical[1]
+print(json.dumps(dict(status='matched',scope='retrospective arithmetic and raw equality; original-source numerical replay is separately retained',driving_byte_equality=True,complete_numeric_record_equality=True,reference_reports=reports),indent=2,sort_keys=True))

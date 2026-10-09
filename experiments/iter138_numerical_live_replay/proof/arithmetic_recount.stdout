@@ -1,0 +1,82 @@
+{
+  "complete_numeric_record_equality": true,
+  "driving_byte_equality": true,
+  "reference_reports": {
+    "reference_a": {
+      "counts": {
+        "complete_call_over_50ms": 24,
+        "solver_over_50ms": 23
+      },
+      "frames": 26,
+      "quantiles": {
+        "adapter_ms": {
+          "max": 99.886635,
+          "p50": 62.961172,
+          "p95": 89.790381,
+          "p99": 99.886635
+        },
+        "client_roundtrip_ms": {
+          "max": 33115.657751,
+          "p50": 1720.88581,
+          "p95": 2234.848855,
+          "p99": 33115.657751
+        },
+        "complete_call_ms": {
+          "max": 99.902775,
+          "p50": 62.969862,
+          "p95": 89.805022,
+          "p99": 99.902775
+        },
+        "solver_ms": {
+          "max": 92.942816,
+          "p50": 59.410522,
+          "p95": 84.026104,
+          "p99": 92.942816
+        }
+      },
+      "stop_reasons": {
+        "converged": 26
+      },
+      "trace_sha256": "98d197e050f647b5e0406963cbc7c73bcc3ae713cb81937a0c96b24070f49ae0"
+    },
+    "reference_b": {
+      "counts": {
+        "complete_call_over_50ms": 24,
+        "solver_over_50ms": 23
+      },
+      "frames": 26,
+      "quantiles": {
+        "adapter_ms": {
+          "max": 105.330157,
+          "p50": 62.87346,
+          "p95": 96.252108,
+          "p99": 105.330157
+        },
+        "client_roundtrip_ms": {
+          "max": 15489.515255,
+          "p50": 1708.811952,
+          "p95": 2113.65846,
+          "p99": 15489.515255
+        },
+        "complete_call_ms": {
+          "max": 105.345599,
+          "p50": 62.883269,
+          "p95": 96.265095,
+          "p99": 105.345599
+        },
+        "solver_ms": {
+          "max": 98.945412,
+          "p50": 58.88814,
+          "p95": 89.713517,
+          "p99": 98.945412
+        }
+      },
+      "stop_reasons": {
+        "converged": 26
+      },
+      "trace_sha256": "98d197e050f647b5e0406963cbc7c73bcc3ae713cb81937a0c96b24070f49ae0"
+    }
+  },
+  "scope": "retrospective arithmetic and raw equality; original-source numerical replay is separately retained",
+  "status": "matched"
+}

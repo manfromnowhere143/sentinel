@@ -1,0 +1,7 @@
+ERROR: (gcloud.compute.operations) Invalid choice: 'wait'.
+Maybe you meant:
+  gcloud compute operations describe
+  gcloud compute operations list
+
+To search the help text of gcloud commands, run:
+  gcloud help -- SEARCH_TERMS

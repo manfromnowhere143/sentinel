@@ -1,0 +1,10 @@
+import json
+import os
+from pathlib import Path
+import subprocess
+root=Path('/datasets/nuscenes-full/hugsim/iter138_control_20261009')
+env={**os.environ,'PYTHONPATH':str(root/'packet'),'OPENBLAS_NUM_THREADS':'1','OMP_NUM_THREADS':'1','MKL_NUM_THREADS':'1'}
+base=Path('/datasets/nuscenes-full/hugsim/outputs/iter138-20261009')
+cmd=['/opt/sentinel-stack/HUGSIM/.pixi/envs/default/bin/python','-m','experiments.iter138_numerical_live_replay.verify_live',str(base/'reference_a/scene-0411_hard_00'),str(base/'reference_b/scene-0411_hard_00')]
+r=subprocess.run(cmd,env=env,capture_output=True,text=True,timeout=180)
+print(json.dumps(dict(returncode=r.returncode,stdout=r.stdout,stderr=r.stderr),indent=2));assert r.returncode==0

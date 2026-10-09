@@ -2,28 +2,35 @@
 
 ## Active operator work on 2026-10-09
 
-The [Iteration 137 controller contract](../experiments/iter137_controller_execution_contract/RESULT.md)
-completed all 912 CPU calls. Every one of 114 typed inputs repeated exactly across four numerical
-runs under idle and contended conditions; independent upstream-source replay passed. The adapter
-logs typed inputs, configuration, full iterate identities, convergence and explicit stopping
-reasons. Numerical stopping and observed deadline behavior are separate evidence.
+[Iteration 138](../experiments/iter138_numerical_live_replay/RESULT.md) completed as
+**supported / REPLAY_MATCHED**: two fresh processes produced byte-identical 26-frame driving
+traces and matching numerical controller records. All 52 live calls independently replayed
+using original source. Both runs collided at 6.5 simulated seconds, with route completion
+0.11557062998555366. Actual incoming dtype was float32. No intervention ran.
 
-The 50 ms adapter deadline was missed by numerical mode on 99/228 idle and 228/228 contended
-calls, and by timed mode on 86/228 idle and 228/228 contended calls. Numerical reproducibility
-is supported only on this corpus/runtime; real-time validity is not established. No new driving
-episode ran. The host is stopped. See [status](../experiments/iter137_controller_execution_contract/STATUS.md)
-and [execution binding](../experiments/iter137_controller_execution_contract/EXECUTION_BINDING.md).
+In each reference the full solver exceeded 50 ms on 23/26 calls and the complete adapter call
+on 24/26. Client-roundtrip medians were about 1.72/1.71 seconds, including transport and client
+work. Fixed simulation time does not expose stale-action consequences. Numerical stopping,
+wall-time measurements and driving utility remain separate. Host readback confirms TERMINATED;
+[status](../experiments/iter138_numerical_live_replay/STATUS.md) retains closure evidence.
 
-Next: a freshly preregistered live reference pair with the explicit numerical controller mode,
-actual dtype and solver input/iterate/stop-reason logging. Keep simulation time and compute
-latency distinct. Only a fresh pair passing its frozen replay rule can admit the later
-recoverability intervention grid. The [Iter136 failed pair](../experiments/iter136_hugsim_recoverability_canary/RESULT.md)
-remains closed as REPLAY_DIVERGED; no retry, tolerance relaxation or retrospective repair.
+The [independent Iter137 audit](../experiments/iter138_numerical_live_replay/AUDIT137.md)
+recounts all 912 records correctly. Its 114 scheduled typed cases comprise 112 unique inputs
+from 57 dependent decisions in one scenario. No population or real-time conclusion follows.
 
-The main research question remains which additional information enables useful intervention
-beyond a strong responsive baseline. Iter135 is deferred without modifying its protocol.
-Canonical master remains F17; Iter137 is an unpushed local research candidate. The accepted
-publication snapshot below is retained history.
+Next: separately preregister a finite braking-pulse experiment followed by resumed planning,
+with frozen onset/duration cells, exact pre-action prefix validation, collision/progress/cost
+outcomes and explicit censoring. The [proposed design](../experiments/iter138_numerical_live_replay/NEXT_EXPERIMENT_DESIGN.md)
+addresses the tension between permanent stopping and route-completion success. It contains no
+new intervention result. Establish a useful recovery opportunity before information ablations
+against a strong responsive baseline, then independent-scene evaluation.
+
+[Iter136](../experiments/iter136_hugsim_recoverability_canary/RESULT.md) remains closed as
+REPLAY_DIVERGED; do not retry or relax its tolerance. Iter138 is also closed; its passed pair
+applies only to the declared numerical controller and single-thread runtime. Iter135 remains
+deferred without protocol changes. Candidate branch `research/iter138-live-replay` is local and
+unpushed; canonical master remains F17. The accepted publication snapshot below is retained
+history and does not describe the current operator-directed candidate.
 
 ## Canonical current decision: iteration 134 is complete
 

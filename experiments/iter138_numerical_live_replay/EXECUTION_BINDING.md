@@ -10,7 +10,9 @@ corrected before any live episode and retained separately as draft evidence.
 
 The original `sentinel-gpu` g2-standard-8/L4 started on the first asynchronous request.
 Project sunlit-unison-487018-b0, zone us-west1-a, instance ID 3834622546652649531.
-The guest shutdown timer is armed against the fixed session budget, with a conservative margin.
+The guest shutdown timer was armed against the fixed session budget, with a conservative margin.
+After completed collection, replay and postflight it was cancelled; the explicit provider stop
+completed. Final readback is TERMINATED; see [host closure](STATUS.md).
 No package or image installation. Exact prepared client image and upstream revisions are in
 HYPOTHESIS.md. Simulator PYTHONPATH excludes the client-only Torch shim; the client retains it.
 

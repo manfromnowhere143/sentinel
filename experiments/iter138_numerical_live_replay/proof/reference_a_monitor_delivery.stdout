@@ -1,0 +1,14 @@
+{
+  "frames": 26,
+  "parameters": {
+    "cpa_margin": 1.5,
+    "dt": 0.5,
+    "max_gap": 30.0,
+    "min_closing": 3.0,
+    "min_score": 0.3,
+    "release_k": 4,
+    "ttc_thresh": 2.5
+  },
+  "scope": "recorded parameters and client-to-simulator trajectory delivery only",
+  "status": "matched"
+}
