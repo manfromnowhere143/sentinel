@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "python3",
+    "/tmp/i142_launch_bootstrap2.py",
+    "nominal_b"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-09T16:22:24.963001+00:00",
+  "elapsed_seconds": 5.970165014266968,
+  "returncode": 0
+}

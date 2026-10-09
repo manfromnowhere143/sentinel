@@ -1,0 +1,23 @@
+import json
+from pathlib import Path
+import subprocess
+import sys
+import time
+root=Path('/datasets/nuscenes-full/hugsim/iter142_control_20261009')
+arm='nominal_b'
+assert not (root/(arm+'_bootstrap2_launch.json')).exists()
+cmd=['/usr/bin/env','PYTHONPATH='+str(root/'packet'),'python3',str(root/'run_episode.py'),arm,'--manifest-sha256','54647066bd8296ef21106a3eeacf660294d8cf4f9a5fc865424be18696b8a6e3']
+supervisor="""import json,subprocess,time
+from pathlib import Path
+root=Path(ROOT)
+cmd=COMMAND
+start=time.time()
+with (root/(ARM+'_bootstrap2_launch.stdout')).open('x') as out,(root/(ARM+'_bootstrap2_launch.stderr')).open('x') as err:
+ result=subprocess.run(cmd,stdout=out,stderr=err)
+(root/(ARM+'_bootstrap2_supervisor.json')).write_text(json.dumps(dict(returncode=result.returncode,elapsed_seconds=time.time()-start),indent=2))
+""".replace('ROOT',repr(str(root))).replace('COMMAND',repr(cmd)).replace('ARM',repr(arm))
+with (root/(arm+'_bootstrap2_supervisor.stdout')).open('x') as out,(root/(arm+'_bootstrap2_supervisor.stderr')).open('x') as err:
+ p=subprocess.Popen([sys.executable,'-c',supervisor],stdout=out,stderr=err,start_new_session=True)
+record=dict(arm=arm,supervisor_pid=p.pid,command=cmd,host_utc=time.time())
+(root/(arm+'_bootstrap2_launch.json')).write_text(json.dumps(record,indent=2))
+print(json.dumps(record,indent=2))

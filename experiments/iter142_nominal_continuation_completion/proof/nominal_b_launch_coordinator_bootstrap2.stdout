@@ -1,0 +1,20 @@
+nominal_b_bootstrap2_launch 0 {
+  "arm": "nominal_b",
+  "supervisor_pid": 4023,
+  "command": [
+    "/usr/bin/env",
+    "PYTHONPATH=/datasets/nuscenes-full/hugsim/iter142_control_20261009/packet",
+    "python3",
+    "/datasets/nuscenes-full/hugsim/iter142_control_20261009/run_episode.py",
+    "nominal_b",
+    "--manifest-sha256",
+    "54647066bd8296ef21106a3eeacf660294d8cf4f9a5fc865424be18696b8a6e3"
+  ],
+  "host_utc": 1791563023.673728
+}
+ WARNING: 
+
+To increase the performance of the tunnel, consider installing NumPy. For instructions,
+please see https://cloud.google.com/iap/docs/using-tcp-forwarding#increasing_the_tcp_upload_bandwidth
+
+
