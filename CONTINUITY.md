@@ -1,7 +1,7 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
 > **Active operator-directed candidate work, 2026-10-09:** Iter141 nominal-continuation
-> canary is preregistered; phase: ready_for_reference. Bound-host integration and prior runtime hashes passed; original shutdown budget is active. Starting the frozen reference-first schedule.
+> canary is preregistered; phase: reference_a. Live execution under the frozen 150-minute budget; all earlier scheduled arms validated.
 > Read [protocol](experiments/iter141_nominal_continuation/HYPOTHESIS.md),
 > [design review](experiments/iter141_nominal_continuation/SOURCE_REVIEW.md), and
 > [state](experiments/iter141_nominal_continuation/STATE.json).

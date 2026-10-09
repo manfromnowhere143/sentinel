@@ -1,0 +1,23 @@
+import json
+from pathlib import Path
+import subprocess
+import sys
+import time
+root=Path('/datasets/nuscenes-full/hugsim/iter141_control_20261009')
+arm='reference_a'
+assert not (root/(arm+'_launch.json')).exists()
+cmd=['python3',str(root/'run_episode.py'),arm,'--manifest-sha256','9241e541e73f20692697e1a4bf5e265ec11e0773c024b79abc0929f32b04bbb9']
+supervisor="""import json,subprocess,time
+from pathlib import Path
+root=Path(ROOT)
+cmd=COMMAND
+start=time.time()
+with (root/(ARM+'_launch.stdout')).open('x') as out,(root/(ARM+'_launch.stderr')).open('x') as err:
+ result=subprocess.run(cmd,stdout=out,stderr=err)
+(root/(ARM+'_supervisor.json')).write_text(json.dumps(dict(returncode=result.returncode,elapsed_seconds=time.time()-start),indent=2))
+""".replace('ROOT',repr(str(root))).replace('COMMAND',repr(cmd)).replace('ARM',repr(arm))
+with (root/(arm+'_supervisor.stdout')).open('x') as out,(root/(arm+'_supervisor.stderr')).open('x') as err:
+ p=subprocess.Popen([sys.executable,'-c',supervisor],stdout=out,stderr=err,start_new_session=True)
+record=dict(arm=arm,supervisor_pid=p.pid,command=cmd,host_utc=time.time())
+(root/(arm+'_launch.json')).write_text(json.dumps(record,indent=2))
+print(json.dumps(record,indent=2))

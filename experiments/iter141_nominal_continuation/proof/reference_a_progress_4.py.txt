@@ -1,0 +1,9 @@
+import json
+from pathlib import Path
+control=Path('/datasets/nuscenes-full/hugsim/iter141_control_20261009');arm='reference_a'
+p=control/(arm+'_supervisor.json')
+if p.exists():print(json.dumps(dict(completed=True,supervisor=json.loads(p.read_text()))))
+else:
+ trace=Path('/datasets/nuscenes-full/hugsim/outputs/iter141-20261009')/arm/'scene-0411_hard_00/iter141_trace.jsonl'
+ count=len(trace.read_bytes().splitlines())-1 if trace.exists() else 0
+ print(json.dumps(dict(completed=False,trace_records=count)))
