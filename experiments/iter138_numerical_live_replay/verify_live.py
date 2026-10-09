@@ -87,6 +87,12 @@ def compare_controller(left, right):
     return dict(matched=True, frames=len(left)-2)
 
 
+def same_runtime(left, right):
+    fields = ('schema', 'identity', 'controller_sha256', 'mode', 'numpy', 'python',
+              'platform', 'affinity', 'threadpools')
+    return all(left[0][key] == right[0][key] for key in fields)
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('reference', type=Path)
@@ -100,14 +106,15 @@ def main():
         primary = trace.compare(a, b)
         independent = decimal.check(args.reference/'iter138_trace.jsonl', args.candidate/'iter138_trace.jsonl')
         numerical = compare_controller(ca, cb)
-        matched = primary['status'] == 'REPLAY_MATCHED' and independent['matched'] and numerical['matched']
+        runtime_matched = same_runtime(ca, cb)
+        matched = primary['status'] == 'REPLAY_MATCHED' and independent['matched'] and numerical['matched'] and runtime_matched
         verdict = 'REPLAY_DIVERGED' if not matched else 'REPLAY_MATCHED' if any(f['collision'] for f in a[1:-1]) else 'NO_RECOVERABILITY_TARGET'
         first = next((dict(frame=x['frame'], field=field) for x, y in zip(a[1:-1], b[1:-1])
                       for field in ('observation_sha256', 'before', 'incoming_plan', 'executed_plan', 'control', 'after')
                       if trace.difference(x[field], y[field])), None)
         result.update(status='supported' if matched else 'failed', verdict=verdict,
                       reference_b=summary_b, primary=primary, independent_decimal=independent,
-                      exact_controller=numerical, earliest_trace_difference=first)
+                      exact_controller=numerical, runtime_matched=runtime_matched, earliest_trace_difference=first)
     print(json.dumps(result, indent=2, sort_keys=True, allow_nan=False))
 
 

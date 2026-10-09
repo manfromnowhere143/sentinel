@@ -246,3 +246,12 @@ def test_audit137_recomputes_full_record():
 
 def test_audit_quantile_uses_nearest_rank():
     assert audit137.quantile(list(range(1, 229))) == dict(p50=114, p95=217, p99=226, max=228)
+
+
+@pytest.mark.parametrize("field,value", [("affinity", [999]), ("numpy", "changed")])
+def test_pair_requires_same_runtime(capture, field, value):
+    _, contract, _ = capture
+    assert verify_live.same_runtime(contract, contract)
+    changed = deepcopy(contract)
+    changed[0][field] = value
+    assert not verify_live.same_runtime(contract, changed)

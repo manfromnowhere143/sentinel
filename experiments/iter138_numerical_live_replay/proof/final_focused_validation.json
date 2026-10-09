@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "python3",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/test_iter138_live_replay.py",
+    "tests/test_iter137_controller_execution.py",
+    "tests/test_iter136_recoverability_canary.py"
+  ],
+  "started_utc": "2026-10-09T13:26:27.777872+00:00",
+  "elapsed_seconds": 2.3327343463897705,
+  "returncode": 0
+}
