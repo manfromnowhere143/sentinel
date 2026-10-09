@@ -1,0 +1,9 @@
+import base64,json,sys
+from pathlib import Path
+sys.path.insert(0,'/tmp');from i141_ops import ssh,PROOF
+s=Path('experiments/iter139_finite_pulse_recoverability/proof/postflight.py.txt').read_text().replace('iter139','iter141')
+r=ssh('postflight',s,timeout=120);assert r.returncode==0
+report=json.loads(r.stdout);files=report.pop('files');(PROOF/'postflight_summary.json').write_text(json.dumps(report,indent=2)+'\n')
+for name,body in files.items():
+ p=PROOF/'supplemental'/name;p.parent.mkdir(parents=True,exist_ok=True)
+ with p.open('xb') as f:f.write(base64.b64decode(body))

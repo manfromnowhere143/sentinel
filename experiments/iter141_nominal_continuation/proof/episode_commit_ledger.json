@@ -1,0 +1,11 @@
+[
+  {
+    "arm": "reference_a",
+    "raw_commit": "888a8a3c86f327de15612d5b7a8553e66b43805f",
+    "supervisor": {
+      "returncode": 0,
+      "elapsed_seconds": 132.2472825050354
+    },
+    "bookkeeping": "Recovered existing raw commit after coordinator lookup failure; no episode repeated"
+  }
+]

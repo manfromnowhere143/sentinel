@@ -1,0 +1,17 @@
+{
+  "status": "failed",
+  "stage": "raw_commit_lookup",
+  "episode": "reference_a",
+  "episode_returncode": 0,
+  "raw_commit": "888a8a3c86f327de15612d5b7a8553e66b43805f",
+  "command": [
+    "git",
+    "rev-parse",
+    "research/iter141-finite-pulse"
+  ],
+  "returncode": 128,
+  "error": "Stale branch name in copied outer coordinator; actual candidate is research/iter141-nominal-continuation.",
+  "later_episodes_started": false,
+  "initialized_episode_retries": 0,
+  "decision": "Stop remaining schedule under literal protocol failure rule. Validate already committed reference descriptively, then close and stop compute. A continuation requires a distinct preregistered successor."
+}

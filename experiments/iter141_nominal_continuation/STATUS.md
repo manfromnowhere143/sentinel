@@ -1,5 +1,4 @@
 # Status
 
-reference_a: Live execution under the frozen 150-minute budget; all earlier scheduled arms validated.
-
-Local research candidate, unpushed. Canonical master remains F17; Iter135 remains deferred.
+Closed: failed / COORDINATOR_BRANCH_LOOKUP_FAILED. Scientific comparison inconclusive.
+One reference validated; three arms unobserved. Provider TERMINATED. See [result](RESULT.md) and [decision](DECISION.md).

@@ -1,0 +1,51 @@
+{
+  "status": "passed",
+  "scope": "separate Decimal trace/historical match plus direct counts; original-source numerical replay retained separately",
+  "frames": 26,
+  "historical_trace": "matched",
+  "declared_acceleration_violation_frames": [
+    0,
+    1,
+    18,
+    19
+  ],
+  "declared_steering_rate_violation_frames": [
+    0,
+    1,
+    2,
+    5,
+    9,
+    10,
+    11,
+    12,
+    14,
+    15,
+    16
+  ],
+  "declared_any_violation_frames": [
+    0,
+    1,
+    2,
+    5,
+    9,
+    10,
+    11,
+    12,
+    14,
+    15,
+    16,
+    18,
+    19
+  ],
+  "complete_call_over_50ms": 17,
+  "solver_over_50ms": 13,
+  "stop_reasons": {
+    "converged": 26,
+    "deadline": 0,
+    "iteration_limit": 0
+  },
+  "first_monitor_contrast_frame": 18,
+  "terminal_time": 6.5,
+  "terminal_reason": "collision",
+  "route_completion": 0.11557062998555366
+}

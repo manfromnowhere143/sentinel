@@ -19,3 +19,9 @@ The host environment class and original driver import passed before any episode.
 Reference reproduction of Iter139, typed delivery checks, full independent numerical
 replay and Decimal prefix/outcomes still govern live admission. No full/frozen/hosted
 CI result is claimed. Raw episode evidence must be committed before interpretation.
+
+## Closure
+
+Only reference_a ran. It validated after raw commit; a stale branch lookup in the outer
+coordinator stopped the schedule before analysis or later episodes. All 532 bound files
+remained unchanged, and provider shutdown was confirmed. See [result](RESULT.md).

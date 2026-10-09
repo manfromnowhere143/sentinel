@@ -1,0 +1,58 @@
+{
+  "historical": "matched",
+  "reference": {
+    "action_contrast_frames": 8,
+    "actual_dtypes": [
+      "<f4"
+    ],
+    "adapter_ms": {
+      "max": 76.599844,
+      "p50": 53.620985,
+      "p95": 75.053377,
+      "p99": 76.599844
+    },
+    "adapter_over_50ms": 17,
+    "client_roundtrip_ms": {
+      "max": 32290.394141,
+      "p50": 1734.150077,
+      "p95": 2238.657469,
+      "p99": 32290.394141
+    },
+    "client_roundtrip_over_50ms": 26,
+    "complete_call_ms": {
+      "max": 76.61145,
+      "p50": 53.629131,
+      "p95": 75.062527,
+      "p99": 76.61145
+    },
+    "complete_call_over_50ms": 17,
+    "declared_gym_acceleration_violations": 4,
+    "declared_gym_any_violation_frames": 13,
+    "declared_gym_steering_rate_violations": 11,
+    "declined_replacement_frames": 0,
+    "files": {
+      "controller141.jsonl": "d4b4049df4489e96e957586831f200cf6acf8d6db4fba9adac928605b5044045",
+      "delivery141.jsonl": "ad0fccb16099f29ea5950bb977e00cb50f7129b4e10d5302754f5d4217e5bbef",
+      "iter141_trace.jsonl": "97be02f8b1a98ab0280e912abb0674c09bd363d65e6cbc1741b70e309e9f461e",
+      "sentinel_iter48_decisions.jsonl": "79c2360b43221a11379dfe554b495865305e3586e96681d14537e31ef1ff0e39"
+    },
+    "frames": 26,
+    "monitor_brake_requests": 8,
+    "route_completion": 0.11557062998555366,
+    "solver_ms": {
+      "max": 72.941251,
+      "p50": 49.971864,
+      "p95": 71.138159,
+      "p99": 72.941251
+    },
+    "solver_over_50ms": 13,
+    "stop_reasons": {
+      "converged": 26,
+      "deadline": 0,
+      "iteration_limit": 0
+    },
+    "terminal_reason": "collision",
+    "terminal_time": 6.5
+  },
+  "status": "validated"
+}

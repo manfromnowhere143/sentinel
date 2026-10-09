@@ -1,0 +1,14 @@
+import hashlib,json,math,sys
+from pathlib import Path
+sys.path.insert(0,str(Path('.').resolve()))
+from experiments.iter141_nominal_continuation.independent import episode,read,equal
+p=Path('experiments/iter141_nominal_continuation/proof');folder=p/'live/reference_a/scene-0411_hard_00'
+a,delivery=episode(folder);old=read(Path('experiments/iter139_finite_pulse_recoverability/proof/live/reference_a/scene-0411_hard_00/iter139_trace.jsonl'))
+assert equal(a[1:],old[1:]);rows=a[1:-1];contract=read(folder/'controller141.jsonl')[1:-1]
+acc=[r['frame'] for r in rows if abs(r['control'][0])>2]
+steer=[r['frame'] for r in rows if abs(math.degrees(float(r['control'][1])))>15]
+result=dict(status='passed',scope='separate Decimal trace/historical match plus direct counts; original-source numerical replay retained separately',frames=len(rows),historical_trace='matched',declared_acceleration_violation_frames=[int(x) for x in acc],declared_steering_rate_violation_frames=[int(x) for x in steer],declared_any_violation_frames=[int(x) for x in sorted(set(acc)|set(steer))],complete_call_over_50ms=sum(r['complete_call_ns']>50_000_000 for r in contract),solver_over_50ms=sum(r['receipt']['timing']['solver_ns']>50_000_000 for r in contract),stop_reasons={reason:sum(r['receipt']['numerical']['stop_reason']==reason for r in contract) for reason in ['converged','deadline','iteration_limit']},first_monitor_contrast_frame=next(int(d['frame']) for d in delivery if d['nominal']!=d['proposed']),terminal_time=float(rows[-1]['after']['timestamp']),terminal_reason=a[-1]['reason'],route_completion=float(rows[-1]['route_completion']))
+primary=json.loads((p/'analysis/reference_a.json').read_text())['reference']
+for key,count in [('declared_gym_acceleration_violations',len(acc)),('declared_gym_steering_rate_violations',len(steer)),('declared_gym_any_violation_frames',len(set(acc)|set(steer)))]:assert primary[key]==count
+for key in ['frames','stop_reasons','complete_call_over_50ms','solver_over_50ms','terminal_time','terminal_reason','route_completion']:assert result[key]==primary[key]
+(p/'independent_reference_recount.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))

@@ -1,0 +1,25 @@
+{
+  "bound_files": 532,
+  "changed_or_missing": [],
+  "commands": {
+    "docker": {
+      "returncode": 0,
+      "stderr": "",
+      "stdout": ""
+    },
+    "gpu": {
+      "returncode": 0,
+      "stderr": "",
+      "stdout": ""
+    },
+    "timer": {
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "active\n"
+    }
+  },
+  "free_gib": 109.6159896850586,
+  "hash_seconds": 5.971733243000017,
+  "manifest_sha256": "9241e541e73f20692697e1a4bf5e265ec11e0773c024b79abc0929f32b04bbb9",
+  "owned_processes": []
+}
