@@ -1,0 +1,6 @@
+{
+  "status": "passed",
+  "known_bad": "corrupted primary proof bytes rejected",
+  "actual_evidence_modified": false,
+  "injected_read": "03d5150e3fb0029e6140d832370abfaf2dc1bd45:experiments/iter140_contact_actuation/proof/primary.json"
+}

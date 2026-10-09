@@ -1,0 +1,73 @@
+"""Read-only check of candidate content, execution identity and preserved history."""
+import hashlib
+import json
+import posixpath
+import re
+import subprocess
+from pathlib import Path
+
+ROOT=Path('/Users/danielwahnich/workspace/sentinel')
+P='experiments/iter140_contact_actuation'
+PARENT='ed23a8c5596c563e6475be2c190856feb481072b'
+SOURCE='d554903eab834be7433c3505b24402f34ba34b21'
+PREREG='68131877a62e8fb6d1524aabcb2aab0a0b1187e7'
+MASTER='8c118b74c699bf0f139f9bd659192bad06b895f8'
+def git(*args):
+ return subprocess.check_output(['git',*args],cwd=ROOT)
+def sha(b):
+ return hashlib.sha256(b).hexdigest()
+tip=git('rev-parse','research/iter140-contact-actuation').decode().strip()
+def read(name,commit=tip):
+ return git('show',commit+':'+name)
+files=set(git('ls-tree','-r','--name-only',tip).decode().splitlines())
+checked=[]
+for line in read(P+'/proof/SHA256SUMS').decode().splitlines():
+ h,name=line.split('  ',1);raw=read(P+'/proof/'+name)
+ assert sha(raw)==h==sha((ROOT/P/'proof'/name).read_bytes()),name
+ checked.append(name)
+expected={s[len(P+'/proof/'):] for s in files if s.startswith(P+'/proof/') and not s.endswith('/SHA256SUMS')}
+assert set(checked)==expected
+inputs=json.loads(read(P+'/INPUTS.json'))
+for name,record in inputs['files'].items():
+ raw=read(name);assert raw==read(name,PARENT)==(ROOT/name).read_bytes()
+ assert len(raw)==record['bytes'] and sha(raw)==record['sha256']
+for name in ['HYPOTHESIS.md','INPUTS.json']:
+ assert read(P+'/'+name)==read(P+'/'+name,PREREG)==(ROOT/P/name).read_bytes()
+source_paths=[P+'/'+p.name for p in (ROOT/P).glob('*.py')]+['tests/test_iter140_contact_actuation.py',P+'/SOURCE_REVIEW.md']
+for name in source_paths:
+ assert read(name)==read(name,SOURCE)==(ROOT/name).read_bytes(),name
+changed=git('diff','--name-only',PARENT,tip).decode().splitlines()
+assert all(s.startswith(P+'/') or s in ['tests/test_iter140_contact_actuation.py','CONTINUITY.md','README.md','docs/NEXT_PHASE.md'] for s in changed)
+assert git('rev-parse','master').decode().strip()==MASTER
+subprocess.run(['git','merge-base','--is-ancestor',MASTER,tip],cwd=ROOT,check=True)
+assert not git('diff','--cached','--name-only')
+ids=git('log',PARENT+'..'+tip,'--format=%an <%ae>|%cn <%ce>').decode().splitlines()
+assert ids and all(s=='Daniel Wahnich <cogitoergosum143@gmail.com>|Daniel Wahnich <cogitoergosum143@gmail.com>' for s in ids)
+messages=git('log',PARENT+'..'+tip,'--format=%B').decode()
+assert not re.search(r'co-authored-by|generated-by|claude|anthropic',messages,re.I)
+links=[]
+for path in sorted(files):
+ if path.startswith(P+'/') and path.endswith('.md'):
+  body=read(path).decode()
+ elif path=='README.md':
+  body=read(path).decode().split('## Local research update 2026-10-09',1)[1].split('> **Honest status up front',1)[0]
+ elif path=='CONTINUITY.md':
+  body=read(path).decode().split('> **Active operator-directed candidate result,',1)[1].split('\n\n',1)[0]
+ elif path=='docs/NEXT_PHASE.md':
+  body=read(path).decode().split('## Active operator work on 2026-10-09',1)[1].split('## Canonical current decision:',1)[0]
+ else:
+  continue
+ for target in re.findall(r'\[[^\]]*\]\(([^)]+)\)',body):
+  if target.startswith(('http','#','mailto')):
+   continue
+  dest=posixpath.normpath(posixpath.join(posixpath.dirname(path),target.split('#')[0]))
+  assert dest in files,(path,target)
+  links.append(dest)
+readme=read('README.md').decode()
+assert all(posixpath.dirname(p) in readme for p in files if p.startswith('experiments/') and p.endswith('/RESULT.md'))
+primary=read(P+'/proof/primary.json');ind=json.loads(read(P+'/proof/independent.json'))
+assert ind['primary_sha256']==sha(primary) and ind['verdict']=='CONTACT_ACTUATION_RECONSTRUCTED'
+assert ind['total_frames']==206 and sum(e['checked_box_states'] for e in ind['episodes'].values())==412
+state=json.loads(read(P+'/STATE.json'))
+assert state['phase']=='complete' and state['status']==ind['status'] and state['provider_access'] is False
+print(json.dumps(dict(status='passed',candidate_commit=tip,proof_hashes_checked=len(checked),parent_input_files_checked=len(inputs['files']),executed_source_test_review_files_unchanged=len(source_paths),preregistration_files_unchanged=2,document_links_checked=len(links),earlier_experiment_artifacts_unchanged=True,canonical_master=MASTER,staged_index_empty=True,human_attribution=True,scope='candidate content and retained evidence; no cloud observation or full/hosted CI'),indent=2,sort_keys=True))

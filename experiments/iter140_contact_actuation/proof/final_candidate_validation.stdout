@@ -1,0 +1,14 @@
+{
+  "candidate_commit": "03d5150e3fb0029e6140d832370abfaf2dc1bd45",
+  "canonical_master": "8c118b74c699bf0f139f9bd659192bad06b895f8",
+  "document_links_checked": 38,
+  "earlier_experiment_artifacts_unchanged": true,
+  "executed_source_test_review_files_unchanged": 7,
+  "human_attribution": true,
+  "parent_input_files_checked": 106,
+  "preregistration_files_unchanged": 2,
+  "proof_hashes_checked": 53,
+  "scope": "candidate content and retained evidence; no cloud observation or full/hosted CI",
+  "staged_index_empty": true,
+  "status": "passed"
+}

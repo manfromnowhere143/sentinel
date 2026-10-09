@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "python3",
+    "/tmp/i140_integrity_known_bad.py"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-09T15:09:49.333303+00:00",
+  "elapsed_seconds": 0.3366360664367676,
+  "returncode": 0
+}

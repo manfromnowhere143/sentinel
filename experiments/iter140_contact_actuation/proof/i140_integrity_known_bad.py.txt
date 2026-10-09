@@ -1,0 +1,22 @@
+"""Verify a corrupt proof read is rejected without mutating repository evidence."""
+import json
+import runpy
+import subprocess
+from unittest.mock import patch
+
+original=subprocess.check_output
+injected=[]
+def corrupt(argv,**kwargs):
+ result=original(argv,**kwargs)
+ if argv[:2]==['git','show'] and argv[2].endswith('/proof/primary.json'):
+  injected.append(argv[2])
+  return result+b'KNOWN_BAD\n'
+ return result
+try:
+ with patch('subprocess.check_output',side_effect=corrupt):
+  runpy.run_path('/tmp/i140_final_check.py',run_name='__main__')
+except AssertionError:
+ assert len(injected)==1
+ print(json.dumps(dict(status='passed',known_bad='corrupted primary proof bytes rejected',actual_evidence_modified=False,injected_read=injected[0]),indent=2))
+else:
+ raise RuntimeError('known-bad proof was accepted')

@@ -21,7 +21,7 @@ and point-to-edge distance. It imported neither the primary analyzer nor NumPy/S
 
 - **412 before/after box-pair checks** agree on contact, with zero numerically ambiguous states
   under the frozen 1e-9 m separation band. Adjacent before/after checks reuse states: there
-  are 214 per-episode timestamped states, not 412 independent observations.
+  are 214 (episode, timestamp) states in total, not 412 independent observations.
 - All 206 before states and 198 nonterminal after states have no foreground overlap. Exactly
   eight terminal after states overlap, at the same times as actual environment collision flags.
   There are zero collision/foreground mismatches or earlier post-action overlaps.
@@ -181,3 +181,13 @@ Candidate branch `research/iter140-contact-actuation` is local and unpushed. Can
 remains F17. Iter135 stays deferred, Iter136–139 evidence stays unchanged, and unrelated WIP
 is preserved. The experiment is retrospective development work on one case, with no population
 interval, industrial superiority or state-of-the-art claim.
+
+## Candidate integrity receipt
+
+The [content check](proof/final_candidate_validation.stdout) on result commit
+`03d5150e3fb0029e6140d832370abfaf2dc1bd45` verified 53 then-retained proof hashes, all 106
+parent-commit input files, seven unchanged source/test/review files, two unchanged preregistration
+files, 38 local links, prior experiment preservation, F17 ancestry, an empty staged index and
+Daniel's commit attribution. The following receipt commit adds the checker and its outputs.
+A [corrupted-proof known-bad](proof/integrity_known_bad.stdout) was rejected without changing
+actual evidence. This validates candidate content and does not claim full or hosted CI.
