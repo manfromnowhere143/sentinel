@@ -1,0 +1,12 @@
+{
+  "corpus_sha256": "58a0095637512152fac6868f1a8d24516fa33f5da96c2429a75e311506804557",
+  "hugsim_commit": "62c690d39fd90020e68a196bd8bcc1c4d4191f2e",
+  "preregistration_commit": "89f83cff2f325bf1a1c76210871bea83fa50da4d",
+  "schema": "sentinel.iter137.binding.v1",
+  "source_sha256": {
+    "lqr.py": "b32755c32de510e09ac726f5c77731d5f490df6a412e50a4d369d70bdef45faf",
+    "lqr_solver.py": "0141d73d0ac38386184e63ce384d2e3cd341130943065b416bdacf4281e57c47",
+    "sim_utils.py": "36c2ba6a7dee38555f84dde95851ec00be5a699969d53de8906b3e67676792bc",
+    "utils.py": "041ed70028c105cfc102978ffddad4e92398d29b2454f1c2be6c81fb765c75fe"
+  }
+}

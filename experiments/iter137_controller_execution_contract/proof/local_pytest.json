@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "python3",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/test_iter137_controller_execution.py"
+  ],
+  "started_utc": "2026-10-09T11:57:50.345435+00:00",
+  "elapsed_seconds": 1.1395161151885986,
+  "returncode": 0
+}
