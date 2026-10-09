@@ -1,0 +1,21 @@
+{
+  "argv": [
+    "gcloud",
+    "compute",
+    "instances",
+    "stop",
+    "sentinel-gpu",
+    "--project",
+    "sunlit-unison-487018-b0",
+    "--zone",
+    "us-west1-a",
+    "--quiet",
+    "--format=json(id,name,status,lastStartTimestamp,lastStopTimestamp)"
+  ],
+  "started_at_utc": "2026-10-09T10:47:59.012528+00:00",
+  "finished_at_utc": "2026-10-09T10:48:34.451650+00:00",
+  "returncode": 0,
+  "stdout": "[]\n",
+  "stderr": "Stopping instance(s) sentinel-gpu...\n.................................................................................................................................................................done.\nUpdated [https://compute.googleapis.com/compute/v1/projects/sunlit-unison-487018-b0/zones/us-west1-a/instances/sentinel-gpu].\n",
+  "reason": "registered replay divergence; reference stage closed; postflight observed no competing work"
+}

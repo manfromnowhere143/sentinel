@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "gcloud",
+    "compute",
+    "instances",
+    "describe",
+    "sentinel-gpu",
+    "--project",
+    "sunlit-unison-487018-b0",
+    "--zone",
+    "us-west1-a",
+    "--format=json(id,name,status,lastStartTimestamp,lastStopTimestamp,machineType,guestAccelerators)"
+  ],
+  "at_utc": "2026-10-09T10:50:11.864865+00:00",
+  "returncode": 0,
+  "stdout": "{\n  \"guestAccelerators\": [\n    {\n      \"acceleratorCount\": 1,\n      \"acceleratorType\": \"https://www.googleapis.com/compute/v1/projects/sunlit-unison-487018-b0/zones/us-west1-a/acceleratorTypes/nvidia-l4\"\n    }\n  ],\n  \"id\": \"3834622546652649531\",\n  \"lastStartTimestamp\": \"2026-10-09T03:23:55.831-07:00\",\n  \"lastStopTimestamp\": \"2026-10-09T03:49:46.476-07:00\",\n  \"machineType\": \"https://www.googleapis.com/compute/v1/projects/sunlit-unison-487018-b0/zones/us-west1-a/machineTypes/g2-standard-8\",\n  \"name\": \"sentinel-gpu\",\n  \"status\": \"TERMINATED\"\n}\n",
+  "stderr": ""
+}

@@ -1,0 +1,333 @@
+{
+  "controller_diagnostic": {
+    "float32": {
+      "controlled": [
+        {
+          "control": [
+            -0.44614224822526616,
+            -0.4
+          ],
+          "deadline_iteration": 1,
+          "exact_repeat": true,
+          "iterations": 1
+        },
+        {
+          "control": [
+            2.8434008919526677,
+            0.35750227629034415
+          ],
+          "deadline_iteration": 5,
+          "exact_repeat": true,
+          "iterations": 5
+        },
+        {
+          "control": [
+            3.0,
+            0.32971438409100107
+          ],
+          "deadline_iteration": 10,
+          "exact_repeat": true,
+          "iterations": 10
+        },
+        {
+          "control": [
+            3.0,
+            0.32454519969142265
+          ],
+          "deadline_iteration": 20,
+          "exact_repeat": true,
+          "iterations": 20
+        },
+        {
+          "control": [
+            3.0,
+            0.32443523785386935
+          ],
+          "deadline_iteration": 100,
+          "exact_repeat": true,
+          "iterations": 41
+        }
+      ],
+      "limitation": "live solver iteration counts and deadlines were not recorded",
+      "live_plan_dtype_retained": false,
+      "nearest_live_commands": {
+        "reference_a": {
+          "command": [
+            3.0,
+            0.32443532509892165
+          ],
+          "exact_equal": true,
+          "iteration": 38,
+          "max_absolute_difference": 0.0
+        },
+        "reference_b": {
+          "command": [
+            3.0,
+            0.3244431296045859
+          ],
+          "exact_equal": true,
+          "iteration": 27,
+          "max_absolute_difference": 0.0
+        }
+      },
+      "real_clock": [
+        {
+          "control": [
+            3.0,
+            0.32443528473184025
+          ],
+          "elapsed_seconds": 0.052260091999869474,
+          "iterations": 39
+        },
+        {
+          "control": [
+            3.0,
+            0.32443523785386935
+          ],
+          "elapsed_seconds": 0.052716291000024285,
+          "iterations": 41
+        },
+        {
+          "control": [
+            3.0,
+            0.32443523785386935
+          ],
+          "elapsed_seconds": 0.0523872379999375,
+          "iterations": 41
+        }
+      ]
+    },
+    "float64": {
+      "controlled": [
+        {
+          "control": [
+            -0.4461420724010967,
+            -0.4
+          ],
+          "deadline_iteration": 1,
+          "exact_repeat": true,
+          "iterations": 1
+        },
+        {
+          "control": [
+            2.8434008655028506,
+            0.35750225715897166
+          ],
+          "deadline_iteration": 5,
+          "exact_repeat": true,
+          "iterations": 5
+        },
+        {
+          "control": [
+            3.0,
+            0.32971438009433673
+          ],
+          "deadline_iteration": 10,
+          "exact_repeat": true,
+          "iterations": 10
+        },
+        {
+          "control": [
+            3.0,
+            0.3245451974526414
+          ],
+          "deadline_iteration": 20,
+          "exact_repeat": true,
+          "iterations": 20
+        },
+        {
+          "control": [
+            3.0,
+            0.32443523565196375
+          ],
+          "deadline_iteration": 100,
+          "exact_repeat": true,
+          "iterations": 41
+        }
+      ],
+      "limitation": "live solver iteration counts and deadlines were not recorded",
+      "live_plan_dtype_retained": false,
+      "nearest_live_commands": {
+        "reference_a": {
+          "command": [
+            3.0,
+            0.32443532289698457
+          ],
+          "exact_equal": false,
+          "iteration": 38,
+          "max_absolute_difference": 2.2019370771175772e-09
+        },
+        "reference_b": {
+          "command": [
+            3.0,
+            0.32444312739996994
+          ],
+          "exact_equal": false,
+          "iteration": 27,
+          "max_absolute_difference": 2.2046159342536953e-09
+        }
+      },
+      "real_clock": [
+        {
+          "control": [
+            3.0,
+            0.32443523565196375
+          ],
+          "elapsed_seconds": 0.05208127599985346,
+          "iterations": 41
+        },
+        {
+          "control": [
+            3.0,
+            0.32443523565196375
+          ],
+          "elapsed_seconds": 0.05232332199989287,
+          "iterations": 41
+        },
+        {
+          "control": [
+            3.0,
+            0.32443523565196375
+          ],
+          "elapsed_seconds": 0.05215415500015297,
+          "iterations": 41
+        }
+      ]
+    }
+  },
+  "first_field_divergences": {
+    "after": {
+      "frame": 0,
+      "path": "after.ego_steer",
+      "pre_action_time": 0
+    },
+    "before": {
+      "frame": 1,
+      "path": "before.ego_steer",
+      "pre_action_time": 0.25
+    },
+    "collision": {
+      "frame": 27,
+      "path": "collision",
+      "pre_action_time": 6.75
+    },
+    "control": {
+      "frame": 0,
+      "path": "control[1]",
+      "pre_action_time": 0
+    },
+    "executed_plan": {
+      "frame": 1,
+      "path": "executed_plan[0][0]",
+      "pre_action_time": 0.25
+    },
+    "incoming_plan": {
+      "frame": 1,
+      "path": "incoming_plan[0][0]",
+      "pre_action_time": 0.25
+    },
+    "observation_sha256": {
+      "frame": 1,
+      "path": "observation_sha256",
+      "pre_action_time": 0.25
+    },
+    "route_completion": {
+      "frame": 9,
+      "path": "route_completion",
+      "pre_action_time": 2.25
+    }
+  },
+  "independent": {
+    "matched": false,
+    "reason": "structure"
+  },
+  "initial_control_absolute_difference": [
+    0.0,
+    7.804505664232853e-06
+  ],
+  "initial_controls": {
+    "reference_a": [
+      3.0,
+      0.32443532509892165
+    ],
+    "reference_b": [
+      3.0,
+      0.3244431296045859
+    ]
+  },
+  "initial_exact_equal": {
+    "before": true,
+    "executed_plan": true,
+    "incoming_plan": true,
+    "observation_sha256": true
+  },
+  "input_sha256": {
+    "controller_probe": "841e019bb37c2c3a813a3c72e183e779761c9bbd35775a39e755ca9c8b9c94b2",
+    "reference_a": "7b097554524b91da8537015b4756bf87a41d55182adcc31a606263edd033f395",
+    "reference_b": "6728366c34b287c9c616bef16dc7a39314e6c39e855ac2bfccc5d17e0ec1d0c5"
+  },
+  "intervention_benefit": "unobserved",
+  "intervention_episodes": 0,
+  "live_verdict": "REPLAY_DIVERGED",
+  "primary": {
+    "first_difference": "root",
+    "frames": 28,
+    "status": "REPLAY_DIVERGED"
+  },
+  "references": {
+    "reference_a": {
+      "collision_log_markers": [
+        "Collision with foreground"
+      ],
+      "collision_observed": true,
+      "frames": 28,
+      "monitor_delivery": {
+        "frames": 28,
+        "parameters": {
+          "cpa_margin": 1.5,
+          "dt": 0.5,
+          "max_gap": 30.0,
+          "min_closing": 3.0,
+          "min_score": 0.3,
+          "release_k": 4,
+          "ttc_thresh": 2.5
+        },
+        "scope": "recorded parameters and client-to-simulator trajectory delivery only",
+        "status": "matched"
+      },
+      "route_completion": 0.14509138873186356,
+      "severity": null,
+      "severity_status": "not_measured",
+      "terminal_reason": "collision",
+      "termination_time": 7.0
+    },
+    "reference_b": {
+      "collision_log_markers": [
+        "Collision with foreground"
+      ],
+      "collision_observed": true,
+      "frames": 29,
+      "monitor_delivery": {
+        "frames": 29,
+        "parameters": {
+          "cpa_margin": 1.5,
+          "dt": 0.5,
+          "max_gap": 30.0,
+          "min_closing": 3.0,
+          "min_score": 0.3,
+          "release_k": 4,
+          "ttc_thresh": 2.5
+        },
+        "scope": "recorded parameters and client-to-simulator trajectory delivery only",
+        "status": "matched"
+      },
+      "route_completion": 0.14634759123170654,
+      "severity": null,
+      "severity_status": "not_measured",
+      "terminal_reason": "collision",
+      "termination_time": 7.25
+    }
+  },
+  "schema": "sentinel.iter136.analysis.v1",
+  "scope": "one disclosed development case; no intervention or transfer result"
+}

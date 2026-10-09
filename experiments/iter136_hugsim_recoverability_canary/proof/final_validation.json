@@ -1,0 +1,42 @@
+[
+  {
+    "argv": [
+      "python3",
+      "-m",
+      "pytest",
+      "-q",
+      "tests/test_iter136_recoverability_canary.py"
+    ],
+    "returncode": 0,
+    "stdout": ".......................................................                  [100%]\n55 passed in 0.17s\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "ruff",
+      "check",
+      "experiments/iter136_hugsim_recoverability_canary/replay_trace.py",
+      "experiments/iter136_hugsim_recoverability_canary/run_episode.py",
+      "experiments/iter136_hugsim_recoverability_canary/check_monitor_delivery.py",
+      "experiments/iter136_hugsim_recoverability_canary/probe_controller.py",
+      "experiments/iter136_hugsim_recoverability_canary/inspect_host.py",
+      "experiments/iter136_hugsim_recoverability_canary/analyze_canary.py",
+      "experiments/iter136_hugsim_recoverability_canary/instrument_driver.py",
+      "experiments/iter136_hugsim_recoverability_canary/independent_reference_check.py",
+      "experiments/iter136_hugsim_recoverability_canary/probe_reset.py",
+      "tests/test_iter136_recoverability_canary.py"
+    ],
+    "returncode": 0,
+    "stdout": "All checks passed!\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "python3",
+      "experiments/iter136_hugsim_recoverability_canary/analyze_canary.py"
+    ],
+    "returncode": 0,
+    "stdout": "byte-identical to retained proof/analysis.json",
+    "stderr": ""
+  }
+]

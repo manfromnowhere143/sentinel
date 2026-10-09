@@ -1,8 +1,11 @@
-# Iteration 136 source probe complete and live canary blocked
+# Iteration 136 closed: REPLAY_DIVERGED
 
-Status on 2026-10-09: **blocked at provider start**, with local tooling and source-fixture
-validation complete. No live HUGSIM episode ran. No claim about collision prevention, faithful
-live replay, or historical-run reproduction follows from these results.
+Status on 2026-10-09: **failed the registered live replay condition**. Two fresh-process
+references completed, with collisions at 7.00 and 7.25 simulated seconds. Both comparison
+implementations reject the pair; zero intervention branches ran. The CPU controller-clock
+fixture reproduced both first-step control commands at distinct optimization iterates.
+Read [RESULT.md](RESULT.md) for the evidence, limits and successor requirements. The GPU
+host is stopped, with provider readback `TERMINATED`.
 
 ## Registered work and retained evidence
 
@@ -47,12 +50,13 @@ by empirical trace equality checks. It does not claim that seeding alone guarant
 
 The generated driver is retained at [instrumented_closed_loop.py.txt](proof/instrumented_closed_loop.py.txt),
 SHA-256 `8c3b3287a8cd52b392e87c2fc59d87d9dd6db8bbbc6f24658d00652aebc34248`.
-Live integration remains unverified. Client patch identity, assets, process ownership, environment
-and storage must still be observed on the host before any episode.
+The [execution binding](EXECUTION_BINDING.md) and [pre-initialization repair](PRE_INITIALIZATION_REPAIR.md)
+record the host inspection and corrected live integration. Two references completed; their
+full-trace comparison failed. All 409 bound runtime files also matched at postflight.
 
 ## Validation
 
-The [test suite](../../tests/test_iter136_recoverability_canary.py) passed **37 tests** under local
+The initial [test suite](../../tests/test_iter136_recoverability_canary.py) passed **37 tests** under local
 Python 3.14.2, including two integrations through the instrumented driver with a stub environment,
 source mutation, missing/invalid outcomes, altered observations, missing/reordered frames,
 nonfinite values, mismatched identities, prefix divergence, terminal inconsistency and bounded
@@ -63,17 +67,19 @@ the [candidate validation receipt](proof/committed_candidate_validation.json) bi
 
 The attempted Python 3.10 pytest invocation could not run because that interpreter has no pytest
 installed; its failure is retained. The standard-library source probe did run successfully under
-Python 3.10. No frozen CI, full repository suite, hosted workflow or live simulator validation is
-claimed for this candidate.
+Python 3.10. The expanded local suite passes **55 tests** after adding launcher and monitor-delivery
+known-bads. Two live references completed under the bound runtime; exact replay failed.
+No frozen CI, full repository suite or hosted candidate workflow is claimed.
 
 ## Provider and storage evidence
 
-Google Cloud rejected two bounded starts of the existing `sentinel-gpu` instance with
-`ZONE_RESOURCE_POOL_EXHAUSTED_WITH_DETAILS`: a `g2-standard-8` with one L4 was unavailable in
-`us-west1-a`. Both failures and subsequent provider readback are retained. The instance remains
-`TERMINATED`; no replacement instance, accelerator, disk resize or simulation was started.
-Provider termination is a provider observation, not a replacement for the historical lifecycle
-controller's `UNKNOWN` record.
+Google Cloud rejected the first two starts for unavailable L4 capacity. The third start
+succeeded on the same instance and zone. The scene and checkpoint were present, and two
+registered references completed after one retained pre-initialization launch failure.
+Postflight observed no running containers or GPU processes and 110.86 GiB free. The
+instance was stopped within 26 minutes of provider-reported runtime; final provider
+readback is `TERMINATED`. The historical lifecycle-controller record remains `UNKNOWN`.
+No replacement instance, new accelerator or disk resize was needed.
 
 Local space was initially below the 15 GiB proof-collection threshold. All 2,631 files in one
 redundant clean D16 checkout were hashed against retained Git blobs before that checkout was
@@ -81,24 +87,19 @@ removed, recovering about 5.2 GiB. Its receipts and Git objects remain. The deta
 verification is retained outside Git; the committed summary binds its hash. Local free space
 then exceeded 19 GiB. No scientific proof archive was deleted.
 
-## Exact resumption point
+## Closed protocol and next research step
 
-The next operation is a bounded start of the same named instance after capacity becomes
-available, followed by this read-only inventory from the repository root:
+Do not resume the intervention grid or retry these references. The preregistered stopping
+rule closed the live canary as `REPLAY_DIVERGED`. One failed pre-initialization launch,
+two completed episodes, zero intervention episodes and 26 CPU fixture solves are retained.
 
-```bash
-gcloud compute ssh sentinel-gpu --project sunlit-unison-487018-b0 --zone us-west1-a \
-  --tunnel-through-iap --command 'python3 -' \
-  < experiments/iter136_hugsim_recoverability_canary/inspect_host.py
-```
+The successor needs an explicit controller execution contract: deterministic numerical
+replay checks, solver iteration/stop-reason/dtype logging, and separate measurement of
+real-time deadline behavior under declared compute load. Removing the 50 ms cutoff does
+not establish real-time validity. Register and validate that successor before another live
+reference pair. Keep the original failed pair and the original timed controller as evidence.
 
-Retain the output, verify the actual source/assets/client image and free-space requirements,
-then bind those runtime identities before installing the new driver into a separate canary
-location. Complete the two fresh-process reference episodes and run both comparators. A
-divergent pair closes the live replay stage; an agreeing pair without a collision closes the
-target stage. Only an agreeing collision pair permits the three registered onset branches.
-Historical instance state and historical asset manifests cannot replace this inspection.
-
-The five-episode, per-episode timeout, compute ceiling, no-episode-retry and stopping rules in
-the preregistration remain unchanged. Iteration 135 stays deferred and unrun; Iteration 134
-remains the last completed driving experiment.
+The [result](RESULT.md) and [local analysis command](analyze_canary.py) are the current
+entrypoints. Iteration 135 remains deferred and unchanged. Iteration 134 remains the last
+completed driving result on canonical master; this Iteration-136 result is a local candidate
+on `research/iter136-recoverability`, with canonical master still accepted F17.
