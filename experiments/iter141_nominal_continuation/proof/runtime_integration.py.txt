@@ -1,0 +1,11 @@
+import json,os,subprocess
+from pathlib import Path
+root=Path('/datasets/nuscenes-full/hugsim/iter141_control_20261009');python='/opt/sentinel-stack/HUGSIM/.pixi/envs/default/bin/python'
+env={**os.environ,'PYTHONPATH':str(root)+':'+str(root/'packet')+':/opt/sentinel-stack/HUGSIM','OPENBLAS_NUM_THREADS':'1','OMP_NUM_THREADS':'1','MKL_NUM_THREADS':'1'}
+commands=[['-c','from hugsim_env.envs.hug_sim import HUGSimEnv; import closed_loop'],['-m','experiments.iter141_nominal_continuation.fixture',str(root/'cpu_integration_fixture')]]
+reports=[]
+for args in commands:
+ r=subprocess.run([python,*args],cwd='/opt/sentinel-stack/HUGSIM',env=env,capture_output=True,text=True,timeout=180)
+ reports.append(dict(argv=[python,*args],returncode=r.returncode,stdout=r.stdout,stderr=r.stderr))
+ if r.returncode:break
+print(json.dumps(reports,indent=2));assert all(r['returncode']==0 for r in reports) and len(reports)==2

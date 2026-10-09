@@ -1,0 +1,55 @@
+import base64,hashlib,json,sys
+from pathlib import Path
+sys.path.insert(0,'/tmp')
+from i141_ops import EXT,PROOF,ssh
+raw=(EXT/'packet.tar').read_bytes();h=hashlib.sha256(raw).hexdigest();commit='b0044593db7df1c13c11e11d35f07504d8b3cd7a'
+deadline=json.loads((EXT/'session_budget.json').read_text())['timer_epoch']
+script='''import base64,hashlib,io,json,os,shutil,subprocess,sys,tarfile,time
+from pathlib import Path
+
+def digest(path):
+ h=hashlib.sha256()
+ with Path(path).open('rb') as f:
+  for b in iter(lambda:f.read(16*1024*1024),b''):h.update(b)
+ return h.hexdigest()
+raw=base64.b64decode(PAYLOAD);assert hashlib.sha256(raw).hexdigest()==DIGEST
+control=Path('/datasets/nuscenes-full/hugsim/iter141_control_20261009');output=Path('/datasets/nuscenes-full/hugsim/outputs/iter141-20261009')
+assert not control.exists() and not output.exists()
+control.mkdir();packet=control/'packet';packet.mkdir()
+with tarfile.open(fileobj=io.BytesIO(raw)) as archive:
+ for m in archive.getmembers():
+  p=Path(m.name);assert not p.is_absolute() and '..' not in p.parts and (m.isfile() or m.isdir())
+ archive.extractall(packet)
+sys.path.insert(0,str(packet))
+old=packet/'experiments/iter136_hugsim_recoverability_canary';prior=packet/'experiments/iter139_finite_pulse_recoverability';new=packet/'experiments/iter141_nominal_continuation'
+manifest=json.loads((prior/'proof/runtime_manifest.json').read_text());start=time.monotonic()
+for name,expected in manifest['files'].items():
+ p=Path(name);assert p.is_file() and not p.is_symlink() and digest(p)==expected,name
+report=dict(source_commit=COMMIT,packet_sha256=DIGEST,prior_bound_files=len(manifest['files']),prior_validation_seconds=time.monotonic()-start)
+from experiments.iter141_nominal_continuation.instrument import instrument,instrument_client,CLIENT_SHA
+assert digest('/opt/sentinel-stack/UniAD_SIM/tools/closeloop/e2e.py')==CLIENT_SHA
+(control/'iter141_closed_loop.py').write_bytes(instrument((old/'proof/source/HUGSIM/closed_loop.py.txt').read_bytes()))
+(control/'e2e141.py').write_bytes(instrument_client((new/'source/e2e.py.txt').read_bytes()))
+for name in ['run_episode.py','live_trace.py']:shutil.copyfile(new/name,control/name)
+shutil.copyfile(new/'client.py',control/'sentinel141_client.py')
+client=(old/'proof/runtime_v2/e2e.sh.txt').read_text().replace('i136','i141').replace('iter136','iter141').replace('I136','I141')
+client=client.replace('  -v /opt/sentinel-stack/UniAD_SIM:/model',
+ '  -v '+str(control/'e2e141.py')+':/model/tools/closeloop/e2e141.py:ro \\\n  -v '+str(control/'sentinel141_client.py')+':/model/sentinel141_client.py:ro \\\n  -v /opt/sentinel-stack/UniAD_SIM:/model')
+client=client.replace('-e SENTINEL_ENABLED ', '-e SENTINEL_ENABLED -e SENTINEL_I141_MODE ')
+client=client.replace('-u tools/closeloop/e2e.py ', '-u tools/closeloop/e2e141.py ')
+(control/'e2e.sh').write_text(client);(control/'e2e.sh').chmod(0o755)
+base=(old/'proof/runtime_v2/nuscenes_base.yaml.txt').read_text().replace('iter136_control_20261009_v2','iter141_control_20261009');(control/'nuscenes_base.yaml').write_text(base)
+identity=json.loads((old/'proof/runtime_v2/identity.json.txt').read_text());identity['driver_sha256']=digest(control/'iter141_closed_loop.py');identity['client_sha256']=digest(control/'e2e141.py')
+(control/'identity.json').write_text(json.dumps(identity,sort_keys=True,indent=2)+'\\n')
+manifest.update(schema='sentinel.iter141.runtime_binding.v1',iteration=141,source_commit=COMMIT,parent_manifest_sha256=digest(prior/'proof/runtime_manifest.json'),deadline_epoch=DEADLINE,scope='two references then two nominal continuations conditional on all validation gates',pre_initialization_failed_launches=0)
+for p in control.rglob('*'):
+ if p.is_file() and '__pycache__' not in p.parts:manifest['files'][str(p)]=digest(p)
+(control/'runtime_manifest.json').write_text(json.dumps(manifest,indent=2,sort_keys=True)+'\\n')
+(control/'validations').mkdir();output.mkdir()
+report.update(manifest=manifest,manifest_sha256=digest(control/'runtime_manifest.json'),generated_driver_sha256=identity['driver_sha256'],generated_client_sha256=identity['client_sha256'],launcher=client)
+print(json.dumps(report,indent=2))
+'''.replace('PAYLOAD',repr(base64.b64encode(raw).decode())).replace('DIGEST',repr(h)).replace('COMMIT',repr(commit)).replace('DEADLINE',repr(deadline))
+compile(script,'deployment','exec')
+r=ssh('deployment',script,timeout=180);assert r.returncode==0
+report=json.loads(r.stdout);(PROOF/'runtime_manifest.json').write_text(json.dumps(report['manifest'],sort_keys=True,indent=2)+'\n')
+assert hashlib.sha256((PROOF/'runtime_manifest.json').read_bytes()).hexdigest()==report['manifest_sha256']

@@ -1,11 +1,11 @@
 {
   "iteration": 141,
   "status": "running",
-  "phase": "provider_preflight",
+  "phase": "ready_for_reference",
   "branch": "research/iter141-nominal-continuation",
   "preregistration_commit": "e7994353d3d496fd10357a98418871f0c0815619",
   "parent": "2614f7860283eee3b00bfa39cdfaf428066ec52d",
-  "details": "All 223 focused tests passed, including 44 from extracted committed source. Original L4 host started; preflight is running. No episode has started.",
+  "details": "Bound-host integration and prior runtime hashes passed; original shutdown budget is active. Starting the frozen reference-first schedule.",
   "protocol": "HYPOTHESIS.md",
   "initialized_episode_retries": 0
 }

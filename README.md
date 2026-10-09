@@ -7,7 +7,7 @@ loop, by whether the car crashes *and whether it can still drive*.**
 ## Local research update 2026-10-09
 
 > **Active operator-directed candidate work, 2026-10-09:** Iter141 nominal-continuation
-> canary is preregistered; phase: provider_preflight. All 223 focused tests passed, including 44 from extracted committed source. Original L4 host started; preflight is running. No episode has started.
+> canary is preregistered; phase: ready_for_reference. Bound-host integration and prior runtime hashes passed; original shutdown budget is active. Starting the frozen reference-first schedule.
 > Read [protocol](experiments/iter141_nominal_continuation/HYPOTHESIS.md),
 > [design review](experiments/iter141_nominal_continuation/SOURCE_REVIEW.md), and
 > [state](experiments/iter141_nominal_continuation/STATE.json).

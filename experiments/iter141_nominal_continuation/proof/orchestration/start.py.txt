@@ -1,0 +1,34 @@
+import json,sys,time,shutil
+sys.path.insert(0,'/tmp')
+from i141_ops import run,PROOF,EXT,BASE,ROOT
+from experiments.iter139_finite_pulse_recoverability.provider_gate import require_ready
+free=shutil.disk_usage(ROOT).free/2**30
+assert free>=15
+(PROOF/'local_storage_preflight.json').write_text(json.dumps(dict(free_gib=free,required_gib=15))+'\n')
+r=run('provider_before',['gcloud','compute','instances','describe','sentinel-gpu',*BASE,'--format=json(id,name,status,machineType,guestAccelerators,lastStartTimestamp,lastStopTimestamp,zone)'],timeout=40);assert r.returncode==0
+before=json.loads(r.stdout);assert before['id']=='3834622546652649531' and before['status']=='TERMINATED'
+start=time.time();budget=dict(start=start,deadline=start+9000,timer_epoch=start+8880,capacity_deadline=start+600)
+with (EXT/'session_budget.json').open('x') as f:json.dump(budget,f,indent=2)
+(PROOF/'session_budget.json').write_text(json.dumps(budget,indent=2)+'\n')
+ready=False
+for attempt in range(1,4):
+ assert time.time()<budget['capacity_deadline']
+ r=run('provider_start_'+str(attempt),['gcloud','compute','instances','start','sentinel-gpu',*BASE,'--async','--quiet','--format=json'],timeout=40)
+ assert r.returncode==0,'start request failed; no dependent SSH'
+ operation=json.loads(r.stdout)[0]
+ for poll in range(1,31):
+  r=run(f'provider_operation_{attempt}_{poll}',['gcloud','compute','operations','describe',operation['name'],*BASE,'--format=json'],timeout=40);assert r.returncode==0
+  operation=json.loads(r.stdout)
+  if operation['status']=='DONE':break
+  assert time.time()<budget['capacity_deadline'];time.sleep(10)
+ else:raise RuntimeError('start operation not observed complete')
+ if 'error' in operation or 'httpErrorStatusCode' in operation:
+  assert 'ZONE_RESOURCE_POOL_EXHAUSTED' in json.dumps(operation),'non-capacity failure'
+  if attempt<3:time.sleep(20)
+  continue
+ r=run('provider_ready_instance',['gcloud','compute','instances','describe','sentinel-gpu',*BASE,'--format=json'],timeout=40);assert r.returncode==0
+ instance=json.loads(r.stdout);require_ready(operation,instance)
+ (PROOF/'ready_operation.json').write_text(json.dumps(operation,indent=2)+'\n');(PROOF/'ready_instance.json').write_text(json.dumps(instance,indent=2)+'\n')
+ ready=True;break
+assert ready,'capacity exhausted; no host access/episode'
+print('PROVIDER_READY; bounded session timer must be armed in host preflight',flush=True)
