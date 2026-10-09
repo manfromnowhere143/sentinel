@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "/usr/bin/env",
+    "PYTHONPATH=/datasets/nuscenes-full/hugsim/iter142_control_20261009/packet",
+    "python3",
+    "/datasets/nuscenes-full/hugsim/iter142_control_20261009/run_episode.py",
+    "--help"
+  ],
+  "returncode": 0,
+  "stdout": "usage: run_episode.py [-h] --manifest-sha256 MANIFEST_SHA256\n                      {reference_b,nominal_a,nominal_b}\n\nExecute one registered fresh finite-pulse episode on the inspected host; never\nretry an episode.\n\npositional arguments:\n  {reference_b,nominal_a,nominal_b}\n\noptions:\n  -h, --help            show this help message and exit\n  --manifest-sha256 MANIFEST_SHA256\n",
+  "stderr": "",
+  "output_entries": [],
+  "commands": {
+    "containers": {
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "gpu": {
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  }
+}

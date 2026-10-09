@@ -1,3 +1,3 @@
 # Status
 
-ready_for_reference: Deployment, retained inputs and host integration passed. Original shutdown budget is active; starting the three fresh episodes.
+bootstrap_correction: Runner failed before initialization; corrected entrypoint probe passed. One pre-evidence amended attempt, unchanged original budget and scientific source.

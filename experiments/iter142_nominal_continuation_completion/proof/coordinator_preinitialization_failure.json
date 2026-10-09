@@ -1,0 +1,14 @@
+{
+  "status": "failed",
+  "initialization": "not_reached",
+  "runner_returncode": 1,
+  "runner_elapsed_seconds": 0.1173093318939209,
+  "runner_error": "ModuleNotFoundError: No module named 'experiments'",
+  "collector_error": "Required episode.json absent; no raw episode invented",
+  "coordinator_error": "collect failed; stopped before verification or later arms",
+  "original_marker": "schedule/schedule_started.json",
+  "correction_marker": "schedule_bootstrap2/schedule_started.json",
+  "source_and_runtime_manifest": "unchanged",
+  "initialized_episode_retries": 0,
+  "amendment": "../PREINITIALIZATION_CORRECTION.md"
+}

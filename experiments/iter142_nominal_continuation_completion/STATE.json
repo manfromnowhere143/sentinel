@@ -1,8 +1,8 @@
 {
   "iteration": 142,
   "status": "running",
-  "phase": "ready_for_reference",
-  "details": "Deployment, retained inputs and host integration passed. Original shutdown budget is active; starting the three fresh episodes.",
+  "phase": "bootstrap_correction",
+  "details": "Runner failed before initialization; corrected entrypoint probe passed. One pre-evidence amended attempt, unchanged original budget and scientific source.",
   "branch": "research/iter142-nominal-continuation",
   "preregistration_commit": "ba72e457a96f8ea248810ffa7b982c171b32c5f4",
   "retained_reference": "Iter141/reference_a",

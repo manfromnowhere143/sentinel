@@ -1,0 +1,2 @@
+{"arm": "reference_b", "kind": "launch_requested"}
+{"arm": "reference_b", "error": "collect failed; retained stdout/stderr", "error_type": "RuntimeError", "kind": "failed"}

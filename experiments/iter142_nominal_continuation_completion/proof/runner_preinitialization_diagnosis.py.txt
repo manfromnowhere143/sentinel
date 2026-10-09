@@ -1,0 +1,7 @@
+import json
+from pathlib import Path
+root=Path('/datasets/nuscenes-full/hugsim/iter142_control_20261009');out=Path('/datasets/nuscenes-full/hugsim/outputs/iter142-20261009')
+files={}
+for p in root.glob('reference_b_*'):
+ if p.is_file() and p.stat().st_size<2000000:files[p.name]=p.read_text()
+print(json.dumps(dict(files=files,output_entries=[p.name for p in out.iterdir()],initialized_marker_exists=(out/'reference_b/started.json').exists()),indent=2))

@@ -1,0 +1,12 @@
+{
+  "files": {
+    "reference_b_supervisor.stderr": "",
+    "reference_b_launch.stderr": "Traceback (most recent call last):\n  File \"/datasets/nuscenes-full/hugsim/iter142_control_20261009/run_episode.py\", line 6, in <module>\n    from experiments.iter141_nominal_continuation import run_episode as frozen\nModuleNotFoundError: No module named 'experiments'\n",
+    "reference_b_launch.json": "{\n  \"arm\": \"reference_b\",\n  \"supervisor_pid\": 1783,\n  \"command\": [\n    \"python3\",\n    \"/datasets/nuscenes-full/hugsim/iter142_control_20261009/run_episode.py\",\n    \"reference_b\",\n    \"--manifest-sha256\",\n    \"54647066bd8296ef21106a3eeacf660294d8cf4f9a5fc865424be18696b8a6e3\"\n  ],\n  \"host_utc\": 1791561248.568183\n}",
+    "reference_b_launch.stdout": "",
+    "reference_b_supervisor.json": "{\n  \"returncode\": 1,\n  \"elapsed_seconds\": 0.1173093318939209\n}",
+    "reference_b_supervisor.stdout": ""
+  },
+  "output_entries": [],
+  "initialized_marker_exists": false
+}

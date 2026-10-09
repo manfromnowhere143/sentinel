@@ -4,7 +4,7 @@
 
 > **Active operator-directed candidate work, 2026-10-09:** Iter142 is preregistered
 > to complete the nominal-continuation comparison with retained Iter141 reference A
-> and three fresh episodes. Phase: ready_for_reference. Deployment, retained inputs and host integration passed. Original shutdown budget is active; starting the three fresh episodes.
+> and three fresh episodes. Phase: bootstrap_correction. Runner failed before initialization; corrected entrypoint probe passed. One pre-evidence amended attempt, unchanged original budget and scientific source.
 > Read [protocol](../experiments/iter142_nominal_continuation_completion/HYPOTHESIS.md) and
 > [state](../experiments/iter142_nominal_continuation_completion/STATE.json).
 > Iter141 remains closed after its coordinator failure; nominal recovery is still unobserved.

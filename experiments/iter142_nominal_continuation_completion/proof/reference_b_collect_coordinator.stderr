@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/tmp/i142_collect.py", line 31, in <module>
+    r=ssh(arm+'_export',s,timeout=90);assert r.returncode==0
+                                             ^^^^^^^^^^^^^^^
+AssertionError
