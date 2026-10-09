@@ -1,0 +1,13 @@
+{
+  "branch": "research/iter139-finite-pulse",
+  "capacity_start_requests": 2,
+  "initialized_episode_retries": 0,
+  "iteration": 139,
+  "phase": "host_integration_pending",
+  "preregistration_commit": "0b1ab853c78ad89db102483e590d7349c8998210",
+  "prior_result": "Iter138 supported/REPLAY_MATCHED; both references collided at6.5s",
+  "protocol": "HYPOTHESIS.md",
+  "provider_status": "RUNNING, owned shutdown timer armed",
+  "source_commit": "6991f8f48559ce8f6539a05a8b0eef749639eb26",
+  "status": "running"
+}

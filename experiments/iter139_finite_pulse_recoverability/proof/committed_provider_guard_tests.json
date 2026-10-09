@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "python3",
+    "-m",
+    "pytest",
+    "-c",
+    "/dev/null",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "tests/test_iter139_finite_pulse.py::test_provider_gate_rejects_failed_or_unready_start"
+  ],
+  "started_utc": "2026-10-09T14:08:38.209824+00:00",
+  "elapsed_seconds": 0.48021388053894043,
+  "returncode": 0
+}

@@ -1,17 +1,14 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
-> **Active operator-directed candidate result, 2026-10-09:** Iteration 138 completed as
-> **supported / REPLAY_MATCHED**: two fresh references have byte-identical 26-frame driving
-> traces and all 52 controller calls passed independent replay. Both collide at 6.5 simulated
-> seconds; no intervention ran. In each run 24/26 full adapter calls exceeded 50 ms.
-> The original host is confirmed **TERMINATED**. Read the
-> [result](experiments/iter138_numerical_live_replay/RESULT.md),
-> [state](experiments/iter138_numerical_live_replay/STATE.json), and
-> [proposed finite intervention successor](experiments/iter138_numerical_live_replay/NEXT_EXPERIMENT_DESIGN.md).
-> Iter137's numbers recount correctly: 114 scheduled cases, 112 unique typed inputs, one scene.
-> Iter136 remains REPLAY_DIVERGED and closed. Do not retry either closed live experiment.
-> Candidate branch: `research/iter138-live-replay`, unpushed; master remains F17.
-> Iter135 is deferred. MISSION_STATE/HANDOFF retain their older publication snapshot.
+> **Active operator-directed candidate result, 2026-10-09:** Iteration 139 is running;
+> phase: host_integration_pending. The original host is RUNNING with an owned shutdown timer.
+> Read [Iter139 state](experiments/iter139_finite_pulse_recoverability/STATE.json),
+> [protocol](experiments/iter139_finite_pulse_recoverability/HYPOTHESIS.md), and
+> [pre-execution infrastructure correction](experiments/iter139_finite_pulse_recoverability/PRE_EXECUTION_INFRASTRUCTURE_CORRECTION.md).
+> Iter138 remains supported/REPLAY_MATCHED: two identical 26-frame traces, both colliding
+> at 6.5 seconds. Iter136 remains REPLAY_DIVERGED. Both experiments are closed.
+> Candidate branch: `research/iter139-finite-pulse`, unpushed; master remains F17.
+> Iter135 remains deferred. MISSION_STATE/HANDOFF retain their older publication snapshot.
 
 **Purpose.** This campaign is operator-portable by design. Everything an incoming operator
 needs is in this repository plus the two live surfaces below. Read this file top to bottom
