@@ -1,0 +1,6 @@
+{
+  "status": "passed",
+  "known_bad": "changed retained trace bytes rejected by final integrity check",
+  "repository_evidence_modified": false,
+  "injected_read": "d58508fdeaf07dbe9d81a742ebc6fa6b0d4f87e4:experiments/iter139_finite_pulse_recoverability/proof/live/reference_a/scene-0411_hard_00/iter139_trace.jsonl"
+}

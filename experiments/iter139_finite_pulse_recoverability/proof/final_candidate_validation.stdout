@@ -1,0 +1,15 @@
+{
+  "candidate_commit": "d58508fdeaf07dbe9d81a742ebc6fa6b0d4f87e4",
+  "canonical_master": "8c118b74c699bf0f139f9bd659192bad06b895f8",
+  "document_links_checked": 44,
+  "executed_source_files_unchanged": 10,
+  "human_attribution": true,
+  "prior_136_137_138_artifacts_unchanged": true,
+  "proof_hashes_checked": 502,
+  "provider_status": "TERMINATED",
+  "raw_files_checked": 88,
+  "remote_only_files_inventoried": 650,
+  "scope": "retained evidence and candidate integrity; no full/frozen/hosted CI",
+  "staged_index_empty": true,
+  "status": "passed"
+}

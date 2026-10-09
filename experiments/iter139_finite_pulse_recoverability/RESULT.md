@@ -163,7 +163,7 @@ zone stockout. A local orchestration error attempted two dependent SSH connectio
 at IAP before a successful host connection. The [pre-live correction](PRE_EXECUTION_INFRASTRUCTURE_CORRECTION.md)
 records the mistake and the provider-readiness guard added and tested before live execution.
 The second start succeeded within the frozen allowance. There were no initialized-episode retries,
-replacement machines, package/image installations or post-evidence source changes.
+replacement machines, package/image installations or post-evidence changes to executed source.
 
 Postflight matched all **471 bound files**, with no owned episode processes, containers or GPU
 applications and **109.731 GiB** free. The owned shutdown timer was cancelled,
@@ -205,3 +205,14 @@ on the new traces, followed by a separately frozen choice of action family or ca
 Information ablations still require a demonstrated useful intervention opportunity and a strong
 responsive comparator. No safety, real-time operation, transfer, industrial superiority or
 state-of-the-art result is established by this experiment.
+
+## Candidate integrity receipt
+
+The [final check](proof/final_candidate_validation.stdout) on result commit
+`d58508fdeaf07dbe9d81a742ebc6fa6b0d4f87e4` validated 502 then-retained proof hashes,
+all 88 raw collected files against their inventories and original raw commits, ten unchanged
+executed source/protocol/test files, 44 local links, unchanged Iter136/137/138 artifacts,
+canonical F17 ancestry, an empty staged index, human commit attribution and provider shutdown.
+The subsequent receipt commit adds the checker source and validation records. A
+[corrupted-trace known-bad](proof/integrity_known_bad.stdout) proved that changed retained bytes
+are rejected without modifying actual evidence. This check does not substitute for full CI.

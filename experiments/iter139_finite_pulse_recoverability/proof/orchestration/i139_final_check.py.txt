@@ -1,0 +1,42 @@
+"""Final candidate integrity check; does not amend experiment outcomes."""
+import hashlib,json,posixpath,re,subprocess
+from pathlib import Path
+ROOT=Path('/Users/danielwahnich/workspace/sentinel');P='experiments/iter139_finite_pulse_recoverability';proof=ROOT/P/'proof'
+def git(*args):return subprocess.check_output(['git',*args],cwd=ROOT)
+def sha(b):return hashlib.sha256(b).hexdigest()
+tip=git('rev-parse','research/iter139-finite-pulse').decode().strip();source='6991f8f48559ce8f6539a05a8b0eef749639eb26';parent='f780a98438b4de00d2efa41aae2489e82a276319';master='8c118b74c699bf0f139f9bd659192bad06b895f8'
+def read(path):return git('show',tip+':'+path)
+files=set(git('ls-tree','-r','--name-only',tip).decode().splitlines());checks=[]
+for line in read(P+'/proof/SHA256SUMS').decode().splitlines():
+ h,rel=line.split('  ',1);assert sha(read(P+'/proof/'+rel))==h==sha((proof/rel).read_bytes());checks.append(rel)
+assert set(checks)=={p[len(P+'/proof/'):] for p in files if p.startswith(P+'/proof/') and not p.endswith('/SHA256SUMS')}
+ledger=json.loads(read(P+'/proof/episode_commit_ledger.json'));raw_count=0;remote_only=0
+for entry in ledger:
+ arm=entry['arm'];base=P+'/proof/live/'+arm;inventory=json.loads(read(base+'/remote_inventory.json'))
+ for name,rec in inventory['retained'].items():
+  b=read(base+'/'+name);assert len(b)==rec['bytes'] and sha(b)==rec['sha256'];assert b==git('show',entry['raw_commit']+':'+base+'/'+name);raw_count+=1
+ remote_only+=len(inventory['remote_only'])
+source_paths=[P+'/'+p.name for p in (ROOT/P).glob('*.py')]+[P+'/HYPOTHESIS.md','tests/test_iter139_finite_pulse.py']
+for p in source_paths:assert read(p)==git('show',source+':'+p)==(ROOT/p).read_bytes(),p
+assert not git('diff','--name-only',parent,tip,'--','experiments/iter136_hugsim_recoverability_canary','experiments/iter137_controller_execution_contract','experiments/iter138_numerical_live_replay')
+assert git('rev-parse','master').decode().strip()==master
+subprocess.run(['git','merge-base','--is-ancestor',master,tip],cwd=ROOT,check=True);assert not git('diff','--cached','--name-only')
+changed=git('diff','--name-only',parent,tip).decode().splitlines();assert all(p.startswith(P+'/') or p in ['CONTINUITY.md','README.md','docs/NEXT_PHASE.md','tests/test_iter139_finite_pulse.py'] for p in changed)
+links=[]
+for p in sorted(files):
+ if p.startswith(P+'/') and p.endswith('.md'):s=read(p).decode()
+ elif p=='README.md':s=read(p).decode().split('## Local research update 2026-10-09',1)[1].split('> **Honest status up front',1)[0]
+ elif p=='CONTINUITY.md':s=read(p).decode().split('> **Active operator-directed candidate result,',1)[1].split('\n\n',1)[0]
+ elif p=='docs/NEXT_PHASE.md':s=read(p).decode().split('## Active operator work on 2026-10-09',1)[1].split('## Canonical current decision:',1)[0]
+ else:continue
+ for _,target in re.findall(r'\[([^\]]+)\]\(([^)]+)\)',s):
+  if target.startswith(('http','#','mailto')):continue
+  dest=posixpath.normpath(posixpath.join(posixpath.dirname(p),target.split('#')[0]));assert dest in files,(p,target);links.append(dest)
+readme=read('README.md').decode();assert all(posixpath.dirname(p) in readme for p in files if p.startswith('experiments/') and p.endswith('/RESULT.md'))
+metadata=git('log',parent+'..'+tip,'--format=%an <%ae>|%cn <%ce>%n%B').decode();assert not re.search(r'co-authored-by|generated-by|claude|anthropic',metadata,re.I)
+identities=[l for l in metadata.splitlines() if '|Daniel Wahnich' in l];assert identities and all(l=='Daniel Wahnich <cogitoergosum143@gmail.com>|Daniel Wahnich <cogitoergosum143@gmail.com>' for l in identities)
+provider=json.loads(read(P+'/proof/final_provider_state.stdout'));assert provider['status']=='TERMINATED'
+manifest=read(P+'/proof/runtime_manifest.json');assert sha(manifest)=='5d03684bc43dee61a384ddc284e906d3077373cad211bfbff4e288bdc1694c33'
+post=json.loads(read(P+'/proof/postflight_summary.json'));assert not post['changed_or_missing'] and not post['owned_processes'] and post['bound_files']==471
+state=json.loads(read(P+'/STATE.json'));assert state['phase']=='complete'
+print(json.dumps(dict(status='passed',candidate_commit=tip,proof_hashes_checked=len(checks),raw_files_checked=raw_count,remote_only_files_inventoried=remote_only,executed_source_files_unchanged=len(source_paths),document_links_checked=len(links),prior_136_137_138_artifacts_unchanged=True,canonical_master=master,staged_index_empty=True,human_attribution=True,provider_status=provider['status'],scope='retained evidence and candidate integrity; no full/frozen/hosted CI'),indent=2,sort_keys=True))

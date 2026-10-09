@@ -1,0 +1,25 @@
+"""Exercise retained-byte integrity rejection without modifying repository evidence."""
+import json
+import runpy
+import subprocess
+from unittest.mock import patch
+
+original = subprocess.check_output
+target = '/proof/live/reference_a/scene-0411_hard_00/iter139_trace.jsonl'
+injected = []
+
+def corrupted_read(argv, **kwargs):
+    value = original(argv, **kwargs)
+    if argv[:2] == ['git', 'show'] and argv[2].endswith(target):
+        injected.append(argv[2])
+        return value + b'CORRUPTED_KNOWN_BAD\n'
+    return value
+
+try:
+    with patch('subprocess.check_output', side_effect=corrupted_read):
+        runpy.run_path('/tmp/i139_final_check.py', run_name='__main__')
+except AssertionError:
+    assert len(injected) == 1
+    print(json.dumps(dict(status='passed',known_bad='changed retained trace bytes rejected by final integrity check',repository_evidence_modified=False,injected_read=injected[0]),indent=2))
+else:
+    raise RuntimeError('corrupted trace was accepted')
