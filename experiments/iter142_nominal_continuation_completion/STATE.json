@@ -1,8 +1,8 @@
 {
   "iteration": 142,
   "status": "running",
-  "phase": "bootstrap_correction",
-  "details": "Runner failed before initialization; corrected entrypoint probe passed. One pre-evidence amended attempt, unchanged original budget and scientific source.",
+  "phase": "reference_b",
+  "details": "Frozen live schedule is executing; earlier stages and retained inputs validated.",
   "branch": "research/iter142-nominal-continuation",
   "preregistration_commit": "ba72e457a96f8ea248810ffa7b982c171b32c5f4",
   "retained_reference": "Iter141/reference_a",
