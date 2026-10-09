@@ -1,0 +1,8 @@
+import json
+from pathlib import Path
+root=Path('/datasets/nuscenes-full/hugsim/iter138_control_20261009')
+output=Path('/datasets/nuscenes-full/hugsim/outputs/iter138-20261009/reference_a')
+receipt=output/'episode.json'
+supervisor=root/'reference_a_supervisor.json'
+print(json.dumps(dict(episode_receipt_present=receipt.exists(),supervisor=json.loads(supervisor.read_text()) if supervisor.exists() else None,driver_log_bytes=(output/'driver.log').stat().st_size if (output/'driver.log').exists() else None),indent=2))
+if supervisor.exists(): print((root/'reference_a_launch.stderr').read_text())

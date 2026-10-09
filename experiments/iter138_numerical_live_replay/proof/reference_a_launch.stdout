@@ -1,0 +1,12 @@
+{
+  "arm": "reference_a",
+  "supervisor_pid": 1861,
+  "command": [
+    "python3",
+    "/datasets/nuscenes-full/hugsim/iter138_control_20261009/run_episode.py",
+    "reference_a",
+    "--manifest-sha256",
+    "2afa5216879316314e3bafb976bfc959a5c8759b673b5ffe922fd2453380ce08"
+  ],
+  "host_utc": 1791552697.9812853
+}

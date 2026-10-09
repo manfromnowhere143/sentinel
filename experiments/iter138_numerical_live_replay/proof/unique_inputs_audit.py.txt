@@ -1,0 +1,6 @@
+import json
+from pathlib import Path
+root=Path('experiments/iter137_controller_execution_contract/proof/benchmark')
+rows=[json.loads(line) for line in (root/'block_0.jsonl').read_text().splitlines()]
+keys={json.dumps(r['numerical']['input'],sort_keys=True,separators=(',',':'),allow_nan=False) for r in rows}
+print(json.dumps(dict(scheduled_typed_cases=len(rows),unique_typed_input_records=len(keys),scope='retrospective duplicate count from the first numerical block'),indent=2))

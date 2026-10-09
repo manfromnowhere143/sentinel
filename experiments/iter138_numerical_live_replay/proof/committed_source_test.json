@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "python3",
+    "-m",
+    "pytest",
+    "-p",
+    "no:cacheprovider",
+    "-c",
+    "/dev/null",
+    "-q",
+    "tests/test_iter138_live_replay.py"
+  ],
+  "started_utc": "2026-10-09T13:32:03.618557+00:00",
+  "elapsed_seconds": 1.55820894241333,
+  "returncode": 0
+}
