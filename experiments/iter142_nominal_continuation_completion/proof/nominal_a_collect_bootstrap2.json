@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "gcloud",
+    "compute",
+    "scp",
+    "--recurse",
+    "sentinel-gpu:/datasets/nuscenes-full/hugsim/iter142_control_20261009/exports/nominal_a",
+    "/Users/danielwahnich/workspace/sentinel/experiments/iter142_nominal_continuation_completion/proof/live/nominal_a",
+    "--project",
+    "sunlit-unison-487018-b0",
+    "--zone",
+    "us-west1-a",
+    "--tunnel-through-iap",
+    "--quiet"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-09T16:21:52.311523+00:00",
+  "elapsed_seconds": 20.497647047042847,
+  "returncode": 0
+}

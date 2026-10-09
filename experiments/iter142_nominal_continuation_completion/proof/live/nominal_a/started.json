@@ -1,0 +1,26 @@
+{
+  "arm": "nominal_a",
+  "manifest_sha256": "54647066bd8296ef21106a3eeacf660294d8cf4f9a5fc865424be18696b8a6e3",
+  "argv": [
+    "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/bin/python",
+    "-u",
+    "/datasets/nuscenes-full/hugsim/iter142_control_20261009/iter141_closed_loop.py",
+    "--scenario_path",
+    "/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0411-hard-00.yaml",
+    "--base_path",
+    "/datasets/nuscenes-full/hugsim/iter142_control_20261009/nuscenes_base.yaml",
+    "--camera_path",
+    "configs/sim/nuscenes_camera.yaml",
+    "--kinematic_path",
+    "configs/sim/kinematic.yaml",
+    "--ad",
+    "uniad",
+    "--ad_cuda",
+    "0",
+    "--i141-output-base",
+    "/datasets/nuscenes-full/hugsim/outputs/iter142-20261009/nominal_a"
+  ],
+  "started_at_utc": "2026-10-09T16:21:06.291430+00:00",
+  "status": "running",
+  "timeout_seconds": 1200
+}

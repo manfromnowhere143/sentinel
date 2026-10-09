@@ -1,0 +1,61 @@
+522ff44b5f079f3d4795a2b49ac0f700a228aaeb
+ CONTINUITY.md                                      |   2 +-
+ README.md                                          |   2 +-
+ docs/NEXT_PHASE.md                                 |   2 +-
+ .../STATE.json                                     |   4 +-
+ .../STATUS.md                                      |   2 +-
+ .../proof/SHA256SUMS                               |  52 +++
+ .../proof/live/reference_b/driver.log              | 130 +++++++
+ .../proof/live/reference_b/environment_import.json |   5 +
+ .../proof/live/reference_b/episode.json            | 405 +++++++++++++++++++++
+ .../proof/live/reference_b/remote_inventory.json   | 383 +++++++++++++++++++
+ .../scene-0411_hard_00/controller141.jsonl         |  28 ++
+ .../live/reference_b/scene-0411_hard_00/data.pkl   | Bin 0 -> 14220 bytes
+ .../scene-0411_hard_00/delivery141.jsonl           |  26 ++
+ .../live/reference_b/scene-0411_hard_00/eval.json  |   1 +
+ .../live/reference_b/scene-0411_hard_00/infos.pkl  | Bin 0 -> 13557 bytes
+ .../scene-0411_hard_00/iter141_trace.jsonl         |  28 ++
+ .../live/reference_b/scene-0411_hard_00/output.txt | 164 +++++++++
+ .../sentinel_iter48_decisions.jsonl                |  26 ++
+ .../proof/live/reference_b/started.json            |  26 ++
+ .../proof/reference_b_bootstrap2_launch.json       |  19 +
+ .../proof/reference_b_bootstrap2_launch.py.txt     |  23 ++
+ .../proof/reference_b_bootstrap2_launch.stderr     |   5 +
+ .../proof/reference_b_bootstrap2_launch.stdout     |  14 +
+ .../proof/reference_b_collect_bootstrap2.json      |  20 +
+ .../proof/reference_b_collect_bootstrap2.stderr    |   5 +
+ .../proof/reference_b_collect_bootstrap2.stdout    |   0
+ ...reference_b_collect_coordinator_bootstrap2.json |  11 +
+ ...ference_b_collect_coordinator_bootstrap2.stderr |   0
+ ...ference_b_collect_coordinator_bootstrap2.stdout |  19 +
+ .../proof/reference_b_export_bootstrap2.json       |  19 +
+ .../proof/reference_b_export_bootstrap2.py.txt     |  24 ++
+ .../proof/reference_b_export_bootstrap2.stderr     |   5 +
+ .../proof/reference_b_export_bootstrap2.stdout     |   6 +
+ .../reference_b_launch_coordinator_bootstrap2.json |  11 +
+ ...eference_b_launch_coordinator_bootstrap2.stderr |   0
+ ...eference_b_launch_coordinator_bootstrap2.stdout |  20 +
+ .../proof/reference_b_progress_bootstrap2_1.json   |  19 +
+ .../proof/reference_b_progress_bootstrap2_1.py.txt |   9 +
+ .../proof/reference_b_progress_bootstrap2_1.stderr |   5 +
+ .../proof/reference_b_progress_bootstrap2_1.stdout |   1 +
+ .../proof/reference_b_progress_bootstrap2_2.json   |  19 +
+ .../proof/reference_b_progress_bootstrap2_2.py.txt |   9 +
+ .../proof/reference_b_progress_bootstrap2_2.stderr |   5 +
+ .../proof/reference_b_progress_bootstrap2_2.stdout |   1 +
+ .../proof/reference_b_progress_bootstrap2_3.json   |  19 +
+ .../proof/reference_b_progress_bootstrap2_3.py.txt |   9 +
+ .../proof/reference_b_progress_bootstrap2_3.stderr |   5 +
+ .../proof/reference_b_progress_bootstrap2_3.stdout |   1 +
+ .../proof/reference_b_progress_bootstrap2_4.json   |  19 +
+ .../proof/reference_b_progress_bootstrap2_4.py.txt |   9 +
+ .../proof/reference_b_progress_bootstrap2_4.stderr |   5 +
+ .../proof/reference_b_progress_bootstrap2_4.stdout |   1 +
+ .../proof/reference_b_progress_bootstrap2_5.json   |  19 +
+ .../proof/reference_b_progress_bootstrap2_5.py.txt |   9 +
+ .../proof/reference_b_progress_bootstrap2_5.stderr |   5 +
+ .../proof/reference_b_progress_bootstrap2_5.stdout |   1 +
+ .../proof/schedule_bootstrap2/events.jsonl         |   1 +
+ .../schedule_bootstrap2/schedule_started.json      |   1 +
+ 58 files changed, 1653 insertions(+), 6 deletions(-)
+

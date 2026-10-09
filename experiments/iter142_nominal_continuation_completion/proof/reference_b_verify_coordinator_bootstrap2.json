@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "python3",
+    "/tmp/i142_verify.py",
+    "reference_b"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-09T16:19:26.520224+00:00",
+  "elapsed_seconds": 7.976840972900391,
+  "returncode": 0
+}

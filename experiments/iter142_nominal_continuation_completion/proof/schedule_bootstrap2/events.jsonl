@@ -1,1 +1,4 @@
 {"arm": "reference_b", "kind": "launch_requested"}
+{"arm": "reference_b", "kind": "raw_committed", "raw_commit": "522ff44b5f079f3d4795a2b49ac0f700a228aaeb"}
+{"arm": "reference_b", "kind": "validated", "raw_commit": "522ff44b5f079f3d4795a2b49ac0f700a228aaeb"}
+{"arm": "nominal_a", "kind": "launch_requested"}

@@ -1,7 +1,7 @@
 {
   "iteration": 142,
   "status": "running",
-  "phase": "reference_b",
+  "phase": "nominal_a",
   "details": "Frozen live schedule is executing; earlier stages and retained inputs validated.",
   "branch": "research/iter142-nominal-continuation",
   "preregistration_commit": "ba72e457a96f8ea248810ffa7b982c171b32c5f4",

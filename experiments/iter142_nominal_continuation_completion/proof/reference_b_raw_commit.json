@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "python3",
+    "/tmp/sentinel_i142_commit.py",
+    "iter142: retain reference_b raw evidence before interpretation",
+    "CONTINUITY.md=/tmp/i142_CONTINUITY.md",
+    "docs/NEXT_PHASE.md=/tmp/i142_NEXT_PHASE.md",
+    "README.md=/tmp/i142_README.md"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-09T16:19:23.789892+00:00",
+  "elapsed_seconds": 2.643418788909912,
+  "returncode": 0
+}

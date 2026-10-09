@@ -1,0 +1,19 @@
+nominal_a_export_bootstrap2 0 {
+  "retained_files": 12,
+  "retained_bytes": 698778,
+  "remote_only_files": 91,
+  "export": "/datasets/nuscenes-full/hugsim/iter142_control_20261009/exports/nominal_a"
+}
+ WARNING: 
+
+To increase the performance of the tunnel, consider installing NumPy. For instructions,
+please see https://cloud.google.com/iap/docs/using-tcp-forwarding#increasing_the_tcp_upload_bandwidth
+
+
+nominal_a_collect_bootstrap2 0  WARNING: 
+
+To increase the performance of the tunnel, consider installing NumPy. For instructions,
+please see https://cloud.google.com/iap/docs/using-tcp-forwarding#increasing_the_tcp_upload_bandwidth
+
+
+Verified downloaded retained bytes: 12
