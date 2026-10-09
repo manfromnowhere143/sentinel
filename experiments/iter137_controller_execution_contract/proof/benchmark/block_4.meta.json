@@ -1,0 +1,44 @@
+{
+  "affinity": [
+    0
+  ],
+  "ambient_load": [
+    1.79638671875,
+    0.474609375,
+    0.1572265625
+  ],
+  "ambient_load_after": [
+    2.54931640625,
+    0.75830078125,
+    0.2607421875
+  ],
+  "calls": 114,
+  "library_sha256": {
+    "/datasets/nuscenes-full/hugsim-envs/HUGSIM-dot-pixi/envs/default/lib/python3.11/site-packages/numpy.libs/libopenblas64_p-r0-0cf96a72.3.23.dev.so": "9254d0854dd7615e11de28d771ae408878ca8123a7ac204f21e4cc7a376cc2e5"
+  },
+  "numpy": "1.26.4",
+  "pid": 2269,
+  "platform": "Linux-6.8.0-1060-gcp-x86_64-with-glibc2.35",
+  "python": "3.11.10 | packaged by conda-forge | (main, Oct 16 2024, 01:27:36) [GCC 13.3.0]",
+  "status": "completed",
+  "thread_env": {
+    "BLIS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1"
+  },
+  "threadpools": [
+    {
+      "architecture": "SkylakeX",
+      "filepath": "/datasets/nuscenes-full/hugsim-envs/HUGSIM-dot-pixi/envs/default/lib/python3.11/site-packages/numpy.libs/libopenblas64_p-r0-0cf96a72.3.23.dev.so",
+      "internal_api": "openblas",
+      "num_threads": 1,
+      "prefix": "libopenblas",
+      "threading_layer": "pthreads",
+      "user_api": "blas",
+      "version": "0.3.23.dev"
+    }
+  ]
+}

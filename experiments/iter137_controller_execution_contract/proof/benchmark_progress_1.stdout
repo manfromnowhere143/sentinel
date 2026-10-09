@@ -1,0 +1,164 @@
+{
+  "blocks": [
+    {
+      "block": 0,
+      "command": [
+        "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/bin/python",
+        "/datasets/nuscenes-full/hugsim/iter137_controller_20261009/packet/experiments/iter137_controller_execution_contract/benchmark.py",
+        "worker",
+        "--output",
+        "/datasets/nuscenes-full/hugsim/iter137_controller_20261009/benchmark",
+        "--block",
+        "0",
+        "--cpu",
+        "0"
+      ],
+      "competitors": [],
+      "competitors_alive_after": 0,
+      "competitors_reaped": [],
+      "ended_utc": "2026-10-09T13:03:07.812793+00:00",
+      "load": "idle",
+      "mode": "numerical",
+      "returncode": 0,
+      "started_utc": "2026-10-09T13:03:01.778646+00:00"
+    },
+    {
+      "block": 1,
+      "command": [
+        "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/bin/python",
+        "/datasets/nuscenes-full/hugsim/iter137_controller_20261009/packet/experiments/iter137_controller_execution_contract/benchmark.py",
+        "worker",
+        "--output",
+        "/datasets/nuscenes-full/hugsim/iter137_controller_20261009/benchmark",
+        "--block",
+        "1",
+        "--cpu",
+        "0"
+      ],
+      "competitors": [],
+      "competitors_alive_after": 0,
+      "competitors_reaped": [],
+      "ended_utc": "2026-10-09T13:03:13.797661+00:00",
+      "load": "idle",
+      "mode": "timed",
+      "returncode": 0,
+      "started_utc": "2026-10-09T13:03:07.813224+00:00"
+    },
+    {
+      "block": 2,
+      "command": [
+        "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/bin/python",
+        "/datasets/nuscenes-full/hugsim/iter137_controller_20261009/packet/experiments/iter137_controller_execution_contract/benchmark.py",
+        "worker",
+        "--output",
+        "/datasets/nuscenes-full/hugsim/iter137_controller_20261009/benchmark",
+        "--block",
+        "2",
+        "--cpu",
+        "0"
+      ],
+      "competitors": [
+        {
+          "affinity": [
+            0
+          ],
+          "pid": 2252
+        },
+        {
+          "affinity": [
+            0
+          ],
+          "pid": 2253
+        },
+        {
+          "affinity": [
+            0
+          ],
+          "pid": 2254
+        }
+      ],
+      "competitors_alive_after": 3,
+      "competitors_reaped": [
+        -15,
+        -15,
+        -15
+      ],
+      "ended_utc": "2026-10-09T13:03:22.733304+00:00",
+      "load": "contended",
+      "mode": "timed",
+      "returncode": 0,
+      "started_utc": "2026-10-09T13:03:13.941265+00:00"
+    },
+    {
+      "block": 3,
+      "command": [
+        "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/bin/python",
+        "/datasets/nuscenes-full/hugsim/iter137_controller_20261009/packet/experiments/iter137_controller_execution_contract/benchmark.py",
+        "worker",
+        "--output",
+        "/datasets/nuscenes-full/hugsim/iter137_controller_20261009/benchmark",
+        "--block",
+        "3",
+        "--cpu",
+        "0"
+      ],
+      "competitors": [
+        {
+          "affinity": [
+            0
+          ],
+          "pid": 2258
+        },
+        {
+          "affinity": [
+            0
+          ],
+          "pid": 2259
+        },
+        {
+          "affinity": [
+            0
+          ],
+          "pid": 2260
+        }
+      ],
+      "competitors_alive_after": 3,
+      "competitors_reaped": [
+        -15,
+        -15,
+        -15
+      ],
+      "ended_utc": "2026-10-09T13:03:47.928602+00:00",
+      "load": "contended",
+      "mode": "numerical",
+      "returncode": 0,
+      "started_utc": "2026-10-09T13:03:22.887273+00:00"
+    }
+  ],
+  "code_sha256": {
+    "benchmark.py": "5013e2aecc23b64443430df3be618beaec3f3d4b61f0c21583a07a448328b601",
+    "controller.py": "7784c0a885bba33414a680d2f943f3a701d7ba38bf29996908c6a7bd4089dc03",
+    "validate_contract.py": "386ebc2bdb983f27e735145a89286db61413d2ee392a7ec756e203c7a558121b",
+    "verify.py": "37541cd45e1df4756b5f87b459abba8d54fea367eb142a9e80c98f52a94b9014"
+  },
+  "cpu": 0,
+  "hostname": "sentinel-gpu",
+  "instance_deadline": 1791554138.290096,
+  "no_driving_episodes": true,
+  "parent_affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "python_executable": "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/bin/python",
+  "schema": "sentinel.iter137.benchmark.v1",
+  "started_utc": "2026-10-09T13:03:01.778130+00:00",
+  "status": "running"
+}
+
+

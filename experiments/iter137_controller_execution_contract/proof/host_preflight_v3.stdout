@@ -1,0 +1,51 @@
+{
+  "host_utc": 1791550917.688729,
+  "hostname": "sentinel-gpu",
+  "affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "free_gib": 110.86406707763672,
+  "hugsim_commit": {
+    "returncode": 0,
+    "stdout": "62c690d39fd90020e68a196bd8bcc1c4d4191f2e\n",
+    "stderr": ""
+  },
+  "containers": {
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "gpu_processes": {
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "processes": {
+    "returncode": 0,
+    "stdout": "    PID ELAPSED %CPU COMMAND\n      1      34  5.9 systemd\n      2      34  0.0 kthreadd\n      3      34  0.0 pool_workqueue_release\n      4      34  0.0 kworker/R-rcu_g\n      5      34  0.0 kworker/R-rcu_p\n      6      34  0.0 kworker/R-slub_\n      7      34  0.0 kworker/R-netns\n      8      34  0.2 kworker/0:0-events\n      9      34  0.0 kworker/0:1-rcu_gp\n     10      34  0.0 kworker/0:0H-events_highpri\n     11      34  0.2 kworker/u16:0-flush-259:0\n     12      34  0.0 kworker/R-mm_pe\n     13      34  0.0 rcu_tasks_rude_kthread\n     14      34  0.0 rcu_tasks_trace_kthread\n     15      34  0.0 ksoftirqd/0\n     16      34  0.0 rcu_sched\n     17      34  0.0 migration/0\n     18      34  0.0 idle_inject/0\n     19      34  0.0 cpuhp/0\n     20      34  0.0 cpuhp/1\n     21      34  0.0 idle_inject/1\n     22      34  1.1 migration/1\n     23      34  0.0 ksoftirqd/1\n     24      34  0.0 kworker/1:0-events\n     25      34  0.0 kworker/1:0H-events_highpri\n     26      34  0.0 cpuhp/2\n     27      34  0.0 idle_inject/2\n     28      34  1.1 migration/2\n     29      34  0.0 ksoftirqd/2\n     30      34  0.0 kworker/2:0-events\n     31      34  0.0 kworker/2:0H-events_highpri\n     32      34  0.0 cpuhp/3\n     33      34  0.0 idle_inject/3\n     34      34  1.1 migration/3\n     35      34  0.0 ksoftirqd/3\n     36      34  0.0 kworker/3:0-events\n     37      34  0.0 kworker/3:0H-events_highpri\n     38      34  0.0 cpuhp/4\n     39      34  0.0 idle_inject/4\n     40      34  1.1 migration/4\n     41      34  0.0 ksoftirqd/4\n     42      34  0.0 kworker/4:0-events\n     43      34  0.0 kworker/4:0H-events_highpri\n     44      34  0.0 cpuhp/5\n     45      34  0.0 idle_inject/5\n     46      34  1.1 migration/5\n     47      34  0.0 ksoftirqd/5\n     48      34  0.0 kworker/5:0-events\n     49      34  0.0 kworker/5:0H-events_highpri\n     50      34  0.0 cpuhp/6\n     51      34  0.0 idle_inject/6\n     52      34  1.1 migration/6\n     53      34  0.0 ksoftirqd/6\n     54      34  0.0 kworker/6:0-events\n     55      34  0.0 kworker/6:0H-events_highpri\n     56      34  0.0 cpuhp/7\n     57      34  0.0 idle_inject/7\n     58      34  1.1 migration/7\n     59      34  0.0 ksoftirqd/7\n     60      34  0.0 kworker/7:0-events\n     61      34  0.0 kworker/7:0H-events_highpri\n     62      34  0.0 kdevtmpfs\n     63      34  0.0 kworker/R-inet_\n     64      34  0.0 kauditd\n     65      34  0.0 khungtaskd\n     66      34  0.1 kworker/u16:1-events_power_efficient\n     67      34  0.0 oom_reaper\n     68      34  0.1 kworker/u16:2-flush-259:0\n     69      34  0.0 kworker/R-write\n     70      34  0.0 kcompactd0\n     71      34  0.0 ksmd\n     72      34  0.0 khugepaged\n     73      34  0.0 kworker/R-kinte\n     74      34  0.0 kworker/R-kbloc\n     75      34  0.0 kworker/R-blkcg\n     76      34  0.0 irq/9-acpi\n     77      34  0.0 kworker/4:1-mm_percpu_wq\n     78      34  0.0 kworker/R-tpm_d\n     79      34  0.0 kworker/R-ata_s\n     80      34  0.0 kworker/R-md\n     81      34  0.0 kworker/R-md_bi\n     82      34  0.0 kworker/R-edac-\n     83      34  0.0 kworker/R-devfr\n     84      34  0.0 watchdogd\n     85      34  0.0 kworker/R-quota\n     86      34  0.0 kworker/0:1H-kblockd\n     87      34  0.0 kswapd0\n     88      34  0.0 ecryptfs-kthread\n     89      34  0.0 kworker/R-kthro\n     90      34  0.0 kworker/3:1-events\n     91      34  0.0 kworker/R-acpi_\n     92      34  0.0 hwrng\n     93      34  0.0 kworker/R-nvme-\n     94      34  0.0 kworker/R-nvme-\n     95      34  0.0 kworker/R-nvme-\n     96      34  0.0 kworker/R-nvme-\n     97      34  0.0 kworker/3:1H-kblockd\n     98      34  0.0 kworker/u16:3-flush-259:0\n     99      34  0.0 kworker/6:1-events\n    100      34  0.0 kworker/0:2-cgroup_free\n    101      34  0.0 kworker/R-mld\n    102      34  0.0 kworker/R-ipv6_\n    109      34  0.0 kworker/R-kstrp\n    110      34  0.0 kworker/1:1-events\n    111      34  0.0 kworker/5:1-cgroup_free\n    112      34  0.0 kworker/2:1-rcu_gp\n    113      34  0.0 kworker/7:1-cgroup_release\n    115      34  0.0 kworker/u17:0\n    128      34  0.0 kworker/3:2-events\n    129      34  0.0 kworker/3:3-events\n    130      34  0.0 kworker/R-charg\n    131      33  0.1 jbd2/nvme0n1p1-8\n    132      33  0.0 kworker/R-ext4-\n    133      33  0.0 kworker/2:1H-kblockd\n    134      33  0.0 kworker/2:2-mm_percpu_wq\n    135      33  0.0 kworker/6:1H-kblockd\n    159      33  0.0 kworker/4:1H-kblockd\n    172      32  0.0 kworker/7:1H-kblockd\n    176      32  0.0 kworker/1:1H-kblockd\n    177      32  0.5 systemd-journal\n    187      32  0.0 kworker/5:1H-kblockd\n    192      32  0.0 kworker/4:2-cgroup_free\n    198      32  0.0 kworker/6:2-mm_percpu_wq\n    199      32  0.0 kworker/6:3-cgroup_bpf_destroy\n    205      32  0.0 kworker/7:2-events\n    207      32  0.0 kworker/6:4-events\n    211      32  0.0 kworker/7:3-cgroup_bpf_destroy\n    212      32  0.0 kworker/7:4\n    215      32  0.0 kworker/R-kalua\n    216      32  0.0 kworker/R-kmpat\n    219      32  0.0 kworker/R-kmpat\n    220      32  0.0 kworker/R-kmpat\n    222      32  0.0 multipathd\n    225      32  0.6 systemd-udevd\n    257      32  0.0 kworker/1:2-events\n    272      32  0.0 kworker/R-crypt\n    311      32  0.0 kworker/5:2-cgroup_free\n    358      32  0.0 nv_queue\n    359      32  0.0 nv_queue\n    360      32  0.0 nv_open_q\n    362      32  0.0 nvidia-modeset/kthread_q\n    363      32  0.0 nvidia-modeset/deferred_close_kthread_q\n    367      32  0.0 UVM global queue\n    368      32  0.0 UVM deferred release queue\n    369      32  0.0 UVM Tools Event Queue\n    373      32  0.0 kworker/u16:4-flush-259:0\n    376      32  0.0 kworker/u16:5-flush-259:0\n    379      32  0.0 kworker/u16:6-flush-259:0\n    381      32  0.0 kworker/u16:7\n    382      32  0.0 kworker/u16:8-events_unbound\n    441      31  0.0 kworker/1:3-cgroup_free\n    442      31  0.0 kworker/1:4-cgroup_free\n    459      31  0.0 jbd2/nvme0n2-8\n    460      31  0.0 kworker/R-ext4-\n    540      30  0.1 systemd-network\n    542      30  0.3 systemd-resolve\n    577      27  0.4 dbus-daemon\n    589      27  0.0 chronyd\n    592      27  0.0 chronyd\n    594      27  0.2 google_osconfig\n    603      27  0.2 networkd-dispat\n    615      27  6.1 nvidia-persiste\n    617      27  0.0 irq/48-nvidia\n    618      27  0.0 irq/49-nvidia\n    619      27  0.0 irq/50-nvidia\n    620      27  0.0 irq/51-nvidia\n    621      27  0.0 irq/52-nvidia\n    622      27  0.0 irq/53-nvidia\n    623      27  0.0 nvidia\n    624      27  0.0 nv_queue\n    625      27  0.1 rsyslogd\n    645      27 35.9 snapd\n    660      27  0.6 containerd\n    671      27  0.0 kworker/4:3\n    849      22  1.8 dockerd\n    853      22  0.5 google_guest_ag\n    862      22  0.4 systemd-hostnam\n    864      22  0.3 systemd-timedat\n    870      22  0.0 agetty\n    872      22  0.0 agetty\n    886      22  0.0 kworker/5:3-mm_percpu_wq\n    900      22  0.0 polkitd\n   1133      22  0.3 systemd-logind\n   1140      22  0.0 cron\n   1825      11  0.0 sshd\n   1829       4  0.5 sshd\n   1831       2 41.5 xdelta3\n   1833       2  4.5 systemd\n   1834       2  0.0 (sd-pam)\n   1935       1  0.0 sshd\n   1936       1  0.0 sudo\n   1937       1  3.0 python3\n   1952       0  0.0 ps\n",
+    "stderr": ""
+  },
+  "python": {
+    "returncode": 0,
+    "stdout": "3.11.10 | packaged by conda-forge | (main, Oct 16 2024, 01:27:36) [GCC 13.3.0]\n1.26.4\npytest None\nthreadpoolctl ModuleSpec(name='threadpoolctl', loader=<_frozen_importlib_external.SourceFileLoader object at 0x74b53a0876d0>, origin='/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/threadpoolctl.py')\n",
+    "stderr": ""
+  },
+  "source_sha256": {
+    "sim/ilqr/lqr.py": "b32755c32de510e09ac726f5c77731d5f490df6a412e50a4d369d70bdef45faf",
+    "sim/ilqr/lqr_solver.py": "0141d73d0ac38386184e63ce384d2e3cd341130943065b416bdacf4281e57c47",
+    "sim/ilqr/utils.py": "041ed70028c105cfc102978ffddad4e92398d29b2454f1c2be6c81fb765c75fe",
+    "sim/utils/sim_utils.py": "36c2ba6a7dee38555f84dde95851ec00be5a699969d53de8906b3e67676792bc"
+  },
+  "shutdown_timer": {
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "Running timer as unit: sentinel-iter137-budget.timer\nWill run service as unit: sentinel-iter137-budget.service\n"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "ruff",
+    "check",
+    "/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/sentinel-i137-check-36znvqv5/source/experiments/iter137_controller_execution_contract/benchmark.py",
+    "/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/sentinel-i137-check-36znvqv5/source/experiments/iter137_controller_execution_contract/controller.py",
+    "/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/sentinel-i137-check-36znvqv5/source/experiments/iter137_controller_execution_contract/validate_contract.py",
+    "/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/sentinel-i137-check-36znvqv5/source/experiments/iter137_controller_execution_contract/verify.py",
+    "tests/test_iter137_controller_execution.py"
+  ],
+  "started_utc": "2026-10-09T13:02:05.793300+00:00",
+  "elapsed_seconds": 0.041700124740600586,
+  "returncode": 0
+}

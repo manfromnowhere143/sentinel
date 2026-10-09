@@ -1,0 +1,14 @@
+{
+  "pid": 2245,
+  "command": [
+    "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/bin/python",
+    "/datasets/nuscenes-full/hugsim/iter137_controller_20261009/packet/experiments/iter137_controller_execution_contract/benchmark.py",
+    "run",
+    "--output",
+    "/datasets/nuscenes-full/hugsim/iter137_controller_20261009/benchmark",
+    "--instance-deadline",
+    "1791554138.290096"
+  ],
+  "host_utc": 1791550981.706513,
+  "source_commit": "3bbf160bc6be02b405d81d80ad2347a0167f9c73"
+}

@@ -1,0 +1,24 @@
+{
+  "source_commit": "3bbf160bc6be02b405d81d80ad2347a0167f9c73",
+  "packet_sha256": "50a272683634c26d4593a60fd4ac88e2de4215dc54c0d938b63a2bd3416c8518",
+  "files": {
+    "experiments/iter136_hugsim_recoverability_canary/proof/source/HUGSIM/LICENSE.txt": "c5acad54bc534fe3bd574cd2ffd10cfd037b98590f01388163f51ea36035c322",
+    "experiments/iter136_hugsim_recoverability_canary/proof/controller_source/sim_utils.py.txt": "36c2ba6a7dee38555f84dde95851ec00be5a699969d53de8906b3e67676792bc",
+    "experiments/iter136_hugsim_recoverability_canary/proof/controller_source/lqr_solver.py.txt": "0141d73d0ac38386184e63ce384d2e3cd341130943065b416bdacf4281e57c47",
+    "experiments/iter136_hugsim_recoverability_canary/proof/controller_source/lqr.py.txt": "b32755c32de510e09ac726f5c77731d5f490df6a412e50a4d369d70bdef45faf",
+    "experiments/iter136_hugsim_recoverability_canary/proof/controller_source/utils.py.txt": "041ed70028c105cfc102978ffddad4e92398d29b2454f1c2be6c81fb765c75fe",
+    "experiments/iter137_controller_execution_contract/verify.py": "37541cd45e1df4756b5f87b459abba8d54fea367eb142a9e80c98f52a94b9014",
+    "experiments/iter137_controller_execution_contract/corpus.json": "58a0095637512152fac6868f1a8d24516fa33f5da96c2429a75e311506804557",
+    "experiments/iter137_controller_execution_contract/controller.py": "7784c0a885bba33414a680d2f943f3a701d7ba38bf29996908c6a7bd4089dc03",
+    "experiments/iter137_controller_execution_contract/validate_contract.py": "386ebc2bdb983f27e735145a89286db61413d2ee392a7ec756e203c7a558121b",
+    "experiments/iter137_controller_execution_contract/HYPOTHESIS.md": "194adf1eb5cba4f10269b7c408991387749ffe83d22ff7821690d3be93e61a54",
+    "experiments/iter137_controller_execution_contract/binding.json": "b86ac2b6a70c8a87871d78f72082562aa68b0689638b75caf65c87e20e89e3e9",
+    "experiments/iter137_controller_execution_contract/benchmark.py": "5013e2aecc23b64443430df3be618beaec3f3d4b61f0c21583a07a448328b601",
+    "experiments/iter137_controller_execution_contract/INFRASTRUCTURE_AMENDMENT.md": "d6ee7d13b4eca8022f9b31789f87177e6b45a0edfd344c430d837723f15857ad",
+    "experiments/iter137_controller_execution_contract/CAPACITY_RECOVERY.md": "03fb04e0fa74626a999a4f0a0ba7d51f6a89466df18e5b4f1174b40b27960f38",
+    "tests/test_iter137_controller_execution.py": "b2f6b1efa9fe522c4804ff9bd009e1542767961f32669f125f9a407ab598aca4"
+  },
+  "parity_returncode": 0,
+  "parity_stdout": "{\n  \"status\": \"passed\",\n  \"numpy\": \"1.26.4\",\n  \"scripted_clock_checks\": [\n    {\n      \"dtype\": \"float32\",\n      \"deadline_iteration\": 1,\n      \"iterations\": 1,\n      \"clock_reads\": 2,\n      \"status\": \"matched\"\n    },\n    {\n      \"dtype\": \"float32\",\n      \"deadline_iteration\": 5,\n      \"iterations\": 5,\n      \"clock_reads\": 6,\n      \"status\": \"matched\"\n    },\n    {\n      \"dtype\": \"float32\",\n      \"deadline_iteration\": 27,\n      \"iterations\": 27,\n      \"clock_reads\": 28,\n      \"status\": \"matched\"\n    },\n    {\n      \"dtype\": \"float32\",\n      \"deadline_iteration\": 38,\n      \"iterations\": 38,\n      \"clock_reads\": 39,\n      \"status\": \"matched\"\n    },\n    {\n      \"dtype\": \"float32\",\n      \"deadline_iteration\": 100,\n      \"iterations\": 41,\n      \"clock_reads\": 41,\n      \"status\": \"matched\"\n    },\n    {\n      \"dtype\": \"float64\",\n      \"deadline_iteration\": 1,\n      \"iterations\": 1,\n      \"clock_reads\": 2,\n      \"status\": \"matched\"\n    },\n    {\n      \"dtype\": \"float64\",\n      \"deadline_iteration\": 5,\n      \"iterations\": 5,\n      \"clock_reads\": 6,\n      \"status\": \"matched\"\n    },\n    {\n      \"dtype\": \"float64\",\n      \"deadline_iteration\": 27,\n      \"iterations\": 27,\n      \"clock_reads\": 28,\n      \"status\": \"matched\"\n    },\n    {\n      \"dtype\": \"float64\",\n      \"deadline_iteration\": 38,\n      \"iterations\": 38,\n      \"clock_reads\": 39,\n      \"status\": \"matched\"\n    },\n    {\n      \"dtype\": \"float64\",\n      \"deadline_iteration\": 100,\n      \"iterations\": 41,\n      \"clock_reads\": 41,\n      \"status\": \"matched\"\n    }\n  ],\n  \"independent_numerical_replays\": 2,\n  \"benchmark_calls\": 0\n}\n",
+  "parity_stderr": ""
+}

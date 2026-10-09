@@ -1,0 +1,8 @@
+...................................................                      [100%]
+=============================== warnings summary ===============================
+../../../../../../../../opt/homebrew/lib/python3.14/site-packages/_pytest/cacheprovider.py:475
+  /opt/homebrew/lib/python3.14/site-packages/_pytest/cacheprovider.py:475: PytestCacheWarning: could not create cache path /dev/.pytest_cache/v/cache/nodeids: [Errno 1] Operation not permitted: '/dev/pytest-cache-files-jch5bqsg'
+    config.cache.set("cache/nodeids", sorted(self.cached_nodeids))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+51 passed, 1 warning in 0.89s
