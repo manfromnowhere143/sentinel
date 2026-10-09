@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "ruff",
+    "check",
+    "experiments/iter139_finite_pulse_recoverability/trace.py",
+    "experiments/iter139_finite_pulse_recoverability/run_episode.py",
+    "experiments/iter139_finite_pulse_recoverability/verify_live.py",
+    "experiments/iter139_finite_pulse_recoverability/independent.py",
+    "experiments/iter139_finite_pulse_recoverability/summarize.py",
+    "experiments/iter139_finite_pulse_recoverability/live_trace.py",
+    "experiments/iter139_finite_pulse_recoverability/instrument.py",
+    "tests/test_iter139_finite_pulse.py"
+  ],
+  "started_utc": "2026-10-09T14:01:38.763434+00:00",
+  "elapsed_seconds": 0.037516117095947266,
+  "returncode": 0
+}

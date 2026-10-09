@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "ruff",
+    "check",
+    "experiments/iter139_finite_pulse_recoverability",
+    "tests/test_iter139_finite_pulse.py"
+  ],
+  "started_utc": "2026-10-09T14:00:30.342141+00:00",
+  "elapsed_seconds": 0.2922511100769043,
+  "returncode": 1
+}

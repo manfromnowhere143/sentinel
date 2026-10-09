@@ -1,0 +1,309 @@
+E731 Do not assign a `lambda` expression, use a `def`
+  --> experiments/iter139_finite_pulse_recoverability/independent.py:86:5
+   |
+84 |     bar=p>=target['route_completion']-Decimal('.05') if p is not None else None
+85 |     useful=not col and route and bar is True and complete and len(active)<=8
+86 |     f=lambda x:float(x) if x is not None else None
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+87 |     return dict(collision_observed=bool(col),first_collision_time=f(col[0]) if col else None,
+88 |                 terminal_reason=b[-1]['reason'],terminal_time=f(last['after']['timestamp']),final_route_completion=f(last['route_compl…
+   |
+help: Rewrite `f` as a `def`
+
+E701 Multiple statements on one line (colon)
+  --> tests/test_iter139_finite_pulse.py:99:35
+   |
+97 |     assert verify_live.monitor_check(a,ds)==0
+98 |     ds[0]['params']={}
+99 |     with pytest.raises(ValueError):verify_live.monitor_check(a,ds)
+   |                                   ^
+   |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_iter139_finite_pulse.py:105:20
+    |
+103 | def test_trace_known_bads(captured,bad):
+104 |     _,(b,_,_),folder=captured;b=deepcopy(b)
+105 |     if bad=='onset':b[0]['onset']=.25
+    |                    ^
+106 |     elif bad=='duration':b[0]['duration']=3
+107 |     elif bad=='early_release':b[4]['executed_plan']=b[4]['incoming_plan']
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_iter139_finite_pulse.py:106:25
+    |
+104 |     _,(b,_,_),folder=captured;b=deepcopy(b)
+105 |     if bad=='onset':b[0]['onset']=.25
+106 |     elif bad=='duration':b[0]['duration']=3
+    |                         ^
+107 |     elif bad=='early_release':b[4]['executed_plan']=b[4]['incoming_plan']
+108 |     elif bad=='late_release':b[5]['executed_plan']=[[0.,0.]]*6
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_iter139_finite_pulse.py:107:30
+    |
+105 |     if bad=='onset':b[0]['onset']=.25
+106 |     elif bad=='duration':b[0]['duration']=3
+107 |     elif bad=='early_release':b[4]['executed_plan']=b[4]['incoming_plan']
+    |                              ^
+108 |     elif bad=='late_release':b[5]['executed_plan']=[[0.,0.]]*6
+109 |     elif bad=='progress':b[-2]['route_completion']=1.12
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_iter139_finite_pulse.py:108:29
+    |
+106 |     elif bad=='duration':b[0]['duration']=3
+107 |     elif bad=='early_release':b[4]['executed_plan']=b[4]['incoming_plan']
+108 |     elif bad=='late_release':b[5]['executed_plan']=[[0.,0.]]*6
+    |                             ^
+109 |     elif bad=='progress':b[-2]['route_completion']=1.12
+110 |     elif bad=='missing_outcome':b[-2]['collision']=None
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_iter139_finite_pulse.py:109:25
+    |
+107 |     elif bad=='early_release':b[4]['executed_plan']=b[4]['incoming_plan']
+108 |     elif bad=='late_release':b[5]['executed_plan']=[[0.,0.]]*6
+109 |     elif bad=='progress':b[-2]['route_completion']=1.12
+    |                         ^
+110 |     elif bad=='missing_outcome':b[-2]['collision']=None
+111 |     elif bad=='false_terminal':b[-2]['terminated']=False
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_iter139_finite_pulse.py:110:32
+    |
+108 |     elif bad=='late_release':b[5]['executed_plan']=[[0.,0.]]*6
+109 |     elif bad=='progress':b[-2]['route_completion']=1.12
+110 |     elif bad=='missing_outcome':b[-2]['collision']=None
+    |                                ^
+111 |     elif bad=='false_terminal':b[-2]['terminated']=False
+112 |     elif bad=='post_terminal':b[1]['terminated']=True
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_iter139_finite_pulse.py:111:31
+    |
+109 |     elif bad=='progress':b[-2]['route_completion']=1.12
+110 |     elif bad=='missing_outcome':b[-2]['collision']=None
+111 |     elif bad=='false_terminal':b[-2]['terminated']=False
+    |                               ^
+112 |     elif bad=='post_terminal':b[1]['terminated']=True
+113 |     with pytest.raises(ValueError):trace.validate(b)
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_iter139_finite_pulse.py:112:30
+    |
+110 |     elif bad=='missing_outcome':b[-2]['collision']=None
+111 |     elif bad=='false_terminal':b[-2]['terminated']=False
+112 |     elif bad=='post_terminal':b[1]['terminated']=True
+    |                              ^
+113 |     with pytest.raises(ValueError):trace.validate(b)
+114 |     path=folder/'bad.jsonl';path.write_bytes(b'\n'.join(trace.canonical(r) for r in b)+b'\n')
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_iter139_finite_pulse.py:113:35
+    |
+111 |     elif bad=='false_terminal':b[-2]['terminated']=False
+112 |     elif bad=='post_terminal':b[1]['terminated']=True
+113 |     with pytest.raises(ValueError):trace.validate(b)
+    |                                   ^
+114 |     path=folder/'bad.jsonl';path.write_bytes(b'\n'.join(trace.canonical(r) for r in b)+b'\n')
+115 |     with pytest.raises(ValueError):independent.read(path)
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_iter139_finite_pulse.py:115:35
+    |
+113 |     with pytest.raises(ValueError):trace.validate(b)
+114 |     path=folder/'bad.jsonl';path.write_bytes(b'\n'.join(trace.canonical(r) for r in b)+b'\n')
+115 |     with pytest.raises(ValueError):independent.read(path)
+    |                                   ^
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_iter139_finite_pulse.py:121:22
+    |
+119 | def test_controller_linkage_known_bads(captured,bad):
+120 |     _,(b,cb,_),_=captured;b=deepcopy(b);cb=deepcopy(cb)
+121 |     if bad=='missing':del cb[1]
+    |                      ^
+122 |     elif bad=='time':cb[1]['time']=1.
+123 |     elif bad=='typed_bytes':cb[1]['incoming_typed']['bytes_hex']='00'
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_iter139_finite_pulse.py:122:21
+    |
+120 |     _,(b,cb,_),_=captured;b=deepcopy(b);cb=deepcopy(cb)
+121 |     if bad=='missing':del cb[1]
+122 |     elif bad=='time':cb[1]['time']=1.
+    |                     ^
+123 |     elif bad=='typed_bytes':cb[1]['incoming_typed']['bytes_hex']='00'
+124 |     elif bad=='dtype':cb[1]['receipt']['numerical']['input']['plan']['dtype']='<f8'
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_iter139_finite_pulse.py:123:28
+    |
+121 |     if bad=='missing':del cb[1]
+122 |     elif bad=='time':cb[1]['time']=1.
+123 |     elif bad=='typed_bytes':cb[1]['incoming_typed']['bytes_hex']='00'
+    |                            ^
+124 |     elif bad=='dtype':cb[1]['receipt']['numerical']['input']['plan']['dtype']='<f8'
+125 |     elif bad=='active':cb[1]['pulse_active']=False
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_iter139_finite_pulse.py:124:22
+    |
+122 |     elif bad=='time':cb[1]['time']=1.
+123 |     elif bad=='typed_bytes':cb[1]['incoming_typed']['bytes_hex']='00'
+124 |     elif bad=='dtype':cb[1]['receipt']['numerical']['input']['plan']['dtype']='<f8'
+    |                      ^
+125 |     elif bad=='active':cb[1]['pulse_active']=False
+126 |     elif bad=='action':b[1]['control'][0]+=1.
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_iter139_finite_pulse.py:125:23
+    |
+123 |     elif bad=='typed_bytes':cb[1]['incoming_typed']['bytes_hex']='00'
+124 |     elif bad=='dtype':cb[1]['receipt']['numerical']['input']['plan']['dtype']='<f8'
+125 |     elif bad=='active':cb[1]['pulse_active']=False
+    |                       ^
+126 |     elif bad=='action':b[1]['control'][0]+=1.
+127 |     elif bad=='duration':cb[1]['complete_call_ns']=-1
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_iter139_finite_pulse.py:126:23
+    |
+124 |     elif bad=='dtype':cb[1]['receipt']['numerical']['input']['plan']['dtype']='<f8'
+125 |     elif bad=='active':cb[1]['pulse_active']=False
+126 |     elif bad=='action':b[1]['control'][0]+=1.
+    |                       ^
+127 |     elif bad=='duration':cb[1]['complete_call_ns']=-1
+128 |     with pytest.raises(ValueError):verify_live.validate_linkage(b,cb)
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_iter139_finite_pulse.py:127:25
+    |
+125 |     elif bad=='active':cb[1]['pulse_active']=False
+126 |     elif bad=='action':b[1]['control'][0]+=1.
+127 |     elif bad=='duration':cb[1]['complete_call_ns']=-1
+    |                         ^
+128 |     with pytest.raises(ValueError):verify_live.validate_linkage(b,cb)
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_iter139_finite_pulse.py:128:35
+    |
+126 |     elif bad=='action':b[1]['control'][0]+=1.
+127 |     elif bad=='duration':cb[1]['complete_call_ns']=-1
+128 |     with pytest.raises(ValueError):verify_live.validate_linkage(b,cb)
+    |                                   ^
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_iter139_finite_pulse.py:134:49
+    |
+132 |     (a,ca,_),(b,cb,_),folder=captured;b=deepcopy(b)
+133 |     b[1]['observation_sha256']='f'*64
+134 |     with pytest.raises(ValueError,match='onset'):verify_live.compare_prefix(a,b,ca,cb)
+    |                                                 ^
+135 |     p=folder/'bad_prefix.jsonl';p.write_bytes(b'\n'.join(trace.canonical(r) for r in b)+b'\n')
+136 |     with pytest.raises(ValueError,match='onset'):independent.check(folder/'reference/iter139_trace.jsonl',p)
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_iter139_finite_pulse.py:136:49
+    |
+134 |     with pytest.raises(ValueError,match='onset'):verify_live.compare_prefix(a,b,ca,cb)
+135 |     p=folder/'bad_prefix.jsonl';p.write_bytes(b'\n'.join(trace.canonical(r) for r in b)+b'\n')
+136 |     with pytest.raises(ValueError,match='onset'):independent.check(folder/'reference/iter139_trace.jsonl',p)
+    |                                                 ^
+137 |     b=deepcopy(a);cb=deepcopy(ca);cb[0]['numpy']='different'
+138 |     with pytest.raises(ValueError,match='runtime'):verify_live.compare_prefix(a,b,ca,cb)
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_iter139_finite_pulse.py:138:51
+    |
+136 |     with pytest.raises(ValueError,match='onset'):independent.check(folder/'reference/iter139_trace.jsonl',p)
+137 |     b=deepcopy(a);cb=deepcopy(ca);cb[0]['numpy']='different'
+138 |     with pytest.raises(ValueError,match='runtime'):verify_live.compare_prefix(a,b,ca,cb)
+    |                                                   ^
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_iter139_finite_pulse.py:169:65
+    |
+167 | def test_invalid_input_fails_before_actuation(tmp_path,monkeypatch,bad):
+168 |     folder=tmp_path/'invalid'
+169 |     with pytest.raises(ValueError,match='invalid planner input'):stub(folder,monkeypatch,'pulse_0_1',plan=bad)
+    |                                                                 ^
+170 |     rows=[json.loads(x) for x in (folder/'controller139.jsonl').read_text().splitlines()]
+171 |     assert rows[-1]['input_failure']['status']=='failed' and rows[-1]['input_failure']['control'] is None
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_iter139_finite_pulse.py:187:36
+    |
+185 |     reports={'reference_b':dict(verdict='REPLAY_MATCHED'),'pulse_0_1':dict(status='validated',prefix='matched',outcomes=o)}
+186 |     assert summarize.summarize(reports)['verdict']=='FINITE_PULSE_GRID_INCOMPLETE'
+187 |     for arm in list(trace.ARMS)[2:]:reports[arm]=dict(status='validated',prefix='matched',outcomes=deepcopy(o))
+    |                                    ^
+188 |     assert summarize.summarize(reports)['status']=='supported'
+189 |     for arm in list(trace.ARMS)[2:]:reports[arm]['outcomes']['useful_recovery']=False
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_iter139_finite_pulse.py:189:36
+    |
+187 |     for arm in list(trace.ARMS)[2:]:reports[arm]=dict(status='validated',prefix='matched',outcomes=deepcopy(o))
+188 |     assert summarize.summarize(reports)['status']=='supported'
+189 |     for arm in list(trace.ARMS)[2:]:reports[arm]['outcomes']['useful_recovery']=False
+    |                                    ^
+190 |     assert summarize.summarize(reports)['status']=='null'
+191 |     reports['pulse_4_2']['outcomes']['censored']=True
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_iter139_finite_pulse.py:197:35
+    |
+195 | @pytest.mark.parametrize('free,remaining,exists',[(99,1300,False),(101,1229,False),(101,1300,True)])
+196 | def test_resource_gate(free,remaining,exists):
+197 |     with pytest.raises(ValueError):run_episode.check_budget(free,remaining,exists)
+    |                                   ^
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_iter139_finite_pulse.py:207:35
+    |
+205 |     run_episode.check_predecessor(report,'reference_b',tmp_path)
+206 |     bad=deepcopy(report);bad['verdict']='NO_RECOVERABILITY_TARGET'
+207 |     with pytest.raises(ValueError):run_episode.check_predecessor(bad,'reference_b',tmp_path)
+    |                                   ^
+208 |     (p/'iter139_trace.jsonl').write_bytes(b'changed')
+209 |     with pytest.raises(ValueError):run_episode.check_predecessor(report,'reference_b',tmp_path)
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_iter139_finite_pulse.py:209:35
+    |
+207 |     with pytest.raises(ValueError):run_episode.check_predecessor(bad,'reference_b',tmp_path)
+208 |     (p/'iter139_trace.jsonl').write_bytes(b'changed')
+209 |     with pytest.raises(ValueError):run_episode.check_predecessor(report,'reference_b',tmp_path)
+    |                                   ^
+    |
+
+Found 29 errors.
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).
