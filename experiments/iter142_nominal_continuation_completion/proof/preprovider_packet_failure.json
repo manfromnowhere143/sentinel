@@ -1,0 +1,8 @@
+{
+  "status": "corrected",
+  "phase": "before provider access",
+  "failure": "Extracted-source repository-identity test used the extracted folder without .git instead of the explicitly supplied canonical Git root.",
+  "test_result": "62 passed, 1 failed",
+  "source_impact": "Test path selection only; coordinator/runner/scientific source unchanged.",
+  "guard_observation": "A premature start-script invocation stopped at missing source_commit.txt before any provider command. Source binding is written only after packet tests pass."
+}

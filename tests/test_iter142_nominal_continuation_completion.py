@@ -114,7 +114,9 @@ def test_bad_branch_rejected_before_start(tmp_path):
 
 
 def test_actual_candidate_ref_and_known_bad():
-    repo = Path(__file__).resolve().parents[1]
+    import os
+
+    repo = Path(os.environ.get("SENTINEL_TEST_REPOSITORY", Path(__file__).resolve().parents[1]))
     source = (
         subprocess.check_output(["git", "rev-parse", "refs/heads/" + c.BRANCH], cwd=repo)
         .decode()
