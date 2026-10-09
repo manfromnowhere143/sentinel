@@ -1,0 +1,27 @@
+import datetime,json,pathlib,subprocess,time
+ROOT=pathlib.Path('/Users/danielwahnich/workspace/sentinel')
+PROOF=ROOT/'experiments/iter139_finite_pulse_recoverability/proof'
+EXT=pathlib.Path('/Users/danielwahnich/sentinel-bootstrap-evidence/iter139-finite-pulse-20261009')
+PROOF.mkdir(exist_ok=True);EXT.mkdir(exist_ok=True)
+BASE=['--project','sunlit-unison-487018-b0','--zone','us-west1-a']
+def run(name,argv,stdin=None,timeout=600):
+ start=time.time()
+ try:
+  result=subprocess.run(argv,input=stdin,capture_output=True,timeout=timeout)
+ except subprocess.TimeoutExpired as exc:
+  result=subprocess.CompletedProcess(argv,124,exc.stdout or b'',(exc.stderr or b'')+b'\nCLIENT_TIMEOUT\n')
+ (PROOF/(name+'.stdout')).write_bytes(result.stdout); (PROOF/(name+'.stderr')).write_bytes(result.stderr)
+ record=dict(argv=argv,started_utc=datetime.datetime.fromtimestamp(start,datetime.timezone.utc).isoformat(),elapsed_seconds=time.time()-start,returncode=result.returncode)
+ for folder in (PROOF,EXT): (folder/(name+'.json')).write_text(json.dumps(record,indent=2)+'\n')
+ print(name,record['returncode'],result.stdout.decode()[-4000:],result.stderr.decode()[-1500:],flush=True)
+ return result
+
+def ssh(name,script,timeout=600):
+ import sys
+ sys.path.insert(0,str(ROOT))
+ from experiments.iter139_finite_pulse_recoverability.provider_gate import require_ready
+ operation=json.loads((PROOF/'ready_operation.json').read_text())
+ instance=json.loads((PROOF/'ready_instance.json').read_text())
+ require_ready(operation,instance)
+ (PROOF/(name+'.py.txt')).write_text(script)
+ return run(name,['gcloud','compute','ssh','sentinel-gpu',*BASE,'--tunnel-through-iap','--command','sudo -n python3 -'],script.encode(),timeout)

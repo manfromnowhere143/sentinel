@@ -1,0 +1,6 @@
+{
+  "source_commit": "887bac942e24b8189459210b591ab42538745314",
+  "cwd": "/Users/danielwahnich/sentinel-bootstrap-evidence/iter139-finite-pulse-20261009/committed_source",
+  "scope": "37 Iter139 tests from extracted committed files, isolated pytest config; ambient local Python/NumPy; no full/frozen/hosted CI",
+  "initial_failure": "ancestor home pyproject injected unavailable pytest-cov arguments before collection; retained"
+}

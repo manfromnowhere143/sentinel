@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "python3",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "/Users/danielwahnich/sentinel-bootstrap-evidence/iter139-finite-pulse-20261009/committed_source/tests/test_iter139_finite_pulse.py"
+  ],
+  "started_utc": "2026-10-09T14:02:36.231786+00:00",
+  "elapsed_seconds": 0.1938190460205078,
+  "returncode": 4
+}

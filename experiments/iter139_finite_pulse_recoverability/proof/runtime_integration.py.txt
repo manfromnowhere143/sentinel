@@ -1,0 +1,35 @@
+import json,os,subprocess
+from pathlib import Path
+root=Path('/datasets/nuscenes-full/hugsim/iter139_control_20261009');python='/opt/sentinel-stack/HUGSIM/.pixi/envs/default/bin/python'
+env={**os.environ,'PYTHONPATH':str(root)+':'+str(root/'packet')+':/opt/sentinel-stack/HUGSIM','OPENBLAS_NUM_THREADS':'1','OMP_NUM_THREADS':'1','MKL_NUM_THREADS':'1'}
+code="""from hugsim_env.envs.hug_sim import HUGSimEnv
+import closed_loop
+import ast,hashlib,json,os,pickle
+from pathlib import Path
+from types import SimpleNamespace
+import numpy as np
+from experiments.iter139_finite_pulse_recoverability import instrument,live_trace,trace,verify_live,independent
+from experiments.iter138_numerical_live_replay.verify_live import read_contract
+from experiments.iter137_controller_execution_contract.verify import Replay
+ROOT=Path('/datasets/nuscenes-full/hugsim/iter139_control_20261009/packet');OLD=ROOT/'experiments/iter136_hugsim_recoverability_canary'
+source=(ROOT/'tests/test_iter139_finite_pulse.py').read_text()
+nodes=[n for n in ast.parse(source).body if isinstance(n,ast.FunctionDef) and n.name in ('state','stub')]
+assert len(nodes)==2
+exec(compile(ast.Module(body=nodes,type_ignores=[]),'bound_stub','exec'),globals())
+class Bind:
+ def setenv(self,k,v):os.environ[k]=v
+ def setattr(self,module,k,v):
+  assert module is live_trace and k=='threadpool_info'
+  assert all(p['num_threads']==1 for p in module.threadpool_info())
+folder=ROOT.parent/'cpu_integration_fixture';folder.mkdir()
+a=stub(folder/'reference',Bind(),'reference_a',count=6)
+b=stub(folder/'pulse',Bind(),'pulse_0_1',count=6)
+replay=Replay();da,ca,sa=verify_live.validate_episode(folder/'reference',replay);db,cb,sb=verify_live.validate_episode(folder/'pulse',replay)
+assert verify_live.compare_prefix(da,db,ca,cb)=='matched'
+o=verify_live.outcomes(da,db)
+assert o['useful_recovery'] and o['resumption_observed'] and o['realized_override_frames']==4 and o['final_route_completion']==1.02
+secondary=independent.check(folder/'reference/iter139_trace.jsonl',folder/'pulse/iter139_trace.jsonl');assert secondary['outcomes']==o
+print(json.dumps(dict(status='passed',scope='bound host CPU generated-driver capture-to-actuation fixture; no simulator constructed',reference=sa,pulse=sb,outcomes=o),indent=2))
+"""
+r=subprocess.run([python,'-c',code],cwd='/opt/sentinel-stack/HUGSIM',env=env,capture_output=True,text=True,timeout=180)
+print(json.dumps(dict(returncode=r.returncode,stdout=r.stdout,stderr=r.stderr),indent=2));assert r.returncode==0

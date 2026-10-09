@@ -1,0 +1,4 @@
+{
+  "reason": "shell continued after failed capacity operation into two unsuccessful SSH attempts; abort outstanding connection before capacity recovery",
+  "processes": []
+}

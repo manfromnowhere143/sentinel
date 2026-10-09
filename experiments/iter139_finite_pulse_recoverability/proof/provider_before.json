@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "gcloud",
+    "compute",
+    "instances",
+    "describe",
+    "sentinel-gpu",
+    "--project",
+    "sunlit-unison-487018-b0",
+    "--zone",
+    "us-west1-a",
+    "--format=json(id,name,status,machineType,guestAccelerators,lastStartTimestamp,lastStopTimestamp,zone)"
+  ],
+  "started_utc": "2026-10-09T14:03:47.665488+00:00",
+  "elapsed_seconds": 3.096233367919922,
+  "returncode": 0
+}

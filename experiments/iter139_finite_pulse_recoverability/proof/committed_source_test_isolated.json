@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "python3",
+    "-m",
+    "pytest",
+    "-c",
+    "/dev/null",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "tests/test_iter139_finite_pulse.py"
+  ],
+  "started_utc": "2026-10-09T14:02:51.192493+00:00",
+  "elapsed_seconds": 29.369197845458984,
+  "returncode": 0
+}

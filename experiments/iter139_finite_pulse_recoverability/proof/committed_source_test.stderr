@@ -1,0 +1,5 @@
+ERROR: usage: python3.14 -m pytest [options] [file_or_dir] [file_or_dir] [...]
+python3.14 -m pytest: error: unrecognized arguments: --cov=src/octopus --cov-report=term-missing --cov-report=html --cov-fail-under=80
+  inifile: /Users/danielwahnich/pyproject.toml
+  rootdir: /Users/danielwahnich
+

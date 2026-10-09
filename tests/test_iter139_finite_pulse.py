@@ -379,3 +379,24 @@ def test_missing_or_failed_predecessor_is_not_admitted(tmp_path, monkeypatch):
         run_episode.predecessors("reference_b", tmp_path)
     with pytest.raises(ValueError, match="not validated"):
         run_episode.check_predecessor({"status": "failed"}, "reference_a", prior)
+
+
+@pytest.mark.parametrize("bad", ["pending", "stockout", "wrong_id", "stopped"])
+def test_provider_gate_rejects_failed_or_unready_start(bad):
+    from experiments.iter139_finite_pulse_recoverability.provider_gate import require_ready
+
+    zone = "https://www.googleapis.com/compute/v1/projects/sunlit-unison-487018-b0/zones/us-west1-a"
+    operation = dict(status="DONE", operationType="start", targetId="3834622546652649531", zone=zone)
+    instance = dict(id="3834622546652649531", status="RUNNING", zone=zone,
+                    machineType=zone + "/machineTypes/g2-standard-8")
+    require_ready(operation, instance)
+    if bad == "pending":
+        operation["status"] = "RUNNING"
+    elif bad == "stockout":
+        operation["error"] = {"errors": [{"code": "ZONE_RESOURCE_POOL_EXHAUSTED_WITH_DETAILS"}]}
+    elif bad == "wrong_id":
+        instance["id"] = "other"
+    else:
+        instance["status"] = "TERMINATED"
+    with pytest.raises(ValueError):
+        require_ready(operation, instance)

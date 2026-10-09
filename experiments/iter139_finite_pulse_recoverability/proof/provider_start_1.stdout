@@ -1,0 +1,17 @@
+[
+  {
+    "id": "5805915739829652094",
+    "insertTime": "2026-10-09T07:05:05.518-07:00",
+    "kind": "compute#operation",
+    "name": "operation-1791554705138-65d68d5cba4b0-3bf9be57-9fe737c6",
+    "operationType": "start",
+    "progress": 0,
+    "selfLink": "https://www.googleapis.com/compute/v1/projects/sunlit-unison-487018-b0/zones/us-west1-a/operations/operation-1791554705138-65d68d5cba4b0-3bf9be57-9fe737c6",
+    "startTime": "2026-10-09T07:05:05.548-07:00",
+    "status": "RUNNING",
+    "targetId": "3834622546652649531",
+    "targetLink": "https://www.googleapis.com/compute/v1/projects/sunlit-unison-487018-b0/zones/us-west1-a/instances/sentinel-gpu",
+    "user": "dev@alfred-ai.app",
+    "zone": "https://www.googleapis.com/compute/v1/projects/sunlit-unison-487018-b0/zones/us-west1-a"
+  }
+]
