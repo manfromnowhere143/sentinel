@@ -1,0 +1,203 @@
+E701 Multiple statements on one line (colon)
+  --> tests/test_iter138_live_replay.py:84:24
+   |
+82 |     d, c, _ = deepcopy(capture)
+83 |     row = c[1]
+84 |     if bad == 'missing': c.pop(1)
+   |                        ^
+85 |     elif bad == 'frame': row['frame'] = 1
+86 |     elif bad == 'time': row['time'] = .25
+   |
+
+E701 Multiple statements on one line (colon)
+  --> tests/test_iter138_live_replay.py:85:24
+   |
+83 |     row = c[1]
+84 |     if bad == 'missing': c.pop(1)
+85 |     elif bad == 'frame': row['frame'] = 1
+   |                        ^
+86 |     elif bad == 'time': row['time'] = .25
+87 |     elif bad == 'dtype': row['receipt']['numerical']['input']['plan']['dtype'] = '<f2'
+   |
+
+E701 Multiple statements on one line (colon)
+  --> tests/test_iter138_live_replay.py:86:23
+   |
+84 |     if bad == 'missing': c.pop(1)
+85 |     elif bad == 'frame': row['frame'] = 1
+86 |     elif bad == 'time': row['time'] = .25
+   |                       ^
+87 |     elif bad == 'dtype': row['receipt']['numerical']['input']['plan']['dtype'] = '<f2'
+88 |     elif bad == 'input': row['receipt']['numerical']['input']['plan']['values'][0][0] = 3.
+   |
+
+E701 Multiple statements on one line (colon)
+  --> tests/test_iter138_live_replay.py:87:24
+   |
+85 |     elif bad == 'frame': row['frame'] = 1
+86 |     elif bad == 'time': row['time'] = .25
+87 |     elif bad == 'dtype': row['receipt']['numerical']['input']['plan']['dtype'] = '<f2'
+   |                        ^
+88 |     elif bad == 'input': row['receipt']['numerical']['input']['plan']['values'][0][0] = 3.
+89 |     elif bad == 'state': row['receipt']['numerical']['input']['velocity'] = 2.
+   |
+
+E701 Multiple statements on one line (colon)
+  --> tests/test_iter138_live_replay.py:88:24
+   |
+86 |     elif bad == 'time': row['time'] = .25
+87 |     elif bad == 'dtype': row['receipt']['numerical']['input']['plan']['dtype'] = '<f2'
+88 |     elif bad == 'input': row['receipt']['numerical']['input']['plan']['values'][0][0] = 3.
+   |                        ^
+89 |     elif bad == 'state': row['receipt']['numerical']['input']['velocity'] = 2.
+90 |     elif bad == 'action': d[1]['control'][0] += 1.
+   |
+
+E701 Multiple statements on one line (colon)
+  --> tests/test_iter138_live_replay.py:89:24
+   |
+87 |     elif bad == 'dtype': row['receipt']['numerical']['input']['plan']['dtype'] = '<f2'
+88 |     elif bad == 'input': row['receipt']['numerical']['input']['plan']['values'][0][0] = 3.
+89 |     elif bad == 'state': row['receipt']['numerical']['input']['velocity'] = 2.
+   |                        ^
+90 |     elif bad == 'action': d[1]['control'][0] += 1.
+91 |     elif bad == 'mode': row['receipt']['mode'] = 'timed'
+   |
+
+E701 Multiple statements on one line (colon)
+  --> tests/test_iter138_live_replay.py:90:25
+   |
+88 |     elif bad == 'input': row['receipt']['numerical']['input']['plan']['values'][0][0] = 3.
+89 |     elif bad == 'state': row['receipt']['numerical']['input']['velocity'] = 2.
+90 |     elif bad == 'action': d[1]['control'][0] += 1.
+   |                         ^
+91 |     elif bad == 'mode': row['receipt']['mode'] = 'timed'
+92 |     elif bad == 'config': row['receipt']['configuration']['solver']['max_solve_time'] = .05
+   |
+
+E701 Multiple statements on one line (colon)
+  --> tests/test_iter138_live_replay.py:91:23
+   |
+89 |     elif bad == 'state': row['receipt']['numerical']['input']['velocity'] = 2.
+90 |     elif bad == 'action': d[1]['control'][0] += 1.
+91 |     elif bad == 'mode': row['receipt']['mode'] = 'timed'
+   |                       ^
+92 |     elif bad == 'config': row['receipt']['configuration']['solver']['max_solve_time'] = .05
+93 |     elif bad == 'reason': row['receipt']['numerical']['stop_reason'] = 'deadline'
+   |
+
+E701 Multiple statements on one line (colon)
+  --> tests/test_iter138_live_replay.py:92:25
+   |
+90 |     elif bad == 'action': d[1]['control'][0] += 1.
+91 |     elif bad == 'mode': row['receipt']['mode'] = 'timed'
+92 |     elif bad == 'config': row['receipt']['configuration']['solver']['max_solve_time'] = .05
+   |                         ^
+93 |     elif bad == 'reason': row['receipt']['numerical']['stop_reason'] = 'deadline'
+94 |     elif bad == 'source': c[0]['controller_sha256'] = '0'*64
+   |
+
+E701 Multiple statements on one line (colon)
+  --> tests/test_iter138_live_replay.py:93:25
+   |
+91 |     elif bad == 'mode': row['receipt']['mode'] = 'timed'
+92 |     elif bad == 'config': row['receipt']['configuration']['solver']['max_solve_time'] = .05
+93 |     elif bad == 'reason': row['receipt']['numerical']['stop_reason'] = 'deadline'
+   |                         ^
+94 |     elif bad == 'source': c[0]['controller_sha256'] = '0'*64
+95 |     elif bad == 'complete_time': row['complete_call_ns'] = 0
+   |
+
+E701 Multiple statements on one line (colon)
+  --> tests/test_iter138_live_replay.py:94:25
+   |
+92 |     elif bad == 'config': row['receipt']['configuration']['solver']['max_solve_time'] = .05
+93 |     elif bad == 'reason': row['receipt']['numerical']['stop_reason'] = 'deadline'
+94 |     elif bad == 'source': c[0]['controller_sha256'] = '0'*64
+   |                         ^
+95 |     elif bad == 'complete_time': row['complete_call_ns'] = 0
+96 |     elif bad == 'client_time': row.pop('client_roundtrip_ns')
+   |
+
+E701 Multiple statements on one line (colon)
+  --> tests/test_iter138_live_replay.py:95:32
+   |
+93 |     elif bad == 'reason': row['receipt']['numerical']['stop_reason'] = 'deadline'
+94 |     elif bad == 'source': c[0]['controller_sha256'] = '0'*64
+95 |     elif bad == 'complete_time': row['complete_call_ns'] = 0
+   |                                ^
+96 |     elif bad == 'client_time': row.pop('client_roundtrip_ns')
+97 |     elif bad == 'digest': row['receipt']['numerical_sha256'] = '0'*64
+   |
+
+E701 Multiple statements on one line (colon)
+  --> tests/test_iter138_live_replay.py:96:30
+   |
+94 |     elif bad == 'source': c[0]['controller_sha256'] = '0'*64
+95 |     elif bad == 'complete_time': row['complete_call_ns'] = 0
+96 |     elif bad == 'client_time': row.pop('client_roundtrip_ns')
+   |                              ^
+97 |     elif bad == 'digest': row['receipt']['numerical_sha256'] = '0'*64
+98 |     if bad == 'reason':
+   |
+
+E701 Multiple statements on one line (colon)
+  --> tests/test_iter138_live_replay.py:97:25
+   |
+95 |     elif bad == 'complete_time': row['complete_call_ns'] = 0
+96 |     elif bad == 'client_time': row.pop('client_roundtrip_ns')
+97 |     elif bad == 'digest': row['receipt']['numerical_sha256'] = '0'*64
+   |                         ^
+98 |     if bad == 'reason':
+99 |         row['receipt']['numerical_sha256'] = hashlib.sha256(legacy.canonical(row['receipt']['numerical'])).hexdigest()
+   |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_iter138_live_replay.py:131:35
+    |
+129 | @pytest.mark.parametrize('pools', [[], [dict(num_threads=2)]])
+130 | def test_loaded_threadpool_gate(pools):
+131 |     with pytest.raises(ValueError): live_trace.check_runtime(pools)
+    |                                   ^
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_iter138_live_replay.py:136:35
+    |
+134 | @pytest.mark.parametrize('free,remaining,exists', [(99, 2000, False), (110, 1229, False), (110, 2000, True)])
+135 | def test_execution_budget(free, remaining, exists):
+136 |     with pytest.raises(ValueError): run_episode.check_budget(free, remaining, exists)
+    |                                   ^
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_iter138_live_replay.py:140:35
+    |
+139 | def test_failed_predecessor_blocks_b(tmp_path):
+140 |     with pytest.raises(ValueError): run_episode.predecessors('reference_b', tmp_path)
+    |                                   ^
+141 |     a = tmp_path/'reference_a'; a.mkdir()
+142 |     (a/'episode.json').write_text('{"returncode":1}')
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_iter138_live_replay.py:143:35
+    |
+141 |     a = tmp_path/'reference_a'; a.mkdir()
+142 |     (a/'episode.json').write_text('{"returncode":1}')
+143 |     with pytest.raises(ValueError): run_episode.predecessors('reference_b', tmp_path)
+    |                                   ^
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_iter138_live_replay.py:152:39
+    |
+150 |     monkeypatch.setattr(run_episode.subprocess, 'run', lambda *a, **k: SimpleNamespace(returncode=0, stdout=json.dumps(dict(status=st…
+151 |     if status == 'failed':
+152 |         with pytest.raises(ValueError): run_episode.predecessors('reference_b', tmp_path)
+    |                                       ^
+153 |     else:
+154 |         run_episode.predecessors('reference_b', tmp_path)
+    |
+
+Found 19 errors.

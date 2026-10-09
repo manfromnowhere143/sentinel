@@ -1,0 +1,9 @@
+{
+  "argv": [
+    "python3",
+    "experiments/iter138_numerical_live_replay/audit137.py"
+  ],
+  "started_utc": "2026-10-09T13:24:03.404183+00:00",
+  "elapsed_seconds": 0.32243776321411133,
+  "returncode": 0
+}

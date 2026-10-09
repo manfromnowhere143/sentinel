@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "python3",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/test_iter138_live_replay.py::test_failed_control_retained_before_actuation"
+  ],
+  "started_utc": "2026-10-09T13:24:00.647492+00:00",
+  "elapsed_seconds": 0.477367639541626,
+  "returncode": 1
+}

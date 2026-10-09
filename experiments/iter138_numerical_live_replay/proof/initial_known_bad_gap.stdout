@@ -1,0 +1,83 @@
+.F                                                                       [100%]
+=================================== FAILURES ===================================
+_____________ test_failed_control_retained_before_actuation[plan1] _____________
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-67/test_failed_control_retained_b1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10868b5c0>
+plan = array([[nan, nan],
+       [nan, nan],
+       [nan, nan],
+       [nan, nan],
+       [nan, nan],
+       [nan, nan]])
+
+    @pytest.mark.parametrize('plan', [np.zeros((6, 2), dtype='float16'), np.full((6, 2), np.nan)])
+    def test_failed_control_retained_before_actuation(tmp_path, monkeypatch, plan):
+        with pytest.raises(ValueError, match='before actuation'):
+>           run_stub(tmp_path, monkeypatch, plan)
+
+tests/test_iter138_live_replay.py:117: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_iter138_live_replay.py:59: in run_stub
+    ns['create_gym_env']({}, str(tmp_path))
+/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-67/test_failed_control_retained_b1/driver.py:66: in create_gym_env
+    plan_traj = trace.choose(plan_traj)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter138_numerical_live_replay/live_trace.py:67: in choose
+    return super().choose(incoming)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter136_hugsim_recoverability_canary/replay_trace.py:318: in choose
+    self.pending["incoming_plan"] = plain(incoming)
+                                    ^^^^^^^^^^^^^^^
+experiments/iter136_hugsim_recoverability_canary/replay_trace.py:35: in plain
+    return [plain(v) for v in value]
+            ^^^^^^^^
+experiments/iter136_hugsim_recoverability_canary/replay_trace.py:35: in plain
+    return [plain(v) for v in value]
+            ^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = nan
+
+    def plain(value):
+        if hasattr(value, "tolist"):
+            value = value.tolist()
+        if type(value) is dict:
+            if any(type(k) is not str for k in value):
+                raise ValueError("non-string key")
+            return {k: plain(v) for k, v in value.items()}
+        if type(value) in (list, tuple):
+            return [plain(v) for v in value]
+        if type(value) in (int, float):
+            if not math.isfinite(value):
+>               raise ValueError("nonfinite number")
+E               ValueError: nonfinite number
+
+experiments/iter136_hugsim_recoverability_canary/replay_trace.py:38: ValueError
+
+During handling of the above exception, another exception occurred:
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-67/test_failed_control_retained_b1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10868b5c0>
+plan = array([[nan, nan],
+       [nan, nan],
+       [nan, nan],
+       [nan, nan],
+       [nan, nan],
+       [nan, nan]])
+
+    @pytest.mark.parametrize('plan', [np.zeros((6, 2), dtype='float16'), np.full((6, 2), np.nan)])
+    def test_failed_control_retained_before_actuation(tmp_path, monkeypatch, plan):
+>       with pytest.raises(ValueError, match='before actuation'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'before actuation'
+E         Actual message: 'nonfinite number'
+
+tests/test_iter138_live_replay.py:116: AssertionError
+----------------------------- Captured stdout call -----------------------------
+Ready for simulation
+ego pose [0.0, 0.0, 0.0]
+=========================== short test summary info ============================
+FAILED tests/test_iter138_live_replay.py::test_failed_control_retained_before_actuation[plan1]
+1 failed, 1 passed in 0.16s

@@ -1,0 +1,125 @@
+{
+  "all_reported_groups_match": true,
+  "audit_scope": "retrospective arithmetic and complete-record identity, not new solver execution",
+  "groups": {
+    "numerical/contended": {
+      "adapter_misses": 228,
+      "adapter_ms": {
+        "max": 254.544053,
+        "p50": 204.439674,
+        "p95": 242.43281,
+        "p99": 254.113162
+      },
+      "calls": 228,
+      "iterations": {
+        "max": 44,
+        "p50": 35,
+        "p95": 42,
+        "p99": 44
+      },
+      "solver_misses": 228,
+      "solver_ms": {
+        "max": 241.516699,
+        "p50": 191.831543,
+        "p95": 228.819478,
+        "p99": 239.627167
+      },
+      "stop_reasons": {
+        "converged": 228,
+        "deadline": 0,
+        "iteration_limit": 0
+      }
+    },
+    "numerical/idle": {
+      "adapter_misses": 99,
+      "adapter_ms": {
+        "max": 61.190034,
+        "p50": 49.083245,
+        "p95": 57.798952,
+        "p99": 61.014284
+      },
+      "calls": 228,
+      "iterations": {
+        "max": 44,
+        "p50": 35,
+        "p95": 42,
+        "p99": 44
+      },
+      "solver_misses": 38,
+      "solver_ms": {
+        "max": 57.092126,
+        "p50": 45.661756,
+        "p95": 54.025079,
+        "p99": 56.973248
+      },
+      "stop_reasons": {
+        "converged": 228,
+        "deadline": 0,
+        "iteration_limit": 0
+      }
+    },
+    "timed/contended": {
+      "adapter_misses": 228,
+      "adapter_ms": {
+        "max": 74.99896,
+        "p50": 70.742592,
+        "p95": 72.017388,
+        "p99": 74.235581
+      },
+      "calls": 228,
+      "iterations": {
+        "max": 12,
+        "p50": 11,
+        "p95": 12,
+        "p99": 12
+      },
+      "solver_misses": 228,
+      "solver_ms": {
+        "max": 73.394645,
+        "p50": 60.314603,
+        "p95": 70.401046,
+        "p99": 70.577359
+      },
+      "stop_reasons": {
+        "converged": 0,
+        "deadline": 228,
+        "iteration_limit": 0
+      }
+    },
+    "timed/idle": {
+      "adapter_misses": 86,
+      "adapter_ms": {
+        "max": 56.753873,
+        "p50": 48.522982,
+        "p95": 56.162245,
+        "p99": 56.52076
+      },
+      "calls": 228,
+      "iterations": {
+        "max": 41,
+        "p50": 35,
+        "p95": 41,
+        "p99": 41
+      },
+      "solver_misses": 38,
+      "solver_ms": {
+        "max": 53.018656,
+        "p50": 45.112595,
+        "p95": 52.288909,
+        "p99": 52.576793
+      },
+      "stop_reasons": {
+        "converged": 209,
+        "deadline": 19,
+        "iteration_limit": 0
+      }
+    }
+  },
+  "measured_calls": 912,
+  "numerical_identical_cases": 114,
+  "source_decisions": 57,
+  "status": "supported",
+  "timed_control_variable_cases": 114,
+  "timing_caveat": "50 ms is the configured solver loop budget and declared engineering threshold; no vehicle deadline is established. Adapter includes diagnostic construction; no actuation latency was measured.",
+  "typed_cases": 114
+}
