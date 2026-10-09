@@ -1,14 +1,19 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
-> **Active operator-directed candidate work, 2026-10-09:** Daniel authorized proceeding with
-> information and recoverability research. Iteration 136 is preregistered on the local branch
-> `research/iter136-recoverability`, descending from accepted F17. Its source probe and 37 local
-> tests passed; live replay is blocked because Google Cloud rejected the existing L4 instance
-> start for unavailable capacity. Read
-> [Iteration 136 status](experiments/iter136_hugsim_recoverability_canary/STATUS.md) for the exact
-> resumption point. Iteration 135 is deferred without changing its protocol. `MISSION_STATE.json`
-> and generated `HANDOFF.md` retain the accepted Iteration-135 publication-chain snapshot;
-> they do not supersede this newer direct operator work order. No new driving result exists.
+> **Active operator-directed candidate result, 2026-10-09:** Iteration 136 closed as
+> `REPLAY_DIVERGED`. Two fresh-process references collided at 7.00 and 7.25 seconds;
+> both comparison implementations reject replay. Zero intervention branches ran.
+> Equal initial observations, state and plan produced different control commands. A
+> registered CPU fixture reproduced the commands at iLQR iterations 38 and 27, consistent
+> with the controller's 50 ms wall-clock cutoff; live iteration counts were not logged.
+> Read [Iteration 136 result](experiments/iter136_hugsim_recoverability_canary/RESULT.md)
+> and [status](experiments/iter136_hugsim_recoverability_canary/STATUS.md). The original L4
+> host is stopped; 55 focused tests pass. Next: a preregistered successor with an explicit
+> controller execution contract, numerical replay checks and separate deadline evaluation.
+> Do not retry the closed canary or relax its tolerance. The local research branch descends
+> from accepted F17; master remains F17. Iteration 135 remains deferred and unchanged.
+> `MISSION_STATE.json` and generated `HANDOFF.md` retain the older accepted publication
+> snapshot and do not supersede this operator-directed candidate research record.
 
 **Purpose.** This campaign is operator-portable by design. Everything an incoming operator
 needs is in this repository plus the two live surfaces below. Read this file top to bottom

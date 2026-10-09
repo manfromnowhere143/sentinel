@@ -2,12 +2,19 @@
 
 ## Active operator work on 2026-10-09
 
-Daniel authorized proceeding with the information and recoverability direction. The separately
-preregistered [Iteration 136 canary](../experiments/iter136_hugsim_recoverability_canary/HYPOTHESIS.md)
-now takes priority for candidate research work. Its [status and exact resumption point](../experiments/iter136_hugsim_recoverability_canary/STATUS.md)
-record the completed source probe, tested instrumentation and provider capacity block. No live
-episode ran. Iteration 135 is deferred with its frozen protocol intact. The canonical publication
-snapshot described below remains retained history and does not override this operator direction.
+The [Iteration 136 canary](../experiments/iter136_hugsim_recoverability_canary/RESULT.md)
+closed as `REPLAY_DIVERGED`: two references completed, zero interventions ran, and the GPU host
+is stopped. Equal initial observations, state and plan led to different control outputs. The
+registered CPU diagnostic reproduced those outputs at optimization iterations 38 and 27;
+the source uses a 50 ms wall-clock solve budget. Actual live iteration counts were not retained.
+
+The next research prerequisite is an explicit controller execution contract: numerical replay,
+solver iteration/stop-reason/dtype logging, and separate real-time deadline evaluation. A new
+live reference pair requires a preregistered successor; this failed pair and its stopping rule
+remain intact. See the [result and limits](../experiments/iter136_hugsim_recoverability_canary/RESULT.md)
+and [current status](../experiments/iter136_hugsim_recoverability_canary/STATUS.md).
+Iteration 135 is deferred without modifying its protocol. Canonical master remains F17;
+the publication snapshot below is retained history.
 
 ## Canonical current decision: iteration 134 is complete
 
