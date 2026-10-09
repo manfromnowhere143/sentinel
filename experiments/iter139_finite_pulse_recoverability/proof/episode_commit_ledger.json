@@ -1,0 +1,10 @@
+[
+  {
+    "arm": "reference_a",
+    "raw_commit": "f86b94ca85bbf30ba0aa5419efec98401a3ecf02",
+    "supervisor": {
+      "returncode": 0,
+      "elapsed_seconds": 133.44712138175964
+    }
+  }
+]

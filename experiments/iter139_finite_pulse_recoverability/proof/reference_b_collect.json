@@ -1,0 +1,19 @@
+{
+  "argv": [
+    "gcloud",
+    "compute",
+    "scp",
+    "--recurse",
+    "sentinel-gpu:/datasets/nuscenes-full/hugsim/iter139_control_20261009/exports/reference_b",
+    "/Users/danielwahnich/workspace/sentinel/experiments/iter139_finite_pulse_recoverability/proof/live/reference_b",
+    "--project",
+    "sunlit-unison-487018-b0",
+    "--zone",
+    "us-west1-a",
+    "--tunnel-through-iap",
+    "--quiet"
+  ],
+  "started_utc": "2026-10-09T14:17:01.309887+00:00",
+  "elapsed_seconds": 20.58069610595703,
+  "returncode": 0
+}

@@ -1,0 +1,379 @@
+{
+  "remote_only": {
+    "scene-0411_hard_00/ground.ply": {
+      "bytes": 8313533,
+      "sha256": "2c2aae5f795bc5b6836286c18114c19a576b913c065d0c90b5aa2603f0880b18"
+    },
+    "scene-0411_hard_00/scene.ply": {
+      "bytes": 36280566,
+      "sha256": "ba57cb9c79333e2ae31681e3c1e7e8f854da081105f9035df5aebfcc8c57dad5"
+    },
+    "scene-0411_hard_00/uniad/0000_bev.jpg": {
+      "bytes": 151431,
+      "sha256": "466f7efe284ef6837e40fad10ae103bba4fbdc2e9dd36922c775885919328ccd"
+    },
+    "scene-0411_hard_00/uniad/0000_cam.jpg": {
+      "bytes": 652271,
+      "sha256": "46c9f7eb773872fbdc7e7d544037dfa855dd292af0ae09f0d7457583fc576acb"
+    },
+    "scene-0411_hard_00/uniad/0000_combine.jpg": {
+      "bytes": 1444086,
+      "sha256": "c98219df4d7519339b48258b57932c7a22e9c9d05f0b88c3ffa8c20ac5eb4416"
+    },
+    "scene-0411_hard_00/uniad/0001_bev.jpg": {
+      "bytes": 203990,
+      "sha256": "69c827efe7a5d0de5dd892aa1973bb8692e4156ef542b10fc33581e79c65ab71"
+    },
+    "scene-0411_hard_00/uniad/0001_cam.jpg": {
+      "bytes": 656165,
+      "sha256": "a937793378737b7dea1f0e7812f78af91e210dc3d53a583f98388c618a0ec5cf"
+    },
+    "scene-0411_hard_00/uniad/0001_combine.jpg": {
+      "bytes": 1574936,
+      "sha256": "4836900d13ab5ad247e21c79dfdb2b3682789c68cef2e550f2648720403478f2"
+    },
+    "scene-0411_hard_00/uniad/0002_bev.jpg": {
+      "bytes": 173238,
+      "sha256": "a0a6d663592892fea1f1359fdb9d3c0cca6c4c2482629309cdd514a67b9b5c9f"
+    },
+    "scene-0411_hard_00/uniad/0002_cam.jpg": {
+      "bytes": 651249,
+      "sha256": "2d4715e1f50e9d46c6c1bef3f30d3bf8b8f63bfba2ced6d9cc62defdce3536d0"
+    },
+    "scene-0411_hard_00/uniad/0002_combine.jpg": {
+      "bytes": 1495523,
+      "sha256": "377ee76522917109810a001897b66c0bdc54b353304ecb294e5a5fda8be9aa90"
+    },
+    "scene-0411_hard_00/uniad/0003_bev.jpg": {
+      "bytes": 169003,
+      "sha256": "d4e10d0f9bffcc3fadf18458486623f9eb315642fcddd92b93231371b1ce1bef"
+    },
+    "scene-0411_hard_00/uniad/0003_cam.jpg": {
+      "bytes": 650118,
+      "sha256": "967f43dd9f2834f3b34ea6ab189303193d8e677715063325878031b326367590"
+    },
+    "scene-0411_hard_00/uniad/0003_combine.jpg": {
+      "bytes": 1485947,
+      "sha256": "d4f80325c0e0e412fe604a2084947e7058ba73a0515d60f4b2fd6416bcb29a23"
+    },
+    "scene-0411_hard_00/uniad/0004_bev.jpg": {
+      "bytes": 167622,
+      "sha256": "e07c4878b89e5c111376c2a8080982ca4e963230d02346f6be74709db41a7789"
+    },
+    "scene-0411_hard_00/uniad/0004_cam.jpg": {
+      "bytes": 662789,
+      "sha256": "a288b456c5e51bebb2caff8f29d8bfcd7a64a12de95f871959186bafaf83dce7"
+    },
+    "scene-0411_hard_00/uniad/0004_combine.jpg": {
+      "bytes": 1506113,
+      "sha256": "a99ba399b3710f57a30cffd332255e6a15b0d8b8f0d396fe6f70226beeee5687"
+    },
+    "scene-0411_hard_00/uniad/0005_bev.jpg": {
+      "bytes": 170908,
+      "sha256": "4c2a6c4876e5d6771952ce2120f4e4137c3bc22423b203f73c29558fd1ac2f3f"
+    },
+    "scene-0411_hard_00/uniad/0005_cam.jpg": {
+      "bytes": 668995,
+      "sha256": "d4f6fb20f78fadb2054b4858cacbcaa0ac88f34612e836169650a2c6e51432d3"
+    },
+    "scene-0411_hard_00/uniad/0005_combine.jpg": {
+      "bytes": 1526333,
+      "sha256": "6e300668d9da5519509bed7cee0befbbc10270e40dcfc84a688b0f0a7499bc05"
+    },
+    "scene-0411_hard_00/uniad/0006_bev.jpg": {
+      "bytes": 164968,
+      "sha256": "3b661281ff95bef8e699fb74caf4351ab2b11d78a8befcca3e53d9fff457f41b"
+    },
+    "scene-0411_hard_00/uniad/0006_cam.jpg": {
+      "bytes": 679888,
+      "sha256": "1b5e5fdfac064af6d13bde12c59e60f9d5994e998371a9a6218d246e4af959d2"
+    },
+    "scene-0411_hard_00/uniad/0006_combine.jpg": {
+      "bytes": 1534624,
+      "sha256": "708ac5707d19037a4dbe8d169502c9da5c4b34b6d7880793cf3cdd691f54bbdf"
+    },
+    "scene-0411_hard_00/uniad/0007_bev.jpg": {
+      "bytes": 151328,
+      "sha256": "c37734b68b6f314d21dba797fdeac188c00db171a636afb24efef568ae73fda5"
+    },
+    "scene-0411_hard_00/uniad/0007_cam.jpg": {
+      "bytes": 681693,
+      "sha256": "141f192f2971c3761c0a0dc410bf846aa9d7588aa55ff0288e633ee52cac39a8"
+    },
+    "scene-0411_hard_00/uniad/0007_combine.jpg": {
+      "bytes": 1505917,
+      "sha256": "4e5cd2b0bc2fcb05899779cf1a01fe8d8dc31abd6f881a512108c0ad23651a94"
+    },
+    "scene-0411_hard_00/uniad/0008_bev.jpg": {
+      "bytes": 140073,
+      "sha256": "3e163c9c95b35d52893b68260765422eaf022547ad69d84b07f46f21349338f8"
+    },
+    "scene-0411_hard_00/uniad/0008_cam.jpg": {
+      "bytes": 679549,
+      "sha256": "20f4d4a4ffb760e5ab0c26400c8d12e5f9cf01bda1ca34c211de6178a8a5c5b4"
+    },
+    "scene-0411_hard_00/uniad/0008_combine.jpg": {
+      "bytes": 1478449,
+      "sha256": "4425a69577b469e30ba0f18f13e4d1cf2e2a5d0ed918dfeae0caa51ab7a2e632"
+    },
+    "scene-0411_hard_00/uniad/0009_bev.jpg": {
+      "bytes": 140392,
+      "sha256": "81d8e56827336d3ebeab0d9aead20335d594debe29d3a81d80b1f48113daf4de"
+    },
+    "scene-0411_hard_00/uniad/0009_cam.jpg": {
+      "bytes": 680998,
+      "sha256": "7f958c97a5c0541cec1e080f724c91c0b71c69fbc9f85bbbeb3f724afed2d6d7"
+    },
+    "scene-0411_hard_00/uniad/0009_combine.jpg": {
+      "bytes": 1481235,
+      "sha256": "93a821a0e51132860485607f1151aa0212d2df20ab1b3cb8301ed444b8523451"
+    },
+    "scene-0411_hard_00/uniad/0010_bev.jpg": {
+      "bytes": 134292,
+      "sha256": "24c372f9cf8fe9a04e4ba22cb248ced73fa32b3e9c958bec1ecb480b12ba9b01"
+    },
+    "scene-0411_hard_00/uniad/0010_cam.jpg": {
+      "bytes": 668660,
+      "sha256": "8c2a73a0090c6e0d9e506cc88d815c6d42119a993835d88f8c9195381c1f1679"
+    },
+    "scene-0411_hard_00/uniad/0010_combine.jpg": {
+      "bytes": 1445298,
+      "sha256": "ad43115b0a9ba9eb36f8324a407ab9dfe1a00ab2334b4b689aea8647c4ee4c05"
+    },
+    "scene-0411_hard_00/uniad/0011_bev.jpg": {
+      "bytes": 132886,
+      "sha256": "ecfa093f94543f32c3ab1e2361b24aad0853cbe559b694d487404cde7ae99b63"
+    },
+    "scene-0411_hard_00/uniad/0011_cam.jpg": {
+      "bytes": 663108,
+      "sha256": "3d8f901808b8b2740ec292b64357c34a633359b6b0d3b37205bd2a0d2f403afb"
+    },
+    "scene-0411_hard_00/uniad/0011_combine.jpg": {
+      "bytes": 1432504,
+      "sha256": "688814055656930f951ee7cd4d6afe158a99ff9ed967821a99841a008fc3ffa8"
+    },
+    "scene-0411_hard_00/uniad/0012_bev.jpg": {
+      "bytes": 125324,
+      "sha256": "171d1db680ff80d1c12d6fa42e8880dd97fbb8c9bb76ecb0cb385d25fab5e592"
+    },
+    "scene-0411_hard_00/uniad/0012_cam.jpg": {
+      "bytes": 657194,
+      "sha256": "c4666ae7b022f63074a2216d8889658be812e856fa52f94af1f796834c9b32a3"
+    },
+    "scene-0411_hard_00/uniad/0012_combine.jpg": {
+      "bytes": 1402577,
+      "sha256": "cf2ee39aa80b1015371d6800ab31f880d453585b52c2307d7d899f99ef66b5cc"
+    },
+    "scene-0411_hard_00/uniad/0013_bev.jpg": {
+      "bytes": 127986,
+      "sha256": "ff2ec1f0e8c2f427151078441a84a77ea06c32f18377f44a38c92146d4f549b5"
+    },
+    "scene-0411_hard_00/uniad/0013_cam.jpg": {
+      "bytes": 664124,
+      "sha256": "97f5e013b702a64ee4232e9287019480063006aa98ed607c777a943b764c9ba9"
+    },
+    "scene-0411_hard_00/uniad/0013_combine.jpg": {
+      "bytes": 1419704,
+      "sha256": "183fd801e7f61c55a5716b6bcfbd348c9f6fe2b56bb4db17eb943242165c7a48"
+    },
+    "scene-0411_hard_00/uniad/0014_bev.jpg": {
+      "bytes": 133578,
+      "sha256": "4be2b869950627391f54055e09fa548806e1ec2113be4a65b3beb2680ede213a"
+    },
+    "scene-0411_hard_00/uniad/0014_cam.jpg": {
+      "bytes": 658886,
+      "sha256": "46ea48abd488d7d3dab82d11f0fd29c9d3631dbea55533234d0d70b7f2430102"
+    },
+    "scene-0411_hard_00/uniad/0014_combine.jpg": {
+      "bytes": 1424638,
+      "sha256": "6c76e5f0a4aaab0f998d5222ee5f3aabe6a4ae79e671d9d8891768fcae954900"
+    },
+    "scene-0411_hard_00/uniad/0015_bev.jpg": {
+      "bytes": 134039,
+      "sha256": "9a82aa0b052f2c28cf6447aa42ae7efc253f5e0df9a360dd860a77c427e8f170"
+    },
+    "scene-0411_hard_00/uniad/0015_cam.jpg": {
+      "bytes": 651990,
+      "sha256": "f296c4cec92e9827eb6ddd63ce3573cf2f4ebdc1d0d189d86e3f127e59e1423a"
+    },
+    "scene-0411_hard_00/uniad/0015_combine.jpg": {
+      "bytes": 1413496,
+      "sha256": "17e59145a41a81cd3f0c0f9f9b0214d5c2a87d92fe0ff0afdbd5a1a62f2732fd"
+    },
+    "scene-0411_hard_00/uniad/0016_bev.jpg": {
+      "bytes": 127881,
+      "sha256": "1c1efbdbd53f040566edc61f1fc2193271703813182ee27b74cd3393e772b616"
+    },
+    "scene-0411_hard_00/uniad/0016_cam.jpg": {
+      "bytes": 653338,
+      "sha256": "91d2533ac1f3e34e4099f511f38d8277397269f19fbc9a12fef1c13af51f4c42"
+    },
+    "scene-0411_hard_00/uniad/0016_combine.jpg": {
+      "bytes": 1400848,
+      "sha256": "d0fdb03ac5ee3eebc6148d0fabfdd2992e00793e8494fab4f0eb7b69f6b1a67a"
+    },
+    "scene-0411_hard_00/uniad/0017_bev.jpg": {
+      "bytes": 123093,
+      "sha256": "4a6dc86958801cbbac64c31371fd725be5e1b2822ecdd61fc3e530af8dcbc35e"
+    },
+    "scene-0411_hard_00/uniad/0017_cam.jpg": {
+      "bytes": 647874,
+      "sha256": "0d902805b029baf89e14abc06512ca0a0c4d12c7b45c000f3217a8edbd0307f6"
+    },
+    "scene-0411_hard_00/uniad/0017_combine.jpg": {
+      "bytes": 1379824,
+      "sha256": "1f8f92a863eee430037582f6e47eb91b83b81b4de0b976f7b071041ed761657a"
+    },
+    "scene-0411_hard_00/uniad/0018_bev.jpg": {
+      "bytes": 126448,
+      "sha256": "c75380e2e532f8ba8dc41b4e476e44cc4a79946005144bc83c9d189d9479da1c"
+    },
+    "scene-0411_hard_00/uniad/0018_cam.jpg": {
+      "bytes": 656948,
+      "sha256": "c60ae5bd5ef95a4092c9cdd1142bf60d16432823ffce1d1436d4bfbba7bb3f61"
+    },
+    "scene-0411_hard_00/uniad/0018_combine.jpg": {
+      "bytes": 1400829,
+      "sha256": "2a9f42b7436a8a8ef85152f4200d1669ef0c266d7eb6ae2e08ff592c707e696a"
+    },
+    "scene-0411_hard_00/uniad/0019_bev.jpg": {
+      "bytes": 127392,
+      "sha256": "d182323354c74633bc1dbd8f3fec5216c7c7e9d42c5cfb57a071075e14365058"
+    },
+    "scene-0411_hard_00/uniad/0019_cam.jpg": {
+      "bytes": 658206,
+      "sha256": "fe828176f9ac848c850390964843fe047e928aa9f74e817d3c64af170e069870"
+    },
+    "scene-0411_hard_00/uniad/0019_combine.jpg": {
+      "bytes": 1405668,
+      "sha256": "ebe6d2423c2aa354d3526e176924e1d297b5c67483e4f665e8703061e5edd646"
+    },
+    "scene-0411_hard_00/uniad/0020_bev.jpg": {
+      "bytes": 129623,
+      "sha256": "cf749fed5a083e2d935b386f05e22fff54039c78673b4c7acb72517ca4e201b5"
+    },
+    "scene-0411_hard_00/uniad/0020_cam.jpg": {
+      "bytes": 662197,
+      "sha256": "f9a6924f6b5733c3e0be23173a84b3c02e8421ce3008503d59084f0fce82c417"
+    },
+    "scene-0411_hard_00/uniad/0020_combine.jpg": {
+      "bytes": 1417521,
+      "sha256": "9f681c19350cfaecba4d1131d27a72931934cbb225d2cc3bee099ce3db81b2ff"
+    },
+    "scene-0411_hard_00/uniad/0021_bev.jpg": {
+      "bytes": 139624,
+      "sha256": "3cd222209b9c037e9f2054d3fd39788b425bc046c7a0c99105d28dc3a7e74933"
+    },
+    "scene-0411_hard_00/uniad/0021_cam.jpg": {
+      "bytes": 666164,
+      "sha256": "7af462ad9785fbfc78975c622779064d8c74b3de560db9ba0633c3c9363935d1"
+    },
+    "scene-0411_hard_00/uniad/0021_combine.jpg": {
+      "bytes": 1448259,
+      "sha256": "d50c73f7c3e2beb29264b9f0a12a3da1554352833ec990b453cd565663b51a8b"
+    },
+    "scene-0411_hard_00/uniad/0022_bev.jpg": {
+      "bytes": 131498,
+      "sha256": "43984955594bb69a3c9ed66676a75a0341a9a1c3e2b9ba15f330e245c155a35a"
+    },
+    "scene-0411_hard_00/uniad/0022_cam.jpg": {
+      "bytes": 671720,
+      "sha256": "ec536551f0c664d55f63ea56cd1bf7f0bd2869f39c071d2364521b7601501478"
+    },
+    "scene-0411_hard_00/uniad/0022_combine.jpg": {
+      "bytes": 1436995,
+      "sha256": "6e27d5b95efc7cd4b21da894ef76196d7674dc2c714e6df5ac016f9c410d86a9"
+    },
+    "scene-0411_hard_00/uniad/0023_bev.jpg": {
+      "bytes": 132044,
+      "sha256": "12ce6fb6755ff0c4e495fc28c2f3902333d37f799d57164e9e0a28937d37d618"
+    },
+    "scene-0411_hard_00/uniad/0023_cam.jpg": {
+      "bytes": 679072,
+      "sha256": "6fcad16faaec1dd85d0694931a7ae9c4fd5a2f39ace3baf5b9554450c493f513"
+    },
+    "scene-0411_hard_00/uniad/0023_combine.jpg": {
+      "bytes": 1453880,
+      "sha256": "61ee3b94ddad215b4149f98825a29e22f434c5f53e8b66b13f0954da3a2094b8"
+    },
+    "scene-0411_hard_00/uniad/0024_bev.jpg": {
+      "bytes": 133480,
+      "sha256": "5f4251d07ddf460869583beea87bc4de6952eadd444e6df83749597f86b6b6c0"
+    },
+    "scene-0411_hard_00/uniad/0024_cam.jpg": {
+      "bytes": 690676,
+      "sha256": "b571efba8591f89500a29104872682a503f3cbb8168d5bd219d350a16a9479a8"
+    },
+    "scene-0411_hard_00/uniad/0024_combine.jpg": {
+      "bytes": 1478617,
+      "sha256": "232d3a620ab6582380852fa52af41cb156358af0479c65efab2ed9fd041dfedd"
+    },
+    "scene-0411_hard_00/uniad/0025_bev.jpg": {
+      "bytes": 125208,
+      "sha256": "cb20326b68407baf95b7e627aedb381cb0854d8d7e4d93bf9069281156249f38"
+    },
+    "scene-0411_hard_00/uniad/0025_cam.jpg": {
+      "bytes": 691525,
+      "sha256": "5c3872a373b311ff8b9e0afe5dbbe1b2873561b0fd246021f4e77e0d9eeef5e7"
+    },
+    "scene-0411_hard_00/uniad/0025_combine.jpg": {
+      "bytes": 1460593,
+      "sha256": "d90a255f75867d52ccbc531962468ba74a101901caed90352444a346b3a0647c"
+    },
+    "scene-0411_hard_00/uniad/video.mp4": {
+      "bytes": 13007122,
+      "sha256": "e57887d1e7168d2ed92af8c8df675ffebd9fcf91b3d77964a90550bfde5081b1"
+    },
+    "scene-0411_hard_00/video.mp4": {
+      "bytes": 3071138,
+      "sha256": "a11d19f3f4b3d735d31257b274e7a3b241141a07de830533c3b7b951207e4aa6"
+    }
+  },
+  "remote_root": "/datasets/nuscenes-full/hugsim/outputs/iter139-20261009/reference_b",
+  "retained": {
+    "driver.log": {
+      "bytes": 10412,
+      "sha256": "b3fad4d8f472c9393ab3ab70a4b3fb68313c412d34f504141ff4a9984acc9416"
+    },
+    "environment_import.json": {
+      "bytes": 54,
+      "sha256": "6379c17d798191f995d43b0950ea7787779fe29c9af7354b25de37a514ff207d"
+    },
+    "episode.json": {
+      "bytes": 15812,
+      "sha256": "d62ea2403f565e7b1079671015a771fa46b04f668498296c102d2fa98c512141"
+    },
+    "scene-0411_hard_00/controller139.jsonl": {
+      "bytes": 429512,
+      "sha256": "35e3923ea26e8030f6e9ca16009149dc3c3930b86f69a2cbad4355a43bfe2eb0"
+    },
+    "scene-0411_hard_00/data.pkl": {
+      "bytes": 14220,
+      "sha256": "1a8da3c108bd44c9bca00c30f4b66de670faa360c7ff84c0437b7c6e634d63b8"
+    },
+    "scene-0411_hard_00/eval.json": {
+      "bytes": 4953,
+      "sha256": "73c1980365ba76962e585b16ef0cc271c351bd21abb97cf12c5b842b6983020a"
+    },
+    "scene-0411_hard_00/infos.pkl": {
+      "bytes": 13557,
+      "sha256": "aca82be147e376c46b5106f33869c30ec0cd9356a6c566ec87c7d3ee522f6681"
+    },
+    "scene-0411_hard_00/iter139_trace.jsonl": {
+      "bytes": 45231,
+      "sha256": "df49e87e5eb0f1ba23ea787f5925a1fb1d2ea812b8c2a48bf4462628f3bfb7aa"
+    },
+    "scene-0411_hard_00/output.txt": {
+      "bytes": 12773,
+      "sha256": "2510172496fadf6d10083c3d698b2679c8f90f4aa7b4eb08aa337cab6fef94f0"
+    },
+    "scene-0411_hard_00/sentinel_iter48_decisions.jsonl": {
+      "bytes": 35421,
+      "sha256": "79c2360b43221a11379dfe554b495865305e3586e96681d14537e31ef1ff0e39"
+    },
+    "started.json": {
+      "bytes": 884,
+      "sha256": "f667501818d2b36f798546b59df076718bccb42baea4afd2cb04a1c528275faa"
+    }
+  }
+}

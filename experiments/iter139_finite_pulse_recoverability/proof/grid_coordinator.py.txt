@@ -1,0 +1,39 @@
+import datetime,json,pathlib,subprocess,sys,time
+sys.path.insert(0,'/tmp')
+from i139_ops import PROOF,EXT,ROOT,ssh
+arms=['reference_a','reference_b','pulse_0_1','pulse_0_2','pulse_2_1','pulse_2_2','pulse_4_1','pulse_4_2']
+with (EXT/'grid_started.json').open('x') as f:json.dump(dict(utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),arms=arms),f)
+ledger=[]
+def command(argv):
+ r=subprocess.run(argv,cwd=ROOT,timeout=600);assert r.returncode==0,argv
+for arm in arms:
+ command(['python3','/tmp/i139_state.py',arm])
+ command(['python3','/tmp/i139_launch.py',arm])
+ index=0
+ while True:
+  time.sleep(25);index+=1
+  script='''import json
+from pathlib import Path
+control=Path('/datasets/nuscenes-full/hugsim/iter139_control_20261009');arm=ARM
+p=control/(arm+'_supervisor.json')
+if p.exists():print(json.dumps(dict(completed=True,supervisor=json.loads(p.read_text()))))
+else:
+ trace=Path('/datasets/nuscenes-full/hugsim/outputs/iter139-20261009')/arm/'scene-0411_hard_00/iter139_trace.jsonl'
+ count=len(trace.read_bytes().splitlines())-1 if trace.exists() else 0
+ print(json.dumps(dict(completed=False,trace_records=count)))
+'''.replace('ARM',repr(arm))
+  r=ssh(arm+'_progress_'+str(index),script,timeout=50);assert r.returncode==0
+  progress=json.loads(r.stdout)
+  if progress['completed']:break
+ command(['python3','/tmp/i139_collect.py',arm])
+ command(['python3','/tmp/sentinel_i139_commit.py','iter139: retain '+arm+' raw evidence before interpretation','CONTINUITY.md=/tmp/i139_CONTINUITY.md'])
+ raw_commit=subprocess.check_output(['git','rev-parse','research/iter139-finite-pulse'],cwd=ROOT).decode().strip()
+ ledger.append(dict(arm=arm,raw_commit=raw_commit,supervisor=progress['supervisor']))
+ (PROOF/'episode_commit_ledger.json').write_text(json.dumps(ledger,indent=2)+'\n')
+ assert progress['supervisor']['returncode']==0,'episode failed; later arms unobserved'
+ command(['python3','/tmp/i139_verify.py',arm])
+ report=json.loads((PROOF/'analysis'/(arm+'.json')).read_text())
+ if arm=='reference_b':assert report['verdict']=='REPLAY_MATCHED','reference gate did not admit interventions'
+ if arm.startswith('pulse'):assert report['prefix']=='matched','unobserved or invalid prefix'
+ print('VALIDATED_ARM',arm,json.dumps(report.get('outcomes',report.get('candidate',report.get('reference')))),flush=True)
+print('GRID_COMPLETE',flush=True)

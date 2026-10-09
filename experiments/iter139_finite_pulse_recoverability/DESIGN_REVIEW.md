@@ -17,6 +17,10 @@ probability that the executed episode avoided collision. Iter139 takes actual co
 from `env.step` for its endpoint and preserves the evaluator output as a separate artifact.
 The retained source is [hug_sim.py](../iter136_hugsim_recoverability_canary/proof/source/HUGSIM/sim/hugsim_env/envs/hug_sim.py.txt)
 and [the original driver](../iter136_hugsim_recoverability_canary/proof/source/HUGSIM/closed_loop.py.txt).
+The [bound evaluator source](proof/score_calculator.py.txt), retained during execution without
+changing it, confirms the per-plan collision checks and frame averaging. Its reported `rc` is
+the clipped maximum over frames; Iter139 instead retains raw progress at the specified time
+and at termination. Those quantities need not coincide.
 
 The experiment keeps three different quantities visible: assigned override frames, frames
 where the override changes the incoming plan, and the released monitor's brake requests. A
