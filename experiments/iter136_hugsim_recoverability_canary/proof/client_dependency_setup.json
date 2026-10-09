@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "gcloud",
+    "compute",
+    "ssh",
+    "sentinel-gpu",
+    "--project",
+    "sunlit-unison-487018-b0",
+    "--zone",
+    "us-west1-a",
+    "--tunnel-through-iap",
+    "--command",
+    "bash -s"
+  ],
+  "returncode": 0,
+  "at_utc": "2026-10-09T10:26:49.806894+00:00",
+  "scope": "dependency preparation only; no simulator or client episode"
+}

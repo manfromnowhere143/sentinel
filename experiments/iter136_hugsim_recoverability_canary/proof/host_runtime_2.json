@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "gcloud",
+    "compute",
+    "ssh",
+    "sentinel-gpu",
+    "--project",
+    "sunlit-unison-487018-b0",
+    "--zone",
+    "us-west1-a",
+    "--tunnel-through-iap",
+    "--command",
+    "sudo -n python3 -"
+  ],
+  "at_utc": "2026-10-09T10:25:02.114045+00:00",
+  "script_sha256": "066dc8c6c97ffe70cbfde92a51b09be537f1ea046460717398e7a9d4c54006d4",
+  "returncode": 0,
+  "stdout": "{\n  \"files\": {\n    \"/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0411/scene.pth\": {\n      \"sha256\": \"8b7ad798965ce7506d317d0b6bfccc6b8e7ffa240a81d6ee4545a4babdb636c8\",\n      \"bytes\": 674574520\n    },\n    \"/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0411/dynamic_d50e28eab7b144b797d29f8f957922e0.pth\": {\n      \"sha256\": \"fec496bb47b466247f95b1f55be2f662968eb361a32972efddf931e58ca4def8\",\n      \"bytes\": 373459\n    },\n    \"/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0411/ground_param.pkl\": {\n      \"sha256\": \"7309200a6e639fcd2453899d208b52a6288c87d7f3cccc43f00a5cf2fcca5bc5\",\n      \"bytes\": 23569\n    },\n    \"/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0411/meta_data.json\": {\n      \"sha256\": \"3ac6a0532fd018d91683a44e0b6f52ff70ac48b715f04b66908730ac39797c3a\",\n      \"bytes\": 1590394\n    },\n    \"/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_41_48/gs.pth\": {\n      \"sha256\": \"2b0b9b0a67c175abd5ca38add087f3319feb0174d9375a58962e155e1345503e\",\n      \"bytes\": 205801229\n    },\n    \"/opt/sentinel-stack/HUGSIM/pixi.lock\": {\n      \"sha256\": \"81aa9f6beacd0a26703f56da8ab1f325a6141049b35e5474bd1386ede89781cd\",\n      \"bytes\": 330241\n    },\n    \"/opt/sentinel-stack/HUGSIM/sim/hugsim_env/envs/hug_sim.py\": {\n      \"sha256\": \"c42ef368852754bdec76c81254b72dcda45eccef058dce015ea549c0b17c7d12\",\n      \"bytes\": 13604\n    }\n  },\n  \"commands\": [\n    {\n      \"argv\": [\n        \"/opt/sentinel-stack/HUGSIM/.pixi/envs/default/bin/python\",\n        \"-c\",\n        \"import sys,torch,gsplat,gymnasium,open3d,omegaconf,numpy; import closed_loop; print(sys.version); print(torch.__version__,torch.version.cuda,numpy.__version__,gsplat.__version__,torch.cuda.is_available())\"\n      ],\n      \"returncode\": 0,\n      \"stdout\": \"[iter45-shim] cuSOLVER-backed linalg ops routed via CPU (torch 2.4.1+cu124 )\\n3.11.10 | packaged by conda-forge | (main, Oct 16 2024, 01:27:36) [GCC 13.3.0]\\n2.4.1+cu124 12.4 1.26.4 1.2.0 True\\n\",\n      \"stderr\": \"\"\n    },\n    {\n      \"argv\": [\n        \"docker\",\n        \"run\",\n        \"--rm\",\n        \"--name\",\n        \"sentinel-i136-import-check\",\n        \"--entrypoint\",\n        \"python\",\n        \"uniad:latest\",\n        \"-c\",\n        \"import sys,torch;print(sys.version); print(torch.__version__,torch.version.cuda); import importlib.util; print({k: bool(importlib.util.find_spec(k)) for k in [\\\"open3d\\\",\\\"mediapy\\\"]})\"\n      ],\n      \"returncode\": 0,\n      \"stdout\": \"3.8.10 (default, Mar 18 2025, 20:04:55) \\n[GCC 9.4.0]\\n1.9.1+cu111 11.1\\n{'open3d': False, 'mediapy': False}\\n\",\n      \"stderr\": \"\"\n    },\n    {\n      \"argv\": [\n        \"ls\",\n        \"-la\",\n        \"/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_41_48/postprocess/shadow.pth\"\n      ],\n      \"returncode\": 0,\n      \"stdout\": \"lrwxrwxrwx 1 root root 2 Jul 12 00:25 /datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_41_48/postprocess/shadow.pth -> ..\\n\",\n      \"stderr\": \"\"\n    }\n  ]\n}\n",
+  "stderr": "WARNING: \n\nTo increase the performance of the tunnel, consider installing NumPy. For instructions,\nplease see https://cloud.google.com/iap/docs/using-tcp-forwarding#increasing_the_tcp_upload_bandwidth\n\n"
+}

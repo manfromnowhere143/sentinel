@@ -1,0 +1,412 @@
+WARNING: 
+
+To increase the performance of the tunnel, consider installing NumPy. For instructions,
+please see https://cloud.google.com/iap/docs/using-tcp-forwarding#increasing_the_tcp_upload_bandwidth
+
+Collecting open3d
+  Downloading open3d-0.13.0-cp38-cp38-manylinux2014_x86_64.whl (300.7 MB)
+Collecting mediapy
+  Downloading mediapy-1.2.7-py3-none-any.whl (28 kB)
+Collecting jupyterlab==3.*,>=3.0.0
+  Downloading jupyterlab-3.6.8-py3-none-any.whl (8.9 MB)
+Collecting ipywidgets>=7.6.0
+  Downloading ipywidgets-8.1.9-py3-none-any.whl (140 kB)
+Requirement already satisfied: pygments>=2.7.4 in /usr/local/lib/python3.8/dist-packages (from open3d) (2.19.2)
+Requirement already satisfied: tqdm in /usr/local/lib/python3.8/dist-packages (from open3d) (4.68.3)
+Requirement already satisfied: addict in /usr/local/lib/python3.8/dist-packages (from open3d) (2.4.0)
+Collecting jupyter-packaging~=0.10
+  Downloading jupyter_packaging-0.12.3-py3-none-any.whl (15 kB)
+Requirement already satisfied: numpy>=1.18.0 in /usr/local/lib/python3.8/dist-packages (from open3d) (1.22.4)
+Requirement already satisfied: scikit-learn>=0.21 in /usr/local/lib/python3.8/dist-packages (from open3d) (1.3.2)
+Requirement already satisfied: pyyaml>=5.4.1 in /usr/local/lib/python3.8/dist-packages (from open3d) (6.0.3)
+Requirement already satisfied: matplotlib>=3 in /usr/local/lib/python3.8/dist-packages (from open3d) (3.6.0)
+Requirement already satisfied: setuptools>=40.8.0 in /usr/local/lib/python3.8/dist-packages (from open3d) (59.5.0)
+Requirement already satisfied: pillow>=8.2.0 in /usr/local/lib/python3.8/dist-packages (from open3d) (10.4.0)
+Collecting wheel>=0.36.0
+  Downloading wheel-0.45.1-py3-none-any.whl (72 kB)
+Requirement already satisfied: pandas>=1.0 in /usr/local/lib/python3.8/dist-packages (from open3d) (1.2.2)
+Requirement already satisfied: ipython in /usr/local/lib/python3.8/dist-packages (from mediapy) (8.12.3)
+Collecting jupyter-server<3,>=1.16.0
+  Downloading jupyter_server-2.14.2-py3-none-any.whl (383 kB)
+Collecting jupyterlab-server~=2.19
+  Downloading jupyterlab_server-2.28.0-py3-none-any.whl (59 kB)
+Collecting jupyter-ydoc~=0.2.4
+  Downloading jupyter_ydoc-0.2.5-py3-none-any.whl (6.2 kB)
+Collecting nbclassic
+  Downloading nbclassic-1.2.0-py3-none-any.whl (10.0 MB)
+Collecting jinja2>=2.1
+  Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+Collecting notebook<7
+  Downloading notebook-6.5.7-py3-none-any.whl (529 kB)
+Requirement already satisfied: tomli; python_version < "3.11" in /usr/local/lib/python3.8/dist-packages (from jupyterlab==3.*,>=3.0.0->open3d) (2.4.1)
+Collecting jupyter-server-ydoc~=0.8.0
+  Downloading jupyter_server_ydoc-0.8.0-py3-none-any.whl (11 kB)
+Requirement already satisfied: packaging in /usr/local/lib/python3.8/dist-packages (from jupyterlab==3.*,>=3.0.0->open3d) (26.2)
+Collecting tornado>=6.1.0
+  Downloading tornado-6.4.2-cp38-abi3-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (437 kB)
+Collecting jupyter-core
+  Downloading jupyter_core-5.8.1-py3-none-any.whl (28 kB)
+Collecting jupyterlab_widgets~=3.0.17
+  Downloading jupyterlab_widgets-3.0.17-py3-none-any.whl (217 kB)
+Requirement already satisfied: traitlets>=4.3.1 in /usr/local/lib/python3.8/dist-packages (from ipywidgets>=7.6.0->open3d) (5.14.3)
+Collecting comm>=0.1.3
+  Downloading comm-0.2.3-py3-none-any.whl (7.3 kB)
+Collecting widgetsnbextension~=4.0.16
+  Downloading widgetsnbextension-4.0.16-py3-none-any.whl (2.2 MB)
+Collecting tomlkit
+  Downloading tomlkit-0.13.3-py3-none-any.whl (38 kB)
+Collecting deprecation
+  Downloading deprecation-2.1.0-py2.py3-none-any.whl (11 kB)
+Requirement already satisfied: threadpoolctl>=2.0.0 in /usr/local/lib/python3.8/dist-packages (from scikit-learn>=0.21->open3d) (3.5.0)
+Requirement already satisfied: scipy>=1.5.0 in /usr/local/lib/python3.8/dist-packages (from scikit-learn>=0.21->open3d) (1.7.3)
+Requirement already satisfied: joblib>=1.1.1 in /usr/local/lib/python3.8/dist-packages (from scikit-learn>=0.21->open3d) (1.4.2)
+Requirement already satisfied: kiwisolver>=1.0.1 in /usr/local/lib/python3.8/dist-packages (from matplotlib>=3->open3d) (1.4.7)
+Requirement already satisfied: python-dateutil>=2.7 in /usr/local/lib/python3.8/dist-packages (from matplotlib>=3->open3d) (2.9.0.post0)
+Requirement already satisfied: cycler>=0.10 in /usr/local/lib/python3.8/dist-packages (from matplotlib>=3->open3d) (0.12.1)
+Requirement already satisfied: fonttools>=4.22.0 in /usr/local/lib/python3.8/dist-packages (from matplotlib>=3->open3d) (4.57.0)
+Requirement already satisfied: pyparsing>=2.2.1 in /usr/local/lib/python3.8/dist-packages (from matplotlib>=3->open3d) (3.1.4)
+Requirement already satisfied: contourpy>=1.0.1 in /usr/local/lib/python3.8/dist-packages (from matplotlib>=3->open3d) (1.1.1)
+Requirement already satisfied: pytz>=2017.3 in /usr/local/lib/python3.8/dist-packages (from pandas>=1.0->open3d) (2026.2)
+Requirement already satisfied: prompt-toolkit!=3.0.37,<3.1.0,>=3.0.30 in /usr/local/lib/python3.8/dist-packages (from ipython->mediapy) (3.0.52)
+Requirement already satisfied: matplotlib-inline in /usr/local/lib/python3.8/dist-packages (from ipython->mediapy) (0.1.7)
+Requirement already satisfied: decorator in /usr/local/lib/python3.8/dist-packages (from ipython->mediapy) (5.3.1)
+Requirement already satisfied: backcall in /usr/local/lib/python3.8/dist-packages (from ipython->mediapy) (0.2.0)
+Requirement already satisfied: jedi>=0.16 in /usr/local/lib/python3.8/dist-packages (from ipython->mediapy) (0.19.2)
+Requirement already satisfied: pexpect>4.3; sys_platform != "win32" in /usr/local/lib/python3.8/dist-packages (from ipython->mediapy) (4.9.0)
+Requirement already satisfied: stack-data in /usr/local/lib/python3.8/dist-packages (from ipython->mediapy) (0.6.3)
+Requirement already satisfied: pickleshare in /usr/local/lib/python3.8/dist-packages (from ipython->mediapy) (0.7.5)
+Requirement already satisfied: typing-extensions; python_version < "3.10" in /usr/local/lib/python3.8/dist-packages (from ipython->mediapy) (4.13.2)
+Collecting nbconvert>=6.4.4
+  Downloading nbconvert-7.16.6-py3-none-any.whl (258 kB)
+Collecting prometheus-client>=0.9
+  Downloading prometheus_client-0.21.1-py3-none-any.whl (54 kB)
+Collecting jupyter-client>=7.4.4
+  Downloading jupyter_client-8.6.3-py3-none-any.whl (106 kB)
+Collecting nbformat>=5.3.0
+  Downloading nbformat-5.10.4-py3-none-any.whl (78 kB)
+Requirement already satisfied: anyio>=3.1.0 in /usr/local/lib/python3.8/dist-packages (from jupyter-server<3,>=1.16.0->jupyterlab==3.*,>=3.0.0->open3d) (4.5.2)
+Collecting overrides>=5.0
+  Downloading overrides-7.7.0-py3-none-any.whl (17 kB)
+Collecting pyzmq>=24
+  Downloading pyzmq-27.1.0-cp38-cp38-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (864 kB)
+Collecting send2trash>=1.8.2
+  Downloading send2trash-2.1.0-py3-none-any.whl (17 kB)
+Collecting argon2-cffi>=21.1
+  Downloading argon2_cffi-25.1.0-py3-none-any.whl (14 kB)
+Collecting terminado>=0.8.3
+  Downloading terminado-0.18.1-py3-none-any.whl (14 kB)
+Collecting websocket-client>=1.7
+  Downloading websocket_client-1.8.0-py3-none-any.whl (58 kB)
+Collecting jupyter-server-terminals>=0.4.4
+  Downloading jupyter_server_terminals-0.5.4-py3-none-any.whl (13 kB)
+Collecting jupyter-events>=0.9.0
+  Downloading jupyter_events-0.10.0-py3-none-any.whl (18 kB)
+Requirement already satisfied: requests>=2.31 in /usr/local/lib/python3.8/dist-packages (from jupyterlab-server~=2.19->jupyterlab==3.*,>=3.0.0->open3d) (2.32.4)
+Requirement already satisfied: importlib-metadata>=4.8.3; python_version < "3.10" in /usr/local/lib/python3.8/dist-packages (from jupyterlab-server~=2.19->jupyterlab==3.*,>=3.0.0->open3d) (8.5.0)
+Collecting jsonschema>=4.18.0
+  Downloading jsonschema-4.23.0-py3-none-any.whl (88 kB)
+Collecting json5>=0.9.0
+  Downloading json5-0.16.0-py3-none-any.whl (37 kB)
+Collecting babel>=2.10
+  Downloading babel-2.18.0-py3-none-any.whl (10.2 MB)
+Collecting y-py<0.7.0,>=0.6.0
+  Downloading y_py-0.6.2-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.7 MB)
+Collecting ipykernel
+  Downloading ipykernel-6.29.5-py3-none-any.whl (117 kB)
+Collecting nest-asyncio>=1.5
+  Downloading nest_asyncio-1.6.0-py3-none-any.whl (5.2 kB)
+Collecting ipython-genutils
+  Downloading ipython_genutils-0.2.0-py2.py3-none-any.whl (26 kB)
+Collecting notebook-shim>=0.2.3
+  Downloading notebook_shim-0.2.4-py3-none-any.whl (13 kB)
+Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.8/dist-packages (from jinja2>=2.1->jupyterlab==3.*,>=3.0.0->open3d) (2.1.5)
+Collecting jupyter-server-fileid<1,>=0.6.0
+  Downloading jupyter_server_fileid-0.9.3-py3-none-any.whl (16 kB)
+Collecting ypy-websocket<0.9.0,>=0.8.2
+  Downloading ypy_websocket-0.8.4-py3-none-any.whl (10 kB)
+Requirement already satisfied: platformdirs>=2.5 in /usr/local/lib/python3.8/dist-packages (from jupyter-core->jupyterlab==3.*,>=3.0.0->open3d) (4.3.6)
+Requirement already satisfied: six>=1.5 in /usr/local/lib/python3.8/dist-packages (from python-dateutil>=2.7->matplotlib>=3->open3d) (1.17.0)
+Requirement already satisfied: wcwidth in /usr/local/lib/python3.8/dist-packages (from prompt-toolkit!=3.0.37,<3.1.0,>=3.0.30->ipython->mediapy) (0.8.2)
+Requirement already satisfied: parso<0.9.0,>=0.8.4 in /usr/local/lib/python3.8/dist-packages (from jedi>=0.16->ipython->mediapy) (0.8.7)
+Requirement already satisfied: ptyprocess>=0.5 in /usr/local/lib/python3.8/dist-packages (from pexpect>4.3; sys_platform != "win32"->ipython->mediapy) (0.7.0)
+Requirement already satisfied: executing>=1.2.0 in /usr/local/lib/python3.8/dist-packages (from stack-data->ipython->mediapy) (2.2.1)
+Requirement already satisfied: asttokens>=2.1.0 in /usr/local/lib/python3.8/dist-packages (from stack-data->ipython->mediapy) (3.0.1)
+Requirement already satisfied: pure-eval in /usr/local/lib/python3.8/dist-packages (from stack-data->ipython->mediapy) (0.2.3)
+Collecting mistune<4,>=2.0.3
+  Downloading mistune-3.3.4-py3-none-any.whl (66 kB)
+Collecting bleach[css]!=5.0.0
+  Downloading bleach-6.1.0-py3-none-any.whl (162 kB)
+Collecting jupyterlab-pygments
+  Downloading jupyterlab_pygments-0.3.0-py3-none-any.whl (15 kB)
+Collecting beautifulsoup4
+  Downloading beautifulsoup4-4.15.0-py3-none-any.whl (109 kB)
+Collecting nbclient>=0.5.0
+  Downloading nbclient-0.10.1-py3-none-any.whl (25 kB)
+Collecting pandocfilters>=1.4.1
+  Downloading pandocfilters-1.5.1-py2.py3-none-any.whl (8.7 kB)
+Collecting defusedxml
+  Downloading defusedxml-0.7.1-py2.py3-none-any.whl (25 kB)
+Collecting fastjsonschema>=2.15
+  Downloading fastjsonschema-2.21.2-py3-none-any.whl (24 kB)
+Requirement already satisfied: exceptiongroup>=1.0.2; python_version < "3.11" in /usr/local/lib/python3.8/dist-packages (from anyio>=3.1.0->jupyter-server<3,>=1.16.0->jupyterlab==3.*,>=3.0.0->open3d) (1.3.1)
+Requirement already satisfied: sniffio>=1.1 in /usr/local/lib/python3.8/dist-packages (from anyio>=3.1.0->jupyter-server<3,>=1.16.0->jupyterlab==3.*,>=3.0.0->open3d) (1.3.1)
+Requirement already satisfied: idna>=2.8 in /usr/local/lib/python3.8/dist-packages (from anyio>=3.1.0->jupyter-server<3,>=1.16.0->jupyterlab==3.*,>=3.0.0->open3d) (3.15)
+Collecting argon2-cffi-bindings
+  Downloading argon2_cffi_bindings-21.2.0-cp36-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (86 kB)
+Collecting python-json-logger>=2.0.4
+  Downloading python_json_logger-4.0.0-py3-none-any.whl (15 kB)
+Collecting referencing
+  Downloading referencing-0.35.1-py3-none-any.whl (26 kB)
+Collecting rfc3339-validator
+  Downloading rfc3339_validator-0.1.4-py2.py3-none-any.whl (3.5 kB)
+Collecting rfc3986-validator>=0.1.1
+  Downloading rfc3986_validator-0.1.1-py2.py3-none-any.whl (4.2 kB)
+Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.8/dist-packages (from requests>=2.31->jupyterlab-server~=2.19->jupyterlab==3.*,>=3.0.0->open3d) (2026.6.17)
+Requirement already satisfied: charset_normalizer<4,>=2 in /usr/local/lib/python3.8/dist-packages (from requests>=2.31->jupyterlab-server~=2.19->jupyterlab==3.*,>=3.0.0->open3d) (3.4.7)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/local/lib/python3.8/dist-packages (from requests>=2.31->jupyterlab-server~=2.19->jupyterlab==3.*,>=3.0.0->open3d) (2.2.3)
+Requirement already satisfied: zipp>=3.20 in /usr/local/lib/python3.8/dist-packages (from importlib-metadata>=4.8.3; python_version < "3.10"->jupyterlab-server~=2.19->jupyterlab==3.*,>=3.0.0->open3d) (3.20.2)
+Requirement already satisfied: attrs>=22.2.0 in /usr/local/lib/python3.8/dist-packages (from jsonschema>=4.18.0->jupyterlab-server~=2.19->jupyterlab==3.*,>=3.0.0->open3d) (25.3.0)
+Collecting importlib-resources>=1.4.0; python_version < "3.9"
+  Downloading importlib_resources-6.4.5-py3-none-any.whl (36 kB)
+Collecting pkgutil-resolve-name>=1.3.10; python_version < "3.9"
+  Downloading pkgutil_resolve_name-1.3.10-py3-none-any.whl (4.7 kB)
+Collecting jsonschema-specifications>=2023.03.6
+  Downloading jsonschema_specifications-2023.12.1-py3-none-any.whl (18 kB)
+Collecting rpds-py>=0.7.1
+  Downloading rpds_py-0.20.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (360 kB)
+Collecting psutil
+  Downloading psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl (155 kB)
+Collecting debugpy>=1.6.5
+  Downloading debugpy-1.8.21-py2.py3-none-any.whl (5.4 MB)
+Collecting aiofiles<23,>=22.1.0
+  Downloading aiofiles-22.1.0-py3-none-any.whl (14 kB)
+Collecting aiosqlite<1,>=0.17.0
+  Downloading aiosqlite-0.20.0-py3-none-any.whl (15 kB)
+Collecting webencodings
+  Downloading webencodings-0.5.1-py2.py3-none-any.whl (11 kB)
+Collecting tinycss2<1.3,>=1.1.0; extra == "css"
+  Downloading tinycss2-1.2.1-py3-none-any.whl (21 kB)
+Collecting soupsieve>=1.6.1
+  Downloading soupsieve-2.7-py3-none-any.whl (36 kB)
+Requirement already satisfied: cffi>=1.0.1 in /usr/local/lib/python3.8/dist-packages (from argon2-cffi-bindings->argon2-cffi>=21.1->jupyter-server<3,>=1.16.0->jupyterlab==3.*,>=3.0.0->open3d) (1.17.1)
+Requirement already satisfied: pycparser in /usr/local/lib/python3.8/dist-packages (from cffi>=1.0.1->argon2-cffi-bindings->argon2-cffi>=21.1->jupyter-server<3,>=1.16.0->jupyterlab==3.*,>=3.0.0->open3d) (2.23)
+Installing collected packages: mistune, webencodings, tinycss2, bleach, jupyter-core, jupyterlab-pygments, importlib-resources, pkgutil-resolve-name, rpds-py, referencing, jsonschema-specifications, jsonschema, fastjsonschema, nbformat, jinja2, soupsieve, beautifulsoup4, pyzmq, tornado, jupyter-client, nbclient, pandocfilters, defusedxml, nbconvert, prometheus-client, overrides, send2trash, argon2-cffi-bindings, argon2-cffi, terminado, websocket-client, jupyter-server-terminals, python-json-logger, rfc3339-validator, rfc3986-validator, jupyter-events, jupyter-server, json5, babel, jupyterlab-server, y-py, jupyter-ydoc, comm, nest-asyncio, psutil, debugpy, ipykernel, ipython-genutils, notebook-shim, nbclassic, notebook, jupyter-server-fileid, aiofiles, aiosqlite, ypy-websocket, jupyter-server-ydoc, jupyterlab, jupyterlab-widgets, widgetsnbextension, ipywidgets, tomlkit, wheel, deprecation, jupyter-packaging, open3d, mediapy
+ERROR: mmdet3d 0.17.1 has requirement networkx<2.3,>=2.2, but you'll have networkx 2.5 which is incompatible.
+ERROR: mmdet3d 0.17.1 has requirement numpy<1.20.0, but you'll have numpy 1.22.4 which is incompatible.
+ERROR: notebook 6.5.7 has requirement jupyter-client<8,>=5.3.4, but you'll have jupyter-client 8.6.3 which is incompatible.
+ERROR: jupyter-packaging 0.12.3 has requirement setuptools>=60.2.0, but you'll have setuptools 59.5.0 which is incompatible.
+  Attempting uninstall: wheel
+    Found existing installation: wheel 0.34.2
+    Not uninstalling wheel at /usr/lib/python3/dist-packages, outside environment /usr
+    Can't uninstall 'wheel'. No files were found to uninstall.
+Successfully installed aiofiles-22.1.0 aiosqlite-0.20.0 argon2-cffi-25.1.0 argon2-cffi-bindings-21.2.0 babel-2.18.0 beautifulsoup4-4.15.0 bleach-6.1.0 comm-0.2.3 debugpy-1.8.21 defusedxml-0.7.1 deprecation-2.1.0 fastjsonschema-2.21.2 importlib-resources-6.4.5 ipykernel-6.29.5 ipython-genutils-0.2.0 ipywidgets-8.1.9 jinja2-3.1.6 json5-0.16.0 jsonschema-4.23.0 jsonschema-specifications-2023.12.1 jupyter-client-8.6.3 jupyter-core-5.8.1 jupyter-events-0.10.0 jupyter-packaging-0.12.3 jupyter-server-2.14.2 jupyter-server-fileid-0.9.3 jupyter-server-terminals-0.5.4 jupyter-server-ydoc-0.8.0 jupyter-ydoc-0.2.5 jupyterlab-3.6.8 jupyterlab-pygments-0.3.0 jupyterlab-server-2.28.0 jupyterlab-widgets-3.0.17 mediapy-1.2.7 mistune-3.3.4 nbclassic-1.2.0 nbclient-0.10.1 nbconvert-7.16.6 nbformat-5.10.4 nest-asyncio-1.6.0 notebook-6.5.7 notebook-shim-0.2.4 open3d-0.13.0 overrides-7.7.0 pandocfilters-1.5.1 pkgutil-resolve-name-1.3.10 prometheus-client-0.21.1 psutil-7.2.2 python-json-logger-4.0.0 pyzmq-27.1.0 referencing-0.35.1 rfc3339-validator-0.1.4 rfc3986-validator-0.1.1 rpds-py-0.20.1 send2trash-2.1.0 soupsieve-2.7 terminado-0.18.1 tinycss2-1.2.1 tomlkit-0.13.3 tornado-6.4.2 webencodings-0.5.1 websocket-client-1.8.0 wheel-0.45.1 widgetsnbextension-4.0.16 y-py-0.6.2 ypy-websocket-0.8.4
+absl-py==2.3.1
+addict==2.4.0
+aiofiles==22.1.0
+aiohappyeyeballs==2.4.4
+aiohttp==3.10.11
+aiosignal==1.3.1
+aiosqlite==0.20.0
+annotated-doc==0.0.4
+annotated-types==0.7.0
+anyio==4.5.2
+argon2-cffi==25.1.0
+argon2-cffi-bindings==21.2.0
+asttokens==3.0.1
+async-timeout==5.0.1
+attrs==25.3.0
+babel==2.18.0
+backcall==0.2.0
+beautifulsoup4==4.15.0
+black==24.8.0
+bleach==6.1.0
+cachetools==5.5.2
+casadi==3.6.7
+certifi==2026.6.17
+cffi==1.17.1
+charset-normalizer==3.4.7
+click==8.1.8
+comm==0.2.3
+contourpy==1.1.1
+cryptography==47.0.0
+cycler==0.12.1
+debugpy==1.8.21
+decorator==5.3.1
+defusedxml==0.7.1
+deprecation==2.1.0
+descartes==1.1.0
+einops==0.8.1
+exceptiongroup==1.3.1
+executing==2.2.1
+fastapi==0.124.4
+fastjsonschema==2.21.2
+fire==0.7.1
+flake8==7.1.2
+fonttools==4.57.0
+frozenlist==1.5.0
+fsspec==2025.3.0
+future==1.0.0
+google-api-core==2.29.0
+google-auth==2.50.0
+google-auth-oauthlib==1.0.0
+google-cloud-bigquery==3.41.0
+google-cloud-core==2.5.0
+google-crc32c==1.5.0
+google-resumable-media==2.8.1
+googleapis-common-protos==1.73.0
+grpcio==1.70.0
+grpcio-status==1.70.0
+h11==0.16.0
+idna==3.15
+imageio==2.35.1
+importlib-metadata==8.5.0
+importlib-resources==6.4.5
+iniconfig==2.1.0
+ipykernel==6.29.5
+ipython==8.12.3
+ipython-genutils==0.2.0
+ipywidgets==8.1.9
+jedi==0.19.2
+jinja2==3.1.6
+joblib==1.4.2
+json5==0.16.0
+jsonschema==4.23.0
+jsonschema-specifications==2023.12.1
+jupyter-client==8.6.3
+jupyter-core==5.8.1
+jupyter-events==0.10.0
+jupyter-packaging==0.12.3
+jupyter-server==2.14.2
+jupyter-server-fileid==0.9.3
+jupyter-server-terminals==0.5.4
+jupyter-server-ydoc==0.8.0
+jupyter-ydoc==0.2.5
+jupyterlab==3.6.8
+jupyterlab-pygments==0.3.0
+jupyterlab-server==2.28.0
+jupyterlab-widgets==3.0.17
+kiwisolver==1.4.7
+lazy-loader==0.4
+llvmlite==0.31.0
+lyft-dataset-sdk==0.0.8
+Markdown==3.7
+MarkupSafe==2.1.5
+matplotlib==3.6.0
+matplotlib-inline==0.1.7
+mccabe==0.7.0
+mediapy==1.2.7
+mistune==3.3.4
+mmcv-full==1.4.0
+mmdet==2.14.0
+-e git+https://github.com/open-mmlab/mmdetection3d.git@f1107977dfd26155fc1f83779ee6535d2468f449#egg=mmdet3d
+mmsegmentation==0.14.1
+motmetrics==1.1.3
+multidict==6.1.0
+mypy-extensions==1.1.0
+narwhals==1.42.1
+nbclassic==1.2.0
+nbclient==0.10.1
+nbconvert==7.16.6
+nbformat==5.10.4
+nest-asyncio==1.6.0
+networkx==2.5
+notebook==6.5.7
+notebook-shim==0.2.4
+numba==0.48.0
+numpy==1.22.4
+nuscenes-devkit==1.1.11
+oauthlib==3.3.1
+open3d==0.13.0
+opencv-python==4.8.0.76
+overrides==7.7.0
+packaging==26.2
+pandas==1.2.2
+pandocfilters==1.5.1
+parso==0.8.7
+pathspec==0.12.1
+pexpect==4.9.0
+pickleshare==0.7.5
+pillow==10.4.0
+pkgutil-resolve-name==1.3.10
+platformdirs==4.3.6
+plotly==6.8.0
+pluggy==1.5.0
+plyfile==1.0.3
+prettytable==3.11.0
+prometheus-client==0.21.1
+prompt-toolkit==3.0.52
+propcache==0.2.0
+proto-plus==1.27.1
+protobuf==5.29.6
+psutil==7.2.2
+ptyprocess==0.7.0
+pure-eval==0.2.3
+pyasn1==0.6.3
+pyasn1-modules==0.4.2
+pycocotools==2.0.7
+pycodestyle==2.12.1
+pycparser==2.23
+pydantic==2.10.6
+pydantic-core==2.27.2
+pyDeprecate==0.3.2
+pyflakes==3.2.0
+pygments==2.19.2
+pyparsing==3.1.4
+pyquaternion==0.9.9
+pytest==8.3.5
+python-dateutil==2.9.0.post0
+python-json-logger==4.0.0
+pytorch-lightning==1.2.5
+pytz==2026.2
+PyWavelets==1.4.1
+PyYAML==6.0.3
+pyzmq==27.1.0
+referencing==0.35.1
+requests==2.32.4
+requests-oauthlib==2.0.0
+rfc3339-validator==0.1.4
+rfc3986-validator==0.1.1
+rpds-py==0.20.1
+scikit-image==0.20.0
+scikit-learn==1.3.2
+scipy==1.7.3
+send2trash==2.1.0
+Shapely==1.8.5.post1
+six==1.17.0
+sniffio==1.3.1
+soupsieve==2.7
+stack-data==0.6.3
+starlette==0.44.0
+tensorboard==2.14.0
+tensorboard-data-server==0.7.2
+termcolor==2.4.0
+terminado==0.18.1
+terminaltables==3.1.10
+threadpoolctl==3.5.0
+tifffile==2023.7.10
+tinycss2==1.2.1
+tomli==2.4.1
+tomlkit==0.13.3
+torch==1.9.1+cu111
+torchaudio==0.9.1
+torchmetrics==0.8.2
+torchvision==0.10.1+cu111
+tornado==6.4.2
+tqdm==4.68.3
+traitlets==5.14.3
+trimesh==2.35.39
+typing-extensions==4.13.2
+urllib3==2.2.3
+uvicorn==0.33.0
+wcwidth==0.8.2
+webencodings==0.5.1
+websocket-client==1.8.0
+werkzeug==3.0.6
+widgetsnbextension==4.0.16
+y-py==0.6.2
+yapf==0.40.1
+yarl==1.15.2
+ypy-websocket==0.8.4
+zipp==3.20.2
+INFO - 2026-10-09 12:27:58,518 - font_manager - generated new fontManager
+0.13.0 1.2.7 1.9.1+cu111

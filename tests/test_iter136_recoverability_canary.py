@@ -17,9 +17,66 @@ from experiments.iter136_hugsim_recoverability_canary import independent_referen
 from experiments.iter136_hugsim_recoverability_canary import inspect_host
 from experiments.iter136_hugsim_recoverability_canary import probe_reset as reset
 from experiments.iter136_hugsim_recoverability_canary import replay_trace as trace
+from experiments.iter136_hugsim_recoverability_canary import run_episode as runner
 
 
 ROOT = Path(__file__).resolve().parents[1] / "experiments/iter136_hugsim_recoverability_canary"
+
+
+@pytest.mark.parametrize('free,remaining,exists', [
+    (99, 2000, False), (111, 1229, False), (111, 2000, True),
+])
+def test_live_runner_rejects_storage_deadline_and_retry(free, remaining, exists):
+    with pytest.raises(ValueError):
+        runner.check_budget(free, remaining, exists)
+
+
+def test_live_runner_accepts_bounded_new_episode():
+    runner.check_budget(111, 1230, False)
+
+
+def test_live_runner_rejects_changed_file_and_symlink(tmp_path):
+    source = tmp_path / 'source.py'
+    source.write_bytes(b'original')
+    files = {str(source): hashlib.sha256(b'original').hexdigest()}
+    runner.check_files(files)
+    source.write_bytes(b'changed')
+    with pytest.raises(ValueError):
+        runner.check_files(files)
+    other = tmp_path / 'other.py'
+    other.write_bytes(b'original')
+    source.unlink()
+    source.symlink_to(other)
+    with pytest.raises(ValueError):
+        runner.check_files(files)
+
+
+def test_live_runner_rejects_failed_or_missing_predecessor(tmp_path):
+    with pytest.raises(ValueError):
+        runner.predecessors('reference_b', tmp_path)
+    previous = tmp_path / 'reference_a'
+    previous.mkdir()
+    (previous / 'episode.json').write_text('{"returncode": 1}')
+    with pytest.raises(ValueError):
+        runner.predecessors('reference_b', tmp_path)
+
+
+@pytest.mark.parametrize('diverge', [False, True])
+def test_live_runner_blocks_branches_without_matching_collision_pair(tmp_path, monkeypatch, diverge):
+    import sys
+    monkeypatch.setitem(sys.modules, 'replay_trace', trace)
+    for name in ('reference_a', 'reference_b'):
+        run = tmp_path / name
+        scene = run / 'scene-0411_hard_00'
+        scene.mkdir(parents=True)
+        (run / 'episode.json').write_text('{"returncode": 0}')
+        rows = fixture(reason='collision' if diverge else 'route_complete')
+        if diverge and name == 'reference_b':
+            rows[1]['observation_sha256'] = 'd' * 64
+        (scene / 'iter136_trace.jsonl').write_bytes(
+            b''.join(trace.canonical(row) + b'\n' for row in rows))
+    with pytest.raises(ValueError):
+        runner.predecessors('stop_0', tmp_path)
 
 
 def identity():
