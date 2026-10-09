@@ -1,0 +1,75 @@
+{
+  "files": {
+    "experiments/iter141_nominal_continuation/HYPOTHESIS.md": {
+      "bytes": 8566,
+      "sha256": "786866959635cf0ade2d2328730dade70824b914fbe53209bdf6777c4ec96826"
+    },
+    "experiments/iter141_nominal_continuation/proof/analysis/reference_a.json": {
+      "bytes": 1647,
+      "sha256": "e0ec6e89fbf0e6a34ef6037cf87af502c695e53f0fcc1332f5ff1af238ae5450"
+    },
+    "experiments/iter141_nominal_continuation/proof/independent_reference_recount.json": {
+      "bytes": 843,
+      "sha256": "300138e0910d9c599a6735f133db01a35c0bc52dc4126e5d719eda38759c4566"
+    },
+    "experiments/iter141_nominal_continuation/proof/live/reference_a/driver.log": {
+      "bytes": 10394,
+      "sha256": "fe9a17d9b252b73b6519763370cbec2ef79173c110adc18eb60cd5776a4bafaa"
+    },
+    "experiments/iter141_nominal_continuation/proof/live/reference_a/environment_import.json": {
+      "bytes": 54,
+      "sha256": "6379c17d798191f995d43b0950ea7787779fe29c9af7354b25de37a514ff207d"
+    },
+    "experiments/iter141_nominal_continuation/proof/live/reference_a/episode.json": {
+      "bytes": 15970,
+      "sha256": "1029726c68e1d5be36fa1fe8ee8cd25273cf60a28d57aa86cc8f5c1f958e3461"
+    },
+    "experiments/iter141_nominal_continuation/proof/live/reference_a/remote_inventory.json": {
+      "bytes": 15151,
+      "sha256": "8a2a9e9cfd212abac274e6a78447b7914231da1f58eb3d7fd926b1ebf0b7b580"
+    },
+    "experiments/iter141_nominal_continuation/proof/live/reference_a/scene-0411_hard_00/controller141.jsonl": {
+      "bytes": 429518,
+      "sha256": "d4b4049df4489e96e957586831f200cf6acf8d6db4fba9adac928605b5044045"
+    },
+    "experiments/iter141_nominal_continuation/proof/live/reference_a/scene-0411_hard_00/data.pkl": {
+      "bytes": 14220,
+      "sha256": "1a8da3c108bd44c9bca00c30f4b66de670faa360c7ff84c0437b7c6e634d63b8"
+    },
+    "experiments/iter141_nominal_continuation/proof/live/reference_a/scene-0411_hard_00/delivery141.jsonl": {
+      "bytes": 40890,
+      "sha256": "ad0fccb16099f29ea5950bb977e00cb50f7129b4e10d5302754f5d4217e5bbef"
+    },
+    "experiments/iter141_nominal_continuation/proof/live/reference_a/scene-0411_hard_00/eval.json": {
+      "bytes": 4953,
+      "sha256": "73c1980365ba76962e585b16ef0cc271c351bd21abb97cf12c5b842b6983020a"
+    },
+    "experiments/iter141_nominal_continuation/proof/live/reference_a/scene-0411_hard_00/infos.pkl": {
+      "bytes": 13557,
+      "sha256": "aca82be147e376c46b5106f33869c30ec0cd9356a6c566ec87c7d3ee522f6681"
+    },
+    "experiments/iter141_nominal_continuation/proof/live/reference_a/scene-0411_hard_00/iter141_trace.jsonl": {
+      "bytes": 45231,
+      "sha256": "97be02f8b1a98ab0280e912abb0674c09bd363d65e6cbc1741b70e309e9f461e"
+    },
+    "experiments/iter141_nominal_continuation/proof/live/reference_a/scene-0411_hard_00/output.txt": {
+      "bytes": 12773,
+      "sha256": "6000f48942b0ec5e416b9d4def95d17553dd7ff99534d1b8f9e040bb3ff40ba0"
+    },
+    "experiments/iter141_nominal_continuation/proof/live/reference_a/scene-0411_hard_00/sentinel_iter48_decisions.jsonl": {
+      "bytes": 35421,
+      "sha256": "79c2360b43221a11379dfe554b495865305e3586e96681d14537e31ef1ff0e39"
+    },
+    "experiments/iter141_nominal_continuation/proof/live/reference_a/started.json": {
+      "bytes": 884,
+      "sha256": "95bcaad150fcf13a2f7012b878eaf2f264116aa3b134fff9b9d833d58e78b5ba"
+    },
+    "experiments/iter141_nominal_continuation/proof/runtime_manifest.json": {
+      "bytes": 84140,
+      "sha256": "9241e541e73f20692697e1a4bf5e265ec11e0773c024b79abc0929f32b04bbb9"
+    }
+  },
+  "parent_commit": "b1ba918ed8d06d7f293fa00783894102f4c3e4d9",
+  "retained_reference_raw_commit": "888a8a3c86f327de15612d5b7a8553e66b43805f",
+  "schema": "sentinel.iter142.inputs.v1"
+}
