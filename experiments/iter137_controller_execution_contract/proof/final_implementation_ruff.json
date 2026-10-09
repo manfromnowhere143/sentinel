@@ -1,0 +1,15 @@
+{
+  "argv": [
+    "ruff",
+    "check",
+    "experiments/iter137_controller_execution_contract/benchmark.py",
+    "experiments/iter137_controller_execution_contract/controller.py",
+    "experiments/iter137_controller_execution_contract/describe_controls.py",
+    "experiments/iter137_controller_execution_contract/validate_contract.py",
+    "experiments/iter137_controller_execution_contract/verify.py",
+    "tests/test_iter137_controller_execution.py"
+  ],
+  "started_utc": "2026-10-09T13:10:30.077882+00:00",
+  "elapsed_seconds": 0.0546567440032959,
+  "returncode": 0
+}

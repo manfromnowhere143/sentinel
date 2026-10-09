@@ -1,0 +1,10 @@
+{
+  "converged_adapter_misses": {
+    "numerical/contended": 228,
+    "numerical/idle": 99,
+    "timed/contended": 0,
+    "timed/idle": 67
+  },
+  "timed_cases": 114,
+  "timed_final_control_variable_cases": 114
+}

@@ -2,19 +2,28 @@
 
 ## Active operator work on 2026-10-09
 
-The [Iteration 136 canary](../experiments/iter136_hugsim_recoverability_canary/RESULT.md)
-closed as `REPLAY_DIVERGED`: two references completed, zero interventions ran, and the GPU host
-is stopped. Equal initial observations, state and plan led to different control outputs. The
-registered CPU diagnostic reproduced those outputs at optimization iterations 38 and 27;
-the source uses a 50 ms wall-clock solve budget. Actual live iteration counts were not retained.
+The [Iteration 137 controller contract](../experiments/iter137_controller_execution_contract/RESULT.md)
+completed all 912 CPU calls. Every one of 114 typed inputs repeated exactly across four numerical
+runs under idle and contended conditions; independent upstream-source replay passed. The adapter
+logs typed inputs, configuration, full iterate identities, convergence and explicit stopping
+reasons. Numerical stopping and observed deadline behavior are separate evidence.
 
-The next research prerequisite is an explicit controller execution contract: numerical replay,
-solver iteration/stop-reason/dtype logging, and separate real-time deadline evaluation. A new
-live reference pair requires a preregistered successor; this failed pair and its stopping rule
-remain intact. See the [result and limits](../experiments/iter136_hugsim_recoverability_canary/RESULT.md)
-and [current status](../experiments/iter136_hugsim_recoverability_canary/STATUS.md).
-Iteration 135 is deferred without modifying its protocol. Canonical master remains F17;
-the publication snapshot below is retained history.
+The 50 ms adapter deadline was missed by numerical mode on 99/228 idle and 228/228 contended
+calls, and by timed mode on 86/228 idle and 228/228 contended calls. Numerical reproducibility
+is supported only on this corpus/runtime; real-time validity is not established. No new driving
+episode ran. The host is stopped. See [status](../experiments/iter137_controller_execution_contract/STATUS.md)
+and [execution binding](../experiments/iter137_controller_execution_contract/EXECUTION_BINDING.md).
+
+Next: a freshly preregistered live reference pair with the explicit numerical controller mode,
+actual dtype and solver input/iterate/stop-reason logging. Keep simulation time and compute
+latency distinct. Only a fresh pair passing its frozen replay rule can admit the later
+recoverability intervention grid. The [Iter136 failed pair](../experiments/iter136_hugsim_recoverability_canary/RESULT.md)
+remains closed as REPLAY_DIVERGED; no retry, tolerance relaxation or retrospective repair.
+
+The main research question remains which additional information enables useful intervention
+beyond a strong responsive baseline. Iter135 is deferred without modifying its protocol.
+Canonical master remains F17; Iter137 is an unpushed local research candidate. The accepted
+publication snapshot below is retained history.
 
 ## Canonical current decision: iteration 134 is complete
 

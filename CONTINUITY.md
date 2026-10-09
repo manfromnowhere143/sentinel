@@ -1,19 +1,21 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
-> **Active operator-directed candidate result, 2026-10-09:** Iteration 136 closed as
-> `REPLAY_DIVERGED`. Two fresh-process references collided at 7.00 and 7.25 seconds;
-> both comparison implementations reject replay. Zero intervention branches ran.
-> Equal initial observations, state and plan produced different control commands. A
-> registered CPU fixture reproduced the commands at iLQR iterations 38 and 27, consistent
-> with the controller's 50 ms wall-clock cutoff; live iteration counts were not logged.
-> Read [Iteration 136 result](experiments/iter136_hugsim_recoverability_canary/RESULT.md)
-> and [status](experiments/iter136_hugsim_recoverability_canary/STATUS.md). The original L4
-> host is stopped; 55 focused tests pass. Next: a preregistered successor with an explicit
-> controller execution contract, numerical replay checks and separate deadline evaluation.
-> Do not retry the closed canary or relax its tolerance. The local research branch descends
-> from accepted F17; master remains F17. Iteration 135 remains deferred and unchanged.
-> `MISSION_STATE.json` and generated `HANDOFF.md` retain the older accepted publication
-> snapshot and do not supersede this operator-directed candidate research record.
+> **Active operator-directed candidate result, 2026-10-09:** Iteration 137 completed
+> the CPU controller contract benchmark: **912/912 calls**; all **114 typed cases** had
+> four bit-identical numerical records across idle and contended CPU conditions. Independent
+> upstream-source replay passed. Stop reasons and separate loop, solver and adapter timing
+> are retained. Deadline misses remain: numerical mode exceeded 50 ms on 99/228 idle and
+> 228/228 contended calls; timed mode exceeded it on 86/228 idle and 228/228 contended calls.
+> Read [Iteration 137 result](experiments/iter137_controller_execution_contract/RESULT.md),
+> [status](experiments/iter137_controller_execution_contract/STATUS.md) and
+> [execution contract](experiments/iter137_controller_execution_contract/EXECUTION_BINDING.md).
+> The host is **TERMINATED**; 51 focused tests and the independent runtime replay passed.
+> No new driving episode ran. Iter136 remains `REPLAY_DIVERGED`, closed without retry.
+> Next: preregister a fresh live reference pair under the explicit numerical execution mode,
+> keeping latency separate. A CPU pass is not a live replay or real-time validity claim.
+> `research/iter137-controller-execution` is a local unpushed candidate; master remains F17.
+> Iter135 stays deferred and unchanged. MISSION_STATE and generated HANDOFF retain the older
+> accepted publication snapshot; this prelude discovers the current operator-directed work.
 
 **Purpose.** This campaign is operator-portable by design. Everything an incoming operator
 needs is in this repository plus the two live surfaces below. Read this file top to bottom
