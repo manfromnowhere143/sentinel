@@ -1,21 +1,15 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
-> **Active operator-directed candidate result, 2026-10-09:** Iteration 137 completed
-> the CPU controller contract benchmark: **912/912 calls**; all **114 typed cases** had
-> four bit-identical numerical records across idle and contended CPU conditions. Independent
-> upstream-source replay passed. Stop reasons and separate loop, solver and adapter timing
-> are retained. Deadline misses remain: numerical mode exceeded 50 ms on 99/228 idle and
-> 228/228 contended calls; timed mode exceeded it on 86/228 idle and 228/228 contended calls.
-> Read [Iteration 137 result](experiments/iter137_controller_execution_contract/RESULT.md),
-> [status](experiments/iter137_controller_execution_contract/STATUS.md) and
-> [execution contract](experiments/iter137_controller_execution_contract/EXECUTION_BINDING.md).
-> The host is **TERMINATED**; 51 focused tests and the independent runtime replay passed.
-> No new driving episode ran. Iter136 remains `REPLAY_DIVERGED`, closed without retry.
-> Next: preregister a fresh live reference pair under the explicit numerical execution mode,
-> keeping latency separate. A CPU pass is not a live replay or real-time validity claim.
-> `research/iter137-controller-execution` is a local unpushed candidate; master remains F17.
-> Iter135 stays deferred and unchanged. MISSION_STATE and generated HANDOFF retain the older
-> accepted publication snapshot; this prelude discovers the current operator-directed work.
+> **Active operator-directed candidate result, 2026-10-09:** Iteration 138 is running
+> reference B after committing raw A and independently replaying all 26 A controller calls.
+> The original host is RUNNING with an owned shutdown timer. No intervention branch is included.
+> Read [Iteration 138 status](experiments/iter138_numerical_live_replay/STATUS.md),
+> [state](experiments/iter138_numerical_live_replay/STATE.json), and
+> [protocol](experiments/iter138_numerical_live_replay/HYPOTHESIS.md). Do not retry either episode.
+> Iter137's numbers independently recount correctly; 114 scheduled typed cases include
+> 112 unique inputs from one development scenario. Iter136 remains REPLAY_DIVERGED and closed.
+> The local research branch is `research/iter138-live-replay`; master remains F17.
+> Iter135 remains deferred. MISSION_STATE/HANDOFF retain their older publication snapshot.
 
 **Purpose.** This campaign is operator-portable by design. Everything an incoming operator
 needs is in this repository plus the two live surfaces below. Read this file top to bottom

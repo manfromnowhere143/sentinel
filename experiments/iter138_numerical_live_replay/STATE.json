@@ -1,0 +1,14 @@
+{
+  "branch": "research/iter138-live-replay",
+  "intervention_branches": 0,
+  "iteration": 138,
+  "phase": "reference_b",
+  "preregistration_commit": "43bc7ff185123e9cb91ef748b54d94f37ea9c343",
+  "provider_status": "RUNNING, task-owned, shutdown timer armed",
+  "reference_a_raw_commit": "3c98aea4b0053d54b75d07b555ce0d85d6196ffb",
+  "reference_a_validation": "validated",
+  "reference_b": "launched, outcome not yet observed",
+  "reference_episodes": 2,
+  "source_commit": "a25e9f09be2a495893c430a3c62bd2da2f4eef8c",
+  "status": "running"
+}
