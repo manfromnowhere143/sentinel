@@ -1,0 +1,13 @@
+{
+  "canonical_master_unchanged": true,
+  "checked_commit": "b47abc0acda34825d082c4ba554be6d2e4978db3",
+  "configured_human_attribution": true,
+  "document_links_checked": 17,
+  "executed_controller_source_unchanged": true,
+  "independent_replay_status": "supported",
+  "index_preserved_empty": true,
+  "iter136_unchanged": true,
+  "proof_sha256_files": 127,
+  "raw_host_matched_files": 33,
+  "scope": "content and lineage validation; focused/runtime testing receipts retained separately"
+}
