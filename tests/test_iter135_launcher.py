@@ -2889,9 +2889,11 @@ def test_container_quiescence_resets_after_delayed_container_appearance(
     program = (
         "set -euo pipefail\n"
         f'DOCKER_BIN="{fake}"\n'
-        "DOCKER_CONTROL_TIMEOUT_SECONDS=1\n"
+        # Match the production control timeout. A one-second fixture raced process startup under
+        # full-suite contention and tested scheduler latency rather than quiescence reset logic.
+        "DOCKER_CONTROL_TIMEOUT_SECONDS=5\n"
         "CONTAINER_QUIET_SECONDS=1\n"
-        "CONTAINER_QUIESCENCE_CEILING_SECONDS=5\n"
+        "CONTAINER_QUIESCENCE_CEILING_SECONDS=10\n"
         f'COUNTER="{counter}"\nexport COUNTER\n'
         f'OBSERVED="{observed}"\n'
         'capture_owned_containers() { printf capture >> "$OBSERVED"; }\n'
@@ -2909,7 +2911,7 @@ def test_container_quiescence_resets_after_delayed_container_appearance(
         text=True,
         check=False,
         capture_output=True,
-        timeout=8,
+        timeout=20,
     )
 
     assert completed.returncode == 0, completed.stderr

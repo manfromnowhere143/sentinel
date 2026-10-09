@@ -476,6 +476,10 @@ CI_TOOLCHAIN_PIN_COMMIT_PATHS = (
     "tests/test_iter135_tooling_verifier.py",
     "tests/test_mission_state.py",
 )
+GENERATION_SIXTEEN_PIN_COMMIT = "a5dc84c731c7272174c70b950ebc890b01330a3c"
+GENERATION_SIXTEEN_RECEIPT_COMMIT = "f417b77e1a8f5ca8d7c883fe41248e3e7c4f2666"
+GENERATION_SIXTEEN_STATE_COMMIT = "b5536802b62acaab3a1b57f93618b74dee3c3312"
+GENERATION_SIXTEEN_BATON_COMMIT = "737f1f2160134cf1e3d0d7216b21993848f06078"
 # The documentation-correction tranche exists because the generation-sixteen publication froze
 # master before the reviewed decoder-claim wording correction and the reviewer entry point could
 # land. It admits EXACTLY ONE commit after B16: a single direct child of the generation-sixteen
@@ -495,6 +499,45 @@ DOCUMENTATION_CORRECTION_TRANCHE_COMMIT_PATHS = (
     "docs/paper/STATUS.md",
     "scripts/mission_state.py",
     "tests/test_mission_state.py",
+)
+GENERATION_SIXTEEN_DOCUMENTATION_COMMIT = (
+    "355010c4b668c85fcd2647586c56d7a21b8b88d0"
+)
+GENERATION_SEVENTEEN_SOURCE_PARENT = GENERATION_SIXTEEN_DOCUMENTATION_COMMIT
+GENERATION_SEVENTEEN_REASON_CODE = (
+    "D16_CONTENT_ADDRESSED_CI_INSTALL_REPLAY_AND_NEXT_SOURCE_V2_BOOTSTRAP"
+)
+GENERATION_SEVENTEEN_SOURCE_COMMIT_PATHS = (
+    ".github/workflows/ci.yml",
+    "AGENTS.md",
+    "docs/research/ITER135_GENERATION_SEVENTEEN_CI_HARDENING_PREREGISTRATION_2026-08-21.md",
+    f"{ITER135_EXPERIMENT_REL}/authorize_launch135.py",
+    f"{ITER135_EXPERIMENT_REL}/verify_tooling135.py",
+    "pyproject.toml",
+    "scripts/make_handoff.py",
+    "scripts/mission_state.py",
+    "tests/test_handoff_generator.py",
+    "tests/test_iter135_ci_install_verifier.py",
+    "tests/test_iter135_gen17_ci_hardening.py",
+    "tests/test_iter135_launch_authorization.py",
+    "tests/test_iter135_launcher.py",
+    "tests/test_iter135_tooling_verifier.py",
+    "tests/test_mission_state.py",
+    "tools/ci/requirements-ci-py310.lock",
+    "tools/ci/requirements-ci-py311.lock",
+    "tools/ci/requirements-ci.in",
+    "tools/ci/run_pytest_isolated.py",
+    "tools/ci/supply-chain-manifest.json",
+    "tools/ci/verify_ci_install.py",
+    "tools/ci/verify_supply_chain.py",
+)
+GENERATION_SEVENTEEN_SOURCE_MARKER_PATHS = frozenset(
+    {
+        "AGENTS.md",
+        "docs/research/ITER135_GENERATION_SEVENTEEN_CI_HARDENING_PREREGISTRATION_2026-08-21.md",
+        "tools/ci/verify_ci_install.py",
+        "tools/ci/verify_supply_chain.py",
+    }
 )
 GENERATION_TWELVE_SOURCE_COMMIT_PATHS = (
     "CONTINUITY.md",
@@ -641,13 +684,20 @@ EXPECTED_RECOVERY_PUBLICATION = {
     "recovery_parent": GENERATION_SIXTEEN_SOURCE_PARENT,
     "reason_code": GENERATION_SIXTEEN_REASON_CODE,
 }
+EXPECTED_GENERATION_SIXTEEN_PUBLICATION = EXPECTED_RECOVERY_PUBLICATION
 EXPECTED_GENERATION_FIFTEEN_PUBLICATION = {
     "generation": 15,
     "supersedes_receipt_commit": GENERATION_FOURTEEN_RECEIPT_COMMIT,
     "recovery_parent": GENERATION_FOURTEEN_BATON_COMMIT,
     "reason_code": GENERATION_FIFTEEN_REASON_CODE,
 }
-CONTROLLED_PUBLICATION_GENERATIONS = frozenset(range(3, 17))
+EXPECTED_GENERATION_SEVENTEEN_PUBLICATION = {
+    "generation": 17,
+    "supersedes_receipt_commit": GENERATION_SIXTEEN_RECEIPT_COMMIT,
+    "recovery_parent": GENERATION_SEVENTEEN_SOURCE_PARENT,
+    "reason_code": GENERATION_SEVENTEEN_REASON_CODE,
+}
+CONTROLLED_PUBLICATION_GENERATIONS = frozenset(range(3, 18))
 
 # Compatibility name: this is always the immutable generation-one 31-path baseline. Recovery
 # publication has its own paired parent/scope contract and must never redefine this surface.
@@ -734,6 +784,39 @@ CI_HARDENING_FORBIDDEN_ACTIONS = (
     "rerun iteration 134 or adapt iteration-135 schedules, estimands, verdicts, or policies after "
     "evidence",
 )
+LIFECYCLE_OBSERVER_AUTHORIZED_ACTIONS = (
+    "implement and validate only offline the actual source-bound lifecycle observer and "
+    "performing-controller contract while retaining the accepted lifecycle and CI controls",
+    "specify and validate exact observer invocation, sanitized environment, provider-query, "
+    "capability-discovery, and evidence bindings without provider access or observer execution",
+)
+LIFECYCLE_OBSERVER_FORBIDDEN_ACTIONS = (
+    "access, inventory, query, prepare, mutate, or execute on any iteration-135 provider, remote "
+    "host, remote filesystem, credential, packet, runtime, lock, container, GPU, or evidence "
+    "path; or run the actual lifecycle observer",
+    "create, execute, publish, or advance any H, E, P, or S descendant; host preparation; "
+    "environment capture; manifest generation; live smoke; launch activation; or analytic "
+    "episode",
+    "infer IDLE, termination, completion, readiness, approval, or authority from static state, "
+    "green CI, absent containers, absent processes, missing reviewers, timeouts, retry "
+    "exhaustion, or incomplete evidence",
+    "run analyzers or publish iteration-135 data, results, claims, figures, paper text, or "
+    "scientific conclusions",
+    "change branch protection, rulesets, Actions policy, repository visibility, credentials, "
+    "secrets, access control, or other external governance settings without explicit operator "
+    "authorization",
+    "rerun iteration 134; run, retry, or relaunch iteration 135; or adapt iteration-135 "
+    "schedules, estimands, verdicts, or policies after evidence",
+)
+CI_HARDENING_PUBLICATION_CANDIDATE_STATUS = (
+    "non-authoritative-ci-hardening-candidate"
+)
+CI_HARDENING_PUBLICATION_PUBLISHED_STATUS = (
+    "origin-published-ci-hardening-baton"
+)
+CI_HARDENING_PUBLICATION_INVALID_UPSTREAM_STATUS = (
+    "invalid-ci-hardening-publication-upstream"
+)
 TOOLING_FROZEN_AUTHORIZED_ACTIONS = (
     "prepare the exact hash-bound sentinel-gpu host contract and atomically commit "
     "host_packet_manifest.json and host_preparation_receipt.json",
@@ -777,6 +860,10 @@ PHASE_ACTION_CONTRACTS = {
         CI_HARDENING_AUTHORIZED_ACTIONS,
         CI_HARDENING_FORBIDDEN_ACTIONS,
     ),
+    "LIFECYCLE_OBSERVER_REQUIRED": (
+        LIFECYCLE_OBSERVER_AUTHORIZED_ACTIONS,
+        LIFECYCLE_OBSERVER_FORBIDDEN_ACTIONS,
+    ),
     "TOOLING_FROZEN_PREFLIGHT_REQUIRED": (
         TOOLING_FROZEN_AUTHORIZED_ACTIONS,
         TOOLING_FROZEN_FORBIDDEN_ACTIONS,
@@ -786,6 +873,7 @@ PHASE_ACTION_CONTRACTS = {
 ADVANCED_PHASES = {
     "CONTROL_HARDENING_REQUIRED",
     "CI_HARDENING_REQUIRED",
+    "LIFECYCLE_OBSERVER_REQUIRED",
     "TOOLING_FROZEN_PREFLIGHT_REQUIRED",
     "LAUNCH_AUTHORIZED",
     "RUNNING",
@@ -797,6 +885,7 @@ PHASE_RUN_STATES = {
     "PREREGISTERED_TOOLING_REQUIRED": "UNKNOWN",
     "CONTROL_HARDENING_REQUIRED": "UNKNOWN",
     "CI_HARDENING_REQUIRED": "UNKNOWN",
+    "LIFECYCLE_OBSERVER_REQUIRED": "UNKNOWN",
     "TOOLING_FROZEN_PREFLIGHT_REQUIRED": "IDLE",
     "LAUNCH_AUTHORIZED": "IDLE",
     "RUNNING": "RUNNING",
@@ -1198,6 +1287,172 @@ def _validate_pending_generation_sixteen_source(
     return sorted(set(problems))
 
 
+def _validate_pending_generation_seventeen_source(
+    repo: Path,
+    *,
+    raw_receipt: bytes,
+    receipt: Mapping[str, Any],
+) -> list[str]:
+    """Validate the exact receipt-free F17 head above accepted D16."""
+
+    problems: list[str] = []
+    try:
+        if not _exact_json_value(
+            receipt.get("publication"),
+            EXPECTED_GENERATION_SIXTEEN_PUBLICATION,
+        ):
+            problems.append("tooling_publication:pending_f17_retained_r16_publication")
+        checks = (
+            (
+                GENERATION_SIXTEEN_SOURCE_COMMIT,
+                (GENERATION_SIXTEEN_SOURCE_PARENT,),
+                tuple(sorted(GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS)),
+                "f16",
+            ),
+            (
+                GENERATION_SIXTEEN_PIN_COMMIT,
+                (GENERATION_SIXTEEN_SOURCE_COMMIT,),
+                tuple(sorted(CI_TOOLCHAIN_PIN_COMMIT_PATHS)),
+                "pin16",
+            ),
+            (
+                GENERATION_SIXTEEN_RECEIPT_COMMIT,
+                (GENERATION_SIXTEEN_PIN_COMMIT,),
+                (TOOLING_RECEIPT_REL.as_posix(),),
+                "r16",
+            ),
+            (
+                GENERATION_SIXTEEN_STATE_COMMIT,
+                (GENERATION_SIXTEEN_RECEIPT_COMMIT,),
+                ("MISSION_STATE.json",),
+                "t16",
+            ),
+            (
+                GENERATION_SIXTEEN_BATON_COMMIT,
+                (GENERATION_SIXTEEN_STATE_COMMIT,),
+                ("CONTINUITY.md", "HANDOFF.md"),
+                "b16",
+            ),
+            (
+                GENERATION_SIXTEEN_DOCUMENTATION_COMMIT,
+                (GENERATION_SIXTEEN_BATON_COMMIT,),
+                tuple(sorted(DOCUMENTATION_CORRECTION_TRANCHE_COMMIT_PATHS)),
+                "d16",
+            ),
+        )
+        for commit, expected_parents, expected_paths, label in checks:
+            parents, paths = _commit_row(repo, commit)
+            if parents != expected_parents:
+                problems.append(f"tooling_publication:pending_f17_{label}_parent")
+            if paths != expected_paths:
+                problems.append(f"tooling_publication:pending_f17_{label}_scope")
+
+        committed_receipt = _git(
+            repo,
+            "show",
+            f"{GENERATION_SIXTEEN_RECEIPT_COMMIT}:{TOOLING_RECEIPT_REL.as_posix()}",
+        )
+        if raw_receipt != committed_receipt:
+            problems.append("tooling_publication:pending_f17_retained_r16_bytes")
+        history = tuple(
+            _git(repo, "log", "--format=%H", "--", TOOLING_RECEIPT_REL.as_posix())
+            .decode("ascii")
+            .splitlines()
+        )
+        expected_history = (
+            GENERATION_SIXTEEN_RECEIPT_COMMIT,
+            GENERATION_FIFTEEN_RECEIPT_COMMIT,
+            GENERATION_FOURTEEN_RECEIPT_COMMIT,
+            GENERATION_THIRTEEN_RECEIPT_COMMIT,
+            GENERATION_TWELVE_RECEIPT_COMMIT,
+            GENERATION_ELEVEN_RECEIPT_COMMIT,
+            GENERATION_TEN_RECEIPT_COMMIT,
+            GENERATION_NINE_RECEIPT_COMMIT,
+            GENERATION_EIGHT_RECEIPT_COMMIT,
+            GENERATION_SEVEN_RECEIPT_COMMIT,
+            GENERATION_SIX_RECEIPT_COMMIT,
+            GENERATION_FIVE_RECEIPT_COMMIT,
+            GENERATION_FOUR_RECEIPT_COMMIT,
+            GENERATION_THREE_RECEIPT_COMMIT,
+            GENERATION_TWO_RECEIPT_COMMIT,
+            GENERATION_ONE_RECEIPT_COMMIT,
+        )
+        if history != expected_history:
+            problems.append(f"tooling_publication:pending_f17_receipt_history:{list(history)}")
+
+        accepted_state = _git(
+            repo,
+            "show",
+            f"{GENERATION_SIXTEEN_DOCUMENTATION_COMMIT}:MISSION_STATE.json",
+        )
+        if (
+            _git(repo, "show", f"{GENERATION_SIXTEEN_STATE_COMMIT}:MISSION_STATE.json")
+            != accepted_state
+        ):
+            problems.append("tooling_publication:pending_f17_d16_state_drift")
+        if _read_regular_file(repo / "MISSION_STATE.json", repo) != accepted_state:
+            problems.append("tooling_publication:pending_f17_physical_state_drift")
+
+        def accepted_b16_git_probe(_root: Path, _tested_files: Any) -> Any:
+            return types.SimpleNamespace(
+                dirty_entries=(),
+                porcelain_sha256=EMPTY_GIT_STATUS_SHA256,
+                head=GENERATION_SIXTEEN_BATON_COMMIT,
+                upstream_head=GENERATION_SIXTEEN_BATON_COMMIT,
+            )
+
+        def accepted_b16_ancestry_probe(
+            _root: Path,
+            ancestor: str,
+            descendant: str,
+        ) -> bool:
+            try:
+                _git(repo, "merge-base", "--is-ancestor", ancestor, descendant)
+            except ToolingPublicationError:
+                return False
+            return True
+
+        frozen_errors = _load_tooling_receipt_validator(
+            repo,
+            GENERATION_SIXTEEN_PIN_COMMIT,
+        )(
+            receipt,
+            repo_root=repo,
+            git_probe=accepted_b16_git_probe,
+            ancestry_probe=accepted_b16_ancestry_probe,
+        )
+        if not isinstance(frozen_errors, list) or any(
+            not isinstance(item, str) for item in frozen_errors
+        ):
+            raise ToolingPublicationError(
+                "generation-sixteen frozen validator returned malformed errors"
+            )
+        if frozen_errors:
+            raise ToolingPublicationError(
+                "generation-sixteen frozen baseline failed validation: "
+                f"{frozen_errors[0][:256]}"
+            )
+
+        head = _git(repo, "rev-parse", "HEAD").decode("ascii").strip()
+        upstream = _git(repo, "rev-parse", "origin/master").decode("ascii").strip()
+        head_parents, head_paths = _commit_row(repo, head)
+        if head_parents != (GENERATION_SEVENTEEN_SOURCE_PARENT,):
+            problems.append("tooling_publication:pending_f17_source_parent")
+        if head_paths != tuple(sorted(GENERATION_SEVENTEEN_SOURCE_COMMIT_PATHS)):
+            problems.append("tooling_publication:pending_f17_source_scope")
+        if _git(repo, "show", f"{head}:MISSION_STATE.json") != accepted_state:
+            problems.append("tooling_publication:pending_f17_source_state_drift")
+        if _git(repo, "status", "--porcelain=v1", "-z"):
+            problems.append("tooling_publication:pending_f17_worktree_dirty")
+        if upstream not in {GENERATION_SEVENTEEN_SOURCE_PARENT, head}:
+            problems.append("tooling_publication:pending_f17_origin_not_d16_or_f17")
+    except (OSError, subprocess.SubprocessError, ToolingPublicationError, ValueError) as exc:
+        problems.append(
+            f"tooling_publication:pending_f17_probe:{type(exc).__name__}:{exc}"
+        )
+    return sorted(set(problems))
+
+
 def _validate_tooling_publication(
     repo: Path,
     *,
@@ -1256,6 +1511,27 @@ def _validate_tooling_publication(
                 EXPECTED_GENERATION_FIFTEEN_PUBLICATION,
             )
         )
+        pending_generation_seventeen = (
+            phase == "CI_HARDENING_REQUIRED"
+            and _exact_json_value(
+                publication,
+                EXPECTED_GENERATION_SIXTEEN_PUBLICATION,
+            )
+            and head != GENERATION_SEVENTEEN_SOURCE_PARENT
+            and (
+                head_paths == tuple(sorted(GENERATION_SEVENTEEN_SOURCE_COMMIT_PATHS))
+                or not GENERATION_SEVENTEEN_SOURCE_MARKER_PATHS.isdisjoint(head_paths)
+            )
+        )
+        if pending_generation_seventeen:
+            problems.extend(
+                _validate_pending_generation_seventeen_source(
+                    root,
+                    raw_receipt=raw_receipt,
+                    receipt=receipt,
+                )
+            )
+            return sorted(set(problems))
         if (
             retained_generation_fifteen
             and head != GENERATION_FIFTEEN_BATON_COMMIT
@@ -1274,15 +1550,16 @@ def _validate_tooling_publication(
             return sorted(set(problems))
         if retained_generation_fifteen and head != GENERATION_FIFTEEN_BATON_COMMIT:
             problems.append("tooling_publication:pending_ci_pin_source_scope")
-        expected_publication = (
-            EXPECTED_GENERATION_FIFTEEN_PUBLICATION
-            if (
-                phase == "CONTROL_HARDENING_REQUIRED"
-                and type(publication.get("generation")) is int
-                and publication.get("generation") == 15
-            )
-            else EXPECTED_RECOVERY_PUBLICATION
-        )
+        if publication.get("generation") == 17:
+            expected_publication = EXPECTED_GENERATION_SEVENTEEN_PUBLICATION
+        elif (
+            phase == "CONTROL_HARDENING_REQUIRED"
+            and type(publication.get("generation")) is int
+            and publication.get("generation") == 15
+        ):
+            expected_publication = EXPECTED_GENERATION_FIFTEEN_PUBLICATION
+        else:
+            expected_publication = EXPECTED_RECOVERY_PUBLICATION
         if set(publication) != set(expected_publication):
             problems.append(
                 f"tooling_publication:receipt_publication_fields:{sorted(publication)}"
@@ -1364,7 +1641,10 @@ def _validate_tooling_publication(
                 "publication generation is not an exact integer: "
                 f"{publication_generation!r}"
             )
-        if publication_generation == 16:
+        if publication_generation == 17:
+            expected_source_parent = GENERATION_SEVENTEEN_SOURCE_PARENT
+            expected_source_paths = tuple(sorted(GENERATION_SEVENTEEN_SOURCE_COMMIT_PATHS))
+        elif publication_generation == 16:
             # The active generation-sixteen source is the CI toolchain pin commit — the single
             # amendment child of the published F16. F16's own shape is enforced below wherever
             # the generation-sixteen chain is validated.
@@ -1561,7 +1841,7 @@ def _validate_tooling_publication(
             if generation_two_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_two_baton_scope")
 
-        if publication_generation == 16:
+        if publication_generation in {16, 17}:
             (
                 generation_sixteen_lifecycle_parents,
                 generation_sixteen_lifecycle_paths,
@@ -1612,7 +1892,63 @@ def _validate_tooling_publication(
             if generation_fifteen_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_fifteen_baton_scope")
 
-        if publication_generation in {15, 16}:
+        if publication_generation == 17:
+            generation_sixteen_checks = (
+                (
+                    GENERATION_SIXTEEN_PIN_COMMIT,
+                    (GENERATION_SIXTEEN_SOURCE_COMMIT,),
+                    tuple(sorted(CI_TOOLCHAIN_PIN_COMMIT_PATHS)),
+                    "pin",
+                ),
+                (
+                    GENERATION_SIXTEEN_RECEIPT_COMMIT,
+                    (GENERATION_SIXTEEN_PIN_COMMIT,),
+                    (TOOLING_RECEIPT_REL.as_posix(),),
+                    "receipt",
+                ),
+                (
+                    GENERATION_SIXTEEN_STATE_COMMIT,
+                    (GENERATION_SIXTEEN_RECEIPT_COMMIT,),
+                    ("MISSION_STATE.json",),
+                    "state",
+                ),
+                (
+                    GENERATION_SIXTEEN_BATON_COMMIT,
+                    (GENERATION_SIXTEEN_STATE_COMMIT,),
+                    ("CONTINUITY.md", "HANDOFF.md"),
+                    "baton",
+                ),
+                (
+                    GENERATION_SIXTEEN_DOCUMENTATION_COMMIT,
+                    (GENERATION_SIXTEEN_BATON_COMMIT,),
+                    tuple(sorted(DOCUMENTATION_CORRECTION_TRANCHE_COMMIT_PATHS)),
+                    "documentation",
+                ),
+            )
+            for commit, expected_parents, expected_paths, label in generation_sixteen_checks:
+                observed_parents, observed_paths = _commit_row(root, commit)
+                if observed_parents != expected_parents:
+                    problems.append(
+                        f"tooling_publication:generation_sixteen_{label}_parent"
+                    )
+                if observed_paths != expected_paths:
+                    problems.append(
+                        f"tooling_publication:generation_sixteen_{label}_scope"
+                    )
+            if _git(
+                root,
+                "show",
+                f"{GENERATION_SIXTEEN_DOCUMENTATION_COMMIT}:MISSION_STATE.json",
+            ) != _git(
+                root,
+                "show",
+                f"{GENERATION_SIXTEEN_STATE_COMMIT}:MISSION_STATE.json",
+            ):
+                problems.append(
+                    "tooling_publication:generation_sixteen_documentation_state_drift"
+                )
+
+        if publication_generation in {15, 16, 17}:
             generation_fourteen_parents, generation_fourteen_paths = _commit_row(
                 root, GENERATION_FOURTEEN_SOURCE_COMMIT
             )
@@ -1649,7 +1985,7 @@ def _validate_tooling_publication(
             if generation_fourteen_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_fourteen_baton_scope")
 
-        if publication_generation in {14, 15, 16}:
+        if publication_generation in {14, 15, 16, 17}:
             generation_thirteen_parents, generation_thirteen_paths = _commit_row(
                 root, GENERATION_THIRTEEN_SOURCE_COMMIT
             )
@@ -1686,7 +2022,7 @@ def _validate_tooling_publication(
             if generation_thirteen_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_thirteen_baton_scope")
 
-        if publication_generation in {13, 14, 15, 16}:
+        if publication_generation in {13, 14, 15, 16, 17}:
             generation_twelve_parents, generation_twelve_paths = _commit_row(
                 root, GENERATION_TWELVE_SOURCE_COMMIT
             )
@@ -1716,7 +2052,7 @@ def _validate_tooling_publication(
             if generation_twelve_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_twelve_baton_scope")
 
-        if publication_generation in {12, 13, 14, 15, 16}:
+        if publication_generation in {12, 13, 14, 15, 16, 17}:
             generation_eleven_parents, generation_eleven_paths = _commit_row(
                 root, GENERATION_ELEVEN_SOURCE_COMMIT
             )
@@ -1746,7 +2082,7 @@ def _validate_tooling_publication(
             if generation_eleven_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_eleven_baton_scope")
 
-        if publication_generation in {11, 12, 13, 14, 15, 16}:
+        if publication_generation in {11, 12, 13, 14, 15, 16, 17}:
             generation_ten_parents, generation_ten_paths = _commit_row(
                 root, GENERATION_TEN_SOURCE_COMMIT
             )
@@ -1776,7 +2112,7 @@ def _validate_tooling_publication(
             if generation_ten_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_ten_baton_scope")
 
-        if publication_generation in {10, 11, 12, 13, 14, 15, 16}:
+        if publication_generation in {10, 11, 12, 13, 14, 15, 16, 17}:
             generation_nine_parents, generation_nine_paths = _commit_row(
                 root, GENERATION_NINE_SOURCE_COMMIT
             )
@@ -1806,7 +2142,7 @@ def _validate_tooling_publication(
             if generation_nine_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_nine_baton_scope")
 
-        if publication_generation in {9, 10, 11, 12, 13, 14, 15, 16}:
+        if publication_generation in {9, 10, 11, 12, 13, 14, 15, 16, 17}:
             generation_eight_parents, generation_eight_paths = _commit_row(
                 root, GENERATION_EIGHT_SOURCE_COMMIT
             )
@@ -1836,7 +2172,7 @@ def _validate_tooling_publication(
             if generation_eight_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_eight_baton_scope")
 
-        if publication_generation in {8, 9, 10, 11, 12, 13, 14, 15, 16}:
+        if publication_generation in {8, 9, 10, 11, 12, 13, 14, 15, 16, 17}:
             generation_seven_parents, generation_seven_paths = _commit_row(
                 root, GENERATION_SEVEN_SOURCE_COMMIT
             )
@@ -1866,7 +2202,7 @@ def _validate_tooling_publication(
             if generation_seven_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_seven_baton_scope")
 
-        if publication_generation in {7, 8, 9, 10, 11, 12, 13, 14, 15, 16}:
+        if publication_generation in {7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17}:
             generation_six_parents, generation_six_paths = _commit_row(
                 root, GENERATION_SIX_SOURCE_COMMIT
             )
@@ -1896,7 +2232,7 @@ def _validate_tooling_publication(
             if generation_six_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_six_baton_scope")
 
-        if publication_generation in {6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}:
+        if publication_generation in {6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17}:
             generation_five_parents, generation_five_paths = _commit_row(
                 root, GENERATION_FIVE_SOURCE_COMMIT
             )
@@ -1912,7 +2248,7 @@ def _validate_tooling_publication(
             if generation_five_receipt_paths != (TOOLING_RECEIPT_REL.as_posix(),):
                 problems.append("tooling_publication:generation_five_receipt_scope")
 
-        if publication_generation in {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}:
+        if publication_generation in {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17}:
             generation_four_parents, generation_four_paths = _commit_row(
                 root, GENERATION_FOUR_SOURCE_COMMIT
             )
@@ -1942,7 +2278,7 @@ def _validate_tooling_publication(
             if generation_four_baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
                 problems.append("tooling_publication:generation_four_baton_scope")
 
-        if publication_generation in {4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}:
+        if publication_generation in {4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17}:
             generation_three_parents, generation_three_paths = _commit_row(
                 root, GENERATION_THREE_SOURCE_COMMIT
             )
@@ -1986,7 +2322,26 @@ def _validate_tooling_publication(
             .splitlines()
             if line
         )
-        if publication_generation == 16:
+        if publication_generation == 17:
+            expected_receipt_history_tail = (
+                GENERATION_SIXTEEN_RECEIPT_COMMIT,
+                GENERATION_FIFTEEN_RECEIPT_COMMIT,
+                GENERATION_FOURTEEN_RECEIPT_COMMIT,
+                GENERATION_THIRTEEN_RECEIPT_COMMIT,
+                GENERATION_TWELVE_RECEIPT_COMMIT,
+                GENERATION_ELEVEN_RECEIPT_COMMIT,
+                GENERATION_TEN_RECEIPT_COMMIT,
+                GENERATION_NINE_RECEIPT_COMMIT,
+                GENERATION_EIGHT_RECEIPT_COMMIT,
+                GENERATION_SEVEN_RECEIPT_COMMIT,
+                GENERATION_SIX_RECEIPT_COMMIT,
+                GENERATION_FIVE_RECEIPT_COMMIT,
+                GENERATION_FOUR_RECEIPT_COMMIT,
+                GENERATION_THREE_RECEIPT_COMMIT,
+                GENERATION_TWO_RECEIPT_COMMIT,
+                GENERATION_ONE_RECEIPT_COMMIT,
+            )
+        elif publication_generation == 16:
             expected_receipt_history_tail = (
                 GENERATION_FIFTEEN_RECEIPT_COMMIT,
                 GENERATION_FOURTEEN_RECEIPT_COMMIT,
@@ -2178,7 +2533,22 @@ def _validate_tooling_publication(
             .decode("ascii")
             .splitlines()
         )
-        if publication_generation == 16:
+        if publication_generation == 17:
+            if len(ancestry) > 2:
+                problems.append(
+                    "tooling_publication:generation_seventeen_commit_count:"
+                    f"{len(ancestry)}"
+                )
+            expected_phase = (
+                "CI_HARDENING_REQUIRED"
+                if not ancestry
+                else "LIFECYCLE_OBSERVER_REQUIRED"
+            )
+            if phase != expected_phase:
+                problems.append(
+                    f"tooling_publication:generation_seventeen_phase:{phase}"
+                )
+        elif publication_generation == 16:
             if (
                 documentation_tranche_candidate
                 and len(ancestry) == 3
@@ -2211,22 +2581,30 @@ def _validate_tooling_publication(
                     f"{len(ancestry)}"
                 )
         if len(ancestry) < 2:
-            if publication_generation == 16:
+            if publication_generation in {16, 17}:
                 accepted_state = _git(
                     root,
                     "show",
-                    f"{GENERATION_FIFTEEN_BATON_COMMIT}:MISSION_STATE.json",
+                    (
+                        f"{GENERATION_SIXTEEN_DOCUMENTATION_COMMIT}:MISSION_STATE.json"
+                        if publication_generation == 17
+                        else f"{GENERATION_FIFTEEN_BATON_COMMIT}:MISSION_STATE.json"
+                    ),
                 )
                 physical_state = _read_regular_file(root / "MISSION_STATE.json", root)
                 if not ancestry:
                     source_state = _git(root, "show", f"{source_commit}:MISSION_STATE.json")
                     if source_state != accepted_state:
                         problems.append(
-                            "tooling_publication:generation_sixteen_source_state_drift"
+                            "tooling_publication:generation_"
+                            f"{'seventeen' if publication_generation == 17 else 'sixteen'}_"
+                            "source_state_drift"
                         )
                     if physical_state != accepted_state:
                         problems.append(
-                            "tooling_publication:generation_sixteen_physical_state_drift"
+                            "tooling_publication:generation_"
+                            f"{'seventeen' if publication_generation == 17 else 'sixteen'}_"
+                            "physical_state_drift"
                         )
                 else:
                     state_commit = ancestry[0]
@@ -2324,6 +2702,10 @@ def _validate_tooling_publication(
                     expected_controller_fields.add(
                         "lifecycle_control_publication_status"
                     )
+                elif phase == "LIFECYCLE_OBSERVER_REQUIRED":
+                    expected_controller_fields.add(
+                        "ci_hardening_publication_status"
+                    )
                 elif candidate:
                     expected_controller_fields.add("candidate_valid")
                 if set(controller_result) != expected_controller_fields:
@@ -2417,6 +2799,41 @@ def _validate_tooling_publication(
                             "authorization:lifecycle-control-publication-references:"
                             f"{controller_result.get('references')!r}"
                         )
+                elif phase == "LIFECYCLE_OBSERVER_REQUIRED":
+                    expected_ci_hardening_status = (
+                        CI_HARDENING_PUBLICATION_CANDIDATE_STATUS
+                        if upstream_for_controller == receipt_commit
+                        else CI_HARDENING_PUBLICATION_PUBLISHED_STATUS
+                        if upstream_for_controller == baton_commit
+                        else CI_HARDENING_PUBLICATION_INVALID_UPSTREAM_STATUS
+                    )
+                    observed_ci_hardening_status = controller_result.get(
+                        "ci_hardening_publication_status"
+                    )
+                    if (
+                        type(observed_ci_hardening_status) is not str
+                        or observed_ci_hardening_status != expected_ci_hardening_status
+                    ):
+                        problems.append(
+                            "authorization:ci-hardening-publication-status:"
+                            f"{observed_ci_hardening_status!r}!="
+                            f"{expected_ci_hardening_status!r}"
+                        )
+                    if controller_result.get("authority") != "none":
+                        problems.append(
+                            "authorization:ci-hardening-publication-authority:"
+                            f"{controller_result.get('authority')!r}"
+                        )
+                    if controller_result.get("launch_authorized") is not False:
+                        problems.append(
+                            "authorization:ci-hardening-publication-launch-authorized:"
+                            f"{controller_result.get('launch_authorized')!r}"
+                        )
+                    if controller_result.get("references") != {}:
+                        problems.append(
+                            "authorization:ci-hardening-publication-references:"
+                            f"{controller_result.get('references')!r}"
+                        )
                 elif candidate:
                     expected_candidate_valid = sorted(set(controller_problems)) == [
                         "authorization:candidate-non-authoritative"
@@ -2503,6 +2920,7 @@ def _validate_tooling_publication(
                 (14, GENERATION_FOURTEEN_SOURCE_COMMIT_PATHS),
                 (15, GENERATION_FIFTEEN_SOURCE_COMMIT_PATHS),
                 (16, GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS),
+                (17, GENERATION_SEVENTEEN_SOURCE_COMMIT_PATHS),
             )
             immutable_source_path_set = (
                 set(GENERATION_ONE_SOURCE_COMMIT_PATHS)
@@ -2562,7 +2980,15 @@ def _validate_tooling_publication(
                         f"tooling_publication:mutable_worktree_path_changed:{relative}"
                     )
         upstream_commit = _git(root, "rev-parse", "origin/master").decode("ascii").strip()
-        if publication_generation == 16:
+        if publication_generation == 17:
+            allowed_upstream = {receipt_commit}
+            if not ancestry:
+                allowed_upstream.add(source_commit)
+            elif len(ancestry) == 2:
+                allowed_upstream.add(ancestry[1])
+            if upstream_commit not in allowed_upstream:
+                problems.append("tooling_publication:generation_seventeen_origin")
+        elif publication_generation == 16:
             allowed_upstream = {receipt_commit}
             if not ancestry:
                 allowed_upstream.add(source_commit)
@@ -2574,7 +3000,7 @@ def _validate_tooling_publication(
                 allowed_upstream = {ancestry[1], documentation_tranche_commit}
             if upstream_commit not in allowed_upstream:
                 problems.append("tooling_publication:generation_sixteen_origin")
-        if publication_generation != 16 or upstream_commit != source_commit:
+        if publication_generation not in {16, 17} or upstream_commit != source_commit:
             upstream_contains_receipt = subprocess.run(  # noqa: S603 - fixed local Git probe
                 (
                     "/usr/bin/git",
@@ -2833,6 +3259,7 @@ def validate_state(state: dict, repo: Path = REPO_ROOT) -> list[str]:
         "PREREGISTERED_TOOLING_REQUIRED",
         "CONTROL_HARDENING_REQUIRED",
         "CI_HARDENING_REQUIRED",
+        "LIFECYCLE_OBSERVER_REQUIRED",
         "TOOLING_FROZEN_PREFLIGHT_REQUIRED",
         "LAUNCH_AUTHORIZED",
         "RUNNING",

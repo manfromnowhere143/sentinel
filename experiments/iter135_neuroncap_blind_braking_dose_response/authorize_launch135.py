@@ -40,6 +40,7 @@ TOOLING_RECEIPT_REL = f"{EXPERIMENT_REL}/tooling_verification_receipt.json"
 TOOLING_PHASE = "TOOLING_FROZEN_PREFLIGHT_REQUIRED"
 CONTROL_HARDENING_PHASE = "CONTROL_HARDENING_REQUIRED"
 CI_HARDENING_PHASE = "CI_HARDENING_REQUIRED"
+LIFECYCLE_OBSERVER_PHASE = "LIFECYCLE_OBSERVER_REQUIRED"
 LAUNCH_PHASE = "LAUNCH_AUTHORIZED"
 CONTROL_PUBLICATION_CANDIDATE_STATUS = "non-authoritative-control-candidate"
 CONTROL_PUBLICATION_PUBLISHED_STATUS = "origin-published-control-baton"
@@ -97,6 +98,39 @@ CI_HARDENING_FORBIDDEN_ACTIONS = (
     "authorization",
     "rerun iteration 134 or adapt iteration-135 schedules, estimands, verdicts, or policies after "
     "evidence",
+)
+LIFECYCLE_OBSERVER_AUTHORIZED_ACTIONS = (
+    "implement and validate only offline the actual source-bound lifecycle observer and "
+    "performing-controller contract while retaining the accepted lifecycle and CI controls",
+    "specify and validate exact observer invocation, sanitized environment, provider-query, "
+    "capability-discovery, and evidence bindings without provider access or observer execution",
+)
+LIFECYCLE_OBSERVER_FORBIDDEN_ACTIONS = (
+    "access, inventory, query, prepare, mutate, or execute on any iteration-135 provider, remote "
+    "host, remote filesystem, credential, packet, runtime, lock, container, GPU, or evidence "
+    "path; or run the actual lifecycle observer",
+    "create, execute, publish, or advance any H, E, P, or S descendant; host preparation; "
+    "environment capture; manifest generation; live smoke; launch activation; or analytic "
+    "episode",
+    "infer IDLE, termination, completion, readiness, approval, or authority from static state, "
+    "green CI, absent containers, absent processes, missing reviewers, timeouts, retry "
+    "exhaustion, or incomplete evidence",
+    "run analyzers or publish iteration-135 data, results, claims, figures, paper text, or "
+    "scientific conclusions",
+    "change branch protection, rulesets, Actions policy, repository visibility, credentials, "
+    "secrets, access control, or other external governance settings without explicit operator "
+    "authorization",
+    "rerun iteration 134; run, retry, or relaunch iteration 135; or adapt iteration-135 "
+    "schedules, estimands, verdicts, or policies after evidence",
+)
+CI_HARDENING_PUBLICATION_CANDIDATE_STATUS = (
+    "non-authoritative-ci-hardening-candidate"
+)
+CI_HARDENING_PUBLICATION_PUBLISHED_STATUS = (
+    "origin-published-ci-hardening-baton"
+)
+CI_HARDENING_PUBLICATION_INVALID_UPSTREAM_STATUS = (
+    "invalid-ci-hardening-publication-upstream"
 )
 
 
@@ -180,6 +214,21 @@ def _ci_hardening_expected_state() -> dict[str, Any]:
         "phase": CI_HARDENING_PHASE,
         "authorized_actions": list(CI_HARDENING_AUTHORIZED_ACTIONS),
         "forbidden_actions": list(CI_HARDENING_FORBIDDEN_ACTIONS),
+    }
+    return state
+
+
+def _lifecycle_observer_expected_state() -> dict[str, Any]:
+    """Return the complete T17 state derived from the exact frozen T16 contract."""
+
+    state = _ci_hardening_expected_state()
+    state["run_state"] = "UNKNOWN"
+    state["next_program"] = {
+        "iteration": 135,
+        "name": "semantics-free placebo dose-response causal closure",
+        "phase": LIFECYCLE_OBSERVER_PHASE,
+        "authorized_actions": list(LIFECYCLE_OBSERVER_AUTHORIZED_ACTIONS),
+        "forbidden_actions": list(LIFECYCLE_OBSERVER_FORBIDDEN_ACTIONS),
     }
     return state
 HOST_SCHEMA = "iter135.host_preparation_receipt.v1"
@@ -419,6 +468,49 @@ CI_TOOLCHAIN_PIN_COMMIT_PATHS = (
     "tests/test_iter135_tooling_verifier.py",
     "tests/test_mission_state.py",
 )
+GENERATION_SIXTEEN_PIN_COMMIT = "a5dc84c731c7272174c70b950ebc890b01330a3c"
+GENERATION_SIXTEEN_RECEIPT_COMMIT = "f417b77e1a8f5ca8d7c883fe41248e3e7c4f2666"
+GENERATION_SIXTEEN_STATE_COMMIT = "b5536802b62acaab3a1b57f93618b74dee3c3312"
+GENERATION_SIXTEEN_BATON_COMMIT = "737f1f2160134cf1e3d0d7216b21993848f06078"
+GENERATION_SIXTEEN_DOCUMENTATION_COMMIT = (
+    "355010c4b668c85fcd2647586c56d7a21b8b88d0"
+)
+DOCUMENTATION_CORRECTION_TRANCHE_COMMIT_PATHS = (
+    "REVIEWER.md",
+    "docs/CAMPAIGN.md",
+    "docs/paper/MANUSCRIPT.md",
+    "docs/paper/STATUS.md",
+    "scripts/mission_state.py",
+    "tests/test_mission_state.py",
+)
+GENERATION_SEVENTEEN_SOURCE_PARENT = GENERATION_SIXTEEN_DOCUMENTATION_COMMIT
+GENERATION_SEVENTEEN_REASON = (
+    "D16_CONTENT_ADDRESSED_CI_INSTALL_REPLAY_AND_NEXT_SOURCE_V2_BOOTSTRAP"
+)
+GENERATION_SEVENTEEN_SOURCE_COMMIT_PATHS = (
+    ".github/workflows/ci.yml",
+    "AGENTS.md",
+    "docs/research/ITER135_GENERATION_SEVENTEEN_CI_HARDENING_PREREGISTRATION_2026-08-21.md",
+    f"{EXPERIMENT_REL}/authorize_launch135.py",
+    f"{EXPERIMENT_REL}/verify_tooling135.py",
+    "pyproject.toml",
+    "scripts/make_handoff.py",
+    "scripts/mission_state.py",
+    "tests/test_handoff_generator.py",
+    "tests/test_iter135_ci_install_verifier.py",
+    "tests/test_iter135_gen17_ci_hardening.py",
+    "tests/test_iter135_launch_authorization.py",
+    "tests/test_iter135_launcher.py",
+    "tests/test_iter135_tooling_verifier.py",
+    "tests/test_mission_state.py",
+    "tools/ci/requirements-ci-py310.lock",
+    "tools/ci/requirements-ci-py311.lock",
+    "tools/ci/requirements-ci.in",
+    "tools/ci/run_pytest_isolated.py",
+    "tools/ci/supply-chain-manifest.json",
+    "tools/ci/verify_ci_install.py",
+    "tools/ci/verify_supply_chain.py",
+)
 EXPECTED_GENERATION_FIFTEEN_PUBLICATION = {
     "generation": 15,
     "supersedes_receipt_commit": GENERATION_FOURTEEN_RECEIPT_COMMIT,
@@ -430,6 +522,12 @@ EXPECTED_LIFECYCLE_CONTROL_PUBLICATION = {
     "supersedes_receipt_commit": GENERATION_FIFTEEN_RECEIPT_COMMIT,
     "recovery_parent": GENERATION_FIFTEEN_BATON_COMMIT,
     "reason_code": GENERATION_SIXTEEN_REASON,
+}
+EXPECTED_GENERATION_SEVENTEEN_PUBLICATION = {
+    "generation": 17,
+    "supersedes_receipt_commit": GENERATION_SIXTEEN_RECEIPT_COMMIT,
+    "recovery_parent": GENERATION_SEVENTEEN_SOURCE_PARENT,
+    "reason_code": GENERATION_SEVENTEEN_REASON,
 }
 EXPECTED_TOOLING_PUBLICATION = EXPECTED_GENERATION_FIFTEEN_PUBLICATION
 TOOLING_REPOSITORY_FIELDS = {
@@ -2282,6 +2380,113 @@ def _ci_hardening_baton_problems(
     return sorted(set(problems))
 
 
+def _frozen_generation_sixteen_problems(repo: Path) -> list[str]:
+    """Authenticate the accepted F16 -> PIN16 -> R16 -> T16 -> B16 -> D16 chain."""
+
+    problems = _ci_hardening_baton_problems(
+        repo,
+        tooling_receipt_commit=GENERATION_SIXTEEN_RECEIPT_COMMIT,
+        tooling_baton_commit=GENERATION_SIXTEEN_BATON_COMMIT,
+    )
+    try:
+        pin_parents, pin_paths = _commit_row(repo, GENERATION_SIXTEEN_PIN_COMMIT)
+        if pin_parents != (GENERATION_SIXTEEN_SOURCE_COMMIT,):
+            problems.append("authorization:generation-sixteen-pin-parent")
+        if pin_paths != tuple(sorted(CI_TOOLCHAIN_PIN_COMMIT_PATHS)):
+            problems.append("authorization:generation-sixteen-pin-scope")
+        receipt_parents, receipt_paths = _commit_row(
+            repo, GENERATION_SIXTEEN_RECEIPT_COMMIT
+        )
+        if receipt_parents != (GENERATION_SIXTEEN_PIN_COMMIT,):
+            problems.append("authorization:generation-sixteen-receipt-parent")
+        if receipt_paths != (TOOLING_RECEIPT_REL,):
+            problems.append("authorization:generation-sixteen-receipt-scope")
+        state_parents, state_paths = _commit_row(repo, GENERATION_SIXTEEN_STATE_COMMIT)
+        if state_parents != (GENERATION_SIXTEEN_RECEIPT_COMMIT,):
+            problems.append("authorization:generation-sixteen-state-parent")
+        if state_paths != (MISSION_REL,):
+            problems.append("authorization:generation-sixteen-state-scope")
+        baton_parents, baton_paths = _commit_row(repo, GENERATION_SIXTEEN_BATON_COMMIT)
+        if baton_parents != (GENERATION_SIXTEEN_STATE_COMMIT,):
+            problems.append("authorization:generation-sixteen-baton-parent")
+        if baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
+            problems.append("authorization:generation-sixteen-baton-scope")
+        documentation_parents, documentation_paths = _commit_row(
+            repo, GENERATION_SIXTEEN_DOCUMENTATION_COMMIT
+        )
+        if documentation_parents != (GENERATION_SIXTEEN_BATON_COMMIT,):
+            problems.append("authorization:generation-sixteen-documentation-parent")
+        if documentation_paths != tuple(
+            sorted(DOCUMENTATION_CORRECTION_TRANCHE_COMMIT_PATHS)
+        ):
+            problems.append("authorization:generation-sixteen-documentation-scope")
+        if _blob(repo, GENERATION_SIXTEEN_DOCUMENTATION_COMMIT, MISSION_REL) != _blob(
+            repo, GENERATION_SIXTEEN_STATE_COMMIT, MISSION_REL
+        ):
+            problems.append("authorization:generation-sixteen-documentation-state-drift")
+        if not _exact_json_value(
+            _json_blob(repo, GENERATION_SIXTEEN_STATE_COMMIT, MISSION_REL),
+            _ci_hardening_expected_state(),
+        ):
+            problems.append("authorization:generation-sixteen-state-contract")
+    except (OSError, subprocess.SubprocessError, AuthorizationError, json.JSONDecodeError) as exc:
+        problems.append(
+            f"authorization:generation-sixteen-probe:{type(exc).__name__}:{exc}"
+        )
+    return sorted(set(problems))
+
+
+def _lifecycle_observer_baton_problems(
+    repo: Path,
+    *,
+    tooling_receipt_commit: str,
+    tooling_baton_commit: str,
+) -> list[str]:
+    """Bind B17 to exact D16 -> F17 -> R17 -> T17(UNKNOWN) -> B17 topology."""
+
+    problems = _frozen_generation_sixteen_problems(repo)
+    try:
+        receipt_parents, receipt_paths = _commit_row(repo, tooling_receipt_commit)
+        if len(receipt_parents) != 1:
+            return sorted(
+                set([*problems, "authorization:ci-hardening-receipt-parent"])
+            )
+        source_commit = receipt_parents[0]
+        source_parents, source_paths = _commit_row(repo, source_commit)
+        if source_parents != (GENERATION_SEVENTEEN_SOURCE_PARENT,):
+            problems.append("authorization:ci-hardening-source-parent")
+        if source_paths != tuple(sorted(GENERATION_SEVENTEEN_SOURCE_COMMIT_PATHS)):
+            problems.append("authorization:ci-hardening-source-scope")
+        if _blob(repo, source_commit, MISSION_REL) != _blob(
+            repo, GENERATION_SEVENTEEN_SOURCE_PARENT, MISSION_REL
+        ):
+            problems.append("authorization:ci-hardening-source-state-drift")
+        if receipt_paths != (TOOLING_RECEIPT_REL,):
+            problems.append("authorization:ci-hardening-receipt-scope")
+
+        baton_parents, baton_paths = _commit_row(repo, tooling_baton_commit)
+        if len(baton_parents) != 1:
+            return sorted(set([*problems, "authorization:ci-hardening-baton-parent"]))
+        state_commit = baton_parents[0]
+        state_parents, state_paths = _commit_row(repo, state_commit)
+        if state_parents != (tooling_receipt_commit,):
+            problems.append("authorization:ci-hardening-state-parent")
+        if state_paths != (MISSION_REL,):
+            problems.append("authorization:ci-hardening-state-scope")
+        if not _exact_json_value(
+            _json_blob(repo, state_commit, MISSION_REL),
+            _lifecycle_observer_expected_state(),
+        ):
+            problems.append("authorization:ci-hardening-state-contract")
+        if baton_paths != ("CONTINUITY.md", "HANDOFF.md"):
+            problems.append("authorization:ci-hardening-baton-scope")
+    except (OSError, subprocess.SubprocessError, AuthorizationError, json.JSONDecodeError) as exc:
+        problems.append(
+            f"authorization:ci-hardening-baton-probe:{type(exc).__name__}:{exc}"
+        )
+    return sorted(set(problems))
+
+
 def validate_publication_descendants(
     repo: Path,
     *,
@@ -2382,6 +2587,51 @@ def validate_publication_descendants(
             "lifecycle_control_publication_status": (
                 lifecycle_control_publication_status
             ),
+        }
+    if phase == LIFECYCLE_OBSERVER_PHASE:
+        if upstream_commit == tooling_receipt_commit:
+            ci_hardening_publication_status = (
+                CI_HARDENING_PUBLICATION_CANDIDATE_STATUS
+            )
+        elif upstream_commit == tooling_baton_commit:
+            ci_hardening_publication_status = (
+                CI_HARDENING_PUBLICATION_PUBLISHED_STATUS
+            )
+        else:
+            ci_hardening_publication_status = (
+                CI_HARDENING_PUBLICATION_INVALID_UPSTREAM_STATUS
+            )
+            problems.append(
+                "authorization:ci-hardening-origin-master-not-r17-or-b17"
+            )
+        if candidate:
+            problems.append("authorization:ci-hardening-candidate")
+        if commits:
+            problems.append(
+                f"authorization:ci-hardening-descendant-count:{len(commits)}"
+            )
+        problems.extend(
+            _deep_replay_publication(
+                root,
+                tooling_receipt_commit=tooling_receipt_commit,
+                tooling_baton_commit=tooling_baton_commit,
+                commits=(),
+                expected_publication=EXPECTED_GENERATION_SEVENTEEN_PUBLICATION,
+            )
+        )
+        problems.extend(
+            _lifecycle_observer_baton_problems(
+                root,
+                tooling_receipt_commit=tooling_receipt_commit,
+                tooling_baton_commit=tooling_baton_commit,
+            )
+        )
+        return {
+            "problems": sorted(set(problems)),
+            "references": {},
+            "authority": "none",
+            "launch_authorized": False,
+            "ci_hardening_publication_status": ci_hardening_publication_status,
         }
     required = 4 if phase == TOOLING_PHASE else 7 if phase == LAUNCH_PHASE else -1
     if required < 0:

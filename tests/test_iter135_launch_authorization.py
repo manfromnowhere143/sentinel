@@ -1485,6 +1485,64 @@ def _lifecycle_control_publication(
     return b15, f16, pin, r16, t16, b16
 
 
+def _ci_hardening_publication(
+    repo: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    *,
+    extra_source_path: bool = False,
+    state: dict | None = None,
+) -> tuple[str, str, str, str, str]:
+    """Build compact exact D16 -> F17 -> R17 -> T17 -> B17 topology."""
+
+    _b15, _f16, pin16, r16, t16, b16 = _lifecycle_control_publication(
+        repo,
+        monkeypatch,
+    )
+    monkeypatch.setattr(auth, "GENERATION_SIXTEEN_PIN_COMMIT", pin16)
+    monkeypatch.setattr(auth, "GENERATION_SIXTEEN_RECEIPT_COMMIT", r16)
+    monkeypatch.setattr(auth, "GENERATION_SIXTEEN_STATE_COMMIT", t16)
+    monkeypatch.setattr(auth, "GENERATION_SIXTEEN_BATON_COMMIT", b16)
+    monkeypatch.setattr(auth, "_frozen_generation_sixteen_problems", lambda _repo: [])
+
+    documentation_paths = list(auth.DOCUMENTATION_CORRECTION_TRANCHE_COMMIT_PATHS)
+    for relative in documentation_paths:
+        _write(repo, relative, f"documentation correction tranche: {relative}\n")
+    d16 = _commit(repo, "generation sixteen documentation correction", *documentation_paths)
+    monkeypatch.setattr(auth, "GENERATION_SIXTEEN_DOCUMENTATION_COMMIT", d16)
+    monkeypatch.setattr(auth, "GENERATION_SEVENTEEN_SOURCE_PARENT", d16)
+
+    source_paths = list(auth.GENERATION_SEVENTEEN_SOURCE_COMMIT_PATHS)
+    for relative in source_paths:
+        _write(repo, relative, f"generation seventeen source: {relative}\n")
+    if extra_source_path:
+        source_paths.append("unexpected-generation-seventeen-source.txt")
+        _write(repo, source_paths[-1], "hostile source-scope expansion\n")
+    f17 = _commit(repo, "generation seventeen CI-hardening source", *source_paths)
+
+    _write(repo, auth.TOOLING_RECEIPT_REL, {"generation": 17})
+    r17 = _commit(
+        repo,
+        "generation seventeen tooling receipt",
+        auth.TOOLING_RECEIPT_REL,
+    )
+    lifecycle_state = (
+        auth._lifecycle_observer_expected_state()
+        if state is None
+        else copy.deepcopy(state)
+    )
+    _write(repo, auth.MISSION_REL, lifecycle_state)
+    t17 = _commit(repo, "generation seventeen lifecycle-observer state", auth.MISSION_REL)
+    _write(repo, "CONTINUITY.md", "generation seventeen CI-hardening transition\n")
+    _write(repo, "HANDOFF.md", "generation seventeen lifecycle state: UNKNOWN\n")
+    b17 = _commit(
+        repo,
+        "generation seventeen CI-hardening baton",
+        "CONTINUITY.md",
+        "HANDOFF.md",
+    )
+    return d16, f17, r17, t17, b17
+
+
 def test_control_hardening_state_mirror_matches_canonical_state_contract() -> None:
     canonical = json.loads((REPO / auth.MISSION_REL).read_text())
     canonical["run_state"] = "UNKNOWN"
@@ -1639,6 +1697,179 @@ def test_ci_hardening_publication_is_always_non_authoritative(
         "launch_authorized": False,
         "lifecycle_control_publication_status": expected_status,
     }
+
+
+def test_lifecycle_observer_state_mirror_matches_exact_t17_contract() -> None:
+    observed = auth._lifecycle_observer_expected_state()
+
+    assert observed["run_state"] == "UNKNOWN"
+    assert observed["next_program"] == {
+        "iteration": 135,
+        "name": "semantics-free placebo dose-response causal closure",
+        "phase": auth.LIFECYCLE_OBSERVER_PHASE,
+        "authorized_actions": list(auth.LIFECYCLE_OBSERVER_AUTHORIZED_ACTIONS),
+        "forbidden_actions": list(auth.LIFECYCLE_OBSERVER_FORBIDDEN_ACTIONS),
+    }
+    assert auth.LIFECYCLE_OBSERVER_PHASE != auth.TOOLING_PHASE
+    assert "provider" in " ".join(auth.LIFECYCLE_OBSERVER_FORBIDDEN_ACTIONS)
+    assert "infer IDLE" in " ".join(auth.LIFECYCLE_OBSERVER_FORBIDDEN_ACTIONS)
+
+
+def test_generation_seventeen_declares_exact_reason_and_twenty_two_path_scope() -> None:
+    assert auth.GENERATION_SEVENTEEN_REASON == (
+        "D16_CONTENT_ADDRESSED_CI_INSTALL_REPLAY_AND_NEXT_SOURCE_V2_BOOTSTRAP"
+    )
+    assert len(auth.GENERATION_SEVENTEEN_SOURCE_COMMIT_PATHS) == 22
+    assert auth.EXPECTED_GENERATION_SEVENTEEN_PUBLICATION == {
+        "generation": 17,
+        "supersedes_receipt_commit": auth.GENERATION_SIXTEEN_RECEIPT_COMMIT,
+        "recovery_parent": auth.GENERATION_SEVENTEEN_SOURCE_PARENT,
+        "reason_code": auth.GENERATION_SEVENTEEN_REASON,
+    }
+
+
+def test_ci_hardening_baton_accepts_only_exact_d16_f17_r17_t17_b17_topology(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    _d16, _f17, r17, _t17, b17 = _ci_hardening_publication(
+        tmp_path,
+        monkeypatch,
+    )
+
+    assert auth._lifecycle_observer_baton_problems(
+        tmp_path,
+        tooling_receipt_commit=r17,
+        tooling_baton_commit=b17,
+    ) == []
+
+
+def test_ci_hardening_baton_rejects_f17_scope_expansion(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    _d16, _f17, r17, _t17, b17 = _ci_hardening_publication(
+        tmp_path,
+        monkeypatch,
+        extra_source_path=True,
+    )
+
+    assert "authorization:ci-hardening-source-scope" in (
+        auth._lifecycle_observer_baton_problems(
+            tmp_path,
+            tooling_receipt_commit=r17,
+            tooling_baton_commit=b17,
+        )
+    )
+
+
+@pytest.mark.parametrize(
+    "mutation",
+    [
+        "idle-state",
+        "tooling-phase",
+        "extra-authorized-action",
+        "missing-forbidden-action",
+    ],
+)
+def test_ci_hardening_baton_rejects_nonexact_t17_state(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    mutation: str,
+) -> None:
+    state = auth._lifecycle_observer_expected_state()
+    if mutation == "idle-state":
+        state["run_state"] = "IDLE"
+    elif mutation == "tooling-phase":
+        state["next_program"]["phase"] = auth.TOOLING_PHASE
+    elif mutation == "extra-authorized-action":
+        state["next_program"]["authorized_actions"].append("query a provider")
+    elif mutation == "missing-forbidden-action":
+        state["next_program"]["forbidden_actions"].pop()
+    else:
+        raise AssertionError(mutation)
+    _d16, _f17, r17, _t17, b17 = _ci_hardening_publication(
+        tmp_path,
+        monkeypatch,
+        state=state,
+    )
+
+    assert "authorization:ci-hardening-state-contract" in (
+        auth._lifecycle_observer_baton_problems(
+            tmp_path,
+            tooling_receipt_commit=r17,
+            tooling_baton_commit=b17,
+        )
+    )
+
+
+@pytest.mark.parametrize(
+    ("upstream", "expected_status", "expected_problems"),
+    [
+        ("r17", auth.CI_HARDENING_PUBLICATION_CANDIDATE_STATUS, []),
+        ("b17", auth.CI_HARDENING_PUBLICATION_PUBLISHED_STATUS, []),
+        (
+            "t17",
+            auth.CI_HARDENING_PUBLICATION_INVALID_UPSTREAM_STATUS,
+            ["authorization:ci-hardening-origin-master-not-r17-or-b17"],
+        ),
+    ],
+)
+def test_lifecycle_observer_publication_is_always_non_authoritative(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    upstream: str,
+    expected_status: str,
+    expected_problems: list[str],
+) -> None:
+    _d16, _f17, r17, t17, b17 = _ci_hardening_publication(
+        tmp_path,
+        monkeypatch,
+    )
+    monkeypatch.setattr(auth, "_deep_replay_publication", lambda *_args, **_kwargs: [])
+    upstream_commit = {"r17": r17, "t17": t17, "b17": b17}[upstream]
+
+    result = auth.validate_publication_descendants(
+        tmp_path,
+        phase=auth.LIFECYCLE_OBSERVER_PHASE,
+        tooling_receipt_commit=r17,
+        tooling_baton_commit=b17,
+        descendants=[],
+        upstream_commit=upstream_commit,
+    )
+
+    assert result == {
+        "problems": expected_problems,
+        "references": {},
+        "authority": "none",
+        "launch_authorized": False,
+        "ci_hardening_publication_status": expected_status,
+    }
+
+
+def test_lifecycle_observer_publication_rejects_descendants_and_candidate_mode(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    _d16, _f17, r17, _t17, b17 = _ci_hardening_publication(
+        tmp_path,
+        monkeypatch,
+    )
+    monkeypatch.setattr(auth, "_deep_replay_publication", lambda *_args, **_kwargs: [])
+    result = auth.validate_publication_descendants(
+        tmp_path,
+        phase=auth.LIFECYCLE_OBSERVER_PHASE,
+        tooling_receipt_commit=r17,
+        tooling_baton_commit=b17,
+        descendants=["f" * 40],
+        upstream_commit=b17,
+        candidate=True,
+    )
+
+    assert "authorization:ci-hardening-descendant-count:1" in result["problems"]
+    assert "authorization:ci-hardening-candidate" in result["problems"]
+    assert result["authority"] == "none"
+    assert result["launch_authorized"] is False
 
 
 def _validate(

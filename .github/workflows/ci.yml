@@ -1,24 +1,51 @@
 name: ci
 on: [push, pull_request]
+permissions:
+  contents: read
+env:
+  LANG: C.UTF-8
+  LC_ALL: C.UTF-8
+  MKL_NUM_THREADS: "1"
+  OMP_NUM_THREADS: "1"
+  OPENBLAS_NUM_THREADS: "1"
+  PYTHONHASHSEED: "0"
+  TZ: UTC
 jobs:
   check:
     name: check (${{ matrix.python-version }})
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.10", "3.11"]
+        # gen-17 CI hardening: Python 3.10 and 3.11 resolve to different science-stack
+        # versions (numpy/scipy/scikit-learn), so each leg pins its own content-addressed lock.
+        include:
+          - python-version: "3.10"
+            lock: tools/ci/requirements-ci-py310.lock
+          - python-version: "3.11"
+            lock: tools/ci/requirements-ci-py311.lock
     steps:
-      - uses: actions/checkout@v4
+      # Action references are frozen as 40-hex strings. Offline replay does not authenticate the
+      # corresponding upstream objects or the tag names retained here as comments.
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-python@v5
+          persist-credentials: false
+      # Replay the exact repository-local CI inputs and frozen critical workflow shape. This gate
+      # is validation evidence, not upstream authenticity, runner hermeticity, or authority.
+      - run: python3 -I -B -S tools/ci/verify_supply_chain.py
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: ${{ matrix.python-version }}
-      # ruff is pinned to the exact locally verified version: the generation-16 receipt lane
-      # failed when a newer ruff shipped mid-ceremony and introduced new default findings.
-      # The full content-addressed toolchain lock is the CI_HARDENING (generation-17) mission.
-      - run: pip install ruff==0.15.20 pytest numpy scikit-learn
-      - run: ruff check .
-      - run: pytest -q
-      - run: python scripts/validate_docs.py
+      - run: test -n "${RUNNER_TEMP:-}" && test -d "${RUNNER_TEMP}" && test ! -L "${RUNNER_TEMP}" && test ! -e "${RUNNER_TEMP}/sentinel-ci-${{ matrix.python-version }}" && python -I -B -m venv "${RUNNER_TEMP}/sentinel-ci-${{ matrix.python-version }}"
+      # A fresh venv force-installs wheel-only locked rows with dependency resolution disabled.
+      # The job-local pip report is checked against lock hashes and installed metadata before tests.
+      # This is still not an offline mirror or evidence that another hosted installation passed.
+      - run: test ! -e "${RUNNER_TEMP}/sentinel-ci-install-${{ matrix.python-version }}.json" && "${RUNNER_TEMP}/sentinel-ci-${{ matrix.python-version }}/bin/python" -I -B -m pip --isolated --disable-pip-version-check install --no-input --force-reinstall --require-hashes --only-binary=':all:' --no-deps --report "${RUNNER_TEMP}/sentinel-ci-install-${{ matrix.python-version }}.json" -r ${{ matrix.lock }}
+      - run: command "${RUNNER_TEMP}/sentinel-ci-${{ matrix.python-version }}/bin/python" -I -B -m pip --isolated --disable-pip-version-check check
+      - run: command "${RUNNER_TEMP}/sentinel-ci-${{ matrix.python-version }}/bin/python" -I -B -S tools/ci/verify_ci_install.py --python-minor "${{ matrix.python-version }}" --lock "${{ matrix.lock }}" --report "${RUNNER_TEMP}/sentinel-ci-install-${{ matrix.python-version }}.json"
+      - run: command "${RUNNER_TEMP}/sentinel-ci-${{ matrix.python-version }}/bin/ruff" check .
+      - run: env -u PYTHONHOME -u PYTHONOPTIMIZE -u PYTEST_ADDOPTS -u PYTEST_PLUGINS PYTHONPATH= PYTHONHASHSEED=0 PYTHONNOUSERSITE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 "${RUNNER_TEMP}/sentinel-ci-${{ matrix.python-version }}/bin/python" -B -S tools/ci/run_pytest_isolated.py -q -c pyproject.toml --noconftest --strict-config --strict-markers tests/test_iter135_gen17_ci_hardening.py tests/test_iter135_ci_install_verifier.py
+      - run: env -u PYTHONHOME -u PYTHONOPTIMIZE -u PYTEST_ADDOPTS -u PYTEST_PLUGINS PYTHONPATH= PYTHONHASHSEED=0 PYTHONNOUSERSITE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 "${RUNNER_TEMP}/sentinel-ci-${{ matrix.python-version }}/bin/python" -B -S tools/ci/run_pytest_isolated.py -q -c pyproject.toml --noconftest --strict-config --strict-markers
+      - run: command "${RUNNER_TEMP}/sentinel-ci-${{ matrix.python-version }}/bin/python" -I -B -S -c 'import runpy,sys;sys.path.append("scripts");runpy.run_path("scripts/validate_docs.py",run_name="__main__")'

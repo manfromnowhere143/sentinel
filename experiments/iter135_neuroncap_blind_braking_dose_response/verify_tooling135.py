@@ -14,6 +14,14 @@ Usage:
     python3 -I -B -S verify_tooling135.py --verify-next-source-binding RECEIPT.json
         --accepted-baton-commit B16 --accepted-tooling-receipt-sha256 SHA256
         --expected-candidate-commit COMMIT --expected-binding-sha256 SHA256
+    python3 -I -B -S verify_tooling135.py --bind-next-source-v2 COMMIT
+        --accepted-tooling-receipt-sha256 SHA256 --accepted-v2-verifier-root ROOT
+        --accepted-v2-verifier-sha256 SHA256 --next-source-v2-repository-root D16_ROOT
+        --next-source-output OUTPUT.json
+    python3 -I -B -S verify_tooling135.py --verify-next-source-binding-v2 RECEIPT.json
+        --accepted-tooling-receipt-sha256 SHA256 --accepted-v2-verifier-root ROOT
+        --accepted-v2-verifier-sha256 SHA256 --next-source-v2-repository-root D16_ROOT
+        --expected-candidate-commit COMMIT --expected-binding-sha256 SHA256
 
 The default output is ``tooling_verification_receipt.json`` beside this file.  A successful run
 exits zero.  Any failed command, provenance failure, or temporal drift emits a red receipt and
@@ -100,9 +108,7 @@ TOOLCHAIN_ROW_FIELDS = frozenset(
     }
 )
 FILE_ROW_FIELDS = frozenset({"sha256", "bytes", "execution_identity"})
-EXECUTION_IDENTITY_FIELDS = frozenset(
-    {"device", "inode", "mode", "mtime_ns", "ctime_ns"}
-)
+EXECUTION_IDENTITY_FIELDS = frozenset({"device", "inode", "mode", "mtime_ns", "ctime_ns"})
 COMMAND_ROW_FIELDS = frozenset(
     {
         "argv",
@@ -133,14 +139,23 @@ EXPERIMENT_REL = "experiments/iter135_neuroncap_blind_braking_dose_response"
 RECEIPT_REL = f"{EXPERIMENT_REL}/tooling_verification_receipt.json"
 BINDER_REL = f"{EXPERIMENT_REL}/verify_tooling135.py"
 NEXT_SOURCE_SCHEMA = "sentinel.next_source_binding.v1"
+NEXT_SOURCE_V2_SCHEMA = "sentinel.next_source_binding.v2"
 NEXT_SOURCE_OK_VERDICT = "I135_NEXT_SOURCE_BINDING_OK"
+NEXT_SOURCE_V2_OK_VERDICT = "I135_NEXT_SOURCE_BINDING_V2_OK"
 NEXT_SOURCE_COMMITTED_POSTCONDITION_VERDICT = (
     "I135_NEXT_SOURCE_BINDING_COMMITTED_POSTCONDITION_FAILED"
+)
+NEXT_SOURCE_V2_COMMITTED_POSTCONDITION_VERDICT = (
+    "I135_NEXT_SOURCE_BINDING_V2_COMMITTED_POSTCONDITION_FAILED"
 )
 NEXT_SOURCE_COMMIT_STATE_INDETERMINATE_VERDICT = (
     "I135_NEXT_SOURCE_BINDING_COMMIT_STATE_INDETERMINATE"
 )
+NEXT_SOURCE_V2_COMMIT_STATE_INDETERMINATE_VERDICT = (
+    "I135_NEXT_SOURCE_BINDING_V2_COMMIT_STATE_INDETERMINATE"
+)
 NEXT_SOURCE_CLAIM = "NEXT_SOURCE_CONTENT_BINDING_ONLY"
+NEXT_SOURCE_V2_CLAIM = "GENERATION_SEVENTEEN_SOURCE_CONTENT_BINDING_ONLY"
 NEXT_SOURCE_FIELDS = frozenset(
     {
         "schema",
@@ -156,9 +171,7 @@ NEXT_SOURCE_FIELDS = frozenset(
         "receipt_payload_sha256",
     }
 )
-NEXT_SOURCE_FILE_FIELDS = frozenset(
-    {"path", "mode", "bytes", "git_blob_oid", "sha256"}
-)
+NEXT_SOURCE_FILE_FIELDS = frozenset({"path", "mode", "bytes", "git_blob_oid", "sha256"})
 NEXT_SOURCE_TRUST_ROOT_FIELDS = frozenset(
     {
         "baton_commit",
@@ -172,9 +185,7 @@ NEXT_SOURCE_TRUST_ROOT_FIELDS = frozenset(
     }
 )
 NEXT_SOURCE_ARTIFACT_FIELDS = frozenset({"path", "bytes", "sha256"})
-NEXT_SOURCE_BINDER_FIELDS = frozenset(
-    {"path", "mode", "bytes", "git_blob_oid", "sha256"}
-)
+NEXT_SOURCE_BINDER_FIELDS = frozenset({"path", "mode", "bytes", "git_blob_oid", "sha256"})
 NEXT_SOURCE_TOOL_FIELDS = frozenset({"path", "bytes", "sha256", "version"})
 NEXT_SOURCE_CANDIDATE_FIELDS = frozenset(
     {
@@ -193,6 +204,28 @@ NEXT_SOURCE_CANDIDATE_FIELDS = frozenset(
         "files",
     }
 )
+NEXT_SOURCE_V2_FIELDS = NEXT_SOURCE_FIELDS
+NEXT_SOURCE_V2_TRUST_ROOT_FIELDS = frozenset(
+    {
+        "repository_root",
+        "documentation_commit",
+        "documentation_tree",
+        "baton_commit",
+        "state_commit",
+        "receipt_commit",
+        "pin_commit",
+        "source_commit",
+        "source_parent_commit",
+        "tooling_receipt",
+        "receipt_bound_verifier",
+        "accepted_v2_verifier",
+        "python",
+        "git",
+    }
+)
+NEXT_SOURCE_V2_VERIFIER_FIELDS = frozenset({"root", "path", "bytes", "sha256"})
+NEXT_SOURCE_V2_TOOL_FIELDS = NEXT_SOURCE_TOOL_FIELDS | {"mode"}
+NEXT_SOURCE_V2_CANDIDATE_FIELDS = NEXT_SOURCE_CANDIDATE_FIELDS | {"commit_paths"}
 NEXT_SOURCE_MAX_COMMIT_BYTES = 1_048_576
 NEXT_SOURCE_MAX_TREE_DEPTH = 64
 NEXT_SOURCE_MAX_TREE_OBJECTS = 10_000
@@ -250,9 +283,7 @@ GENERATION_THREE_SOURCE_COMMIT = "1820fcfd65483fa9c7429dd54fe65dbf91dc6b35"
 GENERATION_THREE_RECEIPT_COMMIT = "755489f36ae2b8cefad183341edefd7c30c047e7"
 GENERATION_THREE_STATE_COMMIT = "d9e261075d27d5d717debebe5c881fa4d6e882c5"
 GENERATION_THREE_BATON_COMMIT = "30b6390b3e165fc517ec6a7d1d7a26502ea45e2a"
-GENERATION_THREE_REASON = (
-    "PRE_SMOKE_CONTROL_GAPS_INTERPRETER_SUMMARY_AND_LAUNCH_AUTHORIZATION"
-)
+GENERATION_THREE_REASON = "PRE_SMOKE_CONTROL_GAPS_INTERPRETER_SUMMARY_AND_LAUNCH_AUTHORIZATION"
 GENERATION_FOUR_SOURCE_PARENT = GENERATION_THREE_BATON_COMMIT
 GENERATION_FOUR_REASON = "B3_CI_STRUCTURAL_GIT_READER_TOOLCHAIN_ROOT_FAILURE"
 GENERATION_FOUR_SOURCE_COMMIT = "052404fb13aee8395f538a92cc3c898c13f06adc"
@@ -396,21 +427,28 @@ GENERATION_SIXTEEN_REASON = (
     "B15_SOURCE_BOUND_LIFECYCLE_CONTROL_AND_LIFECYCLE_EVIDENCE_SEPARATION_"
     "AND_NEXT_SOURCE_CONTENT_BINDING_BOOTSTRAP"
 )
-# Compatibility aliases used by the receipt generator and focused hostile tests. They always name
-# the active generation-sixteen source publication, never a historical recovery.
+# Immutable historical generation-sixteen constants retained by the receipt anchors and hostile
+# tests. The active generation-seventeen publication has separate constants below.
 # The generation-sixteen lifecycle-control source published as F16. Its hash became citable the
 # moment it landed on canonical master, exactly like every earlier generation's commits.
 GENERATION_SIXTEEN_SOURCE_COMMIT = "51370ccac79fd141f774ca462a4fdd8b8f3f5b55"
 # The CI toolchain pin exists because the published CI lane installed an unpinned ruff and a
 # newer release failed the generation-sixteen receipt lane after local verification was green.
-# It amends the active generation-sixteen source with EXACTLY ONE additional commit: a single
+# It amended the generation-sixteen source with EXACTLY ONE additional commit: a single
 # direct child of F16 whose committed path set pins ruff in CI and teaches the three publication
 # validators (and their tests) this amended source resolution. The receipt is regenerated at the
 # pin commit; F16's own published shape stays enforced below. The full content-addressed
 # toolchain lock remains the CI_HARDENING (generation-seventeen) mission.
 CI_TOOLCHAIN_PIN_SOURCE_PARENT = GENERATION_SIXTEEN_SOURCE_COMMIT
-RECOVERY_SOURCE_PARENT = CI_TOOLCHAIN_PIN_SOURCE_PARENT
-RECOVERY_REASON = GENERATION_SIXTEEN_REASON
+GENERATION_SIXTEEN_PIN_COMMIT = "a5dc84c731c7272174c70b950ebc890b01330a3c"
+GENERATION_SIXTEEN_RECEIPT_COMMIT = "f417b77e1a8f5ca8d7c883fe41248e3e7c4f2666"
+GENERATION_SIXTEEN_STATE_COMMIT = "b5536802b62acaab3a1b57f93618b74dee3c3312"
+GENERATION_SIXTEEN_BATON_COMMIT = "737f1f2160134cf1e3d0d7216b21993848f06078"
+GENERATION_SIXTEEN_DOCUMENTATION_COMMIT = "355010c4b668c85fcd2647586c56d7a21b8b88d0"
+GENERATION_SEVENTEEN_SOURCE_PARENT = GENERATION_SIXTEEN_DOCUMENTATION_COMMIT
+GENERATION_SEVENTEEN_REASON = "D16_CONTENT_ADDRESSED_CI_INSTALL_REPLAY_AND_NEXT_SOURCE_V2_BOOTSTRAP"
+RECOVERY_SOURCE_PARENT = GENERATION_SEVENTEEN_SOURCE_PARENT
+RECOVERY_REASON = GENERATION_SEVENTEEN_REASON
 POST_FREEZE_EXACT_PATHS = {
     "CONTINUITY.md",
     "HANDOFF.md",
@@ -451,7 +489,9 @@ REQUIRED_TEST_FILES = (
     "tests/test_handoff_generator.py",
     "tests/test_iter131_post_iter130_mission_alignment_audit.py",
     "tests/test_iter135_analyzer.py",
+    "tests/test_iter135_ci_install_verifier.py",
     "tests/test_iter135_environment_capture.py",
+    "tests/test_iter135_gen17_ci_hardening.py",
     "tests/test_iter135_harness_patches.py",
     "tests/test_iter135_host_preparation.py",
     "tests/test_iter135_launch_authorization.py",
@@ -487,6 +527,7 @@ REQUIRED_SHELL_FILES = (
 REQUIRED_DATA_FILES = (f"{EXPERIMENT_REL}/dose_schedules.json",)
 REQUIRED_CONTROL_FILES = (
     ".github/workflows/ci.yml",
+    "AGENTS.md",
     "CONTINUITY.md",
     "HANDOFF.md",
     "MISSION_STATE.json",
@@ -496,12 +537,20 @@ REQUIRED_CONTROL_FILES = (
     "docs/paper/STATUS.md",
     "docs/research/BENCH2DRIVE_ROBUST_PREFLIGHT_2026-07-16.md",
     "docs/research/FRONTIER_ALIGNMENT_MEMORY_2026-07-13.md",
+    "docs/research/ITER135_GENERATION_SEVENTEEN_CI_HARDENING_PREREGISTRATION_2026-08-21.md",
     "docs/research/ITER135_SOURCE_BOUND_LIFECYCLE_CONTROL_PREREGISTRATION_2026-07-21.md",
     "pyproject.toml",
     "scripts/make_handoff.py",
     "scripts/mission_state.py",
     "scripts/validate_docs.py",
     "tests/test_mission_state.py",
+    "tools/ci/requirements-ci-py310.lock",
+    "tools/ci/requirements-ci-py311.lock",
+    "tools/ci/requirements-ci.in",
+    "tools/ci/run_pytest_isolated.py",
+    "tools/ci/supply-chain-manifest.json",
+    "tools/ci/verify_ci_install.py",
+    "tools/ci/verify_supply_chain.py",
     f"{EXPERIMENT_REL}/HYPOTHESIS.md",
 )
 GENERATION_ONE_SOURCE_COMMIT_PATHS = (
@@ -760,7 +809,7 @@ GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS = (
     "tests/test_iter135_tooling_verifier.py",
     "tests/test_mission_state.py",
 )
-# The exact committed path set of the CI toolchain pin commit — the active generation-sixteen
+# The exact committed path set of the historical CI toolchain pin commit — the generation-sixteen
 # source amendment. It contains the machinery files themselves because the pin commit is
 # self-admitting in the established F16 bootstrap idiom.
 CI_TOOLCHAIN_PIN_COMMIT_PATHS = (
@@ -783,13 +832,75 @@ DOCUMENTATION_CORRECTION_TRANCHE_COMMIT_PATHS = (
     "scripts/mission_state.py",
     "tests/test_mission_state.py",
 )
-RECOVERY_SOURCE_COMMIT_PATHS = CI_TOOLCHAIN_PIN_COMMIT_PATHS
-EXPECTED_RECOVERY_PUBLICATION = {
+GENERATION_SEVENTEEN_LEGACY_ABSENT_PATHS = ("tests/test_gen17_ci_hardening.py",)
+GENERATION_SEVENTEEN_SOURCE_COMMIT_PATHS = (
+    ".github/workflows/ci.yml",
+    "AGENTS.md",
+    "docs/research/ITER135_GENERATION_SEVENTEEN_CI_HARDENING_PREREGISTRATION_2026-08-21.md",
+    f"{EXPERIMENT_REL}/authorize_launch135.py",
+    f"{EXPERIMENT_REL}/verify_tooling135.py",
+    "pyproject.toml",
+    "scripts/make_handoff.py",
+    "scripts/mission_state.py",
+    "tests/test_handoff_generator.py",
+    "tests/test_iter135_ci_install_verifier.py",
+    "tests/test_iter135_gen17_ci_hardening.py",
+    "tests/test_iter135_launch_authorization.py",
+    "tests/test_iter135_launcher.py",
+    "tests/test_iter135_tooling_verifier.py",
+    "tests/test_mission_state.py",
+    "tools/ci/requirements-ci-py310.lock",
+    "tools/ci/requirements-ci-py311.lock",
+    "tools/ci/requirements-ci.in",
+    "tools/ci/run_pytest_isolated.py",
+    "tools/ci/supply-chain-manifest.json",
+    "tools/ci/verify_ci_install.py",
+    "tools/ci/verify_supply_chain.py",
+)
+NEXT_SOURCE_V2_LIMITATIONS = [
+    "The operator-supplied accepted v2 verifier root and SHA-256 and canonical R16 tooling-receipt SHA-256 are external bootstrap trust axioms.",
+    "The operator's pre-execution selection and measurement of the exact v2 verifier, R16-bound Python, and R16-bound Git are external bootstrap trust axioms; executing code cannot authenticate its own correctness before execution.",
+    "The R16 Python and Git rows are accepted across filesystem mount epochs only when their physical canonical paths, regular executable permission modes, byte counts, SHA-256 digests, and version strings match exactly; historical device, inode, and timestamp values are nonportable and are not acceptance fields, while each run's complete observed file identity must remain identical across both bootstrap passes.",
+    "The R16-bound Python executable does not bind its standard-library installation, which remains an external trust axiom.",
+    "The bootstrap assumes no adversarial same-UID process swaps the accepted verifier, tool paths, D16 worktree, Git metadata, or object store between bounded observations; two complete replays detect observed drift but do not provide process isolation.",
+    "The output writer validates parent ownership and group/world write mode bits but does not bind filesystem ACLs, mount policy, or permission enforcement, which remain external host axioms.",
+    "The output writer assumes no adversarial same-UID process mutates the output-parent route, the staging or final names, or their inodes, content, or metadata throughout publication or after its last observation before independent replay; portable POSIX interfaces neither isolate processes sharing a UID nor make name-based link or unlink inode-conditional.",
+    "This receipt binds one exact-scope direct child of D16, its complete regular-file content manifest, and byte equality between its verifier and the externally accepted v2 verifier only.",
+    "The operator must separately accept this binding before any candidate checkout, import, execution, commit publication, or generation transition.",
+    "This receipt establishes no repository publication, hosted-CI, scientific, host, lifecycle, launch, safety, or Odeya authority.",
+]
+NEXT_SOURCE_V2_POLICY = {
+    **NEXT_SOURCE_POLICY,
+    "candidate_parent": GENERATION_SEVENTEEN_SOURCE_PARENT,
+    "candidate_commit_paths": list(GENERATION_SEVENTEEN_SOURCE_COMMIT_PATHS),
+    "candidate_required_regular_paths": list(GENERATION_SEVENTEEN_SOURCE_COMMIT_PATHS),
+    "candidate_required_absent_paths": list(GENERATION_SEVENTEEN_LEGACY_ABSENT_PATHS),
+    "candidate_verifier_path": BINDER_REL,
+    "accepted_chain": [
+        ["D16", GENERATION_SIXTEEN_DOCUMENTATION_COMMIT],
+        ["B16", GENERATION_SIXTEEN_BATON_COMMIT],
+        ["T16", GENERATION_SIXTEEN_STATE_COMMIT],
+        ["R16", GENERATION_SIXTEEN_RECEIPT_COMMIT],
+        ["PIN16", GENERATION_SIXTEEN_PIN_COMMIT],
+        ["F16", GENERATION_SIXTEEN_SOURCE_COMMIT],
+        ["B15", GENERATION_FIFTEEN_BATON_COMMIT],
+    ],
+    "independent_object_replays": 2,
+}
+RECOVERY_SOURCE_COMMIT_PATHS = GENERATION_SEVENTEEN_SOURCE_COMMIT_PATHS
+EXPECTED_GENERATION_SIXTEEN_PUBLICATION = {
     "generation": 16,
     "supersedes_receipt_commit": GENERATION_FIFTEEN_RECEIPT_COMMIT,
-    "recovery_parent": GENERATION_SIXTEEN_SOURCE_PARENT,
+    "recovery_parent": GENERATION_FIFTEEN_BATON_COMMIT,
     "reason_code": GENERATION_SIXTEEN_REASON,
 }
+EXPECTED_GENERATION_SEVENTEEN_PUBLICATION = {
+    "generation": 17,
+    "supersedes_receipt_commit": GENERATION_SIXTEEN_RECEIPT_COMMIT,
+    "recovery_parent": GENERATION_SEVENTEEN_SOURCE_PARENT,
+    "reason_code": GENERATION_SEVENTEEN_REASON,
+}
+EXPECTED_RECOVERY_PUBLICATION = EXPECTED_GENERATION_SEVENTEEN_PUBLICATION
 CI_HARDENING_AUTHORIZED_ACTIONS = (
     "implement and validate only offline, content-addressed CI inputs, exact dependency locks, "
     "supply-chain manifests, independent evidence replay, and known-bad controls",
@@ -810,6 +921,31 @@ CI_HARDENING_FORBIDDEN_ACTIONS = (
     "authorization",
     "rerun iteration 134 or adapt iteration-135 schedules, estimands, verdicts, or policies after "
     "evidence",
+)
+LIFECYCLE_OBSERVER_PHASE = "LIFECYCLE_OBSERVER_REQUIRED"
+LIFECYCLE_OBSERVER_AUTHORIZED_ACTIONS = (
+    "implement and validate only offline the actual source-bound lifecycle observer and "
+    "performing-controller contract while retaining the accepted lifecycle and CI controls",
+    "specify and validate exact observer invocation, sanitized environment, provider-query, "
+    "capability-discovery, and evidence bindings without provider access or observer execution",
+)
+LIFECYCLE_OBSERVER_FORBIDDEN_ACTIONS = (
+    "access, inventory, query, prepare, mutate, or execute on any iteration-135 provider, remote "
+    "host, remote filesystem, credential, packet, runtime, lock, container, GPU, or evidence "
+    "path; or run the actual lifecycle observer",
+    "create, execute, publish, or advance any H, E, P, or S descendant; host preparation; "
+    "environment capture; manifest generation; live smoke; launch activation; or analytic "
+    "episode",
+    "infer IDLE, termination, completion, readiness, approval, or authority from static state, "
+    "green CI, absent containers, absent processes, missing reviewers, timeouts, retry "
+    "exhaustion, or incomplete evidence",
+    "run analyzers or publish iteration-135 data, results, claims, figures, paper text, or "
+    "scientific conclusions",
+    "change branch protection, rulesets, Actions policy, repository visibility, credentials, "
+    "secrets, access control, or other external governance settings without explicit operator "
+    "authorization",
+    "rerun iteration 134; run, retry, or relaunch iteration 135; or adapt iteration-135 schedules, "
+    "estimands, verdicts, or policies after evidence",
 )
 
 # Compatibility names describe only the immutable first freeze.  Recovery publication checks use
@@ -975,8 +1111,7 @@ def _exact_json_value(observed: object, expected: object) -> bool:
         observed_dict = observed
         expected_dict = expected
         return set(observed_dict) == set(expected_dict) and all(
-            _exact_json_value(observed_dict[key], expected_dict[key])
-            for key in expected_dict
+            _exact_json_value(observed_dict[key], expected_dict[key]) for key in expected_dict
         )
     if type(expected) is list:
         observed_list = observed
@@ -1037,6 +1172,27 @@ def _expected_ci_hardening_state(repo_root: Path) -> dict[str, Any]:
     return state
 
 
+def _expected_lifecycle_observer_state(repo_root: Path) -> dict[str, Any]:
+    """Derive T17 from the exact hash-bound T16 state without trusting worktree code."""
+
+    state = _parse_receipt_json(
+        _git_file_bytes(
+            repo_root,
+            GENERATION_SIXTEEN_STATE_COMMIT,
+            "MISSION_STATE.json",
+        )
+    )
+    state["run_state"] = "UNKNOWN"
+    state["next_program"] = {
+        "iteration": 135,
+        "name": "semantics-free placebo dose-response causal closure",
+        "phase": LIFECYCLE_OBSERVER_PHASE,
+        "authorized_actions": list(LIFECYCLE_OBSERVER_AUTHORIZED_ACTIONS),
+        "forbidden_actions": list(LIFECYCLE_OBSERVER_FORBIDDEN_ACTIONS),
+    }
+    return state
+
+
 def _sha256_bytes(value: bytes) -> str:
     return hashlib.sha256(value).hexdigest()
 
@@ -1065,10 +1221,7 @@ def _canonical_utc_ns(value: object) -> int | None:
     if parsed.isoformat().replace("+00:00", "Z") != value:
         return None
     delta = parsed - datetime(1970, 1, 1, tzinfo=timezone.utc)
-    return (
-        (delta.days * 86_400 + delta.seconds) * 1_000_000_000
-        + delta.microseconds * 1_000
-    )
+    return (delta.days * 86_400 + delta.seconds) * 1_000_000_000 + delta.microseconds * 1_000
 
 
 def _nested_receipt_shape_errors(receipt: Mapping[str, Any]) -> list[str]:
@@ -1185,22 +1338,16 @@ def _nested_receipt_shape_errors(receipt: Mapping[str, Any]) -> list[str]:
                 errors.append(f"file execution_identity malformed: {relative_path}")
                 continue
             if set(identity) != EXECUTION_IDENTITY_FIELDS:
-                errors.append(
-                    f"file execution_identity field set mismatch: {relative_path}"
-                )
+                errors.append(f"file execution_identity field set mismatch: {relative_path}")
             for field in ("device", "inode"):
                 if not _is_exact_nonnegative_int(identity.get(field)):
-                    errors.append(
-                        f"file execution_identity {field} malformed: {relative_path}"
-                    )
+                    errors.append(f"file execution_identity {field} malformed: {relative_path}")
             mode = identity.get("mode")
             if type(mode) is not int or not stat.S_ISREG(mode):
                 errors.append(f"file execution_identity mode malformed: {relative_path}")
             for field in ("mtime_ns", "ctime_ns"):
                 if type(identity.get(field)) is not int:
-                    errors.append(
-                        f"file execution_identity {field} malformed: {relative_path}"
-                    )
+                    errors.append(f"file execution_identity {field} malformed: {relative_path}")
 
     command_contract = receipt.get("command_contract")
     if not isinstance(command_contract, list) or not all(
@@ -1222,8 +1369,10 @@ def _nested_receipt_shape_errors(receipt: Mapping[str, Any]) -> list[str]:
             if set(row) != COMMAND_ROW_FIELDS:
                 errors.append(f"command_{index} field set mismatch")
             argv = row.get("argv")
-            if not isinstance(argv, list) or not argv or not all(
-                isinstance(argument, str) for argument in argv
+            if (
+                not isinstance(argv, list)
+                or not argv
+                or not all(isinstance(argument, str) for argument in argv)
             ):
                 errors.append(f"command_{index} argv malformed")
             return_code = row.get("return_code")
@@ -1264,9 +1413,11 @@ def _nested_receipt_shape_errors(receipt: Mapping[str, Any]) -> list[str]:
         if started_ns is not None and finished_ns is not None:
             if finished_ns < started_ns:
                 errors.append("timing UTC timestamps are out of order")
-            elif _is_exact_nonnegative_int(wall_duration) and abs(
-                finished_ns - started_ns - wall_duration
-            ) > WALL_TIMESTAMP_ROUNDING_BUDGET_NS:
+            elif (
+                _is_exact_nonnegative_int(wall_duration)
+                and abs(finished_ns - started_ns - wall_duration)
+                > WALL_TIMESTAMP_ROUNDING_BUDGET_NS
+            ):
                 errors.append("timing wall duration is inconsistent with UTC timestamps")
     return errors
 
@@ -1351,9 +1502,7 @@ def _sanitized_environment_for_paths(paths: Sequence[str]) -> dict[str, str]:
 
 
 def _sanitized_environment(toolchain: Mapping[str, Mapping[str, Any]]) -> dict[str, str]:
-    return _sanitized_environment_for_paths(
-        [str(toolchain[name]["path"]) for name in TOOL_NAMES]
-    )
+    return _sanitized_environment_for_paths([str(toolchain[name]["path"]) for name in TOOL_NAMES])
 
 
 def _sanitized_git_environment(git: Mapping[str, Any]) -> dict[str, str]:
@@ -1380,9 +1529,7 @@ def _hardened_git_environment(git: Mapping[str, Any]) -> dict[str, str]:
     return environment
 
 
-def _hardened_git_argv(
-    git: Mapping[str, Any], repo_root: Path, *argv: str
-) -> tuple[str, ...]:
+def _hardened_git_argv(git: Mapping[str, Any], repo_root: Path, *argv: str) -> tuple[str, ...]:
     return (
         str(git["path"]),
         "--no-replace-objects",
@@ -1498,8 +1645,10 @@ def resolve_git() -> dict[str, Any]:
 
 
 def _utc_from_ns(value: int) -> str:
-    return datetime.fromtimestamp(value / 1_000_000_000, tz=timezone.utc).isoformat().replace(
-        "+00:00", "Z"
+    return (
+        datetime.fromtimestamp(value / 1_000_000_000, tz=timezone.utc)
+        .isoformat()
+        .replace("+00:00", "Z")
     )
 
 
@@ -1520,14 +1669,14 @@ def discover_inventory(repo_root: Path) -> Inventory:
     root = repo_root.resolve(strict=True)
     tests = tuple(
         sorted(
-                {
-                    *_relative_regular_files(root, "tests/test_iter135_*.py"),
-                    *_relative_regular_files(root, "tests/test_handoff_generator.py"),
-                    *_relative_regular_files(
-                        root,
-                        "tests/test_iter131_post_iter130_mission_alignment_audit.py",
-                    ),
-                }
+            {
+                *_relative_regular_files(root, "tests/test_iter135_*.py"),
+                *_relative_regular_files(root, "tests/test_handoff_generator.py"),
+                *_relative_regular_files(
+                    root,
+                    "tests/test_iter131_post_iter130_mission_alignment_audit.py",
+                ),
+            }
         )
     )
     python_tools = _relative_regular_files(root, f"{EXPERIMENT_REL}/*.py")
@@ -1558,7 +1707,9 @@ def discover_inventory(repo_root: Path) -> Inventory:
     missing_shell = sorted(set(REQUIRED_SHELL_FILES) - set(shell_discovered))
     unexpected_shell = sorted(set(shell_discovered) - set(REQUIRED_SHELL_FILES))
     missing_data = sorted(
-        rel for rel in REQUIRED_DATA_FILES if not (root / rel).is_file() or (root / rel).is_symlink()
+        rel
+        for rel in REQUIRED_DATA_FILES
+        if not (root / rel).is_file() or (root / rel).is_symlink()
     )
     missing_controls = sorted(
         rel
@@ -1695,6 +1846,13 @@ def build_commands(
 
     tools = toolchain or resolve_toolchain()
     return (
+        (
+            str(tools["python3"]["path"]),
+            "-I",
+            "-B",
+            "-S",
+            "tools/ci/verify_supply_chain.py",
+        ),
         (str(tools["pytest"]["path"]), "-q", *inventory.tests),
         (str(tools["bash"]["path"]), "-n", "--", inventory.shell_files[0]),
         (str(tools["bash"]["path"]), "-n", "--", inventory.shell_files[1]),
@@ -1756,22 +1914,31 @@ def default_git_probe(repo_root: Path, relative_paths: tuple[str, ...]) -> GitSt
     head = head_raw.decode("ascii", errors="strict").strip()
     if len(head) != 40 or any(char not in "0123456789abcdef" for char in head):
         raise VerificationError("Git HEAD is not a lowercase 40-hex commit")
-    branch = _git_bytes(repo_root, ("symbolic-ref", "--quiet", "--short", "HEAD")).decode(
-        "utf-8", errors="strict"
-    ).strip()
-    upstream = _git_bytes(
-        repo_root, ("rev-parse", "--abbrev-ref", "--symbolic-full-name", "@{u}")
-    ).decode("utf-8", errors="strict").strip()
-    upstream_head = _git_bytes(repo_root, ("rev-parse", "--verify", "@{u}")).decode(
-        "ascii", errors="strict"
-    ).strip()
+    branch = (
+        _git_bytes(repo_root, ("symbolic-ref", "--quiet", "--short", "HEAD"))
+        .decode("utf-8", errors="strict")
+        .strip()
+    )
+    upstream = (
+        _git_bytes(repo_root, ("rev-parse", "--abbrev-ref", "--symbolic-full-name", "@{u}"))
+        .decode("utf-8", errors="strict")
+        .strip()
+    )
+    upstream_head = (
+        _git_bytes(repo_root, ("rev-parse", "--verify", "@{u}"))
+        .decode("ascii", errors="strict")
+        .strip()
+    )
     if len(upstream_head) != 40 or any(
         character not in "0123456789abcdef" for character in upstream_head
     ):
         raise VerificationError("Git upstream HEAD is not a lowercase 40-hex commit")
-    parent_fields = _git_bytes(repo_root, ("rev-list", "--parents", "-n", "1", "HEAD")).decode(
-        "ascii", errors="strict"
-    ).strip().split()
+    parent_fields = (
+        _git_bytes(repo_root, ("rev-list", "--parents", "-n", "1", "HEAD"))
+        .decode("ascii", errors="strict")
+        .strip()
+        .split()
+    )
     if not parent_fields or parent_fields[0] != head:
         raise VerificationError("Git parent receipt does not start with HEAD")
     parents = tuple(parent_fields[1:])
@@ -1804,9 +1971,7 @@ def default_git_probe(repo_root: Path, relative_paths: tuple[str, ...]) -> GitSt
         ),
     )
     entries = tuple(
-        field.decode("utf-8", errors="surrogateescape")
-        for field in status.split(b"\0")
-        if field
+        field.decode("utf-8", errors="surrogateescape") for field in status.split(b"\0") if field
     )
     return GitState(
         head=head,
@@ -1820,19 +1985,21 @@ def default_git_probe(repo_root: Path, relative_paths: tuple[str, ...]) -> GitSt
     )
 
 
-def default_structural_git_probe(
-    repo_root: Path, relative_paths: tuple[str, ...]
-) -> GitState:
+def default_structural_git_probe(repo_root: Path, relative_paths: tuple[str, ...]) -> GitState:
     """Inspect published history without requiring a checked-out branch or configured upstream."""
 
     head = _git_bytes(repo_root, ("rev-parse", "--verify", "HEAD^{commit}"))
     head_text = head.decode("ascii", errors="strict").strip()
     if not _valid_commit(head_text):
         raise VerificationError("structural Git HEAD is not a lowercase 40-hex commit")
-    origin_head = _git_bytes(
-        repo_root,
-        ("rev-parse", "--verify", "refs/remotes/origin/master^{commit}"),
-    ).decode("ascii", errors="strict").strip()
+    origin_head = (
+        _git_bytes(
+            repo_root,
+            ("rev-parse", "--verify", "refs/remotes/origin/master^{commit}"),
+        )
+        .decode("ascii", errors="strict")
+        .strip()
+    )
     if not _valid_commit(origin_head):
         raise VerificationError("origin/master is not a lowercase 40-hex commit")
     parents, commit_paths = _git_commit_row(repo_root, head_text)
@@ -1847,9 +2014,7 @@ def default_structural_git_probe(
         ),
     )
     entries = tuple(
-        field.decode("utf-8", errors="surrogateescape")
-        for field in status.split(b"\0")
-        if field
+        field.decode("utf-8", errors="surrogateescape") for field in status.split(b"\0") if field
     )
     return GitState(
         head=head_text,
@@ -1885,9 +2050,7 @@ def default_ancestry_probe(repo_root: Path, ancestor: str, descendant: str) -> b
         return True
     if completed.returncode == 1:
         return False
-    raise VerificationError(
-        f"Git ancestry command failed with return code {completed.returncode}"
-    )
+    raise VerificationError(f"Git ancestry command failed with return code {completed.returncode}")
 
 
 def _to_bytes(value: Any) -> bytes:
@@ -1943,9 +2106,7 @@ def _changed_paths(
     initial: Mapping[str, FileFingerprint], current: Mapping[str, FileFingerprint]
 ) -> list[str]:
     return sorted(
-        rel
-        for rel in set(initial) | set(current)
-        if initial.get(rel) != current.get(rel)
+        rel for rel in set(initial) | set(current) if initial.get(rel) != current.get(rel)
     )
 
 
@@ -1958,7 +2119,7 @@ def run_verification(
     wall_clock_ns: Clock = time.time_ns,
     monotonic_clock_ns: Clock = time.monotonic_ns,
 ) -> dict[str, Any]:
-    """Run the generation-sixteen lifecycle-control pipeline and return its in-memory receipt."""
+    """Run the generation-seventeen CI-hardening pipeline and return its in-memory receipt."""
 
     root = repo_root.resolve(strict=True)
     wall_start = wall_clock_ns()
@@ -2008,14 +2169,14 @@ def run_verification(
         problems.append(
             _problem(
                 "SOURCE_PARENT",
-                "generation-sixteen source HEAD is not the direct child of the accepted B15 baton",
+                "generation-seventeen source HEAD is not the direct child of accepted D16",
             )
         )
     if git_start.commit_paths != tuple(sorted(RECOVERY_SOURCE_COMMIT_PATHS)):
         problems.append(
             _problem(
                 "SOURCE_COMMIT_SCOPE",
-                "generation-sixteen source HEAD path set is not the exact preregistered lifecycle-control set",
+                "generation-seventeen source HEAD path set is not the exact preregistered CI-hardening set",
             )
         )
 
@@ -2046,9 +2207,7 @@ def run_verification(
                 return False
             return True
         except Exception as exc:
-            problems.append(
-                _problem("CHECKPOINT_FAILED", f"{label}: {type(exc).__name__}: {exc}")
-            )
+            problems.append(_problem("CHECKPOINT_FAILED", f"{label}: {type(exc).__name__}: {exc}"))
             return False
 
     if not problems:
@@ -2083,7 +2242,9 @@ def run_verification(
     if git_start.head != git_end.head:
         problems.append(_problem("GIT_HEAD_DRIFT", "Git HEAD changed during verification"))
     if git_start != git_end:
-        problems.append(_problem("GIT_STATE_DRIFT", "Git publication state changed during verification"))
+        problems.append(
+            _problem("GIT_STATE_DRIFT", "Git publication state changed during verification")
+        )
     if git_end.dirty_entries or git_end.porcelain_sha256 != _sha256_bytes(b""):
         problems.append(
             _problem(
@@ -2157,17 +2318,22 @@ def run_verification(
 
 
 def _valid_commit(value: object) -> bool:
-    return isinstance(value, str) and len(value) == 40 and all(
-        character in "0123456789abcdef" for character in value
+    return (
+        isinstance(value, str)
+        and len(value) == 40
+        and all(character in "0123456789abcdef" for character in value)
     )
 
 
 def _git_commit_row(repo_root: Path, commit: str) -> tuple[tuple[str, ...], tuple[str, ...]]:
     if not _valid_commit(commit):
         raise VerificationError("publication commit is not lowercase 40-hex")
-    parent_fields = _git_bytes(
-        repo_root, ("rev-list", "--parents", "-n", "1", commit)
-    ).decode("ascii", errors="strict").strip().split()
+    parent_fields = (
+        _git_bytes(repo_root, ("rev-list", "--parents", "-n", "1", commit))
+        .decode("ascii", errors="strict")
+        .strip()
+        .split()
+    )
     if not parent_fields or parent_fields[0] != commit:
         raise VerificationError("publication parent row does not start with requested commit")
     parents = tuple(parent_fields[1:])
@@ -2204,6 +2370,36 @@ def _git_file_bytes(repo_root: Path, commit: str, relative_path: str) -> bytes:
     )
 
 
+def _git_registered_path_modes(
+    repo_root: Path, commit: str, relative_paths: Sequence[str]
+) -> dict[str, str]:
+    """Return exact blob modes for registered paths at a hash-bound commit tree."""
+
+    if not _valid_commit(commit):
+        raise VerificationError("registered-path commit is malformed")
+    safe_paths: list[str] = []
+    for relative_path in relative_paths:
+        pure = PurePosixPath(relative_path)
+        if pure.is_absolute() or ".." in pure.parts or pure.as_posix() != relative_path:
+            raise VerificationError(f"registered path is unsafe: {relative_path!r}")
+        safe_paths.append(relative_path)
+    raw = _git_bytes(repo_root, ("ls-tree", "-z", commit, "--", *safe_paths))
+    observed: dict[str, str] = {}
+    for row in (field for field in raw.split(b"\0") if field):
+        try:
+            metadata, raw_path = row.split(b"\t", 1)
+            mode, object_type, _object_id = metadata.split(b" ", 2)
+            relative_path = raw_path.decode("utf-8", errors="strict")
+            decoded_mode = mode.decode("ascii", errors="strict")
+            decoded_type = object_type.decode("ascii", errors="strict")
+        except (UnicodeDecodeError, ValueError) as error:
+            raise VerificationError("registered-path tree row is malformed") from error
+        if relative_path in observed or decoded_type != "blob":
+            raise VerificationError("registered-path tree row is duplicated or not a blob")
+        observed[relative_path] = decoded_mode
+    return observed
+
+
 def _source_inventory_from_tree(repo_root: Path, source_commit: str) -> Inventory:
     tree_paths = {
         field.decode("utf-8", errors="surrogateescape")
@@ -2221,8 +2417,7 @@ def _source_inventory_from_tree(repo_root: Path, source_commit: str) -> Inventor
             and (
                 PurePosixPath(path).match("test_iter135_*.py")
                 or path == "tests/test_handoff_generator.py"
-                or path
-                == "tests/test_iter131_post_iter130_mission_alignment_audit.py"
+                or path == "tests/test_iter131_post_iter130_mission_alignment_audit.py"
             )
         )
     )
@@ -2270,8 +2465,7 @@ def _source_inventory_from_tree(repo_root: Path, source_commit: str) -> Inventor
             "conftest.py",
         }
         or (
-            path.endswith("/conftest.py")
-            and path.split("/", 1)[0] in {"tests", "engine", "method"}
+            path.endswith("/conftest.py") and path.split("/", 1)[0] in {"tests", "engine", "method"}
         )
     }
     if forbidden:
@@ -2433,23 +2627,17 @@ def _read_physical_regular_file_snapshot(
     try:
         parent_descriptor, parent_before = _open_physical_directory_chain(absolute.parent)
         try:
-            file_descriptor = os.open(
-                absolute.name, file_flags, dir_fd=parent_descriptor
-            )
+            file_descriptor = os.open(absolute.name, file_flags, dir_fd=parent_descriptor)
         except FileNotFoundError:
             if required:
                 raise VerificationError(
                     f"required bounded regular file is absent: {absolute}"
                 ) from None
-            final_parent_descriptor, parent_after = _open_physical_directory_chain(
-                absolute.parent
-            )
+            final_parent_descriptor, parent_after = _open_physical_directory_chain(absolute.parent)
             if parent_before != parent_after:
                 raise VerificationError("bounded absent-file parent path changed")
             try:
-                appeared = os.open(
-                    absolute.name, file_flags, dir_fd=final_parent_descriptor
-                )
+                appeared = os.open(absolute.name, file_flags, dir_fd=final_parent_descriptor)
             except FileNotFoundError:
                 return None, ("absent", parent_before)
             else:
@@ -2457,16 +2645,11 @@ def _read_physical_regular_file_snapshot(
                 raise VerificationError("bounded absent file appeared during snapshot")
         except OSError as error:
             raise VerificationError(
-                "bounded regular file has a symlink or physical-path redirection: "
-                f"{absolute}"
+                f"bounded regular file has a symlink or physical-path redirection: {absolute}"
             ) from error
 
         before = os.fstat(file_descriptor)
-        if (
-            not stat.S_ISREG(before.st_mode)
-            or before.st_size < 0
-            or before.st_size > maximum
-        ):
+        if not stat.S_ISREG(before.st_mode) or before.st_size < 0 or before.st_size > maximum:
             raise VerificationError("bounded regular-file size or type is outside the contract")
         remaining = before.st_size
         chunks: list[bytes] = []
@@ -2479,9 +2662,7 @@ def _read_physical_regular_file_snapshot(
         if os.read(file_descriptor, 1):
             raise VerificationError("bounded regular file grew while reading")
         after = os.fstat(file_descriptor)
-        final_parent_descriptor, parent_after = _open_physical_directory_chain(
-            absolute.parent
-        )
+        final_parent_descriptor, parent_after = _open_physical_directory_chain(absolute.parent)
         try:
             final_file_descriptor = os.open(
                 absolute.name, file_flags, dir_fd=final_parent_descriptor
@@ -2512,9 +2693,7 @@ def _read_physical_regular_file_snapshot(
 def _read_stable_regular_file_bounded(path: Path, maximum: int) -> bytes:
     """Read a bounded regular file through a stable no-follow physical path walk."""
 
-    payload, _snapshot = _read_physical_regular_file_snapshot(
-        path, maximum, required=True
-    )
+    payload, _snapshot = _read_physical_regular_file_snapshot(path, maximum, required=True)
     assert payload is not None
     return payload
 
@@ -2613,6 +2792,18 @@ class _AnchoredBootstrap:
     binder: Mapping[str, Any]
 
 
+@dataclass(frozen=True)
+class _AnchoredBootstrapV2:
+    tooling_receipt: Mapping[str, Any]
+    tooling_receipt_bytes: bytes
+    tooling_receipt_sha256: str
+    receipt_bound_verifier: Mapping[str, Any]
+    accepted_v2_verifier: Mapping[str, Any]
+    accepted_v2_verifier_bytes: bytes
+    git: Mapping[str, Any]
+    python: Mapping[str, Any]
+
+
 def _binding_stat_identity(value: os.stat_result) -> tuple[int, ...]:
     return _physical_stat_identity(value)
 
@@ -2650,9 +2841,7 @@ def _binding_control_snapshot(
 ) -> tuple[tuple[Any, ...], bytes | None]:
     """Bounded no-follow snapshot for one Git control file, including absence."""
 
-    payload, snapshot = _read_physical_regular_file_snapshot(
-        path, maximum, required=required
-    )
+    payload, snapshot = _read_physical_regular_file_snapshot(path, maximum, required=required)
     return ((str(path), *snapshot), payload)
 
 
@@ -2694,6 +2883,53 @@ def _next_source_exact_tool_row(
     return observed
 
 
+def _next_source_v2_content_tool_row(
+    claimed: Mapping[str, Any],
+    *,
+    expected_path: Path | None,
+    version_args: tuple[str, ...],
+    cwd: Path,
+) -> dict[str, Any]:
+    """Re-anchor one R16 tool by portable content while retaining a live full-stat row."""
+
+    if set(claimed) != TOOLCHAIN_ROW_FIELDS:
+        raise VerificationError("v2 bootstrap tool row field set mismatch")
+    claimed_path = claimed.get("path")
+    if not isinstance(claimed_path, str):
+        raise VerificationError("v2 bootstrap tool path is malformed")
+    physical = Path(claimed_path).resolve(strict=True)
+    if expected_path is not None and physical != expected_path.resolve(strict=True):
+        raise VerificationError("v2 bootstrap interpreter differs from anchored R16 tool")
+    if not _allowed_tool_path(physical):
+        raise VerificationError("v2 bootstrap tool is outside accepted roots")
+    observed = _stable_external_file(physical)
+    if type(observed.get("mode")) is not int or observed["mode"] & 0o111 == 0:
+        raise VerificationError("v2 bootstrap tool is not executable")
+    environment = _sanitized_environment_for_paths([str(physical)])
+    completed = subprocess.run(  # noqa: S603 - exact R16-bound executable path
+        (str(physical), *version_args),
+        cwd=cwd,
+        env=environment,
+        check=False,
+        stdin=subprocess.DEVNULL,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        timeout=10,
+    )
+    if completed.returncode != 0 or len(completed.stdout) > 65_536:
+        raise VerificationError("v2 bootstrap tool version probe failed")
+    lines = completed.stdout.decode("utf-8", errors="replace").splitlines()
+    observed["version"] = lines[0] if lines else ""
+    portable_fields = ("path", "mode", "bytes", "sha256", "version")
+    observed_portable = {key: observed[key] for key in portable_fields}
+    claimed_portable = {key: claimed.get(key) for key in portable_fields}
+    if not _exact_json_value(observed_portable, claimed_portable):
+        raise VerificationError(
+            "v2 bootstrap tool content identity differs from anchored R16 receipt"
+        )
+    return observed
+
+
 def _require_isolated_binding_interpreter() -> None:
     flags = sys.flags
     if (
@@ -2723,7 +2959,7 @@ def _anchor_next_source_tools(
     receipt = _parse_receipt_json(raw_receipt)
     if set(receipt) != RECEIPT_FIELDS or receipt.get("schema") != SCHEMA:
         raise VerificationError("anchored tooling receipt schema is malformed")
-    if not _exact_json_value(receipt.get("publication"), EXPECTED_RECOVERY_PUBLICATION):
+    if not _exact_json_value(receipt.get("publication"), EXPECTED_GENERATION_SIXTEEN_PUBLICATION):
         raise VerificationError("anchored tooling receipt publication block is wrong")
     if (
         receipt.get("verdict") != OK_VERDICT
@@ -2750,11 +2986,9 @@ def _anchor_next_source_tools(
     source_commit = git_start.get("head")
     if not _valid_commit(source_commit):
         raise VerificationError("anchored F16 source commit is malformed")
-    if (
-        git_start.get("parents") != [GENERATION_SIXTEEN_SOURCE_PARENT]
-        or git_start.get("commit_paths")
-        != list(sorted(GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS))
-    ):
+    if git_start.get("parents") != [GENERATION_SIXTEEN_SOURCE_PARENT] or git_start.get(
+        "commit_paths"
+    ) != list(sorted(GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS)):
         raise VerificationError("anchored F16 source topology claim is malformed")
 
     claimed_files = receipt.get("files")
@@ -2807,6 +3041,139 @@ def _anchor_next_source_tools(
         git=git,
         python=python,
         binder=binder_projection,
+    )
+
+
+def _canonical_v2_verifier_root(accepted_verifier_root: Path) -> Path:
+    if not accepted_verifier_root.is_absolute():
+        raise VerificationError("accepted v2 verifier root must be absolute")
+    absolute = Path(os.path.abspath(os.fspath(accepted_verifier_root)))
+    try:
+        physical = absolute.resolve(strict=True)
+    except OSError as error:
+        raise VerificationError("accepted v2 verifier root cannot be resolved") from error
+    if physical != absolute or not physical.is_dir() or physical.is_symlink():
+        raise VerificationError("accepted v2 verifier root is not a physical directory")
+    executing = Path(__file__).resolve(strict=True)
+    expected = physical / BINDER_REL
+    if expected.resolve(strict=True) != executing or expected != executing:
+        raise VerificationError("executing verifier is outside the accepted v2 verifier root")
+    return physical
+
+
+def _anchor_next_source_v2_tools(
+    repo_root: Path,
+    *,
+    accepted_tooling_receipt_sha256: str,
+    accepted_verifier_root: Path,
+    accepted_verifier_sha256: str,
+) -> _AnchoredBootstrapV2:
+    """Authenticate the external v2 verifier and R16-bound tools before any Git read."""
+
+    _require_isolated_binding_interpreter()
+    if not _is_sha256(accepted_verifier_sha256):
+        raise VerificationError("accepted v2 verifier SHA-256 is malformed")
+    verifier_root = _canonical_v2_verifier_root(accepted_verifier_root)
+    verifier_bytes = _read_stable_regular_file_bounded(
+        verifier_root / BINDER_REL, NEXT_SOURCE_MAX_BLOB_BYTES
+    )
+    verifier_sha256 = _sha256_bytes(verifier_bytes)
+    if verifier_sha256 != accepted_verifier_sha256:
+        raise VerificationError("executing v2 verifier differs from detached accepted SHA-256")
+    accepted_v2_verifier = {
+        "root": str(verifier_root),
+        "path": BINDER_REL,
+        "bytes": len(verifier_bytes),
+        "sha256": verifier_sha256,
+    }
+
+    if not _is_sha256(accepted_tooling_receipt_sha256):
+        raise VerificationError("accepted tooling-receipt SHA-256 is malformed")
+    receipt_path = repo_root / RECEIPT_REL
+    raw_receipt = _read_stable_regular_file_bounded(receipt_path, 8 * 1024 * 1024)
+    observed_receipt_sha256 = _sha256_bytes(raw_receipt)
+    if observed_receipt_sha256 != accepted_tooling_receipt_sha256:
+        raise VerificationError("working R16 receipt differs from detached accepted SHA-256")
+    receipt = _parse_receipt_json(raw_receipt)
+    if set(receipt) != RECEIPT_FIELDS or receipt.get("schema") != SCHEMA:
+        raise VerificationError("anchored tooling receipt schema is malformed")
+    if not _exact_json_value(receipt.get("publication"), EXPECTED_GENERATION_SIXTEEN_PUBLICATION):
+        raise VerificationError("anchored tooling receipt publication block is wrong")
+    if (
+        receipt.get("verdict") != OK_VERDICT
+        or type(receipt.get("problem_count")) is not int
+        or receipt.get("problem_count") != 0
+        or receipt.get("problems") != []
+    ):
+        raise VerificationError("anchored tooling receipt is not exactly green")
+    if _nested_receipt_shape_errors(receipt):
+        raise VerificationError("anchored tooling receipt nested schema is malformed")
+    payload = dict(receipt)
+    claimed_payload_sha256 = payload.pop("receipt_payload_sha256", None)
+    if claimed_payload_sha256 != _sha256_bytes(_canonical_json(payload)):
+        raise VerificationError("anchored tooling receipt payload checksum is wrong")
+
+    repository = receipt.get("repository")
+    if not isinstance(repository, Mapping):
+        raise VerificationError("anchored tooling repository block is malformed")
+    git_start = repository.get("git_start")
+    git_end = repository.get("git_end")
+    if not isinstance(git_start, Mapping) or not _exact_json_value(git_start, git_end):
+        raise VerificationError("anchored tooling Git state was not stable")
+    if (
+        git_start.get("head") != GENERATION_SIXTEEN_PIN_COMMIT
+        or git_start.get("parents") != [GENERATION_SIXTEEN_SOURCE_COMMIT]
+        or git_start.get("commit_paths") != list(sorted(CI_TOOLCHAIN_PIN_COMMIT_PATHS))
+    ):
+        raise VerificationError("anchored PIN16 source topology claim is malformed")
+
+    claimed_files = receipt.get("files")
+    if not isinstance(claimed_files, Mapping):
+        raise VerificationError("anchored tooling file map is malformed")
+    claimed_verifier = claimed_files.get(BINDER_REL)
+    if not isinstance(claimed_verifier, Mapping) or set(claimed_verifier) != FILE_ROW_FIELDS:
+        raise VerificationError("anchored PIN16 verifier row is missing or malformed")
+    receipt_bound_verifier = {
+        "path": BINDER_REL,
+        "bytes": claimed_verifier.get("bytes"),
+        "sha256": claimed_verifier.get("sha256"),
+    }
+    if (
+        type(receipt_bound_verifier["bytes"]) is not int
+        or receipt_bound_verifier["bytes"] < 1
+        or receipt_bound_verifier["bytes"] > NEXT_SOURCE_MAX_BLOB_BYTES
+        or not _is_sha256(receipt_bound_verifier["sha256"])
+    ):
+        raise VerificationError("anchored PIN16 verifier identity is malformed")
+
+    toolchain = receipt.get("toolchain")
+    if not isinstance(toolchain, Mapping):
+        raise VerificationError("anchored tooling toolchain is malformed")
+    python_row = toolchain.get("python3")
+    git_row = toolchain.get("git")
+    if not isinstance(python_row, Mapping) or not isinstance(git_row, Mapping):
+        raise VerificationError("anchored Python or Git row is missing")
+    python = _next_source_v2_content_tool_row(
+        python_row,
+        expected_path=Path(sys.executable),
+        version_args=TOOL_VERSION_ARGS["python3"],
+        cwd=repo_root,
+    )
+    git = _next_source_v2_content_tool_row(
+        git_row,
+        expected_path=None,
+        version_args=TOOL_VERSION_ARGS["git"],
+        cwd=repo_root,
+    )
+    return _AnchoredBootstrapV2(
+        tooling_receipt=receipt,
+        tooling_receipt_bytes=raw_receipt,
+        tooling_receipt_sha256=observed_receipt_sha256,
+        receipt_bound_verifier=receipt_bound_verifier,
+        accepted_v2_verifier=accepted_v2_verifier,
+        accepted_v2_verifier_bytes=verifier_bytes,
+        git=git,
+        python=python,
     )
 
 
@@ -2892,16 +3259,16 @@ def _discover_binding_git_layout(repo_root: Path) -> _BindingGitLayout:
     info_dir = objects_dir / "info"
     if pack_dir.is_symlink() or info_dir.is_symlink():
         raise VerificationError("bootstrap object metadata directory is a symlink")
-    if replace_refs.exists() or replace_refs.is_symlink() or any(
-        (objects_dir / "pack").glob("*.promisor")
+    if (
+        replace_refs.exists()
+        or replace_refs.is_symlink()
+        or any((objects_dir / "pack").glob("*.promisor"))
     ):
         raise VerificationError("bootstrap repository uses replacement or promisor state")
 
     gitfile_snapshot: tuple[Any, ...]
     if linked_worktree:
-        gitfile_snapshot, _gitfile_bytes = _binding_control_snapshot(
-            dot_git, 4_096, required=True
-        )
+        gitfile_snapshot, _gitfile_bytes = _binding_control_snapshot(dot_git, 4_096, required=True)
         if _gitfile_bytes != gitfile:
             raise VerificationError("bootstrap linked-worktree gitfile changed during discovery")
     else:
@@ -2916,9 +3283,7 @@ def _discover_binding_git_layout(repo_root: Path) -> _BindingGitLayout:
     )
     if linked_worktree and backlink_bytes != str(dot_git).encode("utf-8") + b"\n":
         raise VerificationError("bootstrap linked-worktree backlink is redirected")
-    head_snapshot, _head_bytes = _binding_control_snapshot(
-        git_dir / "HEAD", 256, required=True
-    )
+    head_snapshot, _head_bytes = _binding_control_snapshot(git_dir / "HEAD", 256, required=True)
     index_snapshot, _index_bytes = _binding_control_snapshot(
         git_dir / "index", 64 * 1024 * 1024, required=True
     )
@@ -3046,9 +3411,7 @@ def _validate_binding_index_rows(raw: bytes) -> None:
 class _GitBatchObjectReader:
     """Stream raw local Git objects through one anchored, no-replacement process."""
 
-    def __init__(
-        self, git: Mapping[str, Any], layout: _BindingGitLayout
-    ) -> None:
+    def __init__(self, git: Mapping[str, Any], layout: _BindingGitLayout) -> None:
         self._deadline = time.monotonic() + NEXT_SOURCE_OBJECT_DEADLINE_SECONDS
         self._stderr = tempfile.TemporaryFile()
         self._buffer = bytearray()
@@ -3212,8 +3575,7 @@ def _parse_raw_commit_links(payload: bytes) -> tuple[str, tuple[str, ...]]:
             or not key
             or not value
             or any(
-                byte
-                not in b"-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz"
+                byte not in b"-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz"
                 for byte in key
             )
         ):
@@ -3225,9 +3587,7 @@ def _parse_raw_commit_links(payload: bytes) -> tuple[str, tuple[str, ...]]:
         raise VerificationError("bootstrap commit must contain exactly one tree")
     try:
         tree = trees[0].decode("ascii", errors="strict")
-        parent_oids = tuple(
-            parent.decode("ascii", errors="strict") for parent in parents
-        )
+        parent_oids = tuple(parent.decode("ascii", errors="strict") for parent in parents)
     except UnicodeDecodeError as error:
         raise VerificationError("bootstrap commit binding is not ASCII") from error
     if not _valid_commit(tree) or any(not _valid_commit(parent) for parent in parent_oids):
@@ -3262,11 +3622,7 @@ def _parse_raw_git_tree(payload: bytes) -> list[tuple[str, bytes, str]]:
             raise VerificationError("candidate tree mode is malformed") from error
         if mode not in {"40000", "100644", "100755", "120000", "160000"}:
             raise VerificationError("bootstrap tree contains a noncanonical mode")
-        if (
-            not name
-            or name in {b".", b".."}
-            or b"/" in name
-        ):
+        if not name or name in {b".", b".."} or b"/" in name:
             raise VerificationError("bootstrap tree path component is malformed")
         if name in component_names:
             raise VerificationError("bootstrap tree contains a duplicate component name")
@@ -3611,9 +3967,7 @@ def _validate_next_source_trust_topology(
             maximum=64 * 1024 * 1024,
         )
     )
-    if _binding_git_bytes(
-        anchored.git, layout, "rev-parse", "--show-object-format"
-    ) != b"sha1\n":
+    if _binding_git_bytes(anchored.git, layout, "rev-parse", "--show-object-format") != b"sha1\n":
         raise VerificationError("bootstrap repository object format is not SHA-1")
 
     topology = _RawTopologyView(reader)
@@ -3630,9 +3984,8 @@ def _validate_next_source_trust_topology(
         raise VerificationError("R16 object topology is malformed")
     source_commit = receipt_parents[0]
     source_tree, source_parents = topology.commit(source_commit)
-    if (
-        source_commit != anchored.source_commit
-        or source_parents != (GENERATION_SIXTEEN_SOURCE_PARENT,)
+    if source_commit != anchored.source_commit or source_parents != (
+        GENERATION_SIXTEEN_SOURCE_PARENT,
     ):
         raise VerificationError("F16 object topology differs from anchored R16 receipt")
     expected_changes = (
@@ -3646,19 +3999,12 @@ def _validate_next_source_trust_topology(
         (
             source_commit,
             GENERATION_SIXTEEN_SOURCE_PARENT,
-            tuple(
-                sorted(
-                    path.encode("ascii")
-                    for path in GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS
-                )
-            ),
+            tuple(sorted(path.encode("ascii") for path in GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS)),
         ),
     )
     for commit_oid, parent_oid, expected_paths in expected_changes:
         if topology.changed_paths(commit_oid, parent_oid) != expected_paths:
-            raise VerificationError(
-                f"bootstrap raw tree diff is malformed at {commit_oid}"
-            )
+            raise VerificationError(f"bootstrap raw tree diff is malformed at {commit_oid}")
 
     receipt_identity = topology.lookup(receipt_tree, RECEIPT_REL.encode("ascii"))
     if receipt_identity is None or receipt_identity[0] != "100644":
@@ -3706,14 +4052,8 @@ def _validate_next_source_trust_topology(
             "mode": "100644",
             "git_blob_oid": binder_oid,
         },
-        "python": {
-            key: anchored.python[key]
-            for key in ("path", "bytes", "sha256", "version")
-        },
-        "git": {
-            key: anchored.git[key]
-            for key in ("path", "bytes", "sha256", "version")
-        },
+        "python": {key: anchored.python[key] for key in ("path", "bytes", "sha256", "version")},
+        "git": {key: anchored.git[key] for key in ("path", "bytes", "sha256", "version")},
     }
 
 
@@ -3785,6 +4125,304 @@ def build_next_source_binding(
     encoded = _canonical_json(receipt) + b"\n"
     if len(encoded) > NEXT_SOURCE_MAX_RECEIPT_BYTES:
         raise VerificationError("generated next-source receipt exceeds byte bound")
+    return receipt
+
+
+def _validate_next_source_v2_trust_topology(
+    anchored: _AnchoredBootstrapV2,
+    layout: _BindingGitLayout,
+    reader: _GitBatchObjectReader,
+) -> dict[str, Any]:
+    """Reduce the exact immutable D16-to-B15 chain without revision or checkout views."""
+
+    head_raw = _read_small_physical_file(layout.git_dir / "HEAD", 256)
+    if head_raw != GENERATION_SEVENTEEN_SOURCE_PARENT.encode("ascii") + b"\n":
+        raise VerificationError("bootstrap worktree is not detached at accepted D16")
+    status = _binding_git_bytes(
+        anchored.git,
+        layout,
+        "status",
+        "--porcelain=v1",
+        "-z",
+        "--untracked-files=all",
+        "--ignored=matching",
+        worktree=True,
+    )
+    if status:
+        raise VerificationError("bootstrap D16 worktree contains tracked or residual files")
+    _validate_binding_index_rows(
+        _binding_git_bytes(
+            anchored.git,
+            layout,
+            "ls-files",
+            "-v",
+            "-z",
+            worktree=True,
+            maximum=64 * 1024 * 1024,
+        )
+    )
+    if _binding_git_bytes(anchored.git, layout, "rev-parse", "--show-object-format") != b"sha1\n":
+        raise VerificationError("bootstrap repository object format is not SHA-1")
+
+    topology = _RawTopologyView(reader)
+    chain = (
+        (
+            "D16",
+            GENERATION_SIXTEEN_DOCUMENTATION_COMMIT,
+            GENERATION_SIXTEEN_BATON_COMMIT,
+            DOCUMENTATION_CORRECTION_TRANCHE_COMMIT_PATHS,
+        ),
+        (
+            "B16",
+            GENERATION_SIXTEEN_BATON_COMMIT,
+            GENERATION_SIXTEEN_STATE_COMMIT,
+            ("CONTINUITY.md", "HANDOFF.md"),
+        ),
+        (
+            "T16",
+            GENERATION_SIXTEEN_STATE_COMMIT,
+            GENERATION_SIXTEEN_RECEIPT_COMMIT,
+            ("MISSION_STATE.json",),
+        ),
+        (
+            "R16",
+            GENERATION_SIXTEEN_RECEIPT_COMMIT,
+            GENERATION_SIXTEEN_PIN_COMMIT,
+            (RECEIPT_REL,),
+        ),
+        (
+            "PIN16",
+            GENERATION_SIXTEEN_PIN_COMMIT,
+            GENERATION_SIXTEEN_SOURCE_COMMIT,
+            CI_TOOLCHAIN_PIN_COMMIT_PATHS,
+        ),
+        (
+            "F16",
+            GENERATION_SIXTEEN_SOURCE_COMMIT,
+            GENERATION_FIFTEEN_BATON_COMMIT,
+            GENERATION_SIXTEEN_SOURCE_COMMIT_PATHS,
+        ),
+    )
+    trees: dict[str, str] = {}
+    for label, commit_oid, parent_oid, expected_paths in chain:
+        tree_oid, parents = topology.commit(commit_oid)
+        trees[label] = tree_oid
+        if parents != (parent_oid,):
+            raise VerificationError(f"{label} object topology differs from the accepted chain")
+        observed_paths = topology.changed_paths(commit_oid, parent_oid)
+        expected_path_bytes = tuple(sorted(path.encode("ascii") for path in expected_paths))
+        if observed_paths != expected_path_bytes:
+            raise VerificationError(f"{label} raw tree diff differs from the accepted scope")
+
+    receipt_identity = topology.lookup(trees["R16"], RECEIPT_REL.encode("ascii"))
+    if receipt_identity is None or receipt_identity[0] != "100644":
+        raise VerificationError("R16 receipt raw tree row is missing or malformed")
+    receipt_size, receipt_sha256, receipt_bytes = reader.read(
+        receipt_identity[1],
+        expected_type="blob",
+        maximum=8 * 1024 * 1024,
+        retain=True,
+    )
+    if (
+        receipt_bytes != anchored.tooling_receipt_bytes
+        or receipt_size != len(anchored.tooling_receipt_bytes)
+        or receipt_sha256 != anchored.tooling_receipt_sha256
+    ):
+        raise VerificationError("D16 working receipt differs from exact R16 commit bytes")
+
+    pin_verifier_identity = topology.lookup(trees["PIN16"], BINDER_REL.encode("ascii"))
+    if pin_verifier_identity is None or pin_verifier_identity[0] != "100644":
+        raise VerificationError("PIN16 verifier raw tree row is missing or malformed")
+    pin_verifier_size, pin_verifier_sha256, _pin_verifier_bytes = reader.read(
+        pin_verifier_identity[1],
+        expected_type="blob",
+        maximum=max(int(anchored.receipt_bound_verifier["bytes"]), 1),
+        retain=False,
+    )
+    if (
+        pin_verifier_size != anchored.receipt_bound_verifier["bytes"]
+        or pin_verifier_sha256 != anchored.receipt_bound_verifier["sha256"]
+    ):
+        raise VerificationError("PIN16 verifier differs from the exact R16 receipt binding")
+
+    return {
+        "repository_root": str(layout.worktree),
+        "documentation_commit": GENERATION_SIXTEEN_DOCUMENTATION_COMMIT,
+        "documentation_tree": trees["D16"],
+        "baton_commit": GENERATION_SIXTEEN_BATON_COMMIT,
+        "state_commit": GENERATION_SIXTEEN_STATE_COMMIT,
+        "receipt_commit": GENERATION_SIXTEEN_RECEIPT_COMMIT,
+        "pin_commit": GENERATION_SIXTEEN_PIN_COMMIT,
+        "source_commit": GENERATION_SIXTEEN_SOURCE_COMMIT,
+        "source_parent_commit": GENERATION_FIFTEEN_BATON_COMMIT,
+        "tooling_receipt": {
+            "path": RECEIPT_REL,
+            "bytes": len(anchored.tooling_receipt_bytes),
+            "sha256": anchored.tooling_receipt_sha256,
+        },
+        "receipt_bound_verifier": {
+            **anchored.receipt_bound_verifier,
+            "mode": "100644",
+            "git_blob_oid": pin_verifier_identity[1],
+        },
+        "accepted_v2_verifier": dict(anchored.accepted_v2_verifier),
+        "python": {
+            key: anchored.python[key] for key in ("path", "mode", "bytes", "sha256", "version")
+        },
+        "git": {key: anchored.git[key] for key in ("path", "mode", "bytes", "sha256", "version")},
+    }
+
+
+def _candidate_v2_manifest_from_objects(
+    reader: _GitBatchObjectReader,
+    anchored: _AnchoredBootstrapV2,
+    *,
+    candidate_commit: str,
+) -> dict[str, Any]:
+    topology = _RawTopologyView(reader)
+    candidate_tree, candidate_parents = topology.commit(candidate_commit)
+    if candidate_parents != (GENERATION_SEVENTEEN_SOURCE_PARENT,):
+        raise VerificationError("v2 candidate is not the exact direct child of D16")
+    observed_paths = topology.changed_paths(candidate_commit, GENERATION_SEVENTEEN_SOURCE_PARENT)
+    expected_paths = tuple(
+        sorted(path.encode("ascii") for path in GENERATION_SEVENTEEN_SOURCE_COMMIT_PATHS)
+    )
+    if observed_paths != expected_paths:
+        raise VerificationError("v2 candidate changed paths outside the registered Gen17 scope")
+
+    for path in GENERATION_SEVENTEEN_LEGACY_ABSENT_PATHS:
+        if topology.lookup(candidate_tree, path.encode("ascii")) is not None:
+            raise VerificationError("v2 candidate retained an obsolete Gen17 path")
+    for path in GENERATION_SEVENTEEN_SOURCE_COMMIT_PATHS:
+        identity = topology.lookup(candidate_tree, path.encode("ascii"))
+        if identity is None or identity[0] not in NEXT_SOURCE_ALLOWED_BLOB_MODES:
+            raise VerificationError("v2 candidate registered source path is absent or not regular")
+
+    verifier_identity = topology.lookup(candidate_tree, BINDER_REL.encode("ascii"))
+    if verifier_identity is None or verifier_identity[0] != "100644":
+        raise VerificationError("v2 candidate verifier row is missing or malformed")
+    verifier_size, verifier_sha256, verifier_bytes = reader.read(
+        verifier_identity[1],
+        expected_type="blob",
+        maximum=max(len(anchored.accepted_v2_verifier_bytes), 1),
+        retain=True,
+    )
+    if (
+        verifier_bytes != anchored.accepted_v2_verifier_bytes
+        or verifier_size != anchored.accepted_v2_verifier["bytes"]
+        or verifier_sha256 != anchored.accepted_v2_verifier["sha256"]
+    ):
+        raise VerificationError(
+            "v2 candidate verifier bytes differ from the externally accepted verifier"
+        )
+
+    candidate = _candidate_manifest_from_objects(
+        reader,
+        accepted_baton_commit=GENERATION_SEVENTEEN_SOURCE_PARENT,
+        candidate_commit=candidate_commit,
+    )
+    candidate["commit_paths"] = list(GENERATION_SEVENTEEN_SOURCE_COMMIT_PATHS)
+    return candidate
+
+
+def _build_next_source_v2_pass(
+    anchored: _AnchoredBootstrapV2,
+    layout: _BindingGitLayout,
+    reader: _GitBatchObjectReader,
+    *,
+    candidate_commit: str,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    trust_root = _validate_next_source_v2_trust_topology(anchored, layout, reader)
+    candidate = _candidate_v2_manifest_from_objects(
+        reader, anchored, candidate_commit=candidate_commit
+    )
+    return trust_root, candidate
+
+
+def build_next_source_binding_v2(
+    repo_root: Path,
+    *,
+    accepted_tooling_receipt_sha256: str,
+    accepted_verifier_root: Path,
+    accepted_verifier_sha256: str,
+    candidate_commit: str,
+) -> dict[str, Any]:
+    """Bind the exact-scope direct child of D16 with two independent raw-object passes."""
+
+    _require_isolated_binding_interpreter()
+    if (
+        not _valid_commit(candidate_commit)
+        or candidate_commit == GENERATION_SEVENTEEN_SOURCE_PARENT
+    ):
+        raise VerificationError("v2 candidate commit binding is malformed")
+    root = repo_root.resolve(strict=True)
+    anchored = _anchor_next_source_v2_tools(
+        root,
+        accepted_tooling_receipt_sha256=accepted_tooling_receipt_sha256,
+        accepted_verifier_root=accepted_verifier_root,
+        accepted_verifier_sha256=accepted_verifier_sha256,
+    )
+    layout = _discover_binding_git_layout(root)
+    reader = _GitBatchObjectReader(anchored.git, layout)
+    try:
+        trust_root, candidate = _build_next_source_v2_pass(
+            anchored, layout, reader, candidate_commit=candidate_commit
+        )
+        reader.close()
+    except Exception:
+        reader.abort()
+        raise
+
+    ending_anchor = _anchor_next_source_v2_tools(
+        root,
+        accepted_tooling_receipt_sha256=accepted_tooling_receipt_sha256,
+        accepted_verifier_root=accepted_verifier_root,
+        accepted_verifier_sha256=accepted_verifier_sha256,
+    )
+    ending_layout = _discover_binding_git_layout(root)
+    ending_reader = _GitBatchObjectReader(ending_anchor.git, ending_layout)
+    try:
+        ending_trust_root, ending_candidate = _build_next_source_v2_pass(
+            ending_anchor,
+            ending_layout,
+            ending_reader,
+            candidate_commit=candidate_commit,
+        )
+        ending_reader.close()
+    except Exception:
+        ending_reader.abort()
+        raise
+    final_layout = _discover_binding_git_layout(root)
+    if ending_anchor != anchored:
+        raise VerificationError("v2 anchored bootstrap bytes changed during source binding")
+    if ending_layout != layout or final_layout != ending_layout:
+        raise VerificationError("v2 bootstrap Git layout changed during source binding")
+    if not _exact_json_value(ending_trust_root, trust_root):
+        raise VerificationError("v2 bootstrap trust topology changed between object replays")
+    if not _exact_json_value(ending_candidate, candidate):
+        raise VerificationError("v2 candidate bytes changed between object replays")
+
+    receipt: dict[str, Any] = {
+        "schema": NEXT_SOURCE_V2_SCHEMA,
+        "verdict": NEXT_SOURCE_V2_OK_VERDICT,
+        "claim": NEXT_SOURCE_V2_CLAIM,
+        "authority": {
+            "launch_authorized": False,
+            "publication_authorized": False,
+        },
+        "limitations": list(NEXT_SOURCE_V2_LIMITATIONS),
+        "policy": dict(NEXT_SOURCE_V2_POLICY),
+        "trust_root": trust_root,
+        "candidate": candidate,
+        "problems": [],
+        "problem_count": 0,
+    }
+    receipt["receipt_payload_sha256"] = _sha256_bytes(_canonical_json(receipt))
+    if set(receipt) != NEXT_SOURCE_V2_FIELDS:
+        raise VerificationError("generated v2 next-source receipt field set drift")
+    encoded = _canonical_json(receipt) + b"\n"
+    if len(encoded) > NEXT_SOURCE_MAX_RECEIPT_BYTES:
+        raise VerificationError("generated v2 next-source receipt exceeds byte bound")
     return receipt
 
 
@@ -3990,9 +4628,7 @@ def _strict_next_source_receipt(raw_receipt: bytes) -> dict[str, Any]:
         total_bytes += size
         if total_bytes > NEXT_SOURCE_MAX_TOTAL_FILE_BYTES:
             raise VerificationError("next-source manifest total exceeds byte bound")
-        if not _valid_commit(row.get("git_blob_oid")) or not _is_sha256(
-            row.get("sha256")
-        ):
+        if not _valid_commit(row.get("git_blob_oid")) or not _is_sha256(row.get("sha256")):
             raise VerificationError("next-source manifest digest is malformed")
     if (
         type(candidate.get("file_count")) is not int
@@ -4019,6 +4655,208 @@ def _strict_next_source_receipt(raw_receipt: bytes) -> dict[str, Any]:
         or candidate.get("unique_blob_bytes") > candidate.get("total_file_bytes")
     ):
         raise VerificationError("next-source unique-blob aggregate mismatch")
+    return receipt
+
+
+def _strict_next_source_v2_receipt(raw_receipt: bytes) -> dict[str, Any]:
+    if not raw_receipt or len(raw_receipt) > NEXT_SOURCE_MAX_RECEIPT_BYTES:
+        raise VerificationError("v2 next-source receipt byte count is outside the contract")
+    receipt = _parse_next_source_json(raw_receipt)
+    if raw_receipt != _canonical_json(receipt) + b"\n":
+        raise VerificationError("v2 next-source receipt encoding is not canonical")
+    if set(receipt) != NEXT_SOURCE_V2_FIELDS:
+        raise VerificationError("v2 next-source receipt field set mismatch")
+    if (
+        receipt.get("schema") != NEXT_SOURCE_V2_SCHEMA
+        or receipt.get("verdict") != NEXT_SOURCE_V2_OK_VERDICT
+        or receipt.get("claim") != NEXT_SOURCE_V2_CLAIM
+        or not _exact_json_value(receipt.get("limitations"), NEXT_SOURCE_V2_LIMITATIONS)
+        or not _exact_json_value(receipt.get("policy"), NEXT_SOURCE_V2_POLICY)
+        or not _exact_json_value(
+            receipt.get("authority"),
+            {"launch_authorized": False, "publication_authorized": False},
+        )
+        or receipt.get("problems") != []
+        or type(receipt.get("problem_count")) is not int
+        or receipt.get("problem_count") != 0
+    ):
+        raise VerificationError("v2 next-source receipt fixed contract mismatch")
+    payload = dict(receipt)
+    claimed_payload = payload.pop("receipt_payload_sha256", None)
+    if claimed_payload != _sha256_bytes(_canonical_json(payload)):
+        raise VerificationError("v2 next-source receipt payload checksum mismatch")
+
+    trust_root = receipt.get("trust_root")
+    if not isinstance(trust_root, Mapping) or set(trust_root) != NEXT_SOURCE_V2_TRUST_ROOT_FIELDS:
+        raise VerificationError("v2 next-source trust-root field set is malformed")
+    repository_root = trust_root.get("repository_root")
+    if not isinstance(repository_root, str) or not Path(repository_root).is_absolute():
+        raise VerificationError("v2 next-source repository root is malformed")
+    expected_commits = {
+        "documentation_commit": GENERATION_SIXTEEN_DOCUMENTATION_COMMIT,
+        "baton_commit": GENERATION_SIXTEEN_BATON_COMMIT,
+        "state_commit": GENERATION_SIXTEEN_STATE_COMMIT,
+        "receipt_commit": GENERATION_SIXTEEN_RECEIPT_COMMIT,
+        "pin_commit": GENERATION_SIXTEEN_PIN_COMMIT,
+        "source_commit": GENERATION_SIXTEEN_SOURCE_COMMIT,
+        "source_parent_commit": GENERATION_FIFTEEN_BATON_COMMIT,
+    }
+    for key, expected in expected_commits.items():
+        if trust_root.get(key) != expected:
+            raise VerificationError(f"v2 next-source trust-root {key} differs from accepted chain")
+    if not _valid_commit(trust_root.get("documentation_tree")):
+        raise VerificationError("v2 next-source D16 tree is malformed")
+
+    tooling_receipt = trust_root.get("tooling_receipt")
+    if (
+        not isinstance(tooling_receipt, Mapping)
+        or set(tooling_receipt) != NEXT_SOURCE_ARTIFACT_FIELDS
+        or tooling_receipt.get("path") != RECEIPT_REL
+        or type(tooling_receipt.get("bytes")) is not int
+        or tooling_receipt.get("bytes") < 1
+        or tooling_receipt.get("bytes") > 8 * 1024 * 1024
+        or not _is_sha256(tooling_receipt.get("sha256"))
+    ):
+        raise VerificationError("v2 next-source tooling-receipt binding is malformed")
+    receipt_bound_verifier = trust_root.get("receipt_bound_verifier")
+    if (
+        not isinstance(receipt_bound_verifier, Mapping)
+        or set(receipt_bound_verifier) != NEXT_SOURCE_BINDER_FIELDS
+        or receipt_bound_verifier.get("path") != BINDER_REL
+        or receipt_bound_verifier.get("mode") != "100644"
+        or type(receipt_bound_verifier.get("bytes")) is not int
+        or receipt_bound_verifier.get("bytes") < 1
+        or receipt_bound_verifier.get("bytes") > NEXT_SOURCE_MAX_BLOB_BYTES
+        or not _valid_commit(receipt_bound_verifier.get("git_blob_oid"))
+        or not _is_sha256(receipt_bound_verifier.get("sha256"))
+    ):
+        raise VerificationError("v2 next-source PIN16 verifier binding is malformed")
+    accepted_verifier = trust_root.get("accepted_v2_verifier")
+    if (
+        not isinstance(accepted_verifier, Mapping)
+        or set(accepted_verifier) != NEXT_SOURCE_V2_VERIFIER_FIELDS
+        or not isinstance(accepted_verifier.get("root"), str)
+        or not Path(accepted_verifier["root"]).is_absolute()
+        or accepted_verifier.get("path") != BINDER_REL
+        or type(accepted_verifier.get("bytes")) is not int
+        or accepted_verifier.get("bytes") < 1
+        or accepted_verifier.get("bytes") > NEXT_SOURCE_MAX_BLOB_BYTES
+        or not _is_sha256(accepted_verifier.get("sha256"))
+    ):
+        raise VerificationError("v2 next-source accepted verifier binding is malformed")
+    for tool_name in ("python", "git"):
+        tool = trust_root.get(tool_name)
+        if (
+            not isinstance(tool, Mapping)
+            or set(tool) != NEXT_SOURCE_V2_TOOL_FIELDS
+            or not isinstance(tool.get("path"), str)
+            or not Path(tool["path"]).is_absolute()
+            or type(tool.get("mode")) is not int
+            or tool.get("mode") < 0
+            or tool.get("mode") > 0o7777
+            or tool.get("mode") & 0o111 == 0
+            or type(tool.get("bytes")) is not int
+            or tool.get("bytes") < 1
+            or not _is_sha256(tool.get("sha256"))
+            or not isinstance(tool.get("version"), str)
+            or not tool.get("version")
+        ):
+            raise VerificationError(f"v2 next-source {tool_name} binding is malformed")
+
+    candidate = receipt.get("candidate")
+    if not isinstance(candidate, Mapping) or set(candidate) != NEXT_SOURCE_V2_CANDIDATE_FIELDS:
+        raise VerificationError("v2 next-source candidate field set is malformed")
+    for key in ("commit", "parent", "tree"):
+        if not _valid_commit(candidate.get(key)):
+            raise VerificationError(f"v2 next-source candidate {key} is malformed")
+    if (
+        candidate.get("parent") != GENERATION_SEVENTEEN_SOURCE_PARENT
+        or candidate.get("parent") != trust_root.get("documentation_commit")
+        or candidate.get("commit_paths") != list(GENERATION_SEVENTEEN_SOURCE_COMMIT_PATHS)
+    ):
+        raise VerificationError("v2 next-source candidate parent or path scope is malformed")
+    if (
+        type(candidate.get("commit_bytes")) is not int
+        or candidate.get("commit_bytes") < 1
+        or candidate.get("commit_bytes") > NEXT_SOURCE_MAX_COMMIT_BYTES
+        or not _is_sha256(candidate.get("commit_sha256"))
+    ):
+        raise VerificationError("v2 next-source commit-object binding is malformed")
+    for key, minimum, maximum in (
+        ("tree_object_count", 1, NEXT_SOURCE_MAX_TREE_OBJECTS),
+        ("tree_object_bytes", 1, NEXT_SOURCE_MAX_TREE_BYTES),
+        ("file_count", 1, NEXT_SOURCE_MAX_FILES),
+        ("total_file_bytes", 0, NEXT_SOURCE_MAX_TOTAL_FILE_BYTES),
+        ("unique_blob_count", 1, NEXT_SOURCE_MAX_FILES),
+        ("unique_blob_bytes", 0, NEXT_SOURCE_MAX_TOTAL_FILE_BYTES),
+    ):
+        value = candidate.get(key)
+        if type(value) is not int or value < minimum or value > maximum:
+            raise VerificationError(f"v2 next-source candidate {key} is outside bounds")
+    if not _is_sha256(candidate.get("manifest_sha256")):
+        raise VerificationError("v2 next-source manifest aggregate digest is malformed")
+    files = candidate.get("files")
+    if not isinstance(files, list) or len(files) > NEXT_SOURCE_MAX_FILES:
+        raise VerificationError("v2 next-source manifest is malformed or oversized")
+    previous_path: bytes | None = None
+    total_bytes = 0
+    unique_blobs: dict[str, tuple[int, str]] = {}
+    rows_by_path: dict[str, Mapping[str, Any]] = {}
+    for row in files:
+        if not isinstance(row, Mapping) or set(row) != NEXT_SOURCE_FILE_FIELDS:
+            raise VerificationError("v2 next-source manifest row is malformed")
+        path = row.get("path")
+        if not isinstance(path, str):
+            raise VerificationError("v2 next-source manifest path is malformed")
+        try:
+            path_bytes = path.encode("ascii", errors="strict")
+        except UnicodeEncodeError as error:
+            raise VerificationError("v2 next-source manifest path is not ASCII") from error
+        if previous_path is not None and path_bytes <= previous_path:
+            raise VerificationError("v2 next-source manifest paths are not strictly ordered")
+        previous_path = path_bytes
+        if row.get("mode") not in NEXT_SOURCE_ALLOWED_BLOB_MODES:
+            raise VerificationError("v2 next-source manifest mode is invalid")
+        size = row.get("bytes")
+        if type(size) is not int or size < 0 or size > NEXT_SOURCE_MAX_BLOB_BYTES:
+            raise VerificationError("v2 next-source manifest byte count is invalid")
+        total_bytes += size
+        if total_bytes > NEXT_SOURCE_MAX_TOTAL_FILE_BYTES:
+            raise VerificationError("v2 next-source manifest total exceeds byte bound")
+        oid = row.get("git_blob_oid")
+        sha256 = row.get("sha256")
+        if not _valid_commit(oid) or not _is_sha256(sha256):
+            raise VerificationError("v2 next-source manifest digest is malformed")
+        identity = (size, sha256)
+        if oid in unique_blobs and unique_blobs[oid] != identity:
+            raise VerificationError("v2 next-source duplicate blob OID has identity drift")
+        unique_blobs[str(oid)] = (int(size), str(sha256))
+        rows_by_path[path] = row
+    if (
+        type(candidate.get("file_count")) is not int
+        or candidate.get("file_count") != len(files)
+        or type(candidate.get("total_file_bytes")) is not int
+        or candidate.get("total_file_bytes") != total_bytes
+        or candidate.get("manifest_sha256") != _sha256_bytes(_canonical_json(files))
+        or candidate.get("unique_blob_count") != len(unique_blobs)
+        or candidate.get("unique_blob_count") > candidate.get("file_count")
+        or candidate.get("unique_blob_bytes")
+        != sum(size for size, _sha256 in unique_blobs.values())
+        or candidate.get("unique_blob_bytes") > candidate.get("total_file_bytes")
+    ):
+        raise VerificationError("v2 next-source manifest aggregate mismatch")
+    if any(path in rows_by_path for path in GENERATION_SEVENTEEN_LEGACY_ABSENT_PATHS):
+        raise VerificationError("v2 next-source manifest retained an obsolete Gen17 path")
+    if any(path not in rows_by_path for path in GENERATION_SEVENTEEN_SOURCE_COMMIT_PATHS):
+        raise VerificationError("v2 next-source manifest omits a registered Gen17 path")
+    candidate_verifier = rows_by_path.get(BINDER_REL)
+    if (
+        candidate_verifier is None
+        or candidate_verifier.get("mode") != "100644"
+        or candidate_verifier.get("bytes") != accepted_verifier.get("bytes")
+        or candidate_verifier.get("sha256") != accepted_verifier.get("sha256")
+    ):
+        raise VerificationError("v2 candidate verifier differs from accepted verifier binding")
     return receipt
 
 
@@ -4062,6 +4900,54 @@ def validate_next_source_binding(
     return []
 
 
+def validate_next_source_binding_v2(
+    raw_receipt: bytes,
+    repo_root: Path,
+    *,
+    expected_tooling_receipt_sha256: str,
+    expected_verifier_root: Path,
+    expected_verifier_sha256: str,
+    expected_candidate_commit: str,
+    expected_receipt_sha256: str,
+) -> list[str]:
+    """Replay one v2 receipt only from detached roots supplied outside that receipt."""
+
+    try:
+        _require_isolated_binding_interpreter()
+        if not _is_sha256(expected_receipt_sha256):
+            raise VerificationError("detached v2 next-source receipt SHA-256 is malformed")
+        if _sha256_bytes(raw_receipt) != expected_receipt_sha256:
+            raise VerificationError("v2 next-source receipt differs from detached SHA-256")
+        observed = _strict_next_source_v2_receipt(raw_receipt)
+        expected_root = repo_root.resolve(strict=True)
+        verifier_root = _canonical_v2_verifier_root(expected_verifier_root)
+        if observed.get("candidate", {}).get("commit") != expected_candidate_commit:
+            raise VerificationError("v2 next-source candidate differs from detached commit")
+        trust_root = observed.get("trust_root", {})
+        if trust_root.get("repository_root") != str(expected_root):
+            raise VerificationError("v2 next-source repository differs from detached root")
+        if trust_root.get("tooling_receipt", {}).get("sha256") != expected_tooling_receipt_sha256:
+            raise VerificationError("v2 next-source R16 digest differs from detached digest")
+        accepted_verifier = trust_root.get("accepted_v2_verifier", {})
+        if (
+            accepted_verifier.get("root") != str(verifier_root)
+            or accepted_verifier.get("sha256") != expected_verifier_sha256
+        ):
+            raise VerificationError("v2 next-source verifier differs from detached acceptance")
+        replayed = build_next_source_binding_v2(
+            expected_root,
+            accepted_tooling_receipt_sha256=expected_tooling_receipt_sha256,
+            accepted_verifier_root=verifier_root,
+            accepted_verifier_sha256=expected_verifier_sha256,
+            candidate_commit=expected_candidate_commit,
+        )
+        if not _exact_json_value(observed, replayed):
+            raise VerificationError("v2 next-source receipt differs from independent object replay")
+    except Exception as exc:
+        return [f"v2 next-source binding invalid: {type(exc).__name__}: {exc}"]
+    return []
+
+
 def _write_next_source_no_clobber(
     output: Path,
     payload: bytes,
@@ -4075,19 +4961,14 @@ def _write_next_source_no_clobber(
         output.name in {"", ".", ".."}
         or len(output.name.encode("utf-8")) > 255
         or any(
-            byte
-            not in b"-.0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz"
+            byte not in b"-.0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz"
             for byte in output.name.encode("utf-8")
         )
     ):
         raise VerificationError("next-source output basename is unsafe")
     folded_output_name = output.name.casefold()
-    if folded_output_name.startswith(
-        ".next-source."
-    ) and folded_output_name.endswith(".tmp"):
-        raise VerificationError(
-            "next-source output basename uses the reserved staging namespace"
-        )
+    if folded_output_name.startswith(".next-source.") and folded_output_name.endswith(".tmp"):
+        raise VerificationError("next-source output basename uses the reserved staging namespace")
     parent = output.parent
     if (
         not parent.is_dir()
@@ -4122,15 +5003,11 @@ def _write_next_source_no_clobber(
         if initial:
             if owner_mode_identity(path_state) != owner_mode_identity(
                 parent_before
-            ) or owner_mode_identity(descriptor_state) != owner_mode_identity(
-                parent_before
-            ):
+            ) or owner_mode_identity(descriptor_state) != owner_mode_identity(parent_before):
                 raise VerificationError("next-source output parent changed while opening")
-        elif (
-            owner_mode_identity(path_state) != owner_mode_identity(descriptor_state)
-            or owner_mode_identity(descriptor_state)
-            != owner_mode_identity(parent_before)
-        ):
+        elif owner_mode_identity(path_state) != owner_mode_identity(
+            descriptor_state
+        ) or owner_mode_identity(descriptor_state) != owner_mode_identity(parent_before):
             raise VerificationError("next-source output parent changed before publication")
         if (
             descriptor_state.st_uid != os.geteuid()
@@ -4148,10 +5025,7 @@ def _write_next_source_no_clobber(
             return False, False
         except OSError as error:
             raise VerificationError("next-source final link state is unreadable") from error
-        if (
-            not stat.S_ISREG(named.st_mode)
-            or (named.st_dev, named.st_ino) != temporary_identity
-        ):
+        if not stat.S_ISREG(named.st_mode) or (named.st_dev, named.st_ino) != temporary_identity:
             return False, False
         if (
             stat.S_IMODE(named.st_mode) != 0o600
@@ -4197,9 +5071,7 @@ def _write_next_source_no_clobber(
         if not temporary_owned or temporary_identity is None:
             raise VerificationError("next-source temporary output is not owned")
         try:
-            observed = os.stat(
-                temporary_name, dir_fd=directory_fd, follow_symlinks=False
-            )
+            observed = os.stat(temporary_name, dir_fd=directory_fd, follow_symlinks=False)
         except FileNotFoundError as error:
             temporary_owned = False
             raise VerificationError("next-source temporary output disappeared") from error
@@ -4219,9 +5091,7 @@ def _write_next_source_no_clobber(
         if not temporary_owned or temporary_identity is None:
             return
         try:
-            observed = os.stat(
-                temporary_name, dir_fd=directory_fd, follow_symlinks=False
-            )
+            observed = os.stat(temporary_name, dir_fd=directory_fd, follow_symlinks=False)
         except FileNotFoundError as error:
             temporary_owned = False
             if require_current:
@@ -4262,9 +5132,7 @@ def _write_next_source_no_clobber(
             or parent_before.st_uid != os.geteuid()
             or stat.S_IMODE(parent_before.st_mode) & 0o022
         ):
-            raise VerificationError(
-                "next-source output parent ownership or mode is unsafe"
-            )
+            raise VerificationError("next-source output parent ownership or mode is unsafe")
         for forbidden_root in forbidden_roots:
             forbidden_descriptor, _forbidden_route = _open_physical_directory_chain(
                 forbidden_root.resolve(strict=True)
@@ -4276,9 +5144,7 @@ def _write_next_source_no_clobber(
             if _physical_route_contains_directory_identity(
                 parent_route, (forbidden_state.st_dev, forbidden_state.st_ino)
             ):
-                raise VerificationError(
-                    "next-source output is inside a forbidden trusted root"
-                )
+                raise VerificationError("next-source output is inside a forbidden trusted root")
         revalidate_open_parent(initial=True)
         flags = (
             os.O_WRONLY
@@ -4287,9 +5153,7 @@ def _write_next_source_no_clobber(
             | getattr(os, "O_NOFOLLOW", 0)
             | getattr(os, "O_CLOEXEC", 0)
         )
-        temporary_descriptor = os.open(
-            temporary_name, flags, 0o600, dir_fd=directory_fd
-        )
+        temporary_descriptor = os.open(temporary_name, flags, 0o600, dir_fd=directory_fd)
         temporary_owned = True
         created = os.fstat(temporary_descriptor)
         if (
@@ -4298,9 +5162,7 @@ def _write_next_source_no_clobber(
             or created.st_size != 0
             or created.st_nlink != 1
         ):
-            raise VerificationError(
-                "next-source created temporary output identity is invalid"
-            )
+            raise VerificationError("next-source created temporary output identity is invalid")
         temporary_identity = (created.st_dev, created.st_ino)
         view = memoryview(payload)
         while view:
@@ -4325,9 +5187,7 @@ def _write_next_source_no_clobber(
             or staged.st_size != len(payload)
             or staged.st_nlink != 1
         ):
-            raise VerificationError(
-                "next-source temporary output changed before publication"
-            )
+            raise VerificationError("next-source temporary output changed before publication")
         try:
             os.link(
                 temporary_name,
@@ -4342,8 +5202,7 @@ def _write_next_source_no_clobber(
             except BaseException as reconciliation_error:
                 publication_state = "INDETERMINATE"
                 raise NextSourceBindingIndeterminateError(
-                    "next-source hard-link outcome is indeterminate after "
-                    "reconciliation failure"
+                    "next-source hard-link outcome is indeterminate after reconciliation failure"
                 ) from reconciliation_error
             if landed:
                 publication_state = "COMMITTED"
@@ -4360,9 +5219,7 @@ def _write_next_source_no_clobber(
             os.fsync(directory_fd)
             unlink_owned_temporary(require_current=True)
             os.fsync(directory_fd)
-            final = _read_stable_regular_file_bounded(
-                output, NEXT_SOURCE_MAX_RECEIPT_BYTES
-            )
+            final = _read_stable_regular_file_bounded(output, NEXT_SOURCE_MAX_RECEIPT_BYTES)
             final_stat = os.stat(output.name, dir_fd=directory_fd, follow_symlinks=False)
             if (
                 final != payload
@@ -4371,9 +5228,7 @@ def _write_next_source_no_clobber(
                 or final_stat.st_nlink != 1
                 or temporary_identity != (final_stat.st_dev, final_stat.st_ino)
             ):
-                raise VerificationError(
-                    "published next-source output failed final validation"
-                )
+                raise VerificationError("published next-source output failed final validation")
             revalidate_open_parent(initial=False)
         except BaseException as error:
             raise NextSourceBindingCommittedError(
@@ -4397,9 +5252,7 @@ def _write_next_source_no_clobber(
                             "next-source hard-link outcome remains indeterminate after "
                             "directory close failure"
                         ) from error
-                    raise VerificationError(
-                        "next-source output directory close failed"
-                    ) from error
+                    raise VerificationError("next-source output directory close failed") from error
             finally:
                 if temporary_descriptor is not None:
                     try:
@@ -4446,6 +5299,35 @@ def publish_next_source_binding(
     return digest, byte_count, receipt
 
 
+def publish_next_source_binding_v2(
+    output: Path,
+    repo_root: Path,
+    *,
+    accepted_tooling_receipt_sha256: str,
+    accepted_verifier_root: Path,
+    accepted_verifier_sha256: str,
+    candidate_commit: str,
+) -> tuple[str, int, dict[str, Any]]:
+    receipt = build_next_source_binding_v2(
+        repo_root,
+        accepted_tooling_receipt_sha256=accepted_tooling_receipt_sha256,
+        accepted_verifier_root=accepted_verifier_root,
+        accepted_verifier_sha256=accepted_verifier_sha256,
+        candidate_commit=candidate_commit,
+    )
+    encoded = _canonical_json(receipt) + b"\n"
+    digest = _sha256_bytes(encoded)
+    byte_count = len(encoded)
+    layout = _discover_binding_git_layout(repo_root.resolve(strict=True))
+    verifier_root = _canonical_v2_verifier_root(accepted_verifier_root)
+    _write_next_source_no_clobber(
+        output,
+        encoded,
+        forbidden_roots=(layout.worktree, layout.common_dir, verifier_root),
+    )
+    return digest, byte_count, receipt
+
+
 def validate_published_receipt_structure(
     receipt: Mapping[str, Any],
     repo_root: Path = REPO_ROOT,
@@ -4453,12 +5335,12 @@ def validate_published_receipt_structure(
     git_probe: GitProbe = default_structural_git_probe,
     ancestry_probe: AncestryProbe = default_ancestry_probe,
 ) -> list[str]:
-    """Validate the explicit generation-sixteen lifecycle-control publication.
+    """Validate the explicit generation-seventeen CI-hardening publication.
 
     Independent command replay is deliberately performed at the exact replacement receipt commit by
     :func:`validate_receipt`.  This post-transition validator instead proves that the committed
-    receipt still binds the exact published source tree and that every later commit follows the
-    narrow state/baton/preflight-artifact topology without changing frozen tooling.
+    receipt still binds the exact published source tree and that every later commit follows only
+    the narrow T17 state/B17 baton topology without changing frozen tooling.
     """
 
     errors: list[str] = []
@@ -4472,7 +5354,7 @@ def validate_published_receipt_structure(
         receipt.get("publication"),
         EXPECTED_RECOVERY_PUBLICATION,
     ):
-        errors.append("generation-sixteen publication block mismatch")
+        errors.append("generation-seventeen publication block mismatch")
     if receipt.get("verdict") != OK_VERDICT:
         errors.append("receipt verdict is not green")
     if (
@@ -4490,10 +5372,7 @@ def validate_published_receipt_structure(
     try:
         root = repo_root.resolve(strict=True)
         repository = receipt.get("repository")
-        if (
-            not isinstance(repository, Mapping)
-            or repository.get("root") != CANONICAL_REPOSITORY
-        ):
+        if not isinstance(repository, Mapping) or repository.get("root") != CANONICAL_REPOSITORY:
             raise VerificationError("receipt canonical repository identity is malformed")
         claimed_start = repository.get("git_start")
         claimed_end = repository.get("git_end")
@@ -4524,7 +5403,21 @@ def validate_published_receipt_structure(
         source_parents, source_paths = _git_commit_row(root, source_commit)
         if source_parents != (RECOVERY_SOURCE_PARENT,) or source_paths != expected_source_paths:
             raise VerificationError(
-                "actual generation-sixteen source topology or path scope is wrong"
+                "actual generation-seventeen source topology or path scope is wrong"
+            )
+        registered_modes = _git_registered_path_modes(
+            root,
+            source_commit,
+            (
+                *GENERATION_SEVENTEEN_SOURCE_COMMIT_PATHS,
+                *GENERATION_SEVENTEEN_LEGACY_ABSENT_PATHS,
+            ),
+        )
+        if set(registered_modes) != set(GENERATION_SEVENTEEN_SOURCE_COMMIT_PATHS) or any(
+            mode not in NEXT_SOURCE_ALLOWED_BLOB_MODES for mode in registered_modes.values()
+        ):
+            raise VerificationError(
+                "generation-seventeen registered paths are absent, non-regular, or obsolete"
             )
         lifecycle_source_parents, lifecycle_source_paths = _git_commit_row(
             root, GENERATION_SIXTEEN_SOURCE_COMMIT
@@ -4552,10 +5445,14 @@ def validate_published_receipt_structure(
             projection = {"sha256": _sha256_bytes(source_bytes), "bytes": len(source_bytes)}
             source_projection[relative_path] = projection
             row = claimed_files.get(relative_path)
-            if not isinstance(row, Mapping) or {
-                "sha256": row.get("sha256"),
-                "bytes": row.get("bytes"),
-            } != projection:
+            if (
+                not isinstance(row, Mapping)
+                or {
+                    "sha256": row.get("sha256"),
+                    "bytes": row.get("bytes"),
+                }
+                != projection
+            ):
                 raise VerificationError(
                     f"receipt file binding differs from source commit: {relative_path}"
                 )
@@ -4605,9 +5502,11 @@ def validate_published_receipt_structure(
             line for line in history_raw.decode("ascii", errors="strict").splitlines() if line
         )
         if (
-            len(receipt_history) != 16
+            len(receipt_history) != 17
             or not _valid_commit(receipt_history[0])
-            or receipt_history[1:] != (
+            or receipt_history[1:]
+            != (
+                GENERATION_SIXTEEN_RECEIPT_COMMIT,
                 GENERATION_FIFTEEN_RECEIPT_COMMIT,
                 GENERATION_FOURTEEN_RECEIPT_COMMIT,
                 GENERATION_THIRTEEN_RECEIPT_COMMIT,
@@ -4626,17 +5525,11 @@ def validate_published_receipt_structure(
             )
         ):
             raise VerificationError(
-                "canonical receipt history is not exact generation-sixteen, "
-                "generation-fifteen, generation-fourteen, generation-thirteen, generation-twelve, "
-                "generation-eleven, generation-ten, generation-nine, generation-eight, "
-                "generation-seven, generation-six, generation-five, generation-four, "
-                "generation-three, generation-two, then generation-one"
+                "canonical receipt history is not exact generation-seventeen through generation-one"
             )
         receipt_commit = receipt_history[0]
 
-        old_source_parents, old_source_paths = _git_commit_row(
-            root, GENERATION_ONE_SOURCE_COMMIT
-        )
+        old_source_parents, old_source_paths = _git_commit_row(root, GENERATION_ONE_SOURCE_COMMIT)
         if old_source_parents != (GENERATION_ONE_SOURCE_PARENT,) or old_source_paths != tuple(
             sorted(GENERATION_ONE_SOURCE_COMMIT_PATHS)
         ):
@@ -4682,8 +5575,7 @@ def validate_published_receipt_structure(
             root, GENERATION_THREE_SOURCE_COMMIT
         )
         if generation_three_source_parents != (GENERATION_THREE_SOURCE_PARENT,) or (
-            generation_three_source_paths
-            != tuple(sorted(GENERATION_THREE_SOURCE_COMMIT_PATHS))
+            generation_three_source_paths != tuple(sorted(GENERATION_THREE_SOURCE_COMMIT_PATHS))
         ):
             raise VerificationError("generation-three source topology or path scope changed")
         generation_three_receipt_parents, generation_three_receipt_paths = _git_commit_row(
@@ -4783,8 +5675,7 @@ def validate_published_receipt_structure(
             root, GENERATION_SEVEN_SOURCE_COMMIT
         )
         if generation_seven_source_parents != (GENERATION_SEVEN_SOURCE_PARENT,) or (
-            generation_seven_source_paths
-            != tuple(sorted(GENERATION_SEVEN_SOURCE_COMMIT_PATHS))
+            generation_seven_source_paths != tuple(sorted(GENERATION_SEVEN_SOURCE_COMMIT_PATHS))
         ):
             raise VerificationError("generation-seven source topology or path scope changed")
         generation_seven_receipt_parents, generation_seven_receipt_paths = _git_commit_row(
@@ -4812,8 +5703,7 @@ def validate_published_receipt_structure(
             root, GENERATION_EIGHT_SOURCE_COMMIT
         )
         if generation_eight_source_parents != (GENERATION_EIGHT_SOURCE_PARENT,) or (
-            generation_eight_source_paths
-            != tuple(sorted(GENERATION_EIGHT_SOURCE_COMMIT_PATHS))
+            generation_eight_source_paths != tuple(sorted(GENERATION_EIGHT_SOURCE_COMMIT_PATHS))
         ):
             raise VerificationError("generation-eight source topology or path scope changed")
         generation_eight_receipt_parents, generation_eight_receipt_paths = _git_commit_row(
@@ -4897,8 +5787,7 @@ def validate_published_receipt_structure(
             root, GENERATION_ELEVEN_SOURCE_COMMIT
         )
         if generation_eleven_source_parents != (GENERATION_ELEVEN_SOURCE_PARENT,) or (
-            generation_eleven_source_paths
-            != tuple(sorted(GENERATION_ELEVEN_SOURCE_COMMIT_PATHS))
+            generation_eleven_source_paths != tuple(sorted(GENERATION_ELEVEN_SOURCE_COMMIT_PATHS))
         ):
             raise VerificationError("generation-eleven source topology or path scope changed")
         generation_eleven_receipt_parents, generation_eleven_receipt_paths = _git_commit_row(
@@ -4926,8 +5815,7 @@ def validate_published_receipt_structure(
             root, GENERATION_TWELVE_SOURCE_COMMIT
         )
         if generation_twelve_source_parents != (GENERATION_TWELVE_SOURCE_PARENT,) or (
-            generation_twelve_source_paths
-            != tuple(sorted(GENERATION_TWELVE_SOURCE_COMMIT_PATHS))
+            generation_twelve_source_paths != tuple(sorted(GENERATION_TWELVE_SOURCE_COMMIT_PATHS))
         ):
             raise VerificationError("generation-twelve source topology or path scope changed")
         generation_twelve_receipt_parents, generation_twelve_receipt_paths = _git_commit_row(
@@ -5016,8 +5904,7 @@ def validate_published_receipt_structure(
             root, GENERATION_FIFTEEN_SOURCE_COMMIT
         )
         if generation_fifteen_source_parents != (GENERATION_FIFTEEN_SOURCE_PARENT,) or (
-            generation_fifteen_source_paths
-            != tuple(sorted(GENERATION_FIFTEEN_SOURCE_COMMIT_PATHS))
+            generation_fifteen_source_paths != tuple(sorted(GENERATION_FIFTEEN_SOURCE_COMMIT_PATHS))
         ):
             raise VerificationError("generation-fifteen source topology or path scope changed")
         generation_fifteen_receipt_parents, generation_fifteen_receipt_paths = _git_commit_row(
@@ -5042,27 +5929,130 @@ def validate_published_receipt_structure(
         ):
             raise VerificationError("generation-fifteen baton topology or path scope changed")
 
+        generation_sixteen_pin_parents, generation_sixteen_pin_paths = _git_commit_row(
+            root, GENERATION_SIXTEEN_PIN_COMMIT
+        )
+        if generation_sixteen_pin_parents != (GENERATION_SIXTEEN_SOURCE_COMMIT,) or (
+            generation_sixteen_pin_paths != tuple(sorted(CI_TOOLCHAIN_PIN_COMMIT_PATHS))
+        ):
+            raise VerificationError("PIN16 topology or path scope changed")
+        generation_sixteen_receipt_parents, generation_sixteen_receipt_paths = _git_commit_row(
+            root, GENERATION_SIXTEEN_RECEIPT_COMMIT
+        )
+        if generation_sixteen_receipt_parents != (GENERATION_SIXTEEN_PIN_COMMIT,) or (
+            generation_sixteen_receipt_paths != (RECEIPT_REL,)
+        ):
+            raise VerificationError("R16 topology or path scope changed")
+        generation_sixteen_state_parents, generation_sixteen_state_paths = _git_commit_row(
+            root, GENERATION_SIXTEEN_STATE_COMMIT
+        )
+        if generation_sixteen_state_parents != (GENERATION_SIXTEEN_RECEIPT_COMMIT,) or (
+            generation_sixteen_state_paths != ("MISSION_STATE.json",)
+        ):
+            raise VerificationError("T16 topology or path scope changed")
+        generation_sixteen_baton_parents, generation_sixteen_baton_paths = _git_commit_row(
+            root, GENERATION_SIXTEEN_BATON_COMMIT
+        )
+        if generation_sixteen_baton_parents != (GENERATION_SIXTEEN_STATE_COMMIT,) or (
+            generation_sixteen_baton_paths != ("CONTINUITY.md", "HANDOFF.md")
+        ):
+            raise VerificationError("B16 topology or path scope changed")
+        generation_sixteen_documentation_parents, generation_sixteen_documentation_paths = (
+            _git_commit_row(root, GENERATION_SIXTEEN_DOCUMENTATION_COMMIT)
+        )
+        if generation_sixteen_documentation_parents != (GENERATION_SIXTEEN_BATON_COMMIT,) or (
+            generation_sixteen_documentation_paths
+            != tuple(sorted(DOCUMENTATION_CORRECTION_TRANCHE_COMMIT_PATHS))
+        ):
+            raise VerificationError("D16 topology or path scope changed")
+
+        historical_r16 = _parse_receipt_json(
+            _git_file_bytes(root, GENERATION_SIXTEEN_RECEIPT_COMMIT, RECEIPT_REL)
+        )
+        if set(historical_r16) != RECEIPT_FIELDS or historical_r16.get("schema") != SCHEMA:
+            raise VerificationError("historical R16 receipt schema changed")
+        if not _exact_json_value(
+            historical_r16.get("publication"), EXPECTED_GENERATION_SIXTEEN_PUBLICATION
+        ):
+            raise VerificationError("historical R16 publication block changed")
+        if (
+            historical_r16.get("verdict") != OK_VERDICT
+            or type(historical_r16.get("problem_count")) is not int
+            or historical_r16.get("problem_count") != 0
+            or historical_r16.get("problems") != []
+            or _nested_receipt_shape_errors(historical_r16)
+        ):
+            raise VerificationError("historical R16 green receipt shape changed")
+        historical_payload = dict(historical_r16)
+        historical_payload_sha256 = historical_payload.pop("receipt_payload_sha256", None)
+        if historical_payload_sha256 != _sha256_bytes(_canonical_json(historical_payload)):
+            raise VerificationError("historical R16 payload digest changed")
+        historical_repository = historical_r16.get("repository")
+        if (
+            not isinstance(historical_repository, Mapping)
+            or historical_repository.get("root") != CANONICAL_REPOSITORY
+            or historical_repository.get("git_head_stable") is not True
+            or historical_repository.get("git_state_stable") is not True
+            or historical_repository.get("repository_clean_state_stable") is not True
+        ):
+            raise VerificationError("historical R16 repository contract changed")
+        historical_start = historical_repository.get("git_start")
+        historical_end = historical_repository.get("git_end")
+        if not isinstance(historical_start, Mapping) or not _exact_json_value(
+            historical_start, historical_end
+        ):
+            raise VerificationError("historical R16 source Git state was not stable")
+        if (
+            historical_start.get("head") != GENERATION_SIXTEEN_PIN_COMMIT
+            or historical_start.get("parents") != [GENERATION_SIXTEEN_SOURCE_COMMIT]
+            or historical_start.get("commit_paths") != list(sorted(CI_TOOLCHAIN_PIN_COMMIT_PATHS))
+            or historical_start.get("dirty_entries") != []
+            or historical_start.get("porcelain_v1_z_sha256") != empty_status
+            or historical_start.get("branch") != "master"
+            or historical_start.get("upstream") != "origin/master"
+            or historical_start.get("upstream_head") != GENERATION_SIXTEEN_PIN_COMMIT
+        ):
+            raise VerificationError("historical R16 source publication claim changed")
+
+        t16_state_bytes = _git_file_bytes(
+            root, GENERATION_SIXTEEN_STATE_COMMIT, "MISSION_STATE.json"
+        )
+        if not _exact_json_value(
+            _parse_receipt_json(t16_state_bytes), _expected_ci_hardening_state(root)
+        ):
+            raise VerificationError("T16 is not the exact CI_HARDENING_REQUIRED/UNKNOWN state")
+        if (
+            _git_file_bytes(root, GENERATION_SIXTEEN_BATON_COMMIT, "MISSION_STATE.json")
+            != t16_state_bytes
+        ):
+            raise VerificationError("B16 changed the accepted T16 state")
+        if (
+            _git_file_bytes(root, GENERATION_SIXTEEN_DOCUMENTATION_COMMIT, "MISSION_STATE.json")
+            != t16_state_bytes
+        ):
+            raise VerificationError("D16 changed the accepted T16 state")
+
         receipt_parents, receipt_paths = _git_commit_row(root, receipt_commit)
         if receipt_parents != (source_commit,) or receipt_paths != (RECEIPT_REL,):
             raise VerificationError(
-                "generation-sixteen receipt is not the exact receipt-only child"
+                "generation-seventeen receipt is not the exact receipt-only child"
             )
 
         receipt_path = root / RECEIPT_REL
         current_receipt_bytes = _read_stable_regular_file(receipt_path)
         if _git_file_bytes(root, receipt_commit, RECEIPT_REL) != current_receipt_bytes:
             raise VerificationError(
-                "canonical receipt bytes differ from generation-sixteen receipt commit bytes"
+                "canonical receipt bytes differ from generation-seventeen receipt commit bytes"
             )
         committed_receipt = _parse_receipt_json(current_receipt_bytes)
         if committed_receipt != dict(receipt):
             raise VerificationError("supplied receipt differs from the committed canonical receipt")
         if _git_file_bytes(root, source_commit, "MISSION_STATE.json") != _git_file_bytes(
             root,
-            GENERATION_FIFTEEN_BATON_COMMIT,
+            GENERATION_SIXTEEN_DOCUMENTATION_COMMIT,
             "MISSION_STATE.json",
         ):
-            raise VerificationError("generation-sixteen source changed the accepted B15 state")
+            raise VerificationError("F17 source changed the accepted D16 state")
         if _git_file_bytes(
             root,
             GENERATION_SIXTEEN_SOURCE_COMMIT,
@@ -5080,46 +6070,35 @@ def validate_published_receipt_structure(
         if not _valid_commit(current_git.upstream_head):
             raise VerificationError("origin/master commit is malformed or missing")
         if not ancestry_probe(root, receipt_commit, current_git.head):
-            raise VerificationError("generation-sixteen receipt is not an ancestor of current HEAD")
+            raise VerificationError(
+                "generation-seventeen receipt is not an ancestor of current HEAD"
+            )
 
         chain = _linear_publication_chain(root, receipt_commit, current_git.head)
-        if len(chain) > 3:
-            raise VerificationError(
-                "generation-sixteen has commits beyond exact T16, B16, "
-                "and the single documentation tranche"
-            )
+        if len(chain) > 2:
+            raise VerificationError("generation-seventeen has commits beyond exact T17 and B17")
         if chain:
             state_commit, state_paths = chain[0]
             if state_paths != ("MISSION_STATE.json",):
-                raise VerificationError("T16 is not the exact state-only commit")
-            state = _parse_receipt_json(
-                _git_file_bytes(root, state_commit, "MISSION_STATE.json")
-            )
-            if not _exact_json_value(state, _expected_ci_hardening_state(root)):
-                raise VerificationError("T16 is not the exact CI_HARDENING_REQUIRED/UNKNOWN state")
-        if len(chain) >= 2 and chain[1][1] != ("CONTINUITY.md", "HANDOFF.md"):
-            raise VerificationError("B16 is not the exact documentation-only baton")
-        if len(chain) == 3:
-            # Exactly one pre-registered reviewed documentation tranche may follow B16.
-            tranche_commit, tranche_paths = chain[2]
-            if tranche_paths != tuple(
-                sorted(DOCUMENTATION_CORRECTION_TRANCHE_COMMIT_PATHS)
-            ):
+                raise VerificationError("T17 is not the exact state-only commit")
+            state = _parse_receipt_json(_git_file_bytes(root, state_commit, "MISSION_STATE.json"))
+            if not _exact_json_value(state, _expected_lifecycle_observer_state(root)):
                 raise VerificationError(
-                    "post-B16 commit is not the exact reviewed documentation tranche"
+                    "T17 is not the exact LIFECYCLE_OBSERVER_REQUIRED/UNKNOWN state"
                 )
-            if _git_file_bytes(
-                root, tranche_commit, "MISSION_STATE.json"
-            ) != _git_file_bytes(root, chain[0][0], "MISSION_STATE.json"):
-                raise VerificationError("documentation tranche changed the accepted T16 state")
+        if len(chain) >= 2:
+            if chain[1][1] != ("CONTINUITY.md", "HANDOFF.md"):
+                raise VerificationError("B17 is not the exact documentation-only baton")
+            if _git_file_bytes(root, chain[1][0], "MISSION_STATE.json") != _git_file_bytes(
+                root, chain[0][0], "MISSION_STATE.json"
+            ):
+                raise VerificationError("B17 changed the accepted T17 state")
 
         allowed_upstream = {receipt_commit}
         if not chain:
             allowed_upstream.add(source_commit)
         elif len(chain) == 2:
             allowed_upstream.add(chain[1][0])
-        elif len(chain) == 3:
-            allowed_upstream = {chain[1][0], chain[2][0]}
         if current_git.upstream_head not in allowed_upstream:
             raise VerificationError(
                 "origin/master is not the exact published commit for this stage"
@@ -5129,7 +6108,9 @@ def validate_published_receipt_structure(
             receipt_commit,
             current_git.upstream_head,
         ):
-            raise VerificationError("generation-sixteen receipt is not published on origin/master")
+            raise VerificationError(
+                "generation-seventeen receipt is not published on origin/master"
+            )
         if current_git.upstream_head != current_git.head and not ancestry_probe(
             root, current_git.upstream_head, current_git.head
         ):
@@ -5148,7 +6129,7 @@ def validate_receipt(
     ancestry_probe: AncestryProbe = default_ancestry_probe,
     toolchain_resolver: ToolchainResolver = resolve_toolchain,
 ) -> list[str]:
-    """Replay every generation-sixteen command and claim against current source bytes."""
+    """Replay every generation-seventeen command and claim against current source bytes."""
 
     errors: list[str] = []
     if not isinstance(receipt, Mapping):
@@ -5161,7 +6142,7 @@ def validate_receipt(
         receipt.get("publication"),
         EXPECTED_RECOVERY_PUBLICATION,
     ):
-        errors.append("generation-sixteen publication block mismatch")
+        errors.append("generation-seventeen publication block mismatch")
     if receipt.get("verdict") != OK_VERDICT:
         errors.append("receipt verdict is not green")
     problems = receipt.get("problems")
@@ -5229,10 +6210,7 @@ def validate_receipt(
                     continue
                 if record.get("argv") != list(expected):
                     errors.append(f"command_{index} argv mismatch")
-                if (
-                    type(record.get("return_code")) is not int
-                    or record.get("return_code") != 0
-                ):
+                if type(record.get("return_code")) is not int or record.get("return_code") != 0:
                     errors.append(f"command_{index} did not succeed")
                 for stream in ("stdout", "stderr"):
                     digest = record.get(f"{stream}_sha256")
@@ -5241,7 +6219,11 @@ def validate_receipt(
                         errors.append(f"command_{index} {stream} digest malformed")
                     elif any(char not in "0123456789abcdef" for char in digest):
                         errors.append(f"command_{index} {stream} digest malformed")
-                    if not isinstance(byte_count, int) or isinstance(byte_count, bool) or byte_count < 0:
+                    if (
+                        not isinstance(byte_count, int)
+                        or isinstance(byte_count, bool)
+                        or byte_count < 0
+                    ):
                         errors.append(f"command_{index} {stream} byte count malformed")
 
         # A receipt payload hash is an integrity check, not an authenticity primitive. Never trust
@@ -5249,9 +6231,10 @@ def validate_receipt(
         # exact frozen argv against the exact bound bytes. Stream hashes remain historical metadata
         # because pytest elapsed-time text and tool warnings are not deterministic across replays.
         for index, expected in enumerate(expected_commands if replay_allowed else ()):
-            if discover_inventory(root) != inventory or snapshot_files(
-                root, inventory.tested_files
-            ) != current:
+            if (
+                discover_inventory(root) != inventory
+                or snapshot_files(root, inventory.tested_files) != current
+            ):
                 errors.append(f"command_{index} pre-replay source drift")
                 break
             if toolchain_resolver() != current_toolchain:
@@ -5263,9 +6246,10 @@ def validate_receipt(
             replay = _command_record(expected, runner, root)
             if replay["return_code"] != 0:
                 errors.append(f"command_{index} independent replay failed")
-            if discover_inventory(root) != inventory or snapshot_files(
-                root, inventory.tested_files
-            ) != current:
+            if (
+                discover_inventory(root) != inventory
+                or snapshot_files(root, inventory.tested_files) != current
+            ):
                 errors.append(f"command_{index} post-replay source drift")
                 break
             if git_probe(root, inventory.tested_files) != replay_git_start:
@@ -5302,8 +6286,10 @@ def validate_receipt(
                     errors.append(f"claimed source parent mismatch at {label}")
                 if state.get("commit_paths") != sorted(RECOVERY_SOURCE_COMMIT_PATHS):
                     errors.append(f"claimed source commit scope mismatch at {label}")
-            if not isinstance(claimed_head, str) or len(claimed_head) != 40 or any(
-                char not in "0123456789abcdef" for char in claimed_head
+            if (
+                not isinstance(claimed_head, str)
+                or len(claimed_head) != 40
+                or any(char not in "0123456789abcdef" for char in claimed_head)
             ):
                 errors.append("claimed tested Git HEAD is malformed")
                 claimed_head = ""
@@ -5362,13 +6348,16 @@ def write_json_atomic(output: Path, payload: Mapping[str, Any]) -> None:
     output.parent.mkdir(parents=True, exist_ok=True)
     if output.is_symlink():
         raise VerificationError(f"refusing symlink receipt output: {output}")
-    encoded = json.dumps(
-        payload,
-        sort_keys=True,
-        indent=2,
-        ensure_ascii=True,
-        allow_nan=False,
-    ).encode("utf-8") + b"\n"
+    encoded = (
+        json.dumps(
+            payload,
+            sort_keys=True,
+            indent=2,
+            ensure_ascii=True,
+            allow_nan=False,
+        ).encode("utf-8")
+        + b"\n"
+    )
     fd, temporary_name = tempfile.mkstemp(
         prefix=f".{output.name}.", suffix=".tmp", dir=output.parent
     )
@@ -5426,8 +6415,22 @@ def _parse_args(argv: Sequence[str] | None) -> argparse.Namespace:
         metavar="RECEIPT",
         help="independently replay a retained next-source binding receipt",
     )
+    modes.add_argument(
+        "--bind-next-source-v2",
+        metavar="COMMIT",
+        help="bind the exact-scope direct child of D16 from an external v2 verifier",
+    )
+    modes.add_argument(
+        "--verify-next-source-binding-v2",
+        type=Path,
+        metavar="RECEIPT",
+        help="independently replay a retained v2 next-source binding receipt",
+    )
     parser.add_argument("--accepted-baton-commit")
     parser.add_argument("--accepted-tooling-receipt-sha256")
+    parser.add_argument("--accepted-v2-verifier-root", type=Path)
+    parser.add_argument("--accepted-v2-verifier-sha256")
+    parser.add_argument("--next-source-v2-repository-root", type=Path)
     parser.add_argument("--next-source-output", type=Path)
     parser.add_argument("--expected-candidate-commit")
     parser.add_argument("--expected-binding-sha256")
@@ -5445,30 +6448,142 @@ def _best_effort_cli_stderr(line: str) -> None:
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = _parse_args(argv)
-    detached_values = (
-        args.accepted_baton_commit,
-        args.accepted_tooling_receipt_sha256,
-        args.next_source_output,
-        args.expected_candidate_commit,
-        args.expected_binding_sha256,
-    )
+    detached_values = {
+        "accepted_baton_commit": args.accepted_baton_commit,
+        "accepted_tooling_receipt_sha256": args.accepted_tooling_receipt_sha256,
+        "accepted_v2_verifier_root": args.accepted_v2_verifier_root,
+        "accepted_v2_verifier_sha256": args.accepted_v2_verifier_sha256,
+        "next_source_v2_repository_root": args.next_source_v2_repository_root,
+        "next_source_output": args.next_source_output,
+        "expected_candidate_commit": args.expected_candidate_commit,
+        "expected_binding_sha256": args.expected_binding_sha256,
+    }
     if args.bind_next_source is not None:
-        wrong_envelope = (
-            args.output is not None
-            or args.expected_candidate_commit is not None
-            or args.expected_binding_sha256 is not None
-        )
+        allowed = {
+            "accepted_baton_commit",
+            "accepted_tooling_receipt_sha256",
+            "next_source_output",
+        }
     elif args.verify_next_source_binding is not None:
-        wrong_envelope = args.output is not None or args.next_source_output is not None
+        allowed = {
+            "accepted_baton_commit",
+            "accepted_tooling_receipt_sha256",
+            "expected_candidate_commit",
+            "expected_binding_sha256",
+        }
+    elif args.bind_next_source_v2 is not None:
+        allowed = {
+            "accepted_tooling_receipt_sha256",
+            "accepted_v2_verifier_root",
+            "accepted_v2_verifier_sha256",
+            "next_source_v2_repository_root",
+            "next_source_output",
+        }
+    elif args.verify_next_source_binding_v2 is not None:
+        allowed = {
+            "accepted_tooling_receipt_sha256",
+            "accepted_v2_verifier_root",
+            "accepted_v2_verifier_sha256",
+            "next_source_v2_repository_root",
+            "expected_candidate_commit",
+            "expected_binding_sha256",
+        }
     elif args.verify_receipt is not None:
-        wrong_envelope = args.output is not None or any(
-            value is not None for value in detached_values
-        )
+        allowed = set()
     else:
-        wrong_envelope = any(value is not None for value in detached_values)
+        allowed = set()
+    wrong_envelope = args.output is not None and any(
+        mode is not None
+        for mode in (
+            args.bind_next_source,
+            args.verify_next_source_binding,
+            args.bind_next_source_v2,
+            args.verify_next_source_binding_v2,
+            args.verify_receipt,
+        )
+    )
+    wrong_envelope = wrong_envelope or any(
+        value is not None and name not in allowed for name, value in detached_values.items()
+    )
     if wrong_envelope:
         _best_effort_cli_stderr(f"{FAIL_VERDICT}: ArgumentEnvelopeError")
         return 2
+
+    if args.bind_next_source_v2 is not None:
+        required = (
+            args.accepted_tooling_receipt_sha256,
+            args.accepted_v2_verifier_root,
+            args.accepted_v2_verifier_sha256,
+            args.next_source_v2_repository_root,
+            args.next_source_output,
+        )
+        if any(value is None for value in required):
+            _best_effort_cli_stderr(f"{FAIL_VERDICT}: NextSourceV2ArgumentError")
+            return 2
+        try:
+            digest, byte_count, receipt = publish_next_source_binding_v2(
+                args.next_source_output,
+                args.next_source_v2_repository_root,
+                accepted_tooling_receipt_sha256=args.accepted_tooling_receipt_sha256,
+                accepted_verifier_root=args.accepted_v2_verifier_root,
+                accepted_verifier_sha256=args.accepted_v2_verifier_sha256,
+                candidate_commit=args.bind_next_source_v2,
+            )
+        except NextSourceBindingCommittedError:
+            _best_effort_cli_stderr(NEXT_SOURCE_V2_COMMITTED_POSTCONDITION_VERDICT)
+            return 3
+        except NextSourceBindingIndeterminateError:
+            _best_effort_cli_stderr(NEXT_SOURCE_V2_COMMIT_STATE_INDETERMINATE_VERDICT)
+            return 4
+        except Exception as exc:
+            _best_effort_cli_stderr(f"{FAIL_VERDICT}: {type(exc).__name__}")
+            return 2
+        except BaseException:
+            _best_effort_cli_stderr(NEXT_SOURCE_V2_COMMIT_STATE_INDETERMINATE_VERDICT)
+            return 4
+        try:
+            print(f"receipt_sha256={digest}")
+            print(f"receipt_bytes={byte_count}")
+            print(f"candidate_commit={receipt['candidate']['commit']}")
+            print(f"candidate_tree={receipt['candidate']['tree']}")
+            print(NEXT_SOURCE_V2_OK_VERDICT, flush=True)
+        except BaseException:
+            _best_effort_cli_stderr(NEXT_SOURCE_V2_COMMITTED_POSTCONDITION_VERDICT)
+            return 3
+        return 0
+
+    if args.verify_next_source_binding_v2 is not None:
+        required = (
+            args.accepted_tooling_receipt_sha256,
+            args.accepted_v2_verifier_root,
+            args.accepted_v2_verifier_sha256,
+            args.next_source_v2_repository_root,
+            args.expected_candidate_commit,
+            args.expected_binding_sha256,
+        )
+        if any(value is None for value in required):
+            _best_effort_cli_stderr(f"{FAIL_VERDICT}: NextSourceV2ArgumentError")
+            return 2
+        try:
+            _require_isolated_binding_interpreter()
+            raw_receipt = _read_stable_regular_file_bounded(
+                args.verify_next_source_binding_v2, NEXT_SOURCE_MAX_RECEIPT_BYTES
+            )
+            errors = validate_next_source_binding_v2(
+                raw_receipt,
+                args.next_source_v2_repository_root,
+                expected_tooling_receipt_sha256=args.accepted_tooling_receipt_sha256,
+                expected_verifier_root=args.accepted_v2_verifier_root,
+                expected_verifier_sha256=args.accepted_v2_verifier_sha256,
+                expected_candidate_commit=args.expected_candidate_commit,
+                expected_receipt_sha256=args.expected_binding_sha256,
+            )
+        except Exception as exc:
+            errors = [f"v2 next-source receipt read failed: {type(exc).__name__}"]
+        print(NEXT_SOURCE_V2_OK_VERDICT if not errors else FAIL_VERDICT)
+        if errors:
+            print(f"problem_count={len(errors)}")
+        return 0 if not errors else 2
 
     if args.bind_next_source is not None:
         required = (

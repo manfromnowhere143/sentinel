@@ -1,0 +1,299 @@
+{
+  "claim": "exact identities of enumerated repository-local Gen17 controls and frozen critical workflow shape replay",
+  "files": {
+    ".github/workflows/ci.yml": {
+      "bytes": 3950,
+      "sha256": "09c7fb25eff2429aa9474ca9b4a4d0fdeb88efc3ff3d0cdb92c760bbdcd535d8"
+    },
+    "AGENTS.md": {
+      "bytes": 6595,
+      "sha256": "9dd96d223327384d77760671396b8075a5a57bc1396abdcff5a12095055add69"
+    },
+    "pyproject.toml": {
+      "bytes": 456,
+      "sha256": "ab80da2c41d29f98ace7d372c5b87ee6bbd3fee072b89892db499a01a620bc0d"
+    },
+    "tests/test_iter135_ci_install_verifier.py": {
+      "bytes": 19479,
+      "sha256": "db110258180cbc7d8d6cf17c88c46b24406c2385bc9440702d25f0d30ce8072e"
+    },
+    "tests/test_iter135_gen17_ci_hardening.py": {
+      "bytes": 22694,
+      "sha256": "4b51da210a4c7427774d259eea8a68ffefb5d4698f5ba1992c7d4fd85a4e34a0"
+    },
+    "tests/test_iter135_launcher.py": {
+      "bytes": 119919,
+      "sha256": "ec5b9f58087cc3be69b7cd4c27dbab6e26b469dd1378ecd1b8b14ce3c7a66dfa"
+    },
+    "tools/ci/requirements-ci-py310.lock": {
+      "bytes": 19395,
+      "sha256": "d0e296ff6d3b90e29af4607e4c9a00aa203a90853de690b591ce116e4158fb32"
+    },
+    "tools/ci/requirements-ci-py311.lock": {
+      "bytes": 17870,
+      "sha256": "7a225e43c33b077ce74697e5fb03a621ab531b68fe95d3786c7d4dedadaa5018"
+    },
+    "tools/ci/requirements-ci.in": {
+      "bytes": 480,
+      "sha256": "d5de49ff7c882e801ec1b11fb34d5d72babd5eb32636a79ef9a82ef0185b7ea0"
+    },
+    "tools/ci/run_pytest_isolated.py": {
+      "bytes": 5607,
+      "sha256": "cb0b04d68ac1734bf7a723935b577b2f41477cf079f7ef4bccc46d69de755834"
+    },
+    "tools/ci/verify_ci_install.py": {
+      "bytes": 22781,
+      "sha256": "52abff4815873ae892f5499baa1a0eb0b0c4ebdc02b1c31cc4324514df2da16a"
+    },
+    "tools/ci/verify_supply_chain.py": {
+      "bytes": 21596,
+      "sha256": "0a4913bbdd43518aceab52d56a5ca4d66422c7d4f10d25d3a2b829090f55c395"
+    }
+  },
+  "limitations": [
+    "no upstream action or package authenticity claim",
+    "GitHub-hosted runner image, Python patch, pip, index, and network are not content-addressed",
+    "hash-locked install is not an offline wheel mirror or rebuild proof",
+    "lock solving is not claimed deterministic or reproducible from requirements-ci.in",
+    "co-edited inputs and manifest require an independently accepted commit/receipt identity",
+    "no hermeticity, SBOM, SLSA, product-readiness, launch-authority, or scientific claim",
+    "enumerated controls are not whole-tree identity; that requires the accepted source commit"
+  ],
+  "locks": {
+    "3.10": {
+      "packages": [
+        {
+          "hash_count": 2,
+          "name": "exceptiongroup",
+          "version": "1.3.1"
+        },
+        {
+          "hash_count": 2,
+          "name": "iniconfig",
+          "version": "2.3.0"
+        },
+        {
+          "hash_count": 2,
+          "name": "joblib",
+          "version": "1.5.3"
+        },
+        {
+          "hash_count": 55,
+          "name": "numpy",
+          "version": "2.2.6"
+        },
+        {
+          "hash_count": 2,
+          "name": "packaging",
+          "version": "26.2"
+        },
+        {
+          "hash_count": 2,
+          "name": "pluggy",
+          "version": "1.6.0"
+        },
+        {
+          "hash_count": 2,
+          "name": "pygments",
+          "version": "2.20.0"
+        },
+        {
+          "hash_count": 2,
+          "name": "pytest",
+          "version": "9.1.1"
+        },
+        {
+          "hash_count": 18,
+          "name": "ruff",
+          "version": "0.15.20"
+        },
+        {
+          "hash_count": 31,
+          "name": "scikit-learn",
+          "version": "1.7.2"
+        },
+        {
+          "hash_count": 46,
+          "name": "scipy",
+          "version": "1.15.3"
+        },
+        {
+          "hash_count": 2,
+          "name": "threadpoolctl",
+          "version": "3.6.0"
+        },
+        {
+          "hash_count": 47,
+          "name": "tomli",
+          "version": "2.4.1"
+        },
+        {
+          "hash_count": 2,
+          "name": "typing-extensions",
+          "version": "4.16.0"
+        }
+      ],
+      "path": "tools/ci/requirements-ci-py310.lock",
+      "sha256": "d0e296ff6d3b90e29af4607e4c9a00aa203a90853de690b591ce116e4158fb32"
+    },
+    "3.11": {
+      "packages": [
+        {
+          "hash_count": 2,
+          "name": "iniconfig",
+          "version": "2.3.0"
+        },
+        {
+          "hash_count": 2,
+          "name": "joblib",
+          "version": "1.5.3"
+        },
+        {
+          "hash_count": 2,
+          "name": "narwhals",
+          "version": "2.24.0"
+        },
+        {
+          "hash_count": 72,
+          "name": "numpy",
+          "version": "2.4.6"
+        },
+        {
+          "hash_count": 2,
+          "name": "packaging",
+          "version": "26.2"
+        },
+        {
+          "hash_count": 2,
+          "name": "pluggy",
+          "version": "1.6.0"
+        },
+        {
+          "hash_count": 2,
+          "name": "pygments",
+          "version": "2.20.0"
+        },
+        {
+          "hash_count": 2,
+          "name": "pytest",
+          "version": "9.1.1"
+        },
+        {
+          "hash_count": 18,
+          "name": "ruff",
+          "version": "0.15.20"
+        },
+        {
+          "hash_count": 31,
+          "name": "scikit-learn",
+          "version": "1.9.0"
+        },
+        {
+          "hash_count": 61,
+          "name": "scipy",
+          "version": "1.17.1"
+        },
+        {
+          "hash_count": 2,
+          "name": "threadpoolctl",
+          "version": "3.6.0"
+        }
+      ],
+      "path": "tools/ci/requirements-ci-py311.lock",
+      "sha256": "7a225e43c33b077ce74697e5fb03a621ab531b68fe95d3786c7d4dedadaa5018"
+    }
+  },
+  "requirements_input": [
+    "ruff==0.15.20",
+    "pytest==9.1.1",
+    "numpy==2.2.6 ; python_version == \"3.10\"",
+    "numpy==2.4.6 ; python_version == \"3.11\"",
+    "scikit-learn==1.7.2 ; python_version == \"3.10\"",
+    "scikit-learn==1.9.0 ; python_version == \"3.11\""
+  ],
+  "schema": "sentinel.ci_input_manifest.v2",
+  "workflow": {
+    "actions": [
+      {
+        "owner_repo": "actions/checkout",
+        "ref": "11d5960a326750d5838078e36cf38b85af677262"
+      },
+      {
+        "owner_repo": "actions/setup-python",
+        "ref": "a26af69be951a213d495a4c3e4e4022e16d87065"
+      }
+    ],
+    "python_lock_matrix": [
+      {
+        "lock": "tools/ci/requirements-ci-py310.lock",
+        "python": "3.10"
+      },
+      {
+        "lock": "tools/ci/requirements-ci-py311.lock",
+        "python": "3.11"
+      }
+    ],
+    "run_commands": [
+      "python3 -I -B -S tools/ci/verify_supply_chain.py",
+      "test -n \"${RUNNER_TEMP:-}\" && test -d \"${RUNNER_TEMP}\" && test ! -L \"${RUNNER_TEMP}\" && test ! -e \"${RUNNER_TEMP}/sentinel-ci-${{ matrix.python-version }}\" && python -I -B -m venv \"${RUNNER_TEMP}/sentinel-ci-${{ matrix.python-version }}\"",
+      "test ! -e \"${RUNNER_TEMP}/sentinel-ci-install-${{ matrix.python-version }}.json\" && \"${RUNNER_TEMP}/sentinel-ci-${{ matrix.python-version }}/bin/python\" -I -B -m pip --isolated --disable-pip-version-check install --no-input --force-reinstall --require-hashes --only-binary=':all:' --no-deps --report \"${RUNNER_TEMP}/sentinel-ci-install-${{ matrix.python-version }}.json\" -r ${{ matrix.lock }}",
+      "command \"${RUNNER_TEMP}/sentinel-ci-${{ matrix.python-version }}/bin/python\" -I -B -m pip --isolated --disable-pip-version-check check",
+      "command \"${RUNNER_TEMP}/sentinel-ci-${{ matrix.python-version }}/bin/python\" -I -B -S tools/ci/verify_ci_install.py --python-minor \"${{ matrix.python-version }}\" --lock \"${{ matrix.lock }}\" --report \"${RUNNER_TEMP}/sentinel-ci-install-${{ matrix.python-version }}.json\"",
+      "command \"${RUNNER_TEMP}/sentinel-ci-${{ matrix.python-version }}/bin/ruff\" check .",
+      "env -u PYTHONHOME -u PYTHONOPTIMIZE -u PYTEST_ADDOPTS -u PYTEST_PLUGINS PYTHONPATH= PYTHONHASHSEED=0 PYTHONNOUSERSITE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \"${RUNNER_TEMP}/sentinel-ci-${{ matrix.python-version }}/bin/python\" -B -S tools/ci/run_pytest_isolated.py -q -c pyproject.toml --noconftest --strict-config --strict-markers tests/test_iter135_gen17_ci_hardening.py tests/test_iter135_ci_install_verifier.py",
+      "env -u PYTHONHOME -u PYTHONOPTIMIZE -u PYTEST_ADDOPTS -u PYTEST_PLUGINS PYTHONPATH= PYTHONHASHSEED=0 PYTHONNOUSERSITE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \"${RUNNER_TEMP}/sentinel-ci-${{ matrix.python-version }}/bin/python\" -B -S tools/ci/run_pytest_isolated.py -q -c pyproject.toml --noconftest --strict-config --strict-markers",
+      "command \"${RUNNER_TEMP}/sentinel-ci-${{ matrix.python-version }}/bin/python\" -I -B -S -c 'import runpy,sys;sys.path.append(\"scripts\");runpy.run_path(\"scripts/validate_docs.py\",run_name=\"__main__\")'"
+    ],
+    "runner": "ubuntu-latest",
+    "steps": [
+      {
+        "kind": "uses",
+        "value": "actions/checkout@11d5960a326750d5838078e36cf38b85af677262"
+      },
+      {
+        "kind": "run",
+        "value": "python3 -I -B -S tools/ci/verify_supply_chain.py"
+      },
+      {
+        "kind": "uses",
+        "value": "actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065"
+      },
+      {
+        "kind": "run",
+        "value": "test -n \"${RUNNER_TEMP:-}\" && test -d \"${RUNNER_TEMP}\" && test ! -L \"${RUNNER_TEMP}\" && test ! -e \"${RUNNER_TEMP}/sentinel-ci-${{ matrix.python-version }}\" && python -I -B -m venv \"${RUNNER_TEMP}/sentinel-ci-${{ matrix.python-version }}\""
+      },
+      {
+        "kind": "run",
+        "value": "test ! -e \"${RUNNER_TEMP}/sentinel-ci-install-${{ matrix.python-version }}.json\" && \"${RUNNER_TEMP}/sentinel-ci-${{ matrix.python-version }}/bin/python\" -I -B -m pip --isolated --disable-pip-version-check install --no-input --force-reinstall --require-hashes --only-binary=':all:' --no-deps --report \"${RUNNER_TEMP}/sentinel-ci-install-${{ matrix.python-version }}.json\" -r ${{ matrix.lock }}"
+      },
+      {
+        "kind": "run",
+        "value": "command \"${RUNNER_TEMP}/sentinel-ci-${{ matrix.python-version }}/bin/python\" -I -B -m pip --isolated --disable-pip-version-check check"
+      },
+      {
+        "kind": "run",
+        "value": "command \"${RUNNER_TEMP}/sentinel-ci-${{ matrix.python-version }}/bin/python\" -I -B -S tools/ci/verify_ci_install.py --python-minor \"${{ matrix.python-version }}\" --lock \"${{ matrix.lock }}\" --report \"${RUNNER_TEMP}/sentinel-ci-install-${{ matrix.python-version }}.json\""
+      },
+      {
+        "kind": "run",
+        "value": "command \"${RUNNER_TEMP}/sentinel-ci-${{ matrix.python-version }}/bin/ruff\" check ."
+      },
+      {
+        "kind": "run",
+        "value": "env -u PYTHONHOME -u PYTHONOPTIMIZE -u PYTEST_ADDOPTS -u PYTEST_PLUGINS PYTHONPATH= PYTHONHASHSEED=0 PYTHONNOUSERSITE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \"${RUNNER_TEMP}/sentinel-ci-${{ matrix.python-version }}/bin/python\" -B -S tools/ci/run_pytest_isolated.py -q -c pyproject.toml --noconftest --strict-config --strict-markers tests/test_iter135_gen17_ci_hardening.py tests/test_iter135_ci_install_verifier.py"
+      },
+      {
+        "kind": "run",
+        "value": "env -u PYTHONHOME -u PYTHONOPTIMIZE -u PYTEST_ADDOPTS -u PYTEST_PLUGINS PYTHONPATH= PYTHONHASHSEED=0 PYTHONNOUSERSITE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \"${RUNNER_TEMP}/sentinel-ci-${{ matrix.python-version }}/bin/python\" -B -S tools/ci/run_pytest_isolated.py -q -c pyproject.toml --noconftest --strict-config --strict-markers"
+      },
+      {
+        "kind": "run",
+        "value": "command \"${RUNNER_TEMP}/sentinel-ci-${{ matrix.python-version }}/bin/python\" -I -B -S -c 'import runpy,sys;sys.path.append(\"scripts\");runpy.run_path(\"scripts/validate_docs.py\",run_name=\"__main__\")'"
+      }
+    ],
+    "triggers": [
+      "push",
+      "pull_request"
+    ]
+  }
+}

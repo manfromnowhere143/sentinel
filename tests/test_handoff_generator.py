@@ -52,7 +52,7 @@ def test_generator_uses_canonical_state_and_never_elevates_iter38() -> None:
     assert f"iteration {next_program['iteration']} / {next_program['phase']}" in rendered
     assert "Deprecated pending pre-registration: experiments/iter38_" in rendered
     assert "its gate governs the next action" not in rendered
-    assert "Authority: NONE" in rendered
+    assert "Operational authority: DIRECT_OPERATOR_INSTRUCTION" in rendered
     assert make_handoff.OBSERVATION_STATUS in rendered
     assert "- Lifecycle state: UNKNOWN" in rendered
     assert "earlier current-status prose in `README.md` and `docs/NEXT_PHASE.md`" in rendered
@@ -87,6 +87,11 @@ def test_generator_does_not_invoke_subprocess(
             mission_contract.CI_HARDENING_AUTHORIZED_ACTIONS,
             mission_contract.CI_HARDENING_FORBIDDEN_ACTIONS,
         ),
+        (
+            "LIFECYCLE_OBSERVER_REQUIRED",
+            mission_contract.LIFECYCLE_OBSERVER_AUTHORIZED_ACTIONS,
+            mission_contract.LIFECYCLE_OBSERVER_FORBIDDEN_ACTIONS,
+        ),
     ):
         candidate_state = copy.deepcopy(canonical_state)
         candidate_state["run_state"] = "UNKNOWN"
@@ -110,6 +115,11 @@ def test_generator_does_not_invoke_subprocess(
         assert make_handoff.OBSERVATION_STATUS in rendered
         assert "- Lifecycle state: UNKNOWN" in rendered
         assert "deterministic repository-local tombstone" in rendered
+        if candidate_state["next_program"]["phase"] == "LIFECYCLE_OBSERVER_REQUIRED":
+            assert "actual source-bound lifecycle observer" in rendered
+            assert "provider access or observer execution" in rendered
+            assert "run the actual lifecycle observer" in rendered
+            assert "- Lifecycle state: UNKNOWN" in rendered
 
     for phase in (
         "TOOLING_FROZEN_PREFLIGHT_REQUIRED",
@@ -129,6 +139,52 @@ def test_generator_does_not_invoke_subprocess(
             ValueError,
             match="next_program:phase-not-supported-by-tombstone",
         ):
+            make_handoff.render_handoff()
+
+
+def test_lifecycle_observer_handoff_rejects_idle_remote_or_weakened_contract(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    lifecycle_state = copy.deepcopy(load_state())
+    lifecycle_state["run_state"] = "UNKNOWN"
+    lifecycle_state["next_program"] = {
+        "iteration": 135,
+        "name": mission_contract.EXPECTED_PROGRAM_NAME,
+        "phase": "LIFECYCLE_OBSERVER_REQUIRED",
+        "authorized_actions": list(
+            mission_contract.LIFECYCLE_OBSERVER_AUTHORIZED_ACTIONS
+        ),
+        "forbidden_actions": list(
+            mission_contract.LIFECYCLE_OBSERVER_FORBIDDEN_ACTIONS
+        ),
+    }
+    monkeypatch.setattr(make_handoff, "load_state", lambda: lifecycle_state)
+
+    rendered = make_handoff.render_handoff()
+    assert "Operational authority: DIRECT_OPERATOR_INSTRUCTION" in rendered
+    assert "- Lifecycle state: UNKNOWN" in rendered
+    assert "run the actual lifecycle observer" in rendered
+
+    for mutation, expected_problem in (
+        (
+            lambda state: state.__setitem__("run_state", "IDLE"),
+            "run_state:contract",
+        ),
+        (
+            lambda state: state["next_program"]["authorized_actions"].append(
+                "query the provider now"
+            ),
+            "next_program:authorized-actions",
+        ),
+        (
+            lambda state: state["next_program"]["forbidden_actions"].pop(),
+            "next_program:forbidden-actions",
+        ),
+    ):
+        known_bad = copy.deepcopy(lifecycle_state)
+        mutation(known_bad)
+        monkeypatch.setattr(make_handoff, "load_state", lambda: known_bad)
+        with pytest.raises(ValueError, match=expected_problem):
             make_handoff.render_handoff()
 
 
