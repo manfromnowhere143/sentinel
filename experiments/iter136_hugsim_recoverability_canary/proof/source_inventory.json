@@ -1,0 +1,110 @@
+[
+  {
+    "bytes": 5390,
+    "commit": "62c690d39fd90020e68a196bd8bcc1c4d4191f2e",
+    "path": "closed_loop.py",
+    "repository": "hyzhou404/HUGSIM",
+    "retained_path": "source/HUGSIM/closed_loop.py.txt",
+    "sha256": "42a0c878aa9e365b9e1b1d5e6d902c8fe6e2ee79deac376c23a2bd1ea439c8f5",
+    "url": "https://raw.githubusercontent.com/hyzhou404/HUGSIM/62c690d39fd90020e68a196bd8bcc1c4d4191f2e/closed_loop.py"
+  },
+  {
+    "bytes": 13604,
+    "commit": "62c690d39fd90020e68a196bd8bcc1c4d4191f2e",
+    "path": "sim/hugsim_env/envs/hug_sim.py",
+    "repository": "hyzhou404/HUGSIM",
+    "retained_path": "source/HUGSIM/sim/hugsim_env/envs/hug_sim.py.txt",
+    "sha256": "c42ef368852754bdec76c81254b72dcda45eccef058dce015ea549c0b17c7d12",
+    "url": "https://raw.githubusercontent.com/hyzhou404/HUGSIM/62c690d39fd90020e68a196bd8bcc1c4d4191f2e/sim/hugsim_env/envs/hug_sim.py"
+  },
+  {
+    "bytes": 11692,
+    "commit": "62c690d39fd90020e68a196bd8bcc1c4d4191f2e",
+    "path": "sim/utils/agent_controller.py",
+    "repository": "hyzhou404/HUGSIM",
+    "retained_path": "source/HUGSIM/sim/utils/agent_controller.py.txt",
+    "sha256": "bc4689fe9ccbc9c997e273c92662ed0933b5e3317cd25fff99fefd9964a23a28",
+    "url": "https://raw.githubusercontent.com/hyzhou404/HUGSIM/62c690d39fd90020e68a196bd8bcc1c4d4191f2e/sim/utils/agent_controller.py"
+  },
+  {
+    "bytes": 10717,
+    "commit": "62c690d39fd90020e68a196bd8bcc1c4d4191f2e",
+    "path": "sim/utils/plan.py",
+    "repository": "hyzhou404/HUGSIM",
+    "retained_path": "source/HUGSIM/sim/utils/plan.py.txt",
+    "sha256": "61d170928bc54d7efeef8d5d58ade5c19621560253d9fb552d56b2612f11f912",
+    "url": "https://raw.githubusercontent.com/hyzhou404/HUGSIM/62c690d39fd90020e68a196bd8bcc1c4d4191f2e/sim/utils/plan.py"
+  },
+  {
+    "bytes": 899,
+    "commit": "62c690d39fd90020e68a196bd8bcc1c4d4191f2e",
+    "path": "sim/utils/launch_ad.py",
+    "repository": "hyzhou404/HUGSIM",
+    "retained_path": "source/HUGSIM/sim/utils/launch_ad.py.txt",
+    "sha256": "c3033a229b1c59f33125398bce35559602d2b77cf69d18b6a585f740006628ce",
+    "url": "https://raw.githubusercontent.com/hyzhou404/HUGSIM/62c690d39fd90020e68a196bd8bcc1c4d4191f2e/sim/utils/launch_ad.py"
+  },
+  {
+    "bytes": 114,
+    "commit": "62c690d39fd90020e68a196bd8bcc1c4d4191f2e",
+    "path": "configs/sim/kinematic.yaml",
+    "repository": "hyzhou404/HUGSIM",
+    "retained_path": "source/HUGSIM/configs/sim/kinematic.yaml.txt",
+    "sha256": "fc987ae8da2412ecca8e10b9e49daf2da366795151e970b139c3426ea9966c96",
+    "url": "https://raw.githubusercontent.com/hyzhou404/HUGSIM/62c690d39fd90020e68a196bd8bcc1c4d4191f2e/configs/sim/kinematic.yaml"
+  },
+  {
+    "bytes": 1122,
+    "commit": "62c690d39fd90020e68a196bd8bcc1c4d4191f2e",
+    "path": "LICENSE",
+    "repository": "hyzhou404/HUGSIM",
+    "retained_path": "source/HUGSIM/LICENSE.txt",
+    "sha256": "c5acad54bc534fe3bd574cd2ffd10cfd037b98590f01388163f51ea36035c322",
+    "url": "https://raw.githubusercontent.com/hyzhou404/HUGSIM/62c690d39fd90020e68a196bd8bcc1c4d4191f2e/LICENSE"
+  },
+  {
+    "bytes": 11046,
+    "commit": "5fb279e39912a5ac7f58e00d56b065cadcd0a749",
+    "path": "tools/closeloop/e2e.py",
+    "repository": "hyzhou404/UniAD_SIM",
+    "retained_path": "source/UniAD_SIM/tools/closeloop/e2e.py.txt",
+    "sha256": "44a7bd614b5a8b953048e734a0cbc625ccb9cb31087ad16e2689d9cbf1187a30",
+    "url": "https://raw.githubusercontent.com/hyzhou404/UniAD_SIM/5fb279e39912a5ac7f58e00d56b065cadcd0a749/tools/closeloop/e2e.py"
+  },
+  {
+    "bytes": 17102,
+    "commit": "5fb279e39912a5ac7f58e00d56b065cadcd0a749",
+    "path": "projects/mmdet3d_plugin/uniad/detectors/uniad_e2e.py",
+    "repository": "hyzhou404/UniAD_SIM",
+    "retained_path": "source/UniAD_SIM/projects/mmdet3d_plugin/uniad/detectors/uniad_e2e.py.txt",
+    "sha256": "e037a95c8e4e27a1ac20b04e120b5615f9b196ca088cab8eac2446b1d0fe865b",
+    "url": "https://raw.githubusercontent.com/hyzhou404/UniAD_SIM/5fb279e39912a5ac7f58e00d56b065cadcd0a749/projects/mmdet3d_plugin/uniad/detectors/uniad_e2e.py"
+  },
+  {
+    "bytes": 33639,
+    "commit": "5fb279e39912a5ac7f58e00d56b065cadcd0a749",
+    "path": "projects/mmdet3d_plugin/uniad/detectors/uniad_track.py",
+    "repository": "hyzhou404/UniAD_SIM",
+    "retained_path": "source/UniAD_SIM/projects/mmdet3d_plugin/uniad/detectors/uniad_track.py.txt",
+    "sha256": "514eae2645e44625097b02c9c13353a30f5ec1d234983e990cffc5b6a648f23b",
+    "url": "https://raw.githubusercontent.com/hyzhou404/UniAD_SIM/5fb279e39912a5ac7f58e00d56b065cadcd0a749/projects/mmdet3d_plugin/uniad/detectors/uniad_track.py"
+  },
+  {
+    "bytes": 11357,
+    "commit": "5fb279e39912a5ac7f58e00d56b065cadcd0a749",
+    "path": "LICENSE",
+    "repository": "hyzhou404/UniAD_SIM",
+    "retained_path": "source/UniAD_SIM/LICENSE.txt",
+    "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "url": "https://raw.githubusercontent.com/hyzhou404/UniAD_SIM/5fb279e39912a5ac7f58e00d56b065cadcd0a749/LICENSE"
+  },
+  {
+    "bytes": 4604,
+    "commit": "62c690d39fd90020e68a196bd8bcc1c4d4191f2e",
+    "path": "sim/utils/sim_utils.py",
+    "repository": "hyzhou404/HUGSIM",
+    "retained_path": "source/HUGSIM/sim/utils/sim_utils.py.txt",
+    "sha256": "36c2ba6a7dee38555f84dde95851ec00be5a699969d53de8906b3e67676792bc",
+    "url": "https://raw.githubusercontent.com/hyzhou404/HUGSIM/62c690d39fd90020e68a196bd8bcc1c4d4191f2e/sim/utils/sim_utils.py"
+  }
+]

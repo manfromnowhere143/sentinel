@@ -1,0 +1,17 @@
+{
+  "pytest_argv": [
+    "/opt/homebrew/opt/python@3.14/bin/python3.14",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/test_iter136_recoverability_canary.py"
+  ],
+  "pytest_stdout": "validation_final_pytest_stdout.txt",
+  "pytest_stderr": "validation_final_pytest_stderr.txt",
+  "ruff_output": "validation_final_ruff.txt",
+  "python310_probe_argv": [
+    "/opt/homebrew/bin/python3.10",
+    "experiments/iter136_hugsim_recoverability_canary/probe_reset.py"
+  ],
+  "scope": "ambient Python 3.14 pytest; Python 3.10 source probe only; no simulator execution"
+}

@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "gcloud",
+    "compute",
+    "instances",
+    "describe",
+    "sentinel-gpu",
+    "--project",
+    "sunlit-unison-487018-b0",
+    "--zone",
+    "us-west1-a",
+    "--format=json(name,id,status,lastStartTimestamp,lastStopTimestamp)"
+  ],
+  "at_utc": "2026-10-09T10:07:29.046390+00:00",
+  "returncode": 0,
+  "stderr": "",
+  "stdout": "{\n  \"id\": \"3834622546652649531\",\n  \"lastStartTimestamp\": \"2026-09-09T05:32:33.412-07:00\",\n  \"lastStopTimestamp\": \"2026-10-09T03:00:42.495-07:00\",\n  \"name\": \"sentinel-gpu\",\n  \"status\": \"TERMINATED\"\n}\n"
+}

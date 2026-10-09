@@ -1,0 +1,47 @@
+{
+  "decision": "REQUIRE_FRESH_PROCESS_REPLAY_VALIDATION",
+  "first_reset": [
+    {
+      "planning": {
+        "actor_update_count": 1
+      }
+    },
+    {
+      "actor_update_count": 1,
+      "last_accel": -1.0,
+      "last_steer_rate": 0.2,
+      "steer": 0.4,
+      "timestamp": 0
+    }
+  ],
+  "fresh_fixture_outputs_equal_across_two_seeds": true,
+  "live_simulation_observed": false,
+  "repeated_reset_equal": false,
+  "schema": "sentinel.iter136.reset_probe.v1",
+  "scope": "exact pinned reset method with stub observation and actor planner",
+  "second_reset": [
+    {
+      "planning": {
+        "actor_update_count": 2
+      }
+    },
+    {
+      "actor_update_count": 2,
+      "last_accel": -1.0,
+      "last_steer_rate": 0.2,
+      "steer": 0.4,
+      "timestamp": 0
+    }
+  ],
+  "seed_parameter_read_by_method": false,
+  "source": {
+    "bytes": 13604,
+    "commit": "62c690d39fd90020e68a196bd8bcc1c4d4191f2e",
+    "path": "sim/hugsim_env/envs/hug_sim.py",
+    "repository": "hyzhou404/HUGSIM",
+    "retained_path": "source/HUGSIM/sim/hugsim_env/envs/hug_sim.py.txt",
+    "sha256": "c42ef368852754bdec76c81254b72dcda45eccef058dce015ea549c0b17c7d12",
+    "url": "https://raw.githubusercontent.com/hyzhou404/HUGSIM/62c690d39fd90020e68a196bd8bcc1c4d4191f2e/sim/hugsim_env/envs/hug_sim.py"
+  },
+  "steering_and_control_history_retained": true
+}

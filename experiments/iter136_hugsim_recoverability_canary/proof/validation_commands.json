@@ -1,0 +1,47 @@
+{
+  "scope": "local ambient interpreters; not frozen CI or live simulator validation",
+  "commands": [
+    {
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_iter136_recoverability_canary.py"
+      ],
+      "started_at_utc": "2026-10-09T10:09:52.678726+00:00",
+      "returncode": 0,
+      "stdout": "validation_0_stdout.txt",
+      "stderr": "validation_0_stderr.txt"
+    },
+    {
+      "argv": [
+        "/opt/homebrew/bin/python3.10",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_iter136_recoverability_canary.py"
+      ],
+      "started_at_utc": "2026-10-09T10:09:53.088319+00:00",
+      "returncode": 1,
+      "stdout": "validation_1_stdout.txt",
+      "stderr": "validation_1_stderr.txt"
+    },
+    {
+      "argv": [
+        "ruff",
+        "check",
+        "experiments/iter136_hugsim_recoverability_canary/independent_reference_check.py",
+        "experiments/iter136_hugsim_recoverability_canary/inspect_host.py",
+        "experiments/iter136_hugsim_recoverability_canary/instrument_driver.py",
+        "experiments/iter136_hugsim_recoverability_canary/probe_reset.py",
+        "experiments/iter136_hugsim_recoverability_canary/replay_trace.py",
+        "tests/test_iter136_recoverability_canary.py"
+      ],
+      "started_at_utc": "2026-10-09T10:09:53.182313+00:00",
+      "returncode": 0,
+      "stdout": "validation_2_stdout.txt",
+      "stderr": "validation_2_stderr.txt"
+    }
+  ]
+}

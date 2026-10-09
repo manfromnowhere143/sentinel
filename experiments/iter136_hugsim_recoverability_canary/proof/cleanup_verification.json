@@ -1,0 +1,9 @@
+{
+  "file_count": 2631,
+  "file_inventory_sha256": "294ebd3c1fe03932449f8de39387e0b89a94f5977ba42bec70c029b847546c34",
+  "head": "355010c4b668c85fcd2647586c56d7a21b8b88d0",
+  "purpose": "verify clean redundant D16 checkout before removal; receipts and Git objects retained",
+  "root": "/Users/danielwahnich/sentinel-bootstrap-evidence/gen17-20260822-r5/d16-detached-worktree",
+  "time_utc": "2026-10-09T09:58:52.512353+00:00",
+  "total_bytes": 5573972213
+}
