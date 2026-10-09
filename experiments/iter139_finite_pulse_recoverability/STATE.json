@@ -3,7 +3,7 @@
   "capacity_start_requests": 2,
   "initialized_episode_retries": 0,
   "iteration": 139,
-  "phase": "pulse_0_1",
+  "phase": "pulse_0_2",
   "preregistration_commit": "0b1ab853c78ad89db102483e590d7349c8998210",
   "prior_result": "Iter138 supported/REPLAY_MATCHED; both references collided at6.5s",
   "protocol": "HYPOTHESIS.md",
