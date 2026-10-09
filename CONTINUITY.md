@@ -1,5 +1,15 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
+> **Active operator-directed candidate work, 2026-10-09:** Daniel authorized proceeding with
+> information and recoverability research. Iteration 136 is preregistered on the local branch
+> `research/iter136-recoverability`, descending from accepted F17. Its source probe and 37 local
+> tests passed; live replay is blocked because Google Cloud rejected the existing L4 instance
+> start for unavailable capacity. Read
+> [Iteration 136 status](experiments/iter136_hugsim_recoverability_canary/STATUS.md) for the exact
+> resumption point. Iteration 135 is deferred without changing its protocol. `MISSION_STATE.json`
+> and generated `HANDOFF.md` retain the accepted Iteration-135 publication-chain snapshot;
+> they do not supersede this newer direct operator work order. No new driving result exists.
+
 **Purpose.** This campaign is operator-portable by design. Everything an incoming operator
 needs is in this repository plus the two live surfaces below. Read this file top to bottom
 before touching anything. During the generation-fifteen control freeze, use

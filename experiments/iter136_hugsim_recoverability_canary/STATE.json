@@ -1,0 +1,23 @@
+{
+  "blocker": "PROVIDER_L4_CAPACITY_UNAVAILABLE",
+  "candidate_branch": "research/iter136-recoverability",
+  "canonical_master": "8c118b74c699bf0f139f9bd659192bad06b895f8",
+  "canonical_publication": false,
+  "historical_lifecycle_snapshot": "UNKNOWN",
+  "intervention_benefit": "unobserved",
+  "iter135": "deferred_unrun_protocol_unchanged",
+  "live_intervention_episodes": 0,
+  "live_reference_episodes": 0,
+  "live_replay": "unobserved",
+  "local_test_python": "3.14.2",
+  "local_tests_passed": 37,
+  "next_step": "bounded existing-host start when capacity is available, then read-only inspect_host.py and freeze verified runtime identities before live episodes",
+  "preregistration_commit": "d46e01672ac8edd1bb4916c1330a3b7765c6bc1c",
+  "provider_instance_status": "TERMINATED",
+  "python310_pytest": "unavailable_pytest_not_installed",
+  "python310_source_probe": "byte_identical_to_python314",
+  "schema": "sentinel.iter136.candidate_status.v1",
+  "source_probe": "supported_on_explicit_fixture",
+  "status": "blocked",
+  "tooling_and_first_proof_commit": "de076aba62020752ea806b92da332873060f07ce"
+}

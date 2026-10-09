@@ -1,5 +1,14 @@
 # Next phase — canonical current decision and historical option ledger
 
+## Active operator work on 2026-10-09
+
+Daniel authorized proceeding with the information and recoverability direction. The separately
+preregistered [Iteration 136 canary](../experiments/iter136_hugsim_recoverability_canary/HYPOTHESIS.md)
+now takes priority for candidate research work. Its [status and exact resumption point](../experiments/iter136_hugsim_recoverability_canary/STATUS.md)
+record the completed source probe, tested instrumentation and provider capacity block. No live
+episode ran. Iteration 135 is deferred with its frozen protocol intact. The canonical publication
+snapshot described below remains retained history and does not override this operator direction.
+
 ## Canonical current decision: iteration 134 is complete
 
 `MISSION_STATE.json` is authoritative. Iteration 134 completed `1,200/1,200` episodes with
