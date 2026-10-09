@@ -1,12 +1,14 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
-> **Active operator-directed candidate result, 2026-10-09:** Iter140 is preregistered;
-> implementation of the local CPU contact/actuation diagnostic is in progress.
-> Read [protocol](experiments/iter140_contact_actuation/HYPOTHESIS.md) and
-> [state](experiments/iter140_contact_actuation/STATE.json).
-> Iter139 remains closed as null / FINITE_PULSE_RECOVERY_NULL, with 0/6 useful recoveries.
-> No cloud launch or new live episode belongs to Iter140.
-> Candidate: `research/iter140-contact-actuation`, local/unpushed; master remains F17.
+> **Active operator-directed candidate result, 2026-10-09:** Iter140 is complete as
+> supported / CONTACT_ACTUATION_RECONSTRUCTED: 206 actions and all eight contacts replayed;
+> 412 box-pair checks agree. Every terminal actor center was behind ego; actor paths differed
+> in all six pulses. This supports reconstruction; Iter139 remains null with 0/6 recoveries.
+> Read [result](experiments/iter140_contact_actuation/RESULT.md),
+> [state](experiments/iter140_contact_actuation/STATE.json), and
+> [next decision](experiments/iter140_contact_actuation/DECISION.md).
+> Local CPU only; no provider access or cloud launch. The next canary remains proposed.
+> Candidate: `research/iter140-contact-actuation`, unpushed; master remains F17.
 > Iter135 remains deferred; MISSION_STATE/HANDOFF retain their publication snapshot.
 
 **Purpose.** This campaign is operator-portable by design. Everything an incoming operator
@@ -856,6 +858,12 @@ operator can reconstruct the exact repository state and the limits of the retain
 
 ## Shift log
 
+- 2026-10-09: Iter140 closed as supported / CONTACT_ACTUATION_RECONSTRUCTED: 206 actions,
+  412 box-pair checks, eight terminal contacts, all actor centers behind ego at contact. All
+  six pulse branches have actor-path differences from the reference. Independent geometry and
+  state replay passed; 37 focused tests passed on committed source. No cloud access. Read the
+  [result](experiments/iter140_contact_actuation/RESULT.md) and
+  [nominal-continuation decision](experiments/iter140_contact_actuation/DECISION.md).
 - 2026-10-09: Iter139 closed as null / FINITE_PULSE_RECOVERY_NULL on the local candidate
   `research/iter139-finite-pulse`: two matching references, six valid finite pulses, zero useful
   recoveries. All 206 live controller calls independently replayed; all converged, but 166/206

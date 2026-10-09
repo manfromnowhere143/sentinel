@@ -1,11 +1,20 @@
 {
-  "iteration": 140,
-  "status": "preregistered",
-  "phase": "validated_implementation",
+  "actions": 206,
+  "box_pair_checks": 412,
   "branch": "research/iter140-contact-actuation",
-  "parent": "ed23a8c5596c563e6475be2c190856feb481072b",
-  "protocol": "HYPOTHESIS.md",
   "compute": "local CPU only",
+  "episodes": 8,
+  "focused_tests": 37,
+  "iteration": 140,
+  "next_decision": "DECISION.md",
+  "parent": "ed23a8c5596c563e6475be2c190856feb481072b",
+  "phase": "complete",
   "preregistration_commit": "68131877a62e8fb6d1524aabcb2aab0a0b1187e7",
-  "focused_tests": 37
+  "protocol": "HYPOTHESIS.md",
+  "provider_access": false,
+  "result": "RESULT.md",
+  "source_commit": "d554903eab834be7433c3505b24402f34ba34b21",
+  "status": "supported",
+  "terminal_contacts": 8,
+  "verdict": "CONTACT_ACTUATION_RECONSTRUCTED"
 }

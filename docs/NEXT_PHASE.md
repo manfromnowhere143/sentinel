@@ -2,32 +2,33 @@
 
 ## Active operator work on 2026-10-09
 
-[Iteration 139](../experiments/iter139_finite_pulse_recoverability/RESULT.md) is complete as
-**null / FINITE_PULSE_RECOVERY_NULL**. Two fresh references matched, and all six finite zero-plan
-pulses followed by resumed planning collided. None achieved useful recovery. One pulse was
-collision-free at the 6.5-second reference hazard time but collided at 7.0 seconds, demonstrating
-why that diagnostic alone cannot establish recovery. The complete grid and nulls remain visible.
+[Iter140](../experiments/iter140_contact_actuation/RESULT.md) completed the bounded contact/
+actuation diagnostic: all 206 actions and eight terminal contacts reconstruct, with independent
+agreement on 412 before/after box pairs. All terminal actor centers are behind ego. Every pulse
+branch changes the actor path relative to the reference, so a fixed actor-path replay cannot
+represent these reactive encounters. The reconstruction passes; no useful recovery is established.
 
-All 206 live controller calls passed original-source replay and stopped by convergence. All
-six prefixes and independent Decimal endpoints matched. Numerical repeatability is established
-only in the declared configuration; 166/206 complete calls and 137/206 solver calls exceeded
-50 ms. Fixed simulation time does not evaluate delayed actuation. The cloud host is TERMINATED.
+[Iter139](../experiments/iter139_finite_pulse_recoverability/RESULT.md) remains null: all six
+finite pulses collided. One delayed collision by 0.5 seconds while meeting the reference-time
+progress bar. All 206 numerical calls replayed and converged, yet 166 complete calls and 137
+solver calls exceeded 50 ms. Timing remains distinct from numerical and geometric agreement.
 
-The [proposed next step](../experiments/iter139_finite_pulse_recoverability/NEXT_STEP.md) is a
-bounded contact/actuation diagnostic of these new traces to decide whether to change the action
-family or the development case family. The observed pulses did slow the vehicle; all logs name
-foreground collision, but actor attribution and relative impact severity remain unestablished.
-Do not restart a same-row descriptive audit sequence or tune the closed grid. A detector
-comparison should follow demonstrated useful action availability and use a strong responsive
-comparator with fixed resources, before independent-scene evaluation.
+The [next decision](../experiments/iter140_contact_actuation/DECISION.md) proposes a bounded
+nominal-continuation canary: keep the monitor in shadow and return the frozen planner's nominal
+plan, with fresh replay/prefix checks and full-route outcomes. Earlier OFF results lower the
+expectation of success; this closes a specific execution-contract gap once. Freeze the exact
+model/control envelope and resources before any run. The source's mixed actor time steps and
+unenforced declared action bounds limit physical claims. No Iter141 protocol or episode exists.
 
-[Iter138](../experiments/iter138_numerical_live_replay/RESULT.md) remains supported/REPLAY_MATCHED;
-[Iter137](../experiments/iter137_controller_execution_contract/RESULT.md) retains its bounded
-controller benchmark and [the independent audit](../experiments/iter138_numerical_live_replay/AUDIT137.md).
-[Iter136](../experiments/iter136_hugsim_recoverability_canary/RESULT.md) remains REPLAY_DIVERGED.
-These experiments are closed. Iter135 remains deferred and unchanged. Candidate branch
-`research/iter139-finite-pulse` is local and unpushed; canonical master remains F17. The accepted
-publication snapshot below remains historical.
+The broader goal remains a demonstrated useful action opportunity, then a specific information
+advantage beyond a strong responsive baseline, then held-out source scenes and fault/transfer
+evaluation. Do not expand the closed pulse grid or restart same-case descriptive taxonomies.
+[Iter138](../experiments/iter138_numerical_live_replay/RESULT.md) retains its matched live pair;
+[Iter137](../experiments/iter137_controller_execution_contract/RESULT.md) its bounded controller
+benchmark; [Iter136](../experiments/iter136_hugsim_recoverability_canary/RESULT.md) its replay failure.
+All are closed. Iter135 remains deferred and unchanged. Iter140 used local CPU only, with no
+provider access or cloud launch. Candidate `research/iter140-contact-actuation` is local/unpushed;
+canonical master remains F17. The accepted publication snapshot below remains historical.
 
 ## Canonical current decision: iteration 134 is complete
 

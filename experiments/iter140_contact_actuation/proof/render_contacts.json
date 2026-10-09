@@ -1,0 +1,19 @@
+{
+  "argv": [
+    "/Users/danielwahnich/sentinel-bootstrap-evidence/iter140-contact-actuation-20261009/venv/bin/python",
+    "-m",
+    "experiments.iter140_contact_actuation.plot",
+    "--root",
+    "/Users/danielwahnich/workspace/sentinel",
+    "--primary",
+    "/Users/danielwahnich/workspace/sentinel/experiments/iter140_contact_actuation/proof/primary.json",
+    "--independent",
+    "/Users/danielwahnich/workspace/sentinel/experiments/iter140_contact_actuation/proof/independent.json",
+    "--output",
+    "/Users/danielwahnich/workspace/sentinel/experiments/iter140_contact_actuation/proof/figures"
+  ],
+  "cwd": "/Users/danielwahnich/sentinel-bootstrap-evidence/iter140-contact-actuation-20261009/committed_source",
+  "start_utc": "2026-10-09T15:01:46.856107+00:00",
+  "elapsed_seconds": 10.565163135528564,
+  "returncode": 0
+}

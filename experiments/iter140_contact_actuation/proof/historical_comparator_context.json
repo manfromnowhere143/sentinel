@@ -1,0 +1,19 @@
+{
+  "scope": "post-analysis historical context only; not an Iter140 input or endpoint; old timed-controller evaluator aggregates are not current episode collision outcomes",
+  "files": [
+    {
+      "path": "experiments/iter49_hugsim_hard_tier_gate/proof-hard/episodes/scene-0411-hard-00__off_r1/eval.json",
+      "sha256": "3fd6a87224b6c421af5b9f2c6ee333a2eacbc5427a915c5b3d9eeca7f4d229d2",
+      "nc": 0.8666666666666667,
+      "rc": 0.1783807549777024,
+      "hdscore": 0.11892050331846826
+    },
+    {
+      "path": "experiments/iter49_hugsim_hard_tier_gate/proof-hard/episodes/scene-0411-hard-00__off_r2/eval.json",
+      "sha256": "ab84b262f4a66d35427412c39b6c6af1d4f7324d7f2b5eb51b014d82b1f2876f",
+      "nc": 0.8620689655172413,
+      "rc": 0.16707493247911562,
+      "hdscore": 0.10946288679666195
+    }
+  ]
+}

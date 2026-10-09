@@ -6,21 +6,24 @@ loop, by whether the car crashes *and whether it can still drive*.**
 
 ## Local research update 2026-10-09
 
-[Iteration 139](experiments/iter139_finite_pulse_recoverability/RESULT.md) completed a frozen
-six-cell finite-pulse experiment after two matching references: **0/6 useful recoveries**.
-Every branch collided. One pulse delayed collision from 6.5 to 7.0 seconds while meeting the
-progress bar at the reference hazard time; full-route evaluation prevented calling that recovery.
-All 206 live controller calls passed original-source replay, and all stopped by convergence.
-166/206 complete calls exceeded 50 ms. The cloud host is confirmed stopped.
+[Iteration 140](experiments/iter140_contact_actuation/RESULT.md) independently reconstructed
+206 actions and all eight terminal contacts from the latest development experiment. The actor's
+center was behind ego in every collision, and its path changed in every pulse branch. The
+diagnostic supports the declared simulator reconstruction; physical fidelity remains separate.
 
-This builds on [Iter138's matched live pair](experiments/iter138_numerical_live_replay/RESULT.md),
+[Iteration 139](experiments/iter139_finite_pulse_recoverability/RESULT.md) remains a complete
+six-cell recovery null: 0/6 useful recoveries. One pulse delayed collision by 0.5 seconds;
+full-route evaluation prevented treating delay as recovery. All 206 controller calls replayed,
+but 166 complete calls exceeded 50 ms. The
+[next decision](experiments/iter140_contact_actuation/DECISION.md) proposes one bounded test of
+continued nominal planning before further action search. Iter140 required no cloud launch.
+
+This follows [Iter138's matched live pair](experiments/iter138_numerical_live_replay/RESULT.md),
 [Iter137's controller benchmark](experiments/iter137_controller_execution_contract/RESULT.md)
 and [Iter136's failed replay gate](experiments/iter136_hugsim_recoverability_canary/RESULT.md).
-The null concerns this finite action library and this development case. The
-[next step](experiments/iter139_finite_pulse_recoverability/NEXT_STEP.md) examines action and
-contact mechanics before another information comparison. These are local research candidates;
-canonical master remains F17 and the accepted mission snapshot below remains historical.
-No industrial superiority, population safety or real-time operation is established.
+These are local research candidates; canonical master remains F17 and the accepted mission
+snapshot below remains historical. No industrial superiority, population safety or real-time
+operation is established.
 
 > **Honest status up front (current through iteration 134; `MISSION_STATE.json` is the
 > canonical repository mission-state contract and the status table below is the evidence ledger.

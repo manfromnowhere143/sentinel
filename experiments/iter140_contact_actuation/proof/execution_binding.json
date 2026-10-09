@@ -1,0 +1,8 @@
+{
+  "source_commit": "d554903eab834be7433c3505b24402f34ba34b21",
+  "preregistration_commit": "68131877a62e8fb6d1524aabcb2aab0a0b1187e7",
+  "source_directory": "/Users/danielwahnich/sentinel-bootstrap-evidence/iter140-contact-actuation-20261009/committed_source",
+  "input_root": "/Users/danielwahnich/workspace/sentinel",
+  "python": "/Users/danielwahnich/sentinel-bootstrap-evidence/iter140-contact-actuation-20261009/venv/bin/python",
+  "scope": "isolated committed implementation; parent-commit raw data checked by INPUTS.json"
+}

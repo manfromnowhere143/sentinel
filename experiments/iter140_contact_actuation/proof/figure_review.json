@@ -1,0 +1,6 @@
+{
+  "status": "reviewed",
+  "scope": "Visual inspection of terminal_contacts.png: all eight labeled panels, legend, units and terminal rectangles visible; equal spatial aspect within panels; panel limits differ",
+  "reviewer": "agent visual inspection",
+  "independent_human_review": false
+}

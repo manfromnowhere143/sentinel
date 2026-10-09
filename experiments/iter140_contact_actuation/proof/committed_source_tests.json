@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "/Users/danielwahnich/sentinel-bootstrap-evidence/iter140-contact-actuation-20261009/venv/bin/python",
+    "-m",
+    "pytest",
+    "-c",
+    "/dev/null",
+    "--rootdir=/Users/danielwahnich/sentinel-bootstrap-evidence/iter140-contact-actuation-20261009/committed_source",
+    "-q",
+    "/Users/danielwahnich/sentinel-bootstrap-evidence/iter140-contact-actuation-20261009/committed_source/tests/test_iter140_contact_actuation.py"
+  ],
+  "cwd": "/Users/danielwahnich/sentinel-bootstrap-evidence/iter140-contact-actuation-20261009/committed_source",
+  "start_utc": "2026-10-09T15:01:20.416414+00:00",
+  "elapsed_seconds": 0.5639410018920898,
+  "returncode": 0
+}
