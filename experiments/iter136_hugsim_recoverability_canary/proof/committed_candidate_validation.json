@@ -1,0 +1,15 @@
+{
+  "candidate_commit": "758686b5bd7a0b84c8d9e37ab83f3e140b1841ff",
+  "scope": "exact committed canary, proof, focused tests and project configuration extracted without the dirty WIP checkout",
+  "archive_sha256": "fd80f6c571e5f6687205c55d49391b2fe270bd0748d8af1bb898ba7a7b4374f6",
+  "argv": [
+    "/opt/homebrew/opt/python@3.14/bin/python3.14",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/test_iter136_recoverability_canary.py"
+  ],
+  "returncode": 0,
+  "stdout": ".....................................                                    [100%]\n37 passed in 0.15s\n",
+  "stderr": ""
+}

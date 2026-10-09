@@ -3,6 +3,7 @@
   "candidate_branch": "research/iter136-recoverability",
   "canonical_master": "8c118b74c699bf0f139f9bd659192bad06b895f8",
   "canonical_publication": false,
+  "focused_tested_commit": "758686b5bd7a0b84c8d9e37ab83f3e140b1841ff",
   "historical_lifecycle_snapshot": "UNKNOWN",
   "intervention_benefit": "unobserved",
   "iter135": "deferred_unrun_protocol_unchanged",

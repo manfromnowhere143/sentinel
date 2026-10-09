@@ -57,6 +57,9 @@ Python 3.14.2, including two integrations through the instrumented driver with a
 source mutation, missing/invalid outcomes, altered observations, missing/reordered frames,
 nonfinite values, mismatched identities, prefix divergence, terminal inconsistency and bounded
 file reads. Ruff passed. The logs and commands are in [proof](proof/validation_final.json).
+The same 37 tests also passed against the exact committed candidate's canary files and project
+configuration extracted into an isolated temporary directory, excluding the dirty WIP checkout;
+the [candidate validation receipt](proof/committed_candidate_validation.json) binds that source.
 
 The attempted Python 3.10 pytest invocation could not run because that interpreter has no pytest
 installed; its failure is retained. The standard-library source probe did run successfully under
