@@ -38,5 +38,13 @@
       "returncode": 0,
       "elapsed_seconds": 119.83893370628357
     }
+  },
+  {
+    "arm": "pulse_2_2",
+    "raw_commit": "ae1df261da801e5c8d986b2b2122446db88b5369",
+    "supervisor": {
+      "returncode": 0,
+      "elapsed_seconds": 108.70498061180115
+    }
   }
 ]

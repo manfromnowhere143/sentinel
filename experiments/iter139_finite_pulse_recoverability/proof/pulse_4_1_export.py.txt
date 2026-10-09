@@ -1,0 +1,24 @@
+import hashlib
+import json
+from pathlib import Path
+import shutil
+control=Path('/datasets/nuscenes-full/hugsim/iter139_control_20261009')
+source=Path('/datasets/nuscenes-full/hugsim/outputs/iter139-20261009')/'pulse_4_1'
+assert (source/'episode.json').is_file()
+target=control/'exports'/'pulse_4_1'
+target.mkdir(parents=True,exist_ok=False)
+def digest(p):
+ h=hashlib.sha256()
+ with p.open('rb') as f:
+  for b in iter(lambda:f.read(8*1024*1024),b''):h.update(b)
+ return h.hexdigest()
+retained={};omitted={}
+for p in sorted(source.rglob('*')):
+ if not p.is_file() or p.is_symlink():continue
+ rel=p.relative_to(source);record=dict(sha256=digest(p),bytes=p.stat().st_size)
+ if p.suffix in ('.json','.jsonl','.pkl','.log','.txt'):
+  dst=target/rel;dst.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(p,dst);retained[str(rel)]=record
+ else:omitted[str(rel)]=record
+inventory=dict(remote_root=str(source),retained=retained,remote_only=omitted)
+(target/'remote_inventory.json').write_text(json.dumps(inventory,indent=2,sort_keys=True)+'\n')
+print(json.dumps(dict(retained_files=len(retained),retained_bytes=sum(r['bytes'] for r in retained.values()),remote_only_files=len(omitted),export=str(target)),indent=2))
