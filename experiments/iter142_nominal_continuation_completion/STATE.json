@@ -1,10 +1,20 @@
 {
   "iteration": 142,
-  "status": "running",
-  "phase": "nominal_b",
-  "details": "Frozen live schedule is executing; earlier stages and retained inputs validated.",
+  "status": "null",
+  "phase": "complete",
+  "verdict": "NOMINAL_CONTINUATION_NULL",
+  "operational_status": "complete_after_recorded_preinitialization_correction",
   "branch": "research/iter142-nominal-continuation",
   "preregistration_commit": "ba72e457a96f8ea248810ffa7b982c171b32c5f4",
+  "executed_packet_commit": "a70aa3fe095839d62c390f0569f44ddc5f9be9df",
   "retained_reference": "Iter141/reference_a",
-  "initialized_episode_retries": 0
+  "completed_fresh_episodes": 3,
+  "retained_episodes": 1,
+  "fresh_controller_calls": 84,
+  "useful_recoveries": 0,
+  "nominal_episodes": 2,
+  "initialized_episode_retries": 0,
+  "provider_status": "TERMINATED",
+  "publication": "local_unpushed_candidate",
+  "next_step": "Propose a finite new case family after explicit model/control qualification; close this case/action comparison."
 }

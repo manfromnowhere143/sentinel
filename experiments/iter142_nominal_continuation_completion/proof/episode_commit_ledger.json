@@ -1,0 +1,22 @@
+[
+  {
+    "arm": "reference_a",
+    "provenance": "retained Iter141",
+    "raw_commit": "888a8a3c86f327de15612d5b7a8553e66b43805f"
+  },
+  {
+    "arm": "reference_b",
+    "provenance": "fresh Iter142",
+    "raw_commit": "522ff44b5f079f3d4795a2b49ac0f700a228aaeb"
+  },
+  {
+    "arm": "nominal_a",
+    "provenance": "fresh Iter142",
+    "raw_commit": "5f351f80ae006f990be15b2e34f5db126a35172b"
+  },
+  {
+    "arm": "nominal_b",
+    "provenance": "fresh Iter142",
+    "raw_commit": "b191f5e29a0681f545625dea91d9161b39c26db0"
+  }
+]

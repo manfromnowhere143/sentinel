@@ -1,11 +1,15 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
-> **Active operator-directed candidate work, 2026-10-09:** Iter142 is preregistered
-> to complete the nominal-continuation comparison with retained Iter141 reference A
-> and three fresh episodes. Phase: nominal_b. Frozen live schedule is executing; earlier stages and retained inputs validated.
-> Read [protocol](experiments/iter142_nominal_continuation_completion/HYPOTHESIS.md) and
-> [state](experiments/iter142_nominal_continuation_completion/STATE.json).
-> Iter141 remains closed after its coordinator failure; nominal recovery is still unobserved.
+> **Active operator-directed candidate work, 2026-10-09:** Iter142 is complete:
+> **null / NOMINAL_CONTINUATION_NULL**. Both nominal continuations collided at 7.25 s
+> versus 6.5 s for the references; **0/2 useful recoveries**. Three fresh episodes
+> plus retained Iter141 reference A; all 84 new controller calls replayed, 69 exceeded
+> 50 ms for the complete call. All 614 bound files matched; provider confirmed TERMINATED.
+> Read the [result](experiments/iter142_nominal_continuation_completion/RESULT.md),
+> [state](experiments/iter142_nominal_continuation_completion/STATE.json) and
+> [next decision](experiments/iter142_nominal_continuation_completion/DECISION.md).
+> Close this case/action comparison. Next proposal: model/control qualification and
+> a finite new case family with a validated action opportunity before information ablation.
 > Candidate `research/iter142-nominal-continuation` is unpushed; master remains F17.
 > Iter135 stays deferred; MISSION_STATE/HANDOFF retain their publication snapshot.
 
@@ -856,6 +860,19 @@ operator can reconstruct the exact repository state and the limits of the retain
 
 ## Shift log
 
+- 2026-10-09: Iter142 completed as null / NOMINAL_CONTINUATION_NULL with retained
+  Iter141 reference A and three fresh episodes. Both nominal continuations collided at
+  7.25 s versus 6.5 s for references; 0/2 useful recoveries. All 84 new controller calls
+  replayed and converged; 69 complete calls exceeded 50 ms. Original source/seed/endpoints
+  unchanged. A missing-PYTHONPATH pre-initialization failure and one explicitly recorded
+  correction remain visible; zero initialized retries. All 614 runtime files matched and
+  provider confirmed TERMINATED. Read the
+  [result](experiments/iter142_nominal_continuation_completion/RESULT.md) and
+  [next-study proposal](experiments/iter142_nominal_continuation_completion/DECISION.md).
+- 2026-10-09: Iter141 remains closed after COORDINATOR_BRANCH_LOOKUP_FAILED, with one
+  completed reference and an inconclusive comparison. Its reference is explicitly reused
+  by Iter142, without relabeling it as a new episode. Read the
+  [retained failure report](experiments/iter141_nominal_continuation/RESULT.md).
 - 2026-10-09: Iter140 closed as supported / CONTACT_ACTUATION_RECONSTRUCTED: 206 actions,
   412 box-pair checks, eight terminal contacts, all actor centers behind ego at contact. All
   six pulse branches have actor-path differences from the reference. Independent geometry and

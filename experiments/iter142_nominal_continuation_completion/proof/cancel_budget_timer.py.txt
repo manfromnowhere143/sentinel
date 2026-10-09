@@ -1,0 +1,4 @@
+import subprocess,json
+r=subprocess.run(['systemctl','stop','sentinel-iter142-budget.timer'],capture_output=True,text=True,timeout=20)
+print(json.dumps(dict(returncode=r.returncode,stdout=r.stdout,stderr=r.stderr)))
+assert r.returncode==0

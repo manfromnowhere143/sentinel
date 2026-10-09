@@ -1,0 +1,81 @@
+import hashlib,json,posixpath,re,subprocess,sys
+from pathlib import Path
+R=Path('/Users/danielwahnich/workspace/sentinel');P='experiments/iter142_nominal_continuation_completion';source='a70aa3fe095839d62c390f0569f44ddc5f9be9df';parent='b1ba918ed8d06d7f293fa00783894102f4c3e4d9';prereg='ba72e457a96f8ea248810ffa7b982c171b32c5f4';correction='d41396b8c56e17ae47249ede880ea31ce07dbcec'
+def git(*a):return subprocess.check_output(['git',*a],cwd=R)
+tip=git('rev-parse','research/iter142-nominal-continuation').decode().strip()
+def read(p):return git('show',tip+':'+p)
+def obj(p):return json.loads(read(P+'/proof/'+p))
+def sha(b):return hashlib.sha256(b).hexdigest()
+files=set(git('ls-tree','-r','--name-only',tip).decode().splitlines());checked=[]
+for line in read(P+'/proof/SHA256SUMS').decode().splitlines():
+ h,rel=line.split('  ',1);raw=read(P+'/proof/'+rel)
+ if '--known-bad' in sys.argv and rel=='analysis/nominal_a.json':raw+=b'corrupt'
+ assert sha(raw)==h==sha((R/P/'proof'/rel).read_bytes()),rel
+ checked.append(rel)
+assert set(checked)=={x[len(P+'/proof/'):] for x in files if x.startswith(P+'/proof/') and not x.endswith('/SHA256SUMS')}
+ledger=obj('episode_commit_ledger.json');assert [x['arm'] for x in ledger]==['reference_a','reference_b','nominal_a','nominal_b'];assert ledger[0]['raw_commit']=='888a8a3c86f327de15612d5b7a8553e66b43805f'
+rawcounts={};mediacounts={}
+for record in ledger:
+ arm=record['arm'];base=('experiments/iter141_nominal_continuation' if arm=='reference_a' else P)+'/proof/live/'+arm
+ inv=json.loads(read(base+'/remote_inventory.json'))
+ assert read(base+'/remote_inventory.json')==git('show',record['raw_commit']+':'+base+'/remote_inventory.json')
+ for name,rec in inv['retained'].items():
+  raw=read(base+'/'+name);assert len(raw)==rec['bytes'] and sha(raw)==rec['sha256'];assert raw==git('show',record['raw_commit']+':'+base+'/'+name)
+ rawcounts[arm]=len(inv['retained']);mediacounts[arm]=len(inv['remote_only'])
+ assert rawcounts[arm]==12
+ subprocess.run(['git','merge-base','--is-ancestor',record['raw_commit'],tip],cwd=R,check=True)
+assert sum(mediacounts[a] for a in mediacounts if a!='reference_a')==264
+inputs=json.loads(read(P+'/INPUTS.json'));assert inputs['parent_commit']==parent and inputs['retained_reference_raw_commit']==ledger[0]['raw_commit']
+for path,rec in inputs['files'].items():
+ raw=read(path);assert raw==git('show',parent+':'+path);assert len(raw)==rec['bytes'] and sha(raw)==rec['sha256']
+paths=[P+'/coordinator.py',P+'/run_episode.py','tests/test_iter142_nominal_continuation_completion.py']
+for p in paths:assert read(p)==git('show',source+':'+p)==(R/p).read_bytes(),p
+for p in [P+'/HYPOTHESIS.md',P+'/INPUTS.json']:assert read(p)==git('show',prereg+':'+p)==(R/p).read_bytes(),p
+assert read(P+'/PREINITIALIZATION_CORRECTION.md')==git('show',correction+':'+P+'/PREINITIALIZATION_CORRECTION.md')
+for p in ['schedule/events.jsonl','schedule/schedule_started.json']:
+ assert read(P+'/proof/'+p)==git('show',correction+':'+P+'/proof/'+p)
+events=[json.loads(x) for x in read(P+'/proof/schedule_bootstrap2/events.jsonl').splitlines()]
+expected=[]
+for r in ledger[1:]:
+ expected.extend([dict(arm=r['arm'],kind='launch_requested'),dict(arm=r['arm'],kind='raw_committed',raw_commit=r['raw_commit']),dict(arm=r['arm'],kind='validated',raw_commit=r['raw_commit'])])
+expected.append(dict(kind='schedule_complete'));assert events==expected
+prior_raw=correction
+for r in ledger[1:]:
+ subprocess.run(['git','merge-base','--is-ancestor',prior_raw,r['raw_commit']],cwd=R,check=True);prior_raw=r['raw_commit']
+changed=git('diff','--name-only',parent,tip).decode().splitlines();assert all(x.startswith(P+'/') or x in ['CONTINUITY.md','README.md','docs/NEXT_PHASE.md','tests/test_iter142_nominal_continuation_completion.py'] for x in changed)
+assert git('rev-parse','master').decode().strip()=='8c118b74c699bf0f139f9bd659192bad06b895f8';assert not git('diff','--cached','--name-only');assert not git('diff','--name-only','--','README.md')
+subprocess.run(['git','merge-base','--is-ancestor','master',tip],cwd=R,check=True)
+links=[]
+for p in sorted(files):
+ if p.startswith(P+'/') and p.endswith('.md'):s=read(p).decode()
+ elif p in ['README.md','CONTINUITY.md','docs/NEXT_PHASE.md']:
+  s=read(p).decode();a=s.index('> **Active operator-directed');s=s[a:s.index('\n\n',a)]
+ else:continue
+ for target in re.findall(r'\]\(([^)]+)\)',s):
+  if target.startswith(('http','#','mailto')):continue
+  dest=posixpath.normpath(posixpath.join(posixpath.dirname(p),target.split('#')[0]));assert dest in files,(p,target);links.append(dest)
+assert all(posixpath.dirname(p) in read('README.md').decode() for p in files if p.startswith('experiments/') and p.endswith('/RESULT.md'))
+state=json.loads(read(P+'/STATE.json'));result=obj('final_analysis.json');reports=obj('completed_reports.json')
+assert state['phase']=='complete' and state['status']=='null' and state['completed_fresh_episodes']==3 and state['retained_episodes']==1
+assert state['verdict']==result['verdict']=='NOMINAL_CONTINUATION_NULL' and result['useful_recoveries']==0 and result['nominal_episodes']==2
+assert result['fresh_controller_calls']==84 and result['fresh_complete_call_over_50ms']==69 and result['fresh_solver_over_50ms']==65
+assert result['fresh_stop_reasons']==dict(converged=84,deadline=0,iteration_limit=0)
+for a in ['reference_b','nominal_a','nominal_b']:
+ report=reports[a];assert report['status']=='validated'
+ rows=[json.loads(x) for x in read(P+'/proof/live/'+a+'/scene-0411_hard_00/delivery141.jsonl').splitlines()]
+ # Header/footer have their own record types; only frame records carry three plans.
+ frame=[x for x in rows if 'delivered' in x]
+ assert len(frame)==report['candidate']['frames']
+ expected_diffs=0 if a=='reference_b' else 11
+ assert sum(x['proposed']!=x['delivered'] for x in frame)==expected_diffs
+ if a.startswith('nominal'):
+  assert all(x['nominal']==x['delivered'] for x in frame)
+  assert report['first_contrast']==18 and report['outcomes']['first_collision_time']==7.25 and report['outcomes']['censored'] is False
+ else:assert all(x['proposed']==x['delivered'] for x in frame)
+assert obj('independent_recount.json')['status']=='passed'
+assert obj('final_provider_state.stdout')['status']=='TERMINATED' and obj('stop_operation_readback_2.stdout')['status']=='DONE'
+post=obj('postflight_summary.json');assert post['bound_files']==614 and not post['changed_or_missing'] and not post['owned_processes'];assert post['manifest_sha256']==sha(read(P+'/proof/runtime_manifest.json'))
+assert obj('resource_accounting.json')['shutdown_before_timer'] is True
+metadata=git('log',parent+'..'+tip,'--format=%an <%ae>|%cn <%ce>%n%B').decode();assert not re.search('co-authored-by|generated-by|claude|anthropic',metadata,re.I)
+identities=[s for s in metadata.splitlines() if '|' in s];assert identities and all(s=='Daniel Wahnich <cogitoergosum143@gmail.com>|Daniel Wahnich <cogitoergosum143@gmail.com>' for s in identities)
+print(json.dumps(dict(status='passed',candidate_commit=tip,proof_hashes=len(checked),raw_files_by_arm=rawcounts,remote_only_files_by_arm=mediacounts,retained_input_files=len(inputs['files']),unchanged_source_test_files=len(paths),unchanged_preregistration_files=2,correction_and_failed_marker_preserved=True,raw_commit_before_validation_schedule=True,document_links=len(links),prior_experiments_unchanged=True,master_unchanged=True,staged_index_empty=True,root_readme_untouched=True,human_commit_identities=len(identities),provider_status='TERMINATED',scope='candidate integrity and direct delivery counts; no full/frozen/hosted CI'),indent=2))

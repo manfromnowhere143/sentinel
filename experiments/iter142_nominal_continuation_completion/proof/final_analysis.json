@@ -1,0 +1,50 @@
+{
+  "status": "null",
+  "verdict": "NOMINAL_CONTINUATION_NULL",
+  "useful_recoveries": 0,
+  "nominal_episodes": 2,
+  "outcomes": [
+    {
+      "action_contrast_observed": true,
+      "censored": false,
+      "collision_free_through_hazard": true,
+      "collision_observed": true,
+      "final_route_completion": 0.16958733747880156,
+      "first_collision_time": 7.25,
+      "hazard_progress": 0.15074429998115696,
+      "hazard_progress_bar_met": true,
+      "observed_hazard_horizon": true,
+      "reference_hazard_progress": 0.11557062998555366,
+      "reference_hazard_time": 6.5,
+      "terminal_reason": "collision",
+      "terminal_time": 7.25,
+      "useful_recovery": false
+    },
+    {
+      "action_contrast_observed": true,
+      "censored": false,
+      "collision_free_through_hazard": true,
+      "collision_observed": true,
+      "final_route_completion": 0.16958733747880156,
+      "first_collision_time": 7.25,
+      "hazard_progress": 0.15074429998115696,
+      "hazard_progress_bar_met": true,
+      "observed_hazard_horizon": true,
+      "reference_hazard_progress": 0.11557062998555366,
+      "reference_hazard_time": 6.5,
+      "terminal_reason": "collision",
+      "terminal_time": 7.25,
+      "useful_recovery": false
+    }
+  ],
+  "retained_reference": "Iter141/reference_a, 26 actions; not a new Iter142 episode",
+  "fresh_episodes": 3,
+  "fresh_controller_calls": 84,
+  "fresh_complete_call_over_50ms": 69,
+  "fresh_solver_over_50ms": 65,
+  "fresh_stop_reasons": {
+    "converged": 84,
+    "deadline": 0,
+    "iteration_limit": 0
+  }
+}

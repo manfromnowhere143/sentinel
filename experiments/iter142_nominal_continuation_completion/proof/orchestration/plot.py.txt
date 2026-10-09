@@ -1,0 +1,26 @@
+"""Plot only validated, raw-committed traces; lines connect sampled states."""
+import json
+from pathlib import Path
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+r=Path('/Users/danielwahnich/workspace/sentinel');p=r/'experiments/iter142_nominal_continuation_completion/proof';analysis=json.loads((p/'final_analysis.json').read_text())
+assert analysis['fresh_episodes']==3
+folders=[('Retained reference A',r/'experiments/iter141_nominal_continuation/proof/live/reference_a/scene-0411_hard_00','#49546a','-'),('Fresh reference B',p/'live/reference_b/scene-0411_hard_00','#929bad','--'),('Nominal A',p/'live/nominal_a/scene-0411_hard_00','#157f87','-'),('Nominal B',p/'live/nominal_b/scene-0411_hard_00','#db862d','--')]
+plt.rcParams.update({'font.size':10,'axes.spines.top':False,'axes.spines.right':False})
+fig,axes=plt.subplots(1,2,figsize=(11,4.5));fig.subplots_adjust(bottom=.25,top=.79,wspace=.28)
+for label,folder,color,style in folders:
+ rows=[json.loads(s) for s in (folder/'iter141_trace.jsonl').read_text().splitlines()][1:-1]
+ times=[x['after']['timestamp'] for x in rows];progress=[100*x['route_completion'] for x in rows];speed=[x['after']['ego_velo'] for x in rows]
+ for ax,values in zip(axes,[progress,speed]):
+  ax.plot(times,values,style,color=color,lw=2,label=label,alpha=.9)
+  if rows[-1]['collision']:ax.scatter(times[-1],values[-1],marker='x',s=80,color=color,lw=2,zorder=5)
+for ax in axes:
+ ax.axvline(4.5,color='#a5abb5',ls=':',lw=1);ax.axvline(6.5,color='#b36b77',ls=':',lw=1)
+ ax.set_xlabel('Simulated time (s)');ax.grid(alpha=.18)
+axes[0].set_ylabel('Raw route completion (%)');axes[1].set_ylabel('Logged ego speed (m/s)')
+axes[0].set_title('Observed progress — full route requires 100%');axes[1].set_title('Ego speed at sampled states')
+fig.suptitle('Iter142: nominal continuation and released-monitor references',fontweight='bold',y=.96)
+fig.legend(*axes[0].get_legend_handles_labels(),loc='lower center',bbox_to_anchor=(.5,.085),ncol=4,frameon=False)
+fig.text(.5,.025,'× = actual episode collision; dotted lines = first action contrast (4.5 s) and reference collision (6.5 s).\nEach matched pair overlaps. One development case; retained reference A is from Iter141. Sampled lines are not impact models.',ha='center',fontsize=9,color='#4f5662')
+out=p/'figures';out.mkdir(exist_ok=True);fig.savefig(out/'continuation.png',dpi=170);fig.savefig(out/'continuation.svg');plt.close(fig)

@@ -1,0 +1,319 @@
+import hashlib,json,subprocess
+from datetime import datetime
+from pathlib import Path
+R=Path('/Users/danielwahnich/workspace/sentinel');D=R/'experiments/iter142_nominal_continuation_completion';P=D/'proof'
+def read(n):return json.loads((P/n).read_text())
+def write(p,v):p.write_text(json.dumps(v,indent=2)+'\n')
+def epoch(s):return datetime.fromisoformat(s).timestamp()
+def sha(b):return hashlib.sha256(b).hexdigest()
+reports=read('completed_reports.json');analysis=read('final_analysis.json');budget=read('session_budget.json');provider=read('final_provider_state.stdout');stop=read('stop_operation_readback_2.stdout')
+assert provider['status']=='TERMINATED' and stop['status']=='DONE' and analysis['verdict']=='NOMINAL_CONTINUATION_NULL'
+episodes={a:read('live/'+a+'/episode.json') for a in reports}
+resources=dict(status='complete',instance_id=provider['id'],provider_status=provider['status'],provider_last_start=provider['lastStartTimestamp'],provider_last_stop=provider['lastStopTimestamp'],stop_operation_end=stop['endTime'],provider_start_to_stop_seconds=epoch(provider['lastStopTimestamp'])-epoch(provider['lastStartTimestamp']),original_budget_start_epoch=budget['start'],original_budget_seconds=budget['deadline']-budget['start'],original_budget_to_shutdown_seconds=epoch(stop['endTime'])-budget['start'],owned_timer_epoch=budget['timer_epoch'],shutdown_before_timer=epoch(stop['endTime'])<budget['timer_epoch'],initialized_driver_seconds_by_arm={a:e['elapsed_seconds'] for a,e in episodes.items()},initialized_driver_seconds_sum=sum(e['elapsed_seconds'] for e in episodes.values()),provider_start_requests=2,capacity_failures=1,boot_transport_failures=1,preinitialization_runner_failures=1,initialized_episode_retries=0,billed_cost=None,billed_cost_status='unobserved',scope='provider interval includes validation and idle host time; driver durations include setup/cleanup; neither is GPU kernel time or a billing receipt')
+assert resources['shutdown_before_timer'] and all(e['returncode']==0 and e['elapsed_seconds']<1200 for e in episodes.values())
+write(P/'resource_accounting.json',resources)
+armstats={'reference_a (retained)':reports['reference_b']['reference'],**{a:r['candidate'] for a,r in reports.items()}}
+timing='| Arm | Layer | >50 ms / calls | p50 ms | p95 ms | p99 ms | Max ms |\n| --- | --- | ---: | ---: | ---: | ---: | ---: |\n'
+for arm,s in armstats.items():
+ for layer in ['solver','adapter','complete_call','client_roundtrip']:
+  q=s[layer+'_ms'];timing+=f"| {arm} | {layer} | {s[layer+'_over_50ms']}/{s['frames']} | "+' | '.join(f'{q[k]:.3f}' for k in ['p50','p95','p99','max'])+' |\n'
+(D/'RESULT.md').write_text('''# Iter142 result: nominal continuation delayed collision; no useful recovery
+
+Status: **null / NOMINAL_CONTINUATION_NULL**. Date: 2026-10-09.
+All three fresh episodes completed and passed the frozen replay and comparison rules.
+The comparison includes one explicitly retained Iter141 reference. Both nominal
+continuations collided at **7.25 s**, versus **6.5 s** for both references:
+**0/2 useful recoveries**. The pair is a repeatability check on one disclosed
+scene and fixed seeds, not two independent driving cases.
+
+## Question, protocol and outcome
+
+The [preregistered protocol](HYPOTHESIS.md) asked whether delivering the current
+responsive nominal plan throughout this case, while keeping the monitor enabled
+in shadow, allows useful recovery. It preserves the complete Iter141 science
+contract, source, model, seeds, typed plans, numerical controller and simulator.
+The first delivered-action contrast is frame 18, pre-action time **4.5 s**.
+Monitor state, tracking and latch continue updating in the nominal arms.
+
+| Arm | Evidence provenance | Actions | Actual first collision | Raw final route completion |
+| --- | --- | ---: | ---: | ---: |
+| reference_a | retained Iter141 | 26 | 6.5 s | 0.11557062998555366 |
+| reference_b | fresh Iter142 | 26 | 6.5 s | 0.11557062998555366 |
+| nominal_a | fresh Iter142 | 29 | 7.25 s | 0.16958733747880156 |
+| nominal_b | fresh Iter142 | 29 | 7.25 s | 0.16958733747880156 |
+
+Both nominal arms remained collision-free through the reference hazard time 6.5 s,
+with raw progress **0.15074429998115696**, exceeding the frozen minimum
+0.06557062998555366. Neither completed the route, and both subsequently collided.
+Neither was censored. Useful recovery required no actual collision anywhere and
+full route completion within the original 401-action horizon, alongside the valid
+contrast and progress requirements. The **0.75-second delay is not a recovery**.
+An endpoint restricted to surviving the reference's failure time would have given
+a misleadingly favorable answer on these data.
+
+![Observed progress and ego speed for matched reference and nominal pairs](proof/figures/continuation.png)
+
+The figure shows only the observed route fraction; full completion requires 100%.
+Pair curves overlap. Joining samples is a display choice, not an impact model.
+An [SVG version](proof/figures/continuation.svg) is retained.
+
+## Reproduction and actuation
+
+Reference B matched retained A and the Iter139 historical reference. Both nominal
+prefixes matched until the frozen first contrast and both nominal replicas matched.
+The bound host replayed all **84 newly executed controller calls** from original
+solver source. A separately implemented Decimal validator checked states, typed
+plan delivery, controls, prefix equality and outcomes. A further local direct-count
+reconstruction agreed with every reported stopping, deadline and Gym-limit count.
+See [host reports](proof/completed_reports.json),
+[independent recount](proof/independent_recount.json) and
+[final analysis](proof/final_analysis.json).
+
+All 84 new calls converged; zero stopped at a deadline or iteration limit. Including
+retained A gives 110 calls in the comparison, of which only 84 were newly executed.
+Numerical mode deliberately does not use wall time to select the final iterate.
+Actual delivered trajectory dtype was float32. This is repeatability within the retained
+source/runtime/inputs, with separate wall-time measurements.
+
+| Arm | Monitor brake proposals | Proposed vs delivered plan differences | Declined monitor replacements | Gym acceleration violations | Gym steering-rate violations | Either Gym limit exceeded |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| reference_a (retained) | 8 | 0 | 0 | 4/26 | 11/26 | 13/26 |
+| reference_b | 8 | 0 | 0 | 4/26 | 11/26 | 13/26 |
+| nominal_a | 11 | 11 | 11 | 2/29 | 14/29 | 14/29 |
+| nominal_b | 11 | 11 | 11 | 2/29 | 14/29 | 14/29 |
+
+In each reference the monitor delivered eight plans differing from nominal. In each
+nominal arm eleven monitor proposals differed from nominal and were declined;
+the actual current nominal array was delivered unchanged. All actual controls
+passed the effective controller envelope: acceleration ±3 m/s², steering rate
+±0.4 rad/s and current/predicted steering angle ±pi/3. The declared Gym space is
+narrower (±2 m/s², ±pi/12 rad/s); simulator stepping does not enforce those
+bounds. No clipping or source repair was introduced to hide the mismatch.
+
+## Deadline behavior measured separately
+
+**69/84 new complete calls exceeded 50 ms**, as did **65/84 full solver calls**.
+Convergence and exact replay do not establish a deadline guarantee. Nearest-rank
+quantiles below are rounded to 0.001 ms; unrounded values are in the host reports.
+Retained-reference timing is shown separately from fresh measurements.
+
+'''+timing+'''
+Solver duration includes warm start and finalization. Adapter duration also includes
+validation, conversion and numerical receipt construction; complete-call duration
+includes the surrounding controller metadata. Client roundtrip additionally includes
+image capture, transport and model startup where incurred; it is not isolated model
+inference. Fixed simulation steps do not advance according to wall latency. These
+observations therefore do not measure an end-to-end vehicle deadline policy.
+
+## Provenance and operational corrections
+
+Preregistration: `ba72e457a96f8ea248810ffa7b982c171b32c5f4`.
+Executed source packet: `a70aa3fe095839d62c390f0569f44ddc5f9be9df`.
+Runtime manifest SHA-256:
+`54647066bd8296ef21106a3eeacf660294d8cf4f9a5fc865424be18696b8a6e3`.
+The client, generated driver and numerical science engine remain exact Iter141
+source. New coordinator/runner wrappers redirect ownership and schedule, verify
+retained inputs and enforce the raw-commit-before-analysis order. Historical
+`iter141_trace.jsonl`, `controller141.jsonl` and `delivery141.jsonl` encoding
+names remain inside the separate Iter142 output directories.
+
+| Arm | Raw commit, before interpretation |
+| --- | --- |
+| retained reference_a | `888a8a3c86f327de15612d5b7a8553e66b43805f` |
+| fresh reference_b | `522ff44b5f079f3d4795a2b49ac0f700a228aaeb` |
+| fresh nominal_a | `5f351f80ae006f990be15b2e34f5db126a35172b` |
+| fresh nominal_b | `b191f5e29a0681f545625dea91d9161b39c26db0` |
+
+The [input binding](INPUTS.json) identifies retained reference A and its prior
+validation. [Schedule events](proof/schedule_bootstrap2/events.jsonl) record
+launch, raw commit and validation before each next launch. The
+[commit ledger](proof/episode_commit_ledger.json) preserves distinct provenance.
+
+Operational failures remain visible:
+
+1. The first extracted-source check produced 62 passes and one failure because a
+   test treated the extracted archive folder as a Git root. Explicit canonical-root
+   binding was corrected before provider access; all 63 then passed. A premature
+   start-helper invocation stopped at missing source admission, before any provider
+   command. Neither failure was an experiment observation.
+2. The first provider start hit L4 capacity exhaustion; the second succeeded within
+   the allowance. One SSH attempt failed during boot before the second connected.
+3. The first wrapper launch failed at import in 0.117309 s because the system-Python
+   command lacked the packet PYTHONPATH. Output was empty, with no initialized
+   marker or simulator/planner invocation. Collection refused the missing episode
+   record, and the original one-shot coordinator stopped. The fake-backend tests
+   and host fixture had not exercised this exact entry boundary.
+4. The [pre-initialization correction](PREINITIALIZATION_CORRECTION.md), committed
+   as `d41396b8c56e17ae47249ede880ea31ce07dbcec` before any initialized episode,
+   supplied the explicit path and authorized one corrected attempt within the
+   original budget. The actual system-Python entrypoint passed its import/argument
+   probe; empty outputs and absent owned compute were verified. Original failure
+   logs and marker remain; corrected `bootstrap2` names are distinct. All three
+   initialized episodes then completed without retries or scientific changes.
+
+The original missing-PYTHONPATH failure is retained as the counterexample to that
+entry boundary. There were **zero initialized episode retries**, no case/seed
+search and no post-outcome endpoint adjustment. Iter141 remains operationally
+failed with an incomplete comparison; Iter142 does not rewrite that history.
+
+## Validation, resources and scope
+
+19 distinct new coordinator/runner tests passed. The extracted-source set had
+63 passes: those same 19 plus 44 unchanged Iter141 execution tests, not 82 distinct
+tests. New-source Ruff passed. The local fixture mocks unsupported threadpool
+observation only; the bound-host synthetic fixture uses the real check and passed.
+Synthetic successful routes are fixture data, not live recoveries. No full,
+frozen-environment or hosted CI result for this candidate is claimed.
+
+'''+f'''Postflight matched all **614 bound files**, with no owned processes, running
+containers or GPU applications and **109.255 GiB** free. Provider readback confirms
+[TERMINATED](proof/final_provider_state.stdout), last stop
+`{provider['lastStopTimestamp']}`; the stop operation finished
+`{stop['endTime']}`. The observed provider start-to-stop interval was
+**{resources['provider_start_to_stop_seconds']:.3f} s**; original budget start through
+completed shutdown was **{resources['original_budget_to_shutdown_seconds']:.3f} s**
+of 6,000 s, before the owned minute-98 timer. The three initialized driver processes
+took **{resources['initialized_driver_seconds_sum']:.3f} s** total, including their setup/cleanup.
+These are different timing boundaries. Billed cost is unobserved; see
+[resource accounting](proof/resource_accounting.json).
+
+'''+'''All **36 fresh raw files** are retained; **264 media/geometry files** are inventoried
+on the remote disk. Retained A has its separate 12 raw files and 82 remote assets.
+Opaque pickle artifacts were not deserialized for analysis. No new packages/images
+or replacement machine were used.
+
+The unchanged controller/environment/actor clocks are .5/.25/.1 seconds, and actor
+trajectory indexing consumes at the environment rate. Alongside the declared-space
+mismatch, these limit physical interpretation. Responsive actors and planner inputs
+can change with ego actions; this is a live policy comparison, not a fixed-actor
+counterfactual or a sensor-information effect. No physical inevitability, universal
+lack of evasive action, safety, real-time operation, population generality or
+industrial superiority follows.
+
+This is a local, unpushed research candidate. Canonical master remains F17;
+Iter135 remains deferred. The [next decision](DECISION.md) closes this case/action
+comparison and proposes model/control qualification plus a finite new case family
+before any information ablation.
+''')
+(D/'DECISION.md').write_text('''# Decision after Iter142
+
+Status: **proposed next study**; Iter142 is complete and null. No successor
+protocol or live launch is created by this note.
+
+## Close the measured question
+
+The released-monitor references, the six finite pulses in Iter139 and the two
+nominal continuations in Iter142 produced no useful recovery on this disclosed
+case. Nominal continuation delayed collision by 0.75 s; full-route evaluation
+rejected it as recovery. This closes the registered case/action comparison.
+The tested actions are not exhaustive, so the result is not a proof of physical
+unavoidability. Preserve all prior nulls and the Iter141 orchestration failure.
+Do not start another pulse, strength or clock search on this case.
+
+## Next fundamental question
+
+Before asking which extra signal improves a decision, establish that an admissible
+action can improve the complete outcome, and identify when that opportunity is lost.
+A useful information claim requires both an action opportunity and a baseline that
+could act on the signal before its deadline. A richer representation alone does not
+establish new information or a useful decision.
+
+The next concrete artifact should be a finite case-family protocol and model/control
+qualification report built from retained source and scenario inventory:
+
+1. **Qualify the transition and control contract.** Explicitly reconcile controller,
+   environment and actor time indexing, units, feasible control bounds and the
+   physical scope claimed. Build source-derived deterministic fixtures plus a
+   separately implemented state-transition check. If a model change is required,
+   version it as a new regime, retain old results and qualify it before any
+   comparison. Do not silently repair these historical runs.
+2. **Freeze a finite development inventory before outcomes.** Declare eligibility,
+   exclusions, source/asset identities, case families, action library and intervention
+   times, resources, stopping, missingness and complete-route outcomes. Include
+   cases where braking helps, cases where braking harms, and cases where tested
+   actions have no demonstrated benefit. Retain failures and all screened cases;
+   report the complete inventory so favorable screening cannot become a population
+   claim. Use scene independence, not more seeds of this one case.
+3. **Establish an action opportunity within that inventory.** Compare a strong
+   responsive baseline with the fixed admissible action set using valid branch
+   prefixes and live actor feedback. Require a repeatable collision-free complete
+   route at useful progress. A successful intervention is a constructive witness
+   within the simulator; failure of a finite library means no witness found in that
+   library, not impossibility. Privileged state may diagnose an opportunity but
+   cannot become undeclared deployed input.
+4. **Only then test specified information.** Freeze a selector and signal access,
+   compare matched responsive baselines, and include the harmful-intervention cases.
+   Separate privileged diagnostic information from available observation. Carry
+   compute/communication delay and the behavior when a result arrives late into a
+   separately registered deadline experiment. The numerical controller is a research
+   instrument; its convergence does not validate a deadline or fallback policy.
+5. **Reserve independent evaluation.** Hold new scenes/fault families out from
+   selector and threshold choices. Predeclare estimands, scene-level clustering,
+   multiplicity and resource bounds. Distinguish opportunity-screened development
+   evidence from performance on the original eligible population.
+
+The immediately useful output is a qualified, auditable study design. New cloud
+runs should follow that protocol and its executable checks. No broader benchmark,
+state-of-the-art or deployment claim has been established by Iter142.
+''')
+state=dict(iteration=142,status='null',phase='complete',verdict=analysis['verdict'],operational_status='complete_after_recorded_preinitialization_correction',branch='research/iter142-nominal-continuation',preregistration_commit='ba72e457a96f8ea248810ffa7b982c171b32c5f4',executed_packet_commit='a70aa3fe095839d62c390f0569f44ddc5f9be9df',retained_reference='Iter141/reference_a',completed_fresh_episodes=3,retained_episodes=1,fresh_controller_calls=84,useful_recoveries=0,nominal_episodes=2,initialized_episode_retries=0,provider_status='TERMINATED',publication='local_unpushed_candidate',next_step='Propose a finite new case family after explicit model/control qualification; close this case/action comparison.')
+write(D/'STATE.json',state)
+(D/'STATUS.md').write_text('# Status\n\nComplete: **null / NOMINAL_CONTINUATION_NULL**. Three fresh episodes plus retained\nIter141 reference A; both nominal continuations collided at 7.25 s, versus 6.5 s\nfor the references. 0/2 useful recoveries; all 84 new controller calls replayed.\n69/84 complete calls exceeded 50 ms. Provider confirmed TERMINATED.\n\nRead the [result](RESULT.md), [state](STATE.json) and [next decision](DECISION.md).\nThe candidate is local and unpushed. No successor run is active.\n')
+with (D/'EXECUTION_BINDING.md').open('a') as f:f.write('\n## Completed execution, 2026-10-09\n\nThe pre-initialization launcher failure and bounded correction are retained in\n[PREINITIALIZATION_CORRECTION.md](PREINITIALIZATION_CORRECTION.md). After the explicit\nentrypoint probe, all three fresh episodes completed on the corrected one-shot schedule.\nEvery raw packet was committed before validation and later launch. Both nominal\ncontinuations failed full-route recovery; all 84 new controller calls replayed.\nPostflight matched all 614 bound files and provider readback confirmed TERMINATED.\nThe original budget was not reset. See [RESULT.md](RESULT.md) for timings, failure\nprovenance, resources and the null result. Earlier paragraphs record launch-time state.\n')
+block='''> **Active operator-directed candidate work, 2026-10-09:** Iter142 is complete:
+> **null / NOMINAL_CONTINUATION_NULL**. Both nominal continuations collided at 7.25 s
+> versus 6.5 s for the references; **0/2 useful recoveries**. Three fresh episodes
+> plus retained Iter141 reference A; all 84 new controller calls replayed, 69 exceeded
+> 50 ms for the complete call. All 614 bound files matched; provider confirmed TERMINATED.
+> Read the [result](experiments/iter142_nominal_continuation_completion/RESULT.md),
+> [state](experiments/iter142_nominal_continuation_completion/STATE.json) and
+> [next decision](experiments/iter142_nominal_continuation_completion/DECISION.md).
+> Close this case/action comparison. Next proposal: model/control qualification and
+> a finite new case family with a validated action opportunity before information ablation.
+> Candidate `research/iter142-nominal-continuation` is unpushed; master remains F17.
+> Iter135 stays deferred; MISSION_STATE/HANDOFF retain their publication snapshot.
+'''
+shift='''- 2026-10-09: Iter142 completed as null / NOMINAL_CONTINUATION_NULL with retained
+  Iter141 reference A and three fresh episodes. Both nominal continuations collided at
+  7.25 s versus 6.5 s for references; 0/2 useful recoveries. All 84 new controller calls
+  replayed and converged; 69 complete calls exceeded 50 ms. Original source/seed/endpoints
+  unchanged. A missing-PYTHONPATH pre-initialization failure and one explicitly recorded
+  correction remain visible; zero initialized retries. All 614 runtime files matched and
+  provider confirmed TERMINATED. Read the
+  [result](experiments/iter142_nominal_continuation_completion/RESULT.md) and
+  [next-study proposal](experiments/iter142_nominal_continuation_completion/DECISION.md).
+- 2026-10-09: Iter141 remains closed after COORDINATOR_BRANCH_LOOKUP_FAILED, with one
+  completed reference and an inconclusive comparison. Its reference is explicitly reused
+  by Iter142, without relabeling it as a new episode. Read the
+  [retained failure report](experiments/iter141_nominal_continuation/RESULT.md).
+'''
+readme_history='''[Iteration 141](experiments/iter141_nominal_continuation/RESULT.md) remains a recorded
+coordinator failure with only its first reference completed. Iter142 explicitly reused
+that reference, repaired orchestration, completed the remaining comparison and retained
+its own pre-initialization failure. Nominal continuation still produced no useful recovery.
+
+'''
+guards=[]
+for name in ['CONTINUITY.md','docs/NEXT_PHASE.md','README.md']:
+ for mode in ['candidate','working']:
+  if name=='README.md' and mode=='working':continue
+  target=Path('/tmp/i142_'+Path(name).name) if mode=='candidate' else R/name
+  old=subprocess.check_output(['git','show','research/iter142-nominal-continuation:'+name],cwd=R).decode() if mode=='candidate' else target.read_text()
+  a=old.index('> **Active operator-directed');b=old.index('\n\n',a)
+  newblock=block.replace('](experiments/','](../experiments/') if name.startswith('docs/') else block
+  new=old[:a]+newblock.rstrip()+old[b:]
+  if name=='CONTINUITY.md':new=new.replace('## Shift log\n\n','## Shift log\n\n'+shift,1)
+  if name=='README.md':
+   pos=new.index('[Iteration 140]');new=new[:pos]+readme_history+new[pos:]
+   new=new.replace('proposes one bounded test of\ncontinued nominal planning before further action search.', 'proposed the bounded nominal-continuation test now closed by Iter142.')
+  if mode=='working':
+   remainder_old=old[:a]+old[b:];aa=new.index('> **Active operator-directed');bb=new.index('\n\n',aa);remainder_new=new[:aa]+new[bb:]
+   if name=='CONTINUITY.md':remainder_new=remainder_new.replace(shift,'',1)
+   assert remainder_old==remainder_new,name
+   guards.append(dict(path=name,unchanged_outside_active_section_and_added_shift_entries=True,unchanged_remainder_sha256=sha(remainder_old.encode())))
+  target.write_text(new)
+write(P/'closure_doc_preservation.json',dict(status='passed',files=guards,root_readme_untouched=True))
+for src,name in [('/tmp/i142_recount.py','recount.py.txt'),('/tmp/i142_plot.py','plot.py.txt'),('/tmp/i142_report.py','report.py.txt')]:
+ (P/'orchestration'/name).write_bytes(Path(src).read_bytes())
+print(json.dumps(resources,indent=2))
+print('REPORT_AND_STATE_WRITTEN; active-section preservation passed')

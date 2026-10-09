@@ -6,15 +6,24 @@ loop, by whether the car crashes *and whether it can still drive*.**
 
 ## Local research update 2026-10-09
 
-> **Active operator-directed candidate work, 2026-10-09:** Iter142 is preregistered
-> to complete the nominal-continuation comparison with retained Iter141 reference A
-> and three fresh episodes. Phase: nominal_b. Frozen live schedule is executing; earlier stages and retained inputs validated.
-> Read [protocol](experiments/iter142_nominal_continuation_completion/HYPOTHESIS.md) and
-> [state](experiments/iter142_nominal_continuation_completion/STATE.json).
-> Iter141 remains closed after its coordinator failure; nominal recovery is still unobserved.
+> **Active operator-directed candidate work, 2026-10-09:** Iter142 is complete:
+> **null / NOMINAL_CONTINUATION_NULL**. Both nominal continuations collided at 7.25 s
+> versus 6.5 s for the references; **0/2 useful recoveries**. Three fresh episodes
+> plus retained Iter141 reference A; all 84 new controller calls replayed, 69 exceeded
+> 50 ms for the complete call. All 614 bound files matched; provider confirmed TERMINATED.
+> Read the [result](experiments/iter142_nominal_continuation_completion/RESULT.md),
+> [state](experiments/iter142_nominal_continuation_completion/STATE.json) and
+> [next decision](experiments/iter142_nominal_continuation_completion/DECISION.md).
+> Close this case/action comparison. Next proposal: model/control qualification and
+> a finite new case family with a validated action opportunity before information ablation.
 > Candidate `research/iter142-nominal-continuation` is unpushed; master remains F17.
 > Iter135 stays deferred; MISSION_STATE/HANDOFF retain their publication snapshot.
 
+
+[Iteration 141](experiments/iter141_nominal_continuation/RESULT.md) remains a recorded
+coordinator failure with only its first reference completed. Iter142 explicitly reused
+that reference, repaired orchestration, completed the remaining comparison and retained
+its own pre-initialization failure. Nominal continuation still produced no useful recovery.
 
 [Iteration 140](experiments/iter140_contact_actuation/RESULT.md) independently reconstructed
 206 actions and all eight terminal contacts from the latest development experiment. The actor's
@@ -25,8 +34,7 @@ diagnostic supports the declared simulator reconstruction; physical fidelity rem
 six-cell recovery null: 0/6 useful recoveries. One pulse delayed collision by 0.5 seconds;
 full-route evaluation prevented treating delay as recovery. All 206 controller calls replayed,
 but 166 complete calls exceeded 50 ms. The
-[next decision](experiments/iter140_contact_actuation/DECISION.md) proposes one bounded test of
-continued nominal planning before further action search. Iter140 required no cloud launch.
+[next decision](experiments/iter140_contact_actuation/DECISION.md) proposed the bounded nominal-continuation test now closed by Iter142. Iter140 required no cloud launch.
 
 This follows [Iter138's matched live pair](experiments/iter138_numerical_live_replay/RESULT.md),
 [Iter137's controller benchmark](experiments/iter137_controller_execution_contract/RESULT.md)

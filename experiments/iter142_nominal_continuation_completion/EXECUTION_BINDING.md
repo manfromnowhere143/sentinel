@@ -25,3 +25,14 @@ Raw commits are returned directly by commit creation and checked against the col
 inventory. The tested one-shot coordinator writes a durable raw-commit event before
 verification and later-arm admission. The scientific reference/prefix/replica/replay
 requirements remain active; no new live episode has started at this binding.
+
+## Completed execution, 2026-10-09
+
+The pre-initialization launcher failure and bounded correction are retained in
+[PREINITIALIZATION_CORRECTION.md](PREINITIALIZATION_CORRECTION.md). After the explicit
+entrypoint probe, all three fresh episodes completed on the corrected one-shot schedule.
+Every raw packet was committed before validation and later launch. Both nominal
+continuations failed full-route recovery; all 84 new controller calls replayed.
+Postflight matched all 614 bound files and provider readback confirmed TERMINATED.
+The original budget was not reset. See [RESULT.md](RESULT.md) for timings, failure
+provenance, resources and the null result. Earlier paragraphs record launch-time state.

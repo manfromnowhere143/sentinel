@@ -1,0 +1,28 @@
+{
+  "status": "complete",
+  "instance_id": "3834622546652649531",
+  "provider_status": "TERMINATED",
+  "provider_last_start": "2026-10-09T08:50:36.149-07:00",
+  "provider_last_stop": "2026-10-09T09:27:50.197-07:00",
+  "stop_operation_end": "2026-10-09T09:27:51.343-07:00",
+  "provider_start_to_stop_seconds": 2234.048000097275,
+  "original_budget_start_epoch": 1791560917.094503,
+  "original_budget_seconds": 6000.0,
+  "original_budget_to_shutdown_seconds": 2354.2484970092773,
+  "owned_timer_epoch": 1791566797.094503,
+  "shutdown_before_timer": true,
+  "initialized_driver_seconds_by_arm": {
+    "reference_b": 122.228189918,
+    "nominal_a": 108.3748706859999,
+    "nominal_b": 109.14854566500003
+  },
+  "initialized_driver_seconds_sum": 339.7516062689999,
+  "provider_start_requests": 2,
+  "capacity_failures": 1,
+  "boot_transport_failures": 1,
+  "preinitialization_runner_failures": 1,
+  "initialized_episode_retries": 0,
+  "billed_cost": null,
+  "billed_cost_status": "unobserved",
+  "scope": "provider interval includes validation and idle host time; driver durations include setup/cleanup; neither is GPU kernel time or a billing receipt"
+}

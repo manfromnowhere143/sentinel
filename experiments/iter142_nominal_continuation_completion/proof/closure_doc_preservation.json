@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "files": [
+    {
+      "path": "CONTINUITY.md",
+      "unchanged_outside_active_section_and_added_shift_entries": true,
+      "unchanged_remainder_sha256": "7a41b2523aeed1f9e4df3c2a467fbdcdf32299a331bf92b99f83c15ceb935f99"
+    },
+    {
+      "path": "docs/NEXT_PHASE.md",
+      "unchanged_outside_active_section_and_added_shift_entries": true,
+      "unchanged_remainder_sha256": "7df15f4a9491bcd0837fe378bd553b0aa132eeaecbc221cdac4dfafefa13bcb9"
+    }
+  ],
+  "root_readme_untouched": true
+}

@@ -1,0 +1,2 @@
+Stop instance in progress for [https://www.googleapis.com/compute/v1/projects/sunlit-unison-487018-b0/zones/us-west1-a/operations/operation-1791563249161-65d6ad30f1396-f3ff8591-f9b3839f].
+Use [gcloud compute operations describe URI] command to check the status of the operation(s).

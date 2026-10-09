@@ -1,0 +1,67 @@
+b191f5e29a0681f545625dea91d9161b39c26db0
+ CONTINUITY.md                                      |   2 +-
+ README.md                                          |   2 +-
+ docs/NEXT_PHASE.md                                 |   2 +-
+ .../STATE.json                                     |   2 +-
+ .../STATUS.md                                      |   2 +-
+ .../proof/SHA256SUMS                               |  59 ++-
+ .../proof/analysis/nominal_a.json                  | 151 +++++++
+ .../proof/live/nominal_b/driver.log                | 129 ++++++
+ .../proof/live/nominal_b/environment_import.json   |   5 +
+ .../proof/live/nominal_b/episode.json              | 441 +++++++++++++++++++++
+ .../proof/live/nominal_b/remote_inventory.json     | 419 ++++++++++++++++++++
+ .../scene-0411_hard_00/controller141.jsonl         |  31 ++
+ .../live/nominal_b/scene-0411_hard_00/data.pkl     | Bin 0 -> 15834 bytes
+ .../nominal_b/scene-0411_hard_00/delivery141.jsonl |  29 ++
+ .../live/nominal_b/scene-0411_hard_00/eval.json    |   1 +
+ .../live/nominal_b/scene-0411_hard_00/infos.pkl    | Bin 0 -> 14811 bytes
+ .../scene-0411_hard_00/iter141_trace.jsonl         |  31 ++
+ .../live/nominal_b/scene-0411_hard_00/output.txt   | 179 +++++++++
+ .../sentinel_iter48_decisions.jsonl                |  29 ++
+ .../proof/live/nominal_b/started.json              |  26 ++
+ .../proof/nominal_a_raw_commit.json                |  14 +
+ .../proof/nominal_a_raw_commit.stderr              |   0
+ .../proof/nominal_a_raw_commit.stdout              |  67 ++++
+ .../proof/nominal_a_verify.json                    |  19 +
+ .../proof/nominal_a_verify.py.txt                  |  14 +
+ .../proof/nominal_a_verify.stderr                  |   5 +
+ .../proof/nominal_a_verify.stdout                  |   5 +
+ .../nominal_a_verify_coordinator_bootstrap2.json   |  11 +
+ .../nominal_a_verify_coordinator_bootstrap2.stderr |   0
+ .../nominal_a_verify_coordinator_bootstrap2.stdout |   9 +
+ .../proof/nominal_b_bootstrap2_launch.json         |  19 +
+ .../proof/nominal_b_bootstrap2_launch.py.txt       |  23 ++
+ .../proof/nominal_b_bootstrap2_launch.stderr       |   5 +
+ .../proof/nominal_b_bootstrap2_launch.stdout       |  14 +
+ .../proof/nominal_b_collect_bootstrap2.json        |  20 +
+ .../proof/nominal_b_collect_bootstrap2.stderr      |   5 +
+ .../proof/nominal_b_collect_bootstrap2.stdout      |   0
+ .../nominal_b_collect_coordinator_bootstrap2.json  |  11 +
+ ...nominal_b_collect_coordinator_bootstrap2.stderr |   0
+ ...nominal_b_collect_coordinator_bootstrap2.stdout |  19 +
+ .../proof/nominal_b_export_bootstrap2.json         |  19 +
+ .../proof/nominal_b_export_bootstrap2.py.txt       |  24 ++
+ .../proof/nominal_b_export_bootstrap2.stderr       |   5 +
+ .../proof/nominal_b_export_bootstrap2.stdout       |   6 +
+ .../nominal_b_launch_coordinator_bootstrap2.json   |  11 +
+ .../nominal_b_launch_coordinator_bootstrap2.stderr |   0
+ .../nominal_b_launch_coordinator_bootstrap2.stdout |  20 +
+ .../proof/nominal_b_progress_bootstrap2_1.json     |  19 +
+ .../proof/nominal_b_progress_bootstrap2_1.py.txt   |   9 +
+ .../proof/nominal_b_progress_bootstrap2_1.stderr   |   5 +
+ .../proof/nominal_b_progress_bootstrap2_1.stdout   |   1 +
+ .../proof/nominal_b_progress_bootstrap2_2.json     |  19 +
+ .../proof/nominal_b_progress_bootstrap2_2.py.txt   |   9 +
+ .../proof/nominal_b_progress_bootstrap2_2.stderr   |   5 +
+ .../proof/nominal_b_progress_bootstrap2_2.stdout   |   1 +
+ .../proof/nominal_b_progress_bootstrap2_3.json     |  19 +
+ .../proof/nominal_b_progress_bootstrap2_3.py.txt   |   9 +
+ .../proof/nominal_b_progress_bootstrap2_3.stderr   |   5 +
+ .../proof/nominal_b_progress_bootstrap2_3.stdout   |   1 +
+ .../proof/nominal_b_progress_bootstrap2_4.json     |  19 +
+ .../proof/nominal_b_progress_bootstrap2_4.py.txt   |   9 +
+ .../proof/nominal_b_progress_bootstrap2_4.stderr   |   5 +
+ .../proof/nominal_b_progress_bootstrap2_4.stdout   |   1 +
+ .../proof/schedule_bootstrap2/events.jsonl         |   3 +
+ 64 files changed, 2018 insertions(+), 6 deletions(-)
+

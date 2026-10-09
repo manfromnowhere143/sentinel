@@ -2,12 +2,16 @@
 
 ## Active operator work on 2026-10-09
 
-> **Active operator-directed candidate work, 2026-10-09:** Iter142 is preregistered
-> to complete the nominal-continuation comparison with retained Iter141 reference A
-> and three fresh episodes. Phase: nominal_b. Frozen live schedule is executing; earlier stages and retained inputs validated.
-> Read [protocol](../experiments/iter142_nominal_continuation_completion/HYPOTHESIS.md) and
-> [state](../experiments/iter142_nominal_continuation_completion/STATE.json).
-> Iter141 remains closed after its coordinator failure; nominal recovery is still unobserved.
+> **Active operator-directed candidate work, 2026-10-09:** Iter142 is complete:
+> **null / NOMINAL_CONTINUATION_NULL**. Both nominal continuations collided at 7.25 s
+> versus 6.5 s for the references; **0/2 useful recoveries**. Three fresh episodes
+> plus retained Iter141 reference A; all 84 new controller calls replayed, 69 exceeded
+> 50 ms for the complete call. All 614 bound files matched; provider confirmed TERMINATED.
+> Read the [result](../experiments/iter142_nominal_continuation_completion/RESULT.md),
+> [state](../experiments/iter142_nominal_continuation_completion/STATE.json) and
+> [next decision](../experiments/iter142_nominal_continuation_completion/DECISION.md).
+> Close this case/action comparison. Next proposal: model/control qualification and
+> a finite new case family with a validated action opportunity before information ablation.
 > Candidate `research/iter142-nominal-continuation` is unpushed; master remains F17.
 > Iter135 stays deferred; MISSION_STATE/HANDOFF retain their publication snapshot.
 

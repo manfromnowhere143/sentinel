@@ -5,3 +5,6 @@
 {"arm": "nominal_a", "kind": "raw_committed", "raw_commit": "5f351f80ae006f990be15b2e34f5db126a35172b"}
 {"arm": "nominal_a", "kind": "validated", "raw_commit": "5f351f80ae006f990be15b2e34f5db126a35172b"}
 {"arm": "nominal_b", "kind": "launch_requested"}
+{"arm": "nominal_b", "kind": "raw_committed", "raw_commit": "b191f5e29a0681f545625dea91d9161b39c26db0"}
+{"arm": "nominal_b", "kind": "validated", "raw_commit": "b191f5e29a0681f545625dea91d9161b39c26db0"}
+{"kind": "schedule_complete"}

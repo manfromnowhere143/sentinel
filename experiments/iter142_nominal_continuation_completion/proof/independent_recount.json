@@ -1,0 +1,95 @@
+{
+  "status": "passed",
+  "scope": "separate Decimal branch/replica outcomes and direct count reconstruction; original-source numerical replay retained in each host analysis",
+  "arms": {
+    "reference_b": {
+      "secondary": {
+        "prefix": "matched",
+        "scope": "independent Decimal replica/control/delivery"
+      },
+      "counts": {
+        "frames": 26,
+        "complete_call_over_50ms": 25,
+        "solver_over_50ms": 23,
+        "declared_gym_acceleration_violations": 4,
+        "declared_gym_steering_rate_violations": 11,
+        "declared_gym_any_violation_frames": 13,
+        "stop_reasons": {
+          "converged": 26,
+          "deadline": 0,
+          "iteration_limit": 0
+        }
+      }
+    },
+    "nominal_a": {
+      "secondary": {
+        "prefix": "matched",
+        "outcomes": {
+          "collision_observed": true,
+          "first_collision_time": 7.25,
+          "terminal_reason": "collision",
+          "terminal_time": 7.25,
+          "final_route_completion": 0.16958733747880156,
+          "reference_hazard_time": 6.5,
+          "reference_hazard_progress": 0.11557062998555366,
+          "hazard_progress": 0.15074429998115696,
+          "observed_hazard_horizon": true,
+          "collision_free_through_hazard": true,
+          "hazard_progress_bar_met": true,
+          "action_contrast_observed": true,
+          "useful_recovery": false,
+          "censored": false
+        },
+        "scope": "independent Decimal prefix/control/outcome"
+      },
+      "counts": {
+        "frames": 29,
+        "complete_call_over_50ms": 21,
+        "solver_over_50ms": 21,
+        "declared_gym_acceleration_violations": 2,
+        "declared_gym_steering_rate_violations": 14,
+        "declared_gym_any_violation_frames": 14,
+        "stop_reasons": {
+          "converged": 29,
+          "deadline": 0,
+          "iteration_limit": 0
+        }
+      }
+    },
+    "nominal_b": {
+      "secondary": {
+        "prefix": "matched",
+        "outcomes": {
+          "collision_observed": true,
+          "first_collision_time": 7.25,
+          "terminal_reason": "collision",
+          "terminal_time": 7.25,
+          "final_route_completion": 0.16958733747880156,
+          "reference_hazard_time": 6.5,
+          "reference_hazard_progress": 0.11557062998555366,
+          "hazard_progress": 0.15074429998115696,
+          "observed_hazard_horizon": true,
+          "collision_free_through_hazard": true,
+          "hazard_progress_bar_met": true,
+          "action_contrast_observed": true,
+          "useful_recovery": false,
+          "censored": false
+        },
+        "scope": "independent Decimal prefix/control/outcome"
+      },
+      "counts": {
+        "frames": 29,
+        "complete_call_over_50ms": 23,
+        "solver_over_50ms": 21,
+        "declared_gym_acceleration_violations": 2,
+        "declared_gym_steering_rate_violations": 14,
+        "declared_gym_any_violation_frames": 14,
+        "stop_reasons": {
+          "converged": 29,
+          "deadline": 0,
+          "iteration_limit": 0
+        }
+      }
+    }
+  }
+}

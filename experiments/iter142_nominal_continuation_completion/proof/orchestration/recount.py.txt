@@ -1,0 +1,31 @@
+"""Recount completed comparison without numerical replay or new cloud access."""
+import hashlib,json,math,sys
+from pathlib import Path
+sys.path.insert(0,str(Path('.').resolve()))
+from experiments.iter141_nominal_continuation import independent,summarize
+r=Path('.');p=r/'experiments/iter142_nominal_continuation_completion/proof'
+reports=json.loads((p/'completed_reports.json').read_text())
+ref=r/'experiments/iter141_nominal_continuation/proof/live/reference_a/scene-0411_hard_00'
+retained=json.loads((r/'experiments/iter141_nominal_continuation/proof/analysis/reference_a.json').read_text())
+result=summarize.summarize(dict(reference_a=retained,**reports));assert result['status'] in ['supported','null','inconclusive']
+recounts={};all_rows=[]
+for arm in ['reference_b','nominal_a','nominal_b']:
+ folder=p/'live'/arm/'scene-0411_hard_00';rows,delivery=independent.episode(folder)
+ secondary=independent.check(ref,folder);assert secondary['prefix']==reports[arm]['prefix']
+ if arm.startswith('nominal'):assert secondary['outcomes']==reports[arm]['outcomes']
+ contract=independent.read(folder/'controller141.jsonl')[1:-1]
+ acc=sum(abs(f['control'][0])>2 for f in rows[1:-1]);steer=sum(abs(math.degrees(float(f['control'][1])))>15 for f in rows[1:-1]);both=sum(abs(f['control'][0])>2 or abs(math.degrees(float(f['control'][1])))>15 for f in rows[1:-1])
+ checks=dict(frames=len(contract),complete_call_over_50ms=sum(x['complete_call_ns']>50_000_000 for x in contract),solver_over_50ms=sum(x['receipt']['timing']['solver_ns']>50_000_000 for x in contract),declared_gym_acceleration_violations=acc,declared_gym_steering_rate_violations=steer,declared_gym_any_violation_frames=both,stop_reasons={s:sum(x['receipt']['numerical']['stop_reason']==s for x in contract) for s in ['converged','deadline','iteration_limit']})
+ for k,v in checks.items():assert reports[arm]['candidate'][k]==v,k
+ recounts[arm]=dict(secondary=secondary,counts=checks);all_rows.extend(contract)
+independent.check(p/'live/nominal_a/scene-0411_hard_00',p/'live/nominal_b/scene-0411_hard_00')
+result.update(retained_reference='Iter141/reference_a, 26 actions; not a new Iter142 episode',fresh_episodes=3,fresh_controller_calls=len(all_rows),fresh_complete_call_over_50ms=sum(x['complete_call_ns']>50_000_000 for x in all_rows),fresh_solver_over_50ms=sum(x['receipt']['timing']['solver_ns']>50_000_000 for x in all_rows),fresh_stop_reasons={s:sum(x['receipt']['numerical']['stop_reason']==s for x in all_rows) for s in ['converged','deadline','iteration_limit']})
+(p/'final_analysis.json').write_text(json.dumps(result,indent=2)+'\n');(p/'independent_recount.json').write_text(json.dumps(dict(status='passed',scope='separate Decimal branch/replica outcomes and direct count reconstruction; original-source numerical replay retained in each host analysis',arms=recounts),indent=2)+'\n')
+events=[json.loads(x) for x in (p/'schedule_bootstrap2/events.jsonl').read_text().splitlines()]
+assert events[-1]['kind']=='schedule_complete'
+ledger=[dict(arm='reference_a',provenance='retained Iter141',raw_commit='888a8a3c86f327de15612d5b7a8553e66b43805f')]
+for e in events:
+ if e['kind']=='raw_committed':ledger.append(dict(arm=e['arm'],provenance='fresh Iter142',raw_commit=e['raw_commit']))
+assert len(ledger)==4
+(p/'episode_commit_ledger.json').write_text(json.dumps(ledger,indent=2)+'\n')
+print(json.dumps(result,indent=2))
