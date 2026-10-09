@@ -1,0 +1,31 @@
+import json
+import os
+from pathlib import Path
+import subprocess
+root=Path('/datasets/nuscenes-full/hugsim/iter138_control_20261009')
+python='/opt/sentinel-stack/HUGSIM/.pixi/envs/default/bin/python'
+env={**os.environ,'PYTHONPATH':str(root)+':'+str(root/'packet')+':/opt/sentinel-stack/HUGSIM','SENTINEL_I138_IDENTITY':str(root/'identity.json'),'OPENBLAS_NUM_THREADS':'1','OMP_NUM_THREADS':'1','MKL_NUM_THREADS':'1'}
+code="""from hugsim_env.envs.hug_sim import HUGSimEnv
+import closed_loop
+import json
+from pathlib import Path
+import numpy as np
+from live_trace import Recorder
+from experiments.iter138_numerical_live_replay.verify_live import validate_episode
+from experiments.iter137_controller_execution_contract.verify import Replay
+root=Path('/datasets/nuscenes-full/hugsim/iter138_control_20261009')
+output=root/'cpu_integration_fixture';output.mkdir()
+r=Recorder(output,root/'iter138_closed_loop.py')
+info=dict(timestamp=0.,ego_pos=[0.]*3,ego_rot=[0.]*3,ego_velo=1.,ego_steer=0.,accelerate=0.,steer_rate=0.,command=2,ego_box=[0.]*7,obj_boxes=[])
+obs={k:{'fixture':np.zeros((2,2),dtype='float32')} for k in ('rgb','semantic','depth')}
+r.begin(obs,info,0)
+plan=r.choose(np.array([[0.,1.]]*6,dtype='float32'))
+a,s=r.control(plan,info)
+after={**info,'timestamp':.25,'rc':1.,'collision':False}
+r.end_step(dict(acc=a,steer_rate=s),after,True,False)
+r.finish()
+_,_,report=validate_episode(output,Replay())
+print(json.dumps(dict(status='passed',fixture='CPU adapter-to-action linkage; stub state; no simulator construction',summary=report),indent=2))
+"""
+r=subprocess.run([python,'-c',code],cwd='/opt/sentinel-stack/HUGSIM',env=env,capture_output=True,text=True,timeout=120)
+print(json.dumps(dict(returncode=r.returncode,stdout=r.stdout,stderr=r.stderr),indent=2));assert r.returncode==0

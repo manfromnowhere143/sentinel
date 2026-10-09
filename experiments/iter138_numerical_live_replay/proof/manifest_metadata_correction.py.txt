@@ -1,0 +1,14 @@
+import hashlib
+import json
+from pathlib import Path
+root=Path('/datasets/nuscenes-full/hugsim/iter138_control_20261009')
+p=root/'runtime_manifest.json'
+assert hashlib.sha256(p.read_bytes()).hexdigest()=='cb2f8f364e5d19169bca376169663d6000f835873e7c715e7c46904ef004685c'
+m=json.loads(p.read_text())
+m['inherited_iter136_notes']=dict(schema=m['schema'],pre_initialization_failed_launches=m.pop('pre_initialization_failed_launches'),repair=m.pop('repair'))
+m['schema']='sentinel.iter138.runtime_binding.v1'
+m['scope']='two fresh numerical-controller references; no intervention branches'
+m['pre_initialization_failed_launches']=0
+m['parent_manifest_sha256']=hashlib.sha256((root/'packet/experiments/iter136_hugsim_recoverability_canary/proof/runtime_v2/runtime_manifest.json').read_bytes()).hexdigest()
+p.write_text(json.dumps(m,indent=2,sort_keys=True)+'\n')
+print(json.dumps(dict(reason='Correct inherited Iter136 metadata before any live episode; source and assets unchanged',manifest=m,manifest_sha256=hashlib.sha256(p.read_bytes()).hexdigest()),indent=2))

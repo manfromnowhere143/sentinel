@@ -1,0 +1,46 @@
+{
+  "host_utc": 1791552493.3961906,
+  "hostname": "sentinel-gpu",
+  "free_gib": 110.85108184814453,
+  "affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "hugsim": {
+    "returncode": 0,
+    "stdout": "62c690d39fd90020e68a196bd8bcc1c4d4191f2e\n",
+    "stderr": ""
+  },
+  "uniad": {
+    "returncode": 0,
+    "stdout": "5fb279e39912a5ac7f58e00d56b065cadcd0a749\n",
+    "stderr": ""
+  },
+  "containers": {
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "gpu_processes": {
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "processes": {
+    "returncode": 0,
+    "stdout": "    PID ELAPSED %CPU COMMAND\n      1     110  1.2 systemd\n      2     110  0.0 kthreadd\n      3     110  0.0 pool_workqueue_release\n      4     110  0.0 kworker/R-rcu_g\n      5     110  0.0 kworker/R-rcu_p\n      6     110  0.0 kworker/R-slub_\n      7     110  0.0 kworker/R-netns\n      8     110  0.0 kworker/0:0-events\n      9     110  0.0 kworker/0:1-rcu_gp\n     10     110  0.0 kworker/0:0H-events_highpri\n     11     110  0.0 kworker/u16:0-events_unbound\n     12     110  0.0 kworker/R-mm_pe\n     13     110  0.0 rcu_tasks_rude_kthread\n     14     110  0.0 rcu_tasks_trace_kthread\n     15     110  0.0 ksoftirqd/0\n     16     110  0.0 rcu_sched\n     17     110  0.0 migration/0\n     18     110  0.0 idle_inject/0\n     19     110  0.0 cpuhp/0\n     20     110  0.0 cpuhp/1\n     21     110  0.0 idle_inject/1\n     22     110  0.3 migration/1\n     23     110  0.0 ksoftirqd/1\n     24     110  0.0 kworker/1:0-cgroup_free\n     25     110  0.0 kworker/1:0H-events_highpri\n     26     110  0.0 cpuhp/2\n     27     110  0.0 idle_inject/2\n     28     110  0.3 migration/2\n     29     110  0.0 ksoftirqd/2\n     30     110  0.0 kworker/2:0-cgroup_release\n     31     110  0.0 kworker/2:0H-kblockd\n     32     110  0.0 cpuhp/3\n     33     110  0.0 idle_inject/3\n     34     110  0.3 migration/3\n     35     110  0.0 ksoftirqd/3\n     36     110  0.0 kworker/3:0-events\n     37     110  0.0 kworker/3:0H-events_highpri\n     38     110  0.0 cpuhp/4\n     39     110  0.0 idle_inject/4\n     40     110  0.3 migration/4\n     41     110  0.0 ksoftirqd/4\n     42     110  0.0 kworker/4:0-events\n     43     110  0.0 kworker/4:0H-events_highpri\n     44     110  0.0 cpuhp/5\n     45     110  0.0 idle_inject/5\n     46     110  0.3 migration/5\n     47     110  0.0 ksoftirqd/5\n     48     110  0.0 kworker/5:0-cgroup_free\n     49     110  0.0 kworker/5:0H-events_highpri\n     50     110  0.0 cpuhp/6\n     51     110  0.0 idle_inject/6\n     52     110  0.3 migration/6\n     53     110  0.0 ksoftirqd/6\n     54     110  0.0 kworker/6:0-rcu_gp\n     55     110  0.0 kworker/6:0H-events_highpri\n     56     110  0.0 cpuhp/7\n     57     110  0.0 idle_inject/7\n     58     110  0.3 migration/7\n     59     110  0.0 ksoftirqd/7\n     60     110  0.0 kworker/7:0-events\n     61     110  0.0 kworker/7:0H-events_highpri\n     62     110  0.0 kdevtmpfs\n     63     110  0.0 kworker/R-inet_\n     64     110  0.0 kauditd\n     65     110  0.0 khungtaskd\n     66     110  0.0 oom_reaper\n     67     110  0.0 kworker/u16:1-efi_rts_wq\n     68     110  0.0 kworker/R-write\n     69     110  0.0 kworker/u16:2-loop11\n     70     110  0.0 kcompactd0\n     71     110  0.0 ksmd\n     72     110  0.0 khugepaged\n     73     110  0.0 kworker/R-kinte\n     74     110  0.0 kworker/R-kbloc\n     75     110  0.0 kworker/R-blkcg\n     76     110  0.0 irq/9-acpi\n     77     110  0.0 kworker/1:1-cgroup_free\n     78     110  0.0 kworker/4:1-events\n     79     110  0.0 kworker/6:1-cgroup_release\n     80     110  0.0 kworker/R-tpm_d\n     81     110  0.0 kworker/R-ata_s\n     82     110  0.0 kworker/R-md\n     83     110  0.0 kworker/R-md_bi\n     84     110  0.0 kworker/R-edac-\n     85     110  0.0 kworker/R-devfr\n     86     110  0.0 watchdogd\n     87     110  0.0 kworker/5:1-events\n     88     110  0.0 kworker/R-quota\n     89     110  0.0 kworker/0:1H-kblockd\n     90     110  0.0 kswapd0\n     91     110  0.0 ecryptfs-kthread\n     92     110  0.0 kworker/R-kthro\n     93     110  0.0 kworker/R-acpi_\n     94     110  0.0 hwrng\n     95     110  0.0 kworker/R-nvme-\n     96     110  0.0 kworker/R-nvme-\n     97     110  0.0 kworker/R-nvme-\n     98     110  0.0 kworker/R-nvme-\n     99     110  0.0 kworker/4:1H-kblockd\n    100     110  0.0 kworker/3:1-events\n    101     110  0.0 kworker/0:2-cgroup_free\n    102     110  0.0 kworker/u16:3-writeback\n    103     110  0.0 kworker/R-mld\n    104     110  0.0 kworker/R-ipv6_\n    111     110  0.0 kworker/R-kstrp\n    112     110  0.0 kworker/2:1-events\n    113     110  0.0 kworker/7:1-events\n    114     110  0.0 kworker/4:2-events\n    116     110  0.0 kworker/u17:0\n    129     110  0.0 kworker/1:2-cgroup_release\n    130     110  0.0 kworker/R-charg\n    131     109  0.0 jbd2/nvme0n1p1-8\n    132     109  0.0 kworker/R-ext4-\n    133     109  0.0 kworker/1:1H-kblockd\n    156     109  0.0 kworker/5:1H-kblockd\n    158     109  0.0 kworker/2:1H-kblockd\n    164     109  0.0 kworker/3:1H-kblockd\n    167     109  0.0 kworker/6:1H-kblockd\n    169     109  0.0 kworker/7:1H-kblockd\n    177     108  0.1 systemd-journal\n    191     108  0.0 kworker/3:2-events\n    202     108  0.0 kworker/1:3-cgroup_free\n    203     108  0.0 kworker/2:2-cgroup_bpf_destroy\n    204     108  0.0 kworker/2:3-events\n    205     108  0.0 kworker/2:4-events\n    212     108  0.0 kworker/R-kalua\n    213     108  0.0 kworker/7:2-events\n    215     108  0.0 kworker/R-kmpat\n    218     108  0.0 kworker/R-kmpat\n    219     108  0.0 kworker/R-kmpat\n    220     108  0.0 multipathd\n    223     108  0.0 kworker/6:2-events\n    224     108  0.0 kworker/6:3-cgroup_bpf_destroy\n    226     108  0.1 systemd-udevd\n    270     108  0.0 kworker/R-crypt\n    284     108  0.0 kworker/5:2-cgroup_free\n    357     108  0.0 nv_queue\n    358     108  0.0 nv_queue\n    359     108  0.0 nv_open_q\n    361     108  0.0 nvidia-modeset/kthread_q\n    362     108  0.0 nvidia-modeset/deferred_close_kthread_q\n    367     108  0.0 kworker/u16:4-writeback\n    371     108  0.0 kworker/u16:5-events_unbound\n    373     108  0.0 kworker/u16:6-loop8\n    378     108  0.0 kworker/u16:7-events_power_efficient\n    379     108  0.0 kworker/u16:8-loop3\n    380     108  0.0 kworker/u16:9\n    397     107  0.0 UVM global queue\n    398     107  0.0 UVM deferred release queue\n    399     107  0.0 UVM Tools Event Queue\n    449     107  0.0 kworker/6:4-cgroup_free\n    450     107  0.0 kworker/6:5-events\n    461     107  0.0 jbd2/nvme0n2-8\n    463     107  0.0 kworker/R-ext4-\n    549     106  0.0 systemd-network\n    551     106  0.0 systemd-resolve\n    586     104  0.0 dbus-daemon\n    598     104  0.0 chronyd\n    601     104  0.0 chronyd\n    603     104  0.0 google_osconfig\n    611     104  0.0 networkd-dispat\n    624     104  1.5 nvidia-persiste\n    626     104  0.0 irq/48-nvidia\n    627     104  0.0 irq/49-nvidia\n    628     104  0.0 irq/50-nvidia\n    629     104  0.0 irq/51-nvidia\n    630     104  0.0 irq/52-nvidia\n    631     104  0.0 irq/53-nvidia\n    632     104  0.0 nvidia\n    633     104  0.0 nv_queue\n    634     104  0.0 rsyslogd\n    641     104  2.5 snapd\n    664     104  0.2 containerd\n    680     104  0.0 kworker/1:4-events\n    863      95  0.0 kworker/5:3-cgroup_free\n    879      94  0.5 dockerd\n    880      94  0.1 google_guest_ag\n    886      94  0.0 agetty\n    888      94  0.0 agetty\n    909      94  0.0 polkitd\n   1145      93  0.0 systemd-logind\n   1150      93  0.0 cron\n   1468      84  0.0 sshd\n   1483      64  0.0 kworker/0:3-events\n   1484       4  0.5 sshd\n   1487       1  9.0 systemd\n   1488       1  0.0 (sd-pam)\n   1589       0  0.0 sshd\n   1590       0  0.0 sudo\n   1591       0  0.0 python3\n   1607       0  0.0 ps\n",
+    "stderr": ""
+  },
+  "shutdown_timer": {
+    "returncode": 0,
+    "seconds": 5037,
+    "stdout": "",
+    "stderr": "Running timer as unit: sentinel-iter138-budget.timer\nWill run service as unit: sentinel-iter138-budget.service\n"
+  }
+}
