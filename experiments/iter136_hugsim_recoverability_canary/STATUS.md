@@ -68,7 +68,9 @@ the [candidate validation receipt](proof/committed_candidate_validation.json) bi
 The attempted Python 3.10 pytest invocation could not run because that interpreter has no pytest
 installed; its failure is retained. The standard-library source probe did run successfully under
 Python 3.10. The expanded local suite passes **55 tests** after adding launcher and monitor-delivery
-known-bads. Two live references completed under the bound runtime; exact replay failed.
+known-bads. The exact committed candidate also passes those 55 tests and reproduces the
+analysis outside the dirty checkout; see [validation](proof/final_candidate_validation.json).
+Two live references completed under the bound runtime; exact replay failed.
 No frozen CI, full repository suite or hosted candidate workflow is claimed.
 
 ## Provider and storage evidence

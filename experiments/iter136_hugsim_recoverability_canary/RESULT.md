@@ -98,7 +98,10 @@ free on the data disk. The host was then stopped within the original 120-minute 
 The [provider readback](proof/provider_final.json) records its final state. That provider
 observation does not replace the older Iteration-135 lifecycle controller's `UNKNOWN`.
 
-The focused local suite passes 55 tests and Ruff. No full repository suite, frozen CI,
+The focused local suite passes 55 tests and Ruff. The exact committed candidate also passes
+the 55 tests and reproduces the analysis byte-for-byte after extraction outside the dirty
+checkout; all 115 then-retained proof checksums and new document links verified. See the
+[candidate validation receipt](proof/final_candidate_validation.json). No full repository suite, frozen CI,
 hosted candidate workflow or production readiness is claimed. This result is retained
 on local branch `research/iter136-recoverability`; canonical `master` remains accepted
 F17. Iteration 135 remains deferred with its protocol unchanged.

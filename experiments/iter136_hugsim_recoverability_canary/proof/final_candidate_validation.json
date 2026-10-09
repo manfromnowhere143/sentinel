@@ -1,0 +1,30 @@
+{
+  "commit": "a6dd2bea91c1e30ba3315eddda8392aa74810195",
+  "archive_sha256": "e82ebbec253a590929b3b6b33a1b80880ccb024befb9381b137154394ba8d696",
+  "scope": "only committed Iter136 files, its test and project configuration; no dirty WIP source",
+  "checks": [
+    {
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_iter136_recoverability_canary.py"
+      ],
+      "returncode": 0,
+      "stdout": ".......................................................                  [100%]\n55 passed in 0.18s\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "experiments/iter136_hugsim_recoverability_canary/analyze_canary.py"
+      ],
+      "returncode": 0,
+      "stdout": "byte-identical to retained analysis.json",
+      "stderr": ""
+    }
+  ],
+  "verified_proof_files": 115,
+  "new_research_document_links": "passed"
+}
