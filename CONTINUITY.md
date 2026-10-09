@@ -1,14 +1,13 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
-> **Active operator-directed candidate result, 2026-10-09:** Iter141 is closed as
-> failed / COORDINATOR_BRANCH_LOOKUP_FAILED; scientific comparison remains inconclusive.
-> One reference reproduced Iter139, with all 26 controller calls replayed. The other
-> reference and both nominal continuations are unobserved. Provider TERMINATED.
-> Read [result](experiments/iter141_nominal_continuation/RESULT.md),
-> [state](experiments/iter141_nominal_continuation/STATE.json), and
-> [next decision](experiments/iter141_nominal_continuation/DECISION.md).
-> Candidate `research/iter141-nominal-continuation` is unpushed; master remains F17.
-> Iter135 remains deferred; MISSION_STATE/HANDOFF retain their publication snapshot.
+> **Active operator-directed candidate work, 2026-10-09:** Iter142 is preregistered
+> to complete the nominal-continuation comparison with retained Iter141 reference A
+> and three fresh episodes. Phase: local_validation. Coordinator boundary tests pass; final source and packet checks pending. Provider remains stopped.
+> Read [protocol](experiments/iter142_nominal_continuation_completion/HYPOTHESIS.md) and
+> [state](experiments/iter142_nominal_continuation_completion/STATE.json).
+> Iter141 remains closed after its coordinator failure; nominal recovery is still unobserved.
+> Candidate `research/iter142-nominal-continuation` is unpushed; master remains F17.
+> Iter135 stays deferred; MISSION_STATE/HANDOFF retain their publication snapshot.
 
 **Purpose.** This campaign is operator-portable by design. Everything an incoming operator
 needs is in this repository plus the two live surfaces below. Read this file top to bottom

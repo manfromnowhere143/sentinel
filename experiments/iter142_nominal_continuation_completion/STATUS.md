@@ -1,3 +1,3 @@
 # Status
 
-Preregistered; coordinator repair and validation pending. No new provider access or episode.
+local_validation: Coordinator boundary tests pass; final source and packet checks pending. Provider remains stopped.

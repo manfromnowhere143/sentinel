@@ -1,8 +1,10 @@
 {
   "iteration": 142,
   "status": "preregistered",
-  "phase": "implementation",
+  "phase": "local_validation",
+  "details": "Coordinator boundary tests pass; final source and packet checks pending. Provider remains stopped.",
+  "branch": "research/iter142-nominal-continuation",
+  "preregistration_commit": "ba72e457a96f8ea248810ffa7b982c171b32c5f4",
   "retained_reference": "Iter141/reference_a",
-  "fresh_episodes_started": 0,
-  "parent": "b1ba918ed8d06d7f293fa00783894102f4c3e4d9"
+  "initialized_episode_retries": 0
 }
