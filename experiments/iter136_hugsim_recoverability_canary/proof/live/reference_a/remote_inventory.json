@@ -1,0 +1,25 @@
+{
+  "remote_root": "/datasets/nuscenes-full/hugsim/outputs/iter136-20261009/reference_a",
+  "inventory": {
+    "driver.log": {
+      "bytes": 14241,
+      "sha256": "0d0fa8e2676ffa57278010b0ac49005e622b389a68ee603d09511fdffb72b4e3"
+    },
+    "episode.json": {
+      "bytes": 1720,
+      "sha256": "e31b11c9410652bf2724c7736ed99bea403baf95284174b4c83174e6646b9c06"
+    },
+    "scene-0411_hard_00/iter136_trace.jsonl": {
+      "bytes": 605,
+      "sha256": "ef3b75f1d74637cfadefd895a7d349ae8e6f4b703ba7e3dffa8ac18652eae570"
+    },
+    "scene-0411_hard_00/output.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "started.json": {
+      "bytes": 884,
+      "sha256": "d7f583d7518d96bdad72c40e4bc92d91710c887662c26856e72d79940e63ad29"
+    }
+  }
+}

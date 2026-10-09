@@ -1,0 +1,193 @@
+[iter45-shim] cuSOLVER-backed linalg ops routed via CPU (torch 2.4.1+cu124 )
+/datasets/nuscenes-full/hugsim/outputs/iter136-20261009/reference_a/scene-0411_hard_00/output.txt
+/datasets/nuscenes-full/hugsim/iter136_control_20261009/e2e.sh 0 /datasets/nuscenes-full/hugsim/outputs/iter136-20261009/reference_a/scene-0411_hard_00
+Traceback (most recent call last):
+  File "/datasets/nuscenes-full/hugsim/iter136_control_20261009/iter136_closed_loop.py", line 162, in <module>
+    create_gym_env(cfg, output)
+  File "/datasets/nuscenes-full/hugsim/iter136_control_20261009/iter136_closed_loop.py", line 34, in create_gym_env
+    env = gymnasium.make('hugsim_env/HUGSim-v0', cfg=cfg, output=output)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/gymnasium/envs/registration.py", line 704, in make
+    env_creator = load_env_creator(env_spec.entry_point)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/gymnasium/envs/registration.py", line 551, in load_env_creator
+    mod = importlib.import_module(mod_name)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1147, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/opt/sentinel-stack/HUGSIM/sim/hugsim_env/envs/__init__.py", line 1, in <module>
+    from hugsim_env.envs.hug_sim import HUGSimEnv
+  File "/opt/sentinel-stack/HUGSIM/sim/hugsim_env/envs/hug_sim.py", line 12, in <module>
+    from sim.utils.plan import planner, UnifiedMap
+  File "/opt/sentinel-stack/HUGSIM/sim/utils/plan.py", line 6, in <module>
+    from sim.utils.agent_controller import constant_headaway
+  File "/opt/sentinel-stack/HUGSIM/sim/utils/agent_controller.py", line 4, in <module>
+    from trajdata.maps import VectorMap
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/trajdata/__init__.py", line 1, in <module>
+    from .data_structures import AgentBatch, AgentType, SceneBatch
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/trajdata/data_structures/__init__.py", line 4, in <module>
+    from .collation import agent_collate_fn, scene_collate_fn
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/trajdata/data_structures/collation.py", line 7, in <module>
+    from kornia.geometry.transform import rotate
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/kornia/__init__.py", line 28, in <module>
+    from . import filters
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/kornia/filters/__init__.py", line 64, in <module>
+    from .kernels_geometry import get_motion_kernel2d, get_motion_kernel3d
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/kornia/filters/kernels_geometry.py", line 25, in <module>
+    from kornia.geometry.transform import rotate, rotate3d
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/kornia/geometry/__init__.py", line 28, in <module>
+    from .epipolar import *
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/kornia/geometry/epipolar/__init__.py", line 24, in <module>
+    from .essential import (
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/kornia/geometry/epipolar/essential.py", line 199, in <module>
+    @torch.jit.script
+     ^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/torch/jit/_script.py", line 1432, in script
+    return _script_impl(
+           ^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/torch/jit/_script.py", line 1204, in _script_impl
+    fn = torch._C._jit_script_compile(
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/torch/jit/_recursive.py", line 1004, in try_compile_fn
+    return torch.jit.script(fn, _rcb=rcb)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/torch/jit/_script.py", line 1432, in script
+    return _script_impl(
+           ^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/torch/jit/_script.py", line 1204, in _script_impl
+    fn = torch._C._jit_script_compile(
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/torch/jit/_recursive.py", line 1004, in try_compile_fn
+    return torch.jit.script(fn, _rcb=rcb)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/torch/jit/_script.py", line 1432, in script
+    return _script_impl(
+           ^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/torch/jit/_script.py", line 1201, in _script_impl
+    ast = get_jit_def(obj, obj.__name__)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/torch/jit/frontend.py", line 373, in get_jit_def
+    return build_def(
+           ^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/torch/jit/frontend.py", line 423, in build_def
+    param_list = build_param_list(ctx, py_def.args, self_name, pdt_arg_types)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/torch/jit/frontend.py", line 449, in build_param_list
+    raise NotSupportedError(ctx_range, _vararg_kwarg_err)
+torch.jit.frontend.NotSupportedError: Compiled functions can't take variable number of arguments or use keyword-only arguments with defaults:
+  File "/opt/sentinel-stack/hugsim-shim/sitecustomize.py", line 9
+    def wrapped(input, *args, **kwargs):
+                               ~~~~~~~ <--- HERE
+        if isinstance(input, torch.Tensor) and input.is_cuda:
+            out = fn(input.cpu(), *args, **kwargs)
+'_torch_svd_cast' is being compiled since it was called from '_null_to_Nister_solution_script'
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/kornia/geometry/epipolar/essential.py", line 217
+    original_dtype = X.dtype
+
+    _, _, V = _torch_svd_cast(X)  # V: (B, 9, 9)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~ <--- HERE
+    null_ = V[:, :, -4:].contiguous()  # (B, 9, 4)
+    nullSpace = V.transpose(-1, -2)[:, -4:, :]  # (B, 4, 9)
+
+Traceback (most recent call last):
+  File "/datasets/nuscenes-full/hugsim/iter136_control_20261009/iter136_closed_loop.py", line 162, in <module>
+    create_gym_env(cfg, output)
+  File "/datasets/nuscenes-full/hugsim/iter136_control_20261009/iter136_closed_loop.py", line 34, in create_gym_env
+    env = gymnasium.make('hugsim_env/HUGSim-v0', cfg=cfg, output=output)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/gymnasium/envs/registration.py", line 704, in make
+    env_creator = load_env_creator(env_spec.entry_point)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/gymnasium/envs/registration.py", line 551, in load_env_creator
+    mod = importlib.import_module(mod_name)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1147, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/opt/sentinel-stack/HUGSIM/sim/hugsim_env/envs/__init__.py", line 1, in <module>
+    from hugsim_env.envs.hug_sim import HUGSimEnv
+  File "/opt/sentinel-stack/HUGSIM/sim/hugsim_env/envs/hug_sim.py", line 12, in <module>
+    from sim.utils.plan import planner, UnifiedMap
+  File "/opt/sentinel-stack/HUGSIM/sim/utils/plan.py", line 6, in <module>
+    from sim.utils.agent_controller import constant_headaway
+  File "/opt/sentinel-stack/HUGSIM/sim/utils/agent_controller.py", line 4, in <module>
+    from trajdata.maps import VectorMap
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/trajdata/__init__.py", line 1, in <module>
+    from .data_structures import AgentBatch, AgentType, SceneBatch
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/trajdata/data_structures/__init__.py", line 4, in <module>
+    from .collation import agent_collate_fn, scene_collate_fn
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/trajdata/data_structures/collation.py", line 7, in <module>
+    from kornia.geometry.transform import rotate
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/kornia/__init__.py", line 28, in <module>
+    from . import filters
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/kornia/filters/__init__.py", line 64, in <module>
+    from .kernels_geometry import get_motion_kernel2d, get_motion_kernel3d
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/kornia/filters/kernels_geometry.py", line 25, in <module>
+    from kornia.geometry.transform import rotate, rotate3d
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/kornia/geometry/__init__.py", line 28, in <module>
+    from .epipolar import *
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/kornia/geometry/epipolar/__init__.py", line 24, in <module>
+    from .essential import (
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/kornia/geometry/epipolar/essential.py", line 199, in <module>
+    @torch.jit.script
+     ^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/torch/jit/_script.py", line 1432, in script
+    return _script_impl(
+           ^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/torch/jit/_script.py", line 1204, in _script_impl
+    fn = torch._C._jit_script_compile(
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/torch/jit/_recursive.py", line 1004, in try_compile_fn
+    return torch.jit.script(fn, _rcb=rcb)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/torch/jit/_script.py", line 1432, in script
+    return _script_impl(
+           ^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/torch/jit/_script.py", line 1204, in _script_impl
+    fn = torch._C._jit_script_compile(
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/torch/jit/_recursive.py", line 1004, in try_compile_fn
+    return torch.jit.script(fn, _rcb=rcb)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/torch/jit/_script.py", line 1432, in script
+    return _script_impl(
+           ^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/torch/jit/_script.py", line 1201, in _script_impl
+    ast = get_jit_def(obj, obj.__name__)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/torch/jit/frontend.py", line 373, in get_jit_def
+    return build_def(
+           ^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/torch/jit/frontend.py", line 423, in build_def
+    param_list = build_param_list(ctx, py_def.args, self_name, pdt_arg_types)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/torch/jit/frontend.py", line 449, in build_param_list
+    raise NotSupportedError(ctx_range, _vararg_kwarg_err)
+torch.jit.frontend.NotSupportedError: Compiled functions can't take variable number of arguments or use keyword-only arguments with defaults:
+  File "/opt/sentinel-stack/hugsim-shim/sitecustomize.py", line 9
+    def wrapped(input, *args, **kwargs):
+                               ~~~~~~~ <--- HERE
+        if isinstance(input, torch.Tensor) and input.is_cuda:
+            out = fn(input.cpu(), *args, **kwargs)
+'_torch_svd_cast' is being compiled since it was called from '_null_to_Nister_solution_script'
+  File "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/kornia/geometry/epipolar/essential.py", line 217
+    original_dtype = X.dtype
+
+    _, _, V = _torch_svd_cast(X)  # V: (B, 9, 9)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~ <--- HERE
+    null_ = V[:, :, -4:].contiguous()  # (B, 9, 4)
+    nullSpace = V.transpose(-1, -2)[:, -4:, :]  # (B, 4, 9)
+
