@@ -1,0 +1,4 @@
+from pathlib import Path
+import hashlib,json
+p=Path('/opt/sentinel-stack/HUGSIM/sim/utils/score_calculator.py')
+b=p.read_bytes();print(json.dumps(dict(path=str(p),sha256=hashlib.sha256(b).hexdigest(),source=b.decode())))
