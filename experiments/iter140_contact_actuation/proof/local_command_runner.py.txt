@@ -1,0 +1,16 @@
+import datetime,json,pathlib,subprocess,time
+ROOT=pathlib.Path('/Users/danielwahnich/workspace/sentinel')
+PROOF=ROOT/'experiments/iter140_contact_actuation/proof'
+EXT=pathlib.Path('/Users/danielwahnich/sentinel-bootstrap-evidence/iter140-contact-actuation-20261009')
+EXT.mkdir(exist_ok=True)
+PY=EXT/'venv/bin/python'
+def run(name,argv,timeout=180,cwd=ROOT,env=None):
+ for suffix in ['.stdout','.stderr','.json']:
+  assert not (PROOF/(name+suffix)).exists(),name
+ start=time.time()
+ try:r=subprocess.run(argv,cwd=cwd,env=env,capture_output=True,timeout=timeout)
+ except subprocess.TimeoutExpired as exc:r=subprocess.CompletedProcess(argv,124,exc.stdout or b'',(exc.stderr or b'')+b'CLIENT_TIMEOUT')
+ (PROOF/(name+'.stdout')).write_bytes(r.stdout);(PROOF/(name+'.stderr')).write_bytes(r.stderr)
+ (PROOF/(name+'.json')).write_text(json.dumps(dict(argv=[str(x) for x in argv],cwd=str(cwd),start_utc=datetime.datetime.fromtimestamp(start,datetime.timezone.utc).isoformat(),elapsed_seconds=time.time()-start,returncode=r.returncode),indent=2)+'\n')
+ print(name,r.returncode,r.stdout.decode()[-3000:],r.stderr.decode()[-3000:],flush=True)
+ return r

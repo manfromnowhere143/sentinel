@@ -1,9 +1,11 @@
 {
   "iteration": 140,
   "status": "preregistered",
-  "phase": "protocol",
+  "phase": "validated_implementation",
   "branch": "research/iter140-contact-actuation",
   "parent": "ed23a8c5596c563e6475be2c190856feb481072b",
   "protocol": "HYPOTHESIS.md",
-  "compute": "local CPU only"
+  "compute": "local CPU only",
+  "preregistration_commit": "68131877a62e8fb6d1524aabcb2aab0a0b1187e7",
+  "focused_tests": 37
 }

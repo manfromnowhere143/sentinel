@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "uv",
+    "pip",
+    "install",
+    "--python",
+    "/Users/danielwahnich/sentinel-bootstrap-evidence/iter140-contact-actuation-20261009/venv/bin/python",
+    "numpy==1.26.4",
+    "shapely==2.0.7",
+    "pytest==8.3.5",
+    "matplotlib==3.9.4"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-09T14:49:27.796146+00:00",
+  "elapsed_seconds": 2.2151570320129395,
+  "returncode": 0
+}

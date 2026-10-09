@@ -1,0 +1,62 @@
+....................F.........F...                                       [100%]
+=================================== FAILURES ===================================
+__________________________ test_full_synthetic_replay __________________________
+
+geometry = <experiments.iter140_contact_actuation.geometry.SourceGeometry object at 0x105f8ec50>
+
+    def test_full_synthetic_replay(geometry):
+        rows = fixture_rows()
+        report = analyze.episode(rows, geometry)
+>       result = independent.check_episode(rows, report)
+
+tests/test_iter140_contact_actuation.py:166: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter140_contact_actuation/independent.py:301: in check_episode
+    close(report["terminal_relation"], relation(frames[-1]) if single else None)
+experiments/iter140_contact_actuation/independent.py:111: in close
+    close(actual[k], v, tol)
+experiments/iter140_contact_actuation/independent.py:107: in close
+    close(a, e, tol)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+actual = 0.0, expected = 0, tol = 1e-09
+
+    def close(actual, expected, tol=1e-9):
+        if expected is None or type(expected) in (bool, str, int):
+>           assert type(actual) is type(expected) and actual == expected, (actual, expected)
+E           AssertionError: (0.0, 0)
+
+experiments/iter140_contact_actuation/independent.py:99: AssertionError
+___________________ test_tiny_gap_is_preserved_as_ambiguity ____________________
+
+geometry = <experiments.iter140_contact_actuation.geometry.SourceGeometry object at 0x105f8ec50>
+
+    def test_tiny_gap_is_preserved_as_ambiguity(geometry):
+        rows = fixture_rows()
+        # Use an initial edge contact in this synthetic fixture; do not alter actual evidence.
+        rows[1]["before"]["obj_boxes"] = [box(4 * math.cos(0.2), 4 * math.sin(0.2), yaw=0.2)]
+        report = analyze.episode(rows, geometry)
+>       result = independent.check_episode(rows, report)
+
+tests/test_iter140_contact_actuation.py:218: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter140_contact_actuation/independent.py:301: in check_episode
+    close(report["terminal_relation"], relation(frames[-1]) if single else None)
+experiments/iter140_contact_actuation/independent.py:111: in close
+    close(actual[k], v, tol)
+experiments/iter140_contact_actuation/independent.py:107: in close
+    close(a, e, tol)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+actual = 0.0, expected = 0, tol = 1e-09
+
+    def close(actual, expected, tol=1e-9):
+        if expected is None or type(expected) in (bool, str, int):
+>           assert type(actual) is type(expected) and actual == expected, (actual, expected)
+E           AssertionError: (0.0, 0)
+
+experiments/iter140_contact_actuation/independent.py:99: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_iter140_contact_actuation.py::test_full_synthetic_replay - ...
+FAILED tests/test_iter140_contact_actuation.py::test_tiny_gap_is_preserved_as_ambiguity
+2 failed, 32 passed in 4.45s

@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "ruff",
+    "format",
+    "experiments/iter140_contact_actuation",
+    "tests/test_iter140_contact_actuation.py"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-09T14:57:08.315724+00:00",
+  "elapsed_seconds": 0.3065528869628906,
+  "returncode": 0
+}

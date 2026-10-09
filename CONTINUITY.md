@@ -1,16 +1,13 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
-> **Active operator-directed candidate result, 2026-10-09:** Iter139 is complete as
-> **null / FINITE_PULSE_RECOVERY_NULL**: all six finite pulses collided, with 0/6 useful recoveries.
-> The 2-second-onset, 1-second pulse delayed collision from 6.5 to 7.0 s; it did not recover.
-> Both fresh references matched; all 206 live controller calls independently replayed and
-> stopped by convergence. Complete calls exceeded 50 ms on 166/206 observations.
-> Read [result](experiments/iter139_finite_pulse_recoverability/RESULT.md),
-> [state](experiments/iter139_finite_pulse_recoverability/STATE.json), and
-> [next step](experiments/iter139_finite_pulse_recoverability/NEXT_STEP.md).
-> Host is TERMINATED. Iter139 is closed; no grid expansion or retry.
-> Candidate branch: `research/iter139-finite-pulse`, unpushed; master remains F17.
-> Iter135 remains deferred. MISSION_STATE/HANDOFF retain their older publication snapshot.
+> **Active operator-directed candidate result, 2026-10-09:** Iter140 is preregistered;
+> implementation of the local CPU contact/actuation diagnostic is in progress.
+> Read [protocol](experiments/iter140_contact_actuation/HYPOTHESIS.md) and
+> [state](experiments/iter140_contact_actuation/STATE.json).
+> Iter139 remains closed as null / FINITE_PULSE_RECOVERY_NULL, with 0/6 useful recoveries.
+> No cloud launch or new live episode belongs to Iter140.
+> Candidate: `research/iter140-contact-actuation`, local/unpushed; master remains F17.
+> Iter135 remains deferred; MISSION_STATE/HANDOFF retain their publication snapshot.
 
 **Purpose.** This campaign is operator-portable by design. Everything an incoming operator
 needs is in this repository plus the two live surfaces below. Read this file top to bottom

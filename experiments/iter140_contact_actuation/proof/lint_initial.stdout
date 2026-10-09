@@ -1,0 +1,14 @@
+E731 Do not assign a `lambda` expression, use a `def`
+   --> experiments/iter140_contact_actuation/independent.py:119:5
+    |
+117 |     dt = q["timestamp"] - p["timestamp"]
+118 |     # Decimal separately checks the linear state equations; transcendental terms use math.
+119 |     D = lambda x: Decimal(str(x))
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+120 |     velocity = D(p["ego_velo"]) + D(a) * D(dt)
+121 |     steering = D(p["ego_steer"]) + D(r) * D(dt)
+    |
+help: Rewrite `D` as a `def`
+
+Found 1 error.
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).

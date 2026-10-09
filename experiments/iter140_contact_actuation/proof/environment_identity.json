@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "/Users/danielwahnich/sentinel-bootstrap-evidence/iter140-contact-actuation-20261009/venv/bin/python",
+    "-c",
+    "import json,platform,numpy,shapely,matplotlib,pytest;print(json.dumps(dict(python=platform.python_version(),platform=platform.platform(),numpy=numpy.__version__,shapely=shapely.__version__,geos=shapely.geos_version_string,matplotlib=matplotlib.__version__,pytest=pytest.__version__),indent=2))"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-09T14:59:09.713106+00:00",
+  "elapsed_seconds": 2.782402992248535,
+  "returncode": 0
+}

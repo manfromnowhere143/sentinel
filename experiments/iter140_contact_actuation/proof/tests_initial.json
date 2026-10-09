@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "/Users/danielwahnich/sentinel-bootstrap-evidence/iter140-contact-actuation-20261009/venv/bin/python",
+    "-m",
+    "pytest",
+    "-c",
+    "/dev/null",
+    "--rootdir=.",
+    "-q",
+    "tests/test_iter140_contact_actuation.py"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-09T14:57:08.638138+00:00",
+  "elapsed_seconds": 4.8532140254974365,
+  "returncode": 1
+}

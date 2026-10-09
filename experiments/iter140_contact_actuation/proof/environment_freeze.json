@@ -1,0 +1,13 @@
+{
+  "argv": [
+    "uv",
+    "pip",
+    "freeze",
+    "--python",
+    "/Users/danielwahnich/sentinel-bootstrap-evidence/iter140-contact-actuation-20261009/venv/bin/python"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-09T14:59:09.676132+00:00",
+  "elapsed_seconds": 0.036673784255981445,
+  "returncode": 0
+}
