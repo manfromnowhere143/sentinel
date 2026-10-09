@@ -1,0 +1,22 @@
+{
+  "argv": [
+    "python3",
+    "-m",
+    "pytest",
+    "-c",
+    "/dev/null",
+    "--confcutdir",
+    "/Users/danielwahnich/sentinel-bootstrap-evidence/iter142-nominal-continuation-20261009/committed_source",
+    "--override-ini",
+    "addopts=",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "/Users/danielwahnich/sentinel-bootstrap-evidence/iter142-nominal-continuation-20261009/committed_source/tests/test_iter142_nominal_continuation_completion.py",
+    "/Users/danielwahnich/sentinel-bootstrap-evidence/iter142-nominal-continuation-20261009/committed_source/tests/test_iter141_nominal_continuation.py"
+  ],
+  "cwd": "/Users/danielwahnich/sentinel-bootstrap-evidence/iter142-nominal-continuation-20261009/committed_source",
+  "start_utc": "2026-10-09T15:46:31.190926+00:00",
+  "elapsed_seconds": 1.2046878337860107,
+  "returncode": 0
+}

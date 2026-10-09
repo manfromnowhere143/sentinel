@@ -1,0 +1,8 @@
+import json,sys
+sys.path.insert(0,'/tmp');from i142_ops import ssh,EXT
+from pathlib import Path
+s=Path('experiments/iter139_finite_pulse_recoverability/proof/host_preflight.py.txt').read_text().replace('iter139','iter142')
+a=s.index('remaining=int(');b=s.index('\nassert remaining',a)
+epoch=json.loads((EXT/'session_budget.json').read_text())['timer_epoch'];s=s[:a]+f'remaining=int({epoch!r}-time.time())'+s[b:]
+s=s.replace('remaining>3000','remaining>1230')
+r=ssh('host_preflight',s,timeout=90);assert r.returncode==0

@@ -1,0 +1,26 @@
+import datetime,json,pathlib,subprocess,time
+ROOT=pathlib.Path('/Users/danielwahnich/workspace/sentinel')
+PROOF=ROOT/'experiments/iter142_nominal_continuation_completion/proof'
+EXT=pathlib.Path('/Users/danielwahnich/sentinel-bootstrap-evidence/iter142-nominal-continuation-20261009')
+EXT.mkdir(exist_ok=True)
+PY='python3'
+def run(name,argv,timeout=180,cwd=ROOT,env=None,stdin=None):
+ for suffix in ['.stdout','.stderr','.json']:
+  assert not (PROOF/(name+suffix)).exists(),name
+ start=time.time()
+ try:r=subprocess.run(argv,input=stdin,cwd=cwd,env=env,capture_output=True,timeout=timeout)
+ except subprocess.TimeoutExpired as exc:r=subprocess.CompletedProcess(argv,124,exc.stdout or b'',(exc.stderr or b'')+b'CLIENT_TIMEOUT')
+ (PROOF/(name+'.stdout')).write_bytes(r.stdout);(PROOF/(name+'.stderr')).write_bytes(r.stderr)
+ (PROOF/(name+'.json')).write_text(json.dumps(dict(argv=[str(x) for x in argv],cwd=str(cwd),start_utc=datetime.datetime.fromtimestamp(start,datetime.timezone.utc).isoformat(),elapsed_seconds=time.time()-start,returncode=r.returncode),indent=2)+'\n')
+ print(name,r.returncode,r.stdout.decode()[-3000:],r.stderr.decode()[-3000:],flush=True)
+ return r
+BASE=['--project','sunlit-unison-487018-b0','--zone','us-west1-a']
+def ssh(name,script,timeout=600):
+ import sys
+ sys.path.insert(0,str(ROOT))
+ from experiments.iter139_finite_pulse_recoverability.provider_gate import require_ready
+ operation=json.loads((PROOF/'ready_operation.json').read_text())
+ instance=json.loads((PROOF/'ready_instance.json').read_text())
+ require_ready(operation,instance)
+ with (PROOF/(name+'.py.txt')).open('x') as f:f.write(script)
+ return run(name,['gcloud','compute','ssh','sentinel-gpu',*BASE,'--tunnel-through-iap','--command','sudo -n python3 -'],timeout=timeout,stdin=script.encode())

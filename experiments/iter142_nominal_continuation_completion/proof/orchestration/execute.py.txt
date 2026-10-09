@@ -1,0 +1,59 @@
+"""Bound local backend for the tested one-shot coordinator."""
+import json,subprocess,sys,time
+from pathlib import Path
+sys.path.insert(0,'/tmp')
+from i142_ops import ROOT,EXT,PROOF,run,ssh
+sys.path.insert(0,str(EXT/'committed_source'))
+from experiments.iter142_nominal_continuation_completion import coordinator as c
+SOURCE=(EXT/'source_commit.txt').read_text().strip()
+class Backend:
+ def preflight(self,branch,source):
+  c.candidate(ROOT,branch,source)
+  binding=json.loads((PROOF/'deployment.stdout').read_text());assert binding['source_commit']==source
+  integration=json.loads((PROOF/'runtime_integration.stdout').read_text());assert len(integration)==3 and all(x['returncode']==0 for x in integration)
+ def helper(self,name,arm):
+  r=run(arm+'_'+name+'_coordinator',['python3','/tmp/i142_'+name+'.py',arm],timeout=700)
+  if r.returncode:raise RuntimeError(name+' failed; retained stdout/stderr')
+  return r
+ def launch(self,arm):
+  r=subprocess.run(['python3','/tmp/i142_sync.py',arm,'Frozen live schedule is executing; earlier stages and retained inputs validated.'],cwd=ROOT)
+  assert r.returncode==0
+  self.helper('launch',arm)
+ def wait(self,arm):
+  for index in range(1,61):
+   time.sleep(25)
+   script='''import json
+from pathlib import Path
+control=Path('/datasets/nuscenes-full/hugsim/iter142_control_20261009');arm=ARM
+p=control/(arm+'_supervisor.json')
+if p.exists():print(json.dumps(dict(completed=True,supervisor=json.loads(p.read_text()))))
+else:
+ trace=Path('/datasets/nuscenes-full/hugsim/outputs/iter142-20261009')/arm/'scene-0411_hard_00/iter141_trace.jsonl'
+ count=len(trace.read_bytes().splitlines())-1 if trace.exists() else 0
+ print(json.dumps(dict(completed=False,trace_records=count)))
+'''.replace('ARM',repr(arm))
+   r=ssh(arm+'_progress_'+str(index),script,timeout=50)
+   if r.returncode:raise RuntimeError('progress observation failed')
+   record=json.loads(r.stdout)
+   if record['completed']:return record['supervisor']
+  raise RuntimeError('bounded completion observation exceeded')
+ def collect(self,arm):
+  self.helper('collect',arm)
+ def commit(self,arm):
+  argv=['python3','/tmp/sentinel_i142_commit.py','iter142: retain '+arm+' raw evidence before interpretation','CONTINUITY.md=/tmp/i142_CONTINUITY.md','docs/NEXT_PHASE.md=/tmp/i142_NEXT_PHASE.md','README.md=/tmp/i142_README.md']
+  r=run(arm+'_raw_commit',argv,timeout=90)
+  if r.returncode:raise RuntimeError('raw commit creation failed')
+  return r.stdout.decode().splitlines()[0].strip()
+ def check_commit(self,commit,arm):
+  assert c.candidate(ROOT,c.BRANCH,SOURCE)==commit
+  relative='experiments/iter142_nominal_continuation_completion/proof/live/'+arm
+  inventory=json.loads((ROOT/relative/'remote_inventory.json').read_text())
+  c.committed_files(ROOT,commit,relative,inventory['retained'])
+ def verify(self,arm):
+  self.helper('verify',arm)
+  report=json.loads((PROOF/'analysis'/(arm+'.json')).read_text())
+  print('VALIDATED_ARM',arm,json.dumps(report.get('outcomes',report.get('candidate'))),flush=True)
+  return report
+reports=c.run_schedule(PROOF/'schedule',SOURCE,Backend())
+(PROOF/'completed_reports.json').write_text(json.dumps(reports,indent=2)+'\n')
+print('SCHEDULE_COMPLETE',flush=True)
