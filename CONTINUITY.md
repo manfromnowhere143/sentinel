@@ -1,7 +1,7 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
 > **Active operator-directed candidate result, 2026-10-09:** Iteration 139 is running;
-> phase: pulse_2_1. The original host is RUNNING with an owned shutdown timer.
+> phase: pulse_2_2. The original host is RUNNING with an owned shutdown timer.
 > Read [Iter139 state](experiments/iter139_finite_pulse_recoverability/STATE.json),
 > [protocol](experiments/iter139_finite_pulse_recoverability/HYPOTHESIS.md), and
 > [pre-execution infrastructure correction](experiments/iter139_finite_pulse_recoverability/PRE_EXECUTION_INFRASTRUCTURE_CORRECTION.md).
