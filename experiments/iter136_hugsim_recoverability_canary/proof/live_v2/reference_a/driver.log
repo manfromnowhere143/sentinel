@@ -1,0 +1,130 @@
+/datasets/nuscenes-full/hugsim/outputs/iter136-20261009-v2/reference_a/scene-0411_hard_00/output.txt
+/datasets/nuscenes-full/hugsim/iter136_control_20261009_v2/e2e.sh 0 /datasets/nuscenes-full/hugsim/outputs/iter136-20261009-v2/reference_a/scene-0411_hard_00
+/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/spline_planner.py:102: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.acce_grid = torch.tensor(acce_grid).to(self.device)
+/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/forward_sampler.py:24: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.accels = torch.tensor(acce_grid,device=self.device)
+/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/forward_sampler.py:26: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.dhm_grid = torch.tensor(dhm_grid,device=self.device)
+Ready for simulation
+ego pose [0.0, -1.0808430643926773e-34, 0.0]
+ego pose [0.0, -0.001726138371843387, 0.4375]
+ego pose [0.008028526040260674, -0.0039343323763768616, 1.0470010340955664]
+ego pose [0.014718033876228036, -0.0062302027762204115, 1.7493856137823387]
+ego pose [-0.0007460809161761294, -0.012641989250800234, 2.4916194730374244]
+ego pose [-0.05395588869577061, -0.022529906432476522, 3.244365343448823]
+ego pose [-0.153223643851668, -0.03004041774344459, 4.015808342084187]
+ego pose [-0.2786831251598219, -0.03509410876186661, 4.793205868537184]
+ego pose [-0.43405814550258487, -0.0314387321191074, 5.551558419865794]
+ego pose [-0.6068339673857985, -0.03116195350131952, 6.283692926517114]
+ego pose [-0.7893320614331771, -0.03323203537622814, 6.99328690876579]
+ego pose [-0.9588214879872081, -0.037059920465682766, 7.674013073593642]
+ego pose [-1.102197720162009, -0.04365717785231579, 8.345125212444604]
+ego pose [-1.1982647591547226, -0.051329459671391624, 8.974829083333994]
+ego pose [-1.2541423026160958, -0.06224203336977296, 9.633489473604074]
+ego pose [-1.248792922932014, -0.06408846320950452, 10.298769798065418]
+ego pose [-1.1951691640538133, -0.06225312511926487, 10.961588769414101]
+ego pose [-1.1110374618325074, -0.06371565808762583, 11.618967351544113]
+ego pose [-1.011466459358332, -0.06027014491522275, 12.283816419127712]
+ego pose [-0.8923170169460202, -0.05497282647922509, 12.935914990088097]
+ego pose [-0.7514937721853036, -0.062078553414131016, 13.555624502299766]
+ego pose [-0.5805620662660247, -0.07188946917137537, 14.15304871725689]
+ego pose [-0.3873384784352739, -0.07646988928030116, 14.728024733071878]
+ego pose [-0.18737288502942986, -0.07049793930582787, 15.271147046670757]
+ego pose [-0.003903367062638413, -0.06467254325285128, 15.760855781745231]
+ego pose [0.11285099794179013, -0.05909920115402987, 16.086549979735242]
+ego pose [0.1880707843692555, -0.055604830564257295, 16.302731065541035]
+ego pose [0.23694536102544206, -0.05346945885375194, 16.446042025563482]
+Collision with foreground
+MoviePy - Building video /datasets/nuscenes-full/hugsim/outputs/iter136-20261009-v2/reference_a/scene-0411_hard_00/video.mp4.
+MoviePy - Writing video /datasets/nuscenes-full/hugsim/outputs/iter136-20261009-v2/reference_a/scene-0411_hard_00/video.mp4
+
+frame_index:   0%|          | 0/28 [00:00<?, ?it/s, now=None]frame_index:  11%|█         | 3/28 [00:00<00:01, 24.92it/s, now=None]frame_index:  39%|███▉      | 11/28 [00:00<00:00, 52.97it/s, now=None]frame_index:  96%|█████████▋| 27/28 [00:00<00:00, 98.55it/s, now=None]                                                                      MoviePy - Done !
+MoviePy - video ready /datasets/nuscenes-full/hugsim/outputs/iter136-20261009-v2/reference_a/scene-0411_hard_00/video.mp4
+this pkl file contains 1 experiment records.
+current exp has 28 frames
+frame 0 / 28
+comfortable: [True, True, True, True, True, True]
+frame 1 / 28
+comfortable: [True, True, True, True, True, True]
+frame 2 / 28
+comfortable: [True, True, True, True, True, True]
+frame 3 / 28
+comfortable: [True, True, True, True, True, True]
+frame 4 / 28
+comfortable: [True, True, True, True, True, True]
+frame 5 / 28
+comfortable: [True, True, True, True, True, True]
+frame 6 / 28
+comfortable: [True, True, True, True, True, True]
+frame 7 / 28
+comfortable: [True, True, True, True, True, True]
+frame 8 / 28
+comfortable: [True, True, True, True, True, True]
+frame 9 / 28
+comfortable: [True, True, True, True, True, True]
+frame 10 / 28
+comfortable: [True, True, True, True, True, True]
+frame 11 / 28
+comfortable: [True, True, True, True, True, True]
+frame 12 / 28
+comfortable: [True, True, True, True, True, True]
+frame 13 / 28
+comfortable: [True, True, True, True, True, True]
+frame 14 / 28
+collision with background detected! @ timestep4
+ failed to pass ttc collision check, t=1
+comfortable: [True, True, True, True, False, False]
+frame 15 / 28
+collision with background detected! @ timestep3
+ failed to pass ttc collision check, t=1
+comfortable: [True, True, True, True, False, True]
+frame 16 / 28
+comfortable: [True, True, True, True, False, True]
+frame 17 / 28
+comfortable: [True, True, True, True, False, False]
+frame 18 / 28
+comfortable: [True, True, True, True, False, False]
+frame 19 / 28
+comfortable: [True, True, True, True, False, False]
+frame 20 / 28
+comfortable: [True, True, True, True, False, True]
+frame 21 / 28
+comfortable: [True, True, True, True, True, True]
+frame 22 / 28
+comfortable: [True, True, True, True, True, True]
+frame 23 / 28
+collision with obstacle detected! @ timestep2
+ego_poly: (17.34578744980669, -0.5980513320972581, -0.3133022894008195, 1.6479559659957885, 4.115467357635498), obs_poly: (13.710908889770508, -0.47902625799179077, -0.04823812633259594, 1.6479559659957885, 4.115467357635498)
+comfortable: [True, True, True, True, False, True]
+frame 24 / 28
+comfortable: [True, True, True, True, True, True]
+frame 25 / 28
+collision with obstacle detected! @ timestep1
+ego_poly: (16.302731065541035, -0.1880707843692555, -0.32866923755555133, 1.6479559659957885, 4.115467357635498), obs_poly: (13.710908889770508, -0.47902625799179077, -0.04823812633259594, 1.6479559659957885, 4.115467357635498)
+collision with obstacle detected! @ timestep1
+ego_poly: (16.302731065541035, -0.1880707843692555, -0.32866923755555133, 1.6479559659957885, 4.115467357635498), obs_poly: (13.710908889770508, -0.47902625799179077, -0.04823812633259594, 1.6479559659957885, 4.115467357635498)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+frame 26 / 28
+comfortable: [True, True, True, True, True, True]
+frame 27 / 28
+collision with obstacle detected! @ timestep0
+ego_poly: (16.540988007516518, -0.2688936601202914, -0.3218894084270495, 1.6479559659957885, 4.115467357635498), obs_poly: (13.710908889770508, -0.47902625799179077, -0.04823812633259594, 1.6479559659957885, 4.115467357635498)
+collision with obstacle detected! @ timestep0
+ego_poly: (16.540988007516518, -0.2688936601202914, -0.3218894084270495, 1.6479559659957885, 4.115467357635498), obs_poly: (13.710908889770508, -0.47902625799179077, -0.04823812633259594, 1.6479559659957885, 4.115467357635498)
+ failed to pass ttc collision check, t=0.5
+comfortable: [True, True, True, True, True, True]
+The score of experiment is (0.7704081632653061, 0.14509138873186356, 0.11177959029852753, {'nc': 0.8928571428571429, 'dac': 1.0, 'ttc': 0.8571428571428571, 'c': 0.7142857142857143, 'pdms': 0.7704081632653061}, {0.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 0.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 0.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 1.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 2.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 3.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 0.0, 'c': 0.0, 'pdms': 0.0}, 4.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 0.0, 'c': 0.0, 'pdms': 0.0}, 4.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 0.0, 'pdms': 0.7142857142857143}, 4.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 0.0, 'pdms': 0.7142857142857143}, 4.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 0.0, 'pdms': 0.7142857142857143}, 5.0: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 0.0, 'pdms': 0.7142857142857143}, 5.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 0.0, 'pdms': 0.7142857142857143}, 5.5: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 5.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 6.0: {'nc': 0.0, 'dac': 1.0, 'ttc': 1.0, 'c': 0.0, 'pdms': 0.0}, 6.25: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 6.5: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}, 6.75: {'nc': 1.0, 'dac': 1.0, 'ttc': 1.0, 'c': 1.0, 'pdms': 1.0}, 7.0: {'nc': 0.0, 'dac': 1.0, 'ttc': 0.0, 'c': 1.0, 'pdms': 0.0}}).
+=============================Results=============================
+'nc': 0.8928571428571429
+'dac': 1.0
+'ttc': 0.8571428571428571
+'c': 0.7142857142857143
+'pdms': 0.7704081632653061
+'rc': 0.14509138873186356
+'hdscore': 0.11177959029852753
+The AD algorithm is still running, remaining tolerant 100.
+The AD algorithm is still running, remaining tolerant 95.
+The AD algorithm is still running, remaining tolerant 90.
+The AD algorithm completed with return code 0.

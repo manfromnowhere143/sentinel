@@ -1,0 +1,21 @@
+{
+  "argv": [
+    "gcloud",
+    "compute",
+    "ssh",
+    "sentinel-gpu",
+    "--project",
+    "sunlit-unison-487018-b0",
+    "--zone",
+    "us-west1-a",
+    "--tunnel-through-iap",
+    "--command",
+    "sudo -n python3 -"
+  ],
+  "at_utc": "2026-10-09T10:36:43.032251+00:00",
+  "script_sha256": "1283e730f99a712e5e13d39b0cd3cfc0cd6a6475f1a0f32adf53ed7be6d7ea21",
+  "source_commit": "fb3e4651bbfb924a248b3a889a0df4ba44a4b1b6",
+  "returncode": 0,
+  "stdout": "{\"status\": \"deployed_hash_verified_no_episode\", \"files_checked\": 409}\n",
+  "stderr": "WARNING: \n\nTo increase the performance of the tunnel, consider installing NumPy. For instructions,\nplease see https://cloud.google.com/iap/docs/using-tcp-forwarding#increasing_the_tcp_upload_bandwidth\n\n"
+}
