@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "candidate_commit": "28c7734a13f7874fc811033cd919ddfa75a7b604",
+  "proof_hashes": 187,
+  "raw_files": 12,
+  "remote_only_files": 82,
+  "unchanged_source_protocol_test_files": 12,
+  "document_links": 17,
+  "prior_experiments_unchanged": true,
+  "master_unchanged": true,
+  "staged_index_empty": true,
+  "provider_status": "TERMINATED",
+  "scope": "candidate integrity; no full/frozen/hosted CI"
+}

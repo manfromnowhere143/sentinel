@@ -1,0 +1,40 @@
+import hashlib,json,posixpath,re,subprocess,sys
+from pathlib import Path
+R=Path('/Users/danielwahnich/workspace/sentinel');P='experiments/iter141_nominal_continuation';source='b0044593db7df1c13c11e11d35f07504d8b3cd7a';parent='2614f7860283eee3b00bfa39cdfaf428066ec52d'
+def git(*a):return subprocess.check_output(['git',*a],cwd=R)
+tip=git('rev-parse','research/iter141-nominal-continuation').decode().strip()
+def read(p):return git('show',tip+':'+p)
+def sha(b):return hashlib.sha256(b).hexdigest()
+files=set(git('ls-tree','-r','--name-only',tip).decode().splitlines());checked=[]
+for line in read(P+'/proof/SHA256SUMS').decode().splitlines():
+ h,rel=line.split('  ',1);raw=read(P+'/proof/'+rel)
+ if '--known-bad' in sys.argv and rel=='analysis/reference_a.json':raw+=b'corrupt'
+ assert sha(raw)==h==sha((R/P/'proof'/rel).read_bytes()),rel
+ checked.append(rel)
+assert set(checked)=={x[len(P+'/proof/'):] for x in files if x.startswith(P+'/proof/') and not x.endswith('/SHA256SUMS')}
+ledger=json.loads(read(P+'/proof/episode_commit_ledger.json'));assert len(ledger)==1;record=ledger[0];assert record['raw_commit']=='888a8a3c86f327de15612d5b7a8553e66b43805f'
+base=P+'/proof/live/reference_a';inv=json.loads(read(base+'/remote_inventory.json'))
+for name,rec in inv['retained'].items():
+ raw=read(base+'/'+name);assert len(raw)==rec['bytes'] and sha(raw)==rec['sha256'];assert raw==git('show',record['raw_commit']+':'+base+'/'+name)
+paths=[str(p.relative_to(R)) for p in (R/P).glob('*.py')]+[P+'/HYPOTHESIS.md',P+'/source/e2e.py.txt','tests/test_iter141_nominal_continuation.py']
+for p in paths:assert read(p)==git('show',source+':'+p)==(R/p).read_bytes(),p
+assert read(P+'/HYPOTHESIS.md')==git('show','e7994353d3d496fd10357a98418871f0c0815619:'+P+'/HYPOTHESIS.md')
+changed=git('diff','--name-only',parent,tip).decode().splitlines();assert all(x.startswith(P+'/') or x in ['CONTINUITY.md','README.md','docs/NEXT_PHASE.md','tests/test_iter141_nominal_continuation.py'] for x in changed)
+assert git('rev-parse','master').decode().strip()=='8c118b74c699bf0f139f9bd659192bad06b895f8';assert not git('diff','--cached','--name-only')
+subprocess.run(['git','merge-base','--is-ancestor','master',tip],cwd=R,check=True)
+links=[]
+for p in sorted(files):
+ if p.startswith(P+'/') and p.endswith('.md'):s=read(p).decode()
+ elif p in ['README.md','CONTINUITY.md','docs/NEXT_PHASE.md']:
+  s=read(p).decode();a=s.index('> **Active operator-directed');s=s[a:s.index('\n\n',a)]
+ else:continue
+ for target in re.findall(r'\]\(([^)]+)\)',s):
+  if target.startswith(('http','#','mailto')):continue
+  dest=posixpath.normpath(posixpath.join(posixpath.dirname(p),target.split('#')[0]));assert dest in files,(p,target);links.append(dest)
+assert all(posixpath.dirname(p) in read('README.md').decode() for p in files if p.startswith('experiments/') and p.endswith('/RESULT.md'))
+state=json.loads(read(P+'/STATE.json'));assert state['phase']=='complete' and state['status']=='failed' and state['completed_episodes']==1
+assert json.loads(read(P+'/proof/final_provider_state.stdout'))['status']=='TERMINATED'
+post=json.loads(read(P+'/proof/postflight_summary.json'));assert post['bound_files']==532 and not post['changed_or_missing'] and not post['owned_processes']
+metadata=git('log',parent+'..'+tip,'--format=%an <%ae>|%cn <%ce>%n%B').decode();assert not re.search('co-authored-by|generated-by|claude|anthropic',metadata,re.I)
+identities=[s for s in metadata.splitlines() if '|' in s];assert all(s=='Daniel Wahnich <cogitoergosum143@gmail.com>|Daniel Wahnich <cogitoergosum143@gmail.com>' for s in identities)
+print(json.dumps(dict(status='passed',candidate_commit=tip,proof_hashes=len(checked),raw_files=len(inv['retained']),remote_only_files=len(inv['remote_only']),unchanged_source_protocol_test_files=len(paths),document_links=len(links),prior_experiments_unchanged=True,master_unchanged=True,staged_index_empty=True,provider_status='TERMINATED',scope='candidate integrity; no full/frozen/hosted CI'),indent=2))
