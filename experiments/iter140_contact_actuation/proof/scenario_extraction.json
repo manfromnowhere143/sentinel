@@ -1,0 +1,12 @@
+{
+  "source": "experiments/iter136_hugsim_recoverability_canary/proof/host_runtime_1.json",
+  "json_location": [
+    "stdout",
+    "files",
+    "/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0411-hard-00.yaml",
+    "text"
+  ],
+  "sha256": "9f38bbdcdc49fe6ac5274a967b9a209417d621f67060357b97deacb887cf67a9",
+  "bytes": 459,
+  "iter139_runtime_manifest_match": true
+}

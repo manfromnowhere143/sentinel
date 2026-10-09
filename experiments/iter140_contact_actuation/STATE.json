@@ -1,0 +1,9 @@
+{
+  "iteration": 140,
+  "status": "preregistered",
+  "phase": "protocol",
+  "branch": "research/iter140-contact-actuation",
+  "parent": "ed23a8c5596c563e6475be2c190856feb481072b",
+  "protocol": "HYPOTHESIS.md",
+  "compute": "local CPU only"
+}

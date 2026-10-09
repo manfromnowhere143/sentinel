@@ -1,0 +1,429 @@
+{
+  "files": {
+    "experiments/iter136_hugsim_recoverability_canary/proof/host_runtime_1.json": {
+      "bytes": 68710,
+      "sha256": "75f91b8d95f0f1534ffe5bf0b25224b0b947a795055ce80b549a45a0c7946beb"
+    },
+    "experiments/iter136_hugsim_recoverability_canary/proof/source/HUGSIM/configs/sim/kinematic.yaml.txt": {
+      "bytes": 114,
+      "sha256": "fc987ae8da2412ecca8e10b9e49daf2da366795151e970b139c3426ea9966c96"
+    },
+    "experiments/iter136_hugsim_recoverability_canary/proof/source/HUGSIM/sim/hugsim_env/envs/hug_sim.py.txt": {
+      "bytes": 13604,
+      "sha256": "c42ef368852754bdec76c81254b72dcda45eccef058dce015ea549c0b17c7d12"
+    },
+    "experiments/iter136_hugsim_recoverability_canary/proof/source/HUGSIM/sim/utils/agent_controller.py.txt": {
+      "bytes": 11692,
+      "sha256": "bc4689fe9ccbc9c997e273c92662ed0933b5e3317cd25fff99fefd9964a23a28"
+    },
+    "experiments/iter136_hugsim_recoverability_canary/proof/source/HUGSIM/sim/utils/plan.py.txt": {
+      "bytes": 10717,
+      "sha256": "61d170928bc54d7efeef8d5d58ade5c19621560253d9fb552d56b2612f11f912"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/actuation_recount.stdout": {
+      "bytes": 7457,
+      "sha256": "f613f8102bb07e183e937cde70b222d56c4eae70f4f2583bc3dac41e443f99c4"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/grid_analysis.json": {
+      "bytes": 5393,
+      "sha256": "1f8f8e8b110ec6f5c5c85243d602170975a521153b1abf6fe046adadc62154d3"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_0_1/driver.log": {
+      "bytes": 10270,
+      "sha256": "fa5b195197d9182fc3c4e79f3ce6cbcd83cfbf0ff8d84cc058cb7a0dbe2ae3e8"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_0_1/environment_import.json": {
+      "bytes": 54,
+      "sha256": "6379c17d798191f995d43b0950ea7787779fe29c9af7354b25de37a514ff207d"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_0_1/episode.json": {
+      "bytes": 15808,
+      "sha256": "3bcc4c2a812cd232bc8653e68080222b44c718fe8c9feabdecf985ef4143db8a"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_0_1/remote_inventory.json": {
+      "bytes": 14991,
+      "sha256": "25f80052986b2ac6c7d9d017078d9f4af64b084ed3656727e6e20be6b61d70a7"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_0_1/scene-0411_hard_00/controller139.jsonl": {
+      "bytes": 427521,
+      "sha256": "5532dc464cae3b65b84624fef87c0603000ec8c3358e0cd23ebd08b208ce71a7"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_0_1/scene-0411_hard_00/data.pkl": {
+      "bytes": 14220,
+      "sha256": "a37e693ab90793a012844161bf248eb6cab114f766a2ea38adea5fa68148f0c3"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_0_1/scene-0411_hard_00/eval.json": {
+      "bytes": 4958,
+      "sha256": "2e7ff82335d0504d60fca3c44d3de9c85a4399a8c480d3ee356f76e840b50d71"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_0_1/scene-0411_hard_00/infos.pkl": {
+      "bytes": 13557,
+      "sha256": "212b603202839f1ea69b4a6f85fbdbefe6b93ee60eb51ce2e68d24bea38e8bce"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_0_1/scene-0411_hard_00/iter139_trace.jsonl": {
+      "bytes": 44441,
+      "sha256": "50d5a8c564f8f02f51d108383cf00bed9554e5eadc0b011916115d7941dc4f29"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_0_1/scene-0411_hard_00/output.txt": {
+      "bytes": 12627,
+      "sha256": "6a8fd0f36f79c58743d36f5eafbabbfff509c12432413bcdb85fff09dacb5831"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_0_1/scene-0411_hard_00/sentinel_iter48_decisions.jsonl": {
+      "bytes": 37546,
+      "sha256": "94abae9e2d82aaa0794b8e27b7d71d23838719ec19be3be233ae45c4683ea2df"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_0_1/started.json": {
+      "bytes": 880,
+      "sha256": "328fd818db9a00d692003f5e39700041f36562bf70bcd31c4397235c1d12e231"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_0_2/driver.log": {
+      "bytes": 9711,
+      "sha256": "2d172b85c268085139c508b1095a3455694787d226f962c25b27134fe350af24"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_0_2/environment_import.json": {
+      "bytes": 54,
+      "sha256": "6379c17d798191f995d43b0950ea7787779fe29c9af7354b25de37a514ff207d"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_0_2/episode.json": {
+      "bytes": 14836,
+      "sha256": "1db9455f3d9d5f251ea872b3b14cbb97f3334908107830e2024951c91490266b"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_0_2/remote_inventory.json": {
+      "bytes": 14020,
+      "sha256": "59f2ab56f643d8f10f7e4e2633f50a7acfb2ba7de69693445633431244d01b05"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_0_2/scene-0411_hard_00/controller139.jsonl": {
+      "bytes": 383562,
+      "sha256": "d4417506ea80607fa2845131047c34fa183f69a508152ae8778e1136868f5be6"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_0_2/scene-0411_hard_00/data.pkl": {
+      "bytes": 13144,
+      "sha256": "e9765f4524a5e217807264e863346c4ac15d3a0147a234bcce9354b30d350bbb"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_0_2/scene-0411_hard_00/eval.json": {
+      "bytes": 4735,
+      "sha256": "b1fa2bb09cd7cf03292dc575c71be36def1f8ccec17e3fab88815d15a14af88e"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_0_2/scene-0411_hard_00/infos.pkl": {
+      "bytes": 12721,
+      "sha256": "4381fb93d9cfe0daeb0eb04858115ed43dea806e8453b03bb69e588b8973fb7b"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_0_2/scene-0411_hard_00/iter139_trace.jsonl": {
+      "bytes": 39077,
+      "sha256": "c0bfc0252c12d07203933f57f241dd5e8bf44ab754f1ff4ba06831437081c5ee"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_0_2/scene-0411_hard_00/output.txt": {
+      "bytes": 11923,
+      "sha256": "6ef4a73c7e7f0ee18f2be24d8b8fb733e23c3a237ce281fc6ca01e5953981011"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_0_2/scene-0411_hard_00/sentinel_iter48_decisions.jsonl": {
+      "bytes": 36697,
+      "sha256": "e1369e48ccceade57e981a5083536260caf16174c042ffbaafbed75cb78d5471"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_0_2/started.json": {
+      "bytes": 880,
+      "sha256": "e11c1640ddf14f225566fc5ad23e268ed510d7b55920199782bc17e9aaab903b"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_2_1/driver.log": {
+      "bytes": 10332,
+      "sha256": "a128ea25b65edfce7fc2efe202bd3dd8e4f870ce80e524c9e3fc4c5ba014e5b5"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_2_1/environment_import.json": {
+      "bytes": 54,
+      "sha256": "6379c17d798191f995d43b0950ea7787779fe29c9af7354b25de37a514ff207d"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_2_1/episode.json": {
+      "bytes": 16778,
+      "sha256": "f0885a8a965506682327878fd7983b7117d1eb7121726b9750e869ac559ecb4a"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_2_1/remote_inventory.json": {
+      "bytes": 15961,
+      "sha256": "1f0fedfb8627a3dc9d985ccba6a1424225fe7b025b33da044a26b46fe1be3953"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_2_1/scene-0411_hard_00/controller139.jsonl": {
+      "bytes": 466764,
+      "sha256": "803c191d3a7885c2390f5514ecef29c0bdd151e4cd401595ecbd1fa2e2518bc9"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_2_1/scene-0411_hard_00/data.pkl": {
+      "bytes": 15296,
+      "sha256": "27f36b4c948073d312782c8903adb6760fa9efbcf0be08e9106846ce58d2d3b9"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_2_1/scene-0411_hard_00/eval.json": {
+      "bytes": 4286,
+      "sha256": "07048a3695f0630bb5bea374c2deece0cc5e2bf4b65ecb5ad8a25d8917126619"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_2_1/scene-0411_hard_00/infos.pkl": {
+      "bytes": 14393,
+      "sha256": "fb406af3ff81343d4ec2ca8d32bd8bc0de3c9fe2de3b3f595e05e6fd866c4fc5"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_2_1/scene-0411_hard_00/iter139_trace.jsonl": {
+      "bytes": 48595,
+      "sha256": "cc0e68baf4b68c69d6a4feb163e721b6c8e0bafaed724e420e34851d58eb4812"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_2_1/scene-0411_hard_00/output.txt": {
+      "bytes": 13368,
+      "sha256": "607f225aaccbf2abcefc1b1b492648b3bcc6e37d2f47fc525f7080b58ce67c72"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_2_1/scene-0411_hard_00/sentinel_iter48_decisions.jsonl": {
+      "bytes": 35262,
+      "sha256": "b0ddf4cdc7b48730cb5201fdedd7437ede131ee3d8c4f8d5be1d284f198d0deb"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_2_1/started.json": {
+      "bytes": 880,
+      "sha256": "9633f9492dce7de401a714d5e09eb7ad9c50c3cc1f6972777d33cc77f0f4ea68"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_2_2/driver.log": {
+      "bytes": 11410,
+      "sha256": "d39cb8a6fdea44889a961de0e39d1c6766fc4b2e487665b257b8832e4ba4e400"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_2_2/environment_import.json": {
+      "bytes": 54,
+      "sha256": "6379c17d798191f995d43b0950ea7787779fe29c9af7354b25de37a514ff207d"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_2_2/episode.json": {
+      "bytes": 14836,
+      "sha256": "73915ced7564ca923688d11a5fb4cb56958494b5687caeab1c60eecb63d8d7d8"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_2_2/remote_inventory.json": {
+      "bytes": 14021,
+      "sha256": "3dfd5d8e4e70c47ea2931add1556eff1ae6b93788e9e1d3ba92187bb9acaae2e"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_2_2/scene-0411_hard_00/controller139.jsonl": {
+      "bytes": 394779,
+      "sha256": "bf138c8e795a7a59dec4f651385140006c37c5f6d25cd5962c0d8019c50ad782"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_2_2/scene-0411_hard_00/data.pkl": {
+      "bytes": 13144,
+      "sha256": "9cf282f736ab7459f418dfbc4b4222a35382a1191b14d0f7dc7e399f3be67a9a"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_2_2/scene-0411_hard_00/eval.json": {
+      "bytes": 6888,
+      "sha256": "03267bfcb6f5c0c4784e11ec5371ea0c8f6b32431762a925d42498f44f432f3b"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_2_2/scene-0411_hard_00/infos.pkl": {
+      "bytes": 12721,
+      "sha256": "28a42305f055f72643e9ce905a76cfd9f8c0391f2384992a498a6c027abc9c34"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_2_2/scene-0411_hard_00/iter139_trace.jsonl": {
+      "bytes": 40706,
+      "sha256": "b74f231eaa78e0e9731d7e8e8735dfb96b10423fb4366ff2adb4dd5b268ec24f"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_2_2/scene-0411_hard_00/output.txt": {
+      "bytes": 11959,
+      "sha256": "8be8a32c0769c21210917aaa99c1025cf4b9a4b504727710307ce0a4c26bbd91"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_2_2/scene-0411_hard_00/sentinel_iter48_decisions.jsonl": {
+      "bytes": 33943,
+      "sha256": "c682ee2de9b2b19462cb513949b9d18c39050c551490b21fc39d0aad3de54515"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_2_2/started.json": {
+      "bytes": 880,
+      "sha256": "0bd1dd8a8d8bf45295c5daa784cb46e47422cfbc2fdbb246e94d15ee18098efd"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_4_1/driver.log": {
+      "bytes": 11322,
+      "sha256": "aa7b816110e9bd38c5414a0a182a1bce1bd68ceb92c1dbdb8ebf99e08d336806"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_4_1/environment_import.json": {
+      "bytes": 54,
+      "sha256": "6379c17d798191f995d43b0950ea7787779fe29c9af7354b25de37a514ff207d"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_4_1/episode.json": {
+      "bytes": 15808,
+      "sha256": "0196c963bc0c8fd5a3f9012150e69a624113e2bf758e564779273664d793c29b"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_4_1/remote_inventory.json": {
+      "bytes": 14991,
+      "sha256": "fd8878ac810edbab4694ab04c77122503e0f5ad501eaf655eebf6cdbea3c8fc2"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_4_1/scene-0411_hard_00/controller139.jsonl": {
+      "bytes": 433451,
+      "sha256": "2206916443bb4d9a3739c2d76a9a228522209e536566a164a9e969b16b606e68"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_4_1/scene-0411_hard_00/data.pkl": {
+      "bytes": 14220,
+      "sha256": "41b91de0e4e210b4f378967d5a5bd0d42a7b98bccf240dc6c437ba68e038ae67"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_4_1/scene-0411_hard_00/eval.json": {
+      "bytes": 6355,
+      "sha256": "840c75ca3a99442d1a2509a02753479320007e76a9d0d79cc4f246704b3edb00"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_4_1/scene-0411_hard_00/infos.pkl": {
+      "bytes": 13557,
+      "sha256": "d17a77a7edd4f03aa37bd81a3c7119c744d7b3d1cb20047dada50591e6d09031"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_4_1/scene-0411_hard_00/iter139_trace.jsonl": {
+      "bytes": 45877,
+      "sha256": "6756bf14266c7fb68af5e0d1ebfc10e2c6faca2ae7a36227f5dd02533878ea51"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_4_1/scene-0411_hard_00/output.txt": {
+      "bytes": 12669,
+      "sha256": "615a15e914a5d41bc3bb689d88a1539c60b265a22b87b7f48cd6d08d02bd4a12"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_4_1/scene-0411_hard_00/sentinel_iter48_decisions.jsonl": {
+      "bytes": 36958,
+      "sha256": "5299e627233bea6abbcc4c5bb719ad1950eb04ee78eb56ab303e24a00455a1b9"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_4_1/started.json": {
+      "bytes": 880,
+      "sha256": "b1df247ff68979b4b4009f3793f9d40f42fe8cc551f0a37c183128bd9b859859"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_4_2/driver.log": {
+      "bytes": 11992,
+      "sha256": "c4b9a43d4645eae2238c7fac284a2f00c03783f6bf4f98fde96adbe62b4e8c60"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_4_2/environment_import.json": {
+      "bytes": 54,
+      "sha256": "6379c17d798191f995d43b0950ea7787779fe29c9af7354b25de37a514ff207d"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_4_2/episode.json": {
+      "bytes": 15808,
+      "sha256": "58466a0dc3c2adb12c9aba2bbe928540b2029439b5295f7b43327167ebe29e7c"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_4_2/remote_inventory.json": {
+      "bytes": 14991,
+      "sha256": "2aa0c05dc0c723e686e49e82be0bef61d288c50f14bbc84b4b41c5f1da7f24cb"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_4_2/scene-0411_hard_00/controller139.jsonl": {
+      "bytes": 425682,
+      "sha256": "f0a1bf5a4433cd19e1ee01fca59d54f519286ef90c6a7cbfebf12c13bdc410e7"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_4_2/scene-0411_hard_00/data.pkl": {
+      "bytes": 14220,
+      "sha256": "4bf28623d7f0ce409c54b092f32f9c20fbdea8feaee7a1fad614e78d35eaf698"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_4_2/scene-0411_hard_00/eval.json": {
+      "bytes": 7085,
+      "sha256": "7203805730488f4bc6e9eb9cb8dae887d742255b7d733e11ae5af6594ee386fc"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_4_2/scene-0411_hard_00/infos.pkl": {
+      "bytes": 13557,
+      "sha256": "06086cb704ddb33d41a5dc7608e3a60dd0b0e4556dc0dbe8d5ddd1697e44d78f"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_4_2/scene-0411_hard_00/iter139_trace.jsonl": {
+      "bytes": 45405,
+      "sha256": "1e61fb9e95453b7d921b11b77efab49f9e19dd3d294991b21360c503b5d52f73"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_4_2/scene-0411_hard_00/output.txt": {
+      "bytes": 12669,
+      "sha256": "9aa4b2964633e97626bc914b1802d369319b904aa0271f8dec10d49486478e5e"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_4_2/scene-0411_hard_00/sentinel_iter48_decisions.jsonl": {
+      "bytes": 36569,
+      "sha256": "502b0460da46a9bfdf759343a14181ace653f6b2f37dd6e950e21aacc3a307a1"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/pulse_4_2/started.json": {
+      "bytes": 880,
+      "sha256": "2ea2e6657a838bcddb13728c5853c3eff8e66b589fc3182e8548bab9146772a1"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/reference_a/driver.log": {
+      "bytes": 10483,
+      "sha256": "feb9e4e96de59ae97809cffefb99f179be0ae72a6714bd8f6361a8489b5905cc"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/reference_a/environment_import.json": {
+      "bytes": 54,
+      "sha256": "6379c17d798191f995d43b0950ea7787779fe29c9af7354b25de37a514ff207d"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/reference_a/episode.json": {
+      "bytes": 15812,
+      "sha256": "c07e372cf9f592f2a1333519c8604a7514b6d81f0c6399978389442d69270134"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/reference_a/remote_inventory.json": {
+      "bytes": 14993,
+      "sha256": "6a461bc15e9c15b16c282eef075bccb363692db4d58e7478c9a0ca542d63509a"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/reference_a/scene-0411_hard_00/controller139.jsonl": {
+      "bytes": 429504,
+      "sha256": "82e809d00b57e597e603e1e93b793c556040aa257ad9141abc3fb18b151b101d"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/reference_a/scene-0411_hard_00/data.pkl": {
+      "bytes": 14220,
+      "sha256": "1a8da3c108bd44c9bca00c30f4b66de670faa360c7ff84c0437b7c6e634d63b8"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/reference_a/scene-0411_hard_00/eval.json": {
+      "bytes": 4953,
+      "sha256": "73c1980365ba76962e585b16ef0cc271c351bd21abb97cf12c5b842b6983020a"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/reference_a/scene-0411_hard_00/infos.pkl": {
+      "bytes": 13557,
+      "sha256": "aca82be147e376c46b5106f33869c30ec0cd9356a6c566ec87c7d3ee522f6681"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/reference_a/scene-0411_hard_00/iter139_trace.jsonl": {
+      "bytes": 45231,
+      "sha256": "df49e87e5eb0f1ba23ea787f5925a1fb1d2ea812b8c2a48bf4462628f3bfb7aa"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/reference_a/scene-0411_hard_00/output.txt": {
+      "bytes": 12773,
+      "sha256": "f285f6b2d04ef06289e617fb9ac3de1cc0637901c60b86f8311217f89cc2675a"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/reference_a/scene-0411_hard_00/sentinel_iter48_decisions.jsonl": {
+      "bytes": 35421,
+      "sha256": "79c2360b43221a11379dfe554b495865305e3586e96681d14537e31ef1ff0e39"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/reference_a/started.json": {
+      "bytes": 884,
+      "sha256": "c568155697c935bd3daab534f684f9f5b9362c7ac504ac3c4833f76f52fc2e0d"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/reference_b/driver.log": {
+      "bytes": 10412,
+      "sha256": "b3fad4d8f472c9393ab3ab70a4b3fb68313c412d34f504141ff4a9984acc9416"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/reference_b/environment_import.json": {
+      "bytes": 54,
+      "sha256": "6379c17d798191f995d43b0950ea7787779fe29c9af7354b25de37a514ff207d"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/reference_b/episode.json": {
+      "bytes": 15812,
+      "sha256": "d62ea2403f565e7b1079671015a771fa46b04f668498296c102d2fa98c512141"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/reference_b/remote_inventory.json": {
+      "bytes": 14993,
+      "sha256": "c2ab8b86c498e587b3cab67219416c976f50820d37393c586cd15260d7cfe770"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/reference_b/scene-0411_hard_00/controller139.jsonl": {
+      "bytes": 429512,
+      "sha256": "35e3923ea26e8030f6e9ca16009149dc3c3930b86f69a2cbad4355a43bfe2eb0"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/reference_b/scene-0411_hard_00/data.pkl": {
+      "bytes": 14220,
+      "sha256": "1a8da3c108bd44c9bca00c30f4b66de670faa360c7ff84c0437b7c6e634d63b8"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/reference_b/scene-0411_hard_00/eval.json": {
+      "bytes": 4953,
+      "sha256": "73c1980365ba76962e585b16ef0cc271c351bd21abb97cf12c5b842b6983020a"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/reference_b/scene-0411_hard_00/infos.pkl": {
+      "bytes": 13557,
+      "sha256": "aca82be147e376c46b5106f33869c30ec0cd9356a6c566ec87c7d3ee522f6681"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/reference_b/scene-0411_hard_00/iter139_trace.jsonl": {
+      "bytes": 45231,
+      "sha256": "df49e87e5eb0f1ba23ea787f5925a1fb1d2ea812b8c2a48bf4462628f3bfb7aa"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/reference_b/scene-0411_hard_00/output.txt": {
+      "bytes": 12773,
+      "sha256": "2510172496fadf6d10083c3d698b2679c8f90f4aa7b4eb08aa337cab6fef94f0"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/reference_b/scene-0411_hard_00/sentinel_iter48_decisions.jsonl": {
+      "bytes": 35421,
+      "sha256": "79c2360b43221a11379dfe554b495865305e3586e96681d14537e31ef1ff0e39"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/live/reference_b/started.json": {
+      "bytes": 884,
+      "sha256": "f667501818d2b36f798546b59df076718bccb42baea4afd2cb04a1c528275faa"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/runtime_manifest.json": {
+      "bytes": 72128,
+      "sha256": "5d03684bc43dee61a384ddc284e906d3077373cad211bfbff4e288bdc1694c33"
+    },
+    "experiments/iter139_finite_pulse_recoverability/proof/score_calculator.py.txt": {
+      "bytes": 30995,
+      "sha256": "1588b5b912384dead87b521b828cf7a135e77eb79aad5d540074c7168f79e46f"
+    },
+    "experiments/iter139_finite_pulse_recoverability/trace.py": {
+      "bytes": 13895,
+      "sha256": "40fef840d91873fc5de2a7544cfe4f4c3d7f85d7ae183865c44549ecf0498fc7"
+    }
+  },
+  "parent_commit": "ed23a8c5596c563e6475be2c190856feb481072b"
+}
