@@ -34,3 +34,10 @@ request was repeated and no scientific evidence was affected.
 Local branch: `research/iter138-live-replay`, unpushed. Canonical master remains F17.
 Unrelated WIP and the older accepted publication/lifecycle snapshot remain preserved. The
 historical Iter135 lifecycle UNKNOWN is not retroactively resolved by this task's host checks.
+
+The [final content check](proof/final_validation.json) verified the then-retained 163 proof
+hashes, 22 collected raw files, seven unchanged executed source/protocol/test files and 40 local
+document links. Its receipt and source are added afterward to the checksum inventory. Prior
+Iter136/137 evidence, canonical master and the empty staged index were preserved. The candidate
+README links all results. Its working-copy update was rejected by the existing immutable flag
+and deny-delete ACL; those protections and the working README bytes were preserved.

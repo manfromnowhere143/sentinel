@@ -1,0 +1,16 @@
+{
+  "all_results_surfaced_in_candidate_readme": true,
+  "candidate_commit": "29afefa7c11765da67c2a5538a7d0132eeed8848",
+  "canonical_master": "8c118b74c699bf0f139f9bd659192bad06b895f8",
+  "executed_source_files_unchanged": 7,
+  "human_attribution": true,
+  "local_links_checked": 40,
+  "prior_136_137_evidence_unchanged": true,
+  "proof_hashes_checked": 163,
+  "provider_status": "TERMINATED",
+  "raw_files_checked": 22,
+  "root_readme": "unchanged: uchg flag and deny-delete ACL rejected working-copy update; candidate README committed independently with alternate index",
+  "scope": "candidate content and retained evidence integrity; no new full/frozen/hosted CI run",
+  "staged_index_empty": true,
+  "status": "passed"
+}

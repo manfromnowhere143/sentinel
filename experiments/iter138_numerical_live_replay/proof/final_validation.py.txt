@@ -1,0 +1,53 @@
+"""Check retained candidate bytes, scope, raw inventories, links and attribution."""
+import hashlib,json,posixpath,re,subprocess
+from pathlib import Path
+ROOT=Path('/Users/danielwahnich/workspace/sentinel');P='experiments/iter138_numerical_live_replay';proof=ROOT/P/'proof'
+def git(*args):return subprocess.check_output(['git',*args],cwd=ROOT)
+def read(path):return git('show',f'{tip}:{path}')
+def sha(b):return hashlib.sha256(b).hexdigest()
+tip=git('rev-parse','research/iter138-live-replay').decode().strip();source='a25e9f09be2a495893c430a3c62bd2da2f4eef8c';parent='292a65322c5d4a47d501d99566fe156ab37474ed';master='8c118b74c699bf0f139f9bd659192bad06b895f8'
+files=set(git('ls-tree','-r','--name-only',tip).decode().splitlines())
+checksums=read(P+'/proof/SHA256SUMS').decode().splitlines();checked=[]
+for line in checksums:
+ h,rel=line.split('  ',1);path=P+'/proof/'+rel
+ assert sha(read(path))==h and sha((proof/rel).read_bytes())==h,path
+ checked.append(rel)
+assert set(checked)=={p[len(P+'/proof/'):] for p in files if p.startswith(P+'/proof/') and not p.endswith('/SHA256SUMS')}
+raw_count=0
+for arm,commit in [('reference_a','3c98aea4b0053d54b75d07b555ce0d85d6196ffb'),('reference_b','ae5dbf0ca4a5388d1af7e9ae1e1e620211683b22')]:
+ base=P+'/proof/live/'+arm
+ inventory=json.loads(read(base+'/remote_inventory.json'))
+ for name,entry in inventory['retained'].items():
+  b=read(base+'/'+name);assert len(b)==entry['bytes'] and sha(b)==entry['sha256'];raw_count+=1
+  assert b==git('show',commit+':'+base+'/'+name)
+ assert len(inventory['remote_only'])==82
+source_paths=[P+'/'+p.name for p in (ROOT/P).glob('*.py')]+[P+'/HYPOTHESIS.md','tests/test_iter138_live_replay.py']
+for p in source_paths:assert read(p)==git('show',source+':'+p)==(ROOT/p).read_bytes(),p
+assert not git('diff','--name-only',parent,tip,'--','experiments/iter136_hugsim_recoverability_canary','experiments/iter137_controller_execution_contract')
+assert git('rev-parse','master').decode().strip()==master
+subprocess.run(['git','merge-base','--is-ancestor',master,tip],cwd=ROOT,check=True)
+assert not git('diff','--cached','--name-only')
+changed=git('diff','--name-only',parent,tip).decode().splitlines()
+assert all(p.startswith(P+'/') or p in ['CONTINUITY.md','README.md','docs/NEXT_PHASE.md','tests/test_iter138_live_replay.py'] for p in changed)
+links=[]
+for p in sorted(files):
+ if p.startswith(P+'/') and p.endswith('.md'):s=read(p).decode()
+ elif p=='README.md':s=read(p).decode().split('## Local research update 2026-10-09',1)[1].split('> **Honest status up front',1)[0]
+ elif p=='CONTINUITY.md':s=read(p).decode().split('> **Active operator-directed candidate result,',1)[1].split('\n\n',1)[0]
+ elif p=='docs/NEXT_PHASE.md':s=read(p).decode().split('## Active operator work on 2026-10-09',1)[1].split('## Canonical current decision:',1)[0]
+ else:continue
+ for _,target in re.findall(r'\[([^\]]+)\]\(([^)]+)\)',s):
+  if target.startswith(('http','#','mailto')):continue
+  dest=posixpath.normpath(posixpath.join(posixpath.dirname(p),target.split('#')[0]));assert dest in files,(p,target)
+  links.append(dict(source=p,target=dest))
+readme=read('README.md').decode();assert all(posixpath.dirname(p) in readme for p in files if p.startswith('experiments/') and p.endswith('/RESULT.md'))
+metadata=git('log',parent+'..'+tip,'--format=%an <%ae>|%cn <%ce>%n%B').decode()
+assert not re.search(r'co-authored-by|generated-by|claude|anthropic',metadata,re.I)
+identities=[l for l in metadata.splitlines() if '|Daniel Wahnich' in l];assert identities and all(l=='Daniel Wahnich <cogitoergosum143@gmail.com>|Daniel Wahnich <cogitoergosum143@gmail.com>' for l in identities)
+provider=json.loads(read(P+'/proof/final_provider_state_2.stdout'));assert provider['status']=='TERMINATED'
+manifest=json.loads(read(P+'/proof/runtime_manifest.json'));assert len(manifest['files'])==439
+assert sha(read(P+'/proof/runtime_manifest.json'))=='2afa5216879316314e3bafb976bfc959a5c8759b673b5ffe922fd2453380ce08'
+post=json.loads(read(P+'/proof/postflight_summary.json'));assert post['changed_or_missing']==[] and post['owned_processes']==[]
+state=json.loads(read(P+'/STATE.json'));assert state['status']=='supported' and state['phase']=='complete'
+report=dict(status='passed',candidate_commit=tip,proof_hashes_checked=len(checked),raw_files_checked=raw_count,executed_source_files_unchanged=len(source_paths),local_links_checked=len(links),all_results_surfaced_in_candidate_readme=True,prior_136_137_evidence_unchanged=True,canonical_master=master,staged_index_empty=True,human_attribution=True,provider_status=provider['status'],scope='candidate content and retained evidence integrity; no new full/frozen/hosted CI run',root_readme='unchanged: uchg flag and deny-delete ACL rejected working-copy update; candidate README committed independently with alternate index')
+print(json.dumps(report,indent=2,sort_keys=True))
