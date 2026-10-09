@@ -1,0 +1,8 @@
+{
+  "status": "corrected",
+  "issue": "Candidate-only document bytes were briefly copied to dirty root handoff documents by initial status helper.",
+  "recovery": "Restored retained WIP handoff sections from exact pre-R17 tracked patch, preserved Iter139/140 shift entries and current Iter141 active sections; restored later R17/strategic tail from session initial recovery read.",
+  "checks": "Every nonblank baseline WIP line retained. Helper now edits only active root sections. Canonical Git history and experiment bytes unaffected.",
+  "continuity_sha256": "e6f3803525e4d13fa94ca7f9d7f6dacf7d56eaad2824e0f501810f2ead670033",
+  "next_phase_sha256": "c9d70d79d33d9daf776fd4460cf5fc58c018b2d2f233cf46cefbb5e3ba767366"
+}

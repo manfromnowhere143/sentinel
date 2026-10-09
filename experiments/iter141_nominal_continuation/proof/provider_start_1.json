@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "gcloud",
+    "compute",
+    "instances",
+    "start",
+    "sentinel-gpu",
+    "--project",
+    "sunlit-unison-487018-b0",
+    "--zone",
+    "us-west1-a",
+    "--async",
+    "--quiet",
+    "--format=json"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-09T15:28:59.076890+00:00",
+  "elapsed_seconds": 2.2076807022094727,
+  "returncode": 0
+}

@@ -1,11 +1,11 @@
 {
   "iteration": 141,
-  "status": "preregistered",
-  "phase": "local_validation",
+  "status": "running",
+  "phase": "provider_preflight",
   "branch": "research/iter141-nominal-continuation",
   "preregistration_commit": "e7994353d3d496fd10357a98418871f0c0815619",
   "parent": "2614f7860283eee3b00bfa39cdfaf428066ec52d",
-  "details": "Local checks pass; final source validation and committed packet preparation are underway. No provider access or episode.",
+  "details": "All 223 focused tests passed, including 44 from extracted committed source. Original L4 host started; preflight is running. No episode has started.",
   "protocol": "HYPOTHESIS.md",
   "initialized_episode_retries": 0
 }

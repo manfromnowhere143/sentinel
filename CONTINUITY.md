@@ -1,7 +1,7 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
 > **Active operator-directed candidate work, 2026-10-09:** Iter141 nominal-continuation
-> canary is preregistered; phase: local_validation. Local checks pass; final source validation and committed packet preparation are underway. No provider access or episode.
+> canary is preregistered; phase: provider_preflight. All 223 focused tests passed, including 44 from extracted committed source. Original L4 host started; preflight is running. No episode has started.
 > Read [protocol](experiments/iter141_nominal_continuation/HYPOTHESIS.md),
 > [design review](experiments/iter141_nominal_continuation/SOURCE_REVIEW.md), and
 > [state](experiments/iter141_nominal_continuation/STATE.json).
