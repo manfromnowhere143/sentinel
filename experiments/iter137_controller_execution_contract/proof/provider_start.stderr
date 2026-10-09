@@ -1,0 +1,9 @@
+Starting instance(s) sentinel-gpu...
+........................................................................................................................................................failed.
+ERROR: gcloud crashed (ConnectionError): ('Connection aborted.', OSError(65, 'No route to host'))
+
+If you would like to report this issue, please run the following command:
+  gcloud feedback
+
+To check gcloud for common problems, please run the following command:
+  gcloud info --run-diagnostics
