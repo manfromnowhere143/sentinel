@@ -1,0 +1,14 @@
+#!/bin/bash
+set -eu
+CUDA_ID=$1
+OUTPUT=$2
+exec docker run --name sentinel-i136-client --rm --gpus all \
+  --label "sentinel.iter136.arm=$SENTINEL_I136_ARM" \
+  -v /opt/sentinel-stack/UniAD_SIM:/model \
+  -v /opt/sentinel-stack/UniAD/ckpts:/model/ckpts \
+  -v /datasets/nuscenes-full/hugsim/outputs:/datasets/nuscenes-full/hugsim/outputs \
+  -v /opt/sentinel-stack/hugsim-shim:/shim -w /model --network host \
+  -e PYTHONPATH=.:/shim -e SENTINEL_ENABLED -e "CUDA_VISIBLE_DEVICES=$CUDA_ID" \
+  --entrypoint python sha256:2fc5cd574b7510c813fecee64d5568fddec8255a4b638dbca758b67696cb1d14 \
+  -u tools/closeloop/e2e.py projects/configs/stage2_e2e/base_e2e.py \
+  ckpts/uniad_base_e2e.pth --launcher none --eval bbox --tmpdir tmp --output "$OUTPUT"

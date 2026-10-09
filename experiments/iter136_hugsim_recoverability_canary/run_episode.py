@@ -16,8 +16,8 @@ import subprocess
 import time
 
 
-CONTROL = Path('/datasets/nuscenes-full/hugsim/iter136_control_20261009')
-OUTPUT = Path('/datasets/nuscenes-full/hugsim/outputs/iter136-20261009')
+CONTROL = Path('/datasets/nuscenes-full/hugsim/iter136_control_20261009_v2')
+OUTPUT = Path('/datasets/nuscenes-full/hugsim/outputs/iter136-20261009-v2')
 HUGSIM = Path('/opt/sentinel-stack/HUGSIM')
 ARMS = {'reference_a': 'reference', 'reference_b': 'reference',
         'stop_0': '0', 'stop_2': '2', 'stop_4': '4'}
@@ -105,11 +105,23 @@ def main():
         run.mkdir(parents=True, exist_ok=False)
         environment = os.environ.copy()
         environment.update(
-            PYTHONPATH=f'{CONTROL}:{HUGSIM}:/opt/sentinel-stack/hugsim-shim',
+            PYTHONPATH=f'{CONTROL}:{HUGSIM}',
             SENTINEL_ENABLED='1', SENTINEL_I136_ARM=args.arm,
             SENTINEL_I136_IDENTITY=str(CONTROL / 'identity.json'),
             SENTINEL_I136_STOP_AT=ARMS[args.arm],
         )
+        # Gym loads this module lazily. Importing closed_loop alone misses this boundary.
+        probe = subprocess.run(
+            [str(HUGSIM / '.pixi/envs/default/bin/python'), '-c',
+             'from hugsim_env.envs.hug_sim import HUGSimEnv; import closed_loop'],
+            cwd=HUGSIM, env=environment, capture_output=True, text=True, timeout=90)
+        (run / 'environment_import.json').write_text(json.dumps(
+            dict(returncode=probe.returncode, stdout=probe.stdout, stderr=probe.stderr),
+            indent=2) + '\n')
+        if probe.returncode:
+            raise RuntimeError('environment class import failed before episode launch')
+        check_budget(shutil.disk_usage(OUTPUT.parent).free / 2**30,
+                     manifest['deadline_epoch'] - time.time(), False)
         argv = [str(HUGSIM / '.pixi/envs/default/bin/python'), '-u',
                 str(CONTROL / 'iter136_closed_loop.py'),
                 '--scenario_path', manifest['scenario'],
