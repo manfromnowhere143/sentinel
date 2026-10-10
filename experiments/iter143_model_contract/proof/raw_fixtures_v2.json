@@ -1,0 +1,6 @@
+{
+  "error": "Index put requires the source and destination dtypes match, got Double for the destination and Float for the source.",
+  "error_type": "RuntimeError",
+  "status": "invalid",
+  "verdict": "MODEL_CONTRACT_INVALID"
+}

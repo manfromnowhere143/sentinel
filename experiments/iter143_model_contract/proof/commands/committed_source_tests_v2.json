@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "python3",
+    "/tmp/i143_packet_tests_v2.py"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-10T05:07:03.690483+00:00",
+  "elapsed_seconds": 3.2409071922302246,
+  "returncode": 0
+}

@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "python3",
+    "/Users/danielwahnich/sentinel-bootstrap-evidence/iter143-model-contract-20261010/committed_source_v2/experiments/iter143_model_contract/qualification.py",
+    "--root",
+    "/Users/danielwahnich/sentinel-bootstrap-evidence/iter143-model-contract-20261010/committed_source_v2",
+    "--output",
+    "experiments/iter143_model_contract/proof/raw_fixtures_v2.json"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-10T05:07:11.432880+00:00",
+  "elapsed_seconds": 1.911057949066162,
+  "returncode": 2
+}
