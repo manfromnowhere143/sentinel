@@ -1,0 +1,26 @@
+{
+  "status": "supported",
+  "candidate_checked": "ae60b980fed32bc00be1bef9905d737a89fe1a24",
+  "unrelated_initial_wip_preserved": 18,
+  "iter146_hashes_preserved": 425,
+  "prior_iteration_git_blobs_preserved": 2792,
+  "root_index_unchanged": true,
+  "root_readme_unchanged_and_protected": true,
+  "root_docs_only_active_block_and_appended_iter147_entries": true,
+  "master_unchanged": true,
+  "raw_files_equal_prior_commits": {
+    "cpu_raw": 31,
+    "gpu_raw/pair_000": 31,
+    "gpu_raw/pair_001": 29,
+    "gpu_raw/pair_002": 29,
+    "gpu_raw/pair_003": 29
+  },
+  "proof_inventory_entries_verified": 519,
+  "deployed_source_hashes_verified": true,
+  "new_commit_human_identity_count": 13,
+  "new_local_links_verified": 11,
+  "provider_terminated": true,
+  "watchdog_exited": true,
+  "automatic_restart": false,
+  "live_study_admitted": false
+}
