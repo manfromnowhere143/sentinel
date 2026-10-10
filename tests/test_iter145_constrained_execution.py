@@ -160,3 +160,96 @@ def test_callback_is_not_final_solution_when_no_refinement():
     bad["inputs"][0][0] += 0.01
     with pytest.raises(ValueError):
         second_cert(bad)
+
+
+def make_delivery(frame=0, mode="nominal", episode="fixture", curved=False):
+    from experiments.iter145_constrained_execution.nominal import packet
+    positions = np.array([[.03*i*i if curved else 0., 2.*i] for i in range(1, 7)], dtype=np.float64)
+    return packet(positions, positions.copy(), positions.copy(), episode=episode,
+                  frame=frame, time=frame*.25, mode=mode, monitor_sha256="a"*64)
+
+
+def test_nominal_supported_clock_and_world_heading():
+    from experiments.iter145_constrained_execution.nominal import reference
+    r = reference(make_delivery(), [10., 20., .3, -1.], episode="fixture", frame=0, time=0.)
+    assert r.times == tuple(i*.25 for i in range(13)) and r.states[0][3] == -1
+    assert r.states[-1][0] == pytest.approx(10 + 12*math.sin(.3))
+    assert r.states[-1][1] == pytest.approx(20 + 12*math.cos(.3))
+    assert r.states[-1][2] == pytest.approx(math.pi/2-.3)
+    with pytest.raises(ContractError, match="extrapolation"):
+        r.at(3.25)
+
+
+@pytest.mark.parametrize("field,value", [("frame", True), ("frame", 1), ("episode", "wrong"),
+    ("observation_time", .25), ("knot_times", [0.,.5,1.,1.5,2.,2.5]), ("coordinate_frame", "world"),
+    ("mode", "unknown"), ("monitor_sha256", "z"*64)])
+def test_delivery_known_bads(field, value):
+    from experiments.iter145_constrained_execution.nominal import validate
+    bad = make_delivery(); bad[field] = value
+    with pytest.raises((ContractError, ValueError)):
+        validate(bad, episode="fixture", frame=0, time=0.)
+
+
+def test_delivery_bytes_and_policy_known_bads():
+    from experiments.iter145_constrained_execution.nominal import validate
+    bad = make_delivery(); bad["delivered"]["values"][0][0] = 1
+    with pytest.raises(ContractError):
+        validate(bad, episode="fixture", frame=0, time=0.)
+    bad = make_delivery(); bad["delivered"]["sha256"] = "b"*64
+    with pytest.raises(ContractError):
+        validate(bad, episode="fixture", frame=0, time=0.)
+
+
+@pytest.mark.parametrize("speed,curved", [(0., False), (4., False), (0., True), (4., True)])
+def test_full_source_step_render_collision_and_short_control(speed, curved, monkeypatch):
+    import torch
+    from experiments.iter145_constrained_execution.source_fixture import fixture
+    from experiments.iter145_constrained_execution.simulator import Session
+    monkeypatch.setattr(torch.Tensor, "cuda", lambda self, *a, **k: self)
+    env, calls = fixture(ROOT, speed=speed)
+    session = Session(env, "fixture", device="cpu")
+    obs, info = session.reset()
+    assert info["timestamp"] == 0 and env.planner.tick == 0
+    for frame in range(12):
+        output = session.step(make_delivery(frame=frame, curved=curved))
+        assert output[-1]["timestamp"] == (frame+1)*.25
+        assert not session.stopped
+        group = [c for c in calls if c["time"] == (frame+1)*.25]
+        assert [c["kind"] for c in group] == ["collision"] + ["render"]*6
+        assert len({c["planning_id"] for c in group}) == 1
+        assert group[0]["boxes"] == env.objs_list
+        for name, matrix in env.render_kwargs["planning"][0].items():
+            state = env.planner.native(name)
+            assert matrix[0,3].item() == pytest.approx(state[0], abs=5e-6)
+            assert matrix[2,3].item() == pytest.approx(state[1], abs=5e-6)
+            rotation = -state[2] if type(env.planner.controller[name]).__name__ == "UnicyclePlanner" else -state[2]-math.pi/2
+            assert matrix[0,0].item() == pytest.approx(math.cos(rotation), abs=1e-6)
+    assert sum(e["event"] == "select" for e in env.planner.events) == 2
+    with pytest.raises(ContractError, match="duplicate_reset"):
+        session.reset()
+
+
+def test_reset_clock_and_runtime_known_bads(monkeypatch):
+    from experiments.iter145_constrained_execution.source_fixture import fixture
+    from experiments.iter145_constrained_execution.simulator import Session, check_runtime
+    env, _ = fixture(ROOT, actors=("ConstantPlanner",))
+    env.kinematic["Lr"] = 1.4
+    with pytest.raises(ContractError, match="kinematics"):
+        check_runtime(env)
+    env.kinematic["Lr"] = 1.35
+    session = Session(env, "fixture", device="cpu"); session.reset()
+    with pytest.raises(ContractError, match="tick"):
+        env.planner.plan_traj(.5, env.ego_state)
+    with pytest.raises(ContractError, match="stopped"):
+        env.planner.plan_traj(.25, env.ego_state)
+
+
+def test_unicycle_unsupported_time_and_unknown_actor():
+    from experiments.iter145_constrained_execution.source_fixture import fixture
+    from experiments.iter145_constrained_execution.simulator import Session, TimedPlanner
+    env, _ = fixture(ROOT, actors=("UnicyclePlanner",))
+    with pytest.raises(ContractError, match="unsupported_time"):
+        TimedPlanner.unicycle_support(env.planner.controller["agent_0"], 21.)
+    env.planner.controller["agent_0"] = object()
+    with pytest.raises(ContractError, match="unknown_actor_type"):
+        Session(env, "fixture", device="cpu")

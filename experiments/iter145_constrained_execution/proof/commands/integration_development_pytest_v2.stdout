@@ -1,0 +1,246 @@
+...............................FFFFFF                                    [100%]
+=================================== FAILURES ===================================
+_____ test_full_source_step_render_collision_and_short_control[0.0-False] ______
+
+speed = 0.0, curved = False
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1139b4c30>
+
+    @pytest.mark.parametrize("speed,curved", [(0., False), (4., False), (0., True), (4., True)])
+    def test_full_source_step_render_collision_and_short_control(speed, curved, monkeypatch):
+        import torch
+        from experiments.iter145_constrained_execution.source_fixture import fixture
+        from experiments.iter145_constrained_execution.simulator import Session
+        monkeypatch.setattr(torch.Tensor, "cuda", lambda self, *a, **k: self)
+>       env, calls = fixture(ROOT, speed=speed)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_iter145_constrained_execution.py:209: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter145_constrained_execution/source_fixture.py:43: in fixture
+    ns = source_namespace(root)
+         ^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter145_constrained_execution/source_fixture.py:32: in source_namespace
+    extract.compile([extract.node(path, "unicycle")], ns)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <experiments.iter143_model_contract.qualification.Extractor object at 0x133294050>
+path = 'experiments/iter145_constrained_execution/source/dynamic_utils.py.txt'
+name = 'unicycle', owner = None
+
+    def node(self, path, name, owner=None):
+        tree = ast.parse(self.blobs[path])
+        body = tree.body
+        if owner:
+            body = next(x for x in body if isinstance(x, ast.ClassDef) and x.name == owner).body
+>       node = deepcopy(next(x for x in body if isinstance(x, ast.FunctionDef) and x.name == name))
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       StopIteration
+
+experiments/iter143_model_contract/qualification.py:116: StopIteration
+_____ test_full_source_step_render_collision_and_short_control[4.0-False] ______
+
+speed = 4.0, curved = False
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1331ea3f0>
+
+    @pytest.mark.parametrize("speed,curved", [(0., False), (4., False), (0., True), (4., True)])
+    def test_full_source_step_render_collision_and_short_control(speed, curved, monkeypatch):
+        import torch
+        from experiments.iter145_constrained_execution.source_fixture import fixture
+        from experiments.iter145_constrained_execution.simulator import Session
+        monkeypatch.setattr(torch.Tensor, "cuda", lambda self, *a, **k: self)
+>       env, calls = fixture(ROOT, speed=speed)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_iter145_constrained_execution.py:209: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter145_constrained_execution/source_fixture.py:43: in fixture
+    ns = source_namespace(root)
+         ^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter145_constrained_execution/source_fixture.py:32: in source_namespace
+    extract.compile([extract.node(path, "unicycle")], ns)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <experiments.iter143_model_contract.qualification.Extractor object at 0x132ef3110>
+path = 'experiments/iter145_constrained_execution/source/dynamic_utils.py.txt'
+name = 'unicycle', owner = None
+
+    def node(self, path, name, owner=None):
+        tree = ast.parse(self.blobs[path])
+        body = tree.body
+        if owner:
+            body = next(x for x in body if isinstance(x, ast.ClassDef) and x.name == owner).body
+>       node = deepcopy(next(x for x in body if isinstance(x, ast.FunctionDef) and x.name == name))
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       StopIteration
+
+experiments/iter143_model_contract/qualification.py:116: StopIteration
+______ test_full_source_step_render_collision_and_short_control[0.0-True] ______
+
+speed = 0.0, curved = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1332dd010>
+
+    @pytest.mark.parametrize("speed,curved", [(0., False), (4., False), (0., True), (4., True)])
+    def test_full_source_step_render_collision_and_short_control(speed, curved, monkeypatch):
+        import torch
+        from experiments.iter145_constrained_execution.source_fixture import fixture
+        from experiments.iter145_constrained_execution.simulator import Session
+        monkeypatch.setattr(torch.Tensor, "cuda", lambda self, *a, **k: self)
+>       env, calls = fixture(ROOT, speed=speed)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_iter145_constrained_execution.py:209: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter145_constrained_execution/source_fixture.py:43: in fixture
+    ns = source_namespace(root)
+         ^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter145_constrained_execution/source_fixture.py:32: in source_namespace
+    extract.compile([extract.node(path, "unicycle")], ns)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <experiments.iter143_model_contract.qualification.Extractor object at 0x1331eafd0>
+path = 'experiments/iter145_constrained_execution/source/dynamic_utils.py.txt'
+name = 'unicycle', owner = None
+
+    def node(self, path, name, owner=None):
+        tree = ast.parse(self.blobs[path])
+        body = tree.body
+        if owner:
+            body = next(x for x in body if isinstance(x, ast.ClassDef) and x.name == owner).body
+>       node = deepcopy(next(x for x in body if isinstance(x, ast.FunctionDef) and x.name == name))
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       StopIteration
+
+experiments/iter143_model_contract/qualification.py:116: StopIteration
+______ test_full_source_step_render_collision_and_short_control[4.0-True] ______
+
+speed = 4.0, curved = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x132f469c0>
+
+    @pytest.mark.parametrize("speed,curved", [(0., False), (4., False), (0., True), (4., True)])
+    def test_full_source_step_render_collision_and_short_control(speed, curved, monkeypatch):
+        import torch
+        from experiments.iter145_constrained_execution.source_fixture import fixture
+        from experiments.iter145_constrained_execution.simulator import Session
+        monkeypatch.setattr(torch.Tensor, "cuda", lambda self, *a, **k: self)
+>       env, calls = fixture(ROOT, speed=speed)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_iter145_constrained_execution.py:209: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter145_constrained_execution/source_fixture.py:43: in fixture
+    ns = source_namespace(root)
+         ^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter145_constrained_execution/source_fixture.py:32: in source_namespace
+    extract.compile([extract.node(path, "unicycle")], ns)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <experiments.iter143_model_contract.qualification.Extractor object at 0x132f46ad0>
+path = 'experiments/iter145_constrained_execution/source/dynamic_utils.py.txt'
+name = 'unicycle', owner = None
+
+    def node(self, path, name, owner=None):
+        tree = ast.parse(self.blobs[path])
+        body = tree.body
+        if owner:
+            body = next(x for x in body if isinstance(x, ast.ClassDef) and x.name == owner).body
+>       node = deepcopy(next(x for x in body if isinstance(x, ast.FunctionDef) and x.name == name))
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       StopIteration
+
+experiments/iter143_model_contract/qualification.py:116: StopIteration
+___________________ test_reset_clock_and_runtime_known_bads ____________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x132f47460>
+
+    def test_reset_clock_and_runtime_known_bads(monkeypatch):
+        from experiments.iter145_constrained_execution.source_fixture import fixture
+        from experiments.iter145_constrained_execution.simulator import Session, check_runtime
+>       env, _ = fixture(ROOT, actors=("ConstantPlanner",))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_iter145_constrained_execution.py:235: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter145_constrained_execution/source_fixture.py:43: in fixture
+    ns = source_namespace(root)
+         ^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter145_constrained_execution/source_fixture.py:32: in source_namespace
+    extract.compile([extract.node(path, "unicycle")], ns)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <experiments.iter143_model_contract.qualification.Extractor object at 0x134a30550>
+path = 'experiments/iter145_constrained_execution/source/dynamic_utils.py.txt'
+name = 'unicycle', owner = None
+
+    def node(self, path, name, owner=None):
+        tree = ast.parse(self.blobs[path])
+        body = tree.body
+        if owner:
+            body = next(x for x in body if isinstance(x, ast.ClassDef) and x.name == owner).body
+>       node = deepcopy(next(x for x in body if isinstance(x, ast.FunctionDef) and x.name == name))
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       StopIteration
+
+experiments/iter143_model_contract/qualification.py:116: StopIteration
+_______________ test_unicycle_unsupported_time_and_unknown_actor _______________
+
+    def test_unicycle_unsupported_time_and_unknown_actor():
+        from experiments.iter145_constrained_execution.source_fixture import fixture
+        from experiments.iter145_constrained_execution.simulator import Session, TimedPlanner
+>       env, _ = fixture(ROOT, actors=("UnicyclePlanner",))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_iter145_constrained_execution.py:250: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter145_constrained_execution/source_fixture.py:43: in fixture
+    ns = source_namespace(root)
+         ^^^^^^^^^^^^^^^^^^^^^^
+experiments/iter145_constrained_execution/source_fixture.py:32: in source_namespace
+    extract.compile([extract.node(path, "unicycle")], ns)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <experiments.iter143_model_contract.qualification.Extractor object at 0x134bcc500>
+path = 'experiments/iter145_constrained_execution/source/dynamic_utils.py.txt'
+name = 'unicycle', owner = None
+
+    def node(self, path, name, owner=None):
+        tree = ast.parse(self.blobs[path])
+        body = tree.body
+        if owner:
+            body = next(x for x in body if isinstance(x, ast.ClassDef) and x.name == owner).body
+>       node = deepcopy(next(x for x in body if isinstance(x, ast.FunctionDef) and x.name == name))
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       StopIteration
+
+experiments/iter143_model_contract/qualification.py:116: StopIteration
+=============================== warnings summary ===============================
+::test_full_source_step_render_collision_and_short_control[0.0-False]
+::test_full_source_step_render_collision_and_short_control[4.0-False]
+::test_full_source_step_render_collision_and_short_control[0.0-True]
+::test_full_source_step_render_collision_and_short_control[4.0-True]
+::test_reset_clock_and_runtime_known_bads
+::test_unicycle_unsupported_time_and_unknown_actor
+  <bound-source-slice>:24: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+
+::test_full_source_step_render_collision_and_short_control[0.0-False]
+::test_full_source_step_render_collision_and_short_control[4.0-False]
+::test_full_source_step_render_collision_and_short_control[0.0-True]
+::test_full_source_step_render_collision_and_short_control[4.0-True]
+::test_reset_clock_and_runtime_known_bads
+::test_unicycle_unsupported_time_and_unknown_actor
+  <bound-source-slice>:26: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED ../../../../dev::test_full_source_step_render_collision_and_short_control[0.0-False]
+FAILED ../../../../dev::test_full_source_step_render_collision_and_short_control[4.0-False]
+FAILED ../../../../dev::test_full_source_step_render_collision_and_short_control[0.0-True]
+FAILED ../../../../dev::test_full_source_step_render_collision_and_short_control[4.0-True]
+FAILED ../../../../dev::test_reset_clock_and_runtime_known_bads - StopIteration
+FAILED ../../../../dev::test_unicycle_unsupported_time_and_unknown_actor - St...
+6 failed, 31 passed, 12 warnings in 2.27s

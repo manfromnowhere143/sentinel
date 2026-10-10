@@ -1,0 +1,8 @@
+
+==================================== ERRORS ====================================
+________________________ ERROR collecting test session _________________________
+In test_full_source_step_render_collision_and_short_control: function already takes an argument 'speed' with a default value
+=========================== short test summary info ============================
+ERROR ../../../../dev - Failed: In test_full_source_step_render_collision_and...
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 0.66s

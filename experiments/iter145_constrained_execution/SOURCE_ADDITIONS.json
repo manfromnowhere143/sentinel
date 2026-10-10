@@ -26,5 +26,25 @@
     "bytes": 3422,
     "url": "https://raw.githubusercontent.com/hyzhou404/UniAD_SIM/5fb279e39912a5ac7f58e00d56b065cadcd0a749/tools/closeloop/dataparser.py",
     "matched_prior_runtime": true
+  },
+  {
+    "path": "experiments/iter136_hugsim_recoverability_canary/proof/source/HUGSIM/sim/utils/sim_utils.py.txt",
+    "sha256": "36c2ba6a7dee38555f84dde95851ec00be5a699969d53de8906b3e67676792bc",
+    "bytes": 4604,
+    "provenance": "retained Iter136 pinned source"
+  },
+  {
+    "path": "experiments/iter145_constrained_execution/source/score_calculator.py.txt",
+    "sha256": "1588b5b912384dead87b521b828cf7a135e77eb79aad5d540074c7168f79e46f",
+    "bytes": 30995,
+    "provenance": "experiments/iter136_hugsim_recoverability_canary/proof/host_runtime_1.json",
+    "host_path": "/opt/sentinel-stack/HUGSIM/sim/utils/score_calculator.py"
+  },
+  {
+    "path": "experiments/iter145_constrained_execution/source/released_client.py.txt",
+    "sha256": "23cce8a2a559b60dc3de394ba890a28adc13b5b24d222936478dad6f83f9aea3",
+    "bytes": 17111,
+    "provenance": "experiments/iter136_hugsim_recoverability_canary/proof/host_runtime_1.json",
+    "host_path": "/opt/sentinel-stack/UniAD_SIM/tools/closeloop/e2e.py"
   }
 ]
