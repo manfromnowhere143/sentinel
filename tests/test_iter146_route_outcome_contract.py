@@ -1,5 +1,4 @@
 from copy import deepcopy
-import json
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -155,7 +154,7 @@ def test_structural_known_bads(completion, mutation):
         verify(rows, summary)
 
 
-@pytest.mark.parametrize("value", ['{"x":1,"x":2}', '{"x":NaN}', '{"x":Infinity}'])
+@pytest.mark.parametrize("value", ['{"x":1,"x":2}', '{"x":NaN}', '{"x":Infinity}', '{"x":1e999}'])
 def test_strict_json(value):
     with pytest.raises(ValueError):
         strict(value)
@@ -174,7 +173,9 @@ def test_file_boundary_and_trace_cap(tmp_path):
 
 
 def test_output_guard_and_storage_budget(tmp_path):
-    plenty = lambda p: SimpleNamespace(free=100 * 1024**3)
+    def plenty(p):
+        return SimpleNamespace(free=100 * 1024**3)
+
     output = tmp_path.resolve()
     assert output_guard(output, usage=plenty) == 0
     with pytest.raises(ValueError, match="storage_limit"):

@@ -1,0 +1,26 @@
+.............................................                            [100%]
+=============================== warnings summary ===============================
+::test_source_completion_is_proxy_not_literal_end
+::test_all_arms_reach_full_401_action_cap[nominal]
+::test_all_arms_reach_full_401_action_cap[monitor]
+::test_all_arms_reach_full_401_action_cap[brake_t0]
+::test_all_arms_reach_full_401_action_cap[brake_t2_5]
+::test_source_failure_overrides_reward[collision_completion]
+::test_source_failure_overrides_reward[off_route]
+::test_stops_never_become_success_or_zero[deadline]
+::test_stops_never_become_success_or_zero[resource]
+  <bound-source-slice>:24: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+
+::test_source_completion_is_proxy_not_literal_end
+::test_all_arms_reach_full_401_action_cap[nominal]
+::test_all_arms_reach_full_401_action_cap[monitor]
+::test_all_arms_reach_full_401_action_cap[brake_t0]
+::test_all_arms_reach_full_401_action_cap[brake_t2_5]
+::test_source_failure_overrides_reward[collision_completion]
+::test_source_failure_overrides_reward[off_route]
+::test_stops_never_become_success_or_zero[deadline]
+::test_stops_never_become_success_or_zero[resource]
+  <bound-source-slice>:26: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+45 passed, 18 warnings in 13.51s

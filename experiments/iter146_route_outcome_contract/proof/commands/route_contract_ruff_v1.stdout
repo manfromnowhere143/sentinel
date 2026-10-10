@@ -1,0 +1,24 @@
+F401 [*] `json` imported but unused
+ --> tests/test_iter146_route_outcome_contract.py:2:8
+  |
+1 | from copy import deepcopy
+2 | import json
+  |        ^^^^
+3 | from pathlib import Path
+4 | from types import SimpleNamespace
+  |
+help: Remove unused import: `json`
+
+E731 Do not assign a `lambda` expression, use a `def`
+   --> tests/test_iter146_route_outcome_contract.py:177:5
+    |
+176 | def test_output_guard_and_storage_budget(tmp_path):
+177 |     plenty = lambda p: SimpleNamespace(free=100 * 1024**3)
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+178 |     output = tmp_path.resolve()
+179 |     assert output_guard(output, usage=plenty) == 0
+    |
+help: Rewrite `plenty` as a `def`
+
+Found 2 errors.
+[*] 1 fixable with the `--fix` option (1 hidden fix can be enabled with the `--unsafe-fixes` option).

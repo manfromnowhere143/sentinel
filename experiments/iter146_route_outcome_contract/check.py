@@ -26,7 +26,20 @@ def strict(raw):
     def constant(value):
         raise ValueError("nonfinite JSON constant:" + value)
 
-    return json.loads(raw, object_pairs_hook=pairs, parse_constant=constant)
+    result = json.loads(raw, object_pairs_hook=pairs, parse_constant=constant)
+
+    def finite(value):
+        if isinstance(value, dict):
+            for item in value.values():
+                finite(item)
+        elif isinstance(value, list):
+            for item in value:
+                finite(item)
+        elif isinstance(value, float):
+            check(math.isfinite(value), "nonfinite JSON number")
+
+    finite(result)
+    return result
 
 
 def read(directory):
