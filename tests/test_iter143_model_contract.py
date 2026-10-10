@@ -229,3 +229,25 @@ def test_inventory_malformed_name_rejected(monkeypatch):
     monkeypatch.setattr(primary, "inputs", lambda root: (blobs, "synthetic"))
     with pytest.raises(ValueError, match="malformed"):
         primary.inventory(Path("."))
+
+
+def test_low_speed_source_adapter_cardinality(adapters):
+    gen = adapters[7]
+    rows = primary.low_speed_probe(gen, n=10, tf=1.0)
+    assert list(rows.shape) == [1, 9, 7]
+    for i, row in enumerate(rows[0].tolist(), 1):
+        assert row[-1] == pytest.approx(i / 10)
+
+
+def test_cli_unexpected_exception_retains_invalid(tmp_path, monkeypatch):
+    import sys
+
+    def fail(root):
+        raise IndexError("synthetic failure")
+
+    monkeypatch.setattr(primary, "probes", fail)
+    output = tmp_path / "invalid.json"
+    monkeypatch.setattr(sys, "argv", ["probe", "--root", str(tmp_path), "--output", str(output)])
+    assert primary.main() == 2
+    record = json.loads(output.read_text())
+    assert record["status"] == "invalid" and record["error_type"] == "IndexError"

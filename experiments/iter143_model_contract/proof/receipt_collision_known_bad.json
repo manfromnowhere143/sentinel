@@ -1,0 +1,6 @@
+{
+  "returncode": 1,
+  "expected": "rejected before child invocation",
+  "child_invoked": false,
+  "stderr": "Traceback (most recent call last):\n  File \"/tmp/i143_run.py\", line 8, in <module>\n    if output.resolve() in {p.resolve() for p in receipts}:raise ValueError('output/receipt collision before invocation')\n                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: output/receipt collision before invocation\n"
+}

@@ -256,6 +256,29 @@ def source_adapters(blobs):
     )
 
 
+def low_speed_probe(gen, n=20, tf=2.0):
+    class SyntheticSampler:
+        dt = 0.1
+
+        def sample_trajs(self, state, steps):
+            t = torch.arange(1, steps + 1, dtype=torch.float64) * self.dt
+            rows = torch.stack([t, t * 0, t * 0 + 1, t * 0, t * 0, t * 0, t], dim=-1)
+            return rows[None, None]
+
+    low = SimpleNamespace(
+        N_seg=n,
+        device="cpu",
+        low_speed_threshold=2.0,
+        forward_sampler=SyntheticSampler(),
+        gen_terminals=lambda x, tf: torch.tensor([[0.0, 0.0, 1.0, 0.0]], dtype=torch.float64),
+        calc_trajectories=lambda x, tf, xf, n: torch.zeros((1, n, 7), dtype=torch.float64),
+        feasible_flag=lambda t, xf: torch.zeros(1, dtype=torch.bool),
+    )
+    low_rows, _ = gen(low, torch.tensor([0.0, 0.0, 1.0, 0.0], dtype=torch.float64), tf)
+
+    return low_rows
+
+
 def probes(root):
     blobs, identity = inputs(root)
     environment, controller, cfg, params, ns, attack_type, dispatch, gen, extract = source_adapters(
@@ -312,24 +335,7 @@ def probes(root):
         torch.tensor([[0.0, 0.0, math.pi / 2, 4.0]], dtype=torch.float64), 20, 0.1
     )[0]
 
-    class SyntheticSampler:
-        dt = 0.1
-
-        def sample_trajs(self, state, steps):
-            t = torch.arange(1, steps + 1, dtype=torch.float64) * self.dt
-            rows = torch.stack([t, t * 0, t * 0 + 1, t * 0, t * 0, t * 0, t], dim=-1)
-            return rows[None, None]
-
-    low = SimpleNamespace(
-        N_seg=20,
-        device="cpu",
-        low_speed_threshold=2.0,
-        forward_sampler=SyntheticSampler(),
-        gen_terminals=lambda x, tf: torch.tensor([[0.0, 0.0, 1.0, 0.0]], dtype=torch.float64),
-        calc_trajectories=lambda x, tf, xf, n: torch.zeros((0, n, 7), dtype=torch.float64),
-        feasible_flag=lambda t, xf: torch.zeros(0, dtype=torch.bool),
-    )
-    low_rows, _ = gen(low, torch.tensor([0.0, 0.0, 1.0, 0.0], dtype=torch.float64), 2.0)
+    low_rows = low_speed_probe(gen)
 
     generation_calls = []
     dispatch_calls = []
@@ -477,7 +483,7 @@ def main():
     try:
         result = inventory(a.root) if a.inventory else probes(a.root)
         code = 0
-    except (ValueError, KeyError, AssertionError, OSError, StopIteration, RuntimeError) as exc:
+    except Exception as exc:
         result = dict(
             status="invalid",
             verdict="MODEL_CONTRACT_INVALID",
