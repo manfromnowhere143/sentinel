@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "python3",
+    "/Users/danielwahnich/sentinel-bootstrap-evidence/iter145-constrained-execution-20261010/independent_corrected.py",
+    "--root",
+    "/Users/danielwahnich/sentinel-bootstrap-evidence/iter145-constrained-execution-20261010/optimizer_source_v2",
+    "--raw",
+    "/Users/danielwahnich/workspace/sentinel/experiments/iter145_constrained_execution/proof/optimizer_raw_v2.json",
+    "--output",
+    "/Users/danielwahnich/workspace/sentinel/experiments/iter145_constrained_execution/proof/optimizer_analysis_corrected.json"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-10T05:50:58.415405+00:00",
+  "elapsed_seconds": 0.20099091529846191,
+  "returncode": 0
+}
