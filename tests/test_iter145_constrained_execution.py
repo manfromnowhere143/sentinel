@@ -740,3 +740,171 @@ def test_map_inventory_rejects_symlink(tmp_path):
     (root / "alias").symlink_to("data")
     with pytest.raises(ContractError):
         inventory_tree(root)
+
+
+def test_gpu_client_mounts_and_cache_boundary(tmp_path):
+    from experiments.iter145_constrained_execution.gpu import client_command, cache_adapter
+
+    argv = client_command(tmp_path / "control", tmp_path / "run", "fixture")
+    assert "SENTINEL_I145_EPISODE=fixture" in argv
+    assert "--network" in argv and argv[argv.index("--network") + 1] == "none"
+    assert "/opt/sentinel-stack/UniAD_SIM:/model:ro" in argv
+    captured = {}
+
+    def factory(**kwargs):
+        captured.update(kwargs)
+        return "constructed"
+
+    wrapped = cache_adapter(factory, tmp_path / "cache")
+    assert (
+        wrapped(cache_location="~/.unified_data_cache", desired_data=["nusc_trainval"])
+        == "constructed"
+    )
+    assert captured["cache_location"] == str(tmp_path / "cache")
+    with pytest.raises(ValueError):
+        wrapped(cache_location="/unexpected")
+
+
+@pytest.mark.parametrize(
+    "mutation",
+    ["none", "cuda", "camera", "geometry", "transport", "reset", "control", "clock", "cleanup"],
+)
+def test_gpu_checker_synthetic_evidence_known_bads(tmp_path, mutation):
+    """Synthetic GPU-shaped fixture, explicitly not evidence that GPU execution happened."""
+    import hashlib
+    import json
+    from experiments.iter145_constrained_execution.gpu_check import verify
+
+    case = json.loads(
+        (ROOT / "experiments/iter145_constrained_execution/proof/integration_raw.json").read_text()
+    )["cases"][0]
+    events = case["events"]
+    controls = [e for e in events if e["event"] == "control"]
+    deliveries = [e for e in events if e["event"] == "delivery"]
+    steps = [e for e in events if e["event"] == "step"]
+    decisions = []
+    client = []
+    for i, (control, delivery) in enumerate(zip(controls, deliveries)):
+        value = control["delivery"]
+        line = json.dumps(
+            dict(frame_index=i, ts=i * 0.25, brake=False, traj=value["nominal"]["values"])
+        )
+        decisions.append(line)
+        value["monitor_sha256"] = hashlib.sha256(line.encode()).hexdigest()
+        delivery["value"] = value
+        client.append(value)
+    render = [
+        dict(time=0.0, device="cuda:0", shape=[3, 8, 8], elapsed_ns=1, transforms={})
+        for _ in range(6)
+    ]
+    collisions = []
+    for step, boundary in zip(steps, case["boundary"]):
+        for record in boundary["observations"][1:]:
+            render.append(
+                dict(
+                    time=step["time"],
+                    device="cuda:0",
+                    shape=[3, 8, 8],
+                    elapsed_ns=1,
+                    transforms=record["matrices"],
+                )
+            )
+        collisions.append(
+            dict(
+                kind="foreground",
+                time=step["time"],
+                objects=step["info"]["obj_boxes"],
+                ego_box=step["info"]["ego_box"],
+                result=False,
+            )
+        )
+    worker = dict(
+        status="completed",
+        episode=case["episode"],
+        gpu_observed=True,
+        cleanup=dict(status="removed"),
+        geos="synthetic",
+        render_events=render,
+        collision_events=collisions,
+    )
+    if mutation == "cuda":
+        render[6]["device"] = "cpu"
+    elif mutation == "camera":
+        render.pop()
+    elif mutation == "geometry":
+        collisions[0]["result"] = True
+    elif mutation == "transport":
+        client = client[:-1]
+    elif mutation == "reset":
+        events.append(events[0])
+    elif mutation == "control":
+        steps[0]["applied"]["acc"] += 0.2
+    elif mutation == "clock":
+        steps[0]["time"] += 0.25
+    elif mutation == "cleanup":
+        worker["cleanup"]["status"] = "unobserved"
+    raw = "".join(json.dumps(e) + "\n" for e in events).encode()
+    summary = case["summary"]
+    summary["events_sha256"] = hashlib.sha256(raw).hexdigest()
+    (tmp_path / "trace").mkdir()
+    (tmp_path / "trace/events.jsonl").write_bytes(raw)
+    (tmp_path / "trace/summary.json").write_text(json.dumps(summary))
+    (tmp_path / "worker.json").write_text(json.dumps(worker))
+    (tmp_path / "sentinel_iter48_decisions.jsonl").write_text("\n".join(decisions) + "\n")
+    (tmp_path / "delivery145.jsonl").write_text("".join(json.dumps(v) + "\n" for v in client))
+    if mutation == "none":
+        assert verify(tmp_path)["status"] == "supported"
+    else:
+        with pytest.raises(ValueError):
+            verify(tmp_path)
+
+
+@pytest.mark.parametrize(
+    "memory", [(19999, 30), (21000, 23), (float("nan"), 30), (float("inf"), 30), (21000, None)]
+)
+def test_gpu_capacity_known_bads(memory):
+    from experiments.iter145_constrained_execution.gpu_batch import capacity
+
+    assert capacity(22564, 30)
+    with pytest.raises(ValueError):
+        capacity(*memory)
+
+
+def test_gpu_outer_deadline_stops_process(tmp_path):
+    import os
+    import sys
+    from experiments.iter145_constrained_execution.gpu_batch import invoke
+
+    result = invoke(
+        [sys.executable, "-c", "import time; time.sleep(10)"],
+        cwd=tmp_path,
+        environment=os.environ.copy(),
+        log=tmp_path / "deadline.log",
+        timeout=0.05,
+    )
+    assert result == dict(returncode=124, deadline_exceeded=True)
+
+
+@pytest.mark.parametrize("mutation", ["cost", "selection", "consumption"])
+def test_gpu_attack_replay_known_bads(mutation):
+    import json
+    from experiments.iter145_constrained_execution.gpu_check import check_attack_execution
+
+    events = json.loads(
+        (ROOT / "experiments/iter145_constrained_execution/proof/integration_raw.json").read_text()
+    )["cases"][0]["events"]
+    actors = [
+        e["value"] for e in events if e["event"] == "actor" and e["value"]["event"] == "consume"
+    ]
+    assert check_attack_execution(events, actors) == 2
+    selection = next(
+        e["value"] for e in events if e["event"] == "actor" and e["value"]["event"] == "select"
+    )
+    if mutation == "cost":
+        selection["costs"][0] += 0.5
+    elif mutation == "selection":
+        selection["selected"] = (selection["selected"] + 1) % len(selection["candidates"])
+    elif mutation == "consumption":
+        actors[0]["states"][selection["actor"]][0] += 0.5
+    with pytest.raises(ValueError):
+        check_attack_execution(events, actors)

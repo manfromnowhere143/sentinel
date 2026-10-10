@@ -1,0 +1,7 @@
+{
+  "status": "supported",
+  "verdict": "ASSET_GATE_REPLAY_PASSED",
+  "files": 5983,
+  "scenarios": 14,
+  "unresolved": []
+}

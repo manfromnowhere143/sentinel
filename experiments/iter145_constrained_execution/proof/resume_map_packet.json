@@ -1,0 +1,12 @@
+{
+  "commit": "95c9339797ba9763a3caf18865d5d1c3ebc73fde",
+  "files": {
+    "experiments/iter145_constrained_execution/assets.py": "58e75e71f694e7f55e62388d796bff72c5b6870297fa1e9b5922c9d5c1fb2acd",
+    "experiments/iter145_constrained_execution/maps.py": "808bec7d883cf1c22fed9d457fecd7613f0a8c97c6ed5a3482cfdedfd843fe16",
+    "experiments/iter145_constrained_execution/resources.py": "af399059024d96431ff71d8041618fb51a0189a5d39cf080aeeebbbac33109de",
+    "experiments/iter145_constrained_execution/ACTOR_FILES.json": "2399f517f0521fb6adac52a73c30bb9b1e972ac2e9537c20fff91b224f30ca54",
+    "experiments/iter144_timed_trajectory/trajectory.py": "1efebe32277e403d8ed580354e33f79fc0625b0ce422d376725540f3644d861b",
+    "experiments/iter143_model_contract/proof/case_inventory.json": "ead62a973036f253727ac19d878454506eff739663dd52dc02a9088e308e1cbf"
+  },
+  "sha256": "c1b33b368fac9ab9d1e603557ac899eda39c58950ebfb45bf0a0faaaf515ce09"
+}

@@ -1,0 +1,7 @@
+{
+  "start_epoch": 1791630957.723576,
+  "start_monotonic": 121976.478413958,
+  "deadline_monotonic": 123776.478414166,
+  "max_seconds": 1800,
+  "max_compute_usd": 1.5
+}

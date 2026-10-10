@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "/opt/homebrew/bin/ruff",
+    "check",
+    "experiments/iter145_constrained_execution/gpu.py",
+    "experiments/iter145_constrained_execution/gpu_batch.py",
+    "experiments/iter145_constrained_execution/gpu_check.py",
+    "tests/test_iter145_constrained_execution.py"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-10T11:28:12.028713+00:00",
+  "elapsed_seconds": 0.018638134002685547,
+  "returncode": 0
+}
