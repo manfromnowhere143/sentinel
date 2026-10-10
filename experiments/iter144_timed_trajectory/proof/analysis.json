@@ -1,0 +1,33 @@
+{
+  "status": "supported",
+  "verdict": "TIMED_TRAJECTORY_CPU_CONTRACT_SUPPORTED",
+  "independent_validation": "passed",
+  "straight_sequences": 9,
+  "straight_consumptions": 180,
+  "full_sampler_fixtures": 9,
+  "full_sampler_candidates": 616,
+  "ego_transitions": 32,
+  "jacobian_fixtures": 8,
+  "max_jacobian_absolute_error": 2.5698909666971304e-10,
+  "max_straight_speed_absolute_error": 2.3841852403450048e-07,
+  "solver_replicate_pairs": 4,
+  "integration_steps": 20,
+  "solver_calls": 28,
+  "stop_reasons": {
+    "converged": 24,
+    "iteration_limit": 4
+  },
+  "solver_ns_range": [
+    1722625,
+    99156416
+  ],
+  "complete_call_ns_range": [
+    1807708,
+    99267916
+  ],
+  "complete_calls_over_50ms": 4,
+  "physical_qualification": "unestablished",
+  "full_simulator_qualification": "unestablished",
+  "cloud_access": false,
+  "live_episodes": 0
+}

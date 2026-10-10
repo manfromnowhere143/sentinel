@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "slots": 112,
+  "scenarios": 14,
+  "base_scenes": 3,
+  "retained_inventory_rows": 88,
+  "untouched_holdout_scenes": 0,
+  "missing_live_bindings": 6,
+  "cloud_budget": 0,
+  "live_admitted": false
+}

@@ -1,0 +1,262 @@
+{
+  "source_sha256": "c27d0f70939f00f42937b166091255b83ed3994951f4512040c629a888a9ec26",
+  "cases": [
+    {
+      "name": "dropped_actor_row",
+      "path": [
+        "straight",
+        0,
+        "rows"
+      ],
+      "operation": "pop",
+      "replacement": null,
+      "mutant_sha256": "0c1af905032180586026a9071ad0eb66d3866c6735ffc21b42b8d864f5299a6d",
+      "rejected": true,
+      "reason": "straight timestamps"
+    },
+    {
+      "name": "shifted_actor_time",
+      "path": [
+        "straight",
+        0,
+        "rows",
+        1,
+        "time"
+      ],
+      "operation": "replace",
+      "replacement": 0.3,
+      "mutant_sha256": "4c1b881747d9fccb30690c1c9fe0951c8b90539a1acc7aabf5c1014b5812bc89",
+      "rejected": true,
+      "reason": "straight timestamps"
+    },
+    {
+      "name": "reset_advance",
+      "path": [
+        "straight",
+        0,
+        "rows",
+        0,
+        "actor",
+        1
+      ],
+      "operation": "replace",
+      "replacement": 3.0,
+      "mutant_sha256": "015a7b1c45114031223ca725ff62ed6567b7db0f8067cecadacfb11074b7a5b0",
+      "rejected": true,
+      "reason": "numeric mismatch"
+    },
+    {
+      "name": "stored_speed_lie",
+      "path": [
+        "straight",
+        0,
+        "rows",
+        1,
+        "actor",
+        3
+      ],
+      "operation": "replace",
+      "replacement": 5.0,
+      "mutant_sha256": "7d6b15206d8ee6611bcc60b5c9be566c86239dcb6da249eb6e96a5b90383a4be",
+      "rejected": true,
+      "reason": "numeric mismatch"
+    },
+    {
+      "name": "dropped_source_time",
+      "path": [
+        "full_sampler",
+        0,
+        "selection",
+        "candidates",
+        0,
+        "source_rows",
+        0
+      ],
+      "operation": "pop",
+      "replacement": null,
+      "mutant_sha256": "8ddc3367af3a13f7621d7ef65f0a4af34034e5f4a33f1a920f2412d248f99ac4",
+      "rejected": true,
+      "reason": "source time channel"
+    },
+    {
+      "name": "shifted_source_time",
+      "path": [
+        "full_sampler",
+        0,
+        "selection",
+        "candidates",
+        0,
+        "source_rows",
+        0,
+        6
+      ],
+      "operation": "replace",
+      "replacement": 0.31,
+      "mutant_sha256": "60c5205e579da7ca9b8dd08aafebfecf17b86f080d90bc88c3eb8586fa70c652",
+      "rejected": true,
+      "reason": "numeric mismatch"
+    },
+    {
+      "name": "wrong_units",
+      "path": [
+        "full_sampler",
+        0,
+        "selection",
+        "candidates",
+        0,
+        "units",
+        0
+      ],
+      "operation": "replace",
+      "replacement": "ms",
+      "mutant_sha256": "64b7594d37cd195975eaed5befd18e34d0f4a8b8a56e99b41d08f96de454c3a9",
+      "rejected": true,
+      "reason": "trajectory units"
+    },
+    {
+      "name": "invented_cost",
+      "path": [
+        "full_sampler",
+        0,
+        "selection",
+        "costs",
+        0
+      ],
+      "operation": "replace",
+      "replacement": 999.0,
+      "mutant_sha256": "e38b0747f3783ef493c3af88e56ab71799dd969c1b6b0aa5b969108ebc89bb1e",
+      "rejected": true,
+      "reason": "numeric mismatch"
+    },
+    {
+      "name": "stale_plan",
+      "path": [
+        "straight",
+        0,
+        "events",
+        2,
+        "plan_origin"
+      ],
+      "operation": "replace",
+      "replacement": 0.25,
+      "mutant_sha256": "087931f2148305b85633926f066ef642c5fc46bbafa33fdd5f4519edaee48c2d",
+      "rejected": true,
+      "reason": "consumption identity"
+    },
+    {
+      "name": "wrong_jacobian",
+      "path": [
+        "jacobians",
+        0,
+        "B",
+        0,
+        0
+      ],
+      "operation": "replace",
+      "replacement": 0.9,
+      "mutant_sha256": "b331c2b5adcc8ed623b1d37b59bc4fd72787e31033b618d25356563825f2ba7d",
+      "rejected": true,
+      "reason": "Jacobian mismatch"
+    },
+    {
+      "name": "unclipped_control",
+      "path": [
+        "ego",
+        3,
+        "applied",
+        0
+      ],
+      "operation": "replace",
+      "replacement": 3.0,
+      "mutant_sha256": "2e100f17de694eb0d3ea22f9a10edbe7398794080506ac048caec20048ba33f6",
+      "rejected": true,
+      "reason": "numeric mismatch"
+    },
+    {
+      "name": "invented_convergence",
+      "path": [
+        "solver",
+        0,
+        "record",
+        "stop_reason"
+      ],
+      "operation": "replace",
+      "replacement": "converged",
+      "mutant_sha256": "bb3b8c5157283f1cf3609e0ff98f0c86538d70ee7b2f9ef2b316809552e3b3ff",
+      "rejected": true,
+      "reason": "stopping evidence"
+    },
+    {
+      "name": "missing_solver_replica",
+      "path": [
+        "solver"
+      ],
+      "operation": "pop",
+      "replacement": null,
+      "mutant_sha256": "7824db603a670a6f7dba5b3659c4bdb99fac4da7d82aa56bf5e6723c98ba9b0a",
+      "rejected": true,
+      "reason": "solver inventory"
+    },
+    {
+      "name": "altered_replica",
+      "path": [
+        "solver",
+        1,
+        "record",
+        "proposed",
+        0
+      ],
+      "operation": "replace",
+      "replacement": 0.0,
+      "mutant_sha256": "8b2278b375f0c6d8a0ce543099a3fc450d501b8116a126813b82747725fe963d",
+      "rejected": true,
+      "reason": "numeric mismatch"
+    },
+    {
+      "name": "wrong_environment_step",
+      "path": [
+        "integration",
+        "rows",
+        0,
+        "application",
+        "after",
+        0
+      ],
+      "operation": "replace",
+      "replacement": 123.0,
+      "mutant_sha256": "2e8e940dafce0aeaa3c1ab81be1a2a28b891be01abc343a6df395b0e6d3d8451",
+      "rejected": true,
+      "reason": "numeric mismatch"
+    },
+    {
+      "name": "null_outcome",
+      "path": [
+        "integration",
+        "rows",
+        0,
+        "application",
+        "after",
+        0
+      ],
+      "operation": "replace",
+      "replacement": null,
+      "mutant_sha256": "6f45a65e7daf2401248c4ffdf9f4630351539723f5a74ddd7b90428590685fb5",
+      "rejected": true,
+      "reason": "missing/nonfinite numeric evidence"
+    },
+    {
+      "name": "late_call_hidden",
+      "path": [
+        "solver",
+        0,
+        "record",
+        "complete_call_ns"
+      ],
+      "operation": "replace",
+      "replacement": 0,
+      "mutant_sha256": "4845e7aa90a35214b0cf1f553b3df7bd56dffc8d4565b8b007eee19519c7a005",
+      "rejected": true,
+      "reason": "latency separation"
+    }
+  ]
+}

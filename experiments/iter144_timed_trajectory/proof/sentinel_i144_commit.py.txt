@@ -1,0 +1,21 @@
+import hashlib,os,subprocess,sys,tempfile
+from pathlib import Path
+R=Path('/Users/danielwahnich/workspace/sentinel');branch='refs/heads/research/iter144-timed-trajectory';parent='18ca7e2000c22c7cd1d00f31ab81854a25fa2698'
+def git(*a,input=None,env=None):return subprocess.run(['git',*a],cwd=R,input=input,capture_output=True,check=True,env=env).stdout
+exists=subprocess.run(['git','show-ref','--verify','--quiet',branch],cwd=R).returncode==0
+old=git('rev-parse',branch).decode().strip() if exists else parent
+D=R/'experiments/iter144_timed_trajectory';P=D/'proof'
+files=sorted(p for p in P.rglob('*') if p.is_file() and p.name!='SHA256SUMS' and '__pycache__' not in p.parts)
+(P/'SHA256SUMS').write_text(''.join(f'{hashlib.sha256(p.read_bytes()).hexdigest()}  {p.relative_to(P)}\n' for p in files))
+paths=[p for p in D.rglob('*') if p.is_file() and '__pycache__' not in p.parts and p.suffix!='.pyc']
+test=R/'tests/test_iter144_timed_trajectory.py'
+if test.exists():paths.append(test)
+with tempfile.TemporaryDirectory(prefix='sentinel-i144-index-') as temp:
+ env=os.environ.copy();env['GIT_INDEX_FILE']=temp+'/index';git('read-tree',old,env=env)
+ for p in sorted(paths):
+  rel=str(p.relative_to(R));blob=git('hash-object','-w','--stdin',input=p.read_bytes()).decode().strip();git('update-index','--add','--cacheinfo',f'100644,{blob},{rel}',env=env)
+ for pair in sys.argv[2:]:
+  dest,src=pair.split('=',1);blob=git('hash-object','-w','--stdin',input=Path(src).read_bytes()).decode().strip();git('update-index','--add','--cacheinfo',f'100644,{blob},{dest}',env=env)
+ tree=git('write-tree',env=env).decode().strip();commit=git('commit-tree',tree,'-p',old,input=(sys.argv[1]+'\n').encode()).decode().strip()
+ git('update-ref',branch,commit,old if exists else '0'*40)
+ print(commit);print(git('diff','--stat',old,commit).decode())

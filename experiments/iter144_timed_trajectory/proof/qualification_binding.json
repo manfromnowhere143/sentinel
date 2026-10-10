@@ -1,0 +1,12 @@
+{
+  "schema": "sentinel.iter144.qualification_binding.v1",
+  "source_commit": "c7dce0639c7fca8f8f34171b31f282811ab31d44",
+  "raw_commit": "bc8c1b7ca52b34797d9f7cd75846defdf6418f0e",
+  "raw_sha256": "c27d0f70939f00f42937b166091255b83ed3994951f4512040c629a888a9ec26",
+  "analysis_sha256": "178dfdc7049a95526deda9227f3331130e610fca9d52c577134c0f099dca9acb",
+  "checker_sha256": "16457b1585033a5f952977febb36b5f4c8a6d7e28274b14db1806e4406ef17bd",
+  "source_packet_sha256": "3a53f3ec9ac04f57544566d185f3bead18c6b4437b855f85a6efc9ad88f9f94e",
+  "knownbads_sha256": "56e848bf40db551127c0a14a94a9f4490a051f021a06ae8d69ac4eae19c7b68d",
+  "status": "supported",
+  "scope": "local CPU timed trajectory contract, no full simulator or physical qualification"
+}

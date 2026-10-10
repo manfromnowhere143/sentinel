@@ -1,0 +1,266 @@
+from pathlib import Path
+import json,re,subprocess
+R=Path('/Users/danielwahnich/workspace/sentinel');D=R/'experiments/iter144_timed_trajectory';P=D/'proof';parent='18ca7e2000c22c7cd1d00f31ab81854a25fa2698'
+a=json.loads((P/'analysis.json').read_text());assert a['independent_validation']=='passed'
+(D/'RESULT.md').write_text('''# Iter144 explicit trajectory execution result
+
+Status: **supported / TIMED_TRAJECTORY_CPU_CONTRACT_SUPPORTED**, 2026-10-10.
+Explicit trajectory timestamps and simulator-matched ego prediction are implemented
+and pass the registered local CPU qualification. **From-rest optimization remains
+unresolved: four solver calls reached the 100-iteration cap without convergence.**
+The 14-scenario schedule is prepared; it has not been admitted or executed.
+
+## Implemented contract
+
+The new regime `sentinel.timed_trajectory.v1` carries absolute simulation seconds,
+episode and owner identities, SI units, a named coordinate frame, source branch,
+original source rows, and a content identity. All candidate costs compare the same
+20 times, from the plan origin through 4.75 s in .25 s increments. Source generation
+uses a 5 s horizon; actual spline and low-speed time channels survive resampling.
+Position and speed use linear interpolation; heading uses the shortest angular arc.
+Extrapolation, shifted/dropped times, stale plans and invalid identities are rejected.
+
+Actor native heading and ego native heading have different explicit conversions.
+Reset preserves the supplied state. The first future state is consumed at .25 s.
+Execution uses integer ticks and refreshes a plan after ten completed steps, before
+the next advance. The fixture replans have origins 0 and 2.5 s; its final observation
+is at 5 s. A subsequent advance would require a plan originating at 5 s.
+
+The ego predictor uses the retained simulator's update order: speed and steering
+first, then displacement and heading. Requested acceleration is projected to ±2 m/s²,
+steering rate to ±pi/12 rad/s, and steering angle to ±pi/3 by adjusting the applied
+rate. Requested and applied controls are logged. Signed ego speed is explicit;
+braking moves either sign toward zero without crossing it. Negative actor speed at
+a source-generation origin stops as unqualified because the source clamps that input.
+
+These are declared new-policy choices: 5 s candidate generation, timestamp alignment,
+corrected heading boundaries, reset without advancement, deterministic lowest-cost
+selection with index ties, neighbor exclusion by identity, .25 s matched ego dynamics,
+and stricter controls. Legacy source and outcomes remain unchanged. Source feasibility
+filtering occurs before interpolation; this qualification does not certify continuous
+motion feasibility after interpolation. Interpolated stored speed is not asserted to
+be the exact position derivative on accelerating or curved trajectories.
+
+```mermaid
+flowchart LR
+    S[Retained source sampler] --> T[Timestamp and frame adapter]
+    E[Ego and neighbor forecasts] --> C[Costs at common times]
+    T --> C
+    C --> X[Tick-based actor execution]
+    R[Timestamped ego reference] --> I[Source iLQR with matched dynamics]
+    I --> A[Logged control projection]
+    X --> P[Retained simulator step prefix]
+    A --> P
+    P --> V[Independent evidence replay]
+```
+
+## Retained measurements
+
+| Check | Observed result |
+| --- | --- |
+| Straight source/fallback sequences | 9 sequences, 180 advances |
+| Maximum straight speed versus displacement error | 2.3841852403450048e-7 m/s |
+| Full default sampler fixtures | 9 fixtures, 616 candidates checked |
+| Matched ego transitions | 32/32 independently replayed |
+| Analytic Jacobian fixtures | 8/8 checked by central differences |
+| Maximum Jacobian absolute error | 2.5698909666971304e-10 |
+| Numerical solver repeatability | 4/4 pairs matched within 1e-10 |
+| Simulator-prefix integration | 20/20 steps replayed |
+| Corrupted full evidence packets | 17/17 rejected |
+
+The straight fixtures use actual source spline generation and forward sampling with
+restricted straight-motion grids, and select a declared branch. Empty generation
+is injected only for the fallback fixture. The separate nine default-grid fixtures
+exercise actual generation, feasibility filtering, adaptation and selection at
+speeds 0, 1 and 4 m/s and headings -.4, 0 and .4 rad. The integration executes the
+actual retained environment step prefix with the new actor dispatch and actual iLQR
+controls. It omits renderer, collision, route termination, live assets and nominal
+planner/monitor processes. The bridge returns CPU actor states; CUDA render transforms
+and full simulator reset, including steering state, remain to be integrated.
+
+## Solver and deadline findings
+
+Of 28 calls, 24 converged and 4 reached the iteration cap. The four capped calls are
+the two from-rest reference shapes, each repeated twice. Their final input-change
+norms were 1.199168243419043 (straight) and 1.1998867576369974 (curved), above the
+1e-6 convergence threshold. Repeatability therefore does not establish convergence.
+All 20 calls in the moving-ego integration converged.
+
+Complete-call times were 1.807708–99.267916 ms; solver times were
+1.722625–99.156416 ms. Four complete calls exceeded 50 ms, exactly the capped calls.
+These are ambient CPU observations with numerical mode and no wall-time cutoff.
+They do not establish an end-to-end deadline, deployment latency or a late-result policy.
+The preregistered software pass requires repeatability and truthful stopping records;
+it does not turn an iteration-limit return into convergence or qualify it for driving.
+
+## Study preparation
+
+The generated [schedule](proof/study_schedule.json) retains the complete 88-row
+inventory and all exclusions. Its proposed pilot is 14 scenarios from base scenes
+0013, 0038 and 0041, with nominal, released-monitor, brake-at-0 and brake-at-2.5 arms,
+two replicas each: 112 slots, at most 401 actions each. All are historically exposed
+development cases; there are zero untouched holdout scenes. All outcomes remain null.
+Seed 144, one explicit reset, and signed-speed braking are proposed successor choices.
+They do not authorize launching this schedule from the old simulator runner.
+
+The [readiness record](proof/study_readiness.json) binds this local qualification and
+retains six missing live bindings: full source, runtime, assets, full simulator smoke,
+resource envelope and live preregistration. Current study cloud budget is zero.
+The next work is in [DECISION.md](DECISION.md).
+
+## Reproduction and evidence
+
+- Preregistration: `b84348d0a50a80f6050ce8cb3bcf11f876e402ea`.
+- Executed source: `c7dce0639c7fca8f8f34171b31f282811ab31d44`.
+- Raw data committed before replay: `bc8c1b7ca52b34797d9f7cd75846defdf6418f0e`.
+- [Raw fixtures](proof/raw_qualification.json), [independent analysis](proof/analysis.json),
+  [source packet](proof/source_packet.json), [binding](proof/qualification_binding.json),
+  [known-bad mutations](proof/artifact_knownbads.json).
+
+71 distinct focused tests passed in the workspace and from the isolated committed
+source packet; repeated invocations are not additional distinct tests. Ruff passed.
+Python 3.14.2, NumPy 2.4.2, Torch 2.10.0 CPU, SciPy 1.17.1; Torch and BLAS threads
+were fixed to one for qualification. This is ambient macOS, not the prior Linux host.
+No full/frozen/hosted CI was run. No packages were installed. No cloud compute,
+provider observation or live episode occurred. State-of-the-art performance, physical
+fidelity, safety, industrial value and recoverability remain unestablished.
+
+The pinned upstream [rotation helper](https://github.com/hyzhou404/HUGSIM/blob/62c690d39fd90020e68a196bd8bcc1c4d4191f2e/submodules/Pplan/utils/geometry_utils.py)
+was retrieved and matched the retained Iter142 runtime hash before use. The source
+sampler retains its original tensor-construction warnings; these are recorded in
+command stderr. Development Ruff initially found unused imports, which were fixed.
+A first packet-test invocation had the repository working directory; it is not used
+as isolation evidence. The subsequent `isolated_packet_pytest` ran from the extracted
+packet directory, as did qualification and independent replay. No fixture rerun or
+outcome-driven replacement occurred.
+''')
+(D/'DECISION.md').write_text('''# Next steps after explicit trajectory qualification
+
+The Iter144 timing contract is supported on its registered CPU fixtures. The next
+live comparison remains unadmitted. Preserve all old null results and the new
+from-rest convergence failures.
+
+## Resolve optimizer behavior before driving
+
+Register a bounded successor using the two retained from-rest references and their
+exact source/parameter identities. Inspect objective and input-change histories to
+distinguish cycling, poor warm starts and constraint-boundary behavior; the observed
+iteration cap alone does not identify a cause. The retained solver lacks a line
+search. A projected step with objective-decrease acceptance is a candidate, not yet
+an established remedy. Do not silently change the cap, convergence tolerance, cost
+weights or fixture population to make this result green. Retain the existing output
+as the comparison and report control/trajectory changes under any new policy.
+
+Require explicit handling of iteration limits and nonfinite results. Test analytic
+Jacobians again if the dynamics/projection changes. Log numerical stop reasons and
+measure wall time separately. A returned control and a repeatable result are both
+insufficient to claim convergence or a vehicle deadline.
+
+## Complete simulator integration
+
+Use the new timestamped interface throughout the actual nominal planner, actor dispatch,
+controller, observation, action, collision and rendering boundaries. The Iter144 bridge
+returns CPU native actor states, not CUDA scene transforms. Build transforms from the
+same consumed timestamped state and log the times used by collision/rendering. Verify
+all actor types present in the pilot; the present generation qualification covers
+AttackPlanner-style spline/forward candidates and its fallback.
+
+Bind nominal reference knot times from the planner protocol before resampling. Do not
+infer them from array position. Verify reset of every state component, including ego
+steering and actor clocks, once per new episode. Enforce actual environment dt,
+wheelbase and limits against the selected predictor at runtime. Test simultaneous
+multiple actors and the ego/actor frame boundary with actual scenario configurations.
+Keep the prior regime identity and changed difficulty visible.
+
+## Bind the finite study
+
+The machine-readable [schedule](proof/study_schedule.json) and its
+[audit](proof/study_schedule_audit.json) establish 112 proposed slots, all 14 selected
+scenarios, three development scenes and all retained exclusions. The original
+[scientific design](../iter143_model_contract/CASE_FAMILY_PROTOCOL.md) remains proposed.
+The new single-reset and seed-144 choices are preparation, not a live preregistration.
+
+Verify actual YAML hashes, scene/model/checkpoint assets and runtime identities for
+every selected row. Missing assets stay unavailable; no substitution or scene0411
+search. Run a separately bounded integration smoke, measure time/storage, then bind
+a feasible total host/cost ceiling, per-episode cutoff and shutdown ownership before
+registering the live schedule. Do not extrapolate local CPU fixture times into a GPU
+rendering budget. No new human acceptance ceremony is needed; the agent can perform
+these bindings under Daniel's instruction.
+
+All comparator-success cases stay in the intervention schedule to expose harm.
+Report nominal and monitor recovery opportunities separately and their intersection.
+Only after a repeated complete-route action witness exists should an added-information
+selector be tested, with signal availability and action deadlines explicitly recorded.
+''')
+(D/'EXECUTION_BINDING.md').write_text('''# Iter144 execution binding
+
+The original preregistration is commit b84348d0a50a80f6050ce8cb3bcf11f876e402ea.
+The geometry dependency addition is 45177728347d9afa2a3691875a936b7dfc898622.
+The tested and executed implementation is c7dce0639c7fca8f8f34171b31f282811ab31d44.
+The raw artifact commit is bc8c1b7ca52b34797d9f7cd75846defdf6418f0e.
+
+Run from the extracted source packet identified in proof/source_packet.json:
+
+```bash
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 python3 -m experiments.iter144_timed_trajectory.qualify --root PACKET --output NEW_RAW_PATH
+python3 -m experiments.iter144_timed_trajectory.independent --root PACKET --raw RAW_PATH --output NEW_ANALYSIS_PATH
+```
+
+Use new output paths; runners reject overwrite. Exact absolute paths, argv, cwd,
+exit code and elapsed wall time are retained under proof/commands. Source packet
+file hashes bind the executed bytes. The independent checker imports only stdlib,
+reconstructs interpolation/costs/transitions and checks candidate selection, clocks,
+source identity, controls, Jacobians, stopping and numerical replicas.
+
+The retained tests include admission known-bads; proof/artifact_knownbads.json adds
+17 mutations of complete measured artifacts with exact mutation paths and hashes.
+The mutation helper makes each from the same committed raw artifact and calls the
+committed independent checker. Successful rejection does not assert completeness of
+all possible corruptions. proof/qualification_binding.json binds raw, source, checker,
+analysis and known-bad identities. Canonical master and hosted CI are unchanged.
+''')
+state=dict(iteration=144,status='supported',verdict=a['verdict'],phase='complete',regime='sentinel.timed_trajectory.v1',branch='research/iter144-timed-trajectory',parent_commit=parent,preregistration_commit='b84348d0a50a80f6050ce8cb3bcf11f876e402ea',executed_source_commit='c7dce0639c7fca8f8f34171b31f282811ab31d44',raw_commit='bc8c1b7ca52b34797d9f7cd75846defdf6418f0e',independent_validation='passed',distinct_focused_tests=71,full_artifact_knownbads=17,iteration_limit_calls=4,solver_calls=28,cloud_access=False,live_episodes=0,physical_qualification='unestablished',full_simulator_qualification='unestablished',study_status='proposed',study_slots=112,live_admitted=False,publication='local_unpushed_candidate',next_step='Resolve from-rest optimizer convergence, complete full simulator integration, bind assets and measured resources before live study registration.')
+(D/'STATE.json').write_text(json.dumps(state,indent=2)+'\n')
+block='''> **Active operator-directed candidate work, 2026-10-10:** Iter144 is complete:
+> **supported / TIMED_TRAJECTORY_CPU_CONTRACT_SUPPORTED**. Explicit timestamps,
+> frame conversions, reset/consumption, control limits and matched ego transitions
+> passed local source-fixture replay. 71 focused tests and 17 corrupted packets passed
+> their checks. All four numerical pairs repeated; four from-rest calls did not converge.
+> Read the [result](experiments/iter144_timed_trajectory/RESULT.md),
+> [state](experiments/iter144_timed_trajectory/STATE.json) and
+> [next steps](experiments/iter144_timed_trajectory/DECISION.md).
+> The 14-scenario /112-slot study is prepared but not admitted. Next: resolve optimizer
+> convergence, finish full simulator integration, bind assets and measured resources.
+> No cloud compute or live episode in Iter144; physical fidelity remains unestablished.
+> Candidate `research/iter144-timed-trajectory` is local/unpushed; master remains F17.
+> Iter142 remains null, 0/2 recoveries. Iter135 stays deferred; MISSION_STATE/HANDOFF
+> retain their canonical publication snapshot.
+'''
+pattern=r'> \*\*Active operator-directed candidate work, 2026-10-10:\*\*.*?(?=\n\n)'
+shift='''
+
+## Iter144 explicit trajectory qualification on 2026-10-10
+
+Daniel requested implementation of explicit timestamps, execution qualification and
+progress toward the proposed 14-scenario study. The separate new regime passed its
+local CPU contract checks: 616 default-grid candidates, 180 straight actor advances,
+32 ego transitions, 8 Jacobian fixtures, 4 numerical pairs and 20 integrated source
+steps. The independent checker passed and rejected 17 corrupted full artifacts.
+Four from-rest calls hit the 100-iteration cap; they were retained, not called converged.
+The proposed schedule contains 112 slots and no driving outcomes. Six live bindings
+remain missing. No cloud access, live episode, full simulator qualification or new
+recovery claim occurred. Canonical master and the previous nulls are unchanged.
+'''
+for name in ['CONTINUITY.md','docs/NEXT_PHASE.md','README.md']:
+ b=block.replace('](experiments/','](../experiments/') if name.startswith('docs/') else block
+ candidate=subprocess.check_output(['git','show',parent+':'+name],cwd=R).decode()
+ candidate,count=re.subn(pattern,lambda m:b.rstrip(),candidate,count=1,flags=re.S);assert count==1
+ if name=='README.md':
+  candidate=candidate.replace('The source-contract qualification in Iter143 determines the next engineering step.','Iter144 now qualifies the explicit timing interface locally; from-rest convergence and full simulator integration remain open.')
+ else:candidate+=shift
+ dest=Path('/tmp/i144_'+Path(name).name);dest.write_text(candidate)
+ if name!='README.md':
+  local=(R/name).read_text();local,count=re.subn(pattern,lambda m:b.rstrip(),local,count=1,flags=re.S);assert count==1
+  (R/name).write_text(local+shift)
+print('wrote result, decision, binding, state and surgical active handoff blocks')

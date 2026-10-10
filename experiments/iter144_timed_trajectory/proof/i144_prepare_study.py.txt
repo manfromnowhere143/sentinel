@@ -1,0 +1,27 @@
+from pathlib import Path
+import hashlib,json,sys
+R=Path('/Users/danielwahnich/workspace/sentinel');D=R/'experiments/iter144_timed_trajectory';P=D/'proof'
+packet=Path('/Users/danielwahnich/sentinel-bootstrap-evidence/iter144-timed-trajectory-20261010/committed_source');sys.path.insert(0,str(packet))
+from experiments.iter144_timed_trajectory.study import schedule,readiness
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+analysis=json.loads((P/'analysis.json').read_text());assert analysis['independent_validation']=='passed'
+binding=dict(schema='sentinel.iter144.qualification_binding.v1',source_commit='c7dce0639c7fca8f8f34171b31f282811ab31d44',raw_commit='bc8c1b7ca52b34797d9f7cd75846defdf6418f0e',raw_sha256=sha(P/'raw_qualification.json'),analysis_sha256=sha(P/'analysis.json'),checker_sha256=sha(D/'independent.py'),source_packet_sha256=sha(P/'source_packet.json'),knownbads_sha256=sha(P/'artifact_knownbads.json'),status='supported',scope='local CPU timed trajectory contract, no full simulator or physical qualification')
+(P/'qualification_binding.json').write_text(json.dumps(binding,indent=2)+'\n')
+document=schedule(packet)
+document['qualified_adapter_source_commit']=binding['source_commit']
+document['binding']['qualification_receipt_sha256']=sha(P/'qualification_binding.json')
+document['engineering_issues']=['Four from-rest solver fixtures hit the 100-iteration limit; converge them or preregister and qualify an explicit nonconvergence policy before a live comparison.','Full render, collision, nominal planner, monitor and reset/steering boundaries remain unqualified.','Scenario/model/checkpoint assets and host resource measurements remain unobserved in Iter144.']
+(P/'study_schedule.json').write_text(json.dumps(document,indent=2)+'\n')
+r=readiness(document);(P/'study_readiness.json').write_text(json.dumps(r,indent=2)+'\n')
+# Separate straightforward audit of generated schedule and the original inventory.
+inv=json.loads((R/'experiments/iter143_model_contract/proof/case_inventory.json').read_text())
+pilot=sorted((r['name'],r['sha256'],r['scene']) for r in inv['rows'] if r['scene'] in ('0013','0038','0041'))
+expected=[(name,arm,rep,scene,h) for name,h,scene in pilot for arm in ('nominal','monitor','brake_t0','brake_t2_5') for rep in (1,2)]
+actual=[(x['scenario'],x['arm'],x['replica'],x['scene'],x['scenario_sha256']) for x in document['slots']]
+assert actual==expected and len(actual)==112
+assert [x['slot'] for x in document['slots']]==list(range(112))
+assert document['inventory']==inv['rows'] and document['untouched_holdout_scenes']==0
+assert all(x['status']=='proposed' and x['outcome'] is None and x['seed']==144 and x['reset_count']==1 for x in document['slots'])
+assert len(r['missing_bindings'])==6 and r['live_admitted'] is False
+(P/'study_schedule_audit.json').write_text(json.dumps(dict(status='passed',slots=112,scenarios=14,base_scenes=3,retained_inventory_rows=88,untouched_holdout_scenes=0,missing_live_bindings=6,cloud_budget=0,live_admitted=False),indent=2)+'\n')
+print(json.dumps(r))

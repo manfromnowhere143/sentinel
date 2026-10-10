@@ -1,0 +1,13 @@
+{
+  "status": "proposed",
+  "live_admitted": false,
+  "missing_bindings": [
+    "source_commit",
+    "runtime_manifest_sha256",
+    "asset_manifest_sha256",
+    "full_simulator_smoke_receipt_sha256",
+    "resource_envelope_sha256",
+    "live_preregistration_commit"
+  ],
+  "reason": "This preparation tool cannot authorize a live run; bind and validate a new live protocol."
+}

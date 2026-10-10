@@ -6,25 +6,26 @@ loop, by whether the car crashes *and whether it can still drive*.**
 
 ## Local research update 2026-10-10
 
-> **Active operator-directed candidate work, 2026-10-10:** Iter143 is complete:
-> **contradicted / COMMON_MODEL_CONTRACT_REJECTED**. Independent source-fixture replay
-> passed: actor and ego costs compare different sample times, controller/environment
-> transitions differ, and declared Gym limits are not enforced by the step prefix.
-> These are software-contract findings; no physical qualification or new recovery claim.
-> Read the [result](experiments/iter143_model_contract/RESULT.md),
-> [state](experiments/iter143_model_contract/STATE.json),
-> [next implementation](experiments/iter143_model_contract/DECISION.md) and
-> [finite study proposal](experiments/iter143_model_contract/CASE_FAMILY_PROTOCOL.md).
-> Next: a versioned trajectory adapter with explicit times and qualified control semantics.
-> Iter142 remains null, 0/2 recoveries. Iter143 used local CPU only, no cloud or live runs.
-> Candidate `research/iter143-model-contract` is unpushed; master remains F17.
-> Iter135 stays deferred; MISSION_STATE/HANDOFF retain their publication snapshot.
+> **Active operator-directed candidate work, 2026-10-10:** Iter144 is complete:
+> **supported / TIMED_TRAJECTORY_CPU_CONTRACT_SUPPORTED**. Explicit timestamps,
+> frame conversions, reset/consumption, control limits and matched ego transitions
+> passed local source-fixture replay. 71 focused tests passed; 17 corrupted packets
+> were rejected. All four numerical pairs repeated; four from-rest calls did not converge.
+> Read the [result](experiments/iter144_timed_trajectory/RESULT.md),
+> [state](experiments/iter144_timed_trajectory/STATE.json) and
+> [next steps](experiments/iter144_timed_trajectory/DECISION.md).
+> The 14-scenario /112-slot study is prepared but not admitted. Next: resolve optimizer
+> convergence, finish full simulator integration, bind assets and measured resources.
+> No cloud compute or live episode in Iter144; physical fidelity remains unestablished.
+> Candidate `research/iter144-timed-trajectory` is local/unpushed; master remains F17.
+> Iter142 remains null, 0/2 recoveries. Iter135 stays deferred; MISSION_STATE/HANDOFF
+> retain their canonical publication snapshot.
 
 
 [Iteration 142](experiments/iter142_nominal_continuation_completion/RESULT.md) completed
 the nominal-continuation comparison: 0/2 useful recoveries. Both replicas collided at 7.25 s,
 versus 6.5 s for the references. All 84 new controller calls replayed; 69 exceeded 50 ms.
-The source-contract qualification in Iter143 determines the next engineering step.
+Iter144 now qualifies the explicit timing interface locally; from-rest convergence and full simulator integration remain open.
 
 [Iteration 141](experiments/iter141_nominal_continuation/RESULT.md) remains a recorded
 coordinator failure with only its first reference completed. Iter142 explicitly reused

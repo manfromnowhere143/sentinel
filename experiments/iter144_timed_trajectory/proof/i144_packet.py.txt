@@ -1,0 +1,15 @@
+from pathlib import Path
+import hashlib,json,subprocess
+R=Path('/Users/danielwahnich/workspace/sentinel');D=R/'experiments/iter144_timed_trajectory';P=D/'proof'
+commit=subprocess.check_output(['git','rev-parse','research/iter144-timed-trajectory'],cwd=R).decode().strip()
+packet=Path('/Users/danielwahnich/sentinel-bootstrap-evidence/iter144-timed-trajectory-20261010/committed_source');packet.mkdir(exist_ok=False)
+manifest=json.loads((D/'INPUTS.json').read_text());files=set(manifest['files'])
+files.update(str(p.relative_to(R)) for p in D.rglob('*') if p.is_file() and 'proof' not in p.parts and '__pycache__' not in p.parts)
+files.add('tests/test_iter144_timed_trajectory.py')
+records={}
+for name in sorted(files):
+ raw=subprocess.check_output(['git','show',commit+':'+name],cwd=R)
+ dest=packet/name;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(raw)
+ records[name]=hashlib.sha256(raw).hexdigest()
+(P/'source_packet.json').write_text(json.dumps(dict(commit=commit,packet=str(packet),files=records),indent=2)+'\n')
+print(commit,packet,len(records))

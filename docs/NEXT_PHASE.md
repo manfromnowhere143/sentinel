@@ -2,19 +2,20 @@
 
 ## Active operator work on 2026-10-09
 
-> **Active operator-directed candidate work, 2026-10-10:** Iter143 is complete:
-> **contradicted / COMMON_MODEL_CONTRACT_REJECTED**. Independent source-fixture replay
-> passed: actor and ego costs compare different sample times, controller/environment
-> transitions differ, and declared Gym limits are not enforced by the step prefix.
-> These are software-contract findings; no physical qualification or new recovery claim.
-> Read the [result](../experiments/iter143_model_contract/RESULT.md),
-> [state](../experiments/iter143_model_contract/STATE.json),
-> [next implementation](../experiments/iter143_model_contract/DECISION.md) and
-> [finite study proposal](../experiments/iter143_model_contract/CASE_FAMILY_PROTOCOL.md).
-> Next: a versioned trajectory adapter with explicit times and qualified control semantics.
-> Iter142 remains null, 0/2 recoveries. Iter143 used local CPU only, no cloud or live runs.
-> Candidate `research/iter143-model-contract` is unpushed; master remains F17.
-> Iter135 stays deferred; MISSION_STATE/HANDOFF retain their publication snapshot.
+> **Active operator-directed candidate work, 2026-10-10:** Iter144 is complete:
+> **supported / TIMED_TRAJECTORY_CPU_CONTRACT_SUPPORTED**. Explicit timestamps,
+> frame conversions, reset/consumption, control limits and matched ego transitions
+> passed local source-fixture replay. 71 focused tests passed; 17 corrupted packets
+> were rejected. All four numerical pairs repeated; four from-rest calls did not converge.
+> Read the [result](../experiments/iter144_timed_trajectory/RESULT.md),
+> [state](../experiments/iter144_timed_trajectory/STATE.json) and
+> [next steps](../experiments/iter144_timed_trajectory/DECISION.md).
+> The 14-scenario /112-slot study is prepared but not admitted. Next: resolve optimizer
+> convergence, finish full simulator integration, bind assets and measured resources.
+> No cloud compute or live episode in Iter144; physical fidelity remains unestablished.
+> Candidate `research/iter144-timed-trajectory` is local/unpushed; master remains F17.
+> Iter142 remains null, 0/2 recoveries. Iter135 stays deferred; MISSION_STATE/HANDOFF
+> retain their canonical publication snapshot.
 
 ## Canonical current decision: iteration 134 is complete
 
@@ -1019,3 +1020,16 @@ point elsewhere, or choose another branch and name what new evidence would falsi
 
 Any such line requires a fresh `HYPOTHESIS.md`. Until then, no new HUGSIM transfer, safety,
 robustness, deployment, benchmark-ranking, or retuning claim is authorized.
+
+
+## Iter144 explicit trajectory qualification on 2026-10-10
+
+Daniel requested implementation of explicit timestamps, execution qualification and
+progress toward the proposed 14-scenario study. The separate new regime passed its
+local CPU contract checks: 616 default-grid candidates, 180 straight actor advances,
+32 ego transitions, 8 Jacobian fixtures, 4 numerical pairs and 20 integrated source
+steps. The independent checker passed and rejected 17 corrupted full artifacts.
+Four from-rest calls hit the 100-iteration cap; they were retained, not called converged.
+The proposed schedule contains 112 slots and no driving outcomes. Six live bindings
+remain missing. No cloud access, live episode, full simulator qualification or new
+recovery claim occurred. Canonical master and the previous nulls are unchanged.
