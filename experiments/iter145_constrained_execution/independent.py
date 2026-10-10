@@ -124,6 +124,32 @@ def certificate(record):
             h["objective"],
             cost_gradient(record["initial_state"], h["inputs"], record["reference"])[0],
         )
+    if "refinement" in record:
+        check(
+            record["iterations"] == record["slsqp_iterations"] + len(record["refinement"]),
+            "combined iteration count",
+        )
+        check(len(record["refinement"]) <= 8, "refinement bound")
+        previous = record["history"][-1]["inputs"] if record["history"] else record["warm_inputs"]
+        for h in record["refinement"]:
+            before, g_before, _ = cost_gradient(
+                record["initial_state"], previous, record["reference"]
+            )
+            after = cost_gradient(record["initial_state"], h["inputs"], record["reference"])[0]
+            close(h["objective"], after)
+            close(h["previous_objective"], before)
+            check(0 < h["alpha"] <= 1 and 0 <= h["backtracks"] < 20, "refinement line search")
+            step = [y - x for a, b in zip(previous, h["inputs"]) for x, y in zip(a, b)]
+            slope = sum(g * d / h["alpha"] for g, d in zip(g_before, step))
+            close(h["slope"], slope)
+            check(
+                slope < 0
+                and after
+                <= before + 1e-4 * h["alpha"] * slope + 2e-14 * max(1.0, abs(before)) + 1e-14,
+                "refinement descent",
+            )
+            previous = h["inputs"]
+        close(previous, record["inputs"])
     close(
         record["warm_objective"],
         cost_gradient(record["initial_state"], record["warm_inputs"], record["reference"])[0],

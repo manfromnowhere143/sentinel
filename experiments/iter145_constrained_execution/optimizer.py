@@ -105,6 +105,60 @@ def certificate(u, gradient, C, b):
     )
 
 
+def refine(u, state, ref, C, b, remaining):
+    """Bounded feasible Gauss-Newton refinement under the unchanged certificate."""
+    u = u.copy()
+    history = []
+    for _ in range(min(8, remaining)):
+        value, g = objective(u, state, ref)
+        cert = certificate(u, g, C, b)
+        if cert["admitted"]:
+            break
+        _, J = rollout(state, u.reshape(-1, 2))
+        H = 2 * np.einsum("tij,i,tik->jk", J, Q, J) + np.diag(2 * np.tile(R, len(u) // 2))
+        active = np.flatnonzero(np.asarray(cert["multipliers"]) > 1e-9)
+        A = C[active]
+        K = np.block([[H, A.T], [A, np.zeros((len(active), len(active)))]])
+        direction = np.linalg.lstsq(K, np.r_[-g, np.zeros(len(active))], rcond=None)[0][: len(u)]
+        slope = float(g @ direction)
+        if slope >= 0:
+            break
+        movement = C @ direction
+        forward = movement > 1e-14
+        maximum = (
+            min(1.0, float(np.min(np.maximum(0.0, b - C @ u)[forward] / movement[forward])))
+            if forward.any()
+            else 1.0
+        )
+        accepted = None
+        for backtrack in range(20):
+            alpha = maximum * 2.0**-backtrack
+            candidate = u + alpha * direction
+            next_value, _ = objective(candidate, state, ref)
+            if (
+                alpha > 0
+                and np.max(C @ candidate - b) <= 1e-9
+                and next_value <= value + 1e-4 * alpha * slope + 2e-14 * max(1.0, abs(value))
+            ):
+                accepted = candidate
+                history.append(
+                    dict(
+                        objective=next_value,
+                        inputs=candidate.reshape(-1, 2).tolist(),
+                        alpha=alpha,
+                        slope=slope,
+                        previous_objective=value,
+                        stationarity_before=cert["stationarity_inf"],
+                        backtracks=backtrack,
+                    )
+                )
+                break
+        if accepted is None:
+            break
+        u = accepted
+    return u, history
+
+
 class ConstrainedController:
     """First-order certificate gates action admission; no fallback on solver failure."""
 
@@ -155,6 +209,8 @@ class ConstrainedController:
             callback=callback,
             options=dict(maxiter=max_iterations, ftol=1e-12, disp=False),
         )
+        refined, polishing = refine(result.x, state, ref, C, b, max_iterations - int(result.nit))
+        result.x = refined
         solver_ns = time.perf_counter_ns() - solver_start
         cost, gradient = objective(result.x, state, ref)
         cert = certificate(result.x, gradient, C, b)
@@ -173,7 +229,9 @@ class ConstrainedController:
             library_success=bool(result.success),
             library_status=int(result.status),
             library_message=str(result.message),
-            iterations=int(result.nit),
+            iterations=int(result.nit) + len(polishing),
+            slsqp_iterations=int(result.nit),
+            refinement=polishing,
             history=history,
             admitted=admitted,
             stop_reason="kkt_converged" if admitted else "solver_or_certificate_rejected",

@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "ruff",
+    "check",
+    "experiments/iter145_constrained_execution",
+    "tests/test_iter145_constrained_execution.py"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-10T05:49:36.298253+00:00",
+  "elapsed_seconds": 0.020245075225830078,
+  "returncode": 0
+}
