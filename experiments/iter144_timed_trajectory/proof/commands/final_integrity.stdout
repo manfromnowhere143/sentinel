@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "validated_tip": "d3fb07102b08ba9fb93750b1a192c9e4dd2f093f",
+  "proof_files": 45,
+  "source_packet_files": 31,
+  "new_document_links": 11,
+  "unchanged_unrelated_wip_files": 18,
+  "human_attributed_commits": 5,
+  "source_raw_and_preregistration_unchanged": true,
+  "root_index_preserved": true,
+  "master_unchanged": true,
+  "independent_replay": "passed",
+  "proof_hash_knownbad": "rejected",
+  "cloud_access": false
+}

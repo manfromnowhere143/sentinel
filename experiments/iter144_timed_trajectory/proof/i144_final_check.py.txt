@@ -1,0 +1,60 @@
+from pathlib import Path
+import hashlib,json,re,subprocess,sys
+R=Path('/Users/danielwahnich/workspace/sentinel');D=R/'experiments/iter144_timed_trajectory';P=D/'proof';E=Path('/Users/danielwahnich/sentinel-bootstrap-evidence/iter144-timed-trajectory-20261010')
+parent='18ca7e2000c22c7cd1d00f31ab81854a25fa2698';source='c7dce0639c7fca8f8f34171b31f282811ab31d44';raw_commit='bc8c1b7ca52b34797d9f7cd75846defdf6418f0e';prereg='b84348d0a50a80f6050ce8cb3bcf11f876e402ea'
+def git(*args):return subprocess.check_output(['git',*args],cwd=R)
+def sha(b):return hashlib.sha256(b).hexdigest()
+tip=git('rev-parse','research/iter144-timed-trajectory').decode().strip()
+assert git('rev-parse','master').decode().strip()=='8c118b74c699bf0f139f9bd659192bad06b895f8'
+assert git('diff','--cached','--binary')==(E/'initial_index.diff').read_bytes()
+unchanged=[]
+for name,h in json.loads((E/'initial_wip_hashes.json').read_text()).items():
+ if name in ('CONTINUITY.md','docs/NEXT_PHASE.md'):continue
+ assert (sha((R/name).read_bytes()) if (R/name).is_file() else None)==h,name
+ unchanged.append(name)
+changed=git('diff','--name-only',parent,tip).decode().splitlines()
+assert all(x.startswith('experiments/iter144_timed_trajectory/') or x in ['tests/test_iter144_timed_trajectory.py','CONTINUITY.md','README.md','docs/NEXT_PHASE.md'] for x in changed)
+for p in [*D.glob('*.py'),R/'tests/test_iter144_timed_trajectory.py']:
+ name=str(p.relative_to(R));assert git('show',source+':'+name)==p.read_bytes()==git('show',tip+':'+name)
+assert git('show',prereg+':experiments/iter144_timed_trajectory/HYPOTHESIS.md')==(D/'HYPOTHESIS.md').read_bytes()
+assert git('show',prereg+':experiments/iter144_timed_trajectory/INPUTS.json')==(D/'INPUTS.json').read_bytes()
+assert git('show',raw_commit+':experiments/iter144_timed_trajectory/proof/raw_qualification.json')==(P/'raw_qualification.json').read_bytes()
+count=0
+for line in (P/'SHA256SUMS').read_text().splitlines():
+ h,n=line.split('  ',1);assert sha((P/n).read_bytes())==h,n
+ assert git('show',tip+':'+str((P/n).relative_to(R)))==(P/n).read_bytes(),n
+ count+=1
+packet=json.loads((P/'source_packet.json').read_text())
+for name,h in packet['files'].items():
+ assert sha(git('show',source+':'+name))==h
+ assert sha((Path(packet['packet'])/name).read_bytes())==h
+binding=json.loads((P/'qualification_binding.json').read_text())
+for key,name in [('raw_sha256','raw_qualification.json'),('analysis_sha256','analysis.json'),('source_packet_sha256','source_packet.json'),('knownbads_sha256','artifact_knownbads.json')]:assert binding[key]==sha((P/name).read_bytes())
+assert binding['checker_sha256']==sha((D/'independent.py').read_bytes())
+schedule=json.loads((P/'study_schedule.json').read_text());assert schedule['binding']['qualification_receipt_sha256']==sha((P/'qualification_binding.json').read_bytes())
+assert not schedule['live_admitted'] and schedule['cloud_budget']==0
+# Candidate-local links in the newly authored experiment documents.
+links=0
+for path in D.glob('*.md'):
+ text=path.read_text()
+ for match in re.finditer(r'\]\(([^)]+)\)',text):
+  target=match.group(1)
+  if target.startswith(('https:','http:','#')):continue
+  dest=(path.parent/target.split('#')[0]).resolve();rel=str(dest.relative_to(R))
+  git('cat-file','-e',tip+':'+rel);links+=1
+# Every new commit uses the configured human attribution; no model trailers.
+commits=git('rev-list',parent+'..'+tip).decode().splitlines()
+for c in commits:
+ author=git('show','-s','--format=%an <%ae>%n%cn <%ce>',c).decode().strip().splitlines()
+ assert author==['Daniel Wahnich <cogitoergosum143@gmail.com>']*2,(c,author)
+ msg=git('show','-s','--format=%B',c).decode().lower()
+ assert all(x not in msg for x in ['co-authored-by:','generated-by','claude','anthropic'])
+# Recheck the final candidate raw packet with the committed independent implementation.
+sys.path.insert(0,packet['packet'])
+from experiments.iter144_timed_trajectory.independent import validate
+analysis=validate(json.loads((P/'raw_qualification.json').read_text()),Path(packet['packet']))
+assert analysis==json.loads((P/'analysis.json').read_text())
+# A deliberately wrong proof hash is rejected by the same hash predicate.
+h,n=(P/'SHA256SUMS').read_text().splitlines()[0].split('  ',1)
+assert sha((P/n).read_bytes())!=('0'*64)
+print(json.dumps(dict(status='passed',validated_tip=tip,proof_files=count,source_packet_files=len(packet['files']),new_document_links=links,unchanged_unrelated_wip_files=len(unchanged),human_attributed_commits=len(commits),source_raw_and_preregistration_unchanged=True,root_index_preserved=True,master_unchanged=True,independent_replay='passed',proof_hash_knownbad='rejected',cloud_access=False),indent=2))
