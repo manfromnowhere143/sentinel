@@ -1,0 +1,21 @@
+{
+  "status": "running",
+  "episode": "qualification_004__scene-0013-hard-00__nominal__1",
+  "seed": 144,
+  "gpu_observed": false,
+  "slot": {
+    "index": 4,
+    "id": "qualification_004__scene-0013-hard-00__nominal__1",
+    "scenario": "scene-0013-hard-00.yaml",
+    "scenario_sha256": "6947a5381c09485f20d5fed55eef2406d868ce047bdd44864aad81902f54e48e",
+    "arm": "nominal",
+    "replica": 1,
+    "seed": 144,
+    "reset_count": 1,
+    "max_actions": 401,
+    "probe": "none"
+  },
+  "purpose": "qualification",
+  "driving_outcome": null,
+  "live_study_admitted": false
+}

@@ -1,0 +1,9 @@
+Loading data for matched scene tags: ['nusc_trainval-train-boston', 'nusc_trainval-train-singapore', 'nusc_trainval-boston-train_val', 'nusc_trainval-train_val-singapore', 'nusc_trainval-boston-val', 'nusc_trainval-val-singapore']
+Getting Scenes from nusc_trainval:   0%|          | 0/6 [00:00<?, ?it/s]Getting Scenes from nusc_trainval: 100%|██████████| 6/6 [00:00<00:00, 800.24it/s]
+Calculating Agent Data (Serially):   0%|          | 0/850 [00:00<?, ?it/s]Calculating Agent Data (Serially): 100%|██████████| 850/850 [00:00<00:00, 53279.71it/s]
+850 scenes in the scene index.
+Creating Agent Data Index (4 CPUs):   0%|          | 0/850 [00:00<?, ?it/s]Creating Agent Data Index (4 CPUs):  31%|███       | 263/850 [00:00<00:00, 2561.33it/s]Creating Agent Data Index (4 CPUs):  75%|███████▍  | 634/850 [00:00<00:00, 3169.08it/s]Creating Agent Data Index (4 CPUs): 100%|██████████| 850/850 [00:00<00:00, 3317.42it/s]
+Structuring Agent Data Index:   0%|          | 0/850 [00:00<?, ?it/s]Structuring Agent Data Index: 100%|██████████| 850/850 [00:00<00:00, 12632.86it/s]
+/opt/sentinel-stack/HUGSIM/.pixi/envs/default/lib/python3.11/site-packages/pandas/io/feather_format.py:123: FutureWarning: pyarrow.feather.read_feather is deprecated as of 24.0.0. Use pyarrow.ipc.open_file() / RecordBatchFileReader instead. Feather V2 is the Arrow IPC file format.
+  return feather.read_feather(
+Collision with foreground

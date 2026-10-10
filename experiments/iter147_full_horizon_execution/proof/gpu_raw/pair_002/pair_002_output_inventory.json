@@ -1,0 +1,124 @@
+{
+  "files": {
+    "runs/qualification_004__scene-0013-hard-00__nominal__1/client.log": {
+      "sha256": "16582067b7c2a96305a82c5acbdb021e069ea75e0f9a44c74609fb6203ca1571",
+      "bytes": 5159
+    },
+    "runs/qualification_004__scene-0013-hard-00__nominal__1/delivery145.jsonl": {
+      "sha256": "e8bef78e77a1aa580fe40663b182a79e5104e007a55961cf9c20d29dadc82e14",
+      "bytes": 25541
+    },
+    "runs/qualification_004__scene-0013-hard-00__nominal__1/ground.ply": {
+      "sha256": "401c1da8c3d8bce2c4f117a0ab66932cfb33e60bd974d95c6cf10e43bb0d3a8e",
+      "bytes": 6722213
+    },
+    "runs/qualification_004__scene-0013-hard-00__nominal__1/parent.log": {
+      "sha256": "af072aba8d5f603dbdaa621d7ef603c40eb36e66a115859cdf39652f28755477",
+      "bytes": 1617
+    },
+    "runs/qualification_004__scene-0013-hard-00__nominal__1/scene.ply": {
+      "sha256": "756ce791962d60526c9470229b003eb0b60e9be31783ce009cddca17ab5d5f26",
+      "bytes": 31674942
+    },
+    "runs/qualification_004__scene-0013-hard-00__nominal__1/sentinel_iter48_decisions.jsonl": {
+      "sha256": "fb60d8ee7fd43aab73cdb27c5300363dcdc40344a07f01b667a436857494e7b6",
+      "bytes": 16440
+    },
+    "runs/qualification_004__scene-0013-hard-00__nominal__1/trace/events.jsonl": {
+      "sha256": "0a0bfed8b8f5fb9f527104bebaea711ad048a4c2eb931d882f4578680f33a53e",
+      "bytes": 561673
+    },
+    "runs/qualification_004__scene-0013-hard-00__nominal__1/trace/started.json": {
+      "sha256": "6d37dbdcd26f9c3640e00fcf02003f3b08ef80c069a85085c93b65a2027a10a2",
+      "bytes": 595
+    },
+    "runs/qualification_004__scene-0013-hard-00__nominal__1/trace/summary.json": {
+      "sha256": "2c240a548257e9a6265626b291868f2418829d60f670bd768326ce77b2376e7e",
+      "bytes": 4375
+    },
+    "runs/qualification_004__scene-0013-hard-00__nominal__1/worker.json": {
+      "sha256": "c3866c8f23f4873b7a89ec7b39397a124b7a79bef5b8d0fd7c01033077fc62b3",
+      "bytes": 78468
+    },
+    "runs/qualification_004__scene-0013-hard-00__nominal__1/worker_started.json": {
+      "sha256": "cb2a35a30a7895907dad29083c4df94b19e25fff913315b23059d6817d3acc32",
+      "bytes": 574
+    },
+    "runs/qualification_005__scene-0013-hard-00__nominal__2/client.log": {
+      "sha256": "e62a885907085c888075827cd046533963f6b8c2bab984528791d32da194ff64",
+      "bytes": 5159
+    },
+    "runs/qualification_005__scene-0013-hard-00__nominal__2/delivery145.jsonl": {
+      "sha256": "7a6e744ad36da3c6e4b0e081a06920b134e72e26ab93c51aff5606793a116239",
+      "bytes": 25541
+    },
+    "runs/qualification_005__scene-0013-hard-00__nominal__2/ground.ply": {
+      "sha256": "401c1da8c3d8bce2c4f117a0ab66932cfb33e60bd974d95c6cf10e43bb0d3a8e",
+      "bytes": 6722213
+    },
+    "runs/qualification_005__scene-0013-hard-00__nominal__2/parent.log": {
+      "sha256": "231212c4fefc86d69c2ad71142898729129a5ccd8a9af9fcd3c1c0d38b325c4c",
+      "bytes": 1518
+    },
+    "runs/qualification_005__scene-0013-hard-00__nominal__2/scene.ply": {
+      "sha256": "756ce791962d60526c9470229b003eb0b60e9be31783ce009cddca17ab5d5f26",
+      "bytes": 31674942
+    },
+    "runs/qualification_005__scene-0013-hard-00__nominal__2/sentinel_iter48_decisions.jsonl": {
+      "sha256": "fb60d8ee7fd43aab73cdb27c5300363dcdc40344a07f01b667a436857494e7b6",
+      "bytes": 16440
+    },
+    "runs/qualification_005__scene-0013-hard-00__nominal__2/trace/events.jsonl": {
+      "sha256": "026347df6e603ce62e90006ef391ae3a24c21512af684cda2f3eac1fc319f77f",
+      "bytes": 561673
+    },
+    "runs/qualification_005__scene-0013-hard-00__nominal__2/trace/started.json": {
+      "sha256": "c31305ada31bb01cc09c4f06ed595cf02217c8888fb13a394b2653a92c63e82a",
+      "bytes": 595
+    },
+    "runs/qualification_005__scene-0013-hard-00__nominal__2/trace/summary.json": {
+      "sha256": "e91f082271c945516f37902991c64458520f4a39306a4a586d553af7327e3821",
+      "bytes": 4375
+    },
+    "runs/qualification_005__scene-0013-hard-00__nominal__2/worker.json": {
+      "sha256": "3d0c9d6311e61a81f303515ebebf44fc769f7084fb8003284e63c0377d1613dc",
+      "bytes": 78468
+    },
+    "runs/qualification_005__scene-0013-hard-00__nominal__2/worker_started.json": {
+      "sha256": "ba224db704e1a026d2b54c802d442108679987a782de6dcd95e7dc3e612d3b16",
+      "bytes": 574
+    }
+  },
+  "total_bytes": 78183095,
+  "selected_files": [
+    "runs/qualification_004__scene-0013-hard-00__nominal__1/client.log",
+    "runs/qualification_004__scene-0013-hard-00__nominal__1/delivery145.jsonl",
+    "runs/qualification_004__scene-0013-hard-00__nominal__1/parent.log",
+    "runs/qualification_004__scene-0013-hard-00__nominal__1/sentinel_iter48_decisions.jsonl",
+    "runs/qualification_004__scene-0013-hard-00__nominal__1/trace/events.jsonl",
+    "runs/qualification_004__scene-0013-hard-00__nominal__1/trace/started.json",
+    "runs/qualification_004__scene-0013-hard-00__nominal__1/trace/summary.json",
+    "runs/qualification_004__scene-0013-hard-00__nominal__1/worker.json",
+    "runs/qualification_004__scene-0013-hard-00__nominal__1/worker_started.json",
+    "runs/qualification_005__scene-0013-hard-00__nominal__2/client.log",
+    "runs/qualification_005__scene-0013-hard-00__nominal__2/delivery145.jsonl",
+    "runs/qualification_005__scene-0013-hard-00__nominal__2/parent.log",
+    "runs/qualification_005__scene-0013-hard-00__nominal__2/sentinel_iter48_decisions.jsonl",
+    "runs/qualification_005__scene-0013-hard-00__nominal__2/trace/events.jsonl",
+    "runs/qualification_005__scene-0013-hard-00__nominal__2/trace/started.json",
+    "runs/qualification_005__scene-0013-hard-00__nominal__2/trace/summary.json",
+    "runs/qualification_005__scene-0013-hard-00__nominal__2/worker.json",
+    "runs/qualification_005__scene-0013-hard-00__nominal__2/worker_started.json",
+    "deployment_report.json",
+    "e2e147.py",
+    "execution_manifest.json",
+    "nuscenes_base.yaml",
+    "pair_002_clearance.json",
+    "pair_002_entry.log",
+    "pair_002_launch.json",
+    "pair_002_result.json",
+    "pair_002_started.json",
+    "plan.json"
+  ],
+  "derived_content": "PLY retained on stopped host with complete hashes; display images disabled prospectively."
+}
