@@ -1,0 +1,19 @@
+{
+  "argv": [
+    "env",
+    "OPENBLAS_NUM_THREADS=1",
+    "OMP_NUM_THREADS=1",
+    "MKL_NUM_THREADS=1",
+    "python3",
+    "-m",
+    "experiments.iter147_full_horizon_execution.local",
+    "--root",
+    "/Users/danielwahnich/workspace/sentinel",
+    "--output",
+    "experiments/iter147_full_horizon_execution/proof/cpu_raw"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-10T13:19:35.386756+00:00",
+  "elapsed_seconds": 8.69840383529663,
+  "returncode": 0
+}
