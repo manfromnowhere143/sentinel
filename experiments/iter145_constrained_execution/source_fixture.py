@@ -16,6 +16,22 @@ ACTORS = "experiments/iter136_hugsim_recoverability_canary/proof/source/HUGSIM/s
 UTILS = "experiments/iter136_hugsim_recoverability_canary/proof/source/HUGSIM/sim/utils/sim_utils.py.txt"
 
 
+class FixturePolygon:
+    """CPU separating-axis substitute for unavailable local Shapely/GEOS."""
+
+    def __init__(self, points):
+        self.points = np.asarray(list(points), dtype=float)
+
+    def intersects(self, other):
+        for polygon in (self.points, other.points):
+            for a, b in zip(polygon, np.roll(polygon, 1, axis=0)):
+                axis = np.array([a[1]-b[1], b[0]-a[0]])
+                first, second = self.points @ axis, other.points @ axis
+                if max(first) < min(second) or max(second) < min(first):
+                    return False
+        return True
+
+
 def source_namespace(root):
     blobs = bound_inputs(root)
     additions = json.loads((root / "experiments/iter145_constrained_execution/SOURCE_ADDITIONS.json").read_text())
@@ -27,12 +43,13 @@ def source_namespace(root):
     extract = Extractor(blobs)
     ns = dict(np=np, torch=torch, nn=torch.nn, F=torch.nn.functional, math=math,
               deepcopy=deepcopy, SCR=Rotation, gymnasium=SimpleNamespace(Env=object),
-              SplinePlanner=type(load_sampler(root)))
+              SplinePlanner=type(load_sampler(root)), ShapelyPolygon=FixturePolygon)
     path = "experiments/iter145_constrained_execution/source/dynamic_utils.py.txt"
     extract.compile([n for n in ast.parse(blobs[path]).body if isinstance(n, ast.ClassDef) and n.name == "unicycle"], ns)
     nodes = [n for n in ast.parse(blobs[ACTORS]).body if isinstance(n, (ast.ClassDef, ast.FunctionDef))]
     extract.compile(nodes, ns)
     extract.compile([extract.node(UTILS, "rt2pose"), extract.node(UTILS, "pose2rt")], ns)
+    extract.compile([extract.node("experiments/iter145_constrained_execution/source/score_calculator.py.txt", "create_rectangle"), extract.node(ENV, "fg_collision_det")], ns)
     # The whole HUGSimEnv class is compiled unchanged; its asset-loading constructor
     # is intentionally not invoked in this CPU fixture.
     extract.compile([n for n in ast.parse(blobs[ENV]).body if isinstance(n, ast.ClassDef) and n.name == "HUGSimEnv"], ns)
@@ -87,8 +104,9 @@ def fixture(root, *, speed=4.0, heading=0.0, actors=("AttackPlanner", "ConstantP
     env.render_fn = render
     ns["create_cam"] = lambda intrinsic, c2w: c2w
     ns["bg_collision_det"] = lambda points, verts: False
+    source_foreground = ns["fg_collision_det"]
     def foreground(box, objects):
         calls.append(dict(kind="collision", time=env.timestamp, planning_id=id(env.render_kwargs["planning"]), boxes=deepcopy(objects)))
-        return False
+        return source_foreground(box, objects)
     ns["fg_collision_det"] = foreground
     return env, calls

@@ -1,0 +1,164 @@
+...............................FFFFFF                                    [100%]
+=================================== FAILURES ===================================
+_____ test_full_source_step_render_collision_and_short_control[0.0-False] ______
+
+speed = 0.0, curved = False
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1118acc30>
+
+    @pytest.mark.parametrize("speed,curved", [(0., False), (4., False), (0., True), (4., True)])
+    def test_full_source_step_render_collision_and_short_control(speed, curved, monkeypatch):
+        import torch
+>       from experiments.iter145_constrained_execution.source_fixture import fixture
+
+tests/test_iter145_constrained_execution.py:206: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    """Bound full retained environment methods with explicitly scoped CPU substitutes."""
+    
+    import ast
+    from copy import deepcopy
+    import hashlib
+    import json
+    import math
+    from types import SimpleNamespace
+    import numpy as np
+    import torch
+>   from shapely.geometry import Polygon
+E   ModuleNotFoundError: No module named 'shapely'
+
+experiments/iter145_constrained_execution/source_fixture.py:11: ModuleNotFoundError
+_____ test_full_source_step_render_collision_and_short_control[4.0-False] ______
+
+speed = 4.0, curved = False
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1170b95b0>
+
+    @pytest.mark.parametrize("speed,curved", [(0., False), (4., False), (0., True), (4., True)])
+    def test_full_source_step_render_collision_and_short_control(speed, curved, monkeypatch):
+        import torch
+>       from experiments.iter145_constrained_execution.source_fixture import fixture
+
+tests/test_iter145_constrained_execution.py:206: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    """Bound full retained environment methods with explicitly scoped CPU substitutes."""
+    
+    import ast
+    from copy import deepcopy
+    import hashlib
+    import json
+    import math
+    from types import SimpleNamespace
+    import numpy as np
+    import torch
+>   from shapely.geometry import Polygon
+E   ModuleNotFoundError: No module named 'shapely'
+
+experiments/iter145_constrained_execution/source_fixture.py:11: ModuleNotFoundError
+______ test_full_source_step_render_collision_and_short_control[0.0-True] ______
+
+speed = 0.0, curved = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1203edeb0>
+
+    @pytest.mark.parametrize("speed,curved", [(0., False), (4., False), (0., True), (4., True)])
+    def test_full_source_step_render_collision_and_short_control(speed, curved, monkeypatch):
+        import torch
+>       from experiments.iter145_constrained_execution.source_fixture import fixture
+
+tests/test_iter145_constrained_execution.py:206: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    """Bound full retained environment methods with explicitly scoped CPU substitutes."""
+    
+    import ast
+    from copy import deepcopy
+    import hashlib
+    import json
+    import math
+    from types import SimpleNamespace
+    import numpy as np
+    import torch
+>   from shapely.geometry import Polygon
+E   ModuleNotFoundError: No module named 'shapely'
+
+experiments/iter145_constrained_execution/source_fixture.py:11: ModuleNotFoundError
+______ test_full_source_step_render_collision_and_short_control[4.0-True] ______
+
+speed = 4.0, curved = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x111703790>
+
+    @pytest.mark.parametrize("speed,curved", [(0., False), (4., False), (0., True), (4., True)])
+    def test_full_source_step_render_collision_and_short_control(speed, curved, monkeypatch):
+        import torch
+>       from experiments.iter145_constrained_execution.source_fixture import fixture
+
+tests/test_iter145_constrained_execution.py:206: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    """Bound full retained environment methods with explicitly scoped CPU substitutes."""
+    
+    import ast
+    from copy import deepcopy
+    import hashlib
+    import json
+    import math
+    from types import SimpleNamespace
+    import numpy as np
+    import torch
+>   from shapely.geometry import Polygon
+E   ModuleNotFoundError: No module named 'shapely'
+
+experiments/iter145_constrained_execution/source_fixture.py:11: ModuleNotFoundError
+___________________ test_reset_clock_and_runtime_known_bads ____________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1117ed480>
+
+    def test_reset_clock_and_runtime_known_bads(monkeypatch):
+>       from experiments.iter145_constrained_execution.source_fixture import fixture
+
+tests/test_iter145_constrained_execution.py:233: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    """Bound full retained environment methods with explicitly scoped CPU substitutes."""
+    
+    import ast
+    from copy import deepcopy
+    import hashlib
+    import json
+    import math
+    from types import SimpleNamespace
+    import numpy as np
+    import torch
+>   from shapely.geometry import Polygon
+E   ModuleNotFoundError: No module named 'shapely'
+
+experiments/iter145_constrained_execution/source_fixture.py:11: ModuleNotFoundError
+_______________ test_unicycle_unsupported_time_and_unknown_actor _______________
+
+    def test_unicycle_unsupported_time_and_unknown_actor():
+>       from experiments.iter145_constrained_execution.source_fixture import fixture
+
+tests/test_iter145_constrained_execution.py:248: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    """Bound full retained environment methods with explicitly scoped CPU substitutes."""
+    
+    import ast
+    from copy import deepcopy
+    import hashlib
+    import json
+    import math
+    from types import SimpleNamespace
+    import numpy as np
+    import torch
+>   from shapely.geometry import Polygon
+E   ModuleNotFoundError: No module named 'shapely'
+
+experiments/iter145_constrained_execution/source_fixture.py:11: ModuleNotFoundError
+=========================== short test summary info ============================
+FAILED ../../../../dev::test_full_source_step_render_collision_and_short_control[0.0-False]
+FAILED ../../../../dev::test_full_source_step_render_collision_and_short_control[4.0-False]
+FAILED ../../../../dev::test_full_source_step_render_collision_and_short_control[0.0-True]
+FAILED ../../../../dev::test_full_source_step_render_collision_and_short_control[4.0-True]
+FAILED ../../../../dev::test_reset_clock_and_runtime_known_bads - ModuleNotFo...
+FAILED ../../../../dev::test_unicycle_unsupported_time_and_unknown_actor - Mo...
+6 failed, 31 passed in 1.55s

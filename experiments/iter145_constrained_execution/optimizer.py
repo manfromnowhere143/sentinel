@@ -148,6 +148,7 @@ def refine(u, state, ref, C, b, remaining):
                         alpha=alpha,
                         slope=slope,
                         previous_objective=value,
+                        previous_inputs=u.reshape(-1, 2).tolist(),
                         stationarity_before=cert["stationarity_inf"],
                         backtracks=backtrack,
                     )
@@ -209,6 +210,7 @@ class ConstrainedController:
             callback=callback,
             options=dict(maxiter=max_iterations, ftol=1e-12, disp=False),
         )
+        slsqp_inputs = result.x.reshape(-1, 2).tolist()
         refined, polishing = refine(result.x, state, ref, C, b, max_iterations - int(result.nit))
         result.x = refined
         solver_ns = time.perf_counter_ns() - solver_start
@@ -217,7 +219,7 @@ class ConstrainedController:
         admitted = bool(result.success and cert["admitted"])
         states, _ = rollout(state, result.x.reshape(-1, 2))
         record = dict(
-            schema="sentinel.constrained_controller.v1",
+            schema="sentinel.constrained_controller.v2",
             initial_state=state.tolist(),
             reference=ref.tolist(),
             warm_inputs=warm.reshape(-1, 2).tolist(),
@@ -231,6 +233,7 @@ class ConstrainedController:
             library_message=str(result.message),
             iterations=int(result.nit) + len(polishing),
             slsqp_iterations=int(result.nit),
+            slsqp_returned_inputs=slsqp_inputs,
             refinement=polishing,
             history=history,
             admitted=admitted,

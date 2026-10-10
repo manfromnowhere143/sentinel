@@ -18,7 +18,7 @@ def number(value):
     return float(value)
 
 
-def file_identity(path, *, max_bytes=16*1024**3):
+def file_identity(path, *, max_bytes=16*1024**3, include_bytes=False):
     """No-follow each path component and final fd; detect replacement while hashing."""
     path = Path(path)
     if not path.is_absolute() or ".." in path.parts:
@@ -33,19 +33,24 @@ def file_identity(path, *, max_bytes=16*1024**3):
         descriptors.append(fd); before = os.fstat(fd)
         if not stat.S_ISREG(before.st_mode) or not 0 < before.st_size <= max_bytes:
             raise ContractError("asset_type_or_size")
-        digest = hashlib.sha256(); total = 0
+        digest = hashlib.sha256(); total = 0; chunks = []
         while True:
             block = os.read(fd, min(1024**2, max_bytes+1-total))
             if not block:
                 break
             total += len(block); digest.update(block)
+            if include_bytes:
+                chunks.append(block)
             if total > max_bytes:
                 raise ContractError("asset_size_changed")
         after = os.fstat(fd)
         fields = ("st_dev", "st_ino", "st_size", "st_mtime_ns", "st_ctime_ns")
         if total != before.st_size or any(getattr(before,k) != getattr(after,k) for k in fields):
             raise ContractError("asset_changed_while_reading")
-        return dict(sha256=digest.hexdigest(), bytes=total)
+        result = dict(sha256=digest.hexdigest(), bytes=total)
+        if include_bytes:
+            result["data"] = b"".join(chunks)
+        return result
     finally:
         for fd in reversed(descriptors):
             os.close(fd)

@@ -1,0 +1,15 @@
+{
+  "argv": [
+    "env",
+    "OPENBLAS_NUM_THREADS=1",
+    "OMP_NUM_THREADS=1",
+    "MKL_NUM_THREADS=1",
+    "python3",
+    "-c",
+    "import json,numpy as np; from experiments.iter145_constrained_execution.optimizer import controls_constraints,objective,rollout,Q,R; r=json.load(open(\"experiments/iter145_constrained_execution/proof/short_horizon_failure.json\")); u=np.array(r[\"inputs\"]).ravel(); s=np.array(r[\"initial_state\"]); ref=np.array(r[\"reference\"]); C,b=controls_constraints(len(u)//2,s[4]); val,g=objective(u,s,ref); J=rollout(s,u.reshape(-1,2))[1]; H=2*np.einsum(\"tij,i,tik->jk\",J,Q,J)+np.diag(2*np.tile(R,len(u)//2)); active=np.flatnonzero(np.array(r[\"certificate\"][\"multipliers\"])>1e-9); A=C[active]; K=np.block([[H,A.T],[A,np.zeros((len(active),len(active)))]]); d=np.linalg.lstsq(K,np.r_[-g,np.zeros(len(active))],rcond=None)[0][:len(u)]; f=C@d>1e-14; print(json.dumps(dict(active=active.tolist(),active_direction=(A@d).tolist(),active_slack=(b-C@u)[active].tolist(),fraction_to_boundary=float(np.min(np.maximum(0.,b-C@u)[f]/(C@d)[f])),slope=float(g@d))))"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-10T06:01:29.493256+00:00",
+  "elapsed_seconds": 0.5932981967926025,
+  "returncode": 0
+}

@@ -1,0 +1,15 @@
+{
+  "argv": [
+    "env",
+    "OPENBLAS_NUM_THREADS=1",
+    "OMP_NUM_THREADS=1",
+    "MKL_NUM_THREADS=1",
+    "python3",
+    "-c",
+    "from pathlib import Path; import json,numpy as np; from experiments.iter145_constrained_execution.nominal import packet,reference; from experiments.iter145_constrained_execution.optimizer import ConstrainedController; p=np.array([[.03*i*i,2.*i] for i in range(1,7)]); d=packet(p,p.copy(),p.copy(),episode=\"diagnostic\",frame=0,time=0.,mode=\"nominal\",monitor_sha256=\"a\"*64); r=ConstrainedController().run(reference(d,[0.,0.,0.,0.],episode=\"diagnostic\",frame=0,time=0.),[0.,0.,0.,0.,0.],episode=\"diagnostic\",observation_time=0.); out=Path(\"experiments/iter145_constrained_execution/proof/short_horizon_failure.json\"); out.open(\"x\").write(json.dumps(r,indent=2)+\"\\n\"); print({k:r[k] for k in [\"admitted\",\"iterations\",\"library_success\",\"library_status\",\"library_message\"]}); print({k:r[\"certificate\"][k] for k in [\"admitted\",\"stationarity_inf\",\"max_violation\",\"complementarity_inf\"]})"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-10T06:00:55.307632+00:00",
+  "elapsed_seconds": 0.632300615310669,
+  "returncode": 0
+}

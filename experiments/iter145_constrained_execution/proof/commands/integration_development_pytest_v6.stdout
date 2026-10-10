@@ -1,0 +1,74 @@
+.................................F...                                    [100%]
+=================================== FAILURES ===================================
+______ test_full_source_step_render_collision_and_short_control[0.0-True] ______
+
+speed = 0.0, curved = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1034e6450>
+
+    @pytest.mark.parametrize("speed,curved", [(0., False), (4., False), (0., True), (4., True)])
+    def test_full_source_step_render_collision_and_short_control(speed, curved, monkeypatch):
+        import torch
+        from experiments.iter145_constrained_execution.source_fixture import fixture
+        from experiments.iter145_constrained_execution.simulator import Session
+        monkeypatch.setattr(torch.Tensor, "cuda", lambda self, *a, **k: self)
+        env, calls = fixture(ROOT, speed=speed)
+        session = Session(env, "fixture", device="cpu")
+        obs, info = session.reset()
+        assert info["timestamp"] == 0 and env.planner.tick == 0
+        for frame in range(12):
+>           output = session.step(make_delivery(frame=frame, curved=curved))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_iter145_constrained_execution.py:214: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter145_constrained_execution/simulator.py:204: in step
+    action = require_action(result)
+             ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+record = {'admitted': False, 'application_time': 0.25, 'applied': None, 'certificate': {'active': [0, 2, 4, 6, 8, 10, ...], 'ad...14953032e-07, -21.859446075486407, -2.770596483347987e-07, -17.782565330108646, 9.378829579631542e-08, ...], ...}, ...}
+
+    def require_action(record):
+        if not record.get("admitted") or record.get("applied") is None:
+>           raise ContractError("uncertified_controller_result")
+E           experiments.iter144_timed_trajectory.trajectory.ContractError: uncertified_controller_result
+
+experiments/iter145_constrained_execution/optimizer.py:271: ContractError
+=============================== warnings summary ===============================
+::test_full_source_step_render_collision_and_short_control[0.0-False]
+::test_full_source_step_render_collision_and_short_control[4.0-False]
+::test_full_source_step_render_collision_and_short_control[0.0-True]
+::test_full_source_step_render_collision_and_short_control[4.0-True]
+::test_reset_clock_and_runtime_known_bads
+::test_unicycle_unsupported_time_and_unknown_actor
+  <bound-source-slice>:24: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+
+::test_full_source_step_render_collision_and_short_control[0.0-False]
+::test_full_source_step_render_collision_and_short_control[4.0-False]
+::test_full_source_step_render_collision_and_short_control[0.0-True]
+::test_full_source_step_render_collision_and_short_control[4.0-True]
+::test_reset_clock_and_runtime_known_bads
+::test_unicycle_unsupported_time_and_unknown_actor
+  <bound-source-slice>:26: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+
+::test_full_source_step_render_collision_and_short_control[0.0-False]
+::test_full_source_step_render_collision_and_short_control[4.0-False]
+::test_full_source_step_render_collision_and_short_control[0.0-True]
+::test_full_source_step_render_collision_and_short_control[4.0-True]
+  <bound-source-slice>:102: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+
+::test_full_source_step_render_collision_and_short_control[0.0-False]
+  /Users/danielwahnich/workspace/sentinel/experiments/iter145_constrained_execution/source_fixture.py:89: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+  Consider using tensor.detach() first. (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:837.)
+    value = torch.tensor([a,b,0.,yaw,v], dtype=torch.float64)
+
+: 36 warnings
+  <bound-source-slice>:308: DeprecationWarning: __array_wrap__ must accept context and return_scalar arguments (positionally) in the future. (Deprecated NumPy 2.0)
+
+: 36 warnings
+  <bound-source-slice>:309: DeprecationWarning: __array_wrap__ must accept context and return_scalar arguments (positionally) in the future. (Deprecated NumPy 2.0)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED ../../../../dev::test_full_source_step_render_collision_and_short_control[0.0-True]
+1 failed, 36 passed, 89 warnings in 2.37s

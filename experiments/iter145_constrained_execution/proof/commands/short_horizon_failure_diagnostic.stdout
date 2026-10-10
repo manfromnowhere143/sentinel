@@ -1,0 +1,2 @@
+{'admitted': False, 'iterations': 26, 'library_success': True, 'library_status': 0, 'library_message': 'Optimization terminated successfully'}
+{'admitted': False, 'stationarity_inf': 2.8796812003850647e-06, 'max_violation': 0.0, 'complementarity_inf': 1.4744750674570805e-12}

@@ -130,8 +130,12 @@ def certificate(record):
             "combined iteration count",
         )
         check(len(record["refinement"]) <= 8, "refinement bound")
-        previous = record["history"][-1]["inputs"] if record["history"] else record["warm_inputs"]
+        explicit_handoff = record.get("schema") == "sentinel.constrained_controller.v2"
+        previous = record["slsqp_returned_inputs"] if explicit_handoff else (
+            record["history"][-1]["inputs"] if record["history"] else record["warm_inputs"])
         for h in record["refinement"]:
+            if explicit_handoff:
+                close(h["previous_inputs"], previous, 0)
             before, g_before, _ = cost_gradient(
                 record["initial_state"], previous, record["reference"]
             )
@@ -151,7 +155,7 @@ def certificate(record):
             previous = h["inputs"]
         # A callback observation need not be SLSQP's returned optimum. Equality
         # is required only after a recorded refinement actually changes it.
-        if record["refinement"]:
+        if record["refinement"] or explicit_handoff:
             close(previous, record["inputs"])
     close(
         record["warm_objective"],
