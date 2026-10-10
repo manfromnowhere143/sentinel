@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "gcloud",
+    "compute",
+    "scp",
+    "--project",
+    "sunlit-unison-487018-b0",
+    "--zone",
+    "us-west1-a",
+    "--tunnel-through-iap",
+    "sentinel-gpu:/datasets/nuscenes-full/hugsim/iter146_gpu_20261010/brake_t0_raw.tar.gz",
+    "/Users/danielwahnich/sentinel-bootstrap-evidence/iter146-gpu-20261010/brake_t0_raw.tar.gz"
+  ],
+  "start_utc": "2026-10-10T12:46:09.002576+00:00",
+  "elapsed_seconds": 10.248072500005946,
+  "returncode": 0
+}

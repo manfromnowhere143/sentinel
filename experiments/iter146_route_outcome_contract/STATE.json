@@ -1,7 +1,7 @@
 {
   "iteration": 146,
   "status": "running",
-  "phase": "gpu_monitor_pair_running",
+  "phase": "gpu_brake_t0_pair_collection",
   "source_commit": "9f78e514000f94ab069e846a7b6796009702a223",
   "cpu_raw_commit": "4c36188c813c68aab2f16ebd5b281ea96de02300",
   "cpu_steps": 3362,
@@ -9,13 +9,13 @@
   "focused_tests": 64,
   "live_study_episodes": 0,
   "live_study_admitted": false,
-  "gpu_qualification_episodes": 2,
+  "gpu_qualification_episodes": 4,
   "provider_state_last_observed": "RUNNING",
   "owned_active_jobs": 1,
   "cloud_compute_used": true,
   "owned_local_watchdog_session": 3763,
   "provider_ready_receipt": "proof/gpu_ready_instance.json",
   "gpu_manifest_sha256": "829454a169fcf6a43eba7a36c77bc4976f05573bc178e907ccd8b981f40e331f",
-  "gpu_steps_replayed": 48,
-  "gpu_replica_pairs_supported": 1
+  "gpu_steps_replayed": 96,
+  "gpu_replica_pairs_supported": 2
 }

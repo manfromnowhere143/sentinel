@@ -1,0 +1,30 @@
+{
+  "pair": {
+    "status": "completed",
+    "arm": "brake_t0",
+    "cases": [
+      {
+        "returncode": 0,
+        "deadline_exceeded": false,
+        "episode": "scene-0013-easy-00__brake_t0__1",
+        "cleanup": {
+          "status": "absent"
+        }
+      },
+      {
+        "returncode": 0,
+        "deadline_exceeded": false,
+        "episode": "scene-0013-easy-00__brake_t0__2",
+        "cleanup": {
+          "status": "absent"
+        }
+      }
+    ],
+    "live_study_admitted": false,
+    "elapsed_seconds": 157.77773367700001
+  },
+  "sha256": "9a445195f961f7f517894039f7e1c0e5a10c3565835dad14aafcc40ebc0609ff",
+  "bytes": 1263010,
+  "files": 28,
+  "output_bytes": 78824980
+}

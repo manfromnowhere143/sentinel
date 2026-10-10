@@ -1,0 +1,12 @@
+import json,subprocess,os,hashlib,sys,time
+from pathlib import Path
+c=Path('/datasets/nuscenes-full/hugsim/iter146_gpu_20261010');raw='{"arm": "brake_t0", "manifest_sha256": "829454a169fcf6a43eba7a36c77bc4976f05573bc178e907ccd8b981f40e331f", "prior_arm": "monitor", "raw_commit": "5f17011e9f842fdcdccb3261586c3100c4816e13", "replay_sha256": "85f530b1109ab49ab1b31e2979f8880d19a62023db0b55333d58c7cfe6278056", "status": "supported"}'.encode();assert hashlib.sha256(raw).hexdigest()=='15b5fd1cd3c8c0a4c714af73c8e3e13dba2ad2acca47f47732519f1ee978f9a9'
+with (c/('brake_t0'+'_clearance.json')).open('xb') as f:f.write(raw)
+assert hashlib.sha256((c/'execution_manifest.json').read_bytes()).hexdigest()=='829454a169fcf6a43eba7a36c77bc4976f05573bc178e907ccd8b981f40e331f'
+for argv in [['docker','ps','-q'],['nvidia-smi','--query-compute-apps=pid','--format=csv,noheader']]:
+ q=subprocess.run(argv,capture_output=True,text=True,timeout=30);assert q.returncode==0 and not q.stdout.strip()
+q=subprocess.run(['systemctl','show','sentinel-iter146-gpu-budget.timer','--property=ActiveState,TimersMonotonic,NextElapseUSecMonotonic'],capture_output=True,text=True,timeout=30);assert q.returncode==0 and 'ActiveState=active' in q.stdout
+argv=['/opt/sentinel-stack/HUGSIM/.pixi/envs/default/bin/python','-u','-m','experiments.iter146_route_outcome_contract.gpu_pair','--control',str(c),'--manifest-sha256','829454a169fcf6a43eba7a36c77bc4976f05573bc178e907ccd8b981f40e331f','--clearance-sha256','15b5fd1cd3c8c0a4c714af73c8e3e13dba2ad2acca47f47732519f1ee978f9a9','--arm','brake_t0']
+env=os.environ.copy();env.update(PYTHONPATH=str(c/'packet')+':/opt/sentinel-stack/HUGSIM',OPENBLAS_NUM_THREADS='1',OMP_NUM_THREADS='1',MKL_NUM_THREADS='1')
+with (c/('brake_t0'+'_entry.log')).open('xb') as log:p=subprocess.Popen(argv,cwd='/opt/sentinel-stack/HUGSIM',env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
+r=dict(arm='brake_t0',pid=p.pid,argv=argv,manifest_sha256='829454a169fcf6a43eba7a36c77bc4976f05573bc178e907ccd8b981f40e331f',clearance_sha256='15b5fd1cd3c8c0a4c714af73c8e3e13dba2ad2acca47f47732519f1ee978f9a9',host_timer=q.stdout,started_epoch=time.time(),remaining_provider_seconds=4428.217900292002);(c/('brake_t0'+'_launch.json')).write_text(json.dumps(r,indent=2)+'\n');print(json.dumps(r))

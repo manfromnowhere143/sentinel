@@ -1,7 +1,7 @@
 import json,tarfile,hashlib,sys
 from pathlib import Path
 from i146g_ops import P,E,ssh,run,BASE
-arm=sys.argv[1];assert arm in ('nominal','monitor','brake_t0','brake_t2_5')
+arm=sys.argv[1];attempt=sys.argv[2] if len(sys.argv)>2 else '';assert attempt in ('','_attempt2');assert arm in ('nominal','monitor','brake_t0','brake_t2_5')
 s='''import json,hashlib,tarfile,stat,subprocess
 from pathlib import Path
 c=Path('/datasets/nuscenes-full/hugsim/iter146_gpu_20261010');arm=ARM
@@ -29,9 +29,9 @@ with tarfile.open(c/(arm+'_raw.tar.gz'),'w:gz') as a:
  for name in selected:a.add(c/name,arcname=name,recursive=False)
 raw=(c/(arm+'_raw.tar.gz')).read_bytes();print(json.dumps(dict(pair=pair,sha256=hashlib.sha256(raw).hexdigest(),bytes=len(raw),files=len(selected),output_bytes=sum(r['bytes'] for r in records.values()))))
 '''.replace('ARM',repr(arm))
-r=ssh(arm+'_collect_archive',s,timeout=180);assert r.returncode==0
+r=ssh(arm+'_collect_archive'+attempt,s,timeout=180);assert r.returncode==0
 binding=json.loads(r.stdout);assert binding['bytes']<100*1024**2
-r=run(arm+'_collect_download',['gcloud','compute','scp',*BASE,'--tunnel-through-iap','sentinel-gpu:/datasets/nuscenes-full/hugsim/iter146_gpu_20261010/'+arm+'_raw.tar.gz',str(E/(arm+'_raw.tar.gz'))],timeout=180);assert r.returncode==0
+r=run(arm+'_collect_download'+attempt,['gcloud','compute','scp',*BASE,'--tunnel-through-iap','sentinel-gpu:/datasets/nuscenes-full/hugsim/iter146_gpu_20261010/'+arm+'_raw.tar.gz',str(E/(arm+'_raw.tar.gz'))],timeout=180);assert r.returncode==0
 raw=(E/(arm+'_raw.tar.gz')).read_bytes();assert hashlib.sha256(raw).hexdigest()==binding['sha256']
 dest=P/'gpu_raw'/arm;dest.mkdir(parents=True,exist_ok=False)
 with tarfile.open(E/(arm+'_raw.tar.gz'),'r:gz') as a:

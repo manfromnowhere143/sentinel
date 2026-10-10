@@ -1,0 +1,24 @@
+{
+  "status": "completed",
+  "arm": "brake_t0",
+  "cases": [
+    {
+      "returncode": 0,
+      "deadline_exceeded": false,
+      "episode": "scene-0013-easy-00__brake_t0__1",
+      "cleanup": {
+        "status": "absent"
+      }
+    },
+    {
+      "returncode": 0,
+      "deadline_exceeded": false,
+      "episode": "scene-0013-easy-00__brake_t0__2",
+      "cleanup": {
+        "status": "absent"
+      }
+    }
+  ],
+  "live_study_admitted": false,
+  "elapsed_seconds": 157.77773367700001
+}
