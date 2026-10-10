@@ -1,0 +1,263 @@
+{
+  "commit": "fc7abe55d5c08338460129fa013b33b0b16dfe27",
+  "files": {
+    "packet/experiments/iter136_hugsim_recoverability_canary/instrument_driver.py": {
+      "sha256": "7438afa001b98195df43db80c7effd59c85e9d6218a10dfba8263338f151c8ce",
+      "bytes": 2790
+    },
+    "packet/experiments/iter136_hugsim_recoverability_canary/proof/controller_source/lqr.py.txt": {
+      "sha256": "b32755c32de510e09ac726f5c77731d5f490df6a412e50a4d369d70bdef45faf",
+      "bytes": 2279
+    },
+    "packet/experiments/iter136_hugsim_recoverability_canary/proof/controller_source/lqr_solver.py.txt": {
+      "sha256": "0141d73d0ac38386184e63ce384d2e3cd341130943065b416bdacf4281e57c47",
+      "bytes": 35186
+    },
+    "packet/experiments/iter136_hugsim_recoverability_canary/proof/controller_source/sim_utils.py.txt": {
+      "sha256": "36c2ba6a7dee38555f84dde95851ec00be5a699969d53de8906b3e67676792bc",
+      "bytes": 4604
+    },
+    "packet/experiments/iter136_hugsim_recoverability_canary/proof/controller_source/utils.py.txt": {
+      "sha256": "041ed70028c105cfc102978ffddad4e92398d29b2454f1c2be6c81fb765c75fe",
+      "bytes": 17421
+    },
+    "packet/experiments/iter136_hugsim_recoverability_canary/proof/source/HUGSIM/LICENSE.txt": {
+      "sha256": "c5acad54bc534fe3bd574cd2ffd10cfd037b98590f01388163f51ea36035c322",
+      "bytes": 1122
+    },
+    "packet/experiments/iter136_hugsim_recoverability_canary/proof/source/HUGSIM/configs/sim/kinematic.yaml.txt": {
+      "sha256": "fc987ae8da2412ecca8e10b9e49daf2da366795151e970b139c3426ea9966c96",
+      "bytes": 114
+    },
+    "packet/experiments/iter136_hugsim_recoverability_canary/proof/source/HUGSIM/sim/hugsim_env/envs/hug_sim.py.txt": {
+      "sha256": "c42ef368852754bdec76c81254b72dcda45eccef058dce015ea549c0b17c7d12",
+      "bytes": 13604
+    },
+    "packet/experiments/iter136_hugsim_recoverability_canary/proof/source/HUGSIM/sim/utils/agent_controller.py.txt": {
+      "sha256": "bc4689fe9ccbc9c997e273c92662ed0933b5e3317cd25fff99fefd9964a23a28",
+      "bytes": 11692
+    },
+    "packet/experiments/iter136_hugsim_recoverability_canary/proof/source/HUGSIM/sim/utils/plan.py.txt": {
+      "sha256": "61d170928bc54d7efeef8d5d58ade5c19621560253d9fb552d56b2612f11f912",
+      "bytes": 10717
+    },
+    "packet/experiments/iter136_hugsim_recoverability_canary/proof/source/HUGSIM/sim/utils/sim_utils.py.txt": {
+      "sha256": "36c2ba6a7dee38555f84dde95851ec00be5a699969d53de8906b3e67676792bc",
+      "bytes": 4604
+    },
+    "packet/experiments/iter137_controller_execution_contract/controller.py": {
+      "sha256": "7784c0a885bba33414a680d2f943f3a701d7ba38bf29996908c6a7bd4089dc03",
+      "bytes": 9254
+    },
+    "packet/experiments/iter139_finite_pulse_recoverability/instrument.py": {
+      "sha256": "93d0f5790f3d8618ed516ca7aeb8faa97931bda6367013496cb4976f0312b40f",
+      "bytes": 866
+    },
+    "packet/experiments/iter141_nominal_continuation/client.py": {
+      "sha256": "e3927341dca7d71119b5c25f14edbbd3835f5075485880edd5ca358652309192",
+      "bytes": 2649
+    },
+    "packet/experiments/iter141_nominal_continuation/instrument.py": {
+      "sha256": "4a8eed2825b6fbb1ddecb3c501b5cf78e140e28e4e8e1e304e255d2da0d9e93d",
+      "bytes": 1123
+    },
+    "packet/experiments/iter142_nominal_continuation_completion/proof/runtime_manifest.json": {
+      "sha256": "54647066bd8296ef21106a3eeacf660294d8cf4f9a5fc865424be18696b8a6e3",
+      "bytes": 100796
+    },
+    "packet/experiments/iter143_model_contract/INPUTS.json": {
+      "sha256": "aa20e7db7419b032778024dba0faff1d7160df6260a3b744e68d9783d80105d5",
+      "bytes": 3500
+    },
+    "packet/experiments/iter143_model_contract/proof/case_inventory.json": {
+      "sha256": "ead62a973036f253727ac19d878454506eff739663dd52dc02a9088e308e1cbf",
+      "bytes": 29939
+    },
+    "packet/experiments/iter143_model_contract/qualification.py": {
+      "sha256": "606724f830eb7372daab81526526056ff5620f7b7373f901b91f8df270a911ae",
+      "bytes": 18177
+    },
+    "packet/experiments/iter143_model_contract/source/forward_sampler.py.txt": {
+      "sha256": "2494c6d3ce174889008102e8b61bb281c189593da39c5d417ecd05e9c215f57f",
+      "bytes": 5877
+    },
+    "packet/experiments/iter143_model_contract/source/spline_planner.py.txt": {
+      "sha256": "ba691c4d426724956d440df5503501ce3181c6edfb8edc2283c557ba76619ea2",
+      "bytes": 17632
+    },
+    "packet/experiments/iter144_timed_trajectory/INPUTS.json": {
+      "sha256": "de81873f46e994a2f859d0b4da25366e5d8d87a8c1cda561e8a0394cdbd7c84a",
+      "bytes": 3648
+    },
+    "packet/experiments/iter144_timed_trajectory/SOURCE_ADDITION.json": {
+      "sha256": "b64b4aa68f0f5b156cd4a376148e0dcd90416d87bddf2a89e84c838010dce934",
+      "bytes": 356
+    },
+    "packet/experiments/iter144_timed_trajectory/control.py": {
+      "sha256": "75c884cde352bbf4a42dfe9c65c88fe9036d90b1552c21fc6d202cbd349cbf8d",
+      "bytes": 4342
+    },
+    "packet/experiments/iter144_timed_trajectory/independent.py": {
+      "sha256": "16457b1585033a5f952977febb36b5f4c8a6d7e28274b14db1806e4406ef17bd",
+      "bytes": 17195
+    },
+    "packet/experiments/iter144_timed_trajectory/proof/raw_qualification.json": {
+      "sha256": "c27d0f70939f00f42937b166091255b83ed3994951f4512040c629a888a9ec26",
+      "bytes": 6609677
+    },
+    "packet/experiments/iter144_timed_trajectory/proof/study_schedule.json": {
+      "sha256": "800315ab664cc23ae8a11b26e3c0ffeba148661f5bb5c117d447f86f1990b188",
+      "bytes": 71067
+    },
+    "packet/experiments/iter144_timed_trajectory/qualify.py": {
+      "sha256": "72e0b15fa4ceb824fa5b0dc9b5b8de4705d1dde72c6e3f79b6bceef15134365d",
+      "bytes": 9058
+    },
+    "packet/experiments/iter144_timed_trajectory/runtime.py": {
+      "sha256": "114dab8b36662a95ad802fc7a017228936afdbf60c80d259b7c560440b618a66",
+      "bytes": 5189
+    },
+    "packet/experiments/iter144_timed_trajectory/source.py": {
+      "sha256": "25003f848c42cad10d255b38b4b7ce627937c7e8241c14c25850da1938877f0f",
+      "bytes": 2557
+    },
+    "packet/experiments/iter144_timed_trajectory/source/geometry_utils.py.txt": {
+      "sha256": "c7ea6325ca17be19b8a0885354b9d7b4be027574efcc7170d63bc1a5df9a1229",
+      "bytes": 16804
+    },
+    "packet/experiments/iter144_timed_trajectory/study.py": {
+      "sha256": "7d0580292283354ea602a222fcec8ac6c735f52531acfcd54fc17ba52bcfbb44",
+      "bytes": 2728
+    },
+    "packet/experiments/iter144_timed_trajectory/trajectory.py": {
+      "sha256": "1efebe32277e403d8ed580354e33f79fc0625b0ce422d376725540f3644d861b",
+      "bytes": 8256
+    },
+    "packet/experiments/iter145_constrained_execution/ACTOR_FILES.json": {
+      "sha256": "2399f517f0521fb6adac52a73c30bb9b1e972ac2e9537c20fff91b224f30ca54",
+      "bytes": 40140
+    },
+    "packet/experiments/iter145_constrained_execution/INPUTS.json": {
+      "sha256": "62a27bea6729679ce88fe5ca2f6f54f47b146e6915e1ba2d412928ef3e2e92df",
+      "bytes": 5735
+    },
+    "packet/experiments/iter145_constrained_execution/SOURCE_ADDITIONS.json": {
+      "sha256": "0f7f3f663567560d52daeddb4207cdd27f73247aa533e141b5619fd2ffaa1122",
+      "bytes": 2507
+    },
+    "packet/experiments/iter145_constrained_execution/assets.py": {
+      "sha256": "58e75e71f694e7f55e62388d796bff72c5b6870297fa1e9b5922c9d5c1fb2acd",
+      "bytes": 7765
+    },
+    "packet/experiments/iter145_constrained_execution/client.py": {
+      "sha256": "d6f39b2882b8b6fbf81cae812b5a7424dcd7091f1ff978148c7f2f7f3e425c25",
+      "bytes": 3184
+    },
+    "packet/experiments/iter145_constrained_execution/driver.py": {
+      "sha256": "8226654690f07d5d0b1ab5c67c947dc35c8fd4a7d3d4258ed3bd7f886c012a31",
+      "bytes": 6299
+    },
+    "packet/experiments/iter145_constrained_execution/gpu.py": {
+      "sha256": "478feccc7a1e968e64eb52e5932c7e4ec6048bc3a2aa4b660c347b983e9e85f8",
+      "bytes": 9964
+    },
+    "packet/experiments/iter145_constrained_execution/gpu_batch.py": {
+      "sha256": "4719719805c3f218f11f45aefc68d4ab507231f643ea707668a7c00d4b9a3d79",
+      "bytes": 5654
+    },
+    "packet/experiments/iter145_constrained_execution/gpu_check.py": {
+      "sha256": "56d514db9fa27b3c4adbdd37137e1e3bc550a347eaa8ec97c824eb05d3de10db",
+      "bytes": 10188
+    },
+    "packet/experiments/iter145_constrained_execution/independent.py": {
+      "sha256": "17f8057da69bf694c906ae60c7073d681cb9ef66a4d43afde1a8ff4fef14857b",
+      "bytes": 11342
+    },
+    "packet/experiments/iter145_constrained_execution/integration_check.py": {
+      "sha256": "ad0773aa967b630377413e1a312a06ebffd304ac2fadc525706f1dedd7690bc3",
+      "bytes": 10604
+    },
+    "packet/experiments/iter145_constrained_execution/integration_probe.py": {
+      "sha256": "7be0dd7fd708bf6b92e0f97467f9efa2fce4f7c83b3196da7651c5f717cbef5b",
+      "bytes": 4462
+    },
+    "packet/experiments/iter145_constrained_execution/knownbads.py": {
+      "sha256": "fc93247892bc69339acc2039325feb5d409649287ba423c65bf144a0dd9ab84f",
+      "bytes": 6338
+    },
+    "packet/experiments/iter145_constrained_execution/maps.py": {
+      "sha256": "808bec7d883cf1c22fed9d457fecd7613f0a8c97c6ed5a3482cfdedfd843fe16",
+      "bytes": 5000
+    },
+    "packet/experiments/iter145_constrained_execution/nominal.py": {
+      "sha256": "64a30542c37fb0e186fd696fc27753e030be64296c1c8b79d4f216704ef30eeb",
+      "bytes": 4340
+    },
+    "packet/experiments/iter145_constrained_execution/optimizer.py": {
+      "sha256": "59e26aaa7396d45ac24ccbb305af4e1de2c625b8a4d6144af398581ee8183e4c",
+      "bytes": 10798
+    },
+    "packet/experiments/iter145_constrained_execution/probe.py": {
+      "sha256": "0e7d5fdb5cbee99db497268ce56d829467735a56aeca94cdf1eb1df024293e41",
+      "bytes": 3911
+    },
+    "packet/experiments/iter145_constrained_execution/resources.py": {
+      "sha256": "af399059024d96431ff71d8041618fb51a0189a5d39cf080aeeebbbac33109de",
+      "bytes": 10339
+    },
+    "packet/experiments/iter145_constrained_execution/simulator.py": {
+      "sha256": "6d29bbb8888000f3a8a8c2b425ad5d8ab37950a84010ee958716c50806eb7145",
+      "bytes": 14481
+    },
+    "packet/experiments/iter145_constrained_execution/source/base_e2e.py.txt": {
+      "sha256": "da05b3fe7d929fbd7e48dd85dbda9fa2278181a52cfbe411b60e570bae2b9d2c",
+      "bytes": 23689
+    },
+    "packet/experiments/iter145_constrained_execution/source/dataparser.py.txt": {
+      "sha256": "c30c9c231c08bfa1c321e277a39406715a0411950d0cbeafe4a93c7620e3c7c7",
+      "bytes": 3422
+    },
+    "packet/experiments/iter145_constrained_execution/source/dynamic_utils.py.txt": {
+      "sha256": "db5ce6247f8854ffd9d3bed677ce6e4473cdf60cb51274e33186e5b808d59448",
+      "bytes": 9543
+    },
+    "packet/experiments/iter145_constrained_execution/source/planning_head.py.txt": {
+      "sha256": "dfe18db4cd8c89808f22d3bfc3db4d2dd544c465bfb8d71b10c489459041b459",
+      "bytes": 11377
+    },
+    "packet/experiments/iter145_constrained_execution/source/released_client.py.txt": {
+      "sha256": "23cce8a2a559b60dc3de394ba890a28adc13b5b24d222936478dad6f83f9aea3",
+      "bytes": 17111
+    },
+    "packet/experiments/iter145_constrained_execution/source/score_calculator.py.txt": {
+      "sha256": "1588b5b912384dead87b521b828cf7a135e77eb79aad5d540074c7168f79e46f",
+      "bytes": 30995
+    },
+    "packet/experiments/iter145_constrained_execution/source_fixture.py": {
+      "sha256": "ff553828754433166ddfb776fea923bef0336b130f3ee2c751f56a8026c0e872",
+      "bytes": 6992
+    },
+    "packet/experiments/iter46_hugsim_off_baseline/proof-off/frozen_scenarios.sha256": {
+      "sha256": "926cbec00614522e7ff3f8d4063826b02277aba370631a2e7cf36be8a8c086df",
+      "bytes": 4748
+    },
+    "packet/experiments/iter49_hugsim_hard_tier_gate/proof-hard/frozen_scenarios_hard.sha256": {
+      "sha256": "9d1b1488449efc321ba8c0297dfda799daacd8a31ffc4e066849fb9dfa62f739",
+      "bytes": 3294
+    },
+    "packet/tests/test_iter145_constrained_execution.py": {
+      "sha256": "4707c679b1aa9dd490b5a90d6394792b9a26b36f0267a278b058ac46a7e90a15",
+      "bytes": 32044
+    },
+    "asset_inventory.json": {
+      "sha256": "ff0980f140ab1f1802ddb2a742fae6458c350d2b20bd846163541951bf6d5c07",
+      "bytes": 2214246
+    },
+    "map_inventory.json": {
+      "sha256": "f99146315a5505453a50e55f069582ce0138d3be3efcb8253548d0295dd46485",
+      "bytes": 976510
+    }
+  },
+  "packet_sha256": "c38d86aa1b3d310bf086cc1a6b781f91b2a9a8d92e16b94e2883e0ba14b43491",
+  "packet_bytes": 1623067
+}

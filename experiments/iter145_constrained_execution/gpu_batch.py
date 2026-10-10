@@ -7,6 +7,7 @@ import math
 import os
 from pathlib import Path
 import signal
+import shutil
 import socket
 import subprocess
 import time
@@ -15,7 +16,13 @@ from .gpu import CASES, HUGSIM, cleanup_client
 from .resources import file_identity, actor_identity
 
 
-def invoke(argv, *, cwd, environment, log, timeout):
+def output_guard(control):
+    size = sum(p.stat().st_size for p in (control / "runs").rglob("*") if p.is_file())
+    if size >= 7 * 1024**3 or shutil.disk_usage(control).free < 25 * 1024**3:
+        raise ValueError("output_or_storage_limit")
+
+
+def invoke(argv, *, cwd, environment, log, timeout, guard=None):
     with Path(log).open("xb") as output:
         process = subprocess.Popen(
             argv,
@@ -25,12 +32,27 @@ def invoke(argv, *, cwd, environment, log, timeout):
             stderr=subprocess.STDOUT,
             start_new_session=True,
         )
-        try:
-            return dict(returncode=process.wait(timeout=timeout), deadline_exceeded=False)
-        except subprocess.TimeoutExpired:
-            os.killpg(process.pid, signal.SIGKILL)
-            process.wait()
-            return dict(returncode=124, deadline_exceeded=True)
+        deadline = time.monotonic() + timeout
+        while True:
+            try:
+                if guard is not None:
+                    guard()
+                remaining = deadline - time.monotonic()
+                if remaining <= 0:
+                    raise subprocess.TimeoutExpired(argv, timeout)
+                return dict(
+                    returncode=process.wait(timeout=min(1, remaining)), deadline_exceeded=False
+                )
+            except subprocess.TimeoutExpired:
+                if time.monotonic() < deadline:
+                    continue
+                os.killpg(process.pid, signal.SIGKILL)
+                process.wait()
+                return dict(returncode=124, deadline_exceeded=True)
+            except ValueError as exc:
+                os.killpg(process.pid, signal.SIGKILL)
+                process.wait()
+                return dict(returncode=125, deadline_exceeded=False, stop_reason=str(exc))
 
 
 def capacity(free_mib, available_gib):
@@ -131,6 +153,7 @@ def main():
                 environment=environment,
                 log=control / (episode + ".log"),
                 timeout=1200,
+                guard=lambda: output_guard(control),
             )
             result.update(case=case, elapsed_seconds=time.monotonic() - start)
             result["cleanup"] = cleanup_client(episode)

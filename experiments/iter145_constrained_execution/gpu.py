@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path
 import random
+import resource
 import subprocess
 import time
 
@@ -32,6 +33,8 @@ def client_command(control, output, episode):
         CONTAINER,
         "--gpus",
         "all",
+        "--ulimit",
+        "fsize=268435456:268435456",
         "--label",
         "sentinel.iter145.episode=" + episode,
         "-v",
@@ -126,6 +129,9 @@ def cache_adapter(factory, owned_cache):
 
 def worker(control, case):
     """Called by an outer process with a hard 1,200 second deadline."""
+    _, hard = resource.getrlimit(resource.RLIMIT_FSIZE)
+    bound = min(256 * 1024**2, hard) if hard != resource.RLIM_INFINITY else 256 * 1024**2
+    resource.setrlimit(resource.RLIMIT_FSIZE, (bound, hard))
     import numpy as np
     import torch
     import shapely

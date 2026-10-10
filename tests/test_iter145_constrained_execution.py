@@ -908,3 +908,22 @@ def test_gpu_attack_replay_known_bads(mutation):
         actors[0]["states"][selection["actor"]][0] += 0.5
     with pytest.raises(ValueError):
         check_attack_execution(events, actors)
+
+
+def test_gpu_output_guard_stops_owned_process(tmp_path):
+    import os
+    import sys
+    from experiments.iter145_constrained_execution.gpu_batch import invoke
+
+    def stop():
+        raise ValueError("output_or_storage_limit")
+
+    result = invoke(
+        [sys.executable, "-c", "import time; time.sleep(10)"],
+        cwd=tmp_path,
+        environment=os.environ.copy(),
+        log=tmp_path / "output.log",
+        timeout=10,
+        guard=stop,
+    )
+    assert result["returncode"] == 125 and result["stop_reason"] == "output_or_storage_limit"

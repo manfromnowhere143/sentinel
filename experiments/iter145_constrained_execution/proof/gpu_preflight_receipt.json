@@ -1,0 +1,27 @@
+{
+  "hostname": "sentinel-gpu",
+  "host_epoch": 1791631919.351874,
+  "free_gib": 109.25105285644531,
+  "meminfo": "MemTotal:       32863264 kB\nMemFree:        31417464 kB\nMemAvailable:   31915692 kB\nBuffers:           90044 kB\nCached:           732556 kB\nSwapCached:            0 kB\nActive:           618684 kB\nInactive:         312216 kB\nActive(anon):     118448 kB\nInactive(anon):        0 kB\nActive(file):     500236 kB\nInactive(file):   312216 kB\nUnevictable:       27724 kB\nMlocked:           27724 kB\nSwapTotal:       8388604 kB\nSwapFree:        8388604 kB\nZswap:                 0 kB\nZswapped:              0 kB\nDirty:               868 kB\nWriteback:             0 kB\nAnonPages:        136112 kB\nMapped:           208524 kB\nShmem:              1052 kB\nKReclaimable:     110664 kB\nSlab:             193932 kB\nSReclaimable:     110664 kB\nSUnreclaim:        83268 kB\nKernelStack:        4272 kB\nPageTables:         3780 kB\nSecPageTables:         0 kB\nNFS_Unstable:          0 kB\nBounce:                0 kB\nWritebackTmp:          0 kB\nCommitLimit:    24820236 kB\nCommitted_AS:    1044764 kB\nVmallocTotal:   34359738367 kB\nVmallocUsed:       59556 kB\nVmallocChunk:          0 kB\nPercpu:             4640 kB\nHardwareCorrupted:     0 kB\nAnonHugePages:         0 kB\nShmemHugePages:        0 kB\nShmemPmdMapped:        0 kB\nFileHugePages:         0 kB\nFilePmdMapped:         0 kB\nUnaccepted:            0 kB\nHugePages_Total:       0\nHugePages_Free:        0\nHugePages_Rsvd:        0\nHugePages_Surp:        0\nHugepagesize:       2048 kB\nHugetlb:               0 kB\nDirectMap4k:      156424 kB\nDirectMap2M:     5083136 kB\nDirectMap1G:    30408704 kB\n",
+  "containers": {
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "gpu_processes": {
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "gpu": {
+    "returncode": 0,
+    "stdout": "NVIDIA L4, 23034 MiB, 22564 MiB, 580.159.03\n",
+    "stderr": ""
+  },
+  "timer": {
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "Running timer as unit: sentinel-iter145-gpu-budget.timer\nWill run service as unit: sentinel-iter145-gpu-budget.service\n"
+  },
+  "timer_readback": "TimersMonotonic={ OnActiveUSec=1h 27min 42s ; next_elapse=1h 28min 35.829358s }\nNextElapseUSecMonotonic=1h 28min 35.829358s\nActiveState=active\n"
+}

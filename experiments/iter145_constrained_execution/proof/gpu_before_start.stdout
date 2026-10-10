@@ -1,0 +1,11 @@
+{
+  "guestAccelerators": [
+    {
+      "acceleratorCount": 1,
+      "acceleratorType": "https://www.googleapis.com/compute/v1/projects/sunlit-unison-487018-b0/zones/us-west1-a/acceleratorTypes/nvidia-l4"
+    }
+  ],
+  "id": "3834622546652649531",
+  "machineType": "https://www.googleapis.com/compute/v1/projects/sunlit-unison-487018-b0/zones/us-west1-a/machineTypes/g2-standard-8",
+  "status": "TERMINATED"
+}

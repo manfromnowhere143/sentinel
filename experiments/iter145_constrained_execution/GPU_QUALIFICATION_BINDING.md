@@ -41,3 +41,10 @@ replay. Retain failed partial traces. Verify raw identities before interpretatio
 raw before aggregate claims. Report latency distributions separately from convergence;
 50 ms remains a descriptive complete-controller deadline bar, not an admission threshold.
 Do not infer physical fidelity, global optimality, industrial superiority or generalization.
+
+Pre-execution resource enforcement: the outer worker polls the owned output tree once
+per second and stops at 7 GiB, leaving 1 GiB buffer within the 8 GiB output budget;
+it also stops if host free space falls below 25 GiB. A hard per-file RLIMIT_FSIZE of
+256 MiB bounds any single growing output stream in the worker. Output size is rechecked
+between cases and at collection; no strict instantaneous total-filesystem quota is claimed.
+All source and resource guard revisions are retained before the first simulator case.
