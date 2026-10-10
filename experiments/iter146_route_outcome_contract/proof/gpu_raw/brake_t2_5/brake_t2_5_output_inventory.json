@@ -1,0 +1,115 @@
+{
+  "files": {
+    "runs/scene-0013-easy-00__brake_t2_5__1/client.log": {
+      "sha256": "425b412d9ab397ce20b68ac729d36a98feb0179f431215244ac490e89a57a11e",
+      "bytes": 6480
+    },
+    "runs/scene-0013-easy-00__brake_t2_5__1/delivery145.jsonl": {
+      "sha256": "b6544f9c92a02df5eb320062152f6b99c138d6265174eaab0ca7ecd2bbdfa2f8",
+      "bytes": 44747
+    },
+    "runs/scene-0013-easy-00__brake_t2_5__1/ground.ply": {
+      "sha256": "401c1da8c3d8bce2c4f117a0ab66932cfb33e60bd974d95c6cf10e43bb0d3a8e",
+      "bytes": 6722213
+    },
+    "runs/scene-0013-easy-00__brake_t2_5__1/scene.ply": {
+      "sha256": "756ce791962d60526c9470229b003eb0b60e9be31783ce009cddca17ab5d5f26",
+      "bytes": 31674942
+    },
+    "runs/scene-0013-easy-00__brake_t2_5__1/sentinel_iter48_decisions.jsonl": {
+      "sha256": "6b036b457f24cf7a6c0184aa366dc5e3df3ee582a82f2cde8f85a4a59c20df58",
+      "bytes": 24972
+    },
+    "runs/scene-0013-easy-00__brake_t2_5__1/trace/events.jsonl": {
+      "sha256": "9d2bdba5ee0c7394b5d675da6b2806123c8a9df868f53c2f849c5309435b7fcb",
+      "bytes": 905058
+    },
+    "runs/scene-0013-easy-00__brake_t2_5__1/trace/started.json": {
+      "sha256": "9014504d15363c778ac94b0fe986cd5a11058b86cb303de19568b5fcc3fc586e",
+      "bytes": 483
+    },
+    "runs/scene-0013-easy-00__brake_t2_5__1/trace/summary.json": {
+      "sha256": "50b26c97d4bf91a7dbb9f52f3cae42263a9d5da1de6442f9c427e1a124a7c3b3",
+      "bytes": 3237
+    },
+    "runs/scene-0013-easy-00__brake_t2_5__1/worker.json": {
+      "sha256": "49c839f5a0866a0d5adb4c6bc1a79352aa8e5c44d5990465d9b70f3422f70af4",
+      "bytes": 42951
+    },
+    "runs/scene-0013-easy-00__brake_t2_5__1/worker_started.json": {
+      "sha256": "028f4812f9934013f005df6a0f2e3320cf3990b6f1dad4ae7b8abcbacafaaebe",
+      "bytes": 175
+    },
+    "runs/scene-0013-easy-00__brake_t2_5__2/client.log": {
+      "sha256": "0410003732d036fe5df93884408f761a150ea7aa1f82a65282afa9b7d9d79926",
+      "bytes": 6480
+    },
+    "runs/scene-0013-easy-00__brake_t2_5__2/delivery145.jsonl": {
+      "sha256": "08a1843590cea845aedd2a89facd1a0f88e177182efd178d81986f8b55a13e5f",
+      "bytes": 44747
+    },
+    "runs/scene-0013-easy-00__brake_t2_5__2/ground.ply": {
+      "sha256": "401c1da8c3d8bce2c4f117a0ab66932cfb33e60bd974d95c6cf10e43bb0d3a8e",
+      "bytes": 6722213
+    },
+    "runs/scene-0013-easy-00__brake_t2_5__2/scene.ply": {
+      "sha256": "756ce791962d60526c9470229b003eb0b60e9be31783ce009cddca17ab5d5f26",
+      "bytes": 31674942
+    },
+    "runs/scene-0013-easy-00__brake_t2_5__2/sentinel_iter48_decisions.jsonl": {
+      "sha256": "6b036b457f24cf7a6c0184aa366dc5e3df3ee582a82f2cde8f85a4a59c20df58",
+      "bytes": 24972
+    },
+    "runs/scene-0013-easy-00__brake_t2_5__2/trace/events.jsonl": {
+      "sha256": "9ae5d9c06e640da630110e99104b5afb7721c8a7c2065e973691d49f09a1e848",
+      "bytes": 905058
+    },
+    "runs/scene-0013-easy-00__brake_t2_5__2/trace/started.json": {
+      "sha256": "dfc676ddd1a08dd4fd1e285eb4adb478b864e784ab9bde068ca842765de82664",
+      "bytes": 488
+    },
+    "runs/scene-0013-easy-00__brake_t2_5__2/trace/summary.json": {
+      "sha256": "4665519e7a8b126ad85895003bc1dad2aca305e01488bf0c4be6e3d523ce6db5",
+      "bytes": 3242
+    },
+    "runs/scene-0013-easy-00__brake_t2_5__2/worker.json": {
+      "sha256": "e52943b7acb240b3fb106dd60ffab7e964842b61c88280231db9eaaf54c0d3d8",
+      "bytes": 42955
+    },
+    "runs/scene-0013-easy-00__brake_t2_5__2/worker_started.json": {
+      "sha256": "6cb351ad0c3707a96a6ab9e45c4386add153d2656c93b05843922bf9497d5327",
+      "bytes": 175
+    }
+  },
+  "total_bytes": 78850530,
+  "selected_files": [
+    "runs/scene-0013-easy-00__brake_t2_5__1/client.log",
+    "runs/scene-0013-easy-00__brake_t2_5__1/delivery145.jsonl",
+    "runs/scene-0013-easy-00__brake_t2_5__1/sentinel_iter48_decisions.jsonl",
+    "runs/scene-0013-easy-00__brake_t2_5__1/trace/events.jsonl",
+    "runs/scene-0013-easy-00__brake_t2_5__1/trace/started.json",
+    "runs/scene-0013-easy-00__brake_t2_5__1/trace/summary.json",
+    "runs/scene-0013-easy-00__brake_t2_5__1/worker.json",
+    "runs/scene-0013-easy-00__brake_t2_5__1/worker_started.json",
+    "runs/scene-0013-easy-00__brake_t2_5__2/client.log",
+    "runs/scene-0013-easy-00__brake_t2_5__2/delivery145.jsonl",
+    "runs/scene-0013-easy-00__brake_t2_5__2/sentinel_iter48_decisions.jsonl",
+    "runs/scene-0013-easy-00__brake_t2_5__2/trace/events.jsonl",
+    "runs/scene-0013-easy-00__brake_t2_5__2/trace/started.json",
+    "runs/scene-0013-easy-00__brake_t2_5__2/trace/summary.json",
+    "runs/scene-0013-easy-00__brake_t2_5__2/worker.json",
+    "runs/scene-0013-easy-00__brake_t2_5__2/worker_started.json",
+    "brake_t2_5_clearance.json",
+    "brake_t2_5_entry.log",
+    "brake_t2_5_launch.json",
+    "brake_t2_5_pair.json",
+    "brake_t2_5_started.json",
+    "deployment_report.json",
+    "e2e146.py",
+    "execution_manifest.json",
+    "nuscenes_base.yaml",
+    "scene-0013-easy-00__brake_t2_5__1.log",
+    "scene-0013-easy-00__brake_t2_5__2.log"
+  ],
+  "derived_content": "PLY retained on stopped host with complete hashes; display images disabled prospectively."
+}

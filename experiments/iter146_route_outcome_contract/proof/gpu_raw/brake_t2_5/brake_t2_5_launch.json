@@ -1,0 +1,23 @@
+{
+  "arm": "brake_t2_5",
+  "pid": 4731,
+  "argv": [
+    "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/bin/python",
+    "-u",
+    "-m",
+    "experiments.iter146_route_outcome_contract.gpu_pair",
+    "--control",
+    "/datasets/nuscenes-full/hugsim/iter146_gpu_20261010",
+    "--manifest-sha256",
+    "829454a169fcf6a43eba7a36c77bc4976f05573bc178e907ccd8b981f40e331f",
+    "--clearance-sha256",
+    "9be21c9e3099cc59f1ab6e33f9b602f9d6d7197cb91c642e7f018110328dd447",
+    "--arm",
+    "brake_t2_5"
+  ],
+  "manifest_sha256": "829454a169fcf6a43eba7a36c77bc4976f05573bc178e907ccd8b981f40e331f",
+  "clearance_sha256": "9be21c9e3099cc59f1ab6e33f9b602f9d6d7197cb91c642e7f018110328dd447",
+  "host_timer": "TimersMonotonic={ OnActiveUSec=1h 28min 7s ; next_elapse=1h 28min 39.734680s }\nNextElapseUSecMonotonic=1h 28min 39.734680s\nActiveState=active\n",
+  "started_epoch": 1791636521.8664186,
+  "remaining_provider_seconds": 4183.897868084008
+}

@@ -1,0 +1,238 @@
+{
+  "pairs": {
+    "nominal_pair": {
+      "status": "completed",
+      "arm": "nominal",
+      "cases": [
+        {
+          "returncode": 0,
+          "deadline_exceeded": false,
+          "episode": "scene-0013-easy-00__nominal__1",
+          "cleanup": {
+            "status": "absent"
+          }
+        },
+        {
+          "returncode": 0,
+          "deadline_exceeded": false,
+          "episode": "scene-0013-easy-00__nominal__2",
+          "cleanup": {
+            "status": "absent"
+          }
+        }
+      ],
+      "live_study_admitted": false,
+      "elapsed_seconds": 180.90440076400003
+    },
+    "monitor_pair": {
+      "status": "completed",
+      "arm": "monitor",
+      "cases": [
+        {
+          "returncode": 0,
+          "deadline_exceeded": false,
+          "episode": "scene-0013-easy-00__monitor__1",
+          "cleanup": {
+            "status": "absent"
+          }
+        },
+        {
+          "returncode": 0,
+          "deadline_exceeded": false,
+          "episode": "scene-0013-easy-00__monitor__2",
+          "cleanup": {
+            "status": "absent"
+          }
+        }
+      ],
+      "live_study_admitted": false,
+      "elapsed_seconds": 157.20076433500003
+    },
+    "brake_t0_pair": {
+      "status": "completed",
+      "arm": "brake_t0",
+      "cases": [
+        {
+          "returncode": 0,
+          "deadline_exceeded": false,
+          "episode": "scene-0013-easy-00__brake_t0__1",
+          "cleanup": {
+            "status": "absent"
+          }
+        },
+        {
+          "returncode": 0,
+          "deadline_exceeded": false,
+          "episode": "scene-0013-easy-00__brake_t0__2",
+          "cleanup": {
+            "status": "absent"
+          }
+        }
+      ],
+      "live_study_admitted": false,
+      "elapsed_seconds": 157.77773367700001
+    }
+  },
+  "runs": {
+    "scene-0013-easy-00__brake_t0__1": {
+      "worker.json": {
+        "status": "completed",
+        "elapsed_seconds": 57.345705949000035
+      },
+      "trace/summary.json": {
+        "status": "completed",
+        "steps": 24,
+        "stop_reason": "action_cap",
+        "outcome": {
+          "censored": true,
+          "collision_observed": false,
+          "completion_qualified": false,
+          "execution_valid": true,
+          "final_sample_observed": false,
+          "first_failure_time": null,
+          "off_route_observed": false,
+          "simulator_completion": false
+        }
+      },
+      "steps": 24,
+      "last_event": "runner_stop",
+      "client_tail": "0 objs=0\nsent\nreceived\nSENTINEL_I48_DECISION frame=21 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0\nsent\nreceived\nSENTINEL_I48_DECISION frame=22 fired=0 brake=0 release=0 clear=0 min_cpa=30.6009 min_ttc=1000000000.0000 objs=1\nsent\nreceived\nSENTINEL_I48_DECISION frame=23 fired=0 brake=0 release=0 clear=0 min_cpa=30.1218 min_ttc=1000000000.0000 objs=1\nsent\n"
+    },
+    "scene-0013-easy-00__brake_t0__2": {
+      "worker.json": {
+        "status": "completed",
+        "elapsed_seconds": 57.38974498400012
+      },
+      "trace/summary.json": {
+        "status": "completed",
+        "steps": 24,
+        "stop_reason": "action_cap",
+        "outcome": {
+          "censored": true,
+          "collision_observed": false,
+          "completion_qualified": false,
+          "execution_valid": true,
+          "final_sample_observed": false,
+          "first_failure_time": null,
+          "off_route_observed": false,
+          "simulator_completion": false
+        }
+      },
+      "steps": 24,
+      "last_event": "runner_stop",
+      "client_tail": "0 objs=0\nsent\nreceived\nSENTINEL_I48_DECISION frame=21 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0\nsent\nreceived\nSENTINEL_I48_DECISION frame=22 fired=0 brake=0 release=0 clear=0 min_cpa=30.6009 min_ttc=1000000000.0000 objs=1\nsent\nreceived\nSENTINEL_I48_DECISION frame=23 fired=0 brake=0 release=0 clear=0 min_cpa=30.1218 min_ttc=1000000000.0000 objs=1\nsent\n"
+    },
+    "scene-0013-easy-00__brake_t2_5__1": {
+      "steps": 0,
+      "last_event": "observation",
+      "client_tail": "one.layer3.22.conv2 is upgraded to version 2.\n2026-10-10 14:49:30,636 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.0.conv2 is upgraded to version 2.\n2026-10-10 14:49:30,642 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.1.conv2 is upgraded to version 2.\n2026-10-10 14:49:30,647 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.2.conv2 is upgraded to version 2.\n"
+    },
+    "scene-0013-easy-00__monitor__1": {
+      "worker.json": {
+        "status": "completed",
+        "elapsed_seconds": 57.23552280900003
+      },
+      "trace/summary.json": {
+        "status": "completed",
+        "steps": 24,
+        "stop_reason": "action_cap",
+        "outcome": {
+          "censored": true,
+          "collision_observed": false,
+          "completion_qualified": false,
+          "execution_valid": true,
+          "final_sample_observed": false,
+          "first_failure_time": null,
+          "off_route_observed": false,
+          "simulator_completion": false
+        }
+      },
+      "steps": 24,
+      "last_event": "runner_stop",
+      "client_tail": "ceived\nSENTINEL_I48_DECISION frame=21 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0\nsent\nreceived\nSENTINEL_I48_DECISION frame=22 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0\nsent\nreceived\nSENTINEL_I48_DECISION frame=23 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0\nsent\n"
+    },
+    "scene-0013-easy-00__monitor__2": {
+      "worker.json": {
+        "status": "completed",
+        "elapsed_seconds": 56.93735472399999
+      },
+      "trace/summary.json": {
+        "status": "completed",
+        "steps": 24,
+        "stop_reason": "action_cap",
+        "outcome": {
+          "censored": true,
+          "collision_observed": false,
+          "completion_qualified": false,
+          "execution_valid": true,
+          "final_sample_observed": false,
+          "first_failure_time": null,
+          "off_route_observed": false,
+          "simulator_completion": false
+        }
+      },
+      "steps": 24,
+      "last_event": "runner_stop",
+      "client_tail": "ceived\nSENTINEL_I48_DECISION frame=21 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0\nsent\nreceived\nSENTINEL_I48_DECISION frame=22 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0\nsent\nreceived\nSENTINEL_I48_DECISION frame=23 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0\nsent\n"
+    },
+    "scene-0013-easy-00__nominal__1": {
+      "worker.json": {
+        "status": "completed",
+        "elapsed_seconds": 62.456507886
+      },
+      "trace/summary.json": {
+        "status": "completed",
+        "steps": 24,
+        "stop_reason": "action_cap",
+        "outcome": {
+          "censored": true,
+          "collision_observed": false,
+          "completion_qualified": false,
+          "execution_valid": true,
+          "final_sample_observed": false,
+          "first_failure_time": null,
+          "off_route_observed": false,
+          "simulator_completion": false
+        }
+      },
+      "steps": 24,
+      "last_event": "runner_stop",
+      "client_tail": "ceived\nSENTINEL_I48_DECISION frame=21 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0\nsent\nreceived\nSENTINEL_I48_DECISION frame=22 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0\nsent\nreceived\nSENTINEL_I48_DECISION frame=23 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0\nsent\n"
+    },
+    "scene-0013-easy-00__nominal__2": {
+      "worker.json": {
+        "status": "completed",
+        "elapsed_seconds": 57.23795376799998
+      },
+      "trace/summary.json": {
+        "status": "completed",
+        "steps": 24,
+        "stop_reason": "action_cap",
+        "outcome": {
+          "censored": true,
+          "collision_observed": false,
+          "completion_qualified": false,
+          "execution_valid": true,
+          "final_sample_observed": false,
+          "first_failure_time": null,
+          "off_route_observed": false,
+          "simulator_completion": false
+        }
+      },
+      "steps": 24,
+      "last_event": "runner_stop",
+      "client_tail": "ceived\nSENTINEL_I48_DECISION frame=21 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0\nsent\nreceived\nSENTINEL_I48_DECISION frame=22 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0\nsent\nreceived\nSENTINEL_I48_DECISION frame=23 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0\nsent\n"
+    }
+  },
+  "brake_t2_5_entry.log": "",
+  "nominal_entry.log": "",
+  "brake_t0_entry.log": "",
+  "monitor_entry.log": "",
+  "scene-0013-easy-00__nominal__2.log": "",
+  "scene-0013-easy-00__monitor__2.log": "",
+  "scene-0013-easy-00__brake_t2_5__1.log": "",
+  "scene-0013-easy-00__monitor__1.log": "",
+  "scene-0013-easy-00__brake_t0__1.log": "",
+  "scene-0013-easy-00__nominal__1.log": "",
+  "scene-0013-easy-00__brake_t0__2.log": ""
+}

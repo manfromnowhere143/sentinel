@@ -10,6 +10,9 @@ recorded route samples. Collision, off-route events and censoring override compl
 reward cannot determine success. Physical validity and literal route-end completion
 remain unestablished. Prior Iter139/142 recovery nulls are unchanged.
 
-The separately registered GPU qualification is being prepared; no new GPU episode has
-run yet. Read GPU_QUALIFICATION_BINDING.md and STATE.json for its exact scope. The
+The separately registered GPU qualification is running. Nominal, monitor and early
+braking pairs passed independent replay: six episodes / 144 steps / three fresh
+replica pairs. The late-braking pair is running. These are censored short episodes,
+not completion or recovery evidence. Read TIMING_CORRECTION.md: the raw full_loop_ns
+field is a lower bound that excludes the final resource guard and stop dispatch. Read GPU_QUALIFICATION_BINDING.md and STATE.json for its exact scope. The
 14-scenario / 112-slot study remains proposed and unadmitted.
