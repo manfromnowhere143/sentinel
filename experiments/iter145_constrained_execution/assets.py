@@ -1,12 +1,14 @@
 """Read-only closure of the fourteen frozen scenario files and their declared assets."""
 
 import json
+import hashlib
 from pathlib import Path
 import socket
 import subprocess
 import time
 import yaml
 from .resources import file_identity, actor_identity, asset_gate, IMAGE
+from .maps import validate as validate_maps
 
 DATA = Path("/datasets/nuscenes-full")
 SCENARIOS = DATA / "hugsim/extracted/scenarios/nuscenes"
@@ -14,7 +16,7 @@ SCENES = DATA / "hugsim/extracted/scenes/nuscenes"
 CARS = DATA / "hugsim/3DRealCar"
 
 
-def collect(inventory, runtime_files, image_id, actor_files):
+def collect(inventory, runtime_files, image_id, actor_files, map_binding=None):
     """Must run on the named host. Missing dependencies remain explicit unavailable rows."""
     if socket.gethostname().split(".")[0] != "sentinel-gpu":
         raise ValueError("asset inspection host identity")
@@ -42,7 +44,11 @@ def collect(inventory, runtime_files, image_id, actor_files):
                 record = actor_identity(CARS, path.parent.relative_to(CARS), path.name, actor_files)
             else:
                 record = file_identity(
-                    path, max_bytes=4 * 1024**2 if small else 16 * 1024**3, include_bytes=small
+                    path,
+                    max_bytes=4 * 1024**2 if small else 16 * 1024**3,
+                    include_bytes=small,
+                    allow_empty=role == "runtime_source"
+                    and expected == hashlib.sha256(b"").hexdigest(),
                 )
             data = record.pop("data", None)
             if expected is not None and record["sha256"] != expected:
@@ -119,7 +125,14 @@ def collect(inventory, runtime_files, image_id, actor_files):
         # HD-map cache/data closure requires a retained provider inventory, not an
         # assumption that a directory exists. Preserve this unresolved dependency.
         if config.get("load_HD_map"):
-            row["unresolved_dependencies"].append("HD_map_and_route_cache_manifest_required")
+            try:
+                validate_maps(map_binding)
+                for name, identity in map_binding["files"].items():
+                    row["dependencies"].append(name)
+                    if name not in result["files"]:
+                        observe(Path(name), "map_asset", expected=identity["sha256"])
+            except (ValueError, KeyError, TypeError):
+                row["unresolved_dependencies"].append("HD_map_and_route_cache_manifest_required")
         for path, role in dependencies:
             row["dependencies"].append(str(path))
             observe(path, role)
@@ -149,6 +162,7 @@ def main():
     p.add_argument("--runtime-files", type=Path, required=True)
     p.add_argument("--image-id", required=True)
     p.add_argument("--actor-files", type=Path, required=True)
+    p.add_argument("--map-binding", type=Path)
     p.add_argument("--output", type=Path, required=True)
     a = p.parse_args()
     result = collect(
@@ -156,6 +170,7 @@ def main():
         json.loads(a.runtime_files.read_text()),
         a.image_id,
         json.loads(a.actor_files.read_text()),
+        json.loads(a.map_binding.read_text()) if a.map_binding else None,
     )
     with a.output.open("x") as stream:
         json.dump(result, stream, indent=2, allow_nan=False)

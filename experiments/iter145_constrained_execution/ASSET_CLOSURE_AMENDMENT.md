@@ -29,3 +29,26 @@ Allow at most three SSH readiness probes during initial boot, spaced at least 10
 these are transport probes, not capacity or episode retries. Inspect only the named
 host. No GPU smoke is permitted by this binding. A separate source-bound, finite smoke
 binding must precede GPU execution after asset/resource checks are satisfied.
+
+## Inspection-driven correction before remeasurement
+
+A recount of the first retained report corrects the stopping-point description:
+its 28 unavailable entries were 20 actor files (ten distinct actor IDs) and eight
+legitimately empty frozen runtime source files, not 28 actor files. The resumed
+inspection observed all 20 actor files at their exact release identities; the eight
+empty files still failed the positive-size check. Admit an empty runtime source only
+when its expected frozen digest is SHA-256 of empty bytes. Missing files stay missing;
+empty model, map or scenario assets remain rejected. Preserve the original report.
+
+Installed UnifiedDataset source shows construction considers the entire nusc_trainval
+cache, even when UnifiedMap later selects one scene. Bind complete regular-file trees
+under /root/.unified_data_cache, /datasets/nuscenes-full/v1.0-trainval and
+/datasets/nuscenes-full/maps, with explicit required tables, both target scene caches
+at dt 0.10/0.50, and all four vector maps/search indexes. Bound inventory to 100,000
+files per tree, 16 GiB per file and 600 seconds. This is read-only identity inventory,
+not loader or route-execution qualification. Retain installed source evidence.
+
+The initial broad cache listing exceeded its 5,000-entry diagnostic cap and was
+retained as failed. A selected-path diagnostic then established the necessary scope.
+Two initial SSH commands encountered port-22 boot readiness failure; the third succeeded.
+No additional VM start, simulator/model execution or package installation occurred.

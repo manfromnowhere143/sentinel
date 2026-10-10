@@ -26,7 +26,7 @@ def number(value):
     return float(value)
 
 
-def file_identity(path, *, max_bytes=16 * 1024**3, include_bytes=False):
+def file_identity(path, *, max_bytes=16 * 1024**3, include_bytes=False, allow_empty=False):
     """No-follow each path component and final fd; detect replacement while hashing."""
     path = Path(path)
     if not path.is_absolute() or ".." in path.parts:
@@ -41,7 +41,8 @@ def file_identity(path, *, max_bytes=16 * 1024**3, include_bytes=False):
         fd = os.open(path.name, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=fd)
         descriptors.append(fd)
         before = os.fstat(fd)
-        if not stat.S_ISREG(before.st_mode) or not 0 < before.st_size <= max_bytes:
+        minimum = 0 if allow_empty else 1
+        if not stat.S_ISREG(before.st_mode) or not minimum <= before.st_size <= max_bytes:
             raise ContractError("asset_type_or_size")
         digest = hashlib.sha256()
         total = 0
@@ -119,7 +120,14 @@ def asset_gate(inventory, assets):
         digest = record.get("sha256")
         if (
             record.get("status") != "observed"
-            or number(record.get("bytes")) <= 0
+            or number(record.get("bytes")) < 0
+            or (
+                record.get("bytes") == 0
+                and not (
+                    record.get("role") == "runtime_source"
+                    and digest == hashlib.sha256(b"").hexdigest()
+                )
+            )
             or not isinstance(digest, str)
             or len(digest) != 64
             or any(c not in "0123456789abcdef" for c in digest)

@@ -677,3 +677,66 @@ def test_asset_collect_preserves_empty_vs_missing_plan(monkeypatch, plan):
     else:
         assert row["actor_count"] is None
         assert "scenario_plan_list" in row["unresolved_dependencies"]
+
+
+@pytest.mark.parametrize(
+    "mutation", ["none", "missing", "scope", "path", "size", "digest", "totals"]
+)
+def test_map_dependency_binding_known_bads(mutation):
+    from experiments.iter145_constrained_execution.maps import ROOTS, required_paths, validate
+
+    files = {p: dict(bytes=1, sha256="a" * 64) for p in required_paths()}
+    binding = dict(
+        schema="sentinel.iter145.map_inventory.v1",
+        observation_kind="host_readback",
+        roots=list(ROOTS),
+        scope="complete_regular_file_trees",
+        status="supported",
+        files=files,
+        file_count=len(files),
+        total_bytes=len(files),
+    )
+    assert validate(binding)
+    name = next(iter(files))
+    if mutation == "none":
+        return
+    if mutation == "missing":
+        del files[name]
+    elif mutation == "scope":
+        binding["scope"] = "selected_only"
+    elif mutation == "path":
+        files["/root/elsewhere"] = files[name]
+    elif mutation == "size":
+        files[name]["bytes"] = 0
+    elif mutation == "digest":
+        files[name]["sha256"] = "g" * 64
+    elif mutation == "totals":
+        binding["file_count"] += 1
+    with pytest.raises(ContractError):
+        validate(binding)
+
+
+def test_explicit_empty_regular_source_identity(tmp_path):
+    import hashlib
+    from experiments.iter145_constrained_execution.resources import file_identity
+
+    p = tmp_path.resolve() / "__init__.py"
+    p.write_bytes(b"")
+    with pytest.raises(ContractError):
+        file_identity(p)
+    assert file_identity(p, allow_empty=True) == dict(
+        bytes=0, sha256=hashlib.sha256(b"").hexdigest()
+    )
+    p.unlink()
+    with pytest.raises(FileNotFoundError):
+        file_identity(p, allow_empty=True)
+
+
+def test_map_inventory_rejects_symlink(tmp_path):
+    from experiments.iter145_constrained_execution.maps import inventory_tree
+
+    root = tmp_path.resolve()
+    (root / "data").write_bytes(b"data")
+    (root / "alias").symlink_to("data")
+    with pytest.raises(ContractError):
+        inventory_tree(root)

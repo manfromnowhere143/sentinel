@@ -1,7 +1,7 @@
 {
   "iteration": 145,
   "status": "running",
-  "phase": "asset_closure_correction",
+  "phase": "resumed_bounded_asset_inspection",
   "branch": "research/iter145-constrained-execution",
   "parent_commit": "958e9da1ee48029279a9c92d215d7c6d09aeabb6",
   "executed_cpu_source": "8b8fa4239f95482d8419a0d5afc09b18248feb43",
@@ -14,7 +14,7 @@
   "focused_tests": 76,
   "knownbads_rejected": 30,
   "cloud_access": true,
-  "provider_state_last_observed": "TERMINATED",
+  "provider_state_last_observed": "RUNNING",
   "live_smoke_episodes": 0,
   "live_study_episodes": 0,
   "live_admitted": false,
@@ -24,10 +24,10 @@
   "asset_status": "blocked",
   "asset_verdict": "ASSET_CLOSURE_UNAVAILABLE",
   "cloud_compute_used": true,
-  "owned_local_watchdog": "exited_after_verified_cleanup",
-  "owned_active_jobs": 0,
+  "owned_local_watchdog": "active_resume_watchdog",
+  "owned_active_jobs": 1,
   "automatic_resume_scheduled": false,
-  "host_inspection_envelope": "closed",
+  "host_inspection_envelope": "second_inspection_active",
   "next_step": "verify historical actor path aliases, empty actor lists, and HD-map dependencies before a new bounded GPU qualification",
   "resume_authority": "Daniel: we are back go on and continue the mission"
 }

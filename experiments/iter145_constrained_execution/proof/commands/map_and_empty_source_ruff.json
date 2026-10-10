@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "/opt/homebrew/bin/ruff",
+    "check",
+    "experiments/iter145_constrained_execution/assets.py",
+    "experiments/iter145_constrained_execution/maps.py",
+    "experiments/iter145_constrained_execution/resources.py",
+    "tests/test_iter145_constrained_execution.py"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-10T11:19:45.514558+00:00",
+  "elapsed_seconds": 0.06679415702819824,
+  "returncode": 0
+}

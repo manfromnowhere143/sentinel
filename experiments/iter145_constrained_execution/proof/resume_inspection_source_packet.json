@@ -1,0 +1,13 @@
+{
+  "commit": "1d64318392a2e911ea05fee79341ab85801c7857",
+  "files": {
+    "experiments/iter145_constrained_execution/ACTOR_FILES.json": "2399f517f0521fb6adac52a73c30bb9b1e972ac2e9537c20fff91b224f30ca54",
+    "experiments/iter145_constrained_execution/assets.py": "bec3f8d818dc4f0dfbeaa89303ad86c6ef1d073b5fce191227eab32f88d644ba",
+    "experiments/iter145_constrained_execution/resources.py": "2fef0c150959e877f9824ba211906b9731e3cf56e30cce063148b9f3efa67af5",
+    "experiments/iter144_timed_trajectory/trajectory.py": "1efebe32277e403d8ed580354e33f79fc0625b0ce422d376725540f3644d861b",
+    "experiments/iter143_model_contract/proof/case_inventory.json": "ead62a973036f253727ac19d878454506eff739663dd52dc02a9088e308e1cbf",
+    "expected_runtime.json": "27cf017cf75b00b31a90480035c11443f41c07c979c86f4a6b33f9e13226f337"
+  },
+  "packet_sha256": "70f2299a370e454a180d9b2095ddad6bd7ab2ef19cc2184bf9df7c3a1a7bf363",
+  "runtime_files": 396
+}
