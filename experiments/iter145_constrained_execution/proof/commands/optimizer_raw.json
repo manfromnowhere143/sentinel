@@ -1,0 +1,19 @@
+{
+  "argv": [
+    "env",
+    "OPENBLAS_NUM_THREADS=1",
+    "OMP_NUM_THREADS=1",
+    "MKL_NUM_THREADS=1",
+    "python3",
+    "-m",
+    "experiments.iter145_constrained_execution.probe",
+    "--root",
+    "/Users/danielwahnich/sentinel-bootstrap-evidence/iter145-constrained-execution-20261010/optimizer_source",
+    "--output",
+    "/Users/danielwahnich/workspace/sentinel/experiments/iter145_constrained_execution/proof/optimizer_raw.json"
+  ],
+  "cwd": "/Users/danielwahnich/sentinel-bootstrap-evidence/iter145-constrained-execution-20261010/optimizer_source",
+  "start_utc": "2026-10-10T05:48:10.904524+00:00",
+  "elapsed_seconds": 1.7909228801727295,
+  "returncode": 0
+}
