@@ -4,6 +4,7 @@ import hashlib
 import math
 import os
 from pathlib import Path
+import re
 import stat
 from experiments.iter144_timed_trajectory.trajectory import ContractError
 
@@ -77,9 +78,18 @@ def asset_gate(inventory, assets):
     for name, row in assets["scenarios"].items():
         if row["sha256"] != expected[name] or not row.get("dependencies"):
             raise ContractError("scenario_identity_or_dependencies")
-        if not row.get("controller_types") or any(
-            k not in ("AttackPlanner", "ConstantPlanner", "IDM", "UnicyclePlanner")
-            for k in row["controller_types"]
+        kinds = row.get("controller_types")
+        count = row.get("actor_count")
+        if (
+            type(count) is not int
+            or count < 0
+            or not isinstance(kinds, list)
+            or (count == 0) != (kinds == [])
+            or len(kinds) > count
+            or any(
+                k not in ("AttackPlanner", "ConstantPlanner", "IDM", "UnicyclePlanner")
+                for k in kinds
+            )
         ):
             raise ContractError("scenario_actor_types")
         if row.get("unresolved_dependencies") != []:
@@ -123,6 +133,50 @@ def asset_gate(inventory, assets):
     ):
         raise ContractError("asset_role_or_image_identity")
     return True
+
+
+def actor_identity(root, relative, filename, expected):
+    """Verify the single historical alias, then hash its canonical regular file."""
+    root, relative = Path(root), Path(relative)
+    if (
+        not root.is_absolute()
+        or len(relative.parts) != 3
+        or not re.fullmatch(r"\d{4}(?:_\d{2}){5}", relative.parts[0])
+        or relative.parts[1:] != ("postprocess", "shadow.pth")
+        or filename not in ("gs.pth", "wlh.json")
+    ):
+        raise ContractError("actor_alias_shape")
+    canonical = root / relative.parts[0] / filename
+    binding = expected.get(str(canonical))
+    if not isinstance(binding, dict):
+        raise ContractError("actor_not_in_frozen_manifest")
+    descriptors = []
+    try:
+        fd = os.open("/", os.O_RDONLY | os.O_DIRECTORY)
+        descriptors.append(fd)
+        for part in (root / relative.parent).parts[1:]:
+            fd = os.open(part, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=fd)
+            descriptors.append(fd)
+        before = os.stat("shadow.pth", dir_fd=fd, follow_symlinks=False)
+        if not stat.S_ISLNK(before.st_mode) or os.readlink("shadow.pth", dir_fd=fd) != "..":
+            raise ContractError("actor_alias_target")
+        result = file_identity(canonical)
+        after = os.stat("shadow.pth", dir_fd=fd, follow_symlinks=False)
+        fields = ("st_dev", "st_ino", "st_size", "st_mtime_ns", "st_ctime_ns")
+        if any(getattr(before, k) != getattr(after, k) for k in fields):
+            raise ContractError("actor_alias_changed")
+        if result != binding:
+            raise ContractError("actor_frozen_identity_mismatch")
+        result.update(
+            physical_path=str(canonical),
+            alias_path=str(root / relative),
+            alias_target="..",
+            alias_identity={k: getattr(after, k) for k in fields},
+        )
+        return result
+    finally:
+        for fd in reversed(descriptors):
+            os.close(fd)
 
 
 def resource_gate(observation, envelope, *, now):

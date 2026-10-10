@@ -1,0 +1,882 @@
+{
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_04_22_10_35_34/gs.pth": {
+    "sha256": "f38bff52f681beb3ef17575144a502b436116688275cea8c9edd8cc909d4ccf5",
+    "bytes": 166696589
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_04_22_10_35_34/wlh.json": {
+    "sha256": "69007608dd2d823759755219d7a126cbc2130f325a6125927bf1757eee243783",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_06_04_13_44_39/gs.pth": {
+    "sha256": "cb6f0baf5713f8a20f35010baa4cf61d869275b8d20e0bd96de5b1ef6d827b9b",
+    "bytes": 233167821
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_06_04_13_44_39/wlh.json": {
+    "sha256": "470c32017bdec2be47913a7cfb19940654819123369d137f3342ae857b79b1d0",
+    "bytes": 64
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_06_04_15_34_51/gs.pth": {
+    "sha256": "0f0d960ca2d5adb4e565b1280a8d39e60afe2a2da7147ae0616cd8185937ea72",
+    "bytes": 228709325
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_06_04_15_34_51/wlh.json": {
+    "sha256": "45f006d7ecb0291b1d5627b7a4b6c21aa69e729ddff6fe0594c29dbdf617468d",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_06_04_15_45_41/gs.pth": {
+    "sha256": "6fc9396547a5dc7193e73357444825106c58955f3867b56cc42692eb97b0ff0f",
+    "bytes": 247154701
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_06_04_15_45_41/wlh.json": {
+    "sha256": "c65e201062d40bc0f9dd58d72e50f72b43894eacc3a3e362a3dbb5baf3b8def5",
+    "bytes": 68
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_06_04_16_00_28/gs.pth": {
+    "sha256": "13d194011b4520b13b45eb7f3a08e8c0d89289652213de460e8680e44a846db9",
+    "bytes": 247239117
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_06_04_16_00_28/wlh.json": {
+    "sha256": "bda0f42165ec646bd7b312365fcff3025aa52cca6222ec4e84a1bf2c03bfc247",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_14_01_13/gs.pth": {
+    "sha256": "bf4d78bce441eeba85042a78d876a8a7a67e12f1345d0de0a448390863264c24",
+    "bytes": 237933133
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_14_01_13/wlh.json": {
+    "sha256": "22cde5096dba0eb01f6a478bda01fded197eda49ae37a51e65b4fdd612cc4f55",
+    "bytes": 66
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_14_05_04/gs.pth": {
+    "sha256": "f43540056da7149bfa754ce080ebfdea1fabdc998a4921a174117b957d0a36bb",
+    "bytes": 294450957
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_14_05_04/wlh.json": {
+    "sha256": "2478965bd5b6bfe3b916c8e5e2a68fd2e27c979aeba81dcb35bba680b89a6b73",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_14_11_39/gs.pth": {
+    "sha256": "844fdf25287022d156fe362ddd20e5ba289ab81719cf916de15ea22919508935",
+    "bytes": 346968525
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_14_11_39/wlh.json": {
+    "sha256": "998f9130d1d1f9482b2ec4eea880afd5df0220305ad0abc1879a501aaf5bccce",
+    "bytes": 66
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_27_18/gs.pth": {
+    "sha256": "bccd19edb74211b793d5aa97b82a80170f69ca9b811249bbf3659532464238be",
+    "bytes": 211684237
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_27_18/wlh.json": {
+    "sha256": "10443f311484985ba3ab04df36a86655e73db7a02635428d329ea4c7c9ec3113",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_30_39/gs.pth": {
+    "sha256": "0c856639ce47926d511c2156d8dbd77cc38add17250cc50d6c76833aa56def53",
+    "bytes": 220133901
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_30_39/wlh.json": {
+    "sha256": "a00a2ec6dd9ae500ff37cb08fa177793926f0709b5775b4bb75e1b12b0841207",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_33_04/gs.pth": {
+    "sha256": "a7a5aa156c40ee09589d86b644f3a693de55ecf5d77f34203b5897cb09d577e9",
+    "bytes": 186182029
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_33_04/wlh.json": {
+    "sha256": "8ffe3d5f0549e9bcbfe0ade3aa707f96228aa7392df1fad65f03a837411e0876",
+    "bytes": 66
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_35_44/gs.pth": {
+    "sha256": "f058c247113b5ca4ab65275ba61918fbcac13be0a025af4dfda22082d4d2084b",
+    "bytes": 226677901
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_35_44/wlh.json": {
+    "sha256": "5d2d269a209f52eca8adfc25ad7bb0bfbd287bd90335a36392b66fece552459d",
+    "bytes": 65
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_39_05/gs.pth": {
+    "sha256": "fa6fdde2fb4d0e7d57d7c36a498a753c6e6dabb2c0bfe78fe87a8629491e0457",
+    "bytes": 212281485
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_39_05/wlh.json": {
+    "sha256": "d42d3c0d01e9aba41cb2a923edddb628f9c040e01b0b6cecfd6ac8e6a3eae047",
+    "bytes": 66
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_42_20/gs.pth": {
+    "sha256": "163f5a66d22a9d2820960c7e56a3484fadcb15b0b217206dccd57bd7e359d0f1",
+    "bytes": 209307661
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_42_20/wlh.json": {
+    "sha256": "dc0e77714a3fe190635f9a0ce640ae1418361af03468239e6865cc5d34afab16",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_57_03/gs.pth": {
+    "sha256": "9ade3df30a43f11bb289c5a399ab591e220ccc1bef97ff65a00fc1e0bc79af40",
+    "bytes": 195012749
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_57_03/wlh.json": {
+    "sha256": "b606ad7be2ba0076c1b8f4fa41540fe49db79f454fb1359aa31ff390e0697951",
+    "bytes": 66
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_59_33/gs.pth": {
+    "sha256": "48ee169fbdbe7a9c48fd6b4c4bab1b31336ecfc4cdb314054fe040b7a12d7887",
+    "bytes": 186602957
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_15_59_33/wlh.json": {
+    "sha256": "553d48399e32bee1c289ec10348bdfd36296818a0f9ae1ab0949b496269dcbbe",
+    "bytes": 68
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_16_07_37/gs.pth": {
+    "sha256": "95bb887fe189ff1a780fa09a9430907a903637b41b34bf642004bef8ea5c4fff",
+    "bytes": 176226765
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_16_07_37/wlh.json": {
+    "sha256": "6868edb625f61432a92633649c0a7f03bce2b7df86ffbaadba300953d2af835c",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_16_10_59/gs.pth": {
+    "sha256": "ed56be97c8e7c9eebde05fb6e83c1977c7f4969d1bea2f4c6e5b61c8364665b8",
+    "bytes": 191907789
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_16_10_59/wlh.json": {
+    "sha256": "8da4cfe203224d1a754ed24edc08be0d45c723a62ff7c46035b8ddd4c9a1176f",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_16_20_24/gs.pth": {
+    "sha256": "d764a83893c7dafe30548b76e9ca02efa8d4f4dd9a6a8d2e27632d1a46f0f339",
+    "bytes": 231340429
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_16_20_24/wlh.json": {
+    "sha256": "6eba3aa0636e08da0b4b9f43da9604d299871cb78a3209015b64190124187b90",
+    "bytes": 68
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_17_18_50/gs.pth": {
+    "sha256": "fde54f4bcbe16660c16fe2cdb6e7b925469942594cfe687c0b8d20130c39801c",
+    "bytes": 218287117
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_17_18_50/wlh.json": {
+    "sha256": "c17391c348bf4746ca02db074b55d01a8dc09c8251c0b4793e56b72283a84aec",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_17_26_25/gs.pth": {
+    "sha256": "18e7504a8c2da91798a0e93619fce48186074b77dbe3198e81914cd00bb16f98",
+    "bytes": 247185613
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_17_26_25/wlh.json": {
+    "sha256": "8934d13bfc1cd251dd4fb081e6464a71171f9d53a85cd8c083dba35fb8d491a6",
+    "bytes": 66
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_17_29_14/gs.pth": {
+    "sha256": "43095f749864b9979368363e209964829b010c1776d1361a45afe74581c03667",
+    "bytes": 229252813
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_17_29_14/wlh.json": {
+    "sha256": "6b94ba03a60e74a11a152e61a354619569e7d84f6c310b03bdcbf5a0fd772a86",
+    "bytes": 63
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_17_52_36/gs.pth": {
+    "sha256": "dae80a0c8ad0bec883c152edef33bcd4fd38c4255566e968f6b024721bc97bfb",
+    "bytes": 210284365
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_01_17_52_36/wlh.json": {
+    "sha256": "2b9e91fd36fd57a76dc7cd0335962afd15694d29e29a4a16f6f1e768f413a270",
+    "bytes": 66
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_39_21/gs.pth": {
+    "sha256": "1056a72585682f0058f21df5876bfbc96963ade0053e6c6696e87aa7a341f9b9",
+    "bytes": 202521485
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_39_21/wlh.json": {
+    "sha256": "f7c554f75962827476ccef38936e5e1a3580b52730c622610baf8f0d6ce679f1",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_41_48/gs.pth": {
+    "sha256": "2b0b9b0a67c175abd5ca38add087f3319feb0174d9375a58962e155e1345503e",
+    "bytes": 205801229
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_41_48/wlh.json": {
+    "sha256": "18a4943b76aaf300790dfa46d310617d4ad73308ee624e605a368673abba2bed",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_45_45/gs.pth": {
+    "sha256": "a7766ef11c00a17d55839d6a62552f9631f3f85846c9d9073fa0b68c5121df14",
+    "bytes": 215706957
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_45_45/wlh.json": {
+    "sha256": "82e844042b5a982ab8dc439baa0d680209723042af48242788ce5097a5a2b395",
+    "bytes": 66
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_48_48/gs.pth": {
+    "sha256": "17fc6964f7e7052208bbfa5d117ef9b21c8d70be5cdea66c18e928939596a465",
+    "bytes": 179567501
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_48_48/wlh.json": {
+    "sha256": "2a17eab41c975c14dc667044416950afa5079329508dc75e4825e80edb1bff2a",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_51_10/gs.pth": {
+    "sha256": "fbce708f881bb2a5a670a61279fdf2fe76d09751ff6d080ded4cc969d102fbab",
+    "bytes": 213665933
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_51_10/wlh.json": {
+    "sha256": "ee65bf4b14b346a499c22cf07b096fb5dab173d7a734f275da970488e1467256",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_53_41/gs.pth": {
+    "sha256": "6a8ad040d0193efa301c99a6e647840a654bd779f365b8dcc9fdba0f5b916ca2",
+    "bytes": 224699469
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_53_41/wlh.json": {
+    "sha256": "c596683ed9f9f98a75b28c6c2fe7560f862cdfad23bb75bbc1a17cb740d5c766",
+    "bytes": 68
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_02_40/gs.pth": {
+    "sha256": "a93b79dbc9b89bce8fdfecc349b7c227c34f04f9844386b7e652196fbba4c8aa",
+    "bytes": 200145165
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_02_40/wlh.json": {
+    "sha256": "3a92950ae46b52cdb5248f7625fd374d07a4c5cdd7527e402ed660b0fce67f8f",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_12_08/gs.pth": {
+    "sha256": "e81a60b5ba37d2395b14dc191e0a480cac90d24aa71146b19e577b9e7a6ddf80",
+    "bytes": 190108749
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_12_08/wlh.json": {
+    "sha256": "76790d81fd5fc1288d9febdb576729421e1dfc32cee31c73377db5057cbdf33c",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_14_52/gs.pth": {
+    "sha256": "fe7e07ebd4ea758591908aad71b945d0aaf5dfd3f157d6130119aa58ee5f627a",
+    "bytes": 216988877
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_14_52/wlh.json": {
+    "sha256": "5143e56e774f49ed5fd9a1604bb4cbc49ef6438807d6a95eec3d857178c555d6",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_20_29/gs.pth": {
+    "sha256": "c683d0517649b22de97d7e9133513498aa9a92dcf539f343bd5e100d73c14a7a",
+    "bytes": 183964109
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_20_29/wlh.json": {
+    "sha256": "e4ed236748dd6aeadddeba2cf072fb260fcdfc5f4a52010c6e2b19540415bdb5",
+    "bytes": 68
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_23_13/gs.pth": {
+    "sha256": "77fd1209a637e61a1d345c529fb60944a1adcb2d673023af6a4cfada330e4dd6",
+    "bytes": 181438989
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_23_13/wlh.json": {
+    "sha256": "dd9564fe934afe86b42cfd1d180a47bb8205f52a2277a872ef93b401d521d12c",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_25_45/gs.pth": {
+    "sha256": "544b8c8d5cfed096bfdbae79e7221a8e496db468cf933efd191f0c0b4b68b7d8",
+    "bytes": 186119821
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_25_45/wlh.json": {
+    "sha256": "67d53f97b886f056ac9f4febf5fb4c0e038873f7161b59e4014647fef01625d2",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_29_47/gs.pth": {
+    "sha256": "96e6352cab9b3c86f5b2b196580fd792162f06a2aa5bade7f3f311282643dba9",
+    "bytes": 181126029
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_29_47/wlh.json": {
+    "sha256": "c423c589e588bb456bfc75ca3f0599bb5f64d4239a5a39c1109047da955146d1",
+    "bytes": 66
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_32_17/gs.pth": {
+    "sha256": "499e799affed7bfbad75abfd2bb9b77d67ed83d23122800da91ef69edcb9e0b7",
+    "bytes": 214371597
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_32_17/wlh.json": {
+    "sha256": "fdc5e0c6966a8cb9471032d8ae2b07e39dc31a14c2e7594833867c4421020c01",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_35_19/gs.pth": {
+    "sha256": "b87dff48531d18e5ddc24d0d5adec06929bb574ff01bd8a5377e72e5623234c0",
+    "bytes": 200759757
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_35_19/wlh.json": {
+    "sha256": "1f913e608f7c646e6339fd5705ce601a1313a44701d8270f2b885caf8179a9eb",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_38_58/gs.pth": {
+    "sha256": "3cc340d14c96492ec7354c662fb7f894c801e456193653cc8c9a14b394bb6bb0",
+    "bytes": 257161677
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_38_58/wlh.json": {
+    "sha256": "4f5e5825cf125cf35f603420d3c2b3fafba0bae3ff9782aaee5377fd3aa9b20a",
+    "bytes": 68
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_41_28/gs.pth": {
+    "sha256": "8485dd2a30d7d147226ba47712f5aac884308a0e42711b94617fe489a53f3942",
+    "bytes": 220883021
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_41_28/wlh.json": {
+    "sha256": "7828494d9d030185d79fa7d59669e8e54b5ded10eef7b3bfe2bba19a176d2384",
+    "bytes": 66
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_44_26/gs.pth": {
+    "sha256": "ff7893df24465b297532cb7d9e4278edc458f5ec2ec8fe406b02e9ea875c7cdf",
+    "bytes": 212540621
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_44_26/wlh.json": {
+    "sha256": "ac4fc3382f1b5d7e0397c7b6e78e149f42a176b8d9a8246d9896da08d5491131",
+    "bytes": 68
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_47_09/gs.pth": {
+    "sha256": "cfa744adffb47568ed35d1e8c1bee867ed5ca8dd860569ee1c63593ce5d8ebe4",
+    "bytes": 176319053
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_47_09/wlh.json": {
+    "sha256": "deabf08ab39bb79148dfa680501c04caa8597c2a9d5da775598620f46aaa6886",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_50_36/gs.pth": {
+    "sha256": "1352a80c7a8e7c2945b7886691ff2bf24d7eafe229b23e1199315d250356ac15",
+    "bytes": 198306957
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_50_36/wlh.json": {
+    "sha256": "364bfe0d19ef987a2bdc1afc62555e4f89a69389c6155389ab5109b6dacb7d7e",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_58_12/gs.pth": {
+    "sha256": "0a83f29f97a2bed291943b1ccd9532278b90beaccf551f645284c2b577c0b56b",
+    "bytes": 197527437
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_58_12/wlh.json": {
+    "sha256": "8e6e16be8a39104a8cf419310eb84434a004029a0f983ac28731b28e08ffa6f2",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_03_37/gs.pth": {
+    "sha256": "d954d57701204507308b33dd30c6568d937fc0ea58d64d78e2c31638e5e6fd0e",
+    "bytes": 200258765
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_03_37/wlh.json": {
+    "sha256": "8c09697b9e7a0bfd50d9804be0b06c5f7ff803414d4d109749b4139fff6ec0de",
+    "bytes": 68
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_16_48/gs.pth": {
+    "sha256": "17abbd9c75e14b9414e19436f4e2b2bdbd3ddf04de1e7cc9d32f9860a6363753",
+    "bytes": 192659597
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_16_48/wlh.json": {
+    "sha256": "dbfd7380350488b16e5667a769bf213a8681cf868404b992583f86f5285f60ce",
+    "bytes": 68
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_18_44/gs.pth": {
+    "sha256": "f2fcd667ef3083c74e398168ce4e854556f095644dd1160fc067f7e772f1f580",
+    "bytes": 228047629
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_18_44/wlh.json": {
+    "sha256": "b5123b90774555046acb79f1217d78fb6846a739429ab2df349e0b901841892d",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_21_00/gs.pth": {
+    "sha256": "0e8440bae5a45fbe6d9dee244e8128c2208aa9818b7062b25631e186ab66ecf0",
+    "bytes": 187193613
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_21_00/wlh.json": {
+    "sha256": "0b6429319041d66b61d2f8c92c06cc0bb8a7d8588f7192bd3a5d4349d175fd1e",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_23_11/gs.pth": {
+    "sha256": "37b1ee1d136c2e2e2bd769a357bd1a34886ca307b70474744f0a5782454af455",
+    "bytes": 204062413
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_23_11/wlh.json": {
+    "sha256": "9b75294fc14d4dc2733597663bb6808f2b091deaaacfb66d6b0bb9461d385d1e",
+    "bytes": 68
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_25_20/gs.pth": {
+    "sha256": "6ad18af7934e16d2e66574cb6fb68849441607d35af8ed8cecd2349d6a732e5c",
+    "bytes": 196856909
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_25_20/wlh.json": {
+    "sha256": "68c69130e63a710062a1fcdffa5a6057a200e36cc02a18da2d1ec8d0bb7091d2",
+    "bytes": 65
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_27_44/gs.pth": {
+    "sha256": "777d7f7a2e9bc4ba5a0d9d38a600be656afb8cf117e2e1091e4d0f1ed60380de",
+    "bytes": 202152141
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_27_44/wlh.json": {
+    "sha256": "b64eb5478964302f31c46f62d4bbe6d9f161b0b6a56940babdcbd6e85b04de59",
+    "bytes": 66
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_30_07/gs.pth": {
+    "sha256": "069263508fe52dcae9cee33cbdb31e4394976fdcbfbfb07f0acea2967a3f4a17",
+    "bytes": 256732173
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_30_07/wlh.json": {
+    "sha256": "1756d45355eba656faca547b7a48d7af429d856134892e20bdd0124d35ca94d2",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_33_12/gs.pth": {
+    "sha256": "d370e3c531e597b338126257a4823b9e684062a49b924f790bda2ae0f35e3c19",
+    "bytes": 225900429
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_33_12/wlh.json": {
+    "sha256": "4463d1d07c6863614fab90bc926e1074d8df0eb2a2640ebd1efcedb64d717f38",
+    "bytes": 66
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_36_05/gs.pth": {
+    "sha256": "2c03ba4a1cf06ff086b3c578b1a451cdd3d2831ebfd1b11f2c06257249a3546b",
+    "bytes": 214158541
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_36_05/wlh.json": {
+    "sha256": "e62732e032e1e24a071dc86416ea435a94932369c9cbf775557f080edca95a68",
+    "bytes": 68
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_39_20/gs.pth": {
+    "sha256": "c9e3cb0c2c8720f044705122669e5b96756c5d7f838746304183d67fe99e9644",
+    "bytes": 188731533
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_39_20/wlh.json": {
+    "sha256": "59a54b9e20e12aa611d04b68e9416a544a70d7181b0f53da1a3463fff7944782",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_41_49/gs.pth": {
+    "sha256": "fae5fede4303a12e8b173464848adf931de021ae717d98ad3e6634b879af48c8",
+    "bytes": 218245389
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_41_49/wlh.json": {
+    "sha256": "07f9f6bed35ec5ce8e8882aabaeb47821eaa0f075f8d8ac72e98b3e9fe431239",
+    "bytes": 66
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_50_01/gs.pth": {
+    "sha256": "0f2ee78f60ba9aae8c1d62a12598375c5b8b17cb6594e1a27448fe1a601e647c",
+    "bytes": 182360973
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_50_01/wlh.json": {
+    "sha256": "804af5c559d27719b5bff1aa1b4009c273eb21826dfceb9a6c775f5cf140e088",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_52_22/gs.pth": {
+    "sha256": "4f2229e231718ffd890fe7cd26fe5d8646fd24685bc0401b6b82698bb9ec5d5f",
+    "bytes": 174992589
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_52_22/wlh.json": {
+    "sha256": "427beada5e583e092fb18b998230e9a9895f568d1540db91a4af0b420e82b496",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_54_50/gs.pth": {
+    "sha256": "3ccb1dd72ac04514eb76d08782fc6d7e386189ce44a11e9bdd5391cdf028b1da",
+    "bytes": 209746253
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_15_54_50/wlh.json": {
+    "sha256": "0c5d75ed38f8012fdafda1d7fde34ee89a25502adfd70d53000418b5a96a5f60",
+    "bytes": 66
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_00_42/gs.pth": {
+    "sha256": "30e6a139455dc9b6e1626a7b63792bd539852d57df02d08edae22ab5a8b2bb8d",
+    "bytes": 116395725
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_00_42/wlh.json": {
+    "sha256": "8f65b529638214161f16d345c6412ba5c4f693f50c335174a72a2581b0cf7372",
+    "bytes": 66
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_02_27/gs.pth": {
+    "sha256": "d55263b0e3aea427faa782ff525c2052b2e0cd0cde513040e059d67292aea220",
+    "bytes": 156300813
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_02_27/wlh.json": {
+    "sha256": "3cb57ba2bd11c1dfb79a1a59d3e04901741c225c0259420366bddd8e836daafd",
+    "bytes": 68
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_06_01/gs.pth": {
+    "sha256": "2357b660c15f72dda255c71219ec68ece8f2b81599293be3d6f3b0de3f95d4b9",
+    "bytes": 118889933
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_06_01/wlh.json": {
+    "sha256": "6e7dd9ee461f8ec5563e2f64aa738189911f35a1a1f9e21a5dcdc133e8b81067",
+    "bytes": 66
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_17_38/gs.pth": {
+    "sha256": "e009256fca4e1fde35379121a7832248842a9ce9aaa33634ee73191bc0a8d410",
+    "bytes": 92372493
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_17_38/wlh.json": {
+    "sha256": "b11fe988352d1945c2d29f1c8b3cb6528fd49e0fdabf0e76fb2295ac8bdf4f53",
+    "bytes": 65
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_31_52/gs.pth": {
+    "sha256": "16d7d4bb2ec63ae6945353682c40ac30b73b3f973ae8d463b72714b74760ec86",
+    "bytes": 119639501
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_31_52/wlh.json": {
+    "sha256": "ab9e398198ddcdbf4ab033c9f662d142a1cf8e99f75e189b6d84a4e491d824d7",
+    "bytes": 66
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_40_08/gs.pth": {
+    "sha256": "965ce6ca8f1fc6ee85038b26c39347e3d658d5fa4583543dacf78ef3d831a5c6",
+    "bytes": 104283661
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_40_08/wlh.json": {
+    "sha256": "86d89973769c963f0354e675cfca910d0c945ae0f089de5f2a3dbb329d1da847",
+    "bytes": 68
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_41_03/gs.pth": {
+    "sha256": "38b7f97b4011cf72be08bcdf0984e744ce9ecf19709b456a51e49ca7b333ec3d",
+    "bytes": 118483021
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_41_03/wlh.json": {
+    "sha256": "54b2c95b7502b66f904e5db26ce99e5bfab6d23b96d372ec99305bbe143a5d29",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_56_50/gs.pth": {
+    "sha256": "382fa76508161518c158b08f60e7e1a198d2cfd820f886a1cab7c95616cb6ae3",
+    "bytes": 152832141
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_56_50/wlh.json": {
+    "sha256": "3e57b2e286a28f68f6bde523d7eeb077af9822de9d6f991646622c78d9c98805",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_58_02/gs.pth": {
+    "sha256": "4bc20ce60b73d9e3fbf17256b2aee80f53c06665f88795fc57bbe77befd96c3c",
+    "bytes": 127189901
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_58_02/wlh.json": {
+    "sha256": "eb4c6c6c52a47654ca1287e1762bc3fb4b6af6b01c6402809c225e0b776a4565",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_02_48/gs.pth": {
+    "sha256": "a73886ff27f793601d67cbe9af0734df9052a5b7e130a1fdcecd878459ef4e9c",
+    "bytes": 138798861
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_02_48/wlh.json": {
+    "sha256": "785d6cc5b8faf6edb7936db7278e6066a5cbfe8aa0f0b48e571eb0a33ea2f4db",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_21_58/gs.pth": {
+    "sha256": "6204aaf34dede5a895ae96f31c01f40de006ba55acd1e5402bbb4780eb237b34",
+    "bytes": 118258765
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_21_58/wlh.json": {
+    "sha256": "392ba87ddb79165bdd7a953dab859945196fae84a91cbaeaeed6ee0c60698d4e",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_22_03/gs.pth": {
+    "sha256": "de0edfa7ceeac6b18628f14d3016efec82e0d24537c9a9bd6f07ef85df098898",
+    "bytes": 128240653
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_22_03/wlh.json": {
+    "sha256": "b65505c846b907478af6d8d07088c71a75f26269ef41f8ee21e89e6a90f9f9f0",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_25_32/gs.pth": {
+    "sha256": "9fa96871dd5c0dbcc5471bef159a21b3074027fbf884d6261091431734bfc958",
+    "bytes": 154341005
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_25_32/wlh.json": {
+    "sha256": "1465c0301d923184eedd1563821d629721d5f3d3cac376f8f0b2a62039282ff4",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_42_30/gs.pth": {
+    "sha256": "08bb2dce3cd9cf4c661904f5509a1592f1ae22084eae049a6bb6945b55e5518d",
+    "bytes": 157430221
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_42_30/wlh.json": {
+    "sha256": "51180e7914f9355e9ae4fabc056c872588da8eed44f4c43e91f4eb76d8aa3c0a",
+    "bytes": 68
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_42_31/gs.pth": {
+    "sha256": "baf95566b9187d304d684e8a242316f7f1e17b17abd24cbb980ecfcb3c6c1654",
+    "bytes": 158901517
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_42_31/wlh.json": {
+    "sha256": "56a3616bb8e4c15a04827f95b303a2fabf00a4e8e1d6bd6d5a41c58a8c2d9c5b",
+    "bytes": 68
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_45_27/gs.pth": {
+    "sha256": "cad854607123a3c2677c93a447b623f53b195610f97d5aa60165b1984b66693c",
+    "bytes": 143018957
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_45_27/wlh.json": {
+    "sha256": "0f6ccb817e1b502b9934aaebd334fec954e80d5b9394490701c7637f2628078e",
+    "bytes": 68
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_12_10_02/gs.pth": {
+    "sha256": "46ee98c57f4bf65e795b5d6f294e9d46f1cc51eb5da6eacc41a2ee599d20b819",
+    "bytes": 85174541
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_12_10_02/wlh.json": {
+    "sha256": "aa9c755a8be008231cf7e11b1149e3af8d73ecbefadc4b6e42bb81db565e8d10",
+    "bytes": 68
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_12_10_06/gs.pth": {
+    "sha256": "1284cc0104480b6b0b7edfab3602754ba2afb6dc59960cb49e84304f351fe4af",
+    "bytes": 99176845
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_12_10_06/wlh.json": {
+    "sha256": "e77caec55948a914aac9842fd0e19cfe212df94c7a5a104c9097150b5d1d0c88",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_07_43/gs.pth": {
+    "sha256": "1e8a41e64b118b6aef6b4e133b57ad49663be0efaf7ca416a735f88f239f7cb1",
+    "bytes": 69421133
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_07_43/wlh.json": {
+    "sha256": "625a10ac8f0cd16b2fa981efd3834176d26a13c2666fb7c6784f1837eeccab40",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_11_17/gs.pth": {
+    "sha256": "ce36b31656d65da42090b066ce8006ee9aaf2f8627c4a65df9d90dd19fe8b443",
+    "bytes": 93642893
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_11_17/wlh.json": {
+    "sha256": "ea6913da43d1acb030e7604e8736557c6a2335b68e224cbf35bba11d6b01ef39",
+    "bytes": 68
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_11_47/gs.pth": {
+    "sha256": "c135ede030d1bdb39148b7e9b1da29bb5194a38547eb93098da47e8d403ec86a",
+    "bytes": 72149005
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_11_47/wlh.json": {
+    "sha256": "12962bd2a2ca7622f9320d121946f6fb4535871dc5ca9f62e524b1210932b643",
+    "bytes": 68
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_14_58/gs.pth": {
+    "sha256": "4f848c06d9ee7d49585fb48940606d236f5b95830e135c26d0f72b8dc1235375",
+    "bytes": 90242637
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_14_58/wlh.json": {
+    "sha256": "7aaa6bc4466a0c6c260ad481a03d649a013e98b335eee894314f95fd7c7d5020",
+    "bytes": 65
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_18_38/gs.pth": {
+    "sha256": "47e5c94bf4f428c1eb8c00a7860563be6d2798e0d0920d47b1c26032a2472940",
+    "bytes": 60347021
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_18_38/wlh.json": {
+    "sha256": "94de0535d278e367a7587600b761a7eae07d10623e37c39c599dd2b6ac5bf28f",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_20_15/gs.pth": {
+    "sha256": "99fcf95b6d247026c822f248d1be14b30d01c2bf97c190c571e15727d3cabfed",
+    "bytes": 70974221
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_20_15/wlh.json": {
+    "sha256": "a17c54f06220c03e12620a27f50242ec4f12c81c14eefae5a067dceb5845a99f",
+    "bytes": 65
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_25_58/gs.pth": {
+    "sha256": "b61eb6ef383c0af7795b95fd2701d37361a5b62d084572c39e6aff84dd864521",
+    "bytes": 59399949
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_25_58/wlh.json": {
+    "sha256": "63ffe0a3f3f50c76f91b46ad888e4e102b657957332e327cd831061f2f9261ac",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_30_09/gs.pth": {
+    "sha256": "2fa7e7f87697c8a8eb3d284f698e3bb6c9d7c7d0d7e6dd7fbf9edaf14c2d5172",
+    "bytes": 65892045
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_14_30_09/wlh.json": {
+    "sha256": "4ca9d86575455542f262833e880147d72155a8815eb4e72e928b9b1982816660",
+    "bytes": 68
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_15_31_37/gs.pth": {
+    "sha256": "6a360e39356186b1d04eeca2845f7bc2bf086c68eeebe166e5c0f9b3e186b540",
+    "bytes": 120495117
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_15_31_37/wlh.json": {
+    "sha256": "f245e172bb68b8a3d4f0a68fe67b2817acdeb40651e889129fb811d98bfb39c1",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_15_42_29/gs.pth": {
+    "sha256": "403450c4cf8d7913b8235b1b7e7c8b829d6e25c5dc533bd742d8a532a9e3444d",
+    "bytes": 148968589
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_15_42_29/wlh.json": {
+    "sha256": "9d7e592e14534ee20ceb44c446c5f4cb5e8d06c6d4ee48d37b62b64b188b2288",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_15_57_10/gs.pth": {
+    "sha256": "3d8b314a9c2ae521464f3973edb4122958f8b580e4168bd6047fc0186094d006",
+    "bytes": 126686797
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_15_57_10/wlh.json": {
+    "sha256": "edc468f1d24229a56ccfeaf89324e8b6bf46237d90df21980933562d07a8538f",
+    "bytes": 66
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_15_58_29/gs.pth": {
+    "sha256": "51589c9e85f999d40c076d9353fdc0bc9c3a32143a88171203336bd1f930e4bd",
+    "bytes": 120879565
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_15_58_29/wlh.json": {
+    "sha256": "7f0eeb43474978062943c8e362fc2b05675d5da660b36e73c7c7a46d055f3e69",
+    "bytes": 66
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_03_36/gs.pth": {
+    "sha256": "f5c4fa5ecc62c25e2fa555afa58d07c3b81c9adb633c88c72f0ba775a1088cc2",
+    "bytes": 164463629
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_03_36/wlh.json": {
+    "sha256": "e3c4df17f92857e989a25f4c783c58f1335301011dcc8f27c718d0c2f451cb8e",
+    "bytes": 66
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_08_40/gs.pth": {
+    "sha256": "ac5786861cc40aed877a47266ddf8f00d8f650e48c113124e31fd73c6d0be3dc",
+    "bytes": 148568333
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_08_40/wlh.json": {
+    "sha256": "48f3bef748c1733ab62dd601ca2832daf7500eb08b69902c3110bb39ec21f2f7",
+    "bytes": 68
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_10_02/gs.pth": {
+    "sha256": "61693abfac734a5aec03b096f60e47f1e560db3ca18e9888c52c3858bac6c27b",
+    "bytes": 156049549
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_10_02/wlh.json": {
+    "sha256": "4323f5565076eee86bdafe97b6f2e171875ece61db18651934d215a2b4f6eb8b",
+    "bytes": 66
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_13_36/gs.pth": {
+    "sha256": "c695a9936c5195dbc5390e225c14ad99280e642c326667b39595fce2524352f8",
+    "bytes": 157614093
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_13_36/wlh.json": {
+    "sha256": "44b7b57b7e1e6dacd07c427425e9acb9996376d628ad3841dc4c0d6da6d0ba82",
+    "bytes": 68
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_13_43/gs.pth": {
+    "sha256": "2d74ba6fead0c2f8c0ad86f364eaa7f8aab83e21f348773ae7e23e624fc04994",
+    "bytes": 140468621
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_13_43/wlh.json": {
+    "sha256": "0fb669baf0c54a22e12fb753370a0091fe4cc6e6a3a6e0a2bcc00a1ad2885d93",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_16_38/gs.pth": {
+    "sha256": "d3c81687b0ea7acc5f48880c485d56fa500b1bb48388f023c331085f65a40418",
+    "bytes": 143816845
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_16_38/wlh.json": {
+    "sha256": "b2b01f0d41a784c9f2a5b235d9b01ec50e7fd62479d70f46eb28cbc7655c3025",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_24_36/gs.pth": {
+    "sha256": "26258ae6e974b4249210f9e9af98289d54c5302a58aedba44b937a9217139d61",
+    "bytes": 98737229
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_24_36/wlh.json": {
+    "sha256": "93b5c4b5b641313e5669e288efb85a08e343f32ea10cf7bc6a36cf32a8bf0c35",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_40_16/gs.pth": {
+    "sha256": "03437b9f0f2d99d53807d28114e877be7fa9eb81a12d1f19daaf604c3fed80de",
+    "bytes": 131636941
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_40_16/wlh.json": {
+    "sha256": "cb284217e9e6cbdc603e8e298d94c385e45013984b9af2764b122a4c0059011e",
+    "bytes": 66
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_40_36/gs.pth": {
+    "sha256": "8b4ecf9b8697cb6e196131064b4ef31b98696787a08f8bb89b047778a44dda0e",
+    "bytes": 140545613
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_40_36/wlh.json": {
+    "sha256": "9a4ddd5d81e783085c4e6c5ec1a4d9562baee587d204d6a0e102c7b65c1b870c",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_48_24/gs.pth": {
+    "sha256": "f2eb5f80993d33ddec5a5c1fadc775278104289969d5b549797730cd27f0687d",
+    "bytes": 154967117
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_48_24/wlh.json": {
+    "sha256": "f428ddb251f4c8160538fda416ddb58c0a2c32a286609e8a843e2467bef29224",
+    "bytes": 66
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_05_43_00/gs.pth": {
+    "sha256": "59db32f5abce4ccd1759cd99d0a121821a624add6851bfbcacb40db3fadde953",
+    "bytes": 92302605
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_05_43_00/wlh.json": {
+    "sha256": "da4bdb97e37f2712afe5863d833125a95d45f044ee0de6604cc292b58c37247e",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_05_48_00/gs.pth": {
+    "sha256": "82bda9d2a5cc2ae65fb7a61ca174216660db72941d5d084c50a45d565d7d6f3d",
+    "bytes": 172557773
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_05_48_00/wlh.json": {
+    "sha256": "1392b7e38a4d057f48f059a6009c97c31f426f4fb91ff45e7da1442dfb1d06c4",
+    "bytes": 68
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_06_00_52/gs.pth": {
+    "sha256": "7444f80390d784cafb57f3ea7106f5d1f4c38ecf5209c9122269dde7c44c47cd",
+    "bytes": 193146317
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_06_00_52/wlh.json": {
+    "sha256": "3ba7b8da9fd8ab5dc999afd2dca1557d2844bbe5229ceee4999cae8e76e44df5",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_06_04_22/gs.pth": {
+    "sha256": "bfa38ac135d4b4611e1b5d822b198100b4d3dce71401638672f3e27f356f8c9a",
+    "bytes": 147939085
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_06_04_22/wlh.json": {
+    "sha256": "8c86a9aefc81e66a71c0330c3e1b867d84bac2b088a3cb689eea9dfa31c5d2e6",
+    "bytes": 66
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_06_06_31/gs.pth": {
+    "sha256": "8f19910cdf4c974a14690ae58ead3151a81b1fd3932cf4779c5fc59cdc0ec659",
+    "bytes": 209616589
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_06_06_31/wlh.json": {
+    "sha256": "2e2a313d723dc231fce23d7d5b67cf6353ad060c5fc5a2d569897fffd69b7292",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_08_18_02_27/gs.pth": {
+    "sha256": "0c662b810459477c827a1c76f6f90a6bb57eb16bb769b6976d1728335df0fd6b",
+    "bytes": 159328333
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_08_18_02_27/wlh.json": {
+    "sha256": "4cbe8159e6162249352fc738b315c7dfd0b16586fca3a4e8095cf32d4a37d84a",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_20_54/gs.pth": {
+    "sha256": "0687a62a899dbdee6e7b995aff67799a37a56e35ea5f389659c3c7cd8a6f7b0a",
+    "bytes": 174146061
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_20_54/wlh.json": {
+    "sha256": "6e29e5fa95c52b70dbb8678665f177e83b3cba373c53fb71219e53cba57a466b",
+    "bytes": 66
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_28_04/gs.pth": {
+    "sha256": "1d2a43925ba7fd1cbd99c0fbe3a4857533cb8bd27fbb6a0704af1d3faf661ae2",
+    "bytes": 306845645
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_28_04/wlh.json": {
+    "sha256": "90907cece1e94fe776e53e001a6ed9954af34e40286b1cea92688b0e134b10a8",
+    "bytes": 66
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_33_58/gs.pth": {
+    "sha256": "fe91a5006c302bc0dea8601ff84adaae95bff134e3575d38c23b0cd722adda2c",
+    "bytes": 172843341
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_33_58/wlh.json": {
+    "sha256": "96062cd8b1bdea7c336dcf96e48d27fabc250a3c7b20918939bb0c3f1d46dcc4",
+    "bytes": 67
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_38_08/gs.pth": {
+    "sha256": "b85e25cb695da80e8dec2515545dab2769c99d0b908d683094ad381dc21c2522",
+    "bytes": 177928845
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_38_08/wlh.json": {
+    "sha256": "bb0f96d56aea614a572cc270b6afa8ea5866f9cb6232c1c728271bd7a8902a75",
+    "bytes": 66
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_42_06/gs.pth": {
+    "sha256": "ae3f5f873133f2f979cf0bd26429b46e3ebd83dd540bc4463b350daa245ee787",
+    "bytes": 189173645
+  },
+  "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_42_06/wlh.json": {
+    "sha256": "00028ed34707719f5488cf94c11c3fd974eaff2153bd4c301f052bd0463f21e2",
+    "bytes": 68
+  }
+}

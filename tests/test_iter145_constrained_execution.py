@@ -510,6 +510,10 @@ def test_client_full_monitor_packet_and_instrumentation(tmp_path, monkeypatch):
         "unresolved",
         "runtime",
         "roles",
+        "empty_then_missing_count",
+        "missing_types",
+        "malformed_types",
+        "negative_count",
     ],
 )
 def test_asset_gate_known_bads(mutation):
@@ -539,6 +543,7 @@ def test_asset_gate_known_bads(mutation):
             sha256=r["sha256"],
             dependencies=list(files),
             controller_types=["AttackPlanner"],
+            actor_count=1,
             unresolved_dependencies=[],
         )
         for r in inventory["rows"]
@@ -571,5 +576,104 @@ def test_asset_gate_known_bads(mutation):
         files["/fixture/runtime_source"]["status"] = "unavailable"
     elif mutation == "roles":
         value["roles"] = ["scene"]
+    elif mutation == "empty_then_missing_count":
+        scenarios[name].update(controller_types=[], actor_count=0)
+        assert asset_gate(inventory, value)
+        del scenarios[name]["actor_count"]
+    elif mutation == "missing_types":
+        del scenarios[name]["controller_types"]
+    elif mutation == "malformed_types":
+        scenarios[name]["controller_types"] = "AttackPlanner"
+    elif mutation == "negative_count":
+        scenarios[name]["actor_count"] = -1
     with pytest.raises(ContractError):
         asset_gate(inventory, value)
+
+
+@pytest.mark.parametrize(
+    "mutation",
+    ["none", "escape", "wrong_link", "directory", "file_link", "unknown", "hash", "size"],
+)
+def test_historical_actor_alias_is_bounded(tmp_path, mutation):
+    from experiments.iter145_constrained_execution.resources import actor_identity, file_identity
+
+    root = tmp_path.resolve() / "cars"
+    car = root / "2024_07_05_16_16_38"
+    (car / "postprocess").mkdir(parents=True)
+    model = car / "gs.pth"
+    model.write_bytes(b"frozen model fixture")
+    link = car / "postprocess/shadow.pth"
+    link.symlink_to("..")
+    relative = Path("2024_07_05_16_16_38/postprocess/shadow.pth")
+    expected = {str(model): file_identity(model)}
+    if mutation == "escape":
+        relative = Path("../2024_07_05_16_16_38/postprocess/shadow.pth")
+    elif mutation in ("wrong_link", "directory"):
+        link.unlink()
+        if mutation == "directory":
+            link.mkdir()
+        else:
+            link.symlink_to("../..")
+    elif mutation == "file_link":
+        target = car / "other"
+        model.rename(target)
+        model.symlink_to(target)
+    elif mutation == "unknown":
+        expected = {}
+    elif mutation == "hash":
+        expected[str(model)]["sha256"] = "0" * 64
+    elif mutation == "size":
+        expected[str(model)]["bytes"] += 1
+    if mutation == "none":
+        result = actor_identity(root, relative, "gs.pth", expected)
+        assert result["physical_path"] == str(model)
+        assert result["alias_target"] == ".."
+        assert result["sha256"] == expected[str(model)]["sha256"]
+    else:
+        with pytest.raises((ContractError, OSError)):
+            actor_identity(root, relative, "gs.pth", expected)
+
+
+@pytest.mark.parametrize("plan", [None, {}, "missing", []])
+def test_asset_collect_preserves_empty_vs_missing_plan(monkeypatch, plan):
+    import hashlib
+    import json
+    from types import SimpleNamespace
+    from experiments.iter145_constrained_execution import assets
+
+    cfg = dict(scene_name="scene-0013", load_HD_map=False)
+    if plan != "missing":
+        cfg["plan_list"] = plan
+    raw = json.dumps(cfg).encode()
+    monkeypatch.setattr(assets.socket, "gethostname", lambda: "sentinel-gpu")
+    monkeypatch.setattr(
+        assets.subprocess, "run", lambda *a, **k: SimpleNamespace(returncode=0, stdout=assets.IMAGE)
+    )
+    monkeypatch.setattr(
+        assets,
+        "file_identity",
+        lambda *a, **k: dict(
+            sha256=hashlib.sha256(raw).hexdigest(),
+            bytes=len(raw),
+            **({"data": raw} if k.get("include_bytes") else {}),
+        ),
+    )
+    inv = dict(
+        rows=[
+            dict(
+                name="scene-0013-easy-00.yaml",
+                scene="0013",
+                role="proposed_pilot",
+                sha256=hashlib.sha256(raw).hexdigest(),
+            )
+        ]
+    )
+    result = assets.collect(inv, {}, assets.IMAGE, {})
+    row = result["scenarios"]["scene-0013-easy-00.yaml"]
+    if plan == []:
+        assert row["actor_count"] == 0
+        assert row["controller_types"] == []
+        assert row["unresolved_dependencies"] == []
+    else:
+        assert row["actor_count"] is None
+        assert "scenario_plan_list" in row["unresolved_dependencies"]
