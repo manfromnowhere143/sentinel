@@ -1,0 +1,6 @@
+{
+  "status": "exited",
+  "session_id": 85149,
+  "message": "watchdog cancelled after verified cleanup",
+  "shutdown_receipt": "gpu_shutdown_verified.json"
+}

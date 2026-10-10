@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "python3",
+    "-m",
+    "experiments.iter145_constrained_execution.analyze_gpu"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-10T11:44:49.464171+00:00",
+  "elapsed_seconds": 0.20186185836791992,
+  "returncode": 0
+}

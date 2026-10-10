@@ -1,20 +1,20 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
-> **Active operator-directed candidate work, 2026-10-10:** Iter145 is **paused**
-> at Daniel's request for machine shutdown. Constrained controller qualification passed
-> 28/28 original inputs; simulator CPU wiring passed 96 steps / 384 actor advances.
-> 76 focused local tests passed; 30 corrupted full artifacts were rejected.
+> **Active operator-directed candidate work, 2026-10-10:** Iter145 resumed and completed
+> bounded GPU qualification. Asset closure passed 5,983 file entries. All four nominal
+> cases completed 12 steps; independent replay supports 48/48 controls/transitions,
+> timestamps, planner transport, rendering and foreground geometry within that scope.
+> 121 focused local tests passed. **26/48 live controller calls exceeded 50 ms**;
+> exchange plus step exceeded .25 s in all 48 calls. Real-time operation is unestablished.
 > Read the [result](experiments/iter145_constrained_execution/RESULT.md),
 > [state](experiments/iter145_constrained_execution/STATE.json) and
-> [resume handoff](experiments/iter145_constrained_execution/DECISION.md).
-> Cloud inspection found unresolved actor aliases, HD-map dependencies and an empty-actor
-> gate defect. VM sentinel-gpu is verified TERMINATED; the local watchdog exited.
-> No live smoke or study ran. Actual GPU/GEOS/model transport remains unqualified.
-> The 14-scenario / 112-slot study is proposed, not admitted. Resume with asset closure
-> and a new bounded GPU qualification envelope. No automatic restart is scheduled.
+> [current handoff](experiments/iter145_constrained_execution/DECISION.md).
+> VM sentinel-gpu is verified TERMINATED and its watchdog exited; cloud compute was used.
+> No full-route study ran. Next: full-route runner/outcome replay, four-arm/seed-144
+> qualification and finite storage/runtime bindings for the proposed 112 slots.
 > Candidate `research/iter145-constrained-execution` is local/unpushed; master remains F17.
-> Prior recovery nulls and deferred Iter135 remain unchanged; canonical MISSION_STATE/HANDOFF
-> retain their publication snapshot.
+> Prior recovery nulls and deferred Iter135 are unchanged; canonical MISSION_STATE/HANDOFF
+> retain their publication snapshot. No owned job or automatic restart remains active.
 
 **Purpose.** This campaign is operator-portable by design. Everything an incoming operator
 needs is in this repository plus the two live surfaces below. Read this file top to bottom
@@ -4433,3 +4433,18 @@ actor compatibility aliases require verified mapping, two HD-map dependencies ne
 and valid empty actor lists need a gate correction. The exact owned VM is TERMINATED and
 the local watchdog exited. Resume instructions and all receipts are retained under
 experiments/iter145_constrained_execution. No automatic restart is scheduled.
+
+
+## Iter145 resumed GPU qualification on 2026-10-10
+
+Daniel resumed the mission. Exact actor aliases, legitimate empty source files, empty
+actor populations and full map-loader inventory were qualified; 5,983 file entries pass.
+Four fresh 12-step GPU nominal cases completed. Raw committed before independent replay
+at 7e5976bb9ee4c54dc5f114ca4392d9f16c202510; all 48 steps pass the bounded contract.
+Controller latency remains a separate negative result: 26/48 calls exceeded 50 ms, and
+all exchange-plus-step times exceeded .25 s. No useful-recovery outcome was measured.
+The smoke source and 6,049 bound/original files plus 20 actor aliases were unchanged at
+postflight. 121 local focused tests passed with 123 warnings. Both resumed VM envelopes
+are closed; latest exact VM readback is TERMINATED and watchdog exited. The proposed
+112-slot study needs full-route/arm/seed qualification and finite resource/output bindings.
+See the Iter145 result and current decision; no live study or canonical publication ran.

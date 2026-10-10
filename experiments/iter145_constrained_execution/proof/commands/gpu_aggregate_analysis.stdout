@@ -1,0 +1,195 @@
+{
+  "status": "supported",
+  "scope": "four nominal 12-step GPU smoke cases",
+  "raw_commit": "7e5976bb9ee4c54dc5f114ca4392d9f16c202510",
+  "cases": [
+    {
+      "episode": "scene-0013-easy-00",
+      "status": "supported",
+      "steps": 12,
+      "attack_selections": 0,
+      "controller_ms": {
+        "count": 12,
+        "minimum": 34.421358,
+        "median": 51.1113165,
+        "maximum": 71.016239,
+        "deadline": 50,
+        "over_deadline": 6
+      },
+      "exchange_seconds": {
+        "count": 12,
+        "minimum": 1.5021453950000137,
+        "median": 1.6117765930000019,
+        "maximum": 23.360354831999985,
+        "deadline": 0.25,
+        "over_deadline": 12
+      },
+      "exchange_plus_step_seconds": {
+        "count": 12,
+        "minimum": 1.7787051610000137,
+        "median": 1.898582152499999,
+        "maximum": 23.698082189999983,
+        "deadline": 0.25,
+        "over_deadline": 12
+      },
+      "events_sha256": "554c646c14c97fc0c11368e86b42ba5e387468af71f7640a3e5634d32d270a23"
+    },
+    {
+      "episode": "scene-0013-hard-00",
+      "status": "supported",
+      "steps": 12,
+      "attack_selections": 0,
+      "controller_ms": {
+        "count": 12,
+        "minimum": 37.220265,
+        "median": 54.8268705,
+        "maximum": 66.902323,
+        "deadline": 50,
+        "over_deadline": 7
+      },
+      "exchange_seconds": {
+        "count": 12,
+        "minimum": 1.561685409000006,
+        "median": 1.6324946285000124,
+        "maximum": 14.578033860000005,
+        "deadline": 0.25,
+        "over_deadline": 12
+      },
+      "exchange_plus_step_seconds": {
+        "count": 12,
+        "minimum": 1.9490827800000061,
+        "median": 1.999183217000025,
+        "maximum": 14.998545587000004,
+        "deadline": 0.25,
+        "over_deadline": 12
+      },
+      "events_sha256": "8857d063238c1407c134e9d692671d9548d703b055ec391c1f22f37a9e9dde46"
+    },
+    {
+      "episode": "scene-0038-extreme-00",
+      "status": "supported",
+      "steps": 12,
+      "attack_selections": 2,
+      "controller_ms": {
+        "count": 12,
+        "minimum": 35.134658,
+        "median": 49.3802865,
+        "maximum": 69.972324,
+        "deadline": 50,
+        "over_deadline": 6
+      },
+      "exchange_seconds": {
+        "count": 12,
+        "minimum": 1.503036877999989,
+        "median": 1.6231117439999991,
+        "maximum": 16.87750037400002,
+        "deadline": 0.25,
+        "over_deadline": 12
+      },
+      "exchange_plus_step_seconds": {
+        "count": 12,
+        "minimum": 1.9808975910000237,
+        "median": 2.070953733999999,
+        "maximum": 17.402268371000023,
+        "deadline": 0.25,
+        "over_deadline": 12
+      },
+      "events_sha256": "4c5b2b5197ac62afcd344577c40892963fb64fc8d8e18f3f76fcc3990a3987e3"
+    },
+    {
+      "episode": "scene-0038-medium-01",
+      "status": "supported",
+      "steps": 12,
+      "attack_selections": 0,
+      "controller_ms": {
+        "count": 12,
+        "minimum": 38.622075,
+        "median": 54.257839000000004,
+        "maximum": 64.641994,
+        "deadline": 50,
+        "over_deadline": 7
+      },
+      "exchange_seconds": {
+        "count": 12,
+        "minimum": 1.5510659410000471,
+        "median": 1.6624865929999828,
+        "maximum": 14.74562867499992,
+        "deadline": 0.25,
+        "over_deadline": 12
+      },
+      "exchange_plus_step_seconds": {
+        "count": 12,
+        "minimum": 1.906295807000047,
+        "median": 2.0430943469999976,
+        "maximum": 15.12045122999992,
+        "deadline": 0.25,
+        "over_deadline": 12
+      },
+      "events_sha256": "826d73f7828762af9f1b5f006366637db20c55ede2d9541bd2c8a4288098e287"
+    }
+  ],
+  "steps": 48,
+  "camera_calls": 312,
+  "actor_advances": 48,
+  "foreground_checks": 48,
+  "max_stationarity": 9.058617606097497e-07,
+  "controller_ms": {
+    "count": 48,
+    "minimum": 34.421358,
+    "median": 51.30576,
+    "maximum": 71.016239,
+    "deadline": 50,
+    "over_deadline": 26
+  },
+  "exchange_seconds": {
+    "count": 48,
+    "minimum": 1.5021453950000137,
+    "median": 1.637583030500025,
+    "maximum": 23.360354831999985,
+    "deadline": 0.25,
+    "over_deadline": 48
+  },
+  "step_seconds": {
+    "count": 48,
+    "minimum": 0.25771158,
+    "median": 0.3776194815,
+    "maximum": 0.524767997,
+    "deadline": 0.25,
+    "over_deadline": 48
+  },
+  "exchange_plus_step_seconds": {
+    "count": 48,
+    "minimum": 1.7787051610000137,
+    "median": 2.028207995499975,
+    "maximum": 23.698082189999983,
+    "deadline": 0.25,
+    "over_deadline": 48
+  },
+  "exchange_plus_step_after_first_seconds": {
+    "count": 44,
+    "minimum": 1.7787051610000137,
+    "median": 2.0110671955000408,
+    "maximum": 2.653019696,
+    "deadline": 0.25,
+    "over_deadline": 44
+  },
+  "timing_scope": "Exchange plus step excludes observation hashing, event serialization, and outer-loop overhead; it is a lower bound on complete loop time. First exchange can include client readiness; no separate model-startup timer was retained.",
+  "output_bytes": 233739383,
+  "study_projection": {
+    "status": "proposed",
+    "live_admitted": false,
+    "slots": 112,
+    "max_actions": 401,
+    "safety_factor_assumption": 2,
+    "all_steps_at_observed_max_seconds": 2129999.0247114864,
+    "first_step_separated_seconds": 244361.42524908797,
+    "hourly_upper_usd": 3,
+    "all_steps_at_observed_max_compute_usd": 1774.9991872595722,
+    "first_step_separated_compute_usd": 203.63452104090663,
+    "crude_output_bytes": 452452328178.6666,
+    "limitations": "Four short cases in two scenes do not bound 14 scenarios in three scenes, late trajectory behavior, memory peaks, other arms, or seed 144. Linear output extrapolation includes fixed-size per-case files. The two timing estimates are assumptions, not admitted budgets or costs; setup, analysis, transfer and persistent storage are excluded."
+  },
+  "physical_validity": "unestablished",
+  "recovery_result": null,
+  "live_study_admitted": false
+}

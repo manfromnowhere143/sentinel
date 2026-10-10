@@ -6,27 +6,27 @@ loop, by whether the car crashes *and whether it can still drive*.**
 
 ## Local research update 2026-10-10
 
-> **Active operator-directed candidate work, 2026-10-10:** Iter145 is **paused**
-> at Daniel's request for machine shutdown. Constrained controller qualification passed
-> 28/28 original inputs; simulator CPU wiring passed 96 steps / 384 actor advances.
-> 76 focused local tests passed; 30 corrupted full artifacts were rejected.
+> **Active operator-directed candidate work, 2026-10-10:** Iter145 resumed and completed
+> bounded GPU qualification. Asset closure passed 5,983 file entries. All four nominal
+> cases completed 12 steps; independent replay supports 48/48 controls/transitions,
+> timestamps, planner transport, rendering and foreground geometry within that scope.
+> 121 focused local tests passed. **26/48 live controller calls exceeded 50 ms**;
+> exchange plus step exceeded .25 s in all 48 calls. Real-time operation is unestablished.
 > Read the [result](experiments/iter145_constrained_execution/RESULT.md),
 > [state](experiments/iter145_constrained_execution/STATE.json) and
-> [resume handoff](experiments/iter145_constrained_execution/DECISION.md).
-> Cloud inspection found unresolved actor aliases, HD-map dependencies and an empty-actor
-> gate defect. VM sentinel-gpu is verified TERMINATED; the local watchdog exited.
-> No live smoke or study ran. Actual GPU/GEOS/model transport remains unqualified.
-> The 14-scenario / 112-slot study is proposed, not admitted. Resume with asset closure
-> and a new bounded GPU qualification envelope. No automatic restart is scheduled.
+> [current handoff](experiments/iter145_constrained_execution/DECISION.md).
+> VM sentinel-gpu is verified TERMINATED and its watchdog exited; cloud compute was used.
+> No full-route study ran. Next: full-route runner/outcome replay, four-arm/seed-144
+> qualification and finite storage/runtime bindings for the proposed 112 slots.
 > Candidate `research/iter145-constrained-execution` is local/unpushed; master remains F17.
-> Prior recovery nulls and deferred Iter135 remain unchanged; canonical MISSION_STATE/HANDOFF
-> retain their publication snapshot.
+> Prior recovery nulls and deferred Iter135 are unchanged; canonical MISSION_STATE/HANDOFF
+> retain their publication snapshot. No owned job or automatic restart remains active.
 
 
 [Iteration 142](experiments/iter142_nominal_continuation_completion/RESULT.md) completed
 the nominal-continuation comparison: 0/2 useful recoveries. Both replicas collided at 7.25 s,
 versus 6.5 s for the references. All 84 new controller calls replayed; 69 exceeded 50 ms.
-Iter145 now supports local constrained convergence and simulator CPU wiring; asset closure and full GPU integration remain open.
+Iter145 now supports constrained convergence, asset closure and its four-case GPU smoke contract; full-route recovery and real-time operation remain unestablished.
 
 [Iteration 141](experiments/iter141_nominal_continuation/RESULT.md) remains a recorded
 coordinator failure with only its first reference completed. Iter142 explicitly reused

@@ -1,0 +1,29 @@
+{
+  "argv": [
+    "/opt/homebrew/bin/ruff",
+    "check",
+    "experiments/iter145_constrained_execution/analyze_gpu.py",
+    "experiments/iter145_constrained_execution/assets.py",
+    "experiments/iter145_constrained_execution/client.py",
+    "experiments/iter145_constrained_execution/driver.py",
+    "experiments/iter145_constrained_execution/gpu.py",
+    "experiments/iter145_constrained_execution/gpu_batch.py",
+    "experiments/iter145_constrained_execution/gpu_check.py",
+    "experiments/iter145_constrained_execution/independent.py",
+    "experiments/iter145_constrained_execution/integration_check.py",
+    "experiments/iter145_constrained_execution/integration_probe.py",
+    "experiments/iter145_constrained_execution/knownbads.py",
+    "experiments/iter145_constrained_execution/maps.py",
+    "experiments/iter145_constrained_execution/nominal.py",
+    "experiments/iter145_constrained_execution/optimizer.py",
+    "experiments/iter145_constrained_execution/probe.py",
+    "experiments/iter145_constrained_execution/resources.py",
+    "experiments/iter145_constrained_execution/simulator.py",
+    "experiments/iter145_constrained_execution/source_fixture.py",
+    "tests/test_iter145_constrained_execution.py"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-10T11:46:50.459901+00:00",
+  "elapsed_seconds": 0.09417605400085449,
+  "returncode": 0
+}
