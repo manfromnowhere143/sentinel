@@ -1,0 +1,11 @@
+import sys
+sys.path.insert(0,'/tmp');from i145_hostops import ssh
+s='''import json,os
+from pathlib import Path
+roots=['/datasets/nuscenes-full/hugsim/iter142_control_20261009/nuscenes_base.yaml','/opt/sentinel-stack/HUGSIM/configs/sim/nuscenes_base.yaml','/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0013-easy-00.yaml']
+r={p:Path(p).read_text() for p in roots}
+for p in ['/datasets/nuscenes-full/hugsim','/datasets/nuscenes-full/hugsim/3DRealCar']:
+ r[p]=sorted(os.listdir(p)) if Path(p).exists() else None
+print(json.dumps(r,indent=2))
+'''
+r=ssh('asset_layout_diagnostic',s);assert r.returncode==0

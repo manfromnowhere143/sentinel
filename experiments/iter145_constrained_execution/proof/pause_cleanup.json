@@ -1,0 +1,14 @@
+{
+  "operator_requested_pause": true,
+  "cloud_final_state": {
+    "id": "3834622546652649531",
+    "lastStartTimestamp": "2026-10-09T23:13:14.537-07:00",
+    "lastStopTimestamp": "2026-10-09T23:16:48.455-07:00",
+    "name": "sentinel-gpu",
+    "status": "TERMINATED"
+  },
+  "local_watchdog_exit_code": 0,
+  "local_watchdog_terminal_output": "watchdog cancelled after verified cleanup",
+  "active_owned_jobs": 0,
+  "automatic_resume_scheduled": false
+}

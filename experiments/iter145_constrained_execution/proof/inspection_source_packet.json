@@ -1,0 +1,12 @@
+{
+  "commit": "ae29d5f83f7b021c735bdf0af914bfc4bd132ee6",
+  "files": {
+    "experiments/iter145_constrained_execution/assets.py": "258051bf64d0843ce8a5aa5387a09cf053190fe5c18d3a25196b2b8f38432552",
+    "experiments/iter145_constrained_execution/resources.py": "128a8db6e17ba6f2e309034536999aaa769d859cbbc50e38e603f34f58c2f2b7",
+    "experiments/iter144_timed_trajectory/trajectory.py": "1efebe32277e403d8ed580354e33f79fc0625b0ce422d376725540f3644d861b",
+    "experiments/iter143_model_contract/proof/case_inventory.json": "ead62a973036f253727ac19d878454506eff739663dd52dc02a9088e308e1cbf",
+    "expected_runtime.json": "27cf017cf75b00b31a90480035c11443f41c07c979c86f4a6b33f9e13226f337"
+  },
+  "packet_sha256": "6d557abd4e0e580f15f220d874e6dc541420b485c06ace4568e752755fa17392",
+  "runtime_files": 396
+}

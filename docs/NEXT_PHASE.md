@@ -2,20 +2,21 @@
 
 ## Active operator work on 2026-10-09
 
-> **Active operator-directed candidate work, 2026-10-10:** Iter144 is complete:
-> **supported / TIMED_TRAJECTORY_CPU_CONTRACT_SUPPORTED**. Explicit timestamps,
-> frame conversions, reset/consumption, control limits and matched ego transitions
-> passed local source-fixture replay. 71 focused tests passed; 17 corrupted packets
-> were rejected. All four numerical pairs repeated; four from-rest calls did not converge.
-> Read the [result](../experiments/iter144_timed_trajectory/RESULT.md),
-> [state](../experiments/iter144_timed_trajectory/STATE.json) and
-> [next steps](../experiments/iter144_timed_trajectory/DECISION.md).
-> The 14-scenario /112-slot study is prepared but not admitted. Next: resolve optimizer
-> convergence, finish full simulator integration, bind assets and measured resources.
-> No cloud compute or live episode in Iter144; physical fidelity remains unestablished.
-> Candidate `research/iter144-timed-trajectory` is local/unpushed; master remains F17.
-> Iter142 remains null, 0/2 recoveries. Iter135 stays deferred; MISSION_STATE/HANDOFF
-> retain their canonical publication snapshot.
+> **Active operator-directed candidate work, 2026-10-10:** Iter145 is **paused**
+> at Daniel's request for machine shutdown. Constrained controller qualification passed
+> 28/28 original inputs; simulator CPU wiring passed 96 steps / 384 actor advances.
+> 76 focused local tests passed; 30 corrupted full artifacts were rejected.
+> Read the [result](../experiments/iter145_constrained_execution/RESULT.md),
+> [state](../experiments/iter145_constrained_execution/STATE.json) and
+> [resume handoff](../experiments/iter145_constrained_execution/DECISION.md).
+> Cloud inspection found unresolved actor aliases, HD-map dependencies and an empty-actor
+> gate defect. VM sentinel-gpu is verified TERMINATED; the local watchdog exited.
+> No live smoke or study ran. Actual GPU/GEOS/model transport remains unqualified.
+> The 14-scenario / 112-slot study is proposed, not admitted. Resume with asset closure
+> and a new bounded GPU qualification envelope. No automatic restart is scheduled.
+> Candidate `research/iter145-constrained-execution` is local/unpushed; master remains F17.
+> Prior recovery nulls and deferred Iter135 remain unchanged; canonical MISSION_STATE/HANDOFF
+> retain their publication snapshot.
 
 ## Canonical current decision: iteration 134 is complete
 

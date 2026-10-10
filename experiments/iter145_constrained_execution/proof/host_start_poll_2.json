@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "gcloud",
+    "compute",
+    "operations",
+    "describe",
+    "operation-1791612785417-65d765ba65d96-aa5bdfa3-5815b32b",
+    "--project",
+    "sunlit-unison-487018-b0",
+    "--zone",
+    "us-west1-a",
+    "--format=json"
+  ],
+  "start_utc": "2026-10-10T06:12:00.320822+00:00",
+  "elapsed_seconds": 2.4005849361419678,
+  "returncode": 0
+}

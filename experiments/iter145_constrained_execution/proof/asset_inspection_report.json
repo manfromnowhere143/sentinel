@@ -1,0 +1,2952 @@
+{
+  "argv": [
+    "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/bin/python",
+    "-m",
+    "experiments.iter145_constrained_execution.assets",
+    "--inventory",
+    "/datasets/nuscenes-full/hugsim/iter145_control_20261010/inspection_packet/experiments/iter143_model_contract/proof/case_inventory.json",
+    "--runtime-files",
+    "/datasets/nuscenes-full/hugsim/iter145_control_20261010/inspection_packet/expected_runtime.json",
+    "--image-id",
+    "sha256:2fc5cd574b7510c813fecee64d5568fddec8255a4b638dbca758b67696cb1d14",
+    "--output",
+    "/datasets/nuscenes-full/hugsim/iter145_control_20261010/asset_inventory.json"
+  ],
+  "returncode": 1,
+  "stdout": "",
+  "stderr": "",
+  "elapsed_seconds": 37.85718369483948,
+  "inventory": {
+    "observation_kind": "host_readback",
+    "observed_epoch": 1791612884.4535062,
+    "files": {
+      "/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0013-easy-00.yaml": {
+        "sha256": "22d30c2a3dadf59451ff3704b50c412fb6fa74d261ee96dd4e6bf17c9a064735",
+        "bytes": 319,
+        "status": "observed",
+        "role": "scenario"
+      },
+      "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/cfg.yaml": {
+        "sha256": "49a7e06317a9a597411d35a645715be367c4d97ddf15fafd5ac48fcd97d1d317",
+        "bytes": 245,
+        "status": "observed",
+        "role": "scene_config"
+      },
+      "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/scene.pth": {
+        "sha256": "4c97379ddf35a28ea9e3b47e89676c6e45002ded4a0d07d1d78edf8d70bbc9c4",
+        "bytes": 571399288,
+        "status": "observed",
+        "role": "scene"
+      },
+      "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/ground_param.pkl": {
+        "sha256": "ac6d721de8d3dc06983ace51c40759b1d10f5b252d389ed2c64c79a4ca125a43",
+        "bytes": 23569,
+        "status": "observed",
+        "role": "ground"
+      },
+      "/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0013-extreme-00.yaml": {
+        "sha256": "7b4b374bda9c9520114c9fdcb8ce8f3f91686dc9c0caacc261838ae4fe2a3442",
+        "bytes": 466,
+        "status": "observed",
+        "role": "scenario"
+      },
+      "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_16_38/postprocess/shadow.pth/gs.pth": {
+        "status": "unavailable",
+        "bytes": null,
+        "sha256": null,
+        "role": "actor_model",
+        "reason": "NotADirectoryError:[Errno 20] Not a directory: 'shadow.pth'"
+      },
+      "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_16_38/postprocess/shadow.pth/wlh.json": {
+        "status": "unavailable",
+        "bytes": null,
+        "sha256": null,
+        "role": "actor_dimensions",
+        "reason": "NotADirectoryError:[Errno 20] Not a directory: 'shadow.pth'"
+      },
+      "/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0013-hard-00.yaml": {
+        "sha256": "6947a5381c09485f20d5fed55eef2406d868ce047bdd44864aad81902f54e48e",
+        "bytes": 426,
+        "status": "observed",
+        "role": "scenario"
+      },
+      "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_42_06/postprocess/shadow.pth/gs.pth": {
+        "status": "unavailable",
+        "bytes": null,
+        "sha256": null,
+        "role": "actor_model",
+        "reason": "NotADirectoryError:[Errno 20] Not a directory: 'shadow.pth'"
+      },
+      "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_42_06/postprocess/shadow.pth/wlh.json": {
+        "status": "unavailable",
+        "bytes": null,
+        "sha256": null,
+        "role": "actor_dimensions",
+        "reason": "NotADirectoryError:[Errno 20] Not a directory: 'shadow.pth'"
+      },
+      "/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0013-medium-00.yaml": {
+        "sha256": "162bd65e0fa40d6f46a992063da665f858ccf78b00879b0a34fdfc76103a2401",
+        "bytes": 435,
+        "status": "observed",
+        "role": "scenario"
+      },
+      "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_06_00_52/postprocess/shadow.pth/gs.pth": {
+        "status": "unavailable",
+        "bytes": null,
+        "sha256": null,
+        "role": "actor_model",
+        "reason": "NotADirectoryError:[Errno 20] Not a directory: 'shadow.pth'"
+      },
+      "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_06_00_52/postprocess/shadow.pth/wlh.json": {
+        "status": "unavailable",
+        "bytes": null,
+        "sha256": null,
+        "role": "actor_dimensions",
+        "reason": "NotADirectoryError:[Errno 20] Not a directory: 'shadow.pth'"
+      },
+      "/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0038-easy-00.yaml": {
+        "sha256": "275066a06afb7a909748739e28de0eabc3d8c711d8c73f8769225a959ac5c3d5",
+        "bytes": 319,
+        "status": "observed",
+        "role": "scenario"
+      },
+      "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/cfg.yaml": {
+        "sha256": "36b6b199af31408dad51774e4ea39cdfb433a83ca9253e0aab2ca30042c81238",
+        "bytes": 245,
+        "status": "observed",
+        "role": "scene_config"
+      },
+      "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/scene.pth": {
+        "sha256": "c9b448b431a33e9fb0a4043c0b913994fcca347cc43a1955311c4ade620a5672",
+        "bytes": 542146680,
+        "status": "observed",
+        "role": "scene"
+      },
+      "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/ground_param.pkl": {
+        "sha256": "644cbe12d7bf71dbfe94af28251bc36dd05b1fbad104053a6b319691d84f1ccd",
+        "bytes": 23569,
+        "status": "observed",
+        "role": "ground"
+      },
+      "/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0038-extreme-00.yaml": {
+        "sha256": "ee3dafac4a7c8505829192906d4b39ad48cfed95d0e0fbebda64d86b99708776",
+        "bytes": 584,
+        "status": "observed",
+        "role": "scenario"
+      },
+      "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_20_29/postprocess/shadow.pth/gs.pth": {
+        "status": "unavailable",
+        "bytes": null,
+        "sha256": null,
+        "role": "actor_model",
+        "reason": "NotADirectoryError:[Errno 20] Not a directory: 'shadow.pth'"
+      },
+      "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_20_29/postprocess/shadow.pth/wlh.json": {
+        "status": "unavailable",
+        "bytes": null,
+        "sha256": null,
+        "role": "actor_dimensions",
+        "reason": "NotADirectoryError:[Errno 20] Not a directory: 'shadow.pth'"
+      },
+      "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_02_48/postprocess/shadow.pth/gs.pth": {
+        "status": "unavailable",
+        "bytes": null,
+        "sha256": null,
+        "role": "actor_model",
+        "reason": "NotADirectoryError:[Errno 20] Not a directory: 'shadow.pth'"
+      },
+      "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_02_48/postprocess/shadow.pth/wlh.json": {
+        "status": "unavailable",
+        "bytes": null,
+        "sha256": null,
+        "role": "actor_dimensions",
+        "reason": "NotADirectoryError:[Errno 20] Not a directory: 'shadow.pth'"
+      },
+      "/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0038-hard-00.yaml": {
+        "sha256": "5e1dafedccdde485834d5809dee2fcd3cc0b5c31f7315e454d6b4bd8b04b146d",
+        "bytes": 434,
+        "status": "observed",
+        "role": "scenario"
+      },
+      "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_13_43/postprocess/shadow.pth/gs.pth": {
+        "status": "unavailable",
+        "bytes": null,
+        "sha256": null,
+        "role": "actor_model",
+        "reason": "NotADirectoryError:[Errno 20] Not a directory: 'shadow.pth'"
+      },
+      "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_13_43/postprocess/shadow.pth/wlh.json": {
+        "status": "unavailable",
+        "bytes": null,
+        "sha256": null,
+        "role": "actor_dimensions",
+        "reason": "NotADirectoryError:[Errno 20] Not a directory: 'shadow.pth'"
+      },
+      "/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0038-medium-00.yaml": {
+        "sha256": "fb18b473300b9373e089fb0656caf533e6920de3314df4e6703b04cdb30d08c4",
+        "bytes": 435,
+        "status": "observed",
+        "role": "scenario"
+      },
+      "/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0038-medium-01.yaml": {
+        "sha256": "cbc56796e802e964bca700662f34c77fb2500ee8ee32225820276521d4a230e2",
+        "bytes": 435,
+        "status": "observed",
+        "role": "scenario"
+      },
+      "/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0041-easy-00.yaml": {
+        "sha256": "0d6f403dacf5f9f5b069f4fa9009e60dc0a8d76bb52d0843e18de63926d57756",
+        "bytes": 319,
+        "status": "observed",
+        "role": "scenario"
+      },
+      "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0041/cfg.yaml": {
+        "sha256": "86e5de302a1fe2de18c52e48e23e264320b1605a4a76a370e2e36508a95db241",
+        "bytes": 245,
+        "status": "observed",
+        "role": "scene_config"
+      },
+      "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0041/scene.pth": {
+        "sha256": "bdd4e5873495e6f7b3fe10788af4b66f544f160b6af43ba4882a939ddb6b61fa",
+        "bytes": 627887864,
+        "status": "observed",
+        "role": "scene"
+      },
+      "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0041/ground_param.pkl": {
+        "sha256": "f7411f735cba4806727b253579e41701da81126952edffc1ba42212c2ca92042",
+        "bytes": 23569,
+        "status": "observed",
+        "role": "ground"
+      },
+      "/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0041-extreme-00.yaml": {
+        "sha256": "7d186ac9491de1cc3aab58a3a636ab0eb00088179f68d8a563214aaada3aa8af",
+        "bytes": 589,
+        "status": "observed",
+        "role": "scenario"
+      },
+      "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_31_52/postprocess/shadow.pth/gs.pth": {
+        "status": "unavailable",
+        "bytes": null,
+        "sha256": null,
+        "role": "actor_model",
+        "reason": "NotADirectoryError:[Errno 20] Not a directory: 'shadow.pth'"
+      },
+      "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_31_52/postprocess/shadow.pth/wlh.json": {
+        "status": "unavailable",
+        "bytes": null,
+        "sha256": null,
+        "role": "actor_dimensions",
+        "reason": "NotADirectoryError:[Errno 20] Not a directory: 'shadow.pth'"
+      },
+      "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_51_10/postprocess/shadow.pth/gs.pth": {
+        "status": "unavailable",
+        "bytes": null,
+        "sha256": null,
+        "role": "actor_model",
+        "reason": "NotADirectoryError:[Errno 20] Not a directory: 'shadow.pth'"
+      },
+      "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_51_10/postprocess/shadow.pth/wlh.json": {
+        "status": "unavailable",
+        "bytes": null,
+        "sha256": null,
+        "role": "actor_dimensions",
+        "reason": "NotADirectoryError:[Errno 20] Not a directory: 'shadow.pth'"
+      },
+      "/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0041-hard-00.yaml": {
+        "sha256": "ac8c82778713aecf6f9b1af9dbe646f51db5bde7a15b124a24f2f733e11cb1fa",
+        "bytes": 571,
+        "status": "observed",
+        "role": "scenario"
+      },
+      "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_06_01/postprocess/shadow.pth/gs.pth": {
+        "status": "unavailable",
+        "bytes": null,
+        "sha256": null,
+        "role": "actor_model",
+        "reason": "NotADirectoryError:[Errno 20] Not a directory: 'shadow.pth'"
+      },
+      "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_06_01/postprocess/shadow.pth/wlh.json": {
+        "status": "unavailable",
+        "bytes": null,
+        "sha256": null,
+        "role": "actor_dimensions",
+        "reason": "NotADirectoryError:[Errno 20] Not a directory: 'shadow.pth'"
+      },
+      "/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0041-medium-00.yaml": {
+        "sha256": "276024f3a668b64262829eecff89f27b9b318e32d71a85fdf5ccfbfa4f58d564",
+        "bytes": 434,
+        "status": "observed",
+        "role": "scenario"
+      },
+      "/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0041-medium-01.yaml": {
+        "sha256": "3f082023ffc6d117897cb342c8e0b09d638579c84389e8beb30f9e224d2c5f93",
+        "bytes": 433,
+        "status": "observed",
+        "role": "scenario"
+      },
+      "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_25_32/postprocess/shadow.pth/gs.pth": {
+        "status": "unavailable",
+        "bytes": null,
+        "sha256": null,
+        "role": "actor_model",
+        "reason": "NotADirectoryError:[Errno 20] Not a directory: 'shadow.pth'"
+      },
+      "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_25_32/postprocess/shadow.pth/wlh.json": {
+        "status": "unavailable",
+        "bytes": null,
+        "sha256": null,
+        "role": "actor_dimensions",
+        "reason": "NotADirectoryError:[Errno 20] Not a directory: 'shadow.pth'"
+      },
+      "/opt/sentinel-stack/HUGSIM/.gitattributes": {
+        "sha256": "aaccaa098b58fcbf82a467f2995def326edc472d6295dc23bd9c68bc56ae49f5",
+        "bytes": 122,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/.gitignore": {
+        "sha256": "b3987b9e79160d0c06108d7109241f17943f22109db623d259094e67f1427810",
+        "bytes": 123,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/LICENSE": {
+        "sha256": "c5acad54bc534fe3bd574cd2ffd10cfd037b98590f01388163f51ea36035c322",
+        "bytes": 1122,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/README.md": {
+        "sha256": "1a489ddbe3973cd4c21b75268133b07d8b5cc1779e7cba53ea7fe9689d1fc36b",
+        "bytes": 7137,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/assets/hugsim.png": {
+        "sha256": "d88e9ef9a1c5ac6e8cdf43c8e408e07e0ed4b0bbf81235d060208d8add4f8d91",
+        "bytes": 89294,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/assets/hugsim_gui.mp4": {
+        "sha256": "fc0ad63f8bccca4872d9f961f84a465efa0d4d01efbe83f9b9d0329e281f7360",
+        "bytes": 5281087,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/assets/teaser.jpg": {
+        "sha256": "fbca78cef8b6d239d1643a9938ebab5c0909f08855be64360b9cd041e756470d",
+        "bytes": 675408,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/closed_loop.py": {
+        "sha256": "42a0c878aa9e365b9e1b1d5e6d902c8fe6e2ee79deac376c23a2bd1ea439c8f5",
+        "bytes": 5390,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/configs/benchmark/nuscenes/scene-0013-easy-00.yaml": {
+        "sha256": "81060930fd3b340591d19d02be6a66e2964aa54b216d81e80f3797bffe51ef7b",
+        "bytes": 597,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/configs/benchmark/nuscenes/scene-0383-easy-00.yaml": {
+        "sha256": "8bb03b7b41f1d1b6a7c7cf0ba49a5f868729339b4621907fc8f9f149679152f8",
+        "bytes": 168,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/configs/benchmark/nuscenes/scene-0383-extreme-00.yaml": {
+        "sha256": "f7186bd2f7e6b9bae7b10071ea8ef2be1c9f036bd2e3a1dbf4ddbec0a58bde99",
+        "bytes": 441,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/configs/benchmark/nuscenes/scene-0383-hard-00.yaml": {
+        "sha256": "f6b715e81298f967609a40be105bd07a1f4fcb02369ec04bc64f86df92ccc27d",
+        "bytes": 357,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/configs/benchmark/nuscenes/scene-0383-medium-00.yaml": {
+        "sha256": "f03679e829d017da636e34db3bad80ab9d672f1413708d6ce295ff71b896627e",
+        "bytes": 258,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/configs/gs_base.yaml": {
+        "sha256": "7140691a2423db5661b445cc4c68766a7dde9e2eaf132f68d1dc2b3047d5e53a",
+        "bytes": 728,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/configs/kitti360.yaml": {
+        "sha256": "414bc95c2176e802d50f3d13619fed94869ed7974703968a2de74aaf67c80c01",
+        "bytes": 164,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/configs/nusc.yaml": {
+        "sha256": "51146ad33f5c0009063b5a01371129114a37a138ef459bce529f8cd7afda1571",
+        "bytes": 168,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/configs/pandaset.yaml": {
+        "sha256": "e7dc1dc8251b8ea436cd3a559f6da07c982a5ca6a24f9f25a52c773841760fef",
+        "bytes": 166,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/configs/sim/kinematic.yaml": {
+        "sha256": "fc987ae8da2412ecca8e10b9e49daf2da366795151e970b139c3426ea9966c96",
+        "bytes": 114,
+        "status": "observed",
+        "role": "kinematic_config"
+      },
+      "/opt/sentinel-stack/HUGSIM/configs/sim/kitti360_base.yaml": {
+        "sha256": "1be7e5d902f7278dfea9333bb8797667a228bfa75aa046c9338bd10e7a06d8cb",
+        "bytes": 366,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/configs/sim/kitti360_camera.yaml": {
+        "sha256": "97deeb9afb2add6b5ab6258d972f52151beadf8f7a37de07046e6e6910bfa862",
+        "bytes": 3701,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/configs/sim/nuscenes_base.yaml": {
+        "sha256": "27657c51d7d6cdb16aacd6dff9c58a6a58b7215d9a63a1e021d8c974eadea967",
+        "bytes": 402,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/configs/sim/nuscenes_camera.yaml": {
+        "sha256": "f059629db1b1831e81e0a7b8f43bf9775b70684319859e8c1e4bc00bf2cb8e9a",
+        "bytes": 3701,
+        "status": "observed",
+        "role": "camera_config"
+      },
+      "/opt/sentinel-stack/HUGSIM/configs/sim/pandaset_base.yaml": {
+        "sha256": "e0078f4a81ba7f24ce1165f92afe5cd81f8719a4baf9fa85436b0b8a4c2fcda3",
+        "bytes": 366,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/configs/sim/pandaset_camera.yaml": {
+        "sha256": "78824b3a8ea4cf0b389ced36369e51711ec0a1f65c69b5dcaf8b181bd21f2601",
+        "bytes": 3701,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/configs/sim/waymo_base.yaml": {
+        "sha256": "db87a625ccfd623b1ecf42f03d85dfd51e54054b2bff28249d292eda2e8ab098",
+        "bytes": 360,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/configs/sim/waymo_camera.yaml": {
+        "sha256": "9dd141d1c629d7cdbab98844689aa251eb87251ffea8ba1affc73e5af58a4a7c",
+        "bytes": 3701,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/configs/waymo.yaml": {
+        "sha256": "f6214fe9dc9ec12a8122918c4e8c75b7939b6b68a109ef96f78569cd0c09b9b4",
+        "bytes": 163,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/configs/waymo_gs_base.yaml": {
+        "sha256": "4b6b9c09dbb6b0ec7de6f62ebd357b3ec31a67195ed9b16417bcbbdac9f80734",
+        "bytes": 728,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/.gitignore": {
+        "sha256": "1f4041c11c4821c7a3165f46fa1f0a0b9366087f5a99cf8a89a02d7a198f1d4a",
+        "bytes": 66,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/LICENSE": {
+        "sha256": "c9316f9794fb9b45ac591041ed486cdfbe33ca6c3f5797899a461bcadd795134",
+        "bytes": 1644,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/README.md": {
+        "sha256": "8eca8004c4c1b3d3423ed48d81eaaceaf293815f402cee49fb46d62d109c24de",
+        "bytes": 5565,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/checkpoints/README.md": {
+        "sha256": "90e15204a23edbb47a3666653af27a0a47b6ab68650cf01ee9f7bb61c4f54837",
+        "bytes": 78,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000805_comp.png": {
+        "sha256": "4545a8c7ff6d1b8695dc76f854d1e46bcaff118f3a9dc75e98b5ca6f71a15c2a",
+        "bytes": 664383,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000807_comp.png": {
+        "sha256": "a4fcccef4fbed129f8e7a9905128ceadfed11e368a72c83f3a65d21ba9bfc3d3",
+        "bytes": 682258,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000809_comp.png": {
+        "sha256": "be85565ca1a0e35b1e149bb3981652c932c689c39ba00ba41f97a2512e66c21f",
+        "bytes": 670353,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000811_comp.png": {
+        "sha256": "987cdc795754b49779e9ebdb0272e159bbd409cbbd640d6a0fad547a70560829",
+        "bytes": 660459,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000813_comp.png": {
+        "sha256": "50c352bbabacebc1e5ad177eb1ac68c9b0908362a169bd43e980088dcd5d4e0a",
+        "bytes": 648486,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000815_comp.png": {
+        "sha256": "7cbc3457e7bde3a1b8f417e79f380b3c69918eba05f5be7bdbb8482c29ada840",
+        "bytes": 657549,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000817_comp.png": {
+        "sha256": "6317247c0306f5a513ab3df94d8f26160abe9fd9840bca26b23f2b1a09c8c738",
+        "bytes": 669872,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000819_comp.png": {
+        "sha256": "8952a99fc448081655472dbbf7860935e3f91f26f7d641e22d8a7a4563bdba48",
+        "bytes": 669741,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000821_comp.png": {
+        "sha256": "4ef1e57bb5a8d9ce4c4ad8d686b88a2180a4d87096805c2d7c511839df6233bd",
+        "bytes": 680497,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000823_comp.png": {
+        "sha256": "b0393b924581d2d410e1209479d54a20657ef2dd3e0d9d1fc16f445beec1578e",
+        "bytes": 698417,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000825_comp.png": {
+        "sha256": "8f58723e741181fe9b57bbe9ba3ab8843d2cc22cb01988dc8b224ea0f4b0e92e",
+        "bytes": 681050,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000827_comp.png": {
+        "sha256": "1a097cdbffdf49492afdc206c093e0c556a635c9c8fd3c2430913422166649c5",
+        "bytes": 680885,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000828_comp.png": {
+        "sha256": "13c62c8ccd0179040c554d7e627f1bab288237e4655600a0b00d7aaee3af32bc",
+        "bytes": 699856,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000829_comp.png": {
+        "sha256": "fae8989bcc7f48dfb8cc43ba9153940da7cef3da3272f643acbde2d9c3ac443a",
+        "bytes": 710986,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000830_comp.png": {
+        "sha256": "49044b6d94a7b54602e74ee4c7d68c01afa77195af061e1273ad9ed4b3c2f9f3",
+        "bytes": 709591,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000831_comp.png": {
+        "sha256": "759a627664c599b9f8e28aa758298971da912f450071aa869bc3c5ab6e507f47",
+        "bytes": 698902,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000832_comp.png": {
+        "sha256": "d9cb06af7cf7daeea7fc2c6a3ee7dfaab6880acfabc6190251224579b1633693",
+        "bytes": 693351,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000833_comp.png": {
+        "sha256": "60712cb4cad62de013ad6f43be8c92b863708a7bdf3c0ee0f320923df0e41206",
+        "bytes": 680544,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000834_comp.png": {
+        "sha256": "db77af617dc24b451c5713c35c7f5f22cec8606c811dc307503f1d3d9e85cf77",
+        "bytes": 678989,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000835_comp.png": {
+        "sha256": "978f89d3babbea5afb8de32c2b00057a3d505c4f7d477d722206766b68c54e82",
+        "bytes": 684342,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000836_comp.png": {
+        "sha256": "62035cc335854f80ae9b5adda520742e99f3dfd9e07fe0fc94868540886757ba",
+        "bytes": 675363,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000837_comp.png": {
+        "sha256": "9cc302cef7bc063314cb70308da2430bda2b880bd3bc525638a134a40bfb7910",
+        "bytes": 458869,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000838_comp.png": {
+        "sha256": "85378082de5e240c049a79de932bbcfa221ae512c02fd552794ea3582a2e071a",
+        "bytes": 693290,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000839_comp.png": {
+        "sha256": "480595155caf1cbd7e02b131dc794579dd7ad3db98de7e40e6db8878b0380e9a",
+        "bytes": 701238,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000840_comp.png": {
+        "sha256": "3c8607822037abf455e3f80baa8224c4d1e5d95ebb590c888b7cb15b3e191129",
+        "bytes": 706388,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000841_comp.png": {
+        "sha256": "ece6da21e220e6831049ca8ebe91f04255b8a60c18f552679a58cf205e298fc6",
+        "bytes": 711684,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000842_comp.png": {
+        "sha256": "75afaf35354ee1769ef79dfabe4a3e98beeb931951139bccdf796c9461477a98",
+        "bytes": 709455,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000843_comp.png": {
+        "sha256": "d4ed86719a0598cbf603ce1076538b59b8845e7e5b7db7a8d5897f86a2fe9606",
+        "bytes": 704991,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000844_comp.png": {
+        "sha256": "26fc1df7188787a3afc7b7066af54ae58d5cf257e0cbdc9cd1e84e2be02be9b5",
+        "bytes": 698153,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000845_comp.png": {
+        "sha256": "7ed9539d865a3681bcbe5d47593177719e25ed91309f933fec9b7584112edefc",
+        "bytes": 697746,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000846_comp.png": {
+        "sha256": "ffd8174816f53f0d07a6287cccc5f69ebb89fe476ac6c8a0519183baf8123657",
+        "bytes": 702799,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000847_comp.png": {
+        "sha256": "6d4d5eaba413a796fd839e586784ea5aa525b5782a1e7423b2a40f732ad41197",
+        "bytes": 697809,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000848_comp.png": {
+        "sha256": "d15cffb194f8519d930dbd6a210415b1026efd50eea4c7b7284ac11a08acd3d6",
+        "bytes": 687246,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000849_comp.png": {
+        "sha256": "bded971e9b088d3ae14a6cb2d6f3d6d3bc92bec6d0c943b176f18db6cae7aa27",
+        "bytes": 678643,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000850_comp.png": {
+        "sha256": "998edd7da0611f5b008f5ab6a84d4454f97d6ea0d4372232bccbd089e822ab43",
+        "bytes": 667495,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000851_comp.png": {
+        "sha256": "105b95762f2b43bc60d01e5013f918227edbd40fe24123386a770420796ae5ad",
+        "bytes": 664868,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000852_comp.png": {
+        "sha256": "0926c94671f2346ae8b4b72d9f048c116e6d4f2645d30b96b48681f2600edc06",
+        "bytes": 660743,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000853_comp.png": {
+        "sha256": "98fc180f83553f52f3dad319c70b7f85269f555a643effaedfa1684464e0df2c",
+        "bytes": 654545,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000854_comp.png": {
+        "sha256": "1c725463b52ce11ef8d68b562f1b93e6053716b52e7a8cc5fcd7c4bd197b4f73",
+        "bytes": 644495,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000855_comp.png": {
+        "sha256": "561cc9ffc1794055215ab088e2694a25c4dfccf627d6f919b9391c165d842b04",
+        "bytes": 659296,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000856_comp.png": {
+        "sha256": "fc0e03f97ba39ded88661866c5e4b44e24ec48376beed2500acf89d3418c3c68",
+        "bytes": 662158,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000857_comp.png": {
+        "sha256": "5e99607db8a024b50447a1f1c23b027f51061e8133de3b1e63a8bca4af4af50a",
+        "bytes": 677592,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000858_comp.png": {
+        "sha256": "049335f20c7c519a9646f3c99d463d813c70e6708e1e173a2bc8dd4e13905c65",
+        "bytes": 679142,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000859_comp.png": {
+        "sha256": "ae87a5e5ac5504cd4585afa898644ce457a4021c4bef14c50996bc698c563287",
+        "bytes": 687098,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000860_comp.png": {
+        "sha256": "d8c801061c7b3db6ff3bdf0404de04163774cec8b6bfd408405a90e0241428d5",
+        "bytes": 704211,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000861_comp.png": {
+        "sha256": "618bae1824ef73be91bb64369a599ddb3ac53d52822badb62b02e6dffd258336",
+        "bytes": 718908,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000862_comp.png": {
+        "sha256": "ee90b1297b29687db38104ed8a845bd1b1d489919c40f4ee1438d352dc68a489",
+        "bytes": 714769,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000863_comp.png": {
+        "sha256": "592d33ece0cd0425318dfb624085c0e1814ea4732474b361dfd23c0b940635b7",
+        "bytes": 701329,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000864_comp.png": {
+        "sha256": "5d028cd37d96d6f28d81dc0f0966293e834d6fdec857cf68fe53bce190e6083f",
+        "bytes": 693015,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000865_comp.png": {
+        "sha256": "503a6838eb88f362cda0b63e45942e7c175922068dbb315eeccb385307e43bbe",
+        "bytes": 673812,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000866_comp.png": {
+        "sha256": "01447b197911a30b4f8f436b06581f5ca86ab2ec89629ed10b59ce8ffc908e85",
+        "bytes": 685198,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000867_comp.png": {
+        "sha256": "06d27e1ab52a041d341a9058a6d8391fb03a14b8af8cc240769da2d66dd0e4d2",
+        "bytes": 694550,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000869_comp.png": {
+        "sha256": "ed143afab1925b08b6db20013a32e65241691729700a653fdc97001fb8831f99",
+        "bytes": 722093,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000871_comp.png": {
+        "sha256": "562894514b611fc35f7626affea8d86f1f952cd98b94b7375f8137166a40435c",
+        "bytes": 709701,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000873_comp.png": {
+        "sha256": "9d3ebec3b7c85f33c59d611dc4fd8e803e8c248177225e1e7e47c552eb04ad3d",
+        "bytes": 723496,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000875_comp.png": {
+        "sha256": "cb7babe6f1dc8ce27069c160efaafddbe5bad80af5eb3e776f7a1b0e82969898",
+        "bytes": 727973,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000877_comp.png": {
+        "sha256": "5ac2fb742848cdc74aeb2e348684e1e35988a358b382a527fbab46b885747da6",
+        "bytes": 734774,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000879_comp.png": {
+        "sha256": "eecfdaf4e54c3e4c4a7c6d7ee0c6cf994f6266a8d9ba7690b84f619279f4f0e5",
+        "bytes": 738894,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000881_comp.png": {
+        "sha256": "6771885c463f4fdcbcb332807b3b29761694f808ed00b2174e0dde60037c0f99",
+        "bytes": 744256,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000883_comp.png": {
+        "sha256": "3098ba34a839c458322b30408430ea05e68aa9d7aa255f2975af54742d425a9d",
+        "bytes": 753223,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000885_comp.png": {
+        "sha256": "748c6aab7a5f8d781e9cc21be00bdb8bc1dcf1194c7699c68d1ce9922cd11ee7",
+        "bytes": 732526,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/composed/0008_0000000887_comp.png": {
+        "sha256": "beb0000e4ee76a819ffd88dc6c23998ba55565f2f319b03ce4d0de45868153e7",
+        "bytes": 718582,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/display/if_labels_gif.gif": {
+        "sha256": "6d52e7bfb9823ae69130bd761f57d050f9a2fdaf4ea095ac9ff43fd6dfa3ca0a",
+        "bytes": 2000422,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/display/if_photos_gif.gif": {
+        "sha256": "1186b1a353ad6a90af3e579af780d9b4f2ee6fea789377b0bfb4b24cfa07b9f8",
+        "bytes": 8888507,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/display/inverseform_framework.png": {
+        "sha256": "fc476490b192c6b2371ff5c2a0ff555d1b1d73c0243e328f9f972e9559c8d92b",
+        "bytes": 542265,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/docker/Dockerfile": {
+        "sha256": "02b552ec5c2993a7da18d709724873dc3f53a26c9d38cf9887daa13794d2a1b8",
+        "bytes": 839,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/infer_kitti360.sh": {
+        "sha256": "ed32a904559471201729f19255113f6a268ca036d04a80d14b9ee0b8442e17b2",
+        "bytes": 400,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/infer_kitti360_fish.sh": {
+        "sha256": "af8ffa194d7ad2acaf642709a11ef9809f80ea07cff93cba808a04115b0779ae",
+        "bytes": 416,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/infer_nuscenes.sh": {
+        "sha256": "89c8978d398a8ba529321904a05073fbec0120caab033230bc6bc535383571f0",
+        "bytes": 484,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/infer_pandaset.sh": {
+        "sha256": "b09f2f52fe591bb6637e7da41dbfff0ac68130f5cb1c237c596e9ded5ff4a411",
+        "bytes": 476,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/infer_waymo.sh": {
+        "sha256": "4b186fb7d22e1ae6965228f28067b089dad416dafda3adfce0c523f475c1c249",
+        "bytes": 446,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/library/data/cityscapes.py": {
+        "sha256": "9320105056613c405c921496c13cfa808ddbd5a5bd3c43cddd591a9f016855f3",
+        "bytes": 563,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/library/data/cityscapes_labels.py": {
+        "sha256": "5cabf25526d8b8719396370aa2be87992697586ed969fcee10e8ead3a0b99995",
+        "bytes": 13447,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/library/datasets/base_loader.py": {
+        "sha256": "e278f7dc2194a2c872a5671150e2ee240d033e8f181c4d06ba29fa3d833affbe",
+        "bytes": 10929,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/library/datasets/get_dataloaders.py": {
+        "sha256": "63539b7ee87539ad3cb3e1255b3c80285614ba83d7ae8fd9b81ad4fccceae9f5",
+        "bytes": 1563,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/library/datasets/sampler.py": {
+        "sha256": "75deb0e792a92d4588247b85c33ef476025deb8d35f0edb66c597d8f321c6f06",
+        "bytes": 4347,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/library/transforms/__init__.py": {
+        "status": "unavailable",
+        "bytes": null,
+        "sha256": null,
+        "role": "runtime_source",
+        "reason": "ContractError:asset_type_or_size"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/library/transforms/joint_transforms.py": {
+        "sha256": "f03bc7199b26820901a1d86bbd925cbda4b23271c0c318115f42eed4cf7bdf4b",
+        "bytes": 25669,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/library/transforms/transforms.py": {
+        "sha256": "5728c5b8c45cf144b91ec8b9d4cd298107ab341206ce4150fc6c1980a2ab1955",
+        "bytes": 12030,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/models/InverseForm.py": {
+        "sha256": "c4c4e1da0bc33605c8ed04e076bf8cdf04633c3dcf1ae39ebec874bc73f19d1d",
+        "bytes": 1412,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/models/__init__.py": {
+        "sha256": "254093a42de4a0f1c9891a7364f26efc63aa490fea752da1d9ff66e9a8f90c6f",
+        "bytes": 1363,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/models/attnscale.py": {
+        "sha256": "8a364d67f0b99e5a98b8edd53b8f7eeb2bd6f6cfe94e64be1f45d8f10a2f0ba5",
+        "bytes": 14012,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/models/basic.py": {
+        "sha256": "d3509eaa5e7a3062239e480d666bcf71437da0ca5c5081758390f302be96cdc6",
+        "bytes": 4539,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/models/bn_helper.py": {
+        "sha256": "465030f73c2844e39688befe16d677af0bdad81b647c3cb9f60a7164746b32ec",
+        "bytes": 350,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/models/hrnetv2.py": {
+        "sha256": "d692bcba5a2b54562f4d79dc7a4f7bc64457ebae7d80d3c18aa70a0dfeb9b1ae",
+        "bytes": 19762,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/models/lighthrnet.py": {
+        "sha256": "7bbc46bfc8f656517deef6935f8db4188752637c557ec5783ae4486a87266a49",
+        "bytes": 1576,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/models/loss/utils.py": {
+        "sha256": "bed9d634fa08f3449d5dee1c8d14503125f031df049a0ef2031d32d7b73ad3cf",
+        "bytes": 8154,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/models/model_loader.py": {
+        "sha256": "322eddec367640dca144728321e6d5798e0243df0fcbd72b47ca95232b355f45",
+        "bytes": 1217,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/models/mscale.py": {
+        "sha256": "38aebe741cc021344640c931338c727b2118ae12a3fa76eb800f91cba4b80c4c",
+        "bytes": 18567,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/models/mscale2.py": {
+        "sha256": "665573bfd53ba6df0bd1cce3becc6b81e81e8a43090ecd87878284465d0c22b9",
+        "bytes": 10197,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/models/mynn.py": {
+        "sha256": "c9c60c1826b45e6e9509d31305891b483bcc67ddd55ef3a17aea6aec307d18e6",
+        "bytes": 4616,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/models/ocr_utils.py": {
+        "sha256": "0a93629f65fddb492a5d678dc670a765f2b706e7ab783113378fd6e5c65fddf7",
+        "bytes": 6169,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/models/ocrnet.py": {
+        "sha256": "4542d132a70b5f28f63ca7a23e166d3f3fe5e89e171ae8ecfdb729ee80c784ee",
+        "bytes": 21991,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/models/utils.py": {
+        "sha256": "012d6fb1b42def034af2d57bf592836d737d00d4fc8790edaf9f627e104b5288",
+        "bytes": 5124,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/utils/__init__.py": {
+        "status": "unavailable",
+        "bytes": null,
+        "sha256": null,
+        "role": "runtime_source",
+        "reason": "ContractError:asset_type_or_size"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/utils/attr_dict.py": {
+        "sha256": "42c5f3e9e85de66537aff98f8954f7eaee46b213f608696e464d022f323833a1",
+        "bytes": 2466,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/utils/config.py": {
+        "sha256": "434e2e6d1ceb86256b8161e9e503ce327641ca6bd9640dafd3126fc6094921f5",
+        "bytes": 10100,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/utils/misc.py": {
+        "sha256": "c37ecc3160d80aa0f37b13b8c76e35b6dff0bf767d82fe0121b22be708d547ca",
+        "bytes": 15784,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/utils/my_data_parallel.py": {
+        "sha256": "06f279432937e14348efc6534f511cc8506b5f45ed1734692c609f07106e8f54",
+        "bytes": 8605,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/utils/progress_bar.py": {
+        "sha256": "0cd60fc7ffdbcdb14ee7fc05a4777e4519e65769365b98f8db3c36e4a059bd37",
+        "bytes": 272,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/utils/trnval_utils.py": {
+        "sha256": "ac79fe61ab0f822476da74697e75c43b14dc87337f556d9907de7f393ae95819",
+        "bytes": 6733,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/InverseForm/validation.py": {
+        "sha256": "2de9bceda0d98552867baa7d26215eecd1939e47094ae1cef04983d18c6bed74",
+        "bytes": 5083,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/README.md": {
+        "sha256": "7a41f9da106b75ba0b94f3eec378d85974e820afe856fb08335faf341899c168",
+        "bytes": 2349,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/colmap/colmap.py": {
+        "sha256": "71c44594fb85d4db02115c77f8a01db75216b2fbc944a5cdd5ae0f3202cb12f5",
+        "bytes": 6054,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/colmap/colmap_reader.py": {
+        "sha256": "ad5a156ca105416c0f7e8cfdd9874c3fffe2d9d2fcbc2d99ed99c952acc95269",
+        "bytes": 11858,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/colmap/update_campose.py": {
+        "sha256": "d7470d0b9a545aee0df7f41d7b9631ac34264914e25f1ca5cbdf188e5da249da",
+        "bytes": 2128,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/kitti360/annotation.py": {
+        "sha256": "6f952632e5fb4907ae61982a635201c7755882ab5c1db3f05d5d4e329efb5bf8",
+        "bytes": 17644,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/kitti360/load.py": {
+        "sha256": "8ee76b2d308bfc8de3751ffa2d47ace0913d88a0d76b80c4f9334bdb8f3f43af",
+        "bytes": 8484,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/kitti360/mask_fisheye.py": {
+        "sha256": "e12939d6dffa6714f2cf9fd18300beb3a057b76e723ca6d73d16a8c5dd54c720",
+        "bytes": 1750,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/kitti360/prepare_colmap.py": {
+        "sha256": "2992f5b942a1491e36715857947c053a0b2f20dc90b45cd6047e8676eae7d146",
+        "bytes": 7213,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/kitti360/run.sh": {
+        "sha256": "26fbad5ecf64972e2e65ccc9076f56f7a20cb0c8498e2d8bef00e901f37f4529",
+        "bytes": 1785,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/nusc/load.py": {
+        "sha256": "f102b70d6945f249f650d7c77d7e1b93d434e0537288aa5f5af8a78b14f470c3",
+        "bytes": 9011,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/nusc/prepare_colmap.py": {
+        "sha256": "e69e6b3c25d5d006c14f9d2a9eba65e998760c3dc7d437dd7efd4bbfe9c717d7",
+        "bytes": 2049,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/nusc/run.sh": {
+        "sha256": "9266d21f2f7620baddbda6396a7c21daf27f9c3cac6f11e3401c7b840e68fc84",
+        "bytes": 1620,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/nusc/statistic.py": {
+        "sha256": "20867a3ac1c38b5c6c37f05ec8e43060387c04cf43b68066acaaccfb683e2eb0",
+        "bytes": 1719,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/nusc/utils.py": {
+        "sha256": "31d24a716daa077f9dd7b25fa6a747e82c4aa52c3e67cbae1226e9dfc1ced2ea",
+        "bytes": 7091,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/panda/load.py": {
+        "sha256": "ecc4e055cb4c65f3e116cf9b311f3fce27c6ff2074e56296db9dba6e9a82e553",
+        "bytes": 5509,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/panda/pandaset_extrinsics.yaml": {
+        "sha256": "cf38b0126f2090cdd62f74364546825137d3bd7cc8e06f1ef5da6739201ad8b5",
+        "bytes": 2716,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/panda/prepare_colmap.py": {
+        "sha256": "2992f5b942a1491e36715857947c053a0b2f20dc90b45cd6047e8676eae7d146",
+        "bytes": 7213,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/panda/run.sh": {
+        "sha256": "9f25edd66fb146e75b954d46e59ccdb8edb55e0e416173f4c327f9991cf1ed6b",
+        "bytes": 606,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/panda/statistic.py": {
+        "sha256": "6c04fc7c6c441a312b9bf3f575e088adb4bfbfdbb60d42577d89094c87ad1c5f",
+        "bytes": 2299,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/panda/utils.py": {
+        "sha256": "0bbeb93d339f4047471656a73ab12dbc742e1a52129c07a0d612570c5db7dea0",
+        "bytes": 3325,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/utils/create_dynamic_mask.py": {
+        "sha256": "644653d38ce63fb7d88907899e4e0f73e96d91b27bdac949584a52d943d7143e",
+        "bytes": 3545,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/utils/estimate_depth.py": {
+        "sha256": "bc84ab6f2d633eec6eca6054c2faac6404a2e7cca46a8bbc92199a3c7ea2e13c",
+        "bytes": 1615,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/utils/fish2persp/cam_param.py": {
+        "sha256": "3d492089e2b534ae112caa5ad8dbf40fc0e12cd8531edd33419ebdd6eccb1f90",
+        "bytes": 26424,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/utils/fish2persp/create_fisheye_grid.py": {
+        "sha256": "4f52be512c3be45018e28b27d782ebe87e8e802bd908aa92e03564488137ba5f",
+        "bytes": 11319,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/utils/fish2persp/get_virtual_perspective.py": {
+        "sha256": "7be748add0ac12baf379085f9ccd7c33f55d97ecea61c7cc75855f799edc6e0d",
+        "bytes": 3958,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/utils/fish2persp/grid_fisheye_02.npy": {
+        "sha256": "518726b7002806cae2799e1a5d15d511dafa8032e1c4aeea7c335eb9f142c2b8",
+        "bytes": 31360128,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/utils/fish2persp/grid_fisheye_03.npy": {
+        "sha256": "5f5f32978d32bf7b65da192f3cce8a92134ea9f546c9b8b06e338ebd593c167a",
+        "bytes": 31360128,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/utils/fish2persp/mask_left_fisheye.npy": {
+        "sha256": "e0708d4d533fbdead9ab5eb4c64f50dcda1775539f9b86dd8230a36a65bf8bad",
+        "bytes": 122628,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/utils/fish2persp/mask_right_fisheye.npy": {
+        "sha256": "4ff43148480fcff425b8a9f5d5a9860385fd2b3b5f2096674338d3f29c41f5b0",
+        "bytes": 122628,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/utils/fish2persp/temp.png": {
+        "sha256": "b35496fca204752986bb52689f319265575afa677fdfff3caeb3c776007e679f",
+        "bytes": 279195,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/utils/merge_depth_ground.py": {
+        "sha256": "6544d96e84f82c233416510d71e9a2bc15c79fa38c220c03f82cb94b3af6623b",
+        "bytes": 6448,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/utils/merge_depth_wo_ground.py": {
+        "sha256": "b48d798e9f76444483ff4a48ce0dc991ff32a3d9cdcd7364d613d8ed2b94fb0b",
+        "bytes": 3711,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/utils/vis_bbox_2d.py": {
+        "sha256": "e153dc903c4a9a66cd29c2ea25d7b5824cc4e7d801c3c52b003d908e494cfb8b",
+        "bytes": 2082,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/waymo/front_cam_info.py": {
+        "sha256": "f5dfc60f16fa5b83a3d29850668a4906b3b959bf4ea220db567665f5208fea48",
+        "bytes": 957,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/waymo/load.py": {
+        "sha256": "b046c990f06439ad1881a885b9ff189a0d066b07532b447dfa44e08ad00dccc8",
+        "bytes": 12090,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/waymo/prepare_colmap.py": {
+        "sha256": "1fee56676c09175c4b7d4a97898aeae0c9e74f58b961b47cdfc1355d014a8235",
+        "bytes": 9196,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/data/waymo/run.sh": {
+        "sha256": "4906bac4f1ae4f5ec1ea312b8f4db11b641cfa65b968695f579c9222f4d12380",
+        "bytes": 916,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/eval_render/convert_scene.py": {
+        "sha256": "c1a1a8174fe17d95f029a0c87682f2d1a61655a5704eb52b67735a8cc152d423",
+        "bytes": 1117,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/eval_render/convert_vehicles.py": {
+        "sha256": "aed73cc92e12066f9ec04ba2268c639d2eb200b2a0063fb3c5f6e0137ba6c8b5",
+        "bytes": 1110,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/eval_render/export_multiple_scenes.py": {
+        "sha256": "deceee27500f00e67f6c721083492e86714eee32c09d9aea9cd9f2bea08e4091",
+        "bytes": 2674,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/eval_render/export_scene.py": {
+        "sha256": "004a889a6f5ff588302778df89ff729e6fbb2710f7faff30dfe828d6da9c5b17",
+        "bytes": 4305,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/eval_render/export_vehicles.py": {
+        "sha256": "24567e0cd3bceb9a13c145e5ae0d741da21a5f599806198e5b068cb01b629017",
+        "bytes": 1481,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/eval_render/render.py": {
+        "sha256": "39bd805e299fc1d248842059f0d6a475d452aba2238c0c21a353d53f1095f0a0",
+        "bytes": 5540,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/gaussian_renderer/__init__.py": {
+        "sha256": "303918d0097d3759f960a663bd05255ecbb402009cf96117fe2e49ba9a225c22",
+        "bytes": 8374,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/gui/app.py": {
+        "sha256": "f0b53caf017ca01e5c288975258cf8d89bf626aeb4766d8ec1dc335b3b8ff721",
+        "bytes": 3595,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/gui/static/data/nuscenes_camera.yaml": {
+        "sha256": "41a40909e83ec2e10db49bd3408b629bd1440a1169726135bfa9592e059670cf",
+        "bytes": 3627,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/gui/static/js/main.js": {
+        "sha256": "d45cbed306e461c04806abb531c4febbe1008caaab9f5ec086eef543bd58bd1a",
+        "bytes": 77015,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/gui/static/js/point_cloud.js": {
+        "sha256": "63673f3cd98c38096347e4a85a3cd784402f03cc6b02941904159735141c7ce5",
+        "bytes": 22838,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/gui/templates/index.html": {
+        "sha256": "943c2832a84ef693b06cda1e5c723c1f1483bf22268f4e3a92a77dd857c47a42",
+        "bytes": 6269,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/pixi.lock": {
+        "sha256": "81aa9f6beacd0a26703f56da8ab1f325a6141049b35e5474bd1386ede89781cd",
+        "bytes": 330241,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/pixi.toml": {
+        "sha256": "ad38b73d85f90269e0d1a56a0a9f62b0982c9fd3cc0aa1d0c4dfb7d0514df8ca",
+        "bytes": 2771,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/requirements.txt": {
+        "sha256": "1bf391534efa90fb7737c861ca45e4d8f7fb9644cc42f22bd8a6f67855932177",
+        "bytes": 403,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/scene/__init__.py": {
+        "sha256": "0ead2a8fc6f211ee2305a57ddf9663c5f293af0678ddfe7c2ccd7a9c3175bb0c",
+        "bytes": 5582,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/scene/cameras.py": {
+        "sha256": "8a1d10518fd282599e17d1ae3d91201124e2a357144968480c69acca283cfd1a",
+        "bytes": 2560,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/scene/dataset_readers.py": {
+        "sha256": "72653af4082f8e20568513a688dac7c3afa9e6429be26efaba96d8d379fbe89c",
+        "bytes": 7568,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/scene/gaussian_model.py": {
+        "sha256": "c265432315422927a8d6317c71a493da8b6dbb7dd13a0d40da28ed81d4bc9b62",
+        "bytes": 30346,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/scene/ground_model.py": {
+        "sha256": "c4111fe0addcdf62841ab52c2eeeeb37e2f08c9c8764832e9b2bc2459a0eb0a6",
+        "bytes": 17095,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/scene/obj_model.py": {
+        "sha256": "d328c35144084ce4cb3cc45fbedb09fa3dc42ea87ccbdd5c4f89a90f9cafd1e9",
+        "bytes": 26938,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/sim/hugsim_env.egg-info/PKG-INFO": {
+        "sha256": "1cdf6114663f3ba697dfef5956cb3d100d16c87c436686b1d10c318703fce631",
+        "bytes": 79,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/sim/hugsim_env.egg-info/SOURCES.txt": {
+        "sha256": "2b92c28cc862592750ae07fd70cd103dc0f5fd3db4e99ebf9ac252ae9b8199c4",
+        "bytes": 270,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/sim/hugsim_env.egg-info/dependency_links.txt": {
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+        "bytes": 1,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/sim/hugsim_env.egg-info/requires.txt": {
+        "sha256": "c263c99270f54c6a82480038c54b3a2a96d8c6684d036421fa70119d699ec76e",
+        "bytes": 10,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/sim/hugsim_env.egg-info/top_level.txt": {
+        "sha256": "6c02870e8434c67d0d309611e31daa5006b4e85875d50f20577c9e6f939e4652",
+        "bytes": 11,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/sim/hugsim_env/__init__.py": {
+        "sha256": "5c990fd54d9a72ccec7a79c6eb088e72bb1af92104f87f36dd8ea59933e1edda",
+        "bytes": 168,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/sim/hugsim_env/envs/__init__.py": {
+        "sha256": "4876b17f9aea8eb80d1f871792b79dc26fca2ffe4c47dc74682f3c4ee39767ac",
+        "bytes": 45,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/sim/hugsim_env/envs/hug_sim.py": {
+        "sha256": "c42ef368852754bdec76c81254b72dcda45eccef058dce015ea549c0b17c7d12",
+        "bytes": 13604,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/sim/ilqr/lqr.py": {
+        "sha256": "b32755c32de510e09ac726f5c77731d5f490df6a412e50a4d369d70bdef45faf",
+        "bytes": 2279,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/sim/ilqr/lqr_solver.py": {
+        "sha256": "0141d73d0ac38386184e63ce384d2e3cd341130943065b416bdacf4281e57c47",
+        "bytes": 35186,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/sim/ilqr/utils.py": {
+        "sha256": "041ed70028c105cfc102978ffddad4e92398d29b2454f1c2be6c81fb765c75fe",
+        "bytes": 17421,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/sim/pyproject.toml": {
+        "sha256": "d4ecc9265519333170047c17c196a749276df62472a87b6000c74170ef590f93",
+        "bytes": 141,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/sim/setup.py": {
+        "sha256": "52d7b14f11f6e336a80dc180345c5a06c366a2e0eb852e58801328e78fea4a9d",
+        "bytes": 127,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/sim/utils/agent_controller.py": {
+        "sha256": "bc4689fe9ccbc9c997e273c92662ed0933b5e3317cd25fff99fefd9964a23a28",
+        "bytes": 11692,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/sim/utils/launch_ad.py": {
+        "sha256": "c3033a229b1c59f33125398bce35559602d2b77cf69d18b6a585f740006628ce",
+        "bytes": 899,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/sim/utils/plan.py": {
+        "sha256": "61d170928bc54d7efeef8d5d58ade5c19621560253d9fb552d56b2612f11f912",
+        "bytes": 10717,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/sim/utils/score_calculator.py": {
+        "sha256": "1588b5b912384dead87b521b828cf7a135e77eb79aad5d540074c7168f79e46f",
+        "bytes": 30995,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/sim/utils/sim_utils.py": {
+        "sha256": "36c2ba6a7dee38555f84dde95851ec00be5a699969d53de8906b3e67676792bc",
+        "bytes": 4604,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/submodules/Pplan/Policy/base.py": {
+        "sha256": "ea72dc712c79ba54fa82f20e915b7e9e0474a7475f4a2d2690fcda0be222dc59",
+        "bytes": 367,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/submodules/Pplan/Policy/sampling_planner.py": {
+        "status": "unavailable",
+        "bytes": null,
+        "sha256": null,
+        "role": "runtime_source",
+        "reason": "ContractError:asset_type_or_size"
+      },
+      "/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/__init__.py": {
+        "status": "unavailable",
+        "bytes": null,
+        "sha256": null,
+        "role": "runtime_source",
+        "reason": "ContractError:asset_type_or_size"
+      },
+      "/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/forward_sampler.py": {
+        "sha256": "2494c6d3ce174889008102e8b61bb281c189593da39c5d417ecd05e9c215f57f",
+        "bytes": 5877,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/spline_planner.py": {
+        "sha256": "ba691c4d426724956d440df5503501ce3181c6edfb8edc2283c557ba76619ea2",
+        "bytes": 17632,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/trajectory_tree.py": {
+        "sha256": "8eb4d20a9111aabc7c120572f7ed1db70ce7f70a38da50a595bf6c7a91807c9f",
+        "bytes": 5439,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/tree.py": {
+        "sha256": "00f82e7d7aa1f87ff7b03599dcdbc3e1308926eb04ce271415733bc559e19d54",
+        "bytes": 2227,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/submodules/Pplan/__init__.py": {
+        "status": "unavailable",
+        "bytes": null,
+        "sha256": null,
+        "role": "runtime_source",
+        "reason": "ContractError:asset_type_or_size"
+      },
+      "/opt/sentinel-stack/HUGSIM/submodules/Pplan/utils/geometry_utils.py": {
+        "sha256": "c7ea6325ca17be19b8a0885354b9d7b4be027574efcc7170d63bc1a5df9a1229",
+        "bytes": 16804,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/submodules/Pplan/utils/timer.py": {
+        "sha256": "2afb9a63eac1b8219527c760a20d96df9754a3d1261535467898aa6303640c90",
+        "bytes": 1552,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/submodules/simple-knn/ext.cpp": {
+        "sha256": "73fed2a598c6f51bda77a20f108b4495deed93785f19da5ac5f4330d32f0f1be",
+        "bytes": 427,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/submodules/simple-knn/setup.py": {
+        "sha256": "7bdd8713863b446f3b1e3c059cb2db8598e51c8fe7f73937a0097f5c047ae841",
+        "bytes": 830,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/submodules/simple-knn/simple_knn.cu": {
+        "sha256": "bc8de924aa1960cc4dc72ed31c4f9a578699069afe80d653f4bd06892c098643",
+        "bytes": 6371,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/submodules/simple-knn/simple_knn.egg-info/PKG-INFO": {
+        "sha256": "a1abf9d680439f96307cd507672188d055864a91aa8ff010754893538649529a",
+        "bytes": 54,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/submodules/simple-knn/simple_knn.egg-info/SOURCES.txt": {
+        "sha256": "24eba056e6f33b3d9998597d1e326f65e7bf566dfe89b8fb8da49a08daac4f3d",
+        "bytes": 177,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/submodules/simple-knn/simple_knn.egg-info/dependency_links.txt": {
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+        "bytes": 1,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/submodules/simple-knn/simple_knn.egg-info/top_level.txt": {
+        "sha256": "ea62cdd23e6f194c506632bd2e8e725634c5631c77ef663de8f469e3ee472223",
+        "bytes": 11,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/submodules/simple-knn/simple_knn.h": {
+        "sha256": "70bf131948a9af90225ed1c1c1fc6c0cf5164e12eceb781429ee4dafe3a95971",
+        "bytes": 451,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/submodules/simple-knn/simple_knn/.gitkeep": {
+        "status": "unavailable",
+        "bytes": null,
+        "sha256": null,
+        "role": "runtime_source",
+        "reason": "ContractError:asset_type_or_size"
+      },
+      "/opt/sentinel-stack/HUGSIM/submodules/simple-knn/spatial.cu": {
+        "sha256": "a08d56af7b3918c06591ce2f9ae5933c0d62b41f9c26a9a8cdc5a70d116771d1",
+        "bytes": 671,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/submodules/simple-knn/spatial.h": {
+        "sha256": "8b77845eb74106e7a4130af8585b340a4a035425327b97559af250e1de6ae7ee",
+        "bytes": 380,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/train.py": {
+        "sha256": "2e8f77faf3021cc4942994352fd94905df37b75d441952eb72cd7bcab4c69957",
+        "bytes": 14739,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/train_ground.py": {
+        "sha256": "af260fd9788836ff34d133106572a88d2e540379a676481f44125e5d151a8e0a",
+        "bytes": 10501,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/utils/cmap.py": {
+        "sha256": "d972cc1666a87132b7b0aaad2ab1328ae4a5abb56298261db478a84bfed56b2a",
+        "bytes": 3183,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/utils/dataset.py": {
+        "sha256": "6c32a2cdaf33c1b1af24a99de946370e2bc1ed84f2d439919b4d4c92b8efa551",
+        "bytes": 1516,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/utils/dynamic_utils.py": {
+        "sha256": "db5ce6247f8854ffd9d3bed677ce6e4473cdf60cb51274e33186e5b808d59448",
+        "bytes": 9543,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/utils/general_utils.py": {
+        "sha256": "c575e07c745bebc2e6ae5e2edc334ffb81f19e84056604a25a9a404cb2172d97",
+        "bytes": 5546,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/utils/graphics_utils.py": {
+        "sha256": "d5ded248d8fc493a2579f7e55f620de1965e33361708cc9547274311eec3050a",
+        "bytes": 2117,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/utils/image_utils.py": {
+        "sha256": "872a4507773b9378db9e0fefc90104dc474b27551af18ada73f000a7a00a4ba0",
+        "bytes": 554,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/utils/iou_utils.py": {
+        "sha256": "c0abca2ec5c5d4ddade54601b9f65b4b8ee220e56979c9c7e160386305e643ee",
+        "bytes": 5427,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/utils/loss_utils.py": {
+        "sha256": "a13271b096dfbb0c01d411f3d70e33526b9203634c32882cb221d45c061e8f5c",
+        "bytes": 12376,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/utils/semantic_utils.py": {
+        "sha256": "fc03fda0bb73372edefae8aa8d6c163b9bd705445f30a525222500bc3626878c",
+        "bytes": 11867,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/utils/sh_utils.py": {
+        "sha256": "7d1ff267546390635e6d1f68c4f88c4a8b052482d5c9be1d32f06bc69e9a96e7",
+        "bytes": 4371,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/utils/system_utils.py": {
+        "sha256": "07792cc259d433a6f58c3817508e7731d6064bba3c7a03d080f33840576f9667",
+        "bytes": 784,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/utils/vehicle_template/benz_kitti.ply": {
+        "sha256": "4e38943282b1f2c46424904b36c788520eef4c7e73734a3347e34379fcec15d5",
+        "bytes": 490876,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/utils/vehicle_template/benz_kitti360.ply": {
+        "sha256": "4e38943282b1f2c46424904b36c788520eef4c7e73734a3347e34379fcec15d5",
+        "bytes": 490876,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/utils/vehicle_template/benz_nuscenes.ply": {
+        "sha256": "4e38943282b1f2c46424904b36c788520eef4c7e73734a3347e34379fcec15d5",
+        "bytes": 490876,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/utils/vehicle_template/benz_pandaset.ply": {
+        "sha256": "43876a7fde25ccfb2ea6cba7bb40f5fa22b476f4861dc890b9d5db6d680c66fd",
+        "bytes": 490876,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/HUGSIM/utils/vehicle_template/benz_waymo.ply": {
+        "sha256": "4e38943282b1f2c46424904b36c788520eef4c7e73734a3347e34379fcec15d5",
+        "bytes": 490876,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD/ckpts/uniad_base_e2e.pth": {
+        "sha256": "0ad0c2f5dc9788a41c313305779ea49346aeb742d1f6bb5ad25c46f9beffc990",
+        "bytes": 996345538,
+        "status": "observed",
+        "role": "planner_checkpoint"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/.github/FUNDING.yml": {
+        "sha256": "2d55ce1d50b45c085545d5d2aa9b13a5b73646d611865c53ff6ae614724b53c4",
+        "bytes": 818,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/.gitignore": {
+        "sha256": "d68120d3e2d75fee2e96a0bfea1c490520d53b6ec69c54c20649bb9e587c428b",
+        "bytes": 1962,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/CITATION.cff": {
+        "sha256": "b3ed5bee2eb25b655642450000abcfba6c6150c47438a55b4a9329a1d02e022b",
+        "bytes": 258,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/CODE_OF_CONDUCT.md": {
+        "sha256": "411b8b995f948bc9d9c62df2ae1ec055a358bf5c462f39b030a33e21fba4233d",
+        "bytes": 5226,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/LICENSE": {
+        "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+        "bytes": 11357,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/README.md": {
+        "sha256": "0f19f4202fe6e80c6bb171704de6fc9f147c6ce3633d232eedd573030a223ce5",
+        "bytes": 784,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/data_temp/data_template.pth": {
+        "sha256": "54f4ffb73192db02da4d9a39f156bff03f9c08460a4fddda14375929b09a5fb1",
+        "bytes": 3239,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/data_temp/nus_vis_pose_info.pkl": {
+        "sha256": "6427d73a3c1290724e6d0c00186be73d7df9d6b75ea567ebd6cf06b73464c909",
+        "bytes": 1901,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/data_temp/others/motion_anchor_infos_mode6.pkl": {
+        "sha256": "45761de4a965c590318987f43af7e7f50b8e043f9a2832a91246f4fd39bb57bb",
+        "bytes": 5109,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/docker/Dockerfile": {
+        "sha256": "d98175225b5c7b67c31560d2a23e93fe2820eea39b25c1841c6d7e08455cec1c",
+        "bytes": 2419,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/docs/DATA_PREP.md": {
+        "sha256": "f0dffc4e79d372453e7ff258b050a8ad8a63c858a38098d8fa7351eff124322f",
+        "bytes": 2218,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/docs/INSTALL.md": {
+        "sha256": "69c5a18a036573d8eb25d301a03329f7b92e1261e4b6f608a6d02c53732cc1a4",
+        "bytes": 2249,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/docs/TRAIN_EVAL.md": {
+        "sha256": "a462d3c9d6123d27846b0df764b364b0509218ce2a5632ce02833d3cf33ce058",
+        "bytes": 3961,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/__init__.py": {
+        "status": "unavailable",
+        "bytes": null,
+        "sha256": null,
+        "role": "runtime_source",
+        "reason": "ContractError:asset_type_or_size"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/configs/_base_/datasets/nus-3d.py": {
+        "sha256": "89f7e6d1fa1707826b6d409d522cddea06ab6489ab030222e25cd83af7e77445",
+        "bytes": 4915,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/configs/_base_/default_runtime.py": {
+        "sha256": "778df7b551bf0348f09490f0e8df0252d2bd8c006ba916153a6b0f74e4b5c988",
+        "bytes": 485,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/configs/stage1_track_map/base_track_map.py": {
+        "sha256": "9f7e77d7e16f1dcaba8ccafd0c74454b8eac8dc313c055165226413ff830ef15",
+        "bytes": 19837,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/configs/stage2_e2e/base_e2e.py": {
+        "sha256": "da05b3fe7d929fbd7e48dd85dbda9fa2278181a52cfbe411b60e570bae2b9d2c",
+        "bytes": 23689,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/__init__.py": {
+        "sha256": "49ff93508712952af3ba801f7ae093df8828472d9cd79ad03afa7d638b443fe6",
+        "bytes": 540,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/core/bbox/assigners/__init__.py": {
+        "sha256": "4d223c99ad57d441347e79c2da3d86ca3829681ab6c6ae6337878784188fa3e1",
+        "bytes": 184,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/core/bbox/assigners/hungarian_assigner_3d.py": {
+        "sha256": "ceb59550dbb3299bdcdefae096d8c42c98525949d25288a0d05585cbd5a218e7",
+        "bytes": 6404,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/core/bbox/assigners/hungarian_assigner_3d_track.py": {
+        "sha256": "404fbc5343fd0aa21e02fa42d596bf3600cb5e5e7accc2e3a8a8a0a0cb001731",
+        "bytes": 5560,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/core/bbox/coders/__init__.py": {
+        "sha256": "01f3931581ca314d934d022c665f41c88699e8870ceb6e590987eda7b92eb9ea",
+        "bytes": 138,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/core/bbox/coders/detr3d_track_coder.py": {
+        "sha256": "6a1af3382aadfe9f1e13a370bce2f4efdb0e21642c330a4833ab4e307c88c0a5",
+        "bytes": 5991,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/core/bbox/coders/nms_free_coder.py": {
+        "sha256": "542beb077c1ff63aceb8915d2d5052b7366e41428834834b3eda9629ba652a78",
+        "bytes": 4574,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/core/bbox/match_costs/__init__.py": {
+        "sha256": "b9be8c28bb3443107142b7a3d561e0af366f6c8b7b78c4f51256c4746f70ad63",
+        "bytes": 163,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/core/bbox/match_costs/match_cost.py": {
+        "sha256": "8735d77b89070a1c6b2a53c9886f47bb5b948ac09d04b3b50362f3ff37003440",
+        "bytes": 2648,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/core/bbox/util.py": {
+        "sha256": "d24c61941209fa7a7be18d3b4c628dc06006f692fde0e7863fb54bca50282beb",
+        "bytes": 1467,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/core/evaluation/__init__.py": {
+        "sha256": "f2bf99095c9fe232bde6c2e26dd94097dfbc6f6407270e31d72b669a828a5c05",
+        "bytes": 42,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/core/evaluation/eval_hooks.py": {
+        "sha256": "79bd2721ef7ab15be731333a07531892f27e1f0a7667f3d181720e2278760d8d",
+        "bytes": 3508,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/datasets/__init__.py": {
+        "sha256": "32e7fdc8ba46556b1fa25c75e932ff2b9c7c27642ba7f84357cc12df24d873a5",
+        "bytes": 136,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/datasets/builder.py": {
+        "sha256": "a08a7bd18b0d085c967dc3a2c4b4424970d34394b5edf0805bf08e763987226f",
+        "bytes": 5961,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/datasets/data_utils/data_utils.py": {
+        "sha256": "6ecc657a67f94a44a2a218c8f1323a04badacd96e4808d3699c023fcf960dff6",
+        "bytes": 6272,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/datasets/data_utils/rasterize.py": {
+        "sha256": "5f54b525bf206872a1da7992348a9b8267ef95c9842a1b76aa6780f6d73c6577",
+        "bytes": 5644,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/datasets/data_utils/trajectory_api.py": {
+        "sha256": "cbbbdfa5ea73a8076da35d7dddd53d61c75d11447965bed51e465c9356857e5d",
+        "bytes": 13224,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/datasets/data_utils/vector_map.py": {
+        "sha256": "d668e7d792bace5893ec1b1738dc0508dcd1704910e4c2edf9e3c3d1cd4fe804",
+        "bytes": 10376,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/datasets/eval_utils/eval_utils.py": {
+        "sha256": "846e115bcfc7ef198d9d4367d74568f5e1eac0fd69f7ec92b93e0e2b1c604783",
+        "bytes": 40288,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/datasets/eval_utils/map_api.py": {
+        "sha256": "6eddcf7c260149b346a6d692b8121553ef2f45840282e2f9c8e08326ab36ba6a",
+        "bytes": 116037,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/datasets/eval_utils/metric_utils.py": {
+        "sha256": "d2c2dfceec1acc086a3e3161478035e0b61546ea5d77099be1749079fef9938f",
+        "bytes": 4008,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/datasets/eval_utils/nuscenes_eval.py": {
+        "sha256": "494fb752b4c4c70d979b13a49839cf663197cceb7ab4017909db691164c9253e",
+        "bytes": 30013,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/datasets/eval_utils/nuscenes_eval_motion.py": {
+        "sha256": "9649af875089ae785901da58b4f2d1ccfdcde241e5283fd064554ef6343c1e53",
+        "bytes": 36515,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/datasets/nuscenes_e2e_dataset.py": {
+        "sha256": "540772b98338e6928bdb94d2e2eae17cf507998f08448e085f64167af13ec648",
+        "bytes": 53076,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/datasets/pipelines/__init__.py": {
+        "sha256": "4e129e5cd66171ebfcc6a20bf693b95671cc95af8653ef260953f8eefd53ec55",
+        "bytes": 665,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/datasets/pipelines/formating.py": {
+        "sha256": "fc6ef704f492fa113686dfe9062f936e62aaa501c196c10aec76d231ea2c1bb1",
+        "bytes": 1569,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/datasets/pipelines/loading.py": {
+        "sha256": "5025605bf2811d5d4f4465ad3fb95570030e8b1f414adbb08a5db322d415f68f",
+        "bytes": 8384,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/datasets/pipelines/occflow_label.py": {
+        "sha256": "79c01fcfff1305474665451c7a78263059fa4ab2cfd27fa0a5e9bc4af91e1a06",
+        "bytes": 11755,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/datasets/pipelines/transform_3d.py": {
+        "sha256": "4f8d087fe1947d0f90c3521f0ae68893df8165663b4cf808ad7e7fa4cf183269",
+        "bytes": 20894,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/datasets/samplers/__init__.py": {
+        "sha256": "27cf0eb83d29bccdb2c8d016f7fbffb241372f33c4c31056ae82536abcf05356",
+        "bytes": 148,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/datasets/samplers/distributed_sampler.py": {
+        "sha256": "84b977c197dbf5355c2fd1ee2fb971f32c4b07b18265113abfb9efa81fa1caec",
+        "bytes": 1371,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/datasets/samplers/group_sampler.py": {
+        "sha256": "b579470c6544b3ebb71c43ccc57fda4d485a665e010b8df1bdd095fddbb7516b",
+        "bytes": 3959,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/datasets/samplers/sampler.py": {
+        "sha256": "a585ea9f5dd0ad49181cd9bf96f402279898dce760265b51994e3e5ae0f8baf0",
+        "bytes": 189,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/losses/__init__.py": {
+        "sha256": "3d5feb797940d29433882d66bc9f83cf5669ee634aa8b6dfa26e519356355f4a",
+        "bytes": 381,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/losses/dice_loss.py": {
+        "sha256": "c5f21751d9c5d4b24164847ad521d4a5b30d507ad3dc06ec8164d0b18aef978a",
+        "bytes": 1910,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/losses/mtp_loss.py": {
+        "sha256": "f7bc1cafc050209c5d9783779915df7a6cf3775ccfa54d49af036a208d32a3c1",
+        "bytes": 8312,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/losses/occflow_loss.py": {
+        "sha256": "b8268a2301aae2d39909cf38b8f150c7fe69eb6eb5f19521685f91dba01ea35d",
+        "bytes": 8876,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/losses/planning_loss.py": {
+        "sha256": "94926492273fa1f4acf9f46a7d4067faf2e19a85d2bf11e716891633ffc7e065",
+        "bytes": 3487,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/losses/track_loss.py": {
+        "sha256": "5145926f9ab996bb18063ddf52470030bb6bfc002aaf850ce271d9fa9c0b69b2",
+        "bytes": 25665,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/losses/traj_loss.py": {
+        "sha256": "40b135c44f5d6ebd3003d5f20c461c5704c4cdc33c91c218c545eff0dd4ab443",
+        "bytes": 8891,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/models/backbones/__init__.py": {
+        "sha256": "92129dbb7e627f4afe0d5ded49d58e1361bbfbdec875ff21a3c5745537ce71c5",
+        "bytes": 48,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/models/backbones/vovnet.py": {
+        "sha256": "e88d70d33751bd9866fcb1316ee6f3ac35930091937d5ada028ff5f8d7cdb38a",
+        "bytes": 11701,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/models/hooks/__init__.py": {
+        "sha256": "1a358f573ba5c067ffd79c5b48f248f890e4b1b575c96534c1393f0f649c4a3d",
+        "bytes": 30,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/models/hooks/hooks.py": {
+        "sha256": "74f1ace44d417bcb23db1acc3bb1e3df6a1046bae859f152ead7a72fa1e186f2",
+        "bytes": 403,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/models/opt/__init__.py": {
+        "sha256": "99fc2cc6052f76f7e07e848c40cf2b57c49991eec388be7fd81aaaa5e19e0ba5",
+        "bytes": 25,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/models/opt/adamw.py": {
+        "sha256": "305810a8d8e9168ecea7b42ac0675c53b9d5e2274f7f23ee0f856e9881886a2e",
+        "bytes": 5144,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/models/utils/__init__.py": {
+        "sha256": "8589ad53a41d1a29affb4017f7ea4de0e902caff6621111618ef6a04bfa8d254",
+        "bytes": 61,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/models/utils/bricks.py": {
+        "sha256": "62d1095bca8ac51c374a39f175db1d452b6670ef0bc4ab199fbec9315e584031",
+        "bytes": 725,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/models/utils/functional.py": {
+        "sha256": "915bcc3432f38ea942a2c920df9cb40b579f73e04fd2260f9e981806502b6615",
+        "bytes": 6320,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/models/utils/grid_mask.py": {
+        "sha256": "92589caffcd8102b02cafff78e64614ecf8bc8ad548ab95cbf4d1a898327f150",
+        "bytes": 3935,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/__init__.py": {
+        "sha256": "eeba2a4be55afabf0cfe484d255c50e89e8a77a22a4bc77f937cc911b924e47f",
+        "bytes": 102,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/apis/__init__.py": {
+        "sha256": "30104937bc12c9efe7dea9c91cf1256d93fe1397dba037e51f669684b94fded9",
+        "bytes": 126,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/apis/mmdet_train.py": {
+        "sha256": "9d13f752a8bd1c782847a214a65343f4b4a6730b175a2f19efa7ee33d9bd7e55",
+        "bytes": 7692,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/apis/test.py": {
+        "sha256": "29b835d6b9832d7ebebf6c70a3e252bf0e7be7bd7ea3f1c04dc29f6338870179",
+        "bytes": 10206,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/apis/train.py": {
+        "sha256": "00f3e48712138fa37ceaaddbec0d2502b2108eda3ceae035c26d066e16171f0e",
+        "bytes": 1698,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/dense_heads/__init__.py": {
+        "sha256": "59498dd46f8f75e8d7d4b3977ba8202304380fd78ec6118f9a9de3d735e46962",
+        "bytes": 200,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/dense_heads/motion_head.py": {
+        "sha256": "26cc15e26f5d6acd84bcb785bc770b4f7035352e04c407801585f0afc71bc1e1",
+        "bytes": 30298,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/dense_heads/motion_head_plugin/__init__.py": {
+        "sha256": "d9b413d38bc6c71b2cbff0912afc05a5662404a968a11807f89ef3e18c8743bd",
+        "bytes": 225,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/dense_heads/motion_head_plugin/base_motion_head.py": {
+        "sha256": "f71492ca1304af2bb2b9c62c57378d33a0b8f88ed7270006d731652ca660728c",
+        "bytes": 5863,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/dense_heads/motion_head_plugin/modules.py": {
+        "sha256": "a81611d3006cd4b7e1b3f973963a8941e31cedfe06f15dfd909475f1bf18653b",
+        "bytes": 12650,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/dense_heads/motion_head_plugin/motion_deformable_attn.py": {
+        "sha256": "f779fc6426e34c18bda0d828b669b40914040902390cc663b61a34635026a656",
+        "bytes": 28877,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/dense_heads/motion_head_plugin/motion_optimization.py": {
+        "sha256": "b0c4a5467af2863693a7e6b3ada3bfc5d5b2aa7ccf459f9245e85d7aa6d7b79d",
+        "bytes": 9405,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/dense_heads/motion_head_plugin/motion_utils.py": {
+        "sha256": "9809ea57428ac649c0b484d573dbcee714c30e830c57ca84b0dbb1bd4384a5d9",
+        "bytes": 5066,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/dense_heads/occ_head.py": {
+        "sha256": "d91ff1e6b11d51a4e083a876ba409ad48c91cf38940566f19fa1bb1e6956bc05",
+        "bytes": 19689,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/dense_heads/occ_head_plugin/__init__.py": {
+        "sha256": "3a529b7c4e1da821e8ea97bc0db551912c33f3e960be07c48f67949f42c800d8",
+        "bytes": 66,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/dense_heads/occ_head_plugin/metrics.py": {
+        "sha256": "099f4bbbce7407ecd71104acecf80d60698f63ea88ff5fff3ea660dc9988ab8d",
+        "bytes": 11836,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/dense_heads/occ_head_plugin/modules.py": {
+        "sha256": "1d04e9bd1ece442b456f95ef93496c0d14adb95de78bb93d057e1f4528835c01",
+        "bytes": 12539,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/dense_heads/occ_head_plugin/utils.py": {
+        "sha256": "2782a657dfe3410c2703969e41cc40e73e1b3766cbdc665b70d3848b68af00a6",
+        "bytes": 3521,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/dense_heads/panseg_head.py": {
+        "sha256": "68627dff1f7f459600730e73c856ab93abe79116d14c9be77b0b9d40aa934616",
+        "bytes": 61184,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/dense_heads/planning_head.py": {
+        "sha256": "dfe18db4cd8c89808f22d3bfc3db4d2dd544c465bfb8d71b10c489459041b459",
+        "bytes": 11377,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/dense_heads/planning_head_plugin/__init__.py": {
+        "sha256": "4c3850ab3203c9eb17c148fcdc09e05dd8584e86e177b40c3fb153a35d692b82",
+        "bytes": 69,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/dense_heads/planning_head_plugin/collision_optimization.py": {
+        "sha256": "4aabdc6772953d5dd6ad31e1923a628a3c14b8cb085ad92eb8a95ea2cdf532c3",
+        "bytes": 4891,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/dense_heads/planning_head_plugin/planning_metrics.py": {
+        "sha256": "e446b182dd5116cd1715f1b6a9dd9057c7a308b32678f24456e710895247f968",
+        "bytes": 5884,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/dense_heads/seg_head_plugin/__init__.py": {
+        "sha256": "163200bbbfeaf1e3e5242096aa714a95bcaa9b7dd236057a93e24dd518752720",
+        "bytes": 195,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/dense_heads/seg_head_plugin/seg_assigner.py": {
+        "sha256": "180a74162dd1fcc39ba939b8e76f8c674e0f852020ef00c2e9fdf2b620730ee3",
+        "bytes": 17733,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/dense_heads/seg_head_plugin/seg_deformable_transformer.py": {
+        "sha256": "a1da1ef74c4cd7bc5a79188f70f0196f65157b6e9ce56c274e4e5fe1c03d42e7",
+        "bytes": 17181,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/dense_heads/seg_head_plugin/seg_detr_head.py": {
+        "sha256": "d1b20cd0ac186246fb7c05c4d9889ad434dc2c5d59d36979c576368b8b24bc5d",
+        "bytes": 32589,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/dense_heads/seg_head_plugin/seg_mask_head.py": {
+        "sha256": "de5ea6a8cc6ff873a2d67aed034b4bc123012256228ed73ffc62c800a15ee922",
+        "bytes": 14211,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/dense_heads/seg_head_plugin/seg_utils.py": {
+        "sha256": "7e768eaf182478bf4dc814fdafa9452aea9ff058e1b1e4c0ff84193f7260f274",
+        "bytes": 259,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/dense_heads/track_head.py": {
+        "sha256": "a832843401a6e7ef049fa5ae81e0ae92ab1ec66745af0be71aae703d7accbfdc",
+        "bytes": 23675,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/dense_heads/track_head_plugin/__init__.py": {
+        "sha256": "de21c98b96ea4c470a23dd41520d11ff6be37891b65e672775d42a84db239ad3",
+        "bytes": 133,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/dense_heads/track_head_plugin/modules.py": {
+        "sha256": "3bd89917bf4e0ec9a08160a68a81b2e236bbff191f77406d1287a83855ef6edb",
+        "bytes": 10623,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/dense_heads/track_head_plugin/track_instance.py": {
+        "sha256": "b8fcc1c9fb970c8eb9fd7dd79384b20e211c5a4ac538afad3ec5814bb5a6f54e",
+        "bytes": 7076,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/dense_heads/track_head_plugin/tracker.py": {
+        "sha256": "bfa2dd0f5027c12ee0c61a123559e91dc27b11727a2b81ac9f44fbd9df4db702",
+        "bytes": 2150,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/detectors/__init__.py": {
+        "sha256": "3b39a5555915bc5463eeed453a8cbb6e36d6d67638b4f57dbb13e34eefa5be54",
+        "bytes": 28,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/detectors/uniad_e2e.py": {
+        "sha256": "e037a95c8e4e27a1ac20b04e120b5615f9b196ca088cab8eac2446b1d0fe865b",
+        "bytes": 17102,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/detectors/uniad_track.py": {
+        "sha256": "514eae2645e44625097b02c9c13353a30f5ec1d234983e990cffc5b6a648f23b",
+        "bytes": 33639,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/hooks/__init__.py": {
+        "sha256": "e4ca0395d60c1f72df6e680c40d1732e4f2823acbe1fc6c5ec3299a4b72ba20e",
+        "bytes": 40,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/hooks/custom_hooks.py": {
+        "sha256": "b241ba529a61c7ef5984dd367fc42a93ec4ed8254508644b37d8fb3a1ce6305e",
+        "bytes": 386,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/modules/__init__.py": {
+        "sha256": "d274a1013e286022eb480cf320ddfcec7b6895e7fb263e2249a437a8baeac321",
+        "bytes": 300,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/modules/custom_base_transformer_layer.py": {
+        "sha256": "cf443581760c25d9dd891fc570269e2d0f38e5ca979c78b8cea5c487b3e42585",
+        "bytes": 10546,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/modules/decoder.py": {
+        "sha256": "f6d270db1f5c6dc8751c9ca97effc534eb38e1daf14bc2d83eb9df06a3a41d91",
+        "bytes": 14536,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/modules/encoder.py": {
+        "sha256": "9a4cecc2c7015aa4c2be7f7dbda2a0a1a318b12e89ca308d8abda36eb64c9410",
+        "bytes": 16845,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/modules/multi_scale_deformable_attn_function.py": {
+        "sha256": "4ae517761d3f4d362a05722c134e2f005315dc3df41c4e5551eafe7757a57ccb",
+        "bytes": 6283,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/modules/spatial_cross_attention.py": {
+        "sha256": "2667bdcd38bf579ab87b005511e6741ecc3c5db16637a30eb0e7eb9dc7f57ec7",
+        "bytes": 17881,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/modules/temporal_self_attention.py": {
+        "sha256": "b69c6849d535fa1f815dbc7a182c9778d72bff0debfa0df1ac2e65304d44684a",
+        "bytes": 12050,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/projects/mmdet3d_plugin/uniad/modules/transformer.py": {
+        "sha256": "cffd73d5a7a8e43f3294e02ac36547bd552aaf732832a64dfdd150412079515d",
+        "bytes": 9213,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/requirements.txt": {
+        "sha256": "72677affe70e54eb9d29f43d30b53b5ff155b2ca5cf205fcb5abe8e5b6fae6bc",
+        "bytes": 106,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/sources/legend.png": {
+        "sha256": "499f1a3256726be08ad4a45de886bef279d989ba044d5ac42e298707dad964af",
+        "bytes": 45656,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/sources/pipeline.png": {
+        "sha256": "a00580c3f7eaaa2603d91e2dfaa86b23ed7a44eeb3fc3079fded860e620d3c89",
+        "bytes": 99830,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/sources/sdc_car.png": {
+        "sha256": "a9e3d889ddb5e8d5c87d877d8452ac6d523c506a2df4cbfcd7d4c45757cbb1d4",
+        "bytes": 212817,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/sources/template.png": {
+        "sha256": "d6e49555e05bcc62524aef564f502483dfa66706b5dfd3514d72871f174cea5d",
+        "bytes": 147831,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/tools/analysis_tools/__init__.py": {
+        "status": "unavailable",
+        "bytes": null,
+        "sha256": null,
+        "role": "runtime_source",
+        "reason": "ContractError:asset_type_or_size"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/tools/analysis_tools/analyze_logs.py": {
+        "sha256": "35c6b2b264bfe3453096eb9473f747744b24c5bb98c2d67377c06a1b9fed13e0",
+        "bytes": 7468,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/tools/analysis_tools/benchmark.py": {
+        "sha256": "95ab55996cf081ada0766e32cf9d75d90959b0caddfb3189254b3788b3f9b3f6",
+        "bytes": 3245,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/tools/analysis_tools/visualize/mini_run.py": {
+        "sha256": "1085f7d8dfd81b2a46a6772d0454efe6ddf540af738420f93eee8128e6a38dc9",
+        "bytes": 12028,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/tools/analysis_tools/visualize/render/base_render.py": {
+        "sha256": "51387f4d0a6791f0a983761fa3f3b4c59571f503e96bec32b9bdaa515faca82e",
+        "bytes": 821,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/tools/analysis_tools/visualize/render/bev_render.py": {
+        "sha256": "e16048039a7e943ff534fbf98ff8f6d17ba0c8c392cc3803a0d300a9069765d7",
+        "bytes": 12634,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/tools/analysis_tools/visualize/render/cam_render.py": {
+        "sha256": "f554ab9670b6aa96d6bd4a3a0d961296d0cce5d9afcd2364dfc9074d5b50f5f6",
+        "bytes": 16281,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/tools/analysis_tools/visualize/run.py": {
+        "sha256": "31d402ef7ab1a18b30f1b3e0929cfc55c58ba0fd87f44cc852f251a2628c1288",
+        "bytes": 13962,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/tools/analysis_tools/visualize/utils.py": {
+        "sha256": "4ed0588b2bf255e258f32129fd6b92280c7cd4edb3266c41d950ad1727c1c3a3",
+        "bytes": 3208,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/tools/closeloop/dataparser.py": {
+        "sha256": "c30c9c231c08bfa1c321e277a39406715a0411950d0cbeafe4a93c7620e3c7c7",
+        "bytes": 3422,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/tools/closeloop/e2e.py": {
+        "sha256": "23cce8a2a559b60dc3de394ba890a28adc13b5b24d222936478dad6f83f9aea3",
+        "bytes": 17111,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/tools/closeloop/visualizer.py": {
+        "sha256": "5cdb0d1f967158862be2af28fff549b505fe1d855e01969bca21b7ca10a37c1a",
+        "bytes": 7836,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/tools/create_data.py": {
+        "sha256": "b0d21b3c821b22238efd57317f0997b83d0370ef96473d6abd9ef5454f5555bc",
+        "bytes": 3939,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/tools/data_converter/__init__.py": {
+        "sha256": "3977d5ce6a7f8d8b9c01b0daa82c17214e4f3b1520320349ce34140916192c13",
+        "bytes": 48,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/tools/data_converter/uniad_nuscenes_converter.py": {
+        "sha256": "b3ffdc37a5fd4a7ea9e61f8f41ab1675f4d2f9007b76017864fe1e8fc3f8864f",
+        "bytes": 28822,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/tools/e2e.sh": {
+        "sha256": "8b404adcbc7fea328a5fbbd10c5256656444739b3af79ca26676a45464471aa7",
+        "bytes": 923,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/tools/infer.py": {
+        "sha256": "e678c741fd03115b00b09c574a9e709b158af6d9cb369edf29e622310b61c42f",
+        "bytes": 10501,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/tools/test.py": {
+        "sha256": "604d9bff38a000b9effc28a8ec17364558eaf3628d1e6896acaf9d3ea12163f1",
+        "bytes": 10256,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/tools/train.py": {
+        "sha256": "16f79532d27f0950de919b80f91734f07d7e4c17a1486867f4607ef469fcab9b",
+        "bytes": 9842,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/tools/uniad_create_data.sh": {
+        "sha256": "c2320fdb9624e79f9355085d55a3b6045f614d22eacd0869b93b0364045a6ded",
+        "bytes": 231,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/tools/uniad_dist_eval.sh": {
+        "sha256": "f8077704fa78fdc2d5572ccc0558bc1a159cc7ad5f54b73d895ee38343fe1926",
+        "bytes": 992,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/tools/uniad_dist_train.sh": {
+        "sha256": "3547125fe2f344e988cfc7b64fd53ac233ef4b0ac85bac1a9ce30fce1fc1bc39",
+        "bytes": 1088,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/tools/uniad_slurm_eval.sh": {
+        "sha256": "dba7cbc7b1c7dcb53d2d92485e6d86a5e2d5493fe7f93165fe67fe59fc7c6d7e",
+        "bytes": 1229,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/tools/uniad_slurm_train.sh": {
+        "sha256": "c477ec09fd56a0783dfd117f632d69a51e565252399b01b19219175ed606a677",
+        "bytes": 1153,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/UniAD_SIM/tools/uniad_vis_result.sh": {
+        "sha256": "d29875eb62016fb2dc26b9a6d6faad9f3f0fe06cf5fae4d8458b08b5954aa652",
+        "bytes": 228,
+        "status": "observed",
+        "role": "runtime_source"
+      },
+      "/opt/sentinel-stack/hugsim-shim/sitecustomize.py": {
+        "sha256": "5bf69a1187478c52d49792d5871bd5732c6dd431ecd1f44b5e391f7adb80682c",
+        "bytes": 1489,
+        "status": "observed",
+        "role": "runtime_source"
+      }
+    },
+    "scenarios": {
+      "scene-0013-easy-00.yaml": {
+        "sha256": "22d30c2a3dadf59451ff3704b50c412fb6fa74d261ee96dd4e6bf17c9a064735",
+        "dependencies": [
+          "/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0013-easy-00.yaml",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/cfg.yaml",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/scene.pth",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/ground_param.pkl"
+        ],
+        "controller_types": [],
+        "unresolved_dependencies": []
+      },
+      "scene-0013-extreme-00.yaml": {
+        "sha256": "7b4b374bda9c9520114c9fdcb8ce8f3f91686dc9c0caacc261838ae4fe2a3442",
+        "dependencies": [
+          "/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0013-extreme-00.yaml",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/cfg.yaml",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/scene.pth",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/ground_param.pkl",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_16_38/postprocess/shadow.pth/gs.pth",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_16_38/postprocess/shadow.pth/wlh.json"
+        ],
+        "controller_types": [
+          "AttackPlanner"
+        ],
+        "unresolved_dependencies": [
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_16_38/postprocess/shadow.pth/gs.pth",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_16_38/postprocess/shadow.pth/wlh.json"
+        ]
+      },
+      "scene-0013-hard-00.yaml": {
+        "sha256": "6947a5381c09485f20d5fed55eef2406d868ce047bdd44864aad81902f54e48e",
+        "dependencies": [
+          "/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0013-hard-00.yaml",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/cfg.yaml",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/scene.pth",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/ground_param.pkl",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_42_06/postprocess/shadow.pth/gs.pth",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_42_06/postprocess/shadow.pth/wlh.json"
+        ],
+        "controller_types": [
+          "IDM"
+        ],
+        "unresolved_dependencies": [
+          "HD_map_and_route_cache_manifest_required",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_42_06/postprocess/shadow.pth/gs.pth",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_09_04_42_06/postprocess/shadow.pth/wlh.json"
+        ]
+      },
+      "scene-0013-medium-00.yaml": {
+        "sha256": "162bd65e0fa40d6f46a992063da665f858ccf78b00879b0a34fdfc76103a2401",
+        "dependencies": [
+          "/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0013-medium-00.yaml",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/cfg.yaml",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/scene.pth",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0013/ground_param.pkl",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_06_00_52/postprocess/shadow.pth/gs.pth",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_06_00_52/postprocess/shadow.pth/wlh.json"
+        ],
+        "controller_types": [
+          "ConstantPlanner"
+        ],
+        "unresolved_dependencies": [
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_06_00_52/postprocess/shadow.pth/gs.pth",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_07_06_00_52/postprocess/shadow.pth/wlh.json"
+        ]
+      },
+      "scene-0038-easy-00.yaml": {
+        "sha256": "275066a06afb7a909748739e28de0eabc3d8c711d8c73f8769225a959ac5c3d5",
+        "dependencies": [
+          "/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0038-easy-00.yaml",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/cfg.yaml",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/scene.pth",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/ground_param.pkl"
+        ],
+        "controller_types": [],
+        "unresolved_dependencies": []
+      },
+      "scene-0038-extreme-00.yaml": {
+        "sha256": "ee3dafac4a7c8505829192906d4b39ad48cfed95d0e0fbebda64d86b99708776",
+        "dependencies": [
+          "/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0038-extreme-00.yaml",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/cfg.yaml",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/scene.pth",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/ground_param.pkl",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_20_29/postprocess/shadow.pth/gs.pth",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_20_29/postprocess/shadow.pth/wlh.json",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_02_48/postprocess/shadow.pth/gs.pth",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_02_48/postprocess/shadow.pth/wlh.json"
+        ],
+        "controller_types": [
+          "AttackPlanner",
+          "ConstantPlanner"
+        ],
+        "unresolved_dependencies": [
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_20_29/postprocess/shadow.pth/gs.pth",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_14_20_29/postprocess/shadow.pth/wlh.json",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_02_48/postprocess/shadow.pth/gs.pth",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_02_48/postprocess/shadow.pth/wlh.json"
+        ]
+      },
+      "scene-0038-hard-00.yaml": {
+        "sha256": "5e1dafedccdde485834d5809dee2fcd3cc0b5c31f7315e454d6b4bd8b04b146d",
+        "dependencies": [
+          "/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0038-hard-00.yaml",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/cfg.yaml",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/scene.pth",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/ground_param.pkl",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_13_43/postprocess/shadow.pth/gs.pth",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_13_43/postprocess/shadow.pth/wlh.json"
+        ],
+        "controller_types": [
+          "ConstantPlanner"
+        ],
+        "unresolved_dependencies": [
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_13_43/postprocess/shadow.pth/gs.pth",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_13_43/postprocess/shadow.pth/wlh.json"
+        ]
+      },
+      "scene-0038-medium-00.yaml": {
+        "sha256": "fb18b473300b9373e089fb0656caf533e6920de3314df4e6703b04cdb30d08c4",
+        "dependencies": [
+          "/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0038-medium-00.yaml",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/cfg.yaml",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/scene.pth",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/ground_param.pkl",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_02_48/postprocess/shadow.pth/gs.pth",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_02_48/postprocess/shadow.pth/wlh.json"
+        ],
+        "controller_types": [
+          "ConstantPlanner"
+        ],
+        "unresolved_dependencies": [
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_02_48/postprocess/shadow.pth/gs.pth",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_02_48/postprocess/shadow.pth/wlh.json"
+        ]
+      },
+      "scene-0038-medium-01.yaml": {
+        "sha256": "cbc56796e802e964bca700662f34c77fb2500ee8ee32225820276521d4a230e2",
+        "dependencies": [
+          "/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0038-medium-01.yaml",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/cfg.yaml",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/scene.pth",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0038/ground_param.pkl",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_13_43/postprocess/shadow.pth/gs.pth",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_13_43/postprocess/shadow.pth/wlh.json"
+        ],
+        "controller_types": [
+          "ConstantPlanner"
+        ],
+        "unresolved_dependencies": [
+          "HD_map_and_route_cache_manifest_required",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_13_43/postprocess/shadow.pth/gs.pth",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_16_13_43/postprocess/shadow.pth/wlh.json"
+        ]
+      },
+      "scene-0041-easy-00.yaml": {
+        "sha256": "0d6f403dacf5f9f5b069f4fa9009e60dc0a8d76bb52d0843e18de63926d57756",
+        "dependencies": [
+          "/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0041-easy-00.yaml",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0041/cfg.yaml",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0041/scene.pth",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0041/ground_param.pkl"
+        ],
+        "controller_types": [],
+        "unresolved_dependencies": []
+      },
+      "scene-0041-extreme-00.yaml": {
+        "sha256": "7d186ac9491de1cc3aab58a3a636ab0eb00088179f68d8a563214aaada3aa8af",
+        "dependencies": [
+          "/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0041-extreme-00.yaml",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0041/cfg.yaml",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0041/scene.pth",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0041/ground_param.pkl",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_31_52/postprocess/shadow.pth/gs.pth",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_31_52/postprocess/shadow.pth/wlh.json",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_51_10/postprocess/shadow.pth/gs.pth",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_51_10/postprocess/shadow.pth/wlh.json"
+        ],
+        "controller_types": [
+          "AttackPlanner",
+          "ConstantPlanner"
+        ],
+        "unresolved_dependencies": [
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_31_52/postprocess/shadow.pth/gs.pth",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_31_52/postprocess/shadow.pth/wlh.json",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_51_10/postprocess/shadow.pth/gs.pth",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_51_10/postprocess/shadow.pth/wlh.json"
+        ]
+      },
+      "scene-0041-hard-00.yaml": {
+        "sha256": "ac8c82778713aecf6f9b1af9dbe646f51db5bde7a15b124a24f2f733e11cb1fa",
+        "dependencies": [
+          "/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0041-hard-00.yaml",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0041/cfg.yaml",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0041/scene.pth",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0041/ground_param.pkl",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_06_01/postprocess/shadow.pth/gs.pth",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_06_01/postprocess/shadow.pth/wlh.json",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_51_10/postprocess/shadow.pth/gs.pth",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_51_10/postprocess/shadow.pth/wlh.json"
+        ],
+        "controller_types": [
+          "AttackPlanner",
+          "ConstantPlanner"
+        ],
+        "unresolved_dependencies": [
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_06_01/postprocess/shadow.pth/gs.pth",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_10_06_01/postprocess/shadow.pth/wlh.json",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_51_10/postprocess/shadow.pth/gs.pth",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_51_10/postprocess/shadow.pth/wlh.json"
+        ]
+      },
+      "scene-0041-medium-00.yaml": {
+        "sha256": "276024f3a668b64262829eecff89f27b9b318e32d71a85fdf5ccfbfa4f58d564",
+        "dependencies": [
+          "/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0041-medium-00.yaml",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0041/cfg.yaml",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0041/scene.pth",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0041/ground_param.pkl",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_51_10/postprocess/shadow.pth/gs.pth",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_51_10/postprocess/shadow.pth/wlh.json"
+        ],
+        "controller_types": [
+          "ConstantPlanner"
+        ],
+        "unresolved_dependencies": [
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_51_10/postprocess/shadow.pth/gs.pth",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_02_13_51_10/postprocess/shadow.pth/wlh.json"
+        ]
+      },
+      "scene-0041-medium-01.yaml": {
+        "sha256": "3f082023ffc6d117897cb342c8e0b09d638579c84389e8beb30f9e224d2c5f93",
+        "dependencies": [
+          "/datasets/nuscenes-full/hugsim/extracted/scenarios/nuscenes/scene-0041-medium-01.yaml",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0041/cfg.yaml",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0041/scene.pth",
+          "/datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes/scene-0041/ground_param.pkl",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_25_32/postprocess/shadow.pth/gs.pth",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_25_32/postprocess/shadow.pth/wlh.json"
+        ],
+        "controller_types": [
+          "ConstantPlanner"
+        ],
+        "unresolved_dependencies": [
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_25_32/postprocess/shadow.pth/gs.pth",
+          "/datasets/nuscenes-full/hugsim/3DRealCar/2024_07_05_11_25_32/postprocess/shadow.pth/wlh.json"
+        ]
+      }
+    },
+    "roles": [
+      "camera_config",
+      "ground",
+      "kinematic_config",
+      "planner_checkpoint",
+      "runtime_source",
+      "scenario",
+      "scene",
+      "scene_config"
+    ],
+    "image_id": "sha256:2fc5cd574b7510c813fecee64d5568fddec8255a4b638dbca758b67696cb1d14",
+    "status": "blocked",
+    "verdict": "ASSET_CLOSURE_UNAVAILABLE",
+    "reason": "runtime_or_asset_unavailable"
+  },
+  "free_gib": 109.2550048828125
+}

@@ -1,0 +1,9 @@
+import subprocess,json,time,shutil
+from pathlib import Path
+packet=Path('/datasets/nuscenes-full/hugsim/iter145_control_20261010/inspection_packet')
+argv=['/opt/sentinel-stack/HUGSIM/.pixi/envs/default/bin/python','-m','experiments.iter145_constrained_execution.assets','--inventory',str(packet/'experiments/iter143_model_contract/proof/case_inventory.json'),'--runtime-files',str(packet/'expected_runtime.json'),'--image-id','sha256:2fc5cd574b7510c813fecee64d5568fddec8255a4b638dbca758b67696cb1d14','--output',str(packet.parent/'asset_inventory.json')]
+start=time.time();r=subprocess.run(argv,cwd=packet,capture_output=True,text=True,timeout=600)
+report=dict(argv=argv,returncode=r.returncode,stdout=r.stdout,stderr=r.stderr,elapsed_seconds=time.time()-start)
+if (packet.parent/'asset_inventory.json').exists():report['inventory']=json.loads((packet.parent/'asset_inventory.json').read_text())
+report['free_gib']=shutil.disk_usage('/datasets/nuscenes-full').free/2**30
+print(json.dumps(report,indent=2))

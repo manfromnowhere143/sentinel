@@ -1,0 +1,11 @@
+{
+  "start_epoch": 1791612699.694116,
+  "deadline_epoch": 1791614499.694116,
+  "max_seconds": 1800,
+  "max_compute_usd": 1.5,
+  "hourly_upper_usd": 3.0,
+  "capacity_attempts": 1,
+  "live_smoke_attempts": 0,
+  "local_free_gib": 19.444297790527344,
+  "source_commit": "ae29d5f83f7b021c735bdf0af914bfc4bd132ee6"
+}
