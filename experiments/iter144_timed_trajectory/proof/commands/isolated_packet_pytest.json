@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "python3",
+    "-m",
+    "pytest",
+    "-q",
+    "-c",
+    "/dev/null",
+    "-p",
+    "no:cacheprovider",
+    "tests/test_iter144_timed_trajectory.py"
+  ],
+  "cwd": "/Users/danielwahnich/sentinel-bootstrap-evidence/iter144-timed-trajectory-20261010/committed_source",
+  "start_utc": "2026-10-10T05:33:38.023121+00:00",
+  "elapsed_seconds": 2.941823959350586,
+  "returncode": 0
+}

@@ -1,0 +1,19 @@
+{
+  "argv": [
+    "env",
+    "PYTHONPATH=/Users/danielwahnich/sentinel-bootstrap-evidence/iter144-timed-trajectory-20261010/committed_source",
+    "python3",
+    "-m",
+    "pytest",
+    "-q",
+    "-c",
+    "/dev/null",
+    "-p",
+    "no:cacheprovider",
+    "/Users/danielwahnich/sentinel-bootstrap-evidence/iter144-timed-trajectory-20261010/committed_source/tests/test_iter144_timed_trajectory.py"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-10T05:33:25.635240+00:00",
+  "elapsed_seconds": 3.207947015762329,
+  "returncode": 0
+}
