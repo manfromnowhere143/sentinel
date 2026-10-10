@@ -1,0 +1,22 @@
+{
+  "status": "supported",
+  "source_commit": "7fdb3c5fa9b698e08fedf0f2184dab25a7c495eb",
+  "test_receipt": "commands/pre_gpu_tests.json",
+  "tests": 129,
+  "warnings": 40,
+  "environment": "ambient macOS CPU Python; GPU runtime preflight separate",
+  "files": {
+    "tests/test_iter147_full_horizon_execution.py": "11e76d05db677e38b56fc0cdd51e09281c7051088649002afeb1e66d1a0dd01c",
+    "tests/test_iter146_route_outcome_contract.py": "47ec6ac94db7697cecc5390266597533f21ee9b36d6728e491a4c81012ba45c1",
+    "experiments/iter147_full_horizon_execution/gpu_check.py": "39556e6af844272f4f0324f3166b631d84439d25eaac47bf055a9f7ac6cb8a9e",
+    "experiments/iter147_full_horizon_execution/coordinator.py": "12533797ef506fe8354932a74c42b4ec65fdaff10d29ae606086cedce745b404",
+    "experiments/iter147_full_horizon_execution/monitor.py": "1d7b0257a16adf7f4d8a352ffccb47c645ce4de3f4f9e2392cb658dc657dbdb8",
+    "experiments/iter147_full_horizon_execution/local.py": "dee11425c211480535f2bfcfe30372dcf6d90663c54b655be3e7f84c71ce1c97",
+    "experiments/iter147_full_horizon_execution/protocol.py": "417e8e661eb5103485624660fe84dfb655001c77230fd7b1ac97bce29d6141b6",
+    "experiments/iter147_full_horizon_execution/client.py": "2e73020d8c8ca06aeab4342111b04dd348846f67a3ec83273b75e9849fbfc90e",
+    "experiments/iter147_full_horizon_execution/resources.py": "2ed886a7db7ba265c9c9a92e8330a31c84cee04e13621258d4f0ff1833a334cb",
+    "experiments/iter147_full_horizon_execution/gpu.py": "d844f57eebfd0a2db5c64fc9bbd2a4be65902787b7b31bd91497449c2a6daab4",
+    "experiments/iter147_full_horizon_execution/pair.py": "9da7a54e31ae66de98c04f37ad11c8559ea5e916fbf9453e669ae4af9efe875f",
+    "experiments/iter147_full_horizon_execution/fixtures.py": "3485032e87ab9ae4b83bafb32258c9751a3bcaf0eda0ef99c596204d742d1d6f"
+  }
+}

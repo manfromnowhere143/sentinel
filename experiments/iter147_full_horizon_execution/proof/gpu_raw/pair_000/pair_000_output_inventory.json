@@ -1,0 +1,134 @@
+{
+  "files": {
+    "runs/qualification_000__scene-0013-easy-00__monitor__1/client.log": {
+      "sha256": "1e136ec2f134be7b48ce803b48669853920cda480eb28c03289bff2bb26aab09",
+      "bytes": 53846
+    },
+    "runs/qualification_000__scene-0013-easy-00__monitor__1/delivery145.jsonl": {
+      "sha256": "5bac2bba566ccf22f4f41332efe74f78c06da87bfd5c624b6da9f7d37491a50f",
+      "bytes": 605966
+    },
+    "runs/qualification_000__scene-0013-easy-00__monitor__1/diagnostic_inputs.jsonl": {
+      "sha256": "a3ac2b33c1a71b6a317d11ca1d19c015c55daba6db5a83432ef23773b7d8c302",
+      "bytes": 85742
+    },
+    "runs/qualification_000__scene-0013-easy-00__monitor__1/ground.ply": {
+      "sha256": "401c1da8c3d8bce2c4f117a0ab66932cfb33e60bd974d95c6cf10e43bb0d3a8e",
+      "bytes": 6722213
+    },
+    "runs/qualification_000__scene-0013-easy-00__monitor__1/parent.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "runs/qualification_000__scene-0013-easy-00__monitor__1/scene.ply": {
+      "sha256": "756ce791962d60526c9470229b003eb0b60e9be31783ce009cddca17ab5d5f26",
+      "bytes": 31674942
+    },
+    "runs/qualification_000__scene-0013-easy-00__monitor__1/sentinel_iter48_decisions.jsonl": {
+      "sha256": "710542f77792a6beaa6cf8188c12177ceb3e486a7f4810441aec2cb1a4159f42",
+      "bytes": 391193
+    },
+    "runs/qualification_000__scene-0013-easy-00__monitor__1/trace/events.jsonl": {
+      "sha256": "9a986f88b88b9a6c23cae06a74027df1093186ccf6558fe0489debaa96dd5d6b",
+      "bytes": 6569023
+    },
+    "runs/qualification_000__scene-0013-easy-00__monitor__1/trace/started.json": {
+      "sha256": "9929489728efe5ff2c7ad82a670e6cf8f8ba4c0ad70b8aeda1a5123da8236868",
+      "bytes": 595
+    },
+    "runs/qualification_000__scene-0013-easy-00__monitor__1/trace/summary.json": {
+      "sha256": "7014faac132ad8120b6cd6013187d0ef90bf60eca212f4c9ae7037384131f2ae",
+      "bytes": 99012
+    },
+    "runs/qualification_000__scene-0013-easy-00__monitor__1/worker.json": {
+      "sha256": "17c6e150d0ab5c55bab1b66971b2835551bca1e17ea7b10b9f3d45b675178d69",
+      "bytes": 733749
+    },
+    "runs/qualification_000__scene-0013-easy-00__monitor__1/worker_started.json": {
+      "sha256": "9f03f9c8f6ee363e617dd1bf04e366ab01160dfbedfc3d830200ee5f41197b4d",
+      "bytes": 582
+    },
+    "runs/qualification_001__scene-0013-easy-00__monitor__2/client.log": {
+      "sha256": "4b894db882c2f144d3557b7729bd0649db636d0f05286384c300852552bd9d5e",
+      "bytes": 53846
+    },
+    "runs/qualification_001__scene-0013-easy-00__monitor__2/delivery145.jsonl": {
+      "sha256": "e3b5e1f847d7d4bbe554faf41db070cf33b59d31b547e3c3e3297a701ca0aa33",
+      "bytes": 605966
+    },
+    "runs/qualification_001__scene-0013-easy-00__monitor__2/diagnostic_inputs.jsonl": {
+      "sha256": "a3ac2b33c1a71b6a317d11ca1d19c015c55daba6db5a83432ef23773b7d8c302",
+      "bytes": 85742
+    },
+    "runs/qualification_001__scene-0013-easy-00__monitor__2/ground.ply": {
+      "sha256": "401c1da8c3d8bce2c4f117a0ab66932cfb33e60bd974d95c6cf10e43bb0d3a8e",
+      "bytes": 6722213
+    },
+    "runs/qualification_001__scene-0013-easy-00__monitor__2/parent.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "runs/qualification_001__scene-0013-easy-00__monitor__2/scene.ply": {
+      "sha256": "756ce791962d60526c9470229b003eb0b60e9be31783ce009cddca17ab5d5f26",
+      "bytes": 31674942
+    },
+    "runs/qualification_001__scene-0013-easy-00__monitor__2/sentinel_iter48_decisions.jsonl": {
+      "sha256": "710542f77792a6beaa6cf8188c12177ceb3e486a7f4810441aec2cb1a4159f42",
+      "bytes": 391193
+    },
+    "runs/qualification_001__scene-0013-easy-00__monitor__2/trace/events.jsonl": {
+      "sha256": "d4ce05a53a36433aafb469b66eaabfa85c0ce6ad9c2e8a402fcdfd67ee347e31",
+      "bytes": 6569027
+    },
+    "runs/qualification_001__scene-0013-easy-00__monitor__2/trace/started.json": {
+      "sha256": "c2662f33bdbb45ce9016b2e78c2cfafe54693d66822c5e7204051e9aa4c03fa8",
+      "bytes": 595
+    },
+    "runs/qualification_001__scene-0013-easy-00__monitor__2/trace/summary.json": {
+      "sha256": "2fd8e0f5283fee498bb8ffe71a27cd37a7b2686bd9078ad1a8e2caf13e86f605",
+      "bytes": 99003
+    },
+    "runs/qualification_001__scene-0013-easy-00__monitor__2/worker.json": {
+      "sha256": "063e48c2c40b1961ec8243c7a63948cf302a873016e06a5f9888e062eb61f854",
+      "bytes": 733735
+    },
+    "runs/qualification_001__scene-0013-easy-00__monitor__2/worker_started.json": {
+      "sha256": "c1a94276f82756153a4ca3f0d429cf8eb74d973be10981c8cad494e9f83c4b88",
+      "bytes": 582
+    }
+  },
+  "total_bytes": 93873707,
+  "selected_files": [
+    "runs/qualification_000__scene-0013-easy-00__monitor__1/client.log",
+    "runs/qualification_000__scene-0013-easy-00__monitor__1/delivery145.jsonl",
+    "runs/qualification_000__scene-0013-easy-00__monitor__1/diagnostic_inputs.jsonl",
+    "runs/qualification_000__scene-0013-easy-00__monitor__1/parent.log",
+    "runs/qualification_000__scene-0013-easy-00__monitor__1/sentinel_iter48_decisions.jsonl",
+    "runs/qualification_000__scene-0013-easy-00__monitor__1/trace/events.jsonl",
+    "runs/qualification_000__scene-0013-easy-00__monitor__1/trace/started.json",
+    "runs/qualification_000__scene-0013-easy-00__monitor__1/trace/summary.json",
+    "runs/qualification_000__scene-0013-easy-00__monitor__1/worker.json",
+    "runs/qualification_000__scene-0013-easy-00__monitor__1/worker_started.json",
+    "runs/qualification_001__scene-0013-easy-00__monitor__2/client.log",
+    "runs/qualification_001__scene-0013-easy-00__monitor__2/delivery145.jsonl",
+    "runs/qualification_001__scene-0013-easy-00__monitor__2/diagnostic_inputs.jsonl",
+    "runs/qualification_001__scene-0013-easy-00__monitor__2/parent.log",
+    "runs/qualification_001__scene-0013-easy-00__monitor__2/sentinel_iter48_decisions.jsonl",
+    "runs/qualification_001__scene-0013-easy-00__monitor__2/trace/events.jsonl",
+    "runs/qualification_001__scene-0013-easy-00__monitor__2/trace/started.json",
+    "runs/qualification_001__scene-0013-easy-00__monitor__2/trace/summary.json",
+    "runs/qualification_001__scene-0013-easy-00__monitor__2/worker.json",
+    "runs/qualification_001__scene-0013-easy-00__monitor__2/worker_started.json",
+    "deployment_report.json",
+    "e2e147.py",
+    "execution_manifest.json",
+    "nuscenes_base.yaml",
+    "pair_000_clearance.json",
+    "pair_000_entry.log",
+    "pair_000_launch.json",
+    "pair_000_result.json",
+    "pair_000_started.json",
+    "plan.json"
+  ],
+  "derived_content": "PLY retained on stopped host with complete hashes; display images disabled prospectively."
+}

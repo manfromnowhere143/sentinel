@@ -1,0 +1,12 @@
+import json,subprocess,os,hashlib,sys,time
+from pathlib import Path
+c=Path('/datasets/nuscenes-full/hugsim/iter147_gpu_20261010');raw='{"manifest_sha256": "2c7dcb60e51c2b3bee595a733227a91d47896c21ece73e83a7fe695fd8ed7f6a", "pair": 0, "plan_sha256": "731ffa4afc533b6bb574416178db50b8c22a9fb800adece61aed7f099d1bce44", "previous": null, "status": "supported"}'.encode();assert hashlib.sha256(raw).hexdigest()=='6afde36d9bc0c4168225f66ed1debb0c66a1bc5b0935e66e64095ec3440628eb'
+with (c/('pair_000'+'_clearance.json')).open('xb') as f:f.write(raw)
+assert hashlib.sha256((c/'execution_manifest.json').read_bytes()).hexdigest()=='2c7dcb60e51c2b3bee595a733227a91d47896c21ece73e83a7fe695fd8ed7f6a'
+for argv in [['docker','ps','-q'],['nvidia-smi','--query-compute-apps=pid','--format=csv,noheader']]:
+ q=subprocess.run(argv,capture_output=True,text=True,timeout=30);assert q.returncode==0 and not q.stdout.strip()
+q=subprocess.run(['systemctl','show','sentinel-iter147-gpu-budget.timer','--property=ActiveState,TimersMonotonic,NextElapseUSecMonotonic'],capture_output=True,text=True,timeout=30);assert q.returncode==0 and 'ActiveState=active' in q.stdout
+argv=['/opt/sentinel-stack/HUGSIM/.pixi/envs/default/bin/python','-u','-m','experiments.iter147_full_horizon_execution.pair','--control',str(c),'--manifest-sha256','2c7dcb60e51c2b3bee595a733227a91d47896c21ece73e83a7fe695fd8ed7f6a','--clearance-sha256','6afde36d9bc0c4168225f66ed1debb0c66a1bc5b0935e66e64095ec3440628eb','--pair',str(0)]
+env=os.environ.copy();env.update(PYTHONPATH=str(c/'packet')+':/opt/sentinel-stack/HUGSIM',OPENBLAS_NUM_THREADS='1',OMP_NUM_THREADS='1',MKL_NUM_THREADS='1')
+with (c/('pair_000'+'_entry.log')).open('xb') as log:p=subprocess.Popen(argv,cwd='/opt/sentinel-stack/HUGSIM',env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
+r=dict(arm='pair_000',pid=p.pid,argv=argv,manifest_sha256='2c7dcb60e51c2b3bee595a733227a91d47896c21ece73e83a7fe695fd8ed7f6a',clearance_sha256='6afde36d9bc0c4168225f66ed1debb0c66a1bc5b0935e66e64095ec3440628eb',host_timer=q.stdout,started_epoch=time.time(),remaining_provider_seconds=10662.386858874976);(c/('pair_000'+'_launch.json')).write_text(json.dumps(r,indent=2)+'\n');print(json.dumps(r))

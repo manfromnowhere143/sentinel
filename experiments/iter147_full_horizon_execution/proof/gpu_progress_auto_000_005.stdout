@@ -1,0 +1,12 @@
+{
+  "pairs": {},
+  "runs": {
+    "qualification_000__scene-0013-easy-00__monitor__1": {
+      "steps": 173,
+      "last_event": "observation",
+      "parent_tail": "",
+      "client_tail": " objs=1\nsent\nreceived\nSENTINEL_I48_DECISION frame=170 fired=1 brake=1 release=0 clear=0 min_cpa=0.0061 min_ttc=1000000000.0000 objs=1\nsent\nreceived\nSENTINEL_I48_DECISION frame=171 fired=1 brake=1 release=0 clear=0 min_cpa=0.0044 min_ttc=1000000000.0000 objs=1\nsent\nreceived\nSENTINEL_I48_DECISION frame=172 fired=1 brake=1 release=0 clear=0 min_cpa=0.0034 min_ttc=1000000000.0000 objs=1\nsent\nreceived\n"
+    }
+  },
+  "pair_000_entry.log": ""
+}
