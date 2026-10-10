@@ -135,3 +135,28 @@ def test_independent_reverse_gradient_and_certificate():
     bad["certificate"]["multipliers"][0] = -1.0
     with pytest.raises(ValueError):
         second_cert(bad)
+
+
+def test_callback_is_not_final_solution_when_no_refinement():
+    from copy import deepcopy
+    from experiments.iter145_constrained_execution.independent import (
+        certificate as second_cert,
+        cost_gradient,
+    )
+
+    ref = np.zeros((13, 5))
+    ref[:, 0] = np.arange(13)
+    ref[:, 3] = 4.0
+    r = ConstrainedController().solve([0.0, 0.0, 0.0, 4.0, 0.0], ref)
+    assert r["refinement"] == []
+    progress = np.asarray(r["inputs"])
+    progress[0, 0] += 1e-5
+    r["history"][-1]["inputs"] = progress.tolist()
+    r["history"][-1]["objective"] = cost_gradient(
+        r["initial_state"], progress.tolist(), r["reference"]
+    )[0]
+    second_cert(r)
+    bad = deepcopy(r)
+    bad["inputs"][0][0] += 0.01
+    with pytest.raises(ValueError):
+        second_cert(bad)

@@ -1,0 +1,25 @@
+Traceback (most recent call last):
+  File "/tmp/i145_diagnose_replay.py", line 8, in <module>
+    try:m.certificate(r['result'])
+        ~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/danielwahnich/sentinel-bootstrap-evidence/iter145-constrained-execution-20261010/optimizer_source_v2/experiments/iter145_constrained_execution/independent.py", line 152, in certificate
+    close(previous, record["inputs"])
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/danielwahnich/sentinel-bootstrap-evidence/iter145-constrained-execution-20261010/optimizer_source_v2/experiments/iter145_constrained_execution/independent.py", line 20, in close
+    close(x, y, tol)
+    ~~~~~^^^^^^^^^^^
+  File "/Users/danielwahnich/sentinel-bootstrap-evidence/iter145-constrained-execution-20261010/optimizer_source_v2/experiments/iter145_constrained_execution/independent.py", line 20, in close
+    close(x, y, tol)
+    ~~~~~^^^^^^^^^^^
+  File "/Users/danielwahnich/sentinel-bootstrap-evidence/iter145-constrained-execution-20261010/optimizer_source_v2/experiments/iter145_constrained_execution/independent.py", line 22, in close
+    check(
+    ~~~~~^
+        type(a) in (int, float) and math.isfinite(a) and math.isfinite(b) and abs(a - b) <= tol,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        "numeric replay",
+        ^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/danielwahnich/sentinel-bootstrap-evidence/iter145-constrained-execution-20261010/optimizer_source_v2/experiments/iter145_constrained_execution/independent.py", line 13, in check
+    raise ValueError(why)
+ValueError: numeric replay

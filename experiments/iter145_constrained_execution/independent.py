@@ -149,7 +149,10 @@ def certificate(record):
                 "refinement descent",
             )
             previous = h["inputs"]
-        close(previous, record["inputs"])
+        # A callback observation need not be SLSQP's returned optimum. Equality
+        # is required only after a recorded refinement actually changes it.
+        if record["refinement"]:
+            close(previous, record["inputs"])
     close(
         record["warm_objective"],
         cost_gradient(record["initial_state"], record["warm_inputs"], record["reference"])[0],

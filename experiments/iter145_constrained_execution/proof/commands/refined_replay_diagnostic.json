@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "python3",
+    "/tmp/i145_diagnose_replay.py"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-10T05:50:15.056432+00:00",
+  "elapsed_seconds": 0.12916874885559082,
+  "returncode": 1
+}
