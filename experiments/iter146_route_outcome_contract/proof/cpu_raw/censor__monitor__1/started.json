@@ -1,0 +1,15 @@
+{
+  "schema": "sentinel.iter146.summary.v1",
+  "status": "running",
+  "episode": "censor__monitor__1",
+  "arm": "monitor",
+  "seed": 144,
+  "max_actions": 401,
+  "max_seconds": 120,
+  "steps": 0,
+  "stop_reason": null,
+  "outcome": null,
+  "live_study_admitted": false,
+  "timings": [],
+  "timing_scope": "Per-loop observation hash, transport, controller, source step, event serialization and flush; excludes summary writing and timing-list bookkeeping."
+}

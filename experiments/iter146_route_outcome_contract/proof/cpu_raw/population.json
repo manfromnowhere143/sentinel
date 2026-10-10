@@ -1,0 +1,153 @@
+{
+  "schema": "sentinel.iter146.cpu_population.v1",
+  "cases": [
+    {
+      "name": "completion__nominal__1",
+      "kind": "completion",
+      "arm": "nominal",
+      "replica": 1,
+      "status": "completed",
+      "steps": 17
+    },
+    {
+      "name": "completion__nominal__2",
+      "kind": "completion",
+      "arm": "nominal",
+      "replica": 2,
+      "status": "completed",
+      "steps": 17
+    },
+    {
+      "name": "completion__monitor__1",
+      "kind": "completion",
+      "arm": "monitor",
+      "replica": 1,
+      "status": "completed",
+      "steps": 20
+    },
+    {
+      "name": "completion__monitor__2",
+      "kind": "completion",
+      "arm": "monitor",
+      "replica": 2,
+      "status": "completed",
+      "steps": 20
+    },
+    {
+      "name": "completion__brake_t0__1",
+      "kind": "completion",
+      "arm": "brake_t0",
+      "replica": 1,
+      "status": "completed",
+      "steps": 20
+    },
+    {
+      "name": "completion__brake_t0__2",
+      "kind": "completion",
+      "arm": "brake_t0",
+      "replica": 2,
+      "status": "completed",
+      "steps": 20
+    },
+    {
+      "name": "completion__brake_t2_5__1",
+      "kind": "completion",
+      "arm": "brake_t2_5",
+      "replica": 1,
+      "status": "completed",
+      "steps": 19
+    },
+    {
+      "name": "completion__brake_t2_5__2",
+      "kind": "completion",
+      "arm": "brake_t2_5",
+      "replica": 2,
+      "status": "completed",
+      "steps": 19
+    },
+    {
+      "name": "censor__nominal__1",
+      "kind": "censor",
+      "arm": "nominal",
+      "replica": 1,
+      "status": "completed",
+      "steps": 401
+    },
+    {
+      "name": "censor__nominal__2",
+      "kind": "censor",
+      "arm": "nominal",
+      "replica": 2,
+      "status": "completed",
+      "steps": 401
+    },
+    {
+      "name": "censor__monitor__1",
+      "kind": "censor",
+      "arm": "monitor",
+      "replica": 1,
+      "status": "completed",
+      "steps": 401
+    },
+    {
+      "name": "censor__monitor__2",
+      "kind": "censor",
+      "arm": "monitor",
+      "replica": 2,
+      "status": "completed",
+      "steps": 401
+    },
+    {
+      "name": "censor__brake_t0__1",
+      "kind": "censor",
+      "arm": "brake_t0",
+      "replica": 1,
+      "status": "completed",
+      "steps": 401
+    },
+    {
+      "name": "censor__brake_t0__2",
+      "kind": "censor",
+      "arm": "brake_t0",
+      "replica": 2,
+      "status": "completed",
+      "steps": 401
+    },
+    {
+      "name": "censor__brake_t2_5__1",
+      "kind": "censor",
+      "arm": "brake_t2_5",
+      "replica": 1,
+      "status": "completed",
+      "steps": 401
+    },
+    {
+      "name": "censor__brake_t2_5__2",
+      "kind": "censor",
+      "arm": "brake_t2_5",
+      "replica": 2,
+      "status": "completed",
+      "steps": 401
+    },
+    {
+      "name": "collision_completion__nominal__1",
+      "kind": "collision_completion",
+      "arm": "nominal",
+      "replica": 1,
+      "status": "completed",
+      "steps": 1
+    },
+    {
+      "name": "off_route__nominal__1",
+      "kind": "off_route",
+      "arm": "nominal",
+      "replica": 1,
+      "status": "completed",
+      "steps": 1
+    }
+  ],
+  "expected_cases": 18,
+  "python": "3.14.2",
+  "status": "completed",
+  "scope": "CPU constructed assets, identity CUDA transfer, 2x2 deterministic rendering, synthetic nominal/monitor, no actors, SAT foreground and controlled background; no GPU or driving evidence"
+}

@@ -1,0 +1,19 @@
+{
+  "argv": [
+    "env",
+    "OPENBLAS_NUM_THREADS=1",
+    "OMP_NUM_THREADS=1",
+    "MKL_NUM_THREADS=1",
+    "python3",
+    "-m",
+    "experiments.iter146_route_outcome_contract.probe",
+    "--root",
+    "/Users/danielwahnich/workspace/sentinel",
+    "--output",
+    "/Users/danielwahnich/workspace/sentinel/experiments/iter146_route_outcome_contract/proof/cpu_raw"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-10T12:18:58.994445+00:00",
+  "elapsed_seconds": 18.35719871520996,
+  "returncode": 0
+}

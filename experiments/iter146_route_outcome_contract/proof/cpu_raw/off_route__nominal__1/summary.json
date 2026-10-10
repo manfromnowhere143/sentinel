@@ -1,0 +1,33 @@
+{
+  "arm": "nominal",
+  "elapsed_ns": 24261792,
+  "episode": "off_route__nominal__1",
+  "events_bytes": 12744,
+  "events_sha256": "852c1c809e5abc4d70c9ca62af454018ef7027b25c3c49a626f0b6b77e854a35",
+  "live_study_admitted": false,
+  "max_actions": 401,
+  "max_seconds": 120,
+  "outcome": {
+    "censored": false,
+    "collision_observed": false,
+    "completion_qualified": false,
+    "execution_valid": true,
+    "final_sample_observed": false,
+    "first_failure_time": 0.25,
+    "off_route_observed": true,
+    "simulator_completion": false
+  },
+  "schema": "sentinel.iter146.summary.v1",
+  "seed": 144,
+  "status": "completed",
+  "steps": 1,
+  "stop_reason": "source_terminal",
+  "timing_scope": "Per-loop observation hash, transport, controller, source step, event serialization and flush; excludes summary writing and timing-list bookkeeping.",
+  "timings": [
+    {
+      "exchange_ns": 74209,
+      "frame": 0,
+      "full_loop_ns": 3688875
+    }
+  ]
+}

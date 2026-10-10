@@ -1,0 +1,113 @@
+{
+  "arm": "nominal",
+  "elapsed_ns": 71502292,
+  "episode": "completion__nominal__2",
+  "events_bytes": 216021,
+  "events_sha256": "295fe5f807fe7807c8e629277d516776503a4d8e9cda66557e8783ba5c5b00fc",
+  "live_study_admitted": false,
+  "max_actions": 401,
+  "max_seconds": 120,
+  "outcome": {
+    "censored": false,
+    "collision_observed": false,
+    "completion_qualified": true,
+    "execution_valid": true,
+    "final_sample_observed": false,
+    "first_failure_time": null,
+    "off_route_observed": false,
+    "simulator_completion": true
+  },
+  "schema": "sentinel.iter146.summary.v1",
+  "seed": 144,
+  "status": "completed",
+  "steps": 17,
+  "stop_reason": "source_terminal",
+  "timing_scope": "Per-loop observation hash, transport, controller, source step, event serialization and flush; excludes summary writing and timing-list bookkeeping.",
+  "timings": [
+    {
+      "exchange_ns": 79875,
+      "frame": 0,
+      "full_loop_ns": 3861666
+    },
+    {
+      "exchange_ns": 66500,
+      "frame": 1,
+      "full_loop_ns": 3491125
+    },
+    {
+      "exchange_ns": 68792,
+      "frame": 2,
+      "full_loop_ns": 3450083
+    },
+    {
+      "exchange_ns": 68584,
+      "frame": 3,
+      "full_loop_ns": 3677459
+    },
+    {
+      "exchange_ns": 70375,
+      "frame": 4,
+      "full_loop_ns": 3307458
+    },
+    {
+      "exchange_ns": 60083,
+      "frame": 5,
+      "full_loop_ns": 3494041
+    },
+    {
+      "exchange_ns": 69584,
+      "frame": 6,
+      "full_loop_ns": 3758791
+    },
+    {
+      "exchange_ns": 70208,
+      "frame": 7,
+      "full_loop_ns": 3639792
+    },
+    {
+      "exchange_ns": 65833,
+      "frame": 8,
+      "full_loop_ns": 3686917
+    },
+    {
+      "exchange_ns": 68625,
+      "frame": 9,
+      "full_loop_ns": 4056334
+    },
+    {
+      "exchange_ns": 66084,
+      "frame": 10,
+      "full_loop_ns": 3356791
+    },
+    {
+      "exchange_ns": 62917,
+      "frame": 11,
+      "full_loop_ns": 3095958
+    },
+    {
+      "exchange_ns": 62042,
+      "frame": 12,
+      "full_loop_ns": 3052083
+    },
+    {
+      "exchange_ns": 56917,
+      "frame": 13,
+      "full_loop_ns": 3576208
+    },
+    {
+      "exchange_ns": 56500,
+      "frame": 14,
+      "full_loop_ns": 3061500
+    },
+    {
+      "exchange_ns": 55375,
+      "frame": 15,
+      "full_loop_ns": 3042625
+    },
+    {
+      "exchange_ns": 57000,
+      "frame": 16,
+      "full_loop_ns": 3853750
+    }
+  ]
+}
