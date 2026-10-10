@@ -1,0 +1,48 @@
+{
+  "status": "supported",
+  "provider": {
+    "id": "3834622546652649531",
+    "lastStartTimestamp": "2026-10-10T06:27:32.601-07:00",
+    "lastStopTimestamp": "2026-10-10T07:08:35.118-07:00",
+    "status": "TERMINATED"
+  },
+  "watchdog": {
+    "session": 54396,
+    "exit_code": 0,
+    "output": "watchdog cancelled after verified cleanup"
+  },
+  "supervisor": {
+    "session": 64333,
+    "exit_code": 0
+  },
+  "postflight": {
+    "status": "supported",
+    "host_free_bytes": 115215884288,
+    "owned_output_bytes": 716310275,
+    "unchanged_files": 6074,
+    "actor_aliases": 20,
+    "changed_original_files": [],
+    "changed_owned_cache_files": [],
+    "idle": {
+      "containers": {
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "gpu_processes": {
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    },
+    "elapsed_seconds": 28.76650891999998,
+    "manifest_sha256": "2c7dcb60e51c2b3bee595a733227a91d47896c21ece73e83a7fe695fd8ed7f6a"
+  },
+  "elapsed_to_local_closure_monotonic_seconds": 2541.6382822500163,
+  "registered_seconds": 10800,
+  "conservative_compute_upper_usd": 2.1180319018750136,
+  "official_rate_prorated_estimate_usd": 0.60266784167737,
+  "pricing_url": "https://cloud.google.com/products/compute/pricing/accelerator-optimized",
+  "cost_scope": "Conservative elapsed interval includes pre-start preparation, execution, transfers, verification, shutdown and local closure overhead. Estimates are not invoices; existing disk baseline and taxes are excluded. No subtraction across provider/host/local absolute clocks.",
+  "automatic_restart": false
+}

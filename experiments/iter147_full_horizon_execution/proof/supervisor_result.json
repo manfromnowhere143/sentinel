@@ -1,0 +1,28 @@
+{
+  "status": "supported",
+  "pairs": [
+    {
+      "pair": 0,
+      "worker_status": "completed",
+      "replay_returncode": 0
+    },
+    {
+      "pair": 1,
+      "worker_status": "completed",
+      "replay_returncode": 0
+    },
+    {
+      "pair": 2,
+      "worker_status": "completed",
+      "replay_returncode": 0
+    },
+    {
+      "pair": 3,
+      "worker_status": "completed",
+      "replay_returncode": 0
+    }
+  ],
+  "postflight_returncode": 0,
+  "shutdown_verified": true,
+  "ended_epoch": 1791641246.0331311
+}

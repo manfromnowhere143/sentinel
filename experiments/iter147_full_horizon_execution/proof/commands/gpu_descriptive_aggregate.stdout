@@ -1,0 +1,375 @@
+{
+  "status": "supported",
+  "scope": "Fixed eight-slot engineering qualification; diagnostic detector hold separated from natural inputs; no study recovery denominator.",
+  "source_commit": "7fdb3c5fa9b698e08fedf0f2184dab25a7c495eb",
+  "raw_commits": {
+    "pair_000": "b5c5c7966f6b1f90a75f53b16e4df77262ca938a",
+    "pair_001": "9ab5da0d1001da62b2a848418b334554e4dc3769",
+    "pair_002": "06b88259fd5dfff758331274931c778014e52f7b",
+    "pair_003": "f6c724a2c9706a2511e92aed64f1f2b413b11cf9"
+  },
+  "cases": [
+    {
+      "slot": 0,
+      "episode": "qualification_000__scene-0013-easy-00__monitor__1",
+      "scenario": "scene-0013-easy-00.yaml",
+      "arm": "monitor",
+      "probe": "monitor_hold",
+      "replica": 1,
+      "status": "supported",
+      "steps": 401,
+      "outcome": {
+        "censored": true,
+        "collision_observed": false,
+        "completion_qualified": false,
+        "execution_valid": true,
+        "final_sample_observed": false,
+        "first_failure_time": null,
+        "off_route_observed": false,
+        "simulator_completion": false
+      },
+      "analysis_error": null,
+      "worker_status": "completed",
+      "worker_stop": null,
+      "actor_types": {},
+      "elapsed_seconds": 722.3706613019999,
+      "stop_reason": "action_cap",
+      "timing_schema": "sentinel.iter146.summary.v2",
+      "recorded_step_events": 401,
+      "largest_event_bytes": 50145,
+      "monitor_fired": 401,
+      "monitor_brake": 401,
+      "max_stationarity": 7.854848587673935e-07,
+      "monitor_replay": {
+        "braking_frames": 401,
+        "firings": 401,
+        "frames": 401,
+        "releases": 0,
+        "scope": "Decision replay conditional on logged accepted objects; detector filtering/completeness not independently established."
+      },
+      "camera_calls": 2412
+    },
+    {
+      "slot": 1,
+      "episode": "qualification_001__scene-0013-easy-00__monitor__2",
+      "scenario": "scene-0013-easy-00.yaml",
+      "arm": "monitor",
+      "probe": "monitor_hold",
+      "replica": 2,
+      "status": "supported",
+      "steps": 401,
+      "outcome": {
+        "censored": true,
+        "collision_observed": false,
+        "completion_qualified": false,
+        "execution_valid": true,
+        "final_sample_observed": false,
+        "first_failure_time": null,
+        "off_route_observed": false,
+        "simulator_completion": false
+      },
+      "analysis_error": null,
+      "worker_status": "completed",
+      "worker_stop": null,
+      "actor_types": {},
+      "elapsed_seconds": 721.33165771,
+      "stop_reason": "action_cap",
+      "timing_schema": "sentinel.iter146.summary.v2",
+      "recorded_step_events": 401,
+      "largest_event_bytes": 50145,
+      "monitor_fired": 401,
+      "monitor_brake": 401,
+      "max_stationarity": 7.854848587673935e-07,
+      "monitor_replay": {
+        "braking_frames": 401,
+        "firings": 401,
+        "frames": 401,
+        "releases": 0,
+        "scope": "Decision replay conditional on logged accepted objects; detector filtering/completeness not independently established."
+      },
+      "camera_calls": 2412
+    },
+    {
+      "slot": 2,
+      "episode": "qualification_002__scene-0013-extreme-00__nominal__1",
+      "scenario": "scene-0013-extreme-00.yaml",
+      "arm": "nominal",
+      "probe": "none",
+      "replica": 1,
+      "status": "supported",
+      "steps": 10,
+      "outcome": {
+        "censored": false,
+        "collision_observed": true,
+        "completion_qualified": false,
+        "execution_valid": true,
+        "final_sample_observed": false,
+        "first_failure_time": 2.5,
+        "off_route_observed": false,
+        "simulator_completion": false
+      },
+      "analysis_error": null,
+      "worker_status": "completed",
+      "worker_stop": null,
+      "actor_types": {
+        "agent_0": "AttackPlanner"
+      },
+      "elapsed_seconds": 39.41107571600014,
+      "stop_reason": "source_terminal",
+      "timing_schema": "sentinel.iter146.summary.v2",
+      "recorded_step_events": 10,
+      "largest_event_bytes": 329123,
+      "monitor_fired": 5,
+      "monitor_brake": 8,
+      "max_stationarity": 3.2667011642950605e-07,
+      "monitor_replay": {
+        "braking_frames": 8,
+        "firings": 5,
+        "frames": 10,
+        "releases": 0,
+        "scope": "Decision replay conditional on logged accepted objects; detector filtering/completeness not independently established."
+      },
+      "camera_calls": 66
+    },
+    {
+      "slot": 3,
+      "episode": "qualification_003__scene-0013-extreme-00__nominal__2",
+      "scenario": "scene-0013-extreme-00.yaml",
+      "arm": "nominal",
+      "probe": "none",
+      "replica": 2,
+      "status": "supported",
+      "steps": 10,
+      "outcome": {
+        "censored": false,
+        "collision_observed": true,
+        "completion_qualified": false,
+        "execution_valid": true,
+        "final_sample_observed": false,
+        "first_failure_time": 2.5,
+        "off_route_observed": false,
+        "simulator_completion": false
+      },
+      "analysis_error": null,
+      "worker_status": "completed",
+      "worker_stop": null,
+      "actor_types": {
+        "agent_0": "AttackPlanner"
+      },
+      "elapsed_seconds": 39.40660661499987,
+      "stop_reason": "source_terminal",
+      "timing_schema": "sentinel.iter146.summary.v2",
+      "recorded_step_events": 10,
+      "largest_event_bytes": 329123,
+      "monitor_fired": 5,
+      "monitor_brake": 8,
+      "max_stationarity": 3.2667011642950605e-07,
+      "monitor_replay": {
+        "braking_frames": 8,
+        "firings": 5,
+        "frames": 10,
+        "releases": 0,
+        "scope": "Decision replay conditional on logged accepted objects; detector filtering/completeness not independently established."
+      },
+      "camera_calls": 66
+    },
+    {
+      "slot": 4,
+      "episode": "qualification_004__scene-0013-hard-00__nominal__1",
+      "scenario": "scene-0013-hard-00.yaml",
+      "arm": "nominal",
+      "probe": "none",
+      "replica": 1,
+      "status": "supported",
+      "steps": 14,
+      "outcome": {
+        "censored": false,
+        "collision_observed": true,
+        "completion_qualified": false,
+        "execution_valid": true,
+        "final_sample_observed": false,
+        "first_failure_time": 3.5,
+        "off_route_observed": false,
+        "simulator_completion": false
+      },
+      "analysis_error": null,
+      "worker_status": "completed",
+      "worker_stop": null,
+      "actor_types": {
+        "agent_0": "IDM"
+      },
+      "elapsed_seconds": 46.41502813499983,
+      "stop_reason": "source_terminal",
+      "timing_schema": "sentinel.iter146.summary.v2",
+      "recorded_step_events": 14,
+      "largest_event_bytes": 50145,
+      "monitor_fired": 1,
+      "monitor_brake": 4,
+      "max_stationarity": 9.058617606097497e-07,
+      "monitor_replay": {
+        "braking_frames": 4,
+        "firings": 1,
+        "frames": 14,
+        "releases": 0,
+        "scope": "Decision replay conditional on logged accepted objects; detector filtering/completeness not independently established."
+      },
+      "camera_calls": 90
+    },
+    {
+      "slot": 5,
+      "episode": "qualification_005__scene-0013-hard-00__nominal__2",
+      "scenario": "scene-0013-hard-00.yaml",
+      "arm": "nominal",
+      "probe": "none",
+      "replica": 2,
+      "status": "supported",
+      "steps": 14,
+      "outcome": {
+        "censored": false,
+        "collision_observed": true,
+        "completion_qualified": false,
+        "execution_valid": true,
+        "final_sample_observed": false,
+        "first_failure_time": 3.5,
+        "off_route_observed": false,
+        "simulator_completion": false
+      },
+      "analysis_error": null,
+      "worker_status": "completed",
+      "worker_stop": null,
+      "actor_types": {
+        "agent_0": "IDM"
+      },
+      "elapsed_seconds": 46.78861020299996,
+      "stop_reason": "source_terminal",
+      "timing_schema": "sentinel.iter146.summary.v2",
+      "recorded_step_events": 14,
+      "largest_event_bytes": 50145,
+      "monitor_fired": 1,
+      "monitor_brake": 4,
+      "max_stationarity": 9.058617606097497e-07,
+      "monitor_replay": {
+        "braking_frames": 4,
+        "firings": 1,
+        "frames": 14,
+        "releases": 0,
+        "scope": "Decision replay conditional on logged accepted objects; detector filtering/completeness not independently established."
+      },
+      "camera_calls": 90
+    },
+    {
+      "slot": 6,
+      "episode": "qualification_006__scene-0013-medium-00__nominal__1",
+      "scenario": "scene-0013-medium-00.yaml",
+      "arm": "nominal",
+      "probe": "none",
+      "replica": 1,
+      "status": "supported",
+      "steps": 31,
+      "outcome": {
+        "censored": false,
+        "collision_observed": true,
+        "completion_qualified": false,
+        "execution_valid": true,
+        "final_sample_observed": false,
+        "first_failure_time": 7.75,
+        "off_route_observed": false,
+        "simulator_completion": false
+      },
+      "analysis_error": null,
+      "worker_status": "completed",
+      "worker_stop": null,
+      "actor_types": {
+        "agent_0": "ConstantPlanner"
+      },
+      "elapsed_seconds": 77.67557479299967,
+      "stop_reason": "source_terminal",
+      "timing_schema": "sentinel.iter146.summary.v2",
+      "recorded_step_events": 31,
+      "largest_event_bytes": 50147,
+      "monitor_fired": 2,
+      "monitor_brake": 6,
+      "max_stationarity": 9.815603583263055e-07,
+      "monitor_replay": {
+        "braking_frames": 6,
+        "firings": 2,
+        "frames": 31,
+        "releases": 0,
+        "scope": "Decision replay conditional on logged accepted objects; detector filtering/completeness not independently established."
+      },
+      "camera_calls": 192
+    },
+    {
+      "slot": 7,
+      "episode": "qualification_007__scene-0013-medium-00__nominal__2",
+      "scenario": "scene-0013-medium-00.yaml",
+      "arm": "nominal",
+      "probe": "none",
+      "replica": 2,
+      "status": "supported",
+      "steps": 31,
+      "outcome": {
+        "censored": false,
+        "collision_observed": true,
+        "completion_qualified": false,
+        "execution_valid": true,
+        "final_sample_observed": false,
+        "first_failure_time": 7.75,
+        "off_route_observed": false,
+        "simulator_completion": false
+      },
+      "analysis_error": null,
+      "worker_status": "completed",
+      "worker_stop": null,
+      "actor_types": {
+        "agent_0": "ConstantPlanner"
+      },
+      "elapsed_seconds": 77.83673583500013,
+      "stop_reason": "source_terminal",
+      "timing_schema": "sentinel.iter146.summary.v2",
+      "recorded_step_events": 31,
+      "largest_event_bytes": 50147,
+      "monitor_fired": 2,
+      "monitor_brake": 6,
+      "max_stationarity": 9.815603583263055e-07,
+      "monitor_replay": {
+        "braking_frames": 6,
+        "firings": 2,
+        "frames": 31,
+        "releases": 0,
+        "scope": "Decision replay conditional on logged accepted objects; detector filtering/completeness not independently established."
+      },
+      "camera_calls": 192
+    }
+  ],
+  "live_study_admitted": false,
+  "summary": {
+    "planned_slots": 8,
+    "initialized": 8,
+    "missing": 0,
+    "supported_pairs": 4,
+    "supported_steps": 912,
+    "recorded_step_events": 912,
+    "controller_ms": {
+      "count": 912,
+      "minimum": 4.480866,
+      "median": 4.7262830000000005,
+      "maximum": 62.650544,
+      "over_50ms": 4
+    },
+    "loop_seconds": {
+      "count": 912,
+      "minimum": 1.712552996,
+      "median": 1.7442559625,
+      "maximum": 23.734504273,
+      "over_250ms": 912
+    },
+    "exchange_seconds": {
+      "count": 912,
+      "minimum": 1.251445499,
+      "median": 1.3194846095,
+      "maximum": 23.219104577
+    },
+    "timing_scope": "Summary v2 guard-inclusive step work; reset, summary serialization and worker cleanup outside per-step timing. Recorded timing is descriptive even for invalid cases; validity remains per-case explicit."
+  }
+}

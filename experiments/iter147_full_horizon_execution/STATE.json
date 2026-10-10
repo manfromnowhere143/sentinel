@@ -1,10 +1,10 @@
 {
   "iteration": 147,
-  "status": "running",
-  "phase": "gpu_qualification_running",
+  "status": "supported",
+  "phase": "bounded_gpu_qualification_closed",
   "parent_commit": "337686d1b7e04c9c9cee3d0b37af581ddb260369",
   "cloud_compute_used": true,
-  "owned_active_jobs": 1,
+  "owned_active_jobs": 0,
   "live_study_admitted": false,
   "local_steps": 890,
   "local_replica_pairs": 3,
@@ -14,17 +14,28 @@
   "control": "/datasets/nuscenes-full/hugsim/iter147_gpu_20261010",
   "external_budget": "/Users/danielwahnich/sentinel-bootstrap-evidence/iter147-gpu-20261010/budget.json",
   "owned_instance": {
-    "guestAccelerators": [
-      {
-        "acceleratorCount": 1,
-        "acceleratorType": "https://www.googleapis.com/compute/v1/projects/sunlit-unison-487018-b0/zones/us-west1-a/acceleratorTypes/nvidia-l4"
-      }
-    ],
     "id": "3834622546652649531",
     "lastStartTimestamp": "2026-10-10T06:27:32.601-07:00",
-    "machineType": "https://www.googleapis.com/compute/v1/projects/sunlit-unison-487018-b0/zones/us-west1-a/machineTypes/g2-standard-8",
-    "name": "sentinel-gpu",
-    "status": "RUNNING",
-    "zone": "https://www.googleapis.com/compute/v1/projects/sunlit-unison-487018-b0/zones/us-west1-a"
-  }
+    "lastStopTimestamp": "2026-10-10T07:08:35.118-07:00",
+    "status": "TERMINATED"
+  },
+  "automatic_restart": false,
+  "provider_state_last_observed": "TERMINATED",
+  "gpu_steps": 912,
+  "gpu_cases": 8,
+  "gpu_replica_pairs": 4,
+  "monitor_injected_actions": 802,
+  "natural_nominal_actions": 110,
+  "natural_nominal_collision_cases": 6,
+  "censored_cases": 2,
+  "qualified_completion_cases": 0,
+  "controller_over_50ms": 4,
+  "full_loop_over_250ms": 912,
+  "raw_commits": {
+    "pair_000": "b5c5c7966f6b1f90a75f53b16e4df77262ca938a",
+    "pair_001": "9ab5da0d1001da62b2a848418b334554e4dc3769",
+    "pair_002": "06b88259fd5dfff758331274931c778014e52f7b",
+    "pair_003": "f6c724a2c9706a2511e92aed64f1f2b413b11cf9"
+  },
+  "next_task": "Implement study-specific admission and resource/lifecycle binding for the unchanged 112 slots; do not treat qualification as a recovery comparison."
 }

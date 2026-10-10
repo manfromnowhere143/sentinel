@@ -2,20 +2,20 @@
 
 ## Active operator work on 2026-10-09
 
-> **Active operator-directed candidate work, 2026-10-10:** Iter147 local qualification
-> supports 890 constructed steps / three replica pairs; 129 focused tests pass.
-> Eight full-horizon GPU qualification slots are preregistered: diagnostic monitor hold
-> and natural nominal Attack/IDM/Constant cases, two replicas each. The whole envelope
-> is 10,800 seconds / $9 conservative compute; each child is capped at 1,200 seconds.
-> An owned bounded GPU session is RUNNING; read STATE.json and external budget before any action.
-> Read the [hypothesis](../experiments/iter147_full_horizon_execution/HYPOTHESIS.md),
-> [binding](../experiments/iter147_full_horizon_execution/GPU_BINDING.md),
+> **Active operator-directed candidate work, 2026-10-10:** Iter147 bounded GPU
+> qualification is complete: eight fresh cases / 912 actions / four matching replica pairs.
+> Two injected monitor runs reached 401 actions each; six natural nominal actor runs
+> reproduced collisions. No recovery gain or GPU route completion was established.
+> **4/110 natural-actor controller calls exceeded 50 ms; all 912 loops exceeded 250 ms.**
+> Local qualification separately supports 890 constructed actions / three replica pairs;
+> 129 focused tests pass. Read the [result](../experiments/iter147_full_horizon_execution/RESULT.md),
 > [state](../experiments/iter147_full_horizon_execution/STATE.json) and
 > [active handoff](../experiments/iter147_full_horizon_execution/DECISION.md).
-> The proposed 112 study slots are not admitted. No recovery, real-time or state-of-the-art
-> result follows. Candidate `research/iter147-full-horizon-execution` is local/unpushed.
-> Master, historical HANDOFF/MISSION_STATE, immutable root README and unrelated WIP
-> remain preserved. Prior recovery nulls and deferred Iter135 are unchanged.
+> Exact owned VM is TERMINATED; watchdog and supervisor exited. No owned job or restart
+> remains. Next: study-specific admission and finite lifecycle/resource binding for the
+> unchanged proposed 112 slots. Candidate `research/iter147-full-horizon-execution`
+> is local/unpushed. Master, historical HANDOFF/MISSION_STATE, immutable root README,
+> unrelated WIP, prior recovery nulls and deferred Iter135 remain preserved.
 
 ## Canonical current decision: iteration 134 is complete
 

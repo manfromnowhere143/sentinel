@@ -1,0 +1,82 @@
+{
+  "status": "supported",
+  "groups": {
+    "0": {
+      "controller_ms": {
+        "count": 802,
+        "minimum": 4.480866,
+        "median": 4.698293,
+        "maximum": 36.1191,
+        "over_50ms": 0
+      },
+      "loop_seconds": {
+        "count": 802,
+        "minimum": 1.712552996,
+        "median": 1.742403867,
+        "maximum": 23.734504273,
+        "over_250ms": 802
+      }
+    },
+    "1": {
+      "controller_ms": {
+        "count": 20,
+        "minimum": 39.224012,
+        "median": 40.427518000000006,
+        "maximum": 62.650544,
+        "over_50ms": 3
+      },
+      "loop_seconds": {
+        "count": 20,
+        "minimum": 1.884531849,
+        "median": 1.9841154395,
+        "maximum": 18.020210409,
+        "over_250ms": 20
+      }
+    },
+    "2": {
+      "controller_ms": {
+        "count": 28,
+        "minimum": 35.027537,
+        "median": 39.332373000000004,
+        "maximum": 46.509466,
+        "over_50ms": 0
+      },
+      "loop_seconds": {
+        "count": 28,
+        "minimum": 1.850002719,
+        "median": 1.8808766184999999,
+        "maximum": 15.247832258,
+        "over_250ms": 28
+      }
+    },
+    "3": {
+      "controller_ms": {
+        "count": 62,
+        "minimum": 32.643749,
+        "median": 38.233374,
+        "maximum": 50.569752,
+        "over_50ms": 1
+      },
+      "loop_seconds": {
+        "count": 62,
+        "minimum": 1.816368378,
+        "median": 1.8914336299999999,
+        "maximum": 17.571386831,
+        "over_250ms": 62
+      }
+    }
+  },
+  "maximum_stationarity": 9.815603583263055e-07,
+  "camera_calls": 5520,
+  "largest_event_bytes": 329123,
+  "monitor_firings_diagnostic": 802,
+  "monitor_firings_natural_shadow": 16,
+  "monitor_braking_decisions_natural_shadow": 36,
+  "natural_controller_calls": 110,
+  "natural_controller_over_50ms": 4,
+  "natural_episodes": 6,
+  "collision_episodes": 6,
+  "censored_episodes": 2,
+  "qualified_completion_episodes": 0,
+  "resource_output_case_bytes": 330201169
+}

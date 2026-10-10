@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "python3",
+    "/tmp/i147g_aggregate.py"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-10T14:06:35.080064+00:00",
+  "elapsed_seconds": 4.2995078563690186,
+  "returncode": 0
+}
