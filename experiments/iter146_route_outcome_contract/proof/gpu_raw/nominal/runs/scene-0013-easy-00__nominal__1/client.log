@@ -1,0 +1,103 @@
+[iter45-shim] cuSOLVER-backed linalg ops routed via CPU (torch 1.9.1+cu111 )
+SENTINEL_I48_UNION_PATCH_LOADED enabled=1 params={"cpa_margin": 1.5, "dt": 0.5, "max_gap": 30.0, "min_closing": 3.0, "min_score": 0.3, "release_k": 4, "ttc_thresh": 2.5}
+projects.mmdet3d_plugin
+load checkpoint from local path: ckpts/uniad_base_e2e.pth
+2026-10-10 14:32:03,390 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.0.conv2 is upgraded to version 2.
+2026-10-10 14:32:03,395 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.1.conv2 is upgraded to version 2.
+2026-10-10 14:32:03,399 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.2.conv2 is upgraded to version 2.
+2026-10-10 14:32:03,403 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.3.conv2 is upgraded to version 2.
+2026-10-10 14:32:03,407 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.4.conv2 is upgraded to version 2.
+2026-10-10 14:32:03,411 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.5.conv2 is upgraded to version 2.
+2026-10-10 14:32:03,414 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.6.conv2 is upgraded to version 2.
+2026-10-10 14:32:03,418 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.7.conv2 is upgraded to version 2.
+2026-10-10 14:32:03,422 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.8.conv2 is upgraded to version 2.
+2026-10-10 14:32:03,425 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.9.conv2 is upgraded to version 2.
+2026-10-10 14:32:03,429 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.10.conv2 is upgraded to version 2.
+2026-10-10 14:32:03,433 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.11.conv2 is upgraded to version 2.
+2026-10-10 14:32:03,436 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.12.conv2 is upgraded to version 2.
+2026-10-10 14:32:03,440 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.13.conv2 is upgraded to version 2.
+2026-10-10 14:32:03,444 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.14.conv2 is upgraded to version 2.
+2026-10-10 14:32:03,448 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.15.conv2 is upgraded to version 2.
+2026-10-10 14:32:03,451 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.16.conv2 is upgraded to version 2.
+2026-10-10 14:32:03,455 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.17.conv2 is upgraded to version 2.
+2026-10-10 14:32:03,459 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.18.conv2 is upgraded to version 2.
+2026-10-10 14:32:03,463 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.19.conv2 is upgraded to version 2.
+2026-10-10 14:32:03,466 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.20.conv2 is upgraded to version 2.
+2026-10-10 14:32:03,470 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.21.conv2 is upgraded to version 2.
+2026-10-10 14:32:03,474 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.22.conv2 is upgraded to version 2.
+2026-10-10 14:32:03,478 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.0.conv2 is upgraded to version 2.
+2026-10-10 14:32:03,484 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.1.conv2 is upgraded to version 2.
+2026-10-10 14:32:03,488 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.2.conv2 is upgraded to version 2.
+Ready for recieving
+received
+SENTINEL_I48_DECISION frame=0 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0
+sent
+received
+SENTINEL_I48_DECISION frame=1 fired=0 brake=0 release=0 clear=0 min_cpa=29.4977 min_ttc=1000000000.0000 objs=1
+sent
+received
+SENTINEL_I48_DECISION frame=2 fired=0 brake=0 release=0 clear=0 min_cpa=31.2496 min_ttc=1000000000.0000 objs=1
+sent
+received
+SENTINEL_I48_DECISION frame=3 fired=0 brake=0 release=0 clear=0 min_cpa=16.2285 min_ttc=1000000000.0000 objs=2
+sent
+received
+SENTINEL_I48_DECISION frame=4 fired=0 brake=0 release=0 clear=0 min_cpa=15.7583 min_ttc=8.0821 objs=3
+sent
+received
+SENTINEL_I48_DECISION frame=5 fired=0 brake=0 release=0 clear=0 min_cpa=15.6456 min_ttc=6.9409 objs=2
+sent
+received
+SENTINEL_I48_DECISION frame=6 fired=0 brake=0 release=0 clear=0 min_cpa=15.5835 min_ttc=6.8639 objs=2
+sent
+received
+SENTINEL_I48_DECISION frame=7 fired=0 brake=0 release=0 clear=0 min_cpa=16.0264 min_ttc=8.8345 objs=2
+sent
+received
+SENTINEL_I48_DECISION frame=8 fired=0 brake=0 release=0 clear=0 min_cpa=15.8992 min_ttc=1000000000.0000 objs=2
+sent
+received
+SENTINEL_I48_DECISION frame=9 fired=0 brake=0 release=0 clear=0 min_cpa=16.2292 min_ttc=1000000000.0000 objs=2
+sent
+received
+SENTINEL_I48_DECISION frame=10 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0
+sent
+received
+SENTINEL_I48_DECISION frame=11 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0
+sent
+received
+SENTINEL_I48_DECISION frame=12 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0
+sent
+received
+SENTINEL_I48_DECISION frame=13 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0
+sent
+received
+SENTINEL_I48_DECISION frame=14 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0
+sent
+received
+SENTINEL_I48_DECISION frame=15 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0
+sent
+received
+SENTINEL_I48_DECISION frame=16 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0
+sent
+received
+SENTINEL_I48_DECISION frame=17 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0
+sent
+received
+SENTINEL_I48_DECISION frame=18 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0
+sent
+received
+SENTINEL_I48_DECISION frame=19 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0
+sent
+received
+SENTINEL_I48_DECISION frame=20 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0
+sent
+received
+SENTINEL_I48_DECISION frame=21 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0
+sent
+received
+SENTINEL_I48_DECISION frame=22 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0
+sent
+received
+SENTINEL_I48_DECISION frame=23 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0
+sent

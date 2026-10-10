@@ -1,0 +1,5 @@
+realcar_path: /datasets/nuscenes-full/hugsim/3DRealCar
+model_base: /datasets/nuscenes-full/hugsim/extracted/scenes/nuscenes
+HD_map:
+  path: /datasets/nuscenes-full
+  version: nusc_trainval
