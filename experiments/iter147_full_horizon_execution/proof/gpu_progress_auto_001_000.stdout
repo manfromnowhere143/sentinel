@@ -1,0 +1,105 @@
+{
+  "pairs": {
+    "pair_000_result": {
+      "cases": [
+        {
+          "cleanup": {
+            "status": "absent"
+          },
+          "deadline_exceeded": false,
+          "returncode": 0,
+          "slot": {
+            "arm": "monitor",
+            "id": "qualification_000__scene-0013-easy-00__monitor__1",
+            "index": 0,
+            "max_actions": 401,
+            "probe": "monitor_hold",
+            "replica": 1,
+            "reset_count": 1,
+            "scenario": "scene-0013-easy-00.yaml",
+            "scenario_sha256": "22d30c2a3dadf59451ff3704b50c412fb6fa74d261ee96dd4e6bf17c9a064735",
+            "seed": 144
+          }
+        },
+        {
+          "cleanup": {
+            "status": "absent"
+          },
+          "deadline_exceeded": false,
+          "returncode": 0,
+          "slot": {
+            "arm": "monitor",
+            "id": "qualification_001__scene-0013-easy-00__monitor__2",
+            "index": 1,
+            "max_actions": 401,
+            "probe": "monitor_hold",
+            "replica": 2,
+            "reset_count": 1,
+            "scenario": "scene-0013-easy-00.yaml",
+            "scenario_sha256": "22d30c2a3dadf59451ff3704b50c412fb6fa74d261ee96dd4e6bf17c9a064735",
+            "seed": 144
+          }
+        }
+      ],
+      "elapsed_seconds": 1511.2496645,
+      "live_study_admitted": false,
+      "pair": 0,
+      "plan_sha256": "731ffa4afc533b6bb574416178db50b8c22a9fb800adece61aed7f099d1bce44",
+      "status": "completed"
+    }
+  },
+  "runs": {
+    "qualification_000__scene-0013-easy-00__monitor__1": {
+      "worker.json": {
+        "status": "completed",
+        "elapsed_seconds": 722.3706613019999
+      },
+      "trace/summary.json": {
+        "status": "completed",
+        "steps": 401,
+        "stop_reason": "action_cap",
+        "outcome": {
+          "censored": true,
+          "collision_observed": false,
+          "completion_qualified": false,
+          "execution_valid": true,
+          "final_sample_observed": false,
+          "first_failure_time": null,
+          "off_route_observed": false,
+          "simulator_completion": false
+        }
+      },
+      "steps": 401,
+      "last_event": "runner_stop",
+      "parent_tail": "",
+      "client_tail": "0000.0000 objs=1\nsent\nreceived\nSENTINEL_I48_DECISION frame=398 fired=1 brake=1 release=0 clear=0 min_cpa=0.0034 min_ttc=1000000000.0000 objs=1\nsent\nreceived\nSENTINEL_I48_DECISION frame=399 fired=1 brake=1 release=0 clear=0 min_cpa=0.0009 min_ttc=1000000000.0000 objs=1\nsent\nreceived\nSENTINEL_I48_DECISION frame=400 fired=1 brake=1 release=0 clear=0 min_cpa=0.0029 min_ttc=1000000000.0000 objs=1\nsent\n"
+    },
+    "qualification_001__scene-0013-easy-00__monitor__2": {
+      "worker.json": {
+        "status": "completed",
+        "elapsed_seconds": 721.33165771
+      },
+      "trace/summary.json": {
+        "status": "completed",
+        "steps": 401,
+        "stop_reason": "action_cap",
+        "outcome": {
+          "censored": true,
+          "collision_observed": false,
+          "completion_qualified": false,
+          "execution_valid": true,
+          "final_sample_observed": false,
+          "first_failure_time": null,
+          "off_route_observed": false,
+          "simulator_completion": false
+        }
+      },
+      "steps": 401,
+      "last_event": "runner_stop",
+      "parent_tail": "",
+      "client_tail": "0000.0000 objs=1\nsent\nreceived\nSENTINEL_I48_DECISION frame=398 fired=1 brake=1 release=0 clear=0 min_cpa=0.0034 min_ttc=1000000000.0000 objs=1\nsent\nreceived\nSENTINEL_I48_DECISION frame=399 fired=1 brake=1 release=0 clear=0 min_cpa=0.0009 min_ttc=1000000000.0000 objs=1\nsent\nreceived\nSENTINEL_I48_DECISION frame=400 fired=1 brake=1 release=0 clear=0 min_cpa=0.0029 min_ttc=1000000000.0000 objs=1\nsent\n"
+    }
+  },
+  "pair_000_entry.log": "",
+  "pair_001_entry.log": ""
+}

@@ -1,0 +1,21 @@
+{
+  "status": "running",
+  "episode": "qualification_003__scene-0013-extreme-00__nominal__2",
+  "seed": 144,
+  "gpu_observed": false,
+  "slot": {
+    "index": 3,
+    "id": "qualification_003__scene-0013-extreme-00__nominal__2",
+    "scenario": "scene-0013-extreme-00.yaml",
+    "scenario_sha256": "7b4b374bda9c9520114c9fdcb8ce8f3f91686dc9c0caacc261838ae4fe2a3442",
+    "arm": "nominal",
+    "replica": 2,
+    "seed": 144,
+    "reset_count": 1,
+    "max_actions": 401,
+    "probe": "none"
+  },
+  "purpose": "qualification",
+  "driving_outcome": null,
+  "live_study_admitted": false
+}

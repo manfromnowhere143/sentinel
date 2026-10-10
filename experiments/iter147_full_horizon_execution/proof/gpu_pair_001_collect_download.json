@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "gcloud",
+    "compute",
+    "scp",
+    "--project",
+    "sunlit-unison-487018-b0",
+    "--zone",
+    "us-west1-a",
+    "--tunnel-through-iap",
+    "sentinel-gpu:/datasets/nuscenes-full/hugsim/iter147_gpu_20261010/pair_001_raw.tar.gz",
+    "/Users/danielwahnich/sentinel-bootstrap-evidence/iter147-gpu-20261010/pair_001_raw.tar.gz"
+  ],
+  "start_utc": "2026-10-10T13:57:23.013811+00:00",
+  "elapsed_seconds": 10.34778208300122,
+  "returncode": 0
+}

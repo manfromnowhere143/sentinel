@@ -1,0 +1,118 @@
+{
+  "arm": "nominal",
+  "elapsed_ns": 36898971560,
+  "episode": "qualification_003__scene-0013-extreme-00__nominal__2",
+  "events_bytes": 750433,
+  "events_sha256": "4021a03ccc8ad2f915529035bed2632fa239291a72a3412ef3a55c1c43239457",
+  "live_study_admitted": false,
+  "max_actions": 401,
+  "max_seconds": 1198.049452937,
+  "outcome": {
+    "censored": false,
+    "collision_observed": true,
+    "completion_qualified": false,
+    "execution_valid": true,
+    "final_sample_observed": false,
+    "first_failure_time": 2.5,
+    "off_route_observed": false,
+    "simulator_completion": false
+  },
+  "schema": "sentinel.iter146.summary.v2",
+  "seed": 144,
+  "status": "completed",
+  "steps": 10,
+  "stop_reason": "source_terminal",
+  "timing_scope": "Elapsed-clock boundaries relative to runner entry. loop_work_ns ends after trace flush; full_loop_ns also includes the post-step resource guard and stop decision. Both exclude timing-list append, Python loop dispatch and final summary writing.",
+  "timings": [
+    {
+      "exchange_ns": 17368812356,
+      "frame": 0,
+      "full_loop_ns": 18020210409,
+      "loop_end_ns": 19194769239,
+      "loop_start_ns": 1174558830,
+      "loop_work_end_ns": 19104299959,
+      "loop_work_ns": 17929741129
+    },
+    {
+      "exchange_ns": 1352699694,
+      "frame": 1,
+      "full_loop_ns": 1913415801,
+      "loop_end_ns": 21108190828,
+      "loop_start_ns": 19194775027,
+      "loop_work_end_ns": 21016349678,
+      "loop_work_ns": 1821574651
+    },
+    {
+      "exchange_ns": 1336866457,
+      "frame": 2,
+      "full_loop_ns": 1898972879,
+      "loop_end_ns": 23007169559,
+      "loop_start_ns": 21108196680,
+      "loop_work_end_ns": 22912995897,
+      "loop_work_ns": 1804799217
+    },
+    {
+      "exchange_ns": 1412244223,
+      "frame": 3,
+      "full_loop_ns": 1965403628,
+      "loop_end_ns": 24972579046,
+      "loop_start_ns": 23007175418,
+      "loop_work_end_ns": 24880720751,
+      "loop_work_ns": 1873545333
+    },
+    {
+      "exchange_ns": 1457746605,
+      "frame": 4,
+      "full_loop_ns": 2008210667,
+      "loop_end_ns": 26980795253,
+      "loop_start_ns": 24972584586,
+      "loop_work_end_ns": 26887738091,
+      "loop_work_ns": 1915153505
+    },
+    {
+      "exchange_ns": 1455715129,
+      "frame": 5,
+      "full_loop_ns": 2005658288,
+      "loop_end_ns": 28986459013,
+      "loop_start_ns": 26980800725,
+      "loop_work_end_ns": 28894812331,
+      "loop_work_ns": 1914011606
+    },
+    {
+      "exchange_ns": 1447600584,
+      "frame": 6,
+      "full_loop_ns": 2009179817,
+      "loop_end_ns": 30995644625,
+      "loop_start_ns": 28986464808,
+      "loop_work_end_ns": 30904136384,
+      "loop_work_ns": 1917671576
+    },
+    {
+      "exchange_ns": 1404243961,
+      "frame": 7,
+      "full_loop_ns": 1955861963,
+      "loop_end_ns": 32951524369,
+      "loop_start_ns": 30995662406,
+      "loop_work_end_ns": 32859116797,
+      "loop_work_ns": 1863454391
+    },
+    {
+      "exchange_ns": 1403432287,
+      "frame": 8,
+      "full_loop_ns": 1959961138,
+      "loop_end_ns": 34911490934,
+      "loop_start_ns": 32951529796,
+      "loop_work_end_ns": 34818265640,
+      "loop_work_ns": 1866735844
+    },
+    {
+      "exchange_ns": 1426559146,
+      "frame": 9,
+      "full_loop_ns": 1987377334,
+      "loop_end_ns": 36898872665,
+      "loop_start_ns": 34911495331,
+      "loop_work_end_ns": 36807692579,
+      "loop_work_ns": 1896197248
+    }
+  ]
+}
