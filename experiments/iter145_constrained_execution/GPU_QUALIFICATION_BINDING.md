@@ -48,3 +48,9 @@ it also stops if host free space falls below 25 GiB. A hard per-file RLIMIT_FSIZ
 256 MiB bounds any single growing output stream in the worker. Output size is rechecked
 between cases and at collection; no strict instantaneous total-filesystem quota is claimed.
 All source and resource guard revisions are retained before the first simulator case.
+
+The container import preflight failed before any process initialized: Docker could not
+create the new e2e145.py mountpoint beneath a read-only /model mount. Preserve that
+failed receipt. Mount the generated client over the existing e2e.py container path
+(read-only overlay only; host source unchanged) and rerun import preflight once. No
+simulator reset, model inference or episode attempt occurred; no budget reset.
