@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "python3",
+    "/tmp/i147_cpu_analysis.py"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-10T13:20:43.157826+00:00",
+  "elapsed_seconds": 4.447683095932007,
+  "returncode": 0
+}

@@ -1,0 +1,133 @@
+{
+  "status": "supported",
+  "raw_commit": "a9b717b9c1d4e2d007a8f6d2f0dc70abae6da68d",
+  "raw_inventory_sha256": "46aee5d3cc5ae3ef7eaed103c8e738fdcfac8b795e7cc57db9a6e4f8d62e770b",
+  "cases": [
+    {
+      "name": "hold__1",
+      "steps": 401,
+      "max_stationarity": 6.478486642702563e-07,
+      "actor_selections": 0,
+      "actor_types": [],
+      "monitor": {
+        "frames": 401,
+        "firings": 401,
+        "braking_frames": 401,
+        "releases": 0,
+        "scope": "Decision replay conditional on logged accepted objects; detector filtering/completeness not independently established."
+      },
+      "trace_bytes": 4744102,
+      "largest_event_bytes": 12433,
+      "candidates_per_selection": []
+    },
+    {
+      "name": "hold__2",
+      "steps": 401,
+      "max_stationarity": 6.478486642702563e-07,
+      "actor_selections": 0,
+      "actor_types": [],
+      "monitor": {
+        "frames": 401,
+        "firings": 401,
+        "braking_frames": 401,
+        "releases": 0,
+        "scope": "Decision replay conditional on logged accepted objects; detector filtering/completeness not independently established."
+      },
+      "trace_bytes": 4743976,
+      "largest_event_bytes": 12433,
+      "candidates_per_selection": []
+    },
+    {
+      "name": "release__1",
+      "steps": 12,
+      "max_stationarity": 1.559009589462484e-12,
+      "actor_selections": 0,
+      "actor_types": [],
+      "monitor": {
+        "frames": 12,
+        "firings": 2,
+        "braking_frames": 5,
+        "releases": 1,
+        "scope": "Decision replay conditional on logged accepted objects; detector filtering/completeness not independently established."
+      },
+      "trace_bytes": 162870,
+      "largest_event_bytes": 12030,
+      "candidates_per_selection": []
+    },
+    {
+      "name": "release__2",
+      "steps": 12,
+      "max_stationarity": 1.559009589462484e-12,
+      "actor_selections": 0,
+      "actor_types": [],
+      "monitor": {
+        "frames": 12,
+        "firings": 2,
+        "braking_frames": 5,
+        "releases": 1,
+        "scope": "Decision replay conditional on logged accepted objects; detector filtering/completeness not independently established."
+      },
+      "trace_bytes": 162871,
+      "largest_event_bytes": 12030,
+      "candidates_per_selection": []
+    },
+    {
+      "name": "actors__1",
+      "steps": 32,
+      "max_stationarity": 1.9005142960222347e-12,
+      "actor_selections": 4,
+      "actor_types": [
+        "AttackPlanner",
+        "ConstantPlanner",
+        "IDM"
+      ],
+      "monitor": {
+        "frames": 32,
+        "firings": 0,
+        "braking_frames": 0,
+        "releases": 0,
+        "scope": "Decision replay conditional on logged accepted objects; detector filtering/completeness not independently established."
+      },
+      "trace_bytes": 2835592,
+      "largest_event_bytes": 1349424,
+      "candidates_per_selection": [
+        74,
+        318,
+        72,
+        84
+      ]
+    },
+    {
+      "name": "actors__2",
+      "steps": 32,
+      "max_stationarity": 1.9005142960222347e-12,
+      "actor_selections": 4,
+      "actor_types": [
+        "AttackPlanner",
+        "ConstantPlanner",
+        "IDM"
+      ],
+      "monitor": {
+        "frames": 32,
+        "firings": 0,
+        "braking_frames": 0,
+        "releases": 0,
+        "scope": "Decision replay conditional on logged accepted objects; detector filtering/completeness not independently established."
+      },
+      "trace_bytes": 2835590,
+      "largest_event_bytes": 1349424,
+      "candidates_per_selection": [
+        74,
+        318,
+        72,
+        84
+      ]
+    }
+  ],
+  "steps": 890,
+  "replica_pairs": 3,
+  "max_event_bytes": 1349424,
+  "max_candidates": 318,
+  "gpu_observed": false,
+  "live_study_admitted": false
+}

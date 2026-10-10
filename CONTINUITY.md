@@ -1,21 +1,19 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
-> **Active operator-directed candidate work, 2026-10-10:** Iter146 completed bounded
-> GPU qualification: eight fresh cases / 192 steps / four matching replica pairs.
-> All cases were censored at 24 actions; monitor fired zero times and source actors
-> were empty. No recovery gain or full-horizon GPU completion was established.
-> CPU replay supports 3,362 synthetic steps. After timing/missingness corrections,
-> 96 focused tests pass; the corrected timer has local evidence only.
-> **1/192 controller calls exceeded 50 ms; all 192 loop-work lower bounds exceeded 250 ms.**
-> Read the [result](experiments/iter146_route_outcome_contract/RESULT.md),
-> [state](experiments/iter146_route_outcome_contract/STATE.json) and
-> [active handoff](experiments/iter146_route_outcome_contract/DECISION.md).
-> Exact owned VM is TERMINATED and its watchdog exited. Cloud compute was used;
-> no owned job or automatic restart remains. Next: full-horizon/actor/active-monitor
-> qualification and finite resource/runtime binding before the proposed 112 slots.
-> Candidate `research/iter146-route-outcome-contract` is local/unpushed. Master,
-> historical HANDOFF/MISSION_STATE, immutable root README and unrelated WIP remain
-> preserved. Prior recovery nulls and deferred Iter135 are unchanged.
+> **Active operator-directed candidate work, 2026-10-10:** Iter147 local qualification
+> supports 890 constructed steps / three replica pairs; 129 focused tests pass.
+> Eight full-horizon GPU qualification slots are preregistered: diagnostic monitor hold
+> and natural nominal Attack/IDM/Constant cases, two replicas each. The whole envelope
+> is 10,800 seconds / $9 conservative compute; each child is capped at 1,200 seconds.
+> No new cloud start has occurred.
+> Read the [hypothesis](experiments/iter147_full_horizon_execution/HYPOTHESIS.md),
+> [binding](experiments/iter147_full_horizon_execution/GPU_BINDING.md),
+> [state](experiments/iter147_full_horizon_execution/STATE.json) and
+> [active handoff](experiments/iter147_full_horizon_execution/DECISION.md).
+> The proposed 112 study slots are not admitted. No recovery, real-time or state-of-the-art
+> result follows. Candidate `research/iter147-full-horizon-execution` is local/unpushed.
+> Master, historical HANDOFF/MISSION_STATE, immutable root README and unrelated WIP
+> remain preserved. Prior recovery nulls and deferred Iter135 are unchanged.
 
 **Purpose.** This campaign is operator-portable by design. Everything an incoming operator
 needs is in this repository plus the two live surfaces below. Read this file top to bottom
@@ -4472,3 +4470,13 @@ errors; 96 corrected tests pass. All old CPU/GPU raw replays without changed out
 6,062 bound/original files plus 20 actor aliases were unchanged at postflight. Exact owned
 VM is TERMINATED; watchdog exited. Full-horizon/nonempty-actor/active-monitor qualification
 and a finite study launcher/resource binding remain before the unchanged proposed 112 slots.
+
+
+## Iter147 full-horizon path qualification started on 2026-10-10
+
+Local raw was committed at a9b717b9c1d4e2d007a8f6d2f0dc70abae6da68d before
+independent replay: 890 constructed steps, three strict replica pairs. Monitor hold
+runs execute 401 actions each; monitor release and nonempty actor fixtures also pass.
+129 focused tests pass. A separate eight-case GPU binding fixes the diagnostic input,
+actor population, 401-action horizon, deadlines, output and compute bounds before live
+execution. This is qualification evidence, not a study recovery denominator.

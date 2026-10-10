@@ -75,3 +75,30 @@ def raw_identity(repository, commit, directory):
     if not records:
         raise ValueError("missing_raw")
     return identity(records)
+
+
+def admit(repository, directory, document, pair, commit):
+    """Verify retained Git raw before creating a receipt usable by the next pair."""
+    from .gpu_check import verify_case
+    from experiments.iter146_route_outcome_contract.compare import replicas
+
+    validate(repository, document)
+    if type(pair) is not int or not 0 <= pair < len(document["slots"]) // 2:
+        raise ValueError("pair_index")
+    raw_sha = raw_identity(repository, commit, directory)
+    selected = document["slots"][pair * 2 : pair * 2 + 2]
+    reports = [
+        verify_case(Path(directory) / "runs" / slot["id"], slot, document["purpose"])
+        for slot in selected
+    ]
+    replicas(reports)
+    return dict(
+        status="supported",
+        pair=pair,
+        plan_sha256=identity(document),
+        raw_commit=commit,
+        raw_inventory_sha256=raw_sha,
+        steps=sum(r["steps"] for r in reports),
+        cases=[{k: v for k, v in r.items() if k not in ("scientific", "route")} for r in reports],
+        live_study_admitted=False,
+    )

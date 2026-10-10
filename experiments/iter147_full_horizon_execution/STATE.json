@@ -1,9 +1,16 @@
 {
   "iteration": 147,
-  "status": "proposed",
-  "phase": "local_implementation",
+  "status": "preregistered",
+  "phase": "gpu_qualification_preregistered",
   "parent_commit": "337686d1b7e04c9c9cee3d0b37af581ddb260369",
   "cloud_compute_used": false,
   "owned_active_jobs": 0,
-  "live_study_admitted": false
+  "live_study_admitted": false,
+  "local_steps": 890,
+  "local_replica_pairs": 3,
+  "focused_tests": 129,
+  "gpu_slots": 8,
+  "gpu_source_commit": null,
+  "control": "/datasets/nuscenes-full/hugsim/iter147_gpu_20261010",
+  "external_budget": "/Users/danielwahnich/sentinel-bootstrap-evidence/iter147-gpu-20261010/budget.json"
 }

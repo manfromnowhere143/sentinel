@@ -1,0 +1,21 @@
+{
+  "argv": [
+    "/opt/homebrew/bin/ruff",
+    "check",
+    "experiments/iter147_full_horizon_execution/client.py",
+    "experiments/iter147_full_horizon_execution/coordinator.py",
+    "experiments/iter147_full_horizon_execution/fixtures.py",
+    "experiments/iter147_full_horizon_execution/gpu.py",
+    "experiments/iter147_full_horizon_execution/gpu_check.py",
+    "experiments/iter147_full_horizon_execution/local.py",
+    "experiments/iter147_full_horizon_execution/monitor.py",
+    "experiments/iter147_full_horizon_execution/pair.py",
+    "experiments/iter147_full_horizon_execution/protocol.py",
+    "experiments/iter147_full_horizon_execution/resources.py",
+    "tests/test_iter147_full_horizon_execution.py"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-10T13:22:20.036883+00:00",
+  "elapsed_seconds": 0.015027999877929688,
+  "returncode": 0
+}

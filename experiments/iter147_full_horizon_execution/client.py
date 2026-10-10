@@ -14,9 +14,11 @@ def diagnostic_result(nominal, *, present):
 
     centers = [[float(nominal[0, 0]), float(nominal[0, 1]), 0.0]] if present else []
     return dict(
-        boxes_3d=SimpleNamespace(gravity_center=torch.tensor(centers).reshape(-1, 3)),
-        scores_3d=torch.ones(len(centers)),
-        track_ids=torch.full((len(centers),), 147),
+        boxes_3d=SimpleNamespace(
+            gravity_center=torch.tensor(centers, dtype=torch.float64, device="cpu").reshape(-1, 3)
+        ),
+        scores_3d=torch.ones(len(centers), device="cpu"),
+        track_ids=torch.full((len(centers),), 147, device="cpu"),
     )
 
 
