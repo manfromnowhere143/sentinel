@@ -1,7 +1,7 @@
 {
   "iteration": 145,
   "status": "running",
-  "phase": "gpu_host_preparation",
+  "phase": "bounded_gpu_smoke_running",
   "branch": "research/iter145-constrained-execution",
   "parent_commit": "958e9da1ee48029279a9c92d215d7c6d09aeabb6",
   "executed_cpu_source": "8b8fa4239f95482d8419a0d5afc09b18248feb43",
@@ -15,7 +15,7 @@
   "knownbads_rejected": 30,
   "cloud_access": true,
   "provider_state_last_observed": "RUNNING",
-  "live_smoke_episodes": 0,
+  "live_smoke_episodes": "running_first_case",
   "live_study_episodes": 0,
   "live_admitted": false,
   "physical_qualification": "unestablished",
@@ -31,5 +31,6 @@
   "next_step": "verify historical actor path aliases, empty actor lists, and HD-map dependencies before a new bounded GPU qualification",
   "resume_authority": "Daniel: we are back go on and continue the mission",
   "asset_file_entries": 5983,
-  "gpu_qualification_source": "fc7abe55d5c08338460129fa013b33b0b16dfe27"
+  "gpu_qualification_source": "1202c067739ede3b301a4fc6d53bf4bdd6bd134f",
+  "gpu_launch_receipt": "proof/gpu_launch_report.json"
 }
