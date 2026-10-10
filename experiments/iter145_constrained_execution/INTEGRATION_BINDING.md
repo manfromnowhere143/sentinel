@@ -43,3 +43,12 @@ Actual pilot YAML bodies, asset closure, installed runtime and resource state ar
 still unobserved because cloud credential refresh requires operator reauthentication.
 No CPU fixture may mark those gates satisfied. No live launch is authorized by a
 placeholder price, budget, asset manifest or synthetic passing resource fixture.
+
+Formal CPU evidence capture: four fixed cases (ego speeds0 and4, nominal right
+displacements0 or .03*i^2 and forward displacements2*i at i=1..6), each repeated
+twice in a fresh environment,12 advances per invocation. Four actor types share
+the source_fixture.py initial states, with actual source AttackPlanner defaults.
+Independent replay must check every time, typed plan, nominal coordinate transform,
+control certificate, ego transition, new actor transform, six-camera/collision
+state sharing and numerical replicas. The CPU polygon-intersection substitute is
+explicit because local Shapely is unavailable; actual GPU/GEOS remains unqualified.

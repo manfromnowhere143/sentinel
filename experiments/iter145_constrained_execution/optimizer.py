@@ -118,8 +118,15 @@ def refine(u, state, ref, C, b, remaining):
         H = 2 * np.einsum("tij,i,tik->jk", J, Q, J) + np.diag(2 * np.tile(R, len(u) // 2))
         active = np.flatnonzero(np.asarray(cert["multipliers"]) > 1e-9)
         A = C[active]
-        K = np.block([[H, A.T], [A, np.zeros((len(active), len(active)))]])
-        direction = np.linalg.lstsq(K, np.r_[-g, np.zeros(len(active))], rcond=None)[0][: len(u)]
+        if len(active):
+            _, singular, vectors = np.linalg.svd(A, full_matrices=True)
+            rank = int(np.sum(singular > np.finfo(float).eps * max(A.shape) * singular[0]))
+            basis = vectors[rank:].T
+        else:
+            basis = np.eye(len(u))
+        if basis.shape[1] == 0:
+            break
+        direction = -basis @ np.linalg.solve(basis.T @ H @ basis, basis.T @ g)
         slope = float(g @ direction)
         if slope >= 0:
             break
@@ -220,6 +227,7 @@ class ConstrainedController:
         states, _ = rollout(state, result.x.reshape(-1, 2))
         record = dict(
             schema="sentinel.constrained_controller.v2",
+            refinement_method="active_nullspace_gauss_newton",
             initial_state=state.tolist(),
             reference=ref.tolist(),
             warm_inputs=warm.reshape(-1, 2).tolist(),

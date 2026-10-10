@@ -1,0 +1,43 @@
+.......................................................................  [100%]
+=============================== warnings summary ===============================
+::test_full_source_step_render_collision_and_short_control[0.0-False]
+::test_full_source_step_render_collision_and_short_control[4.0-False]
+::test_full_source_step_render_collision_and_short_control[0.0-True]
+::test_full_source_step_render_collision_and_short_control[4.0-True]
+::test_reset_clock_and_runtime_known_bads
+::test_unicycle_unsupported_time_and_unknown_actor
+::test_driver_retains_stop_and_rejects_reuse
+::test_driver_retains_stop_and_rejects_reuse
+::test_source_foreground_overlap_and_separation
+  <bound-source-slice>:24: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+
+::test_full_source_step_render_collision_and_short_control[0.0-False]
+::test_full_source_step_render_collision_and_short_control[4.0-False]
+::test_full_source_step_render_collision_and_short_control[0.0-True]
+::test_full_source_step_render_collision_and_short_control[4.0-True]
+::test_reset_clock_and_runtime_known_bads
+::test_unicycle_unsupported_time_and_unknown_actor
+::test_driver_retains_stop_and_rejects_reuse
+::test_driver_retains_stop_and_rejects_reuse
+::test_source_foreground_overlap_and_separation
+  <bound-source-slice>:26: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+
+::test_full_source_step_render_collision_and_short_control[0.0-False]
+::test_full_source_step_render_collision_and_short_control[4.0-False]
+::test_full_source_step_render_collision_and_short_control[0.0-True]
+::test_full_source_step_render_collision_and_short_control[4.0-True]
+  <bound-source-slice>:102: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+
+::test_full_source_step_render_collision_and_short_control[0.0-False]
+  /Users/danielwahnich/workspace/sentinel/experiments/iter145_constrained_execution/source_fixture.py:149: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+  Consider using tensor.detach() first. (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:837.)
+    value = torch.tensor([a, b, 0.0, yaw, v], dtype=torch.float64)
+
+: 50 warnings
+  <bound-source-slice>:308: DeprecationWarning: __array_wrap__ must accept context and return_scalar arguments (positionally) in the future. (Deprecated NumPy 2.0)
+
+: 50 warnings
+  <bound-source-slice>:309: DeprecationWarning: __array_wrap__ must accept context and return_scalar arguments (positionally) in the future. (Deprecated NumPy 2.0)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+71 passed, 123 warnings in 2.85s

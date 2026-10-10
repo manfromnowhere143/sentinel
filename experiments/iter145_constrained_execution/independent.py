@@ -131,8 +131,11 @@ def certificate(record):
         )
         check(len(record["refinement"]) <= 8, "refinement bound")
         explicit_handoff = record.get("schema") == "sentinel.constrained_controller.v2"
-        previous = record["slsqp_returned_inputs"] if explicit_handoff else (
-            record["history"][-1]["inputs"] if record["history"] else record["warm_inputs"])
+        previous = (
+            record["slsqp_returned_inputs"]
+            if explicit_handoff
+            else (record["history"][-1]["inputs"] if record["history"] else record["warm_inputs"])
+        )
         for h in record["refinement"]:
             if explicit_handoff:
                 close(h["previous_inputs"], previous, 0)
