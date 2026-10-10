@@ -1,9 +1,11 @@
 {
   "iteration": 143,
-  "status": "preregistered",
-  "phase": "implementation",
+  "status": "running",
+  "phase": "source_validated",
   "branch": "research/iter143-model-contract",
   "parent_commit": "75e0727d564ce19a66199155662d2b5daf4a7fcf",
   "cloud_access": false,
-  "live_episodes": 0
+  "live_episodes": 0,
+  "preregistration_commit": "a5fe7d8c16a7283753610f3126b47d2f93e727bf",
+  "input_binding_commit": "e625f03c278ed5478aca0f799384bba320a9af23"
 }

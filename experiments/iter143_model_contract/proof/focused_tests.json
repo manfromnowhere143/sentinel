@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "python3",
+    "-m",
+    "pytest",
+    "-q",
+    "-c",
+    "/dev/null",
+    "-o",
+    "addopts=",
+    "tests/test_iter143_model_contract.py"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-10T05:04:29.735880+00:00",
+  "elapsed_seconds": 3.6842031478881836,
+  "returncode": 0
+}

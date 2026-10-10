@@ -1,0 +1,13 @@
+{
+  "argv": [
+    "ruff",
+    "check",
+    "experiments/iter143_model_contract/qualification.py",
+    "experiments/iter143_model_contract/independent.py",
+    "tests/test_iter143_model_contract.py"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-10T05:04:36.853357+00:00",
+  "elapsed_seconds": 0.018819808959960938,
+  "returncode": 0
+}
