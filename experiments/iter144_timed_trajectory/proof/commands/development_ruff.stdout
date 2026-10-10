@@ -1,0 +1,32 @@
+F401 [*] `.trajectory.constant_motion` imported but unused
+  --> experiments/iter144_timed_trajectory/qualify.py:19:41
+   |
+17 | from .runtime import ActorWorld, apply_step
+18 | from .source import bound_inputs, environment_prefix, load_sampler
+19 | from .trajectory import DT, Trajectory, constant_motion, from_source, costs
+   |                                         ^^^^^^^^^^^^^^^
+   |
+help: Remove unused import
+
+F401 [*] `.trajectory.from_source` imported but unused
+  --> experiments/iter144_timed_trajectory/qualify.py:19:58
+   |
+17 | from .runtime import ActorWorld, apply_step
+18 | from .source import bound_inputs, environment_prefix, load_sampler
+19 | from .trajectory import DT, Trajectory, constant_motion, from_source, costs
+   |                                                          ^^^^^^^^^^^
+   |
+help: Remove unused import
+
+F401 [*] `.trajectory.costs` imported but unused
+  --> experiments/iter144_timed_trajectory/qualify.py:19:71
+   |
+17 | from .runtime import ActorWorld, apply_step
+18 | from .source import bound_inputs, environment_prefix, load_sampler
+19 | from .trajectory import DT, Trajectory, constant_motion, from_source, costs
+   |                                                                       ^^^^^
+   |
+help: Remove unused import
+
+Found 3 errors.
+[*] 3 fixable with the `--fix` option.

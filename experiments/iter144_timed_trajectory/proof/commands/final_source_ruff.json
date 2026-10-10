@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "ruff",
+    "check",
+    "experiments/iter144_timed_trajectory",
+    "tests/test_iter144_timed_trajectory.py"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-10T05:33:05.277121+00:00",
+  "elapsed_seconds": 0.026944875717163086,
+  "returncode": 0
+}

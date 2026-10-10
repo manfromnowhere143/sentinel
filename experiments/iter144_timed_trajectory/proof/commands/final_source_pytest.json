@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "python3",
+    "-m",
+    "pytest",
+    "-q",
+    "-c",
+    "/dev/null",
+    "-p",
+    "no:cacheprovider",
+    "tests/test_iter144_timed_trajectory.py"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-10T05:32:59.066702+00:00",
+  "elapsed_seconds": 3.4563777446746826,
+  "returncode": 0
+}
