@@ -1,0 +1,73 @@
+F401 [*] `numpy` imported but unused
+  --> experiments/iter147_full_horizon_execution/client.py:8:17
+   |
+ 6 | from pathlib import Path
+ 7 | from types import SimpleNamespace
+ 8 | import numpy as np
+   |                 ^^
+ 9 | from experiments.iter146_route_outcome_contract.client import instrument as prior_instrument
+10 | from experiments.iter145_constrained_execution.client import deliver as prior_deliver
+   |
+help: Remove unused import: `numpy`
+
+F401 [*] `json` imported but unused
+ --> experiments/iter147_full_horizon_execution/coordinator.py:3:8
+  |
+1 | """Append-only pair lifecycle: initialized work cannot be silently retried or skipped."""
+2 |
+3 | import json
+  |        ^^^^
+4 | from pathlib import Path
+5 | import subprocess
+  |
+help: Remove unused import: `json`
+
+F401 [*] `types.SimpleNamespace` imported but unused
+  --> experiments/iter147_full_horizon_execution/fixtures.py:9:19
+   |
+ 7 | import os
+ 8 | from pathlib import Path
+ 9 | from types import SimpleNamespace
+   |                   ^^^^^^^^^^^^^^^
+10 | from unittest.mock import patch
+11 | import numpy as np
+   |
+help: Remove unused import: `types.SimpleNamespace`
+
+F401 [*] `json` imported but unused
+ --> experiments/iter147_full_horizon_execution/pair.py:5:8
+  |
+3 | import argparse
+4 | import hashlib
+5 | import json
+  |        ^^^^
+6 | import os
+7 | from pathlib import Path
+  |
+help: Remove unused import: `json`
+
+E731 Do not assign a `lambda` expression, use a `def`
+  --> tests/test_iter147_full_horizon_execution.py:90:5
+   |
+88 |     log = case / "parent.log"
+89 |     log.write_bytes(b"1234")
+90 |     free = lambda p: SimpleNamespace(free=100 * 1024**3)
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+91 |     assert guard(tmp_path, case, 8, usage=free) == dict(case_bytes=4, total_owned_bytes=4)
+92 |     with log.open("wb") as f:
+   |
+help: Rewrite `free` as a `def`
+
+E741 Ambiguous variable name: `l`
+   --> tests/test_iter147_full_horizon_execution.py:110:27
+    |
+108 |     assert verified["steps"] == 12
+109 |     rows = [
+110 |         json.loads(l) for l in (output / "sentinel_iter48_decisions.jsonl").read_text().splitlines()
+    |                           ^
+111 |     ]
+112 |     return rows
+    |
+
+Found 6 errors.
+[*] 4 fixable with the `--fix` option (1 hidden fix can be enabled with the `--unsafe-fixes` option).

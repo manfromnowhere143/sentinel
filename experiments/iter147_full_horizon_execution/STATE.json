@@ -1,0 +1,9 @@
+{
+  "iteration": 147,
+  "status": "proposed",
+  "phase": "local_implementation",
+  "parent_commit": "337686d1b7e04c9c9cee3d0b37af581ddb260369",
+  "cloud_compute_used": false,
+  "owned_active_jobs": 0,
+  "live_study_admitted": false
+}
