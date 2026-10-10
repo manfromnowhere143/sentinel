@@ -251,3 +251,13 @@ def test_cli_unexpected_exception_retains_invalid(tmp_path, monkeypatch):
     assert primary.main() == 2
     record = json.loads(output.read_text())
     assert record["status"] == "invalid" and record["error_type"] == "IndexError"
+
+
+def test_actual_dispatch_adapter_uses_source_float32_state(adapters):
+    rows, calls = primary.dispatch_probe(
+        adapters[4], adapters[5], adapters[6], adapters[2], steps=3
+    )
+    assert len(rows) == 3 and len(calls) == 1
+    assert [r["pointer_after"] for r in rows] == [2, 3, 4]
+    for i, row in enumerate(rows, 1):
+        assert row["actor_state"][1] == pytest.approx(8 * i / 19, abs=1e-6)

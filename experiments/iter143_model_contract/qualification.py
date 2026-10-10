@@ -279,6 +279,68 @@ def low_speed_probe(gen, n=20, tf=2.0):
     return low_rows
 
 
+def dispatch_probe(ns, attack_type, dispatch, cfg, steps=21):
+    spline = ns["compute_spline_xyvaqrt"]
+    generation_calls = []
+    dispatch_calls = []
+
+    class CandidateGenerator:
+        def gen_trajectories(self, x0, tf, lanes, dyn_filter):
+            generation_calls.append(
+                dict(horizon=float(tf), state=x0.tolist(), dyn_filter=dyn_filter)
+            )
+            speed, angle = float(x0[2]), float(x0[3])
+            xc = torch.tensor(
+                [[float(x0[0]), speed * math.cos(angle), 0.0, 0.0]], dtype=torch.float64
+            )
+            yc = torch.tensor(
+                [[float(x0[1]), speed * math.sin(angle), 0.0, 0.0]], dtype=torch.float64
+            )
+            traj = spline(xc, yc, torch.tensor([tf], dtype=torch.float64), N=20)
+            return traj[:, 1:], None
+
+    attack = attack_type()
+    attack.device, attack.predict_steps, attack.best_k = "cpu", 20, 1
+    attack.exec_traj, attack.exec_pointer, attack.planner = None, 1, CandidateGenerator()
+    original_update = attack.update
+
+    def record_update(**kwargs):
+        dispatch_calls.append(
+            dict(
+                dt=kwargs["dt"],
+                requested_replan=kwargs["new_plan"],
+                attacked_states=kwargs["attacked_states"].tolist(),
+            )
+        )
+        return original_update(**kwargs)
+
+    attack.update = record_update
+    planner = SimpleNamespace(
+        stats={"agent_0": torch.tensor([0.0, 0.0, 0.0, 0.0, 4.0], dtype=torch.float32)},
+        controller={"agent_0": attack},
+        route={"agent_0": None},
+        dt=cfg["dt"],
+        PREDICT_STEPS=20,
+        NUM_NEIGHBORS=3,
+        ATTACK_FREQ=10,
+        unified_map=None,
+    )
+    schedule = []
+    for i in range(steps):
+        t = i * cfg["dt"]
+        dispatch(planner, t, torch.tensor([0.0, 0.0, 0.0, 4.0], dtype=torch.float32))
+        schedule.append(
+            dict(
+                time=t,
+                **dispatch_calls[-1],
+                generation_count=len(generation_calls),
+                pointer_after=attack.exec_pointer,
+                actor_state=planner.stats["agent_0"].tolist(),
+            )
+        )
+    return schedule, generation_calls
+
+
 def probes(root):
     blobs, identity = inputs(root)
     environment, controller, cfg, params, ns, attack_type, dispatch, gen, extract = source_adapters(
@@ -337,63 +399,8 @@ def probes(root):
 
     low_rows = low_speed_probe(gen)
 
-    generation_calls = []
-    dispatch_calls = []
+    schedule, generation_calls = dispatch_probe(ns, attack_type, dispatch, cfg)
 
-    class CandidateGenerator:
-        def gen_trajectories(self, x0, tf, lanes, dyn_filter):
-            generation_calls.append(
-                dict(horizon=float(tf), state=x0.tolist(), dyn_filter=dyn_filter)
-            )
-            speed, angle = float(x0[2]), float(x0[3])
-            xc = torch.tensor(
-                [[float(x0[0]), speed * math.cos(angle), 0.0, 0.0]], dtype=torch.float64
-            )
-            yc = torch.tensor(
-                [[float(x0[1]), speed * math.sin(angle), 0.0, 0.0]], dtype=torch.float64
-            )
-            traj = spline(xc, yc, torch.tensor([tf], dtype=torch.float64), N=20)
-            return traj[:, 1:], None
-
-    attack = attack_type()
-    attack.device, attack.predict_steps, attack.best_k = "cpu", 20, 1
-    attack.exec_traj, attack.exec_pointer, attack.planner = None, 1, CandidateGenerator()
-    original_update = attack.update
-
-    def record_update(**kwargs):
-        dispatch_calls.append(
-            dict(
-                dt=kwargs["dt"],
-                requested_replan=kwargs["new_plan"],
-                attacked_states=kwargs["attacked_states"].tolist(),
-            )
-        )
-        return original_update(**kwargs)
-
-    attack.update = record_update
-    planner = SimpleNamespace(
-        stats={"agent_0": torch.tensor([0.0, 0.0, 0.0, 0.0, 4.0], dtype=torch.float64)},
-        controller={"agent_0": attack},
-        route={"agent_0": None},
-        dt=cfg["dt"],
-        PREDICT_STEPS=20,
-        NUM_NEIGHBORS=3,
-        ATTACK_FREQ=10,
-        unified_map=None,
-    )
-    schedule = []
-    for i in range(21):
-        t = i * cfg["dt"]
-        dispatch(planner, t, torch.tensor([0.0, 0.0, 0.0, 4.0], dtype=torch.float64))
-        schedule.append(
-            dict(
-                time=t,
-                **dispatch_calls[-1],
-                generation_count=len(generation_calls),
-                pointer_after=attack.exec_pointer,
-                actor_state=planner.stats["agent_0"].tolist(),
-            )
-        )
     return dict(
         schema="sentinel.iter143.raw.v1",
         input_manifest_sha256=identity,
