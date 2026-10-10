@@ -1,16 +1,17 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
-> **Active operator-directed candidate work, 2026-10-09:** Iter142 is complete:
-> **null / NOMINAL_CONTINUATION_NULL**. Both nominal continuations collided at 7.25 s
-> versus 6.5 s for the references; **0/2 useful recoveries**. Three fresh episodes
-> plus retained Iter141 reference A; all 84 new controller calls replayed, 69 exceeded
-> 50 ms for the complete call. All 614 bound files matched; provider confirmed TERMINATED.
-> Read the [result](experiments/iter142_nominal_continuation_completion/RESULT.md),
-> [state](experiments/iter142_nominal_continuation_completion/STATE.json) and
-> [next decision](experiments/iter142_nominal_continuation_completion/DECISION.md).
-> Close this case/action comparison. Next proposal: model/control qualification and
-> a finite new case family with a validated action opportunity before information ablation.
-> Candidate `research/iter142-nominal-continuation` is unpushed; master remains F17.
+> **Active operator-directed candidate work, 2026-10-10:** Iter143 is complete:
+> **contradicted / COMMON_MODEL_CONTRACT_REJECTED**. Independent source-fixture replay
+> passed: actor and ego costs compare different sample times, controller/environment
+> transitions differ, and declared Gym limits are not enforced by the step prefix.
+> These are software-contract findings; no physical qualification or new recovery claim.
+> Read the [result](experiments/iter143_model_contract/RESULT.md),
+> [state](experiments/iter143_model_contract/STATE.json),
+> [next implementation](experiments/iter143_model_contract/DECISION.md) and
+> [finite study proposal](experiments/iter143_model_contract/CASE_FAMILY_PROTOCOL.md).
+> Next: a versioned trajectory adapter with explicit times and qualified control semantics.
+> Iter142 remains null, 0/2 recoveries. Iter143 used local CPU only, no cloud or live runs.
+> Candidate `research/iter143-model-contract` is unpushed; master remains F17.
 > Iter135 stays deferred; MISSION_STATE/HANDOFF retain their publication snapshot.
 
 **Purpose.** This campaign is operator-portable by design. Everything an incoming operator
@@ -860,6 +861,16 @@ operator can reconstruct the exact repository state and the limits of the retain
 
 ## Shift log
 
+- 2026-10-10: Iter143 closed as contradicted / COMMON_MODEL_CONTRACT_REJECTED for
+  exact transition agreement, same-time actor costs and declared-control enforcement.
+  Independent source-fixture replay passed; 24/32 equal-interval ego counterexamples,
+  actor cost endpoint 4.75 s versus 2.0/1.9 s, and 4 outside-declared commands integrated.
+  These are synthetic/source diagnostics, not live speed or collision-cause evidence.
+  46 focused tests passed on the final source; two invalid harness invocations and
+  receipt/plotting failures remain recorded. No cloud or live episode. The frozen
+  development inventory has 88 scenarios / 18 scenes,14 proposed pilot scenarios / 3 scenes,
+  and 0 untouched holdout scenes. Read the [result](experiments/iter143_model_contract/RESULT.md)
+  and [next implementation](experiments/iter143_model_contract/DECISION.md).
 - 2026-10-09: Iter142 completed as null / NOMINAL_CONTINUATION_NULL with retained
   Iter141 reference A and three fresh episodes. Both nominal continuations collided at
   7.25 s versus 6.5 s for references; 0/2 useful recoveries. All 84 new controller calls

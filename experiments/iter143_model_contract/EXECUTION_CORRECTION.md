@@ -8,7 +8,7 @@ the actual upstream resampling code and registered fixture values remain unchang
 Add a test of the complete adapter at N10/tf1 and retain unexpected exceptions as
 invalid records. Re-execute the local diagnostic after committing the tested repair.
 
-The independent inventory command wrote its artifact and reported returncode0.
+The independent inventory command wrote its artifact and reported returncode 0.
 Its outer wrapper then failed because command metadata reused case_inventory.json.
 The inventory and child stdout/stderr survive unchanged; wrapper timing was not
 retained and remains null. Move subsequent command receipts into proof/commands,

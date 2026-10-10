@@ -1,0 +1,60 @@
+import hashlib,json,posixpath,re,subprocess,sys
+from pathlib import Path
+R=Path('/Users/danielwahnich/workspace/sentinel');D='experiments/iter143_model_contract';parent='75e0727d564ce19a66199155662d2b5daf4a7fcf';source='e240e748551e960185809d2a29c411847327f3b8';prereg='a5fe7d8c16a7283753610f3126b47d2f93e727bf';binding='e625f03c278ed5478aca0f799384bba320a9af23';raw_commit='e34aaa12097070495003f35b4a7894621e4a9602'
+def git(*args):return subprocess.check_output(['git',*args],cwd=R)
+def sha(raw):return hashlib.sha256(raw).hexdigest()
+tip=git('rev-parse','research/iter143-model-contract').decode().strip()
+def read(path):return git('show',tip+':'+path)
+def obj(path):return json.loads(read(D+'/'+path))
+files=set(git('ls-tree','-r','--name-only',tip).decode().splitlines());checked=[]
+for line in read(D+'/proof/SHA256SUMS').decode().splitlines():
+ h,rel=line.split('  ',1);payload=read(D+'/proof/'+rel)
+ if '--known-bad' in sys.argv and rel=='analysis.json':payload+=b'corrupt'
+ assert sha(payload)==h==sha((R/D/'proof'/rel).read_bytes()),rel
+ checked.append(rel)
+assert set(checked)=={p[len(D+'/proof/'):] for p in files if p.startswith(D+'/proof/') and not p.endswith('/SHA256SUMS')}
+for p in [D+'/qualification.py',D+'/independent.py','tests/test_iter143_model_contract.py']:
+ assert read(p)==git('show',source+':'+p)==(R/p).read_bytes(),p
+assert read(D+'/HYPOTHESIS.md')==git('show',prereg+':'+D+'/HYPOTHESIS.md')==(R/D/'HYPOTHESIS.md').read_bytes()
+assert read(D+'/INPUTS.json')==git('show',binding+':'+D+'/INPUTS.json')
+m=obj('INPUTS.json');runtime=json.loads(read('experiments/iter142_nominal_continuation_completion/proof/runtime_manifest.json'))
+for p,r in m['files'].items():
+ payload=read(p);assert payload==git('show',parent+':'+p)==(R/p).read_bytes();assert len(payload)==r['bytes'] and sha(payload)==r['sha256']
+ prefix='experiments/iter136_hugsim_recoverability_canary/proof/'
+ if p.startswith(prefix+'source/HUGSIM/') and not p.endswith('LICENSE.txt'):
+  remote='/opt/sentinel-stack/HUGSIM/'+p.split('source/HUGSIM/')[1].removesuffix('.txt');assert runtime['files'][remote]==r['sha256']
+ if p.startswith(prefix+'controller_source/'):
+  remote='/opt/sentinel-stack/HUGSIM/sim/ilqr/'+Path(p).name.removesuffix('.txt');assert runtime['files'][remote]==r['sha256']
+for r in m['retrieved_sources']:
+ payload=read(r['path']);assert len(payload)==r['bytes'] and sha(payload)==r['sha256']==runtime['files'][r['prior_runtime_path']]
+for name,commit in [('raw_fixtures_v3.json',raw_commit),('case_inventory.json','fea72a16101a475c22d2befa6fbd75694df5dc89')]:
+ assert read(D+'/proof/'+name)==git('show',commit+':'+D+'/proof/'+name)
+a=obj('proof/analysis.json');assert a['independent_validation']=='passed' and a['verdict']=='COMMON_MODEL_CONTRACT_REJECTED'
+assert sha(read(D+'/proof/raw_fixtures_v3.json'))==a['raw_sha256'];assert sha(read(D+'/proof/case_inventory.json'))==a['case_inventory_sha256']
+assert obj('STATE.json')['phase']=='complete' and obj('STATE.json')['status']=='contradicted' and obj('STATE.json')['live_episodes']==0
+assert obj('proof/raw_fixtures_v2.json')['status']=='invalid' and obj('proof/source_probes.json')['returncode']==1
+for k in ['corrupt_actor_time','missing_ego_row','invented_holdout']:assert obj('proof/'+k+'_rejection.json')['status']=='invalid'
+assert obj('proof/commands/source_probes_v3.json')['returncode']==0 and obj('proof/commands/independent_validation.json')['returncode']==0
+for k in ['source_ruff_v3','committed_source_tests_v3']:assert obj('proof/commands/'+k+'.json')['returncode']==0
+packet=obj('proof/source_packet_v3.json');assert packet['commit']==source
+for p,h in packet['files'].items():assert sha(read(p))==h
+changes=git('diff','--name-only',parent,tip).decode().splitlines();assert all(p.startswith(D+'/') or p in ['tests/test_iter143_model_contract.py','CONTINUITY.md','docs/NEXT_PHASE.md','README.md'] for p in changes)
+assert not git('diff','--cached','--name-only')
+assert git('rev-parse','master').decode().strip()=='8c118b74c699bf0f139f9bd659192bad06b895f8'
+initial=json.loads(Path('/Users/danielwahnich/sentinel-bootstrap-evidence/iter143-model-contract-20261010/initial_wip_hashes.json').read_text());wip=0
+for name,h in initial.items():
+ if name in ['CONTINUITY.md','docs/NEXT_PHASE.md']:continue
+ p=R/name;assert (sha(p.read_bytes()) if p.is_file() else None)==h,name;wip+=1
+links=[]
+for p in files:
+ if p.startswith(D+'/') and p.endswith('.md'):body=read(p).decode()
+ elif p in ['README.md','CONTINUITY.md','docs/NEXT_PHASE.md']:
+  body=read(p).decode();start=body.index('> **Active operator-directed');body=body[start:body.index('\n\n',start)]
+ else:continue
+ for dest in re.findall(r'\]\(([^)]+)\)',body):
+  if dest.startswith(('http','#','mailto')):continue
+  target=posixpath.normpath(posixpath.join(posixpath.dirname(p),dest.split('#')[0]));assert target in files,(p,dest);links.append(target)
+assert all(posixpath.dirname(p) in read('README.md').decode() for p in files if p.startswith('experiments/') and p.endswith('/RESULT.md'))
+meta=git('log',parent+'..'+tip,'--format=%an <%ae>|%cn <%ce>%n%B').decode();assert not re.search(r'co-authored-by|generated-by|claude|anthropic',meta,re.I)
+identities=[line for line in meta.splitlines() if '|' in line];assert identities and all(s=='Daniel Wahnich <cogitoergosum143@gmail.com>|Daniel Wahnich <cogitoergosum143@gmail.com>' for s in identities)
+print(json.dumps(dict(status='passed',candidate_commit=tip,proof_hashes=len(checked),bound_prior_inputs=len(m['files']),retrieved_sources_matched_to_prior_runtime=len(m['retrieved_sources']),scientific_source_test_files_unchanged=3,preregistration_unchanged=True,valid_raw_and_inventory_commits_preserved=True,invalid_invocations_retained=2,artifact_known_bads_rejected=3,document_links=len(links),unrelated_wip_files_unchanged=wip,prior_experiments_unchanged=True,master_unchanged=True,index_empty=True,human_commit_identities=len(identities),cloud_access=False,scope='local candidate integrity; no full/frozen/hosted CI'),indent=2))

@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "python3",
+    "/Users/danielwahnich/sentinel-bootstrap-evidence/iter143-model-contract-20261010/committed_source_v3/experiments/iter143_model_contract/independent.py",
+    "--root",
+    "/Users/danielwahnich/sentinel-bootstrap-evidence/iter143-model-contract-20261010/committed_source_v3",
+    "--raw",
+    "experiments/iter143_model_contract/proof/raw_fixtures_v3.json",
+    "--inventory",
+    "experiments/iter143_model_contract/proof/case_inventory.json",
+    "--output",
+    "experiments/iter143_model_contract/proof/analysis.json"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-10T05:08:58.007072+00:00",
+  "elapsed_seconds": 0.07541108131408691,
+  "returncode": 0
+}

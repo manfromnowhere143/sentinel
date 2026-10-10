@@ -1,0 +1,59 @@
+[
+  {
+    "case": "corrupt_actor_time",
+    "argv": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "/Users/danielwahnich/sentinel-bootstrap-evidence/iter143-model-contract-20261010/committed_source_v3/experiments/iter143_model_contract/independent.py",
+      "--root",
+      "/Users/danielwahnich/sentinel-bootstrap-evidence/iter143-model-contract-20261010/committed_source_v3",
+      "--raw",
+      "/Users/danielwahnich/sentinel-bootstrap-evidence/iter143-model-contract-20261010/corrupt_actor_time_raw.json",
+      "--inventory",
+      "/Users/danielwahnich/sentinel-bootstrap-evidence/iter143-model-contract-20261010/corrupt_actor_time_inventory.json",
+      "--output",
+      "/Users/danielwahnich/workspace/sentinel/experiments/iter143_model_contract/proof/corrupt_actor_time_rejection.json"
+    ],
+    "returncode": 2,
+    "stdout": "{\"status\": \"invalid\", \"verdict\": \"MODEL_CONTRACT_INVALID\", \"output\": \"/Users/danielwahnich/workspace/sentinel/experiments/iter143_model_contract/proof/corrupt_actor_time_rejection.json\"}\n",
+    "stderr": "",
+    "original_raw_unchanged": true
+  },
+  {
+    "case": "missing_ego_row",
+    "argv": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "/Users/danielwahnich/sentinel-bootstrap-evidence/iter143-model-contract-20261010/committed_source_v3/experiments/iter143_model_contract/independent.py",
+      "--root",
+      "/Users/danielwahnich/sentinel-bootstrap-evidence/iter143-model-contract-20261010/committed_source_v3",
+      "--raw",
+      "/Users/danielwahnich/sentinel-bootstrap-evidence/iter143-model-contract-20261010/missing_ego_row_raw.json",
+      "--inventory",
+      "/Users/danielwahnich/sentinel-bootstrap-evidence/iter143-model-contract-20261010/missing_ego_row_inventory.json",
+      "--output",
+      "/Users/danielwahnich/workspace/sentinel/experiments/iter143_model_contract/proof/missing_ego_row_rejection.json"
+    ],
+    "returncode": 2,
+    "stdout": "{\"status\": \"invalid\", \"verdict\": \"MODEL_CONTRACT_INVALID\", \"output\": \"/Users/danielwahnich/workspace/sentinel/experiments/iter143_model_contract/proof/missing_ego_row_rejection.json\"}\n",
+    "stderr": "",
+    "original_raw_unchanged": true
+  },
+  {
+    "case": "invented_holdout",
+    "argv": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "/Users/danielwahnich/sentinel-bootstrap-evidence/iter143-model-contract-20261010/committed_source_v3/experiments/iter143_model_contract/independent.py",
+      "--root",
+      "/Users/danielwahnich/sentinel-bootstrap-evidence/iter143-model-contract-20261010/committed_source_v3",
+      "--raw",
+      "/Users/danielwahnich/sentinel-bootstrap-evidence/iter143-model-contract-20261010/invented_holdout_raw.json",
+      "--inventory",
+      "/Users/danielwahnich/sentinel-bootstrap-evidence/iter143-model-contract-20261010/invented_holdout_inventory.json",
+      "--output",
+      "/Users/danielwahnich/workspace/sentinel/experiments/iter143_model_contract/proof/invented_holdout_rejection.json"
+    ],
+    "returncode": 2,
+    "stdout": "{\"status\": \"invalid\", \"verdict\": \"MODEL_CONTRACT_INVALID\", \"output\": \"/Users/danielwahnich/workspace/sentinel/experiments/iter143_model_contract/proof/invented_holdout_rejection.json\"}\n",
+    "stderr": "",
+    "original_raw_unchanged": true
+  }
+]

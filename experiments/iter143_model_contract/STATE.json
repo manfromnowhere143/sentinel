@@ -1,11 +1,19 @@
 {
   "iteration": 143,
-  "status": "running",
-  "phase": "source_validated",
+  "status": "contradicted",
+  "verdict": "COMMON_MODEL_CONTRACT_REJECTED",
+  "phase": "complete",
   "branch": "research/iter143-model-contract",
   "parent_commit": "75e0727d564ce19a66199155662d2b5daf4a7fcf",
+  "preregistration_commit": "a5fe7d8c16a7283753610f3126b47d2f93e727bf",
+  "input_binding_commit": "e625f03c278ed5478aca0f799384bba320a9af23",
+  "executed_source_commit": "e240e748551e960185809d2a29c411847327f3b8",
+  "valid_raw_commit": "e34aaa12097070495003f35b4a7894621e4a9602",
+  "invalid_probe_invocations": 2,
+  "independent_validation": "passed",
   "cloud_access": false,
   "live_episodes": 0,
-  "preregistration_commit": "a5fe7d8c16a7283753610f3126b47d2f93e727bf",
-  "input_binding_commit": "e625f03c278ed5478aca0f799384bba320a9af23"
+  "physical_qualification": "unestablished",
+  "publication": "local_unpushed_candidate",
+  "next_step": "Implement and qualify a separate trajectory adapter with explicit timestamps before a new live case-family protocol."
 }

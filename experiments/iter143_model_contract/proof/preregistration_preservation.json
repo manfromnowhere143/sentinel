@@ -1,0 +1,6 @@
+{
+  "status": "restored_before_commit",
+  "reason": "A prose-spacing cleanup touched the local protocol; restored exact preregistered bytes before closure. No computation used changed protocol text.",
+  "preregistration_sha256": "8e219748c1b45efca0bda614598a003a47442960a9e5d5a8d3e26039b33fc2af",
+  "temporary_working_sha256": "144c59f3f48023a5655643b8ba1670bd30701e3270b8a51e636f5f94a12d96af"
+}

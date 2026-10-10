@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "python3",
+    "/tmp/i143_plot.py"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-10T05:10:15.587999+00:00",
+  "elapsed_seconds": 0.04468417167663574,
+  "returncode": 1
+}

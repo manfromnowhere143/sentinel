@@ -1,0 +1,6 @@
+{
+  "error": "numerical disagreement: 0.25 versus 0.10526315789473684",
+  "error_type": "ValueError",
+  "status": "invalid",
+  "verdict": "MODEL_CONTRACT_INVALID"
+}

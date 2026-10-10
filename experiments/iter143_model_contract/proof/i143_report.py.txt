@@ -1,0 +1,395 @@
+import hashlib,json,subprocess
+from pathlib import Path
+R=Path('/Users/danielwahnich/workspace/sentinel');D=R/'experiments/iter143_model_contract';P=D/'proof';parent='75e0727d564ce19a66199155662d2b5daf4a7fcf'
+r=json.loads((P/'analysis.json').read_text());raw=json.loads((P/'raw_fixtures_v3.json').read_text());inv=json.loads((P/'case_inventory.json').read_text());assert r['independent_validation']=='passed' and r['verdict']=='COMMON_MODEL_CONTRACT_REJECTED'
+(D/'RESULT.md').write_text('''# Iter143 model and timing contract result
+
+Status: **contradicted / COMMON_MODEL_CONTRACT_REJECTED**, 2026-10-10.
+The separately implemented scalar/Fraction check passed. Executed source fixtures
+contradict three specific assumptions: exact controller/environment transition
+agreement, equal-time actor/ego comparisons by array index, and enforcement of the
+declared Gym action limits. **No new driving episode or cloud access occurred.**
+
+The most consequential next engineering target is the actor time interface: the
+same array index represents different future times, and a stored speed can disagree
+with displacement per simulated second. These are source-contract counterexamples,
+not a demonstrated explanation for previous collisions or a measured physical model.
+
+## Actor time coordinates
+
+For the retained N=20 and environment step 0.25 s, the actor dispatch passes dt=0.1
+and horizon2.0 s. The cost compares candidate and ego rows by index. The original
+[spline generator](https://github.com/hyzhou404/HUGSIM/blob/62c690d39fd90020e68a196bd8bcc1c4d4191f2e/submodules/Pplan/Sampling/spline_planner.py)
+and its locally retained bytes distinguish these clocks:
+
+| Sequence | Sample time at index i | Last sample at i=19 |
+| --- | --- | ---: |
+| Ego forecast | i × 0.25 s | 4.75 s |
+| Actor spline | i × 2/19 s | 2.00 s |
+| Actor low-speed resampling / fallback | i × 0.1 s | 1.90 s |
+
+Thus the last compared samples differ by **2.75 s** for spline candidates and
+**2.85 s** for low-speed/fallback candidates. The source drops the spline time
+channel when building the actor state array; positional cost evaluation uses the
+indices directly. Earlier .5/.25/.1 shorthand identified configured parameters.
+It should not be read as saying every actor spline sample is exactly .1 s apart.
+
+![Actor and ego sample times at equal array indices](proof/figures/actor_time_coordinates.png)
+
+The [SVG figure](proof/figures/actor_time_coordinates.svg) retains the same data.
+
+A straight, constant-speed source fixture labelled **4 m/s** gives spline sample
+displacements 8/19 m. Consuming one such sample per .25-second environment step
+corresponds to **32/19 = 1.684210526 m/s**, while its stored speed remains4 m/s.
+The constant-headaway fallback gives **1.6 m/s** under the same consumption rule.
+These are synthetic unit fixtures. No historical live actor candidate type, physical
+speed or impact velocity was recovered by this calculation.
+
+The actual dispatch/update slices also checked21 calls at0,.25,...,5 s. With
+ATTACK_FREQ10 they replanned at0,2.5,5 s and incremented the execution pointer once
+per environment call. Reset at t0 consumes the first future actor sample. The fixture
+uses a single deterministic straight candidate, so it validates this source path and
+indexing behavior, not full sampling, filtering, map, rendering or actor-policy fidelity.
+
+## Ego transition and declared controls
+
+Of the fixed32 states/actions, **24/32** differ between the source controller and
+environment even at the same .25-second interval. **26/32** differ between one
+.5-second controller step and two .25-second environment steps under held controls.
+These are designed counterexamples, not estimated driving error rates.
+
+After explicit axis mapping, the source controller translates using old speed and
+turns using old speed/steering. The environment first updates speed/steering, then
+translates using new speed and turns using new speed/steering. Merely making dt
+identical leaves that integration-order difference.
+
+For fixture17, initial speed4 m/s, heading/steering0, acceleration2 m/s² and
+steering rate.2 rad/s, both .25-second calculations end at speed4.5 m/s and
+steering.05 rad, but:
+
+| Quantity after .25 s | Controller source | Environment source |
+| --- | ---: | ---: |
+| Forward position | 1.000 m | 1.125 m |
+| Heading | 0 rad | 0.02085071182314116 rad |
+
+The largest equal-interval position difference in this fixture set is **0.1875 m**.
+Using an approximate or slower-rate prediction model can be a legitimate controller
+design. This diagnostic rejects exact equivalence; it does not establish that a
+multirate controller is intrinsically wrong or quantify real-vehicle model error.
+A future claim must state and qualify the approximation or use a matching transition.
+
+All four tested commands outside the declared Gym space were integrated unchanged
+by the source step prefix. Declared bounds are acceleration±2 m/s² and steering
+rate±pi/12 rad/s; effective controller bounds are±3 m/s² and±.4 rad/s. Boundary and
+outside-bound commands are retained separately. No clipping was added. This confirms
+the interface behavior on the fixtures; it does not validate a physical actuator.
+
+## Finite development inventory
+
+The union of two historical hash inventories contains **88 scenario files from18
+base scenes**. All are labelled historically exposed development material. Five
+rows from closed scene0411 remain visible and excluded from new action search.
+There are **83 eligible scenarios across17 base scenes**, with current asset
+availability unobserved locally.
+
+The frozen lexical selection proposes **14 scenarios across scenes0013,0038,0041**
+for a pilot; the remaining69 scenarios are development reserve. Difficulty variants
+of one scene are not independent scenes. There are **zero unexposed holdout scenes**
+in this retained pool. The selection used filenames and hashes, not outcome values.
+See the complete [inventory](proof/case_inventory.json) and
+[proposed case-family protocol](CASE_FAMILY_PROTOCOL.md).
+
+## Evidence and validation
+
+- Preregistration: `a5fe7d8c16a7283753610f3126b47d2f93e727bf`.
+- Dependency binding addition before implementation: `e625f03c278ed5478aca0f799384bba320a9af23`.
+- Executed corrected implementation: `e240e748551e960185809d2a29c411847327f3b8`.
+- Valid [raw fixtures](proof/raw_fixtures_v3.json) were committed before interpretation
+  at `e34aaa12097070495003f35b4a7894621e4a9602`.
+- Inventory bytes were retained earlier at `fea72a16101a475c22d2befa6fbd75694df5dc89`.
+- [Independent analysis](proof/analysis.json) checks all32 ego fixtures,8 limit
+  commands, actor sampling/indexing, and the complete inventory. Ego tolerance1e-9;
+  tensor/sampling tolerance1e-6, unchanged after data.
+
+[INPUTS](INPUTS.json) binds11 retained inputs to the closed Iter142 parent and two
+newly retrieved source files to hashes already present in its host runtime manifest.
+Upstream source is pinned to `62c690d39fd90020e68a196bd8bcc1c4d4191f2e`; the
+[retained upstream license](../iter136_hugsim_recoverability_canary/proof/source/HUGSIM/LICENSE.txt)
+remains with the source chain. Extraction names, line ranges, omitted components,
+synthetic substitutions and exact local versions are in the raw record.
+
+The final **46 distinct focused tests** passed locally and from extracted committed
+source; these repeated runs are not92 distinct tests. New-source Ruff passed.
+Tests include changed input, symlink/size limits, malformed/duplicate/nonfinite data,
+altered time/control/ordering, missing/duplicated actor rows, corrupted numerical
+output, actual sampler and dispatch adapter boundaries, and invalid exception records.
+
+Execution used local CPU Python3.14.2, NumPy2.4.2, Torch2.10.0 and SciPy1.17.1.
+This is an ambient diagnostic environment, not the bound Linux simulator runtime.
+Full simulator behavior, full/frozen/hosted CI and physical qualification remain
+unestablished. No packages were installed. The figure used the existing Iter140
+Python3.11/Matplotlib3.9.4 environment and was visually checked.
+
+## Retained implementation failures
+
+The first full probe failed on mismatched synthetic sampler mask/terminal shapes,
+without a complete raw artifact. The next reached dispatch and failed because the
+synthetic actor used float64 storage while source assignment casts values tofloat32.
+It produced an explicit invalid record. The final repair matches the source's
+ordinary float32 actor-state construction and adds targeted adapter tests. Both
+failed invocations remain; neither is counted as completed measurement evidence.
+
+The inventory producer succeeded, but its wrapper then refused a metadata filename
+that collided with the produced artifact. The inventory was preserved and not rerun;
+missing wrapper timing staysnull. Subsequent receipts have a separate directory and
+a retained rejection test for output collisions. One early pytest run warned about
+its cache path; its tests passed. The initial plotting command lacked Matplotlib;
+using the already retained plotting environment succeeded without installation.
+
+The [correction record](EXECUTION_CORRECTION.md) also clarifies the imprecise subject
+of commit b2184ae: it retained an invalid artifact, not completed measurements.
+The actual valid raw commit is e34aaa1 above. No failure was erased, no tolerance
+changed, and no historical driving source, episode or result was modified.
+
+## Decision
+
+Build and qualify a separate trajectory interface carrying explicit time coordinates
+before further live intervention comparisons. Check time-aligned actor/ego costs,
+execution timestamps, reset semantics, stored speed versus displacement, and declared
+control behavior. Document controller prediction approximation or align it explicitly.
+Then freeze a source/asset-bound live protocol from the finite development inventory.
+The [next decision](DECISION.md) specifies that implementation target.
+
+This is a local, unpushed research candidate. Canonical master remains F17 and Iter135
+is deferred. Earlier Iter139/142 recovery nulls remain unchanged. No recovery, safety,
+state-of-the-art, industrial superiority or generalization claim follows from Iter143.
+''')
+pilot=[x for x in inv['rows'] if x['role']=='proposed_pilot']
+table='| Scene | Proposed pilot scenarios |\n| --- | --- |\n'
+for scene in inv['pilot_scenes']:table+='| '+scene+' | '+', '.join(x['name'].removesuffix('.yaml') for x in pilot if x['scene']==scene)+' |\n'
+(D/'CASE_FAMILY_PROTOCOL.md').write_text('''# Proposed finite case-family study
+
+Status: **proposed; live execution not preregistered**. Current cloud budget:0.
+This design follows the Iter143 source-contract diagnostic. Its inventory is frozen;
+new model source, assets, timing contract and a bounded host budget still need binding
+before a live protocol can be registered. The agent can do that work autonomously
+under Daniel's mission instruction; no human acceptance ceremony is required.
+
+## Purpose and population
+
+Test whether a finite admissible action set contains a repeatable complete-route
+recovery that strong responsive comparators fail to achieve, while measuring harmful
+interventions on the same inventory. Establish that constructive action opportunity
+before asking whether added information can identify it in time.
+
+The retained inventory is88 scenarios/18 base scenes. Exclude all5 scene0411 rows
+from new search, retaining their hashes and exclusion reason. The proposed pilot
+has14 scenarios from the first three eligible scene IDs, independent of outcome
+values; the69 other eligible rows remain development reserve. All are historically
+exposed. No member may be labelled an untouched holdout or substituted after seeing
+its outcome. Availability, case-family composition and qualification failures are
+reported for every row; unavailable assets remain unavailable.
+
+'''+table+'''
+Tier names are source labels, not verified physical difficulty or preassigned
+braking-helpful/harmful classes. Measure those classes from paired outcomes and
+retain their denominators; do not select the reported sample using them.
+
+## Required model contract before launch
+
+Use a new, named regime; keep the legacy regime and all its evidence immutable.
+Specify timestamps for nominal-plan knots, controller prediction, actor generation,
+actor costs, simulator application, observation and reset. Compare trajectories at
+common times by a declared interpolation rule and forbid unsupported extrapolation.
+Verify sampler timestamp monotonicity, spacing and duration; do not discard the time
+channel. A dt-argument replacement alone does not reconcile tf/(N-1) with tf/N.
+
+Specify controls, units, steering-angle/rate interpretation, signed-speed semantics
+and the intersection of controller and simulator admissible bounds. Any clipping is
+part of the named policy and logged before/after; undeclared clipping is invalid.
+Either use the tested simulator transition for prediction or predeclare a model
+approximation and an error budget with counterexamples. A qualification fixture
+must demonstrate stored-speed/displacement consistency and reset without an
+unlogged future advance. Physical scope remains separate from software consistency.
+
+## Candidate arms and finite schedule
+
+Subject to that source qualification, freeze these four policies with one fixed
+planner/model and two fresh numerical replicas each:
+
+- Responsive nominal planner/controller under the new regime.
+- The released monitor with the same responsive planner/controller and new regime.
+- Responsive nominal planning with one1.0-second longitudinal braking action starting
+  at simulated time0.0 s, then return to current nominal planning.
+- The same action starting at2.5 s, then return to current nominal planning.
+
+The proposed braking law is acceleration -min(2,max(v,0)/dt) for nonnegative forward
+speed, while using the current nominal steering command within qualified bounds.
+Reverse-state behavior must be resolved by the new model contract before this law
+can become executable protocol. These two fixed times/actions are development probes,
+not learned policies or claims that arbitrary evasive actions have been exhausted.
+
+This is at most14 ×4 ×2 =112 fresh episodes, with401 actions per episode maximum.
+Group by lexical scenario, nominal pair, monitor pair, early-brake pair, late-brake
+pair. No initialized retry, seed search, replacement case or success stopping. Freeze
+seeds and double-reset policy explicitly after the reset contract is qualified;
+legacy seed136/0 and double-reset behavior cannot be imported silently. Every raw
+packet enters Git before analysis or later-arm admission. An invalid replay stops
+later work; unobserved arms remain missing. A completed baseline must not remove its
+scenario from the intervention schedule, because that would hide potential harm.
+
+## Outcomes and inference
+
+Record collision, off-route termination, full-route completion, first failure time,
+raw progress, censoring, actual controls and monitor proposals for every arm. Useful
+recovery requires no collision anywhere, full route completion within401 actions,
+valid action contrast and prefix, and progress at each failing comparator's hazard
+time at least its raw progress minus.05. A missing hazard observation remains null
+unless successful earlier full-route completion satisfies the declared rule.
+A comparator that completes collision-free supplies no recovery opportunity against
+it; the same row remains eligible for detecting intervention harm.
+
+For a given scenario, label a constructive recovery witness only when both replicas
+of the fixed intervention qualify and both replicas of each failing comparator match.
+Report witnesses separately against nominal and monitor, plus their intersection;
+never silently select the weaker comparator. Any collision or lost full completion
+under intervention when the nominal pair completed safely is observed harm. Report
+progress differences and runtime as separate outcomes. Disagreeing replicas invalidate
+the paired claim. Horizon/time/resource cutoffs are censored, not successes or zeroes.
+
+This is development enumeration, not a powered population comparison. Report all14
+scenario rows, base-scene counts and invalid/missing/censored counts. Repetitions and
+tier variants do not expand the independent-scene denominator. Do not issue a population
+p-value or confidence interval from three base scenes. Any later effect estimate
+requires a prospectively justified scene-level design, multiplicity rule and enough
+independent scenes. Preserve no-witness results; finite-library failure is not physical
+unavoidability. A successful simulator action is not automatically implementable by
+an observation-limited selector.
+
+## Information and deadline successor
+
+Freeze any selector and exact signal access only after a useful action witness exists.
+Compare available-observation signals with specified additions, logging when each
+became available and whether the controller could act before opportunity closed.
+Privileged actor geometry may diagnose opportunities but cannot be an undeclared
+online input. Include the harmful-braking rows and the full original selection ledger.
+Reserve genuinely unexposed base scenes/fault families separately; the retained88-row
+pool supplies none. Replicate outside the development family before transfer claims.
+
+Measure solver, adapter, complete call, perception/transport and action application
+separately. Numerical-mode replay does not qualify end-to-end latency. Freeze a late
+result policy and its deadline experiment before interpreting wall-time behavior as
+vehicle operation; no timeout silently selects a favorable command.
+
+## Resource and stopping requirements
+
+No cloud launch is part of this draft. Before registration, an agent must bind source,
+assets and hardware, estimate runtime from a separately bounded qualification smoke,
+and record total host seconds/cost ceiling, per-episode timeout, storage reserve,
+capacity attempts and an owned shutdown timer. If the112-episode envelope does not
+fit that ceiling, revise the whole pilot prospectively and retain this proposal.
+Do not start with an unaffordable schedule and then select favorable completed cases.
+A resource stop preserves the incomplete schedule and all missingness. Publication
+requires retained evidence and applicable validation, not a human ceremony file.
+''')
+(D/'DECISION.md').write_text('''# Decision after Iter143
+
+Iter143 is complete: source-level counterexamples reject the three named common
+contract assumptions. The independent checker passed. No new live recovery result
+exists; Iter139 and Iter142 remain null on their registered action comparisons.
+
+## Next implementation
+
+Build a separate versioned trajectory adapter whose values carry explicit sample
+timestamps, coordinate frame, units and control semantics. Keep legacy source and
+results unchanged. The first executable target is to make actor candidate generation,
+ego forecasts, cost evaluation and environment consumption agree about time.
+
+Use source-derived fixtures for both spline and low-speed branches, enforce monotone
+finite timestamps, compare at common times, and reject out-of-support queries. Require
+stored-speed/displacement consistency on exact constant-speed cases, a clear initial
+state at reset, and finite replan/pointer behavior. Retain known-bads for a dropped or
+shifted time channel, wrong units, unsupported extrapolation, stale plan and reset
+advancement. A standalone adapter pass is followed by a bounded integration test;
+neither alone qualifies physical fidelity.
+
+A bare dt change is insufficient: the spline and low-speed branches use different
+endpoint conventions. Define the shared grid first (for example N20 timestamps
+0,.25,...,4.75), then generate or resample candidates onto those explicit times and
+check both branches. This is a proposed new regime, not a repair retroactively
+applied to old outcomes. Changing dynamics can change benchmark difficulty, so report
+old/new regime identities separately and never attribute that change to information.
+
+For ego control, explicitly align the prediction transition or bound the chosen
+approximation, and enforce the declared admissible policy consistently. Do not claim
+an approximate multirate model is invalid merely because it differs numerically.
+Keep real-time scheduling and behavior on late results as a separate qualification.
+
+## Subsequent driving study
+
+After those executable checks, bind actual scenario/configuration/model assets and
+preregister the [finite case-family design](CASE_FAMILY_PROTOCOL.md) with a measured
+resource ceiling. The proposed14 scenarios span3 historical base scenes, not a fresh
+holdout. Detect helpful and harmful interventions across the same frozen population.
+Proceed to information ablation only after a reproducible useful action opportunity
+is demonstrated; keep independent scene/fault validation separate.
+
+No new pulse/strength/clock search on closed scene0411, no claim that a finite action
+library proves unavoidability, and no escalation from source consistency to physical
+safety or state of the art. The next step is authorized engineering work, with its
+claims limited by retained measurements.
+''')
+state=dict(iteration=143,status=r['status'],verdict=r['verdict'],phase='complete',branch='research/iter143-model-contract',parent_commit=parent,preregistration_commit='a5fe7d8c16a7283753610f3126b47d2f93e727bf',input_binding_commit='e625f03c278ed5478aca0f799384bba320a9af23',executed_source_commit='e240e748551e960185809d2a29c411847327f3b8',valid_raw_commit='e34aaa12097070495003f35b4a7894621e4a9602',invalid_probe_invocations=2,independent_validation='passed',cloud_access=False,live_episodes=0,physical_qualification='unestablished',publication='local_unpushed_candidate',next_step='Implement and qualify a separate trajectory adapter with explicit timestamps before a new live case-family protocol.')
+(D/'STATE.json').write_text(json.dumps(state,indent=2)+'\n')
+(D/'STATUS.md').write_text('# Status\n\nComplete: **contradicted / COMMON_MODEL_CONTRACT_REJECTED** for the three\nregistered source-contract assumptions. Independent check passed;0 live episodes.\nTwo invalid probe invocations and their repairs remain visible.\n\nRead [result](RESULT.md), [next implementation](DECISION.md) and\n[proposed case-family protocol](CASE_FAMILY_PROTOCOL.md). No cloud work is active\nfrom this iteration; current provider status was not queried.\n')
+with (D/'EXECUTION_BINDING.md').open('a') as f:f.write('\n## Final executed binding\n\nFinal implementation e240e748551e960185809d2a29c411847327f3b8 passed46 focused\ntests both locally and from extracted committed source, plus Ruff. Two invalid\nprobe invocations and the receipt collision are described in\n[EXECUTION_CORRECTION.md](EXECUTION_CORRECTION.md). The valid third probe artifact\nwas committed at e34aaa12097070495003f35b4a7894621e4a9602 before independent\nanalysis. The source-contract verdict is contradicted; validation passed.\nNo cloud/host/GPU access, live episode or package installation occurred.\n')
+block='''> **Active operator-directed candidate work, 2026-10-10:** Iter143 is complete:
+> **contradicted / COMMON_MODEL_CONTRACT_REJECTED**. Independent source-fixture replay
+> passed: actor and ego costs compare different sample times, controller/environment
+> transitions differ, and declared Gym limits are not enforced by the step prefix.
+> These are software-contract findings; no physical qualification or new recovery claim.
+> Read the [result](experiments/iter143_model_contract/RESULT.md),
+> [state](experiments/iter143_model_contract/STATE.json),
+> [next implementation](experiments/iter143_model_contract/DECISION.md) and
+> [finite study proposal](experiments/iter143_model_contract/CASE_FAMILY_PROTOCOL.md).
+> Next: a versioned trajectory adapter with explicit times and qualified control semantics.
+> Iter142 remains null,0/2 recoveries. Iter143 used local CPU only, no cloud or live runs.
+> Candidate `research/iter143-model-contract` is unpushed; master remains F17.
+> Iter135 stays deferred; MISSION_STATE/HANDOFF retain their publication snapshot.
+'''
+shift='''- 2026-10-10: Iter143 closed as contradicted / COMMON_MODEL_CONTRACT_REJECTED for
+  exact transition agreement, same-time actor costs and declared-control enforcement.
+  Independent source-fixture replay passed;24/32 equal-interval ego counterexamples,
+  actor cost endpoint4.75 s versus2.0/1.9 s, and4 outside-declared commands integrated.
+  These are synthetic/source diagnostics, not live speed or collision-cause evidence.
+  46 focused tests passed on the final source; two invalid harness invocations and
+  receipt/plotting failures remain recorded. No cloud or live episode. The frozen
+  development inventory has88 scenarios/18 scenes,14 proposed pilot scenarios/3 scenes,
+  and0 untouched holdout scenes. Read the [result](experiments/iter143_model_contract/RESULT.md)
+  and [next implementation](experiments/iter143_model_contract/DECISION.md).
+'''
+guards=[]
+for name in ['CONTINUITY.md','docs/NEXT_PHASE.md','README.md']:
+ for mode in ['candidate','working']:
+  if name=='README.md' and mode=='working':continue
+  target=Path('/tmp/i143_'+Path(name).name) if mode=='candidate' else R/name
+  old=subprocess.check_output(['git','show',parent+':'+name],cwd=R).decode() if mode=='candidate' else target.read_text()
+  a=old.index('> **Active operator-directed');b=old.index('\n\n',a);newblock=block.replace('](experiments/','](../experiments/') if name.startswith('docs/') else block
+  new=old[:a]+newblock.rstrip()+old[b:]
+  if name=='CONTINUITY.md':new=new.replace('## Shift log\n\n','## Shift log\n\n'+shift,1)
+  if name=='README.md':
+   pos=new.index('[Iteration 141]');new=new[:pos]+'''[Iteration 142](experiments/iter142_nominal_continuation_completion/RESULT.md) completed
+the nominal-continuation comparison:0/2 useful recoveries. Both replicas collided at7.25 s,
+versus6.5 s for the references. All84 new controller calls replayed;69 exceeded50 ms.
+The source-contract qualification in Iter143 determines the next engineering step.
+
+'''+new[pos:];new=new.replace('## Local research update 2026-10-09','## Local research update 2026-10-10',1)
+  if mode=='working':
+   aa=new.index('> **Active operator-directed');bb=new.index('\n\n',aa);remainder=new[:aa]+new[bb:]
+   if name=='CONTINUITY.md':remainder=remainder.replace(shift,'',1)
+   assert remainder==old[:a]+old[b:]
+   guards.append(dict(path=name,unchanged_outside_active_section_and_added_shift_entry=True,remainder_sha256=hashlib.sha256(remainder.encode()).hexdigest()))
+  target.write_text(new)
+(P/'doc_preservation.json').write_text(json.dumps(dict(status='passed',files=guards,root_readme_untouched=True),indent=2)+'\n')
+for path in ['/tmp/i143_report.py','/tmp/i143_plot.py','/tmp/i143_packet_tests_v3.py']:(P/(Path(path).name+'.txt')).write_bytes(Path(path).read_bytes())
+print('RESULT_STATE_DECISION_AND_DOCS_WRITTEN')

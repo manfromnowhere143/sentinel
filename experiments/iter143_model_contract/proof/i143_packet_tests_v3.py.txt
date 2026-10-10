@@ -1,0 +1,12 @@
+import hashlib,json,subprocess,sys
+from pathlib import Path
+R=Path('/Users/danielwahnich/workspace/sentinel');E=Path('/Users/danielwahnich/sentinel-bootstrap-evidence/iter143-model-contract-20261010');T=E/'committed_source_v3';commit=subprocess.check_output(['git','rev-parse','research/iter143-model-contract'],cwd=R).decode().strip();D='experiments/iter143_model_contract'
+T.mkdir()
+def raw(path):return subprocess.check_output(['git','show',commit+':'+path],cwd=R)
+m=json.loads(raw(D+'/INPUTS.json'));names=[*m['files'],*(x['path'] for x in m['retrieved_sources']),D+'/INPUTS.json',D+'/qualification.py',D+'/independent.py','tests/test_iter143_model_contract.py']
+binding={}
+for name in names:
+ data=raw(name);out=T/name;out.parent.mkdir(parents=True,exist_ok=True);out.write_bytes(data);binding[name]=hashlib.sha256(data).hexdigest()
+(R/D/'proof/source_packet_v3.json').write_text(json.dumps(dict(commit=commit,files=binding,root=str(T)),indent=2)+'\n')
+r=subprocess.run([sys.executable,'-m','pytest','-q','-c','/dev/null','-o','addopts=','-p','no:cacheprovider','tests/test_iter143_model_contract.py'],cwd=T)
+sys.exit(r.returncode)

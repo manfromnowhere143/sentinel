@@ -1,0 +1,17 @@
+import json
+from pathlib import Path
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+P=Path('/Users/danielwahnich/workspace/sentinel/experiments/iter143_model_contract/proof');raw=json.loads((P/'raw_fixtures_v3.json').read_text());a=raw['actor']
+fig,ax=plt.subplots(figsize=(9,5.4));fig.subplots_adjust(bottom=.23,top=.84,right=.96)
+i=list(range(20));ax.plot(i,[.25*x for x in i],color='#222222',marker='o',markersize=3,label='Ego forecast: 0.25 s per index')
+ax.plot(i,[x[-1] for x in a['spline']],color='#007c91',marker='o',markersize=3,label='Actor spline: 2/19 s per index')
+ax.plot(i,[0]+[x[-1] for x in a['low_speed']],color='#bb5b14',linestyle='--',label='Actor low-speed/fallback: 0.1 s per index')
+ax.annotate('4.75 s',(19,4.75),xytext=(-52,-1),textcoords='offset points',weight='bold')
+ax.annotate('2.00 s',(19,2),xytext=(-50,10),textcoords='offset points',color='#007c91',weight='bold')
+ax.annotate('1.90 s',(19,1.9),xytext=(-50,-18),textcoords='offset points',color='#bb5b14',weight='bold')
+ax.set(xlabel='Array index used in the attack cost',ylabel='Time represented by that sample (seconds)',xlim=(0,19.6),ylim=(0,5.2),xticks=[0,5,10,15,19]);ax.grid(alpha=.18);ax.spines[['top','right']].set_visible(False);ax.legend(loc='upper left',frameon=False)
+fig.suptitle('Iter143: equal indices compare different future times',fontsize=15,weight='bold')
+fig.text(.12,.08,'Pinned source, N=20, environment dt=0.25 s, AttackPlanner argument dt=0.1 s.\nCPU source fixtures with independent scalar checks. This is not a live actor trajectory.',fontsize=10,color='#444444')
+out=P/'figures';out.mkdir(exist_ok=True);fig.savefig(out/'actor_time_coordinates.png',dpi=180);fig.savefig(out/'actor_time_coordinates.svg');print('PLOT_CREATED')

@@ -13,3 +13,13 @@ and extraction line ranges are retained in the raw fixture output.
 Ambient local Python/NumPy/Torch/SciPy versions are recorded with the raw output. This
 is not the bound Linux environment or full simulator execution. No provider calls,
 package installs, scene runs or physical qualification occur.
+
+## Final executed binding
+
+Final implementation e240e748551e960185809d2a29c411847327f3b8 passed 46 focused
+tests both locally and from extracted committed source, plus Ruff. Two invalid
+probe invocations and the receipt collision are described in
+[EXECUTION_CORRECTION.md](EXECUTION_CORRECTION.md). The valid third probe artifact
+was committed at e34aaa12097070495003f35b4a7894621e4a9602 before independent
+analysis. The source-contract verdict is contradicted; validation passed.
+No cloud/host/GPU access, live episode or package installation occurred.

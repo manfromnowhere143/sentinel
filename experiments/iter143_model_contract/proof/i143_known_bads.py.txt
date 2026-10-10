@@ -1,0 +1,19 @@
+from copy import deepcopy
+import json,subprocess,sys
+from pathlib import Path
+R=Path('/Users/danielwahnich/workspace/sentinel');P=R/'experiments/iter143_model_contract/proof';E=Path('/Users/danielwahnich/sentinel-bootstrap-evidence/iter143-model-contract-20261010');T=E/'committed_source_v3'
+raw=json.loads((P/'raw_fixtures_v3.json').read_text());inventory=json.loads((P/'case_inventory.json').read_text())
+records=[]
+for mode in ['corrupt_actor_time','missing_ego_row','invented_holdout']:
+ bad=deepcopy(raw);inv=deepcopy(inventory)
+ if mode=='corrupt_actor_time':bad['actor']['spline'][1][-1]=.25
+ if mode=='missing_ego_row':bad['ego'].pop()
+ if mode=='invented_holdout':inv['held_out_unexposed_scenes']=['0013']
+ rp=E/(mode+'_raw.json');ip=E/(mode+'_inventory.json');rp.write_text(json.dumps(bad));ip.write_text(json.dumps(inv))
+ out=P/(mode+'_rejection.json')
+ args=[sys.executable,str(T/'experiments/iter143_model_contract/independent.py'),'--root',str(T),'--raw',str(rp),'--inventory',str(ip),'--output',str(out)]
+ completed=subprocess.run(args,cwd=R,capture_output=True)
+ assert completed.returncode==2 and json.loads(out.read_text())['status']=='invalid'
+ records.append(dict(case=mode,argv=args,returncode=completed.returncode,stdout=completed.stdout.decode(),stderr=completed.stderr.decode(),original_raw_unchanged=True))
+(P/'known_bad_validations.json').write_text(json.dumps(records,indent=2)+'\n')
+print('3_CORRUPTED_ARTIFACTS_REJECTED')
