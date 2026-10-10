@@ -1,0 +1,479 @@
+{
+  "status": "supported",
+  "cases": [
+    {
+      "status": "supported",
+      "episode": "completion__nominal__1",
+      "arm": "nominal",
+      "steps": 17,
+      "max_stationarity": 1.858325716901426e-12,
+      "attack_selections": 0,
+      "outcome": {
+        "collision_observed": false,
+        "off_route_observed": false,
+        "simulator_completion": true,
+        "completion_qualified": true,
+        "censored": false,
+        "execution_valid": true,
+        "first_failure_time": null,
+        "final_sample_observed": false
+      },
+      "reset_state": [
+        0.0,
+        0.0,
+        0.0,
+        4.0,
+        0.0
+      ],
+      "scope": "source execution with declared substitutions; background collision result retained, physical validity unestablished"
+    },
+    {
+      "status": "supported",
+      "episode": "completion__nominal__2",
+      "arm": "nominal",
+      "steps": 17,
+      "max_stationarity": 1.858325716901426e-12,
+      "attack_selections": 0,
+      "outcome": {
+        "collision_observed": false,
+        "off_route_observed": false,
+        "simulator_completion": true,
+        "completion_qualified": true,
+        "censored": false,
+        "execution_valid": true,
+        "first_failure_time": null,
+        "final_sample_observed": false
+      },
+      "reset_state": [
+        0.0,
+        0.0,
+        0.0,
+        4.0,
+        0.0
+      ],
+      "scope": "source execution with declared substitutions; background collision result retained, physical validity unestablished"
+    },
+    {
+      "status": "supported",
+      "episode": "completion__monitor__1",
+      "arm": "monitor",
+      "steps": 20,
+      "max_stationarity": 6.478486780370218e-07,
+      "attack_selections": 0,
+      "outcome": {
+        "collision_observed": false,
+        "off_route_observed": false,
+        "simulator_completion": true,
+        "completion_qualified": true,
+        "censored": false,
+        "execution_valid": true,
+        "first_failure_time": null,
+        "final_sample_observed": false
+      },
+      "reset_state": [
+        0.0,
+        0.0,
+        0.0,
+        4.0,
+        0.0
+      ],
+      "scope": "source execution with declared substitutions; background collision result retained, physical validity unestablished"
+    },
+    {
+      "status": "supported",
+      "episode": "completion__monitor__2",
+      "arm": "monitor",
+      "steps": 20,
+      "max_stationarity": 6.478486780370218e-07,
+      "attack_selections": 0,
+      "outcome": {
+        "collision_observed": false,
+        "off_route_observed": false,
+        "simulator_completion": true,
+        "completion_qualified": true,
+        "censored": false,
+        "execution_valid": true,
+        "first_failure_time": null,
+        "final_sample_observed": false
+      },
+      "reset_state": [
+        0.0,
+        0.0,
+        0.0,
+        4.0,
+        0.0
+      ],
+      "scope": "source execution with declared substitutions; background collision result retained, physical validity unestablished"
+    },
+    {
+      "status": "supported",
+      "episode": "completion__brake_t0__1",
+      "arm": "brake_t0",
+      "steps": 20,
+      "max_stationarity": 6.478486871408506e-07,
+      "attack_selections": 0,
+      "outcome": {
+        "collision_observed": false,
+        "off_route_observed": false,
+        "simulator_completion": true,
+        "completion_qualified": true,
+        "censored": false,
+        "execution_valid": true,
+        "first_failure_time": null,
+        "final_sample_observed": false
+      },
+      "reset_state": [
+        0.0,
+        0.0,
+        0.0,
+        4.0,
+        0.0
+      ],
+      "scope": "source execution with declared substitutions; background collision result retained, physical validity unestablished"
+    },
+    {
+      "status": "supported",
+      "episode": "completion__brake_t0__2",
+      "arm": "brake_t0",
+      "steps": 20,
+      "max_stationarity": 6.478486871408506e-07,
+      "attack_selections": 0,
+      "outcome": {
+        "collision_observed": false,
+        "off_route_observed": false,
+        "simulator_completion": true,
+        "completion_qualified": true,
+        "censored": false,
+        "execution_valid": true,
+        "first_failure_time": null,
+        "final_sample_observed": false
+      },
+      "reset_state": [
+        0.0,
+        0.0,
+        0.0,
+        4.0,
+        0.0
+      ],
+      "scope": "source execution with declared substitutions; background collision result retained, physical validity unestablished"
+    },
+    {
+      "status": "supported",
+      "episode": "completion__brake_t2_5__1",
+      "arm": "brake_t2_5",
+      "steps": 19,
+      "max_stationarity": 6.478487035721514e-07,
+      "attack_selections": 0,
+      "outcome": {
+        "collision_observed": false,
+        "off_route_observed": false,
+        "simulator_completion": true,
+        "completion_qualified": true,
+        "censored": false,
+        "execution_valid": true,
+        "first_failure_time": null,
+        "final_sample_observed": false
+      },
+      "reset_state": [
+        0.0,
+        0.0,
+        0.0,
+        4.0,
+        0.0
+      ],
+      "scope": "source execution with declared substitutions; background collision result retained, physical validity unestablished"
+    },
+    {
+      "status": "supported",
+      "episode": "completion__brake_t2_5__2",
+      "arm": "brake_t2_5",
+      "steps": 19,
+      "max_stationarity": 6.478487035721514e-07,
+      "attack_selections": 0,
+      "outcome": {
+        "collision_observed": false,
+        "off_route_observed": false,
+        "simulator_completion": true,
+        "completion_qualified": true,
+        "censored": false,
+        "execution_valid": true,
+        "first_failure_time": null,
+        "final_sample_observed": false
+      },
+      "reset_state": [
+        0.0,
+        0.0,
+        0.0,
+        4.0,
+        0.0
+      ],
+      "scope": "source execution with declared substitutions; background collision result retained, physical validity unestablished"
+    },
+    {
+      "status": "supported",
+      "episode": "censor__nominal__1",
+      "arm": "nominal",
+      "steps": 401,
+      "max_stationarity": 5.351975530791869e-12,
+      "attack_selections": 0,
+      "outcome": {
+        "collision_observed": false,
+        "off_route_observed": false,
+        "simulator_completion": false,
+        "completion_qualified": false,
+        "censored": true,
+        "execution_valid": true,
+        "first_failure_time": null,
+        "final_sample_observed": false
+      },
+      "reset_state": [
+        0.0,
+        0.0,
+        0.0,
+        4.0,
+        0.0
+      ],
+      "scope": "source execution with declared substitutions; background collision result retained, physical validity unestablished"
+    },
+    {
+      "status": "supported",
+      "episode": "censor__nominal__2",
+      "arm": "nominal",
+      "steps": 401,
+      "max_stationarity": 5.351975530791869e-12,
+      "attack_selections": 0,
+      "outcome": {
+        "collision_observed": false,
+        "off_route_observed": false,
+        "simulator_completion": false,
+        "completion_qualified": false,
+        "censored": true,
+        "execution_valid": true,
+        "first_failure_time": null,
+        "final_sample_observed": false
+      },
+      "reset_state": [
+        0.0,
+        0.0,
+        0.0,
+        4.0,
+        0.0
+      ],
+      "scope": "source execution with declared substitutions; background collision result retained, physical validity unestablished"
+    },
+    {
+      "status": "supported",
+      "episode": "censor__monitor__1",
+      "arm": "monitor",
+      "steps": 401,
+      "max_stationarity": 6.478486780370218e-07,
+      "attack_selections": 0,
+      "outcome": {
+        "collision_observed": false,
+        "off_route_observed": false,
+        "simulator_completion": false,
+        "completion_qualified": false,
+        "censored": true,
+        "execution_valid": true,
+        "first_failure_time": null,
+        "final_sample_observed": false
+      },
+      "reset_state": [
+        0.0,
+        0.0,
+        0.0,
+        4.0,
+        0.0
+      ],
+      "scope": "source execution with declared substitutions; background collision result retained, physical validity unestablished"
+    },
+    {
+      "status": "supported",
+      "episode": "censor__monitor__2",
+      "arm": "monitor",
+      "steps": 401,
+      "max_stationarity": 6.478486780370218e-07,
+      "attack_selections": 0,
+      "outcome": {
+        "collision_observed": false,
+        "off_route_observed": false,
+        "simulator_completion": false,
+        "completion_qualified": false,
+        "censored": true,
+        "execution_valid": true,
+        "first_failure_time": null,
+        "final_sample_observed": false
+      },
+      "reset_state": [
+        0.0,
+        0.0,
+        0.0,
+        4.0,
+        0.0
+      ],
+      "scope": "source execution with declared substitutions; background collision result retained, physical validity unestablished"
+    },
+    {
+      "status": "supported",
+      "episode": "censor__brake_t0__1",
+      "arm": "brake_t0",
+      "steps": 401,
+      "max_stationarity": 6.478486871408506e-07,
+      "attack_selections": 0,
+      "outcome": {
+        "collision_observed": false,
+        "off_route_observed": false,
+        "simulator_completion": false,
+        "completion_qualified": false,
+        "censored": true,
+        "execution_valid": true,
+        "first_failure_time": null,
+        "final_sample_observed": false
+      },
+      "reset_state": [
+        0.0,
+        0.0,
+        0.0,
+        4.0,
+        0.0
+      ],
+      "scope": "source execution with declared substitutions; background collision result retained, physical validity unestablished"
+    },
+    {
+      "status": "supported",
+      "episode": "censor__brake_t0__2",
+      "arm": "brake_t0",
+      "steps": 401,
+      "max_stationarity": 6.478486871408506e-07,
+      "attack_selections": 0,
+      "outcome": {
+        "collision_observed": false,
+        "off_route_observed": false,
+        "simulator_completion": false,
+        "completion_qualified": false,
+        "censored": true,
+        "execution_valid": true,
+        "first_failure_time": null,
+        "final_sample_observed": false
+      },
+      "reset_state": [
+        0.0,
+        0.0,
+        0.0,
+        4.0,
+        0.0
+      ],
+      "scope": "source execution with declared substitutions; background collision result retained, physical validity unestablished"
+    },
+    {
+      "status": "supported",
+      "episode": "censor__brake_t2_5__1",
+      "arm": "brake_t2_5",
+      "steps": 401,
+      "max_stationarity": 6.478487035721514e-07,
+      "attack_selections": 0,
+      "outcome": {
+        "collision_observed": false,
+        "off_route_observed": false,
+        "simulator_completion": false,
+        "completion_qualified": false,
+        "censored": true,
+        "execution_valid": true,
+        "first_failure_time": null,
+        "final_sample_observed": false
+      },
+      "reset_state": [
+        0.0,
+        0.0,
+        0.0,
+        4.0,
+        0.0
+      ],
+      "scope": "source execution with declared substitutions; background collision result retained, physical validity unestablished"
+    },
+    {
+      "status": "supported",
+      "episode": "censor__brake_t2_5__2",
+      "arm": "brake_t2_5",
+      "steps": 401,
+      "max_stationarity": 6.478487035721514e-07,
+      "attack_selections": 0,
+      "outcome": {
+        "collision_observed": false,
+        "off_route_observed": false,
+        "simulator_completion": false,
+        "completion_qualified": false,
+        "censored": true,
+        "execution_valid": true,
+        "first_failure_time": null,
+        "final_sample_observed": false
+      },
+      "reset_state": [
+        0.0,
+        0.0,
+        0.0,
+        4.0,
+        0.0
+      ],
+      "scope": "source execution with declared substitutions; background collision result retained, physical validity unestablished"
+    },
+    {
+      "status": "supported",
+      "episode": "collision_completion__nominal__1",
+      "arm": "nominal",
+      "steps": 1,
+      "max_stationarity": 2.578837157530318e-13,
+      "attack_selections": 0,
+      "outcome": {
+        "collision_observed": true,
+        "off_route_observed": false,
+        "simulator_completion": true,
+        "completion_qualified": false,
+        "censored": false,
+        "execution_valid": true,
+        "first_failure_time": 0.25,
+        "final_sample_observed": true
+      },
+      "reset_state": [
+        0.0,
+        0.0,
+        0.0,
+        4.0,
+        0.0
+      ],
+      "scope": "source execution with declared substitutions; background collision result retained, physical validity unestablished"
+    },
+    {
+      "status": "supported",
+      "episode": "off_route__nominal__1",
+      "arm": "nominal",
+      "steps": 1,
+      "max_stationarity": 2.578837157530318e-13,
+      "attack_selections": 0,
+      "outcome": {
+        "collision_observed": false,
+        "off_route_observed": true,
+        "simulator_completion": false,
+        "completion_qualified": false,
+        "censored": false,
+        "execution_valid": true,
+        "first_failure_time": 0.25,
+        "final_sample_observed": false
+      },
+      "reset_state": [
+        0.0,
+        0.0,
+        0.0,
+        4.0,
+        0.0
+      ],
+      "scope": "source execution with declared substitutions; background collision result retained, physical validity unestablished"
+    }
+  ],
+  "replica_pairs": 8,
+  "steps": 3362,
+  "maximum_stationarity": 6.478487035721514e-07,
+  "gpu_observed": false,
+  "live_study_admitted": false,
+  "scope": "CPU constructed assets, identity CUDA transfer, 2x2 deterministic rendering, synthetic nominal/monitor, no actors, SAT foreground and controlled background; no GPU or driving evidence"
+}

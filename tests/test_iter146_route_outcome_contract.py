@@ -1,4 +1,5 @@
 from copy import deepcopy
+import json
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -229,3 +230,155 @@ def test_missing_classification_never_implies_zero():
     row = classify([], "resource_limit", "failed")
     assert row["collision_observed"] is row["simulator_completion"] is None
     assert row["execution_valid"] is False
+
+
+@pytest.mark.parametrize("phase", ["exchange", "step", "truncate"])
+def test_unfinished_execution_is_censored(tmp_path, phase):
+    import time
+    from types import MethodType
+    from unittest.mock import patch
+    import torch
+    from experiments.iter146_route_outcome_contract.fixtures import environment, Exchange
+    from experiments.iter146_route_outcome_contract.runner import run
+
+    env, _ = environment(ROOT, "censor")
+    exchange = Exchange(phase, "nominal")
+    offset, guards = [0], [0]
+
+    def clock():
+        return time.perf_counter_ns() + offset[0]
+
+    def delayed(obs, info):
+        value = exchange(obs, info)
+        if phase == "exchange":
+            offset[0] = 200 * 10**9
+        return value
+
+    def guard():
+        guards[0] += 1
+        if phase == "step" and guards[0] == 3:
+            offset[0] = 200 * 10**9
+
+    if phase == "truncate":
+        ns = env.step.__func__.__globals__
+        ns["_base_step"] = env.step.__func__
+        exec(
+            "def truncated_step(self, action):\n    obs, reward, term, _, info = _base_step(self, action)\n    return obs, reward, term, True, info\n",
+            ns,
+        )
+        env.step = MethodType(ns["truncated_step"], env)
+    path = tmp_path.resolve() / phase
+    with patch.object(torch.Tensor, "cuda", lambda self, *a, **k: self):
+        summary = run(
+            env,
+            delayed,
+            output=path,
+            episode=phase,
+            arm="nominal",
+            monitor_reader=exchange.monitor,
+            device="cpu",
+            clock=clock,
+            guard=guard,
+        )
+    assert summary["status"] == "completed", summary
+    report = verify(*read(path))
+    assert report["outcome"]["censored"] and not report["outcome"]["completion_qualified"]
+    assert (
+        summary["stop_reason"]
+        == {
+            "exchange": "wall_deadline_after_exchange",
+            "step": "wall_deadline_after_step",
+            "truncate": "source_truncated",
+        }[phase]
+    )
+
+
+@pytest.mark.parametrize(
+    "mutation", [None, "device", "seed", "cleanup", "camera", "collision", "monitor"]
+)
+def test_gpu_receipt_gates_with_explicitly_synthetic_records(tmp_path, mutation):
+    from experiments.iter146_route_outcome_contract.gpu_check import verify_case
+
+    directory = tmp_path.resolve() / "synthetic_gpu_receipt"
+    directory.mkdir()
+    execute(ROOT, directory / "trace", max_actions=2)
+    rows, summary = read(directory / "trace")
+    deliveries = [r["value"] for r in rows if r["event"] == "delivery"]
+    monitors = [r["raw"] for r in rows if r["event"] == "monitor"]
+    outcomes = [r for r in rows if r["event"] == "outcome_observation"]
+    worker = dict(
+        status="completed",
+        gpu_observed=True,
+        summary=summary,
+        episode=summary["episode"],
+        seed=144,
+        geos="synthetic",
+        torch="synthetic",
+        cuda_device="synthetic",
+        cleanup=dict(status="removed"),
+        render_events=[
+            dict(time=t / 4, device="cuda:0", shape=[3, 3, 3], elapsed_ns=1, transforms={})
+            for t in range(3)
+            for _ in range(6)
+        ],
+        collision_events=[
+            dict(**r, **(dict(device="cuda:0", points=1) if r["kind"] == "background" else {}))
+            for o in outcomes
+            for r in o["collision_records"]
+        ],
+    )
+    if mutation == "device":
+        worker["gpu_observed"] = False
+    elif mutation == "seed":
+        worker["seed"] = 136
+    elif mutation == "cleanup":
+        worker["cleanup"]["status"] = "failed"
+    elif mutation == "camera":
+        worker["render_events"][0]["device"] = "cpu"
+    elif mutation == "collision":
+        worker["collision_events"].pop()
+    elif mutation == "monitor":
+        monitors[0] = "{}"
+    (directory / "worker.json").write_text(json.dumps(worker))
+    (directory / "delivery145.jsonl").write_text("".join(json.dumps(d) + "\n" for d in deliveries))
+    (directory / "sentinel_iter48_decisions.jsonl").write_text("\n".join(monitors) + "\n")
+    if mutation:
+        with pytest.raises(ValueError):
+            verify_case(directory)
+    else:
+        assert verify_case(directory)["status"] == "supported"
+
+
+@pytest.mark.parametrize(
+    "change",
+    [None, "prior_arm", "raw_commit", "replay_sha256", "status", "arm", "manifest_sha256", "bytes"],
+)
+def test_later_arm_requires_prior_raw_and_replay(change):
+    import hashlib
+    from experiments.iter146_route_outcome_contract.gpu_pair import validate_clearance
+
+    raw = b"{}"
+    digest = hashlib.sha256(raw).hexdigest()
+    permit = dict(
+        arm="monitor",
+        manifest_sha256=digest,
+        status="supported",
+        prior_arm="nominal",
+        raw_commit="a" * 40,
+        replay_sha256="b" * 64,
+    )
+    if change and change != "bytes":
+        permit[change] = "wrong"
+    encoded = json.dumps(permit).encode()
+    args = (
+        raw,
+        encoded,
+        "monitor",
+        digest,
+        "0" * 64 if change == "bytes" else hashlib.sha256(encoded).hexdigest(),
+    )
+    if change:
+        with pytest.raises(ValueError):
+            validate_clearance(*args)
+    else:
+        assert validate_clearance(*args) == permit

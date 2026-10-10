@@ -16,7 +16,7 @@ def replicas(pair):
         check(set(x["actors"]) == set(y["actors"]), "replica actor identity")
         for key in x["actors"]:
             close(x["actors"][key], y["actors"][key], 1e-9)
-        for field in ("nominal", "delivered", "collision", "off_route"):
+        for field in ("nominal", "delivered", "collision", "off_route", "rgb"):
             check(x[field] == y[field], "replica trace disagreement:" + field)
     return a
 

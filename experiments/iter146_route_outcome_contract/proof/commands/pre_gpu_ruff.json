@@ -1,0 +1,23 @@
+{
+  "argv": [
+    "/opt/homebrew/bin/ruff",
+    "check",
+    "experiments/iter146_route_outcome_contract/__init__.py",
+    "experiments/iter146_route_outcome_contract/analyze.py",
+    "experiments/iter146_route_outcome_contract/check.py",
+    "experiments/iter146_route_outcome_contract/client.py",
+    "experiments/iter146_route_outcome_contract/compare.py",
+    "experiments/iter146_route_outcome_contract/fixtures.py",
+    "experiments/iter146_route_outcome_contract/gpu.py",
+    "experiments/iter146_route_outcome_contract/gpu_check.py",
+    "experiments/iter146_route_outcome_contract/gpu_pair.py",
+    "experiments/iter146_route_outcome_contract/probe.py",
+    "experiments/iter146_route_outcome_contract/resources.py",
+    "experiments/iter146_route_outcome_contract/runner.py",
+    "tests/test_iter146_route_outcome_contract.py"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-10T12:25:13.945217+00:00",
+  "elapsed_seconds": 0.09708786010742188,
+  "returncode": 0
+}

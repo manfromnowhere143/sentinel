@@ -1,0 +1,1 @@
+{"status": "supported", "replica_pairs": 8, "steps": 3362, "maximum_stationarity": 6.478487035721514e-07, "gpu_observed": false, "live_study_admitted": false, "scope": "CPU constructed assets, identity CUDA transfer, 2x2 deterministic rendering, synthetic nominal/monitor, no actors, SAT foreground and controlled background; no GPU or driving evidence"}

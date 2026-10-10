@@ -293,6 +293,7 @@ def verify(rows, summary):
                 state=step["after"],
                 action=action,
                 nominal_action=r["applied"],
+                rgb=obs["rgb"],
                 actors=actor["states"],
                 rc=rc,
                 nominal=value["nominal"],
