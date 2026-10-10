@@ -1,0 +1,53 @@
+{
+  "pair": {
+    "cases": [
+      {
+        "cleanup": {
+          "status": "absent"
+        },
+        "deadline_exceeded": false,
+        "returncode": 0,
+        "slot": {
+          "arm": "nominal",
+          "id": "qualification_006__scene-0013-medium-00__nominal__1",
+          "index": 6,
+          "max_actions": 401,
+          "probe": "none",
+          "replica": 1,
+          "reset_count": 1,
+          "scenario": "scene-0013-medium-00.yaml",
+          "scenario_sha256": "162bd65e0fa40d6f46a992063da665f858ccf78b00879b0a34fdfc76103a2401",
+          "seed": 144
+        }
+      },
+      {
+        "cleanup": {
+          "status": "absent"
+        },
+        "deadline_exceeded": false,
+        "returncode": 0,
+        "slot": {
+          "arm": "nominal",
+          "id": "qualification_007__scene-0013-medium-00__nominal__2",
+          "index": 7,
+          "max_actions": 401,
+          "probe": "none",
+          "replica": 2,
+          "reset_count": 1,
+          "scenario": "scene-0013-medium-00.yaml",
+          "scenario_sha256": "162bd65e0fa40d6f46a992063da665f858ccf78b00879b0a34fdfc76103a2401",
+          "seed": 144
+        }
+      }
+    ],
+    "elapsed_seconds": 198.55744093099975,
+    "live_study_admitted": false,
+    "pair": 3,
+    "plan_sha256": "731ffa4afc533b6bb574416178db50b8c22a9fb800adece61aed7f099d1bce44",
+    "status": "completed"
+  },
+  "sha256": "800232fd1eff20816df2d3e93900822e19c220aaa4795f297e7e4ff14f1a2089",
+  "bytes": 1483404,
+  "files": 29,
+  "output_bytes": 79652799
+}

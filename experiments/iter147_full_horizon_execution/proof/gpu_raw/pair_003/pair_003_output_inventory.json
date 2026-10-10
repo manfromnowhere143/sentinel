@@ -1,0 +1,124 @@
+{
+  "files": {
+    "runs/qualification_006__scene-0013-medium-00__nominal__1/client.log": {
+      "sha256": "0d52c18e6c1b05abea7068e092e634e1d0cafd0088e4558fb2d782e8e8f12596",
+      "bytes": 7331
+    },
+    "runs/qualification_006__scene-0013-medium-00__nominal__1/delivery145.jsonl": {
+      "sha256": "c9d6c12d69318a7d47a47657d60f4e2196622aa852949c4da4f4fd4a4067a6bc",
+      "bytes": 57201
+    },
+    "runs/qualification_006__scene-0013-medium-00__nominal__1/ground.ply": {
+      "sha256": "401c1da8c3d8bce2c4f117a0ab66932cfb33e60bd974d95c6cf10e43bb0d3a8e",
+      "bytes": 6722213
+    },
+    "runs/qualification_006__scene-0013-medium-00__nominal__1/parent.log": {
+      "sha256": "54b3982150d117e1a6cb55f1ca06b136c6b2af703ea99acdc409ebf5f6cfa44f",
+      "bytes": 26
+    },
+    "runs/qualification_006__scene-0013-medium-00__nominal__1/scene.ply": {
+      "sha256": "756ce791962d60526c9470229b003eb0b60e9be31783ce009cddca17ab5d5f26",
+      "bytes": 31674942
+    },
+    "runs/qualification_006__scene-0013-medium-00__nominal__1/sentinel_iter48_decisions.jsonl": {
+      "sha256": "471f70966ad6aa22f946f4921eb769013a1ee0ec75e6efe77a76dd3b572a6f4a",
+      "bytes": 33897
+    },
+    "runs/qualification_006__scene-0013-medium-00__nominal__1/trace/events.jsonl": {
+      "sha256": "f8ed41c0592acda603605b46ac0c96c61ae0a860a3ff92a388d11a0ea1c10585",
+      "bytes": 1157478
+    },
+    "runs/qualification_006__scene-0013-medium-00__nominal__1/trace/started.json": {
+      "sha256": "c02925535b4cc726a2eb5c34d0c7dc1e84ed8683ebf8521c838f0ad9cbf5a923",
+      "bytes": 601
+    },
+    "runs/qualification_006__scene-0013-medium-00__nominal__1/trace/summary.json": {
+      "sha256": "621cfd179e43900c96721c8cf3fa20cabe4ba550564abbae80d3186495d1608a",
+      "bytes": 8480
+    },
+    "runs/qualification_006__scene-0013-medium-00__nominal__1/worker.json": {
+      "sha256": "903376004785af925418a01df030c56f0bc6123130e3cdc3524130ac042da586",
+      "bytes": 163657
+    },
+    "runs/qualification_006__scene-0013-medium-00__nominal__1/worker_started.json": {
+      "sha256": "c81b7d0429ea25c25fbe3c798ae525d427d4ae716d50db93df8be839a3ff082e",
+      "bytes": 580
+    },
+    "runs/qualification_007__scene-0013-medium-00__nominal__2/client.log": {
+      "sha256": "55aa574eec3a0fb9c443467cc8c75edbae90c5c2db4e7a498ebdc2a39442ca79",
+      "bytes": 7331
+    },
+    "runs/qualification_007__scene-0013-medium-00__nominal__2/delivery145.jsonl": {
+      "sha256": "b46810188db1856fee1d882f2d86b71c8f0ccdddd6a981de2c8d392ca314c64d",
+      "bytes": 57201
+    },
+    "runs/qualification_007__scene-0013-medium-00__nominal__2/ground.ply": {
+      "sha256": "401c1da8c3d8bce2c4f117a0ab66932cfb33e60bd974d95c6cf10e43bb0d3a8e",
+      "bytes": 6722213
+    },
+    "runs/qualification_007__scene-0013-medium-00__nominal__2/parent.log": {
+      "sha256": "54b3982150d117e1a6cb55f1ca06b136c6b2af703ea99acdc409ebf5f6cfa44f",
+      "bytes": 26
+    },
+    "runs/qualification_007__scene-0013-medium-00__nominal__2/scene.ply": {
+      "sha256": "756ce791962d60526c9470229b003eb0b60e9be31783ce009cddca17ab5d5f26",
+      "bytes": 31674942
+    },
+    "runs/qualification_007__scene-0013-medium-00__nominal__2/sentinel_iter48_decisions.jsonl": {
+      "sha256": "471f70966ad6aa22f946f4921eb769013a1ee0ec75e6efe77a76dd3b572a6f4a",
+      "bytes": 33897
+    },
+    "runs/qualification_007__scene-0013-medium-00__nominal__2/trace/events.jsonl": {
+      "sha256": "254caf441181f118fd787b5373cd8e4f718c873c1961ae111b6dd44e968d5d6d",
+      "bytes": 1157478
+    },
+    "runs/qualification_007__scene-0013-medium-00__nominal__2/trace/started.json": {
+      "sha256": "d704313ca904abf4e328b109cd915de9d926f4414e07944dd8dfbdf2612754d6",
+      "bytes": 597
+    },
+    "runs/qualification_007__scene-0013-medium-00__nominal__2/trace/summary.json": {
+      "sha256": "55cb6d098ebc92d5df4038a73fe086d829c51af49ecf6b4dd1ee74915e920985",
+      "bytes": 8476
+    },
+    "runs/qualification_007__scene-0013-medium-00__nominal__2/worker.json": {
+      "sha256": "36f93bbfb740b614170a34c2fbf073d5fd5c5b9be47ab3aff8d5465d49f77783",
+      "bytes": 163652
+    },
+    "runs/qualification_007__scene-0013-medium-00__nominal__2/worker_started.json": {
+      "sha256": "441f0cbf8c2099f4afee4e63444745aa0725ce9e177d1ccfc638b4cf3292cdc4",
+      "bytes": 580
+    }
+  },
+  "total_bytes": 79652799,
+  "selected_files": [
+    "runs/qualification_006__scene-0013-medium-00__nominal__1/client.log",
+    "runs/qualification_006__scene-0013-medium-00__nominal__1/delivery145.jsonl",
+    "runs/qualification_006__scene-0013-medium-00__nominal__1/parent.log",
+    "runs/qualification_006__scene-0013-medium-00__nominal__1/sentinel_iter48_decisions.jsonl",
+    "runs/qualification_006__scene-0013-medium-00__nominal__1/trace/events.jsonl",
+    "runs/qualification_006__scene-0013-medium-00__nominal__1/trace/started.json",
+    "runs/qualification_006__scene-0013-medium-00__nominal__1/trace/summary.json",
+    "runs/qualification_006__scene-0013-medium-00__nominal__1/worker.json",
+    "runs/qualification_006__scene-0013-medium-00__nominal__1/worker_started.json",
+    "runs/qualification_007__scene-0013-medium-00__nominal__2/client.log",
+    "runs/qualification_007__scene-0013-medium-00__nominal__2/delivery145.jsonl",
+    "runs/qualification_007__scene-0013-medium-00__nominal__2/parent.log",
+    "runs/qualification_007__scene-0013-medium-00__nominal__2/sentinel_iter48_decisions.jsonl",
+    "runs/qualification_007__scene-0013-medium-00__nominal__2/trace/events.jsonl",
+    "runs/qualification_007__scene-0013-medium-00__nominal__2/trace/started.json",
+    "runs/qualification_007__scene-0013-medium-00__nominal__2/trace/summary.json",
+    "runs/qualification_007__scene-0013-medium-00__nominal__2/worker.json",
+    "runs/qualification_007__scene-0013-medium-00__nominal__2/worker_started.json",
+    "deployment_report.json",
+    "e2e147.py",
+    "execution_manifest.json",
+    "nuscenes_base.yaml",
+    "pair_003_clearance.json",
+    "pair_003_entry.log",
+    "pair_003_launch.json",
+    "pair_003_result.json",
+    "pair_003_started.json",
+    "plan.json"
+  ],
+  "derived_content": "PLY retained on stopped host with complete hashes; display images disabled prospectively."
+}
