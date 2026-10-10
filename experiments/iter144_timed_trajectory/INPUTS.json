@@ -1,0 +1,77 @@
+{
+  "schema": "sentinel.iter144.inputs.v1",
+  "files": {
+    "experiments/iter136_hugsim_recoverability_canary/proof/controller_source/lqr.py.txt": {
+      "sha256": "b32755c32de510e09ac726f5c77731d5f490df6a412e50a4d369d70bdef45faf",
+      "bytes": 2279
+    },
+    "experiments/iter136_hugsim_recoverability_canary/proof/controller_source/lqr_solver.py.txt": {
+      "sha256": "0141d73d0ac38386184e63ce384d2e3cd341130943065b416bdacf4281e57c47",
+      "bytes": 35186
+    },
+    "experiments/iter136_hugsim_recoverability_canary/proof/controller_source/sim_utils.py.txt": {
+      "sha256": "36c2ba6a7dee38555f84dde95851ec00be5a699969d53de8906b3e67676792bc",
+      "bytes": 4604
+    },
+    "experiments/iter136_hugsim_recoverability_canary/proof/controller_source/utils.py.txt": {
+      "sha256": "041ed70028c105cfc102978ffddad4e92398d29b2454f1c2be6c81fb765c75fe",
+      "bytes": 17421
+    },
+    "experiments/iter136_hugsim_recoverability_canary/proof/source/HUGSIM/LICENSE.txt": {
+      "sha256": "c5acad54bc534fe3bd574cd2ffd10cfd037b98590f01388163f51ea36035c322",
+      "bytes": 1122
+    },
+    "experiments/iter136_hugsim_recoverability_canary/proof/source/HUGSIM/configs/sim/kinematic.yaml.txt": {
+      "sha256": "fc987ae8da2412ecca8e10b9e49daf2da366795151e970b139c3426ea9966c96",
+      "bytes": 114
+    },
+    "experiments/iter136_hugsim_recoverability_canary/proof/source/HUGSIM/sim/hugsim_env/envs/hug_sim.py.txt": {
+      "sha256": "c42ef368852754bdec76c81254b72dcda45eccef058dce015ea549c0b17c7d12",
+      "bytes": 13604
+    },
+    "experiments/iter136_hugsim_recoverability_canary/proof/source/HUGSIM/sim/utils/agent_controller.py.txt": {
+      "sha256": "bc4689fe9ccbc9c997e273c92662ed0933b5e3317cd25fff99fefd9964a23a28",
+      "bytes": 11692
+    },
+    "experiments/iter136_hugsim_recoverability_canary/proof/source/HUGSIM/sim/utils/plan.py.txt": {
+      "sha256": "61d170928bc54d7efeef8d5d58ade5c19621560253d9fb552d56b2612f11f912",
+      "bytes": 10717
+    },
+    "experiments/iter137_controller_execution_contract/controller.py": {
+      "sha256": "7784c0a885bba33414a680d2f943f3a701d7ba38bf29996908c6a7bd4089dc03",
+      "bytes": 9254
+    },
+    "experiments/iter142_nominal_continuation_completion/proof/runtime_manifest.json": {
+      "sha256": "54647066bd8296ef21106a3eeacf660294d8cf4f9a5fc865424be18696b8a6e3",
+      "bytes": 100796
+    },
+    "experiments/iter143_model_contract/INPUTS.json": {
+      "sha256": "aa20e7db7419b032778024dba0faff1d7160df6260a3b744e68d9783d80105d5",
+      "bytes": 3500
+    },
+    "experiments/iter143_model_contract/proof/case_inventory.json": {
+      "sha256": "ead62a973036f253727ac19d878454506eff739663dd52dc02a9088e308e1cbf",
+      "bytes": 29939
+    },
+    "experiments/iter143_model_contract/qualification.py": {
+      "sha256": "606724f830eb7372daab81526526056ff5620f7b7373f901b91f8df270a911ae",
+      "bytes": 18177
+    },
+    "experiments/iter143_model_contract/source/forward_sampler.py.txt": {
+      "sha256": "2494c6d3ce174889008102e8b61bb281c189593da39c5d417ecd05e9c215f57f",
+      "bytes": 5877
+    },
+    "experiments/iter143_model_contract/source/spline_planner.py.txt": {
+      "sha256": "ba691c4d426724956d440df5503501ce3181c6edfb8edc2283c557ba76619ea2",
+      "bytes": 17632
+    },
+    "experiments/iter46_hugsim_off_baseline/proof-off/frozen_scenarios.sha256": {
+      "sha256": "926cbec00614522e7ff3f8d4063826b02277aba370631a2e7cf36be8a8c086df",
+      "bytes": 4748
+    },
+    "experiments/iter49_hugsim_hard_tier_gate/proof-hard/frozen_scenarios_hard.sha256": {
+      "sha256": "9d1b1488449efc321ba8c0297dfda799daacd8a31ffc4e066849fb9dfa62f739",
+      "bytes": 3294
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "iteration": 144,
+  "status": "preregistered",
+  "phase": "implementation",
+  "regime": "sentinel.timed_trajectory.v1",
+  "cloud_access": false,
+  "live_episodes": 0,
+  "publication": "local_unpushed_candidate"
+}
