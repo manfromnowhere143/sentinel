@@ -1,0 +1,12 @@
+import json,subprocess,os,hashlib,sys,time
+from pathlib import Path
+c=Path('/datasets/nuscenes-full/hugsim/iter146_gpu_20261010');raw='{"arm": "monitor", "manifest_sha256": "829454a169fcf6a43eba7a36c77bc4976f05573bc178e907ccd8b981f40e331f", "prior_arm": "nominal", "raw_commit": "38dbc586c25af02cdd5ec26fa9d21ef9ec0e4081", "replay_sha256": "53ce9c3f05f57970ecd6941e95aff86653cbf76bc4392c6fddda44073520ec51", "status": "supported"}'.encode();assert hashlib.sha256(raw).hexdigest()=='1ee1333f8fbce576fd74192ee24f46553de7a5bc7257ee87e0338ac3327c685a'
+with (c/('monitor'+'_clearance.json')).open('xb') as f:f.write(raw)
+assert hashlib.sha256((c/'execution_manifest.json').read_bytes()).hexdigest()=='829454a169fcf6a43eba7a36c77bc4976f05573bc178e907ccd8b981f40e331f'
+for argv in [['docker','ps','-q'],['nvidia-smi','--query-compute-apps=pid','--format=csv,noheader']]:
+ q=subprocess.run(argv,capture_output=True,text=True,timeout=30);assert q.returncode==0 and not q.stdout.strip()
+q=subprocess.run(['systemctl','show','sentinel-iter146-gpu-budget.timer','--property=ActiveState,TimersMonotonic,NextElapseUSecMonotonic'],capture_output=True,text=True,timeout=30);assert q.returncode==0 and 'ActiveState=active' in q.stdout
+argv=['/opt/sentinel-stack/HUGSIM/.pixi/envs/default/bin/python','-u','-m','experiments.iter146_route_outcome_contract.gpu_pair','--control',str(c),'--manifest-sha256','829454a169fcf6a43eba7a36c77bc4976f05573bc178e907ccd8b981f40e331f','--clearance-sha256','1ee1333f8fbce576fd74192ee24f46553de7a5bc7257ee87e0338ac3327c685a','--arm','monitor']
+env=os.environ.copy();env.update(PYTHONPATH=str(c/'packet')+':/opt/sentinel-stack/HUGSIM',OPENBLAS_NUM_THREADS='1',OMP_NUM_THREADS='1',MKL_NUM_THREADS='1')
+with (c/('monitor'+'_entry.log')).open('xb') as log:p=subprocess.Popen(argv,cwd='/opt/sentinel-stack/HUGSIM',env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
+r=dict(arm='monitor',pid=p.pid,argv=argv,manifest_sha256='829454a169fcf6a43eba7a36c77bc4976f05573bc178e907ccd8b981f40e331f',clearance_sha256='1ee1333f8fbce576fd74192ee24f46553de7a5bc7257ee87e0338ac3327c685a',host_timer=q.stdout,started_epoch=time.time(),remaining_provider_seconds=4884.805804000003);(c/('monitor'+'_launch.json')).write_text(json.dumps(r,indent=2)+'\n');print(json.dumps(r))

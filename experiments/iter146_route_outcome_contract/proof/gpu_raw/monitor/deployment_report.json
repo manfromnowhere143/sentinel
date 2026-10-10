@@ -1,0 +1,46 @@
+{
+  "control": "/datasets/nuscenes-full/hugsim/iter146_gpu_20261010",
+  "source_commit": "9f78e514000f94ab069e846a7b6796009702a223",
+  "manifest_sha256": "829454a169fcf6a43eba7a36c77bc4976f05573bc178e907ccd8b981f40e331f",
+  "file_count": 11579,
+  "commands": [
+    {
+      "label": "environment_import",
+      "argv": [
+        "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/bin/python",
+        "-c",
+        "from hugsim_env.envs.hug_sim import HUGSimEnv; from experiments.iter146_route_outcome_contract.gpu import worker; print(\"ENVIRONMENT_IMPORT_PASSED\")"
+      ],
+      "returncode": 0,
+      "stdout": "ENVIRONMENT_IMPORT_PASSED\n",
+      "stderr": "",
+      "elapsed_seconds": 13.915714105000006
+    },
+    {
+      "label": "entrypoint_help",
+      "argv": [
+        "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/bin/python",
+        "-m",
+        "experiments.iter146_route_outcome_contract.gpu_pair",
+        "--help"
+      ],
+      "returncode": 0,
+      "stdout": "usage: gpu_pair.py [-h] --control CONTROL --manifest-sha256 MANIFEST_SHA256\n                   --arm {nominal,monitor,brake_t0,brake_t2_5}\n                   --clearance-sha256 CLEARANCE_SHA256\n\noptions:\n  -h, --help            show this help message and exit\n  --control CONTROL\n  --manifest-sha256 MANIFEST_SHA256\n  --arm {nominal,monitor,brake_t0,brake_t2_5}\n  --clearance-sha256 CLEARANCE_SHA256\n",
+      "stderr": "",
+      "elapsed_seconds": 2.2278421359999925
+    },
+    {
+      "label": "client_preflight",
+      "argv": [
+        "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/bin/python",
+        "-c",
+        "from pathlib import Path;import subprocess;from experiments.iter146_route_outcome_contract.gpu import client_command;from experiments.iter145_constrained_execution.resources import IMAGE;c=Path('/datasets/nuscenes-full/hugsim/iter146_gpu_20261010');o=c/'preflight_output';o.mkdir();cmd=client_command(c,o,'preflight','nominal');cmd=cmd[:cmd.index(IMAGE)+1]+['-u','tools/closeloop/e2e.py','--help'];raise SystemExit(subprocess.run(cmd,timeout=90).returncode)"
+      ],
+      "returncode": 0,
+      "stdout": "[iter45-shim] cuSOLVER-backed linalg ops routed via CPU (torch 1.9.1+cu111 )\nSENTINEL_I48_UNION_PATCH_LOADED enabled=1 params={\"cpa_margin\": 1.5, \"dt\": 0.5, \"max_gap\": 30.0, \"min_closing\": 3.0, \"min_score\": 0.3, \"release_k\": 4, \"ttc_thresh\": 2.5}\nusage: e2e.py [-h] --output OUTPUT [--fuse-conv-bn] [--format-only]\n              [--eval EVAL [EVAL ...]] [--show] [--show-dir SHOW_DIR]\n              [--gpu-collect] [--tmpdir TMPDIR] [--seed SEED]\n              [--deterministic] [--cfg-options CFG_OPTIONS [CFG_OPTIONS ...]]\n              [--options OPTIONS [OPTIONS ...]]\n              [--eval-options EVAL_OPTIONS [EVAL_OPTIONS ...]]\n              [--launcher {none,pytorch,slurm,mpi}] [--local_rank LOCAL_RANK]\n              config checkpoint\n\nMMDet test (and eval) a model\n\npositional arguments:\n  config                test config file path\n  checkpoint            checkpoint file\n\noptional arguments:\n  -h, --help            show this help message and exit\n  --output OUTPUT\n  --fuse-conv-bn        Whether to fuse conv and bn, this will slightly\n                        increasethe inference speed\n  --format-only         Format the output results without perform evaluation.\n                        It isuseful when you want to format the result to a\n                        specific format and submit it to the test server\n  --eval EVAL [EVAL ...]\n                        evaluation metrics, which depends on the dataset,\n                        e.g., \"bbox\", \"segm\", \"proposal\" for COCO, and \"mAP\",\n                        \"recall\" for PASCAL VOC\n  --show                show results\n  --show-dir SHOW_DIR   directory where results will be saved\n  --gpu-collect         whether to use gpu to collect results.\n  --tmpdir TMPDIR       tmp directory used for collecting results from\n                        multiple workers, available when gpu-collect is not\n                        specified\n  --seed SEED           random seed\n  --deterministic       whether to set deterministic options for CUDNN\n                        backend.\n  --cfg-options CFG_OPTIONS [CFG_OPTIONS ...]\n                        override some settings in the used config, the key-\n                        value pair in xxx=yyy format will be merged into\n                        config file. If the value to be overwritten is a list,\n                        it should be like key=\"[a,b]\" or key=a,b It also\n                        allows nested list/tuple values, e.g.\n                        key=\"[(a,b),(c,d)]\" Note that the quotation marks are\n                        necessary and that no white space is allowed.\n  --options OPTIONS [OPTIONS ...]\n                        custom options for evaluation, the key-value pair in\n                        xxx=yyy format will be kwargs for dataset.evaluate()\n                        function (deprecate), change to --eval-options\n                        instead.\n  --eval-options EVAL_OPTIONS [EVAL_OPTIONS ...]\n                        custom options for evaluation, the key-value pair in\n                        xxx=yyy format will be kwargs for dataset.evaluate()\n                        function\n  --launcher {none,pytorch,slurm,mpi}\n                        job launcher\n  --local_rank LOCAL_RANK\n",
+      "stderr": "",
+      "elapsed_seconds": 20.770836044000006
+    }
+  ],
+  "status": "supported"
+}

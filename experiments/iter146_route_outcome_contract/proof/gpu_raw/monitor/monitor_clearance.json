@@ -1,0 +1,1 @@
+{"arm": "monitor", "manifest_sha256": "829454a169fcf6a43eba7a36c77bc4976f05573bc178e907ccd8b981f40e331f", "prior_arm": "nominal", "raw_commit": "38dbc586c25af02cdd5ec26fa9d21ef9ec0e4081", "replay_sha256": "53ce9c3f05f57970ecd6941e95aff86653cbf76bc4392c6fddda44073520ec51", "status": "supported"}

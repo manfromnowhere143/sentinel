@@ -1,0 +1,148 @@
+{
+  "arm": "monitor",
+  "elapsed_ns": 54936319314,
+  "episode": "scene-0013-easy-00__monitor__1",
+  "events_bytes": 899287,
+  "events_sha256": "f3a59844a70e53c7a21c1da37450f055166f29b6417119c0fbc2c8a8cc22b5ab",
+  "live_study_admitted": false,
+  "max_actions": 24,
+  "max_seconds": 598.206389123,
+  "outcome": {
+    "censored": true,
+    "collision_observed": false,
+    "completion_qualified": false,
+    "execution_valid": true,
+    "final_sample_observed": false,
+    "first_failure_time": null,
+    "off_route_observed": false,
+    "simulator_completion": false
+  },
+  "schema": "sentinel.iter146.summary.v1",
+  "seed": 144,
+  "status": "completed",
+  "steps": 24,
+  "stop_reason": "action_cap",
+  "timing_scope": "Per-loop observation hash, transport, controller, source step, event serialization and flush; excludes summary writing and timing-list bookkeeping.",
+  "timings": [
+    {
+      "exchange_ns": 17258635726,
+      "frame": 0,
+      "full_loop_ns": 17597361440
+    },
+    {
+      "exchange_ns": 1314222117,
+      "frame": 1,
+      "full_loop_ns": 1589880748
+    },
+    {
+      "exchange_ns": 1295732297,
+      "frame": 2,
+      "full_loop_ns": 1574700537
+    },
+    {
+      "exchange_ns": 1314169427,
+      "frame": 3,
+      "full_loop_ns": 1586405134
+    },
+    {
+      "exchange_ns": 1326352913,
+      "frame": 4,
+      "full_loop_ns": 1600910376
+    },
+    {
+      "exchange_ns": 1307262535,
+      "frame": 5,
+      "full_loop_ns": 1579296835
+    },
+    {
+      "exchange_ns": 1303859802,
+      "frame": 6,
+      "full_loop_ns": 1578041268
+    },
+    {
+      "exchange_ns": 1302076909,
+      "frame": 7,
+      "full_loop_ns": 1574825582
+    },
+    {
+      "exchange_ns": 1309020953,
+      "frame": 8,
+      "full_loop_ns": 1582263354
+    },
+    {
+      "exchange_ns": 1310539526,
+      "frame": 9,
+      "full_loop_ns": 1585830862
+    },
+    {
+      "exchange_ns": 1307713829,
+      "frame": 10,
+      "full_loop_ns": 1586658161
+    },
+    {
+      "exchange_ns": 1316193254,
+      "frame": 11,
+      "full_loop_ns": 1601848052
+    },
+    {
+      "exchange_ns": 1306169255,
+      "frame": 12,
+      "full_loop_ns": 1577482486
+    },
+    {
+      "exchange_ns": 1317980703,
+      "frame": 13,
+      "full_loop_ns": 1592708820
+    },
+    {
+      "exchange_ns": 1320240578,
+      "frame": 14,
+      "full_loop_ns": 1596020836
+    },
+    {
+      "exchange_ns": 1301289061,
+      "frame": 15,
+      "full_loop_ns": 1577222322
+    },
+    {
+      "exchange_ns": 1313400047,
+      "frame": 16,
+      "full_loop_ns": 1589943807
+    },
+    {
+      "exchange_ns": 1317149694,
+      "frame": 17,
+      "full_loop_ns": 1589195474
+    },
+    {
+      "exchange_ns": 1324923550,
+      "frame": 18,
+      "full_loop_ns": 1600704751
+    },
+    {
+      "exchange_ns": 1328340145,
+      "frame": 19,
+      "full_loop_ns": 1598243321
+    },
+    {
+      "exchange_ns": 1319466753,
+      "frame": 20,
+      "full_loop_ns": 1591885543
+    },
+    {
+      "exchange_ns": 1252823005,
+      "frame": 21,
+      "full_loop_ns": 1525565370
+    },
+    {
+      "exchange_ns": 1306045925,
+      "frame": 22,
+      "full_loop_ns": 1579457559
+    },
+    {
+      "exchange_ns": 1269108810,
+      "frame": 23,
+      "full_loop_ns": 1542770426
+    }
+  ]
+}

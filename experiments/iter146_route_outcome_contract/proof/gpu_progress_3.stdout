@@ -1,0 +1,113 @@
+{
+  "pairs": {
+    "nominal_pair": {
+      "status": "completed",
+      "arm": "nominal",
+      "cases": [
+        {
+          "returncode": 0,
+          "deadline_exceeded": false,
+          "episode": "scene-0013-easy-00__nominal__1",
+          "cleanup": {
+            "status": "absent"
+          }
+        },
+        {
+          "returncode": 0,
+          "deadline_exceeded": false,
+          "episode": "scene-0013-easy-00__nominal__2",
+          "cleanup": {
+            "status": "absent"
+          }
+        }
+      ],
+      "live_study_admitted": false,
+      "elapsed_seconds": 180.90440076400003
+    }
+  },
+  "runs": {
+    "scene-0013-easy-00__monitor__1": {
+      "worker.json": {
+        "status": "completed",
+        "elapsed_seconds": 57.23552280900003
+      },
+      "trace/summary.json": {
+        "status": "completed",
+        "steps": 24,
+        "stop_reason": "action_cap",
+        "outcome": {
+          "censored": true,
+          "collision_observed": false,
+          "completion_qualified": false,
+          "execution_valid": true,
+          "final_sample_observed": false,
+          "first_failure_time": null,
+          "off_route_observed": false,
+          "simulator_completion": false
+        }
+      },
+      "steps": 24,
+      "last_event": "runner_stop",
+      "client_tail": "ceived\nSENTINEL_I48_DECISION frame=21 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0\nsent\nreceived\nSENTINEL_I48_DECISION frame=22 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0\nsent\nreceived\nSENTINEL_I48_DECISION frame=23 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0\nsent\n"
+    },
+    "scene-0013-easy-00__monitor__2": {
+      "steps": 1,
+      "last_event": "observation",
+      "client_tail": ".\n2026-10-10 14:38:56,012 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.1.conv2 is upgraded to version 2.\n2026-10-10 14:38:56,016 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.2.conv2 is upgraded to version 2.\nReady for recieving\nreceived\nSENTINEL_I48_DECISION frame=0 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0\nsent\nreceived\n"
+    },
+    "scene-0013-easy-00__nominal__1": {
+      "worker.json": {
+        "status": "completed",
+        "elapsed_seconds": 62.456507886
+      },
+      "trace/summary.json": {
+        "status": "completed",
+        "steps": 24,
+        "stop_reason": "action_cap",
+        "outcome": {
+          "censored": true,
+          "collision_observed": false,
+          "completion_qualified": false,
+          "execution_valid": true,
+          "final_sample_observed": false,
+          "first_failure_time": null,
+          "off_route_observed": false,
+          "simulator_completion": false
+        }
+      },
+      "steps": 24,
+      "last_event": "runner_stop",
+      "client_tail": "ceived\nSENTINEL_I48_DECISION frame=21 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0\nsent\nreceived\nSENTINEL_I48_DECISION frame=22 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0\nsent\nreceived\nSENTINEL_I48_DECISION frame=23 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0\nsent\n"
+    },
+    "scene-0013-easy-00__nominal__2": {
+      "worker.json": {
+        "status": "completed",
+        "elapsed_seconds": 57.23795376799998
+      },
+      "trace/summary.json": {
+        "status": "completed",
+        "steps": 24,
+        "stop_reason": "action_cap",
+        "outcome": {
+          "censored": true,
+          "collision_observed": false,
+          "completion_qualified": false,
+          "execution_valid": true,
+          "final_sample_observed": false,
+          "first_failure_time": null,
+          "off_route_observed": false,
+          "simulator_completion": false
+        }
+      },
+      "steps": 24,
+      "last_event": "runner_stop",
+      "client_tail": "ceived\nSENTINEL_I48_DECISION frame=21 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0\nsent\nreceived\nSENTINEL_I48_DECISION frame=22 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0\nsent\nreceived\nSENTINEL_I48_DECISION frame=23 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0\nsent\n"
+    }
+  },
+  "nominal_entry.log": "",
+  "monitor_entry.log": "",
+  "scene-0013-easy-00__nominal__2.log": "",
+  "scene-0013-easy-00__monitor__2.log": "",
+  "scene-0013-easy-00__monitor__1.log": "",
+  "scene-0013-easy-00__nominal__1.log": ""
+}
