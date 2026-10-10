@@ -1,6 +1,6 @@
 # Iter147 active handoff
 
-No new cloud start has occurred.
+An owned bounded GPU session is RUNNING; read STATE.json and external budget before any action.
 
 Continue the fixed eight-slot qualification only through committed raw and independently
 validated pair admission. No initialized retry or population change. Stop later slots on

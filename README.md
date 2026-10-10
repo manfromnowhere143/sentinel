@@ -11,7 +11,7 @@ loop, by whether the car crashes *and whether it can still drive*.**
 > Eight full-horizon GPU qualification slots are preregistered: diagnostic monitor hold
 > and natural nominal Attack/IDM/Constant cases, two replicas each. The whole envelope
 > is 10,800 seconds / $9 conservative compute; each child is capped at 1,200 seconds.
-> No new cloud start has occurred.
+> An owned bounded GPU session is RUNNING; read STATE.json and external budget before any action.
 > Read the [hypothesis](experiments/iter147_full_horizon_execution/HYPOTHESIS.md),
 > [binding](experiments/iter147_full_horizon_execution/GPU_BINDING.md),
 > [state](experiments/iter147_full_horizon_execution/STATE.json) and
