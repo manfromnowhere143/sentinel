@@ -1,0 +1,1 @@
+{"status": "supported", "legacy_gpu_steps": 192, "legacy_replica_pairs": 4, "report_fields_unchanged": true, "scope": "Local replay compatibility of frozen v1 GPU raw with new checker; no new GPU execution."}

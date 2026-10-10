@@ -1,0 +1,23 @@
+{
+  "status": "supported",
+  "host_free_bytes": 115948425216,
+  "owned_output_bytes": 700624289,
+  "unchanged_files": 6062,
+  "actor_aliases": 20,
+  "changed_original_files": [],
+  "changed_owned_cache_files": [],
+  "idle": {
+    "containers": {
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "gpu_processes": {
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  },
+  "elapsed_seconds": 28.742085926000073,
+  "manifest_sha256": "829454a169fcf6a43eba7a36c77bc4976f05573bc178e907ccd8b981f40e331f"
+}

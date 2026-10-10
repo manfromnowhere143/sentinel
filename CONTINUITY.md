@@ -1,20 +1,21 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
-> **Active operator-directed candidate work, 2026-10-10:** Iter145 resumed and completed
-> bounded GPU qualification. Asset closure passed 5,983 file entries. All four nominal
-> cases completed 12 steps; independent replay supports 48/48 controls/transitions,
-> timestamps, planner transport, rendering and foreground geometry within that scope.
-> 121 focused local tests passed. **26/48 live controller calls exceeded 50 ms**;
-> exchange plus step exceeded .25 s in all 48 calls. Real-time operation is unestablished.
-> Read the [result](experiments/iter145_constrained_execution/RESULT.md),
-> [state](experiments/iter145_constrained_execution/STATE.json) and
-> [current handoff](experiments/iter145_constrained_execution/DECISION.md).
-> VM sentinel-gpu is verified TERMINATED and its watchdog exited; cloud compute was used.
-> No full-route study ran. Next: full-route runner/outcome replay, four-arm/seed-144
-> qualification and finite storage/runtime bindings for the proposed 112 slots.
-> Candidate `research/iter145-constrained-execution` is local/unpushed; master remains F17.
-> Prior recovery nulls and deferred Iter135 are unchanged; canonical MISSION_STATE/HANDOFF
-> retain their publication snapshot. No owned job or automatic restart remains active.
+> **Active operator-directed candidate work, 2026-10-10:** Iter146 completed bounded
+> GPU qualification: eight fresh cases / 192 steps / four matching replica pairs.
+> All cases were censored at 24 actions; monitor fired zero times and source actors
+> were empty. No recovery gain or full-horizon GPU completion was established.
+> CPU replay supports 3,362 synthetic steps. After timing/missingness corrections,
+> 96 focused tests pass; the corrected timer has local evidence only.
+> **1/192 controller calls exceeded 50 ms; all 192 loop-work lower bounds exceeded 250 ms.**
+> Read the [result](experiments/iter146_route_outcome_contract/RESULT.md),
+> [state](experiments/iter146_route_outcome_contract/STATE.json) and
+> [active handoff](experiments/iter146_route_outcome_contract/DECISION.md).
+> Exact owned VM is TERMINATED and its watchdog exited. Cloud compute was used;
+> no owned job or automatic restart remains. Next: full-horizon/actor/active-monitor
+> qualification and finite resource/runtime binding before the proposed 112 slots.
+> Candidate `research/iter146-route-outcome-contract` is local/unpushed. Master,
+> historical HANDOFF/MISSION_STATE, immutable root README and unrelated WIP remain
+> preserved. Prior recovery nulls and deferred Iter135 are unchanged.
 
 **Purpose.** This campaign is operator-portable by design. Everything an incoming operator
 needs is in this repository plus the two live surfaces below. Read this file top to bottom
@@ -4448,3 +4449,26 @@ postflight. 121 local focused tests passed with 123 warnings. Both resumed VM en
 are closed; latest exact VM readback is TERMINATED and watchdog exited. The proposed
 112-slot study needs full-route/arm/seed qualification and finite resource/output bindings.
 See the Iter145 result and current decision; no live study or canonical publication ran.
+
+
+## Iter146 full-horizon contract work started on 2026-10-10
+
+Daniel continued the mission. The separate outcome contract records simulator completion
+without hiding collision or off-route outcomes behind reward. Eighteen retained CPU fixtures
+passed independent replay: 3,362 steps/eight replica pairs. Sixty-four tests passed. A finite
+eight-case GPU qualification is preregistered; the 112-slot study remains proposed.
+
+
+## Iter146 bounded qualification closed on 2026-10-10
+
+Eight fresh-process GPU episodes passed independent replay: 192 steps/four replica pairs,
+with both one-second braking pulses and exact plan/image replica agreement. All eight
+were censored at 24 actions; monitor activations and configured source actors were zero.
+No useful-recovery result follows. One controller call exceeded 50 ms; every recorded
+loop-work lower bound exceeded 250 ms. A timing-scope correction preserves raw v1;
+new local v2 measures through the final guard/stop decision. Proposed comparison logic
+now preserves unknown witness/harm outcomes. Four pre-fix known-bads reproduced the
+errors; 96 corrected tests pass. All old CPU/GPU raw replays without changed outcomes.
+6,062 bound/original files plus 20 actor aliases were unchanged at postflight. Exact owned
+VM is TERMINATED; watchdog exited. Full-horizon/nonempty-actor/active-monitor qualification
+and a finite study launcher/resource binding remain before the unchanged proposed 112 slots.

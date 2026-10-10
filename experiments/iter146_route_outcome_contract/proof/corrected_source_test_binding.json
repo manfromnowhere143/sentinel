@@ -1,0 +1,14 @@
+{
+  "python": "3.14.2 (main, Dec  5 2025, 16:49:16) [Clang 16.0.0 (clang-1600.0.26.6)]",
+  "platform": "macOS-14.4-arm64-arm-64bit-Mach-O",
+  "files": {
+    "experiments/iter146_route_outcome_contract/runner.py": "94b0beae2d1eac7c7b4d4c4750ad04ebcb5343c59585db6f5a33038f8dd08c7f",
+    "experiments/iter146_route_outcome_contract/check.py": "df7fa52b509f96a380e70eb96d418a7f4feb75fc4cce6861873b9856dbbcbe75",
+    "experiments/iter146_route_outcome_contract/compare.py": "9d4f95e204ef2c91fe024dacdd8bb23e631dd88a5e955530ab2f948b92a3131d",
+    "tests/test_iter146_route_outcome_contract.py": "47ec6ac94db7697cecc5390266597533f21ee9b36d6728e491a4c81012ba45c1"
+  },
+  "tests": "proof/commands/correction_tests_v2.json",
+  "pre_fix_known_bads": "proof/commands/correction_known_bads_before_fix.json",
+  "old_source_commit": "277f13455d6feac0f54b55a57ce6e8064b6f6cc5",
+  "gpu_executed": false
+}

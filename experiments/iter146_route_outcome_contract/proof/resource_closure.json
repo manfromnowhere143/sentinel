@@ -1,0 +1,23 @@
+{
+  "status": "supported",
+  "provider": {
+    "id": "3834622546652649531",
+    "lastStartTimestamp": "2026-10-10T05:28:35.902-07:00",
+    "lastStopTimestamp": "2026-10-10T05:53:16.661-07:00",
+    "status": "TERMINATED"
+  },
+  "provider_start_to_stop_metadata_seconds": 1480.759,
+  "local_envelope_to_terminated_readback_seconds": 1503.2767791748047,
+  "conservative_compute_estimate_usd": 1.2527306493123371,
+  "listed_compute_estimate_usd": 0.3511144118368911,
+  "registered_seconds": 5400,
+  "registered_compute_usd": 4.5,
+  "watchdog": {
+    "session": 3763,
+    "exit_code": 0,
+    "observed_stdout": "watchdog cancelled after verified cleanup",
+    "provenance": "write_stdin tool observed exit and stdout after exact-instance cleanup"
+  },
+  "automatic_restart": false,
+  "cost_scope": "Estimates, not invoice; same-clock intervals only. Persistent disk baseline and unrelated provider charges excluded."
+}

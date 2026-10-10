@@ -1,0 +1,537 @@
+{
+  "status": "supported",
+  "scope": "Eight fixed 24-action seed-144 GPU qualification episodes on scene-0013-easy-00; descriptive engineering evidence only.",
+  "source_commit": "9f78e514000f94ab069e846a7b6796009702a223",
+  "live_study_admitted": false,
+  "raw_commits": {
+    "nominal": "38dbc586c25af02cdd5ec26fa9d21ef9ec0e4081",
+    "monitor": "5f17011e9f842fdcdccb3261586c3100c4816e13",
+    "brake_t0": "a6503f97b34757c1f025e284ef06b3cdce8145ee",
+    "brake_t2_5": "277f13455d6feac0f54b55a57ce6e8064b6f6cc5"
+  },
+  "cases": [
+    {
+      "episode": "scene-0013-easy-00__nominal__1",
+      "arm": "nominal",
+      "replica": 1,
+      "steps": 24,
+      "stop_reason": "action_cap",
+      "outcome": {
+        "censored": true,
+        "collision_observed": false,
+        "completion_qualified": false,
+        "execution_valid": true,
+        "final_sample_observed": false,
+        "first_failure_time": null,
+        "off_route_observed": false,
+        "simulator_completion": false
+      },
+      "monitor_fired": 0,
+      "monitor_brake": 0,
+      "max_monitor_objects": 3,
+      "max_stationarity": 8.280806812477337e-07,
+      "controller_stop_reasons": [
+        "kkt_converged"
+      ],
+      "camera_calls": 150,
+      "loop_lower_bound_sum_seconds": 58.367999124,
+      "enclosing_episode_seconds": 59.608864756,
+      "enclosing_episode_average_upper_bound_seconds": 2.483702698166667,
+      "configured_actor_counts": [
+        0
+      ],
+      "events_sha256": "26e0068f2c4bcaf49ebc48802ef2136bae320bacc9a5eda67647ca76228d2ea7"
+    },
+    {
+      "episode": "scene-0013-easy-00__nominal__2",
+      "arm": "nominal",
+      "replica": 2,
+      "steps": 24,
+      "stop_reason": "action_cap",
+      "outcome": {
+        "censored": true,
+        "collision_observed": false,
+        "completion_qualified": false,
+        "execution_valid": true,
+        "final_sample_observed": false,
+        "first_failure_time": null,
+        "off_route_observed": false,
+        "simulator_completion": false
+      },
+      "monitor_fired": 0,
+      "monitor_brake": 0,
+      "max_monitor_objects": 3,
+      "max_stationarity": 8.280806812477337e-07,
+      "controller_stop_reasons": [
+        "kkt_converged"
+      ],
+      "camera_calls": 150,
+      "loop_lower_bound_sum_seconds": 53.972425598,
+      "enclosing_episode_seconds": 54.90831981,
+      "enclosing_episode_average_upper_bound_seconds": 2.28784665875,
+      "configured_actor_counts": [
+        0
+      ],
+      "events_sha256": "4d04839464c901d23195ad02b7ea06d033951be93288d0b6216fd4923384b3d8"
+    },
+    {
+      "episode": "scene-0013-easy-00__monitor__1",
+      "arm": "monitor",
+      "replica": 1,
+      "steps": 24,
+      "stop_reason": "action_cap",
+      "outcome": {
+        "censored": true,
+        "collision_observed": false,
+        "completion_qualified": false,
+        "execution_valid": true,
+        "final_sample_observed": false,
+        "first_failure_time": null,
+        "off_route_observed": false,
+        "simulator_completion": false
+      },
+      "monitor_fired": 0,
+      "monitor_brake": 0,
+      "max_monitor_objects": 3,
+      "max_stationarity": 8.280806812477337e-07,
+      "controller_stop_reasons": [
+        "kkt_converged"
+      ],
+      "camera_calls": 150,
+      "loop_lower_bound_sum_seconds": 53.999223064,
+      "enclosing_episode_seconds": 54.936319314,
+      "enclosing_episode_average_upper_bound_seconds": 2.28901330475,
+      "configured_actor_counts": [
+        0
+      ],
+      "events_sha256": "f3a59844a70e53c7a21c1da37450f055166f29b6417119c0fbc2c8a8cc22b5ab"
+    },
+    {
+      "episode": "scene-0013-easy-00__monitor__2",
+      "arm": "monitor",
+      "replica": 2,
+      "steps": 24,
+      "stop_reason": "action_cap",
+      "outcome": {
+        "censored": true,
+        "collision_observed": false,
+        "completion_qualified": false,
+        "execution_valid": true,
+        "final_sample_observed": false,
+        "first_failure_time": null,
+        "off_route_observed": false,
+        "simulator_completion": false
+      },
+      "monitor_fired": 0,
+      "monitor_brake": 0,
+      "max_monitor_objects": 3,
+      "max_stationarity": 8.280806812477337e-07,
+      "controller_stop_reasons": [
+        "kkt_converged"
+      ],
+      "camera_calls": 150,
+      "loop_lower_bound_sum_seconds": 53.70511237,
+      "enclosing_episode_seconds": 54.644683412,
+      "enclosing_episode_average_upper_bound_seconds": 2.2768618088333334,
+      "configured_actor_counts": [
+        0
+      ],
+      "events_sha256": "d2e944139b102c349eaef2ea48e9a16aea7696c1daef17218d44de863d38a274"
+    },
+    {
+      "episode": "scene-0013-easy-00__brake_t0__1",
+      "arm": "brake_t0",
+      "replica": 1,
+      "steps": 24,
+      "stop_reason": "action_cap",
+      "outcome": {
+        "censored": true,
+        "collision_observed": false,
+        "completion_qualified": false,
+        "execution_valid": true,
+        "final_sample_observed": false,
+        "first_failure_time": null,
+        "off_route_observed": false,
+        "simulator_completion": false
+      },
+      "monitor_fired": 0,
+      "monitor_brake": 0,
+      "max_monitor_objects": 4,
+      "max_stationarity": 7.984903913627051e-07,
+      "controller_stop_reasons": [
+        "kkt_converged"
+      ],
+      "camera_calls": 150,
+      "loop_lower_bound_sum_seconds": 54.08210809,
+      "enclosing_episode_seconds": 55.027772684,
+      "enclosing_episode_average_upper_bound_seconds": 2.2928238618333334,
+      "configured_actor_counts": [
+        0
+      ],
+      "events_sha256": "827be7b7270d49700b3beae83beb4ec45c22cfbfd3247a43979c7929388a4bf7",
+      "pulse": {
+        "observation_times": [
+          0.0,
+          0.25,
+          0.5,
+          0.75
+        ],
+        "application_times": [
+          0.25,
+          0.5,
+          0.75,
+          1.0
+        ],
+        "applied_acceleration": [
+          -2.0,
+          -2.0,
+          -0.0,
+          -0.0
+        ],
+        "nominal_acceleration": [
+          2.0,
+          1.9999999999999998,
+          2.0,
+          2.0
+        ],
+        "contrasted_steps": 4
+      }
+    },
+    {
+      "episode": "scene-0013-easy-00__brake_t0__2",
+      "arm": "brake_t0",
+      "replica": 2,
+      "steps": 24,
+      "stop_reason": "action_cap",
+      "outcome": {
+        "censored": true,
+        "collision_observed": false,
+        "completion_qualified": false,
+        "execution_valid": true,
+        "final_sample_observed": false,
+        "first_failure_time": null,
+        "off_route_observed": false,
+        "simulator_completion": false
+      },
+      "monitor_fired": 0,
+      "monitor_brake": 0,
+      "max_monitor_objects": 4,
+      "max_stationarity": 7.984903913627051e-07,
+      "controller_stop_reasons": [
+        "kkt_converged"
+      ],
+      "camera_calls": 150,
+      "loop_lower_bound_sum_seconds": 54.112705032,
+      "enclosing_episode_seconds": 55.050132119,
+      "enclosing_episode_average_upper_bound_seconds": 2.2937555049583334,
+      "configured_actor_counts": [
+        0
+      ],
+      "events_sha256": "4c790c1b2407fc583dc3241a1370b27e373d7f98de5c8ccab9bde22a87119f48",
+      "pulse": {
+        "observation_times": [
+          0.0,
+          0.25,
+          0.5,
+          0.75
+        ],
+        "application_times": [
+          0.25,
+          0.5,
+          0.75,
+          1.0
+        ],
+        "applied_acceleration": [
+          -2.0,
+          -2.0,
+          -0.0,
+          -0.0
+        ],
+        "nominal_acceleration": [
+          2.0,
+          1.9999999999999998,
+          2.0,
+          2.0
+        ],
+        "contrasted_steps": 4
+      }
+    },
+    {
+      "episode": "scene-0013-easy-00__brake_t2_5__1",
+      "arm": "brake_t2_5",
+      "replica": 1,
+      "steps": 24,
+      "stop_reason": "action_cap",
+      "outcome": {
+        "censored": true,
+        "collision_observed": false,
+        "completion_qualified": false,
+        "execution_valid": true,
+        "final_sample_observed": false,
+        "first_failure_time": null,
+        "off_route_observed": false,
+        "simulator_completion": false
+      },
+      "monitor_fired": 0,
+      "monitor_brake": 0,
+      "max_monitor_objects": 3,
+      "max_stationarity": 9.09906456070253e-07,
+      "controller_stop_reasons": [
+        "kkt_converged"
+      ],
+      "camera_calls": 150,
+      "loop_lower_bound_sum_seconds": 53.783558275000004,
+      "enclosing_episode_seconds": 54.728915352,
+      "enclosing_episode_average_upper_bound_seconds": 2.280371473,
+      "configured_actor_counts": [
+        0
+      ],
+      "events_sha256": "9d2bdba5ee0c7394b5d675da6b2806123c8a9df868f53c2f849c5309435b7fcb",
+      "pulse": {
+        "observation_times": [
+          2.5,
+          2.75,
+          3.0,
+          3.25
+        ],
+        "application_times": [
+          2.75,
+          3.0,
+          3.25,
+          3.5
+        ],
+        "applied_acceleration": [
+          -2.0,
+          -2.0,
+          -2.0,
+          -2.0
+        ],
+        "nominal_acceleration": [
+          0.4879242692324312,
+          1.350462749225878,
+          1.9861823860972656,
+          1.9999999999999973
+        ],
+        "contrasted_steps": 4
+      }
+    },
+    {
+      "episode": "scene-0013-easy-00__brake_t2_5__2",
+      "arm": "brake_t2_5",
+      "replica": 2,
+      "steps": 24,
+      "stop_reason": "action_cap",
+      "outcome": {
+        "censored": true,
+        "collision_observed": false,
+        "completion_qualified": false,
+        "execution_valid": true,
+        "final_sample_observed": false,
+        "first_failure_time": null,
+        "off_route_observed": false,
+        "simulator_completion": false
+      },
+      "monitor_fired": 0,
+      "monitor_brake": 0,
+      "max_monitor_objects": 3,
+      "max_stationarity": 9.09906456070253e-07,
+      "controller_stop_reasons": [
+        "kkt_converged"
+      ],
+      "camera_calls": 150,
+      "loop_lower_bound_sum_seconds": 53.943973105,
+      "enclosing_episode_seconds": 54.89931105,
+      "enclosing_episode_average_upper_bound_seconds": 2.28747129375,
+      "configured_actor_counts": [
+        0
+      ],
+      "events_sha256": "9ae5d9c06e640da630110e99104b5afb7721c8a7c2065e973691d49f09a1e848",
+      "pulse": {
+        "observation_times": [
+          2.5,
+          2.75,
+          3.0,
+          3.25
+        ],
+        "application_times": [
+          2.75,
+          3.0,
+          3.25,
+          3.5
+        ],
+        "applied_acceleration": [
+          -2.0,
+          -2.0,
+          -2.0,
+          -2.0
+        ],
+        "nominal_acceleration": [
+          0.4879242692324312,
+          1.350462749225878,
+          1.9861823860972656,
+          1.9999999999999973
+        ],
+        "contrasted_steps": 4
+      }
+    }
+  ],
+  "arms": {
+    "nominal": {
+      "controller_ms": {
+        "count": 48,
+        "minimum": 33.303498,
+        "median": 38.5792285,
+        "maximum": 70.378998,
+        "over_50ms": 1
+      },
+      "loop_work_lower_bound_seconds": {
+        "count": 48,
+        "minimum": 1.520345528,
+        "median": 1.5838132150000002,
+        "maximum": 22.039465743,
+        "over_250ms": 48
+      },
+      "exchange_seconds": {
+        "count": 48,
+        "minimum": 1.245791523,
+        "median": 1.3071193605,
+        "maximum": 21.666409423
+      },
+      "simulator_seconds": {
+        "count": 48,
+        "minimum": 0.209240789,
+        "median": 0.2124939885,
+        "maximum": 0.276934478
+      }
+    },
+    "monitor": {
+      "controller_ms": {
+        "count": 48,
+        "minimum": 33.045507,
+        "median": 38.1517535,
+        "maximum": 49.132888,
+        "over_50ms": 0
+      },
+      "loop_work_lower_bound_seconds": {
+        "count": 48,
+        "minimum": 1.524171366,
+        "median": 1.586297573,
+        "maximum": 17.59736144,
+        "over_250ms": 48
+      },
+      "exchange_seconds": {
+        "count": 48,
+        "minimum": 1.2481182,
+        "median": 1.3103949595,
+        "maximum": 17.258635726
+      },
+      "simulator_seconds": {
+        "count": 48,
+        "minimum": 0.207400988,
+        "median": 0.2113351105,
+        "maximum": 0.264211008
+      }
+    },
+    "brake_t0": {
+      "controller_ms": {
+        "count": 48,
+        "minimum": 34.615809,
+        "median": 39.2868115,
+        "maximum": 49.43991,
+        "over_50ms": 0
+      },
+      "loop_work_lower_bound_seconds": {
+        "count": 48,
+        "minimum": 1.568606024,
+        "median": 1.5914520095,
+        "maximum": 17.528677439,
+        "over_250ms": 48
+      },
+      "exchange_seconds": {
+        "count": 48,
+        "minimum": 1.294062151,
+        "median": 1.3115620104999999,
+        "maximum": 17.206167445
+      },
+      "simulator_seconds": {
+        "count": 48,
+        "minimum": 0.209654702,
+        "median": 0.2128415745,
+        "maximum": 0.248748309
+      }
+    },
+    "brake_t2_5": {
+      "controller_ms": {
+        "count": 48,
+        "minimum": 33.874807,
+        "median": 39.271110500000006,
+        "maximum": 48.705846,
+        "over_50ms": 0
+      },
+      "loop_work_lower_bound_seconds": {
+        "count": 48,
+        "minimum": 1.566154146,
+        "median": 1.58518954,
+        "maximum": 17.491400752,
+        "over_250ms": 48
+      },
+      "exchange_seconds": {
+        "count": 48,
+        "minimum": 1.296299942,
+        "median": 1.3074253470000001,
+        "maximum": 17.168760489
+      },
+      "simulator_seconds": {
+        "count": 48,
+        "minimum": 0.206837108,
+        "median": 0.21182808549999999,
+        "maximum": 0.248806219
+      }
+    }
+  },
+  "timing_scope_correction": "Raw full_loop_ns is a loop-work lower bound: its endpoint precedes the post-step resource guard, deadline check and stop dispatch. It includes the initial guard, observation hashing, exchange, control, simulator, outcome calculation and trace flush. elapsed_ns encloses reset, loop guards and finalization but excludes summary serialization and worker cleanup. Raw bytes are unchanged.",
+  "late_pulse_equal_prefix_steps_per_replica": [
+    10,
+    10
+  ],
+  "summary": {
+    "episodes": 8,
+    "steps": 192,
+    "replica_pairs": 4,
+    "camera_calls": 1200,
+    "max_stationarity": 9.09906456070253e-07,
+    "monitor_fired": 0,
+    "monitor_brake": 0,
+    "censored": 8,
+    "completion": 0,
+    "collision_observed": 0,
+    "off_route_observed": 0,
+    "controller_ms": {
+      "count": 192,
+      "minimum": 33.045507,
+      "median": 38.636913500000006,
+      "maximum": 70.378998,
+      "over_50ms": 1
+    },
+    "loop_work_lower_bound_seconds": {
+      "count": 192,
+      "minimum": 1.520345528,
+      "median": 1.585937576,
+      "maximum": 22.039465743,
+      "over_250ms": 192
+    },
+    "exchange_seconds": {
+      "count": 192,
+      "minimum": 1.245791523,
+      "median": 1.3089802305,
+      "maximum": 21.666409423
+    },
+    "simulator_seconds": {
+      "count": 192,
+      "minimum": 0.206837108,
+      "median": 0.21203999899999998,
+      "maximum": 0.276934478
+    },
+    "output_bytes": 315348267
+  }
+}

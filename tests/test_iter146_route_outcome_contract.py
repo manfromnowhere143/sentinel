@@ -281,6 +281,8 @@ def test_unfinished_execution_is_censored(tmp_path, phase):
             guard=guard,
         )
     assert summary["status"] == "completed", summary
+    if phase == "step":
+        assert summary["timings"][0]["full_loop_ns"] >= 200 * 10**9
     report = verify(*read(path))
     assert report["outcome"]["censored"] and not report["outcome"]["completion_qualified"]
     assert (
@@ -382,3 +384,168 @@ def test_later_arm_requires_prior_raw_and_replay(change):
             validate_clearance(*args)
     else:
         assert validate_clearance(*args) == permit
+
+
+def comparator_report(arm, kind, *, steps=None, contrast=True, lag=0.0):
+    """Constructed comparator unit inputs, not execution or driving evidence."""
+    steps = steps if steps is not None else (8 if kind == "collision" else 12)
+    collision = kind in ("collision", "censored_collision")
+    complete = kind == "complete"
+    censored = kind.startswith("censored")
+    onset = 2.5 if arm == "brake_t2_5" else 0
+    science = []
+    for i in range(1, steps + 1):
+        pulse = arm.startswith("brake_") and onset <= (i - 1) / 4 < onset + 1
+        science.append(
+            dict(
+                time=i / 4,
+                state=[i / 4, 0, 0, 1, 0],
+                action=[-2 if pulse and contrast else 1, 0],
+                nominal_action=[1, 0],
+                actors={},
+                rc=(1.1 if complete and i == steps else i / 20 - lag),
+                nominal={"fixture": "plan"},
+                delivered={"fixture": "plan"},
+                rgb={"fixture": "images"},
+                collision=collision and i == steps,
+                off_route=False,
+            )
+        )
+    return dict(
+        status="supported",
+        arm=arm,
+        route=[[0, 0], [10, 0]],
+        reset_state=[0, 0, 0, 1, 0],
+        scientific=science,
+        outcome=dict(
+            collision_observed=collision,
+            off_route_observed=False,
+            completion_qualified=complete,
+            censored=censored,
+            first_failure_time=steps / 4 if collision else None,
+        ),
+    )
+
+
+def comparison_fixture(nominal="collision", monitor="collision", intervention="complete", **kw):
+    reports = [
+        comparator_report("nominal", nominal),
+        comparator_report("monitor", monitor),
+        comparator_report("brake_t0", intervention, **kw),
+    ]
+    return compare(*[[r, deepcopy(r)] for r in reports])
+
+
+def test_unknown_intersection_is_not_false():
+    result = comparison_fixture(nominal="censored", monitor="censored")
+    assert result["nominal"]["witness"] is None
+    assert result["monitor"]["witness"] is None
+    assert result["intersection_witness"] is None
+
+
+def test_unknown_nominal_is_not_no_harm():
+    result = comparison_fixture(nominal="censored", intervention="collision")
+    assert result["harm_vs_successful_nominal"] is None
+
+
+def test_censored_intervention_is_not_failed_recovery():
+    result = comparison_fixture(intervention="censored")
+    assert result["nominal"]["witness"] is None
+    assert result["monitor"]["witness"] is None
+    assert result["intersection_witness"] is None
+
+
+@pytest.mark.parametrize(
+    "nominal,monitor,intervention,wn,wm,intersection,harm",
+    [
+        ("collision", "collision", "complete", True, True, True, False),
+        ("collision", "complete", "complete", True, False, False, False),
+        ("complete", "collision", "complete", False, True, False, False),
+        ("complete", "complete", "collision", False, False, False, True),
+        ("complete", "complete", "censored", False, False, False, None),
+        ("complete", "complete", "censored_collision", False, False, False, True),
+        ("censored", "collision", "collision", False, False, False, None),
+        ("collision", "censored", "complete", True, None, None, False),
+    ],
+)
+def test_comparator_truth_table(nominal, monitor, intervention, wn, wm, intersection, harm):
+    result = comparison_fixture(nominal, monitor, intervention)
+    assert result["nominal"]["witness"] is wn
+    assert result["monitor"]["witness"] is wm
+    assert result["intersection_witness"] is intersection
+    assert result["harm_vs_successful_nominal"] is harm
+
+
+@pytest.mark.parametrize("kwargs", [{"contrast": False}, {"lag": 0.051}])
+def test_no_witness_without_action_or_hazard_progress(kwargs):
+    result = comparison_fixture(**kwargs)
+    assert result["intersection_witness"] is False
+
+
+def test_earlier_qualified_completion_meets_progress_rule():
+    result = comparison_fixture(steps=4)
+    assert result["intersection_witness"] is True
+    assert result["nominal"]["progress_at_hazard_satisfied"] is True
+
+
+def test_missing_hazard_observation_remains_unknown():
+    result = comparison_fixture(intervention="censored", steps=6)
+    assert result["nominal"]["progress_at_hazard_satisfied"] is None
+    assert result["intersection_witness"] is None
+
+
+def test_unobserved_pulse_contrast_remains_unknown():
+    n = comparator_report("nominal", "collision")
+    m = comparator_report("monitor", "collision")
+    p = comparator_report("brake_t2_5", "censored", steps=6)
+    result = compare([n] * 2, [m] * 2, [p] * 2)
+    assert result["action_contrast"] is None
+    assert result["intersection_witness"] is None
+
+
+@pytest.mark.parametrize(
+    "left,right,expected",
+    [
+        (False, False, False),
+        (False, True, False),
+        (False, None, False),
+        (True, False, False),
+        (True, True, True),
+        (True, None, None),
+        (None, False, False),
+        (None, True, None),
+        (None, None, None),
+    ],
+)
+def test_three_valued_conjunction(left, right, expected):
+    from experiments.iter146_route_outcome_contract.compare import conjunction
+
+    assert conjunction(left, right) is expected
+
+
+@pytest.mark.parametrize(
+    "mutation", ["boolean", "start", "end", "elapsed", "full", "work", "overlap"]
+)
+def test_v2_timing_known_bads(completion, mutation):
+    rows, summary = deepcopy(completion)
+    assert summary["schema"] == "sentinel.iter146.summary.v2"
+    first = summary["timings"][0]
+    if mutation == "boolean":
+        first["loop_start_ns"] = True
+    elif mutation == "start":
+        first["loop_start_ns"] = first["loop_work_end_ns"]
+    elif mutation == "end":
+        first["loop_end_ns"] = first["loop_work_end_ns"] - 1
+    elif mutation == "elapsed":
+        summary["elapsed_ns"] = first["loop_end_ns"] - 1
+    elif mutation == "full":
+        first["full_loop_ns"] += 1
+    elif mutation == "work":
+        first["loop_work_ns"] += 1
+    elif mutation == "overlap":
+        second = summary["timings"][1]
+        second["loop_start_ns"] = first["loop_start_ns"]
+        second["loop_work_ns"] = second["loop_work_end_ns"] - second["loop_start_ns"]
+        second["full_loop_ns"] = second["loop_end_ns"] - second["loop_start_ns"]
+    with pytest.raises(ValueError, match="timing|loops"):
+        verify(rows, summary)

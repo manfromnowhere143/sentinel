@@ -1,0 +1,105 @@
+.F.FFF                                                                   [100%]
+=================================== FAILURES ===================================
+_________________ test_unfinished_execution_is_censored[step] __________________
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-118/test_unfinished_execution_is_c1')
+phase = 'step'
+
+    @pytest.mark.parametrize("phase", ["exchange", "step", "truncate"])
+    def test_unfinished_execution_is_censored(tmp_path, phase):
+        import time
+        from types import MethodType
+        from unittest.mock import patch
+        import torch
+        from experiments.iter146_route_outcome_contract.fixtures import environment, Exchange
+        from experiments.iter146_route_outcome_contract.runner import run
+    
+        env, _ = environment(ROOT, "censor")
+        exchange = Exchange(phase, "nominal")
+        offset, guards = [0], [0]
+    
+        def clock():
+            return time.perf_counter_ns() + offset[0]
+    
+        def delayed(obs, info):
+            value = exchange(obs, info)
+            if phase == "exchange":
+                offset[0] = 200 * 10**9
+            return value
+    
+        def guard():
+            guards[0] += 1
+            if phase == "step" and guards[0] == 3:
+                offset[0] = 200 * 10**9
+    
+        if phase == "truncate":
+            ns = env.step.__func__.__globals__
+            ns["_base_step"] = env.step.__func__
+            exec(
+                "def truncated_step(self, action):\n    obs, reward, term, _, info = _base_step(self, action)\n    return obs, reward, term, True, info\n",
+                ns,
+            )
+            env.step = MethodType(ns["truncated_step"], env)
+        path = tmp_path.resolve() / phase
+        with patch.object(torch.Tensor, "cuda", lambda self, *a, **k: self):
+            summary = run(
+                env,
+                delayed,
+                output=path,
+                episode=phase,
+                arm="nominal",
+                monitor_reader=exchange.monitor,
+                device="cpu",
+                clock=clock,
+                guard=guard,
+            )
+        assert summary["status"] == "completed", summary
+        if phase == "step":
+>           assert summary["timings"][0]["full_loop_ns"] >= 200 * 10**9
+E           assert 12094292 >= (200 * (10 ** 9))
+
+tests/test_iter146_route_outcome_contract.py:285: AssertionError
+____________________ test_unknown_intersection_is_not_false ____________________
+
+    def test_unknown_intersection_is_not_false():
+        result = comparison_fixture(nominal="censored", monitor="censored")
+        assert result["nominal"]["witness"] is None
+        assert result["monitor"]["witness"] is None
+>       assert result["intersection_witness"] is None
+E       assert False is None
+
+tests/test_iter146_route_outcome_contract.py:427: AssertionError
+_____________________ test_unknown_nominal_is_not_no_harm ______________________
+
+    def test_unknown_nominal_is_not_no_harm():
+        result = comparison_fixture(nominal="censored", intervention="collision")
+>       assert result["harm_vs_successful_nominal"] is None
+E       assert False is None
+
+tests/test_iter146_route_outcome_contract.py:432: AssertionError
+______________ test_censored_intervention_is_not_failed_recovery _______________
+
+    def test_censored_intervention_is_not_failed_recovery():
+        result = comparison_fixture(intervention="censored")
+>       assert result["nominal"]["witness"] is None
+E       assert False is None
+
+tests/test_iter146_route_outcome_contract.py:437: AssertionError
+=============================== warnings summary ===============================
+::test_unfinished_execution_is_censored[exchange]
+::test_unfinished_execution_is_censored[step]
+::test_unfinished_execution_is_censored[truncate]
+  <bound-source-slice>:24: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+
+::test_unfinished_execution_is_censored[exchange]
+::test_unfinished_execution_is_censored[step]
+::test_unfinished_execution_is_censored[truncate]
+  <bound-source-slice>:26: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED ../../../../dev::test_unfinished_execution_is_censored[step] - assert ...
+FAILED ../../../../dev::test_unknown_intersection_is_not_false - assert False...
+FAILED ../../../../dev::test_unknown_nominal_is_not_no_harm - assert False is...
+FAILED ../../../../dev::test_censored_intervention_is_not_failed_recovery - a...
+4 failed, 2 passed, 74 deselected, 6 warnings in 2.04s

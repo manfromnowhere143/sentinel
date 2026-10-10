@@ -108,7 +108,7 @@ def run(
     started = clock()
     log = Journal(output / "events.jsonl")
     summary = dict(
-        schema="sentinel.iter146.summary.v1",
+        schema="sentinel.iter146.summary.v2",
         status="running",
         episode=episode,
         arm=arm,
@@ -120,7 +120,11 @@ def run(
         outcome=None,
         live_study_admitted=False,
         timings=[],
-        timing_scope="Per-loop observation hash, transport, controller, source step, event serialization and flush; excludes summary writing and timing-list bookkeeping.",
+        timing_scope=(
+            "Elapsed-clock boundaries relative to runner entry. loop_work_ns ends after trace "
+            "flush; full_loop_ns also includes the post-step resource guard and stop decision. "
+            "Both exclude timing-list append, Python loop dispatch and final summary writing."
+        ),
     )
     (output / "started.json").write_text(json.dumps(summary, indent=2) + "\n")
     session = None
@@ -224,15 +228,29 @@ def run(
                 log.write(terminal)
                 terminals.append(terminal)
                 summary["steps"] = frame + 1
-                summary["timings"].append(
-                    dict(frame=frame, exchange_ns=exchange_ns, full_loop_ns=clock() - loop_start)
-                )
-                guard()
-                if expired():
-                    summary["stop_reason"] = "wall_deadline_after_step"
-                    break
-                if terminated or truncated:
-                    summary["stop_reason"] = "source_truncated" if truncated else "source_terminal"
+                work_end = clock()
+                try:
+                    guard()
+                    if expired():
+                        summary["stop_reason"] = "wall_deadline_after_step"
+                    elif terminated or truncated:
+                        summary["stop_reason"] = (
+                            "source_truncated" if truncated else "source_terminal"
+                        )
+                finally:
+                    loop_end = clock()
+                    summary["timings"].append(
+                        dict(
+                            frame=frame,
+                            exchange_ns=exchange_ns,
+                            loop_start_ns=loop_start - started,
+                            loop_work_end_ns=work_end - started,
+                            loop_end_ns=loop_end - started,
+                            loop_work_ns=work_end - loop_start,
+                            full_loop_ns=loop_end - loop_start,
+                        )
+                    )
+                if summary["stop_reason"] is not None:
                     break
             else:
                 summary["stop_reason"] = "action_cap"

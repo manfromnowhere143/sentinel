@@ -3,6 +3,22 @@
 from experiments.iter145_constrained_execution.independent import check, close
 
 
+def conjunction(*values):
+    """False is decisive; otherwise preserve any unknown operand."""
+    check(all(v is True or v is False or v is None for v in values), "predicate type")
+    if any(v is False for v in values):
+        return False
+    return None if any(v is None for v in values) else True
+
+
+def qualified_success(outcome):
+    if outcome["completion_qualified"]:
+        return True
+    if outcome["collision_observed"] or outcome["off_route_observed"]:
+        return False
+    return None if outcome["censored"] else False
+
+
 def replicas(pair):
     check(len(pair) == 2 and all(p["status"] == "supported" for p in pair), "unverified replica")
     a, b = pair
@@ -48,6 +64,12 @@ def compare(nominal, monitor, intervention):
         for r in p["scientific"]
         if onset <= r["time"] - 0.25 < onset + 1
     )
+    if (
+        not contrast
+        and p["outcome"]["censored"]
+        and (not p["scientific"] or p["scientific"][-1]["time"] < onset + 1)
+    ):
+        contrast = None
     answers = {}
     for label, comparator in (("nominal", n), ("monitor", m)):
         hazard = comparator["outcome"]["first_failure_time"]
@@ -72,24 +94,19 @@ def compare(nominal, monitor, intervention):
             opportunity=opportunity,
             hazard_time=hazard,
             progress_at_hazard_satisfied=progress,
-            witness=opportunity
-            and p["outcome"]["completion_qualified"]
-            and contrast
-            and progress is True,
+            witness=conjunction(opportunity, qualified_success(p["outcome"]), contrast, progress),
         )
-    # Censoring stays inconclusive; it is not evidence of a complete-route loss.
-    harm = (
-        True
-        if n["outcome"]["completion_qualified"] and p["outcome"]["collision_observed"]
-        else None
-        if p["outcome"]["censored"]
-        else bool(n["outcome"]["completion_qualified"] and not p["outcome"]["completion_qualified"])
+    # Observed failure is decisive; incomplete nonfailure stays unknown in either arm.
+    intervention_success = qualified_success(p["outcome"])
+    harm = conjunction(
+        qualified_success(n["outcome"]),
+        None if intervention_success is None else not intervention_success,
     )
     return dict(
         status="supported",
         nominal=answers["nominal"],
         monitor=answers["monitor"],
-        intersection_witness=all(a["witness"] for a in answers.values()),
+        intersection_witness=conjunction(*(a["witness"] for a in answers.values())),
         action_contrast=contrast,
         harm_vs_successful_nominal=harm,
         scope="simulator-defined route completion, exposed development cases only",

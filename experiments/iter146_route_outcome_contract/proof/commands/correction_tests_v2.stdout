@@ -1,0 +1,11 @@
+........................................................................ [ 75%]
+........................                                                 [100%]
+=============================== warnings summary ===============================
+: 19 warnings
+  <bound-source-slice>:24: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+
+: 19 warnings
+  <bound-source-slice>:26: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+96 passed, 38 warnings in 12.03s

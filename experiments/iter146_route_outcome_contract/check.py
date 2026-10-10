@@ -64,7 +64,8 @@ def read(directory):
 
 def verify(rows, summary):
     check(
-        summary["schema"] == "sentinel.iter146.summary.v1" and summary["status"] == "completed",
+        summary["schema"] in ("sentinel.iter146.summary.v1", "sentinel.iter146.summary.v2")
+        and summary["status"] == "completed",
         "incomplete execution",
     )
     check(
@@ -287,6 +288,23 @@ def verify(rows, summary):
             r["complete_call_ns"] <= step["complete_step_ns"] <= timing["full_loop_ns"],
             "timing nesting",
         )
+        if summary["schema"] == "sentinel.iter146.summary.v2":
+            start, work_end, end, work = (
+                timing[key]
+                for key in ("loop_start_ns", "loop_work_end_ns", "loop_end_ns", "loop_work_ns")
+            )
+            check(all(type(v) is int for v in (start, work_end, end, work)), "timing boundary type")
+            check(0 <= start < work_end <= end <= summary["elapsed_ns"], "timing boundaries")
+            check(
+                work == work_end - start and timing["full_loop_ns"] == end - start,
+                "timing boundary differences",
+            )
+            check(
+                timing["exchange_ns"] < work and step["complete_step_ns"] <= work,
+                "work timing nesting",
+            )
+            if i:
+                check(summary["timings"][i - 1]["loop_end_ns"] <= start, "overlapping loops")
         scientific.append(
             dict(
                 time=outcome["time"],

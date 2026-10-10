@@ -1,0 +1,40 @@
+{
+  "episodes": 8,
+  "steps": 192,
+  "replica_pairs": 4,
+  "camera_calls": 1200,
+  "max_stationarity": 9.09906456070253e-07,
+  "monitor_fired": 0,
+  "monitor_brake": 0,
+  "censored": 8,
+  "completion": 0,
+  "collision_observed": 0,
+  "off_route_observed": 0,
+  "controller_ms": {
+    "count": 192,
+    "minimum": 33.045507,
+    "median": 38.636913500000006,
+    "maximum": 70.378998,
+    "over_50ms": 1
+  },
+  "loop_work_lower_bound_seconds": {
+    "count": 192,
+    "minimum": 1.520345528,
+    "median": 1.585937576,
+    "maximum": 22.039465743,
+    "over_250ms": 192
+  },
+  "exchange_seconds": {
+    "count": 192,
+    "minimum": 1.245791523,
+    "median": 1.3089802305,
+    "maximum": 21.666409423
+  },
+  "simulator_seconds": {
+    "count": 192,
+    "minimum": 0.206837108,
+    "median": 0.21203999899999998,
+    "maximum": 0.276934478
+  },
+  "output_bytes": 315348267
+}

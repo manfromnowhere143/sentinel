@@ -22,3 +22,13 @@ Controller timing is a separate measured scope; short controller calls do not
 establish end-to-end real-time operation. No new runtime behavior is introduced
 into the fixed eight-case GPU qualification. A prospective timer boundary fix
 needs a delayed-guard known-bad before another source regime claims full-loop timing.
+
+## Prospective correction completed locally
+
+After the eight fixed GPU episodes closed, runner summary v2 adds start/work-end/end
+elapsed-clock boundaries and measures through the post-step guard and stop decision.
+It explicitly excludes timing-list append, Python loop dispatch and summary writing.
+The independent checker validates ordering, differences, nesting and nonoverlap;
+seven corrupted boundary fixtures are rejected. A 200-second synthetic guard delay
+fails against v1 and passes against v2. All 96 focused tests pass; raw v1 replay remains
+unchanged. No corrected v2 GPU measurement has been observed. See RESULT.md.

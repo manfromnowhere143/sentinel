@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "python3",
+    "/tmp/i146g_analyze_pair.py",
+    "brake_t2_5"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-10T12:51:01.793061+00:00",
+  "elapsed_seconds": 0.4344029426574707,
+  "returncode": 0
+}

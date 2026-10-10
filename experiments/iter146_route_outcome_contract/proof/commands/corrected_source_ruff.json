@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "/opt/homebrew/bin/ruff",
+    "check",
+    "experiments/iter146_route_outcome_contract/runner.py",
+    "experiments/iter146_route_outcome_contract/check.py",
+    "experiments/iter146_route_outcome_contract/compare.py",
+    "tests/test_iter146_route_outcome_contract.py"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-10T12:53:30.230263+00:00",
+  "elapsed_seconds": 0.08549094200134277,
+  "returncode": 0
+}

@@ -1,0 +1,15 @@
+{
+  "argv": [
+    "python3",
+    "-m",
+    "experiments.iter146_route_outcome_contract.analyze",
+    "--raw",
+    "experiments/iter146_route_outcome_contract/proof/cpu_raw",
+    "--output",
+    "experiments/iter146_route_outcome_contract/proof/cpu_legacy_replay_after_correction.json"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-10T12:53:30.230380+00:00",
+  "elapsed_seconds": 3.5405020713806152,
+  "returncode": 0
+}

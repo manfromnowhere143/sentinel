@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "python3",
+    "/tmp/i146_legacy_gpu_replay.py"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-10T12:54:03.257246+00:00",
+  "elapsed_seconds": 0.5256259441375732,
+  "returncode": 0
+}
