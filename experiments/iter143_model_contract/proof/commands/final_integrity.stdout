@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "candidate_commit": "d2558e270a373bbf821c82ad1ef04d0cedffb0f8",
+  "proof_hashes": 74,
+  "bound_prior_inputs": 11,
+  "retrieved_sources_matched_to_prior_runtime": 2,
+  "scientific_source_test_files_unchanged": 3,
+  "preregistration_unchanged": true,
+  "valid_raw_and_inventory_commits_preserved": true,
+  "invalid_invocations_retained": 2,
+  "artifact_known_bads_rejected": 3,
+  "document_links": 27,
+  "unrelated_wip_files_unchanged": 19,
+  "prior_experiments_unchanged": true,
+  "master_unchanged": true,
+  "index_empty": true,
+  "human_commit_identities": 9,
+  "cloud_access": false,
+  "scope": "local candidate integrity; no full/frozen/hosted CI"
+}

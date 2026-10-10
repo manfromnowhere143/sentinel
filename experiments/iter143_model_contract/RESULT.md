@@ -126,6 +126,13 @@ Full simulator behavior, full/frozen/hosted CI and physical qualification remain
 unestablished. No packages were installed. The figure used the existing Iter140
 Python 3.11 / Matplotlib 3.9.4 environment and was visually checked.
 
+The [closure integrity check](proof/commands/final_integrity.stdout) passed on
+result commit d2558e270a373bbf821c82ad1ef04d0cedffb0f8: 74 proof hashes, all bound
+inputs/source identities, original raw commits, unchanged preregistration, 27 local
+document links and 19 unrelated WIP files. Three corrupted artifacts were rejected
+by the independent validator, and a separate corrupted-hash inventory check fired.
+The canonical master, index and prior experiments were preserved.
+
 ## Retained implementation failures
 
 The first full probe failed on mismatched synthetic sampler mask/terminal shapes,

@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "python3",
+    "/tmp/i143_final_check.py",
+    "--known-bad"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-10T05:21:49.486680+00:00",
+  "elapsed_seconds": 0.24910283088684082,
+  "returncode": 1
+}
