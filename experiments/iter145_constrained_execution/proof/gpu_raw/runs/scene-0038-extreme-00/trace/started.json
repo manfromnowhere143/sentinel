@@ -1,0 +1,8 @@
+{
+  "status": "running",
+  "episode": "scene-0038-extreme-00",
+  "max_steps": 12,
+  "max_seconds": 1197.718192122,
+  "gpu_observed": false,
+  "driving_outcome": null
+}

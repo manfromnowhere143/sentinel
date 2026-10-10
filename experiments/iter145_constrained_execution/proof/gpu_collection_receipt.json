@@ -1,0 +1,49 @@
+{
+  "batch": {
+    "status": "completed",
+    "cases": [
+      {
+        "returncode": 0,
+        "deadline_exceeded": false,
+        "case": "scene-0013-easy-00.yaml",
+        "elapsed_seconds": 56.507076708,
+        "cleanup": {
+          "status": "absent"
+        }
+      },
+      {
+        "returncode": 0,
+        "deadline_exceeded": false,
+        "case": "scene-0038-extreme-00.yaml",
+        "elapsed_seconds": 52.40485251600006,
+        "cleanup": {
+          "status": "absent"
+        }
+      },
+      {
+        "returncode": 0,
+        "deadline_exceeded": false,
+        "case": "scene-0013-hard-00.yaml",
+        "elapsed_seconds": 51.354813068,
+        "cleanup": {
+          "status": "absent"
+        }
+      },
+      {
+        "returncode": 0,
+        "deadline_exceeded": false,
+        "case": "scene-0038-medium-01.yaml",
+        "elapsed_seconds": 52.24679935100005,
+        "cleanup": {
+          "status": "absent"
+        }
+      }
+    ],
+    "live_study_admitted": false,
+    "elapsed_seconds": 264.984305643
+  },
+  "sha256": "0af0eb36796399cee823b740a1df29c272e87a58379c0053947df8982ead61b9",
+  "bytes": 1487677,
+  "files": 49,
+  "output_bytes": 233739383
+}

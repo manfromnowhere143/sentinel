@@ -1,0 +1,9 @@
+{
+  "returncode": 0,
+  "deadline_exceeded": false,
+  "case": "scene-0038-extreme-00.yaml",
+  "elapsed_seconds": 52.40485251600006,
+  "cleanup": {
+    "status": "absent"
+  }
+}

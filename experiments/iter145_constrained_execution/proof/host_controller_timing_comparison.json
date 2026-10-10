@@ -1,0 +1,23 @@
+{
+  "status": "supported",
+  "scope": "Same 28 controller fixture inputs on two recorded runtimes; descriptive timing, not a statistical platform comparison.",
+  "local": {
+    "n": 28,
+    "minimum_ms": 2.374959,
+    "median_ms": 14.684667000000001,
+    "nearest_rank_p95_ms": 23.526292,
+    "maximum_ms": 25.150209,
+    "over_50ms": 0
+  },
+  "host": {
+    "n": 28,
+    "minimum_ms": 5.989266,
+    "median_ms": 46.9345495,
+    "nearest_rank_p95_ms": 72.818025,
+    "maximum_ms": 73.763182,
+    "over_50ms": 7
+  },
+  "host_admitted": 28,
+  "host_max_stationarity": 9.548837076600591e-07,
+  "no_vehicle_deadline_claim": true
+}

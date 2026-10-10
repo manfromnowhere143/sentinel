@@ -1,0 +1,9 @@
+{
+  "returncode": 0,
+  "deadline_exceeded": false,
+  "case": "scene-0038-medium-01.yaml",
+  "elapsed_seconds": 52.24679935100005,
+  "cleanup": {
+    "status": "absent"
+  }
+}

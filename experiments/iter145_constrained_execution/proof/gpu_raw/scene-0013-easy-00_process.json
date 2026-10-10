@@ -1,0 +1,9 @@
+{
+  "returncode": 0,
+  "deadline_exceeded": false,
+  "case": "scene-0013-easy-00.yaml",
+  "elapsed_seconds": 56.507076708,
+  "cleanup": {
+    "status": "absent"
+  }
+}

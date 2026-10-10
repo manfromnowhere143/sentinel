@@ -1,0 +1,11 @@
+{
+  "batch_entry.log": "",
+  "cases": {
+    "scene-0013-easy-00": {
+      "client.log": "[iter45-shim] cuSOLVER-backed linalg ops routed via CPU (torch 1.9.1+cu111 )\nSENTINEL_I48_UNION_PATCH_LOADED enabled=1 params={\"cpa_margin\": 1.5, \"dt\": 0.5, \"max_gap\": 30.0, \"min_closing\": 3.0, \"min_score\": 0.3, \"release_k\": 4, \"ttc_thresh\": 2.5}\nprojects.mmdet3d_plugin\n",
+      "steps": 0,
+      "last_event": "observation"
+    }
+  },
+  "scene-0013-easy-00.log": ""
+}

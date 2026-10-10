@@ -1,0 +1,13 @@
+{
+  "status": "completed",
+  "episode": "scene-0013-hard-00",
+  "max_steps": 12,
+  "max_seconds": 1195.131760973,
+  "gpu_observed": false,
+  "driving_outcome": null,
+  "reset_seconds": 1.0682915749999893,
+  "stop_reason": "smoke_step_cap",
+  "steps": 12,
+  "elapsed_seconds": 38.42293173200005,
+  "events_sha256": "8857d063238c1407c134e9d692671d9548d703b055ec391c1f22f37a9e9dde46"
+}

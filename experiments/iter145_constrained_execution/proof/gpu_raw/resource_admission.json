@@ -1,0 +1,33 @@
+{
+  "status": "supported",
+  "observation": {
+    "id": "3834622546652649531",
+    "name": "sentinel-gpu",
+    "project": "sunlit-unison-487018-b0",
+    "zone": "us-west1-a",
+    "machine_type": "g2-standard-8",
+    "accelerator": "nvidia-l4",
+    "accelerator_count": 1,
+    "observation_kind": "host_readback",
+    "state": "RUNNING",
+    "local_free_gib": 18.407962799072266,
+    "remote_free_gib": 108.87245559692383,
+    "containers": [],
+    "gpu_processes": [],
+    "observed_epoch": 1791632215.2180846,
+    "owned_shutdown_epoch": 1791637165.206462,
+    "shutdown_owner": "sentinel.iter145"
+  },
+  "envelope": {
+    "max_output_gib": 8,
+    "max_seconds": 4800,
+    "hourly_upper_usd": 3,
+    "max_cost_usd": 4.5,
+    "capacity_attempts": 1,
+    "smoke_attempts": 1,
+    "source_commit": "1202c067739ede3b301a4fc6d53bf4bdd6bd134f",
+    "cleanup_owner": "sentinel.iter145",
+    "price_source_sha256": "372443bd673a4b4d25bdc4e87b3307df867647f74213aa4b0348b3e7b939e3b5"
+  },
+  "timer_readback": "TimersMonotonic={ OnActiveUSec=1h 22min 30s ; next_elapse=1h 28min 19.558778s }\nNextElapseUSecMonotonic=1h 28min 19.558778s\nActiveState=active\n"
+}

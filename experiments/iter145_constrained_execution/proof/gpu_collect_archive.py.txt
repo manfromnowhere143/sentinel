@@ -1,0 +1,22 @@
+import json,hashlib,tarfile,stat,subprocess,os
+from pathlib import Path
+c=Path('/datasets/nuscenes-full/hugsim/iter145_gpu_20261010');batch=json.loads((c/'batch.json').read_text());assert batch['status'] in ('completed','failed')
+for a in [['docker','ps','-q'],['nvidia-smi','--query-compute-apps=pid','--format=csv,noheader']]:
+ p=subprocess.run(a,capture_output=True,text=True,timeout=30);assert p.returncode==0 and not p.stdout.strip(),p.stdout
+records={};selected=[]
+for p in sorted((c/'runs').rglob('*')):
+ mode=p.lstat().st_mode
+ if stat.S_ISFIFO(mode):continue
+ assert not p.is_symlink()
+ if not p.is_file():continue
+ h=hashlib.sha256()
+ with p.open('rb') as f:
+  for b in iter(lambda:f.read(1024**2),b''):h.update(b)
+ rel=str(p.relative_to(c));records[rel]=dict(sha256=h.hexdigest(),bytes=p.stat().st_size)
+ if p.suffix in ('.json','.jsonl','.log','.txt'):selected.append(rel)
+for p in sorted(c.glob('*')):
+ if p.is_file() and (p.suffix in ('.log',) or p.name in ('batch.json','batch_started.json','execution_manifest.json','launch.json','resource_admission.json','e2e145.py','nuscenes_base.yaml') or p.name.endswith('_process.json')):selected.append(str(p.relative_to(c)))
+(c/'output_inventory.json').write_text(json.dumps(dict(files=records,total_bytes=sum(r['bytes'] for r in records.values()),selected_files=selected,excluded_content='Derived PLY and visualization images retained on host; their complete hashes and sizes are above.'),indent=2)+'\n');selected.append('output_inventory.json')
+with tarfile.open(c/'retained_raw.tar.gz','w:gz') as a:
+ for name in selected:a.add(c/name,arcname=name,recursive=False)
+raw=(c/'retained_raw.tar.gz').read_bytes();print(json.dumps(dict(batch=batch,sha256=hashlib.sha256(raw).hexdigest(),bytes=len(raw),files=len(selected),output_bytes=sum(r['bytes'] for r in records.values()))))

@@ -1,0 +1,13 @@
+{
+  "status": "completed",
+  "episode": "scene-0038-medium-01",
+  "max_steps": 12,
+  "max_seconds": 1195.065807793,
+  "gpu_observed": false,
+  "driving_outcome": null,
+  "reset_seconds": 1.0591892729999017,
+  "stop_reason": "smoke_step_cap",
+  "steps": 12,
+  "elapsed_seconds": 39.28459327799999,
+  "events_sha256": "826d73f7828762af9f1b5f006366637db20c55ede2d9541bd2c8a4288098e287"
+}

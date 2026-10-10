@@ -1,0 +1,89 @@
+[iter45-shim] cuSOLVER-backed linalg ops routed via CPU (torch 1.9.1+cu111 )
+SENTINEL_I48_UNION_PATCH_LOADED enabled=1 params={"cpa_margin": 1.5, "dt": 0.5, "max_gap": 30.0, "min_closing": 3.0, "min_score": 0.3, "release_k": 4, "ttc_thresh": 2.5}
+projects.mmdet3d_plugin
+load checkpoint from local path: ckpts/uniad_base_e2e.pth
+2026-10-10 13:40:48,825 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.0.conv2 is upgraded to version 2.
+2026-10-10 13:40:48,831 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.1.conv2 is upgraded to version 2.
+2026-10-10 13:40:48,835 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.2.conv2 is upgraded to version 2.
+2026-10-10 13:40:48,838 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.3.conv2 is upgraded to version 2.
+2026-10-10 13:40:48,842 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.4.conv2 is upgraded to version 2.
+2026-10-10 13:40:48,846 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.5.conv2 is upgraded to version 2.
+2026-10-10 13:40:48,850 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.6.conv2 is upgraded to version 2.
+2026-10-10 13:40:48,854 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.7.conv2 is upgraded to version 2.
+2026-10-10 13:40:48,858 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.8.conv2 is upgraded to version 2.
+2026-10-10 13:40:48,861 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.9.conv2 is upgraded to version 2.
+2026-10-10 13:40:48,865 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.10.conv2 is upgraded to version 2.
+2026-10-10 13:40:48,869 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.11.conv2 is upgraded to version 2.
+2026-10-10 13:40:48,873 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.12.conv2 is upgraded to version 2.
+2026-10-10 13:40:48,877 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.13.conv2 is upgraded to version 2.
+2026-10-10 13:40:48,880 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.14.conv2 is upgraded to version 2.
+2026-10-10 13:40:48,884 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.15.conv2 is upgraded to version 2.
+2026-10-10 13:40:48,888 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.16.conv2 is upgraded to version 2.
+2026-10-10 13:40:48,892 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.17.conv2 is upgraded to version 2.
+2026-10-10 13:40:48,896 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.18.conv2 is upgraded to version 2.
+2026-10-10 13:40:48,899 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.19.conv2 is upgraded to version 2.
+2026-10-10 13:40:48,903 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.20.conv2 is upgraded to version 2.
+2026-10-10 13:40:48,907 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.21.conv2 is upgraded to version 2.
+2026-10-10 13:40:48,911 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.22.conv2 is upgraded to version 2.
+2026-10-10 13:40:48,915 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.0.conv2 is upgraded to version 2.
+2026-10-10 13:40:48,921 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.1.conv2 is upgraded to version 2.
+2026-10-10 13:40:48,925 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.2.conv2 is upgraded to version 2.
+Ready for recieving
+received
+SENTINEL_I48_DECISION frame=0 fired=0 brake=0 release=0 clear=0 min_cpa=13.8772 min_ttc=1000000000.0000 objs=3
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/iter145_gpu_20261010/runs/scene-0038-medium-01/uniad/0000_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/iter145_gpu_20261010/runs/scene-0038-medium-01/uniad/0000_cam.jpg
+SENTINEL_I48_DECISION frame=1 fired=0 brake=0 release=0 clear=0 min_cpa=14.0780 min_ttc=1000000000.0000 objs=3
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/iter145_gpu_20261010/runs/scene-0038-medium-01/uniad/0001_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/iter145_gpu_20261010/runs/scene-0038-medium-01/uniad/0001_cam.jpg
+SENTINEL_I48_DECISION frame=2 fired=0 brake=0 release=0 clear=0 min_cpa=10.4887 min_ttc=1000000000.0000 objs=3
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/iter145_gpu_20261010/runs/scene-0038-medium-01/uniad/0002_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/iter145_gpu_20261010/runs/scene-0038-medium-01/uniad/0002_cam.jpg
+SENTINEL_I48_DECISION frame=3 fired=0 brake=0 release=0 clear=0 min_cpa=14.2935 min_ttc=1000000000.0000 objs=4
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/iter145_gpu_20261010/runs/scene-0038-medium-01/uniad/0003_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/iter145_gpu_20261010/runs/scene-0038-medium-01/uniad/0003_cam.jpg
+SENTINEL_I48_DECISION frame=4 fired=0 brake=0 release=0 clear=0 min_cpa=14.5892 min_ttc=1000000000.0000 objs=4
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/iter145_gpu_20261010/runs/scene-0038-medium-01/uniad/0004_bev.jpg
+SENTINEL_I48_DECISION frame=5 fired=0 brake=0 release=0 clear=0 min_cpa=14.8513 min_ttc=1000000000.0000 objs=5
+sent
+saving to /datasets/nuscenes-full/hugsim/iter145_gpu_20261010/runs/scene-0038-medium-01/uniad/0004_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/iter145_gpu_20261010/runs/scene-0038-medium-01/uniad/0005_bev.jpg
+SENTINEL_I48_DECISION frame=6 fired=0 brake=0 release=0 clear=0 min_cpa=16.8625 min_ttc=1000000000.0000 objs=5
+sent
+saving to /datasets/nuscenes-full/hugsim/iter145_gpu_20261010/runs/scene-0038-medium-01/uniad/0005_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/iter145_gpu_20261010/runs/scene-0038-medium-01/uniad/0006_bev.jpg
+SENTINEL_I48_DECISION frame=7 fired=0 brake=0 release=0 clear=0 min_cpa=17.0229 min_ttc=1000000000.0000 objs=5
+sent
+saving to /datasets/nuscenes-full/hugsim/iter145_gpu_20261010/runs/scene-0038-medium-01/uniad/0006_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/iter145_gpu_20261010/runs/scene-0038-medium-01/uniad/0007_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/iter145_gpu_20261010/runs/scene-0038-medium-01/uniad/0007_cam.jpg
+SENTINEL_I48_DECISION frame=8 fired=0 brake=0 release=0 clear=0 min_cpa=17.1128 min_ttc=1000000000.0000 objs=4
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/iter145_gpu_20261010/runs/scene-0038-medium-01/uniad/0008_bev.jpg
+saving to /datasets/nuscenes-full/hugsim/iter145_gpu_20261010/runs/scene-0038-medium-01/uniad/0008_cam.jpg
+SENTINEL_I48_DECISION frame=9 fired=0 brake=0 release=0 clear=0 min_cpa=3.5856 min_ttc=1000000000.0000 objs=5
+sent
+received
+saving to /datasets/nuscenes-full/hugsim/iter145_gpu_20261010/runs/scene-0038-medium-01/uniad/0009_bev.jpg
+SENTINEL_I48_DECISION frame=10 fired=0 brake=0 release=0 clear=0 min_cpa=12.8772 min_ttc=1000000000.0000 objs=6
+sent
+saving to /datasets/nuscenes-full/hugsim/iter145_gpu_20261010/runs/scene-0038-medium-01/uniad/0009_cam.jpg
+received
+saving to /datasets/nuscenes-full/hugsim/iter145_gpu_20261010/runs/scene-0038-medium-01/uniad/0010_bev.jpg
+SENTINEL_I48_DECISION frame=11 fired=0 brake=0 release=0 clear=0 min_cpa=13.3891 min_ttc=1000000000.0000 objs=4
+sent
+saving to /datasets/nuscenes-full/hugsim/iter145_gpu_20261010/runs/scene-0038-medium-01/uniad/0010_cam.jpg
