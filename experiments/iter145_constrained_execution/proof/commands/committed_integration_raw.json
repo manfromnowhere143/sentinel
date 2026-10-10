@@ -1,0 +1,21 @@
+{
+  "argv": [
+    "env",
+    "OPENBLAS_NUM_THREADS=1",
+    "OMP_NUM_THREADS=1",
+    "MKL_NUM_THREADS=1",
+    "python3",
+    "-m",
+    "experiments.iter145_constrained_execution.integration_probe",
+    "--root",
+    "/Users/danielwahnich/sentinel-bootstrap-evidence/iter145-constrained-execution-20261010/simulator_source_v4",
+    "--output-dir",
+    "/Users/danielwahnich/workspace/sentinel/experiments/iter145_constrained_execution/proof/cpu_sessions",
+    "--output",
+    "/Users/danielwahnich/workspace/sentinel/experiments/iter145_constrained_execution/proof/integration_raw.json"
+  ],
+  "cwd": "/Users/danielwahnich/sentinel-bootstrap-evidence/iter145-constrained-execution-20261010/simulator_source_v4",
+  "start_utc": "2026-10-10T06:06:47.520104+00:00",
+  "elapsed_seconds": 6.036870241165161,
+  "returncode": 0
+}

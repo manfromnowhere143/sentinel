@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "ruff",
+    "check",
+    "experiments/iter145_constrained_execution",
+    "tests/test_iter145_constrained_execution.py"
+  ],
+  "cwd": "/Users/danielwahnich/sentinel-bootstrap-evidence/iter145-constrained-execution-20261010/simulator_source_v4",
+  "start_utc": "2026-10-10T06:06:24.268498+00:00",
+  "elapsed_seconds": 0.06716799736022949,
+  "returncode": 0
+}

@@ -1,0 +1,13 @@
+{
+  "status": "completed",
+  "episode": "speed4_curve0_replica1",
+  "max_steps": 12,
+  "max_seconds": 60,
+  "gpu_observed": false,
+  "driving_outcome": null,
+  "reset_seconds": 0.011650165994069539,
+  "stop_reason": "smoke_step_cap",
+  "steps": 12,
+  "elapsed_seconds": 0.2061810409941245,
+  "events_sha256": "0ed7a0d6d7f585659b514c3a59849544941d84f7e2b8fbc7590f802ac5410851"
+}

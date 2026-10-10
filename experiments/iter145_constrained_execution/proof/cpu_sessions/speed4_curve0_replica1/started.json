@@ -1,0 +1,8 @@
+{
+  "status": "running",
+  "episode": "speed4_curve0_replica1",
+  "max_steps": 12,
+  "max_seconds": 60,
+  "gpu_observed": false,
+  "driving_outcome": null
+}
