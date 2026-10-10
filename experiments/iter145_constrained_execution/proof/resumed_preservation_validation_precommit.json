@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "validated_candidate": "7e5976bb9ee4c54dc5f114ca4392d9f16c202510",
+  "checks": {
+    "unrelated_initial_dirty_paths_preserved": 18,
+    "root_index_preserved": true,
+    "root_branch_preserved": true,
+    "master_preserved": true,
+    "root_readme_unchanged_immutable": true,
+    "active_docs_only_expected_edits": true,
+    "proof_hashes_verified": 521,
+    "measured_raw_hashes_unchanged": true,
+    "isolated_source_files_match_measured_commit": 56,
+    "new_doc_links_resolve": true,
+    "human_commit_identity_and_no_model_trailers": 24,
+    "owned_cloud_stopped_and_milestone_retained": true,
+    "owned_inspection_processes_exited": true,
+    "all_gpu_raw_bytes_preserved_since_preanalysis_commit": true,
+    "aggregate_reproduces_from_raw": true
+  }
+}

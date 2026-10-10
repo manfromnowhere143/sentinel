@@ -39,5 +39,16 @@
   "gpu_controller_over_50ms": 26,
   "gpu_envelope": "closed",
   "recovery_result": null,
-  "study_projection_status": "proposed_not_admitted"
+  "study_projection_status": "proposed_not_admitted",
+  "gpu_deployment": {
+    "base_commit": "fc7abe55d5c08338460129fa013b33b0b16dfe27",
+    "patch_commits": [
+      "05a550dcc9a09cb657f34c3d82dc9d8215372c19",
+      "1202c067739ede3b301a4fc6d53bf4bdd6bd134f"
+    ],
+    "manifest_sha256": "698be5970fb76171b65ca41583eafd92cc260e43724a7709f84c2be38cd23c32",
+    "seed": 136,
+    "replicas_compared": false,
+    "qualification_scope": "four nominal 12-step smoke cases"
+  }
 }
