@@ -1,0 +1,15 @@
+{
+  "argv": [
+    "python3",
+    "-m",
+    "experiments.iter145_constrained_execution.knownbads",
+    "--root",
+    "/Users/danielwahnich/workspace/sentinel",
+    "--output",
+    "/Users/danielwahnich/workspace/sentinel/experiments/iter145_constrained_execution/proof/known_bad_validations.json"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-10T06:07:55.496940+00:00",
+  "elapsed_seconds": 7.641381740570068,
+  "returncode": 0
+}

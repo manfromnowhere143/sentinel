@@ -21,6 +21,15 @@ from experiments.iter144_timed_trajectory.trajectory import (
 from .optimizer import ConstrainedController, require_action, rollout
 from .independent import certificate as replay_certificate
 from .nominal import reference
+from experiments.iter144_timed_trajectory.control import brake
+
+
+def arm_action(mode, now, velocity, nominal):
+    """Registered one-second signed braking pulse, preserving nominal steering."""
+    start = {"brake_t0": 0.0, "brake_t2_5": 2.5}.get(mode)
+    if start is not None and start <= now < start + 1.0:
+        return dict(acc=brake(velocity), steer_rate=nominal["steer_rate"])
+    return nominal.copy()
 
 
 class TimedPlanner:
@@ -307,8 +316,7 @@ class Session:
             replay_certificate(result)
             action = require_action(result)
             # Forced braking is a separate arm, after retaining the same nominal solution.
-            if delivery["mode"] == "brake_t0" or (delivery["mode"] == "brake_t2_5" and now >= 2.5):
-                action = dict(acc=-2.0, steer_rate=0.0)
+            action = arm_action(delivery["mode"], now, before[3], action)
             predicted = rollout(before, [[action["acc"], action["steer_rate"]]])[0][1]
             transition_start = time.perf_counter_ns()
             observation = self.env.step(action)

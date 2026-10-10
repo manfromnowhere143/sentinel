@@ -180,6 +180,22 @@ def make_delivery(frame=0, mode="nominal", episode="fixture", curved=False):
     )
 
 
+@pytest.mark.parametrize("speed", [-4.0, -0.1, 0.0, 0.1, 4.0])
+def test_brake_pulse_matches_registered_signed_law(speed):
+    from experiments.iter145_constrained_execution.simulator import arm_action
+
+    nominal = dict(acc=0.5, steer_rate=0.07)
+    for mode, start in [("brake_t0", 0.0), ("brake_t2_5", 2.5)]:
+        for now in [start, start + 0.25, start + 0.5, start + 0.75]:
+            action = arm_action(mode, now, speed, nominal)
+            after = speed + action["acc"] * 0.25
+            assert abs(after) <= abs(speed) and after * speed >= 0
+            assert action["steer_rate"] == nominal["steer_rate"]
+        assert arm_action(mode, start + 1.0, speed, nominal) == nominal
+        if start > 0:
+            assert arm_action(mode, start - 0.25, speed, nominal) == nominal
+
+
 def test_nominal_supported_clock_and_world_heading():
     from experiments.iter145_constrained_execution.nominal import reference
 

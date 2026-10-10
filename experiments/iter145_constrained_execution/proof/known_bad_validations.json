@@ -1,0 +1,426 @@
+{
+  "status": "supported",
+  "optimizer_sha256": "dbb5beebd30387347781babf7deb4e0f6836561276438d6c67e4b61e9930964e",
+  "integration_sha256": "6a36166422e47aa21ceff041fe82b3f6fabc85c3edc610cc63b1eee1d8f140bd",
+  "total": 30,
+  "rejected": 30,
+  "rows": [
+    {
+      "name": "optimizer_missing_case",
+      "kind": "optimizer",
+      "path": [
+        "candidate"
+      ],
+      "rejected": true,
+      "error": "case count",
+      "mutant_sha256": "d98f74668431f27aea1544f7e3a66eb88e5ba3b6faee93172a049e28ade1abb5"
+    },
+    {
+      "name": "optimizer_wrong_order",
+      "kind": "optimizer",
+      "path": [
+        "candidate",
+        0,
+        "index"
+      ],
+      "rejected": true,
+      "error": "case identity",
+      "mutant_sha256": "ff59bd657b33b3226eca2004b653171dabb0632033e4aa7c948aac9296d5da6a"
+    },
+    {
+      "name": "optimizer_control",
+      "kind": "optimizer",
+      "path": [
+        "candidate",
+        0,
+        "result",
+        "inputs",
+        0,
+        0
+      ],
+      "rejected": true,
+      "error": "numeric replay",
+      "mutant_sha256": "31dba15d84456c7174d25160d44ca0b68bc89e813b8696d454591de05c219569"
+    },
+    {
+      "name": "optimizer_state",
+      "kind": "optimizer",
+      "path": [
+        "candidate",
+        0,
+        "result",
+        "states",
+        1,
+        0
+      ],
+      "rejected": true,
+      "error": "numeric replay",
+      "mutant_sha256": "570cb42abef63984a0a6f30f05d632748599667f4f5b0803f50007bc8ff6ac23"
+    },
+    {
+      "name": "optimizer_gradient",
+      "kind": "optimizer",
+      "path": [
+        "candidate",
+        0,
+        "result",
+        "certificate",
+        "gradient",
+        0
+      ],
+      "rejected": true,
+      "error": "numeric replay",
+      "mutant_sha256": "cee1ca524e40b7a90a517719d2e0d9247dcf1b891cf3ffef60bcea07327d6bdc"
+    },
+    {
+      "name": "optimizer_dual",
+      "kind": "optimizer",
+      "path": [
+        "candidate",
+        0,
+        "result",
+        "certificate",
+        "multipliers",
+        0
+      ],
+      "rejected": true,
+      "error": "dual feasibility",
+      "mutant_sha256": "ad2a99932c7abfb962cb9e60aa65c6e928d8cc62fd3fd5f039a6e62f532db5fe"
+    },
+    {
+      "name": "optimizer_slack",
+      "kind": "optimizer",
+      "path": [
+        "candidate",
+        0,
+        "result",
+        "certificate",
+        "slack",
+        0
+      ],
+      "rejected": true,
+      "error": "numeric replay",
+      "mutant_sha256": "912725592ba9d55226b8d5e53b1c9fce563c1600ce08a8bb53d084437cafd43f"
+    },
+    {
+      "name": "optimizer_false_admission",
+      "kind": "optimizer",
+      "path": [
+        "candidate",
+        0,
+        "result",
+        "admitted"
+      ],
+      "rejected": true,
+      "error": "false admission",
+      "mutant_sha256": "8008173073ee91a17dfbcf4ecfd5f426441d2970eab0481e28e56ef9cbfbf2bc"
+    },
+    {
+      "name": "optimizer_missing_action",
+      "kind": "optimizer",
+      "path": [
+        "candidate",
+        0,
+        "result",
+        "applied"
+      ],
+      "rejected": true,
+      "error": "shape",
+      "mutant_sha256": "2f2fa9c1fc445f89a2fe536a80ea459205ca06fe3ea3f309f2890b26e1e2356d"
+    },
+    {
+      "name": "optimizer_iteration_cap",
+      "kind": "optimizer",
+      "path": [
+        "candidate",
+        0,
+        "result",
+        "iterations"
+      ],
+      "rejected": true,
+      "error": "iteration cap",
+      "mutant_sha256": "a564ec17d5dd6316a802dcf46e78d064f67a97e156c9041237ed92e460b2f3a7"
+    },
+    {
+      "name": "optimizer_timing",
+      "kind": "optimizer",
+      "path": [
+        "candidate",
+        0,
+        "result",
+        "solver_ns"
+      ],
+      "rejected": true,
+      "error": "timing order",
+      "mutant_sha256": "85c985e3b263b0d13384df26b5123be2a807f5f81d8a1212a3faca16be7fbd8d"
+    },
+    {
+      "name": "optimizer_handoff",
+      "kind": "optimizer",
+      "path": [
+        "candidate",
+        2,
+        "result",
+        "slsqp_returned_inputs",
+        0,
+        0
+      ],
+      "rejected": true,
+      "error": "numeric replay",
+      "mutant_sha256": "de23b1b83a036c4269e95a306e4f5a87f5e2079c37c93b903aae5a71ff75cedd"
+    },
+    {
+      "name": "optimizer_refinement_previous",
+      "kind": "optimizer",
+      "path": [
+        "candidate",
+        2,
+        "result",
+        "refinement",
+        0,
+        "previous_inputs",
+        0,
+        0
+      ],
+      "rejected": true,
+      "error": "numeric replay",
+      "mutant_sha256": "ac78c6ceeec25d112486c8546c8c9667685dad2076adb00cac9e125c9d5232b6"
+    },
+    {
+      "name": "optimizer_refinement_alpha",
+      "kind": "optimizer",
+      "path": [
+        "candidate",
+        2,
+        "result",
+        "refinement",
+        0,
+        "alpha"
+      ],
+      "rejected": true,
+      "error": "refinement line search",
+      "mutant_sha256": "a0f616056eb11853e14ceb5450b6049aed3b3fad5f4e642a575eb7e3173ec6f3"
+    },
+    {
+      "name": "optimizer_baseline_relabel",
+      "kind": "optimizer",
+      "path": [
+        "baseline",
+        0,
+        "execution",
+        "stop_reason"
+      ],
+      "rejected": true,
+      "error": "baseline stop changed",
+      "mutant_sha256": "a586a020f2c6ee3ad129621c8406ad6b017d76ea27025cf99bb3fe184268fdfb"
+    },
+    {
+      "name": "integration_missing_case",
+      "kind": "integration",
+      "path": [
+        "cases"
+      ],
+      "rejected": true,
+      "error": "fixture inventory",
+      "mutant_sha256": "6da01ea3bc371843badeff7028dacdbcc4fdba6640c7fd26c811a6527bbb1ca6"
+    },
+    {
+      "name": "integration_missing_boundary",
+      "kind": "integration",
+      "path": [
+        "cases",
+        0,
+        "boundary"
+      ],
+      "rejected": true,
+      "error": "boundary cardinality",
+      "mutant_sha256": "6b5f1b7aa314e606f46a2f6ca73c2d654a3c23e6af300d520eaf8c63c1d19b94"
+    },
+    {
+      "name": "integration_incomplete",
+      "kind": "integration",
+      "path": [
+        "cases",
+        0,
+        "summary",
+        "steps"
+      ],
+      "rejected": true,
+      "error": "fixture incomplete",
+      "mutant_sha256": "6661e18bfcef7af50e96afad640b928eab59aad715cb0aa07c5c1e6ccd34b875"
+    },
+    {
+      "name": "integration_wrong_frame",
+      "kind": "integration",
+      "path": [
+        "cases",
+        0,
+        "events",
+        4,
+        "frame"
+      ],
+      "rejected": true,
+      "error": "frame sequence",
+      "mutant_sha256": "9bc1bc59b3f5971c07cc3aa9abea41c45ab4f4cf5012dd98f032af885af50182"
+    },
+    {
+      "name": "integration_wrong_time",
+      "kind": "integration",
+      "path": [
+        "cases",
+        0,
+        "events",
+        4,
+        "result",
+        "application_time"
+      ],
+      "rejected": true,
+      "error": "numeric replay",
+      "mutant_sha256": "362a6bba206874d0eade0d0ad00f633ed95da4092950beaca0bc65c0ce45f44c"
+    },
+    {
+      "name": "integration_stale_plan",
+      "kind": "integration",
+      "path": [
+        "cases",
+        0,
+        "events",
+        4,
+        "delivery",
+        "knot_times",
+        0
+      ],
+      "rejected": true,
+      "error": "numeric replay",
+      "mutant_sha256": "60e66edd9605e052ac698fe0d3b26ebff4da400854e683f14721f75a2a66adff"
+    },
+    {
+      "name": "integration_changed_plan_bytes",
+      "kind": "integration",
+      "path": [
+        "cases",
+        0,
+        "events",
+        4,
+        "delivery",
+        "delivered",
+        "sha256"
+      ],
+      "rejected": true,
+      "error": "typed plan identity",
+      "mutant_sha256": "8994bb69f15bef6630f047e4734acf695d66658374b42c1678eeecbd1349a8ca"
+    },
+    {
+      "name": "integration_bad_horizon",
+      "kind": "integration",
+      "path": [
+        "cases",
+        0,
+        "events",
+        4,
+        "result",
+        "reference"
+      ],
+      "rejected": true,
+      "error": "short horizon",
+      "mutant_sha256": "e5c79060db3ce561a07cc44a78904b2b1819d9a1e6d66ad0d8bbd655c773e23d"
+    },
+    {
+      "name": "integration_uncertified",
+      "kind": "integration",
+      "path": [
+        "cases",
+        0,
+        "events",
+        4,
+        "result",
+        "admitted"
+      ],
+      "rejected": true,
+      "error": "false admission",
+      "mutant_sha256": "633c5f8e97781fdc216bb397807454ab00882c451a47a9c1c78c6ad48157e5ab"
+    },
+    {
+      "name": "integration_wrong_action",
+      "kind": "integration",
+      "path": [
+        "cases",
+        0,
+        "events",
+        5,
+        "applied",
+        "acc"
+      ],
+      "rejected": true,
+      "error": "numeric replay",
+      "mutant_sha256": "48dc130ba14bfa4b53455e2116a054bc75a2e6ebb610efa743423403f03676ec"
+    },
+    {
+      "name": "integration_wrong_transition",
+      "kind": "integration",
+      "path": [
+        "cases",
+        0,
+        "events",
+        5,
+        "after",
+        0
+      ],
+      "rejected": true,
+      "error": "numeric replay",
+      "mutant_sha256": "7560fb24c638c94a64fa31f9fa6e85daea0c7d1045f2971a70487ce7e254eff1"
+    },
+    {
+      "name": "integration_separate_render_collision",
+      "kind": "integration",
+      "path": [
+        "cases",
+        0,
+        "boundary",
+        0,
+        "shared_transform_object"
+      ],
+      "rejected": true,
+      "error": "render collision boundary",
+      "mutant_sha256": "48f7c13b631a34274a2fc7d0288bb720ef595437204d1b4da2408ecdfdbada80"
+    },
+    {
+      "name": "integration_old_actor_pose",
+      "kind": "integration",
+      "path": [
+        "cases",
+        0,
+        "events",
+        7,
+        "value",
+        "transforms",
+        "agent_0",
+        0,
+        3
+      ],
+      "rejected": true,
+      "error": "numeric replay",
+      "mutant_sha256": "494024b7800b4c6b6b486b6ad5ff8db31aa85aab0bc7b539e720f680ad4d0571"
+    },
+    {
+      "name": "integration_claimed_gpu",
+      "kind": "integration",
+      "path": [
+        "gpu_observed"
+      ],
+      "rejected": true,
+      "error": "scope",
+      "mutant_sha256": "8c26e5dbd6ee489254124851d05fb83c4a8a74f47ae39e29c44d650d248df132"
+    },
+    {
+      "name": "integration_claimed_live",
+      "kind": "integration",
+      "path": [
+        "live_study_admitted"
+      ],
+      "rejected": true,
+      "error": "scope",
+      "mutant_sha256": "384094782b0a5b5f16897a21d943ad2dd67914417b8decd26bc9ec8bd4d0f6b4"
+    }
+  ]
+}
