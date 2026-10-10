@@ -1,0 +1,19 @@
+{
+  "source_probe": {
+    "status": "invalid",
+    "returncode": 1,
+    "error": "IndexError: synthetic terminal rows and candidate mask cardinalities differed",
+    "raw_output_created": false,
+    "stage": "low-speed resampling fixture after local ego fixtures; no complete raw fixture artifact"
+  },
+  "inventory_receipt": {
+    "status": "failed",
+    "error": "FileExistsError: command metadata path collides with inventory artifact",
+    "inventory_output_preserved": true,
+    "child_reported_returncode": 0,
+    "wrapper_returncode": 1,
+    "start_utc": null,
+    "elapsed_seconds": null
+  },
+  "correction": "repair synthetic adapter dimensions, exercise adapter in tests, catch IndexError, separate command receipt namespace; retain original streams; do not rerun inventory"
+}
