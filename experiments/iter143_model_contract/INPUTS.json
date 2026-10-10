@@ -1,0 +1,64 @@
+{
+  "files": {
+    "experiments/iter136_hugsim_recoverability_canary/proof/controller_source/lqr.py.txt": {
+      "bytes": 2279,
+      "sha256": "b32755c32de510e09ac726f5c77731d5f490df6a412e50a4d369d70bdef45faf"
+    },
+    "experiments/iter136_hugsim_recoverability_canary/proof/controller_source/lqr_solver.py.txt": {
+      "bytes": 35186,
+      "sha256": "0141d73d0ac38386184e63ce384d2e3cd341130943065b416bdacf4281e57c47"
+    },
+    "experiments/iter136_hugsim_recoverability_canary/proof/source/HUGSIM/LICENSE.txt": {
+      "bytes": 1122,
+      "sha256": "c5acad54bc534fe3bd574cd2ffd10cfd037b98590f01388163f51ea36035c322"
+    },
+    "experiments/iter136_hugsim_recoverability_canary/proof/source/HUGSIM/configs/sim/kinematic.yaml.txt": {
+      "bytes": 114,
+      "sha256": "fc987ae8da2412ecca8e10b9e49daf2da366795151e970b139c3426ea9966c96"
+    },
+    "experiments/iter136_hugsim_recoverability_canary/proof/source/HUGSIM/sim/hugsim_env/envs/hug_sim.py.txt": {
+      "bytes": 13604,
+      "sha256": "c42ef368852754bdec76c81254b72dcda45eccef058dce015ea549c0b17c7d12"
+    },
+    "experiments/iter136_hugsim_recoverability_canary/proof/source/HUGSIM/sim/utils/agent_controller.py.txt": {
+      "bytes": 11692,
+      "sha256": "bc4689fe9ccbc9c997e273c92662ed0933b5e3317cd25fff99fefd9964a23a28"
+    },
+    "experiments/iter136_hugsim_recoverability_canary/proof/source/HUGSIM/sim/utils/plan.py.txt": {
+      "bytes": 10717,
+      "sha256": "61d170928bc54d7efeef8d5d58ade5c19621560253d9fb552d56b2612f11f912"
+    },
+    "experiments/iter142_nominal_continuation_completion/proof/runtime_manifest.json": {
+      "bytes": 100796,
+      "sha256": "54647066bd8296ef21106a3eeacf660294d8cf4f9a5fc865424be18696b8a6e3"
+    },
+    "experiments/iter46_hugsim_off_baseline/proof-off/frozen_scenarios.sha256": {
+      "bytes": 4748,
+      "sha256": "926cbec00614522e7ff3f8d4063826b02277aba370631a2e7cf36be8a8c086df"
+    },
+    "experiments/iter49_hugsim_hard_tier_gate/proof-hard/frozen_scenarios_hard.sha256": {
+      "bytes": 3294,
+      "sha256": "9d1b1488449efc321ba8c0297dfda799daacd8a31ffc4e066849fb9dfa62f739"
+    }
+  },
+  "parent_commit": "75e0727d564ce19a66199155662d2b5daf4a7fcf",
+  "retrieved_sources": [
+    {
+      "bytes": 17632,
+      "path": "experiments/iter143_model_contract/source/spline_planner.py.txt",
+      "prior_runtime_path": "/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/spline_planner.py",
+      "sha256": "ba691c4d426724956d440df5503501ce3181c6edfb8edc2283c557ba76619ea2",
+      "upstream_commit": "62c690d39fd90020e68a196bd8bcc1c4d4191f2e",
+      "url": "https://raw.githubusercontent.com/hyzhou404/HUGSIM/62c690d39fd90020e68a196bd8bcc1c4d4191f2e/submodules/Pplan/Sampling/spline_planner.py"
+    },
+    {
+      "bytes": 5877,
+      "path": "experiments/iter143_model_contract/source/forward_sampler.py.txt",
+      "prior_runtime_path": "/opt/sentinel-stack/HUGSIM/submodules/Pplan/Sampling/forward_sampler.py",
+      "sha256": "2494c6d3ce174889008102e8b61bb281c189593da39c5d417ecd05e9c215f57f",
+      "upstream_commit": "62c690d39fd90020e68a196bd8bcc1c4d4191f2e",
+      "url": "https://raw.githubusercontent.com/hyzhou404/HUGSIM/62c690d39fd90020e68a196bd8bcc1c4d4191f2e/submodules/Pplan/Sampling/forward_sampler.py"
+    }
+  ],
+  "schema": "sentinel.iter143.inputs.v1"
+}
