@@ -8,6 +8,10 @@
       "bytes": 35186,
       "sha256": "0141d73d0ac38386184e63ce384d2e3cd341130943065b416bdacf4281e57c47"
     },
+    "experiments/iter136_hugsim_recoverability_canary/proof/controller_source/utils.py.txt": {
+      "bytes": 17421,
+      "sha256": "041ed70028c105cfc102978ffddad4e92398d29b2454f1c2be6c81fb765c75fe"
+    },
     "experiments/iter136_hugsim_recoverability_canary/proof/source/HUGSIM/LICENSE.txt": {
       "bytes": 1122,
       "sha256": "c5acad54bc534fe3bd574cd2ffd10cfd037b98590f01388163f51ea36035c322"
