@@ -1,0 +1,5 @@
+{
+  "returncode": 0,
+  "stdout": "{\"status\": \"completed\", \"frames\": [{\"frame\": 12, \"time\": 3.0, \"position\": [-2.7216203568594204, -0.172711470608214, 12.000892850354656], \"rotation\": [0.0, -0.09134459154360033, 0.0], \"count\": 0, \"collision\": false, \"points\": 276519}, {\"frame\": 13, \"time\": 3.25, \"position\": [-2.858446782614782, -0.1878126076404038, 13.494639324564725], \"rotation\": [0.0, -0.04791307767877304, 0.0], \"count\": 273, \"collision\": true, \"points\": 276519}], \"selected_points\": 276519}\n",
+  "stderr": "Running as unit: sentinel155-extraction-5c15ae0537d8.service\nFinished with result: success\nMain processes terminated with: code=exited/status=0\nService runtime: 39.580s\nCPU time consumed: 27.072s\n"
+}

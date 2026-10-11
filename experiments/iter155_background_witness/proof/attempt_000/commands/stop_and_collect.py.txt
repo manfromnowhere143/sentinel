@@ -1,0 +1,19 @@
+payload={'control': '/datasets/nuscenes-full/hugsim/iter155_background_20261011', 'unit': 'sentinel155-extraction-5c15ae0537d8.service', 'cap': 402653184}
+import gzip,hashlib,json,subprocess,tarfile,io
+from pathlib import Path
+c=Path(payload['control']);q=subprocess.run(['systemctl','stop',payload['unit']],capture_output=True,text=True,timeout=30)
+active=subprocess.run(['systemctl','is-active',payload['unit']],capture_output=True,text=True,timeout=10)
+assert active.stdout.strip() in ('inactive','failed','unknown')
+raw=c/'raw';files={};buffer=io.BytesIO()
+with tarfile.open(fileobj=buffer,mode='w:gz') as archive:
+ for p in sorted(raw.iterdir()):
+  assert p.is_file() and not p.is_symlink();data=p.read_bytes();assert len(data)<=payload['cap']
+  files[p.name]={'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest()};assert sum(v['bytes'] for v in files.values())<=payload['cap']
+  item=tarfile.TarInfo(p.name);item.size=len(data);archive.addfile(item,io.BytesIO(data))
+data=buffer.getvalue();assert len(data)<=payload['cap'];archive=c/'raw.tar.gz'
+with archive.open('xb') as f:f.write(data)
+archive.chmod(0o644)
+idle={}
+for name,argv in [('containers',['docker','ps','-q']),('gpu_processes',['nvidia-smi','--query-compute-apps=pid','--format=csv,noheader'])]:
+ q=subprocess.run(argv,capture_output=True,text=True,timeout=15);idle[name]={'returncode':q.returncode,'stdout':q.stdout,'stderr':q.stderr};assert q.returncode==0 and not q.stdout.strip()
+print(json.dumps({'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest(),'files':files,'idle':idle,'unit_inactive':True}))

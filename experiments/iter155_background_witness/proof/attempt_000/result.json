@@ -1,0 +1,14 @@
+{
+  "status": "completed",
+  "extraction_launched": true,
+  "new_driving_episodes": 0,
+  "attempt": 0,
+  "raw_collected": true,
+  "termination_verified": true,
+  "watchdog_exit": 0,
+  "finished_monotonic": 232300.233461416,
+  "attempt_elapsed_seconds": 275.08499183299136,
+  "inclusive_elapsed_seconds": 275.08499249999295,
+  "conservative_compute_usd": 0.22923749374999414,
+  "within_budget": true
+}
