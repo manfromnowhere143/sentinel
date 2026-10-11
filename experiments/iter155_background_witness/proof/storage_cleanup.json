@@ -1,0 +1,14 @@
+{
+  "status": "supported",
+  "directories_removed": [
+    "/private/tmp/pytest-of-danielwahnich/pytest-3",
+    "/private/tmp/pytest-of-danielwahnich/pytest-4",
+    "/private/tmp/pytest-of-danielwahnich/pytest-5",
+    "/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-224"
+  ],
+  "regular_file_bytes_removed": 743019261,
+  "manifest_sha256": "0d0c497ab536e14104bacc08331669b94c989d566b59cbc5f198299ebe2e27f8",
+  "free_before": 17183313920,
+  "free_after": 18435952640,
+  "preserved": "All committed research evidence, repository files, root WIP and other projects; no provider command was run."
+}

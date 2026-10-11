@@ -1,0 +1,10 @@
+{
+  "status": "failed",
+  "error": "ValueError: local_reserve",
+  "free_bytes": 17183318016,
+  "required_free_bytes": 18253611008,
+  "provider_commands": 0,
+  "owned_active_jobs": 0,
+  "extraction_initializations": 0,
+  "scope": "Local storage preflight failed before Cloud construction or any provider request. Empty attempt directory retained under this name; source and scientific protocol unchanged."
+}
