@@ -33,6 +33,18 @@ and its unrelated work are preserved; documentation commits use an isolated inde
 configured identity. Publication verification must compare the remote head and GitHub-served
 README/HANDOFF bytes with the exact committed tree. A push response alone is insufficient.
 
+## Remote verification
+
+The first publication completed at `4b600bbd059077a26ac1faad7b3c9a731ef0379a`.
+[Remote readback](remote_readback.json) confirmed the branch head and byte-for-byte agreement
+for GitHub's README, HANDOFF, AGENTS and architecture. Master remained unchanged. The subsequent
+documentation commit retains this checkpoint receipt and the final hosted observation separately.
+
+The [hosted CI observation](hosted_ci_observation.json) records run 38117280514 while both
+Python jobs were still checking out the repository. No hosted pass is claimed. Consult that
+run and the current branch's later run before interpreting hosted validation or integrating
+master; a retained pending observation does not imply that the run is still pending now.
+
 ## Checks and limits
 
 - The prior research head, `cc0db9f0fd427f6d70a5bad7ff085481fcc1c264`, descends from master
@@ -62,6 +74,12 @@ The root documentation guard retains four findings: `current_completed_iteration
 dated check. A clean research checkout has a different parent and may produce different
 topology findings. The guard requires the exact F17 source child of D16 and an Iter134 maximum
 result directory; the later research branch does not satisfy that contract.
+
+A clean detached checkout of `4b600bbd059077a26ac1faad7b3c9a731ef0379a` was also checked.
+Its guard reported exactly four findings: iteration mismatch, origin, source-parent and
+source-scope. No broken link, diagram-format or missing-result finding was reported. The
+[source checkout observation](candidate_docs_guard.json) records the command and full output.
+The new handoff commit also passed a separate Gitleaks scan with zero findings.
 
 Those findings are not relabelled green or silently bypassed. The existing hosted workflow is
 left intact. Its actual outcome must be reported separately from documentation correctness,

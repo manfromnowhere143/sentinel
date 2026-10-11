@@ -15,7 +15,8 @@
 > research-memory pointers are updated; prior wording is archived. See [editorial review](docs/editorial/2026-10-11/REVIEW.md).
 > No next experiment began. The interrupted study remains closed with no initialized retry
 > or automatic restart. Proposed next work is bounded observation recovery, then a new
-> prospective study protocol. Research lineage: `research/iter148-recovery-study`.
+> prospective study protocol. Published research: `research/iter148-recovery-study`;
+> remote head and current documentation bytes were verified on GitHub.
 > The [current handoff](HANDOFF.md) specifies the next task and acceptance criteria;
 > [publication review](docs/publication/2026-10-11/REVIEW.md) records the branch publication
 > and remaining validation limits. Master and prior evidence are preserved. Canonical-state and
@@ -4567,6 +4568,7 @@ is now the maintained operational brief: mission, exact next task, acceptance cr
 resource identities, evidence limits and branch recovery. Previous root/candidate handoffs are
 archived. The legacy renderer and MISSION_STATE retain the historical Iter135 contract; do not
 overwrite the current brief with that renderer. README and current continuation are synchronized.
-Publish and verify the complete research/iter148-recovery-study branch without moving accepted
-master or importing unrelated root changes. See docs/publication/2026-10-11/REVIEW.md for the
+The complete research/iter148-recovery-study branch was published and its head/current docs
+verified on GitHub at 4b600bbd059077a26ac1faad7b3c9a731ef0379a. Accepted master and unrelated
+root changes remain preserved. See docs/publication/2026-10-11/REVIEW.md for the
 publication checks and remaining contract findings. No new scientific run was started.

@@ -207,9 +207,17 @@ both failure streams and scope. Do not run live helpers as a shortcut to reconst
 ## Publication boundary and historical mission state
 
 Research branch: [research/iter148-recovery-study](https://github.com/manfromnowhere143/sentinel/tree/research/iter148-recovery-study).
-This branch carries the updated README and complete retained research lineage. Publishing it
-makes the work inspectable; it does not establish scientific correctness or promote it to master.
+The complete research lineage and updated documentation were published at
+`4b600bbd059077a26ac1faad7b3c9a731ef0379a`. Remote branch identity and GitHub-served README,
+HANDOFF, AGENTS and architecture bytes matched the committed tree. The
+[readback receipt](docs/publication/2026-10-11/remote_readback.json) records that checkpoint;
+later documentation commits retain the receipt. Publication makes the work inspectable and
+does not establish scientific correctness or promote it to master.
 The accepted master snapshot remains `8c118b74c699bf0f139f9bd659192bad06b895f8`.
+Hosted CI was still running at the retained
+[publication observation](docs/publication/2026-10-11/hosted_ci_observation.json). Check the
+current branch run before any master integration. Documentation and remote-byte checks do
+not establish a whole-repository CI pass.
 
 ### Canonical mission state (`MISSION_STATE.json`)
 

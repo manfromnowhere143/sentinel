@@ -1,0 +1,54 @@
+{
+  "observed_at_utc": "2026-10-11T06:11:03.908629+00:00",
+  "branch": "research/iter148-recovery-study",
+  "remote_head": "4b600bbd059077a26ac1faad7b3c9a731ef0379a",
+  "remote_master": "8c118b74c699bf0f139f9bd659192bad06b895f8",
+  "remote_head_matches_local": true,
+  "github_contents": [
+    {
+      "path": "README.md",
+      "git_blob_sha": "2544ebeacb3689318319aad9aa592af7b9ca5351",
+      "sha256": "7508b22c75339ca1bb841bddd44a873147342d09c377aaa6d98d8abca561bebb",
+      "bytes": 47429,
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/research/iter148-recovery-study/README.md"
+    },
+    {
+      "path": "HANDOFF.md",
+      "git_blob_sha": "2fd6777170c6b3f58a2fc98d3b5c3a373017cc8c",
+      "sha256": "e7e0d1e54812356aba30355f8ac5022dc5e9e8d6e45aa223b83f39d03091afbb",
+      "bytes": 15852,
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/research/iter148-recovery-study/HANDOFF.md"
+    },
+    {
+      "path": "AGENTS.md",
+      "git_blob_sha": "755ba88b2e1cb4d3cba404904961833aa70c2d90",
+      "sha256": "e1ad084919b00a29b566d9e8580b911c97811056996e560f440a14545babda3f",
+      "bytes": 7157,
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/research/iter148-recovery-study/AGENTS.md"
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "git_blob_sha": "77fdd354ebd31811829c39b7c845fbeabf8fcaf9",
+      "sha256": "7699615620c7b360951ff4efdb257c6e65510017a136f0845ccc28196fde11e0",
+      "bytes": 9995,
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/research/iter148-recovery-study/docs/ARCHITECTURE.md"
+    }
+  ],
+  "hosted_runs_at_readback": [
+    {
+      "conclusion": "",
+      "createdAt": "2026-10-11T06:12:01Z",
+      "databaseId": 38117280514,
+      "headSha": "4b600bbd059077a26ac1faad7b3c9a731ef0379a",
+      "status": "in_progress",
+      "url": "https://github.com/manfromnowhere143/sentinel/actions/runs/38117280514",
+      "workflowName": "ci"
+    }
+  ],
+  "scope": "Remote publication and byte readback; not scientific admission or whole-repository CI success",
+  "time_source": "Local machine UTC wall clock; not assumed synchronized with GitHub run timestamps."
+}

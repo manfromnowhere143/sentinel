@@ -1,0 +1,11 @@
+{
+  "command": [
+    "python3",
+    "scripts/validate_docs.py"
+  ],
+  "cwd": "/Users/danielwahnich/sentinel-bootstrap-evidence/publication-20261011/checkout",
+  "commit": "4b600bbd059077a26ac1faad7b3c9a731ef0379a",
+  "exit_code": 1,
+  "stdout": "DOCS GUARD FAILED:\n - MISSION_STATE.json: current_completed_iteration:134!=148\n - MISSION_STATE.json: tooling_publication:pending_f17_origin_not_d16_or_f17\n - MISSION_STATE.json: tooling_publication:pending_f17_source_parent\n - MISSION_STATE.json: tooling_publication:pending_f17_source_scope\n",
+  "stderr": ""
+}

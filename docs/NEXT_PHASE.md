@@ -17,7 +17,8 @@
 > research-memory pointers are updated; prior wording is archived. See [editorial review](editorial/2026-10-11/REVIEW.md).
 > No next experiment began. The interrupted study remains closed with no initialized retry
 > or automatic restart. Proposed next work is bounded observation recovery, then a new
-> prospective study protocol. Research lineage: `research/iter148-recovery-study`.
+> prospective study protocol. Published research: `research/iter148-recovery-study`;
+> remote head and current documentation bytes were verified on GitHub.
 > The [current handoff](../HANDOFF.md) specifies the next task and acceptance criteria;
 > [publication review](../docs/publication/2026-10-11/REVIEW.md) records the branch publication
 > and remaining validation limits. Master and prior evidence are preserved. Canonical-state and
