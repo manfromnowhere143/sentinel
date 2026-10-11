@@ -214,10 +214,11 @@ HANDOFF, AGENTS and architecture bytes matched the committed tree. The
 later documentation commits retain the receipt. Publication makes the work inspectable and
 does not establish scientific correctness or promote it to master.
 The accepted master snapshot remains `8c118b74c699bf0f139f9bd659192bad06b895f8`.
-Hosted CI was still running at the retained
-[publication observation](docs/publication/2026-10-11/hosted_ci_observation.json). Check the
-current branch run before any master integration. Documentation and remote-byte checks do
-not establish a whole-repository CI pass.
+The first hosted CI run failed because a handoff-routing edit changed the pinned AGENTS bytes.
+That edit was reversed; the current guidance lives here and in CONTINUITY. The unchanged
+supply-chain verifier passed locally after correction. See the
+[retained failure and correction](docs/publication/2026-10-11/supply_chain_correction.json).
+Check the current branch run before master integration. No whole-repository CI pass is claimed.
 
 ### Canonical mission state (`MISSION_STATE.json`)
 

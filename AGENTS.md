@@ -33,13 +33,6 @@ The top and final controlling sections of `CONTINUITY.md`, plus `HANDOFF.md` and
 `MISSION_STATE.json`, are the recovery entrypoint. Read historical sections only when relevant to
 the active task. Recovery is not permission to stop when the operator has supplied a direct task.
 
-As of 2026-10-11, `HANDOFF.md` is the current maintained operational brief for the research
-branch. It records the mission, exact next task, evidence boundaries and owned-resource closure.
-`MISSION_STATE.json` and `scripts/make_handoff.py` retain the historical Iter135 publication
-contract. Do not overwrite the current handoff with that legacy renderer or infer that its
-old next-program field supersedes the current operator-directed research task. Preserve the
-historical contract and report its validation limits separately from current research evidence.
-
 ## Direct operator authority and autonomous continuation
 
 Daniel's explicit instruction in the active session is sufficient operational authority for the

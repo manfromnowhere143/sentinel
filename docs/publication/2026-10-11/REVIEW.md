@@ -14,8 +14,8 @@ and preservation requirements. The next task is deterministic qualification of b
 observation recovery. Another live scientific comparison requires a fresh prospective protocol.
 The interrupted Iter148 study remains closed and inconclusive.
 
-AGENTS routes recovery to that current brief and identifies the old handoff renderer as the
-historical Iter135 renderer. Its source and MISSION_STATE are preserved. Both previous handoffs
+The handoff and current continuity distinguish the operational brief from the historical
+Iter135 renderer. AGENTS, renderer source and MISSION_STATE retain their pre-task bytes. Both previous handoffs
 are archived byte for byte. README, architecture, active continuity and the Iter148 continuation
 point to the same state. The full [editorial review](../../editorial/2026-10-11/REVIEW.md) remains
 a dated record of the preceding local update; its publication wording describes that checkpoint.
@@ -40,10 +40,15 @@ The first publication completed at `4b600bbd059077a26ac1faad7b3c9a731ef0379a`.
 for GitHub's README, HANDOFF, AGENTS and architecture. Master remained unchanged. The subsequent
 documentation commit retains this checkpoint receipt and the final hosted observation separately.
 
-The [hosted CI observation](hosted_ci_observation.json) records run 38117280514 while both
-Python jobs were still checking out the repository. No hosted pass is claimed. Consult that
-run and the current branch's later run before interpreting hosted validation or integrating
-master; a retained pending observation does not imply that the run is still pending now.
+The [initial hosted observation](hosted_ci_observation.json) is retained alongside the
+[terminal failure](hosted_ci_failure.json). Run 38117280514 failed in both Python jobs at the
+static supply-chain check: my new handoff-routing paragraph changed the pinned AGENTS bytes.
+This was introduced by this documentation task; it was not one of the pre-existing mission
+findings. AGENTS was restored exactly to its pre-task content, with the guidance retained in
+HANDOFF and CONTINUITY. The unchanged verifier then returned `SUPPLY_CHAIN_VERIFICATION_OK`
+locally. [Correction and command evidence](supply_chain_correction.json). No frozen manifest,
+lock, verifier or workflow was changed. Consult the current branch's later run for its actual
+hosted outcome; this local correction does not establish a hosted pass.
 
 ## Checks and limits
 

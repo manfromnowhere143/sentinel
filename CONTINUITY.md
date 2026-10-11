@@ -4572,3 +4572,12 @@ The complete research/iter148-recovery-study branch was published and its head/c
 verified on GitHub at 4b600bbd059077a26ac1faad7b3c9a731ef0379a. Accepted master and unrelated
 root changes remain preserved. See docs/publication/2026-10-11/REVIEW.md for the
 publication checks and remaining contract findings. No new scientific run was started.
+
+
+### Publication validation correction, 2026-10-11
+
+Hosted run 38117280514 failed because this task added a routing paragraph to the pinned AGENTS
+file. The paragraph was removed and pre-task AGENTS bytes restored; its guidance remains in
+HANDOFF and current CONTINUITY. The unchanged supply-chain verifier then passed locally.
+The failed run and correction are retained in docs/publication/2026-10-11. This correction does
+not close the older mission/publication findings or establish a whole-repository hosted pass.
