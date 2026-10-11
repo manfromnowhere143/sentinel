@@ -1,0 +1,15 @@
+{
+  "iteration": 148,
+  "block": 0,
+  "scope": "Read and retain interrupted pair2 evidence; no new or retried study worker",
+  "vm_id": "3834622546652649531",
+  "start_monotonic": 185719.726813291,
+  "start_epoch": 1791696620.627528,
+  "deadline_monotonic": 186619.726813291,
+  "deadline_epoch": 1791697520.627528,
+  "whole_seconds": 900,
+  "compute_cap_usd": 0.75,
+  "conservative_hourly_usd": 3,
+  "started_utc": "2026-10-11T05:30:20.627528+00:00",
+  "no_driving": true
+}
