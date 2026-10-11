@@ -1,0 +1,47 @@
+{
+  "status": "supported",
+  "provider": {
+    "id": "3834622546652649531",
+    "lastStartTimestamp": "2026-10-10T22:31:47.574-07:00",
+    "lastStopTimestamp": "2026-10-10T22:38:08.936-07:00",
+    "status": "TERMINATED"
+  },
+  "watchdog": {
+    "session": 32921,
+    "exit_code": 0
+  },
+  "shutdown_command": {
+    "session": 12123,
+    "exit_code": 0
+  },
+  "shutdown_verified": true,
+  "postflight": {
+    "status": "supported",
+    "host_free_bytes": 114600427520,
+    "owned_output_bytes": 599293135,
+    "unchanged_files": 6101,
+    "actor_aliases": 20,
+    "changed_original_files": [],
+    "changed_owned_cache_files": [],
+    "idle": {
+      "containers": {
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "gpu_processes": {
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    },
+    "elapsed_seconds": 65.251133192,
+    "manifest_sha256": "dca2b7f7836304a21d7cfcd5f3a0fe78e0d2a89f7333879f48484dcd79540196"
+  },
+  "no_driving_restarted": true,
+  "elapsed_to_local_closure_monotonic_seconds": 462.280781709007,
+  "registered_seconds": 900,
+  "conservative_compute_upper_usd": 0.3852339847575058,
+  "official_rate_prorated_estimate_usd": 0.10961503173254812,
+  "automatic_restart": false
+}

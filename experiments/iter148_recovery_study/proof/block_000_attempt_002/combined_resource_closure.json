@@ -1,0 +1,17 @@
+{
+  "status": "supported",
+  "primary_execution_status": "failed",
+  "study_status": "inconclusive",
+  "primary_seconds": 1528.5776147919823,
+  "evidence_recovery_seconds": 462.280781709007,
+  "total_conservative_seconds": 1990.8583965009893,
+  "original_block_cap_seconds": 10800,
+  "conservative_compute_upper_usd": 1.6590486637508244,
+  "official_rate_prorated_estimate_usd": 0.47206809138960565,
+  "official_hourly_usd": 0.853624312,
+  "pricing_url": "https://cloud.google.com/products/compute/pricing/accelerator-optimized",
+  "cost_scope": "Sum of local monotonic envelope intervals including pre-start and closure overhead; estimate, not invoice. Existing disk baseline and taxes excluded. No subtraction across provider/host/local absolute clocks.",
+  "both_owned_starts_terminated": true,
+  "all_local_controllers_exited": true,
+  "automatic_restart": false
+}

@@ -1,103 +1,139 @@
-> **Live update, 2026-10-11:** Account reauthentication succeeded. Fresh attempt2 is
-> running under its own bounded envelope. Read STATE.json and proof/block_000_attempt_002.
-> The login-block text below is retained history until execution closure.
+# Iteration 148: verified baseline completion; recovery study interrupted
 
-# Iter148: study admission implemented; cloud launch blocked before start
+2026-10-11. **Study: inconclusive. Execution block: failed. Evidence recovery and shutdown:
+supported.** Four episodes passed independent replay, two strict replica pairs and source-defined
+completion. A cloud observation failure stopped the block during the first braking-pulse episode.
+Its partial trace is retained and invalid for paired admission. No recovery or harm rate is estimated.
 
-2026-10-11. Local engineering checks are **supported**. Live study execution is **blocked**
-by Google Cloud reauthentication. The failed operation was a read-only instance description;
-**no VM start command, host command or new GPU episode was issued**. No new recovery result
-is established. All 112 study slots remain without supported execution evidence.
+## What ran
 
-## What changed
+The frozen study contains 112 slots: 14 scenarios from three exposed scenes, four arms and two
+replicas. Only its first scenario, scene-0013-easy-00, began execution. Seed 144, one reset,
+401-action maximum and the registered signed pulses were unchanged.
 
-The study keeps the original 14 scenarios, three exposed scenes, four arms, two replicas,
-seed 144, 401-action maximum and unchanged outcomes and intervention rules. New study-only
-admission code requires the bound qualification receipt, exact population, an unbroken chain
-of committed earlier receipts, and exclusive started markers. The parent must report two
-completed workers without deadline or cleanup failures. Raw evidence is committed before
-independent replay and before the next pair can start. Complete scenario comparison is required
-before leaving a scenario. No initialized retry, skipped arm or outcome-driven replacement.
+| Arm in first scenario | Replica 1 | Replica 2 | Accepted evidence |
+|---|---|---|---|
+| Nominal | 92 actions; source-defined completion | 92 actions; same outcome | Supported pair |
+| Responsive monitor | 92 actions; source-defined completion | 92 actions; same outcome | Supported pair |
+| One-second pulse at 0 s | 88 recorded actions; no terminal summary | Not initialized | Invalid pair; partial raw retained |
+| One-second pulse at 2.5 s | Not initialized | Not initialized | Missing |
 
-The existing pre-intervention equality check omitted timestamps, nominal controls, progress
-and RGB hashes. Four constructed corruptions reproduced those gaps in the prior comparator;
-the new check rejects them. Replaying the previously committed Iter146 GPU traces passes the
-stronger check, including all ten pre-onset steps for the 2.5-second pulse. This is replay of
-existing qualification data. Both pulse comparisons remain unknown because the runs were
-censored at 24 actions; neither is a new recovery witness.
+The four verified episodes contain 368 actions, no recorded collision or off-route event and no
+censoring. Strict replicas agree on states and controls within 1e-9 and on typed plans and image
+hashes exactly. The largest independently checked stationarity residual is 9.759011668497575e-7,
+below the unchanged 1e-6 bar. There are 2,232 CUDA camera calls including resets.
 
-The accounting explicitly distinguishes true, false, observed unknown and missing results.
-With no Iter148 execution, each pulse has 14 missing scenario comparisons, zero measured
-comparisons and no estimated recovery rate. Supported engineering checks never substitute
-for successful driving outcomes.
+This is the first independently verified GPU completion in this execution sequence. It uses the
+simulator's completion rule, near 90% of sampled route points; the literal final route sample was
+not observed. The case has no configured dynamic actors. It is a bounded integration result,
+not evidence of recovery from a failure. The monitor never fired or applied braking in any of the
+four verified episodes; natural monitor release remains unobserved in these runs.
 
-## Evidence and validation
+Overall: **4 admitted slots, 1 initialized incomplete slot and 107 uninitialized slots**. Three pair
+parents initialized; only two completed and passed admission. There are zero complete four-arm
+scenario comparisons. Every pulse comparison remains missing across all 14 planned scenarios.
+The absence of a comparison is not a negative or favorable intervention result.
 
-| Check | Retained result |
+[Study accounting](proof/block_000_attempt_002/study_aggregate.json),
+[scoped metrics](proof/block_000_attempt_002/metrics.json) and [state](STATE.json).
+
+## Why execution stopped
+
+The read-only progress query `auto_002_002` failed while establishing its IAP connection and
+returned 255. The fixed supervisor immediately treated this observation failure as a stop condition,
+then stopped the exact owned VM. The retained error does not establish a simulator fault or a
+Google Cloud outage. Postflight reached the host and observed the worker still running before
+shutdown. The transport failure and the supervisor's response must remain separate facts.
+
+That response exposed a weakness in the experiment coordinator: it does not recover from a
+lost observation even while the host has its own worker deadline and shutdown timer. The study
+was not resumed or silently retried. The first pulse replica has no parent result, worker terminal
+receipt or summary. Admission rejected it. Its 88 recorded actions are diagnostic evidence, not an
+accepted episode or a completed intervention outcome.
+
+[Progress error](proof/block_000_attempt_002/gpu_progress_auto_002_002.stderr),
+[supervisor result](proof/block_000_attempt_002/supervisor_result.json),
+[rejected admission](proof/admissions/pair_002.json).
+
+A separate 900-second evidence-recovery envelope started the same stopped VM solely to collect
+retained files and verify integrity. No driving worker or container restarted. A cloud API timeout
+also affected its first read-only postflight query; one bounded retry succeeded. Both errors remain
+retained. No package, model, scientific source, threshold, schedule or outcome rule changed.
+
+## Challenge the timing result
+
+| Verified arm | Controller median | Maximum | Calls over 50 ms | Loop median |
+|---|---:|---:|---:|---:|
+| Nominal pair | 39.45 ms | 73.98 ms | 2/184 | 1.798 s |
+| Monitor pair | 39.94 ms | 56.07 ms | 4/184 | 1.787 s |
+
+**6/368 verified controller calls exceeded 50 ms; all 368 verified loops exceeded 250 ms.**
+Loop minimum/median/maximum were 1.712/1.792/24.608 seconds. The partial pulse separately recorded
+88 controller calls, one over 50 ms; it has no terminal timing summary. Its missing loop measurements
+are not zeros. The raw archive contains 456 recorded step events across accepted and incomplete runs.
+
+The v2 loop timer includes the final guard and stop decision. Reset, summary serialization and
+worker cleanup are outside it. Model/IPC exchange time is not isolated inference time. The
+simulation waits synchronously; these results do not establish 4 Hz operation or a late-result policy.
+
+## Admission, deployment and retained failures
+
+Before this execution, 165 focused local tests passed with 40 unchanged upstream tensor warnings.
+Prior qualification replay reproduced 1,104 GPU actions across eight pairs. Four constructed
+corruptions demonstrated gaps in the older pre-intervention prefix check; the new check rejects
+them. Existing delayed-pulse qualification passes all ten pre-onset steps including images and
+timestamps. Those old 24-action runs remain censored qualification data, not new study outcomes.
+
+The first attempt failed credential refresh before any VM start. After the operator reauthenticated,
+attempt 2 used the exact frozen source `dd45ad39b26602ad81626ca55332e7ce6d308e91`.
+Deployment initially imported qualification code through system Python, which lacked SciPy. Before
+any study initialized, a retained prospective correction routed one completion of the verified
+partial deployment through the existing simulator interpreter. No package was installed. Seven
+constructed invalid deployment states were rejected, and the corrected runtime imports, entrypoint
+and client preflight passed. The original failure was preserved.
+
+[Tests](proof/commands/final_local_tests.stdout), [qualification](QUALIFICATION.json),
+[source packet](proof/block_000_attempt_002/gpu_source_packet.json),
+[deployment correction](proof/block_000_attempt_002/DEPLOYMENT_CORRECTION.md),
+[deployment checks](proof/block_000_attempt_002/deployment_completion_known_bads.json).
+
+| Raw packet, committed before replay | Commit |
 |---|---|
-| Prior Iter147 GPU qualification replay | 912 actions / four strict replica pairs |
-| Prior Iter146 four-arm GPU qualification replay | 192 actions / four strict replica pairs |
-| Focused local tests | 165 passed; 40 unchanged upstream tensor warnings |
-| Local lint | Passed for seven implementation modules and the test file |
-| Exact frozen packet | Imports, full 112-slot plan and qualification binding passed locally |
-| Strengthened prefix check on prior GPU evidence | Passed; delayed-pulse prefix contains ten steps |
-| New study executions | 0 / 112 |
-| Fresh provider/runtime validation | Unobserved after credential refresh failed |
+| Nominal pair | `ad1066ea9e5fdbd795a7f2fa43c3f63a6cac1058` |
+| Monitor pair | `c94c47c7bdbfad77250b7807cc5fa478b2c4de5f` |
+| Interrupted pulse pair | `841ba8d4dcec4b5cded70783c7494345b4a835f5` |
 
-Source frozen at `dd45ad39b26602ad81626ca55332e7ce6d308e91`; the source packet contains 113
-repository files plus two asset inventory files. The input manifest binds 101 previous source
-and evidence files to the Iter147 parent. Local tests use the ambient CPU environment, and the
-packet import check used Python 3.14. New study admission has not yet executed in the hosted
-GPU environment. No hosted CI or canonical publication ran. Candidate
-`research/iter148-recovery-study` is local and unpushed.
+## Resource closure
 
-[Qualification receipt](QUALIFICATION.json), [test output](proof/commands/final_local_tests.stdout),
-[frozen-packet check](proof/commands/frozen_packet_check.stdout),
-[prior GPU prefix replay](proof/prior_gpu_prefix_replay.json),
-[source packet](proof/block_000/gpu_source_packet.json) and
-[empty study accounting](proof/study_accounting.json).
+The original block limit remains 10,800 seconds / $9 at a conservative $3/hour. The primary envelope
+closed at 1,528.58 local monotonic seconds; evidence recovery added 462.28 seconds. Their conservative
+sum is 1,990.86 seconds: **$1.659 upper estimate**, with an official-rate prorated estimate of $0.472.
+These are estimates, not invoices; existing persistent storage and taxes are excluded. No subtraction
+across provider, host and local absolute clocks was used. The combined intervals remain within the
+original block allowance. [Combined closure](proof/block_000_attempt_002/combined_resource_closure.json).
 
-## Finite execution and unused envelope
+Postflight verified 6,101 bound/original files and 20 actor aliases unchanged, with no owned cache
+changes or active container/GPU process. Owned control files total 599,293,135 bytes, including
+source/cache copies and archives. Full constructor PLY hashes are retained; those PLY files remain
+on the stopped host. JSON/JSONL/log/config evidence was collected without display images.
+[Final integrity](proof/block_000_forensic/gpu_postflight_integrity_report.json).
 
-Before new outcomes, the preregistration divided the same 112 slots into 14 fixed scenario
-blocks. Each block permits 10,800 seconds and $9 at a conservative $3/hour compute rate:
-151,200 seconds / $126 maximum across all blocks. This prospectively replaces the proposed
-single-start overhead allowance; it does not alter the scientific schedule. Only the first
-block's eight slots are eligible for initial launch validation.
+Both exact owned starts of VM `3834622546652649531` are **TERMINATED**. The last start was
+`2026-10-10T22:31:47.574-07:00`, stopped at `2026-10-10T22:38:08.936-07:00`.
+Primary supervisor 40891 exited 1 on the recorded transport stop; watchdog 92679 exited 0. The
+forensic shutdown command 12123 and watchdog 32921 both exited 0. No owned job or automatic restart
+remains. [Evidence-recovery closure](proof/block_000_forensic/resource_closure.json).
 
-Each worker retains a 1,200-second deadline; a pair requires more than 2,600 seconds remaining.
-The full control directory is bounded at 57 GiB, with 448 MiB per-case stop, a 25 GiB host reserve,
-256 MiB file/trace and 4 MiB event bounds. First start requires 100 GiB host free; local collection
-requires 17 GiB free and is bounded to 512 MiB expanded / 256 MiB compressed per pair. Both a local
-watchdog and a fresh host shutdown timer are required. These are limits, not measured worst cases.
+## Decision
 
-The first attempted envelope stopped at the before-start provider query with:
-`Reauthentication failed. cannot prompt during non-interactive execution.`
-The local unused watchdog was deliberately terminated and exited 143. No supervisor, host timer,
-container or study process was created. No new compute was started; this does not assert that
-existing persistent storage has no charges. Current provider state is **unobserved** because
-the query failed. The last successful observation, from Iter147 closure, was TERMINATED.
-No automatic restart is scheduled. [Failure receipt](proof/block_000/gpu_before_start.json),
-[provider error](proof/block_000/gpu_before_start.stderr),
-[unused-envelope closure](proof/block_000/resource_closure.json).
+The operator requested a full README, diagram and current-memory review after this task and before
+any next experiment. Complete that editorial work next, using the verified results and failures above.
+Then design and qualify durable observation recovery before another study launch: distinguish an
+unavailable observation from a failed worker, retain host deadlines and immutable initialization
+records, and permit bounded read-only retries without duplicate execution. This is future work;
+the interrupted study remains stopped under its original rule. Do not overwrite or rerun its slots.
 
-## Decision and limits
-
-After account reauthentication, create a fresh first-block envelope and run the retained
-provider, resource, runtime, timer and admission checks before slots 0–7. The failed attempt's
-paths and budget are closed. It initialized no study slot and permits no inference about one.
-Read [DECISION.md](DECISION.md) for exact continuation instructions.
-
-The research target remains constructive, progress-preserving recovery beyond both nominal
-and responsive-monitor baselines. Establish that witness before choosing a new information
-channel. Source-defined completion is near 90% of route samples, not the literal route endpoint.
-The three scenes are previously exposed, with zero untouched holdout scenes. GPU monitor release
-and route completion remain unobserved. Prior latency failures and recovery nulls are preserved;
-this work does not establish real-time operation, safety, generalization, state of the art or
-commercial value. Deferred Iter135 remains unchanged.
-
-Master, prior evidence, the root Git index, unrelated WIP, historical HANDOFF/MISSION_STATE and
-protected root README are preserved. An intermediate local candidate commit included historical
-working-tree CONTINUITY additions; a forward correction restored the parent candidate prose and
-kept only the active Iter148 update. The root worktree history was preserved, and no source or
-outcome changed. [Correction record](proof/candidate_doc_correction.json).
+The scientific question remains constructive recovery beyond both nominal and a responsive monitor,
+followed by a specific information hypothesis. No new recovery witness, population generality,
+physical safety, real-time behavior or state-of-the-art claim is established here. Prior recovery
+nulls and deferred Iter135 remain intact. [Continuation](DECISION.md).

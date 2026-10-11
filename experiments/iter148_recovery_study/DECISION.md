@@ -1,74 +1,69 @@
-> **Live update, 2026-10-11:** Account reauthentication succeeded. Fresh attempt2 is
-> running under its own bounded envelope. Read STATE.json and proof/block_000_attempt_002.
-> The login-block text below is retained history until execution closure.
+# Iteration 148 continuation — 2026-10-11
 
-# Iter148 continuation — 2026-10-11
+## Closed execution
 
-## Current position
+Study inconclusive; first operational block failed after an IAP progress-query failure. Nominal
+and monitor pairs passed independent replay: four source-defined completions, 368 actions, no
+collision/off-route, zero monitor firing/braking. First time-zero pulse replica retained 88 actions
+without a terminal summary; admission is invalid. Its second replica, delayed-pulse arm and all
+later scenarios were not initialized. Totals: 4 admitted, 1 incomplete, 107 uninitialized of 112 slots.
+Zero complete four-arm comparisons; recovery and harm rates remain unestimated.
 
-Local study admission is implemented and tested: 165 tests, prior 1,104 GPU actions replayed,
-full delayed-pulse prefix matched on existing qualification raw. Frozen execution source is
-`dd45ad39b26602ad81626ca55332e7ce6d308e91`. Read RESULT.md, STATE.json, HYPOTHESIS.md and
-GPU_BINDING.md. No new study outcomes exist. Both old recovery nulls and deferred Iter135 remain.
+Both actual owned starts are TERMINATED. Latest start 2026-10-10T22:31:47.574-07:00,
+stop 2026-10-10T22:38:08.936-07:00. VM sentinel-gpu/3834622546652649531,
+sunlit-unison-487018-b0/us-west1-a. Primary supervisor 40891 exited 1; primary watchdog 92679 exited 0;
+forensic shutdown 12123 and watchdog 32921 exited 0. No owned process or automatic restart remains.
 
-Google Cloud refused credential refresh on the first read-only instance query. No VM start or
-host command was issued. The unused local watchdog (tool session59776, PID81903) was terminated
-with SIGTERM and exited143. No supervisor or automatic restart exists. Current provider state is
-UNOBSERVED; the last verified state was TERMINATED at Iter147 closure. No claim of a fresh
-termination readback is made.
+Read RESULT.md, STATE.json and the retained receipts under proof/block_000_attempt_002 and
+proof/block_000_forensic. The older proof/block_000 is the closed credential-failure attempt.
+Do not reuse any of these start identities, budgets, timers or receipt paths. Host control
+`/datasets/nuscenes-full/hugsim/iter148_study_20261011` contains initialized scientific work.
+Never erase its markers or retry its initialized slots. All helper scripts embed closed paths;
+do not run them blindly.
 
-## Resume after account reauthentication
+## Next task: explicit operator order
 
-The operator has been asked to run `gcloud auth login dev@alfred-ai.app`; this is a Google Cloud
-login requirement, not a new research approval. Daniel's direct mission instruction already
-supplies operational authority. Do not request manual review, signatures or ceremony files.
+Daniel asked, during execution, that the entire README, relevant diagrams and current research
+memories be reviewed and updated **after this task is concluded and before any next experiment**.
+Keep the full research story, in his confident, humble, precise and honest voice. Avoid generic
+AI phrasing, unsupported superlatives or promises of outside endorsement. Preserve useful research
+depth and assess each diagram. This editorial task has direct operator authority; no new approval
+or human ceremony is required. Record its evidence and distinguish the candidate from canonical
+master. Do not start another experiment while this requested work remains.
 
-1. Verify Sentinel root, remote, branch and preservation boundaries. Worktree remains dirty
-   `wip-gen17-ci-hardening`; candidate branch is `research/iter148-recovery-study`.
-2. Confirm refreshed credentials with a read-only query and exact VM ID3834622546652649531,
-   project sunlit-unison-487018-b0, zone us-west1-a, g2-standard-8 / one L4. Do not infer current
-   state from the old TERMINATED record.
-3. Create fresh local receipt/budget paths for block0 attempt2. Closed local paths are
-   `proof/block_000` and `/Users/danielwahnich/sentinel-bootstrap-evidence/iter148-block000-20261011`.
-   The retained `proof/session_tools/i148g_*` helpers contain those closed paths. Adapt and bind
-   their new operational paths before using them; never run them blindly or overwrite receipts.
-   The scientific packet can retain the exact frozen source if all hashes still match.
-4. No remote Iter148 directory was created by attempt1. The planned study control path is
-   `/datasets/nuscenes-full/hugsim/iter148_study_20261011`. Fresh deployment must still require
-   nonexistence; never erase initialized markers or replace existing run directories.
-5. Bind a fresh 10,800-second/$9 conservative envelope, local watchdog and host shutdown timer.
-   Verify current pricing, idle host, complete assets/runtime, capacities and 17 GiB local reserve.
-   No new infrastructure/packages. First host free-space requirement is 100 GiB. Packet deployment
-   performs environment imports, entrypoint help, qualification digest and client preflight before
-   running a study worker. Failure closes the owned envelope without a study retry.
-6. Run only fixed first-block pairs0–3 in order. Each complete raw packet goes under the shared
-   `proof/study_raw/pair_NNN`, is committed before `replay.admit`, and the supported receipt under
-   `proof/admissions/pair_NNN.json` is committed before another pair launches. Collect and preserve
-   partial failures; halt on worker/replay/prefix/replica/resource/identity failure. The supervisor
-   must postflight and verify shutdown of the exact owned VM start before returning.
-7. Only after all four arms, compare both pulses against nominal and monitor, including the
-   intersection witness, harm, progress and missingness. Use aggregate.summarize for partial
-   accounting. Do not describe one block as the complete 14-scenario study. Later fixed blocks
-   need fresh same-policy operational envelopes, not outcome-driven changes. No automatic restart.
+## Research work after the editorial task
 
-The full source worker/client is intentionally the qualified Iter147 implementation and final
-Iter146 v2 runner. Historical `live_study_admitted:false` fields in those reused components and
-plan do not themselves confer or deny the new study's admission. New permit, pair-parent and
-campaign state bind it. No changes to those historical bytes are authorized by this handoff.
+The observed failure is in the experiment coordinator's reaction to lost cloud observation.
+The progress query failed establishing IAP; a later postflight reached the still-running worker.
+Do not relabel this as a demonstrated simulator failure or cloud-wide outage.
 
-## Scientific direction
+Before any new live comparison, preregister and test bounded recovery of read-only observations
+against delayed, missing, duplicated and disconnected replies. Keep an authoritative durable host
+lifecycle record and deadlines independent of the network observer. Reconnection must bind the
+same VM start, source, pair and initialized marker; it must never initialize a duplicate episode.
+Preserve explicit unavailable/failed/complete/partial states and the original spending cap.
+This is a proposed repair, not implemented evidence. A fresh study protocol must account for the
+interrupted evidence and preserve scientific populations and missingness honestly. The old study
+remains halted under its stopping rule; do not silently continue it.
 
-Find an actual constructive, progress-preserving recovery witness before selecting a new
-information hypothesis. Missing or censored outcomes remain missing or unknown. Future signals
-must improve a feasible intervention decision within a declared deadline, then survive new scenes,
-benign cases, observation faults and a second planner. This first library has only three exposed
-base scenes and no untouched holdouts; it cannot establish generalization or industry superiority.
-Timing stays descriptive until a separately declared late-result policy is tested.
+The scientific direction is unchanged: demonstrate a constructive progress-preserving recovery
+witness before selecting another information channel. The completed easy case has no configured
+dynamic actors and nominal already succeeds. It provides no recovery opportunity over nominal.
+The planned library still has only three exposed scenes and no untouched holdouts. GPU natural
+monitor release remains unobserved; the completed source criterion is near 90% of route samples.
+Timing is a negative result: 6/368 verified controller calls exceed 50 ms; all 368 loops exceed 250 ms.
+No late-result policy, real-time execution, safety or generalization claim follows.
 
-## Preservation
+## Preservation and authority
 
-Never checkout, reset, stash or stage unrelated files. Root README has uchg and deny-delete
-protection; use an alternate index with candidate documentation from the parent candidate, while
-root CONTINUITY/NEXT_PHASE keep their own historical WIP content. Do not import that historical
-WIP into the candidate. Master remains8c118b74c699bf0f139f9bd659192bad06b895f8; old evidence and
-HANDOFF/MISSION_STATE are unchanged. Keep Daniel's configured Git identity and omit AI trailers.
+Daniel's direct mission and editorial instructions authorize continuation. No independent human
+review, manual hash, signature or ceremony is required. Keep true agent-generated provenance.
+
+Root is dirty `wip-gen17-ci-hardening`; candidate `research/iter148-recovery-study` is local/unpushed.
+Frozen scientific source is `dd45ad39b26602ad81626ca55332e7ce6d308e91`. Master remains
+`8c118b74c699bf0f139f9bd659192bad06b895f8`. Never reset, checkout or stage unrelated WIP.
+Keep all prior source/raw and the root index intact. Historical HANDOFF/MISSION_STATE are snapshots;
+active CONTINUITY and this handoff describe the operator-directed work. Root README is protected
+with uchg/deny-delete; handle the newly authorized editorial task explicitly and preserve protections
+and prior bytes as evidence. Prior raw commits are listed in RESULT.md. No history rewrite, AI
+co-author, generated-by credit or unrelated governance change is authorized.

@@ -1,10 +1,10 @@
 {
   "iteration": 148,
-  "status": "invalid",
-  "phase": "forensic_evidence_collection_no_driving",
+  "status": "inconclusive",
+  "phase": "first_block_stopped_evidence_closed",
   "parent_commit": "21c51ed3ead8d24da410b4913ac1a734507b7c08",
   "cloud_compute_used": true,
-  "owned_active_jobs": 1,
+  "owned_active_jobs": 0,
   "live_study_admitted": false,
   "focused_tests": 165,
   "prior_gpu_steps_replayed": 1104,
@@ -12,13 +12,13 @@
   "initial_block_slots": 8,
   "study_outcomes_observed": 4,
   "automatic_restart": false,
-  "next_task": "Bounded evidence collection from stopped run; no driving retry. Then close evidence and perform requested README/diagram/memory review before another experiment.",
+  "next_task": "Complete the operator-requested full README, diagrams and current-memory review before another experiment. Research execution remains halted; future work needs a prospective transport-observation recovery design, preserving this interrupted evidence and no initialized retry.",
   "admission_scope": "Fresh provider/runtime/timer gates passed; each pair still requires complete bound asset/resource and prior-evidence checks.",
-  "study_pairs_initialized": 2,
+  "study_pairs_initialized": 3,
   "study_slots_admitted": 4,
-  "study_slots_missing": 108,
-  "provider_current_state": "RUNNING",
-  "last_verified_provider_state": "RUNNING at attempt2 ready readback",
+  "study_slots_missing": 107,
+  "provider_current_state": "TERMINATED",
+  "last_verified_provider_state": "TERMINATED at forensic envelope closure",
   "start_command_issued": true,
   "watchdog_exit_code": 0,
   "watchdog_exit_reason": null,
@@ -59,5 +59,29 @@
     "status": "RUNNING",
     "zone": "https://www.googleapis.com/compute/v1/projects/sunlit-unison-487018-b0/zones/us-west1-a"
   },
-  "forensic_watchdog_session": 32921
+  "forensic_watchdog_session": 32921,
+  "execution_status": "failed",
+  "last_owned_instance": {
+    "id": "3834622546652649531",
+    "lastStartTimestamp": "2026-10-10T22:31:47.574-07:00",
+    "lastStopTimestamp": "2026-10-10T22:38:08.936-07:00",
+    "status": "TERMINATED"
+  },
+  "study_slots_initialized": 5,
+  "study_slots_invalid": 1,
+  "slots_without_supported_admission": 108,
+  "partial_recorded_steps": 88,
+  "compared_scenarios": 0,
+  "recovery_rate": null,
+  "harm_rate": null,
+  "monitor_firings_verified": 0,
+  "qualified_completion_episodes": 4,
+  "verified_controller_over_50ms": 6,
+  "verified_full_loop_over_250ms": 368,
+  "forensic_watchdog_exit_code": 0,
+  "raw_commits": {
+    "pair_000": "ad1066ea9e5fdbd795a7f2fa43c3f63a6cac1058",
+    "pair_001": "c94c47c7bdbfad77250b7807cc5fa478b2c4de5f",
+    "pair_002": "841ba8d4dcec4b5cded70783c7494345b4a835f5"
+  }
 }

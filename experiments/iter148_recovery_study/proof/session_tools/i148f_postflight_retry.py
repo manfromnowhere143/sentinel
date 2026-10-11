@@ -1,0 +1,27 @@
+import json
+from i148f_ops import ssh,P
+script='''import sys,json,subprocess,time,hashlib,shutil
+from pathlib import Path
+c=Path('/datasets/nuscenes-full/hugsim/iter148_study_20261011');sys.path.insert(0,str(c/'packet'))
+from experiments.iter145_constrained_execution.resources import file_identity,actor_identity
+m=json.loads((c/'execution_manifest.json').read_text());start=time.monotonic();checked=0;changed=[];owned=[]
+for name,expected in m['files'].items():
+ actual=file_identity(Path(name),allow_empty=expected['bytes']==0)
+ if name.startswith(str(c/'map_cache')+'/'):
+  if actual!=expected:owned.append(name)
+ else:
+  checked+=1
+  if actual!=expected:changed.append(name)
+root=Path('/datasets/nuscenes-full/hugsim/3DRealCar')
+for logical,record in m['actor_aliases'].items():
+ actual=actor_identity(root,Path(logical).parent.relative_to(root),Path(logical).name,m['actor_files'])
+ if actual['sha256']!=record['sha256'] or actual['physical_path']!=record['physical_path']:changed.append(logical)
+idle={}
+for name,argv in [('containers',['docker','ps','-q']),('gpu_processes',['nvidia-smi','--query-compute-apps=pid','--format=csv,noheader'])]:
+ p=subprocess.run(argv,capture_output=True,text=True,timeout=30);idle[name]=dict(returncode=p.returncode,stdout=p.stdout,stderr=p.stderr)
+print(json.dumps(dict(status='supported' if not changed and all(x['returncode']==0 and not x['stdout'].strip() for x in idle.values()) else 'failed',host_free_bytes=shutil.disk_usage(c).free,owned_output_bytes=sum(p.stat().st_size for p in c.rglob('*') if p.is_file() and not p.is_symlink()),unchanged_files=checked,actor_aliases=len(m['actor_aliases']),changed_original_files=changed,changed_owned_cache_files=owned,idle=idle,elapsed_seconds=time.monotonic()-start,manifest_sha256=hashlib.sha256((c/'execution_manifest.json').read_bytes()).hexdigest())))
+'''
+r=ssh('postflight_integrity_retry1',script,timeout=180)
+assert r.returncode==0
+v=json.loads(r.stdout);(P/'gpu_postflight_integrity_report.json').write_text(json.dumps(v,indent=2)+'\n')
+assert v['status']=='supported'

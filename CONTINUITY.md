@@ -1,19 +1,20 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
-> **Active operator-directed candidate work, 2026-10-11:** Iter148 first-block execution
-> has resumed after successful Google Cloud reauthentication. The exact owned VM is RUNNING
-> under fresh attempt2's 10,800-second / $9 conservative envelope and local watchdog92679.
-> Host/runtime/timer admission is in progress; no study result has been accepted yet.
-> Scope is the unchanged first eight slots of112; no automatic restart or initialized retry.
-> Source dd45ad39b26602ad81626ca55332e7ce6d308e91 remains unchanged. Local165tests and
-> replay of1,104priorGPUsteps pass; no new recovery benefit has been established.
-> Read [state](experiments/iter148_recovery_study/STATE.json),
-> [result](experiments/iter148_recovery_study/RESULT.md) and
-> [attempt binding](experiments/iter148_recovery_study/proof/block_000_attempt_002/RESUME_BINDING.json).
-> Watch the active attempt receipts for shutdown; do not infer stopped state from the
-> earlier credential-failure closure. Candidate `research/iter148-recovery-study` is local.
-> Master, historical snapshots, protected root README, unrelated WIP and prior evidence
-> remain preserved. Deferred Iter135 and prior recovery nulls remain unchanged.
+> **Active operator-directed candidate work, 2026-10-11:** Iter148 execution is closed.
+> Nominal and monitor pairs passed: four source-defined completions, 368 verified actions,
+> no recorded collision/off-route and zero monitor intervention. An IAP observation failure
+> stopped the first pulse run at 88 recorded actions without a terminal summary. Totals:
+> four admitted slots, one incomplete and 107 uninitialized; no four-arm comparison or
+> recovery/harm rate is available. 6/368 verified controller calls exceeded 50 ms, and all
+> 368 loops exceeded 250 ms. Both exact VM starts are TERMINATED; all local controls exited.
+> Read [result](experiments/iter148_recovery_study/RESULT.md),
+> [state](experiments/iter148_recovery_study/STATE.json) and
+> [continuation](experiments/iter148_recovery_study/DECISION.md).
+> **Next, by Daniel's explicit order:** review the entire README, relevant diagrams and
+> current memories before any next experiment. The interrupted study remains halted;
+> no initialized retry or automatic restart. Candidate `research/iter148-recovery-study`
+> is local/unpushed. Master, historical snapshots, prior evidence and unrelated WIP remain
+> preserved. Deferred Iter135 and prior recovery nulls are unchanged.
 
 **Purpose.** This campaign is operator-portable by design. Everything an incoming operator
 needs is in this repository plus the two live surfaces below. Read this file top to bottom
@@ -4520,3 +4521,21 @@ Google Cloud login succeeded and a fresh exact-VM readback confirmed TERMINATED 
 start. Attempt2 owns start2026-10-10T22:05:46.919-07:00 of VM3834622546652649531 under
 10800seconds/$9 bounds. Local watchdog92679 is active. Host/runtime admission proceeds
 before the unchanged first eight slots; no new result is accepted at this update.
+
+
+## Iter148 interrupted block and evidence closure on 2026-10-11
+
+Four baseline episodes passed independent replay and replica checks: 368 actions and source-defined
+completion, without collision/off-route or monitor activation. The frozen supervisor stopped the
+block after a read-only IAP observation failure. One pulse replica retains 88 actions but no terminal
+summary; it is invalid for paired admission. Four slots admitted, one incomplete, 107 uninitialized;
+no complete four-arm comparison. No recovery/harm rate is estimated. Six of 368 verified controller
+calls exceeded 50 ms and every verified loop exceeded 250 ms.
+
+Evidence recovery restarted no driving job. Final postflight verified 6,101 bound/original files
+and 20 actor aliases unchanged, with no active container/GPU process. Both exact VM starts are
+TERMINATED and all local controls exited. Combined conservative elapsed cost bound is $1.659,
+within the original $9 block allowance. Failures, raw-before-replay commits and closures are retained.
+Daniel requested the entire README, relevant diagrams and current research memory be reviewed in
+his voice after this closure and before any next experiment. That editorial work is next. The study
+remains stopped; a future protocol needs durable, bounded recovery from unavailable observations.

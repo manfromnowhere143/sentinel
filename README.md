@@ -6,20 +6,21 @@ loop, by whether the car crashes *and whether it can still drive*.**
 
 ## Local research update 2026-10-10
 
-> **Active operator-directed candidate work, 2026-10-11:** Iter148 first-block execution
-> has resumed after successful Google Cloud reauthentication. The exact owned VM is RUNNING
-> under fresh attempt2's 10,800-second / $9 conservative envelope and local watchdog92679.
-> Host/runtime/timer admission is in progress; no study result has been accepted yet.
-> Scope is the unchanged first eight slots of112; no automatic restart or initialized retry.
-> Source dd45ad39b26602ad81626ca55332e7ce6d308e91 remains unchanged. Local165tests and
-> replay of1,104priorGPUsteps pass; no new recovery benefit has been established.
-> Read [state](experiments/iter148_recovery_study/STATE.json),
-> [result](experiments/iter148_recovery_study/RESULT.md) and
-> [attempt binding](experiments/iter148_recovery_study/proof/block_000_attempt_002/RESUME_BINDING.json).
-> Watch the active attempt receipts for shutdown; do not infer stopped state from the
-> earlier credential-failure closure. Candidate `research/iter148-recovery-study` is local.
-> Master, historical snapshots, protected root README, unrelated WIP and prior evidence
-> remain preserved. Deferred Iter135 and prior recovery nulls remain unchanged.
+> **Active operator-directed candidate work, 2026-10-11:** Iter148 execution is closed.
+> Nominal and monitor pairs passed: four source-defined completions, 368 verified actions,
+> no recorded collision/off-route and zero monitor intervention. An IAP observation failure
+> stopped the first pulse run at 88 recorded actions without a terminal summary. Totals:
+> four admitted slots, one incomplete and 107 uninitialized; no four-arm comparison or
+> recovery/harm rate is available. 6/368 verified controller calls exceeded 50 ms, and all
+> 368 loops exceeded 250 ms. Both exact VM starts are TERMINATED; all local controls exited.
+> Read [result](experiments/iter148_recovery_study/RESULT.md),
+> [state](experiments/iter148_recovery_study/STATE.json) and
+> [continuation](experiments/iter148_recovery_study/DECISION.md).
+> **Next, by Daniel's explicit order:** review the entire README, relevant diagrams and
+> current memories before any next experiment. The interrupted study remains halted;
+> no initialized retry or automatic restart. Candidate `research/iter148-recovery-study`
+> is local/unpushed. Master, historical snapshots, prior evidence and unrelated WIP remain
+> preserved. Deferred Iter135 and prior recovery nulls are unchanged.
 
 
 [Iteration 142](experiments/iter142_nominal_continuation_completion/RESULT.md) completed
