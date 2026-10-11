@@ -1,0 +1,12 @@
+{
+  "observed_utc": "2026-10-11T14:30:16.648816+00:00",
+  "status": "supported",
+  "lifecycle": "start_denied_capacity",
+  "scientific_slots_initialized": 0,
+  "new_start_observed": false,
+  "provider_terminated": true,
+  "watchdog_process_observed_absent": true,
+  "watchdog_exit_code": null,
+  "original_result_preserved": true,
+  "scope": "The earlier supervisor reported unreconciled_start. Subsequent qualified reconciliation established a rejected capacity request and no new VM start; closure.json allowed the detached watchdog to exit. Its exit code was not observed."
+}
