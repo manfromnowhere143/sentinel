@@ -1,0 +1,33 @@
+{
+  "published_commit": "9db489248f5988d028e17e7cf784e96f0a233efa",
+  "branch": "research/iter149-observation-recovery",
+  "files": [
+    {
+      "path": "HANDOFF.md",
+      "sha256": "9e9a18428ee5af2800b4ac7aa72db00b178fac62cf205dab4045bfa66fb67388",
+      "matches": true
+    },
+    {
+      "path": "experiments/iter149_observation_recovery/RESULT.md",
+      "sha256": "bd54dad1bde6cdd6c4a110a227cd966180bafa023462440caf66036d2f8bee98",
+      "matches": true
+    },
+    {
+      "path": "experiments/iter149_observation_recovery/STATE.json",
+      "sha256": "c9a16a9d240d2cd7fad95581a78aec22836f9dddc3e864d8c2b47d591ca24038",
+      "matches": true
+    }
+  ],
+  "hosted_CI_observation": [
+    {
+      "conclusion": "",
+      "databaseId": 38119045932,
+      "headSha": "9db489248f5988d028e17e7cf784e96f0a233efa",
+      "status": "in_progress",
+      "url": "https://github.com/manfromnowhere143/sentinel/actions/runs/38119045932"
+    }
+  ],
+  "local_whole_repository_lint": "688 findings in 160 pre-existing files; zero new-source findings",
+  "master_unchanged": true,
+  "root_WIP_preserved": true
+}

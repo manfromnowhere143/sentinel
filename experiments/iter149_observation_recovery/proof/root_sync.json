@@ -1,0 +1,9 @@
+{
+  "root_index_sha256_before_and_after": "2e8a3f0d7ef06439b04e4fee41ba97e1f46675c670946c1084aaad796f56e22e",
+  "root_handoff_prior_matched": "2e59af2",
+  "root_continuity_prior_sha256": "10212d013db1f7b7440fa3cab66ec9e33401ff387c0fa807d418bb3c6b0bfada",
+  "root_continuity_existing_content_preserved": true,
+  "new_files_mirrored": 149,
+  "root_readme_protections_untouched": true,
+  "root_unrelated_changes_staged": false
+}
