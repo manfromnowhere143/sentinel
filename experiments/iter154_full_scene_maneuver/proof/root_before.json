@@ -1,0 +1,31 @@
+{
+  "index_sha256": "2e8a3f0d7ef06439b04e4fee41ba97e1f46675c670946c1084aaad796f56e22e",
+  "unchanged_other_files": {
+    ".github/workflows/ci.yml": "09c7fb25eff2429aa9474ca9b4a4d0fdeb88efc3ff3d0cdb92c760bbdcd535d8",
+    "AGENTS.md": "9dd96d223327384d77760671396b8075a5a57bc1396abdcff5a12095055add69",
+    "MISSION_STATE.json": "beae857424df58aaf0fc2e289955d332c181b964a74abc6555e1f1aacf116560",
+    "README.md": "7508b22c75339ca1bb841bddd44a873147342d09c377aaa6d98d8abca561bebb",
+    "docs/ARCHITECTURE.md": "7699615620c7b360951ff4efdb257c6e65510017a136f0845ccc28196fde11e0",
+    "docs/NEXT_PHASE.md": "03cfc7cf0445132c6ddf7bc8b5ff5f3476ec5dd9de09d5e78929f6665281dbbd",
+    "experiments/iter135_neuroncap_blind_braking_dose_response/authorize_launch135.py": "69b8a95d305517e0f3a652467e081763850002afdfa38f8b4bb2d50924c72f8a",
+    "experiments/iter135_neuroncap_blind_braking_dose_response/verify_tooling135.py": "4c73ba1c83348a51ea860a88c9b18ed057f391a829882960030b7d68d144451d",
+    "experiments/verification/README.md": "03b934a94d80bf558485ac766f3ac4626bba2bdb69e3c035f02638173cf82f97",
+    "pyproject.toml": "ab80da2c41d29f98ace7d372c5b87ee6bbd3fee072b89892db499a01a620bc0d",
+    "scripts/make_handoff.py": "5081e46fcb0810e50df4c5c05973ed1ecc9e5522e3a4a2f5b3fbb313d5ad8e37",
+    "scripts/mission_state.py": "b1b2629cf0d28b22cc978731722f0689765d5db45ac4afd6c6a0d0f9e7191835",
+    "tests/test_gen17_ci_hardening.py": null,
+    "tests/test_handoff_generator.py": "4e527c4a3244399153f5a2db561c0b4b3c850617817c745b27f19c4ffd84dc86",
+    "tests/test_iter135_launch_authorization.py": "37a7b9626ccc4b178f2d480f5f95b933017bdb5ee42def041b4462759e378e85",
+    "tests/test_iter135_launcher.py": "ec5b9f58087cc3be69b7cd4c27dbab6e26b469dd1378ecd1b8b14ce3c7a66dfa",
+    "tests/test_iter135_tooling_verifier.py": "8441a1dd45f2098c95b85d3db2f3e8ff2eb386f2418049f74a29852017af24e8",
+    "tests/test_mission_state.py": "2333f5942c9d4de3a57a1bc2843de867aca48d5de0b310265fc1f94fb85b0159",
+    "tools/ci/requirements-ci-py310.lock": "d0e296ff6d3b90e29af4607e4c9a00aa203a90853de690b591ce116e4158fb32",
+    "tools/ci/requirements-ci-py311.lock": "7a225e43c33b077ce74697e5fb03a621ab531b68fe95d3786c7d4dedadaa5018",
+    "tools/ci/requirements-ci.in": "d5de49ff7c882e801ec1b11fb34d5d72babd5eb32636a79ef9a82ef0185b7ea0",
+    "tools/ci/supply-chain-manifest.json": "1fc51bd0edb5b86a51a7fb67a3d97ed20e4477cb55011be7b9cc06003b717251",
+    "tools/ci/verify_supply_chain.py": "0a4913bbdd43518aceab52d56a5ca4d66422c7d4f10d25d3a2b829090f55c395"
+  },
+  "handoff_sha256": "e6a0fe201ac31b36c4c42adad4bb968697a2125c40784a3ad938ba24b4daf033",
+  "continuity_sha256": "f46851cfecbb1e37b70b4b1a5397d17e9bd302622df63a419073ce891456b710",
+  "parent_commit": "b00861cbfcafa5fe977ca7d3f72b8487fdeb0bba"
+}
