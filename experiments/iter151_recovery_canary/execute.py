@@ -201,7 +201,14 @@ def execute(root, block, source):
         ):
             raise ValueError("local_block_collection_cap")
         destination = base / "proof/study_raw" / f"pair_{pair:03d}"
-        extract(local, destination, binding)
+        used = sum(p.stat().st_size for p in proof.rglob("*") if p.is_file())
+        for prior in range(block * 4, block * 4 + 4):
+            used += sum(
+                p.stat().st_size
+                for p in (base / "proof/study_raw" / f"pair_{prior:03d}").rglob("*")
+                if p.is_file()
+            )
+        extract(local, destination, binding, remaining_bytes=2 * 1024**3 - used)
         record(proof / f"pair_{pair:03d}_collection.json", binding)
         collected.add(pair)
         return destination

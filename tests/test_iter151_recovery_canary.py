@@ -342,7 +342,7 @@ def test_lost_launch_reply_never_reissues_command(tmp_path, monkeypatch):
     assert "--property=KillMode=control-group" in launched[0]
 
 
-@pytest.mark.parametrize("fault", ["path", "symlink", "duplicate", "identity"])
+@pytest.mark.parametrize("fault", ["path", "symlink", "duplicate", "identity", "collection_budget"])
 def test_archive_known_bads(tmp_path, fault):
     import tarfile
     import io
@@ -365,7 +365,12 @@ def test_archive_known_bads(tmp_path, fault):
     if fault == "identity":
         expected["sha256"] = "f" * 64
     with pytest.raises(ValueError):
-        extract(archive, tmp_path / "destination", expected)
+        extract(
+            archive,
+            tmp_path / "destination",
+            expected,
+            remaining_bytes=0 if fault == "collection_budget" else 512 * 1024**2,
+        )
     assert not (tmp_path / "destination").exists()
 
 

@@ -1,7 +1,7 @@
 {
   "status": "supported",
   "scope": "local canary admission and source qualification; Linux host checks still required",
-  "inputs_sha256": "e6b361cf2b6aa58be292f5fb142387d76afda2677f38b8a48e7deb042b6f9c92",
+  "inputs_sha256": "9f2e0cadc58eb62f5fd24057c6a1796681be2211e26ba0142c7b639e03cf8389",
   "plan_sha256": "720072bba3482074a5e09d149cac33614cf06f86edfff1270c87aa8b95f195d9",
   "scientific_outcomes": 0,
   "previous_scientific_basis": "8597f015be7eed3354bc3e5867f34ac97bb9ff388b8571de525f703df4dbd8c5",
@@ -9,7 +9,9 @@
   "prior_actions_replayed": 368,
   "regression_tests": 308,
   "warnings": 40,
-  "new_tests": 55,
+  "new_tests": 56,
   "tests_sha256": "72450f4bc9b60fdd5abfa13667350a489b78f42c505a443645c188e59d780687",
-  "provenance": "agent-executed local tests and separately implemented retained scientific replay"
+  "provenance": "agent-executed local tests and separately implemented retained scientific replay",
+  "postreview_focused_tests": 56,
+  "postreview_test_sha256": "f98ae139c365622ec0e1d4c99459cfc1f2481eb90e29f4010c21aa799f3a60aa"
 }

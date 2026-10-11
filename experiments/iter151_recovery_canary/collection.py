@@ -69,7 +69,7 @@ def archive(control, pair):
     return dict(pair=pair, **value, files=len(selected))
 
 
-def extract(archive, destination, expected):
+def extract(archive, destination, expected, remaining_bytes=512 * 1024**2):
     archive, destination = Path(archive), Path(destination)
     if (
         archive.stat().st_size > 256 * 1024**2
@@ -85,7 +85,7 @@ def extract(archive, destination, expected):
         if (
             not members
             or len({m.name for m in members}) != len(members)
-            or sum(m.size for m in members) > 512 * 1024**2
+            or sum(m.size for m in members) > min(512 * 1024**2, remaining_bytes)
         ):
             raise ValueError("archive_inventory")
         for member in members:

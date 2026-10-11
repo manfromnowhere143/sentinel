@@ -518,12 +518,12 @@
       "sha256": "82cf4f1f37aa918e313ce6d6f343994c213a471e4cbf85ab4d5649f9b1af00b1"
     },
     "experiments/iter151_recovery_canary/collection.py": {
-      "bytes": 4118,
-      "sha256": "81074cd6009930db8f85891eed7d465bde6d9f97fd8d48cf4b1bbf8925b2253b"
+      "bytes": 4171,
+      "sha256": "80690462cd549d6de679b679c59f5b3e9527ccef8c5f3269a88b46bd4c570294"
     },
     "experiments/iter151_recovery_canary/execute.py": {
-      "bytes": 23440,
-      "sha256": "783b4dc1e37f0df87ffcb55095544a0ad2951dd2ecd387903c9621fc470a5fd8"
+      "bytes": 23796,
+      "sha256": "b71eb94309c05cc3c49b680627688ddfc9eab48c7c2b31c8fb8309fe693f3fb2"
     },
     "experiments/iter151_recovery_canary/ownership.py": {
       "bytes": 3843,
