@@ -1,0 +1,21 @@
+{
+  "status": "running",
+  "episode": "continuation152_004__scene-0013-medium-00__brake_t2_5__1",
+  "seed": 144,
+  "gpu_observed": false,
+  "slot": {
+    "arm": "brake_t2_5",
+    "id": "continuation152_004__scene-0013-medium-00__brake_t2_5__1",
+    "index": 4,
+    "max_actions": 401,
+    "probe": "none",
+    "replica": 1,
+    "reset_count": 1,
+    "scenario": "scene-0013-medium-00.yaml",
+    "scenario_sha256": "162bd65e0fa40d6f46a992063da665f858ccf78b00879b0a34fdfc76103a2401",
+    "seed": 144
+  },
+  "purpose": "study",
+  "driving_outcome": null,
+  "live_study_admitted": false
+}
