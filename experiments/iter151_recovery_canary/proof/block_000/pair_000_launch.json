@@ -1,0 +1,1 @@
+{"returncode":0,"service":{"ActiveState":"active","Id":"sentinel151-pair0-8c41e19d5c9f.service","InvocationID":"19599f6d88444074a99dc7df1b64ecc2","KillMode":"control-group","MainPID":"1968","RuntimeMaxUSec":"41min 40s"},"stderr":"Running as unit: sentinel151-pair0-8c41e19d5c9f.service\n","stdout":"","unit":"sentinel151-pair0-8c41e19d5c9f.service"}

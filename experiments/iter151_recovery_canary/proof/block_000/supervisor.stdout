@@ -1,0 +1,88 @@
+{"pair": 0, "observation": 0, "reply_bytes": 534}
+{"pair": 0, "observation": 1, "reply_bytes": 534}
+{"pair": 0, "observation": 2, "reply_bytes": 534}
+{"pair": 0, "observation": 3, "reply_bytes": 534}
+{"pair": 0, "observation": 4, "reply_bytes": 534}
+{"pair": 0, "observation": 5, "reply_bytes": 534}
+{"pair": 0, "observation": 6, "reply_bytes": 534}
+{"pair": 0, "observation": 7, "reply_bytes": 839}
+experiments/iter151_recovery_canary/proof/block_000/commands/extract_packet.stderr:1: trailing whitespace.
++WARNING: 
+experiments/iter151_recovery_canary/proof/block_000/commands/extract_packet.stderr:5: new blank line at EOF.
+experiments/iter151_recovery_canary/proof/block_000/commands/host_setup.stderr:1: trailing whitespace.
++WARNING: 
+experiments/iter151_recovery_canary/proof/block_000/commands/host_setup.stderr:5: new blank line at EOF.
+experiments/iter151_recovery_canary/proof/block_000/commands/pair_0_archive.stderr:1: trailing whitespace.
++WARNING: 
+experiments/iter151_recovery_canary/proof/block_000/commands/pair_0_archive.stderr:5: new blank line at EOF.
+experiments/iter151_recovery_canary/proof/block_000/commands/pair_0_attach_0.stderr:1: trailing whitespace.
++WARNING: 
+experiments/iter151_recovery_canary/proof/block_000/commands/pair_0_attach_0.stderr:5: new blank line at EOF.
+experiments/iter151_recovery_canary/proof/block_000/commands/pair_0_download.stderr:1: trailing whitespace.
++WARNING: 
+experiments/iter151_recovery_canary/proof/block_000/commands/pair_0_download.stderr:5: new blank line at EOF.
+experiments/iter151_recovery_canary/proof/block_000/commands/pair_0_launch.stderr:1: trailing whitespace.
++WARNING: 
+experiments/iter151_recovery_canary/proof/block_000/commands/pair_0_launch.stderr:5: new blank line at EOF.
+experiments/iter151_recovery_canary/proof/block_000/commands/pair_0_observe_0.stderr:1: trailing whitespace.
++WARNING: 
+experiments/iter151_recovery_canary/proof/block_000/commands/pair_0_observe_0.stderr:5: new blank line at EOF.
+experiments/iter151_recovery_canary/proof/block_000/commands/pair_0_observe_1.stderr:1: trailing whitespace.
++WARNING: 
+experiments/iter151_recovery_canary/proof/block_000/commands/pair_0_observe_1.stderr:5: new blank line at EOF.
+experiments/iter151_recovery_canary/proof/block_000/commands/pair_0_observe_2.stderr:1: trailing whitespace.
++WARNING: 
+experiments/iter151_recovery_canary/proof/block_000/commands/pair_0_observe_2.stderr:5: new blank line at EOF.
+experiments/iter151_recovery_canary/proof/block_000/commands/pair_0_observe_3.stderr:1: trailing whitespace.
++WARNING: 
+experiments/iter151_recovery_canary/proof/block_000/commands/pair_0_observe_3.stderr:5: new blank line at EOF.
+experiments/iter151_recovery_canary/proof/block_000/commands/pair_0_observe_4.stderr:1: trailing whitespace.
++WARNING: 
+experiments/iter151_recovery_canary/proof/block_000/commands/pair_0_observe_4.stderr:5: new blank line at EOF.
+experiments/iter151_recovery_canary/proof/block_000/commands/pair_0_observe_5.stderr:1: trailing whitespace.
++WARNING: 
+experiments/iter151_recovery_canary/proof/block_000/commands/pair_0_observe_5.stderr:5: new blank line at EOF.
+experiments/iter151_recovery_canary/proof/block_000/commands/pair_0_observe_6.stderr:1: trailing whitespace.
++WARNING: 
+experiments/iter151_recovery_canary/proof/block_000/commands/pair_0_observe_6.stderr:5: new blank line at EOF.
+experiments/iter151_recovery_canary/proof/block_000/commands/pair_0_observe_7.stderr:1: trailing whitespace.
++WARNING: 
+experiments/iter151_recovery_canary/proof/block_000/commands/pair_0_observe_7.stderr:5: new blank line at EOF.
+experiments/iter151_recovery_canary/proof/block_000/commands/prepare_runtime.stderr:1: trailing whitespace.
++WARNING: 
+experiments/iter151_recovery_canary/proof/block_000/commands/prepare_runtime.stderr:5: new blank line at EOF.
+experiments/iter151_recovery_canary/proof/block_000/commands/qualify_active_owner.stderr:1: trailing whitespace.
++WARNING: 
+experiments/iter151_recovery_canary/proof/block_000/commands/qualify_active_owner.stderr:5: new blank line at EOF.
+experiments/iter151_recovery_canary/proof/block_000/commands/reachability_0.stderr:1: trailing whitespace.
++WARNING: 
+experiments/iter151_recovery_canary/proof/block_000/commands/reachability_0.stderr:23: trailing whitespace.
++Connection closed by UNKNOWN port 65535
+experiments/iter151_recovery_canary/proof/block_000/commands/reachability_1.stderr:1: trailing whitespace.
++WARNING: 
+experiments/iter151_recovery_canary/proof/block_000/commands/reachability_1.stderr:23: trailing whitespace.
++Connection closed by UNKNOWN port 65535
+experiments/iter151_recovery_canary/proof/block_000/commands/reachability_2.stderr:1: trailing whitespace.
++WARNING: 
+experiments/iter151_recovery_canary/proof/block_000/commands/reachability_2.stderr:5: new blank line at EOF.
+experiments/iter151_recovery_canary/proof/block_000/commands/record_envelope.stderr:1: trailing whitespace.
++WARNING: 
+experiments/iter151_recovery_canary/proof/block_000/commands/record_envelope.stderr:5: new blank line at EOF.
+experiments/iter151_recovery_canary/proof/study_raw/pair_000/e2e147.py:347: trailing whitespace.
++    
+experiments/iter151_recovery_canary/proof/study_raw/pair_000/e2e147.py:351: trailing whitespace.
++        'mean': np.array([103.530, 116.280, 123.675]), 
+experiments/iter151_recovery_canary/proof/study_raw/pair_000/e2e147.py:352: trailing whitespace.
++        'std': np.array([1.0, 1.0, 1.0]), 
+experiments/iter151_recovery_canary/proof/study_raw/pair_000/e2e147.py:356: trailing whitespace.
++    
+experiments/iter151_recovery_canary/proof/study_raw/pair_000/e2e147.py:374: trailing whitespace.
++        
+experiments/iter151_recovery_canary/proof/study_raw/pair_000/e2e147.py:391: trailing whitespace.
++        
+experiments/iter151_recovery_canary/proof/study_raw/pair_000/e2e147.py:397: trailing whitespace.
++        
+experiments/iter151_recovery_canary/proof/study_raw/pair_000/e2e147.py:401: trailing whitespace.
++        
+{"status": "failed", "error": "CalledProcessError(2, ['git', 'diff', '--cached', '--check'])"}
+{"status": "failed", "block": 0, "pairs": [], "error": "CalledProcessError(2, ['git', 'diff', '--cached', '--check'])", "traceback": "Traceback (most recent call last):\n  File \"/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter151_recovery_canary/execute.py\", line 434, in execute\n    raw_commit = commit(\n        root,\n        [proof, destination],\n        f\"iter151: retain pair {pair} raw before scientific replay\",\n    )\n  File \"/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter151_recovery_canary/execute.py\", line 98, in commit\n    subprocess.run([\"git\", \"diff\", \"--cached\", \"--check\"], cwd=root, check=True)\n    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.2_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 577, in run\n    raise CalledProcessError(retcode, process.args,\n                             output=stdout, stderr=stderr)\nsubprocess.CalledProcessError: Command '['git', 'diff', '--cached', '--check']' returned non-zero exit status 2.\n", "termination_verified": true, "watchdog_exit": 0, "elapsed_seconds": 532.1042995410098, "conservative_compute_usd": 0.4434202496175082, "within_registered_budget": true}
