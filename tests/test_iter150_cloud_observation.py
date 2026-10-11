@@ -37,6 +37,16 @@ def test_original_partial_pair_stays_partial():
     assert classify(raw, blobs, "fresh/0", expected, -1, None)[0] == "partial_evidence"
 
 
+@pytest.mark.parametrize("field", ["source_sha256", "plan_sha256", "initialization_sha256"])
+def test_independent_checker_reconstructs_native_identity(field):
+    root = RAW / "pair_000"
+    expected = binding(root)
+    _, blobs = native.observe(root, 0, expected, expected, "fresh/0")
+    forged = dict(expected, **{field: "f" * 64})
+    with pytest.raises(ValueError, match="native_identity"):
+        verify(root, blobs, forged)
+
+
 @pytest.fixture
 def copied(tmp_path):
     return Path(shutil.copytree(RAW / "pair_000", tmp_path / "native"))
@@ -231,3 +241,27 @@ def test_lost_start_reply_reconciles_without_new_start(tmp_path):
 
     with pytest.raises(ValueError):
         recover_start(StaleProvider(), tmp_path, "stale")
+
+
+def test_command_receipt_cannot_collide_with_domain_report(tmp_path):
+    import subprocess
+    from experiments.iter150_cloud_observation.cloud import Cloud, write
+
+    def runner(argv, **kwargs):
+        return subprocess.CompletedProcess(argv, 0, b'{"status":"supported"}', b"")
+
+    cloud = Cloud(tmp_path, runner=runner)
+    cloud.run("postflight", ["fixture"])
+    write(tmp_path / "postflight.json", {"status": "supported"})
+    assert json.loads((tmp_path / "commands/postflight.json").read_text())["returncode"] == 0
+    assert json.loads((tmp_path / "postflight.json").read_text())["status"] == "supported"
+    with pytest.raises(ValueError):
+        cloud.run("postflight", ["fixture"])
+
+
+@pytest.mark.parametrize("label", ["../escape", "postflight.json", ""])
+def test_command_label_stays_in_its_namespace(tmp_path, label):
+    from experiments.iter150_cloud_observation.cloud import Cloud
+
+    with pytest.raises(ValueError):
+        Cloud(tmp_path).run(label, ["never-executed"])

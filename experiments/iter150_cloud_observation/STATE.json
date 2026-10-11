@@ -1,0 +1,30 @@
+{
+  "iteration": 150,
+  "status": "supported",
+  "scope": "one_vm_native_observation_and_cpu_fault_qualification",
+  "live_execution_status": "failed",
+  "live_execution_error": "postflight report filename collision after successful postflight",
+  "report_correction": "locally tested; corrected whole harness cloud execution unobserved",
+  "protocol_commit": "d850d2a",
+  "live_source_commit": "cb3b7e8",
+  "raw_commit": "7528899",
+  "cloud_starts": 1,
+  "gpu_workload_executed": false,
+  "scientific_outcomes": 0,
+  "owned_active_jobs": 0,
+  "termination_verified": true,
+  "envelope_seconds": 167.8779405419773,
+  "conservative_compute_usd": 0.1398982837849811,
+  "prelive_regression_tests": 245,
+  "prelive_warnings": 40,
+  "final_adapter_tests": 37,
+  "auditor_known_bads": 9,
+  "next_task": "Implement and qualify fresh 16-slot canary admission and active-worker observation/launch integration before a new scientific envelope.",
+  "scientific_canary": "proposed; unrun; not yet admitted",
+  "original_iter148_accounting": {
+    "admitted": 4,
+    "incomplete": 1,
+    "uninitialized": 107
+  },
+  "whole_repository_hosted_CI": "not established"
+}

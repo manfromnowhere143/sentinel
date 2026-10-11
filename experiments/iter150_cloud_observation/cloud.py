@@ -40,12 +40,16 @@ def same_start(actual, expected, running=False):
 class Cloud:
     def __init__(self, directory, runner=subprocess.run, clock=time.monotonic):
         self.directory = Path(directory)
+        self.commands = self.directory / "commands"
+        self.commands.mkdir(exist_ok=True)
         self.runner, self.clock = runner, clock
         self.counter = 0
 
     def run(self, label, argv, timeout=45, stdin=None):
         self.counter += 1
-        stem = self.directory / label
+        if not label or Path(label).name != label or "." in label:
+            raise ValueError("command_label")
+        stem = self.commands / label
         # labels are caller-owned and exclusive; no accidental replacement of failure evidence.
         if any(stem.with_suffix(s).exists() for s in (".stdout", ".stderr", ".json")):
             raise ValueError("duplicate_command_label")
@@ -96,7 +100,7 @@ class Cloud:
         remaining = timeout - (self.clock() - began)
         if remaining <= 0:
             raise TimeoutError("identity_consumed_deadline")
-        (self.directory / (label + ".py.txt")).write_text(script)
+        (self.commands / (label + ".py.txt")).write_text(script)
         result = self.run(
             label,
             [

@@ -76,6 +76,21 @@ def verify(root, blobs, binding):
         total += size
     if total > 1024**3:
         raise ValueError("total_size")
+    # Independently reconstruct the identities carried by the normalized response.
+    plan_digest = hashlib.sha256(
+        json.dumps(plan, sort_keys=True, separators=(",", ":"), allow_nan=False).encode()
+    ).hexdigest()
+    marker_name = f"pair_{pair:03d}_started.json"
+    marker = json.loads((root / marker_name).read_bytes())
+    if (
+        binding.get("source_sha256") != inventory["files"]["execution_manifest.json"]["sha256"]
+        or binding.get("plan_sha256") != plan_digest
+        or binding.get("initialization_sha256") != inventory["files"][marker_name]["sha256"]
+        or type(marker.get("pair")) is not int
+        or marker["pair"] != pair
+        or marker.get("plan_sha256") != plan_digest
+    ):
+        raise ValueError("native_identity")
     # Existing independently implemented native admission supplies the semantic cross-check.
     from experiments.iter148_recovery_study.admission import completed_pair
 

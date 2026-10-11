@@ -20,9 +20,12 @@ Those findings now determine the research direction.
 
 ## Current position — 11 October 2026
 
-Engineering continuation: [Iter149](experiments/iter149_observation_recovery/RESULT.md) qualifies
-bounded observation recovery locally, with 216 passing regression tests. The actual cloud adapter
-still needs qualification. No new driving outcome follows; the interrupted study below is unchanged.
+Engineering continuation: [Iter150](experiments/iter150_cloud_observation/RESULT.md) supports
+bounded observation recovery over actual IAP transport and historical native artifacts, following
+Iter149’s local qualification. A final report filename collision left the live harness failed;
+the retained outputs pass separate audit and the filename correction passes local tests. The
+owned VM start is verified stopped. Fresh scientific admission and worker integration remain;
+no new driving outcome follows and the interrupted study below is unchanged.
 The [assessment](experiments/iter149_observation_recovery/ASSESSMENT.md) and
 [prospective canary](experiments/iter149_observation_recovery/NEXT_STUDY_PROPOSAL.md) explain the next decisions.
 
@@ -36,8 +39,9 @@ the first braking-pulse episode was interrupted after an observation-transport f
 There is no complete four-arm comparison. Both owned VM starts are confirmed terminated,
 and the study has no automatic restart. [Execution report](experiments/iter148_recovery_study/RESULT.md).
 
-This page covers research evidence through Iteration 148 on
-[research/iter148-recovery-study](https://github.com/manfromnowhere143/sentinel/tree/research/iter148-recovery-study).
+This page covers scientific evidence through Iteration 148 and engineering qualification
+through Iteration 150 on
+[research/iter150-cloud-observation](https://github.com/manfromnowhere143/sentinel/tree/research/iter150-cloud-observation).
 The accepted master mission snapshot is **current through iteration 134**, with verdict
 `PLACEBO_HARM_OR_NULL`; [MISSION_STATE.json](MISSION_STATE.json) retains that historical
 publication contract. Iteration 135 is deferred and unrun. The [current handoff](HANDOFF.md)
@@ -308,10 +312,10 @@ The intended contribution is a monitor and evaluation system that can show **whi
 remain preventable, which signal enables prevention, and the measured cost and limits**.
 The following work is proposed; the interrupted study remains closed.
 
-1. **Qualify observation recovery.** Distinguish an unavailable progress observation from a
-   failed worker. Permit bounded read-only retries while preserving independent host deadlines,
-   ownership checks and an immutable record of episode initialization. Demonstrate that an
-   observation retry cannot duplicate execution.
+1. **Integrate qualified observation recovery with fresh study admission.** Iter149–150 retain
+   local and bounded cloud evidence. Bind the next scientific worker’s ownership, initialization
+   and deadlines, preserving read-only retries and testing against duplicate execution. The
+   historical-artifact and synthetic-child checks do not themselves qualify that new launcher.
 2. **Establish constructive recovery.** Prospectively register the next finite comparison.
    Keep the action library, timing grid, outcomes and progress constraints explicit. Preserve
    initialized Iter148 slots and their missingness; do not silently rerun them. A successful
@@ -570,6 +574,8 @@ Repeated analyses of the same cases do not increase the number of independent ca
 | [146](experiments/iter146_route_outcome_contract/RESULT.md) | Route outcomes and missingness corrected; short GPU qualification remains censored. |
 | [147](experiments/iter147_full_horizon_execution/RESULT.md) | Full-horizon qualification: 912 GPU actions; diagnostic holds and natural-actor collisions. |
 | [148](experiments/iter148_recovery_study/RESULT.md) | Inconclusive: four admitted baseline episodes; pulse interrupted; no complete comparison. |
+| [149](experiments/iter149_observation_recovery/RESULT.md) | Local bounded observation recovery qualified; no scientific outcome. |
+| [150](experiments/iter150_cloud_observation/RESULT.md) | Bounded cloud/native observation checks supported; report-saving failure preserved and locally corrected. |
 
 </details>
 

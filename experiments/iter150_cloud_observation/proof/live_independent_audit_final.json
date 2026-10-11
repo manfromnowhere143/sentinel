@@ -1,0 +1,42 @@
+{
+  "qualification_status": "supported",
+  "execution_status": "failed",
+  "execution_error": "FileExistsError(17, 'File exists')",
+  "scope": "one VM start; native read adapter and CPU-only synthetic fault qualification",
+  "native_pairs_complete": 2,
+  "native_pairs_partial": 1,
+  "replayed_traces": 5,
+  "native_inventory_checks": [
+    {
+      "status": "supported",
+      "files": 16,
+      "bytes": 10194944,
+      "scientific_admission": false
+    },
+    {
+      "status": "supported",
+      "files": 16,
+      "bytes": 10194998,
+      "scientific_admission": false
+    }
+  ],
+  "termination_verified": true,
+  "elapsed_seconds": 167.8779405419773,
+  "conservative_compute_usd": 0.1398982837849811,
+  "cloud_rerun_needed_for_report_filename_change": false,
+  "corrected_harness_cloud_execution": "unobserved",
+  "new_scientific_outcomes": 0,
+  "raw_commit": "7528899",
+  "committed_raw_files_verified": 154,
+  "known_bads_rejected": {
+    "vm_start": "owned_termination",
+    "termination": "owned_termination",
+    "budget": "resource_closure",
+    "postflight": "postflight",
+    "native_binding": "native_cloud_binding",
+    "partial": "final_claim",
+    "deadline": "host_deadline",
+    "duplicate_initialization": "fixture_closure",
+    "completion": "final_claim"
+  }
+}

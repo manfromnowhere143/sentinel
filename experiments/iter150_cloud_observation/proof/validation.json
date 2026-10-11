@@ -1,0 +1,67 @@
+{
+  "observed_utc": "2026-10-11T07:03:49.368563+00:00",
+  "live_source_commit": "cb3b7e82072db12cd7752f0984cb0da65a3085bc",
+  "raw_commit": "752889970675f49a0fe8e85fab79b763f4c26cd3",
+  "final_local_source_sha256": {
+    "experiments/iter150_cloud_observation/__init__.py": "8f27b9a6ec33e3e06421994f4e8e7889451ab97639097d7e9463fe745bb274ef",
+    "experiments/iter150_cloud_observation/audit.py": "4a4c7ee881af4d832288ced64d13719313cc6e64cec4c4cfe228870189163ba2",
+    "experiments/iter150_cloud_observation/check.py": "40180dad23f62c0990fac9d608dfed54acb655a1e45209c671df9a6dcd7fee33",
+    "experiments/iter150_cloud_observation/cloud.py": "ead460e4c3a63c4ca8b0a4a8756c1e021ab8e51771a6bc53288d51bb5e5919b8",
+    "experiments/iter150_cloud_observation/native.py": "5b49eafc9631e5f5343efdad3a17f3634e4400188b97bd4b3c2954ae2c41b80b",
+    "experiments/iter150_cloud_observation/qualify_cloud.py": "c3a9dd34abc02ab4329b04af3c4e44adf8f41526aadafa096a808e2094593206",
+    "experiments/iter150_cloud_observation/remote.py": "225add7f3f831882be4caad8671ab469682b5a345fecb63bf2a06055b4cc6e0e",
+    "tests/test_iter150_cloud_observation.py": "2468f0cc9634f45024277039021aaa5d8f35203041e8c54f8289928b59203f7b"
+  },
+  "python": "3.14.2 (main, Dec  5 2025, 16:49:16) [Clang 16.0.0 (clang-1600.0.26.6)]",
+  "platform": "macOS-14.4-arm64-arm-64bit-Mach-O",
+  "prelive_regression": "245 passed, 40 warnings in 15.28s",
+  "final_focused_command": [
+    "python3",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/test_iter150_cloud_observation.py"
+  ],
+  "final_focused_result": ".....................................                                    [100%]\n37 passed in 2.20s",
+  "auditor_known_bads": 9,
+  "independent_native_identity_known_bads": 3,
+  "local_relative_links_checked": 273,
+  "missing_links": [],
+  "checks": [
+    {
+      "argv": [
+        "ruff",
+        "check",
+        "experiments/iter150_cloud_observation",
+        "tests/test_iter150_cloud_observation.py"
+      ],
+      "returncode": 0,
+      "stdout": "All checks passed!\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "-S",
+        "tools/ci/verify_supply_chain.py"
+      ],
+      "returncode": 0,
+      "stdout": "SUPPLY_CHAIN_VERIFICATION_OK\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "corrected_harness_cloud_execution": "unobserved",
+  "whole_repository_hosted_CI": "not established; previous 688 findings retained"
+}

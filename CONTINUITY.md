@@ -1,5 +1,14 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
+> **Current continuation, 2026-10-11:** Iter150 bounded cloud/native observation checks are
+> supported. One VM start; exact shutdown verified; no GPU workload or driving outcome.
+> The live harness failed saving its report after successful postflight; raw failure is retained,
+> separate audit supports the observations, and the filename fix passes local tests. Corrected
+> whole-harness cloud execution is unobserved. Read the current HANDOFF and
+> [result](experiments/iter150_cloud_observation/RESULT.md). Candidate:
+> `research/iter150-cloud-observation` in the owned checkout named in HANDOFF.
+> Next: fresh canary admission and active scientific-worker integration. Iter148 stays closed.
+
 > **Mission continuation, 2026-10-11:** Iter149 local observation recovery qualification is
 > supported: 216 regression tests; 30 named cases and 1,296 bounded sequences in Python
 > 3.11/3.14; 12 rejected checker corruptions; three real subprocess cases. The independent
@@ -4615,3 +4624,20 @@ A new two-scenario, 16-slot development canary is proposed, not admitted or run.
 Iter148 slot was retried or replaced. Historical mission state, evidence and master remain
 unchanged. No cloud access or new scientific result occurred. Root WIP was preserved; work
 is in research/iter149-observation-recovery and its owned checkout recorded in HANDOFF.
+
+
+## Iter150 cloud/native observation qualification — 2026-10-11
+
+Prospective protocol d850d2a; live source cb3b7e8; raw-before-audit commit 7528899.
+One fresh VM start qualified historical native reads over real IAP and CPU-only fault fixtures.
+Temporary loss recovered, partial stayed partial, permanent loss stayed bounded, disconnected
+child expiry preserved raw, duplicate initialization failed and exact VM/start TERMINATED was
+verified. Full envelope 167.878 s, conservative compute $0.140 within $0.75. No driving worker
+initialized and no scientific outcome changed. The live harness's final report filename collision
+remains failed; separate audit verifies preceding evidence and 154 committed raw files unchanged.
+The path fix is locally tested; no corrected whole-harness cloud run is claimed. Pre-live
+regression 245 passed/40 warnings; final adapter 37 passed; nine auditor corruptions rejected.
+See experiments/iter150_cloud_observation/RESULT.md and DECISION.md. Fresh 16-slot canary
+admission and active-worker integration are next, with no human ceremony pending. Preserve
+closed Iter148 paths and original missingness. Pinned AGENTS, MISSION_STATE, accepted master and
+root WIP remain unchanged. Historical hosted lint findings remain open.

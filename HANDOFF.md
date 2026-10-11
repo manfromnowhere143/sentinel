@@ -1,32 +1,44 @@
 # Sentinel — next-session handoff
 
-Updated 11 October 2026. **Start here: Iter149 local control qualification is complete.**
-Read [Iter149 result](experiments/iter149_observation_recovery/RESULT.md),
-[assessment](experiments/iter149_observation_recovery/ASSESSMENT.md) and
-[next study proposal](experiments/iter149_observation_recovery/NEXT_STUDY_PROPOSAL.md).
-216 regression tests pass; 30 named cases, 1,296 bounded fault sequences in each of Python
-3.11/3.14, 12 checker corruptions and three actual local subprocess cases support the local
-scope. The cloud/IAP adapter is **not qualified**; the live coordinator repair is incomplete.
-No provider was accessed and no scientific run started. The next task is actual large-artifact
-and cloud observation/ownership-checked shutdown adapter qualification in a fresh non-scientific
-envelope, followed by prospective canary admission. No further human ceremony is required.
+Updated 11 October 2026. **Iter150 bounded cloud observation qualification is complete in its
+registered scope.** Read [result](experiments/iter150_cloud_observation/RESULT.md),
+[state](experiments/iter150_cloud_observation/STATE.json) and
+[continuation](experiments/iter150_cloud_observation/DECISION.md).
+One real VM start qualified historical native evidence reads over IAP, constructed observation
+loss, completion during disconnection, independent child expiry and duplicate initialization
+rejection. The exact owned start is verified TERMINATED; no driving job or GPU workload ran.
 
-Current candidate: `research/iter149-observation-recovery`, owned same-repository checkout
+The live harness returned **failed** after successful postflight because command metadata and
+the final report shared a filename. Raw failure bytes remain committed. Separate audit supports
+the observed behaviors; the filename fix passes local regression. Corrected whole-harness cloud
+execution is unobserved. Do not flatten these different statuses into a single green result.
+
+Pre-live regression: 245 passed, 40 warnings. Final adapter checks: 37 passed; separate audit
+replayed five traces and rejected nine corruptions. Conservative compute estimate $0.140 within
+$0.75. The next task is fresh 16-slot canary admission and active-worker observation/launch
+integration. The canary is proposed, unrun and not yet admitted; no human ceremony is required.
+
+Current candidate: `research/iter150-cloud-observation`, owned same-repository checkout
 `/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011`.
 The root dirty checkout is preserved. Never treat it as the active candidate by accident.
 Read this checkout's AGENTS and HANDOFF and verify its common Git directory points to Sentinel.
-Iter149 source is frozen at `34f494e`. The canary is a proposed new 16-slot development study,
-not an authorized restart of Iter148 or a replacement for its missing slots.
+Iter150 live source is frozen at `cb3b7e8`; live raw was committed at `7528899` before audit.
+The [Iter149 assessment](experiments/iter149_observation_recovery/ASSESSMENT.md) and
+[canary proposal](experiments/iter149_observation_recovery/NEXT_STUDY_PROPOSAL.md) remain the
+scientific direction. This is a new study, not a restart or missing-slot replacement for Iter148.
 
-The sections below retain the full Iter148 recovery contract and evidence. Their local
-qualification requirement is now addressed by Iter149; their cloud execution requirements
-are not. The old exact next task is historical context for the registered repair.
+**Iter148 remains closed and inconclusive:** 4 admitted / 1 incomplete / 107 uninitialized.
+The historical recovery contract below is retained. Iter149–150 address local and bounded
+cloud qualification; a live scientific coordinator still needs its own integration checks.
+Verify current provider state before any future provider action.
 
-**Iter148 retained position:** Iter148 is closed and inconclusive. The README,
-architecture and diagram review is complete. The next engineering task is to qualify recovery
-from unavailable progress observations before proposing another live scientific comparison.
-No driving job is running under this session's ownership; both owned VM starts have retained
-termination receipts. Verify current provider state before any future provider action.
+## Exact next task
+
+Implement the fresh canary admission, ordered receipt chain and worker entrypoint without
+changing historical validators. Bind active-worker ownership, deadlines, source/assets and
+fresh provider/storage state. Qualify failure and duplicate-execution cases before freezing a
+new scientific run. Then execute fixed-order pairs, commit raw before replay, preserve missing
+outcomes and close owned resources. See the [detailed decision](experiments/iter150_cloud_observation/DECISION.md).
 
 ## Mission and standard
 
@@ -80,7 +92,7 @@ Read, in order:
    for the specific question at hand.
 
 The root remains a dirty `wip-gen17-ci-hardening` checkout. It contains unrelated preserved work.
-The current research lineage is `research/iter148-recovery-study`, descended from master without
+The retained Iter148 research lineage is `research/iter148-recovery-study`, descended from master without
 rewriting its accepted commits. The prior editorial checkpoint is
 `cc0db9f0fd427f6d70a5bad7ff085481fcc1c264`; later handoff/publication commits follow it.
 Use an isolated Git index or an owned checkout for candidate work. Never reset, clean, stash,
@@ -135,9 +147,10 @@ query. The frozen coordinator treated observation failure as a stop condition. A
 found the worker still running before shutdown. This is evidence of a coordinator limitation;
 it does not establish a simulator fault or a cloud-wide outage.
 
-## Exact next task and completion criteria
+## Historical Iter148 recovery task and completion criteria
 
-**Next task: design and qualify bounded observation recovery.** Do not restart Iter148 or
+**Recorded after Iter148: design and qualify bounded observation recovery.** Iter149–150 now
+retain the local and bounded cloud evidence; follow the current next task above. Do not restart Iter148 or
 begin a new scientific run merely because this handoff exists.
 
 1. Read the retained failure and supervisor response:
@@ -183,8 +196,10 @@ zone `us-west1-a`, one L4. Retained observation at closure:
 |---|---|---|---|
 | Main study attempt | 2026-10-10T22:05:46.919-07:00 | 2026-10-10T22:29:54.495-07:00 | TERMINATED |
 | Evidence recovery only | 2026-10-10T22:31:47.574-07:00 | 2026-10-10T22:38:08.936-07:00 | TERMINATED |
+| Iter150 CPU-only qualification | 2026-10-10T23:56:43.367-07:00 | 2026-10-10T23:59:17.693-07:00 | TERMINATED |
 
-All local supervisors/watchdogs exited. The second envelope restarted no driving worker.
+All local supervisors/watchdogs exited. The second and third envelopes restarted no driving worker.
+Iter150 retained $0.140 conservative compute in its separate $0.75 envelope; see its result above.
 Postflight checked 6,101 bound/original files and 20 actor aliases unchanged.
 The combined conservative compute estimate was $1.659 against the original $9 cap; this is
 not an invoice and excludes persistent storage and taxes. See
