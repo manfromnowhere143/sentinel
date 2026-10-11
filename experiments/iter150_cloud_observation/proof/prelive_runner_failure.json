@@ -1,0 +1,7 @@
+{
+  "error": "ContractError: asset_path",
+  "cause": "Ad-hoc local report caller supplied relative path to the existing absolute-path native checker",
+  "correction": "Use resolved absolute evidence paths as in the passing tests and cloud qualifier",
+  "source_gates_changed": false,
+  "cloud_started": false
+}

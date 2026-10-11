@@ -1,0 +1,65 @@
+{
+  "scope": "historical_native_evidence_adapter",
+  "rows": [
+    {
+      "pair": 0,
+      "state": "worker_complete",
+      "independent_check": {
+        "status": "supported",
+        "files": 16,
+        "bytes": 10194944,
+        "scientific_admission": false
+      },
+      "binding": {
+        "vm_id": "fixture-vm",
+        "vm_start": "fixture-start",
+        "source_sha256": "dca2b7f7836304a21d7cfcd5f3a0fe78e0d2a89f7333879f48484dcd79540196",
+        "plan_sha256": "0d9c7b3abf0c2d2f26ec38079e8eb6700bae352aa59a01f5954e8d0d751d705d",
+        "pair": 0,
+        "initialization_sha256": "300beb4f5333decc1d493823aea1c1ebde4311b6964f55acd6d518b98ac6bfa9",
+        "host_boot": "fixture-boot",
+        "host_deadline_id": "fixture-deadline"
+      },
+      "manifest_sha256": "dda82eadd5b3ac1bc95c38b0c6d755d234d156c8f64aadb7ce7b879c2fb9cd20"
+    },
+    {
+      "pair": 1,
+      "state": "worker_complete",
+      "independent_check": {
+        "status": "supported",
+        "files": 16,
+        "bytes": 10194998,
+        "scientific_admission": false
+      },
+      "binding": {
+        "vm_id": "fixture-vm",
+        "vm_start": "fixture-start",
+        "source_sha256": "dca2b7f7836304a21d7cfcd5f3a0fe78e0d2a89f7333879f48484dcd79540196",
+        "plan_sha256": "0d9c7b3abf0c2d2f26ec38079e8eb6700bae352aa59a01f5954e8d0d751d705d",
+        "pair": 1,
+        "initialization_sha256": "b4497fe7ad48fe205d1baf657510e5f53b9cb076ac9fed3ddfc663ee00de53e3",
+        "host_boot": "fixture-boot",
+        "host_deadline_id": "fixture-deadline"
+      },
+      "manifest_sha256": "34143a30ce84cf49a1f71752e3319eaeea651227ab69230647f6b18355d47784"
+    },
+    {
+      "pair": 2,
+      "state": "partial_evidence",
+      "independent_check": null,
+      "binding": {
+        "vm_id": "fixture-vm",
+        "vm_start": "fixture-start",
+        "source_sha256": "dca2b7f7836304a21d7cfcd5f3a0fe78e0d2a89f7333879f48484dcd79540196",
+        "plan_sha256": "0d9c7b3abf0c2d2f26ec38079e8eb6700bae352aa59a01f5954e8d0d751d705d",
+        "pair": 2,
+        "initialization_sha256": "99c372cb66e5ba702be2eebac01081719fc0bf3e4d5575c93fef5824a0181d50",
+        "host_boot": "fixture-boot",
+        "host_deadline_id": "fixture-deadline"
+      },
+      "manifest_sha256": null
+    }
+  ],
+  "new_driving_outcomes": 0,
+  "python": "3.14.2 (main, Dec  5 2025, 16:49:16) [Clang 16.0.0 (clang-1600.0.26.6)]"
+}

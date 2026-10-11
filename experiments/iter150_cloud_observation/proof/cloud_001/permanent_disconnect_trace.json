@@ -1,0 +1,81 @@
+{
+  "binding": {
+    "host_boot": "4ea7771e-7526-4dd4-b053-bd8cb5bb2e97",
+    "host_deadline_id": "sentinel-iter150-25bfc7ac34c1.timer",
+    "initialization_sha256": "300beb4f5333decc1d493823aea1c1ebde4311b6964f55acd6d518b98ac6bfa9",
+    "pair": 0,
+    "plan_sha256": "0d9c7b3abf0c2d2f26ec38079e8eb6700bae352aa59a01f5954e8d0d751d705d",
+    "source_sha256": "dca2b7f7836304a21d7cfcd5f3a0fe78e0d2a89f7333879f48484dcd79540196",
+    "vm_id": "3834622546652649531",
+    "vm_start": "2026-10-10T23:56:43.367-07:00"
+  },
+  "events": [
+    {
+      "attempt": 0,
+      "blobs_hex": {},
+      "end": 190918.432348875,
+      "error": "OSError",
+      "raw_hex": "",
+      "reason": "transport_or_timeout",
+      "request": "permanent-disconnect/0",
+      "start": 190918.432340625,
+      "state": "observation_unavailable",
+      "timeout": 2
+    },
+    {
+      "attempt": 1,
+      "blobs_hex": {},
+      "end": 190919.433047041,
+      "error": "OSError",
+      "raw_hex": "",
+      "reason": "transport_or_timeout",
+      "request": "permanent-disconnect/1",
+      "start": 190919.433033,
+      "state": "observation_unavailable",
+      "timeout": 2
+    },
+    {
+      "attempt": 2,
+      "blobs_hex": {},
+      "end": 190921.437934208,
+      "error": "OSError",
+      "raw_hex": "",
+      "reason": "transport_or_timeout",
+      "request": "permanent-disconnect/2",
+      "start": 190921.437922041,
+      "state": "observation_unavailable",
+      "timeout": 2
+    },
+    {
+      "attempt": 3,
+      "blobs_hex": {},
+      "end": 190925.443007708,
+      "error": "OSError",
+      "raw_hex": "",
+      "reason": "transport_or_timeout",
+      "request": "permanent-disconnect/3",
+      "start": 190925.442988666,
+      "state": "observation_unavailable",
+      "timeout": 2
+    }
+  ],
+  "finished": 190925.4430115,
+  "limits": {
+    "backoff": [
+      1,
+      2,
+      4
+    ],
+    "deadline": 190938.432296708,
+    "max_reads": 4,
+    "max_unavailable": 4,
+    "poll_seconds": 1,
+    "read_timeout": 2
+  },
+  "next_action": "reconcile_owned_closure",
+  "reason": "unavailable_limit",
+  "scientific_admission": false,
+  "session": "permanent-disconnect",
+  "started": 190918.432335375,
+  "worker_complete": false
+}

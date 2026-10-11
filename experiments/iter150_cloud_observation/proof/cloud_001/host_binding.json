@@ -1,0 +1,8 @@
+{
+  "boot": "4ea7771e-7526-4dd4-b053-bd8cb5bb2e97",
+  "free_bytes": 23352078336,
+  "root": "/var/tmp/sentinel-iter150-25bfc7ac34c1",
+  "source_files": 12,
+  "timer": "NextElapseUSecMonotonic=10min 36.812874s\nActiveState=active\n",
+  "timer_unit": "sentinel-iter150-25bfc7ac34c1.timer"
+}

@@ -1,0 +1,11 @@
+payload={'root': '/var/tmp/sentinel-iter150-25bfc7ac34c1'}
+import sys,subprocess,os,json
+from pathlib import Path
+r=Path(payload['root']);env=dict(os.environ,PYTHONPATH=str(r/'packet'))
+rows=[]
+for name,seconds,budget in [('complete',0.25,5),('disconnected',20,5)]:
+ argv=[sys.executable,'-m','experiments.iter149_observation_recovery.local_host','host',str(r/name),str(seconds),'--budget',str(budget)]
+ with (r/(name+'.log')).open('xb') as log:p=subprocess.Popen(argv,env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
+ rows.append({'name':name,'pid':p.pid,'argv':argv})
+(r/'fixture_launches.json').write_text(json.dumps(rows))
+print(json.dumps(rows))

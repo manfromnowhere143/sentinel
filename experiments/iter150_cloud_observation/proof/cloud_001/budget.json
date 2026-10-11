@@ -1,0 +1,6 @@
+{
+  "conservative_compute_usd": 0.75,
+  "deadline_monotonic": 191719.411154416,
+  "max_seconds": 900,
+  "started_monotonic": 190819.411154416
+}

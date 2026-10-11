@@ -1,0 +1,17 @@
+{
+  "commit": "cb3b7e82072db12cd7752f0984cb0da65a3085bc",
+  "files": {
+    "experiments/iter149_observation_recovery/__init__.py": "9df7507cae59f972c13c546cb31d9d90e5999a10e746ac298bfbbcebb4613cb3",
+    "experiments/iter149_observation_recovery/local_host.py": "ee3dea86ce0ed6ceafd6769fd679f9fd7cbc398537ef32870f2a5e72f48261f5",
+    "experiments/iter149_observation_recovery/qualify.py": "17738a2494c85398667511203941ba2d376f3eb5cb2511945a3aa7d7c5abca47",
+    "experiments/iter149_observation_recovery/qualify_local.py": "9accf06071ec38132d28cde31f85b6162552c7341f7d701fa7ee0e43dc8c1b13",
+    "experiments/iter149_observation_recovery/recovery.py": "bfed87d4b3f6a63f40c75a3bf6bd5ca95b06b5802abe09e09d37b3cad4e478ba",
+    "experiments/iter149_observation_recovery/replay.py": "ec0a3d1a84b86410793a4c631f2ef4aa394e7df9357749a3081be80527e75404",
+    "experiments/iter150_cloud_observation/__init__.py": "8f27b9a6ec33e3e06421994f4e8e7889451ab97639097d7e9463fe745bb274ef",
+    "experiments/iter150_cloud_observation/check.py": "826fbd2eb4550a3b79ad4486b3e4cdbec3754895f5201e9c88aed4597ad9c515",
+    "experiments/iter150_cloud_observation/cloud.py": "1fcc3ab50e7af1d72f6186ab9cc9ec4dc88cd1582588ba1a4e46dd90dcc85ef1",
+    "experiments/iter150_cloud_observation/native.py": "5b49eafc9631e5f5343efdad3a17f3634e4400188b97bd4b3c2954ae2c41b80b",
+    "experiments/iter150_cloud_observation/qualify_cloud.py": "c3a9dd34abc02ab4329b04af3c4e44adf8f41526aadafa096a808e2094593206",
+    "experiments/iter150_cloud_observation/remote.py": "225add7f3f831882be4caad8671ab469682b5a345fecb63bf2a06055b4cc6e0e"
+  }
+}

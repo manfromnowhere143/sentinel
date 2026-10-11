@@ -1,0 +1,70 @@
+{
+  "cases": [
+    {
+      "case": "native_0",
+      "observations": 2,
+      "reason": "worker_complete"
+    },
+    {
+      "case": "native_1",
+      "observations": 1,
+      "reason": "worker_complete"
+    },
+    {
+      "case": "native_2",
+      "observations": 1,
+      "reason": "read_limit"
+    },
+    {
+      "case": "complete",
+      "closure": {
+        "binding": {
+          "host_boot": "33da64cddb1b4c179c8f345b63e5ad74",
+          "host_deadline_id": "33da64cddb1b4c179c8f345b63e5ad74-deadline",
+          "initialization_sha256": "a21618a6f8a47fccb9187abd725a0825a6bf0999f6d24b250a97a4df619c927d",
+          "pair": 0,
+          "plan_sha256": "efa568373b775ebc45e777c2a2d531303729ae15b26ec8a408790af911aee08b",
+          "source_sha256": "ee3dea86ce0ed6ceafd6769fd679f9fd7cbc398537ef32870f2a5e72f48261f5",
+          "vm_id": "local-fixture",
+          "vm_start": "33da64cddb1b4c179c8f345b63e5ad74"
+        },
+        "deadline_fired": false,
+        "elapsed": 0.3800582899999938,
+        "partial_raw_preserved": true,
+        "returncode": 0,
+        "status": "terminated"
+      },
+      "duplicate_returncode": 1
+    },
+    {
+      "case": "disconnected",
+      "closure": {
+        "binding": {
+          "host_boot": "3b10e909b2324e56a44b87d6d8528c2d",
+          "host_deadline_id": "3b10e909b2324e56a44b87d6d8528c2d-deadline",
+          "initialization_sha256": "e0312c219510d1275fcc00b28aec1c1a87730c9a52901dbc4e91672031fff6b3",
+          "pair": 0,
+          "plan_sha256": "7b7d2c380b4e32a52dee6763f1ab6737658b2f118e93ed9c7f209742f23a775d",
+          "source_sha256": "ee3dea86ce0ed6ceafd6769fd679f9fd7cbc398537ef32870f2a5e72f48261f5",
+          "vm_id": "local-fixture",
+          "vm_start": "3b10e909b2324e56a44b87d6d8528c2d"
+        },
+        "deadline_fired": true,
+        "elapsed": 5.006028892999993,
+        "partial_raw_preserved": true,
+        "returncode": -9,
+        "status": "terminated"
+      },
+      "duplicate_returncode": 1
+    }
+  ],
+  "conservative_compute_usd": 0.1398982837849811,
+  "elapsed_seconds": 167.8779405419773,
+  "error": "FileExistsError(17, 'File exists')",
+  "scientific_outcomes": 0,
+  "start_command_returncode": 0,
+  "status": "failed",
+  "termination_verified": true,
+  "traceback": "Traceback (most recent call last):\n  File \"/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter150_cloud_observation/qualify_cloud.py\", line 339, in qualify\n    write(output / \"postflight.json\", postflight)\n    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter150_cloud_observation/cloud.py\", line 18, in write\n    with Path(path).open(\"x\") as stream:\n         ~~~~~~~~~~~~~~~^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.2_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py\", line 771, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileExistsError: [Errno 17] File exists: '/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter150_cloud_observation/proof/cloud_001/postflight.json'\n",
+  "watchdog_exit": 0
+}

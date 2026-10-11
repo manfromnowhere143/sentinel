@@ -1,0 +1,13 @@
+payload={'root': '/var/tmp/sentinel-iter150-25bfc7ac34c1'}
+import sys,json,hashlib,subprocess,os
+from pathlib import Path
+r=Path(payload['root']);env=dict(os.environ,PYTHONPATH=str(r/'packet'));rows={}
+for name in ['complete','disconnected']:
+ d=r/name;before={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in d.iterdir() if p.is_file()}
+ closure=json.loads((d/'closure.json').read_text());assert closure['status']=='terminated'
+ argv=[sys.executable,'-m','experiments.iter149_observation_recovery.local_host','host',str(d),'1','--budget','2']
+ q=subprocess.run(argv,env=env,capture_output=True,timeout=5);assert q.returncode!=0
+ after={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in d.iterdir() if p.is_file()};assert before==after
+ rows[name]={'closure':closure,'duplicate_returncode':q.returncode,'duplicate_stderr':q.stderr.decode(),'files':{p.name:p.read_bytes().hex() for p in d.iterdir() if p.is_file()}}
+ assert sum(p.stat().st_size for p in d.iterdir() if p.is_file())<1024**2
+print(json.dumps(rows))

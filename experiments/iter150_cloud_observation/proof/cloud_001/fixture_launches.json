@@ -1,0 +1,30 @@
+[
+  {
+    "argv": [
+      "/usr/bin/python3",
+      "-m",
+      "experiments.iter149_observation_recovery.local_host",
+      "host",
+      "/var/tmp/sentinel-iter150-25bfc7ac34c1/complete",
+      "0.25",
+      "--budget",
+      "5"
+    ],
+    "name": "complete",
+    "pid": 1847
+  },
+  {
+    "argv": [
+      "/usr/bin/python3",
+      "-m",
+      "experiments.iter149_observation_recovery.local_host",
+      "host",
+      "/var/tmp/sentinel-iter150-25bfc7ac34c1/disconnected",
+      "20",
+      "--budget",
+      "5"
+    ],
+    "name": "disconnected",
+    "pid": 1848
+  }
+]

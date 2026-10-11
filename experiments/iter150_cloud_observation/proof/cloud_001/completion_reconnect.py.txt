@@ -1,0 +1,6 @@
+payload={'root': '/var/tmp/sentinel-iter150-25bfc7ac34c1', 'request': 'reconnect-after-completion/0'}
+import sys,json
+sys.path.insert(0,payload['root']+'/packet')
+from experiments.iter149_observation_recovery.local_host import observe
+raw,blobs=observe(payload['root']+'/complete',payload['request'],5)
+print(json.dumps({'raw_hex':raw.hex(),'blobs_hex':{k:v.hex() for k,v in blobs.items()}}))
