@@ -1,0 +1,17 @@
+{
+  "command": [
+    "python3",
+    "-m",
+    "experiments.iter153_action_feasibility.check",
+    "--root",
+    "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011",
+    "--raw",
+    "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter153_action_feasibility/proof/search_000",
+    "--commit",
+    "13ee0925d96ceea9a8b12886b69680b245e8962d",
+    "--output",
+    "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter153_action_feasibility/proof/analysis.json"
+  ],
+  "returncode": 0,
+  "elapsed_seconds": 8.628436208993662
+}
