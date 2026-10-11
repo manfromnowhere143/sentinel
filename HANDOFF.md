@@ -1,9 +1,15 @@
 # Sentinel — next-session handoff
 
-Updated 11 October 2026. **Iter154 is qualified; its one full-scene execution block is next.**
+Updated 11 October 2026. **Iter154 capacity retry is qualified; no scientific replica initialized.**
 Read [protocol](experiments/iter154_full_scene_maneuver/HYPOTHESIS.md), [state](experiments/iter154_full_scene_maneuver/STATE.json),
 [plan](experiments/iter154_full_scene_maneuver/STUDY_PLAN.json) and [qualification](experiments/iter154_full_scene_maneuver/QUALIFICATION.json).
-Frozen source: `ad063849c502d21967d3bc6b8590057f797e1a13`; protocol `b221b3c`.
+Amended frozen source: `e61a4950a48589554f5b1f882671e011189fc546`; protocol `b221b3c`.
+Read [amendment001](experiments/iter154_full_scene_maneuver/PRE_EVIDENCE_AMENDMENT_001.md).
+The first start was refused for L4 capacity; explicit no-start closure is retained.
+One retry is allowed after295 startup/control checks, within3576 remaining seconds.
+Exact command: `python3 -u -m experiments.iter154_full_scene_maneuver.execute --block 0
+--attempt 1 --source e61a4950a48589554f5b1f882671e011189fc546`.
+Observe `proof/block_000_attempt_001`; do not duplicate the initialized retry.
 Two fresh replicas of Iter153's exact selected 65-action maneuver, scene-0013-medium-00,
 seed144. Privileged predetermined controls bypass UniAD and monitor inference; actual native
 rendering, actors and foreground/background collision remain required. Road compliance and

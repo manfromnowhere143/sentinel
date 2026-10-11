@@ -1,0 +1,9 @@
+{
+  "status": "supported",
+  "source_commit": "e61a4950a48589554f5b1f882671e011189fc546",
+  "qualification_sha256": "b12640dae66fe2bef1cef9ef1b4db50059e24685e55fb486daa3e2dff171650d",
+  "files": 213,
+  "packet_bytes": 3583691,
+  "remaining_seconds": 3576,
+  "provider_access_for_retry": false
+}
