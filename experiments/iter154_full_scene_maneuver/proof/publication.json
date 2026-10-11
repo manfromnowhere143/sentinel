@@ -1,0 +1,55 @@
+{
+  "observed_utc": "2026-10-11T14:47:21.104312+00:00",
+  "branch": "research/iter154-full-scene-maneuver",
+  "published_commit": "528891bd624b96b658d179bd64198700f598bb99",
+  "remote_head_matches": true,
+  "master_unchanged": true,
+  "served_files": [
+    {
+      "path": "HANDOFF.md",
+      "sha256": "89b724b1e3b113cad962cbe78831efb0c80b0e19e46a87e15b30171759a3567e",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/528891bd624b96b658d179bd64198700f598bb99/HANDOFF.md"
+    },
+    {
+      "path": "README.md",
+      "sha256": "e5916ee84f47c5a75bc22e3768b8c61a5e1fb23ffe779ae2693a753f4f081154",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/528891bd624b96b658d179bd64198700f598bb99/README.md"
+    },
+    {
+      "path": "experiments/iter154_full_scene_maneuver/RESULT.md",
+      "sha256": "94cd83ce588cf4b13d3e07a1f92da29e07eb43935914e99d149af24420c2c516",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/528891bd624b96b658d179bd64198700f598bb99/experiments/iter154_full_scene_maneuver/RESULT.md"
+    },
+    {
+      "path": "experiments/iter154_full_scene_maneuver/STATE.json",
+      "sha256": "3aab10ac224638b6331076182c16c4f60ab2611dc77225f65f98d931438eabc1",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/528891bd624b96b658d179bd64198700f598bb99/experiments/iter154_full_scene_maneuver/STATE.json"
+    },
+    {
+      "path": "experiments/iter154_full_scene_maneuver/proof/analysis.json",
+      "sha256": "709c920af83375484e1519666d2bd2ffde5aed3306820eee7ef636dc09608139",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/528891bd624b96b658d179bd64198700f598bb99/experiments/iter154_full_scene_maneuver/proof/analysis.json"
+    },
+    {
+      "path": "experiments/iter154_full_scene_maneuver/proof/resource_closure.json",
+      "sha256": "b9d50bdc63e4288d7534985ac90566ffad098c0be4e89b62c2ef784205267dd6",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/528891bd624b96b658d179bd64198700f598bb99/experiments/iter154_full_scene_maneuver/proof/resource_closure.json"
+    }
+  ],
+  "hosted_runs_observed": [
+    {
+      "conclusion": "",
+      "databaseId": 38148666565,
+      "headSha": "528891bd624b96b658d179bd64198700f598bb99",
+      "status": "in_progress",
+      "url": "https://github.com/manfromnowhere143/sentinel/actions/runs/38148666565"
+    }
+  ],
+  "CI_scope": "Authored checks pass; whole-repository Ruff832 findings and historical docs gate remain. Hosted run status is observed, not presumed."
+}

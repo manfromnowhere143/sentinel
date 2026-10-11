@@ -1,0 +1,9 @@
+{
+  "observed_utc": "2026-10-11T14:50:14.576587+00:00",
+  "status": "supported",
+  "frozen_inputs_unchanged": 209,
+  "current_local_links_anchors_checked": 314,
+  "figure_assets_match_visual_review": true,
+  "whole_repository_CI": "failed_at_Ruff_832_per_job; later_tests_skipped",
+  "scope": "Post-publication receipt/documentation checks; no new scientific run and no full-CI pass."
+}

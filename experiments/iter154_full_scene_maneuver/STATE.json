@@ -22,7 +22,10 @@
   "live_recovery": false,
   "road_compliance": null,
   "information_benefit": null,
-  "whole_repository_hosted_CI": "unobserved_for_current_scientific_closure; prior repository lint failure remains",
+  "whole_repository_hosted_CI": "failed_at_whole_repository_ruff; 832 findings per Python 3.10/3.11 job; later tests skipped",
   "master_integration": "not_performed",
-  "next": "Prospective bounded background-collision witness extraction and independent replay, before another maneuver search."
+  "next": "Prospective bounded background-collision witness extraction and independent replay, before another maneuver search.",
+  "hosted_run_url": "https://github.com/manfromnowhere143/sentinel/actions/runs/38148666565",
+  "scientific_closure_commit": "528891bd624b96b658d179bd64198700f598bb99",
+  "research_branch_publication": "verified_six_GitHub_served_files_at_scientific_closure"
 }

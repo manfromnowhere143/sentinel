@@ -38,9 +38,15 @@ Canonical root remains dirty `wip-gen17-ci-hardening`; preserve its index, READM
 pinned AGENTS/MISSION_STATE and unrelated work. Master remains `8c118b74c699bf0f139f9bd659192bad06b895f8`.
 Daniel's continuing mission instruction supplies operational authority; no human ceremony is pending.
 New source lint and supply-chain checks pass; whole-repository Ruff has 832 existing findings.
-The legacy docs guard remains red at the historical mission-state/dirty tooling probes; scoped
-209 input bindings, 309 links/anchors and all five unchanged diagrams pass. Hosted CI for the
-scientific closure is not yet observed. Publication receipts follow closure.
+Scoped 209 input bindings, 309 pre-publication links/anchors and all five unchanged diagrams pass.
+The clean-checkout docs guard remains red at the historical Iter134 mission snapshot and
+generation-sixteen publication-lineage constraint. No historical contract was rewritten.
+Scientific closure `528891bd624b96b658d179bd64198700f598bb99` is published; six GitHub-served
+files matched committed bytes. [Publication receipt](experiments/iter154_full_scene_maneuver/proof/publication.json).
+Hosted run 38148666565 failed: Python 3.10/3.11 passed supply-chain and locked-install verification,
+then failed whole-repository Ruff with 832 findings each and skipped later tests.
+[Hosted outcome](experiments/iter154_full_scene_maneuver/proof/hosted_ci_outcome.json).
+Later receipt/documentation commits are distinct from this observed CI scope.
 
 ## Historical Iter153 closure
 

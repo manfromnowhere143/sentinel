@@ -95,3 +95,18 @@ and confirmed Iter145–153 unchanged. These do not constitute a full CI pass or
 The exact maneuver failed sooner than the historical nominal and monitor trajectories, through
 a different collision channel. Preserve that adverse result alongside the earlier model success.
 The next task is measurement of background occupancy, before another search or information model.
+
+## Research publication and hosted validation
+
+Scientific closure `528891bd624b96b658d179bd64198700f598bb99` is published on
+`research/iter154-full-scene-maneuver`; six GitHub-served files matched committed bytes.
+Accepted master is unchanged. [Readback receipt](proof/publication.json).
+[Hosted run 38148666565](https://github.com/manfromnowhere143/sentinel/actions/runs/38148666565)
+completed with failure: Python 3.10 and 3.11 passed supply-chain and locked-install verification,
+failed whole-repository Ruff with 832 findings each, and skipped later tests. The
+[outcome and retained failure log](proof/hosted_ci_outcome.json) preserve that scope.
+
+The clean-checkout docs guard also remains red at the historical Iter134 mission snapshot and
+the generation-sixteen publication-lineage constraint. [Exact output](proof/closure_docs_clean.json).
+No historical contract was rewritten to admit this research branch. Later receipt/documentation
+commits do not change the scientific result or imply a hosted CI pass.

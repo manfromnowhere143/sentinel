@@ -4812,3 +4812,15 @@ Next: prospective bounded background witness extraction and separate scalar repl
 model calibration only if the measurement contract holds. Preserve source threshold and failures.
 Read current HANDOFF plus Iter154 RESULT, STATE, DECISION and resource closure. Publication and
 hosted CI for this scientific closure are recorded separately. Accepted master remains unchanged.
+
+
+Iter154 research publication verified scientific closure 528891bd624b96b658d179bd64198700f598bb99:
+six GitHub-served files match committed bytes; accepted master remains unchanged. Hosted run
+38148666565 completed with failure: both Python 3.10/3.11 jobs passed supply-chain and locked-install
+verification, failed whole-repository Ruff with 832 findings each, and skipped later tests. The
+clean-checkout docs guard remains red at the historical Iter134 snapshot and generation-sixteen
+publication lineage. Scoped source/link/diagram checks pass; no historical contract was rewritten.
+Publication, hosted outcome/failure log and root-preservation receipts are in Iter154 proof.
+Later receipt/documentation commits are distinct from that observed CI scope. The adverse
+scientific result and next background-witness task remain unchanged. No new compute was started
+for publication and no owned job remains.

@@ -1,0 +1,10 @@
+{
+  "observed_utc": "2026-10-11T14:49:53.718887+00:00",
+  "status": "supported",
+  "root_index_unchanged": true,
+  "other_dirty_or_authority_files_preserved": 23,
+  "mirrored_files": 310,
+  "root_handoff_matches": true,
+  "root_continuity_before_Iter154_bytes_preserved": true,
+  "scope": "Final scientific and publication evidence mirrored, before this receipt. Root README/architecture and pinned authority untouched. No new provider work."
+}
