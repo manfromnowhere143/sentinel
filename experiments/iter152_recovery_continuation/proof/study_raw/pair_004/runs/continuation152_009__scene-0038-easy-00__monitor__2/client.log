@@ -1,0 +1,595 @@
+[iter45-shim] cuSOLVER-backed linalg ops routed via CPU (torch 1.9.1+cu111 )
+SENTINEL_I48_UNION_PATCH_LOADED enabled=1 params={"cpa_margin": 1.5, "dt": 0.5, "max_gap": 30.0, "min_closing": 3.0, "min_score": 0.3, "release_k": 4, "ttc_thresh": 2.5}
+projects.mmdet3d_plugin
+load checkpoint from local path: ckpts/uniad_base_e2e.pth
+2026-10-11 12:47:40,402 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.0.conv2 is upgraded to version 2.
+2026-10-11 12:47:40,407 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.1.conv2 is upgraded to version 2.
+2026-10-11 12:47:40,411 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.2.conv2 is upgraded to version 2.
+2026-10-11 12:47:40,415 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.3.conv2 is upgraded to version 2.
+2026-10-11 12:47:40,419 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.4.conv2 is upgraded to version 2.
+2026-10-11 12:47:40,422 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.5.conv2 is upgraded to version 2.
+2026-10-11 12:47:40,426 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.6.conv2 is upgraded to version 2.
+2026-10-11 12:47:40,430 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.7.conv2 is upgraded to version 2.
+2026-10-11 12:47:40,434 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.8.conv2 is upgraded to version 2.
+2026-10-11 12:47:40,438 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.9.conv2 is upgraded to version 2.
+2026-10-11 12:47:40,442 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.10.conv2 is upgraded to version 2.
+2026-10-11 12:47:40,445 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.11.conv2 is upgraded to version 2.
+2026-10-11 12:47:40,449 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.12.conv2 is upgraded to version 2.
+2026-10-11 12:47:40,453 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.13.conv2 is upgraded to version 2.
+2026-10-11 12:47:40,457 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.14.conv2 is upgraded to version 2.
+2026-10-11 12:47:40,461 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.15.conv2 is upgraded to version 2.
+2026-10-11 12:47:40,464 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.16.conv2 is upgraded to version 2.
+2026-10-11 12:47:40,468 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.17.conv2 is upgraded to version 2.
+2026-10-11 12:47:40,472 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.18.conv2 is upgraded to version 2.
+2026-10-11 12:47:40,476 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.19.conv2 is upgraded to version 2.
+2026-10-11 12:47:40,480 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.20.conv2 is upgraded to version 2.
+2026-10-11 12:47:40,483 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.21.conv2 is upgraded to version 2.
+2026-10-11 12:47:40,487 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.22.conv2 is upgraded to version 2.
+2026-10-11 12:47:40,491 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.0.conv2 is upgraded to version 2.
+2026-10-11 12:47:40,497 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.1.conv2 is upgraded to version 2.
+2026-10-11 12:47:40,502 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.2.conv2 is upgraded to version 2.
+Ready for recieving
+received
+SENTINEL_I48_DECISION frame=0 fired=0 brake=0 release=0 clear=0 min_cpa=17.2871 min_ttc=1000000000.0000 objs=2
+sent
+received
+SENTINEL_I48_DECISION frame=1 fired=0 brake=0 release=0 clear=0 min_cpa=14.7713 min_ttc=1000000000.0000 objs=2
+sent
+received
+SENTINEL_I48_DECISION frame=2 fired=0 brake=0 release=0 clear=0 min_cpa=11.4636 min_ttc=1000000000.0000 objs=2
+sent
+received
+SENTINEL_I48_DECISION frame=3 fired=0 brake=0 release=0 clear=0 min_cpa=14.1784 min_ttc=1000000000.0000 objs=2
+sent
+received
+SENTINEL_I48_DECISION frame=4 fired=0 brake=0 release=0 clear=0 min_cpa=13.9506 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=5 fired=0 brake=0 release=0 clear=0 min_cpa=15.0597 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=6 fired=0 brake=0 release=0 clear=0 min_cpa=16.7378 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=7 fired=0 brake=0 release=0 clear=0 min_cpa=2.7963 min_ttc=1000000000.0000 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=8 fired=0 brake=0 release=0 clear=0 min_cpa=3.0592 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=9 fired=0 brake=0 release=0 clear=0 min_cpa=3.3838 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=10 fired=0 brake=0 release=0 clear=0 min_cpa=3.4771 min_ttc=1000000000.0000 objs=6
+sent
+received
+SENTINEL_I48_DECISION frame=11 fired=0 brake=0 release=0 clear=0 min_cpa=3.6444 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=12 fired=0 brake=0 release=0 clear=0 min_cpa=8.1840 min_ttc=1000000000.0000 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=13 fired=0 brake=0 release=0 clear=0 min_cpa=3.9110 min_ttc=1000000000.0000 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=14 fired=0 brake=0 release=0 clear=0 min_cpa=3.8566 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=15 fired=0 brake=0 release=0 clear=0 min_cpa=11.3362 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=16 fired=0 brake=0 release=0 clear=0 min_cpa=3.9193 min_ttc=1000000000.0000 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=17 fired=0 brake=0 release=0 clear=0 min_cpa=7.4391 min_ttc=1000000000.0000 objs=6
+sent
+received
+SENTINEL_I48_DECISION frame=18 fired=0 brake=0 release=0 clear=0 min_cpa=3.9671 min_ttc=1000000000.0000 objs=6
+sent
+received
+SENTINEL_I48_DECISION frame=19 fired=0 brake=0 release=0 clear=0 min_cpa=7.2900 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=20 fired=0 brake=0 release=0 clear=0 min_cpa=3.8689 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=21 fired=0 brake=0 release=0 clear=0 min_cpa=6.4963 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=22 fired=0 brake=0 release=0 clear=0 min_cpa=4.0739 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=23 fired=0 brake=0 release=0 clear=0 min_cpa=5.2470 min_ttc=1000000000.0000 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=24 fired=0 brake=0 release=0 clear=0 min_cpa=5.1822 min_ttc=1000000000.0000 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=25 fired=0 brake=0 release=0 clear=0 min_cpa=5.9140 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=26 fired=0 brake=0 release=0 clear=0 min_cpa=9.8311 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=27 fired=0 brake=0 release=0 clear=0 min_cpa=5.7526 min_ttc=1000000000.0000 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=28 fired=0 brake=0 release=0 clear=0 min_cpa=6.3015 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=29 fired=1 brake=1 release=0 clear=0 min_cpa=1.1331 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=30 fired=1 brake=1 release=0 clear=0 min_cpa=1.1440 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=31 fired=0 brake=1 release=0 clear=1 min_cpa=1.8288 min_ttc=1000000000.0000 objs=3
+sent
+received
+SENTINEL_I48_DECISION frame=32 fired=1 brake=1 release=0 clear=0 min_cpa=0.7532 min_ttc=1000000000.0000 objs=2
+sent
+received
+SENTINEL_I48_DECISION frame=33 fired=0 brake=1 release=0 clear=1 min_cpa=4.9291 min_ttc=1000000000.0000 objs=2
+sent
+received
+SENTINEL_I48_DECISION frame=34 fired=0 brake=1 release=0 clear=2 min_cpa=4.1802 min_ttc=1000000000.0000 objs=3
+sent
+received
+SENTINEL_I48_DECISION frame=35 fired=1 brake=1 release=0 clear=0 min_cpa=1.3802 min_ttc=1000000000.0000 objs=1
+sent
+received
+SENTINEL_I48_DECISION frame=36 fired=0 brake=1 release=0 clear=1 min_cpa=2.3842 min_ttc=1000000000.0000 objs=2
+sent
+received
+SENTINEL_I48_DECISION frame=37 fired=0 brake=1 release=0 clear=2 min_cpa=2.3911 min_ttc=1000000000.0000 objs=3
+sent
+received
+SENTINEL_I48_DECISION frame=38 fired=0 brake=1 release=0 clear=3 min_cpa=2.7974 min_ttc=1000000000.0000 objs=3
+sent
+received
+SENTINEL_I48_DECISION frame=39 fired=0 brake=0 release=1 clear=0 min_cpa=2.7194 min_ttc=1000000000.0000 objs=3
+sent
+received
+SENTINEL_I48_DECISION frame=40 fired=0 brake=0 release=0 clear=0 min_cpa=2.6490 min_ttc=1000000000.0000 objs=3
+sent
+received
+SENTINEL_I48_DECISION frame=41 fired=0 brake=0 release=0 clear=0 min_cpa=2.0184 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=42 fired=0 brake=0 release=0 clear=0 min_cpa=2.1151 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=43 fired=1 brake=1 release=0 clear=0 min_cpa=1.0191 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=44 fired=0 brake=1 release=0 clear=1 min_cpa=2.0513 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=45 fired=1 brake=1 release=0 clear=0 min_cpa=1.1271 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=46 fired=0 brake=1 release=0 clear=1 min_cpa=6.3527 min_ttc=1000000000.0000 objs=3
+sent
+received
+SENTINEL_I48_DECISION frame=47 fired=0 brake=1 release=0 clear=2 min_cpa=4.3076 min_ttc=1000000000.0000 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=48 fired=0 brake=1 release=0 clear=3 min_cpa=3.3707 min_ttc=1000000000.0000 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=49 fired=0 brake=0 release=1 clear=0 min_cpa=10.6468 min_ttc=1000000000.0000 objs=3
+sent
+received
+SENTINEL_I48_DECISION frame=50 fired=0 brake=0 release=0 clear=0 min_cpa=6.8318 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=51 fired=0 brake=0 release=0 clear=0 min_cpa=3.8034 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=52 fired=0 brake=0 release=0 clear=0 min_cpa=6.5933 min_ttc=1000000000.0000 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=53 fired=0 brake=0 release=0 clear=0 min_cpa=6.6618 min_ttc=1000000000.0000 objs=7
+sent
+received
+SENTINEL_I48_DECISION frame=54 fired=0 brake=0 release=0 clear=0 min_cpa=3.7027 min_ttc=1000000000.0000 objs=7
+sent
+received
+SENTINEL_I48_DECISION frame=55 fired=0 brake=0 release=0 clear=0 min_cpa=9.0777 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=56 fired=0 brake=0 release=0 clear=0 min_cpa=9.1097 min_ttc=1000000000.0000 objs=8
+sent
+received
+SENTINEL_I48_DECISION frame=57 fired=0 brake=0 release=0 clear=0 min_cpa=9.6763 min_ttc=1000000000.0000 objs=8
+sent
+received
+SENTINEL_I48_DECISION frame=58 fired=0 brake=0 release=0 clear=0 min_cpa=5.0391 min_ttc=1000000000.0000 objs=8
+sent
+received
+SENTINEL_I48_DECISION frame=59 fired=0 brake=0 release=0 clear=0 min_cpa=4.1587 min_ttc=1000000000.0000 objs=8
+sent
+received
+SENTINEL_I48_DECISION frame=60 fired=0 brake=0 release=0 clear=0 min_cpa=3.8379 min_ttc=1000000000.0000 objs=10
+sent
+received
+SENTINEL_I48_DECISION frame=61 fired=1 brake=1 release=0 clear=0 min_cpa=7.6946 min_ttc=1.3055 objs=10
+sent
+received
+SENTINEL_I48_DECISION frame=62 fired=0 brake=1 release=0 clear=1 min_cpa=6.5986 min_ttc=1000000000.0000 objs=8
+sent
+received
+SENTINEL_I48_DECISION frame=63 fired=0 brake=1 release=0 clear=2 min_cpa=10.7788 min_ttc=1000000000.0000 objs=6
+sent
+received
+SENTINEL_I48_DECISION frame=64 fired=0 brake=1 release=0 clear=3 min_cpa=6.8435 min_ttc=1000000000.0000 objs=7
+sent
+received
+SENTINEL_I48_DECISION frame=65 fired=0 brake=0 release=1 clear=0 min_cpa=5.7038 min_ttc=1000000000.0000 objs=6
+sent
+received
+SENTINEL_I48_DECISION frame=66 fired=0 brake=0 release=0 clear=0 min_cpa=12.8615 min_ttc=1000000000.0000 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=67 fired=0 brake=0 release=0 clear=0 min_cpa=6.1153 min_ttc=1000000000.0000 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=68 fired=0 brake=0 release=0 clear=0 min_cpa=10.9575 min_ttc=1000000000.0000 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=69 fired=0 brake=0 release=0 clear=0 min_cpa=13.2839 min_ttc=1000000000.0000 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=70 fired=0 brake=0 release=0 clear=0 min_cpa=12.8042 min_ttc=1000000000.0000 objs=8
+sent
+received
+SENTINEL_I48_DECISION frame=71 fired=0 brake=0 release=0 clear=0 min_cpa=12.5562 min_ttc=1000000000.0000 objs=8
+sent
+received
+SENTINEL_I48_DECISION frame=72 fired=0 brake=0 release=0 clear=0 min_cpa=8.9029 min_ttc=1000000000.0000 objs=7
+sent
+received
+SENTINEL_I48_DECISION frame=73 fired=0 brake=0 release=0 clear=0 min_cpa=6.6162 min_ttc=1000000000.0000 objs=10
+sent
+received
+SENTINEL_I48_DECISION frame=74 fired=0 brake=0 release=0 clear=0 min_cpa=5.9950 min_ttc=1000000000.0000 objs=7
+sent
+received
+SENTINEL_I48_DECISION frame=75 fired=0 brake=0 release=0 clear=0 min_cpa=4.9356 min_ttc=1000000000.0000 objs=11
+sent
+received
+SENTINEL_I48_DECISION frame=76 fired=0 brake=0 release=0 clear=0 min_cpa=14.5921 min_ttc=1000000000.0000 objs=8
+sent
+received
+SENTINEL_I48_DECISION frame=77 fired=0 brake=0 release=0 clear=0 min_cpa=3.4979 min_ttc=1000000000.0000 objs=8
+sent
+received
+SENTINEL_I48_DECISION frame=78 fired=0 brake=0 release=0 clear=0 min_cpa=16.7356 min_ttc=1000000000.0000 objs=6
+sent
+received
+SENTINEL_I48_DECISION frame=79 fired=0 brake=0 release=0 clear=0 min_cpa=11.8086 min_ttc=1000000000.0000 objs=7
+sent
+received
+SENTINEL_I48_DECISION frame=80 fired=0 brake=0 release=0 clear=0 min_cpa=4.5218 min_ttc=1000000000.0000 objs=9
+sent
+received
+SENTINEL_I48_DECISION frame=81 fired=0 brake=0 release=0 clear=0 min_cpa=5.8474 min_ttc=1000000000.0000 objs=11
+sent
+received
+SENTINEL_I48_DECISION frame=82 fired=0 brake=0 release=0 clear=0 min_cpa=3.0837 min_ttc=1000000000.0000 objs=14
+sent
+received
+SENTINEL_I48_DECISION frame=83 fired=1 brake=1 release=0 clear=0 min_cpa=1.0326 min_ttc=1000000000.0000 objs=15
+sent
+received
+SENTINEL_I48_DECISION frame=84 fired=1 brake=1 release=0 clear=0 min_cpa=0.9086 min_ttc=1000000000.0000 objs=14
+sent
+received
+SENTINEL_I48_DECISION frame=85 fired=1 brake=1 release=0 clear=0 min_cpa=0.2095 min_ttc=5.2072 objs=17
+sent
+received
+SENTINEL_I48_DECISION frame=86 fired=1 brake=1 release=0 clear=0 min_cpa=1.0486 min_ttc=1000000000.0000 objs=16
+sent
+received
+SENTINEL_I48_DECISION frame=87 fired=1 brake=1 release=0 clear=0 min_cpa=0.6911 min_ttc=1000000000.0000 objs=11
+sent
+received
+SENTINEL_I48_DECISION frame=88 fired=1 brake=1 release=0 clear=0 min_cpa=1.4032 min_ttc=1000000000.0000 objs=12
+sent
+received
+SENTINEL_I48_DECISION frame=89 fired=0 brake=1 release=0 clear=1 min_cpa=1.5245 min_ttc=1000000000.0000 objs=7
+sent
+received
+SENTINEL_I48_DECISION frame=90 fired=0 brake=1 release=0 clear=2 min_cpa=5.9091 min_ttc=1000000000.0000 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=91 fired=0 brake=1 release=0 clear=3 min_cpa=4.7000 min_ttc=1000000000.0000 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=92 fired=0 brake=0 release=1 clear=0 min_cpa=4.6059 min_ttc=1000000000.0000 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=93 fired=0 brake=0 release=0 clear=0 min_cpa=4.1329 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=94 fired=0 brake=0 release=0 clear=0 min_cpa=9.5352 min_ttc=1000000000.0000 objs=3
+sent
+received
+SENTINEL_I48_DECISION frame=95 fired=0 brake=0 release=0 clear=0 min_cpa=5.1855 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=96 fired=0 brake=0 release=0 clear=0 min_cpa=9.6575 min_ttc=1000000000.0000 objs=6
+sent
+received
+SENTINEL_I48_DECISION frame=97 fired=0 brake=0 release=0 clear=0 min_cpa=4.1495 min_ttc=1000000000.0000 objs=8
+sent
+received
+SENTINEL_I48_DECISION frame=98 fired=0 brake=0 release=0 clear=0 min_cpa=8.4218 min_ttc=1000000000.0000 objs=6
+sent
+received
+SENTINEL_I48_DECISION frame=99 fired=0 brake=0 release=0 clear=0 min_cpa=3.9350 min_ttc=6.9999 objs=9
+sent
+received
+SENTINEL_I48_DECISION frame=100 fired=0 brake=0 release=0 clear=0 min_cpa=4.0590 min_ttc=5.5960 objs=6
+sent
+received
+SENTINEL_I48_DECISION frame=101 fired=0 brake=0 release=0 clear=0 min_cpa=3.9151 min_ttc=1000000000.0000 objs=6
+sent
+received
+SENTINEL_I48_DECISION frame=102 fired=0 brake=0 release=0 clear=0 min_cpa=5.0518 min_ttc=1000000000.0000 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=103 fired=0 brake=0 release=0 clear=0 min_cpa=4.9117 min_ttc=6.3112 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=104 fired=0 brake=0 release=0 clear=0 min_cpa=6.0435 min_ttc=1000000000.0000 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=105 fired=0 brake=0 release=0 clear=0 min_cpa=4.6684 min_ttc=1000000000.0000 objs=6
+sent
+received
+SENTINEL_I48_DECISION frame=106 fired=0 brake=0 release=0 clear=0 min_cpa=3.0584 min_ttc=1000000000.0000 objs=6
+sent
+received
+SENTINEL_I48_DECISION frame=107 fired=0 brake=0 release=0 clear=0 min_cpa=1.9968 min_ttc=1000000000.0000 objs=8
+sent
+received
+SENTINEL_I48_DECISION frame=108 fired=0 brake=0 release=0 clear=0 min_cpa=4.7566 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=109 fired=0 brake=0 release=0 clear=0 min_cpa=11.8014 min_ttc=1000000000.0000 objs=1
+sent
+received
+SENTINEL_I48_DECISION frame=110 fired=0 brake=0 release=0 clear=0 min_cpa=4.2006 min_ttc=1000000000.0000 objs=3
+sent
+received
+SENTINEL_I48_DECISION frame=111 fired=0 brake=0 release=0 clear=0 min_cpa=4.0346 min_ttc=1000000000.0000 objs=3
+sent
+received
+SENTINEL_I48_DECISION frame=112 fired=0 brake=0 release=0 clear=0 min_cpa=4.1232 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=113 fired=1 brake=1 release=0 clear=0 min_cpa=1.8952 min_ttc=0.9212 objs=3
+sent
+received
+SENTINEL_I48_DECISION frame=114 fired=1 brake=1 release=0 clear=0 min_cpa=4.0030 min_ttc=2.2389 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=115 fired=0 brake=1 release=0 clear=1 min_cpa=4.1939 min_ttc=1000000000.0000 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=116 fired=0 brake=1 release=0 clear=2 min_cpa=4.6811 min_ttc=1000000000.0000 objs=3
+sent
+received
+SENTINEL_I48_DECISION frame=117 fired=0 brake=1 release=0 clear=3 min_cpa=4.9483 min_ttc=1000000000.0000 objs=3
+sent
+received
+SENTINEL_I48_DECISION frame=118 fired=0 brake=0 release=1 clear=0 min_cpa=4.4512 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=119 fired=0 brake=0 release=0 clear=0 min_cpa=4.1556 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=120 fired=0 brake=0 release=0 clear=0 min_cpa=4.3190 min_ttc=1000000000.0000 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=121 fired=1 brake=1 release=0 clear=0 min_cpa=0.1443 min_ttc=1000000000.0000 objs=6
+sent
+received
+SENTINEL_I48_DECISION frame=122 fired=1 brake=1 release=0 clear=0 min_cpa=1.3722 min_ttc=1000000000.0000 objs=6
+sent
+received
+SENTINEL_I48_DECISION frame=123 fired=0 brake=1 release=0 clear=1 min_cpa=2.0465 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=124 fired=0 brake=1 release=0 clear=2 min_cpa=3.5440 min_ttc=1000000000.0000 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=125 fired=0 brake=1 release=0 clear=3 min_cpa=3.5412 min_ttc=1000000000.0000 objs=6
+sent
+received
+SENTINEL_I48_DECISION frame=126 fired=0 brake=0 release=1 clear=0 min_cpa=4.8920 min_ttc=1000000000.0000 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=127 fired=0 brake=0 release=0 clear=0 min_cpa=4.0825 min_ttc=1000000000.0000 objs=6
+sent
+received
+SENTINEL_I48_DECISION frame=128 fired=0 brake=0 release=0 clear=0 min_cpa=3.0780 min_ttc=1000000000.0000 objs=6
+sent
+received
+SENTINEL_I48_DECISION frame=129 fired=0 brake=0 release=0 clear=0 min_cpa=4.1999 min_ttc=1000000000.0000 objs=6
+sent
+received
+SENTINEL_I48_DECISION frame=130 fired=0 brake=0 release=0 clear=0 min_cpa=4.4415 min_ttc=1000000000.0000 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=131 fired=0 brake=0 release=0 clear=0 min_cpa=5.1089 min_ttc=1000000000.0000 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=132 fired=0 brake=0 release=0 clear=0 min_cpa=4.2958 min_ttc=1000000000.0000 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=133 fired=0 brake=0 release=0 clear=0 min_cpa=4.7917 min_ttc=1000000000.0000 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=134 fired=0 brake=0 release=0 clear=0 min_cpa=4.9212 min_ttc=1000000000.0000 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=135 fired=0 brake=0 release=0 clear=0 min_cpa=4.8258 min_ttc=1000000000.0000 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=136 fired=0 brake=0 release=0 clear=0 min_cpa=5.4583 min_ttc=1000000000.0000 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=137 fired=0 brake=0 release=0 clear=0 min_cpa=5.2546 min_ttc=1000000000.0000 objs=6
+sent
+received
+SENTINEL_I48_DECISION frame=138 fired=0 brake=0 release=0 clear=0 min_cpa=4.9070 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=139 fired=0 brake=0 release=0 clear=0 min_cpa=5.2190 min_ttc=1000000000.0000 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=140 fired=0 brake=0 release=0 clear=0 min_cpa=3.4962 min_ttc=1000000000.0000 objs=6
+sent
+received
+SENTINEL_I48_DECISION frame=141 fired=0 brake=0 release=0 clear=0 min_cpa=5.1421 min_ttc=1000000000.0000 objs=3
+sent
+received
+SENTINEL_I48_DECISION frame=142 fired=0 brake=0 release=0 clear=0 min_cpa=4.6459 min_ttc=1000000000.0000 objs=3
+sent
+received
+SENTINEL_I48_DECISION frame=143 fired=0 brake=0 release=0 clear=0 min_cpa=4.5861 min_ttc=1000000000.0000 objs=3
+sent
+received
+SENTINEL_I48_DECISION frame=144 fired=0 brake=0 release=0 clear=0 min_cpa=3.9690 min_ttc=1000000000.0000 objs=3
+sent
+received
+SENTINEL_I48_DECISION frame=145 fired=0 brake=0 release=0 clear=0 min_cpa=6.7058 min_ttc=1000000000.0000 objs=2
+sent
+received
+SENTINEL_I48_DECISION frame=146 fired=0 brake=0 release=0 clear=0 min_cpa=6.5576 min_ttc=1000000000.0000 objs=3
+sent
+received
+SENTINEL_I48_DECISION frame=147 fired=0 brake=0 release=0 clear=0 min_cpa=4.6895 min_ttc=1000000000.0000 objs=3
+sent
+received
+SENTINEL_I48_DECISION frame=148 fired=0 brake=0 release=0 clear=0 min_cpa=5.5710 min_ttc=1000000000.0000 objs=3
+sent
+received
+SENTINEL_I48_DECISION frame=149 fired=0 brake=0 release=0 clear=0 min_cpa=4.5615 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=150 fired=1 brake=1 release=0 clear=0 min_cpa=0.4663 min_ttc=1000000000.0000 objs=3
+sent
+received
+SENTINEL_I48_DECISION frame=151 fired=0 brake=1 release=0 clear=1 min_cpa=2.7158 min_ttc=1000000000.0000 objs=3
+sent
+received
+SENTINEL_I48_DECISION frame=152 fired=0 brake=1 release=0 clear=2 min_cpa=6.6578 min_ttc=1000000000.0000 objs=2
+sent
+received
+SENTINEL_I48_DECISION frame=153 fired=1 brake=1 release=0 clear=0 min_cpa=0.1644 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=154 fired=0 brake=1 release=0 clear=1 min_cpa=1.8634 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=155 fired=0 brake=1 release=0 clear=2 min_cpa=3.0945 min_ttc=1000000000.0000 objs=7
+sent
+received
+SENTINEL_I48_DECISION frame=156 fired=1 brake=1 release=0 clear=0 min_cpa=1.1303 min_ttc=1000000000.0000 objs=6
+sent
+received
+SENTINEL_I48_DECISION frame=157 fired=0 brake=1 release=0 clear=1 min_cpa=4.8698 min_ttc=1000000000.0000 objs=6
+sent
+received
+SENTINEL_I48_DECISION frame=158 fired=0 brake=1 release=0 clear=2 min_cpa=15.4801 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=159 fired=0 brake=1 release=0 clear=3 min_cpa=15.3821 min_ttc=1000000000.0000 objs=3
+sent
+received
+SENTINEL_I48_DECISION frame=160 fired=0 brake=0 release=1 clear=0 min_cpa=15.6027 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=161 fired=0 brake=0 release=0 clear=0 min_cpa=16.2524 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=162 fired=0 brake=0 release=0 clear=0 min_cpa=16.1523 min_ttc=1000000000.0000 objs=3
+sent
+received
+SENTINEL_I48_DECISION frame=163 fired=0 brake=0 release=0 clear=0 min_cpa=16.5377 min_ttc=1000000000.0000 objs=3
+sent
+received
+SENTINEL_I48_DECISION frame=164 fired=0 brake=0 release=0 clear=0 min_cpa=9.3794 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=165 fired=0 brake=0 release=0 clear=0 min_cpa=23.4568 min_ttc=1000000000.0000 objs=2
+sent
+received
+SENTINEL_I48_DECISION frame=166 fired=0 brake=0 release=0 clear=0 min_cpa=4.7971 min_ttc=1000000000.0000 objs=2
+sent
+received
+SENTINEL_I48_DECISION frame=167 fired=1 brake=1 release=0 clear=0 min_cpa=1.0990 min_ttc=1000000000.0000 objs=1
+sent
+received
+SENTINEL_I48_DECISION frame=168 fired=0 brake=1 release=0 clear=1 min_cpa=2.9514 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=169 fired=0 brake=1 release=0 clear=2 min_cpa=2.0008 min_ttc=3.5376 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=170 fired=1 brake=1 release=0 clear=0 min_cpa=3.6067 min_ttc=1.3168 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=171 fired=1 brake=1 release=0 clear=0 min_cpa=4.6445 min_ttc=0.3698 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=172 fired=0 brake=1 release=0 clear=1 min_cpa=4.8788 min_ttc=1000000000.0000 objs=3
+sent
+received
+SENTINEL_I48_DECISION frame=173 fired=0 brake=1 release=0 clear=2 min_cpa=4.4343 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=174 fired=0 brake=1 release=0 clear=3 min_cpa=4.3331 min_ttc=1000000000.0000 objs=5
+sent
+received
+SENTINEL_I48_DECISION frame=175 fired=0 brake=0 release=1 clear=0 min_cpa=5.2316 min_ttc=1000000000.0000 objs=3
+sent
+received
+SENTINEL_I48_DECISION frame=176 fired=0 brake=0 release=0 clear=0 min_cpa=4.8572 min_ttc=1000000000.0000 objs=2
+sent
+received
+SENTINEL_I48_DECISION frame=177 fired=0 brake=0 release=0 clear=0 min_cpa=4.0670 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=178 fired=0 brake=0 release=0 clear=0 min_cpa=3.7278 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=179 fired=0 brake=0 release=0 clear=0 min_cpa=1.8110 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=180 fired=1 brake=1 release=0 clear=0 min_cpa=0.9111 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=181 fired=0 brake=1 release=0 clear=1 min_cpa=2.5900 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=182 fired=0 brake=1 release=0 clear=2 min_cpa=2.7537 min_ttc=1000000000.0000 objs=4
+sent
+received
+SENTINEL_I48_DECISION frame=183 fired=0 brake=1 release=0 clear=3 min_cpa=4.3829 min_ttc=1000000000.0000 objs=2
+sent
+received
+SENTINEL_I48_DECISION frame=184 fired=0 brake=0 release=1 clear=0 min_cpa=5.1832 min_ttc=1000000000.0000 objs=2
+sent
+received
+SENTINEL_I48_DECISION frame=185 fired=0 brake=0 release=0 clear=0 min_cpa=4.0650 min_ttc=1000000000.0000 objs=2
+sent
+received
+SENTINEL_I48_DECISION frame=186 fired=0 brake=0 release=0 clear=0 min_cpa=3.7635 min_ttc=1000000000.0000 objs=2
+sent
+received
+SENTINEL_I48_DECISION frame=187 fired=0 brake=0 release=0 clear=0 min_cpa=2.9237 min_ttc=1000000000.0000 objs=2
+sent

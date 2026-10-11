@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "gcloud",
+    "compute",
+    "scp",
+    "--project",
+    "sunlit-unison-487018-b0",
+    "--zone",
+    "us-west1-a",
+    "--tunnel-through-iap",
+    "sentinel-gpu:/datasets/nuscenes-full/hugsim/iter152_continuation_20261011/pair_004_raw.tar.gz",
+    "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter152_recovery_continuation/proof/block_001/pair_004_raw.tar.gz"
+  ],
+  "elapsed": 11.371376082999632,
+  "returncode": 0,
+  "start_utc": "2026-10-11T10:53:09.153466+00:00",
+  "timeout": 180
+}
