@@ -1,0 +1,16 @@
+WARNING: 
+
+To increase the performance of the tunnel, consider installing NumPy. For instructions,
+please see https://cloud.google.com/iap/docs/using-tcp-forwarding#increasing_the_tcp_upload_bandwidth
+
+Traceback (most recent call last):
+  File "<stdin>", line 13, in <module>
+  File "/datasets/nuscenes-full/hugsim/iter148_study_20261011/packet/experiments/iter148_recovery_study/admission.py", line 6, in <module>
+    from experiments.iter147_full_horizon_execution.protocol import plan, identity
+  File "/datasets/nuscenes-full/hugsim/iter148_study_20261011/packet/experiments/iter147_full_horizon_execution/protocol.py", line 5, in <module>
+    from experiments.iter144_timed_trajectory.study import schedule
+  File "/datasets/nuscenes-full/hugsim/iter148_study_20261011/packet/experiments/iter144_timed_trajectory/study.py", line 4, in <module>
+    from .source import bound_inputs
+  File "/datasets/nuscenes-full/hugsim/iter148_study_20261011/packet/experiments/iter144_timed_trajectory/source.py", line 7, in <module>
+    from scipy.interpolate import interp1d
+ModuleNotFoundError: No module named 'scipy'

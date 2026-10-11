@@ -1,20 +1,19 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
-> **Active operator-directed candidate work, 2026-10-11:** Iter148 study admission is
-> implemented: 165 focused tests pass; prior 1,104 GPU actions replay; the strengthened
-> delayed-pulse prefix matches all ten pre-intervention steps on retained qualification data.
-> **New live execution is blocked by Google Cloud reauthentication.** The before-start
-> read-only query failed; no VM start command, host command or new episode was issued.
-> The unused local watchdog exited143 after intentional cancellation; no automatic restart.
-> Current provider state is UNOBSERVED; Iter147's last verified state was TERMINATED.
-> Read [result](experiments/iter148_recovery_study/RESULT.md),
-> [state](experiments/iter148_recovery_study/STATE.json) and
-> [continuation](experiments/iter148_recovery_study/DECISION.md). All112 study slots remain
-> without execution evidence. After login, use a fresh first-block10800s/$9 envelope for
-> the unchanged first eight slots. No recovery benefit has been established.
-> Candidate `research/iter148-recovery-study` is local/unpushed. Master, historical
-> HANDOFF/MISSION_STATE, protected root README, unrelated WIP, prior evidence/nulls and
-> deferred Iter135 remain preserved.
+> **Active operator-directed candidate work, 2026-10-11:** Iter148 first-block execution
+> has resumed after successful Google Cloud reauthentication. The exact owned VM is RUNNING
+> under fresh attempt2's 10,800-second / $9 conservative envelope and local watchdog92679.
+> Host/runtime/timer admission is in progress; no study result has been accepted yet.
+> Scope is the unchanged first eight slots of112; no automatic restart or initialized retry.
+> Source dd45ad39b26602ad81626ca55332e7ce6d308e91 remains unchanged. Local165tests and
+> replay of1,104priorGPUsteps pass; no new recovery benefit has been established.
+> Read [state](experiments/iter148_recovery_study/STATE.json),
+> [result](experiments/iter148_recovery_study/RESULT.md) and
+> [attempt binding](experiments/iter148_recovery_study/proof/block_000_attempt_002/RESUME_BINDING.json).
+> Watch the active attempt receipts for shutdown; do not infer stopped state from the
+> earlier credential-failure closure. Candidate `research/iter148-recovery-study` is local.
+> Master, historical snapshots, protected root README, unrelated WIP and prior evidence
+> remain preserved. Deferred Iter135 and prior recovery nulls remain unchanged.
 
 **Purpose.** This campaign is operator-portable by design. Everything an incoming operator
 needs is in this repository plus the two live surfaces below. Read this file top to bottom
@@ -4513,3 +4512,11 @@ The unused local watchdog exited143; no automatic restart. Currentprovider state
 unobserved, with Iter147's prior TERMINATED record preserved. All112slots remain missing.
 After account reauthentication, create a fresh bounded first-block envelope; retain the
 unchanged population, claims, stopping rules and prior nulls. See Iter148 RESULT/DECISION.
+
+
+## Iter148 first-block execution resumed on 2026-10-11
+
+Google Cloud login succeeded and a fresh exact-VM readback confirmed TERMINATED before
+start. Attempt2 owns start2026-10-10T22:05:46.919-07:00 of VM3834622546652649531 under
+10800seconds/$9 bounds. Local watchdog92679 is active. Host/runtime admission proceeds
+before the unchanged first eight slots; no new result is accepted at this update.

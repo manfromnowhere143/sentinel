@@ -1,0 +1,27 @@
+{
+  "hostname": "sentinel-gpu",
+  "host_epoch": 1791695181.1618905,
+  "free_gib": 107.30315399169922,
+  "meminfo": "MemTotal:       32863268 kB\nMemFree:        31351828 kB\nMemAvailable:   31830712 kB\nBuffers:           91048 kB\nCached:           711968 kB\nSwapCached:            0 kB\nActive:           643856 kB\nInactive:         306652 kB\nActive(anon):     157628 kB\nInactive(anon):        0 kB\nActive(file):     486228 kB\nInactive(file):   306652 kB\nUnevictable:       27724 kB\nMlocked:           27724 kB\nSwapTotal:       8388604 kB\nSwapFree:        8388604 kB\nZswap:                 0 kB\nZswapped:              0 kB\nDirty:              1472 kB\nWriteback:             0 kB\nAnonPages:        175316 kB\nMapped:           217696 kB\nShmem:              1068 kB\nKReclaimable:     111116 kB\nSlab:             196076 kB\nSReclaimable:     111116 kB\nSUnreclaim:        84960 kB\nKernelStack:        4368 kB\nPageTables:         4156 kB\nSecPageTables:         0 kB\nNFS_Unstable:          0 kB\nBounce:                0 kB\nWritebackTmp:          0 kB\nCommitLimit:    24820236 kB\nCommitted_AS:    1058312 kB\nVmallocTotal:   34359738367 kB\nVmallocUsed:       59932 kB\nVmallocChunk:          0 kB\nPercpu:             4640 kB\nHardwareCorrupted:     0 kB\nAnonHugePages:         0 kB\nShmemHugePages:        0 kB\nShmemPmdMapped:        0 kB\nFileHugePages:         0 kB\nFilePmdMapped:         0 kB\nUnaccepted:            0 kB\nHugePages_Total:       0\nHugePages_Free:        0\nHugePages_Rsvd:        0\nHugePages_Surp:        0\nHugepagesize:       2048 kB\nHugetlb:               0 kB\nDirectMap4k:      170760 kB\nDirectMap2M:     5068800 kB\nDirectMap1G:    30408704 kB\n",
+  "containers": {
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "gpu_processes": {
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "gpu": {
+    "returncode": 0,
+    "stdout": "NVIDIA L4, 23034 MiB, 22564 MiB, 580.159.03\n",
+    "stderr": ""
+  },
+  "timer": {
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "Running timer as unit: sentinel-iter148-block000-attempt002-budget.timer\nWill run service as unit: sentinel-iter148-block000-attempt002-budget.service\n"
+  },
+  "timer_readback": "TimersMonotonic={ OnActiveUSec=2h 58min 19s ; next_elapse=2h 58min 44.674698s }\nNextElapseUSecMonotonic=2h 58min 44.674698s\nActiveState=active\n"
+}

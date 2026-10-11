@@ -1,0 +1,8 @@
+import subprocess,json,os
+from pathlib import Path
+c=Path('/datasets/nuscenes-full/hugsim/iter148_study_20261011')
+assert c.is_dir() and not (c/'runs').exists() and not list(c.glob('pair_*'))
+p='/opt/sentinel-stack/HUGSIM/.pixi/envs/default/bin/python'
+env=os.environ.copy();env['PYTHONPATH']=str(c/'packet')
+q=subprocess.run([p,'-c',"import scipy,json;from pathlib import Path;from experiments.iter148_recovery_study.admission import basis;print(json.dumps(dict(qualification_sha256=basis(Path.cwd()),scipy=scipy.__version__)))"],cwd=c/'packet',env=env,capture_output=True,text=True,timeout=40)
+print(json.dumps(dict(status='supported' if q.returncode==0 else 'failed',returncode=q.returncode,stdout=q.stdout,stderr=q.stderr,initialized_study_pairs=0,existing_interpreter=p)))

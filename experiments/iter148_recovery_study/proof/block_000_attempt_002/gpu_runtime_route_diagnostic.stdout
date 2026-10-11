@@ -1,0 +1,1 @@
+{"status": "supported", "returncode": 0, "stdout": "{\"qualification_sha256\": \"8597f015be7eed3354bc3e5867f34ac97bb9ff388b8571de525f703df4dbd8c5\", \"scipy\": \"1.17.1\"}\n", "stderr": "", "initialized_study_pairs": 0, "existing_interpreter": "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/bin/python"}

@@ -1,3 +1,7 @@
+> **Live update, 2026-10-11:** Account reauthentication succeeded. Fresh attempt2 is
+> running under its own bounded envelope. Read STATE.json and proof/block_000_attempt_002.
+> The login-block text below is retained history until execution closure.
+
 # Iter148 continuation — 2026-10-11
 
 ## Current position
