@@ -1,0 +1,69 @@
+{
+  "parent_commit": "376184aab2b3eeed1f046e9bf8c35456969b760d",
+  "files": {
+    "experiments/iter136_hugsim_recoverability_canary/proof/source/HUGSIM/sim/hugsim_env/envs/hug_sim.py.txt": {
+      "bytes": 13604,
+      "sha256": "c42ef368852754bdec76c81254b72dcda45eccef058dce015ea549c0b17c7d12"
+    },
+    "experiments/iter145_constrained_execution/source/score_calculator.py.txt": {
+      "bytes": 30995,
+      "sha256": "1588b5b912384dead87b521b828cf7a135e77eb79aad5d540074c7168f79e46f"
+    },
+    "experiments/iter145_constrained_execution/optimizer.py": {
+      "bytes": 10798,
+      "sha256": "59e26aaa7396d45ac24ccbb305af4e1de2c625b8a4d6144af398581ee8183e4c"
+    },
+    "experiments/iter145_constrained_execution/independent.py": {
+      "bytes": 11342,
+      "sha256": "17f8057da69bf694c906ae60c7073d681cb9ef66a4d43afde1a8ff4fef14857b"
+    },
+    "experiments/iter145_constrained_execution/gpu_check.py": {
+      "bytes": 10188,
+      "sha256": "56d514db9fa27b3c4adbdd37137e1e3bc550a347eaa8ec97c824eb05d3de10db"
+    },
+    "experiments/iter146_route_outcome_contract/compare.py": {
+      "bytes": 4818,
+      "sha256": "9d4f95e204ef2c91fe024dacdd8bb23e631dd88a5e955530ab2f948b92a3131d"
+    },
+    "experiments/iter151_recovery_canary/proof/admissions/pair_000.json": {
+      "bytes": 2245,
+      "sha256": "43c21b847505d7cfe7eb9274d3d6cfde0acd8800f1766d029fe011483022ee80"
+    },
+    "experiments/iter151_recovery_canary/proof/study_raw/pair_000/runs/canary151_000__scene-0013-medium-00__nominal__1/trace/events.jsonl": {
+      "bytes": 1156978,
+      "sha256": "43dc0366ef783a47323faf5daed4046592f1ea22be97528fe539c0ff9e629bb5"
+    },
+    "experiments/iter151_recovery_canary/proof/study_raw/pair_000/runs/canary151_001__scene-0013-medium-00__nominal__2/trace/events.jsonl": {
+      "bytes": 1156978,
+      "sha256": "57220746e377a7036c23bade0c9a6dadbee9de7ad620f90df9bf92c1db36ea50"
+    },
+    "experiments/iter151_recovery_canary/proof/study_raw/pair_000/runs/canary151_000__scene-0013-medium-00__nominal__1/trace/summary.json": {
+      "bytes": 8471,
+      "sha256": "2397a12038cb7d9d3386a1d63ced29862d3f28d8a0591ea6802a30cbc3c3058c"
+    },
+    "experiments/iter151_recovery_canary/proof/study_raw/pair_000/runs/canary151_001__scene-0013-medium-00__nominal__2/trace/summary.json": {
+      "bytes": 8472,
+      "sha256": "14fa7552dd7bf8b6d285f58699b0d3ea28d6e558796aced44358dad4ae178d6b"
+    },
+    "experiments/iter152_recovery_continuation/proof/admissions/pair_000.json": {
+      "bytes": 2451,
+      "sha256": "7f293f0066e0603040100bcf01e9ae5e6a196189e2798f7c1b7bbcfac564fb3d"
+    },
+    "experiments/iter152_recovery_continuation/proof/study_raw/pair_000/runs/continuation152_000__scene-0013-medium-00__monitor__1/trace/events.jsonl": {
+      "bytes": 1304689,
+      "sha256": "951fa2d39f2e3ade6000c94a60687d967fdc389658eb76cb86dec37bf08a8030"
+    },
+    "experiments/iter152_recovery_continuation/proof/study_raw/pair_000/runs/continuation152_001__scene-0013-medium-00__monitor__2/trace/events.jsonl": {
+      "bytes": 1304689,
+      "sha256": "1dd5b432cfb319bb130219ad8309e1c9ec43ff03fbc5f3f1842fb816f2b3adf0"
+    },
+    "experiments/iter152_recovery_continuation/proof/study_raw/pair_000/runs/continuation152_000__scene-0013-medium-00__monitor__1/trace/summary.json": {
+      "bytes": 9688,
+      "sha256": "c3ec3429a0d1892afd11814ca12f0cab6041c4967cebdc1b5e990eae3fd60d91"
+    },
+    "experiments/iter152_recovery_continuation/proof/study_raw/pair_000/runs/continuation152_001__scene-0013-medium-00__monitor__2/trace/summary.json": {
+      "bytes": 9686,
+      "sha256": "60740c015b0bdac45d98eb3ca2f2bd06da87a12bfb7dd60539bcc87120c5bb32"
+    }
+  }
+}

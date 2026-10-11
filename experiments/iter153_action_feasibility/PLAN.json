@@ -1,0 +1,59 @@
+{
+  "schema": "sentinel.iter153.plan.v1",
+  "status": "preregistered",
+  "parent_commit": "376184aab2b3eeed1f046e9bf8c35456969b760d",
+  "scope": "Local privileged-state model diagnostic on exposed scene-0013-medium-00; no new driving evidence.",
+  "dt": 0.25,
+  "wheelbase": 2.7,
+  "max_actions": 401,
+  "maximum_wall_seconds": 600,
+  "candidate_speeds": [
+    2.0,
+    4.0,
+    6.0
+  ],
+  "candidate_offsets": [
+    -4.0,
+    -3.0,
+    -2.0,
+    2.0,
+    3.0,
+    4.0
+  ],
+  "shift_starts": [
+    0.0,
+    5.0
+  ],
+  "shift_lengths": [
+    10.0,
+    15.0
+  ],
+  "return_start": 40.0,
+  "return_length": 15.0,
+  "lookahead": 5.0,
+  "acceleration_bound": 2.0,
+  "steering_rate_bound": "pi/12",
+  "steering_angle_bound": "pi/3",
+  "speed_bound": 6.0,
+  "max_lateral_acceleration": 4.89,
+  "max_yaw_rate": 0.95,
+  "foreground_margin": 0.25,
+  "sweep_subdivisions": 8,
+  "route_distance_limit": 10.0,
+  "progress_slack": 0.05,
+  "expected_candidates": 75,
+  "replicas": 2,
+  "selection_order": [
+    "complete_and_swept_and_controls_and_both_progress",
+    "completion_time_ascending",
+    "max_absolute_offset_ascending",
+    "candidate_id_lexical"
+  ],
+  "required_unknowns": [
+    "background_collision",
+    "road_compliance",
+    "live_recovery",
+    "information_benefit"
+  ],
+  "missingness": "No replacement or retry of initialized search; retain failures, partial candidates and uninitialized candidates. Qualification defects may be corrected before this search initializes."
+}
