@@ -1,0 +1,21 @@
+{
+  "status": "running",
+  "episode": "continuation152_007__scene-0038-easy-00__nominal__2",
+  "seed": 144,
+  "gpu_observed": false,
+  "slot": {
+    "arm": "nominal",
+    "id": "continuation152_007__scene-0038-easy-00__nominal__2",
+    "index": 7,
+    "max_actions": 401,
+    "probe": "none",
+    "replica": 2,
+    "reset_count": 1,
+    "scenario": "scene-0038-easy-00.yaml",
+    "scenario_sha256": "275066a06afb7a909748739e28de0eabc3d8c711d8c73f8769225a959ac5c3d5",
+    "seed": 144
+  },
+  "purpose": "study",
+  "driving_outcome": null,
+  "live_study_admitted": false
+}

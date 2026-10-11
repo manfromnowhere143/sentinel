@@ -1,0 +1,13 @@
+payload={'control': '/datasets/nuscenes-full/hugsim/iter152_continuation_20261011', 'timer': 'sentinel152-block1-30669985100b.timer', 'seconds': 10635, 'block': 1}
+import json,subprocess,shutil,time
+from pathlib import Path
+c=Path(payload['control'])
+if payload['block']==0:c.mkdir(exist_ok=False)
+else:assert c.is_dir() and not c.is_symlink()
+assert shutil.disk_usage(c).free>=100*1024**3
+q=subprocess.run(['systemd-run','--unit',payload['timer'].removesuffix('.timer'),'--on-active='+str(payload['seconds'])+'s','/sbin/shutdown','-h','now'],capture_output=True,text=True,timeout=15)
+assert q.returncode==0,q.stderr
+deadline=time.monotonic()+payload['seconds']
+q=subprocess.run(['systemctl','show',payload['timer'],'--property=ActiveState,NextElapseUSecMonotonic'],capture_output=True,text=True,timeout=3)
+assert q.returncode==0 and 'ActiveState=active' in q.stdout
+print(json.dumps(dict(boot=Path('/proc/sys/kernel/random/boot_id').read_text().strip(),timer_readback=q.stdout,deadline_monotonic=deadline,free_bytes=shutil.disk_usage(c).free)))

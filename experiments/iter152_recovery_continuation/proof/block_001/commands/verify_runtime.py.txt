@@ -1,0 +1,4 @@
+import os,subprocess,sys
+env=dict(os.environ,PYTHONPATH='/datasets/nuscenes-full/hugsim/iter152_continuation_20261011/packet:/opt/sentinel-stack/HUGSIM',OPENBLAS_NUM_THREADS='1',OMP_NUM_THREADS='1',MKL_NUM_THREADS='1')
+q=subprocess.run(['/opt/sentinel-stack/HUGSIM/.pixi/envs/default/bin/python','-'],input=b"payload={'control': '/datasets/nuscenes-full/hugsim/iter152_continuation_20261011', 'source': '40d06cf9a89f9a1323e8bc172d12a73651ca1f5f'}\nfrom pathlib import Path\nimport json\nfrom experiments.iter152_recovery_continuation.records import read\nfrom experiments.iter145_constrained_execution.gpu_batch import check_files\nc=Path(payload['control']);m=read(c/'execution_manifest.json');assert m['source_commit']==payload['source'];check_files(m);print(json.dumps(read(c/'deployment.json')))\n",env=env,capture_output=True,timeout=540)
+sys.stdout.buffer.write(q.stdout);sys.stderr.buffer.write(q.stderr);raise SystemExit(q.returncode)
