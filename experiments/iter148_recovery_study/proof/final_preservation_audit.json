@@ -1,0 +1,23 @@
+{
+  "status": "supported",
+  "candidate_checked": "f93293ea5f9a96675f8d7cee8b8438df11cc96ee",
+  "unrelated_initial_wip_preserved": 18,
+  "iter147_files_preserved": 538,
+  "prior_iteration_git_blobs_preserved": 3330,
+  "root_index_unchanged": true,
+  "root_readme_unchanged_and_protected": true,
+  "root_docs_only_active_block_and_appended_iter148_entries": true,
+  "candidate_docs_only_active_block_and_appended_iter148_entries": true,
+  "master_unchanged": true,
+  "proof_inventory_entries_verified": 61,
+  "frozen_packet_repository_files_verified": 113,
+  "tested_source_unchanged": true,
+  "new_commit_human_identity_count": 5,
+  "new_local_links_verified": 15,
+  "start_command_issued": false,
+  "cloud_compute_used": false,
+  "current_provider_state": "UNOBSERVED",
+  "watchdog_exited": true,
+  "automatic_restart": false,
+  "study_slots_with_new_evidence": 0
+}
