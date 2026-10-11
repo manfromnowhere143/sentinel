@@ -1,0 +1,82 @@
+F.....F............................                                      [100%]
+=================================== FAILURES ===================================
+______________________ test_source_and_retained_evidence _______________________
+
+    def test_source_and_retained_evidence():
+        q = qualify.run(ROOT)
+        assert q["status"] == "supported"
+        assert q["historical_actions_replayed"] == 134
+>       assert len(q["source_transition_fixtures"]) == 96
+E       AssertionError: assert 48 == 96
+E        +  where 48 = len([{'action': [-2, -0.2617993877991494], 'independent': [1.295605273410561, -0.38052721090471137, -0.712586369950454, 0....978735], 'source': [1.295605273410561, -0.38052721090471137, -0.6874136300495459, 0.5, 0.26544984694978735], ...}, ...])
+
+tests/test_iter153_action_feasibility.py:36: AssertionError
+______________ test_independent_checker_rejects_corruption[width] ______________
+
+sample = ({'comparators': {'monitor': {'hazard_time': 9.0, 'rc': 0.3}, 'nominal': {'hazard_time': 7.75, 'rc': 0.3}}, 'ego_dimen...: 0.0, 'speed': 2.0, ...}, 'geometry_sha256': '42e200e5379df1b9e223a5cc33a4f848dcce39bed5372877ec521a791fe91f80', ...})
+fault = 'width'
+
+    @pytest.mark.parametrize(
+        "fault",
+        [
+            "state",
+            "action",
+            "axis",
+            "yaw",
+            "width",
+            "missing_obstacle",
+            "false_success",
+            "false_clearance",
+            "false_progress",
+            "false_background",
+            "false_road",
+            "wrong_replica",
+            "extra_field",
+            "boolean_verdict",
+            "short_trace",
+        ],
+    )
+    def test_independent_checker_rejects_corruption(sample, fault):
+        oldg, spec, old = sample
+        g, raw = deepcopy(oldg), deepcopy(old)
+        if fault == "state":
+            raw["states"][2][0] += 0.1
+        if fault == "action":
+            raw["actions"][0][0] = 2.1
+        if fault == "axis":
+            g["route"] = [p[::-1] for p in g["route"]]
+        if fault == "yaw":
+            raw["states"][1][2] += 0.5
+        if fault == "width":
+            g["ego_dimensions"][0] = 100
+        if fault == "missing_obstacle":
+            g["obstacles"] = []
+        if fault == "false_success":
+            raw["stop"] = "foreground_contact"
+        if fault == "false_clearance":
+            raw["producer"]["swept_clear"] = False
+        if fault == "false_progress":
+            raw["producer"]["progress"]["nominal"] = False
+        if fault == "false_background":
+            raw["background_collision"] = False
+        if fault == "false_road":
+            raw["road_compliance"] = True
+        if fault == "wrong_replica":
+            raw["replica"] = True
+        if fault == "extra_field":
+            raw["safety_guaranteed"] = True
+        if fault == "boolean_verdict":
+            raw["producer"]["eligible"] = 1
+        if fault == "short_trace":
+            raw["actions"].pop()
+        # Bind changed geometry so the challenge reaches the actual independent model checks.
+        raw["geometry_sha256"] = digest(g)
+>       with pytest.raises((ValueError, IndexError, TypeError)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE any of (<class 'ValueError'>, <class 'IndexError'>, <class 'TypeError'>)
+
+tests/test_iter153_action_feasibility.py:104: Failed
+=========================== short test summary info ============================
+FAILED tests/test_iter153_action_feasibility.py::test_source_and_retained_evidence
+FAILED tests/test_iter153_action_feasibility.py::test_independent_checker_rejects_corruption[width]
+2 failed, 33 passed in 2.14s

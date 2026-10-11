@@ -1,0 +1,21 @@
+{
+  "regression": [
+    "python3",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/test_iter143_model_contract.py",
+    "tests/test_iter145_constrained_execution.py",
+    "tests/test_iter146_route_outcome_contract.py",
+    "tests/test_iter153_action_feasibility.py"
+  ],
+  "final_focused": [
+    "python3",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/test_iter153_action_feasibility.py"
+  ],
+  "qualification_corrections": "Retained first attempt: two test failures (wrong expected fixture count; an over-wide vehicle did not contact a distant obstacle). Corrected count and invalid-dimension challenge; added explicit positive-dimension gate and initialization/false-success known-bads before search.",
+  "initial_failures": "qualification_attempt_000.stdout"
+}

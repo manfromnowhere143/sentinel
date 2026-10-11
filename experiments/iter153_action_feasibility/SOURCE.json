@@ -1,0 +1,77 @@
+{
+  "protocol_commit": "1149ec0",
+  "files": {
+    "experiments/iter145_constrained_execution/resources.py": {
+      "bytes": 10339,
+      "sha256": "af399059024d96431ff71d8041618fb51a0189a5d39cf080aeeebbbac33109de"
+    },
+    "experiments/iter146_route_outcome_contract/check.py": {
+      "bytes": 14831,
+      "sha256": "df7fa52b509f96a380e70eb96d418a7f4feb75fc4cce6861873b9856dbbcbe75"
+    },
+    "experiments/iter149_observation_recovery/recovery.py": {
+      "bytes": 10207,
+      "sha256": "bfed87d4b3f6a63f40c75a3bf6bd5ca95b06b5802abe09e09d37b3cad4e478ba"
+    },
+    "experiments/iter150_cloud_observation/native.py": {
+      "bytes": 9072,
+      "sha256": "5b49eafc9631e5f5343efdad3a17f3634e4400188b97bd4b3c2954ae2c41b80b"
+    },
+    "experiments/iter151_recovery_canary/records.py": {
+      "bytes": 872,
+      "sha256": "1396b0f09736e1bc59df8a966c478ab94b77a7c803d3e124587fdf4dd8c32f04"
+    },
+    "experiments/iter153_action_feasibility/ENGINEERING_REVIEW.md": {
+      "bytes": 2226,
+      "sha256": "52bedefacf64b3ba3d4ead3b4fd51145a2bcf4b1f81319fd8a47b666cb4b4fe0"
+    },
+    "experiments/iter153_action_feasibility/HYPOTHESIS.md": {
+      "bytes": 6439,
+      "sha256": "06a751733b1c75ecac2865a46b5c743bc88fd032be7fb7972a39b039db5c8644"
+    },
+    "experiments/iter153_action_feasibility/INPUTS.json": {
+      "bytes": 3670,
+      "sha256": "be19bd67faecdcca1295ca25507cc3e1a1b0768432a1e96f4f8513c24ea7d6aa"
+    },
+    "experiments/iter153_action_feasibility/PLAN.json": {
+      "bytes": 1484,
+      "sha256": "c04e1513e11ea6a1c01cafe2c9925675f5f237d0e05ebcb4d3e6ac8ae17e6fab"
+    },
+    "experiments/iter153_action_feasibility/QUALIFICATION.json": {
+      "bytes": 629,
+      "sha256": "8e391cdf3edf96dcb5a1bc53fd0b648e8bd712cfcf202c5f0e2389163244ba36"
+    },
+    "experiments/iter153_action_feasibility/__init__.py": {
+      "bytes": 77,
+      "sha256": "71efe17d586686fc08c859a5a53bd3d79d4a8c8e7575b3b5fe8d2499204bc223"
+    },
+    "experiments/iter153_action_feasibility/check.py": {
+      "bytes": 12518,
+      "sha256": "088838f4c9d1d38b39ab101437da73808c5210286792541035f6f48fd68dc046"
+    },
+    "experiments/iter153_action_feasibility/geometry.py": {
+      "bytes": 1874,
+      "sha256": "8d2dce9208de027695eed8569f54878736579c077708f828d149406ea51dc625"
+    },
+    "experiments/iter153_action_feasibility/inputs.py": {
+      "bytes": 3210,
+      "sha256": "bc4b1880fab2fd203633b9e42308505e9e8658edabe6dce3e68d79a2465ceeaf"
+    },
+    "experiments/iter153_action_feasibility/planner.py": {
+      "bytes": 3409,
+      "sha256": "10571cee190940e95c021864b39cfb83dc519afb83caaa3d111af4dd9db0f2b8"
+    },
+    "experiments/iter153_action_feasibility/qualify.py": {
+      "bytes": 5523,
+      "sha256": "bfad42bf09e8ef5d522dfcbb1754dfaff7e96e08d066549d97bb0ddb8d4d64c0"
+    },
+    "experiments/iter153_action_feasibility/search.py": {
+      "bytes": 5834,
+      "sha256": "011deab7b03df2e99a96df5c04053ee91cf658c81e0da884e433cb4f9a460d5e"
+    },
+    "tests/test_iter153_action_feasibility.py": {
+      "bytes": 8344,
+      "sha256": "1db29cc7ce518844297322b21dd4134f8729979c09517a679f11558ee7f87edb"
+    }
+  }
+}

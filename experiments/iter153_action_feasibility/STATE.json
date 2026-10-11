@@ -1,0 +1,13 @@
+{
+  "iteration": 153,
+  "status": "preregistered",
+  "execution_status": "qualified",
+  "planned_model_candidates": 75,
+  "replicas_per_candidate": 2,
+  "initialized_model_trials": 0,
+  "owned_active_jobs": 0,
+  "new_simulator_episodes": 0,
+  "provider_access": false,
+  "scientific_scope": "privileged-state reduced-model feasibility diagnostic",
+  "next": "One exclusive bounded local search followed by raw-before-replay publication."
+}

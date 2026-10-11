@@ -1,0 +1,12 @@
+{
+  "status": "supported",
+  "geometry_sha256": "ad22d06bf8b66e4fcc24149a170f13dddac095043fe4f1ee2d5cadc2eeb2341f",
+  "historical_actions_replayed": 134,
+  "new_scientific_outcomes": 0,
+  "qualification_sha256": "df46a2ce06e8e9644b04055ba52b5b5f3c49e642cd8bfa403a455a470fc7e742",
+  "focused_tests": 40,
+  "regression_summary": "298 passed, 161 warnings in 15.26s",
+  "python": "3.14.2 (main, Dec  5 2025, 16:49:16) [Clang 16.0.0 (clang-1600.0.26.6)]",
+  "platform": "macOS-14.4-arm64-arm-64bit-Mach-O",
+  "scope": "Local source-model and constructed-fault qualification only; no candidate search or new simulator outcome yet."
+}
