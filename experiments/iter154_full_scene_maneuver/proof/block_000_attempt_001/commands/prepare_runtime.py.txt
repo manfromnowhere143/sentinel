@@ -1,0 +1,4 @@
+import os,subprocess,sys
+env=dict(os.environ,PYTHONPATH='/datasets/nuscenes-full/hugsim/iter154_maneuver_20261011/packet:/opt/sentinel-stack/HUGSIM',OPENBLAS_NUM_THREADS='1',OMP_NUM_THREADS='1',MKL_NUM_THREADS='1')
+q=subprocess.run(['/opt/sentinel-stack/HUGSIM/.pixi/envs/default/bin/python','-'],input=b"payload={'control': '/datasets/nuscenes-full/hugsim/iter154_maneuver_20261011', 'source': 'e61a4950a48589554f5b1f882671e011189fc546'}\nfrom experiments.iter154_full_scene_maneuver.remote_ops import prepare\nimport json\nprint(json.dumps(prepare(payload['control'],payload['source'])))\n",env=env,capture_output=True,timeout=540)
+sys.stdout.buffer.write(q.stdout);sys.stderr.buffer.write(q.stderr);raise SystemExit(q.returncode)

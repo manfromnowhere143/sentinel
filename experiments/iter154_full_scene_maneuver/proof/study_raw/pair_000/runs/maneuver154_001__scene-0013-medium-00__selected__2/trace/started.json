@@ -1,0 +1,12 @@
+{
+  "schema": "sentinel.iter154.summary.v1",
+  "status": "running",
+  "episode": "maneuver154_001__scene-0013-medium-00__selected__2",
+  "arm": "selected_maneuver",
+  "seed": 144,
+  "max_actions": 65,
+  "steps": 0,
+  "stop_reason": null,
+  "inference_bypassed": true,
+  "timings": []
+}

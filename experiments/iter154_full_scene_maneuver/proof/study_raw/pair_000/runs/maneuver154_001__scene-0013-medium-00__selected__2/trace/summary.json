@@ -1,0 +1,86 @@
+{
+  "schema": "sentinel.iter154.summary.v1",
+  "status": "completed",
+  "episode": "maneuver154_001__scene-0013-medium-00__selected__2",
+  "arm": "selected_maneuver",
+  "seed": 144,
+  "max_actions": 65,
+  "steps": 13,
+  "stop_reason": "source_terminal",
+  "inference_bypassed": true,
+  "timings": [
+    {
+      "frame": 0,
+      "full_loop_ns": 557231139
+    },
+    {
+      "frame": 1,
+      "full_loop_ns": 540932297
+    },
+    {
+      "frame": 2,
+      "full_loop_ns": 528045366
+    },
+    {
+      "frame": 3,
+      "full_loop_ns": 536716618
+    },
+    {
+      "frame": 4,
+      "full_loop_ns": 530633129
+    },
+    {
+      "frame": 5,
+      "full_loop_ns": 531348216
+    },
+    {
+      "frame": 6,
+      "full_loop_ns": 530947110
+    },
+    {
+      "frame": 7,
+      "full_loop_ns": 525751479
+    },
+    {
+      "frame": 8,
+      "full_loop_ns": 526109500
+    },
+    {
+      "frame": 9,
+      "full_loop_ns": 521029595
+    },
+    {
+      "frame": 10,
+      "full_loop_ns": 521105819
+    },
+    {
+      "frame": 11,
+      "full_loop_ns": 519866341
+    },
+    {
+      "frame": 12,
+      "full_loop_ns": 520674117
+    }
+  ],
+  "events_sha256": "27886ed840813c44192321679bed0a2b4296cc9de8cedee81b9904885968d19f",
+  "events_bytes": 145694,
+  "elapsed_ns": 8067608534,
+  "outcome": {
+    "execution_valid": true,
+    "collision_observed": true,
+    "off_route_observed": false,
+    "background_collision": true,
+    "foreground_collision": false,
+    "simulator_completion": false,
+    "censored": false,
+    "completion_qualified": false,
+    "progress_checks": {
+      "nominal": null,
+      "monitor": null
+    },
+    "road_compliance": null,
+    "information_benefit": null,
+    "first_failure_time": 3.25,
+    "final_sample_observed": false
+  }
+}
