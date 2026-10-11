@@ -1,0 +1,20 @@
+{
+  "iteration": 148,
+  "block": 0,
+  "status": "armed",
+  "vm_id": "3834622546652649531",
+  "vm_name": "sentinel-gpu",
+  "project": "sunlit-unison-487018-b0",
+  "zone": "us-west1-a",
+  "source_commit": "dd45ad39b26602ad81626ca55332e7ce6d308e91",
+  "start_epoch": 1791693908.37281,
+  "start_monotonic": 183007.472095166,
+  "deadline_monotonic": 193807.472095166,
+  "deadline_epoch": 1791704708.37281,
+  "started_utc": "2026-10-11T04:45:08.372810+00:00",
+  "whole_seconds": 10800,
+  "child_seconds": 1200,
+  "conservative_hourly_usd": 3,
+  "compute_cap_usd": 9,
+  "scope": "one owned start, eight fixed study slots, first scenario only; no initialized retry"
+}

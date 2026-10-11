@@ -1,18 +1,20 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
-> **Active operator-directed candidate work, 2026-10-11:** Iter148 has preregistered
-> the unchanged 112-slot recovery study in 14 fixed operational blocks. The first block
-> binds eight slots / one scenario, a fresh three-hour/$9 conservative compute envelope,
-> exclusive pair starts, committed raw before independent replay, complete receipt history
-> and full pre-intervention prefix checks. Prior qualification replays 1,104 GPU actions;
-> 165 focused tests pass. Read the [study protocol](experiments/iter148_recovery_study/HYPOTHESIS.md),
-> [execution binding](experiments/iter148_recovery_study/GPU_BINDING.md) and
-> [state](experiments/iter148_recovery_study/STATE.json) for current execution status.
-> No Iter148 study outcome is available at source freeze. Only block 0 is admitted for
-> initial launch; remaining blocks require fresh automated lifecycle checks.
+> **Active operator-directed candidate work, 2026-10-11:** Iter148 study admission is
+> implemented: 165 focused tests pass; prior 1,104 GPU actions replay; the strengthened
+> delayed-pulse prefix matches all ten pre-intervention steps on retained qualification data.
+> **New live execution is blocked by Google Cloud reauthentication.** The before-start
+> read-only query failed; no VM start command, host command or new episode was issued.
+> The unused local watchdog exited143 after intentional cancellation; no automatic restart.
+> Current provider state is UNOBSERVED; Iter147's last verified state was TERMINATED.
+> Read [result](experiments/iter148_recovery_study/RESULT.md),
+> [state](experiments/iter148_recovery_study/STATE.json) and
+> [continuation](experiments/iter148_recovery_study/DECISION.md). All112 study slots remain
+> without execution evidence. After login, use a fresh first-block10800s/$9 envelope for
+> the unchanged first eight slots. No recovery benefit has been established.
 > Candidate `research/iter148-recovery-study` is local/unpushed. Master, historical
-> HANDOFF/MISSION_STATE, immutable root README, unrelated WIP, all prior evidence,
-> previous recovery nulls and deferred Iter135 remain preserved.
+> HANDOFF/MISSION_STATE, protected root README, unrelated WIP, prior evidence/nulls and
+> deferred Iter135 remain preserved.
 
 **Purpose.** This campaign is operator-portable by design. Everything an incoming operator
 needs is in this repository plus the two live surfaces below. Read this file top to bottom
@@ -4500,3 +4502,14 @@ The original112slots are preregistered in14fixed scenario blocks; first-block en
 is10800seconds/$9conservative. PriorGPUqualification1104steps replays;165focused tests pass.
 New controls bind committed prior receipts, prevent duplicate initialized work and check
 full pre-intervention prefixes. No newstudy outcome exists at sourcefreeze.
+
+
+## Iter148 local admission closed; provider login required on 2026-10-11
+
+Study admission and full-prefix controls pass165focused tests; existingGPUqualification
+replays1104actions and ten delayed-pulse prefix steps. The first provider query failed
+credential refresh before any start command. No newcloudcompute or study episode ran.
+The unused local watchdog exited143; no automatic restart. Currentprovider state remains
+unobserved, with Iter147's prior TERMINATED record preserved. All112slots remain missing.
+After account reauthentication, create a fresh bounded first-block envelope; retain the
+unchanged population, claims, stopping rules and prior nulls. See Iter148 RESULT/DECISION.

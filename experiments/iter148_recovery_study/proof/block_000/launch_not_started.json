@@ -1,0 +1,16 @@
+{
+  "status": "blocked",
+  "reason": "Google Cloud credential refresh requires interactive reauthentication; before-start read-only describe failed.",
+  "start_command_issued": false,
+  "cloud_compute_used": false,
+  "owned_provider_start": false,
+  "provider_current_state": "UNOBSERVED",
+  "previous_provider_observation": "TERMINATED at Iter147 closure",
+  "watchdog_pid": 81903,
+  "watchdog_local_termination_signal": "SIGTERM",
+  "automatic_restart": false,
+  "source_commit": "dd45ad39b26602ad81626ca55332e7ce6d308e91",
+  "budget_armed_but_unused": true,
+  "closed_epoch": 1791693940.3447301,
+  "next_start_requires_fresh_envelope": true
+}

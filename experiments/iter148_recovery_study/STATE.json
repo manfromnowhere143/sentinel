@@ -1,7 +1,7 @@
 {
   "iteration": 148,
-  "status": "preregistered",
-  "phase": "first_block_source_freeze",
+  "status": "blocked",
+  "phase": "provider_reauthentication_required_before_start",
   "parent_commit": "21c51ed3ead8d24da410b4913ac1a734507b7c08",
   "cloud_compute_used": false,
   "owned_active_jobs": 0,
@@ -12,5 +12,15 @@
   "initial_block_slots": 8,
   "study_outcomes_observed": 0,
   "automatic_restart": false,
-  "next_task": "Freeze source, arm a fresh bounded envelope and execute fixed block 0 after provider/resource/runtime validation."
+  "next_task": "After Google Cloud reauthentication, create a fresh first-block envelope and perform provider/resource/runtime admission. Execute only fixed slots 0\u20137 initially; do not reuse closed attempt paths or retry initialized work.",
+  "admission_scope": "Local study implementation and source freeze; fresh provider/runtime gates not observed",
+  "study_pairs_initialized": 0,
+  "study_slots_admitted": 0,
+  "study_slots_missing": 112,
+  "provider_current_state": "UNOBSERVED",
+  "last_verified_provider_state": "TERMINATED at Iter147 closure",
+  "start_command_issued": false,
+  "watchdog_exit_code": 143,
+  "watchdog_exit_reason": "Intentionally stopped unused local guard after credential failure.",
+  "source_commit": "dd45ad39b26602ad81626ca55332e7ce6d308e91"
 }
