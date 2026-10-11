@@ -1,0 +1,12 @@
+import json,subprocess,os,hashlib,sys,time
+from pathlib import Path
+c=Path('/datasets/nuscenes-full/hugsim/iter148_study_20261011');raw='{"block": 0, "history": [], "manifest_sha256": "dca2b7f7836304a21d7cfcd5f3a0fe78e0d2a89f7333879f48484dcd79540196", "pair": 0, "plan_sha256": "0d9c7b3abf0c2d2f26ec38079e8eb6700bae352aa59a01f5954e8d0d751d705d", "qualification_sha256": "8597f015be7eed3354bc3e5867f34ac97bb9ff388b8571de525f703df4dbd8c5", "remaining_seconds": 10571.970655125013, "status": "supported"}'.encode();assert hashlib.sha256(raw).hexdigest()=='092180608bc474f6444eac952ae48ed799ea0b901eff50e61519da40405e0472'
+with (c/('pair_000'+'_clearance.json')).open('xb') as f:f.write(raw)
+assert hashlib.sha256((c/'execution_manifest.json').read_bytes()).hexdigest()=='dca2b7f7836304a21d7cfcd5f3a0fe78e0d2a89f7333879f48484dcd79540196'
+for argv in [['docker','ps','-q'],['nvidia-smi','--query-compute-apps=pid','--format=csv,noheader']]:
+ q=subprocess.run(argv,capture_output=True,text=True,timeout=30);assert q.returncode==0 and not q.stdout.strip()
+q=subprocess.run(['systemctl','show','sentinel-iter148-block000-attempt002-budget.timer','--property=ActiveState,TimersMonotonic,NextElapseUSecMonotonic'],capture_output=True,text=True,timeout=30);assert q.returncode==0 and 'ActiveState=active' in q.stdout
+argv=['/opt/sentinel-stack/HUGSIM/.pixi/envs/default/bin/python','-u','-m','experiments.iter148_recovery_study.pair','--control',str(c),'--manifest-sha256','dca2b7f7836304a21d7cfcd5f3a0fe78e0d2a89f7333879f48484dcd79540196','--clearance-sha256','092180608bc474f6444eac952ae48ed799ea0b901eff50e61519da40405e0472','--pair',str(0)]
+env=os.environ.copy();env.update(PYTHONPATH=str(c/'packet')+':/opt/sentinel-stack/HUGSIM',OPENBLAS_NUM_THREADS='1',OMP_NUM_THREADS='1',MKL_NUM_THREADS='1')
+with (c/('pair_000'+'_entry.log')).open('xb') as log:p=subprocess.Popen(argv,cwd='/opt/sentinel-stack/HUGSIM',env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
+r=dict(arm='pair_000',pid=p.pid,argv=argv,manifest_sha256='dca2b7f7836304a21d7cfcd5f3a0fe78e0d2a89f7333879f48484dcd79540196',clearance_sha256='092180608bc474f6444eac952ae48ed799ea0b901eff50e61519da40405e0472',host_timer=q.stdout,started_epoch=time.time(),remaining_provider_seconds=10571.970655125013);(c/('pair_000'+'_launch.json')).write_text(json.dumps(r,indent=2)+'\n');print(json.dumps(r))

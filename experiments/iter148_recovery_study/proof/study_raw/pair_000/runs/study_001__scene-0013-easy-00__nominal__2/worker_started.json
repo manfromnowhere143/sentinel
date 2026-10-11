@@ -1,0 +1,21 @@
+{
+  "status": "running",
+  "episode": "study_001__scene-0013-easy-00__nominal__2",
+  "seed": 144,
+  "gpu_observed": false,
+  "slot": {
+    "index": 1,
+    "id": "study_001__scene-0013-easy-00__nominal__2",
+    "scenario": "scene-0013-easy-00.yaml",
+    "scenario_sha256": "22d30c2a3dadf59451ff3704b50c412fb6fa74d261ee96dd4e6bf17c9a064735",
+    "arm": "nominal",
+    "replica": 2,
+    "seed": 144,
+    "reset_count": 1,
+    "max_actions": 401,
+    "probe": "none"
+  },
+  "purpose": "study",
+  "driving_outcome": null,
+  "live_study_admitted": false
+}

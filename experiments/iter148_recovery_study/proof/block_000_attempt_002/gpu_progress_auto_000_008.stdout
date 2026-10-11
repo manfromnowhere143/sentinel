@@ -1,0 +1,37 @@
+{
+  "pairs": {},
+  "runs": {
+    "study_000__scene-0013-easy-00__nominal__1": {
+      "worker.json": {
+        "status": "completed",
+        "elapsed_seconds": 191.95011141299995
+      },
+      "trace/summary.json": {
+        "status": "completed",
+        "steps": 92,
+        "stop_reason": "source_terminal",
+        "outcome": {
+          "censored": false,
+          "collision_observed": false,
+          "completion_qualified": true,
+          "execution_valid": true,
+          "final_sample_observed": false,
+          "first_failure_time": null,
+          "off_route_observed": false,
+          "simulator_completion": true
+        }
+      },
+      "steps": 92,
+      "last_event": "runner_stop",
+      "parent_tail": "Complete\n",
+      "client_tail": "0000000.0000 objs=4\nsent\nreceived\nSENTINEL_I48_DECISION frame=89 fired=0 brake=0 release=0 clear=0 min_cpa=8.6237 min_ttc=1000000000.0000 objs=6\nsent\nreceived\nSENTINEL_I48_DECISION frame=90 fired=0 brake=0 release=0 clear=0 min_cpa=4.4233 min_ttc=1000000000.0000 objs=7\nsent\nreceived\nSENTINEL_I48_DECISION frame=91 fired=0 brake=0 release=0 clear=0 min_cpa=5.6987 min_ttc=1000000000.0000 objs=5\nsent\n"
+    },
+    "study_001__scene-0013-easy-00__nominal__2": {
+      "steps": 59,
+      "last_event": "monitor",
+      "parent_tail": "",
+      "client_tail": "ceived\nSENTINEL_I48_DECISION frame=57 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0\nsent\nreceived\nSENTINEL_I48_DECISION frame=58 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0\nsent\nreceived\nSENTINEL_I48_DECISION frame=59 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0\nsent\n"
+    }
+  },
+  "pair_000_entry.log": ""
+}

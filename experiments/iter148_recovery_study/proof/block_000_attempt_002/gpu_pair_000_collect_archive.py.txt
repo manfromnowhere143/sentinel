@@ -1,0 +1,29 @@
+import json,hashlib,tarfile,stat,subprocess
+from pathlib import Path
+c=Path('/datasets/nuscenes-full/hugsim/iter148_study_20261011');arm='pair_000'
+pair=json.loads((c/(arm+'_result.json')).read_text());assert pair['status'] in ('completed','failed')
+for a in [['docker','ps','-q'],['nvidia-smi','--query-compute-apps=pid','--format=csv,noheader']]:
+ p=subprocess.run(a,capture_output=True,text=True,timeout=30);assert p.returncode==0 and not p.stdout.strip(),p.stdout
+records={};selected=[]
+plan=json.loads((c/'plan.json').read_text())
+for slot in plan['slots'][0*2:0*2+2]:
+ folder=c/'runs'/slot['id']
+ if not folder.exists():continue
+ for p in sorted(folder.rglob('*')):
+  mode=p.lstat().st_mode
+  if stat.S_ISFIFO(mode):continue
+  assert not p.is_symlink()
+  if not p.is_file():continue
+  assert p.stat().st_size<=256*1024**2
+  h=hashlib.sha256()
+  with p.open('rb') as f:
+   for b in iter(lambda:f.read(1024**2),b''):h.update(b)
+  rel=str(p.relative_to(c));records[rel]=dict(sha256=h.hexdigest(),bytes=p.stat().st_size)
+  if p.suffix in ('.json','.jsonl','.log','.txt'):selected.append(rel)
+for p in sorted(c.glob('*')):
+ if p.is_file() and (p.name.startswith(arm+'_') or p.name in ('execution_manifest.json','deployment_report.json','plan.json','e2e147.py','nuscenes_base.yaml')):selected.append(str(p.relative_to(c)))
+inv=arm+'_output_inventory.json';(c/inv).write_text(json.dumps(dict(files=records,total_bytes=sum(r['bytes'] for r in records.values()),selected_files=selected,derived_content='PLY retained on stopped host with complete hashes; display images disabled prospectively.'),indent=2)+'\n');selected.append(inv)
+assert sum((c/name).stat().st_size for name in selected)<512*1024**2
+with tarfile.open(c/(arm+'_raw.tar.gz'),'w:gz') as a:
+ for name in selected:a.add(c/name,arcname=name,recursive=False)
+raw=(c/(arm+'_raw.tar.gz')).read_bytes();print(json.dumps(dict(pair=pair,sha256=hashlib.sha256(raw).hexdigest(),bytes=len(raw),files=len(selected),output_bytes=sum(r['bytes'] for r in records.values()))))

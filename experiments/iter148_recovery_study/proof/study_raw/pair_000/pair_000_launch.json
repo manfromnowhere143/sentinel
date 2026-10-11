@@ -1,0 +1,23 @@
+{
+  "arm": "pair_000",
+  "pid": 2041,
+  "argv": [
+    "/opt/sentinel-stack/HUGSIM/.pixi/envs/default/bin/python",
+    "-u",
+    "-m",
+    "experiments.iter148_recovery_study.pair",
+    "--control",
+    "/datasets/nuscenes-full/hugsim/iter148_study_20261011",
+    "--manifest-sha256",
+    "dca2b7f7836304a21d7cfcd5f3a0fe78e0d2a89f7333879f48484dcd79540196",
+    "--clearance-sha256",
+    "092180608bc474f6444eac952ae48ed799ea0b901eff50e61519da40405e0472",
+    "--pair",
+    "0"
+  ],
+  "manifest_sha256": "dca2b7f7836304a21d7cfcd5f3a0fe78e0d2a89f7333879f48484dcd79540196",
+  "clearance_sha256": "092180608bc474f6444eac952ae48ed799ea0b901eff50e61519da40405e0472",
+  "host_timer": "TimersMonotonic={ OnActiveUSec=2h 58min 19s ; next_elapse=2h 58min 44.674698s }\nNextElapseUSecMonotonic=2h 58min 44.674698s\nActiveState=active\n",
+  "started_epoch": 1791695368.0453713,
+  "remaining_provider_seconds": 10571.970655125013
+}

@@ -1,0 +1,12 @@
+{
+  "pairs": {},
+  "runs": {
+    "study_000__scene-0013-easy-00__nominal__1": {
+      "steps": 37,
+      "last_event": "observation",
+      "parent_tail": "",
+      "client_tail": "NTINEL_I48_DECISION frame=34 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0\nsent\nreceived\nSENTINEL_I48_DECISION frame=35 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0\nsent\nreceived\nSENTINEL_I48_DECISION frame=36 fired=0 brake=0 release=0 clear=0 min_cpa=1000000000.0000 min_ttc=1000000000.0000 objs=0\nsent\nreceived\n"
+    }
+  },
+  "pair_000_entry.log": ""
+}
