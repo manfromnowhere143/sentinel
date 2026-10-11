@@ -1,0 +1,11 @@
+{
+  "url": "https://cloud.google.com/products/compute/pricing/accelerator-optimized",
+  "retrieved_utc": "2026-10-11T06:53:37.507504+00:00",
+  "html_sha256": "66a84d13d21861a75fa5f246d1348cbbbaec03923a84c98bffae4c33db4ff171",
+  "bytes": 5920925,
+  "prior_rate_string_present": true,
+  "machine_present": true,
+  "prior_exact_region_record": "experiments/iter147_full_horizon_execution/proof/price_binding.json",
+  "planning_hourly_upper_usd": 3.0,
+  "scope": "Bounded qualification uses retained Oregon machine rate from 2026-10-10; current page retrieved and checked for rate/machine strings, not a newly decoded region table. No invoice claim; persistent storage and taxes excluded."
+}

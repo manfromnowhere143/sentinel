@@ -1,0 +1,28 @@
+{
+  "url": "https://cloud.google.com/products/compute/pricing/accelerator-optimized",
+  "retrieved_utc": "2026-10-11T06:54:05.080246+00:00",
+  "html_sha256": "64df6b3a9668c9d1c1e7df1514aaed3a2a5e854c117a6ef5e807f0601be60bfb",
+  "json_path": [
+    0,
+    2,
+    1,
+    40,
+    1,
+    0,
+    1,
+    1,
+    3,
+    6
+  ],
+  "region": "Oregon (us-west1)",
+  "machine": "g2-standard-8",
+  "hourly_usd": 0.853624312,
+  "source_row_first_four_columns": [
+    "g2-standard-8",
+    "NVIDIA L4",
+    "GPUs: 1  vCPUs: 8  Memory: 32GiB",
+    "$0.853624312 / 1 hour"
+  ],
+  "planning_hourly_upper_usd": 3.0,
+  "scope": "VM compute including attached L4; persistent storage and taxes excluded; estimate not invoice"
+}

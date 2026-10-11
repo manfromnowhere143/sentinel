@@ -1,0 +1,192 @@
+{
+  "before_free_bytes": 17299705856,
+  "after_free_bytes": 20471525376,
+  "method": "byte-verified APFS clone replacement in owned task worktree only",
+  "files": [
+    {
+      "path": "experiments/iter19_diversity_head/proof-extract/sentinel_extract.jsonl.gz.part-aa",
+      "bytes": 94371840,
+      "sha256": "6d4e4ab2a5e4831cf07de370b3920c06d24c77b074b3a06215c5dc3d97550dd7"
+    },
+    {
+      "path": "experiments/full14_power/proof/sentinel_p14_off.jsonl.gz.part-aa",
+      "bytes": 94371840,
+      "sha256": "8cb809ee2f26194803e691b27aad50c6654ae7a89d268bf0be7f8c217fd3e747"
+    },
+    {
+      "path": "experiments/full14_power/proof/sentinel_p14_off.jsonl.gz.part-ab",
+      "bytes": 94371840,
+      "sha256": "1a12577ef99d8a96c9419630ea861e4a9aaa5f4d2c9d0ca0138941908d076f3b"
+    },
+    {
+      "path": "experiments/full14_power/proof/sentinel_p14_best.jsonl.gz.part-aa",
+      "bytes": 94371840,
+      "sha256": "5a2cfda231a504d5b67ceac7243e04d50b2a3c92d3e0882a94cbb1741ee89bc0"
+    },
+    {
+      "path": "experiments/iter134_neuroncap_placebo_semantics_execution/proof/sentinel_i134_union.jsonl.gz.part-aa",
+      "bytes": 94371840,
+      "sha256": "4a4b90a383613ebd228a24b510d59f2214695a3a020858d082187f1e507ffb85"
+    },
+    {
+      "path": "experiments/iter134_neuroncap_placebo_semantics_execution/proof/sentinel_i134_off.jsonl.gz.part-a00",
+      "bytes": 94371840,
+      "sha256": "37c2da32702225ed87f39de671295f11780deee52c9ef21129062d270861005e"
+    },
+    {
+      "path": "experiments/iter22_causal_planner_interpretability/proof-extract/sentinel_e22_stage1.jsonl.gz",
+      "bytes": 89161655,
+      "sha256": "831bf5ccb8f90c23e40e2e6ae32b6d639ec9e8fca2fb74519712c5badb782217"
+    },
+    {
+      "path": "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p50.jsonl.gz.part-aa",
+      "bytes": 83886080,
+      "sha256": "d81d11c3a2fccaab550503763d97dcb077cede60687b7302840498114f650a9d"
+    },
+    {
+      "path": "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p00.jsonl.gz.part-aa",
+      "bytes": 83886080,
+      "sha256": "a1cc1b2e9f8e7b30cf7a670dad2c9a40fc7e0f75aec5ba005bd070936d464ba6"
+    },
+    {
+      "path": "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha1p00.jsonl.gz.part-aa",
+      "bytes": 83886080,
+      "sha256": "e69a279ed1cb797e0c6f927e12fb8f5f3098a634414ebf5f21405cf4d8dc0051"
+    },
+    {
+      "path": "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p25.jsonl.gz.part-aa",
+      "bytes": 83886080,
+      "sha256": "5326df55a83228ff8bcc7dce5c9b49914438b774bc28e64719c064abc387be86"
+    },
+    {
+      "path": "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p75.jsonl.gz.part-aa",
+      "bytes": 83886080,
+      "sha256": "95ea17cd4a119e7c9d6a7c5c98a8f105f4f2942da4eab6ff8aee4680ed691d2f"
+    },
+    {
+      "path": "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p50.jsonl.gz.part-ab",
+      "bytes": 83886080,
+      "sha256": "02bb54d23ea4f02b979d9702c5648c19acf77a6659d8fe9e13ff422a93822da6"
+    },
+    {
+      "path": "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha1p00.jsonl.gz.part-ab",
+      "bytes": 83886080,
+      "sha256": "748e6933a427e06c3b196c4f6bdf01002d2f065ae2e562d7c78408d583054b24"
+    },
+    {
+      "path": "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p00.jsonl.gz.part-ab",
+      "bytes": 83886080,
+      "sha256": "a4c88c7524649ee6ad4419ee79203d411a79659110cb7f21c7282aa5c69accf8"
+    },
+    {
+      "path": "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p25.jsonl.gz.part-ab",
+      "bytes": 83886080,
+      "sha256": "d1c5e6ed1dba8398aaf61601b44478ff22c78949acc806c9f56a550f73bea5cc"
+    },
+    {
+      "path": "experiments/iter33_prefix_preserving_bridge_intervention/proof-calibration/sentinel_e33_calibration_alpha0p75.jsonl.gz.part-ab",
+      "bytes": 83886080,
+      "sha256": "c60218fdf80e4ae71fa52fc42300395362d26f2fff08e5a607c9bf7c1f36f340"
+    },
+    {
+      "path": "experiments/iter29_trainval_risk_support_atlas/proof-full-extract/sentinel_e29_stage1.jsonl.gz.part-aa",
+      "bytes": 83886080,
+      "sha256": "444c94e014ff0206fc37fefa1319d988258d97021201c90a4ec39ef3fe4c5728"
+    },
+    {
+      "path": "experiments/iter29_trainval_risk_support_atlas/proof-full-extract/sentinel_e29_stage1.jsonl.gz.part-af",
+      "bytes": 83886080,
+      "sha256": "a4d2860df8a3db41a67134b3df4bc3a0223aa773a309d925a61dfe9843594d98"
+    },
+    {
+      "path": "experiments/iter29_trainval_risk_support_atlas/proof-full-extract/sentinel_e29_stage1.jsonl.gz.part-ah",
+      "bytes": 83886080,
+      "sha256": "aec9ec8f8f5d1cf09cbad829f833667bf453262339da41744eca7b26ca74605c"
+    },
+    {
+      "path": "experiments/iter29_trainval_risk_support_atlas/proof-full-extract/sentinel_e29_stage1.jsonl.gz.part-ai",
+      "bytes": 83886080,
+      "sha256": "fab0a88ec17974b1aa20fa1254f5c574861fedca7dac1f51889748a7622a2e40"
+    },
+    {
+      "path": "experiments/iter29_trainval_risk_support_atlas/proof-full-extract/sentinel_e29_stage1.jsonl.gz.part-an",
+      "bytes": 83886080,
+      "sha256": "5bf5272f083f99ba33d27e36574ef305ae1f9e573951921f06496586557c632e"
+    },
+    {
+      "path": "experiments/iter29_trainval_risk_support_atlas/proof-full-extract/sentinel_e29_stage1.jsonl.gz.part-ag",
+      "bytes": 83886080,
+      "sha256": "e539f492bfa7814ae8cf39dc4b8c34f22c43995beef0868846c301a9ca8a8c8e"
+    },
+    {
+      "path": "experiments/iter29_trainval_risk_support_atlas/proof-full-extract/sentinel_e29_stage1.jsonl.gz.part-ae",
+      "bytes": 83886080,
+      "sha256": "7dbc0218b93c20c82cdfd039cb8fb944199a440dbfefc9b5a6600bdb3fafeb6f"
+    },
+    {
+      "path": "experiments/iter29_trainval_risk_support_atlas/proof-full-extract/sentinel_e29_stage1.jsonl.gz.part-ab",
+      "bytes": 83886080,
+      "sha256": "c5964b9f3f98eeac25904704a64be8be7a25021709c8e7b0c5ae11847cd8efc9"
+    },
+    {
+      "path": "experiments/iter29_trainval_risk_support_atlas/proof-full-extract/sentinel_e29_stage1.jsonl.gz.part-ak",
+      "bytes": 83886080,
+      "sha256": "54c6159dfabda1daba62a35a786ec4ca0006dab171462fc0c4ecf0a88c31baad"
+    },
+    {
+      "path": "experiments/iter29_trainval_risk_support_atlas/proof-full-extract/sentinel_e29_stage1.jsonl.gz.part-al",
+      "bytes": 83886080,
+      "sha256": "cedfda5e90cdebc6ea7b1b5d8135b6b4da65dd8966d551ff80fe10e40b22ece3"
+    },
+    {
+      "path": "experiments/iter29_trainval_risk_support_atlas/proof-full-extract/sentinel_e29_stage1.jsonl.gz.part-am",
+      "bytes": 83886080,
+      "sha256": "b025d4c24ba91f2ce414d843379ece2d5b0821217cf0d866686e0c630bd53d87"
+    },
+    {
+      "path": "experiments/iter29_trainval_risk_support_atlas/proof-full-extract/sentinel_e29_stage1.jsonl.gz.part-aj",
+      "bytes": 83886080,
+      "sha256": "2edc039cb8c2043e253ef48b42d687b34caf82d291a4484cc4ee275d6be6f705"
+    },
+    {
+      "path": "experiments/iter29_trainval_risk_support_atlas/proof-full-extract/sentinel_e29_stage1.jsonl.gz.part-ac",
+      "bytes": 83886080,
+      "sha256": "5e0a84f5de0ceced284b67d2eed9aab4be8a2651fc5d7a434f1ece511373c2ff"
+    },
+    {
+      "path": "experiments/iter29_trainval_risk_support_atlas/proof-full-extract/sentinel_e29_stage1.jsonl.gz.part-ad",
+      "bytes": 83886080,
+      "sha256": "f988db3a45a7d38cf82d6dd2bba7b7b2c22bbf8b4cc53c5855d21ab1a730bdcf"
+    },
+    {
+      "path": "experiments/iter21_bev_diversity_head/proof-extract/sentinel_bev_extract.jsonl.gz.part-aa",
+      "bytes": 83886080,
+      "sha256": "f8eaf24bce2ea4d504677edad7edda6b290697ddd359cbf6c651228ab3b4de71"
+    },
+    {
+      "path": "experiments/iter37_track_query_site_intervention/proof-calibration/sentinel_e37_calibration_alpha0p00.jsonl.gz.part-ab",
+      "bytes": 83886080,
+      "sha256": "b362b8d03ba3e7d85b5f670f385950aad2b5ac5ae25a1055f2ef8d4b23d00238"
+    },
+    {
+      "path": "experiments/iter37_track_query_site_intervention/proof-calibration/sentinel_e37_calibration_alpha1p00.jsonl.gz.part-ab",
+      "bytes": 83886080,
+      "sha256": "f6dc5815fa03dd06b607031c73bc0a7b4f80d4b6348bb7adeb0dee6e4dfc5026"
+    },
+    {
+      "path": "experiments/iter37_track_query_site_intervention/proof-calibration/sentinel_e37_calibration_alpha0p50.jsonl.gz.part-ab",
+      "bytes": 83886080,
+      "sha256": "c6d0962ebb1ef84ae6e5ed8cf7524ad5dce6b57edac23b538ca0c480673aafd5"
+    },
+    {
+      "path": "experiments/iter37_track_query_site_intervention/proof-calibration/sentinel_e37_calibration_alpha0p75.jsonl.gz.part-ab",
+      "bytes": 83886080,
+      "sha256": "d30238752f5f3a55354725992e8b6ed72215c457be7899cd9f93bfa4d40e1e3e"
+    },
+    {
+      "path": "experiments/iter37_track_query_site_intervention/proof-calibration/sentinel_e37_calibration_alpha0p25.jsonl.gz.part-ab",
+      "bytes": 83886080,
+      "sha256": "5ad229f1ed6236ca6806bfac003a08ce707901a9ec5274d1ab30d46876f18e6b"
+    }
+  ]
+}
