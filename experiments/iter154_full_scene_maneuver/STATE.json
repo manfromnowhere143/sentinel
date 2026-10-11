@@ -1,11 +1,11 @@
 {
   "iteration": 154,
   "status": "preregistered",
-  "execution_status": "uninitialized",
+  "execution_status": "qualified",
   "planned_episodes": 2,
   "initialized_episodes": 0,
   "admitted_episodes": 0,
   "owned_active_jobs": 0,
   "provider_access": false,
-  "next": "Qualify the fixed action adapter and independent full-scene replay before execution."
+  "next": "Execute one fixed pair after frozen packet and existing-host identity checks; no initialization yet."
 }

@@ -1,0 +1,16 @@
+{
+  "status": "supported",
+  "inputs_sha256": "64ff1a9910bb991af6322ea4b53da39e1d881f933d0eadfa0d56549822f1df30",
+  "plan_sha256": "0a11a0efad0ee1a2389ec777d558bbdd7b1f51d361189d9e682851c14cbc2629",
+  "scientific_outcomes": 0,
+  "regression_tests": 607,
+  "retained_warnings": 307,
+  "new_focused_tests": 62,
+  "python": "3.14.2",
+  "environment": "ambient macOS; live Linux/GPU checks remain unobserved",
+  "source_method_fixture_actions": 66,
+  "source_method_fixture_scope": "65-action completion and one-action background failure with synthetic CPU rendering/background and source foreground/kinematics/route",
+  "raw_retention_rehearsal": "bounded archive -> Git raw identity -> separate scalar replay; synthetic fixtures only",
+  "historical_actions_replayed": 134,
+  "selected_packet_sha256": "7ff1f2d9da401f14b0e0380d86dedb3f3be13cd32c4cf6b25e1d3b3d5a96b681"
+}
