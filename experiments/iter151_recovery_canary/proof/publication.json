@@ -1,0 +1,43 @@
+{
+  "observed_utc": "2026-10-11T07:50:48.020953+00:00",
+  "branch": "research/iter151-recovery-canary",
+  "published_commit": "daba05fe55dd8ab1962674f0a858588e1ca60c66",
+  "remote_head_matches": true,
+  "master_unchanged": true,
+  "served_files": [
+    {
+      "path": "HANDOFF.md",
+      "sha256": "3546069bd2bc9441bda91af701de88281792f65ab63330fe3ee80574cf011239",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/daba05fe55dd8ab1962674f0a858588e1ca60c66/HANDOFF.md"
+    },
+    {
+      "path": "experiments/iter151_recovery_canary/RESULT.md",
+      "sha256": "0a2bd9d50bcca4342ca67795b7af23175ea473a6fcc6c6e3be3c11e23e54e4f5",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/daba05fe55dd8ab1962674f0a858588e1ca60c66/experiments/iter151_recovery_canary/RESULT.md"
+    },
+    {
+      "path": "experiments/iter151_recovery_canary/STATE.json",
+      "sha256": "dc0a57104a4d0bda76ec0d55c7f33089551798ca2f9a3f5c41b2d7d1d6dabba1",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/daba05fe55dd8ab1962674f0a858588e1ca60c66/experiments/iter151_recovery_canary/STATE.json"
+    },
+    {
+      "path": "experiments/iter151_recovery_canary/proof/admissions/pair_000.json",
+      "sha256": "43c21b847505d7cfe7eb9274d3d6cfde0acd8800f1766d029fe011483022ee80",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/daba05fe55dd8ab1962674f0a858588e1ca60c66/experiments/iter151_recovery_canary/proof/admissions/pair_000.json"
+    }
+  ],
+  "hosted_runs_observed": [
+    {
+      "conclusion": "",
+      "databaseId": 38122786900,
+      "headSha": "daba05fe55dd8ab1962674f0a858588e1ca60c66",
+      "status": "in_progress",
+      "url": "https://github.com/manfromnowhere143/sentinel/actions/runs/38122786900"
+    }
+  ],
+  "whole_repository_CI": "not established; local Ruff 706 findings in 161 files, including captured immutable source"
+}

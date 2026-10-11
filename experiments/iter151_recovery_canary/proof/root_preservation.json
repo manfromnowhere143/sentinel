@@ -1,0 +1,11 @@
+{
+  "root": "/Users/danielwahnich/workspace/sentinel",
+  "candidate": "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011",
+  "mirrored_iteration_files": 323,
+  "index_sha256": "2e8a3f0d7ef06439b04e4fee41ba97e1f46675c670946c1084aaad796f56e22e",
+  "index_unchanged": true,
+  "other_dirty_and_authority_files_verified": 23,
+  "prior_preservation_receipt_sha256": "9170032f6534b7955f2fb19194cc0a93acb0f2da8ee6b3f67e47917d01c87d8b",
+  "root_readme_bytes_unchanged": true,
+  "master_unchanged": true
+}

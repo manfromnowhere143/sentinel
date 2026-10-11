@@ -119,3 +119,11 @@ closed 16-slot accounting. Before more GPU work, qualify the full retention/admi
 on representative captured artifacts, including their original source formatting. Whole-repository
 CI remains unresolved; current local lint scope is recorded separately, and no green hosted
 result or master integration is claimed.
+
+Research publication was verified at `daba05fe55dd8ab1962674f0a858588e1ca60c66`:
+GitHub-served handoff, result, state and admission bytes matched the committed files.
+[Publication readback](proof/publication.json) · [root preservation](proof/root_preservation.json).
+The canonical root's index and 23 other dirty or authority files remain unchanged.
+Hosted run `38122786900` subsequently completed with failure: both Python jobs passed the
+supply-chain and locked-install checks, failed whole-repository Ruff, and skipped later tests.
+[Hosted run observation](proof/hosted_run.json). This does not replace the scoped local tests.

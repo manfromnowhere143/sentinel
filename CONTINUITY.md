@@ -4679,3 +4679,10 @@ work is a separate prospective continuation with historical comparator reuse exp
 New source lint passes; current whole-repository lint has 706 findings in 161 files, including
 18 in the newly retained unchanged source snapshot. No evidence formatting or exclusions were
 used to hide those findings. Master, pinned AGENTS, historical MISSION_STATE and root WIP remain.
+
+Iter151 research publication was verified at daba05fe55dd8ab1962674f0a858588e1ca60c66;
+GitHub-served handoff, result, state and admission bytes matched. Root index and 23 other dirty
+or authority files remained unchanged. Publication and preservation receipts are in Iter151 proof.
+Hosted run 38122786900 then completed with failure: both Python jobs passed supply-chain and
+locked-install checks, failed repository-wide Ruff and skipped later tests. No master merge
+or corrected whole-coordinator cloud execution occurred.

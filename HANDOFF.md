@@ -22,6 +22,9 @@ regression: 308 passed / 40 warnings; final pre-live focused checks: 56 passed; 
 checks: 57 passed. Whole-repository local Ruff reports 706 findings in 161 files, including 18
 in the newly captured unchanged client snapshot; zero in new authored source. Hosted CI and
 master integration remain unresolved; evidence snapshots were not normalized or excluded.
+Hosted run `38122786900` at `daba05f` failed whole-repository Ruff in both Python jobs after
+passing supply-chain and locked-install checks; later tests were skipped. Research publication
+and exact served bytes were verified; receipts are in Iter151 proof.
 
 Current candidate: `research/iter151-recovery-canary`, owned same-repository checkout
 `/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011`.
