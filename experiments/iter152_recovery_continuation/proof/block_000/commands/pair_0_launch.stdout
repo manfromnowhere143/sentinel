@@ -1,0 +1,1 @@
+{"returncode": 0, "stdout": "", "stderr": "Running as unit: sentinel152-pair0-df0a2b2f6955.service\n", "unit": "sentinel152-pair0-df0a2b2f6955.service", "service": {"RuntimeMaxUSec": "41min 40s", "MainPID": "1968", "KillMode": "control-group", "Id": "sentinel152-pair0-df0a2b2f6955.service", "ActiveState": "active", "InvocationID": "e500ec1734f3473cbe06453dbe9e8e8d"}}

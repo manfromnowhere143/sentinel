@@ -1,0 +1,21 @@
+{
+  "status": "running",
+  "episode": "continuation152_000__scene-0013-medium-00__monitor__1",
+  "seed": 144,
+  "gpu_observed": false,
+  "slot": {
+    "arm": "monitor",
+    "id": "continuation152_000__scene-0013-medium-00__monitor__1",
+    "index": 0,
+    "max_actions": 401,
+    "probe": "none",
+    "replica": 1,
+    "reset_count": 1,
+    "scenario": "scene-0013-medium-00.yaml",
+    "scenario_sha256": "162bd65e0fa40d6f46a992063da665f858ccf78b00879b0a34fdfc76103a2401",
+    "seed": 144
+  },
+  "purpose": "study",
+  "driving_outcome": null,
+  "live_study_admitted": false
+}
