@@ -1,0 +1,21 @@
+{
+  "status": "running",
+  "episode": "continuation152_012__scene-0038-easy-00__brake_t2_5__1",
+  "seed": 144,
+  "gpu_observed": false,
+  "slot": {
+    "arm": "brake_t2_5",
+    "id": "continuation152_012__scene-0038-easy-00__brake_t2_5__1",
+    "index": 12,
+    "max_actions": 401,
+    "probe": "none",
+    "replica": 1,
+    "reset_count": 1,
+    "scenario": "scene-0038-easy-00.yaml",
+    "scenario_sha256": "275066a06afb7a909748739e28de0eabc3d8c711d8c73f8769225a959ac5c3d5",
+    "seed": 144
+  },
+  "purpose": "study",
+  "driving_outcome": null,
+  "live_study_admitted": false
+}

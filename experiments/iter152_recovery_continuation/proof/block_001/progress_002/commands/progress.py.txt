@@ -1,0 +1,23 @@
+paths=['/datasets/nuscenes-full/hugsim/iter152_continuation_20261011/runs/continuation152_012__scene-0038-easy-00__brake_t2_5__1', '/datasets/nuscenes-full/hugsim/iter152_continuation_20261011/runs/continuation152_013__scene-0038-easy-00__brake_t2_5__2']
+import os,json
+from pathlib import Path
+result=[]
+for name in paths:
+ p=Path(name);row=dict(episode=p.name,initialized=p.exists())
+ f=p/'trace/events.jsonl'
+ try:
+  fd=os.open(f,os.O_RDONLY|os.O_NOFOLLOW)
+ except FileNotFoundError:
+  row['trace']='not_observed'
+ else:
+  try:
+   size=os.fstat(fd).st_size;os.lseek(fd,max(0,size-131072),os.SEEK_SET);raw=os.read(fd,131072)
+  finally:os.close(fd)
+  records=[]
+  for line in raw.splitlines()[1:-1]:
+   try: records.append(json.loads(line))
+   except (ValueError,UnicodeError):pass
+  observed=[r for r in records if r.get('event') in ('step','outcome_observation','runner_stop')]
+  row.update(trace_bytes=size,last_observed=[{k:r[k] for k in ('event','frame','time','status','steps') if k in r} for r in observed[-2:]])
+ result.append(row)
+print(json.dumps(dict(scope='bounded read-only diagnostic, not scientific admission',episodes=result)))

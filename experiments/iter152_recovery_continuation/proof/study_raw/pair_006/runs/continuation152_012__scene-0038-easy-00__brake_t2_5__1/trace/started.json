@@ -1,0 +1,15 @@
+{
+  "schema": "sentinel.iter146.summary.v2",
+  "status": "running",
+  "episode": "continuation152_012__scene-0038-easy-00__brake_t2_5__1",
+  "arm": "brake_t2_5",
+  "seed": 144,
+  "max_actions": 401,
+  "max_seconds": 1197.9990291030003,
+  "steps": 0,
+  "stop_reason": null,
+  "outcome": null,
+  "live_study_admitted": false,
+  "timings": [],
+  "timing_scope": "Elapsed-clock boundaries relative to runner entry. loop_work_ns ends after trace flush; full_loop_ns also includes the post-step resource guard and stop decision. Both exclude timing-list append, Python loop dispatch and final summary writing."
+}
