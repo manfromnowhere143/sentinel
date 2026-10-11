@@ -33,10 +33,6 @@ against a frozen family of clock-only placebo policies spanning multiple assigne
 evaluates whether the union lies outside their safety/progress/actuation frontier. A failure to do
 so downgrades the semantic mechanism claim rather than triggering threshold tuning.
 
-The [2026-10-09 pre-run scientific decision review](research/ITER135_PRE_RUN_SCIENTIFIC_DECISION_REVIEW_2026-10-09.md)
-records the remaining inference, comparator, scene-independence, and compute-value questions. It is
-a proposed review, not an amendment or an Iteration-135 result.
-
 A pinned Bench2Drive-Robust feasibility lane remains a later external-benchmark option for frame
 loss, state error, partial observation, and control latency; the current control-hardening phase
 does not authorize that work. No host or GPU launch is authorized until the source-bound lifecycle

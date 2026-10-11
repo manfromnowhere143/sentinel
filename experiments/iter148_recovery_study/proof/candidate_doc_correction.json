@@ -1,0 +1,4 @@
+{
+  "status": "corrected",
+  "scope": "candidate CONTINUITY only; unrelated historical working-tree additions were included in dd45ad39b26602ad81626ca55332e7ce6d308e91 and removed from the candidate tip by a forward correction. Root worktree historical content is preserved. No source or study evidence changed."
+}
