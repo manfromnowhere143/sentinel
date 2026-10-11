@@ -1,29 +1,48 @@
 # Sentinel — next-session handoff
 
-Updated 11 October 2026. **Iter155 qualified; one bounded background-witness extraction is next.**
-Read [protocol](experiments/iter155_background_witness/HYPOTHESIS.md), [state](experiments/iter155_background_witness/STATE.json),
-[plan](experiments/iter155_background_witness/STUDY_PLAN.json), [qualification](experiments/iter155_background_witness/QUALIFICATION.json).
-Frozen source `c677e2c7dbb11db5006bde1978a829a2cfac501f`; protocol `b2c8e80`. 239 local regression checks passed /144 upstream
-warnings, including75 focused tests. Fixtures use explicit synthetic CPU substitutions; real
-scene/CUDA witness is still unobserved. The source packet matches committed bytes.
+Updated 11 October 2026. **Iter155 is closed: the background witness replays exactly.**
+Native CUDA and separate scalar replay count **0 selected centers at 3.00 s and 273 at 3.25 s**.
+Both full masks agree, with zero classification-ambiguous points under the declared diagnostic
+band. The unchanged source threshold is >100. This supports the finite witness for Iter154's
+background failure; it does not rehabilitate the maneuver or establish physical occupancy.
+Read [result](experiments/iter155_background_witness/RESULT.md),
+[state](experiments/iter155_background_witness/STATE.json),
+[admission](experiments/iter155_background_witness/proof/admission.json) and
+[next decision](experiments/iter155_background_witness/DECISION.md).
 
-Two fixed historical frames (12 at3.00s and13 at3.25s), four replica/frame bindings; **no new
-driving episode, simulator constructor/reset/step, rendering, inference or maneuver search**.
-Recover full point/filter membership and native masks, then separate scalar replay. Ground height,
-box geometry and original source/assets are bound. Physical occupancy and road compliance unknown.
+Retained 1,345,702 pre-selection points with all 20 semantic features and opacity; independent
+filter reconstruction recovers all 276,519 selected points in order. Ground/box geometry passes.
+Four historical replica/frame bindings represent two unique poses. **No new driving episode,
+simulator constructor/reset/step, rendering, inference or maneuver search.** Physical occupancy,
+road boundaries, useful live recovery and information benefit remain unknown.
 
-Command: `python3 -u -m experiments.iter155_background_witness.execute --attempt 0 --source c677e2c7dbb11db5006bde1978a829a2cfac501f`.
-Inspect proof/attempt_000 and current state before any action; never duplicate initialization.
-Fresh root `/datasets/nuscenes-full/hugsim/iter155_background_20261011`; existing bound L4 VM only.
-Original1800s/$1.50 upper envelope,420s worker, independent host/local deadlines. One capacity-only
-retry after explicit denied-start closure and120s wait is preregistered; no initialized retry.
-Retain raw before replay and verify exact-start termination. No new infrastructure or packages.
+Protocol `b2c8e80`; frozen source `c677e2c7dbb11db5006bde1978a829a2cfac501f`;
+raw `45c5bbb7270f4d1bfd70cd2c73da0f2b448d61ab` before admission
+`33526109878d99099c81e59fc51b7a047fba37b8`. 239 local regression checks passed / 144 upstream
+warnings, including 75 focused checks. Explicit synthetic CPU fixtures are separate from actual
+L4 extraction. Local scalar replay completed in 4.341 s. No hermetic or real-time claim.
 
-Owned branch `research/iter155-background-witness` in the same owned recovery checkout.
-Canonical root index, README, architecture, pinned authority and unrelated WIP remain preserved.
-Accepted master `8c118b74c699bf0f139f9bd659192bad06b895f8` remains unchanged. No human ceremony.
-Whole-repository Ruff832 and historical mission/publication guards remain red; local tests do not
-imply a hosted CI pass. Do not rerun either closed Iter154 attempt.
+**VM TERMINATED; watchdog 0; no owned job.** One start and one extraction; no capacity retry.
+Exact start 2026-10-11T11:23:31.309-07:00, verified stop 11:27:51.064-07:00. All 396 bound
+source/asset files unchanged. Inclusive envelope 275.085 s, conservative compute $0.229238
+within $1.50; not an invoice. An initial local storage failure preceded all provider access;
+completed Sentinel test fixtures were removed with an inventory. Two read-only SSH startup
+failures were retained. Read [resource closure](experiments/iter155_background_witness/proof/resource_closure.json).
+Do not reuse the closed remote root `/datasets/nuscenes-full/hugsim/iter155_background_20261011`
+or rerun either Iter154 attempt.
+
+Next: **prospective background-aware model calibration against retained native prefixes** before
+another search. Qualify accelerated point queries against the full scalar oracle; keep native
+threshold, coordinates, ground height, foreground, progress and road-boundary claims distinct.
+Keep the Iter153 model-only success and Iter154 full-scene failure visible. A later useful
+maneuver from reset still does not establish a continuation at the monitor's actual trigger.
+
+Owned branch `research/iter155-background-witness`, checkout
+`/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011`. Root index, README,
+architecture, pinned authority and unrelated WIP preserved. Accepted master remains
+`8c118b74c699bf0f139f9bd659192bad06b895f8`. Daniel's continuing instruction supplies authority;
+no human ceremony is pending. Publication/hosted CI for this closure is not yet observed.
+Prior whole-repository Ruff and historical publication/doc guards remain red.
 
 ## Historical Iter154 closure
 

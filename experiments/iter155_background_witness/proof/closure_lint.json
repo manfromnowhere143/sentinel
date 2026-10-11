@@ -1,0 +1,28 @@
+[
+  {
+    "scope": "authored",
+    "argv": [
+      "/opt/homebrew/bin/ruff",
+      "check",
+      "experiments/iter155_background_witness",
+      "tests/test_iter155_background_witness.py",
+      "experiments/iter155_background_witness/proof/plot_witness.py.txt"
+    ],
+    "returncode": 0,
+    "findings": 0,
+    "stdout_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+  },
+  {
+    "scope": "repository",
+    "argv": [
+      "/opt/homebrew/bin/ruff",
+      "check",
+      ".",
+      "--output-format",
+      "json"
+    ],
+    "returncode": 1,
+    "findings": 832,
+    "stdout_sha256": "1e604473fa636f956ae4ae62e9c00a0231b0a7f2db277c133c959645d3ebf6cf"
+  }
+]

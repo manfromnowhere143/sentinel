@@ -1,0 +1,180 @@
+"""Descriptive projections of retained Gaussian centers and native boxes."""
+
+import json
+import math
+from pathlib import Path
+from xml.sax.saxutils import escape
+
+from experiments.iter155_background_witness.storage import get_arrays
+
+BASE = Path("experiments/iter155_background_witness")
+record = json.loads((BASE / "proof/raw/witness.json").read_text())
+arrays, _ = get_arrays(BASE / "proof/raw", record["arrays"])
+points = arrays["selected_xyz"]
+mask = arrays["mask_13"].astype(bool)
+region = (
+    (points[:, 0] > -5)
+    & (points[:, 0] < 0)
+    & (points[:, 2] > 9.5)
+    & (points[:, 2] < 16.5)
+    & (points[:, 1] > -0.5)
+    & (points[:, 1] < 2)
+)
+context = points[region & ~mask]
+stride = max(1, math.ceil(len(context) / 1400))
+display = context[::stride]
+svg = [
+    '<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="700" viewBox="0 0 1120 700">',
+    '<rect width="1120" height="700" fill="white"/>',
+    '<g font-family="Arial, Helvetica, sans-serif" fill="#142b38">',
+]
+
+
+def text(x, y, label, size=15, **kw):
+    attrs = " ".join(f'{k.replace("_", "-")}="{v}"' for k, v in kw.items())
+    svg.append(f'<text x="{x}" y="{y}" font-size="{size}" {attrs}>{escape(label)}</text>')
+
+
+text(55, 42, "The background collision now has a replayable witness", 26, font_weight="bold")
+text(
+    55,
+    73,
+    "3.00 s: 0 enclosed points     →     3.25 s: 273 enclosed points     |     source threshold: > 100",
+    19,
+)
+text(
+    55,
+    101,
+    "Native CUDA and independent scalar replay agree on every mask entry in both frames.",
+    16,
+)
+edges = [
+    (0, 1),
+    (0, 2),
+    (0, 5),
+    (1, 3),
+    (1, 4),
+    (2, 3),
+    (2, 7),
+    (3, 6),
+    (4, 5),
+    (4, 6),
+    (5, 7),
+    (6, 7),
+]
+panels = [
+    (
+        65,
+        165,
+        450,
+        360,
+        0,
+        2,
+        (-5, 0),
+        (9.5, 16.5),
+        "Source x (m)",
+        "Source z (m)",
+        "Top projection",
+    ),
+    (
+        625,
+        165,
+        430,
+        360,
+        2,
+        1,
+        (9.5, 16.5),
+        (-0.5, 2),
+        "Source z (m)",
+        "Source y (m)",
+        "Height projection",
+    ),
+]
+for left, top, w, h, axisx, axisy, xrange, yrange, xlabel, ylabel, title in panels:
+
+    def project(point):
+        return left + (point[axisx] - xrange[0]) / (xrange[1] - xrange[0]) * w, top + h - (
+            point[axisy] - yrange[0]
+        ) / (yrange[1] - yrange[0]) * h
+
+    text(left, 145, title, 18, font_weight="bold")
+    for i in range(6):
+        px = left + i * w / 5
+        py = top + i * h / 5
+        svg.append(
+            f'<path d="M {px} {top} V {top + h} M {left} {py} H {left + w}" stroke="#e4eaee" fill="none"/>'
+        )
+        text(
+            px,
+            top + h + 22,
+            f"{xrange[0] + i * (xrange[1] - xrange[0]) / 5:.1f}",
+            13,
+            text_anchor="middle",
+        )
+        text(
+            left - 10,
+            py + 4,
+            f"{yrange[1] - i * (yrange[1] - yrange[0]) / 5:.1f}",
+            13,
+            text_anchor="end",
+        )
+    for group, color, radius, alpha in [
+        (display, "#9ba7af", 1.4, 0.45),
+        (points[mask], "#bb3945", 2, 0.75),
+    ]:
+        for point in group:
+            x, y = project(point)
+            svg.append(
+                f'<circle cx="{x:.2f}" cy="{y:.2f}" r="{radius}" fill="{color}" opacity="{alpha}"/>'
+            )
+    for frame, color, dash in [(12, "#2269a3", "5 3"), (13, "#182e38", "none")]:
+        box = arrays[f"box_{frame}"]
+        for a, b in edges:
+            x1, y1 = project(box[a])
+            x2, y2 = project(box[b])
+            svg.append(
+                f'<path d="M{x1:.2f} {y1:.2f} L{x2:.2f} {y2:.2f}" stroke="{color}" stroke-width="2" stroke-dasharray="{dash}" fill="none"/>'
+            )
+    text(left + w / 2, top + h + 48, xlabel, 15, text_anchor="middle")
+    text(
+        left - 42,
+        top + h / 2,
+        ylabel,
+        15,
+        transform=f"rotate(-90 {left - 42} {top + h / 2})",
+        text_anchor="middle",
+    )
+text(
+    65,
+    610,
+    "Dashed blue: 3.00 s box    Dark: 3.25 s box    Red: all 273 centers enclosed at 3.25 s",
+    16,
+)
+text(
+    65,
+    639,
+    f"Gray: {len(display):,} of {len(context):,} nearby centers, sampled only for display. Replay uses all 276,519 selected centers.",
+    15,
+)
+text(
+    65,
+    667,
+    "These are source-coordinate projections of Gaussian centers; physical occupancy and road boundaries remain unverified.",
+    15,
+)
+svg.append("</g></svg>")
+(BASE / "proof/background_witness.svg").write_text("\n".join(svg) + "\n")
+(BASE / "proof/figure_data.json").write_text(
+    json.dumps(
+        {
+            "nearby_noncontact_points": len(context),
+            "gray_display_points": len(display),
+            "display_stride": stride,
+            "highlighted_contact_points": int(mask.sum()),
+            "replay_selected_population": len(points),
+            "scope": "Post-replay descriptive figure; display subsampling is not evidence filtering.",
+        },
+        indent=2,
+    )
+    + "\n"
+)

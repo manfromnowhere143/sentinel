@@ -1,5 +1,22 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
+> **Current: Iter155 closed — 2026-10-11.** Full point selection and both collision masks
+> independently replay: 0 centers at 3.00 s, 273 at 3.25 s, unchanged >100 threshold; no mask
+> disagreement or diagnostic-band ambiguity. Four historical bindings, two poses, no new drive.
+> VM TERMINATED, watchdog 0, no owned jobs; $0.229238 within $1.50. Read current HANDOFF and
+> Iter155 RESULT/STATE/DECISION. Next: prospective background-aware model calibration before search.
+> Physical occupancy, road compliance, useful recovery and information value remain unknown.
+> Earlier current notices below are historical; do not rerun closed Iter155/154 controls.
+
+> **Current: Iter155 extraction envelope closed, replay pending — 2026-10-11.** Native counts
+> are0 at3.00s and273 at3.25s; raw is retained before independent admission. VM TERMINATED,
+> watchdog0, no owned job, $0.2293 conservative compute. No new driving episode. Read current
+> STATE and owned proof/admission before interpreting the witness. Earlier notices are historical.
+
+> **Current: Iter155 envelope running — 2026-10-11.** Owned start 2026-10-11T11:23:31.309-07:00.
+> Observe the owned checkout proof/attempt_000 and STATE. One supervisor owns this extraction;
+> no duplicate launch or new driving episode. Earlier current notices are historical.
+
 > **Current: Iter155 qualified / launch requested — 2026-10-11.** Read current HANDOFF and
 > Iter155 STATE and proof/attempt_000 before any action. Frozen source c677e2c7dbb11db5006bde1978a829a2cfac501f.
 > One fixed background-witness extraction; two historical poses, no new driving episodes.
@@ -4830,3 +4847,23 @@ Publication, hosted outcome/failure log and root-preservation receipts are in It
 Later receipt/documentation commits are distinct from that observed CI scope. The adverse
 scientific result and next background-witness task remain unchanged. No new compute was started
 for publication and no owned job remains.
+
+
+## Iter155 background-witness closure — 2026-10-11
+
+Protocol b2c8e80; source c677e2c7dbb11db5006bde1978a829a2cfac501f. Complete raw committed
+45c5bbb7270f4d1bfd70cd2c73da0f2b448d61ab before separate admission 3352610. Two unique historical
+poses/four replica-frame bindings; zero new driving episodes. Full pre-selection 1,345,702 points
+with all 20 semantic features and opacity; independent filter recovers 276,519 selected points.
+Native and scalar masks match exactly: counts 0 at 3.00 s, 273 at 3.25 s; zero ambiguous classifications
+under the declared diagnostic band. Supported finite source witness; not physical fidelity,
+road compliance, useful recovery, information value or population generality. Iter154 remains failed.
+239 local checks pass / 144 upstream warnings, including 75 focused checks. Initial fixture
+representation error and local storage preflight failure retained; completed Sentinel pytest
+fixtures removed with inventory before any provider call. One VM start/extraction, no capacity retry.
+Exact start 11:23:31.309 and stop 11:27:51.064 UTC-07:00; TERMINATED, watchdog 0, no owned job.
+396 source/asset files unchanged; 275.085 s/$0.229238 within 1800 s/$1.50. No new driving or rendering.
+Next: prospective background-aware model calibration against retained native prefixes before
+another search. Preserve complete point selection, strict count/geometry rules and prior failures.
+Raw, admission, resource closure and result live under Iter155. Publication/hosted CI follows;
+accepted master, root index and unrelated WIP remain unchanged.

@@ -1,12 +1,31 @@
 {
   "iteration": 155,
-  "status": "preregistered",
-  "execution_status": "launch_requested",
+  "status": "supported",
+  "execution_status": "closed",
+  "lifecycle": "closed",
   "source_commit": "c677e2c7dbb11db5006bde1978a829a2cfac501f",
+  "protocol_commit": "b2c8e80",
+  "raw_commit": "45c5bbb7270f4d1bfd70cd2c73da0f2b448d61ab",
+  "admission_commit": "33526109878d99099c81e59fc51b7a047fba37b8",
   "new_driving_episodes": 0,
-  "extraction_launches": 0,
-  "owned_active_jobs": null,
-  "provider_state": "not_yet_observed_in_Iter155",
-  "background_witness": null,
-  "next": "Run the one frozen witness extraction; commit raw before independent replay; verify owned shutdown."
+  "historical_replica_frames": 4,
+  "unique_frame_witnesses": 2,
+  "selected_points": 276519,
+  "native_and_independent_counts": [
+    0,
+    273
+  ],
+  "mask_disagreements": 0,
+  "declared_band_ambiguous_points": 0,
+  "source_asset_files_unchanged": 396,
+  "provider_state": "TERMINATED",
+  "owned_active_jobs": 0,
+  "extraction_launches": 1,
+  "physical_occupancy": null,
+  "road_compliance": null,
+  "live_recovery": null,
+  "information_benefit": null,
+  "whole_repository_hosted_CI": "unobserved_for_Iter155_closure; prior repository lint failure remains",
+  "master_integration": "not_performed",
+  "next": "Prospective background-aware model calibration against retained native prefixes, before a new maneuver search."
 }

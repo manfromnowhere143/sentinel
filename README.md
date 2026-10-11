@@ -14,23 +14,23 @@ warning does not establish that the monitor identified the actor responsible for
 Those findings now determine the research direction.
 
 [Results](#measured-results) · [Monitor](#what-the-monitor-actually-uses) ·
-[Research history](#how-the-question-changed) · [Latest result](#iteration-154-the-full-scene-rejects-the-model-candidate) ·
+[Research history](#how-the-question-changed) · [Latest result](#iteration-155-the-background-witness-replays-exactly) ·
 [Next steps](#the-next-scientific-test) · [Reproduce](#reproduce-and-inspect) ·
 [Experiment index](#complete-experiment-index)
 
 ## Current position — 11 October 2026
 
-[Iteration 154](experiments/iter154_full_scene_maneuver/RESULT.md) tested the exact maneuver
-selected by the preceding reduced-model search. **Both fresh full-scene replicas collide with
-native background at 3.25 simulated seconds.** Two episodes were admitted, with 26 verified actions
-and no incomplete or uninitialized episodes. The applied kinematic prefix matches the model to
-4.44e-16; the omitted background constraint is decisive in the simulator. The actual enclosed
-point count and mask were not retained, so independent background replay is the next task.
+[Iteration 155](experiments/iter155_background_witness/RESULT.md) independently replays the
+background collision exposed by Iter154. Native CUDA and separate scalar checks agree on **0
+selected scene centers at 3.00 s and 273 at 3.25 s**, against the unchanged >100 threshold.
+All 276,519 selected points and both masks agree. No new driving episode ran.
 
-[Iteration 153](experiments/iter153_action_feasibility/RESULT.md) retains its 14 eligible maneuvers
-within the fixed 75-candidate model search. That model success did not establish full-scene
-recovery. Road compliance, physical occupancy and information benefit remain unknown.
-[Next measurement and decision](experiments/iter154_full_scene_maneuver/DECISION.md).
+The exact maneuver selected by [Iteration 153's model search](experiments/iter153_action_feasibility/RESULT.md)
+remains a failure in the [full scene](experiments/iter154_full_scene_maneuver/RESULT.md).
+The omitted background constraint now has a replayable witness. The next task is model calibration
+against retained native prefixes before another search. Physical occupancy, road compliance,
+useful live recovery and information benefit remain unknown.
+[Next scientific decision](experiments/iter155_background_witness/DECISION.md).
 
 The preceding [Iteration 152](experiments/iter152_recovery_continuation/RESULT.md) remains null
 for its tested brake pulses: neither recovered the collision case. All arms completed the benign
@@ -47,8 +47,8 @@ the first braking-pulse episode was interrupted after an observation-transport f
 There is no complete four-arm comparison. Both owned VM starts are confirmed terminated,
 and the study has no automatic restart. [Execution report](experiments/iter148_recovery_study/RESULT.md).
 
-This page covers scientific and engineering evidence through Iteration 154 on
-[research/iter154-full-scene-maneuver](https://github.com/manfromnowhere143/sentinel/tree/research/iter154-full-scene-maneuver).
+This page covers scientific and engineering evidence through Iteration 155 on
+[research/iter155-background-witness](https://github.com/manfromnowhere143/sentinel/tree/research/iter155-background-witness).
 The accepted master mission snapshot is **current through iteration 134**, with verdict
 `PLACEBO_HARM_OR_NULL`; [MISSION_STATE.json](MISSION_STATE.json) retains that historical
 publication contract. Iteration 135 is deferred and unrun. The [current handoff](HANDOFF.md)
@@ -401,21 +401,40 @@ benefit remain unknown. [Result and figure](experiments/iter154_full_scene_maneu
 [per-episode analysis](experiments/iter154_full_scene_maneuver/proof/analysis.json) ·
 [resource closure](experiments/iter154_full_scene_maneuver/proof/resource_closure.json).
 
+## Iteration 155: the background witness replays exactly
+
+A bounded source/asset extraction reconstructs the last clear and first collision boxes from
+Iter154, without rerunning a driving policy. The retained 1,345,702 pre-selection points include
+all semantic features and opacities. Independent filtering recovers all 276,519 selected centers
+in the native order; independent geometry checks the vehicle boxes and ground height.
+
+At 3.00 s the source CUDA and scalar counts are both zero. At 3.25 s both count 273, exceeding
+the unchanged threshold of 100. Every mask entry agrees, with zero ambiguous classifications
+under the declared numerical diagnostic band. Four historical replica/frame bindings describe
+two unique poses. This supports the finite source predicate witness; it does not validate the
+reconstruction against physical occupancy, road boundaries or future trajectories.
+
+All 396 bound source/asset files remained unchanged. The VM is terminated, no owned job remains,
+and conservative compute was $0.229 within $1.50. No new driving episode, rendering or inference
+ran. [Result and figure](experiments/iter155_background_witness/RESULT.md) ·
+[independent admission](experiments/iter155_background_witness/proof/admission.json) ·
+[resource closure](experiments/iter155_background_witness/proof/resource_closure.json).
+
 ## The next scientific test
 
 The intended contribution is a monitor and evaluation system that can show **which failures
 remain preventable, which signal enables prevention, and the measured cost and limits**.
 The following work is proposed; all previous schedules retain their closed accounting.
 
-1. **Make the background collision replayable.** Prospectively retain the native filtered point
-   population, input identities and ego boxes at the last clear and first collision frames.
-   Independently reproduce the enclosed count and boundary rules, with known-bads around the
-   unchanged threshold. A source-predicate replay still does not validate physical occupancy.
-2. **Calibrate the missing constraint before another search.** If the witness is consistent,
-   add background feasibility to a separately registered diagnostic model and check it against
-   retained native prefixes. Otherwise resolve the measurement discrepancy first. Drivable-road
-   boundaries require separate evidence. Even a useful maneuver from reset would not establish
-   an available recovery after the monitor's actual decision time.
+1. **Calibrate a background-aware feasibility model.** Use the retained full selected population,
+   source boxes, ground geometry and unchanged strict count rule. Qualify any accelerated query
+   against a scalar oracle, then prospectively compare retained native failure/nonfailure prefixes.
+   Report every mismatch and preserve the failed original maneuver.
+2. **Search only after the constraint is calibrated.** Register a new finite library, ranking,
+   resource limits and independent replay. Keep foreground clearance, background feasibility,
+   progress, controls and road compliance distinct. Physical occupancy and drivable boundaries
+   require separate evidence. A useful maneuver from reset would still not establish recovery
+   after the monitor's actual decision time.
 3. **After establishing useful recovery, test one information hypothesis against a responsive baseline.**
    Track continuity and uncertainty are motivated candidates. Include benign and stale-track cases, freeze the
    information interfaces, and measure intervention costs. Better offline prediction alone
@@ -652,7 +671,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 </details>
 
 <details>
-<summary>Information, recoverability and execution: Iter135–154</summary>
+<summary>Information, recoverability and execution: Iter135–155</summary>
 
 | Record | Finding or scope |
 |---|---|
@@ -676,6 +695,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 | [152](experiments/iter152_recovery_continuation/RESULT.md) | Fixed continuation complete: 14 new episodes, no pulse recovery witness; benign monitor adds 13 simulated seconds. |
 | [153](experiments/iter153_action_feasibility/RESULT.md) | Fixed local model search: 14 eligible maneuvers; exact candidate selected, full-scene recovery unknown. |
 | [154](experiments/iter154_full_scene_maneuver/RESULT.md) | Exact model candidate fails native background collision at 3.25 s in both fresh replicas; 26 verified actions. |
+| [155](experiments/iter155_background_witness/RESULT.md) | Native/scalar background masks agree: 0 centers at 3.00 s, 273 at 3.25 s; full selected population retained, no new driving episode. |
 
 </details>
 

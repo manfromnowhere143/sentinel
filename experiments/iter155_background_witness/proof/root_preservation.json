@@ -1,0 +1,11 @@
+{
+  "status": "supported",
+  "observed_utc": "2026-10-11T18:32:56.960151+00:00",
+  "root_index_unchanged": true,
+  "other_dirty_or_authority_files_preserved": 23,
+  "root_continuity_before_Iter155_preserved": true,
+  "root_handoff_matches": true,
+  "root_readme_and_architecture_unchanged": true,
+  "mirrored_files_including_test": 166,
+  "scope": "Agent-maintained Iter155 artifacts mirrored; transport archive excluded, retained locally under its hash. Count precedes this receipt and publication bookkeeping."
+}

@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 11 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter154 research candidate. The [README](../README.md) carries the scientific
+limits through the Iter155 research candidate. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -190,15 +190,21 @@ native rendering, actor updates, source termination and both foreground/backgrou
 channels. Both fresh replicas terminate after 13 actions at 3.25 s on native background collision.
 The separately replayed prefix matches the model to 4.44e-16, with foreground and off-route false.
 
-Iter154's device receipts retain the source identity, selected point-population size, collision
-boolean and outcome consistency. They do not retain the enclosed count, mask or point population
-needed to independently replay the full background predicate. Physical occupancy and drivable-road
-boundaries are separate unknowns. Neither useful full-scene recovery nor information benefit was
-established. [Execution result](../experiments/iter154_full_scene_maneuver/RESULT.md).
+Iter154's device receipts did not retain the enclosed point count or mask. Iter155 closes that
+finite replay gap with a bounded extraction of all pre-selection xyz, semantic features and
+opacities; independently reconstructed filtering recovers the full 276,519 selected centers.
+The source methods reconstruct the two historical boxes without simulator construction or steps.
+Independent scalar geometry and ground projection check those inputs; native CUDA and scalar
+masks agree exactly, with counts 0 at 3.00 s and 273 at 3.25 s. No new driving episode ran.
 
-The next scientific work is bounded background-witness extraction and separate scalar replay,
-then model calibration if the measurement contract holds. A controlled information-selection
-study follows only after useful recovery and its decision window are established. Hidden-representation
+This is a source-predicate witness, not a physical reconstruction or road-boundary validation.
+The native model loader is source-bound rather than independently reimplemented. Useful full-scene
+recovery and information benefit remain unestablished.
+[Witness and limits](../experiments/iter155_background_witness/RESULT.md).
+
+Next is prospective background-aware model calibration against retained native prefixes, then
+a new finite search only if the measurement contract holds. An information-selection study
+follows useful recovery and a measured decision window. Hidden-representation
 monitoring, uncertainty-aware persistence, independent sensors, physical deployment and formal
 safety guarantees remain possible directions with different requirements. None is an established
 capability merely because it appears in a roadmap.

@@ -1,0 +1,31 @@
+{
+  "status": "supported",
+  "provider_state": "TERMINATED",
+  "owned_start": "2026-10-11T11:23:31.309-07:00",
+  "verified_stop": "2026-10-11T11:27:51.064-07:00",
+  "watchdog_exit": 0,
+  "owned_active_jobs": 0,
+  "provider_start_requests": 1,
+  "capacity_retry_used": false,
+  "extraction_launches": 1,
+  "new_driving_episodes": 0,
+  "inclusive_elapsed_seconds": 275.08499249999295,
+  "conservative_compute_usd": 0.22923749374999414,
+  "compute_cap_usd": 1.5,
+  "within_budget": true,
+  "bound_source_asset_files_unchanged": 396,
+  "idle": {
+    "containers": {
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "gpu_processes": {
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  },
+  "worker_elapsed_seconds": 22.386592021000013,
+  "scope": "Inclusive provider supervisor envelope at conservative $3/hour; not an invoice; storage/taxes excluded. Local storage preflight failed before provider access, then completed test fixtures were removed with an inventory."
+}

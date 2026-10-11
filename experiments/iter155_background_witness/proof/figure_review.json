@@ -1,0 +1,10 @@
+{
+  "status": "supported",
+  "review": "Rendered PNG inspected: both coordinate projections, complete contact highlighting, counts, legends and caveats readable with no clipping. Display subset is distinct from full-population replay.",
+  "files": {
+    "experiments/iter155_background_witness/proof/background_witness.svg": "cf56593e2182cf14754781cfcb24711275d22dde7b38d7fb8d1a73889eeb9bc2",
+    "experiments/iter155_background_witness/proof/background_witness.png": "54400d532bd8dcc8a1a6f3e9848207797217f5e78457fe8ef4bdbdbeda7081fc",
+    "experiments/iter155_background_witness/proof/plot_witness.py.txt": "849a929c82affec7d000b313004a434aad3ec4407f06f4a5012cf29c1bf0dc50",
+    "experiments/iter155_background_witness/proof/figure_data.json": "8d214073210ebae24df38faa46b8773658b34d47254d30717af1eec0e0f0999b"
+  }
+}
