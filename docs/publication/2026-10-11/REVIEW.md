@@ -93,3 +93,22 @@ master integration unresolved. It is not an accepted Iter135 launch or tooling r
 
 All checks and this review were performed by the repository agent under Daniel's direct
 instruction. They are not independent human review or an outside team's endorsement.
+
+
+## Corrected-head hosted outcome
+
+[Run 38117429732](https://github.com/manfromnowhere143/sentinel/actions/runs/38117429732),
+at `a27ae1214316ce151809bbb0695391e25f329d08`, completed with failure. Both Python 3.10 and
+3.11 jobs passed the static supply-chain check after the AGENTS correction, then failed at
+repository-wide Ruff. Later test and documentation steps were skipped. The detailed Python
+3.11 log reports 688 findings across 160 files: import style/order, multiple statements, unused
+imports/locals, lambda assignment and ambiguous variable names. Every listed source blob is
+identical to the pre-task `cc0db9f` tree. Eight findings are in prior editorial helpers; the
+remaining findings are in research helpers and captured source.
+
+[Terminal job/step evidence](hosted_ci_corrected_head.json) and
+[rule/file summary](hosted_lint_summary.json) retain the observed scope. A whole-repository
+CI pass is not established. Master integration requires a deliberate treatment of executable
+source, immutable captured evidence and the historical publication contract. No bulk formatting,
+source rewrite, lint exclusion or workflow weakening was performed in this documentation task.
+The current handoff remains ready for the next bounded research task with this debt explicit.

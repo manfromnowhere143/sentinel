@@ -218,7 +218,12 @@ The first hosted CI run failed because a handoff-routing edit changed the pinned
 That edit was reversed; the current guidance lives here and in CONTINUITY. The unchanged
 supply-chain verifier passed locally after correction. See the
 [retained failure and correction](docs/publication/2026-10-11/supply_chain_correction.json).
-Check the current branch run before master integration. No whole-repository CI pass is claimed.
+The corrected-head hosted run passed the supply-chain check in both Python jobs, then failed
+repository-wide Ruff: 688 findings in 160 pre-task files; later tests were skipped.
+[Hosted outcome and scope](docs/publication/2026-10-11/hosted_lint_summary.json).
+Master integration remains open. Keep immutable captured evidence separate from future source
+cleanup and account for the historical publication contract; do not erase findings with bulk
+formatting or weakened checks. No whole-repository CI pass is claimed.
 
 ### Canonical mission state (`MISSION_STATE.json`)
 

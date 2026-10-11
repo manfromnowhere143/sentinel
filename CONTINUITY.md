@@ -4581,3 +4581,12 @@ file. The paragraph was removed and pre-task AGENTS bytes restored; its guidance
 HANDOFF and current CONTINUITY. The unchanged supply-chain verifier then passed locally.
 The failed run and correction are retained in docs/publication/2026-10-11. This correction does
 not close the older mission/publication findings or establish a whole-repository hosted pass.
+
+
+### Corrected-head hosted validation, 2026-10-11
+
+Run 38117429732 at a27ae1214316ce151809bbb0695391e25f329d08 passed the static supply-chain
+check in both Python jobs, then failed repository-wide Ruff. The Python 3.11 log lists 688
+findings in 160 files, all byte-identical to the pre-task research tree. Later tests were
+skipped. Current handoff records this open master-integration work; no whole-repository CI
+pass is established. See docs/publication/2026-10-11/hosted_lint_summary.json.
