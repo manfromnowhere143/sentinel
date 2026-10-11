@@ -1,0 +1,55 @@
+{
+  "observed_utc": "2026-10-11T12:46:58.519296+00:00",
+  "branch": "research/iter153-action-feasibility",
+  "published_commit": "85e8d4957a5a94396f87d9b9e55750e8a49c31b3",
+  "remote_head_matches": true,
+  "master_unchanged": true,
+  "served_files": [
+    {
+      "path": "HANDOFF.md",
+      "sha256": "0d95fd5ad1b931833f6de7e44fd1028d7ade73afd3e83d4c6e1d8e6bc8464e60",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/85e8d4957a5a94396f87d9b9e55750e8a49c31b3/HANDOFF.md"
+    },
+    {
+      "path": "README.md",
+      "sha256": "4c71cb5bf196002d3fa90efa72ef5b2bc00bd7b58846f83f2629130a00cfc5b6",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/85e8d4957a5a94396f87d9b9e55750e8a49c31b3/README.md"
+    },
+    {
+      "path": "experiments/iter153_action_feasibility/RESULT.md",
+      "sha256": "7fec8818ffe08eb28b22050e2623f2f408bfc981de0d786e44c7c771e29b1acc",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/85e8d4957a5a94396f87d9b9e55750e8a49c31b3/experiments/iter153_action_feasibility/RESULT.md"
+    },
+    {
+      "path": "experiments/iter153_action_feasibility/STATE.json",
+      "sha256": "da7bf493bedd34376113e957aea3da25e272fd431bc2a3da95e321ad49fa89ed",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/85e8d4957a5a94396f87d9b9e55750e8a49c31b3/experiments/iter153_action_feasibility/STATE.json"
+    },
+    {
+      "path": "experiments/iter153_action_feasibility/SELECTED_MANEUVER.json",
+      "sha256": "7ff1f2d9da401f14b0e0380d86dedb3f3be13cd32c4cf6b25e1d3b3d5a96b681",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/85e8d4957a5a94396f87d9b9e55750e8a49c31b3/experiments/iter153_action_feasibility/SELECTED_MANEUVER.json"
+    },
+    {
+      "path": "experiments/iter153_action_feasibility/proof/analysis.json",
+      "sha256": "86176dbf54f0d8964dc06a251e3ad075f1b9e537e8d2c337de7ea2159b834983",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/85e8d4957a5a94396f87d9b9e55750e8a49c31b3/experiments/iter153_action_feasibility/proof/analysis.json"
+    }
+  ],
+  "hosted_runs_observed": [
+    {
+      "conclusion": "",
+      "databaseId": 38140630189,
+      "headSha": "85e8d4957a5a94396f87d9b9e55750e8a49c31b3",
+      "status": "in_progress",
+      "url": "https://github.com/manfromnowhere143/sentinel/actions/runs/38140630189"
+    }
+  ],
+  "CI_scope": "Local authored checks pass; whole-repository Ruff832 findings remain. Hosted status is observed, not presumed."
+}

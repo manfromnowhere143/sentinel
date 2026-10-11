@@ -105,3 +105,11 @@ repository supply-chain verifier pass; whole-repository lint and master integrat
 The [engineering review](ENGINEERING_REVIEW.md) records the dated public guidance and its scope.
 The result supports validating this exact action sequence next, before further information-model
 work or a claim about real driving, generalization or industrial superiority.
+
+Scientific closure was published at `85e8d4957a5a94396f87d9b9e55750e8a49c31b3`.
+Six GitHub-served files matched their committed bytes, including the selected action packet and
+independent analysis. [Publication readback](proof/publication.json).
+Hosted run `38140630189` at that commit passed supply-chain and locked-install verification in
+Python 3.10 and 3.11, then failed repository-wide Ruff with 832 findings per job; later hosted
+tests were skipped. [Hosted outcome and retained failure logs](proof/hosted_ci_outcome.json).
+Subsequent publication bookkeeping commits are distinct from that observed CI scope.

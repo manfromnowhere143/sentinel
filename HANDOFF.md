@@ -27,7 +27,13 @@ violations, false/unknown claims, source/input mutations, missing records and du
 The two initial qualification test failures and their pre-search corrections remain retained.
 All 18 frozen source bindings and Iter145–152 trees remain unchanged. New authored lint and local
 supply-chain verification pass; repository Ruff remains 832 findings / 168 files, zero in Iter153.
-Hosted whole-repository CI and master integration remain unresolved.
+Hosted CI at scientific closure `85e8d4957a5a94396f87d9b9e55750e8a49c31b3` failed repository
+Ruff: 832 findings in each Python 3.10/3.11 job, after successful supply-chain and locked-install
+checks; later hosted tests were skipped. Master integration remains unperformed.
+[Publication readback](experiments/iter153_action_feasibility/proof/publication.json) verifies six
+GitHub-served files, including the exact selected packet and independent analysis.
+[Hosted outcome and retained failure logs](experiments/iter153_action_feasibility/proof/hosted_ci_outcome.json)
+record run `38140630189`. Later receipt/documentation commits do not change that observed scope.
 
 The search took 6.254 seconds within 600; outer supervision 6.691 seconds within 660. It is closed
 with no owned job, provider access, new simulator episode or GPU work. This lightweight CPU

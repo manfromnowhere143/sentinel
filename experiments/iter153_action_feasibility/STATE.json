@@ -25,6 +25,8 @@
   "protocol_commit": "1149ec0",
   "raw_commit": "13ee0925d96ceea9a8b12886b69680b245e8962d",
   "admission_commit": "f5ac5ce",
-  "whole_repository_hosted_CI": "unobserved_for_iter153; previous_scientific_closure_failed_repository_ruff",
-  "master_integration": "not_performed"
+  "whole_repository_hosted_CI": "failed_repository_ruff_at_scientific_closure_85e8d4957a5a94396f87d9b9e55750e8a49c31b3",
+  "master_integration": "not_performed",
+  "hosted_ci_run_id": 38140630189,
+  "hosted_ci_receipt": "proof/hosted_ci_outcome.json"
 }

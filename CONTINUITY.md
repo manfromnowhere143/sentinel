@@ -4763,3 +4763,13 @@ findings remain. Iter145–152, master, pinned authority and unrelated root WIP 
 Exact next task: new full-scene protocol/adapter for selected65actionsequence, with actual native
 collision/route/state checks, independent replay and bounded resources. No automatic13candidate
 fallback or information-benefit claim. Read Iter153 RESULT/STATE/DECISION and current HANDOFF.
+
+
+Iter153 research publication verified scientific closure 85e8d4957a5a94396f87d9b9e55750e8a49c31b3:
+six GitHub-served files matched committed bytes; accepted master remains unchanged. Hosted run
+38140630189 completed with failure: Python 3.10 and 3.11 passed supply-chain and locked-install
+verification, failed whole-repository Ruff with 832 findings each, and skipped later tests.
+Publication readback and the hosted outcome with compressed failure logs are retained under
+Iter153 proof. Later receipt/documentation commits are distinct from that observed CI scope.
+The model result and exact next full-scene validation task are unchanged. No new compute or
+simulator work was started for publication; no Iter153-owned job remains.
