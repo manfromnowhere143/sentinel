@@ -1,0 +1,9 @@
+{
+  "iteration": 148,
+  "status": "proposed",
+  "phase": "admission_implementation",
+  "parent_commit": "21c51ed3ead8d24da410b4913ac1a734507b7c08",
+  "cloud_compute_used": false,
+  "owned_active_jobs": 0,
+  "live_study_admitted": false
+}
