@@ -1,0 +1,15 @@
+{
+  "status": "preregistered",
+  "scope": "Read and retain interrupted pair2 evidence; no new or retried study worker",
+  "whole_seconds": 900,
+  "compute_cap_usd": 0.75,
+  "original_block_cap_seconds": 10800,
+  "prior_envelope_closure_seconds": 1528.5776147919823,
+  "combined_upper_seconds": 2428.5776147919823,
+  "remaining_original_block_seconds_after_recovery_cap": 8371.422385208018,
+  "no_packages": true,
+  "no_driving": true,
+  "source_changed": false,
+  "exact_instance_id": "3834622546652649531",
+  "original_control": "/datasets/nuscenes-full/hugsim/iter148_study_20261011"
+}

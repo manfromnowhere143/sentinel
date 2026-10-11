@@ -1,0 +1,20 @@
+{
+  "status": "failed",
+  "pairs": [
+    {
+      "pair": 0,
+      "worker_status": "completed",
+      "replay_returncode": 0
+    },
+    {
+      "pair": 1,
+      "worker_status": "completed",
+      "replay_returncode": 0
+    }
+  ],
+  "error": "AssertionError('progress_transport_failed')",
+  "traceback": "Traceback (most recent call last):\n  File \"/tmp/i148a_supervise.py\", line 19, in <module>\n    q=call('i148a_progress',label,timeout=120);assert q.returncode==0,'progress_transport_failed'\n                                                      ^^^^^^^^^^^^^^^\nAssertionError: progress_transport_failed\n",
+  "postflight_returncode": 1,
+  "shutdown_verified": true,
+  "ended_epoch": 1791696524.787026
+}
