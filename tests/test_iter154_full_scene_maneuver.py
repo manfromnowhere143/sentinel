@@ -435,3 +435,59 @@ def test_worker_is_dispatched_once_with_matching_owner(tmp_path, good, monkeypat
     with pytest.raises(FileExistsError):
         worker.dispatch(tmp_path, 0, lambda *a: calls.append(a))
     assert len(calls) == 1 and calls[0][2] == document["slots"][0]
+
+
+@pytest.mark.parametrize(
+    "fault",
+    [None, "success_reply", "other_error", "missing", "running", "new_start", "wrong_vm", "shape"],
+)
+def test_denied_start_is_not_confused_with_owned_start(fault):
+    from experiments.iter154_full_scene_maneuver.startup import denied_start
+
+    before = dict(
+        id="3834622546652649531",
+        status="TERMINATED",
+        lastStartTimestamp="prior",
+        machineType="g2-standard-8",
+        guestAccelerators=[{"acceleratorType": "nvidia-l4"}],
+    )
+    observations = [copy.deepcopy(before), copy.deepcopy(before)]
+    code, stderr = 1, "ZONE_RESOURCE_POOL_EXHAUSTED_WITH_DETAILS"
+    if fault == "success_reply":
+        code = 0
+    elif fault == "other_error":
+        stderr = "UNKNOWN_NETWORK_ERROR"
+    elif fault == "missing":
+        observations.pop()
+    elif fault == "running":
+        observations[-1]["status"] = "RUNNING"
+    elif fault == "new_start":
+        observations[-1]["lastStartTimestamp"] = "new"
+    elif fault == "wrong_vm":
+        observations[-1]["id"] = "other"
+    elif fault == "shape":
+        observations[-1]["machineType"] = "other"
+    if fault is None:
+        value = denied_start(before, code, stderr, observations)
+        assert value["new_start_observed"] is False and value["scientific_slots_initialized"] == 0
+    else:
+        with pytest.raises(ValueError):
+            denied_start(before, code, stderr, observations)
+
+
+@pytest.mark.parametrize("attempt", [0, 2, -1, True, None])
+def test_capacity_retry_limit(attempt):
+    from experiments.iter154_full_scene_maneuver.startup import retry_budget
+
+    with pytest.raises(ValueError, match="capacity_attempt"):
+        retry_budget(ROOT, attempt)
+
+
+def test_retry_deducts_closed_envelope_and_requires_backoff(monkeypatch):
+    import time
+    from experiments.iter154_full_scene_maneuver.startup import retry_budget
+
+    assert retry_budget(ROOT, 1) == 3576
+    monkeypatch.setattr(time, "time", lambda: 0)
+    with pytest.raises(ValueError, match="capacity_backoff"):
+        retry_budget(ROOT, 1)

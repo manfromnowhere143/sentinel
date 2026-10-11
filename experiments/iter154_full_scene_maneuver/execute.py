@@ -135,10 +135,13 @@ def block_pairs(block):
     return range(1)
 
 
-def execute(root, block, source):
+def execute(root, block, source, attempt):
     root = Path(root).resolve()
     base = root / BASE
-    proof = base / "proof" / f"block_{block:03d}"
+    from .startup import retry_budget
+
+    allowance = retry_budget(root, attempt)
+    proof = base / "proof" / "block_000_attempt_001"
     if type(block) is not int or block != 0:
         raise ValueError("execution_block")
     from .baseline import verify as verify_baseline
@@ -166,9 +169,9 @@ def execute(root, block, source):
     began = time.monotonic()
     budget = dict(
         started_monotonic=began,
-        deadline_monotonic=began + 3600,
-        max_seconds=3600,
-        conservative_compute_usd=3,
+        deadline_monotonic=began + allowance,
+        max_seconds=allowance,
+        conservative_compute_usd=allowance * 3 / 3600,
     )
     record(proof / "budget.json", budget)
     with (proof / "watchdog.log").open("xb") as log:
@@ -538,10 +541,30 @@ print(json.dumps(dict(status='supported',files=len(members))))
                 report.update(status="failed", postflight_error=repr(exc))
         try:
             if owned is None:
-                owned = recover_start(cloud, proof, "closure_reconcile")
-            final = cloud.stop("closure", owned)
-            record(proof / "closure.json", dict(status="supported", instance=final))
-            report["termination_verified"] = True
+                from .startup import denied_start
+
+                first = cloud.identity("closure_reconcile")
+                try:
+                    closure = denied_start(
+                        before,
+                        read(proof / "commands/start.json")["returncode"],
+                        (proof / "commands/start.stderr").read_text(),
+                        [first, cloud.identity("closure_denied_confirmation")],
+                    )
+                except ValueError:
+                    owned = recover_start(cloud, proof, "closure_owned_reconcile")
+                else:
+                    record(proof / "closure.json", closure)
+                    report.update(
+                        termination_verified=True,
+                        new_start_observed=False,
+                        scientific_slots_initialized=0,
+                        lifecycle="start_denied_capacity",
+                    )
+            if owned is not None:
+                final = cloud.stop("closure", owned)
+                record(proof / "closure.json", dict(status="supported", instance=final))
+                report["termination_verified"] = True
         except Exception as exc:
             report.update(status="failed", termination_verified=False, closure_error=repr(exc))
         try:
@@ -550,7 +573,7 @@ print(json.dumps(dict(status='supported',files=len(members))))
             report["watchdog_exit"] = None
         elapsed = time.monotonic() - began
         report.update(elapsed_seconds=elapsed, conservative_compute_usd=elapsed * 3 / 3600)
-        report["within_registered_budget"] = elapsed <= 3600
+        report["within_registered_budget"] = elapsed <= allowance
         if report["watchdog_exit"] != 0 or not report["within_registered_budget"]:
             report["status"] = "failed"
         record(proof / "result.json", report)
@@ -562,5 +585,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--block", type=int, choices=(0,), required=True)
     parser.add_argument("--source", required=True)
+    parser.add_argument("--attempt", type=int, choices=(1,), required=True)
     args = parser.parse_args()
-    raise SystemExit(execute(Path.cwd(), args.block, args.source))
+    raise SystemExit(execute(Path.cwd(), args.block, args.source, args.attempt))

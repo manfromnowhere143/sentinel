@@ -1,11 +1,13 @@
 {
   "iteration": 154,
   "status": "preregistered",
-  "execution_status": "qualified",
+  "execution_status": "capacity_retry_qualified",
   "planned_episodes": 2,
   "initialized_episodes": 0,
   "admitted_episodes": 0,
   "owned_active_jobs": 0,
-  "provider_access": false,
-  "next": "Execute one fixed pair after frozen packet and existing-host identity checks; no initialization yet."
+  "provider_access": true,
+  "next": "One amended attempt 1 after new source freeze; no further retry.",
+  "source_commit": "ad063849c502d21967d3bc6b8590057f797e1a13",
+  "prior_attempt": "start_denied_capacity"
 }

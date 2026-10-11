@@ -759,8 +759,8 @@
       "sha256": "7ea88ff5bcfdd28badffcf04bd8b47d8746d4e4a2a6c23258aa8c9116ed25fc3"
     },
     "experiments/iter154_full_scene_maneuver/execute.py": {
-      "bytes": 24682,
-      "sha256": "86fa1834efd62fcace130eb8748e25f59437116deb1c2d9919abc8261886f4d5"
+      "bytes": 25803,
+      "sha256": "656771fc1dbbace47d95661ae5b63b7af0d317b83fea00ff820574d389ed6eaf"
     },
     "experiments/iter154_full_scene_maneuver/fixtures.py": {
       "bytes": 1706,
@@ -827,8 +827,18 @@
       "sha256": "1db29cc7ce518844297322b21dd4134f8729979c09517a679f11558ee7f87edb"
     },
     "tests/test_iter154_full_scene_maneuver.py": {
-      "bytes": 16524,
-      "sha256": "d0d74069972134064af888eafe0c2fdd8b8149ec3621fb93555675c52a28bb33"
+      "bytes": 18580,
+      "sha256": "72f28a922b1c18b9030e6ed1419e973ba2eb54e4944dc99f3e07004eda8bdf8e"
+    },
+    "experiments/iter154_full_scene_maneuver/startup.py": {
+      "bytes": 3770,
+      "sha256": "5ce7dc9c6236550a39dead6053d458ce85719ea64123f212071abad427a7c202"
+    },
+    "experiments/iter154_full_scene_maneuver/PRE_EVIDENCE_AMENDMENT_001.md": {
+      "bytes": 2750,
+      "sha256": "79fd02a8b58318ceece926e63614ca8888d4639897afbd628999b1a8f5892457"
     }
-  }
+  },
+  "pre_evidence_amendment": "PRE_EVIDENCE_AMENDMENT_001.md",
+  "prior_execution_source": "ad063849c502d21967d3bc6b8590057f797e1a13"
 }

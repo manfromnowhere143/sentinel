@@ -1,0 +1,15 @@
+{
+  "status": "supported",
+  "scientific_outcomes": 0,
+  "changed_frozen_paths": [
+    "experiments/iter154_full_scene_maneuver/execute.py",
+    "tests/test_iter154_full_scene_maneuver.py"
+  ],
+  "scientific_plan_unchanged": true,
+  "selected_packet_unchanged": true,
+  "regression_tests": 295,
+  "new_focused_tests": 76,
+  "prior_failure_preserved": true,
+  "prior_failure_commit": "221f81a593a62d44213e14b8a97bce53943e07c0",
+  "remaining_seconds": 3576
+}
