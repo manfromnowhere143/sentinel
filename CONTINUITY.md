@@ -1,5 +1,18 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
+> **Current: Iter154 closed — 2026-10-11.** Two admitted full-scene replicas of the exact
+> Iter153 maneuver both collide with native background at 3.25 s / 13 actions; 26 verified actions,
+> zero incomplete/uninitialized. Model prefix matches to 4.44e-16; useful live recovery contradicted.
+> VM TERMINATED, retry watchdog 0, no owned jobs; conservative compute $0.346 within $3.
+> Read current HANDOFF and Iter154 RESULT/STATE/DECISION/resource closure. Next: bounded background
+> witness extraction and independent replay under a new protocol. No automatic candidate fallback
+> or rerun of either closed attempt. Road/information/physical occupancy unknown. Earlier notices are historical.
+
+> **Current: Iter154 attempt1 running — 2026-10-11.** Owned VM start 2026-10-11T07:33:44.939-07:00.
+> Inspect Iter154 STATE and proof/block_000_attempt_001. One existing supervisor owns this run.
+> Frozen source e61a4950a48589554f5b1f882671e011189fc546; no additional start or initialized retry.
+> The earlier capacity denial remains retained. Current outcomes are unadmitted. Earlier notices are historical.
+
 > **Current: Iter154 qualified, execution next — 2026-10-11.** Exact selected65-action maneuver,
 > two fresh full-scene replicas, one bounded $3/3600s envelope. Source ad063849c502d21967d3bc6b8590057f797e1a13.
 > Read current HANDOFF and Iter154 STATE/proof/block_000 before any launch; no initialized retry.
@@ -4778,3 +4791,24 @@ Publication readback and the hosted outcome with compressed failure logs are ret
 Iter153 proof. Later receipt/documentation commits are distinct from that observed CI scope.
 The model result and exact next full-scene validation task are unchanged. No new compute or
 simulator work was started for publication; no Iter153-owned job remains.
+
+
+## Iter154 full-scene selected-maneuver closure — 2026-10-11
+
+The exact Iter153 maneuver_059 ran in two fresh full-scene replicas. Both terminate on native
+background collision at 3.25 s / 13 actions, foreground/off-route false, completion false.
+Two admitted, zero incomplete/uninitialized, 26 verified actions, 168 camera renders. The fixed
+model prefix matches to 4.440892098500626e-16; background point-cloud replay remains incomplete
+because enclosed count/mask/points were not retained. Road, information benefit and physical
+occupancy are unknown. Historical nominal/monitor evidence contributes no new episodes.
+Scientific status contradicted; admission supported means valid retained execution evidence.
+Frozen amended source e61a4950a48589554f5b1f882671e011189fc546, raw 6b2d4a9 before admission a0fc798.
+Original capacity-refused start/failure retained; one pre-evidence amendment and one retry.
+607 initial regression checks and 295 amendment checks passed (overlapping suites); scoped lint
+and supply-chain pass. Both resource attempts closed, successful exact VM start TERMINATED,
+retry watchdog 0, no owned job. 11,715 source/asset files unchanged; $0.345972 within $3.
+First watchdog absent, exit unobserved. No other model candidate tried and no further provider work.
+Next: prospective bounded background witness extraction and separate scalar replay, followed by
+model calibration only if the measurement contract holds. Preserve source threshold and failures.
+Read current HANDOFF plus Iter154 RESULT, STATE, DECISION and resource closure. Publication and
+hosted CI for this scientific closure are recorded separately. Accepted master remains unchanged.

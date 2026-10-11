@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="710" viewBox="0 0 1060 710">
+<rect width="1060" height="710" fill="#fff"/>
+<g font-family="Arial, Helvetica, sans-serif" fill="#182a36">
+<text x="70" y="42" font-size="26" font-weight="bold">The full scene rejects the model-selected maneuver</text>
+<text x="70" y="72" font-size="16" >Scene-0013-medium-00 • fixed privileged controls • descriptive replica-1 traces</text>
+<line x1="70" y1="103" x2="100" y2="103" stroke="#87959e" stroke-width="3" stroke-dasharray="6 4"/>
+<text x="110" y="108" font-size="14" >Reduced model (background omitted)</text>
+<line x1="570" y1="103" x2="600" y2="103" stroke="#d59025" stroke-width="3" />
+<text x="610" y="108" font-size="14" >Historical nominal: foreground contact</text>
+<line x1="70" y1="131" x2="100" y2="131" stroke="#326caa" stroke-width="3" />
+<text x="110" y="136" font-size="14" >Historical monitor: foreground contact</text>
+<line x1="570" y1="131" x2="600" y2="131" stroke="#b3333b" stroke-width="3" />
+<text x="610" y="136" font-size="14" >Full-scene candidate: background contact</text>
+<line x1="100" y1="530.0" x2="980" y2="530.0" stroke="#dce3e7" stroke-width="1" />
+<text x="85" y="535.0" font-size="14" text-anchor="end">0.0</text>
+<line x1="100" y1="464.2857142857143" x2="980" y2="464.2857142857143" stroke="#dce3e7" stroke-width="1" />
+<text x="85" y="469.2857142857143" font-size="14" text-anchor="end">0.2</text>
+<line x1="100" y1="398.57142857142856" x2="980" y2="398.57142857142856" stroke="#dce3e7" stroke-width="1" />
+<text x="85" y="403.57142857142856" font-size="14" text-anchor="end">0.4</text>
+<line x1="100" y1="332.8571428571429" x2="980" y2="332.8571428571429" stroke="#dce3e7" stroke-width="1" />
+<text x="85" y="337.8571428571429" font-size="14" text-anchor="end">0.6</text>
+<line x1="100" y1="267.14285714285717" x2="980" y2="267.14285714285717" stroke="#dce3e7" stroke-width="1" />
+<text x="85" y="272.14285714285717" font-size="14" text-anchor="end">0.8</text>
+<line x1="100" y1="201.42857142857144" x2="980" y2="201.42857142857144" stroke="#dce3e7" stroke-width="1" />
+<text x="85" y="206.42857142857144" font-size="14" text-anchor="end">1.0</text>
+<line x1="100.0" y1="185" x2="100.0" y2="530" stroke="#edf0f2" stroke-width="1" />
+<text x="100.0" y="553" font-size="14" text-anchor="middle">0</text>
+<line x1="203.52941176470588" y1="185" x2="203.52941176470588" y2="530" stroke="#edf0f2" stroke-width="1" />
+<text x="203.52941176470588" y="553" font-size="14" text-anchor="middle">2</text>
+<line x1="307.05882352941177" y1="185" x2="307.05882352941177" y2="530" stroke="#edf0f2" stroke-width="1" />
+<text x="307.05882352941177" y="553" font-size="14" text-anchor="middle">4</text>
+<line x1="410.5882352941177" y1="185" x2="410.5882352941177" y2="530" stroke="#edf0f2" stroke-width="1" />
+<text x="410.5882352941177" y="553" font-size="14" text-anchor="middle">6</text>
+<line x1="514.1176470588235" y1="185" x2="514.1176470588235" y2="530" stroke="#edf0f2" stroke-width="1" />
+<text x="514.1176470588235" y="553" font-size="14" text-anchor="middle">8</text>
+<line x1="617.6470588235294" y1="185" x2="617.6470588235294" y2="530" stroke="#edf0f2" stroke-width="1" />
+<text x="617.6470588235294" y="553" font-size="14" text-anchor="middle">10</text>
+<line x1="721.1764705882354" y1="185" x2="721.1764705882354" y2="530" stroke="#edf0f2" stroke-width="1" />
+<text x="721.1764705882354" y="553" font-size="14" text-anchor="middle">12</text>
+<line x1="824.7058823529411" y1="185" x2="824.7058823529411" y2="530" stroke="#edf0f2" stroke-width="1" />
+<text x="824.7058823529411" y="553" font-size="14" text-anchor="middle">14</text>
+<line x1="928.2352941176471" y1="185" x2="928.2352941176471" y2="530" stroke="#edf0f2" stroke-width="1" />
+<text x="928.2352941176471" y="553" font-size="14" text-anchor="middle">16</text>
+<polyline points="112.941,528.250 125.882,526.501 138.824,524.168 151.765,521.544 164.706,518.336 177.647,514.545 190.588,510.463 203.529,505.797 216.471,500.549 229.412,494.425 242.353,488.302 255.294,482.178 268.235,475.180 281.176,468.765 294.118,461.766 307.059,455.351 320.000,450.102 332.941,443.979 345.882,436.981 358.824,431.149 371.765,425.317 384.706,419.776 397.647,414.236 410.588,408.987 423.529,403.739 436.471,398.490 449.412,393.241 462.353,387.992 475.294,382.452 488.235,377.495 501.176,372.246 514.118,367.289 527.059,362.040 540.000,357.083 552.941,352.126 565.882,346.877 578.824,341.045 591.765,336.088 604.706,331.422 617.647,326.465 630.588,321.217 643.529,316.259 656.471,311.302 669.412,306.345 682.353,301.388 695.294,295.556 708.235,290.599 721.176,285.933 734.118,280.976 747.059,274.853 760.000,267.854 772.941,263.189 785.882,258.232 798.824,253.566 811.765,248.901 824.706,243.943 837.647,239.278 850.588,234.612 863.529,229.947 876.471,225.281 889.412,219.741 902.353,214.492 915.294,209.243 928.235,203.703 941.176,197.579" fill="none" stroke="#87959e" stroke-width="3" stroke-dasharray="7 5"/>
+<circle cx="941.1764705882354" cy="197.579491860642" r="5" fill="#87959e"/>
+<polyline points="112.941,528.250 125.882,526.501 138.824,524.460 151.765,521.835 164.706,518.919 177.647,516.003 190.588,513.087 203.529,509.880 216.471,506.672 229.412,503.465 242.353,499.966 255.294,496.466 268.235,492.676 281.176,489.176 294.118,485.386 307.059,481.303 320.000,477.513 332.941,473.430 345.882,469.056 358.824,464.682 371.765,460.308 384.706,455.934 397.647,451.560 410.588,448.061 423.529,443.979 436.471,440.480 449.412,435.814 462.353,432.023 475.294,428.524 488.235,425.025 501.176,421.818" fill="none" stroke="#d59025" stroke-width="3" />
+<circle cx="501.1764705882353" cy="421.8175363862265" r="5" fill="#d59025"/>
+<polyline points="112.941,528.250 125.882,526.501 138.824,524.460 151.765,521.835 164.706,518.919 177.647,516.003 190.588,513.087 203.529,509.880 216.471,506.672 229.412,503.465 242.353,499.966 255.294,496.466 268.235,492.676 281.176,489.176 294.118,485.386 307.059,481.303 320.000,477.513 332.941,473.430 345.882,469.056 358.824,464.682 371.765,460.308 384.706,455.934 397.647,451.560 410.588,448.061 423.529,443.979 436.471,441.063 449.412,437.272 462.353,434.939 475.294,432.898 488.235,431.732 501.176,430.565 514.118,429.107 527.059,427.358 540.000,425.900 552.941,425.025 565.882,424.150" fill="none" stroke="#326caa" stroke-width="3" />
+<circle cx="565.8823529411765" cy="424.15031188194126" r="5" fill="#326caa"/>
+<polyline points="112.941,528.250 125.882,526.501 138.824,524.168 151.765,521.544 164.706,518.336 177.647,514.545 190.588,510.463 203.529,505.797 216.471,500.549 229.412,494.425 242.353,488.302 255.294,482.178 268.235,475.180" fill="none" stroke="#b3333b" stroke-width="3" />
+<circle cx="268.2352941176471" cy="475.17977585070236" r="5" fill="#b3333b"/>
+<text x="278.2352941176471" y="499.17977585070236" font-size="15" fill="#b3333b">3.25 s: background collision</text>
+<text x="489.1764705882353" y="409.8175363862265" font-size="14" text-anchor="end">7.75 s</text>
+<text x="575.8823529411765" y="429.15031188194126" font-size="14" >9.0 s</text>
+<text x="929.1764705882354" y="221.579491860642" font-size="14" text-anchor="end">16.25 s: model completion</text>
+<text x="540" y="588" font-size="16" text-anchor="middle">Simulated time (seconds)</text>
+<text x="24" y="390" font-size="16" transform="rotate(-90 24 390)" text-anchor="middle">Source route fraction</text>
+<text x="70" y="628" font-size="16" font-weight="bold">Both new replicas stop after 13 actions. The model prefix matches to 4.44e-16.</text>
+<text x="70" y="656" font-size="15" >Native background collision is observed; road compliance and information benefit remain unknown.</text>
+<text x="70" y="682" font-size="15" >Historical traces are prior evidence. The dashed model continuation is not full-scene execution.</text>
+</g></svg>

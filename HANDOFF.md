@@ -1,38 +1,46 @@
 # Sentinel — next-session handoff
 
-Updated 11 October 2026. **Iter154 capacity retry is qualified; no scientific replica initialized.**
-Read [protocol](experiments/iter154_full_scene_maneuver/HYPOTHESIS.md), [state](experiments/iter154_full_scene_maneuver/STATE.json),
-[plan](experiments/iter154_full_scene_maneuver/STUDY_PLAN.json) and [qualification](experiments/iter154_full_scene_maneuver/QUALIFICATION.json).
-Amended frozen source: `e61a4950a48589554f5b1f882671e011189fc546`; protocol `b221b3c`.
-Read [amendment001](experiments/iter154_full_scene_maneuver/PRE_EVIDENCE_AMENDMENT_001.md).
-The first start was refused for L4 capacity; explicit no-start closure is retained.
-One retry is allowed after295 startup/control checks, within3576 remaining seconds.
-Exact command: `python3 -u -m experiments.iter154_full_scene_maneuver.execute --block 0
---attempt 1 --source e61a4950a48589554f5b1f882671e011189fc546`.
-Observe `proof/block_000_attempt_001`; do not duplicate the initialized retry.
-Two fresh replicas of Iter153's exact selected 65-action maneuver, scene-0013-medium-00,
-seed144. Privileged predetermined controls bypass UniAD and monitor inference; actual native
-rendering, actors and foreground/background collision remain required. Road compliance and
-information benefit stay unknown. No full-scene result has been observed yet.
+Updated 11 October 2026. **Iter154 is closed: the selected model maneuver failed in the full scene.**
+Both fresh replicas terminate on native background collision at **3.25 simulated seconds / 13 actions**.
+Two admitted episodes, 26 verified actions, zero incomplete or uninitialized. Foreground contact,
+off-route and completion are false. Scientific status is `contradicted`; admission `supported`
+means the retained execution evidence passed its separate replay.
+Read [result](experiments/iter154_full_scene_maneuver/RESULT.md),
+[state](experiments/iter154_full_scene_maneuver/STATE.json),
+[analysis](experiments/iter154_full_scene_maneuver/proof/analysis.json) and
+[next decision](experiments/iter154_full_scene_maneuver/DECISION.md).
 
-607 local regression checks passed /307 upstream warnings, including62 Iter154 checks,
-source-method CPU fixtures, malformed/false-success records and archive → Git → replay rehearsal.
-CPU fixtures substitute rendering/background/height and do not establish GPU execution.
-The exact source packet passes byte/inventory preflight. No package installation or new infrastructure.
+The executed prefix matches Iter153's fixed model to 4.440892098500626e-16. Native background
+collision was observed, but its enclosed point count/mask was not retained. Physical occupancy,
+road compliance and information benefit remain unknown. The maneuver bypassed UniAD and monitor
+inference with privileged fixed controls from reset. No remaining model candidate was tried.
+The next task is a **new prospective, bounded background-collision witness extraction and separate
+scalar replay**, before another maneuver search or information model. Preserve the native threshold
+and historical failures; do not launch either closed Iter154 attempt again.
 
-One existing VM start, ID3834622546652649531, sentinel-gpu, sunlit-unison-487018-b0/us-west1-a,
-one L4; <=3600seconds/$3 conservative compute, child1200seconds/pair2500seconds, independent
-local watchdog and unique host deadline. Fresh root /datasets/nuscenes-full/hugsim/iter154_maneuver_20261011.
-Read the current state and proof/block_000 before any command: never duplicate an initialized block.
-No retry, fallback candidate or search expansion. Record raw before replay and verify exact-start
-shutdown. The execution supervisor will create its exclusive block directory before provider access.
+Amended frozen source `e61a4950a48589554f5b1f882671e011189fc546`; protocol `b221b3c`;
+raw `6b2d4a99439f8cb1965cb5f406926442ac280096` preceded admission
+`a0fc7985a85ddb88088011a898d12b71d3286b24`. The original L4 capacity refusal and supervisor
+failure remain retained. One pre-evidence capacity retry ran both scientific replicas.
+Initial regression: 607 passed / 307 upstream warnings; amendment regression: 295 passed / 144
+warnings, including 76 current focused checks. These suites overlap. Ambient macOS Python 3.14.2
+and live Linux qualification are documented separately; no hermetic claim follows.
+
+**VM TERMINATED; no owned job remains.** Exact successful start 2026-10-11T07:33:44.939-07:00,
+verified stop 07:40:01.456-07:00, retry watchdog exit 0. The first denied-start watchdog was
+observed absent; its exit code is unobserved. All 11,715 source/asset bindings are unchanged.
+Combined envelopes 415.165872 seconds, conservative compute $0.345972 within $3; not an invoice.
+Read [resource closure](experiments/iter154_full_scene_maneuver/proof/resource_closure.json).
 
 Owned branch `research/iter154-full-scene-maneuver`, checkout
 `/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011`.
-Canonical root remains dirty wip-gen17-ci-hardening; preserve its index, README, architecture,
-pinned AGENTS/MISSION_STATE and unrelated work. Master remains8c118b74c699bf0f139f9bd659192bad06b895f8.
-No human ceremony is pending; Daniel's continuing mission instruction supplies operational authority.
-Prior whole-repository CI failed at Ruff; local source checks do not turn that into a pass.
+Canonical root remains dirty `wip-gen17-ci-hardening`; preserve its index, README, architecture,
+pinned AGENTS/MISSION_STATE and unrelated work. Master remains `8c118b74c699bf0f139f9bd659192bad06b895f8`.
+Daniel's continuing mission instruction supplies operational authority; no human ceremony is pending.
+New source lint and supply-chain checks pass; whole-repository Ruff has 832 existing findings.
+The legacy docs guard remains red at the historical mission-state/dirty tooling probes; scoped
+209 input bindings, 309 links/anchors and all five unchanged diagrams pass. Hosted CI for the
+scientific closure is not yet observed. Publication receipts follow closure.
 
 ## Historical Iter153 closure
 

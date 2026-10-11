@@ -1,0 +1,34 @@
+{
+  "status": "supported",
+  "observed_utc": "2026-10-11T14:44:56.817891+00:00",
+  "frozen_input_files": 209,
+  "inputs_all_match": true,
+  "qualification_canonical_sha256": "b12640dae66fe2bef1cef9ef1b4db50059e24685e55fb486daa3e2dff171650d",
+  "historical_iterations_145_to_153_unchanged": true,
+  "historical_parent": "b00861cbfcafa5fe977ca7d3f72b8487fdeb0bba",
+  "mermaid_blocks_unchanged": {
+    "README.md": 2,
+    "docs/ARCHITECTURE.md": 3
+  },
+  "local_links_and_anchors_checked": 309,
+  "all_result_directories_indexed": true,
+  "scope": "Current authored documentation and frozen file bindings; not a hosted test or background-point-cloud replay.",
+  "whole_repository_ruff_findings": 832,
+  "authored_ruff_status": "passed_after_plot_style_fix",
+  "supply_chain_status": "passed",
+  "legacy_docs_guard": {
+    "returncode": 1,
+    "findings": [
+      "current_completed_iteration:134!=154",
+      "tooling_publication structural probe rejected dirty checkout"
+    ],
+    "scope": "Pinned historical master contract is retained; no green repository-docs claim."
+  },
+  "whitespace": {
+    "all_staged_returncode": 2,
+    "retained_raw_warning": "experiments/iter154_full_scene_maneuver/proof/block_000_attempt_001/commands/postflight.stderr",
+    "captured_stderr_preserved": true,
+    "all_other_staged_paths_returncode": 0,
+    "scope": "Two whitespace findings are in unmodified provider warning output. Captured evidence is not normalized."
+  }
+}

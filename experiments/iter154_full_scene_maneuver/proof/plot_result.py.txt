@@ -1,0 +1,137 @@
+"""Descriptive publication plot from retained traces; no new outcome estimator."""
+
+import json
+from pathlib import Path
+from xml.sax.saxutils import escape
+
+ROOT = Path(__file__).resolve().parents[3]
+BASE = ROOT / "experiments/iter154_full_scene_maneuver"
+
+
+def trace(path, event):
+    return [
+        (r["time"], r["rc"])
+        for r in (json.loads(s) for s in path.read_text().splitlines())
+        if r["event"] == event
+    ]
+
+
+model = json.loads(
+    (
+        ROOT / "experiments/iter153_action_feasibility/proof/search_000/maneuver_059_1.json"
+    ).read_text()
+)
+paths = [
+    (
+        "Reduced model (background omitted)",
+        "#87959e",
+        [(r["time"], r["rc"]) for r in model["rows"]],
+        True,
+    ),
+    (
+        "Historical nominal: foreground contact",
+        "#d59025",
+        trace(
+            ROOT
+            / "experiments/iter151_recovery_canary/proof/study_raw/pair_000/runs/canary151_000__scene-0013-medium-00__nominal__1/trace/events.jsonl",
+            "outcome_observation",
+        ),
+        False,
+    ),
+    (
+        "Historical monitor: foreground contact",
+        "#326caa",
+        trace(
+            ROOT
+            / "experiments/iter152_recovery_continuation/proof/study_raw/pair_000/runs/continuation152_000__scene-0013-medium-00__monitor__1/trace/events.jsonl",
+            "outcome_observation",
+        ),
+        False,
+    ),
+    (
+        "Full-scene candidate: background contact",
+        "#b3333b",
+        trace(
+            BASE
+            / "proof/study_raw/pair_000/runs/maneuver154_000__scene-0013-medium-00__selected__1/trace/events.jsonl",
+            "step",
+        ),
+        False,
+    ),
+]
+svg = [
+    '<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="710" viewBox="0 0 1060 710">',
+    '<rect width="1060" height="710" fill="#fff"/>',
+    '<g font-family="Arial, Helvetica, sans-serif" fill="#182a36">',
+]
+
+
+def text(x, y, s, size=16, **attrs):
+    a = " ".join(f'{k.replace("_", "-")}="{v}"' for k, v in attrs.items())
+    svg.append(f'<text x="{x}" y="{y}" font-size="{size}" {a}>{escape(s)}</text>')
+
+
+def line(x1, y1, x2, y2, color, width=1, extra=""):
+    svg.append(
+        f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{color}" stroke-width="{width}" {extra}/>'
+    )
+
+
+def x(t):
+    return 100 + t / 17 * 880
+
+
+def y(r):
+    return 530 - r / 1.05 * 345
+
+
+text(70, 42, "The full scene rejects the model-selected maneuver", 26, font_weight="bold")
+text(70, 72, "Scene-0013-medium-00 • fixed privileged controls • descriptive replica-1 traces", 16)
+for i, (label, color, _, dashed) in enumerate(paths):
+    col = i % 2
+    row = i // 2
+    left = 70 + col * 500
+    top = 108 + row * 28
+    line(left, top - 5, left + 30, top - 5, color, 3, 'stroke-dasharray="6 4"' if dashed else "")
+    text(left + 40, top, label, 14)
+for rc in (0, 0.2, 0.4, 0.6, 0.8, 1.0):
+    line(100, y(rc), 980, y(rc), "#dce3e7", 1)
+    text(85, y(rc) + 5, f"{rc:.1f}", 14, text_anchor="end")
+for t in (0, 2, 4, 6, 8, 10, 12, 14, 16):
+    line(x(t), 185, x(t), 530, "#edf0f2")
+    text(x(t), 553, str(t), 14, text_anchor="middle")
+for label, color, points, dashed in paths:
+    coords = " ".join(f"{x(t):.3f},{y(rc):.3f}" for t, rc in points)
+    extra = 'stroke-dasharray="7 5"' if dashed else ""
+    svg.append(
+        f'<polyline points="{coords}" fill="none" stroke="{color}" stroke-width="3" {extra}/>'
+    )
+    t, rc = points[-1]
+    svg.append(f'<circle cx="{x(t)}" cy="{y(rc)}" r="5" fill="{color}"/>')
+text(x(3.25) + 10, y(paths[-1][2][-1][1]) + 24, "3.25 s: background collision", 15, fill="#b3333b")
+text(x(7.75) - 12, y(paths[1][2][-1][1]) - 12, "7.75 s", 14, text_anchor="end")
+text(x(9) + 10, y(paths[2][2][-1][1]) + 5, "9.0 s", 14)
+text(x(16.25) - 12, y(paths[0][2][-1][1]) + 24, "16.25 s: model completion", 14, text_anchor="end")
+text(540, 588, "Simulated time (seconds)", 16, text_anchor="middle")
+text(24, 390, "Source route fraction", 16, transform="rotate(-90 24 390)", text_anchor="middle")
+text(
+    70,
+    628,
+    "Both new replicas stop after 13 actions. The model prefix matches to 4.44e-16.",
+    16,
+    font_weight="bold",
+)
+text(
+    70,
+    656,
+    "Native background collision is observed; road compliance and information benefit remain unknown.",
+    15,
+)
+text(
+    70,
+    682,
+    "Historical traces are prior evidence. The dashed model continuation is not full-scene execution.",
+    15,
+)
+svg.append("</g></svg>")
+(BASE / "proof/model_scene_gap.svg").write_text("\n".join(svg) + "\n")

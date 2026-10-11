@@ -1,0 +1,47 @@
+{
+  "attempt_000": "Two E731 style findings in post-analysis plot generator corrected without changing SVG bytes; initial output retained.",
+  "final_checks": [
+    {
+      "command": [
+        "/opt/homebrew/bin/ruff",
+        "check",
+        "experiments/iter154_full_scene_maneuver/__init__.py",
+        "experiments/iter154_full_scene_maneuver/admission.py",
+        "experiments/iter154_full_scene_maneuver/baseline.py",
+        "experiments/iter154_full_scene_maneuver/check.py",
+        "experiments/iter154_full_scene_maneuver/collection.py",
+        "experiments/iter154_full_scene_maneuver/contract.py",
+        "experiments/iter154_full_scene_maneuver/execute.py",
+        "experiments/iter154_full_scene_maneuver/fixtures.py",
+        "experiments/iter154_full_scene_maneuver/gpu.py",
+        "experiments/iter154_full_scene_maneuver/native.py",
+        "experiments/iter154_full_scene_maneuver/ownership.py",
+        "experiments/iter154_full_scene_maneuver/pair.py",
+        "experiments/iter154_full_scene_maneuver/qualify_host.py",
+        "experiments/iter154_full_scene_maneuver/records.py",
+        "experiments/iter154_full_scene_maneuver/remote_ops.py",
+        "experiments/iter154_full_scene_maneuver/replay.py",
+        "experiments/iter154_full_scene_maneuver/runner.py",
+        "experiments/iter154_full_scene_maneuver/startup.py",
+        "experiments/iter154_full_scene_maneuver/worker.py",
+        "tests/test_iter154_full_scene_maneuver.py",
+        "experiments/iter154_full_scene_maneuver/proof/plot_result.py.txt"
+      ],
+      "returncode": 0,
+      "findings": 0,
+      "stdout_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "command": [
+        "/opt/homebrew/bin/ruff",
+        "check",
+        ".",
+        "--output-format",
+        "json"
+      ],
+      "returncode": 1,
+      "findings": 832,
+      "stdout_sha256": "1e604473fa636f956ae4ae62e9c00a0231b0a7f2db277c133c959645d3ebf6cf"
+    }
+  ]
+}

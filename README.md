@@ -14,23 +14,28 @@ warning does not establish that the monitor identified the actor responsible for
 Those findings now determine the research direction.
 
 [Results](#measured-results) · [Monitor](#what-the-monitor-actually-uses) ·
-[Research history](#how-the-question-changed) · [Latest result](#iteration-153-a-model-maneuver-candidate) ·
+[Research history](#how-the-question-changed) · [Latest result](#iteration-154-the-full-scene-rejects-the-model-candidate) ·
 [Next steps](#the-next-scientific-test) · [Reproduce](#reproduce-and-inspect) ·
 [Experiment index](#complete-experiment-index)
 
 ## Current position — 11 October 2026
 
-[Iteration 153](experiments/iter153_action_feasibility/RESULT.md) found **14 eligible maneuvers
-in a fixed 75-candidate reduced-model search**. All 150 model replicas passed independent
-replay, covering 10,012 actions. The selected maneuver uses a −2 m route-normal offset and
-6 m/s target, reaching source-defined model completion in 16.25 s while meeting both historical
-progress requirements. **Background collision, road compliance and live recovery remain unknown.**
-No GPU or new simulator episode was used. [Exact next validation](experiments/iter153_action_feasibility/DECISION.md).
+[Iteration 154](experiments/iter154_full_scene_maneuver/RESULT.md) tested the exact maneuver
+selected by the preceding reduced-model search. **Both fresh full-scene replicas collide with
+native background at 3.25 simulated seconds.** Two episodes were admitted, with 26 verified actions
+and no incomplete or uninitialized episodes. The applied kinematic prefix matches the model to
+4.44e-16; the omitted background constraint is decisive in the simulator. The actual enclosed
+point count and mask were not retained, so independent background replay is the next task.
+
+[Iteration 153](experiments/iter153_action_feasibility/RESULT.md) retains its 14 eligible maneuvers
+within the fixed 75-candidate model search. That model success did not establish full-scene
+recovery. Road compliance, physical occupancy and information benefit remain unknown.
+[Next measurement and decision](experiments/iter154_full_scene_maneuver/DECISION.md).
 
 The preceding [Iteration 152](experiments/iter152_recovery_continuation/RESULT.md) remains null
 for its tested brake pulses: neither recovered the collision case. All arms completed the benign
 case, with the monitor taking 13 simulated seconds longer than nominal. These are exposed
-development findings; the new model search does not replace those live outcomes.
+development findings; the model search and full-scene failure do not replace those outcomes.
 
 The NeuroNCAP score improvement is supported on the evaluated suite. Its semantic
 attribution remains unresolved. Both registered HUGSIM transfer tests returned null results.
@@ -42,8 +47,8 @@ the first braking-pulse episode was interrupted after an observation-transport f
 There is no complete four-arm comparison. Both owned VM starts are confirmed terminated,
 and the study has no automatic restart. [Execution report](experiments/iter148_recovery_study/RESULT.md).
 
-This page covers scientific and engineering evidence through Iteration 153 on
-[research/iter153-action-feasibility](https://github.com/manfromnowhere143/sentinel/tree/research/iter153-action-feasibility).
+This page covers scientific and engineering evidence through Iteration 154 on
+[research/iter154-full-scene-maneuver](https://github.com/manfromnowhere143/sentinel/tree/research/iter154-full-scene-maneuver).
 The accepted master mission snapshot is **current through iteration 134**, with verdict
 `PLACEBO_HARM_OR_NULL`; [MISSION_STATE.json](MISSION_STATE.json) retains that historical
 publication contract. Iteration 135 is deferred and unrun. The [current handoff](HANDOFF.md)
@@ -375,22 +380,44 @@ supports no real-time-driving comparison. The useful result is a precise candida
 full-scene test. [Result, complete accounting and figure](experiments/iter153_action_feasibility/RESULT.md) ·
 [bound action packet](experiments/iter153_action_feasibility/SELECTED_MANEUVER.json).
 
+## Iteration 154: the full scene rejects the model candidate
+
+The exact selected 65-action sequence was prospectively bound and run in two fresh replicas
+with native rendering, actor updates and foreground/background collision checks. Privileged fixed
+controls bypassed UniAD and monitor inference. Both episodes terminate after 13 actions at 3.25 s
+on background collision, with foreground and off-route false. Source route fraction is 0.166844;
+distance to the sampled route is 2.301770 m. Route proximity is not road compliance.
+
+All 26 actions passed separate replay, including the source-matched kinematic prefix, actor state
+and route/outcome consistency. The maximum prefix error is 4.44e-16. Native background collision
+was observed, but the enclosed point count/mask was not retained; its point-cloud computation has
+not been independently replayed. The result contradicts useful full-scene recovery by this exact
+maneuver. It does not prove physical collision or that another maneuver cannot recover the scene.
+
+No alternative candidate was tried. The capacity-refused first start and one prospectively amended
+retry are retained. The VM is terminated, all 11,715 source/asset bindings are unchanged, and the
+combined conservative compute allowance is $0.346 within $3. Road compliance and information
+benefit remain unknown. [Result and figure](experiments/iter154_full_scene_maneuver/RESULT.md) ·
+[per-episode analysis](experiments/iter154_full_scene_maneuver/proof/analysis.json) ·
+[resource closure](experiments/iter154_full_scene_maneuver/proof/resource_closure.json).
+
 ## The next scientific test
 
 The intended contribution is a monitor and evaluation system that can show **which failures
 remain preventable, which signal enables prevention, and the measured cost and limits**.
 The following work is proposed; all previous schedules retain their closed accounting.
 
-1. **Validate the exact selected model maneuver in the full scene.** Register fresh IDs,
-   two replicas and bounded resources. Qualify an adapter for the retained 65-action sequence;
-   retain actual applied controls, current actor state, native foreground/background collision,
-   route outcomes and full termination. Do not replace the candidate after observing a failure.
-2. **Resolve the model-to-scene gap before claiming recovery.** The candidate is constructed
-   from privileged geometry. A full-scene success would establish an available diagnostic action;
-   road compliance requires separate boundary evidence. Preserve the raw-before-replay pipeline
-   and keep old nulls and missing outcomes unchanged.
-3. **Test one information hypothesis against a responsive baseline.** Track continuity and
-   uncertainty are motivated candidates. Include benign and stale-track cases, freeze the
+1. **Make the background collision replayable.** Prospectively retain the native filtered point
+   population, input identities and ego boxes at the last clear and first collision frames.
+   Independently reproduce the enclosed count and boundary rules, with known-bads around the
+   unchanged threshold. A source-predicate replay still does not validate physical occupancy.
+2. **Calibrate the missing constraint before another search.** If the witness is consistent,
+   add background feasibility to a separately registered diagnostic model and check it against
+   retained native prefixes. Otherwise resolve the measurement discrepancy first. Drivable-road
+   boundaries require separate evidence. Even a useful maneuver from reset would not establish
+   an available recovery after the monitor's actual decision time.
+3. **After establishing useful recovery, test one information hypothesis against a responsive baseline.**
+   Track continuity and uncertainty are motivated candidates. Include benign and stale-track cases, freeze the
    information interfaces, and measure intervention costs. Better offline prediction alone
    does not establish a prevention benefit.
 4. **Evaluate generalization on genuinely new source scenes.** Reserve them before development
@@ -625,7 +652,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 </details>
 
 <details>
-<summary>Information, recoverability and execution: Iter135–153</summary>
+<summary>Information, recoverability and execution: Iter135–154</summary>
 
 | Record | Finding or scope |
 |---|---|
@@ -648,6 +675,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 | [151](experiments/iter151_recovery_canary/RESULT.md) | Inconclusive: two nominal replicas admitted; publication check stopped the remaining comparison. |
 | [152](experiments/iter152_recovery_continuation/RESULT.md) | Fixed continuation complete: 14 new episodes, no pulse recovery witness; benign monitor adds 13 simulated seconds. |
 | [153](experiments/iter153_action_feasibility/RESULT.md) | Fixed local model search: 14 eligible maneuvers; exact candidate selected, full-scene recovery unknown. |
+| [154](experiments/iter154_full_scene_maneuver/RESULT.md) | Exact model candidate fails native background collision at 3.25 s in both fresh replicas; 26 verified actions. |
 
 </details>
 

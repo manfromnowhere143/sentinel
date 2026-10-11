@@ -1,0 +1,3 @@
+experiments/iter154_full_scene_maneuver/proof/block_000_attempt_001/commands/postflight.stderr:1: trailing whitespace.
++WARNING: 
+experiments/iter154_full_scene_maneuver/proof/block_000_attempt_001/commands/postflight.stderr:5: new blank line at EOF.

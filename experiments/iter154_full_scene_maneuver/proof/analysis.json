@@ -1,0 +1,104 @@
+{
+  "status": "contradicted",
+  "scope": "Exact privileged fixed maneuver in one exposed scene; native background collision receipt is source-bound, not a local point-cloud replay.",
+  "admission_commit": "a0fc7985a85ddb88088011a898d12b71d3286b24",
+  "raw_commit": "6b2d4a99439f8cb1965cb5f406926442ac280096",
+  "raw_inventory_sha256": "6488dc89b76a6da9ed26bee68aeab8efd576e15a532a84c4266747ab48513d20",
+  "new_admitted_episodes": 2,
+  "incomplete_episodes": 0,
+  "uninitialized_episodes": 0,
+  "verified_actions": 26,
+  "render_calls": 168,
+  "cases": [
+    {
+      "episode": "maneuver154_000__scene-0013-medium-00__selected__1",
+      "replica": 1,
+      "steps": 13,
+      "native_stop_time": 3.25,
+      "final_state": [
+        13.494639324564725,
+        -2.858446782614782,
+        -0.04791307767877304,
+        6.0,
+        0.07801804479282805
+      ],
+      "rc": 0.1668441604543841,
+      "nearest_index": 187,
+      "route_samples": 1252,
+      "route_distance": 2.3017702915976432,
+      "max_model_state_error": 4.440892098500626e-16,
+      "background_point_population": 276519,
+      "background_true_frames": [
+        13
+      ],
+      "foreground_true_frames": [],
+      "camera_calls": 84,
+      "median_full_loop_seconds": 0.529387796,
+      "loops_over_250ms": 13,
+      "outcome": {
+        "execution_valid": true,
+        "collision_observed": true,
+        "off_route_observed": false,
+        "background_collision": true,
+        "foreground_collision": false,
+        "simulator_completion": false,
+        "censored": false,
+        "completion_qualified": false,
+        "progress_checks": {
+          "nominal": null,
+          "monitor": null
+        },
+        "road_compliance": null,
+        "information_benefit": null,
+        "first_failure_time": 3.25,
+        "final_sample_observed": false
+      }
+    },
+    {
+      "episode": "maneuver154_001__scene-0013-medium-00__selected__2",
+      "replica": 2,
+      "steps": 13,
+      "native_stop_time": 3.25,
+      "final_state": [
+        13.494639324564725,
+        -2.858446782614782,
+        -0.04791307767877304,
+        6.0,
+        0.07801804479282805
+      ],
+      "rc": 0.1668441604543841,
+      "nearest_index": 187,
+      "route_samples": 1252,
+      "route_distance": 2.3017702915976432,
+      "max_model_state_error": 4.440892098500626e-16,
+      "background_point_population": 276519,
+      "background_true_frames": [
+        13
+      ],
+      "foreground_true_frames": [],
+      "camera_calls": 84,
+      "median_full_loop_seconds": 0.528045366,
+      "loops_over_250ms": 13,
+      "outcome": {
+        "execution_valid": true,
+        "collision_observed": true,
+        "off_route_observed": false,
+        "background_collision": true,
+        "foreground_collision": false,
+        "simulator_completion": false,
+        "censored": false,
+        "completion_qualified": false,
+        "progress_checks": {
+          "nominal": null,
+          "monitor": null
+        },
+        "road_compliance": null,
+        "information_benefit": null,
+        "first_failure_time": 3.25,
+        "final_sample_observed": false
+      }
+    }
+  ],
+  "road_compliance": null,
+  "information_benefit": null
+}

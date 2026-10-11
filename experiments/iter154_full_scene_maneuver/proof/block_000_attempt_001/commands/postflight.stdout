@@ -1,0 +1,1 @@
+{"status": "supported", "files": 11715, "changed_original_files": [], "changed_owned_cache": [], "idle": {"containers": {"returncode": 0, "stdout": "", "stderr": ""}, "gpu_processes": {"returncode": 0, "stdout": "", "stderr": ""}}, "free_bytes": 112619298816}

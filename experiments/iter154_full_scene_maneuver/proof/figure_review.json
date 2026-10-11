@@ -1,0 +1,10 @@
+{
+  "status": "supported",
+  "review": "Visual inspection of rendered PNG: labels, legends, axes, timing labels and scope notes are readable; no clipped content. Historical traces and reduced-model continuation are distinguished from two new full-scene replicas.",
+  "files": {
+    "experiments/iter154_full_scene_maneuver/proof/model_scene_gap.svg": "37ffce58f83f7a23e6f34616a95e931432bd059a75bb22a006315c364dd8c8c3",
+    "experiments/iter154_full_scene_maneuver/proof/model_scene_gap.png": "97a17b97b0297ef7ecaff684f64e77425707d825299f6093a7094691d88fb3b7",
+    "experiments/iter154_full_scene_maneuver/proof/plot_result.py.txt": "012f96da4f287eaf3abe021cde40e26676862eb53ad4ecfd0d988babd432cd7d"
+  },
+  "generator_style_fix_preserves_svg_bytes": true
+}

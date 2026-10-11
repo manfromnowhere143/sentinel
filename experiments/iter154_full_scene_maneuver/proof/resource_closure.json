@@ -1,0 +1,32 @@
+{
+  "status": "supported",
+  "observed_utc": "2026-10-11T14:39:59.879568+00:00",
+  "first_attempt": "start_denied_capacity_no_new_start_observed",
+  "first_supervisor_original_result_preserved": true,
+  "first_watchdog_observed_absent": true,
+  "first_watchdog_exit_code": null,
+  "successful_start": "2026-10-11T07:33:44.939-07:00",
+  "verified_stop": "2026-10-11T07:40:01.456-07:00",
+  "provider_state": "TERMINATED",
+  "active_owned_jobs": 0,
+  "retry_watchdog_exit": 0,
+  "combined_envelope_seconds": 415.16587162500946,
+  "conservative_compute_usd": 0.34597155968750787,
+  "registered_cap_usd": 3,
+  "registered_cap_seconds": 3600,
+  "within_budget": true,
+  "source_asset_files_unchanged": 11715,
+  "postflight_idle": {
+    "containers": {
+      "returncode": 0,
+      "stderr": "",
+      "stdout": ""
+    },
+    "gpu_processes": {
+      "returncode": 0,
+      "stderr": "",
+      "stdout": ""
+    }
+  },
+  "scope": "Inclusive local supervisor envelope bounds, including denied-start overhead; not an invoice; storage/taxes excluded."
+}

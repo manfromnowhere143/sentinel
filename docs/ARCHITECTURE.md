@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 11 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter153 research candidate. The [README](../README.md) carries the scientific
+limits through the Iter154 research candidate. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -185,11 +185,20 @@ stationary box geometry feed a fixed 75-maneuver generator; an independent scala
 rechecks policy, controls, transitions, rectangle support, swept interpolation, source route and
 progress. All 150 model trials are retained; fourteen qualify and a fixed ranking selects one.
 The [selected action packet](../experiments/iter153_action_feasibility/SELECTED_MANEUVER.json)
-is proposed input to a future full-scene adapter. It is not connected to a live controller.
-Background collision, road compliance, live recovery and information benefit remain unknown.
+then fed Iter154's direct native-action adapter, bypassing UniAD and monitor inference. It kept
+native rendering, actor updates, source termination and both foreground/background collision
+channels. Both fresh replicas terminate after 13 actions at 3.25 s on native background collision.
+The separately replayed prefix matches the model to 4.44e-16, with foreground and off-route false.
 
-The next scientific work is full-scene validation of that exact maneuver, followed by a controlled
-information-selection study only if useful recovery is established. Hidden-representation
+Iter154's device receipts retain the source identity, selected point-population size, collision
+boolean and outcome consistency. They do not retain the enclosed count, mask or point population
+needed to independently replay the full background predicate. Physical occupancy and drivable-road
+boundaries are separate unknowns. Neither useful full-scene recovery nor information benefit was
+established. [Execution result](../experiments/iter154_full_scene_maneuver/RESULT.md).
+
+The next scientific work is bounded background-witness extraction and separate scalar replay,
+then model calibration if the measurement contract holds. A controlled information-selection
+study follows only after useful recovery and its decision window are established. Hidden-representation
 monitoring, uncertainty-aware persistence, independent sensors, physical deployment and formal
 safety guarantees remain possible directions with different requirements. None is an established
 capability merely because it appears in a roadmap.

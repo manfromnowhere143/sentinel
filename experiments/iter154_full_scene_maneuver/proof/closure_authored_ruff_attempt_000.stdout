@@ -1,0 +1,23 @@
+E731 Do not assign a `lambda` expression, use a `def`
+  --> experiments/iter154_full_scene_maneuver/proof/plot_result.py.txt:80:1
+   |
+80 | x = lambda t: 100 + t / 17 * 880
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+81 | y = lambda r: 530 - r / 1.05 * 345
+82 | text(70, 42, "The full scene rejects the model-selected maneuver", 26, font_weight="bold")
+   |
+help: Rewrite `x` as a `def`
+
+E731 Do not assign a `lambda` expression, use a `def`
+  --> experiments/iter154_full_scene_maneuver/proof/plot_result.py.txt:81:1
+   |
+80 | x = lambda t: 100 + t / 17 * 880
+81 | y = lambda r: 530 - r / 1.05 * 345
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+82 | text(70, 42, "The full scene rejects the model-selected maneuver", 26, font_weight="bold")
+83 | text(70, 72, "Scene-0013-medium-00 • fixed privileged controls • descriptive replica-1 traces", 16)
+   |
+help: Rewrite `y` as a `def`
+
+Found 2 errors.
+No fixes available (2 hidden fixes can be enabled with the `--unsafe-fixes` option).
