@@ -1,0 +1,38 @@
+{
+  "status": "supported",
+  "scope": "constructed local deployment-prefix fixtures; no new study execution",
+  "checks": [
+    {
+      "fault": "none",
+      "refused": false
+    },
+    {
+      "fault": "changed_packet",
+      "refused": true
+    },
+    {
+      "fault": "initialized_pair",
+      "refused": true
+    },
+    {
+      "fault": "runs",
+      "refused": true
+    },
+    {
+      "fault": "map_cache",
+      "refused": true
+    },
+    {
+      "fault": "execution_manifest.json",
+      "refused": true
+    },
+    {
+      "fault": "deployment_continuation_started.json",
+      "refused": true
+    },
+    {
+      "fault": "symlink_packet_file",
+      "refused": true
+    }
+  ]
+}

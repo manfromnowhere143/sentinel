@@ -1,11 +1,11 @@
 {
   "iteration": 148,
   "status": "running",
-  "phase": "first_block_attempt2_host_preflight",
+  "phase": "first_block_attempt2_sequential_execution",
   "parent_commit": "21c51ed3ead8d24da410b4913ac1a734507b7c08",
   "cloud_compute_used": true,
   "owned_active_jobs": 1,
-  "live_study_admitted": false,
+  "live_study_admitted": true,
   "focused_tests": 165,
   "prior_gpu_steps_replayed": 1104,
   "planned_slots": 112,
@@ -13,7 +13,7 @@
   "study_outcomes_observed": 0,
   "automatic_restart": false,
   "next_task": "Verify host/runtime/source/timer gates and execute fixed first-block pairs sequentially with committed raw before replay. Close exact owned VM start afterwards.",
-  "admission_scope": "Local study implementation and source freeze; fresh provider/runtime gates not observed",
+  "admission_scope": "Fresh provider/runtime/timer gates passed; each pair still requires complete bound asset/resource and prior-evidence checks.",
   "study_pairs_initialized": 0,
   "study_slots_admitted": 0,
   "study_slots_missing": 112,
@@ -38,5 +38,6 @@
     "status": "RUNNING",
     "zone": "https://www.googleapis.com/compute/v1/projects/sunlit-unison-487018-b0/zones/us-west1-a"
   },
-  "watchdog_session": 92679
+  "watchdog_session": 92679,
+  "runtime_manifest_sha256": "dca2b7f7836304a21d7cfcd5f3a0fe78e0d2a89f7333879f48484dcd79540196"
 }
