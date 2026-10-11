@@ -1,0 +1,25 @@
+{
+  "provenance": "Summaries of directly observed command outputs during this editorial session; not verbatim raw logs.",
+  "commands": [
+    {
+      "command": "python3 experiments/iter2_monitor/g1_auroc.py experiments/iter2_monitor/proof/risk.jsonl.gz experiments/iter2_monitor/proof/outcomes.tsv",
+      "returncode": 0,
+      "observed_summary": "40 aligned episodes; 26 collisions, 14 clean; best AUROC 0.827."
+    },
+    {
+      "command": "python3 experiments/verification/audit_pooling.py",
+      "returncode": 0,
+      "observed_summary": "i9 == i10 and i8[:6] == i9 for every arm/scene; 1/8 unique side collisions; unique n=8 CI [-0.272,+0.782] includes zero."
+    },
+    {
+      "command": "python3 scripts/validate_docs.py",
+      "returncode": 1,
+      "observed_findings": [
+        "MISSION_STATE.json: current_completed_iteration:134!=148",
+        "MISSION_STATE.json: tooling_publication:pending_f17_origin_not_d16_or_f17",
+        "MISSION_STATE.json: tooling_publication:pending_f17_source_scope",
+        "MISSION_STATE.json: tooling_publication:pending_f17_worktree_dirty"
+      ]
+    }
+  ]
+}

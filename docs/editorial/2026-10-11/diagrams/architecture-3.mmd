@@ -1,0 +1,12 @@
+flowchart TB
+  P["Frozen plan and source<br/>runtime, assets, finite budget"] --> W["Owned worker<br/>initialization record and host deadline"]
+  W --> R["Retained raw packet<br/>commit before analysis"]
+  R --> V["Separate replay<br/>dynamics, controls, outcomes and replicas"]
+  V --> A["Pair admission<br/>supported or invalid"]
+  A --> G["Study accounting<br/>observed, unknown and missing"]
+  O["Coordinator observations<br/>bounded by local watchdog"] -. observes .-> W
+  O --> C["Closure evidence<br/>exact owned VM start"]
+  classDef evidence fill:#e8f1fb,stroke:#32628c,color:#142d45;
+  classDef control fill:#f5f1e5,stroke:#89733a,color:#352b12;
+  class P,R,V,A,G evidence;
+  class W,O,C control;

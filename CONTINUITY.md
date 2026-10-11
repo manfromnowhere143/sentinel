@@ -10,11 +10,14 @@
 > Read [result](experiments/iter148_recovery_study/RESULT.md),
 > [state](experiments/iter148_recovery_study/STATE.json) and
 > [continuation](experiments/iter148_recovery_study/DECISION.md).
-> **Next, by Daniel's explicit order:** review the entire README, relevant diagrams and
-> current memories before any next experiment. The interrupted study remains halted;
-> no initialized retry or automatic restart. Candidate `research/iter148-recovery-study`
-> is local/unpushed. Master, historical snapshots, prior evidence and unrelated WIP remain
-> preserved. Deferred Iter135 and prior recovery nulls are unchanged.
+> **Editorial task complete, 2026-10-11:** the full README and architecture now cover the
+> research arc through Iter148, with five current diagrams and every result indexed. Current
+> research-memory pointers are updated; prior wording is archived. See [editorial review](docs/editorial/2026-10-11/REVIEW.md).
+> No next experiment began. The interrupted study remains closed with no initialized retry
+> or automatic restart. Proposed next work is bounded observation recovery, then a new
+> prospective study protocol. Candidate `research/iter148-recovery-study` is local/unpushed;
+> master and prior evidence are preserved. Canonical-state and older successor sections below
+> are historical records; they do not make deferred Iter135 the active execution program.
 
 **Purpose.** This campaign is operator-portable by design. Everything an incoming operator
 needs is in this repository plus the two live surfaces below. Read this file top to bottom
@@ -4539,3 +4542,17 @@ within the original $9 block allowance. Failures, raw-before-replay commits and 
 Daniel requested the entire README, relevant diagrams and current research memory be reviewed in
 his voice after this closure and before any next experiment. That editorial work is next. The study
 remains stopped; a future protocol needs durable, bounded recovery from unavailable observations.
+
+
+## README and architecture review completed on 2026-10-11
+
+After scientific closure at candidate 3e79f028abd63c365e0b23e3f9a388c238c8498f, the full README
+was reorganized around the research question, measured evidence, actual implementation,
+post-Iter135 direction, current interrupted study and proposed next tests. All 148 result files
+are directly linked. Five current Mermaid diagrams rendered in light and dark themes; the two
+small reproduction commands ran successfully. The four pre-existing mission/publication-state
+findings remain explicit. Original README and architecture bytes are archived; accepted source,
+raw evidence, master, root index and unrelated WIP are preserved. Current research memories point
+to this closure. No further experiment or cloud compute was used for the editorial task.
+See docs/editorial/2026-10-11/REVIEW.md. Next research work is the proposed observation-recovery
+contract and its fault qualification before another prospectively registered comparison.

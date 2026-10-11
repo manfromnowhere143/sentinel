@@ -1,0 +1,117 @@
+{
+  "status": "supported",
+  "scope": "Editorial content and preservation audit; not a scientific or publication admission",
+  "parent_candidate": "3e79f028abd63c365e0b23e3f9a388c238c8498f",
+  "local_links_and_anchors_checked": 250,
+  "all_result_files_linked": 148,
+  "diagrams": [
+    {
+      "name": "readme-1",
+      "characters": 622,
+      "renders": [
+        {
+          "theme": "light",
+          "width": 359,
+          "height": 958,
+          "sha256": "9dde487dc3a11a1aea29fc313a37e80a2e94cdd769341db38f05e78f53050bdf"
+        },
+        {
+          "theme": "dark",
+          "width": 359,
+          "height": 958,
+          "sha256": "9c54e6bd7e0dfbf422b4883f01bdf46a59fcdb478b4640b888fad2754a726eb3"
+        }
+      ]
+    },
+    {
+      "name": "readme-2",
+      "characters": 646,
+      "renders": [
+        {
+          "theme": "light",
+          "width": 276,
+          "height": 902,
+          "sha256": "0035ba08f7ab76d585a8b2cec661b4040c55ce7a87a5991d8cf6ab6999aa9dbd"
+        },
+        {
+          "theme": "dark",
+          "width": 276,
+          "height": 902,
+          "sha256": "46e725d812917c6b43b7a1052478b9dd6ee80bf4448ce456e431610475a0be72"
+        }
+      ]
+    },
+    {
+      "name": "architecture-1",
+      "characters": 546,
+      "renders": [
+        {
+          "theme": "light",
+          "width": 552,
+          "height": 734,
+          "sha256": "ab413746d9ec3a8e05b1b964eab43da3232059911be302f08b888cac25d0c95e"
+        },
+        {
+          "theme": "dark",
+          "width": 552,
+          "height": 734,
+          "sha256": "0d2a6a23c63c8e98c7820d1a67b5c526103e6679698cc8adbe306eaffc4975ab"
+        }
+      ]
+    },
+    {
+      "name": "architecture-2",
+      "characters": 644,
+      "renders": [
+        {
+          "theme": "light",
+          "width": 659,
+          "height": 830,
+          "sha256": "0d8d8f2b103c0d5931e92846e13f3a40db04506727fa9798c0762d72894f0fcc"
+        },
+        {
+          "theme": "dark",
+          "width": 659,
+          "height": 830,
+          "sha256": "8bbeeb0f648c84d0f4f30c1353eecc2fad8ca7e2a08342106a88b5ff7d46b77a"
+        }
+      ]
+    },
+    {
+      "name": "architecture-3",
+      "characters": 707,
+      "renders": [
+        {
+          "theme": "light",
+          "width": 603,
+          "height": 854,
+          "sha256": "7aae21a806f41ba34185e1c88abb89f89e12a7db5c850fdc38fb34ee96bb301d"
+        },
+        {
+          "theme": "dark",
+          "width": 603,
+          "height": 854,
+          "sha256": "85e5f0518117f0e5e0ce87d7c14f7e292492539aa945ff82b4e00402772d1688"
+        }
+      ]
+    }
+  ],
+  "unrelated_tracked_files_preserved": 2632,
+  "tracked_editorial_changes": [
+    "CONTINUITY.md",
+    "README.md",
+    "docs/ARCHITECTURE.md",
+    "docs/NEXT_PHASE.md",
+    "experiments/verification/README.md"
+  ],
+  "experimental_files_unchanged": 6216,
+  "root_index_unchanged": true,
+  "root_branch_unchanged": true,
+  "master_unchanged": true,
+  "historical_snapshots_byte_identical": true,
+  "root_readme_protections_restored": true,
+  "scientific_counts_unchanged": true,
+  "cloud_compute_used_for_editorial": false,
+  "next_experiment_started": false,
+  "known_repository_guard_findings_remaining": 4
+}

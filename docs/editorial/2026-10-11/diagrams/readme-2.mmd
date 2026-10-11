@@ -1,0 +1,10 @@
+flowchart TB
+  N["NeuroNCAP<br/>score gain; progress limits"] --> A["Attribution and transfer<br/>unresolved placebo; HUGSIM nulls"]
+  A --> Q["Recoverability question<br/>which permitted action can help, and when?"]
+  Q --> X["Execution qualification<br/>replay, timestamps, dynamics and stopping"]
+  X --> R["Iter148<br/>baselines verified; comparison incomplete"]
+  R -. "proposed next study" .-> F["Establish recovery opportunity<br/>then test one additional signal"]
+  classDef observed fill:#e8f1fb,stroke:#32628c,color:#142d45;
+  classDef proposed fill:#f5f1e5,stroke:#89733a,color:#352b12;
+  class N,A,X,R observed;
+  class Q,F proposed;

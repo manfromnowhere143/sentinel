@@ -12,7 +12,7 @@
   "initial_block_slots": 8,
   "study_outcomes_observed": 4,
   "automatic_restart": false,
-  "next_task": "Complete the operator-requested full README, diagrams and current-memory review before another experiment. Research execution remains halted; future work needs a prospective transport-observation recovery design, preserving this interrupted evidence and no initialized retry.",
+  "next_task": "Design and qualify bounded recovery of unavailable read-only observations before any new prospectively registered study; preserve interrupted evidence and never silently retry initialized slots.",
   "admission_scope": "Fresh provider/runtime/timer gates passed; each pair still requires complete bound asset/resource and prior-evidence checks.",
   "study_pairs_initialized": 3,
   "study_slots_admitted": 4,
@@ -83,5 +83,7 @@
     "pair_000": "ad1066ea9e5fdbd795a7f2fa43c3f63a6cac1058",
     "pair_001": "c94c47c7bdbfad77250b7807cc5fa478b2c4de5f",
     "pair_002": "841ba8d4dcec4b5cded70783c7494345b4a835f5"
-  }
+  },
+  "editorial_status": "complete",
+  "editorial_review": "docs/editorial/2026-10-11/REVIEW.md"
 }

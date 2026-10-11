@@ -1,0 +1,78 @@
+{
+  "mermaid_cli": "11.4.2",
+  "browser": "existing Google Chrome, fresh headless processes",
+  "results": [
+    {
+      "source": "architecture-1.mmd",
+      "theme": "light",
+      "returncode": 0,
+      "stdout": "Generating single mermaid chart\n",
+      "stderr": "",
+      "output": "architecture-1-light.png"
+    },
+    {
+      "source": "architecture-1.mmd",
+      "theme": "dark",
+      "returncode": 0,
+      "stdout": "Generating single mermaid chart\n",
+      "stderr": "",
+      "output": "architecture-1-dark.png"
+    },
+    {
+      "source": "architecture-2.mmd",
+      "theme": "light",
+      "returncode": 0,
+      "stdout": "Generating single mermaid chart\n",
+      "stderr": "",
+      "output": "architecture-2-light.png"
+    },
+    {
+      "source": "architecture-2.mmd",
+      "theme": "dark",
+      "returncode": 0,
+      "stdout": "Generating single mermaid chart\n",
+      "stderr": "",
+      "output": "architecture-2-dark.png"
+    },
+    {
+      "source": "architecture-3.mmd",
+      "theme": "light",
+      "returncode": 0,
+      "stdout": "Generating single mermaid chart\n",
+      "stderr": "",
+      "output": "architecture-3-light.png"
+    },
+    {
+      "source": "architecture-3.mmd",
+      "theme": "dark",
+      "returncode": 0,
+      "stdout": "Generating single mermaid chart\n",
+      "stderr": "",
+      "output": "architecture-3-dark.png"
+    },
+    {
+      "source": "readme-1.mmd",
+      "theme": "dark",
+      "returncode": 0,
+      "stdout": "Generating single mermaid chart\n",
+      "stderr": "",
+      "output": "readme-1-dark.png"
+    },
+    {
+      "source": "readme-2.mmd",
+      "theme": "light",
+      "returncode": 0,
+      "stdout": "Generating single mermaid chart\n",
+      "stderr": "",
+      "output": "readme-2-light.png"
+    },
+    {
+      "source": "readme-2.mmd",
+      "theme": "dark",
+      "returncode": 0,
+      "stdout": "Generating single mermaid chart\n",
+      "stderr": "",
+      "output": "readme-2-dark.png"
+    }
+  ]
+}

@@ -1,5 +1,14 @@
 # Sentinel research direction for information and recoverability
 
+Current status, 2026-10-11: the separately registered execution sequence has reached
+[Iter148](../../experiments/iter148_recovery_study/RESULT.md). Four baseline episodes passed
+replay and source-defined completion; a progress-observation failure interrupted the first pulse.
+The study is inconclusive, with no complete four-arm comparison. Both owned VM starts are
+terminated. Iter135 remains deferred. The [current README](../../README.md) and
+[architecture](../ARCHITECTURE.md) describe the implemented system and its limits. The dated
+recommendation and earlier execution update below are preserved as the original proposal;
+their "no new driving outcome" wording describes 9 October, not the current execution record.
+
 Execution update, 2026-10-09: Daniel authorized proceeding. The first bounded implementation is
 the separately preregistered [Iteration 136 canary](../../experiments/iter136_hugsim_recoverability_canary/HYPOTHESIS.md).
 Its [current status](../../experiments/iter136_hugsim_recoverability_canary/STATUS.md) records local

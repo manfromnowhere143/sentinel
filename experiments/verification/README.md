@@ -1,9 +1,10 @@
 # Verification — scripts and raw-evidence archive
 
-This directory holds the independent verification pass's tooling and the campaign's raw evidence,
-pulled from the (ephemeral) GPU box and committed so that **every quantitative claim in this
-repository can be re-derived offline from the repository alone**. The audit report itself is
-[`../VERIFICATION.md`](../VERIFICATION.md).
+This directory preserves the early verification pass and its raw evidence, collected from the
+GPU host. Its scope is the pooling correction, the small-scene remeasurement and the iterations
+listed below. Later experiments retain their own evidence and runtime requirements. Current
+research status is in the [main README](../../README.md); the historical audit is
+[VERIFICATION.md](../VERIFICATION.md).
 
 ## Scripts
 
@@ -12,7 +13,10 @@ repository can be re-derived offline from the repository alone**. The audit repo
 | [`audit_pooling.py`](audit_pooling.py) | parses the iteration 8/9/10 run logs run-by-run, proves episode determinism (i9 ≡ i10; i8[:6] ≡ i9), recounts the union side-impact collisions, recomputes safe-progress on unique episodes with a seed-paired bootstrap | every number in VERIFICATION.md §3.1–3.2 |
 | [`analyze_v20.py`](analyze_v20.py) | parses the fresh 20-unique-episode OFF-vs-union pass, cross-checks run indices 0–7 against the committed iteration-8 evidence, computes the honest n=20 CI | VERIFICATION.md §4 |
 
-Both run with no arguments beyond paths, no network, no GPU: `python3 audit_pooling.py`.
+From the repository root, `python3 experiments/verification/audit_pooling.py` runs without
+arguments, network access or a GPU. `analyze_v20.py` requires two positional paths: the v20 run
+log and the extracted output root containing `v20-off`, `v20-union` and `v20-evade` directories.
+See its module header and [retained analysis](proof_v20.txt) for the original invocation.
 
 ## Evidence layout
 
@@ -50,8 +54,9 @@ evidence/
 Each `sentinel_*.jsonl` line is one `/infer` frame: `{"reset": true, "run": k}` marks episode
 boundaries; frames carry the planner's trajectory, the tracked objects (id, position, score), the
 monitor's risk terms (CPA, closing TTC where applicable), and the action taken (`act`/brake latch).
-This is the ground truth for statements like "fired 0 times on the clean scene" — they are counts
-over these lines, not inferences.
+These records support counts such as monitor firings on the recorded clean-scene episodes.
+They are decision telemetry; they do not establish that the detector's objects match every
+physical or simulated actor.
 
 ## Provenance and integrity
 

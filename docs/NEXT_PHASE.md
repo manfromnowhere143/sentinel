@@ -12,11 +12,14 @@
 > Read [result](../experiments/iter148_recovery_study/RESULT.md),
 > [state](../experiments/iter148_recovery_study/STATE.json) and
 > [continuation](../experiments/iter148_recovery_study/DECISION.md).
-> **Next, by Daniel's explicit order:** review the entire README, relevant diagrams and
-> current memories before any next experiment. The interrupted study remains halted;
-> no initialized retry or automatic restart. Candidate `research/iter148-recovery-study`
-> is local/unpushed. Master, historical snapshots, prior evidence and unrelated WIP remain
-> preserved. Deferred Iter135 and prior recovery nulls are unchanged.
+> **Editorial task complete, 2026-10-11:** the full README and architecture now cover the
+> research arc through Iter148, with five current diagrams and every result indexed. Current
+> research-memory pointers are updated; prior wording is archived. See [editorial review](editorial/2026-10-11/REVIEW.md).
+> No next experiment began. The interrupted study remains closed with no initialized retry
+> or automatic restart. Proposed next work is bounded observation recovery, then a new
+> prospective study protocol. Candidate `research/iter148-recovery-study` is local/unpushed;
+> master and prior evidence are preserved. Canonical-state and older successor sections below
+> are historical records; they do not make deferred Iter135 the active execution program.
 
 ## Canonical current decision: iteration 134 is complete
 

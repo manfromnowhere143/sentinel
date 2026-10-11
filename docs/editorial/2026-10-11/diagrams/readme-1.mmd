@@ -1,0 +1,12 @@
+flowchart TB
+  P["Frozen UniAD<br/>plan, detections, IDs and ego pose"] --> T["World-coordinate tracking<br/>velocity from successive observations"]
+  T --> C["CPA and closing TTC<br/>frozen geometric conditions"]
+  C --> L["Brake latch<br/>release after four clear frames"]
+  P --> A["Nominal plan or braking request"]
+  L --> A
+  A --> S["Simulator-specific controller and dynamics"]
+  S --> E["Collision, severity, progress<br/>and intervention records"]
+  classDef data fill:#e8f1fb,stroke:#32628c,color:#142d45;
+  classDef action fill:#f5f1e5,stroke:#89733a,color:#352b12;
+  class P,T,C,E data;
+  class L,A,S action;

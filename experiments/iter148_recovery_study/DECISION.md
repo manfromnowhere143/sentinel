@@ -31,7 +31,12 @@ depth and assess each diagram. This editorial task has direct operator authority
 or human ceremony is required. Record its evidence and distinguish the candidate from canonical
 master. Do not start another experiment while this requested work remains.
 
-## Research work after the editorial task
+Editorial completion, 2026-10-11: the requested review is complete. The current README,
+architecture, five Mermaid diagrams, experiment index and research-memory pointers are updated.
+[Review and validation](../../docs/editorial/2026-10-11/REVIEW.md). No next experiment began.
+The instruction above is retained as the record of the operator's requested order.
+
+## Next research work after editorial completion
 
 The observed failure is in the experiment coordinator's reaction to lost cloud observation.
 The progress query failed establishing IAP; a later postflight reached the still-running worker.

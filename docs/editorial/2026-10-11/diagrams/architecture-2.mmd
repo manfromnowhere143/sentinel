@@ -1,0 +1,14 @@
+flowchart TB
+  S["HUGSIM state<br/>ego, actors and route"] --> R["CUDA camera rendering"]
+  R --> P["Frozen UniAD and released monitor<br/>nominal and delivered plans"]
+  P --> C["Constrained ego controller<br/>requested and projected controls"]
+  C --> A["Registered arm<br/>nominal, monitor or finite pulse"]
+  A --> S
+  T["Timestamped actor trajectories<br/>explicit frame and units"] --> S
+  S --> E["State, collision, route and timing records"]
+  P --> E
+  C --> E
+  classDef runtime fill:#e8f1fb,stroke:#32628c,color:#142d45;
+  classDef evidence fill:#edf4e9,stroke:#537348,color:#23351c;
+  class S,R,P,C,A,T runtime;
+  class E evidence;
