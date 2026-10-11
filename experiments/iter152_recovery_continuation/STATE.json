@@ -24,8 +24,12 @@
   "last_owned_vm_stop": "2026-10-11T04:18:16.222-07:00",
   "conservative_compute_usd": 3.505905043160019,
   "registered_compute_cap_usd": 18,
-  "whole_repository_hosted_CI": "unresolved",
+  "whole_repository_hosted_CI": "failed_repository_ruff",
   "master_integration": "not_performed",
   "next_work": "Prospective bounded action-feasibility diagnostic with privileged source state explicitly segregated.",
-  "scope": "Two exposed development scenarios; no population rate, physical safety, real-time operation or industrial superiority claim."
+  "scope": "Two exposed development scenarios; no population rate, physical safety, real-time operation or industrial superiority claim.",
+  "hosted_run_id": 38135368709,
+  "hosted_ci_verified_commit": "e9b6fa2011b1700e7580bd7f5a2e5599dffe5fa0",
+  "hosted_later_tests": "skipped_after_ruff_failure",
+  "research_publication": "verified_at_scientific_closure_commit"
 }

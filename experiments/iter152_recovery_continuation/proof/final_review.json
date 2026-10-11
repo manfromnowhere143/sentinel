@@ -19,7 +19,7 @@
     "experiments/iter150_cloud_observation",
     "experiments/iter151_recovery_canary"
   ],
-  "current_links_and_anchors_checked": 284,
+  "current_links_and_anchors_checked": 288,
   "result_files_linked": 152,
   "unchanged_mermaid_diagrams": 5,
   "raw_before_admission_chain": [
@@ -66,5 +66,6 @@
       "raw_inventory_sha256": "7a16934807b88a1efb471dc8697c6937ef01f83884b94a856b3580ad31307631"
     }
   ],
-  "raw_inventories_verified_by": "proof/summarize.py.txt and proof/analysis.json"
+  "raw_inventories_verified_by": "proof/summarize.py.txt and proof/analysis.json",
+  "final_document_links_checked_utc": "2026-10-11T11:25:28.516135+00:00"
 }

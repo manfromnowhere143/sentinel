@@ -4726,3 +4726,12 @@ source lint and supply-chain checks pass; whole-repository Ruff reports832 findi
 including126 in new captured immutable snapshots. Separate explicit lint of the unchanged inherited
 host-auditor text reports7 style findings. Hosted CI and master integration remain unresolved.
 Read current HANDOFF and Iter152 RESULT, STATE, proof/analysis.json and proof/resource_closure.json.
+
+
+Iter152 research publication verified scientific closure e9b6fa2011b1700e7580bd7f5a2e5599dffe5fa0:
+six GitHub-served files matched, accepted master unchanged. Canonical root index and 23 other
+dirty/authority files preserved; 1,981 new Iter152 files/test mirrored with current handoff.
+Hosted run38135368709 completed with failure: both Python3.10/3.11 jobs passed supply-chain
+and locked-install checks, failed whole-repository Ruff with832 findings each, and skipped later
+tests. Retained publication, root-preservation and hosted-outcome receipts are in Iter152 proof.
+Later receipt/documentation commits do not turn this into a whole-repository CI pass.

@@ -28,7 +28,8 @@ controller calls exceed 50 ms and all full loops exceed 250 ms. Real-time operat
 New authored source and analysis lint passes; whole-repository Ruff has 832 findings in 168 files,
 including 126 in seven new immutable captured client snapshots. A separately checked unchanged
 Iter151 host-auditor copy also retains seven style findings. Supply-chain verification passes.
-Whole-repository hosted CI and master integration remain unresolved. Read proof/final_validation.json
+Hosted CI at scientific closure failed repository-wide Ruff; master integration remains open.
+Read proof/final_validation.json
 under the current experiment for exact scopes; no old source or captured evidence was normalized.
 
 Current candidate: `research/iter152-recovery-continuation`, owned same-repository checkout
@@ -39,6 +40,16 @@ The remote root `/datasets/nuscenes-full/hugsim/iter152_continuation_20261011` c
 initialized work. Preserve its markers, outputs, service identities and budget records.
 Pinned AGENTS, historical MISSION_STATE, accepted master, root README and unrelated root WIP
 remain unchanged. The updated research README and architecture are in the owned candidate.
+
+Scientific closure was published at `e9b6fa2011b1700e7580bd7f5a2e5599dffe5fa0`.
+Six GitHub-served documents/records matched committed bytes, including final admission.
+[Publication readback](experiments/iter152_recovery_continuation/proof/publication.json) and
+[root preservation](experiments/iter152_recovery_continuation/proof/root_preservation.json)
+retain the checks. Publication does not constitute master integration or a whole-repository CI pass.
+Hosted run `38135368709` at that closure commit passed supply-chain and locked-install checks
+in Python 3.10 and 3.11, then reported 832 Ruff findings per job; later tests were skipped.
+[Hosted outcome and retained failure logs](experiments/iter152_recovery_continuation/proof/hosted_ci_outcome.json).
+Later receipt-only/documentation commits do not change that observed scope.
 
 ## Exact next task
 

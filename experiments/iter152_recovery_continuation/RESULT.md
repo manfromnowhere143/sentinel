@@ -155,13 +155,15 @@ The source freeze and pre-live qualification records deliberately keep their ori
 Both scenes are exposed development cases, not independent holdouts. Numerical replicas do not
 increase the number of independent scenes. No population rate, physical-safety, transfer,
 real-time execution or superiority to industrial teams follows. The [engineering review](ENGINEERING_REVIEW.md)
-documents relevant public guidance and its limited application here. Whole-repository hosted CI
-and master integration remain unresolved.
+documents relevant public guidance and its limited application here. Master integration remains open.
 Final local supply-chain verification and new authored source/analysis lint pass. Whole-repository
 Ruff reports **832 findings in 168 files**, including 126 in seven newly retained unchanged
 client snapshots. Explicit lint of the carried-forward Iter151 host auditor also reports seven
 style findings; that script is an exact retained copy. No captured source was formatted or
 excluded to erase findings. [Commands and validation scope](proof/final_validation.json).
+Hosted run `38135368709` at scientific closure commit `e9b6fa2` passed supply-chain and
+locked-install verification in both Python 3.10 and 3.11 jobs, then failed Ruff with 832
+findings per job; later tests were skipped. [Hosted outcome](proof/hosted_ci_outcome.json).
 The [dated automotive catalogue review](proof/standards_catalogue_review.json) retains exact
 edition, publication, scope and revision observations for ISO 21448, ISO 34502 and UL 4600.
 This is a review of public publisher material; normative compliance has not been audited.

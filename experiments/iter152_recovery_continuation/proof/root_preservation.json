@@ -1,0 +1,13 @@
+{
+  "observed_utc": "2026-10-11T11:22:26.442846+00:00",
+  "status": "supported",
+  "source_commit": "e9b6fa2011b1700e7580bd7f5a2e5599dffe5fa0",
+  "mirrored_new_iteration_files_and_test": 1981,
+  "root_index_unchanged": true,
+  "index_sha256": "2e8a3f0d7ef06439b04e4fee41ba97e1f46675c670946c1084aaad796f56e22e",
+  "other_dirty_or_authority_files_preserved": 23,
+  "root_handoff_matches_candidate": true,
+  "root_continuity_historical_body_preserved": true,
+  "root_readme_and_architecture_unchanged": true,
+  "scope": "Canonical root receives new Iter152 artifacts and current operational handoff; unrelated dirty checkout and index preserved."
+}

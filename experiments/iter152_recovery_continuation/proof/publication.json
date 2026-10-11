@@ -1,0 +1,55 @@
+{
+  "observed_utc": "2026-10-11T11:22:28.021285+00:00",
+  "branch": "research/iter152-recovery-continuation",
+  "published_commit": "e9b6fa2011b1700e7580bd7f5a2e5599dffe5fa0",
+  "remote_head_matches": true,
+  "master_unchanged": true,
+  "served_files": [
+    {
+      "path": "HANDOFF.md",
+      "sha256": "46e357c6c964fd2d1a56338fefbfaf6a2e8c72d686f5780f807115cb8a56a217",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/e9b6fa2011b1700e7580bd7f5a2e5599dffe5fa0/HANDOFF.md"
+    },
+    {
+      "path": "README.md",
+      "sha256": "5d4fa78d1d0d10c7a72fb1a249f030d19cf922877e484b60b6ed78461a805bc7",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/e9b6fa2011b1700e7580bd7f5a2e5599dffe5fa0/README.md"
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "sha256": "9d97dd8f3b2cea78b0334b7ac0a19bf32ce76bbb2edd008002327bfb0caf53aa",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/e9b6fa2011b1700e7580bd7f5a2e5599dffe5fa0/docs/ARCHITECTURE.md"
+    },
+    {
+      "path": "experiments/iter152_recovery_continuation/RESULT.md",
+      "sha256": "dd864c0c0ad3ca5838d763a7ab92279208e1244f2b75ac991ff7d461925943a6",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/e9b6fa2011b1700e7580bd7f5a2e5599dffe5fa0/experiments/iter152_recovery_continuation/RESULT.md"
+    },
+    {
+      "path": "experiments/iter152_recovery_continuation/STATE.json",
+      "sha256": "58ea898121986399ac8e5310b0d90746a22a49a8e5daa967427e874be082e8df",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/e9b6fa2011b1700e7580bd7f5a2e5599dffe5fa0/experiments/iter152_recovery_continuation/STATE.json"
+    },
+    {
+      "path": "experiments/iter152_recovery_continuation/proof/admissions/pair_006.json",
+      "sha256": "410c13ee53ec789d59b6e704cb97c3f97e9d0a86502e5fc4e6ea7bdfd73f56a7",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/e9b6fa2011b1700e7580bd7f5a2e5599dffe5fa0/experiments/iter152_recovery_continuation/proof/admissions/pair_006.json"
+    }
+  ],
+  "hosted_runs_observed": [
+    {
+      "conclusion": "",
+      "databaseId": 38135368709,
+      "headSha": "e9b6fa2011b1700e7580bd7f5a2e5599dffe5fa0",
+      "status": "in_progress",
+      "url": "https://github.com/manfromnowhere143/sentinel/actions/runs/38135368709"
+    }
+  ],
+  "whole_repository_CI": "Not established. Local Ruff: 832 findings in 168 files; new authored source clean. The unchanged inherited text auditor retains seven findings in its separate explicit style check."
+}
