@@ -1,0 +1,15 @@
+{
+  "argv": [
+    "python3",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/test_iter149_observation_recovery.py",
+    "tests/test_iter150_cloud_observation.py",
+    "tests/test_iter154_full_scene_maneuver.py",
+    "tests/test_iter155_background_witness.py"
+  ],
+  "returncode": 0,
+  "observed_utc": "2026-10-11T18:17:03.969788+00:00",
+  "summary": "239 passed, 144 warnings in 8.37s"
+}

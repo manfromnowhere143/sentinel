@@ -1,0 +1,4 @@
+{
+  "initial_returncode": 1,
+  "issue": "Fixture compared pre-cast binary64 canonical vertices to binary32 collision vertices. Source step explicitly casts to float32. Corrected the fixture to compare the actual collision input representation; no source predicate, threshold or outcome changed."
+}

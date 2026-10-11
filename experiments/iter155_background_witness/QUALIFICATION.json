@@ -1,0 +1,26 @@
+{
+  "status": "supported",
+  "inputs_sha256": "1d2022e05c87ac17cb0221acb948b97721339ade82fd2e88f33cabcc5f92a3a9",
+  "plan_sha256": "a6703cbe6871d6acf0e5461d63eca8071b63f42565d86f07021673760f4fb6d9",
+  "frozen_input_files": 221,
+  "regression": {
+    "argv": [
+      "python3",
+      "-m",
+      "pytest",
+      "-q",
+      "tests/test_iter149_observation_recovery.py",
+      "tests/test_iter150_cloud_observation.py",
+      "tests/test_iter154_full_scene_maneuver.py",
+      "tests/test_iter155_background_witness.py"
+    ],
+    "returncode": 0,
+    "observed_utc": "2026-10-11T18:17:03.969788+00:00",
+    "summary": "239 passed, 144 warnings in 8.37s"
+  },
+  "focused_tests": 75,
+  "python": "3.14.2",
+  "scope": "Ambient macOS CPU fixtures; NumPy source-body substitution and separate scalar replay. Actual scene extraction/CUDA still unobserved.",
+  "new_driving_episodes": 0,
+  "gpu_observed": false
+}
