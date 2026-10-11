@@ -10,13 +10,13 @@
   "prior_gpu_steps_replayed": 1104,
   "planned_slots": 112,
   "initial_block_slots": 8,
-  "study_outcomes_observed": 0,
+  "study_outcomes_observed": 2,
   "automatic_restart": false,
   "next_task": "Verify host/runtime/source/timer gates and execute fixed first-block pairs sequentially with committed raw before replay. Close exact owned VM start afterwards.",
   "admission_scope": "Fresh provider/runtime/timer gates passed; each pair still requires complete bound asset/resource and prior-evidence checks.",
-  "study_pairs_initialized": 0,
-  "study_slots_admitted": 0,
-  "study_slots_missing": 112,
+  "study_pairs_initialized": 2,
+  "study_slots_admitted": 2,
+  "study_slots_missing": 110,
   "provider_current_state": "RUNNING",
   "last_verified_provider_state": "RUNNING at attempt2 ready readback",
   "start_command_issued": true,
@@ -39,5 +39,8 @@
     "zone": "https://www.googleapis.com/compute/v1/projects/sunlit-unison-487018-b0/zones/us-west1-a"
   },
   "watchdog_session": 92679,
-  "runtime_manifest_sha256": "dca2b7f7836304a21d7cfcd5f3a0fe78e0d2a89f7333879f48484dcd79540196"
+  "runtime_manifest_sha256": "dca2b7f7836304a21d7cfcd5f3a0fe78e0d2a89f7333879f48484dcd79540196",
+  "independently_verified_steps": 184,
+  "verified_pairs": 1,
+  "editorial_task_after_closure": "Review entire README, relevant diagrams and current memories for complete accurate research story in Daniel\u2019s voice before any next experiment."
 }

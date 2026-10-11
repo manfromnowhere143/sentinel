@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "gcloud",
+    "compute",
+    "scp",
+    "--project",
+    "sunlit-unison-487018-b0",
+    "--zone",
+    "us-west1-a",
+    "--tunnel-through-iap",
+    "sentinel-gpu:/datasets/nuscenes-full/hugsim/iter148_study_20261011/pair_001_raw.tar.gz",
+    "/Users/danielwahnich/sentinel-bootstrap-evidence/iter148-block000-attempt002-20261011/pair_001_raw.tar.gz"
+  ],
+  "start_utc": "2026-10-11T05:24:01.489920+00:00",
+  "elapsed_seconds": 10.805356458004098,
+  "returncode": 0
+}
