@@ -1,0 +1,156 @@
+{
+  "schema": "sentinel.iter155.plan.v1",
+  "iteration": 155,
+  "date": "2026-10-11",
+  "purpose": "Reconstruct and independently replay native background predicate at two fixed historical frames; no driving episode.",
+  "parent_commit": "7859fcb52d3485d25e236da370833873356dd9df",
+  "frames": [
+    {
+      "replica": 1,
+      "frame": 12,
+      "time": 3.0,
+      "state": [
+        12.000892850354656,
+        -2.7216203568594204,
+        -0.09134459154360033,
+        6.0,
+        0.1434678917426154
+      ],
+      "ego_pos": [
+        -2.7216203568594204,
+        -0.172711470608214,
+        12.000892850354656
+      ],
+      "ego_box": [
+        12.000892850354656,
+        2.7216203568594204,
+        0.172711470608214,
+        1.6,
+        3.0,
+        1.5,
+        0.09134459154360033
+      ],
+      "background": false,
+      "trace_path": "experiments/iter154_full_scene_maneuver/proof/study_raw/pair_000/runs/maneuver154_000__scene-0013-medium-00__selected__1/trace/events.jsonl",
+      "trace_sha256": "079ff49dd9a10016555a08cca8ab1f1b84a4c6606c78a23255b985e8540d6ee0"
+    },
+    {
+      "replica": 1,
+      "frame": 13,
+      "time": 3.25,
+      "state": [
+        13.494639324564725,
+        -2.858446782614782,
+        -0.04791307767877304,
+        6.0,
+        0.07801804479282805
+      ],
+      "ego_pos": [
+        -2.858446782614782,
+        -0.1878126076404038,
+        13.494639324564725
+      ],
+      "ego_box": [
+        13.494639324564725,
+        2.858446782614782,
+        0.1878126076404038,
+        1.6,
+        3.0,
+        1.5,
+        0.04791307767877304
+      ],
+      "background": true,
+      "trace_path": "experiments/iter154_full_scene_maneuver/proof/study_raw/pair_000/runs/maneuver154_000__scene-0013-medium-00__selected__1/trace/events.jsonl",
+      "trace_sha256": "079ff49dd9a10016555a08cca8ab1f1b84a4c6606c78a23255b985e8540d6ee0"
+    },
+    {
+      "replica": 2,
+      "frame": 12,
+      "time": 3.0,
+      "state": [
+        12.000892850354656,
+        -2.7216203568594204,
+        -0.09134459154360033,
+        6.0,
+        0.1434678917426154
+      ],
+      "ego_pos": [
+        -2.7216203568594204,
+        -0.172711470608214,
+        12.000892850354656
+      ],
+      "ego_box": [
+        12.000892850354656,
+        2.7216203568594204,
+        0.172711470608214,
+        1.6,
+        3.0,
+        1.5,
+        0.09134459154360033
+      ],
+      "background": false,
+      "trace_path": "experiments/iter154_full_scene_maneuver/proof/study_raw/pair_000/runs/maneuver154_001__scene-0013-medium-00__selected__2/trace/events.jsonl",
+      "trace_sha256": "27886ed840813c44192321679bed0a2b4296cc9de8cedee81b9904885968d19f"
+    },
+    {
+      "replica": 2,
+      "frame": 13,
+      "time": 3.25,
+      "state": [
+        13.494639324564725,
+        -2.858446782614782,
+        -0.04791307767877304,
+        6.0,
+        0.07801804479282805
+      ],
+      "ego_pos": [
+        -2.858446782614782,
+        -0.1878126076404038,
+        13.494639324564725
+      ],
+      "ego_box": [
+        13.494639324564725,
+        2.858446782614782,
+        0.1878126076404038,
+        1.6,
+        3.0,
+        1.5,
+        0.04791307767877304
+      ],
+      "background": true,
+      "trace_path": "experiments/iter154_full_scene_maneuver/proof/study_raw/pair_000/runs/maneuver154_001__scene-0013-medium-00__selected__2/trace/events.jsonl",
+      "trace_sha256": "27886ed840813c44192321679bed0a2b4296cc9de8cedee81b9904885968d19f"
+    }
+  ],
+  "unique_frames": [
+    12,
+    13
+  ],
+  "expected_selected_points": 276519,
+  "threshold_strictly_greater_than": 100,
+  "opacity_strictly_greater_than": 0.8,
+  "semantic_selection": ">1 and !=10; argmax first index on ties",
+  "box_dimensions_xyz": [
+    1.6,
+    1.5,
+    3.0
+  ],
+  "cloud_seconds": 1800,
+  "compute_cap_usd": 1.5,
+  "hourly_upper_usd": 3,
+  "capacity_requests_max": 2,
+  "capacity_retry_wait_seconds": 120,
+  "capacity_retry_only": "Explicit capacity refusal, two same-start TERMINATED observations, zero extraction init; no other retry. Original inclusive budget remains.",
+  "worker_seconds": 420,
+  "collection_bytes": 402653184,
+  "chunk_bytes": 8388608,
+  "max_population": 2000000,
+  "max_features": 32,
+  "numeric_uncertainty_factor": 64,
+  "ground_tolerance": 1e-10,
+  "vertex_tolerance": 1e-06,
+  "native_threshold_change": false,
+  "physical_occupancy_claim": false,
+  "new_driving_episodes": 0,
+  "remote_root": "/datasets/nuscenes-full/hugsim/iter155_background_20261011"
+}
