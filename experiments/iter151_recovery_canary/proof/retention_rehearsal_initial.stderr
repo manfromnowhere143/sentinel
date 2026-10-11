@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter151_recovery_canary/rehearse_retention.py", line 73, in <module>
+    print(json.dumps(rehearse(Path.cwd()), indent=2))
+                     ~~~~~~~~^^^^^^^^^^^^
+  File "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter151_recovery_canary/rehearse_retention.py", line 44, in rehearse
+    receipt = admit(root, destination, document, 0, raw_commit, [], destination.parent)
+  File "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter151_recovery_canary/replay.py", line 26, in admit
+    digest = raw_identity(repository, commit, directory)
+  File "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter147_full_horizon_execution/coordinator.py", line 63, in raw_identity
+    relative = path.relative_to(repository).as_posix()
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.2_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 490, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: '/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/sentinel151-retention-a7kiniv5/experiments/iter151_recovery_canary/proof/study_raw/pair_000/deployment.json' is not in the subpath of '/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/sentinel151-retention-a7kiniv5'

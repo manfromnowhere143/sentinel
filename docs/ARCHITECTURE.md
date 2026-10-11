@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 11 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter150 research candidate. The [README](../README.md) carries the scientific
+limits through the Iter151 research candidate. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -98,9 +98,12 @@ watchdog fixture. [Iter150](../experiments/iter150_cloud_observation/RESULT.md) 
 large native artifacts into a compact observation and qualifies historical reads through actual
 IAP, synthetic disconnection, host-local child expiry and exact-owned VM closure. Its live
 harness failed while saving the final report; retained outputs pass a separate audit and the
-filename fix passes locally. Active scientific-worker ownership and new launch/admission
-integration remain. The retained Iter148 diagram and workflow below describe the last
-scientific run; no new scientific execution occurred.
+filename fix passes locally. Iter151 adds exact 16-slot admission, exclusive dispatch, active Linux process birth/command/boot
+ownership and a per-pair systemd deadline. Its first nominal pair passed scientific replay,
+but a whitespace check on immutable captured source stopped publication and the schedule.
+The corrected local retention pipeline passes a real Git/replay rehearsal; corrected cloud
+execution is unobserved. See [Iter151](../experiments/iter151_recovery_canary/RESULT.md).
+The retained diagram and workflow below describe the original Iter148 study.
 
 The study plan fixes 112 slots and admission order. Pair initialization is recorded so that
 completed or initialized work cannot be duplicated silently. Each completed raw packet is
@@ -133,8 +136,9 @@ budgets and are not reusable launch commands.
 **Observed limitation:** Iter148 stopped after a read-only IAP query failed to connect. The
 coordinator treated that failure as a stop condition while the worker was still running.
 The block is closed and its pulse outcome is incomplete. Iter149–150 implement bounded
-read-only reconciliation and retain local/cloud fault checks. Integration with a new scientific
-launcher is the next control change. The diagram above describes Iter148, not that future system.
+read-only reconciliation and retain local/cloud fault checks. Iter151 exercised the new active-worker
+integration; its later publication failure is separately recorded. The diagram above describes
+Iter148; neither later qualification erases that study’s missing outcome.
 
 Hashes check identity against retained bytes. Separate replay checks specified properties.
 Neither authenticates the physical world, establishes sensor completeness, or proves the

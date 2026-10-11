@@ -1,7 +1,7 @@
 {
   "status": "supported",
-  "scope": "local canary admission and source qualification; Linux host checks still required",
-  "inputs_sha256": "9f2e0cadc58eb62f5fd24057c6a1796681be2211e26ba0142c7b639e03cf8389",
+  "scope": "local admission with post-run evidence-publication correction; cloud execution remains bound to original source 35fcf9a",
+  "inputs_sha256": "4d6efb0e9813bad321827c6baba40b00eead6a026bf548e7252f867be905c61b",
   "plan_sha256": "720072bba3482074a5e09d149cac33614cf06f86edfff1270c87aa8b95f195d9",
   "scientific_outcomes": 0,
   "previous_scientific_basis": "8597f015be7eed3354bc3e5867f34ac97bb9ff388b8571de525f703df4dbd8c5",
@@ -13,5 +13,9 @@
   "tests_sha256": "72450f4bc9b60fdd5abfa13667350a489b78f42c505a443645c188e59d780687",
   "provenance": "agent-executed local tests and separately implemented retained scientific replay",
   "postreview_focused_tests": 56,
-  "postreview_test_sha256": "f98ae139c365622ec0e1d4c99459cfc1f2481eb90e29f4010c21aa799f3a60aa"
+  "postreview_test_sha256": "f98ae139c365622ec0e1d4c99459cfc1f2481eb90e29f4010c21aa799f3a60aa",
+  "postrun_focused_tests": 57,
+  "postrun_retention_rehearsal": "supported",
+  "postrun_tests_sha256": "e1afd1d1b6f5e07d5ce4c55ef4573ef870f85056223e1afbdf541279e403c5ad",
+  "corrected_coordinator_cloud_execution": "unobserved"
 }

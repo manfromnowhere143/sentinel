@@ -1,0 +1,63 @@
+"""Read-only independent structural check of the retained Linux qualification reply."""
+from copy import deepcopy
+import hashlib
+import json
+from pathlib import Path
+
+directory = Path(__file__).parent / "block_000"
+value = json.loads((directory / "host_qualification.json").read_bytes())
+envelope = json.loads((directory / "envelope.json").read_bytes())
+vm = json.loads((directory / "owned.json").read_bytes())
+
+
+def audit(row):
+    owner = row["owner"]
+    process, service, binding = owner["process"], owner["service"], owner["binding"]
+    if row["scientific_outcomes"] != 0 or row["status"] != "supported":
+        raise ValueError("qualification_scope")
+    if process["pid"] != int(service["MainPID"]) or service["Id"] != row["unit"] or service["ActiveState"] != "active":
+        raise ValueError("service_process_binding")
+    if service["RuntimeMaxUSec"] != "41min 40s" or service["KillMode"] != "control-group":
+        raise ValueError("pair_deadline_configuration")
+    if process["boot"] != envelope["binding"]["host_boot"] or binding["host_boot"] != process["boot"] or binding["vm_id"] != vm["id"] or binding["vm_start"] != vm["lastStartTimestamp"]:
+        raise ValueError("host_start_binding")
+    if process["command"] != row["command"][-len(process["command"]):] or process["start_ticks"] <= 0:
+        raise ValueError("process_command_binding")
+    states = []
+    for name in ("running_raw_hex", "partial_raw_hex"):
+        observation = json.loads(bytes.fromhex(row[name]))
+        states.append(observation["state"])
+        if observation["binding"] != binding or observation["artifacts"] != {}:
+            raise ValueError("native_observation_binding")
+    if states != ["running", "partial"]:
+        raise ValueError("partial_not_success")
+    if row["duplicate_returncode"] == 0 or row["records_unchanged"] is not True:
+        raise ValueError("exclusive_initialization")
+    if row["stop_returncode"] != 0 or row["partial_preserved"] is not True:
+        raise ValueError("fixture_closure")
+    if row["deadline"] != {"ActiveState": "failed", "KillMode": "control-group", "MainPID": "0", "Result": "timeout", "RuntimeMaxUSec": "2s"} or not 0 < row["deadline_elapsed"] < 12:
+        raise ValueError("actual_deadline_expiry")
+
+
+audit(value)
+rejected = {}
+for fault in ("pid", "boot", "command", "partial", "duplicate", "deadline", "configuration", "scope"):
+    bad = deepcopy(value)
+    if fault == "pid": bad["owner"]["process"]["pid"] = -1
+    if fault == "boot": bad["owner"]["process"]["boot"] = "replacement"
+    if fault == "command": bad["owner"]["process"]["command"] = ["unexpected"]
+    if fault == "partial":
+        observation = json.loads(bytes.fromhex(bad["partial_raw_hex"]))
+        observation["state"] = "complete"
+        bad["partial_raw_hex"] = json.dumps(observation).encode().hex()
+    if fault == "duplicate": bad["duplicate_returncode"] = 0
+    if fault == "deadline": bad["deadline"]["Result"] = "success"
+    if fault == "configuration": bad["owner"]["service"]["RuntimeMaxUSec"] = "infinity"
+    if fault == "scope": bad["scientific_outcomes"] = 1
+    try:
+        audit(bad)
+    except ValueError as error:
+        rejected[fault] = str(error)
+    else:
+        raise ValueError("accepted_bad:" + fault)
+print(json.dumps(dict(status="supported", scope="local structural audit of retained host receipt; no new provider observation", known_bads_rejected=rejected, host_receipt_sha256=hashlib.sha256((directory / "host_qualification.json").read_bytes()).hexdigest(), scientific_admission=False), indent=2))

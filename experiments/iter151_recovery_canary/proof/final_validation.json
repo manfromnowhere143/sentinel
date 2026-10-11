@@ -1,0 +1,80 @@
+{
+  "observed_utc": "2026-10-11T07:49:26.646846+00:00",
+  "local_links_checked": 265,
+  "missing_links": [],
+  "checks": [
+    {
+      "argv": [
+        "ruff",
+        "check",
+        "experiments/iter151_recovery_canary/__init__.py",
+        "experiments/iter151_recovery_canary/admission.py",
+        "experiments/iter151_recovery_canary/aggregate.py",
+        "experiments/iter151_recovery_canary/collection.py",
+        "experiments/iter151_recovery_canary/execute.py",
+        "experiments/iter151_recovery_canary/ownership.py",
+        "experiments/iter151_recovery_canary/pair.py",
+        "experiments/iter151_recovery_canary/qualify_host.py",
+        "experiments/iter151_recovery_canary/records.py",
+        "experiments/iter151_recovery_canary/rehearse_retention.py",
+        "experiments/iter151_recovery_canary/remote_ops.py",
+        "experiments/iter151_recovery_canary/replay.py",
+        "experiments/iter151_recovery_canary/worker.py",
+        "tests/test_iter151_recovery_canary.py"
+      ],
+      "returncode": 0,
+      "stdout": "All checks passed!\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "-S",
+        "tools/ci/verify_supply_chain.py"
+      ],
+      "returncode": 0,
+      "stdout": "SUPPLY_CHAIN_VERIFICATION_OK\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check",
+        "--",
+        "HANDOFF.md",
+        "CONTINUITY.md",
+        "README.md",
+        "docs/ARCHITECTURE.md",
+        "experiments/iter151_recovery_canary/*.py",
+        "tests/test_iter151_recovery_canary.py"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "raw_preservation": {
+    "status": "supported",
+    "raw_commit": "95db0f680f6319fb33454ee0b5531bfd30d3b8da",
+    "files_verified": 272,
+    "all_committed_raw_bytes_unchanged": true,
+    "original_scientific_source_unchanged": true
+  },
+  "corrected_inputs_sha256": "2ba0a866fd1ebaa584e15346c487411bb0273ffa100b55cf7276e1ffd93a8b87",
+  "whole_repository_lint": {
+    "status": "failed",
+    "scope": "current local whole-repository Ruff observation; no source cleanup or exclusion applied",
+    "ruff": "ruff 0.15.20",
+    "findings": 706,
+    "files": 161,
+    "iteration151_findings": {
+      "experiments/iter151_recovery_canary/proof/study_raw/pair_000/e2e147.py": 18
+    },
+    "new_authored_source_findings": 0,
+    "historical_hosted_findings": 688,
+    "historical_hosted_files": 160
+  }
+}

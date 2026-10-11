@@ -14,20 +14,19 @@ warning does not establish that the monitor identified the actor responsible for
 Those findings now determine the research direction.
 
 [Results](#measured-results) · [Monitor](#what-the-monitor-actually-uses) ·
-[Research history](#how-the-question-changed) · [Current study](#current-study-iteration-148) ·
+[Research history](#how-the-question-changed) · [Latest run](#iteration-151-nominal-baseline-and-interrupted-comparison) ·
 [Next steps](#the-next-scientific-test) · [Reproduce](#reproduce-and-inspect) ·
 [Experiment index](#complete-experiment-index)
 
 ## Current position — 11 October 2026
 
-Engineering continuation: [Iter150](experiments/iter150_cloud_observation/RESULT.md) supports
-bounded observation recovery over actual IAP transport and historical native artifacts, following
-Iter149’s local qualification. A final report filename collision left the live harness failed;
-the retained outputs pass separate audit and the filename correction passes local tests. The
-owned VM start is verified stopped. Fresh scientific admission and worker integration remain;
-no new driving outcome follows and the interrupted study below is unchanged.
-The [assessment](experiments/iter149_observation_recovery/ASSESSMENT.md) and
-[prospective canary](experiments/iter149_observation_recovery/NEXT_STUDY_PROPOSAL.md) explain the next decisions.
+[Iteration 151](experiments/iter151_recovery_canary/RESULT.md) admitted two nominal replicas:
+both recorded a collision at 7.75 simulated seconds. The comparison is **inconclusive**:
+14 slots did not initialize. A local publication check rejected whitespace in unchanged captured
+source; the failure and exact raw bytes are retained. The evidence-commit helper is corrected
+and the full local retention/replay rehearsal passes. The owned VM start is verified stopped.
+[Current continuation](experiments/iter151_recovery_canary/DECISION.md) ·
+[research assessment](experiments/iter149_observation_recovery/ASSESSMENT.md).
 
 The NeuroNCAP score improvement is supported on the evaluated suite. Its semantic
 attribution remains unresolved. Both registered HUGSIM transfer tests returned null results.
@@ -39,9 +38,8 @@ the first braking-pulse episode was interrupted after an observation-transport f
 There is no complete four-arm comparison. Both owned VM starts are confirmed terminated,
 and the study has no automatic restart. [Execution report](experiments/iter148_recovery_study/RESULT.md).
 
-This page covers scientific evidence through Iteration 148 and engineering qualification
-through Iteration 150 on
-[research/iter150-cloud-observation](https://github.com/manfromnowhere143/sentinel/tree/research/iter150-cloud-observation).
+This page covers scientific and engineering evidence through Iteration 151 on
+[research/iter151-recovery-canary](https://github.com/manfromnowhere143/sentinel/tree/research/iter151-recovery-canary).
 The accepted master mission snapshot is **current through iteration 134**, with verdict
 `PLACEBO_HARM_OR_NULL`; [MISSION_STATE.json](MISSION_STATE.json) retains that historical
 publication contract. Iteration 135 is deferred and unrun. The [current handoff](HANDOFF.md)
@@ -306,20 +304,35 @@ also includes communication and cannot be read as isolated inference latency.
 [Aggregate accounting](experiments/iter148_recovery_study/proof/block_000_attempt_002/study_aggregate.json) ·
 [Resource closure](experiments/iter148_recovery_study/proof/block_000_attempt_002/combined_resource_closure.json).
 
+## Iteration 151: nominal baseline and interrupted comparison
+
+The fresh canary fixed two exposed scenarios, four arms and two replicas. Only the first nominal
+pair ran: both replicas passed independent replay and recorded a collision at 7.75 s, with 31
+actions each. Maximum stationarity residual was 9.8156e-7 against the fixed 1e-6 bar. One of 62
+controller calls exceeded 50 ms; all 62 full loops exceeded 250 ms. Real-time operation remains
+unestablished.
+
+A local commit check rejected trailing whitespace in unchanged captured client source. The
+supervisor stopped the schedule and verified shutdown. Raw was then committed without changing
+its bytes, before scientific replay. Totals are 2 admitted and 14 uninitialized; monitor/pulse
+comparisons, recovery and harm remain unestimated. The locally corrected retention pipeline now
+passes a complete archive-to-Git-to-replay rehearsal. Its corrected cloud execution is unobserved.
+[Result, failure and closure](experiments/iter151_recovery_canary/RESULT.md).
+
 ## The next scientific test
 
 The intended contribution is a monitor and evaluation system that can show **which failures
 remain preventable, which signal enables prevention, and the measured cost and limits**.
 The following work is proposed; the interrupted study remains closed.
 
-1. **Integrate qualified observation recovery with fresh study admission.** Iter149–150 retain
-   local and bounded cloud evidence. Bind the next scientific worker’s ownership, initialization
-   and deadlines, preserving read-only retries and testing against duplicate execution. The
-   historical-artifact and synthetic-child checks do not themselves qualify that new launcher.
-2. **Establish constructive recovery.** Prospectively register the next finite comparison.
-   Keep the action library, timing grid, outcomes and progress constraints explicit. Preserve
-   initialized Iter148 slots and their missingness; do not silently rerun them. A successful
-   branch establishes an opportunity only within that simulator, library and horizon.
+1. **Qualify the complete evidence path before compute.** Include representative immutable
+   snapshots in archive, Git-retention and independent-replay rehearsal. Iter151 showed that
+   correct worker observation alone does not cover the publication boundary.
+2. **Establish constructive recovery in a new prospective continuation.** Bind any reuse of
+   the admitted nominal pair explicitly as prior evidence, then test the unrun monitor and
+   pulse comparisons. Keep action, timing, outcomes and progress constraints fixed. Preserve
+   the closed Iter148 and Iter151 accounting. A witness applies only to the tested simulator,
+   library and horizon.
 3. **Test one information hypothesis against a responsive baseline.** Track continuity and
    uncertainty are motivated candidates. Include benign and stale-track cases, freeze the
    information interfaces, and measure intervention costs. Better offline prediction alone
@@ -576,6 +589,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 | [148](experiments/iter148_recovery_study/RESULT.md) | Inconclusive: four admitted baseline episodes; pulse interrupted; no complete comparison. |
 | [149](experiments/iter149_observation_recovery/RESULT.md) | Local bounded observation recovery qualified; no scientific outcome. |
 | [150](experiments/iter150_cloud_observation/RESULT.md) | Bounded cloud/native observation checks supported; report-saving failure preserved and locally corrected. |
+| [151](experiments/iter151_recovery_canary/RESULT.md) | Inconclusive: two nominal replicas admitted; publication check stopped the remaining comparison. |
 
 </details>
 

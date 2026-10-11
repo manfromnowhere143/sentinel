@@ -522,8 +522,8 @@
       "sha256": "80690462cd549d6de679b679c59f5b3e9527ccef8c5f3269a88b46bd4c570294"
     },
     "experiments/iter151_recovery_canary/execute.py": {
-      "bytes": 23796,
-      "sha256": "b71eb94309c05cc3c49b680627688ddfc9eab48c7c2b31c8fb8309fe693f3fb2"
+      "bytes": 24331,
+      "sha256": "39ef15586cbd403e31f2aaa2f67369a63ef1fa53cc72f8f9e4cfb4dde69165b2"
     },
     "experiments/iter151_recovery_canary/ownership.py": {
       "bytes": 3843,
@@ -552,6 +552,10 @@
     "experiments/iter151_recovery_canary/worker.py": {
       "bytes": 1594,
       "sha256": "4dbb54ad90d3d4751404a4aa4dcf11fe2d2ee3e4583942d9d138f5ccfe8d852c"
+    },
+    "experiments/iter151_recovery_canary/rehearse_retention.py": {
+      "bytes": 3184,
+      "sha256": "f6fd7fa898297f2a10aa178c0a50d1689ddb34b58a9fd12aecae2c1caf74b24c"
     }
   }
 }

@@ -1,0 +1,40 @@
+{
+  "observed_utc": "2026-10-11T07:46:11.105095+00:00",
+  "live_failure_preserved": true,
+  "correction": "Scope evidence commits to proof paths; preserve exact captured bytes and validate authored source separately.",
+  "new_regression": "Actual Git commits preserve a whitespace-bearing captured source; non-evidence paths and symlink trees rejected.",
+  "focused_result": ".........................................................                [100%]\n57 passed in 1.53s",
+  "retention_rehearsal": {
+    "status": "supported",
+    "scope": "local replay of the same two retained episodes; zero new outcomes",
+    "archive_sha256": "1b40b13d5fd3a238f2f4a08af2e668ef0a18aa2107d8ae322188711c7fb60228",
+    "captured_client_sha256": "fe2dfca899a5446bfa6fd7d762524cfe57a304ca08330a45dc9e267d50b3159d",
+    "captured_client_bytes_preserved": true,
+    "legacy_whitespace_check_returncode": 2,
+    "raw_inventory_sha256": "e44cdd539edff66fbd17c79aaf7e01887ba549df27d0297c9e2e6c48a60dd220",
+    "replayed_actions": 62,
+    "raw_commit": "79076bdd2a9087f627e61cc2015b89b80aa598a1",
+    "receipt_commit": "4840e2448adf4ad273953df623c674d5c0f20e06",
+    "ephemeral_git_commits": true,
+    "source_sha256": "39ef15586cbd403e31f2aaa2f67369a63ef1fa53cc72f8f9e4cfb4dde69165b2",
+    "cloud_access": false
+  },
+  "initial_rehearsal_failure": "TemporaryDirectory returned a /var alias while retained checker canonicalized /private/var; caller now resolves the root. Historical checker unchanged.",
+  "inputs_sha256": "4d6efb0e9813bad321827c6baba40b00eead6a026bf548e7252f867be905c61b",
+  "code_sha256": {
+    "experiments/iter151_recovery_canary/worker.py": "4dbb54ad90d3d4751404a4aa4dcf11fe2d2ee3e4583942d9d138f5ccfe8d852c",
+    "experiments/iter151_recovery_canary/ownership.py": "e7326f2f7f7d7c3a8ddf3ad511e9e52c6d2323e8a8f9771ad388f6b025b76d50",
+    "experiments/iter151_recovery_canary/aggregate.py": "82cf4f1f37aa918e313ce6d6f343994c213a471e4cbf85ab4d5649f9b1af00b1",
+    "experiments/iter151_recovery_canary/execute.py": "39ef15586cbd403e31f2aaa2f67369a63ef1fa53cc72f8f9e4cfb4dde69165b2",
+    "experiments/iter151_recovery_canary/records.py": "1396b0f09736e1bc59df8a966c478ab94b77a7c803d3e124587fdf4dd8c32f04",
+    "experiments/iter151_recovery_canary/qualify_host.py": "44a14a1081724ed649ffb14e66b40818d74a8c479d5f84f4b889b23a304b1f54",
+    "experiments/iter151_recovery_canary/__init__.py": "69dc60157e7f86bcbbea8c7f7561a419656e0547e3456f5a23baff2917a72d2c",
+    "experiments/iter151_recovery_canary/remote_ops.py": "c31e5447ba45606f230936d3ec81bab2a4946374f9cfc632218bb068f2cf1f2d",
+    "experiments/iter151_recovery_canary/replay.py": "6b1df8c23d88e28d12b08a7c0b820001dacf2fd55d8d03d8c83c9148cf0b9218",
+    "experiments/iter151_recovery_canary/rehearse_retention.py": "f6fd7fa898297f2a10aa178c0a50d1689ddb34b58a9fd12aecae2c1caf74b24c",
+    "experiments/iter151_recovery_canary/collection.py": "80690462cd549d6de679b679c59f5b3e9527ccef8c5f3269a88b46bd4c570294",
+    "experiments/iter151_recovery_canary/admission.py": "fb1f305d96c427fd62982a81c2352dd8f6b234af0c2c7832e5c96187e2742f90",
+    "experiments/iter151_recovery_canary/pair.py": "1ca0f374278661686f93a819529d93f6e4fb6d0c78f9dea898c6692e4c133a9e"
+  },
+  "cloud_rerun": false
+}

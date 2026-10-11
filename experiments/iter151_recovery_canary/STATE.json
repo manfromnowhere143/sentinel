@@ -1,0 +1,38 @@
+{
+  "iteration": 151,
+  "status": "inconclusive",
+  "execution_status": "failed",
+  "execution_failure": "raw-publication whitespace check rejected immutable captured client source",
+  "live_source_commit": "35fcf9a7904feab0e7022f7db3e8fc9b70403d2c",
+  "protocol_commit": "bb416e9",
+  "raw_commit": "95db0f680f6319fb33454ee0b5531bfd30d3b8da",
+  "planned_slots": 16,
+  "admitted_slots": 2,
+  "incomplete_slots": 0,
+  "uninitialized_slots": 14,
+  "verified_actions": 62,
+  "compared_scenarios": 0,
+  "replica_check": "supported",
+  "nominal_collision_time_seconds": [
+    7.75,
+    7.75
+  ],
+  "recovery_rate": null,
+  "harm_rate": null,
+  "closed": true,
+  "owned_active_jobs": 0,
+  "termination_verified": true,
+  "conservative_compute_usd": 0.4434202496175082,
+  "prelive_regression_tests": 308,
+  "prelive_warnings": 40,
+  "final_prelive_focused_tests": 56,
+  "postrun_focused_tests": 57,
+  "corrected_coordinator_cloud_execution": "unobserved",
+  "original_iter148_accounting": {
+    "admitted": 4,
+    "incomplete": 1,
+    "uninitialized": 107
+  },
+  "next_task": "Prospectively design a separate continuation for the unrun monitor and pulse comparisons, retaining this committed nominal baseline; qualify the whole retention/admission pipeline before compute, never silently resume this closed schedule.",
+  "whole_repository_hosted_CI": "not established"
+}

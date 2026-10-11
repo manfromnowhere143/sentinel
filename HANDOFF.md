@@ -1,44 +1,53 @@
 # Sentinel — next-session handoff
 
-Updated 11 October 2026. **Iter150 bounded cloud observation qualification is complete in its
-registered scope.** Read [result](experiments/iter150_cloud_observation/RESULT.md),
-[state](experiments/iter150_cloud_observation/STATE.json) and
-[continuation](experiments/iter150_cloud_observation/DECISION.md).
-One real VM start qualified historical native evidence reads over IAP, constructed observation
-loss, completion during disconnection, independent child expiry and duplicate initialization
-rejection. The exact owned start is verified TERMINATED; no driving job or GPU workload ran.
+Updated 11 October 2026. **Iter151 is closed and inconclusive.** Read its
+[result](experiments/iter151_recovery_canary/RESULT.md),
+[state](experiments/iter151_recovery_canary/STATE.json) and
+[next decision](experiments/iter151_recovery_canary/DECISION.md).
+Two nominal replicas passed scientific replay and reproduced a collision at 7.75 simulated
+seconds, with 31 actions each. Totals: **2 admitted, 0 incomplete, 14 uninitialized**; no complete
+four-arm comparison, recovery rate or harm rate. These are exposed development observations.
 
-The live harness returned **failed** after successful postflight because command metadata and
-the final report shared a filename. Raw failure bytes remain committed. Separate audit supports
-the observed behaviors; the filename fix passes local regression. Corrected whole-harness cloud
-execution is unobserved. Do not flatten these different statuses into a single green result.
+The live supervisor failed at raw publication because a whitespace check was applied to an
+unchanged captured client source file. It then closed the VM correctly. The exact raw bytes
+and failure were committed before independent replay; all 272 raw files remain unchanged.
+The helper is locally corrected, and a full archive → exact-byte Git commit → replay → receipt
+rehearsal succeeds on the retained pair. It adds no new scientific outcomes. The corrected
+coordinator has not run in the cloud. This stopped schedule must not be silently resumed.
 
-Pre-live regression: 245 passed, 40 warnings. Final adapter checks: 37 passed; separate audit
-replayed five traces and rejected nine corruptions. Conservative compute estimate $0.140 within
-$0.75. The next task is fresh 16-slot canary admission and active-worker observation/launch
-integration. The canary is proposed, unrun and not yet admitted; no human ceremony is required.
+Owned VM/start is verified **TERMINATED**, and the local watchdog exited 0. Envelope 532.104 s;
+conservative compute estimate $0.443 within $9. No owned job remains. Actual Linux ownership,
+duplicate-initialization and short independent-deadline checks passed before driving. Pre-live
+regression: 308 passed / 40 warnings; final pre-live focused checks: 56 passed; post-run focused
+checks: 57 passed. Whole-repository local Ruff reports 706 findings in 161 files, including 18
+in the newly captured unchanged client snapshot; zero in new authored source. Hosted CI and
+master integration remain unresolved; evidence snapshots were not normalized or excluded.
 
-Current candidate: `research/iter150-cloud-observation`, owned same-repository checkout
+Current candidate: `research/iter151-recovery-canary`, owned same-repository checkout
 `/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011`.
-The root dirty checkout is preserved. Never treat it as the active candidate by accident.
-Read this checkout's AGENTS and HANDOFF and verify its common Git directory points to Sentinel.
-Iter150 live source is frozen at `cb3b7e8`; live raw was committed at `7528899` before audit.
-The [Iter149 assessment](experiments/iter149_observation_recovery/ASSESSMENT.md) and
-[canary proposal](experiments/iter149_observation_recovery/NEXT_STUDY_PROPOSAL.md) remain the
-scientific direction. This is a new study, not a restart or missing-slot replacement for Iter148.
-
-**Iter148 remains closed and inconclusive:** 4 admitted / 1 incomplete / 107 uninitialized.
-The historical recovery contract below is retained. Iter149–150 address local and bounded
-cloud qualification; a live scientific coordinator still needs its own integration checks.
-Verify current provider state before any future provider action.
+Verify its common Git directory points to the canonical Sentinel root before work. The root's
+unrelated WIP and index remain preserved. Live source: `35fcf9a7904feab0e7022f7db3e8fc9b70403d2c`;
+raw-before-replay commit: `95db0f680f6319fb33454ee0b5531bfd30d3b8da`.
+The remote `/datasets/nuscenes-full/hugsim/iter151_canary_20261011` contains initialized work.
+Do not erase or reuse its markers, output roots, block budgets or service/timer identities.
 
 ## Exact next task
 
-Implement the fresh canary admission, ordered receipt chain and worker entrypoint without
-changing historical validators. Bind active-worker ownership, deadlines, source/assets and
-fresh provider/storage state. Qualify failure and duplicate-execution cases before freezing a
-new scientific run. Then execute fixed-order pairs, commit raw before replay, preserve missing
-outcomes and close owned resources. See the [detailed decision](experiments/iter150_cloud_observation/DECISION.md).
+Prospectively design a **separate continuation of the unrun comparisons**, explicitly accounting
+for the admitted Iter151 nominal pair as retained prior evidence. Preserve the original closed
+16-slot accounting; never silently retry the two initialized nominal episodes. Bind any reused
+comparator by its raw commit, inventory, source, reset/route state and independent replay.
+Keep the action/threshold/outcome rules fixed, qualify the continuation's admission and complete
+evidence-retention pipeline before new compute, and use fresh provider/storage/timer/budget
+bindings. The [decision](experiments/iter151_recovery_canary/DECISION.md) defines the remaining
+work and scientific limits. No additional human acceptance ceremony is pending.
+
+The research direction remains the [Iter149 assessment](experiments/iter149_observation_recovery/ASSESSMENT.md):
+first establish a useful available action, then ask whether added information selects it in time
+against a competent responsive baseline. A collision repeated on a selected development case
+does not establish recovery, physical safety, generalization or industrial superiority.
+Iter148 remains closed at 4 admitted / 1 incomplete / 107 uninitialized. Its historical contract
+below and MISSION_STATE's deferred Iter134/135 state are preserved.
 
 ## Mission and standard
 
@@ -197,6 +206,7 @@ zone `us-west1-a`, one L4. Retained observation at closure:
 | Main study attempt | 2026-10-10T22:05:46.919-07:00 | 2026-10-10T22:29:54.495-07:00 | TERMINATED |
 | Evidence recovery only | 2026-10-10T22:31:47.574-07:00 | 2026-10-10T22:38:08.936-07:00 | TERMINATED |
 | Iter150 CPU-only qualification | 2026-10-10T23:56:43.367-07:00 | 2026-10-10T23:59:17.693-07:00 | TERMINATED |
+| Iter151 first canary block | 2026-10-11T00:32:53.429-07:00 | 2026-10-11T00:41:31.285-07:00 | TERMINATED |
 
 All local supervisors/watchdogs exited. The second and third envelopes restarted no driving worker.
 Iter150 retained $0.140 conservative compute in its separate $0.75 envelope; see its result above.
@@ -212,7 +222,7 @@ Do not erase its markers or reuse its output paths, budgets or timer identities.
 identity and lifecycle verification and a fresh bounded envelope appropriate to the new task.
 No new cloud compute was used for the README/handoff work.
 
-## Evidence and verification entrypoints
+## Historical Iter148 evidence and verification entrypoints
 
 Frozen scientific source: `dd45ad39b26602ad81626ca55332e7ce6d308e91`.
 Raw committed before replay: nominal `ad1066ea9e5fdbd795a7f2fa43c3f63a6cac1058`,

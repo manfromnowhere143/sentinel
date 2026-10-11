@@ -422,3 +422,37 @@ def test_provider_shape_before_start(fault):
         value["guestAccelerators"][0]["acceleratorCount"] = 2
     with pytest.raises(ValueError, match="provider_shape"):
         provider_shape(value)
+
+
+def test_evidence_git_commit_preserves_captured_whitespace(tmp_path):
+    import subprocess
+    from experiments.iter151_recovery_canary.execute import commit
+
+    subprocess.run(["git", "init", "-q", str(tmp_path)], check=True)
+    for key, value in [("user.name", "Fixture"), ("user.email", "fixture@example.invalid")]:
+        subprocess.run(["git", "config", key, value], cwd=tmp_path, check=True)
+    captured = tmp_path / a.BASE / "proof/raw/e2e.py"
+    captured.parent.mkdir(parents=True)
+    raw = b"# Immutable captured source  \n\n"
+    captured.write_bytes(raw)
+    sha = commit(tmp_path, [captured.parent], "Retain fixture bytes")
+    assert (
+        subprocess.check_output(
+            ["git", "show", sha + ":" + captured.relative_to(tmp_path).as_posix()], cwd=tmp_path
+        )
+        == raw
+    )
+    # This reproduces why a source whitespace gate was inappropriate here.
+    assert (
+        subprocess.run(
+            ["git", "show", "--check", sha], cwd=tmp_path, capture_output=True
+        ).returncode
+        != 0
+    )
+    outside = tmp_path / "authored.py"
+    outside.write_text("source\n")
+    with pytest.raises(ValueError, match="non_evidence_commit_scope"):
+        commit(tmp_path, [outside], "Forbidden scope")
+    (captured.parent / "link").symlink_to(outside)
+    with pytest.raises(ValueError, match="evidence_symlink"):
+        commit(tmp_path, [captured.parent], "Forbidden symlink")

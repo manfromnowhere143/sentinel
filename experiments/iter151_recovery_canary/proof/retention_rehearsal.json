@@ -1,0 +1,15 @@
+{
+  "status": "supported",
+  "scope": "local replay of the same two retained episodes; zero new outcomes",
+  "archive_sha256": "1b40b13d5fd3a238f2f4a08af2e668ef0a18aa2107d8ae322188711c7fb60228",
+  "captured_client_sha256": "fe2dfca899a5446bfa6fd7d762524cfe57a304ca08330a45dc9e267d50b3159d",
+  "captured_client_bytes_preserved": true,
+  "legacy_whitespace_check_returncode": 2,
+  "raw_inventory_sha256": "e44cdd539edff66fbd17c79aaf7e01887ba549df27d0297c9e2e6c48a60dd220",
+  "replayed_actions": 62,
+  "raw_commit": "79076bdd2a9087f627e61cc2015b89b80aa598a1",
+  "receipt_commit": "4840e2448adf4ad273953df623c674d5c0f20e06",
+  "ephemeral_git_commits": true,
+  "source_sha256": "39ef15586cbd403e31f2aaa2f67369a63ef1fa53cc72f8f9e4cfb4dde69165b2",
+  "cloud_access": false
+}

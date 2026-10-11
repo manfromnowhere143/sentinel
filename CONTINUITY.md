@@ -1,5 +1,19 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
+> **Current: Iter151 closed, 2026-10-11.** Two nominal replicas admitted, collision at 7.75 s
+> in each; 62 verified actions. 14 slots uninitialized; comparison inconclusive. A raw-publication
+> whitespace check rejected unchanged captured source. Failure and raw bytes are retained;
+> the local fix and full retention/replay rehearsal pass. Exact VM/start TERMINATED; watchdog 0;
+> conservative compute $0.443. No owned job remains. Read current HANDOFF and Iter151 RESULT.
+> Next is a separate prospective continuation of the unrun comparisons with the retained nominal
+> baseline disclosed. Older running notices below are historical; do not reuse closed controls.
+
+> **Active Iter151 block, 2026-10-11:** The fresh 16-slot canary is running under source
+> `35fcf9a` in `research/iter151-recovery-canary`. Read current HANDOFF and the owned checkout's
+> `experiments/iter151_recovery_canary/proof/block_000` before any provider or launch action.
+> A separate local watchdog bounds the current VM start. Never duplicate an initialized slot.
+> Root WIP and the closed Iter148 accounting are preserved. No scientific outcome is implied.
+
 > **Current continuation, 2026-10-11:** Iter150 bounded cloud/native observation checks are
 > supported. One VM start; exact shutdown verified; no GPU workload or driving outcome.
 > The live harness failed saving its report after successful postflight; raw failure is retained,
@@ -4645,3 +4659,23 @@ root WIP remain unchanged. Historical hosted lint findings remain open.
 Iter150 research publication was verified at ab6fdaa54772da1ec05a5e036e9a1c6b07e03929;
 GitHub-served handoff, result, state and audit bytes matched. Root index and 23 other dirty or
 authority files remained unchanged. Publication/preservation receipts are in Iter150 proof.
+
+
+## Iter151 canary closure — 2026-10-11
+
+Protocol bb416e9, live source 35fcf9a7904feab0e7022f7db3e8fc9b70403d2c. Actual host ownership,
+duplicate-init and independent short-deadline qualification passed. Two nominal replicas then
+completed and reconciled through eight real observations. The raw publication helper incorrectly
+applied whitespace validation to immutable captured e2e source and failed. The supervisor closed
+its exact VM/start, postflight found all 11,645 file bindings and 20 aliases unchanged, and the
+local watchdog exited 0. Full envelope 532.104 seconds; conservative compute $0.443.
+Raw and failure were committed at 95db0f680f6319fb33454ee0b5531bfd30d3b8da before scientific
+replay. Both replicas passed: 31 actions each, collision at 7.75 s. The study is closed and
+inconclusive: 2 admitted, 0 incomplete, 14 uninitialized, no four-arm comparison. Original Iter148
+accounting remains unchanged. Publication helper corrected locally; real archive/Git/replay/
+receipt rehearsal preserves exact bytes and replays the same 62 actions. No corrected cloud
+run is claimed. See Iter151 RESULT, STATE and DECISION. No human ceremony is pending; the next
+work is a separate prospective continuation with historical comparator reuse explicitly bound.
+New source lint passes; current whole-repository lint has 706 findings in 161 files, including
+18 in the newly retained unchanged source snapshot. No evidence formatting or exclusions were
+used to hide those findings. Master, pinned AGENTS, historical MISSION_STATE and root WIP remain.

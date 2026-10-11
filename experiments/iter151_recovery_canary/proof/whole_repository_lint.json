@@ -1,0 +1,13 @@
+{
+  "status": "failed",
+  "scope": "current local whole-repository Ruff observation; no source cleanup or exclusion applied",
+  "ruff": "ruff 0.15.20",
+  "findings": 706,
+  "files": 161,
+  "iteration151_findings": {
+    "experiments/iter151_recovery_canary/proof/study_raw/pair_000/e2e147.py": 18
+  },
+  "new_authored_source_findings": 0,
+  "historical_hosted_findings": 688,
+  "historical_hosted_files": 160
+}

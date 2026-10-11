@@ -92,10 +92,21 @@ def packet(root, source):
 
 
 def commit(root, paths, message):
+    root = Path(root).resolve()
+    evidence = root / BASE / "proof"
+    for path in paths:
+        path = Path(path)
+        if not path.is_absolute():
+            path = root / path
+        if path.is_symlink() or not path.resolve(strict=True).is_relative_to(evidence):
+            raise ValueError("non_evidence_commit_scope")
+        if path.is_dir() and any(p.is_symlink() for p in path.rglob("*")):
+            raise ValueError("evidence_symlink")
     if subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=root).returncode:
         raise ValueError("unexpected_staged_work")
     subprocess.run(["git", "add", "--", *map(str, paths)], cwd=root, check=True)
-    subprocess.run(["git", "diff", "--cached", "--check"], cwd=root, check=True)
+    # Captured source is immutable evidence, including its original whitespace.
+    # Source/style validation is performed on authored code before source freeze.
     subprocess.run(
         ["git", "commit", "-m", message],
         cwd=root,
