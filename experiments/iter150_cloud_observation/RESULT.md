@@ -118,3 +118,7 @@ python3 -m pytest -q tests/test_iter150_cloud_observation.py
 Do not rerun the live entrypoint or reuse its closed paths as a local reproduction shortcut.
 Whole-repository hosted CI is not established; the earlier 688 Ruff findings in 160 pre-task
 files remain a separate master-integration issue.
+
+Research publication and root preservation are recorded in the
+[remote readback](proof/publication.json) and [preservation receipt](proof/root_preservation.json).
+Publication is on the research branch; accepted master remains unchanged.

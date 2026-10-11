@@ -1,0 +1,43 @@
+{
+  "observed_utc": "2026-10-11T07:04:39.087456+00:00",
+  "published_commit": "ab6fdaa54772da1ec05a5e036e9a1c6b07e03929",
+  "branch": "research/iter150-cloud-observation",
+  "remote_head_matches": true,
+  "remote_master_unchanged": true,
+  "served_files": [
+    {
+      "path": "HANDOFF.md",
+      "sha256": "0662b6557f62111e4631278cb60872b343364a77819a302ccb04f94fd2fcd8d8",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/ab6fdaa54772da1ec05a5e036e9a1c6b07e03929/HANDOFF.md"
+    },
+    {
+      "path": "experiments/iter150_cloud_observation/RESULT.md",
+      "sha256": "7cd9a5c5ca9f4bea6e9ef1a1e2827f89c56923d379077d2247e7f395e7148b06",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/ab6fdaa54772da1ec05a5e036e9a1c6b07e03929/experiments/iter150_cloud_observation/RESULT.md"
+    },
+    {
+      "path": "experiments/iter150_cloud_observation/STATE.json",
+      "sha256": "815538d16bb986478301d43ea9393b198d29c9eb9ab4ac8a316e8a5f178ebce7",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/ab6fdaa54772da1ec05a5e036e9a1c6b07e03929/experiments/iter150_cloud_observation/STATE.json"
+    },
+    {
+      "path": "experiments/iter150_cloud_observation/proof/live_independent_audit_final.json",
+      "sha256": "93dfe2114e44fa1ae9972a77200ea018105cc9b035459ebce143c28da73e84fd",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/ab6fdaa54772da1ec05a5e036e9a1c6b07e03929/experiments/iter150_cloud_observation/proof/live_independent_audit_final.json"
+    }
+  ],
+  "hosted_runs_observed": [
+    {
+      "conclusion": "",
+      "databaseId": 38120199199,
+      "headSha": "ab6fdaa54772da1ec05a5e036e9a1c6b07e03929",
+      "status": "in_progress",
+      "url": "https://github.com/manfromnowhere143/sentinel/actions/runs/38120199199"
+    }
+  ],
+  "whole_repository_CI": "not established; previous hosted Ruff failure remains open"
+}

@@ -4641,3 +4641,7 @@ See experiments/iter150_cloud_observation/RESULT.md and DECISION.md. Fresh 16-sl
 admission and active-worker integration are next, with no human ceremony pending. Preserve
 closed Iter148 paths and original missingness. Pinned AGENTS, MISSION_STATE, accepted master and
 root WIP remain unchanged. Historical hosted lint findings remain open.
+
+Iter150 research publication was verified at ab6fdaa54772da1ec05a5e036e9a1c6b07e03929;
+GitHub-served handoff, result, state and audit bytes matched. Root index and 23 other dirty or
+authority files remained unchanged. Publication/preservation receipts are in Iter150 proof.
