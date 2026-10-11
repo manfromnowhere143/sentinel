@@ -30,11 +30,14 @@ the first braking-pulse episode was interrupted after an observation-transport f
 There is no complete four-arm comparison. Both owned VM starts are confirmed terminated,
 and the study has no automatic restart. [Execution report](experiments/iter148_recovery_study/RESULT.md).
 
-This page includes local candidate evidence through Iteration 148. The canonical mission
-snapshot is **current through iteration 134**, with verdict `PLACEBO_HARM_OR_NULL`;
-[MISSION_STATE.json](MISSION_STATE.json) retains that publication boundary. Iterations 136–148
-are on the local, unpushed `research/iter148-recovery-study` lineage. Iteration 135 is deferred
-and unrun. [CONTINUITY.md](CONTINUITY.md) records the current operational handoff.
+This page covers research evidence through Iteration 148 on
+[research/iter148-recovery-study](https://github.com/manfromnowhere143/sentinel/tree/research/iter148-recovery-study).
+The accepted master mission snapshot is **current through iteration 134**, with verdict
+`PLACEBO_HARM_OR_NULL`; [MISSION_STATE.json](MISSION_STATE.json) retains that historical
+publication contract. Iteration 135 is deferred and unrun. The [current handoff](HANDOFF.md)
+states the exact next task and acceptance criteria. The
+[publication review](docs/publication/2026-10-11/REVIEW.md) separates research-branch publication
+from master integration and records the remaining validation limits.
 
 ## Measured results
 
@@ -356,7 +359,8 @@ not a complete distribution of every runtime asset.
 | [Original preregistration](PREREGISTRATION.md) | The initial benchmark question and decision rules. |
 | [Research direction](docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md) | The post-Iter135 question, mathematical formulation and dated literature review. |
 | [Continuation](experiments/iter148_recovery_study/DECISION.md) | Current execution closure and the next operational prerequisites. |
-| [Continuity](CONTINUITY.md) and [next phase](docs/NEXT_PHASE.md) | Current handoff followed by retained historical decisions. |
+| [Handoff](HANDOFF.md) | Exact next task, acceptance criteria, resource closure and recovery instructions. |
+| [Continuity](CONTINUITY.md) and [next phase](docs/NEXT_PHASE.md) | Current state followed by retained historical decisions. |
 | [Technical report](docs/REPORT.md) | Historical synthesis through Iter134; it predates the current execution program. |
 | [Paper status](docs/paper/STATUS.md) | Archived manuscript and rewrite requirements; not submission-ready. |
 | [Verification archive](experiments/verification/README.md) | Early audit scripts, raw logs and correction history. |

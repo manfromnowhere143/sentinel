@@ -15,9 +15,11 @@
 > research-memory pointers are updated; prior wording is archived. See [editorial review](docs/editorial/2026-10-11/REVIEW.md).
 > No next experiment began. The interrupted study remains closed with no initialized retry
 > or automatic restart. Proposed next work is bounded observation recovery, then a new
-> prospective study protocol. Candidate `research/iter148-recovery-study` is local/unpushed;
-> master and prior evidence are preserved. Canonical-state and older successor sections below
-> are historical records; they do not make deferred Iter135 the active execution program.
+> prospective study protocol. Research lineage: `research/iter148-recovery-study`.
+> The [current handoff](HANDOFF.md) specifies the next task and acceptance criteria;
+> [publication review](docs/publication/2026-10-11/REVIEW.md) records the branch publication
+> and remaining validation limits. Master and prior evidence are preserved. Canonical-state and
+> older successor sections below are historical; deferred Iter135 is not the active program.
 
 **Purpose.** This campaign is operator-portable by design. Everything an incoming operator
 needs is in this repository plus the two live surfaces below. Read this file top to bottom
@@ -4556,3 +4558,15 @@ raw evidence, master, root index and unrelated WIP are preserved. Current resear
 to this closure. No further experiment or cloud compute was used for the editorial task.
 See docs/editorial/2026-10-11/REVIEW.md. Next research work is the proposed observation-recovery
 contract and its fault qualification before another prospectively registered comparison.
+
+
+## Current handoff and research publication — 2026-10-11
+
+Daniel asked to finish remote publication and make the next-session entrypoint precise. HANDOFF
+is now the maintained operational brief: mission, exact next task, acceptance criteria, stopped
+resource identities, evidence limits and branch recovery. Previous root/candidate handoffs are
+archived. The legacy renderer and MISSION_STATE retain the historical Iter135 contract; do not
+overwrite the current brief with that renderer. README and current continuation are synchronized.
+Publish and verify the complete research/iter148-recovery-study branch without moving accepted
+master or importing unrelated root changes. See docs/publication/2026-10-11/REVIEW.md for the
+publication checks and remaining contract findings. No new scientific run was started.

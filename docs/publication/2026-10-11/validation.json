@@ -1,0 +1,23 @@
+{
+  "status": "supported",
+  "scope": "Current documentation content and preservation; not whole-repository CI or scientific admission",
+  "parent": "cc0db9f0fd427f6d70a5bad7ff085481fcc1c264",
+  "relative_links_and_anchors_checked": 238,
+  "result_files_linked": 148,
+  "unchanged_rendered_diagrams": 5,
+  "unchanged_experimental_files_except_continuation": 6218,
+  "scientific_counts_checked_against_retained_metrics": true,
+  "previous_handoffs_preserved_byte_for_byte": true,
+  "root_index_unchanged": true,
+  "root_branch_unchanged": true,
+  "master_unchanged": true,
+  "mission_state_unchanged": true,
+  "readme_protections_preserved": true,
+  "root_documentation_guard": {
+    "exit_code": 1,
+    "stdout": "DOCS GUARD FAILED:\n - MISSION_STATE.json: current_completed_iteration:134!=148\n - MISSION_STATE.json: tooling_publication:pending_f17_origin_not_d16_or_f17\n - MISSION_STATE.json: tooling_publication:pending_f17_source_scope\n - MISSION_STATE.json: tooling_publication:pending_f17_worktree_dirty\n",
+    "stderr": ""
+  },
+  "new_live_experiments": 0,
+  "google_cloud_compute_for_this_task": false
+}

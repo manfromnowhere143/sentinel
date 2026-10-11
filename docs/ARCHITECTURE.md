@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 11 October 2026. This describes the implemented research apparatus and its measured
-limits through the local Iter148 candidate. The [README](../README.md) carries the scientific
+limits through the Iter148 research candidate. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.

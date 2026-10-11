@@ -1,6 +1,6 @@
 # Next phase — canonical current decision and historical option ledger
 
-## Active operator work on 2026-10-09
+## Active operator work on 2026-10-11
 
 > **Active operator-directed candidate work, 2026-10-11:** Iter148 execution is closed.
 > Nominal and monitor pairs passed: four source-defined completions, 368 verified actions,
@@ -17,11 +17,18 @@
 > research-memory pointers are updated; prior wording is archived. See [editorial review](editorial/2026-10-11/REVIEW.md).
 > No next experiment began. The interrupted study remains closed with no initialized retry
 > or automatic restart. Proposed next work is bounded observation recovery, then a new
-> prospective study protocol. Candidate `research/iter148-recovery-study` is local/unpushed;
-> master and prior evidence are preserved. Canonical-state and older successor sections below
-> are historical records; they do not make deferred Iter135 the active execution program.
+> prospective study protocol. Research lineage: `research/iter148-recovery-study`.
+> The [current handoff](../HANDOFF.md) specifies the next task and acceptance criteria;
+> [publication review](../docs/publication/2026-10-11/REVIEW.md) records the branch publication
+> and remaining validation limits. Master and prior evidence are preserved. Canonical-state and
+> older successor sections below are historical; deferred Iter135 is not the active program.
 
-## Canonical current decision: iteration 134 is complete
+## Historical publication contract
+
+The following snapshot is preserved for its Iter135 contract. It does not supersede the active
+research handoff above.
+
+### Canonical current decision: iteration 134 is complete
 
 `MISSION_STATE.json` is authoritative. Iteration 134 completed `1,200/1,200` episodes with
 `PLACEBO_HARM_OR_NULL`: the released union's NeuroNCAP gain reproduced, but semantic attribution

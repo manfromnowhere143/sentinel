@@ -64,11 +64,14 @@ No late-result policy, real-time execution, safety or generalization claim follo
 Daniel's direct mission and editorial instructions authorize continuation. No independent human
 review, manual hash, signature or ceremony is required. Keep true agent-generated provenance.
 
-Root is dirty `wip-gen17-ci-hardening`; candidate `research/iter148-recovery-study` is local/unpushed.
+Root is dirty `wip-gen17-ci-hardening`; current research is on `research/iter148-recovery-study`.
+The [current handoff](../../HANDOFF.md) gives the exact next task and completion criteria;
+the [publication review](../../docs/publication/2026-10-11/REVIEW.md) records remote publication
+separately from historical master acceptance.
 Frozen scientific source is `dd45ad39b26602ad81626ca55332e7ce6d308e91`. Master remains
 `8c118b74c699bf0f139f9bd659192bad06b895f8`. Never reset, checkout or stage unrelated WIP.
-Keep all prior source/raw and the root index intact. Historical HANDOFF/MISSION_STATE are snapshots;
-active CONTINUITY and this handoff describe the operator-directed work. Root README is protected
+Keep all prior source/raw and the root index intact. MISSION_STATE retains the Iter135 contract;
+HANDOFF and active CONTINUITY describe the operator-directed work. Root README is protected
 with uchg/deny-delete; handle the newly authorized editorial task explicitly and preserve protections
 and prior bytes as evidence. Prior raw commits are listed in RESULT.md. No history rewrite, AI
 co-author, generated-by credit or unrelated governance change is authorized.
