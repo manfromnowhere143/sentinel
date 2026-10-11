@@ -1,0 +1,17 @@
+{
+  "status": "supported",
+  "inputs_sha256": "ef75b6b09a1b4a6cfd927daa0be517e74353d6b1a22c1aa09f30b4a5311f2477",
+  "plan_sha256": "e624a85b84e732ae0481a72819d3e992e55b6c14bff798527f591b89f4205dfa",
+  "scientific_outcomes": 0,
+  "scope": "Local continuation admission and exact-byte retention rehearsal, original scientific replay",
+  "previous_scientific_basis": "8597f015be7eed3354bc3e5867f34ac97bb9ff388b8571de525f703df4dbd8c5",
+  "regression_tests": 382,
+  "warnings": 40,
+  "final_focused_tests": 74,
+  "historical_actions_replayed": 62,
+  "retention_rehearsal_sha256": "9f3fde655add03905941109902bbb9480869fad1236b7972d3585a5fefbf917e",
+  "tests_sha256": "39d18839153493e4fedeeaf203cd2fea16d3f4802d75f1e36beea3aa9481bdd2",
+  "environment": "3.14.2 (main, Dec  5 2025, 16:49:16) [Clang 16.0.0 (clang-1600.0.26.6)]",
+  "provenance": "Agent-executed tests; separately implemented unchanged scientific replay; no independent human review",
+  "cloud_execution": "unobserved"
+}

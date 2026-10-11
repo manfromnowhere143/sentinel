@@ -1,0 +1,13 @@
+{
+  "iteration": 152,
+  "status": "preregistered",
+  "execution_status": "qualified_locally",
+  "planned_new_slots": 14,
+  "admitted_new_slots": 0,
+  "initialized_new_slots": 0,
+  "historical_comparator_slots": 2,
+  "historical_comparator_iteration": 151,
+  "owned_active_jobs": 0,
+  "protocol_commit": "3e696b8",
+  "whole_repository_hosted_CI": "unresolved"
+}

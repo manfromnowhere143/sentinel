@@ -1,0 +1,15 @@
+{
+  "status": "supported",
+  "scientific_outcomes": 0,
+  "cloud_access": false,
+  "scope": "New retention helper; original historical scientific contract and episode IDs.",
+  "continuation_admission_scope": "Separately tested seven-pair chain; no new live outcome.",
+  "replayed_actions": 62,
+  "captured_bytes_preserved": true,
+  "archive_sha256": "1b40b13d5fd3a238f2f4a08af2e668ef0a18aa2107d8ae322188711c7fb60228",
+  "captured_client_sha256": "fe2dfca899a5446bfa6fd7d762524cfe57a304ca08330a45dc9e267d50b3159d",
+  "legacy_whitespace_check_returncode": 2,
+  "raw_commit": "87a7f9a13323133dfafb16d0925ca790229b80fe",
+  "receipt_commit": "71476d9a591cf36ec4a85d32b93a456dc797c940",
+  "ephemeral_git_commits": true
+}
