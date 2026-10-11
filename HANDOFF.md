@@ -1,5 +1,17 @@
 # Sentinel — next-session handoff
 
+**Active continuation: Iter152, 11 October 2026.** Candidate
+`research/iter152-recovery-continuation` in
+`/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011`.
+Protocol `3e696b8`; frozen execution source `40d06cf9a89f9a1323e8bc172d12a73651ca1f5f`.
+Fourteen new slots, with the two admitted Iter151 nominal runs explicitly historical.
+382 regression checks and 74 final focused checks pass; the actual captured retention/replay
+rehearsal passes. Read `experiments/iter152_recovery_continuation/STATE.json` and the block proof
+before any launch or provider action. Fresh remote root is
+`/datasets/nuscenes-full/hugsim/iter152_continuation_20261011`.
+Only its registered block coordinator may launch; never duplicate an initialized block or slot.
+Prior Iter151 closure below remains historical; no new scientific outcome is yet admitted.
+
 Updated 11 October 2026. **Iter151 is closed and inconclusive.** Read its
 [result](experiments/iter151_recovery_canary/RESULT.md),
 [state](experiments/iter151_recovery_canary/STATE.json) and

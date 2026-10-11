@@ -1,5 +1,9 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
+> **Current: Iter152 qualified, execution next.** Read current HANDOFF and Iter152 block proof.
+> New14-slot continuation, fixed historical Iter151 comparator, source `40d06cf9a89f9a1323e8bc172d12a73651ca1f5f`.
+> No new outcome admitted; never duplicate initialized work. Earlier current notices are historical.
+
 > **Current: Iter151 closed, 2026-10-11.** Two nominal replicas admitted, collision at 7.75 s
 > in each; 62 verified actions. 14 slots uninitialized; comparison inconclusive. A raw-publication
 > whitespace check rejected unchanged captured source. Failure and raw bytes are retained;
