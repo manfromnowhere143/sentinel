@@ -1,5 +1,32 @@
 # Sentinel — next-session handoff
 
+Updated 11 October 2026. **Iter155 qualified; one bounded background-witness extraction is next.**
+Read [protocol](experiments/iter155_background_witness/HYPOTHESIS.md), [state](experiments/iter155_background_witness/STATE.json),
+[plan](experiments/iter155_background_witness/STUDY_PLAN.json), [qualification](experiments/iter155_background_witness/QUALIFICATION.json).
+Frozen source `c677e2c7dbb11db5006bde1978a829a2cfac501f`; protocol `b2c8e80`. 239 local regression checks passed /144 upstream
+warnings, including75 focused tests. Fixtures use explicit synthetic CPU substitutions; real
+scene/CUDA witness is still unobserved. The source packet matches committed bytes.
+
+Two fixed historical frames (12 at3.00s and13 at3.25s), four replica/frame bindings; **no new
+driving episode, simulator constructor/reset/step, rendering, inference or maneuver search**.
+Recover full point/filter membership and native masks, then separate scalar replay. Ground height,
+box geometry and original source/assets are bound. Physical occupancy and road compliance unknown.
+
+Command: `python3 -u -m experiments.iter155_background_witness.execute --attempt 0 --source c677e2c7dbb11db5006bde1978a829a2cfac501f`.
+Inspect proof/attempt_000 and current state before any action; never duplicate initialization.
+Fresh root `/datasets/nuscenes-full/hugsim/iter155_background_20261011`; existing bound L4 VM only.
+Original1800s/$1.50 upper envelope,420s worker, independent host/local deadlines. One capacity-only
+retry after explicit denied-start closure and120s wait is preregistered; no initialized retry.
+Retain raw before replay and verify exact-start termination. No new infrastructure or packages.
+
+Owned branch `research/iter155-background-witness` in the same owned recovery checkout.
+Canonical root index, README, architecture, pinned authority and unrelated WIP remain preserved.
+Accepted master `8c118b74c699bf0f139f9bd659192bad06b895f8` remains unchanged. No human ceremony.
+Whole-repository Ruff832 and historical mission/publication guards remain red; local tests do not
+imply a hosted CI pass. Do not rerun either closed Iter154 attempt.
+
+## Historical Iter154 closure
+
 Updated 11 October 2026. **Iter154 is closed: the selected model maneuver failed in the full scene.**
 Both fresh replicas terminate on native background collision at **3.25 simulated seconds / 13 actions**.
 Two admitted episodes, 26 verified actions, zero incomplete or uninitialized. Foreground contact,

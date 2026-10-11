@@ -1,5 +1,11 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
+> **Current: Iter155 qualified / launch requested — 2026-10-11.** Read current HANDOFF and
+> Iter155 STATE and proof/attempt_000 before any action. Frozen source c677e2c7dbb11db5006bde1978a829a2cfac501f.
+> One fixed background-witness extraction; two historical poses, no new driving episodes.
+> 239 local checks pass; real source-point/CUDA witness unobserved.1800s/$1.50 total envelope.
+> Never duplicate extraction initialization. Earlier current notices below are historical.
+
 > **Current: Iter154 closed — 2026-10-11.** Two admitted full-scene replicas of the exact
 > Iter153 maneuver both collide with native background at 3.25 s / 13 actions; 26 verified actions,
 > zero incomplete/uninitialized. Model prefix matches to 4.44e-16; useful live recovery contradicted.
