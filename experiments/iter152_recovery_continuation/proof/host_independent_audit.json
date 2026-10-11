@@ -1,0 +1,16 @@
+{
+  "status": "supported",
+  "scope": "local structural audit of retained host receipt; no new provider observation",
+  "known_bads_rejected": {
+    "pid": "service_process_binding",
+    "boot": "host_start_binding",
+    "command": "process_command_binding",
+    "partial": "partial_not_success",
+    "duplicate": "exclusive_initialization",
+    "deadline": "actual_deadline_expiry",
+    "configuration": "pair_deadline_configuration",
+    "scope": "qualification_scope"
+  },
+  "host_receipt_sha256": "7eb23692000be4ad7b116454cae86a83348831e53e85d8524e5cb23e9b305983",
+  "scientific_admission": false
+}

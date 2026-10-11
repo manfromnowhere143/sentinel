@@ -1,0 +1,429 @@
+{
+  "aggregate": {
+    "status": "inconclusive",
+    "planned_new_slots": 14,
+    "admitted_new_slots": 6,
+    "new_slots_without_supported_admission": 8,
+    "historical_comparator_slots": 2,
+    "historical_comparator_actions": 62,
+    "planned_scenarios": 2,
+    "compared_scenarios": 1,
+    "independently_verified_new_actions": 212,
+    "per_pulse": {
+      "brake_t0": {
+        "intersection_witness": {
+          "true": 0,
+          "false": 1,
+          "unknown": 0,
+          "missing": 1
+        },
+        "action_contrast": {
+          "true": 1,
+          "false": 0,
+          "unknown": 0,
+          "missing": 1
+        },
+        "harm_vs_successful_nominal": {
+          "true": 0,
+          "false": 1,
+          "unknown": 0,
+          "missing": 1
+        },
+        "nominal": {
+          "opportunity": {
+            "true": 1,
+            "false": 0,
+            "unknown": 0,
+            "missing": 1
+          },
+          "progress_at_hazard_satisfied": {
+            "true": 0,
+            "false": 1,
+            "unknown": 0,
+            "missing": 1
+          },
+          "witness": {
+            "true": 0,
+            "false": 1,
+            "unknown": 0,
+            "missing": 1
+          }
+        },
+        "monitor": {
+          "opportunity": {
+            "true": 1,
+            "false": 0,
+            "unknown": 0,
+            "missing": 1
+          },
+          "progress_at_hazard_satisfied": {
+            "true": 1,
+            "false": 0,
+            "unknown": 0,
+            "missing": 1
+          },
+          "witness": {
+            "true": 0,
+            "false": 1,
+            "unknown": 0,
+            "missing": 1
+          }
+        }
+      },
+      "brake_t2_5": {
+        "intersection_witness": {
+          "true": 0,
+          "false": 1,
+          "unknown": 0,
+          "missing": 1
+        },
+        "action_contrast": {
+          "true": 1,
+          "false": 0,
+          "unknown": 0,
+          "missing": 1
+        },
+        "harm_vs_successful_nominal": {
+          "true": 0,
+          "false": 1,
+          "unknown": 0,
+          "missing": 1
+        },
+        "nominal": {
+          "opportunity": {
+            "true": 1,
+            "false": 0,
+            "unknown": 0,
+            "missing": 1
+          },
+          "progress_at_hazard_satisfied": {
+            "true": 1,
+            "false": 0,
+            "unknown": 0,
+            "missing": 1
+          },
+          "witness": {
+            "true": 0,
+            "false": 1,
+            "unknown": 0,
+            "missing": 1
+          }
+        },
+        "monitor": {
+          "opportunity": {
+            "true": 1,
+            "false": 0,
+            "unknown": 0,
+            "missing": 1
+          },
+          "progress_at_hazard_satisfied": {
+            "true": 0,
+            "false": 0,
+            "unknown": 1,
+            "missing": 1
+          },
+          "witness": {
+            "true": 0,
+            "false": 1,
+            "unknown": 0,
+            "missing": 1
+          }
+        }
+      }
+    },
+    "scope": "Fixed exposed development continuation; original Iter151 remains closed and inconclusive."
+  },
+  "episodes": [
+    {
+      "pair": 0,
+      "episode": "continuation152_000__scene-0013-medium-00__monitor__1",
+      "arm": "monitor",
+      "steps": 36,
+      "outcome": {
+        "censored": false,
+        "collision_observed": true,
+        "completion_qualified": false,
+        "execution_valid": true,
+        "final_sample_observed": false,
+        "first_failure_time": 9.0,
+        "off_route_observed": false,
+        "simulator_completion": false
+      },
+      "monitor": {
+        "braking_frames": 9,
+        "firings": 4,
+        "frames": 36,
+        "releases": 1,
+        "scope": "Decision replay conditional on logged accepted objects; detector filtering/completeness not independently established."
+      },
+      "max_stationarity": 8.641869248269055e-07,
+      "controller_ms": {
+        "count": 36,
+        "median": 37.2823535,
+        "maximum": 79.165353,
+        "exceeding_threshold": 1,
+        "threshold": 50
+      },
+      "full_loop_seconds": {
+        "count": 36,
+        "median": 1.877002235,
+        "maximum": 34.387119732,
+        "exceeding_threshold": 36,
+        "threshold": 0.25
+      }
+    },
+    {
+      "pair": 0,
+      "episode": "continuation152_001__scene-0013-medium-00__monitor__2",
+      "arm": "monitor",
+      "steps": 36,
+      "outcome": {
+        "censored": false,
+        "collision_observed": true,
+        "completion_qualified": false,
+        "execution_valid": true,
+        "final_sample_observed": false,
+        "first_failure_time": 9.0,
+        "off_route_observed": false,
+        "simulator_completion": false
+      },
+      "monitor": {
+        "braking_frames": 9,
+        "firings": 4,
+        "frames": 36,
+        "releases": 1,
+        "scope": "Decision replay conditional on logged accepted objects; detector filtering/completeness not independently established."
+      },
+      "max_stationarity": 8.641869248269055e-07,
+      "controller_ms": {
+        "count": 36,
+        "median": 38.6964655,
+        "maximum": 52.489486,
+        "exceeding_threshold": 1,
+        "threshold": 50
+      },
+      "full_loop_seconds": {
+        "count": 36,
+        "median": 1.8912347729999999,
+        "maximum": 17.433832459,
+        "exceeding_threshold": 36,
+        "threshold": 0.25
+      }
+    },
+    {
+      "pair": 1,
+      "episode": "continuation152_002__scene-0013-medium-00__brake_t0__1",
+      "arm": "brake_t0",
+      "steps": 36,
+      "outcome": {
+        "censored": false,
+        "collision_observed": true,
+        "completion_qualified": false,
+        "execution_valid": true,
+        "final_sample_observed": false,
+        "first_failure_time": 9.0,
+        "off_route_observed": false,
+        "simulator_completion": false
+      },
+      "monitor": {
+        "braking_frames": 4,
+        "firings": 1,
+        "frames": 36,
+        "releases": 0,
+        "scope": "Decision replay conditional on logged accepted objects; detector filtering/completeness not independently established."
+      },
+      "max_stationarity": 7.509550905004936e-07,
+      "controller_ms": {
+        "count": 36,
+        "median": 37.8736355,
+        "maximum": 48.868846,
+        "exceeding_threshold": 0,
+        "threshold": 50
+      },
+      "full_loop_seconds": {
+        "count": 36,
+        "median": 1.8955444185,
+        "maximum": 17.323909471,
+        "exceeding_threshold": 36,
+        "threshold": 0.25
+      }
+    },
+    {
+      "pair": 1,
+      "episode": "continuation152_003__scene-0013-medium-00__brake_t0__2",
+      "arm": "brake_t0",
+      "steps": 36,
+      "outcome": {
+        "censored": false,
+        "collision_observed": true,
+        "completion_qualified": false,
+        "execution_valid": true,
+        "final_sample_observed": false,
+        "first_failure_time": 9.0,
+        "off_route_observed": false,
+        "simulator_completion": false
+      },
+      "monitor": {
+        "braking_frames": 4,
+        "firings": 1,
+        "frames": 36,
+        "releases": 0,
+        "scope": "Decision replay conditional on logged accepted objects; detector filtering/completeness not independently established."
+      },
+      "max_stationarity": 7.509550905004936e-07,
+      "controller_ms": {
+        "count": 36,
+        "median": 38.5684165,
+        "maximum": 53.398862,
+        "exceeding_threshold": 2,
+        "threshold": 50
+      },
+      "full_loop_seconds": {
+        "count": 36,
+        "median": 1.9104507435,
+        "maximum": 17.278423767,
+        "exceeding_threshold": 36,
+        "threshold": 0.25
+      }
+    },
+    {
+      "pair": 2,
+      "episode": "continuation152_004__scene-0013-medium-00__brake_t2_5__1",
+      "arm": "brake_t2_5",
+      "steps": 34,
+      "outcome": {
+        "censored": false,
+        "collision_observed": true,
+        "completion_qualified": false,
+        "execution_valid": true,
+        "final_sample_observed": false,
+        "first_failure_time": 8.5,
+        "off_route_observed": false,
+        "simulator_completion": false
+      },
+      "monitor": {
+        "braking_frames": 4,
+        "firings": 1,
+        "frames": 34,
+        "releases": 0,
+        "scope": "Decision replay conditional on logged accepted objects; detector filtering/completeness not independently established."
+      },
+      "max_stationarity": 9.018148565687056e-07,
+      "controller_ms": {
+        "count": 34,
+        "median": 39.862491,
+        "maximum": 49.36458,
+        "exceeding_threshold": 0,
+        "threshold": 50
+      },
+      "full_loop_seconds": {
+        "count": 34,
+        "median": 1.9019414614999999,
+        "maximum": 17.27897391,
+        "exceeding_threshold": 34,
+        "threshold": 0.25
+      }
+    },
+    {
+      "pair": 2,
+      "episode": "continuation152_005__scene-0013-medium-00__brake_t2_5__2",
+      "arm": "brake_t2_5",
+      "steps": 34,
+      "outcome": {
+        "censored": false,
+        "collision_observed": true,
+        "completion_qualified": false,
+        "execution_valid": true,
+        "final_sample_observed": false,
+        "first_failure_time": 8.5,
+        "off_route_observed": false,
+        "simulator_completion": false
+      },
+      "monitor": {
+        "braking_frames": 4,
+        "firings": 1,
+        "frames": 34,
+        "releases": 0,
+        "scope": "Decision replay conditional on logged accepted objects; detector filtering/completeness not independently established."
+      },
+      "max_stationarity": 9.018148565687056e-07,
+      "controller_ms": {
+        "count": 34,
+        "median": 39.254166,
+        "maximum": 49.292085,
+        "exceeding_threshold": 0,
+        "threshold": 50
+      },
+      "full_loop_seconds": {
+        "count": 34,
+        "median": 1.9121280915,
+        "maximum": 17.528996123,
+        "exceeding_threshold": 34,
+        "threshold": 0.25
+      }
+    }
+  ],
+  "controller_ms": {
+    "count": 212,
+    "median": 38.8338925,
+    "maximum": 79.165353,
+    "exceeding_threshold": 4,
+    "threshold": 50
+  },
+  "full_loop_seconds": {
+    "count": 212,
+    "median": 1.9013576465000002,
+    "maximum": 34.387119732,
+    "exceeding_threshold": 212,
+    "threshold": 0.25
+  },
+  "scope": "New admitted episodes only; historical two-replica/62-action comparator excluded from totals.",
+  "comparisons": [
+    {
+      "pair": 2,
+      "comparator_origin": "iter151_historical",
+      "comparisons": {
+        "brake_t0": {
+          "action_contrast": true,
+          "harm_vs_successful_nominal": false,
+          "intersection_witness": false,
+          "monitor": {
+            "hazard_time": 9.0,
+            "opportunity": true,
+            "progress_at_hazard_satisfied": true,
+            "witness": false
+          },
+          "nominal": {
+            "hazard_time": 7.75,
+            "opportunity": true,
+            "progress_at_hazard_satisfied": false,
+            "witness": false
+          },
+          "prefix_steps_verified": 0,
+          "scope": "simulator-defined route completion, exposed development cases only",
+          "status": "supported"
+        },
+        "brake_t2_5": {
+          "action_contrast": true,
+          "harm_vs_successful_nominal": false,
+          "intersection_witness": false,
+          "monitor": {
+            "hazard_time": 9.0,
+            "opportunity": true,
+            "progress_at_hazard_satisfied": null,
+            "witness": false
+          },
+          "nominal": {
+            "hazard_time": 7.75,
+            "opportunity": true,
+            "progress_at_hazard_satisfied": true,
+            "witness": false
+          },
+          "prefix_steps_verified": 10,
+          "scope": "simulator-defined route completion, exposed development cases only",
+          "status": "supported"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "argv": [
+    "gcloud",
+    "compute",
+    "ssh",
+    "sentinel-gpu",
+    "--project",
+    "sunlit-unison-487018-b0",
+    "--zone",
+    "us-west1-a",
+    "--tunnel-through-iap",
+    "--command",
+    "sudo -n python3 -"
+  ],
+  "elapsed": 35.05353883301723,
+  "returncode": 0,
+  "start_utc": "2026-10-11T10:23:35.076181+00:00",
+  "timeout": 357.9362847080047
+}

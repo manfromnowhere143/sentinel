@@ -1,0 +1,88 @@
+"""Read retained admissions and timing records; never launch or modify an experiment."""
+
+import json
+from pathlib import Path
+import statistics
+
+from experiments.iter152_recovery_continuation.admission import BASE
+from experiments.iter152_recovery_continuation.aggregate import summarize
+from experiments.iter152_recovery_continuation.records import read
+from experiments.iter147_full_horizon_execution.coordinator import raw_identity
+
+
+def describe(values, threshold):
+    return dict(
+        count=len(values),
+        median=statistics.median(values) if values else None,
+        maximum=max(values) if values else None,
+        exceeding_threshold=sum(v > threshold for v in values),
+        threshold=threshold,
+    )
+
+
+def main():
+    root = Path.cwd().resolve()
+    base = root / BASE
+    plan = read(base / "STUDY_PLAN.json")
+    receipts = [read(f) for f in sorted((base / "proof/admissions").glob("pair_*.json"))]
+    supported = []
+    for receipt in receipts:
+        if receipt["status"] != "supported":
+            break
+        supported.append(receipt)
+    aggregate = summarize(plan, supported)
+    rows, controller, loops = [], [], []
+    for receipt in supported:
+        directory = base / "proof/study_raw" / f"pair_{receipt['pair']:03d}"
+        assert (
+            raw_identity(root, receipt["raw_commit"], directory) == receipt["raw_inventory_sha256"]
+        )
+        for case in receipt["cases"]:
+            episode = directory / "runs" / case["episode"]
+            worker = read(episode / "worker.json")
+            events = [
+                json.loads(line)
+                for line in (episode / "trace/events.jsonl").read_bytes().splitlines()
+            ]
+            calls = [
+                r["result"]["complete_call_ns"] / 1e6 for r in events if r["event"] == "control"
+            ]
+            elapsed = [r["full_loop_ns"] / 1e9 for r in worker["summary"]["timings"]]
+            assert len(calls) == len(elapsed) == case["steps"]
+            controller.extend(calls)
+            loops.extend(elapsed)
+            rows.append(
+                dict(
+                    pair=receipt["pair"],
+                    episode=case["episode"],
+                    arm=case["arm"],
+                    steps=case["steps"],
+                    outcome=case["outcome"],
+                    monitor=case["monitor"],
+                    max_stationarity=case["max_stationarity"],
+                    controller_ms=describe(calls, 50),
+                    full_loop_seconds=describe(elapsed, 0.25),
+                )
+            )
+    assert len(controller) == aggregate["independently_verified_new_actions"]
+    result = dict(
+        aggregate=aggregate,
+        episodes=rows,
+        controller_ms=describe(controller, 50),
+        full_loop_seconds=describe(loops, 0.25),
+        scope="New admitted episodes only; historical two-replica/62-action comparator excluded from totals.",
+        comparisons=[
+            dict(
+                pair=r["pair"],
+                comparator_origin=r["comparator_origin"],
+                comparisons=r["comparisons"],
+            )
+            for r in supported
+            if "comparisons" in r
+        ],
+    )
+    print(json.dumps(result, indent=2, allow_nan=False))
+
+
+if __name__ == "__main__":
+    main()
