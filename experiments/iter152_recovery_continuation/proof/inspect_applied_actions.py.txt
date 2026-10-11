@@ -1,0 +1,64 @@
+"""Exploratory inspection of already admitted collision-case traces; no execution path."""
+
+import json
+from pathlib import Path
+
+from experiments.iter147_full_horizon_execution.coordinator import raw_identity
+
+root = Path.cwd().resolve()
+base = root / "experiments/iter152_recovery_continuation/proof"
+results = []
+for pair, onset in ((1, 0.0), (2, 2.5)):
+    receipt = json.loads((base / f"admissions/pair_{pair:03d}.json").read_text())
+    directory = base / f"study_raw/pair_{pair:03d}"
+    assert receipt["status"] == "supported"
+    assert raw_identity(root, receipt["raw_commit"], directory) == receipt["raw_inventory_sha256"]
+    for case in receipt["cases"]:
+        file = directory / "runs" / case["episode"] / "trace/events.jsonl"
+        rows = [json.loads(line) for line in file.read_bytes().splitlines()]
+        steps = [r for r in rows if r["event"] == "step"]
+        # These are actual simulator inputs. The control event's result is the nominal
+        # controller output before the registered pulse override and is not this action.
+        pulse = [r for r in steps if onset <= r["time"] - 0.25 < onset + 1]
+        actor_states = [
+            r["value"]["states"]
+            for r in rows
+            if r["event"] == "actor" and r["value"]["event"] == "consume"
+        ]
+        collision = [r for r in rows if r["event"] == "outcome_observation" and r["collision"]]
+        assert len(pulse) == 4 and len(steps) == case["steps"] and actor_states and collision
+        results.append(
+            dict(
+                episode=case["episode"],
+                arm=case["arm"],
+                raw_commit=receipt["raw_commit"],
+                pulse=[
+                    dict(
+                        application_time=r["time"] - 0.25,
+                        acceleration=r["applied"]["acc"],
+                        speed_before=r["before"][3],
+                        speed_after=r["after"][3],
+                    )
+                    for r in pulse
+                ],
+                actor_states_identical_at_all_observed_steps=all(
+                    v == actor_states[0] for v in actor_states
+                ),
+                logged_actor_state=actor_states[0],
+                actor_observations=len(actor_states),
+                collision_time=collision[0]["time"],
+                scope="Exploratory description of admitted traces; no new outcome or causal/population claim.",
+            )
+        )
+print(
+    json.dumps(
+        dict(
+            status="supported",
+            analysis_status="exploratory",
+            episodes=results,
+            scope="Actual pulse actuation and observed actor motion, four existing replicas only.",
+        ),
+        indent=2,
+        allow_nan=False,
+    )
+)

@@ -1,0 +1,105 @@
+{
+  "status": "supported",
+  "blocks": [
+    {
+      "block": 0,
+      "result": {
+        "block": 0,
+        "conservative_compute_usd": 0.9193528545833396,
+        "elapsed_seconds": 1103.2234255000076,
+        "pairs": [
+          {
+            "pair": 0,
+            "status": "supported",
+            "steps": 72
+          },
+          {
+            "pair": 1,
+            "status": "supported",
+            "steps": 72
+          },
+          {
+            "pair": 2,
+            "status": "supported",
+            "steps": 68
+          }
+        ],
+        "status": "supported",
+        "termination_verified": true,
+        "watchdog_exit": 0,
+        "within_registered_budget": true
+      },
+      "instance": {
+        "guestAccelerators": [
+          {
+            "acceleratorCount": 1,
+            "acceleratorType": "https://www.googleapis.com/compute/v1/projects/sunlit-unison-487018-b0/zones/us-west1-a/acceleratorTypes/nvidia-l4"
+          }
+        ],
+        "id": "3834622546652649531",
+        "lastStartTimestamp": "2026-10-11T03:07:43.919-07:00",
+        "lastStopTimestamp": "2026-10-11T03:25:54.145-07:00",
+        "machineType": "https://www.googleapis.com/compute/v1/projects/sunlit-unison-487018-b0/zones/us-west1-a/machineTypes/g2-standard-8",
+        "status": "TERMINATED"
+      },
+      "postflight_files": 11665,
+      "original_files_unchanged": true,
+      "owned_cache_unchanged": true
+    },
+    {
+      "block": 1,
+      "result": {
+        "block": 1,
+        "conservative_compute_usd": 2.5865521885766793,
+        "elapsed_seconds": 3103.862626292015,
+        "pairs": [
+          {
+            "pair": 3,
+            "status": "supported",
+            "steps": 272
+          },
+          {
+            "pair": 4,
+            "status": "supported",
+            "steps": 376
+          },
+          {
+            "pair": 5,
+            "status": "supported",
+            "steps": 278
+          },
+          {
+            "pair": 6,
+            "status": "supported",
+            "steps": 282
+          }
+        ],
+        "status": "supported",
+        "termination_verified": true,
+        "watchdog_exit": 0,
+        "within_registered_budget": true
+      },
+      "instance": {
+        "guestAccelerators": [
+          {
+            "acceleratorCount": 1,
+            "acceleratorType": "https://www.googleapis.com/compute/v1/projects/sunlit-unison-487018-b0/zones/us-west1-a/acceleratorTypes/nvidia-l4"
+          }
+        ],
+        "id": "3834622546652649531",
+        "lastStartTimestamp": "2026-10-11T03:26:46.349-07:00",
+        "lastStopTimestamp": "2026-10-11T04:18:16.222-07:00",
+        "machineType": "https://www.googleapis.com/compute/v1/projects/sunlit-unison-487018-b0/zones/us-west1-a/machineTypes/g2-standard-8",
+        "status": "TERMINATED"
+      },
+      "postflight_files": 11665,
+      "original_files_unchanged": true,
+      "owned_cache_unchanged": true
+    }
+  ],
+  "total_elapsed_seconds": 4207.086051792023,
+  "conservative_compute_usd": 3.505905043160019,
+  "registered_compute_cap_usd": 18,
+  "owned_active_jobs": 0,
+  "scope": "Two owned compute envelopes; estimate at registered $3/hour, excludes persistent storage and tax; not an invoice."
+}

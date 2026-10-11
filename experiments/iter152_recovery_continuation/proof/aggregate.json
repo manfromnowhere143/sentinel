@@ -1,0 +1,134 @@
+{
+  "status": "supported",
+  "planned_new_slots": 14,
+  "admitted_new_slots": 14,
+  "new_slots_without_supported_admission": 0,
+  "historical_comparator_slots": 2,
+  "historical_comparator_actions": 62,
+  "planned_scenarios": 2,
+  "compared_scenarios": 2,
+  "independently_verified_new_actions": 1420,
+  "per_pulse": {
+    "brake_t0": {
+      "intersection_witness": {
+        "true": 0,
+        "false": 2,
+        "unknown": 0,
+        "missing": 0
+      },
+      "action_contrast": {
+        "true": 2,
+        "false": 0,
+        "unknown": 0,
+        "missing": 0
+      },
+      "harm_vs_successful_nominal": {
+        "true": 0,
+        "false": 2,
+        "unknown": 0,
+        "missing": 0
+      },
+      "nominal": {
+        "opportunity": {
+          "true": 1,
+          "false": 1,
+          "unknown": 0,
+          "missing": 0
+        },
+        "progress_at_hazard_satisfied": {
+          "true": 0,
+          "false": 1,
+          "unknown": 1,
+          "missing": 0
+        },
+        "witness": {
+          "true": 0,
+          "false": 2,
+          "unknown": 0,
+          "missing": 0
+        }
+      },
+      "monitor": {
+        "opportunity": {
+          "true": 1,
+          "false": 1,
+          "unknown": 0,
+          "missing": 0
+        },
+        "progress_at_hazard_satisfied": {
+          "true": 1,
+          "false": 0,
+          "unknown": 1,
+          "missing": 0
+        },
+        "witness": {
+          "true": 0,
+          "false": 2,
+          "unknown": 0,
+          "missing": 0
+        }
+      }
+    },
+    "brake_t2_5": {
+      "intersection_witness": {
+        "true": 0,
+        "false": 2,
+        "unknown": 0,
+        "missing": 0
+      },
+      "action_contrast": {
+        "true": 2,
+        "false": 0,
+        "unknown": 0,
+        "missing": 0
+      },
+      "harm_vs_successful_nominal": {
+        "true": 0,
+        "false": 2,
+        "unknown": 0,
+        "missing": 0
+      },
+      "nominal": {
+        "opportunity": {
+          "true": 1,
+          "false": 1,
+          "unknown": 0,
+          "missing": 0
+        },
+        "progress_at_hazard_satisfied": {
+          "true": 1,
+          "false": 0,
+          "unknown": 1,
+          "missing": 0
+        },
+        "witness": {
+          "true": 0,
+          "false": 2,
+          "unknown": 0,
+          "missing": 0
+        }
+      },
+      "monitor": {
+        "opportunity": {
+          "true": 1,
+          "false": 1,
+          "unknown": 0,
+          "missing": 0
+        },
+        "progress_at_hazard_satisfied": {
+          "true": 0,
+          "false": 0,
+          "unknown": 2,
+          "missing": 0
+        },
+        "witness": {
+          "true": 0,
+          "false": 2,
+          "unknown": 0,
+          "missing": 0
+        }
+      }
+    }
+  },
+  "scope": "Fixed exposed development continuation; original Iter151 remains closed and inconclusive."
+}

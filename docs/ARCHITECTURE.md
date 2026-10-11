@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 11 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter151 research candidate. The [README](../README.md) carries the scientific
+limits through the Iter152 research candidate. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -140,6 +140,14 @@ read-only reconciliation and retain local/cloud fault checks. Iter151 exercised 
 integration; its later publication failure is separately recorded. The diagram above describes
 Iter148; neither later qualification erases that study’s missing outcome.
 
+Iter152 completed seven new pairs with the corrected archive-to-Git-to-replay-to-admission path.
+Its [continuation admission](../experiments/iter152_recovery_continuation/admission.py) binds the
+two historical Iter151 nominal episodes without relabelling them as new runs; the separate
+[baseline replay](../experiments/iter152_recovery_continuation/baseline.py) rechecks their bytes,
+source and original scientific contract. The new fourteen-slot chain retains both scenario
+boundaries and exact compute closure. The diagram remains a record of the original Iter148
+architecture; current accounting is in the [Iter152 result](../experiments/iter152_recovery_continuation/RESULT.md).
+
 Hashes check identity against retained bytes. Separate replay checks specified properties.
 Neither authenticates the physical world, establishes sensor completeness, or proves the
 absence of shared implementation errors. This is operational verification by the research
@@ -160,15 +168,22 @@ exceeded 250 ms. The largest checked stationarity residual was below the 1e-6 ba
 therefore passed while the full loop missed its descriptive 4 Hz budget. No late-result policy
 or real-time execution guarantee follows.
 
+Iter152 records the same distinction over 1,420 new actions: maximum checked residual
+9.8965212e-7, 37 controller calls above 50 ms, and every full loop above 250 ms. Median full loop
+is 1.890 s. These measurements do not establish a deadline policy for a physical vehicle.
+
 ## Current state and proposed extensions
 
-Iteration 148 admitted two baseline replica pairs and no full four-arm scenario comparison.
-Both owned VM starts are terminated. Prior nulls, missing outcomes and frozen protocols remain
-unchanged. See the [result](../experiments/iter148_recovery_study/RESULT.md) for exact counts,
-timing scope, deployment corrections, evidence lineage and resource receipts.
+Iteration 152 admitted fourteen new episodes and both fixed scenario comparisons. Neither
+tested pulse recovered the collision case. All benign-case arms completed, with the monitor
+adding 13 simulated seconds versus nominal. Both exact owned VM starts are terminated.
+Prior nulls, missing outcomes and frozen protocols remain unchanged, including Iter148's
+incomplete pulse and Iter151's interrupted schedule.
 
-The next scientific work is constructive recovery, then one explicit information ablation
-against a responsive baseline, followed by new-scene evaluation. Hidden-representation
+The next scientific work is a bounded maneuver-feasibility diagnostic with privileged source
+geometry explicitly separated from available monitor observations. A validated useful action
+would support one explicit information ablation against a responsive baseline, followed by
+new-scene evaluation. Hidden-representation
 monitoring, uncertainty-aware persistence, independent sensors, physical deployment and formal
 safety guarantees are possible research directions with different requirements. None is an
 implemented or established capability simply because it appears in a roadmap.

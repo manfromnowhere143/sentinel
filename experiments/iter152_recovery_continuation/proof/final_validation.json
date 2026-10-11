@@ -1,0 +1,90 @@
+{
+  "supply_chain": {
+    "command": [
+      "python3",
+      "-I",
+      "-B",
+      "-S",
+      "tools/ci/verify_supply_chain.py"
+    ],
+    "returncode": 0
+  },
+  "whole_repository_ruff": {
+    "command": [
+      "ruff",
+      "check",
+      ".",
+      "--output-format",
+      "json"
+    ],
+    "returncode": 1,
+    "findings": 832,
+    "files": 168,
+    "new_iteration_findings": 126,
+    "new_iteration_files": 7,
+    "all_new_findings_in_immutable_raw": true
+  },
+  "source_scope": "Authored Iter152 source, test and post-run analysis scripts; captured raw unchanged.",
+  "combined_explicit_ruff": {
+    "command": [
+      "ruff",
+      "check",
+      "experiments/iter152_recovery_continuation/worker.py",
+      "experiments/iter152_recovery_continuation/ownership.py",
+      "experiments/iter152_recovery_continuation/aggregate.py",
+      "experiments/iter152_recovery_continuation/baseline.py",
+      "experiments/iter152_recovery_continuation/execute.py",
+      "experiments/iter152_recovery_continuation/records.py",
+      "experiments/iter152_recovery_continuation/qualify_host.py",
+      "experiments/iter152_recovery_continuation/__init__.py",
+      "experiments/iter152_recovery_continuation/remote_ops.py",
+      "experiments/iter152_recovery_continuation/replay.py",
+      "experiments/iter152_recovery_continuation/rehearse_retention.py",
+      "experiments/iter152_recovery_continuation/collection.py",
+      "experiments/iter152_recovery_continuation/admission.py",
+      "experiments/iter152_recovery_continuation/pair.py",
+      "tests/test_iter152_recovery_continuation.py",
+      "experiments/iter152_recovery_continuation/proof/progress_snapshot.py.txt",
+      "experiments/iter152_recovery_continuation/proof/audit_host.py.txt",
+      "experiments/iter152_recovery_continuation/proof/summarize.py.txt",
+      "experiments/iter152_recovery_continuation/proof/inspect_applied_actions.py.txt"
+    ],
+    "returncode": 1,
+    "findings": 7,
+    "scope": "Includes exact unchanged carried-forward Iter151 host auditor; all seven E701 findings are in that retained script."
+  },
+  "authored_ruff": {
+    "command": [
+      "ruff",
+      "check",
+      "experiments/iter152_recovery_continuation/worker.py",
+      "experiments/iter152_recovery_continuation/ownership.py",
+      "experiments/iter152_recovery_continuation/aggregate.py",
+      "experiments/iter152_recovery_continuation/baseline.py",
+      "experiments/iter152_recovery_continuation/execute.py",
+      "experiments/iter152_recovery_continuation/records.py",
+      "experiments/iter152_recovery_continuation/qualify_host.py",
+      "experiments/iter152_recovery_continuation/__init__.py",
+      "experiments/iter152_recovery_continuation/remote_ops.py",
+      "experiments/iter152_recovery_continuation/replay.py",
+      "experiments/iter152_recovery_continuation/rehearse_retention.py",
+      "experiments/iter152_recovery_continuation/collection.py",
+      "experiments/iter152_recovery_continuation/admission.py",
+      "experiments/iter152_recovery_continuation/pair.py",
+      "tests/test_iter152_recovery_continuation.py",
+      "experiments/iter152_recovery_continuation/proof/progress_snapshot.py.txt",
+      "experiments/iter152_recovery_continuation/proof/summarize.py.txt",
+      "experiments/iter152_recovery_continuation/proof/inspect_applied_actions.py.txt"
+    ],
+    "returncode": 0,
+    "findings": 0,
+    "scope": "New source, test and analysis scripts; carried-forward host auditor checked separately without changing bytes."
+  },
+  "carried_forward_host_auditor": {
+    "path": "experiments/iter152_recovery_continuation/proof/audit_host.py.txt",
+    "original": "experiments/iter151_recovery_canary/proof/audit_host.py.txt",
+    "identical": true,
+    "sha256": "efc2a726c737420633559f7839e9e5ed02ef10cd1fb48f10bab4a1dad20bf623",
+    "explicit_ruff_findings": 7
+  }
+}

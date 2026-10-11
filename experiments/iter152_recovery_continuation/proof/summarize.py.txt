@@ -49,6 +49,15 @@ def main():
             ]
             elapsed = [r["full_loop_ns"] / 1e9 for r in worker["summary"]["timings"]]
             assert len(calls) == len(elapsed) == case["steps"]
+            controls = {r["frame"]: r["result"] for r in events if r["event"] == "control"}
+            steps = [r for r in events if r["event"] == "step"]
+            deliveries = [r["value"] for r in events if r["event"] == "delivery"]
+            assert len(steps) == len(deliveries) == len(controls) == case["steps"]
+            changed_actions = sum(
+                abs(r["applied"]["acc"] - controls[r["frame"] - 1]["applied"][0]) > 1e-9
+                for r in steps
+            )
+            changed_plans = sum(r["nominal"] != r["delivered"] for r in deliveries)
             controller.extend(calls)
             loops.extend(elapsed)
             rows.append(
@@ -60,6 +69,12 @@ def main():
                     outcome=case["outcome"],
                     monitor=case["monitor"],
                     max_stationarity=case["max_stationarity"],
+                    final_simulated_time=steps[-1]["time"],
+                    completion_time=steps[-1]["time"]
+                    if case["outcome"]["completion_qualified"]
+                    else None,
+                    pulse_override_action_contrast_frames=changed_actions,
+                    delivered_plan_changed_frames=changed_plans,
                     controller_ms=describe(calls, 50),
                     full_loop_seconds=describe(elapsed, 0.25),
                 )

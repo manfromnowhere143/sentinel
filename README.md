@@ -14,18 +14,19 @@ warning does not establish that the monitor identified the actor responsible for
 Those findings now determine the research direction.
 
 [Results](#measured-results) · [Monitor](#what-the-monitor-actually-uses) ·
-[Research history](#how-the-question-changed) · [Latest run](#iteration-151-nominal-baseline-and-interrupted-comparison) ·
+[Research history](#how-the-question-changed) · [Latest run](#iteration-152-complete-comparison-no-recovery-witness) ·
 [Next steps](#the-next-scientific-test) · [Reproduce](#reproduce-and-inspect) ·
 [Experiment index](#complete-experiment-index)
 
 ## Current position — 11 October 2026
 
-[Iteration 151](experiments/iter151_recovery_canary/RESULT.md) admitted two nominal replicas:
-both recorded a collision at 7.75 simulated seconds. The comparison is **inconclusive**:
-14 slots did not initialize. A local publication check rejected whitespace in unchanged captured
-source; the failure and exact raw bytes are retained. The evidence-commit helper is corrected
-and the full local retention/replay rehearsal passes. The owned VM start is verified stopped.
-[Current continuation](experiments/iter151_recovery_canary/DECISION.md) ·
+[Iteration 152](experiments/iter152_recovery_continuation/RESULT.md) completed its fixed
+comparison: **14 new episodes, 1,420 replayed actions, no recovery witness from either tested
+one-second brake pulse**. The collision case still collided in every arm. All arms completed
+the benign case; the monitor took 13 simulated seconds longer than nominal. Two prior nominal
+episodes remain explicitly historical. Both owned VM starts are verified stopped; conservative
+compute was $3.506 within $18. These are two exposed development scenarios, not population rates.
+[Current decision](experiments/iter152_recovery_continuation/DECISION.md) ·
 [research assessment](experiments/iter149_observation_recovery/ASSESSMENT.md).
 
 The NeuroNCAP score improvement is supported on the evaluated suite. Its semantic
@@ -38,8 +39,8 @@ the first braking-pulse episode was interrupted after an observation-transport f
 There is no complete four-arm comparison. Both owned VM starts are confirmed terminated,
 and the study has no automatic restart. [Execution report](experiments/iter148_recovery_study/RESULT.md).
 
-This page covers scientific and engineering evidence through Iteration 151 on
-[research/iter151-recovery-canary](https://github.com/manfromnowhere143/sentinel/tree/research/iter151-recovery-canary).
+This page covers scientific and engineering evidence through Iteration 152 on
+[research/iter152-recovery-continuation](https://github.com/manfromnowhere143/sentinel/tree/research/iter152-recovery-continuation).
 The accepted master mission snapshot is **current through iteration 134**, with verdict
 `PLACEBO_HARM_OR_NULL`; [MISSION_STATE.json](MISSION_STATE.json) retains that historical
 publication contract. Iteration 135 is deferred and unrun. The [current handoff](HANDOFF.md)
@@ -254,7 +255,7 @@ The new execution regime changes controller and actor-time semantics explicitly.
 must not be pooled with the old HUGSIM transfer runs as though only the monitor changed.
 The complete iteration record is below.
 
-## Current study: Iteration 148
+## Iteration 148: interrupted recovery study
 
 The registered development study contains **14 scenarios from three previously exposed source
 scenes**, four arms and two replicas: **112 slots**. The arms are nominal, responsive monitor,
@@ -316,23 +317,56 @@ A local commit check rejected trailing whitespace in unchanged captured client s
 supervisor stopped the schedule and verified shutdown. Raw was then committed without changing
 its bytes, before scientific replay. Totals are 2 admitted and 14 uninitialized; monitor/pulse
 comparisons, recovery and harm remain unestimated. The locally corrected retention pipeline now
-passes a complete archive-to-Git-to-replay rehearsal. Its corrected cloud execution is unobserved.
+passes a complete archive-to-Git-to-replay rehearsal. The corrected path subsequently ran under
+the separate Iter152 protocol; Iter151 itself remains closed and was not retried.
 [Result, failure and closure](experiments/iter151_recovery_canary/RESULT.md).
+
+## Iteration 152: complete comparison, no recovery witness
+
+The continuation fixed fourteen new slots before execution and bound the two Iter151 nominal
+episodes as historical evidence. It retained raw bytes in Git before independent replay for
+each pair. All new slots passed, with zero incomplete or uninitialized slots; the two historical
+episodes and their 62 actions are excluded from the 1,420-new-action total.
+
+| Arm, two replicas each | Collision case: scene-0013-medium-00 | Benign case: scene-0038-easy-00 |
+|---|---|---|
+| Nominal | Collision at 7.75 s; retained Iter151 pair | Completion at 34.0 s |
+| Released monitor | Collision at 9.0 s | Completion at 47.0 s |
+| One-second pulse at 0 s | Collision at 9.0 s | Completion at 34.75 s |
+| One-second pulse at 2.5 s | Collision at 8.5 s | Completion at 35.25 s |
+
+Neither pulse meets the progress-preserving recovery criterion against nominal or the monitor.
+Delay alone does not establish recovery. In the benign case neither pulse produces the
+registered binary harm outcome, but the additional travel time remains visible. Numerical
+replicas do not create independent scenes or justify a population rate.
+
+Actual applied controls confirm the early pulse brought speed to zero before returning to the
+nominal policy. The later collision motivates testing whether a different allowed maneuver can
+make useful progress around the obstacle. Logged source actor states remain stationary in the
+inspected collision-case pulse traces; this is exploratory evidence, not a physical theorem.
+
+All checked stationarity residuals passed the fixed 1e-6 bar. Nevertheless, 37/1,420 controller
+calls exceeded 50 ms and all 1,420 full loops exceeded 250 ms; full-loop median was 1.890 s.
+Both compute envelopes closed with unchanged source bindings and no remaining owned job.
+[Complete result and limits](experiments/iter152_recovery_continuation/RESULT.md) ·
+[per-episode evidence](experiments/iter152_recovery_continuation/proof/analysis.json) ·
+[resource closure](experiments/iter152_recovery_continuation/proof/resource_closure.json).
 
 ## The next scientific test
 
 The intended contribution is a monitor and evaluation system that can show **which failures
 remain preventable, which signal enables prevention, and the measured cost and limits**.
-The following work is proposed; the interrupted study remains closed.
+The following work is proposed; all previous schedules retain their closed accounting.
 
-1. **Qualify the complete evidence path before compute.** Include representative immutable
-   snapshots in archive, Git-retention and independent-replay rehearsal. Iter151 showed that
-   correct worker observation alone does not cover the publication boundary.
-2. **Establish constructive recovery in a new prospective continuation.** Bind any reuse of
-   the admitted nominal pair explicitly as prior evidence, then test the unrun monitor and
-   pulse comparisons. Keep action, timing, outcomes and progress constraints fixed. Preserve
-   the closed Iter148 and Iter151 accounting. A witness applies only to the tested simulator,
-   library and horizon.
+1. **Establish a useful available maneuver.** The two tested brake pulses did not recover.
+   Register a bounded action-feasibility diagnostic with explicit control, progress and search
+   limits. Separate privileged source geometry from monitor observations; a diagnostic maneuver
+   does not establish a deployable information channel. Include lateral/reference changes only
+   through a specified and validated action contract.
+2. **Validate any candidate through continued execution.** Qualify dynamics and route/collision
+   checks with independent replay and known-bads, then register a fresh simulator comparison.
+   A converged optimizer or temporary non-collision is insufficient. Preserve the complete
+   archive-to-commit-to-replay evidence path exercised in Iter152.
 3. **Test one information hypothesis against a responsive baseline.** Track continuity and
    uncertainty are motivated candidates. Include benign and stale-track cases, freeze the
    information interfaces, and measure intervention costs. Better offline prediction alone
@@ -569,7 +603,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 </details>
 
 <details>
-<summary>Information, recoverability and execution: Iter135–148</summary>
+<summary>Information, recoverability and execution: Iter135–152</summary>
 
 | Record | Finding or scope |
 |---|---|
@@ -590,6 +624,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 | [149](experiments/iter149_observation_recovery/RESULT.md) | Local bounded observation recovery qualified; no scientific outcome. |
 | [150](experiments/iter150_cloud_observation/RESULT.md) | Bounded cloud/native observation checks supported; report-saving failure preserved and locally corrected. |
 | [151](experiments/iter151_recovery_canary/RESULT.md) | Inconclusive: two nominal replicas admitted; publication check stopped the remaining comparison. |
+| [152](experiments/iter152_recovery_continuation/RESULT.md) | Fixed continuation complete: 14 new episodes, no pulse recovery witness; benign monitor adds 13 simulated seconds. |
 
 </details>
 

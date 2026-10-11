@@ -1,0 +1,78 @@
+E701 Multiple statements on one line (colon)
+  --> experiments/iter152_recovery_continuation/proof/audit_host.py.txt:46:22
+   |
+44 | for fault in ("pid", "boot", "command", "partial", "duplicate", "deadline", "configuration", "scope"):
+45 |     bad = deepcopy(value)
+46 |     if fault == "pid": bad["owner"]["process"]["pid"] = -1
+   |                      ^
+47 |     if fault == "boot": bad["owner"]["process"]["boot"] = "replacement"
+48 |     if fault == "command": bad["owner"]["process"]["command"] = ["unexpected"]
+   |
+
+E701 Multiple statements on one line (colon)
+  --> experiments/iter152_recovery_continuation/proof/audit_host.py.txt:47:23
+   |
+45 |     bad = deepcopy(value)
+46 |     if fault == "pid": bad["owner"]["process"]["pid"] = -1
+47 |     if fault == "boot": bad["owner"]["process"]["boot"] = "replacement"
+   |                       ^
+48 |     if fault == "command": bad["owner"]["process"]["command"] = ["unexpected"]
+49 |     if fault == "partial":
+   |
+
+E701 Multiple statements on one line (colon)
+  --> experiments/iter152_recovery_continuation/proof/audit_host.py.txt:48:26
+   |
+46 |     if fault == "pid": bad["owner"]["process"]["pid"] = -1
+47 |     if fault == "boot": bad["owner"]["process"]["boot"] = "replacement"
+48 |     if fault == "command": bad["owner"]["process"]["command"] = ["unexpected"]
+   |                          ^
+49 |     if fault == "partial":
+50 |         observation = json.loads(bytes.fromhex(bad["partial_raw_hex"]))
+   |
+
+E701 Multiple statements on one line (colon)
+  --> experiments/iter152_recovery_continuation/proof/audit_host.py.txt:53:28
+   |
+51 |         observation["state"] = "complete"
+52 |         bad["partial_raw_hex"] = json.dumps(observation).encode().hex()
+53 |     if fault == "duplicate": bad["duplicate_returncode"] = 0
+   |                            ^
+54 |     if fault == "deadline": bad["deadline"]["Result"] = "success"
+55 |     if fault == "configuration": bad["owner"]["service"]["RuntimeMaxUSec"] = "infinity"
+   |
+
+E701 Multiple statements on one line (colon)
+  --> experiments/iter152_recovery_continuation/proof/audit_host.py.txt:54:27
+   |
+52 |         bad["partial_raw_hex"] = json.dumps(observation).encode().hex()
+53 |     if fault == "duplicate": bad["duplicate_returncode"] = 0
+54 |     if fault == "deadline": bad["deadline"]["Result"] = "success"
+   |                           ^
+55 |     if fault == "configuration": bad["owner"]["service"]["RuntimeMaxUSec"] = "infinity"
+56 |     if fault == "scope": bad["scientific_outcomes"] = 1
+   |
+
+E701 Multiple statements on one line (colon)
+  --> experiments/iter152_recovery_continuation/proof/audit_host.py.txt:55:32
+   |
+53 |     if fault == "duplicate": bad["duplicate_returncode"] = 0
+54 |     if fault == "deadline": bad["deadline"]["Result"] = "success"
+55 |     if fault == "configuration": bad["owner"]["service"]["RuntimeMaxUSec"] = "infinity"
+   |                                ^
+56 |     if fault == "scope": bad["scientific_outcomes"] = 1
+57 |     try:
+   |
+
+E701 Multiple statements on one line (colon)
+  --> experiments/iter152_recovery_continuation/proof/audit_host.py.txt:56:24
+   |
+54 |     if fault == "deadline": bad["deadline"]["Result"] = "success"
+55 |     if fault == "configuration": bad["owner"]["service"]["RuntimeMaxUSec"] = "infinity"
+56 |     if fault == "scope": bad["scientific_outcomes"] = 1
+   |                        ^
+57 |     try:
+58 |         audit(bad)
+   |
+
+Found 7 errors.

@@ -1,16 +1,66 @@
 # Sentinel — next-session handoff
 
-**Active continuation: Iter152, 11 October 2026.** Candidate
-`research/iter152-recovery-continuation` in
+Updated 11 October 2026. **Iter152 is closed: no recovery witness in the fixed pulse library.**
+Read its [result](experiments/iter152_recovery_continuation/RESULT.md),
+[state](experiments/iter152_recovery_continuation/STATE.json) and
+[next decision](experiments/iter152_recovery_continuation/DECISION.md).
+All fourteen new episodes passed replay: **14 admitted, 0 incomplete, 0 uninitialized;
+1,420 verified new actions; two complete scenario comparisons**. The two Iter151 nominal
+comparator episodes and their 62 actions remain historical, with unchanged IDs and raw bytes.
+
+On scene-0013-medium-00, nominal collided at 7.75 s, monitor and the time-zero pulse at 9.0 s,
+and the 2.5 s pulse at 8.5 s, in both replicas. Neither pulse provided useful recovery.
+On scene-0038-easy-00, all four arms completed: nominal 34.0 s, monitor 47.0 s, early pulse
+34.75 s and later pulse 35.25 s. Preserve the monitor's 13 s cost and the pulse costs alongside
+binary outcomes. These two exposed development scenarios support no population rate.
+
+Both exact VM starts are verified **TERMINATED**, both local watchdogs exited 0 and no owned
+job remains. Combined envelope 4,207.086 s; conservative compute **$3.506 within $18**.
+Both postflights preserved all 11,665 file bindings and actor aliases. The corrected archive →
+Git raw → independent replay → committed admission path completed for all seven pairs.
+The failed local source-argument invocation happened before provider access and remains retained;
+it consumed no scientific slot or compute envelope. Do not retry any initialized work.
+
+Pre-live: 382 regression checks passed with 40 upstream warnings; 74 final focused checks passed
+in ambient macOS Python 3.14.2. Live Linux ownership/deadline qualification and separate structural
+fault audit passed. Maximum new stationarity residual 9.8965212e-7 is below 1e-6, but 37/1,420
+controller calls exceed 50 ms and all full loops exceed 250 ms. Real-time operation is unestablished.
+New authored source and analysis lint passes; whole-repository Ruff has 832 findings in 168 files,
+including 126 in seven new immutable captured client snapshots. A separately checked unchanged
+Iter151 host-auditor copy also retains seven style findings. Supply-chain verification passes.
+Whole-repository hosted CI and master integration remain unresolved. Read proof/final_validation.json
+under the current experiment for exact scopes; no old source or captured evidence was normalized.
+
+Current candidate: `research/iter152-recovery-continuation`, owned same-repository checkout
 `/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011`.
-Protocol `3e696b8`; frozen execution source `40d06cf9a89f9a1323e8bc172d12a73651ca1f5f`.
-Fourteen new slots, with the two admitted Iter151 nominal runs explicitly historical.
-382 regression checks and 74 final focused checks pass; the actual captured retention/replay
-rehearsal passes. Read `experiments/iter152_recovery_continuation/STATE.json` and the block proof
-before any launch or provider action. Fresh remote root is
-`/datasets/nuscenes-full/hugsim/iter152_continuation_20261011`.
-Only its registered block coordinator may launch; never duplicate an initialized block or slot.
-Prior Iter151 closure below remains historical; no new scientific outcome is yet admitted.
+Its common Git directory must be the canonical Sentinel `.git`. Protocol commit `3e696b8`;
+frozen execution source `40d06cf9a89f9a1323e8bc172d12a73651ca1f5f`.
+The remote root `/datasets/nuscenes-full/hugsim/iter152_continuation_20261011` contains closed,
+initialized work. Preserve its markers, outputs, service identities and budget records.
+Pinned AGENTS, historical MISSION_STATE, accepted master, root README and unrelated root WIP
+remain unchanged. The updated research README and architecture are in the owned candidate.
+
+## Exact next task
+
+Register and qualify a bounded **action-feasibility diagnostic** around the observed stationary
+source obstacle. The early pulse already stopped the ego briefly and then returned to nominal;
+its later collision means another identical stop/resume test adds little. Define a finite
+maneuver/reference family, control limits, continuation/progress constraints, search budget,
+known-bads and model checks before new outcomes. Any lateral change needs an explicit validated
+action contract. Keep privileged source geometry segregated from available monitor observations.
+A diagnostic action is not evidence of a deployable information channel.
+
+Use deterministic replay and retained source geometry first. If a useful candidate exists,
+register fresh simulator validation with matched baselines and resources. If the finite search
+fails, preserve its null without claiming collision is physically inevitable. Only an effective
+action supports a later information-selection study. The [decision](experiments/iter152_recovery_continuation/DECISION.md)
+defines the sequence; no human acceptance ceremony is pending and no new diagnostic has launched.
+
+Iter148 remains 4 admitted / 1 incomplete / 107 uninitialized. Iter151 remains 2 admitted /
+0 incomplete / 14 uninitialized. Neither closed study is reopened by Iter152. The historical
+Iter134/135 publication contract remains preserved and does not govern the current next task.
+
+## Historical Iter151 closure
 
 Updated 11 October 2026. **Iter151 is closed and inconclusive.** Read its
 [result](experiments/iter151_recovery_canary/RESULT.md),
@@ -24,8 +74,7 @@ The live supervisor failed at raw publication because a whitespace check was app
 unchanged captured client source file. It then closed the VM correctly. The exact raw bytes
 and failure were committed before independent replay; all 272 raw files remain unchanged.
 The helper is locally corrected, and a full archive → exact-byte Git commit → replay → receipt
-rehearsal succeeds on the retained pair. It adds no new scientific outcomes. The corrected
-coordinator has not run in the cloud. This stopped schedule must not be silently resumed.
+rehearsal succeeds on the retained pair. It adds no new scientific outcomes. That corrected path later ran under the distinct Iter152 protocol; Iter151 itself was not rerun. This stopped schedule must not be silently resumed.
 
 Owned VM/start is verified **TERMINATED**, and the local watchdog exited 0. Envelope 532.104 s;
 conservative compute estimate $0.443 within $9. No owned job remains. Actual Linux ownership,
@@ -38,31 +87,13 @@ Hosted run `38122786900` at `daba05f` failed whole-repository Ruff in both Pytho
 passing supply-chain and locked-install checks; later tests were skipped. Research publication
 and exact served bytes were verified; receipts are in Iter151 proof.
 
-Current candidate: `research/iter151-recovery-canary`, owned same-repository checkout
+Historical candidate: `research/iter151-recovery-canary`, owned same-repository checkout
 `/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011`.
 Verify its common Git directory points to the canonical Sentinel root before work. The root's
 unrelated WIP and index remain preserved. Live source: `35fcf9a7904feab0e7022f7db3e8fc9b70403d2c`;
 raw-before-replay commit: `95db0f680f6319fb33454ee0b5531bfd30d3b8da`.
 The remote `/datasets/nuscenes-full/hugsim/iter151_canary_20261011` contains initialized work.
 Do not erase or reuse its markers, output roots, block budgets or service/timer identities.
-
-## Exact next task
-
-Prospectively design a **separate continuation of the unrun comparisons**, explicitly accounting
-for the admitted Iter151 nominal pair as retained prior evidence. Preserve the original closed
-16-slot accounting; never silently retry the two initialized nominal episodes. Bind any reused
-comparator by its raw commit, inventory, source, reset/route state and independent replay.
-Keep the action/threshold/outcome rules fixed, qualify the continuation's admission and complete
-evidence-retention pipeline before new compute, and use fresh provider/storage/timer/budget
-bindings. The [decision](experiments/iter151_recovery_canary/DECISION.md) defines the remaining
-work and scientific limits. No additional human acceptance ceremony is pending.
-
-The research direction remains the [Iter149 assessment](experiments/iter149_observation_recovery/ASSESSMENT.md):
-first establish a useful available action, then ask whether added information selects it in time
-against a competent responsive baseline. A collision repeated on a selected development case
-does not establish recovery, physical safety, generalization or industrial superiority.
-Iter148 remains closed at 4 admitted / 1 incomplete / 107 uninitialized. Its historical contract
-below and MISSION_STATE's deferred Iter134/135 state are preserved.
 
 ## Mission and standard
 
@@ -97,7 +128,7 @@ pwd
 git rev-parse --show-toplevel
 git remote get-url origin
 git status --short --branch
-git rev-parse research/iter148-recovery-study
+git rev-parse research/iter152-recovery-continuation
 ```
 
 Run these from the canonical root. Confirm the named project, directory, Git identity and
@@ -106,9 +137,9 @@ AGENTS.md agree.
 Read, in order:
 
 1. [AGENTS.md](AGENTS.md) and this handoff.
-2. [Iter148 result](experiments/iter148_recovery_study/RESULT.md),
-   [state](experiments/iter148_recovery_study/STATE.json) and
-   [decision](experiments/iter148_recovery_study/DECISION.md).
+2. [Iter152 result](experiments/iter152_recovery_continuation/RESULT.md),
+   [state](experiments/iter152_recovery_continuation/STATE.json) and
+   [decision](experiments/iter152_recovery_continuation/DECISION.md).
 3. [README](README.md) and [architecture](docs/ARCHITECTURE.md).
 4. [Research direction](docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md),
    particularly the distinction between information, useful computation and recoverability.
@@ -143,7 +174,7 @@ Iter135 is **deferred and unrun**. It is not the current execution program. A ne
 or another dose experiment should earn compute through a specific falsifiable question; the
 immediate scientific priority is a constructive recovery opportunity against responsive baselines.
 
-## Iter148: exact accounting
+## Historical Iter148: exact accounting
 
 The fixed development library has 14 scenarios from three previously exposed source scenes,
 four arms and two replicas: 112 slots. It has zero untouched holdouts. Replicas establish
@@ -222,11 +253,13 @@ zone `us-west1-a`, one L4. Retained observation at closure:
 | Evidence recovery only | 2026-10-10T22:31:47.574-07:00 | 2026-10-10T22:38:08.936-07:00 | TERMINATED |
 | Iter150 CPU-only qualification | 2026-10-10T23:56:43.367-07:00 | 2026-10-10T23:59:17.693-07:00 | TERMINATED |
 | Iter151 first canary block | 2026-10-11T00:32:53.429-07:00 | 2026-10-11T00:41:31.285-07:00 | TERMINATED |
+| Iter152 collision-case block | 2026-10-11T03:07:43.919-07:00 | 2026-10-11T03:25:54.145-07:00 | TERMINATED |
+| Iter152 benign-case block | 2026-10-11T03:26:46.349-07:00 | 2026-10-11T04:18:16.222-07:00 | TERMINATED |
 
 All local supervisors/watchdogs exited. The second and third envelopes restarted no driving worker.
 Iter150 retained $0.140 conservative compute in its separate $0.75 envelope; see its result above.
-Postflight checked 6,101 bound/original files and 20 actor aliases unchanged.
-The combined conservative compute estimate was $1.659 against the original $9 cap; this is
+The historical Iter148 postflight checked 6,101 bound/original files and 20 actor aliases unchanged.
+Its combined conservative compute estimate was $1.659 against the original $9 cap; this is
 not an invoice and excludes persistent storage and taxes. See
 [resource closure](experiments/iter148_recovery_study/proof/block_000_attempt_002/combined_resource_closure.json)
 and [final postflight](experiments/iter148_recovery_study/proof/block_000_forensic/gpu_postflight_integrity_report.json).
@@ -235,7 +268,8 @@ The host path `/datasets/nuscenes-full/hugsim/iter148_study_20261011` contains i
 Do not erase its markers or reuse its output paths, budgets or timer identities. Retained
 `i148a_*` and `i148f_*` helpers embed that closed state. Future access begins with read-only
 identity and lifecycle verification and a fresh bounded envelope appropriate to the new task.
-No new cloud compute was used for the README/handoff work.
+The prior README-only editorial task used no cloud compute. The current Iter152 execution and
+its $3.506 compute estimate are recorded separately above.
 
 ## Historical Iter148 evidence and verification entrypoints
 
@@ -266,7 +300,7 @@ python3 -m pytest -q tests/test_iter146_route_outcome_contract.py \
 Use the exact applicable environment, add meaningful fault checks for the new change, and retain
 both failure streams and scope. Do not run live helpers as a shortcut to reconstructing state.
 
-## Publication boundary and historical mission state
+## Historical Iter148 publication boundary and mission state
 
 Research branch: [research/iter148-recovery-study](https://github.com/manfromnowhere143/sentinel/tree/research/iter148-recovery-study).
 The complete research lineage and updated documentation were published at

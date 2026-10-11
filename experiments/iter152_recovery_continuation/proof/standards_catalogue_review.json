@@ -1,0 +1,39 @@
+{
+  "retrieved_utc": "2026-10-11T11:03:34.743946+00:00",
+  "review_scope": "Public publisher catalogue and announcement metadata only; full normative standards were not acquired or audited.",
+  "entries": [
+    {
+      "document": "ISO 21448:2022",
+      "edition": 1,
+      "published": "2022-06-30",
+      "url": "https://www.iso.org/standard/77490.html",
+      "observed_status": "Published; revision work indicated at stage90.92; successor working draft under development",
+      "retained_excerpt": "International Standard to be revised",
+      "scope": "Intended-function insufficiencies and situational-awareness-related risks.",
+      "application": "Keep an ineffective intervention distinct from correct software execution. This is engineering interpretation, not a conformance audit."
+    },
+    {
+      "document": "ISO 34502:2022",
+      "edition": 1,
+      "published": "2022-11",
+      "url": "https://www.iso.org/standard/78951.html",
+      "observed_status": "Published",
+      "retained_excerpt": "applicable for limited access highways",
+      "scope": "Scenario-based evaluation framework for automated driving systems within its stated highway scope.",
+      "application": "Retain scenario, conditions, evaluation method and evidence; these exposed simulator cases do not establish coverage of its operational scope."
+    },
+    {
+      "document": "UL 4600",
+      "edition": 3,
+      "published": "2023-03-17",
+      "url": "https://www.ul.com/news/ul-4600-edition-3-updates-incorporate-autonomous-trucking",
+      "source_article_date": "2023-07-18",
+      "observed_status": "Edition3 publication verified in official announcement; latest-2026-edition status not established by that announcement",
+      "retained_excerpt": "Edition 3 was released on March 17, 2023",
+      "scope": "Evaluation of autonomous products, with the third-edition announcement addressing autonomous trucking.",
+      "application": "Keep evidence and argument scope explicit. No product safety case or certification has been established here."
+    }
+  ],
+  "compliance_claim": false,
+  "scientific_protocol_changed": false
+}

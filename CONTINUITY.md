@@ -1,5 +1,13 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
+> **Current: Iter152 closed, 2026-10-11.** Fourteen new episodes admitted; 1,420 verified new
+> actions; zero incomplete/uninitialized. Two disclosed historical nominal episodes are separate.
+> Neither tested pulse recovered the collision case. All benign-case arms completed; monitor
+> added 13 simulated seconds. Both exact VM starts TERMINATED, watchdogs 0, no owned job remains;
+> conservative compute $3.506 within $18. Read current HANDOFF, Iter152 RESULT/STATE/DECISION.
+> Next: bounded action-feasibility diagnostic with privileged source geometry explicitly separate.
+> Candidate research/iter152-recovery-continuation. Earlier current notices are historical.
+
 > **Current: Iter152 qualified, execution next.** Read current HANDOFF and Iter152 block proof.
 > New14-slot continuation, fixed historical Iter151 comparator, source `40d06cf9a89f9a1323e8bc172d12a73651ca1f5f`.
 > No new outcome admitted; never duplicate initialized work. Earlier current notices are historical.
@@ -4690,3 +4698,31 @@ or authority files remained unchanged. Publication and preservation receipts are
 Hosted run 38122786900 then completed with failure: both Python jobs passed supply-chain and
 locked-install checks, failed repository-wide Ruff and skipped later tests. No master merge
 or corrected whole-coordinator cloud execution occurred.
+
+
+## Iter152 fixed continuation closure — 2026-10-11
+
+Protocol 3e696b8; frozen source 40d06cf9a89f9a1323e8bc172d12a73651ca1f5f. A local incorrect
+source argument failed before provider access or initialization; its retained amendment allowed
+reading the verified packet source directly. Exactly two planned compute envelopes then ran.
+All seven pairs retained exact raw before scientific replay and committed admission before the
+next pair. Fourteen new episodes admitted, 1,420 new actions, zero incomplete/uninitialized;
+two complete scenario comparisons. Historical Iter151 nominal comparator: two episodes/62 actions,
+original identities and bytes, independent replay, not counted as new. Original Iter148/151 stay closed.
+
+Collision case: nominal 7.75 s (historical), monitor 9.0 s, early pulse 9.0 s, later pulse 8.5 s.
+Neither pulse achieved useful recovery. Benign case: all complete, respectively 34.0, 47.0,
+34.75 and 35.25 s; no recorded collision/off-route/censoring. Binary harm and progress cost stay
+separate. Both scenarios are exposed development evidence, not population estimates. The actual
+early pulse stopped briefly, then nominal continuation still collided. A bounded maneuver-feasibility
+diagnostic is proposed next, with privileged source geometry separate from available observations.
+
+Both postflights preserve 11,665 file bindings and actor aliases. Exact starts 03:07:43.919 and
+03:26:46.349 UTC-07:00, stops 03:25:54.145 and 04:18:16.222 on 11 October; VM TERMINATED,
+watchdogs 0. Combined elapsed 4,207.086 s, conservative compute $3.506 within $18; no owned job.
+Pre-live 382 regression/74 final focused checks pass, ambient Python3.14.2; original scientific
+source unchanged. 37/1,420 controller calls exceed 50 ms; all loops exceed250ms. New authored
+source lint and supply-chain checks pass; whole-repository Ruff reports832 findings/168files,
+including126 in new captured immutable snapshots. Separate explicit lint of the unchanged inherited
+host-auditor text reports7 style findings. Hosted CI and master integration remain unresolved.
+Read current HANDOFF and Iter152 RESULT, STATE, proof/analysis.json and proof/resource_closure.json.

@@ -1,0 +1,179 @@
+{
+  "status": "supported",
+  "analysis_status": "exploratory",
+  "episodes": [
+    {
+      "episode": "continuation152_002__scene-0013-medium-00__brake_t0__1",
+      "arm": "brake_t0",
+      "raw_commit": "e05e83a887f46026090c69b695804e1f0f9a7cee",
+      "pulse": [
+        {
+          "application_time": 0.0,
+          "acceleration": -2.0,
+          "speed_before": 1.0,
+          "speed_after": 0.5
+        },
+        {
+          "application_time": 0.25,
+          "acceleration": -2.0,
+          "speed_before": 0.5,
+          "speed_after": 0.0
+        },
+        {
+          "application_time": 0.5,
+          "acceleration": 0.0,
+          "speed_before": 0.0,
+          "speed_after": 0.0
+        },
+        {
+          "application_time": 0.75,
+          "acceleration": 0.0,
+          "speed_before": 0.0,
+          "speed_after": 0.0
+        }
+      ],
+      "actor_states_identical_at_all_observed_steps": true,
+      "logged_actor_state": {
+        "agent_0": [
+          -1.0499999523162842,
+          30.0,
+          0.2800000011920929,
+          0.0
+        ]
+      },
+      "actor_observations": 36,
+      "collision_time": 9.0,
+      "scope": "Exploratory description of admitted traces; no new outcome or causal/population claim."
+    },
+    {
+      "episode": "continuation152_003__scene-0013-medium-00__brake_t0__2",
+      "arm": "brake_t0",
+      "raw_commit": "e05e83a887f46026090c69b695804e1f0f9a7cee",
+      "pulse": [
+        {
+          "application_time": 0.0,
+          "acceleration": -2.0,
+          "speed_before": 1.0,
+          "speed_after": 0.5
+        },
+        {
+          "application_time": 0.25,
+          "acceleration": -2.0,
+          "speed_before": 0.5,
+          "speed_after": 0.0
+        },
+        {
+          "application_time": 0.5,
+          "acceleration": 0.0,
+          "speed_before": 0.0,
+          "speed_after": 0.0
+        },
+        {
+          "application_time": 0.75,
+          "acceleration": 0.0,
+          "speed_before": 0.0,
+          "speed_after": 0.0
+        }
+      ],
+      "actor_states_identical_at_all_observed_steps": true,
+      "logged_actor_state": {
+        "agent_0": [
+          -1.0499999523162842,
+          30.0,
+          0.2800000011920929,
+          0.0
+        ]
+      },
+      "actor_observations": 36,
+      "collision_time": 9.0,
+      "scope": "Exploratory description of admitted traces; no new outcome or causal/population claim."
+    },
+    {
+      "episode": "continuation152_004__scene-0013-medium-00__brake_t2_5__1",
+      "arm": "brake_t2_5",
+      "raw_commit": "1d828a6ee10c0e5e207100e77e6f8c4663c940cb",
+      "pulse": [
+        {
+          "application_time": 2.5,
+          "acceleration": -2.0,
+          "speed_before": 3.3735795864645284,
+          "speed_after": 2.8735795864645284
+        },
+        {
+          "application_time": 2.75,
+          "acceleration": -2.0,
+          "speed_before": 2.8735795864645284,
+          "speed_after": 2.3735795864645284
+        },
+        {
+          "application_time": 3.0,
+          "acceleration": -2.0,
+          "speed_before": 2.3735795864645284,
+          "speed_after": 1.8735795864645284
+        },
+        {
+          "application_time": 3.25,
+          "acceleration": -2.0,
+          "speed_before": 1.8735795864645284,
+          "speed_after": 1.3735795864645284
+        }
+      ],
+      "actor_states_identical_at_all_observed_steps": true,
+      "logged_actor_state": {
+        "agent_0": [
+          -1.0499999523162842,
+          30.0,
+          0.2800000011920929,
+          0.0
+        ]
+      },
+      "actor_observations": 34,
+      "collision_time": 8.5,
+      "scope": "Exploratory description of admitted traces; no new outcome or causal/population claim."
+    },
+    {
+      "episode": "continuation152_005__scene-0013-medium-00__brake_t2_5__2",
+      "arm": "brake_t2_5",
+      "raw_commit": "1d828a6ee10c0e5e207100e77e6f8c4663c940cb",
+      "pulse": [
+        {
+          "application_time": 2.5,
+          "acceleration": -2.0,
+          "speed_before": 3.3735795864645284,
+          "speed_after": 2.8735795864645284
+        },
+        {
+          "application_time": 2.75,
+          "acceleration": -2.0,
+          "speed_before": 2.8735795864645284,
+          "speed_after": 2.3735795864645284
+        },
+        {
+          "application_time": 3.0,
+          "acceleration": -2.0,
+          "speed_before": 2.3735795864645284,
+          "speed_after": 1.8735795864645284
+        },
+        {
+          "application_time": 3.25,
+          "acceleration": -2.0,
+          "speed_before": 1.8735795864645284,
+          "speed_after": 1.3735795864645284
+        }
+      ],
+      "actor_states_identical_at_all_observed_steps": true,
+      "logged_actor_state": {
+        "agent_0": [
+          -1.0499999523162842,
+          30.0,
+          0.2800000011920929,
+          0.0
+        ]
+      },
+      "actor_observations": 34,
+      "collision_time": 8.5,
+      "scope": "Exploratory description of admitted traces; no new outcome or causal/population claim."
+    }
+  ],
+  "scope": "Actual pulse actuation and observed actor motion, four existing replicas only."
+}

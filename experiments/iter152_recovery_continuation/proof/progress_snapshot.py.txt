@@ -1,0 +1,63 @@
+"""Bounded read-only progress diagnostic; never scientific admission or launch authority."""
+
+import argparse
+import json
+from pathlib import Path
+
+from experiments.iter150_cloud_observation.cloud import Cloud
+from experiments.iter152_recovery_continuation.admission import BASE, validate_plan
+from experiments.iter152_recovery_continuation.records import read, record
+from experiments.iter152_recovery_continuation.remote_ops import CONTROL
+
+SCRIPT = """import os,json
+from pathlib import Path
+result=[]
+for name in paths:
+ p=Path(name);row=dict(episode=p.name,initialized=p.exists())
+ f=p/'trace/events.jsonl'
+ try:
+  fd=os.open(f,os.O_RDONLY|os.O_NOFOLLOW)
+ except FileNotFoundError:
+  row['trace']='not_observed'
+ else:
+  try:
+   size=os.fstat(fd).st_size;os.lseek(fd,max(0,size-131072),os.SEEK_SET);raw=os.read(fd,131072)
+  finally:os.close(fd)
+  records=[]
+  for line in raw.splitlines()[1:-1]:
+   try: records.append(json.loads(line))
+   except (ValueError,UnicodeError):pass
+  observed=[r for r in records if r.get('event') in ('step','outcome_observation','runner_stop')]
+  row.update(trace_bytes=size,last_observed=[{k:r[k] for k in ('event','frame','time','status','steps') if k in r} for r in observed[-2:]])
+ result.append(row)
+print(json.dumps(dict(scope='bounded read-only diagnostic, not scientific admission',episodes=result)))
+"""
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--block", type=int, choices=(0, 1), required=True)
+    parser.add_argument("--pair", type=int, choices=range(7), required=True)
+    parser.add_argument("--snapshot", type=int, required=True)
+    args = parser.parse_args()
+    base = Path(BASE)
+    block = base / "proof" / f"block_{args.block:03d}"
+    directory = block / f"progress_{args.snapshot:03d}"
+    directory.mkdir(exist_ok=False)
+    plan = validate_plan(read(base / "STUDY_PLAN.json"))
+    paths = [
+        str(CONTROL / "runs" / s["id"]) for s in plan["slots"][args.pair * 2 : args.pair * 2 + 2]
+    ]
+    script = "paths=" + repr(paths) + "\n" + SCRIPT
+    record(
+        directory / "request.json",
+        dict(pair=args.pair, script=script, purpose="read_only_progress"),
+    )
+    raw = Cloud(directory).ssh("progress", script, timeout=60, owned=read(block / "owned.json"))
+    value = json.loads(raw)
+    record(directory / "snapshot.json", value)
+    print(json.dumps(value))
+
+
+if __name__ == "__main__":
+    main()

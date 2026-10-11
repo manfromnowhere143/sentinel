@@ -1,0 +1,70 @@
+{
+  "observed_utc": "2026-10-11T11:21:29.136891+00:00",
+  "status": "supported",
+  "scope": "Final documentary, source-identity and Git-order checks; scientific replay is in the separately retained admissions.",
+  "bound_input_files_unchanged": 158,
+  "frozen_protocol_and_qualification_unchanged": [
+    "experiments/iter152_recovery_continuation/INPUTS.json",
+    "experiments/iter152_recovery_continuation/QUALIFICATION.json",
+    "experiments/iter152_recovery_continuation/HYPOTHESIS.md",
+    "experiments/iter152_recovery_continuation/STUDY_PLAN.json",
+    "experiments/iter152_recovery_continuation/ENGINEERING_REVIEW.md"
+  ],
+  "historical_experiment_trees_unchanged": [
+    "experiments/iter145_constrained_execution",
+    "experiments/iter146_route_outcome_contract",
+    "experiments/iter147_full_horizon_execution",
+    "experiments/iter148_recovery_study",
+    "experiments/iter149_observation_recovery",
+    "experiments/iter150_cloud_observation",
+    "experiments/iter151_recovery_canary"
+  ],
+  "current_links_and_anchors_checked": 284,
+  "result_files_linked": 152,
+  "unchanged_mermaid_diagrams": 5,
+  "raw_before_admission_chain": [
+    {
+      "pair": 0,
+      "raw_commit": "a3004d25ec3d5f2b77c0982b9c830c23feb74871",
+      "admission_commit": "71f12d1b4d200f6fe9992c8579bf376b36e59a02",
+      "raw_inventory_sha256": "bc2768fa1b1dff7e6fb13beda0cfa32bc6e0a11aa2cc46ef3576f59add2ace1e"
+    },
+    {
+      "pair": 1,
+      "raw_commit": "e05e83a887f46026090c69b695804e1f0f9a7cee",
+      "admission_commit": "e77947b7ceb1ef82b1823e26c07b5b5f3ce417ee",
+      "raw_inventory_sha256": "64642689e018bdf536529c68d64446cd6932c359e91903501ac3c38558e3b36a"
+    },
+    {
+      "pair": 2,
+      "raw_commit": "1d828a6ee10c0e5e207100e77e6f8c4663c940cb",
+      "admission_commit": "6ceabd53366446ff46da8afe92c5b5600e56c034",
+      "raw_inventory_sha256": "f9e6e04eb7062b7ad3ea375dbe102595a0b02ddcbe32ac0ca578152b9e4f6723"
+    },
+    {
+      "pair": 3,
+      "raw_commit": "463174caa93cea2ba55e168fe73dc051ca0f8864",
+      "admission_commit": "57ca5b6067577e328684764b1ac2e7f88b9fce03",
+      "raw_inventory_sha256": "2d439933ba1c50e6909b5745161ab2ed48184e8250e73e1e79c485753f01b830"
+    },
+    {
+      "pair": 4,
+      "raw_commit": "3ffe17d912e01fa18601c316641a9ef201ba190f",
+      "admission_commit": "0477c52e2ee466534f68a21cf82959d7baeef02e",
+      "raw_inventory_sha256": "3901d2eed3fc749c21e9dae6f17bf1b12f8b169b829d1de50a6ba2c7ee12e381"
+    },
+    {
+      "pair": 5,
+      "raw_commit": "de390eadae6092bd54af272453fd2d3099fb0570",
+      "admission_commit": "d8a98d4962cdd920b64841ac181843f81e7926e8",
+      "raw_inventory_sha256": "a2ccf0c636b201ea904af57660244f1526699dc0e91c9020e3f668e51e41622a"
+    },
+    {
+      "pair": 6,
+      "raw_commit": "c1e0c8c22deb60057c0cc73459be2046dda3bd31",
+      "admission_commit": "8abb26cb3a2b2baaecd12c97f1a19182b409e2a1",
+      "raw_inventory_sha256": "7a16934807b88a1efb471dc8697c6937ef01f83884b94a856b3580ad31307631"
+    }
+  ],
+  "raw_inventories_verified_by": "proof/summarize.py.txt and proof/analysis.json"
+}
