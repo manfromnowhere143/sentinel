@@ -1,5 +1,35 @@
 # Sentinel — next-session handoff
 
+Updated 11 October 2026. **Iter154 is qualified; its one full-scene execution block is next.**
+Read [protocol](experiments/iter154_full_scene_maneuver/HYPOTHESIS.md), [state](experiments/iter154_full_scene_maneuver/STATE.json),
+[plan](experiments/iter154_full_scene_maneuver/STUDY_PLAN.json) and [qualification](experiments/iter154_full_scene_maneuver/QUALIFICATION.json).
+Frozen source: `ad063849c502d21967d3bc6b8590057f797e1a13`; protocol `b221b3c`.
+Two fresh replicas of Iter153's exact selected 65-action maneuver, scene-0013-medium-00,
+seed144. Privileged predetermined controls bypass UniAD and monitor inference; actual native
+rendering, actors and foreground/background collision remain required. Road compliance and
+information benefit stay unknown. No full-scene result has been observed yet.
+
+607 local regression checks passed /307 upstream warnings, including62 Iter154 checks,
+source-method CPU fixtures, malformed/false-success records and archive → Git → replay rehearsal.
+CPU fixtures substitute rendering/background/height and do not establish GPU execution.
+The exact source packet passes byte/inventory preflight. No package installation or new infrastructure.
+
+One existing VM start, ID3834622546652649531, sentinel-gpu, sunlit-unison-487018-b0/us-west1-a,
+one L4; <=3600seconds/$3 conservative compute, child1200seconds/pair2500seconds, independent
+local watchdog and unique host deadline. Fresh root /datasets/nuscenes-full/hugsim/iter154_maneuver_20261011.
+Read the current state and proof/block_000 before any command: never duplicate an initialized block.
+No retry, fallback candidate or search expansion. Record raw before replay and verify exact-start
+shutdown. The execution supervisor will create its exclusive block directory before provider access.
+
+Owned branch `research/iter154-full-scene-maneuver`, checkout
+`/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011`.
+Canonical root remains dirty wip-gen17-ci-hardening; preserve its index, README, architecture,
+pinned AGENTS/MISSION_STATE and unrelated work. Master remains8c118b74c699bf0f139f9bd659192bad06b895f8.
+No human ceremony is pending; Daniel's continuing mission instruction supplies operational authority.
+Prior whole-repository CI failed at Ruff; local source checks do not turn that into a pass.
+
+## Historical Iter153 closure
+
 Updated 11 October 2026. **Iter153 is closed; a candidate exists in the registered reduced model.**
 Read [result](experiments/iter153_action_feasibility/RESULT.md),
 [state](experiments/iter153_action_feasibility/STATE.json),

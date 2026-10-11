@@ -1,5 +1,10 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
+> **Current: Iter154 qualified, execution next — 2026-10-11.** Exact selected65-action maneuver,
+> two fresh full-scene replicas, one bounded $3/3600s envelope. Source ad063849c502d21967d3bc6b8590057f797e1a13.
+> Read current HANDOFF and Iter154 STATE/proof/block_000 before any launch; no initialized retry.
+> Actual rendering/collision required; UniAD/monitor bypassed. No live result yet. Earlier notices are historical.
+
 > **Current: Iter153 closed, 2026-10-11.** Fixed local model search:75candidates x2replicas,
 > 10,012verified model actions,14eligible; selectedmaneuver_059 completes at16.25s.
 > No new simulator/GPU/provider work; background,road,live-recovery and information benefit
