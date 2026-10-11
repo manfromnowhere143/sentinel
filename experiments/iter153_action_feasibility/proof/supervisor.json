@@ -1,0 +1,16 @@
+{
+  "command": [
+    "python3",
+    "-m",
+    "experiments.iter153_action_feasibility.search",
+    "--root",
+    "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011",
+    "--output",
+    "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter153_action_feasibility/proof/search_000"
+  ],
+  "returncode": 0,
+  "elapsed_seconds": 6.69149491598364,
+  "observed_utc": "2026-10-11T12:37:52.848463+00:00",
+  "outer_deadline_seconds": 660,
+  "scope": "Local child-process deadline; no remote execution."
+}
