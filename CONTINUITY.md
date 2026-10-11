@@ -1,5 +1,15 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
+> **Mission continuation, 2026-10-11:** Iter149 local observation recovery qualification is
+> supported: 216 regression tests; 30 named cases and 1,296 bounded sequences in Python
+> 3.11/3.14; 12 rejected checker corruptions; three real subprocess cases. The independent
+> local watchdog preserved partial data and terminated its child without an observer.
+> Cloud adapter qualification remains incomplete. No provider access, GPU or driving outcome.
+> Read [Iter149 result](experiments/iter149_observation_recovery/RESULT.md) and current HANDOFF.
+> Candidate: `research/iter149-observation-recovery` in the owned Sentinel worktree named there.
+> The next study is proposed separately; Iter148's closed accounting remains unchanged.
+
+
 > **Active operator-directed candidate work, 2026-10-11:** Iter148 execution is closed.
 > Nominal and monitor pairs passed: four source-defined completions, 368 verified actions,
 > no recorded collision/off-route and zero monitor intervention. An IAP observation failure
@@ -4590,3 +4600,18 @@ check in both Python jobs, then failed repository-wide Ruff. The Python 3.11 log
 findings in 160 files, all byte-identical to the pre-task research tree. Later tests were
 skipped. Current handoff records this open master-integration work; no whole-repository CI
 pass is established. See docs/publication/2026-10-11/hosted_lint_summary.json.
+
+
+## Iter149 local observation recovery qualification — 2026-10-11
+
+Daniel requested an independent assessment of the mission and continuation if justified.
+The assessment supports the recovery-first direction, without claiming state-of-the-art
+superiority or private industrial endorsement. A prospective protocol was committed before
+implementation. Local bounded reconciliation, separate trace replay, deterministic fault
+injection and an independent local process watchdog are implemented and qualified. Exact
+counts and source bindings are in experiments/iter149_observation_recovery/RESULT.md.
+The actual GPU evidence/cloud observation/owned shutdown adapter still needs qualification.
+A new two-scenario, 16-slot development canary is proposed, not admitted or run. No original
+Iter148 slot was retried or replaced. Historical mission state, evidence and master remain
+unchanged. No cloud access or new scientific result occurred. Root WIP was preserved; work
+is in research/iter149-observation-recovery and its owned checkout recorded in HANDOFF.

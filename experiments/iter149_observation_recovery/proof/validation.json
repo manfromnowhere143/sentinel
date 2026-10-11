@@ -1,0 +1,38 @@
+{
+  "source_commit": "34f494e6e062d9ea8631def396a844b4709b68ee",
+  "protocol_commit": "ea38e84",
+  "python": "3.14.2 (main, Dec  5 2025, 16:49:16) [Clang 16.0.0 (clang-1600.0.26.6)]",
+  "platform": "macOS-14.4-arm64-arm-64bit-Mach-O",
+  "files": {
+    "experiments/iter149_observation_recovery/local_host.py": "ee3dea86ce0ed6ceafd6769fd679f9fd7cbc398537ef32870f2a5e72f48261f5",
+    "experiments/iter149_observation_recovery/recovery.py": "bfed87d4b3f6a63f40c75a3bf6bd5ca95b06b5802abe09e09d37b3cad4e478ba",
+    "experiments/iter149_observation_recovery/qualify_local.py": "9accf06071ec38132d28cde31f85b6162552c7341f7d701fa7ee0e43dc8c1b13",
+    "experiments/iter149_observation_recovery/__init__.py": "9df7507cae59f972c13c546cb31d9d90e5999a10e746ac298bfbbcebb4613cb3",
+    "experiments/iter149_observation_recovery/replay.py": "ec0a3d1a84b86410793a4c631f2ef4aa394e7df9357749a3081be80527e75404",
+    "experiments/iter149_observation_recovery/qualify.py": "17738a2494c85398667511203941ba2d376f3eb5cb2511945a3aa7d7c5abca47",
+    "tests/test_iter149_observation_recovery.py": "7f095a59a71ae26ca732426da410234a0649cb31322ee53e32585499dda0e32a"
+  },
+  "test_command": [
+    "python3",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/test_iter146_route_outcome_contract.py",
+    "tests/test_iter147_full_horizon_execution.py",
+    "tests/test_iter148_recovery_study.py",
+    "tests/test_iter149_observation_recovery.py"
+  ],
+  "test_result": "216 passed, 40 warnings in 14.26s",
+  "new_focused_tests": 51,
+  "deterministic_cases": 30,
+  "exhaustive_sequences_per_interpreter": 1296,
+  "checker_known_bads": 12,
+  "interpreters": [
+    "3.14.2 ambient macOS",
+    "3.11.15 uv-managed macOS"
+  ],
+  "real_subprocess_cases": 3,
+  "supply_chain": "SUPPLY_CHAIN_VERIFICATION_OK",
+  "whole_repository_CI": "not established; earlier hosted failure retained",
+  "cloud_access": false
+}

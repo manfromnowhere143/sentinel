@@ -1,0 +1,21 @@
+{
+  "status": "supported",
+  "scope": "deterministic_local_control",
+  "exhaustive_sequences": 1296,
+  "checker_known_bads": {
+    "false_success": "final_claim",
+    "wrong_classification": "classification",
+    "timeout_extension": "timeout_extension",
+    "extra_read": "observation_after_stop",
+    "negative_clock": "time_order",
+    "missing_artifact": "classification",
+    "scientific_admission": "unauthorized_action",
+    "restart_action": "unauthorized_action",
+    "changed_binding": "classification",
+    "wrong_reason": "final_claim",
+    "budget_extension": "timeout_extension",
+    "premature_stop": "premature_stop"
+  },
+  "cloud_qualified": false,
+  "scientific_outcomes": 0
+}

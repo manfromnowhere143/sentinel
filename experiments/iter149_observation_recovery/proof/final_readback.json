@@ -1,0 +1,12 @@
+{
+  "status": "supported",
+  "readback_valid_traces": 62,
+  "corrupt_traces_rejected": 24,
+  "new_relative_links_valid": true,
+  "tested_source_unchanged": true,
+  "prior_mission_and_instructions_unchanged": true,
+  "whole_repo_ruff_findings": 688,
+  "whole_repo_ruff_files": 160,
+  "new_source_ruff_findings": 0,
+  "whole_repository_CI": "not established"
+}

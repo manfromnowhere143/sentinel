@@ -1,0 +1,27 @@
+{
+  "iteration": 149,
+  "status": "supported",
+  "scope": "local_observation_recovery_qualification",
+  "live_coordinator_repair": "incomplete",
+  "source_commit": "34f494e",
+  "cloud_access": false,
+  "gpu_used": false,
+  "owned_active_jobs": 0,
+  "scientific_outcomes": 0,
+  "new_tests": 51,
+  "regression_tests": 216,
+  "warnings": 40,
+  "deterministic_cases": 30,
+  "exhaustive_sequences_per_interpreter": 1296,
+  "checker_known_bads_per_interpreter": 12,
+  "local_subprocess_cases": 3,
+  "cloud_adapter_qualified": false,
+  "next_task": "Bind and qualify the actual GPU evidence/cloud observation and exact-owned shutdown adapters in a fresh non-scientific envelope; then freeze prospective development canary admission.",
+  "proposed_next_study_slots": 16,
+  "original_iter148_accounting": {
+    "admitted": 4,
+    "incomplete": 1,
+    "uninitialized": 107
+  },
+  "whole_repository_hosted_CI": "not established"
+}

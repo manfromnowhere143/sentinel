@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter149_observation_recovery/local_host.py", line 221, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter149_observation_recovery/local_host.py", line 217, in main
+    return host(args.directory, args.budget, args.seconds, args.crash)
+  File "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter149_observation_recovery/local_host.py", line 94, in host
+    root.mkdir(exist_ok=False)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.2_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 1011, in mkdir
+    os.mkdir(self, mode)
+    ~~~~~~~~^^^^^^^^^^^^
+FileExistsError: [Errno 17] File exists: 'experiments/iter149_observation_recovery/proof/frozen_local/disconnected'

@@ -92,6 +92,12 @@ their raw evidence and never counted as natural hazard detection.
 
 ## Execution, observation and evidence
 
+[Iter149 local qualification](../experiments/iter149_observation_recovery/RESULT.md) adds a
+transport-independent bounded reconciliation policy, separate trace checker and local subprocess
+watchdog fixture. Its small artifact schema is not yet adapted to the large GPU worker evidence,
+and cloud observation/shutdown remains unqualified. The retained Iter148 diagram and workflow
+below describe the last scientific run; no new scientific execution occurred.
+
 The study plan fixes 112 slots and admission order. Pair initialization is recorded so that
 completed or initialized work cannot be duplicated silently. Each completed raw packet is
 committed before replay; a receipt binds the plan, raw identity and prior admissions.

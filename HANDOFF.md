@@ -1,6 +1,28 @@
 # Sentinel — next-session handoff
 
-Updated 11 October 2026. **Start here.** Iter148 is closed and inconclusive. The README,
+Updated 11 October 2026. **Start here: Iter149 local control qualification is complete.**
+Read [Iter149 result](experiments/iter149_observation_recovery/RESULT.md),
+[assessment](experiments/iter149_observation_recovery/ASSESSMENT.md) and
+[next study proposal](experiments/iter149_observation_recovery/NEXT_STUDY_PROPOSAL.md).
+216 regression tests pass; 30 named cases, 1,296 bounded fault sequences in each of Python
+3.11/3.14, 12 checker corruptions and three actual local subprocess cases support the local
+scope. The cloud/IAP adapter is **not qualified**; the live coordinator repair is incomplete.
+No provider was accessed and no scientific run started. The next task is actual large-artifact
+and cloud observation/ownership-checked shutdown adapter qualification in a fresh non-scientific
+envelope, followed by prospective canary admission. No further human ceremony is required.
+
+Current candidate: `research/iter149-observation-recovery`, owned same-repository checkout
+`/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011`.
+The root dirty checkout is preserved. Never treat it as the active candidate by accident.
+Read this checkout's AGENTS and HANDOFF and verify its common Git directory points to Sentinel.
+Iter149 source is frozen at `34f494e`. The canary is a proposed new 16-slot development study,
+not an authorized restart of Iter148 or a replacement for its missing slots.
+
+The sections below retain the full Iter148 recovery contract and evidence. Their local
+qualification requirement is now addressed by Iter149; their cloud execution requirements
+are not. The old exact next task is historical context for the registered repair.
+
+**Iter148 retained position:** Iter148 is closed and inconclusive. The README,
 architecture and diagram review is complete. The next engineering task is to qualify recovery
 from unavailable progress observations before proposing another live scientific comparison.
 No driving job is running under this session's ownership; both owned VM starts have retained

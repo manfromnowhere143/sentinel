@@ -20,6 +20,12 @@ Those findings now determine the research direction.
 
 ## Current position — 11 October 2026
 
+Engineering continuation: [Iter149](experiments/iter149_observation_recovery/RESULT.md) qualifies
+bounded observation recovery locally, with 216 passing regression tests. The actual cloud adapter
+still needs qualification. No new driving outcome follows; the interrupted study below is unchanged.
+The [assessment](experiments/iter149_observation_recovery/ASSESSMENT.md) and
+[prospective canary](experiments/iter149_observation_recovery/NEXT_STUDY_PROPOSAL.md) explain the next decisions.
+
 The NeuroNCAP score improvement is supported on the evaluated suite. Its semantic
 attribution remains unresolved. Both registered HUGSIM transfer tests returned null results.
 The current development program asks whether an allowed intervention can produce useful
