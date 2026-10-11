@@ -1,0 +1,52 @@
+{
+  "authored_ruff": {
+    "command": [
+      "ruff",
+      "check",
+      "experiments/iter153_action_feasibility/planner.py",
+      "experiments/iter153_action_feasibility/check.py",
+      "experiments/iter153_action_feasibility/__init__.py",
+      "experiments/iter153_action_feasibility/inputs.py",
+      "experiments/iter153_action_feasibility/geometry.py",
+      "experiments/iter153_action_feasibility/search.py",
+      "experiments/iter153_action_feasibility/qualify.py",
+      "tests/test_iter153_action_feasibility.py",
+      "experiments/iter153_action_feasibility/proof/plot_result.py.txt"
+    ],
+    "returncode": 0
+  },
+  "supply_chain": {
+    "command": [
+      "python3",
+      "-I",
+      "-B",
+      "-S",
+      "tools/ci/verify_supply_chain.py"
+    ],
+    "returncode": 0
+  },
+  "whole_repository_ruff": {
+    "command": [
+      "ruff",
+      "check",
+      ".",
+      "--output-format",
+      "json"
+    ],
+    "returncode": 1,
+    "findings": 832,
+    "files": 168,
+    "new_iteration_findings": 0
+  },
+  "frozen_source_files_unchanged": 18,
+  "historical_iteration_trees_unchanged": [
+    145,
+    146,
+    147,
+    148,
+    149,
+    150,
+    151,
+    152
+  ]
+}

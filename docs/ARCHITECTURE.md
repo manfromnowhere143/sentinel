@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 11 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter152 research candidate. The [README](../README.md) carries the scientific
+limits through the Iter153 research candidate. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -180,10 +180,16 @@ adding 13 simulated seconds versus nominal. Both exact owned VM starts are termi
 Prior nulls, missing outcomes and frozen protocols remain unchanged, including Iter148's
 incomplete pulse and Iter151's interrupted schedule.
 
-The next scientific work is a bounded maneuver-feasibility diagnostic with privileged source
-geometry explicitly separated from available monitor observations. A validated useful action
-would support one explicit information ablation against a responsive baseline, followed by
-new-scene evaluation. Hidden-representation
+Iter153 adds an offline privileged-state diagnostic beside this live apparatus. Source route and
+stationary box geometry feed a fixed 75-maneuver generator; an independent scalar implementation
+rechecks policy, controls, transitions, rectangle support, swept interpolation, source route and
+progress. All 150 model trials are retained; fourteen qualify and a fixed ranking selects one.
+The [selected action packet](../experiments/iter153_action_feasibility/SELECTED_MANEUVER.json)
+is proposed input to a future full-scene adapter. It is not connected to a live controller.
+Background collision, road compliance, live recovery and information benefit remain unknown.
+
+The next scientific work is full-scene validation of that exact maneuver, followed by a controlled
+information-selection study only if useful recovery is established. Hidden-representation
 monitoring, uncertainty-aware persistence, independent sensors, physical deployment and formal
-safety guarantees are possible research directions with different requirements. None is an
-implemented or established capability simply because it appears in a roadmap.
+safety guarantees remain possible directions with different requirements. None is an established
+capability merely because it appears in a roadmap.

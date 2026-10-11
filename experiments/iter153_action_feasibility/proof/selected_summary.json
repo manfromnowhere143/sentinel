@@ -1,0 +1,94 @@
+{
+  "selected": {
+    "actions": 65,
+    "background_collision": null,
+    "candidate": {
+      "id": "maneuver_059",
+      "length": 10.0,
+      "offset": -2.0,
+      "speed": 6.0,
+      "start": 0.0
+    },
+    "completion_time": 16.25,
+    "eligible": true,
+    "information_benefit": null,
+    "live_recovery": null,
+    "model_complete": true,
+    "progress": {
+      "monitor": true,
+      "nominal": true
+    },
+    "road_compliance": null,
+    "stop": "model_complete",
+    "swept_clear": true
+  },
+  "comparators": {
+    "monitor": {
+      "hazard_time": 9.0,
+      "rc": 0.32215122470713525
+    },
+    "nominal": {
+      "hazard_time": 7.75,
+      "rc": 0.32925097621583244
+    }
+  },
+  "hazard_progress": {
+    "monitor": {
+      "controls_valid": true,
+      "distance": 0.9293131177820103,
+      "foreground_collision": false,
+      "nearest": 627,
+      "rc": 0.5573304934327299,
+      "time": 9.0
+    },
+    "nominal": {
+      "controls_valid": true,
+      "distance": 1.9394356961372794,
+      "foreground_collision": false,
+      "nearest": 540,
+      "rc": 0.48012069577564787,
+      "time": 7.75
+    }
+  },
+  "max_abs_acceleration": 2.0,
+  "max_abs_steering_rate": 0.2617993877991494,
+  "max_abs_steering_angle": 0.2506434517696488,
+  "max_abs_lateral_acceleration": 2.223342947025557,
+  "max_abs_yaw_rate": 0.37055715783759274,
+  "max_route_distance": 2.301770291597643,
+  "final_state": [
+    90.25084563502134,
+    -15.606613882844638,
+    -0.2046353282148058,
+    6.0,
+    0.0026768231851118547
+  ],
+  "final_outcome": {
+    "controls_valid": true,
+    "distance": 0.018212067983142045,
+    "foreground_collision": false,
+    "nearest": 1139,
+    "rc": 1.0117145899893505,
+    "time": 16.25
+  },
+  "counts_by_speed": {
+    "2": {
+      "total": 25,
+      "complete": 12,
+      "eligible": 0
+    },
+    "4": {
+      "total": 25,
+      "complete": 9,
+      "eligible": 9
+    },
+    "6": {
+      "total": 25,
+      "complete": 5,
+      "eligible": 5
+    }
+  },
+  "scope": "Descriptive extraction from admitted model raw; no additional search or live outcome.",
+  "minimum_interpolation_separation_lower_bound_m": 2.0316261009686247,
+  "separation_scope": "Analytical midpoint displacement enclosure evaluated in float64 on declared linear center/heading interpolation; no formal rounding proof or continuous physical-vehicle guarantee."
+}

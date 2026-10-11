@@ -1,5 +1,63 @@
 # Sentinel — next-session handoff
 
+Updated 11 October 2026. **Iter153 is closed; a candidate exists in the registered reduced model.**
+Read [result](experiments/iter153_action_feasibility/RESULT.md),
+[state](experiments/iter153_action_feasibility/STATE.json),
+[action packet](experiments/iter153_action_feasibility/SELECTED_MANEUVER.json) and
+[next decision](experiments/iter153_action_feasibility/DECISION.md).
+All 75 candidates ran twice: **150 admitted model trials, 10,012 verified model actions,
+zero incomplete or uninitialized**. Fourteen meet model completion, conservative foreground
+clearance, controls and both historical progress screens. Outcomes: 38 foreground contacts,
+26 model completions, two off-route stops and nine control-screen violations.
+
+The fixed ranking selects `maneuver_059`: −2 m route-normal offset, target 6 m/s, shift start 0 m
+and length 10 m, return start 40 m / length 15 m. Both replicas complete at 65 actions / 16.25 simulated seconds.
+Maximum route distance 2.301770 m; interpolation separation lower bound 2.031626 m under its declared
+model. **Background collision, road compliance, live recovery and information benefit remain
+unknown.** The obstacle is held stationary beyond the logged interval by explicit assumption.
+Full source geometry and a different diagnostic controller were used; no monitor-information
+benefit, physical guarantee, population rate or state-of-the-art ranking follows.
+
+Protocol `1149ec0`; source `7d475a54c58ad542f68f56ef0252d6ef634551d2`;
+raw-before-replay `13ee0925d96ceea9a8b12886b69680b245e8962d`; admission `f5ac5ce`.
+Pre-search 298 regression tests / 161 upstream warnings and 40 final focused tests passed in ambient
+macOS Python 3.14.2. Qualification includes 48 actual source-transition fixtures, 12 source rectangles,
+27 independent rectangle pairs, source-route checks and known-bads for hidden contact, control
+violations, false/unknown claims, source/input mutations, missing records and duplicate init.
+The two initial qualification test failures and their pre-search corrections remain retained.
+All 18 frozen source bindings and Iter145–152 trees remain unchanged. New authored lint and local
+supply-chain verification pass; repository Ruff remains 832 findings / 168 files, zero in Iter153.
+Hosted whole-repository CI and master integration remain unresolved.
+
+The search took 6.254 seconds within 600; outer supervision 6.691 seconds within 660. It is closed
+with no owned job, provider access, new simulator episode or GPU work. This lightweight CPU
+timing omits perception/rendering and is not a real-time driving result. Never rerun initialized
+`experiments/iter153_action_feasibility/proof/search_000` or change its frozen source.
+
+Current branch: `research/iter153-action-feasibility`, owned same-repository checkout
+`/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011`.
+Canonical root remains dirty `wip-gen17-ci-hardening`; preserve its index, README, architecture,
+pinned AGENTS/MISSION_STATE and unrelated work. Updated presentation is in the owned candidate.
+Historical master stays `8c118b74c699bf0f139f9bd659192bad06b895f8`.
+
+## Exact next task
+
+Prospectively register and qualify **full-scene diagnostic validation of the exact selected
+65-action sequence**. Use fresh identities, two replicas and bounded compute, the original scene,
+reset/seed, source and asset compatibility checks, actual rendering and native foreground/
+background collision, full route termination and separately replayed applied controls/state.
+The [decision](experiments/iter153_action_feasibility/DECISION.md) gives the exact boundaries and
+known-bads. Reuse the qualified observation, ownership, deadline and raw-admission framework;
+avoid another cloud-control framework. No full-scene candidate validation has launched.
+
+Retained nominal/monitor comparisons remain historical. A success would establish an available
+privileged maneuver in this scene, not which accessible information selects it. Road compliance
+requires separate drivable-boundary evidence. A failure stays failed; the other 13 candidates are
+not an automatic fallback pool. Only then consider a controlled information-selection study.
+No human ceremony is pending under Daniel's ongoing autonomous mission instruction.
+
+## Historical Iter152 closure
+
 Updated 11 October 2026. **Iter152 is closed: no recovery witness in the fixed pulse library.**
 Read its [result](experiments/iter152_recovery_continuation/RESULT.md),
 [state](experiments/iter152_recovery_continuation/STATE.json) and
@@ -32,7 +90,7 @@ Hosted CI at scientific closure failed repository-wide Ruff; master integration 
 Read proof/final_validation.json
 under the current experiment for exact scopes; no old source or captured evidence was normalized.
 
-Current candidate: `research/iter152-recovery-continuation`, owned same-repository checkout
+Historical candidate: `research/iter152-recovery-continuation`, owned same-repository checkout
 `/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011`.
 Its common Git directory must be the canonical Sentinel `.git`. Protocol commit `3e696b8`;
 frozen execution source `40d06cf9a89f9a1323e8bc172d12a73651ca1f5f`.
@@ -51,7 +109,7 @@ in Python 3.10 and 3.11, then reported 832 Ruff findings per job; later tests we
 [Hosted outcome and retained failure logs](experiments/iter152_recovery_continuation/proof/hosted_ci_outcome.json).
 Later receipt-only/documentation commits do not change that observed scope.
 
-## Exact next task
+## Historical Iter152 next task — completed by Iter153
 
 Register and qualify a bounded **action-feasibility diagnostic** around the observed stationary
 source obstacle. The early pulse already stopped the ego briefly and then returned to nominal;
@@ -139,7 +197,7 @@ pwd
 git rev-parse --show-toplevel
 git remote get-url origin
 git status --short --branch
-git rev-parse research/iter152-recovery-continuation
+git rev-parse research/iter153-action-feasibility
 ```
 
 Run these from the canonical root. Confirm the named project, directory, Git identity and
@@ -148,9 +206,9 @@ AGENTS.md agree.
 Read, in order:
 
 1. [AGENTS.md](AGENTS.md) and this handoff.
-2. [Iter152 result](experiments/iter152_recovery_continuation/RESULT.md),
-   [state](experiments/iter152_recovery_continuation/STATE.json) and
-   [decision](experiments/iter152_recovery_continuation/DECISION.md).
+2. [Iter153 result](experiments/iter153_action_feasibility/RESULT.md),
+   [state](experiments/iter153_action_feasibility/STATE.json) and
+   [decision](experiments/iter153_action_feasibility/DECISION.md).
 3. [README](README.md) and [architecture](docs/ARCHITECTURE.md).
 4. [Research direction](docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md),
    particularly the distinction between information, useful computation and recoverability.

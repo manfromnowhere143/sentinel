@@ -1,0 +1,126 @@
+"""Plot admitted model evidence and historical traces; never run a search."""
+
+import json
+from html import escape
+import math
+from pathlib import Path
+
+root = Path.cwd()
+base = root / "experiments/iter153_action_feasibility/proof"
+analysis = json.loads((base / "analysis.json").read_text())
+selected = analysis["selected"]["candidate"]["id"]
+raw = json.loads((base / "search_000" / (selected + "_1.json")).read_text())
+geometry = json.loads((base / "search_000/geometry.json").read_text())
+traces = {}
+for iteration, arm in ((151, "nominal"), (152, "monitor")):
+    name = "iter151_recovery_canary" if iteration == 151 else "iter152_recovery_continuation"
+    path = next(
+        (root / "experiments" / name / "proof/study_raw/pair_000/runs").glob(
+            "*__1/trace/events.jsonl"
+        )
+    )
+    rows = [json.loads(line) for line in path.read_text().splitlines()]
+    traces[arm] = [r["after"] for r in rows if r["event"] == "step"]
+
+
+parts = [
+    '<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650">',
+    '<rect width="1200" height="650" fill="#f8fafc"/>',
+]
+
+
+def text(x, y, value, size=15, color="#263445", anchor="start"):
+    parts.append(
+        f'<text x="{x}" y="{y}" font-family="Arial, sans-serif" font-size="{size}" fill="{color}" text-anchor="{anchor}">{escape(value)}</text>'
+    )
+
+
+def poly(points, color, width=2, fill="none", dash=""):
+    pts = " ".join(f"{x:.3f},{y:.3f}" for x, y in points)
+    parts.append(
+        f'<polyline points="{pts}" fill="{fill}" stroke="{color}" stroke-width="{width}" stroke-dasharray="{dash}"/>'
+    )
+
+
+text(42, 42, "A maneuver exists in the reduced model", 27)
+text(
+    42,
+    72,
+    "Iter153 | selected maneuver_059 | two agreeing replicas | full-scene validation remains pending",
+    15,
+)
+for index, (left, top, w, h, xmin, xmax, ymin, ymax) in enumerate(
+    [(60, 160, 530, 330, 0, 100, -22, 4), (695, 135, 450, 390, 18, 42, -10, 10.8)]
+):
+
+    def project(point):
+        return [
+            left + (point[0] - xmin) / (xmax - xmin) * w,
+            top + h - (point[1] - ymin) / (ymax - ymin) * h,
+        ]
+
+    text(
+        left,
+        top - 20,
+        "Route continuation (lateral scale expanded)"
+        if index == 0
+        else "Foreground obstacle region",
+        18,
+    )
+    parts.append(
+        f'<defs><clipPath id="p{index}"><rect x="{left}" y="{top}" width="{w}" height="{h}"/></clipPath></defs>'
+    )
+    parts.append(
+        f'<rect x="{left}" y="{top}" width="{w}" height="{h}" fill="white" stroke="#aebac6"/>'
+    )
+    xticks = range(0, 101, 20) if index == 0 else range(20, 43, 5)
+    yticks = range(-20, 5, 5) if index == 0 else range(-10, 11, 5)
+    for tick in xticks:
+        x, _ = project([tick, 0])
+        poly([[x, top], [x, top + h]], "#e4e9ee", 1)
+        text(x, top + h + 23, str(tick), 12, anchor="middle")
+    for tick in yticks:
+        _, y = project([0, tick])
+        poly([[left, y], [left + w, y]], "#e4e9ee", 1)
+        text(left - 10, y + 4, str(tick), 12, anchor="end")
+    parts.append(f'<g clip-path="url(#p{index})">')
+    poly([project([p[1], p[0]]) for p in geometry["route"]], "#8a97a4", 2, dash="5,4")
+    poly([project(s[:2]) for s in raw["states"]], "#087e8b", 3)
+    for arm, color in (("nominal", "#b52b4c"), ("monitor", "#d47c00")):
+        pts = [project(s[:2]) for s in traces[arm]]
+        poly(pts, color, 2)
+        x, y = pts[-1]
+        poly([[x - 4, y - 4], [x + 4, y + 4]], color, 3)
+        poly([[x - 4, y + 4], [x + 4, y - 4]], color, 3)
+    for o in geometry["obstacles"]:
+        x, y, yaw, width, length = o[0], -o[1], -o[6], o[3], o[4]
+        c, s = math.cos(yaw), math.sin(yaw)
+        corners = [
+            [x + a * c - b * s, y + a * s + b * c]
+            for a, b in [
+                (length / 2, width / 2),
+                (length / 2, -width / 2),
+                (-length / 2, -width / 2),
+                (-length / 2, width / 2),
+            ]
+        ]
+        poly([project(p) for p in corners + [corners[0]]], "#40444b", 1, fill="#737b85")
+    parts.append("</g>")
+    text(left + w / 2, top + h + 47, "Forward coordinate (m)", 14, anchor="middle")
+    text(left + 2, top - 3, "Lateral (m)", 12, anchor="start")
+for x, label, color in [
+    (70, "Source route", "#8a97a4"),
+    (280, "Model maneuver", "#087e8b"),
+    (530, "Historical nominal", "#b52b4c"),
+    (815, "Historical monitor", "#d47c00"),
+]:
+    poly([[x, 590], [x + 27, 590]], color, 3)
+    text(x + 35, 595, label, 14)
+text(
+    42,
+    633,
+    "Paths show vehicle centers. Crosses mark historical collisions. Background and road boundaries are unobserved; no live recovery is established.",
+    13,
+)
+parts.append("</svg>")
+(base / "selected_path.svg").write_text("\n".join(parts) + "\n")

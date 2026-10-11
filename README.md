@@ -14,20 +14,23 @@ warning does not establish that the monitor identified the actor responsible for
 Those findings now determine the research direction.
 
 [Results](#measured-results) · [Monitor](#what-the-monitor-actually-uses) ·
-[Research history](#how-the-question-changed) · [Latest run](#iteration-152-complete-comparison-no-recovery-witness) ·
+[Research history](#how-the-question-changed) · [Latest result](#iteration-153-a-model-maneuver-candidate) ·
 [Next steps](#the-next-scientific-test) · [Reproduce](#reproduce-and-inspect) ·
 [Experiment index](#complete-experiment-index)
 
 ## Current position — 11 October 2026
 
-[Iteration 152](experiments/iter152_recovery_continuation/RESULT.md) completed its fixed
-comparison: **14 new episodes, 1,420 replayed actions, no recovery witness from either tested
-one-second brake pulse**. The collision case still collided in every arm. All arms completed
-the benign case; the monitor took 13 simulated seconds longer than nominal. Two prior nominal
-episodes remain explicitly historical. Both owned VM starts are verified stopped; conservative
-compute was $3.506 within $18. These are two exposed development scenarios, not population rates.
-[Current decision](experiments/iter152_recovery_continuation/DECISION.md) ·
-[research assessment](experiments/iter149_observation_recovery/ASSESSMENT.md).
+[Iteration 153](experiments/iter153_action_feasibility/RESULT.md) found **14 eligible maneuvers
+in a fixed 75-candidate reduced-model search**. All 150 model replicas passed independent
+replay, covering 10,012 actions. The selected maneuver uses a −2 m route-normal offset and
+6 m/s target, reaching source-defined model completion in 16.25 s while meeting both historical
+progress requirements. **Background collision, road compliance and live recovery remain unknown.**
+No GPU or new simulator episode was used. [Exact next validation](experiments/iter153_action_feasibility/DECISION.md).
+
+The preceding [Iteration 152](experiments/iter152_recovery_continuation/RESULT.md) remains null
+for its tested brake pulses: neither recovered the collision case. All arms completed the benign
+case, with the monitor taking 13 simulated seconds longer than nominal. These are exposed
+development findings; the new model search does not replace those live outcomes.
 
 The NeuroNCAP score improvement is supported on the evaluated suite. Its semantic
 attribution remains unresolved. Both registered HUGSIM transfer tests returned null results.
@@ -39,8 +42,8 @@ the first braking-pulse episode was interrupted after an observation-transport f
 There is no complete four-arm comparison. Both owned VM starts are confirmed terminated,
 and the study has no automatic restart. [Execution report](experiments/iter148_recovery_study/RESULT.md).
 
-This page covers scientific and engineering evidence through Iteration 152 on
-[research/iter152-recovery-continuation](https://github.com/manfromnowhere143/sentinel/tree/research/iter152-recovery-continuation).
+This page covers scientific and engineering evidence through Iteration 153 on
+[research/iter153-action-feasibility](https://github.com/manfromnowhere143/sentinel/tree/research/iter153-action-feasibility).
 The accepted master mission snapshot is **current through iteration 134**, with verdict
 `PLACEBO_HARM_OR_NULL`; [MISSION_STATE.json](MISSION_STATE.json) retains that historical
 publication contract. Iteration 135 is deferred and unrun. The [current handoff](HANDOFF.md)
@@ -352,21 +355,40 @@ Both compute envelopes closed with unchanged source bindings and no remaining ow
 [per-episode evidence](experiments/iter152_recovery_continuation/proof/analysis.json) ·
 [resource closure](experiments/iter152_recovery_continuation/proof/resource_closure.json).
 
+## Iteration 153: a model maneuver candidate
+
+The registered local search contains 75 fixed route-reference maneuvers, each with two replicas.
+It uses privileged retained route/obstacle geometry and a diagnostic pure-pursuit controller,
+with separately checked source-matched dynamics, applied-control limits, source route outcomes
+and conservative between-sample foreground clearance. It neither runs UniAD nor observes the
+full scene's background collision or drivable road boundaries.
+
+The complete library yielded 38 foreground contacts, 26 model completions, two off-route stops
+and nine control-screen violations. Fourteen completions also passed both progress conditions.
+The prospective ranking selects a −2 m route-normal offset at 6 m/s, shifting out over 10 m and
+returning after station 40 m. It reaches model completion at 16.25 s; maximum source-route
+distance is 2.302 m. That distance is not a road-compliance result.
+
+The 150 trials contain 10,012 independently replayed model actions. The local search took
+6.254 s without new packages or provider access; it omits rendering and inference and therefore
+supports no real-time-driving comparison. The useful result is a precise candidate for a fresh
+full-scene test. [Result, complete accounting and figure](experiments/iter153_action_feasibility/RESULT.md) ·
+[bound action packet](experiments/iter153_action_feasibility/SELECTED_MANEUVER.json).
+
 ## The next scientific test
 
 The intended contribution is a monitor and evaluation system that can show **which failures
 remain preventable, which signal enables prevention, and the measured cost and limits**.
 The following work is proposed; all previous schedules retain their closed accounting.
 
-1. **Establish a useful available maneuver.** The two tested brake pulses did not recover.
-   Register a bounded action-feasibility diagnostic with explicit control, progress and search
-   limits. Separate privileged source geometry from monitor observations; a diagnostic maneuver
-   does not establish a deployable information channel. Include lateral/reference changes only
-   through a specified and validated action contract.
-2. **Validate any candidate through continued execution.** Qualify dynamics and route/collision
-   checks with independent replay and known-bads, then register a fresh simulator comparison.
-   A converged optimizer or temporary non-collision is insufficient. Preserve the complete
-   archive-to-commit-to-replay evidence path exercised in Iter152.
+1. **Validate the exact selected model maneuver in the full scene.** Register fresh IDs,
+   two replicas and bounded resources. Qualify an adapter for the retained 65-action sequence;
+   retain actual applied controls, current actor state, native foreground/background collision,
+   route outcomes and full termination. Do not replace the candidate after observing a failure.
+2. **Resolve the model-to-scene gap before claiming recovery.** The candidate is constructed
+   from privileged geometry. A full-scene success would establish an available diagnostic action;
+   road compliance requires separate boundary evidence. Preserve the raw-before-replay pipeline
+   and keep old nulls and missing outcomes unchanged.
 3. **Test one information hypothesis against a responsive baseline.** Track continuity and
    uncertainty are motivated candidates. Include benign and stale-track cases, freeze the
    information interfaces, and measure intervention costs. Better offline prediction alone
@@ -603,7 +625,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 </details>
 
 <details>
-<summary>Information, recoverability and execution: Iter135–152</summary>
+<summary>Information, recoverability and execution: Iter135–153</summary>
 
 | Record | Finding or scope |
 |---|---|
@@ -625,6 +647,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 | [150](experiments/iter150_cloud_observation/RESULT.md) | Bounded cloud/native observation checks supported; report-saving failure preserved and locally corrected. |
 | [151](experiments/iter151_recovery_canary/RESULT.md) | Inconclusive: two nominal replicas admitted; publication check stopped the remaining comparison. |
 | [152](experiments/iter152_recovery_continuation/RESULT.md) | Fixed continuation complete: 14 new episodes, no pulse recovery witness; benign monitor adds 13 simulated seconds. |
+| [153](experiments/iter153_action_feasibility/RESULT.md) | Fixed local model search: 14 eligible maneuvers; exact candidate selected, full-scene recovery unknown. |
 
 </details>
 

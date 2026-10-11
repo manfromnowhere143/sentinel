@@ -1,0 +1,10 @@
+{
+  "observed_utc": "2026-10-11T12:45:23.529301+00:00",
+  "status": "supported",
+  "scope": "Current documentation links, diagram preservation and selected packet extraction; independent scientific/model replay is retained separately.",
+  "local_links_and_anchors_checked": 281,
+  "result_files_linked": 153,
+  "unchanged_mermaid_diagrams": 5,
+  "selected_packet_exact_extraction": true,
+  "selected_packet_sha256": "7ff1f2d9da401f14b0e0380d86dedb3f3be13cd32c4cf6b25e1d3b3d5a96b681"
+}

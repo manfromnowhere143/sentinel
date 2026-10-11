@@ -1,5 +1,15 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
+> **Current: Iter153 closed, 2026-10-11.** Fixed local model search:75candidates x2replicas,
+> 10,012verified model actions,14eligible; selectedmaneuver_059 completes at16.25s.
+> No new simulator/GPU/provider work; background,road,live-recovery and information benefit
+> remain unknown. Read current HANDOFF and Iter153 RESULT/STATE/DECISION. Next is a fresh
+> full-scene validation of the exact selected65-action sequence; no fallback search. No owned job.
+> Current branch research/iter153-action-feasibility; earlier current notices are historical.
+
+> **Current: Iter153 local model search active.** Read current HANDOFF and Iter153 STATE.
+> One exclusive search; no GPU/provider access. Older current notices below are historical.
+
 > **Current: Iter152 closed, 2026-10-11.** Fourteen new episodes admitted; 1,420 verified new
 > actions; zero incomplete/uninitialized. Two disclosed historical nominal episodes are separate.
 > Neither tested pulse recovered the collision case. All benign-case arms completed; monitor
@@ -4735,3 +4745,21 @@ Hosted run38135368709 completed with failure: both Python3.10/3.11 jobs passed s
 and locked-install checks, failed whole-repository Ruff with832 findings each, and skipped later
 tests. Retained publication, root-preservation and hosted-outcome receipts are in Iter152 proof.
 Later receipt/documentation commits do not turn this into a whole-repository CI pass.
+
+
+## Iter153 local action-feasibility closure — 2026-10-11
+
+Protocol1149ec0, source7d475a54c58ad542f68f56ef0252d6ef634551d2; complete raw committed
+13ee0925d96ceea9a8b12886b69680b245e8962d before independent admissionf5ac5ce. Fixed75settings,
+two model replicas each;150admitted,0incomplete/uninitialized,10,012model actions. Outcomes:
+38foreground contacts,26model completions,2off-route and9control-screen violations.14candidates
+meet all model/progress screens. Fixed ranking selects maneuver_059 (-2mnormaloffset,6m/s,
+shift0/10m, return40/15m),65actions/16.25s. This is a privileged reduced-model result: background,
+road compliance, live recovery and information benefit remain unknown. Source obstacle stationarity
+is extended by assumption. No new provider/GPU/simulator work; no owned job remains.
+Source-model fixtures and known-bads qualified;298regression/161warnings then40focusedchecks pass.
+Search6.254swithin600; outer6.691swithin660. New authored lint/supply-chain pass; existing832Ruff
+findings remain. Iter145–152, master, pinned authority and unrelated root WIP stay unchanged.
+Exact next task: new full-scene protocol/adapter for selected65actionsequence, with actual native
+collision/route/state checks, independent replay and bounded resources. No automatic13candidate
+fallback or information-benefit claim. Read Iter153 RESULT/STATE/DECISION and current HANDOFF.

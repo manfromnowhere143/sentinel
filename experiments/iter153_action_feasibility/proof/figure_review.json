@@ -1,0 +1,8 @@
+{
+  "status": "supported",
+  "png_sha256": "161bcffa367b40e2361a693e7642159b937c440cd22b28b246e1b6aacfae27b7",
+  "svg_sha256": "9b8fad243baee2ec0f0cdf7657684be193decd1945703f9b14d81266959d4f1f",
+  "render": "rsvg-convert from data-derived SVG; no new packages installed",
+  "visual_review": "Full figure inspected; coordinate-scale distinction, uncertainty caption and historical versus model paths labelled; clipped axis label corrected.",
+  "scope": "Presentation review only; no admission or new model run."
+}
