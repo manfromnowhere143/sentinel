@@ -4867,3 +4867,15 @@ Next: prospective background-aware model calibration against retained native pre
 another search. Preserve complete point selection, strict count/geometry rules and prior failures.
 Raw, admission, resource closure and result live under Iter155. Publication/hosted CI follows;
 accepted master, root index and unrelated WIP remain unchanged.
+
+
+Iter155 research publication verified scientific closure 23f8baed3a8359c3d541fd8441642176c0caccf8:
+eight GitHub-served files match committed bytes, including the full selected-point chunk. Hosted
+run 38164776320 failed whole-repository Ruff with 832 findings in each Python 3.10/3.11 job;
+supply-chain and locked-install verification passed, later tests skipped. Clean docs guard remains
+red at the historical Iter134 snapshot and generation-sixteen publication-lineage constraint.
+Accepted master unchanged; root index and 23 unrelated files preserved. Publication, CI failure log,
+root-preservation and scoped-check receipts are under Iter155 proof. Later receipt/documentation
+commits are distinct from that observed CI scope. Scientific witness remains supported for two
+historical poses, with no new driving episode. No provider work was started for publication.
+Next remains prospective background-aware model calibration before another search.

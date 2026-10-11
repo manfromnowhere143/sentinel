@@ -25,7 +25,10 @@
   "road_compliance": null,
   "live_recovery": null,
   "information_benefit": null,
-  "whole_repository_hosted_CI": "unobserved_for_Iter155_closure; prior repository lint failure remains",
+  "whole_repository_hosted_CI": "failed_at_whole_repository_Ruff; 832 findings per Python3.10/3.11 job; later tests skipped",
   "master_integration": "not_performed",
-  "next": "Prospective background-aware model calibration against retained native prefixes, before a new maneuver search."
+  "next": "Prospective background-aware model calibration against retained native prefixes, before a new maneuver search.",
+  "scientific_closure_commit": "23f8baed3a8359c3d541fd8441642176c0caccf8",
+  "research_branch_publication": "verified_eight_GitHub_served_files_including_selected_point_chunk",
+  "hosted_run_url": "https://github.com/manfromnowhere143/sentinel/actions/runs/38164776320"
 }

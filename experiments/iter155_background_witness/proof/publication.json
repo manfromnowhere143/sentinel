@@ -1,0 +1,75 @@
+{
+  "observed_utc": "2026-10-11T18:39:39.875864+00:00",
+  "branch": "research/iter155-background-witness",
+  "published_commit": "23f8baed3a8359c3d541fd8441642176c0caccf8",
+  "remote_head_matches": true,
+  "master_unchanged": true,
+  "served_files": [
+    {
+      "path": "HANDOFF.md",
+      "bytes": 37718,
+      "sha256": "8d1b6126c60d5c20d7a740db00cf08d8c188640467591903f953849f76291fc6",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/23f8baed3a8359c3d541fd8441642176c0caccf8/HANDOFF.md"
+    },
+    {
+      "path": "README.md",
+      "bytes": 57612,
+      "sha256": "540ed533c83624e6eab84646b24ce25e30ad9ee97ef56a9a9703678579a1fff7",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/23f8baed3a8359c3d541fd8441642176c0caccf8/README.md"
+    },
+    {
+      "path": "experiments/iter155_background_witness/RESULT.md",
+      "bytes": 5479,
+      "sha256": "167826de4c1a0ef3b0e4edd5aeec80ca826e51f9d6821073f7ed921352b8196b",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/23f8baed3a8359c3d541fd8441642176c0caccf8/experiments/iter155_background_witness/RESULT.md"
+    },
+    {
+      "path": "experiments/iter155_background_witness/STATE.json",
+      "bytes": 1082,
+      "sha256": "322a391b14d17929c45c555a4c24648e5902f7a5a0f404c540d54b9581666770",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/23f8baed3a8359c3d541fd8441642176c0caccf8/experiments/iter155_background_witness/STATE.json"
+    },
+    {
+      "path": "experiments/iter155_background_witness/proof/admission.json",
+      "bytes": 1736,
+      "sha256": "9c4990d827df7779753326532491c611efec4b21b8331456469e983b091c8546",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/23f8baed3a8359c3d541fd8441642176c0caccf8/experiments/iter155_background_witness/proof/admission.json"
+    },
+    {
+      "path": "experiments/iter155_background_witness/proof/raw/witness.json",
+      "bytes": 12166,
+      "sha256": "578fbe0739d2fed96b2a4f24bd20f244ae568fd8a337875c504596fd74fc54df",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/23f8baed3a8359c3d541fd8441642176c0caccf8/experiments/iter155_background_witness/proof/raw/witness.json"
+    },
+    {
+      "path": "experiments/iter155_background_witness/proof/resource_closure.json",
+      "bytes": 1010,
+      "sha256": "2cdf96ab09be0f2f6ecfb8e819a5995dfaa5313359b6b15709b8b5f2570206c9",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/23f8baed3a8359c3d541fd8441642176c0caccf8/experiments/iter155_background_witness/proof/resource_closure.json"
+    },
+    {
+      "path": "experiments/iter155_background_witness/proof/raw/selected_xyz_000.bin.gz",
+      "bytes": 3083261,
+      "sha256": "54586f341eb50dcd4b53e3ec2e6826898676806f46562679fd4ef41f8d29381e",
+      "matches_committed_bytes": true,
+      "url": "https://github.com/manfromnowhere143/sentinel/blob/23f8baed3a8359c3d541fd8441642176c0caccf8/experiments/iter155_background_witness/proof/raw/selected_xyz_000.bin.gz"
+    }
+  ],
+  "hosted_runs_observed": [
+    {
+      "conclusion": "",
+      "databaseId": 38164776320,
+      "headSha": "23f8baed3a8359c3d541fd8441642176c0caccf8",
+      "status": "in_progress",
+      "url": "https://github.com/manfromnowhere143/sentinel/actions/runs/38164776320"
+    }
+  ],
+  "CI_scope": "Authored checks pass; whole-repository Ruff832 findings and legacy publication/doc gates remain. Hosted outcome is observed separately."
+}

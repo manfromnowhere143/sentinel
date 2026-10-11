@@ -41,8 +41,14 @@ Owned branch `research/iter155-background-witness`, checkout
 `/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011`. Root index, README,
 architecture, pinned authority and unrelated WIP preserved. Accepted master remains
 `8c118b74c699bf0f139f9bd659192bad06b895f8`. Daniel's continuing instruction supplies authority;
-no human ceremony is pending. Publication/hosted CI for this closure is not yet observed.
-Prior whole-repository Ruff and historical publication/doc guards remain red.
+no human ceremony is pending. Scientific closure `23f8baed3a8359c3d541fd8441642176c0caccf8`
+is published; eight GitHub-served files match, including the full selected-point chunk.
+[Publication receipt](experiments/iter155_background_witness/proof/publication.json).
+Hosted run 38164776320 failed whole-repository Ruff: 832 findings in each Python 3.10/3.11 job,
+after successful supply-chain and locked-install checks; later tests skipped.
+[Hosted outcome](experiments/iter155_background_witness/proof/hosted_ci_outcome.json).
+The clean docs guard remains red at the historical Iter134 snapshot and generation-sixteen
+lineage. Later publication bookkeeping commits are distinct from that observed CI scope.
 
 ## Historical Iter154 closure
 

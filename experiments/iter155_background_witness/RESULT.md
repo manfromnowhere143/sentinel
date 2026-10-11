@@ -76,3 +76,17 @@ Watchdog exit 0, idle GPU/container readback and no owned job remain. Inclusive 
 The next work is a new background-aware feasibility model and calibration against retained native
 prefixes. Preserve the failed maneuver and unchanged predicate. New search comes after calibration;
 physical occupancy, drivable-road compliance, useful live recovery and information benefit stay unknown.
+
+## Research publication and hosted validation
+
+Scientific closure `23f8baed3a8359c3d541fd8441642176c0caccf8` is published on
+`research/iter155-background-witness`. Eight GitHub-served files match committed bytes, including
+the complete selected-point chunk. Accepted master is unchanged. [Readback receipt](proof/publication.json).
+[Hosted run 38164776320](https://github.com/manfromnowhere143/sentinel/actions/runs/38164776320)
+failed whole-repository Ruff with 832 findings in each Python 3.10/3.11 job. Supply-chain and
+locked-install verification passed; later tests were skipped. [Exact outcome](proof/hosted_ci_outcome.json).
+
+The [clean-checkout documentation guard](proof/closure_docs_clean.json) remains red at the
+historical Iter134 mission snapshot and generation-sixteen publication-lineage constraint.
+No historical contract was rewritten. Later receipt/documentation commits do not change the
+scientific result or imply a hosted CI pass.

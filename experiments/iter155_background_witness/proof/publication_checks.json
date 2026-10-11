@@ -1,0 +1,6 @@
+{
+  "status": "supported",
+  "frozen_inputs_unchanged": 221,
+  "local_links_and_anchors": 326,
+  "scope": "Publication bookkeeping verification only; no scientific rerun or full CI pass."
+}

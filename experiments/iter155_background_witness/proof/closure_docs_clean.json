@@ -1,0 +1,16 @@
+{
+  "observed_utc": "2026-10-11T18:33:28.375959+00:00",
+  "commit": "23f8baed3a8359c3d541fd8441642176c0caccf8",
+  "clean_at_check_start": true,
+  "command": [
+    "python3",
+    "-I",
+    "-B",
+    "-S",
+    "-c",
+    "import runpy,sys;sys.path.append(\"scripts\");runpy.run_path(\"scripts/validate_docs.py\",run_name=\"__main__\")"
+  ],
+  "returncode": 1,
+  "stdout": "DOCS GUARD FAILED:\n - MISSION_STATE.json: current_completed_iteration:134!=155\n - MISSION_STATE.json: tooling_publication:structural_probe:ToolingPublicationError:published tooling receipt failed frozen validation: published receipt structure invalid: VerificationError: generation-sixteen has commits beyond exact T16, B16, and the single documentation tranche\n",
+  "stderr": ""
+}
