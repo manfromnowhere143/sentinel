@@ -1,0 +1,352 @@
+{
+  "arm": "brake_t0",
+  "elapsed_ns": 85184848180,
+  "episode": "continuation152_003__scene-0013-medium-00__brake_t0__2",
+  "events_bytes": 1348291,
+  "events_sha256": "d28e493a876ffa2d604e4c2a9f38bf05406fd1c11870ee93a4a6269250a4dee7",
+  "live_study_admitted": false,
+  "max_actions": 401,
+  "max_seconds": 1198.067744766,
+  "outcome": {
+    "censored": false,
+    "collision_observed": true,
+    "completion_qualified": false,
+    "execution_valid": true,
+    "final_sample_observed": false,
+    "first_failure_time": 9.0,
+    "off_route_observed": false,
+    "simulator_completion": false
+  },
+  "schema": "sentinel.iter146.summary.v2",
+  "seed": 144,
+  "status": "completed",
+  "steps": 36,
+  "stop_reason": "source_terminal",
+  "timing_scope": "Elapsed-clock boundaries relative to runner entry. loop_work_ns ends after trace flush; full_loop_ns also includes the post-step resource guard and stop decision. Both exclude timing-list append, Python loop dispatch and final summary writing.",
+  "timings": [
+    {
+      "exchange_ns": 16661558660,
+      "frame": 0,
+      "full_loop_ns": 17278423767,
+      "loop_end_ns": 18484108509,
+      "loop_start_ns": 1205684742,
+      "loop_work_end_ns": 18380398336,
+      "loop_work_ns": 17174713594
+    },
+    {
+      "exchange_ns": 1336449874,
+      "frame": 1,
+      "full_loop_ns": 1931084738,
+      "loop_end_ns": 20415198053,
+      "loop_start_ns": 18484113315,
+      "loop_work_end_ns": 20322896524,
+      "loop_work_ns": 1838783209
+    },
+    {
+      "exchange_ns": 1318652357,
+      "frame": 2,
+      "full_loop_ns": 1909619332,
+      "loop_end_ns": 22324821864,
+      "loop_start_ns": 20415202532,
+      "loop_work_end_ns": 22230178964,
+      "loop_work_ns": 1814976432
+    },
+    {
+      "exchange_ns": 1326276951,
+      "frame": 3,
+      "full_loop_ns": 1922816041,
+      "loop_end_ns": 24247643146,
+      "loop_start_ns": 22324827105,
+      "loop_work_end_ns": 24154605455,
+      "loop_work_ns": 1829778350
+    },
+    {
+      "exchange_ns": 1339902674,
+      "frame": 4,
+      "full_loop_ns": 1923850457,
+      "loop_end_ns": 26171499328,
+      "loop_start_ns": 24247648871,
+      "loop_work_end_ns": 26076624079,
+      "loop_work_ns": 1828975208
+    },
+    {
+      "exchange_ns": 1340398372,
+      "frame": 5,
+      "full_loop_ns": 1935029315,
+      "loop_end_ns": 28106533845,
+      "loop_start_ns": 26171504530,
+      "loop_work_end_ns": 28011994506,
+      "loop_work_ns": 1840489976
+    },
+    {
+      "exchange_ns": 1325172697,
+      "frame": 6,
+      "full_loop_ns": 1922844847,
+      "loop_end_ns": 30029383183,
+      "loop_start_ns": 28106538336,
+      "loop_work_end_ns": 29936124260,
+      "loop_work_ns": 1829585924
+    },
+    {
+      "exchange_ns": 1319546260,
+      "frame": 7,
+      "full_loop_ns": 1910436605,
+      "loop_end_ns": 31939836018,
+      "loop_start_ns": 30029399413,
+      "loop_work_end_ns": 31846476062,
+      "loop_work_ns": 1817076649
+    },
+    {
+      "exchange_ns": 1317639102,
+      "frame": 8,
+      "full_loop_ns": 1902997758,
+      "loop_end_ns": 33842839702,
+      "loop_start_ns": 31939841944,
+      "loop_work_end_ns": 33748226011,
+      "loop_work_ns": 1808384067
+    },
+    {
+      "exchange_ns": 1324055174,
+      "frame": 9,
+      "full_loop_ns": 1909068032,
+      "loop_end_ns": 35751910999,
+      "loop_start_ns": 33842842967,
+      "loop_work_end_ns": 35658318484,
+      "loop_work_ns": 1815475517
+    },
+    {
+      "exchange_ns": 1328386860,
+      "frame": 10,
+      "full_loop_ns": 1908745848,
+      "loop_end_ns": 37660660207,
+      "loop_start_ns": 35751914359,
+      "loop_work_end_ns": 37565811420,
+      "loop_work_ns": 1813897061
+    },
+    {
+      "exchange_ns": 1336901459,
+      "frame": 11,
+      "full_loop_ns": 1912796363,
+      "loop_end_ns": 39573459991,
+      "loop_start_ns": 37660663628,
+      "loop_work_end_ns": 39480216303,
+      "loop_work_ns": 1819552675
+    },
+    {
+      "exchange_ns": 1329186351,
+      "frame": 12,
+      "full_loop_ns": 1903167999,
+      "loop_end_ns": 41476631169,
+      "loop_start_ns": 39573463170,
+      "loop_work_end_ns": 41382171060,
+      "loop_work_ns": 1808707890
+    },
+    {
+      "exchange_ns": 1332490081,
+      "frame": 13,
+      "full_loop_ns": 1915213658,
+      "loop_end_ns": 43391854336,
+      "loop_start_ns": 41476640678,
+      "loop_work_end_ns": 43290685605,
+      "loop_work_ns": 1814044927
+    },
+    {
+      "exchange_ns": 1337204146,
+      "frame": 14,
+      "full_loop_ns": 1914201909,
+      "loop_end_ns": 45306059302,
+      "loop_start_ns": 43391857393,
+      "loop_work_end_ns": 45212939692,
+      "loop_work_ns": 1821082299
+    },
+    {
+      "exchange_ns": 1327651502,
+      "frame": 15,
+      "full_loop_ns": 1908177978,
+      "loop_end_ns": 47214241081,
+      "loop_start_ns": 45306063103,
+      "loop_work_end_ns": 47120669538,
+      "loop_work_ns": 1814606435
+    },
+    {
+      "exchange_ns": 1337302016,
+      "frame": 16,
+      "full_loop_ns": 1913569013,
+      "loop_end_ns": 49127813929,
+      "loop_start_ns": 47214244916,
+      "loop_work_end_ns": 49035846903,
+      "loop_work_ns": 1821601987
+    },
+    {
+      "exchange_ns": 1337906570,
+      "frame": 17,
+      "full_loop_ns": 1912006067,
+      "loop_end_ns": 51039823307,
+      "loop_start_ns": 49127817240,
+      "loop_work_end_ns": 50948191955,
+      "loop_work_ns": 1820374715
+    },
+    {
+      "exchange_ns": 1330734344,
+      "frame": 18,
+      "full_loop_ns": 1905735657,
+      "loop_end_ns": 52945562819,
+      "loop_start_ns": 51039827162,
+      "loop_work_end_ns": 52854499598,
+      "loop_work_ns": 1814672436
+    },
+    {
+      "exchange_ns": 1330491966,
+      "frame": 19,
+      "full_loop_ns": 1900763065,
+      "loop_end_ns": 54846329908,
+      "loop_start_ns": 52945566843,
+      "loop_work_end_ns": 54754028160,
+      "loop_work_ns": 1808461317
+    },
+    {
+      "exchange_ns": 1343657851,
+      "frame": 20,
+      "full_loop_ns": 1916911667,
+      "loop_end_ns": 56763245707,
+      "loop_start_ns": 54846334040,
+      "loop_work_end_ns": 56669131895,
+      "loop_work_ns": 1822797855
+    },
+    {
+      "exchange_ns": 1337126774,
+      "frame": 21,
+      "full_loop_ns": 1914619492,
+      "loop_end_ns": 58677868777,
+      "loop_start_ns": 56763249285,
+      "loop_work_end_ns": 58584378940,
+      "loop_work_ns": 1821129655
+    },
+    {
+      "exchange_ns": 1338062842,
+      "frame": 22,
+      "full_loop_ns": 1910464882,
+      "loop_end_ns": 60588337047,
+      "loop_start_ns": 58677872165,
+      "loop_work_end_ns": 60494890653,
+      "loop_work_ns": 1817018488
+    },
+    {
+      "exchange_ns": 1342821750,
+      "frame": 23,
+      "full_loop_ns": 1908327766,
+      "loop_end_ns": 62496667938,
+      "loop_start_ns": 60588340172,
+      "loop_work_end_ns": 62405381708,
+      "loop_work_ns": 1817041536
+    },
+    {
+      "exchange_ns": 1342169772,
+      "frame": 24,
+      "full_loop_ns": 1923589749,
+      "loop_end_ns": 64420261386,
+      "loop_start_ns": 62496671637,
+      "loop_work_end_ns": 64324789308,
+      "loop_work_ns": 1828117671
+    },
+    {
+      "exchange_ns": 1336657665,
+      "frame": 25,
+      "full_loop_ns": 1911608392,
+      "loop_end_ns": 66331873934,
+      "loop_start_ns": 64420265542,
+      "loop_work_end_ns": 66238264173,
+      "loop_work_ns": 1817998631
+    },
+    {
+      "exchange_ns": 1342857985,
+      "frame": 26,
+      "full_loop_ns": 1914259310,
+      "loop_end_ns": 68246137015,
+      "loop_start_ns": 66331877705,
+      "loop_work_end_ns": 68152170651,
+      "loop_work_ns": 1820292946
+    },
+    {
+      "exchange_ns": 1328055210,
+      "frame": 27,
+      "full_loop_ns": 1898855346,
+      "loop_end_ns": 70144996343,
+      "loop_start_ns": 68246140997,
+      "loop_work_end_ns": 70053151503,
+      "loop_work_ns": 1807010506
+    },
+    {
+      "exchange_ns": 1340188916,
+      "frame": 28,
+      "full_loop_ns": 1913533878,
+      "loop_end_ns": 72058533491,
+      "loop_start_ns": 70144999613,
+      "loop_work_end_ns": 71966123310,
+      "loop_work_ns": 1821123697
+    },
+    {
+      "exchange_ns": 1340071526,
+      "frame": 29,
+      "full_loop_ns": 1906768645,
+      "loop_end_ns": 73965306057,
+      "loop_start_ns": 72058537412,
+      "loop_work_end_ns": 73873150277,
+      "loop_work_ns": 1814612865
+    },
+    {
+      "exchange_ns": 1325617846,
+      "frame": 30,
+      "full_loop_ns": 1892001439,
+      "loop_end_ns": 75857311304,
+      "loop_start_ns": 73965309865,
+      "loop_work_end_ns": 75764852235,
+      "loop_work_ns": 1799542370
+    },
+    {
+      "exchange_ns": 1291569747,
+      "frame": 31,
+      "full_loop_ns": 1857677872,
+      "loop_end_ns": 77714992453,
+      "loop_start_ns": 75857314581,
+      "loop_work_end_ns": 77622764712,
+      "loop_work_ns": 1765450131
+    },
+    {
+      "exchange_ns": 1320967273,
+      "frame": 32,
+      "full_loop_ns": 1889174036,
+      "loop_end_ns": 79604170386,
+      "loop_start_ns": 77714996350,
+      "loop_work_end_ns": 79511784666,
+      "loop_work_ns": 1796788316
+    },
+    {
+      "exchange_ns": 1298571043,
+      "frame": 33,
+      "full_loop_ns": 1863589333,
+      "loop_end_ns": 81467764599,
+      "loop_start_ns": 79604175266,
+      "loop_work_end_ns": 81375260829,
+      "loop_work_ns": 1771085563
+    },
+    {
+      "exchange_ns": 1275468261,
+      "frame": 34,
+      "full_loop_ns": 1845298247,
+      "loop_end_ns": 83313066750,
+      "loop_start_ns": 81467768503,
+      "loop_work_end_ns": 83219964262,
+      "loop_work_ns": 1752195759
+    },
+    {
+      "exchange_ns": 1291839637,
+      "frame": 35,
+      "full_loop_ns": 1871683907,
+      "loop_end_ns": 85184753985,
+      "loop_start_ns": 83313070078,
+      "loop_work_end_ns": 85091089895,
+      "loop_work_ns": 1778019817
+    }
+  ]
+}
