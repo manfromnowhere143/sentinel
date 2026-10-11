@@ -1,29 +1,32 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
-> **Active operator-directed candidate work, 2026-10-10:** Iter147 bounded GPU
-> qualification is complete: eight fresh cases / 912 actions / four matching replica pairs.
-> Two injected monitor runs reached 401 actions each; six natural nominal actor runs
-> reproduced collisions. No recovery gain or GPU route completion was established.
-> **4/110 natural-actor controller calls exceeded 50 ms; all 912 loops exceeded 250 ms.**
-> Local qualification separately supports 890 constructed actions / three replica pairs;
-> 129 focused tests pass. Read the [result](experiments/iter147_full_horizon_execution/RESULT.md),
-> [state](experiments/iter147_full_horizon_execution/STATE.json) and
-> [active handoff](experiments/iter147_full_horizon_execution/DECISION.md).
-> Exact owned VM is TERMINATED; watchdog and supervisor exited. No owned job or restart
-> remains. Next: study-specific admission and finite lifecycle/resource binding for the
-> unchanged proposed 112 slots. Candidate `research/iter147-full-horizon-execution`
-> is local/unpushed. Master, historical HANDOFF/MISSION_STATE, immutable root README,
-> unrelated WIP, prior recovery nulls and deferred Iter135 remain preserved.
+> **Active operator-directed candidate work, 2026-10-11:** Iter148 has preregistered
+> the unchanged 112-slot recovery study in 14 fixed operational blocks. The first block
+> binds eight slots / one scenario, a fresh three-hour/$9 conservative compute envelope,
+> exclusive pair starts, committed raw before independent replay, complete receipt history
+> and full pre-intervention prefix checks. Prior qualification replays 1,104 GPU actions;
+> 165 focused tests pass. Read the [study protocol](experiments/iter148_recovery_study/HYPOTHESIS.md),
+> [execution binding](experiments/iter148_recovery_study/GPU_BINDING.md) and
+> [state](experiments/iter148_recovery_study/STATE.json) for current execution status.
+> No Iter148 study outcome is available at source freeze. Only block 0 is admitted for
+> initial launch; remaining blocks require fresh automated lifecycle checks.
+> Candidate `research/iter148-recovery-study` is local/unpushed. Master, historical
+> HANDOFF/MISSION_STATE, immutable root README, unrelated WIP, all prior evidence,
+> previous recovery nulls and deferred Iter135 remain preserved.
 
-**Purpose.** This campaign is operator-portable by design. Everything an incoming operator
-needs is in this repository plus the two live surfaces below. Read this file top to bottom
-before touching anything. During the generation-fifteen control freeze, use
-`MISSION_STATE.json` and `HANDOFF.md` only as the retained repository-state snapshot. F15 replaces
-the legacy live `scripts/make_handoff.py` probe with an offline-only tombstone that always reports
-observation unavailable, lifecycle `UNKNOWN`, and authority `NONE`. Do not redirect its output
-onto `HANDOFF.md`: shell redirection truncates the retained file before the renderer can validate
-anything. The tombstone remains non-authoritative until a separately accepted source-bound
-lifecycle observer replaces it. This file carries the invariants that do not change per shift.
+> **Controlling operator directive, 2026-09-22:** Daniel rejects independent-human review and
+> human-authored acceptance ceremonies. His direct session instruction is sufficient operational
+> authority. Agents continue autonomously and must not ask him to create or inspect acceptance
+> files. The full controlling override is the final section of this document and supersedes older
+> `next command: NONE`, authority-`NONE`, and independent-human prerequisites.
+
+**Purpose.** This campaign is operator-portable by design. Begin with the controlling directive
+above, the final override below, `MISSION_STATE.json`, and `HANDOFF.md`; read historical ledger
+sections only as the active task requires. The generation-fifteen tombstone reports observation
+unavailable and lifecycle `UNKNOWN`, but its snapshot authority does not block work authorized by
+Daniel's direct instruction. Do not redirect renderer output onto `HANDOFF.md`, because shell
+redirection truncates the retained file before validation. This file retains historical evidence
+and invariants without making Daniel a manual reviewer or ceremony operator.
 
 ## Workspace boundary (permanent)
 
@@ -4406,6 +4409,1468 @@ transfer boundary fold-in and the claim-(5) hedge are unchanged and still bindin
   the single canonical run happens at the tip where every check passes. A red canonical
   run is never created; the deviation and its cause are retained here.
 
+## Scientific audit and next-experiment handoff (2026-08-21)
+
+**Status and precedence.** This is an evidence-bounded scientific handoff appended to Sentinel's
+canonical operator handoff after an explicit operator request naming both Sentinel and Odeya. It
+does not replace `MISSION_STATE.json`, the retained authority-`NONE` `HANDOFF.md` tombstone, or the
+committed Iteration-135 preregistration. These working-tree bytes are a handoff candidate until
+they pass Sentinel's separately registered repository-publication control. They create no host,
+provider, GPU, lifecycle-observation, smoke, analytic, publication, or Odeya runtime authority.
+The Google Cloud login reported by the operator is a credential-availability fact only; it is not
+launch authority and must not be used in the current phase.
+
+### Audit identity and completeness
+
+- Sentinel's repository is `/Users/danielwahnich/workspace/sentinel`. Before this handoff edit the
+  worktree was clean on `wip-gen17-ci-hardening` at
+  `20fefa9b9a5ce031db021909404867bc0fa58de4`, tracking the same cached origin tip. Its parent and
+  local/cached canonical `master` are
+  `355010c4b668c85fcd2647586c56d7a21b8b88d0`.
+- At audit start, no accepted `AGENTS.md` existed anywhere in Sentinel's checked-out tree or Git
+  history. The current working candidate now adds a Sentinel-specific root `AGENTS.md`, but it is
+  proposed F17 source and has no repository authority until the exact Generation-17 source and
+  publication chain are independently accepted. Odeya's `AGENTS.md` never substitutes for it.
+- Sentinel has no `docs/SESSION_HANDOFF.md`. That absence is not a missing recovery artifact:
+  `CONTINUITY.md` is Sentinel's canonical operator handoff, followed by the authority-`NONE`
+  `HANDOFF.md` tombstone and `MISSION_STATE.json`. No Odeya handoff was treated as Sentinel state.
+- The audit read the complete `CONTINUITY.md`, `HANDOFF.md`, `MISSION_STATE.json`, current
+  preregistration and reviewer surfaces, all retained result/correction records relevant to the
+  active claim, every Iteration-135 manifest and receipt, the compute/resource and lifecycle
+  contracts, the current Gen17 workflow/verifier/locks, retained known-bads, and current Git and
+  worktree topology. It made no provider, host, remote execution/evidence-filesystem, container,
+  GPU, lifecycle-observer, smoke, analyzer, or experiment call.
+- The committed diagnostic WIP head changes exactly seven CI/supply-chain paths. It is explicitly
+  not a ceremony commit. The current working candidate expands the registered F17 scope to the
+  exact 22 paths in the Generation-17 preacceptance record. Relative to D16, the physical working
+  tree differs at `23` paths: those `22` F17 paths plus this separately intended future-B17
+  `CONTINUITY.md`. This handoff must not be staged into F17, R17, or T17. B16 is
+  `737f1f2160134cf1e3d0d7216b21993848f06078`; D16 is
+  `355010c4b668c85fcd2647586c56d7a21b8b88d0`. The frozen v1 F16 next-source binder mis-models
+  PIN16 and cannot lawfully admit the required direct-D16 F17 shape; it must not be used for F17.
+
+### Evidence-bounded scientific state
+
+- The full14 result remains `799/800` episodes: OFF `2.12`, released union `2.91`, paired delta
+  `+0.783`, 95% interval `[+0.605,+0.928]`. The safe-progress delta is `-0.032`, interval
+  `[-0.127,+0.065]`, which is inconclusive rather than equivalence or effect absence. The disclosed
+  exception is `off/side-0921`, `n=19`.
+- Iteration 134 completed `1,200/1,200`: OFF/union/placebo NCAP
+  `2.135/2.906/2.538`; primary union-placebo `+0.3683`, pair-clustered interval
+  `[-0.1901,+0.8866]`; placebo-OFF `+0.4026`, interval `[-0.0038,+0.8947]`; union-OFF
+  `+0.7708`, interval `[+0.3315,+1.2151]`. Its registered result remains
+  `PLACEBO_HARM_OR_NULL`, not confirmed placebo harm.
+- Iteration 134 did not identify semantics. Union realized `1,205` brake frames while the
+  placebo realized `859/1,205` assigned frames. Early termination is post-treatment, so matching,
+  filtering, or adjusting on realized dose would introduce a different bias rather than repair
+  the comparison.
+- HUGSIM easy/medium and hard/extreme remain transfer nulls: mean paired HD deltas
+  `-0.0166`, interval `[-0.0551,+0.0255]`, and `-0.0089`, interval
+  `[-0.0438,+0.0203]`. Collision opportunity existed in `51/52` hard/extreme OFF episodes under
+  the registered definition.
+- Five-centimetre logged-position jitter remains fragile, velocity smoothing did not repair it,
+  and those iterations were offline decision replays rather than closed-loop sensor-degradation
+  experiments.
+- The original pooled `n=20` mini-scene result was invalid because deterministic run indices were
+  duplicated. Honest `n=8` safe progress was `+0.247`, interval `[-0.272,+0.782]`; a separate
+  fresh unique `n=20` later measured `+0.398`, interval `[+0.133,+0.665]`. Side collision was
+  corrected from `100% -> 5%` to `100% -> 12.5%` at honest `n=8`; Iteration 8 was corrected from
+  `8/8` to `7/8` avoided. Iteration 11's mid-run snapshot was replaced by its terminal result.
+- The universal decoder-negative was corrected to “no decoder we tried.” Archived paper artifacts
+  retain the invalid universal wording and are `ARCHIVED_NOT_SUBMISSION_READY`.
+- The current claim ledger therefore remains: NeuroNCAP union gain
+  `ESTABLISHED_ON_NEURONCAP`; semantic attribution `UNRESOLVED`; HUGSIM transfer
+  `TRANSFER_NULL`; production readiness `NOT_ESTABLISHED`; lifecycle `UNKNOWN`.
+
+### Strongest next experiment and identification decision
+
+No experiment is authorized now. After the control blockers below are closed, the strongest
+immediate experiment remains the already preregistered Iteration-135 six-arm, 2,400-episode batch,
+without shrinking the suite, deleting arms, adding seeds post hoc, or replacing null-preserving
+rules. It must be described as a **fixed-suite assigned-policy falsification batch**:
+
+> On the exact enumerated 20 pair-class cells and run indices `0..19`, compare the released
+> state-conditioned union with exact frozen actuation-decision-state-blind, donor-derived
+> schedules. The
+> `1.0x` schedule matches the retained Iteration-134 union donor oracle's total and class-total
+> brake counts. G6 requires fresh union global totals of `1,205` brake rows and `156` release rows
+> but does not check fresh class totals or per-cell action equality.
+
+The batch is **not launch-identified under the literal current protocol** for two independent
+reasons. First, the frozen hypothesis says that the blind patch may access the base trajectory
+solely to return it unchanged on nonscheduled frames, but `server_patch_blind_dose.py` currently
+materializes and logs the complete base trajectory on every frame, including scheduled frames,
+and uses its length to construct the zero trajectory; the runtime-patch test requires that
+behavior. Second, the hypothesis asks for the “same ex-ante assigned class-level braking budget”
+as the released union and licenses “matched-assigned-budget difference” wording, although the
+released state-conditioned union has no ex-ante assigned schedule. `blind_1_0x` matches only the
+retained Iteration-134 donor oracle's total and class-total realized brakes, not the fresh union's
+assigned or realized class totals. These are protocol contradictions, not wording preferences.
+
+Launch is blocked until a separately accepted pre-evidence correction does both jobs. It must
+gate schedule membership before coordinate materialization, limit scheduled-frame access to a
+frozen and independently verified shape/length contract, and omit scheduled-frame
+full-trajectory observation from the decision path. Any future outer post-return observer would
+be a separately frozen design, not part of the proposed v1 correction. The correction must also
+amend the hypothesis question,
+“clock-only” and “matched-assigned-budget” claim boundary, docstrings, analyzer output, manifests,
+tests, verifier, and every claim consumer to the exact donor-oracle-matched schedule-construction
+estimand stated here. Retained Iteration-134 proof establishes six trajectory points in
+`6,474/6,474` rows, but that historical fact does not silently amend the protocol. Every amended
+byte and meaning must be rebound before launch.
+
+The strongest lawful correction is now frozen here as a **proposed post-Gen17 pre-evidence
+design**, not an accepted amendment and not authority to edit or run the scientific tranche. Its
+question is:
+
+> On the exact enumerated fixed suite, does the released state-conditioned union satisfy the
+> registered NCAP-superiority and Q16-noninferiority rules relative to `blind_1_0x`, an
+> actuation-decision-state-blind, donor-derived schedule whose assigned total and class-total
+> counts are calibrated only to the retained Iteration-134 union donor oracle?
+
+The exact proposed estimand identifier is
+`iter135.fixed_suite_union_minus_donor_oracle_count_control.v1`; the program name is
+`fixed-suite union-versus-donor-derived braking-policy falsification`. The complete assigned
+policy, including state access, schedule construction, actuation, instrumentation, logging,
+synchronous observer work, and compute cost, is the treatment. Fresh-union counts, class totals,
+windows, releases, timing, and resource use are outcomes, never matching variables. Unqualified
+`clock-only`, `semantics-free`, `dose-matched`, `matched budget`, and
+`matched-assigned-budget` wording is prohibited. `semantic_attribution` remains `UNRESOLVED`
+under every Iteration-135 outcome.
+
+The corrected blind decision must test exact schedule presence and frame membership before any
+trajectory access. On a scheduled frame it returns exactly six literal `[0.0,0.0]` points from a
+frozen constant `6`, without reading trajectory values, length, shape, dtype, device, or
+exceptions. On a nonscheduled frame only, it materializes and returns the base trajectory
+unchanged. The blind-policy decision record contains only frozen identity, dose, membership,
+frame index, and the literal returned actuation for scheduled frames; it contains no
+`base_trajectory`, coordinate-derived value, hash, length, or shape. On nonscheduled frames the
+base trajectory is used solely as the return value and is not copied into the policy log.
+
+The proposed v1 correction admits no synchronous trajectory observer or observation log write
+between selection of the six-zero value and return through `InferenceOutputs`: such work can
+delay or prevent delivery even if it cannot alter the selected value. Shape evidence instead
+comes from the pre-evidence exact-`6 x 2` extraction gate, the literal scheduled actuator, and
+downstream proof over already-produced responses. If a later amendment adds an outer post-return
+observer, it must bind the order decision -> successful response return -> observation; exactly
+one adjacent typed observer row per scheduled decision; zero observer rows on nonscheduled
+frames; equal cell/run/frame/dose/decision identity; and explicit exception, OOM, process-death,
+blocking, missing, duplicate, gap, and misorder behavior. At most it may claim that observation
+cannot change the selected value on successful return, never delivery invariance or process
+isolation. Every observer defect is infra-null, stops before the next admissible frame, and is
+never retried.
+
+An audit-time read-only retained-source replay measured exactly `6,474/6,474` finite `6 x 2`
+trajectories with zero exceptions. This is diagnostic evidence bound to the retained source hashes
+below; it has no separately retained execution receipt and is not independent verification. The
+two source-part SHA-256 values are
+`4a4b90a383613ebd228a24b510d59f2214695a3a020858d082187f1e507ffb85` and
+`93a39b950789c1416055e32ea2056e3a9f8202f14f885b4f789458f4d8b4ca97`; their joined SHA-256 is
+`f06178aba6d7b5fd7424469891795f039eca65dd8eb4942f0b0706ccd838a21c`. The correction must add a
+finite exact-`6 x 2` rejection gate to `extract_union_windows.py` while keeping its successful
+schedule projection byte-compatible. It must not regenerate or rerank the schedules: complete
+schedule SHA-256 remains
+`42008ca73ae6cef32d843e410bbba52f290388612a4e697df57486c79a9ba592`, and canonical compact
+brake-frame projection SHA-256 remains
+`b9acf31bb25be353faf0ce9fd5b1e6e8f9ccece7ea59381a8a21bbd7ce8f9cda`.
+
+Thresholds and evaluation order stay unchanged, but misleading legacy machine labels may appear
+only as `legacy_decision_code`. Human-facing mappings are fixed as follows:
+
+- `PLACEBO_DOSE_INFRA_NULL` -> `BLIND_DOSE_INFRA_NULL`;
+- `GENERIC_BRAKING_DOMINATES` -> `REGISTERED_BLIND_ARM_DOMINATES`;
+- `SEMANTIC_MATCHED_BUDGET_CONFIRMED` ->
+  `UNION_OUTPERFORMS_DONOR_ORACLE_COUNT_CONTROL`;
+- `BLIND_MATCHED_BUDGET_COMPETITIVE` ->
+  `DONOR_ORACLE_COUNT_CONTROL_COMPETITIVE`; and
+- `MATCHED_BUDGET_INCONCLUSIVE` -> `DONOR_ORACLE_COUNT_CONTROL_INCONCLUSIVE`.
+
+The literal simultaneous-frontier qualifier remains mandatory. The correction preserves all six
+arms, 120 blocks, 2,400 fresh episodes, exact schedule membership, estimators, bounds,
+missingness, stopping, multiplicity, temporal order, and the 110-hour all-inclusive GPU ceiling.
+It cannot ride F17/R17/T17/B17 because their exact scopes exclude the hypothesis and runtime
+patch. The lawful order is: independently admit and publish Gen17; accept the source-bound
+lifecycle observer/controller chain; advance an accepted state contract to
+`SCIENTIFIC_CORRECTION_REQUIRED`; publish one hypothesis-only amendment; publish one exact
+corrected-source commit and then one receipt-only commit; independently accept analyzer,
+scientific-verifier, discrepancy-reducer, manifest, hash, and known-bad evidence; only then
+regenerate host/environment/manifest evidence and consider G5. No cloud or GPU action is needed
+for any correction step before G5.
+
+The correction surface is transitive. Direct source consumers are `HYPOTHESIS.md`,
+`server_patch_blind_dose.py`, `extract_union_windows.py`, `validate_smoke135.py`,
+`collect_proof135.py`, `analyze_dose135.py`, `make_launch_manifest.py`, `run_smoke135.sh`,
+`run_dose135.sh`, `capture_environment135.py`, `prepare_host135.py`,
+`authorize_launch135.py`, `verify_tooling135.py`, `scripts/mission_state.py`,
+`scripts/make_handoff.py`, plus a new analyzer-independent scientific verifier and separately
+frozen discrepancy reducer. Their hostile tests and every claim consumer must be rebound. The
+union patch, compose patch, schedule generator, and schedule remain byte-identical unless a later
+independently reviewed necessity proves otherwise. All current tooling, host, environment, and
+launch artifacts become stale for the corrected source and must be regenerated only through
+their lawful phases; accepted Iteration-134 result prose remains historical and must not be
+silently rewritten.
+
+Required known-bads include a poison trajectory getter proving scheduled decisions never touch
+it; any scheduled `len(...)`, early materialization, coordinate/hash/shape logging, or in-return
+observer; actuator length other than six; nonscheduled use of the base beyond exact passthrough;
+and any later outer observer that throws, blocks, crashes, influences a future decision, precedes
+successful response return, or produces a missing, duplicate, gapped, misordered, wrong-identity,
+nonfinite, or non-`6 x 2` row. Additional known-bads are brake-frame projection drift; retained
+realized donor counts mislabeled as assigned union counts; fresh-union outcomes used as matching
+variables; misleading legacy codes promoted to human headlines; analyzer/verifier disagreement;
+missingness converted to zero; and any retry used to erase discrepancy. Analyzer and independent
+verifier must each run once in separate clean
+processes, read only committed proof plus the frozen protocol, import no code from one another,
+and produce distinct content-addressed outputs. A separately frozen reducer opens each once;
+crash, absence, or disagreement remains retained invalid/missing evidence and cannot be rerun
+away.
+
+After both exact repairs, the numerical estimand is identified as a paired assigned-policy
+fixed-suite contrast if all cells, identities, gates, and stopping rules remain intact. Arm order
+is deterministic rather than randomized, and execution is sequential on one host, so a causal
+interpretation additionally depends on the frozen implementation, temporal stability, and the G6
+reproduction oracle; those controls cannot prove absence of every secular effect. No order-effect
+estimator is currently registered, so no post-run order adjustment or sensitivity may rescue the
+comparison. The comparison does **not** identify a separable causal effect of CPA/TTC
+“semantics.” It jointly changes live state conditioning, per-episode allocation, timing, window
+geometry, no-intervention prevalence, latch/release behavior, instrumentation and log schema,
+policy computation, logging I/O, and resulting compute load. The released union computes and
+logs risk/tracking state; blind arms compute and log schedule/trajectory evidence. It also does
+not identify a realized-dose effect, a population effect, or transfer. A future mechanism sham
+must match those instrumentation, logging, and computation coordinates or independently
+establish that their differences are irrelevant to the outcome.
+
+G6 deliberately repeats the already observed Iteration-134 OFF and union cells: all `400+400`
+episodes must be physically new executions, but their NCAP, impact, fixed-horizon path, and union
+action-count targets are prior-data reproduction oracles, not statistically independent fresh
+evidence. Only the four blind policy types have no prior observed outcomes; the fresh OFF and
+union cells are protocol-mandated reproduction cells, not independent new-design evidence.
+Iteration 135 is therefore a preregistered fixed-suite falsification and diligence batch, not a
+randomized or counterbalanced trial and not an independent replication. Neither the `400`
+episodes per arm, the `2,400` episodes, nor the `20` run indices are independent inferential
+units.
+
+The 20 pair-class cells contain only 14 unique source sequences: `0103` appears in all three
+classes, and `0106`, `0108`, `0110`, and `0278` each appear in two. They were not sampled from a
+declared population. The registered pair bootstrap is therefore a preregistered
+suite-composition robustness rule, not a calibrated confidence interval for an unstated
+population. Any future result must print the 14-source-cluster calculation next to the registered
+pair result. The source calculation may narrow or downgrade claim wording; it may never rescue a
+failed registered gate or support population language.
+
+The current hypothesis nevertheless calls the `10/5/5` pair-class cells “independent clusters”
+and the pair a “population-inference unit.” Those labels are contradicted by the repeated source
+sequences and absence of a declared sampling population. The pre-evidence correction must delete
+or explicitly retract that wording in the hypothesis, manifests, analyzer, verifier, result
+template, and every claim consumer while leaving the registered draws and thresholds unchanged.
+The pair resampling is a fixed-suite composition-robustness procedure only; neither it nor the
+14-source downgrade licenses independence, calibrated population coverage, or generalization.
+
+The registered NCAP rule requires point `delta_N >= 0.25` and one-sided `LCB_N > 0`. It does not
+establish with 95% confidence that the effect exceeds `0.25`. Unless a separately committed
+pre-evidence amendment strengthens the rule to `LCB_N > 0.25` and rebinds every consumer, exact
+wording is “point estimate at least `0.25` with a positive preregistered resampling lower bound.”
+The repository token `SEMANTIC_MATCHED_BUDGET_CONFIRMED`, if mechanically emitted, must never be
+expanded into a direct semantic-mechanism claim. Its maximum licensed expansion is:
+
+> The released state-conditioned union outperformed the frozen `blind_1_0x`
+> actuation-decision-state-blind, donor-derived control on the exact
+> suite under the registered pair-level decision rule; the `1.0x`
+> actuation-decision-state-blind,
+> donor-derived schedule matched the retained Iteration-134 union donor oracle's class-total brake
+> counts. The registered G6 reproduced fresh OFF/union outcomes and the fresh union's global
+> `1,205` brake and `156` release totals; it did not establish fresh class-total matching.
+
+That paragraph is never standalone: its headline and first report occurrence must append the
+literal registered simultaneous-frontier qualifier, and it must immediately append every
+predeclared sensitivity downgrade sentence required below. If any source-scene,
+unstratified-pair, or common-run-index sensitivity disagrees, “outperformed the `blind_1_0x`
+control” is prohibited and the registered result must be reported only with the exact named
+disagreement.
+
+If the scientific target changes to a separable mechanism claim, Iteration 135 is not the design.
+A later, separately preregistered experiment must use several independently frozen shams that
+match at least the retained union oracle's per-episode realized brake-count multiset, no-brake
+prevalence, window-count and window-length distributions, first-brake-time distribution, and
+release structure. It must
+still treat realized action count and survival as outcomes. This successor must not be designed
+after reading Iteration-135 outcomes. After the registered terminal outcome, Sentinel should move
+to an external deployment-fault benchmark or Sentinel-owned fault harness rather than another
+NeuroNCAP threshold, dose, seed-count, or placebo search.
+
+### Exact scientific freezes before any analytic episode
+
+These values remain frozen unless a new pre-evidence amendment explicitly supersedes them and
+every source, manifest, test, receipt, and verifier is regenerated and independently reviewed:
+
+- Hypothesis bytes: SHA-256
+  `6bcd0a95386ca0019e4a3bcf09536c2306955bc59805002fe8ff958a2a66a8eb`; its five pre-data
+  hypothesis commits terminate at `3fcb607fea8e1a251c2c82da385dd096dd650909`.
+- Arms, in base order: `off_baseline`, `released_union_semantic_reference`, `blind_0_5x`,
+  `blind_1_0x`, `blind_1_5x`, `blind_2_0x`.
+- Population, in canonical order: stationary
+  `0099 0101 0103 0106 0108 0278 0331 0783 0796 0966`; frontal
+  `0103 0106 0110 0346 0923`; side `0103 0108 0110 0278 0921`.
+- Grid: `20` pair-class cells x `20` run indices x `6` arms = `2,400` fresh analytic episodes;
+  `400` per arm. No historical episode substitutes for a fresh cell.
+- Execution: one sequential host; pair-major 20-run arm blocks; `120` blocks; cyclic arm rotation
+  by global pair index modulo six; indices `0..19` complete inside a block.
+- Schedule bytes: SHA-256
+  `42008ca73ae6cef32d843e410bbba52f290388612a4e697df57486c79a9ba592`; class-preserving donor
+  map `q=(p+2)%len(class)`, `j=(i+7)%20`; target pair and run excluded; assigned sets are nested
+  `P0.5 ⊂ P1.0 ⊂ P1.5 ⊂ P2.0`; and every blind schedule has at least one assigned frame.
+- Blind actuation-decision information boundary: the literal frozen hypothesis permits the base
+  trajectory solely for unchanged return on nonscheduled frames, plus frozen
+  class/pair/run/frame identity, dose ID, and schedule membership. The current patch contradicts
+  that boundary by materializing and logging the full base trajectory even on scheduled frames
+  and using its length to shape the zero actuator. Therefore this freeze is currently
+  unsatisfied. The required pre-evidence repair must test schedule membership before coordinate
+  access; at a scheduled frame it returns exactly six literal `[0.0,0.0]` points from a frozen
+  constant `6`, without reading trajectory values, length, shape, dtype, device, or exceptions.
+  The exact finite `6 x 2` shape contract is a separate pre-evidence extraction gate, not runtime
+  permission to observe the scheduled base. Scheduled full-base proof observation is omitted
+  from the decision/return path. It may not use timestamps; scene or ego state; planner
+  auxiliary outputs; detections, scores, tracks, or futures; risk terms; collisions or metrics;
+  episode length; realized-budget feedback; CPA/TTC/closing speed; or latch/release state for the
+  actuation decision. It has no learned component or outcome feedback. Until all protocol and
+  implementation consumers are rebound, no `runtime-state-blind` claim is licensed.
+- Released-union patch: SHA-256
+  `d0338d5cee088d2271ee886b86ccac6f03775bf94991b4128013015159b91189`; OFF uses the same patch
+  with only `SENTINEL_ENABLED=0`.
+- Intended arm-specific differences include policy state access and actuation, assigned schedule,
+  and their bound evidence instrumentation: union computes and logs auxiliary risk/tracking and
+  latch/release state; blind arms compute and log schedule membership and scheduled literal
+  actuation but do not log base-trajectory coordinates in the policy path;
+  OFF disables the union intervention. Those differences entail different policy computation,
+  log schemas, logging I/O, and compute load and are part of the joint assigned-policy treatment,
+  not matched nuisance coordinates.
+- Union parameters: minimum score `0.3`, maximum gap `30`, CPA margin `1.5`, TTC `2.5`, minimum
+  closing speed `3`, release `K=4`.
+- Primary contrasts: `NCAP_union - NCAP_blind_1_0x` and
+  `Q16_union - Q16_blind_1_0x`. `Q16` uses the first 16 sorted ego poses, an absorbing last pose
+  after early termination, and a fresh same-pair OFF denominator. Any nonfinite or nonpositive
+  fresh OFF denominator in the primary calculation or any resampled draw is missing/infra-null.
+  Epsilon replacement, historical substitution, zero, draw skipping, and arm/cell filtering are
+  prohibited.
+- Estimand label: donor-oracle-matched schedule-construction assigned-policy contrast. The current
+  hypothesis's “same ex-ante assigned class-level braking budget,” “clock-only,” and
+  “matched-assigned-budget difference” language is unsatisfied and must be corrected and rebound
+  pre-evidence. Neither the union nor its fresh class totals are ex-ante schedule-matched.
+- Point aggregation: for NCAP, average the `20` runs within arm x pair, average pair values within
+  class, then give stationary, frontal, and side equal one-third weight. For each Q16 episode,
+  compute `min(1, first-16 distance / fresh same-pair OFF mean first-16 distance)`, then use the
+  same within-pair and equal-class aggregation. Twenty pair-class cells are not pooled with equal
+  cell weight.
+- Mandatory distinct outputs: NCAP, impact speed, `Q16`, full raw path length, legacy
+  safe-progress, collision, observed terminal reason, assigned and realized brake frames/windows,
+  realization fraction, intervention-free fraction, episode frames, class, pair, run, arm, block
+  ordinal, and resource use.
+- Pair decision rule: average runs within pair; use one fresh `random.Random(135)`; on every draw
+  consume random indices in class order stationary, frontal, side and in canonical within-class
+  pair order to select `10/5/5` pair-class cells; carry all arms together; and reuse that one
+  joint selected-pair vector for all eight NCAP/Q16 max-`|T|` contrasts. There are `100,000`
+  draws; one-sided indices are `4,999` and `94,999`; two-sided indices are `2,499` and `97,499`.
+- Source-scene sensitivity: take the `14` unique source sequence IDs in first-appearance order
+  through the canonical pair list; draw `14` sources with replacement using Python
+  `random.Random(135)`; apply each source multiplicity to every one of its stationary/frontal/side
+  pair occurrences; reject a draw if any class has zero retained multiplicity; continue until
+  exactly `100,000` valid draws; compute the mean within each class and then the equal-weight mean
+  across the three classes; and use the same frozen bound indices. This is sensitivity-only and
+  cannot create or rescue the registered verdict.
+- Unstratified-pair sensitivity: with a fresh `random.Random(135)`, sample `20` canonical
+  pair-class cells with replacement from all `20` on each of `100,000` draws, carry union and
+  `blind_1_0x` together, and average their pair-level NCAP and Q16 deltas without class
+  stratification.
+- Common-run-index sensitivity: with a fresh `random.Random(135)`, sample `20` run indices with
+  replacement on each of `100,000` draws and apply the same sampled index vector to every pair and
+  arm. Recompute each pair's union-minus-blind NCAP; for Q16, recompute the sampled fresh-OFF
+  denominator and capped episode factors; then apply equal-class aggregation. Both sensitivities
+  use the frozen bound indices, must print any decision disagreement with the primary, and may
+  only narrow or downgrade interpretation.
+- Sensitivity-to-wording freeze: the registered machine verdict and simultaneous-frontier
+  qualifier never change. These sensitivities compare only the two component booleans
+  `ncap_lcb_excludes_zero` and `q16_lcb_above_margin`; they do not re-evaluate the NCAP point-size
+  gate, reverse-dominance upper bounds, full verdict, or eight-way frontier. For every differing
+  boolean, print exactly: `The registered pair-class <COMPONENT> decision was <PRIMARY_BOOL>,
+  while the <METHOD> resampling sensitivity returned <METHOD_BOOL>.` Use the literal component
+  key, method key, and lowercase JSON booleans. Then print exactly: `This sensitivity does not
+  re-evaluate the complete verdict or simultaneous frontier.` Any component disagreement
+  prohibits the broader phrase “outperformed the `blind_1_0x` control”; report only the registered
+  verdict, its exact simultaneous-frontier qualifier, the component decisions, and every named
+  disagreement. With no disagreement, the maximum licensed expansion above still must carry the
+  exact simultaneous-frontier qualifier; no result may omit or paraphrase that qualifier or call
+  the full verdict sensitivity-robust.
+- Primary intersection-union rule: point `delta_N >= 0.25`, one-sided `LCB_N > 0`, and
+  one-sided `LCB_Q > -0.05`. The exact claim limitation above is mandatory.
+- Secondary family: eight union-minus-blind contrasts, NCAP and `Q16` at four doses, in one
+  simultaneous two-sided 95% max-`|T|` family using the same draws and seed. A zero-standard-error
+  contrast is detected by exact `min(draws) == max(draws)`, receives `[delta,delta]`, and is
+  omitted from the maximum. If all eight contrasts have zero standard error, the critical value
+  is exactly `0.0` and all eight intervals are exact. Analyzer and independent verifier must
+  implement the same branch before any standard-deviation division. No selected-dose,
+  polynomial, isotonic, class-specific, or post-run curve inference is permitted.
+- Verdict order and simultaneous-frontier qualifier remain exactly those in `HYPOTHESIS.md`.
+  Registered machine labels do not expand the licensed human claim.
+
+### Assigned actuation vectors: matched and unmatched coordinates
+
+The independent schedule replay yields the following retained donor oracle and assigned blind
+vectors. The donor-oracle row is an Iteration-134 observed union record, not a fresh-union assigned
+schedule. “Donor overlap” counts scheduled frames that are brake positions in the mapped donor;
+“outside” counts mapped-donor non-brake positions. The blind rows are design facts; fresh union
+brake counts remain outcomes.
+
+| arm/oracle | quantity type | frames | stationary/frontal/side | windows | zero-window schedules | donor overlap/outside | schedules wholly inside donor brake positions |
+| --- | --- | ---: | --- | ---: | ---: | --- | ---: |
+| retained union donor oracle | Iter134 realized | 1,205 | 416/475/314 | 265 | 170 | n/a | n/a |
+| `blind_0_5x` | assigned schedule | 603 | 208/238/157 | 442 | 0 | 375/228 | 229 |
+| `blind_1_0x` | assigned schedule | 1,205 | 416/475/314 | 603 | 0 | 735/470 | 186 |
+| `blind_1_5x` | assigned schedule | 1,808 | 624/713/471 | 744 | 0 | 925/883 | 119 |
+| `blind_2_0x` | assigned schedule | 2,410 | 832/950/628 | 825 | 0 | 1,052/1,358 | 81 |
+
+Thus `blind_1_0x` matches only the retained Iteration-134 union donor oracle's total and
+class-total brake counts. It does not ex-ante match the fresh union, and it does not match the
+oracle's per-episode count, zero-intervention prevalence, timing, window count, window length, or
+release behavior. All blind schedules have assigned support, while `170/400` union donors have no
+brake window. Fresh-union and blind realized dose are outcomes. Any shorter “matched budget”
+wording is prohibited.
+
+Accordingly, the frozen design identifies an oracle-matched schedule-construction comparison, not
+a demonstrated fresh-run class-total matched-budget comparison. If the latter wording is a target,
+a separately committed pre-evidence amendment must require and bind fresh union realized class
+totals `416/475/314` in G6 and every analyzer, verifier, test, manifest, and claim consumer. Until
+then, fresh class-total matching is unmeasured and cannot be claimed.
+
+### Assigned execution/resource contract and realized measurements
+
+Before launch, the manifest must carry and an independent verifier must compare one exact assigned
+execution contract per arm. Intended intervention fields are the only permitted policy
+differences. Hardware identity/capacity and block/watchdog rules are common assignment controls;
+realized CPU, RAM, VRAM, wall time, GPU time, and I/O are post-assignment measurements and need not
+be numerically equal across arms. The common contract is:
+
+- `400` cells, `20` pair blocks, class cells `200/100/100`, run indices `0..19`, one block at a
+  time, no parallel host, no retry, and the same pair/run benchmark randomness per arm;
+- host `sentinel-gpu`; exactly one NVIDIA L4; GPU UUID
+  `GPU-9604ae8a-e823-3a38-5a57-0420cd29bc07`; driver `580.159.03`; memory `23,034 MiB`;
+  eight CPUs; host memory `33,651,982,336` bytes;
+- Docker `29.6.1` and the exact client, daemon, context, kernel, cgroup, mount, image, interpreter,
+  repository, compose, shim, scenario, dataset, checkpoint, patch, launcher, schedule, analyzer,
+  collector, verifier, environment-variable, timeout, and output-root identities bound by hashes;
+- container images `ncap@sha256:c7ffab2e73d3896b1a6cdfbcd2db0910c250a9cbf078cc61a4b43baa6f6d92ce`,
+  `neurad@sha256:4b36caf2054d37b4febeddeae08b310f906ec632fec4095b5dc4497323433e5c`,
+  and `uniad@sha256:f73ef38840631211983ea0dde0cf1ecdfa6dbc84ef6cd0bfb900427da6d601cb`;
+- UniAD checkpoint SHA-256
+  `0ad0c2f5dc9788a41c313305779ea49346aeb742d1f6bb5ad25c46f9beffc990`; dataset contract
+  SHA-256 `f61363c91fa6e0f3db24a6df2e32afc16ad02ebc44e3c4af66132fcc317760c2`;
+- global temporal-position vectors for the six arms, in positions zero through five:
+  OFF `[4,3,3,3,3,4]`, union `[4,4,3,3,3,3]`, 0.5x `[3,4,4,3,3,3]`,
+  1.0x `[3,3,4,4,3,3]`, 1.5x `[3,3,3,4,4,3]`, 2.0x `[3,3,3,3,4,4]`.
+
+The exact class-specific temporal-position counts, each vector ordered positions zero through
+five, are:
+
+| arm | stationary | frontal | side |
+| --- | --- | --- | --- |
+| OFF | `[2,1,1,2,2,2]` | `[1,1,1,0,1,1]` | `[1,1,1,1,0,1]` |
+| union | `[2,2,1,1,2,2]` | `[1,1,1,1,0,1]` | `[1,1,1,1,1,0]` |
+| 0.5x | `[2,2,2,1,1,2]` | `[1,1,1,1,1,0]` | `[0,1,1,1,1,1]` |
+| 1.0x | `[2,2,2,2,1,1]` | `[0,1,1,1,1,1]` | `[1,0,1,1,1,1]` |
+| 1.5x | `[1,2,2,2,2,1]` | `[1,0,1,1,1,1]` | `[1,1,0,1,1,1]` |
+| 2.0x | `[1,1,2,2,2,2]` | `[1,1,0,1,1,1]` | `[1,1,1,0,1,1]` |
+
+The intended common “full-host/no-throttle” assignment is not yet an observed resource vector.
+Capacity is not assignment, an absent Docker field is not proof of no effective limit, and neither
+JSON `null` nor numeric zero may mean “unbounded.” Before G5, a pre-evidence correction must add
+and independently validate one canonical `iter135.assigned_resource_policy.v1` object. It has one
+overall content hash, the six exact arm IDs, and role-specific `renderer`, `model`, and `ncap`
+subvectors; every arm must bind the identical overall vector hash. Each resource field is a tagged
+object with one of `EXPLICIT_LIMIT`, `OBSERVED_NO_EXPLICIT_CONTAINER_LIMIT`, or
+`UNOBSERVED_BLOCKING`. An observed tag carries the exact raw Docker value, exact effective cgroup
+file/path and value, and one receipt SHA-256. `UNOBSERVED_BLOCKING` carries literal unobserved
+sentinels and blocks launch. The required closed field set is:
+
+- CPU: Docker `NanoCpus`, `CpuQuota`, `CpuPeriod`, `CpuShares`, `CpusetCpus`, and `CpusetMems`;
+  effective `cpu.max`, `cpu.weight`, `cpuset.cpus.effective`, and `cpuset.mems.effective`;
+- memory: Docker `Memory`, `MemoryReservation`, `MemorySwap`, `MemorySwappiness`,
+  `OomKillDisable`, and `ShmSize`; effective `memory.max`, `memory.high`, `memory.low`, and
+  `memory.swap.max`;
+- process isolation: Docker `PidsLimit`, `Ulimits`, `CgroupParent`, and cgroup-namespace mode;
+  effective `pids.max`;
+- GPU: Docker runtime, `DeviceRequests`, and `Devices`; effective visible UUID/device, cgroup
+  device permission, MIG mode, and explicit VRAM-limit support/status;
+- block I/O: Docker weight plus per-device read/write BPS and IOPS controls; effective `io.max`
+  and `io.weight`; and exact mount source, target, and read/write mode; and
+- network: Docker network mode and every configured bandwidth/shaping value plus its effective
+  observation. If network is intentionally unmatched, that is a separately named design
+  limitation and “full matched resource vector” wording is prohibited.
+
+The same object must also bind the current host/kernel/Docker/image identities, complete container
+argv/environment/mounts, exclusive single-L4 sequential lease, and no parallel host. Realized
+CPU, RAM, VRAM, I/O, wall time, output bytes, and failures remain outcomes. All policy fields are
+currently `UNOBSERVED_BLOCKING`; exact observed values must come from a separately authorized,
+accepted current probe and cannot be inferred from the historical receipts.
+
+The July 18 environment/host receipts are historical point observations, not current resource or
+lifecycle proof. Every identity and capacity must be freshly observed through accepted controls
+immediately before an authorized launch. The manifest must bind the same assigned host, GPU,
+capacity, and exact canonical assignment vector above to every arm. Numeric per-arm throttles and
+equal realized use are neither registered nor required if the same accepted common assignment is
+established. The exact global single-L4 wall ceiling,
+termination-reserve intent, dynamic block timeouts, and watchdog exist in current source, but the
+accepted exact-nanosecond exclusive-lease enforcement and accounting frozen below are not
+implemented and remain blocking; equal per-arm wall quotas are neither frozen nor required.
+Realized wall/GPU time, CPU/RAM/VRAM, episode frames, I/O, output bytes, failures, and timeouts must
+be reported by arm but never used for inclusion, matching, or adjustment.
+
+Global temporal positions are balanced at three or four blocks per arm, but the five-pair frontal
+and side strata cannot fill all six positions; each arm omits one position in each such stratum.
+G6's exact OFF/union reproduction oracle is the primary secular-drift falsifier. Any NCAP or
+impact mismatch, a fixed-horizon path mismatch above `1e-6` m, or fresh union totals other than
+exactly `1,205` brake rows and `156` release rows makes the batch infra-null. No order-effect
+estimator is registered; post-run order adjustment or inference is prohibited.
+
+### Missingness, stopping, retries, and multiplicity
+
+- Required completeness is `400/400` analytic cells in every arm. Collision and normal benchmark
+  termination are outcomes, not censoring. Missing or unparseable terminal provenance is missing,
+  never “no collision,” zero, or an inferred terminal reason.
+- No imputation, cell replacement, historical substitution, survivor/collision-free subset,
+  realized-dose match, regression adjustment, missingness filter, or complete-case redefinition is
+  permitted. Every such adaptation makes the causal interpretation invalid.
+- There is no efficacy, futility, or variance-based interim look. Mechanical health checks may
+  inspect only the predeclared provenance/completion fields needed to stop safely; they may not
+  inspect comparative outcomes.
+- G5 is exactly four one-run nonanalytic canaries, one for each blind dose, under the exact
+  hash-bound smoke manifest. Smoke has a persistent `one_shot_no_retry_lock_retained` policy. A
+  failed, incomplete, or unverified canary blocks analytic launch and retains infra-null evidence;
+  it may not be retried under this preregistration. Every nanosecond in its accepted exclusive-L4
+  lease intervals, including setup, gaps, cleanup, and aborted allocation, counts against the exact
+  `396000000000000` ns global ceiling. The four one-run doses execute sequentially with
+  `CAPTURE_TIMEOUT_SECONDS=180`, `DOSE_TIMEOUT_SECONDS=1800`, TERM on timeout, and forced kill
+  after `60` seconds; no parallel smoke, timeout extension, or replacement canary is permitted.
+- Zero analytic retries. The first failed or timed-out 20-run block stops the batch, retains the
+  partial proof and permanent launch lock, and yields `PLACEBO_DOSE_INFRA_NULL`. Manual relaunch
+  under the same preregistration is also a protocol violation.
+- No post-run arm deletion, dose change, schedule regeneration, re-ranking, run substitution,
+  pair change, metric change, estimator change, threshold change, bootstrap change, verdict-order
+  change, qualifier change, or power-based continuation.
+- The primary is the registered intersection-union rule. The eight secondary contrasts share the
+  single max-`|T|` family above. All class, run-index, unstratified-pair, source-cluster,
+  realization, dose-shape, and block-ordinal outputs outside those frozen rules are sensitivity or
+  descriptive results and cannot create a confirmatory claim. Block ordinal must be reported as
+  raw descriptive stratification only; no fitted order estimator, threshold, or adjustment is
+  registered.
+
+### Independent scientific verification freeze
+
+Collector/analyzer separation is useful but is not independent scientific verification. Before
+launch, Sentinel must commit a separate verifier implementation, verifier identity, environment,
+review owner, exact input/output contract, and hostile fixtures. The producer analyzer and
+verifier each get exactly one mutually blind execution over the same already committed proof:
+neither may read the other's output, and each output must be independently content-addressed
+before comparison. The verifier must not import the analyzer's parsing, inference, decision, or
+verdict code and must not be operated as self-approval by the experiment producer. It must
+independently:
+
+1. strict-decode the committed raw proof and retained checksums, preserving raw terminal reasons;
+2. reproduce the exact 2,400-cell grid, pair-major order, arm/class/run identities, stop state, and
+   absence of retries or replacements;
+3. regenerate the schedule hash, assigned frames/windows, mapped-donor facts, and realized-action
+   reports without using realized values for eligibility or adjustment;
+4. recompute NCAP, impact speed, `Q16`, raw path, safe progress, collision, pair values, fixed-suite
+   arm values, registered pair robustness bounds, and the exact unstratified-pair, 14-source, and
+   common-run-index sensitivities with disagreement flags;
+5. reproduce all `100,000` draws, seed and quantile indices, zero-variance behavior, the eight-way
+   max-`|T|` family, verdict order, mandatory qualifier, and exact licensed human wording;
+6. verify raw-CLI output against the canonical estimator end to end; a normalized in-process
+   fixture alone is insufficient;
+7. verify the common assigned execution/resource contract, current environment identities,
+   storage gates, by-arm realized resource reports, and every smoke, analytic, cleanup, gap, and
+   aborted exclusive-L4 lease interval from exact monotonic-nanosecond endpoints on the same
+   identified host boot/clock; reproduce the interval union and nonoverlap; and compare the exact
+   sum directly with `396000000000000`; and
+8. fire retained known-bads for missing cells, duplicate seeds, source/pair dependence,
+   manufactured terminal reasons, schedule drift, semantic leak, cell/order drift, missing total
+   GPU accounting, corrupted proof, parser divergence, estimator divergence, multiplicity drift,
+   verdict drift, and claim-boundary expansion.
+
+Raw proof must be committed and content-addressed before either implementation executes. Only
+after both one-shot outputs are sealed may a separately identified discrepancy reducer open and
+compare them. A missing or crashed analyzer/verifier output is missing evidence, never agreement.
+The two outputs, verifier receipt, and discrepancy report must be committed before `RESULT.md`.
+A discrepancy is `blocked` or `invalid` as specified by the frozen rule and cannot be rerun away.
+Any correction requires a new content-addressed identity while retaining the failed output and
+discrepancy with equal visibility.
+
+### Compute, storage, and resource stopping rule
+
+- Expected analytic allocation: `65-90` single-L4 GPU-hours.
+- Absolute ceiling: exactly `396000000000000` single-L4 allocated wall-clock nanoseconds =
+  `396,000` seconds = `110` GPU-hours. The budget is exclusive elapsed allocation on the one L4,
+  not utilization, process-reported compute, compose-only time, or analytic-only time.
+- Each accepted exclusive-L4 lease interval is a half-open monotonic-clock interval
+  `[lease_start_ns, lease_end_ns)`, recorded from the same identified host boot and monotonic clock
+  source. It begins when Sentinel obtains exclusive allocation and ends only after it relinquishes
+  that allocation. It therefore includes pre-compose setup, inter-command and inter-dose gaps,
+  output sealing, cleanup, idle time while the lease remains held, successful smoke, analytic work,
+  and every aborted or incomplete interval. Separate lease acquisitions may be summed only from
+  their exact nonoverlapping durations; missing, inferred, wall-clock-derived, negative,
+  overlapping, or boot-ambiguous endpoints make resource accounting infra-null.
+- Before analytic launch, the accepted controller must sum every retained G5 lease duration as
+  exact integer `prior_smoke_gpu_ns` and compute
+  `remaining_analytic_ns = 396000000000000 - prior_smoke_gpu_ns`. The analytic exclusive lease
+  start, not the first compose invocation or analyzer start, anchors an absolute monotonic
+  deadline. The termination reserve is exactly `300000000000` ns. Before every 20-run block, the
+  permitted child deadline is no later than the absolute lease deadline minus that reserve; the
+  controller sends `SIGTERM` there and enforces the frozen forced-kill grace. The global watchdog
+  uses the same absolute monotonic deadline and cannot be restarted or extended by setup, gaps,
+  blocks, arms, or child replacement. This is one global sequential ceiling under rotated arm
+  order, not an equal per-arm time quota.
+- The accepted receipt must retain every lease endpoint and exact duration in nanoseconds, plus
+  `prior_smoke_gpu_ns`, analytic and aborted-allocation nanoseconds, and the exact summed
+  `total_gpu_lease_ns`. The independent verifier must reproduce the interval-union calculation,
+  prove nonoverlap, and compare the exact sum directly with `396000000000000`. Human-facing
+  seconds may be reported only by applying one final ceiling after the exact total is formed; no
+  component may first be floor-divided or rounded. The current smoke receipts sum only four
+  compose intervals, and the current analytic path floor-divides elapsed seconds; neither is
+  accepted exclusive-lease accounting. Corrected controller, receipt, analyzer, verifier, and
+  hostile missing/overlap/aborted-interval fixtures are prelaunch blockers.
+- Remote execution/evidence filesystem: at least `100 GiB` free before launch and projected output
+  plus `25 GiB` reserve. Local collection filesystem: at least `15 GiB` free. The old
+  `112.715 GiB` remote observation and `67.410 GiB` projection are stale and grant no authority.
+- A resource ceiling, reserve, identity, or accounting breach stops the run and publishes
+  infra-null. It never licenses continuation, cleanup of unique evidence, or retry.
+
+### Historical rejected packet/candidate ledger (superseded 2026-08-22)
+
+Everything in this subsection through the historical validation ledger records the rejected
+`gen17-20260821` packet, its defective preflight, and rejected candidate `ee23c106...` as negative
+evidence. No path, identity, authority statement, or command in those historical subsections is
+selectable or runnable. The controlling current state begins at the later 2026-08-22 subsection.
+
+The experiment is blocked before host observation. The following are exact current blockers:
+
+- `MISSION_STATE.json` is `CI_HARDENING_REQUIRED / UNKNOWN`; all provider, host, lifecycle,
+  H/E/P/S, smoke, analyzer, GPU, and episode actions are forbidden.
+- The committed launch manifest is stale, SHA-256
+  `33d6b0f7c359ff6e3013147b8690f7d28778816d7b417527b7b50fcc7c1b6121`, reports
+  `launch_authorized=false` and `I135_TOOLING_MANIFEST_INCOMPLETE`, and has no smoke receipt.
+  Current offline projection also fails host-packet bindings, phase, lifecycle, resource, and
+  tooling-receipt replay.
+- The literal blind information boundary and the current blind patch disagree: the protocol
+  permits base-trajectory access solely for nonscheduled return, while the implementation
+  materializes and logs it on scheduled frames. Separately, the hypothesis's ex-ante matched-
+  assigned-budget wording has no fresh-union assigned schedule to match. The planned batch is not
+  launch-identified until the separately accepted pre-evidence correction defined above repairs
+  both contradictions and rebinds every consumer.
+- That correction must also omit the synchronous scheduled-frame trajectory observer from the
+  decision/return path; freeze the exact all-zero-standard-error max-`|T|` branch; make every
+  nonfinite or nonpositive fresh-OFF `Q16` denominator primary or resampled infra-null without
+  epsilon, substitution, draw skipping, or filtering; and delete or retract the hypothesis's
+  false independent-cluster and population-inference wording while retaining its numerical
+  fixed-suite robustness draws and mandatory downgrade-only 14-source sensitivity.
+- The canonical `iter135.assigned_resource_policy.v1` object does not yet exist, and all required
+  Docker/effective-cgroup CPU, memory, process, GPU, block-I/O, mount, and network fields are
+  `UNOBSERVED_BLOCKING`. Historical capacity receipts do not establish a common assigned vector.
+  No G5 or analytic launch is identified until one current accepted probe binds the same exact
+  role-specific vector hash to all six arms and an independent verifier confirms it.
+- Accepted living prose still contains stale or overstrong labels that this working handoff does
+  not silently rewrite: `REVIEWER.md` calls Iteration 135 a “dose-matched successor,” while
+  `MISSION_STATE.json` names “semantics-free placebo dose-response causal closure.” `README.md`,
+  `REVIEWER.md`, `docs/REPORT.md`, `docs/CAMPAIGN.md`, and `docs/paper/MANUSCRIPT.md` also describe
+  an inconclusive safe-progress delta as costing “approximately nothing” or a tight null. No
+  equivalence margin or equivalence test establishes effect absence. These exact accepted bytes
+  remain historical/current control surfaces until a later lawful correction scope rebinds them;
+  they may not be used as current scientific descriptions or imported into the corrected
+  Iteration-135 question.
+- The committed WIP head is diagnostic and cannot be accepted as F17. Local candidate ref
+  `refs/sentinel-candidates/f17` now names
+  `ee23c106ad1a3566026013f712a03435315f68f6`, tree
+  `d99d84f1849cd353cf4e8a4515c1fdd72ba42134`: a sole-parent exact D16 child changing exactly the
+  22 registered regular paths, all mode `100644`. Its raw commit object is `293` bytes with
+  SHA-256 `6062ce9f5038536c496e7e669e87f330618159d58160631a01aea5ca051ad2bc`.
+  The obsolete `tests/test_gen17_ci_hardening.py` is absent; accepted `MISSION_STATE.json` remains
+  exact D16 blob `d765519f79c6e15a2b1a92553f73cb624437bc50`. Every candidate blob equals
+  the current physical F17 working subset. The candidate verifier is `297,539` bytes, SHA-256
+  `4c73ba1c83348a51ea860a88c9b18ed057f391a829882960030b7d68d144451d`; the Gen17
+  prerecord is `31,695` bytes, SHA-256
+  `3810b4273baa1b33d32de86eb7601c0ce6804e2eee71ec89d51fbc8dffbe2fc2`. F17 has not
+  been checked out, imported, executed, admitted, or published. Its candidate root `AGENTS.md`
+  is also unaccepted and grants no authority. Both retained stale candidates are prohibited from
+  binding or publication: `d29c78be96a500ad9f7f82faae15276be98c7c4b` at
+  `refs/sentinel-candidates/f17-prepacket-d29c78be` and
+  `8573ef691e0e8bc7169bd09d07d3b4f6c0c6fb85` at
+  `refs/sentinel-candidates/f17-preaudit-8573ef69`.
+- The proposed v2 source-admission ceremony packet is now fully materialized but not independently
+  accepted. Its owner-only mode-`0700` root is
+  `/Users/danielwahnich/sentinel-bootstrap-evidence/gen17-20260821/ceremony-packet`; every member
+  is a physical owner file at mode `0600`, link count one. Canonical `manifest.json` is `2,047`
+  bytes, SHA-256 `f8372ccc7da17a96835e599f6bea06a54b930a7ff68bb6a9ebfc372badc6d800`,
+  payload SHA-256 `c42fc0c603a7e4362a71f65de81788375fde88d32ca2afb82889601ca1a31161`.
+  It binds `contract.json` (`11,801` bytes,
+  `5eddf6c110fb183dfd2118867048c8fbbb0a96991e967e28b52af8e56b4a0f61`), `CONTRACT.md`
+  (`10,852`, `932b004776e8878e69b443d5e7e45ac7c5fd64d4098ff628b91eca7008f75008`),
+  `supervise_source_admission.py` (`95,309`,
+  `39f7084e0a7b3f532be22a4005c3dccc41beb6c254f2541b6a431fb90ea021d7`), independent-code
+  `reduce_source_admission.py` (`75,779`,
+  `b2fca9addef1e7348d5bc7c28f2124c1057678d3919cb62623c71d1ee5d407c4`), and hostile
+  `test_source_admission_packet.py` (`60,680`,
+  `e50f68ceb52b92c0a24e22a264ef2ed40d9bc947c7005f828023fa81c0e302eb`). The exact R16-bound
+  Python 3.14 `-I -B -S` hostile suite passed `25/25`. This same-packet evidence is not independent
+  acceptance and did not simulate an active same-UID attacker.
+- The packet freezes canonical strict JSON, binary stream retention, owner-only no-clobber/no-follow
+  creation, separate supervisor/reducer identities, one `2,400`-second deadline per child beginning
+  before spawn, `60`-second TERM grace, `10`-second kill/reap bound, `5`-second post-exit pipe-EOF
+  bound, `65,536` bytes per stream, a `16,777,216`-byte receipt bound, process-group isolation,
+  and terminal rejection without retry for every missing, partial, nonzero, signaled, timed-out,
+  oversized, malformed, divergent, or recorder-faulted result. The execve assignment is exactly
+  eight keys. Exact macOS CPython startup adds
+  `__CF_USER_TEXT_ENCODING=0x1F5:0:0`, so the effective Python environment is exactly nine keys;
+  no surface may call it an eight-key effective environment or generalize it cross-platform.
+- One authority-false preflight now exists at
+  `/Users/danielwahnich/sentinel-bootstrap-evidence/gen17-20260821/ceremony/preflight.json`:
+  `9,245` bytes, mode `0600`, SHA-256
+  `6a49da29482fb4c01a144ec1fb99947281da4b795dbafee693cb8c9dc7e5fa48`, payload SHA-256
+  `c99039382330abbcb51b7fc963b42e5764e131d332ee8f24f2a7285e7df6ef7c`. It records all `24`
+  checks true, zero problems, exact candidate/tree/parent/scope, exact packet/bootstrap identities,
+  the eight assigned plus one platform-injected environment key, clean detached D16, umask `077`,
+  and every authority flag false. An independent ad-hoc Python 3.11 readback first rejected the
+  file only because that checker incorrectly expected no terminal newline; after correcting the
+  checker to require the packet's canonical JSON plus exactly one newline, duplicate-key parsing,
+  canonical-byte comparison, payload recomputation, identity checks, and all 24 booleans passed.
+  This checker correction changed no packet, candidate, or ceremony byte.
+- The independently authored pre-bind packet acceptance is absent, as are the v2 binding receipt,
+  bind/replay binary streams, bind/replay process records, strict reducer output, and final operator
+  acceptance. Therefore bind/replay is prohibited; F17 remains proposed local source only, not
+  admitted, executable, published, or hosted evidence.
+- Raw CLI analysis manufactures terminal reason from collision rather than preserving terminal
+  provenance. No successful end-to-end raw-CLI/canonical-estimator parity fixture exists.
+- There is no separately implemented independent scientific verifier or retained Iteration-135
+  smoke/proof. The existing lifecycle validator is accepted prospective offline source only; no
+  accepted live collector/query invocation, pagination trust root, or lease capability exists.
+- Current host/resource/lifecycle observations are stale. The exact common assignment, including
+  explicit no-cap compose/cgroup values, must be observed and compared before launch. Exact
+  exclusive-L4 lease accounting across setup, gaps, cleanup, G5 smoke, analytic work, and every
+  aborted partial allocation is not implemented or independently verified. The current four-
+  compose smoke sum and floor-second analytic receipt cannot establish compliance with the exact
+  `396000000000000` ns ceiling even though a `300000000000` ns (`300`-second) reserve, dynamic
+  timeouts, and watchdog exist.
+- Historical evidence does not measure the R16 outer generator invocation. Current candidate code
+  also does not serialize or enforce R17's outer Python, cwd, complete argv/environment, stream
+  capture, timeout, or receipt-unsealing contract. After F17 is independently accepted and before
+  R17 generation, a separately retained and independently accepted one-shot ceremony packet must
+  bind those fields; ambient defaults or inferred history are prohibited.
+
+After those blockers close, any of the following still falsifies execution validity and yields
+infra-null: source/manifest/receipt/hash mismatch; noncanonical or incomplete grid; state leak in a
+blind arm; altered union behavior; failed semantic-leak discrimination; stale or contradictory
+lifecycle evidence; incomplete global host registry; host occupancy; environment drift; schedule
+drift; current-resource mismatch; failed smoke; failed G6 reproduction; missing or inferred
+terminal reason; a missing cell; retry; relaunch; early outcome inspection; analyzer-before-proof;
+verifier dependence; proof or estimator discrepancy; storage breach; or total resource breach.
+
+Scientific falsifiers do not erase a valid null. A competitive or dominant blind arm, failure of
+NCAP superiority or `Q16` noninferiority, or sensitivity-method disagreement forbids the stronger
+interpretation and must be published with equal visibility. Raw block-ordinal patterns must also
+be reported but have no registered inferential rescue role. None is an infrastructure excuse or
+permission to search again.
+
+### Historical prohibited command template (superseded; do not run)
+
+There is currently **no authorized next executable command**. The preflight has completed; the
+next work product is the independently human-authored canonical no-clobber packet acceptance at
+`/Users/danielwahnich/sentinel-bootstrap-evidence/gen17-20260821/ceremony-packet/operator-packet-acceptance.json`.
+It must name the independent human and role, carry a valid UTC acceptance time, bind packet
+manifest `f8372ccc7da17a96835e599f6bea06a54b930a7ff68bb6a9ebfc372badc6d800`, preflight
+`6a49da29482fb4c01a144ec1fb99947281da4b795dbafee693cb8c9dc7e5fa48`, candidate
+`ee23c106ad1a3566026013f712a03435315f68f6`, and the exact five bootstrap identity rows, and use
+schema `sentinel.next_source_ceremony_packet_acceptance.v1`, decision
+`AUTHORIZE_EXACT_F17_BIND_AND_REPLAY_ONLY`, the exact contract statement and authority map, and
+the canonical payload seal. The typed assertion is external trust, not cryptographic
+authentication. The producer, this model, any subagent, supervisor, reducer, checksum, receipt, or
+test cannot author it or infer it from the operator's earlier general permission.
+
+Until that file exists and an independent operator detaches its exact SHA-256, there is no literal
+value for the final argument below and therefore no exact runnable command. After that blocker
+closes, the only frozen command is the supervisor's one-shot `run`; direct manual invocation of
+the binder or replay is prohibited. It must run from exact D16 with umask `077` and the exact
+eight-key execve assignment; the supervisor must observe the exact ninth macOS-injected key and
+capture both stages under the frozen stopping contract:
+
+```bash
+bash -euo pipefail <<'BASH'
+cd /Users/danielwahnich/sentinel-bootstrap-evidence/gen17-20260821/d16-detached-worktree
+umask 077
+exec /usr/bin/env -i \
+  LANG=C \
+  LC_ALL=C \
+  PATH=/opt/homebrew/bin:/bin:/opt/homebrew/Cellar/shellcheck/0.11.0/bin:/opt/homebrew/Cellar/ruff/0.15.20/bin:/opt/homebrew/Cellar/python@3.14/3.14.2_1/Frameworks/Python.framework/Versions/3.14/bin:/opt/homebrew/Cellar/git/2.48.1/bin:/usr/bin:/usr/sbin:/sbin \
+  PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
+  PYTHONDONTWRITEBYTECODE=1 \
+  PYTHONHASHSEED=0 \
+  PYTHONNOUSERSITE=1 \
+  TZ=UTC \
+  /opt/homebrew/Cellar/python@3.14/3.14.2_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14 \
+  -I -B -S \
+  /Users/danielwahnich/sentinel-bootstrap-evidence/gen17-20260821/ceremony-packet/supervise_source_admission.py \
+  --contract /Users/danielwahnich/sentinel-bootstrap-evidence/gen17-20260821/ceremony-packet/contract.json \
+  run \
+  --candidate-commit ee23c106ad1a3566026013f712a03435315f68f6 \
+  --accepted-packet-manifest-sha256 f8372ccc7da17a96835e599f6bea06a54b930a7ff68bb6a9ebfc372badc6d800 \
+  --accepted-preflight-sha256 6a49da29482fb4c01a144ec1fb99947281da4b795dbafee693cb8c9dc7e5fa48 \
+  --accepted-packet-acceptance-sha256 PACKET_ACCEPTANCE_SHA256
+BASH
+```
+
+`PACKET_ACCEPTANCE_SHA256` is a documentary placeholder, not a shell variable and not permission
+to guess a value. The accepted supervisor alone substitutes the binder/replay receipt digest and
+captures both child processes. A green run would still produce authority-false process and source-
+admission evidence only. The strict reducer and a second independent final source-admission
+acceptance would remain required before candidate checkout or local execution; repository
+publication and hosted CI would still require separate authority. No provider, host, lifecycle
+observer, smoke, analyzer, GPU, scientific correction, or experiment command is next.
+
+### Historical validation ledger (superseded)
+
+Validation is content-level plus a correctly red publication gate, not canonical acceptance:
+
+- the exact-current external packet hostile suite passed `25` tests under the R16-bound Python
+  3.14 `-I -B -S`; packet Ruff, format, AST, and import checks passed;
+- the exact-current combined Gen17 supply/install hostile suite passed `128` tests, and the
+  focused tooling-verifier suite passed `247` tests, including historical
+  F16/PIN16/R16/T16/B16/D16 and proposed F17/R17/T17/B17 topology known-bads;
+- a retained earlier broader integrated mission/tooling/authorization/handoff/launcher run over
+  the unchanged executable source lanes finished
+  `934 passed, 1 skipped, 1 failed` in `1,931.42` seconds. The sole failure was
+  `test_committed_mission_state_is_valid`, with exactly
+  `pending_f17_source_scope` and `pending_f17_worktree_dirty`; this checkout is intentionally the
+  dirty diagnostic WIP rather than the unaccepted F17 candidate. This earlier broad run is not
+  represented as an exact-current all-byte candidate execution;
+- Python 3.10 and 3.11 standard-library invocations each returned
+  `SUPPLY_CHAIN_VERIFICATION_OK`; `actionlint .github/workflows/ci.yml`, `ruff check .`, and
+  `git diff --check` passed;
+- `python3 scripts/validate_docs.py` failed closed with exactly the same two pending-F17 findings
+  and no additional documentation finding;
+- two raw-Git audits confirmed candidate `ee23c106...` has sole parent exact D16, tree
+  `d99d84f...`, exactly the 22 registered paths all at mode `100644`, no legacy
+  `tests/test_gen17_ci_hardening.py`, and unchanged accepted `MISSION_STATE.json`; all 22 candidate
+  blobs equal the current working F17 subset. Its raw commit and prerecord identities are frozen
+  above; and
+- the detached external verifier is `297,539` bytes with SHA-256
+  `4c73ba1c83348a51ea860a88c9b18ed057f391a829882960030b7d68d144451d`, byte-identical to the
+  candidate verifier. The D16 worktree is clean and detached, and its R16 receipt SHA-256 is
+  `31e851778869b46c75c1da78545aee469f48f3b6f54bd78d36d8d1c18422a391`; and
+- the no-clobber preflight returned `PREFLIGHT_READY`, retained `24/24` true checks with zero
+  problems and zero authority, and passed a separate canonical-JSON/payload/identity readback at
+  the exact `9,245`-byte identity above.
+
+`ruff format --check .` is not a frozen workflow gate and did not pass: Ruff reported `324`
+repository files that it would reformat, including legacy files and changed F17 paths. No format
+conformance is claimed, and no unregistered bulk rewrite was performed. There is no v2 receipt,
+packet acceptance, bind/replay process evidence, strict reducer output, final source-admission
+acceptance, candidate execution, hosted run, publication ceremony, push, full-green canonical
+suite, or scientific execution claim.
+
+### Historical Gen17 control record (2026-08-22; superseded 2026-09-22)
+
+This subsection supersedes the rejected-packet identities and prohibited command template above.
+It does not supersede the scientific freezes, resource contract, missingness/stopping rules,
+independent-verification design, Odeya conditions, or prohibited claims elsewhere in this
+handoff.
+
+**R6 immutable packet.** The only eligible authority-false pre-acceptance packet is
+`/Users/danielwahnich/sentinel-bootstrap-evidence/gen17-20260822-r6/ceremony-packet`. Its exact
+six-file inventory is physical UID `501`; the directory is mode `0700`, and every member is mode
+`0600`, link count one. Canonical `manifest.json` is `3,758` bytes, SHA-256
+`087a6cb629d76cc22bf52ac81af332b581973bc836da6e1c6e761c6d59448b57`, payload SHA-256
+`21758412a19aa3b06e857689c8aa06ead690cb202dc99d2e1ac9c0831f492e7c`. It binds:
+
+- `contract.json`: `15,033` bytes,
+  `b647d9cd3c6b689cd9fcbeebf67e1bce3ec102a9816758230faeee5da63ebe83`;
+- `CONTRACT.md`: `32,121` bytes,
+  `2d7acd2055931c92ecc2ea0d7bcfff4e17e29edaeb2e9d6ef8045e8782330cb1`;
+- `reduce_source_admission.py`: `118,579` bytes,
+  `9a2957902da21b3417fd1cf282d19cd8af6afa318e5d58d456583d2b83383e5c`;
+- `supervise_source_admission.py`: `174,479` bytes,
+  `41ea3dfd0e21594de4f7f539ee7faf01cbaab8f199ca1e246970c7a847bf5609`; and
+- `test_source_admission_packet.py`: `162,624` bytes,
+  `0b94cf49335b40a0b26c88a43332db6017767d8a42933f280f39927be3b31c8c`.
+
+The external verifier is `297,539` bytes, SHA-256
+`4c73ba1c83348a51ea860a88c9b18ed057f391a829882960030b7d68d144451d`; the exact R16 receipt is
+`38,100` bytes, SHA-256
+`31e851778869b46c75c1da78545aee469f48f3b6f54bd78d36d8d1c18422a391`. The detached worktree is
+clean at D16 `355010c4b668c85fcd2647586c56d7a21b8b88d0`, tree
+`9b4adcf6d368a3cc650899898b4d3316aa6a9ce8`, with zero ignored-inclusive status bytes and all
+`2,631` index rows normal. Exact Python 3.14.2 `-I -B -S` hostile tests pass `57/57`; pinned Ruff
+`0.15.20` lint and format checks pass with `--no-cache`; both contract parsers, the manifest seal,
+live bootstrap, supervisor Git snapshot, and independently implemented reducer checks pass. A
+separate read-only audit repeated these checks and found no mechanism blocker. This is packet
+eligibility, not packet acceptance, source admission, execution-byte authenticity, race freedom,
+hermeticity, publication authority, or scientific evidence. Rejected R2, R3, R4, and R5 remain
+retained untouched; in particular R5 remains red at `56/57` and cannot be selected around.
+
+**Fresh F17 raw object.** The only active candidate is
+`30ab5dc582976908ff5a3840286e36989dd4de6e`, retained at both
+`refs/sentinel-candidates/f17` and `refs/sentinel-candidates/f17-r6`. Its raw commit is `298`
+bytes, SHA-256 `e775b7ac547fd9777899f5a134d2a34055276d7d8882db8964509e46ac05486f`; it has sole parent exact
+D16 and tree `77f62d1ff3d0c825ab883d8df2ce67c81e333095`. It changes exactly the registered `22` paths,
+every one mode `100644`; `tests/test_gen17_ci_hardening.py` is absent; `MISSION_STATE.json`
+remains exact D16 blob `d765519f79c6e15a2b1a92553f73cb624437bc50`. Every candidate blob was independently raw-read,
+OID-recomputed, and compared byte-for-byte with the stable physical F17 working subset. The
+candidate verifier has the external-verifier identity above. Its Gen17 prerecord is `47,547`
+bytes, SHA-256 `42c98e17ce8a5c9289437446dbb96f9619d8ba520651ff68bbb2a4eef11244b8`, and binds exact R6 before
+candidate creation. The candidate has never been checked out, imported, executed, admitted, or
+published. Rejected `ee23c106ad1a3566026013f712a03435315f68f6` remains separately retained and
+prohibited.
+
+**One-shot authority-false preflight.** The one permitted R6 preflight returned literal
+`PREFLIGHT_READY` and retained only
+`/Users/danielwahnich/sentinel-bootstrap-evidence/gen17-20260822-r6/ceremony/preflight.json`.
+It is a physical UID-`501`, mode-`0600`, link-count-one file, `19,927` bytes, SHA-256
+`4c50260e9a859c794cecfbbcd19597f22671a3b68f8bf31a190ad7c3026351cf`, payload SHA-256
+`a25ac92fb751c8319464451a171455563e753db91cdd37ce48df4a7c40243138`. It binds the exact R6
+manifest and fresh candidate, contains all `24/24` checks true, zero problems, and every authority
+flag false. Its candidate projection records `2,642` regular files, `657` tree references, `645`
+unique tree objects occupying `166,682` bytes, `5,574,324,255` total file bytes, `2,609` unique
+blobs occupying `5,545,135,731` bytes, and files-projection SHA-256
+`3c5eeb3b582b8639ff0702457e10df2f390e5d6cad3b30c94d0ca7ecffa985e9`. The independent reducer
+strict-parsed the retained bytes, recomputed the canonical payload, revalidated the exact
+contract/manifest/candidate/bootstrap/environment/live-Git bindings, and returned the same green
+authority-false record. The R6 packet inventory remains six files; the receipt root is empty; the
+only ceremony child is this preflight. Packet acceptance, bind/replay streams and process records,
+the v2 receipt, strict reduction, supervised-reducer receipt, and final operator acceptance are
+all absent.
+
+**Remaining blockers and falsifiers.** No R6 or candidate byte may now change. Any packet,
+preflight, candidate, bootstrap, environment, Git-control, path, ownership, mode, absence, or
+projection drift rejects the ceremony. Bind/replay remain prohibited until a separately identified
+independent human authors and inspects the exact packet-acceptance artifact below. Even a later
+green bind/replay and provisional reducer would not accept source admission: the separate
+supervised-reducer process/durability receipt, final source-admission schema, bounded checkout and
+local-validation resource contract, final independent-human assertion, read-only validator, and
+known-bads remain `UNDER_SPECIFIED_PROHIBITED`. Candidate checkout, local execution, Git
+publication, hosted CI, and R17 generation therefore remain forbidden. R17's outer Python, cwd,
+complete argv/environment, streams, timeout, and no-clobber generation ceremony are also not yet
+frozen. No provider, host, lifecycle, H/E/P/S, smoke, GPU, analyzer, or episode action is allowed;
+the Google Cloud login remains unused credential availability only.
+
+The scientific batch remains blocked and not launch-identified for the independent reasons
+already frozen above: blind scheduled-frame trajectory access/logging, the false fresh-union
+matched-assigned-budget interpretation, missing corrected claim consumers and independent
+scientific verifier, all assigned-resource-policy fields `UNOBSERVED_BLOCKING`, and absent exact
+exclusive-L4 nanosecond lease accounting. Any attempt to turn those missing values into zero,
+“unbounded,” equivalence, approval, or readiness is itself a falsifier.
+
+**Historical next-command record (superseded 2026-09-22).** At that time there was no authorized
+executable command. The recorded next work product was the independently human-authored file
+`/Users/danielwahnich/sentinel-bootstrap-evidence/gen17-20260822-r6/ceremony-packet/operator-packet-acceptance.json`.
+It must identify a human name and independently human role; use schema
+`sentinel.next_source_ceremony_packet_acceptance.v1`, decision
+`AUTHORIZE_EXACT_F17_BIND_AND_REPLAY_ONLY`, the contract's exact statement, authentication string,
+and authority map; carry a valid nonfuture six-fractional-digit UTC timestamp; bind manifest
+`087a6cb629d76cc22bf52ac81af332b581973bc836da6e1c6e761c6d59448b57`, preflight
+`4c50260e9a859c794cecfbbcd19597f22671a3b68f8bf31a190ad7c3026351cf`, candidate
+`30ab5dc582976908ff5a3840286e36989dd4de6e`, and the exact verifier, R16-receipt, Python, Git, and
+D16-worktree rows copied from the preflight; and carry the canonical payload seal. The producer,
+this model, any subagent, supervisor, reducer, checksum, test, receipt, or general machine/cloud
+permission cannot author or infer that independent assertion. Until the file exists and its exact
+SHA-256 is independently selected, the future supervisor `run` vector has a deliberately missing
+required argv value and is not a runnable command. Direct binder, replay, reducer, checkout,
+publication, cloud, GPU, or science commands are prohibited.
+
+**Current validation boundary.** The R6 packet and candidate evidence above passed two read-only
+audits. The preflight passed both the frozen supervisor and the independently implemented reducer.
+`git diff --check` passes. The exact accepted-D16 `scripts/validate_docs.py` and accepted-D16
+`scripts/mission_state.py`, run with the R16-bound Python 3.14.2 `-B -S` against the current main
+worktree, report `docs guard: 404 markdown files clean; all RESULT experiments surfaced in
+README`. That check covers tracked documentation with the accepted D16 state validator; it does
+not execute or validate the unaccepted F17 source or its untracked prerecord. A preceding `-I`
+diagnostic failed before validation with `ModuleNotFoundError: mission_state` because isolated
+mode omitted the accepted script directory; it created no artifact and is not counted as a pass.
+No test or validator executed candidate code. The physical working tree remains the 22-path F17
+subset plus this separately reserved future-B17 `CONTINUITY.md`; editing this handoff does not
+change the retained candidate or preflight. The unaccepted F17 structural validator is not rerun;
+its previously registered expected reds remain the pending-F17 dirty/source-scope gates until
+source admission and publication lawfully occur. No packet acceptance, bind/replay evidence,
+source admission, candidate execution, hosted run, push, publication, provider/host/GPU access,
+scientific result, or Odeya workflow claim exists.
+
+### Conditions for a later first observed Odeya workflow
+
+Sentinel is an independent proof mission and requirements source. It is not an Odeya dependency,
+adapter, runtime, or implementation result. Sentinel may become Odeya's first **observed** research
+workflow only when all of the following are true:
+
+1. Odeya Gate A is accepted over exact bytes by the operator, any authorized Gate B probes are
+   settled, and Gate C explicitly authorizes one bounded implementation increment. Odeya's current
+   architecture foundation, schemas, tests, and green validators do not satisfy this condition.
+2. One canonical `ResearchMissionSpec` and canonical serialization bind Sentinel's question,
+   fixed-suite population, arms, intervention information boundary, outcomes, estimands, claim
+   ledger, corrections, missingness, stopping, multiplicity, falsifiers, resource budget, rights,
+   authority, verifier roles, and publication policy without weakening Sentinel's own protocol.
+3. An immutable protocol version and compiled run manifest bind every code, model, checkpoint,
+   dataset, scenario, image, environment, schedule, resource, order, evidence, and method identity.
+   Any Odeya/Sentinel byte or semantic mismatch refuses admission.
+4. Sentinel's accepted repository state and lifecycle evidence are imported read-only and
+   content-addressed with settled data/evidence rights. Secrets, credentials, unrestricted prompts,
+   and private reasoning are excluded. Corrections, nulls, invalid results, and negative evidence
+   have the same visibility as positive findings.
+5. Odeya records append-only mission, lifecycle, resource, effect, evidence, claim, correction,
+   approval, and publication events; canonical state is reconstructible by deterministic replay.
+   Search, UI, model summaries, and vector indexes remain disposable projections.
+6. Execution and verification are separately isolated. The producer cannot verify or approve its
+   own scientific claim; a missing reviewer, timeout, or green workflow never implies approval.
+7. Resource reservation, exclusive lease, observed usage, settlement, ceiling, and external-effect
+   authority are explicit. Credentials remain externalized and default-deny. No Odeya component
+   may create host/GPU/publication authority that Sentinel itself lacks.
+8. Before any cross-repository read, copy, or import, the operator separately authorizes exact
+   Sentinel and Odeya commit identities, one bounded content-addressed evidence packet, its
+   settled data/evidence rights, the read-only direction, retention, and no-publication boundary
+   on both repositories. Odeya architecture acceptance alone and Sentinel evidence acceptance
+   alone are each insufficient; no observation self-authorizes access to the other repository.
+9. The first increment is a zero-effect, read-only shadow observation and replay of one already
+   accepted Sentinel evidence cycle. It must reproduce an exact result, null, refusal, or
+   correction and demonstrate fail-closed behavior on known-bads. It does not launch Iteration
+   135, touch the GPU host, import mission credentials, or publish research.
+10. Only after that observed replay is independently accepted may a separately authorized future
+   increment propose a performing workflow. Performing, spending, host access, and publication
+   each require new Sentinel and Odeya authority; observation never upgrades itself into control.
+
+A successful future shadow replay would be evidence about Odeya's bounded workflow contract, not
+evidence that Odeya discovered Sentinel's result, that Odeya is generally implemented, that the
+engine is autonomous or production-ready, or that Sentinel's scientific claims became stronger.
+
+### Prohibited claims
+
+Until new retained evidence and the exact gates above exist, do not claim:
+
+- current host idleness, quiescence, completion, launch readiness, approval, or authority;
+- Iteration-135 execution, proof, result, independent verification, or scientific conclusion;
+- a direct causal effect of CPA/TTC semantics, that risk semantics are load-bearing or irrelevant,
+  an unqualified matched-budget or matched-assigned-budget effect, a matched realized-dose effect,
+  fresh-run class-total matched budget, or confidence that the NCAP effect exceeds `0.25` under
+  the currently registered rule;
+- safe-progress equivalence, effect absence, a “deployment-metric tight null,” or that the union
+  costs “approximately nothing”: the observed interval includes both practically meaningful loss
+  and gain and no equivalence margin/test is registered;
+- a randomized or counterbalanced trial, an independent replication, or any interpretation of
+  `2,400` episodes, `400` episodes per arm, or `20` run indices as independent inferential units;
+- unqualified “clock-only,” “semantics-free,” or `runtime-state-blind` language: the controls are
+  donor-derived, class/pair/run/frame indexed, and at most actuation-decision-state-blind after
+  the information-boundary repair;
+- a current common or “fully matched” resource assignment, “unbounded” CPU/RAM/VRAM/I/O, or
+  compliance with the `110`-hour ceiling until the tagged assigned-resource vector and exact
+  exclusive-lease nanosecond accounting are observed, bound, and independently verified;
+- population inference beyond the enumerated fixed suite, exhaustiveness of generic-braking or
+  semantics-free policies, or independence of 20 source scenes;
+- HUGSIM transfer, NeuroNCAP/HUGSIM equivalence, repaired 5 cm robustness, closed-loop sensor
+  robustness, VAD or Bench2Drive validation, planner-agnostic portability, Tesla/Mobileye
+  comparison or parity, head-on prevention, or all-threat coverage;
+- benchmark-wide SOTA or dominance beyond the exact registered arms and within-suite decision
+  rule (the literal registered `GENERIC_BRAKING_DOMINATES` label remains reportable only with its
+  exact simultaneous-frontier qualifier), real-world safety, certification, fault tolerance,
+  deployment or production readiness, commercial/acquisition value, or a submission-ready paper;
+- a universal decoder impossibility result;
+- CI hermeticity, authenticity, reproducible lock regeneration, SLSA conformance, or supply-chain
+  completeness from the current Gen17 WIP or a green workflow;
+- the accepted legacy labels “dose-matched successor” or “semantics-free placebo dose-response
+  causal closure” as current scientific descriptions before their lawful correction and
+  rebinding; or
+- that the available cloud login grants authority, that Sentinel is already an Odeya workflow, or
+  that Odeya is implemented, operating, scientifically validated, autonomous, safe, or
+  production-ready.
+
+### Controlling post-audit addendum: final-admission design R2 (2026-08-22)
+
+This is the latest controlling Sentinel addendum. It preserves every scientific freeze,
+missingness/stopping/multiplicity rule, independent-verification requirement, Odeya condition,
+and prohibited claim above. It supersedes only the earlier statement that the post-R6 final
+source-admission boundary had no retained design proposal. A validated proposal now exists; no
+proposal acceptance, implementation acceptance, source admission, operational authority, or
+scientific authority exists.
+
+**Repository and live evidence identity.** The WIP checkout remains at
+`20fefa9b9a5ce031db021909404867bc0fa58de4`, with the protected dirty Gen17 work preserved. The
+already-retained candidate commit was not checked out, imported as code, executed, admitted,
+pushed, or published during this audit; no new candidate commit was created. Both
+`refs/sentinel-candidates/f17` and `refs/sentinel-candidates/f17-r6` still name
+`30ab5dc582976908ff5a3840286e36989dd4de6e`; its tree remains
+`77f62d1ff3d0c825ab883d8df2ce67c81e333095`, its sole parent remains accepted D16
+`355010c4b668c85fcd2647586c56d7a21b8b88d0`, and its raw 298-byte commit SHA-256 remains
+`e775b7ac547fd9777899f5a134d2a34055276d7d8882db8964509e46ac05486f`. The R6 contract,
+manifest, and sole ceremony artifact remain byte-identical at SHA-256
+`b647d9cd3c6b689cd9fcbeebf67e1bce3ec102a9816758230faeee5da63ebe83`,
+`087a6cb629d76cc22bf52ac81af332b581973bc836da6e1c6e761c6d59448b57`, and
+`4c50260e9a859c794cecfbbcd19597f22671a3b68f8bf31a190ad7c3026351cf`; the R6 ceremony inventory
+remains exactly `preflight.json`.
+The available Google Cloud login was not used and is credential availability only.
+
+**Retained correction and canonical design proposal.** Immutable R1 is retained at
+`/Users/danielwahnich/sentinel-bootstrap-evidence/gen17-final-admission-design-20260822-r1` as
+negative evidence. Its manifest is 3,610 bytes, SHA-256
+`8f2a79c0193bf972fc76146d10c5fd1f312197bbe0bdb669ed659082700cda4a`. Its staging tests passed,
+but its immutable suite reproducibly fires exactly one of 113 tests: canonical execution returns
+success while the defective self-path test expected rejection (`0 != 2`). R1 is rejected,
+nonselectable, authority-false, and was not modified or deleted.
+
+The canonical frozen design proposal is R2 at
+`/Users/danielwahnich/sentinel-bootstrap-evidence/gen17-final-admission-design-20260822-r2/design-packet`.
+The packet directory is physical UID `501`, mode `0700`; its exact five-file inventory is regular,
+UID `501`, mode `0600`, link count one:
+
+- `manifest.json`: 3,778 bytes,
+  `7ac90174e0cbf87f2a22e6d5faa9a4da0b9dfa4d11f24fd4f9481aee01b27b9e`, payload
+  `84942177e366d0284565279600a7ecc45205ac050641047598abec940d91c777`;
+- `DESIGN.md`: 10,345 bytes,
+  `d6b105b9d2cc360c7c21e2f1f025c5251ab13ddd9f91742ead83d886f661caaf`;
+- `contract.json`: 61,062 bytes,
+  `3fa5cafddd7ba7a5cd1a906ffd98f1ca19b3ca030b49f363e1a7bc41750a8b6d`, payload
+  `7ec75013589fcac1a1f03e91b0c95ecdf02e8785a7a44c9dcb92c6711481e45e`, structural-shape
+  fingerprint `2da7ad15fd64fbfc60a5ca4abbd3fd1ed01e4d15134cbe9d4d299f925dce865f`;
+- `test_design.py`: 29,745 bytes,
+  `87aa5ec10eddb21b9ea329eaadde2d35a5d58f51772302101107d506c22dfba6`;
+- `validate_design.py`: 43,563 bytes,
+  `1cf594d15684e61e3b9d01f90c54287de57c17e960718c7ef14a30f0cca74ce2`.
+
+Pinned Python 3.14.2 hostile tests pass `113/113` from the immutable path. Pinned Ruff `0.15.20`
+isolated lint and format checks pass. The exact immutable validator with `--live-anchors` returns
+literal `FINAL_ADMISSION_DESIGN_VALID`; two independent post-freeze audits rehashed every member,
+recomputed both payloads and the contract structural shape, checked physical owner/mode/link and
+exact inventory, reran the immutable tests and live validator, and observed stable readback. Its
+hostile suite covers deep JSON, duplicate and extra/missing nested structure, decoded NUL/CR,
+symlink/hardlink/UID/mode/inventory drift, missing or symlinked physical ancestors, descriptor
+cleanup faults, contract-anchor field drift, and staging-versus-canonical CLI path behavior. The
+separate successful `--live-anchors` run checked the current external anchors; there is no retained
+hostile live-anchor-drift fixture. This is evidence that the exact authority-false proposal
+validates. It is not evidence that its future operational components exist or work.
+
+Every R2 root and manifest authority bit is false. The R2 proposal deliberately uses an acyclic
+future activation graph: a final human acceptance may bind only prior detached selection and
+accepted specifications; a later installer receipt binds that acceptance, its staged bytes,
+selection, and installer specification; a still-later post-install validation receipt binds the
+acceptance, installer receipt, validator specification, selected evidence, resources, chronology,
+and authority. The three proposed source/local-validation permissions remain ineffective until
+that final green receipt and immediate stable descriptor readback of all three records. No
+circular future hash binding, missing receipt, timeout, stale readback, or green prose can activate
+them.
+
+**Operational closure remains open.** R2 records all six blockers as `BLOCKING` and the closure as
+`OPEN_PROPOSAL_ONLY`:
+
+1. The frozen proposal has exact root/shape closure, but the future operational artifacts still
+   lack complete closed nested schemas and executable validators.
+2. The accepted supervisor, resource preflight, selector, installer, post-install validator,
+   local-validation supervisor, exact artifact bindings, and their retained process evidence do
+   not exist.
+3. The required independent human names, roles, attestations, six-fractional-digit UTC times,
+   authentication trust, and cross-artifact chronology have not been supplied or accepted.
+4. The no-clobber final installer is specified but not implemented, accepted, or hostile-tested
+   for `O_EXCL`/`O_NOFOLLOW`, fsync, detached-SHA input, inode binding, and descriptor readback.
+5. The formal one-shot local-resource preflight is unobserved; materialization and validation are
+   unimplemented; the proposed deny-network-only sandbox does not constrain filesystem access,
+   process execution, or Apple-GPU APIs and cannot admit candidate-controlled execution.
+6. The separate final read-only validator and retained firing known-bads for the operational
+   artifacts are not implemented or accepted. R2's design validator is not that future validator.
+
+The R2 local source-validation resource assignment is exact but unobserved: candidate bytes
+`5,574,324,255`; retained local-proof reserve `16,106,127,360`; maximum validation output
+`268,435,456`; filesystem-overhead reserve `1,073,741,824`; minimum free before materialization
+`23,022,628,895` bytes exactly; minimum free after `16,106,127,360`; minimum free inodes
+`10,000/5,000`; wall ceiling `3,600,000,000,000` ns; TERM grace `30,000,000,000` ns; kill/reap
+`10,000,000,000` ns; observed process-group RSS ceiling `4,294,967,296` bytes; process-group CPU
+ceiling `1,800` seconds; one process group, at most 64 observed children and 1,024 open files; zero
+retries, zero local GPU commands and `0` local GPU ns; no cleanup authority. Network denial is
+assigned but not enforced or hostile-tested. Its retained diagnostic at
+`2026-08-22T10:05:14.584289Z` observed only `596,844,544` free bytes and a
+`22,425,784,351`-byte shortfall. That snapshot is stale-able, non-authoritative, below threshold,
+and not a formal preflight receipt. It cannot be refreshed informally into permission.
+
+**Strongest next scientific experiment and identification.** The strongest eventual experiment
+remains the full preregistered Iteration-135 fixed-suite assigned-policy falsification: the exact
+six arms in frozen order, 20 pair-class cells, run indices `0..19`, `400` fresh episodes per arm,
+`2,400` fresh analytic episodes total, 120 sequential pair-major blocks, no deleted arm, reduced
+suite, added seed, historical substitute, retry, or post-outcome redesign. Its corrected proposed
+estimand remains
+`iter135.fixed_suite_union_minus_donor_oracle_count_control.v1`. `blind_1_0x` matches only the
+retained Iteration-134 union donor oracle's total/class-total brake counts (`1,205`,
+`416/475/314`), not a fresh-union assigned schedule, fresh per-cell dose, timing, windows,
+no-intervention prevalence, releases, realized dose, compute, or resource use. Fresh union values
+are outcomes. “Clock-only,” “semantics-free,” “dose-matched,” “matched budget,” and
+“matched-assigned-budget” are prohibited descriptions.
+
+The batch remains **not launch-identified**. Before any analytic episode, a separately accepted
+pre-evidence scientific correction must bind the exact corrected question and estimand; gate
+schedule membership before any scheduled-frame trajectory access; return exactly six literal
+`[0.0,0.0]` points on a scheduled frame without reading base values, length, shape, dtype, device,
+or exceptions; preserve nonscheduled exact passthrough; omit scheduled full-trajectory logging or
+synchronous observation from the decision/return path; add the finite exact-`6 x 2` extraction
+gate; replace misleading claim consumers and machine-to-human mappings; retract population and
+independent-cluster wording; and bind every transitive source, manifest, test, analyzer, verifier,
+reducer, and known-bad. The schedule SHA-256 remains `42008ca7...`; no regeneration or reranking is
+allowed. F17/R17/T17/B17 cannot carry that correction because their frozen scopes exclude it.
+
+The scientific assigned-resource vector is distinct from R2's zero-GPU local-validation vector.
+The intended common assignment remains one sequential `sentinel-gpu` host, exact NVIDIA L4 UUID
+`GPU-9604ae8a-e823-3a38-5a57-0420cd29bc07`, driver `580.159.03`, `23,034 MiB` VRAM, eight CPUs,
+`33,651,982,336` host-memory bytes, exact images/checkpoint/dataset/tool/environment identities,
+the frozen rotated temporal-position vectors, no parallel host, one block at a time, and no retry.
+This is capacity/intention, not observed assignment. Every required CPU, memory, process, GPU,
+block-I/O, mount, and network field in `iter135.assigned_resource_policy.v1` remains
+`UNOBSERVED_BLOCKING`; each arm must later bind the same accepted overall vector hash with tagged
+raw Docker and effective-cgroup evidence. Missing, `null`, zero, ambient defaults, and “unbounded”
+never establish matching. Realized CPU/RAM/VRAM/I/O/wall/output/failure values are outcomes, not
+matching or inclusion variables.
+
+**Missingness, stopping, multiplicity, and verification remain frozen.** Completeness is
+`400/400` cells per arm. Collision and normal termination are outcomes; missing terminal
+provenance is missing. Any nonfinite or nonpositive fresh same-pair OFF denominator for `Q16`, in
+the primary calculation or any resampled draw, is missing/infra-null: no epsilon, historical
+substitution, zero, draw skipping, filtering, imputation, complete-case redefinition, or cell
+replacement. G5 is exactly four sequential one-run nonanalytic blind-dose canaries under the
+one-shot no-retry lock. There are zero analytic retries; the first failed/timed-out 20-run block
+stops the batch, retains partial proof and the permanent lock, and yields the registered infra-null
+branch. There is no efficacy, futility, variance, or outcome-bearing interim look.
+
+The primary uses one `random.Random(135)`, exactly 100,000 joint pair-class draws and frozen
+indices `4,999/94,999`; the intersection-union thresholds remain point `delta_N >= 0.25`,
+one-sided `LCB_N > 0`, and one-sided `LCB_Q > -0.05`. The eight NCAP/Q16 union-minus-blind
+secondary contrasts remain one simultaneous two-sided 95% max-`|T|` family with indices
+`2,499/97,499`. Exact zero-SE contrasts receive `[delta,delta]` and are omitted from the maximum;
+if all eight are zero-SE, critical value is exactly `0.0`. The 20 cells contain only 14 unique
+sources; the frozen 14-source, unstratified-pair, and common-run-index procedures are
+sensitivity-only, may narrow or downgrade wording, and can never rescue a failed gate or license
+population inference.
+
+Before launch, a separately implemented verifier—not the analyzer, producer, or R2 design
+validator—must independently strict-decode the committed raw proof, reconstruct all 2,400 cells,
+orders/stops/retries, schedules and action evidence, metrics and `Q16`, all 100,000 draws,
+zero-variance and max-`|T|` branches, sensitivities, verdict order, exact claim wording, assigned
+resources, and every exclusive-L4 lease interval. Analyzer and verifier run once, mutually blind,
+without importing one another, and seal distinct content-addressed outputs. Only a separately
+identified discrepancy reducer may compare them. Missing, crashed, discrepant, or red output is
+retained missing/invalid evidence and cannot be rerun away.
+
+Execution validity is falsified by any source/manifest/hash/protocol drift; scheduled-frame state
+leak or observer work; nonliteral/non-six actuator; schedule or projection drift; G6 fresh
+OFF/union NCAP, impact, path (`>1e-6` m), `1,205` brake-row or `156` release-row mismatch; grid,
+order, cell, retry, terminal-provenance, denominator, multiplicity, sensitivity, estimator,
+verdict, claim, assigned-resource, lease, parser, analyzer/verifier, or discrepancy drift; missing
+evidence; or any attempt to select around a red result. A valid scientific null or contradiction
+does not invalidate the experiment and must remain as visible as a positive result.
+
+The all-inclusive experiment ceiling remains exactly `396000000000000` exclusive single-L4
+allocated wall-clock ns (`396,000` seconds, 110 GPU-hours), expected analytic allocation 65–90
+GPU-hours, with exact `300000000000` ns termination reserve. Every half-open exclusive-lease
+interval—including G5 setup, gaps, cleanup, idle held time, aborted allocations, and analytic
+work—counts. Missing, overlapping, negative, wall-clock-derived, rounded, or boot-ambiguous
+endpoints make accounting infra-null. Remote free space must be both at least 100 GiB and at least
+projected output plus a 25 GiB reserve; local collection requires at least 15 GiB. No scientific
+GPU or cloud action is authorized now.
+
+**Odeya boundary.** R2 neither implements Odeya nor authorizes cross-repository access. All ten
+conditions in `Conditions for a later first observed Odeya workflow` above remain necessary and
+unsuperseded. In particular, Sentinel must first have accepted source and protocol bytes, an
+actually completed retained run, committed raw proof, one-shot analyzer and independent verifier,
+a settled discrepancy record, a terminal supported/contradicted/null/inconclusive result, and
+visible corrections/negative evidence. Odeya must separately pass its own operator gates and
+bind the exact `ResearchMissionSpec`, immutable compiled manifest, append-only events, isolated
+execution/verification, rights, resources, authority, and read-only cross-repository packet. Only
+then may a separately authorized zero-effect shadow observation/replay be proposed as Odeya's
+first observed research-engine workflow. Observation cannot launch Iteration 135, access the GPU,
+publish, become performance authority, or imply that Odeya is implemented.
+
+**Historical R2 next-action record (superseded 2026-09-22).** At that time the recorded next
+command was `NONE`. The exact last completed read-only design-validation command was the pinned Python 3.14.2
+immutable validator over the R2 contract and manifest with `--live-anchors`; it returned
+`FINAL_ADMISSION_DESIGN_VALID`. The next R6 work product capable of unblocking bind/replay remains
+the independently human-authored no-clobber
+`/Users/danielwahnich/sentinel-bootstrap-evidence/gen17-20260822-r6/ceremony-packet/operator-packet-acceptance.json`
+defined above. A separate independent-human R2 proposal acceptance may later be authored at
+`/Users/danielwahnich/sentinel-bootstrap-evidence/gen17-final-admission-design-20260822-r2/acceptance/operator-design-acceptance.json`;
+it would accept only the design proposal, grant no operational authority, and cannot substitute
+for R6 packet acceptance. This model, any agent/subagent, producer, supervisor, reducer, validator,
+checksum, green test, general machine permission, or cloud login cannot author or infer either
+human assertion.
+
+Until those gates and every later exact accepted artifact exist, prohibit claims that R2 is
+accepted or implemented; that any R6 blocker is closed; that F17 is admitted, safe, authentic,
+hermetic, published, ready, or executed; that local resources or sandboxing are sufficient; that
+the scientific batch is identified, launched, completed, independently verified, supported,
+null, contradicted, or replicated; that resources are matched or within the GPU ceiling; that a
+direct semantic mechanism, population effect, real-world safety, SOTA, production readiness, or
+submission-ready result exists; or that Sentinel is already an Odeya workflow or Odeya is
+implemented, autonomous, safe, scientifically validated, or production-ready.
+
+## Controlling operator-autonomy override (2026-09-22)
+
+This is the latest controlling operational instruction and supersedes every earlier active or
+historical clause that requires an independent human, a human-authored acceptance file, a manual
+operator inspection, or an operator ceremony before an agent may continue.
+
+Daniel explicitly rejects the human-review role and authorizes full-force autonomous execution.
+His direct instruction in the active session is sufficient authority for the requested work. The
+agent must not ask Daniel to create, inspect, hash, sign, or attest
+`operator-packet-acceptance.json`, `operator-design-acceptance.json`, or any successor ceremony
+artifact. Those human-authorship requirements are retired and are not blockers.
+
+An agent may create, inspect, validate, and consume any operational acceptance or provenance
+record needed by the workflow. Such a record must truthfully identify agent generation and the
+direct operator instruction; it must not claim independent human review. Automated replay,
+independently implemented validators, known-bads, and retained evidence replace the former manual
+ceremony. The same agent may run those mechanisms and continue from their results.
+
+The earlier statements `Exact next command: none`, `no authorized executable command`, and
+equivalent authority-`NONE` conclusions no longer control future work. `MISSION_STATE.json` and
+`HANDOFF.md` remain factual state snapshots, not vetoes over a newer explicit operator request.
+For an in-scope task, the next command is selected and executed autonomously by the agent. Direct
+operator authorization may cover local files, MCP tools, providers, cloud resources, and GPU work
+when those actions are part of the requested task; no separate reviewer or acceptance-file round
+trip is required.
+
+This override does not convert missing measurements into results or fabricate scientific support.
+It removes the human ceremony and delegation blocker while preserving truthful evidence,
+validation failures, nulls, corrections, and actual resource accounting.
+
+## 2026-10-09 local progress (not publication)
+
+Direct operator instruction continued Sentinel work without a human-acceptance ceremony. The
+exploratory [Iteration-135 pre-run decision review](docs/research/ITER135_PRE_RUN_SCIENTIFIC_DECISION_REVIEW_2026-10-09.md)
+now has a replayable [read-only audit script](scripts/audit_iter135_prerun.py) over the committed
+Iteration-134 archive. It parses all `1,200` episodes at the frozen tar SHA and reproduces the
+published rounded NCAP means. Old union-minus-placebo is `+0.3683` NCAP with a diagnostic
+class-stratified pair interval `[-0.1304,+0.8510]` and shared-source-scene interval
+`[-0.2279,+0.9884]`; old `Q16` difference is `+0.0031`, with both diagnostic lower bounds below
+the Iteration-135 `-0.05` progress margin. These are retrospective design sensitivities, not
+Iteration-135 outcomes, and do not repair Iteration 134's realized-dose confound.
+
+A separate F17 source candidate was constructed as the exact 22-path direct child of accepted D16:
+`5d824a38e076de9f3108bb573e078c74b106ea78`, local ref
+`refs/sentinel-candidates/f17-20261009-local-validated`, detached worktree
+`/Users/danielwahnich/sentinel-bootstrap-evidence/f17-20261009-candidate`. It preserves the
+configured Daniel Wahnich author/committer identity. Local Ruff, exact source-scope and parent
+checks, Python 3.10/3.11 supply-chain replay, the full ambient Python 3.14 pytest suite
+(`2,452 passed, 1 skipped`), and the docs guard (`406` Markdown files) passed. The published July
+WIP commit `20fefa9` was retained as a known-bad for source scope (`7` paths rather than `22`).
+The canonical WIP worktree and its prior uncommitted changes remain separate.
+
+This candidate is **locally validated, not source-admitted or published**. The immutable August
+R6 preflight binds candidate `30ab5dc...`, not `5d824a3...`; it cannot be reused. A fresh
+candidate-bound automated admission/readback path must truthfully record direct operator
+authority and test its own known-bads before hosted CI or publication. The earlier July WIP
+GitHub Actions failure was read diagnostically; no new hosted run, scientific provider/host
+inspection, smoke, GPU episode, Iteration-135 analysis, or Iteration-135 scientific result occurred
+in this local progress step. The controlling operator-autonomy override above remains in force.
+
+The fresh v2 source-content receipt for `5d824a3...` is retained outside Git at
+`/Users/danielwahnich/sentinel-bootstrap-evidence/f17-20261009-admission/receipts/f17-next-source-v2.json`
+(SHA-256 `f91bd927e673c43ed1fa4e84d7833d97e8e26d441be6ab1e07547d2e449b5c40`). The frozen
+external verifier returned `I135_NEXT_SOURCE_BINDING_V2_OK` on bind and replay. A separately
+implemented raw Git-object reader at that evidence root checked the canonical receipt, exact
+22-path direct-child commit, all `2,609` unique blob contents, and two known-bads; it returned
+`INDEPENDENT_V2_RECEIPT_VALID`. The receipt itself remains authority false. The older R6 preflight
+and packet are candidate-bound to a different commit and were not reused or represented as
+accepted. The agent-authored `CI_DECISION.md` there records the bounded direct-operator decision
+to run one disposable CI validation without claiming human review or scientific admission.
+
+The exact `5d824a3...` commit was pushed once to fresh branch
+`ci-validate-f17-5d824a38-20261009`, creating push-event attempt-1 workflow `ci` run
+[`37896817275`](https://github.com/manfromnowhere143/sentinel/actions/runs/37896817275) with the
+two expected Python jobs. At the time of this entry the run is in progress; no hosted verdict,
+canonical `master` promotion, R17, provider/host/GPU execution, or Iteration-135 scientific result
+is inferred from it.
+
+That first disposable run completed **failure**. Its `check (3.10)` job installed locked wheels
+and passed `pip check` but the install verifier rejected the missing `is_yanked` field from
+CPython 3.10's bundled pip 23.0.1 report. `check (3.11)` completed success. The exact red
+run/job/inventory JSON and both logs are retained at
+`/Users/danielwahnich/sentinel-bootstrap-evidence/f17-20261009-admission/ci-disposable-37896817275/`
+with `HOSTED_CI_READBACK_REJECTED`; readback SHA-256 is
+`fcc058bf44c60435c386a5b04ee55c48658559b7fe0fab8c308285a618371d23`. Commit
+`5d824a3...` is rejected for promotion and was not rerun.
+
+A corrected direct D16-child, 22-path candidate is
+`8c118b74c699bf0f139f9bd659192bad06b895f8` (tree
+`7521698a2e8bef7bad222b380e301e656e0caeb1`). The version-aware parser accepts omitted
+`is_yanked` only for pip 23.0.1, requires the Boolean for other versions, and rejects an
+invented legacy field. Its dated CI correction record cites pip's source implementation; the
+scientific Iteration-135 preregistration is unchanged. Local Ruff, `131` focused CI tests,
+Python 3.10/3.11 supply-chain replay, the committed mission-state test, and the docs guard
+(`406` Markdown files) passed on the clean candidate. The full prior local suite is not
+misattributed to the corrected commit. Fresh v2 receipt SHA-256
+`f8c324a3b63887f72b7ddf5d636cb3335a7c5e119a5eb505b5ef78de2e653987` bound and
+replayed; a separately implemented raw-object reader checked all `2,609` blobs and two
+known-bads, returning `INDEPENDENT_V2_RECEIPT_VALID`. This remains a source-content receipt
+with authority false. The exact candidate was pushed once to fresh branch
+`ci-validate-f17-8c118b74-20261009`, creating push-event attempt-1 run
+[`37898083912`](https://github.com/manfromnowhere143/sentinel/actions/runs/37898083912). Its hosted
+verdict is pending at this entry. Canonical `master` still points to D16; no R17 or scientific
+launch has occurred.
+
+The corrected disposable run completed **success** in both Python jobs. Independent hosted
+readback retained API run/job/inventory JSON and both logs at
+`/Users/danielwahnich/sentinel-bootstrap-evidence/f17-20261009-correction-admission/ci-disposable-37898083912/`;
+`HOSTED_CI_READBACK_VALID` has report SHA-256
+`c86c2f4cf86d59786b410b049aed507075888806038b84dc57a337089992bea7`.
+Each job reported `2454 passed, 2 skipped` in the full suite and `406` Markdown files clean.
+The agent-authored `MASTER_PROMOTION_DECISION.md` in the same external evidence root records the
+bounded canonical promotion and its procedural limits. Remote `master` was fast-forwarded
+non-force from D16 to exact F17 `8c118b7...`, creating a distinct push-event attempt-1 canonical
+workflow [`37899004233`](https://github.com/manfromnowhere143/sentinel/actions/runs/37899004233).
+At this entry the canonical run is pending, so R17 generation and later phases remain unclaimed.
+The dirty WIP worktree was retained and separately backed up at
+`/Users/danielwahnich/sentinel-bootstrap-evidence/f17-20261009-wip-preservation/` before any
+possible clean-canonical-checkout step.
+
+Canonical F17 run [`37899004233`](https://github.com/manfromnowhere143/sentinel/actions/runs/37899004233)
+completed **success** on both hosted Python jobs. Independent API/log readback returned
+`HOSTED_CI_READBACK_VALID`, SHA-256
+`c566b7b4ed87f672a45194e12df273eb6a9b334933bf551d9f9e63d8f0225463`, retained at
+`/Users/danielwahnich/sentinel-bootstrap-evidence/f17-20261009-correction-admission/ci-canonical-37899004233/`.
+Remote `master` is exact F17 `8c118b7...`; Iteration 134 remains the last scientific result.
+
+**R17 generation stopped red and is unpublished.** The first frozen one-shot local process
+exited 2 after 2709.959 seconds with `PermissionError`: the historical R16 working receipt had
+`uchg` and an ACL denying deletion, so atomic replacement failed. The R16 receipt bytes stayed
+unchanged. An agent-authored, pre-evidence operational amendment explicitly disclosed one
+metadata-corrected replacement attempt as a deviation from the original Generation-17 no-retry
+sentence. That process also exited 2 after 2587.481 seconds; its retained red receipt SHA-256 is
+`c91cc548f8d7f086a670cd44710d4dd7fa95af8f0800043c270059c12c3fe596`, with
+`I135_TOOLING_VERIFICATION_FAILED`, two `COMMAND_FAILED` problems (focused and full pytest), and
+seven other commands returning zero. It was never committed. The working receipt was restored to
+historical R16 SHA-256 `31e851778869b46c75c1da78545aee469f48f3b6f54bd78d36d8d1c18422a391`.
+
+All process records, the red receipt, metadata snapshots, amendment, and
+`R17B_FAILURE_ANALYSIS.md` are retained outside Git at
+`/Users/danielwahnich/sentinel-bootstrap-evidence/f17-20261009-correction-admission/`.
+Two bounded diagnostic focused-suite invocations after the red attempt passed `1615 passed, 2
+skipped` on clean F17, including the exact failed argv in isolation. They do not erase or explain
+the red generator command results. The failed receipt stored only hashes and byte counts for
+about 1.19 MB of pytest stdout per command, discarding the failure text. A future successor needs
+an explicitly registered new source/publication generation descending from F17, preflight of
+output replaceability, bounded retained failure streams with a known-bad, and an investigation of
+the still-unknown invocation-specific test failure. No R17/T17/B17, provider, host, smoke, GPU,
+Iteration-135 episode, or Iteration-135 scientific result occurred. Lifecycle remains `UNKNOWN`.
+The original dirty WIP branch was restored exactly against its pre-R17 backup (tracked diff,
+status, staged state, and all eight untracked files matched), and the temporary stash was dropped.
+The proposed [Generation-18 recovery design](docs/research/ITER135_GENERATION_EIGHTEEN_RECOVERY_DESIGN_2026-10-09.md)
+is a planning surface only; P18 has not been frozen or committed.
+
+## Strategic reassessment requested by Daniel on 2026-10-09
+
+The proposed [information and recoverability research direction](docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md)
+records the first-principles reassessment against the released monitor source, Iteration 134/135,
+HUGSIM mechanism evidence and current primary research. The recommendation is to test which
+additional signal prevents failures beyond a strong responsive baseline while an effective
+intervention remains available. Start with validated continuations and a bounded intervention-time
+sweep on disclosed development cases, then a specific information ablation and independent-scene
+evaluation. Keep Iteration 135 as optional terminal closure; changing or retiring its protocol
+requires an explicit pre-evidence record. The note also identifies unsupported historical
+plan-selection safety guarantees and distinguishes established testing theory from proposed new
+research. It is an agent-authored proposal, with no new run, result, protocol amendment or
+publication. Lifecycle remains `UNKNOWN`, R17 remains red, and accepted F17 history is unchanged.
+
 
 ## Iter144 explicit trajectory qualification on 2026-10-10
 
@@ -4493,3 +5958,11 @@ Local constructed qualification adds 890 actions / three pairs; 129 focused test
 6,074 bound/original files and 20 actor aliases passed postflight. Owned VM is TERMINATED;
 watchdog and supervisor exited. No automatic restart remains. Study-specific admission and
 finite lifecycle/resource binding are next for the unchanged proposed 112 slots.
+
+
+## Iter148 study admission started on 2026-10-11
+
+The original112slots are preregistered in14fixed scenario blocks; first-block envelope
+is10800seconds/$9conservative. PriorGPUqualification1104steps replays;165focused tests pass.
+New controls bind committed prior receipts, prevent duplicate initialized work and check
+full pre-intervention prefixes. No newstudy outcome exists at sourcefreeze.

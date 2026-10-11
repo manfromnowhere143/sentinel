@@ -1,0 +1,23 @@
+{
+  "argv": [
+    "env",
+    "OPENBLAS_NUM_THREADS=1",
+    "OMP_NUM_THREADS=1",
+    "MKL_NUM_THREADS=1",
+    "python3",
+    "-m",
+    "pytest",
+    "-q",
+    "-c",
+    "/dev/null",
+    "-p",
+    "no:cacheprovider",
+    "tests/test_iter148_recovery_study.py",
+    "tests/test_iter147_full_horizon_execution.py",
+    "tests/test_iter146_route_outcome_contract.py"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-11T04:40:45.115520+00:00",
+  "elapsed_seconds": 12.045680046081543,
+  "returncode": 0
+}

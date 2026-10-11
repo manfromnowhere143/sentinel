@@ -1,9 +1,16 @@
 {
   "iteration": 148,
-  "status": "proposed",
-  "phase": "admission_implementation",
+  "status": "preregistered",
+  "phase": "first_block_source_freeze",
   "parent_commit": "21c51ed3ead8d24da410b4913ac1a734507b7c08",
   "cloud_compute_used": false,
   "owned_active_jobs": 0,
-  "live_study_admitted": false
+  "live_study_admitted": false,
+  "focused_tests": 165,
+  "prior_gpu_steps_replayed": 1104,
+  "planned_slots": 112,
+  "initial_block_slots": 8,
+  "study_outcomes_observed": 0,
+  "automatic_restart": false,
+  "next_task": "Freeze source, arm a fresh bounded envelope and execute fixed block 0 after provider/resource/runtime validation."
 }

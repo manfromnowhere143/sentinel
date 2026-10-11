@@ -6,20 +6,19 @@ loop, by whether the car crashes *and whether it can still drive*.**
 
 ## Local research update 2026-10-10
 
-> **Active operator-directed candidate work, 2026-10-10:** Iter147 bounded GPU
-> qualification is complete: eight fresh cases / 912 actions / four matching replica pairs.
-> Two injected monitor runs reached 401 actions each; six natural nominal actor runs
-> reproduced collisions. No recovery gain or GPU route completion was established.
-> **4/110 natural-actor controller calls exceeded 50 ms; all 912 loops exceeded 250 ms.**
-> Local qualification separately supports 890 constructed actions / three replica pairs;
-> 129 focused tests pass. Read the [result](experiments/iter147_full_horizon_execution/RESULT.md),
-> [state](experiments/iter147_full_horizon_execution/STATE.json) and
-> [active handoff](experiments/iter147_full_horizon_execution/DECISION.md).
-> Exact owned VM is TERMINATED; watchdog and supervisor exited. No owned job or restart
-> remains. Next: study-specific admission and finite lifecycle/resource binding for the
-> unchanged proposed 112 slots. Candidate `research/iter147-full-horizon-execution`
-> is local/unpushed. Master, historical HANDOFF/MISSION_STATE, immutable root README,
-> unrelated WIP, prior recovery nulls and deferred Iter135 remain preserved.
+> **Active operator-directed candidate work, 2026-10-11:** Iter148 has preregistered
+> the unchanged 112-slot recovery study in 14 fixed operational blocks. The first block
+> binds eight slots / one scenario, a fresh three-hour/$9 conservative compute envelope,
+> exclusive pair starts, committed raw before independent replay, complete receipt history
+> and full pre-intervention prefix checks. Prior qualification replays 1,104 GPU actions;
+> 165 focused tests pass. Read the [study protocol](experiments/iter148_recovery_study/HYPOTHESIS.md),
+> [execution binding](experiments/iter148_recovery_study/GPU_BINDING.md) and
+> [state](experiments/iter148_recovery_study/STATE.json) for current execution status.
+> No Iter148 study outcome is available at source freeze. Only block 0 is admitted for
+> initial launch; remaining blocks require fresh automated lifecycle checks.
+> Candidate `research/iter148-recovery-study` is local/unpushed. Master, historical
+> HANDOFF/MISSION_STATE, immutable root README, unrelated WIP, all prior evidence,
+> previous recovery nulls and deferred Iter135 remain preserved.
 
 
 [Iteration 142](experiments/iter142_nominal_continuation_completion/RESULT.md) completed

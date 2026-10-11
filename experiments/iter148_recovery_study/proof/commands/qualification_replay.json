@@ -1,0 +1,15 @@
+{
+  "argv": [
+    "env",
+    "OPENBLAS_NUM_THREADS=1",
+    "OMP_NUM_THREADS=1",
+    "MKL_NUM_THREADS=1",
+    "python3",
+    "-m",
+    "experiments.iter148_recovery_study.qualify"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-11T04:39:51.294853+00:00",
+  "elapsed_seconds": 7.248424768447876,
+  "returncode": 0
+}

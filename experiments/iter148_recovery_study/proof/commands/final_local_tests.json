@@ -1,0 +1,15 @@
+{
+  "argv": [
+    "python3",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/test_iter146_route_outcome_contract.py",
+    "tests/test_iter147_full_horizon_execution.py",
+    "tests/test_iter148_recovery_study.py"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-11T04:44:02.595681+00:00",
+  "elapsed_seconds": 12.751685857772827,
+  "returncode": 0
+}

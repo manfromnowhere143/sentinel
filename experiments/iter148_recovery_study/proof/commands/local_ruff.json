@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "/opt/homebrew/bin/ruff",
+    "check",
+    "experiments/iter148_recovery_study/admission.py",
+    "experiments/iter148_recovery_study/compare.py",
+    "experiments/iter148_recovery_study/pair.py",
+    "experiments/iter148_recovery_study/replay.py",
+    "experiments/iter148_recovery_study/qualify.py",
+    "tests/test_iter148_recovery_study.py"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel",
+  "start_utc": "2026-10-11T04:41:12.587071+00:00",
+  "elapsed_seconds": 0.015230894088745117,
+  "returncode": 0
+}
