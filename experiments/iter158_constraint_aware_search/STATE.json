@@ -1,8 +1,9 @@
 {
   "iteration": 158,
-  "status": "preregistered",
-  "phase": "qualified_before_acquisition",
+  "status": "running",
+  "phase": "raw_retained_admission_pending",
   "owned_jobs": 0,
   "provider_spend": 0,
-  "next": "Freeze qualified source; one bounded producer; commit raw before scalar selected-path admission."
+  "next": "Commit raw before scalar selected-path admission; producer found no complete trajectory.",
+  "source_commit": "06dfbb728ec980a8a925d995a7a611c8fe13b189"
 }

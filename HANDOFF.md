@@ -1,12 +1,13 @@
-# Current: Iter158 qualified — 12 October 2026
+# Current: Iter158 running — 12 October 2026
 
-The next step is one bounded constraint-aware actuator search on the existing
+Source 06dfbb728ec980a8a925d995a7a611c8fe13b189 is frozen and published.
+One bounded constraint-aware actuator search is running on the existing
 exposed source model. Read experiments/iter158_constraint_aware_search/
 DECISION_PACKET.md, PROTOCOL.md and PLAN.json. No native drive, GPU or provider.
 Qualification includes a constructed detour and complete scalar replay; an
 immediate-progress search fails that same retained negative control. This is an
 incomplete heuristic search, not a competitive planner or an impossibility proof.
-Freeze source before initialization; commit raw before selected-path admission.
+Source is frozen; commit raw before selected-path admission. One owned local CPU job.
 Current closed science and instrument descriptor remain Iter157. Iter135 remains
 deferred; the archived mission contract and dirty canonical root remain untouched.
 Owned branch: research/iter158-constraint-aware-search.
