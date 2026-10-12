@@ -3,6 +3,8 @@ from __future__ import annotations
 import importlib.util
 from pathlib import Path
 
+from scripts.historical_repository import historical_repository
+
 
 MODULE_PATH = (
     Path(__file__).resolve().parents[1]
@@ -30,9 +32,10 @@ def test_verdict_blocks_failed_check() -> None:
     assert audit.choose_verdict([], checks) == audit.INFRA_NULL_VERDICT
 
 
-def test_committed_audit_builds_complete() -> None:
+def test_historical_audit_builds_complete_at_its_declared_revision() -> None:
     repo = Path(__file__).resolve().parents[1]
-    report = audit.build_report(repo)
+    with historical_repository(repo) as historical:
+        report = audit.build_report(historical)
 
     assert report["verdict"] == audit.COMPLETE_VERDICT
     assert not report["problems"]

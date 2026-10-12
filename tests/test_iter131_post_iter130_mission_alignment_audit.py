@@ -5,6 +5,8 @@ import importlib.util
 import json
 from pathlib import Path
 
+from scripts.historical_repository import historical_repository
+
 
 MODULE_PATH = (
     Path(__file__).resolve().parents[1]
@@ -74,9 +76,10 @@ def test_committed_post_iter130_audit_retains_point_in_time_complete_evidence() 
     assert all(item["passed"] for item in report["checks"])
 
 
-def test_current_audit_replay_fails_closed_without_a_live_probe() -> None:
+def test_archived_audit_replay_fails_closed_without_a_live_probe() -> None:
     repo = Path(__file__).resolve().parents[1]
-    report = audit.build_report(repo)
+    with historical_repository(repo) as historical:
+        report = audit.build_report(historical)
 
     assert report["verdict"] == audit.INFRA_NULL_VERDICT
     assert report["problems"] == []

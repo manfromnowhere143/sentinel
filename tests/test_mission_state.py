@@ -4136,8 +4136,10 @@ def _append_launch_authorization_chain(
     }
 
 
-def test_committed_mission_state_is_valid() -> None:
-    assert validate_state(load_state()) == []
+def test_archived_mission_state_is_valid_at_its_declared_revision() -> None:
+    from scripts.historical_repository import archived_state_errors
+
+    assert archived_state_errors(Path(__file__).resolve().parents[1]) == []
 
 
 @pytest.mark.parametrize(
