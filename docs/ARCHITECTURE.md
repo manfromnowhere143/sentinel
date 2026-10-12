@@ -2,7 +2,7 @@
 
 Updated 12 October 2026. This describes the implemented research apparatus and its measured
 limits through the published Iter155 research record. The [README](../README.md) carries the scientific
-results and publication boundary. The [original design](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/docs/history/ARCHITECTURE_original_design.snapshot.txt)
+results and publication boundary. The [original design](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/docs/history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
 
@@ -43,9 +43,9 @@ flowchart TB
   class E,D,A evidence;
 ```
 
-[Released monitor source](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter15_latch_release/server_patch_union_release.py) ·
-[Power-run evidence](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/full14_power/RESULT.md) ·
-[Placebo protocol and result](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md).
+[Released monitor source](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter15_latch_release/server_patch_union_release.py) ·
+[Power-run evidence](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/full14_power/RESULT.md) ·
+[Placebo protocol and result](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md).
 
 ## HUGSIM: distinguish the two execution regimes
 
@@ -78,27 +78,27 @@ flowchart TB
   class E evidence;
 ```
 
-The [trajectory contract](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter144_timed_trajectory/trajectory.py) carries absolute
+The [trajectory contract](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter144_timed_trajectory/trajectory.py) carries absolute
 simulation seconds, owner and episode identities, SI units, frame, source rows and content
 identity. Candidate costs use common times; interpolation does not license extrapolation or
 prove continuous-motion feasibility. Ego and actor heading conversions are explicit.
 
-The [constrained optimizer](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter145_constrained_execution/optimizer.py) and
-[simulator adapter](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter145_constrained_execution/simulator.py) use the declared
+The [constrained optimizer](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter145_constrained_execution/optimizer.py) and
+[simulator adapter](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter145_constrained_execution/simulator.py) use the declared
 update order and actuator limits. Numerical repeatability, convergence, model agreement and
 deadline compliance are checked separately. A capped optimization return is not relabelled
 converged because its trajectory looks reasonable.
 
-The [current monitor replay](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter147_full_horizon_execution/monitor.py) reconstructs
+The [current monitor replay](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter147_full_horizon_execution/monitor.py) reconstructs
 the released geometric rule conditional on accepted object rows. The study disables the
 injected detector inputs used in qualification. Diagnostic monitor holds are labelled in
 their raw evidence and never counted as natural hazard detection.
 
 ## Execution, observation and evidence
 
-[Iter149 local qualification](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter149_observation_recovery/RESULT.md) adds a
+[Iter149 local qualification](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter149_observation_recovery/RESULT.md) adds a
 transport-independent bounded reconciliation policy, separate trace checker and local subprocess
-watchdog fixture. [Iter150](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter150_cloud_observation/RESULT.md) stream-hashes
+watchdog fixture. [Iter150](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter150_cloud_observation/RESULT.md) stream-hashes
 large native artifacts into a compact observation and qualifies historical reads through actual
 IAP, synthetic disconnection, host-local child expiry and exact-owned VM closure. Its live
 harness failed while saving the final report; retained outputs pass a separate audit and the
@@ -106,7 +106,7 @@ filename fix passes locally. Iter151 adds exact 16-slot admission, exclusive dis
 Linux process ownership checks and a per-pair systemd deadline. Its first nominal pair passed
 scientific replay, but a whitespace check on immutable captured source stopped publication and the schedule.
 The corrected local retention pipeline passed a real Git/replay rehearsal and subsequently
-completed all seven new pairs in Iter152. See [Iter151](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter151_recovery_canary/RESULT.md).
+completed all seven new pairs in Iter152. See [Iter151](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter151_recovery_canary/RESULT.md).
 The diagram below describes the execution and evidence flow through Iter152; each experiment
 retains its own frozen schedule and resource envelope.
 
@@ -128,12 +128,12 @@ flowchart TB
   W --> C
 ```
 
-Relevant implementations are [pair execution](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/pair.py),
-[admission](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/admission.py),
-[replay](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/replay.py),
-[comparison](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/compare.py) and
-[aggregate accounting](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/aggregate.py).
-The retained [session tools](https://github.com/manfromnowhere143/sentinel/tree/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/proof/session_tools)
+Relevant implementations are [pair execution](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter148_recovery_study/pair.py),
+[admission](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter148_recovery_study/admission.py),
+[replay](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter148_recovery_study/replay.py),
+[comparison](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter148_recovery_study/compare.py) and
+[aggregate accounting](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter148_recovery_study/aggregate.py).
+The retained [session tools](https://github.com/manfromnowhere143/sentinel/tree/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter148_recovery_study/proof/session_tools)
 document the executed local supervision and resource closure. They contain closed paths and
 budgets and are not reusable launch commands.
 
@@ -145,12 +145,12 @@ integration; its later publication failure is separately recorded. Neither later
 nor a completed continuation erases that study’s missing outcome.
 
 Iter152 completed seven new pairs with the corrected archive-to-Git-to-replay-to-admission path.
-Its [continuation admission](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter152_recovery_continuation/admission.py) binds the
+Its [continuation admission](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter152_recovery_continuation/admission.py) binds the
 two historical Iter151 nominal episodes without relabelling them as new runs; the separate
-[baseline replay](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter152_recovery_continuation/baseline.py) rechecks their bytes,
+[baseline replay](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter152_recovery_continuation/baseline.py) rechecks their bytes,
 source and original scientific contract. The new fourteen-slot chain retains both scenario
 boundaries and exact compute closure. The diagram distinguishes retained raw evidence from
-admission and resource closure. Complete continuation accounting is in the [Iter152 result](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter152_recovery_continuation/RESULT.md).
+admission and resource closure. Complete continuation accounting is in the [Iter152 result](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter152_recovery_continuation/RESULT.md).
 
 Hashes check identity against retained bytes. Separate replay checks specified properties.
 Neither authenticates the physical world, establishes sensor completeness, or proves the
@@ -188,7 +188,7 @@ Iter153 adds an offline privileged-state diagnostic beside this live apparatus. 
 stationary box geometry feed a fixed 75-maneuver generator; an independent scalar implementation
 rechecks policy, controls, transitions, rectangle support, swept interpolation, source route and
 progress. All 150 model trials are retained; fourteen qualify and a fixed ranking selects one.
-The [selected action packet](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter153_action_feasibility/SELECTED_MANEUVER.json)
+The [selected action packet](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter153_action_feasibility/SELECTED_MANEUVER.json)
 then fed Iter154's direct native-action adapter, bypassing UniAD and monitor inference. It kept
 native rendering, actor updates, source termination and both foreground/background collision
 channels. Both fresh replicas terminate after 13 actions at 3.25 s on native background collision.
@@ -204,7 +204,7 @@ masks agree exactly, with counts 0 at 3.00 s and 273 at 3.25 s. No new driving e
 This is a source-predicate witness, not a physical reconstruction or road-boundary validation.
 The native model loader is source-bound rather than independently reimplemented. Useful full-scene
 recovery and information benefit remain unestablished.
-[Witness and limits](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter155_background_witness/RESULT.md).
+[Witness and limits](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter155_background_witness/RESULT.md).
 
 ```mermaid
 flowchart TB

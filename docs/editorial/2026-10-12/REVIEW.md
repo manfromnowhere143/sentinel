@@ -30,7 +30,8 @@ imported and neither repository was changed.
 The opening now identifies the project, the implemented capability and the wider scientific
 question. The implemented monitor and the criteria for useful intervention precede the findings.
 Detailed results, corrections, execution history and the full experiment index remain visible.
-Dated repository status follows the explanation and reproduction guidance. This is a refinement
+Dated repository status follows the explanation and reproduction guidance. The reproduction
+section retains its historical anchor so the existing technical-report link still works. This is a refinement
 of the existing research narrative, not a shortened replacement or an archive-only account.
 
 The voice is direct about measured results and candid about their scope. Confidence comes from
@@ -53,15 +54,15 @@ interrupted studies and later maneuver failure remain together in the account.
 
 Headline measurements were checked against the linked retained records:
 
-- [Power run](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/full14_power/RESULT.md): 799/800 episodes; score difference
+- [Power run](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/full14_power/RESULT.md): 799/800 episodes; score difference
   +0.783 [+0.605, +0.928]; safe-progress −0.032 [−0.127, +0.065]; frontal collision increase.
-- [Placebo study](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md):
+- [Placebo study](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md):
   primary +0.3683 [−0.1901, +0.8866]; 859/1,205 realized placebo brake frames.
-- [Iter152](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter152_recovery_continuation/RESULT.md): fourteen new episodes,
+- [Iter152](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter152_recovery_continuation/RESULT.md): fourteen new episodes,
   1,420 new actions, neither pulse recovers; benign completion 34.0 s versus monitor 47.0 s.
-- [Iter154](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter154_full_scene_maneuver/RESULT.md): both exact-maneuver
+- [Iter154](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter154_full_scene_maneuver/RESULT.md): both exact-maneuver
   replicas fail on native background collision at 3.25 s, after thirteen actions each.
-- [Iter155 admission](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter155_background_witness/proof/admission.json):
+- [Iter155 admission](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter155_background_witness/proof/admission.json):
   1,345,702 pre-selection points, 276,519 selected points; native/scalar counts 0 and 273;
   zero mask disagreements at both retained poses; physical occupancy and information benefit null.
 
@@ -106,5 +107,5 @@ is a normal documentation-only successor; remote readback checks the served byte
 validation and publication observations are retained separately so that a local check, a push,
 scientific acceptance and a hosted CI result remain distinct.
 
-[Content and link checks](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/docs/editorial/2026-10-12/validation.json) · [Local renders](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/docs/editorial/2026-10-12/diagram_render_results.json) ·
-[Visual review](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/docs/editorial/2026-10-12/visual_review.json) · [Command observations](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/docs/editorial/2026-10-12/command_observations.json).
+[Content and link checks](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/docs/editorial/2026-10-12/validation.json) · [Local renders](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/docs/editorial/2026-10-12/diagram_render_results.json) ·
+[Visual review](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/docs/editorial/2026-10-12/visual_review.json) · [Command observations](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/docs/editorial/2026-10-12/command_observations.json).

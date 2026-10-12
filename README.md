@@ -36,7 +36,7 @@ conditions that can request braking:
    frozen filtering and closing-speed conditions.
 
 Either condition latches the stop. Four consecutive clear monitor frames release it.
-The [released source](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter15_latch_release/server_patch_union_release.py)
+The [released source](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter15_latch_release/server_patch_union_release.py)
 defines the complete filters, coordinate transforms and state transitions.
 
 ```mermaid
@@ -66,8 +66,8 @@ conditional on logged objects does not certify that those objects were complete 
 Iteration 43 also found excess firing under **5 cm position jitter** in offline replay.
 The frozen smoothing variants in Iteration 44 reduced excess firing but failed their retention
 and repair criteria. Those are measured robustness limits, still unresolved.
-[Perturbation test](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter43_object_stream_perturbation_gate/RESULT.md) ·
-[Smoothing test](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter44_velocity_smoothing_gate/RESULT.md).
+[Perturbation test](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter43_object_stream_perturbation_gate/RESULT.md) ·
+[Smoothing test](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter44_velocity_smoothing_gate/RESULT.md).
 
 The [architecture](docs/ARCHITECTURE.md) describes the two simulator integrations, current
 trajectory and controller contracts, evidence checks and measured timing boundaries.
@@ -100,7 +100,7 @@ The principal comparison uses the same frozen UniAD planner with and without Sen
 released union monitor, on all 14 official NeuroNCAP scenes. The power run measured **799 of
 800 planned episodes**, targeting 20 seed-paired runs per scenario pair. One OFF episode is
 missing after repeated host freezes; its pair is reported at 19 runs.
-[Protocol, raw evidence and analysis](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/full14_power/RESULT.md).
+[Protocol, raw evidence and analysis](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/full14_power/RESULT.md).
 
 | Outcome | UniAD without monitor | UniAD with released union |
 |---|---:|---:|
@@ -120,7 +120,7 @@ The release mechanism improved safe-progress over the permanently latched union 
 **+0.246 [+0.206, +0.293]** on the earlier six-run comparison, with unchanged collision measures
 on its registered cells. It remains the selected configuration from that campaign;
 it is not a guarantee that stopping or releasing is safe in a new situation.
-[Iteration 15](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter15_latch_release/RESULT.md).
+[Iteration 15](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter15_latch_release/RESULT.md).
 
 ### Attribution: the placebo test remains unresolved
 
@@ -134,7 +134,7 @@ The registered verdict is **`PLACEBO_HARM_OR_NULL`**. Neither the semantic expla
 its absence is established. The alternative run-index analysis produced a narrower, positive
 interval; it did not replace the preregistered primary after the outcomes were known.
 Realized braking is a consequence of treatment and is not a covariate that can simply repair
-this comparison. [Iteration 134](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md).
+this comparison. [Iteration 134](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md).
 
 ### External validity: HUGSIM did not reproduce the gain
 
@@ -147,13 +147,13 @@ Both results are **`TRANSFER_NULL`**, with scenario-clustered intervals. The mon
 braked and released under the unchanged NeuroNCAP parameters. The hard/extreme OFF arm had
 collision opportunity in 51 of 52 episodes. Lack of opportunity therefore does not explain
 away that transfer result. These intervals also do not establish equivalence or universal
-failure. [Iteration 48](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter48_hugsim_transfer_gate/RESULT.md) ·
-[Iteration 49](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter49_hugsim_hard_tier_gate/RESULT.md).
+failure. [Iteration 48](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter48_hugsim_transfer_gate/RESULT.md) ·
+[Iteration 49](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter49_hugsim_hard_tier_gate/RESULT.md).
 
 The VAD transfer test exposed a different limit: fewer collisions on the tested threat cases
 came with severe over-braking and a safe-progress decline, from 2.30 to 0.75. The same monitor
 depends on the quality of the object identities and motion estimates supplied by its planner.
-[VAD comparison](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/vad_generalization/RESULT.md).
+[VAD comparison](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/vad_generalization/RESULT.md).
 
 ### Lead time and intervention burden
 
@@ -163,7 +163,7 @@ range of **0.40–3.50 s**; negative values were retained. Across the 400 monito
 1,205 brake frames were recorded over 10.79 km, or **111.68 brake frames/km**. Of those frames,
 533 occurred in episodes whose paired OFF run did not collide. These are simulation-time and
 intervention-budget measurements, not wall-clock latency or passenger-comfort qualifications.
-[Timing and cost audit](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter40_timing_cost_audit/RESULT.md).
+[Timing and cost audit](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter40_timing_cost_audit/RESULT.md).
 
 ## How the question changed
 
@@ -184,7 +184,7 @@ The first pooled union claim was **withdrawn** when the verification audit found
 run indices were deterministic replays, not independent episodes. A fresh measurement at
 20 unique episodes per scene then found safe-progress **+0.398 [+0.133, +0.665]** on the small
 verification suite. The larger benchmark's progress null remains a separate result.
-[Verification and corrections](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/VERIFICATION.md).
+[Verification and corrections](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/VERIFICATION.md).
 
 ### 2. Test whether the planner contains a useful alternative
 
@@ -196,8 +196,8 @@ The later trainval work established a diagnostic signal for the defined low-dive
 the internal bridge probe reached AUROC 0.950, above the registered metadata and ego-plan
 controls. The tested activation interventions did not pass calibration. A predictive probe
 and a useful causal intervention are different achievements.
-[Localization](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter30_full_trainval_lowdiv_localization/RESULT.md) ·
-[Calibration null](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter37_track_query_site_intervention/RESULT.md).
+[Localization](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter30_full_trainval_lowdiv_localization/RESULT.md) ·
+[Calibration null](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter37_track_query_site_intervention/RESULT.md).
 
 ### 3. Follow the transfer failure to its evidence boundary
 
@@ -210,7 +210,7 @@ In the eight-row support-core study, selected first-fire objects were never asso
 the collision actor before collision under that rule. Other objects had support at different
 times, then lost it or were replaced. This motivates tests of observation continuity and
 timing. It does not establish prevalence beyond those selected rows, or prove that retaining
-tracks would repair the monitor. [Support-core synthesis](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter121_hugsim_support_core_two_track_synthesis/RESULT.md).
+tracks would repair the monitor. [Support-core synthesis](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter121_hugsim_support_core_two_track_synthesis/RESULT.md).
 
 ### 4. Ask what information can change an effective action
 
@@ -221,7 +221,7 @@ content from the advantage of responding to the current state.
 
 The immediate question became whether a permitted action, at a specified time, can avoid
 failure while preserving useful progress. Only then can a new signal be tested for helping
-a responsive policy choose that action. The [research direction](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md)
+a responsive policy choose that action. The [research direction](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md)
 sets out the mathematical target, relevant prior work and the proposed experimental sequence.
 
 ```mermaid
@@ -298,10 +298,10 @@ policy for handling late results. The loop timer includes the final guard and st
 reset, summary serialization and worker cleanup are outside that scope. Model exchange time
 also includes communication and cannot be read as isolated inference latency.
 
-[Result and failure record](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/RESULT.md) ·
-[Scoped metrics](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/proof/block_000_attempt_002/metrics.json) ·
-[Aggregate accounting](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/proof/block_000_attempt_002/study_aggregate.json) ·
-[Resource closure](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/proof/block_000_attempt_002/combined_resource_closure.json).
+[Result and failure record](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter148_recovery_study/RESULT.md) ·
+[Scoped metrics](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter148_recovery_study/proof/block_000_attempt_002/metrics.json) ·
+[Aggregate accounting](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter148_recovery_study/proof/block_000_attempt_002/study_aggregate.json) ·
+[Resource closure](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter148_recovery_study/proof/block_000_attempt_002/combined_resource_closure.json).
 
 ## Iteration 151: nominal baseline and interrupted comparison
 
@@ -317,7 +317,7 @@ its bytes, before scientific replay. Totals are 2 admitted and 14 uninitialized;
 comparisons, recovery and harm remain unestimated. The locally corrected retention pipeline now
 passes a complete archive-to-Git-to-replay rehearsal. The corrected path subsequently ran under
 the separate Iter152 protocol; Iter151 itself remains closed and was not retried.
-[Result, failure and closure](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter151_recovery_canary/RESULT.md).
+[Result, failure and closure](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter151_recovery_canary/RESULT.md).
 
 ## Iteration 152: complete comparison, no recovery witness
 
@@ -346,9 +346,9 @@ inspected collision-case pulse traces; this is exploratory evidence, not a physi
 All checked stationarity residuals passed the fixed 1e-6 bar. Nevertheless, 37/1,420 controller
 calls exceeded 50 ms and all 1,420 full loops exceeded 250 ms; full-loop median was 1.890 s.
 Both compute envelopes closed with unchanged source bindings and no remaining owned job.
-[Complete result and limits](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter152_recovery_continuation/RESULT.md) ·
-[per-episode evidence](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter152_recovery_continuation/proof/analysis.json) ·
-[resource closure](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter152_recovery_continuation/proof/resource_closure.json).
+[Complete result and limits](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter152_recovery_continuation/RESULT.md) ·
+[per-episode evidence](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter152_recovery_continuation/proof/analysis.json) ·
+[resource closure](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter152_recovery_continuation/proof/resource_closure.json).
 
 ## Iteration 153: a model maneuver candidate
 
@@ -367,8 +367,8 @@ distance is 2.302 m. That distance is not a road-compliance result.
 The 150 trials contain 10,012 independently replayed model actions. The local search took
 6.254 s without new packages or provider access; it omits rendering and inference and therefore
 supports no real-time-driving comparison. The search supplied a precise candidate for the subsequent
-full-scene test; Iter154 rejected that candidate. [Result, complete accounting and figure](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter153_action_feasibility/RESULT.md) ·
-[bound action packet](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter153_action_feasibility/SELECTED_MANEUVER.json).
+full-scene test; Iter154 rejected that candidate. [Result, complete accounting and figure](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter153_action_feasibility/RESULT.md) ·
+[bound action packet](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter153_action_feasibility/SELECTED_MANEUVER.json).
 
 ## Iteration 154: the full scene rejects the model candidate
 
@@ -387,9 +387,9 @@ The full-scene result still contradicts useful recovery by this exact maneuver. 
 No alternative candidate was tried. The capacity-refused first start and one prospectively amended
 retry are retained. The VM is terminated, all 11,715 source/asset bindings are unchanged, and the
 combined conservative compute allowance is $0.346 within $3. Road compliance and information
-benefit remain unknown. [Result and figure](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter154_full_scene_maneuver/RESULT.md) ·
-[per-episode analysis](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter154_full_scene_maneuver/proof/analysis.json) ·
-[resource closure](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter154_full_scene_maneuver/proof/resource_closure.json).
+benefit remain unknown. [Result and figure](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter154_full_scene_maneuver/RESULT.md) ·
+[per-episode analysis](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter154_full_scene_maneuver/proof/analysis.json) ·
+[resource closure](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter154_full_scene_maneuver/proof/resource_closure.json).
 
 ## Iteration 155: the background witness replays exactly
 
@@ -406,9 +406,9 @@ reconstruction against physical occupancy, road boundaries or future trajectorie
 
 All 396 bound source/asset files remained unchanged. The VM is terminated, no owned job remains,
 and conservative compute was $0.229 within $1.50. No new driving episode, rendering or inference
-ran. [Result and figure](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter155_background_witness/RESULT.md) ·
-[independent admission](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter155_background_witness/proof/admission.json) ·
-[resource closure](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter155_background_witness/proof/resource_closure.json).
+ran. [Result and figure](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter155_background_witness/RESULT.md) ·
+[independent admission](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter155_background_witness/proof/admission.json) ·
+[resource closure](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter155_background_witness/proof/resource_closure.json).
 
 ## The next scientific test
 
@@ -455,6 +455,8 @@ deterministic function of the same input history, its value may be computational
 a time budget rather than new information. Those distinctions matter to both the mathematics
 and the experiment.
 
+<a id="reproduce--repository-map"></a>
+
 ## Reproduce and inspect
 
 Start with the result for the claim being checked. Its hypothesis defines the population,
@@ -474,14 +476,14 @@ python3 experiments/verification/audit_pooling.py
 
 In the recovery studies, raw pairs were committed before admission. A separate implementation
 checks dynamics, controller outputs, monitor decisions, route outcomes and replica agreement.
-The historical [Iteration 148 replay entrypoint](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/replay.py) exposes these
-checks; the [qualification record](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/QUALIFICATION.json) binds
+The historical [Iteration 148 replay entrypoint](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter148_recovery_study/replay.py) exposes these
+checks; the [qualification record](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter148_recovery_study/QUALIFICATION.json) binds
 the earlier evidence. **165 focused tests passed** before live execution, and qualification
 replayed **1,104 earlier GPU actions**. This does not make the incomplete pulse an admitted result.
 
-The latest [Iter155 checker](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter155_background_witness/check.py) independently
+The latest [Iter155 checker](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter155_background_witness/check.py) independently
 reconstructs selection, geometry and collision masks from the retained source-point witness.
-Its [result](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter155_background_witness/RESULT.md) records the environment and scope:
+Its [result](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter155_background_witness/RESULT.md) records the environment and scope:
 239 local regression checks, including 75 focused checks. A replay of those two poses does not extend the result to an untested trajectory.
 
 Fresh simulator execution also requires the licensed datasets, scene/model assets, pinned
@@ -492,14 +494,14 @@ not a complete distribution of every runtime asset.
 | Guide | Scope |
 |---|---|
 | [Architecture](docs/ARCHITECTURE.md) | Implemented interfaces, simulator distinctions, evidence flow and timing. |
-| [Original preregistration](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/PREREGISTRATION.md) | The initial benchmark question and decision rules. |
-| [Research direction](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md) | Information and recoverability: mathematical formulation and dated literature review. |
-| [Next scientific decision](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter155_background_witness/DECISION.md) | Background-aware model calibration before another action search. |
-| [Handoff](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/HANDOFF.md) | Exact next task, acceptance criteria, resource closure and recovery instructions. |
-| [Continuity](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/CONTINUITY.md) and [next phase](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/docs/NEXT_PHASE.md) | Current state followed by retained historical decisions. |
-| [Technical report](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/docs/REPORT.md) | Historical synthesis through Iter134; it predates the current execution program. |
-| [Paper status](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/docs/paper/STATUS.md) | Archived manuscript and rewrite requirements; not submission-ready. |
-| [Verification archive](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/verification/README.md) | Early audit scripts, raw logs and correction history. |
+| [Original preregistration](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/PREREGISTRATION.md) | The initial benchmark question and decision rules. |
+| [Research direction](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md) | Information and recoverability: mathematical formulation and dated literature review. |
+| [Next scientific decision](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter155_background_witness/DECISION.md) | Background-aware model calibration before another action search. |
+| [Handoff](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/HANDOFF.md) | Exact next task, acceptance criteria, resource closure and recovery instructions. |
+| [Continuity](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/CONTINUITY.md) and [next phase](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/docs/NEXT_PHASE.md) | Current state followed by retained historical decisions. |
+| [Technical report](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/docs/REPORT.md) | Historical synthesis through Iter134; it predates the current execution program. |
+| [Paper status](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/docs/paper/STATUS.md) | Archived manuscript and rewrite requirements; not submission-ready. |
+| [Verification archive](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/verification/README.md) | Early audit scripts, raw logs and correction history. |
 | [Editorial review](docs/editorial/2026-10-12/REVIEW.md) | Claim corrections, diagram review and reconciliation of the public and local READMEs. |
 
 ## Repository status — 12 October 2026
@@ -516,7 +518,7 @@ that historical contract.
 Later research, including Iter155, is published in a separate
 [research lineage](https://github.com/manfromnowhere143/sentinel/tree/4d2998ef8d1c6df8facabb271af49569154259d8).
 This README describes both; a documentation update does not integrate that later experimental
-code into the accepted snapshot. The [current handoff](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/HANDOFF.md) identifies the next task.
+code into the accepted snapshot. The [current handoff](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/HANDOFF.md) identifies the next task.
 
 The previous GitHub landing page showed the old Iter134/135 narrative because it read `master`,
 while subsequent README updates were published only on research branches. The local protected
@@ -526,7 +528,7 @@ Iter155 and preserves the older pages and publication records.
 Validation remains scoped. At Iter155's scientific closure, hosted Python 3.10 and 3.11 jobs
 passed supply-chain and locked-install checks, then each failed repository-wide Ruff with
 832 findings; later tests were skipped. The historical documentation/publication guard also
-remains unresolved. The [retained CI outcome](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter155_background_witness/proof/hosted_ci_outcome.json)
+remains unresolved. The [retained CI outcome](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter155_background_witness/proof/hosted_ci_outcome.json)
 is not a green result for a later documentation commit. Full research integration is separate
 work; no historical gate or evidence has been rewritten here.
 
@@ -543,32 +545,32 @@ Repeated analyses of the same cases do not increase the number of independent ca
 
 | Record | Finding or scope |
 |---|---|
-| [1](https://github.com/manfromnowhere143/sentinel/tree/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter1_reproduce) | Closed-loop stack smoke and baseline reproduction. |
-| [1b](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter1b_partial_baseline/PARTIAL_BASELINE.md) | Partial baseline and collision corpus. |
-| [2](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter2_monitor/RESULT.md) | Risk signal, TTC braking and early ablations; the selectivity claim was later corrected. |
-| [3](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter3_progress/RESULT.md) | Safe-progress exposes over-braking on benign scenes. |
-| [4](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter4_gated/RESULT.md) | Closing-speed gating improves selectivity on the tested cases. |
-| [5](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter5_tracked/RESULT.md) | Observed velocity improves frontal response; side-impact failures remain. |
-| [6](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter6_cpa/RESULT.md) | Path-based closest approach reduces side impacts with excess braking. |
-| [7](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter7_margin/RESULT.md) | Margin sweep exposes the trade between selectivity and threat coverage. |
-| [8](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter8_union/RESULT.md) | Union of CPA and tracked closing-TTC detectors; collision recount corrected by verification. |
-| [9](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter9_evade/RESULT.md) | Steering evasion fails the registered comparison. |
-| [10](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter10_brakevade/RESULT.md) | Combined braking and steering fails the registered comparison. |
-| [11](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter11_early_evade/RESULT.md) | Early evasion fails and creates collisions in the clean test case. |
-| [12](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter12_plan_selection/RESULT.md) | Native candidate plans fail the registered feasible-escape criterion. |
-| [13](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter13_rss_baseline/RESULT.md) | Tested RSS-style envelope reduces collisions with severe progress cost. |
-| [Full14](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/full14_benchmark/RESULT.md) | Six-run full-suite comparison; the later power run is the headline. |
-| [15](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter15_latch_release/RESULT.md) | Four-clear-frame latch release improves progress over the latched union. |
-| [Pooling](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/union_validation/RESULT.md) | WITHDRAWN: deterministic replays were counted as independent episodes. |
-| [Power](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/full14_power/RESULT.md) | 799/800 episodes; benchmark gain with a safe-progress null. |
-| [14 · VAD](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/vad_generalization/RESULT.md) | Transfer reduces tested collisions but substantially harms progress. |
-| [Verification](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/verification/README.md) | Audit and fresh unique-episode remeasurement. |
-| [16](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter16_soft_stop/RESULT.md) | Crawl gains progress but fails the collision criterion. |
-| [17](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter17_threat_routing/RESULT.md) | Threat routing gains progress but fails its collision criterion. |
-| [18](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter18_tracker/RESULT.md) | Offline tracking gate fails by one frame; no live run. |
-| [19](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter19_diversity_head/RESULT.md) | Planning-query candidate head fails its escape gate; no general representation impossibility follows. |
-| [20](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter20_vad_tracker_portability/RESULT.md) | Tracker defaults fail the VAD portability gate. |
-| [21](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter21_bev_diversity_head/RESULT.md) | BEV candidate head fails feasibility and fidelity gates. |
+| [1](https://github.com/manfromnowhere143/sentinel/tree/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter1_reproduce) | Closed-loop stack smoke and baseline reproduction. |
+| [1b](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter1b_partial_baseline/PARTIAL_BASELINE.md) | Partial baseline and collision corpus. |
+| [2](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter2_monitor/RESULT.md) | Risk signal, TTC braking and early ablations; the selectivity claim was later corrected. |
+| [3](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter3_progress/RESULT.md) | Safe-progress exposes over-braking on benign scenes. |
+| [4](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter4_gated/RESULT.md) | Closing-speed gating improves selectivity on the tested cases. |
+| [5](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter5_tracked/RESULT.md) | Observed velocity improves frontal response; side-impact failures remain. |
+| [6](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter6_cpa/RESULT.md) | Path-based closest approach reduces side impacts with excess braking. |
+| [7](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter7_margin/RESULT.md) | Margin sweep exposes the trade between selectivity and threat coverage. |
+| [8](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter8_union/RESULT.md) | Union of CPA and tracked closing-TTC detectors; collision recount corrected by verification. |
+| [9](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter9_evade/RESULT.md) | Steering evasion fails the registered comparison. |
+| [10](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter10_brakevade/RESULT.md) | Combined braking and steering fails the registered comparison. |
+| [11](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter11_early_evade/RESULT.md) | Early evasion fails and creates collisions in the clean test case. |
+| [12](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter12_plan_selection/RESULT.md) | Native candidate plans fail the registered feasible-escape criterion. |
+| [13](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter13_rss_baseline/RESULT.md) | Tested RSS-style envelope reduces collisions with severe progress cost. |
+| [Full14](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/full14_benchmark/RESULT.md) | Six-run full-suite comparison; the later power run is the headline. |
+| [15](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter15_latch_release/RESULT.md) | Four-clear-frame latch release improves progress over the latched union. |
+| [Pooling](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/union_validation/RESULT.md) | WITHDRAWN: deterministic replays were counted as independent episodes. |
+| [Power](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/full14_power/RESULT.md) | 799/800 episodes; benchmark gain with a safe-progress null. |
+| [14 · VAD](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/vad_generalization/RESULT.md) | Transfer reduces tested collisions but substantially harms progress. |
+| [Verification](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/verification/README.md) | Audit and fresh unique-episode remeasurement. |
+| [16](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter16_soft_stop/RESULT.md) | Crawl gains progress but fails the collision criterion. |
+| [17](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter17_threat_routing/RESULT.md) | Threat routing gains progress but fails its collision criterion. |
+| [18](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter18_tracker/RESULT.md) | Offline tracking gate fails by one frame; no live run. |
+| [19](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter19_diversity_head/RESULT.md) | Planning-query candidate head fails its escape gate; no general representation impossibility follows. |
+| [20](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter20_vad_tracker_portability/RESULT.md) | Tracker defaults fail the VAD portability gate. |
+| [21](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter21_bev_diversity_head/RESULT.md) | BEV candidate head fails feasibility and fidelity gates. |
 
 </details>
 
@@ -577,29 +579,29 @@ Repeated analyses of the same cases do not increase the number of independent ca
 
 | Record | Finding or scope |
 |---|---|
-| [22](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter22_causal_planner_interpretability/RESULT.md) | Artifact join failure stops the causal test. |
-| [23](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter23_s0_hardened_causal_localization/RESULT.md) | Join repair passes; insufficient target counts stop the causal test. |
-| [24](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter24_risk_support_atlas/RESULT.md) | No eligible locally available scenes after the known-data exclusion. |
-| [25](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter25_staged_data_inventory/RESULT.md) | Staged-data inventory confirms the availability blocker. |
-| [26](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter26_data_staging_remedy/RESULT.md) | Capacity check fails before data movement. |
-| [27](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter27_storage_provisioning/RESULT.md) | Persistent storage provisioned; infrastructure result. |
-| [28](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter28_nuscenes_trainval_staging/RESULT.md) | Official trainval assets staged with inventory checks. |
-| [29](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter29_trainval_risk_support_atlas/RESULT.md) | Low-diversity support atlas passes; strict-collapse support is insufficient. |
-| [30](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter30_full_trainval_lowdiv_localization/RESULT.md) | Diagnostic localization passes against registered controls; no causal intervention result. |
-| [31](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter31_full_trainval_bridge_intervention/RESULT.md) | Sham intervention fails baseline reproduction. |
-| [32](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter32_prefix_replay_baseline_recovery/RESULT.md) | Full-prefix replay restores the frozen baseline. |
-| [33](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter33_prefix_preserving_bridge_intervention/RESULT.md) | Bridge intervention fails calibration. |
-| [34](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter34_direction_specificity_audit/RESULT.md) | Scale-only continuation fails its response-consistency criterion. |
-| [35](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter35_response_heterogeneity_audit/RESULT.md) | Response heterogeneity yields no eligible registered stratum. |
-| [36](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter36_bridge_site_decomposition/RESULT.md) | Subsite probes identify diagnostic targets for a later intervention. |
-| [37](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter37_track_query_site_intervention/RESULT.md) | Track-query intervention fails calibration. |
-| [38](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md) | Opposite-direction canary passes; calibration was not run. |
-| [39](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter39_external_validity_claim_audit/RESULT.md) | Claim scope narrowed after external-validity audit. |
-| [40](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter40_timing_cost_audit/RESULT.md) | Lead time and intervention burden measured on the power-run logs. |
-| [41](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter41_sensor_input_degradation_gate/RESULT.md) | Missing exact pose support stops perturbation analysis. |
-| [42](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter42_exact_trace_replay_support/RESULT.md) | Captured pose-aware trace supports exact decision replay. |
-| [43](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter43_object_stream_perturbation_gate/RESULT.md) | Offline position jitter at 5 cm causes excess firing. |
-| [44](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter44_velocity_smoothing_gate/RESULT.md) | Registered smoothing variants fail fidelity and repair criteria. |
+| [22](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter22_causal_planner_interpretability/RESULT.md) | Artifact join failure stops the causal test. |
+| [23](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter23_s0_hardened_causal_localization/RESULT.md) | Join repair passes; insufficient target counts stop the causal test. |
+| [24](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter24_risk_support_atlas/RESULT.md) | No eligible locally available scenes after the known-data exclusion. |
+| [25](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter25_staged_data_inventory/RESULT.md) | Staged-data inventory confirms the availability blocker. |
+| [26](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter26_data_staging_remedy/RESULT.md) | Capacity check fails before data movement. |
+| [27](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter27_storage_provisioning/RESULT.md) | Persistent storage provisioned; infrastructure result. |
+| [28](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter28_nuscenes_trainval_staging/RESULT.md) | Official trainval assets staged with inventory checks. |
+| [29](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter29_trainval_risk_support_atlas/RESULT.md) | Low-diversity support atlas passes; strict-collapse support is insufficient. |
+| [30](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter30_full_trainval_lowdiv_localization/RESULT.md) | Diagnostic localization passes against registered controls; no causal intervention result. |
+| [31](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter31_full_trainval_bridge_intervention/RESULT.md) | Sham intervention fails baseline reproduction. |
+| [32](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter32_prefix_replay_baseline_recovery/RESULT.md) | Full-prefix replay restores the frozen baseline. |
+| [33](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter33_prefix_preserving_bridge_intervention/RESULT.md) | Bridge intervention fails calibration. |
+| [34](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter34_direction_specificity_audit/RESULT.md) | Scale-only continuation fails its response-consistency criterion. |
+| [35](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter35_response_heterogeneity_audit/RESULT.md) | Response heterogeneity yields no eligible registered stratum. |
+| [36](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter36_bridge_site_decomposition/RESULT.md) | Subsite probes identify diagnostic targets for a later intervention. |
+| [37](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter37_track_query_site_intervention/RESULT.md) | Track-query intervention fails calibration. |
+| [38](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md) | Opposite-direction canary passes; calibration was not run. |
+| [39](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter39_external_validity_claim_audit/RESULT.md) | Claim scope narrowed after external-validity audit. |
+| [40](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter40_timing_cost_audit/RESULT.md) | Lead time and intervention burden measured on the power-run logs. |
+| [41](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter41_sensor_input_degradation_gate/RESULT.md) | Missing exact pose support stops perturbation analysis. |
+| [42](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter42_exact_trace_replay_support/RESULT.md) | Captured pose-aware trace supports exact decision replay. |
+| [43](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter43_object_stream_perturbation_gate/RESULT.md) | Offline position jitter at 5 cm causes excess firing. |
+| [44](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter44_velocity_smoothing_gate/RESULT.md) | Registered smoothing variants fail fidelity and repair criteria. |
 
 </details>
 
@@ -608,62 +610,62 @@ Repeated analyses of the same cases do not increase the number of independent ca
 
 | Record | Finding or scope |
 |---|---|
-| [45](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter45_hugsim_infra_gate/RESULT.md) | HUGSIM assets, environment and nominal smoke pass. |
-| [46](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter46_hugsim_off_baseline/RESULT.md) | Baseline completion null: 38/52 episodes; map assets missing. |
-| [47](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter47_map_staging_and_off_completion/RESULT.md) | Map staging completes the 52-episode baseline with carried evidence preserved. |
-| [48](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter48_hugsim_transfer_gate/RESULT.md) | TRANSFER_NULL on easy/medium scenarios; monitor active, interval includes zero. |
-| [49](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter49_hugsim_hard_tier_gate/RESULT.md) | TRANSFER_NULL on hard/extreme scenarios despite collision opportunity. |
-| [50](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter50_collision_opportunity_audit/RESULT.md) | Collision-opportunity audit; opportunity scarcity does not rescue the transfer claim. |
-| [51](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter51_hugsim_failure_taxonomy/RESULT.md) | Mixed failure taxonomy; no single mechanism explains all retained pairs. |
-| [52](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter52_hugsim_on_collision_timing_audit/RESULT.md) | Timing audit finds both absent/late braking and persistent collisions after early braking. |
-| [53](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter53_hugsim_first_fire_channel_audit/RESULT.md) | First-fire channels do not reduce the failure to one union branch. |
-| [54](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter54_hugsim_provenance_support_audit/RESULT.md) | Missing collision-actor identity limits provenance attribution. |
-| [55](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter55_hugsim_collision_instrumentation_source_audit/RESULT.md) | Source audit identifies instrumentation locations. |
-| [56](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter56_hugsim_provenance_instrumentation_patch/RESULT.md) | Static guard rejects the first provenance patch design. |
-| [57](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter57_hugsim_patch_guard_refinement/RESULT.md) | Refined guard accepts the same patch bytes; no driving result. |
-| [58](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter58_hugsim_provenance_instrumented_canary/RESULT.md) | Instrumented canary records collision provenance. |
-| [59](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter59_hugsim_actor_match_audit/RESULT.md) | Eight selected episodes; three foreground-classifiable rows mismatch under the frozen bridge. |
-| [60](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter60_actor_bridge_sensitivity/RESULT.md) | Bridge sensitivity makes one row ambiguous; robust all-row mismatch unsupported. |
-| [61](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter61_monitor_object_surface_audit/RESULT.md) | A non-trigger object matches in one case; two cases lack first-fire support. |
-| [62](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter62_nontrigger_ranking_audit/RESULT.md) | The matched non-trigger object is outside the frozen hazard thresholds. |
-| [63](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter63_temporal_emergence_audit/RESULT.md) | The matched object remains visible without reaching a hazard threshold before contact. |
-| [64](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter64_unsupported_temporal_surface_audit/RESULT.md) | Both cases lacking first-fire support have earlier object matches under the frozen rule. |
-| [65](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter65_temporal_alignment_audit/RESULT.md) | The earlier matched objects remain below the trigger thresholds at those times. |
-| [66](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter66_matched_object_timeline_audit/RESULT.md) | One target becomes a TTC hazard; the other remains below threshold before contact. |
-| [67](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter67_trigger_target_bridge_audit/RESULT.md) | Target and trigger coincide in one case and differ in the other. |
-| [68](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter68_fire_time_bridge_decomposition/RESULT.md) | The best trigger-to-actor association occurs before firing in one case and after it in another. |
-| [69](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter69_hugsim_mechanism_taxonomy/RESULT.md) | Synthesis classifies all eight selected cases within the available provenance. |
-| [70](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter70_hugsim_structural_timing_audit/RESULT.md) | Five cases divide into silent, late-fire and background-only collision categories. |
-| [71](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter71_hugsim_surface_silent_margin_audit/RESULT.md) | The two silent cases remain far from the trigger thresholds before contact. |
-| [72](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter72_hugsim_late_fire_prefire_margin_audit/RESULT.md) | The two late-fire cases approach a threshold before contact without crossing it. |
-| [73](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter73_hugsim_margin_transition_audit/RESULT.md) | Silent cases never activate; late-fire cases activate only after contact. |
-| [74](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter74_hugsim_late_fire_delay_barrier/RESULT.md) | The near-threshold channel before contact differs from the channel firing after contact. |
-| [75](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter75_hugsim_cross_channel_object_handoff/RESULT.md) | Both late-fire cases also switch the object responsible for the monitor signal. |
-| [76](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter76_hugsim_switch_foreground_bridge/RESULT.md) | Neither selected object reaches the specified actor-association bands at the event. |
-| [77](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter77_hugsim_event_object_set_bridge/RESULT.md) | Other objects in the full detection set supply some actor-association support. |
-| [78](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter78_hugsim_support_object_ranking/RESULT.md) | Objects with actor support are unselected and below the monitor thresholds. |
-| [79](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter79_hugsim_selected_surface_decomposition/RESULT.md) | Selected objects have stronger monitor signals than the actor-supported objects. |
-| [80](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter80_hugsim_selected_all_provenance_bridge/RESULT.md) | Selected objects lack an association with any eligible recorded collision-provenance row. |
-| [81](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter81_hugsim_support_object_temporal_surface/RESULT.md) | One supported object later reaches the monitor surface; another never does. |
-| [82](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter82_hugsim_support_surface_bridge_cooccurrence/RESULT.md) | Actor association coincides only with a borderline signal in one case and none in another. |
-| [83](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter83_hugsim_bridge_supported_surface_miss_decomposition/RESULT.md) | Supported objects remain outside active TTC/CPA conditions at the examined times. |
-| [84](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter84_hugsim_selected_support_arbitration/RESULT.md) | Objects favoured by monitor geometry differ from those supported by actor provenance. |
-| [85](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter85_hugsim_path_horizon_bridge_timing/RESULT.md) | Path horizon and provenance timing preserve the selected/support-object distinction. |
-| [86](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter86_hugsim_bridge_time_surface_replay/RESULT.md) | Exact replay classifies two rows; a missing 6.0 s decision row blocks the third. |
-| [87](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter87_hugsim_interval_bridge_time_surface_replay/RESULT.md) | Interval replay finds one borderline supported object and another below threshold. |
-| [88](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter88_hugsim_bridge_surface_margin_residual/RESULT.md) | Residual margins distinguish two ways that supported objects miss the trigger. |
-| [89](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter89_hugsim_joint_bridge_surface_candidate_audit/RESULT.md) | No object in the examined replay rows is both active and actor-supported. |
-| [90](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter90_hugsim_active_surface_provenance_gap/RESULT.md) | The only active replay object lacks actor support; supported objects are inactive. |
-| [91](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter91_hugsim_active_gap_geometry_decomposition/RESULT.md) | Path proximity and actor-provenance proximity favour different objects. |
-| [92](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter92_hugsim_path_proximity_arbitration/RESULT.md) | The closest path object differs from the closest provenance object in each examined row. |
-| [93](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter93_hugsim_surface_winner_alignment/RESULT.md) | Surface selection follows path proximity in two rows and provenance proximity in one. |
-| [94](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter94_hugsim_active_row_surface_margin_arbitration/RESULT.md) | The active row selects its only active CPA candidate; supported candidates remain distant. |
-| [95](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter95_hugsim_nonactive_surface_branch_arbitration/RESULT.md) | Inactive rows separate a borderline TTC choice from a path/CPA choice. |
-| [96](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter96_hugsim_branch_outcome_bridge/RESULT.md) | Different signal branches lead to the same recorded late-fire outcome category. |
-| [97](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter97_hugsim_surface_silent_outcome_margin_bridge/RESULT.md) | Silent cases approach a threshold only after foreground contact. |
-| [98](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter98_hugsim_background_only_outcome_bridge/RESULT.md) | The background-only case retains a TTC fire without foreground-actor support. |
-| [99](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter99_hugsim_structural_bridge_coverage_audit/RESULT.md) | The five fixed structural cases are covered once each by the preceding audits. |
-| [100](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter100_hugsim_structural_expansion_support_audit/RESULT.md) | Existing transfer reports lack collision-actor support for expanding the structural analysis. |
+| [45](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter45_hugsim_infra_gate/RESULT.md) | HUGSIM assets, environment and nominal smoke pass. |
+| [46](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter46_hugsim_off_baseline/RESULT.md) | Baseline completion null: 38/52 episodes; map assets missing. |
+| [47](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter47_map_staging_and_off_completion/RESULT.md) | Map staging completes the 52-episode baseline with carried evidence preserved. |
+| [48](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter48_hugsim_transfer_gate/RESULT.md) | TRANSFER_NULL on easy/medium scenarios; monitor active, interval includes zero. |
+| [49](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter49_hugsim_hard_tier_gate/RESULT.md) | TRANSFER_NULL on hard/extreme scenarios despite collision opportunity. |
+| [50](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter50_collision_opportunity_audit/RESULT.md) | Collision-opportunity audit; opportunity scarcity does not rescue the transfer claim. |
+| [51](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter51_hugsim_failure_taxonomy/RESULT.md) | Mixed failure taxonomy; no single mechanism explains all retained pairs. |
+| [52](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter52_hugsim_on_collision_timing_audit/RESULT.md) | Timing audit finds both absent/late braking and persistent collisions after early braking. |
+| [53](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter53_hugsim_first_fire_channel_audit/RESULT.md) | First-fire channels do not reduce the failure to one union branch. |
+| [54](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter54_hugsim_provenance_support_audit/RESULT.md) | Missing collision-actor identity limits provenance attribution. |
+| [55](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter55_hugsim_collision_instrumentation_source_audit/RESULT.md) | Source audit identifies instrumentation locations. |
+| [56](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter56_hugsim_provenance_instrumentation_patch/RESULT.md) | Static guard rejects the first provenance patch design. |
+| [57](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter57_hugsim_patch_guard_refinement/RESULT.md) | Refined guard accepts the same patch bytes; no driving result. |
+| [58](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter58_hugsim_provenance_instrumented_canary/RESULT.md) | Instrumented canary records collision provenance. |
+| [59](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter59_hugsim_actor_match_audit/RESULT.md) | Eight selected episodes; three foreground-classifiable rows mismatch under the frozen bridge. |
+| [60](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter60_actor_bridge_sensitivity/RESULT.md) | Bridge sensitivity makes one row ambiguous; robust all-row mismatch unsupported. |
+| [61](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter61_monitor_object_surface_audit/RESULT.md) | A non-trigger object matches in one case; two cases lack first-fire support. |
+| [62](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter62_nontrigger_ranking_audit/RESULT.md) | The matched non-trigger object is outside the frozen hazard thresholds. |
+| [63](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter63_temporal_emergence_audit/RESULT.md) | The matched object remains visible without reaching a hazard threshold before contact. |
+| [64](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter64_unsupported_temporal_surface_audit/RESULT.md) | Both cases lacking first-fire support have earlier object matches under the frozen rule. |
+| [65](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter65_temporal_alignment_audit/RESULT.md) | The earlier matched objects remain below the trigger thresholds at those times. |
+| [66](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter66_matched_object_timeline_audit/RESULT.md) | One target becomes a TTC hazard; the other remains below threshold before contact. |
+| [67](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter67_trigger_target_bridge_audit/RESULT.md) | Target and trigger coincide in one case and differ in the other. |
+| [68](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter68_fire_time_bridge_decomposition/RESULT.md) | The best trigger-to-actor association occurs before firing in one case and after it in another. |
+| [69](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter69_hugsim_mechanism_taxonomy/RESULT.md) | Synthesis classifies all eight selected cases within the available provenance. |
+| [70](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter70_hugsim_structural_timing_audit/RESULT.md) | Five cases divide into silent, late-fire and background-only collision categories. |
+| [71](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter71_hugsim_surface_silent_margin_audit/RESULT.md) | The two silent cases remain far from the trigger thresholds before contact. |
+| [72](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter72_hugsim_late_fire_prefire_margin_audit/RESULT.md) | The two late-fire cases approach a threshold before contact without crossing it. |
+| [73](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter73_hugsim_margin_transition_audit/RESULT.md) | Silent cases never activate; late-fire cases activate only after contact. |
+| [74](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter74_hugsim_late_fire_delay_barrier/RESULT.md) | The near-threshold channel before contact differs from the channel firing after contact. |
+| [75](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter75_hugsim_cross_channel_object_handoff/RESULT.md) | Both late-fire cases also switch the object responsible for the monitor signal. |
+| [76](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter76_hugsim_switch_foreground_bridge/RESULT.md) | Neither selected object reaches the specified actor-association bands at the event. |
+| [77](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter77_hugsim_event_object_set_bridge/RESULT.md) | Other objects in the full detection set supply some actor-association support. |
+| [78](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter78_hugsim_support_object_ranking/RESULT.md) | Objects with actor support are unselected and below the monitor thresholds. |
+| [79](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter79_hugsim_selected_surface_decomposition/RESULT.md) | Selected objects have stronger monitor signals than the actor-supported objects. |
+| [80](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter80_hugsim_selected_all_provenance_bridge/RESULT.md) | Selected objects lack an association with any eligible recorded collision-provenance row. |
+| [81](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter81_hugsim_support_object_temporal_surface/RESULT.md) | One supported object later reaches the monitor surface; another never does. |
+| [82](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter82_hugsim_support_surface_bridge_cooccurrence/RESULT.md) | Actor association coincides only with a borderline signal in one case and none in another. |
+| [83](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter83_hugsim_bridge_supported_surface_miss_decomposition/RESULT.md) | Supported objects remain outside active TTC/CPA conditions at the examined times. |
+| [84](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter84_hugsim_selected_support_arbitration/RESULT.md) | Objects favoured by monitor geometry differ from those supported by actor provenance. |
+| [85](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter85_hugsim_path_horizon_bridge_timing/RESULT.md) | Path horizon and provenance timing preserve the selected/support-object distinction. |
+| [86](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter86_hugsim_bridge_time_surface_replay/RESULT.md) | Exact replay classifies two rows; a missing 6.0 s decision row blocks the third. |
+| [87](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter87_hugsim_interval_bridge_time_surface_replay/RESULT.md) | Interval replay finds one borderline supported object and another below threshold. |
+| [88](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter88_hugsim_bridge_surface_margin_residual/RESULT.md) | Residual margins distinguish two ways that supported objects miss the trigger. |
+| [89](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter89_hugsim_joint_bridge_surface_candidate_audit/RESULT.md) | No object in the examined replay rows is both active and actor-supported. |
+| [90](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter90_hugsim_active_surface_provenance_gap/RESULT.md) | The only active replay object lacks actor support; supported objects are inactive. |
+| [91](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter91_hugsim_active_gap_geometry_decomposition/RESULT.md) | Path proximity and actor-provenance proximity favour different objects. |
+| [92](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter92_hugsim_path_proximity_arbitration/RESULT.md) | The closest path object differs from the closest provenance object in each examined row. |
+| [93](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter93_hugsim_surface_winner_alignment/RESULT.md) | Surface selection follows path proximity in two rows and provenance proximity in one. |
+| [94](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter94_hugsim_active_row_surface_margin_arbitration/RESULT.md) | The active row selects its only active CPA candidate; supported candidates remain distant. |
+| [95](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter95_hugsim_nonactive_surface_branch_arbitration/RESULT.md) | Inactive rows separate a borderline TTC choice from a path/CPA choice. |
+| [96](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter96_hugsim_branch_outcome_bridge/RESULT.md) | Different signal branches lead to the same recorded late-fire outcome category. |
+| [97](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter97_hugsim_surface_silent_outcome_margin_bridge/RESULT.md) | Silent cases approach a threshold only after foreground contact. |
+| [98](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter98_hugsim_background_only_outcome_bridge/RESULT.md) | The background-only case retains a TTC fire without foreground-actor support. |
+| [99](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter99_hugsim_structural_bridge_coverage_audit/RESULT.md) | The five fixed structural cases are covered once each by the preceding audits. |
+| [100](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter100_hugsim_structural_expansion_support_audit/RESULT.md) | Existing transfer reports lack collision-actor support for expanding the structural analysis. |
 
 </details>
 
@@ -672,40 +674,40 @@ Repeated analyses of the same cases do not increase the number of independent ca
 
 | Record | Finding or scope |
 |---|---|
-| [101](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter101_hugsim_provenance_batch_candidate_design/RESULT.md) | Designed a 13-slot provenance batch, including one carried reference. |
-| [102](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter102_hugsim_provenance_batch_launch_manifest/RESULT.md) | Bound the 13 batch slots to their sources; duplicate scenarios retained distinct identities. |
-| [103](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter103_hugsim_provenance_batch_execution/RESULT.md) | Executed all 13 slots; retained 217 collision-provenance rows. |
-| [104](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter104_hugsim_provenance_batch_actor_match_audit/RESULT.md) | Only 1/13 slots met foreground classification requirements; the registered bar was four. |
-| [105](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter105_hugsim_timing_aware_provenance_batch_design/RESULT.md) | Selected 13 slots using timing eligibility and prior-instrumentation exclusions. |
-| [106](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter106_hugsim_timing_aware_launch_manifest/RESULT.md) | Prepared the timing-aware batch with source and runtime checks. |
-| [107](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter107_hugsim_timing_aware_batch_execution/RESULT.md) | Executed all 13 slots; retained 252 collision-provenance rows. |
-| [108](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter108_hugsim_timing_aware_batch_actor_match_audit/RESULT.md) | Only 2/13 slots met foreground classification requirements; the bar remained four. |
-| [109](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter109_hugsim_timing_aware_support_yield_decomposition/RESULT.md) | Remaining classification failures split between absent foreground actors and late firing. |
-| [110](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter110_hugsim_support_preserving_candidate_design/RESULT.md) | Identified an eight-row core with suitable support; a clean 13-slot schedule was unavailable. |
-| [111](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter111_hugsim_support_core_launch_manifest/RESULT.md) | Bound the eight-row core schedule to source identities. |
-| [112](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter112_hugsim_support_core_batch_execution/RESULT.md) | Executed all eight core slots; retained 44 collision-provenance rows. |
-| [113](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter113_hugsim_support_core_actor_match_audit/RESULT.md) | All eight cases were classifiable; all mismatched under the frozen association rule. |
-| [114](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter114_hugsim_support_core_mismatch_geometry_decomposition/RESULT.md) | Mismatch vectors were predominantly longitudinal; seven monitor objects lay behind the actor. |
-| [115](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter115_hugsim_support_core_monitor_set_ordering/RESULT.md) | No first-fire object set contained a close actor candidate under the frozen rule. |
-| [116](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter116_hugsim_support_core_collision_actor_timeline/RESULT.md) | Seven cases had pre-collision support, with different timing relative to first fire. |
-| [117](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter117_hugsim_support_core_event_window_decomposition/RESULT.md) | Initially supported objects differed from the selected objects at first fire. |
-| [118](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter118_hugsim_support_core_object_lifecycle/RESULT.md) | Initially supported objects no longer had support at fire; later support used other objects. |
-| [119](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter119_hugsim_support_core_loss_replacement_audit/RESULT.md) | Measured support gaps were 1–6 s; nearest first-fire replacements remained outside support. |
-| [120](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter120_hugsim_support_core_selected_fire_object_lifecycle/RESULT.md) | Selected first-fire objects never acquired pre-collision support in these eight cases. |
-| [121](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter121_hugsim_support_core_two_track_synthesis/RESULT.md) | Synthesis retains the distinction between supported objects and selected trigger objects. |
-| [122](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter122_support_core_taxonomy_documentation/RESULT.md) | Integrated the bounded mechanism synthesis into the historical research documents. |
-| [123](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter123_mission_evidence_alignment_audit/RESULT.md) | Mission and evidence alignment review; historical documentation update. |
-| [124](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter124_manuscript_report_freshness/RESULT.md) | Historical manuscript/report freshness update. |
-| [125](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter125_support_core_blind_spot_scenario_design/RESULT.md) | Five proposed scenario archetypes derived from the support-core cases. |
-| [126](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter126_support_core_candidate_manifest_preflight/RESULT.md) | Ten symbolic candidate specifications; no generated-scene outcome. |
-| [127](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter127_post_iter126_mission_alignment_audit/RESULT.md) | Mission alignment review after candidate design. |
-| [128](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter128_support_core_source_pool_mutation_preflight/RESULT.md) | Source pools and mutation operators specified before generation. |
-| [129](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter129_support_core_artifact_naming_preflight/RESULT.md) | Future artifact names reserved; no generated-scene outcome. |
-| [130](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter130_support_core_artifact_schema_preflight/RESULT.md) | Artifact schemas specified; no generated-scene outcome. |
-| [131](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter131_post_iter130_mission_alignment_audit/RESULT.md) | Mission alignment review after schema design. |
-| [132](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter132_support_core_schema_instance_creation_preflight/RESULT.md) | Inert templates and validator contract prepared. |
-| [133](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter133_neuroncap_placebo_semantics_control_design/RESULT.md) | Placebo comparison preregistered before execution. |
-| [134](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md) | PLACEBO_HARM_OR_NULL; gain over OFF reproduced, attribution unresolved. |
+| [101](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter101_hugsim_provenance_batch_candidate_design/RESULT.md) | Designed a 13-slot provenance batch, including one carried reference. |
+| [102](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter102_hugsim_provenance_batch_launch_manifest/RESULT.md) | Bound the 13 batch slots to their sources; duplicate scenarios retained distinct identities. |
+| [103](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter103_hugsim_provenance_batch_execution/RESULT.md) | Executed all 13 slots; retained 217 collision-provenance rows. |
+| [104](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter104_hugsim_provenance_batch_actor_match_audit/RESULT.md) | Only 1/13 slots met foreground classification requirements; the registered bar was four. |
+| [105](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter105_hugsim_timing_aware_provenance_batch_design/RESULT.md) | Selected 13 slots using timing eligibility and prior-instrumentation exclusions. |
+| [106](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter106_hugsim_timing_aware_launch_manifest/RESULT.md) | Prepared the timing-aware batch with source and runtime checks. |
+| [107](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter107_hugsim_timing_aware_batch_execution/RESULT.md) | Executed all 13 slots; retained 252 collision-provenance rows. |
+| [108](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter108_hugsim_timing_aware_batch_actor_match_audit/RESULT.md) | Only 2/13 slots met foreground classification requirements; the bar remained four. |
+| [109](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter109_hugsim_timing_aware_support_yield_decomposition/RESULT.md) | Remaining classification failures split between absent foreground actors and late firing. |
+| [110](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter110_hugsim_support_preserving_candidate_design/RESULT.md) | Identified an eight-row core with suitable support; a clean 13-slot schedule was unavailable. |
+| [111](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter111_hugsim_support_core_launch_manifest/RESULT.md) | Bound the eight-row core schedule to source identities. |
+| [112](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter112_hugsim_support_core_batch_execution/RESULT.md) | Executed all eight core slots; retained 44 collision-provenance rows. |
+| [113](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter113_hugsim_support_core_actor_match_audit/RESULT.md) | All eight cases were classifiable; all mismatched under the frozen association rule. |
+| [114](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter114_hugsim_support_core_mismatch_geometry_decomposition/RESULT.md) | Mismatch vectors were predominantly longitudinal; seven monitor objects lay behind the actor. |
+| [115](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter115_hugsim_support_core_monitor_set_ordering/RESULT.md) | No first-fire object set contained a close actor candidate under the frozen rule. |
+| [116](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter116_hugsim_support_core_collision_actor_timeline/RESULT.md) | Seven cases had pre-collision support, with different timing relative to first fire. |
+| [117](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter117_hugsim_support_core_event_window_decomposition/RESULT.md) | Initially supported objects differed from the selected objects at first fire. |
+| [118](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter118_hugsim_support_core_object_lifecycle/RESULT.md) | Initially supported objects no longer had support at fire; later support used other objects. |
+| [119](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter119_hugsim_support_core_loss_replacement_audit/RESULT.md) | Measured support gaps were 1–6 s; nearest first-fire replacements remained outside support. |
+| [120](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter120_hugsim_support_core_selected_fire_object_lifecycle/RESULT.md) | Selected first-fire objects never acquired pre-collision support in these eight cases. |
+| [121](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter121_hugsim_support_core_two_track_synthesis/RESULT.md) | Synthesis retains the distinction between supported objects and selected trigger objects. |
+| [122](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter122_support_core_taxonomy_documentation/RESULT.md) | Integrated the bounded mechanism synthesis into the historical research documents. |
+| [123](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter123_mission_evidence_alignment_audit/RESULT.md) | Mission and evidence alignment review; historical documentation update. |
+| [124](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter124_manuscript_report_freshness/RESULT.md) | Historical manuscript/report freshness update. |
+| [125](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter125_support_core_blind_spot_scenario_design/RESULT.md) | Five proposed scenario archetypes derived from the support-core cases. |
+| [126](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter126_support_core_candidate_manifest_preflight/RESULT.md) | Ten symbolic candidate specifications; no generated-scene outcome. |
+| [127](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter127_post_iter126_mission_alignment_audit/RESULT.md) | Mission alignment review after candidate design. |
+| [128](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter128_support_core_source_pool_mutation_preflight/RESULT.md) | Source pools and mutation operators specified before generation. |
+| [129](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter129_support_core_artifact_naming_preflight/RESULT.md) | Future artifact names reserved; no generated-scene outcome. |
+| [130](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter130_support_core_artifact_schema_preflight/RESULT.md) | Artifact schemas specified; no generated-scene outcome. |
+| [131](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter131_post_iter130_mission_alignment_audit/RESULT.md) | Mission alignment review after schema design. |
+| [132](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter132_support_core_schema_instance_creation_preflight/RESULT.md) | Inert templates and validator contract prepared. |
+| [133](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter133_neuroncap_placebo_semantics_control_design/RESULT.md) | Placebo comparison preregistered before execution. |
+| [134](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md) | PLACEBO_HARM_OR_NULL; gain over OFF reproduced, attribution unresolved. |
 
 </details>
 
@@ -714,27 +716,27 @@ Repeated analyses of the same cases do not increase the number of independent ca
 
 | Record | Finding or scope |
 |---|---|
-| [135](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter135_neuroncap_blind_braking_dose_response/HYPOTHESIS.md) | Preregistered dose-response protocol; deferred and unrun. |
-| [136](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter136_hugsim_recoverability_canary/RESULT.md) | REPLAY_DIVERGED: equal seeds and initial plans do not reproduce controller output. |
-| [137](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter137_controller_execution_contract/RESULT.md) | Numerical repeatability and stopping reasons qualified separately from deadlines. |
-| [138](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter138_numerical_live_replay/RESULT.md) | Live numerical replay qualified; timing remains a separate constraint. |
-| [139](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter139_finite_pulse_recoverability/RESULT.md) | Null: 0/6 useful recoveries in the registered finite-pulse cases. |
-| [140](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter140_contact_actuation/RESULT.md) | Contact and applied-control reconstruction; prior recovery null unchanged. |
-| [141](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter141_nominal_continuation/RESULT.md) | Nominal continuation design and execution contract; no recovery gain established. |
-| [142](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter142_nominal_continuation_completion/RESULT.md) | Null: 0/2 useful recoveries under the continuation experiment. |
-| [143](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter143_model_contract/RESULT.md) | Actor time, coordinates and ego dynamics audited before a new execution regime. |
-| [144](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter144_timed_trajectory/RESULT.md) | Explicit trajectory timestamps qualified locally; from-rest convergence still failed. |
-| [145](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter145_constrained_execution/RESULT.md) | Constrained controller and bounded GPU smoke qualified; no full-route recovery result. |
-| [146](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter146_route_outcome_contract/RESULT.md) | Route outcomes and missingness corrected; short GPU qualification remains censored. |
-| [147](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter147_full_horizon_execution/RESULT.md) | Full-horizon qualification: 912 GPU actions; diagnostic holds and natural-actor collisions. |
-| [148](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/RESULT.md) | Inconclusive: four admitted baseline episodes; pulse interrupted; no complete comparison. |
-| [149](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter149_observation_recovery/RESULT.md) | Local bounded observation recovery qualified; no scientific outcome. |
-| [150](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter150_cloud_observation/RESULT.md) | Bounded cloud/native observation checks supported; report-saving failure preserved and locally corrected. |
-| [151](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter151_recovery_canary/RESULT.md) | Inconclusive: two nominal replicas admitted; publication check stopped the remaining comparison. |
-| [152](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter152_recovery_continuation/RESULT.md) | Fixed continuation complete: 14 new episodes, no pulse recovery witness; benign monitor adds 13 simulated seconds. |
-| [153](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter153_action_feasibility/RESULT.md) | Fixed local model search: 14 eligible maneuvers; exact candidate selected, full-scene recovery unknown. |
-| [154](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter154_full_scene_maneuver/RESULT.md) | Exact model candidate fails native background collision at 3.25 s in both fresh replicas; 26 verified actions. |
-| [155](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter155_background_witness/RESULT.md) | Native/scalar background masks agree: 0 centers at 3.00 s, 273 at 3.25 s; full selected population retained, no new driving episode. |
+| [135](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter135_neuroncap_blind_braking_dose_response/HYPOTHESIS.md) | Preregistered dose-response protocol; deferred and unrun. |
+| [136](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter136_hugsim_recoverability_canary/RESULT.md) | REPLAY_DIVERGED: equal seeds and initial plans do not reproduce controller output. |
+| [137](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter137_controller_execution_contract/RESULT.md) | Numerical repeatability and stopping reasons qualified separately from deadlines. |
+| [138](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter138_numerical_live_replay/RESULT.md) | Live numerical replay qualified; timing remains a separate constraint. |
+| [139](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter139_finite_pulse_recoverability/RESULT.md) | Null: 0/6 useful recoveries in the registered finite-pulse cases. |
+| [140](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter140_contact_actuation/RESULT.md) | Contact and applied-control reconstruction; prior recovery null unchanged. |
+| [141](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter141_nominal_continuation/RESULT.md) | Nominal continuation design and execution contract; no recovery gain established. |
+| [142](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter142_nominal_continuation_completion/RESULT.md) | Null: 0/2 useful recoveries under the continuation experiment. |
+| [143](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter143_model_contract/RESULT.md) | Actor time, coordinates and ego dynamics audited before a new execution regime. |
+| [144](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter144_timed_trajectory/RESULT.md) | Explicit trajectory timestamps qualified locally; from-rest convergence still failed. |
+| [145](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter145_constrained_execution/RESULT.md) | Constrained controller and bounded GPU smoke qualified; no full-route recovery result. |
+| [146](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter146_route_outcome_contract/RESULT.md) | Route outcomes and missingness corrected; short GPU qualification remains censored. |
+| [147](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter147_full_horizon_execution/RESULT.md) | Full-horizon qualification: 912 GPU actions; diagnostic holds and natural-actor collisions. |
+| [148](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter148_recovery_study/RESULT.md) | Inconclusive: four admitted baseline episodes; pulse interrupted; no complete comparison. |
+| [149](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter149_observation_recovery/RESULT.md) | Local bounded observation recovery qualified; no scientific outcome. |
+| [150](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter150_cloud_observation/RESULT.md) | Bounded cloud/native observation checks supported; report-saving failure preserved and locally corrected. |
+| [151](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter151_recovery_canary/RESULT.md) | Inconclusive: two nominal replicas admitted; publication check stopped the remaining comparison. |
+| [152](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter152_recovery_continuation/RESULT.md) | Fixed continuation complete: 14 new episodes, no pulse recovery witness; benign monitor adds 13 simulated seconds. |
+| [153](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter153_action_feasibility/RESULT.md) | Fixed local model search: 14 eligible maneuvers; exact candidate selected, full-scene recovery unknown. |
+| [154](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter154_full_scene_maneuver/RESULT.md) | Exact model candidate fails native background collision at 3.25 s in both fresh replicas; 26 verified actions. |
+| [155](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/experiments/iter155_background_witness/RESULT.md) | Native/scalar background masks agree: 0 centers at 3.00 s, 273 at 3.25 s; full selected population retained, no new driving episode. |
 
 </details>
 
@@ -751,7 +753,7 @@ real-world safety nor production readiness, and provide no comparison with priva
 systems. A claim about a new planner, operating condition or deployment would require a separate
 comparison and evidence appropriate to that setting.
 
-The [previous README](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/docs/history/README_through_iter134.snapshot.txt) is retained byte for byte
+The [previous README](https://github.com/manfromnowhere143/sentinel/blob/8925bc293b2ee835e548b8738f99319ac6b0cff5/docs/history/README_through_iter134.snapshot.txt) is retained byte for byte
 as a historical snapshot. It contains superseded status and wording, including claims narrowed
 on this page. Original results, protocols, raw evidence and accepted Git history remain intact.
 The archive preserves what was written; the current page states what the evidence supports.
