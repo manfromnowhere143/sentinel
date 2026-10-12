@@ -1,0 +1,20 @@
+{
+  "status": "supported_for_registered_development_search",
+  "constructed_positive_controls": [
+    "straight_completion",
+    "foreground_detour_with_complete_scalar_replay"
+  ],
+  "retained_negative_control": "immediate_progress_ranking_exhausts_beam_on_constructed_detour",
+  "pre_acquisition_corrections": [
+    "Empty scalar mask now has explicit boolean dtype; detected by empty-population fixture before scene acquisition.",
+    "Immediate-progress beam failed synthetic detour; foreground-distance guidance alone also failed. Final guidance includes heading alignment and speed-group preservation."
+  ],
+  "exposed_scene_queries": 0,
+  "new_driving_episodes": 0,
+  "checks": {
+    "python_3_14_focused_and_retained": 196,
+    "python_3_11_new": 22,
+    "ruff": "whole_repository_pass",
+    "docs_guard": "535_markdown_clean"
+  }
+}

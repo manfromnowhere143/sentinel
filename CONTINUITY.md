@@ -1,3 +1,7 @@
+> **Current: Iter158 qualified — 12 October 2026.** Bounded command search,
+> complete hard predicates; constructed detour and separate replay qualified.
+> No scene acquisition yet. Read current HANDOFF and Iter158 decision/protocol.
+
 > **Current: Iter157 closed — 12 October 2026.** Fixed-library null, 0/75 qualify;
 > 14 scalar background rejection witnesses, 61 prior failures. Original invalid
 > inventory and post-evidence correction retained. No new drive or spending.

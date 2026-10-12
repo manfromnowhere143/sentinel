@@ -1,3 +1,10 @@
+# Current engine milestone — 12 October 2026
+
+Iter157 rejected the fixed library (0/75). Iter158 qualifies a bounded actuator
+search with complete hard constraints, synthetic detour controls and independent
+selected-path replay. See [decision packet](../experiments/iter158_constraint_aware_search/DECISION_PACKET.md).
+No source-scene outcome yet. Iter135 remains deferred. Earlier roadmap text is historical.
+
 # Next phase — canonical current decision and historical option ledger
 
 ## Active operator work on 2026-10-11

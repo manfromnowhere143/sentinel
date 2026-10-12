@@ -1,0 +1,47 @@
+{
+  "status": "reviewed_not_reproduced",
+  "sources": [
+    {
+      "name": "commonroad_report",
+      "url": "https://arxiv.org/html/2512.19564v1",
+      "sha256": "0650878eaa572fccdadb37c21be6425d8963d081ca67a43619da85ed5885fbdd",
+      "bytes": 142450,
+      "retrieved_at": "2026-10-12T14:20:36.226786+00:00"
+    },
+    {
+      "name": "commonroad_planner",
+      "url": "https://cps.pages.gitlab.lrz.de/reactive-planner/reactive_planner/",
+      "sha256": "00d1e19872f322a101a0b1f6c8fd75c685dcd261626dc81205fb95f7a0602d83",
+      "bytes": 403708,
+      "retrieved_at": "2026-10-12T14:20:37.635453+00:00"
+    },
+    {
+      "name": "drivability",
+      "url": "https://cps.pages.gitlab.lrz.de/commonroad-drivability-checker/api_feasibility.html",
+      "sha256": "8617393162e8b67115c3d2a119482c9d70122f5f2d071fa22a036bc9bcd276a9",
+      "bytes": 188603,
+      "retrieved_at": "2026-10-12T14:20:38.357886+00:00"
+    },
+    {
+      "name": "risk_primitives",
+      "url": "https://arxiv.org/html/2607.26802v1",
+      "sha256": "d4a944562b17bf8b65ade64871d1001e2121ea98d2fe944796dfddccc87e932a",
+      "bytes": 284551,
+      "retrieved_at": "2026-10-12T14:20:39.271304+00:00"
+    },
+    {
+      "name": "eco",
+      "url": "https://arxiv.org/html/2609.31383v1",
+      "sha256": "eee58d19cc46586bec3315e228c17ccb55cc810741faf9317fa530145607c66f",
+      "bytes": 254461,
+      "retrieved_at": "2026-10-12T14:20:39.883661+00:00"
+    },
+    {
+      "name": "released_planner_source",
+      "url": "https://raw.githubusercontent.com/CommonRoad/commonroad-reactive-planner/6f2f0d91d4b9370f8e716349833308271365e7d1/commonroad_rp/reactive_planner.py",
+      "commit": "6f2f0d91d4b9370f8e716349833308271365e7d1",
+      "sha256": "acfcd8522a770518a45b2c1cea7214cec56e51623259f5397042a9f7f18d6b3b",
+      "bytes": 61309
+    }
+  ]
+}

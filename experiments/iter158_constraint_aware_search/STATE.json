@@ -1,0 +1,8 @@
+{
+  "iteration": 158,
+  "status": "preregistered",
+  "phase": "qualified_before_acquisition",
+  "owned_jobs": 0,
+  "provider_spend": 0,
+  "next": "Freeze qualified source; one bounded producer; commit raw before scalar selected-path admission."
+}
