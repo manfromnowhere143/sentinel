@@ -1,0 +1,13 @@
+{
+  "status": "supported",
+  "scope": "Post-result log extractor and evidence channel, no scientific reacquisition",
+  "test_count": 19,
+  "post_result_controls": 5,
+  "channel_checks": 14,
+  "elapsed_seconds": 12.52,
+  "initial_local_test": "1 failed, 4 passed: toy fixture gave two children the same command, violating the checked unique-child contract",
+  "correction": "Distinct command for the toy competing child; extractor and admitted outcomes unchanged",
+  "failed_fixture_commit": "d379680dae11bf10f17b609eb4c85be3ea2e41db",
+  "scientific_source_unchanged": true,
+  "initialized_retry": false
+}

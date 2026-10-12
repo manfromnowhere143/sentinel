@@ -20,7 +20,7 @@ def fixture():
         effort=0,
     )
     second = dict(first, id=2, parent=1, frame=2, state=[1, 0, 0, 2, 0], guide_distance=9)
-    winner = dict(second, id=3, guide_distance=8)
+    winner = dict(second, id=3, action=[0, 0.01], guide_distance=8)
     rows = [dict(first, id=0, parent=None, frame=0), first, second, winner]
     depths = [dict(frame=1, complete=True, beam=[1]), dict(frame=2, complete=True, beam=[3])]
     return rows, depths, copy.deepcopy(rows[:3])
