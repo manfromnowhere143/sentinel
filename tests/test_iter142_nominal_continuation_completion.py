@@ -113,18 +113,27 @@ def test_bad_branch_rejected_before_start(tmp_path):
     assert b.calls == [("preflight", None)] and not (tmp_path / "schedule_started.json").exists()
 
 
-def test_actual_candidate_ref_and_known_bad():
-    import os
+def test_actual_candidate_ref_and_known_bad(tmp_path):
+    # A real, disposable Git graph tests ref resolution and ancestry without
+    # assuming the runner has a developer's local research branch.
+    def git(*args):
+        return subprocess.check_output(
+            ["git", "-c", "core.hooksPath=/dev/null", "-c", "commit.gpgSign=false",
+             "-c", "user.name=Sentinel test fixture", "-c", "user.email=fixture@example.invalid",
+             *args], cwd=tmp_path, stderr=subprocess.PIPE,
+        ).decode().strip()
 
-    repo = Path(os.environ.get("SENTINEL_TEST_REPOSITORY", Path(__file__).resolve().parents[1]))
-    source = (
-        subprocess.check_output(["git", "rev-parse", "refs/heads/" + c.BRANCH], cwd=repo)
-        .decode()
-        .strip()
-    )
-    assert c.candidate(repo, c.BRANCH, source) == source
+    git("init", "-b", c.BRANCH)
+    git("commit", "--allow-empty", "-m", "synthetic base")
+    source = git("rev-parse", "HEAD")
+    git("commit", "--allow-empty", "-m", "synthetic descendant")
+    tip = git("rev-parse", "HEAD")
+    assert c.candidate(tmp_path, c.BRANCH, source) == tip
     with pytest.raises(subprocess.CalledProcessError):
-        c.candidate(repo, "research/iter142-finite-pulse", source)
+        c.candidate(tmp_path, "research/iter142-finite-pulse", source)
+    unrelated = git("commit-tree", "HEAD^{tree}", "-m", "synthetic unrelated root")
+    with pytest.raises(subprocess.CalledProcessError):
+        c.candidate(tmp_path, c.BRANCH, unrelated)
 
 
 @pytest.mark.parametrize(

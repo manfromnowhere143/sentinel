@@ -1,7 +1,10 @@
 from __future__ import annotations
 
+from functools import lru_cache
 import importlib.util
 from pathlib import Path
+
+from scripts.historical_repository import historical_repository
 
 
 MODULE_PATH = (
@@ -17,9 +20,11 @@ assert SPEC.loader is not None
 SPEC.loader.exec_module(placebo_design)
 
 
+@lru_cache(maxsize=1)
 def build_committed_report() -> dict:
     repo = Path(__file__).resolve().parents[1]
-    return placebo_design.build_report(repo)
+    with historical_repository(repo) as historical:
+        return placebo_design.build_report(historical)
 
 
 def test_committed_inputs_build_complete_design() -> None:

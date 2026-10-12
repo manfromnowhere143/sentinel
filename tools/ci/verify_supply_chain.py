@@ -477,9 +477,9 @@ EXPECTED_STATIC_SHA256 = {
 
     AGENTS_REL: "9dd96d223327384d77760671396b8075a5a57bc1396abdcff5a12095055add69",
     WORKFLOW_REL: "09c7fb25eff2429aa9474ca9b4a4d0fdeb88efc3ff3d0cdb92c760bbdcd535d8",
-    REQUIREMENTS_INPUT_REL: "4036b46b9c5e2494d38af046c11053413a76dfb2243ac03662c7f31825ae052c",
-    LOCKS["3.10"]: "a74c4c678776f496e12647a62d975d62cf9934260f0de954d89d18f94b6d495f",
-    LOCKS["3.11"]: "da3ad739431392f2e4e76131d3036e1bcfb496e6b0e7f76338de8e2cce24d9e9",
+    REQUIREMENTS_INPUT_REL: "127ffdf390bc2edf16056b8cfbfad341d9a97c03d659a5f61ab8b63f17d7f35e",
+    LOCKS["3.10"]: "81a5eb85355f335b6384e3a98f650486a8782c62d17f70cef124f712e1ed079d",
+    LOCKS["3.11"]: "2d00841c6d0fb64fc89054a055819f66fbb53cb8870fa421a3a62165984c2e00",
     PYPROJECT_REL: "ca3c6f5a3427b419e86139ebf49bbdfe57c8ab84ee30913f59057bffe069dbcf",
 }
 EXPECTED_REQUIREMENTS_INPUT = (
@@ -491,6 +491,7 @@ EXPECTED_REQUIREMENTS_INPUT = (
     'scikit-learn==1.9.0 ; python_version == "3.11"',
     "torch==2.10.0+cpu",
     "shapely==2.1.2",
+    "PyYAML==6.0.3",
 )
 EXPECTED_DIRECT_PACKAGES = {
     "3.10": {
@@ -500,6 +501,7 @@ EXPECTED_DIRECT_PACKAGES = {
         "scikit-learn": "1.7.2",
         "torch": "2.10.0+cpu",
         "shapely": "2.1.2",
+        "pyyaml": "6.0.3",
     },
     "3.11": {
         "numpy": "2.4.6",
@@ -508,6 +510,7 @@ EXPECTED_DIRECT_PACKAGES = {
         "scikit-learn": "1.9.0",
         "torch": "2.10.0+cpu",
         "shapely": "2.1.2",
+        "pyyaml": "6.0.3",
     },
 }
 

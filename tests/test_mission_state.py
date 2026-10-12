@@ -14,6 +14,7 @@ import types
 import pytest
 
 import scripts.mission_state as mission_state
+from scripts.historical_repository import HISTORICAL_COMMIT, git as historical_git
 from scripts.mission_state import (
     CANONICAL_REPOSITORY,
     CONTROL_HARDENING_AUTHORIZED_ACTIONS,
@@ -266,8 +267,10 @@ def _handoff_mission_contract_problems(
     return problems
 
 
-def test_active_handoff_reproduces_exact_canonical_action_contract() -> None:
-    handoff = (Path(__file__).resolve().parents[1] / "HANDOFF.md").read_text()
+def test_archived_handoff_reproduces_exact_canonical_action_contract() -> None:
+    handoff = historical_git(
+        Path(__file__).resolve().parents[1], "show", f"{HISTORICAL_COMMIT}:HANDOFF.md"
+    ).decode()
 
     assert _handoff_mission_contract_problems(handoff) == []
 
@@ -309,17 +312,19 @@ def test_handoff_contract_tracks_control_hardening_state_and_known_bad() -> None
     ) == ["active-handoff:authorized-action:1"]
 
 
-def test_active_handoff_contract_gate_fires_when_an_authorized_boundary_is_reworded() -> None:
-    """Prove the live gate against a deliberately reworded authorized boundary.
+def test_archived_handoff_contract_gate_fires_when_an_authorized_boundary_is_reworded() -> None:
+    """Prove the archived gate against a deliberately reworded authorized boundary.
 
     The mutation subject is derived from the rendered document itself — the first
-    authorized bullet of the live contract section — so the known-bad stays real in
+    authorized bullet of the archived contract section — so the known-bad stays real in
     every phase. A predecessor of this test hardcoded the CONTROL_HARDENING phrase
     "hermetic CI" as its subject and went vacuous when T16 rotated the phase
     vocabulary to the CI_HARDENING action arrays.
     """
 
-    handoff = (Path(__file__).resolve().parents[1] / "HANDOFF.md").read_text()
+    handoff = historical_git(
+        Path(__file__).resolve().parents[1], "show", f"{HISTORICAL_COMMIT}:HANDOFF.md"
+    ).decode()
     assert load_state()["next_program"]["authorized_actions"]
     start = handoff.index("## Canonical mission state (`MISSION_STATE.json`)")
     end = handoff.index("## Execution lifecycle observation", start)
@@ -341,8 +346,10 @@ def test_active_handoff_contract_gate_fires_when_an_authorized_boundary_is_rewor
     ]
 
 
-def test_active_handoff_contract_gate_fires_on_extra_authorized_action() -> None:
-    handoff = (Path(__file__).resolve().parents[1] / "HANDOFF.md").read_text()
+def test_archived_handoff_contract_gate_fires_on_extra_authorized_action() -> None:
+    handoff = historical_git(
+        Path(__file__).resolve().parents[1], "show", f"{HISTORICAL_COMMIT}:HANDOFF.md"
+    ).decode()
     mutated = handoff.replace(
         "- Forbidden now:",
         "  - launch arbitrary remote workload now;\n- Forbidden now:",
@@ -4264,7 +4271,7 @@ def test_state_cannot_roll_back_latest_completed_iteration() -> None:
     state["current_verdict"] = "NEURONCAP_PLACEBO_SEMANTICS_CONTROL_DESIGN_COMPLETE"
     state["next_program"]["iteration"] = 134
 
-    assert "current_completed_iteration:133!=134" in validate_state(state)
+    assert "current_completed_iteration:133!=155" in validate_state(state)
 
 
 def test_every_pending_hypothesis_must_be_classified() -> None:

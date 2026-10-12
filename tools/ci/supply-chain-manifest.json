@@ -698,16 +698,16 @@
       "sha256": "ec5b9f58087cc3be69b7cd4c27dbab6e26b469dd1378ecd1b8b14ce3c7a66dfa"
     },
     "tools/ci/requirements-ci-py310.lock": {
-      "bytes": 20473,
-      "sha256": "a74c4c678776f496e12647a62d975d62cf9934260f0de954d89d18f94b6d495f"
+      "bytes": 20649,
+      "sha256": "81a5eb85355f335b6384e3a98f650486a8782c62d17f70cef124f712e1ed079d"
     },
     "tools/ci/requirements-ci-py311.lock": {
-      "bytes": 19060,
-      "sha256": "da3ad739431392f2e4e76131d3036e1bcfb496e6b0e7f76338de8e2cce24d9e9"
+      "bytes": 19236,
+      "sha256": "2d00841c6d0fb64fc89054a055819f66fbb53cb8870fa421a3a62165984c2e00"
     },
     "tools/ci/requirements-ci.in": {
-      "bytes": 513,
-      "sha256": "4036b46b9c5e2494d38af046c11053413a76dfb2243ac03662c7f31825ae052c"
+      "bytes": 527,
+      "sha256": "127ffdf390bc2edf16056b8cfbfad341d9a97c03d659a5f61ab8b63f17d7f35e"
     },
     "tools/ci/run_pytest_isolated.py": {
       "bytes": 5607,
@@ -718,8 +718,8 @@
       "sha256": "97e209710633869eb0e20c6a0690cccdf24c37162badc1e65ca55efa785cf560"
     },
     "tools/ci/verify_supply_chain.py": {
-      "bytes": 62149,
-      "sha256": "30d271c5c9ae5e1a044a40a89ae73ae496aaa76b6db9ae0793aef50cfc1fd84c"
+      "bytes": 62224,
+      "sha256": "a0ebc5c6a08cb3e2f40c73df81fe3bb844e7c2cc17080fbe8869e22f7effeb30"
     }
   },
   "limitations": [
@@ -805,6 +805,11 @@
           "version": "9.1.1"
         },
         {
+          "hash_count": 1,
+          "name": "pyyaml",
+          "version": "6.0.3"
+        },
+        {
           "hash_count": 18,
           "name": "ruff",
           "version": "0.15.20"
@@ -856,7 +861,7 @@
         }
       ],
       "path": "tools/ci/requirements-ci-py310.lock",
-      "sha256": "a74c4c678776f496e12647a62d975d62cf9934260f0de954d89d18f94b6d495f"
+      "sha256": "81a5eb85355f335b6384e3a98f650486a8782c62d17f70cef124f712e1ed079d"
     },
     "3.11": {
       "packages": [
@@ -931,6 +936,11 @@
           "version": "9.1.1"
         },
         {
+          "hash_count": 1,
+          "name": "pyyaml",
+          "version": "6.0.3"
+        },
+        {
           "hash_count": 18,
           "name": "ruff",
           "version": "0.15.20"
@@ -977,7 +987,7 @@
         }
       ],
       "path": "tools/ci/requirements-ci-py311.lock",
-      "sha256": "da3ad739431392f2e4e76131d3036e1bcfb496e6b0e7f76338de8e2cce24d9e9"
+      "sha256": "2d00841c6d0fb64fc89054a055819f66fbb53cb8870fa421a3a62165984c2e00"
     }
   },
   "requirements_input": [
@@ -988,7 +998,8 @@
     "scikit-learn==1.7.2 ; python_version == \"3.10\"",
     "scikit-learn==1.9.0 ; python_version == \"3.11\"",
     "torch==2.10.0+cpu",
-    "shapely==2.1.2"
+    "shapely==2.1.2",
+    "PyYAML==6.0.3"
   ],
   "schema": "sentinel.ci_input_manifest.v2",
   "workflow": {

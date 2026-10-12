@@ -66,6 +66,12 @@
           "version": "84.0.0",
           "url": "https://files.pythonhosted.org/packages/95/9c/c510029fc6ef33a6275cd2c5d3cecd6613dfd6aa401d57c54f1c18852ccf/setuptools-84.0.0-py3-none-any.whl",
           "sha256": "51a52592b3b99e102b609654876bd65f19f999935166d1352678931132b0c670"
+        },
+        {
+          "name": "pyyaml",
+          "version": "6.0.3",
+          "url": "https://files.pythonhosted.org/packages/7a/1e/7acc4f0e74c4b3d9531e24739e0ab832a5edf40e64fbae1a9c01941cabd7/pyyaml-6.0.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+          "sha256": "9c7708761fccb9397fe64bbc0395abcae8c4bf7b0eac081e12b809bf47700d0b"
         }
       ]
     },
@@ -138,6 +144,12 @@
           "version": "84.0.0",
           "url": "https://files.pythonhosted.org/packages/95/9c/c510029fc6ef33a6275cd2c5d3cecd6613dfd6aa401d57c54f1c18852ccf/setuptools-84.0.0-py3-none-any.whl",
           "sha256": "51a52592b3b99e102b609654876bd65f19f999935166d1352678931132b0c670"
+        },
+        {
+          "name": "pyyaml",
+          "version": "6.0.3",
+          "url": "https://files.pythonhosted.org/packages/71/60/917329f640924b18ff085ab889a11c763e0b573da888e8404ff486657602/pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+          "sha256": "b8bb0864c5a28024fac8a632c443c87c5aa6f215c0b126c449ae1a150412f31d"
         }
       ]
     }

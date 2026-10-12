@@ -1,6 +1,7 @@
 from pathlib import Path
 import shutil
 import subprocess
+import sys
 
 import pytest
 
@@ -23,7 +24,7 @@ def test_only_exact_archived_paths_are_excluded(tmp_path: Path) -> None:
     archived = tmp_path / sc.ARCHIVED_SOURCE_FILES[0]
     archived.parent.mkdir(parents=True)
     archived.write_text("undefined_archived_name\n")
-    command = [shutil.which("ruff") or "ruff", "check", "--no-cache", "."]
+    command = [sys.executable, "-I", "-m", "ruff", "check", "--no-cache", "."]
     result = subprocess.run(command, cwd=tmp_path, capture_output=True, text=True)
     assert result.returncode == 0, result.stdout
     maintained = archived.with_name("new_maintained_source.py")

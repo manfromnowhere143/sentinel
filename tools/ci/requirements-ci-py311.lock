@@ -263,3 +263,6 @@ markupsafe==3.0.4 \
 
 setuptools==84.0.0 \
     --hash=sha256:51a52592b3b99e102b609654876bd65f19f999935166d1352678931132b0c670
+pyyaml==6.0.3 \
+    --hash=sha256:b8bb0864c5a28024fac8a632c443c87c5aa6f215c0b126c449ae1a150412f31d
+    # Iter145 CPU test import; upstream wheel retained in resolution record.

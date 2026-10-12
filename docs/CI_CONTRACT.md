@@ -50,3 +50,13 @@ venv and verified pip-report/installed-metadata agreement. No workflow command,
 action reference or test is removed. The resolution record identifies target
 Python minors, URLs and hashes. This CPU CI stack is not the historical native
 CUDA experiment environment and does not retroactively rerun those experiments.
+
+The subsequent full research suite found 11 failing tests on both Python minors.
+PyYAML 6.0.3 is now hash-locked for the Iter145 source-import tests. Ruff is invoked
+through the test interpreter, so the isolated venv does not depend on shell PATH.
+Iter133 and the historical handoff action contract read their exact archived
+inputs; current false-IDLE handoff checks remain current. The rollback control
+now expects the current Iter155 result inventory. Iter142's reference check uses
+a real disposable Git graph, exercising a valid ancestor, an absent branch and
+an unrelated commit instead of depending on a developer's local branch. No
+scientific source or archived execution byte is altered by these fixture repairs.
