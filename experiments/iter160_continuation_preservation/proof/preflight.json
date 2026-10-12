@@ -1,0 +1,9 @@
+{
+  "status": "rejected_before_initialization",
+  "reason": "Incorrectly transcribed source commit argument; git show rejected it before output directory creation or trajectory evaluation.",
+  "incorrect_argument": "16590b3d4db183c43714330d2f9ddb9f843654b2",
+  "verified_source": "16590b3e4a6583e7a42e942c571d83c7c66e26d1",
+  "raw_exists": false,
+  "trajectories_acquired": 0,
+  "source_changed": false
+}
