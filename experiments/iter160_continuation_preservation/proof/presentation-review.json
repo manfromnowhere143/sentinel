@@ -1,0 +1,16 @@
+{
+  "status": "supported",
+  "scope": "Closure presentation and evidence bindings",
+  "frozen_scientific_source_unchanged": true,
+  "figure": "proof/continuations.png",
+  "figure_visually_inspected": true,
+  "changed_mermaid_diagrams": 3,
+  "svg_theme_renders": 6,
+  "png_renders_visually_inspected": 3,
+  "clipping_observed": false,
+  "docs_files_checked": 545,
+  "instrument_contract_tests": 14,
+  "whole_ruff": "passed",
+  "checks_do_not_establish_scientific_superiority": true,
+  "figure_sha256": "b3d311af54c57b2b7cafe4b348f03b80793a1e1486c7e3f93550e25c8a6e9c7a"
+}

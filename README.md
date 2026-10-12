@@ -18,7 +18,7 @@ against a competent responsive baseline, with information access, permitted acti
 resource budgets stated explicitly.
 
 [System](#what-sentinel-does) · [Results](#measured-results) ·
-[Research history](#how-the-question-changed) · [Latest result](#iteration-159-known-feasible-still-missed-by-search) ·
+[Research history](#how-the-question-changed) · [Latest result](#iteration-160-the-first-replacement-is-not-the-whole-explanation) ·
 [Next test](#the-next-scientific-test) · [Reproduce](#reproduce-and-inspect) ·
 [Repository status](#repository-status--12-october-2026) · [Experiment index](#complete-experiment-index)
 
@@ -237,6 +237,7 @@ flowchart TB
   C --> L["Iter157: complete constraints<br/>0 of 75 candidates qualify"]
   L --> A["Iter158: search inconclusive<br/>19-state prefix replays"]
   A --> Q["Iter159: known feasible controls<br/>candidate misses 1 of 4"]
+  Q --> K["Iter160: fixed continuations<br/>one terminal difference; cause unresolved"]
 ```
 
 ### 5. Establish what the controller actually executes
@@ -492,6 +493,24 @@ feasible continuation as the state it replaces. Native recovery remains unknown.
 [independent admission](experiments/iter159_route_search_qualification/proof/admission.json) ·
 [decision and primary research](experiments/iter159_route_search_qualification/DECISION_PACKET.md).
 
+## Iteration 160: the first replacement is not the whole explanation
+
+Ten fixed-command replays test five discarded-state/representative pairs from
+Iter159. All five original witnesses complete. Four representatives also complete;
+one ends at **0.998703 progress against a 1.0 completion threshold**. All ten pass
+every observed hard constraint. The same command suffix therefore does not preserve
+completion for every pair, but the differing outcome is a small terminal shortfall,
+not a collision or proof that the retained state has no useful alternative.
+
+Separate scalar admission verifies **546 states and 4,081,572 point checks**,
+including the actual histories and absolute checkpoint times. The failed
+route/speed-group candidate's first representative still completes this suffix,
+so its whole-search failure remains unexplained. Next is a fixed-budget retention
+ablation, with an exact-state control and corrected full-scene reflections.
+[Result and figure](experiments/iter160_continuation_preservation/RESULT.md) ·
+[independent admission](experiments/iter160_continuation_preservation/proof/admission.json) ·
+[decision](experiments/iter160_continuation_preservation/DECISION.md).
+
 ## The next scientific test
 
 The intended contribution is a monitor and evaluation system that can show **which failures
@@ -503,9 +522,9 @@ The following work is proposed; all previous schedules retain their closed accou
    failures, and the admitted correction. Physical occupancy and drivable boundaries
    still require separate evidence.
 2. **Establish an admissible action opportunity.** Iter158 remains inconclusive.
-   Iter159 rules out the proposed ranking as a qualified four-case baseline. Test
-   whether cell representatives preserve feasible continuations, then isolate state
-   aggregation under fixed expansion budgets. Preserve hard progress and
+   Iter159 rules out the proposed ranking as a qualified four-case baseline. Iter160
+   finds one fixed-suffix terminal difference; it does not explain that candidate's
+   miss. Isolate state aggregation under fixed expansion budgets. Preserve hard progress and
    actuation conditions; disclose any development-case change. A flexible optimizer must not win
    by exploiting an incomplete evaluator. A useful reset-time maneuver would still need
    a native test and the monitor's actual decision-time state/history.
@@ -523,7 +542,8 @@ flowchart TB
   accDescr: Complete constraints reject the retained library. A new action opportunity and native recovery must precede information testing.
   C["Iter157: fixed library null<br/>0 of 75 qualify"] --> A["Iter158: search inconclusive<br/>verified partial trajectory"]
   A --> Q["Iter159: qualification contradicted<br/>candidate completes 3 of 4 controls"]
-  Q --> S["Test continuation preservation<br/>then isolate state aggregation"]
+  Q --> K["Iter160: four representatives complete<br/>one fixed-suffix shortfall"]
+  K --> S["Isolate state aggregation<br/>fixed budgets and corrected reflections"]
   S --> R{"Useful full-scene<br/>recovery?"}
   R -- "not found" --> N["Retain negative result<br/>reconsider actions or cases"]
   R -- "unknown" --> U["Retain missing or invalid evidence<br/>no recovery claim"]
@@ -532,7 +552,7 @@ flowchart TB
   I --> H["New source scenes<br/>benefit, harm and uncertainty"]
 ```
 
-The first three nodes are retained results; the subsequent steps are proposed. No useful native
+The first four nodes are retained results; the subsequent steps are proposed. No useful native
 recovery opportunity or information advantage has been established.
 
 Failure across a finite set of actions does not prove physical inevitability. Likewise, a weak
@@ -587,7 +607,7 @@ not a complete distribution of every runtime asset.
 | [Architecture](docs/ARCHITECTURE.md) | Implemented interfaces, simulator distinctions, evidence flow and timing. |
 | [Original preregistration](PREREGISTRATION.md) | The initial benchmark question and decision rules. |
 | [Research direction](docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md) | Information and recoverability: mathematical formulation and dated literature review. |
-| [Next scientific decision](experiments/iter159_route_search_qualification/DECISION.md) | Test continuation preservation before another scene search; preserve the useful-action requirement. |
+| [Next scientific decision](experiments/iter160_continuation_preservation/DECISION.md) | Isolate retention at fixed budgets; the first replacement does not explain the candidate's miss. |
 | [Handoff](HANDOFF.md) | Exact next task, acceptance criteria, resource closure and recovery instructions. |
 | [Continuity](CONTINUITY.md) and [next phase](docs/NEXT_PHASE.md) | Current state followed by retained historical decisions. |
 | [Technical report](docs/REPORT.md) | Historical synthesis through Iter134; it predates the current execution program. |
@@ -608,23 +628,24 @@ scientific claim or reinterpret the archived mission state.
 
 ## Repository status — 12 October 2026
 
-**This research lineage is current through Iter159, completed on 12 October.** The
-fixed-library null and original-scene search remain unresolved. Constructive controls
-now establish missed feasible opportunities: the proposed ranking completes 3/4 and
-fails qualification. Useful native recovery and information benefit remain unestablished.
+**This research lineage is current through Iter160, completed on 12 October.** The
+fixed-library null and original-scene search remain unresolved. The proposed ranking
+fails qualification; continuation replay identifies one narrow terminal difference
+without explaining the candidate's miss. Useful native recovery and information
+benefit remain unestablished.
 Iteration 135's dose-response experiment remains **deferred and unrun**.
 
 The repository has two distinct records. The accepted code and mission snapshot at
 [`8c118b7`](https://github.com/manfromnowhere143/sentinel/tree/8c118b74c699bf0f139f9bd659192bad06b895f8)
 is **current through iteration 134**. [MISSION_STATE.json](MISSION_STATE.json) preserves
 that historical contract.
-Later research, through the Iter159 constructive qualification, is retained in a separate
-[research lineage](https://github.com/manfromnowhere143/sentinel/tree/5f7c8431ea2247501f663431ed651f076ffc644c).
+Later research, through the Iter160 continuation diagnostic, is retained in a separate
+[research lineage](https://github.com/manfromnowhere143/sentinel/tree/bc6bb9ff074180dc589888a222f7f9c5e25511d4).
 This README describes both; a documentation update does not integrate that later experimental
 code into the accepted snapshot. The [current handoff](HANDOFF.md) identifies the next task.
 
 The earlier 12 October editorial refresh brought the default landing page through Iter155.
-This later research revision retains Iter159 and its contradicted qualification claim. The public
+This later research revision retains Iter160 and its bounded continuation result. The public
 instrument follows validated closed-result packets automatically; its older replay and
 native witness do not inherit a new scientific identity from an update.
 
@@ -639,7 +660,9 @@ controls; its closure passed 3,703 tests on both hosted Python versions. Iter158
 22 constructed controls and 196 focused/retained local checks. Its exact hosted checks
 are recorded separately; no local whole-suite pass is claimed. No historical source,
 receipt or mission contract was rewritten. Iter159 adds 22 controls and 128 focused/retained
-checks; its exact hosted outcome is recorded separately in the result evidence.
+checks; its closure passed 3,747 tests on both hosted Python versions. Iter160 adds
+35 controls and 198 focused/retained checks. Exact-source hosted validation remains
+a separate publication requirement; local tests do not substitute for it.
 
 ## Complete experiment index
 
@@ -821,7 +844,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 </details>
 
 <details>
-<summary>Information, recoverability and execution: Iter135–159</summary>
+<summary>Information, recoverability and execution: Iter135–160</summary>
 
 | Record | Finding or scope |
 |---|---|
@@ -850,6 +873,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 | [157](experiments/iter157_constrained_action_library/RESULT.md) | Fixed-library null: all 14 previously eligible actions fail background; 61 prior failures retained, 0/75 qualify. Scalar rejection witnesses agree; post-evidence inventory correction disclosed, no new drive. |
 | [158](experiments/iter158_constraint_aware_search/RESULT.md) | Inconclusive bounded actuator search: 10,633 transitions, no complete trajectory. Scalar replay confirms a 19-state prefix before the progress checkpoints; no native run or infeasibility claim. |
 | [159](experiments/iter159_route_search_qualification/RESULT.md) | Constructive qualification contradicted: candidate completes 3/4 known feasible controls; 11/16 factorial runs complete, all 580 retained states replay. Cell replacement loses every reference prefix; no overall coverage advantage or native recovery claim. |
+| [160](experiments/iter160_continuation_preservation/RESULT.md) | Five paired continuations: all witnesses and four representatives complete; one fixed suffix ends at 0.998703. All hard constraints pass; 546 states replay. Whole-search cause and native recovery remain unknown. |
 
 </details>
 

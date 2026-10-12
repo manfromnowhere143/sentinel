@@ -1,3 +1,30 @@
+# Current: Iter160 closed — 12 October 2026
+
+Contradicted: not every representative preserves completion under the same fixed
+suffix. All five original witnesses and four representatives complete; one
+endpoint chicane-left representative ends at progress 0.998703, below 1.0. Every
+observed hard constraint passes. Scalar admission checks 546 states, all masks,
+4,081,572 point-state classifications and 20 absolute-time checkpoints. This is
+a small terminal difference, not collision or loss of every alternative. The
+failed route candidate's first representative completes: whole-search causation
+remains unproved. Read Iter160 RESULT, DECISION, STATE and proof/admission.json.
+
+Source 16590b3; raw d423dd6 committed before admission bc6bb9f. Producer 2.234 s,
+checker 32.301 s; all caps pass. One mistyped source ID was rejected before
+initialization; no trajectory was acquired then, no initialized retry occurred.
+198 focused/retained checks pass, including 35 new. Whole Ruff/supply-chain pass;
+exact-source hosted checks and automatic publication are separately observed.
+No new driving episode, provider, GPU or spend. No owned experiment job remains.
+
+Next: one fixed-budget exact-state versus quantized retention ablation, including
+corrected full-scene reflection controls. Do not promote the failed guide or run
+it natively. Consider a qualified released adapter before further bespoke planner
+expansion. Useful source-model action precedes native recovery, actual trigger
+history, equal-cost information ablation and held-out transfer. Iter135 deferred.
+Owned branch research/iter160-continuation-preservation in the recovery worktree.
+Canonical dirty root, accepted lineage and archived MISSION_STATE unchanged.
+Earlier notices below are historical.
+
 # Current: Iter160 continuation diagnostic — 12 October 2026
 
 Five retained state pairs cover all16 Iter159 first-loss bindings. Ten prospective

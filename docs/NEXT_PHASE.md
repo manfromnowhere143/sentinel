@@ -1,3 +1,14 @@
+# Current engine milestone — Iter160 closed, 12 October 2026
+
+Five paired fixed-suffix tests identify one small terminal difference; all hard
+constraints pass. The failed candidate's first representative still completes.
+Next is one fixed-budget retention ablation, exact-state control and corrected
+full-scene reflections. Keep released planner qualification as the alternative
+to indefinite bespoke search work. No native or source-scene run yet.
+[Result](../experiments/iter160_continuation_preservation/RESULT.md) ·
+[Decision](../experiments/iter160_continuation_preservation/DECISION.md).
+Earlier roadmap entries are historical.
+
 # Current engine milestone — Iter159 closed, 12 October 2026
 
 The proposed baseline fails qualification despite known feasible paths. Test

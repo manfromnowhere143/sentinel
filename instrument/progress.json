@@ -1,23 +1,23 @@
 {
   "schemaVersion": 1,
-  "iteration": 159,
-  "directory": "experiments/iter159_route_search_qualification",
-  "title": "Known feasible. Still missed by search.",
-  "summary": "Four constructed cases have independently verified solutions. The proposed search completes three and misses one. Across all 16 comparisons, 11 complete; the new ranking establishes no overall coverage gain.",
-  "boundary": "Chart: four verified witnesses plus 16 search outputs. All 580 retained states replay. Constructed development cases; incomplete reflection controls disclosed. No native recovery or causal failure attribution.",
-  "next": "Test whether a retained cell representative preserves the same feasible continuation as the state it replaces, then isolate state aggregation at fixed budgets.",
+  "iteration": 160,
+  "directory": "experiments/iter160_continuation_preservation",
+  "title": "Same commands. One terminal difference.",
+  "summary": "Five original witnesses complete. Four replacement states also complete; one fixed command sequence ends just below the completion threshold. All ten pass every observed hard constraint.",
+  "boundary": "Chart: ten trajectories across five paired diagnostics. All 546 states replay independently. The small terminal difference does not explain the failed candidate or exclude alternative continuations.",
+  "next": "Isolate state aggregation at fixed search budgets, with an exact-state control and corrected full-scene reflections. No native run yet.",
   "metrics": [
     {
-      "label": "Known feasible cases",
-      "field": "cases"
+      "label": "Paired diagnostics",
+      "field": "pairs"
     },
     {
-      "label": "Registered search runs",
-      "field": "runs"
+      "label": "Replayed trajectories",
+      "field": "trajectories"
     },
     {
-      "label": "Candidate completions (of 4)",
-      "field": "candidate_completions"
+      "label": "Preserved completions (of 5)",
+      "field": "preserved_pairs"
     },
     {
       "label": "Scalar-verified states",
@@ -26,16 +26,16 @@
   ],
   "breakdown": [
     {
-      "label": "Constructive witnesses",
-      "field": "cases"
+      "label": "Original witnesses complete",
+      "field": "positive_controls"
     },
     {
-      "label": "Search completions",
-      "field": "complete_runs"
+      "label": "Representatives complete",
+      "field": "preserved_pairs"
     },
     {
-      "label": "Incomplete searches",
-      "field": "incomplete_runs"
+      "label": "Fixed suffix exhausted",
+      "field": "changed_pairs"
     }
   ]
 }

@@ -29,7 +29,7 @@ adds fresh CommonRoad, released-planner and motion-primitive research. Next is
 route-aware guidance and constructive coverage qualification, not native spending.
 
 
-Latest follow-up: [Iter159](../../experiments/iter159_route_search_qualification/RESULT.md)
+Prior follow-up: [Iter159](../../experiments/iter159_route_search_qualification/RESULT.md)
 contradicts the proposed four-case qualification bar: route guidance with speed
 groups completes 3/4, with no aggregate coverage gain over the existing guide.
 Its factorial and first-lost-witness audit separate proposal coverage from retained
@@ -37,6 +37,15 @@ search branches. [New primary-source review](../../experiments/iter159_route_sea
 examines Smac, CommonRoad and multi-heuristic search without importing their
 performance guarantees. Next is continuation preservation and a pruning ablation;
 more recent or complex guidance has not earned promotion.
+
+Latest follow-up: [Iter160](../../experiments/iter160_continuation_preservation/RESULT.md)
+replays ten fixed continuations. One representative ends just below completion;
+four preserve it. Every observed hard constraint passes. The first retained state
+of the failed route candidate still completes, so this is not its causal diagnosis.
+[The decision packet](../../experiments/iter160_continuation_preservation/DECISION_PACKET.md)
+uses recent retention analysis and released SST documentation without importing
+a guarantee. Next is one isolated retention ablation or a qualified released
+adapter, keeping baseline development subordinate to the information mission.
 
 ## What adjacent work already covers
 
