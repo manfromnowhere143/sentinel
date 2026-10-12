@@ -1,3 +1,7 @@
+> **Current: Iter157 qualified — 12 October 2026.** Registered fixed 75-action
+> library, complete background constraints, retained rejection witnesses. 198 tests
+> pass; no new query yet. Read HANDOFF and Iter157 PROTOCOL/PLAN/STATE.
+
 > **Current: Iter156 closed — 12 October 2026.** Full background queries match
 > independent scalar masks across 115 states / 300 bindings, one exposed scene.
 > 26 direct labels and 266 implied negatives agree; eight background labels unknown.

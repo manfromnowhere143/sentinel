@@ -1,0 +1,9 @@
+{
+  "iteration": 157,
+  "status": "preregistered",
+  "phase": "qualified",
+  "new_driving_episodes": 0,
+  "owned_jobs": 0,
+  "provider_spend": 0,
+  "next": "Freeze source, run one bounded producer, retain raw before separate scalar admission."
+}

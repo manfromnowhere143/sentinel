@@ -1,3 +1,19 @@
+# Current: Iter157 qualified — 12 October 2026
+
+The fixed 75-action Iter153 library is registered for complete background constraints.
+All prior foreground/control/progress constraints remain; 61 prior failures stay in
+its denominator. The 14 previously eligible trajectories receive complete source
+background queries until rejection/ambiguity or completion. Independent admission
+will check rejection witnesses and every sample of qualified actions; actual recovery
+and responsive-policy advantage remain unknown. Read Iter157 PROTOCOL, PLAN, STATE.
+198 focused tests pass in the existing Python 3.14 environment. No new library query,
+provider or GPU task yet. Freeze source before one producer; commit raw before replay.
+
+Owned branch: research/iter157-constrained-action-library. The instrument is live
+with a validated automatic evidence channel; research source 5e3ea82 passed CI and
+automatic publication. The Iter42 scene and Iter155 witness keep their identities.
+Current closed science remains Iter156. Earlier current notices below are historical.
+
 ## Iter156 publication and CI correction — 12 October 2026
 
 Scientific closure `fe611f633d313131687164bb318bc9bfa158c156` is published; five
