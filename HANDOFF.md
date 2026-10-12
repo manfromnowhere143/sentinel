@@ -1,3 +1,12 @@
+# Editorial checkpoint — 12 October 2026
+
+The README and architecture now describe the complete research record through Iter155, with
+purpose and implemented capability before the findings. Seven diagrams distinguish runtime,
+evidence, privileged diagnostics and proposed work. The scientific state and next task below
+are unchanged. Read the [editorial review](docs/editorial/2026-10-12/REVIEW.md) and its publication
+observations for the default-branch presentation correction. Updating documentation does not
+integrate the research code or supersede the historical Iter134/135 mission contract.
+
 # Sentinel — next-session handoff
 
 Updated 11 October 2026. **Iter155 is closed: the background witness replays exactly.**

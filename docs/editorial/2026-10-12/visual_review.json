@@ -1,0 +1,70 @@
+{
+  "status": "supported",
+  "scope": "Local visual inspection of final seven Mermaid diagrams in light and dark themes; not hosted GitHub rendering",
+  "images": [
+    {
+      "path": "diagrams/architecture-1-dark.png",
+      "sha256": "c6f6d1711e63d36319dedab3b8a875e80fedfa1c2d7dbcd19c9428e62bab5c0e"
+    },
+    {
+      "path": "diagrams/architecture-1-light.png",
+      "sha256": "aa38fe8bfe231722bc17a654c25c38ca6e3167e134da563ab19d1fd7e313c5f1"
+    },
+    {
+      "path": "diagrams/architecture-2-dark.png",
+      "sha256": "20e23305d4246c0f17c092adb8b7f8f58b2a04441a202ef55309963de4075aff"
+    },
+    {
+      "path": "diagrams/architecture-2-light.png",
+      "sha256": "481cc95735ba85681d5c5d1904ae461c5e699a2eb1ab1e469a6bc7919b0607e2"
+    },
+    {
+      "path": "diagrams/architecture-3-dark.png",
+      "sha256": "1d62791ac1d66ce08cbead8246fbb643d6c08cfb59c24707ad2c8fe8a47ef063"
+    },
+    {
+      "path": "diagrams/architecture-3-light.png",
+      "sha256": "572200f4932fa945a6c061b02e4e13427b249f3a7c036141e363f838da454dc0"
+    },
+    {
+      "path": "diagrams/architecture-4-dark.png",
+      "sha256": "6c5d48d2b1bd5ad106ba9afe3e1877ef75b3e22af1b9f2e7a24f433b26f7e9cb"
+    },
+    {
+      "path": "diagrams/architecture-4-light.png",
+      "sha256": "89ff53b6225f6f08664e1775964481b2c4e5b384f02c79dad2e93d267a4ef75f"
+    },
+    {
+      "path": "diagrams/readme-1-dark.png",
+      "sha256": "debe076140ebe38b3fd901ccb102711b510f690b4c316f8396c677450839ee79"
+    },
+    {
+      "path": "diagrams/readme-1-light.png",
+      "sha256": "ff76a64602d4e1243071c8c7fee9a1cba1f9dc7447ab78cf917ca87df7d4fc13"
+    },
+    {
+      "path": "diagrams/readme-2-dark.png",
+      "sha256": "fcd8548ee15bb4f2c5dd1229c99371d4b53ccf4ad7d089ca3ec079c294cb3d9f"
+    },
+    {
+      "path": "diagrams/readme-2-light.png",
+      "sha256": "d5ee010ac2bb9b73e9f0b8ee4604c04f5decffd91ee7ca3d4124796c8ba81424"
+    },
+    {
+      "path": "diagrams/readme-3-dark.png",
+      "sha256": "cc235c1327aa48a9049773e81a1a2606180a89db24b46f846150fccee07cebc9"
+    },
+    {
+      "path": "diagrams/readme-3-light.png",
+      "sha256": "a4013598b60fdd6cf1e96838de070580d11b1ca3b8ff080197a371fcb1943bca"
+    }
+  ],
+  "observations": [
+    "All node and edge labels are readable; no clipping or overlapping labels observed.",
+    "Runtime and evaluation inputs are distinguished from privileged model inputs.",
+    "Current progression reaches Iter155; all next-study steps are explicitly proposed.",
+    "The recovery decision separates a negative result from unavailable or invalid evidence."
+  ],
+  "rendering_adjustment": "Shortened labels after the first visual pass to reduce wrapping while retaining the distinctions.",
+  "tooling_note": "An optional contact-sheet attempt found no Pillow in the ambient Python; no package was installed. Individual PNGs were inspected directly."
+}

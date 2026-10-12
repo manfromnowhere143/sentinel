@@ -1,0 +1,10 @@
+flowchart TB
+  accTitle: Execution, observation and admission through Iter152
+  accDescr: Observation loss is reconciled within fixed bounds. Raw evidence precedes replay; admission and exact-owned resource closure are separate checks.
+  P["Frozen plan, source and budget"] --> W["Exclusive worker initialization<br/>independent host deadline"]
+  W --> R["Retain raw bytes<br/>commit before replay"]
+  R --> V["Separate replay<br/>supported or invalid admission"]
+  V --> G["Complete slot accounting<br/>missing outcomes remain unknown"]
+  O["Bounded read-only reconciliation<br/>observation loss is not worker failure"] -. observes .-> W
+  O --> C["Verify exact-owned closure<br/>local watchdog and VM identity"]
+  W --> C

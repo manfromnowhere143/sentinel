@@ -1,0 +1,132 @@
+{
+  "mermaid_cli": "11.4.2",
+  "scope": "Local rendering; not hosted GitHub rendering",
+  "results": [
+    {
+      "source": "readme-1.mmd",
+      "theme": "light",
+      "returncode": 0,
+      "stdout": "Generating single mermaid chart\n",
+      "stderr": "",
+      "svg": "readme-1-light.svg",
+      "sha256": "5ab04489625891335b51a0624c7adf2958827382c0b7e16405961831fb85d70b"
+    },
+    {
+      "source": "readme-1.mmd",
+      "theme": "dark",
+      "returncode": 0,
+      "stdout": "Generating single mermaid chart\n",
+      "stderr": "",
+      "svg": "readme-1-dark.svg",
+      "sha256": "5ac83289d80d6912a6f253b0987d4ea5320bd1a83af9cba58401357030024c6a"
+    },
+    {
+      "source": "readme-2.mmd",
+      "theme": "light",
+      "returncode": 0,
+      "stdout": "Generating single mermaid chart\n",
+      "stderr": "",
+      "svg": "readme-2-light.svg",
+      "sha256": "31c3347a63cd01edb1080f47116500c4a011bf05b18da7d6d809a5fc0ebf2117"
+    },
+    {
+      "source": "readme-2.mmd",
+      "theme": "dark",
+      "returncode": 0,
+      "stdout": "Generating single mermaid chart\n",
+      "stderr": "",
+      "svg": "readme-2-dark.svg",
+      "sha256": "d450fe9e12fc16e63691bf6cd74bb7cef93af4d97b17a1244680bcd5ffd8858c"
+    },
+    {
+      "source": "readme-3.mmd",
+      "theme": "light",
+      "returncode": 0,
+      "stdout": "Generating single mermaid chart\n",
+      "stderr": "",
+      "svg": "readme-3-light.svg",
+      "sha256": "99c2fe8f34c3014d184806c967ee65e3c6353e95867174c0a0d5cdb01c65e127"
+    },
+    {
+      "source": "readme-3.mmd",
+      "theme": "dark",
+      "returncode": 0,
+      "stdout": "Generating single mermaid chart\n",
+      "stderr": "",
+      "svg": "readme-3-dark.svg",
+      "sha256": "2251ce27ff4af334f8803363d15138b6e16c3612f95ef6dce66fc499b614d5ed"
+    },
+    {
+      "source": "architecture-1.mmd",
+      "theme": "light",
+      "returncode": 0,
+      "stdout": "Generating single mermaid chart\n",
+      "stderr": "",
+      "svg": "architecture-1-light.svg",
+      "sha256": "001047368ed9cfa2d93208d7982a4935a667beea394dc1665e0458adfc713e28"
+    },
+    {
+      "source": "architecture-1.mmd",
+      "theme": "dark",
+      "returncode": 0,
+      "stdout": "Generating single mermaid chart\n",
+      "stderr": "",
+      "svg": "architecture-1-dark.svg",
+      "sha256": "745cda11393f6b2d8d4d13c5dc551797dda7abb8f3bbc23f01742b40cded3395"
+    },
+    {
+      "source": "architecture-2.mmd",
+      "theme": "light",
+      "returncode": 0,
+      "stdout": "Generating single mermaid chart\n",
+      "stderr": "",
+      "svg": "architecture-2-light.svg",
+      "sha256": "30fc105718a1aba4172e66387c44680b76205fbd47bd6bfb1ef62ef838f25159"
+    },
+    {
+      "source": "architecture-2.mmd",
+      "theme": "dark",
+      "returncode": 0,
+      "stdout": "Generating single mermaid chart\n",
+      "stderr": "",
+      "svg": "architecture-2-dark.svg",
+      "sha256": "8d091c6ad7c99f0fa8d9be7d0814a976d8dc0339dea148733eb56848194e8bf7"
+    },
+    {
+      "source": "architecture-3.mmd",
+      "theme": "light",
+      "returncode": 0,
+      "stdout": "Generating single mermaid chart\n",
+      "stderr": "",
+      "svg": "architecture-3-light.svg",
+      "sha256": "5e0e6c89a8ccf7ddd5d47ba9d73bc336c24f7010e50878b81b8944bb11a3aff8"
+    },
+    {
+      "source": "architecture-3.mmd",
+      "theme": "dark",
+      "returncode": 0,
+      "stdout": "Generating single mermaid chart\n",
+      "stderr": "",
+      "svg": "architecture-3-dark.svg",
+      "sha256": "fdc7e6f777d6f114a39f298fa0a0e983fd7f7c7b15feb6d886b3bfb1ab9506ae"
+    },
+    {
+      "source": "architecture-4.mmd",
+      "theme": "light",
+      "returncode": 0,
+      "stdout": "Generating single mermaid chart\n",
+      "stderr": "",
+      "svg": "architecture-4-light.svg",
+      "sha256": "cd72e24ecfe4f1b97cae7fe878c20d95faa8b44a529edd38acfafa030a70fe04"
+    },
+    {
+      "source": "architecture-4.mmd",
+      "theme": "dark",
+      "returncode": 0,
+      "stdout": "Generating single mermaid chart\n",
+      "stderr": "",
+      "svg": "architecture-4-dark.svg",
+      "sha256": "4ef3d53586b8a48cbf4c35d7c3489ddac34296c001fd19c4aa060bd1b947f1d0"
+    }
+  ]
+}

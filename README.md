@@ -1,60 +1,96 @@
 # Sentinel
 
-**Runtime monitoring for a frozen driving planner: what can still be prevented,
-what information makes prevention possible, and what it costs to keep driving.**
+**Runtime monitoring and recovery for learned driving systems.**
 
-I am building Sentinel to make those questions measurable. A monitor must do more than
-recognize a dangerous plan. Its intervention must arrive while it can still help, avoid
-creating another failure, and leave the vehicle able to make useful progress.
+A driving planner can produce a dangerous trajectory even when its perception and planning
+outputs appear plausible. An intervention is useful only if it arrives while a better outcome
+is still possible, avoids creating another failure, and leaves the vehicle able to make progress.
 
-The work began with a small geometric monitor around UniAD. It improved the planner's
-NeuroNCAP score. The subsequent tests exposed the harder questions: braking can improve a
-collision score while sacrificing progress; a benefit can fail to transfer; and a plausible
-warning does not establish that the monitor identified the actor responsible for the collision.
-Those findings now determine the research direction.
+Sentinel studies that decision around a frozen planner. Its implemented monitor uses the
+planner's decoded objects and planned path to request and release braking. Closed-loop
+experiments measure the resulting collisions, severity, progress and intervention burden;
+separate replay checks whether the recorded execution supports the reported result.
 
-[Results](#measured-results) · [Monitor](#what-the-monitor-actually-uses) ·
+I am building Sentinel to determine which failures remain preventable, what information helps
+choose an effective action in time, and what that intervention costs. The ambition extends
+beyond the current geometric monitor. Each extension must demonstrate a useful improvement
+against a competent responsive baseline, with information access, permitted actions and
+resource budgets stated explicitly.
+
+[System](#what-sentinel-does) · [Results](#measured-results) ·
 [Research history](#how-the-question-changed) · [Latest result](#iteration-155-the-background-witness-replays-exactly) ·
-[Next steps](#the-next-scientific-test) · [Reproduce](#reproduce-and-inspect) ·
-[Experiment index](#complete-experiment-index)
+[Next test](#the-next-scientific-test) · [Reproduce](#reproduce-and-inspect) ·
+[Repository status](#repository-status--12-october-2026) · [Experiment index](#complete-experiment-index)
 
-## Current position — 11 October 2026
+## What Sentinel does
 
-[Iteration 155](experiments/iter155_background_witness/RESULT.md) independently replays the
-background collision exposed by Iter154. Native CUDA and separate scalar checks agree on **0
-selected scene centers at 3.00 s and 273 at 3.25 s**, against the unchanged >100 threshold.
-All 276,519 selected points and both masks agree. No new driving episode ran.
+The implemented monitor runs alongside a frozen planner in closed-loop simulation. It can
+request braking and later release that request; the surrounding simulator and controller
+determine the applied motion. The released monitor reads UniAD's **decoded detections,
+confidence scores, track IDs, ego pose and planned trajectory**. It estimates object velocity
+from successive positions in world coordinates. Closest point of approach (CPA) and time to collision (TTC) supply two geometric
+conditions that can request braking:
 
-The exact maneuver selected by [Iteration 153's model search](experiments/iter153_action_feasibility/RESULT.md)
-remains a failure in the [full scene](experiments/iter154_full_scene_maneuver/RESULT.md).
-The omitted background constraint now has a replayable witness. The next task is model calibration
-against retained native prefixes before another search. Physical occupancy, road compliance,
-useful live recovery and information benefit remain unknown.
-[Next scientific decision](experiments/iter155_background_witness/DECISION.md).
+1. The planned ego path approaches an object's projected path within **1.5 m**.
+2. The tracked object's closing time-to-collision falls below **2.5 s**, subject to the
+   frozen filtering and closing-speed conditions.
 
-The preceding [Iteration 152](experiments/iter152_recovery_continuation/RESULT.md) remains null
-for its tested brake pulses: neither recovered the collision case. All arms completed the benign
-case, with the monitor taking 13 simulated seconds longer than nominal. These are exposed
-development findings; the model search and full-scene failure do not replace those outcomes.
+Either condition latches the stop. Four consecutive clear monitor frames release it.
+The [released source](experiments/iter15_latch_release/server_patch_union_release.py)
+defines the complete filters, coordinate transforms and state transitions.
 
-The NeuroNCAP score improvement is supported on the evaluated suite. Its semantic
-attribution remains unresolved. Both registered HUGSIM transfer tests returned null results.
-The current development program asks whether an allowed intervention can produce useful
-recovery before investing in a new information channel.
+```mermaid
+flowchart TB
+  accTitle: The released Sentinel monitor
+  accDescr: Planner outputs feed geometric tracking and a brake latch. Simulator outcomes are evaluation records, not monitor inputs.
+  P["Frozen UniAD<br/>plan, detections, IDs and ego pose"] --> T["World-coordinate tracking<br/>velocity from successive observations"]
+  T --> C["CPA and closing TTC<br/>frozen geometric conditions"]
+  C --> L["Brake latch<br/>release after four clear frames"]
+  P --> A["Nominal plan or braking request"]
+  L --> A
+  A --> S["Simulator-specific controller and dynamics"]
+  S --> E["Collision, severity, progress<br/>and intervention records"]
+  classDef data fill:#e8f1fb,stroke:#32628c,color:#142d45;
+  classDef action fill:#f5f1e5,stroke:#89733a,color:#352b12;
+  class P,T,C,E data;
+  class L,A,S action;
+```
 
-**Iteration 148 is inconclusive.** Four baseline episodes completed and passed replay;
-the first braking-pulse episode was interrupted after an observation-transport failure.
-There is no complete four-arm comparison. Both owned VM starts are confirmed terminated,
-and the study has no automatic restart. [Execution report](experiments/iter148_recovery_study/RESULT.md).
+This interface gives the monitor access to the planner's outputs. The current trigger does
+not demonstrate a benefit from hidden learned representations or an independent perception
+system. Predicted object trajectories are logged in the released implementation but do not
+drive this trigger. Simulator collision labels support evaluation; they are not monitor inputs.
 
-This page covers scientific and engineering evidence through Iteration 155 on
-[research/iter155-background-witness](https://github.com/manfromnowhere143/sentinel/tree/research/iter155-background-witness).
-The accepted master mission snapshot is **current through iteration 134**, with verdict
-`PLACEBO_HARM_OR_NULL`; [MISSION_STATE.json](MISSION_STATE.json) retains that historical
-publication contract. Iteration 135 is deferred and unrun. The [current handoff](HANDOFF.md)
-states the exact next task and acceptance criteria. The
-[publication review](docs/publication/2026-10-11/REVIEW.md) separates research-branch publication
-from master integration and records the remaining validation limits.
+A missing or mistaken detection can affect both planner and monitor. Exact replay of decisions
+conditional on logged objects does not certify that those objects were complete or correct.
+Iteration 43 also found excess firing under **5 cm position jitter** in offline replay.
+The frozen smoothing variants in Iteration 44 reduced excess firing but failed their retention
+and repair criteria. Those are measured robustness limits, still unresolved.
+[Perturbation test](experiments/iter43_object_stream_perturbation_gate/RESULT.md) ·
+[Smoothing test](experiments/iter44_velocity_smoothing_gate/RESULT.md).
+
+The [architecture](docs/ARCHITECTURE.md) describes the two simulator integrations, current
+trajectory and controller contracts, evidence checks and measured timing boundaries.
+
+## What a useful intervention must establish
+
+The central question is whether a monitor can help select an action that improves the outcome
+under the information and time actually available to it. Three questions have different tests:
+
+| Question | Required evidence |
+|---|---|
+| Can an allowed action still help? | A closed-loop recovery with useful progress, under a declared action library, horizon and decision time. |
+| Does the proposed signal help choose that action? | A frozen information ablation against a competent responsive policy, holding other inputs and actuator limits fixed. |
+| Where does the benefit hold, and at what cost? | New source scenes, benign cases, joint planner/monitor failures, intervention burden and measured execution time. |
+
+A simulator's collision label belongs to the evaluator. Giving it to a diagnostic search can
+establish a conditional action candidate, but cannot establish what a monitor could infer from
+its own observations. Likewise, a successful maneuver chosen from reset does not establish
+that the same maneuver remains available when the monitor first detects a hazard.
+
+The results below retain that distinction. NeuroNCAP supports a score improvement with specific
+costs; semantic attribution is unresolved, HUGSIM transfer is null, and useful recovery in the
+current development cases remains unestablished.
 
 ## Measured results
 
@@ -129,51 +165,6 @@ range of **0.40–3.50 s**; negative values were retained. Across the 400 monito
 intervention-budget measurements, not wall-clock latency or passenger-comfort qualifications.
 [Timing and cost audit](experiments/iter40_timing_cost_audit/RESULT.md).
 
-## What the monitor actually uses
-
-The released monitor reads UniAD's **decoded detections, confidence scores, track IDs, ego pose
-and planned trajectory**. It estimates object velocity from successive positions in world
-coordinates. Two geometric conditions can request braking:
-
-1. The planned ego path approaches an object's projected path within **1.5 m**.
-2. The tracked object's closing time-to-collision falls below **2.5 s**, subject to the
-   frozen filtering and closing-speed conditions.
-
-Either condition latches the stop. Four consecutive clear monitor frames release it.
-The [released source](experiments/iter15_latch_release/server_patch_union_release.py)
-defines the complete filters, coordinate transforms and state transitions.
-
-```mermaid
-flowchart TB
-  P["Frozen UniAD<br/>plan, detections, IDs and ego pose"] --> T["World-coordinate tracking<br/>velocity from successive observations"]
-  T --> C["CPA and closing TTC<br/>frozen geometric conditions"]
-  C --> L["Brake latch<br/>release after four clear frames"]
-  P --> A["Nominal plan or braking request"]
-  L --> A
-  A --> S["Simulator-specific controller and dynamics"]
-  S --> E["Collision, severity, progress<br/>and intervention records"]
-  classDef data fill:#e8f1fb,stroke:#32628c,color:#142d45;
-  classDef action fill:#f5f1e5,stroke:#89733a,color:#352b12;
-  class P,T,C,E data;
-  class L,A,S action;
-```
-
-This interface gives the monitor access to the planner's outputs. The current trigger does
-not demonstrate a benefit from hidden learned representations or an independent perception
-system. Predicted object trajectories are logged in the released implementation but do not
-drive this trigger. Simulator collision labels support evaluation; they are not monitor inputs.
-
-A missing or mistaken detection can affect both planner and monitor. Exact replay of decisions
-conditional on logged objects does not certify that those objects were complete or correct.
-Iteration 43 also found excess firing under **5 cm position jitter** in offline replay.
-The frozen smoothing variants in Iteration 44 reduced excess firing but failed their retention
-and repair criteria. Those are measured robustness limits, still unresolved.
-[Perturbation test](experiments/iter43_object_stream_perturbation_gate/RESULT.md) ·
-[Smoothing test](experiments/iter44_velocity_smoothing_gate/RESULT.md).
-
-The [architecture](docs/ARCHITECTURE.md) describes the two simulator integrations, current
-trajectory and controller contracts, evidence checks and measured timing boundaries.
-
 ## How the question changed
 
 ### 1. Detect danger, then account for driving
@@ -223,7 +214,7 @@ tracks would repair the monitor. [Support-core synthesis](experiments/iter121_hu
 
 ### 4. Ask what information can change an effective action
 
-The direction review after Iteration 135 shifted the priority from another score comparison
+The review of the unrun Iteration 135 protocol shifted the priority from another score comparison
 to **information and recoverability**. Iteration 135's clock-only dose-response control remains
 an unrun, deferred protocol. Even a favorable result would not isolate the value of semantic
 content from the advantage of responding to the current state.
@@ -235,15 +226,14 @@ sets out the mathematical target, relevant prior work and the proposed experimen
 
 ```mermaid
 flowchart TB
-  N["NeuroNCAP<br/>score gain; progress limits"] --> A["Attribution and transfer<br/>unresolved placebo; HUGSIM nulls"]
-  A --> Q["Recoverability question<br/>which permitted action can help, and when?"]
-  Q --> X["Execution qualification<br/>replay, timestamps, dynamics and stopping"]
-  X --> R["Iter148<br/>baselines verified; comparison incomplete"]
-  R -. "proposed next study" .-> F["Establish recovery opportunity<br/>then test one additional signal"]
-  classDef observed fill:#e8f1fb,stroke:#32628c,color:#142d45;
-  classDef proposed fill:#f5f1e5,stroke:#89733a,color:#352b12;
-  class N,A,X,R observed;
-  class Q,F proposed;
+  accTitle: How the evidence changed the research question
+  accDescr: Benchmark gains and transfer nulls lead to recovery tests, a failed model candidate, and a verified background collision witness.
+  N["NeuroNCAP score gain<br/>progress and attribution limits"] --> T["HUGSIM transfer nulls<br/>actor and timing audits"]
+  T --> E["Iter136–151: execution<br/>nulls and interrupted runs"]
+  E --> P["Iter152: brake pulses<br/>no useful recovery"]
+  P --> M["Iter153–154<br/>candidate fails full scene"]
+  M --> W["Iter155: collision replay<br/>native/scalar agreement"]
+  W -. "next, proposed" .-> C["Background calibration<br/>before a new search"]
 ```
 
 ### 5. Establish what the controller actually executes
@@ -376,8 +366,8 @@ distance is 2.302 m. That distance is not a road-compliance result.
 
 The 150 trials contain 10,012 independently replayed model actions. The local search took
 6.254 s without new packages or provider access; it omits rendering and inference and therefore
-supports no real-time-driving comparison. The useful result is a precise candidate for a fresh
-full-scene test. [Result, complete accounting and figure](experiments/iter153_action_feasibility/RESULT.md) ·
+supports no real-time-driving comparison. The search supplied a precise candidate for the subsequent
+full-scene test; Iter154 rejected that candidate. [Result, complete accounting and figure](experiments/iter153_action_feasibility/RESULT.md) ·
 [bound action packet](experiments/iter153_action_feasibility/SELECTED_MANEUVER.json).
 
 ## Iteration 154: the full scene rejects the model candidate
@@ -390,9 +380,9 @@ distance to the sampled route is 2.301770 m. Route proximity is not road complia
 
 All 26 actions passed separate replay, including the source-matched kinematic prefix, actor state
 and route/outcome consistency. The maximum prefix error is 4.44e-16. Native background collision
-was observed, but the enclosed point count/mask was not retained; its point-cloud computation has
-not been independently replayed. The result contradicts useful full-scene recovery by this exact
-maneuver. It does not prove physical collision or that another maneuver cannot recover the scene.
+was observed, but Iter154 did not retain the enclosed point count or mask. Iter155 subsequently
+reconstructed and independently replayed those two historical frames, as reported below.
+The full-scene result still contradicts useful recovery by this exact maneuver. It does not prove physical collision or that another maneuver cannot recover the scene.
 
 No alternative candidate was tried. The capacity-refused first start and one prospectively amended
 retry are retained. The VM is terminated, all 11,715 source/asset bindings are unchanged, and the
@@ -443,6 +433,22 @@ The following work is proposed; all previous schedules retain their closed accou
    continues. Measure joint planner/monitor failures, observation faults, timing faults and
    subgroup uncertainty before broadening to another planner or simulator.
 
+```mermaid
+flowchart TB
+  accTitle: The proposed route from collision replay to information benefit
+  accDescr: Calibration precedes a new action search. Full-scene recovery and a measured decision window are required before testing an added signal.
+  C["Calibrate background model<br/>against native records"] --> S["Freeze finite action library<br/>then search"]
+  S --> R{"Useful full-scene<br/>recovery?"}
+  R -- "not found" --> N["Retain negative result<br/>reconsider actions or cases"]
+  R -- "unknown" --> U["Retain missing or invalid evidence<br/>no recovery claim"]
+  R -- "supported" --> W["Preserve nominal prefix<br/>measure decision window"]
+  W --> I["Test added information<br/>against responsive policy"]
+  I --> H["New source scenes<br/>benefit, harm and uncertainty"]
+```
+
+Every step in this diagram is proposed. The current evidence has reached collision replay,
+not a demonstrated recovery opportunity or information advantage.
+
 Failure across a finite set of actions does not prove physical inevitability. Likewise, a weak
 probe does not prove that the available observations lack information. If a representation is a
 deterministic function of the same input history, its value may be computational access under
@@ -466,12 +472,17 @@ python3 experiments/iter2_monitor/g1_auroc.py \
 python3 experiments/verification/audit_pooling.py
 ```
 
-For the current execution, raw pairs were committed before admission. A separate implementation
+In the recovery studies, raw pairs were committed before admission. A separate implementation
 checks dynamics, controller outputs, monitor decisions, route outcomes and replica agreement.
-The [Iteration 148 replay entrypoint](experiments/iter148_recovery_study/replay.py) exposes these
+The historical [Iteration 148 replay entrypoint](experiments/iter148_recovery_study/replay.py) exposes these
 checks; the [qualification record](experiments/iter148_recovery_study/QUALIFICATION.json) binds
 the earlier evidence. **165 focused tests passed** before live execution, and qualification
 replayed **1,104 earlier GPU actions**. This does not make the incomplete pulse an admitted result.
+
+The latest [Iter155 checker](experiments/iter155_background_witness/check.py) independently
+reconstructs selection, geometry and collision masks from the retained source-point witness.
+Its [result](experiments/iter155_background_witness/RESULT.md) records the environment and scope:
+239 local regression checks, including 75 focused checks. A replay of those two poses does not extend the result to an untested trajectory.
 
 Fresh simulator execution also requires the licensed datasets, scene/model assets, pinned
 runtime and a new bounded resource envelope. Some large assets remain on the stopped host
@@ -482,14 +493,42 @@ not a complete distribution of every runtime asset.
 |---|---|
 | [Architecture](docs/ARCHITECTURE.md) | Implemented interfaces, simulator distinctions, evidence flow and timing. |
 | [Original preregistration](PREREGISTRATION.md) | The initial benchmark question and decision rules. |
-| [Research direction](docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md) | The post-Iter135 question, mathematical formulation and dated literature review. |
-| [Continuation](experiments/iter148_recovery_study/DECISION.md) | Current execution closure and the next operational prerequisites. |
+| [Research direction](docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md) | Information and recoverability: mathematical formulation and dated literature review. |
+| [Next scientific decision](experiments/iter155_background_witness/DECISION.md) | Background-aware model calibration before another action search. |
 | [Handoff](HANDOFF.md) | Exact next task, acceptance criteria, resource closure and recovery instructions. |
 | [Continuity](CONTINUITY.md) and [next phase](docs/NEXT_PHASE.md) | Current state followed by retained historical decisions. |
 | [Technical report](docs/REPORT.md) | Historical synthesis through Iter134; it predates the current execution program. |
 | [Paper status](docs/paper/STATUS.md) | Archived manuscript and rewrite requirements; not submission-ready. |
 | [Verification archive](experiments/verification/README.md) | Early audit scripts, raw logs and correction history. |
-| [Editorial review](docs/editorial/2026-10-11/REVIEW.md) | Claim checks, diagram validation and preservation record for this update. |
+| [Editorial review](docs/editorial/2026-10-12/REVIEW.md) | Claim corrections, diagram review and reconciliation of the public and local READMEs. |
+
+## Repository status — 12 October 2026
+
+**Research evidence is current through Iter155, completed on 11 October.** The latest result
+replays the simulator's background collision at two retained poses; the prior maneuver still
+fails. The next scientific task is background-aware model calibration before another search.
+Iteration 135's dose-response experiment remains **deferred and unrun**.
+
+The repository has two distinct records. The accepted code and mission snapshot at
+[`8c118b7`](https://github.com/manfromnowhere143/sentinel/tree/8c118b74c699bf0f139f9bd659192bad06b895f8)
+is **current through iteration 134**. [MISSION_STATE.json](MISSION_STATE.json) preserves
+that historical contract.
+Later research, including Iter155, is published in a separate
+[research lineage](https://github.com/manfromnowhere143/sentinel/tree/4d2998ef8d1c6df8facabb271af49569154259d8).
+This README describes both; a documentation update does not integrate that later experimental
+code into the accepted snapshot. The [current handoff](HANDOFF.md) identifies the next task.
+
+The previous GitHub landing page showed the old Iter134/135 narrative because it read `master`,
+while subsequent README updates were published only on research branches. The local protected
+README had also stopped at Iter148. This editorial correction brings the presentation through
+Iter155 and preserves the older pages and publication records.
+
+Validation remains scoped. At Iter155's scientific closure, hosted Python 3.10 and 3.11 jobs
+passed supply-chain and locked-install checks, then each failed repository-wide Ruff with
+832 findings; later tests were skipped. The historical documentation/publication guard also
+remains unresolved. The [retained CI outcome](experiments/iter155_background_witness/proof/hosted_ci_outcome.json)
+is not a green result for a later documentation commit. Full research integration is separate
+work; no historical gate or evidence has been rewritten here.
 
 ## Complete experiment index
 
@@ -709,8 +748,8 @@ this repository does not grant rights to upstream assets.
 
 The measured comparisons are against the named experimental baselines. They establish neither
 real-world safety nor production readiness, and provide no comparison with private industrial
-systems. A leading benchmark score, industrial adoption and a new theorem each require their
-own evidence. They remain ambitions, not descriptions of the current result.
+systems. A claim about a new planner, operating condition or deployment would require a separate
+comparison and evidence appropriate to that setting.
 
 The [previous README](docs/history/README_through_iter134.snapshot.txt) is retained byte for byte
 as a historical snapshot. It contains superseded status and wording, including claims narrowed

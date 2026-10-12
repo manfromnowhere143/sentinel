@@ -1,0 +1,15 @@
+flowchart TB
+  accTitle: The NeuroNCAP evaluation loop
+  accDescr: Rendered cameras reach the frozen planner and selected monitor arm. Decision logs and simulator outcomes feed the registered comparison.
+  O["NeuroNCAP<br/>scenario, ego and actor state"] --> R["NeuRAD<br/>camera rendering"]
+  R --> P["Frozen UniAD<br/>plan and decoded objects"]
+  P --> M["Selected monitor arm<br/>or unchanged nominal plan"]
+  M --> O
+  O --> E["Scores and trajectories"]
+  M --> D["Per-frame decision logs"]
+  E --> A["Registered comparison<br/>and evidence audit"]
+  D --> A
+  classDef runtime fill:#e8f1fb,stroke:#32628c,color:#142d45;
+  classDef evidence fill:#edf4e9,stroke:#537348,color:#23351c;
+  class O,R,P,M runtime;
+  class E,D,A evidence;

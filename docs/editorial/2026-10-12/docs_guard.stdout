@@ -1,0 +1,4 @@
+DOCS GUARD FAILED:
+ - MISSION_STATE.json: current_completed_iteration:134!=155
+ - MISSION_STATE.json: tooling_publication:structural_probe:ToolingPublicationError:published tooling receipt failed frozen validation: published receipt structure invalid: VerificationError: current repository is dirty
+ - README.md: broken link -> docs/editorial/2026-10-12/REVIEW.md

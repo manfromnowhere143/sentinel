@@ -1,0 +1,100 @@
+[
+  {
+    "file": "architecture-1-dark.svg",
+    "width": 551.625,
+    "height": 734,
+    "labels": 23,
+    "clipped": []
+  },
+  {
+    "file": "architecture-1-light.svg",
+    "width": 551.625,
+    "height": 734,
+    "labels": 23,
+    "clipped": []
+  },
+  {
+    "file": "architecture-2-dark.svg",
+    "width": 658.5,
+    "height": 830,
+    "labels": 25,
+    "clipped": []
+  },
+  {
+    "file": "architecture-2-light.svg",
+    "width": 658.5,
+    "height": 830,
+    "labels": 25,
+    "clipped": []
+  },
+  {
+    "file": "architecture-3-dark.svg",
+    "width": 601.484375,
+    "height": 773.984375,
+    "labels": 21,
+    "clipped": []
+  },
+  {
+    "file": "architecture-3-light.svg",
+    "width": 601.484375,
+    "height": 773.984375,
+    "labels": 21,
+    "clipped": []
+  },
+  {
+    "file": "architecture-4-dark.svg",
+    "width": 522.75,
+    "height": 934,
+    "labels": 24,
+    "clipped": []
+  },
+  {
+    "file": "architecture-4-light.svg",
+    "width": 522.75,
+    "height": 934,
+    "labels": 24,
+    "clipped": []
+  },
+  {
+    "file": "readme-1-dark.svg",
+    "width": 358.5,
+    "height": 958,
+    "labels": 21,
+    "clipped": []
+  },
+  {
+    "file": "readme-1-light.svg",
+    "width": 358.5,
+    "height": 958,
+    "labels": 21,
+    "clipped": []
+  },
+  {
+    "file": "readme-2-dark.svg",
+    "width": 276,
+    "height": 910,
+    "labels": 19,
+    "clipped": []
+  },
+  {
+    "file": "readme-2-light.svg",
+    "width": 276,
+    "height": 910,
+    "labels": 19,
+    "clipped": []
+  },
+  {
+    "file": "readme-3-dark.svg",
+    "width": 881.0625,
+    "height": 950.328125,
+    "labels": 22,
+    "clipped": []
+  },
+  {
+    "file": "readme-3-light.svg",
+    "width": 881.0625,
+    "height": 950.328125,
+    "labels": 22,
+    "clipped": []
+  }
+]

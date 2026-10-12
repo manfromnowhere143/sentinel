@@ -1,0 +1,15 @@
+=== A. run-by-run identity (determinism test) ===
+  i9 == i10 for every arm/scene: True
+  i8[:6] == i9 for every arm/scene: True
+  -> the three "replications" are the same episodes; pooling them triple-counts runs 0-5.
+
+=== B. union side-impact recount ===
+  i8: n=8 collisions at run indices [6]
+  i9: n=6 collisions at run indices []
+  i10: n=6 collisions at run indices []
+  -> unique episodes: 1 collision in 8 (run 6), i.e. 12.5%, not the pooled 5%.
+
+=== C. honest recompute on unique episodes (iter8, runs 0-7), seed-paired bootstrap ===
+  unique n per scene = 8
+  OFF 2.228  union 2.476  delta +0.247
+  95% CI [-0.272, +0.782]  excludes 0: False

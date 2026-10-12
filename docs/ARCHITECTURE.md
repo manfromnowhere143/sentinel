@@ -1,7 +1,7 @@
 # Sentinel architecture
 
-Updated 11 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter155 research candidate. The [README](../README.md) carries the scientific
+Updated 12 October 2026. This describes the implemented research apparatus and its measured
+limits through the published Iter155 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -27,6 +27,8 @@ a blanket determinism claim for other stacks or versions.
 
 ```mermaid
 flowchart TB
+  accTitle: The NeuroNCAP evaluation loop
+  accDescr: Rendered cameras reach the frozen planner and selected monitor arm. Decision logs and simulator outcomes feed the registered comparison.
   O["NeuroNCAP<br/>scenario, ego and actor state"] --> R["NeuRAD<br/>camera rendering"]
   R --> P["Frozen UniAD<br/>plan and decoded objects"]
   P --> M["Selected monitor arm<br/>or unchanged nominal plan"]
@@ -48,17 +50,19 @@ flowchart TB
 ## HUGSIM: distinguish the two execution regimes
 
 Iterations 48–49 tested transfer using the then-frozen HUGSIM integration and unchanged monitor
-parameters. Iterations 136–148 investigate recoverability and execution validity. Their timestamp,
+parameters. Iterations 136–152 investigate recoverability and execution validity. Their timestamp,
 actor-motion and controller changes define a new regime. Comparing or pooling their outcomes
 with the old transfer data requires an explicit design accounting for those changes.
 
-The current integration renders camera inputs in HUGSIM, obtains a nominal UniAD plan and
-monitor decision through the instrumented client, computes constrained ego controls, and
+The live monitor/pulse integration used through Iter152 renders camera inputs in HUGSIM,
+obtains a nominal UniAD plan and monitor decision through the instrumented client, computes constrained ego controls, and
 advances the simulator. A preregistered pulse may override the applied controls. Nominal plan,
 delivered plan, monitor request and applied action are retained separately.
 
 ```mermaid
 flowchart TB
+  accTitle: The HUGSIM monitor and pulse apparatus through Iter152
+  accDescr: Timestamped actors and rendered images drive a frozen planner, released monitor and constrained controller. The arm selects the applied action.
   S["HUGSIM state<br/>ego, actors and route"] --> R["CUDA camera rendering"]
   R --> P["Frozen UniAD and released monitor<br/>nominal and delivered plans"]
   P --> C["Constrained ego controller<br/>requested and projected controls"]
@@ -98,30 +102,30 @@ watchdog fixture. [Iter150](../experiments/iter150_cloud_observation/RESULT.md) 
 large native artifacts into a compact observation and qualifies historical reads through actual
 IAP, synthetic disconnection, host-local child expiry and exact-owned VM closure. Its live
 harness failed while saving the final report; retained outputs pass a separate audit and the
-filename fix passes locally. Iter151 adds exact 16-slot admission, exclusive dispatch, active Linux process birth/command/boot
-ownership and a per-pair systemd deadline. Its first nominal pair passed scientific replay,
-but a whitespace check on immutable captured source stopped publication and the schedule.
-The corrected local retention pipeline passes a real Git/replay rehearsal; corrected cloud
-execution is unobserved. See [Iter151](../experiments/iter151_recovery_canary/RESULT.md).
-The retained diagram and workflow below describe the original Iter148 study.
+filename fix passes locally. Iter151 adds exact 16-slot admission, exclusive dispatch,
+Linux process ownership checks and a per-pair systemd deadline. Its first nominal pair passed
+scientific replay, but a whitespace check on immutable captured source stopped publication and the schedule.
+The corrected local retention pipeline passed a real Git/replay rehearsal and subsequently
+completed all seven new pairs in Iter152. See [Iter151](../experiments/iter151_recovery_canary/RESULT.md).
+The diagram below describes the execution and evidence flow through Iter152; each experiment
+retains its own frozen schedule and resource envelope.
 
-The study plan fixes 112 slots and admission order. Pair initialization is recorded so that
-completed or initialized work cannot be duplicated silently. Each completed raw packet is
+Iter148 fixed 112 slots; the fresh Iter151 canary fixed 16; Iter152 fixed fourteen new slots
+and bound two historical nominal episodes separately. Each plan fixes its own admission order.
+Pair initialization records ensure that completed or initialized work cannot be duplicated silently. Each completed raw packet is
 committed before replay; a receipt binds the plan, raw identity and prior admissions.
 
 ```mermaid
 flowchart TB
-  P["Frozen plan and source<br/>runtime, assets, finite budget"] --> W["Owned worker<br/>initialization record and host deadline"]
-  W --> R["Retained raw packet<br/>commit before analysis"]
-  R --> V["Separate replay<br/>dynamics, controls, outcomes and replicas"]
-  V --> A["Pair admission<br/>supported or invalid"]
-  A --> G["Study accounting<br/>observed, unknown and missing"]
-  O["Coordinator observations<br/>bounded by local watchdog"] -. observes .-> W
-  O --> C["Closure evidence<br/>exact owned VM start"]
-  classDef evidence fill:#e8f1fb,stroke:#32628c,color:#142d45;
-  classDef control fill:#f5f1e5,stroke:#89733a,color:#352b12;
-  class P,R,V,A,G evidence;
-  class W,O,C control;
+  accTitle: Execution, observation and admission through Iter152
+  accDescr: Observation loss is reconciled within fixed bounds. Raw evidence precedes replay; admission and exact-owned resource closure are separate checks.
+  P["Frozen plan, source and budget"] --> W["Exclusive worker initialization<br/>independent host deadline"]
+  W --> R["Retain raw bytes<br/>commit before replay"]
+  R --> V["Separate replay<br/>supported or invalid admission"]
+  V --> G["Complete slot accounting<br/>missing outcomes remain unknown"]
+  O["Bounded read-only reconciliation<br/>observation loss is not worker failure"] -. observes .-> W
+  O --> C["Verify exact-owned closure<br/>local watchdog and VM identity"]
+  W --> C
 ```
 
 Relevant implementations are [pair execution](../experiments/iter148_recovery_study/pair.py),
@@ -137,16 +141,16 @@ budgets and are not reusable launch commands.
 coordinator treated that failure as a stop condition while the worker was still running.
 The block is closed and its pulse outcome is incomplete. Iter149–150 implement bounded
 read-only reconciliation and retain local/cloud fault checks. Iter151 exercised the new active-worker
-integration; its later publication failure is separately recorded. The diagram above describes
-Iter148; neither later qualification erases that study’s missing outcome.
+integration; its later publication failure is separately recorded. Neither later qualification
+nor a completed continuation erases that study’s missing outcome.
 
 Iter152 completed seven new pairs with the corrected archive-to-Git-to-replay-to-admission path.
 Its [continuation admission](../experiments/iter152_recovery_continuation/admission.py) binds the
 two historical Iter151 nominal episodes without relabelling them as new runs; the separate
 [baseline replay](../experiments/iter152_recovery_continuation/baseline.py) rechecks their bytes,
 source and original scientific contract. The new fourteen-slot chain retains both scenario
-boundaries and exact compute closure. The diagram remains a record of the original Iter148
-architecture; current accounting is in the [Iter152 result](../experiments/iter152_recovery_continuation/RESULT.md).
+boundaries and exact compute closure. The diagram distinguishes retained raw evidence from
+admission and resource closure. Complete continuation accounting is in the [Iter152 result](../experiments/iter152_recovery_continuation/RESULT.md).
 
 Hashes check identity against retained bytes. Separate replay checks specified properties.
 Neither authenticates the physical world, establishes sensor completeness, or proves the
@@ -172,7 +176,7 @@ Iter152 records the same distinction over 1,420 new actions: maximum checked res
 9.8965212e-7, 37 controller calls above 50 ms, and every full loop above 250 ms. Median full loop
 is 1.890 s. These measurements do not establish a deadline policy for a physical vehicle.
 
-## Current state and proposed extensions
+## Diagnostic action search and background replay
 
 Iteration 152 admitted fourteen new episodes and both fixed scenario comparisons. Neither
 tested pulse recovered the collision case. All benign-case arms completed, with the monitor
@@ -201,6 +205,28 @@ This is a source-predicate witness, not a physical reconstruction or road-bounda
 The native model loader is source-bound rather than independently reimplemented. Useful full-scene
 recovery and information benefit remain unestablished.
 [Witness and limits](../experiments/iter155_background_witness/RESULT.md).
+
+```mermaid
+flowchart TB
+  accTitle: The diagnostic model, native test and background witness
+  accDescr: A privileged model candidate fails in the native scene. A separate source-point extraction reproduces the collision predicate without a new driving episode.
+  G["Route and foreground geometry<br/>privileged diagnostic inputs"] --> M["Iter153: model search<br/>one ranked action packet"]
+  M --> N["Iter154: native controls<br/>two failures at 3.25 s"]
+  N --> X["Iter155: historical poses<br/>points, boxes and ground"]
+  X --> C["Native CUDA masks"]
+  X --> S["Separate scalar reconstruction"]
+  C --> E["Exact masks: 0 and 273<br/>threshold >100"]
+  S --> E
+  E -. "proposed" .-> F["Calibrate background model<br/>before a new search"]
+```
+
+These privileged diagnostic inputs are not delivered to the released monitor. Iter153's model
+search omitted background geometry; Iter154 retained the native renderer and collision checks
+but bypassed planner and monitor inference. Iter155 restored the scene model and called source
+geometry methods without constructing or stepping a driving environment. The source model
+loader itself did run and remains part of the bound extraction.
+
+## Next scientific boundary
 
 Next is prospective background-aware model calibration against retained native prefixes, then
 a new finite search only if the measurement contract holds. An information-selection study

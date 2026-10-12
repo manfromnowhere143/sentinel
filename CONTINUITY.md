@@ -1,5 +1,10 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
+> **Editorial update — 12 October 2026.** README/architecture refined through Iter155;
+> seven current diagrams. Scientific closure and next calibration task unchanged. The default
+> landing-page correction is documentation only; consult docs/editorial/2026-10-12/REVIEW.md
+> and its publication observations. Historical mission/source and unrelated root work preserved.
+
 > **Current: Iter155 closed — 2026-10-11.** Full point selection and both collision masks
 > independently replay: 0 centers at 3.00 s, 273 at 3.25 s, unchanged >100 threshold; no mask
 > disagreement or diagnostic-band ambiguity. Four historical bindings, two poses, no new drive.

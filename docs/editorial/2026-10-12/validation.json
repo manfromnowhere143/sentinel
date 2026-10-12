@@ -1,0 +1,53 @@
+{
+  "status": "supported",
+  "scope": "Editorial checks, not scientific admission or hosted CI",
+  "research_parent": "4d2998ef8d1c6df8facabb271af49569154259d8",
+  "links_and_anchors": 304,
+  "result_files_linked": 155,
+  "index_rows_retained": 170,
+  "measured_results_unchanged": true,
+  "scientific_source_and_evidence_unchanged": true,
+  "diagram_count_before": 5,
+  "diagram_count_after": 7,
+  "diagrams": [
+    {
+      "name": "readme-1",
+      "source_characters": 798,
+      "source_sha256": "1247bf62633155b66528f2ab8aadac67db0a9577664c1eff965e6259b3801f17"
+    },
+    {
+      "name": "readme-2",
+      "source_characters": 665,
+      "source_sha256": "fad5d959d60fa7e9bd34d8021f636f20a942282afff7cb4075905101a8cc1d62"
+    },
+    {
+      "name": "readme-3",
+      "source_characters": 776,
+      "source_sha256": "44a22489399738536649a1ab7f7f14b331ea6b5e0f8263787317590ffa3b5e18"
+    },
+    {
+      "name": "architecture-1",
+      "source_characters": 737,
+      "source_sha256": "2e5063a5e2338e0a4fb73cbc495acdbcc894c081fa18bc6c0f81e30a500382bf"
+    },
+    {
+      "name": "architecture-2",
+      "source_characters": 867,
+      "source_sha256": "43fc9d3e3b67d112e8f73f9f92a81ee11c7e36015bda3edcfe10a917a362c9b1"
+    },
+    {
+      "name": "architecture-3",
+      "source_characters": 724,
+      "source_sha256": "6240f448918903afd604db38665c59a922c5ec8c304dd672a1f3a602aadea50f"
+    },
+    {
+      "name": "architecture-4",
+      "source_characters": 732,
+      "source_sha256": "888abb1bff329da86b02d6bfcb6c8498758d0d3571c5f8104e23a1f1b045c522"
+    }
+  ],
+  "light_dark_renders": 14,
+  "out_of_canvas_labels": 0,
+  "readme_words_before": 6583,
+  "readme_words_after": 7000
+}

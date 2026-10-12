@@ -1,0 +1,37 @@
+[
+  {
+    "name": "signal",
+    "argv": [
+      "python3",
+      "experiments/iter2_monitor/g1_auroc.py",
+      "experiments/iter2_monitor/proof/risk.jsonl.gz",
+      "experiments/iter2_monitor/proof/outcomes.tsv"
+    ],
+    "returncode": 0,
+    "seconds": 1.2459681250038557,
+    "stdout": "signal.stdout",
+    "stderr": "signal.stderr"
+  },
+  {
+    "name": "pooling",
+    "argv": [
+      "python3",
+      "experiments/verification/audit_pooling.py"
+    ],
+    "returncode": 0,
+    "seconds": 0.18141229101456702,
+    "stdout": "pooling.stdout",
+    "stderr": "pooling.stderr"
+  },
+  {
+    "name": "docs_guard",
+    "argv": [
+      "python3",
+      "scripts/validate_docs.py"
+    ],
+    "returncode": 1,
+    "seconds": 2.542572166013997,
+    "stdout": "docs_guard.stdout",
+    "stderr": "docs_guard.stderr"
+  }
+]
