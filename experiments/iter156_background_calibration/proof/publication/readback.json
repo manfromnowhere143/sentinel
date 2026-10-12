@@ -1,0 +1,36 @@
+{
+  "commit": "fe611f633d313131687164bb318bc9bfa158c156",
+  "files": [
+    {
+      "path": "README.md",
+      "url": "https://raw.githubusercontent.com/manfromnowhere143/sentinel/fe611f633d313131687164bb318bc9bfa158c156/README.md",
+      "sha256": "517c5c4bd15bdf844f292c2e7306ec992e3a1c2d0e752c669786145a4a85e22e",
+      "bytes": 62521
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "url": "https://raw.githubusercontent.com/manfromnowhere143/sentinel/fe611f633d313131687164bb318bc9bfa158c156/docs/ARCHITECTURE.md",
+      "sha256": "64099766ba9fba447365f52769f98deb324382da57f0fa54e91d172f9ce3a8df",
+      "bytes": 16514
+    },
+    {
+      "path": "experiments/iter156_background_calibration/RESULT.md",
+      "url": "https://raw.githubusercontent.com/manfromnowhere143/sentinel/fe611f633d313131687164bb318bc9bfa158c156/experiments/iter156_background_calibration/RESULT.md",
+      "sha256": "79ecc99f6d58d7bd6123d4e3e3b29636df43011ff884fbde28a32e65d40019b9",
+      "bytes": 6474
+    },
+    {
+      "path": "experiments/iter156_background_calibration/proof/admission.json",
+      "url": "https://raw.githubusercontent.com/manfromnowhere143/sentinel/fe611f633d313131687164bb318bc9bfa158c156/experiments/iter156_background_calibration/proof/admission.json",
+      "sha256": "c055385d89b64e302584d0a1a975ea7bb19d72b8d35f59bc828992c2083ec244",
+      "bytes": 26646
+    },
+    {
+      "path": "docs/research/SENTINEL_FRONTIER_ENGINE_REVIEW_2026-10-12.md",
+      "url": "https://raw.githubusercontent.com/manfromnowhere143/sentinel/fe611f633d313131687164bb318bc9bfa158c156/docs/research/SENTINEL_FRONTIER_ENGINE_REVIEW_2026-10-12.md",
+      "sha256": "5be66213d39e2eb95edf72044928aa93edbeea2809977687005eb8136981b7f1",
+      "bytes": 8508
+    }
+  ],
+  "scientific_scope": "Finite background calibration; no new drive or useful recovery"
+}

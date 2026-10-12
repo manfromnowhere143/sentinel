@@ -4262,7 +4262,14 @@ def test_current_verdict_must_be_present_in_result() -> None:
     assert "current_verdict_not_in_result:'IMPOSSIBLE_VERDICT'" in validate_state(state)
 
 
-def test_state_cannot_roll_back_latest_completed_iteration() -> None:
+@pytest.mark.parametrize("latest", [134, 155, 156, 999])
+def test_state_cannot_roll_back_latest_completed_iteration(tmp_path: Path, latest: int) -> None:
+    # Freeze a synthetic result inventory so a new real experiment cannot stale
+    # this negative control. The matching state is a positive control as well.
+    for iteration in [133, latest]:
+        result = tmp_path / f"experiments/iter{iteration}_fixture/RESULT.md"
+        result.parent.mkdir(parents=True)
+        result.write_text("NEURONCAP_PLACEBO_SEMANTICS_CONTROL_DESIGN_COMPLETE\n")
     state = copy.deepcopy(load_state())
     state["current_completed_iteration"] = 133
     state["current_result"] = (
@@ -4271,7 +4278,13 @@ def test_state_cannot_roll_back_latest_completed_iteration() -> None:
     state["current_verdict"] = "NEURONCAP_PLACEBO_SEMANTICS_CONTROL_DESIGN_COMPLETE"
     state["next_program"]["iteration"] = 134
 
-    assert "current_completed_iteration:133!=155" in validate_state(state)
+    assert f"current_completed_iteration:133!={latest}" in validate_state(state, tmp_path)
+    state["current_completed_iteration"] = latest
+    state["current_result"] = f"experiments/iter{latest}_fixture/RESULT.md"
+    assert not any(
+        issue.startswith("current_completed_iteration:")
+        for issue in validate_state(state, tmp_path)
+    )
 
 
 def test_every_pending_hypothesis_must_be_classified() -> None:

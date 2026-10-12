@@ -1,3 +1,14 @@
+## Iter156 publication and CI correction — 12 October 2026
+
+Scientific closure `fe611f633d313131687164bb318bc9bfa158c156` is published; five
+GitHub-served files match committed bytes. Hosted run 38245911237 found a stale
+rollback-test expectation of Iter155 after Iter156 was added. Python 3.10 reports
+3,630 passed, two skipped and this one failure. The test now uses four fixed
+synthetic result inventories, with rejection and matching-state controls; all
+four pass locally. Production validation and frozen calibration source are
+unchanged. The new hosted run must be observed separately; this correction does
+not inherit a green outcome. See Iter156 proof/publication.
+
 # Current: Iter156 closed — 12 October 2026
 
 Supported finite background calibration: all 115 full masks of 276,519 centers match
