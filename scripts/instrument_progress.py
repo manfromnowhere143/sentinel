@@ -157,7 +157,8 @@ def main():
     args = parser.parse_args()
     require(git("remote", "get-url", "origin").decode().strip().removesuffix(".git") == f"https://github.com/{REPOSITORY}", "repository")
     descriptor = json.loads(git("show", "HEAD:instrument/progress.json"))
-    commit = descriptor["evidenceCommit"]
+    commit = git("rev-parse", "HEAD").decode().strip()
+    descriptor["evidenceCommit"] = commit
     require(bool(re.fullmatch(r"[0-9a-f]{40}", commit)), "commit")
     require(subprocess.run(["git", "merge-base", "--is-ancestor", commit, "HEAD"], capture_output=True).returncode == 0, "source_ancestry")
     packet = export(descriptor, lambda path: git("show", f"{commit}:{path}"), git("show", "-s", "--format=%cI", commit).decode().strip())

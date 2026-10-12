@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def fixture():
-    descriptor = json.loads((ROOT / "instrument/progress.json").read_text())
+    descriptor = json.loads(subprocess.check_output(["git", "-C", str(ROOT), "show", "76545d92dd523b543fd281353e114c4ba7adfffb:instrument/progress.json"]))
     commit = descriptor["evidenceCommit"]
     files = {}
 
@@ -62,3 +62,19 @@ def test_corruptions_refused(kind):
     files[path] = json.dumps(state).encode()
     with pytest.raises((ValueError, KeyError)):
         export(descriptor, read, "2026-10-12T00:00:00Z")
+
+
+def test_current_descriptor_covers_closed_research():
+    # Adding a new closed result requires its display contract in the same change.
+    descriptor = json.loads((ROOT / "instrument/progress.json").read_text())
+    results = list((ROOT / "experiments").glob("iter*/RESULT.md"))
+    import re
+    latest = max(int(re.match(r"iter(\d+)", p.parent.name)[1]) for p in results)
+    assert descriptor["iteration"] == latest
+    descriptor["evidenceCommit"] = subprocess.check_output(["git", "-C", str(ROOT), "rev-parse", "HEAD"]).decode().strip()
+    def read(path):
+        target = ROOT / path
+        if target.is_dir():
+            return subprocess.check_output(["git", "-C", str(ROOT), "show", "HEAD:" + path])
+        return target.read_bytes()
+    export(descriptor, read, "2026-10-12T00:00:00Z")

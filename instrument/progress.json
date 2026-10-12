@@ -1,6 +1,5 @@
 {
   "schemaVersion": 1,
-  "evidenceCommit": "6dad3b6c1025c12f8f3c12e78011563921173e0d",
   "iteration": 156,
   "directory": "experiments/iter156_background_calibration",
   "title": "The missing constraint, checked.",
@@ -8,14 +7,39 @@
   "boundary": "One exposed scene. Two native full-mask witnesses. No new drive; useful recovery and information benefit remain unknown.",
   "next": "Test a frozen action library under foreground, background, actuator and useful-progress constraints.",
   "metrics": [
-    {"label": "Unique states", "field": "unique_states", "unit": "states"},
-    {"label": "Centers per state", "field": "selected_points", "unit": "centers"},
-    {"label": "Historical bindings", "field": "step_bindings", "unit": "bindings"},
-    {"label": "New driving episodes", "field": "new_driving_episodes", "unit": "episodes"}
+    {
+      "label": "Unique states",
+      "field": "unique_states",
+      "unit": "states"
+    },
+    {
+      "label": "Centers per state",
+      "field": "selected_points",
+      "unit": "centers"
+    },
+    {
+      "label": "Historical bindings",
+      "field": "step_bindings",
+      "unit": "bindings"
+    },
+    {
+      "label": "New driving episodes",
+      "field": "new_driving_episodes",
+      "unit": "episodes"
+    }
   ],
   "breakdown": [
-    {"label": "Direct background labels", "field": "label_counts.direct_background"},
-    {"label": "Implied negatives", "field": "label_counts.negative_composite_implication"},
-    {"label": "Background unknown", "field": "label_counts.unattributed_collision"}
+    {
+      "label": "Direct background labels",
+      "field": "label_counts.direct_background"
+    },
+    {
+      "label": "Implied negatives",
+      "field": "label_counts.negative_composite_implication"
+    },
+    {
+      "label": "Background unknown",
+      "field": "label_counts.unattributed_collision"
+    }
   ]
 }
