@@ -1,0 +1,26 @@
+{
+  "scope": "Post-Iter159 interpretation and prospective next-step research; not pre-acquisition rationale",
+  "sources": [
+    {
+      "name": "sst_repair",
+      "url": "https://arxiv.org/html/2609.04464v1",
+      "sha256": "9d9a6dec12065d6453deb83fbc9bdb5df012d92b9fc4594f1ca92ed88c5697c4",
+      "bytes": 227279,
+      "retrieved_at": "2026-10-12T17:27:41.207358+00:00"
+    },
+    {
+      "name": "smo_sst",
+      "url": "https://arxiv.org/html/2607.19284v1",
+      "sha256": "7e5e43601328ad78ec23a561c0f9c7159fd0166f33331821462bef348ce24c89",
+      "bytes": 423213,
+      "retrieved_at": "2026-10-12T17:27:45.384033+00:00"
+    },
+    {
+      "name": "ompl_sst",
+      "url": "https://ompl.kavrakilab.org/core/classompl_1_1control_1_1SST.html",
+      "sha256": "ab9f4d46db24f7cd90750f35acb59784cdbc568b1a2e9833a3b721ced52fc07a",
+      "bytes": 76073,
+      "retrieved_at": "2026-10-12T17:27:47.140466+00:00"
+    }
+  ]
+}

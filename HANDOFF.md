@@ -1,3 +1,17 @@
+# Current: Iter160 continuation diagnostic — 12 October 2026
+
+Five retained state pairs cover all16 Iter159 first-loss bindings. Ten prospective
+fixed-command trajectories will preserve actual prefixes and absolute checkpoint
+time. Read experiments/iter160_continuation_preservation/DECISION_PACKET.md,
+PROTOCOL.md, PLAN.json and INPUTS.json. 198 focused/retained checks pass, including
+35 new checks and a reachable-state same-suffix counterexample. No actual pair
+continuation outcome has been acquired. Freeze source before the one local CPU
+acquisition; commit raw before scalar admission. No native run, provider or GPU.
+Iter159 remains contradicted. Live instrument stays at its closed result until
+this diagnostic is admitted. Owned branch research/iter160-continuation-preservation.
+Canonical dirty root, accepted history and archived mission state stay unchanged.
+Earlier notices below are historical.
+
 # Current: Iter159 closed — 12 October 2026
 
 Contradicted: the route/speed-group candidate completes only 3/4 known feasible

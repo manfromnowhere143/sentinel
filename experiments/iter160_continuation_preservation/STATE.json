@@ -1,0 +1,10 @@
+{
+  "iteration": 160,
+  "status": "preregistered",
+  "phase": "source_preparation",
+  "claim": "Every retained representative completes under the same remaining witness commands.",
+  "pairs": 5,
+  "trajectories": 10,
+  "owned_jobs": 0,
+  "next": "Freeze and publish source; acquire once; commit raw before independent scalar admission."
+}
