@@ -1,0 +1,30 @@
+[
+  {
+    "case": "bend_left",
+    "verified_states": 48,
+    "selected_actions": 47,
+    "max_background_count": 0,
+    "progress_checks": 2
+  },
+  {
+    "case": "bend_right",
+    "verified_states": 48,
+    "selected_actions": 47,
+    "max_background_count": 0,
+    "progress_checks": 2
+  },
+  {
+    "case": "chicane_left",
+    "verified_states": 59,
+    "selected_actions": 58,
+    "max_background_count": 0,
+    "progress_checks": 2
+  },
+  {
+    "case": "chicane_right",
+    "verified_states": 59,
+    "selected_actions": 58,
+    "max_background_count": 0,
+    "progress_checks": 2
+  }
+]

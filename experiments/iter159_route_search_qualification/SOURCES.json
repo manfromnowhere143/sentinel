@@ -1,0 +1,34 @@
+{
+  "scope": "Decision sources; not reproduced comparisons",
+  "released_smac_commit": "3286119753ce1fab9d2ff411ea6d439b823fe18d",
+  "sources": [
+    {
+      "name": "smac",
+      "url": "https://arxiv.org/html/2401.13078v2",
+      "sha256": "2986dcbc0b3a50347e484e301e5f7eee3d61aa83067ea56b5dce0fe64243dbf2",
+      "bytes": 139202,
+      "retrieved_at": "2026-10-12T17:07:00.795995+00:00"
+    },
+    {
+      "name": "commonroad",
+      "url": "https://arxiv.org/html/2512.19564v1",
+      "sha256": "0650878eaa572fccdadb37c21be6425d8963d081ca67a43619da85ed5885fbdd",
+      "bytes": 142450,
+      "retrieved_at": "2026-10-12T17:07:01.252985+00:00"
+    },
+    {
+      "name": "mha",
+      "url": "https://www.ri.cmu.edu/pub_files/2014/7/rss14.pdf",
+      "sha256": "86aab0bb685685781f4d11eb5ce6482dacd4487549d2028438b833856b749ddf",
+      "bytes": 1872836,
+      "retrieved_at": "2026-10-12T17:07:20.442221+00:00"
+    },
+    {
+      "name": "released_smac",
+      "url": "https://raw.githubusercontent.com/ros-navigation/navigation2/3286119753ce1fab9d2ff411ea6d439b823fe18d/nav2_smac_planner/src/node_hybrid.cpp",
+      "sha256": "5cd8e9a9768df745f1e6f67a0d7799ef76fca2bee33679c3b36a329d730de5f7",
+      "bytes": 20670,
+      "retrieved_at": "2026-10-12T17:07:20.892186+00:00"
+    }
+  ]
+}

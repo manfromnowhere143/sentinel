@@ -1,0 +1,11 @@
+{
+  "iteration": 159,
+  "status": "preregistered",
+  "phase": "qualified",
+  "cases": 4,
+  "runs_planned": 16,
+  "owned_jobs": 0,
+  "new_driving_episodes": 0,
+  "provider_spend": 0,
+  "next": "Freeze source; acquire one factorial run; commit raw before independent admission."
+}

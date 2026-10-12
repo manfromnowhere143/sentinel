@@ -1,3 +1,18 @@
+# Current: Iter159 constructive qualification — 12 October 2026
+
+Iter158 remains inconclusive. Iter159 registers a 2 by 2 guidance/pruning
+comparison on four disclosed curved/cluttered fixtures. Four complete witness
+paths pass independent scalar replay (214 states); all witness commands belong
+to the existing primitive alphabet. No factorial outcome or new source-scene
+search has been acquired. Read Iter159 DECISION_PACKET, PROTOCOL, PLAN and STATE.
+One local CPU acquisition follows source freeze, then raw commit and independent
+admission. No provider, GPU or native driving task. The search receives no witness
+commands. These are constructed development controls, not held-out road evidence.
+
+Owned branch research/iter159-route-search-qualification in the existing owned
+Sentinel research worktree. Canonical dirty root, accepted history and archived
+Iter134/135 mission state remain unchanged. Earlier notices below are historical.
+
 > **Current: Iter158 closed — 12 October 2026.** Inconclusive search; no full
 > trajectory. Independent replay confirms a 19-state prefix ending before either
 > progress checkpoint. No native run or spend. Next: route-aware guidance and

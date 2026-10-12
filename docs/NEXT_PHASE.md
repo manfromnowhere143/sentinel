@@ -1,3 +1,11 @@
+# Current engine milestone — Iter159 qualification, 12 October 2026
+
+A fixed-budget factorial will distinguish route guidance from speed-group
+pruning on four known feasible constructed cases. Read the
+[decision packet](../experiments/iter159_route_search_qualification/DECISION_PACKET.md).
+Native spending still awaits a complete source-model opportunity.
+Earlier roadmap sections below are historical.
+
 # Current engine milestone — Iter158 closed, 12 October 2026
 
 The bounded actuator search is inconclusive. A 19-state prefix independently

@@ -1,0 +1,14 @@
+{
+  "status": "supported",
+  "scope": "Pre-acquisition implementation and constructive witness checks",
+  "focused_retained_tests": 128,
+  "new_tests": 22,
+  "python": "3.14.2",
+  "numpy": "2.4.2",
+  "ruff": "whole maintained source pass",
+  "supply_chain": "pass",
+  "docs": "539 clean, no new result yet",
+  "witness_states": 214,
+  "initial_test_failure": "Two hand-written diagnostic fixtures omitted reset frame; 20 passed and 2 failed before correcting fixture shape. No factorial search acquired.",
+  "hosted_ci": "unobserved for this source"
+}
