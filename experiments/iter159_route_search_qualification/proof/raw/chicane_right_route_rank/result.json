@@ -1,0 +1,1 @@
+{"attempts":5665,"case":"chicane_right","completed_depth":17,"counts":{"clear":4720,"collision":554,"controls":391},"elapsed_seconds":4.480316707980819,"name":"chicane_right_route_rank","pruning":"rank","queries":5275,"ranking":"route","selected":null,"stop":"beam_empty"}

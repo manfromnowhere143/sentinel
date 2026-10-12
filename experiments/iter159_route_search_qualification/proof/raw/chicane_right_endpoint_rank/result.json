@@ -1,0 +1,1 @@
+{"attempts":6819,"case":"chicane_right","completed_depth":20,"counts":{"clear":5932,"controls":887},"elapsed_seconds":5.052756958990358,"name":"chicane_right_endpoint_rank","pruning":"rank","queries":5933,"ranking":"endpoint","selected":6809,"stop":"model_complete"}

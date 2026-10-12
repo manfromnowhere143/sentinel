@@ -1,0 +1,1 @@
+{"attempts":5589,"case":"bend_right","completed_depth":17,"counts":{"clear":4745,"collision":448,"controls":217,"progress":179},"elapsed_seconds":4.165067583962809,"name":"bend_right_endpoint_speed_groups","pruning":"speed_groups","queries":5194,"ranking":"endpoint","selected":5234,"stop":"model_complete"}

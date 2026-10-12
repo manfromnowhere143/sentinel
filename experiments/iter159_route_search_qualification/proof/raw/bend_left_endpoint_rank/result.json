@@ -1,0 +1,1 @@
+{"attempts":6035,"case":"bend_left","completed_depth":18,"counts":{"clear":5391,"controls":644},"elapsed_seconds":4.298839082999621,"name":"bend_left_endpoint_rank","pruning":"rank","queries":5392,"ranking":"endpoint","selected":5976,"stop":"model_complete"}

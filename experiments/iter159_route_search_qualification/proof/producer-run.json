@@ -1,0 +1,16 @@
+{
+  "source_commit": "1a5a16e444bbfc64fa2927f036ace34754164e66",
+  "command": [
+    "python3",
+    "-m",
+    "experiments.iter159_route_search_qualification.run",
+    "--root",
+    "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011",
+    "--output",
+    "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter159_route_search_qualification/proof/raw",
+    "--source",
+    "1a5a16e444bbfc64fa2927f036ace34754164e66"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 96.9058040829841
+}
