@@ -1,0 +1,62 @@
+[
+  {
+    "source": "README.md",
+    "diagram": 1,
+    "theme": "default",
+    "returncode": 0,
+    "output": "experiments/iter161_grouping_width_ablation/proof/diagrams/readme_1_default.png",
+    "stderr": "",
+    "sha256": "06d77e066f25d4814cd8eeca6a8d188f6a6d34dea4c67587e7a0375880312bc3",
+    "visual_inspection": "passed: labels, topology, clipping and evidence/proposal distinction"
+  },
+  {
+    "source": "README.md",
+    "diagram": 1,
+    "theme": "dark",
+    "returncode": 0,
+    "output": "experiments/iter161_grouping_width_ablation/proof/diagrams/readme_1_dark.png",
+    "stderr": "",
+    "sha256": "dcd3bb225c3fc418f7914ea57192127eb1b0471318d7404550a6bd99390eb39b",
+    "visual_inspection": "passed: labels, topology, clipping and evidence/proposal distinction"
+  },
+  {
+    "source": "README.md",
+    "diagram": 2,
+    "theme": "default",
+    "returncode": 0,
+    "output": "experiments/iter161_grouping_width_ablation/proof/diagrams/readme_2_default.png",
+    "stderr": "",
+    "sha256": "74a6b5572064827499fba67e4a6f6d0aacef18bfd3fe4a454c2bb2025dbc331a",
+    "visual_inspection": "passed: labels, topology, clipping and evidence/proposal distinction"
+  },
+  {
+    "source": "README.md",
+    "diagram": 2,
+    "theme": "dark",
+    "returncode": 0,
+    "output": "experiments/iter161_grouping_width_ablation/proof/diagrams/readme_2_dark.png",
+    "stderr": "",
+    "sha256": "ea709aa26052ce2868eef42872e62b609a3af8d0bfd8f396b8a4cbf951f08d51",
+    "visual_inspection": "passed: labels, topology, clipping and evidence/proposal distinction"
+  },
+  {
+    "source": "docs/ARCHITECTURE.md",
+    "diagram": 3,
+    "theme": "default",
+    "returncode": 0,
+    "output": "experiments/iter161_grouping_width_ablation/proof/diagrams/architecture_3_default.png",
+    "stderr": "",
+    "sha256": "0a7cc027509a0ed82f84ba9199708aac36b50f170aa028416dea9c6a902e1eaf",
+    "visual_inspection": "passed: labels, topology, clipping and evidence/proposal distinction"
+  },
+  {
+    "source": "docs/ARCHITECTURE.md",
+    "diagram": 3,
+    "theme": "dark",
+    "returncode": 0,
+    "output": "experiments/iter161_grouping_width_ablation/proof/diagrams/architecture_3_dark.png",
+    "stderr": "",
+    "sha256": "6ec89eb12864bb7d64c506e967f15958464ac98747f4687da359bf4a48264ce4",
+    "visual_inspection": "passed: labels, topology, clipping and evidence/proposal distinction"
+  }
+]

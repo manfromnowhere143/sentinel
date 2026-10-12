@@ -1,0 +1,18 @@
+{
+  "status": "supported",
+  "scope": "Closure presentation and arithmetic; no new scientific acquisition",
+  "focused_and_channel_tests": 40,
+  "pytest_seconds": 13.04,
+  "pytest_command": "python3 -m pytest -q tests/test_iter161_grouping_width_ablation.py tests/test_instrument_progress.py",
+  "whole_ruff": "passed",
+  "supply_chain": "passed",
+  "docs_markdown_files": 553,
+  "frozen_source_inventory": "unchanged",
+  "factorial_figure": "visually inspected",
+  "mermaid_renders": 6,
+  "corrections_before_publication": [
+    "Two overlength Mermaid blocks shortened; duplicate architecture node ID corrected after visual inspection.",
+    "Matplotlib SVG trailing whitespace normalized."
+  ],
+  "hosted_ci": "separate exact-head evidence; pending at closure"
+}

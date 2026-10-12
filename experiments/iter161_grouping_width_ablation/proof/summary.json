@@ -1,0 +1,698 @@
+{
+  "iteration": 161,
+  "scope": "Arithmetic from admitted fixed-budget factorial records",
+  "arms": [
+    {
+      "aggregation": "quantized",
+      "width": 24,
+      "complete": 3,
+      "attempts": 53286,
+      "search_queries": 50002,
+      "search_seconds": 40.164368750934955,
+      "stops": {
+        "model_complete": 3,
+        "attempt_budget": 1
+      },
+      "retention": {
+        "grouping_removed": 31206,
+        "partial_depth_survivors": 300,
+        "retained": 3564,
+        "width_removed": 8194
+      },
+      "first_loss": {
+        "cell_representative": 4
+      }
+    },
+    {
+      "aggregation": "quantized",
+      "width": 48,
+      "complete": 2,
+      "attempts": 61248,
+      "search_queries": 58498,
+      "search_seconds": 47.07510704093147,
+      "stops": {
+        "model_complete": 2,
+        "attempt_budget": 2
+      },
+      "retention": {
+        "grouping_removed": 42632,
+        "partial_depth_survivors": 469,
+        "retained": 4148,
+        "width_removed": 8136
+      },
+      "first_loss": {
+        "cell_representative": 4
+      }
+    },
+    {
+      "aggregation": "exact",
+      "width": 24,
+      "complete": 4,
+      "attempts": 33494,
+      "search_queries": 31918,
+      "search_seconds": 25.75176516600186,
+      "stops": {
+        "model_complete": 4
+      },
+      "retention": {
+        "grouping_removed": 0,
+        "partial_depth_survivors": 0,
+        "retained": 2272,
+        "width_removed": 28348
+      },
+      "first_loss": {
+        "beam_width": 4
+      }
+    },
+    {
+      "aggregation": "exact",
+      "width": 48,
+      "complete": 2,
+      "attempts": 64332,
+      "search_queries": 61818,
+      "search_seconds": 49.34656666696537,
+      "stops": {
+        "model_complete": 2,
+        "attempt_budget": 2
+      },
+      "retention": {
+        "grouping_removed": 0,
+        "partial_depth_survivors": 1254,
+        "retained": 4288,
+        "width_removed": 55016
+      },
+      "first_loss": {
+        "beam_width": 4
+      }
+    }
+  ],
+  "contrasts": {
+    "grouping_at_24": 1,
+    "grouping_at_48": 0,
+    "width_for_quantized": -1,
+    "width_for_exact": -2,
+    "interaction": -1
+  },
+  "contrast_units": "Difference in completion counts among the same four disclosed controls",
+  "records": [
+    {
+      "aggregation": "quantized",
+      "attempts": 11517,
+      "case": "bend_left",
+      "complete": true,
+      "completed_depth": 33,
+      "counts": {
+        "clear": 8105,
+        "collision": 2479,
+        "controls": 843,
+        "progress": 90
+      },
+      "elapsed_seconds": 8.429714625002816,
+      "max_background_count": 100,
+      "name": "bend_left_quantized_24",
+      "progress_checks": 2,
+      "queries": 10585,
+      "retention": {
+        "grouping_removed": 5829,
+        "partial_depth_survivors": 0,
+        "retained": 777,
+        "width_removed": 1499
+      },
+      "selected": 11187,
+      "selected_actions": 33,
+      "stop": "model_complete",
+      "verified_states": 34,
+      "width": 24,
+      "witness_loss": {
+        "attempt": 8,
+        "cause": "cell_representative",
+        "frame": 1,
+        "proposal_coverage": true,
+        "representative": 16,
+        "representative_in_beam": true
+      },
+      "selected_progress": 1.0260499734183945
+    },
+    {
+      "aggregation": "quantized",
+      "attempts": 12624,
+      "case": "bend_left",
+      "complete": true,
+      "completed_depth": 19,
+      "counts": {
+        "clear": 11990,
+        "controls": 438,
+        "progress": 196
+      },
+      "elapsed_seconds": 9.498322082974482,
+      "max_background_count": 0,
+      "name": "bend_left_quantized_48",
+      "progress_checks": 1,
+      "queries": 11991,
+      "retention": {
+        "grouping_removed": 9268,
+        "partial_depth_survivors": 0,
+        "retained": 865,
+        "width_removed": 1857
+      },
+      "selected": 12031,
+      "selected_actions": 19,
+      "stop": "model_complete",
+      "verified_states": 20,
+      "width": 48,
+      "witness_loss": {
+        "attempt": 8,
+        "cause": "cell_representative",
+        "frame": 1,
+        "proposal_coverage": true,
+        "representative": 16,
+        "representative_in_beam": true
+      },
+      "selected_progress": 1.0047846889952154
+    },
+    {
+      "aggregation": "exact",
+      "attempts": 6466,
+      "case": "bend_left",
+      "complete": true,
+      "completed_depth": 19,
+      "counts": {
+        "clear": 6151,
+        "controls": 225,
+        "progress": 90
+      },
+      "elapsed_seconds": 4.912884582998231,
+      "max_background_count": 0,
+      "name": "bend_left_exact_24",
+      "progress_checks": 1,
+      "queries": 6152,
+      "retention": {
+        "grouping_removed": 0,
+        "partial_depth_survivors": 0,
+        "retained": 449,
+        "width_removed": 5702
+      },
+      "selected": 6147,
+      "selected_actions": 19,
+      "stop": "model_complete",
+      "verified_states": 20,
+      "width": 24,
+      "witness_loss": {
+        "attempt": 157,
+        "cause": "beam_width",
+        "frame": 2,
+        "proposal_coverage": true,
+        "representative": 157,
+        "representative_in_beam": false
+      },
+      "selected_progress": 1.0047846889952154
+    },
+    {
+      "aggregation": "exact",
+      "attempts": 14166,
+      "case": "bend_left",
+      "complete": true,
+      "completed_depth": 21,
+      "counts": {
+        "clear": 13550,
+        "controls": 421,
+        "progress": 195
+      },
+      "elapsed_seconds": 10.53245399997104,
+      "max_background_count": 0,
+      "name": "bend_left_exact_48",
+      "progress_checks": 1,
+      "queries": 13551,
+      "retention": {
+        "grouping_removed": 0,
+        "partial_depth_survivors": 0,
+        "retained": 977,
+        "width_removed": 12573
+      },
+      "selected": 13492,
+      "selected_actions": 21,
+      "stop": "model_complete",
+      "verified_states": 22,
+      "width": 48,
+      "witness_loss": {
+        "attempt": 157,
+        "cause": "beam_width",
+        "frame": 2,
+        "proposal_coverage": true,
+        "representative": 157,
+        "representative_in_beam": false
+      },
+      "selected_progress": 1.0207336523125996
+    },
+    {
+      "aggregation": "quantized",
+      "attempts": 11522,
+      "case": "bend_right",
+      "complete": true,
+      "completed_depth": 33,
+      "counts": {
+        "clear": 8110,
+        "collision": 2479,
+        "controls": 843,
+        "progress": 90
+      },
+      "elapsed_seconds": 8.317123749991879,
+      "max_background_count": 100,
+      "name": "bend_right_quantized_24",
+      "progress_checks": 2,
+      "queries": 10590,
+      "retention": {
+        "grouping_removed": 5843,
+        "partial_depth_survivors": 0,
+        "retained": 777,
+        "width_removed": 1490
+      },
+      "selected": 11188,
+      "selected_actions": 33,
+      "stop": "model_complete",
+      "verified_states": 34,
+      "width": 24,
+      "witness_loss": {
+        "attempt": 8,
+        "cause": "cell_representative",
+        "frame": 1,
+        "proposal_coverage": true,
+        "representative": 16,
+        "representative_in_beam": true
+      },
+      "selected_progress": 1.0260499734183945
+    },
+    {
+      "aggregation": "quantized",
+      "attempts": 12624,
+      "case": "bend_right",
+      "complete": true,
+      "completed_depth": 19,
+      "counts": {
+        "clear": 11990,
+        "controls": 438,
+        "progress": 196
+      },
+      "elapsed_seconds": 9.523179167008493,
+      "max_background_count": 0,
+      "name": "bend_right_quantized_48",
+      "progress_checks": 1,
+      "queries": 11991,
+      "retention": {
+        "grouping_removed": 9267,
+        "partial_depth_survivors": 0,
+        "retained": 865,
+        "width_removed": 1858
+      },
+      "selected": 12035,
+      "selected_actions": 19,
+      "stop": "model_complete",
+      "verified_states": 20,
+      "width": 48,
+      "witness_loss": {
+        "attempt": 8,
+        "cause": "cell_representative",
+        "frame": 1,
+        "proposal_coverage": true,
+        "representative": 16,
+        "representative_in_beam": true
+      },
+      "selected_progress": 1.0047846889952154
+    },
+    {
+      "aggregation": "exact",
+      "attempts": 6466,
+      "case": "bend_right",
+      "complete": true,
+      "completed_depth": 19,
+      "counts": {
+        "clear": 6151,
+        "controls": 225,
+        "progress": 90
+      },
+      "elapsed_seconds": 4.791946083016228,
+      "max_background_count": 0,
+      "name": "bend_right_exact_24",
+      "progress_checks": 1,
+      "queries": 6152,
+      "retention": {
+        "grouping_removed": 0,
+        "partial_depth_survivors": 0,
+        "retained": 449,
+        "width_removed": 5702
+      },
+      "selected": 6151,
+      "selected_actions": 19,
+      "stop": "model_complete",
+      "verified_states": 20,
+      "width": 24,
+      "witness_loss": {
+        "attempt": 157,
+        "cause": "beam_width",
+        "frame": 2,
+        "proposal_coverage": true,
+        "representative": 157,
+        "representative_in_beam": false
+      },
+      "selected_progress": 1.0047846889952154
+    },
+    {
+      "aggregation": "exact",
+      "attempts": 14166,
+      "case": "bend_right",
+      "complete": true,
+      "completed_depth": 21,
+      "counts": {
+        "clear": 13550,
+        "controls": 421,
+        "progress": 195
+      },
+      "elapsed_seconds": 10.514043667004444,
+      "max_background_count": 0,
+      "name": "bend_right_exact_48",
+      "progress_checks": 1,
+      "queries": 13551,
+      "retention": {
+        "grouping_removed": 0,
+        "partial_depth_survivors": 0,
+        "retained": 977,
+        "width_removed": 12573
+      },
+      "selected": 13496,
+      "selected_actions": 21,
+      "stop": "model_complete",
+      "verified_states": 22,
+      "width": 48,
+      "witness_loss": {
+        "attempt": 157,
+        "cause": "beam_width",
+        "frame": 2,
+        "proposal_coverage": true,
+        "representative": 157,
+        "representative_in_beam": false
+      },
+      "selected_progress": 1.0207336523125996
+    },
+    {
+      "aggregation": "quantized",
+      "attempts": 12247,
+      "case": "chicane_left",
+      "complete": true,
+      "completed_depth": 35,
+      "counts": {
+        "clear": 11134,
+        "collision": 608,
+        "controls": 505
+      },
+      "elapsed_seconds": 9.589636208955199,
+      "max_background_count": 0,
+      "name": "chicane_left_quantized_24",
+      "progress_checks": 2,
+      "queries": 11743,
+      "retention": {
+        "grouping_removed": 8084,
+        "partial_depth_survivors": 0,
+        "retained": 825,
+        "width_removed": 2225
+      },
+      "selected": 12127,
+      "selected_actions": 35,
+      "stop": "model_complete",
+      "verified_states": 36,
+      "width": 24,
+      "witness_loss": {
+        "attempt": 18,
+        "cause": "cell_representative",
+        "frame": 2,
+        "proposal_coverage": true,
+        "representative": 31,
+        "representative_in_beam": true
+      },
+      "selected_progress": 1.0030263726761781
+    },
+    {
+      "aggregation": "quantized",
+      "attempts": 18000,
+      "case": "chicane_left",
+      "complete": false,
+      "completed_depth": 26,
+      "counts": {
+        "clear": 14972,
+        "collision": 2333,
+        "controls": 690,
+        "numerically_ambiguous": 5
+      },
+      "elapsed_seconds": 14.121345290972386,
+      "max_background_count": 99,
+      "name": "chicane_left_quantized_48",
+      "progress_checks": 1,
+      "queries": 17311,
+      "retention": {
+        "grouping_removed": 11528,
+        "partial_depth_survivors": 195,
+        "retained": 1209,
+        "width_removed": 2040
+      },
+      "selected": null,
+      "selected_actions": 24,
+      "stop": "attempt_budget",
+      "verified_states": 25,
+      "width": 48,
+      "witness_loss": {
+        "attempt": 18,
+        "cause": "cell_representative",
+        "frame": 2,
+        "proposal_coverage": true,
+        "representative": 31,
+        "representative_in_beam": true
+      },
+      "selected_progress": 0.7003891050583657
+    },
+    {
+      "aggregation": "exact",
+      "attempts": 10281,
+      "case": "chicane_left",
+      "complete": true,
+      "completed_depth": 29,
+      "counts": {
+        "clear": 9159,
+        "collision": 647,
+        "controls": 475
+      },
+      "elapsed_seconds": 8.050937917025294,
+      "max_background_count": 0,
+      "name": "chicane_left_exact_24",
+      "progress_checks": 1,
+      "queries": 9807,
+      "retention": {
+        "grouping_removed": 0,
+        "partial_depth_survivors": 0,
+        "retained": 687,
+        "width_removed": 8472
+      },
+      "selected": 9926,
+      "selected_actions": 29,
+      "stop": "model_complete",
+      "verified_states": 30,
+      "width": 24,
+      "witness_loss": {
+        "attempt": 445,
+        "cause": "beam_width",
+        "frame": 3,
+        "proposal_coverage": true,
+        "representative": 445,
+        "representative_in_beam": false
+      },
+      "selected_progress": 1.0073497622135754
+    },
+    {
+      "aggregation": "exact",
+      "attempts": 18000,
+      "case": "chicane_left",
+      "complete": false,
+      "completed_depth": 25,
+      "counts": {
+        "clear": 16729,
+        "collision": 628,
+        "controls": 643
+      },
+      "elapsed_seconds": 14.153493624995463,
+      "max_background_count": 0,
+      "name": "chicane_left_exact_48",
+      "progress_checks": 1,
+      "queries": 17358,
+      "retention": {
+        "grouping_removed": 0,
+        "partial_depth_survivors": 627,
+        "retained": 1167,
+        "width_removed": 14935
+      },
+      "selected": null,
+      "selected_actions": 25,
+      "stop": "attempt_budget",
+      "verified_states": 26,
+      "width": 48,
+      "witness_loss": {
+        "attempt": 445,
+        "cause": "beam_width",
+        "frame": 3,
+        "proposal_coverage": true,
+        "representative": 445,
+        "representative_in_beam": false
+      },
+      "selected_progress": 0.7782101167315175
+    },
+    {
+      "aggregation": "quantized",
+      "attempts": 18000,
+      "case": "chicane_right",
+      "complete": false,
+      "completed_depth": 50,
+      "counts": {
+        "clear": 15915,
+        "collision": 1165,
+        "controls": 917,
+        "numerically_ambiguous": 3
+      },
+      "elapsed_seconds": 13.827894166985061,
+      "max_background_count": 91,
+      "name": "chicane_right_quantized_24",
+      "progress_checks": 2,
+      "queries": 17084,
+      "retention": {
+        "grouping_removed": 11450,
+        "partial_depth_survivors": 300,
+        "retained": 1185,
+        "width_removed": 2980
+      },
+      "selected": null,
+      "selected_actions": 39,
+      "stop": "attempt_budget",
+      "verified_states": 40,
+      "width": 24,
+      "witness_loss": {
+        "attempt": 18,
+        "cause": "cell_representative",
+        "frame": 2,
+        "proposal_coverage": true,
+        "representative": 31,
+        "representative_in_beam": true
+      },
+      "selected_progress": 0.9684392563769996
+    },
+    {
+      "aggregation": "quantized",
+      "attempts": 18000,
+      "case": "chicane_right",
+      "complete": false,
+      "completed_depth": 26,
+      "counts": {
+        "clear": 16433,
+        "collision": 771,
+        "controls": 796
+      },
+      "elapsed_seconds": 13.93226049997611,
+      "max_background_count": 0,
+      "name": "chicane_right_quantized_48",
+      "progress_checks": 1,
+      "queries": 17205,
+      "retention": {
+        "grouping_removed": 12569,
+        "partial_depth_survivors": 274,
+        "retained": 1209,
+        "width_removed": 2381
+      },
+      "selected": null,
+      "selected_actions": 23,
+      "stop": "attempt_budget",
+      "verified_states": 24,
+      "width": 48,
+      "witness_loss": {
+        "attempt": 18,
+        "cause": "cell_representative",
+        "frame": 2,
+        "proposal_coverage": true,
+        "representative": 31,
+        "representative_in_beam": true
+      },
+      "selected_progress": 0.6658019887591872
+    },
+    {
+      "aggregation": "exact",
+      "attempts": 10281,
+      "case": "chicane_right",
+      "complete": true,
+      "completed_depth": 29,
+      "counts": {
+        "clear": 9159,
+        "collision": 647,
+        "controls": 475
+      },
+      "elapsed_seconds": 7.995996582962107,
+      "max_background_count": 0,
+      "name": "chicane_right_exact_24",
+      "progress_checks": 1,
+      "queries": 9807,
+      "retention": {
+        "grouping_removed": 0,
+        "partial_depth_survivors": 0,
+        "retained": 687,
+        "width_removed": 8472
+      },
+      "selected": 9922,
+      "selected_actions": 29,
+      "stop": "model_complete",
+      "verified_states": 30,
+      "width": 24,
+      "witness_loss": {
+        "attempt": 445,
+        "cause": "beam_width",
+        "frame": 3,
+        "proposal_coverage": true,
+        "representative": 445,
+        "representative_in_beam": false
+      },
+      "selected_progress": 1.0073497622135754
+    },
+    {
+      "aggregation": "exact",
+      "attempts": 18000,
+      "case": "chicane_right",
+      "complete": false,
+      "completed_depth": 25,
+      "counts": {
+        "clear": 16729,
+        "collision": 628,
+        "controls": 643
+      },
+      "elapsed_seconds": 14.146575374994427,
+      "max_background_count": 0,
+      "name": "chicane_right_exact_48",
+      "progress_checks": 1,
+      "queries": 17358,
+      "retention": {
+        "grouping_removed": 0,
+        "partial_depth_survivors": 627,
+        "retained": 1167,
+        "width_removed": 14935
+      },
+      "selected": null,
+      "selected_actions": 25,
+      "stop": "attempt_budget",
+      "verified_states": 26,
+      "width": 48,
+      "witness_loss": {
+        "attempt": 445,
+        "cause": "beam_width",
+        "frame": 3,
+        "proposal_coverage": true,
+        "representative": 445,
+        "representative_in_beam": false
+      },
+      "selected_progress": 0.7782101167315175
+    }
+  ],
+  "witness_count": 4,
+  "point_state_classifications": 4716822,
+  "observed_progress_checks": 28
+}

@@ -1,3 +1,32 @@
+# Current: Iter161 closed — 12 October 2026
+
+Supported on four disclosed controls: exact grouping/width 24 completes 4/4;
+quantized/24 completes 3/4; both width 48 arms complete 2/4. Same 18,000-transition cap,
+route guide, proposals, constraints and stopping. Exact/24 uses 33,494 attempts
+versus 53,286 for quantized/24. Every incomplete run exhausts attempts. Corrected
+full-scene reflections; historical fixtures and results unchanged. All 643 states,
+full masks and 28 observed checkpoints independently replay; 4,716,822 point checks.
+All witness prefixes are lost (grouping for quantized; width for exact), yet 11/16
+searches find other complete paths. No claim that one first loss causes failure.
+Read Iter161 RESULT, DECISION, PROTOCOL, STATE and proof/admission.json.
+
+Source bc326a44051e556ca63983377833d47c93849d41; raw 634ba75f56f6fbacad304d0933e917f7e94c6b59
+committed before admission b38b0b7cde224c1ee2a5c5b28d9aa91282b4f232.
+One acquisition 163.331 s; admission 37.628 s; all caps pass. 224 focused/retained checks
+pass, including 26 new. Whole Ruff/supply-chain pass. Exact-head hosted CI and
+public packet readback remain separately observed publication evidence.
+No source-scene search, native drive, provider, GPU or spending; no experiment job.
+
+Next: frozen source-model qualification of unchanged exact/24 against matched
+quantized/24, complete retained geometry and prospectively calibrated cost caps.
+Synthetic qualification does not establish source recovery. A valid complete
+source action precedes native testing, actual decision-time history, equal-cost
+information ablation and held-out transfer. Released-adapter qualification remains
+the alternative to more custom beam work if the source test fails. Iter135 deferred.
+Owned branch research/iter161-grouping-width-ablation in the recovery worktree.
+Canonical dirty root, accepted lineage and archived MISSION_STATE unchanged.
+Earlier notices below are historical.
+
 # Current: Iter161 grouping × width ablation preregistered — 12 October 2026
 
 Operator task: isolate state grouping from beam-width pruning under fixed budgets.

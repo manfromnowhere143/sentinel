@@ -18,7 +18,7 @@ against a competent responsive baseline, with information access, permitted acti
 resource budgets stated explicitly.
 
 [System](#what-sentinel-does) · [Results](#measured-results) ·
-[Research history](#how-the-question-changed) · [Latest result](#iteration-160-the-first-replacement-is-not-the-whole-explanation) ·
+[Research history](#how-the-question-changed) · [Latest result](#iteration-161-grouping-and-width-have-different-effects) ·
 [Next test](#the-next-scientific-test) · [Reproduce](#reproduce-and-inspect) ·
 [Repository status](#repository-status--12-october-2026) · [Experiment index](#complete-experiment-index)
 
@@ -238,6 +238,7 @@ flowchart TB
   L --> A["Iter158: search inconclusive<br/>19-state prefix replays"]
   A --> Q["Iter159: known feasible controls<br/>candidate misses 1 of 4"]
   Q --> K["Iter160: fixed continuations<br/>one terminal difference; cause unresolved"]
+  K --> G["Iter161: grouping × width<br/>exact/24 completes all four controls"]
 ```
 
 ### 5. Establish what the controller actually executes
@@ -508,11 +509,34 @@ route/speed-group candidate's first representative still completes this suffix,
 so its whole-search failure remains unexplained. A post-result log audit separates
 cell selection from beam retention: four of sixteen cell winners were also lost
 to width. [That qualification](experiments/iter160_continuation_preservation/POST_RESULT_RETENTION.md)
-preserves the original protocol and outcomes. Next is a fixed-budget retention
-ablation, with an exact-state control and corrected full-scene reflections.
+preserves the original protocol and outcomes. It motivated the fixed-budget
+retention ablation below, with corrected full-scene reflections.
 [Result and figure](experiments/iter160_continuation_preservation/RESULT.md) ·
 [independent admission](experiments/iter160_continuation_preservation/proof/admission.json) ·
 [decision](experiments/iter160_continuation_preservation/DECISION.md).
+
+## Iteration 161: grouping and width have different effects
+
+At the same **18,000-transition cap per run**, exact state grouping at width 24
+completes **4/4** disclosed controls; quantized grouping completes **3/4**.
+At width 48, both complete **2/4**. The guide, proposals, constraints and stopping
+rules stay fixed. Wider chicane searches exhaust their budget after only 25–26
+full layers; exact/24 completes at layer 29. More width is not a monotonic gain
+under this budget.
+
+Exact/24 takes **33,494 total attempts**, versus 53,286 for quantized/24, across
+all four controls. Both deletion stages are explicitly replayed. All supplied
+witness prefixes are eventually pruned, including those in the successful exact
+runs; other complete paths remain discoverable. Independent admission checks
+**643 states and every full mask** across four witnesses and sixteen selected
+paths. The corrected scene reflections preserve the historical fixtures/results.
+
+This qualifies a candidate on two constructed scene families. It does not establish
+native recovery or an information advantage. The next test carries the unchanged
+exact/24 candidate to the retained full source model under a fresh frozen envelope.
+[Result and figure](experiments/iter161_grouping_width_ablation/RESULT.md) ·
+[independent admission](experiments/iter161_grouping_width_ablation/proof/admission.json) ·
+[next decision](experiments/iter161_grouping_width_ablation/DECISION.md).
 
 ## The next scientific test
 
@@ -527,7 +551,9 @@ The following work is proposed; all previous schedules retain their closed accou
 2. **Establish an admissible action opportunity.** Iter158 remains inconclusive.
    Iter159 rules out the proposed ranking as a qualified four-case baseline. Iter160
    finds one fixed-suffix terminal difference; it does not explain that candidate's
-   miss. Isolate state aggregation under fixed expansion budgets. Preserve hard progress and
+   miss. Iter161 separates grouping from width: exact/24 completes all four controls.
+   Test that unchanged candidate on the full retained source model with a matched
+   quantized/24 arm and calibrated resource caps. Preserve hard progress and
    actuation conditions; disclose any development-case change. A flexible optimizer must not win
    by exploiting an incomplete evaluator. A useful reset-time maneuver would still need
    a native test and the monitor's actual decision-time state/history.
@@ -542,11 +568,12 @@ The following work is proposed; all previous schedules retain their closed accou
 ```mermaid
 flowchart TB
   accTitle: The proposed route from collision replay to information benefit
-  accDescr: Complete constraints reject the retained library. A new action opportunity and native recovery must precede information testing.
+  accDescr: Synthetic qualification opens a source-model test. Useful native recovery must precede information testing.
   C["Iter157: fixed library null<br/>0 of 75 qualify"] --> A["Iter158: search inconclusive<br/>verified partial trajectory"]
   A --> Q["Iter159: qualification contradicted<br/>candidate completes 3 of 4 controls"]
   Q --> K["Iter160: four representatives complete<br/>one fixed-suffix shortfall"]
-  K --> S["Isolate state aggregation<br/>fixed budgets and corrected reflections"]
+  K --> G["Iter161: exact/24 qualifies<br/>wider beams lose completions"]
+  G --> S["Test full source model<br/>matched grouping arms and fixed caps"]
   S --> R{"Useful full-scene<br/>recovery?"}
   R -- "not found" --> N["Retain negative result<br/>reconsider actions or cases"]
   R -- "unknown" --> U["Retain missing or invalid evidence<br/>no recovery claim"]
@@ -555,7 +582,7 @@ flowchart TB
   I --> H["New source scenes<br/>benefit, harm and uncertainty"]
 ```
 
-The first four nodes are retained results; the subsequent steps are proposed. No useful native
+The first five nodes are retained results; the subsequent steps are proposed. No useful native
 recovery opportunity or information advantage has been established.
 
 Failure across a finite set of actions does not prove physical inevitability. Likewise, a weak
@@ -610,7 +637,7 @@ not a complete distribution of every runtime asset.
 | [Architecture](docs/ARCHITECTURE.md) | Implemented interfaces, simulator distinctions, evidence flow and timing. |
 | [Original preregistration](PREREGISTRATION.md) | The initial benchmark question and decision rules. |
 | [Research direction](docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md) | Information and recoverability: mathematical formulation and dated literature review. |
-| [Next scientific decision](experiments/iter160_continuation_preservation/DECISION.md) | Isolate retention at fixed budgets; the first replacement does not explain the candidate's miss. |
+| [Next scientific decision](experiments/iter161_grouping_width_ablation/DECISION.md) | Qualify exact/24 on the full retained source model with a matched grouping control. |
 | [Handoff](HANDOFF.md) | Exact next task, acceptance criteria, resource closure and recovery instructions. |
 | [Continuity](CONTINUITY.md) and [next phase](docs/NEXT_PHASE.md) | Current state followed by retained historical decisions. |
 | [Technical report](docs/REPORT.md) | Historical synthesis through Iter134; it predates the current execution program. |
@@ -631,24 +658,23 @@ scientific claim or reinterpret the archived mission state.
 
 ## Repository status — 12 October 2026
 
-**This research lineage is current through Iter160, completed on 12 October.** The
-fixed-library null and original-scene search remain unresolved. The proposed ranking
-fails qualification; continuation replay identifies one narrow terminal difference
-without explaining the candidate's miss. Useful native recovery and information
-benefit remain unestablished.
+**This research lineage is current through Iter161, completed on 12 October.**
+Exact grouping at width 24 now passes the four-control development bar. Wider beams
+lose completions under the same budget. The original-scene search remains unresolved;
+useful native recovery and information benefit remain unestablished.
 Iteration 135's dose-response experiment remains **deferred and unrun**.
 
 The repository has two distinct records. The accepted code and mission snapshot at
 [`8c118b7`](https://github.com/manfromnowhere143/sentinel/tree/8c118b74c699bf0f139f9bd659192bad06b895f8)
 is **current through iteration 134**. [MISSION_STATE.json](MISSION_STATE.json) preserves
 that historical contract.
-Later research, through the Iter160 continuation diagnostic, is retained in a separate
-[research lineage](https://github.com/manfromnowhere143/sentinel/tree/bc6bb9ff074180dc589888a222f7f9c5e25511d4).
+Later research, through the Iter161 grouping/width ablation, is retained in a separate
+[research lineage](https://github.com/manfromnowhere143/sentinel/tree/b38b0b7cde224c1ee2a5c5b28d9aa91282b4f232).
 This README describes both; a documentation update does not integrate that later experimental
 code into the accepted snapshot. The [current handoff](HANDOFF.md) identifies the next task.
 
 The earlier 12 October editorial refresh brought the default landing page through Iter155.
-This later research revision retains Iter160 and its bounded continuation result. The public
+This later research revision retains Iter161 and its four-control qualification. The public
 instrument follows validated closed-result packets automatically; its older replay and
 native witness do not inherit a new scientific identity from an update.
 
@@ -664,7 +690,9 @@ controls; its closure passed 3,703 tests on both hosted Python versions. Iter158
 are recorded separately; no local whole-suite pass is claimed. No historical source,
 receipt or mission contract was rewritten. Iter159 adds 22 controls and 128 focused/retained
 checks; its closure passed 3,747 tests on both hosted Python versions. Iter160 adds
-35 controls and 198 focused/retained checks. Exact-source hosted validation remains
+35 controls and 198 focused/retained checks; its final hosted revision passes
+3,787 tests with two skips on both versions. Iter161 adds 26 checks and 224
+focused/retained tests. Exact-source hosted validation remains
 a separate publication requirement; local tests do not substitute for it.
 
 ## Complete experiment index
@@ -847,7 +875,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 </details>
 
 <details>
-<summary>Information, recoverability and execution: Iter135–160</summary>
+<summary>Information, recoverability and execution: Iter135–161</summary>
 
 | Record | Finding or scope |
 |---|---|
@@ -877,6 +905,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 | [158](experiments/iter158_constraint_aware_search/RESULT.md) | Inconclusive bounded actuator search: 10,633 transitions, no complete trajectory. Scalar replay confirms a 19-state prefix before the progress checkpoints; no native run or infeasibility claim. |
 | [159](experiments/iter159_route_search_qualification/RESULT.md) | Constructive qualification contradicted: candidate completes 3/4 known feasible controls; 11/16 factorial runs complete, all 580 retained states replay. Cell replacement loses every reference prefix; no overall coverage advantage or native recovery claim. |
 | [160](experiments/iter160_continuation_preservation/RESULT.md) | Five paired continuations: all witnesses and four representatives complete; one fixed suffix ends at 0.998703. All hard constraints pass; 546 states replay. Whole-search cause and native recovery remain unknown. |
+| [161](experiments/iter161_grouping_width_ablation/RESULT.md) | Exact grouping/width 24 completes 4/4 constructed controls; quantized/24 completes 3/4; both width-48 arms complete 2/4 under the same cap. All 643 states replay; source and native recovery remain unknown. |
 
 </details>
 

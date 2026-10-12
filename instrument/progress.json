@@ -1,23 +1,23 @@
 {
   "schemaVersion": 1,
-  "iteration": 160,
-  "directory": "experiments/iter160_continuation_preservation",
-  "title": "Same commands. One terminal difference.",
-  "summary": "Five original witnesses complete. Four replacement states also complete; one fixed command sequence ends just below the completion threshold. All ten pass every observed hard constraint.",
-  "boundary": "Chart: ten trajectories across five paired diagnostics. All 546 states replay independently. The small terminal difference does not explain the failed candidate or exclude alternative continuations.",
-  "next": "Isolate state aggregation at fixed search budgets, with an exact-state control and corrected full-scene reflections. No native run yet.",
+  "iteration": 161,
+  "directory": "experiments/iter161_grouping_width_ablation",
+  "title": "Exact grouping helps. A wider beam does not.",
+  "summary": "At the same 18,000-transition cap, exact grouping at width 24 completes all four controls; quantized grouping completes three. Both width-48 variants complete two. All sixteen runs pass independent admission.",
+  "boundary": "Chart: four constructive witnesses and sixteen selected search paths. Scalar replay checks 643 states. These are two disclosed paired scene families; native recovery and information benefit remain unknown.",
+  "next": "Test the unchanged exact/24 candidate on the retained full source model, with a matched quantized/24 arm and prospectively calibrated resource caps. No native run yet.",
   "metrics": [
     {
-      "label": "Paired diagnostics",
-      "field": "pairs"
+      "label": "Factorial runs",
+      "field": "runs"
     },
     {
-      "label": "Replayed trajectories",
-      "field": "trajectories"
+      "label": "Exact / 24 completions (of 4)",
+      "field": "candidate_completions"
     },
     {
-      "label": "Preserved completions (of 5)",
-      "field": "preserved_pairs"
+      "label": "Attempted transitions",
+      "field": "attempts"
     },
     {
       "label": "Scalar-verified states",
@@ -26,16 +26,16 @@
   ],
   "breakdown": [
     {
-      "label": "Original witnesses complete",
-      "field": "positive_controls"
+      "label": "Constructive witnesses complete",
+      "field": "cases"
     },
     {
-      "label": "Representatives complete",
-      "field": "preserved_pairs"
+      "label": "Search paths complete",
+      "field": "complete_runs"
     },
     {
-      "label": "Fixed suffix exhausted",
-      "field": "changed_pairs"
+      "label": "Search prefixes incomplete",
+      "field": "incomplete_runs"
     }
   ]
 }

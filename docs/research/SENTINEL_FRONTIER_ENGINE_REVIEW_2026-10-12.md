@@ -38,7 +38,7 @@ examines Smac, CommonRoad and multi-heuristic search without importing their
 performance guarantees. Next is continuation preservation and a pruning ablation;
 more recent or complex guidance has not earned promotion.
 
-Latest follow-up: [Iter160](../../experiments/iter160_continuation_preservation/RESULT.md)
+Prior follow-up: [Iter160](../../experiments/iter160_continuation_preservation/RESULT.md)
 replays ten fixed continuations. One representative ends just below completion;
 four preserve it. Every observed hard constraint passes. The first retained state
 of the failed route candidate still completes, so this is not its causal diagnosis.
@@ -46,6 +46,16 @@ of the failed route candidate still completes, so this is not its causal diagnos
 uses recent retention analysis and released SST documentation without importing
 a guarantee. Next is one isolated retention ablation or a qualified released
 adapter, keeping baseline development subordinate to the information mission.
+
+Latest follow-up: [Iter161](../../experiments/iter161_grouping_width_ablation/RESULT.md)
+separates state grouping from beam width at a fixed transition cap. Exact/24
+completes all four disclosed controls; quantized/24 completes three; width 48
+completes two under either grouping. The candidate now meets this synthetic bar,
+while source and native recovery remain unknown. First witness loss still occurs
+in every run; it does not imply loss of all complete alternatives. Carry the
+unchanged candidate to a matched full-source-model test with calibrated costs,
+then decide native eligibility. No released-planner superiority is established.
+[Decision](../../experiments/iter161_grouping_width_ablation/DECISION.md).
 
 ## What adjacent work already covers
 

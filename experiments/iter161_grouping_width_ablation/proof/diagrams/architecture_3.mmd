@@ -1,0 +1,16 @@
+flowchart TB
+  accTitle: The diagnostic model, native test and background witness
+  accDescr: Calibrated collision checks lead to a qualified synthetic search; native recovery remains unknown.
+  G["Route and foreground geometry<br/>privileged diagnostic inputs"] --> M["Iter153: model search<br/>one ranked action packet"]
+  M --> N["Iter154: native controls<br/>two failures at 3.25 s"]
+  N --> X["Iter155: historical poses<br/>points, boxes and ground"]
+  X --> C["Native CUDA masks"]
+  X --> S["Separate scalar reconstruction"]
+  C --> E["Exact masks: 0 and 273<br/>threshold >100"]
+  S --> E
+  E --> F["Iter156: complete point queries<br/>115 scalar masks agree"]
+  F --> L["Iter157: complete constraints<br/>0 of 75 candidates qualify"]
+  L --> A["Iter158: bounded command search<br/>inconclusive; 19-state prefix replays"]
+  A --> Q["Iter159: constructive qualification<br/>candidate fails the four-case bar"]
+  Q --> K["Iter160: paired fixed continuations<br/>one terminal difference; no hard rejection"]
+  K --> Z["Iter161: grouping × width<br/>exact/24 completes four controls"]

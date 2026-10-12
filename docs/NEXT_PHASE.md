@@ -1,3 +1,14 @@
+# Current engine milestone — Iter161 closed, 12 October 2026
+
+Exact grouping at width 24 completes all four disclosed controls. Quantized/24
+completes three; both width 48 variants complete two at the same transition cap.
+Next: one frozen, matched source-model qualification, preserving full geometry
+and timed progress. Use calibrated source-query costs when setting the envelope.
+No native run until a complete source-model action is independently admitted.
+[Result](../experiments/iter161_grouping_width_ablation/RESULT.md) ·
+[Decision](../experiments/iter161_grouping_width_ablation/DECISION.md).
+Earlier roadmap entries are historical.
+
 # Current engine milestone — Iter160 closed, 12 October 2026
 
 Five paired fixed-suffix tests identify one small terminal difference; all hard

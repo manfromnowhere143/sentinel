@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 12 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter160 research record. The [README](../README.md) carries the scientific
+limits through the Iter161 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -209,7 +209,7 @@ recovery and information benefit remain unestablished.
 ```mermaid
 flowchart TB
   accTitle: The diagnostic model, native test and background witness
-  accDescr: A privileged model candidate fails in the native scene. A separate source-point extraction reproduces the collision predicate without a new driving episode.
+  accDescr: Calibrated collision checks lead to a qualified synthetic search; native recovery remains unknown.
   G["Route and foreground geometry<br/>privileged diagnostic inputs"] --> M["Iter153: model search<br/>one ranked action packet"]
   M --> N["Iter154: native controls<br/>two failures at 3.25 s"]
   N --> X["Iter155: historical poses<br/>points, boxes and ground"]
@@ -222,6 +222,7 @@ flowchart TB
   L --> A["Iter158: bounded command search<br/>inconclusive; 19-state prefix replays"]
   A --> Q["Iter159: constructive qualification<br/>candidate fails the four-case bar"]
   Q --> K["Iter160: paired fixed continuations<br/>one terminal difference; no hard rejection"]
+  K --> Z["Iter161: grouping × width<br/>exact/24 completes four controls"]
 ```
 
 These privileged diagnostic inputs are not delivered to the released monitor. Iter153's model
@@ -269,6 +270,14 @@ hard rejection. Independent scalar admission checks 546 states and every full ma
 The failed candidate's first representative still admits the suffix; its complete
 search failure remains unresolved. [Result](../experiments/iter160_continuation_preservation/RESULT.md).
 
+Iter161 independently records per-depth grouping representatives and the final
+beam. A fixed-budget 2×2 comparison crosses quantized/exact state grouping with
+width 24/48, preserving the route guide and speed-group ordering. Exact/24
+completes four controls; quantized/24 completes three; both width 48 arms complete
+two. Full scene reflections correct the earlier fixture limitation in a new
+version. All 643 retained states and masks replay; unselected hard predicates
+remain producer evidence. [Result](../experiments/iter161_grouping_width_ablation/RESULT.md).
+
 ## Evidence delivery to the instrument
 
 A separate data channel publishes an explicit closed-result contract after exact-source
@@ -282,8 +291,9 @@ This transports admitted evidence; it performs no experiment or scientific admis
 
 ## Next scientific boundary
 
-Next is a separately registered fixed-budget state-aggregation ablation with an
-exact-state control and corrected full-scene reflections, retaining the fixed-library null and contradicted four-case qualification. Independent replay and a competent responsive
+Next is a separately registered source-model qualification of exact/24, with a
+matched quantized/24 control, complete retained geometry and calibrated resource
+caps. The synthetic four-case bar is now met; source-model recovery is unresolved. Independent replay and a competent responsive
 comparison on equal budgets precede an information claim. An information-selection study
 follows useful native recovery and a measured decision window. Hidden-representation
 monitoring, uncertainty-aware persistence, independent sensors, physical deployment and formal
