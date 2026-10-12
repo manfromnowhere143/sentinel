@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 12 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter157 research record. The [README](../README.md) carries the scientific
+limits through the Iter158 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -219,6 +219,7 @@ flowchart TB
   S --> E
   E --> F["Iter156: complete point queries<br/>115 scalar masks agree"]
   F --> L["Iter157: complete constraints<br/>0 of 75 candidates qualify"]
+  L --> A["Iter158: bounded command search<br/>inconclusive; 19-state prefix replays"]
 ```
 
 These privileged diagnostic inputs are not delivered to the released monitor. Iter153's model
@@ -241,6 +242,15 @@ all 150 historical model traces and 27 full background masks. An initial invalid
 inventory and its narrow post-evidence correction are retained with the result. This is a
 finite source-model null, not physical unavoidability or a new native driving outcome.
 [Library result and limits](../experiments/iter157_constrained_action_library/RESULT.md).
+
+Iter158 adds a bounded actuator-command search with complete hard predicates,
+foreground visibility guidance and speed-group preservation. It finds no complete
+trajectory. Separate scalar admission verifies the retained 19-state prefix,
+including every background mask; that prefix precedes both progress checkpoints.
+Search pruning remains producer evidence. The architecture now supports a checked
+command path, but useful recovery and search coverage are still open.
+[Result](../experiments/iter158_constraint_aware_search/RESULT.md) ·
+[next decision](../experiments/iter158_constraint_aware_search/DECISION.md).
 
 ## Evidence delivery to the instrument
 

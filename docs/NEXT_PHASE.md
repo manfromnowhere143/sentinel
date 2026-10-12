@@ -1,3 +1,13 @@
+# Current engine milestone — Iter158 closed, 12 October 2026
+
+The bounded actuator search is inconclusive. A 19-state prefix independently
+replays, but no complete useful action was found. Next: qualify route-aware
+guidance on constructive curved/cluttered cases and distinguish proposal coverage
+from pruning at fixed budgets. No native rerun is warranted.
+[Result](../experiments/iter158_constraint_aware_search/RESULT.md) ·
+[Decision](../experiments/iter158_constraint_aware_search/DECISION.md).
+Iter135 remains deferred; earlier roadmap text below is historical.
+
 # Current engine milestone — 12 October 2026
 
 Iter157 rejected the fixed library (0/75). Iter158 qualifies a bounded actuator

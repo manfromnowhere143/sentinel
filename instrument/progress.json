@@ -1,45 +1,41 @@
 {
   "schemaVersion": 1,
-  "iteration": 157,
-  "directory": "experiments/iter157_constrained_action_library",
-  "title": "No candidate clears every constraint.",
-  "summary": "The 14 previously eligible maneuvers all fail the background predicate. All 75 fail at least one declared condition.",
-  "boundary": "One exposed scene and fixed library. No new drive or proof of physical unavoidability. Useful recovery remains unknown.",
-  "next": "Establish an admissible action opportunity before another native run; compare responsive policies on equal budgets.",
+  "iteration": 158,
+  "directory": "experiments/iter158_constraint_aware_search",
+  "title": "A verified prefix. Recovery remains unknown.",
+  "summary": "A bounded command search attempted 10,633 transitions without finding a complete trajectory. Separate scalar replay confirms the retained 19-state prefix; it ends before the required progress checkpoints.",
+  "boundary": "Chart: queried transitions only; reset and 425 earlier rejections excluded. Only the retained prefix has full scalar replay. One exposed model case; no native recovery or infeasibility proof.",
+  "next": "Qualify route-aware guidance against constructive curved and cluttered cases before another scene search or native run.",
   "metrics": [
     {
-      "label": "Fixed candidates",
-      "field": "candidates",
-      "unit": "candidates"
+      "label": "Attempted transitions",
+      "field": "attempts"
     },
     {
-      "label": "Previously eligible",
-      "field": "previously_eligible",
-      "unit": "candidates"
+      "label": "Search background queries",
+      "field": "search_queries"
     },
     {
-      "label": "Qualifies",
-      "field": "qualified",
-      "unit": "candidates"
+      "label": "Scalar-verified prefix states",
+      "field": "verified_states"
     },
     {
-      "label": "New driving episodes",
-      "field": "new_driving_episodes",
-      "unit": "candidates"
+      "label": "Complete trajectories",
+      "field": "complete_trajectories"
     }
   ],
   "breakdown": [
     {
-      "label": "Qualifies",
-      "field": "counts.qualified"
+      "label": "Producer-clear transitions",
+      "field": "counts.clear"
     },
     {
-      "label": "Rejected by constraints",
-      "field": "counts.rejected"
+      "label": "Background rejection",
+      "field": "counts.collision"
     },
     {
       "label": "Numerically uncertain",
-      "field": "counts.uncertain"
+      "field": "counts.numerically_ambiguous"
     }
   ]
 }

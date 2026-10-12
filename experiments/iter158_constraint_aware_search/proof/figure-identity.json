@@ -1,0 +1,12 @@
+{
+  "scope": "Derived figure; no new scientific evaluation",
+  "inputs": {
+    "experiments/iter158_constraint_aware_search/proof/admission.json": "e57e442a49b1ac333f9c72e5db705666e4b1e144e2ee4bbf70b6485fa4cdaa47",
+    "experiments/iter158_constraint_aware_search/proof/raw/trace.json": "489bc01e9de491e57bec5d7becfa0f7a715676134ee3fb19c3818dedbb62a3b8",
+    "experiments/iter153_action_feasibility/proof/search_000/geometry.json": "f4ff1ace1643783c3d2d20cdad3fee35f587ca5855de26b656da60bf1557f5e9"
+  },
+  "outputs": {
+    "png": "00ac90c1c079040496fd096ebc4dbb9dba60caee125f7ca8a644f1a4223cadba",
+    "svg": "e83095a494598573a9e08d076961bdb0a024af6750668ad24b750ae5b89bef80"
+  }
+}

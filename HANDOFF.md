@@ -1,3 +1,37 @@
+# Current: Iter158 closed — 12 October 2026
+
+Inconclusive: the bounded command search found no complete trajectory. The producer
+attempted 10,633 transitions, queried the full background population 10,209 times
+(including reset), and exhausted its beam at the 7.75 s progress checkpoint.
+Separate scalar replay confirms only the retained prefix: 18 actions, 19 states,
+4.5 s, source progress 0.1588569400 and largest background count 99. Both progress
+checkpoints remain beyond this prefix. Other pruning is producer evidence; this
+is not a proof of infeasibility, physical safety or useful recovery.
+
+Read Iter158 RESULT, DECISION, DECISION_PACKET, PROTOCOL and proof/admission.json.
+Source 06dfbb728ec980a8a925d995a7a611c8fe13b189; raw f23de2b;
+admission 022435f. One producer, one scalar admission, no post-outcome source repair.
+196 focused/retained checks pass on Python 3.14; all 22 new checks pass on Python3.11.
+Whole Ruff passes. The exact Linux isolated test envelope is unavailable in this
+local macOS interpreter layout; ambient full-suite failures and interruption are
+retained separately. Preregistered source CI 38263389987 passes both Python
+3.10 and 3.11 jobs. Closure publication checks remain a separate scope.
+
+Next: qualify route-aware guidance on constructive curved/cluttered cases and
+separate proposal coverage from pruning under fixed budgets. Current foreground
+visibility guidance ignores the background and route curvature when ranking.
+This is a candidate explanation, not an established causal diagnosis. Do not send
+this partial trajectory or the rejected Iter157 library to another native run.
+The broader sequence remains model action, native recovery, actual decision-time
+history, equal-budget responsive information ablation, then held-out validation.
+
+No owned experiment job, GPU, provider or spend remains. Owned branch:
+research/iter158-constraint-aware-search. Instrument descriptor advances to158
+only with closed evidence and exact-source CI. Historical replay/witness retain
+their source identities. Iter135 and the archived MISSION_STATE remain unchanged.
+
+Earlier current notices below are historical.
+
 # Current: Iter158 running — 12 October 2026
 
 Source 06dfbb728ec980a8a925d995a7a611c8fe13b189 is frozen and published.

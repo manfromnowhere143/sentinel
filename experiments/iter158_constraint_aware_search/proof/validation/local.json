@@ -1,0 +1,44 @@
+{
+  "scope": "Local checks are distinct from the hosted locked Linux envelope.",
+  "focused_python314": {
+    "passed": 196
+  },
+  "new_python311": {
+    "passed": 22
+  },
+  "instrument": {
+    "passed": 14
+  },
+  "ruff": "whole_repository_pass",
+  "docs_guard": {
+    "markdown_files": 539,
+    "status": "clean"
+  },
+  "isolated_envelope": "Unavailable on this macOS interpreter layout: non-interpreter import path rejected before admission. First invocation also omitted required -S and was rejected; neither was a test pass.",
+  "ambient_full": {
+    "passed": 974,
+    "failed": 10,
+    "completed": false,
+    "interrupted_after_seconds": 447.3,
+    "reason": "Ten existing launcher expectation tests encountered the earlier interpreter-path refusal; stopped this noncanonical run. No validation gate weakened."
+  },
+  "hosted": "Observe exact-source CI separately; source 06dfbb7 and closure are distinct scopes.",
+  "source_ci": {
+    "run": 38263389987,
+    "source": "06dfbb728ec980a8a925d995a7a611c8fe13b189",
+    "status": "success",
+    "python_versions": [
+      "3.10",
+      "3.11"
+    ],
+    "passed_per_python_job": 3725,
+    "skipped_per_python_job": 2
+  },
+  "visual": {
+    "changed_mermaid_diagrams": 4,
+    "rendered_themes": 8,
+    "clipped_labels": 0,
+    "reviewed": "Four distinct diagram layouts and corrected derived figure visually inspected."
+  },
+  "whitespace_scope": "Source and prose pass; generated SVG path whitespace and exact raw test-log whitespace are retained."
+}

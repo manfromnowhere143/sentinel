@@ -1,3 +1,8 @@
+> **Current: Iter158 closed — 12 October 2026.** Inconclusive search; no full
+> trajectory. Independent replay confirms a 19-state prefix ending before either
+> progress checkpoint. No native run or spend. Next: route-aware guidance and
+> constructive coverage controls. Read current HANDOFF and Iter158 RESULT/DECISION.
+
 > **Current: Iter158 qualified — 12 October 2026.** Bounded command search,
 > complete hard predicates; constructed detour and separate replay qualified.
 > No scene acquisition yet. Read current HANDOFF and Iter158 decision/protocol.

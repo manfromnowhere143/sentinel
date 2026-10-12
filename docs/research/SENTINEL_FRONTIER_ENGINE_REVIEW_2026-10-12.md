@@ -21,6 +21,13 @@ makes a more expressive, constraint-aware action interface the next development 
 followed by a native intervention test and a competent responsive policy comparison with
 equal information and actuator access.
 
+Further follow-up: [Iter158](../../experiments/iter158_constraint_aware_search/RESULT.md)
+finds no full trajectory in a bounded command search. Its retained prefix has
+complete scalar replay, but both progress checkpoints remain beyond it. The
+[decision packet](../../experiments/iter158_constraint_aware_search/DECISION_PACKET.md)
+adds fresh CommonRoad, released-planner and motion-primitive research. Next is
+route-aware guidance and constructive coverage qualification, not native spending.
+
 ## What adjacent work already covers
 
 | Primary source and version | What it contributes to this decision |
@@ -47,7 +54,8 @@ flowchart TB
   accDescr: Complete source calibration precedes useful recovery, decision-time validation, information ablation and held-out tests.
   A["Retained source population<br/>and executed states"] --> B["Complete background queries<br/>independent scalar admission"]
   B --> C["Iter157: fixed-library null<br/>0 of 75 qualify"]
-  C --> D["New action opportunity, then native outcome<br/>progress and burden retained"]
+  C --> X["Iter158: search inconclusive<br/>qualify route-aware guidance"]
+  X --> D["New action opportunity, then native outcome<br/>progress and burden retained"]
   D --> E["Actual monitor decision time<br/>same prefix and available history"]
   E --> F["Information ablation<br/>competent responsive comparator"]
   F --> G["Held-out scenes and planner<br/>latency, faults and worst groups"]

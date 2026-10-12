@@ -1,0 +1,58 @@
+[
+  {
+    "file": "architecture-4-dark.svg",
+    "width": 522.75,
+    "height": 1238,
+    "labels": 30,
+    "clipped": []
+  },
+  {
+    "file": "architecture-4-light.svg",
+    "width": 522.75,
+    "height": 1238,
+    "labels": 30,
+    "clipped": []
+  },
+  {
+    "file": "frontier-1-dark.svg",
+    "width": 577.140625,
+    "height": 1301.96875,
+    "labels": 25,
+    "clipped": []
+  },
+  {
+    "file": "frontier-1-light.svg",
+    "width": 577.140625,
+    "height": 1301.96875,
+    "labels": 25,
+    "clipped": []
+  },
+  {
+    "file": "readme-2-dark.svg",
+    "width": 276,
+    "height": 1214,
+    "labels": 25,
+    "clipped": []
+  },
+  {
+    "file": "readme-2-light.svg",
+    "width": 276,
+    "height": 1214,
+    "labels": 25,
+    "clipped": []
+  },
+  {
+    "file": "readme-3-dark.svg",
+    "width": 881.0625,
+    "height": 1102.328125,
+    "labels": 25,
+    "clipped": []
+  },
+  {
+    "file": "readme-3-light.svg",
+    "width": 881.0625,
+    "height": 1102.328125,
+    "labels": 25,
+    "clipped": []
+  }
+]
