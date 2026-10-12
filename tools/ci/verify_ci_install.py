@@ -116,6 +116,11 @@ def parse_lock_bytes(payload: bytes) -> dict[str, tuple[str, frozenset[str]]]:
     text = _decode_utf8(payload, "lock")
     if not text.endswith("\n") or "\r" in text or "\x00" in text:
         raise InstallVerificationError("lock text framing is noncanonical")
+    cpu_source = "--find-links https://download.pytorch.org/whl/cpu/torch/\n"
+    if cpu_source in text and not text.startswith(cpu_source):
+        raise InstallVerificationError("lock contains an unrecognized preamble")
+    if text.startswith(cpu_source):
+        text = text[len(cpu_source):]
     lines = text.splitlines()
     starts: list[tuple[int, re.Match[str]]] = []
     for index, line in enumerate(lines):

@@ -37,3 +37,16 @@ The pinned `pyproject.toml` identity is advanced for that explicit inventory; no
 workflow step, action reference, dependency lock or hostile control is removed.
 Known-bads prove that an altered archived byte is rejected and that a new Python
 file beside an archive is still linted. There is no directory-wide exclusion.
+
+Once lint could finish, the research suite exposed missing CPU test dependencies:
+Shapely and PyTorch. Both Python-minor locks now retain exact wheel hashes for
+Shapely 2.1.2, PyTorch 2.10.0+cpu and their resolved dependencies. The original
+numeric-stack pins remain unchanged. The only additional wheel listing is the
+exact upstream `--find-links https://download.pytorch.org/whl/cpu/torch/` directive
+at the start of each lock. Both parsers reject other URLs, other option forms and
+duplicate directives; retained known-bads exercise those failures. Installation
+still requires hashes, binary wheels, no dependency resolution, a fresh isolated
+venv and verified pip-report/installed-metadata agreement. No workflow command,
+action reference or test is removed. The resolution record identifies target
+Python minors, URLs and hashes. This CPU CI stack is not the historical native
+CUDA experiment environment and does not retroactively rerun those experiments.

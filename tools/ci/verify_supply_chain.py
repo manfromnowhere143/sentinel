@@ -477,9 +477,9 @@ EXPECTED_STATIC_SHA256 = {
 
     AGENTS_REL: "9dd96d223327384d77760671396b8075a5a57bc1396abdcff5a12095055add69",
     WORKFLOW_REL: "09c7fb25eff2429aa9474ca9b4a4d0fdeb88efc3ff3d0cdb92c760bbdcd535d8",
-    REQUIREMENTS_INPUT_REL: "d5de49ff7c882e801ec1b11fb34d5d72babd5eb32636a79ef9a82ef0185b7ea0",
-    LOCKS["3.10"]: "d0e296ff6d3b90e29af4607e4c9a00aa203a90853de690b591ce116e4158fb32",
-    LOCKS["3.11"]: "7a225e43c33b077ce74697e5fb03a621ab531b68fe95d3786c7d4dedadaa5018",
+    REQUIREMENTS_INPUT_REL: "4036b46b9c5e2494d38af046c11053413a76dfb2243ac03662c7f31825ae052c",
+    LOCKS["3.10"]: "a74c4c678776f496e12647a62d975d62cf9934260f0de954d89d18f94b6d495f",
+    LOCKS["3.11"]: "da3ad739431392f2e4e76131d3036e1bcfb496e6b0e7f76338de8e2cce24d9e9",
     PYPROJECT_REL: "ca3c6f5a3427b419e86139ebf49bbdfe57c8ab84ee30913f59057bffe069dbcf",
 }
 EXPECTED_REQUIREMENTS_INPUT = (
@@ -489,6 +489,8 @@ EXPECTED_REQUIREMENTS_INPUT = (
     'numpy==2.4.6 ; python_version == "3.11"',
     'scikit-learn==1.7.2 ; python_version == "3.10"',
     'scikit-learn==1.9.0 ; python_version == "3.11"',
+    "torch==2.10.0+cpu",
+    "shapely==2.1.2",
 )
 EXPECTED_DIRECT_PACKAGES = {
     "3.10": {
@@ -496,12 +498,16 @@ EXPECTED_DIRECT_PACKAGES = {
         "pytest": "9.1.1",
         "ruff": "0.15.20",
         "scikit-learn": "1.7.2",
+        "torch": "2.10.0+cpu",
+        "shapely": "2.1.2",
     },
     "3.11": {
         "numpy": "2.4.6",
         "pytest": "9.1.1",
         "ruff": "0.15.20",
         "scikit-learn": "1.9.0",
+        "torch": "2.10.0+cpu",
+        "shapely": "2.1.2",
     },
 }
 
@@ -693,6 +699,13 @@ def _normalize_name(name: str) -> str:
 
 
 def _parse_lock(text: str, version: str) -> list[dict[str, Any]]:
+    # One exact upstream CPU wheel listing, only at the start. All package
+    # versions and wheel SHA-256 allowlists remain mandatory. Other options fail.
+    cpu_source = "--find-links https://download.pytorch.org/whl/cpu/torch/\n"
+    if cpu_source in text and not text.startswith(cpu_source):
+        raise SupplyChainError("lock contains an unrecognized preamble")
+    if text.startswith(cpu_source):
+        text = text[len(cpu_source):]
     lines = text.splitlines()
     starts: list[tuple[int, re.Match[str]]] = []
     for index, line in enumerate(lines):
