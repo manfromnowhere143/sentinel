@@ -1,0 +1,23 @@
+{
+  "command": [
+    "/tmp/sentinel156-venv/bin/python",
+    "-m",
+    "experiments.iter156_background_calibration.check",
+    "--root",
+    "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011",
+    "--plan",
+    "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter156_background_calibration/STUDY_PLAN.json",
+    "--raw",
+    "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter156_background_calibration/proof/raw",
+    "--raw-commit",
+    "c5b274f0fde9e1df7768023a4027c3f4a31d0f85",
+    "--output",
+    "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter156_background_calibration/proof/admission.json"
+  ],
+  "started_at": "2026-10-12T11:36:13.018711+00:00",
+  "elapsed_seconds": 178.59831508400384,
+  "returncode": 0,
+  "timeout_seconds": 1200,
+  "new_driving_episodes": 0,
+  "provider_spend": 0
+}
