@@ -1,0 +1,10 @@
+{
+  "status": "supported",
+  "command": "/tmp/sentinel156-venv/bin/python -m pytest -q tests/test_iter156_background_calibration.py tests/test_iter156_background_admission.py tests/test_iter155_background_witness.py",
+  "checks": 151,
+  "new_iter156_checks": 76,
+  "retained_iter155_checks": 75,
+  "environment": "Local macOS arm64 Python 3.11.15; NumPy 2.4.6; SciPy 1.17.1; pytest 9.1.1. Isolated local environment, not the Linux hash-locked CI environment.",
+  "real_population_calibration": "not yet executed",
+  "parent_replay": "proof/parent_replay.json"
+}

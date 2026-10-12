@@ -1,0 +1,136 @@
+{
+  "traces": [
+    {
+      "path": "experiments/iter151_recovery_canary/proof/study_raw/pair_000/runs/canary151_000__scene-0013-medium-00__nominal__1/trace/events.jsonl",
+      "steps": 31,
+      "sha256": "43dc0366ef783a47323faf5daed4046592f1ea22be97528fe539c0ff9e629bb5"
+    },
+    {
+      "path": "experiments/iter151_recovery_canary/proof/study_raw/pair_000/runs/canary151_001__scene-0013-medium-00__nominal__2/trace/events.jsonl",
+      "steps": 31,
+      "sha256": "57220746e377a7036c23bade0c9a6dadbee9de7ad620f90df9bf92c1db36ea50"
+    },
+    {
+      "path": "experiments/iter152_recovery_continuation/proof/study_raw/pair_000/runs/continuation152_000__scene-0013-medium-00__monitor__1/trace/events.jsonl",
+      "steps": 36,
+      "sha256": "951fa2d39f2e3ade6000c94a60687d967fdc389658eb76cb86dec37bf08a8030"
+    },
+    {
+      "path": "experiments/iter152_recovery_continuation/proof/study_raw/pair_000/runs/continuation152_001__scene-0013-medium-00__monitor__2/trace/events.jsonl",
+      "steps": 36,
+      "sha256": "1dd5b432cfb319bb130219ad8309e1c9ec43ff03fbc5f3f1842fb816f2b3adf0"
+    },
+    {
+      "path": "experiments/iter152_recovery_continuation/proof/study_raw/pair_001/runs/continuation152_002__scene-0013-medium-00__brake_t0__1/trace/events.jsonl",
+      "steps": 36,
+      "sha256": "1965cca0bc9c43e64a7cf3396fe0759ec580266b8030fa40568a9d592f282ba4"
+    },
+    {
+      "path": "experiments/iter152_recovery_continuation/proof/study_raw/pair_001/runs/continuation152_003__scene-0013-medium-00__brake_t0__2/trace/events.jsonl",
+      "steps": 36,
+      "sha256": "d28e493a876ffa2d604e4c2a9f38bf05406fd1c11870ee93a4a6269250a4dee7"
+    },
+    {
+      "path": "experiments/iter152_recovery_continuation/proof/study_raw/pair_002/runs/continuation152_004__scene-0013-medium-00__brake_t2_5__1/trace/events.jsonl",
+      "steps": 34,
+      "sha256": "b373fa5a4a5d2cd99594589b15cc86d0bc03a4ad03789a4b18b399856f8b22c0"
+    },
+    {
+      "path": "experiments/iter152_recovery_continuation/proof/study_raw/pair_002/runs/continuation152_005__scene-0013-medium-00__brake_t2_5__2/trace/events.jsonl",
+      "steps": 34,
+      "sha256": "a216794344422c29640f45fdd716b80a81a14676dc1138b752f982185442a0c9"
+    },
+    {
+      "path": "experiments/iter154_full_scene_maneuver/proof/study_raw/pair_000/runs/maneuver154_000__scene-0013-medium-00__selected__1/trace/events.jsonl",
+      "steps": 13,
+      "sha256": "079ff49dd9a10016555a08cca8ab1f1b84a4c6606c78a23255b985e8540d6ee0"
+    },
+    {
+      "path": "experiments/iter154_full_scene_maneuver/proof/study_raw/pair_000/runs/maneuver154_001__scene-0013-medium-00__selected__2/trace/events.jsonl",
+      "steps": 13,
+      "sha256": "27886ed840813c44192321679bed0a2b4296cc9de8cedee81b9904885968d19f"
+    }
+  ],
+  "step_bindings": 300,
+  "unique_states": 115,
+  "label_counts": {
+    "negative_composite_implication": 266,
+    "unattributed_collision": 8,
+    "direct_background": 26
+  },
+  "schema": "sentinel.iter156.plan.v1",
+  "iteration": 156,
+  "date": "2026-10-12",
+  "status": "preregistered",
+  "parent_commit": "ea4bbe352e11be62e5cc67ec5af6de800a8e6e79",
+  "selected_points": 276519,
+  "producer_seconds": 60,
+  "checker_seconds": 900,
+  "outer_wall_seconds": 1200,
+  "minimum_free_bytes": 104857600,
+  "max_rss_bytes": 1073741824,
+  "max_output_bytes": 8388608,
+  "source_files": [
+    "experiments/iter150_cloud_observation/native.py",
+    "experiments/iter155_background_witness/check.py",
+    "experiments/iter155_background_witness/geometry.py",
+    "experiments/iter155_background_witness/storage.py",
+    "experiments/iter156_background_calibration/__init__.py",
+    "experiments/iter156_background_calibration/background.py",
+    "experiments/iter156_background_calibration/check.py",
+    "experiments/iter156_background_calibration/execute.py"
+  ],
+  "inputs": {
+    "experiments/iter150_cloud_observation/native.py": "5b49eafc9631e5f5343efdad3a17f3634e4400188b97bd4b3c2954ae2c41b80b",
+    "experiments/iter151_recovery_canary/INPUTS.json": "2ba0a866fd1ebaa584e15346c487411bb0273ffa100b55cf7276e1ffd93a8b87",
+    "experiments/iter151_recovery_canary/proof/study_raw/pair_000/runs/canary151_000__scene-0013-medium-00__nominal__1/trace/events.jsonl": "43dc0366ef783a47323faf5daed4046592f1ea22be97528fe539c0ff9e629bb5",
+    "experiments/iter151_recovery_canary/proof/study_raw/pair_000/runs/canary151_001__scene-0013-medium-00__nominal__2/trace/events.jsonl": "57220746e377a7036c23bade0c9a6dadbee9de7ad620f90df9bf92c1db36ea50",
+    "experiments/iter152_recovery_continuation/INPUTS.json": "3fd190042620df1d9613e0ca66961421e46ceacb5ba1aa4b076ba735279f869a",
+    "experiments/iter152_recovery_continuation/proof/study_raw/pair_000/runs/continuation152_000__scene-0013-medium-00__monitor__1/trace/events.jsonl": "951fa2d39f2e3ade6000c94a60687d967fdc389658eb76cb86dec37bf08a8030",
+    "experiments/iter152_recovery_continuation/proof/study_raw/pair_000/runs/continuation152_001__scene-0013-medium-00__monitor__2/trace/events.jsonl": "1dd5b432cfb319bb130219ad8309e1c9ec43ff03fbc5f3f1842fb816f2b3adf0",
+    "experiments/iter152_recovery_continuation/proof/study_raw/pair_001/runs/continuation152_002__scene-0013-medium-00__brake_t0__1/trace/events.jsonl": "1965cca0bc9c43e64a7cf3396fe0759ec580266b8030fa40568a9d592f282ba4",
+    "experiments/iter152_recovery_continuation/proof/study_raw/pair_001/runs/continuation152_003__scene-0013-medium-00__brake_t0__2/trace/events.jsonl": "d28e493a876ffa2d604e4c2a9f38bf05406fd1c11870ee93a4a6269250a4dee7",
+    "experiments/iter152_recovery_continuation/proof/study_raw/pair_002/runs/continuation152_004__scene-0013-medium-00__brake_t2_5__1/trace/events.jsonl": "b373fa5a4a5d2cd99594589b15cc86d0bc03a4ad03789a4b18b399856f8b22c0",
+    "experiments/iter152_recovery_continuation/proof/study_raw/pair_002/runs/continuation152_005__scene-0013-medium-00__brake_t2_5__2/trace/events.jsonl": "a216794344422c29640f45fdd716b80a81a14676dc1138b752f982185442a0c9",
+    "experiments/iter154_full_scene_maneuver/proof/study_raw/pair_000/runs/maneuver154_000__scene-0013-medium-00__selected__1/trace/events.jsonl": "079ff49dd9a10016555a08cca8ab1f1b84a4c6606c78a23255b985e8540d6ee0",
+    "experiments/iter154_full_scene_maneuver/proof/study_raw/pair_000/runs/maneuver154_001__scene-0013-medium-00__selected__2/trace/events.jsonl": "27886ed840813c44192321679bed0a2b4296cc9de8cedee81b9904885968d19f",
+    "experiments/iter155_background_witness/ASSETS.json": "e2000b57f65a1467a609fe66774e9f899258c0951515bcf26b1327318e33f3ee",
+    "experiments/iter155_background_witness/STUDY_PLAN.json": "a6703cbe6871d6acf0e5461d63eca8071b63f42565d86f07021673760f4fb6d9",
+    "experiments/iter155_background_witness/check.py": "77097e82926b1ffeacb0dcfa6e8801b87cf40eadeb2713202a51508ba0398694",
+    "experiments/iter155_background_witness/geometry.py": "fe78deb9890d71a76bdf8c18d73e88ce59b948a0600701b850977e866798020e",
+    "experiments/iter155_background_witness/proof/admission.json": "9c4990d827df7779753326532491c611efec4b21b8331456469e983b091c8546",
+    "experiments/iter155_background_witness/proof/raw/box_12_000.bin.gz": "80171910044b6f99a47fac4b0795d74d2b7f29362b80c3e5dfc74c65715942f0",
+    "experiments/iter155_background_witness/proof/raw/box_13_000.bin.gz": "f26cb070f628589f3bd5b8bc5f19b78d5733f14544fb09d3cc855d8e53589090",
+    "experiments/iter155_background_witness/proof/raw/gaussian_model.py.txt": "c265432315422927a8d6317c71a493da8b6dbb7dd13a0d40da28ed81d4bc9b62",
+    "experiments/iter155_background_witness/proof/raw/ground_model.py.txt": "c4111fe0addcdf62841ab52c2eeeeb37e2f08c9c8764832e9b2bc2459a0eb0a6",
+    "experiments/iter155_background_witness/proof/raw/ground_poses_000.bin.gz": "9f8e35e21309be8bc706364ad533606b8d56c80e6ff678393a4d12d941d4854c",
+    "experiments/iter155_background_witness/proof/raw/hug_sim.py.txt": "c42ef368852754bdec76c81254b72dcda45eccef058dce015ea549c0b17c7d12",
+    "experiments/iter155_background_witness/proof/raw/mask_12_000.bin.gz": "e7b1488b7a675f3d8a023d60ce1f713f7b375df9b50df6106e7d3e1e61074e49",
+    "experiments/iter155_background_witness/proof/raw/mask_13_000.bin.gz": "b96faddd868c765c4335d05e5c3bd10940727c4ffb6f1b7fa4c7400bb6721d26",
+    "experiments/iter155_background_witness/proof/raw/population_features_000.bin.gz": "4f627c6ac24d4d7f88ef7eece709eb0cb85d259846ff39e04d7dd7d6b8cb57b0",
+    "experiments/iter155_background_witness/proof/raw/population_features_001.bin.gz": "d2202b1f4fb1764a94cbed1b709e8026049719a4bf8d53685ff5177394e05ca0",
+    "experiments/iter155_background_witness/proof/raw/population_features_002.bin.gz": "0b5cb1a5743bc64603c44394d9452b50eb6a189a45c6ec184c64b7dcb8e7e15b",
+    "experiments/iter155_background_witness/proof/raw/population_features_003.bin.gz": "2c44d50b9fc2cb4cb29ad956790abcebdaecbb34ac8ad67da6e1ea4c61a3044d",
+    "experiments/iter155_background_witness/proof/raw/population_features_004.bin.gz": "7815a87be0c692538cd0306e0f9dfe3aec3494610bbfa39f5e7726c1daa6869a",
+    "experiments/iter155_background_witness/proof/raw/population_features_005.bin.gz": "2fbe100360dfb9fe6ad264407496500e92b9e9366ffde14442e61aa0a6a0e9b6",
+    "experiments/iter155_background_witness/proof/raw/population_features_006.bin.gz": "0bb69188964a3b8c45797bc972ae1bedc577c25d39306e450f25c1bb328c6f6f",
+    "experiments/iter155_background_witness/proof/raw/population_features_007.bin.gz": "ea00d7796c2e235099c7f262f69bab5b481d69e1c3fc195237680241e91ce074",
+    "experiments/iter155_background_witness/proof/raw/population_features_008.bin.gz": "e607509c805842aa7decb39f113d2e110d52a07977012942b8654649356edce8",
+    "experiments/iter155_background_witness/proof/raw/population_features_009.bin.gz": "92bb8efa3600e4e1067a78160c406e31e344103856942a6d2dd23196164f6463",
+    "experiments/iter155_background_witness/proof/raw/population_features_010.bin.gz": "1b6e91b950934c8fe3fdbe8910012734957bb3cc21c7cfed9445070ac9412ec5",
+    "experiments/iter155_background_witness/proof/raw/population_features_011.bin.gz": "bc25c0656ebbfeb523d358b4e991fdf36cac3ea579efa5e987b279a9869f421c",
+    "experiments/iter155_background_witness/proof/raw/population_features_012.bin.gz": "dcf8250f1af6b6fc7aecffc0831d3c9f695a4967464ff550e8789ba5311c336e",
+    "experiments/iter155_background_witness/proof/raw/population_opacity_000.bin.gz": "fd50d318423fc47e12bd62ab2b2a813265aa1871b40d8a10ce1957c71a1f4cd3",
+    "experiments/iter155_background_witness/proof/raw/population_xyz_000.bin.gz": "d43c1e66eb9b25f7d35acd05d7f5508a685a9c4dfc26ef2b3281b9d64035d883",
+    "experiments/iter155_background_witness/proof/raw/population_xyz_001.bin.gz": "bfa3433ecc87a92004c44ef837c38b8662c73c957115a0372fa9716f5e9e9fff",
+    "experiments/iter155_background_witness/proof/raw/score_calculator.py.txt": "1588b5b912384dead87b521b828cf7a135e77eb79aad5d540074c7168f79e46f",
+    "experiments/iter155_background_witness/proof/raw/selected_xyz_000.bin.gz": "54586f341eb50dcd4b53e3ec2e6826898676806f46562679fd4ef41f8d29381e",
+    "experiments/iter155_background_witness/proof/raw/selection_000.bin.gz": "3808774e3d519292744ea3dcd1ff1a5c645de98f58dbb4e25a0f078aa8c82939",
+    "experiments/iter155_background_witness/proof/raw/sim_utils.py.txt": "36c2ba6a7dee38555f84dde95851ec00be5a699969d53de8906b3e67676792bc",
+    "experiments/iter155_background_witness/proof/raw/witness.json": "578fbe0739d2fed96b2a4f24bd20f244ae568fd8a337875c504596fd74fc54df",
+    "experiments/iter155_background_witness/storage.py": "7a7b63e43b7e347e47f92b23856d7f40a8b4c8de03455be5bd27f785510c7b4c",
+    "experiments/iter156_background_calibration/proof/parent_replay.json": "b5c96005809877538c41b1510baed194be072e64b2e9336bfe920fa774c947d3"
+  },
+  "scope": "Previously exposed one-scene development prefixes, not a blind or independent holdout.",
+  "unknown_positive_background_labels": 8
+}

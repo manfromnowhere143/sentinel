@@ -1,0 +1,59 @@
+{
+  "status": "supported",
+  "raw_commit": "45c5bbb7270f4d1bfd70cd2c73da0f2b448d61ab",
+  "historical_replica_frames": 4,
+  "unique_frame_witnesses": 2,
+  "new_driving_episodes": 0,
+  "population_points": 1345702,
+  "selected_points": 276519,
+  "frames": [
+    {
+      "count": 0,
+      "collision": false,
+      "certain_inside": 0,
+      "possible_inside": 0,
+      "minimum_absolute_projection_margin": 1.7226828049388132e-05,
+      "frame": 12,
+      "time": 3.0,
+      "source_count": 0,
+      "source_collision": false,
+      "historical_collision": false,
+      "ambiguous_points": 0,
+      "mask_disagreements": [],
+      "material_disagreements": [],
+      "ground_nearest_index": 163,
+      "ground_height": -0.17271147060821399
+    },
+    {
+      "count": 273,
+      "collision": true,
+      "certain_inside": 273,
+      "possible_inside": 273,
+      "minimum_absolute_projection_margin": 3.346055746078491e-05,
+      "frame": 13,
+      "time": 3.25,
+      "source_count": 273,
+      "source_collision": true,
+      "historical_collision": true,
+      "ambiguous_points": 0,
+      "mask_disagreements": [],
+      "material_disagreements": [],
+      "ground_nearest_index": 187,
+      "ground_height": -0.1878126076404038
+    }
+  ],
+  "physical_occupancy": null,
+  "road_compliance": null,
+  "live_recovery": null,
+  "information_benefit": null,
+  "numeric_environment": {
+    "torch": "2.4.1+cu124",
+    "numpy": "1.26.4",
+    "gpu": "NVIDIA L4",
+    "cuda": "12.4",
+    "allow_tf32": false,
+    "float32_matmul_precision": "highest"
+  },
+  "scope": "Full retained point selection and finite source predicate replay; not physical scene reconstruction validation or a driving outcome.",
+  "replay_seconds": 4.217089832993224
+}

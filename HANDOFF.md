@@ -1,3 +1,19 @@
+# Active calibration — 12 October 2026
+
+Iter156 registers a local background-predicate calibration on ten already exposed
+scene-0013 traces: 300 bindings, 115 states and the full 276,519 selected centers.
+Read `experiments/iter156_background_calibration/PROTOCOL.md`, `STUDY_PLAN.json`
+and `STATE.json`. Source is frozen before one producer, raw is committed before
+independent scalar admission. 151 focused tests pass; full Iter155 point-selection
+and both native masks replay again. No new calibration outcome is claimed yet.
+The eight old collision-positive bindings have no separate background label.
+No provider/GPU/drive/search is part of this slice. Daniel's direct mission
+instruction supplies authority. The canonical dirty workspace is untouched.
+
+Owned branch `research/iter156-background-calibration` in
+`/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011`.
+The following Iter155 closure remains the completed scientific state.
+
 # CI and instrument checkpoint — 12 October 2026
 
 The latest owned research branch is `fix/research-ci-20261012` in

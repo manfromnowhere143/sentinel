@@ -1,0 +1,7 @@
+{
+  "iteration": 156,
+  "status": "preregistered",
+  "phase": "source_freeze",
+  "new_driving_episodes": 0,
+  "next": "Execute one bounded local producer, commit raw, then separate scalar admission."
+}
