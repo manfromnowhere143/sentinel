@@ -1,0 +1,26 @@
+[
+  {
+    "source": "README.md",
+    "index": 1,
+    "diagram": "experiments/iter157_constrained_action_library/proof/diagrams/readme-1.mmd",
+    "characters": 738
+  },
+  {
+    "source": "README.md",
+    "index": 2,
+    "diagram": "experiments/iter157_constrained_action_library/proof/diagrams/readme-2.mmd",
+    "characters": 782
+  },
+  {
+    "source": "docs/ARCHITECTURE.md",
+    "index": 3,
+    "diagram": "experiments/iter157_constrained_action_library/proof/diagrams/architecture-3.mmd",
+    "characters": 800
+  },
+  {
+    "source": "docs/research/SENTINEL_FRONTIER_ENGINE_REVIEW_2026-10-12.md",
+    "index": 0,
+    "diagram": "experiments/iter157_constrained_action_library/proof/diagrams/sentinel_frontier_engine_review_2026-10-12-0.mmd",
+    "characters": 822
+  }
+]

@@ -1,3 +1,8 @@
+> **Current: Iter157 closed — 12 October 2026.** Fixed-library null, 0/75 qualify;
+> 14 scalar background rejection witnesses, 61 prior failures. Original invalid
+> inventory and post-evidence correction retained. No new drive or spending.
+> Read HANDOFF, RESULT, ADMISSION_CORRECTION and DECISION; next action family is proposed.
+
 > **Current: Iter157 qualified — 12 October 2026.** Registered fixed 75-action
 > library, complete background constraints, retained rejection witnesses. 198 tests
 > pass; no new query yet. Read HANDOFF and Iter157 PROTOCOL/PLAN/STATE.

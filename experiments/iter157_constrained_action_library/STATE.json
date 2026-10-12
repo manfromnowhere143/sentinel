@@ -1,13 +1,30 @@
 {
-  "iteration": 157,
   "status": "null",
-  "phase": "admitted_documentation_pending",
-  "new_driving_episodes": 0,
-  "owned_jobs": 0,
-  "provider_spend": 0,
-  "next": "Publish finite-library null with the inventory correction and all failures visible. No candidate qualifies for a native run.",
   "source_commit": "35f1d711e25af599e30016ae8d6d120a734026ee",
   "raw_commit": "8e2077e8581b02a1dfbc0215a4cc6a75f9d43140",
+  "candidates": 75,
+  "previously_eligible": 14,
+  "qualified": 0,
+  "counts": {
+    "qualified": 0,
+    "background_collision": 14,
+    "numerically_ambiguous": 0,
+    "prior_constraints_failed": 61,
+    "rejected": 75,
+    "uncertain": 0
+  },
+  "new_driving_episodes": 0,
+  "physical_occupancy": null,
+  "road_compliance": null,
+  "useful_recovery": null,
+  "information_benefit": null,
+  "iteration": 157,
+  "phase": "closed",
+  "correction_source_commit": "b7f5fdf8ab528bec1b9b46cda7ab5f8b7ec76352",
+  "admission_commit": "1a88bbb37d765a6bed5675f0d022420c85b526eb",
   "original_admission": "invalid_nonexistent_source_entries",
-  "correction_source_commit": "b7f5fdf8ab528bec1b9b46cda7ab5f8b7ec76352"
+  "post_evidence_inventory_correction": true,
+  "owned_jobs": 0,
+  "provider_spend": 0,
+  "next": "Register a constraint-aware action interface or disclosed development case before another native run."
 }

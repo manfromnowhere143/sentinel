@@ -6,12 +6,20 @@ It is a research and engineering recommendation, not a competitive performance c
 Primary-source retrievals, dates and local content identities accompany the source ledger.
 The review does not establish private company architectures, market demand or commercial value.
 
+Follow-up later on 12 October: Iter156 qualified the complete background predicate;
+[Iter157](../../experiments/iter157_constrained_action_library/RESULT.md) then ruled out
+all fourteen previously eligible actions, leaving 0/75 qualified in the retained library.
+The original inventory failure and its post-evidence correction remain part of the result.
+The next development question is an admissible action opportunity under complete constraints,
+not another native test of these rejected actions. Competitive benefit remains unestablished.
+
 Sentinel should earn an advantage by making a useful intervention easier to establish and
 cheaper to test. A new risk score is insufficient if no admissible action can help at the
 available decision time. A visually convincing simulation is insufficient if its outcome
-predicate omits the constraint that rejects the action. The immediate engineering task is
-therefore the missing background term exposed by Iter154, followed by an intervention test
-against a competent responsive policy with equal information and actuator access.
+predicate omits the constraint that rejects the action. The missing background term exposed by Iter154 is now qualified. Its finite-library null
+makes a more expressive, constraint-aware action interface the next development task,
+followed by a native intervention test and a competent responsive policy comparison with
+equal information and actuator access.
 
 ## What adjacent work already covers
 
@@ -38,12 +46,12 @@ flowchart TB
   accTitle: Proposed evidence sequence after the background constraint
   accDescr: Complete source calibration precedes useful recovery, decision-time validation, information ablation and held-out tests.
   A["Retained source population<br/>and executed states"] --> B["Complete background queries<br/>independent scalar admission"]
-  B --> C["Frozen action library<br/>equal actuator budget"]
-  C --> D["Full-scene useful outcome<br/>progress and burden retained"]
+  B --> C["Iter157: fixed-library null<br/>0 of 75 qualify"]
+  C --> D["New action opportunity, then native outcome<br/>progress and burden retained"]
   D --> E["Actual monitor decision time<br/>same prefix and available history"]
   E --> F["Information ablation<br/>competent responsive comparator"]
   F --> G["Held-out scenes and planner<br/>latency, faults and worst groups"]
-  B -. "Current finite calibration" .-> L["Source predicate only<br/>physical occupancy remains unknown"]
+  B -. "Source calibration" .-> L["Source predicate only<br/>physical occupancy remains unknown"]
 ```
 
 The first component scans every selected source center. Vectorization changes the cost,
@@ -78,8 +86,8 @@ against the same competent baseline on the same evidence, including failed branc
 abstentions. Extend to independently held-out scenes and another planner before claiming
 transfer. Establish physical and counterfactual validity separately from source replay.
 
-The immediate [Iter156 protocol](../../experiments/iter156_background_calibration/PROTOCOL.md)
-is deliberately narrower. It tests a complete background feasibility component on one
+The completed [Iter156 protocol](../../experiments/iter156_background_calibration/PROTOCOL.md)
+was deliberately narrower. It tested a complete background feasibility component on one
 already exposed scene. Useful recovery and incremental information value remain the next
 scientific targets. Nothing here establishes state-of-the-art performance, safety,
 production readiness or superiority to the teams whose work informed this review.

@@ -1,45 +1,45 @@
 {
   "schemaVersion": 1,
-  "iteration": 156,
-  "directory": "experiments/iter156_background_calibration",
-  "title": "The missing constraint, checked.",
-  "summary": "All 115 complete background masks agree with separate scalar replay. The failed maneuver is still rejected at 3.25 seconds.",
-  "boundary": "One exposed scene. Two native full-mask witnesses. No new drive; useful recovery and information benefit remain unknown.",
-  "next": "Test a frozen action library under foreground, background, actuator and useful-progress constraints.",
+  "iteration": 157,
+  "directory": "experiments/iter157_constrained_action_library",
+  "title": "No candidate clears every constraint.",
+  "summary": "The 14 previously eligible maneuvers all fail the background predicate. All 75 fail at least one declared condition.",
+  "boundary": "One exposed scene and fixed library. No new drive or proof of physical unavoidability. Useful recovery remains unknown.",
+  "next": "Establish an admissible action opportunity before another native run; compare responsive policies on equal budgets.",
   "metrics": [
     {
-      "label": "Unique states",
-      "field": "unique_states",
-      "unit": "states"
+      "label": "Fixed candidates",
+      "field": "candidates",
+      "unit": "candidates"
     },
     {
-      "label": "Centers per state",
-      "field": "selected_points",
-      "unit": "centers"
+      "label": "Previously eligible",
+      "field": "previously_eligible",
+      "unit": "candidates"
     },
     {
-      "label": "Historical bindings",
-      "field": "step_bindings",
-      "unit": "bindings"
+      "label": "Qualifies",
+      "field": "qualified",
+      "unit": "candidates"
     },
     {
       "label": "New driving episodes",
       "field": "new_driving_episodes",
-      "unit": "episodes"
+      "unit": "candidates"
     }
   ],
   "breakdown": [
     {
-      "label": "Direct background labels",
-      "field": "label_counts.direct_background"
+      "label": "Qualifies",
+      "field": "counts.qualified"
     },
     {
-      "label": "Implied negatives",
-      "field": "label_counts.negative_composite_implication"
+      "label": "Rejected by constraints",
+      "field": "counts.rejected"
     },
     {
-      "label": "Background unknown",
-      "field": "label_counts.unattributed_collision"
+      "label": "Numerically uncertain",
+      "field": "counts.uncertain"
     }
   ]
 }

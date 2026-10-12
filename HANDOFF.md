@@ -1,3 +1,30 @@
+# Current: Iter157 closed — 12 October 2026
+
+Finite-library null: 0 of 75 candidates satisfy the declared source-model conditions.
+All 14 previously eligible actions have full scalar-verified background rejection
+witnesses; 61 prior failures remain, with background unevaluated. The producer queried
+221 state bindings / 172 distinct states; independent admission checks 27 full masks
+and all 150 prior model traces / 10,012 actions. No new drive, provider, GPU or spending.
+No physical-unavoidability, useful-recovery or information-benefit claim follows.
+
+The original admission failed before scalar work because the source manifest included
+two nonexistent synthetic PyTorch references. Original PLAN/source/raw/failure remain.
+A disclosed post-evidence inventory correction preserves all 38 real source identities
+and the scientific checker AST. Read Iter157 RESULT, ADMISSION_CORRECTION, proof/admission
+and DECISION. Source 35f1d711; raw 8e2077e8; correction b7f5fdf; admission 1a88bbb3.
+198 preregistration checks and eight correction controls pass; hosted closure CI is
+separate and must be observed. Next: register a constraint-aware action interface or
+a disclosed development case; do not run another native episode of the rejected library.
+
+Owned branch: research/iter157-constrained-action-library. The Sentinel instrument's
+automatic evidence channel is live, and source 5e3ea82 has passed engine CI/publication.
+Update instrument/progress.json with each closed result; its contract is now at157.
+Future closed results must preserve failed/null/unknown distinctions and match admission.
+The publication workflow waits for exact-source CI before advancing the channel.
+
+Earlier current notices below are historical. The canonical dirty workspace and
+archived Iter134/135 mission contract remain untouched.
+
 # Current: Iter157 qualified — 12 October 2026
 
 The fixed 75-action Iter153 library is registered for complete background constraints.

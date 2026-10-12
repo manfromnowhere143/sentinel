@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 12 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter156 research record. The [README](../README.md) carries the scientific
+limits through the Iter157 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -218,6 +218,7 @@ flowchart TB
   C --> E["Exact masks: 0 and 273<br/>threshold >100"]
   S --> E
   E --> F["Iter156: complete point queries<br/>115 scalar masks agree"]
+  F --> L["Iter157: complete constraints<br/>0 of 75 candidates qualify"]
 ```
 
 These privileged diagnostic inputs are not delivered to the released monitor. Iter153's model
@@ -233,11 +234,31 @@ eight remain unknown. Median local query cost is 16.6 ms versus 1.46 s for the s
 this is exploratory CPU timing, not an end-to-end runtime guarantee. The failed maneuver is
 still rejected at 3.25 s. [Calibration and limits](../experiments/iter156_background_calibration/RESULT.md).
 
+Iter157 applies that background constraint to the fixed prior library: all fourteen
+previously eligible candidates have independently verified rejection witnesses; the
+other sixty-one retain their prior failures. No candidate qualifies. The checker replays
+all 150 historical model traces and 27 full background masks. An initial invalid source
+inventory and its narrow post-evidence correction are retained with the result. This is a
+finite source-model null, not physical unavoidability or a new native driving outcome.
+[Library result and limits](../experiments/iter157_constrained_action_library/RESULT.md).
+
+## Evidence delivery to the instrument
+
+A separate data channel publishes an explicit closed-result contract after exact-source
+CI. The exporter derives counts from matching state/admission fields and binds original
+sources and the complete research index. An atomic Git commit contains the channel pointer
+and content-addressed packet. The public reader verifies source hashes and numeric bindings;
+visible clients refresh periodically, retain the last good snapshot on failure and label
+corrections/retractions explicitly. Historical replay assets remain separately pinned.
+This transports admitted evidence; it performs no experiment or scientific admission.
+[Channel contract](../instrument/README.md).
+
 ## Next scientific boundary
 
-Next is a registered finite action library using the qualified background query, with
-independent replay and a competent responsive comparator. An information-selection study
-follows useful recovery and a measured decision window. Hidden-representation
+Next is a separately registered constraint-aware action interface or disclosed development
+case, retaining the fixed-library null. Independent replay and a competent responsive
+comparison on equal budgets precede an information claim. An information-selection study
+follows useful native recovery and a measured decision window. Hidden-representation
 monitoring, uncertainty-aware persistence, independent sensors, physical deployment and formal
 safety guarantees remain possible directions with different requirements. None is an established
 capability merely because it appears in a roadmap.

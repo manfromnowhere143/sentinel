@@ -18,7 +18,7 @@ against a competent responsive baseline, with information access, permitted acti
 resource budgets stated explicitly.
 
 [System](#what-sentinel-does) · [Results](#measured-results) ·
-[Research history](#how-the-question-changed) · [Latest result](#iteration-156-complete-background-calibration) ·
+[Research history](#how-the-question-changed) · [Latest result](#iteration-157-the-fixed-action-library-is-null) ·
 [Next test](#the-next-scientific-test) · [Reproduce](#reproduce-and-inspect) ·
 [Repository status](#repository-status--12-october-2026) · [Experiment index](#complete-experiment-index)
 
@@ -234,6 +234,7 @@ flowchart TB
   P --> M["Iter153–154<br/>candidate fails full scene"]
   M --> W["Iter155: collision replay<br/>native/scalar agreement"]
   W --> C["Iter156: full background calibration<br/>115 complete masks agree"]
+  C --> L["Iter157: complete constraints<br/>0 of 75 candidates qualify"]
 ```
 
 ### 5. Establish what the controller actually executes
@@ -428,21 +429,43 @@ unestablished. [Result and figure](experiments/iter156_background_calibration/RE
 [independent admission](experiments/iter156_background_calibration/proof/admission.json) ·
 [frontier review](docs/research/SENTINEL_FRONTIER_ENGINE_REVIEW_2026-10-12.md).
 
+## Iteration 157: the fixed action library is null
+
+Adding the complete background condition rejects all **14** maneuvers that passed
+Iter153's other constraints. The remaining **61** retain their prior failures:
+**0 of 75 candidates qualify** under the declared library and sampled conditions.
+Both fixed rankings therefore have no selected action. No new native run is warranted
+for this library, and no physical-unavoidability conclusion follows.
+
+The producer retained 221 state bindings, representing 172 distinct model states.
+Independent scalar replay checks every rejection witness and the failed maneuver's
+full sampled prefix: 27 complete masks, all agreeing. All 150 earlier model traces
+and 10,012 actions replay again. Background is unevaluated for the 61 prior failures;
+it is never imputed clear. No new driving episode, provider task or GPU use occurred.
+
+The first admission failed on two nonexistent extra source references. A disclosed
+post-evidence inventory correction preserves the original plan, code, raw and failure;
+the corrected check retains the same scientific algorithm. That correction belongs
+with the result. Useful recovery and added information value remain unestablished.
+[Result and figure](experiments/iter157_constrained_action_library/RESULT.md) ·
+[independent admission](experiments/iter157_constrained_action_library/proof/admission.json) ·
+[correction](experiments/iter157_constrained_action_library/ADMISSION_CORRECTION.md).
+
 ## The next scientific test
 
 The intended contribution is a monitor and evaluation system that can show **which failures
 remain preventable, which signal enables prevention, and the measured cost and limits**.
 The following work is proposed; all previous schedules retain their closed accounting.
 
-1. **Preserve the calibrated constraint.** Iter156 qualifies the complete background query on
-   the fixed development prefixes. Keep source boxes, ground geometry and the unchanged strict
-   count rule. New search states still need independent replay; the earlier failed maneuver
-   remains a negative control, and unknown labels stay unknown.
-2. **Search only after the constraint is calibrated.** Register a new finite library, ranking,
-   resource limits and independent replay. Keep foreground clearance, background feasibility,
-   progress, controls and road compliance distinct. Physical occupancy and drivable boundaries
-   require separate evidence. A useful maneuver from reset would still not establish recovery
-   after the monitor's actual decision time.
+1. **Retain the finite-library null.** Iter157 rules out this fixed route-offset library
+   under complete source-model constraints. Keep the counterexamples, the 61 prior
+   failures, and the admitted correction. Physical occupancy and drivable boundaries
+   still require separate evidence.
+2. **Establish an admissible action opportunity.** Register a constraint-aware action
+   interface or a disclosed development-case change, with hard progress and actuation
+   conditions, fixed budgets and independent replay. A flexible optimizer must not win
+   by exploiting an incomplete evaluator. A useful reset-time maneuver would still need
+   a native test and the monitor's actual decision-time state/history.
 3. **After establishing useful recovery, test one information hypothesis against a responsive baseline.**
    Track continuity and uncertainty are motivated candidates. Include benign and stale-track cases, freeze the
    information interfaces, and measure intervention costs. Better offline prediction alone
@@ -454,8 +477,8 @@ The following work is proposed; all previous schedules retain their closed accou
 ```mermaid
 flowchart TB
   accTitle: The proposed route from collision replay to information benefit
-  accDescr: Calibration precedes a new action search. Full-scene recovery and a measured decision window are required before testing an added signal.
-  C["Iter156: finite calibration supported<br/>one exposed scene"] --> S["Freeze finite action library<br/>then search"]
+  accDescr: Complete constraints reject the retained library. A new action opportunity and native recovery must precede information testing.
+  C["Iter157: fixed library null<br/>0 of 75 qualify"] --> S["Register a new action interface<br/>or disclosed development case"]
   S --> R{"Useful full-scene<br/>recovery?"}
   R -- "not found" --> N["Retain negative result<br/>reconsider actions or cases"]
   R -- "unknown" --> U["Retain missing or invalid evidence<br/>no recovery claim"]
@@ -464,8 +487,8 @@ flowchart TB
   I --> H["New source scenes<br/>benefit, harm and uncertainty"]
 ```
 
-Every step in this diagram is proposed. The current evidence has reached collision replay,
-not a demonstrated recovery opportunity or information advantage.
+The first node is a retained result; the subsequent steps are proposed. No useful native
+recovery opportunity or information advantage has been established.
 
 Failure across a finite set of actions does not prove physical inevitability. Likewise, a weak
 probe does not prove that the available observations lack information. If a representation is a
@@ -519,7 +542,7 @@ not a complete distribution of every runtime asset.
 | [Architecture](docs/ARCHITECTURE.md) | Implemented interfaces, simulator distinctions, evidence flow and timing. |
 | [Original preregistration](PREREGISTRATION.md) | The initial benchmark question and decision rules. |
 | [Research direction](docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md) | Information and recoverability: mathematical formulation and dated literature review. |
-| [Next scientific decision](experiments/iter156_background_calibration/DECISION.md) | Register a constrained action library and responsive comparison after finite background calibration. |
+| [Next scientific decision](experiments/iter157_constrained_action_library/DECISION.md) | Establish an admissible action opportunity after the fixed-library null; compare responsive policies on equal budgets. |
 | [Handoff](HANDOFF.md) | Exact next task, acceptance criteria, resource closure and recovery instructions. |
 | [Continuity](CONTINUITY.md) and [next phase](docs/NEXT_PHASE.md) | Current state followed by retained historical decisions. |
 | [Technical report](docs/REPORT.md) | Historical synthesis through Iter134; it predates the current execution program. |
@@ -527,34 +550,48 @@ not a complete distribution of every runtime asset.
 | [Verification archive](experiments/verification/README.md) | Early audit scripts, raw logs and correction history. |
 | [Editorial review](docs/editorial/2026-10-12/REVIEW.md) | Claim corrections, diagram review and reconciliation of the public and local READMEs. |
 
+The [Iter157 result](experiments/iter157_constrained_action_library/RESULT.md) binds the
+original producer/raw, failed admission, correction source and successful scalar
+exclusion checks. Replaying the corrected checker requires its exact correction
+checkout and environment variable described in the retained command receipt.
+
+The [public instrument](https://sentinel.danielwahnich.dev/) now consumes a
+[validated evidence channel](instrument/README.md). Closed findings and archive
+records update after exact-source CI and source validation. Its historical replay
+and native witness keep their own identities; automatic delivery does not grant a
+scientific claim or reinterpret the archived mission state.
+
 ## Repository status — 12 October 2026
 
-**This research lineage is current through Iter156, completed on 12 October.** The complete
-background query agrees with independent scalar replay on 115 fixed states. The earlier
-maneuver still fails. Next is a registered finite action study; useful recovery remains open.
+**This research lineage is current through Iter157, completed on 12 October.** Complete
+source-model constraints leave no qualified action in the fixed 75-candidate library.
+Independent rejection witnesses agree after the disclosed inventory correction. A new
+action opportunity must be established before native recovery or information benefit.
 Iteration 135's dose-response experiment remains **deferred and unrun**.
 
 The repository has two distinct records. The accepted code and mission snapshot at
 [`8c118b7`](https://github.com/manfromnowhere143/sentinel/tree/8c118b74c699bf0f139f9bd659192bad06b895f8)
 is **current through iteration 134**. [MISSION_STATE.json](MISSION_STATE.json) preserves
 that historical contract.
-Later research, through the Iter156 admission, is retained in a separate
-[research lineage](https://github.com/manfromnowhere143/sentinel/tree/748e1825b54a7827048dbf5ab8b983ef2bd53a7c).
+Later research, through the corrected Iter157 admission, is retained in a separate
+[research lineage](https://github.com/manfromnowhere143/sentinel/tree/1a88bbb37d765a6bed5675f0d022420c85b526eb).
 This README describes both; a documentation update does not integrate that later experimental
 code into the accepted snapshot. The [current handoff](HANDOFF.md) identifies the next task.
 
-The previous GitHub landing page showed the old Iter134/135 narrative because it read `master`,
-while subsequent README updates were published only on research branches. The local protected
-README had also stopped at Iter148. This editorial correction brings the presentation through
-Iter155 and preserves the older pages and publication records.
+The earlier 12 October editorial refresh brought the default landing page through Iter155.
+This later research revision retains Iter157 and its source-bound result. The public
+instrument follows validated closed-result packets automatically; its older replay and
+native witness do not inherit a new scientific identity from an update.
 
 Validation remains scoped. Iter155's original hosted Ruff failures remain in the
 [retained outcome](experiments/iter155_background_witness/proof/hosted_ci_outcome.json).
 The subsequent [CI repair](docs/CI_CONTRACT.md) checks immutable historical contracts at their
 actual revision and validates current maintained source separately; the repaired research
 baseline passed 3,555 tests on both Python 3.10 and 3.11. Iter156 adds 151 focused local checks,
-including 76 new checks. Its hosted observation is recorded separately and is not inherited
-from the earlier baseline. No historical source, receipt or mission contract was rewritten.
+including 76 new checks. Research source `5e3ea82` subsequently passed hosted CI and
+automatic evidence publication. Iter157 adds 47 library checks and eight correction
+controls; its exact closure CI is observed separately. No historical source, receipt or
+mission contract was rewritten.
 
 ## Complete experiment index
 
@@ -736,7 +773,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 </details>
 
 <details>
-<summary>Information, recoverability and execution: Iter135–156</summary>
+<summary>Information, recoverability and execution: Iter135–157</summary>
 
 | Record | Finding or scope |
 |---|---|
@@ -762,6 +799,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 | [154](experiments/iter154_full_scene_maneuver/RESULT.md) | Exact model candidate fails native background collision at 3.25 s in both fresh replicas; 26 verified actions. |
 | [155](experiments/iter155_background_witness/RESULT.md) | Native/scalar background masks agree: 0 centers at 3.00 s, 273 at 3.25 s; full selected population retained, no new driving episode. |
 | [156](experiments/iter156_background_calibration/RESULT.md) | Complete background query matches scalar masks across 115 states; 26 direct labels and 266 negative implications agree, eight background labels unknown; no new drive. |
+| [157](experiments/iter157_constrained_action_library/RESULT.md) | Fixed-library null: all 14 previously eligible actions fail background; 61 prior failures retained, 0/75 qualify. Scalar rejection witnesses agree; post-evidence inventory correction disclosed, no new drive. |
 
 </details>
 
