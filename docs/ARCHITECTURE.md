@@ -1,121 +1,236 @@
-# Frontier Engine — Architecture
+# Sentinel architecture
 
-**A research engine that gets measurably better every iteration, aimed at one number: beat a
-published baseline on a standard public benchmark.**
+Updated 12 October 2026. This describes the implemented research apparatus and its measured
+limits through the published Iter155 research record. The [README](../README.md) carries the scientific
+results and publication boundary. The [original design](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/docs/history/ARCHITECTURE_original_design.snapshot.txt)
+is retained as history; its proposed Maestro integration, signed receipts and universal
+reproducibility guarantees are not claims about the system described here.
 
-This is the *engine*. The survey delivers the *target* it runs on (the exact benchmark + the
-baseline number to beat). The engine is designed before the target so that the moment the target
-locks, we execute with zero improvisation — like a team that built its rig before the race.
+## Components and interfaces
 
-The guiding principle, stated as an invariant: **every iteration must either move the score or
-produce a logged insight that makes the next iteration more likely to.** No motion without
-learning.
+| Component | Responsibility | Evidence boundary |
+|---|---|---|
+| Frozen planner | Produce an ego plan and decoded object outputs from rendered camera input. | A frozen checkpoint does not freeze the surrounding controller, renderer or execution schedule. |
+| Released monitor | Estimate object motion; apply the registered CPA/TTC conditions and brake latch. | Uses planner outputs and pose. Hidden-state information benefit and independent perception are unestablished. |
+| Plan and control adapters | Preserve explicit time, units, coordinate frames and requested/applied controls. | Simulator-specific contracts; no physical-vehicle qualification. |
+| Simulator | Render observations, advance actors and ego, and evaluate collision and route state. | Evaluation labels stay outside deployable monitor inputs. |
+| Worker and coordinator | Execute the fixed schedule within declared deadlines and resource bounds. | Observation availability and worker state are separate quantities. |
+| Evidence replay | Recompute registered properties from retained raw records before admitting a pair. | Conditional on recorded inputs and the checks implemented; not proof of sensor completeness. |
 
----
+## NeuroNCAP apparatus
 
-## 1. Design principles (what makes this a rigorous protocol, not just a script)
-
-1. **One number, frozen up front.** A single primary metric on a single public benchmark, with a
-   pre-registered "win" bar (baseline-beating, CI excludes zero). No goalpost-moving.
-2. **Learning is a first-class output.** Each iteration ends with an *attribution* step — an
-   ablation that explains *why* the score moved. The insight is the durable asset; the weights are
-   disposable.
-3. **Reproducible by a stranger, provable by receipts.** Every run is pinned (data hash, code
-   version, seed), and every result is hash-chained + signed (Ed25519). A skeptic can verify we
-   didn't move the goalpost or cherry-pick a seed.
-4. **Cheap-first, scale-last.** Probe the idea at the smallest scale that can falsify it before
-   spending GPU. Most ideas die cheap; the survivors earn compute.
-5. **Honest by construction.** Nulls are logged and fed forward, not buried. The score tracker
-   shows the real trajectory — including the failures that taught us.
-6. **Governed orchestration (Maestro).** The iteration loop runs as a governed mission with
-   receipts where it genuinely adds value — turning the research campaign into a stress-test of
-   Maestro itself (real automation, not a toy), aligned with the broader vision.
-
----
-
-## 2. The Learning Loop (the heart)
+The original benchmark uses NeuroNCAP for scenario orchestration and scoring, NeuRAD for
+camera rendering, and frozen UniAD in its inference container. An environment-gated server
+patch applies the selected monitor arm. That apparatus produced the benchmark results through
+Iter134. Its repeatability was checked by run index on the retained comparisons; this is not
+a blanket determinism claim for other stacks or versions.
 
 ```mermaid
 flowchart TB
-  PRE["pre-registration<br/>target metric · baseline number · win bar<br/>(frozen before any result)"]
-  subgraph LOOP["The Learning Loop — better every iteration"]
-    direction TB
-    H["1 · HYPOTHESIZE<br/>the next method/improvement,<br/>informed by ALL prior insights"]
-    B["2 · BUILD<br/>implement · pinned · seeded · reproducible"]
-    M["3 · MEASURE<br/>standard metric vs the published baseline<br/>held-out · cluster-bootstrap CI"]
-    A["4 · ATTRIBUTE<br/>ablate: WHY did it move? extract the insight"]
-    H --> B --> M --> A --> H
-  end
-  PRE --> LOOP
-  MAE["Maestro<br/>governed orchestration<br/>(runs, cost/latency, receipts)"] -. drives each iteration .-> LOOP
-  LOOP --> LED[("experiment ledger<br/>every run signed · hash-chained")]
-  LOOP --> SCORE{{"score tracker<br/>ours vs baseline, per iteration"}}
-  SCORE -- "CI excludes baseline" --> WIN["WIN<br/>beat the number → write up → publish"]
-  SCORE -- "no move" --> INS["insight logged<br/>→ sharpens the next hypothesis"]
-  INS -. feeds .-> H
+  accTitle: The NeuroNCAP evaluation loop
+  accDescr: Rendered cameras reach the frozen planner and selected monitor arm. Decision logs and simulator outcomes feed the registered comparison.
+  O["NeuroNCAP<br/>scenario, ego and actor state"] --> R["NeuRAD<br/>camera rendering"]
+  R --> P["Frozen UniAD<br/>plan and decoded objects"]
+  P --> M["Selected monitor arm<br/>or unchanged nominal plan"]
+  M --> O
+  O --> E["Scores and trajectories"]
+  M --> D["Per-frame decision logs"]
+  E --> A["Registered comparison<br/>and evidence audit"]
+  D --> A
+  classDef runtime fill:#e8f1fb,stroke:#32628c,color:#142d45;
+  classDef evidence fill:#edf4e9,stroke:#537348,color:#23351c;
+  class O,R,P,M runtime;
+  class E,D,A evidence;
 ```
 
-Each box is a contract, not a vibe:
+[Released monitor source](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter15_latch_release/server_patch_union_release.py) ·
+[Power-run evidence](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/full14_power/RESULT.md) ·
+[Placebo protocol and result](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md).
 
-- **HYPOTHESIZE** — a written, falsifiable claim ("adding X should raise the metric by ≥ δ because
-  Y"), conditioned on the ledger of prior insights. The hypothesis names its own kill criterion.
-- **BUILD** — the smallest faithful implementation; pinned model/data hashes; fixed seed; a
-  one-command runner.
-- **MEASURE** — the *standard* metric of the field (not a metric we invented), on the official
-  split, vs the published baseline, with held-out evaluation and a cluster-bootstrap confidence
-  interval. A seed sweep when the effect is small (the P2f→P2g lesson: distributions, not draws).
-- **ATTRIBUTE** — an ablation isolating the cause. This is the step most teams skip and the step
-  that compounds: it converts a number into knowledge that makes iteration *n+1* smarter than *n*.
+## HUGSIM: distinguish the two execution regimes
 
----
+Iterations 48–49 tested transfer using the then-frozen HUGSIM integration and unchanged monitor
+parameters. Iterations 136–152 investigate recoverability and execution validity. Their timestamp,
+actor-motion and controller changes define a new regime. Comparing or pooling their outcomes
+with the old transfer data requires an explicit design accounting for those changes.
 
-## 3. The rigor stack (carried over and upgraded from PerceptionProof)
+The live monitor/pulse integration used through Iter152 renders camera inputs in HUGSIM,
+obtains a nominal UniAD plan and monitor decision through the instrumented client, computes constrained ego controls, and
+advances the simulator. A preregistered pulse may override the applied controls. Nominal plan,
+delivered plan, monitor request and applied action are retained separately.
 
-| Layer | What it guarantees |
-|---|---|
-| Pre-registration | the win bar is frozen before results; no post-hoc goalpost moves |
-| Pinning + seeds | byte-identical reproduction; `run_id = hash(data · code · seed)` |
-| Cluster-bootstrap CIs + seed sweeps | a "win" is decisive, not a lucky draw |
-| Ablations (attribution) | every gain is *explained*, not just observed |
-| Ed25519 receipt chain | a stranger can verify the run was not edited or cherry-picked |
-| Score tracker | the honest trajectory — our number vs the baseline, every iteration |
-| Maestro orchestration | governed runs with cost/latency/receipts; the campaign hardens Maestro |
-
-What's *new* vs PerceptionProof (the "getting better in every aspect"): this engine is built to
-**win a number**, not characterize a question — so it adds the score tracker, the attribution
-step as a hard gate, the cheap-first escalation ladder, and a tighter build→measure→learn cycle.
-
----
-
-## 4. Repo shape (instantiated when the target locks)
-
-```
-README.md            the mission, the number to beat, the live score trajectory, the loop
-PREREGISTRATION.md   target metric, official split, baseline number, win bar (frozen)
-docs/ARCHITECTURE.md this engine
-engine/              the loop: hypothesize/build/measure/attribute primitives + score tracker
-method/              the method under test (filled per target)
-experiments/         every iteration: config, result, receipt, ablation, insight
-results/             reports + signed receipts + the score-vs-baseline history
+```mermaid
+flowchart TB
+  accTitle: The HUGSIM monitor and pulse apparatus through Iter152
+  accDescr: Timestamped actors and rendered images drive a frozen planner, released monitor and constrained controller. The arm selects the applied action.
+  S["HUGSIM state<br/>ego, actors and route"] --> R["CUDA camera rendering"]
+  R --> P["Frozen UniAD and released monitor<br/>nominal and delivered plans"]
+  P --> C["Constrained ego controller<br/>requested and projected controls"]
+  C --> A["Registered arm<br/>nominal, monitor or finite pulse"]
+  A --> S
+  T["Timestamped actor trajectories<br/>explicit frame and units"] --> S
+  S --> E["State, collision, route and timing records"]
+  P --> E
+  C --> E
+  classDef runtime fill:#e8f1fb,stroke:#32628c,color:#142d45;
+  classDef evidence fill:#edf4e9,stroke:#537348,color:#23351c;
+  class S,R,P,C,A,T runtime;
+  class E evidence;
 ```
 
-New repo (not folded into PerceptionProof): this is *method-building to beat a number*, a different
-concept from PerceptionProof's *evaluation-validity study*. A clean, single-purpose repo reads as
-more serious to the room and keeps each story sharp.
+The [trajectory contract](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter144_timed_trajectory/trajectory.py) carries absolute
+simulation seconds, owner and episode identities, SI units, frame, source rows and content
+identity. Candidate costs use common times; interpolation does not license extrapolation or
+prove continuous-motion feasibility. Ego and actor heading conversions are explicit.
 
----
+The [constrained optimizer](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter145_constrained_execution/optimizer.py) and
+[simulator adapter](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter145_constrained_execution/simulator.py) use the declared
+update order and actuator limits. Numerical repeatability, convergence, model agreement and
+deadline compliance are checked separately. A capped optimization return is not relabelled
+converged because its trajectory looks reasonable.
 
-## 5. Where Maestro earns its place (used only if it genuinely helps)
+The [current monitor replay](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter147_full_horizon_execution/monitor.py) reconstructs
+the released geometric rule conditional on accepted object rows. The study disables the
+injected detector inputs used in qualification. Diagnostic monitor holds are labelled in
+their raw evidence and never counted as natural hazard detection.
 
-The loop is a sequence of governed, receipted steps — exactly Maestro's shape. Concretely: Maestro
-orchestrates each iteration's runs (build → train → measure → ablate), records real cost/latency,
-signs the receipts, and surfaces the score trajectory. This is not bolted on for show — running a
-real, months-long, baseline-chasing research campaign *through* Maestro is a genuine stress test of
-the orchestration layer and a proof point for the wider vision: an AI-orchestrated loop that
-doesn't just run experiments but *gets better at the problem*. If at any step Maestro adds friction
-without value, that step runs direct and we log why — honesty applies to our own tools too.
+## Execution, observation and evidence
 
----
+[Iter149 local qualification](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter149_observation_recovery/RESULT.md) adds a
+transport-independent bounded reconciliation policy, separate trace checker and local subprocess
+watchdog fixture. [Iter150](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter150_cloud_observation/RESULT.md) stream-hashes
+large native artifacts into a compact observation and qualifies historical reads through actual
+IAP, synthetic disconnection, host-local child expiry and exact-owned VM closure. Its live
+harness failed while saving the final report; retained outputs pass a separate audit and the
+filename fix passes locally. Iter151 adds exact 16-slot admission, exclusive dispatch,
+Linux process ownership checks and a per-pair systemd deadline. Its first nominal pair passed
+scientific replay, but a whitespace check on immutable captured source stopped publication and the schedule.
+The corrected local retention pipeline passed a real Git/replay rehearsal and subsequently
+completed all seven new pairs in Iter152. See [Iter151](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter151_recovery_canary/RESULT.md).
+The diagram below describes the execution and evidence flow through Iter152; each experiment
+retains its own frozen schedule and resource envelope.
 
-*Status: engine designed. Target (benchmark + exact baseline number) locks when the frontier
-survey lands; the repo is then instantiated already-scoped, and iteration 1 begins.*
+Iter148 fixed 112 slots; the fresh Iter151 canary fixed 16; Iter152 fixed fourteen new slots
+and bound two historical nominal episodes separately. Each plan fixes its own admission order.
+Pair initialization records ensure that completed or initialized work cannot be duplicated silently. Each completed raw packet is
+committed before replay; a receipt binds the plan, raw identity and prior admissions.
+
+```mermaid
+flowchart TB
+  accTitle: Execution, observation and admission through Iter152
+  accDescr: Observation loss is reconciled within fixed bounds. Raw evidence precedes replay; admission and exact-owned resource closure are separate checks.
+  P["Frozen plan, source and budget"] --> W["Exclusive worker initialization<br/>independent host deadline"]
+  W --> R["Retain raw bytes<br/>commit before replay"]
+  R --> V["Separate replay<br/>supported or invalid admission"]
+  V --> G["Complete slot accounting<br/>missing outcomes remain unknown"]
+  O["Bounded read-only reconciliation<br/>observation loss is not worker failure"] -. observes .-> W
+  O --> C["Verify exact-owned closure<br/>local watchdog and VM identity"]
+  W --> C
+```
+
+Relevant implementations are [pair execution](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/pair.py),
+[admission](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/admission.py),
+[replay](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/replay.py),
+[comparison](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/compare.py) and
+[aggregate accounting](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/aggregate.py).
+The retained [session tools](https://github.com/manfromnowhere143/sentinel/tree/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/proof/session_tools)
+document the executed local supervision and resource closure. They contain closed paths and
+budgets and are not reusable launch commands.
+
+**Observed limitation:** Iter148 stopped after a read-only IAP query failed to connect. The
+coordinator treated that failure as a stop condition while the worker was still running.
+The block is closed and its pulse outcome is incomplete. Iter149–150 implement bounded
+read-only reconciliation and retain local/cloud fault checks. Iter151 exercised the new active-worker
+integration; its later publication failure is separately recorded. Neither later qualification
+nor a completed continuation erases that study’s missing outcome.
+
+Iter152 completed seven new pairs with the corrected archive-to-Git-to-replay-to-admission path.
+Its [continuation admission](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter152_recovery_continuation/admission.py) binds the
+two historical Iter151 nominal episodes without relabelling them as new runs; the separate
+[baseline replay](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter152_recovery_continuation/baseline.py) rechecks their bytes,
+source and original scientific contract. The new fourteen-slot chain retains both scenario
+boundaries and exact compute closure. The diagram distinguishes retained raw evidence from
+admission and resource closure. Complete continuation accounting is in the [Iter152 result](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter152_recovery_continuation/RESULT.md).
+
+Hashes check identity against retained bytes. Separate replay checks specified properties.
+Neither authenticates the physical world, establishes sensor completeness, or proves the
+absence of shared implementation errors. This is operational verification by the research
+workflow, not independent institutional certification.
+
+## Timing contract
+
+| Clock or measurement | Meaning | What remains outside the claim |
+|---|---|---|
+| Simulation time | Explicit trajectory time and 0.25 s environment steps in the current regime. | The simulator may wait longer than 0.25 s of wall time. |
+| Complete controller call | Optimization and its call overhead; stopping reason retained. | Does not include the entire perception, communication and simulator loop. |
+| Model exchange | Client/model communication and response. | Isolated model inference latency is not identified. |
+| v2 loop duration | Recorded step work through the final guard and stop decision. | Reset, final summary serialization and worker cleanup are outside it. |
+| Resource interval | Local monotonic elapsed time for the owned compute envelope. | Provider billing is separately estimated; clocks are not subtracted across hosts. |
+
+In the four admitted Iter148 episodes, 6/368 controller calls exceeded 50 ms and all 368 loops
+exceeded 250 ms. The largest checked stationarity residual was below the 1e-6 bar. Convergence
+therefore passed while the full loop missed its descriptive 4 Hz budget. No late-result policy
+or real-time execution guarantee follows.
+
+Iter152 records the same distinction over 1,420 new actions: maximum checked residual
+9.8965212e-7, 37 controller calls above 50 ms, and every full loop above 250 ms. Median full loop
+is 1.890 s. These measurements do not establish a deadline policy for a physical vehicle.
+
+## Diagnostic action search and background replay
+
+Iteration 152 admitted fourteen new episodes and both fixed scenario comparisons. Neither
+tested pulse recovered the collision case. All benign-case arms completed, with the monitor
+adding 13 simulated seconds versus nominal. Both exact owned VM starts are terminated.
+Prior nulls, missing outcomes and frozen protocols remain unchanged, including Iter148's
+incomplete pulse and Iter151's interrupted schedule.
+
+Iter153 adds an offline privileged-state diagnostic beside this live apparatus. Source route and
+stationary box geometry feed a fixed 75-maneuver generator; an independent scalar implementation
+rechecks policy, controls, transitions, rectangle support, swept interpolation, source route and
+progress. All 150 model trials are retained; fourteen qualify and a fixed ranking selects one.
+The [selected action packet](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter153_action_feasibility/SELECTED_MANEUVER.json)
+then fed Iter154's direct native-action adapter, bypassing UniAD and monitor inference. It kept
+native rendering, actor updates, source termination and both foreground/background collision
+channels. Both fresh replicas terminate after 13 actions at 3.25 s on native background collision.
+The separately replayed prefix matches the model to 4.44e-16, with foreground and off-route false.
+
+Iter154's device receipts did not retain the enclosed point count or mask. Iter155 closes that
+finite replay gap with a bounded extraction of all pre-selection xyz, semantic features and
+opacities; independently reconstructed filtering recovers the full 276,519 selected centers.
+The source methods reconstruct the two historical boxes without simulator construction or steps.
+Independent scalar geometry and ground projection check those inputs; native CUDA and scalar
+masks agree exactly, with counts 0 at 3.00 s and 273 at 3.25 s. No new driving episode ran.
+
+This is a source-predicate witness, not a physical reconstruction or road-boundary validation.
+The native model loader is source-bound rather than independently reimplemented. Useful full-scene
+recovery and information benefit remain unestablished.
+[Witness and limits](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter155_background_witness/RESULT.md).
+
+```mermaid
+flowchart TB
+  accTitle: The diagnostic model, native test and background witness
+  accDescr: A privileged model candidate fails in the native scene. A separate source-point extraction reproduces the collision predicate without a new driving episode.
+  G["Route and foreground geometry<br/>privileged diagnostic inputs"] --> M["Iter153: model search<br/>one ranked action packet"]
+  M --> N["Iter154: native controls<br/>two failures at 3.25 s"]
+  N --> X["Iter155: historical poses<br/>points, boxes and ground"]
+  X --> C["Native CUDA masks"]
+  X --> S["Separate scalar reconstruction"]
+  C --> E["Exact masks: 0 and 273<br/>threshold >100"]
+  S --> E
+  E -. "proposed" .-> F["Calibrate background model<br/>before a new search"]
+```
+
+These privileged diagnostic inputs are not delivered to the released monitor. Iter153's model
+search omitted background geometry; Iter154 retained the native renderer and collision checks
+but bypassed planner and monitor inference. Iter155 restored the scene model and called source
+geometry methods without constructing or stepping a driving environment. The source model
+loader itself did run and remains part of the bound extraction.
+
+## Next scientific boundary
+
+Next is prospective background-aware model calibration against retained native prefixes, then
+a new finite search only if the measurement contract holds. An information-selection study
+follows useful recovery and a measured decision window. Hidden-representation
+monitoring, uncertainty-aware persistence, independent sensors, physical deployment and formal
+safety guarantees remain possible directions with different requirements. None is an established
+capability merely because it appears in a roadmap.

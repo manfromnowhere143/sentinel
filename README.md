@@ -1,1539 +1,757 @@
 # Sentinel
 
-**A runtime introspective safety monitor that watches a frozen self-driving planner, predicts the
-collision it is about to cause, and intervenes — measured where it actually matters: in closed
-loop, by whether the car crashes *and whether it can still drive*.**
+**Runtime monitoring and recovery for learned driving systems.**
 
-> **Honest status up front (current through iteration 134; `MISSION_STATE.json` is the
-> canonical repository mission-state contract and the status table below is the evidence ledger.
-> The core Sentinel result arc includes an independent verification pass +
-> the full official benchmark at power + a completed iteration-37 calibration null + an
-> iteration-38 opposite-direction S0 canary pass + completed iteration-39/40/41 defensibility
-> audits + a completed iteration-42 exact-trace replay-support pass + a completed iteration-43
-> object-stream perturbation gate — a mild-fragile finding: the rule over-fires under 5 cm
-> position jitter in replay — + a completed iteration-44 velocity temporal-smoothing repair
-> gate — a no-repair null: every frozen smoothed estimator halves the over-firing but erases
-> genuine interventions, so the fragility is not repaired by low-pass filtering the velocity —
-> + a completed iteration-45 HUGSIM infrastructure gate: the second-benchmark transfer lane is
-> open, with assets, environments, and a monitor-OFF closed-loop smoke passing on the same
-> frozen checkpoint — + a completed iteration-46 HUGSIM Stage-1 monitor-OFF baseline, a
-> completion null: 38 of 52 scheduled episodes completed with per-step logs, the D0 probe
-> recorded the loop as stochastic, but the seven `load_HD_map` scenarios all failed on an
-> unstaged nuScenes map-expansion pack, so the Stage-2 OFF-vs-union pre-registration is not
-> authorized — + a completed iteration-47 map-staging + OFF-completion pass: Stage A staged
-> the official nuScenes map-expansion pack v1.3 with provenance receipts, Stage B completed
-> all 14 previously failed episodes on the first attempt, and the full 52-episode monitor-OFF
-> arm now stands with carried-episode byte integrity and pairing feasible over all 26
-> within-scenario pairs (median |dHD| 0.0251) — + a completed iteration-48 HUGSIM Stage-2
-> transfer gate, THE transfer verdict of the second-benchmark line, a **transfer null**: all
-> 104 OFF-vs-released-union episodes completed under the seven NeuroNCAP-frozen parameters
-> with zero retuning, the monitor actively fired and braked (37/52 ON episodes, 26.9% of
-> frames braking, 134 latch releases, no RC collapse), and the mean paired HD-Score delta is
-> −0.017 with a 95% scenario-clustered CI [−0.055, +0.026] that includes zero — the NeuroNCAP
-> benefit does not measurably transfer to HUGSIM easy+medium scenarios at this N, published at
-> full weight as the measured external-validity boundary; no NeuroNCAP-equivalence or safety
-> claim — + a completed iteration-49 hard/extreme-tier transfer gate, a collision-regime
-> **transfer null**: all 104 hard/extreme OFF-vs-released-union episodes completed with zero
-> retries and zero retuning, the monitor braked in 40/52 ON episodes (22.3% pooled brake
-> frames, 58 releases, no RC collapse), and the mean paired HD-Score delta is −0.0089 with
-> CI [−0.0438, +0.0203] that includes zero; 51/52 OFF episodes had collision opportunity,
-> so iteration 50's frozen P1 resolves Branch B, REFUTED — the transfer failure is real, not
-> opportunity-scarce — + a completed iteration-50 collision-opportunity audit: on NeuroNCAP
-> the benefit concentrates
-> exactly where the unmonitored planner collides (Spearman rho +0.70, CI [+0.39, +0.88]),
-> while 40/52 HUGSIM OFF episodes carried a collision event — the transfer null is classified
-> opportunity-present, not opportunity-scarce, and the classification does not upgrade it — +
-> a completed iteration-51 HUGSIM transfer-failure taxonomy: across 104 paired HUGSIM transfer
-> episodes the frozen rule converted only 6/91 OFF-opportunity pairs, with 85/104 pairs still
-> collision-persistent; the combined taxonomy is mixed, not a single-cause failure, so the next
-> honest move is mechanism-cause audit rather than retuning — + a completed iteration-52
-> ON-collision timing audit: among 92 ON-collision episodes, 57 were absent/post-collision
-> braking and 35 had pre-collision braking; all 22 no-brake cases had zero frozen TTC/CPA
-> surface-proxy rows, but 26 long-lead brake cases still collided, so a pure brake-earlier
-> repair story is insufficient — + a completed iteration-53 first-fire channel audit: across
-> the same 92 ON-collision episodes, first-fire channels split as 36 TTC-only, 33 CPA-only,
-> 22 no-fire, and 1 both; the 35 pre-collision-fire collisions split 19 CPA-only / 16
-> TTC-only, so the HUGSIM failure is not one bad union branch — + a completed iteration-54
-> provenance support audit: monitor-side first-fire object/path argmins reconstruct cleanly
-> (40 unique TTC objects, 36 unique CPA objects, 1 both-distinct case, 27 no-fire), but HUGSIM
-> collision actor identity is not logged in any of the 104 committed evals, so actor-match claims
-> require new instrumentation — + a completed iteration-55 HUGSIM source-map audit: the frozen
-> HUGSIM checkout at `62c690d39fd90020e68a196bd8bcc1c4d4191f2e` was verified, source-only scan
-> mapped instrumentation candidates to `sim/utils/score_calculator.py` and `closed_loop.py`, and
-> returned `COLLISION_INSTRUMENTATION_SOURCE_MAP_COMPLETE`; a future no-metric-change
-> instrumentation patch is designable, but not implemented or run — + a completed iteration-56
-> HUGSIM provenance patch-design null: the first patch draft applied and compiled, but the frozen
-> static guard rejected the added `if score_nc == 0.0:` branch as metric/control-sensitive, so no
-> instrumentation patch or run is authorized — + a completed iteration-57 guard-refinement pass:
-> the byte-identical patch SHA passed a refined static verifier that rejects metric/control
-> assignments while allowing read-only score comparisons; still no HUGSIM run or actor-match
-> claim — + a completed iteration-58 HUGSIM provenance instrumented canary:
-> the byte-bound patch executed on the frozen HUGSIM stack for the registered
-> `scene-0013-hard-00` OFF/ON schedule, emitted top-level `collision_provenance` in both
-> `eval.json` files (counts 11 and 13) while scalar metrics and scalar-only `details` rows
-> stayed intact, and returned `PROVENANCE_CANARY_COMPLETE`; this retires the instrumentation
-> execution blocker only, with no actor-match, HD-Score-invariance, safety, transfer,
-> deployment, benchmark, or retuning claim — + a completed iteration-59 HUGSIM actor-match
-> support audit: exactly eight registered Sentinel-ON HUGSIM episodes completed, same-run
-> comparison support existed for three foreground rows, and all three classifiable rows were
-> `actor_mismatch` by the frozen bridge (distances 15.43 m, 21.99 m, 37.04 m); the other five
-> rows were no-fire, post-collision-fire, or background-only, so this is a bounded mechanism
-> audit only, not a population, repair, safety, transfer, deployment, benchmark, or retuning
-> claim — + a completed iteration-60 actor-match bridge sensitivity audit: over the three
-> iteration-59 classifiable rows, 48 frozen bridge variants produced no
-> `bridge_match_possible`, but one row fell into `bridge_ambiguous_possible` at 5.66 m, so
-> the verdict is `BRIDGE_AMBIGUOUS_NULL`; no robust all-row mismatch, actor-causality, repair,
-> safety, transfer, deployment, benchmark, or retuning
-> claim — + a completed iteration-61 monitor object-surface audit: over the same three rows,
-> all first-fire monitor objects were compared to all eligible foreground provenance rows under
-> the frozen bridge grid; one row (`ttc_extreme_b`) had a non-triggering first-fire object
-> (`object_id=16`) match at 2.07 m while the trigger object stayed ambiguous, and the other two
-> rows had no first-fire object support; no actor-causality, repair, safety, transfer,
-> deployment, benchmark, population, or retuning
-> claim — + a completed iteration-62 non-trigger ranking audit: the matched non-trigger object
-> in `ttc_extreme_b` was visible but subthreshold at first fire (`min_cpa=22.76 m`, CPA rank
-> 9/9, no valid TTC), while the trigger was TTC-only on `object_id=1`; no repair, actor-causality,
-> safety, transfer, deployment, benchmark, population, or retuning
-> claim — + a completed iteration-63 temporal emergence audit: the same `object_id=16` was
-> present in 13 pre-contact monitor frames before the `7.25 s` foreground collision timestamp
-> and never crossed even the registered borderline band (minimum CPA 12.17 m, no valid TTC),
-> so late hazard emergence is not the explanation for that row; no repair, actor-causality,
-> safety, transfer, deployment, benchmark, population, or retuning
-> claim — + a completed iteration-64 unsupported-row temporal surface audit: the two rows that
-> lacked first-fire object support both gained pre-contact object-surface matches when all
-> pre-contact decision objects were considered (`ttc_extreme_short` best 1.67 m, `cpa_medium_b`
-> best 0.43 m), so the gap is first-fire/provenance timing rather than total pre-contact object
-> absence; no repair, actor-causality, safety, transfer, deployment, benchmark, population, or
-> retuning
-> claim — + a completed iteration-65 temporal alignment audit: those two matched pre-contact
-> objects were present but subthreshold at their matched timestamps (`object_id=2`: min CPA
-> 12.72 m, TTC 3.58 s; `object_id=6`: min CPA 9.32 m, no valid TTC), so the gap is not total
-> object absence and not an already-active matched hazard; no repair, actor-causality, safety,
-> transfer, deployment, benchmark, population, or
-> retuning
-> claim — + a completed iteration-66 matched-object hazard timeline audit: across the two
-> iteration-65 targets, `ttc_extreme_short` `object_id=2` becomes a TTC hazard exactly at first
-> fire after two borderline frames, while `cpa_medium_b` `object_id=6` stays visible-never-active
-> before foreground collision; no repair, actor-causality, safety, transfer, deployment,
-> benchmark, population, or
-> retuning
-> claim — + a completed iteration-67 trigger-target bridge audit: one row is same-object
-> target/trigger, while `cpa_medium_b` is split-object; across the full pre-contact window both
-> the target and trigger can bridge to foreground, but the first-fire trigger object has no bridge
-> support at the actual first-fire timestamp; no repair, actor-causality, safety, transfer,
-> deployment, benchmark, population, or
-> retuning
-> claim — + a completed iteration-68 fire-time bridge decomposition audit: the fire-time bridge
-> gap splits temporally, with `ttc_extreme_short` best trigger support `1.25 s` before first fire
-> and `cpa_medium_b` best trigger support `2.00 s` after first fire; no repair, actor-causality,
-> safety, transfer, deployment, benchmark, population, or
-> retuning
-> claim — + a completed iteration-69 HUGSIM mechanism taxonomy synthesis: all eight iteration-59
-> rows are classified, with five structural labels preserved and all three classifiable foreground
-> rows refined into `nontrigger_visible_never_hazard`,
-> `same_object_late_fire_after_best_bridge`, and
-> `split_object_visible_never_active_fire_before_best_bridge`; no repair, actor-causality,
-> safety, transfer, deployment, benchmark, population, commercial-value, or
-> retuning
-> claim — + a completed iteration-70 HUGSIM structural-row timing audit: the five structural
-> rows split into two foreground-present surface-silent rows, two foreground-present late-fire
-> rows where first fire occurs `1.75 s` after first foreground contact, and one foreground-absent
-> background-only row; no repair, actor-causality, safety, transfer, deployment, benchmark,
-> population, commercial-value, or
-> retuning
-> claim — + a completed iteration-71 HUGSIM surface-silent margin audit: both foreground-present
-> no-fire rows are far from the frozen trigger surfaces before foreground contact (`mixed_extreme`
-> closest CPA margin `+2.606 m`; `nofire_hard_control` closest valid TTC margin `+3.456 s` and
-> CPA margin `+6.478 m`); no threshold-value, repair, actor-causality, safety, transfer,
-> deployment, benchmark, population, commercial-value, or
-> retuning
-> claim — + a completed iteration-72 HUGSIM late-fire prefire margin audit: both late-fire rows
-> are near a frozen trigger surface before foreground contact (`both_distinct_extreme` CPA margin
-> `+0.5355 m`; `ttc_medium_a` TTC margin `+0.7742 s`) but first fire still occurs `+1.75 s`
-> after first foreground contact; no threshold-value, repair, actor-causality, safety, transfer,
-> deployment, benchmark, population, commercial-value, or
-> retuning
-> claim — + a completed iteration-73 HUGSIM structural margin-transition audit: the four
-> foreground-present structural rows split exactly into two silent rows with no active crossing
-> anywhere and two late-fire rows that are near before contact but first active only `+1.75 s`
-> after contact; no threshold-value, repair, actor-causality, safety, transfer, deployment,
-> benchmark, population, commercial-value, or
-> retuning
-> claim — + a completed iteration-74 HUGSIM late-fire delay-barrier audit: both late-fire rows
-> are cross-channel delay cases — `both_distinct_extreme` is CPA-near before contact but
-> TTC-active after contact, while `ttc_medium_a` is TTC-near before contact but CPA-active after
-> contact; no threshold-value, repair, actor-causality, safety, transfer, deployment, benchmark,
-> population, commercial-value, or
-> retuning
-> claim — + a completed iteration-75 HUGSIM cross-channel object-handoff audit: both fixed
-> cross-channel late-fire rows are object switches, not same-object channel flips
-> (`both_distinct_extreme` object `5` -> `9`; `ttc_medium_a` object `6` -> `24`); no
-> threshold-value, repair, actor-causality, safety, transfer, deployment, benchmark, population,
-> commercial-value, or
-> retuning
-> claim — + a completed iteration-76 HUGSIM switch foreground-bridge audit: neither the pre-near
-> object nor the post-active object reaches the frozen foreground bridge match or ambiguous band
-> in either fixed row (`8.12–13.45 m` best distances); no threshold-value, repair,
-> actor-causality, safety, transfer, deployment, benchmark, population, commercial-value, or
-> retuning
-> claim — + a completed iteration-77 HUGSIM event object-set foreground-bridge audit: full
-> event-row object sets recover bounded foreground support in mixed form (`both_distinct_extreme`
-> pre-set ambiguous via object `9`; `ttc_medium_a` pre/active sets match via object `10`), while
-> still not upgrading to actor-causality or repair; no threshold-value, repair, actor-causality,
-> safety, transfer, deployment, benchmark, population, commercial-value, or
-> retuning
-> claim — + a completed iteration-78 HUGSIM support-object ranking audit: all three
-> foreground-supported full-set objects are nonselected and subthreshold under the logged
-> CPA/TTC surface
-> (`9` vs selected `5`, `10` vs selected `6`, `10` vs selected `24`; min CPA
-> `21.63/17.28/13.56 m`, no finite TTC), so the support-object lead is not an already-active or
-> borderline hazard lost at final selection; no threshold-value, repair, actor-causality, safety,
-> transfer, deployment, benchmark, population, commercial-value, or
-> retuning
-> claim — + a completed iteration-79 HUGSIM selected-object surface decomposition audit:
-> selected objects are not arbitrary far objects in the same rows — two selected objects are
-> borderline (`object_id=5` CPA `2.0355 m`; `object_id=6` TTC `3.2742 s`) and one is active
-> (`object_id=24` CPA `1.2791 m`), while the foreground-supported objects remain subthreshold;
-> no threshold-value, repair, actor-causality, safety, transfer, deployment, benchmark,
-> population, commercial-value, or
-> retuning
-> claim — + a completed iteration-80 HUGSIM selected-object all-provenance bridge audit:
-> all eligible logged provenance rows in the fixed episodes are foreground (`30/30`), and the
-> selected active/borderline objects still reach no match or ambiguous bridge support
-> (`13.4483/8.1239/8.4408 m` best distances); no threshold-value, repair, actor-causality,
-> safety, transfer, deployment, benchmark, population, commercial-value, or
-> retuning
-> claim — + a completed iteration-81 HUGSIM support-object temporal surface audit:
-> the two fixed foreground-supported full-set objects split temporally; object `9` in
-> `both_distinct_extreme` later becomes borderline at `5.5 s` and active at `7.0 s` after first
-> foreground support at `5.25 s`, while object `10` in `ttc_medium_a` stays visible across
-> `15` frames and never becomes active or borderline; no threshold-value, repair, actor-causality,
-> safety, transfer, deployment, benchmark, population, commercial-value, or
-> retuning
-> claim — + a completed iteration-82 HUGSIM support-object surface/provenance co-occurrence
-> audit: both fixed support objects have same-object foreground bridge support, but co-occurrence
-> with the released surface is only borderline for object `9` (`5.5 s`, best surface bridge
-> `0.9876 m`, zero active+bridge frames), while object `10` has bridge support in all `15`
-> present frames and never reaches active or borderline surface; no threshold-value, repair,
-> actor-causality, safety, transfer, deployment, benchmark, population, commercial-value, or
-> retuning
-> claim — + a completed iteration-83 HUGSIM bridge-supported surface-miss decomposition:
-> across `18` bridge-supported support-object frames there are zero active frames; object `9`
-> is a TTC-borderline-only miss (`1` borderline frame, closest active TTC margin `+2.2761 s`,
-> closest active CPA margin `+17.6718 m`), while object `10` has `15` bridge-supported
-> subthreshold frames with no finite TTC and closest active CPA margin `+5.7464 m`; no
-> threshold-value, repair, actor-causality, safety, transfer, deployment, benchmark,
-> population, commercial-value, or
-> retuning
-> claim — + a completed iteration-84 HUGSIM selected/support path-arbitration decomposition:
-> all three fixed rows classify `selected_surface_support_bridge_split`; the selected object
-> has lower CPA and better CPA rank in all three rows, selected bridge support in `0/3` rows,
-> while the support object has better foreground/provenance bridge support in `3/3` rows; no
-> threshold-value, repair, actor-causality, safety, transfer, deployment, benchmark,
-> population, commercial-value, real-world, first-responder, or
-> retuning
-> claim — + a completed iteration-90 HUGSIM active-surface provenance gap audit:
-> at the fixed replay rows, bridge support lands on `11` non-active objects while the one active
-> object has no bridge support, returning `HUGSIM_ACTIVE_SURFACE_PROVENANCE_GAP_COMPLETE`; no
-> threshold-value, repair, actor-causality, safety, transfer, deployment, benchmark,
-> population, commercial-value, real-world, first-responder, or
-> retuning
-> claim — + a completed iteration-91 HUGSIM active-gap geometry decomposition:
-> the split is path-vs-provenance geometry on the fixed rows: the active object is path-near but
-> provenance-far (`10.9518 m`, `no_support`), while bridge-supported objects are non-active; no
-> threshold-value, repair, actor-causality, safety, transfer, deployment, benchmark,
-> population, commercial-value, real-world, first-responder, or
-> retuning
-> claim — + a completed iteration-92 HUGSIM path-proximity arbitration audit:
-> CPA/path-best and provenance-best objects differ in all three fixed rows (`0/3` same-object
-> events); the active row's path/surface-best object is active but no-support while
-> provenance-best is subthreshold; no threshold-value, repair, actor-causality, safety, transfer,
-> deployment, benchmark, population, commercial-value, real-world, first-responder, or
-> retuning
-> claim — + a completed iteration-93 HUGSIM surface-winner alignment audit:
-> surface-best alignment is mixed (`2/3` path, `1/3` provenance), with the active failure row
-> following path and no-support object `24`; no threshold-value, repair, actor-causality, safety,
-> transfer, deployment, benchmark, population, commercial-value, real-world, first-responder, or
-> retuning
-> claim — + a completed iteration-94 HUGSIM active-row surface margin arbitration:
-> the active `ttc_medium_a` row has exactly one active/path/surface candidate, object `24`, with
-> active CPA margin `-0.4990 m`; all three bridge-supported candidates are subthreshold, TTC-null,
-> and CPA-far, with the nearest bridge-supported active CPA margin `+10.6434 m`; no
-> threshold-value, repair, actor-causality, safety, transfer, deployment, benchmark, population,
-> commercial-value, real-world, first-responder, or
-> retuning
-> claim — + a completed iteration-95 HUGSIM non-active surface branch arbitration:
-> the two non-active rows split into a provenance/TTC-borderline branch (`both_distinct_extreme`,
-> object `9`) and a path/CPA branch (`ttc_medium_a` pre, object `19`), so all three fixed
-> iteration-93 surface winners now have local branch explanations from committed reports only; no
-> threshold-value, repair, actor-causality, safety, transfer, deployment, benchmark, population,
-> commercial-value, real-world, first-responder, or
-> retuning
-> claim — + a completed iteration-96 HUGSIM branch taxonomy outcome bridge:
-> the two late-fire structural rows both fire `+1.75 s` after foreground contact with zero
-> pre-or-at foreground fire frames, even though their branch explanations split into
-> provenance/TTC-borderline and path/CPA; no threshold-value, repair, actor-causality, safety,
-> transfer, deployment, benchmark, population, commercial-value, real-world, first-responder, or
-> retuning
-> claim — + a completed iteration-97 HUGSIM surface-silent outcome margin bridge:
-> both foreground-present no-fire rows are far-margin, never-active, zero-fire rows that only
-> become near after foreground contact; no threshold-value, repair, actor-causality, safety,
-> transfer, deployment, benchmark, population, commercial-value, real-world, first-responder, or
-> retuning
-> claim). Later HUGSIM iterations 98-132 and the Iter133 NeuroNCAP placebo-control design are
-> surfaced in the status table, `docs/NEXT_PHASE.md`, and the dedicated support-core taxonomy
-> note; this opener is not the canonical per-iteration ledger:**
-> the introspective signal predicts the planner's collisions (AUROC 0.83). On the
-> complete 14-scene NeuroNCAP set at **20 seed-paired runs per pair** (799 episodes, the power
-> measurement), the unmonitored UniAD baseline **independently reproduces** (pooled 2.12 vs the
-> published 1.84 — corroborated by DMAD's independent rerun at 2.11), and the best configuration — the
-> **released union** (iteration 8's two-detector union + iteration 15's threat-cleared latch
-> release) — lifts the benchmark score to **2.91 (+0.783, 95% CI [+0.605, +0.928])**, with run
-> indices 0–5 of every pair reproducing the earlier 6-run measurement exactly. Stated with equal
-> weight: on this repository's own deployment metric (safety × progress) the effect vs the
-> unmonitored planner is a **tight null (−0.03, 95% CI [−0.13, +0.07])** — the benchmark safety
-> gain had approximately zero effect on that registered deployment metric. Iteration 16 showed
-> that one calibrated 2 m/s crawl recovered progress but lost the stop's measured
-> **stopping-location advantage on the registered crossing cells** (side collisions passed the
-> pre-registered falsifier bar) — that null is published. The statistics here earned their
-> precision the hard way: an
-> independent verification pass ([`experiments/VERIFICATION.md`](experiments/VERIFICATION.md))
-> **withdrew** an earlier headline — the original pooling had counted NeuroNCAP's deterministic
-> per-index episodes as independent replications — and the claim was re-established on 20
-> genuinely-unique episodes (+0.398, CI [+0.133, +0.665] at mini-scene scope), with run indices
-> 0–7 doubling as an exact-reproduction check of the whole apparatus. Three evasive designs to
-> *prevent* the head-on were honestly **refuted** — the last showing *why*: a swerve on a false
-> alarm crashes. Over-claims here get caught by our own audits and corrected in place — that
-> self-correction is the point. Full arc in
-> [Status](#status--where-it-really-stands-the-honest-current-truth).
+A driving planner can produce a dangerous trajectory even when its perception and planning
+outputs appear plausible. An intervention is useful only if it arrives while a better outcome
+is still possible, avoids creating another failure, and leaves the vehicle able to make progress.
 
-The field's open-loop driving metrics are saturated and gameable (an ego-state MLP "wins" nuScenes
-L2). The honest axis is **closed-loop safety**. The end-to-end planner families this campaign
-builds on score **1.84 (UniAD) / 2.75 (VAD) out of 5** on NeuroNCAP and collide in 87.8–99.6% of
-safety-critical scenarios; retrained planners reach ~3.06 (BridgeAD, CVPR 2025, same protocol) —
-every published gain above the baselines changes the planner. Sentinel attacks the unoccupied
-slot: a small, plug-and-play monitor on a *frozen* planner — no fleet, no retraining the planner,
-single-digit GPUs.
+Sentinel studies that decision around a frozen planner. Its implemented monitor uses the
+planner's decoded objects and planned path to request and release braking. Closed-loop
+experiments measure the resulting collisions, severity, progress and intervention burden;
+separate replay checks whether the recorded execution supports the reported result.
 
-> Built on what we already proved. In a prior study ([PerceptionProof](https://github.com/manfromnowhere143/perceptionproof))
-> a cheap label-free signal predicted the **collision gate at AUROC ~0.8**. Sentinel takes that
-> introspective signal **closed-loop, with intervention, to prevent the crash** — the natural
-> sequel: *we showed cheap signals see failure coming; now we use them to stop it.*
+I am building Sentinel to determine which failures remain preventable, what information helps
+choose an effective action in time, and what that intervention costs. The ambition extends
+beyond the current geometric monitor. Each extension must demonstrate a useful improvement
+against a competent responsive baseline, with information access, permitted actions and
+resource budgets stated explicitly.
 
----
+[System](#what-sentinel-does) · [Results](#measured-results) ·
+[Research history](#how-the-question-changed) · [Latest result](#iteration-155-the-background-witness-replays-exactly) ·
+[Next test](#the-next-scientific-test) · [Reproduce](#reproduce-and-inspect) ·
+[Repository status](#repository-status--12-october-2026) · [Experiment index](#complete-experiment-index)
 
-## The result
+## What Sentinel does
 
-Iteration 134 placebo-tested this headline against a semantics-free, budget-matched control and
-returned a pre-registered `PLACEBO_HARM_OR_NULL`: the union's benefit **reproduced** (+0.771 here
-vs the +0.783 below), but whether that benefit *needs* the monitor's risk semantics is **not
-resolved in either direction** — the control realized only 71% of its intended brake dose, a
-confound named in the pre-registration that fired. See row 134 and
-[`iter134`](experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md). The number below
-is a measurement; its mechanism is under test.
+The implemented monitor runs alongside a frozen planner in closed-loop simulation. It can
+request braking and later release that request; the surrounding simulator and controller
+determine the applied motion. The released monitor reads UniAD's **decoded detections,
+confidence scores, track IDs, ego pose and planned trajectory**. It estimates object velocity
+from successive positions in world coordinates. Closest point of approach (CPA) and time to collision (TTC) supply two geometric
+conditions that can request braking:
 
-Across the registered campaign through iteration 134 — including the original monitor validation,
-independent verification, full14 power run, defensibility/robustness gates, VAD/HUGSIM
-external-validity tests, and HUGSIM support-core mechanism documentation line — the core
-closed-loop configuration remains the
-**released union** (two label-free geometric detectors + a threat-cleared latch release) —
-measured on the **complete official 14-scene NeuroNCAP set at 20 seed-paired runs per pair**
-(799 episodes; hypotheses frozen before the run; the first 6 indices of every pair reproduce the
-earlier 6-run measurement exactly):
+1. The planned ego path approaches an object's projected path within **1.5 m**.
+2. The tracked object's closing time-to-collision falls below **2.5 s**, subject to the
+   frozen filtering and closing-speed conditions.
 
-| pooled, all 14 official scenes (n=20/pair) | unmonitored UniAD | Sentinel (released union) |
-|---|---:|---:|
-| **NeuroNCAP score (0–5, the benchmark's metric)** | 2.12 *(published: 1.84 — reproduced)* | **2.91** |
-| side-impact collision rate | 74% | **44%** |
-| stationary collision rate | 29% | **18%** |
-| frontal head-on | 1.24 / 78% | 1.78 / 90% (impact mitigated, not prevented) |
-| safe-progress (safety × route progress) | 2.40 | 2.36 (−0.03, CI [−0.13, +0.07]) |
-
-> **Benchmark score +0.783, 95% CI [+0.605, +0.928] — excludes zero at 3.3× the original
-> power** — with the release mechanism strictly dominating the plain union (identical safety on
-> every cell, safe-progress +0.246, CI [+0.206, +0.293] at n=6). The honest limits, named
-> precisely: the frontal head-on is *mitigated*, not *prevented* (three evasive designs to
-> prevent it were tested and refuted, §Status; the frontal/0346 regression is confirmed real at
-> n=20); and the deployment-metric effect vs the unmonitored planner is a **tight null**
-> (−0.03, CI [−0.13, +0.07]) — the safety gain costs approximately nothing on the deployment
-> metric, and iteration 16 established the residual is not recoverable by softening the stop.
-> The benefit is NeuroNCAP-measured: on a second closed-loop benchmark (HUGSIM, 26 easy+medium
-> scenarios, iteration 48) the frozen rule fires and brakes but the paired HD-Score effect is
-> a **transfer null** (−0.017, CI [−0.055, +0.026]) — the measured external-validity boundary.
-
-The verification pass's fresh mini-scene measurement stands as measured there: at **20
-genuinely-unique episodes per scene** the union is net-positive on safe-progress **+0.398, 95% CI
-[+0.133, +0.665]** — a claim that was first **withdrawn** by our own audit (the original pooling
-had counted deterministic episode replays as independent —
-[`experiments/VERIFICATION.md`](experiments/VERIFICATION.md)) and re-established on fresh data,
-with run indices 0–7 doubling as an exact reproduction of the original iteration-8 data.
-
-In the units an AV safety case is written in (derived from the committed per-frame decision logs
-and ground-truth timing — [`analyze_safety_case.py`](experiments/verification/analyze_safety_case.py)):
-at full14/power scale (iteration 40) the monitor's reconstructable lead time is a median
-**1.30 s** (p05/p95 0.40/3.50 s) over 61 measured episodes, at 111.68 brake frames/km across
-10.79 km; on the mini-scene verification set it fires a median **2.5 s** before counterfactual
-contact and cuts frontal mean impact speed from **13.9 to 6.7 m/s**.
-
-The campaign in one picture — every step measured closed-loop against the same unmonitored planner,
-nulls kept, one headline withdrawn by our own audit and re-established on independent data:
-
-```mermaid
-flowchart LR
-  G1["the signal<br/><b>AUROC 0.83</b>"] --> I2["iter 2 · TTC brake<br/>collision 65 to 13%"]
-  I2 --> I3["iter 3<br/><b>over-brakes</b><br/>honest setback"]
-  I3 --> I45["iters 4-5<br/>selective gating<br/>side-blind"]
-  I45 --> I67["iters 6-7 · CPA<br/>catches the T-bone"]
-  I67 --> U["iter 8 · THE UNION<br/><b>selective + side<br/>+ net-positive</b>"]
-  U --> E9["iters 9-11<br/>three evasions<br/><b>all refuted</b>"]
-  U --> V["verification pass<br/>claim withdrawn, re-measured:<br/><b>+0.398 [+0.133, +0.665]</b>"]
-  classDef win fill:#e2f3e5,stroke:#2e7d32,color:#13361b;
-  classDef bad fill:#fdebec,stroke:#c62828,color:#3b1213;
-  classDef audit fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
-  class G1,I2,U win;
-  class I3,I45,I67,E9 bad;
-  class V audit;
-```
-
-Act two — from a validated method to the benchmark, at power, with the mechanism space mapped:
-
-```mermaid
-flowchart LR
-  N12["iters 12-14<br/>no plan B, two planners ·<br/>RSS: safety by paralysis ·<br/>selectivity not portable"] --> F14["full benchmark, n=6<br/>baseline reproduced<br/><b>2.15 to 3.09</b>"]
-  F14 --> R15["iter 15 · latch release<br/><b>best configuration</b>"]
-  R15 --> X16["iter 16 · crawl refuted<br/><b>measured crossing-cell<br/>stopping boundary</b>"]
-  R15 --> P20["power run · n=20/pair<br/><b>2.12 to 2.91, CI excl. 0</b><br/>deployment: tight null"]
-  P20 --> X17["iter 17 · routing refuted —<br/><b>deployment flip proven<br/>achievable</b>"]
-  X17 --> X18["iter 18 · tracker offline gate<br/><b>12/13 — GPU stays off</b>"]
-  X18 --> H19["iter 19 · diversity head<br/><b>gate refused: 0/37</b> —<br/>collapse is in the<br/>representation"]
-  H19 --> H21["iter 21 · BEV head<br/><b>gate refused: 0/37</b><br/>validity 23%"]
-  classDef win fill:#e2f3e5,stroke:#2e7d32,color:#13361b;
-  classDef bad fill:#fdebec,stroke:#c62828,color:#3b1213;
-  class F14,R15,P20 win;
-  class N12,X16,X17,X18 bad;
-  class H19,H21 bad;
-```
-
-Act three — causal localization is now gated first on artifact validity:
-
-```mermaid
-flowchart LR
-  H21["21 BEV null"] --> Q["causal<br/>localization?"]
-  Q --> F22["22 join fail"]
-  F22 --> S23["23 count null"]
-  S23 --> A24["24 0 scenes"]
-  A24 --> I25["25 inventory null"]
-  I25 --> R26["26 blobs/disk"]
-  R26 --> D27["27 1 TB disk"]
-  D27 --> S28["28 trainval<br/>532 scenes"]
-  S28 --> A29["29 support pass"]
-  A29 --> L30["30 localization pass"]
-  L30 --> I31["31 S0 fail"]
-  I31 --> P32["32 prefix pass"]
-  P32 --> C33["33 cal null"]
-  C33 --> A34["34 scale null"]
-  A34 --> H35["35 no stratum"]
-  H35 --> S36["36 <b>track_query</b> site"]
-  S36 --> T37["37 track_query<br/>calibration null"]
-  T37 --> O38["38 opposite sign<br/>pre-reg only"]
-  classDef bad fill:#fee,stroke:#c00,color:#111;
-  classDef ask fill:#ffe,stroke:#a70,color:#111;
-  classDef data fill:#eef,stroke:#06c,color:#111;
-  classDef win fill:#efe,stroke:#080,color:#111;
-  class H21,F22,S23,A24,I25,R26,I31,C33,A34,H35,T37 bad;
-  class Q,O38 ask;
-  class D27,S28 data;
-  class A29,L30,P32,S36 win;
-```
-
-And the defensibility arc that follows:
-
-```mermaid
-flowchart LR
-  O38["38"] --> A39["39"]
-  A39 --> A40["40"]
-  A40 --> A41["41"]
-  A41 --> A42["42"]
-  A42 --> A43["43"]
-  A43 --> A44["44"]
-  A44 --> A45["45"]
-  A45 --> A46["46"]
-  A46 --> A47["47"]
-  A47 --> A48["48"]
-  A48 --> A49["49"]
-  A49 --> A50["50"]
-  A50 --> A51["51"]
-  A51 --> A52["52"]
-  A52 --> A53["53"]
-  A53 --> A54["54"]
-  A54 --> A55["55"]
-  A55 --> A56["56"]
-  A56 --> A57["57"]
-  A57 --> A58["58"]
-  A58 --> A59["59"]
-  A59 --> A60["60"]
-  A60 --> A61["61"]
-  A61 --> A62["62"]
-  A62 --> A63["63"]
-  A63 --> A64["64"]
-  A64 --> A65["65"]
-  A65 --> A66["66"]
-  A66 --> A67["67"]
-  A67 --> A68["68"]
-  A68 --> A69["69"]
-  A69 --> A70["70"]
-  A70 --> A71["71"]
-  A71 --> A72["72"]
-  A72 --> A73["73"]
-  A73 --> A74["74"]
-  A74 --> A75["75"]
-  A75 --> A76["76"]
-  A76 --> A77["77"]
-```
-
-The winning monitor is a **union of two individually-selective detectors**, chosen because the two
-failure modes are physically distinct — a side T-bone is a real path crossing, while a head-on is
-hidden by the planner's own optimism:
-
-The planner's own `/infer` outputs — plan, detected objects, scores, persistent track IDs,
-forecasts, ego pose — are the monitor's only inputs; nothing privileged. Object velocity is
-*observed* (ego-motion-compensated tracking by ID across frames), not the planner's optimistic
-forecast. The stop is latched — safe even when the trigger is wrong — and, since iteration 15,
-releases after four consecutive verified-clear frames, returning control to the planner. Every
-frame's decision is written to a committed receipt log.
-
-```mermaid
-flowchart LR
-  P["frozen planner<br/>UniAD, weights locked"] -- "plan + objects +<br/>forecasts + track IDs" --> A
-  A["world-frame tracks by ID<br/>= observed velocity"] --> C{"plan vs tracked path<br/>closest approach under 1.5 m?<br/><i>the side T-bone</i>"}
-  A --> T{"observed closing TTC<br/>under 2.5 s?<br/><i>the hidden head-on</i>"}
-  C -- fires --> B["latched stop<br/>releases when clear"]
-  T -- fires --> B
-  C -- neither --> E["planner's plan<br/>unchanged"]
-  B --> S["NeuroNCAP closed loop"]
-  E --> S
-  S --> R[/"score 0-5 · collision % ·<br/>impact speed · progress"/]
-  classDef mon fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
-  classDef act fill:#e2f3e5,stroke:#2e7d32,color:#13361b;
-  classDef base fill:#f6f8fa,stroke:#57606a,color:#1f2328;
-  class A,C,T mon;
-  class B,E act;
-  class P,S,R base;
-```
-
-Neither detector fires on a benign passing object, so the union inherits both terms' selectivity; each
-term catches the danger case the other is blind to. Full derivation — and the honest nulls along the
-way — in the score tracker and [Status](#status--where-it-really-stands-the-honest-current-truth).
-
----
-
-## The number we are chasing (pre-registered)
-
-Primary benchmark: **NeuroNCAP** (public, NeRF/NeuRAD closed-loop on nuScenes). Metric: NeuroNCAP
-**safety score (0–5, ↑)** and **collision rate (%, ↓)**. The win bar is frozen in
-[`PREREGISTRATION.md`](PREREGISTRATION.md): a Sentinel-monitored frozen planner must beat **the same
-unmonitored planner** (and a RiskMonitor-style baseline) with a bootstrap CI excluding zero.
-
-**Status: the primary bar is met at full scale** — on all 14 official scenes at 20 seed-paired
-runs per pair, +0.783 with 95% CI [+0.605, +0.928] against the same unmonitored planner. The
-baseline-comparison arm is covered by the ablations (iteration 2: naive proximity and
-always-brake controls) and the formal-envelope baseline (iteration 13) on identical inputs.
-
-### Score tracker (honest trajectory — updated every iteration)
-
-Read the empty metric cells literally, not as missing work. In the score and collision columns,
-`—` means the pre-registered iteration did not run a closed-loop benchmark arm or that the relevant
-metric was not defined for that gate. Signal studies, offline gates, extraction/data gates, and
-infrastructure gates report their frozen gate metric in the nearest applicable column instead.
-Phrases such as "stopped before probes/interventions" mean the registered gate refused the next
-step; they are intentional stops, not hidden probe failures or unreported GPU runs.
-
-| iter | what we changed | NeuroNCAP score ↑ | collision % ↓ | vs baseline | insight |
-|---|---|---|---|---|---|
-| 0 | published baseline (target) | UniAD 1.84 · VAD 2.75 | 87.8–99.6 | — | the gap we attack |
-| 1a | **stack stood up** — full closed loop on 1 L4, frozen UniAD in the loop, real metric out (smoke: scene-0103 stationary, 2 runs → 5.0/5.0, no collision) | — | — | infra gate **cleared** | the binding constraint was the apparatus, not the idea — [8 blockers cleared](experiments/iter1_reproduce/PROOF_smoke_0103.md) |
-| 1b | **partial baseline + collision corpus** — every public-mini scene, frozen UniAD, 60 closed-loop episodes (frontal/0103, side/0103, stationary/0103, stationary/0796 × 15) | frontal/0103 **1.07** · side/0103 0.51 · stat/0103 5.00 · stat/0796 1.03 | 80 · 100 · 0 · 80 % | frontal **1.07 vs pub 1.17** (matches) | crashes coincide with the planner's own perception collapsing at 5–15 m — the signal iter 2 monitors. [`PARTIAL_BASELINE.md`](experiments/iter1b_partial_baseline/PARTIAL_BASELINE.md) |
-| 2·G1 | **monitor signal validated** — frozen planner's own forecasts foresee its crashes (shadow replay, 40 episodes, 26/14) | — | — | **AUROC 0.83** (label-free) | imminent (≤0.5 s) predicted gap is the signal; sharpens toward imminent (0.67→0.75→0.83 at the cited horizons, one small inversion mid-curve); simplest term wins. [`G1_RESULT.md`](experiments/iter2_monitor/G1_RESULT.md) |
-| 2 | **monitor + TTC brake, frozen planner** — A/B on the corpus | **1.92 → 4.67** | **65% → 13%** | **H1 met** (safety), CI [+2.21,+3.22] | TTC trigger + committed stop; side collisions 100%→0% — *but see iter 3*. [`iter2_monitor`](experiments/iter2_monitor/RESULT.md) |
-| 2·abl | **ablation** — naive-proximity / always-brake controls | — | prox 83 · always 50 · TTC 40 (frontal) | introspective signal **essential** | naive distance brake ≈ useless on fast approaches; closing-speed-from-forecast does the work. [`ABLATION.md`](experiments/iter2_monitor/ABLATION.md) |
-| 3 | **deployment metric (safe-progress)** — does it avoid the crash AND drive? | OFF **2.08** · always 0.49 · TTC 0.58 (safe-prog) | progress: OFF 0.91 · TTC 0.13 | **monitor over-brakes** | honest setback: TTC freezes benign scenes, *not* selective; unmonitored wins safe-progress. Next: introspective gating. [`iter3_progress`](experiments/iter3_progress/RESULT.md) |
-| 4 | **gate on the *agent's* closing speed** — brake only on active threats | gated **2.80** · OFF 2.08 · TTC-old 0.64 (safe-prog) | clean-scene progress restored to OFF (0 brakes) | **net-positive vs OFF** (partial) | selectivity SOLVED; but gate under-brakes real threats (optimistic-forecast velocity) → danger safety lost. Next: track true agent velocity. [`iter4_gated`](experiments/iter4_gated/RESULT.md) |
-| 5 | **observed-velocity gating** — agent velocity from multi-frame tracking, not the forecast | tracked **2.35** · OFF 2.08 (safe-prog) | clean=OFF (0 brakes); frontal coll 83%→**67%** | net-positive; **frontal recovered** | selectivity holds + observed velocity beats the forecast on frontal — but **side-impact still 100%** (its warning is in the ego's motion the gate filters out). Next: plan-vs-tracked-path collision check. [`iter5_tracked`](experiments/iter5_tracked/RESULT.md) |
-| 6 | **plan-vs-tracked-path CPA** — brake if the ego's planned path crosses an agent's tracked path | cpa 2.17 · OFF 2.32 (safe-prog) | **side-impact 100% → 0%** (8/8 avoided) | **side case SOLVED** (but over-brakes) | the T-bone that beat iters 4–5 is caught geometrically; cost = 2.5 m margin also flags benign close passes → clean 33→22 m. Next: tighter margin (~1.0–1.5 m, actual contact rather than near-miss) to keep the side win + restore selectivity. [`iter6_cpa`](experiments/iter6_cpa/RESULT.md) |
-| 7 | **margin sweep** — CPA at 1.5 m vs 1.0 m vs OFF | cpa@1.5 selective (clean 32.3 = OFF) | side **0%** kept; frontal reverts to **100%** | **3 of 4 at once** | tighter margin restores selectivity + keeps the side win, but frontal defeats plan-CPA at *any* tight margin (optimistic plan clears by 3–4 m). No single margin holds all four → **union two detectors**. [`iter7_margin`](experiments/iter7_margin/RESULT.md) |
-| 8 | **the union** — brake if (plan-vs-path CPA < 1.5 m) OR (observed agent-closing TTC < 2.5 s) | union **2.53** · OFF 2.32 (safe-prog) | clean 30.2≈OFF · **side 100→12.5%** (7/8, verification-corrected) · frontal score 1.31→**2.43** | **selective + side-solving + directionally net-positive, at once** | first config to hold 3 of 4 simultaneously; frontal impact strongly *mitigated* (not rate-reduced). Open ceiling: preventing (not softening) frontal head-on — planner optimism + stopping distance. [`iter8_union`](experiments/iter8_union/RESULT.md) |
-| 9 | **evasive steering (AES) for frontal** — threat-aware: side→stop, head-on→swerve | — | frontal evade **1.66/100%** vs union stop **2.53/83%** | **refuted (null)** | naive 4 m swerve can't clear the actor and, keeping speed, hits harder than stopping. Selectivity + side preserved. Committed stop stays best; frontal *prevention* remains open. [`iter9_evade`](experiments/iter9_evade/RESULT.md) |
-| 10 | **braking evasion into a tracked-clear gap** — shed speed *and* steer to the open side | — | frontal brakevade **1.67/100%** vs union stop **2.53/83%** | **refuted (null)** | second evasion family, same result: steering (even while braking) is worse than the pure stop. Two designs converge → committed stop is the frontal *ceiling*; prevention needs more than a single maneuver. [`iter10_brakevade`](experiments/iter10_brakevade/RESULT.md) |
-| ✓ | **statistical validation** — pool the union & OFF arms across iters 8/9/10, bootstrap the safe-progress delta | union 2.60 vs OFF 2.14 (the pooled figures later withdrawn; recorded as `2.142 → 2.597` in [`VERIFICATION.md`](experiments/VERIFICATION.md)) | side "5%" (pooled) | *claimed* net-positive | **WITHDRAWN by the verification pass**: the three "replications" are deterministic replays of the same episodes (n=20 was really n=8 unique); honest CI [−0.27, +0.78] does not exclude 0. [`union_validation`](experiments/union_validation/RESULT.md) |
-| 11 | **early collision-course detection + evasion** — 4 s kinematic closest-approach, then time-gated lane change | — | frontal evade **83%** (= stop 83%); clean **50% crash**; side evade 83% | **refuted (null)** | third evasion refuted, and complete-data audit made it stronger: early detection neither prevents the head-on nor stays selective; evasion on a false alarm *crashes the clean scene 50%* and un-solves the side case (83%). A stop is safe when wrong, a swerve is not. Frontal-prevention line closed. [`iter11_early_evade`](experiments/iter11_early_evade/RESULT.md) |
-| ✚ | **independent verification pass** — re-derive every claim from raw evidence; attack the statistics; re-run fresh at 20 unique episodes | union **2.22** vs OFF 1.83 (n=20 unique) | side 100→**30%** · clean identical to OFF | **net-positive RE-ESTABLISHED**: delta **+0.398, 95% CI [+0.133, +0.665]** | determinism found (episodes replay per run index) → pooled claim withdrawn, then re-measured on 20 genuinely-unique episodes: CI excludes zero; runs 0-7 reproduce iteration 8 exactly (apparatus check); iter11 evasion null re-confirms (worse than stop, degrades the clean scene). Raw evidence committed. [`VERIFICATION.md`](experiments/VERIFICATION.md) |
-| 12 | **introspective plan selection, checkpoint** — log UniAD's 3 command-conditioned candidate plans per frame; does a safe alternative exist when the executed plan is dangerous? | — | escape candidates **0/37 dangerous frames** (bar: >30%) | **null — pre-condition fails** | the mechanism works (candidates diverge up to 14 m in benign frames) but **collapse under threat** (mean gaps 2.85/2.88/2.84 m): the command is routing, not hazard response. Introspection sees the danger; UniAD holds no safer intention to defer to. Pivot (pre-registered): VAD's native `ego_fut_mode=3`. [`iter12_plan_selection`](experiments/iter12_plan_selection/RESULT.md) |
-| 13 | **formal-envelope baseline (RSS-style)** — same tracking, same actuator, physics rule instead of introspection; n=20 unique episodes | RSS **0.88** vs union **2.22** vs OFF 1.83 (safe-prog) | RSS: clean 0% · frontal 30% · side 0% — but ego 3.6–8.2 m (near-freeze) | **H13 confirmed**: union − RSS **+1.345, CI [+0.944, +1.701]** | the envelope posts the campaign's best raw safety *by not driving* — worse than no monitor on the deployment metric. Stopping power is free; **selectivity is what introspection buys** (the plan-aware terms know when the plan clears). [`iter13_rss_baseline`](experiments/iter13_rss_baseline/RESULT.md) |
-| 14 | **second frozen planner (VAD)** — union transfer + native-mode diversity, after four fork-level runtime fixes; n=20/scene | VAD-OFF 2.30 vs VAD+union **0.75** (safe-prog, CI [−2.06, −1.03]) | VAD-OFF fails **stationary 85%** / side 65% (inverted profile!); union: both → **0%** but ego 2.4–3.8 m | **transfer: safety yes, selectivity NO** · **H-VAD-2: 21% escapes < 30% bar** | the union protects exactly where VAD fails, but over-brakes everywhere — decision logs attribute it to the TTC term reading jittery geometric-NN IDs (VAD exposes no tracker): **selectivity is a property of tracking quality, not the rule alone**. Candidates: partial diversity under threat (0.6 m spread, 1-in-5 escapes) — a two-planner collapse spectrum; no re-ranker per the frozen rule. [`vad_generalization`](experiments/vad_generalization/RESULT.md) |
-| f14 | **the full 14-scene benchmark** — OFF vs union, all official scenes, 240 seed-paired episodes | OFF **2.15** (published: 1.84 — independent reproduction, inside the pre-registered ±0.4 tolerance; DMAD's independent rerun at 2.11 corroborates the n=20 pooled 2.12, not this n=6 figure — see [`FRONTIER_POSITIONING`](docs/research/FRONTIER_POSITIONING_2026-07-11.md)) → union **3.09** | side 73→**37%** · stationary 32→**17%** · frontal 77→87% (mitigation) | **benchmark score +0.934, CI [+0.713, +1.155]** · safe-progress −0.17, CI includes 0 | split verdict, both halves first-class: decisive on the benchmark's metric (side survives its scene-luck falsifier on 3/4 unseen scenes; selectivity holds on clean scenes), and the deployment-metric win does **not** generalize (over-braking on unseen benign-progress scenes; frontal/0346 regression named). Open problem defined: brake-budget calibration. [`full14_benchmark`](experiments/full14_benchmark/RESULT.md) |
-| 15 | **threat-cleared latch release** — the stop releases after K=4 clear frames; one new mechanism, thresholds untouched | released **3.09** NCAP = union's · safe-prog 2.45 vs union 2.20 vs OFF 2.37 | safety cells **identical to the union** (44 releases, 0 reopened cases, oscillation 2/120) | **released − union +0.246, CI [+0.206, +0.293]** — strict improvement · vs OFF +0.08, CI includes 0 | **the new best configuration** (dominates the union: same benchmark score, significantly more driving). H15 partial: the deployment gap vs OFF narrows but stays open — a *cost-of-stopping* floor in fixed-horizon episodes, not a triggering flaw. Next mechanisms defined: smaller K under premature-release pressure, or a softer-than-stop intervention. [`iter15_latch_release`](experiments/iter15_latch_release/RESULT.md) |
-| 16 | **softer than a stop** — while latched, the planner's own plan re-parameterized to a 2.0 m/s crawl (speed fixed from committed impact evidence); K=4 release unchanged | crawl NCAP **2.64** vs released 3.09 · safe-prog **2.544** (the campaign's highest) | side 37→**57%** — past the pre-registered 45% falsifier bar (0108: 17→100%, impacts 4–5 m/s at zero score) · stationary at its 25% bar (0101 taps at 1.9–3.4 m/s) | crawl − released: NCAP **−0.450** CI [−0.525, −0.371] · safe-prog +0.096 CI [+0.033, +0.167] · vs OFF +0.171, CI includes 0 | **pre-registered null — the full stop stands on the tested cells.** The crawl delivers the ego into a registered crossing point where the stop halts short. Together with iter 11, only the stop passed both named false- and true-alarm cell comparisons among the tested interventions. [`iter16_soft_stop`](experiments/iter16_soft_stop/RESULT.md) |
-| p20 | **the power run** — OFF vs released union at 20 runs/pair, all 14 scenes (799 episodes); H-P0 gate: first-6 of every pair must reproduce the committed 6-run evidence | OFF **2.12** (published 1.84 — reproduction holds) → released **2.91** | side 74→**44%** · stationary 29→**18%** · frontal 1.24→1.78 (78→90%, mitigation) · frontal/0346 regression **confirmed real** | **benchmark +0.783, CI [+0.605, +0.928]** at 3.3× power · safe-progress **−0.03, CI [−0.13, +0.07]** — tight null | **H-P0 PASS (first-6 exact, all pairs, both arms — through 5 machine freezes, 2 hosts, 4 relaunches**; root cause memory exhaustion, found by an on-box vitals watchdog, fixed with swap; off/side-0921 at n=19, its run_19 reproducibly froze the pre-swap host). The n=6 estimate (+0.934) was modestly optimistic; this replaces it as the headline. [`full14_power`](experiments/full14_power/RESULT.md) |
-| 17 | **threat-class routing** — stop wherever a tracked object's path overlaps the planned corridor (2.0 m, conservative); crawl only where none does; triggers/crawl/release unchanged | routed NCAP **2.92** vs released 3.09 · safe-prog **2.598** (new campaign high) | side 37→**47%** — past the 45% falsifier bar, carried by ONE pair (0108: 17→67%, a crossing the CV projection misses) · stationary 20% ✓ · frontal **1.97** (best of any arm) | routed − OFF safe-prog **+0.226, CI [+0.004, +0.421] — the campaign's FIRST deployment CI excluding zero vs the unmonitored planner** · routed − released: NCAP −0.170 (beyond the 0.15 tolerance), safe-prog +0.150 | **pre-registered null — the safety gate fails, the released union stands (its fourth surviving challenge).** But the deployment flip is now proven *achievable*. All three named successor predicates were then **refuted offline** on the committed log (a no-op; a dead trade; non-separable) — the routing line closes for per-frame geometric predicates, and the discriminating signal is tracking quality, converging with iteration 14. [`iter17_threat_routing`](experiments/iter17_threat_routing/RESULT.md) |
-| 18 | **the tracking layer, offline gate** — association + constant-velocity filter with coasting ([`sentinel/tracker.py`](sentinel/tracker.py), 6 unit tests); pre-registered offline bars on committed logs before any GPU | — (no closed-loop run: that is the point) | O2: **12/13** unsafe crawl frames convert to stops under tracker-based overlap — one miss at 2.2 m vs the frozen 2.0 m margin | **offline gate FAILED by one frame — per the gate rule, the GPU stayed off** | the tracker repairs the measured velocity-flicker class (raw-blind frames at 4.6–6.9 m → tracker sees the actor at 0.5–1.1 m) and retention stays 80%; the tempting margin-widening fix is named as overfitting-until-proven; an initial detection-gap reading was **retracted on the record** (an artifact of a starved diagnostic feed). [`iter18_tracker`](experiments/iter18_tracker/RESULT.md) |
-| 19 | **the diversity-trained candidate head** — first *learned* mechanism: K=8 candidates conditioned on the planner's own planning queries, WTA + repulsion, frozen planner untouched; training data provably disjoint from all evaluation scenes | Stage 1: 2,385-frame corpus; 1.2M-param head at **0.52 m** best-of-8 val WTA · D3 benign fidelity **PASS** (0.769 ≤ 0.780) | **D1 FAIL: 0/37 feasible escapes** on iteration 12's eval-only frames (16 diverging candidates appeared — every one kinematically infeasible) · frame join exact: 311/311, zero plan mismatches across runs four days apart | **pre-registered null — the gate refused the closed loop** | the falsifier written before training fired precisely: the *conditioning choice* is refuted, not the mechanism class — **the collapse lives in the planner's internal planning representation itself** (third measurement, third route: commands 0/37 · VAD modes 21% · learned head on planning queries 0/37). The named scene-level (BEV) survivor is tested separately in iteration 21. [`iter19_diversity_head`](experiments/iter19_diversity_head/RESULT.md) |
-| 20 | **VAD tracker portability, offline gate** — replay committed VAD-union logs through the iteration-18 tracker defaults before any GPU | — (no closed-loop run) | V1 false-closing reduction **0/47 = 0%** · V2 side retention **4/6 = 66.7%** (bar 90%) · V3 frontal firing frames **79 → 90** | **pre-registered null — the gate refused the closed loop** | the simple association + smoothing tracker is **not** the VAD transfer repair: it removes no raw TTC fires, fails side retention, and increases frontal firing. The broad tracking-quality constraint remains, but this zero-GPU bridge is closed. [`iter20_vad_tracker_portability`](experiments/iter20_vad_tracker_portability/RESULT.md) |
-| 21 | **BEV-conditioned diversity head, offline gate** — the scene-level survivor from iteration 19, frozen planner untouched | Stage 1 ([`proof-train/sentinel-bev-train.log`](experiments/iter21_bev_diversity_head/proof-train/sentinel-bev-train.log): `params: 5249696`, `TRAIN_DONE best_val_wta 0.795`): 2,385-frame BEV corpus; 5.25M-param K=8 head, best val WTA **0.795**; eval extraction exact: 311/311, zero plan mismatches | **B1 FAIL: 0/37 feasible escapes** · B2 validity **574/2488 = 23.1%** · B3 benign error **1.449 m** · B4 **0/0** selectable escapes | **pre-registered null — the gate refused the closed loop** | BEV conditioning did not recover a deployable plan B: it produced invalid would-be escapes and failed benign fidelity as well. Narrow reading: this refutes the registered BEV head, not every possible learned planner; but the frozen-planner candidate-head path is closed for both planning-query and BEV variants tested. [`iter21_bev_diversity_head`](experiments/iter21_bev_diversity_head/RESULT.md) |
-| 22 | **causal planner interpretability, Stage 1** — one frozen motion/planning-bridge representation, non-evaluation scenes only, minimum counts, negative controls, and a frozen intervention grid | — (stopped before probes/interventions) | extraction produced 1,507 non-reset rows and 1,507 GT rows, but **1,507 missing-GT joins**; heldout GT rows **0** | **pre-registered data-null — S0 failed; no iter12 or closed loop authorized** | This did not test whether the bridge contains a causal collapse signal. It established that the launched Stage 1 artifact pair cannot support the registered test: timestamp precision mismatch broke the committed join, and the frozen manifest/staged-data combination had no heldout frames. A successor needs a fresh pre-registration. [`iter22_causal_planner_interpretability`](experiments/iter22_causal_planner_interpretability/RESULT.md) |
-| 23 | **S0-hardened causal localization** — same narrow motion/planning-bridge question, but artifact validity is the first research object | — (stopped before probes/interventions) | canary deterministic; full S0 **PASS** with **2,627/2,627** joins, zero error rows; count floor **FAIL**: collapse positives **0** in every split, heldout danger **17/30** | **pre-registered data-null — no probe, iter12, or closed loop authorized** | Iter23 repaired the iter22 join failure and proved the extraction/counting surface, then stopped honestly because the frozen non-evaluation corpus did not contain enough collapse-positive or eligible-intervention frames to test the causal mechanism. [`iter23_s0_hardened_causal_localization`](experiments/iter23_s0_hardened_causal_localization/RESULT.md) |
-| 24 | **fresh risk-support atlas** — data-support prerequisite before another causal-localization attempt | — (stopped before extraction) | known-data firewall PASS; availability FAIL: **0 eligible scenes**, **0 keyframes**, **0 heldout keyframes** after 582 post-firewall candidates all missed local six-camera files | **pre-registered availability-null — no model extraction, probes, iter12, selector, or closed loop authorized** | The firewall did its job: iter22/iter23 known data could not rescue the gate. The result is a staged-data availability null, not evidence for or against the causal signal. [`iter24_risk_support_atlas`](experiments/iter24_risk_support_atlas/RESULT.md) |
-| 25 | **staged-data inventory** — provenance gate before another fresh atlas | — (stopped before extraction) | frozen root inventory FAIL: only `/datasets/nuscenes` exists and it has **0 eligible scenes**, **0 keyframes**, **0 heldout keyframes** after the known-data firewall; four other frozen roots are missing | **pre-registered infrastructure-null — no data download/copy, model extraction, labels, probes, iter12, selector, or closed loop authorized** | The blocker is staged-data availability, not a tested model mechanism. A successor must name a concrete data-staging remedy before any extraction. [`iter25_staged_data_inventory`](experiments/iter25_staged_data_inventory/RESULT.md) |
-| 26 | **data-staging remedy** — source/capacity gate before any download or copy | — (stopped before data movement) | official nuScenes v1.0 trainval sensor blobs identified: **292.78 GB** archive budget; capacity FAIL: **365.975 GB** required by margin, **25.125 GB** free observed | **pre-registered capacity-null — storage provisioning required before download/staging** | Yes, the missing data must be staged/downloaded. Do not start on the current disk; next action is a storage/staging pre-registration. [`iter26_data_staging_remedy`](experiments/iter26_data_staging_remedy/RESULT.md) |
-| 27 | **storage provisioning** — persistent volume before nuScenes staging | — (infrastructure only) | created/attached/formatted/mounted `sentinel-nuscenes-data-1tb`, 1024 GB `pd-balanced`, at `/datasets/nuscenes-full`; free space **1,026,108,792,832 bytes**; Docker/model runs **0**; dataset bytes moved **0** | **pre-registered storage pass — no data staging/model work authorized** | The capacity blocker is cleared, but only for a later data-staging pre-registration. No download, extraction, inventory rerun, labels, probes, iter12, selector, or closed loop is authorized from this pass. [`iter27_storage_provisioning`](experiments/iter27_storage_provisioning/RESULT.md) |
-| 28 | **official nuScenes trainval staging** — stage metadata + sensor blobs before a fresh atlas | — (data gate only) | staged 11 official archives, **314,886,603,672 bytes**, SHA-proved; extracted with **0 unsafe members** across **2,631,374** tar members; six camera channels present with **34,149 files each**; availability PASS: **532** fresh post-firewall train scenes, **21,461** keyframes, **5,360** heldout keyframes | **pre-registered staging/availability pass — not a model result** | `/datasets/nuscenes-full` is now an auditable official trainval root for a fresh pre-registered atlas/research run. No model extraction, labels, probes, iter12, selector, or closed loop authorized by this pass. [`iter28_nuscenes_trainval_staging`](experiments/iter28_nuscenes_trainval_staging/RESULT.md) |
-| 29 | **full-trainval risk-support atlas** — first research gate on the staged official trainval root | — (support atlas only) | S0c full extraction PASS: **532** scenes, **21,461/21,461** joined non-reset rows, zero error rows, stable shapes/dtypes; S1 support PASS: `eligible_lowdiv` **127/108/158** and `benign_control` **5,084/2,344/2,245** fit/calibration/heldout; strict optional support FAIL: `eligible_strict` **0/0/1** | **pre-registered support pass — successor pre-registration authorized; strict-collapse language not authorized** | The official trainval root contains enough fresh low-diversity hazard support and benign controls for a later causal-localization or planner-repair hypothesis. No probe, activation direction, intervention, iter12, selector, or closed-loop work is authorized from this pass. [`iter29_trainval_risk_support_atlas`](experiments/iter29_trainval_risk_support_atlas/RESULT.md) |
-| 30 | **full-trainval low-diversity localization** — diagnostic probe gate on committed iter29 evidence | — (diagnostic only) | S0/S1/S2 PASS: internal tensor AUROC **0.950**, AP **0.615**, balanced accuracy **0.867**; metadata AUROC **0.596**, ego-plan AUROC **0.674**, shuffled-label internal AUROC **0.531**; scene-bootstrap AUROC p05 **0.922** | **pre-registered localization pass — causal-intervention pre-registration authorized; no causal/safety claim** | The motion/planning bridge carries linearly decodable `eligible_lowdiv` information beyond registered controls on heldout full-trainval scenes. No activation direction, intervention, iter12, selector, GPU, or closed-loop work is authorized from this pass. [`iter30_full_trainval_lowdiv_localization`](experiments/iter30_full_trainval_lowdiv_localization/RESULT.md) |
-| 31 | **full-trainval bridge intervention S0 canary** — first causal-intervention harness on the iter30 bridge signal | — (stopped before calibration) | direction artifact PASS; S0 canary repeated hashes PASS for alpha `0.00` and `0.50`; alpha-zero baseline reproduction FAIL: `24` rows checked, `96` comparison failures, max error **30.222 m** vs iteration-29 originals | **pre-registered infrastructure null — calibration, heldout, iter12, selector, and closed loop not authorized** | The intervention harness is deterministic, but the sham run does not reproduce the frozen baseline within the registered `1e-5` tolerance. The experiment stops before any causal/model claim; a successor needs a fresh pre-registration that resolves baseline reproduction. [`iter31_full_trainval_bridge_intervention`](experiments/iter31_full_trainval_bridge_intervention/RESULT.md) |
-| 32 | **prefix replay baseline recovery** — no-op replay audit for the iter31 S0 blocker | — (baseline replay only) | offline manifest PASS: `44` replay rows, `12` target rows, `32` context-only rows; S1 prefix replay PASS: two repeats, `44` rows and `12` targets each; model/GT target hashes repeat; max model and GT deltas vs iter29 **0.0** | **pre-registered baseline-recovery pass — fresh prefix-preserving intervention pre-registration authorized only** | Prefix-preserving no-op replay restores iteration-29 baseline parity for the frozen canary targets. This clears only the replay-form blocker; no intervention, calibration, heldout, iter12, selector, closed-loop, or safety claim is authorized. [`iter32_prefix_replay_baseline_recovery`](experiments/iter32_prefix_replay_baseline_recovery/RESULT.md) |
-| 33 | **prefix-preserving bridge intervention calibration** — repaired replay form plus committed bridge-centroid direction | — (stopped before heldout) | S0 canary PASS; full calibration grid PASS on row integrity for all alphas (`4293/2452/1841` each); alpha selection NULL: best alpha `1.00` had eligible median spread delta **0.0308 m** vs `>0.25 m` bar and fraction `>0.25 m` **0.1296** vs `>=0.50` bar | **pre-registered calibration null — no usable alpha; heldout/iter12/selector/closed loop not authorized** | Prefix-preserving replay is stable and nonzero alphas perturb the bridge without gross corruption, but the committed centroid direction does not move eligible-lowdiv candidate geometry enough to pass calibration. Iter33 stops before heldout. [`iter33_prefix_preserving_bridge_intervention`](experiments/iter33_prefix_preserving_bridge_intervention/RESULT.md) |
-| 34 | **direction-specificity audit** — post-result audit of the failed global bridge-centroid direction | — (offline audit only) | S0 artifact/row integrity PASS; S1 dose-response NULL: only **74/108** eligible rows had nonnegative endpoint-spread slope (`0.685185` vs `0.70` bar), median slope **0.0307 m/alpha** | **post-result audit null — no same-direction scale-only successor authorized** | The same global bridge-centroid direction is closed for scale-only follow-up from these artifacts; a successor must change the intervention family, target site, row conditioning, or claim. [`iter34_direction_specificity_audit`](experiments/iter34_direction_specificity_audit/RESULT.md) |
-| 35 | **response-heterogeneity audit** — post-result audit of the failed direction's row-level structure | — (offline audit only) | S0 PASS; S1 heterogeneity PASS (`42/108` rows slope `>=0.05`, `34/108` slope `<0`, IQR **0.1265 m/alpha**); S2 NULL: **0** frozen strata passed actionability bars | **post-result audit null — no row-conditioned successor authorized from these artifacts** | The response is heterogeneous, but not in a simple baseline-geometry stratum with enough target response and benign support. Future work must change intervention family or target site, not merely scale or row-condition the current global direction. [`iter35_response_heterogeneity_audit`](experiments/iter35_response_heterogeneity_audit/RESULT.md) |
-| 36 | **bridge-site decomposition audit** — frozen subsite probes over `sdc_traj_query_last` slots and `sdc_track_query` | — (offline audit only) | S0 PASS; S1 full-bridge reproduction PASS; S2 target-site PASS: `traj_slot_0`, `traj_slot_2`, `traj_slot_3`, `traj_slot_4`, and **`track_query`** passed diagnostic + scene-bootstrap bars | **site-specific preregistration authorized — diagnostic only, no intervention/safety claim** | The next intervention should not patch the whole bridge vector. The strongest diagnostic target is `track_query` (AUROC **0.9705**, AP **0.7264**, bootstrap AUROC p05 **0.9506**), but any patch still needs a fresh pre-registration and S0 canary. [`iter36_bridge_site_decomposition`](experiments/iter36_bridge_site_decomposition/RESULT.md) |
-| 37 | **track-query site intervention** — prefix-preserving `sdc_track_query`-only causal test | — (stopped before heldout) | S0 canary PASS; full calibration grid PASS on row integrity for all alphas (`4293/2452/1841` each); alpha selection NULL: best alpha `1.00` had eligible median spread delta **−0.0419 m**, fraction `>0.25 m` **0.0741**, and median best-gap delta **−0.001315** | **pre-registered calibration null — no usable alpha; heldout/iter12/selector/closed loop not authorized** | The site-specific track-query harness is stable and wrong-site guarded, but the fit-only centroid direction moves eligible-lowdiv candidate spread in the wrong direction on the median. [`iter37_track_query_site_intervention`](experiments/iter37_track_query_site_intervention/RESULT.md) |
-| 38 | **track-query opposite-direction intervention** — exact sign reversal of the iter37 fit-only `sdc_track_query` centroid direction | — (S0 canary only) | Direction artifact PASS: feature count **256**, fit rows **5,211**, direction SHA **251323cf6ba7361da5aa0a084a6ae5ad5083989df75e10d16f352da845e2983d**, exact negative of iter37 (`max_abs_direction_sum=0.0`, cosine **−1.0**); S0 canary PASS: alpha-zero parity restored, `24/24` target rows changed `track_query`, `24/24` preserved `sdc_traj_query_last` | **active pre-registration — calibration authorized but not launched; no calibration result or safety claim yet** | This is the clean post-iter37 successor: test whether the causal handle was real but the centroid repair sign was reversed. It does not rescue iter37. Per the 2026-07-11 intervention-mechanism verdict, the linear-centroid steering line (iterations 31-38) is closed; iter38 calibration stays deprioritized behind iteration 42, the HUGSIM transfer, and the deployment-flip successor. Iteration 38 published no `RESULT.md`: the numbers above are the S0 artifacts, in [`proof-direction/`](experiments/iter38_track_query_opposite_direction/proof-direction) (`fit_rows 5211`, `cosine_similarity -1.0`, `max_abs_direction_sum 0.0`) and [`proof-canary/`](experiments/iter38_track_query_opposite_direction/proof-canary); the pre-registration is [`HYPOTHESIS.md`](experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md). |
-| 39 | **external-validity claim audit** — hostile active-story audit before more GPU/model work | — (offline claim audit only) | S0/S1/S2 PASS; S3 found **3** active-doc scope/ambiguity findings; report/manuscript titles narrowed to frozen UniAD with measured cross-planner limits; post-narrowing scanner PASS with `0` findings | **doc-narrowing result — no new empirical safety claim** | This is the defensibility pivot: VAD remains a split transfer finding, full14 deployment remains a tight null, activation interventions remain null/active, and sensor/adversarial/latency/deployment-trade-off axes remain untested. [`iter39_external_validity_claim_audit`](experiments/iter39_external_validity_claim_audit/RESULT.md) |
-| 40 | **timing and intervention-cost audit** — full14/power simulation cost and lead-time envelope | — (offline audit only) | S0/S1/S2/S3 PASS; `400/400` best episodes joined; `1,205` brake frames over `10,789.9 m` (`111.68` frames/km); `230/400` intervention episodes; `61` measured lead-time episodes, median `1.30 s`, p05/p95 `0.40/3.50 s`, negative fraction `0.049` | **simulation-scope timing/cost pass — no real-time or deployment claim** | This upgrades the safety-case budget from mini-scene evidence to full14/power logs while preserving boundaries: simulator timestamp lead time, brake-frame budget, full14 safe-progress tight null, and no production-cost or comfort claim. [`iter40_timing_cost_audit`](experiments/iter40_timing_cost_audit/RESULT.md) |
-| 41 | **monitor-input degradation gate** — exact world-frame replay support before perturbation claims | — (offline audit only) | S0 infrastructure NULL: frozen paths, H-P0, Iter40 verdict, and decision-log counts were intact (`8,235` rows, `400` resets, `7,835` non-reset rows, `1,205` brake-key rows), but exact timestamp lookup into committed `p14-best` ego poses missed **1,388/6,474** timestamped monitor frames across **400/400** episodes | **replay-support infrastructure null — perturbations skipped; no sensor/degradation robustness claim** | The current committed full14/power evidence cannot support the registered exact world-frame object-stream replay. No interpolation, nearest-pose snapping, degraded-sensor GPU run, image perturbation, selector, closed-loop, deployment, or safety claim is authorized from this result. [`iter41_sensor_input_degradation_gate`](experiments/iter41_sensor_input_degradation_gate/RESULT.md) |
-| 42 | **exact trace replay support** — log `ego2world` and replay online monitor decisions exactly | — (offline replay-identity gate) | S0/S1/S2/S3 PASS: the single authorized best-arm full14/power capture produced `400/400` reset blocks, exactly `6,474` frame rows / `1,205` brake frames / `156` releases / `230` intervention episodes with `0` field failures; offline replay from logged inputs and logged `ego2world` matched every frame's `fired`/`brake`/`release`/latch state (`0` mismatches) | **trace-substrate pass — authorizes only a future offline object-stream perturbation pre-registration; no degradation or safety claim** | The disciplined repair for Iter41 worked without weakening the rule: instead of interpolating poses post hoc, the online monitor logs the exact transform it used, and replay is identical at perturbation strength zero. [`iter42_exact_trace_replay_support`](experiments/iter42_exact_trace_replay_support/RESULT.md) |
-| 43 | **object-stream perturbation gate** — frozen 14-cell jitter/dropout/score/churn grid over the committed iter42 exact trace, replayed offline | — (offline replay decision-flip gate) | S0/S1 PASS (zero-strength identity exact, trace SHA unchanged, determinism guard pass); verdict **`OBJECT_PERTURBATION_MILD_FRAGILE`**: jitter `0.05 m` gains **17** new interventions (bar `<=8`) and retains `218/230` (bar `>=219`); jitter `0.10 m` worse (`36` new, `1,445` brake frames); dropout `0.05`, score `0.90`, and churn `0.05` all STABLE | **pre-registered mild-fragile finding — over-firing is the fragile direction; no sensor/closed-loop/safety claim** | The rule derives object velocity from cross-frame positions, so independent per-frame position noise manufactures spurious velocity near the CPA/TTC thresholds; disappearing objects, weakened scores, and broken identities degrade gracefully instead. Closed-loop consequences of flipped decisions are not observable offline. [`iter43_object_stream_perturbation_gate`](experiments/iter43_object_stream_perturbation_gate/RESULT.md) |
-| 44 | **velocity temporal-smoothing repair gate** — frozen FD-k / EMA velocity estimators (`k ∈ {2,3}`, `alpha ∈ {0.5,0.3}`) replayed offline over the committed iter42 trace, seed-paired with the iter43 grid | — (offline replay decision-flip gate) | S0/S1/S1b PASS (neutral cells bit-identical to the online stream; iter43 jitter cells reproduced field-for-field); verdict **`VELOCITY_SMOOTHING_NO_REPAIR_NULL`**: every estimator fails V1 fidelity on the clean trace (retention `209–215/230` vs `>= 225`, `5–6` invented interventions vs `<= 4`) and V2 repair (jitter new interventions `11–20` vs `<= 8`, retention below bar) | **pre-registered no-repair null — smoothing halves the over-firing (36 → 18–20 at 0.10 m) but erases 15–21 genuine interventions outright; released union unchanged** | the rule's decision boundary sits on one-frame velocity transients at the 2 Hz cadence: the same spikes that manufacture jitter false-fires also carry a fraction of the true interventions (they vanish under smoothing, not delay — median delay 0), and residual over-firing survives through the CPA term's direct use of the jittered positions; converges with iter18 from the opposite side — no low-pass filter on this estimator is the repair. [`iter44_velocity_smoothing_gate`](experiments/iter44_velocity_smoothing_gate/RESULT.md) |
-| 45 | **HUGSIM infrastructure gate** — stand up the second closed-loop benchmark family: XDimLab scene release staged with a per-file SHA256 manifest, HUGSIM pixi environment built, and the unmodified UniAD_SIM client run on the SAME frozen `uniad_base_e2e.pth` inside the existing `uniad:latest` image | — (infrastructure gate; the single-scenario HD-Score `0.1677` is metric-pipeline evidence, not a performance number) | G1–G4 PASS: assets staged with provenance (306 files, ~61 GB, data disk); both environments up (`torch 2.4.1+cu124`, `gsplat 1.2.0`; client `CLIENT_LOAD_OK` on the NeuroNCAP checkpoint); `scene-0013` renders; the monitor-OFF closed-loop smoke completes end-to-end through the named pipes (15 steps, benchmark-rule termination, finite HD-Score, per-step logs); verdict **`HUGSIM_INFRA_GATE_PASS`** | **the transfer lane is open — authorizes ONLY the Stage-1/2 pre-registration (monitor-OFF reproduction subset, then OFF vs released union, seed-paired); no transfer claim** | one real incompatibility found and bounded: CUDA 11.1's cuSOLVER cannot initialize on the L4 (sm_89), so the client's GPU dense linalg is routed through a recorded interpreter-level CPU shim — client and model code untouched; the checkpoint-mismatch, pipe-deadlock, and VRAM-overflow falsifiers did not fire. [`iter45_hugsim_infra_gate`](experiments/iter45_hugsim_infra_gate/RESULT.md) |
-| 46 | **HUGSIM Stage-1 monitor-OFF baseline** — frozen 52-scenario easy+medium subset (per-yaml SHA256 provenance gate), D0 determinism probe, then the stochastic branch: the first 26 scenarios x 2 back-to-back runs on the same frozen checkpoint, monitor OFF | — (completion gate; the 38-episode HD aggregate — mean `0.3849`, easy `0.4355` / medium `0.3393` — is the registered plausibility context, not a performance number) | D0 verdict **STOCHASTIC** (16 vs 15 steps, `data.pkl` SHA divergence); C1 **FAIL** `38/52` complete — the seven `load_HD_map: true` `-medium-01` scenarios failed both attempts before the client's first step on a missing `maps/expansion/*.json` (the nuScenes map-expansion pack was never staged; the one `-medium-01` without the flag passed); pairing spread median \|ΔHD\| `0.0245` over 19 pairs (bar `0.15`, not fired); verdict **`HUGSIM_OFF_BASELINE_NULL`** | **pre-registered completion null — the Stage-2 OFF-vs-released-union pre-registration is NOT authorized; a successor needs a fresh pre-registration staging the map-expansion pack** | the registered crash-loop falsifier fired in its dual-failure form, but the mechanism is a staging gap, the third of the iteration's record (zip-nesting and 3DRealCar-suffix defects were fixed by a recorded launcher-only amendment): across both launches no episode that reached client stepping ever failed, and every completed episode finished on attempt 1 inside 114-481 s. [`iter46_hugsim_off_baseline`](experiments/iter46_hugsim_off_baseline/RESULT.md) |
-| 47 | **map-expansion staging + OFF-baseline completion** — Stage A stages the official nuScenes map-expansion pack v1.3 (iteration-28-class gate); Stage B re-runs exactly the 14 failed `load_HD_map` `-medium-01` episodes under the carried stochastic D0 verdict, then ONE analyzer run over all 52 (38 carried + 14 new) | — (staging gate + completion re-run; iteration 46's null stands as published) | Stage A **PASS**: archive `398,535,531` bytes with recorded SHA256, redacted public-bucket provenance, `0` unsafe members over `13`, all four `maps/expansion/*.json` vector maps present; Stage B **PASS**: `52/52` episodes complete with finite HD-Score and per-step logs, all 14 new episodes on attempt 1 (wall 102-509 s, bound 1200 s), `retried_episodes = 0`, carried integrity `104/104` files byte-identical, pairing falsifier NOT fired over all 26 pairs (median \|ΔHD\| `0.0251`, bar `0.15`) | **pre-registered PASS — the full 52-episode monitor-OFF arm stands; authorizes ONLY the iteration-48 Stage-2 OFF-vs-released-union pre-registration** | completion re-earned, not retroactively repaired: iteration 46's null stands, the map-staging diagnosis is confirmed by cure (all seven formerly dual-failing scenarios completed first-attempt), and the 26-pair spread is heavy-tailed (22/26 pairs <= `0.09`, max `0.7419` on `scene-0138-medium-01`) — that shape binds the Stage-2 paired design. [`iter47_map_staging_and_off_completion`](experiments/iter47_map_staging_and_off_completion/RESULT.md) |
-| 48 | **HUGSIM Stage-2 transfer gate** — THE transfer verdict of the second-benchmark line: monitor-OFF vs the released union under the seven NeuroNCAP-frozen parameters (zero retuning, F1 void discipline), client-side interception in UniAD_SIM's e2e loop, 26 scenarios x 2 runs x 2 arms with within-launch back-to-back pairing under the carried stochastic verdict, ONE analyzer run | mean paired HD-Score delta (ON − OFF) over 52 pairs, 95% scenario-clustered bootstrap CI (26 clusters, 10,000 draws, seed 48); median-delta CI as the registered heavy-tail treatment | `104/104` episodes complete, `0` retries, `0` dual failures; F1 passed (patch SHA byte-identical to the committed copy, frozen params echoed in receipts and all 52 ON decision logs); primary mean delta `−0.0166` CI `[−0.0551, +0.0255]` (includes zero), median `+0.0032` CI `[−0.0467, +0.0178]`; firing: `37/52` ON episodes intervened, `887` fired / `1,392` brake frames (`26.9%` pooled), `134` latch releases; mean paired RC delta `−0.0147` (bar `−0.30`); fresh OFF-OFF median \|ΔHD\| `0.0307` (bar `0.15`) | **pre-registered TRANSFER_NULL — the NeuroNCAP benefit does not measurably transfer to HUGSIM easy+medium at this N; published at full weight as the measured external-validity boundary; no NeuroNCAP-equivalence, deployment, or safety claim** | the frozen rule demonstrably operates on HUGSIM — fires, latches, releases; F2 over-firing NOT fired (iteration 43's splat-noise prediction lands as broad-but-not-constant firing, 2 episodes >80% brake frames, pooled 26.9%), F3 RC collapse NOT fired (iteration 13's paralysis did not recur) — but the interventions buy no measurable HD change against a noise floor where single stochastic pairs swing most of the score range; the named hard-tier successor is iteration 49, and any further successor needs a fresh pre-registration. [`iter48_hugsim_transfer_gate`](experiments/iter48_hugsim_transfer_gate/RESULT.md) |
-| 49 | **HUGSIM hard/extreme-tier transfer gate** — the collision-dominant regime test: the byte-identical iteration-48 patch (frozen params, F1 SHA discipline) on the lexicographically first 26 of the 36 harder-tier yamls (13 scenes x {extreme-00, hard-00}; 15 of 26 script an `AttackPlanner`), 104 episodes, within-launch back-to-back pairing, pre-launch asset pre-check gate | mean paired HD-Score delta (ON − OFF) over 52 pairs, 95% scenario-clustered bootstrap CI (26 clusters, 10,000 draws, seed 49); fresh harder-tier OFF-OFF noise floor via F5; iteration-50 P1 opportunity branch | `104/104` episodes complete, `0` retries, `0` failed dirs; F1 passed mechanically (patch SHA byte-identical, seven frozen params echoed); primary mean delta `−0.0089`, CI `[−0.0438, +0.0203]` (includes zero), median `+0.0011`, CI `[−0.0077, +0.0105]`; firing: `40/52` ON episodes intervened, `275` fired frames / `526` brake frames (`22.3%` pooled), `58` releases, no step caps; F2/F3/F5 not fired; P1 opportunity `51/52` | **pre-registered TRANSFER_NULL — the hard/extreme collision-regime extension does not re-establish the NeuroNCAP benefit; P1 Branch B is REFUTED, so the failure is real, not opportunity-scarce** | the frozen rule operates and collision opportunity is nearly universal, but the paired HD outcome remains null; the descriptive tier split is not a claim (hard mean `+0.0011`, extreme `−0.0189`); no NeuroNCAP-equivalence, deployment, benchmark-ranking, robustness, or safety claim. [`iter49_hugsim_hard_tier_gate`](experiments/iter49_hugsim_hard_tier_gate/RESULT.md) |
-| 50 | **collision-opportunity audit** — entirely offline over committed evidence (zero GPU/gcloud): does collision opportunity explain where the union's benefit appears? Frozen definitions (HUGSIM OFF `eval.json` `nc_min < 1.0` primary; `any_collide@0.0s` per-pair rate on NeuroNCAP; `0.25` fraction bar), circularity guard (labels from OFF arms only), and the frozen prediction P1 for iteration 49 — committed ALONE while iteration 49's run was in flight and unread | A1: Spearman rho over the 20 full14/power pairs (OFF collision rate vs paired benefit), 10,000-draw pair-resampling bootstrap CI, seed 50, bar `rho >= +0.5` with CI excluding 0; A2: iteration-48 OFF-arm primary-opportunity fraction vs the `0.25` bar | integrity all-pass (tar `399/400` metrics over 20 pairs, `side-0921 n=19` detected, published iteration-48 mean reproduced to `1e-9`); **A1_CONFIRMED**: rho `+0.7003`, CI `[+0.3909, +0.8762]`; strata means `+0.989` (12 pairs at rate `>= 0.5`) vs `+0.263` (8 below); **A2**: `40/52` (`76.9%`) of iteration-48 OFF episodes carry primary opportunity, and the independent iteration-46/47 baseline corroborates at exactly `40/52`; descriptive paired deltas: with-opportunity mean `+0.0013`, without `−0.0765` | **`OPPORTUNITY_AUDIT_COMPLETE` — the iteration-48 `TRANSFER_NULL` is classified `OPPORTUNITY_PRESENT_NULL`: opportunity was abundant and the interventions converted none of it; the classification does NOT upgrade the null** | on NeuroNCAP the benefit is an opportunity-conversion effect (it concentrates where the OFF arm collides); on HUGSIM the same frozen rule fired amid 40 collision-bearing OFF episodes and bought nothing — the transfer boundary is the mechanism's firing not aligning with what causes HUGSIM collisions, not the benchmark lacking safety-critical content; P1 (registered before any iteration-49 read) binds the hard-tier interpretation: opportunity present + positive CI confirms, opportunity present + null makes the transfer failure REAL. [`iter50_collision_opportunity_audit`](experiments/iter50_collision_opportunity_audit/RESULT.md) |
-| 51 | **HUGSIM transfer-failure taxonomy** — offline post-result audit over committed iteration-48/49 HUGSIM proof only: classify each paired episode by OFF collision opportunity, ON collision persistence/conversion, ON brake timing proxy, and descriptive HD materiality; zero GPU/gcloud/box reads and no retuning | 104 paired HUGSIM transfer episodes; primary categories frozen before the analyzer ran; `MATERIAL_HD_BAR = 0.03` descriptive only; dominance label requires one category to cover at least 40% of OFF-opportunity pairs | infrastructure all-pass: transfer means reproduced exactly; P1 cross-check matched `51` recomputed vs `51` recorded; combined counts: persistent late-by-proxy `34`, persistent early-by-proxy `33`, persistent no-brake `18`, induced collision `7`, clean no-opportunity `6`, converted no-material-gain `4`, converted material-gain `2`; combined largest category `34/91 = 0.374`, below the dominance bar | **`TAXONOMY_COMPLETE` — mixed taxonomy, not a single-cause failure; only `6/91` OFF-opportunity pairs convert, and only `2` conversions clear the descriptive material-gain deadband** | hard/extreme is the sharpest boundary: `51/52` opportunity pairs, `0/52` conversions, all opportunity pairs persistent; AttackPlanner scenarios lean late-by-proxy (`15/30`), non-AttackPlanner hard/extreme scenarios lean early-by-proxy (`10/21`); no safety/transfer/deployment/robustness claim, and the timing labels are descriptive proxies only. [`iter51_hugsim_failure_taxonomy`](experiments/iter51_hugsim_failure_taxonomy/RESULT.md) |
-| 52 | **HUGSIM ON-collision timing audit** — offline post-result audit over committed iteration-48/49 HUGSIM proof only: for ON-collision episodes, compare first ON collision time, first brake time, and frozen TTC/CPA surface-proxy entry; disclosed prototype counts, no inferential surprise claim | 92 ON-collision episodes out of 104 paired transfer episodes; timing bins: unknown, no-brake/no-surface-proxy, no-brake/surface-proxy-present, post-collision first brake, short-lead brake, long-lead brake; surface proxy = `min_ttc <= 2.5` and `min_cpa <= 1.5` | infrastructure all-pass: pair count and ON-collision count cross-checked against iteration 51 (`104`, `92`); combined bins: post-collision first brake `35`, long-lead brake `26`, no-brake/no-surface-proxy `22`, short-lead brake `9`, no-brake/surface-proxy-present `0`, unknown `0`; family split absent/post `57`, pre-collision brake `35` | **`TIMING_AUDIT_COMPLETE` — absent/post-collision braking is larger than pre-collision braking, but 35 pre-collision-brake collisions (26 long-lead) make a pure brake-earlier repair story insufficient** | all 22 no-brake ON-collision cases had zero frozen TTC/CPA surface-proxy rows, so they are surface-miss by this scalar proxy; hard/extreme remains sharp (`52/52` ON collisions, absent/post `33`, pre `19`); no actor-identity, safety, transfer, robustness, deployment, or retuning claim. [`iter52_hugsim_on_collision_timing_audit`](experiments/iter52_hugsim_on_collision_timing_audit/RESULT.md) |
-| 53 | **HUGSIM first-fire channel audit** — offline post-result audit over committed iteration-48/49 HUGSIM proof only: reconstruct the released union's first fired row as TTC-only, CPA-only, both, no-fire, or unreconstructable; disclosed pre-freeze patch/prototype inspections, no inferential surprise claim | 104 paired HUGSIM transfer episodes; 92 ON-collision episodes; first-fire channel = actual OR predicate side on the first fired decision row | infrastructure all-pass: pair count matched iteration 52 (`104` vs `104`), timing-bin mismatches `0`, unreconstructable first-fire channels `0`; ON-collision first-fire channels: TTC-only `36`, CPA-only `33`, no-fire `22`, both `1`; pre-collision-fire ON collisions: CPA-only `19`, TTC-only `16`, both/no-fire `0` | **`FIRST_FIRE_CHANNEL_COMPLETE` — the pre-collision-fire persistent cases split across both sides of the union, so the HUGSIM failure is not one bad branch** | the stricter simultaneous TTC/CPA surface proxy from iteration 52 was too strict to describe the actual OR predicate, but reconstructing the OR does not rescue the transfer null; next mature line is object/path geometry and provenance, not threshold retuning. [`iter53_hugsim_first_fire_channel_audit`](experiments/iter53_hugsim_first_fire_channel_audit/RESULT.md) |
-| 54 | **HUGSIM provenance support audit** — offline support audit over committed iteration-48/49 HUGSIM proof only: reconstruct first-fire monitor argmin object/path provenance, then check whether HUGSIM eval artifacts log collision actor identity; disclosed schema/patch inspections, no inferential surprise claim | 104 paired HUGSIM ON episodes; 92 ON-collision episodes; iteration-53 report used only for pair/channel/timing cross-checks | infrastructure all-pass: pair count matched iteration 53 (`104` vs `104`), channel mismatches `0`, timing mismatches `0`; monitor-side provenance reconstructs cleanly: unique TTC object `40`, unique CPA object `36`, both-distinct objects `1`, no-fire `27`, reconstruction failures `0`; collision actor support `0/104` | **`PROVENANCE_SUPPORT_NULL` — committed logs support monitor-hazard reconstruction but not actor matching, because HUGSIM collision actor identity is not logged** | the next credible HUGSIM run needs collision actor/contact/proximity instrumentation before any actor-match claim; no safety, transfer, deployment, benchmark, actor-identity, or retuning claim. [`iter54_hugsim_provenance_support_audit`](experiments/iter54_hugsim_provenance_support_audit/RESULT.md) |
-| 55 | **HUGSIM collision instrumentation source audit** — source-only audit over the frozen HUGSIM checkout; verify source SHA and map where `eval.json` / `nc` / HD-Score and collision/proximity provenance can be instrumented in a future patch | frozen HUGSIM source at `62c690d39fd90020e68a196bd8bcc1c4d4191f2e`; 153 source-like files scanned, 103 candidates found | checkout identity matched the frozen SHA; labels all pass: metric source identified, collision geometry source identified, actor identity available in source, instrumentation point supported, source map not insufficient; top candidates: `sim/utils/score_calculator.py`, `closed_loop.py` | **`COLLISION_INSTRUMENTATION_SOURCE_MAP_COMPLETE` — a future no-metric-change provenance logging patch is designable from source** | no HUGSIM run, no implementation, no actor attribution, no safety/transfer/deployment/benchmark/retuning claim; the next step still needs a fresh instrumentation pre-registration. [`iter55_hugsim_collision_instrumentation_source_audit`](experiments/iter55_hugsim_collision_instrumentation_source_audit/RESULT.md) |
-| 56 | **HUGSIM provenance instrumentation patch design** — source-only patch-design gate after iteration 55; draft a no-metric-change `collision_provenance` sidecar patch and statically verify it before any run | frozen HUGSIM source at `62c690d39fd90020e68a196bd8bcc1c4d4191f2e`; one patch file against `sim/utils/score_calculator.py`; verifier applies patch to a clean temp clone and compiles changed Python | source SHA matched, patch applied cleanly, changed file allowed, required provenance fields present, Python compile passed; static metric/control guard failed on `if score_nc == 0.0:` because the frozen guard flags changed lines containing `score_nc =` | **`INSTRUMENTATION_PATCH_DESIGN_NULL` — first patch draft rejected by registered static guard** | patch is not authorized for a run; no actor attribution, HD-Score execution, safety/transfer/deployment/benchmark/retuning claim; successor needs fresh guard/patch pre-registration. [`iter56_hugsim_provenance_instrumentation_patch`](experiments/iter56_hugsim_provenance_instrumentation_patch/RESULT.md) |
-| 57 | **HUGSIM provenance patch guard refinement** — static verifier refinement over the byte-identical iteration-56 patch; distinguish metric/control assignments from read-only score comparisons | same patch SHA256 `49eee7611e4b881d2bb6233e8767913019c6a097c6883762414005d5b2284ecd`; frozen HUGSIM source at `62c690d39fd90020e68a196bd8bcc1c4d4191f2e` | all refined labels pass: patch SHA match, source SHA match, patch applies cleanly, changed file allowed, required provenance fields present, metric-assignment guard pass, control-call guard pass, score-list guard pass, Python compile pass | **`PATCH_GUARD_REFINEMENT_COMPLETE` — byte-identical patch is statically supported as additive provenance instrumentation** | still no HUGSIM run, no HD-Score execution invariance, no actor attribution, no safety/transfer/deployment/benchmark/retuning claim; any run needs a fresh pre-registration. [`iter57_hugsim_patch_guard_refinement`](experiments/iter57_hugsim_patch_guard_refinement/RESULT.md) |
-| 58 | **HUGSIM provenance instrumented canary** — first real HUGSIM execution of the byte-bound provenance patch, on a registered two-episode OFF/ON collision canary | `scene-0013-hard-00` OFF r1 then ON r1; HUGSIM patch SHA256 `49eee7611e4b881d2bb6233e8767913019c6a097c6883762414005d5b2284ecd`; released-union monitor patch SHA256 `6b39fd79d00c7bdb937c6d240fbc4648661b235f1a3024912d62874937146c5c` | both episodes completed first-attempt; `nc_min = 0.0` in both; top-level `collision_provenance` emitted with counts `11` OFF and `13` ON; scalar metric keys present; `details` rows scalar-only; ON decision log present | **`PROVENANCE_CANARY_COMPLETE` — byte-identical patch executes and emits top-level collision provenance in the registered canary** | instrumentation-execution blocker retired only; no actor-match, HD-Score-invariance, safety/transfer/deployment/benchmark/retuning claim; successor needs a fresh actor-match pre-registration. [`iter58_hugsim_provenance_instrumented_canary`](experiments/iter58_hugsim_provenance_instrumented_canary/RESULT.md) |
-| 59 | **HUGSIM actor-match support audit** — bounded same-run comparison between monitor first-fire hazard provenance and HUGSIM collision provenance | eight registered Sentinel-ON episodes only; frozen bridge compares monitor-local `(forward,lateral)` to HUGSIM foreground `obs_box[:2]`; classifiable support requires first fire before/equal first foreground collision and unique monitor argmin | all 8 completed first-attempt with intact scalar schema, scalar-only `details`, top-level provenance, and ON decision logs; support counts: `classifiable_foreground` 3, `no_monitor_fire` 2, `post_collision_fire` 2, `background_collision_only` 1; bridge counts: `actor_mismatch` 3 | **`ACTOR_MATCH_AUDIT_COMPLETE` — support exists and all three classifiable foreground rows are mismatches by the frozen bridge** | bounded mechanism audit only: distances 15.43 m, 21.99 m, 37.04 m; no population actor-mismatch rate, no repair, no safety/transfer/deployment/benchmark/retuning claim. [`iter59_hugsim_actor_match_audit`](experiments/iter59_hugsim_actor_match_audit/RESULT.md) |
-| 60 | **Actor-match bridge sensitivity audit** — offline sensitivity over the three iteration-59 classifiable foreground rows only | committed iteration-59 proof/report; 16 frozen bridge variants per row: first-fire vs propagated position, two axis orders, four sign flips; no fitted transform or retuning | all three rows reconstructed; 48 variants evaluated; counts: `robust_mismatch` 2, `bridge_ambiguous_possible` 1; no `bridge_match_possible`; minimum distance `5.6649 m` | **`BRIDGE_AMBIGUOUS_NULL` — no bounded variant makes a match, but one row becomes ambiguous, so robust all-row mismatch is not supported** | narrows iteration 59 honestly: zero matches, one ambiguous bridge case, two robust mismatches; no actor-causality, repair, population mismatch-rate, safety/transfer/deployment/benchmark/retuning claim. [`iter60_actor_bridge_sensitivity`](experiments/iter60_actor_bridge_sensitivity/RESULT.md) |
-| 61 | **Monitor object-surface audit** — compare every first-fire monitor object to every eligible HUGSIM foreground provenance row under the frozen bridge grid | committed iteration-59/60 proof only; three classifiable rows; trigger vs non-trigger object labels; 2,384 object/provenance/bridge variants | rows: `no_monitor_object_support` 2, `nontrigger_object_match` 1; `ttc_extreme_b` non-trigger `object_id=16` matches at `2.0686 m` while trigger `object_id=1` remains ambiguous at `5.6649 m` | **`OBJECT_SURFACE_NONTRIGGER_MATCH_COMPLETE` — one row supports wrong-object/wrong-hazard selection; two rows still lack first-fire object support** | bounded three-row mechanism audit only; no actor-causality, repair, population mismatch-rate, safety/transfer/deployment/benchmark/retuning claim. [`iter61_monitor_object_surface_audit`](experiments/iter61_monitor_object_surface_audit/RESULT.md) |
-| 62 | **Non-trigger ranking audit** — one-row selector audit for the Iter61 matched non-trigger object | committed iteration-59/61 proof only; reconstruct every first-fire object's CPA/TTC values and ranks in `ttc_extreme_b` | matched non-trigger `object_id=16`: `min_cpa=22.7648 m`, CPA rank `9/9`, `ttc=null`, no CPA/TTC crossing; trigger `object_id=1`: TTC-only, `ttc=2.1303 s`, TTC rank `1` | **`MATCHED_OBJECT_SUBTHRESHOLD_COMPLETE` — the matched object was visible but outside the frozen first-fire hazard surface** | one-row selector-surface fact only; no actor-causality, repair, population mismatch-rate, safety/transfer/deployment/benchmark/retuning claim. [`iter62_nontrigger_ranking_audit`](experiments/iter62_nontrigger_ranking_audit/RESULT.md) |
-| 63 | **Temporal emergence audit** — follow the Iter61/62 matched non-trigger object through pre-contact monitor frames | committed iteration-59/61/62 proof only; target `ttc_extreme_b` `object_id=16`; pre-contact rows are `ts < 7.25 s` | object present in 13 of 29 pre-contact frames; hazard frames `0`; borderline frames `0`; min CPA `12.1690 m`; min TTC `null`; contact-time row also subthreshold | **`TEMPORAL_VISIBLE_NEVER_HAZARD_COMPLETE` — the collision-near object never becomes a frozen CPA/TTC hazard before contact** | one-object temporal surface audit only; no actor-causality, repair, population mismatch-rate, safety/transfer/deployment/benchmark/retuning claim. [`iter63_temporal_emergence_audit`](experiments/iter63_temporal_emergence_audit/RESULT.md) |
-| 64 | **Unsupported-row temporal surface audit** — expand the two no-first-fire-support rows to all pre-contact decision objects | committed iteration-59/61 proof only; targets `ttc_extreme_short` and `cpa_medium_b`; frozen 16-variant bridge grid over every pre-contact object/provenance pair | both rows become `pre_contact_object_match`; best distances `1.6718 m` and `0.4325 m`; `28,016` variants evaluated | **`UNSUPPORTED_TEMPORAL_MATCH_COMPLETE` — first-fire support is absent, but pre-contact object-surface support exists in both rows** | two-row temporal object-surface audit only; no actor-causality, repair, population mismatch-rate, safety/transfer/deployment/benchmark/retuning claim. [`iter64_unsupported_temporal_surface_audit`](experiments/iter64_unsupported_temporal_surface_audit/RESULT.md) |
-| 65 | **Matched pre-contact temporal alignment audit** — reconstruct released CPA/TTC metrics for the two Iter64 matched objects at their matched decision timestamps | committed iteration-59/61/64 proof only; targets `ttc_extreme_short` `object_id=2` and `cpa_medium_b` `object_id=6` | both rows classify `matched_object_subthreshold`; `object_id=2` at `0.25 s`: min CPA `12.7240 m`, TTC `3.5763 s`; `object_id=6` at `2.25 s`: min CPA `9.3179 m`, TTC `null`; one matched object later equals first-fire object | **`TEMPORAL_ALIGNMENT_SUBTHRESHOLD_COMPLETE` — the pre-contact matches are visible geometry, not active released-union hazards at their matched timestamps** | two-row temporal/provenance alignment audit only; no actor-causality, repair, population mismatch-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/retuning claim. [`iter65_temporal_alignment_audit`](experiments/iter65_temporal_alignment_audit/RESULT.md) |
-| 66 | **Matched-object hazard timeline audit** — follow the two Iter65 target objects across every pre-contact decision frame | committed iteration-59/61/64/65 proof only; targets `ttc_extreme_short` `object_id=2` and `cpa_medium_b` `object_id=6`; released CPA/TTC thresholds unchanged | mixed labels: `object_id=2` becomes active TTC hazard at `1.50 s` after borderline frames at `0.25 s` and `0.50 s`; `object_id=6` is present in `13/25` pre-contact frames with zero active or borderline frames | **`MATCHED_OBJECT_TIMELINE_MIXED_COMPLETE` — one matched object is late-emerging, the other remains visible-never-active** | two-row target-object temporal surface audit only; no actor-causality, repair, population mismatch-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/retuning claim. [`iter66_matched_object_timeline_audit`](experiments/iter66_matched_object_timeline_audit/RESULT.md) |
-| 67 | **Trigger-target bridge audit** — compare each row's first-fire trigger object against the bridge-matched target object under the frozen bridge grid | committed iteration-59/61/64/65/66 proof only; targets `ttc_extreme_short` and `cpa_medium_b`; compare full pre-contact surface and first-fire trigger surface | one same-object target/trigger row and one split-object row; full-window target matches `1.6718 m` and `0.4325 m`; full-window trigger matches `1.6718 m` and `2.8332 m`; first-fire trigger distances are unsupported (`6.9272 m`, `19.6983 m`) | **`TRIGGER_TARGET_SAME_AND_SPLIT_COMPLETE` — the split row is not trigger-unsupported globally, but first-fire trigger support is absent at the fire timestamp** | two-row trigger/target bridge audit only; no actor-causality, repair, population mismatch-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/retuning claim. [`iter67_trigger_target_bridge_audit`](experiments/iter67_trigger_target_bridge_audit/RESULT.md) |
-| 68 | **Fire-time bridge decomposition audit** — decompose first-fire trigger support gaps against each trigger's best full-window bridge support | committed iteration-59/61/64/65/66/67 reports only; fixed first-fire trigger objects `2` and `1`; no geometry recomputation beyond frozen surfaces | temporal split: `ttc_extreme_short` best support occurs `1.25 s` before first fire (`6.9272 m` -> `1.6718 m`); `cpa_medium_b` best support occurs `2.00 s` after first fire (`19.6983 m` -> `2.8332 m`) | **`FIRE_TIME_BRIDGE_GAP_TEMPORAL_SPLIT_COMPLETE` — fire-time support gaps can be pre-fire or post-fire temporal misalignment** | two-row fire-time bridge decomposition only; no actor-causality, repair, population mismatch-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/retuning claim. [`iter68_fire_time_bridge_decomposition`](experiments/iter68_fire_time_bridge_decomposition/RESULT.md) |
-| 69 | **HUGSIM mechanism taxonomy synthesis** — synthesize the eight iteration-59 ON actor-match rows from committed downstream reports only | committed iteration-59/61/63/64/65/66/67/68 reports; no GPU, live box read, new HUGSIM episode, threshold change, or retuning | all eight rows classified; structural rows preserved (`no_monitor_fire` 2, `post_collision_fire` 2, `background_collision_only` 1); all three classifiable foreground rows refined | **`HUGSIM_MECHANISM_TAXONOMY_COMPLETE` — the mechanism map is mixed: non-trigger visible-never-hazard, same-object late fire after best bridge, and split-object visible-never-active fire before best bridge** | eight-row evidence synthesis only; no actor-causality, repair, population mismatch-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/retuning claim. [`iter69_hugsim_mechanism_taxonomy`](experiments/iter69_hugsim_mechanism_taxonomy/RESULT.md) |
-| 70 | **HUGSIM structural-row timing audit** — refine the five iteration-69 structural rows using committed iteration-59 proof and decision logs | committed iteration-59 proof/report and iteration-69 taxonomy only; report/log cross-check for monitor frames, fired/brake counts, first-fire timestamp, and channel | all five structural rows classified: surface-silent foreground-present `2`, late-fire foreground-present `2`, foreground-absent/background-only `1`; both late-fire rows fire `+1.75 s` after first foreground timestamp | **`HUGSIM_STRUCTURAL_TIMING_TAXONOMY_COMPLETE` — the structural side is not one bucket: two no-fire foreground cases, two late-fire foreground cases, and one true background-only case** | five-row structural timing/support audit only; no actor-causality, repair, population mismatch-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/retuning claim. [`iter70_hugsim_structural_timing_audit`](experiments/iter70_hugsim_structural_timing_audit/RESULT.md) |
-| 71 | **HUGSIM surface-silent margin audit** — test the two foreground-present no-fire rows against frozen CPA/TTC margins before foreground contact | committed iteration-59 proof/report and iteration-70 structural timing report only; descriptive bands, not candidate thresholds | both fixed rows classify `surface_silent_far_margin`; no near-margin rows and no no-object rows; closest margins: `mixed_extreme` CPA `+2.6062 m`, `nofire_hard_control` TTC `+3.4560 s` and CPA `+6.4779 m` | **`HUGSIM_SURFACE_SILENT_MARGIN_COMPLETE` — the no-fire foreground rows are not small threshold misses under the registered bands** | two-row descriptive margin audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/retuning claim. [`iter71_hugsim_surface_silent_margin_audit`](experiments/iter71_hugsim_surface_silent_margin_audit/RESULT.md) |
-| 72 | **HUGSIM late-fire prefire margin audit** — test the two foreground-present late-fire rows against frozen CPA/TTC margins before foreground contact | committed iteration-59 proof/report and iteration-70 structural timing report only; descriptive bands, not candidate thresholds | both fixed rows classify near-margin before contact: `both_distinct_extreme` near CPA (`+0.5355 m`), `ttc_medium_a` near TTC (`+0.7742 s`); both first fires occur `+1.75 s` after foreground | **`HUGSIM_LATE_FIRE_PREFIRE_MARGIN_COMPLETE` — late-fire rows are near but not crossing before contact, unlike the far-margin no-fire rows** | two-row descriptive prefire margin audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/retuning claim. [`iter72_hugsim_late_fire_prefire_margin_audit`](experiments/iter72_hugsim_late_fire_prefire_margin_audit/RESULT.md) |
-| 73 | **HUGSIM structural margin-transition audit** — compare all four foreground-present structural rows on full decision-log margin timelines | committed iteration-59 proof/report plus iteration-70/71/72 reports only; full-log first-near and first-active timestamps relative to foreground contact | exact split: surface-silent rows are `silent_far_never_active` 2/2; late-fire rows are `late_prefire_near_postcontact_active` 2/2; late rows first active at `+1.75 s` | **`HUGSIM_MARGIN_TRANSITION_SPLIT_COMPLETE` — structural branch contrast is far/never-active vs near-before-contact/postcontact-active** | four-row descriptive margin-transition audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/retuning claim. [`iter73_hugsim_margin_transition_audit`](experiments/iter73_hugsim_margin_transition_audit/RESULT.md) |
-| 74 | **HUGSIM late-fire delay-barrier audit** — classify whether the two late-fire rows are same-channel or cross-channel post-contact activations | committed iteration-59 proof/report plus iteration-70/72/73 reports only; pre-contact near-channel sets vs first-active channel sets | both fixed rows classify `cross_channel_late_activation`: `both_distinct_extreme` CPA-near -> TTC-active, `ttc_medium_a` TTC-near -> CPA-active; both first active at `+1.75 s` | **`HUGSIM_LATE_FIRE_CROSS_CHANNEL_DELAY_COMPLETE` — the late-fire barrier is cross-channel in both fixed rows, not same-channel drift over threshold** | two-row descriptive delay-barrier audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/retuning claim. [`iter74_hugsim_late_fire_delay_barrier`](experiments/iter74_hugsim_late_fire_delay_barrier/RESULT.md) |
-| 75 | **HUGSIM cross-channel object-handoff audit** — classify whether the Iter74 cross-channel handoff keeps the same monitor object or switches object id | committed iteration-59 proof/report plus iteration-70/72/73/74 reports only; per-object CPA/TTC reconstruction at pre-near and first-active timestamps | both fixed rows classify `object_switch_cross_channel_handoff`: `both_distinct_extreme` object `5` -> `9`, `ttc_medium_a` object `6` -> `24` | **`HUGSIM_CROSS_CHANNEL_OBJECT_SWITCH_COMPLETE` — cross-channel late fire is also cross-object in both fixed rows** | two-row descriptive object-handoff audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/retuning claim. [`iter75_hugsim_cross_channel_object_handoff`](experiments/iter75_hugsim_cross_channel_object_handoff/RESULT.md) |
-| 76 | **HUGSIM switch foreground-bridge audit** — test whether the pre-near or post-active switched object has bounded foreground collision-provenance support | committed iteration-59 proof/report plus iteration-70/72/73/74/75 reports only; iteration-61 bridge family, 3 m match and 6 m ambiguous bands | both fixed rows classify `no_foreground_bridge_support`; best distances: `13.4483/10.8347 m` for pre/active in `both_distinct_extreme`, `8.1239/8.4408 m` in `ttc_medium_a` | **`HUGSIM_SWITCH_FOREGROUND_BOTH_OR_AMBIGUOUS_COMPLETE` — neither switched object bridges to foreground under the frozen support grid** | two-row descriptive foreground-bridge audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/retuning claim. [`iter76_hugsim_switch_foreground_bridge`](experiments/iter76_hugsim_switch_foreground_bridge/RESULT.md) |
-| 77 | **HUGSIM event object-set foreground-bridge audit** — test whether any object in the full pre/active event-row object sets bridges to foreground | committed iteration-59 proof/report plus iteration-70/72/73/74/75/76 reports only; all logged objects at the fixed pre and active timestamps, same bridge bands | mixed support: `both_distinct_extreme` pre set ambiguous via object `9` (`3.6899 m`) while active set no-support; `ttc_medium_a` both sets match via object `10` (`1.1245/1.2931 m`) | **`HUGSIM_EVENT_SET_FOREGROUND_SUPPORT_MIXED_COMPLETE` — foreground support exists in the full object set, but not necessarily on the selected hazard object** | two-row descriptive event-object-set foreground-bridge audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/retuning claim. [`iter77_hugsim_event_object_set_bridge`](experiments/iter77_hugsim_event_object_set_bridge/RESULT.md) |
-| 78 | **HUGSIM support-object ranking audit** — classify the iteration-77 foreground-supported objects against the logged monitor surface and iteration-75 selected objects | committed iteration-59 proof/report plus iteration-70/72/73/74/75/76/77 reports only; fixed support events: `both_distinct_extreme` pre object `9`, `ttc_medium_a` pre/active object `10` | all three fixed support events classify `support_object_nonselected_subthreshold`; support ids differ from selected ids (`9` vs `5`, `10` vs `6`, `10` vs `24`), CPA ranks are `4/7/2`, min CPA values are `21.6343/17.2764/13.5578 m`, and TTC is non-finite | **`HUGSIM_SUPPORT_OBJECT_RANKING_MIXED_COMPLETE` — foreground-supported full-set objects are neither selected nor near the frozen hazard surface** | three-event descriptive support-object ranking audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/retuning claim. [`iter78_hugsim_support_object_ranking`](experiments/iter78_hugsim_support_object_ranking/RESULT.md) |
-| 79 | **HUGSIM selected-object surface decomposition** — classify the selected monitor object and foreground-supported object at the same fixed rows | committed iteration-59 proof/report plus iteration-75/77/78 reports only; same three selected-vs-support event pairs | selected objects are active/borderline while support objects remain subthreshold: `both_distinct_extreme` pre selected `5` borderline CPA `2.0355 m` vs support `9` subthreshold; `ttc_medium_a` pre selected `6` borderline TTC `3.2742 s` vs support `10` subthreshold; `ttc_medium_a` active selected `24` active CPA `1.2791 m` vs support `10` subthreshold | **`HUGSIM_SELECTED_ACTIVE_SUPPORT_SUBTHRESHOLD_COMPLETE` — foreground support and released hazard-surface selection split across different objects** | three-event descriptive selected-vs-support surface audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/retuning claim. [`iter79_hugsim_selected_surface_decomposition`](experiments/iter79_hugsim_selected_surface_decomposition/RESULT.md) |
-| 80 | **HUGSIM selected-object all-provenance bridge audit** — test whether the iteration-79 selected active/borderline objects bridge to any logged collision-provenance row, without filtering by class | committed iteration-59 proof/report plus iteration-77/79 reports only; same three selected event objects | all eligible logged provenance rows are foreground (`30/30`), and all three selected objects classify `selected_all_provenance_no_support`; best distances are `13.4483 m`, `8.1239 m`, and `8.4408 m` | **`HUGSIM_SELECTED_ALL_PROVENANCE_NO_SUPPORT_COMPLETE` — selected active/borderline objects do not bridge to any logged provenance row in the fixed events** | three-event descriptive selected-object all-provenance bridge audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/retuning claim. [`iter80_hugsim_selected_all_provenance_bridge`](experiments/iter80_hugsim_selected_all_provenance_bridge/RESULT.md) |
-| 81 | **HUGSIM support-object temporal surface audit** — follow the iteration-78 foreground-supported support objects across every committed ON decision frame | committed iteration-59 proof/report plus iteration-78/79/80 reports only; fixed support objects `9` and `10` | two-object split: `both_distinct_extreme` support object `9` later becomes borderline at `5.5 s` and active at `7.0 s`; `ttc_medium_a` support object `10` is visible in `15` frames with zero active or borderline frames | **`HUGSIM_SUPPORT_OBJECT_EVER_ACTIVE_COMPLETE` — one foreground-supported object eventually reaches the released surface, while the other remains visible-never-surface** | two-object descriptive temporal surface audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/retuning claim. [`iter81_hugsim_support_object_temporal_surface`](experiments/iter81_hugsim_support_object_temporal_surface/RESULT.md) |
-| 82 | **HUGSIM support-object surface/provenance co-occurrence audit** — test whether foreground bridge support and released CPA/TTC surface activation co-occur on the same fixed support objects | committed iteration-59 proof/report plus iteration-81 report only; fixed support objects `9` and `10`; same iteration-76 bridge bands | object `9` has bridge support and surface co-occurrence only at borderline (`1` borderline+bridge frame, zero active+bridge frames; best surface bridge `0.9876 m`); object `10` has bridge support in `15/15` present frames but zero active/borderline frames | **`HUGSIM_SUPPORT_SURFACE_BRIDGE_BORDERLINE_ONLY_COMPLETE` — support/provenance alignment exists, but active released-surface co-occurrence does not** | two-object descriptive surface/provenance co-occurrence audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/retuning claim. [`iter82_hugsim_support_surface_bridge_cooccurrence`](experiments/iter82_hugsim_support_surface_bridge_cooccurrence/RESULT.md) |
-| 83 | **HUGSIM bridge-supported surface-miss decomposition** — decompose released CPA/TTC channels on bridge-supported support-object frames | committed iteration-59 proof/report plus iteration-82 report only; fixed support objects `9` and `10`; same bridge-supported frames recomputed from frozen logs | mixed miss over `18` bridge-supported frames: object `9` is TTC-borderline-only (`3` bridge-supported frames, `1` borderline, zero active; closest active TTC margin `+2.2761 s`), while object `10` has `15` bridge-supported subthreshold frames with zero finite TTC and closest active CPA margin `+5.7464 m` | **`HUGSIM_BRIDGE_SUPPORTED_SURFACE_MISS_MIXED_COMPLETE` — active support is blocked by different surface-channel failures in the two support objects** | two-object descriptive bridge-supported surface-miss decomposition only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/retuning claim. [`iter83_hugsim_bridge_supported_surface_miss_decomposition`](experiments/iter83_hugsim_bridge_supported_surface_miss_decomposition/RESULT.md) |
-| 84 | **HUGSIM selected/support path-arbitration decomposition** — compare released-surface selected objects against provenance-bridged support objects on the same fixed rows | committed iteration-59 proof/report plus iteration-79/80/83 reports only; fixed selected/support rows from iteration 79; all-provenance bridge and CPA/TTC metrics recomputed from frozen logs | all three rows classify `selected_surface_support_bridge_split`: selected objects have lower CPA and better CPA rank in `3/3`, selected bridge support in `0/3`, support bridge support in `3/3`, and one selected object has finite TTC while its support object has no finite TTC | **`HUGSIM_SELECTED_SURFACE_SUPPORT_BRIDGE_SPLIT_COMPLETE` — released hazard-surface selection follows logged path geometry while collision provenance bridges to a different surface-ineligible support object** | three-row descriptive selected/support arbitration decomposition only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/real-world/first-responder/retuning claim. [`iter84_hugsim_selected_support_arbitration`](experiments/iter84_hugsim_selected_support_arbitration/RESULT.md) |
-| 85 | **HUGSIM path-horizon/provenance-timing decomposition** — make the closest-path horizon and provenance timing explicit for the iteration-84 selected/support split | committed iteration-59 proof/report plus iteration-80/83/84 reports only; same three fixed selected/support rows; CPA horizon and all-provenance bridge recomputed from frozen logs | all three rows classify `path_horizon_support_bridge_timing_split`: selected objects have lower CPA and better CPA rank in `3/3`, selected bridge support in `0/3`, support bridge support in `3/3`, and support best provenance bridge is after the event in `3/3`; selected earlier horizon holds in `1/3` | **`HUGSIM_PATH_HORIZON_BRIDGE_TIMING_SPLIT_COMPLETE` — released surface selection follows logged path geometry, while provenance aligns with a different support object on a later timing channel** | three-row descriptive path-horizon/provenance-timing decomposition only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/real-world/first-responder/retuning claim. [`iter85_hugsim_path_horizon_bridge_timing`](experiments/iter85_hugsim_path_horizon_bridge_timing/RESULT.md) |
-| 86 | **HUGSIM bridge-time support-surface replay** — replay support objects at their own best provenance-bridge timestamps from iteration 85 | committed iteration-59 proof/report plus iteration-81/83/85 reports only; exact bridge timestamps from iteration 85, no nearest-row or interpolation fallback | `HUGSIM_BRIDGE_TIME_SURFACE_REPLAY_BLOCKED`: two rows classified (`support_bridge_time_surface_arrival` for object `9` at `5.5 s`, `support_bridge_time_surface_miss` for object `10` at `4.0 s`), but the active `ttc_medium_a` row has no exact committed decision row at bridge timestamp `6.0 s` | **blocked exact-row replay — useful diagnostics, but no complete three-row bridge-time verdict without a fresh nearest-row/interpolation pre-registration** | three-row descriptive bridge-time support-surface replay only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/real-world/first-responder/retuning claim. [`iter86_hugsim_bridge_time_surface_replay`](experiments/iter86_hugsim_bridge_time_surface_replay/RESULT.md) |
-| 87 | **HUGSIM interval bridge-time support-surface replay** — resolve iteration-86's missing exact bridge row with a fixed at-or-before logged-row rule | committed iteration-59 proof/report plus iteration-85/86 reports only; exact bridge rows when present, otherwise nearest logged row at-or-before bridge timestamp within `0.5 s`; no future row or interpolation | all three rows classify without blocking: `interval_support_surface_arrival` `1/3` for object `9` at exact `5.5 s`, `interval_support_surface_miss` `2/3` for object `10` at exact `4.0 s` and nearest-before `5.75 s`; replay alignments are exact `2/3`, nearest-before `1/3` | **`HUGSIM_INTERVAL_BRIDGE_TIME_SURFACE_REPLAY_MIXED_COMPLETE` — one support object reaches borderline at bridge time, while the other remains outside the released surface even under interval replay** | three-row descriptive interval bridge-time support-surface replay only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/real-world/first-responder/retuning claim. [`iter87_hugsim_interval_bridge_time_surface_replay`](experiments/iter87_hugsim_interval_bridge_time_surface_replay/RESULT.md) |
-| 88 | **HUGSIM bridge/surface margin residual decomposition** — pair support-object provenance bridge evidence with iteration-87 replay-row released-surface margins | committed iteration-85/87 reports only; no raw decision logs; fixed support rows from iteration 87 | all three rows classify without blocking: object `9` is `bridge_surface_ttc_borderline_cpa_far` with ambiguous bridge support, replay TTC `4.7761 s`, active TTC margin `+2.2761 s`, and active CPA margin `+20.0208 m`; object `10` is `bridge_surface_no_finite_ttc_cpa_far` in both rows with match bridges, no finite TTC, and active CPA margins `+9.6354/+10.6434 m` | **`HUGSIM_BRIDGE_SURFACE_MARGIN_RESIDUAL_SPLIT_COMPLETE` — support-side residuals split into one TTC-borderline/CPA-far case and two no-finite-TTC/CPA-far cases** | three-row descriptive bridge/surface margin residual decomposition only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/real-world/first-responder/retuning claim. [`iter88_hugsim_bridge_surface_margin_residual`](experiments/iter88_hugsim_bridge_surface_margin_residual/RESULT.md) |
-| 89 | **HUGSIM joint bridge/surface candidate audit** — enumerate every logged object at the iteration-87 replay rows and test for active+bridge candidates | committed iteration-59 proof/report plus iteration-85/87/88 reports only; all logged objects at fixed replay rows; all-provenance bridge and released-surface metrics recomputed from frozen logs | all three rows classify without blocking: active+bridge candidate events `0/3`; bridge-supported objects total `11`; labels split into `no_active_bridge_candidate_support_borderline` `1/3` and `no_active_bridge_candidate_support_subthreshold` `2/3` | **`HUGSIM_JOINT_BRIDGE_SURFACE_NO_ACTIVE_CANDIDATE_SPLIT_COMPLETE` — bridge support is common, but no logged object is both active under the released surface and bridge-supported** | three-row descriptive joint bridge/surface candidate audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/real-world/first-responder/retuning claim. [`iter89_hugsim_joint_bridge_surface_candidate_audit`](experiments/iter89_hugsim_joint_bridge_surface_candidate_audit/RESULT.md) |
-| 90 | **HUGSIM active-surface provenance gap audit** — decompose active released-surface objects against provenance bridge support at the iteration-87 replay rows | committed iteration-59 proof/report plus iteration-87/89 reports only; all logged objects at fixed replay rows; all-provenance bridge and released-surface metrics recomputed from frozen logs | all three rows classify without blocking: `active_surface_absent_bridge_supported_nonactive` `2/3`, `active_surface_present_no_bridge_supported` `1/3`; active object events `1/3`; bridge-supported objects total `11`; active+bridge-supported objects `0`; active/no-bridge objects `1`; bridge-supported non-active objects `11` | **`HUGSIM_ACTIVE_SURFACE_PROVENANCE_GAP_COMPLETE` — bridge support lands on non-active objects, while the only active object lacks bridge support** | three-row descriptive active-surface/provenance gap audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/real-world/first-responder/retuning claim. [`iter90_hugsim_active_surface_provenance_gap`](experiments/iter90_hugsim_active_surface_provenance_gap/RESULT.md) |
-| 91 | **HUGSIM active-gap geometry decomposition** — make the path-vs-provenance geometry behind the iteration-90 split explicit | committed iteration-59 proof/report plus iteration-90 report only; all logged objects at fixed replay rows; bridge best-variant geometry and released-surface metrics recomputed from frozen logs | all three rows classify without blocking: `provenance_near_path_inactive` `2/3`, `path_active_provenance_far_with_bridge_nonactive` `1/3`; bridge-supported objects total `11`; active+bridge-supported objects `0`; active-row object `24` is active by path CPA (`min_cpa=1.0010 m`) but bridge `no_support` at `10.9518 m`, while nearest bridge object `10` is subthreshold at `4.2468 m` | **`HUGSIM_ACTIVE_GAP_PATH_PROVENANCE_DECOMPOSITION_COMPLETE` — released active surface follows path-near geometry while provenance support points to different non-active objects** | three-row descriptive active-gap geometry decomposition only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/real-world/first-responder/retuning claim. [`iter91_hugsim_active_gap_geometry_decomposition`](experiments/iter91_hugsim_active_gap_geometry_decomposition/RESULT.md) |
-| 92 | **HUGSIM path-proximity arbitration audit** — compare the CPA/path-best object with the provenance-best bridge-supported object at the fixed replay rows | committed iteration-59 proof/report plus iteration-91 report only; path-best selector is lowest `cpa_rank`; provenance-best selector is lowest bridge distance among supported objects; surface-best recorded for audit | all three rows classify without blocking: path/provenance same-object events `0/3`; labels split across `path_best_no_bridge_provenance_best_nonactive`, `path_best_bridge_supported_nonactive`, and `path_best_active_no_bridge`; active row path/surface-best object `24` is active (`min_cpa=1.0010 m`) but no-support (`10.9518 m`), while provenance-best object `6` is subthreshold at `3.7598 m` | **`HUGSIM_PATH_PROXIMITY_ARBITRATION_SPLIT_COMPLETE` — path proximity and provenance proximity select different logged objects in every fixed row** | three-row descriptive path-proximity/provenance arbitration audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/real-world/first-responder/retuning claim. [`iter92_hugsim_path_proximity_arbitration`](experiments/iter92_hugsim_path_proximity_arbitration/RESULT.md) |
-| 93 | **HUGSIM surface-winner alignment audit** — classify whether `surface_best` follows `path_best` or `provenance_best` using committed iteration-92 selector proof only | committed iteration-92 report only; no raw decision logs; fixed selector triples from the three replay rows | all three rows classify without blocking: `surface_follows_path_active_no_bridge` `1/3`, `surface_follows_path_nonactive` `1/3`, `surface_follows_provenance_nonactive` `1/3`; surface matches path `2/3`, surface matches provenance `1/3`, path matches provenance `0/3` | **`HUGSIM_SURFACE_WINNER_ALIGNMENT_MIXED_COMPLETE` — surface winner follows provenance in one row and path in two rows, including the active no-support row** | three-row descriptive selector-alignment audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/real-world/first-responder/retuning claim. [`iter93_hugsim_surface_winner_alignment`](experiments/iter93_hugsim_surface_winner_alignment/RESULT.md) |
-| 94 | **HUGSIM active-row surface margin arbitration** — explain the active `ttc_medium_a` surface/path winner against bridge-supported provenance candidates | committed iteration-91/92/93 reports only; fixed active row at replay `5.75 s`; no raw decision logs and no GPU | one row classifies without blocking as `active_row_cpa_margin_overrides_provenance`: object `24` is the only active/path/surface candidate (`min_cpa=1.0010 m`, `cpa_rank=1`, active CPA margin `-0.4990 m`, bridge `no_support`), while three bridge-supported candidates are subthreshold, TTC-null, and CPA-far; nearest bridge-supported active CPA margin is object `10` at `+10.6434 m` | **`HUGSIM_ACTIVE_ROW_SURFACE_MARGIN_ARBITRATION_COMPLETE` — in the active row, released surface selection is a CPA/path margin arbitration rather than a near active bridge-provenance tie** | one-row descriptive active-row margin arbitration only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/real-world/first-responder/retuning claim. [`iter94_hugsim_active_row_surface_margin_arbitration`](experiments/iter94_hugsim_active_row_surface_margin_arbitration/RESULT.md) |
-| 95 | **HUGSIM non-active surface branch arbitration** — classify the two non-active surface-winner rows into path/CPA versus provenance/TTC branches | committed iteration-92/93/94 reports only; fixed non-active rows at replay `5.5 s` and `4.0 s`; no raw decision logs and no GPU | both rows classify without blocking: `both_distinct_extreme` follows provenance object `9`, a bridge-matched TTC-borderline object (`ttc=4.7761 s`) despite path object `5` having better CPA/rank; `ttc_medium_a` pre follows path object `19` because both candidates are subthreshold/TTC-null and path wins CPA/rank despite provenance object `3` having closer bridge support | **`HUGSIM_NONACTIVE_SURFACE_BRANCH_ARBITRATION_SPLIT_COMPLETE` — non-active surface selection splits into a provenance/TTC-borderline branch and a path/CPA branch** | two-row descriptive non-active surface branch arbitration only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/real-world/first-responder/retuning claim. [`iter95_hugsim_nonactive_surface_branch_arbitration`](experiments/iter95_hugsim_nonactive_surface_branch_arbitration/RESULT.md) |
-| 96 | **HUGSIM branch taxonomy outcome bridge** — join the fixed branch taxonomy back to the committed late-fire structural timing outcomes | committed iteration-70/94/95 reports only; fixed late-fire rows `both_distinct_extreme` and `ttc_medium_a`; no raw decision logs and no GPU | both rows classify without blocking: `both_distinct_extreme` has the provenance/TTC branch and `ttc_medium_a` has path/CPA plus active CPA branches, yet both rows are `foreground_present_late_fire`, both fire `+1.75 s` after foreground contact, and both have zero pre-or-at foreground fire frames | **`HUGSIM_BRANCH_TAXONOMY_LATE_FIRE_OUTCOME_BRIDGE_COMPLETE` — different fixed surface branches sit inside the same late-fire outcome class** | two-row descriptive branch-taxonomy/outcome bridge only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/real-world/first-responder/retuning claim. [`iter96_hugsim_branch_outcome_bridge`](experiments/iter96_hugsim_branch_outcome_bridge/RESULT.md) |
-| 97 | **HUGSIM surface-silent outcome margin bridge** — join the foreground-present no-fire rows to far-margin and never-active timeline evidence | committed iteration-70/71/73 reports only; fixed surface-silent rows `mixed_extreme` and `nofire_hard_control`; no raw decision logs and no GPU | both rows classify without blocking as `surface_silent_far_never_active_post_foreground_near`: zero fire, far margins, zero active CPA/TTC frames, never-active timelines, zero pre-foreground-near flags, and positive first-near offsets after foreground contact (`+0.25 s`, `+3.50 s`) | **`HUGSIM_SURFACE_SILENT_OUTCOME_MARGIN_BRIDGE_COMPLETE` — foreground-present no-fire rows are far/never-active rather than near active-surface misses** | two-row descriptive surface-silent outcome/margin bridge only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/real-world/first-responder/retuning claim. [`iter97_hugsim_surface_silent_outcome_margin_bridge`](experiments/iter97_hugsim_surface_silent_outcome_margin_bridge/RESULT.md) |
-| 98 | **HUGSIM background-only outcome bridge** — join the lone background-only structural row to foreground-absence and monitor-fire evidence | committed iteration-59/69/70 reports only; fixed background-only row `cpa_medium_a`; no raw decision logs, no raw `eval.json`, and no GPU | one row classifies without blocking as `background_only_ttc_fire_foreground_absent`: foreground count `0`, no first foreground timestamp, first fire `3.5 s`, channel `ttc_only`, fired frames `4`, brake frames `11`, and monitor object `11` preserved as `unique_ttc_object` | **`HUGSIM_BACKGROUND_ONLY_OUTCOME_BRIDGE_COMPLETE` — the background-only structural branch is foreground-absent but still a live TTC monitor-fire row** | one-row descriptive background-only provenance/timing bridge only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/real-world/first-responder/retuning claim. [`iter98_hugsim_background_only_outcome_bridge`](experiments/iter98_hugsim_background_only_outcome_bridge/RESULT.md) |
-| 99 | **HUGSIM structural bridge coverage audit** — verify Iter96-98 cover the five fixed structural rows exactly once | committed iteration-70/96/97/98 reports only; no raw decision logs, no raw `eval.json`, and no GPU | all five rows classify without blocking: bridge-source counts are `iter96_late_fire: 2`, `iter97_surface_silent: 2`, `iter98_background_only: 1`; covered rows `5`, compatible rows `5`, uncovered rows `0`, duplicate-or-incompatible rows `0` | **`HUGSIM_STRUCTURAL_BRIDGE_COVERAGE_COMPLETE` — the fixed structural bridge map has complete one-to-one coverage** | five-row descriptive structural-bridge coverage audit only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/real-world/first-responder/retuning claim. [`iter99_hugsim_structural_bridge_coverage_audit`](experiments/iter99_hugsim_structural_bridge_coverage_audit/RESULT.md) |
-| 100 | **HUGSIM structural expansion support audit** — test whether the five-row structural bridge map can expand from existing committed reports | committed iteration-54/59/99 reports only; no raw decision logs, no raw `eval.json`, no raw episode directories, and no GPU | `HUGSIM_STRUCTURAL_EXPANSION_SUPPORT_BOUNDARY_NULL`: the broad committed transfer pool has `104` ON rows and `77` monitor-side provenance-supported rows, but `0/104` collision-actor-supported rows; current provenance-instrumented structural coverage remains `5` rows | **existing reports cannot support a larger structural bridge claim; new collision-provenance instrumentation would be required** | report-level expansion-support boundary only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/real-world/first-responder/retuning/approval-to-run claim. [`iter100_hugsim_structural_expansion_support_audit`](experiments/iter100_hugsim_structural_expansion_support_audit/RESULT.md) |
-| 101 | **HUGSIM provenance batch candidate design** — freeze a deterministic candidate schedule for a future instrumented HUGSIM provenance batch | committed iteration-54/59/100 reports only; no raw decision logs, no raw `eval.json`, no raw episode directories, and no GPU | `HUGSIM_PROVENANCE_BATCH_CANDIDATE_DESIGN_COMPLETE`: selects `12` new candidate rows across six non-singleton dataset/provenance strata after excluding already instrumented scenarios where possible, plus `1` carried both-distinct singleton reference (`scene-0138-extreme-00` run 1) | **future instrumentation now has a frozen candidate schedule, but no run is authorized by this result** | offline candidate-schedule design only; no actor-causality, repair, threshold-value, population-rate, safety/transfer/deployment/benchmark/HD-Score-invariance/commercial-value/real-world/first-responder/retuning/GPU-approval/approval-to-run claim. [`iter101_hugsim_provenance_batch_candidate_design`](experiments/iter101_hugsim_provenance_batch_candidate_design/RESULT.md) |
-| 102 | **HUGSIM provenance batch launch manifest preflight** — convert the iteration-101 candidate schedule into a byte-bound future-run manifest | committed iteration-101 report, iteration-48/49 frozen scenario SHA manifests, and iteration-59 frozen stack receipts/launcher only; no raw decision logs, no raw `eval.json`, no raw episode directories, and no GPU | `HUGSIM_PROVENANCE_BATCH_LAUNCH_MANIFEST_COMPLETE`: `13` execution slots, `9` unique scenarios, `4` duplicate scenario groups, `13/13` slots scenario-SHA bound, frozen HUGSIM/UniAD/checkpoint/shim/image/patch gates matched, and `slot_id` is the required execution key | **future launch packaging is now frozen at slot level, preventing repeated scenarios from being deduplicated away** | offline launch-manifest preflight only; no GPU approval, launch authorization, actor-causality, repair, threshold-value, safety/transfer/deployment/benchmark/HD-Score-invariance/real-world/acquisition-value/retuning claim. [`iter102_hugsim_provenance_batch_launch_manifest`](experiments/iter102_hugsim_provenance_batch_launch_manifest/RESULT.md) |
-| 103 | **HUGSIM provenance batch execution** — execute the iteration-102 slot manifest under byte-bound provenance instrumentation | exact 13 ON slots from the iteration-102 manifest; HUGSIM/UniAD/checkpoint/shim/image/patch gates from iteration 59; slot-id keyed collection; no OFF arm and no threshold/code/metric changes | `HUGSIM_PROVENANCE_BATCH_EXECUTION_COMPLETE`: `13/13` slots completed on first attempt, `13/13` proof artifact sets complete, `13/13` evals expose top-level `collision_provenance`, `217` provenance rows total, `9` unique scenarios and all `4` duplicate scenario groups preserved by `slot_id` | **the future provenance batch is now real committed proof, ready for a separately pre-registered actor-match/support analyzer** | execution-proof only; no actor-causality, actor-match interpretation, repair, threshold-value, safety/transfer/deployment/benchmark/HD-Score-invariance/real-world/acquisition-value/retuning claim. [`iter103_hugsim_provenance_batch_execution`](experiments/iter103_hugsim_provenance_batch_execution/RESULT.md) |
-| 104 | **HUGSIM provenance batch actor-match support audit** — classify the iteration-103 proof under frozen iteration-59 actor-match support rules | committed iteration-102 manifest, iteration-103 execution proof/report, and iteration-59 actor-match analyzer only; no GPU, no threshold/code/metric changes, and no retuning | `HUGSIM_PROVENANCE_BATCH_ACTOR_MATCH_SUPPORT_NULL`: infrastructure passed on `13/13` slots, but only `1` slot was `classifiable_foreground` against the preregistered bar of `4`; support split was `6` background-only, `4` post-collision-fire, `2` no-monitor-fire, and `1` classifiable actor mismatch at `21.19279787134973 m` | **the provenance batch proves instrumentation/execution, but not enough foreground actor-match support; the next honest step is support-yield redesign** | bounded 13-slot support audit only; no actor-causality, repair, threshold-value, safety/transfer/deployment/benchmark/HD-Score-invariance/real-world/acquisition-value/retuning/production claim. [`iter104_hugsim_provenance_batch_actor_match_audit`](experiments/iter104_hugsim_provenance_batch_actor_match_audit/RESULT.md) |
-| 105 | **HUGSIM timing-aware provenance batch design** — redesign the next instrumentation schedule around pre-or-at-collision monitor fire timing | committed iteration-52/54/59/104 reports only; no raw episode directories, no GPU, no threshold/code/metric changes, and no retuning | `HUGSIM_TIMING_AWARE_BATCH_DESIGN_COMPLETE`: after excluding already instrumented scenarios, `20` timing-eligible rows remained and the deterministic policy selected `13` future slots across `11` unique scenarios, both datasets, both channels, all four tiers, and `12` long-lead plus `1` short-lead fire rows | **the next batch is now targeted for actor-match support yield, but still needs a separate launch-manifest preflight before any GPU run** | offline timing-aware candidate-schedule design only; no GPU approval, launch authorization, actor-causality, actor-match result, repair, threshold-value, safety/transfer/deployment/benchmark/HD-Score-invariance/real-world/acquisition-value/retuning/production claim. [`iter105_hugsim_timing_aware_provenance_batch_design`](experiments/iter105_hugsim_timing_aware_provenance_batch_design/RESULT.md) |
-| 106 | **HUGSIM timing-aware launch manifest preflight** — convert the iteration-105 timing-aware schedule into a byte-bound future-run manifest | committed iteration-105 report, iteration-48/49 frozen scenario SHA manifests, and iteration-59 stack receipts/launcher only; no raw episode directories, no GPU, no threshold/code/metric changes, and no retuning | `HUGSIM_TIMING_AWARE_LAUNCH_MANIFEST_COMPLETE`: `13` execution slots, `11` unique scenarios, `2` duplicate scenario groups, `13/13` scenario-SHA-bound slots, frozen stack gates matched, and `slot_id` is the required execution key | **the timing-aware batch is launch-packaged as an offline artifact; execution still requires a separate preregistered launch step** | offline launch-manifest preflight only; no GPU approval, launch authorization, actor-causality, actor-match result, repair, threshold-value, safety/transfer/deployment/benchmark/HD-Score-invariance/real-world/acquisition-value/retuning/production claim. [`iter106_hugsim_timing_aware_launch_manifest`](experiments/iter106_hugsim_timing_aware_launch_manifest/RESULT.md) |
-| 107 | **HUGSIM timing-aware batch execution** — execute the iteration-106 timing-aware slot manifest under byte-bound provenance instrumentation | exact 13 ON slots from the iteration-106 manifest; HUGSIM/UniAD/checkpoint/shim/image/patch gates from iteration 59; slot-id keyed collection; no OFF arm and no threshold/code/metric changes | `HUGSIM_TIMING_AWARE_BATCH_EXECUTION_COMPLETE`: `13/13` slots completed on first attempt, `13/13` proof artifact sets complete, `13/13` evals expose top-level `collision_provenance`, `252` provenance rows total, `11` unique scenarios and both duplicate scenario groups preserved by `slot_id` | **the timing-aware provenance batch is now committed proof, ready for a separately pre-registered actor-match support audit** | execution-proof only; no actor-causality, actor-match interpretation, repair, threshold-value, safety/transfer/deployment/benchmark/HD-Score-invariance/real-world/acquisition-value/retuning/production/commercial claim. [`iter107_hugsim_timing_aware_batch_execution`](experiments/iter107_hugsim_timing_aware_batch_execution/RESULT.md) |
-| 108 | **HUGSIM timing-aware batch actor-match support audit** — classify the iteration-107 proof under frozen iteration-59 actor-match support rules | committed iteration-106 manifest, iteration-107 execution proof/report, and iteration-59 actor-match analyzer only; no GPU, no threshold/code/metric changes, and no retuning | `HUGSIM_TIMING_AWARE_BATCH_ACTOR_MATCH_SUPPORT_NULL`: infrastructure passed on `13/13` slots, but only `2` slots were `classifiable_foreground` against the preregistered bar of `4`; support split was `6` background-only, `4` post-collision-fire, `1` no-collision-provenance, and `2` classifiable actor mismatches at `33.51390083849024 m` and `31.29909111075036 m` | **timing-aware selection improved support from 1/13 to 2/13 but still failed the support floor; the next honest step is residual support-yield decomposition** | bounded 13-slot support audit only; no actor-causality, repair, threshold-value, safety/transfer/deployment/benchmark/HD-Score-invariance/real-world/acquisition-value/retuning/production/commercial claim. [`iter108_hugsim_timing_aware_batch_actor_match_audit`](experiments/iter108_hugsim_timing_aware_batch_actor_match_audit/RESULT.md) |
-| 109 | **HUGSIM timing-aware support-yield decomposition** — explain the iteration-108 support null by joining design-time timing to observed support labels | committed iteration-105 design report, iteration-106 manifest, iteration-107 execution report, and iteration-108 actor-match report only; no raw episode directories, no GPU, no threshold/code/metric changes, and no retuning | `HUGSIM_TIMING_AWARE_SUPPORT_YIELD_DECOMPOSITION_COMPLETE`: all `13` slots joined; residuals split into `2` classifiable successes, `6` observed background-only, `1` empty collision-provenance, and `4` post-collision-fire timing inversions; all classifiable successes were `ttc_only`, while `0/8` `cpa_only` slots were classifiable | **the residual support failure is split between foreground absence/empty provenance and observed timing inversion; the next honest step is offline support-preserving candidate design, not another blind GPU run** | offline support-yield decomposition only; no actor-causality, actor-match support upgrade, repair, threshold-value, safety/transfer/deployment/benchmark/HD-Score-invariance/real-world/acquisition-value/retuning/schedule-selection/GPU-approval claim. [`iter109_hugsim_timing_aware_support_yield_decomposition`](experiments/iter109_hugsim_timing_aware_support_yield_decomposition/RESULT.md) |
-| 110 | **HUGSIM support-preserving candidate design** — test whether committed evidence supports a TTC-only candidate core after the iteration-109 residual split | committed iteration-52/54/59/104/109 reports only; no raw episode directories, no GPU, no launch manifest, no threshold/code/metric changes, and no retuning | `HUGSIM_SUPPORT_PRESERVING_CANDIDATE_DESIGN_CORE_COMPLETE`: `35` timing-eligible rows were labeled; the support-preserving core has `8` TTC rows (`3` exact classifiable anchors plus `5` scenario-level analogues), clearing the four-row core floor but not the `13`-slot full-schedule bar; fallback pressure is `8` TTC residual-risk rows plus `19` CPA fallback rows, and the fresh primary pool is only `3` CPA rows | **the next honest step is an offline launch-manifest preflight for the 8-row core if execution is pursued; do not fill a 13-slot batch with residual-risk rows just to hit size** | offline support-preserving candidate-core design only; no actor-causality, actor-match support upgrade, repair, threshold-value, safety/transfer/deployment/benchmark/HD-Score-invariance/real-world/acquisition-value/retuning/launch-manifest/launch-authorization/GPU-approval claim. [`iter110_hugsim_support_preserving_candidate_design`](experiments/iter110_hugsim_support_preserving_candidate_design/RESULT.md) |
-| 111 | **HUGSIM support-core launch manifest preflight** — convert the 8-row iteration-110 TTC support-preserving core into a byte-bound future-run manifest | committed iteration-110 report, frozen iteration-48/49 scenario SHA manifests, and iteration-59 stack receipts/launcher only; no raw episode directories, no GPU, no threshold/code/metric changes, and no retuning | `HUGSIM_SUPPORT_CORE_LAUNCH_MANIFEST_COMPLETE`: `8/8` support-core slots are SHA-bound, all from `iter49_hard_extreme`, all `ttc_only`, with `5` unique scenarios and `3` duplicate scenario groups preserved by `slot_id`; frozen stack gates matched | **the 8-row support core is now launch-packaged as an offline artifact; execution still requires a separate pre-registered run step and is not authorized by this result** | offline support-core launch-manifest preflight only; no GPU approval, launch authorization, actor-causality, actor-match result, repair, threshold-value, safety/transfer/deployment/benchmark/HD-Score-invariance/real-world/acquisition-value/retuning/production/commercial claim. [`iter111_hugsim_support_core_launch_manifest`](experiments/iter111_hugsim_support_core_launch_manifest/RESULT.md) |
-| 112 | **HUGSIM support-core batch execution** — execute the 8-row iteration-111 support-core manifest under byte-bound provenance instrumentation | exact `8` ON slots from the iteration-111 manifest; HUGSIM/UniAD/checkpoint/shim/image/patch gates from iteration 59; slot-id keyed collection; no OFF arm and no threshold/code/metric changes | `HUGSIM_SUPPORT_CORE_BATCH_EXECUTION_COMPLETE`: `8/8` slots completed on first attempt, `8/8` proof artifact sets complete, `8/8` evals expose top-level `collision_provenance`, `44` provenance rows total, `5` unique scenarios and all `3` duplicate scenario groups preserved by `slot_id` | **the support core is now committed execution proof; the next honest step is a separately pre-registered actor-match support audit over these eight slots** | execution-proof only; no actor-causality, actor-match interpretation, repair, threshold-value, safety/transfer/deployment/benchmark/HD-Score-invariance/real-world/acquisition-value/retuning/production/commercial claim. [`iter112_hugsim_support_core_batch_execution`](experiments/iter112_hugsim_support_core_batch_execution/RESULT.md) |
-| 113 | **HUGSIM support-core actor-match support audit** — classify the iteration-112 support-core proof under frozen iteration-59 actor-match rules | committed iteration-111 manifest, iteration-112 execution proof/report, and iteration-59 actor-match analyzer only; no GPU, no threshold/code/metric changes, and no retuning | `HUGSIM_SUPPORT_CORE_ACTOR_MATCH_AUDIT_COMPLETE`: infrastructure passed and `8/8` slots were `classifiable_foreground` against the frozen floor of `4`; all `3` exact anchors and all `5` scenario analogues remained classifiable; bridge labels were `8` actor mismatches, `0` matches, `0` ambiguous | **the support-core selection solves the foreground-support bottleneck for these registered rows, but every supported comparison is a mismatch; the next honest step is mismatch-geometry decomposition, not a repair claim** | bounded 8-slot support audit only; no actor-causality, repair, threshold-value, safety/transfer/deployment/benchmark/HD-Score-invariance/real-world/acquisition-value/retuning/production/commercial claim. [`iter113_hugsim_support_core_actor_match_audit`](experiments/iter113_hugsim_support_core_actor_match_audit/RESULT.md) |
-| 114 | **HUGSIM support-core mismatch-geometry decomposition** — classify the signed geometry of the eight iteration-113 actor-mismatch vectors | committed iteration-113 actor-match report only; no GPU, no actor-match rerun, no raw episode read, no threshold/code/metric changes, and no retuning | `HUGSIM_SUPPORT_CORE_MISMATCH_GEOMETRY_COMPLETE`: all `8` mismatch rows classified; geometry split is `5` far-behind/lateral-near, `2` far-behind/lateral-far, `1` far-ahead/lateral-far; `8/8` are forward-dominant and `7/8` have the monitor object far behind the collision actor | **the mismatch class is primarily longitudinal under the frozen bridge; the next honest step is monitor-object/collision-actor temporal and object-set ordering, not another GPU batch** | descriptive eight-vector geometry decomposition only; no actor-causality, repair, threshold-value, safety/transfer/deployment/benchmark/HD-Score-invariance/real-world/acquisition-value/retuning/production/commercial claim. [`iter114_hugsim_support_core_mismatch_geometry_decomposition`](experiments/iter114_hugsim_support_core_mismatch_geometry_decomposition/RESULT.md) |
-| 115 | **HUGSIM support-core monitor-set ordering audit** — test whether the collision actor is represented anywhere in the first-fire monitor object set | committed iteration-112 proof plus iteration-113/114 reports only; no GPU, no actor-match rerun, no threshold/code/metric changes, and no retuning | `HUGSIM_SUPPORT_CORE_MONITOR_SET_ORDERING_COMPLETE`: all `8` rows classify as `nearest_actor_mismatch`; nearest first-fire object distance is `7.62-24.81 m`; selected object is nearest in `5/8` rows and not nearest in `3/8`, but every combined label remains whole-set mismatch | **the first-fire object-set itself lacks a close collision-actor candidate in all eight rows; next audit should check whether such a candidate appears before or after first fire in the timeline** | descriptive first-fire object-set ordering only; no actor-causality, repair, threshold-value, safety/transfer/deployment/benchmark/HD-Score-invariance/real-world/acquisition-value/retuning/production/commercial claim. [`iter115_hugsim_support_core_monitor_set_ordering`](experiments/iter115_hugsim_support_core_monitor_set_ordering/RESULT.md) |
-| 116 | **HUGSIM support-core collision-actor timeline audit** — scan every committed decision frame through first foreground collision for close collision-actor candidates | committed iteration-112 proof plus iteration-115 report and frozen iteration-59 bridge only; no GPU, no actor-match rerun, no threshold/code/metric changes, and no retuning | `HUGSIM_SUPPORT_CORE_COLLISION_ACTOR_TIMELINE_COMPLETE`: `7/8` rows have at least one support frame before collision; first support appears `pre_fire` in `5/8`, `post_fire_pre_collision` in `2/8`, and `never_before_collision` in `1/8`; at-fire nearest distances remain `7.62-24.81 m` | **close candidates exist before collision in most rows, but they usually do not coincide with first fire; next audit should decompose persistence, selected identity, and CPA/TTC surface state around first-support and first-fire windows** | descriptive collision-actor timeline audit only; no actor-causality, repair, threshold-value, safety/transfer/deployment/benchmark/HD-Score-invariance/real-world/acquisition-value/retuning/production/commercial claim. [`iter116_hugsim_support_core_collision_actor_timeline`](experiments/iter116_hugsim_support_core_collision_actor_timeline/RESULT.md) |
-| 117 | **HUGSIM support-core event-window decomposition** — compare first-support and first-fire surface state plus object identity persistence | committed iteration-112 proof plus iteration-115/116 reports and frozen iteration-59 bridge only; no GPU, no actor-match rerun, no threshold/code/metric changes, and no retuning | `HUGSIM_SUPPORT_CORE_EVENT_WINDOW_COMPLETE`: first-support surface state is `far` in all `7` supported rows, first-fire surface state is `active` in all `8`, first-support objects persist to fire in only `1/7`, and none equals the first-fire selected object | **actor-proximity support appears on surface-far frames, while active fire occurs later on a different selected object or after support leaves the band; next audit should follow first-support object lifecycle to fire** | descriptive event-window decomposition only; no actor-causality, repair, threshold-value, safety/transfer/deployment/benchmark/HD-Score-invariance/real-world/acquisition-value/retuning/production/commercial claim. [`iter117_hugsim_support_core_event_window_decomposition`](experiments/iter117_hugsim_support_core_event_window_decomposition/RESULT.md) |
-| 118 | **HUGSIM support-core support-object lifecycle audit** — follow the first-support object from support to first fire and later active support | committed iteration-112 proof plus iteration-117 report and frozen iteration-59 bridge only; no GPU, no actor-match rerun, no threshold/code/metric changes, and no retuning | `HUGSIM_SUPPORT_CORE_OBJECT_LIFECYCLE_COMPLETE`: first-support objects are absent at fire in `4` pre-fire rows, drifted outside support in `1`, never still supported at fire (`0/7`), and later active support is different-object only (`2` frames, `0` same-object) | **the early support object does not survive as supported through fire; next audit should quantify support-loss gaps and first-fire replacement identity/distance** | descriptive support-object lifecycle audit only; no actor-causality, repair, threshold-value, safety/transfer/deployment/benchmark/HD-Score-invariance/real-world/acquisition-value/retuning/production/commercial claim. [`iter118_hugsim_support_core_object_lifecycle`](experiments/iter118_hugsim_support_core_object_lifecycle/RESULT.md) |
-| 119 | **HUGSIM support-core support-loss and replacement audit** — quantify last-support/last-presence gaps and first-fire replacement rank | committed iteration-112 proof plus iteration-117/118 reports and frozen iteration-59 bridge only; no GPU, no actor-match rerun, no threshold/code/metric changes, and no retuning | `HUGSIM_SUPPORT_CORE_LOSS_REPLACEMENT_COMPLETE`: last same-object support ends `1.0-6.0 s` before fire where measurable; selected is first-fire nearest in `5/8` and not nearest in `3/8`; first-fire nearest is the first-support object in only `1/8`, and all first-fire nearest distances remain outside support (`7.62-24.81 m`) | **fire-time replacements are still outside support even when selected is nearest; next audit should follow the selected first-fire object backward through the decision log** | descriptive support-loss/replacement audit only; no actor-causality, repair, threshold-value, safety/transfer/deployment/benchmark/HD-Score-invariance/real-world/acquisition-value/retuning/production/commercial claim. [`iter119_hugsim_support_core_loss_replacement_audit`](experiments/iter119_hugsim_support_core_loss_replacement_audit/RESULT.md) |
-| 120 | **HUGSIM support-core selected fire-object backward lifecycle audit** — test whether selected fire objects ever enter actor support before collision | committed iteration-112 proof plus iteration-119 report and frozen iteration-59 bridge only; no GPU, no actor-match rerun, no threshold/code/metric changes, and no retuning | `HUGSIM_SUPPORT_CORE_SELECTED_FIRE_OBJECT_COMPLETE`: all `8` selected first-fire objects are `selected_never_supported_before_collision`; support-frame count is `0` in every row; selected closest pre-fire distance is `9.81-26.58 m` and selected at-fire distance is `14.47-36.09 m` | **selected fire objects are not delayed continuations of the earlier support objects; next audit should synthesize the two-track support-vs-selected taxonomy** | descriptive selected fire-object lifecycle audit only; no actor-causality, repair, threshold-value, safety/transfer/deployment/benchmark/HD-Score-invariance/real-world/acquisition-value/retuning/production/commercial claim. [`iter120_hugsim_support_core_selected_fire_object_lifecycle`](experiments/iter120_hugsim_support_core_selected_fire_object_lifecycle/RESULT.md) |
-| 121 | **HUGSIM support-core two-track synthesis** — join support-object lifecycle, replacement rank, and selected-object lifecycle into one row taxonomy | committed iteration-118/119/120 reports only; no raw logs, no GPU, no actor-match rerun, no threshold/code/metric changes, and no retuning | `HUGSIM_SUPPORT_CORE_TWO_TRACK_SYNTHESIS_COMPLETE`: all `8/8` rows preserve a two-track split; selected lifecycle is `selected_never_supported_before_collision` in all rows, while support-side branches split across absent, drifted, post-fire, and never-supported reference cases | **the support-core mechanism at this evidence level is timing/object identity separation, not a simple final-rank selection error; next step is documentation integration with this claim boundary** | descriptive report-level synthesis only; no actor-causality, repair, threshold-value, safety/transfer/deployment/benchmark/HD-Score-invariance/real-world/acquisition-value/retuning/production/commercial claim. [`iter121_hugsim_support_core_two_track_synthesis`](experiments/iter121_hugsim_support_core_two_track_synthesis/RESULT.md) |
-| 122 | **HUGSIM support-core taxonomy documentation integration** — integrate the iteration-121 two-track taxonomy into durable report/manuscript surfaces and a dedicated mechanism note | committed iteration-121 report/result plus `docs/REPORT.md` and `docs/paper/MANUSCRIPT.md` only; no raw logs, no GPU, no actor-match rerun, no threshold/code/metric changes, and no retuning | `SUPPORT_CORE_TAXONOMY_DOCUMENTATION_COMPLETE`: verifier confirms the mechanism note, technical report, and manuscript link iteration 121, preserve the `8/8` two-track and selected-never-supported counts, and carry the exact claim boundary | **the support-core taxonomy is now durable and machine-checked in the research narrative; next action is mission-level evidence/alignment audit** | descriptive documentation integration only; no actor-causality, repair, threshold-value, transfer-upgrade, safety/deployment/robustness/benchmark/HD-Score-invariance/real-world/acquisition-value/retuning/production/commercial claim. [`iter122_support_core_taxonomy_documentation`](experiments/iter122_support_core_taxonomy_documentation/RESULT.md) |
-| 123 | **Mission evidence and frontier-alignment audit** — audit current claims, freshness, and next-step alignment after iteration 122 | committed docs/results plus named 2026 source anchors only; no raw logs, no GPU, no threshold/code/metric changes, and no retuning | `MISSION_EVIDENCE_ALIGNMENT_AUDIT_COMPLETE`: verifier confirms audit sections, seven source anchors, README freshness, frontier-memory freshness, and zero audit problems | **README and frontier memory freshness issues were fixed; next choices are bounded manuscript refresh, blind-spot/scenario design, perturbation successor, mission/rulebook boundary, or external claim ledger** | evidence/alignment audit only; no actor-causality, repair, threshold-value, transfer-upgrade, safety/deployment/robustness/benchmark/population-rate/HD-Score-invariance/real-world/acquisition-value/retuning/production/commercial claim, and no claim that Sentinel matches or exceeds any frontier autonomy stack. [`iter123_mission_evidence_alignment_audit`](experiments/iter123_mission_evidence_alignment_audit/RESULT.md) |
-| 124 | **Manuscript/report freshness pass** — make durable paper surfaces current with the HUGSIM transfer null, support-core taxonomy, and mission audit lanes | committed report/manuscript plus iteration-122/123 result surfaces only; no raw logs, no GPU, no threshold/code/metric changes, and no retuning | `MANUSCRIPT_REPORT_FRESHNESS_COMPLETE`: report/manuscript stale markers removed; both durable surfaces now name the HUGSIM transfer null, link the support-core taxonomy and mission audit, and carry the bounded claim boundary | **publication-facing report/manuscript freshness gap is closed; next choices remain bounded research/design lanes, not a repair claim** | manuscript/report freshness only; no actor-causality, repair, threshold-value, transfer-upgrade, safety/deployment/robustness/benchmark/population-rate/HD-Score-invariance/real-world/acquisition-value/retuning/production/commercial claim, and no claim that Sentinel matches or exceeds any frontier autonomy stack. [`iter124_manuscript_report_freshness`](experiments/iter124_manuscript_report_freshness/RESULT.md) |
-| 125 | **HUGSIM support-core blind-spot scenario design** — convert the `8/8` support-core two-track taxonomy into future scenario-generation archetypes | committed iteration-121/122/123/124 surfaces only; no raw logs, no GPU, no scenario generation, no threshold/code/metric changes, and no retuning | `SUPPORT_CORE_BLIND_SPOT_SCENARIO_DESIGN_COMPLETE`: five archetypes cover all eight source rows exactly once with zero duplicate or missing slots; archetypes split by selected rank and timing-gap class | **future blind-spot/scenario work now has a bounded design surface; execution still requires a fresh pre-registration and is not authorized** | design surface only; no scenario-generation execution, actor-causality, repair, threshold-value, transfer-upgrade, safety/deployment/robustness/benchmark/population-rate/HD-Score-invariance/real-world/acquisition-value/retuning/production/commercial claim, and no claim that Sentinel matches or exceeds any frontier autonomy stack. [`iter125_support_core_blind_spot_scenario_design`](experiments/iter125_support_core_blind_spot_scenario_design/RESULT.md) |
-| 126 | **HUGSIM support-core candidate-generation manifest preflight** — convert the five iteration-125 design archetypes into paired future candidate specs | committed iteration-125 report/result/design note only; no raw logs, no GPU, no scenario generation, no slot selection, no threshold/code/metric changes, and no retuning | `SUPPORT_CORE_CANDIDATE_MANIFEST_PREFLIGHT_COMPLETE`: `10` inert candidate specs, exactly two per archetype (`branch_stress` and `counterfactual_control`), cover all `8` source slots; authorization flags, generated scenario paths, launch commands, and metric/threshold change instructions are all zero | **future scenario-generation now has a paired symbolic manifest and gates; generation or execution still requires a fresh pre-registration and is not authorized** | manifest preflight only; no scenario-generation execution, actor-causality, repair, threshold-value, transfer-upgrade, safety/deployment/robustness/benchmark/population-rate/HD-Score-invariance/real-world/acquisition-value/retuning/production/commercial claim, and no claim that Sentinel matches or exceeds any frontier autonomy stack. [`iter126_support_core_candidate_manifest_preflight`](experiments/iter126_support_core_candidate_manifest_preflight/RESULT.md) |
-| 127 | **Post-Iter126 mission alignment audit** — hostile review of current evidence, frontier alignment, freshness, and next bounded actions after the candidate manifest | committed repo docs/results plus five current Mobileye/Tesla/arXiv source anchors only; no raw logs, no GPU, no threshold/code/metric changes, and no retuning | `POST_ITER126_MISSION_ALIGNMENT_AUDIT_COMPLETE`: `9/9` verifier checks passed with zero problems; frontier memory now records the post-126 design/manifest state | **iterations 125-126 are real roadmap-alignment progress, but still design/preflight only; next work needs fresh hypotheses before generation, execution, learning, or claim upgrade** | evidence/alignment audit only; no scenario-generation execution, actor-causality, repair, threshold-value, transfer-upgrade, safety/deployment/robustness/benchmark/population-rate/HD-Score-invariance/real-world/acquisition-value/retuning/production/commercial claim, and no claim that Sentinel matches or exceeds any frontier autonomy stack. [`iter127_post_iter126_mission_alignment_audit`](experiments/iter127_post_iter126_mission_alignment_audit/RESULT.md) |
-| 128 | **HUGSIM support-core source-pool/mutation-operator preflight** — freeze source pools and operator bindings behind the iteration-126 candidate manifest before any generation | committed iteration-126/127 surfaces only; no raw logs, no GPU, no generated artifacts, no scenario generation, no slot selection, no threshold/code/metric changes, and no retuning | `SUPPORT_CORE_SOURCE_POOL_MUTATION_PREFLIGHT_COMPLETE`: `10` source pools, `8` mutation operators, and `10` candidate-operator bindings cover all `8` source slots with zero true authorization flags, missing content, or forbidden keys | **future scenario generation now has frozen source-pool and operator semantics; generated artifacts still require a fresh pre-registration and are not authorized** | source-pool/operator preflight only; no scenario-generation execution, generated artifact, execution-slot selection, actor-causality, repair, threshold-value, transfer-upgrade, safety/deployment/robustness/benchmark/population-rate/HD-Score-invariance/real-world/acquisition-value/retuning/production/commercial claim, and no claim that Sentinel matches or exceeds any frontier autonomy stack. [`iter128_support_core_source_pool_mutation_preflight`](experiments/iter128_support_core_source_pool_mutation_preflight/RESULT.md) |
-| 129 | **HUGSIM support-core generated-artifact naming preflight** — reserve future scenario/provenance/validation artifact names and destinations before any file is created | committed iteration-128/126 surfaces only; no raw logs, no GPU, no generated artifacts, no scenario generation, no slot selection, no threshold/code/metric changes, and no retuning | `SUPPORT_CORE_ARTIFACT_NAMING_PREFLIGHT_COMPLETE`: `10` reservations and `30` planned relative paths under `future_artifacts/support_core_blindspot_generation`, all unique and nonexistent, with zero true authorization flags, forbidden keys, or forbidden text findings | **future artifact creation now has reserved names and destination templates; creating any reserved file still requires a fresh pre-registration and is not authorized** | naming/destination preflight only; no generated scenario artifact, scenario-generation execution, execution-slot selection, actor-causality, repair, threshold-value, transfer-upgrade, safety/deployment/robustness/benchmark/population-rate/HD-Score-invariance/real-world/acquisition-value/retuning/production/commercial claim, and no claim that Sentinel matches or exceeds any frontier autonomy stack. [`iter129_support_core_artifact_naming_preflight`](experiments/iter129_support_core_artifact_naming_preflight/RESULT.md) |
-| 130 | **HUGSIM support-core generated-artifact schema preflight** — freeze schema and metadata contracts for the three reserved future artifact types before any reserved file is written | committed iteration-129 surfaces only; no raw logs, no GPU, no generated artifacts, no reserved path creation, no scenario generation, no slot selection, no threshold/code/metric changes, and no retuning | `SUPPORT_CORE_ARTIFACT_SCHEMA_PREFLIGHT_COMPLETE`: `3` schema specs and `30` schema bindings cover all `10` reservations and all `30` reserved paths, with zero true authorization flags, missing content rows, existing bound paths, duplicate reserved paths, bad schema references, or forbidden keys | **future artifact creation now has schema/metadata gates; creating any reserved file still requires a fresh pre-registration and is not authorized** | schema/metadata preflight only; no reserved path creation, generated scenario artifact, scenario-generation execution, execution-slot selection, actor-causality, repair, threshold-value, transfer-upgrade, safety/deployment/robustness/benchmark/population-rate/HD-Score-invariance/real-world/acquisition-value/retuning/production/commercial claim, and no claim that Sentinel matches or exceeds any frontier autonomy stack. [`iter130_support_core_artifact_schema_preflight`](experiments/iter130_support_core_artifact_schema_preflight/RESULT.md) |
-| 131 | **Post-Iter130 mission alignment audit** — hostile audit of mission freshness, claim hierarchy, frontier alignment, and next bounded actions after the schema preflight | committed docs/results/proof surfaces only; no raw logs, no GPU, no generated artifacts, no reserved path creation, no scenario generation, no slot selection, no threshold/code/metric changes, and no retuning | `POST_ITER130_MISSION_ALIGNMENT_AUDIT_COMPLETE`: `14/14` verifier checks passed with zero problems and `5` source anchors; README/NEXT_PHASE/CONTINUITY/HANDOFF/frontier memory are current through the post-130 state | **the mission is aligned when framed as runtime monitoring, failure localization, targeted blind-spot preparation, and safety-evidence infrastructure; the audit keeps iterations 125-130 classified as design/preflight** | mission-alignment audit only; no reserved path creation, generated scenario artifact, scenario-generation execution, execution-slot selection, actor-causality, repair, threshold-value, transfer-upgrade, safety/deployment/robustness/benchmark/population-rate/HD-Score-invariance/real-world/acquisition-value/retuning/production/commercial claim, and no claim that Sentinel matches or exceeds any frontier autonomy stack. [`iter131_post_iter130_mission_alignment_audit`](experiments/iter131_post_iter130_mission_alignment_audit/RESULT.md) |
-| 132 | **HUGSIM support-core schema-instance creation preflight** — freeze inert schema-instance templates and validator checks before any reserved file is written | committed iteration-130 schema/report/note surfaces only; no raw logs, no GPU, no generated artifacts, no reserved path creation, no scenario generation, no slot selection, no threshold/code/metric changes, and no retuning | `SUPPORT_CORE_SCHEMA_INSTANCE_CREATION_PREFLIGHT_COMPLETE`: `3` inert templates, `1` validator contract, and `30` instance bindings cover all `10` reservations and all `30` reserved paths, with zero true authorization flags, missing content rows, existing reserved/instance-bound paths, duplicate paths, bad references, or forbidden keys | **future artifact creation now has instance-template and validator gates; creating any reserved file still requires a fresh pre-registration and is not authorized** | schema-instance preflight only; no reserved path creation, generated scenario artifact, scenario-generation execution, execution-slot selection, actor-causality, repair, threshold-value, transfer-upgrade, safety/deployment/robustness/benchmark/population-rate/HD-Score-invariance/real-world/acquisition-value/retuning/production/commercial claim, and no claim that Sentinel matches or exceeds any frontier autonomy stack. [`iter132_support_core_schema_instance_creation_preflight`](experiments/iter132_support_core_schema_instance_creation_preflight/RESULT.md) |
-| 133 | **NeuroNCAP placebo semantics control design** — freeze an adversarial sham-control protocol that matches actuation timing/budget while removing Sentinel risk semantics | committed full-power NeuroNCAP, iteration-13 RSS-style baseline, iteration-50 opportunity-audit, iteration-132, and handoff surfaces only; no raw uncommitted box state, no GPU, no NeuroNCAP/HUGSIM execution, no generated artifacts, no run-slot selection, no threshold/code/metric changes, and no retuning | `NEURONCAP_PLACEBO_SEMANTICS_CONTROL_DESIGN_COMPLETE`: `1` primary placebo arm (`semantics_scrambled_budget_matched_placebo`), `3` future arms, `4` verdict classes, zero semantic-trigger leaks, zero true authorization flags, and zero source problems | **the next empirical question is now adversarial and legible: released-union semantics versus budget/timing placebo; execution still requires a fresh pre-registration and explicit run approval** | placebo-control design only; no GPU launch, NeuroNCAP execution, HUGSIM execution, generated scenario artifact, reserved path creation, execution-slot selection, actor-causality, repair, threshold-value, transfer-upgrade, safety/deployment/robustness/benchmark-ranking/population-rate/HD-Score-invariance/real-world/acquisition-value/retuning/production/commercial claim, and no claim that Sentinel matches or exceeds any frontier autonomy stack. [`iter133_neuroncap_placebo_semantics_control_design`](experiments/iter133_neuroncap_placebo_semantics_control_design/RESULT.md) |
-| 134 | **the placebo semantics execution** — THE control: does the released union's NeuroNCAP gain need its risk semantics, or does a semantics-free, class- and budget-matched braking schedule reproduce it? 3 arms x 20 pairs x 20 runs = 1,200 episodes, ONE launch; placebo inherits the union's latched zero-trajectory actuator byte-for-byte and fires from a frozen donor schedule (donor rule `q=(p+1)%len(class)`, `j=(i+1)%20`, excluding target pair and seed by construction, a bijection so scheduled budget `= 1205` exactly) | OFF **2.135** / union **2.906** / placebo **2.538** | OFF 52% / union 43% / placebo 50% | **PRIMARY union−placebo +0.368, CI [−0.190, +0.887] — includes zero**; placebo−off +0.403, CI [−0.004, +0.895]; union−off **+0.771, CI [+0.332, +1.215]** | **pre-registered `PLACEBO_HARM_OR_NULL` — the semantics question is NOT resolved, in either direction.** G2 exact: all 800 carried episodes reproduce the committed power run per-episode, and the fresh union re-emits iteration 42's exact `1,205` brakes / `156` releases; `off/side-0921` completed 20/20 where the power run lost run_19 to a pre-swap freeze. **THE PRE-REGISTERED CONFOUND FIRED**: the placebo realized only `859/1205` (`0.713`) of its dose — it braked at borrowed times, *caused* collisions, which ended episodes early, which ate its remaining budget. Closed-loop budget matching is unreachable by an open-loop schedule: the intervention sets how much of its own budget it can spend. So union−placebo is consistent with semantics, with the 40% larger dose, or both. The run-index method (the one behind the committed +0.783) *would* exclude zero at [+0.146, +0.572]; it is reported as registered comparability and **not adopted** — the pair-clustered primary was frozen first. Successor must be dose-matched. [`iter134_neuroncap_placebo_semantics_execution`](experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md) |
-
-> **Iteration 1a (2026-06-30):** the NeuroNCAP closed-loop apparatus runs end-to-end on a single GPU
-> and produces the genuine per-run metric schema with a *frozen* planner — the engineering risk the
-> pre-registration flagged is retired. Proof: [`PROOF_smoke_0103.md`](experiments/iter1_reproduce/PROOF_smoke_0103.md).
->
-> **Iteration 1b (2026-06-30):** 60 closed-loop episodes on public-mini scenes. The single clean
-> apples-to-apples point — **frontal/0103 = 1.07 vs the published 1.17** — reproduces within
-> run-noise; the UniAD failure profile reproduces qualitatively (80–100 % collision in dynamic
-> scenarios). Per-scene variance is huge (stationary 5.00 → 1.03), which is exactly why the *averaged*
-> baseline needs the gated full trainval set, so no full-baseline claim is drawn here. The real
-> payload is a **corpus of 39 frozen-planner collisions** for iteration 2, and a structured
-> introspective signal (collisions track `recall@5-15m → 0`). Detail:
-> [`PARTIAL_BASELINE.md`](experiments/iter1b_partial_baseline/PARTIAL_BASELINE.md).
-
----
-
-## How it works — the Sentinel loop
-
-A frozen planner proposes a plan; Sentinel reads the planner's own internal state, scores the risk
-that this plan ends in a collision, and — above threshold — triggers a principled intervention
-(brake / fallback). All evaluated in a public neural closed-loop simulator.
-
-The apparatus is three public containers on one L4: the NeuroNCAP orchestrator drives the scenario
-actor and scores collisions; NeuRAD renders photoreal multi-camera frames from real nuScenes
-drives; the frozen UniAD container serves `/infer` with the Sentinel patch env-gated per arm.
-Episodes are deterministic per run index (established by the verification pass), so every
-comparison is seed-paired. Every run leaves evidence — scores, driven trajectories, per-frame
-monitor decisions — which feeds both the research loop and the independent audit:
+Either condition latches the stop. Four consecutive clear monitor frames release it.
+The [released source](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter15_latch_release/server_patch_union_release.py)
+defines the complete filters, coordinate transforms and state transitions.
 
 ```mermaid
 flowchart TB
-  ORCH["NeuroNCAP orchestrator<br/>actor + scoring"] --> REND["NeuRAD renderer<br/>photoreal cameras"]
-  REND --> MODEL["frozen UniAD /infer<br/>+ Sentinel patch, env-gated"]
-  MODEL -- "trajectory" --> ORCH
-  ORCH --> EVID["per-run evidence<br/>scores · trajectories ·<br/>decision logs (committed)"]
-  EVID --> H["hypothesize<br/>pre-register the bar"] --> B2["build a patch"] --> R2["run OFF vs arm<br/>seed-paired"] --> M2["measure + ablate<br/>nulls published"] --> H
-  EVID --> AUD["independent audit<br/>re-derives every claim;<br/>corrections in place"]
-  classDef stack fill:#f3f0fa,stroke:#5e35b1,color:#22163d;
-  classDef loop fill:#e2f3e5,stroke:#2e7d32,color:#13361b;
-  classDef ev fill:#fff8e1,stroke:#b28704,color:#3d2f00;
-  classDef audit fill:#e4f0ff,stroke:#1565c0,color:#0c2742;
-  class ORCH,REND,MODEL stack;
-  class H,B2,R2,M2 loop;
-  class EVID ev;
-  class AUD audit;
+  accTitle: The released Sentinel monitor
+  accDescr: Planner outputs feed geometric tracking and a brake latch. Simulator outcomes are evaluation records, not monitor inputs.
+  P["Frozen UniAD<br/>plan, detections, IDs and ego pose"] --> T["World-coordinate tracking<br/>velocity from successive observations"]
+  T --> C["CPA and closing TTC<br/>frozen geometric conditions"]
+  C --> L["Brake latch<br/>release after four clear frames"]
+  P --> A["Nominal plan or braking request"]
+  L --> A
+  A --> S["Simulator-specific controller and dynamics"]
+  S --> E["Collision, severity, progress<br/>and intervention records"]
+  classDef data fill:#e8f1fb,stroke:#32628c,color:#142d45;
+  classDef action fill:#f5f1e5,stroke:#89733a,color:#352b12;
+  class P,T,C,E data;
+  class L,A,S action;
 ```
 
-The monitor is small and the planner is frozen — that is what makes this winnable on single-digit
-GPUs and what makes a win *defensible*: any safety gain is attributable to Sentinel, not to a
-bigger planner. The label-free trigger reads only what the planner already outputs (its plan, its
-detected objects, and their motion) — no ground truth, no privileged sim state. The *risk* term itself
-evolved across iterations — from a time-to-collision scalar (iter 2) to a plan-vs-tracked-path
-closest-approach test (iter 6); see the score tracker and Status for the honest trajectory.
+This interface gives the monitor access to the planner's outputs. The current trigger does
+not demonstrate a benefit from hidden learned representations or an independent perception
+system. Predicted object trajectories are logged in the released implementation but do not
+drive this trigger. Simulator collision labels support evaluation; they are not monitor inputs.
 
-## The research engine (how we get better every iteration)
+A missing or mistaken detection can affect both planner and monitor. Exact replay of decisions
+conditional on logged objects does not certify that those objects were complete or correct.
+Iteration 43 also found excess firing under **5 cm position jitter** in offline replay.
+The frozen smoothing variants in Iteration 44 reduced excess firing but failed their retention
+and repair criteria. Those are measured robustness limits, still unresolved.
+[Perturbation test](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter43_object_stream_perturbation_gate/RESULT.md) ·
+[Smoothing test](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter44_velocity_smoothing_gate/RESULT.md).
 
-Sentinel runs on a disciplined learning loop — hypothesize → build → **measure vs the baseline** →
-**attribute (ablate *why*)** → improve — with the win bar frozen up front (`PREREGISTRATION.md`) and
-drive-clustered bootstrap CIs on the deltas. The loop is working as intended: iteration 2 produced a
-safety win, iteration 2's ablation flagged what the safety metric couldn't separate, and iteration 3
-ran that experiment and **overturned an over-claim from iteration 2** — logged and corrected, not
-buried. That self-correction is the point. Full design: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
-(note: the Ed25519-receipt and seed-sweep machinery described there is design intent carried over from
-[PerceptionProof](https://github.com/manfromnowhere143/perceptionproof); it is **not yet wired into the
-Sentinel runs**, which is stated here rather than implied).
+The [architecture](docs/ARCHITECTURE.md) describes the two simulator integrations, current
+trajectory and controller contracts, evidence checks and measured timing boundaries.
 
-## Status — where it really stands (the honest current truth)
+## What a useful intervention must establish
 
-The early mechanism arc through iteration 42 — including the iteration-3 self-correction, the
-selectivity/side-blindness trade of iterations 4–7, and the three refuted evasion designs — is
-kept in the archived [`docs/CAMPAIGN.md`](docs/CAMPAIGN.md). The summary table above is the
-canonical experiment ledger through iteration 134.
+The central question is whether a monitor can help select an action that improves the outcome
+under the information and time actually available to it. Three questions have different tests:
 
-**Net, stated plainly:** iteration 134's result is published as `PLACEBO_HARM_OR_NULL`; the
-current run state is `UNKNOWN` and is not inferred idle from absent containers or processes. The
-released union's NeuroNCAP gain reproduced (`+0.7708`, pair-clustered CI
-`[+0.3315,+1.2151]`), but semantic attribution remains unresolved because the semantics-free
-placebo realized only `859/1205` scheduled brake frames. HUGSIM transfer remains null, the
-5 cm position-jitter fragility remains unrepaired, and none of these results establishes
-production readiness. The only current successor program is the preregistered iteration
-135 dose-response causal control; iteration 38 is historical and does not govern current work.
-The
-**released union (iteration 15) is the best measured configuration** of this campaign: at the 20-run
-power scale it lifts the independently reproduced baseline **2.12 → 2.91 (CI [+0.605, +0.928])**,
-matched the unmonitored planner on the registered clean-scene cells and strictly dominates the
-plain union on the registered cells (identical collision measures on every cell, safe-progress
-+0.246, CI [+0.206, +0.293]). Its
-deployment-metric effect vs the unmonitored planner is a **tight null** (−0.03, CI [−0.13,
-+0.07]) — the measured collision-score gain had approximately zero effect on that registered
-deployment metric. Iteration 16 tested one named softening and failed its collision bar. The
-mini-scene deployment win
-stands as measured there (+0.398, [+0.133, +0.665], 20 unique episodes/scene — re-established
-after the original pooled version was withdrawn by audit). Across the tested NeuroNCAP frontal
-cells, the committed stop outperformed the three evaluated evasion designs (iters 9, 10, 11);
-the last also raised measured clean-scene collisions (re-confirmed at n=20: 25% vs OFF's 10%).
+| Question | Required evidence |
+|---|---|
+| Can an allowed action still help? | A closed-loop recovery with useful progress, under a declared action library, horizon and decision time. |
+| Does the proposed signal help choose that action? | A frozen information ablation against a competent responsive policy, holding other inputs and actuator limits fixed. |
+| Where does the benefit hold, and at what cost? | New source scenes, benign cases, joint planner/monitor failures, intervention burden and measured execution time. |
 
-**Data-scope checkpoint.** Iterations 1-17 and the power run used real NeuroNCAP/NeuRAD closed-loop
-evidence on public nuScenes scenes; iterations 19, 21, 22, and 23 used the registered non-evaluation
-or evaluation-only extraction surfaces available at the time. They were not mock-data runs. But they
-also did **not** use the full official `/datasets/nuscenes-full` trainval root, because that root did
-not exist until iteration 28. Iterations 24-27 are the audit trail that proved the blocker and staged
-the remedy. Iteration 29 is therefore the first research gate on the newly staged official trainval
-root, and iteration 30 is the first diagnostic localization gate on that root's committed research
-evidence.
+A simulator's collision label belongs to the evaluator. Giving it to a diagnostic search can
+establish a conditional action candidate, but cannot establish what a monitor could infer from
+its own observations. Likewise, a successful maneuver chosen from reset does not establish
+that the same maneuver remains available when the monitor first detects a hazard.
 
-**Current next program.** Iteration 135 must close the semantic-attribution debt with a frozen
-semantics-free dose-response control. It must preserve the pair-clustered primary, treat realized
-dose as post-treatment mechanism evidence rather than a covariate that repairs the comparison,
-and authorize no host or GPU work until the source-bound lifecycle-control baton, separately
-accepted CI/supply-chain baton, performing-controller replacement for static `IDLE`, raw terminal
-provenance, raw-CLI/analyzer parity, manifest, storage, and smoke gates are all accepted in their
-registered order. Its hypothesis is already preregistered. A pinned Bench2Drive-Robust feasibility
-gate remains a later external-benchmark option; the current control-hardening phase does not
-authorize that lane.
+The results below retain that distinction. NeuroNCAP supports a score improvement with specific
+costs; semantic attribution is unresolved, HUGSIM transfer is null, and useful recovery in the
+current development cases remains unestablished.
 
-**Historical mechanism record.** The benchmark campaign through iteration 134 is consolidated.
-Iterations 22, 23, 24, 25,
-and 26 are closed as Stage 1 data/availability/infrastructure/capacity nulls; iterations 27 and 28
-closed the storage and official trainval staging blockers; iteration 29 passed the first
-full-trainval support atlas while failing the optional strict-collapse note; iteration 30 passed
-the diagnostic localization gate over committed iter29 evidence; iteration 31 stopped at S0
-because alpha `0.00` failed to reproduce the committed iteration-29 baseline; iteration 32 passed
-the narrow prefix-replay baseline-recovery audit by restoring exact iteration-29 parity on the
-same frozen target rows; iteration 33 repaired the nonzero-intervention S0 canary but then stopped
-as a calibration null because no nonzero alpha passed the frozen S1 selection bars; iteration 34
-then closed the same global bridge-centroid direction for scale-only successor work with a
-post-result dose-response audit null; iteration 35 then showed real row-level heterogeneity but
-no actionable frozen baseline-geometry stratum. Iteration 36 then passed a diagnostic bridge-site
-decomposition audit: `track_query` and four trajectory-query slots carry enough scene-robust
-signal to justify a separate site-specific intervention pre-registration. Iteration 37 ran that
-site-specific test through S0 and the full calibration grid, then stopped as a calibration null:
-no nonzero alpha passed the frozen positive-movement bars. Iteration 38 is now the fresh
-post-result pre-registration for the exact opposite track-query direction; its tooling/tests,
-offline direction artifact, and S0 canary proof are committed. Calibration is authorized by the
-registered gate but not launched. It is deprioritized: the 2026-07-11 intervention-mechanism
-verdict
-([docs/research/INTERVENTION_MECHANISM_VERDICT_2026-07-11.md](docs/research/INTERVENTION_MECHANISM_VERDICT_2026-07-11.md))
-closes the linear-centroid family after five consecutive pre-registered nulls. No heldout
-intervention replay, iteration-12, selector,
-closed-loop work, deployment language, or safety claim is authorized unless its registered gates
-advance. Iteration 39 then audited the active paper/repository story against external-validity
-pressure, found three active-doc wording problems, and narrowed them in place. Iteration 40 then
-quantified full14/power simulation intervention budget and reconstructable lead time: `1,205`
-brake frames over `10.79 km`, `230/400` intervention episodes, and `61` measured lead-time
-episodes with median `1.30 s`. Iteration 41 then tested the next sensor/input-degradation
-prerequisite and stopped at S0: exact timestamp lookup into committed `p14-best` ego poses missed
-`1,388/6,474` timestamped monitor frames across all `400` episodes, so the registered
-world-frame replay could not be run and perturbations were skipped. Given the current maturity of
-the benchmark result, external-validity falsification now has priority when it conflicts with
-incremental mechanism search. Iteration 42 completed that replay-support remedy: the new
-best-arm trace logs the exact `ego2world` transform with every monitor row, and offline replay
-reproduced every online decision exactly (`0` mismatches over `6,474` frames). Iteration 43 then
-ran the single authorized successor — the offline object-stream perturbation gate over that
-trace — and published `OBJECT_PERTURBATION_MILD_FRAGILE`: position jitter at `0.05`–`0.10 m`
-breaks the frozen stability bars, dominated by false interventions (`17` and `36` new
-intervention episodes against the `<=8` bar), while dropout, score attenuation, and identity
-churn hold at their mild levels. Iteration 44 then tested the natural repair under a fresh
-pre-registration — temporally smoothed velocity estimators (two-/three-frame finite difference
-and EMA) over the same trace and seed-paired jitter grid — and published
-`VELOCITY_SMOOTHING_NO_REPAIR_NULL`: smoothing halves the over-firing but never reaches the
-bar, and it erases `15`–`21` of the `230` genuine online interventions outright on the
-unperturbed trace, so the temporal-smoothing repair line is closed at these parameters and any
-successor needs a fresh pre-registration. Iteration 45 then opened the second closed-loop
-benchmark family, passing the HUGSIM infrastructure gate on the same frozen checkpoint.
-Iteration 46 ran the frozen Stage-1 monitor-OFF baseline — 52 scheduled episodes (26 scenarios
-x 2 back-to-back runs, fixed by the D0 stochasticity verdict) — and published a completion
-null at `38/52`: the seven `load_HD_map` scenarios failed on the unstaged nuScenes
-map-expansion pack, so the Stage-2 pre-registration was not authorized; the within-scenario
-spread (median |ΔHD| `0.0245` over 19 pairs) is committed Stage-2 design evidence. Iteration
-47 then completed as the pre-registered completion pass: Stage A staged the official
-map-expansion pack v1.3 with redacted provenance receipts and passed all bars; Stage B — the
-14-episode completion re-run under the carried stochastic verdict — completed all 14 episodes
-on the first attempt, and ONE analyzer run over all 52 passed C1/C2/C3 with carried integrity
-`104/104` files and the pairing falsifier not fired over all 26 pairs (median |ΔHD| `0.0251`,
-heavy-tailed to `0.7419`). Iteration 48 then ran the authorized Stage-2 transfer gate — the
-released union under the seven NeuroNCAP-frozen parameters against the monitor-OFF planner,
-104 within-launch back-to-back paired episodes — and published `TRANSFER_NULL` at full
-weight: the frozen rule fires, latches, and releases on HUGSIM (37/52 ON episodes, 26.9%
-pooled brake frames, no F2 over-firing, no F3 RC collapse), and the mean paired HD-Score
-delta is `−0.0166` with 95% scenario-clustered CI `[−0.0551, +0.0255]` — no detectable
-outcome change. That null is THE transfer verdict of the second-benchmark line and the
-measured external-validity boundary of the released union. Iteration 49 then ran the
-registered hard/extreme-tier successor and published the same answer under denser collision
-opportunity: all `104` episodes completed, the frozen rule braked in `40/52` ON episodes,
-F1/F2/F3/F5 did not fire, and mean paired HD-Score delta was `−0.0089` with CI
-`[−0.0438, +0.0203]`. Iteration 50's frozen P1 resolves Branch B on that result:
-`51/52` OFF episodes had primary collision opportunity, yet the benefit still did not port,
-so the transfer failure is real, not opportunity-scarce. Iteration 51 then decomposed the
-published HUGSIM nulls offline: over the combined 104 paired transfer episodes, only `6/91`
-OFF-opportunity pairs converted from collision to no collision, `85/104` pairs remained
-collision-persistent, and the frozen dominance rule returned `mixed_taxonomy` rather than one
-single-cause failure. Iteration 52 then tightened the timing side of that mechanism audit:
-among `92` ON-collision episodes, `57` were absent/post-collision braking while `35` had
-pre-collision braking, including `26` long-lead cases that still collided; every no-brake
-case also had zero frozen TTC/CPA surface-proxy rows. Iteration 53 then reconstructed the
-actual first-fire side of the released OR predicate: ON-collision first fires split as
-TTC-only `36`, CPA-only `33`, no-fire `22`, both `1`, and the pre-collision-fire subset split
-CPA-only `19` / TTC-only `16`, so the failure is not one bad union branch. Iteration 54 then
-audited provenance support: monitor-side first-fire argmins reconstruct cleanly (unique TTC
-object `40`, unique CPA object `36`, both-distinct `1`, no-fire `27`), but HUGSIM collision
-actor identity is not logged in any committed eval (`0/104` supported), so actor matching
-requires new instrumentation. Iteration 55 then verified the frozen HUGSIM source checkout and
-mapped the source-level instrumentation route to `sim/utils/score_calculator.py` and
-`closed_loop.py`; it authorizes only a future no-metric-change instrumentation pre-registration,
-not a run or actor attribution. Iteration 56 then drafted that first patch shape, but the
-registered static verifier returned `INSTRUMENTATION_PATCH_DESIGN_NULL`: the patch applied and
-compiled, yet the guard rejected the added `if score_nc == 0.0:` branch as metric/control
-sensitive. Iteration 57 bound the same patch SHA and refined the static guard; the byte-identical
-patch now passes as additive by source diff inspection, but no HUGSIM execution or actor-match
-claim exists. Iteration 58 then applied that byte-bound patch on the frozen HUGSIM stack for the
-registered `scene-0013-hard-00` OFF/ON canary and returned `PROVENANCE_CANARY_COMPLETE`: both
-`eval.json` files kept the scalar metric schema and scalar-only `details` rows, and both emitted
-top-level `collision_provenance` lists (counts `11` and `13`). This is only an instrumentation
-execution pass, not actor matching or HD-Score invariance. Iteration 59 then ran the bounded
-actor-match support audit: eight registered ON episodes completed, three rows were classifiable
-foreground comparisons, and all three were `actor_mismatch` by the frozen bridge; the other rows
-were no-fire, post-fire, or background-only. Iteration 60 stress-tested those three rows under
-48 frozen bridge variants. No variant made a match, but one row became ambiguous at `5.6649 m`,
-so the correct verdict is `BRIDGE_AMBIGUOUS_NULL`, not robust all-row mismatch. Iteration 61
-then compared every first-fire monitor object to every eligible foreground provenance row. One
-row (`ttc_extreme_b`) has a non-triggering object match (`object_id=16`, `2.0686 m`) while the
-trigger remains ambiguous; the other two rows have no first-fire object support. Iteration 62
-then reconstructed the first-fire ranks for that matched object: it was visible but subthreshold
-(`min_cpa=22.7648 m`, CPA rank `9/9`, `ttc=null`), while the actual trigger was TTC-only on
-`object_id=1`. Iteration 63 then followed that same object through the pre-contact window:
-present in 13 frames, zero hazard frames, zero borderline frames, min CPA `12.1690 m`, no valid
-TTC. Iteration 64 then expanded the two first-fire-unsupported rows to all pre-contact objects;
-both gained object-surface matches (`1.6718 m`, `0.4325 m`). Iteration 65 reconstructed those
-matched objects at their matched timestamps and found both subthreshold (`12.7240 m` CPA /
-`3.5763 s` TTC, and `9.3179 m` CPA / no TTC). Iteration 66 then followed those target objects:
-`object_id=2` becomes a TTC hazard at first fire, while `object_id=6` remains visible-never-active.
-Iteration 67 compared first-fire trigger objects to those targets: `cpa_medium_b` is split-object,
-but both trigger and target have later full-window bridge support while the trigger lacks bridge
-support at the actual first-fire timestamp. Iteration 68 decomposed that fire-time gap into one
-before-fire support case and one after-fire support case. Iteration 69 then synthesized all eight
-iteration-59 rows into one taxonomy: five structural rows stay structural, while the three
-classifiable rows split into non-trigger visible-never-hazard, same-object late-fire, and
-split-object visible-never-active mechanisms. Iteration 70 refined those five structural rows:
-two foreground-present rows are surface-silent, two foreground-present rows are late-fire
-(`+1.75 s` after first foreground contact), and one row is foreground-absent/background-only.
-Iteration 71 then audited the two surface-silent rows' frozen trigger margins before foreground
-contact; both were far-margin rows, not near misses against the registered CPA/TTC bands.
-Iteration 72 then audited the two late-fire rows' pre-foreground margins; both were near a frozen
-trigger surface before contact, but not crossing, and first fire still arrived `+1.75 s` after
-first foreground contact.
-Iteration 73 then put all four foreground-present structural rows on one transition timeline:
-the silent rows never become active anywhere in the committed decision logs, while the late-fire
-rows are near before contact and first active only `+1.75 s` after contact.
-Iteration 74 then classified the two late-fire rows' delay barrier: both are cross-channel cases,
-with CPA-near becoming TTC-active in one row and TTC-near becoming CPA-active in the other.
-Iteration 75 then resolved that handoff at object level: both rows switch responsible monitor
-object across the channel handoff (`5` -> `9`, `6` -> `24`).
-Iteration 76 then tested those switched objects against the HUGSIM foreground provenance under
-the fixed bridge grid; neither side of either switch reached match or ambiguous support.
-Iteration 77 then expanded from selected switched objects to full event-row object sets: foreground
-support reappeared in mixed form, showing support can exist in the monitor stream while the
-selected hazard object remains wrong or unsupported.
-Iteration 78 then ranked the foreground-supported objects themselves against the logged monitor
-surface. All three fixed support events are `support_object_nonselected_subthreshold`: the support
-objects are not the selected event objects and do not cross the active or borderline CPA/TTC bands.
-Iteration 79 then decomposed the selected objects in those same rows: two selected objects are
-borderline and one is active, while the foreground-supported objects remain subthreshold.
-Iteration 80 then tested the selected active/borderline objects against every logged provenance
-row, without filtering by class; all eligible rows were foreground and the selected objects still
-reached no match or ambiguous support.
-Iteration 81 then followed the foreground-supported support objects through every committed ON
-decision frame. The support-object branch is mixed: `both_distinct_extreme` support object `9`
-later becomes borderline at `5.5 s` and active at `7.0 s`, while `ttc_medium_a` support object
-`10` remains visible-never-surface across `15` frames.
-Iteration 82 then tested same-object co-occurrence between foreground bridge support and the
-released surface. Both fixed support objects have bridge support, but only object `9` has
-surface co-occurrence, and only at the borderline level (`1` borderline+bridge frame, zero
-active+bridge frames); object `10` has bridge support in `15/15` present frames and never
-reaches active or borderline surface.
-Iteration 83 then decomposed the bridge-supported frames by released surface channel: object `9`
-is a TTC-borderline-only miss, while object `10` is bridge-supported but has no finite TTC and
-stays CPA-far from active.
-Iteration 84 then answered the selected/support arbitration question: all three fixed rows have
-selected objects with stronger logged path geometry (lower CPA and better CPA rank), zero
-selected provenance bridge support, and support objects with better foreground/provenance bridge
-support.
-Iteration 85 then made the closest-path horizon and provenance timing explicit: all three rows
-retain the same selected-path/support-bridge split, support best provenance bridge is after the
-event timestamp in `3/3`, and "selected earlier horizon" is only `1/3`, so the robust mechanism
-statement is path-geometry selection versus later support-object provenance, not a universal
-earlier-horizon rule.
-Iteration 86 then attempted an exact bridge-time support-surface replay and correctly blocked:
-two rows classified, but the active `ttc_medium_a` bridge timestamp `6.0 s` has no exact
-committed ON decision row, so nearest-row or interpolation logic now requires its own fresh
-pre-registration.
-Iteration 87 then resolved that exact-row block with a registered at-or-before interval replay:
-object `9` reaches borderline at exact `5.5 s`, while object `10` remains subthreshold at exact
-`4.0 s` and nearest-before `5.75 s`, so support-side provenance timing is mixed rather than a
-uniform surface-arrival story.
-Iteration 88 then paired that replay result with support bridge evidence and surface margins:
-object `9` is TTC-borderline but CPA-far, while object `10` has no finite TTC and remains CPA-far
-in both replay rows.
-Iteration 89 then enumerated all logged objects at the replay rows: `11` objects are
-bridge-supported across the three rows, but zero are both active under the released surface and
-bridge-supported.
-Iteration 90 then decomposed the active side of that split: two rows have no active object but do
-have bridge-supported non-active objects, and the one row with an active object has no bridge
-support for that active object while bridge-supported objects remain non-active.
-Iteration 91 then made the split geometric: the active row's active object is path-near but
-provenance-far, while the bridge-supported objects are provenance-near but path-inactive.
-Iteration 92 then made the arbitration object explicit: CPA/path-best and provenance-best differ
-in all three fixed replay rows, so path proximity and provenance proximity do not select the same
-logged object.
-Iteration 93 then showed the surface winner is mixed: it follows provenance in one row and path in
-two rows, including the active no-support row.
-Iteration 94 then explained that active row's path-following branch: object `24` is the only
-active/path/surface candidate, while all three bridge-supported provenance candidates are
-subthreshold, TTC-null, and CPA-far.
-Iteration 95 then explained the two non-active branches: one row follows provenance because the
-provenance object is TTC-borderline, while the other follows path because both candidates are
-subthreshold/TTC-null and path wins CPA/rank.
-Iteration 96 then connected those branches back to the structural outcome: the two late-fire rows
-have different branch explanations, but both fire `+1.75 s` after foreground contact with no
-pre-or-at foreground fire frames.
-Iteration 97 then bridged the surface-silent branch: both foreground-present no-fire rows are
-far-margin, never-active rows that only become near after foreground contact.
-This is a mechanism-cause audit, not a repair or population-rate claim. Successors now require
-fresh pre-registrations. The
-published RealADSim closed-loop anchor range remains loose context only —
-it supports no performance statement:
+## Measured results
 
-- **The paper artifact is archived, not submission-ready.** The 2026-07-12 source/PDF/tarball is
-  retained for reproduction, while [`docs/paper/STATUS.md`](docs/paper/STATUS.md) blocks reuse
-  until the HUGSIM transfer null, iteration 134, and claim-language corrections are integrated for
-  a peer-reviewed venue.
-- **Iteration 22 is completed as an S0 data-null.**
-  [`experiments/iter22_causal_planner_interpretability/RESULT.md`](experiments/iter22_causal_planner_interpretability/RESULT.md)
-  reports that baseline extraction completed, but the committed timestamp join failed on all
-  1,507 non-reset rows and the frozen heldout split had 0 GT frames. Stage 1 stopped before probe
-  fitting, activation directions, intervention replay, iteration-12 scoring, or closed-loop work.
-  Any successor requires a fresh pre-registration.
-- **Iteration 23 is completed as a count-floor data-null.**
-  [`experiments/iter23_s0_hardened_causal_localization/RESULT.md`](experiments/iter23_s0_hardened_causal_localization/RESULT.md)
-  reports that the hardened S0 surface passed: deterministic canary, 2,627/2,627 full joins, zero
-  error rows, and stable primary tensor shapes. The next frozen gate failed before learning:
-  collapse-positive frames were 0 in every split, eligible-intervention frames were 0, and heldout
-  danger positives were 17 below the 30-frame floor. Stage 1 stopped before probe fitting,
-  activation directions, intervention replay, iteration-12 scoring, or closed-loop work.
-- **Iteration 24 is completed as a fresh risk-support availability-null.**
-  [`experiments/iter24_risk_support_atlas/RESULT.md`](experiments/iter24_risk_support_atlas/RESULT.md)
-  reports that the known-data firewall ran first, then the availability manifest found 0 eligible
-  fresh scenes, 0 planned keyframes, and 0 heldout keyframes after 582 post-firewall candidates
-  all missed local six-camera files. It stopped before canary extraction, full extraction, label
-  atlas, probe fitting, activation intervention, iteration-12 scoring, selector evaluation, or
-  closed-loop work. A successor needs a fresh pre-registration and an explicit data-staging plan.
-- **Iteration 25 is completed as a staged-data inventory infrastructure-null.**
-  [`experiments/iter25_staged_data_inventory/RESULT.md`](experiments/iter25_staged_data_inventory/RESULT.md)
-  reports that the frozen root inventory inspected only five pre-declared local roots. Only
-  `/datasets/nuscenes` exists, and after the known-data firewall it still had 0 eligible fresh
-  scenes, 0 planned keyframes, and 0 heldout keyframes; the other four roots were missing. It
-  stopped before any data download/copy, model extraction, labels, probes, interventions,
-  iteration-12 scoring, selector evaluation, or closed-loop work.
-- **Iteration 26 is completed as a data-staging remedy capacity-null.**
-  [`experiments/iter26_data_staging_remedy/RESULT.md`](experiments/iter26_data_staging_remedy/RESULT.md)
-  answers the operational question: yes, the missing data is the official nuScenes v1.0 trainval
-  sensor file blobs; no governed bucket copy currently contains them; and the current GPU disk is
-  too small. The next action is storage provisioning plus a later staging pre-registration, not a
-  model run.
-- **Iteration 27 is completed as a storage-provisioning pass.**
-  [`experiments/iter27_storage_provisioning/RESULT.md`](experiments/iter27_storage_provisioning/RESULT.md)
-  reports that `sentinel-gpu` now has `sentinel-nuscenes-data-1tb`, a persistent 1024 GB
-  `pd-balanced` disk, mounted at `/datasets/nuscenes-full` with `1,026,108,792,832` bytes
-  available. It moved 0 dataset bytes and launched 0 Docker/model/NeuroNCAP runs. The next action
-  is a fresh data-staging pre-registration, not an unregistered download or model run.
-- **Iteration 28 is completed as an official nuScenes trainval staging/availability pass.**
-  [`experiments/iter28_nuscenes_trainval_staging/RESULT.md`](experiments/iter28_nuscenes_trainval_staging/RESULT.md)
-  reports 11 official archives staged with SHA/byte proofs (`314,886,603,672` bytes total),
-  extraction safety PASS (`0` unsafe members across `2,631,374` tar members), six camera channels
-  present (`34,149` files each), and availability PASS with `532` fresh post-firewall train scenes,
-  `21,461` eligible keyframes, and `5,360` heldout keyframes. This is a data-root pass, not a
-  model result; the next action must be a fresh research pre-registration.
-- **Iteration 29 is completed as a full-trainval risk-support pass.**
-  [`experiments/iter29_trainval_risk_support_atlas/RESULT.md`](experiments/iter29_trainval_risk_support_atlas/RESULT.md)
-  reports S0c full extraction integrity PASS (`21,461/21,461` joined non-reset rows, zero error
-  row types, stable shapes/dtypes) and S1 support PASS for `low_diversity_1p5` under `danger_4p5`.
-  The optional strict-collapse note failed (`eligible_strict` `0/0/1` across
-  fit/calibration/heldout), so successor work may use only low-diversity language unless a new
-  strict-collapse pre-registration passes. No probe fitting, activation direction, intervention,
-  iteration-12 scoring, selector evaluation, or closed-loop work is authorized.
-- **Iteration 30 is completed as a full-trainval diagnostic localization pass.**
-  [`experiments/iter30_full_trainval_lowdiv_localization/RESULT.md`](experiments/iter30_full_trainval_lowdiv_localization/RESULT.md)
-  reports that the committed iter29 hashes/counts reproduced exactly, then the frozen
-  motion/planning-bridge tensor probe separated `eligible_lowdiv` from benign controls on heldout
-  scenes (AUROC `0.950`, AP `0.615`, balanced accuracy `0.867`) with large margins over metadata
-  (AUROC `0.596`) and ego-plan-kinematic controls (AUROC `0.674`). Scene-cluster bootstrap
-  robustness passed (AUROC p05 `0.922`). This is diagnostic evidence only: it authorizes only a
-  separate causal-intervention pre-registration, not activation patching, iteration-12 scoring,
-  selector evaluation, GPU work, or closed-loop work.
-- **Iteration 31 is completed as a bridge-intervention S0 infrastructure-null.**
-  [`experiments/iter31_full_trainval_bridge_intervention/RESULT.md`](experiments/iter31_full_trainval_bridge_intervention/RESULT.md)
-  reports that the fit-only direction artifact was committed and the S0 canary repeated hashes
-  were deterministic, but alpha `0.00` failed the frozen baseline reproduction bar against
-  iteration-29 originals (`24` rows checked, `96` comparison failures, max coordinate error
-  `30.222413063049316` m). Stage 1 stopped before calibration replay, heldout replay,
-  iteration-12 scoring, selector evaluation, or closed-loop work.
-- **Iteration 32 is completed as a prefix-replay baseline-recovery pass.**
-  [`experiments/iter32_prefix_replay_baseline_recovery/RESULT.md`](experiments/iter32_prefix_replay_baseline_recovery/RESULT.md)
-  reports that the exact 12 iter31 canary target rows reproduce iteration-29 baseline model and
-  GT outputs when each scene is replayed from sample index `0` through the last target index
-  (`44` total replay rows). This authorizes only a fresh prefix-preserving intervention
-  pre-registration; it does not authorize calibration, heldout, iteration-12, selector, GPU
-  closed-loop, or safety claims.
-- **Iteration 33 is completed as a prefix-preserving bridge-intervention calibration null.**
-  [`experiments/iter33_prefix_preserving_bridge_intervention/RESULT.md`](experiments/iter33_prefix_preserving_bridge_intervention/RESULT.md)
-  reports that S0 passed, then the full calibration grid ran all frozen alphas with exact
-  `4293/2452/1841` row counts per cell and zero error rows. No nonzero alpha was usable: alpha
-  `1.00`, the strongest cell, reached only `0.0308 m` median eligible endpoint-spread delta and
-  `0.1296` fraction above `0.25 m`. Heldout, iteration-12, selector, closed loop, and
-  safety claims remain unauthorized.
-- **Iteration 34 is completed as an offline direction-specificity audit null.**
-  [`experiments/iter34_direction_specificity_audit/RESULT.md`](experiments/iter34_direction_specificity_audit/RESULT.md)
-  reports S0 artifact/row integrity PASS, then S1 dose-response NULL: only `74/108`
-  `eligible_lowdiv` rows had nonnegative endpoint-spread slope (`0.685185` vs the frozen `0.70`
-  bar). The same global bridge-centroid direction is closed for scale-only successor work from
-  these artifacts; heldout, iteration-12, selector, closed-loop, and safety claims remain
-  unauthorized.
-- **Iteration 35 is completed as an offline response-heterogeneity audit null.**
-  [`experiments/iter35_response_heterogeneity_audit/RESULT.md`](experiments/iter35_response_heterogeneity_audit/RESULT.md)
-  reports S1 heterogeneity PASS (`42/108` eligible rows with endpoint-spread slope `>=0.05`,
-  `34/108` with slope `<0`, IQR `0.126519 m/alpha`), but S2 found no frozen
-  baseline-geometry stratum with enough target response and benign support. Row-conditioned
-  successor work from the same global direction is therefore unauthorized.
-- **Iteration 36 is completed as a bridge-site decomposition diagnostic pass.**
-  [`experiments/iter36_bridge_site_decomposition/RESULT.md`](experiments/iter36_bridge_site_decomposition/RESULT.md)
-  reports full-bridge reproduction plus five passing non-global sites. `track_query` is the
-  strongest frozen site (AUROC `0.970531`, AP `0.726416`, bootstrap AUROC p05 `0.950589`).
-  This authorizes only a fresh site-specific intervention pre-registration, not a causal,
-  selector, closed-loop, deployment, or safety claim.
-- **Iteration 37 is completed as a track-query site intervention calibration null.**
-  [`experiments/iter37_track_query_site_intervention/RESULT.md`](experiments/iter37_track_query_site_intervention/RESULT.md)
-  reports S0 canary PASS, exact calibration replay counts for all alphas, zero context
-  contamination, and no selected nonzero alpha. The strongest nonzero alpha by dose, `1.00`, had
-  eligible median endpoint-spread delta `-0.041940 m`, fraction `>0.25 m` `0.074074`, and median
-  best-candidate-gap delta `-0.001315`, below the frozen positive-movement bars. Heldout replay,
-  iteration-12 scoring, selector evaluation, closed-loop work, deployment language, and safety
-  claims remain unauthorized.
-- **Iteration 38 is pre-registered as a track-query opposite-direction gate.**
-  [`experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md`](experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md)
-  freezes the exact sign-reversed `sdc_track_query` centroid hypothesis. The offline direction
-  builder, UniAD patch, feeder, run scripts, analyzer, and tests are now added, and the direction
-  artifact is committed with an exact negative-of-iter37 sign-equivalence receipt. S0 canary
-  passed: alpha-zero parity restored, alpha `0.50` changed `track_query` on `24/24` target rows,
-  and `sdc_traj_query_last` stayed unchanged on `24/24`. This pending hypothesis is now explicitly
-  deprecated by `MISSION_STATE.json`; calibration is not a current authorized action. The
-  2026-07-11 intervention-mechanism verdict
-  ([docs/research/INTERVENTION_MECHANISM_VERDICT_2026-07-11.md](docs/research/INTERVENTION_MECHANISM_VERDICT_2026-07-11.md))
-  closes the linear-centroid family after five consecutive pre-registered nulls.
-  recorded what it could have tested, but the current mission state closes that lane. It does not
-  rescue iter37 and authorizes no calibration, heldout, iteration-12, selector, closed-loop,
-  deployment, or safety work.
-- **Iteration 39 is completed as an external-validity claim audit and doc-narrowing result.**
-  [`experiments/iter39_external_validity_claim_audit/RESULT.md`](experiments/iter39_external_validity_claim_audit/RESULT.md)
-  reports S0/S1/S2 PASS, then S3 found three active-doc wording problems. The report and
-  manuscript titles were narrowed to frozen UniAD with measured cross-planner limits, and
-  ambiguous certification-like wording was removed. The post-narrowing scanner passed with zero
-  findings. This creates no new empirical result; it makes the claim boundary harder to dismiss.
-- **Iteration 40 is completed as a timing and intervention-cost audit.**
-  [`experiments/iter40_timing_cost_audit/RESULT.md`](experiments/iter40_timing_cost_audit/RESULT.md)
-  reports full14/power simulation cost coverage: `400/400` best episodes joined, `1,205` brake
-  frames over `10,789.9 m`, `111.68` brake frames/km, `230/400` intervention episodes, and `61`
-  measured lead-time episodes with median `1.30 s`. It authorizes only scoped simulation timing
-  and brake-budget wording, not wall-clock latency, passenger comfort, production cost,
-  deployment readiness, or real-world safety language.
-- **Iteration 41 is completed as a monitor-input degradation infrastructure null.**
-  [`experiments/iter41_sensor_input_degradation_gate/RESULT.md`](experiments/iter41_sensor_input_degradation_gate/RESULT.md)
-  reports that the committed full14/power evidence cannot support the registered exact
-  world-frame replay: `1,388/6,474` timestamped monitor frames had no exact matching committed
-  `p14-best` ego pose, across `400/400` episodes. No perturbation bars were reached, and no
-  object-stream, camera, degraded-sensor, closed-loop, deployment, or safety robustness claim is
-  authorized.
-- **Iteration 42 is completed as the exact trace replay-support pass.**
-  [`experiments/iter42_exact_trace_replay_support/RESULT.md`](experiments/iter42_exact_trace_replay_support/RESULT.md)
-  commits a best-arm-only full14/power exact trace (`400` episodes, `6,474` frame rows, each
-  carrying the exact online `ego2world`) and proves offline replay identity: every online
-  fired/brake/release/latch decision reproduced with `0` mismatches. It authorizes only a future
-  offline object-stream perturbation pre-registration over that committed trace — no degradation
-  perturbation, selector, closed-loop, deployment, or safety claim.
-- **Iteration 43 is completed as the object-stream perturbation gate, a mild-fragile finding.**
-  [`experiments/iter43_object_stream_perturbation_gate/RESULT.md`](experiments/iter43_object_stream_perturbation_gate/RESULT.md)
-  reports zero-strength replay identity through the reused iteration-42 rule, then the frozen
-  14-cell grid: position jitter fails the mild bars at `0.05 m` (retention `218/230`, `17` new
-  interventions) and `0.10 m`, with a monotonic false-intervention dose-response up to `151`
-  new interventions at `1.00 m`; detection dropout, score attenuation, and identity churn pass
-  their mild cells. This is replay decision-flip sensitivity of the monitor rule only — not
-  sensor degradation, not closed-loop, and not a deployment or safety claim; the offline line
-  at this trace is closed.
-- **Iteration 44 is completed as the velocity temporal-smoothing repair gate, a no-repair null.**
-  [`experiments/iter44_velocity_smoothing_gate/RESULT.md`](experiments/iter44_velocity_smoothing_gate/RESULT.md)
-  reports exact neutral-parameter identity and field-for-field seed-paired reproduction of the
-  iteration-43 jitter cells, then the frozen verdict grid: all four registered smoothed
-  estimators (`fd_k2`, `fd_k3`, `ema_a0p5`, `ema_a0p3`) fail baseline fidelity on the
-  unperturbed trace (retention `209-215/230` vs the `>= 225` bar; `5-6` invented interventions)
-  and fail jitter repair (`11-20` new interventions vs the `<= 8` bar). Smoothing measurably
-  shrinks the over-firing channel but deletes genuine interventions, so the rule's decision
-  boundary sits on one-frame velocity transients; the released union is unchanged, and no
-  sensor, closed-loop, deployment, or safety claim is made.
-- **Iteration 45 is completed as the HUGSIM infrastructure gate, a pass.**
-  [`experiments/iter45_hugsim_infra_gate/RESULT.md`](experiments/iter45_hugsim_infra_gate/RESULT.md)
-  opens the second closed-loop benchmark family: the XDimLab/HUGSIM scene release is staged on
-  the data disk with a per-file SHA256 manifest, the HUGSIM simulator environment and the
-  unmodified UniAD_SIM client (running the SAME frozen NeuroNCAP `uniad_base_e2e.pth`) are
-  installed, and one monitor-OFF scenario (`scene-0013-easy-00`, chosen by a frozen
-  lexicographic rule) runs closed-loop end-to-end through the named-pipe interface, producing
-  a finite HD-Score output and per-step logs. This proves only that the pipeline runs: no
-  transfer, benchmark, robustness, deployment, or safety claim, and it authorizes only the
-  Stage-1/2 pre-registration of the transfer line.
-- **Iteration 46 is completed as the HUGSIM Stage-1 monitor-OFF baseline, a completion null.**
-  [`experiments/iter46_hugsim_off_baseline/RESULT.md`](experiments/iter46_hugsim_off_baseline/RESULT.md)
-  ran the frozen 52-scenario easy+medium subset under a hard provenance gate. The D0 probe
-  recorded the HUGSIM closed loop as **stochastic** (no seed surface), fixing the schedule at
-  the first 26 scenarios x 2 back-to-back runs. 38 of the 52 episodes completed with finite
-  HD-Scores and per-step pairing logs (all on attempt 1); the seven scheduled scenarios whose
-  released yamls set `load_HD_map: true` failed both attempts before the client's first step
-  on a missing nuScenes **map-expansion** JSON — a staging gap (iteration 28 staged trainval
-  metadata and sensor blobs, never the map-expansion pack), cleanly separated from client
-  stability by the control case: the one `-medium-01` scenario without the flag passed. The
-  registered dual-failure falsifier fired, C1 failed, and the null publishes at full weight:
-  the Stage-2 OFF-vs-released-union pre-registration is NOT authorized. The within-scenario
-  stochastic spread (median |ΔHD| `0.0245` over 19 pairs, heavy-tailed to `0.31`) is committed
-  Stage-2 design evidence for a successor. OFF arm only; no transfer, monitor, benchmark,
-  deployment, or safety claim.
-- **Iteration 47 completed as the map-expansion staging + OFF-baseline completion PASS.**
-  [`experiments/iter47_map_staging_and_off_completion/RESULT.md`](experiments/iter47_map_staging_and_off_completion/RESULT.md).
-  Iteration 46's null stands as published; completion was re-earned, not retroactively
-  repaired. Stage A **passed**: the official nuScenes map-expansion pack v1.3
-  (`398,535,531` bytes, SHA256-receipted, redacted public-bucket provenance, `0` unsafe zip
-  members) is staged at `/datasets/nuscenes-full/maps/expansion/` with all four vector-map
-  JSONs present
-  ([`proof-staging/staging_receipts.json`](experiments/iter47_map_staging_and_off_completion/proof-staging/staging_receipts.json)).
-  Stage B **passed**: behind a hard provenance gate re-verifying every frozen iteration-46
-  value, all 14 formerly failed `load_HD_map` `-medium-01` episodes completed on the first
-  attempt (wall 102-509 s), and ONE analyzer run over all 52 episodes passed C1/C2/C3 with
-  carried integrity `104/104` files byte-identical and the pairing falsifier not fired over
-  all 26 pairs (median |ΔHD| `0.0251`, heavy-tailed to `0.7419` on `scene-0138-medium-01` —
-  that shape binds the Stage-2 paired design). The full 52-episode monitor-OFF arm stands
-  (mean HD `0.3607`, median `0.2553`). This pass authorizes ONLY the iteration-48 Stage-2
-  OFF-vs-released-union pre-registration — not the Stage-2 runs, and no transfer, monitor,
-  benchmark, deployment, or safety claim.
-- **Iteration 48 completed as the HUGSIM Stage-2 transfer gate: `TRANSFER_NULL` — THE
-  transfer verdict of the second-benchmark line, published at full weight.**
-  [`experiments/iter48_hugsim_transfer_gate/RESULT.md`](experiments/iter48_hugsim_transfer_gate/RESULT.md).
-  All `104` scheduled episodes (26 scenarios x 2 runs x 2 arms, within-launch back-to-back
-  pairing) completed with `0` retries behind the full provenance gate; the F1 void check
-  passed mechanically (monitor-patch SHA byte-identical to the committed copy; the seven
-  NeuroNCAP-frozen parameters echoed in the receipts and every ON-arm decision log — zero
-  retuning). The released union demonstrably operates on HUGSIM: it intervened in `37/52` ON
-  episodes (`887` fired frames, `1,392` brake frames = `26.9%` pooled, `134` latch releases),
-  F2 splat-noise mistuning did not fire in either direction, and F3 RC collapse did not fire
-  (mean paired RC delta `−0.0147`, bar `−0.30` — iteration 13's paralysis did not recur). But
-  the interventions buy no measurable outcome change: mean paired HD-Score delta `−0.0166`,
-  95% scenario-clustered bootstrap CI `[−0.0551, +0.0255]` (median `+0.0032`, CI
-  `[−0.0467, +0.0178]`; fresh OFF-OFF noise floor median \|ΔHD\| `0.0307`). The NeuroNCAP
-  benefit does not measurably transfer to HUGSIM easy+medium scenarios at this N; the null is
-  the measured external-validity boundary. No NeuroNCAP-equivalence, deployment, benchmark-
-  ranking, robustness, or safety claim; successors need fresh pre-registrations.
-- **Scientific priority is now defensibility over impressiveness.**
-  If the choice is between another stronger-looking benchmark/mechanism result and a narrower
-  claim that survives hostile scrutiny, prefer the narrower defensible claim. The next fresh
-  pre-registration should prioritize external validity and falsification pressure: independent
-  planner transfer, unseen scenario families, sensor degradation, adversarial perturbations,
-  calibration stability, intervention latency, intervention cost, and deployment trade-offs.
-  Sensor degradation now requires replay-support repair before any robustness claim.
+### NeuroNCAP: a score gain with specific costs
 
-The adopted sequencing (2026-07-11): the iteration-42 trace gate first (done — iterations
-42-44), then the second closed-loop benchmark family (HUGSIM transfer of the released union —
-launch packet at
-[docs/research/SECOND_BENCHMARK_TRANSFER_HUGSIM.md](docs/research/SECOND_BENCHMARK_TRANSFER_HUGSIM.md);
-lane opened by iteration 45, Stage-1 OFF-arm completion earned by iteration 47's pass, and
-the Stage-2 transfer verdict delivered by iteration 48 as a full-weight transfer null — the
-line's registered question is answered and the null folds into the manuscript as the measured
-external-validity boundary — with iteration 49 adding the hard/extreme-tier confirmation that
-opportunity density does not rescue the frozen released union, and iteration 51 decomposing
-that failure as mixed collision persistence rather than a single retunable cause, with
-iteration 52 splitting ON-collision persistence into absent/post braking and pre-collision
-braking, and iteration 53 showing that pre-collision first fires split across CPA-only and
-TTC-only channels, and iteration 54 proving actor-match evidence is not present in committed
-HUGSIM evals), then the
-deployment-flip successor; these rank ahead of any new intervention iteration, and the
-linear-steering mechanism line is closed
-([docs/research/INTERVENTION_MECHANISM_VERDICT_2026-07-11.md](docs/research/INTERVENTION_MECHANISM_VERDICT_2026-07-11.md)).
+The principal comparison uses the same frozen UniAD planner with and without Sentinel's
+released union monitor, on all 14 official NeuroNCAP scenes. The power run measured **799 of
+800 planned episodes**, targeting 20 seed-paired runs per scenario pair. One OFF episode is
+missing after repeated host freezes; its pair is reported at 19 runs.
+[Protocol, raw evidence and analysis](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/full14_power/RESULT.md).
 
-Closed en route, per the gate discipline: the per-frame routing predicates (iteration 17
-addendum — refuted offline), the tracking layer's own offline gate (iteration 18 — failed
-by one frame at the frozen margin; the GPU stayed off), the planning-query diversity head
-(iteration 19 — 0/37 feasible escapes), the VAD tracker-portability gate (iteration 20 —
-0/47 raw TTC fires removed, side retention below bar), and the BEV-conditioned diversity head
-(iteration 21 — 0/37 feasible escapes, 23.1% candidate validity), and the first causal-localization
-Stage 1 (iteration 22 — S0 integrity/data-support null), the hardened causal-localization
-rerun (iteration 23 — count-floor null after S0 pass), the fresh risk-support atlas
-(iteration 24 — availability-null before extraction), the staged-data inventory
-(iteration 25 — no passing local root), and the data-staging remedy discovery
-(iteration 26 — official trainval blobs needed but disk too small). The deployment flip remains proven
-achievable and unclaimed.
+| Outcome | UniAD without monitor | UniAD with released union |
+|---|---:|---:|
+| NeuroNCAP score, 0–5 | 2.12 | **2.91** |
+| Side-impact collision rate | 74% | **44%** |
+| Stationary collision rate | 29% | **18%** |
+| Frontal collision rate | 78% | **90%** |
+| Frontal score, reflecting impact severity | 1.24 | 1.78 |
 
-Completed lines, kept for the record:
+The pooled score difference is **+0.783**, with the registered run-index bootstrap 95% interval
+**[+0.605, +0.928]**. The safe-progress difference is **−0.032 [−0.127, +0.065]**. That interval
+does not establish a progress benefit or equivalence. The frontal result is particularly
+important: the score improves while collisions become more frequent. In frontal/0346,
+collision rate rises from 50% to 100%. These costs belong beside the gain.
 
-- **The power run — done.** The benchmark result confirmed at 20 runs/pair (2.12 → 2.91, CI
-  [+0.605, +0.928]); the deployment question resolved into a tight null (−0.03, CI [−0.13,
-  +0.07]); the apparatus reproduced the 6-run evidence exactly on every pair.
-  [`experiments/full14_power/RESULT.md`](experiments/full14_power/RESULT.md).
+The release mechanism improved safe-progress over the permanently latched union by
+**+0.246 [+0.206, +0.293]** on the earlier six-run comparison, with unchanged collision measures
+on its registered cells. It remains the selected configuration from that campaign;
+it is not a guarantee that stopping or releasing is safe in a new situation.
+[Iteration 15](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter15_latch_release/RESULT.md).
 
-- **Iteration 16 — softer than a stop: pre-registered null.** The 2.0 m/s crawl recovers the
-  campaign's highest safe-progress but fires the side falsifier (37% → 57%): the crawl delivers
-  the ego into the crossing point the stop halts short of. The full stop stands.
-  [`experiments/iter16_soft_stop/RESULT.md`](experiments/iter16_soft_stop/RESULT.md).
+### Attribution: the placebo test remains unresolved
 
-- **Introspective plan selection — closed for command-indexed candidates, on two planners.** The
-  pre-registered checkpoints answered it: UniAD's command-conditioned plans collapse totally under
-  threat (0/37 escapes); VAD's native modes retain partial diversity (21% escapes) but stay below
-  the frozen 30% viability bar. The safe alternative the re-ranker needs is mostly absent when it
-  matters — the first threat-conditioned diversity measurements on E2E planners' own candidates
-  ([`iter12`](experiments/iter12_plan_selection/RESULT.md) ·
-  [`vad_generalization`](experiments/vad_generalization/RESULT.md)). Two learned successor heads
-  under the runtime selector also failed offline: planning-query conditioning and scene-level BEV
-  conditioning both produced **0/37** feasible escapes.
-  [`iter19`](experiments/iter19_diversity_head/RESULT.md) ·
-  [`iter21`](experiments/iter21_bev_diversity_head/RESULT.md).
-- **A formal-envelope baseline (RSS-style) — done, H13 confirmed.** The envelope achieves the
-  campaign's best raw safety by near-paralysis and lands *below the unmonitored planner* on
-  safe-progress; union − RSS = +1.345, CI [+0.944, +1.701]. Stopping power is free; selectivity is
-  what plan-aware introspection buys.
-  [`experiments/iter13_rss_baseline/RESULT.md`](experiments/iter13_rss_baseline/RESULT.md).
-- **A second frozen planner (VAD) — done, and the transfer verdict is a finding.** VAD's failure
-  profile is inverted (stationary 85%, side 65%, frontal strong); the union prevents exactly those
-  failures (both → 0%) but loses its selectivity — its TTC term needs the stable IDs of a learned
-  tracker, which VAD does not expose. Monitor selectivity is a property of tracking quality, not
-  the decision rule alone. [`vad_generalization/RESULT.md`](experiments/vad_generalization/RESULT.md).
-- **The full 14-scene benchmark — done.** The published baseline independently reproduced (2.15
-  vs 1.84), the union's benchmark-score win decisive at full scale (**2.15 → 3.09, CI [+0.713,
-  +1.155]**), and the deployment-metric win honestly reported as not generalizing (safe-progress
-  CI includes 0 — over-braking on unseen benign-progress scenes). The next mechanism this
-  defines: per-scene brake-budget calibration.
-  [`experiments/full14_benchmark/RESULT.md`](experiments/full14_benchmark/RESULT.md).
+Iteration 134 completed **1,200 episodes** across OFF, released union and a semantics-scrambled
+braking schedule. The union's benefit over OFF reproduced. Against placebo, however, the
+registered primary difference was **+0.3683 [−0.1901, +0.8866]**, using the 20-pair-clustered
+bootstrap. The placebo realized only **859 of 1,205 scheduled brake frames**; the union
+realized all 1,205. Episode termination affected the dose the control could deliver.
 
-Scope throughout, stated plainly: the method was developed on 2 public-mini scenes at
-single-digit-to-20 runs and then measured on the complete official 14-scene set — first at 6
-seed-paired runs per pair, then at 20 (the published protocol uses 100; the first-6 indices of
-the 20-run measurement reproduce the 6-run measurement exactly); two closed-loop simulators,
-one L4 at a time, public data only.
+The registered verdict is **`PLACEBO_HARM_OR_NULL`**. Neither the semantic explanation nor
+its absence is established. The alternative run-index analysis produced a narrower, positive
+interval; it did not replace the preregistered primary after the outcomes were known.
+Realized braking is a consequence of treatment and is not a covariate that can simply repair
+this comparison. [Iteration 134](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md).
 
-## Reproduce & repository map
+### External validity: HUGSIM did not reproduce the gain
 
-**Every headline number regenerates from committed evidence — no GPU, no dataset download:**
+| Frozen transfer test | Episodes | Paired HD-Score difference | Registered 95% interval |
+|---|---:|---:|---|
+| Easy and medium scenarios | 104 | −0.017 | [−0.055, +0.026] |
+| Hard and extreme scenarios | 104 | −0.0089 | [−0.0438, +0.0203] |
+
+Both results are **`TRANSFER_NULL`**, with scenario-clustered intervals. The monitor fired,
+braked and released under the unchanged NeuroNCAP parameters. The hard/extreme OFF arm had
+collision opportunity in 51 of 52 episodes. Lack of opportunity therefore does not explain
+away that transfer result. These intervals also do not establish equivalence or universal
+failure. [Iteration 48](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter48_hugsim_transfer_gate/RESULT.md) ·
+[Iteration 49](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter49_hugsim_hard_tier_gate/RESULT.md).
+
+The VAD transfer test exposed a different limit: fewer collisions on the tested threat cases
+came with severe over-braking and a safe-progress decline, from 2.30 to 0.75. The same monitor
+depends on the quality of the object identities and motion estimates supplied by its planner.
+[VAD comparison](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/vad_generalization/RESULT.md).
+
+### Lead time and intervention burden
+
+The power-run audit reconstructed lead time for **61 episodes** using the OFF arm's 2 m
+center-distance contact crossing. Median lead time was **1.30 s**, with a 5th–95th percentile
+range of **0.40–3.50 s**; negative values were retained. Across the 400 monitor episodes,
+1,205 brake frames were recorded over 10.79 km, or **111.68 brake frames/km**. Of those frames,
+533 occurred in episodes whose paired OFF run did not collide. These are simulation-time and
+intervention-budget measurements, not wall-clock latency or passenger-comfort qualifications.
+[Timing and cost audit](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter40_timing_cost_audit/RESULT.md).
+
+## How the question changed
+
+### 1. Detect danger, then account for driving
+
+The initial shadow study found a risk signal with AUROC 0.83 on 40 episodes. Early TTC braking
+reduced collisions, but the next experiment showed that it could freeze benign scenes.
+Observed-velocity tracking, path-based closest approach and their union addressed different
+failures. Safe-progress made the cost of intervention visible alongside collision outcomes.
+
+Three steering/evasion designs failed their registered comparisons. A tested RSS-style
+baseline achieved low collision rates with very little driving. The crawl and routing variants
+improved some progress measurements but failed collision criteria. These findings constrain
+the evaluated policies and cases; they do not establish a universal stopping floor or rule out
+other control strategies.
+
+The first pooled union claim was **withdrawn** when the verification audit found that repeated
+run indices were deterministic replays, not independent episodes. A fresh measurement at
+20 unique episodes per scene then found safe-progress **+0.398 [+0.133, +0.665]** on the small
+verification suite. The larger benchmark's progress null remains a separate result.
+[Verification and corrections](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/VERIFICATION.md).
+
+### 2. Test whether the planner contains a useful alternative
+
+Native candidate plans and the two tested learned candidate heads failed to provide enough
+feasible escapes on the registered threat frames. Those failures do not prove that the
+planner's representation contains no useful information.
+
+The later trainval work established a diagnostic signal for the defined low-diversity target:
+the internal bridge probe reached AUROC 0.950, above the registered metadata and ego-plan
+controls. The tested activation interventions did not pass calibration. A predictive probe
+and a useful causal intervention are different achievements.
+[Localization](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter30_full_trainval_lowdiv_localization/RESULT.md) ·
+[Calibration null](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter37_track_query_site_intervention/RESULT.md).
+
+### 3. Follow the transfer failure to its evidence boundary
+
+The HUGSIM audits examined collision timing, trigger channels and the relation between monitor
+objects and collision actors. Missing actor provenance first required instrumentation.
+Subsequent analyses used a specified geometric association rule; its matches are bounded
+evidence, not ground-truth object identity or a causal explanation by themselves.
+
+In the eight-row support-core study, selected first-fire objects were never associated with
+the collision actor before collision under that rule. Other objects had support at different
+times, then lost it or were replaced. This motivates tests of observation continuity and
+timing. It does not establish prevalence beyond those selected rows, or prove that retaining
+tracks would repair the monitor. [Support-core synthesis](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter121_hugsim_support_core_two_track_synthesis/RESULT.md).
+
+### 4. Ask what information can change an effective action
+
+The review of the unrun Iteration 135 protocol shifted the priority from another score comparison
+to **information and recoverability**. Iteration 135's clock-only dose-response control remains
+an unrun, deferred protocol. Even a favorable result would not isolate the value of semantic
+content from the advantage of responding to the current state.
+
+The immediate question became whether a permitted action, at a specified time, can avoid
+failure while preserving useful progress. Only then can a new signal be tested for helping
+a responsive policy choose that action. The [research direction](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md)
+sets out the mathematical target, relevant prior work and the proposed experimental sequence.
+
+```mermaid
+flowchart TB
+  accTitle: How the evidence changed the research question
+  accDescr: Benchmark gains and transfer nulls lead to recovery tests, a failed model candidate, and a verified background collision witness.
+  N["NeuroNCAP score gain<br/>progress and attribution limits"] --> T["HUGSIM transfer nulls<br/>actor and timing audits"]
+  T --> E["Iter136–151: execution<br/>nulls and interrupted runs"]
+  E --> P["Iter152: brake pulses<br/>no useful recovery"]
+  P --> M["Iter153–154<br/>candidate fails full scene"]
+  M --> W["Iter155: collision replay<br/>native/scalar agreement"]
+  W -. "next, proposed" .-> C["Background calibration<br/>before a new search"]
+```
+
+### 5. Establish what the controller actually executes
+
+Iterations 136–148 exposed several prerequisites to an interpretable recovery test:
+
+| Finding | Response and remaining limit |
+|---|---|
+| Equal seeds did not reproduce the original controller's first command. | Separate numerical repeatability from wall-clock stopping and log the actual stopping reason. |
+| Early pulse experiments found no useful recovery. | Keep the Iter139 **0/6** and Iter142 **0/2** nulls; inspect contact, actuation and continued driving. |
+| Trajectory timing and native coordinate conventions were ambiguous. | Introduce explicit timestamps, units, frames and source identities; reject stale or misaligned trajectories. |
+| Repeatable optimization could still stop without convergence. | Qualify constrained execution against an independent stationarity check; retain failed solver attempts. |
+| Short successful traces could hide eventual failure. | Qualify full-horizon execution and retain completion, collision, off-route and censoring separately. |
+| A lost progress observation stopped a running episode. | Close Iter148 with missing outcomes intact; design bounded observation recovery prospectively. |
+
+The new execution regime changes controller and actor-time semantics explicitly. Its outcomes
+must not be pooled with the old HUGSIM transfer runs as though only the monitor changed.
+The complete iteration record is below.
+
+## Iteration 148: interrupted recovery study
+
+The registered development study contains **14 scenarios from three previously exposed source
+scenes**, four arms and two replicas: **112 slots**. The arms are nominal, responsive monitor,
+and one-second braking pulses beginning at 0 or 2.5 simulated seconds. Replicas test execution
+agreement; they are not new independent scenes. There are no untouched holdouts.
+
+Only `scene-0013-easy-00` began execution:
+
+| Arm | Retained outcome |
+|---|---|
+| Nominal | Two admitted replicas; 92 actions each; source-defined completion. |
+| Responsive monitor | Two admitted replicas; 92 actions each; source-defined completion; no monitor activation. |
+| Pulse at 0 s | First replica recorded 88 actions without a terminal summary; paired admission invalid. Second replica uninitialized. |
+| Pulse at 2.5 s | Neither replica initialized. |
+
+The four admitted episodes contain **368 verified actions**, no recorded collision or off-route
+event, and exact replica agreement within the declared tolerances. This easy case has no
+configured dynamic actors. Completion follows the simulator's rule near 90% of sampled route
+points; it does not mean the literal final route sample was reached. Since nominal already
+completed and the monitor never intervened, this is integration evidence rather than a recovery
+gain. Natural monitor release was not observed here.
+
+The stopping event was a failed read-only IAP progress query. The supervisor's frozen response
+terminated the block; the error does not establish a simulator failure. Evidence collection
+subsequently recovered the partial trace without restarting any driving job.
+
+**Accounting: four admitted, one incomplete, 107 uninitialized; zero complete four-arm
+comparisons.** Recovery and harm rates remain unestimated. Missing terminal outcomes are not
+successes, failures of the intervention, or zeros.
+
+### Convergence and timing are separate results
+
+| Quantity, admitted episodes only | Observation |
+|---|---:|
+| Largest independently checked stationarity residual | 9.759 × 10⁻⁷; bar 10⁻⁶ |
+| Complete controller calls over 50 ms | **6 / 368** |
+| Recorded loops over 250 ms | **368 / 368** |
+| Loop duration, minimum / median / maximum | 1.712 / 1.792 / 24.608 s |
+
+The simulator waits synchronously. These measurements do not establish 4 Hz operation or a
+policy for handling late results. The loop timer includes the final guard and stop decision;
+reset, summary serialization and worker cleanup are outside that scope. Model exchange time
+also includes communication and cannot be read as isolated inference latency.
+
+[Result and failure record](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/RESULT.md) ·
+[Scoped metrics](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/proof/block_000_attempt_002/metrics.json) ·
+[Aggregate accounting](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/proof/block_000_attempt_002/study_aggregate.json) ·
+[Resource closure](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/proof/block_000_attempt_002/combined_resource_closure.json).
+
+## Iteration 151: nominal baseline and interrupted comparison
+
+The fresh canary fixed two exposed scenarios, four arms and two replicas. Only the first nominal
+pair ran: both replicas passed independent replay and recorded a collision at 7.75 s, with 31
+actions each. Maximum stationarity residual was 9.8156e-7 against the fixed 1e-6 bar. One of 62
+controller calls exceeded 50 ms; all 62 full loops exceeded 250 ms. Real-time operation remains
+unestablished.
+
+A local commit check rejected trailing whitespace in unchanged captured client source. The
+supervisor stopped the schedule and verified shutdown. Raw was then committed without changing
+its bytes, before scientific replay. Totals are 2 admitted and 14 uninitialized; monitor/pulse
+comparisons, recovery and harm remain unestimated. The locally corrected retention pipeline now
+passes a complete archive-to-Git-to-replay rehearsal. The corrected path subsequently ran under
+the separate Iter152 protocol; Iter151 itself remains closed and was not retried.
+[Result, failure and closure](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter151_recovery_canary/RESULT.md).
+
+## Iteration 152: complete comparison, no recovery witness
+
+The continuation fixed fourteen new slots before execution and bound the two Iter151 nominal
+episodes as historical evidence. It retained raw bytes in Git before independent replay for
+each pair. All new slots passed, with zero incomplete or uninitialized slots; the two historical
+episodes and their 62 actions are excluded from the 1,420-new-action total.
+
+| Arm, two replicas each | Collision case: scene-0013-medium-00 | Benign case: scene-0038-easy-00 |
+|---|---|---|
+| Nominal | Collision at 7.75 s; retained Iter151 pair | Completion at 34.0 s |
+| Released monitor | Collision at 9.0 s | Completion at 47.0 s |
+| One-second pulse at 0 s | Collision at 9.0 s | Completion at 34.75 s |
+| One-second pulse at 2.5 s | Collision at 8.5 s | Completion at 35.25 s |
+
+Neither pulse meets the progress-preserving recovery criterion against nominal or the monitor.
+Delay alone does not establish recovery. In the benign case neither pulse produces the
+registered binary harm outcome, but the additional travel time remains visible. Numerical
+replicas do not create independent scenes or justify a population rate.
+
+Actual applied controls confirm the early pulse brought speed to zero before returning to the
+nominal policy. The later collision motivates testing whether a different allowed maneuver can
+make useful progress around the obstacle. Logged source actor states remain stationary in the
+inspected collision-case pulse traces; this is exploratory evidence, not a physical theorem.
+
+All checked stationarity residuals passed the fixed 1e-6 bar. Nevertheless, 37/1,420 controller
+calls exceeded 50 ms and all 1,420 full loops exceeded 250 ms; full-loop median was 1.890 s.
+Both compute envelopes closed with unchanged source bindings and no remaining owned job.
+[Complete result and limits](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter152_recovery_continuation/RESULT.md) ·
+[per-episode evidence](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter152_recovery_continuation/proof/analysis.json) ·
+[resource closure](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter152_recovery_continuation/proof/resource_closure.json).
+
+## Iteration 153: a model maneuver candidate
+
+The registered local search contains 75 fixed route-reference maneuvers, each with two replicas.
+It uses privileged retained route/obstacle geometry and a diagnostic pure-pursuit controller,
+with separately checked source-matched dynamics, applied-control limits, source route outcomes
+and conservative between-sample foreground clearance. It neither runs UniAD nor observes the
+full scene's background collision or drivable road boundaries.
+
+The complete library yielded 38 foreground contacts, 26 model completions, two off-route stops
+and nine control-screen violations. Fourteen completions also passed both progress conditions.
+The prospective ranking selects a −2 m route-normal offset at 6 m/s, shifting out over 10 m and
+returning after station 40 m. It reaches model completion at 16.25 s; maximum source-route
+distance is 2.302 m. That distance is not a road-compliance result.
+
+The 150 trials contain 10,012 independently replayed model actions. The local search took
+6.254 s without new packages or provider access; it omits rendering and inference and therefore
+supports no real-time-driving comparison. The search supplied a precise candidate for the subsequent
+full-scene test; Iter154 rejected that candidate. [Result, complete accounting and figure](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter153_action_feasibility/RESULT.md) ·
+[bound action packet](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter153_action_feasibility/SELECTED_MANEUVER.json).
+
+## Iteration 154: the full scene rejects the model candidate
+
+The exact selected 65-action sequence was prospectively bound and run in two fresh replicas
+with native rendering, actor updates and foreground/background collision checks. Privileged fixed
+controls bypassed UniAD and monitor inference. Both episodes terminate after 13 actions at 3.25 s
+on background collision, with foreground and off-route false. Source route fraction is 0.166844;
+distance to the sampled route is 2.301770 m. Route proximity is not road compliance.
+
+All 26 actions passed separate replay, including the source-matched kinematic prefix, actor state
+and route/outcome consistency. The maximum prefix error is 4.44e-16. Native background collision
+was observed, but Iter154 did not retain the enclosed point count or mask. Iter155 subsequently
+reconstructed and independently replayed those two historical frames, as reported below.
+The full-scene result still contradicts useful recovery by this exact maneuver. It does not prove physical collision or that another maneuver cannot recover the scene.
+
+No alternative candidate was tried. The capacity-refused first start and one prospectively amended
+retry are retained. The VM is terminated, all 11,715 source/asset bindings are unchanged, and the
+combined conservative compute allowance is $0.346 within $3. Road compliance and information
+benefit remain unknown. [Result and figure](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter154_full_scene_maneuver/RESULT.md) ·
+[per-episode analysis](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter154_full_scene_maneuver/proof/analysis.json) ·
+[resource closure](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter154_full_scene_maneuver/proof/resource_closure.json).
+
+## Iteration 155: the background witness replays exactly
+
+A bounded source/asset extraction reconstructs the last clear and first collision boxes from
+Iter154, without rerunning a driving policy. The retained 1,345,702 pre-selection points include
+all semantic features and opacities. Independent filtering recovers all 276,519 selected centers
+in the native order; independent geometry checks the vehicle boxes and ground height.
+
+At 3.00 s the source CUDA and scalar counts are both zero. At 3.25 s both count 273, exceeding
+the unchanged threshold of 100. Every mask entry agrees, with zero ambiguous classifications
+under the declared numerical diagnostic band. Four historical replica/frame bindings describe
+two unique poses. This supports the finite source predicate witness; it does not validate the
+reconstruction against physical occupancy, road boundaries or future trajectories.
+
+All 396 bound source/asset files remained unchanged. The VM is terminated, no owned job remains,
+and conservative compute was $0.229 within $1.50. No new driving episode, rendering or inference
+ran. [Result and figure](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter155_background_witness/RESULT.md) ·
+[independent admission](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter155_background_witness/proof/admission.json) ·
+[resource closure](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter155_background_witness/proof/resource_closure.json).
+
+## The next scientific test
+
+The intended contribution is a monitor and evaluation system that can show **which failures
+remain preventable, which signal enables prevention, and the measured cost and limits**.
+The following work is proposed; all previous schedules retain their closed accounting.
+
+1. **Calibrate a background-aware feasibility model.** Use the retained full selected population,
+   source boxes, ground geometry and unchanged strict count rule. Qualify any accelerated query
+   against a scalar oracle, then prospectively compare retained native failure/nonfailure prefixes.
+   Report every mismatch and preserve the failed original maneuver.
+2. **Search only after the constraint is calibrated.** Register a new finite library, ranking,
+   resource limits and independent replay. Keep foreground clearance, background feasibility,
+   progress, controls and road compliance distinct. Physical occupancy and drivable boundaries
+   require separate evidence. A useful maneuver from reset would still not establish recovery
+   after the monitor's actual decision time.
+3. **After establishing useful recovery, test one information hypothesis against a responsive baseline.**
+   Track continuity and uncertainty are motivated candidates. Include benign and stale-track cases, freeze the
+   information interfaces, and measure intervention costs. Better offline prediction alone
+   does not establish a prevention benefit.
+4. **Evaluate generalization on genuinely new source scenes.** Reserve them before development
+   continues. Measure joint planner/monitor failures, observation faults, timing faults and
+   subgroup uncertainty before broadening to another planner or simulator.
+
+```mermaid
+flowchart TB
+  accTitle: The proposed route from collision replay to information benefit
+  accDescr: Calibration precedes a new action search. Full-scene recovery and a measured decision window are required before testing an added signal.
+  C["Calibrate background model<br/>against native records"] --> S["Freeze finite action library<br/>then search"]
+  S --> R{"Useful full-scene<br/>recovery?"}
+  R -- "not found" --> N["Retain negative result<br/>reconsider actions or cases"]
+  R -- "unknown" --> U["Retain missing or invalid evidence<br/>no recovery claim"]
+  R -- "supported" --> W["Preserve nominal prefix<br/>measure decision window"]
+  W --> I["Test added information<br/>against responsive policy"]
+  I --> H["New source scenes<br/>benefit, harm and uncertainty"]
+```
+
+Every step in this diagram is proposed. The current evidence has reached collision replay,
+not a demonstrated recovery opportunity or information advantage.
+
+Failure across a finite set of actions does not prove physical inevitability. Likewise, a weak
+probe does not prove that the available observations lack information. If a representation is a
+deterministic function of the same input history, its value may be computational access under
+a time budget rather than new information. Those distinctions matter to both the mathematics
+and the experiment.
+
+## Reproduce and inspect
+
+Start with the result for the claim being checked. Its hypothesis defines the population,
+comparison, stopping rule and analysis; its proof directory contains the retained inputs and
+outputs. Historical experiments have different environments. A green test run, a content hash
+or a repeated seed is not sufficient evidence for a scientific claim.
+
+Two small checks can run from the repository root without a GPU or dataset download:
 
 ```bash
-python3 -m pytest -q                                   # monitor geometry unit tests (stdlib + pytest only)
-
-# the G1 signal: AUROC 0.83 from the committed shadow dump
 python3 experiments/iter2_monitor/g1_auroc.py \
-        experiments/iter2_monitor/proof/risk.jsonl.gz \
-        experiments/iter2_monitor/proof/outcomes.tsv
+  experiments/iter2_monitor/proof/risk.jsonl.gz \
+  experiments/iter2_monitor/proof/outcomes.tsv
 
-# the verification audit: determinism proof, side-impact recount, honest n=8 CI
 python3 experiments/verification/audit_pooling.py
-
-# the safety-engineering view: lead time, intervention budget, severity
-python3 experiments/verification/analyze_safety_case.py
-
-# the n=20 measurement (+0.398, CI [+0.133, +0.665]) — committed output
-cat experiments/verification/proof_v20.txt             # regenerate: analyze_v20.py (paths in header)
 ```
 
-The closed-loop stack itself is three public Docker images (NeuRAD renderer · frozen planner ·
-NeuroNCAP orchestrator/scorer) on a single L4; the monitor is a self-contained patch injected into
-the planner's inference server, gated by environment variables so every arm (OFF / union / RSS /
-ablations) is one switch. Each experiment directory is self-describing:
+In the recovery studies, raw pairs were committed before admission. A separate implementation
+checks dynamics, controller outputs, monitor decisions, route outcomes and replica agreement.
+The historical [Iteration 148 replay entrypoint](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/replay.py) exposes these
+checks; the [qualification record](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/QUALIFICATION.json) binds
+the earlier evidence. **165 focused tests passed** before live execution, and qualification
+replayed **1,104 earlier GPU actions**. This does not make the incomplete pulse an admitted result.
 
-| path | what it holds |
+The latest [Iter155 checker](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter155_background_witness/check.py) independently
+reconstructs selection, geometry and collision masks from the retained source-point witness.
+Its [result](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter155_background_witness/RESULT.md) records the environment and scope:
+239 local regression checks, including 75 focused checks. A replay of those two poses does not extend the result to an untested trajectory.
+
+Fresh simulator execution also requires the licensed datasets, scene/model assets, pinned
+runtime and a new bounded resource envelope. Some large assets remain on the stopped host
+with retained hashes. The repository alone is sufficient for the two commands above; it is
+not a complete distribution of every runtime asset.
+
+| Guide | Scope |
 |---|---|
-| [`PREREGISTRATION.md`](PREREGISTRATION.md) · [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | frozen win bar; research-loop design |
-| [`MISSION_STATE.json`](MISSION_STATE.json) | canonical live state: completed result, active/deprecated hypotheses, next program, paper status, and storage launch gates |
-| [`docs/REPORT.md`](docs/REPORT.md) | **the technical report** — evidence synthesis refreshed through iteration 134, with every reported number wired to committed evidence |
-| [`docs/RELATED_WORK.md`](docs/RELATED_WORK.md) | verified field positioning (2023–2026): what is published, what is not, where each claim here stands |
-| [`experiments/iter1_reproduce/`](experiments/iter1_reproduce) · [`iter1b_partial_baseline/`](experiments/iter1b_partial_baseline) | stack stood up; baseline reproduced + collision corpus |
-| [`experiments/iter2_monitor/`](experiments/iter2_monitor) | the signal (G1, AUROC 0.83), the first A/B, the ablation, and the corrected over-claim |
-| [`experiments/iter3_progress/`](experiments/iter3_progress) | the deployment metric (safe-progress) — the honest setback |
-| [`experiments/iter4_gated/`](experiments/iter4_gated) · [`iter5_tracked/`](experiments/iter5_tracked) · [`iter6_cpa/`](experiments/iter6_cpa) · [`iter7_margin/`](experiments/iter7_margin) | selectivity → observed velocity → CPA → margin sweep |
-| [`experiments/iter8_union/`](experiments/iter8_union) | **the union of two detectors** — the campaign's core monitor |
-| [`experiments/iter9_evade/`](experiments/iter9_evade) · [`iter10_brakevade/`](experiments/iter10_brakevade) · [`iter11_early_evade/`](experiments/iter11_early_evade) | three refuted evasion designs for frontal prevention (reported nulls) |
-| [`experiments/union_validation/`](experiments/union_validation) | pooled bootstrap CI — **withdrawn** (invalid pooling); corrected in place |
-| [`experiments/VERIFICATION.md`](experiments/VERIFICATION.md) · [`verification/`](experiments/verification) | **independent verification pass**: audit, corrections, committed raw evidence, fresh n=20 re-measurement, safety-case analysis |
-| [`experiments/iter12_plan_selection/`](experiments/iter12_plan_selection) | introspective plan selection — candidates collapse under threat (reported null) |
-| [`experiments/iter13_rss_baseline/`](experiments/iter13_rss_baseline) | RSS-style formal-envelope baseline — best raw safety by near-paralysis (H13 confirmed) |
-| [`experiments/vad_generalization/`](experiments/vad_generalization) | second frozen planner (VAD) — safety transfers, selectivity does not |
-| [`experiments/full14_benchmark/`](experiments/full14_benchmark) | **the full official 14-scene benchmark** — baseline reproduced; 2.15 → 3.09 |
-| [`experiments/iter15_latch_release/`](experiments/iter15_latch_release) | **threat-cleared latch release — the best configuration** |
-| [`experiments/iter16_soft_stop/`](experiments/iter16_soft_stop) | softer than a stop — the crawl null; measured crossing-cell stopping boundary |
-| [`experiments/full14_power/`](experiments/full14_power) | **the power measurement** — the benchmark result at n=20/pair; deployment resolved to a tight null |
-| [`experiments/iter17_threat_routing/`](experiments/iter17_threat_routing) | threat-class routing — the gate fails on one crossing; the deployment flip proven achievable; successors refuted offline |
-| [`experiments/iter18_tracker/`](experiments/iter18_tracker) | the tracking layer — offline gate failed by one frame; the GPU stayed off |
-| [`experiments/iter19_diversity_head/`](experiments/iter19_diversity_head) | **the diversity-trained candidate head** — planning-query variant failed offline; no closed-loop run |
-| [`experiments/iter20_vad_tracker_portability/`](experiments/iter20_vad_tracker_portability) | VAD tracker portability — offline gate failed; no closed-loop run |
-| [`experiments/iter21_bev_diversity_head/`](experiments/iter21_bev_diversity_head) | BEV-conditioned diversity head — offline gate failed; no closed-loop run |
-| [`experiments/iter22_causal_planner_interpretability/`](experiments/iter22_causal_planner_interpretability) | causal planner interpretability Stage 1 — S0 data-null; stopped before probes, interventions, iter12, or closed loop |
-| [`experiments/iter23_s0_hardened_causal_localization/`](experiments/iter23_s0_hardened_causal_localization) | S0-hardened causal localization — deterministic canary and full S0 pass, then count-floor data-null; stopped before probes, interventions, iter12, or closed loop |
-| [`experiments/iter24_risk_support_atlas/`](experiments/iter24_risk_support_atlas) | fresh risk-support atlas — availability-null after known-data firewall; stopped before canary/full extraction, probes, interventions, iter12, selector, or closed loop |
-| [`experiments/iter25_staged_data_inventory/`](experiments/iter25_staged_data_inventory) | staged-data inventory — infrastructure-null; no frozen local root has enough fresh post-firewall keyframes for a future atlas |
-| [`experiments/iter26_data_staging_remedy/`](experiments/iter26_data_staging_remedy) | data-staging remedy — capacity-null; official trainval sensor blobs needed, current GPU disk too small |
-| [`experiments/iter27_storage_provisioning/`](experiments/iter27_storage_provisioning) | storage provisioning — passed; 1 TB persistent data volume mounted before any nuScenes download |
-| [`experiments/iter28_nuscenes_trainval_staging/`](experiments/iter28_nuscenes_trainval_staging) | official nuScenes trainval staging — passed; full trainval root staged, extracted, and post-firewall inventory proved |
-| [`experiments/iter29_trainval_risk_support_atlas/`](experiments/iter29_trainval_risk_support_atlas) | full-trainval risk-support atlas — support pass for low-diversity hazard/control counts; optional strict-collapse note failed; no probes, interventions, iter12, selector, or closed loop authorized |
-| [`experiments/iter30_full_trainval_lowdiv_localization/`](experiments/iter30_full_trainval_lowdiv_localization) | full-trainval diagnostic localization — pass on committed iter29 proof artifacts; internal bridge tensor signal exceeds metadata and ego-plan controls; no intervention, iter12, selector, GPU, or closed loop authorized |
-| [`experiments/iter31_full_trainval_bridge_intervention/`](experiments/iter31_full_trainval_bridge_intervention) | full-trainval bridge intervention — S0 infrastructure-null after alpha-zero baseline reproduction failed; stopped before calibration, heldout, iter12, selector, or closed loop |
-| [`experiments/iter32_prefix_replay_baseline_recovery/`](experiments/iter32_prefix_replay_baseline_recovery) | prefix-replay baseline recovery — pass; 12 frozen canary targets reproduce iter29 exactly under 44-row prefix replay; fresh intervention pre-registration required |
-| [`experiments/iter33_prefix_preserving_bridge_intervention/`](experiments/iter33_prefix_preserving_bridge_intervention) | prefix-preserving bridge intervention — calibration null; no usable alpha, stopped before heldout, iter12, selector, and closed loop |
-| [`experiments/iter34_direction_specificity_audit/`](experiments/iter34_direction_specificity_audit) | direction-specificity audit — post-result null; same global bridge-centroid direction lacks row-level dose-response consistency for scale-only successor work |
-| [`experiments/iter35_response_heterogeneity_audit/`](experiments/iter35_response_heterogeneity_audit) | response-heterogeneity audit — post-result null; heterogeneity exists but no frozen baseline-geometry stratum authorizes conditioned successor work |
-| [`experiments/iter36_bridge_site_decomposition/`](experiments/iter36_bridge_site_decomposition) | bridge-site decomposition audit — diagnostic pass; `track_query` and four trajectory slots authorize only a future site-specific pre-registration |
-| [`experiments/iter37_track_query_site_intervention/`](experiments/iter37_track_query_site_intervention) | track-query site intervention — calibration null; no usable alpha, stopped before heldout, iter12, selector, and closed loop |
-| [`experiments/iter38_track_query_opposite_direction/`](experiments/iter38_track_query_opposite_direction) | track-query opposite-direction S0 proof — canary pass; calibration authorized but not launched |
-| [`experiments/iter39_external_validity_claim_audit/`](experiments/iter39_external_validity_claim_audit) | external-validity claim audit — doc narrowing published; active story now scoped to evidence |
-| [`experiments/iter40_timing_cost_audit/`](experiments/iter40_timing_cost_audit) | timing/intervention-cost audit — full14/power simulation budget and lead-time pass; no real-time/deployment claim |
-| [`experiments/iter41_sensor_input_degradation_gate/`](experiments/iter41_sensor_input_degradation_gate) | monitor-input degradation gate — infrastructure null; exact pose timestamp support failed before perturbations |
-| [`experiments/iter42_exact_trace_replay_support/`](experiments/iter42_exact_trace_replay_support) | exact trace replay support — replay-identity pass; trace substrate only, authorizes only an offline object-stream perturbation pre-registration |
-| [`experiments/iter43_object_stream_perturbation_gate/`](experiments/iter43_object_stream_perturbation_gate) | object-stream perturbation gate — mild-fragile finding; jitter over-fires at 5 cm in replay, dropout/score/churn stable at mild levels; no sensor or closed-loop claim |
-| [`experiments/iter44_velocity_smoothing_gate/`](experiments/iter44_velocity_smoothing_gate) | velocity temporal-smoothing repair gate — no-repair null; smoothing halves jitter over-firing but erases genuine interventions; released union unchanged |
-| [`experiments/iter45_hugsim_infra_gate/`](experiments/iter45_hugsim_infra_gate) | HUGSIM infrastructure gate — pass; second-benchmark transfer lane open (assets, environments, monitor-OFF closed-loop smoke); authorizes only the Stage-1/2 pre-registration |
-| [`experiments/iter46_hugsim_off_baseline/`](experiments/iter46_hugsim_off_baseline) | HUGSIM Stage-1 monitor-OFF baseline — completion null; 38/52 episodes, seven `load_HD_map` scenarios blocked on the unstaged map-expansion pack; Stage-2 pre-registration not authorized |
-| [`experiments/iter47_map_staging_and_off_completion/`](experiments/iter47_map_staging_and_off_completion) | map-expansion staging + OFF-baseline completion — PASS; Stage A staged the pack with receipts, Stage B completed all 14 failed episodes first-attempt, full 52-episode OFF arm stands with pairing feasible over 26 pairs; authorizes only the iteration-48 Stage-2 pre-registration |
-| [`experiments/iter48_hugsim_transfer_gate/`](experiments/iter48_hugsim_transfer_gate) | HUGSIM Stage-2 transfer gate — TRANSFER_NULL, THE transfer verdict: 104/104 paired episodes under the frozen NeuroNCAP parameters (F1 zero-retuning verified), the union fires/latches/releases on HUGSIM but the mean paired HD delta CI [−0.0551, +0.0255] includes zero; the measured external-validity boundary of the released union |
-| [`experiments/iter49_hugsim_hard_tier_gate/`](experiments/iter49_hugsim_hard_tier_gate) | HUGSIM hard/extreme-tier transfer gate — TRANSFER_NULL: 104/104 paired episodes complete, F1 zero-retuning verified, 40/52 ON episodes intervened, mean paired HD delta CI [−0.0438, +0.0203] includes zero; iteration-50 P1 refuted because 51/52 OFF episodes had collision opportunity |
-| [`experiments/iter50_collision_opportunity_audit/`](experiments/iter50_collision_opportunity_audit) | collision-opportunity audit — A1_CONFIRMED on NeuroNCAP and OPPORTUNITY_PRESENT_NULL on HUGSIM; P1 pre-committed the iter49 interpretation |
-| [`experiments/iter51_hugsim_failure_taxonomy/`](experiments/iter51_hugsim_failure_taxonomy) | HUGSIM transfer-failure taxonomy — TAXONOMY_COMPLETE: 104 committed transfer pairs classified offline; only 6/91 OFF-opportunity pairs converted, 85/104 remained collision-persistent, and the combined taxonomy is mixed rather than a single-cause failure |
-| [`experiments/iter52_hugsim_on_collision_timing_audit/`](experiments/iter52_hugsim_on_collision_timing_audit) | HUGSIM ON-collision timing audit — TIMING_AUDIT_COMPLETE: 92 ON-collision episodes decomposed into absent/post braking vs pre-collision braking; no-brake cases all missed the frozen TTC/CPA surface proxy, but 26 long-lead brake cases still collided |
-| [`experiments/iter53_hugsim_first_fire_channel_audit/`](experiments/iter53_hugsim_first_fire_channel_audit) | HUGSIM first-fire channel audit — FIRST_FIRE_CHANNEL_COMPLETE: ON-collision first-fire channels split TTC-only 36, CPA-only 33, no-fire 22, both 1; pre-collision-fire persistent cases split CPA-only 19 / TTC-only 16, so no single union branch explains the transfer failure |
-| [`experiments/iter54_hugsim_provenance_support_audit/`](experiments/iter54_hugsim_provenance_support_audit) | HUGSIM provenance support audit — PROVENANCE_SUPPORT_NULL: monitor first-fire argmins reconstruct from committed logs, but collision actor identity is not logged in HUGSIM evals, so actor matching requires new instrumentation |
-| [`experiments/iter55_hugsim_collision_instrumentation_source_audit/`](experiments/iter55_hugsim_collision_instrumentation_source_audit) | HUGSIM collision instrumentation source audit — COLLISION_INSTRUMENTATION_SOURCE_MAP_COMPLETE: frozen source checkout verified; future provenance instrumentation route mapped to `sim/utils/score_calculator.py` and `closed_loop.py`; no run or actor attribution |
-| [`experiments/iter56_hugsim_provenance_instrumentation_patch/`](experiments/iter56_hugsim_provenance_instrumentation_patch) | HUGSIM provenance instrumentation patch design — INSTRUMENTATION_PATCH_DESIGN_NULL: first `collision_provenance` sidecar patch applied and compiled, but the registered static guard rejected the `score_nc` branch; no patch authorized for a run |
-| [`experiments/iter57_hugsim_patch_guard_refinement/`](experiments/iter57_hugsim_patch_guard_refinement) | HUGSIM provenance patch guard refinement — PATCH_GUARD_REFINEMENT_COMPLETE: byte-identical Iter56 patch passes refined static guard as additive provenance instrumentation; no HUGSIM run or actor attribution |
-| [`experiments/iter58_hugsim_provenance_instrumented_canary/`](experiments/iter58_hugsim_provenance_instrumented_canary) | HUGSIM provenance instrumented canary — PROVENANCE_CANARY_COMPLETE: byte-bound patch executes in two real HUGSIM episodes and emits top-level collision provenance while scalar metrics/details remain intact; no actor-match or HD-Score-invariance claim |
-| [`experiments/iter59_hugsim_actor_match_audit/`](experiments/iter59_hugsim_actor_match_audit) | HUGSIM actor-match support audit — ACTOR_MATCH_AUDIT_COMPLETE: eight registered ON episodes completed; three classifiable foreground rows all mismatched by the frozen bridge, with no-fire/post-fire/background-only rows making up the rest; bounded mechanism audit only |
-| [`experiments/iter60_actor_bridge_sensitivity/`](experiments/iter60_actor_bridge_sensitivity) | actor-match bridge sensitivity audit — BRIDGE_AMBIGUOUS_NULL: no frozen bridge variant turned the three iteration-59 rows into a match, but one row became ambiguous at 5.6649 m, so robust all-row mismatch is not supported |
-| [`experiments/iter61_monitor_object_surface_audit/`](experiments/iter61_monitor_object_surface_audit) | monitor object-surface audit — OBJECT_SURFACE_NONTRIGGER_MATCH_COMPLETE: one classifiable row has a non-triggering first-fire object match, while two rows have no first-fire object support; bounded mechanism audit only |
-| [`experiments/iter62_nontrigger_ranking_audit/`](experiments/iter62_nontrigger_ranking_audit) | non-trigger ranking audit — MATCHED_OBJECT_SUBTHRESHOLD_COMPLETE: the matched non-trigger object in `ttc_extreme_b` was visible but outside the frozen first-fire CPA/TTC hazard surface |
-| [`experiments/iter63_temporal_emergence_audit/`](experiments/iter63_temporal_emergence_audit) | temporal emergence audit — TEMPORAL_VISIBLE_NEVER_HAZARD_COMPLETE: the matched non-trigger object stayed visible but never crossed hazard or borderline before the first foreground collision timestamp |
-| [`experiments/iter64_unsupported_temporal_surface_audit/`](experiments/iter64_unsupported_temporal_surface_audit) | unsupported-row temporal surface audit — UNSUPPORTED_TEMPORAL_MATCH_COMPLETE: both first-fire-unsupported rows have pre-contact monitor-object matches under the frozen bridge grid |
-| [`experiments/iter65_temporal_alignment_audit/`](experiments/iter65_temporal_alignment_audit) | matched pre-contact temporal alignment audit — TEMPORAL_ALIGNMENT_SUBTHRESHOLD_COMPLETE: both Iter64 matched objects were present but subthreshold at their matched decision timestamps |
-| [`experiments/iter66_matched_object_timeline_audit/`](experiments/iter66_matched_object_timeline_audit) | matched-object hazard timeline audit — MATCHED_OBJECT_TIMELINE_MIXED_COMPLETE: one Iter65 target becomes an active TTC hazard at first fire, while the other remains visible-never-active |
-| [`experiments/iter67_trigger_target_bridge_audit/`](experiments/iter67_trigger_target_bridge_audit) | trigger-target bridge audit — TRIGGER_TARGET_SAME_AND_SPLIT_COMPLETE: one row is same-object target/trigger, while the split row has full-window support for both objects but no first-fire trigger support at the fire timestamp |
-| [`experiments/iter68_fire_time_bridge_decomposition/`](experiments/iter68_fire_time_bridge_decomposition) | fire-time bridge decomposition audit — FIRE_TIME_BRIDGE_GAP_TEMPORAL_SPLIT_COMPLETE: one trigger's best bridge support is before first fire, while the other's is after first fire |
-| [`experiments/iter69_hugsim_mechanism_taxonomy/`](experiments/iter69_hugsim_mechanism_taxonomy) | HUGSIM mechanism taxonomy synthesis — HUGSIM_MECHANISM_TAXONOMY_COMPLETE: all eight iteration-59 rows classified; five structural labels preserved and all three classifiable foreground rows refined by downstream evidence |
-| [`experiments/iter70_hugsim_structural_timing_audit/`](experiments/iter70_hugsim_structural_timing_audit) | HUGSIM structural-row timing audit — HUGSIM_STRUCTURAL_TIMING_TAXONOMY_COMPLETE: five structural rows split into two foreground-present surface-silent rows, two foreground-present late-fire rows, and one foreground-absent/background-only row |
-| [`experiments/iter71_hugsim_surface_silent_margin_audit/`](experiments/iter71_hugsim_surface_silent_margin_audit) | HUGSIM surface-silent margin audit — HUGSIM_SURFACE_SILENT_MARGIN_COMPLETE: both foreground-present no-fire rows are far from the frozen CPA/TTC trigger surfaces before foreground contact |
-| [`experiments/iter72_hugsim_late_fire_prefire_margin_audit/`](experiments/iter72_hugsim_late_fire_prefire_margin_audit) | HUGSIM late-fire prefire margin audit — HUGSIM_LATE_FIRE_PREFIRE_MARGIN_COMPLETE: both foreground-present late-fire rows are near, but not crossing, a frozen trigger surface before foreground contact |
-| [`experiments/iter73_hugsim_margin_transition_audit/`](experiments/iter73_hugsim_margin_transition_audit) | HUGSIM structural margin-transition audit — HUGSIM_MARGIN_TRANSITION_SPLIT_COMPLETE: foreground structural rows split into silent far/never-active versus late near-precontact/postcontact-active timelines |
-| [`experiments/iter74_hugsim_late_fire_delay_barrier/`](experiments/iter74_hugsim_late_fire_delay_barrier) | HUGSIM late-fire delay-barrier audit — HUGSIM_LATE_FIRE_CROSS_CHANNEL_DELAY_COMPLETE: both fixed late-fire rows are cross-channel activations from pre-contact near channel to post-contact active channel |
-| [`experiments/iter75_hugsim_cross_channel_object_handoff/`](experiments/iter75_hugsim_cross_channel_object_handoff) | HUGSIM cross-channel object-handoff audit — HUGSIM_CROSS_CHANNEL_OBJECT_SWITCH_COMPLETE: both fixed cross-channel late-fire rows switch responsible monitor object |
-| [`experiments/iter76_hugsim_switch_foreground_bridge/`](experiments/iter76_hugsim_switch_foreground_bridge) | HUGSIM switch foreground-bridge audit — HUGSIM_SWITCH_FOREGROUND_BOTH_OR_AMBIGUOUS_COMPLETE: neither switched event object reaches foreground bridge match or ambiguous support |
-| [`experiments/iter77_hugsim_event_object_set_bridge/`](experiments/iter77_hugsim_event_object_set_bridge) | HUGSIM event object-set foreground-bridge audit — HUGSIM_EVENT_SET_FOREGROUND_SUPPORT_MIXED_COMPLETE: full event-row object sets recover mixed foreground support not carried by selected switched objects |
-| [`experiments/iter78_hugsim_support_object_ranking/`](experiments/iter78_hugsim_support_object_ranking) | HUGSIM support-object ranking audit — HUGSIM_SUPPORT_OBJECT_RANKING_MIXED_COMPLETE: all fixed foreground-supported full-set objects are nonselected and subthreshold under the logged monitor surface |
-| [`experiments/iter79_hugsim_selected_surface_decomposition/`](experiments/iter79_hugsim_selected_surface_decomposition) | HUGSIM selected-object surface decomposition — HUGSIM_SELECTED_ACTIVE_SUPPORT_SUBTHRESHOLD_COMPLETE: selected objects are active/borderline while the foreground-supported objects remain subthreshold |
-| [`experiments/iter80_hugsim_selected_all_provenance_bridge/`](experiments/iter80_hugsim_selected_all_provenance_bridge) | HUGSIM selected-object all-provenance bridge audit — HUGSIM_SELECTED_ALL_PROVENANCE_NO_SUPPORT_COMPLETE: selected active/borderline objects do not bridge to any logged provenance row |
-| [`experiments/iter81_hugsim_support_object_temporal_surface/`](experiments/iter81_hugsim_support_object_temporal_surface) | HUGSIM support-object temporal surface audit — HUGSIM_SUPPORT_OBJECT_EVER_ACTIVE_COMPLETE: one foreground-supported object later reaches the released surface, while the other remains visible-never-surface |
-| [`experiments/iter82_hugsim_support_surface_bridge_cooccurrence/`](experiments/iter82_hugsim_support_surface_bridge_cooccurrence) | HUGSIM support-object surface/provenance co-occurrence audit — HUGSIM_SUPPORT_SURFACE_BRIDGE_BORDERLINE_ONLY_COMPLETE: one support object has borderline+bridge co-occurrence only, while the other has bridge support without surface activation |
-| [`experiments/iter83_hugsim_bridge_supported_surface_miss_decomposition/`](experiments/iter83_hugsim_bridge_supported_surface_miss_decomposition) | HUGSIM bridge-supported surface-miss decomposition — HUGSIM_BRIDGE_SUPPORTED_SURFACE_MISS_MIXED_COMPLETE: bridge-supported support objects split into TTC-borderline-only and no-finite-TTC/CPA-far misses |
-| [`experiments/iter84_hugsim_selected_support_arbitration/`](experiments/iter84_hugsim_selected_support_arbitration) | HUGSIM selected/support path-arbitration decomposition — HUGSIM_SELECTED_SURFACE_SUPPORT_BRIDGE_SPLIT_COMPLETE: selected objects have stronger logged path geometry, while support objects have the provenance bridge |
-| [`experiments/iter85_hugsim_path_horizon_bridge_timing/`](experiments/iter85_hugsim_path_horizon_bridge_timing) | HUGSIM path-horizon/provenance-timing decomposition — HUGSIM_PATH_HORIZON_BRIDGE_TIMING_SPLIT_COMPLETE: selected objects retain path-geometry advantage while support-object provenance bridges after the event |
-| [`experiments/iter86_hugsim_bridge_time_surface_replay/`](experiments/iter86_hugsim_bridge_time_surface_replay) | HUGSIM bridge-time support-surface replay — HUGSIM_BRIDGE_TIME_SURFACE_REPLAY_BLOCKED: exact bridge-time replay classifies two rows but blocks on missing `6.0 s` decision row |
-| [`experiments/iter87_hugsim_interval_bridge_time_surface_replay/`](experiments/iter87_hugsim_interval_bridge_time_surface_replay) | HUGSIM interval bridge-time support-surface replay — HUGSIM_INTERVAL_BRIDGE_TIME_SURFACE_REPLAY_MIXED_COMPLETE: one support object reaches borderline, while the other remains subthreshold under interval replay |
-| [`experiments/iter88_hugsim_bridge_surface_margin_residual/`](experiments/iter88_hugsim_bridge_surface_margin_residual) | HUGSIM bridge/surface margin residual decomposition — HUGSIM_BRIDGE_SURFACE_MARGIN_RESIDUAL_SPLIT_COMPLETE: support residuals split into TTC-borderline/CPA-far and no-finite-TTC/CPA-far cases |
-| [`experiments/iter89_hugsim_joint_bridge_surface_candidate_audit/`](experiments/iter89_hugsim_joint_bridge_surface_candidate_audit) | HUGSIM joint bridge/surface candidate audit — HUGSIM_JOINT_BRIDGE_SURFACE_NO_ACTIVE_CANDIDATE_SPLIT_COMPLETE: no logged replay-row object is both active and bridge-supported |
-| [`experiments/iter90_hugsim_active_surface_provenance_gap/`](experiments/iter90_hugsim_active_surface_provenance_gap) | HUGSIM active-surface provenance gap audit — HUGSIM_ACTIVE_SURFACE_PROVENANCE_GAP_COMPLETE: bridge-supported replay-row objects are non-active, while the only active object lacks bridge support |
-| [`experiments/iter91_hugsim_active_gap_geometry_decomposition/`](experiments/iter91_hugsim_active_gap_geometry_decomposition) | HUGSIM active-gap geometry decomposition — HUGSIM_ACTIVE_GAP_PATH_PROVENANCE_DECOMPOSITION_COMPLETE: path-active geometry and provenance-supported geometry split across different objects |
-| [`experiments/iter92_hugsim_path_proximity_arbitration/`](experiments/iter92_hugsim_path_proximity_arbitration) | HUGSIM path-proximity arbitration audit — HUGSIM_PATH_PROXIMITY_ARBITRATION_SPLIT_COMPLETE: CPA/path-best and provenance-best objects differ in all fixed replay rows |
-| [`experiments/iter93_hugsim_surface_winner_alignment/`](experiments/iter93_hugsim_surface_winner_alignment) | HUGSIM surface-winner alignment audit — HUGSIM_SURFACE_WINNER_ALIGNMENT_MIXED_COMPLETE: surface winner follows path in two rows and provenance in one row |
-| [`experiments/iter94_hugsim_active_row_surface_margin_arbitration/`](experiments/iter94_hugsim_active_row_surface_margin_arbitration) | HUGSIM active-row surface margin arbitration — HUGSIM_ACTIVE_ROW_SURFACE_MARGIN_ARBITRATION_COMPLETE: active row surface winner is the only active CPA/path candidate, while bridge-supported candidates are non-active and CPA-far |
-| [`experiments/iter95_hugsim_nonactive_surface_branch_arbitration/`](experiments/iter95_hugsim_nonactive_surface_branch_arbitration) | HUGSIM non-active surface branch arbitration — HUGSIM_NONACTIVE_SURFACE_BRANCH_ARBITRATION_SPLIT_COMPLETE: non-active surface winners split into provenance/TTC-borderline and path/CPA branches |
-| [`experiments/iter96_hugsim_branch_outcome_bridge/`](experiments/iter96_hugsim_branch_outcome_bridge) | HUGSIM branch taxonomy outcome bridge — HUGSIM_BRANCH_TAXONOMY_LATE_FIRE_OUTCOME_BRIDGE_COMPLETE: different fixed surface branches both join to the same late-fire/no-pre-fire structural outcome class |
-| [`experiments/iter97_hugsim_surface_silent_outcome_margin_bridge/`](experiments/iter97_hugsim_surface_silent_outcome_margin_bridge) | HUGSIM surface-silent outcome margin bridge — HUGSIM_SURFACE_SILENT_OUTCOME_MARGIN_BRIDGE_COMPLETE: foreground-present no-fire rows are far-margin, never-active rows with only post-foreground near approaches |
-| [`experiments/iter98_hugsim_background_only_outcome_bridge/`](experiments/iter98_hugsim_background_only_outcome_bridge) | HUGSIM background-only outcome bridge — HUGSIM_BACKGROUND_ONLY_OUTCOME_BRIDGE_COMPLETE: the lone background-only row has no foreground support but preserves a live TTC-only monitor fire on object `11` |
-| [`experiments/iter99_hugsim_structural_bridge_coverage_audit/`](experiments/iter99_hugsim_structural_bridge_coverage_audit) | HUGSIM structural bridge coverage audit — HUGSIM_STRUCTURAL_BRIDGE_COVERAGE_COMPLETE: iterations 96-98 cover all five fixed structural rows exactly once with no gaps or duplicate/incompatible rows |
-| [`experiments/iter100_hugsim_structural_expansion_support_audit/`](experiments/iter100_hugsim_structural_expansion_support_audit) | HUGSIM structural expansion support audit — HUGSIM_STRUCTURAL_EXPANSION_SUPPORT_BOUNDARY_NULL: 104 committed transfer rows have 77 monitor-side provenance-supported rows but 0 collision-actor-supported rows, so existing reports cannot expand the structural bridge map |
-| [`experiments/iter101_hugsim_provenance_batch_candidate_design/`](experiments/iter101_hugsim_provenance_batch_candidate_design) | HUGSIM provenance batch candidate design — HUGSIM_PROVENANCE_BATCH_CANDIDATE_DESIGN_COMPLETE: 12 new candidate rows plus one carried both-distinct singleton reference are frozen for a future separately registered instrumented batch |
-| [`experiments/iter102_hugsim_provenance_batch_launch_manifest/`](experiments/iter102_hugsim_provenance_batch_launch_manifest) | HUGSIM provenance batch launch manifest preflight — HUGSIM_PROVENANCE_BATCH_LAUNCH_MANIFEST_COMPLETE: 13 slot-level launch entries are SHA-bound and duplicate scenarios are preserved by `slot_id` |
-| [`experiments/iter103_hugsim_provenance_batch_execution/`](experiments/iter103_hugsim_provenance_batch_execution) | HUGSIM provenance batch execution — HUGSIM_PROVENANCE_BATCH_EXECUTION_COMPLETE: all 13 manifest slots executed on first attempt with slot-level proof and 217 total collision-provenance rows |
-| [`experiments/iter104_hugsim_provenance_batch_actor_match_audit/`](experiments/iter104_hugsim_provenance_batch_actor_match_audit) | HUGSIM provenance batch actor-match support audit — HUGSIM_PROVENANCE_BATCH_ACTOR_MATCH_SUPPORT_NULL: infrastructure passed, but only 1/13 slots was foreground-classifiable against the bar of 4 |
-| [`experiments/iter105_hugsim_timing_aware_provenance_batch_design/`](experiments/iter105_hugsim_timing_aware_provenance_batch_design) | HUGSIM timing-aware provenance batch design — HUGSIM_TIMING_AWARE_BATCH_DESIGN_COMPLETE: 13 future slots selected from 20 timing-eligible rows after excluding already instrumented scenarios |
-| [`experiments/iter106_hugsim_timing_aware_launch_manifest/`](experiments/iter106_hugsim_timing_aware_launch_manifest) | HUGSIM timing-aware launch manifest preflight — HUGSIM_TIMING_AWARE_LAUNCH_MANIFEST_COMPLETE: 13 timing-aware slots are SHA-bound, stack-gated, and duplicate-safe by `slot_id` |
-| [`experiments/iter107_hugsim_timing_aware_batch_execution/`](experiments/iter107_hugsim_timing_aware_batch_execution) | HUGSIM timing-aware batch execution — HUGSIM_TIMING_AWARE_BATCH_EXECUTION_COMPLETE: all 13 manifest slots executed on first attempt with slot-level proof and 252 total collision-provenance rows |
-| [`experiments/iter108_hugsim_timing_aware_batch_actor_match_audit/`](experiments/iter108_hugsim_timing_aware_batch_actor_match_audit) | HUGSIM timing-aware batch actor-match support audit — HUGSIM_TIMING_AWARE_BATCH_ACTOR_MATCH_SUPPORT_NULL: support improved to 2/13 classifiable foreground rows but still missed the bar of 4 |
-| [`experiments/iter109_hugsim_timing_aware_support_yield_decomposition/`](experiments/iter109_hugsim_timing_aware_support_yield_decomposition) | HUGSIM timing-aware support-yield decomposition — HUGSIM_TIMING_AWARE_SUPPORT_YIELD_DECOMPOSITION_COMPLETE: residual support failure splits into 7 foreground-absent/empty rows and 4 post-collision-fire timing inversions |
-| [`experiments/iter110_hugsim_support_preserving_candidate_design/`](experiments/iter110_hugsim_support_preserving_candidate_design) | HUGSIM support-preserving candidate design — HUGSIM_SUPPORT_PRESERVING_CANDIDATE_DESIGN_CORE_COMPLETE: 8 TTC support-preserving core rows are available, but not a clean 13-slot support-preserving schedule |
-| [`experiments/iter111_hugsim_support_core_launch_manifest/`](experiments/iter111_hugsim_support_core_launch_manifest) | HUGSIM support-core launch manifest preflight — HUGSIM_SUPPORT_CORE_LAUNCH_MANIFEST_COMPLETE: the 8-row TTC support-preserving core is SHA-bound and duplicate-safe by `slot_id` |
-| [`experiments/iter112_hugsim_support_core_batch_execution/`](experiments/iter112_hugsim_support_core_batch_execution) | HUGSIM support-core batch execution — HUGSIM_SUPPORT_CORE_BATCH_EXECUTION_COMPLETE: all 8 manifest slots executed on first attempt with slot-level proof and 44 total collision-provenance rows |
-| [`experiments/iter113_hugsim_support_core_actor_match_audit/`](experiments/iter113_hugsim_support_core_actor_match_audit) | HUGSIM support-core actor-match support audit — HUGSIM_SUPPORT_CORE_ACTOR_MATCH_AUDIT_COMPLETE: all 8 support-core slots are foreground-classifiable and all 8 bridge labels are actor mismatches |
-| [`experiments/iter114_hugsim_support_core_mismatch_geometry_decomposition/`](experiments/iter114_hugsim_support_core_mismatch_geometry_decomposition) | HUGSIM support-core mismatch-geometry decomposition — HUGSIM_SUPPORT_CORE_MISMATCH_GEOMETRY_COMPLETE: all 8 mismatch vectors are forward-dominant, with 7/8 monitor objects far behind the collision actor |
-| [`experiments/iter115_hugsim_support_core_monitor_set_ordering/`](experiments/iter115_hugsim_support_core_monitor_set_ordering) | HUGSIM support-core monitor-set ordering audit — HUGSIM_SUPPORT_CORE_MONITOR_SET_ORDERING_COMPLETE: all 8 first-fire monitor object sets lack a close collision-actor candidate under the frozen bridge |
-| [`experiments/iter116_hugsim_support_core_collision_actor_timeline/`](experiments/iter116_hugsim_support_core_collision_actor_timeline) | HUGSIM support-core collision-actor timeline audit — HUGSIM_SUPPORT_CORE_COLLISION_ACTOR_TIMELINE_COMPLETE: 7/8 rows have pre-collision support frames, but first support is split across pre-fire, post-fire-pre-collision, and never-before-collision phases |
-| [`experiments/iter117_hugsim_support_core_event_window_decomposition/`](experiments/iter117_hugsim_support_core_event_window_decomposition) | HUGSIM support-core event-window decomposition — HUGSIM_SUPPORT_CORE_EVENT_WINDOW_COMPLETE: first support is surface-far in all supported rows, first fire is active in all rows, and first-support objects never equal the selected fire object |
-| [`experiments/iter118_hugsim_support_core_object_lifecycle/`](experiments/iter118_hugsim_support_core_object_lifecycle) | HUGSIM support-core support-object lifecycle audit — HUGSIM_SUPPORT_CORE_OBJECT_LIFECYCLE_COMPLETE: first-support objects are never still supported at fire, and later active support is different-object only |
-| [`experiments/iter119_hugsim_support_core_loss_replacement_audit/`](experiments/iter119_hugsim_support_core_loss_replacement_audit) | HUGSIM support-core support-loss and replacement audit — HUGSIM_SUPPORT_CORE_LOSS_REPLACEMENT_COMPLETE: support-loss gaps are 1.0-6.0 s where measurable, and all first-fire nearest replacements remain outside support |
-| [`experiments/iter120_hugsim_support_core_selected_fire_object_lifecycle/`](experiments/iter120_hugsim_support_core_selected_fire_object_lifecycle) | HUGSIM support-core selected fire-object lifecycle audit — HUGSIM_SUPPORT_CORE_SELECTED_FIRE_OBJECT_COMPLETE: all selected first-fire objects are never supported before collision |
-| [`experiments/iter121_hugsim_support_core_two_track_synthesis/`](experiments/iter121_hugsim_support_core_two_track_synthesis) | HUGSIM support-core two-track synthesis — HUGSIM_SUPPORT_CORE_TWO_TRACK_SYNTHESIS_COMPLETE: all 8 rows preserve the support-side versus selected-fire-side split |
-| [`experiments/iter122_support_core_taxonomy_documentation/`](experiments/iter122_support_core_taxonomy_documentation) | HUGSIM support-core taxonomy documentation integration — SUPPORT_CORE_TAXONOMY_DOCUMENTATION_COMPLETE: mechanism note, technical report, and manuscript now carry the bounded two-track taxonomy and exact claim boundary |
-| [`experiments/iter123_mission_evidence_alignment_audit/`](experiments/iter123_mission_evidence_alignment_audit) | Mission evidence and frontier-alignment audit — MISSION_EVIDENCE_ALIGNMENT_AUDIT_COMPLETE: README/frontier-memory freshness fixed and next bounded action choices recorded |
-| [`experiments/iter124_manuscript_report_freshness/`](experiments/iter124_manuscript_report_freshness) | Manuscript/report freshness pass — MANUSCRIPT_REPORT_FRESHNESS_COMPLETE: durable report/manuscript surfaces now coherently carry the HUGSIM transfer null, support-core taxonomy, mission audit, and claim boundary |
-| [`experiments/iter125_support_core_blind_spot_scenario_design/`](experiments/iter125_support_core_blind_spot_scenario_design) | HUGSIM support-core blind-spot scenario design — SUPPORT_CORE_BLIND_SPOT_SCENARIO_DESIGN_COMPLETE: five future design archetypes cover all 8 support-core rows exactly once |
-| [`experiments/iter126_support_core_candidate_manifest_preflight/`](experiments/iter126_support_core_candidate_manifest_preflight) | HUGSIM support-core candidate-generation manifest preflight — SUPPORT_CORE_CANDIDATE_MANIFEST_PREFLIGHT_COMPLETE: 10 inert future candidate specs pair branch-stress and counterfactual-control roles across all 5 design archetypes |
-| [`experiments/iter127_post_iter126_mission_alignment_audit/`](experiments/iter127_post_iter126_mission_alignment_audit) | Post-Iter126 mission alignment audit — POST_ITER126_MISSION_ALIGNMENT_AUDIT_COMPLETE: 9/9 checks passed, frontier memory updated through the design/manifest state, and next bounded lanes recorded |
-| [`experiments/iter128_support_core_source_pool_mutation_preflight/`](experiments/iter128_support_core_source_pool_mutation_preflight) | HUGSIM support-core source-pool/mutation-operator preflight — SUPPORT_CORE_SOURCE_POOL_MUTATION_PREFLIGHT_COMPLETE: 10 source pools and 8 frozen mutation operators bind every symbolic candidate before generation |
-| [`experiments/iter129_support_core_artifact_naming_preflight/`](experiments/iter129_support_core_artifact_naming_preflight) | HUGSIM support-core generated-artifact naming preflight — SUPPORT_CORE_ARTIFACT_NAMING_PREFLIGHT_COMPLETE: 10 reservations and 30 planned paths are unique, nonexistent, and unauthorized for creation |
-| [`experiments/iter130_support_core_artifact_schema_preflight/`](experiments/iter130_support_core_artifact_schema_preflight) | HUGSIM support-core generated-artifact schema preflight — SUPPORT_CORE_ARTIFACT_SCHEMA_PREFLIGHT_COMPLETE: 3 schema specs and 30 schema bindings cover every reserved future artifact path without authorizing creation |
-| [`experiments/iter131_post_iter130_mission_alignment_audit/`](experiments/iter131_post_iter130_mission_alignment_audit) | Post-Iter130 mission alignment audit — POST_ITER130_MISSION_ALIGNMENT_AUDIT_COMPLETE: 14/14 checks passed; claim hierarchy and frontier alignment are current through the schema preflight |
-| [`experiments/iter132_support_core_schema_instance_creation_preflight/`](experiments/iter132_support_core_schema_instance_creation_preflight) | HUGSIM support-core schema-instance creation preflight — SUPPORT_CORE_SCHEMA_INSTANCE_CREATION_PREFLIGHT_COMPLETE: 3 inert templates, 1 validator contract, and 30 instance bindings cover every reserved future artifact path without authorizing creation |
-| [`experiments/iter133_neuroncap_placebo_semantics_control_design/`](experiments/iter133_neuroncap_placebo_semantics_control_design) | NeuroNCAP placebo semantics control design — NEURONCAP_PLACEBO_SEMANTICS_CONTROL_DESIGN_COMPLETE: one semantics-scrambled budget-matched placebo arm and four future verdict classes freeze the next adversarial empirical fork |
-| [`experiments/iter134_neuroncap_placebo_semantics_execution/`](experiments/iter134_neuroncap_placebo_semantics_execution) | NeuroNCAP placebo semantics execution — PLACEBO_HARM_OR_NULL: 1,200/1,200 episodes; union gain reproduced, but union-vs-placebo semantic attribution remains unresolved because the placebo realized only 859/1,205 scheduled brake frames |
-| [`docs/NEXT_PHASE.md`](docs/NEXT_PHASE.md) | successor lines with frozen decision rules |
-| [`docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md`](docs/research/CAUSAL_PLANNER_INTERPRETABILITY.md) | launch packet that led to iteration 22; not itself a pre-registration |
-| [`docs/research/FRONTIER_POSITIONING_2026-07-11.md`](docs/research/FRONTIER_POSITIONING_2026-07-11.md) | source-verified mid-2026 benchmark/monitor/industry positioning; the binding 2.91-is-not-benchmark-SOTA framing rule |
-| [`docs/research/FRONTIER_PROBLEM_ALIGNMENT_2026-07-13.md`](docs/research/FRONTIER_PROBLEM_ALIGNMENT_2026-07-13.md) | source-backed Stanford/MIT/Tesla/Mobileye/NHTSA alignment pulse; next local priority is selected-vs-support HUGSIM path/arbitration decomposition, not open-ended research |
-| [`docs/research/FRONTIER_ALIGNMENT_MEMORY_2026-07-13.md`](docs/research/FRONTIER_ALIGNMENT_MEMORY_2026-07-13.md) | durable memory capsule for future sessions: long-tail, validation, supervision, world-model, operational-semantics, and Sentinel niche lessons from the frontier pass |
-| [`docs/research/BENCH2DRIVE_ROBUST_PREFLIGHT_2026-07-16.md`](docs/research/BENCH2DRIVE_ROBUST_PREFLIGHT_2026-07-16.md) | fail-closed Bench2Drive-Robust commercial/license/compute/protocol preflight; forbids current upstream acquisition/GPU work and defines staged rights, storage, replay, repeatability, and canary gates for the benchmark-independent Deployment Assurance Runtime direction |
-| [`docs/research/SUPPORT_CORE_TWO_TRACK_TAXONOMY_2026-07-14.md`](docs/research/SUPPORT_CORE_TWO_TRACK_TAXONOMY_2026-07-14.md) | bounded support-core mechanism note integrating iterations 112-121 into the durable report/manuscript narrative |
-| [`docs/research/SUPPORT_CORE_BLIND_SPOT_SCENARIO_DESIGN_2026-07-14.md`](docs/research/SUPPORT_CORE_BLIND_SPOT_SCENARIO_DESIGN_2026-07-14.md) | bounded support-core blind-spot/scenario design note; five archetypes seeded by the two-track taxonomy, no generation/run approval |
-| [`docs/research/SUPPORT_CORE_CANDIDATE_GENERATION_MANIFEST_2026-07-14.md`](docs/research/SUPPORT_CORE_CANDIDATE_GENERATION_MANIFEST_2026-07-14.md) | bounded support-core candidate-generation manifest note; 10 symbolic candidates with false execution/GPU/HUGSIM authorization flags |
-| [`docs/research/SUPPORT_CORE_SOURCE_POOL_MUTATION_PREFLIGHT_2026-07-14.md`](docs/research/SUPPORT_CORE_SOURCE_POOL_MUTATION_PREFLIGHT_2026-07-14.md) | bounded support-core source-pool/mutation-operator note; 10 source pools and 8 operators frozen before any generated artifact exists |
-| [`docs/research/SUPPORT_CORE_ARTIFACT_NAMING_PREFLIGHT_2026-07-14.md`](docs/research/SUPPORT_CORE_ARTIFACT_NAMING_PREFLIGHT_2026-07-14.md) | bounded support-core generated-artifact naming note; 30 planned future paths reserved but not created |
-| [`docs/research/SUPPORT_CORE_ARTIFACT_SCHEMA_PREFLIGHT_2026-07-14.md`](docs/research/SUPPORT_CORE_ARTIFACT_SCHEMA_PREFLIGHT_2026-07-14.md) | bounded support-core generated-artifact schema note; 3 schema specs and 30 bindings freeze metadata gates before any reserved file is created |
-| [`docs/research/SUPPORT_CORE_SCHEMA_INSTANCE_CREATION_PREFLIGHT_2026-07-14.md`](docs/research/SUPPORT_CORE_SCHEMA_INSTANCE_CREATION_PREFLIGHT_2026-07-14.md) | bounded support-core schema-instance note; 3 inert templates, 1 validator contract, and 30 instance bindings freeze creation checks before any reserved file is created |
-| [`docs/research/NEURONCAP_PLACEBO_SEMANTICS_CONTROL_DESIGN_2026-07-14.md`](docs/research/NEURONCAP_PLACEBO_SEMANTICS_CONTROL_DESIGN_2026-07-14.md) | bounded NeuroNCAP placebo-control design note; one semantics-scrambled budget-matched placebo arm freezes the next adversarial empirical fork before any run |
-| [`docs/research/SENTINEL_MISSION_EVIDENCE_ALIGNMENT_AUDIT_2026-07-14.md`](docs/research/SENTINEL_MISSION_EVIDENCE_ALIGNMENT_AUDIT_2026-07-14.md) | mission-level evidence/alignment audit after iteration 122; records defensible strengths, reviewer attack surface, freshness fixes, and bounded next actions |
-| [`docs/research/SENTINEL_POST_ITER126_MISSION_ALIGNMENT_AUDIT_2026-07-14.md`](docs/research/SENTINEL_POST_ITER126_MISSION_ALIGNMENT_AUDIT_2026-07-14.md) | post-Iter126 hostile mission audit; records alignment verdict, attack surface, memory freshness fix, and next bounded actions after the candidate manifest |
-| [`docs/research/SENTINEL_POST_ITER130_MISSION_ALIGNMENT_AUDIT_2026-07-14.md`](docs/research/SENTINEL_POST_ITER130_MISSION_ALIGNMENT_AUDIT_2026-07-14.md) | post-Iter130 hostile mission audit; separates proven result, nulls, mechanism evidence, and design/preflight artifacts while recording the next highest-accuracy lanes |
-| [`docs/research/SECOND_BENCHMARK_TRANSFER_HUGSIM.md`](docs/research/SECOND_BENCHMARK_TRANSFER_HUGSIM.md) | launch packet for the HUGSIM second-benchmark transfer of the released union; not a pre-registration |
-| [`docs/research/INTERVENTION_MECHANISM_VERDICT_2026-07-11.md`](docs/research/INTERVENTION_MECHANISM_VERDICT_2026-07-11.md) | survey verdict closing the linear-steering line; conditions for any future intervention iteration |
-| [`docs/research/BOX_CLEANUP_2026-07-12.md`](docs/research/BOX_CLEANUP_2026-07-12.md) | verified-deletion disk-cleanup record for `sentinel-gpu` before the HUGSIM lane; every deleted item SHA-verified against committed artifacts |
-| [`docs/research/ITER22_HYPOTHESIS_DRAFT.md`](docs/research/ITER22_HYPOTHESIS_DRAFT.md) · [`docs/research/ITER22_ADVERSARIAL_REVIEW.md`](docs/research/ITER22_ADVERSARIAL_REVIEW.md) | planning-only iter22 draft and adversarial review; not pre-registrations |
-| [`docs/paper/STATUS.md`](docs/paper/STATUS.md) · [`docs/paper/MANUSCRIPT.md`](docs/paper/MANUSCRIPT.md) · [`docs/paper/paper.pdf`](docs/paper/paper.pdf) | archived 2026-07-12 submission artifact and rewrite source; not submission-ready until the HUGSIM and iteration-134 evidence boundaries are integrated |
-| [`scripts/validate_docs.py`](scripts/validate_docs.py) | CI docs guard: diagram budgets, link health, story completeness — enforced on every push |
+| [Architecture](docs/ARCHITECTURE.md) | Implemented interfaces, simulator distinctions, evidence flow and timing. |
+| [Original preregistration](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/PREREGISTRATION.md) | The initial benchmark question and decision rules. |
+| [Research direction](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md) | Information and recoverability: mathematical formulation and dated literature review. |
+| [Next scientific decision](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter155_background_witness/DECISION.md) | Background-aware model calibration before another action search. |
+| [Handoff](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/HANDOFF.md) | Exact next task, acceptance criteria, resource closure and recovery instructions. |
+| [Continuity](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/CONTINUITY.md) and [next phase](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/docs/NEXT_PHASE.md) | Current state followed by retained historical decisions. |
+| [Technical report](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/docs/REPORT.md) | Historical synthesis through Iter134; it predates the current execution program. |
+| [Paper status](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/docs/paper/STATUS.md) | Archived manuscript and rewrite requirements; not submission-ready. |
+| [Verification archive](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/verification/README.md) | Early audit scripts, raw logs and correction history. |
+| [Editorial review](docs/editorial/2026-10-12/REVIEW.md) | Claim corrections, diagram review and reconciliation of the public and local READMEs. |
 
-Every result folder carries a `RESULT.md` with the real per-run numbers, the exact server patch, and the
-run script. `sentinel/monitor.py` is the pure-geometry monitor with unit tests (`tests/`); CI runs ruff +
-pytest on every push.
+## Repository status — 12 October 2026
 
-## Data & honesty
+**Research evidence is current through Iter155, completed on 11 October.** The latest result
+replays the simulator's background collision at two retained poses; the prior maneuver still
+fails. The next scientific task is background-aware model calibration before another search.
+Iteration 135's dose-response experiment remains **deferred and unrun**.
 
-Public datasets only (nuScenes via NeuroNCAP); no fleet or proprietary data; no frames
-redistributed. Reproducing the published baseline ourselves was the starting line — our 2.12
-pooled reproduction is corroborated by DMAD's independent 2.11 rerun — and every null is
-reported, not buried.
+The repository has two distinct records. The accepted code and mission snapshot at
+[`8c118b7`](https://github.com/manfromnowhere143/sentinel/tree/8c118b74c699bf0f139f9bd659192bad06b895f8)
+is **current through iteration 134**. [MISSION_STATE.json](MISSION_STATE.json) preserves
+that historical contract.
+Later research, including Iter155, is published in a separate
+[research lineage](https://github.com/manfromnowhere143/sentinel/tree/4d2998ef8d1c6df8facabb271af49569154259d8).
+This README describes both; a documentation update does not integrate that later experimental
+code into the accepted snapshot. The [current handoff](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/HANDOFF.md) identifies the next task.
+
+The previous GitHub landing page showed the old Iter134/135 narrative because it read `master`,
+while subsequent README updates were published only on research branches. The local protected
+README had also stopped at Iter148. This editorial correction brings the presentation through
+Iter155 and preserves the older pages and publication records.
+
+Validation remains scoped. At Iter155's scientific closure, hosted Python 3.10 and 3.11 jobs
+passed supply-chain and locked-install checks, then each failed repository-wide Ruff with
+832 findings; later tests were skipped. The historical documentation/publication guard also
+remains unresolved. The [retained CI outcome](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter155_background_witness/proof/hosted_ci_outcome.json)
+is not a green result for a later documentation commit. Full research integration is separate
+work; no historical gate or evidence has been rewritten here.
+
+## Complete experiment index
+
+Every experiment with a `RESULT.md` is linked here, including failed gates, infrastructure
+work, nulls and withdrawn claims. A completed audit is not an additional driving experiment.
+Actor matches in the HUGSIM audit rows use the frozen geometric association rule; they
+are not claims of ground-truth identity.
+Repeated analyses of the same cases do not increase the number of independent cases.
+
+<details>
+<summary>Monitor, alternatives and verification: Iter1–21</summary>
+
+| Record | Finding or scope |
+|---|---|
+| [1](https://github.com/manfromnowhere143/sentinel/tree/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter1_reproduce) | Closed-loop stack smoke and baseline reproduction. |
+| [1b](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter1b_partial_baseline/PARTIAL_BASELINE.md) | Partial baseline and collision corpus. |
+| [2](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter2_monitor/RESULT.md) | Risk signal, TTC braking and early ablations; the selectivity claim was later corrected. |
+| [3](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter3_progress/RESULT.md) | Safe-progress exposes over-braking on benign scenes. |
+| [4](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter4_gated/RESULT.md) | Closing-speed gating improves selectivity on the tested cases. |
+| [5](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter5_tracked/RESULT.md) | Observed velocity improves frontal response; side-impact failures remain. |
+| [6](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter6_cpa/RESULT.md) | Path-based closest approach reduces side impacts with excess braking. |
+| [7](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter7_margin/RESULT.md) | Margin sweep exposes the trade between selectivity and threat coverage. |
+| [8](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter8_union/RESULT.md) | Union of CPA and tracked closing-TTC detectors; collision recount corrected by verification. |
+| [9](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter9_evade/RESULT.md) | Steering evasion fails the registered comparison. |
+| [10](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter10_brakevade/RESULT.md) | Combined braking and steering fails the registered comparison. |
+| [11](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter11_early_evade/RESULT.md) | Early evasion fails and creates collisions in the clean test case. |
+| [12](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter12_plan_selection/RESULT.md) | Native candidate plans fail the registered feasible-escape criterion. |
+| [13](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter13_rss_baseline/RESULT.md) | Tested RSS-style envelope reduces collisions with severe progress cost. |
+| [Full14](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/full14_benchmark/RESULT.md) | Six-run full-suite comparison; the later power run is the headline. |
+| [15](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter15_latch_release/RESULT.md) | Four-clear-frame latch release improves progress over the latched union. |
+| [Pooling](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/union_validation/RESULT.md) | WITHDRAWN: deterministic replays were counted as independent episodes. |
+| [Power](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/full14_power/RESULT.md) | 799/800 episodes; benchmark gain with a safe-progress null. |
+| [14 · VAD](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/vad_generalization/RESULT.md) | Transfer reduces tested collisions but substantially harms progress. |
+| [Verification](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/verification/README.md) | Audit and fresh unique-episode remeasurement. |
+| [16](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter16_soft_stop/RESULT.md) | Crawl gains progress but fails the collision criterion. |
+| [17](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter17_threat_routing/RESULT.md) | Threat routing gains progress but fails its collision criterion. |
+| [18](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter18_tracker/RESULT.md) | Offline tracking gate fails by one frame; no live run. |
+| [19](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter19_diversity_head/RESULT.md) | Planning-query candidate head fails its escape gate; no general representation impossibility follows. |
+| [20](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter20_vad_tracker_portability/RESULT.md) | Tracker defaults fail the VAD portability gate. |
+| [21](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter21_bev_diversity_head/RESULT.md) | BEV candidate head fails feasibility and fidelity gates. |
+
+</details>
+
+<details>
+<summary>Data, causal probes and robustness: Iter22–44</summary>
+
+| Record | Finding or scope |
+|---|---|
+| [22](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter22_causal_planner_interpretability/RESULT.md) | Artifact join failure stops the causal test. |
+| [23](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter23_s0_hardened_causal_localization/RESULT.md) | Join repair passes; insufficient target counts stop the causal test. |
+| [24](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter24_risk_support_atlas/RESULT.md) | No eligible locally available scenes after the known-data exclusion. |
+| [25](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter25_staged_data_inventory/RESULT.md) | Staged-data inventory confirms the availability blocker. |
+| [26](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter26_data_staging_remedy/RESULT.md) | Capacity check fails before data movement. |
+| [27](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter27_storage_provisioning/RESULT.md) | Persistent storage provisioned; infrastructure result. |
+| [28](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter28_nuscenes_trainval_staging/RESULT.md) | Official trainval assets staged with inventory checks. |
+| [29](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter29_trainval_risk_support_atlas/RESULT.md) | Low-diversity support atlas passes; strict-collapse support is insufficient. |
+| [30](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter30_full_trainval_lowdiv_localization/RESULT.md) | Diagnostic localization passes against registered controls; no causal intervention result. |
+| [31](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter31_full_trainval_bridge_intervention/RESULT.md) | Sham intervention fails baseline reproduction. |
+| [32](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter32_prefix_replay_baseline_recovery/RESULT.md) | Full-prefix replay restores the frozen baseline. |
+| [33](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter33_prefix_preserving_bridge_intervention/RESULT.md) | Bridge intervention fails calibration. |
+| [34](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter34_direction_specificity_audit/RESULT.md) | Scale-only continuation fails its response-consistency criterion. |
+| [35](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter35_response_heterogeneity_audit/RESULT.md) | Response heterogeneity yields no eligible registered stratum. |
+| [36](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter36_bridge_site_decomposition/RESULT.md) | Subsite probes identify diagnostic targets for a later intervention. |
+| [37](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter37_track_query_site_intervention/RESULT.md) | Track-query intervention fails calibration. |
+| [38](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md) | Opposite-direction canary passes; calibration was not run. |
+| [39](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter39_external_validity_claim_audit/RESULT.md) | Claim scope narrowed after external-validity audit. |
+| [40](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter40_timing_cost_audit/RESULT.md) | Lead time and intervention burden measured on the power-run logs. |
+| [41](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter41_sensor_input_degradation_gate/RESULT.md) | Missing exact pose support stops perturbation analysis. |
+| [42](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter42_exact_trace_replay_support/RESULT.md) | Captured pose-aware trace supports exact decision replay. |
+| [43](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter43_object_stream_perturbation_gate/RESULT.md) | Offline position jitter at 5 cm causes excess firing. |
+| [44](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter44_velocity_smoothing_gate/RESULT.md) | Registered smoothing variants fail fidelity and repair criteria. |
+
+</details>
+
+<details>
+<summary>HUGSIM transfer and mechanism audits: Iter45–100</summary>
+
+| Record | Finding or scope |
+|---|---|
+| [45](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter45_hugsim_infra_gate/RESULT.md) | HUGSIM assets, environment and nominal smoke pass. |
+| [46](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter46_hugsim_off_baseline/RESULT.md) | Baseline completion null: 38/52 episodes; map assets missing. |
+| [47](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter47_map_staging_and_off_completion/RESULT.md) | Map staging completes the 52-episode baseline with carried evidence preserved. |
+| [48](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter48_hugsim_transfer_gate/RESULT.md) | TRANSFER_NULL on easy/medium scenarios; monitor active, interval includes zero. |
+| [49](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter49_hugsim_hard_tier_gate/RESULT.md) | TRANSFER_NULL on hard/extreme scenarios despite collision opportunity. |
+| [50](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter50_collision_opportunity_audit/RESULT.md) | Collision-opportunity audit; opportunity scarcity does not rescue the transfer claim. |
+| [51](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter51_hugsim_failure_taxonomy/RESULT.md) | Mixed failure taxonomy; no single mechanism explains all retained pairs. |
+| [52](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter52_hugsim_on_collision_timing_audit/RESULT.md) | Timing audit finds both absent/late braking and persistent collisions after early braking. |
+| [53](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter53_hugsim_first_fire_channel_audit/RESULT.md) | First-fire channels do not reduce the failure to one union branch. |
+| [54](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter54_hugsim_provenance_support_audit/RESULT.md) | Missing collision-actor identity limits provenance attribution. |
+| [55](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter55_hugsim_collision_instrumentation_source_audit/RESULT.md) | Source audit identifies instrumentation locations. |
+| [56](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter56_hugsim_provenance_instrumentation_patch/RESULT.md) | Static guard rejects the first provenance patch design. |
+| [57](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter57_hugsim_patch_guard_refinement/RESULT.md) | Refined guard accepts the same patch bytes; no driving result. |
+| [58](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter58_hugsim_provenance_instrumented_canary/RESULT.md) | Instrumented canary records collision provenance. |
+| [59](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter59_hugsim_actor_match_audit/RESULT.md) | Eight selected episodes; three foreground-classifiable rows mismatch under the frozen bridge. |
+| [60](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter60_actor_bridge_sensitivity/RESULT.md) | Bridge sensitivity makes one row ambiguous; robust all-row mismatch unsupported. |
+| [61](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter61_monitor_object_surface_audit/RESULT.md) | A non-trigger object matches in one case; two cases lack first-fire support. |
+| [62](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter62_nontrigger_ranking_audit/RESULT.md) | The matched non-trigger object is outside the frozen hazard thresholds. |
+| [63](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter63_temporal_emergence_audit/RESULT.md) | The matched object remains visible without reaching a hazard threshold before contact. |
+| [64](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter64_unsupported_temporal_surface_audit/RESULT.md) | Both cases lacking first-fire support have earlier object matches under the frozen rule. |
+| [65](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter65_temporal_alignment_audit/RESULT.md) | The earlier matched objects remain below the trigger thresholds at those times. |
+| [66](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter66_matched_object_timeline_audit/RESULT.md) | One target becomes a TTC hazard; the other remains below threshold before contact. |
+| [67](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter67_trigger_target_bridge_audit/RESULT.md) | Target and trigger coincide in one case and differ in the other. |
+| [68](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter68_fire_time_bridge_decomposition/RESULT.md) | The best trigger-to-actor association occurs before firing in one case and after it in another. |
+| [69](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter69_hugsim_mechanism_taxonomy/RESULT.md) | Synthesis classifies all eight selected cases within the available provenance. |
+| [70](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter70_hugsim_structural_timing_audit/RESULT.md) | Five cases divide into silent, late-fire and background-only collision categories. |
+| [71](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter71_hugsim_surface_silent_margin_audit/RESULT.md) | The two silent cases remain far from the trigger thresholds before contact. |
+| [72](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter72_hugsim_late_fire_prefire_margin_audit/RESULT.md) | The two late-fire cases approach a threshold before contact without crossing it. |
+| [73](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter73_hugsim_margin_transition_audit/RESULT.md) | Silent cases never activate; late-fire cases activate only after contact. |
+| [74](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter74_hugsim_late_fire_delay_barrier/RESULT.md) | The near-threshold channel before contact differs from the channel firing after contact. |
+| [75](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter75_hugsim_cross_channel_object_handoff/RESULT.md) | Both late-fire cases also switch the object responsible for the monitor signal. |
+| [76](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter76_hugsim_switch_foreground_bridge/RESULT.md) | Neither selected object reaches the specified actor-association bands at the event. |
+| [77](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter77_hugsim_event_object_set_bridge/RESULT.md) | Other objects in the full detection set supply some actor-association support. |
+| [78](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter78_hugsim_support_object_ranking/RESULT.md) | Objects with actor support are unselected and below the monitor thresholds. |
+| [79](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter79_hugsim_selected_surface_decomposition/RESULT.md) | Selected objects have stronger monitor signals than the actor-supported objects. |
+| [80](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter80_hugsim_selected_all_provenance_bridge/RESULT.md) | Selected objects lack an association with any eligible recorded collision-provenance row. |
+| [81](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter81_hugsim_support_object_temporal_surface/RESULT.md) | One supported object later reaches the monitor surface; another never does. |
+| [82](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter82_hugsim_support_surface_bridge_cooccurrence/RESULT.md) | Actor association coincides only with a borderline signal in one case and none in another. |
+| [83](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter83_hugsim_bridge_supported_surface_miss_decomposition/RESULT.md) | Supported objects remain outside active TTC/CPA conditions at the examined times. |
+| [84](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter84_hugsim_selected_support_arbitration/RESULT.md) | Objects favoured by monitor geometry differ from those supported by actor provenance. |
+| [85](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter85_hugsim_path_horizon_bridge_timing/RESULT.md) | Path horizon and provenance timing preserve the selected/support-object distinction. |
+| [86](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter86_hugsim_bridge_time_surface_replay/RESULT.md) | Exact replay classifies two rows; a missing 6.0 s decision row blocks the third. |
+| [87](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter87_hugsim_interval_bridge_time_surface_replay/RESULT.md) | Interval replay finds one borderline supported object and another below threshold. |
+| [88](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter88_hugsim_bridge_surface_margin_residual/RESULT.md) | Residual margins distinguish two ways that supported objects miss the trigger. |
+| [89](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter89_hugsim_joint_bridge_surface_candidate_audit/RESULT.md) | No object in the examined replay rows is both active and actor-supported. |
+| [90](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter90_hugsim_active_surface_provenance_gap/RESULT.md) | The only active replay object lacks actor support; supported objects are inactive. |
+| [91](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter91_hugsim_active_gap_geometry_decomposition/RESULT.md) | Path proximity and actor-provenance proximity favour different objects. |
+| [92](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter92_hugsim_path_proximity_arbitration/RESULT.md) | The closest path object differs from the closest provenance object in each examined row. |
+| [93](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter93_hugsim_surface_winner_alignment/RESULT.md) | Surface selection follows path proximity in two rows and provenance proximity in one. |
+| [94](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter94_hugsim_active_row_surface_margin_arbitration/RESULT.md) | The active row selects its only active CPA candidate; supported candidates remain distant. |
+| [95](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter95_hugsim_nonactive_surface_branch_arbitration/RESULT.md) | Inactive rows separate a borderline TTC choice from a path/CPA choice. |
+| [96](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter96_hugsim_branch_outcome_bridge/RESULT.md) | Different signal branches lead to the same recorded late-fire outcome category. |
+| [97](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter97_hugsim_surface_silent_outcome_margin_bridge/RESULT.md) | Silent cases approach a threshold only after foreground contact. |
+| [98](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter98_hugsim_background_only_outcome_bridge/RESULT.md) | The background-only case retains a TTC fire without foreground-actor support. |
+| [99](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter99_hugsim_structural_bridge_coverage_audit/RESULT.md) | The five fixed structural cases are covered once each by the preceding audits. |
+| [100](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter100_hugsim_structural_expansion_support_audit/RESULT.md) | Existing transfer reports lack collision-actor support for expanding the structural analysis. |
+
+</details>
+
+<details>
+<summary>Provenance, scenario design and placebo: Iter101–134</summary>
+
+| Record | Finding or scope |
+|---|---|
+| [101](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter101_hugsim_provenance_batch_candidate_design/RESULT.md) | Designed a 13-slot provenance batch, including one carried reference. |
+| [102](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter102_hugsim_provenance_batch_launch_manifest/RESULT.md) | Bound the 13 batch slots to their sources; duplicate scenarios retained distinct identities. |
+| [103](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter103_hugsim_provenance_batch_execution/RESULT.md) | Executed all 13 slots; retained 217 collision-provenance rows. |
+| [104](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter104_hugsim_provenance_batch_actor_match_audit/RESULT.md) | Only 1/13 slots met foreground classification requirements; the registered bar was four. |
+| [105](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter105_hugsim_timing_aware_provenance_batch_design/RESULT.md) | Selected 13 slots using timing eligibility and prior-instrumentation exclusions. |
+| [106](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter106_hugsim_timing_aware_launch_manifest/RESULT.md) | Prepared the timing-aware batch with source and runtime checks. |
+| [107](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter107_hugsim_timing_aware_batch_execution/RESULT.md) | Executed all 13 slots; retained 252 collision-provenance rows. |
+| [108](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter108_hugsim_timing_aware_batch_actor_match_audit/RESULT.md) | Only 2/13 slots met foreground classification requirements; the bar remained four. |
+| [109](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter109_hugsim_timing_aware_support_yield_decomposition/RESULT.md) | Remaining classification failures split between absent foreground actors and late firing. |
+| [110](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter110_hugsim_support_preserving_candidate_design/RESULT.md) | Identified an eight-row core with suitable support; a clean 13-slot schedule was unavailable. |
+| [111](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter111_hugsim_support_core_launch_manifest/RESULT.md) | Bound the eight-row core schedule to source identities. |
+| [112](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter112_hugsim_support_core_batch_execution/RESULT.md) | Executed all eight core slots; retained 44 collision-provenance rows. |
+| [113](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter113_hugsim_support_core_actor_match_audit/RESULT.md) | All eight cases were classifiable; all mismatched under the frozen association rule. |
+| [114](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter114_hugsim_support_core_mismatch_geometry_decomposition/RESULT.md) | Mismatch vectors were predominantly longitudinal; seven monitor objects lay behind the actor. |
+| [115](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter115_hugsim_support_core_monitor_set_ordering/RESULT.md) | No first-fire object set contained a close actor candidate under the frozen rule. |
+| [116](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter116_hugsim_support_core_collision_actor_timeline/RESULT.md) | Seven cases had pre-collision support, with different timing relative to first fire. |
+| [117](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter117_hugsim_support_core_event_window_decomposition/RESULT.md) | Initially supported objects differed from the selected objects at first fire. |
+| [118](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter118_hugsim_support_core_object_lifecycle/RESULT.md) | Initially supported objects no longer had support at fire; later support used other objects. |
+| [119](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter119_hugsim_support_core_loss_replacement_audit/RESULT.md) | Measured support gaps were 1–6 s; nearest first-fire replacements remained outside support. |
+| [120](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter120_hugsim_support_core_selected_fire_object_lifecycle/RESULT.md) | Selected first-fire objects never acquired pre-collision support in these eight cases. |
+| [121](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter121_hugsim_support_core_two_track_synthesis/RESULT.md) | Synthesis retains the distinction between supported objects and selected trigger objects. |
+| [122](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter122_support_core_taxonomy_documentation/RESULT.md) | Integrated the bounded mechanism synthesis into the historical research documents. |
+| [123](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter123_mission_evidence_alignment_audit/RESULT.md) | Mission and evidence alignment review; historical documentation update. |
+| [124](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter124_manuscript_report_freshness/RESULT.md) | Historical manuscript/report freshness update. |
+| [125](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter125_support_core_blind_spot_scenario_design/RESULT.md) | Five proposed scenario archetypes derived from the support-core cases. |
+| [126](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter126_support_core_candidate_manifest_preflight/RESULT.md) | Ten symbolic candidate specifications; no generated-scene outcome. |
+| [127](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter127_post_iter126_mission_alignment_audit/RESULT.md) | Mission alignment review after candidate design. |
+| [128](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter128_support_core_source_pool_mutation_preflight/RESULT.md) | Source pools and mutation operators specified before generation. |
+| [129](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter129_support_core_artifact_naming_preflight/RESULT.md) | Future artifact names reserved; no generated-scene outcome. |
+| [130](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter130_support_core_artifact_schema_preflight/RESULT.md) | Artifact schemas specified; no generated-scene outcome. |
+| [131](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter131_post_iter130_mission_alignment_audit/RESULT.md) | Mission alignment review after schema design. |
+| [132](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter132_support_core_schema_instance_creation_preflight/RESULT.md) | Inert templates and validator contract prepared. |
+| [133](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter133_neuroncap_placebo_semantics_control_design/RESULT.md) | Placebo comparison preregistered before execution. |
+| [134](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md) | PLACEBO_HARM_OR_NULL; gain over OFF reproduced, attribution unresolved. |
+
+</details>
+
+<details>
+<summary>Information, recoverability and execution: Iter135–155</summary>
+
+| Record | Finding or scope |
+|---|---|
+| [135](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter135_neuroncap_blind_braking_dose_response/HYPOTHESIS.md) | Preregistered dose-response protocol; deferred and unrun. |
+| [136](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter136_hugsim_recoverability_canary/RESULT.md) | REPLAY_DIVERGED: equal seeds and initial plans do not reproduce controller output. |
+| [137](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter137_controller_execution_contract/RESULT.md) | Numerical repeatability and stopping reasons qualified separately from deadlines. |
+| [138](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter138_numerical_live_replay/RESULT.md) | Live numerical replay qualified; timing remains a separate constraint. |
+| [139](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter139_finite_pulse_recoverability/RESULT.md) | Null: 0/6 useful recoveries in the registered finite-pulse cases. |
+| [140](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter140_contact_actuation/RESULT.md) | Contact and applied-control reconstruction; prior recovery null unchanged. |
+| [141](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter141_nominal_continuation/RESULT.md) | Nominal continuation design and execution contract; no recovery gain established. |
+| [142](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter142_nominal_continuation_completion/RESULT.md) | Null: 0/2 useful recoveries under the continuation experiment. |
+| [143](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter143_model_contract/RESULT.md) | Actor time, coordinates and ego dynamics audited before a new execution regime. |
+| [144](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter144_timed_trajectory/RESULT.md) | Explicit trajectory timestamps qualified locally; from-rest convergence still failed. |
+| [145](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter145_constrained_execution/RESULT.md) | Constrained controller and bounded GPU smoke qualified; no full-route recovery result. |
+| [146](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter146_route_outcome_contract/RESULT.md) | Route outcomes and missingness corrected; short GPU qualification remains censored. |
+| [147](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter147_full_horizon_execution/RESULT.md) | Full-horizon qualification: 912 GPU actions; diagnostic holds and natural-actor collisions. |
+| [148](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/RESULT.md) | Inconclusive: four admitted baseline episodes; pulse interrupted; no complete comparison. |
+| [149](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter149_observation_recovery/RESULT.md) | Local bounded observation recovery qualified; no scientific outcome. |
+| [150](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter150_cloud_observation/RESULT.md) | Bounded cloud/native observation checks supported; report-saving failure preserved and locally corrected. |
+| [151](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter151_recovery_canary/RESULT.md) | Inconclusive: two nominal replicas admitted; publication check stopped the remaining comparison. |
+| [152](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter152_recovery_continuation/RESULT.md) | Fixed continuation complete: 14 new episodes, no pulse recovery witness; benign monitor adds 13 simulated seconds. |
+| [153](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter153_action_feasibility/RESULT.md) | Fixed local model search: 14 eligible maneuvers; exact candidate selected, full-scene recovery unknown. |
+| [154](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter154_full_scene_maneuver/RESULT.md) | Exact model candidate fails native background collision at 3.25 s in both fresh replicas; 26 verified actions. |
+| [155](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter155_background_witness/RESULT.md) | Native/scalar background masks agree: 0 centers at 3.00 s, 273 at 3.25 s; full selected population retained, no new driving episode. |
+
+</details>
+
+
+## Data, attribution and historical record
+
+Sentinel is Daniel Wahnich's independent research project. The experiments use public research
+benchmarks and datasets, including nuScenes, NeuroNCAP/NeuRAD and HUGSIM, with frozen UniAD
+and, in a separate transfer test, VAD. Their source, data and model terms remain applicable;
+this repository does not grant rights to upstream assets.
+
+The measured comparisons are against the named experimental baselines. They establish neither
+real-world safety nor production readiness, and provide no comparison with private industrial
+systems. A claim about a new planner, operating condition or deployment would require a separate
+comparison and evidence appropriate to that setting.
+
+The [previous README](https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/docs/history/README_through_iter134.snapshot.txt) is retained byte for byte
+as a historical snapshot. It contains superseded status and wording, including claims narrowed
+on this page. Original results, protocols, raw evidence and accepted Git history remain intact.
+The archive preserves what was written; the current page states what the evidence supports.
