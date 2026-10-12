@@ -1,0 +1,19 @@
+{
+  "status": "completed",
+  "exit_code": 0,
+  "command": [
+    "/opt/homebrew/opt/python@3.14/bin/python3.14",
+    "-m",
+    "experiments.iter158_constraint_aware_search.check",
+    "--root",
+    "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011",
+    "--raw",
+    "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter158_constraint_aware_search/proof/raw",
+    "--raw-commit",
+    "f23de2bee271770997e3a0f338a388c3aefe031d",
+    "--output",
+    "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter158_constraint_aware_search/proof/admission.json"
+  ],
+  "elapsed_seconds": 35.41467366699362,
+  "outer_seconds": 1860
+}
