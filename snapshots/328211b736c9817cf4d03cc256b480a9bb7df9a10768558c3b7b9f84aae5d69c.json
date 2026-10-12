@@ -1,0 +1,1078 @@
+{
+  "boundary": "Chart: ten trajectories across five paired diagnostics. All 546 states replay independently. The small terminal difference does not explain the failed candidate or exclude alternative continuations.",
+  "breakdown": [
+    {
+      "field": "positive_controls",
+      "label": "Original witnesses complete",
+      "value": 5
+    },
+    {
+      "field": "preserved_pairs",
+      "label": "Representatives complete",
+      "value": 4
+    },
+    {
+      "field": "changed_pairs",
+      "label": "Fixed suffix exhausted",
+      "value": 1
+    }
+  ],
+  "decisionPath": "experiments/iter160_continuation_preservation/DECISION.md",
+  "generatedAt": "2026-10-12T21:07:50+03:00",
+  "iteration": 160,
+  "metrics": [
+    {
+      "field": "pairs",
+      "label": "Paired diagnostics",
+      "value": 5
+    },
+    {
+      "field": "trajectories",
+      "label": "Replayed trajectories",
+      "value": 10
+    },
+    {
+      "field": "preserved_pairs",
+      "label": "Preserved completions (of 5)",
+      "value": 4
+    },
+    {
+      "field": "verified_states",
+      "label": "Scalar-verified states",
+      "value": 546
+    }
+  ],
+  "next": "Isolate state aggregation at fixed search budgets, with an exact-state control and corrected full-scene reflections. No native run yet.",
+  "records": [
+    {
+      "label": "Next scientific decision",
+      "path": "experiments/iter160_continuation_preservation/DECISION.md",
+      "sha256": "40b914cecc35d4294e6d4c15b3c380cfbadcede7da7dbf66f8b986747c023e55",
+      "summary": "Isolate retention at fixed budgets; the first replacement does not explain the candidate's miss."
+    },
+    {
+      "label": "Verification archive",
+      "path": "experiments/verification/README.md",
+      "sha256": "03b934a94d80bf558485ac766f3ac4626bba2bdb69e3c035f02638173cf82f97",
+      "summary": "Early audit scripts, raw logs and correction history."
+    },
+    {
+      "label": "1",
+      "path": "experiments/iter1_reproduce",
+      "sha256": "4c962214dae28f1a0f5716a488285afe8b44922e0ef304e73276a5a673500199",
+      "summary": "Closed-loop stack smoke and baseline reproduction."
+    },
+    {
+      "label": "1b",
+      "path": "experiments/iter1b_partial_baseline/PARTIAL_BASELINE.md",
+      "sha256": "713e7d50758eb4545bffabb0569a6ce20fa9fdb69a38a5b16ac97d52fa3a1e3e",
+      "summary": "Partial baseline and collision corpus."
+    },
+    {
+      "label": "2",
+      "path": "experiments/iter2_monitor/RESULT.md",
+      "sha256": "8e6a9bd9f3493cb8d6078d30e96708812c0e834e0ebb670261552945099501d4",
+      "summary": "Risk signal, TTC braking and early ablations; the selectivity claim was later corrected."
+    },
+    {
+      "label": "3",
+      "path": "experiments/iter3_progress/RESULT.md",
+      "sha256": "23279ec811225d7f31510ff17b4345380cc8b4624d40e9650e35cf03f6405815",
+      "summary": "Safe-progress exposes over-braking on benign scenes."
+    },
+    {
+      "label": "4",
+      "path": "experiments/iter4_gated/RESULT.md",
+      "sha256": "8e110c919ee02aff0dd31f58eb772671fbfd8d84e868c691aa4f7a54b06574f5",
+      "summary": "Closing-speed gating improves selectivity on the tested cases."
+    },
+    {
+      "label": "5",
+      "path": "experiments/iter5_tracked/RESULT.md",
+      "sha256": "46a77d91eebe6b37ed428aee57180bcc25cbaadcc28ce71593fe86883bc426da",
+      "summary": "Observed velocity improves frontal response; side-impact failures remain."
+    },
+    {
+      "label": "6",
+      "path": "experiments/iter6_cpa/RESULT.md",
+      "sha256": "5c985e922195b5876fa54d24a9ab4ce831438b38ba993026c673fc366bc9f6c9",
+      "summary": "Path-based closest approach reduces side impacts with excess braking."
+    },
+    {
+      "label": "7",
+      "path": "experiments/iter7_margin/RESULT.md",
+      "sha256": "ff0f33cb234aaf99c02983774b23f554275534b1bac7a1be4e20b43d3915de06",
+      "summary": "Margin sweep exposes the trade between selectivity and threat coverage."
+    },
+    {
+      "label": "8",
+      "path": "experiments/iter8_union/RESULT.md",
+      "sha256": "299ee915cc46dcc4ff345585593fa9d38ce7e23a8188c1ce07c894fc1a9c3f6a",
+      "summary": "Union of CPA and tracked closing-TTC detectors; collision recount corrected by verification."
+    },
+    {
+      "label": "9",
+      "path": "experiments/iter9_evade/RESULT.md",
+      "sha256": "d1d71dca72e1e160ef91429e82552228495cfa5b9f89f1aacc21f5a1125a57aa",
+      "summary": "Steering evasion fails the registered comparison."
+    },
+    {
+      "label": "10",
+      "path": "experiments/iter10_brakevade/RESULT.md",
+      "sha256": "347a7ccf2ef678d6f9286920a5636779e1152ab9143b5772a18f5f506d8e38c9",
+      "summary": "Combined braking and steering fails the registered comparison."
+    },
+    {
+      "label": "11",
+      "path": "experiments/iter11_early_evade/RESULT.md",
+      "sha256": "88fe4ff1a6690a2cdd1cd4b9d7388b30454df7887d40ea1c42f4a523f6fc1d18",
+      "summary": "Early evasion fails and creates collisions in the clean test case."
+    },
+    {
+      "label": "12",
+      "path": "experiments/iter12_plan_selection/RESULT.md",
+      "sha256": "dc9a3d265576c82ce29e8bb2672794f7a83a4391720173dda915030e25635922",
+      "summary": "Native candidate plans fail the registered feasible-escape criterion."
+    },
+    {
+      "label": "13",
+      "path": "experiments/iter13_rss_baseline/RESULT.md",
+      "sha256": "42c9bafc5f8df048b4abbe6aa8cd0a75aa6b4c0915b216ed14f45c47767b7856",
+      "summary": "Tested RSS-style envelope reduces collisions with severe progress cost."
+    },
+    {
+      "label": "Full14",
+      "path": "experiments/full14_benchmark/RESULT.md",
+      "sha256": "541fa0dfe70b75ca1bd734531814e50fc25562ce2e9af84a781c02832686f0e4",
+      "summary": "Six-run full-suite comparison; the later power run is the headline."
+    },
+    {
+      "label": "15",
+      "path": "experiments/iter15_latch_release/RESULT.md",
+      "sha256": "0f5bf3e65a704f2a7f3a9a2ba3c946f02a847aa2ec31df8904c862fa327940cc",
+      "summary": "Four-clear-frame latch release improves progress over the latched union."
+    },
+    {
+      "label": "Pooling",
+      "path": "experiments/union_validation/RESULT.md",
+      "sha256": "41b179c10741ed13ce18f47df993a93e6f155ed366b77c5c3abf3a3fd2d9f363",
+      "summary": "WITHDRAWN: deterministic replays were counted as independent episodes."
+    },
+    {
+      "label": "Power",
+      "path": "experiments/full14_power/RESULT.md",
+      "sha256": "fb62421bb106649e0f53cada921e26d5265a6452e148fbc97cd271bed3369a78",
+      "summary": "799/800 episodes; benchmark gain with a safe-progress null."
+    },
+    {
+      "label": "14 · VAD",
+      "path": "experiments/vad_generalization/RESULT.md",
+      "sha256": "173393a37ed8ddd19f8162345f10adfd47f1bfe83edba85b935db4699e424263",
+      "summary": "Transfer reduces tested collisions but substantially harms progress."
+    },
+    {
+      "label": "Verification",
+      "path": "experiments/verification/README.md",
+      "sha256": "03b934a94d80bf558485ac766f3ac4626bba2bdb69e3c035f02638173cf82f97",
+      "summary": "Audit and fresh unique-episode remeasurement."
+    },
+    {
+      "label": "16",
+      "path": "experiments/iter16_soft_stop/RESULT.md",
+      "sha256": "155d4d6e83ba5dc8e05962660e5fa693e6dd8dcc3d867c4b22557585ba60358c",
+      "summary": "Crawl gains progress but fails the collision criterion."
+    },
+    {
+      "label": "17",
+      "path": "experiments/iter17_threat_routing/RESULT.md",
+      "sha256": "8a6b74a8e0cb1130fdf707a3a4a12c359dbbf4f6d000ff87b4cdbc3d8008b60e",
+      "summary": "Threat routing gains progress but fails its collision criterion."
+    },
+    {
+      "label": "18",
+      "path": "experiments/iter18_tracker/RESULT.md",
+      "sha256": "500e684552f0b95667c9b4e43ad8859b7532983edde5791c18138a4fb49512f3",
+      "summary": "Offline tracking gate fails by one frame; no live run."
+    },
+    {
+      "label": "19",
+      "path": "experiments/iter19_diversity_head/RESULT.md",
+      "sha256": "fc3aa6319f5a5f28410f2c38093d4376a66683bed7b1a4f2843d7b938ea37d25",
+      "summary": "Planning-query candidate head fails its escape gate; no general representation impossibility follows."
+    },
+    {
+      "label": "20",
+      "path": "experiments/iter20_vad_tracker_portability/RESULT.md",
+      "sha256": "fee02a7f87c5c6b56423fc891a276c0bd040f17c101ac1e9ad036612a3943eb1",
+      "summary": "Tracker defaults fail the VAD portability gate."
+    },
+    {
+      "label": "21",
+      "path": "experiments/iter21_bev_diversity_head/RESULT.md",
+      "sha256": "b14be07a1d45045347afbc32826afeba64101a3a6fb5f5c81c2048003cf28d4b",
+      "summary": "BEV candidate head fails feasibility and fidelity gates."
+    },
+    {
+      "label": "22",
+      "path": "experiments/iter22_causal_planner_interpretability/RESULT.md",
+      "sha256": "1574427ac314d0344aa8bc831792c3217d81e5eb062b61de2b8426e1202ab81c",
+      "summary": "Artifact join failure stops the causal test."
+    },
+    {
+      "label": "23",
+      "path": "experiments/iter23_s0_hardened_causal_localization/RESULT.md",
+      "sha256": "cbdfed6038f82c8827ef00c7df98e065c7e8c5120c95bfa5c0c84075cb3510d7",
+      "summary": "Join repair passes; insufficient target counts stop the causal test."
+    },
+    {
+      "label": "24",
+      "path": "experiments/iter24_risk_support_atlas/RESULT.md",
+      "sha256": "70d2ab22ddf588e6a94cdbe80c4248c6909a794e73a7164fd6fb5d3e07295465",
+      "summary": "No eligible locally available scenes after the known-data exclusion."
+    },
+    {
+      "label": "25",
+      "path": "experiments/iter25_staged_data_inventory/RESULT.md",
+      "sha256": "97a8033b89edc8eebf3c65010b7e6c26a0f7376bd2d2d17d98fac569aeda926e",
+      "summary": "Staged-data inventory confirms the availability blocker."
+    },
+    {
+      "label": "26",
+      "path": "experiments/iter26_data_staging_remedy/RESULT.md",
+      "sha256": "909d4d7355422ec4271cfbf3fd43c03e29a1818eb0396e55ba2e8b87c7f045ae",
+      "summary": "Capacity check fails before data movement."
+    },
+    {
+      "label": "27",
+      "path": "experiments/iter27_storage_provisioning/RESULT.md",
+      "sha256": "9edca8273b73513ba3d743947c6f2a2b44a316dd2d3ba94f34c8ef9a2bf7b98b",
+      "summary": "Persistent storage provisioned; infrastructure result."
+    },
+    {
+      "label": "28",
+      "path": "experiments/iter28_nuscenes_trainval_staging/RESULT.md",
+      "sha256": "9d497817d1fc17d2406bdfedb8c2e28a56edf8d0b02e902c56bdeddf392a40e2",
+      "summary": "Official trainval assets staged with inventory checks."
+    },
+    {
+      "label": "29",
+      "path": "experiments/iter29_trainval_risk_support_atlas/RESULT.md",
+      "sha256": "32d5bd1529c97a1e819a45bd2f71791d1b6e6a142bf8fe6993f2b4fdc6f76545",
+      "summary": "Low-diversity support atlas passes; strict-collapse support is insufficient."
+    },
+    {
+      "label": "30",
+      "path": "experiments/iter30_full_trainval_lowdiv_localization/RESULT.md",
+      "sha256": "9f55b14183317ed538f974ac7c90fceb5004fc6ecc9a793d743f025b3b274d34",
+      "summary": "Diagnostic localization passes against registered controls; no causal intervention result."
+    },
+    {
+      "label": "31",
+      "path": "experiments/iter31_full_trainval_bridge_intervention/RESULT.md",
+      "sha256": "5a69fdf76b3cf823a8f7f4264d731f76485da3e07fb21d80f57372d57d3950c8",
+      "summary": "Sham intervention fails baseline reproduction."
+    },
+    {
+      "label": "32",
+      "path": "experiments/iter32_prefix_replay_baseline_recovery/RESULT.md",
+      "sha256": "764bb1e4cc5e8c4ddc4db5ddcf32adc710d2751ded730b1b6c5bc3babbb20e14",
+      "summary": "Full-prefix replay restores the frozen baseline."
+    },
+    {
+      "label": "33",
+      "path": "experiments/iter33_prefix_preserving_bridge_intervention/RESULT.md",
+      "sha256": "e6b412491ce47eee149db03f2c235a37bf1911c3f3a0cbd72c3f5339496dbccc",
+      "summary": "Bridge intervention fails calibration."
+    },
+    {
+      "label": "34",
+      "path": "experiments/iter34_direction_specificity_audit/RESULT.md",
+      "sha256": "3aab70149237adb176eb201c92d4c49dc5dbcc5f0f8dca81c825da6700ea5607",
+      "summary": "Scale-only continuation fails its response-consistency criterion."
+    },
+    {
+      "label": "35",
+      "path": "experiments/iter35_response_heterogeneity_audit/RESULT.md",
+      "sha256": "2872e7009e105a26d07d48e86f13b81902fe64afa05398a4fce254ca88822d35",
+      "summary": "Response heterogeneity yields no eligible registered stratum."
+    },
+    {
+      "label": "36",
+      "path": "experiments/iter36_bridge_site_decomposition/RESULT.md",
+      "sha256": "6154a920f2e30d6dd603095cb62d8804a0f168ee206bbba3400d85fd9f640b44",
+      "summary": "Subsite probes identify diagnostic targets for a later intervention."
+    },
+    {
+      "label": "37",
+      "path": "experiments/iter37_track_query_site_intervention/RESULT.md",
+      "sha256": "f7c763bd60f15a6655196e96f4b0f142d59a4a111db69f42f24ff06528981133",
+      "summary": "Track-query intervention fails calibration."
+    },
+    {
+      "label": "38",
+      "path": "experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md",
+      "sha256": "0ca70a0eebbd948724d78592f2cb6cf6d525064451fe73ace55daf6366695cc8",
+      "summary": "Opposite-direction canary passes; calibration was not run."
+    },
+    {
+      "label": "39",
+      "path": "experiments/iter39_external_validity_claim_audit/RESULT.md",
+      "sha256": "0b3637c4508d5dae982e4f67bf8e56b4ba149db533f4aea466b6f45307a08d6e",
+      "summary": "Claim scope narrowed after external-validity audit."
+    },
+    {
+      "label": "40",
+      "path": "experiments/iter40_timing_cost_audit/RESULT.md",
+      "sha256": "b0db4cf5bec802c4f86aaeaf3b08efb6f8920a503c315b30318beda6de54dc2b",
+      "summary": "Lead time and intervention burden measured on the power-run logs."
+    },
+    {
+      "label": "41",
+      "path": "experiments/iter41_sensor_input_degradation_gate/RESULT.md",
+      "sha256": "e945e39c1b9e40cb2ea5b252546e3d566bbacc1e1639042c3069a605cb91089d",
+      "summary": "Missing exact pose support stops perturbation analysis."
+    },
+    {
+      "label": "42",
+      "path": "experiments/iter42_exact_trace_replay_support/RESULT.md",
+      "sha256": "9def0d4a10c0ba181a11e2c2eebdf47a618bcbafe73aa4247fe1de443fd7a35c",
+      "summary": "Captured pose-aware trace supports exact decision replay."
+    },
+    {
+      "label": "43",
+      "path": "experiments/iter43_object_stream_perturbation_gate/RESULT.md",
+      "sha256": "cab05767715b80ce07a25fa2ca62c328bb0f74cd026ac59adcb1f3b4685b3ae4",
+      "summary": "Offline position jitter at 5 cm causes excess firing."
+    },
+    {
+      "label": "44",
+      "path": "experiments/iter44_velocity_smoothing_gate/RESULT.md",
+      "sha256": "91e0b9b6ad03a733f9aa6e4f56090fb90d32fb72417c39d4e290e89ddf9b38a8",
+      "summary": "Registered smoothing variants fail fidelity and repair criteria."
+    },
+    {
+      "label": "45",
+      "path": "experiments/iter45_hugsim_infra_gate/RESULT.md",
+      "sha256": "9ea5d58c80694cdcbaac6c2c4bb628bbf13b691a59c92cc8f376afce1aadd0c1",
+      "summary": "HUGSIM assets, environment and nominal smoke pass."
+    },
+    {
+      "label": "46",
+      "path": "experiments/iter46_hugsim_off_baseline/RESULT.md",
+      "sha256": "f401350e2b1bfb20dc89e134bdc172f7b93f19b8fb770cd22809856916720d0e",
+      "summary": "Baseline completion null: 38/52 episodes; map assets missing."
+    },
+    {
+      "label": "47",
+      "path": "experiments/iter47_map_staging_and_off_completion/RESULT.md",
+      "sha256": "f2d13a0133c562edafbbcbb76530b0d4befad44ca945d1b961abd8fdfb5f0dca",
+      "summary": "Map staging completes the 52-episode baseline with carried evidence preserved."
+    },
+    {
+      "label": "48",
+      "path": "experiments/iter48_hugsim_transfer_gate/RESULT.md",
+      "sha256": "6b51089dd40f3c3a8576687baf5b6990ae6bc91d55f33979a86b18741706ec10",
+      "summary": "TRANSFER_NULL on easy/medium scenarios; monitor active, interval includes zero."
+    },
+    {
+      "label": "49",
+      "path": "experiments/iter49_hugsim_hard_tier_gate/RESULT.md",
+      "sha256": "709731e8ea72529cd0dfa98b3304944554bd2492dc5ebfe3f1a1f5a79e0580cc",
+      "summary": "TRANSFER_NULL on hard/extreme scenarios despite collision opportunity."
+    },
+    {
+      "label": "50",
+      "path": "experiments/iter50_collision_opportunity_audit/RESULT.md",
+      "sha256": "3909b02512aec74f349243452a5cf7aea41a4f54b9c9f441813dc3e7f5a11217",
+      "summary": "Collision-opportunity audit; opportunity scarcity does not rescue the transfer claim."
+    },
+    {
+      "label": "51",
+      "path": "experiments/iter51_hugsim_failure_taxonomy/RESULT.md",
+      "sha256": "ac3a5da090b7580d06323f9541331eb2e9b096d712f4eaa35f067e1051cfef8c",
+      "summary": "Mixed failure taxonomy; no single mechanism explains all retained pairs."
+    },
+    {
+      "label": "52",
+      "path": "experiments/iter52_hugsim_on_collision_timing_audit/RESULT.md",
+      "sha256": "86d5db21ece8e15fe47662f04df0a115e852b357179877d119c101f793aeb9de",
+      "summary": "Timing audit finds both absent/late braking and persistent collisions after early braking."
+    },
+    {
+      "label": "53",
+      "path": "experiments/iter53_hugsim_first_fire_channel_audit/RESULT.md",
+      "sha256": "5db3baa976c1094e84d698e12dc8c5e1b907fc68a22f8dc7ffb5d59082074db1",
+      "summary": "First-fire channels do not reduce the failure to one union branch."
+    },
+    {
+      "label": "54",
+      "path": "experiments/iter54_hugsim_provenance_support_audit/RESULT.md",
+      "sha256": "87653c25247e12a270b66131d414da4c5e551d8dc5817279d23f94aa924b32da",
+      "summary": "Missing collision-actor identity limits provenance attribution."
+    },
+    {
+      "label": "55",
+      "path": "experiments/iter55_hugsim_collision_instrumentation_source_audit/RESULT.md",
+      "sha256": "4d396f45e41edd7bdef4e649e81cdb9148187f0918cc15d27c524a51667c111b",
+      "summary": "Source audit identifies instrumentation locations."
+    },
+    {
+      "label": "56",
+      "path": "experiments/iter56_hugsim_provenance_instrumentation_patch/RESULT.md",
+      "sha256": "a9643cb272fdbe4248663ece0ccd5f5a1eb028b3590adb262e4f2e46e7c6ff9c",
+      "summary": "Static guard rejects the first provenance patch design."
+    },
+    {
+      "label": "57",
+      "path": "experiments/iter57_hugsim_patch_guard_refinement/RESULT.md",
+      "sha256": "647de588b33c51b5996454c9be128cb0f250be2b740c48cefbb115459862ac9d",
+      "summary": "Refined guard accepts the same patch bytes; no driving result."
+    },
+    {
+      "label": "58",
+      "path": "experiments/iter58_hugsim_provenance_instrumented_canary/RESULT.md",
+      "sha256": "14fc15447fbf2157fec1a84d944c45e8ee85f614c954a4f541ec87f41ec912bf",
+      "summary": "Instrumented canary records collision provenance."
+    },
+    {
+      "label": "59",
+      "path": "experiments/iter59_hugsim_actor_match_audit/RESULT.md",
+      "sha256": "cbadf34d6dea9f95303de41ec32b870355a5baeb4c586e22f4883863396ea1e8",
+      "summary": "Eight selected episodes; three foreground-classifiable rows mismatch under the frozen bridge."
+    },
+    {
+      "label": "60",
+      "path": "experiments/iter60_actor_bridge_sensitivity/RESULT.md",
+      "sha256": "a08c1a2c95069eb2f14c6b741199bf18defcf284a78b013bbcb8217daef57ad7",
+      "summary": "Bridge sensitivity makes one row ambiguous; robust all-row mismatch unsupported."
+    },
+    {
+      "label": "61",
+      "path": "experiments/iter61_monitor_object_surface_audit/RESULT.md",
+      "sha256": "6e657f89dd02946079940a214c4f692e55cd3896fa46a877da4a4b2caf092e2c",
+      "summary": "A non-trigger object matches in one case; two cases lack first-fire support."
+    },
+    {
+      "label": "62",
+      "path": "experiments/iter62_nontrigger_ranking_audit/RESULT.md",
+      "sha256": "0ab9e89f5dbb0ac68c96caadfc80caba5a6c0f27c3e95eb16caaf67a773ae2cc",
+      "summary": "The matched non-trigger object is outside the frozen hazard thresholds."
+    },
+    {
+      "label": "63",
+      "path": "experiments/iter63_temporal_emergence_audit/RESULT.md",
+      "sha256": "14cecddaf2764febe15a100ccea42e2240bc430ed967c6d4377150796610cbfc",
+      "summary": "The matched object remains visible without reaching a hazard threshold before contact."
+    },
+    {
+      "label": "64",
+      "path": "experiments/iter64_unsupported_temporal_surface_audit/RESULT.md",
+      "sha256": "50d1f83da452ea030a6bef0fdeabc4f1fe078df920c50c724f316fe26989721d",
+      "summary": "Both cases lacking first-fire support have earlier object matches under the frozen rule."
+    },
+    {
+      "label": "65",
+      "path": "experiments/iter65_temporal_alignment_audit/RESULT.md",
+      "sha256": "046b04b5efbde6357270c0190fa4b16d57fc04028cd88c46bd84e0625d012765",
+      "summary": "The earlier matched objects remain below the trigger thresholds at those times."
+    },
+    {
+      "label": "66",
+      "path": "experiments/iter66_matched_object_timeline_audit/RESULT.md",
+      "sha256": "5f5552fc9bd136d71cd8e0503a8a5d5af18c5fbfce88ffc031d83c242cb04803",
+      "summary": "One target becomes a TTC hazard; the other remains below threshold before contact."
+    },
+    {
+      "label": "67",
+      "path": "experiments/iter67_trigger_target_bridge_audit/RESULT.md",
+      "sha256": "03cdd959db1b4bc4193a98782a09b73313b1f1715be51d62934bc42ca7a037a8",
+      "summary": "Target and trigger coincide in one case and differ in the other."
+    },
+    {
+      "label": "68",
+      "path": "experiments/iter68_fire_time_bridge_decomposition/RESULT.md",
+      "sha256": "cbcf52679e17970150f40f7dca7207086732ae8a77136ebe40bbd9d8619fb214",
+      "summary": "The best trigger-to-actor association occurs before firing in one case and after it in another."
+    },
+    {
+      "label": "69",
+      "path": "experiments/iter69_hugsim_mechanism_taxonomy/RESULT.md",
+      "sha256": "ac38f46be5ef7dfe54f3c8d95d4cc789f5f1c85d230536b825bf2c28051bf977",
+      "summary": "Synthesis classifies all eight selected cases within the available provenance."
+    },
+    {
+      "label": "70",
+      "path": "experiments/iter70_hugsim_structural_timing_audit/RESULT.md",
+      "sha256": "219c06959620a2a7148ac4a9a7c6adbd2072c8dd67f9ec7142190f485684fc08",
+      "summary": "Five cases divide into silent, late-fire and background-only collision categories."
+    },
+    {
+      "label": "71",
+      "path": "experiments/iter71_hugsim_surface_silent_margin_audit/RESULT.md",
+      "sha256": "b8b494cb1175cd5f2224ae68b68442e3358b993cc94e86a328c1486140c2646f",
+      "summary": "The two silent cases remain far from the trigger thresholds before contact."
+    },
+    {
+      "label": "72",
+      "path": "experiments/iter72_hugsim_late_fire_prefire_margin_audit/RESULT.md",
+      "sha256": "a6946027d11c05daeffef8b1117af1607642c0c3a613951d9dbe735500a9d6c8",
+      "summary": "The two late-fire cases approach a threshold before contact without crossing it."
+    },
+    {
+      "label": "73",
+      "path": "experiments/iter73_hugsim_margin_transition_audit/RESULT.md",
+      "sha256": "e002399a9b2c5afa21b2dab9a2200205ba1219816377495c3db25529351214fa",
+      "summary": "Silent cases never activate; late-fire cases activate only after contact."
+    },
+    {
+      "label": "74",
+      "path": "experiments/iter74_hugsim_late_fire_delay_barrier/RESULT.md",
+      "sha256": "223abdcc9bafd277bedbb82a729f90086308cf3ca2694bbef3a2549a24dc8c57",
+      "summary": "The near-threshold channel before contact differs from the channel firing after contact."
+    },
+    {
+      "label": "75",
+      "path": "experiments/iter75_hugsim_cross_channel_object_handoff/RESULT.md",
+      "sha256": "efc67750c5296044d7159f2eae705d03930106b3f5e9975be658f9f294aa864d",
+      "summary": "Both late-fire cases also switch the object responsible for the monitor signal."
+    },
+    {
+      "label": "76",
+      "path": "experiments/iter76_hugsim_switch_foreground_bridge/RESULT.md",
+      "sha256": "556ee959601fb011e5e53bb0eaec40619abd37991d827dc9189cc48449684823",
+      "summary": "Neither selected object reaches the specified actor-association bands at the event."
+    },
+    {
+      "label": "77",
+      "path": "experiments/iter77_hugsim_event_object_set_bridge/RESULT.md",
+      "sha256": "d01de0707260d3e13b87a97086e8eff61fc1ff29035687973f78d3f7eef2587f",
+      "summary": "Other objects in the full detection set supply some actor-association support."
+    },
+    {
+      "label": "78",
+      "path": "experiments/iter78_hugsim_support_object_ranking/RESULT.md",
+      "sha256": "2cde5ea1f3d6e5e7f7ea86cf9819647781b909de7351671c8f9d162bebcdef9e",
+      "summary": "Objects with actor support are unselected and below the monitor thresholds."
+    },
+    {
+      "label": "79",
+      "path": "experiments/iter79_hugsim_selected_surface_decomposition/RESULT.md",
+      "sha256": "3cde017f58677a7b716bf2de18697b2f9737d304104fb8dab382333f60c485ee",
+      "summary": "Selected objects have stronger monitor signals than the actor-supported objects."
+    },
+    {
+      "label": "80",
+      "path": "experiments/iter80_hugsim_selected_all_provenance_bridge/RESULT.md",
+      "sha256": "4c7dfc36ec5a0c26e855079234b61db014f1b2c4cc81d0be79350e1340504c51",
+      "summary": "Selected objects lack an association with any eligible recorded collision-provenance row."
+    },
+    {
+      "label": "81",
+      "path": "experiments/iter81_hugsim_support_object_temporal_surface/RESULT.md",
+      "sha256": "9852cb5b60604e65fe99f538c455733e42d4821e028a630dbca571670d2330b3",
+      "summary": "One supported object later reaches the monitor surface; another never does."
+    },
+    {
+      "label": "82",
+      "path": "experiments/iter82_hugsim_support_surface_bridge_cooccurrence/RESULT.md",
+      "sha256": "44529749fd3a571a869f15d772a5d3c60b28cd7064a82931c9a3e72fbaf20522",
+      "summary": "Actor association coincides only with a borderline signal in one case and none in another."
+    },
+    {
+      "label": "83",
+      "path": "experiments/iter83_hugsim_bridge_supported_surface_miss_decomposition/RESULT.md",
+      "sha256": "91b1614fa9843cd425178820ee3d3730aefb8e54836fb741440d876304f6d26f",
+      "summary": "Supported objects remain outside active TTC/CPA conditions at the examined times."
+    },
+    {
+      "label": "84",
+      "path": "experiments/iter84_hugsim_selected_support_arbitration/RESULT.md",
+      "sha256": "1a7d451e9f69e04ff48f6cf5e502ccd27c34547fa92b7d52d6cff3b70a1ad781",
+      "summary": "Objects favoured by monitor geometry differ from those supported by actor provenance."
+    },
+    {
+      "label": "85",
+      "path": "experiments/iter85_hugsim_path_horizon_bridge_timing/RESULT.md",
+      "sha256": "f96937a249da353314b2838e917e002d8c336d6eb596dbcf42badcbab53e2b94",
+      "summary": "Path horizon and provenance timing preserve the selected/support-object distinction."
+    },
+    {
+      "label": "86",
+      "path": "experiments/iter86_hugsim_bridge_time_surface_replay/RESULT.md",
+      "sha256": "33b37d354174f01cfbb8240ba9bf46e8a8bda619f7526a7c71dac404f51f3a62",
+      "summary": "Exact replay classifies two rows; a missing 6.0 s decision row blocks the third."
+    },
+    {
+      "label": "87",
+      "path": "experiments/iter87_hugsim_interval_bridge_time_surface_replay/RESULT.md",
+      "sha256": "14c3573cf06406b810f193d84876f577d91d9f4a0db7b04976a37140e1f39394",
+      "summary": "Interval replay finds one borderline supported object and another below threshold."
+    },
+    {
+      "label": "88",
+      "path": "experiments/iter88_hugsim_bridge_surface_margin_residual/RESULT.md",
+      "sha256": "76cd8d3780afd68d1ce5d241abd860a580adff10690a6ebe251fb7433031c4de",
+      "summary": "Residual margins distinguish two ways that supported objects miss the trigger."
+    },
+    {
+      "label": "89",
+      "path": "experiments/iter89_hugsim_joint_bridge_surface_candidate_audit/RESULT.md",
+      "sha256": "89fc77b14d0ab5d790969b259dd96b261eeb844b2c221627bbc0027d5cdb29a2",
+      "summary": "No object in the examined replay rows is both active and actor-supported."
+    },
+    {
+      "label": "90",
+      "path": "experiments/iter90_hugsim_active_surface_provenance_gap/RESULT.md",
+      "sha256": "0bfc548b2dfc336666cce9f29c80b006bd3afe0669d77bc528399cf041b397c7",
+      "summary": "The only active replay object lacks actor support; supported objects are inactive."
+    },
+    {
+      "label": "91",
+      "path": "experiments/iter91_hugsim_active_gap_geometry_decomposition/RESULT.md",
+      "sha256": "2ee80864c9d2f6105c6398da7c9537f8aae7093d5c4bdd86da8f431210f1caab",
+      "summary": "Path proximity and actor-provenance proximity favour different objects."
+    },
+    {
+      "label": "92",
+      "path": "experiments/iter92_hugsim_path_proximity_arbitration/RESULT.md",
+      "sha256": "20902b9d19cc13a9ced312a64b76d8205c405a2cde7c086a77dbfe6a0c08dd46",
+      "summary": "The closest path object differs from the closest provenance object in each examined row."
+    },
+    {
+      "label": "93",
+      "path": "experiments/iter93_hugsim_surface_winner_alignment/RESULT.md",
+      "sha256": "bb09745961dae4827216dd8f731db2f83c58ae1db349b339d5b46e8f750addec",
+      "summary": "Surface selection follows path proximity in two rows and provenance proximity in one."
+    },
+    {
+      "label": "94",
+      "path": "experiments/iter94_hugsim_active_row_surface_margin_arbitration/RESULT.md",
+      "sha256": "43d33aaa7ddf9290d02394e04dee8145046641441ba59fe7bbf53ce44c870b95",
+      "summary": "The active row selects its only active CPA candidate; supported candidates remain distant."
+    },
+    {
+      "label": "95",
+      "path": "experiments/iter95_hugsim_nonactive_surface_branch_arbitration/RESULT.md",
+      "sha256": "ff8ce98f1d9138f09e3ab2e9ef2743f30001fb481dc2df22cb9c73ef1121e589",
+      "summary": "Inactive rows separate a borderline TTC choice from a path/CPA choice."
+    },
+    {
+      "label": "96",
+      "path": "experiments/iter96_hugsim_branch_outcome_bridge/RESULT.md",
+      "sha256": "01f3703857ddb7e298694e74749e76229e4ee8bec243f80350874c504f3e3638",
+      "summary": "Different signal branches lead to the same recorded late-fire outcome category."
+    },
+    {
+      "label": "97",
+      "path": "experiments/iter97_hugsim_surface_silent_outcome_margin_bridge/RESULT.md",
+      "sha256": "d416cb75aa2e0985518a52aac5a8738132d0feaeb7f001280e06954c3ca167bd",
+      "summary": "Silent cases approach a threshold only after foreground contact."
+    },
+    {
+      "label": "98",
+      "path": "experiments/iter98_hugsim_background_only_outcome_bridge/RESULT.md",
+      "sha256": "2e8be3c6f7125671296fd2528874e8c98f5932fab6f6b098f49c64c666c2cf8a",
+      "summary": "The background-only case retains a TTC fire without foreground-actor support."
+    },
+    {
+      "label": "99",
+      "path": "experiments/iter99_hugsim_structural_bridge_coverage_audit/RESULT.md",
+      "sha256": "20e4e2444487a75faec0b86283c56e87cdfd0f6349a7a423ded5910846172363",
+      "summary": "The five fixed structural cases are covered once each by the preceding audits."
+    },
+    {
+      "label": "100",
+      "path": "experiments/iter100_hugsim_structural_expansion_support_audit/RESULT.md",
+      "sha256": "ac0107897c8b9a7617a1039eab713d3a614246af38af87dd967076fb841887a1",
+      "summary": "Existing transfer reports lack collision-actor support for expanding the structural analysis."
+    },
+    {
+      "label": "101",
+      "path": "experiments/iter101_hugsim_provenance_batch_candidate_design/RESULT.md",
+      "sha256": "a18c657f0c2a9dd2fbffb6937da8044836900f8ae504fe92c5e7bec7cdea8e25",
+      "summary": "Designed a 13-slot provenance batch, including one carried reference."
+    },
+    {
+      "label": "102",
+      "path": "experiments/iter102_hugsim_provenance_batch_launch_manifest/RESULT.md",
+      "sha256": "2231d211b0036d73366062d51c855bdf58672697c9bad085099a80f431af68f2",
+      "summary": "Bound the 13 batch slots to their sources; duplicate scenarios retained distinct identities."
+    },
+    {
+      "label": "103",
+      "path": "experiments/iter103_hugsim_provenance_batch_execution/RESULT.md",
+      "sha256": "dcb8211cb0d41a7d8f3bd27ecd9ced77823113bc33961241b9b43c351e8494c5",
+      "summary": "Executed all 13 slots; retained 217 collision-provenance rows."
+    },
+    {
+      "label": "104",
+      "path": "experiments/iter104_hugsim_provenance_batch_actor_match_audit/RESULT.md",
+      "sha256": "53153db07a1fc23e80d4f68d08b32b29f6eba1e45478e4a71aabac3f59908da2",
+      "summary": "Only 1/13 slots met foreground classification requirements; the registered bar was four."
+    },
+    {
+      "label": "105",
+      "path": "experiments/iter105_hugsim_timing_aware_provenance_batch_design/RESULT.md",
+      "sha256": "adf69bfb315b16a2f9f5cef1632384554af81d88d789490ae81a25cdd96d76e4",
+      "summary": "Selected 13 slots using timing eligibility and prior-instrumentation exclusions."
+    },
+    {
+      "label": "106",
+      "path": "experiments/iter106_hugsim_timing_aware_launch_manifest/RESULT.md",
+      "sha256": "6b60e20731ae03d31ddcd269616cf9ce15ca64eab7525fb4c90b71ba1b749813",
+      "summary": "Prepared the timing-aware batch with source and runtime checks."
+    },
+    {
+      "label": "107",
+      "path": "experiments/iter107_hugsim_timing_aware_batch_execution/RESULT.md",
+      "sha256": "4f030da840106d2d9c11a3796c02f320bd478533c3a8c1442be6ed8cf0e2e3cc",
+      "summary": "Executed all 13 slots; retained 252 collision-provenance rows."
+    },
+    {
+      "label": "108",
+      "path": "experiments/iter108_hugsim_timing_aware_batch_actor_match_audit/RESULT.md",
+      "sha256": "8357649fedf76d7a8a0b219182cdfa89875fb96e46430a7e350b76aad0c7117f",
+      "summary": "Only 2/13 slots met foreground classification requirements; the bar remained four."
+    },
+    {
+      "label": "109",
+      "path": "experiments/iter109_hugsim_timing_aware_support_yield_decomposition/RESULT.md",
+      "sha256": "c42d94dd56341116ec5c6381af7c3a22af8807b2e89e1fdf762a05062b628934",
+      "summary": "Remaining classification failures split between absent foreground actors and late firing."
+    },
+    {
+      "label": "110",
+      "path": "experiments/iter110_hugsim_support_preserving_candidate_design/RESULT.md",
+      "sha256": "2c6e063b4df31ad485e82ab2ee123787cefc6117f1dcb5c58cee21ea86057b1e",
+      "summary": "Identified an eight-row core with suitable support; a clean 13-slot schedule was unavailable."
+    },
+    {
+      "label": "111",
+      "path": "experiments/iter111_hugsim_support_core_launch_manifest/RESULT.md",
+      "sha256": "1670600ab69225453c17aa7815a2b3ebf211c7f27ad4556da58b0311000e0af7",
+      "summary": "Bound the eight-row core schedule to source identities."
+    },
+    {
+      "label": "112",
+      "path": "experiments/iter112_hugsim_support_core_batch_execution/RESULT.md",
+      "sha256": "1c671a02538aea6ad946021f4ed10604f733b2d8055319696f00db2e68eef0c4",
+      "summary": "Executed all eight core slots; retained 44 collision-provenance rows."
+    },
+    {
+      "label": "113",
+      "path": "experiments/iter113_hugsim_support_core_actor_match_audit/RESULT.md",
+      "sha256": "49d9e76430b4bcbb88c9f2d7a16d0db58e080876274964b13bfc4202271136dd",
+      "summary": "All eight cases were classifiable; all mismatched under the frozen association rule."
+    },
+    {
+      "label": "114",
+      "path": "experiments/iter114_hugsim_support_core_mismatch_geometry_decomposition/RESULT.md",
+      "sha256": "b2ac3ac91ff6e87c5517cca6068b4ded63b79034f5680a0bc04879df15e0f75f",
+      "summary": "Mismatch vectors were predominantly longitudinal; seven monitor objects lay behind the actor."
+    },
+    {
+      "label": "115",
+      "path": "experiments/iter115_hugsim_support_core_monitor_set_ordering/RESULT.md",
+      "sha256": "202c2571e1a0bbb98efcd0863940bf0d41e81ff76abfdf21ae9702421015324a",
+      "summary": "No first-fire object set contained a close actor candidate under the frozen rule."
+    },
+    {
+      "label": "116",
+      "path": "experiments/iter116_hugsim_support_core_collision_actor_timeline/RESULT.md",
+      "sha256": "9add3ccd6d47b9d537581cb6919987889aed0df32ff3cfc8105dac026cf7df75",
+      "summary": "Seven cases had pre-collision support, with different timing relative to first fire."
+    },
+    {
+      "label": "117",
+      "path": "experiments/iter117_hugsim_support_core_event_window_decomposition/RESULT.md",
+      "sha256": "842de01f544d887a61c8d85a97bbb833c03079c0da6b26c5ba712281502cec29",
+      "summary": "Initially supported objects differed from the selected objects at first fire."
+    },
+    {
+      "label": "118",
+      "path": "experiments/iter118_hugsim_support_core_object_lifecycle/RESULT.md",
+      "sha256": "21149d45f68ea7c2107feab4efafa643e6cc9efb437ebe88ff3909eafad82198",
+      "summary": "Initially supported objects no longer had support at fire; later support used other objects."
+    },
+    {
+      "label": "119",
+      "path": "experiments/iter119_hugsim_support_core_loss_replacement_audit/RESULT.md",
+      "sha256": "14a9fed74e102597e37ad813d754e3512abfb74747172a808527aca0a3ee6114",
+      "summary": "Measured support gaps were 1–6 s; nearest first-fire replacements remained outside support."
+    },
+    {
+      "label": "120",
+      "path": "experiments/iter120_hugsim_support_core_selected_fire_object_lifecycle/RESULT.md",
+      "sha256": "1f3b7e90992bcd519186d0a44ebb4b90ab1c99cedb1233bcfb2b28a76a0a9bfc",
+      "summary": "Selected first-fire objects never acquired pre-collision support in these eight cases."
+    },
+    {
+      "label": "121",
+      "path": "experiments/iter121_hugsim_support_core_two_track_synthesis/RESULT.md",
+      "sha256": "77f352b0ac08aaf2a872deb9815227ab0bb9fe43d3e54b4b8a82401363441eb9",
+      "summary": "Synthesis retains the distinction between supported objects and selected trigger objects."
+    },
+    {
+      "label": "122",
+      "path": "experiments/iter122_support_core_taxonomy_documentation/RESULT.md",
+      "sha256": "835386100d2d63ca23d02cccc3e3669a41827f8d3b8d52cfa42f68fcae6abb2c",
+      "summary": "Integrated the bounded mechanism synthesis into the historical research documents."
+    },
+    {
+      "label": "123",
+      "path": "experiments/iter123_mission_evidence_alignment_audit/RESULT.md",
+      "sha256": "e22b7795e24d545db7f557763cadc30ba4f62b23135a8e8e3e973743db45f254",
+      "summary": "Mission and evidence alignment review; historical documentation update."
+    },
+    {
+      "label": "124",
+      "path": "experiments/iter124_manuscript_report_freshness/RESULT.md",
+      "sha256": "908f52942d9dfb2d17fae33b3843dd2e8b8273cb6a35ca22de1f1d8c309db7e2",
+      "summary": "Historical manuscript/report freshness update."
+    },
+    {
+      "label": "125",
+      "path": "experiments/iter125_support_core_blind_spot_scenario_design/RESULT.md",
+      "sha256": "3de34e6ef52bebc1ffe60ba2378a7b8b15cbd56f6b56554b32400cd01062c128",
+      "summary": "Five proposed scenario archetypes derived from the support-core cases."
+    },
+    {
+      "label": "126",
+      "path": "experiments/iter126_support_core_candidate_manifest_preflight/RESULT.md",
+      "sha256": "fcf529ebf852fc484d3a92fd4fb07140cf8508032391b06f26dc6c6ece855fdd",
+      "summary": "Ten symbolic candidate specifications; no generated-scene outcome."
+    },
+    {
+      "label": "127",
+      "path": "experiments/iter127_post_iter126_mission_alignment_audit/RESULT.md",
+      "sha256": "aeed7cd21f5cff5dace4559b6d3ffbbdd5f4b0dbfe77b6896caf8147c4d7efe0",
+      "summary": "Mission alignment review after candidate design."
+    },
+    {
+      "label": "128",
+      "path": "experiments/iter128_support_core_source_pool_mutation_preflight/RESULT.md",
+      "sha256": "e5034b9545c8b21e0149d02f7348876330f92f5ad38141c6f167075dcc5c9a98",
+      "summary": "Source pools and mutation operators specified before generation."
+    },
+    {
+      "label": "129",
+      "path": "experiments/iter129_support_core_artifact_naming_preflight/RESULT.md",
+      "sha256": "8a1de5688b752663a1be99158a093a87e6cb5ef750d729847c3cd782ed94be9e",
+      "summary": "Future artifact names reserved; no generated-scene outcome."
+    },
+    {
+      "label": "130",
+      "path": "experiments/iter130_support_core_artifact_schema_preflight/RESULT.md",
+      "sha256": "48b0d972c2a83fabc5f83a91417186675fbbf1992a72b5747c6673d31c7a99fa",
+      "summary": "Artifact schemas specified; no generated-scene outcome."
+    },
+    {
+      "label": "131",
+      "path": "experiments/iter131_post_iter130_mission_alignment_audit/RESULT.md",
+      "sha256": "a51f9bbf56084c353c0cfaf429a1b077ed0e410a76dce9872143e6fdd9516574",
+      "summary": "Mission alignment review after schema design."
+    },
+    {
+      "label": "132",
+      "path": "experiments/iter132_support_core_schema_instance_creation_preflight/RESULT.md",
+      "sha256": "9343cb98a2280c1d5722e0968b5b9f51df529ef92c4c2754f6a3908a97d6ae94",
+      "summary": "Inert templates and validator contract prepared."
+    },
+    {
+      "label": "133",
+      "path": "experiments/iter133_neuroncap_placebo_semantics_control_design/RESULT.md",
+      "sha256": "88c6b7a260b5b5e6b25d6f64a620704154b77291ca1216bd6b88e94f45ae834b",
+      "summary": "Placebo comparison preregistered before execution."
+    },
+    {
+      "label": "134",
+      "path": "experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md",
+      "sha256": "61727fcd46fc77b78900aee285744a4ea530975514ef0d74f1bfb9f22f2ae074",
+      "summary": "PLACEBO_HARM_OR_NULL; gain over OFF reproduced, attribution unresolved."
+    },
+    {
+      "label": "135",
+      "path": "experiments/iter135_neuroncap_blind_braking_dose_response/HYPOTHESIS.md",
+      "sha256": "6bcd0a95386ca0019e4a3bcf09536c2306955bc59805002fe8ff958a2a66a8eb",
+      "summary": "Preregistered dose-response protocol; deferred and unrun."
+    },
+    {
+      "label": "136",
+      "path": "experiments/iter136_hugsim_recoverability_canary/RESULT.md",
+      "sha256": "a72857c2277fa9f4a91bfb2c9ded4b93272e125f79f0e5e86e2d24e3ed57f6bc",
+      "summary": "REPLAY_DIVERGED: equal seeds and initial plans do not reproduce controller output."
+    },
+    {
+      "label": "137",
+      "path": "experiments/iter137_controller_execution_contract/RESULT.md",
+      "sha256": "bfcd4ab88f3cf3920866b42e5279c8eae03e8095f8c908f2f23e27b51af08339",
+      "summary": "Numerical repeatability and stopping reasons qualified separately from deadlines."
+    },
+    {
+      "label": "138",
+      "path": "experiments/iter138_numerical_live_replay/RESULT.md",
+      "sha256": "ac0c8b6a27c5caee9d38414893c9ff10f75cc350e7bdbff6198b8e5b1c9a4f30",
+      "summary": "Live numerical replay qualified; timing remains a separate constraint."
+    },
+    {
+      "label": "139",
+      "path": "experiments/iter139_finite_pulse_recoverability/RESULT.md",
+      "sha256": "283b463ce0333b1382f660d7afa71531305ad121343d89641814168c39abad2a",
+      "summary": "Null: 0/6 useful recoveries in the registered finite-pulse cases."
+    },
+    {
+      "label": "140",
+      "path": "experiments/iter140_contact_actuation/RESULT.md",
+      "sha256": "6db32b2178d95b426c317adcb8f764681f653a6436a317b870098fab157c497e",
+      "summary": "Contact and applied-control reconstruction; prior recovery null unchanged."
+    },
+    {
+      "label": "141",
+      "path": "experiments/iter141_nominal_continuation/RESULT.md",
+      "sha256": "ebea501933e1e441df6e705b02a658aa759cd4b090a74acaee1aecae89eb6f17",
+      "summary": "Nominal continuation design and execution contract; no recovery gain established."
+    },
+    {
+      "label": "142",
+      "path": "experiments/iter142_nominal_continuation_completion/RESULT.md",
+      "sha256": "916f0e1ae6d594e0262e0c83e2c63f37f1a4578063315ebf62735d92a2134a72",
+      "summary": "Null: 0/2 useful recoveries under the continuation experiment."
+    },
+    {
+      "label": "143",
+      "path": "experiments/iter143_model_contract/RESULT.md",
+      "sha256": "2d0b1f2b8e35893b487835937ffaf8dc90ecf5a71c3d78e4d1f198e21ec9d9b3",
+      "summary": "Actor time, coordinates and ego dynamics audited before a new execution regime."
+    },
+    {
+      "label": "144",
+      "path": "experiments/iter144_timed_trajectory/RESULT.md",
+      "sha256": "f7f8a4d6fd07f132798bd2121e5d4128813c69ac1f37f7951f8af5403e0b1b4d",
+      "summary": "Explicit trajectory timestamps qualified locally; from-rest convergence still failed."
+    },
+    {
+      "label": "145",
+      "path": "experiments/iter145_constrained_execution/RESULT.md",
+      "sha256": "1a4e907c7bcb765ae008a8b4687a03e602c659392bdb77f4a8d1beaea7542a95",
+      "summary": "Constrained controller and bounded GPU smoke qualified; no full-route recovery result."
+    },
+    {
+      "label": "146",
+      "path": "experiments/iter146_route_outcome_contract/RESULT.md",
+      "sha256": "b0231776f119f379209952e0d33a0fb1ff23c6b11448cb61654b0497140aa542",
+      "summary": "Route outcomes and missingness corrected; short GPU qualification remains censored."
+    },
+    {
+      "label": "147",
+      "path": "experiments/iter147_full_horizon_execution/RESULT.md",
+      "sha256": "0ea7198ba0a5b34a3807d003afe6d85438625b933948b95c3073059da7ac8191",
+      "summary": "Full-horizon qualification: 912 GPU actions; diagnostic holds and natural-actor collisions."
+    },
+    {
+      "label": "148",
+      "path": "experiments/iter148_recovery_study/RESULT.md",
+      "sha256": "47ab54bdfda5b2373b29184a85284ee39f830acae2a2c9a7c821bfd6975c9aa6",
+      "summary": "Inconclusive: four admitted baseline episodes; pulse interrupted; no complete comparison."
+    },
+    {
+      "label": "149",
+      "path": "experiments/iter149_observation_recovery/RESULT.md",
+      "sha256": "bd54dad1bde6cdd6c4a110a227cd966180bafa023462440caf66036d2f8bee98",
+      "summary": "Local bounded observation recovery qualified; no scientific outcome."
+    },
+    {
+      "label": "150",
+      "path": "experiments/iter150_cloud_observation/RESULT.md",
+      "sha256": "052b7dce904dba660ea6de9717f883795d461a507224d2cf2b1778b8919b4a4b",
+      "summary": "Bounded cloud/native observation checks supported; report-saving failure preserved and locally corrected."
+    },
+    {
+      "label": "151",
+      "path": "experiments/iter151_recovery_canary/RESULT.md",
+      "sha256": "3be244265014cf39b6e2b6d646c39a7c5fc9670d6c29b98e5cc609de7fe973f3",
+      "summary": "Inconclusive: two nominal replicas admitted; publication check stopped the remaining comparison."
+    },
+    {
+      "label": "152",
+      "path": "experiments/iter152_recovery_continuation/RESULT.md",
+      "sha256": "e0f2bb0d98686505b48b07e1e0e5b3b3555174c8ecdeea713433c464f3ef2759",
+      "summary": "Fixed continuation complete: 14 new episodes, no pulse recovery witness; benign monitor adds 13 simulated seconds."
+    },
+    {
+      "label": "153",
+      "path": "experiments/iter153_action_feasibility/RESULT.md",
+      "sha256": "f3e9a0cefe39fa9e0add312055a7552bd5dc58013ec2abee1079df4445893815",
+      "summary": "Fixed local model search: 14 eligible maneuvers; exact candidate selected, full-scene recovery unknown."
+    },
+    {
+      "label": "154",
+      "path": "experiments/iter154_full_scene_maneuver/RESULT.md",
+      "sha256": "5516c149aeb88da243337081104c155248c64bff02f15f7aa7691c20750c24d9",
+      "summary": "Exact model candidate fails native background collision at 3.25 s in both fresh replicas; 26 verified actions."
+    },
+    {
+      "label": "155",
+      "path": "experiments/iter155_background_witness/RESULT.md",
+      "sha256": "767081289b75728f40e3eb968824bae3f3da3f2f8783cefa67220eafdd62f599",
+      "summary": "Native/scalar background masks agree: 0 centers at 3.00 s, 273 at 3.25 s; full selected population retained, no new driving episode."
+    },
+    {
+      "label": "156",
+      "path": "experiments/iter156_background_calibration/RESULT.md",
+      "sha256": "79ecc99f6d58d7bd6123d4e3e3b29636df43011ff884fbde28a32e65d40019b9",
+      "summary": "Complete background query matches scalar masks across 115 states; 26 direct labels and 266 negative implications agree, eight background labels unknown; no new drive."
+    },
+    {
+      "label": "157",
+      "path": "experiments/iter157_constrained_action_library/RESULT.md",
+      "sha256": "4911d9be417efdf041f0092fd6b0f4b5df7eeeb21e777a1359db62c400295fe8",
+      "summary": "Fixed-library null: all 14 previously eligible actions fail background; 61 prior failures retained, 0/75 qualify. Scalar rejection witnesses agree; post-evidence inventory correction disclosed, no new drive."
+    },
+    {
+      "label": "158",
+      "path": "experiments/iter158_constraint_aware_search/RESULT.md",
+      "sha256": "b1895201dce789719a175aad782eacec6a6a667d54e4ccd78e84a2390caffa16",
+      "summary": "Inconclusive bounded actuator search: 10,633 transitions, no complete trajectory. Scalar replay confirms a 19-state prefix before the progress checkpoints; no native run or infeasibility claim."
+    },
+    {
+      "label": "159",
+      "path": "experiments/iter159_route_search_qualification/RESULT.md",
+      "sha256": "0342a2c66177354c20a5060e903a860bdc2a97543383ed0496060df4797cdb5f",
+      "summary": "Constructive qualification contradicted: candidate completes 3/4 known feasible controls; 11/16 factorial runs complete, all 580 retained states replay. Cell replacement loses every reference prefix; no overall coverage advantage or native recovery claim."
+    },
+    {
+      "label": "160",
+      "path": "experiments/iter160_continuation_preservation/RESULT.md",
+      "sha256": "ef14ab0848622e5b129947660c5fbfd70c617f34b2b070547e9e7523ca0d479e",
+      "summary": "Five paired continuations: all witnesses and four representatives complete; one fixed suffix ends at 0.998703. All hard constraints pass; 546 states replay. Whole-search cause and native recovery remain unknown."
+    }
+  ],
+  "resultPath": "experiments/iter160_continuation_preservation/RESULT.md",
+  "schemaVersion": 1,
+  "sourceCommit": "47007f2b957cafb9693e255792187dd029ca5aba",
+  "sources": [
+    {
+      "path": "experiments/iter160_continuation_preservation/STATE.json",
+      "sha256": "7613d6fef1bf7347d046e2f9131c3fdf2cf7d0debb7b21656096d35b4b6a9b9f"
+    },
+    {
+      "path": "experiments/iter160_continuation_preservation/proof/admission.json",
+      "sha256": "94c2a34520fa4a8e82e790f530235783c7424d34344a22838ddd0128f34210bb"
+    },
+    {
+      "path": "experiments/iter160_continuation_preservation/RESULT.md",
+      "sha256": "ef14ab0848622e5b129947660c5fbfd70c617f34b2b070547e9e7523ca0d479e"
+    },
+    {
+      "path": "experiments/iter160_continuation_preservation/DECISION.md",
+      "sha256": "40b914cecc35d4294e6d4c15b3c380cfbadcede7da7dbf66f8b986747c023e55"
+    },
+    {
+      "path": "README.md",
+      "sha256": "f5d585de4304dfdaec3d8ca526d93931c9aae58bc68ace01b60c0354e6ed1705"
+    }
+  ],
+  "status": "contradicted",
+  "summary": "Five original witnesses complete. Four replacement states also complete; one fixed command sequence ends just below the completion threshold. All ten pass every observed hard constraint.",
+  "title": "Same commands. One terminal difference."
+}
