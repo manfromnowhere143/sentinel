@@ -1,0 +1,14 @@
+{
+  "schema": "sentinel.iter157.predictions.v1",
+  "status": "completed",
+  "source_commit": "35f1d711e25af599e30016ae8d6d120a734026ee",
+  "plan_sha256": "368aec1284d44dc98d283ab9aa4d1f124b510230186790f0b40245846be366f8",
+  "population_sha256": "b13bf86c5b2bc2082e9ef7d348f2ed17c150a3b156dbd52a919cf3ec06000cab",
+  "selected": null,
+  "alternate_selected": null,
+  "candidates": 75,
+  "queried_states": 221,
+  "elapsed_seconds": 5.684342707972974,
+  "peak_rss_bytes": 490274816,
+  "new_driving_episodes": 0
+}

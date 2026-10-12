@@ -1,0 +1,18 @@
+{
+  "candidate": {
+    "id": "maneuver_014",
+    "length": 15.0,
+    "offset": -2.0,
+    "speed": 2.0,
+    "start": 5.0
+  },
+  "completion_time": 45.75,
+  "prior_eligible": false,
+  "verdict": "prior_constraints_failed",
+  "queries": [],
+  "background_complete": false,
+  "road_compliance": null,
+  "physical_occupancy": null,
+  "useful_recovery": null,
+  "information_benefit": null
+}

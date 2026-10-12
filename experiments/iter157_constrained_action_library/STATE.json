@@ -1,9 +1,10 @@
 {
   "iteration": 157,
-  "status": "preregistered",
-  "phase": "qualified",
+  "status": "running",
+  "phase": "raw_retained_admission_pending",
   "new_driving_episodes": 0,
   "owned_jobs": 0,
   "provider_spend": 0,
-  "next": "Freeze source, run one bounded producer, retain raw before separate scalar admission."
+  "next": "Commit complete raw, then run separate scalar admission. No scientific conclusion admitted yet.",
+  "source_commit": "35f1d711e25af599e30016ae8d6d120a734026ee"
 }
