@@ -1,0 +1,44 @@
+{
+  "status": "supported",
+  "scope": "Pre-acquisition implementation qualification, not factorial outcomes",
+  "python": "3.14.2 (main, Dec  5 2025, 16:49:16) [Clang 16.0.0 (clang-1600.0.26.6)]",
+  "platform": "macOS-14.4-arm64-arm-64bit-Mach-O",
+  "new_tests": 26,
+  "retained_and_new_tests": 224,
+  "pytest_command": "python3 -m pytest -q tests/test_iter161_grouping_width_ablation.py tests/test_iter160_continuation_preservation.py tests/test_iter159_route_search_qualification.py tests/test_iter158_constraint_aware_search.py tests/test_iter156_background_calibration.py tests/test_iter155_background_witness.py",
+  "elapsed_seconds": 10.19,
+  "known_bads": [
+    "nonfinite_state",
+    "boolean_state",
+    "forged_beam",
+    "forged_representatives",
+    "forged_grouping_count",
+    "forged_width_count",
+    "incomplete_reset_reflection",
+    "incomplete_route_reflection",
+    "incomplete_foreground_reflection",
+    "incomplete_points_reflection",
+    "incomplete_ground_reflection",
+    "incomplete_command_reflection",
+    "changed_checkpoint"
+  ],
+  "controls": [
+    "all_four_toy_arms_complete_and_scalar_replay",
+    "quantized24_matches_frozen159",
+    "signed_zero_and_absolute_frame_distinct",
+    "exact_duplicate_effort_and_id_order",
+    "partial_depth_not_admitted",
+    "complete_literal_reflections",
+    "nontrivial_ground_reflection",
+    "reflection_involution"
+  ],
+  "prefreeze_corrections": [
+    "Toy-only cap 500 was insufficient for completion assertion; raised to 2500, study cap remains 18000.",
+    "Reflection mutating aliased command rows failed involution control; reconstruct each row.",
+    "Source review corrected checker beam assignment from mapping to beam list before successful four-arm multi-depth tests."
+  ],
+  "whole_ruff": "passed",
+  "supply_chain": "passed",
+  "frozen_hosted_environment": "not yet observed",
+  "study_outcomes_acquired": false
+}

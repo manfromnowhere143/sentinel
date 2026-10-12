@@ -1,0 +1,42 @@
+{
+  "status": "supported",
+  "scope": "Constructive witness and complete-reflection qualification only",
+  "cases_sha256": "e78552b97466e4735b45a218bcfb6af35c0727ba020c99f1e597ca9f13408beb",
+  "records": [
+    {
+      "case": "bend_left",
+      "trace_sha256": "7739a7c51234b8a6f91188199609fe95545b29bca91f0b877eb43c738a4618ef",
+      "verified_states": 48,
+      "selected_actions": 47,
+      "max_background_count": 0,
+      "progress_checks": 2
+    },
+    {
+      "case": "bend_right",
+      "trace_sha256": "c93eab1906c38ce3cfa9f41ec81312bf497825c3f859a178cc9b4d98ec1e95eb",
+      "verified_states": 48,
+      "selected_actions": 47,
+      "max_background_count": 0,
+      "progress_checks": 2
+    },
+    {
+      "case": "chicane_left",
+      "trace_sha256": "5e6546a4fb6a15c1eb1d33d6e37e1df46f31739b92bc5e17da22fbf89dad03ec",
+      "verified_states": 59,
+      "selected_actions": 58,
+      "max_background_count": 0,
+      "progress_checks": 2
+    },
+    {
+      "case": "chicane_right",
+      "trace_sha256": "d1b42df66d86acb8b5bc1e7b7ca505dec189a6a7bfeed9f9601b0a316616a6a0",
+      "verified_states": 59,
+      "selected_actions": 58,
+      "max_background_count": 0,
+      "progress_checks": 2
+    }
+  ],
+  "verified_states": 214,
+  "elapsed_seconds": 9.721338166971691,
+  "factorial_outcomes_acquired": false
+}

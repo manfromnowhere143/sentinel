@@ -1,3 +1,17 @@
+# Current: Iter161 grouping × width ablation preregistered — 12 October 2026
+
+Operator task: isolate state grouping from beam-width pruning under fixed budgets.
+Four fully reflected constructive controls, quantized/exact grouping × width24/48,
+18,000 attempts per run. Fixed route guide, proposals, constraints and speed-group
+ordering. Read experiments/iter161_grouping_width_ablation/DECISION_PACKET.md,
+PROTOCOL.md and PLAN.json. All214 witness states pass independent scalar replay;
+224 focused/retained tests pass, including26 new. No factorial outcome acquired.
+Freeze source, one local CPU acquisition, raw commit before independent admission.
+No native drive, provider or GPU. Current closed science/instrument remains160.
+Owned branch research/iter161-grouping-width-ablation in the recovery worktree.
+Canonical dirty root, accepted lineage and archived MISSION_STATE unchanged.
+Earlier notices below are historical.
+
 # Current: Iter160 closed — 12 October 2026
 
 Contradicted: not every representative preserves completion under the same fixed
