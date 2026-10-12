@@ -1,0 +1,1 @@
+{"aggregation":"exact","attempts":6466,"case":"bend_right","completed_depth":19,"counts":{"clear":6151,"controls":225,"progress":90},"elapsed_seconds":4.791946083016228,"name":"bend_right_exact_24","queries":6152,"selected":6151,"stop":"model_complete","width":24}

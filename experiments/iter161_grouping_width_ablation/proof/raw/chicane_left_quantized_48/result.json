@@ -1,0 +1,1 @@
+{"aggregation":"quantized","attempts":18000,"case":"chicane_left","completed_depth":26,"counts":{"clear":14972,"collision":2333,"controls":690,"numerically_ambiguous":5},"elapsed_seconds":14.121345290972386,"name":"chicane_left_quantized_48","queries":17311,"selected":null,"stop":"attempt_budget","width":48}

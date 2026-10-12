@@ -1,0 +1,1 @@
+{"aggregation":"exact","attempts":10281,"case":"chicane_right","completed_depth":29,"counts":{"clear":9159,"collision":647,"controls":475},"elapsed_seconds":7.995996582962107,"name":"chicane_right_exact_24","queries":9807,"selected":9922,"stop":"model_complete","width":24}

@@ -1,0 +1,1 @@
+{"aggregation":"quantized","attempts":12624,"case":"bend_right","completed_depth":19,"counts":{"clear":11990,"controls":438,"progress":196},"elapsed_seconds":9.523179167008493,"name":"bend_right_quantized_48","queries":11991,"selected":12035,"stop":"model_complete","width":48}
