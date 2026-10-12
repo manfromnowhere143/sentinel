@@ -1,0 +1,10 @@
+flowchart TB
+  accTitle: The proposed route from collision replay to information benefit
+  accDescr: Calibration precedes a new action search. Full-scene recovery and a measured decision window are required before testing an added signal.
+  C["Iter156: finite calibration supported<br/>one exposed scene"] --> S["Freeze finite action library<br/>then search"]
+  S --> R{"Useful full-scene<br/>recovery?"}
+  R -- "not found" --> N["Retain negative result<br/>reconsider actions or cases"]
+  R -- "unknown" --> U["Retain missing or invalid evidence<br/>no recovery claim"]
+  R -- "supported" --> W["Preserve nominal prefix<br/>measure decision window"]
+  W --> I["Test added information<br/>against responsive policy"]
+  I --> H["New source scenes<br/>benefit, harm and uncertainty"]

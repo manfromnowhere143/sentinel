@@ -1,0 +1,97 @@
+{
+  "date": "2026-10-12",
+  "status": "primary-source review; calibration execution recorded separately",
+  "prior_scientific_state": "Iter155 closed. No new driving, model calibration or maneuver search in this preparatory review.",
+  "sources": [
+    {
+      "name": "NVIDIA Alpamayo 2 Super",
+      "date": "2026-08-04",
+      "url": "https://blogs.nvidia.com/blog/alpamayo-2-super-open-model-now-available/",
+      "review": "Primary release article. Surround-view reasoning/trajectory/meta-action/label outputs; AlpaSim and AlpaGym ecosystem. Company claims, no Sentinel reproduction.",
+      "implication": "Use open tools as integration candidates; natural-language reasoning is not a causal validation witness."
+    },
+    {
+      "name": "Waymo World Model",
+      "date": "2026-02-06",
+      "url": "https://waymo.com/blog/2026/02/the-waymo-world-model-a-new-frontier-for-autonomous-driving-simulation/",
+      "review": "Primary article. Genie3 adaptation, camera/lidar generation, action/layout/language control and long rollouts. Public presentation, no accessible comparative Sentinel result.",
+      "implication": "Visual realism alone does not qualify an outcome evaluator."
+    },
+    {
+      "name": "Wayve GAIA-4",
+      "date": "2026-08-03",
+      "url": "https://wayve.ai/thinking/gaia-4/",
+      "review": "Primary article. Logged-agent and reactive-agent modes; outcome, closed-loop and component fidelity. Camera/radar generation. Company describes on-rails mode as conservative.",
+      "implication": "Make scenario behavior assumptions explicit. Our inference: fixed-agent behavior is not universally a worst case for every action or metric; test its direction of bias."
+    },
+    {
+      "name": "Mobileye Meteor/Genario",
+      "date": "2026-05-27",
+      "url": "https://www.mobileye.com/blog/diagnosing-the-long-tail-how-mobileye-turns-edge-cases-into-targeted-training/",
+      "review": "Primary article already cited in Sentinel Oct9 direction. Hypothesis-driven retrieval, failure groups and targeted generation.",
+      "implication": "Generic automated failure mining is not a new Sentinel contribution."
+    },
+    {
+      "name": "ECO",
+      "version": "2609.31383v1",
+      "date": "2026-09-25",
+      "url": "https://arxiv.org/html/2609.31383v1",
+      "review": "Sections III-V and TableIII reviewed; prior Sentinel Iter154 FOLLOWUP_REVIEW already covers this. Plan/history-only repair with fixed endpoint, soft smoothness/turn/deviation objective and L-BFGS-B. Aggregate improvements can coexist with worse collision components.",
+      "implication": "Use as a future competent responsive comparator after interface qualification; not evidence for a new Sentinel result."
+    },
+    {
+      "name": "CausalDrive",
+      "version": "2606.15341v1",
+      "date": "2026-06-13",
+      "url": "https://arxiv.org/html/2606.15341v1",
+      "review": "Method and empirical sections reviewed. Initial image, ego trajectory and language-conditioned reactive video; reported 12.4FPS on A100. Polite-prompt yielding and reduced reported ghost collisions are not an independent physical counterfactual oracle.",
+      "implication": "Generated reactions need external qualification; do not reward an intervention simply because a generator yields more."
+    },
+    {
+      "name": "Simulation fidelity for motion control",
+      "version": "2602.07984v1",
+      "date": "2026-02-08",
+      "url": "https://arxiv.org/html/2602.07984v1",
+      "review": "Methods/results/conclusion reviewed. Model fidelity tested against a recorded racing lap; controller metrics depend on tire parameters, actuator dynamics and operating envelope. Baseline-as-truth is distinguished from real-world validation in scaled laps.",
+      "implication": "Calibrate the terms that change decisions and state the reference layer explicitly."
+    },
+    {
+      "name": "Waabi SaLF and research index",
+      "date": "ICRA 2026, exact initial posting date not established",
+      "url": "https://waabi.ai/research/salf",
+      "review": "Primary research listing and project page reviewed; sparse multi-sensor rendering research sits alongside reactive traffic and scenario generation.",
+      "implication": "Do not claim frontier rendering novelty from a UI or an ordinary point-query accelerator."
+    },
+    {
+      "name": "RiskMonitor",
+      "version": "2503.07425v2",
+      "date": "2026-02-08",
+      "url": "https://arxiv.org/abs/2503.07425v2",
+      "review": "Abstract rechecked; planner/motion-token collision-loss prediction plus braking. Already covered in Oct9 Sentinel direction.",
+      "implication": "Internal-token monitoring is an existing baseline, not novelty by itself."
+    },
+    {
+      "name": "Tesla AI and Robotics",
+      "date": "undated page, retrieved 2026-10-12",
+      "url": "https://www.tesla.com/AI",
+      "review": "Public engineering overview; latency/correctness/determinism, fleet and hardware-in-loop evaluation. Contains older architecture descriptions and supplies no dated comparative benchmark for Sentinel.",
+      "implication": "Do not infer current private architecture or comparative superiority from recruitment copy."
+    }
+  ],
+  "recommended_next_slice": {
+    "name": "Prospective full-population background-predicate calibration",
+    "reason": "Iter153 omitted background; Iter154 failed there; Iter155 establishes finite source mask witnesses. Closing this exact gap precedes another search.",
+    "inventory_only": "Ten previously exposed scene-0013 traces: Iter151 nominal x2, Iter152 monitor/brake_t0/brake_t2_5 x2, Iter154 selected x2. 300 step bindings and 115 unique after states. These are not new independent scenes or a held-out evaluation.",
+    "candidate_method": "Start with bounded NumPy vectorization of the full selected point population and explicit arithmetic order. Benchmark against the separate scalar oracle before adding a spatial index. Do not prune evidence to meet a timing target.",
+    "qualification": "All 115 complete masks/counts vs scalar; two retained CUDA masks remain distinct. Compare 26 direct background bindings and 266 negative composite implications; eight old positive composite collisions have unknown background labels. No new independent scene.",
+    "nonclaims": [
+      "physical occupancy",
+      "road legality",
+      "useful recovery",
+      "new information benefit",
+      "state of the art",
+      "competitive superiority"
+    ],
+    "future_comparison": "After calibration, freeze action library, responsive baseline, input interface, latency and progress/burden outcomes before new search or native replay."
+  }
+}

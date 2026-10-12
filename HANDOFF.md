@@ -1,3 +1,30 @@
+# Current: Iter156 closed — 12 October 2026
+
+Supported finite background calibration: all 115 full masks of 276,519 centers match
+independent scalar replay. 300 historical bindings comprise 26 direct background labels,
+266 implied negatives and eight unknown background components. No mismatch or numerical
+ambiguity. The failed maneuver is still rejected at 3.25 s / 273 centers. One exposed
+scene; no new drive, search, provider or GPU task. Useful recovery remains unknown.
+
+Source `b427539`; raw `c5b274f` before independent admission `748e182`.
+Producer 2.830 s, scalar admission 176.654 s; median queries 16.564 ms versus 1.460 s,
+exploratory local cost only. 151 focused tests pass. Read Iter156 RESULT, STATE,
+PROTOCOL, proof/admission.json and DECISION. Next: register a finite constrained action
+library and responsive comparison before search. No human ceremony is pending.
+
+Owned branch `research/iter156-background-calibration` in
+`/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011`.
+Sentinel UI is live at https://sentinel.danielwahnich.dev/ from portfolio `2be5a8e`,
+production `dpl_9ZaRrueE6QcgZXCCCcQdSWRKfeA4`. Exact-release CI and twelve live
+browser configurations pass. Reiyah unchanged. Portfolio receipt PR183 is merged;
+its bookkeeping head has separate pending CI and was not redeployed. The current
+published instrument describes evidence through Iter155; Iter156 is the subsequent
+engine advance and has not yet been imported into the presentation snapshot.
+
+Earlier active/closure notices below are historical. Root WIP and the archived
+Iter135 mission contract remain untouched. Publication and exact hosted checks for
+this new research closure are recorded separately; no inherited hosted pass.
+
 # Active calibration — 12 October 2026
 
 Iter156 registers a local background-predicate calibration on ten already exposed

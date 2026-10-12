@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 12 October 2026. This describes the implemented research apparatus and its measured
-limits through the published Iter155 research record. The [README](../README.md) carries the scientific
+limits through the Iter156 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -217,7 +217,7 @@ flowchart TB
   X --> S["Separate scalar reconstruction"]
   C --> E["Exact masks: 0 and 273<br/>threshold >100"]
   S --> E
-  E -. "proposed" .-> F["Calibrate background model<br/>before a new search"]
+  E --> F["Iter156: complete point queries<br/>115 scalar masks agree"]
 ```
 
 These privileged diagnostic inputs are not delivered to the released monitor. Iter153's model
@@ -226,10 +226,17 @@ but bypassed planner and monitor inference. Iter155 restored the scene model and
 geometry methods without constructing or stepping a driving environment. The source model
 loader itself did run and remains part of the bound extraction.
 
+Iter156 adds an immutable full-population query using bounded NumPy vectorization. Its
+separate scalar checker agrees on all 115 fixed development-state masks. Across 300 bindings,
+26 background labels are direct, 266 are implied negatives from collision-free records, and
+eight remain unknown. Median local query cost is 16.6 ms versus 1.46 s for the scalar checker;
+this is exploratory CPU timing, not an end-to-end runtime guarantee. The failed maneuver is
+still rejected at 3.25 s. [Calibration and limits](../experiments/iter156_background_calibration/RESULT.md).
+
 ## Next scientific boundary
 
-Next is prospective background-aware model calibration against retained native prefixes, then
-a new finite search only if the measurement contract holds. An information-selection study
+Next is a registered finite action library using the qualified background query, with
+independent replay and a competent responsive comparator. An information-selection study
 follows useful recovery and a measured decision window. Hidden-representation
 monitoring, uncertainty-aware persistence, independent sensors, physical deployment and formal
 safety guarantees remain possible directions with different requirements. None is an established

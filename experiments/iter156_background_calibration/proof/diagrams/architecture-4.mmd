@@ -1,0 +1,11 @@
+flowchart TB
+  accTitle: The diagnostic model, native test and background witness
+  accDescr: A privileged model candidate fails in the native scene. A separate source-point extraction reproduces the collision predicate without a new driving episode.
+  G["Route and foreground geometry<br/>privileged diagnostic inputs"] --> M["Iter153: model search<br/>one ranked action packet"]
+  M --> N["Iter154: native controls<br/>two failures at 3.25 s"]
+  N --> X["Iter155: historical poses<br/>points, boxes and ground"]
+  X --> C["Native CUDA masks"]
+  X --> S["Separate scalar reconstruction"]
+  C --> E["Exact masks: 0 and 273<br/>threshold >100"]
+  S --> E
+  E --> F["Iter156: complete point queries<br/>115 scalar masks agree"]

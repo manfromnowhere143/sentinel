@@ -1,0 +1,74 @@
+[
+  {
+    "key": "wayve-gaia4",
+    "url": "https://wayve.ai/thinking/gaia-4/",
+    "retrieved_utc": "2026-10-12T11:09:40.473298+00:00",
+    "bytes": 97982,
+    "sha256": "50c195b00ac4c44eb0285ab34c358c58033d1a29a0c0dfd61b4514b69034b282",
+    "path": "wayve-gaia4.html",
+    "status": "retrieved"
+  },
+  {
+    "key": "waymo-world-model",
+    "url": "https://waymo.com/blog/2026/02/the-waymo-world-model-a-new-frontier-for-autonomous-driving-simulation/",
+    "retrieved_utc": "2026-10-12T11:09:41.042247+00:00",
+    "bytes": 151843,
+    "sha256": "fc4ead5b7265a733622567353b937182ceb9e4233d601aa9e39e978bf52d8173",
+    "path": "waymo-world-model.html",
+    "status": "retrieved"
+  },
+  {
+    "key": "nvidia-alpamayo2",
+    "url": "https://blogs.nvidia.com/blog/alpamayo-2-super-open-model-now-available/",
+    "retrieved_utc": "2026-10-12T11:09:41.884770+00:00",
+    "bytes": 120008,
+    "sha256": "4ad103763a9c889f07ef5ab3e582650be3e3de951a2301371d0e281239b2c3fe",
+    "path": "nvidia-alpamayo2.html",
+    "status": "retrieved"
+  },
+  {
+    "key": "eco-v1",
+    "url": "https://arxiv.org/html/2609.31383v1",
+    "retrieved_utc": "2026-10-12T11:09:42.678088+00:00",
+    "bytes": 254461,
+    "sha256": "eee58d19cc46586bec3315e228c17ccb55cc810741faf9317fa530145607c66f",
+    "path": "eco-v1.html",
+    "status": "retrieved"
+  },
+  {
+    "key": "causaldrive-v1",
+    "url": "https://arxiv.org/html/2606.15341v1",
+    "retrieved_utc": "2026-10-12T11:09:43.067115+00:00",
+    "bytes": 204060,
+    "sha256": "bc1708e55bb8e168d7ad45a54b547630b08e29570e1e1b65b7cc28cbd81b8863",
+    "path": "causaldrive-v1.html",
+    "status": "retrieved"
+  },
+  {
+    "key": "fidelity-v1",
+    "url": "https://arxiv.org/html/2602.07984v1",
+    "retrieved_utc": "2026-10-12T11:09:43.418995+00:00",
+    "bytes": 155627,
+    "sha256": "9e90b63ce9b894a67c36409c87d0db2d0eb4aeb468056dcd8e190c64c7a0bb44",
+    "path": "fidelity-v1.html",
+    "status": "retrieved"
+  },
+  {
+    "key": "mobileye-meteor",
+    "url": "https://www.mobileye.com/blog/diagnosing-the-long-tail-how-mobileye-turns-edge-cases-into-targeted-training/",
+    "retrieved_utc": "2026-10-12T11:09:44.222483+00:00",
+    "bytes": 116158,
+    "sha256": "b6198f44a2601879086dbc6fe44716251d07cd85982c2eb6a911af5c04d63867",
+    "path": "mobileye-meteor.html",
+    "status": "retrieved"
+  },
+  {
+    "key": "waabi-salf",
+    "url": "https://waabi.ai/research/salf",
+    "retrieved_utc": "2026-10-12T11:09:48.667811+00:00",
+    "bytes": 562557,
+    "sha256": "9f8bc45cee31f8a70e5f8e46d924c77381511a9be77dbe50843859847c6cded0",
+    "path": "waabi-salf.html",
+    "status": "retrieved"
+  }
+]

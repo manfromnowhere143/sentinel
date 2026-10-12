@@ -1,0 +1,149 @@
+{
+  "scope": "Changed diagrams only, local Mermaid rendering, not hosted GitHub.",
+  "results": [
+    {
+      "source": "readme-2.mmd",
+      "theme": "light",
+      "format": "svg",
+      "returncode": 0,
+      "stderr": "",
+      "output": "readme-2-light.svg",
+      "sha256": "e3290df91e6d8b89e06a2d970a825002956dae7990ca0ab14ec1b383422dcb29"
+    },
+    {
+      "source": "readme-2.mmd",
+      "theme": "light",
+      "format": "png",
+      "returncode": 0,
+      "stderr": "",
+      "output": "readme-2-light.png",
+      "sha256": "25e993b5113c215e15721b8b3d7f49b1ce6d422281ebdfa791b9dd7afae3d4bd"
+    },
+    {
+      "source": "readme-2.mmd",
+      "theme": "dark",
+      "format": "svg",
+      "returncode": 0,
+      "stderr": "",
+      "output": "readme-2-dark.svg",
+      "sha256": "472486be42f4405e50bc9eedbc3003849e6af03d3baa4d6257d55f002d2d7d3e"
+    },
+    {
+      "source": "readme-2.mmd",
+      "theme": "dark",
+      "format": "png",
+      "returncode": 0,
+      "stderr": "",
+      "output": "readme-2-dark.png",
+      "sha256": "b476307d150fad01f5b1d528475cc2f040f47a874cfe33ce2060e63b7831cd68"
+    },
+    {
+      "source": "readme-3.mmd",
+      "theme": "light",
+      "format": "svg",
+      "returncode": 0,
+      "stderr": "",
+      "output": "readme-3-light.svg",
+      "sha256": "6a0b4825ffc23c16b227ede7a59b3f44340555606b40cf8d63c923e31781944c"
+    },
+    {
+      "source": "readme-3.mmd",
+      "theme": "light",
+      "format": "png",
+      "returncode": 0,
+      "stderr": "",
+      "output": "readme-3-light.png",
+      "sha256": "0ef4b62e32b054a7a070b2a63adca71a149c079d8b31baada5801cc1fb0aaff7"
+    },
+    {
+      "source": "readme-3.mmd",
+      "theme": "dark",
+      "format": "svg",
+      "returncode": 0,
+      "stderr": "",
+      "output": "readme-3-dark.svg",
+      "sha256": "f243d4020d9835b432d7a99a0ad128a38f38eea3a5df7a87fb3ffcddeab547bc"
+    },
+    {
+      "source": "readme-3.mmd",
+      "theme": "dark",
+      "format": "png",
+      "returncode": 0,
+      "stderr": "",
+      "output": "readme-3-dark.png",
+      "sha256": "5f95ddf3fa5c43739ed1e430ae63c151904f370cffab169129cc28d4cc00834d"
+    },
+    {
+      "source": "architecture-4.mmd",
+      "theme": "light",
+      "format": "svg",
+      "returncode": 0,
+      "stderr": "",
+      "output": "architecture-4-light.svg",
+      "sha256": "2a3c04725497aefb32200b75734e3fd8b3dcc95bf6f24df009759331f5cd80f0"
+    },
+    {
+      "source": "architecture-4.mmd",
+      "theme": "light",
+      "format": "png",
+      "returncode": 0,
+      "stderr": "",
+      "output": "architecture-4-light.png",
+      "sha256": "2f8d1e02436dc9fafec3ba70bd4d9a3050afceca32a8a6e07a24e40ba3e293d5"
+    },
+    {
+      "source": "architecture-4.mmd",
+      "theme": "dark",
+      "format": "svg",
+      "returncode": 0,
+      "stderr": "",
+      "output": "architecture-4-dark.svg",
+      "sha256": "f563bd506628d4b2811641f6b827a0b68a61f128adfcf65abacbf7eb8767980f"
+    },
+    {
+      "source": "architecture-4.mmd",
+      "theme": "dark",
+      "format": "png",
+      "returncode": 0,
+      "stderr": "",
+      "output": "architecture-4-dark.png",
+      "sha256": "340f5079dcbbbae85ffd30ce3070b5cd723f6a442d061ebcb1788a0a2083d50f"
+    },
+    {
+      "source": "frontier-1.mmd",
+      "theme": "light",
+      "format": "svg",
+      "returncode": 0,
+      "stderr": "",
+      "output": "frontier-1-light.svg",
+      "sha256": "491038fa593f02904fae2fcc089bfc80b0ac171f6319dc06e7b1aef2e788b8e0"
+    },
+    {
+      "source": "frontier-1.mmd",
+      "theme": "light",
+      "format": "png",
+      "returncode": 0,
+      "stderr": "",
+      "output": "frontier-1-light.png",
+      "sha256": "c9bb6d1ff98bb50ec3bdfe42e4e85ce02fe2a7f1055552e08ab0da09d92297f1"
+    },
+    {
+      "source": "frontier-1.mmd",
+      "theme": "dark",
+      "format": "svg",
+      "returncode": 0,
+      "stderr": "",
+      "output": "frontier-1-dark.svg",
+      "sha256": "d513b424bb0b4fc89348f1255b292c1661ba51a4bdde33c5b64ddc7bf0083a08"
+    },
+    {
+      "source": "frontier-1.mmd",
+      "theme": "dark",
+      "format": "png",
+      "returncode": 0,
+      "stderr": "",
+      "output": "frontier-1-dark.png",
+      "sha256": "3c70c844d029b7af178d7bf45121039472f7d9182330762646093b12f40f1b14"
+    }
+  ]
+}

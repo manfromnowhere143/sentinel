@@ -18,7 +18,7 @@ against a competent responsive baseline, with information access, permitted acti
 resource budgets stated explicitly.
 
 [System](#what-sentinel-does) · [Results](#measured-results) ·
-[Research history](#how-the-question-changed) · [Latest result](#iteration-155-the-background-witness-replays-exactly) ·
+[Research history](#how-the-question-changed) · [Latest result](#iteration-156-complete-background-calibration) ·
 [Next test](#the-next-scientific-test) · [Reproduce](#reproduce-and-inspect) ·
 [Repository status](#repository-status--12-october-2026) · [Experiment index](#complete-experiment-index)
 
@@ -233,7 +233,7 @@ flowchart TB
   E --> P["Iter152: brake pulses<br/>no useful recovery"]
   P --> M["Iter153–154<br/>candidate fails full scene"]
   M --> W["Iter155: collision replay<br/>native/scalar agreement"]
-  W -. "next, proposed" .-> C["Background calibration<br/>before a new search"]
+  W --> C["Iter156: full background calibration<br/>115 complete masks agree"]
 ```
 
 ### 5. Establish what the controller actually executes
@@ -410,16 +410,34 @@ ran. [Result and figure](experiments/iter155_background_witness/RESULT.md) ·
 [independent admission](experiments/iter155_background_witness/proof/admission.json) ·
 [resource closure](experiments/iter155_background_witness/proof/resource_closure.json).
 
+## Iteration 156: complete background calibration
+
+The background-aware model now preserves the complete selected population and agrees with
+independent scalar replay on **115 full masks**, covering **300 historical step bindings**.
+It matches 26 directly recorded background labels and 266 negative implications from
+collision-free records. Eight older collision-positive records do not identify their
+background component and remain unknown. These are development prefixes from one exposed
+scene; native CUDA full masks remain the two Iter155 witnesses.
+
+The exact failed maneuver is rejected at 3.25 s with 273 centers. Median local query time
+was **16.6 ms**, compared with **1.46 s** for the separate scalar checker. This is exploratory
+local cost, not a real-time or end-to-end planner guarantee. The producer completed in
+2.83 s, and all 151 focused checks passed. No new drive, provider task or maneuver search
+occurred. Useful recovery, road compliance, physical occupancy and information value remain
+unestablished. [Result and figure](experiments/iter156_background_calibration/RESULT.md) ·
+[independent admission](experiments/iter156_background_calibration/proof/admission.json) ·
+[frontier review](docs/research/SENTINEL_FRONTIER_ENGINE_REVIEW_2026-10-12.md).
+
 ## The next scientific test
 
 The intended contribution is a monitor and evaluation system that can show **which failures
 remain preventable, which signal enables prevention, and the measured cost and limits**.
 The following work is proposed; all previous schedules retain their closed accounting.
 
-1. **Calibrate a background-aware feasibility model.** Use the retained full selected population,
-   source boxes, ground geometry and unchanged strict count rule. Qualify any accelerated query
-   against a scalar oracle, then prospectively compare retained native failure/nonfailure prefixes.
-   Report every mismatch and preserve the failed original maneuver.
+1. **Preserve the calibrated constraint.** Iter156 qualifies the complete background query on
+   the fixed development prefixes. Keep source boxes, ground geometry and the unchanged strict
+   count rule. New search states still need independent replay; the earlier failed maneuver
+   remains a negative control, and unknown labels stay unknown.
 2. **Search only after the constraint is calibrated.** Register a new finite library, ranking,
    resource limits and independent replay. Keep foreground clearance, background feasibility,
    progress, controls and road compliance distinct. Physical occupancy and drivable boundaries
@@ -437,7 +455,7 @@ The following work is proposed; all previous schedules retain their closed accou
 flowchart TB
   accTitle: The proposed route from collision replay to information benefit
   accDescr: Calibration precedes a new action search. Full-scene recovery and a measured decision window are required before testing an added signal.
-  C["Calibrate background model<br/>against native records"] --> S["Freeze finite action library<br/>then search"]
+  C["Iter156: finite calibration supported<br/>one exposed scene"] --> S["Freeze finite action library<br/>then search"]
   S --> R{"Useful full-scene<br/>recovery?"}
   R -- "not found" --> N["Retain negative result<br/>reconsider actions or cases"]
   R -- "unknown" --> U["Retain missing or invalid evidence<br/>no recovery claim"]
@@ -481,10 +499,15 @@ checks; the [qualification record](experiments/iter148_recovery_study/QUALIFICAT
 the earlier evidence. **165 focused tests passed** before live execution, and qualification
 replayed **1,104 earlier GPU actions**. This does not make the incomplete pulse an admitted result.
 
-The latest [Iter155 checker](experiments/iter155_background_witness/check.py) independently
+The [Iter155 checker](experiments/iter155_background_witness/check.py) independently
 reconstructs selection, geometry and collision masks from the retained source-point witness.
 Its [result](experiments/iter155_background_witness/RESULT.md) records the environment and scope:
 239 local regression checks, including 75 focused checks. A replay of those two poses does not extend the result to an untested trajectory.
+
+The [Iter156 checker](experiments/iter156_background_calibration/check.py) extends complete
+scalar-mask comparison to all 115 registered states and retains the distinct native-label
+coverage. Its [result](experiments/iter156_background_calibration/RESULT.md) records the frozen
+source, committed raw, local environment and exploratory timing.
 
 Fresh simulator execution also requires the licensed datasets, scene/model assets, pinned
 runtime and a new bounded resource envelope. Some large assets remain on the stopped host
@@ -496,7 +519,7 @@ not a complete distribution of every runtime asset.
 | [Architecture](docs/ARCHITECTURE.md) | Implemented interfaces, simulator distinctions, evidence flow and timing. |
 | [Original preregistration](PREREGISTRATION.md) | The initial benchmark question and decision rules. |
 | [Research direction](docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md) | Information and recoverability: mathematical formulation and dated literature review. |
-| [Next scientific decision](experiments/iter155_background_witness/DECISION.md) | Background-aware model calibration before another action search. |
+| [Next scientific decision](experiments/iter156_background_calibration/DECISION.md) | Register a constrained action library and responsive comparison after finite background calibration. |
 | [Handoff](HANDOFF.md) | Exact next task, acceptance criteria, resource closure and recovery instructions. |
 | [Continuity](CONTINUITY.md) and [next phase](docs/NEXT_PHASE.md) | Current state followed by retained historical decisions. |
 | [Technical report](docs/REPORT.md) | Historical synthesis through Iter134; it predates the current execution program. |
@@ -506,17 +529,17 @@ not a complete distribution of every runtime asset.
 
 ## Repository status — 12 October 2026
 
-**Research evidence is current through Iter155, completed on 11 October.** The latest result
-replays the simulator's background collision at two retained poses; the prior maneuver still
-fails. The next scientific task is background-aware model calibration before another search.
+**This research lineage is current through Iter156, completed on 12 October.** The complete
+background query agrees with independent scalar replay on 115 fixed states. The earlier
+maneuver still fails. Next is a registered finite action study; useful recovery remains open.
 Iteration 135's dose-response experiment remains **deferred and unrun**.
 
 The repository has two distinct records. The accepted code and mission snapshot at
 [`8c118b7`](https://github.com/manfromnowhere143/sentinel/tree/8c118b74c699bf0f139f9bd659192bad06b895f8)
 is **current through iteration 134**. [MISSION_STATE.json](MISSION_STATE.json) preserves
 that historical contract.
-Later research, including Iter155, is published in a separate
-[research lineage](https://github.com/manfromnowhere143/sentinel/tree/4d2998ef8d1c6df8facabb271af49569154259d8).
+Later research, through the Iter156 admission, is retained in a separate
+[research lineage](https://github.com/manfromnowhere143/sentinel/tree/748e1825b54a7827048dbf5ab8b983ef2bd53a7c).
 This README describes both; a documentation update does not integrate that later experimental
 code into the accepted snapshot. The [current handoff](HANDOFF.md) identifies the next task.
 
@@ -525,12 +548,13 @@ while subsequent README updates were published only on research branches. The lo
 README had also stopped at Iter148. This editorial correction brings the presentation through
 Iter155 and preserves the older pages and publication records.
 
-Validation remains scoped. At Iter155's scientific closure, hosted Python 3.10 and 3.11 jobs
-passed supply-chain and locked-install checks, then each failed repository-wide Ruff with
-832 findings; later tests were skipped. The historical documentation/publication guard also
-remains unresolved. The [retained CI outcome](experiments/iter155_background_witness/proof/hosted_ci_outcome.json)
-is not a green result for a later documentation commit. Full research integration is separate
-work; no historical gate or evidence has been rewritten here.
+Validation remains scoped. Iter155's original hosted Ruff failures remain in the
+[retained outcome](experiments/iter155_background_witness/proof/hosted_ci_outcome.json).
+The subsequent [CI repair](docs/CI_CONTRACT.md) checks immutable historical contracts at their
+actual revision and validates current maintained source separately; the repaired research
+baseline passed 3,555 tests on both Python 3.10 and 3.11. Iter156 adds 151 focused local checks,
+including 76 new checks. Its hosted observation is recorded separately and is not inherited
+from the earlier baseline. No historical source, receipt or mission contract was rewritten.
 
 ## Complete experiment index
 
@@ -712,7 +736,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 </details>
 
 <details>
-<summary>Information, recoverability and execution: Iter135–155</summary>
+<summary>Information, recoverability and execution: Iter135–156</summary>
 
 | Record | Finding or scope |
 |---|---|
@@ -737,6 +761,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 | [153](experiments/iter153_action_feasibility/RESULT.md) | Fixed local model search: 14 eligible maneuvers; exact candidate selected, full-scene recovery unknown. |
 | [154](experiments/iter154_full_scene_maneuver/RESULT.md) | Exact model candidate fails native background collision at 3.25 s in both fresh replicas; 26 verified actions. |
 | [155](experiments/iter155_background_witness/RESULT.md) | Native/scalar background masks agree: 0 centers at 3.00 s, 273 at 3.25 s; full selected population retained, no new driving episode. |
+| [156](experiments/iter156_background_calibration/RESULT.md) | Complete background query matches scalar masks across 115 states; 26 direct labels and 266 negative implications agree, eight background labels unknown; no new drive. |
 
 </details>
 

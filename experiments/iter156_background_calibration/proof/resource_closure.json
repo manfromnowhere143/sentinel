@@ -1,0 +1,14 @@
+{
+  "status": "closed",
+  "new_driving_episodes": 0,
+  "provider_spend": 0,
+  "owned_jobs": 0,
+  "producer_seconds": 2.8299632919952273,
+  "producer_peak_rss_bytes": 571162624,
+  "checker_seconds": 176.65354800003115,
+  "checker_peak_rss_bytes": 404176896,
+  "raw_bytes": 4349441,
+  "producer_exit": 0,
+  "checker_exit": 0,
+  "retries": 0
+}

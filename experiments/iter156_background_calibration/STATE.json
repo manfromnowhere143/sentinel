@@ -1,7 +1,24 @@
 {
   "iteration": 156,
-  "status": "preregistered",
-  "phase": "source_freeze",
+  "status": "supported",
+  "phase": "closed",
+  "source_commit": "b427539fa999b2d487925ebfd982fc4cb7c542a6",
+  "raw_commit": "c5b274f0fde9e1df7768023a4027c3f4a31d0f85",
+  "admission_commit": "748e1825b54a7827048dbf5ab8b983ef2bd53a7c",
+  "step_bindings": 300,
+  "unique_states": 115,
+  "selected_points": 276519,
+  "label_counts": {
+    "direct_background": 26,
+    "negative_composite_implication": 266,
+    "unattributed_collision": 8
+  },
   "new_driving_episodes": 0,
-  "next": "Execute one bounded local producer, commit raw, then separate scalar admission."
+  "provider_spend": 0,
+  "owned_jobs": 0,
+  "physical_occupancy": null,
+  "road_compliance": null,
+  "useful_recovery": null,
+  "information_benefit": null,
+  "next": "Register a finite background-aware action library and responsive comparison before another search."
 }

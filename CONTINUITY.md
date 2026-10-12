@@ -1,3 +1,9 @@
+> **Current: Iter156 closed — 12 October 2026.** Full background queries match
+> independent scalar masks across 115 states / 300 bindings, one exposed scene.
+> 26 direct labels and 266 implied negatives agree; eight background labels unknown.
+> No new drive, search or provider task. Read HANDOFF and Iter156 RESULT/STATE/DECISION.
+> Next: a separately registered finite constrained action study.
+
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
 > **CI correction — 12 October 2026.** Default source `3e2055c` and research source
@@ -4923,3 +4929,18 @@ cites immutable reviewed research source `8925bc2`; a UI release does not move s
 admission or integrate later experiment code into master. Iter155 remains closed,
 with no new episode, provider, GPU or spending. Next is background-aware calibration
 against retained native prefixes before another search.
+
+
+## Iter156 background calibration closure — 12 October 2026
+
+Supported finite background calibration: all 115 full masks of 276,519 centers match
+independent scalar replay. 300 historical bindings comprise 26 direct background labels,
+266 implied negatives and eight unknown background components. No mismatch or numerical
+ambiguity. The failed maneuver is still rejected at 3.25 s / 273 centers. One exposed
+scene; no new drive, search, provider or GPU task. Useful recovery remains unknown.
+
+Source `b427539`; raw `c5b274f` before independent admission `748e182`.
+Producer 2.830 s, scalar admission 176.654 s; median queries 16.564 ms versus 1.460 s,
+exploratory local cost only. 151 focused tests pass. Read Iter156 RESULT, STATE,
+PROTOCOL, proof/admission.json and DECISION. Next: register a finite constrained action
+library and responsive comparison before search. No human ceremony is pending.
