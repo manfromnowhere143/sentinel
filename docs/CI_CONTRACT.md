@@ -28,3 +28,12 @@ checked on historical documents, not imposed on the current front page.
 A pass establishes these stated checks. It does not admit the current HEAD as an
 Iter135 launch source, erase earlier red runs, or confer scientific validity on a
 new result. Research outcomes keep their own source, replay and scope requirements.
+
+On the current research lineage, Ruff additionally encountered 832 findings in
+168 immutable execution and editorial source copies. Those exact paths are now
+excluded from maintained-source lint and individually SHA-256 bound by the
+supply-chain verifier, which runs before Ruff. Every archived byte remains intact.
+The pinned `pyproject.toml` identity is advanced for that explicit inventory; no
+workflow step, action reference, dependency lock or hostile control is removed.
+Known-bads prove that an altered archived byte is rejected and that a new Python
+file beside an archive is still linted. There is no directory-wide exclusion.
