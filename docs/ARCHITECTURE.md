@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 12 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter158 research record. The [README](../README.md) carries the scientific
+limits through the Iter159 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -220,6 +220,7 @@ flowchart TB
   E --> F["Iter156: complete point queries<br/>115 scalar masks agree"]
   F --> L["Iter157: complete constraints<br/>0 of 75 candidates qualify"]
   L --> A["Iter158: bounded command search<br/>inconclusive; 19-state prefix replays"]
+  A --> Q["Iter159: constructive qualification<br/>candidate fails the four-case bar"]
 ```
 
 These privileged diagnostic inputs are not delivered to the released monitor. Iter153's model
@@ -252,6 +253,14 @@ command path, but useful recovery and search coverage are still open.
 [Result](../experiments/iter158_constraint_aware_search/RESULT.md) ·
 [next decision](../experiments/iter158_constraint_aware_search/DECISION.md).
 
+Iter159 adds a fixed-proposal factorial harness and a first-lost-witness audit.
+All four constructed paths are expressible and independently verified; eleven of
+sixteen searches complete. The route/speed-group candidate misses one case and
+is not promoted. Separate scalar admission checks 580 states; beam selection is
+mechanically replayed from retained scores. State cells are heuristic pruning,
+not certified continuation equivalence. The incomplete scene reflections and all
+negative outcomes remain in the [result](../experiments/iter159_route_search_qualification/RESULT.md).
+
 ## Evidence delivery to the instrument
 
 A separate data channel publishes an explicit closed-result contract after exact-source
@@ -265,8 +274,8 @@ This transports admitted evidence; it performs no experiment or scientific admis
 
 ## Next scientific boundary
 
-Next is a separately registered constraint-aware action interface or disclosed development
-case, retaining the fixed-library null. Independent replay and a competent responsive
+Next is a separately registered continuation-preservation diagnostic and state-aggregation
+ablation, retaining the fixed-library null and contradicted four-case qualification. Independent replay and a competent responsive
 comparison on equal budgets precede an information claim. An information-selection study
 follows useful native recovery and a measured decision window. Hidden-representation
 monitoring, uncertainty-aware persistence, independent sensors, physical deployment and formal

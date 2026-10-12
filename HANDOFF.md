@@ -1,3 +1,30 @@
+# Current: Iter159 closed — 12 October 2026
+
+Contradicted: the route/speed-group candidate completes only 3/4 known feasible
+constructed controls. All four witnesses are independently valid. Across the
+2x2 guidance/pruning comparison: 11/16 completions, four empty beams, one budget
+exhaustion. Separate scalar admission verifies 580 states / 4,228,224 point-state
+classifications. Every reference prefix is first lost through cell replacement
+at sample 1 or 2, but eleven searches still find another solution. This localizes
+a branch loss; it does not prove the complete cause of any missed solution.
+
+Read Iter159 RESULT, DECISION, STATE and proof/admission.json. Frozen source
+1a5a16e; raw ffa79d4 before admission 5f7c843. One producer96.736s, checker34.661s;
+all resources within caps, no retry. Routes/witnesses/background are mirrored but
+foreground objects are not full-scene reflections: preserve the disclosed limitation.
+128 focused/retained tests including22new pass on Python3.14; whole Ruff and
+supply-chain pass. The Python3.11 graphics env lacks Torch and cannot collect tests;
+exact hosted checks are separately observed. No provider, GPU or native drive.
+
+Next: register a paired suffix replay from each discarded state and its retained
+cell representative. Then isolate state aggregation at fixed budgets, with exact
+reflection controls. Do not promote the failed candidate or run it natively.
+A complete source-model opportunity still precedes native recovery, actual-trigger
+history, equal-cost responsive information ablation and held-out transfer.
+Owned branch research/iter159-route-search-qualification; no owned job remains.
+Canonical dirty root, accepted lineage and archived Iter134/135 state unchanged.
+Earlier notices below are historical.
+
 # Current: Iter159 constructive qualification — 12 October 2026
 
 Iter158 remains inconclusive. Iter159 registers a 2 by 2 guidance/pruning

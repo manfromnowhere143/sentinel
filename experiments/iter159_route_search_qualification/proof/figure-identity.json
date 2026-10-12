@@ -1,0 +1,42 @@
+[
+  {
+    "path": "proof/raw/bend_left_endpoint_speed_groups/selected/trace.json",
+    "sha256": "ca3ea7a11ac556dd74a97a60648b72a4790d96a0e202c2a29f003a50674847a4"
+  },
+  {
+    "path": "proof/raw/bend_left_route_speed_groups/selected/trace.json",
+    "sha256": "04db662ade7f0e889388fea7b7e2149f35747a140735f7940ceaab8b44a3f492"
+  },
+  {
+    "path": "proof/raw/bend_right_endpoint_speed_groups/selected/trace.json",
+    "sha256": "c259d84b18b25cff76fbcc785894e86e0c563417a3d519401fc3055050124354"
+  },
+  {
+    "path": "proof/raw/bend_right_route_speed_groups/selected/trace.json",
+    "sha256": "2ffec56fd45e4c0c1272e5d7b7fd9ebcd063b0fbbc716cae8fcab8fdbce8589f"
+  },
+  {
+    "path": "proof/raw/chicane_left_endpoint_speed_groups/selected/trace.json",
+    "sha256": "17c1d9f96ed0fd0b40beeca1bcd81106b9ffc3b8bdda100fd486d41d4aaa0c66"
+  },
+  {
+    "path": "proof/raw/chicane_left_route_speed_groups/selected/trace.json",
+    "sha256": "342c65f497d0b4ba648c6a24fa0f418fd11aaa0533339bf0c8bf1747a4dd0307"
+  },
+  {
+    "path": "proof/raw/chicane_right_endpoint_speed_groups/selected/trace.json",
+    "sha256": "f7921bc92f539165a552cfe8bc67126430b33df89618587924021e3fd87f4eb3"
+  },
+  {
+    "path": "proof/raw/chicane_right_route_speed_groups/selected/trace.json",
+    "sha256": "f552539401619e1eb6ac5cf6a6aee49a04c72706c455839c89c260bab8b1069f"
+  },
+  {
+    "path": "proof/admission.json",
+    "sha256": "31d30b5f37ba9bdf7f79da294a233981d14799addbd13045fbcdc7258dd1339a"
+  },
+  {
+    "path": "CASES.json",
+    "sha256": "b0a57aad047d8d32c29d9872f875a69cd8fe73e507dbae42bd986bb772a3eb0a"
+  }
+]

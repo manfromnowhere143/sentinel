@@ -1,0 +1,11 @@
+{
+  "focused_retained": "128 passed on Python3.14.2",
+  "new_source_checks": "22 passed; final publication-contract/new-source scope 36 passed",
+  "whole_ruff": "pass",
+  "supply_chain": "pass",
+  "docs": "541 Markdown clean",
+  "alternate_python": "Python3.11.15 graphics venv cannot collect: missing torch; no test pass claimed",
+  "frozen_source": "all 52 files unchanged",
+  "no_new_native_drive": true,
+  "provider_spend": 0
+}

@@ -1,3 +1,12 @@
+# Current engine milestone — Iter159 closed, 12 October 2026
+
+The proposed baseline fails qualification despite known feasible paths. Test
+continuation preservation between discarded states and retained cell representatives,
+then isolate aggregation with a fixed-budget ablation. Read the
+[result](../experiments/iter159_route_search_qualification/RESULT.md) and
+[decision](../experiments/iter159_route_search_qualification/DECISION.md).
+No new source-scene or native run is justified yet. Older entries are historical.
+
 # Current engine milestone — Iter159 qualification, 12 October 2026
 
 A fixed-budget factorial will distinguish route guidance from speed-group

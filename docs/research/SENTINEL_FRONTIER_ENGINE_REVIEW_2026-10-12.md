@@ -28,6 +28,16 @@ complete scalar replay, but both progress checkpoints remain beyond it. The
 adds fresh CommonRoad, released-planner and motion-primitive research. Next is
 route-aware guidance and constructive coverage qualification, not native spending.
 
+
+Latest follow-up: [Iter159](../../experiments/iter159_route_search_qualification/RESULT.md)
+contradicts the proposed four-case qualification bar: route guidance with speed
+groups completes 3/4, with no aggregate coverage gain over the existing guide.
+Its factorial and first-lost-witness audit separate proposal coverage from retained
+search branches. [New primary-source review](../../experiments/iter159_route_search_qualification/DECISION_PACKET.md)
+examines Smac, CommonRoad and multi-heuristic search without importing their
+performance guarantees. Next is continuation preservation and a pruning ablation;
+more recent or complex guidance has not earned promotion.
+
 ## What adjacent work already covers
 
 | Primary source and version | What it contributes to this decision |
@@ -55,7 +65,8 @@ flowchart TB
   A["Retained source population<br/>and executed states"] --> B["Complete background queries<br/>independent scalar admission"]
   B --> C["Iter157: fixed-library null<br/>0 of 75 qualify"]
   C --> X["Iter158: search inconclusive<br/>qualify route-aware guidance"]
-  X --> D["New action opportunity, then native outcome<br/>progress and burden retained"]
+  X --> Q["Iter159: known feasible controls<br/>candidate misses one; isolate pruning"]
+  Q --> D["New action opportunity, then native outcome<br/>progress and burden retained"]
   D --> E["Actual monitor decision time<br/>same prefix and available history"]
   E --> F["Information ablation<br/>competent responsive comparator"]
   F --> G["Held-out scenes and planner<br/>latency, faults and worst groups"]
