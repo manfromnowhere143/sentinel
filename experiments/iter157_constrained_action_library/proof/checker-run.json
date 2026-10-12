@@ -1,0 +1,20 @@
+{
+  "status": "failed",
+  "returncode": 1,
+  "raw_commit": "8e2077e8581b02a1dfbc0215a4cc6a75f9d43140",
+  "command": [
+    "python3",
+    "-m",
+    "experiments.iter157_constrained_action_library.check",
+    "--root",
+    "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011",
+    "--raw",
+    "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter157_constrained_action_library/proof/raw",
+    "--raw-commit",
+    "8e2077e8581b02a1dfbc0215a4cc6a75f9d43140",
+    "--output",
+    "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter157_constrained_action_library/proof/admission.json"
+  ],
+  "outer_elapsed_seconds": 5.806074124993756,
+  "outer_timeout_seconds": 1830
+}

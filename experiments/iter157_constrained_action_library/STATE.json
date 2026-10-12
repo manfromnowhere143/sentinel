@@ -1,10 +1,12 @@
 {
   "iteration": 157,
   "status": "running",
-  "phase": "raw_retained_admission_pending",
+  "phase": "original_admission_failed_correction_qualified",
   "new_driving_episodes": 0,
   "owned_jobs": 0,
   "provider_spend": 0,
-  "next": "Commit complete raw, then run separate scalar admission. No scientific conclusion admitted yet.",
-  "source_commit": "35f1d711e25af599e30016ae8d6d120a734026ee"
+  "next": "Freeze the disclosed post-evidence inventory correction; run one corrected scalar admission, no producer retry.",
+  "source_commit": "35f1d711e25af599e30016ae8d6d120a734026ee",
+  "raw_commit": "8e2077e8581b02a1dfbc0215a4cc6a75f9d43140",
+  "original_admission": "invalid_nonexistent_source_entries"
 }
