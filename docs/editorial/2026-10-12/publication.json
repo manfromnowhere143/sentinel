@@ -1,0 +1,117 @@
+{
+  "observed_utc": "2026-10-12T05:50:53.164826+00:00",
+  "default_branch": "master",
+  "default_head": "0fd2a97aeae72606154163c2423f633f81776a02",
+  "research_documents_head": "8925bc293b2ee835e548b8738f99319ac6b0cff5",
+  "normal_append_only_publication": true,
+  "default_changed_files": [
+    "README.md",
+    "docs/ARCHITECTURE.md",
+    "docs/editorial/2026-10-12/REVIEW.md"
+  ],
+  "default_code_authority_and_experiments_unchanged": true,
+  "served_files": [
+    {
+      "commit": "0fd2a97aeae72606154163c2423f633f81776a02",
+      "path": "README.md",
+      "bytes": 79602,
+      "sha256": "0ea388f4086596f49b123bf9f621eadb15277cc2c27c28659de4774756d74118",
+      "served_bytes_match": true
+    },
+    {
+      "commit": "0fd2a97aeae72606154163c2423f633f81776a02",
+      "path": "docs/ARCHITECTURE.md",
+      "bytes": 17936,
+      "sha256": "762f130abb4d5dc2aa2c3958d317ab945c6e220328618b11e3c352f7568c91a4",
+      "served_bytes_match": true
+    },
+    {
+      "commit": "0fd2a97aeae72606154163c2423f633f81776a02",
+      "path": "docs/editorial/2026-10-12/REVIEW.md",
+      "bytes": 9311,
+      "sha256": "90ee19dc8b276737d053bc3792510cae61769158479977c3e890a6b5e0b38f79",
+      "served_bytes_match": true
+    },
+    {
+      "commit": "8925bc293b2ee835e548b8738f99319ac6b0cff5",
+      "path": "README.md",
+      "bytes": 60558,
+      "sha256": "e98d7c71fe0a1e880dbd1078becc7d8544685f086e413fba17693a31cfd7747b",
+      "served_bytes_match": true
+    },
+    {
+      "commit": "8925bc293b2ee835e548b8738f99319ac6b0cff5",
+      "path": "docs/ARCHITECTURE.md",
+      "bytes": 15970,
+      "sha256": "8d0fb8490ed790086bd368b2386692a62dfd42c27e3cfd0937b7f08334611b2d",
+      "served_bytes_match": true
+    },
+    {
+      "commit": "8925bc293b2ee835e548b8738f99319ac6b0cff5",
+      "path": "docs/editorial/2026-10-12/REVIEW.md",
+      "bytes": 8424,
+      "sha256": "af2f4b797174f1272a3095a9327cc809f2e4d6c5180f26bb3331dcd812bb460b",
+      "served_bytes_match": true
+    }
+  ],
+  "default_readme_endpoint_matches": true,
+  "new_commit_metadata": [
+    {
+      "commit": "8925bc293b2ee835e548b8738f99319ac6b0cff5",
+      "author": {
+        "name": "Daniel Wahnich",
+        "email": "cogitoergosum143@gmail.com",
+        "date": "2026-10-12T05:49:42Z"
+      },
+      "committer": {
+        "name": "Daniel Wahnich",
+        "email": "cogitoergosum143@gmail.com",
+        "date": "2026-10-12T05:49:42Z"
+      },
+      "message": "docs: preserve reproduction backlinks and retain editorial checks"
+    },
+    {
+      "commit": "57d8e42434cd44fb78f91bdace8171614b40d40c",
+      "author": {
+        "name": "Daniel Wahnich",
+        "email": "cogitoergosum143@gmail.com",
+        "date": "2026-10-12T05:47:24Z"
+      },
+      "committer": {
+        "name": "Daniel Wahnich",
+        "email": "cogitoergosum143@gmail.com",
+        "date": "2026-10-12T05:47:24Z"
+      },
+      "message": "docs: refine Sentinel narrative and diagrams through Iter155"
+    },
+    {
+      "commit": "0fd2a97aeae72606154163c2423f633f81776a02",
+      "author": {
+        "name": "Daniel Wahnich",
+        "email": "cogitoergosum143@gmail.com",
+        "date": "2026-10-12T05:50:05Z"
+      },
+      "committer": {
+        "name": "Daniel Wahnich",
+        "email": "cogitoergosum143@gmail.com",
+        "date": "2026-10-12T05:50:05Z"
+      },
+      "message": "docs: retain historical reproduction anchor on the landing page"
+    },
+    {
+      "commit": "c25b1db50b23d1bbef9ab8a66629e23c148f1e85",
+      "author": {
+        "name": "Daniel Wahnich",
+        "email": "cogitoergosum143@gmail.com",
+        "date": "2026-10-12T05:48:44Z"
+      },
+      "committer": {
+        "name": "Daniel Wahnich",
+        "email": "cogitoergosum143@gmail.com",
+        "date": "2026-10-12T05:48:44Z"
+      },
+      "message": "docs: bring default Sentinel landing page through Iter155"
+    }
+  ],
+  "scope": "Publisher-side remote readback, not independent scientific verification"
+}

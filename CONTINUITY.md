@@ -4884,3 +4884,16 @@ root-preservation and scoped-check receipts are under Iter155 proof. Later recei
 commits are distinct from that observed CI scope. Scientific witness remains supported for two
 historical poses, with no new driving episode. No provider work was started for publication.
 Next remains prospective background-aware model calibration before another search.
+
+
+## Default README publication — 12 October 2026
+
+Published documentation-only master successor 0fd2a97aeae72606154163c2423f633f81776a02.
+README, architecture and editorial review are the only changes from the accepted 8c118b7 code
+snapshot. Six remote files/default README bytes verified; research source/evidence unchanged.
+The root presentation is current through Iter155, all 155 result records remain linked, seven
+diagrams pass both-theme rendering/visual review, and 304 scoped links/anchors passed before
+final publication-note additions. Both advertised examples pass. Historical publication guard
+remains red; default hosted CI was still running in the retained observation. No new experiment,
+provider/GPU task or scientific claim. Next remains background-aware model calibration.
+See docs/editorial/2026-10-12/publication.json and current HANDOFF.

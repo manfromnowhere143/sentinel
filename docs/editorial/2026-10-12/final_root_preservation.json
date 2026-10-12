@@ -1,0 +1,13 @@
+{
+  "status": "supported",
+  "root_index_and_branch_preserved": true,
+  "unrelated_files_preserved": 21,
+  "root_readme_protections_restored": true,
+  "mirrored_documents": {
+    "README.md": "e98d7c71fe0a1e880dbd1078becc7d8544685f086e413fba17693a31cfd7747b",
+    "docs/ARCHITECTURE.md": "8d0fb8490ed790086bd368b2386692a62dfd42c27e3cfd0937b7f08334611b2d",
+    "HANDOFF.md": "5781312e576a63cbd538bbda07805467f11c8d4ec2c123f54881c5b819eea15a"
+  },
+  "default_master": "0fd2a97aeae72606154163c2423f633f81776a02",
+  "research_code_and_evidence_unchanged": true
+}

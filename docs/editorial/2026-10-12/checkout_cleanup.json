@@ -1,0 +1,9 @@
+{
+  "observed_utc": "2026-10-12T05:51:35.898776+00:00",
+  "scope": "Remove only this task-created, clean default-publication checkout after exact remote readback; branch and all committed bytes retained",
+  "path": "/Users/danielwahnich/workspace/sentinel-readme-publication-20261012",
+  "verified_commit": "0fd2a97aeae72606154163c2423f633f81776a02",
+  "removed": true,
+  "free_bytes_before": 13448040448,
+  "free_bytes_after": 19033550848
+}

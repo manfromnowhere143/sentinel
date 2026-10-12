@@ -7,6 +7,25 @@ are unchanged. Read the [editorial review](docs/editorial/2026-10-12/REVIEW.md) 
 observations for the default-branch presentation correction. Updating documentation does not
 integrate the research code or supersede the historical Iter134/135 mission contract.
 
+
+Default-branch README/architecture publication is verified at
+`0fd2a97aeae72606154163c2423f633f81776a02`; only README, architecture and the editorial review
+changed from the historical `8c118b7` code snapshot. Six GitHub-served files and the default
+README endpoint match. Research document links bind `8925bc293b2ee835e548b8738f99319ac6b0cff5`.
+[Publication readback](docs/editorial/2026-10-12/publication.json).
+The current owned branch is `docs/readme-iter155-20261012` in
+`/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011`. Root README and architecture
+are synchronized; immutable/ACL protections and the root index remain preserved. The temporary
+clean default-publication checkout was removed after readback; its Git commits remain retained.
+
+The clean research documentation guard reports the historical Iter134-versus-155 and exact-lineage
+findings. On the default documentation successor, only the exact historical lineage guard fails
+locally. Both source/lock verifications pass. The two observed research CI runs fail repository
+Ruff; later tests are skipped. Default-head hosted CI has passed lint and focused CI checks and
+is still running its full suite in the retained observation. No hosted pass is claimed. Read
+`docs/editorial/2026-10-12/hosted_*.json` for exact commit scopes; later receipts do not inherit
+those outcomes. Future scientific work still begins with the Iter155 calibration decision below.
+
 # Sentinel — next-session handoff
 
 Updated 11 October 2026. **Iter155 is closed: the background witness replays exactly.**
