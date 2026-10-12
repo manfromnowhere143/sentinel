@@ -22,8 +22,12 @@ constructed diagnostics, not five independent population samples. The endpoint
 chicane-left pair represents two historical runs; both had empty beams. The
 route chicane-left pair represents a failed and a successful run. The chicane-right
 pair represents three successful runs and the failed route/speed-group candidate.
-Those differing historical outcomes despite the same first representative show
-why this one-step audit cannot explain the entire search.
+Those differing historical outcomes despite the same cell representative show
+why this one-step audit cannot explain the entire search. A post-result log audit
+also distinguishes cell selection from final beam retention: the cell winner
+remained in the beam in 12/16 bindings. Every tested pair was retained in at least
+one run. [The terminology qualification and later losses](POST_RESULT_RETENTION.md)
+are explicit; the original frozen protocol and ten-trajectory result are unchanged.
 
 For the differing pair, the discarded state starts the suffix at
 `[1.625, 0, 0, 3, 0]`; its representative is

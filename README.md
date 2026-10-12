@@ -505,7 +505,10 @@ not a collision or proof that the retained state has no useful alternative.
 Separate scalar admission verifies **546 states and 4,081,572 point checks**,
 including the actual histories and absolute checkpoint times. The failed
 route/speed-group candidate's first representative still completes this suffix,
-so its whole-search failure remains unexplained. Next is a fixed-budget retention
+so its whole-search failure remains unexplained. A post-result log audit separates
+cell selection from beam retention: four of sixteen cell winners were also lost
+to width. [That qualification](experiments/iter160_continuation_preservation/POST_RESULT_RETENTION.md)
+preserves the original protocol and outcomes. Next is a fixed-budget retention
 ablation, with an exact-state control and corrected full-scene reflections.
 [Result and figure](experiments/iter160_continuation_preservation/RESULT.md) ·
 [independent admission](experiments/iter160_continuation_preservation/proof/admission.json) ·

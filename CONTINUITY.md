@@ -8,6 +8,10 @@ observed hard constraint passes. Scalar admission checks 546 states, all masks,
 a small terminal difference, not collision or loss of every alternative. The
 failed route candidate's first representative completes: whole-search causation
 remains unproved. Read Iter160 RESULT, DECISION, STATE and proof/admission.json.
+Post-result log audit: cell winners survive the final beam in 12/16 bindings;
+all 12 retained continuations lose their next child to another cell representative.
+Read POST_RESULT_RETENTION for the explicit terminology qualification. No new
+trajectory or score computation; primary outcome unchanged.
 
 Source 16590b3; raw d423dd6 committed before admission bc6bb9f. Producer 2.234 s,
 checker 32.301 s; all caps pass. One mistyped source ID was rejected before

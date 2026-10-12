@@ -8,6 +8,12 @@ miss. The endpoint pair's failure is also narrow: one nearest-route sample short
 of the completion criterion, with every observed hard constraint passing.
 Do not relabel it as collision, loss of all feasible continuations or a safety result.
 
+A [post-result log audit](POST_RESULT_RETENTION.md) finds that four initial cell
+winners were not retained by the final beam. For all twelve retained bindings,
+the next child of the tested continuation is replaced again. This locates later
+selection events without establishing their whole-search effect. It strengthens
+the need to distinguish approximate cells from the separate width cap.
+
 The next milestone remains one **fixed-budget retention ablation**, with a
 limit on how much bespoke planner work Sentinel should absorb. Compare the
 current quantized-cell rule against an exact full-state-and-frame key, holding
