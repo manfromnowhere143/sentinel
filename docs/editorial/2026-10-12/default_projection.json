@@ -1,0 +1,1472 @@
+{
+  "scope": "Documentation-only default-branch projection; only Markdown link destinations differ from reviewed research prose",
+  "research_document_commit": "57d8e42434cd44fb78f91bdace8171614b40d40c",
+  "default_parent": "8c118b74c699bf0f139f9bd659192bad06b895f8",
+  "files": [
+    "README.md",
+    "docs/ARCHITECTURE.md",
+    "docs/editorial/2026-10-12/REVIEW.md"
+  ],
+  "mapped_links": [
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter15_latch_release/server_patch_union_release.py",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter15_latch_release/server_patch_union_release.py",
+      "bound_path": "experiments/iter15_latch_release/server_patch_union_release.py"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter43_object_stream_perturbation_gate/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter43_object_stream_perturbation_gate/RESULT.md",
+      "bound_path": "experiments/iter43_object_stream_perturbation_gate/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter44_velocity_smoothing_gate/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter44_velocity_smoothing_gate/RESULT.md",
+      "bound_path": "experiments/iter44_velocity_smoothing_gate/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "docs/ARCHITECTURE.md",
+      "published_target": "docs/ARCHITECTURE.md",
+      "bound_path": "docs/ARCHITECTURE.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/full14_power/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/full14_power/RESULT.md",
+      "bound_path": "experiments/full14_power/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter15_latch_release/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter15_latch_release/RESULT.md",
+      "bound_path": "experiments/iter15_latch_release/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md",
+      "bound_path": "experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter48_hugsim_transfer_gate/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter48_hugsim_transfer_gate/RESULT.md",
+      "bound_path": "experiments/iter48_hugsim_transfer_gate/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter49_hugsim_hard_tier_gate/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter49_hugsim_hard_tier_gate/RESULT.md",
+      "bound_path": "experiments/iter49_hugsim_hard_tier_gate/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/vad_generalization/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/vad_generalization/RESULT.md",
+      "bound_path": "experiments/vad_generalization/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter40_timing_cost_audit/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter40_timing_cost_audit/RESULT.md",
+      "bound_path": "experiments/iter40_timing_cost_audit/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/VERIFICATION.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/VERIFICATION.md",
+      "bound_path": "experiments/VERIFICATION.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter30_full_trainval_lowdiv_localization/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter30_full_trainval_lowdiv_localization/RESULT.md",
+      "bound_path": "experiments/iter30_full_trainval_lowdiv_localization/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter37_track_query_site_intervention/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter37_track_query_site_intervention/RESULT.md",
+      "bound_path": "experiments/iter37_track_query_site_intervention/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter121_hugsim_support_core_two_track_synthesis/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter121_hugsim_support_core_two_track_synthesis/RESULT.md",
+      "bound_path": "experiments/iter121_hugsim_support_core_two_track_synthesis/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md",
+      "bound_path": "docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter148_recovery_study/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/RESULT.md",
+      "bound_path": "experiments/iter148_recovery_study/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter148_recovery_study/proof/block_000_attempt_002/metrics.json",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/proof/block_000_attempt_002/metrics.json",
+      "bound_path": "experiments/iter148_recovery_study/proof/block_000_attempt_002/metrics.json"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter148_recovery_study/proof/block_000_attempt_002/study_aggregate.json",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/proof/block_000_attempt_002/study_aggregate.json",
+      "bound_path": "experiments/iter148_recovery_study/proof/block_000_attempt_002/study_aggregate.json"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter148_recovery_study/proof/block_000_attempt_002/combined_resource_closure.json",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/proof/block_000_attempt_002/combined_resource_closure.json",
+      "bound_path": "experiments/iter148_recovery_study/proof/block_000_attempt_002/combined_resource_closure.json"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter151_recovery_canary/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter151_recovery_canary/RESULT.md",
+      "bound_path": "experiments/iter151_recovery_canary/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter152_recovery_continuation/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter152_recovery_continuation/RESULT.md",
+      "bound_path": "experiments/iter152_recovery_continuation/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter152_recovery_continuation/proof/analysis.json",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter152_recovery_continuation/proof/analysis.json",
+      "bound_path": "experiments/iter152_recovery_continuation/proof/analysis.json"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter152_recovery_continuation/proof/resource_closure.json",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter152_recovery_continuation/proof/resource_closure.json",
+      "bound_path": "experiments/iter152_recovery_continuation/proof/resource_closure.json"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter153_action_feasibility/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter153_action_feasibility/RESULT.md",
+      "bound_path": "experiments/iter153_action_feasibility/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter153_action_feasibility/SELECTED_MANEUVER.json",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter153_action_feasibility/SELECTED_MANEUVER.json",
+      "bound_path": "experiments/iter153_action_feasibility/SELECTED_MANEUVER.json"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter154_full_scene_maneuver/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter154_full_scene_maneuver/RESULT.md",
+      "bound_path": "experiments/iter154_full_scene_maneuver/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter154_full_scene_maneuver/proof/analysis.json",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter154_full_scene_maneuver/proof/analysis.json",
+      "bound_path": "experiments/iter154_full_scene_maneuver/proof/analysis.json"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter154_full_scene_maneuver/proof/resource_closure.json",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter154_full_scene_maneuver/proof/resource_closure.json",
+      "bound_path": "experiments/iter154_full_scene_maneuver/proof/resource_closure.json"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter155_background_witness/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter155_background_witness/RESULT.md",
+      "bound_path": "experiments/iter155_background_witness/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter155_background_witness/proof/admission.json",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter155_background_witness/proof/admission.json",
+      "bound_path": "experiments/iter155_background_witness/proof/admission.json"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter155_background_witness/proof/resource_closure.json",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter155_background_witness/proof/resource_closure.json",
+      "bound_path": "experiments/iter155_background_witness/proof/resource_closure.json"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter148_recovery_study/replay.py",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/replay.py",
+      "bound_path": "experiments/iter148_recovery_study/replay.py"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter148_recovery_study/QUALIFICATION.json",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/QUALIFICATION.json",
+      "bound_path": "experiments/iter148_recovery_study/QUALIFICATION.json"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter155_background_witness/check.py",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter155_background_witness/check.py",
+      "bound_path": "experiments/iter155_background_witness/check.py"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter155_background_witness/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter155_background_witness/RESULT.md",
+      "bound_path": "experiments/iter155_background_witness/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "docs/ARCHITECTURE.md",
+      "published_target": "docs/ARCHITECTURE.md",
+      "bound_path": "docs/ARCHITECTURE.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "PREREGISTRATION.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/PREREGISTRATION.md",
+      "bound_path": "PREREGISTRATION.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md",
+      "bound_path": "docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter155_background_witness/DECISION.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter155_background_witness/DECISION.md",
+      "bound_path": "experiments/iter155_background_witness/DECISION.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "HANDOFF.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/HANDOFF.md",
+      "bound_path": "HANDOFF.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "CONTINUITY.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/CONTINUITY.md",
+      "bound_path": "CONTINUITY.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "docs/NEXT_PHASE.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/docs/NEXT_PHASE.md",
+      "bound_path": "docs/NEXT_PHASE.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "docs/REPORT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/docs/REPORT.md",
+      "bound_path": "docs/REPORT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "docs/paper/STATUS.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/docs/paper/STATUS.md",
+      "bound_path": "docs/paper/STATUS.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/verification/README.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/verification/README.md",
+      "bound_path": "experiments/verification/README.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "docs/editorial/2026-10-12/REVIEW.md",
+      "published_target": "docs/editorial/2026-10-12/REVIEW.md",
+      "bound_path": "docs/editorial/2026-10-12/REVIEW.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "MISSION_STATE.json",
+      "published_target": "MISSION_STATE.json",
+      "bound_path": "MISSION_STATE.json"
+    },
+    {
+      "document": "README.md",
+      "original_target": "HANDOFF.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/HANDOFF.md",
+      "bound_path": "HANDOFF.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter155_background_witness/proof/hosted_ci_outcome.json",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter155_background_witness/proof/hosted_ci_outcome.json",
+      "bound_path": "experiments/iter155_background_witness/proof/hosted_ci_outcome.json"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter1_reproduce",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/tree/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter1_reproduce",
+      "bound_path": "experiments/iter1_reproduce"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter1b_partial_baseline/PARTIAL_BASELINE.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter1b_partial_baseline/PARTIAL_BASELINE.md",
+      "bound_path": "experiments/iter1b_partial_baseline/PARTIAL_BASELINE.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter2_monitor/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter2_monitor/RESULT.md",
+      "bound_path": "experiments/iter2_monitor/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter3_progress/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter3_progress/RESULT.md",
+      "bound_path": "experiments/iter3_progress/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter4_gated/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter4_gated/RESULT.md",
+      "bound_path": "experiments/iter4_gated/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter5_tracked/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter5_tracked/RESULT.md",
+      "bound_path": "experiments/iter5_tracked/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter6_cpa/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter6_cpa/RESULT.md",
+      "bound_path": "experiments/iter6_cpa/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter7_margin/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter7_margin/RESULT.md",
+      "bound_path": "experiments/iter7_margin/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter8_union/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter8_union/RESULT.md",
+      "bound_path": "experiments/iter8_union/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter9_evade/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter9_evade/RESULT.md",
+      "bound_path": "experiments/iter9_evade/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter10_brakevade/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter10_brakevade/RESULT.md",
+      "bound_path": "experiments/iter10_brakevade/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter11_early_evade/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter11_early_evade/RESULT.md",
+      "bound_path": "experiments/iter11_early_evade/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter12_plan_selection/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter12_plan_selection/RESULT.md",
+      "bound_path": "experiments/iter12_plan_selection/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter13_rss_baseline/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter13_rss_baseline/RESULT.md",
+      "bound_path": "experiments/iter13_rss_baseline/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/full14_benchmark/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/full14_benchmark/RESULT.md",
+      "bound_path": "experiments/full14_benchmark/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter15_latch_release/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter15_latch_release/RESULT.md",
+      "bound_path": "experiments/iter15_latch_release/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/union_validation/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/union_validation/RESULT.md",
+      "bound_path": "experiments/union_validation/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/full14_power/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/full14_power/RESULT.md",
+      "bound_path": "experiments/full14_power/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/vad_generalization/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/vad_generalization/RESULT.md",
+      "bound_path": "experiments/vad_generalization/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/verification/README.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/verification/README.md",
+      "bound_path": "experiments/verification/README.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter16_soft_stop/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter16_soft_stop/RESULT.md",
+      "bound_path": "experiments/iter16_soft_stop/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter17_threat_routing/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter17_threat_routing/RESULT.md",
+      "bound_path": "experiments/iter17_threat_routing/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter18_tracker/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter18_tracker/RESULT.md",
+      "bound_path": "experiments/iter18_tracker/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter19_diversity_head/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter19_diversity_head/RESULT.md",
+      "bound_path": "experiments/iter19_diversity_head/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter20_vad_tracker_portability/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter20_vad_tracker_portability/RESULT.md",
+      "bound_path": "experiments/iter20_vad_tracker_portability/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter21_bev_diversity_head/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter21_bev_diversity_head/RESULT.md",
+      "bound_path": "experiments/iter21_bev_diversity_head/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter22_causal_planner_interpretability/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter22_causal_planner_interpretability/RESULT.md",
+      "bound_path": "experiments/iter22_causal_planner_interpretability/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter23_s0_hardened_causal_localization/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter23_s0_hardened_causal_localization/RESULT.md",
+      "bound_path": "experiments/iter23_s0_hardened_causal_localization/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter24_risk_support_atlas/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter24_risk_support_atlas/RESULT.md",
+      "bound_path": "experiments/iter24_risk_support_atlas/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter25_staged_data_inventory/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter25_staged_data_inventory/RESULT.md",
+      "bound_path": "experiments/iter25_staged_data_inventory/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter26_data_staging_remedy/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter26_data_staging_remedy/RESULT.md",
+      "bound_path": "experiments/iter26_data_staging_remedy/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter27_storage_provisioning/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter27_storage_provisioning/RESULT.md",
+      "bound_path": "experiments/iter27_storage_provisioning/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter28_nuscenes_trainval_staging/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter28_nuscenes_trainval_staging/RESULT.md",
+      "bound_path": "experiments/iter28_nuscenes_trainval_staging/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter29_trainval_risk_support_atlas/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter29_trainval_risk_support_atlas/RESULT.md",
+      "bound_path": "experiments/iter29_trainval_risk_support_atlas/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter30_full_trainval_lowdiv_localization/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter30_full_trainval_lowdiv_localization/RESULT.md",
+      "bound_path": "experiments/iter30_full_trainval_lowdiv_localization/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter31_full_trainval_bridge_intervention/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter31_full_trainval_bridge_intervention/RESULT.md",
+      "bound_path": "experiments/iter31_full_trainval_bridge_intervention/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter32_prefix_replay_baseline_recovery/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter32_prefix_replay_baseline_recovery/RESULT.md",
+      "bound_path": "experiments/iter32_prefix_replay_baseline_recovery/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter33_prefix_preserving_bridge_intervention/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter33_prefix_preserving_bridge_intervention/RESULT.md",
+      "bound_path": "experiments/iter33_prefix_preserving_bridge_intervention/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter34_direction_specificity_audit/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter34_direction_specificity_audit/RESULT.md",
+      "bound_path": "experiments/iter34_direction_specificity_audit/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter35_response_heterogeneity_audit/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter35_response_heterogeneity_audit/RESULT.md",
+      "bound_path": "experiments/iter35_response_heterogeneity_audit/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter36_bridge_site_decomposition/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter36_bridge_site_decomposition/RESULT.md",
+      "bound_path": "experiments/iter36_bridge_site_decomposition/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter37_track_query_site_intervention/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter37_track_query_site_intervention/RESULT.md",
+      "bound_path": "experiments/iter37_track_query_site_intervention/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md",
+      "bound_path": "experiments/iter38_track_query_opposite_direction/HYPOTHESIS.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter39_external_validity_claim_audit/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter39_external_validity_claim_audit/RESULT.md",
+      "bound_path": "experiments/iter39_external_validity_claim_audit/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter40_timing_cost_audit/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter40_timing_cost_audit/RESULT.md",
+      "bound_path": "experiments/iter40_timing_cost_audit/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter41_sensor_input_degradation_gate/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter41_sensor_input_degradation_gate/RESULT.md",
+      "bound_path": "experiments/iter41_sensor_input_degradation_gate/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter42_exact_trace_replay_support/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter42_exact_trace_replay_support/RESULT.md",
+      "bound_path": "experiments/iter42_exact_trace_replay_support/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter43_object_stream_perturbation_gate/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter43_object_stream_perturbation_gate/RESULT.md",
+      "bound_path": "experiments/iter43_object_stream_perturbation_gate/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter44_velocity_smoothing_gate/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter44_velocity_smoothing_gate/RESULT.md",
+      "bound_path": "experiments/iter44_velocity_smoothing_gate/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter45_hugsim_infra_gate/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter45_hugsim_infra_gate/RESULT.md",
+      "bound_path": "experiments/iter45_hugsim_infra_gate/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter46_hugsim_off_baseline/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter46_hugsim_off_baseline/RESULT.md",
+      "bound_path": "experiments/iter46_hugsim_off_baseline/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter47_map_staging_and_off_completion/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter47_map_staging_and_off_completion/RESULT.md",
+      "bound_path": "experiments/iter47_map_staging_and_off_completion/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter48_hugsim_transfer_gate/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter48_hugsim_transfer_gate/RESULT.md",
+      "bound_path": "experiments/iter48_hugsim_transfer_gate/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter49_hugsim_hard_tier_gate/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter49_hugsim_hard_tier_gate/RESULT.md",
+      "bound_path": "experiments/iter49_hugsim_hard_tier_gate/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter50_collision_opportunity_audit/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter50_collision_opportunity_audit/RESULT.md",
+      "bound_path": "experiments/iter50_collision_opportunity_audit/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter51_hugsim_failure_taxonomy/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter51_hugsim_failure_taxonomy/RESULT.md",
+      "bound_path": "experiments/iter51_hugsim_failure_taxonomy/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter52_hugsim_on_collision_timing_audit/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter52_hugsim_on_collision_timing_audit/RESULT.md",
+      "bound_path": "experiments/iter52_hugsim_on_collision_timing_audit/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter53_hugsim_first_fire_channel_audit/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter53_hugsim_first_fire_channel_audit/RESULT.md",
+      "bound_path": "experiments/iter53_hugsim_first_fire_channel_audit/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter54_hugsim_provenance_support_audit/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter54_hugsim_provenance_support_audit/RESULT.md",
+      "bound_path": "experiments/iter54_hugsim_provenance_support_audit/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter55_hugsim_collision_instrumentation_source_audit/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter55_hugsim_collision_instrumentation_source_audit/RESULT.md",
+      "bound_path": "experiments/iter55_hugsim_collision_instrumentation_source_audit/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter56_hugsim_provenance_instrumentation_patch/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter56_hugsim_provenance_instrumentation_patch/RESULT.md",
+      "bound_path": "experiments/iter56_hugsim_provenance_instrumentation_patch/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter57_hugsim_patch_guard_refinement/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter57_hugsim_patch_guard_refinement/RESULT.md",
+      "bound_path": "experiments/iter57_hugsim_patch_guard_refinement/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter58_hugsim_provenance_instrumented_canary/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter58_hugsim_provenance_instrumented_canary/RESULT.md",
+      "bound_path": "experiments/iter58_hugsim_provenance_instrumented_canary/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter59_hugsim_actor_match_audit/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter59_hugsim_actor_match_audit/RESULT.md",
+      "bound_path": "experiments/iter59_hugsim_actor_match_audit/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter60_actor_bridge_sensitivity/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter60_actor_bridge_sensitivity/RESULT.md",
+      "bound_path": "experiments/iter60_actor_bridge_sensitivity/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter61_monitor_object_surface_audit/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter61_monitor_object_surface_audit/RESULT.md",
+      "bound_path": "experiments/iter61_monitor_object_surface_audit/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter62_nontrigger_ranking_audit/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter62_nontrigger_ranking_audit/RESULT.md",
+      "bound_path": "experiments/iter62_nontrigger_ranking_audit/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter63_temporal_emergence_audit/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter63_temporal_emergence_audit/RESULT.md",
+      "bound_path": "experiments/iter63_temporal_emergence_audit/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter64_unsupported_temporal_surface_audit/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter64_unsupported_temporal_surface_audit/RESULT.md",
+      "bound_path": "experiments/iter64_unsupported_temporal_surface_audit/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter65_temporal_alignment_audit/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter65_temporal_alignment_audit/RESULT.md",
+      "bound_path": "experiments/iter65_temporal_alignment_audit/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter66_matched_object_timeline_audit/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter66_matched_object_timeline_audit/RESULT.md",
+      "bound_path": "experiments/iter66_matched_object_timeline_audit/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter67_trigger_target_bridge_audit/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter67_trigger_target_bridge_audit/RESULT.md",
+      "bound_path": "experiments/iter67_trigger_target_bridge_audit/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter68_fire_time_bridge_decomposition/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter68_fire_time_bridge_decomposition/RESULT.md",
+      "bound_path": "experiments/iter68_fire_time_bridge_decomposition/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter69_hugsim_mechanism_taxonomy/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter69_hugsim_mechanism_taxonomy/RESULT.md",
+      "bound_path": "experiments/iter69_hugsim_mechanism_taxonomy/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter70_hugsim_structural_timing_audit/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter70_hugsim_structural_timing_audit/RESULT.md",
+      "bound_path": "experiments/iter70_hugsim_structural_timing_audit/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter71_hugsim_surface_silent_margin_audit/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter71_hugsim_surface_silent_margin_audit/RESULT.md",
+      "bound_path": "experiments/iter71_hugsim_surface_silent_margin_audit/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter72_hugsim_late_fire_prefire_margin_audit/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter72_hugsim_late_fire_prefire_margin_audit/RESULT.md",
+      "bound_path": "experiments/iter72_hugsim_late_fire_prefire_margin_audit/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter73_hugsim_margin_transition_audit/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter73_hugsim_margin_transition_audit/RESULT.md",
+      "bound_path": "experiments/iter73_hugsim_margin_transition_audit/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter74_hugsim_late_fire_delay_barrier/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter74_hugsim_late_fire_delay_barrier/RESULT.md",
+      "bound_path": "experiments/iter74_hugsim_late_fire_delay_barrier/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter75_hugsim_cross_channel_object_handoff/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter75_hugsim_cross_channel_object_handoff/RESULT.md",
+      "bound_path": "experiments/iter75_hugsim_cross_channel_object_handoff/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter76_hugsim_switch_foreground_bridge/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter76_hugsim_switch_foreground_bridge/RESULT.md",
+      "bound_path": "experiments/iter76_hugsim_switch_foreground_bridge/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter77_hugsim_event_object_set_bridge/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter77_hugsim_event_object_set_bridge/RESULT.md",
+      "bound_path": "experiments/iter77_hugsim_event_object_set_bridge/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter78_hugsim_support_object_ranking/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter78_hugsim_support_object_ranking/RESULT.md",
+      "bound_path": "experiments/iter78_hugsim_support_object_ranking/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter79_hugsim_selected_surface_decomposition/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter79_hugsim_selected_surface_decomposition/RESULT.md",
+      "bound_path": "experiments/iter79_hugsim_selected_surface_decomposition/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter80_hugsim_selected_all_provenance_bridge/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter80_hugsim_selected_all_provenance_bridge/RESULT.md",
+      "bound_path": "experiments/iter80_hugsim_selected_all_provenance_bridge/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter81_hugsim_support_object_temporal_surface/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter81_hugsim_support_object_temporal_surface/RESULT.md",
+      "bound_path": "experiments/iter81_hugsim_support_object_temporal_surface/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter82_hugsim_support_surface_bridge_cooccurrence/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter82_hugsim_support_surface_bridge_cooccurrence/RESULT.md",
+      "bound_path": "experiments/iter82_hugsim_support_surface_bridge_cooccurrence/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter83_hugsim_bridge_supported_surface_miss_decomposition/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter83_hugsim_bridge_supported_surface_miss_decomposition/RESULT.md",
+      "bound_path": "experiments/iter83_hugsim_bridge_supported_surface_miss_decomposition/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter84_hugsim_selected_support_arbitration/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter84_hugsim_selected_support_arbitration/RESULT.md",
+      "bound_path": "experiments/iter84_hugsim_selected_support_arbitration/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter85_hugsim_path_horizon_bridge_timing/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter85_hugsim_path_horizon_bridge_timing/RESULT.md",
+      "bound_path": "experiments/iter85_hugsim_path_horizon_bridge_timing/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter86_hugsim_bridge_time_surface_replay/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter86_hugsim_bridge_time_surface_replay/RESULT.md",
+      "bound_path": "experiments/iter86_hugsim_bridge_time_surface_replay/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter87_hugsim_interval_bridge_time_surface_replay/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter87_hugsim_interval_bridge_time_surface_replay/RESULT.md",
+      "bound_path": "experiments/iter87_hugsim_interval_bridge_time_surface_replay/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter88_hugsim_bridge_surface_margin_residual/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter88_hugsim_bridge_surface_margin_residual/RESULT.md",
+      "bound_path": "experiments/iter88_hugsim_bridge_surface_margin_residual/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter89_hugsim_joint_bridge_surface_candidate_audit/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter89_hugsim_joint_bridge_surface_candidate_audit/RESULT.md",
+      "bound_path": "experiments/iter89_hugsim_joint_bridge_surface_candidate_audit/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter90_hugsim_active_surface_provenance_gap/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter90_hugsim_active_surface_provenance_gap/RESULT.md",
+      "bound_path": "experiments/iter90_hugsim_active_surface_provenance_gap/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter91_hugsim_active_gap_geometry_decomposition/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter91_hugsim_active_gap_geometry_decomposition/RESULT.md",
+      "bound_path": "experiments/iter91_hugsim_active_gap_geometry_decomposition/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter92_hugsim_path_proximity_arbitration/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter92_hugsim_path_proximity_arbitration/RESULT.md",
+      "bound_path": "experiments/iter92_hugsim_path_proximity_arbitration/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter93_hugsim_surface_winner_alignment/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter93_hugsim_surface_winner_alignment/RESULT.md",
+      "bound_path": "experiments/iter93_hugsim_surface_winner_alignment/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter94_hugsim_active_row_surface_margin_arbitration/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter94_hugsim_active_row_surface_margin_arbitration/RESULT.md",
+      "bound_path": "experiments/iter94_hugsim_active_row_surface_margin_arbitration/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter95_hugsim_nonactive_surface_branch_arbitration/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter95_hugsim_nonactive_surface_branch_arbitration/RESULT.md",
+      "bound_path": "experiments/iter95_hugsim_nonactive_surface_branch_arbitration/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter96_hugsim_branch_outcome_bridge/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter96_hugsim_branch_outcome_bridge/RESULT.md",
+      "bound_path": "experiments/iter96_hugsim_branch_outcome_bridge/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter97_hugsim_surface_silent_outcome_margin_bridge/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter97_hugsim_surface_silent_outcome_margin_bridge/RESULT.md",
+      "bound_path": "experiments/iter97_hugsim_surface_silent_outcome_margin_bridge/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter98_hugsim_background_only_outcome_bridge/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter98_hugsim_background_only_outcome_bridge/RESULT.md",
+      "bound_path": "experiments/iter98_hugsim_background_only_outcome_bridge/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter99_hugsim_structural_bridge_coverage_audit/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter99_hugsim_structural_bridge_coverage_audit/RESULT.md",
+      "bound_path": "experiments/iter99_hugsim_structural_bridge_coverage_audit/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter100_hugsim_structural_expansion_support_audit/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter100_hugsim_structural_expansion_support_audit/RESULT.md",
+      "bound_path": "experiments/iter100_hugsim_structural_expansion_support_audit/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter101_hugsim_provenance_batch_candidate_design/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter101_hugsim_provenance_batch_candidate_design/RESULT.md",
+      "bound_path": "experiments/iter101_hugsim_provenance_batch_candidate_design/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter102_hugsim_provenance_batch_launch_manifest/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter102_hugsim_provenance_batch_launch_manifest/RESULT.md",
+      "bound_path": "experiments/iter102_hugsim_provenance_batch_launch_manifest/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter103_hugsim_provenance_batch_execution/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter103_hugsim_provenance_batch_execution/RESULT.md",
+      "bound_path": "experiments/iter103_hugsim_provenance_batch_execution/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter104_hugsim_provenance_batch_actor_match_audit/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter104_hugsim_provenance_batch_actor_match_audit/RESULT.md",
+      "bound_path": "experiments/iter104_hugsim_provenance_batch_actor_match_audit/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter105_hugsim_timing_aware_provenance_batch_design/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter105_hugsim_timing_aware_provenance_batch_design/RESULT.md",
+      "bound_path": "experiments/iter105_hugsim_timing_aware_provenance_batch_design/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter106_hugsim_timing_aware_launch_manifest/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter106_hugsim_timing_aware_launch_manifest/RESULT.md",
+      "bound_path": "experiments/iter106_hugsim_timing_aware_launch_manifest/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter107_hugsim_timing_aware_batch_execution/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter107_hugsim_timing_aware_batch_execution/RESULT.md",
+      "bound_path": "experiments/iter107_hugsim_timing_aware_batch_execution/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter108_hugsim_timing_aware_batch_actor_match_audit/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter108_hugsim_timing_aware_batch_actor_match_audit/RESULT.md",
+      "bound_path": "experiments/iter108_hugsim_timing_aware_batch_actor_match_audit/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter109_hugsim_timing_aware_support_yield_decomposition/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter109_hugsim_timing_aware_support_yield_decomposition/RESULT.md",
+      "bound_path": "experiments/iter109_hugsim_timing_aware_support_yield_decomposition/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter110_hugsim_support_preserving_candidate_design/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter110_hugsim_support_preserving_candidate_design/RESULT.md",
+      "bound_path": "experiments/iter110_hugsim_support_preserving_candidate_design/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter111_hugsim_support_core_launch_manifest/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter111_hugsim_support_core_launch_manifest/RESULT.md",
+      "bound_path": "experiments/iter111_hugsim_support_core_launch_manifest/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter112_hugsim_support_core_batch_execution/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter112_hugsim_support_core_batch_execution/RESULT.md",
+      "bound_path": "experiments/iter112_hugsim_support_core_batch_execution/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter113_hugsim_support_core_actor_match_audit/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter113_hugsim_support_core_actor_match_audit/RESULT.md",
+      "bound_path": "experiments/iter113_hugsim_support_core_actor_match_audit/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter114_hugsim_support_core_mismatch_geometry_decomposition/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter114_hugsim_support_core_mismatch_geometry_decomposition/RESULT.md",
+      "bound_path": "experiments/iter114_hugsim_support_core_mismatch_geometry_decomposition/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter115_hugsim_support_core_monitor_set_ordering/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter115_hugsim_support_core_monitor_set_ordering/RESULT.md",
+      "bound_path": "experiments/iter115_hugsim_support_core_monitor_set_ordering/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter116_hugsim_support_core_collision_actor_timeline/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter116_hugsim_support_core_collision_actor_timeline/RESULT.md",
+      "bound_path": "experiments/iter116_hugsim_support_core_collision_actor_timeline/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter117_hugsim_support_core_event_window_decomposition/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter117_hugsim_support_core_event_window_decomposition/RESULT.md",
+      "bound_path": "experiments/iter117_hugsim_support_core_event_window_decomposition/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter118_hugsim_support_core_object_lifecycle/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter118_hugsim_support_core_object_lifecycle/RESULT.md",
+      "bound_path": "experiments/iter118_hugsim_support_core_object_lifecycle/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter119_hugsim_support_core_loss_replacement_audit/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter119_hugsim_support_core_loss_replacement_audit/RESULT.md",
+      "bound_path": "experiments/iter119_hugsim_support_core_loss_replacement_audit/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter120_hugsim_support_core_selected_fire_object_lifecycle/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter120_hugsim_support_core_selected_fire_object_lifecycle/RESULT.md",
+      "bound_path": "experiments/iter120_hugsim_support_core_selected_fire_object_lifecycle/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter121_hugsim_support_core_two_track_synthesis/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter121_hugsim_support_core_two_track_synthesis/RESULT.md",
+      "bound_path": "experiments/iter121_hugsim_support_core_two_track_synthesis/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter122_support_core_taxonomy_documentation/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter122_support_core_taxonomy_documentation/RESULT.md",
+      "bound_path": "experiments/iter122_support_core_taxonomy_documentation/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter123_mission_evidence_alignment_audit/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter123_mission_evidence_alignment_audit/RESULT.md",
+      "bound_path": "experiments/iter123_mission_evidence_alignment_audit/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter124_manuscript_report_freshness/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter124_manuscript_report_freshness/RESULT.md",
+      "bound_path": "experiments/iter124_manuscript_report_freshness/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter125_support_core_blind_spot_scenario_design/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter125_support_core_blind_spot_scenario_design/RESULT.md",
+      "bound_path": "experiments/iter125_support_core_blind_spot_scenario_design/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter126_support_core_candidate_manifest_preflight/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter126_support_core_candidate_manifest_preflight/RESULT.md",
+      "bound_path": "experiments/iter126_support_core_candidate_manifest_preflight/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter127_post_iter126_mission_alignment_audit/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter127_post_iter126_mission_alignment_audit/RESULT.md",
+      "bound_path": "experiments/iter127_post_iter126_mission_alignment_audit/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter128_support_core_source_pool_mutation_preflight/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter128_support_core_source_pool_mutation_preflight/RESULT.md",
+      "bound_path": "experiments/iter128_support_core_source_pool_mutation_preflight/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter129_support_core_artifact_naming_preflight/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter129_support_core_artifact_naming_preflight/RESULT.md",
+      "bound_path": "experiments/iter129_support_core_artifact_naming_preflight/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter130_support_core_artifact_schema_preflight/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter130_support_core_artifact_schema_preflight/RESULT.md",
+      "bound_path": "experiments/iter130_support_core_artifact_schema_preflight/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter131_post_iter130_mission_alignment_audit/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter131_post_iter130_mission_alignment_audit/RESULT.md",
+      "bound_path": "experiments/iter131_post_iter130_mission_alignment_audit/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter132_support_core_schema_instance_creation_preflight/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter132_support_core_schema_instance_creation_preflight/RESULT.md",
+      "bound_path": "experiments/iter132_support_core_schema_instance_creation_preflight/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter133_neuroncap_placebo_semantics_control_design/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter133_neuroncap_placebo_semantics_control_design/RESULT.md",
+      "bound_path": "experiments/iter133_neuroncap_placebo_semantics_control_design/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md",
+      "bound_path": "experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter135_neuroncap_blind_braking_dose_response/HYPOTHESIS.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter135_neuroncap_blind_braking_dose_response/HYPOTHESIS.md",
+      "bound_path": "experiments/iter135_neuroncap_blind_braking_dose_response/HYPOTHESIS.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter136_hugsim_recoverability_canary/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter136_hugsim_recoverability_canary/RESULT.md",
+      "bound_path": "experiments/iter136_hugsim_recoverability_canary/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter137_controller_execution_contract/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter137_controller_execution_contract/RESULT.md",
+      "bound_path": "experiments/iter137_controller_execution_contract/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter138_numerical_live_replay/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter138_numerical_live_replay/RESULT.md",
+      "bound_path": "experiments/iter138_numerical_live_replay/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter139_finite_pulse_recoverability/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter139_finite_pulse_recoverability/RESULT.md",
+      "bound_path": "experiments/iter139_finite_pulse_recoverability/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter140_contact_actuation/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter140_contact_actuation/RESULT.md",
+      "bound_path": "experiments/iter140_contact_actuation/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter141_nominal_continuation/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter141_nominal_continuation/RESULT.md",
+      "bound_path": "experiments/iter141_nominal_continuation/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter142_nominal_continuation_completion/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter142_nominal_continuation_completion/RESULT.md",
+      "bound_path": "experiments/iter142_nominal_continuation_completion/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter143_model_contract/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter143_model_contract/RESULT.md",
+      "bound_path": "experiments/iter143_model_contract/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter144_timed_trajectory/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter144_timed_trajectory/RESULT.md",
+      "bound_path": "experiments/iter144_timed_trajectory/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter145_constrained_execution/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter145_constrained_execution/RESULT.md",
+      "bound_path": "experiments/iter145_constrained_execution/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter146_route_outcome_contract/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter146_route_outcome_contract/RESULT.md",
+      "bound_path": "experiments/iter146_route_outcome_contract/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter147_full_horizon_execution/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter147_full_horizon_execution/RESULT.md",
+      "bound_path": "experiments/iter147_full_horizon_execution/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter148_recovery_study/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/RESULT.md",
+      "bound_path": "experiments/iter148_recovery_study/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter149_observation_recovery/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter149_observation_recovery/RESULT.md",
+      "bound_path": "experiments/iter149_observation_recovery/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter150_cloud_observation/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter150_cloud_observation/RESULT.md",
+      "bound_path": "experiments/iter150_cloud_observation/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter151_recovery_canary/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter151_recovery_canary/RESULT.md",
+      "bound_path": "experiments/iter151_recovery_canary/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter152_recovery_continuation/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter152_recovery_continuation/RESULT.md",
+      "bound_path": "experiments/iter152_recovery_continuation/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter153_action_feasibility/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter153_action_feasibility/RESULT.md",
+      "bound_path": "experiments/iter153_action_feasibility/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter154_full_scene_maneuver/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter154_full_scene_maneuver/RESULT.md",
+      "bound_path": "experiments/iter154_full_scene_maneuver/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "experiments/iter155_background_witness/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter155_background_witness/RESULT.md",
+      "bound_path": "experiments/iter155_background_witness/RESULT.md"
+    },
+    {
+      "document": "README.md",
+      "original_target": "docs/history/README_through_iter134.snapshot.txt",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/docs/history/README_through_iter134.snapshot.txt",
+      "bound_path": "docs/history/README_through_iter134.snapshot.txt"
+    },
+    {
+      "document": "docs/ARCHITECTURE.md",
+      "original_target": "../README.md",
+      "published_target": "../README.md",
+      "bound_path": "README.md"
+    },
+    {
+      "document": "docs/ARCHITECTURE.md",
+      "original_target": "history/ARCHITECTURE_original_design.snapshot.txt",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/docs/history/ARCHITECTURE_original_design.snapshot.txt",
+      "bound_path": "docs/history/ARCHITECTURE_original_design.snapshot.txt"
+    },
+    {
+      "document": "docs/ARCHITECTURE.md",
+      "original_target": "../experiments/iter15_latch_release/server_patch_union_release.py",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter15_latch_release/server_patch_union_release.py",
+      "bound_path": "experiments/iter15_latch_release/server_patch_union_release.py"
+    },
+    {
+      "document": "docs/ARCHITECTURE.md",
+      "original_target": "../experiments/full14_power/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/full14_power/RESULT.md",
+      "bound_path": "experiments/full14_power/RESULT.md"
+    },
+    {
+      "document": "docs/ARCHITECTURE.md",
+      "original_target": "../experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md",
+      "bound_path": "experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md"
+    },
+    {
+      "document": "docs/ARCHITECTURE.md",
+      "original_target": "../experiments/iter144_timed_trajectory/trajectory.py",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter144_timed_trajectory/trajectory.py",
+      "bound_path": "experiments/iter144_timed_trajectory/trajectory.py"
+    },
+    {
+      "document": "docs/ARCHITECTURE.md",
+      "original_target": "../experiments/iter145_constrained_execution/optimizer.py",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter145_constrained_execution/optimizer.py",
+      "bound_path": "experiments/iter145_constrained_execution/optimizer.py"
+    },
+    {
+      "document": "docs/ARCHITECTURE.md",
+      "original_target": "../experiments/iter145_constrained_execution/simulator.py",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter145_constrained_execution/simulator.py",
+      "bound_path": "experiments/iter145_constrained_execution/simulator.py"
+    },
+    {
+      "document": "docs/ARCHITECTURE.md",
+      "original_target": "../experiments/iter147_full_horizon_execution/monitor.py",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter147_full_horizon_execution/monitor.py",
+      "bound_path": "experiments/iter147_full_horizon_execution/monitor.py"
+    },
+    {
+      "document": "docs/ARCHITECTURE.md",
+      "original_target": "../experiments/iter149_observation_recovery/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter149_observation_recovery/RESULT.md",
+      "bound_path": "experiments/iter149_observation_recovery/RESULT.md"
+    },
+    {
+      "document": "docs/ARCHITECTURE.md",
+      "original_target": "../experiments/iter150_cloud_observation/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter150_cloud_observation/RESULT.md",
+      "bound_path": "experiments/iter150_cloud_observation/RESULT.md"
+    },
+    {
+      "document": "docs/ARCHITECTURE.md",
+      "original_target": "../experiments/iter151_recovery_canary/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter151_recovery_canary/RESULT.md",
+      "bound_path": "experiments/iter151_recovery_canary/RESULT.md"
+    },
+    {
+      "document": "docs/ARCHITECTURE.md",
+      "original_target": "../experiments/iter148_recovery_study/pair.py",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/pair.py",
+      "bound_path": "experiments/iter148_recovery_study/pair.py"
+    },
+    {
+      "document": "docs/ARCHITECTURE.md",
+      "original_target": "../experiments/iter148_recovery_study/admission.py",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/admission.py",
+      "bound_path": "experiments/iter148_recovery_study/admission.py"
+    },
+    {
+      "document": "docs/ARCHITECTURE.md",
+      "original_target": "../experiments/iter148_recovery_study/replay.py",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/replay.py",
+      "bound_path": "experiments/iter148_recovery_study/replay.py"
+    },
+    {
+      "document": "docs/ARCHITECTURE.md",
+      "original_target": "../experiments/iter148_recovery_study/compare.py",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/compare.py",
+      "bound_path": "experiments/iter148_recovery_study/compare.py"
+    },
+    {
+      "document": "docs/ARCHITECTURE.md",
+      "original_target": "../experiments/iter148_recovery_study/aggregate.py",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/aggregate.py",
+      "bound_path": "experiments/iter148_recovery_study/aggregate.py"
+    },
+    {
+      "document": "docs/ARCHITECTURE.md",
+      "original_target": "../experiments/iter148_recovery_study/proof/session_tools",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/tree/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter148_recovery_study/proof/session_tools",
+      "bound_path": "experiments/iter148_recovery_study/proof/session_tools"
+    },
+    {
+      "document": "docs/ARCHITECTURE.md",
+      "original_target": "../experiments/iter152_recovery_continuation/admission.py",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter152_recovery_continuation/admission.py",
+      "bound_path": "experiments/iter152_recovery_continuation/admission.py"
+    },
+    {
+      "document": "docs/ARCHITECTURE.md",
+      "original_target": "../experiments/iter152_recovery_continuation/baseline.py",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter152_recovery_continuation/baseline.py",
+      "bound_path": "experiments/iter152_recovery_continuation/baseline.py"
+    },
+    {
+      "document": "docs/ARCHITECTURE.md",
+      "original_target": "../experiments/iter152_recovery_continuation/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter152_recovery_continuation/RESULT.md",
+      "bound_path": "experiments/iter152_recovery_continuation/RESULT.md"
+    },
+    {
+      "document": "docs/ARCHITECTURE.md",
+      "original_target": "../experiments/iter153_action_feasibility/SELECTED_MANEUVER.json",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter153_action_feasibility/SELECTED_MANEUVER.json",
+      "bound_path": "experiments/iter153_action_feasibility/SELECTED_MANEUVER.json"
+    },
+    {
+      "document": "docs/ARCHITECTURE.md",
+      "original_target": "../experiments/iter155_background_witness/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter155_background_witness/RESULT.md",
+      "bound_path": "experiments/iter155_background_witness/RESULT.md"
+    },
+    {
+      "document": "docs/editorial/2026-10-12/REVIEW.md",
+      "original_target": "../../../experiments/full14_power/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/full14_power/RESULT.md",
+      "bound_path": "experiments/full14_power/RESULT.md"
+    },
+    {
+      "document": "docs/editorial/2026-10-12/REVIEW.md",
+      "original_target": "../../../experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md",
+      "bound_path": "experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md"
+    },
+    {
+      "document": "docs/editorial/2026-10-12/REVIEW.md",
+      "original_target": "../../../experiments/iter152_recovery_continuation/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter152_recovery_continuation/RESULT.md",
+      "bound_path": "experiments/iter152_recovery_continuation/RESULT.md"
+    },
+    {
+      "document": "docs/editorial/2026-10-12/REVIEW.md",
+      "original_target": "../../../experiments/iter154_full_scene_maneuver/RESULT.md",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter154_full_scene_maneuver/RESULT.md",
+      "bound_path": "experiments/iter154_full_scene_maneuver/RESULT.md"
+    },
+    {
+      "document": "docs/editorial/2026-10-12/REVIEW.md",
+      "original_target": "../../../experiments/iter155_background_witness/proof/admission.json",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/experiments/iter155_background_witness/proof/admission.json",
+      "bound_path": "experiments/iter155_background_witness/proof/admission.json"
+    },
+    {
+      "document": "docs/editorial/2026-10-12/REVIEW.md",
+      "original_target": "validation.json",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/docs/editorial/2026-10-12/validation.json",
+      "bound_path": "docs/editorial/2026-10-12/validation.json"
+    },
+    {
+      "document": "docs/editorial/2026-10-12/REVIEW.md",
+      "original_target": "diagram_render_results.json",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/docs/editorial/2026-10-12/diagram_render_results.json",
+      "bound_path": "docs/editorial/2026-10-12/diagram_render_results.json"
+    },
+    {
+      "document": "docs/editorial/2026-10-12/REVIEW.md",
+      "original_target": "visual_review.json",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/docs/editorial/2026-10-12/visual_review.json",
+      "bound_path": "docs/editorial/2026-10-12/visual_review.json"
+    },
+    {
+      "document": "docs/editorial/2026-10-12/REVIEW.md",
+      "original_target": "command_observations.json",
+      "published_target": "https://github.com/manfromnowhere143/sentinel/blob/57d8e42434cd44fb78f91bdace8171614b40d40c/docs/editorial/2026-10-12/command_observations.json",
+      "bound_path": "docs/editorial/2026-10-12/command_observations.json"
+    }
+  ],
+  "diagrams_and_prose_identical": true,
+  "historical_code_and_authority_unchanged": true
+}

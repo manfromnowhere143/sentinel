@@ -30,7 +30,8 @@ imported and neither repository was changed.
 The opening now identifies the project, the implemented capability and the wider scientific
 question. The implemented monitor and the criteria for useful intervention precede the findings.
 Detailed results, corrections, execution history and the full experiment index remain visible.
-Dated repository status follows the explanation and reproduction guidance. This is a refinement
+Dated repository status follows the explanation and reproduction guidance. The reproduction
+section retains its historical anchor so the existing technical-report link still works. This is a refinement
 of the existing research narrative, not a shortened replacement or an archive-only account.
 
 The voice is direct about measured results and candid about their scope. Confidence comes from

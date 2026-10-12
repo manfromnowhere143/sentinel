@@ -13,7 +13,7 @@ def git(*args):
     return subprocess.check_output(['git', *args], cwd=ROOT)
 
 def anchors(text):
-    result = []
+    result = re.findall(r'<a id="([^"]+)"', text)
     for heading in re.findall(r'^#{1,6} (.+)$', text, re.M):
         heading = re.sub(r'\[([^]]+)\]\([^)]*\)', r'\1', heading)
         result.append(re.sub(r'[^\w\s-]', '', heading.lower()).replace(' ', '-'))

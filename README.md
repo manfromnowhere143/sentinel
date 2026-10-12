@@ -455,6 +455,8 @@ deterministic function of the same input history, its value may be computational
 a time budget rather than new information. Those distinctions matter to both the mathematics
 and the experiment.
 
+<a id="reproduce--repository-map"></a>
+
 ## Reproduce and inspect
 
 Start with the result for the claim being checked. Its hypothesis defines the population,

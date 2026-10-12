@@ -1,0 +1,24 @@
+{
+  "head": "c25b1db50b23d1bbef9ab8a66629e23c148f1e85",
+  "parent": "8c118b74c699bf0f139f9bd659192bad06b895f8",
+  "observations": [
+    {
+      "name": "default_docs_guard",
+      "argv": [
+        "python3",
+        "scripts/validate_docs.py"
+      ],
+      "returncode": 1,
+      "stdout": "DOCS GUARD FAILED:\n - MISSION_STATE.json: tooling_publication:structural_probe:ToolingPublicationError:published tooling receipt failed frozen validation: published receipt structure invalid: VerificationError: generation-sixteen has commits beyond exact T16, B16, and the single documentation tranche\n"
+    },
+    {
+      "name": "default_supply_chain",
+      "argv": [
+        "python3",
+        "tools/ci/verify_supply_chain.py"
+      ],
+      "returncode": 0,
+      "stdout": "SUPPLY_CHAIN_VERIFICATION_OK\n"
+    }
+  ]
+}
