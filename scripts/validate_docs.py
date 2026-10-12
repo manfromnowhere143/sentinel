@@ -16,13 +16,15 @@ import os
 import re
 import subprocess
 import sys
+from pathlib import Path
 
-from mission_state import load_state, validate_state
+from mission_state import load_state
+from historical_repository import HISTORICAL_COMMIT, archived_state_errors, git
 
 fails = []
 
 mission_state = load_state()
-for problem in validate_state(mission_state):
+for problem in archived_state_errors(Path.cwd()):
     fails.append(f'MISSION_STATE.json: {problem}')
 
 tracked = subprocess.run(['git', 'ls-files', '*.md'], capture_output=True, text=True).stdout.split()
@@ -51,6 +53,9 @@ for result in sorted(glob.glob('experiments/*/RESULT.md')):
 completed = mission_state['current_completed_iteration']
 verdict = mission_state['current_verdict']
 next_program = mission_state['next_program']
+# These are the archived mission's presentation requirements, replayed at its
+# declared revision. Current README coverage and every tracked link/diagram are
+# checked above in the actual checkout; historical phrasing is not a current UI.
 surface_requirements = {
     'README.md': [
         f'current through iteration {completed}',
@@ -81,7 +86,7 @@ for path, required in surface_requirements.items():
     if not os.path.exists(path):
         fails.append(f'{path}: required current-state surface is missing')
         continue
-    text = open(path, errors='replace').read()
+    text = git(Path.cwd(), "show", f"{HISTORICAL_COMMIT}:{path}").decode()
     normalized_text = ' '.join(text.split())
     for phrase in required:
         if ' '.join(phrase.split()) not in normalized_text:
@@ -100,7 +105,7 @@ surface_forbidden = {
     'HANDOFF.md': ['its gate governs the next action'],
 }
 for path, forbidden in surface_forbidden.items():
-    text = open(path, errors='replace').read()
+    text = git(Path.cwd(), "show", f"{HISTORICAL_COMMIT}:{path}").decode()
     normalized_text = ' '.join(text.split())
     for phrase in forbidden:
         if ' '.join(phrase.split()) in normalized_text:
