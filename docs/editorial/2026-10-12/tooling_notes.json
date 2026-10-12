@@ -1,0 +1,8 @@
+{
+  "scope": "Editorial tooling observations, no scientific changes",
+  "notes": [
+    "python3 -m ruff was unavailable in ambient Python; installed /opt/homebrew/bin/ruff subsequently checked both authored Python helpers successfully.",
+    "Initial optional Pillow contact sheet was unavailable; all fourteen individual PNGs were inspected without installing packages.",
+    "Three generated hosted-observation JSON files had an extra blank EOF line; JSON values were preserved and formatting normalized. The earlier commit retains the original bytes."
+  ]
+}
