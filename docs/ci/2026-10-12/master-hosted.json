@@ -1,0 +1,270 @@
+{
+  "conclusion": "success",
+  "headSha": "3e2055cef23bbf72ad32dbaa9754a2fd4b16176c",
+  "jobs": [
+    {
+      "completedAt": "2026-10-12T07:25:11Z",
+      "conclusion": "success",
+      "databaseId": 114703420469,
+      "name": "check (3.11)",
+      "startedAt": "2026-10-12T07:16:34Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-12T07:16:36Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-12T07:16:35Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-12T07:17:42Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "number": 2,
+          "startedAt": "2026-10-12T07:16:36Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-12T07:17:42Z",
+          "conclusion": "success",
+          "name": "Run python3 -I -B -S tools/ci/verify_supply_chain.py",
+          "number": 3,
+          "startedAt": "2026-10-12T07:17:42Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-12T07:17:43Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "number": 4,
+          "startedAt": "2026-10-12T07:17:42Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-12T07:17:49Z",
+          "conclusion": "success",
+          "name": "Run test -n \"${RUNNER_TEMP:-}\" && test -d \"${RUNNER_TEMP}\" && test ! -L \"${RUNNER_TEMP}\" && test ! -e \"${RUNNER_TEMP}/sentinel-ci-3.11\" && python -I -B -m venv \"${RUNNER_TEMP}/sentinel-ci-3.11\"",
+          "number": 5,
+          "startedAt": "2026-10-12T07:17:43Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-12T07:18:01Z",
+          "conclusion": "success",
+          "name": "Run test ! -e \"${RUNNER_TEMP}/sentinel-ci-install-3.11.json\" && \"${RUNNER_TEMP}/sentinel-ci-3.11/bin/python\" -I -B -m pip --isolated --disable-pip-version-check install --no-input --force-reinstall --require-hashes --only-binary=':all:' --no-deps --report \"${RUNNER_TEMP}/sentinel-ci-install-3.11.json\" -r tools/ci/requirements-ci-py311.lock",
+          "number": 6,
+          "startedAt": "2026-10-12T07:17:49Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-12T07:18:02Z",
+          "conclusion": "success",
+          "name": "Run command \"${RUNNER_TEMP}/sentinel-ci-3.11/bin/python\" -I -B -m pip --isolated --disable-pip-version-check check",
+          "number": 7,
+          "startedAt": "2026-10-12T07:18:01Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-12T07:18:02Z",
+          "conclusion": "success",
+          "name": "Run command \"${RUNNER_TEMP}/sentinel-ci-3.11/bin/python\" -I -B -S tools/ci/verify_ci_install.py --python-minor \"3.11\" --lock \"tools/ci/requirements-ci-py311.lock\" --report \"${RUNNER_TEMP}/sentinel-ci-install-3.11.json\"",
+          "number": 8,
+          "startedAt": "2026-10-12T07:18:02Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-12T07:18:02Z",
+          "conclusion": "success",
+          "name": "Run command \"${RUNNER_TEMP}/sentinel-ci-3.11/bin/ruff\" check .",
+          "number": 9,
+          "startedAt": "2026-10-12T07:18:02Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-12T07:18:04Z",
+          "conclusion": "success",
+          "name": "Run env -u PYTHONHOME -u PYTHONOPTIMIZE -u PYTEST_ADDOPTS -u PYTEST_PLUGINS PYTHONPATH= PYTHONHASHSEED=0 PYTHONNOUSERSITE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \"${RUNNER_TEMP}/sentinel-ci-3.11/bin/python\" -B -S tools/ci/run_pytest_isolated.py -q -c pyproject.toml --noconftest --strict-config --strict-markers tests/test_iter135_gen17_ci_hardening.py tests/test_iter135_ci_install_verifier.py",
+          "number": 10,
+          "startedAt": "2026-10-12T07:18:02Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-12T07:25:08Z",
+          "conclusion": "success",
+          "name": "Run env -u PYTHONHOME -u PYTHONOPTIMIZE -u PYTEST_ADDOPTS -u PYTEST_PLUGINS PYTHONPATH= PYTHONHASHSEED=0 PYTHONNOUSERSITE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \"${RUNNER_TEMP}/sentinel-ci-3.11/bin/python\" -B -S tools/ci/run_pytest_isolated.py -q -c pyproject.toml --noconftest --strict-config --strict-markers",
+          "number": 11,
+          "startedAt": "2026-10-12T07:18:04Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-12T07:25:10Z",
+          "conclusion": "success",
+          "name": "Run command \"${RUNNER_TEMP}/sentinel-ci-3.11/bin/python\" -I -B -S -c 'import runpy,sys;sys.path.append(\"scripts\");runpy.run_path(\"scripts/validate_docs.py\",run_name=\"__main__\")'",
+          "number": 12,
+          "startedAt": "2026-10-12T07:25:08Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-12T07:25:10Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "number": 23,
+          "startedAt": "2026-10-12T07:25:10Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-12T07:25:10Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "number": 24,
+          "startedAt": "2026-10-12T07:25:10Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-12T07:25:10Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 25,
+          "startedAt": "2026-10-12T07:25:10Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/manfromnowhere143/sentinel/actions/runs/38216831327/job/114703420469"
+    },
+    {
+      "completedAt": "2026-10-12T07:25:34Z",
+      "conclusion": "success",
+      "databaseId": 114703420720,
+      "name": "check (3.10)",
+      "startedAt": "2026-10-12T07:16:35Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-12T07:16:36Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-12T07:16:35Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-12T07:17:45Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "number": 2,
+          "startedAt": "2026-10-12T07:16:36Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-12T07:17:45Z",
+          "conclusion": "success",
+          "name": "Run python3 -I -B -S tools/ci/verify_supply_chain.py",
+          "number": 3,
+          "startedAt": "2026-10-12T07:17:45Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-12T07:17:46Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "number": 4,
+          "startedAt": "2026-10-12T07:17:46Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-12T07:17:49Z",
+          "conclusion": "success",
+          "name": "Run test -n \"${RUNNER_TEMP:-}\" && test -d \"${RUNNER_TEMP}\" && test ! -L \"${RUNNER_TEMP}\" && test ! -e \"${RUNNER_TEMP}/sentinel-ci-3.10\" && python -I -B -m venv \"${RUNNER_TEMP}/sentinel-ci-3.10\"",
+          "number": 5,
+          "startedAt": "2026-10-12T07:17:46Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-12T07:18:03Z",
+          "conclusion": "success",
+          "name": "Run test ! -e \"${RUNNER_TEMP}/sentinel-ci-install-3.10.json\" && \"${RUNNER_TEMP}/sentinel-ci-3.10/bin/python\" -I -B -m pip --isolated --disable-pip-version-check install --no-input --force-reinstall --require-hashes --only-binary=':all:' --no-deps --report \"${RUNNER_TEMP}/sentinel-ci-install-3.10.json\" -r tools/ci/requirements-ci-py310.lock",
+          "number": 6,
+          "startedAt": "2026-10-12T07:17:49Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-12T07:18:03Z",
+          "conclusion": "success",
+          "name": "Run command \"${RUNNER_TEMP}/sentinel-ci-3.10/bin/python\" -I -B -m pip --isolated --disable-pip-version-check check",
+          "number": 7,
+          "startedAt": "2026-10-12T07:18:03Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-12T07:18:03Z",
+          "conclusion": "success",
+          "name": "Run command \"${RUNNER_TEMP}/sentinel-ci-3.10/bin/python\" -I -B -S tools/ci/verify_ci_install.py --python-minor \"3.10\" --lock \"tools/ci/requirements-ci-py310.lock\" --report \"${RUNNER_TEMP}/sentinel-ci-install-3.10.json\"",
+          "number": 8,
+          "startedAt": "2026-10-12T07:18:03Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-12T07:18:04Z",
+          "conclusion": "success",
+          "name": "Run command \"${RUNNER_TEMP}/sentinel-ci-3.10/bin/ruff\" check .",
+          "number": 9,
+          "startedAt": "2026-10-12T07:18:03Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-12T07:18:06Z",
+          "conclusion": "success",
+          "name": "Run env -u PYTHONHOME -u PYTHONOPTIMIZE -u PYTEST_ADDOPTS -u PYTEST_PLUGINS PYTHONPATH= PYTHONHASHSEED=0 PYTHONNOUSERSITE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \"${RUNNER_TEMP}/sentinel-ci-3.10/bin/python\" -B -S tools/ci/run_pytest_isolated.py -q -c pyproject.toml --noconftest --strict-config --strict-markers tests/test_iter135_gen17_ci_hardening.py tests/test_iter135_ci_install_verifier.py",
+          "number": 10,
+          "startedAt": "2026-10-12T07:18:04Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-12T07:25:31Z",
+          "conclusion": "success",
+          "name": "Run env -u PYTHONHOME -u PYTHONOPTIMIZE -u PYTEST_ADDOPTS -u PYTEST_PLUGINS PYTHONPATH= PYTHONHASHSEED=0 PYTHONNOUSERSITE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \"${RUNNER_TEMP}/sentinel-ci-3.10/bin/python\" -B -S tools/ci/run_pytest_isolated.py -q -c pyproject.toml --noconftest --strict-config --strict-markers",
+          "number": 11,
+          "startedAt": "2026-10-12T07:18:06Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-12T07:25:32Z",
+          "conclusion": "success",
+          "name": "Run command \"${RUNNER_TEMP}/sentinel-ci-3.10/bin/python\" -I -B -S -c 'import runpy,sys;sys.path.append(\"scripts\");runpy.run_path(\"scripts/validate_docs.py\",run_name=\"__main__\")'",
+          "number": 12,
+          "startedAt": "2026-10-12T07:25:31Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-12T07:25:32Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "number": 23,
+          "startedAt": "2026-10-12T07:25:32Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-12T07:25:33Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "number": 24,
+          "startedAt": "2026-10-12T07:25:32Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-12T07:25:33Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 25,
+          "startedAt": "2026-10-12T07:25:33Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/manfromnowhere143/sentinel/actions/runs/38216831327/job/114703420720"
+    }
+  ],
+  "status": "completed",
+  "url": "https://github.com/manfromnowhere143/sentinel/actions/runs/38216831327"
+}

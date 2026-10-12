@@ -1,5 +1,12 @@
 # CONTINUITY — operator handoff (any agent: Claude, Codex, human)
 
+> **CI correction — 12 October 2026.** Default source `3e2055c` and research source
+> `aba0eea` passed hosted Python 3.10/3.11 matrices; 2,455 and 3,555 tests per job,
+> respectively, each with two skips. Exact run scopes are in current HANDOFF and
+> `docs/ci/2026-10-12/`. Current owned branch: `fix/research-ci-20261012`.
+> Earlier red/pending notices remain historical. No experiment or claim changed.
+
+
 > **Editorial update — 12 October 2026.** README/architecture refined through Iter155;
 > seven current diagrams. Scientific closure and next calibration task unchanged. The default
 > landing-page correction is documentation only; consult docs/editorial/2026-10-12/REVIEW.md
@@ -4897,3 +4904,22 @@ final publication-note additions. Both advertised examples pass. Historical publ
 remains red; default hosted CI was still running in the retained observation. No new experiment,
 provider/GPU task or scientific claim. Next remains background-aware model calibration.
 See docs/editorial/2026-10-12/publication.json and current HANDOFF.
+
+
+## Hosted CI repair and instrument publication lane — 12 October 2026
+
+Default `3e2055cef23bbf72ad32dbaa9754a2fd4b16176c` passed run 38216831327 on both Python
+minors (2,455 passed / two skipped each). Extended research source
+`aba0eea98ca594e43e8687a3a3909b40f7b6042d` passed run 38218029010 on both minors
+(3,555 passed / two skipped each, 526 Markdown files clean). Retained run/job/step
+observations live under `docs/ci/2026-10-12/`; `docs/CI_CONTRACT.md` explains the exact
+historical scope, immutable archive inventory, CPU locks and fixture corrections.
+No failing test was removed. Historical red runs remain evidence. This later
+handoff commit records those results without claiming its own hosted execution.
+
+Owned current research checkout/branch is recorded at the top of HANDOFF. Portfolio
+PR180 owns Sentinel's four-view instrument and its exact deployment receipt. The UI
+cites immutable reviewed research source `8925bc2`; a UI release does not move scientific
+admission or integrate later experiment code into master. Iter155 remains closed,
+with no new episode, provider, GPU or spending. Next is background-aware calibration
+against retained native prefixes before another search.

@@ -60,3 +60,12 @@ now expects the current Iter155 result inventory. Iter142's reference check uses
 a real disposable Git graph, exercising a valid ancestor, an absent branch and
 an unrelated commit instead of depending on a developer's local branch. No
 scientific source or archived execution byte is altered by these fixture repairs.
+
+Hosted validation completed on both Python 3.10 and 3.11. The [default-branch run](https://github.com/manfromnowhere143/sentinel/actions/runs/38216831327)
+at `3e2055cef23bbf72ad32dbaa9754a2fd4b16176c` passed 2,455 tests per job with two skips.
+The [extended research run](https://github.com/manfromnowhere143/sentinel/actions/runs/38218029010)
+at `aba0eea98ca594e43e8687a3a3909b40f7b6042d` passed 3,555 tests per job with two skips;
+526 Markdown files passed the current documentation guard. Warnings remain in the
+hosted logs. Retained [default](ci/2026-10-12/master-hosted.json) and
+[research](ci/2026-10-12/research-hosted.json) observations identify all jobs and steps.
+These exact-source results do not transfer to later bookkeeping commits.

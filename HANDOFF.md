@@ -1,3 +1,31 @@
+# CI and instrument checkpoint — 12 October 2026
+
+The latest owned research branch is `fix/research-ci-20261012` in
+`/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011`.
+Hosted CI passed both Python 3.10 and 3.11 at research source
+`aba0eea98ca594e43e8687a3a3909b40f7b6042d`: 3,555 tests passed, two skipped per job;
+526 Markdown files passed the current documentation guard. The default branch passed
+both versions at `3e2055cef23bbf72ad32dbaa9754a2fd4b16176c`, with 2,455 tests passed and
+two skipped per job. These results supersede the pending/red *current-status* notes
+in the earlier editorial checkpoint; the failed runs themselves remain retained.
+Later documentation commits do not inherit an exact-commit hosted result.
+
+Read the [CI contract](docs/CI_CONTRACT.md), [default run](https://github.com/manfromnowhere143/sentinel/actions/runs/38216831327),
+[research run](https://github.com/manfromnowhere143/sentinel/actions/runs/38218029010), and
+[retained observations](docs/ci/2026-10-12/research-hosted.json). Historical mission
+validation has an explicit archived scope; neither CI success nor this correction
+admits a new Iter135 launch source or upgrades a scientific claim.
+
+The Sentinel instrument work is tracked in [portfolio PR180](https://github.com/manfromnowhere143/Daniel-portfolio/pull/180).
+Its source, release checks and deployment receipt belong to that repository.
+The four views expose the system, findings, recorded replay and research through
+Iter155, bound to reviewed source `8925bc293b2ee835e548b8738f99319ac6b0cff5`.
+The canonical dirty workspaces and the accepted scientific evidence remain intact.
+Iter155 is still closed; the next scientific task is background-aware model
+calibration against retained native prefixes before another search.
+
+---
+
 # Editorial checkpoint — 12 October 2026
 
 The README and architecture now describe the complete research record through Iter155, with
