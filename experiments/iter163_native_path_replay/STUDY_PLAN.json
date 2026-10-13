@@ -1,0 +1,70 @@
+{
+  "schema": "sentinel.iter163.plan.v1",
+  "purpose": "study",
+  "study_id": "sentinel163-native-path-replay-20261013",
+  "slots": [
+    {
+      "index": 0,
+      "id": "native163_000__scene-0013-medium-00__selected__1",
+      "scenario": "scene-0013-medium-00.yaml",
+      "scenario_sha256": "162bd65e0fa40d6f46a992063da665f858ccf78b00879b0a34fdfc76103a2401",
+      "arm": "selected_maneuver",
+      "replica": 1,
+      "seed": 144,
+      "reset_count": 1,
+      "max_actions": 66,
+      "probe": "none"
+    },
+    {
+      "index": 1,
+      "id": "native163_001__scene-0013-medium-00__selected__2",
+      "scenario": "scene-0013-medium-00.yaml",
+      "scenario_sha256": "162bd65e0fa40d6f46a992063da665f858ccf78b00879b0a34fdfc76103a2401",
+      "arm": "selected_maneuver",
+      "replica": 2,
+      "seed": 144,
+      "reset_count": 1,
+      "max_actions": 66,
+      "probe": "none"
+    }
+  ],
+  "child_seconds": 1200,
+  "pair_seconds": 2500,
+  "block_seconds": 3600,
+  "blocks": [
+    [
+      0
+    ]
+  ],
+  "compute_hourly_upper_usd": 3.0,
+  "compute_cap_usd": 3.0,
+  "raw_before_analysis": true,
+  "initialized_retry": false,
+  "success_stopping": false,
+  "selected_packet_path": "experiments/iter163_native_path_replay/SELECTED_MANEUVER.json",
+  "selected_packet_sha256": "06bd0a5d61bc151a4b76d2a14915139f9284606ae6d57e576ffcdfc508c6ab66",
+  "geometry_path": "experiments/iter153_action_feasibility/proof/search_000/geometry.json",
+  "geometry_sha256": "f4ff1ace1643783c3d2d20cdad3fee35f587ca5855de26b656da60bf1557f5e9",
+  "historical_comparator": {
+    "iteration": 151,
+    "raw_commit": "95db0f680f6319fb33454ee0b5531bfd30d3b8da",
+    "raw_inventory_sha256": "e44cdd539edff66fbd17c79aaf7e01887ba549df27d0297c9e2e6c48a60dd220",
+    "plan_sha256": "720072bba3482074a5e09d149cac33614cf06f86edfff1270c87aa8b95f195d9",
+    "pair": 0,
+    "admission_path": "experiments/iter151_recovery_canary/proof/admissions/pair_000.json",
+    "admission_sha256": "43c21b847505d7cfe7eb9274d3d6cfde0acd8800f1766d029fe011483022ee80",
+    "raw_path": "experiments/iter151_recovery_canary/proof/study_raw/pair_000"
+  },
+  "state_tolerance": 1e-09,
+  "progress_slack": 0.05,
+  "road_compliance": null,
+  "information_benefit": null,
+  "local_free_min_bytes": 4294967296,
+  "local_collection_cap_bytes": 536870912,
+  "local_reserve_bytes": 2147483648,
+  "maximum_start_commands": 1,
+  "replica_disagreement": "inconclusive_unless_observed_collision_or_off_route",
+  "background_full_mask_replay": true,
+  "background_vertex_tolerance": 1e-06,
+  "background_ground_tolerance": 1e-10
+}

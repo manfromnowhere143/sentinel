@@ -1,0 +1,12 @@
+{
+  "iteration": 163,
+  "status": "preregistered",
+  "scientific_status": "unobserved",
+  "current_closed_iteration": 162,
+  "registered_replicas": 2,
+  "initialized_replicas": 0,
+  "native_steps": 0,
+  "full_population_fixture_steps": 66,
+  "next": "Freeze source and verify exact-head CI; run one bounded native pair after Linux ownership/identity qualification.",
+  "operator_authority": "Direct continuing Sentinel engine instruction; no human ceremony pending"
+}

@@ -1,0 +1,17 @@
+{
+  "status": "supported",
+  "inputs_sha256": "65beb092373d98354a520e97eee40befe1f7e1058847f6b21f463eaaf400dcef",
+  "plan_sha256": "1c7c8b279cddd4a6cda49f493bb9ef7230c07e9a0ac40351b963ea515edc102b",
+  "scientific_outcomes": 0,
+  "regression_tests": 579,
+  "new_focused_tests": 103,
+  "retained_warnings": 290,
+  "python": "3.14.2 (main, Dec  5 2025, 16:49:16) [Clang 16.0.0 (clang-1600.0.26.6)]",
+  "environment": "ambient macOS; exact hosted locks and live Linux/GPU observations remain separate",
+  "full_population_fixture_steps": 66,
+  "full_population_fixture_point_state_classifications": 18250254,
+  "full_population_fixture": "proof/qualification/full_source_replay.json",
+  "scope": "Source-method CPU fixture; synthetic rendering and SAT polygon substitute. Full native background arithmetic/points with separate scalar mask replay. No native episode.",
+  "final_focused_tests": 103,
+  "regression_note": "579 tests preceded final position/capture known-bads; 103 successor tests passed afterward. Counts overlap."
+}

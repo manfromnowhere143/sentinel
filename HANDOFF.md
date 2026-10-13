@@ -1,3 +1,19 @@
+# Current: Iter163 native path replay preregistered — 13 October 2026
+
+The preselected Iter162 exact/24 packet is unchanged: 66 actions, two fresh native
+replicas, one exposed source scene. Read Iter163 DECISION_PACKET, HYPOTHESIS,
+STUDY_PLAN, QUALIFICATION and STATE before launch. 579 focused/retained tests pass,
+then 103 successor tests pass after final input known-bads. CPU fixture completes 66 actions;
+independent replay checks 18,250,254 point-state classifications with no disagreement.
+Synthetic CPU rendering is not native GPU evidence. Current closed science and
+instrument remain Iter162. Native outcomes unobserved; provider currently observed
+TERMINATED. One start, 3,600 seconds, conservative $3 compute ceiling; no initialized
+retry. Raw commitment and verified host closure precede local scalar admission.
+Next: source freeze, exact-head CI, Linux lifecycle qualification and bounded pair.
+Owned branch research/iter163-native-path-replay in the observation recovery worktree.
+Canonical dirty root, archived MISSION_STATE and historical protocols unchanged.
+Earlier entries below are historical.
+
 # Current: Iter162 closed — 13 October 2026
 
 Supported bounded source qualification: both exact/24 and quantized/24 complete

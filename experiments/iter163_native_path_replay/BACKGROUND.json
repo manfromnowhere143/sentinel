@@ -1,0 +1,47 @@
+{
+  "schema": "sentinel.iter163.background.v1",
+  "raw_path": "experiments/iter155_background_witness/proof/raw",
+  "arrays": {
+    "selected_xyz": {
+      "shape": [
+        276519,
+        3
+      ],
+      "dtype": "<f4",
+      "bytes": 3318228,
+      "sha256": "b13bf86c5b2bc2082e9ef7d348f2ed17c150a3b156dbd52a919cf3ec06000cab",
+      "chunks": [
+        {
+          "path": "selected_xyz_000.bin.gz",
+          "bytes": 3083261,
+          "sha256": "54586f341eb50dcd4b53e3ec2e6826898676806f46562679fd4ef41f8d29381e",
+          "raw_bytes": 3318228,
+          "raw_sha256": "b13bf86c5b2bc2082e9ef7d348f2ed17c150a3b156dbd52a919cf3ec06000cab"
+        }
+      ]
+    },
+    "ground_poses": {
+      "shape": [
+        1252,
+        4,
+        4
+      ],
+      "dtype": "<f8",
+      "bytes": 160256,
+      "sha256": "8f73589c5d621656c2e0e88430cf515f4934700856cac9f1f8e20288cb9ff05a",
+      "chunks": [
+        {
+          "path": "ground_poses_000.bin.gz",
+          "bytes": 112992,
+          "sha256": "9f8e35e21309be8bc706364ad533606b8d56c80e6ff678393a4d12d941d4854c",
+          "raw_bytes": 160256,
+          "raw_sha256": "8f73589c5d621656c2e0e88430cf515f4934700856cac9f1f8e20288cb9ff05a"
+        }
+      ]
+    }
+  },
+  "predicate_ast_sha256": "4cccf828dab4b6bd813841a154b12f07c3682c6b6566f16df2cbfbf28676d715",
+  "source_path": "experiments/iter155_background_witness/proof/raw/score_calculator.py.txt",
+  "source_sha256": "1588b5b912384dead87b521b828cf7a135e77eb79aad5d540074c7168f79e46f",
+  "selection_admission": "experiments/iter162_source_grouping_qualification/proof/admission.json"
+}
