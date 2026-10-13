@@ -1,0 +1,20 @@
+{
+  "scope": "Scientific closure and presentation before final publication commit",
+  "focused_prefreeze_tests": 260,
+  "new_tests": 36,
+  "closure_and_channel_tests": 50,
+  "whole_ruff": "passed",
+  "supply_chain": "passed",
+  "markdown_files": 558,
+  "docs_guard": "passed",
+  "frozen_scientific_source_unchanged": true,
+  "figure_visual_inspection": "passed; legend overlap corrected before publication",
+  "mermaid_renders": 6,
+  "mermaid_visual_inspection": "passed in default/dark themes",
+  "source_ci_run": 38442327746,
+  "source_ci_status": "success",
+  "source_ci_tests_per_python": 3849,
+  "source_ci_skips_per_python": 2,
+  "final_head_ci": "not yet observed",
+  "public_readback": "pending final head publication"
+}

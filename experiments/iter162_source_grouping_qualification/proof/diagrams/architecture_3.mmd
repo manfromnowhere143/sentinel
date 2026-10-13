@@ -1,0 +1,17 @@
+flowchart TB
+  accTitle: Model, native rejection, calibration and source completion
+  accDescr: Full retained constraints admit model paths; native recovery remains unknown.
+  G["Route and foreground<br/>privileged inputs"] --> M["Iter153: reduced model<br/>one action packet"]
+  M --> N["Iter154: native test<br/>two collisions at 3.25 s"]
+  N --> X["Iter155: historical poses<br/>points, boxes and ground"]
+  X --> C["Native CUDA masks"]
+  X --> S["Separate scalar reconstruction"]
+  C --> E["Exact masks: 0 and 273<br/>threshold >100"]
+  S --> E
+  E --> F["Iter156: calibration<br/>115 full masks agree"]
+  F --> L["Iter157: full constraints<br/>0 of 75 qualify"]
+  L --> A["Iter158: bounded search<br/>valid partial path"]
+  A --> Q["Iter159: controls<br/>candidate misses one"]
+  Q --> K["Iter160: fixed suffixes<br/>one terminal shortfall"]
+  K --> Z["Iter161: grouping × width<br/>exact/24 completes four controls"]
+  Z --> Y["Iter162: source model<br/>two full paths independently replay"]

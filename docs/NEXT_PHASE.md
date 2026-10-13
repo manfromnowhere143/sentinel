@@ -1,3 +1,15 @@
+# Current engine milestone — Iter162 closed, 13 October 2026
+
+Both matched grouping arms complete the retained source model and pass independent
+scalar admission. Exact/24 qualifies without a completion or query-efficiency
+advantage over quantized/24. Next: resolve retained runtime/asset identities and
+qualify bounded native replay of the admitted exact/24 packet. Preserve actual
+monitor history for the later decision-window and equal-cost information tests.
+[Result](../experiments/iter162_source_grouping_qualification/RESULT.md) ·
+[Decision](../experiments/iter162_source_grouping_qualification/DECISION.md) ·
+[Current research review](../experiments/iter162_source_grouping_qualification/RESEARCH_UPDATE.md).
+Earlier roadmap entries are historical.
+
 # Current engine milestone — Iter161 closed, 12 October 2026
 
 Exact grouping at width 24 completes all four disclosed controls. Quantized/24

@@ -1,0 +1,58 @@
+{
+  "read_at": "2026-10-13",
+  "scope": "Primary-source method, limitations and benchmark inspection after quantized producer completion, before exact completion and independent admission; no study changes or competitor execution.",
+  "sources": [
+    {
+      "url": "https://arxiv.org/html/2602.02846v2",
+      "bytes": 505059,
+      "sha256": "cc4ae5459ac638f6877233cee506bd487af17c9754447ac8b347a20015c208eb"
+    },
+    {
+      "url": "https://arxiv.org/html/2603.16059v4",
+      "bytes": 1071479,
+      "sha256": "a428b0bc9543c47f1018d45e522af9b8c7324ea2756543a0c4871e061829bdf3"
+    },
+    {
+      "url": "https://arxiv.org/html/2610.12910v1",
+      "bytes": 277671,
+      "sha256": "16ee6d29587230444b978b068a81201db71f365a0b1ec3f560f40988b6730737"
+    },
+    {
+      "url": "https://kavrakilab.org/flask/",
+      "bytes": 17394,
+      "sha256": "c83ec4c08696f6377fb15f887e06e38ed610de36174a65424580096600c4fa71"
+    }
+  ],
+  "retained_external_directory": "/Users/danielwahnich/.codex/reports/sentinel/iter162-frontier-review",
+  "ompl_inspection": {
+    "read_at": "2026-10-13",
+    "revision": "5b209a03fe48c41f7a2f364382c2e425bf1c7c1c",
+    "scope": "Read-only implementation inspection during frozen Iter162 acquisition. No adapter installation/execution.",
+    "sources": [
+      {
+        "path": "src/ompl/control/planners/sst/src/SST.cpp",
+        "url": "https://raw.githubusercontent.com/ompl/ompl/5b209a03fe48c41f7a2f364382c2e425bf1c7c1c/src/ompl/control/planners/sst/src/SST.cpp",
+        "sha256": "ae490782202bba997d55b0b5961245f7a2ae19f79967442f473d375924919820",
+        "bytes": 16641
+      },
+      {
+        "path": "src/ompl/control/SpaceInformation.h",
+        "url": "https://raw.githubusercontent.com/ompl/ompl/5b209a03fe48c41f7a2f364382c2e425bf1c7c1c/src/ompl/control/SpaceInformation.h",
+        "sha256": "4bbbc4ac74c03f3242dc8300079187338c56e8bdada7314c77bf4e7dd18bda14",
+        "bytes": 14859
+      },
+      {
+        "path": "src/ompl/control/src/SpaceInformation.cpp",
+        "url": "https://raw.githubusercontent.com/ompl/ompl/5b209a03fe48c41f7a2f364382c2e425bf1c7c1c/src/ompl/control/src/SpaceInformation.cpp",
+        "sha256": "adae116c017d3fc461cefd452882816892b99a58b8ac0e172a7e9b69b8e1d522",
+        "bytes": 10883
+      },
+      {
+        "path": "src/ompl/base/PlannerStatus.h",
+        "url": "https://raw.githubusercontent.com/ompl/ompl/5b209a03fe48c41f7a2f364382c2e425bf1c7c1c/src/ompl/base/PlannerStatus.h",
+        "sha256": "a90f71838587f6cbe677acbf0f8eba27aa604cb725544e6df6020844e4fd9d73",
+        "bytes": 4577
+      }
+    ]
+  }
+}

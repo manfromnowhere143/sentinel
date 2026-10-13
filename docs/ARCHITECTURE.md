@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 12 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter161 research record. The [README](../README.md) carries the scientific
+limits through the Iter162 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -208,21 +208,22 @@ recovery and information benefit remain unestablished.
 
 ```mermaid
 flowchart TB
-  accTitle: The diagnostic model, native test and background witness
-  accDescr: Calibrated collision checks lead to a qualified synthetic search; native recovery remains unknown.
-  G["Route and foreground geometry<br/>privileged diagnostic inputs"] --> M["Iter153: model search<br/>one ranked action packet"]
-  M --> N["Iter154: native controls<br/>two failures at 3.25 s"]
+  accTitle: Model, native rejection, calibration and source completion
+  accDescr: Full retained constraints admit model paths; native recovery remains unknown.
+  G["Route and foreground<br/>privileged inputs"] --> M["Iter153: reduced model<br/>one action packet"]
+  M --> N["Iter154: native test<br/>two collisions at 3.25 s"]
   N --> X["Iter155: historical poses<br/>points, boxes and ground"]
   X --> C["Native CUDA masks"]
   X --> S["Separate scalar reconstruction"]
   C --> E["Exact masks: 0 and 273<br/>threshold >100"]
   S --> E
-  E --> F["Iter156: complete point queries<br/>115 scalar masks agree"]
-  F --> L["Iter157: complete constraints<br/>0 of 75 candidates qualify"]
-  L --> A["Iter158: bounded command search<br/>inconclusive; 19-state prefix replays"]
-  A --> Q["Iter159: constructive qualification<br/>candidate fails the four-case bar"]
-  Q --> K["Iter160: paired fixed continuations<br/>one terminal difference; no hard rejection"]
+  E --> F["Iter156: calibration<br/>115 full masks agree"]
+  F --> L["Iter157: full constraints<br/>0 of 75 qualify"]
+  L --> A["Iter158: bounded search<br/>valid partial path"]
+  A --> Q["Iter159: controls<br/>candidate misses one"]
+  Q --> K["Iter160: fixed suffixes<br/>one terminal shortfall"]
   K --> Z["Iter161: grouping × width<br/>exact/24 completes four controls"]
+  Z --> Y["Iter162: source model<br/>two full paths independently replay"]
 ```
 
 These privileged diagnostic inputs are not delivered to the released monitor. Iter153's model
@@ -277,6 +278,13 @@ completes four controls; quantized/24 completes three; both width 48 arms comple
 two. Full scene reflections correct the earlier fixture limitation in a new
 version. All 643 retained states and masks replay; unselected hard predicates
 remain producer evidence. [Result](../experiments/iter161_grouping_width_ablation/RESULT.md).
+
+Iter162 reuses the unchanged search for a matched source-model grouping comparison
+at width24. Both arms complete in 66 actions. Independent admission reconstructs
+all 276,519 selected points, 134 complete masks and both checkpoints per path;
+37,053,546 point-state classifications. Exact grouping uses more attempts and
+queries here. The source model now admits complete actions; native and decision-time
+recovery remain unknown. [Result](../experiments/iter162_source_grouping_qualification/RESULT.md).
 
 ## Evidence delivery to the instrument
 

@@ -1,19 +1,19 @@
 {
   "schemaVersion": 1,
-  "iteration": 161,
-  "directory": "experiments/iter161_grouping_width_ablation",
-  "title": "Exact grouping helps. A wider beam does not.",
-  "summary": "At the same 18,000-transition cap, exact grouping at width 24 completes all four controls; quantized grouping completes three. Both width-48 variants complete two. All sixteen runs pass independent admission.",
-  "boundary": "Chart: four constructive witnesses and sixteen selected search paths. Scalar replay checks 643 states. These are two disclosed paired scene families; native recovery and information benefit remain unknown.",
-  "next": "Test the unchanged exact/24 candidate on the retained full source model, with a matched quantized/24 arm and prospectively calibrated resource caps. No native run yet.",
+  "iteration": 162,
+  "directory": "experiments/iter162_source_grouping_qualification",
+  "title": "Both grouping rules complete the source model.",
+  "summary": "Two matched width-24 searches complete in 66 actions. Independent replay verifies 134 full masks over all 276,519 selected points and both original checkpoints per path. Exact grouping uses more attempts here.",
+  "boundary": "One exposed static source model and privileged geometry. Roughly seven minutes of offline search per arm. Native recovery, actual decision-time availability, information benefit and transfer remain unknown.",
+  "next": "Qualify bounded native replay of the admitted exact/24 action packet, preserving runtime and asset identities. Then test recovery from the actual monitor history.",
   "metrics": [
     {
-      "label": "Factorial runs",
+      "label": "Registered searches",
       "field": "runs"
     },
     {
-      "label": "Exact / 24 completions (of 4)",
-      "field": "candidate_completions"
+      "label": "Source-model completions",
+      "field": "complete_runs"
     },
     {
       "label": "Attempted transitions",
@@ -26,16 +26,16 @@
   ],
   "breakdown": [
     {
-      "label": "Constructive witnesses complete",
-      "field": "cases"
-    },
-    {
-      "label": "Search paths complete",
+      "label": "Complete paths",
       "field": "complete_runs"
     },
     {
-      "label": "Search prefixes incomplete",
+      "label": "Incomplete prefixes",
       "field": "incomplete_runs"
+    },
+    {
+      "label": "Invalid runs",
+      "field": "invalid_runs"
     }
   ]
 }

@@ -1,0 +1,56 @@
+[
+  {
+    "source": "README.md",
+    "diagram": 1,
+    "theme": "default",
+    "returncode": 0,
+    "output": "experiments/iter162_source_grouping_qualification/proof/diagrams/readme_1_default.png",
+    "sha256": "1ea294205d32dc660b90c49ff2c6306ba053dcacba199c04d3c825867b561399",
+    "visual_inspection": "passed: legible labels, no clipping, acyclic topology and retained/proposed distinction"
+  },
+  {
+    "source": "README.md",
+    "diagram": 1,
+    "theme": "dark",
+    "returncode": 0,
+    "output": "experiments/iter162_source_grouping_qualification/proof/diagrams/readme_1_dark.png",
+    "sha256": "1f8076d1a4c3391acb0d57506a4cde101bbb515e65b91a5278df6a206b2a3ab0",
+    "visual_inspection": "passed: legible labels, no clipping, acyclic topology and retained/proposed distinction"
+  },
+  {
+    "source": "README.md",
+    "diagram": 2,
+    "theme": "default",
+    "returncode": 0,
+    "output": "experiments/iter162_source_grouping_qualification/proof/diagrams/readme_2_default.png",
+    "sha256": "c9e6dfe7950be1dd6545a00afd837af13da61ed22b642d5159e0933fa57a30d0",
+    "visual_inspection": "passed: legible labels, no clipping, acyclic topology and retained/proposed distinction"
+  },
+  {
+    "source": "README.md",
+    "diagram": 2,
+    "theme": "dark",
+    "returncode": 0,
+    "output": "experiments/iter162_source_grouping_qualification/proof/diagrams/readme_2_dark.png",
+    "sha256": "cba1e07fb4d09c00a4344cec0112561ef2aef55b31e00deb3aeef7f2429b4cfc",
+    "visual_inspection": "passed: legible labels, no clipping, acyclic topology and retained/proposed distinction"
+  },
+  {
+    "source": "docs/ARCHITECTURE.md",
+    "diagram": 3,
+    "theme": "default",
+    "returncode": 0,
+    "output": "experiments/iter162_source_grouping_qualification/proof/diagrams/architecture_3_default.png",
+    "sha256": "9edf0f65aa0a7c4037c742cdb6cdc0d624907d172cfe93bf7ba86d3f06c3cc13",
+    "visual_inspection": "passed: legible labels, no clipping, acyclic topology and retained/proposed distinction"
+  },
+  {
+    "source": "docs/ARCHITECTURE.md",
+    "diagram": 3,
+    "theme": "dark",
+    "returncode": 0,
+    "output": "experiments/iter162_source_grouping_qualification/proof/diagrams/architecture_3_dark.png",
+    "sha256": "d2e62a074eac0542221697a03a24e32c344d4fe39dbe19909bcb0906030ebda4",
+    "visual_inspection": "passed: legible labels, no clipping, acyclic topology and retained/proposed distinction"
+  }
+]

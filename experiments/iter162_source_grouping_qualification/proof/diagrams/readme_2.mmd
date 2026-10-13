@@ -1,0 +1,15 @@
+flowchart TB
+  accTitle: From model completion to information benefit
+  accDescr: Six retained results precede proposed native replay and information testing.
+  C["Iter157: fixed library null<br/>0 of 75 qualify"] --> A["Iter158: inconclusive<br/>valid partial path"]
+  A --> Q["Iter159: controls<br/>candidate completes 3 of 4"]
+  Q --> K["Iter160: fixed suffixes<br/>one terminal shortfall"]
+  K --> G["Iter161: exact/24 qualifies<br/>wider beams lose completions"]
+  G --> S["Iter162: source model<br/>both grouping arms complete"]
+  S --> V["Proposed: bounded native replay<br/>same admitted action packet"]
+  V --> R{"Useful native<br/>recovery?"}
+  R -- "not found" --> N["Retain rejection<br/>resolve model discrepancy"]
+  R -- "unknown" --> U["Retain missing/invalid evidence<br/>no recovery claim"]
+  R -- "supported" --> W["Preserve nominal prefix<br/>measure decision window"]
+  W --> I["Test added information<br/>against responsive policy"]
+  I --> H["Held-out scenes<br/>benefit, harm and uncertainty"]

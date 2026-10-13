@@ -1,3 +1,27 @@
+# Current: Iter162 closed — 13 October 2026
+
+Supported bounded source qualification: both exact/24 and quantized/24 complete
+in 66 actions / 16.5 model seconds. Exact uses 25,441 attempts; quantized 24,764.
+No completion or query-efficiency advantage. All 134 states/full masks and both
+original checkpoints per path independently replay: 37,053,546 point checks.
+Read experiments/iter162_source_grouping_qualification/RESULT.md,
+DECISION.md, STATE.json, PROTOCOL.md and proof/admission.json.
+
+Source 219f4605f2bfd3aed9ed97ab084616ce1ee35ce8; raw
+682214de17d57a7a5232bc697a7d9d5c644fd631 committed before admission
+79f2da20e0ffc5585a4f64899bd93b33673d6a4c. One acquisition 843.796 s;
+checker 225.129 s; all caps pass. 260 focused/retained checks, 36 new.
+Frozen-source CI 38442327746 passes 3,849 tests/two skips on each Python version.
+Closure exact-head CI/public delivery remain separately observed publication evidence.
+No native, provider, GPU, spend or owned experiment job. No initialized retry.
+Next: qualify bounded native replay of the admitted exact/24 action packet;
+preserve runtime/asset identities, checkpoints and failure accounting. Then test
+actual decision-time history and equal-cost information benefit. Released-planner
+comparison remains necessary; new 2026 research review is a decision input, not
+a benchmark. Iter135 deferred. Owned branch research/iter162-source-grouping-qualification.
+Canonical dirty root, accepted history and archived MISSION_STATE unchanged.
+Earlier notices below are historical.
+
 # Current: Iter162 source grouping qualification preregistered — 13 October 2026
 
 The next source-model test compares unchanged Iter161 exact/24 with quantized/24.
@@ -5107,3 +5131,9 @@ Producer 2.830 s, scalar admission 176.654 s; median queries 16.564 ms versus 1.
 exploratory local cost only. 151 focused tests pass. Read Iter156 RESULT, STATE,
 PROTOCOL, proof/admission.json and DECISION. Next: register a finite constrained action
 library and responsive comparison before search. No human ceremony is pending.
+
+## Iter162 controlling closure — 13 October 2026
+
+Both matched source-model paths independently admitted. Follow the current top entry
+and Iter162 DECISION/STATE for the next bounded native qualification. Earlier entries
+retain historical scope; no native recovery, information or transfer claim follows.
