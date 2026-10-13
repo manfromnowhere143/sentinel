@@ -1,0 +1,298 @@
+{
+  "schema": "sentinel.iter163.summary.v1",
+  "status": "completed",
+  "episode": "native163_000__scene-0013-medium-00__selected__1",
+  "arm": "selected_maneuver",
+  "seed": 144,
+  "max_actions": 66,
+  "steps": 66,
+  "stop_reason": "source_terminal",
+  "inference_bypassed": true,
+  "timings": [
+    {
+      "frame": 0,
+      "full_loop_ns": 580375931
+    },
+    {
+      "frame": 1,
+      "full_loop_ns": 569375613
+    },
+    {
+      "frame": 2,
+      "full_loop_ns": 542792660
+    },
+    {
+      "frame": 3,
+      "full_loop_ns": 551665200
+    },
+    {
+      "frame": 4,
+      "full_loop_ns": 544166607
+    },
+    {
+      "frame": 5,
+      "full_loop_ns": 542207188
+    },
+    {
+      "frame": 6,
+      "full_loop_ns": 540280598
+    },
+    {
+      "frame": 7,
+      "full_loop_ns": 538809413
+    },
+    {
+      "frame": 8,
+      "full_loop_ns": 565652216
+    },
+    {
+      "frame": 9,
+      "full_loop_ns": 535925138
+    },
+    {
+      "frame": 10,
+      "full_loop_ns": 538844115
+    },
+    {
+      "frame": 11,
+      "full_loop_ns": 535146211
+    },
+    {
+      "frame": 12,
+      "full_loop_ns": 542844121
+    },
+    {
+      "frame": 13,
+      "full_loop_ns": 546180305
+    },
+    {
+      "frame": 14,
+      "full_loop_ns": 535229377
+    },
+    {
+      "frame": 15,
+      "full_loop_ns": 553510370
+    },
+    {
+      "frame": 16,
+      "full_loop_ns": 536516232
+    },
+    {
+      "frame": 17,
+      "full_loop_ns": 535897841
+    },
+    {
+      "frame": 18,
+      "full_loop_ns": 532663758
+    },
+    {
+      "frame": 19,
+      "full_loop_ns": 550735768
+    },
+    {
+      "frame": 20,
+      "full_loop_ns": 533953160
+    },
+    {
+      "frame": 21,
+      "full_loop_ns": 548740013
+    },
+    {
+      "frame": 22,
+      "full_loop_ns": 541178823
+    },
+    {
+      "frame": 23,
+      "full_loop_ns": 541075690
+    },
+    {
+      "frame": 24,
+      "full_loop_ns": 542310249
+    },
+    {
+      "frame": 25,
+      "full_loop_ns": 541089322
+    },
+    {
+      "frame": 26,
+      "full_loop_ns": 539563024
+    },
+    {
+      "frame": 27,
+      "full_loop_ns": 546493504
+    },
+    {
+      "frame": 28,
+      "full_loop_ns": 542365741
+    },
+    {
+      "frame": 29,
+      "full_loop_ns": 542358756
+    },
+    {
+      "frame": 30,
+      "full_loop_ns": 543369558
+    },
+    {
+      "frame": 31,
+      "full_loop_ns": 540575383
+    },
+    {
+      "frame": 32,
+      "full_loop_ns": 544157050
+    },
+    {
+      "frame": 33,
+      "full_loop_ns": 546915419
+    },
+    {
+      "frame": 34,
+      "full_loop_ns": 550033656
+    },
+    {
+      "frame": 35,
+      "full_loop_ns": 553471353
+    },
+    {
+      "frame": 36,
+      "full_loop_ns": 547258924
+    },
+    {
+      "frame": 37,
+      "full_loop_ns": 555668255
+    },
+    {
+      "frame": 38,
+      "full_loop_ns": 556256570
+    },
+    {
+      "frame": 39,
+      "full_loop_ns": 560427359
+    },
+    {
+      "frame": 40,
+      "full_loop_ns": 558936585
+    },
+    {
+      "frame": 41,
+      "full_loop_ns": 566989858
+    },
+    {
+      "frame": 42,
+      "full_loop_ns": 570998173
+    },
+    {
+      "frame": 43,
+      "full_loop_ns": 578279578
+    },
+    {
+      "frame": 44,
+      "full_loop_ns": 582659083
+    },
+    {
+      "frame": 45,
+      "full_loop_ns": 577280272
+    },
+    {
+      "frame": 46,
+      "full_loop_ns": 576155768
+    },
+    {
+      "frame": 47,
+      "full_loop_ns": 588522632
+    },
+    {
+      "frame": 48,
+      "full_loop_ns": 576453645
+    },
+    {
+      "frame": 49,
+      "full_loop_ns": 578665711
+    },
+    {
+      "frame": 50,
+      "full_loop_ns": 577328841
+    },
+    {
+      "frame": 51,
+      "full_loop_ns": 587577205
+    },
+    {
+      "frame": 52,
+      "full_loop_ns": 587324478
+    },
+    {
+      "frame": 53,
+      "full_loop_ns": 594401115
+    },
+    {
+      "frame": 54,
+      "full_loop_ns": 596843649
+    },
+    {
+      "frame": 55,
+      "full_loop_ns": 594497485
+    },
+    {
+      "frame": 56,
+      "full_loop_ns": 580865792
+    },
+    {
+      "frame": 57,
+      "full_loop_ns": 576142510
+    },
+    {
+      "frame": 58,
+      "full_loop_ns": 576164680
+    },
+    {
+      "frame": 59,
+      "full_loop_ns": 579480792
+    },
+    {
+      "frame": 60,
+      "full_loop_ns": 580653807
+    },
+    {
+      "frame": 61,
+      "full_loop_ns": 583968896
+    },
+    {
+      "frame": 62,
+      "full_loop_ns": 585356087
+    },
+    {
+      "frame": 63,
+      "full_loop_ns": 587809501
+    },
+    {
+      "frame": 64,
+      "full_loop_ns": 597486684
+    },
+    {
+      "frame": 65,
+      "full_loop_ns": 586052969
+    }
+  ],
+  "events_sha256": "88ba008a76f1a4885ab315e085a3972a0bddff3c1dae008b52b7d901f6e306ef",
+  "events_bytes": 512287,
+  "elapsed_ns": 38626590288,
+  "outcome": {
+    "execution_valid": true,
+    "collision_observed": false,
+    "off_route_observed": false,
+    "background_collision": false,
+    "foreground_collision": false,
+    "simulator_completion": true,
+    "censored": false,
+    "completion_qualified": true,
+    "progress_checks": {
+      "nominal": true,
+      "monitor": true
+    },
+    "road_compliance": null,
+    "information_benefit": null,
+    "first_failure_time": null,
+    "final_sample_observed": false
+  }
+}
