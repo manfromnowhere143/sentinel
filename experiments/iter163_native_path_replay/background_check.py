@@ -92,7 +92,7 @@ def query(row, state, ego_pos, points, ground, expected_sha):
 def verify(root, rows, worker):
     binding, points, ground = population(root)
     require(
-        worker["background_source_ast_sha256"] == binding["predicate_ast_sha256"],
+        worker["background_source_sha256"] == binding["predicate_source_sha256"],
         "predicate_binding",
     )
     steps = [r for r in rows if r["event"] == "step"]

@@ -1,6 +1,6 @@
 {
   "status": "supported",
-  "inputs_sha256": "65beb092373d98354a520e97eee40befe1f7e1058847f6b21f463eaaf400dcef",
+  "inputs_sha256": "e5d9fca86f437d66ad7c7cd4ff91201b66beb9293037de4f83e95fc57a58fc52",
   "plan_sha256": "1c7c8b279cddd4a6cda49f493bb9ef7230c07e9a0ac40351b963ea515edc102b",
   "scientific_outcomes": 0,
   "regression_tests": 579,
@@ -13,5 +13,9 @@
   "full_population_fixture": "proof/qualification/full_source_replay.json",
   "scope": "Source-method CPU fixture; synthetic rendering and SAT polygon substitute. Full native background arithmetic/points with separate scalar mask replay. No native episode.",
   "final_focused_tests": 103,
-  "regression_note": "579 tests preceded final position/capture known-bads; 103 successor tests passed afterward. Counts overlap."
+  "regression_note": "579 tests preceded final position/capture known-bads; 103 successor tests passed afterward. Counts overlap.",
+  "portable_binding_python311": "proof/qualification/portable_python311.json",
+  "portable_fixture_equivalence": "proof/qualification/portable_fixture_equivalence.json",
+  "failed_hosted_run": 38453016342,
+  "pre_evidence_amendment": "PRE_EVIDENCE_AMENDMENT_001.md"
 }

@@ -33,7 +33,7 @@ from the admitted source path. State agreement is within 1e-9, original strict
 control/comfort bounds apply, and both historical progress checks retain slack 0.05.
 Source completion uses its sampled-route rule near 90%, not the literal final point.
 
-The original native background predicate is AST-bound. One observation call is
+The original native background predicate is source-byte-bound. One observation call is
 inserted immediately before its unchanged return: it captures the actual mask,
 actual binary32 query points' SHA-256, box vertices and count. It does not replace
 the predicate or change its arithmetic. Each population must match all 276,519

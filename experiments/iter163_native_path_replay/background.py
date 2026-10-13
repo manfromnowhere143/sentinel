@@ -6,10 +6,11 @@ import inspect
 import textwrap
 
 
-def tapped(function, callback, expected_ast):
-    tree = ast.parse(textwrap.dedent(inspect.getsource(function)))
-    identity = hashlib.sha256(ast.dump(tree, include_attributes=False).encode()).hexdigest()
-    if identity != expected_ast:
+def tapped(function, callback, expected_source):
+    source = textwrap.dedent(inspect.getsource(function)).strip() + "\n"
+    tree = ast.parse(source)
+    identity = hashlib.sha256(source.encode()).hexdigest()
+    if identity != expected_source:
         raise ValueError("background_source_identity")
     node = tree.body[0]
     if (

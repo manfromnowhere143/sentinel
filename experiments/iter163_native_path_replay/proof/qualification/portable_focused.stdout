@@ -1,0 +1,46 @@
+........................................................................ [ 69%]
+...........................F...                                          [100%]
+=================================== FAILURES ===================================
+________________ test_mask_tap_rejects_unqualified_return_shape ________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x11753f460>
+
+    def test_mask_tap_rejects_unqualified_return_shape(monkeypatch):
+        from experiments.iter163_native_path_replay import background
+    
+        source = "def other(points, box):\n    return False\n"
+        monkeypatch.setattr(background.inspect, "getsource", lambda _: source)
+        identity = hashlib.sha256(
+>           ast.dump(ast.parse(source), include_attributes=False).encode()
+            ^^^
+        ).hexdigest()
+E       NameError: name 'ast' is not defined. Did you forget to import 'ast'?
+
+tests/test_iter163_native_path_replay.py:671: NameError
+=============================== warnings summary ===============================
+tests/test_iter163_native_path_replay.py::test_source_exact_maneuver_completion
+tests/test_iter163_native_path_replay.py::test_native_background_failure_is_not_success
+tests/test_iter163_native_path_replay.py::test_runner_rejects_wrong_source_state[reset]
+tests/test_iter163_native_path_replay.py::test_runner_rejects_wrong_source_state[clock]
+tests/test_iter163_native_path_replay.py::test_runner_rejects_wrong_source_state[route]
+tests/test_iter163_native_path_replay.py::test_runner_rejects_wrong_source_state[bounds]
+  <bound-source-slice>:24: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+
+tests/test_iter163_native_path_replay.py::test_source_exact_maneuver_completion
+tests/test_iter163_native_path_replay.py::test_native_background_failure_is_not_success
+tests/test_iter163_native_path_replay.py::test_runner_rejects_wrong_source_state[reset]
+tests/test_iter163_native_path_replay.py::test_runner_rejects_wrong_source_state[clock]
+tests/test_iter163_native_path_replay.py::test_runner_rejects_wrong_source_state[route]
+tests/test_iter163_native_path_replay.py::test_runner_rejects_wrong_source_state[bounds]
+  <bound-source-slice>:26: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+
+tests/test_iter163_native_path_replay.py: 67 warnings
+  <bound-source-slice>:308: DeprecationWarning: __array_wrap__ must accept context and return_scalar arguments (positionally) in the future. (Deprecated NumPy 2.0)
+
+tests/test_iter163_native_path_replay.py: 67 warnings
+  <bound-source-slice>:309: DeprecationWarning: __array_wrap__ must accept context and return_scalar arguments (positionally) in the future. (Deprecated NumPy 2.0)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_iter163_native_path_replay.py::test_mask_tap_rejects_unqualified_return_shape
+1 failed, 102 passed, 146 warnings in 3.03s

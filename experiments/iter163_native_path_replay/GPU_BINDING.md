@@ -10,7 +10,7 @@ to bind the new 66-action packet, episode identities and background telemetry.
 Historical source and results remain unchanged. Reused observation reconciliation,
 provider identity, timed actor, foreground and independent motion implementations
 retain their original namespaces and are explicitly inventoried in INPUTS.json.
-The producer's source mask tap changes instrumentation only. Its retained AST
+The producer's source mask tap changes instrumentation only. Its retained source-text
 identity and threshold/known-bad fixtures are prerequisites to native initialization.
 
 Read [HYPOTHESIS.md](HYPOTHESIS.md), [STUDY_PLAN.json](STUDY_PLAN.json) and

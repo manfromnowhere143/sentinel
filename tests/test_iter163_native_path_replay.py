@@ -505,7 +505,7 @@ def test_mask_tap_preserves_exact_native_threshold(n):
     observed = tapped(
         ns["bg_collision_det"],
         lambda m, p, b: masks.append(m.clone()),
-        binding["predicate_ast_sha256"],
+        binding["predicate_source_sha256"],
     )
     points = torch.tensor([[0.0, 0.5, 0.0]] * n, dtype=torch.float32).reshape(n, 3)
     box = torch.tensor(vertices([0.0, 0.0, 0.0], 0), dtype=torch.float32)
@@ -663,14 +663,11 @@ def test_mask_capture_validates_native_inputs(fault):
 
 
 def test_mask_tap_rejects_unqualified_return_shape(monkeypatch):
-    import ast
     from experiments.iter163_native_path_replay import background
 
     source = "def other(points, box):\n    return False\n"
     monkeypatch.setattr(background.inspect, "getsource", lambda _: source)
-    identity = hashlib.sha256(
-        ast.dump(ast.parse(source), include_attributes=False).encode()
-    ).hexdigest()
+    identity = hashlib.sha256(source.encode()).hexdigest()
     with pytest.raises(ValueError, match="background_source_shape"):
         background.tapped(lambda: None, lambda *_: None, identity)
 

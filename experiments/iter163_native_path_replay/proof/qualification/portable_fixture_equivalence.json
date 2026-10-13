@@ -1,0 +1,8 @@
+{
+  "status": "supported",
+  "steps": 66,
+  "query_records_equal": true,
+  "outcomes_equal": true,
+  "prior_scalar_classifications": 18250254,
+  "scope": "All 66 actual full-population CPU query inputs/masks match prior independently checked records after portable source identity correction; synthetic rendering retained."
+}

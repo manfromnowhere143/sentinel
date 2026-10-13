@@ -850,20 +850,20 @@
       "sha256": "8d3d949160a4424f477e504b9adf766aa2bc2a28036fb4609b9129beb037098a"
     },
     "experiments/iter163_native_path_replay/BACKGROUND.json": {
-      "bytes": 1594,
-      "sha256": "24bf7418e10b74e50c26d65110186fe35b4651389e5fa37304d8ffd6d90eb5d1"
+      "bytes": 1733,
+      "sha256": "30a7d8979a5e690b869b6425a1f750c69aaf23040ae5ec46e92d104b3ac10d0a"
     },
     "experiments/iter163_native_path_replay/DECISION_PACKET.md": {
       "bytes": 2390,
       "sha256": "aaa4d23cb1dd978cca58576a13d3989449186f8449c89ccb2fee34f3bfb1f47f"
     },
     "experiments/iter163_native_path_replay/GPU_BINDING.md": {
-      "bytes": 1198,
-      "sha256": "a41f4c34083aa1d948a1d3b9dd390d0501e0720dbdb2d736909eb0d61169ce44"
+      "bytes": 1206,
+      "sha256": "eb47e8d801f74e7a7a6dbf33ad6a3c26b7ea9be8caf5556e8fb48abdd5a9f0fa"
     },
     "experiments/iter163_native_path_replay/HYPOTHESIS.md": {
-      "bytes": 7017,
-      "sha256": "3f8f3a8b0480efc89347ad145bf0c15d101ed1e62f374cad9a2bca292bc24d12"
+      "bytes": 7025,
+      "sha256": "339eabf41521a6b21abbeca66a40d9941df580ac596be6590d063f81d47c700b"
     },
     "experiments/iter163_native_path_replay/SELECTED_MANEUVER.json": {
       "bytes": 12659,
@@ -882,12 +882,12 @@
       "sha256": "d71bcf3c9db11e9fb6b6d01cdc0012d6d1192d78443f9a5da5f9ec8217088bf3"
     },
     "experiments/iter163_native_path_replay/background.py": {
-      "bytes": 2076,
-      "sha256": "1781128c8f6797ed205459d9e82a0279045b401c54671e9598b75e8b2e7bc183"
+      "bytes": 2083,
+      "sha256": "038dcc111cf8fedb92f53894d33755599b250f73719518ef24bf5235b1fad928"
     },
     "experiments/iter163_native_path_replay/background_check.py": {
-      "bytes": 4830,
-      "sha256": "086db32a44462a93396803a5bb05f35f159940fa9dae39cd3f3ca388e8ce0e09"
+      "bytes": 4829,
+      "sha256": "9d6d31c3c15e188368274b7f727d5e2b6c223ebfffa9988ffc49417a34727b9b"
     },
     "experiments/iter163_native_path_replay/baseline.py": {
       "bytes": 294,
@@ -910,12 +910,12 @@
       "sha256": "5574c8c7e0b99d49e9727c338ae126300ddfdecc182953dcf26562e61f5796c4"
     },
     "experiments/iter163_native_path_replay/fixtures.py": {
-      "bytes": 3268,
-      "sha256": "00c087aa18827a377df35b5b378898ec854c90f5cbe9e2dc377942693e9ce07d"
+      "bytes": 3271,
+      "sha256": "3f8a6a8ee23a87979920b56529e89344f3e6151b5f40e031b05dcc070b08268f"
     },
     "experiments/iter163_native_path_replay/gpu.py": {
-      "bytes": 7735,
-      "sha256": "a74ac1afe87281a41183c33b6d584beaf478082673474b3e13eb413fe11e6383"
+      "bytes": 7737,
+      "sha256": "566b48b9b48643f4fbbdeaa170ef70e131542f359e78c6ef0b8505079ed9d18a"
     },
     "experiments/iter163_native_path_replay/native.py": {
       "bytes": 8978,
@@ -986,8 +986,14 @@
       "sha256": "72f28a922b1c18b9030e6ed1419e973ba2eb54e4944dc99f3e07004eda8bdf8e"
     },
     "tests/test_iter163_native_path_replay.py": {
-      "bytes": 25847,
-      "sha256": "ad3be23ac049ae9c87a51f0ea6d93b58381e8f252b0b84b0b76cf4fade31164c"
+      "bytes": 25774,
+      "sha256": "4841c18c495a6d516c469551fb311054ff60debec3c3d2b224b663637c05b4eb"
+    },
+    "experiments/iter163_native_path_replay/PRE_EVIDENCE_AMENDMENT_001.md": {
+      "bytes": 1792,
+      "sha256": "ded4461cd894cacbe4abe3cbb342269272eb63720f8aa28cd85eb21841340f58"
     }
-  }
+  },
+  "pre_evidence_amendment": "PRE_EVIDENCE_AMENDMENT_001.md",
+  "prior_source": "c77d30b595adcb9afa11ae43532a0f9baa9203f1"
 }

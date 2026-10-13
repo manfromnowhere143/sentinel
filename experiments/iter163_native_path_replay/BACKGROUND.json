@@ -40,8 +40,9 @@
       ]
     }
   },
-  "predicate_ast_sha256": "4cccf828dab4b6bd813841a154b12f07c3682c6b6566f16df2cbfbf28676d715",
   "source_path": "experiments/iter155_background_witness/proof/raw/score_calculator.py.txt",
   "source_sha256": "1588b5b912384dead87b521b828cf7a135e77eb79aad5d540074c7168f79e46f",
-  "selection_admission": "experiments/iter162_source_grouping_qualification/proof/admission.json"
+  "selection_admission": "experiments/iter162_source_grouping_qualification/proof/admission.json",
+  "predicate_source_sha256": "b5711751b1828695e24f4dacdd5e852fe55e61fef43501a864e2c9d181d0b91a",
+  "predicate_source_encoding": "UTF-8; dedent function source; strip exterior whitespace; append LF. Internal source bytes unchanged."
 }

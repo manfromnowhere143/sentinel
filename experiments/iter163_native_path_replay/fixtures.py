@@ -52,7 +52,7 @@ def execute(root, output, *, background=False, mutate=lambda env: None, full_bac
         predicate = tapped(
             namespace["bg_collision_det"],
             lambda m, p, b: captured.append(capture(m, p, b)),
-            binding["predicate_ast_sha256"],
+            binding["predicate_source_sha256"],
         )
 
         def measured(points, box):

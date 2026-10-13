@@ -1,0 +1,762 @@
+﻿2026-10-13T19:12:38.4538008Z Current runner version: '2.337.0'
+2026-10-13T19:12:38.4563033Z ##[group]Runner Image Provisioner
+2026-10-13T19:12:38.4563751Z Hosted Compute Agent
+2026-10-13T19:12:38.4564130Z Version: 20261002.596
+2026-10-13T19:12:38.4564514Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0
+2026-10-13T19:12:38.4565211Z Build Date: 2026-10-02T22:28:27Z
+2026-10-13T19:12:38.4565631Z Worker ID: {2461a0cf-a3eb-44d5-9779-c270d90d86dd}
+2026-10-13T19:12:38.4566051Z Region: centralus
+2026-10-13T19:12:38.4566473Z Cloud: Azure
+2026-10-13T19:12:38.4566813Z ##[endgroup]
+2026-10-13T19:12:38.4567730Z ##[group]Operating System
+2026-10-13T19:12:38.4568100Z Ubuntu
+2026-10-13T19:12:38.4568403Z 24.04.5
+2026-10-13T19:12:38.4569058Z LTS
+2026-10-13T19:12:38.4569383Z ##[endgroup]
+2026-10-13T19:12:38.4569776Z ##[group]Runner Image
+2026-10-13T19:12:38.4570148Z Image: ubuntu-24.04
+2026-10-13T19:12:38.4570502Z Version: 20261004.327.1
+2026-10-13T19:12:38.4571315Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-13T19:12:38.4572277Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327
+2026-10-13T19:12:38.4572861Z ##[endgroup]
+2026-10-13T19:12:38.4573566Z ##[group]GITHUB_TOKEN Permissions
+2026-10-13T19:12:38.4574926Z Contents: read
+2026-10-13T19:12:38.4575500Z Metadata: read
+2026-10-13T19:12:38.4575910Z ##[endgroup]
+2026-10-13T19:12:38.4577280Z Secret source: Actions
+2026-10-13T19:12:38.4577883Z Cache mode: write
+2026-10-13T19:12:38.4578587Z Prepare workflow directory
+2026-10-13T19:12:38.4822477Z Prepare all required actions
+2026-10-13T19:12:38.4854391Z Getting action download info
+2026-10-13T19:12:38.7218029Z Download action repository 'actions/checkout@11d5960a326750d5838078e36cf38b85af677262' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-13T19:12:38.7993245Z Download action repository 'actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-10-13T19:12:38.9688259Z Complete job name: check (3.11)
+2026-10-13T19:12:39.0130009Z ##[group]Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+2026-10-13T19:12:39.0130516Z with:
+2026-10-13T19:12:39.0130755Z   fetch-depth: 0
+2026-10-13T19:12:39.0131119Z   persist-credentials: false
+2026-10-13T19:12:39.0131425Z   repository: manfromnowhere143/sentinel
+2026-10-13T19:12:39.0133497Z   token: ***
+2026-10-13T19:12:39.0133730Z   ssh-strict: true
+2026-10-13T19:12:39.0133970Z   ssh-user: git
+2026-10-13T19:12:39.0134201Z   clean: true
+2026-10-13T19:12:39.0134446Z   sparse-checkout-cone-mode: true
+2026-10-13T19:12:39.0134731Z   fetch-tags: false
+2026-10-13T19:12:39.0135094Z   show-progress: true
+2026-10-13T19:12:39.0135341Z   lfs: false
+2026-10-13T19:12:39.0135567Z   submodules: false
+2026-10-13T19:12:39.0135816Z   set-safe-directory: true
+2026-10-13T19:12:39.0136095Z   allow-unsafe-pr-checkout: false
+2026-10-13T19:12:39.0136463Z env:
+2026-10-13T19:12:39.0136680Z   LANG: C.UTF-8
+2026-10-13T19:12:39.0136919Z   LC_ALL: C.UTF-8
+2026-10-13T19:12:39.0137197Z   MKL_NUM_THREADS: 1
+2026-10-13T19:12:39.0137486Z   OMP_NUM_THREADS: 1
+2026-10-13T19:12:39.0137736Z   OPENBLAS_NUM_THREADS: 1
+2026-10-13T19:12:39.0137996Z   PYTHONHASHSEED: 0
+2026-10-13T19:12:39.0138230Z   TZ: UTC
+2026-10-13T19:12:39.0138452Z ##[endgroup]
+2026-10-13T19:12:39.0802103Z Syncing repository: manfromnowhere143/sentinel
+2026-10-13T19:12:39.0803188Z ##[group]Getting Git version info
+2026-10-13T19:12:39.0803608Z Working directory is '/home/runner/work/sentinel/sentinel'
+2026-10-13T19:12:39.0804196Z [command]/usr/bin/git version
+2026-10-13T19:12:39.0861472Z git version 2.55.0
+2026-10-13T19:12:39.0873309Z ##[endgroup]
+2026-10-13T19:12:39.0882042Z Temporarily overriding HOME='/home/runner/work/_temp/4a9d571f-c281-4335-a8a7-2f59688b96f2' before making global git config changes
+2026-10-13T19:12:39.0882927Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-13T19:12:39.0886227Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/sentinel/sentinel
+2026-10-13T19:12:39.0928249Z Deleting the contents of '/home/runner/work/sentinel/sentinel'
+2026-10-13T19:12:39.0931447Z ##[group]Initializing the repository
+2026-10-13T19:12:39.0934245Z [command]/usr/bin/git init /home/runner/work/sentinel/sentinel
+2026-10-13T19:12:39.1035450Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-13T19:12:39.1036033Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-13T19:12:39.1036545Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-13T19:12:39.1036954Z hint: call:
+2026-10-13T19:12:39.1037182Z hint:
+2026-10-13T19:12:39.1037541Z hint: 	git config --global init.defaultBranch <name>
+2026-10-13T19:12:39.1038087Z hint:
+2026-10-13T19:12:39.1038443Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-13T19:12:39.1038957Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-13T19:12:39.1039524Z hint:
+2026-10-13T19:12:39.1039901Z hint: 	git branch -m <name>
+2026-10-13T19:12:39.1040315Z hint:
+2026-10-13T19:12:39.1040875Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-13T19:12:39.1041782Z Initialized empty Git repository in /home/runner/work/sentinel/sentinel/.git/
+2026-10-13T19:12:39.1046203Z [command]/usr/bin/git remote add origin https://github.com/manfromnowhere143/sentinel
+2026-10-13T19:12:39.1088133Z ##[endgroup]
+2026-10-13T19:12:39.1088821Z ##[group]Disabling automatic garbage collection
+2026-10-13T19:12:39.1091015Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-13T19:12:39.1115332Z ##[endgroup]
+2026-10-13T19:12:39.1115750Z ##[group]Setting up auth
+2026-10-13T19:12:39.1119927Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-13T19:12:39.1143373Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-13T19:12:39.1440776Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-13T19:12:39.1464553Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-13T19:12:39.1635139Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-13T19:12:39.1658523Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-13T19:12:39.1828699Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-13T19:12:39.1857919Z ##[endgroup]
+2026-10-13T19:12:39.1858486Z ##[group]Fetching the repository
+2026-10-13T19:12:39.1864010Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/*
+2026-10-13T19:13:34.8733964Z From https://github.com/manfromnowhere143/sentinel
+2026-10-13T19:13:34.8734453Z  * [new branch]      ci-validate-b15-21509ef2cdb6 -> origin/ci-validate-b15-21509ef2cdb6
+2026-10-13T19:13:34.8734808Z  * [new branch]      ci-validate-b16-e45018d -> origin/ci-validate-b16-e45018d
+2026-10-13T19:13:34.8735265Z  * [new branch]      ci-validate-f15         -> origin/ci-validate-f15
+2026-10-13T19:13:34.8735577Z  * [new branch]      ci-validate-f15-a-132c01eab241 -> origin/ci-validate-f15-a-132c01eab241
+2026-10-13T19:13:34.8735948Z  * [new branch]      ci-validate-f15-a-3bc8913fb8e7 -> origin/ci-validate-f15-a-3bc8913fb8e7
+2026-10-13T19:13:34.8736293Z  * [new branch]      ci-validate-f15-b-132c01eab241 -> origin/ci-validate-f15-b-132c01eab241
+2026-10-13T19:13:34.8736642Z  * [new branch]      ci-validate-f15-b-3bc8913fb8e7 -> origin/ci-validate-f15-b-3bc8913fb8e7
+2026-10-13T19:13:34.8737054Z  * [new branch]      ci-validate-f16-a-51370ccac79f -> origin/ci-validate-f16-a-51370ccac79f
+2026-10-13T19:13:34.8737673Z  * [new branch]      ci-validate-f16-a-9cc549358f0e -> origin/ci-validate-f16-a-9cc549358f0e
+2026-10-13T19:13:34.8738014Z  * [new branch]      ci-validate-f16-a-bc2643ff190f -> origin/ci-validate-f16-a-bc2643ff190f
+2026-10-13T19:13:34.8738364Z  * [new branch]      ci-validate-f16-b-51370ccac79f -> origin/ci-validate-f16-b-51370ccac79f
+2026-10-13T19:13:34.8738717Z  * [new branch]      ci-validate-f16-b-9cc549358f0e -> origin/ci-validate-f16-b-9cc549358f0e
+2026-10-13T19:13:34.8739071Z  * [new branch]      ci-validate-f17-5d824a38-20261009 -> origin/ci-validate-f17-5d824a38-20261009
+2026-10-13T19:13:34.8739493Z  * [new branch]      ci-validate-f17-8c118b74-20261009 -> origin/ci-validate-f17-8c118b74-20261009
+2026-10-13T19:13:34.8739910Z  * [new branch]      ci-validate-pin-a5dc84c731c7 -> origin/ci-validate-pin-a5dc84c731c7
+2026-10-13T19:13:34.8740302Z  * [new branch]      ci-validate-r15-80f4b37d7c7c -> origin/ci-validate-r15-80f4b37d7c7c
+2026-10-13T19:13:34.8740740Z  * [new branch]      ci-validate-r16-5b9c976c1466 -> origin/ci-validate-r16-5b9c976c1466
+2026-10-13T19:13:34.8741103Z  * [new branch]      ci-validate-r16-f417b77e1a8f -> origin/ci-validate-r16-f417b77e1a8f
+2026-10-13T19:13:34.8741427Z  * [new branch]      ci-validate-tranche-355010c -> origin/ci-validate-tranche-355010c
+2026-10-13T19:13:34.8741757Z  * [new branch]      docs/readme-iter155-20261012 -> origin/docs/readme-iter155-20261012
+2026-10-13T19:13:34.8742066Z  * [new branch]      evidence/stage0-h11-b14 -> origin/evidence/stage0-h11-b14
+2026-10-13T19:13:34.8742370Z  * [new branch]      fix/ci-current-docs-20261012 -> origin/fix/ci-current-docs-20261012
+2026-10-13T19:13:34.8742676Z  * [new branch]      fix/research-ci-20261012 -> origin/fix/research-ci-20261012
+2026-10-13T19:13:34.8742965Z  * [new branch]      instrument-channel      -> origin/instrument-channel
+2026-10-13T19:13:34.8743220Z  * [new branch]      master                  -> origin/master
+2026-10-13T19:13:34.8743672Z  * [new branch]      research/instrument-channel-20261012 -> origin/research/instrument-channel-20261012
+2026-10-13T19:13:34.8744059Z  * [new branch]      research/iter148-recovery-study -> origin/research/iter148-recovery-study
+2026-10-13T19:13:34.8744448Z  * [new branch]      research/iter149-observation-recovery -> origin/research/iter149-observation-recovery
+2026-10-13T19:13:34.8744922Z  * [new branch]      research/iter150-cloud-observation -> origin/research/iter150-cloud-observation
+2026-10-13T19:13:34.8746027Z  * [new branch]      research/iter151-recovery-canary -> origin/research/iter151-recovery-canary
+2026-10-13T19:13:34.8746830Z  * [new branch]      research/iter152-recovery-continuation -> origin/research/iter152-recovery-continuation
+2026-10-13T19:13:34.8747555Z  * [new branch]      research/iter153-action-feasibility -> origin/research/iter153-action-feasibility
+2026-10-13T19:13:34.8748067Z  * [new branch]      research/iter154-full-scene-maneuver -> origin/research/iter154-full-scene-maneuver
+2026-10-13T19:13:34.8748473Z  * [new branch]      research/iter155-background-witness -> origin/research/iter155-background-witness
+2026-10-13T19:13:34.8748870Z  * [new branch]      research/iter156-background-calibration -> origin/research/iter156-background-calibration
+2026-10-13T19:13:34.8749310Z  * [new branch]      research/iter157-constrained-action-library -> origin/research/iter157-constrained-action-library
+2026-10-13T19:13:34.8749754Z  * [new branch]      research/iter158-constraint-aware-search -> origin/research/iter158-constraint-aware-search
+2026-10-13T19:13:34.8750192Z  * [new branch]      research/iter159-route-search-qualification -> origin/research/iter159-route-search-qualification
+2026-10-13T19:13:34.8750641Z  * [new branch]      research/iter160-continuation-preservation -> origin/research/iter160-continuation-preservation
+2026-10-13T19:13:34.8751075Z  * [new branch]      research/iter161-grouping-width-ablation -> origin/research/iter161-grouping-width-ablation
+2026-10-13T19:13:34.8751719Z  * [new branch]      research/iter162-source-grouping-qualification -> origin/research/iter162-source-grouping-qualification
+2026-10-13T19:13:34.8752148Z  * [new branch]      research/iter163-native-path-replay -> origin/research/iter163-native-path-replay
+2026-10-13T19:13:34.8752489Z  * [new branch]      wip-gen17-ci-hardening  -> origin/wip-gen17-ci-hardening
+2026-10-13T19:13:34.8753553Z [command]/usr/bin/git branch --list --remote origin/research/iter163-native-path-replay
+2026-10-13T19:13:34.8766257Z   origin/research/iter163-native-path-replay
+2026-10-13T19:13:34.8772415Z [command]/usr/bin/git rev-parse refs/remotes/origin/research/iter163-native-path-replay
+2026-10-13T19:13:34.8790323Z c77d30b595adcb9afa11ae43532a0f9baa9203f1
+2026-10-13T19:13:34.8798408Z ##[endgroup]
+2026-10-13T19:13:34.8798734Z ##[group]Determining the checkout info
+2026-10-13T19:13:34.8802250Z ##[endgroup]
+2026-10-13T19:13:34.8806441Z [command]/usr/bin/git sparse-checkout disable
+2026-10-13T19:13:34.8839258Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-13T19:13:34.8860210Z ##[group]Checking out the ref
+2026-10-13T19:13:34.8862538Z [command]/usr/bin/git checkout --progress --force -B research/iter163-native-path-replay refs/remotes/origin/research/iter163-native-path-replay
+2026-10-13T19:13:35.9619701Z Updating files:  22% (2865/12768)
+2026-10-13T19:13:35.9677867Z Updating files:  23% (2937/12768)
+2026-10-13T19:13:36.0186821Z Updating files:  24% (3065/12768)
+2026-10-13T19:13:36.0321930Z Updating files:  25% (3192/12768)
+2026-10-13T19:13:36.0569245Z Updating files:  26% (3320/12768)
+2026-10-13T19:13:36.1123191Z Updating files:  27% (3448/12768)
+2026-10-13T19:13:36.1153413Z Updating files:  28% (3576/12768)
+2026-10-13T19:13:36.1272729Z Updating files:  29% (3703/12768)
+2026-10-13T19:13:36.1475643Z Updating files:  30% (3831/12768)
+2026-10-13T19:13:36.1567504Z Updating files:  31% (3959/12768)
+2026-10-13T19:13:36.1601263Z Updating files:  32% (4086/12768)
+2026-10-13T19:13:36.1633478Z Updating files:  33% (4214/12768)
+2026-10-13T19:13:36.1861508Z Updating files:  34% (4342/12768)
+2026-10-13T19:13:36.1904904Z Updating files:  35% (4469/12768)
+2026-10-13T19:13:36.1943019Z Updating files:  36% (4597/12768)
+2026-10-13T19:13:36.2023724Z Updating files:  37% (4725/12768)
+2026-10-13T19:13:36.2064807Z Updating files:  38% (4852/12768)
+2026-10-13T19:13:36.2178706Z Updating files:  39% (4980/12768)
+2026-10-13T19:13:36.2248144Z Updating files:  40% (5108/12768)
+2026-10-13T19:13:36.2281423Z Updating files:  41% (5235/12768)
+2026-10-13T19:13:36.2313337Z Updating files:  42% (5363/12768)
+2026-10-13T19:13:36.2434263Z Updating files:  43% (5491/12768)
+2026-10-13T19:13:36.2464280Z Updating files:  44% (5618/12768)
+2026-10-13T19:13:36.2496533Z Updating files:  45% (5746/12768)
+2026-10-13T19:13:36.2528048Z Updating files:  46% (5874/12768)
+2026-10-13T19:13:36.2560574Z Updating files:  47% (6001/12768)
+2026-10-13T19:13:36.2592781Z Updating files:  48% (6129/12768)
+2026-10-13T19:13:36.2624100Z Updating files:  49% (6257/12768)
+2026-10-13T19:13:36.2656596Z Updating files:  50% (6384/12768)
+2026-10-13T19:13:36.2689410Z Updating files:  51% (6512/12768)
+2026-10-13T19:13:36.3008701Z Updating files:  52% (6640/12768)
+2026-10-13T19:13:36.3222474Z Updating files:  53% (6768/12768)
+2026-10-13T19:13:36.3961321Z Updating files:  54% (6895/12768)
+2026-10-13T19:13:36.4381718Z Updating files:  55% (7023/12768)
+2026-10-13T19:13:36.4461974Z Updating files:  56% (7151/12768)
+2026-10-13T19:13:36.4635323Z Updating files:  57% (7278/12768)
+2026-10-13T19:13:36.4694722Z Updating files:  58% (7406/12768)
+2026-10-13T19:13:36.4830764Z Updating files:  59% (7534/12768)
+2026-10-13T19:13:36.5948902Z Updating files:  60% (7661/12768)
+2026-10-13T19:13:36.5994192Z Updating files:  61% (7789/12768)
+2026-10-13T19:13:36.6057402Z Updating files:  62% (7917/12768)
+2026-10-13T19:13:36.6108107Z Updating files:  63% (8044/12768)
+2026-10-13T19:13:36.6172179Z Updating files:  64% (8172/12768)
+2026-10-13T19:13:36.6543044Z Updating files:  65% (8300/12768)
+2026-10-13T19:13:36.6745657Z Updating files:  66% (8427/12768)
+2026-10-13T19:13:36.6861349Z Updating files:  67% (8555/12768)
+2026-10-13T19:13:36.7192069Z Updating files:  68% (8683/12768)
+2026-10-13T19:13:36.7334191Z Updating files:  69% (8810/12768)
+2026-10-13T19:13:36.7889315Z Updating files:  70% (8938/12768)
+2026-10-13T19:13:36.7937701Z Updating files:  71% (9066/12768)
+2026-10-13T19:13:36.7965424Z Updating files:  72% (9193/12768)
+2026-10-13T19:13:36.7993935Z Updating files:  73% (9321/12768)
+2026-10-13T19:13:36.8021881Z Updating files:  74% (9449/12768)
+2026-10-13T19:13:36.8284240Z Updating files:  75% (9576/12768)
+2026-10-13T19:13:36.8496875Z Updating files:  76% (9704/12768)
+2026-10-13T19:13:36.8663793Z Updating files:  77% (9832/12768)
+2026-10-13T19:13:36.9022376Z Updating files:  78% (9960/12768)
+2026-10-13T19:13:36.9026761Z Updating files:  78% (10066/12768)
+2026-10-13T19:13:36.9260239Z Updating files:  79% (10087/12768)
+2026-10-13T19:13:36.9457380Z Updating files:  80% (10215/12768)
+2026-10-13T19:13:36.9566108Z Updating files:  81% (10343/12768)
+2026-10-13T19:13:36.9782205Z Updating files:  82% (10470/12768)
+2026-10-13T19:13:37.4126760Z Updating files:  83% (10598/12768)
+2026-10-13T19:13:38.1323538Z Updating files:  84% (10726/12768)
+2026-10-13T19:13:39.0344641Z Updating files:  84% (10825/12768)
+2026-10-13T19:13:40.0077445Z Updating files:  84% (10828/12768)
+2026-10-13T19:13:41.1941991Z Updating files:  84% (10831/12768)
+2026-10-13T19:13:42.0075162Z Updating files:  84% (10834/12768)
+2026-10-13T19:13:43.2262957Z Updating files:  84% (10836/12768)
+2026-10-13T19:13:43.3059104Z Updating files:  84% (10839/12768)
+2026-10-13T19:13:44.2821634Z Updating files:  85% (10853/12768)
+2026-10-13T19:13:45.0426206Z Updating files:  85% (10921/12768)
+2026-10-13T19:13:46.2506293Z Updating files:  85% (10924/12768)
+2026-10-13T19:13:47.0182902Z Updating files:  85% (10928/12768)
+2026-10-13T19:13:48.2104770Z Updating files:  85% (10930/12768)
+2026-10-13T19:13:49.0902672Z Updating files:  85% (10934/12768)
+2026-10-13T19:13:49.4987147Z Updating files:  85% (10937/12768)
+2026-10-13T19:13:49.9464470Z Updating files:  86% (10981/12768)
+2026-10-13T19:13:51.1463832Z Updating files:  86% (10999/12768)
+2026-10-13T19:13:51.8986738Z Updating files:  86% (11003/12768)
+2026-10-13T19:13:53.0902754Z Updating files:  86% (11005/12768)
+2026-10-13T19:13:53.9541686Z Updating files:  86% (11009/12768)
+2026-10-13T19:13:55.1226739Z Updating files:  86% (11012/12768)
+2026-10-13T19:13:55.7063783Z Updating files:  86% (11016/12768)
+2026-10-13T19:13:55.7265228Z Updating files:  87% (11109/12768)
+2026-10-13T19:13:55.7471584Z Updating files:  88% (11236/12768)
+2026-10-13T19:13:55.7675893Z Updating files:  89% (11364/12768)
+2026-10-13T19:13:55.8114854Z Updating files:  90% (11492/12768)
+2026-10-13T19:13:55.8509373Z Updating files:  91% (11619/12768)
+2026-10-13T19:13:55.8593661Z Updating files:  92% (11747/12768)
+2026-10-13T19:13:55.8896945Z Updating files:  93% (11875/12768)
+2026-10-13T19:13:55.8955383Z Updating files:  94% (12002/12768)
+2026-10-13T19:13:55.9071798Z Updating files:  94% (12093/12768)
+2026-10-13T19:13:55.9233825Z Updating files:  95% (12130/12768)
+2026-10-13T19:13:55.9291910Z Updating files:  96% (12258/12768)
+2026-10-13T19:13:56.0500420Z Updating files:  97% (12385/12768)
+2026-10-13T19:13:56.8978183Z Updating files:  98% (12513/12768)
+2026-10-13T19:13:56.9173270Z Updating files:  98% (12577/12768)
+2026-10-13T19:13:56.9256314Z Updating files:  99% (12641/12768)
+2026-10-13T19:13:56.9256496Z Updating files: 100% (12768/12768)
+2026-10-13T19:13:56.9256656Z Updating files: 100% (12768/12768), done.
+2026-10-13T19:13:57.1938142Z Switched to a new branch 'research/iter163-native-path-replay'
+2026-10-13T19:13:57.1945657Z branch 'research/iter163-native-path-replay' set up to track 'origin/research/iter163-native-path-replay'.
+2026-10-13T19:13:57.2722459Z ##[endgroup]
+2026-10-13T19:13:57.2767209Z [command]/usr/bin/git log -1 --format=%H
+2026-10-13T19:13:57.2782164Z c77d30b595adcb9afa11ae43532a0f9baa9203f1
+2026-10-13T19:13:57.2793723Z ##[group]Removing auth
+2026-10-13T19:13:57.2794456Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-13T19:13:57.2813319Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-13T19:13:57.2994910Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-13T19:13:57.3047699Z http.https://github.com/.extraheader
+2026-10-13T19:13:57.3052473Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-13T19:13:57.3551106Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-13T19:13:57.3725394Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-13T19:13:57.3747157Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-13T19:13:57.3927088Z ##[endgroup]
+2026-10-13T19:13:57.5157035Z ##[group]Run python3 -I -B -S tools/ci/verify_supply_chain.py
+2026-10-13T19:13:57.5157353Z [36;1mpython3 -I -B -S tools/ci/verify_supply_chain.py[0m
+2026-10-13T19:13:57.5402943Z shell: /usr/bin/bash -e {0}
+2026-10-13T19:13:57.5403092Z env:
+2026-10-13T19:13:57.5403204Z   LANG: C.UTF-8
+2026-10-13T19:13:57.5403318Z   LC_ALL: C.UTF-8
+2026-10-13T19:13:57.5403432Z   MKL_NUM_THREADS: 1
+2026-10-13T19:13:57.5403552Z   OMP_NUM_THREADS: 1
+2026-10-13T19:13:57.5403679Z   OPENBLAS_NUM_THREADS: 1
+2026-10-13T19:13:57.5403812Z   PYTHONHASHSEED: 0
+2026-10-13T19:13:57.5403924Z   TZ: UTC
+2026-10-13T19:13:57.5404031Z ##[endgroup]
+2026-10-13T19:13:57.6989181Z SUPPLY_CHAIN_VERIFICATION_OK
+2026-10-13T19:13:57.8389975Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-10-13T19:13:57.8390211Z with:
+2026-10-13T19:13:57.8390333Z   python-version: 3.11
+2026-10-13T19:13:57.8390466Z   check-latest: false
+2026-10-13T19:13:57.8391706Z   token: ***
+2026-10-13T19:13:57.8391832Z   update-environment: true
+2026-10-13T19:13:57.8391974Z   allow-prereleases: false
+2026-10-13T19:13:57.8392106Z   freethreaded: false
+2026-10-13T19:13:57.8392224Z env:
+2026-10-13T19:13:57.8392330Z   LANG: C.UTF-8
+2026-10-13T19:13:57.8392445Z   LC_ALL: C.UTF-8
+2026-10-13T19:13:57.8392558Z   MKL_NUM_THREADS: 1
+2026-10-13T19:13:57.8392677Z   OMP_NUM_THREADS: 1
+2026-10-13T19:13:57.8392799Z   OPENBLAS_NUM_THREADS: 1
+2026-10-13T19:13:57.8392931Z   PYTHONHASHSEED: 0
+2026-10-13T19:13:57.8393046Z   TZ: UTC
+2026-10-13T19:13:57.8393152Z ##[endgroup]
+2026-10-13T19:13:57.9242165Z ##[group]Installed versions
+2026-10-13T19:13:57.9334539Z (node:2207) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-13T19:13:57.9335091Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-13T19:13:57.9335450Z Successfully set up CPython (3.11.17)
+2026-10-13T19:13:57.9335799Z ##[endgroup]
+2026-10-13T19:13:58.0791808Z ##[group]Run test -n "${RUNNER_TEMP:-}" && test -d "${RUNNER_TEMP}" && test ! -L "${RUNNER_TEMP}" && test ! -e "${RUNNER_TEMP}/sentinel-ci-3.11" && python -I -B -m venv "${RUNNER_TEMP}/sentinel-ci-3.11"
+2026-10-13T19:13:58.0792807Z [36;1mtest -n "${RUNNER_TEMP:-}" && test -d "${RUNNER_TEMP}" && test ! -L "${RUNNER_TEMP}" && test ! -e "${RUNNER_TEMP}/sentinel-ci-3.11" && python -I -B -m venv "${RUNNER_TEMP}/sentinel-ci-3.11"[0m
+2026-10-13T19:13:58.1265508Z shell: /usr/bin/bash -e {0}
+2026-10-13T19:13:58.1265661Z env:
+2026-10-13T19:13:58.1265774Z   LANG: C.UTF-8
+2026-10-13T19:13:58.1265892Z   LC_ALL: C.UTF-8
+2026-10-13T19:13:58.1266006Z   MKL_NUM_THREADS: 1
+2026-10-13T19:13:58.1266127Z   OMP_NUM_THREADS: 1
+2026-10-13T19:13:58.1266248Z   OPENBLAS_NUM_THREADS: 1
+2026-10-13T19:13:58.1266385Z   PYTHONHASHSEED: 0
+2026-10-13T19:13:58.1266499Z   TZ: UTC
+2026-10-13T19:13:58.1266769Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T19:13:58.1267047Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-10-13T19:13:58.1267284Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T19:13:58.1267497Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T19:13:58.1267711Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T19:13:58.1267925Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-10-13T19:13:58.1268108Z ##[endgroup]
+2026-10-13T19:14:01.5534818Z ##[group]Run test ! -e "${RUNNER_TEMP}/sentinel-ci-install-3.11.json" && "${RUNNER_TEMP}/sentinel-ci-3.11/bin/python" -I -B -m pip --isolated --disable-pip-version-check install --no-input --force-reinstall --require-hashes --only-binary=':all:' --no-deps --report "${RUNNER_TEMP}/sentinel-ci-install-3.11.json" -r tools/ci/requirements-ci-py311.lock
+2026-10-13T19:14:01.5536238Z [36;1mtest ! -e "${RUNNER_TEMP}/sentinel-ci-install-3.11.json" && "${RUNNER_TEMP}/sentinel-ci-3.11/bin/python" -I -B -m pip --isolated --disable-pip-version-check install --no-input --force-reinstall --require-hashes --only-binary=':all:' --no-deps --report "${RUNNER_TEMP}/sentinel-ci-install-3.11.json" -r tools/ci/requirements-ci-py311.lock[0m
+2026-10-13T19:14:01.5590067Z shell: /usr/bin/bash -e {0}
+2026-10-13T19:14:01.5590211Z env:
+2026-10-13T19:14:01.5590325Z   LANG: C.UTF-8
+2026-10-13T19:14:01.5590439Z   LC_ALL: C.UTF-8
+2026-10-13T19:14:01.5590552Z   MKL_NUM_THREADS: 1
+2026-10-13T19:14:01.5590696Z   OMP_NUM_THREADS: 1
+2026-10-13T19:14:01.5590817Z   OPENBLAS_NUM_THREADS: 1
+2026-10-13T19:14:01.5590947Z   PYTHONHASHSEED: 0
+2026-10-13T19:14:01.5591061Z   TZ: UTC
+2026-10-13T19:14:01.5591208Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T19:14:01.5591449Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-10-13T19:14:01.5591694Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T19:14:01.5591911Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T19:14:01.5592126Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T19:14:01.5592340Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-10-13T19:14:01.5592518Z ##[endgroup]
+2026-10-13T19:14:01.8277863Z Looking in links: https://download.pytorch.org/whl/cpu/torch/
+2026-10-13T19:14:02.7561466Z Collecting iniconfig==2.3.0 (from -r tools/ci/requirements-ci-py311.lock (line 8))
+2026-10-13T19:14:02.8174920Z   Downloading iniconfig-2.3.0-py3-none-any.whl (7.5 kB)
+2026-10-13T19:14:03.2920185Z Collecting joblib==1.5.3 (from -r tools/ci/requirements-ci-py311.lock (line 12))
+2026-10-13T19:14:03.3018137Z   Downloading joblib-1.5.3-py3-none-any.whl (309 kB)
+2026-10-13T19:14:03.3345969Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 309.1/309.1 kB 10.2 MB/s eta 0:00:00
+2026-10-13T19:14:03.4105994Z Collecting narwhals==2.24.0 (from -r tools/ci/requirements-ci-py311.lock (line 16))
+2026-10-13T19:14:03.4203323Z   Downloading narwhals-2.24.0-py3-none-any.whl (461 kB)
+2026-10-13T19:14:03.4570159Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 461.0/461.0 kB 12.7 MB/s eta 0:00:00
+2026-10-13T19:14:03.6460848Z Collecting numpy==2.4.6 (from -r tools/ci/requirements-ci-py311.lock (line 20))
+2026-10-13T19:14:03.6559405Z   Downloading numpy-2.4.6-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.9 MB)
+2026-10-13T19:14:03.8216746Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.9/16.9 MB 90.3 MB/s eta 0:00:00
+2026-10-13T19:14:03.8860781Z Collecting packaging==26.2 (from -r tools/ci/requirements-ci-py311.lock (line 97))
+2026-10-13T19:14:03.8960085Z   Downloading packaging-26.2-py3-none-any.whl (100 kB)
+2026-10-13T19:14:03.8989074Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100.2/100.2 kB 54.1 MB/s eta 0:00:00
+2026-10-13T19:14:03.9447539Z Collecting pluggy==1.6.0 (from -r tools/ci/requirements-ci-py311.lock (line 101))
+2026-10-13T19:14:03.9546709Z   Downloading pluggy-1.6.0-py3-none-any.whl (20 kB)
+2026-10-13T19:14:04.0229353Z Collecting pygments==2.20.0 (from -r tools/ci/requirements-ci-py311.lock (line 105))
+2026-10-13T19:14:04.0330246Z   Downloading pygments-2.20.0-py3-none-any.whl (1.2 MB)
+2026-10-13T19:14:04.0499859Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 77.9 MB/s eta 0:00:00
+2026-10-13T19:14:04.1108946Z Collecting pytest==9.1.1 (from -r tools/ci/requirements-ci-py311.lock (line 109))
+2026-10-13T19:14:04.1209105Z   Downloading pytest-9.1.1-py3-none-any.whl (386 kB)
+2026-10-13T19:14:04.1249466Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 386.5/386.5 kB 141.3 MB/s eta 0:00:00
+2026-10-13T19:14:04.4227945Z Collecting ruff==0.15.20 (from -r tools/ci/requirements-ci-py311.lock (line 113))
+2026-10-13T19:14:04.4331813Z   Downloading ruff-0.15.20-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (11.5 MB)
+2026-10-13T19:14:04.5229698Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 11.5/11.5 MB 121.4 MB/s eta 0:00:00
+2026-10-13T19:14:04.6214713Z Collecting scikit-learn==1.9.0 (from -r tools/ci/requirements-ci-py311.lock (line 133))
+2026-10-13T19:14:04.6317852Z   Downloading scikit_learn-1.9.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (9.3 MB)
+2026-10-13T19:14:04.7033764Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.3/9.3 MB 132.7 MB/s eta 0:00:00
+2026-10-13T19:14:04.8301221Z Collecting scipy==1.17.1 (from -r tools/ci/requirements-ci-py311.lock (line 166))
+2026-10-13T19:14:04.8409930Z   Downloading scipy-1.17.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (35.3 MB)
+2026-10-13T19:14:05.1688627Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.3/35.3 MB 42.6 MB/s eta 0:00:00
+2026-10-13T19:14:05.2438939Z Collecting threadpoolctl==3.6.0 (from -r tools/ci/requirements-ci-py311.lock (line 229))
+2026-10-13T19:14:05.2537606Z   Downloading threadpoolctl-3.6.0-py3-none-any.whl (18 kB)
+2026-10-13T19:14:05.3257258Z Collecting torch==2.10.0+cpu (from -r tools/ci/requirements-ci-py311.lock (line 234))
+2026-10-13T19:14:05.5715454Z   Downloading https://download-r2.pytorch.org/whl/cpu/torch-2.10.0%2Bcpu-cp311-cp311-manylinux_2_28_x86_64.whl (188.8 MB)
+2026-10-13T19:14:09.5234133Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 188.8/188.8 MB 3.3 MB/s eta 0:00:00
+2026-10-13T19:14:10.2626135Z Collecting shapely==2.1.2 (from -r tools/ci/requirements-ci-py311.lock (line 237))
+2026-10-13T19:14:10.2728774Z   Downloading shapely-2.1.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (3.1 MB)
+2026-10-13T19:14:10.6711940Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.1/3.1 MB 7.8 MB/s eta 0:00:00
+2026-10-13T19:14:11.1779001Z Collecting fsspec==2026.9.0 (from -r tools/ci/requirements-ci-py311.lock (line 240))
+2026-10-13T19:14:11.1880022Z   Downloading fsspec-2026.9.0-py3-none-any.whl (221 kB)
+2026-10-13T19:14:11.4371181Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 221.7/221.7 kB 853.5 kB/s eta 0:00:00
+2026-10-13T19:14:11.9287188Z Collecting networkx==3.6.1 (from -r tools/ci/requirements-ci-py311.lock (line 243))
+2026-10-13T19:14:11.9388546Z   Downloading networkx-3.6.1-py3-none-any.whl (2.1 MB)
+2026-10-13T19:14:12.1709169Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 8.9 MB/s eta 0:00:00
+2026-10-13T19:14:12.3805633Z Collecting sympy==1.14.0 (from -r tools/ci/requirements-ci-py311.lock (line 246))
+2026-10-13T19:14:12.3921735Z   Downloading sympy-1.14.0-py3-none-any.whl (6.3 MB)
+2026-10-13T19:14:12.5535384Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.3/6.3 MB 39.6 MB/s eta 0:00:00
+2026-10-13T19:14:13.0404646Z Collecting mpmath==1.3.0 (from -r tools/ci/requirements-ci-py311.lock (line 249))
+2026-10-13T19:14:13.0511908Z   Downloading mpmath-1.3.0-py3-none-any.whl (536 kB)
+2026-10-13T19:14:13.3069835Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 536.2/536.2 kB 2.1 MB/s eta 0:00:00
+2026-10-13T19:14:13.5557201Z Collecting typing-extensions==4.16.0 (from -r tools/ci/requirements-ci-py311.lock (line 252))
+2026-10-13T19:14:13.5661756Z   Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+2026-10-13T19:14:13.5723780Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 45.6/45.6 kB 8.7 MB/s eta 0:00:00
+2026-10-13T19:14:13.6376892Z Collecting filelock==4.1.1 (from -r tools/ci/requirements-ci-py311.lock (line 255))
+2026-10-13T19:14:13.6477664Z   Downloading filelock-4.1.1-py3-none-any.whl (132 kB)
+2026-10-13T19:14:13.6510250Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 132.5/132.5 kB 63.6 MB/s eta 0:00:00
+2026-10-13T19:14:13.7115998Z Collecting jinja2==3.1.6 (from -r tools/ci/requirements-ci-py311.lock (line 258))
+2026-10-13T19:14:13.7214059Z   Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+2026-10-13T19:14:13.7243366Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 134.9/134.9 kB 75.7 MB/s eta 0:00:00
+2026-10-13T19:14:13.7966193Z Collecting markupsafe==3.0.4 (from -r tools/ci/requirements-ci-py311.lock (line 261))
+2026-10-13T19:14:13.8064453Z   Downloading markupsafe-3.0.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+2026-10-13T19:14:13.9070484Z Collecting setuptools==84.0.0 (from -r tools/ci/requirements-ci-py311.lock (line 264))
+2026-10-13T19:14:13.9169665Z   Downloading setuptools-84.0.0-py3-none-any.whl (818 kB)
+2026-10-13T19:14:13.9222937Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 818.2/818.2 kB 202.5 MB/s eta 0:00:00
+2026-10-13T19:14:13.9840974Z Collecting pyyaml==6.0.3 (from -r tools/ci/requirements-ci-py311.lock (line 266))
+2026-10-13T19:14:13.9945646Z   Downloading pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+2026-10-13T19:14:13.9996081Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 806.6/806.6 kB 199.0 MB/s eta 0:00:00
+2026-10-13T19:14:14.1478653Z Installing collected packages: mpmath, typing-extensions, torch, threadpoolctl, sympy, shapely, setuptools, scipy, scikit-learn, ruff, pyyaml, pytest, pygments, pluggy, packaging, numpy, networkx, narwhals, markupsafe, joblib, jinja2, iniconfig, fsspec, filelock
+2026-10-13T19:14:23.6687200Z   Attempting uninstall: setuptools
+2026-10-13T19:14:23.6709374Z     Found existing installation: setuptools 79.0.1
+2026-10-13T19:14:23.6895954Z     Uninstalling setuptools-79.0.1:
+2026-10-13T19:14:23.7367500Z       Successfully uninstalled setuptools-79.0.1
+2026-10-13T19:14:30.6727994Z Successfully installed filelock-4.1.1 fsspec-2026.9.0 iniconfig-2.3.0 jinja2-3.1.6 joblib-1.5.3 markupsafe-3.0.4 mpmath-1.3.0 narwhals-2.24.0 networkx-3.6.1 numpy-2.4.6 packaging-26.2 pluggy-1.6.0 pygments-2.20.0 pytest-9.1.1 pyyaml-6.0.3 ruff-0.15.20 scikit-learn-1.9.0 scipy-1.17.1 setuptools-84.0.0 shapely-2.1.2 sympy-1.14.0 threadpoolctl-3.6.0 torch-2.10.0+cpu typing-extensions-4.16.0
+2026-10-13T19:14:31.0076580Z ##[group]Run command "${RUNNER_TEMP}/sentinel-ci-3.11/bin/python" -I -B -m pip --isolated --disable-pip-version-check check
+2026-10-13T19:14:31.0077052Z [36;1mcommand "${RUNNER_TEMP}/sentinel-ci-3.11/bin/python" -I -B -m pip --isolated --disable-pip-version-check check[0m
+2026-10-13T19:14:31.0149664Z shell: /usr/bin/bash -e {0}
+2026-10-13T19:14:31.0149807Z env:
+2026-10-13T19:14:31.0149913Z   LANG: C.UTF-8
+2026-10-13T19:14:31.0150026Z   LC_ALL: C.UTF-8
+2026-10-13T19:14:31.0150266Z   MKL_NUM_THREADS: 1
+2026-10-13T19:14:31.0150384Z   OMP_NUM_THREADS: 1
+2026-10-13T19:14:31.0150504Z   OPENBLAS_NUM_THREADS: 1
+2026-10-13T19:14:31.0150632Z   PYTHONHASHSEED: 0
+2026-10-13T19:14:31.0150748Z   TZ: UTC
+2026-10-13T19:14:31.0150892Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T19:14:31.0151129Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-10-13T19:14:31.0151360Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T19:14:31.0151598Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T19:14:31.0151806Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T19:14:31.0152021Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-10-13T19:14:31.0152198Z ##[endgroup]
+2026-10-13T19:14:31.2938766Z No broken requirements found.
+2026-10-13T19:14:31.3269957Z ##[group]Run command "${RUNNER_TEMP}/sentinel-ci-3.11/bin/python" -I -B -S tools/ci/verify_ci_install.py --python-minor "3.11" --lock "tools/ci/requirements-ci-py311.lock" --report "${RUNNER_TEMP}/sentinel-ci-install-3.11.json"
+2026-10-13T19:14:31.3270739Z [36;1mcommand "${RUNNER_TEMP}/sentinel-ci-3.11/bin/python" -I -B -S tools/ci/verify_ci_install.py --python-minor "3.11" --lock "tools/ci/requirements-ci-py311.lock" --report "${RUNNER_TEMP}/sentinel-ci-install-3.11.json"[0m
+2026-10-13T19:14:31.3319518Z shell: /usr/bin/bash -e {0}
+2026-10-13T19:14:31.3319653Z env:
+2026-10-13T19:14:31.3319756Z   LANG: C.UTF-8
+2026-10-13T19:14:31.3319863Z   LC_ALL: C.UTF-8
+2026-10-13T19:14:31.3319969Z   MKL_NUM_THREADS: 1
+2026-10-13T19:14:31.3320081Z   OMP_NUM_THREADS: 1
+2026-10-13T19:14:31.3320196Z   OPENBLAS_NUM_THREADS: 1
+2026-10-13T19:14:31.3320319Z   PYTHONHASHSEED: 0
+2026-10-13T19:14:31.3320427Z   TZ: UTC
+2026-10-13T19:14:31.3320594Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T19:14:31.3320820Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-10-13T19:14:31.3321040Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T19:14:31.3321245Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T19:14:31.3321440Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T19:14:31.3321636Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-10-13T19:14:31.3321808Z ##[endgroup]
+2026-10-13T19:14:31.3796257Z CI_INSTALL_VERIFICATION_OK python=3.11 locked_packages=24 unbound_bootstrap=pip==24.0
+2026-10-13T19:14:31.3866665Z ##[group]Run command "${RUNNER_TEMP}/sentinel-ci-3.11/bin/ruff" check .
+2026-10-13T19:14:31.3866929Z [36;1mcommand "${RUNNER_TEMP}/sentinel-ci-3.11/bin/ruff" check .[0m
+2026-10-13T19:14:31.3912167Z shell: /usr/bin/bash -e {0}
+2026-10-13T19:14:31.3912301Z env:
+2026-10-13T19:14:31.3912404Z   LANG: C.UTF-8
+2026-10-13T19:14:31.3912516Z   LC_ALL: C.UTF-8
+2026-10-13T19:14:31.3912626Z   MKL_NUM_THREADS: 1
+2026-10-13T19:14:31.3912743Z   OMP_NUM_THREADS: 1
+2026-10-13T19:14:31.3912861Z   OPENBLAS_NUM_THREADS: 1
+2026-10-13T19:14:31.3912994Z   PYTHONHASHSEED: 0
+2026-10-13T19:14:31.3913106Z   TZ: UTC
+2026-10-13T19:14:31.3913243Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T19:14:31.3913475Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-10-13T19:14:31.3913702Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T19:14:31.3913907Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T19:14:31.3914138Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T19:14:31.3914345Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-10-13T19:14:31.3914521Z ##[endgroup]
+2026-10-13T19:14:31.4988960Z All checks passed!
+2026-10-13T19:14:31.5049723Z ##[group]Run env -u PYTHONHOME -u PYTHONOPTIMIZE -u PYTEST_ADDOPTS -u PYTEST_PLUGINS PYTHONPATH= PYTHONHASHSEED=0 PYTHONNOUSERSITE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 "${RUNNER_TEMP}/sentinel-ci-3.11/bin/python" -B -S tools/ci/run_pytest_isolated.py -q -c pyproject.toml --noconftest --strict-config --strict-markers tests/test_iter135_gen17_ci_hardening.py tests/test_iter135_ci_install_verifier.py
+2026-10-13T19:14:31.5052171Z [36;1menv -u PYTHONHOME -u PYTHONOPTIMIZE -u PYTEST_ADDOPTS -u PYTEST_PLUGINS PYTHONPATH= PYTHONHASHSEED=0 PYTHONNOUSERSITE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 "${RUNNER_TEMP}/sentinel-ci-3.11/bin/python" -B -S tools/ci/run_pytest_isolated.py -q -c pyproject.toml --noconftest --strict-config --strict-markers tests/test_iter135_gen17_ci_hardening.py tests/test_iter135_ci_install_verifier.py[0m
+2026-10-13T19:14:31.5121177Z shell: /usr/bin/bash -e {0}
+2026-10-13T19:14:31.5121407Z env:
+2026-10-13T19:14:31.5121576Z   LANG: C.UTF-8
+2026-10-13T19:14:31.5121794Z   LC_ALL: C.UTF-8
+2026-10-13T19:14:31.5121977Z   MKL_NUM_THREADS: 1
+2026-10-13T19:14:31.5122165Z   OMP_NUM_THREADS: 1
+2026-10-13T19:14:31.5122353Z   OPENBLAS_NUM_THREADS: 1
+2026-10-13T19:14:31.5122556Z   PYTHONHASHSEED: 0
+2026-10-13T19:14:31.5122734Z   TZ: UTC
+2026-10-13T19:14:31.5122956Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T19:14:31.5123343Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-10-13T19:14:31.5123719Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T19:14:31.5124052Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T19:14:31.5124406Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T19:14:31.5124723Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-10-13T19:14:31.5125186Z ##[endgroup]
+2026-10-13T19:14:31.5907911Z /home/runner/work/sentinel/sentinel/tools/ci/run_pytest_isolated.py:142: PytestRemovedIn10Warning: pytest.console_main() is deprecated and will be removed in pytest 10.
+2026-10-13T19:14:31.5908391Z It was never intended for programmatic use; use pytest.main() instead.
+2026-10-13T19:14:31.5908686Z See https://docs.pytest.org/en/stable/deprecations.html#console-main
+2026-10-13T19:14:31.5908910Z   raise SystemExit(pytest.console_main())
+2026-10-13T19:14:33.3920700Z ........................................................................ [ 54%]
+2026-10-13T19:14:33.6449044Z .........................................................s.              [100%]
+2026-10-13T19:14:33.6449422Z 130 passed, 1 skipped in 1.98s
+2026-10-13T19:14:33.6627635Z ##[group]Run env -u PYTHONHOME -u PYTHONOPTIMIZE -u PYTEST_ADDOPTS -u PYTEST_PLUGINS PYTHONPATH= PYTHONHASHSEED=0 PYTHONNOUSERSITE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 "${RUNNER_TEMP}/sentinel-ci-3.11/bin/python" -B -S tools/ci/run_pytest_isolated.py -q -c pyproject.toml --noconftest --strict-config --strict-markers
+2026-10-13T19:14:33.6628691Z [36;1menv -u PYTHONHOME -u PYTHONOPTIMIZE -u PYTEST_ADDOPTS -u PYTEST_PLUGINS PYTHONPATH= PYTHONHASHSEED=0 PYTHONNOUSERSITE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 "${RUNNER_TEMP}/sentinel-ci-3.11/bin/python" -B -S tools/ci/run_pytest_isolated.py -q -c pyproject.toml --noconftest --strict-config --strict-markers[0m
+2026-10-13T19:14:33.6677897Z shell: /usr/bin/bash -e {0}
+2026-10-13T19:14:33.6678042Z env:
+2026-10-13T19:14:33.6678147Z   LANG: C.UTF-8
+2026-10-13T19:14:33.6678255Z   LC_ALL: C.UTF-8
+2026-10-13T19:14:33.6678362Z   MKL_NUM_THREADS: 1
+2026-10-13T19:14:33.6678473Z   OMP_NUM_THREADS: 1
+2026-10-13T19:14:33.6678618Z   OPENBLAS_NUM_THREADS: 1
+2026-10-13T19:14:33.6678740Z   PYTHONHASHSEED: 0
+2026-10-13T19:14:33.6678847Z   TZ: UTC
+2026-10-13T19:14:33.6678984Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T19:14:33.6679210Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-10-13T19:14:33.6679429Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T19:14:33.6679627Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T19:14:33.6679828Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T19:14:33.6680025Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-10-13T19:14:33.6680193Z ##[endgroup]
+2026-10-13T19:14:33.7426980Z /home/runner/work/sentinel/sentinel/tools/ci/run_pytest_isolated.py:142: PytestRemovedIn10Warning: pytest.console_main() is deprecated and will be removed in pytest 10.
+2026-10-13T19:14:33.7427768Z It was never intended for programmatic use; use pytest.main() instead.
+2026-10-13T19:14:33.7428052Z See https://docs.pytest.org/en/stable/deprecations.html#console-main
+2026-10-13T19:14:33.7428269Z   raise SystemExit(pytest.console_main())
+2026-10-13T19:14:41.3319192Z ........................................................................ [  1%]
+2026-10-13T19:14:41.6882089Z ........................................................................ [  3%]
+2026-10-13T19:14:43.2024792Z ........................................................................ [  5%]
+2026-10-13T19:14:47.7870963Z ........................................................................ [  7%]
+2026-10-13T19:14:48.2447030Z .....................s.................................................. [  9%]
+2026-10-13T19:14:49.2733018Z ........................................................................ [ 10%]
+2026-10-13T19:14:49.8805110Z ........................................................................ [ 12%]
+2026-10-13T19:14:50.7005132Z ........................................................................ [ 14%]
+2026-10-13T19:14:51.8005942Z ........................................................................ [ 16%]
+2026-10-13T19:14:53.1930146Z ........................................................................ [ 18%]
+2026-10-13T19:14:53.9473585Z ........................................................................ [ 20%]
+2026-10-13T19:14:54.3035938Z ........................................................................ [ 21%]
+2026-10-13T19:15:08.5170257Z ........................................................................ [ 23%]
+2026-10-13T19:15:44.5450894Z ........................................................................ [ 25%]
+2026-10-13T19:15:55.1373643Z ........................................................................ [ 27%]
+2026-10-13T19:15:55.3612549Z ........................................................................ [ 29%]
+2026-10-13T19:16:00.8348732Z ........................................................................ [ 30%]
+2026-10-13T19:16:01.2047611Z ........................................................................ [ 32%]
+2026-10-13T19:16:16.5438445Z ........................................................................ [ 34%]
+2026-10-13T19:16:17.2773347Z ........................................................................ [ 36%]
+2026-10-13T19:16:17.4878682Z ........................................................................ [ 38%]
+2026-10-13T19:16:20.9453352Z ........................................................................ [ 40%]
+2026-10-13T19:16:25.5679591Z ........................................................................ [ 41%]
+2026-10-13T19:16:26.0435273Z .............................s.......................................... [ 43%]
+2026-10-13T19:16:26.1696461Z ........................................................................ [ 45%]
+2026-10-13T19:16:27.0738182Z ........................................................................ [ 47%]
+2026-10-13T19:16:49.2626481Z ........................................................................ [ 49%]
+2026-10-13T19:16:57.3444510Z ........................................................................ [ 50%]
+2026-10-13T19:16:57.5822913Z ........................................................................ [ 52%]
+2026-10-13T19:16:57.6377070Z ........................................................................ [ 54%]
+2026-10-13T19:16:59.1806878Z ........................................................................ [ 56%]
+2026-10-13T19:17:05.9192595Z ........................................................................ [ 58%]
+2026-10-13T19:17:15.9905471Z ........................................................................ [ 60%]
+2026-10-13T19:17:16.8944481Z ........................................................................ [ 61%]
+2026-10-13T19:17:19.7783667Z ........................................................................ [ 63%]
+2026-10-13T19:17:21.7783710Z ........................................................................ [ 65%]
+2026-10-13T19:17:21.9070242Z ........................................................................ [ 67%]
+2026-10-13T19:17:23.3260539Z ........................................................................ [ 69%]
+2026-10-13T19:17:24.9223915Z ........................................................................ [ 71%]
+2026-10-13T19:17:25.6698126Z ........................................................................ [ 72%]
+2026-10-13T19:17:26.9042379Z ........................................................................ [ 74%]
+2026-10-13T19:17:32.1714459Z ........................................................................ [ 76%]
+2026-10-13T19:17:34.3181647Z ........................................................................ [ 78%]
+2026-10-13T19:17:43.3849786Z ........................................................................ [ 80%]
+2026-10-13T19:17:45.0947290Z ..........................................................FFF........... [ 81%]
+2026-10-13T19:17:46.0856597Z ........................................................................ [ 83%]
+2026-10-13T19:17:46.3315328Z ........................................................................ [ 85%]
+2026-10-13T19:17:47.9534146Z ........................................................................ [ 87%]
+2026-10-13T19:17:48.3091844Z ........................................................................ [ 89%]
+2026-10-13T19:17:48.5042894Z ........................................................................ [ 91%]
+2026-10-13T19:17:48.7732914Z ........................................................................ [ 92%]
+2026-10-13T19:18:58.4600412Z ........................................................................ [ 94%]
+2026-10-13T19:20:48.6898514Z ........................................................................ [ 96%]
+2026-10-13T19:21:50.8588579Z ........................................................................ [ 98%]
+2026-10-13T19:22:00.2771763Z ..................................................................       [100%]
+2026-10-13T19:22:00.2772601Z =================================== FAILURES ===================================
+2026-10-13T19:22:00.2773018Z ______________ test_mask_tap_preserves_exact_native_threshold[0] _______________
+2026-10-13T19:22:00.2773284Z 
+2026-10-13T19:22:00.2773359Z n = 0
+2026-10-13T19:22:00.2773464Z 
+2026-10-13T19:22:00.2773585Z     @pytest.mark.parametrize("n", [0, 100, 101])
+2026-10-13T19:22:00.2773922Z     def test_mask_tap_preserves_exact_native_threshold(n):
+2026-10-13T19:22:00.2774217Z         import ast
+2026-10-13T19:22:00.2774405Z         import torch
+2026-10-13T19:22:00.2774707Z         from experiments.iter163_native_path_replay.background import tapped
+2026-10-13T19:22:00.2775338Z         from experiments.iter155_background_witness.geometry import vertices
+2026-10-13T19:22:00.2775685Z     
+2026-10-13T19:22:00.2775973Z         binding = json.loads((ROOT / admission.BASE / "BACKGROUND.json").read_text())
+2026-10-13T19:22:00.2776352Z         source = ROOT / binding["source_path"]
+2026-10-13T19:22:00.2776614Z         node = next(
+2026-10-13T19:22:00.2776808Z             n
+2026-10-13T19:22:00.2777030Z             for n in ast.parse(source.read_text()).body
+2026-10-13T19:22:00.2777395Z             if isinstance(n, ast.FunctionDef) and n.name == "bg_collision_det"
+2026-10-13T19:22:00.2777718Z         )
+2026-10-13T19:22:00.2777946Z         ns = {"torch": torch}
+2026-10-13T19:22:00.2778291Z         exec(compile(ast.Module(body=[node], type_ignores=[]), str(source), "exec"), ns)
+2026-10-13T19:22:00.2778656Z         masks = []
+2026-10-13T19:22:00.2778848Z >       observed = tapped(
+2026-10-13T19:22:00.2779071Z             ns["bg_collision_det"],
+2026-10-13T19:22:00.2779338Z             lambda m, p, b: masks.append(m.clone()),
+2026-10-13T19:22:00.2779622Z             binding["predicate_ast_sha256"],
+2026-10-13T19:22:00.2780068Z         )
+2026-10-13T19:22:00.2780163Z 
+2026-10-13T19:22:00.2780277Z tests/test_iter163_native_path_replay.py:505: 
+2026-10-13T19:22:00.2780599Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+2026-10-13T19:22:00.2780821Z 
+2026-10-13T19:22:00.2780962Z function = <function bg_collision_det at 0x7f57b249e5c0>
+2026-10-13T19:22:00.2781481Z callback = <function test_mask_tap_preserves_exact_native_threshold.<locals>.<lambda> at 0x7f57b249dee0>
+2026-10-13T19:22:00.2782041Z expected_ast = '4cccf828dab4b6bd813841a154b12f07c3682c6b6566f16df2cbfbf28676d715'
+2026-10-13T19:22:00.2782326Z 
+2026-10-13T19:22:00.2782442Z     def tapped(function, callback, expected_ast):
+2026-10-13T19:22:00.2782795Z         tree = ast.parse(textwrap.dedent(inspect.getsource(function)))
+2026-10-13T19:22:00.2783238Z         identity = hashlib.sha256(ast.dump(tree, include_attributes=False).encode()).hexdigest()
+2026-10-13T19:22:00.2783698Z         if identity != expected_ast:
+2026-10-13T19:22:00.2783984Z >           raise ValueError("background_source_identity")
+2026-10-13T19:22:00.2784299Z E           ValueError: background_source_identity
+2026-10-13T19:22:00.2784493Z 
+2026-10-13T19:22:00.2784676Z experiments/iter163_native_path_replay/background.py:13: ValueError
+2026-10-13T19:22:00.2785226Z _____________ test_mask_tap_preserves_exact_native_threshold[100] ______________
+2026-10-13T19:22:00.2785487Z 
+2026-10-13T19:22:00.2785562Z n = 100
+2026-10-13T19:22:00.2785652Z 
+2026-10-13T19:22:00.2785764Z     @pytest.mark.parametrize("n", [0, 100, 101])
+2026-10-13T19:22:00.2786077Z     def test_mask_tap_preserves_exact_native_threshold(n):
+2026-10-13T19:22:00.2786353Z         import ast
+2026-10-13T19:22:00.2786533Z         import torch
+2026-10-13T19:22:00.2786830Z         from experiments.iter163_native_path_replay.background import tapped
+2026-10-13T19:22:00.2787270Z         from experiments.iter155_background_witness.geometry import vertices
+2026-10-13T19:22:00.2787596Z     
+2026-10-13T19:22:00.2787879Z         binding = json.loads((ROOT / admission.BASE / "BACKGROUND.json").read_text())
+2026-10-13T19:22:00.2788253Z         source = ROOT / binding["source_path"]
+2026-10-13T19:22:00.2788498Z         node = next(
+2026-10-13T19:22:00.2788968Z             n
+2026-10-13T19:22:00.2789188Z             for n in ast.parse(source.read_text()).body
+2026-10-13T19:22:00.2789540Z             if isinstance(n, ast.FunctionDef) and n.name == "bg_collision_det"
+2026-10-13T19:22:00.2789856Z         )
+2026-10-13T19:22:00.2790031Z         ns = {"torch": torch}
+2026-10-13T19:22:00.2790366Z         exec(compile(ast.Module(body=[node], type_ignores=[]), str(source), "exec"), ns)
+2026-10-13T19:22:00.2790715Z         masks = []
+2026-10-13T19:22:00.2790902Z >       observed = tapped(
+2026-10-13T19:22:00.2791121Z             ns["bg_collision_det"],
+2026-10-13T19:22:00.2791375Z             lambda m, p, b: masks.append(m.clone()),
+2026-10-13T19:22:00.2791652Z             binding["predicate_ast_sha256"],
+2026-10-13T19:22:00.2791891Z         )
+2026-10-13T19:22:00.2791987Z 
+2026-10-13T19:22:00.2792092Z tests/test_iter163_native_path_replay.py:505: 
+2026-10-13T19:22:00.2792394Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+2026-10-13T19:22:00.2792618Z 
+2026-10-13T19:22:00.2792751Z function = <function bg_collision_det at 0x7f57b1813ce0>
+2026-10-13T19:22:00.2793369Z callback = <function test_mask_tap_preserves_exact_native_threshold.<locals>.<lambda> at 0x7f57b249f420>
+2026-10-13T19:22:00.2793961Z expected_ast = '4cccf828dab4b6bd813841a154b12f07c3682c6b6566f16df2cbfbf28676d715'
+2026-10-13T19:22:00.2794252Z 
+2026-10-13T19:22:00.2794360Z     def tapped(function, callback, expected_ast):
+2026-10-13T19:22:00.2794689Z         tree = ast.parse(textwrap.dedent(inspect.getsource(function)))
+2026-10-13T19:22:00.2795270Z         identity = hashlib.sha256(ast.dump(tree, include_attributes=False).encode()).hexdigest()
+2026-10-13T19:22:00.2795667Z         if identity != expected_ast:
+2026-10-13T19:22:00.2796079Z >           raise ValueError("background_source_identity")
+2026-10-13T19:22:00.2796379Z E           ValueError: background_source_identity
+2026-10-13T19:22:00.2796566Z 
+2026-10-13T19:22:00.2796735Z experiments/iter163_native_path_replay/background.py:13: ValueError
+2026-10-13T19:22:00.2797157Z _____________ test_mask_tap_preserves_exact_native_threshold[101] ______________
+2026-10-13T19:22:00.2797413Z 
+2026-10-13T19:22:00.2797481Z n = 101
+2026-10-13T19:22:00.2797573Z 
+2026-10-13T19:22:00.2797681Z     @pytest.mark.parametrize("n", [0, 100, 101])
+2026-10-13T19:22:00.2797988Z     def test_mask_tap_preserves_exact_native_threshold(n):
+2026-10-13T19:22:00.2798261Z         import ast
+2026-10-13T19:22:00.2798444Z         import torch
+2026-10-13T19:22:00.2798844Z         from experiments.iter163_native_path_replay.background import tapped
+2026-10-13T19:22:00.2799277Z         from experiments.iter155_background_witness.geometry import vertices
+2026-10-13T19:22:00.2799601Z     
+2026-10-13T19:22:00.2799886Z         binding = json.loads((ROOT / admission.BASE / "BACKGROUND.json").read_text())
+2026-10-13T19:22:00.2800254Z         source = ROOT / binding["source_path"]
+2026-10-13T19:22:00.2800499Z         node = next(
+2026-10-13T19:22:00.2800688Z             n
+2026-10-13T19:22:00.2800894Z             for n in ast.parse(source.read_text()).body
+2026-10-13T19:22:00.2801240Z             if isinstance(n, ast.FunctionDef) and n.name == "bg_collision_det"
+2026-10-13T19:22:00.2801557Z         )
+2026-10-13T19:22:00.2801726Z         ns = {"torch": torch}
+2026-10-13T19:22:00.2802049Z         exec(compile(ast.Module(body=[node], type_ignores=[]), str(source), "exec"), ns)
+2026-10-13T19:22:00.2802397Z         masks = []
+2026-10-13T19:22:00.2802585Z >       observed = tapped(
+2026-10-13T19:22:00.2802798Z             ns["bg_collision_det"],
+2026-10-13T19:22:00.2803052Z             lambda m, p, b: masks.append(m.clone()),
+2026-10-13T19:22:00.2803324Z             binding["predicate_ast_sha256"],
+2026-10-13T19:22:00.2803551Z         )
+2026-10-13T19:22:00.2803640Z 
+2026-10-13T19:22:00.2803747Z tests/test_iter163_native_path_replay.py:505: 
+2026-10-13T19:22:00.2804049Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+2026-10-13T19:22:00.2804383Z 
+2026-10-13T19:22:00.2804511Z function = <function bg_collision_det at 0x7f57b24b7420>
+2026-10-13T19:22:00.2805137Z callback = <function test_mask_tap_preserves_exact_native_threshold.<locals>.<lambda> at 0x7f57b24b68e0>
+2026-10-13T19:22:00.2805682Z expected_ast = '4cccf828dab4b6bd813841a154b12f07c3682c6b6566f16df2cbfbf28676d715'
+2026-10-13T19:22:00.2805963Z 
+2026-10-13T19:22:00.2806072Z     def tapped(function, callback, expected_ast):
+2026-10-13T19:22:00.2806406Z         tree = ast.parse(textwrap.dedent(inspect.getsource(function)))
+2026-10-13T19:22:00.2806846Z         identity = hashlib.sha256(ast.dump(tree, include_attributes=False).encode()).hexdigest()
+2026-10-13T19:22:00.2807237Z         if identity != expected_ast:
+2026-10-13T19:22:00.2807502Z >           raise ValueError("background_source_identity")
+2026-10-13T19:22:00.2807806Z E           ValueError: background_source_identity
+2026-10-13T19:22:00.2807994Z 
+2026-10-13T19:22:00.2808166Z experiments/iter163_native_path_replay/background.py:13: ValueError
+2026-10-13T19:22:00.2808536Z =============================== warnings summary ===============================
+2026-10-13T19:22:00.2808856Z tests/test_iter144_timed_trajectory.py: 5 warnings
+2026-10-13T19:22:00.2809164Z tests/test_iter145_constrained_execution.py: 9 warnings
+2026-10-13T19:22:00.2809496Z tests/test_iter146_route_outcome_contract.py: 19 warnings
+2026-10-13T19:22:00.2809826Z tests/test_iter147_full_horizon_execution.py: 1 warning
+2026-10-13T19:22:00.2810142Z tests/test_iter154_full_scene_maneuver.py: 6 warnings
+2026-10-13T19:22:00.2810456Z tests/test_iter163_native_path_replay.py: 6 warnings
+2026-10-13T19:22:00.2811285Z   <bound-source-slice>:24: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+2026-10-13T19:22:00.2812102Z 
+2026-10-13T19:22:00.2812215Z tests/test_iter144_timed_trajectory.py: 5 warnings
+2026-10-13T19:22:00.2812529Z tests/test_iter145_constrained_execution.py: 9 warnings
+2026-10-13T19:22:00.2812860Z tests/test_iter146_route_outcome_contract.py: 19 warnings
+2026-10-13T19:22:00.2813196Z tests/test_iter147_full_horizon_execution.py: 1 warning
+2026-10-13T19:22:00.2813509Z tests/test_iter154_full_scene_maneuver.py: 6 warnings
+2026-10-13T19:22:00.2813820Z tests/test_iter163_native_path_replay.py: 6 warnings
+2026-10-13T19:22:00.2814605Z   <bound-source-slice>:26: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+2026-10-13T19:22:00.2815380Z 
+2026-10-13T19:22:00.2815712Z tests/test_iter145_constrained_execution.py::test_full_source_step_render_collision_and_short_control[0.0-False]
+2026-10-13T19:22:00.2816365Z tests/test_iter145_constrained_execution.py::test_full_source_step_render_collision_and_short_control[4.0-False]
+2026-10-13T19:22:00.2817072Z tests/test_iter145_constrained_execution.py::test_full_source_step_render_collision_and_short_control[0.0-True]
+2026-10-13T19:22:00.2817743Z tests/test_iter145_constrained_execution.py::test_full_source_step_render_collision_and_short_control[4.0-True]
+2026-10-13T19:22:00.2818695Z   <bound-source-slice>:102: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+2026-10-13T19:22:00.2819360Z 
+2026-10-13T19:22:00.2819636Z tests/test_iter145_constrained_execution.py::test_full_source_step_render_collision_and_short_control[0.0-False]
+2026-10-13T19:22:00.2820573Z   /home/runner/work/sentinel/sentinel/experiments/iter145_constrained_execution/source_fixture.py:149: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+2026-10-13T19:22:00.2821725Z   Consider using tensor.detach() first. (Triggered internally at /pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:836.)
+2026-10-13T19:22:00.2822324Z     value = torch.tensor([a, b, 0.0, yaw, v], dtype=torch.float64)
+2026-10-13T19:22:00.2822554Z 
+2026-10-13T19:22:00.2822686Z tests/test_iter145_constrained_execution.py: 50 warnings
+2026-10-13T19:22:00.2823012Z tests/test_iter154_full_scene_maneuver.py: 66 warnings
+2026-10-13T19:22:00.2823321Z tests/test_iter163_native_path_replay.py: 67 warnings
+2026-10-13T19:22:00.6545393Z   <bound-source-slice>:308: DeprecationWarning: __array_wrap__ must accept context and return_scalar arguments (positionally) in the future. (Deprecated NumPy 2.0)
+2026-10-13T19:22:00.6545982Z 
+2026-10-13T19:22:00.6546128Z tests/test_iter145_constrained_execution.py: 50 warnings
+2026-10-13T19:22:00.6546451Z tests/test_iter154_full_scene_maneuver.py: 66 warnings
+2026-10-13T19:22:00.6546795Z tests/test_iter163_native_path_replay.py: 67 warnings
+2026-10-13T19:22:00.6547419Z   <bound-source-slice>:309: DeprecationWarning: __array_wrap__ must accept context and return_scalar arguments (positionally) in the future. (Deprecated NumPy 2.0)
+2026-10-13T19:22:00.6547912Z 
+2026-10-13T19:22:00.6548115Z -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+2026-10-13T19:22:00.6548503Z =========================== short test summary info ============================
+2026-10-13T19:22:00.6549142Z FAILED tests/test_iter163_native_path_replay.py::test_mask_tap_preserves_exact_native_threshold[0] - ValueError: background_source_identity
+2026-10-13T19:22:00.6549927Z FAILED tests/test_iter163_native_path_replay.py::test_mask_tap_preserves_exact_native_threshold[100] - ValueError: background_source_identity
+2026-10-13T19:22:00.6550713Z FAILED tests/test_iter163_native_path_replay.py::test_mask_tap_preserves_exact_native_threshold[101] - ValueError: background_source_identity
+2026-10-13T19:22:00.6551710Z 3 failed, 3949 passed, 2 skipped, 463 warnings in 446.49s (0:07:26)
+2026-10-13T19:22:01.3884871Z ##[error]Process completed with exit code 1.
+2026-10-13T19:22:01.3983281Z Post job cleanup.
+2026-10-13T19:22:01.5966480Z [command]/usr/bin/git version
+2026-10-13T19:22:01.6002820Z git version 2.55.0
+2026-10-13T19:22:01.6027871Z Temporarily overriding HOME='/home/runner/work/_temp/30e76ac0-404b-444a-b27d-e75e53cc2143' before making global git config changes
+2026-10-13T19:22:01.6028690Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-13T19:22:01.6032077Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/sentinel/sentinel
+2026-10-13T19:22:01.6064685Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-13T19:22:01.6093568Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-13T19:22:01.6312145Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-13T19:22:01.6341059Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-13T19:22:01.6547663Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-13T19:22:01.6574899Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-13T19:22:01.6930336Z Cleaning up orphan processes
+2026-10-13T19:22:01.7210604Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11d5960a326750d5838078e36cf38b85af677262, actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

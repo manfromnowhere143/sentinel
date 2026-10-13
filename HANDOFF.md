@@ -9,7 +9,10 @@ Synthetic CPU rendering is not native GPU evidence. Current closed science and
 instrument remain Iter162. Native outcomes unobserved; provider currently observed
 TERMINATED. One start, 3,600 seconds, conservative $3 compute ceiling; no initialized
 retry. Raw commitment and verified host closure precede local scalar admission.
-Next: source freeze, exact-head CI, Linux lifecycle qualification and bounded pair.
+The first hosted source check rejected version-dependent AST identities. Amendment001
+uses portable source-text hashes; local Python3.11 binding and all66 query records
+match. No native start occurred. Next: corrected exact-head CI, Linux lifecycle
+qualification and the same bounded pair.
 Owned branch research/iter163-native-path-replay in the observation recovery worktree.
 Canonical dirty root, archived MISSION_STATE and historical protocols unchanged.
 Earlier entries below are historical.

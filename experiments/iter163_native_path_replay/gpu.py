@@ -88,9 +88,9 @@ def worker(control, document, slot):
         background = tapped(
             background,
             lambda mask, points, box: pending_masks.append(capture(mask, points, box)),
-            binding["predicate_ast_sha256"],
+            binding["predicate_source_sha256"],
         )
-        receipt["background_source_ast_sha256"] = binding["predicate_ast_sha256"]
+        receipt["background_source_sha256"] = binding["predicate_source_sha256"]
 
         def measured_foreground(ego_box, objs):
             result = foreground(ego_box, objs)
