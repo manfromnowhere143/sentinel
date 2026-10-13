@@ -1,0 +1,12 @@
+{
+  "iteration": 162,
+  "phase": "preregistered",
+  "status": "preregistered",
+  "claim": "Exact state grouping at width 24 finds a complete admitted path on the retained source model within the frozen envelope.",
+  "parent_commit": "7b272cc7173365b619546df46f5acbd1b64af0c5",
+  "runs_planned": 2,
+  "source_outcomes_acquired": false,
+  "new_driving_episodes": 0,
+  "provider_spend": 0,
+  "next": "Freeze qualified source; acquire once; commit raw before independent scalar admission."
+}

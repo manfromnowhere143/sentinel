@@ -1,0 +1,24 @@
+{
+  "read_at": "2026-10-13",
+  "commit": "5b209a03fe48c41f7a2f364382c2e425bf1c7c1c",
+  "path": "src/ompl/control/planners/sst/src/SST.cpp",
+  "url": "https://raw.githubusercontent.com/ompl/ompl/5b209a03fe48c41f7a2f364382c2e425bf1c7c1c/src/ompl/control/planners/sst/src/SST.cpp",
+  "sha256": "ae490782202bba997d55b0b5961245f7a2ae19f79967442f473d375924919820",
+  "source_scope": "Released upstream source inspection, no installation/execution/qualification",
+  "additional": [
+    {
+      "url": "https://raw.githubusercontent.com/ompl/ompl/5b209a03fe48c41f7a2f364382c2e425bf1c7c1c/src/ompl/base/PlannerStatus.h",
+      "path": "src/ompl/base/PlannerStatus.h",
+      "sha256": "a90f71838587f6cbe677acbf0f8eba27aa604cb725544e6df6020844e4fd9d73"
+    }
+  ],
+  "scope": "Fresh paper abstract/guarantee and pinned PlannerStatus inspection; retained pinned SST implementation inspection. No released-planner installation or execution.",
+  "paper": {
+    "url": "https://arxiv.org/abs/1407.2896v5",
+    "title": "Asymptotically Optimal Sampling-based Kinodynamic Planning",
+    "version": "v5",
+    "revised": "2016-02-05",
+    "read_at": "2026-10-13",
+    "scope": "Abstract and guarantee distinction; no transferred guarantee"
+  }
+}

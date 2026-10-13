@@ -1,3 +1,18 @@
+# Current: Iter162 source grouping qualification preregistered — 13 October 2026
+
+The next source-model test compares unchanged Iter161 exact/24 with quantized/24.
+One exposed scene, all 276,519 retained points, original geometry and checkpoints.
+Each arm: 60,000 attempts, 401 actions, 1,800 search seconds. Read Iter162 PLAN,
+PROTOCOL and DECISION_PACKET before execution. 260 focused/retained checks pass,
+including 36 new; all retained input hashes and full population selection match.
+No source outcomes acquired. Freeze source, one acquisition, raw commit before
+independent scalar and beam admission. Local CPU only; no native, provider or GPU.
+Current closed science and public instrument remain Iter161. A valid exact/24
+miss moves the next milestone to released kinodynamic adapter qualification.
+Owned branch research/iter162-source-grouping-qualification in recovery worktree.
+Canonical dirty root, accepted history and archived MISSION_STATE unchanged.
+Earlier notices below are historical.
+
 # Current: Iter161 closed — 12 October 2026
 
 Supported on four disclosed controls: exact grouping/width 24 completes 4/4;
