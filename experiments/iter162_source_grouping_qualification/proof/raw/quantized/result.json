@@ -1,0 +1,1 @@
+{"aggregation":"quantized","attempts":24764,"completed_depth":66,"counts":{"clear":22722,"controls":850,"foreground_sweep":1081,"progress":111},"elapsed_seconds":428.09115129098063,"materialization_queries":67,"materialization_seconds":1.1025703339837492,"queries":22723,"selected":24411,"stop":"model_complete","width":24}
