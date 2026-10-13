@@ -1,3 +1,36 @@
+# Current: Iter163 closed — 13 October 2026
+
+Two fresh native replicas complete the preselected exact/24 path: 66 actions /
+16.5 simulation seconds each, no recorded collision or off-route event, both
+original progress checkpoints pass. Independent admission checks 132 full masks
+and 36,500,508 point-state classifications with zero disagreement. 804 CUDA camera
+calls; inference bypassed and privileged controls precomputed offline. Both repeats
+use one exposed scene. Native completion from reset is supported; monitor-time
+recovery, information benefit, road compliance and transfer remain unknown.
+All 132 measured loops exceed 250 ms (median 552.8 ms); no real-time claim.
+Read experiments/iter163_native_path_replay/RESULT.md, DECISION.md, STATE.json,
+HYPOTHESIS.md, STUDY_PLAN.json and proof/admissions/pair_000.json.
+
+Corrected frozen source e6a6a80f2a0301377af5f307e79eea52a60f464b;
+raw 8d0e2c2fac91c44285d9d51009955897fef33062 committed before independent admission
+0dae260c93afd19253c49f9895c3f57e75120013. Portable source-hash correction preceded
+all native acquisition; original failed CI retained. Corrected-source CI 38454828251
+passes 3,952 tests/two skips per locked Python version. Closure exact-head CI and
+public delivery are separate publication observations, recorded after this commit.
+
+One owned VM start, verified TERMINATED. Envelope 438.745 s; conservative incremental
+compute $0.366 within $3, excluding storage/taxes, not an invoice. All 11,754 bound
+files unchanged. Local watchdog and coordinator exited 0. No initialized retry or
+extra scientific episode. Resource closure is retained in proof/resource_closure.json.
+Next: qualify the exact 25-control historical prefix through first fire at 6.25 s,
+then freeze the continuation horizon, constraints, comparisons and resource rules
+before new search. The successful reset-time path already differs at 0.25 s. No human
+ceremony is pending; continuing operator authority covers this next local step.
+Released-planner comparison and equal-cost information benefit remain unproved.
+Owned branch research/iter163-native-path-replay in the observation recovery worktree.
+Canonical dirty root, historical sources, archived MISSION_STATE and Iter135 unchanged.
+Earlier entries below are historical.
+
 # Current: Iter163 native path replay preregistered — 13 October 2026
 
 The preselected Iter162 exact/24 packet is unchanged: 66 actions, two fresh native
@@ -5160,3 +5193,11 @@ retain historical scope; no native recovery, information or transfer claim follo
 ## Iter163 controlling preregistration — 13 October 2026
 
 Follow the top entry and Iter163 HYPOTHESIS/STATE. No new native outcome yet.
+
+## Iter163 controlling closure — 13 October 2026
+
+Native completion from reset is independently supported in both replicas. All owned
+native resources are closed. Follow the current top entry and Iter163 DECISION/STATE
+for continuation from the actual first-fire history; historical preregistration and
+unknown-native notices above no longer describe current state. Publication exact-head
+CI/readback are separately observed after this closure commit.

@@ -1,41 +1,41 @@
 {
   "schemaVersion": 1,
-  "iteration": 162,
-  "directory": "experiments/iter162_source_grouping_qualification",
-  "title": "Both grouping rules complete the source model.",
-  "summary": "Two matched width-24 searches complete in 66 actions. Independent replay verifies 134 full masks over all 276,519 selected points and both original checkpoints per path. Exact grouping uses more attempts here.",
-  "boundary": "One exposed static source model and privileged geometry. Roughly seven minutes of offline search per arm. Native recovery, actual decision-time availability, information benefit and transfer remain unknown.",
-  "next": "Qualify bounded native replay of the admitted exact/24 action packet, preserving runtime and asset identities. Then test recovery from the actual monitor history.",
+  "iteration": 163,
+  "directory": "experiments/iter163_native_path_replay",
+  "title": "The admitted path completes the native scene.",
+  "summary": "Two fresh native replicas complete 66 actions each. Independent replay verifies 132 full background masks: 36,500,508 point-state classifications, with zero disagreement. Both original progress checkpoints pass.",
+  "boundary": "One exposed scene, fixed privileged controls from reset and inference bypassed. All 132 measured loops exceed 250 ms. Recovery at the actual monitor decision time, road compliance, information benefit and transfer remain unknown.",
+  "next": "Preserve the 25-control history through first fire at 6.25 seconds. Qualify that prefix and freeze the continuation horizon and resource rules before a new search.",
   "metrics": [
     {
-      "label": "Registered searches",
-      "field": "runs"
+      "label": "Registered replicas",
+      "field": "registered_replicas"
     },
     {
-      "label": "Source-model completions",
-      "field": "complete_runs"
+      "label": "Native completions",
+      "field": "completed_replicas"
     },
     {
-      "label": "Attempted transitions",
-      "field": "attempts"
+      "label": "Verified steps",
+      "field": "verified_steps"
     },
     {
-      "label": "Scalar-verified states",
-      "field": "verified_states"
+      "label": "Point-state checks",
+      "field": "point_state_classifications"
     }
   ],
   "breakdown": [
     {
-      "label": "Complete paths",
-      "field": "complete_runs"
+      "label": "Complete replicas",
+      "field": "completed_replicas"
     },
     {
-      "label": "Incomplete prefixes",
-      "field": "incomplete_runs"
+      "label": "Failed replicas",
+      "field": "failed_replicas"
     },
     {
-      "label": "Invalid runs",
-      "field": "invalid_runs"
+      "label": "Invalid replicas",
+      "field": "invalid_replicas"
     }
   ]
 }

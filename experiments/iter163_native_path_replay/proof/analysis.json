@@ -1,0 +1,72 @@
+{
+  "scope": "Descriptive reconstruction of admitted native records; no new estimator or causal comparison",
+  "cases": [
+    {
+      "episode": "native163_000__scene-0013-medium-00__selected__1",
+      "steps": 66,
+      "final_simulation_time": 16.5,
+      "final_route_fraction": 1.0197018104366347,
+      "final_nearest_index": 1148,
+      "final_route_distance": 0.01454845499287257,
+      "model_state_max_absolute_error": 0.0,
+      "loop_median_ms": 553.4908614999999,
+      "loop_max_ms": 597.486684,
+      "loops_over_250_ms": 66,
+      "worker_seconds": 41.22514385100001,
+      "constructor_seconds": 2.590687728000006,
+      "progress": [
+        {
+          "time": 7.75,
+          "rc": 0.4703585374511892
+        },
+        {
+          "time": 9.0,
+          "rc": 0.5475683351082712
+        }
+      ],
+      "native_background_max_count": 0,
+      "camera_calls": 402
+    },
+    {
+      "episode": "native163_001__scene-0013-medium-00__selected__2",
+      "steps": 66,
+      "final_simulation_time": 16.5,
+      "final_route_fraction": 1.0197018104366347,
+      "final_nearest_index": 1148,
+      "final_route_distance": 0.01454845499287257,
+      "model_state_max_absolute_error": 0.0,
+      "loop_median_ms": 551.397648,
+      "loop_max_ms": 605.279737,
+      "loops_over_250_ms": 66,
+      "worker_seconds": 40.00379714800005,
+      "constructor_seconds": 1.7906315420000283,
+      "progress": [
+        {
+          "time": 7.75,
+          "rc": 0.4703585374511892
+        },
+        {
+          "time": 9.0,
+          "rc": 0.5475683351082712
+        }
+      ],
+      "native_background_max_count": 0,
+      "camera_calls": 402
+    }
+  ],
+  "loop_median_ms": 552.8077235000001,
+  "loop_max_ms": 605.279737,
+  "registered_replicas": 2,
+  "initialized_replicas": 2,
+  "completed_replicas": 2,
+  "failed_replicas": 0,
+  "invalid_replicas": 0,
+  "uninitialized_replicas": 0,
+  "verified_steps": 132,
+  "full_masks": 132,
+  "point_state_classifications": 36500508,
+  "camera_calls": 804,
+  "progress_checks": 4,
+  "mask_disagreements": 0,
+  "loops_over_250_ms": 132
+}

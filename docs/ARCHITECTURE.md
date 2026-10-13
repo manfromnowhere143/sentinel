@@ -1,7 +1,7 @@
 # Sentinel architecture
 
-Updated 12 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter162 research record. The [README](../README.md) carries the scientific
+Updated 13 October 2026. This describes the implemented research apparatus and its measured
+limits through the Iter163 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -208,8 +208,8 @@ recovery and information benefit remain unestablished.
 
 ```mermaid
 flowchart TB
-  accTitle: Model, native rejection, calibration and source completion
-  accDescr: Full retained constraints admit model paths; native recovery remains unknown.
+  accTitle: From native rejection to calibrated native completion
+  accDescr: Full constraints admit native completion from reset; monitor-time recovery remains unknown.
   G["Route and foreground<br/>privileged inputs"] --> M["Iter153: reduced model<br/>one action packet"]
   M --> N["Iter154: native test<br/>two collisions at 3.25 s"]
   N --> X["Iter155: historical poses<br/>points, boxes and ground"]
@@ -224,6 +224,7 @@ flowchart TB
   Q --> K["Iter160: fixed suffixes<br/>one terminal shortfall"]
   K --> Z["Iter161: grouping × width<br/>exact/24 completes four controls"]
   Z --> Y["Iter162: source model<br/>two full paths independently replay"]
+  Y --> V["Iter163: native replay<br/>two completions from reset"]
 ```
 
 These privileged diagnostic inputs are not delivered to the released monitor. Iter153's model
@@ -283,8 +284,19 @@ Iter162 reuses the unchanged search for a matched source-model grouping comparis
 at width24. Both arms complete in 66 actions. Independent admission reconstructs
 all 276,519 selected points, 134 complete masks and both checkpoints per path;
 37,053,546 point-state classifications. Exact grouping uses more attempts and
-queries here. The source model now admits complete actions; native and decision-time
-recovery remain unknown. [Result](../experiments/iter162_source_grouping_qualification/RESULT.md).
+queries here. The source model admits complete actions.
+[Result](../experiments/iter162_source_grouping_qualification/RESULT.md).
+
+Iter163 executes the preselected exact/24 path in two fresh native replicas. Each
+completes 66 actions / 16.5 simulation seconds without a recorded collision or
+off-route event. All 132 actual background masks are captured at the unchanged source
+predicate and independently reconstructed over all selected centers: 36,500,508
+point-state checks, zero disagreements. The reset has no background query. Native
+actors and 804 CUDA camera calls run; inference is bypassed and controls are
+precomputed. All measured loops exceed 250 ms (median 552.8 ms). Native completion
+from reset is supported in this exposed scene; monitor-time recovery, real-time
+operation, road compliance and information benefit remain unknown.
+[Result](../experiments/iter163_native_path_replay/RESULT.md).
 
 ## Evidence delivery to the instrument
 
@@ -299,11 +311,12 @@ This transports admitted evidence; it performs no experiment or scientific admis
 
 ## Next scientific boundary
 
-Next is a separately registered source-model qualification of exact/24, with a
-matched quantized/24 control, complete retained geometry and calibrated resource
-caps. The synthetic four-case bar is now met; source-model recovery is unresolved. Independent replay and a competent responsive
-comparison on equal budgets precede an information claim. An information-selection study
-follows useful native recovery and a measured decision window. Hidden-representation
+Next is continuation from the actual monitor history: preserve the 25 preceding
+controls and resulting state at first fire, 6.25 seconds. The successful reset-time
+path already diverges at 0.25 seconds. Qualify this prefix and prospectively freeze
+continuation budgets before search. Independent replay and a competent responsive
+comparison on equal budgets precede an information claim. An information-selection
+study follows useful recovery at decision time and a measured decision window. Hidden-representation
 monitoring, uncertainty-aware persistence, independent sensors, physical deployment and formal
 safety guarantees remain possible directions with different requirements. None is an established
 capability merely because it appears in a roadmap.

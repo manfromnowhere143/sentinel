@@ -1,3 +1,16 @@
+# Current engine milestone — Iter163 closed, 13 October 2026
+
+The admitted exact/24 path completes both native replicas from reset. Independent
+replay checks 132 full masks / 36,500,508 point-state classifications without a
+disagreement. One exposed scene, privileged offline controls, inference bypassed;
+all 132 measured loops exceed 250 ms. Actual monitor-time recovery remains unknown.
+Next: qualify the retained 25-control prefix through first fire at 6.25 seconds,
+then freeze a bounded continuation experiment. No new native start is needed for
+prefix qualification. All owned native work is closed and the VM is verified off.
+[Result](../experiments/iter163_native_path_replay/RESULT.md) ·
+[Decision](../experiments/iter163_native_path_replay/DECISION.md).
+Earlier roadmap entries are historical.
+
 # Current engine milestone — Iter162 closed, 13 October 2026
 
 Both matched grouping arms complete the retained source model and pass independent

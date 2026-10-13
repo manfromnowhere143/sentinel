@@ -1,0 +1,244 @@
+{
+  "scope": "Read-only historical dependency extraction; proposed future prefix boundary, not a new search or native outcome",
+  "replica_prefix_agreement": true,
+  "cases": [
+    {
+      "episode": "continuation152_000__scene-0013-medium-00__monitor__1",
+      "decision_path": "experiments/iter152_recovery_continuation/proof/study_raw/pair_000/runs/continuation152_000__scene-0013-medium-00__monitor__1/sentinel_iter48_decisions.jsonl",
+      "decision_sha256": "29411a1afaf3af652bc436d2e43e066b9c2ab3a1527a20039442346cef3017f6",
+      "trace_path": "experiments/iter152_recovery_continuation/proof/study_raw/pair_000/runs/continuation152_000__scene-0013-medium-00__monitor__1/trace/events.jsonl",
+      "trace_sha256": "951fa2d39f2e3ade6000c94a60687d967fdc389658eb76cb86dec37bf08a8030",
+      "first_firing_frame": 25,
+      "first_firing_time": 6.25,
+      "state_before_first_braking_control": [
+        21.17188862372476,
+        -1.049307433409818,
+        -0.039159586911849745,
+        3.9726426173877893,
+        0.004162044970972079
+      ],
+      "preserved_prefix_actions": 25,
+      "prefix_controls": [
+        {
+          "acc": 2.0,
+          "steer_rate": 0.0026711272396218247
+        },
+        {
+          "acc": 1.8233092237876027,
+          "steer_rate": -0.06652597658767821
+        },
+        {
+          "acc": 1.7290397236218091,
+          "steer_rate": -0.03494391763346345
+        },
+        {
+          "acc": 1.5164362416232746,
+          "steer_rate": -0.017330062040976264
+        },
+        {
+          "acc": 0.9088879896723828,
+          "steer_rate": -0.015482704737693965
+        },
+        {
+          "acc": 0.43753178670139475,
+          "steer_rate": 0.0036994571339692864
+        },
+        {
+          "acc": 0.3803631452685843,
+          "steer_rate": 0.01172141867226705
+        },
+        {
+          "acc": 0.20058426139581578,
+          "steer_rate": 0.028353302354933364
+        },
+        {
+          "acc": 0.2022120879267729,
+          "steer_rate": 0.02212675116469696
+        },
+        {
+          "acc": 0.29595388586047494,
+          "steer_rate": 0.02419144033022839
+        },
+        {
+          "acc": 0.32254358619592755,
+          "steer_rate": 0.012014251433567493
+        },
+        {
+          "acc": 0.25412894686289306,
+          "steer_rate": 0.011980101775913948
+        },
+        {
+          "acc": 0.20492707830158668,
+          "steer_rate": 0.005967353098747328
+        },
+        {
+          "acc": 0.1342929071233109,
+          "steer_rate": -0.011739214755529635
+        },
+        {
+          "acc": 0.04663115588477898,
+          "steer_rate": -0.006103819099006617
+        },
+        {
+          "acc": 0.10837951747061247,
+          "steer_rate": 0.004591930686531663
+        },
+        {
+          "acc": 0.3954997374438069,
+          "steer_rate": 0.009681914445611832
+        },
+        {
+          "acc": 0.30499775680377744,
+          "steer_rate": 0.021194777968078202
+        },
+        {
+          "acc": 0.30039891653330175,
+          "steer_rate": 0.018007702857128702
+        },
+        {
+          "acc": 0.2361767714563025,
+          "steer_rate": 0.009623940205993714
+        },
+        {
+          "acc": 0.13845249690826564,
+          "steer_rate": 0.01385963055629182
+        },
+        {
+          "acc": 0.3344062064555113,
+          "steer_rate": 0.022313735340392004
+        },
+        {
+          "acc": 0.07972491303781044,
+          "steer_rate": 0.007958818630545995
+        },
+        {
+          "acc": -0.09132632865530937,
+          "steer_rate": -0.022300666379372645
+        },
+        {
+          "acc": -0.3729815381295301,
+          "steer_rate": -0.038883112776910485
+        }
+      ]
+    },
+    {
+      "episode": "continuation152_001__scene-0013-medium-00__monitor__2",
+      "decision_path": "experiments/iter152_recovery_continuation/proof/study_raw/pair_000/runs/continuation152_001__scene-0013-medium-00__monitor__2/sentinel_iter48_decisions.jsonl",
+      "decision_sha256": "29411a1afaf3af652bc436d2e43e066b9c2ab3a1527a20039442346cef3017f6",
+      "trace_path": "experiments/iter152_recovery_continuation/proof/study_raw/pair_000/runs/continuation152_001__scene-0013-medium-00__monitor__2/trace/events.jsonl",
+      "trace_sha256": "1dd5b432cfb319bb130219ad8309e1c9ec43ff03fbc5f3f1842fb816f2b3adf0",
+      "first_firing_frame": 25,
+      "first_firing_time": 6.25,
+      "state_before_first_braking_control": [
+        21.17188862372476,
+        -1.049307433409818,
+        -0.039159586911849745,
+        3.9726426173877893,
+        0.004162044970972079
+      ],
+      "preserved_prefix_actions": 25,
+      "prefix_controls": [
+        {
+          "acc": 2.0,
+          "steer_rate": 0.0026711272396218247
+        },
+        {
+          "acc": 1.8233092237876027,
+          "steer_rate": -0.06652597658767821
+        },
+        {
+          "acc": 1.7290397236218091,
+          "steer_rate": -0.03494391763346345
+        },
+        {
+          "acc": 1.5164362416232746,
+          "steer_rate": -0.017330062040976264
+        },
+        {
+          "acc": 0.9088879896723828,
+          "steer_rate": -0.015482704737693965
+        },
+        {
+          "acc": 0.43753178670139475,
+          "steer_rate": 0.0036994571339692864
+        },
+        {
+          "acc": 0.3803631452685843,
+          "steer_rate": 0.01172141867226705
+        },
+        {
+          "acc": 0.20058426139581578,
+          "steer_rate": 0.028353302354933364
+        },
+        {
+          "acc": 0.2022120879267729,
+          "steer_rate": 0.02212675116469696
+        },
+        {
+          "acc": 0.29595388586047494,
+          "steer_rate": 0.02419144033022839
+        },
+        {
+          "acc": 0.32254358619592755,
+          "steer_rate": 0.012014251433567493
+        },
+        {
+          "acc": 0.25412894686289306,
+          "steer_rate": 0.011980101775913948
+        },
+        {
+          "acc": 0.20492707830158668,
+          "steer_rate": 0.005967353098747328
+        },
+        {
+          "acc": 0.1342929071233109,
+          "steer_rate": -0.011739214755529635
+        },
+        {
+          "acc": 0.04663115588477898,
+          "steer_rate": -0.006103819099006617
+        },
+        {
+          "acc": 0.10837951747061247,
+          "steer_rate": 0.004591930686531663
+        },
+        {
+          "acc": 0.3954997374438069,
+          "steer_rate": 0.009681914445611832
+        },
+        {
+          "acc": 0.30499775680377744,
+          "steer_rate": 0.021194777968078202
+        },
+        {
+          "acc": 0.30039891653330175,
+          "steer_rate": 0.018007702857128702
+        },
+        {
+          "acc": 0.2361767714563025,
+          "steer_rate": 0.009623940205993714
+        },
+        {
+          "acc": 0.13845249690826564,
+          "steer_rate": 0.01385963055629182
+        },
+        {
+          "acc": 0.3344062064555113,
+          "steer_rate": 0.022313735340392004
+        },
+        {
+          "acc": 0.07972491303781044,
+          "steer_rate": 0.007958818630545995
+        },
+        {
+          "acc": -0.09132632865530937,
+          "steer_rate": -0.022300666379372645
+        },
+        {
+          "acc": -0.3729815381295301,
+          "steer_rate": -0.038883112776910485
+        }
+      ]
+    }
+  ]
+}

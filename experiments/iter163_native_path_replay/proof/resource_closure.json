@@ -1,0 +1,19 @@
+{
+  "status": "supported",
+  "source_commit": "e6a6a80f2a0301377af5f307e79eea52a60f464b",
+  "owned_start": "2026-10-13T12:45:00.219-07:00",
+  "verified_stop": "2026-10-13T12:52:04.589-07:00",
+  "provider_state": "TERMINATED",
+  "bound_files": 11754,
+  "changed_original_files": 0,
+  "changed_owned_cache": 0,
+  "elapsed_seconds": 438.745288874954,
+  "conservative_compute_usd": 0.36562107406246164,
+  "compute_cap_usd": 3.0,
+  "within_registered_budget": true,
+  "watchdog_exit": 0,
+  "local_collected_bytes": 23403517,
+  "local_collection_cap_bytes": 536870912,
+  "source_qualification_sha256": "f5df633bd08ce48a6bc578dd87f7a915a274d23aeb1f34f17787ec7dfbe54ce9",
+  "scope": "One bounded native start; conservative incremental compute estimate excludes persistent storage and taxes; not an invoice"
+}

@@ -18,7 +18,7 @@ against a competent responsive baseline, with information access, permitted acti
 resource budgets stated explicitly.
 
 [System](#what-sentinel-does) · [Results](#measured-results) ·
-[Research history](#how-the-question-changed) · [Latest result](#iteration-162-both-grouping-rules-complete-the-source-model) ·
+[Research history](#how-the-question-changed) · [Latest result](#iteration-163-the-admitted-path-completes-the-native-scene) ·
 [Next test](#the-next-scientific-test) · [Reproduce](#reproduce-and-inspect) ·
 [Repository status](#repository-status--13-october-2026) · [Experiment index](#complete-experiment-index)
 
@@ -89,8 +89,9 @@ its own observations. Likewise, a successful maneuver chosen from reset does not
 that the same maneuver remains available when the monitor first detects a hazard.
 
 The results below retain that distinction. NeuroNCAP supports a score improvement with specific
-costs; semantic attribution is unresolved, HUGSIM transfer is null, and useful recovery in the
-current development cases remains unestablished.
+costs; semantic attribution is unresolved and HUGSIM transfer is null. A fixed path now
+completes one native scene from reset; useful recovery at the actual monitor decision
+time remains unestablished.
 
 ## Measured results
 
@@ -227,9 +228,9 @@ sets out the mathematical target, relevant prior work and the proposed experimen
 ```mermaid
 flowchart TB
   accTitle: How the evidence changed the research question
-  accDescr: Transfer nulls lead to calibrated constraints and two complete model paths; native recovery is unproved.
+  accDescr: Native completion from reset follows transfer nulls; monitor-time recovery remains unproved.
   N["NeuroNCAP gain<br/>progress and attribution limits"] --> T["HUGSIM transfer nulls<br/>actor and timing audits"]
-  T --> E["Iter136–151: execution<br/>nulls and interruptions"]
+  T --> E["Iter136–151<br/>execution nulls"]
   E --> P["Iter152: brake pulses<br/>no useful recovery"]
   P --> M["Iter153–154<br/>candidate fails full scene"]
   M --> W["Iter155: collision witness<br/>native/scalar agreement"]
@@ -240,6 +241,7 @@ flowchart TB
   Q --> K["Iter160: fixed suffixes<br/>one terminal difference"]
   K --> G["Iter161: grouping × width<br/>exact/24 completes four controls"]
   G --> S["Iter162: source model<br/>both grouping arms complete"]
+  S --> V["Iter163: native replay<br/>two completions from reset"]
 ```
 
 ### 5. Establish what the controller actually executes
@@ -550,12 +552,34 @@ Exact grouping qualifies, but uses **25,441 attempts** versus **24,764** for
 quantized grouping. Both complete; the synthetic efficiency advantage does not
 carry over to this comparison. Search takes roughly seven minutes per arm on the
 local CPU. This establishes an offline model action opportunity on one exposed
-scene. Native recovery, actual decision-time availability and information benefit
-remain unknown. The next test is a bounded native replay of the admitted candidate.
+scene. Iter163 below tests the admitted candidate in the native environment; actual
+decision-time availability and information benefit remain unknown.
 [Result and figure](experiments/iter162_source_grouping_qualification/RESULT.md) ·
 [independent admission](experiments/iter162_source_grouping_qualification/proof/admission.json) ·
 [next decision](experiments/iter162_source_grouping_qualification/DECISION.md) ·
 [2026 primary-source review](experiments/iter162_source_grouping_qualification/RESEARCH_UPDATE.md).
+
+## Iteration 163: the admitted path completes the native scene
+
+The preselected exact/24 path completes **both fresh native replicas** in 66 actions
+and 16.5 simulation seconds each, without a recorded collision or off-route event.
+Both original progress checkpoints pass. Independent replay checks all **132 full
+background masks**: **36,500,508 point-state classifications**, with zero disagreement.
+
+![Native path, progress and full background-mask checks](experiments/iter163_native_path_replay/proof/native_replay.png)
+
+This is a complete native path **from reset in one exposed scene**, using privileged
+controls computed offline and bypassing inference. Native completion follows the
+source sampled-route rule, rather than reaching its literal final sample. All
+132 measured loops exceed 250 ms; median time is 552.8 ms before adding inference
+or online search. Real-time operation and recovery from the actual monitor history
+remain unproved. The successful path changes steering at 0.25 seconds; the retained
+monitor first fires at 6.25 seconds. That difference determines the next experiment.
+
+[Result and limits](experiments/iter163_native_path_replay/RESULT.md) ·
+[independent admission](experiments/iter163_native_path_replay/proof/admissions/pair_000.json) ·
+[next decision](experiments/iter163_native_path_replay/DECISION.md) ·
+[verified resource closure](experiments/iter163_native_path_replay/proof/resource_closure.json).
 
 ## The next scientific test
 
@@ -572,10 +596,10 @@ The following work is proposed; all previous schedules retain their closed accou
    finds one fixed-suffix terminal difference; it does not explain that candidate's
    miss. Iter161 separates grouping from width: exact/24 completes all four controls.
    Iter162 now admits complete paths from both matched grouping arms on the retained
-   source model. Qualify a bounded native replay of the preregistered exact/24 path,
-   preserving runtime/asset identities, controls, progress and failure accounting.
-   Model completion still needs native confirmation and the monitor's actual
-   decision-time state/history; offline search cost is not a response-time result.
+   source model. Iter163 confirms the preselected path in two native executions from
+   reset. Now preserve the historical 25-control prefix and qualify continuation
+   from the monitor's first fire at 6.25 seconds. Freeze that initial condition,
+   horizon and resource rules before search. Offline cost is not a response-time result.
 3. **After establishing useful recovery, test one information hypothesis against a responsive baseline.**
    Track continuity and uncertainty are motivated candidates. Include benign and stale-track cases, freeze the
    information interfaces, and measure intervention costs. Better offline prediction alone
@@ -586,24 +610,26 @@ The following work is proposed; all previous schedules retain their closed accou
 
 ```mermaid
 flowchart TB
-  accTitle: From model completion to information benefit
-  accDescr: Six retained results precede proposed native replay and information testing.
+  accTitle: From native completion to decision-time recovery
+  accDescr: Seven results precede proposed monitor-time continuation and information tests.
   C["Iter157: fixed library null<br/>0 of 75 qualify"] --> A["Iter158: inconclusive<br/>valid partial path"]
   A --> Q["Iter159: controls<br/>candidate completes 3 of 4"]
   Q --> K["Iter160: fixed suffixes<br/>one terminal shortfall"]
   K --> G["Iter161: exact/24 qualifies<br/>wider beams lose completions"]
   G --> S["Iter162: source model<br/>both grouping arms complete"]
-  S --> V["Proposed: bounded native replay<br/>same admitted action packet"]
-  V --> R{"Useful native<br/>recovery?"}
-  R -- "not found" --> N["Retain rejection<br/>resolve model discrepancy"]
-  R -- "unknown" --> U["Retain missing/invalid evidence<br/>no recovery claim"]
-  R -- "supported" --> W["Preserve nominal prefix<br/>measure decision window"]
+  S --> V["Iter163: native replay<br/>two completions from reset"]
+  V --> P["Proposed: preserve actual prefix<br/>branch at first fire, 6.25 s"]
+  P --> R{"Continuation<br/>independently admitted?"}
+  R -- "not found" --> N["Retain bounded miss<br/>test competing explanations"]
+  R -- "unknown" --> U["Retain missing/invalid evidence"]
+  R -- "supported" --> W["Measure decision window<br/>and total computation cost"]
   W --> I["Test added information<br/>against responsive policy"]
   I --> H["Held-out scenes<br/>benefit, harm and uncertainty"]
 ```
 
-The first six nodes are retained results; native replay and subsequent steps are proposed. No useful native
-recovery opportunity or information advantage has been established.
+The first seven nodes are retained results; continuation from the actual monitor history
+and subsequent steps are proposed. No monitor-time recovery or information advantage
+has been established.
 
 Failure across a finite set of actions does not prove physical inevitability. Likewise, a weak
 probe does not prove that the available observations lack information. If a representation is a
@@ -657,7 +683,7 @@ not a complete distribution of every runtime asset.
 | [Architecture](docs/ARCHITECTURE.md) | Implemented interfaces, simulator distinctions, evidence flow and timing. |
 | [Original preregistration](PREREGISTRATION.md) | The initial benchmark question and decision rules. |
 | [Research direction](docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md) | Information and recoverability: mathematical formulation and dated literature review. |
-| [Next scientific decision](experiments/iter162_source_grouping_qualification/DECISION.md) | Qualify bounded native replay of the admitted source action, then actual decision-time recovery. |
+| [Next scientific decision](experiments/iter163_native_path_replay/DECISION.md) | Preserve the actual monitor history and qualify continuation from its first fire at 6.25 seconds. |
 | [Handoff](HANDOFF.md) | Exact next task, acceptance criteria, resource closure and recovery instructions. |
 | [Continuity](CONTINUITY.md) and [next phase](docs/NEXT_PHASE.md) | Current state followed by retained historical decisions. |
 | [Technical report](docs/REPORT.md) | Historical synthesis through Iter134; it predates the current execution program. |
@@ -678,23 +704,24 @@ scientific claim or reinterpret the archived mission state.
 
 ## Repository status — 13 October 2026
 
-**This research lineage is current through Iter162, completed on 13 October.**
-Both grouping arms complete the retained source model and pass full scalar admission.
-Exact/24 qualifies, with no completion or query-efficiency advantage over quantized/24
-on this scene. Useful native recovery and information benefit remain unestablished.
+**This research lineage is current through Iter163, completed on 13 October.**
+The preselected exact/24 path completes two native replicas from reset, with full
+scalar admission. Both grouping rules completed the preceding source-model test;
+exact grouping showed no efficiency advantage there. Monitor-time recovery, useful
+information and real-time operation remain unestablished.
 Iteration 135's dose-response experiment remains **deferred and unrun**.
 
 The repository has two distinct records. The accepted code and mission snapshot at
 [`8c118b7`](https://github.com/manfromnowhere143/sentinel/tree/8c118b74c699bf0f139f9bd659192bad06b895f8)
 is **current through iteration 134**. [MISSION_STATE.json](MISSION_STATE.json) preserves
 that historical contract.
-Later research, through the Iter162 source-model qualification, is retained in a separate
-[research lineage](https://github.com/manfromnowhere143/sentinel/tree/79f2da20e0ffc5585a4f64899bd93b33673d6a4c).
+Later research, through Iter163 native admission, is retained in a separate
+[research lineage](https://github.com/manfromnowhere143/sentinel/tree/0dae260c93afd19253c49f9895c3f57e75120013).
 This README describes both; a documentation update does not integrate that later experimental
 code into the accepted snapshot. The [current handoff](HANDOFF.md) identifies the next task.
 
 The earlier 12 October editorial refresh brought the default landing page through Iter155.
-This later research revision retains Iter162 and its two admitted source paths. The public
+This later research revision retains Iter163 and its two admitted native executions. The public
 instrument follows validated closed-result packets automatically; its older replay and
 native witness do not inherit a new scientific identity from an update.
 
@@ -714,7 +741,10 @@ checks; its closure passed 3,747 tests on both hosted Python versions. Iter160 a
 3,787 tests with two skips on both versions. Iter161 adds 26 checks and 224
 focused/retained tests; its closure passed 3,813 hosted tests per version. Iter162
 adds 36 checks and 260 focused/retained tests. Its frozen source passed 3,849
-hosted tests with two skips on each version. Exact-source hosted validation remains
+hosted tests with two skips on each version. Iter163 adds 103 successor checks; its
+corrected frozen source passes 3,952 hosted tests with two skips per version. The
+retained first source failed three cross-version identity tests before any native
+start; its pre-evidence amendment preserves the scientific plan. Exact-source hosted validation remains
 a separate publication requirement; local tests do not substitute for it.
 
 ## Complete experiment index
@@ -897,7 +927,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 </details>
 
 <details>
-<summary>Information, recoverability and execution: Iter135–162</summary>
+<summary>Information, recoverability and execution: Iter135–163</summary>
 
 | Record | Finding or scope |
 |---|---|
@@ -929,6 +959,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 | [160](experiments/iter160_continuation_preservation/RESULT.md) | Five paired continuations: all witnesses and four representatives complete; one fixed suffix ends at 0.998703. All hard constraints pass; 546 states replay. Whole-search cause and native recovery remain unknown. |
 | [161](experiments/iter161_grouping_width_ablation/RESULT.md) | Exact grouping/width 24 completes 4/4 constructed controls; quantized/24 completes 3/4; both width-48 arms complete 2/4 under the same cap. All 643 states replay; source and native recovery remain unknown. |
 | [162](experiments/iter162_source_grouping_qualification/RESULT.md) | Both matched grouping arms complete the retained source model in 66 actions; 134 full scalar masks and both checkpoints per path pass. Exact/24 uses more attempts; native recovery remains unknown. |
+| [163](experiments/iter163_native_path_replay/RESULT.md) | Two native completions from reset; 132 full masks and 36,500,508 point-state checks agree. All measured loops exceed 250 ms; monitor-time recovery remains unknown. |
 
 </details>
 

@@ -1,0 +1,56 @@
+{
+  "scope": "Agent-recorded closure checks; does not replace scientific admission or hosted execution",
+  "python": "3.14.2",
+  "frozen_scientific_basis_sha256": "f5df633bd08ce48a6bc578dd87f7a915a274d23aeb1f34f17787ec7dfbe54ce9",
+  "aggregate_rederived_from_pair_admission": {
+    "registered_replicas": 2,
+    "initialized_replicas": 2,
+    "completed_replicas": 2,
+    "verified_steps": 132,
+    "full_masks": 132,
+    "point_state_classifications": 36500508,
+    "camera_calls": 804
+  },
+  "raw_completion_and_outcome_checks": true,
+  "local_checks": [
+    {
+      "command": "/opt/homebrew/bin/ruff check .",
+      "result": "passed"
+    },
+    {
+      "command": "python3 -I -B -S tools/ci/verify_supply_chain.py",
+      "result": "SUPPLY_CHAIN_VERIFICATION_OK"
+    },
+    {
+      "command": "python3 -m pytest -q tests/test_instrument_progress.py",
+      "result": "14 passed in 6.73s"
+    },
+    {
+      "command": "python3 -I -B -S scripts/validate_docs.py (with scripts import path)",
+      "result": "562 markdown files clean; all RESULT experiments surfaced in README"
+    }
+  ],
+  "figure_review": {
+    "reviewer": "agent visual inspection",
+    "complete_path_visible": true,
+    "spatial_axes_equal_scale": true,
+    "annotations_unclipped": true,
+    "historical_comparison_scope_visible": true,
+    "files": {
+      "native_replay.svg": "dcab2b9c42074a01a21affed35a24296d635dfa878596e0d48084466c2f0ec4e",
+      "native_replay.png": "1d8fed2ff9ff6733fc98098acb83e89fbc026a205ce117117f5ade525d63d2d1",
+      "native_replay.pdf": "a6f107cb30c83ea90771e25950ff72be61292deb2f523aad84fcf172542d23f4"
+    }
+  },
+  "diagram_review": {
+    "reviewer": "agent visual inspection",
+    "render_count": 6,
+    "themes": [
+      "default",
+      "dark"
+    ],
+    "text_and_arrows_visible": true,
+    "results_distinguished_from_proposals": true
+  },
+  "hosted_closure_checks": "pending after closure commit; retained outside this commit"
+}

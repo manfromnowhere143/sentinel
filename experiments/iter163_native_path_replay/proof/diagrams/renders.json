@@ -1,0 +1,38 @@
+[
+  {
+    "source": "experiments/iter163_native_path_replay/proof/diagrams/architecture-4.mmd",
+    "theme": "default",
+    "output": "experiments/iter163_native_path_replay/proof/diagrams/architecture-4-default.png",
+    "exit": 0
+  },
+  {
+    "source": "experiments/iter163_native_path_replay/proof/diagrams/architecture-4.mmd",
+    "theme": "dark",
+    "output": "experiments/iter163_native_path_replay/proof/diagrams/architecture-4-dark.png",
+    "exit": 0
+  },
+  {
+    "source": "experiments/iter163_native_path_replay/proof/diagrams/readme-2.mmd",
+    "theme": "default",
+    "output": "experiments/iter163_native_path_replay/proof/diagrams/readme-2-default.png",
+    "exit": 0
+  },
+  {
+    "source": "experiments/iter163_native_path_replay/proof/diagrams/readme-2.mmd",
+    "theme": "dark",
+    "output": "experiments/iter163_native_path_replay/proof/diagrams/readme-2-dark.png",
+    "exit": 0
+  },
+  {
+    "source": "experiments/iter163_native_path_replay/proof/diagrams/readme-3.mmd",
+    "theme": "default",
+    "output": "experiments/iter163_native_path_replay/proof/diagrams/readme-3-default.png",
+    "exit": 0
+  },
+  {
+    "source": "experiments/iter163_native_path_replay/proof/diagrams/readme-3.mmd",
+    "theme": "dark",
+    "output": "experiments/iter163_native_path_replay/proof/diagrams/readme-3-dark.png",
+    "exit": 0
+  }
+]

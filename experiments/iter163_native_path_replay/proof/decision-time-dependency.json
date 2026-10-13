@@ -1,0 +1,29 @@
+{
+  "scope": "Read-only mechanical first-step comparison; no new episode or recovery experiment",
+  "nominal_trace": "experiments/iter151_recovery_canary/proof/study_raw/pair_000/runs/canary151_000__scene-0013-medium-00__nominal__1/trace/events.jsonl",
+  "nominal_trace_sha256": "43dc0366ef783a47323faf5daed4046592f1ea22be97528fe539c0ff9e629bb5",
+  "time": 0.25,
+  "nominal_first_action": {
+    "acc": 2.0,
+    "steer_rate": 0.0026711272396218247
+  },
+  "candidate_first_action": [
+    2.0,
+    -0.07453125979418491
+  ],
+  "nominal_first_state": [
+    0.375,
+    0.0,
+    9.274748738435481e-05,
+    1.5,
+    0.0006677818099054562
+  ],
+  "candidate_first_state": [
+    0.375,
+    0.0,
+    -0.0025881904962143376,
+    1.5,
+    -0.01863281494854623
+  ],
+  "same_state": false
+}
