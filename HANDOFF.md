@@ -1,3 +1,23 @@
+# Current: Iter172 integrated RRT qualification preregistered — 14 October 2026
+
+Direct task: qualify the integrated RRT on its four original cases. Iter171 local
+12/12 is retained; it does not establish integrated qualification or source recovery.
+Read experiments/iter172_integrated_rrt/DECISION_PACKET.md, PROTOCOL.md and PLAN.json.
+Released OMPL RRT retains its original sampler, metric, four seeds/cases, checkpoint
+rules and 18,000-transition/120-second/96-action envelope. The directed sampler
+now calls centered shooting over up to eight steps and returns only a contiguous
+admissible prefix through a checked sequence-token bridge. Every derivative and
+rejected rollout counts against the outer budget; the inner cap is 1,024.
+Absolute scene time is preserved. No invented stop/wait phases or witness inputs.
+65 focused/retained tests pass with both native bridges installed, including
+varying-control transport and corruption checks. Ruff and supply-chain pass.
+The new scientific four-case outcome is not yet observed. Freeze source before
+one run per seed in fresh processes, commit raw before separate scalar admission.
+Any valid miss contradicts all-four qualification; no outcome-dependent retry.
+No source comparison/native driving/provider use is part of this study.
+Owned branch research/iter172-integrated-rrt-qualification in the existing
+Sentinel observation-recovery worktree. No human ceremony is pending.
+
 # Current: Iter169–171 closed; local full-horizon qualification passes — 14 October 2026
 
 Iter171 completes all twelve unchanged constructed tasks, including both longer

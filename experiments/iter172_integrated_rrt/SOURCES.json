@@ -1,0 +1,11 @@
+{
+  "reviewed": "2026-10-14",
+  "primary_urls": [
+    "https://ompl.kavrakilab.org/classompl_1_1control_1_1DirectedControlSampler.html",
+    "https://ompl.kavrakilab.org/classompl_1_1control_1_1RRT.html"
+  ],
+  "retained_implementation": "experiments/iter166_independent_planner/upstream/RRT.cpp.txt",
+  "released_version": "OMPL 2.0.1",
+  "optimizer_provenance": "experiments/iter169_full_horizon_control/UPSTREAM.json",
+  "scope": "Interface contract and exact retained implementation; no superiority or latest-version claim."
+}
