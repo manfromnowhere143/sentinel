@@ -1,3 +1,21 @@
+# Current: Iter169 full-horizon control preregistered — 14 October 2026
+
+Direct task: qualify steering and speed across the full maneuver; no source
+comparison before qualification. Read experiments/iter169_full_horizon_control/
+DECISION_PACKET.md, PROTOCOL.md and PLAN.json. Twelve unchanged Iter168 tasks,
+8,192-transition/30-second per-task caps, one task-derived start, bounded SciPy
+least-squares shooting, all intermediate hard predicates retained. Retained depth2
+comparator is bound and replayed; no new RRT/source/native execution. Source freeze
+precedes one initialized schedule; raw commit precedes independent admission.
+
+Preflight rejected two SLSQP objective formulations on a separate three-frame toy;
+these were development tests, not registered outcomes. Bounded residual fitting
+passes the toy and mechanical known-bads. No registered scientific outcome yet.
+A local 12/12 pass would still require separate four-case RRT integration qualification
+before source use. No human ceremony pending. Historical records remain unchanged.
+Owned branch research/iter169-full-horizon-control in the recovery worktree
+/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011.
+
 # Current: Iter168 closed — 14 October 2026
 
 Stopping/waiting/restart qualify on all eight constructed tasks in both arms.

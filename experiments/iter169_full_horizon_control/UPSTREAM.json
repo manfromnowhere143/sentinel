@@ -1,0 +1,40 @@
+{
+  "release": "SciPy 1.17.1",
+  "sources": [
+    {
+      "url": "https://raw.githubusercontent.com/scipy/scipy/v1.17.1/scipy/optimize/_slsqp_py.py",
+      "path": "experiments/iter169_full_horizon_control/upstream/scipy_slsqp_py.py.txt",
+      "sha256": "c8362e8d36440f3de97b58562aadb86661271ea7f66160505f51a601aff71609",
+      "retrieved": "2026-10-14"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/scipy/scipy/v1.17.1/LICENSE.txt",
+      "path": "experiments/iter169_full_horizon_control/upstream/LICENSE.txt",
+      "sha256": "221e59f5e910fd7f94e44f0dac77436a11338c285c6346232e4a850a50da0e94",
+      "retrieved": "2026-10-14"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/scipy/scipy/v1.17.1/scipy/optimize/_lsq/least_squares.py",
+      "path": "experiments/iter169_full_horizon_control/upstream/least_squares.py.txt",
+      "sha256": "edb25eca998c20b9cc10b3b22faf9b0861f9be5251209481b739f56d857b1b7c",
+      "loaded_file_matches": true,
+      "retrieved": "2026-10-14"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/scipy/scipy/v1.17.1/scipy/optimize/_lsq/trf.py",
+      "path": "experiments/iter169_full_horizon_control/upstream/trf.py.txt",
+      "sha256": "0c7c29d5d3fd6915720e9547f051d47e14ca5a821e7872686aa8cf1d1c4e4893",
+      "loaded_file_matches": true,
+      "retrieved": "2026-10-14"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/scipy/scipy/v1.17.1/scipy/optimize/_lsq/common.py",
+      "path": "experiments/iter169_full_horizon_control/upstream/lsq_common.py.txt",
+      "sha256": "87f56c7cf40cddfcbe316618d966cf0ef7f366cb013ac665df199a116c5fb0c7",
+      "loaded_file_matches": true,
+      "retrieved": "2026-10-14"
+    }
+  ],
+  "native_binary_reproduced_from_source": false,
+  "preflight_rejected_method": "SLSQP; wrapper retained for provenance only; frozen study uses least_squares TRF"
+}
