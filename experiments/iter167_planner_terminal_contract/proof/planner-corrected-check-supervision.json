@@ -1,0 +1,21 @@
+{
+  "stage": "planner-corrected-check",
+  "command": [
+    "python3",
+    "-m",
+    "experiments.iter167_planner_terminal_contract.check",
+    "--root",
+    ".",
+    "--raw-commit",
+    "9232d3565d25c0cf08d9af49ab8332ee331d4455"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011",
+  "started": "2026-10-14T07:15:32.233568+00:00",
+  "limit_seconds": 910,
+  "status": "completed",
+  "pid": 52553,
+  "returncode": 0,
+  "elapsed_seconds": 9.519759415998124,
+  "finished": "2026-10-14T07:15:41.753795+00:00",
+  "process_reaped": true
+}

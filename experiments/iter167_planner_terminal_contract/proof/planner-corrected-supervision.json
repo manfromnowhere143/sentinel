@@ -1,0 +1,23 @@
+{
+  "stage": "planner-corrected",
+  "command": [
+    "python3",
+    "-m",
+    "experiments.iter167_planner_terminal_contract.run",
+    "--root",
+    ".",
+    "--source",
+    "1641ff1e355e4ae28222b3502b3249915eb13aae",
+    "--library",
+    "/Users/danielwahnich/.codex/reports/sentinel/iter165/runtime/libsentinel_ompl.dylib"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011",
+  "started": "2026-10-14T07:13:34.367657+00:00",
+  "limit_seconds": 910,
+  "status": "completed",
+  "pid": 47683,
+  "returncode": 0,
+  "elapsed_seconds": 61.04786662501283,
+  "finished": "2026-10-14T07:14:35.416512+00:00",
+  "process_reaped": true
+}
