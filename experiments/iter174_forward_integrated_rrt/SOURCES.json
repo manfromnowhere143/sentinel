@@ -1,0 +1,8 @@
+{
+  "reviewed": "2026-10-14",
+  "released_version": "OMPL 2.0.1",
+  "retained_implementation": "experiments/iter166_independent_planner/upstream/RRT.cpp.txt",
+  "sha256": "a270be5891e34e325b6ddd216541063888bfbe3528801816e3182e88244a67e3",
+  "primary_url": "https://ompl.kavrakilab.org/classompl_1_1control_1_1DirectedControlSampler.html",
+  "scope": "Retained primary implementation review; native binary and connector unchanged from admitted predecessors; no latest-version claim."
+}

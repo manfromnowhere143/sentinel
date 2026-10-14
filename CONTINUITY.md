@@ -1,3 +1,24 @@
+# Current: Iter174 forward-connector integration preregistered — 14 October 2026
+
+Direct task: the next integrated trial; source comparison stays closed until all
+four original cases qualify. Read experiments/iter174_forward_integrated_rrt/
+DECISION_PACKET.md and PROTOCOL.md. Preserve the original cases/seeds, sampler,
+metric, goal bias, native sequence bridge, evaluator, absolute clock and checkpoints.
+Only the connector changes from shooting to the admitted Iter173 forward generator.
+18,000 transitions / 120 seconds / 96 actions per case; eight-step/1,024-transition
+inner caps. Four fresh processes, one schedule, no retry or outcome-dependent tuning.
+The new independent admission additionally reconstructs every forward proposal.
+Source freezes before execution, raw commits before admission. All four completions
+required; a valid miss contradicts qualification. No source comparison, native
+vehicle episode or provider use belongs to this study. No human ceremony is pending.
+
+Sixteen new contract, corruption and native integration checks pass. Exact retained
+native/Python runtime identities verified. The scientific four-case outcome remains
+unobserved before the source freeze. Earlier 0/4 integrated and bounded positive
+connector results keep their distinct scopes. Use research/iter174-forward-integrated-rrt
+in /Users/danielwahnich/workspace/sentinel-observation-recovery-20261011. Canonical
+dirty root, archived mission state and historical bytes remain untouched.
+
 # Current: Iter173 closed; forward connector qualifies for an integrated trial — 14 October 2026
 
 The matched-cap comparison passes its frozen finite criterion. Forward completes
@@ -5685,3 +5706,7 @@ Follow the current top entry and Iter173 protocol. No initialized scientific out
 Follow the current top entry and Iter173 RESULT/DECISION. The connector comparison
 is supported in its finite scope; integrated qualification remains 0/4. Source
 comparison stays closed until all four pass. All scientific jobs are reaped.
+
+## Iter174 controlling preregistration — 14 October 2026
+
+Follow the current top entry and Iter174 protocol. No initialized scientific outcome yet.
