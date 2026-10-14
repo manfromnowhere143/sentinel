@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 13 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter168 research record. The [README](../README.md) carries the scientific
+limits through the Iter171 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -226,7 +226,8 @@ flowchart TB
   V --> B["Iter164: first-fire miss"]
   B --> D["Iter165: all 49 roots miss"]
   D --> R["Iter166–167: terminal repair<br/>RRT remains unqualified"]
-  R --> J["Iter168: stops and waits pass<br/>longer turns miss"]
+  R --> J["Iter168: stops pass; turns miss"]
+  J --> H["Iter169–171: numerical repairs<br/>12/12 local tasks qualify"]
 ```
 
 These privileged diagnostic inputs are not delivered to the released monitor. Iter153's model
@@ -362,3 +363,26 @@ constraints; unselected background labels remain producer evidence. No native
 bridge or RRT solve occurs here. Full-horizon turning, then integrated planner
 qualification, remain prerequisites to source comparison.
 [Connector result and limits](../experiments/iter168_control_connector/RESULT.md).
+
+Iter169 adds bounded shooting over the whole task horizon. Task-derived controls
+are optimized against terminal residuals with explicit stop/wait phases. All
+intermediate predicates remain hard admission requirements. Derivative and line
+search calls are included in the per-transition budget; exact physical-vector
+cache hits are recorded separately. Its 10/12 result exposes a near-zero relative
+derivative problem. Iter170 fixes that policy but still completes 10/12.
+
+Iter171 expresses optimizer variables as increments around the unchanged physical
+seed and translates bounds. The evaluator, dynamics, constraints and scalar checker
+are reused unchanged. All twelve tasks qualify; 284 states/full masks across
+witnesses and retained/new paths replay independently. No witness controls enter
+the controller API. Coordinate translation changes both initial radius and later
+probe placement; a single-mechanism causal claim is not established.
+
+Local targets and deadlines are explicitly supplied in these tasks. The unresolved
+integration is how RRT supplies them, represents unreachable requests, and charges
+every internal rollout to its original budget. Its four-case full-clock and
+checkpoint qualification remains necessary before source comparison. No bridge,
+source replay or native driving is added by the local result.
+[Full-horizon failure](../experiments/iter169_full_horizon_control/RESULT.md) ·
+[Derivative correction](../experiments/iter170_derivative_step/RESULT.md) ·
+[Local qualification](../experiments/iter171_centered_shooting/RESULT.md).

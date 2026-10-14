@@ -18,7 +18,7 @@ against a competent responsive baseline, with information access, permitted acti
 resource budgets stated explicitly.
 
 [System](#what-sentinel-does) · [Results](#measured-results) ·
-[Research history](#how-the-question-changed) · [Latest result](#iteration-168-stopping-and-waiting-pass-longer-turning-does-not) ·
+[Research history](#how-the-question-changed) · [Latest result](#iterations-169171-full-horizon-control-qualifies) ·
 [Next test](#the-next-scientific-test) · [Reproduce](#reproduce-and-inspect) ·
 [Repository status](#repository-status--14-october-2026) · [Experiment index](#complete-experiment-index)
 
@@ -228,7 +228,7 @@ sets out the mathematical target, relevant prior work and the proposed experimen
 ```mermaid
 flowchart TB
   accTitle: How the evidence changed the question
-  accDescr: Reset completion leads to first-fire search and failed planner qualification.
+  accDescr: Local control qualifies; planner and first-fire recovery remain unresolved.
   N["NeuroNCAP gain<br/>attribution limits"] --> T["HUGSIM transfer nulls"]
   T --> E["Iter136–151: execution nulls"]
   E --> P["Iter152: brake pulses<br/>no useful recovery"]
@@ -243,7 +243,8 @@ flowchart TB
   V --> B["Iter164: first-fire miss"]
   B --> D["Iter165: all 49 roots miss"]
   D --> R["Iter166–167: terminal correction<br/>RRT remains unqualified"]
-  R --> J["Iter168: stops and waits pass<br/>longer turns miss"]
+  R --> J["Iter168: stops pass; turns miss"]
+  J --> H["Iter169–171: numerical repairs<br/>12/12 local tasks qualify"]
 ```
 
 ### 5. Establish what the controller actually executes
@@ -658,6 +659,41 @@ its separate four-case qualification before any new source comparison.
 [independent admission](experiments/iter168_control_connector/proof/admission.json) ·
 [next decision](experiments/iter168_control_connector/DECISION.md).
 
+## Iterations 169–171: full-horizon control qualifies
+
+The local controller now completes **all twelve constructed tasks**, including
+both longer left/right turns. Steering and speed are selected across the full
+maneuver; every intermediate constraint and terminal tolerance remains unchanged.
+This is local qualification. The independent RRT remains unqualified.
+
+![Full-horizon qualification, terminal errors and retained speed and steering](experiments/iter171_centered_shooting/proof/full_horizon_qualification.png)
+
+The path to this result includes two retained failures. Iter169's full-horizon
+shooting completes 10/12; its relative derivative step loses sensitivity near
+tiny nonzero controls. Iter170 changes that step alone and still completes 10/12:
+the optimizer's initial search radius remains tiny. Iter171 optimizes increments
+around the same physical starting controls, with translated bounds, and completes
+12/12. Analytic known-bads expose both numerical problems. The coordinate change
+also changes derivative probe placement; the maneuver result does not isolate
+search radius as the sole causal mechanism.
+
+Iter171 uses **2,123 attempted transitions** across twelve cases, including every
+numerical-derivative and line-search propagation. Each longer turn uses 960 within
+the same 8,192-transition/30-second cap. Independent admission checks all attempts
+and reconstructs **284 states with full masks**: **274,912 scalar point-state
+classifications** across witnesses, new selected paths and two retained comparator
+sets. Unselected background labels remain producer evidence.
+
+The all-task claim is **supported for these twelve exposed deterministic cases**.
+No holdout generalization, source recovery, road safety, real-time response or
+competitive superiority is established. Before another source comparison, the
+integrated RRT must pass its original four-case qualification under unchanged
+constraints and full work accounting.
+[First failure](experiments/iter169_full_horizon_control/RESULT.md) ·
+[insufficient derivative correction](experiments/iter170_derivative_step/RESULT.md) ·
+[qualified local control](experiments/iter171_centered_shooting/RESULT.md) ·
+[next decision](experiments/iter171_centered_shooting/DECISION.md).
+
 ## The next scientific test
 
 The intended contribution is a monitor and evaluation system that can show **which failures
@@ -678,8 +714,9 @@ The following work is proposed; all previous schedules retain their closed accou
    from first fire at 6.25 seconds. Iter165 also finds no completion from any of
    the 25 discarded braking roots or 24 retained roots. The corrected independent
    RRT adapter fails all four development controls in Iter167. Iter168 qualifies
-   stopping and waiting but both local connectors miss longer turns. Qualify
-   task-horizon turning, then the RRT integration, before another source comparison.
+   stopping and waiting; Iter169–170 retain two failed full-horizon qualifications.
+   Iter171 qualifies all twelve local tasks after a numerical coordinate correction.
+   Qualify the RRT integration before another source comparison.
    Offline cost is not a response-time result.
 3. **After establishing useful recovery, test one information hypothesis against a responsive baseline.**
    Track continuity and uncertainty are motivated candidates. Include benign and stale-track cases, freeze the
@@ -696,15 +733,16 @@ flowchart TB
   S["Iter162–163: reset paths<br/>model and native completion"] --> B["Iter164–165: actual history<br/>and all 49 later roots miss"]
   B --> Q["Iter166: RRT qualification invalid<br/>early terminal condition"]
   Q --> C["Iter167: terminal condition corrected<br/>0 of 4 controls complete"]
-  C --> D["Iter168: connector 8/12 and 10/12<br/>longer turns remain unqualified"]
-  D --> A{"Independent planner<br/>qualifies?"}
+  C --> D["Iter168–170: local turns miss"]
+  D --> E["Iter171: centered shooting<br/>12/12 local tasks qualify"]
+  E --> A{"Independent planner<br/>qualifies?"}
   A -- "no" --> N["Retain bounded miss<br/>repair diagnosed limitation"]
   A -- "yes" --> R["Compare at unchanged first fire<br/>fixed constraints and total cost"]
   R --> W["If admitted: native continuation<br/>then information and transfer tests"]
 ```
 
-The first five nodes are retained results. Completing local and integrated planner
-qualification, and subsequent source-comparison steps, remain proposed. No native monitor-time recovery or information
+The first six nodes are retained results. Integrated planner qualification and
+subsequent source-comparison steps remain proposed. No native monitor-time recovery or information
 advantage has been established.
 
 Failure across a finite set of actions does not prove physical inevitability. Likewise, a weak
@@ -759,7 +797,7 @@ not a complete distribution of every runtime asset.
 | [Architecture](docs/ARCHITECTURE.md) | Implemented interfaces, simulator distinctions, evidence flow and timing. |
 | [Original preregistration](PREREGISTRATION.md) | The initial benchmark question and decision rules. |
 | [Research direction](docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md) | Information and recoverability: mathematical formulation and dated literature review. |
-| [Next scientific decision](experiments/iter168_control_connector/DECISION.md) | Qualify full-maneuver turning, then the independent planner integration, before returning to the unchanged first-fire state. |
+| [Next scientific decision](experiments/iter171_centered_shooting/DECISION.md) | Qualify the independent planner integration, before returning to the unchanged first-fire state. |
 | [Handoff](HANDOFF.md) | Exact next task, acceptance criteria, resource closure and recovery instructions. |
 | [Continuity](CONTINUITY.md) and [next phase](docs/NEXT_PHASE.md) | Current state followed by retained historical decisions. |
 | [Technical report](docs/REPORT.md) | Historical synthesis through Iter134; it predates the current execution program. |
@@ -780,12 +818,12 @@ scientific claim or reinterpret the archived mission state.
 
 ## Repository status — 14 October 2026
 
-**This research lineage is current through Iter168, completed on 14 October.**
+**This research lineage is current through Iter171, completed on 14 October.**
 The preselected path completes two native replicas from reset. The same exact/24
 method then misses after preserving the actual first-fire history. All 49 subsequent discarded/retained
 continuations also miss. An independent RRT adapter remains unqualified after a
-retained terminal-contract correction. Local stopping and waiting now pass; longer
-turning remains unqualified. These results do not prove the later
+retained terminal-contract correction. Local stopping, waiting and full-horizon
+turning now pass all twelve constructed tasks; planner integration remains unqualified. These results do not prove the later
 state unrecoverable. Monitor-time recovery, useful information and real-time
 operation remain unestablished.
 Iteration 135's dose-response experiment remains **deferred and unrun**.
@@ -794,14 +832,14 @@ The repository has two distinct records. The accepted code and mission snapshot 
 [`8c118b7`](https://github.com/manfromnowhere143/sentinel/tree/8c118b74c699bf0f139f9bd659192bad06b895f8)
 is **current through iteration 134**. [MISSION_STATE.json](MISSION_STATE.json) preserves
 that historical contract.
-Later research, through Iter168 local-connector qualification, is retained in a separate
-[research lineage](https://github.com/manfromnowhere143/sentinel/tree/a3137d5f746cd20a75e9f5c5e11d965597f2435f).
+Later research, through Iter171 full-horizon local qualification, is retained in a separate
+[research lineage](https://github.com/manfromnowhere143/sentinel/tree/53288e96c2070431107109c520846e53b5d0d253).
 This README describes both; a documentation update does not integrate that later experimental
 code into the accepted snapshot. The [current handoff](HANDOFF.md) identifies the next task.
 
 The earlier 12 October editorial refresh brought the default landing page through Iter155.
-This later research revision retains the continuation misses and failed independent
-qualification through Iter168. The public
+This later research revision retains the continuation misses, failed independent
+planner qualification and subsequent local qualification through Iter171. The public
 instrument follows validated closed-result packets automatically; its older replay and
 native witness do not inherit a new scientific identity from an update.
 
@@ -834,6 +872,9 @@ with the installed native adapter. Hosted tests skip the two native-runtime chec
 when that optional local library is absent. Iter168 adds twelve mechanical checks;
 74 focused/retained tests pass with two optional native checks skipped. Its scientific
 all-task qualification remains contradicted despite those passing software tests.
+Iter169–171 add thirty numerical, accounting and contract regressions. The first
+two scientific all-task claims remain contradicted; Iter171 passes only after
+independent trajectory admission. Exact closure CI is observed separately.
 
 ## Complete experiment index
 
@@ -1015,7 +1056,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 </details>
 
 <details>
-<summary>Information, recoverability and execution: Iter135–168</summary>
+<summary>Information, recoverability and execution: Iter135–171</summary>
 
 | Record | Finding or scope |
 |---|---|
@@ -1053,6 +1094,9 @@ Repeated analyses of the same cases do not increase the number of independent ca
 | [166](experiments/iter166_independent_planner/RESULT.md) | Independent admission rejects early route completion before the final checkpoint; the first released-RRT adapter qualification is invalid. |
 | [167](experiments/iter167_planner_terminal_contract/RESULT.md) | Terminal-corrected RRT completes 0/4 disclosed controls under matched budgets; 97 partial-path states and full masks pass independent replay. No source-comparison qualification. |
 | [168](experiments/iter168_control_connector/RESULT.md) | Stopping/waiting/restart pass; two-step connector completes 10/12 versus 8/12 with more work. Both miss longer turns; 213 states/full masks independently replay. Source comparison remains unqualified. |
+| [169](experiments/iter169_full_horizon_control/RESULT.md) | Full-horizon shooting completes 10/12; both longer turns miss despite optimizer success. All 731 attempts checked; 213 states/full masks replay. |
+| [170](experiments/iter170_derivative_step/RESULT.md) | Default derivative step alone still completes 10/12. Near-zero initial search radius remains; 747 attempts and 284 states/full masks checked. |
+| [171](experiments/iter171_centered_shooting/RESULT.md) | Centered coordinates qualify 12/12 unchanged local tasks in 2,123 transitions. 284 states/full masks independently replay. Integrated RRT and source comparison remain unqualified. |
 
 </details>
 

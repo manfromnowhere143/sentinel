@@ -25,7 +25,7 @@ def main():
         }
     )
     fig, axes = plt.subplots(2, 2, figsize=(12, 7.6))
-    fig.subplots_adjust(left=0.09, right=0.97, top=0.82, bottom=0.13, wspace=0.3, hspace=0.6)
+    fig.subplots_adjust(left=0.14, right=0.97, top=0.82, bottom=0.13, wspace=0.3, hspace=0.6)
     fig.suptitle(
         "Full-horizon control qualifies on twelve constructed tasks",
         x=0.09,
@@ -41,14 +41,17 @@ def main():
         fontsize=9,
         color="#526779",
     )
+    first = json.loads(
+        (BASE.parent / "iter169_full_horizon_control/proof/admission.json").read_text()
+    )
     totals = [
         admission["baseline_attempts"],
-        731,
+        first["total_attempts"],
         admission["previous_attempts"],
         admission["total_attempts"],
     ]
     bars = axes[0, 0].barh(
-        ["168 · two steps", "169 · full horizon", "170 · derivative step", "171 · centered"],
+        ["168 · two steps", "169 · shooting", "170 · diff. step", "171 · centered"],
         totals,
         color=["#889bab"] * 3 + ["#008d82"],
     )

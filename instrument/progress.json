@@ -1,23 +1,23 @@
 {
   "schemaVersion": 1,
-  "iteration": 168,
-  "directory": "experiments/iter168_control_connector",
-  "title": "Stopping and waiting pass. Longer turning remains unqualified.",
-  "summary": "Across twelve constructed tasks, one-step lookahead completes 8 and two-step completes 10. Both miss longer turns. All twelve witnesses and 213 states/full masks pass independent replay. Precise fractional-speed braking is qualified separately.",
-  "boundary": "Exposed model tasks, not road evidence. Two-step lookahead uses 6,899 transitions versus 908; equal caps do not establish equal realized cost or superiority. No RRT solve or source comparison. The all-task qualification claim is contradicted.",
-  "next": "Qualify control selection over the full maneuver horizon, then the integrated RRT under its existing four-case contract, before another source comparison.",
+  "iteration": 171,
+  "directory": "experiments/iter171_centered_shooting",
+  "title": "Full-horizon local control qualifies on all twelve tasks.",
+  "summary": "Stopping, waiting, restarting and both turn durations pass unchanged constraints. Centered solver coordinates resolve the longer-turn misses after two retained failed qualifications. Independent replay checks 284 states and full masks.",
+  "boundary": "Twelve exposed constructed tasks, not road or holdout evidence. All 2,123 attempted transitions are counted. Local qualification does not qualify integrated RRT, source recovery, real-time operation or superiority.",
+  "next": "Qualify the integrated RRT on its original four cases, charging every local rollout under the unchanged timing, checkpoint and resource contract. Source comparison stays closed until then.",
   "metrics": [
     {
       "label": "Qualification tasks",
       "field": "total_cases"
     },
     {
-      "label": "One-step completions",
-      "field": "one_step_passes"
+      "label": "Full-horizon completions",
+      "field": "complete_cases"
     },
     {
-      "label": "Two-step completions",
-      "field": "two_step_passes"
+      "label": "Attempted transitions",
+      "field": "total_attempts"
     },
     {
       "label": "Verified states and full masks",
@@ -26,16 +26,16 @@
   ],
   "breakdown": [
     {
-      "label": "One-step completions",
-      "field": "one_step_passes"
-    },
-    {
       "label": "Two-step completions",
-      "field": "two_step_passes"
+      "field": "baseline_complete_cases"
     },
     {
-      "label": "Constructive witness completions",
-      "field": "witness_passes"
+      "label": "Before coordinate correction",
+      "field": "previous_complete_cases"
+    },
+    {
+      "label": "Centered-control completions",
+      "field": "complete_cases"
     }
   ]
 }

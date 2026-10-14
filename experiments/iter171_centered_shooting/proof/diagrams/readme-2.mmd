@@ -1,0 +1,12 @@
+flowchart TB
+  accTitle: Separate search competence from intervention timing
+  accDescr: Finite source misses and failed adapter qualification do not prove unrecoverability.
+  S["Iter162–163: reset paths<br/>model and native completion"] --> B["Iter164–165: actual history<br/>and all 49 later roots miss"]
+  B --> Q["Iter166: RRT qualification invalid<br/>early terminal condition"]
+  Q --> C["Iter167: terminal condition corrected<br/>0 of 4 controls complete"]
+  C --> D["Iter168–170: local turns miss"]
+  D --> E["Iter171: centered shooting<br/>12/12 local tasks qualify"]
+  E --> A{"Independent planner<br/>qualifies?"}
+  A -- "no" --> N["Retain bounded miss<br/>repair diagnosed limitation"]
+  A -- "yes" --> R["Compare at unchanged first fire<br/>fixed constraints and total cost"]
+  R --> W["If admitted: native continuation<br/>then information and transfer tests"]

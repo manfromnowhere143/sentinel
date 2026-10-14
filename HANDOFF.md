@@ -1,3 +1,51 @@
+# Current: Iter169–171 closed; local full-horizon qualification passes — 14 October 2026
+
+Iter171 completes all twelve unchanged constructed tasks, including both longer
+turns, within the original 8,192-transition/30-second per-case envelope. Independent
+admission supports the local all-task claim. Iter169 and Iter170 retain 10/12
+failures. Their optimizer success flags did not establish task completion.
+
+Iter169 full-horizon shooting uses 731 transitions; Iter170's default derivative
+step uses 747 and remains insufficient. Iter171 centers optimizer coordinates on
+the same physical seed with translated bounds: 2,123 transitions total, 960 per
+longer turn. The correction changes radius initialization and derivative probe
+placement; no radius-only causal or superiority claim. All constraints, terminal
+clock and tolerances are fixed. All twelve witnesses pass; no witness actions
+enter the controller. Independent checks cover every attempt plus 284 states/full
+masks and 274,912 scalar point-state classifications across witnesses, new paths,
+Iter170 and Iter168 comparator paths. Unselected background labels remain producer
+evidence. Local qualification is not holdout, road or integrated-planner evidence.
+
+Read experiments/iter171_centered_shooting/RESULT.md and DECISION.md.
+Source 035cb62cb86443f5f74631e228ea216b8d4e28a5;
+raw 04dad93b0509d7b3bdc06a2354e6ddcb237f4678 committed before admission;
+admission 53288e96c2070431107109c520846e53b5d0d253.
+Producer 3.994s, checker 7.172s; supervised exits/reaping verified. Each study has
+one initialized scientific schedule. Iter170 retains one abbreviated-hash command
+rejected before initialization; the corrected invocation used its full frozen ID.
+No RRT solve, source comparison, native driving, provider use or spending.
+
+Next: qualify the integrated RRT on the four original Iter161 cases. Freeze target
+and duration interfaces, stop/wait phase requirements, partial/failure semantics
+and full internal rollout accounting. Keep original budgets, full terminal clock,
+4/8-second checkpoints and physical/scene constraints. No source comparison until
+that integration qualification passes. Monitor-time recovery and information
+advantage remain unknown. No human ceremony or provider dependency is pending.
+
+Validation: 56 focused/retained/presentation tests pass, Ruff and supply-chain
+checks pass, all 604 Markdown files pass the documentation guard. Three diagrams
+render and are visually reviewed in both themes; the result figure is reviewed.
+Source/runtime scientific identities are retained; no hermetic environment claim.
+The first documentation preflight intentionally remained red until new RESULTs
+were indexed; that closure is now synchronized. Exact closure hosted CI and public
+readback are observed separately after push; receipts ~/.codex/reports/sentinel/iter171/.
+README, architecture, state and automatic instrument descriptor now cover Iter171.
+
+Owned branch research/iter169-full-horizon-control in
+/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011.
+Canonical dirty workspace, archived MISSION_STATE and historical scientific bytes
+remain unchanged. Earlier entries below are historical.
+
 # Current: Iter171 centered shooting preregistered — 14 October 2026
 
 Iter169 and Iter170 independently admitted 10/12; both longer turns still fail.
