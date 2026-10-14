@@ -1,0 +1,25 @@
+{
+  "read_at": "2026-10-14",
+  "scope": "Primary-source inspection before prefix geometry or continuation outcomes; no external planner execution",
+  "retained_external_directory": "/Users/danielwahnich/.codex/reports/sentinel/iter164/research",
+  "sources": [
+    {
+      "url": "https://ompl.kavrakilab.org/classompl_1_1base_1_1SpaceTimeStateSpace.html",
+      "file": "ompl-space-time.html",
+      "bytes": 133074,
+      "sha256": "c8f83a64ee4562bde19a09be1727c5c6c521295e757d0aa207fc42f76420e664"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/ompl/ompl/5b209a03fe48c41f7a2f364382c2e425bf1c7c1c/src/ompl/base/spaces/SpaceTimeStateSpace.h",
+      "file": "SpaceTimeStateSpace.h",
+      "bytes": 5633,
+      "sha256": "0ffc09f875f3d6de9d48a8009704c2bf172b8981bb895565089836f1c1368de1"
+    },
+    {
+      "url": "https://arxiv.org/html/2602.02846v2",
+      "file": "kino-pax-v2.html",
+      "bytes": 505294,
+      "sha256": "a58d3768a5363a952e56dc79666b0b55528981fd8886195cb0a0f22342e67155"
+    }
+  ]
+}

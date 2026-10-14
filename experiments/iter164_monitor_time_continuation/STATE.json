@@ -1,0 +1,11 @@
+{
+  "iteration": 164,
+  "phase": "preregistered",
+  "status": "preregistered",
+  "scope": "Preserve first-fire history before one bounded source-model continuation",
+  "prefix_outcomes": null,
+  "continuation_outcome": null,
+  "new_driving_episodes": 0,
+  "provider_spend": 0,
+  "next": "Acquire both fixed historical prefixes, commit raw evidence, and independently qualify full geometry before one exact/24 continuation. No scientific outcomes acquired."
+}

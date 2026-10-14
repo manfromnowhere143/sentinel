@@ -1,3 +1,19 @@
+# Current: Iter164 monitor-time continuation preregistered — 14 October 2026
+
+Read experiments/iter164_monitor_time_continuation/DECISION_PACKET.md, PROTOCOL.md,
+PLAN.json, QUALIFICATION.json and STATE.json. 303 focused/retained tests pass,
+including 43 new checks. Source inputs and full 276,519-center selection match.
+No scientific prefix geometry or continuation outcomes acquired yet. First independently
+qualify both historical 25-control prefixes through frame 25 / 6.25 seconds; commit
+raw before scalar admission. Only an admitted prefix permits one exact/24 search:
+60,000 attempts, original 7.75/9.00-second checkpoints, absolute 401-action horizon.
+A valid capped miss is evidence about this method/budget, not global infeasibility.
+No native episode, provider access or spend is registered. Public instrument remains
+closed Iter163 until new results are independently admitted. No human ceremony pending.
+Owned branch research/iter164-monitor-time-continuation in the observation recovery
+worktree. Canonical dirty root, historical sources and archived MISSION_STATE unchanged.
+Earlier entries below are historical.
+
 # Current: Iter163 closed — 13 October 2026
 
 Two fresh native replicas complete the preselected exact/24 path: 66 actions /
@@ -5201,3 +5217,8 @@ native resources are closed. Follow the current top entry and Iter163 DECISION/S
 for continuation from the actual first-fire history; historical preregistration and
 unknown-native notices above no longer describe current state. Publication exact-head
 CI/readback are separately observed after this closure commit.
+
+## Iter164 controlling preregistration — 14 October 2026
+
+Follow the top entry and Iter164 PLAN/STATE for the two-stage local continuation test.
+Source and raw commitments precede admission. No new native task is authorized by this plan.
