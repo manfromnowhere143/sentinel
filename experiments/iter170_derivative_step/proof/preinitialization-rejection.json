@@ -1,0 +1,21 @@
+{
+  "stage": "producer",
+  "command": [
+    "python3",
+    "-m",
+    "experiments.iter170_derivative_step.run",
+    "--root",
+    "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011",
+    "--source-commit",
+    "a875efd"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011",
+  "started": "2026-10-14T10:14:53.053522+00:00",
+  "limit_seconds": 310,
+  "status": "invalid",
+  "pid": 3761,
+  "returncode": 1,
+  "elapsed_seconds": 0.33012075000442564,
+  "finished": "2026-10-14T10:14:53.383992+00:00",
+  "process_reaped": true
+}

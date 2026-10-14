@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter170_derivative_step/run.py", line 85, in <module>
+    run(a.root.resolve(), a.source_commit)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter170_derivative_step/run.py", line 22, in run
+    plan = initialize(root, output, source, "search")
+  File "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter170_derivative_step/records.py", line 14, in initialize
+    source_check(root, plan, source)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter170_derivative_step/common.py", line 21, in source_check
+    require(len(source) == 40 and all(c in "0123456789abcdef" for c in source), "source_encoding")
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter158_constraint_aware_search/common.py", line 20, in require
+    raise ValueError(reason)
+ValueError: source_encoding

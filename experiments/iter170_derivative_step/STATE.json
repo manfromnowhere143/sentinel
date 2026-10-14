@@ -1,6 +1,9 @@
 {
   "iteration": 170,
-  "status": "preregistered",
-  "phase": "preregistered",
+  "status": "contradicted",
+  "phase": "closed",
+  "source_commit": "a875efd1beb4a3c25979397f1efc4d34f5b68a57",
+  "raw_commit": "f4fe6a42627e7813718a765d94941a4b7de91529",
+  "qualified_for_local_tasks": false,
   "qualified_for_source_comparison": false
 }
