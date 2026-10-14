@@ -1,3 +1,17 @@
+# Current: Iter165 discarded-braking continuations preregistered — 14 October 2026
+
+All 25 discarded full-braking frame-27 prefixes and all 24 retained prefixes,
+interleaved by ascending ID. Unchanged exact/24 search and 60,000-attempt /
+1,800-second budget per root; original absolute 7.75/9 s checkpoints and frame401
+horizon. Read experiments/iter165_discarded_braking/DECISION_PACKET, PROTOCOL, PLAN
+and CANDIDATES. 112 focused/retained tests pass; no new continuation outcome yet.
+Freeze source, execute once, commit raw before independent scalar admission.
+Independent OMPL control-RRT qualification is the second part of the active task,
+with its own prospective protocol. Current closed science/instrument remains164.
+Owned branch research/iter165-discarded-braking-planner-qualification; canonical
+dirty root and archived MISSION_STATE unchanged. No human ceremony pending.
+Earlier entries below are historical.
+
 # Current: Iter164 closed — 14 October 2026
 
 Both historical prefixes through first fire at 6.25s qualify: 52 states,
