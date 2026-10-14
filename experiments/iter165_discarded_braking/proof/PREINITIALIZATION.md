@@ -1,0 +1,1 @@
+The first launch stopped before output initialization: the parent proof directory did not exist. No initialized.json, source geometry query or continuation outcome was produced. The agent created the output parent and retained the failure. The frozen scientific source, schedule and limits are unchanged. A second launch is permitted because no scientific acquisition initialized.

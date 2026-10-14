@@ -1,0 +1,30 @@
+[
+  {
+    "url": "https://arxiv.org/html/2509.07464v2",
+    "retrieved": "2026-10-14",
+    "sha256": "6c27e0edcecc3f16faa2256ae9977cd19e0214eed3a981ec6cce30684665fb2f",
+    "bytes": 708155,
+    "retained_path": "/Users/danielwahnich/.codex/reports/sentinel/iter165/research/source_0.html"
+  },
+  {
+    "url": "https://arxiv.org/html/2409.17630v2",
+    "retrieved": "2026-10-14",
+    "sha256": "4e127e5ee9458d816588014b4388899c4743689226e9256968b9966ac5786b6a",
+    "bytes": 143916,
+    "retained_path": "/Users/danielwahnich/.codex/reports/sentinel/iter165/research/source_1.html"
+  },
+  {
+    "url": "https://arxiv.org/html/2601.14880v1",
+    "retrieved": "2026-10-14",
+    "sha256": "cda91c8955b308187275d6a9256b6f7084f54c0fa14a9261fca04ba8ea59ba87",
+    "bytes": 546286,
+    "retained_path": "/Users/danielwahnich/.codex/reports/sentinel/iter165/research/source_2.html"
+  },
+  {
+    "url": "https://pathetiue.github.io/frscp.github.io/",
+    "retrieved": "2026-10-14",
+    "sha256": "e9a2cba8d61108edd70828b73a8a1e281bedc0143dfe9bd996e56cecd6dae140",
+    "bytes": 25599,
+    "retained_path": "/Users/danielwahnich/.codex/reports/sentinel/iter165/research/source_3.html"
+  }
+]

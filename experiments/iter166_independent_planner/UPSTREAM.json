@@ -1,0 +1,26 @@
+{
+  "version": "2.0.1",
+  "commit": "c509861210a63ec962bbec72c52823abc16b102e",
+  "files": [
+    {
+      "url": "https://raw.githubusercontent.com/ompl/ompl/c509861210a63ec962bbec72c52823abc16b102e/src/ompl/control/planners/rrt/src/RRT.cpp",
+      "sha256": "a270be5891e34e325b6ddd216541063888bfbe3528801816e3182e88244a67e3",
+      "path": "experiments/iter166_independent_planner/upstream/RRT.cpp.txt"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/ompl/ompl/c509861210a63ec962bbec72c52823abc16b102e/src/ompl/control/src/SpaceInformation.cpp",
+      "sha256": "adae116c017d3fc461cefd452882816892b99a58b8ac0e172a7e9b69b8e1d522",
+      "path": "experiments/iter166_independent_planner/upstream/SpaceInformation.cpp.txt"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/ompl/ompl/c509861210a63ec962bbec72c52823abc16b102e/src/ompl/control/src/SimpleDirectedControlSampler.cpp",
+      "sha256": "f93776714bcba4ca44059c3de8309922bc1e9c6af99aaf13e90a99f24b12a7f7",
+      "path": "experiments/iter166_independent_planner/upstream/SimpleDirectedControlSampler.cpp.txt"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/ompl/ompl/c509861210a63ec962bbec72c52823abc16b102e/LICENSE",
+      "sha256": "f1b0b41dbea7d46f34a723e827b5ef50070d006b34d5463f77a0a06d3dccdf2d",
+      "path": "experiments/iter166_independent_planner/upstream/LICENSE"
+    }
+  ]
+}

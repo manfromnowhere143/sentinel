@@ -1,0 +1,21 @@
+{
+  "stage": "search",
+  "command": [
+    "python3",
+    "-m",
+    "experiments.iter165_discarded_braking.run",
+    "--root",
+    ".",
+    "--source",
+    "ca2d517ed95a2f5d2858609f7e7c782a09972898"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011",
+  "started": "2026-10-14T06:57:05.484297+00:00",
+  "limit_seconds": 10810,
+  "status": "invalid",
+  "pid": 85289,
+  "returncode": 1,
+  "elapsed_seconds": 0.8857089999946766,
+  "finished": "2026-10-14T06:57:06.370352+00:00",
+  "process_reaped": true
+}

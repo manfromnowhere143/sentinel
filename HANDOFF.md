@@ -1,3 +1,17 @@
+# Current: Iter166 independent-planner qualification preregistered — 14 October 2026
+
+Iter165 all49-root braking schedule remains running under source ca2d517. Do not
+restart it. See its proof/search_raw and the external iter165 supervisor receipt.
+Iter166 qualifies released OMPL2.0.1 control RRT on the four corrected Iter161
+controls: same18,000 attempts /120seconds /96actions per case, one frozen seed each.
+Read experiments/iter166_independent_planner/DECISION_PACKET, PROTOCOL, RESEARCH
+and PLAN. Native bridge and ten known-bad/contract tests pass;60 focused tests total.
+No four-case outcome or RRT source-scene search acquired yet. Freeze source; four
+isolated processes; raw commit before independent scalar admission. A bounded miss
+contradicts this adapter qualification, not RRT generally. Current public science164.
+Owned branch research/iter165-discarded-braking-planner-qualification. No provider
+use, native driving or spending. No human ceremony pending. Earlier entries historical.
+
 # Current: Iter165 discarded-braking continuations preregistered — 14 October 2026
 
 All 25 discarded full-braking frame-27 prefixes and all 24 retained prefixes,
