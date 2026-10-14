@@ -1,3 +1,17 @@
+# Current: Iter170 derivative-step correction preregistered — 14 October 2026
+
+Iter169 independently admitted 10/12 completions, both longer turns failed with
+optimizer success but no terminal-error improvement. Source fb6d6e28e59e4d09ce48977ada851e9e89cf3b95;
+raw a3fff76456fd74f8739baf03bfcab0b96c66c1f9; admission e04783d.
+Retain this failure. Iter170 imports the identical controller, changing only the
+relative derivative step from 1e-6 to default None. Analytic near-zero derivative
+known-bads and single-factor contract checks pass. Twelve unchanged cases, same
+budgets/runtime/tolerances; new scientific outcome not observed before freeze.
+Read experiments/iter170_derivative_step/DECISION_PACKET.md and PROTOCOL.md.
+No RRT/source comparison/native driving. Local qualification must precede the
+separate four-case integration qualification. No human ceremony pending.
+Owned recovery worktree, branch research/iter169-full-horizon-control.
+
 # Current: Iter169 full-horizon control preregistered — 14 October 2026
 
 Direct task: qualify steering and speed across the full maneuver; no source

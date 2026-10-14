@@ -1,0 +1,8 @@
+{
+  "version": "1.17.1",
+  "url": "https://raw.githubusercontent.com/scipy/scipy/v1.17.1/scipy/optimize/_numdiff.py",
+  "sha256": "ab92e82d0f93f2c7a35eba0a2800b70cf8015d97ccf094abf556206211beb00b",
+  "loaded_file_match": true,
+  "license": "BSD-3-Clause",
+  "retrieved": "2026-10-14"
+}
