@@ -1,3 +1,19 @@
+# Current: Iter168 connector qualification preregistered — 14 October 2026
+
+Direct task: qualify stopping, waiting and turning before another source comparison.
+Read experiments/iter168_control_connector/DECISION_PACKET.md, PROTOCOL.md and PLAN.json.
+Fourteen-speed proposal coverage; twelve constructed temporal tasks; depth1 versus
+depth2 under the same 8,192-transition/30-second per-case budget. All intermediate
+motion and physical/task constraints apply. Witness controls are withheld from the
+connector API. Raw commit must precede independent scalar admission. No initialized
+scientific outcome yet; no RRT/source/native execution in this study.
+
+Iter165–167 remain closed as recorded below. Independent RRT remains unqualified.
+Owned branch research/iter168-control-connector-qualification in
+/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011.
+Next: source freeze, single supervised execution, raw commit, scalar admission.
+No human ceremony pending. Historical canonical-root changes remain untouched.
+
 # Current: Iter165–167 closed — 14 October 2026
 
 All 25 discarded maximum-braking roots and 24 retained roots yield bounded exact/24
