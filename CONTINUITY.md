@@ -1,3 +1,18 @@
+# Current: Iter173 matched connector comparison preregistered — 14 October 2026
+
+Direct task: compare shooting against bounded forward-control proposals at matched
+cost. Read experiments/iter173_matched_connector_cost/DECISION_PACKET.md and
+PROTOCOL.md. Eighty executed Iter172 requests, four explicit unexecuted exclusions;
+twelve unchanged local tasks plus two constructive obstacle detours. Both arms
+share caps, evaluators and hard constraints. Forward supplies generic multi-step
+phase proposals; exposed fixture design is not holdout evidence. One counterbalanced
+188-execution schedule in fresh processes. Source/raw/admission ordering preserved.
+No candidate scientific outcome observed before freeze. Source comparison stays
+closed until a separate integrated pass on all four original cases. No RRT/native
+or source execution belongs to this comparison. No human ceremony is pending.
+Owned branch research/iter173-matched-connector-cost in the observation-recovery
+worktree. Canonical dirty root and archived MISSION_STATE remain untouched.
+
 # Current: Iter172 closed; integrated RRT fails qualification — 14 October 2026
 
 The original four-case integrated qualification completes 0/4. Status contradicted,
@@ -5606,3 +5621,7 @@ remain unchanged. Earlier entries below are historical.
 
 Follow the current top entry and Iter172 RESULT/DECISION. Integrated qualification
 is contradicted, 0/4; source comparison remains closed. All scientific jobs are reaped.
+
+## Iter173 controlling preregistration — 14 October 2026
+
+Follow the current top entry and Iter173 protocol. No initialized scientific outcome yet.

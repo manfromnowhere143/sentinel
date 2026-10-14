@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-14",
+  "sources": [
+    {
+      "url": "https://ompl.kavrakilab.org/SimpleDirectedControlSampler_8cpp_source.html",
+      "role": "primary implementation interface reviewed; retained 2.0.1 source controls version"
+    },
+    {
+      "url": "https://ompl.kavrakilab.org/classompl_1_1control_1_1SimpleDirectedControlSampler.html",
+      "role": "primary API contract"
+    }
+  ],
+  "retained_source": {
+    "path": "experiments/iter166_independent_planner/upstream/SimpleDirectedControlSampler.cpp.txt",
+    "sha256": "f93776714bcba4ca44059c3de8309922bc1e9c6af99aaf13e90a99f24b12a7f7"
+  }
+}
