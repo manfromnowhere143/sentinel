@@ -1,3 +1,17 @@
+# Current: Iter171 centered shooting preregistered — 14 October 2026
+
+Iter169 and Iter170 independently admitted 10/12; both longer turns still fail.
+Iter170 changes only derivative policy and uses 747 transitions. Its initial
+trust-region radius remains near zero. Separate analytic tests reproduce that
+failure and resolve it by optimizing increments around the identical physical
+seed. Iter171 freezes that coordinate translation, unchanged physical bounds,
+constraints, tolerances and budgets. It also changes derivative probe placement;
+this is not a radius-only causal experiment. No scientific outcome observed yet.
+Read experiments/iter171_centered_shooting/DECISION_PACKET.md and PROTOCOL.md.
+No RRT/source/native execution. Separate four-case integration remains necessary
+before source comparison, even if local qualification passes. No human ceremony.
+Owned recovery worktree, branch research/iter169-full-horizon-control.
+
 # Current: Iter170 derivative-step correction preregistered — 14 October 2026
 
 Iter169 independently admitted 10/12 completions, both longer turns failed with
