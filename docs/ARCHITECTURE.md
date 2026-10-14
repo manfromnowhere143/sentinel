@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 14 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter173 research record. The [README](../README.md) carries the scientific
+limits through the Iter174 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -208,12 +208,12 @@ recovery and information benefit remain unestablished.
 
 ```mermaid
 flowchart TB
-  accTitle: From full-scene constraints to planner qualification
-  accDescr: Complete reset paths do not establish first-fire recovery.
+  accTitle: Scene constraints and planner qualification
+  accDescr: Reset completion is not first-fire recovery.
   G["Route and foreground inputs"] --> M["Iter153–154: reduced model<br/>fails native scene"]
   M --> X["Iter155: points, boxes, ground"]
   X --> C["Native CUDA masks"]
-  X --> S["Separate scalar reconstruction"]
+  X --> S["Scalar reconstruction"]
   C --> E["Exact masks: 0 and 273<br/>threshold >100"]
   S --> E
   E --> F["Iter156: 115 masks agree"]
@@ -221,15 +221,16 @@ flowchart TB
   L --> A["Iter158–159: search unqualified"]
   A --> K["Iter160: suffix shortfall"]
   K --> Z["Iter161: exact/24<br/>passes four controls"]
-  Z --> Y["Iter162: two source paths"]
+  Z --> Y["Iter162: two model paths"]
   Y --> V["Iter163: two native<br/>completions from reset"]
   V --> B["Iter164: first-fire miss"]
   B --> D["Iter165: all 49 roots miss"]
   D --> R["Iter166–167: RRT repair<br/>0/4 controls"]
   R --> J["Iter168: stops pass; turns miss"]
-  J --> H["Iter169–171: local control<br/>12/12 qualify"]
+  J --> H["Iter169–171: control<br/>12/12 qualify"]
   H --> I["Iter172: integrated RRT<br/>0/4 cases"]
-  I --> O["Iter173: forward proposals<br/>local comparison passes"]
+  I --> O["Iter173: connector<br/>local test passes"]
+  O --> U["Iter174: forward RRT<br/>1/4; unqualified"]
 ```
 
 These privileged diagnostic inputs are not delivered to the released monitor. Iter153's model
@@ -440,6 +441,24 @@ passes 12/14 and improves 15/80. Both yield the same 24 admissible returns and n
 checkpoint crossings. Forward spends more request transitions but fewer on the
 constructed tasks. Equal caps do not establish equal work or a speedup. The
 frozen finite criterion passes; a separately frozen original-four-case integrated
-trial is the next dependency. Neither this result nor local task qualification
+trial follows in Iter174. Neither this result nor local task qualification
 opens source comparison. [Comparison and limits](../experiments/iter173_matched_connector_cost/RESULT.md) ·
 [next decision](../experiments/iter173_matched_connector_cost/DECISION.md).
+
+Iter174 inserts the admitted forward generator into the same integrated adapter.
+A substitution contract requires exact equality with Iter172's adapter except for
+the connector import and invocation; the native binary/runtime remain unchanged.
+The producer keeps four fresh seeded processes, the original outer limits and
+the 1,024-transition/eight-step inner allocation. There is no new 30-second clock
+from the paired request experiment: every proposal shares the original outer
+deadline. The checker reuses scalar path/accounting admission and independently
+reconstructs forward parameters. Full masks cover all 76 returned states.
+
+One case completes: chicane_left reaches route completion at frame 32, passing
+both checkpoints. The two bends stop before frame 16; chicane_right reaches frame
+17 but misses completion. All-four qualification is contradicted. Unselected
+background labels and native tree/RNG remain producer evidence. Source comparison
+stays closed. The next proposed test changes only the inner work allocation,
+keeping the total budget fixed; its possible loss of late useful proposals is
+explicitly retained. [Integrated result](../experiments/iter174_forward_integrated_rrt/RESULT.md) ·
+[next decision](../experiments/iter174_forward_integrated_rrt/DECISION.md).

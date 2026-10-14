@@ -1,0 +1,22 @@
+flowchart TB
+  accTitle: How evidence changed the question
+  accDescr: Local qualification is not first-fire recovery.
+  N["NeuroNCAP gain<br/>attribution limits"] --> T["HUGSIM transfer nulls"]
+  T --> E["Iter136–151: execution nulls"]
+  E --> P["Iter152: brake pulses<br/>no useful recovery"]
+  P --> M["Iter153–154: path<br/>fails full scene"]
+  M --> W["Iter155–156: collision<br/>masks agree"]
+  W --> L["Iter157: fixed library<br/>0 of 75 qualify"]
+  L --> A["Iter158–159: search unqualified"]
+  A --> K["Iter160: suffix shortfall"]
+  K --> G["Iter161: grouping × width<br/>exact/24 qualifies"]
+  G --> S["Iter162: two model paths"]
+  S --> V["Iter163: two native<br/>completions from reset"]
+  V --> B["Iter164: first-fire miss"]
+  B --> D["Iter165: all 49 roots miss"]
+  D --> R["Iter166–167: RRT repair<br/>0/4 controls"]
+  R --> J["Iter168: stops pass; turns miss"]
+  J --> H["Iter169–171: control<br/>12/12 qualify"]
+  H --> I["Iter172: integrated RRT<br/>0/4 cases"]
+  I --> O["Iter173: connector<br/>local test passes"]
+  O --> U["Iter174: forward RRT<br/>1/4; unqualified"]

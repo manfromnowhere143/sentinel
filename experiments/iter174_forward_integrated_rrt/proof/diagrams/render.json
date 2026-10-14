@@ -1,0 +1,38 @@
+[
+  {
+    "source": "experiments/iter174_forward_integrated_rrt/proof/diagrams/readme-1.mmd",
+    "theme": "default",
+    "output": "experiments/iter174_forward_integrated_rrt/proof/diagrams/readme-1-default.png",
+    "rendered": true
+  },
+  {
+    "source": "experiments/iter174_forward_integrated_rrt/proof/diagrams/readme-1.mmd",
+    "theme": "dark",
+    "output": "experiments/iter174_forward_integrated_rrt/proof/diagrams/readme-1-dark.png",
+    "rendered": true
+  },
+  {
+    "source": "experiments/iter174_forward_integrated_rrt/proof/diagrams/readme-2.mmd",
+    "theme": "default",
+    "output": "experiments/iter174_forward_integrated_rrt/proof/diagrams/readme-2-default.png",
+    "rendered": true
+  },
+  {
+    "source": "experiments/iter174_forward_integrated_rrt/proof/diagrams/readme-2.mmd",
+    "theme": "dark",
+    "output": "experiments/iter174_forward_integrated_rrt/proof/diagrams/readme-2-dark.png",
+    "rendered": true
+  },
+  {
+    "source": "experiments/iter174_forward_integrated_rrt/proof/diagrams/architecture-3.mmd",
+    "theme": "default",
+    "output": "experiments/iter174_forward_integrated_rrt/proof/diagrams/architecture-3-default.png",
+    "rendered": true
+  },
+  {
+    "source": "experiments/iter174_forward_integrated_rrt/proof/diagrams/architecture-3.mmd",
+    "theme": "dark",
+    "output": "experiments/iter174_forward_integrated_rrt/proof/diagrams/architecture-3-dark.png",
+    "rendered": true
+  }
+]

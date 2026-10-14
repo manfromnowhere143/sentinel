@@ -1,3 +1,58 @@
+# Current: Iter174 closed; forward-connected RRT completes 1/4 — 14 October 2026
+
+Independent replay confirms chicane_left completes at 8 seconds and passes both
+checkpoints. Both bends and chicane_right remain bounded misses. The all-four
+qualification is contradicted; source comparison stays closed. Iter172's original
+shooting integration remains 0/4, while this new forward integration is 1/4.
+Read experiments/iter174_forward_integrated_rrt/RESULT.md and DECISION.md.
+
+Only the connector changes. Original cases/seeds, target sampler, metric, goal
+bias, sequence-token binary, evaluator, absolute clock/checkpoints and budgets
+are unchanged: 18,000 transitions / 120 seconds / 96 actions per case, inner
+1,024 transitions / eight steps. Four fresh processes, one schedule, no retry.
+Attempts 66,274; directed calls 70; accepted connections 42. Three final calls
+execute no solve. Returned frames 11, 12, 32, 17; checkpoint counts 0, 0, 2, 1.
+Three misses exhaust allocatable work in 9.66–12.12s, below the time cap.
+
+Every attempted motion, physical/checkpoint rule, prefix, forward proposal,
+cache/accounting entry and native sequence binding is independently checked.
+Full scalar masks cover 76 returned states / 570,636 point-state classifications,
+including all 33 states of the completed path. Unselected background labels and
+native tree/RNG remain producer evidence. One seed per exposed case; no safety,
+source recovery, transfer, real-time or competitive superiority claim.
+
+Post-outcome audit: 31/42 eventual selected edges occur by 128 transitions; eleven
+need later proposals, including two edges on the complete path. Work after final
+selection is 35,425 transitions; no-edge requests use 24,297. This is retrospective,
+not an online stopping oracle. Longest reported valid prefixes reach 13, 14, 32,
+18 frames; none already contains a failed case's next checkpoint. Unselected
+prefix background labels are not full scalar-mask evidence. Next: prospectively
+freeze a 128-transition inner-cap trial against this retained 1,024-cap reference,
+keeping the original outer budget and all other mechanics. Test the tradeoff
+between depth per connection and breadth across tree requests. Do not rerun this
+closed study. All four cases still must qualify before source comparison.
+
+Frozen source 6d973f02c47fd0d2ac979278f2f378ab37c001df;
+raw 87dc04072801cd78d0ec4dbe1079ef7783f8d24c committed before admission;
+admission 520d9b1ef96c885cbfc5fd885391402197c56014.
+Producer/checker 50.447/16.962s; supervised walls 50.557/18.573s. All scientific
+jobs/children reaped. No source-scene query, native vehicle episode, provider use
+or spending. Selected native/Python runtime identities pass; not hermetic.
+
+Validation: 63 prefreeze focused/retained checks, including 16 new integration
+checks, pass with the native bridge and no skips. Twenty post-outcome diagnostic
+and instrument checks pass, including three new arithmetic controls. Ruff, supply-chain
+verification and the 619-file documentation guard pass. All 502 frozen scientific
+files remain unchanged. Three updated diagrams are rendered and visually reviewed
+in both themes; the result figure is reviewed. Exact closure
+CI and full public packet/hash readback are observed separately after push;
+receipts ~/.codex/reports/sentinel/iter174/. No human ceremony is pending.
+
+Owned branch research/iter174-forward-integrated-rrt in
+/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011. Canonical
+dirty root, archived MISSION_STATE and historical scientific bytes remain unchanged.
+Earlier entries below are historical.
+
 # Current: Iter174 forward-connector integration preregistered — 14 October 2026
 
 Direct task: the next integrated trial; source comparison stays closed until all

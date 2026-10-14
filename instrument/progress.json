@@ -1,22 +1,22 @@
 {
   "schemaVersion": 1,
-  "iteration": 173,
-  "directory": "experiments/iter173_matched_connector_cost",
-  "title": "Forward proposals pass the bounded connector comparison.",
-  "summary": "Forward completes 14/14 constructed tasks and improves 16/80 retained requests; shooting completes 12/14 and improves 15/80. Both return admissible motion on the same 24 requests and cross no checkpoint. Independent replay supports only this finite criterion.",
-  "boundary": "Equal caps, unequal actual work: forward uses more request transitions. Exposed requests and constructed detours share design history with the proposal family. Full masks cover 668 states. No integrated qualification, source recovery or superiority follows.",
-  "next": "Qualify the forward connector inside RRT on all four original cases, with unchanged seeds, constraints and budgets. Source comparison stays closed until all four pass independent admission.",
+  "iteration": 174,
+  "directory": "experiments/iter174_forward_integrated_rrt",
+  "title": "Forward-connected RRT completes one of four original cases.",
+  "summary": "Independent replay confirms chicane_left completes at 8 seconds with both checkpoints. Three cases exhaust their transition allocations. The unchanged four-case qualification remains contradicted; source comparison stays closed.",
+  "boundary": "One seed per exposed case, unchanged total budgets. Full scalar masks cover 76 returned states; unselected background labels and native tree/RNG remain producer evidence. This does not establish source recovery, transfer or superiority.",
+  "next": "Test a smaller inner connection allowance within the same total budget. Later proposals contribute to the completed path, so the tradeoff needs a new frozen trial. All four cases must qualify before source comparison.",
   "metrics": [
     {
-      "label": "Retained requests per arm",
-      "field": "total_requests"
+      "label": "Original qualification cases",
+      "field": "total_cases"
     },
     {
-      "label": "Forward constructive completions / 14",
-      "field": "arms.forward.constructive_complete"
+      "label": "Completed original cases",
+      "field": "complete_cases"
     },
     {
-      "label": "Attempted transitions, both arms",
+      "label": "Attempted transitions",
       "field": "total_attempts"
     },
     {
@@ -26,16 +26,16 @@
   ],
   "breakdown": [
     {
-      "label": "Shooting improving requests / 80",
-      "field": "arms.shooting.improved_requests"
+      "label": "Directed connection requests",
+      "field": "total_directed_calls"
     },
     {
-      "label": "Forward improving requests / 80",
-      "field": "arms.forward.improved_requests"
+      "label": "Accepted connections",
+      "field": "accepted_connections"
     },
     {
-      "label": "Forward checkpoint crossings",
-      "field": "arms.forward.checkpoint_crossings"
+      "label": "New driving episodes",
+      "field": "new_driving_episodes"
     }
   ]
 }
