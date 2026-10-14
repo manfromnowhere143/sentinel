@@ -1,0 +1,1155 @@
+{
+  "status": "exploratory",
+  "timing": "post-outcome descriptive audit",
+  "raw_commit": "87dc04072801cd78d0ec4dbe1079ef7783f8d24c",
+  "sources": [
+    {
+      "path": "proof/search_raw/bend_left/events.jsonl",
+      "sha256": "731fcdda430c2cfc80323dc7ce827222caf94f5aaf694bc98f8073a9acc01d1a"
+    },
+    {
+      "path": "proof/search_raw/bend_right/events.jsonl",
+      "sha256": "e1c7c5e11b29f88eb875677281733af15dbb5e21d8f8a9fe027bb000548eb765"
+    },
+    {
+      "path": "proof/search_raw/chicane_left/events.jsonl",
+      "sha256": "832d6a206987e28e5cd8f813844cda71585c157b4d338c794a8f12b3c1033b4c"
+    },
+    {
+      "path": "proof/search_raw/chicane_right/events.jsonl",
+      "sha256": "f066525b2c7fe2e9f3a33c5210220c6e24e839b9f1752abb6864ea932a744058"
+    }
+  ],
+  "directed_calls": 70,
+  "solves": 67,
+  "necessarily_unreachable_targets": 48,
+  "solved_unreachable_targets": 47,
+  "attempts_on_unreachable_targets": 46658,
+  "exact_target_completions": 0,
+  "evaluations": 15334,
+  "first_background_rejections": 8380,
+  "records": [
+    {
+      "case": "bend_left",
+      "calls": [
+        {
+          "call": 1,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {}
+        },
+        {
+          "call": 2,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "position": 7.381604308090103
+          }
+        },
+        {
+          "call": 3,
+          "solved": true,
+          "attempts": 1023,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "position": 0.679909652802377,
+            "speed": 0.9404756184532441,
+            "steering": 0.22090354652706223
+          }
+        },
+        {
+          "call": 4,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "position": 5.696819126686953,
+            "steering": 0.11619528357882225
+          }
+        },
+        {
+          "call": 5,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {}
+        },
+        {
+          "call": 6,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "position": 15.843907029397853,
+            "speed": 1.477593579645476,
+            "steering": 0.4106348238093671,
+            "heading": 0.07262984158597285
+          }
+        },
+        {
+          "call": 7,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "steering": 0.72062391758982
+          }
+        },
+        {
+          "call": 8,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "position": 10.944881221000525,
+            "speed": 2.0703207652419806,
+            "steering": 0.48236001791112587,
+            "heading": 0.18055726622819762
+          }
+        },
+        {
+          "call": 9,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "steering": 0.7724165069959953
+          }
+        },
+        {
+          "call": 10,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "steering": 0.5949523527473631
+          }
+        },
+        {
+          "call": 11,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "position": 5.6738117321877946
+          }
+        },
+        {
+          "call": 12,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {}
+        },
+        {
+          "call": 13,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "steering": 0.7193052244628829
+          }
+        },
+        {
+          "call": 14,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "position": 6.029251123314576,
+            "steering": 0.8972716840628726
+          }
+        },
+        {
+          "call": 15,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "steering": 0.055733181996691195
+          }
+        },
+        {
+          "call": 16,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "position": 5.6738117321877946
+          }
+        },
+        {
+          "call": 17,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {}
+        },
+        {
+          "call": 18,
+          "solved": true,
+          "attempts": 592,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "steering": 0.4985363805922113
+          }
+        },
+        {
+          "call": 19,
+          "solved": false,
+          "attempts": 0,
+          "target_complete": false,
+          "stop": "attempt_reservation",
+          "exclusion_margins": {
+            "position": 3.727766041199747,
+            "speed": 0.57841979015933,
+            "steering": 0.12809814093359415
+          }
+        }
+      ],
+      "evaluations": 3743,
+      "first_rejections": {
+        "none": 114,
+        "controls": 49,
+        "collision": 3580
+      },
+      "maximum_accepted_frame": 11,
+      "selection": {
+        "calls": [
+          {
+            "call": 1,
+            "attempts": 1024,
+            "final_selection_at": 312
+          },
+          {
+            "call": 2,
+            "attempts": 1024,
+            "final_selection_at": 544
+          },
+          {
+            "call": 3,
+            "attempts": 1023,
+            "final_selection_at": null
+          },
+          {
+            "call": 4,
+            "attempts": 1024,
+            "final_selection_at": null
+          },
+          {
+            "call": 5,
+            "attempts": 1024,
+            "final_selection_at": null
+          },
+          {
+            "call": 6,
+            "attempts": 1024,
+            "final_selection_at": null
+          },
+          {
+            "call": 7,
+            "attempts": 1024,
+            "final_selection_at": null
+          },
+          {
+            "call": 8,
+            "attempts": 1024,
+            "final_selection_at": null
+          },
+          {
+            "call": 9,
+            "attempts": 1024,
+            "final_selection_at": null
+          },
+          {
+            "call": 10,
+            "attempts": 1024,
+            "final_selection_at": null
+          },
+          {
+            "call": 11,
+            "attempts": 1024,
+            "final_selection_at": null
+          },
+          {
+            "call": 12,
+            "attempts": 1024,
+            "final_selection_at": 72
+          },
+          {
+            "call": 13,
+            "attempts": 1024,
+            "final_selection_at": null
+          },
+          {
+            "call": 14,
+            "attempts": 1024,
+            "final_selection_at": null
+          },
+          {
+            "call": 15,
+            "attempts": 1024,
+            "final_selection_at": 72
+          },
+          {
+            "call": 16,
+            "attempts": 1024,
+            "final_selection_at": null
+          },
+          {
+            "call": 17,
+            "attempts": 1024,
+            "final_selection_at": 56
+          },
+          {
+            "call": 18,
+            "attempts": 592,
+            "final_selection_at": null
+          }
+        ],
+        "maximum_reported_valid_frame": 13,
+        "truncated_trial_prefixes": 414,
+        "accepted_requests": 5,
+        "final_selection_by_128": 3,
+        "attempts_after_final_selection": 4064,
+        "attempts_without_edge": 12879
+      }
+    },
+    {
+      "case": "bend_right",
+      "calls": [
+        {
+          "call": 1,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "position": 6.268321982783502,
+            "steering": 0.4387937176619724
+          }
+        },
+        {
+          "call": 2,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "speed": 0.8176574893656807,
+            "steering": 0.5039488657870662
+          }
+        },
+        {
+          "call": 3,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "position": 0.47909259055259945
+          }
+        },
+        {
+          "call": 4,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "position": 0.4568494948141776,
+            "speed": 1.3581282820242289,
+            "steering": 0.1607831873355164,
+            "heading": 0.5661496174325036
+          }
+        },
+        {
+          "call": 5,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {}
+        },
+        {
+          "call": 6,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {}
+        },
+        {
+          "call": 7,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {}
+        },
+        {
+          "call": 8,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "steering": 0.5326235997684637
+          }
+        },
+        {
+          "call": 9,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "steering": 0.04878717245096442
+          }
+        },
+        {
+          "call": 10,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "position": 0.9676558101362583
+          }
+        },
+        {
+          "call": 11,
+          "solved": true,
+          "attempts": 1020,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "position": 0.6885493189375619
+          }
+        },
+        {
+          "call": 12,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "steering": 0.11959762997168066
+          }
+        },
+        {
+          "call": 13,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {}
+        },
+        {
+          "call": 14,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "speed": 0.1906596609875313
+          }
+        },
+        {
+          "call": 15,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {}
+        },
+        {
+          "call": 16,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "steering": 0.16228400449569624
+          }
+        },
+        {
+          "call": 17,
+          "solved": true,
+          "attempts": 1022,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "steering": 0.5330530163375535
+          }
+        },
+        {
+          "call": 18,
+          "solved": true,
+          "attempts": 592,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {}
+        },
+        {
+          "call": 19,
+          "solved": false,
+          "attempts": 0,
+          "target_complete": false,
+          "stop": "attempt_reservation",
+          "exclusion_margins": {}
+        }
+      ],
+      "evaluations": 3206,
+      "first_rejections": {
+        "none": 342,
+        "controls": 347,
+        "collision": 2517
+      },
+      "maximum_accepted_frame": 12,
+      "selection": {
+        "calls": [
+          {
+            "call": 1,
+            "attempts": 1024,
+            "final_selection_at": 120
+          },
+          {
+            "call": 2,
+            "attempts": 1024,
+            "final_selection_at": 8
+          },
+          {
+            "call": 3,
+            "attempts": 1024,
+            "final_selection_at": 928
+          },
+          {
+            "call": 4,
+            "attempts": 1024,
+            "final_selection_at": null
+          },
+          {
+            "call": 5,
+            "attempts": 1024,
+            "final_selection_at": null
+          },
+          {
+            "call": 6,
+            "attempts": 1024,
+            "final_selection_at": 56
+          },
+          {
+            "call": 7,
+            "attempts": 1024,
+            "final_selection_at": 48
+          },
+          {
+            "call": 8,
+            "attempts": 1024,
+            "final_selection_at": 56
+          },
+          {
+            "call": 9,
+            "attempts": 1024,
+            "final_selection_at": 512
+          },
+          {
+            "call": 10,
+            "attempts": 1024,
+            "final_selection_at": null
+          },
+          {
+            "call": 11,
+            "attempts": 1020,
+            "final_selection_at": null
+          },
+          {
+            "call": 12,
+            "attempts": 1024,
+            "final_selection_at": 200
+          },
+          {
+            "call": 13,
+            "attempts": 1024,
+            "final_selection_at": null
+          },
+          {
+            "call": 14,
+            "attempts": 1024,
+            "final_selection_at": null
+          },
+          {
+            "call": 15,
+            "attempts": 1024,
+            "final_selection_at": null
+          },
+          {
+            "call": 16,
+            "attempts": 1024,
+            "final_selection_at": 56
+          },
+          {
+            "call": 17,
+            "attempts": 1022,
+            "final_selection_at": null
+          },
+          {
+            "call": 18,
+            "attempts": 592,
+            "final_selection_at": null
+          }
+        ],
+        "maximum_reported_valid_frame": 14,
+        "truncated_trial_prefixes": 513,
+        "accepted_requests": 9,
+        "final_selection_by_128": 6,
+        "attempts_after_final_selection": 7232,
+        "attempts_without_edge": 8778
+      }
+    },
+    {
+      "case": "chicane_left",
+      "calls": [
+        {
+          "call": 1,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "position": 2.7219738759229637,
+            "steering": 0.4664264581740166
+          }
+        },
+        {
+          "call": 2,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "steering": 0.19081768722182668
+          }
+        },
+        {
+          "call": 3,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "position": 9.339975891727873,
+            "speed": 2.2559573441329737,
+            "steering": 0.7540414587148688,
+            "heading": 0.44413982195523755
+          }
+        },
+        {
+          "call": 4,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {}
+        },
+        {
+          "call": 5,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "steering": 0.17539567577049398
+          }
+        },
+        {
+          "call": 6,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "steering": 0.27426568095292436
+          }
+        },
+        {
+          "call": 7,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {}
+        },
+        {
+          "call": 8,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {}
+        },
+        {
+          "call": 9,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {}
+        },
+        {
+          "call": 10,
+          "solved": true,
+          "attempts": 1020,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "speed": 0.24150577696975284,
+            "steering": 0.48239907977834917
+          }
+        },
+        {
+          "call": 11,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "position": 2.7626877090596484,
+            "speed": 2.0215076975820256,
+            "steering": 0.42700309358186755,
+            "heading": 0.016039920418197406
+          }
+        },
+        {
+          "call": 12,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {}
+        },
+        {
+          "call": 13,
+          "solved": true,
+          "attempts": 1,
+          "target_complete": false,
+          "stop": "model_complete",
+          "exclusion_margins": {
+            "steering": 0.06240894241894501
+          }
+        }
+      ],
+      "evaluations": 3371,
+      "first_rejections": {
+        "none": 2634,
+        "collision": 626,
+        "controls": 111
+      },
+      "maximum_accepted_frame": 32,
+      "selection": {
+        "calls": [
+          {
+            "call": 1,
+            "attempts": 1024,
+            "final_selection_at": 256
+          },
+          {
+            "call": 2,
+            "attempts": 1024,
+            "final_selection_at": 240
+          },
+          {
+            "call": 3,
+            "attempts": 1024,
+            "final_selection_at": 9
+          },
+          {
+            "call": 4,
+            "attempts": 1024,
+            "final_selection_at": 56
+          },
+          {
+            "call": 5,
+            "attempts": 1024,
+            "final_selection_at": 192
+          },
+          {
+            "call": 6,
+            "attempts": 1024,
+            "final_selection_at": 56
+          },
+          {
+            "call": 7,
+            "attempts": 1024,
+            "final_selection_at": 48
+          },
+          {
+            "call": 8,
+            "attempts": 1024,
+            "final_selection_at": 920
+          },
+          {
+            "call": 9,
+            "attempts": 1024,
+            "final_selection_at": 24
+          },
+          {
+            "call": 10,
+            "attempts": 1020,
+            "final_selection_at": 6
+          },
+          {
+            "call": 11,
+            "attempts": 1024,
+            "final_selection_at": 1
+          },
+          {
+            "call": 12,
+            "attempts": 1024,
+            "final_selection_at": 120
+          },
+          {
+            "call": 13,
+            "attempts": 1,
+            "final_selection_at": 1
+          }
+        ],
+        "maximum_reported_valid_frame": 32,
+        "truncated_trial_prefixes": 910,
+        "accepted_requests": 13,
+        "final_selection_by_128": 9,
+        "attempts_after_final_selection": 10356,
+        "attempts_without_edge": 0
+      }
+    },
+    {
+      "case": "chicane_right",
+      "calls": [
+        {
+          "call": 1,
+          "solved": true,
+          "attempts": 1020,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "position": 17.492802003185652
+          }
+        },
+        {
+          "call": 2,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "position": 9.17254203331829
+          }
+        },
+        {
+          "call": 3,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "position": 6.723773427113378,
+            "speed": 4.377523553421652,
+            "steering": 0.3969436104174998,
+            "heading": 0.3441307381453243
+          }
+        },
+        {
+          "call": 4,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {}
+        },
+        {
+          "call": 5,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "speed": 0.5907531195057627,
+            "steering": 0.3551533227245157
+          }
+        },
+        {
+          "call": 6,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "speed": 0.2399187912400691
+          }
+        },
+        {
+          "call": 7,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "steering": 0.49238746600169103
+          }
+        },
+        {
+          "call": 8,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "steering": 0.11696630344076098
+          }
+        },
+        {
+          "call": 9,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "steering": 0.1740281324992835
+          }
+        },
+        {
+          "call": 10,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {}
+        },
+        {
+          "call": 11,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "position": 4.594707529899415,
+            "steering": 0.3445921921702056,
+            "heading": 0.7538057646791132
+          }
+        },
+        {
+          "call": 12,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "speed": 0.013160567445424718,
+            "steering": 0.358420508857793
+          }
+        },
+        {
+          "call": 13,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {}
+        },
+        {
+          "call": 14,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "steering": 0.5123440810584564
+          }
+        },
+        {
+          "call": 15,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "steering": 0.10599983413098724
+          }
+        },
+        {
+          "call": 16,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {}
+        },
+        {
+          "call": 17,
+          "solved": true,
+          "attempts": 1024,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {
+            "speed": 2.837741737650856,
+            "steering": 0.8894656518766249,
+            "heading": 0.21208458417169324
+          }
+        },
+        {
+          "call": 18,
+          "solved": true,
+          "attempts": 592,
+          "target_complete": false,
+          "stop": "attempt_budget",
+          "exclusion_margins": {}
+        },
+        {
+          "call": 19,
+          "solved": false,
+          "attempts": 0,
+          "target_complete": false,
+          "stop": "attempt_reservation",
+          "exclusion_margins": {}
+        }
+      ],
+      "evaluations": 5014,
+      "first_rejections": {
+        "none": 2592,
+        "controls": 765,
+        "collision": 1657
+      },
+      "maximum_accepted_frame": 17,
+      "selection": {
+        "calls": [
+          {
+            "call": 1,
+            "attempts": 1020,
+            "final_selection_at": 565
+          },
+          {
+            "call": 2,
+            "attempts": 1024,
+            "final_selection_at": 16
+          },
+          {
+            "call": 3,
+            "attempts": 1024,
+            "final_selection_at": 1
+          },
+          {
+            "call": 4,
+            "attempts": 1024,
+            "final_selection_at": 32
+          },
+          {
+            "call": 5,
+            "attempts": 1024,
+            "final_selection_at": 8
+          },
+          {
+            "call": 6,
+            "attempts": 1024,
+            "final_selection_at": 48
+          },
+          {
+            "call": 7,
+            "attempts": 1024,
+            "final_selection_at": 8
+          },
+          {
+            "call": 8,
+            "attempts": 1024,
+            "final_selection_at": 56
+          },
+          {
+            "call": 9,
+            "attempts": 1024,
+            "final_selection_at": 56
+          },
+          {
+            "call": 10,
+            "attempts": 1024,
+            "final_selection_at": 56
+          },
+          {
+            "call": 11,
+            "attempts": 1024,
+            "final_selection_at": null
+          },
+          {
+            "call": 12,
+            "attempts": 1024,
+            "final_selection_at": 8
+          },
+          {
+            "call": 13,
+            "attempts": 1024,
+            "final_selection_at": null
+          },
+          {
+            "call": 14,
+            "attempts": 1024,
+            "final_selection_at": 56
+          },
+          {
+            "call": 15,
+            "attempts": 1024,
+            "final_selection_at": 56
+          },
+          {
+            "call": 16,
+            "attempts": 1024,
+            "final_selection_at": 616
+          },
+          {
+            "call": 17,
+            "attempts": 1024,
+            "final_selection_at": 1
+          },
+          {
+            "call": 18,
+            "attempts": 592,
+            "final_selection_at": null
+          }
+        ],
+        "maximum_reported_valid_frame": 18,
+        "truncated_trial_prefixes": 1002,
+        "accepted_requests": 15,
+        "final_selection_by_128": 13,
+        "attempts_after_final_selection": 13773,
+        "attempts_without_edge": 2640
+      }
+    }
+  ],
+  "boundary": "Necessary endpoint bounds only; partial extensions can help. Unselected background labels are producer evidence. No causal or repair claim.",
+  "selection_totals": {
+    "accepted_requests": 42,
+    "final_selection_by_128": 31,
+    "attempts_after_final_selection": 35425,
+    "attempts_without_edge": 24297,
+    "truncated_trial_prefixes": 2839
+  },
+  "selection_boundary": "Post-outcome accounting, not an online stopping oracle. Later controls can change the eventual selected return after 128 transitions. Unselected valid-prefix background labels remain producer evidence. A different budget changes the tree; no shorter-budget success or timing gain is established."
+}
