@@ -1,0 +1,1 @@
+{"attempts":105,"calls":4,"case":"wait_4","complete":true,"depth":2,"elapsed_seconds":0.03215683304006234,"materialization_queries":5,"peak_rss_bytes":45973504,"queries":8,"stop":"terminal_frame"}
