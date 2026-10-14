@@ -1,18 +1,18 @@
 {
   "schemaVersion": 1,
-  "iteration": 171,
-  "directory": "experiments/iter171_centered_shooting",
-  "title": "Full-horizon local control qualifies on all twelve tasks.",
-  "summary": "Stopping, waiting, restarting and both turn durations pass unchanged constraints. Centered solver coordinates resolve the longer-turn misses after two retained failed qualifications. Independent replay checks 284 states and full masks.",
-  "boundary": "Twelve exposed constructed tasks, not road or holdout evidence. All 2,123 attempted transitions are counted. Local qualification does not qualify integrated RRT, source recovery, real-time operation or superiority.",
-  "next": "Qualify the integrated RRT on its original four cases, charging every local rollout under the unchanged timing, checkpoint and resource contract. Source comparison stays closed until then.",
+  "iteration": 172,
+  "directory": "experiments/iter172_integrated_rrt",
+  "title": "Integrated RRT completes none of its four original cases.",
+  "summary": "The qualified local controller now supplies checked control sequences to RRT. Under unchanged budgets, 84 requests produce 24 admissible partial connections, but none reaches the first timed checkpoint. Independent admission retains all four misses.",
+  "boundary": "One frozen seed per exposed case; 71,986 transitions charged. Full masks cover 38 selected states. Local control qualification does not establish planner qualification, source recovery, transfer or superiority.",
+  "next": "Compare useful expansion per unit of work under matched constraints. All four original cases must qualify before source comparison; no retry or retuning changes this closed result.",
   "metrics": [
     {
-      "label": "Qualification tasks",
+      "label": "Original qualification cases",
       "field": "total_cases"
     },
     {
-      "label": "Full-horizon completions",
+      "label": "Complete cases",
       "field": "complete_cases"
     },
     {
@@ -26,15 +26,15 @@
   ],
   "breakdown": [
     {
-      "label": "Two-step completions",
-      "field": "baseline_complete_cases"
+      "label": "Directed connection requests",
+      "field": "total_directed_calls"
     },
     {
-      "label": "Before coordinate correction",
-      "field": "previous_complete_cases"
+      "label": "Accepted partial connections",
+      "field": "accepted_connections"
     },
     {
-      "label": "Centered-control completions",
+      "label": "Complete qualification cases",
       "field": "complete_cases"
     }
   ]

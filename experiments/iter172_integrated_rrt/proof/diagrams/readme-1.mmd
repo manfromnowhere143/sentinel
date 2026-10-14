@@ -1,0 +1,20 @@
+flowchart TB
+  accTitle: How the evidence changed the question
+  accDescr: Local control qualifies; planner and first-fire recovery remain unresolved.
+  N["NeuroNCAP gain<br/>attribution limits"] --> T["HUGSIM transfer nulls"]
+  T --> E["Iter136–151: execution nulls"]
+  E --> P["Iter152: brake pulses<br/>no useful recovery"]
+  P --> M["Iter153–154: candidate<br/>fails full scene"]
+  M --> W["Iter155–156: collision witness<br/>masks agree"]
+  W --> L["Iter157: fixed library<br/>0 of 75 qualify"]
+  L --> A["Iter158–159: search<br/>not yet qualified"]
+  A --> K["Iter160: fixed suffix<br/>one terminal difference"]
+  K --> G["Iter161: grouping × width<br/>exact/24 passes four controls"]
+  G --> S["Iter162: two model paths"]
+  S --> V["Iter163: two native<br/>completions from reset"]
+  V --> B["Iter164: first-fire miss"]
+  B --> D["Iter165: all 49 roots miss"]
+  D --> R["Iter166–167: RRT terminal repair<br/>0/4 controls"]
+  R --> J["Iter168: stops pass; turns miss"]
+  J --> H["Iter169–171: local control<br/>12/12 tasks qualify"]
+  H --> I["Iter172: integrated RRT<br/>0/4 original cases"]

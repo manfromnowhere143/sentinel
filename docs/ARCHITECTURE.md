@@ -1,7 +1,7 @@
 # Sentinel architecture
 
-Updated 13 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter171 research record. The [README](../README.md) carries the scientific
+Updated 14 October 2026. This describes the implemented research apparatus and its measured
+limits through the Iter172 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -225,9 +225,10 @@ flowchart TB
   Y --> V["Iter163: two native<br/>completions from reset"]
   V --> B["Iter164: first-fire miss"]
   B --> D["Iter165: all 49 roots miss"]
-  D --> R["Iter166–167: terminal repair<br/>RRT remains unqualified"]
+  D --> R["Iter166–167: RRT terminal repair<br/>0/4 controls"]
   R --> J["Iter168: stops pass; turns miss"]
-  J --> H["Iter169–171: numerical repairs<br/>12/12 local tasks qualify"]
+  J --> H["Iter169–171: local control<br/>12/12 tasks qualify"]
+  H --> I["Iter172: integrated RRT<br/>0/4 original cases"]
 ```
 
 These privileged diagnostic inputs are not delivered to the released monitor. Iter153's model
@@ -386,3 +387,30 @@ source replay or native driving is added by the local result.
 [Full-horizon failure](../experiments/iter169_full_horizon_control/RESULT.md) ·
 [Derivative correction](../experiments/iter170_derivative_step/RESULT.md) ·
 [Local qualification](../experiments/iter171_centered_shooting/RESULT.md).
+
+Iter172 integrates centered shooting through a specialized sequence-token bridge.
+The original RRT selects a parent and target; the callback evaluates up to eight
+physical steps and returns only an initial contiguous admissible prefix. The
+control token identifies its exact recorded sequence, and duration is the physical
+step count. Native path expansion checks token, parent, endpoint and duration.
+The bridge is not a generic constant-control OMPL propagator; unexpected native
+propagation throws. Intermediate tree-node insertion remains disabled, while all
+intermediate physical states retain their hard checks.
+
+Absolute scene time, the original 4/8-second checkpoints, target sampler, metric,
+goal bias and four seeds/cases are preserved. No explicit wait/stop phase is
+invented for these cases. Every local derivative, line-search and rejected rollout
+counts within the original outer transition cap. All four searches exhaust that
+cap without completion: 71,986 transitions, 84 calls and 24 partial connections.
+No accepted branch reaches the first checkpoint. Independent replay checks all
+motion/accounting and 38 selected states/full masks; unselected background labels
+and native tree/RNG retain producer provenance.
+
+The local 12/12 result therefore does not qualify the integrated planner. A
+post-outcome audit finds unreachable endpoint requests and frequent background
+rejection; it does not identify a single cause. The next proposed test compares
+shooting with bounded forward-control expansion under matched work and hard
+constraints. Source comparison stays closed until a separately frozen original
+four-case integrated qualification passes. No source recovery follows from local
+qualification. [Integrated result](../experiments/iter172_integrated_rrt/RESULT.md) ·
+[next decision](../experiments/iter172_integrated_rrt/DECISION.md).

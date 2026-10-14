@@ -1,3 +1,56 @@
+# Current: Iter172 closed; integrated RRT fails qualification — 14 October 2026
+
+The original four-case integrated qualification completes 0/4. Status contradicted,
+with independent admission accepting four bounded misses. Preserve Iter171's 12/12
+local qualification separately; neither establishes source recovery. Read
+experiments/iter172_integrated_rrt/RESULT.md and DECISION.md.
+
+Released OMPL RRT keeps its sampler, metric, goal bias, seeds/cases, absolute clock,
+4/8-second checkpoints and 18,000-transition/120-second/96-action envelope. A checked
+sequence-token bridge carries varying controls; centered shooting returns only an
+initial contiguous admissible prefix, with eight-step/1,024-transition inner caps.
+No invented stop/wait phase or witness input. The planner charges 71,986 transitions,
+makes 84 calls and accepts 24 partial connections. All four exhaust allocatable
+attempt budgets in 8.54–15.65 search seconds. No accepted branch reaches checkpoint
+one; returned paths end at 2.00–2.25s. Approximate status is not completion.
+
+Independent replay checks every attempted motion/physical predicate, absolute
+checkpoint, prefix choice, cache/accounting and path-token binding. Full scalar
+masks cover 38 selected states / 275,880 point-state classifications. Unselected
+background labels and native tree/RNG remain producer evidence. Post-outcome
+exploratory audit: 62/84 endpoint requests violate necessary reachability bounds;
+58/80 executed solves target them, consuming 50,202 transitions. Most trial first
+rejections are background collision. No single-cause or successful-repair claim;
+unreachable endpoints can still guide useful partial extensions.
+
+Frozen source f348b1ff6f07dc3eac1e766c44a42cace6b9b1c6;
+raw 1ffcb7baf12ede9c96c47500f2f7ad10782f7a3f committed before admission;
+admission a359f72c60cf0eb3d601c34fedbbe9cf518b5c2f.
+One fresh process per seed, no retry/retuning. Producer 62.410s, checker 16.450s;
+supervised wall times 62.520/18.187s, all owned scientific jobs reaped. No source
+comparison, native driving, provider use or spending. Runtime selected identities
+are checked; no hermeticity, road, transfer, real-time or superiority claim.
+
+Next: preregister a matched-cost connector comparison on retained exposed requests
+plus constructive stop/wait/turn/obstacle-detour controls. Test bounded forward
+proposals against shooting, retaining every hard predicate and charging all work.
+This tests useful expansion, not source recovery. Require a new all-four integrated
+pass before source comparison. Preserve closed studies and actual first-fire history.
+No human ceremony or provider dependency is pending.
+
+Validation: 65 prefreeze focused/retained checks pass with both native bridges;
+17 diagnostic/presentation checks pass after admission. Ruff and supply-chain pass;
+609 Markdown files pass the documentation guard. Three active Mermaid diagrams
+render and are reviewed in both themes; the result figure is reviewed. Frozen
+scientific source is unchanged. Exact closure hosted CI and public readback are
+observed after push, with receipts in ~/.codex/reports/sentinel/iter172/.
+README, architecture, state and automatic instrument descriptor cover Iter172.
+
+Owned branch research/iter172-integrated-rrt-qualification in
+/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011.
+Canonical dirty workspace, archived MISSION_STATE and historical scientific bytes
+remain unchanged. Earlier entries below are historical.
+
 # Current: Iter169–171 closed; local full-horizon qualification passes — 14 October 2026
 
 Iter171 completes all twelve unchanged constructed tasks, including both longer
