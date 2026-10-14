@@ -1,0 +1,1 @@
+{"accepted_connections":5,"attempts":17999,"case":"bend_left","complete":false,"directed_calls":20,"elapsed_seconds":8.540312500030268,"materialization_queries":10,"native_status":1,"path_queries":10,"peak_rss_bytes":201572352,"queries":8886,"seed":20261014,"selected_connections":[1,2],"stop":"attempt_budget","unused_attempt_budget":1}
