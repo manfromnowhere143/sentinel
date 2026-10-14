@@ -1,0 +1,1 @@
+{"attempts":18000,"case":"chicane_left","complete":false,"directed_calls":1194,"elapsed_seconds":15.440341917041223,"materialization_queries":24,"native_status":1,"path_queries":24,"peak_rss_bytes":147456000,"queries":17465,"seed":20261016,"stop":"attempt_budget"}

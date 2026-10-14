@@ -1,0 +1,4 @@
+Info:    RRT: Starting planning with 1 states already in datastructure
+Info:    ProblemDefinition: Adding approximate solution from planner RRT
+Info:    RRT: Created 514 states
+{"complete": false, "native_status": 1, "attempts": 18000, "queries": 16378, "path_queries": 28, "directed_calls": 1197, "elapsed_seconds": 13.501969916047528, "peak_rss_bytes": 137887744, "stop": "attempt_budget", "case": "bend_right", "seed": 20261015, "materialization_queries": 28}
