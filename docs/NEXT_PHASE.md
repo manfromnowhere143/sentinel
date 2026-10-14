@@ -1,3 +1,57 @@
+# Current: Iter173 closed; forward connector qualifies for an integrated trial — 14 October 2026
+
+The matched-cap comparison passes its frozen finite criterion. Forward completes
+14/14 constructive tasks and improves 16/80 retained requests; shooting completes
+12/14 and improves 15/80. Both return admissible motion on the same 24 requests;
+neither crosses a checkpoint. The original integrated RRT remains 0/4. Source
+comparison stays closed until a separate all-four integrated qualification passes.
+Read experiments/iter173_matched_connector_cost/RESULT.md and DECISION.md.
+
+Equal available caps are not equal actual work: request transitions are 79,435
+forward versus 71,986 shooting; constructive transitions are 845 versus 18,507.
+Request timings are 49.633 versus 49.335 summed local seconds. One additional
+improving request is a narrow result, not a performance or superiority claim.
+Both new detours pass with forward, but their four-phase witness pattern belongs
+to its disclosed proposal family. These are constructed controls and exposed
+shooting-generated requests, not holdouts or independent source scenes. Four
+unexecuted Iter172 calls remain excluded. Root-only gains remain null.
+
+Same physical seed, evaluator, hard constraints, exact cache and ranking; only
+candidate proposals change. All motion after rejection and shooting derivatives
+count. Independently replayed: every attempt, physical/checkpoint constraint,
+prefix, proposal sequence and cache identity. Full scalar masks cover 668 states
+and 2,710,158 point-state classifications; unselected background labels remain
+producer evidence. No integrated RRT, source comparison or native driving runs.
+
+Frozen source d39ab973ec2d97e6fa160fedd2873a53d2ecca00;
+raw 5886892a76bd7943ca51b495465309e2b7c2f103 committed before admission;
+admission 77e9a1387fe185d8e2008234cffd219c63af6b9e.
+One 188-execution counterbalanced schedule, fresh processes, no retry/retuning.
+Producer/checker 175.845/56.476s; supervised walls 176.002/58.759s. All children
+and both stage processes reaped. No provider use or spending. Selected runtime
+identities pass; no hermeticity, real-time, source recovery or transfer claim.
+
+Next: separately freeze the original four-case integrated RRT with the admitted
+forward generator replacing only the connector. Preserve seeds, scene, sampler,
+metric, goal bias, sequence transport, absolute time, full terminal/4/8-second
+checkpoint conditions, 18,000-transition/120-second/96-action outer caps and
+eight-step/1,024-transition inner cap. One miss contradicts all-four qualification;
+no source comparison before all four pass independent admission. No human ceremony.
+
+Twenty-two new checks pass. The focused suite before the last resource check
+passes 62 tests with two optional native skips; the complete new file then passes
+22. Fourteen instrument checks, Ruff, supply-chain verification and the 614-file
+documentation guard pass. Three active Mermaid diagrams render and are reviewed
+in both themes; the comparison figure is reviewed. All 497 frozen scientific
+files remain unchanged. Publication requires exact closure CI and public packet/hash readback; receipts
+are retained separately in ~/.codex/reports/sentinel/iter173/ after push. README,
+architecture, state, diagrams and automatic instrument descriptor cover Iter173.
+
+Owned branch research/iter173-matched-connector-cost in
+/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011.
+Canonical dirty root, archived MISSION_STATE and historical scientific bytes stay
+unchanged. Earlier entries below are historical.
+
 # Current: Iter172 closed; integrated RRT fails qualification — 14 October 2026
 
 The original four-case integrated qualification completes 0/4. Status contradicted,

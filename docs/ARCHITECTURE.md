@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 14 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter172 research record. The [README](../README.md) carries the scientific
+limits through the Iter173 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -218,17 +218,18 @@ flowchart TB
   S --> E
   E --> F["Iter156: 115 masks agree"]
   F --> L["Iter157: 0 of 75 qualify"]
-  L --> A["Iter158–159: search<br/>not yet qualified"]
+  L --> A["Iter158–159: search unqualified"]
   A --> K["Iter160: suffix shortfall"]
   K --> Z["Iter161: exact/24<br/>passes four controls"]
   Z --> Y["Iter162: two source paths"]
   Y --> V["Iter163: two native<br/>completions from reset"]
   V --> B["Iter164: first-fire miss"]
   B --> D["Iter165: all 49 roots miss"]
-  D --> R["Iter166–167: RRT terminal repair<br/>0/4 controls"]
+  D --> R["Iter166–167: RRT repair<br/>0/4 controls"]
   R --> J["Iter168: stops pass; turns miss"]
-  J --> H["Iter169–171: local control<br/>12/12 tasks qualify"]
-  H --> I["Iter172: integrated RRT<br/>0/4 original cases"]
+  J --> H["Iter169–171: local control<br/>12/12 qualify"]
+  H --> I["Iter172: integrated RRT<br/>0/4 cases"]
+  I --> O["Iter173: forward proposals<br/>local comparison passes"]
 ```
 
 These privileged diagnostic inputs are not delivered to the released monitor. Iter153's model
@@ -408,9 +409,37 @@ and native tree/RNG retain producer provenance.
 
 The local 12/12 result therefore does not qualify the integrated planner. A
 post-outcome audit finds unreachable endpoint requests and frequent background
-rejection; it does not identify a single cause. The next proposed test compares
-shooting with bounded forward-control expansion under matched work and hard
-constraints. Source comparison stays closed until a separately frozen original
+rejection; it does not identify a single cause. Iter173 subsequently compares
+shooting with bounded forward-control expansion under matched available work
+and time caps, retaining the same hard constraints. Source comparison stays closed
+until a separately frozen original
 four-case integrated qualification passes. No source recovery follows from local
 qualification. [Integrated result](../experiments/iter172_integrated_rrt/RESULT.md) ·
 [next decision](../experiments/iter172_integrated_rrt/DECISION.md).
+
+Iter173 isolates the connector from tree feedback. Its manifest reconstructs the
+80 executed parent/target requests from Iter172, retaining absolute state/time,
+local horizon and per-call transition allocation. Four unexecuted reservation
+calls are explicitly excluded. Each arm receives the same request and geometry
+in a fresh process; there is no new RRT solve. Twelve unchanged explicit tasks
+plus two detours supply full-trajectory controls. A physical seed precedes fixed
+constant/reversing phase proposals and a deterministic four-phase Halton family.
+The proposal function receives no witness actions or case identifiers. Exposed
+fixtures informed its design, including a pattern shared by the new detours.
+
+Request evaluation reuses the eight-step prefix evaluator and ranking; explicit
+tasks require the full horizon and terminal conditions. Cache identity, all
+predicted motion, derivative work, hard constraints and proposal-generation time
+remain charged. This test does not apply early termination after a rejection.
+A separate checker reconstructs proposal parameters and all attempted motion,
+then replays full scalar masks for 668 selected, witness and negative-control
+states. Unselected background labels retain producer provenance.
+
+Forward passes 14/14 constructive tasks and improves 16/80 requests; shooting
+passes 12/14 and improves 15/80. Both yield the same 24 admissible returns and no
+checkpoint crossings. Forward spends more request transitions but fewer on the
+constructed tasks. Equal caps do not establish equal work or a speedup. The
+frozen finite criterion passes; a separately frozen original-four-case integrated
+trial is the next dependency. Neither this result nor local task qualification
+opens source comparison. [Comparison and limits](../experiments/iter173_matched_connector_cost/RESULT.md) ·
+[next decision](../experiments/iter173_matched_connector_cost/DECISION.md).

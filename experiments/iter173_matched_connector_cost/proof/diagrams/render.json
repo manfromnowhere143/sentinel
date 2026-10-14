@@ -1,0 +1,38 @@
+[
+  {
+    "source": "experiments/iter173_matched_connector_cost/proof/diagrams/readme-1.mmd",
+    "theme": "default",
+    "output": "experiments/iter173_matched_connector_cost/proof/diagrams/readme-1-default.png",
+    "rendered": true
+  },
+  {
+    "source": "experiments/iter173_matched_connector_cost/proof/diagrams/readme-1.mmd",
+    "theme": "dark",
+    "output": "experiments/iter173_matched_connector_cost/proof/diagrams/readme-1-dark.png",
+    "rendered": true
+  },
+  {
+    "source": "experiments/iter173_matched_connector_cost/proof/diagrams/readme-2.mmd",
+    "theme": "default",
+    "output": "experiments/iter173_matched_connector_cost/proof/diagrams/readme-2-default.png",
+    "rendered": true
+  },
+  {
+    "source": "experiments/iter173_matched_connector_cost/proof/diagrams/readme-2.mmd",
+    "theme": "dark",
+    "output": "experiments/iter173_matched_connector_cost/proof/diagrams/readme-2-dark.png",
+    "rendered": true
+  },
+  {
+    "source": "experiments/iter173_matched_connector_cost/proof/diagrams/architecture-3.mmd",
+    "theme": "default",
+    "output": "experiments/iter173_matched_connector_cost/proof/diagrams/architecture-3-default.png",
+    "rendered": true
+  },
+  {
+    "source": "experiments/iter173_matched_connector_cost/proof/diagrams/architecture-3.mmd",
+    "theme": "dark",
+    "output": "experiments/iter173_matched_connector_cost/proof/diagrams/architecture-3-dark.png",
+    "rendered": true
+  }
+]
