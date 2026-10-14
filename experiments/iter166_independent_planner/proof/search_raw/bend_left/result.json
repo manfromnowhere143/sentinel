@@ -1,0 +1,1 @@
+{"attempts":469,"case":"bend_left","complete":true,"directed_calls":31,"elapsed_seconds":0.42041516600875184,"materialization_queries":19,"native_status":2,"path_queries":19,"peak_rss_bytes":158007296,"queries":435,"seed":20261014,"stop":"model_complete"}

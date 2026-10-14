@@ -1,0 +1,3 @@
+Info:    RRT: Starting planning with 1 states already in datastructure
+Info:    RRT: Created 472 states
+{"complete": true, "native_status": 2, "attempts": 16364, "queries": 15898, "path_queries": 27, "directed_calls": 1087, "elapsed_seconds": 13.930571334029082, "peak_rss_bytes": 163708928, "stop": "model_complete", "case": "chicane_right", "seed": 20261017, "materialization_queries": 27}

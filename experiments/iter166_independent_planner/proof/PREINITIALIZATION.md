@@ -1,0 +1,1 @@
+The launch command supplied an abbreviated Git hash. The source encoding gate rejected it before raw initialization or any scientific case execution. The corrected command uses the full identical commit identity. No protocol/source change or initialized scientific retry occurred. Original failure is retained.

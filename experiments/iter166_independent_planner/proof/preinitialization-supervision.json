@@ -1,0 +1,23 @@
+{
+  "stage": "planner-qualification",
+  "command": [
+    "python3",
+    "-m",
+    "experiments.iter166_independent_planner.run",
+    "--root",
+    ".",
+    "--source",
+    "1a183fd",
+    "--library",
+    "/Users/danielwahnich/.codex/reports/sentinel/iter165/runtime/libsentinel_ompl.dylib"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011",
+  "started": "2026-10-14T07:07:49.184777+00:00",
+  "limit_seconds": 910,
+  "status": "invalid",
+  "pid": 26402,
+  "returncode": 1,
+  "elapsed_seconds": 0.3842371250502765,
+  "finished": "2026-10-14T07:07:49.569361+00:00",
+  "process_reaped": true
+}
