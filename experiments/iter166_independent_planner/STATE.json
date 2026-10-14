@@ -1,8 +1,17 @@
 {
   "iteration": 166,
-  "status": "preregistered",
-  "phase": "adapter_contract_qualified",
-  "qualified_for_source_comparison": null,
-  "source_outcomes_observed": false,
-  "qualification_case_outcomes_observed": false
+  "phase": "closed",
+  "status": "invalid",
+  "source_commit": "1a183fd214c8accab129f0c358feaa4c4c1244d1",
+  "raw_commit": "1bc7cfc6e5696d7e667c84a0d6519af5ad707d34",
+  "qualification_gate": "missing_completion_checkpoint",
+  "qualified_for_source_comparison": false,
+  "complete_cases": null,
+  "total_cases": 4,
+  "producer_reported_completions": 2,
+  "producer_reported_misses": 2,
+  "checker_stopped_on_first_case": true,
+  "independent_admission_completed": false,
+  "new_driving_episodes": 0,
+  "provider_spend": 0
 }

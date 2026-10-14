@@ -1,0 +1,21 @@
+{
+  "stage": "planner-check",
+  "command": [
+    "python3",
+    "-m",
+    "experiments.iter166_independent_planner.check",
+    "--root",
+    ".",
+    "--raw-commit",
+    "1bc7cfc6e5696d7e667c84a0d6519af5ad707d34"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011",
+  "started": "2026-10-14T07:09:58.726512+00:00",
+  "limit_seconds": 910,
+  "status": "invalid",
+  "pid": 34180,
+  "returncode": 1,
+  "elapsed_seconds": 5.783672541030683,
+  "finished": "2026-10-14T07:10:04.510589+00:00",
+  "process_reaped": true
+}

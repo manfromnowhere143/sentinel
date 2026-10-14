@@ -1,3 +1,16 @@
+# Current: Iter165 raw committed; Iter166 invalid; Iter167 correction frozen next — 14 October 2026
+
+Iter165 all49 continuation runs finish with beam_empty; raw0d8fa01 committed before
+independent scalar admission, now running. Sourceca2d517 unchanged; no rerun.
+Iter166 is invalid: independent checker rejects a completion before the final
+mandatory checkpoint. Raw1bc7cfc retained; source1a183fd unchanged. No qualified
+RRT source comparison. Iter167 corrects only the terminal-clock condition, with
+the same four development cases, seeds, controls and budgets.21 focused tests pass,
+including4 new regressions. Freeze before new four-case outcomes. Source/route
+infeasibility and superiority remain unknown. No native/provider/spend.
+Owned research/iter165-discarded-braking-planner-qualification in recovery worktree.
+Current public instrument remains164. No human ceremony pending. Earlier history below.
+
 # Current: Iter166 independent-planner qualification preregistered — 14 October 2026
 
 Iter165 all49-root braking schedule remains running under source ca2d517. Do not
