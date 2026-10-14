@@ -1,23 +1,23 @@
 {
   "schemaVersion": 1,
-  "iteration": 163,
-  "directory": "experiments/iter163_native_path_replay",
-  "title": "The admitted path completes the native scene.",
-  "summary": "Two fresh native replicas complete 66 actions each. Independent replay verifies 132 full background masks: 36,500,508 point-state classifications, with zero disagreement. Both original progress checkpoints pass.",
-  "boundary": "One exposed scene, fixed privileged controls from reset and inference bypassed. All 132 measured loops exceed 250 ms. Recovery at the actual monitor decision time, road compliance, information benefit and transfer remain unknown.",
-  "next": "Preserve the 25-control history through first fire at 6.25 seconds. Qualify that prefix and freeze the continuation horizon and resource rules before a new search.",
+  "iteration": 164,
+  "directory": "experiments/iter164_monitor_time_continuation",
+  "title": "The same search misses from the actual monitor history.",
+  "summary": "Both historical prefixes qualify through first fire at 6.25 s. Exact/24 finds no complete continuation: its beam empties at 7.75 s after 1,778 attempts. Independent replay admits 30 states of the retained partial path.",
+  "boundary": "One exposed source model and offline privileged search. Neither original checkpoint is reached by the partial path. Zero grouping removals and 822 width removals do not establish the cause. Impossibility, native recovery and information benefit remain unknown.",
+  "next": "Qualify an independent control-search method on retained feasible controls, then test the same first-fire state under fixed budgets. Distinguish search failure from lost controllability.",
   "metrics": [
     {
-      "label": "Registered replicas",
-      "field": "registered_replicas"
+      "label": "Registered searches",
+      "field": "runs"
     },
     {
-      "label": "Native completions",
-      "field": "completed_replicas"
+      "label": "Complete paths",
+      "field": "complete_runs"
     },
     {
-      "label": "Verified steps",
-      "field": "verified_steps"
+      "label": "Attempted transitions",
+      "field": "attempts"
     },
     {
       "label": "Point-state checks",
@@ -26,16 +26,16 @@
   ],
   "breakdown": [
     {
-      "label": "Complete replicas",
-      "field": "completed_replicas"
+      "label": "Complete searches",
+      "field": "complete_runs"
     },
     {
-      "label": "Failed replicas",
-      "field": "failed_replicas"
+      "label": "Valid misses",
+      "field": "incomplete_runs"
     },
     {
-      "label": "Invalid replicas",
-      "field": "invalid_replicas"
+      "label": "Invalid searches",
+      "field": "invalid_runs"
     }
   ]
 }

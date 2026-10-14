@@ -1,0 +1,3 @@
+{"absolute_frame": 26, "survivors": 16, "retained": 16}
+{"absolute_frame": 30, "survivors": 62, "retained": 24}
+{"stop": "beam_empty", "attempts": 1778, "queries": 935, "counts": {"clear": 934, "foreground": 333, "foreground_sweep": 511}, "completed_depth": 31, "start_frame": 25, "selected": null, "elapsed_seconds": 17.496379833028186, "aggregation": "exact", "width": 24, "materialization_queries": 5, "materialization_seconds": 0.09197787498123944}

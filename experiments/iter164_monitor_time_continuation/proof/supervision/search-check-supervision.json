@@ -1,0 +1,25 @@
+{
+  "stage": "search-check",
+  "command": [
+    "python3",
+    "-m",
+    "experiments.iter164_monitor_time_continuation.check",
+    "--root",
+    ".",
+    "--raw",
+    "experiments/iter164_monitor_time_continuation/proof/search_raw",
+    "--raw-commit",
+    "4317baf339dbb7eb26a0d0e2a8070b4bbae19063",
+    "--output",
+    "experiments/iter164_monitor_time_continuation/proof/admission.json"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011",
+  "started": "2026-10-14T06:18:23.406105+00:00",
+  "limit_seconds": 1800,
+  "status": "completed",
+  "pid": 85580,
+  "returncode": 0,
+  "elapsed_seconds": 54.094858333992306,
+  "finished": "2026-10-14T06:19:17.501431+00:00",
+  "process_reaped": true
+}

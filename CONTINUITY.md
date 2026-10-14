@@ -1,3 +1,23 @@
+# Current: Iter164 closed — 14 October 2026
+
+Both historical prefixes through first fire at 6.25s qualify: 52 states,
+14,378,988 scalar classifications. The one exact/24 continuation is contradicted:
+beam empty at 7.75s after 1,778 attempts / 17.496 search seconds, below all budgets.
+Zero grouping removals, 822 width removals; no causal pruning or impossibility claim.
+Selected partial suffix: 4 controls ends 7.25s; 30 joined states/full masks and 8,295,570
+point checks pass. Neither original checkpoint reached. No new native/provider/spend.
+Read experiments/iter164_monitor_time_continuation/RESULT, DECISION, STATE and PROTOCOL.
+Frozen source 08fc375; prefix raw e0d7773 before admission 182f338; search raw 4317baf
+before scalar admission 6771423. All four local owned processes reaped, caps pass.
+303 focused/retained checks include 43 new controls. Exact-head hosted CI and public
+readback are separate observations after closure. No human ceremony is pending.
+Next: qualify an independent control-search adapter on retained feasible controls,
+then compare at the unchanged first-fire state. Finite misses cannot prove the
+state unrecoverable. Preserve native reset success and this bounded miss together.
+Owned branch research/iter164-monitor-time-continuation in the observation recovery
+worktree. Canonical dirty root, archived MISSION_STATE and Iter135 unchanged.
+Earlier entries below are historical.
+
 # Current: Iter164 monitor-time continuation preregistered — 14 October 2026
 
 Read experiments/iter164_monitor_time_continuation/DECISION_PACKET.md, PROTOCOL.md,
@@ -5222,3 +5242,9 @@ CI/readback are separately observed after this closure commit.
 
 Follow the top entry and Iter164 PLAN/STATE for the two-stage local continuation test.
 Source and raw commitments precede admission. No new native task is authorized by this plan.
+
+## Iter164 controlling closure — 14 October 2026
+
+Both prefixes qualify; the one frozen search is a valid bounded miss. Follow the
+current top entry and Iter164 DECISION/STATE. All local processes are closed; no
+native work ran. Earlier running/preregistered entries are historical.

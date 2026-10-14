@@ -1,0 +1,36 @@
+"""Owned wall-deadline supervisor; scientific commands remain frozen separately."""
+import datetime
+import json
+import os
+from pathlib import Path
+import signal
+import subprocess
+import sys
+import time
+
+stage, limit, *command = sys.argv[1:]
+folder = Path(__file__).parent
+receipt = folder / (stage + '-supervision.json')
+assert not receipt.exists(), 'supervised stage already initialized'
+record = dict(stage=stage, command=command, cwd=os.getcwd(), started=datetime.datetime.now(datetime.timezone.utc).isoformat(), limit_seconds=int(limit), status='running')
+receipt.write_text(json.dumps(record, indent=2)+'\n')
+started = time.monotonic()
+with (folder / (stage+'-stdout.log')).open('xb') as out, (folder / (stage+'-stderr.log')).open('xb') as err:
+    process = subprocess.Popen(command, stdout=out, stderr=err, start_new_session=True)
+    record['pid'] = process.pid
+    receipt.write_text(json.dumps(record, indent=2)+'\n')
+    try:
+        code = process.wait(timeout=int(limit))
+        record.update(status='completed' if code == 0 else 'invalid', returncode=code)
+    except subprocess.TimeoutExpired:
+        os.killpg(process.pid, signal.SIGTERM)
+        try:
+            process.wait(timeout=3)
+        except subprocess.TimeoutExpired:
+            os.killpg(process.pid, signal.SIGKILL)
+            process.wait()
+        record.update(status='invalid', reason='wall_deadline', returncode=process.returncode)
+record.update(elapsed_seconds=time.monotonic()-started, finished=datetime.datetime.now(datetime.timezone.utc).isoformat(), process_reaped=True)
+receipt.write_text(json.dumps(record, indent=2)+'\n')
+print(json.dumps(record), flush=True)
+sys.exit(0 if record['status']=='completed' else 1)

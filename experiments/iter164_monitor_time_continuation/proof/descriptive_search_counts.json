@@ -1,0 +1,83 @@
+{
+  "scope": "Description of committed producer labels; selected path and retention independently admitted, unselected physical predicates not independently replayed",
+  "raw_commit": "4317baf339dbb7eb26a0d0e2a8070b4bbae19063",
+  "depths": [
+    {
+      "frame": 26,
+      "absolute_time": 6.5,
+      "attempts": 16,
+      "producer_labels": {
+        "clear": 16
+      },
+      "survivors": 16,
+      "retained": 16,
+      "grouping_removed": 0,
+      "width_removed": 0
+    },
+    {
+      "frame": 27,
+      "absolute_time": 6.75,
+      "attempts": 250,
+      "producer_labels": {
+        "clear": 250
+      },
+      "survivors": 250,
+      "retained": 24,
+      "grouping_removed": 0,
+      "width_removed": 226
+    },
+    {
+      "frame": 28,
+      "absolute_time": 7.0,
+      "attempts": 372,
+      "producer_labels": {
+        "clear": 372
+      },
+      "survivors": 372,
+      "retained": 24,
+      "grouping_removed": 0,
+      "width_removed": 348
+    },
+    {
+      "frame": 29,
+      "absolute_time": 7.25,
+      "attempts": 394,
+      "producer_labels": {
+        "foreground": 112,
+        "clear": 234,
+        "foreground_sweep": 48
+      },
+      "survivors": 234,
+      "retained": 24,
+      "grouping_removed": 0,
+      "width_removed": 210
+    },
+    {
+      "frame": 30,
+      "absolute_time": 7.5,
+      "attempts": 376,
+      "producer_labels": {
+        "foreground_sweep": 107,
+        "foreground": 207,
+        "clear": 62
+      },
+      "survivors": 62,
+      "retained": 24,
+      "grouping_removed": 0,
+      "width_removed": 38
+    },
+    {
+      "frame": 31,
+      "absolute_time": 7.75,
+      "attempts": 370,
+      "producer_labels": {
+        "foreground_sweep": 356,
+        "foreground": 14
+      },
+      "survivors": 0,
+      "retained": 0,
+      "grouping_removed": 0,
+      "width_removed": 0
+    }
+  ]
+}

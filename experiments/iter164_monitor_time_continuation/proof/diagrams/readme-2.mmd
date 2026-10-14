@@ -1,0 +1,12 @@
+flowchart TB
+  accTitle: Distinguish search failure from late intervention
+  accDescr: The qualified historical prefix yields a bounded miss; independent methods precede a decision-time claim.
+  S["Iter162: source model<br/>both grouping arms complete"] --> V["Iter163: native replay<br/>two completions from reset"]
+  V --> P["Iter164: preserve 25 controls<br/>first fire at 6.25 s"]
+  P --> B["Exact/24: bounded miss<br/>beam empty at 7.75 s"]
+  B --> Q["Proposed: qualify independent method<br/>retained feasible controls, fixed budgets"]
+  Q --> R{"Continuation at the<br/>same state admitted?"}
+  R -- "not found" --> N["Retain finite miss<br/>infeasibility still unknown"]
+  R -- "invalid" --> U["Retain invalid evidence"]
+  R -- "supported" --> W["Native continuation<br/>then decision window and total cost"]
+  W --> I["Equal-cost information test<br/>then held-out scenes"]

@@ -1,0 +1,25 @@
+{
+  "stage": "prefix-check",
+  "command": [
+    "python3",
+    "-m",
+    "experiments.iter164_monitor_time_continuation.prefix_check",
+    "--root",
+    ".",
+    "--raw",
+    "experiments/iter164_monitor_time_continuation/proof/prefix_raw",
+    "--raw-commit",
+    "e0d777324968cf7e0ad073a4031a20f23222dda3",
+    "--output",
+    "experiments/iter164_monitor_time_continuation/proof/prefix_admission.json"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011",
+  "started": "2026-10-14T06:15:05.601591+00:00",
+  "limit_seconds": 600,
+  "status": "completed",
+  "pid": 72119,
+  "returncode": 0,
+  "elapsed_seconds": 89.5335313330288,
+  "finished": "2026-10-14T06:16:35.135489+00:00",
+  "process_reaped": true
+}

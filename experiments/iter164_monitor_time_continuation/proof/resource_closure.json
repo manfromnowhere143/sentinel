@@ -1,0 +1,23 @@
+{
+  "status": "supported",
+  "new_driving_episodes": 0,
+  "provider_access": false,
+  "provider_spend": 0,
+  "all_owned_processes_reaped": true,
+  "stages": {
+    "prefix": {
+      "producer_seconds": 3.157209041004535,
+      "producer_peak_rss_bytes": 366215168,
+      "checker_seconds": 87.81449741701363,
+      "checker_peak_rss_bytes": 585957376,
+      "raw_bytes": 1821632
+    },
+    "search": {
+      "producer_seconds": 19.048015125037637,
+      "producer_peak_rss_bytes": 363298816,
+      "checker_seconds": 52.25092854100512,
+      "checker_peak_rss_bytes": 550141952,
+      "raw_bytes": 949333
+    }
+  }
+}

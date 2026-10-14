@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 13 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter163 research record. The [README](../README.md) carries the scientific
+limits through the Iter164 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -208,8 +208,8 @@ recovery and information benefit remain unestablished.
 
 ```mermaid
 flowchart TB
-  accTitle: From native rejection to calibrated native completion
-  accDescr: Full constraints admit native completion from reset; monitor-time recovery remains unknown.
+  accTitle: Native completion and monitor-time search miss
+  accDescr: Reset completes; search from the actual history misses.
   G["Route and foreground<br/>privileged inputs"] --> M["Iter153: reduced model<br/>one action packet"]
   M --> N["Iter154: native test<br/>two collisions at 3.25 s"]
   N --> X["Iter155: historical poses<br/>points, boxes and ground"]
@@ -223,8 +223,9 @@ flowchart TB
   A --> Q["Iter159: controls<br/>candidate misses one"]
   Q --> K["Iter160: fixed suffixes<br/>one terminal shortfall"]
   K --> Z["Iter161: grouping × width<br/>exact/24 completes four controls"]
-  Z --> Y["Iter162: source model<br/>two full paths independently replay"]
+  Z --> Y["Iter162: source model<br/>two paths replay"]
   Y --> V["Iter163: native replay<br/>two completions from reset"]
+  V --> B["Iter164: actual first fire<br/>qualified prefix, search miss"]
 ```
 
 These privileged diagnostic inputs are not delivered to the released monitor. Iter153's model
@@ -298,6 +299,15 @@ from reset is supported in this exposed scene; monitor-time recovery, real-time
 operation, road compliance and information benefit remain unknown.
 [Result](../experiments/iter163_native_path_replay/RESULT.md).
 
+Iter164 makes branch time explicit in a new continuation adapter while preserving
+historical source bytes. Both original prefixes qualify: 52 states and 14,378,988
+scalar point checks. Exact/24 then loses its beam at 7.75 seconds after 1,778
+attempts. Grouping removes zero candidates; width removes 822, without a causal
+pruning claim. The admitted four-control partial suffix ends at 7.25 seconds:
+30 joined states / 8,295,570 point checks; neither progress checkpoint reached.
+Source-model infeasibility and native monitor-time recovery remain unknown.
+[Result](../experiments/iter164_monitor_time_continuation/RESULT.md).
+
 ## Evidence delivery to the instrument
 
 A separate data channel publishes an explicit closed-result contract after exact-source
@@ -311,12 +321,13 @@ This transports admitted evidence; it performs no experiment or scientific admis
 
 ## Next scientific boundary
 
-Next is continuation from the actual monitor history: preserve the 25 preceding
-controls and resulting state at first fire, 6.25 seconds. The successful reset-time
-path already diverges at 0.25 seconds. Qualify this prefix and prospectively freeze
-continuation budgets before search. Independent replay and a competent responsive
-comparison on equal budgets precede an information claim. An information-selection
-study follows useful recovery at decision time and a measured decision window. Hidden-representation
+The actual 25-control history qualifies, but the tested exact/24 method finds no
+complete continuation. Next, qualify an independent control-search method on the
+retained feasible controls, then compare at the same first-fire state and frozen
+constraints. Do not infer impossibility from finite misses or a causal pruning
+failure from removal counts. An admitted source continuation precedes native replay;
+a measured decision window and equal-cost responsive comparison precede an
+information claim. Hidden-representation
 monitoring, uncertainty-aware persistence, independent sensors, physical deployment and formal
 safety guarantees remain possible directions with different requirements. None is an established
 capability merely because it appears in a roadmap.

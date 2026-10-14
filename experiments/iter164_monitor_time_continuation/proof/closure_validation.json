@@ -1,0 +1,29 @@
+{
+  "status": "supported",
+  "scope": "Local software and presentation validation; not hosted CI or scientific superiority",
+  "focused_retained_tests": 303,
+  "new_tests": 43,
+  "instrument_tests": 14,
+  "whole_ruff": "passed",
+  "supply_chain": "passed",
+  "docs_guard": {
+    "markdown_files": 569,
+    "status": "passed"
+  },
+  "frozen_scientific_source_unchanged": true,
+  "working_tree_packet": {
+    "iteration": 164,
+    "status": "contradicted",
+    "archive_records": 171,
+    "matched_state_admission_counts": true
+  },
+  "figure_visual_review": "passed",
+  "updated_mermaid_diagrams": 3,
+  "mermaid_theme_renders": 6,
+  "mermaid_visual_reviews": 6,
+  "publication_observed": false,
+  "corrections": [
+    "Shortened two diagram descriptions to comply with the existing strict character budget; no finding removed.",
+    "Working-tree packet preview reads historical Git directory listings with git show, matching the established committed exporter. No exporter change."
+  ]
+}

@@ -1,0 +1,44 @@
+[
+  {
+    "source": "experiments/iter164_monitor_time_continuation/proof/diagrams/readme-1.mmd",
+    "theme": "default",
+    "output": "experiments/iter164_monitor_time_continuation/proof/diagrams/readme-1-default.png",
+    "rendered": true,
+    "visually_reviewed": true
+  },
+  {
+    "source": "experiments/iter164_monitor_time_continuation/proof/diagrams/readme-1.mmd",
+    "theme": "dark",
+    "output": "experiments/iter164_monitor_time_continuation/proof/diagrams/readme-1-dark.png",
+    "rendered": true,
+    "visually_reviewed": true
+  },
+  {
+    "source": "experiments/iter164_monitor_time_continuation/proof/diagrams/readme-2.mmd",
+    "theme": "default",
+    "output": "experiments/iter164_monitor_time_continuation/proof/diagrams/readme-2-default.png",
+    "rendered": true,
+    "visually_reviewed": true
+  },
+  {
+    "source": "experiments/iter164_monitor_time_continuation/proof/diagrams/readme-2.mmd",
+    "theme": "dark",
+    "output": "experiments/iter164_monitor_time_continuation/proof/diagrams/readme-2-dark.png",
+    "rendered": true,
+    "visually_reviewed": true
+  },
+  {
+    "source": "experiments/iter164_monitor_time_continuation/proof/diagrams/architecture-3.mmd",
+    "theme": "default",
+    "output": "experiments/iter164_monitor_time_continuation/proof/diagrams/architecture-3-default.png",
+    "rendered": true,
+    "visually_reviewed": true
+  },
+  {
+    "source": "experiments/iter164_monitor_time_continuation/proof/diagrams/architecture-3.mmd",
+    "theme": "dark",
+    "output": "experiments/iter164_monitor_time_continuation/proof/diagrams/architecture-3-dark.png",
+    "rendered": true,
+    "visually_reviewed": true
+  }
+]
