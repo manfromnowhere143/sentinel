@@ -1,0 +1,1 @@
+{"aggregation":"exact","attempts":669,"cohort":"retained","completed_depth":30,"counts":{"clear":243,"foreground":341,"foreground_sweep":85},"elapsed_seconds":4.275865083967801,"materialization_queries":33,"name":"retained_0023","node_id":23,"queries":244,"selected":null,"start_frame":27,"status":"observed","stop":"beam_empty","width":24}

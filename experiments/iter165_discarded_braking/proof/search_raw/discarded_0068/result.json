@@ -1,0 +1,1 @@
+{"aggregation":"exact","attempts":1552,"cohort":"discarded","completed_depth":33,"counts":{"clear":759,"foreground":629,"foreground_sweep":164},"elapsed_seconds":13.476041291025467,"materialization_queries":39,"name":"discarded_0068","node_id":68,"queries":760,"selected":null,"start_frame":27,"status":"observed","stop":"beam_empty","width":24}
