@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 13 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter167 research record. The [README](../README.md) carries the scientific
+limits through the Iter168 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -226,6 +226,7 @@ flowchart TB
   V --> B["Iter164: first-fire miss"]
   B --> D["Iter165: all 49 roots miss"]
   D --> R["Iter166–167: terminal repair<br/>RRT remains unqualified"]
+  R --> J["Iter168: stops and waits pass<br/>longer turns miss"]
 ```
 
 These privileged diagnostic inputs are not delivered to the released monitor. Iter153's model
@@ -348,3 +349,16 @@ The next technical dependency is local-connector competence under the same budge
 followed by source comparison only after qualification.
 [Invalid qualification](../experiments/iter166_independent_planner/RESULT.md) ·
 [Corrected qualification](../experiments/iter167_planner_terminal_contract/RESULT.md).
+
+Iter168 isolates the local connector from the tree. A successor proposal generator
+adds state-conditioned braking; one-step and two-step receding lookahead share the
+same controls, distance metric, intermediate checks and budget. Constructed tasks
+specify terminal state and time explicitly, including every required wait frame.
+They do not waive the earlier route-completion checkpoint contract. All twelve
+witnesses pass; the connectors complete 8/12 and 10/12, both missing longer turns.
+All 213 selected/witness states and full masks independently replay. Every attempted
+transition is charged and independently checked for motion and physical/task
+constraints; unselected background labels remain producer evidence. No native
+bridge or RRT solve occurs here. Full-horizon turning, then integrated planner
+qualification, remain prerequisites to source comparison.
+[Connector result and limits](../experiments/iter168_control_connector/RESULT.md).

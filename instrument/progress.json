@@ -1,41 +1,41 @@
 {
   "schemaVersion": 1,
-  "iteration": 167,
-  "directory": "experiments/iter167_planner_terminal_contract",
-  "title": "Braking continuations miss. The independent planner is not qualified.",
-  "summary": "All 25 discarded braking roots and 24 retained roots yield bounded misses. After correcting a terminal-time defect, released OMPL control RRT completes 0/4 feasible development cases. Its 97 partial-path states and full masks pass independent replay.",
-  "boundary": "Fixed exposed cases and custom physical/control adapters. The first RRT qualification is retained as invalid. Four corrected runs exhaust 18,000 attempts each. These results establish neither infeasibility nor superiority. No new native driving.",
-  "next": "Isolate the independent planner’s local control sampler on known executable continuations, including braking and waiting. Keep constraints and per-transition accounting fixed; qualify before returning to the source case.",
+  "iteration": 168,
+  "directory": "experiments/iter168_control_connector",
+  "title": "Stopping and waiting pass. Longer turning remains unqualified.",
+  "summary": "Across twelve constructed tasks, one-step lookahead completes 8 and two-step completes 10. Both miss longer turns. All twelve witnesses and 213 states/full masks pass independent replay. Precise fractional-speed braking is qualified separately.",
+  "boundary": "Exposed model tasks, not road evidence. Two-step lookahead uses 6,899 transitions versus 908; equal caps do not establish equal realized cost or superiority. No RRT solve or source comparison. The all-task qualification claim is contradicted.",
+  "next": "Qualify control selection over the full maneuver horizon, then the integrated RRT under its existing four-case contract, before another source comparison.",
   "metrics": [
     {
-      "label": "Qualification cases",
+      "label": "Qualification tasks",
       "field": "total_cases"
     },
     {
-      "label": "Complete cases",
-      "field": "complete_cases"
+      "label": "One-step completions",
+      "field": "one_step_passes"
     },
     {
-      "label": "Scalar point-state checks",
-      "field": "point_state_classifications"
+      "label": "Two-step completions",
+      "field": "two_step_passes"
     },
     {
-      "label": "New driving episodes",
-      "field": "new_driving_episodes"
+      "label": "Verified states and full masks",
+      "field": "verified_states"
     }
   ],
   "breakdown": [
     {
-      "label": "Complete qualification cases",
-      "field": "complete_cases"
+      "label": "One-step completions",
+      "field": "one_step_passes"
     },
     {
-      "label": "Cases needing further work",
-      "field": "total_cases"
+      "label": "Two-step completions",
+      "field": "two_step_passes"
     },
     {
-      "label": "New driving episodes",
-      "field": "new_driving_episodes"
+      "label": "Constructive witness completions",
+      "field": "witness_passes"
     }
   ]
 }

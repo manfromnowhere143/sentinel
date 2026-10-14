@@ -1,3 +1,36 @@
+# Current: Iter168 closed — 14 October 2026
+
+Stopping/waiting/restart qualify on all eight constructed tasks in both arms.
+One-step connector completes 8/12, two-step 10/12; both miss the longer left/right
+turns. All 12 constructive witnesses pass. The preregistered all-task claim is
+contradicted; independent admission succeeds. No source/RRT/native comparison.
+
+Fourteen-speed arithmetic qualification finds six immediate exact stops missing
+from the old controls; the successor adds bounded braking without altering old
+modules. This does not establish general legacy inability to stop or explain RRT.
+One-step 908 transitions, two-step 6899; all 24 reach terminal time without a cap.
+Independent checks: 213 states/full masks, 206184 scalar point classifications,
+plus motion/physical/task constraints and accounting for all 7807 attempts.
+Unselected background labels remain producer evidence. One initialized execution,
+no retry; producer 5.050s, checker 6.605s; both supervised processes reaped. CPU only.
+
+Read experiments/iter168_control_connector/RESULT.md and DECISION.md.
+Source b7e0e2a7bcbac0042873449adad7e6312100f70f;
+raw 84cda131b58d2dd9ac40225a6cbf9cf204551551 committed before admission;
+admission a3137d5f746cd20a75e9f5c5e11d965597f2435f.
+Next: qualify task-horizon turning, then the released-RRT integration on all four
+old cases under unchanged budgets/terminal contract, before a source comparison.
+Closure validation: 88 focused/retained/presentation checks pass, two optional
+native-library checks skipped; Ruff, supply-chain and 589-document guard pass.
+Three updated diagrams render in both themes; all six and the figure are reviewed.
+No operational human ceremony pending. Archived MISSION_STATE and historical
+scientific bytes remain unchanged. Exact closure CI/public delivery are separately
+observed after closure; receipts ~/.codex/reports/sentinel/iter168/.
+
+Owned branch research/iter168-control-connector-qualification in
+/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011.
+Earlier entries below are historical.
+
 # Current: Iter168 connector qualification preregistered — 14 October 2026
 
 Direct task: qualify stopping, waiting and turning before another source comparison.
@@ -5344,3 +5377,8 @@ native work ran. Earlier running/preregistered entries are historical.
 ## Iter168 controlling preregistration — 14 October 2026
 
 Follow the current top entry and Iter168 PLAN/PROTOCOL. No new study result yet.
+
+## Iter168 controlling closure — 14 October 2026
+
+Follow the current top entry and Iter168 RESULT/DECISION. All scientific processes
+are closed; no native or source-scene work ran. Earlier preregistration is historical.
