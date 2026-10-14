@@ -1,3 +1,38 @@
+# Current: Iter165–167 closed — 14 October 2026
+
+All 25 discarded maximum-braking roots and 24 retained roots yield bounded exact/24
+misses. All 49 beams empty; 84,018 attempts and 39,584 search queries. Independent
+admission checks 1,537 joined states/full masks, 250 distinct scalar box queries
+(69,129,750 point-state classifications), with 1,287 exact checker-cache reuses.
+No original second checkpoint is reached by a selected partial path. No inference
+of global infeasibility or causal pruning failure.
+
+Iter166 released OMPL control RRT qualification is invalid: early route completion
+misses the final checkpoint. Its failure/raw bytes remain retained. Iter167 corrects
+only the terminal-clock contract; same four cases, seeds and budgets. All four
+18,000-attempt caps are reached, 0/4 complete. Scalar replay admits 97 states/full
+masks and 706,398 point-state checks. The adapter is NOT qualified for source use.
+Read each RESULT and DECISION in experiments/iter165_discarded_braking,
+iter166_independent_planner and iter167_planner_terminal_contract.
+
+Source/raw/admission: Iter165 ca2d517 / 0d8fa01 / fae14a8;
+Iter166 source1a183fd / raw1bc7cfc / rejected at missing_completion_checkpoint;
+Iter167 1641ff1 / 9232d35 / d48e5e6. All initialized scientific processes reaped.
+Two preinitialization command failures are retained; no initialized run retried.
+Local CPU only, no native driving, provider or spending. 140 focused/retained and
+presentation tests pass with the installed runtime; exact-head hosted CI and
+public readback are separate post-closure observations. The public packet updates
+only after those checks. Canonical dirty root and archived MISSION_STATE unchanged.
+
+Next: isolate the independent planner's directed control sampler on known executable
+short continuations, including braking/waiting, before another source comparison.
+Freeze one-step versus short-rollout alternatives, charge every propagated step,
+and retain the existing timing/physical contract. The method diagnosis is proposed;
+it is not an established cause or superiority claim. No human ceremony pending.
+Owned branch research/iter165-discarded-braking-planner-qualification in
+/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011.
+Earlier entries below are historical.
+
 # Current: Iter165 raw committed; Iter166 invalid; Iter167 correction frozen next — 14 October 2026
 
 Iter165 all49 continuation runs finish with beam_empty; raw0d8fa01 committed before

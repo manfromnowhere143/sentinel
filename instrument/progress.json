@@ -1,41 +1,41 @@
 {
   "schemaVersion": 1,
-  "iteration": 164,
-  "directory": "experiments/iter164_monitor_time_continuation",
-  "title": "The same search misses from the actual monitor history.",
-  "summary": "Both historical prefixes qualify through first fire at 6.25 s. Exact/24 finds no complete continuation: its beam empties at 7.75 s after 1,778 attempts. Independent replay admits 30 states of the retained partial path.",
-  "boundary": "One exposed source model and offline privileged search. Neither original checkpoint is reached by the partial path. Zero grouping removals and 822 width removals do not establish the cause. Impossibility, native recovery and information benefit remain unknown.",
-  "next": "Qualify an independent control-search method on retained feasible controls, then test the same first-fire state under fixed budgets. Distinguish search failure from lost controllability.",
+  "iteration": 167,
+  "directory": "experiments/iter167_planner_terminal_contract",
+  "title": "Braking continuations miss. The independent planner is not qualified.",
+  "summary": "All 25 discarded braking roots and 24 retained roots yield bounded misses. After correcting a terminal-time defect, released OMPL control RRT completes 0/4 feasible development cases. Its 97 partial-path states and full masks pass independent replay.",
+  "boundary": "Fixed exposed cases and custom physical/control adapters. The first RRT qualification is retained as invalid. Four corrected runs exhaust 18,000 attempts each. These results establish neither infeasibility nor superiority. No new native driving.",
+  "next": "Isolate the independent planner’s local control sampler on known executable continuations, including braking and waiting. Keep constraints and per-transition accounting fixed; qualify before returning to the source case.",
   "metrics": [
     {
-      "label": "Registered searches",
-      "field": "runs"
+      "label": "Qualification cases",
+      "field": "total_cases"
     },
     {
-      "label": "Complete paths",
-      "field": "complete_runs"
+      "label": "Complete cases",
+      "field": "complete_cases"
     },
     {
-      "label": "Attempted transitions",
-      "field": "attempts"
-    },
-    {
-      "label": "Point-state checks",
+      "label": "Scalar point-state checks",
       "field": "point_state_classifications"
+    },
+    {
+      "label": "New driving episodes",
+      "field": "new_driving_episodes"
     }
   ],
   "breakdown": [
     {
-      "label": "Complete searches",
-      "field": "complete_runs"
+      "label": "Complete qualification cases",
+      "field": "complete_cases"
     },
     {
-      "label": "Valid misses",
-      "field": "incomplete_runs"
+      "label": "Cases needing further work",
+      "field": "total_cases"
     },
     {
-      "label": "Invalid searches",
-      "field": "invalid_runs"
+      "label": "New driving episodes",
+      "field": "new_driving_episodes"
     }
   ]
 }

@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 13 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter164 research record. The [README](../README.md) carries the scientific
+limits through the Iter167 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -208,24 +208,24 @@ recovery and information benefit remain unestablished.
 
 ```mermaid
 flowchart TB
-  accTitle: Native completion and monitor-time search miss
-  accDescr: Reset completes; search from the actual history misses.
-  G["Route and foreground<br/>privileged inputs"] --> M["Iter153: reduced model<br/>one action packet"]
-  M --> N["Iter154: native test<br/>two collisions at 3.25 s"]
-  N --> X["Iter155: historical poses<br/>points, boxes and ground"]
+  accTitle: From full-scene constraints to planner qualification
+  accDescr: Complete reset paths do not establish first-fire recovery.
+  G["Route and foreground inputs"] --> M["Iter153–154: reduced model<br/>fails native scene"]
+  M --> X["Iter155: points, boxes, ground"]
   X --> C["Native CUDA masks"]
   X --> S["Separate scalar reconstruction"]
   C --> E["Exact masks: 0 and 273<br/>threshold >100"]
   S --> E
-  E --> F["Iter156: calibration<br/>115 full masks agree"]
-  F --> L["Iter157: full constraints<br/>0 of 75 qualify"]
-  L --> A["Iter158: bounded search<br/>valid partial path"]
-  A --> Q["Iter159: controls<br/>candidate misses one"]
-  Q --> K["Iter160: fixed suffixes<br/>one terminal shortfall"]
-  K --> Z["Iter161: grouping × width<br/>exact/24 completes four controls"]
-  Z --> Y["Iter162: source model<br/>two paths replay"]
-  Y --> V["Iter163: native replay<br/>two completions from reset"]
-  V --> B["Iter164: actual first fire<br/>qualified prefix, search miss"]
+  E --> F["Iter156: 115 masks agree"]
+  F --> L["Iter157: 0 of 75 qualify"]
+  L --> A["Iter158–159: search<br/>not yet qualified"]
+  A --> K["Iter160: suffix shortfall"]
+  K --> Z["Iter161: exact/24<br/>passes four controls"]
+  Z --> Y["Iter162: two source paths"]
+  Y --> V["Iter163: two native<br/>completions from reset"]
+  V --> B["Iter164: first-fire miss"]
+  B --> D["Iter165: all 49 roots miss"]
+  D --> R["Iter166–167: terminal repair<br/>RRT remains unqualified"]
 ```
 
 These privileged diagnostic inputs are not delivered to the released monitor. Iter153's model
@@ -331,3 +331,20 @@ information claim. Hidden-representation
 monitoring, uncertainty-aware persistence, independent sensors, physical deployment and formal
 safety guarantees remain possible directions with different requirements. None is an established
 capability merely because it appears in a roadmap.
+
+Iter165 branches from every discarded two-step maximum-braking state and every
+retained state at frame 27. All 49 exact/24 searches miss under equal per-root
+budgets and unchanged absolute constraints. The scalar checker reuses only its own
+exact box/population classifications; every selected state and full mask is still
+checked. This reduces repeated verification work without accepting producer masks.
+[Result](../experiments/iter165_discarded_braking/RESULT.md).
+
+Iter166 adds released OMPL control RRT through a small native bridge. Tree selection
+is upstream; physical callbacks, fixed proposals and directed sampling are Sentinel
+adapters. Independent admission rejects the first early terminal path. Iter167
+adds the missing terminal-clock restriction and retains four bounded qualification
+misses. No RRT source-scene comparison is authorized by that failed qualification.
+The next technical dependency is local-connector competence under the same budgets,
+followed by source comparison only after qualification.
+[Invalid qualification](../experiments/iter166_independent_planner/RESULT.md) ·
+[Corrected qualification](../experiments/iter167_planner_terminal_contract/RESULT.md).

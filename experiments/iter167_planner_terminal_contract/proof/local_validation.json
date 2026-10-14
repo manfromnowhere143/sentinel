@@ -1,0 +1,22 @@
+{
+  "status": "supported",
+  "scope": "Local source/retained-regression/presentation validation; separate from scientific admission and hosted execution.",
+  "focused_and_presentation_tests": 140,
+  "test_seconds": 50.53,
+  "new_controls": {
+    "iter165": 7,
+    "iter166": 10,
+    "iter167": 4
+  },
+  "native_runtime_checks": 2,
+  "python": "3.14.2 (main, Dec  5 2025, 16:49:16) [Clang 16.0.0 (clang-1600.0.26.6)]",
+  "platform": "macOS-14.4-arm64-arm-64bit-Mach-O",
+  "ruff": "passed",
+  "supply_chain": "passed",
+  "docs_guard_markdown_files": 584,
+  "diagram_sources_rendered": 3,
+  "diagram_renders": 6,
+  "figure_visually_reviewed": true,
+  "diagram_layouts_visually_reviewed": true,
+  "hosted_exact_head": "pending after closure"
+}

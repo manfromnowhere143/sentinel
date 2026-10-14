@@ -18,9 +18,9 @@ against a competent responsive baseline, with information access, permitted acti
 resource budgets stated explicitly.
 
 [System](#what-sentinel-does) · [Results](#measured-results) ·
-[Research history](#how-the-question-changed) · [Latest result](#iteration-163-the-admitted-path-completes-the-native-scene) ·
+[Research history](#how-the-question-changed) · [Latest result](#iterations-165167-discarded-braking-and-an-independent-planner) ·
 [Next test](#the-next-scientific-test) · [Reproduce](#reproduce-and-inspect) ·
-[Repository status](#repository-status--13-october-2026) · [Experiment index](#complete-experiment-index)
+[Repository status](#repository-status--14-october-2026) · [Experiment index](#complete-experiment-index)
 
 ## What Sentinel does
 
@@ -227,22 +227,22 @@ sets out the mathematical target, relevant prior work and the proposed experimen
 
 ```mermaid
 flowchart TB
-  accTitle: How the evidence changed the research question
-  accDescr: Reset-time completion precedes a bounded miss from the monitor history.
-  N["NeuroNCAP gain<br/>progress and attribution limits"] --> T["HUGSIM transfer nulls<br/>actor and timing audits"]
-  T --> E["Iter136–151<br/>execution nulls"]
+  accTitle: How the evidence changed the question
+  accDescr: Reset completion leads to first-fire search and failed planner qualification.
+  N["NeuroNCAP gain<br/>attribution limits"] --> T["HUGSIM transfer nulls"]
+  T --> E["Iter136–151: execution nulls"]
   E --> P["Iter152: brake pulses<br/>no useful recovery"]
-  P --> M["Iter153–154<br/>candidate fails full scene"]
-  M --> W["Iter155: collision witness<br/>native/scalar agreement"]
-  W --> C["Iter156: calibration<br/>115 masks agree"]
-  C --> L["Iter157: fixed library<br/>0 of 75 qualify"]
-  L --> A["Iter158: search inconclusive<br/>valid partial path"]
-  A --> Q["Iter159: constructive controls<br/>candidate misses one"]
-  Q --> K["Iter160: fixed suffixes<br/>one terminal difference"]
-  K --> G["Iter161: grouping × width<br/>exact/24 completes four controls"]
-  G --> S["Iter162: source model<br/>both grouping arms complete"]
-  S --> V["Iter163: native replay<br/>two completions from reset"]
-  V --> B["Iter164: first fire<br/>qualified history, search miss"]
+  P --> M["Iter153–154: candidate<br/>fails full scene"]
+  M --> W["Iter155–156: collision witness<br/>native and scalar masks agree"]
+  W --> L["Iter157: fixed library<br/>0 of 75 qualify"]
+  L --> A["Iter158–159: search<br/>not yet qualified"]
+  A --> K["Iter160: fixed suffix<br/>one terminal difference"]
+  K --> G["Iter161: grouping × width<br/>exact/24 passes four controls"]
+  G --> S["Iter162: two model paths"]
+  S --> V["Iter163: two native<br/>completions from reset"]
+  V --> B["Iter164: first-fire miss"]
+  B --> D["Iter165: all 49 roots miss"]
+  D --> R["Iter166–167: terminal correction<br/>RRT remains unqualified"]
 ```
 
 ### 5. Establish what the controller actually executes
@@ -603,6 +603,36 @@ method on retained feasible controls before testing this unchanged decision stat
 [independent admission](experiments/iter164_monitor_time_continuation/proof/admission.json) ·
 [next decision](experiments/iter164_monitor_time_continuation/DECISION.md).
 
+## Iterations 165–167: discarded braking and an independent planner
+
+Iter165 tests **all 25 discarded maximum-braking prefixes and all 24 retained
+prefixes** at frame 27. Each receives the same exact/24 continuation budget, original
+geometry and absolute deadlines. **None completes; all 49 beams empty.** This is
+84,018 attempted transitions across the full schedule. The separately checked
+selected paths remain valid. These finite misses do not prove the discarded
+states infeasible or identify the cause of the original search failure.
+
+![Discarded and retained continuations, and independent planner qualification](experiments/iter167_planner_terminal_contract/proof/continuation_and_qualification.png)
+
+Iter166 introduces released OMPL control RRT with Sentinel's physical callbacks.
+Independent admission catches a terminal-condition defect: two producer-reported
+completions occur before the final required checkpoint. That qualification is
+**invalid**, and its raw results remain intact. Iter167 corrects only that condition
+and repeats the same four exposed development cases, seeds and budgets. It
+completes **0/4**; all four searches exhaust 18,000 attempts. Independent replay
+checks **97 partial-path states and full masks**, including 706,398 scalar
+point-state classifications.
+
+The independent planner is **not qualified for the source comparison**. Passing
+adapter tests did not establish search competence. Next, isolate its directed
+control sampler using known executable continuations before another source run.
+No new native driving, provider use or spending; no superiority claim.
+
+[Braking continuation result](experiments/iter165_discarded_braking/RESULT.md) ·
+[invalid first qualification](experiments/iter166_independent_planner/RESULT.md) ·
+[corrected qualification](experiments/iter167_planner_terminal_contract/RESULT.md) ·
+[next decision](experiments/iter167_planner_terminal_contract/DECISION.md).
+
 ## The next scientific test
 
 The intended contribution is a monitor and evaluation system that can show **which failures
@@ -620,8 +650,10 @@ The following work is proposed; all previous schedules retain their closed accou
    Iter162 now admits complete paths from both matched grouping arms on the retained
    source model. Iter163 confirms the preselected path in two native executions from
    reset. Iter164 preserves the historical prefix and finds a bounded search miss
-   from first fire at 6.25 seconds. Qualify an independent control-search comparison
-   at that unchanged state before attributing the miss to late intervention.
+   from first fire at 6.25 seconds. Iter165 also finds no completion from any of
+   the 25 discarded braking roots or 24 retained roots. The corrected independent
+   RRT adapter fails all four development controls in Iter167. Isolate its local
+   control sampler before another source comparison or a late-intervention claim.
    Offline cost is not a response-time result.
 3. **After establishing useful recovery, test one information hypothesis against a responsive baseline.**
    Track continuity and uncertainty are motivated candidates. Include benign and stale-track cases, freeze the
@@ -633,21 +665,20 @@ The following work is proposed; all previous schedules retain their closed accou
 
 ```mermaid
 flowchart TB
-  accTitle: Distinguish search failure from late intervention
-  accDescr: The qualified historical prefix yields a bounded miss; independent methods precede a decision-time claim.
-  S["Iter162: source model<br/>both grouping arms complete"] --> V["Iter163: native replay<br/>two completions from reset"]
-  V --> P["Iter164: preserve 25 controls<br/>first fire at 6.25 s"]
-  P --> B["Exact/24: bounded miss<br/>beam empty at 7.75 s"]
-  B --> Q["Proposed: qualify independent method<br/>retained feasible controls, fixed budgets"]
-  Q --> R{"Continuation at the<br/>same state admitted?"}
-  R -- "not found" --> N["Retain finite miss<br/>infeasibility still unknown"]
-  R -- "invalid" --> U["Retain invalid evidence"]
-  R -- "supported" --> W["Native continuation<br/>then decision window and total cost"]
-  W --> I["Equal-cost information test<br/>then held-out scenes"]
+  accTitle: Separate search competence from intervention timing
+  accDescr: Finite source misses and failed adapter qualification do not prove unrecoverability.
+  S["Iter162–163: reset paths<br/>model and native completion"] --> B["Iter164–165: actual history<br/>and all 49 later roots miss"]
+  B --> Q["Iter166: RRT qualification invalid<br/>early terminal condition"]
+  Q --> C["Iter167: terminal condition corrected<br/>0 of 4 controls complete"]
+  C --> D["Proposed: isolate local connector<br/>known executable continuations"]
+  D --> A{"Independent planner<br/>qualifies?"}
+  A -- "no" --> N["Retain bounded miss<br/>repair diagnosed limitation"]
+  A -- "yes" --> R["Compare at unchanged first fire<br/>fixed constraints and total cost"]
+  R --> W["If admitted: native continuation<br/>then information and transfer tests"]
 ```
 
-The first four nodes are retained results; independent method qualification and
-subsequent steps are proposed. No native monitor-time recovery or information
+The first four nodes are retained results. Connector qualification and subsequent
+source-comparison steps are proposed. No native monitor-time recovery or information
 advantage has been established.
 
 Failure across a finite set of actions does not prove physical inevitability. Likewise, a weak
@@ -702,7 +733,7 @@ not a complete distribution of every runtime asset.
 | [Architecture](docs/ARCHITECTURE.md) | Implemented interfaces, simulator distinctions, evidence flow and timing. |
 | [Original preregistration](PREREGISTRATION.md) | The initial benchmark question and decision rules. |
 | [Research direction](docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md) | Information and recoverability: mathematical formulation and dated literature review. |
-| [Next scientific decision](experiments/iter164_monitor_time_continuation/DECISION.md) | Qualify an independent control-search method at the same first-fire state; distinguish search failure from lost controllability. |
+| [Next scientific decision](experiments/iter167_planner_terminal_contract/DECISION.md) | Qualify the independent planner’s local control sampler on executable continuations before returning to the unchanged first-fire state. |
 | [Handoff](HANDOFF.md) | Exact next task, acceptance criteria, resource closure and recovery instructions. |
 | [Continuity](CONTINUITY.md) and [next phase](docs/NEXT_PHASE.md) | Current state followed by retained historical decisions. |
 | [Technical report](docs/REPORT.md) | Historical synthesis through Iter134; it predates the current execution program. |
@@ -723,11 +754,12 @@ scientific claim or reinterpret the archived mission state.
 
 ## Repository status — 14 October 2026
 
-**This research lineage is current through Iter164, completed on 14 October.**
+**This research lineage is current through Iter167, completed on 14 October.**
 The preselected path completes two native replicas from reset. The same exact/24
-method then misses after preserving the actual first-fire history. Both results
-remain visible with independent admission. This does not prove that the later
-state is unrecoverable. Monitor-time recovery, useful information and real-time
+method then misses after preserving the actual first-fire history. All 49 subsequent discarded/retained
+continuations also miss. An independent RRT adapter remains unqualified after a
+retained terminal-contract correction. These results do not prove the later
+state unrecoverable. Monitor-time recovery, useful information and real-time
 operation remain unestablished.
 Iteration 135's dose-response experiment remains **deferred and unrun**.
 
@@ -735,13 +767,14 @@ The repository has two distinct records. The accepted code and mission snapshot 
 [`8c118b7`](https://github.com/manfromnowhere143/sentinel/tree/8c118b74c699bf0f139f9bd659192bad06b895f8)
 is **current through iteration 134**. [MISSION_STATE.json](MISSION_STATE.json) preserves
 that historical contract.
-Later research, through Iter164 continuation admission, is retained in a separate
-[research lineage](https://github.com/manfromnowhere143/sentinel/tree/67714239d8dd01e4a65a02761308f8dd6c271c7c).
+Later research, through Iter167 independent-planner qualification, is retained in a separate
+[research lineage](https://github.com/manfromnowhere143/sentinel/tree/d48e5e67c95a1d0418b2fa74a84ca8b15ba855f8).
 This README describes both; a documentation update does not integrate that later experimental
 code into the accepted snapshot. The [current handoff](HANDOFF.md) identifies the next task.
 
 The earlier 12 October editorial refresh brought the default landing page through Iter155.
-This later research revision retains Iter164 and its admitted bounded miss. The public
+This later research revision retains the continuation misses and failed independent
+qualification through Iter167. The public
 instrument follows validated closed-result packets automatically; its older replay and
 native witness do not inherit a new scientific identity from an update.
 
@@ -766,7 +799,12 @@ corrected frozen source passes 3,952 hosted tests with two skips per version. Th
 retained first source failed three cross-version identity tests before any native
 start; its pre-evidence amendment preserves the scientific plan. Iter164 passes 303
 focused/retained checks, including 43 new controls. Exact-source hosted validation remains
-a separate publication requirement; local tests do not substitute for it.
+a separate publication requirement; local tests do not substitute for it. Iter165
+adds seven controls and 112 focused/retained checks. Iter166 adds ten adapter checks,
+including native smoke and approximate-goal rejection; its scientific qualification
+is invalid. Iter167 adds four terminal-contract regressions; 21 focused checks pass
+with the installed native adapter. Hosted tests skip the two native-runtime checks
+when that optional local library is absent.
 
 ## Complete experiment index
 
@@ -948,7 +986,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 </details>
 
 <details>
-<summary>Information, recoverability and execution: Iter135–163</summary>
+<summary>Information, recoverability and execution: Iter135–167</summary>
 
 | Record | Finding or scope |
 |---|---|
@@ -982,6 +1020,9 @@ Repeated analyses of the same cases do not increase the number of independent ca
 | [162](experiments/iter162_source_grouping_qualification/RESULT.md) | Both matched grouping arms complete the retained source model in 66 actions; 134 full scalar masks and both checkpoints per path pass. Exact/24 uses more attempts; native recovery remains unknown. |
 | [163](experiments/iter163_native_path_replay/RESULT.md) | Two native completions from reset; 132 full masks and 36,500,508 point-state checks agree. All measured loops exceed 250 ms; monitor-time recovery remains unknown. |
 | [164](experiments/iter164_monitor_time_continuation/RESULT.md) | Both actual first-fire histories qualify, but exact/24 finds no complete continuation; beam empty after 1,778 attempts. Zero grouping removals, 822 width removals; global infeasibility remains unknown. |
+| [165](experiments/iter165_discarded_braking/RESULT.md) | All 25 discarded braking roots and 24 retained roots yield bounded exact/24 misses under unchanged absolute constraints; selected paths independently replay. |
+| [166](experiments/iter166_independent_planner/RESULT.md) | Independent admission rejects early route completion before the final checkpoint; the first released-RRT adapter qualification is invalid. |
+| [167](experiments/iter167_planner_terminal_contract/RESULT.md) | Terminal-corrected RRT completes 0/4 disclosed controls under matched budgets; 97 partial-path states and full masks pass independent replay. No source-comparison qualification. |
 
 </details>
 
