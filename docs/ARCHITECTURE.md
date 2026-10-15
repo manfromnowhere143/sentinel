@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 14 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter175 research record. The [README](../README.md) carries the scientific
+limits through the Iter176 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -474,8 +474,27 @@ qualification still fails. Full scalar masks cover 102 returned states.
 The shorter cap also changes proposal coverage: none of 324 eight-step solves
 reaches Halton. More calls do not isolate a pure breadth advantage. A descriptive
 audit finds four discarded chicane_right prefixes through frame 32, with low
-route progress and unselected background labels still requiring scalar replay.
-The next task audits reflection, guidance and selection before a distinct repair;
-no cap sweep or source comparison is authorized by this failed qualification.
+route progress. Iter176 below closes their scalar replay and audits nominal
+reflected coverage; no cap sweep or source comparison follows from this failed
+qualification.
 [Allocation result](../experiments/iter175_connection_allocation/RESULT.md) ·
 [next decision](../experiments/iter175_connection_allocation/DECISION.md).
+
+
+Iter176 audits the unchanged integrated architecture above. It enumerates the
+386 retained executed requests in original and reflected coordinates under nominal
+full-rollout accounting, without propagation or goal stopping. A separate checker
+reconstructs proposal values, cache/budget records and physical program sets:
+327 sets preserve coverage and 59 do not; 317/324 eight-step sets preserve it.
+These are availability results, not mirrored solver or tree outcomes.
+
+Four fixed discarded prefixes are joined to retained ancestors using the declared
+earliest exact numeric join. The raw traces and vector masks are committed before
+independent scalar replay of all 132 state records / 1,054,152 point classifications.
+All four paths are admissible but incomplete at 62–64% route progress. Ambiguous
+joins and shared ancestry remain explicit. No native search is added; the three
+architecture diagrams retain the latest integrated 2/4 result. The next proposed
+change is one pose-aware initial control program, with the fallback order and all
+budgets fixed after constructed positive/adverse qualification.
+[Audit result](../experiments/iter176_connector_guidance_audit/RESULT.md) ·
+[next decision](../experiments/iter176_connector_guidance_audit/DECISION.md).

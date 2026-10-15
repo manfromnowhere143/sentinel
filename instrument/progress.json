@@ -1,37 +1,37 @@
 {
   "schemaVersion": 1,
-  "iteration": 175,
-  "directory": "experiments/iter175_connection_allocation",
-  "title": "Shorter connections complete two of four original cases.",
-  "summary": "Independent replay admits bend_left and retains chicane_left: 2/4 versus 1/4. Both right-hand cases miss under unchanged total budgets. All-four qualification remains contradicted; source comparison stays closed.",
-  "boundary": "One seed per exposed case. Full scalar masks cover 102 returned states. The shorter allowance also truncates proposal coverage. Unselected background labels and native tree/RNG remain producer evidence; no recovery or superiority claim.",
-  "next": "Close cap tuning. Audit mirrored proposal coverage and discarded continuations before choosing one distinct mechanism. Require all four cases before source comparison; actual-history intervention and delay remain mission dependencies.",
+  "iteration": 176,
+  "directory": "experiments/iter176_connector_guidance_audit",
+  "title": "Coverage audit admits four incomplete paths; qualification remains 2/4.",
+  "summary": "Independent reconstruction finds 327/386 nominal program sets preserve reflected coverage; 59 do not. Four discarded paths pass scalar replay but finish at 62\u201364% route progress. No new integrated search; source comparison stays closed.",
+  "boundary": "Exploratory audit of exposed requests. Nominal enumeration does not reproduce mirrored solver stopping or trees. The four paths overlap in one case. Coverage differences do not establish directional bias, a cache defect or a working repair.",
+  "next": "Test one pose-aware initial control proposal after constructed positive/adverse controls. Preserve fallback proposals and all budgets. Require all four integrated cases before source comparison; actual-history intervention and delay remain unestablished.",
   "metrics": [
     {
-      "label": "Original qualification cases",
-      "field": "total_cases"
+      "label": "Executed retained requests",
+      "field": "request_count"
     },
     {
-      "label": "Completed original cases",
-      "field": "complete_cases"
+      "label": "Reflection-closed nominal sets",
+      "field": "reflection_closed_requests"
     },
     {
-      "label": "Attempted transitions",
-      "field": "total_attempts"
+      "label": "Admitted incomplete paths",
+      "field": "partial_paths_verified"
     },
     {
-      "label": "Verified states and full masks",
+      "label": "Verified state records and masks",
       "field": "verified_states"
     }
   ],
   "breakdown": [
     {
-      "label": "Directed connection requests",
-      "field": "total_directed_calls"
+      "label": "Reflection-open nominal sets",
+      "field": "reflection_open_requests"
     },
     {
-      "label": "Accepted connections",
-      "field": "accepted_connections"
+      "label": "Retained completed cases",
+      "field": "retained_complete_cases"
     },
     {
       "label": "New driving episodes",

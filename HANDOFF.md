@@ -1,3 +1,46 @@
+# Current: Iter176 closed; coverage audit leaves integrated result at 2/4 — 15 October 2026
+
+Continue the autonomous mission with the distinct mechanism in
+experiments/iter176_connector_guidance_audit/DECISION.md. Read its RESULT.md first.
+The all-request nominal reflection property is contradicted: 327/386 closed,
+59 open, one excluded. Of 324 eight-step requests, 317 preserve coverage. Five
+of seven eight-step differences reuse the initial program; two use final budget
+remainders. Cache hits correctly save work. No charged signed-zero duplicates.
+This is exploratory nominal enumeration, not mirrored solver/tree execution or
+a diagnosed directional/cache defect. The audit is closed; do not rerun it.
+
+Four discarded chicane_right paths (call 84, evaluations 2,4,11,12) pass full
+scalar replay: 132 state records and 1,054,152 point-state classifications.
+They share ancestry, reach frame 32, pass two checkpoints and remain incomplete
+at 0.623–0.640 route progress. Two ambiguous joins per path use the frozen earliest
+numeric-join rule. They are not four new cases or recoveries. Integrated
+qualification remains 2/4; source comparison stays closed.
+
+Next: derive and qualify one analytic pose-aware initial control proposal on
+constructed positive/adverse tasks. Only then freeze one unchanged-budget
+integrated schedule. Preserve fallback proposals, 128 inner transitions, eight-
+step horizon, original cases/seeds, native binary, sampler, metric, prefix rules
+and 18,000-transition / 120-second / 96-action total caps. Include arithmetic in
+the existing clock; charge all actual propagation and forbid hidden rollouts.
+Count lost successes. No cap sweep, proxy symmetry gate or source comparison.
+
+Source 4ddee70c6011b3ad412b3da9d5a4e031cbce88cf;
+raw 203170305ba731de25bb5153e924366d87ece03b committed before admission;
+admission d32a249812a23da76a9a5dfe1d904594f49affca.
+Supervised producer/checker walls 8.280/17.841 seconds; all jobs reaped. No new
+motion search, native invocation, driving episode, provider use or spending.
+Selected runtime identities verify. Thirty-five new constructed controls and
+107 focused/retained checks passed before recomputation, zero skips. Exact closure
+hosted checks and public readback are observed separately after push; receipts
+live in ~/.codex/reports/sentinel/iter176/. Scientific source remains frozen.
+
+Owned branch research/iter176-connector-guidance-audit in the existing Sentinel
+observation-recovery worktree. Canonical dirty root and historical mission state
+are preserved. The mission remains actual-history intervention under realistic
+sensing, computation and actuation delay against a strong responsive comparator,
+followed by controlled information value. No human ceremony is pending. Earlier
+controlling entries below are historical.
+
 # Current: Iter176 connector audit preregistered — 15 October 2026
 
 Continue the autonomous mission through one bounded exploratory audit after Iter175.

@@ -1,0 +1,153 @@
+{
+  "status": "exploratory",
+  "groups": {
+    "case": {
+      "bend_left": {
+        "total": 91,
+        "closed": 76,
+        "open": 15
+      },
+      "bend_right": {
+        "total": 141,
+        "closed": 116,
+        "open": 25
+      },
+      "chicane_left": {
+        "total": 13,
+        "closed": 11,
+        "open": 2
+      },
+      "chicane_right": {
+        "total": 141,
+        "closed": 124,
+        "open": 17
+      }
+    },
+    "horizon": {
+      "8": {
+        "total": 324,
+        "closed": 317,
+        "open": 7
+      },
+      "1": {
+        "total": 47,
+        "closed": 0,
+        "open": 47
+      },
+      "3": {
+        "total": 5,
+        "closed": 4,
+        "open": 1
+      },
+      "6": {
+        "total": 3,
+        "closed": 1,
+        "open": 2
+      },
+      "7": {
+        "total": 1,
+        "closed": 1,
+        "open": 0
+      },
+      "2": {
+        "total": 2,
+        "closed": 0,
+        "open": 2
+      },
+      "4": {
+        "total": 1,
+        "closed": 1,
+        "open": 0
+      },
+      "5": {
+        "total": 3,
+        "closed": 3,
+        "open": 0
+      }
+    }
+  },
+  "open_eight_step_requests": [
+    {
+      "case": "bend_left",
+      "call": 57,
+      "budget": 128,
+      "missing_reflected": 1,
+      "extra_mirrored": 1,
+      "initial_program_reused": {
+        "original": true,
+        "mirrored": true
+      }
+    },
+    {
+      "case": "bend_right",
+      "call": 2,
+      "budget": 128,
+      "missing_reflected": 1,
+      "extra_mirrored": 1,
+      "initial_program_reused": {
+        "original": true,
+        "mirrored": true
+      }
+    },
+    {
+      "case": "bend_right",
+      "call": 39,
+      "budget": 128,
+      "missing_reflected": 1,
+      "extra_mirrored": 1,
+      "initial_program_reused": {
+        "original": true,
+        "mirrored": true
+      }
+    },
+    {
+      "case": "bend_right",
+      "call": 141,
+      "budget": 88,
+      "missing_reflected": 1,
+      "extra_mirrored": 1,
+      "initial_program_reused": {
+        "original": false,
+        "mirrored": false
+      }
+    },
+    {
+      "case": "chicane_right",
+      "call": 5,
+      "budget": 128,
+      "missing_reflected": 1,
+      "extra_mirrored": 1,
+      "initial_program_reused": {
+        "original": true,
+        "mirrored": true
+      }
+    },
+    {
+      "case": "chicane_right",
+      "call": 20,
+      "budget": 128,
+      "missing_reflected": 1,
+      "extra_mirrored": 1,
+      "initial_program_reused": {
+        "original": true,
+        "mirrored": true
+      }
+    },
+    {
+      "case": "chicane_right",
+      "call": 141,
+      "budget": 91,
+      "missing_reflected": 1,
+      "extra_mirrored": 1,
+      "initial_program_reused": {
+        "original": false,
+        "mirrored": false
+      }
+    }
+  ],
+  "source_hashes": {
+    "proof/admission.json": "50bc207d18b0924dfd6cee91575b0ac1e267756fb991f6023f50e336959e3e8b",
+    "proof/audit_raw/proposals.json": "b3959601977d3509f89b5855f2d7f6b11786200642e1639822875f27754843d5"
+  },
+  "boundary": "Nominal program availability; cache hits correctly save work. No causal directional-bias, cache-defect or repaired-planner claim."
+}
