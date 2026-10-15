@@ -910,7 +910,7 @@ checkpoint, not the later checkpoint or full route completion.
 Two viable states received no original outgoing request. However, the diagnostic
 witnesses took 495–510 attempts, above the integrated connector's 128 allowance.
 Expansion allocation and useful local control under equal work remain distinct
-questions. Next, compare constant and stepwise proposals on the complete retained
+questions. Next, compare the retained program generator and stepwise beam search on the complete retained
 root population at the same 128-transition allowance before selecting one
 integrated change. No planner modification or source comparison occurred here.
 [Result and limits](experiments/iter179_frontier_continuation_audit/RESULT.md) ·
@@ -1035,7 +1035,7 @@ not a complete distribution of every runtime asset.
 | [Architecture](docs/ARCHITECTURE.md) | Implemented interfaces, simulator distinctions, evidence flow and timing. |
 | [Original preregistration](PREREGISTRATION.md) | The initial benchmark question and decision rules. |
 | [Research direction](docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md) | Information and recoverability: mathematical formulation and dated literature review. |
-| [Next scientific decision](experiments/iter179_frontier_continuation_audit/DECISION.md) | Compare constant and stepwise local proposals under the same 128-transition allowance across all retained roots; distinguish control capability from expansion allocation. Source comparison stays closed. |
+| [Next scientific decision](experiments/iter179_frontier_continuation_audit/DECISION.md) | Compare the retained program generator and stepwise beam search under the same 128-transition allowance across all retained roots; distinguish local search from tree expansion allocation. Source comparison stays closed. |
 | [Handoff](HANDOFF.md) | Exact next task, acceptance criteria, resource closure and recovery instructions. |
 | [Continuity](CONTINUITY.md) and [next phase](docs/NEXT_PHASE.md) | Current state followed by retained historical decisions. |
 | [Technical report](docs/REPORT.md) | Historical synthesis through Iter134; it predates the current execution program. |

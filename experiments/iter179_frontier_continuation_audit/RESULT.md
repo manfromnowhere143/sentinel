@@ -15,6 +15,13 @@ each step, with width 16, at most 1,024 transitions per distinct root and a shar
 120-second search envelope. No integrated planner was changed or rerun.
 [Frozen protocol](PROTOCOL.md) · [bound and numerical domain](MATHEMATICS.md).
 
+**Interpretation correction:** the retained connector already generates multi-phase
+control programs. The frozen mathematics narrative incorrectly described the
+tested family as constant. Its equations, protocol, source, acquisition and
+admitted classifications are unchanged. The follow-up compares the actual retained
+program generator with stepwise branching at equal work; it does not assume that
+changing controls was absent from the retained family. [Correction](CORRECTION.md).
+
 | Earliest call | Root frame | Classification | Probe attempts | Returned frame | Original outgoing requests |
 |---|---:|---|---:|---:|---:|
 | 3 | 12 | Bounded miss | 16 | 12 | 33 |

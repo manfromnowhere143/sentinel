@@ -1,5 +1,10 @@
 {
   "admission_commit": "e947a4705a24d284c10e74c64f1ff0020baa9dbd",
+  "control_variation_correction": {
+    "evaluations": 2609,
+    "full_logged_programs_with_varied_actions": 442,
+    "prefixes_through_first_rejection_with_varied_actions": 14
+  },
   "inputs": {
     "experiments/iter178_root_domain_consistency/proof/search_raw/bend_right/events.jsonl": "e82193644a859ff1de4e5f5b9ae033951113a46b9bb819c3062441e913ee9ae9",
     "experiments/iter179_frontier_continuation_audit/STATE.json": "0f2df7e5632a5a5d7b74b7ecdd9afb65eb733290c71639b293dbcac87efa3ae7",

@@ -5,7 +5,7 @@
   "title": "The retained frontier has three different outcomes.",
   "summary": "Independent replay finds three checkpoint continuations, two necessary-progress exclusions and eleven unresolved misses among all 16 distinct late states. No probe is time-censored. Full scalar replay checks 621 states and 4,057,614 point-state classifications.",
   "boundary": "Checkpoint continuations are not full route completions. Exclusions apply to the declared numerical progress bound; finite misses do not prove infeasibility. Integrated qualification remains 3/4, source comparison closed, and actual-history intervention unestablished.",
-  "next": "Compare constant and stepwise local proposals on all retained roots under the same 128-transition allowance. Separate local capability from expansion allocation before one integrated change; preserve total budgets and count lost successes.",
+  "next": "Compare the actual retained program generator and stepwise beam search on all roots under the same 128-transition allowance. Separate local search from tree expansion allocation before an integrated change; preserve total budgets and count lost successes.",
   "metrics": [
     {
       "label": "Distinct retained frontier states",

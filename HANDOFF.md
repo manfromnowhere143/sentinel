@@ -1,6 +1,8 @@
 # Current: Iter179 separates feasible, excluded and unresolved continuations — 15 October 2026
 
 Read experiments/iter179_frontier_continuation_audit/RESULT.md and DECISION.md.
+Read CORRECTION.md too: the retained generator already includes multi-phase
+programs; the constant-program characterization was corrected without rerunning science.
 Independent admission supports the finite diagnostic claim: three checkpoint
 continuations, two necessary-progress exclusions and eleven unresolved bounded
 misses among all 16 distinct late bend_right states. All 19 endpoint records and
@@ -17,7 +19,7 @@ checkpoint in the declared numerical model. Witnesses reach frame 16, not full
 completion. Numeric joins preserve ambiguity; native ancestry and unselected
 new-probe background labels remain unverified at that layer.
 
-Next: preregister a paired constant-versus-stepwise local proposal comparison on
+Next: preregister a paired retained-generator versus stepwise-beam comparison on
 all 16 retained distinct roots, with the same 128-transition allowance and absolute
 clock/predicates/objective. The current witnesses use 495–510 attempts. Two viable
 roots received no original outgoing request. Separate useful local control at

@@ -12,14 +12,15 @@ within the actual connector allowance, and whether the tree gives the relevant
 states an expansion opportunity. The current evidence separates these questions:
 two viable roots received no outgoing request, while the three diagnostic
 witnesses required 495–510 attempts, exceeding the original 128 per connection.
-Neither more expressivity nor different expansion allocation alone is established
+Neither stepwise branching nor different tree expansion allocation alone is established
 as the repair. The frame-16 witnesses also leave later completion unresolved.
 
 Next, preregister a paired local continuation comparison over all 16 exposed
 distinct roots. Hold the absolute root clock, checkpoint objective, physical and
-scene predicates, state grouping and work accounting fixed. Compare the retained
-constant-program proposal family with one prospectively specified stepwise family
-under the same 128-transition allowance and wall envelope. The existing 1,024-cap
+scene predicates and work accounting fixed. Compare the actual retained
+program generator, including its multi-phase programs, with one prospectively
+specified stepwise search. Both use the same 128-transition allowance and wall
+envelope. Preserve exact grouping where branching uses it. The existing 1,024-cap
 diagnostic remains contextual evidence, not an arm to rerun or a menu for a cap
 sweep. Count losses, unresolved misses, attempted transitions and every query.
 The new family must not receive witness controls, root IDs or these outcomes.
