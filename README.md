@@ -18,9 +18,9 @@ against a competent responsive baseline, with information access, permitted acti
 resource budgets stated explicitly.
 
 [System](#what-sentinel-does) · [Results](#measured-results) ·
-[Research history](#how-the-question-changed) · [Latest result](#iteration-177-initial-proposal-trial-stops-on-a-root-boundary) ·
+[Research history](#how-the-question-changed) · [Latest result](#iteration-178-corrected-interface-completes-three-of-four) ·
 [Next test](#the-next-scientific-test) · [Reproduce](#reproduce-and-inspect) ·
-[Repository status](#repository-status--14-october-2026) · [Experiment index](#complete-experiment-index)
+[Repository status](#repository-status--15-october-2026) · [Experiment index](#complete-experiment-index)
 
 ## What Sentinel does
 
@@ -247,7 +247,7 @@ flowchart TB
   J --> H["Iter169–171: control<br/>12/12 qualify"]
   H --> I["Iter172: integrated RRT<br/>0/4 cases"]
   I --> O["Iter173: connector<br/>local test passes"]
-  O --> U["Iter174–175: forward RRT<br/>1/4 → 2/4; unqualified"]
+  O --> U["Iter174–178: forward RRT<br/>1/4 → 3/4; unqualified"]
 ```
 
 ### 5. Establish what the controller actually executes
@@ -864,6 +864,32 @@ intervention. [Result and limits](experiments/iter177_pose_aware_seed/RESULT.md)
 [independent failure admission](experiments/iter177_pose_aware_seed/proof/admission.json) ·
 [next decision](experiments/iter177_pose_aware_seed/DECISION.md).
 
+## Iteration 178: corrected interface completes three of four
+
+**Independent admission confirms 3/4 completions**, up from Iter175's retained
+2/4 under unchanged maximum budgets. Chicane_right completes; both previous
+successes remain. Bend_right still exhausts its 18,000-transition allowance.
+The all-four claim is contradicted, so **source comparison remains closed**.
+
+The next-root constructor now accepts exactly the numerical domain already used
+by the motion predicate. States are preserved; physical limits and tolerances do
+not change. The corrected candidate retains Iter177's pose-aware initial proposal,
+fallback programs, cases/seeds, native runtime, metric, sampler and prefix rules.
+Iter177 stays invalid and its partial results are not pooled into this trial.
+
+![Corrected qualification](experiments/iter178_root_domain_consistency/proof/qualification.png)
+
+The candidate uses 37,466 attempted transitions, 296 calls and 203 accepted edges.
+Independent scalar replay checks all 118 returned states and 872,652 point-state
+classifications. Earlier completion reduces used work; this is not a general
+efficiency estimate or an isolated seed-effect claim. The remaining returned path
+already has substantial progress at frame 14 but no continuation through the first
+checkpoint at frame 16. Next, audit the retained late frontier to distinguish
+continuation constraints from missing proposals before changing the planner again.
+[Result and limits](experiments/iter178_root_domain_consistency/RESULT.md) ·
+[independent admission](experiments/iter178_root_domain_consistency/proof/admission.json) ·
+[next decision](experiments/iter178_root_domain_consistency/DECISION.md).
+
 ## The next scientific test
 
 The intended contribution is a monitor and evaluation system that can show **which failures
@@ -892,8 +918,9 @@ The following work is proposed; all previous schedules retain their closed accou
    and admits 2/4 under the same total caps. Iter176 admits four incomplete paths
    and quantifies nominal coverage differences without diagnosing a repair. Iter177
    tests a pose-aware initial program but stops invalid when an accepted state fails
-   the next-root bound. Qualify a consistent numerical interface, then freeze a
-   distinct corrected trial with unchanged physical tolerances and budgets.
+   the next-root bound. Iter178 corrects that interface at the existing tolerance
+   and admits 3/4 with one gain and no lost successes. Audit continuation feasibility
+   on the retained late bend-right frontier before selecting another planner change.
    Source comparison remains closed until all four cases pass.
    Offline cost is not a response-time result.
 3. **After establishing useful recovery, test one information hypothesis against a responsive baseline.**
@@ -915,15 +942,15 @@ flowchart TB
   D --> E["Iter171: centered shooting<br/>12/12 local tasks qualify"]
   E --> F["Iter172: integrated RRT<br/>0/4 cases; attempt caps bind"]
   F --> P["Iter173: forward proposals<br/>finite connector test passes"]
-  P --> U["Iter174–175: allocation trial<br/>1/4 → 2/4; unqualified"]
+  P --> U["Iter174–178: forward RRT<br/>1/4 → 3/4; unqualified"]
   U --> A{"All four cases<br/>qualify?"}
   A -- "no" --> N["Retain bounded miss<br/>repair diagnosed limitation"]
   A -- "yes" --> R["Compare at unchanged first fire<br/>fixed constraints and total cost"]
   R --> W["If admitted: native continuation<br/>then information and transfer tests"]
 ```
 
-The first nine nodes are retained valid results. Iter176 audits this planner;
-Iter177 stops invalid and adds no admitted integrated outcome. A successful integrated qualification
+The first nine nodes summarize the development sequence through Iter178's 3/4.
+Iter176 is an audit; Iter177 remains invalid and is not counted. All-four qualification
 and subsequent source-comparison steps remain proposed. No native monitor-time recovery or information
 advantage has been established.
 
@@ -979,7 +1006,7 @@ not a complete distribution of every runtime asset.
 | [Architecture](docs/ARCHITECTURE.md) | Implemented interfaces, simulator distinctions, evidence flow and timing. |
 | [Original preregistration](PREREGISTRATION.md) | The initial benchmark question and decision rules. |
 | [Research direction](docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md) | Information and recoverability: mathematical formulation and dated literature review. |
-| [Next scientific decision](experiments/iter177_pose_aware_seed/DECISION.md) | Qualify consistent next-root acceptance at existing numerical boundaries; freeze a distinct corrected trial. All four cases must pass before source comparison. |
+| [Next scientific decision](experiments/iter178_root_domain_consistency/DECISION.md) | Audit continuation feasibility on the retained late bend-right frontier. Distinguish verified dead ends from missing proposals; all four cases must pass before source comparison. |
 | [Handoff](HANDOFF.md) | Exact next task, acceptance criteria, resource closure and recovery instructions. |
 | [Continuity](CONTINUITY.md) and [next phase](docs/NEXT_PHASE.md) | Current state followed by retained historical decisions. |
 | [Technical report](docs/REPORT.md) | Historical synthesis through Iter134; it predates the current execution program. |
@@ -1000,7 +1027,7 @@ scientific claim or reinterpret the archived mission state.
 
 ## Repository status — 15 October 2026
 
-**This research lineage is current through Iter177, closed invalid on 15 October.**
+**This research lineage is current through Iter178, with 3/4 completions admitted on 15 October.**
 The preselected path completes two native replicas from reset. The same exact/24
 method then misses after preserving the actual first-fire history. All 49 subsequent discarded/retained
 continuations also miss. An independent RRT adapter remains unqualified after a
@@ -1010,8 +1037,9 @@ original cases under unchanged budgets. Bounded forward proposals pass the subse
 local connector comparison. Forward integration completes 1/4, then the fixed-budget
 allocation trial completes 2/4. The all-four qualification still fails. Iter176 audits nominal coverage and admits
 four incomplete paths. Iter177 stops invalid at a numerical next-root boundary;
-no new complete-case count is admitted. The retained 2/4 result is unchanged. These
-results do not prove the later state unrecoverable.
+its partial results remain unadmitted. Iter178 corrects that interface under unchanged
+physical tolerances and budgets and admits 3/4, with one gain and no losses versus
+Iter175. These results do not prove the remaining state unrecoverable.
 Monitor-time recovery, useful information and real-time operation remain unestablished.
 Iteration 135's dose-response experiment remains **deferred and unrun**.
 
@@ -1019,15 +1047,15 @@ The repository has two distinct records. The accepted code and mission snapshot 
 [`8c118b7`](https://github.com/manfromnowhere143/sentinel/tree/8c118b74c699bf0f139f9bd659192bad06b895f8)
 is **current through iteration 134**. [MISSION_STATE.json](MISSION_STATE.json) preserves
 that historical contract.
-Later research, through the invalid Iter177 trial, is retained in a separate
-[research lineage](https://github.com/manfromnowhere143/sentinel/tree/91f53c9065e806e297e500030d80313c18e1fdb0).
+Later research, through the corrected Iter178 qualification, is retained in a separate
+[research lineage](https://github.com/manfromnowhere143/sentinel/tree/c62f7aaafb6703827a57ef2da1fe989457b672fb).
 This README describes both; a documentation update does not integrate that later experimental
 code into the accepted snapshot. The [current handoff](HANDOFF.md) identifies the next task.
 
 The earlier 12 October editorial refresh brought the default landing page through Iter155.
 This later research revision retains the continuation misses, failed independent
 planner qualification, local qualification, integrated failure and bounded connector
-comparison, 2/4 allocation result, guidance audit and invalid trial through Iter177. The public instrument
+comparison, allocation result, guidance audit, invalid trial and corrected 3/4 result through Iter178. The public instrument
 follows validated closed-result packets automatically; its older replay and
 native witness do not inherit a new scientific identity from an update.
 
@@ -1076,7 +1104,10 @@ skips on each hosted Python version. Iter176 adds 35 constructed controls; 107
 focused/retained checks pass with no skips. Its closure passed 4,177 tests with seven
 skips on each hosted Python version. Iter177 adds 42 constructed controls and passes
 122 focused/retained checks, then seven separate failure-diagnosis controls. Those
-passes do not change its scientific invalidity. Exact closure CI is observed separately.
+passes do not change its scientific invalidity. Its closure passed 4,226 tests with
+seven skips on each hosted Python version. Iter178 adds 28 boundary/composition
+controls; 119 focused/retained checks pass with the selected native runtime and
+zero skips. Exact Iter178 closure CI is observed separately after publication.
 
 ## Complete experiment index
 
@@ -1258,7 +1289,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 </details>
 
 <details>
-<summary>Information, recoverability and execution: Iter135–177</summary>
+<summary>Information, recoverability and execution: Iter135–178</summary>
 
 | Record | Finding or scope |
 |---|---|
@@ -1305,6 +1336,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 | [175](experiments/iter175_connection_allocation/RESULT.md) | 128-transition connections complete 2/4 versus retained 1/4 under unchanged total caps. One gain, no loss; two right-hand misses remain. 102 states/full masks replay. Source comparison stays closed. |
 | [176](experiments/iter176_connector_guidance_audit/RESULT.md) | Exploratory nominal reflection audit: 327/386 sets closed, 59 open. Four overlapping incomplete paths pass scalar replay (132 state records). No new search; integrated qualification remains 2/4 and source comparison closed. |
 | [177](experiments/iter177_pose_aware_seed/RESULT.md) | Invalid pose-aware trial: an accepted speed two ulps above 6 fails the next-root strict bound. Six-state scalar diagnosis confirms the interface mismatch. Three earlier producer results remain unadmitted; retained qualification is 2/4 and source comparison closed. |
+| [178](experiments/iter178_root_domain_consistency/RESULT.md) | Corrected next-root interface with the retained pose-aware proposal completes 3/4 versus Iter175's 2/4 under unchanged caps. One gain, no losses; 118 states/full masks replay. All-four qualification fails; source comparison stays closed. |
 
 </details>
 

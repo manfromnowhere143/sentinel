@@ -1,3 +1,41 @@
+# Current: Iter178 admits 3/4; source comparison remains closed — 15 October 2026
+
+Read experiments/iter178_root_domain_consistency/RESULT.md and DECISION.md.
+Independent admission confirms three completions, one gain and no losses against
+retained Iter175. Chicane_right is gained; bend_right remains a bounded miss.
+The all-four claim is contradicted. Iter177 stays invalid and is not pooled or
+retried. All scientific process groups have exited and been reaped.
+
+The corrected next-root domain matches the existing motion tolerance while
+preserving states, physical thresholds and all 128-inner / 18,000-total-transition /
+120-second / 96-action budgets. The retained pose-aware proposal, fallback order,
+sampler, metric, cases/seeds and native binary are unchanged. This is a comparison
+of the corrected candidate as a whole, not an isolated seed-effect estimate.
+37,466 attempts / 296 calls / 203 accepted edges. Independent scalar masks cover
+118 returned states / 872,652 point-state classifications. Producer/checker
+supervised times: 36.388 / 18.838 seconds. No new driving episode or provider use.
+
+Next: freeze a bounded continuation-feasibility audit on all retained bend_right
+accepted endpoints at frame 12 or later, ancestors and associated requests. Separate
+physical, geometric and timed-progress failures with independently checked evidence.
+Necessary bounds may exclude individual branches; a bounded miss cannot prove
+continuous-control infeasibility. Keep unknowns. No cap/seed sweep or planner change
+before that diagnosis; all four integrated cases must pass before source comparison.
+
+Frozen source 3d5b35c1659375b3722f8a8661fe5974aeb496f9;
+raw committed before admission 1ba6a4e90db895fe2991eeb2df26fc3b48ccdeba;
+admission c62f7aaafb6703827a57ef2da1fe989457b672fb.
+28 new controls / 119 focused-retained checks pass with the selected native runtime
+and zero skips. Exact closure hosted checks and public readback are observed after
+push; receipts ~/.codex/reports/sentinel/iter178/. Iter177 closure is verified:
+both hosted suites 4,226 passed / 7 skipped; 186 public source references match.
+
+Owned branch research/iter178-root-domain-consistency in the same Sentinel
+observation-recovery worktree. Preserve canonical dirty root and historical state.
+The mission remains useful intervention from actual histories with measured
+sensing/computation/actuation delay and a strong responsive comparator. No human
+ceremony pending. Earlier controlling entries below are historical.
+
 # Current: Iter178 next-root consistency correction preregistered — 15 October 2026
 
 Read experiments/iter178_root_domain_consistency/PROTOCOL.md and DECISION_PACKET.md.

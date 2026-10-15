@@ -1,0 +1,24 @@
+flowchart TB
+  accTitle: Scene constraints and planner qualification
+  accDescr: Reset completion is not first-fire recovery.
+  G["Route and foreground inputs"] --> M["Iter153–154: reduced model<br/>fails native scene"]
+  M --> X["Iter155: points, boxes, ground"]
+  X --> C["Native CUDA masks"]
+  X --> S["Scalar reconstruction"]
+  C --> E["Exact masks: 0 and 273<br/>threshold >100"]
+  S --> E
+  E --> F["Iter156: 115 masks agree"]
+  F --> L["Iter157: 0 of 75 qualify"]
+  L --> A["Iter158–159: search unqualified"]
+  A --> K["Iter160: suffix shortfall"]
+  K --> Z["Iter161: exact/24<br/>passes four controls"]
+  Z --> Y["Iter162: two model paths"]
+  Y --> V["Iter163: two native<br/>completions from reset"]
+  V --> B["Iter164: first-fire miss"]
+  B --> D["Iter165: all 49 roots miss"]
+  D --> R["Iter166–167: RRT repair<br/>0/4 controls"]
+  R --> J["Iter168: stops pass; turns miss"]
+  J --> H["Iter169–171: control<br/>12/12 qualify"]
+  H --> I["Iter172: integrated RRT<br/>0/4 cases"]
+  I --> O["Iter173: connector<br/>local pass"]
+  O --> U["Iter174–178: RRT<br/>1/4 → 3/4; unqualified"]

@@ -1,37 +1,37 @@
 {
   "schemaVersion": 1,
-  "iteration": 177,
-  "directory": "experiments/iter177_pose_aware_seed",
-  "title": "Pose-aware trial invalid at an accepted-state boundary.",
-  "summary": "The fourth worker stops when an accepted speed of 6.000000000000002 fails the next-root strict bound. Independent scalar replay confirms the six-state witness. Three earlier producer results remain unadmitted; retained qualification stays 2/4.",
-  "boundary": "One invalid initialized schedule; no retry and no new complete-case count. The next callback input was not logged. The diagnosed edge passes existing motion tolerances but fails the next-root interface. Source comparison remains closed.",
-  "next": "Qualify next-root acceptance consistent with existing motion tolerances. Preserve states, physical thresholds and budgets; freeze a distinct corrected qualification. No retry of this invalid schedule, seed-weight sweep or source comparison.",
+  "iteration": 178,
+  "directory": "experiments/iter178_root_domain_consistency",
+  "title": "Corrected interface admits three of four completions.",
+  "summary": "Independent replay admits 3/4 under unchanged maximum budgets: chicane_right is gained and both prior successes remain. The corrected candidate retains the pose-aware proposal and aligns next-root acceptance with existing motion tolerance. Bend_right still misses.",
+  "boundary": "One exposed seed per case; no isolated seed-effect or general efficiency claim. Iter177 remains invalid and unpooled. All-four qualification fails, so source comparison stays closed. Actual-history intervention, latency and superiority remain unestablished.",
+  "next": "Audit continuation feasibility on the retained late bend-right frontier. Independently separate collision, physical and timed-progress failures before selecting another planner change. Keep bounded misses and unknowns; source comparison remains closed.",
   "metrics": [
     {
       "label": "Registered qualification cases",
       "field": "total_cases"
     },
     {
-      "label": "Unadmitted producer records",
-      "field": "unadmitted_producer_records"
+      "label": "Admitted complete cases",
+      "field": "complete_cases"
     },
     {
-      "label": "Failed workers",
-      "field": "failed_workers"
+      "label": "Attempted transitions",
+      "field": "total_attempts"
     },
     {
-      "label": "Scalar-verified witness states",
+      "label": "Scalar-verified returned states",
       "field": "verified_states"
     }
   ],
   "breakdown": [
     {
-      "label": "Independently diagnosed requests",
-      "field": "diagnosed_requests"
+      "label": "Directed connection calls",
+      "field": "total_directed_calls"
     },
     {
-      "label": "Retained completed cases",
-      "field": "retained_complete_cases"
+      "label": "Accepted tree edges",
+      "field": "accepted_connections"
     },
     {
       "label": "New driving episodes",

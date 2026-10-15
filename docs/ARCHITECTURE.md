@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 14 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter177 research record. The [README](../README.md) carries the scientific
+limits through the Iter178 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -230,7 +230,7 @@ flowchart TB
   J --> H["Iter169–171: control<br/>12/12 qualify"]
   H --> I["Iter172: integrated RRT<br/>0/4 cases"]
   I --> O["Iter173: connector<br/>local pass"]
-  O --> U["Iter174–175: RRT<br/>1/4 → 2/4; unqualified"]
+  O --> U["Iter174–178: RRT<br/>1/4 → 3/4; unqualified"]
 ```
 
 These privileged diagnostic inputs are not delivered to the released monitor. Iter153's model
@@ -492,8 +492,8 @@ Four fixed discarded prefixes are joined to retained ancestors using the declare
 earliest exact numeric join. The raw traces and vector masks are committed before
 independent scalar replay of all 132 state records / 1,054,152 point classifications.
 All four paths are admissible but incomplete at 62–64% route progress. Ambiguous
-joins and shared ancestry remain explicit. No native search is added; the three
-architecture diagrams retain the latest valid integrated 2/4 result. Iter177
+joins and shared ancestry remain explicit. No native search is added by this audit. The diagrams now summarize the latest
+valid integrated result through Iter178; the audit adds no integrated outcome. Iter177
 below tests one pose-aware initial control program after constructed positive/adverse
 qualification, with fallback order and all budgets fixed.
 [Audit result](../experiments/iter176_connector_guidance_audit/RESULT.md) ·
@@ -511,8 +511,29 @@ A separately frozen failure checker binds all raw/initialization/failure records
 checks all 125 attempted transitions of the retained first connection, and scalar-
 checks its six-state path / 47,916 point classifications. The next callback input
 was not logged. Three prior worker outputs remain unadmitted, so no new integrated
-result replaces the valid 2/4 diagram node. The next correction needs constructed
-inside/outside boundary tests and a new frozen qualification under unchanged
-physical tolerances and total budgets.
+result is admitted from Iter177. Its correction requires constructed inside/outside
+boundary tests and a distinct frozen qualification under unchanged physical
+tolerances and total budgets, completed in Iter178 below.
 [Invalid result](../experiments/iter177_pose_aware_seed/RESULT.md) ·
 [next decision](../experiments/iter177_pose_aware_seed/DECISION.md).
+
+
+Iter178 changes only the next-root constructor domain to match the existing motion
+predicate: speed in [-1e-12, 6+1e-12] and absolute steering at most pi/3+1e-12.
+Every stored state value is preserved. No projection or physical-tolerance change
+occurs. Source contracts bind the original control methods and the two evaluator/
+adapter import substitutions. The pose-aware proposal and fallback generator are
+unchanged from the invalid predecessor. Twenty-eight boundary/composition controls
+include the next representable value outside each accepted numerical boundary.
+
+The corrected four-case schedule admits 3/4 under unchanged maximum budgets,
+gaining chicane_right and retaining the two Iter175 successes. Separate replay
+verifies 118 returned states and 872,652 full scalar point-state classifications.
+The diagrams count this valid result; Iter177 remains invalid and is not pooled.
+This comparison evaluates the corrected candidate as a whole against Iter175,
+without isolating a pure pose-seed effect. Bend_right still misses and source
+comparison stays closed. The next bounded audit examines the retained late tree
+frontier's continuation constraints before another planner change. Offline reset
+qualification does not establish useful intervention from actual decision histories.
+[Corrected result](../experiments/iter178_root_domain_consistency/RESULT.md) ·
+[next decision](../experiments/iter178_root_domain_consistency/DECISION.md).
