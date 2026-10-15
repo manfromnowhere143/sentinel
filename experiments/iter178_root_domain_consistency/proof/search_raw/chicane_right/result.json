@@ -1,0 +1,1 @@
+{"accepted_connections":92,"attempts":13192,"case":"chicane_right","complete":true,"directed_calls":104,"elapsed_seconds":8.612972915987484,"materialization_queries":36,"native_status":2,"path_queries":36,"peak_rss_bytes":182059008,"queries":9314,"seed":20261017,"selected_connections":[1,2,3,4,11,13,96,104],"stop":"model_complete","unused_attempt_budget":4808}
