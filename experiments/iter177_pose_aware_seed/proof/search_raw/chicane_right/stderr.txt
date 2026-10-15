@@ -1,0 +1,31 @@
+Warning: RRT: Planner setup called multiple times
+         at line 101 in /Users/runner/miniforge3/conda-bld/bld/rattler-build_ompl_1785504924/work/src/ompl/base/src/Planner.cpp
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter177_pose_aware_seed/worker.py", line 46, in <module>
+    run(a.root.resolve(), a.output.resolve(), a.case, a.seed, a.library.resolve())
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter177_pose_aware_seed/worker.py", line 27, in run
+    result = search(
+        library, case["geometry"], old, plan, lambda s: summary(query(s)), emit, seed
+    )
+  File "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter177_pose_aware_seed/adapter.py", line 228, in search
+    raise errors[0]
+  File "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter177_pose_aware_seed/adapter.py", line 128, in directed
+    row = edges.directed([before[i] for i in range(6)], [target[i] for i in range(6)])
+  File "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter177_pose_aware_seed/adapter.py", line 76, in directed
+    evaluator = Evaluator(
+        self.geometry,
+    ...<8 lines>...
+        emit,
+    )
+  File "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter172_integrated_rrt/connection.py", line 52, in __init__
+    self.controls = Controls(before[:5], task)
+                    ~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter169_full_horizon_control/shooting.py", line 41, in __init__
+    require(0 <= reset[3] <= 6 and abs(reset[4]) <= math.pi / 3, "reset_bounds")
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter158_constraint_aware_search/common.py", line 20, in require
+    raise ValueError(reason)
+ValueError: reset_bounds
