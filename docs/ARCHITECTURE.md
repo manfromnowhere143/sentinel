@@ -537,3 +537,25 @@ frontier's continuation constraints before another planner change. Offline reset
 qualification does not establish useful intervention from actual decision histories.
 [Corrected result](../experiments/iter178_root_domain_consistency/RESULT.md) ·
 [next decision](../experiments/iter178_root_domain_consistency/DECISION.md).
+
+
+Iter179 leaves that integrated architecture unchanged and audits its complete late
+bend_right frontier: 19 endpoint records, 16 distinct roots, all 2,609 evaluations
+from 76 late requests. A fixed stepwise-control probe stops at checkpoint frame 16,
+empty beam or its work/time cap. A separate necessary progress bound uses an exact
+rational coordinate reach box; an independent four-corner formulation checks it.
+The bound does not prune or skip probes. Earliest numeric joins preserve ambiguity
+and do not claim native tree ancestry.
+
+Independent replay admits three checkpoint continuations, two progress exclusions
+and eleven unresolved bounded misses, with no censoring. It checks 621 distinct
+full scalar masks / 4,057,614 point-state classifications, returned paths, all
+attempted motions, proposal order and beam accounting. New unselected probe
+background labels remain producer evidence unless materialized. The diagnostic
+witnesses use 495–510 attempts, so they do not establish a repair within the
+integrated connector's 128 allowance. Two viable roots received no original
+outgoing request, exposing a separate expansion-allocation question. Neither fact
+establishes the sole cause of the integrated miss. The diagrams continue to show
+3/4; the audit adds no integrated outcome.
+[Frontier audit](../experiments/iter179_frontier_continuation_audit/RESULT.md) ·
+[next decision](../experiments/iter179_frontier_continuation_audit/DECISION.md).

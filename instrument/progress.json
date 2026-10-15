@@ -1,41 +1,41 @@
 {
   "schemaVersion": 1,
-  "iteration": 178,
-  "directory": "experiments/iter178_root_domain_consistency",
-  "title": "Corrected interface admits three of four completions.",
-  "summary": "Independent replay admits 3/4 under unchanged maximum budgets: chicane_right is gained and both prior successes remain. The corrected candidate retains the pose-aware proposal and aligns next-root acceptance with existing motion tolerance. Bend_right still misses.",
-  "boundary": "One exposed seed per case; no isolated seed-effect or general efficiency claim. Iter177 remains invalid and unpooled. All-four qualification fails, so source comparison stays closed. Actual-history intervention, latency and superiority remain unestablished.",
-  "next": "Audit continuation feasibility on the retained late bend-right frontier. Independently separate collision, physical and timed-progress failures before selecting another planner change. Keep bounded misses and unknowns; source comparison remains closed.",
+  "iteration": 179,
+  "directory": "experiments/iter179_frontier_continuation_audit",
+  "title": "The retained frontier has three different outcomes.",
+  "summary": "Independent replay finds three checkpoint continuations, two necessary-progress exclusions and eleven unresolved misses among all 16 distinct late states. No probe is time-censored. Full scalar replay checks 621 states and 4,057,614 point-state classifications.",
+  "boundary": "Checkpoint continuations are not full route completions. Exclusions apply to the declared numerical progress bound; finite misses do not prove infeasibility. Integrated qualification remains 3/4, source comparison closed, and actual-history intervention unestablished.",
+  "next": "Compare constant and stepwise local proposals on all retained roots under the same 128-transition allowance. Separate local capability from expansion allocation before one integrated change; preserve total budgets and count lost successes.",
   "metrics": [
     {
-      "label": "Registered qualification cases",
-      "field": "total_cases"
+      "label": "Distinct retained frontier states",
+      "field": "distinct_frontier_states"
     },
     {
-      "label": "Admitted complete cases",
-      "field": "complete_cases"
+      "label": "Verified checkpoint continuations",
+      "field": "checkpoint_witnesses"
     },
     {
-      "label": "Attempted transitions",
-      "field": "total_attempts"
+      "label": "Progress exclusions",
+      "field": "progress_exclusions"
     },
     {
-      "label": "Scalar-verified returned states",
-      "field": "verified_states"
+      "label": "Unresolved bounded misses",
+      "field": "bounded_misses"
     }
   ],
   "breakdown": [
     {
-      "label": "Directed connection calls",
-      "field": "total_directed_calls"
+      "label": "Diagnostic attempted transitions",
+      "field": "diagnostic_attempts"
     },
     {
-      "label": "Accepted tree edges",
-      "field": "accepted_connections"
+      "label": "Distinct scalar-verified states",
+      "field": "distinct_scalar_states"
     },
     {
-      "label": "New driving episodes",
-      "field": "new_driving_episodes"
+      "label": "Time-censored probes",
+      "field": "censored_probes"
     }
   ]
 }

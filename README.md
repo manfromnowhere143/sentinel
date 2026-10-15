@@ -18,7 +18,7 @@ against a competent responsive baseline, with information access, permitted acti
 resource budgets stated explicitly.
 
 [System](#what-sentinel-does) · [Results](#measured-results) ·
-[Research history](#how-the-question-changed) · [Latest result](#iteration-178-corrected-interface-completes-three-of-four) ·
+[Research history](#how-the-question-changed) · [Latest result](#iteration-179-the-retained-frontier-is-not-uniformly-infeasible) ·
 [Next test](#the-next-scientific-test) · [Reproduce](#reproduce-and-inspect) ·
 [Repository status](#repository-status--15-october-2026) · [Experiment index](#complete-experiment-index)
 
@@ -884,11 +884,38 @@ Independent scalar replay checks all 118 returned states and 872,652 point-state
 classifications. Earlier completion reduces used work; this is not a general
 efficiency estimate or an isolated seed-effect claim. The remaining returned path
 already has substantial progress at frame 14 but no continuation through the first
-checkpoint at frame 16. Next, audit the retained late frontier to distinguish
-continuation constraints from missing proposals before changing the planner again.
+checkpoint at frame 16 in that integrated run. Iter179 below audits the retained
+late frontier before another planner change.
 [Result and limits](experiments/iter178_root_domain_consistency/RESULT.md) ·
 [independent admission](experiments/iter178_root_domain_consistency/proof/admission.json) ·
 [next decision](experiments/iter178_root_domain_consistency/DECISION.md).
+
+## Iteration 179: the retained frontier is not uniformly infeasible
+
+**Three of 16 distinct late states have verified continuations through frame 16;
+two are excluded by a necessary progress bound; eleven remain unresolved.** The
+audit retains all 19 late endpoint records, including duplicates, and all 2,609
+evaluations from 76 late requests. No probe is time-censored. Integrated
+qualification stays **3/4**, and source comparison remains closed.
+
+![Retained frontier audit](experiments/iter179_frontier_continuation_audit/proof/frontier_audit.png)
+
+Independent replay checks 621 full scalar masks and 4,057,614 point-state
+classifications, motion, clocks, checkpoint rules, proposal order and accounting.
+An independent corner formulation confirms both progress exclusions within the
+declared numerical model. Bounded misses do not prove continuous-control
+infeasibility or collision inevitability. The three witnesses pass only the first
+checkpoint, not the later checkpoint or full route completion.
+
+Two viable states received no original outgoing request. However, the diagnostic
+witnesses took 495–510 attempts, above the integrated connector's 128 allowance.
+Expansion allocation and useful local control under equal work remain distinct
+questions. Next, compare constant and stepwise proposals on the complete retained
+root population at the same 128-transition allowance before selecting one
+integrated change. No planner modification or source comparison occurred here.
+[Result and limits](experiments/iter179_frontier_continuation_audit/RESULT.md) ·
+[independent admission](experiments/iter179_frontier_continuation_audit/proof/admission.json) ·
+[next decision](experiments/iter179_frontier_continuation_audit/DECISION.md).
 
 ## The next scientific test
 
@@ -919,8 +946,10 @@ The following work is proposed; all previous schedules retain their closed accou
    and quantifies nominal coverage differences without diagnosing a repair. Iter177
    tests a pose-aware initial program but stops invalid when an accepted state fails
    the next-root bound. Iter178 corrects that interface at the existing tolerance
-   and admits 3/4 with one gain and no lost successes. Audit continuation feasibility
-   on the retained late bend-right frontier before selecting another planner change.
+   and admits 3/4 with one gain and no lost successes. Iter179 separates three
+   feasible checkpoint continuations, two progress exclusions and eleven unresolved
+   misses. Next compare local proposal families at the same 128-transition allowance,
+   separating local control capability from expansion allocation before an integrated change.
    Source comparison remains closed until all four cases pass.
    Offline cost is not a response-time result.
 3. **After establishing useful recovery, test one information hypothesis against a responsive baseline.**
@@ -1006,7 +1035,7 @@ not a complete distribution of every runtime asset.
 | [Architecture](docs/ARCHITECTURE.md) | Implemented interfaces, simulator distinctions, evidence flow and timing. |
 | [Original preregistration](PREREGISTRATION.md) | The initial benchmark question and decision rules. |
 | [Research direction](docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md) | Information and recoverability: mathematical formulation and dated literature review. |
-| [Next scientific decision](experiments/iter178_root_domain_consistency/DECISION.md) | Audit continuation feasibility on the retained late bend-right frontier. Distinguish verified dead ends from missing proposals; all four cases must pass before source comparison. |
+| [Next scientific decision](experiments/iter179_frontier_continuation_audit/DECISION.md) | Compare constant and stepwise local proposals under the same 128-transition allowance across all retained roots; distinguish control capability from expansion allocation. Source comparison stays closed. |
 | [Handoff](HANDOFF.md) | Exact next task, acceptance criteria, resource closure and recovery instructions. |
 | [Continuity](CONTINUITY.md) and [next phase](docs/NEXT_PHASE.md) | Current state followed by retained historical decisions. |
 | [Technical report](docs/REPORT.md) | Historical synthesis through Iter134; it predates the current execution program. |
@@ -1027,7 +1056,7 @@ scientific claim or reinterpret the archived mission state.
 
 ## Repository status — 15 October 2026
 
-**This research lineage is current through Iter178, with 3/4 completions admitted on 15 October.**
+**This research lineage is current through Iter179; integrated qualification remains 3/4.**
 The preselected path completes two native replicas from reset. The same exact/24
 method then misses after preserving the actual first-fire history. All 49 subsequent discarded/retained
 continuations also miss. An independent RRT adapter remains unqualified after a
@@ -1039,7 +1068,9 @@ allocation trial completes 2/4. The all-four qualification still fails. Iter176 
 four incomplete paths. Iter177 stops invalid at a numerical next-root boundary;
 its partial results remain unadmitted. Iter178 corrects that interface under unchanged
 physical tolerances and budgets and admits 3/4, with one gain and no losses versus
-Iter175. These results do not prove the remaining state unrecoverable.
+Iter175. Iter179 then verifies three checkpoint continuations, two progress
+exclusions and eleven unresolved misses in the remaining late frontier. It adds no
+integrated completion and does not establish continuous-control infeasibility.
 Monitor-time recovery, useful information and real-time operation remain unestablished.
 Iteration 135's dose-response experiment remains **deferred and unrun**.
 
@@ -1047,15 +1078,16 @@ The repository has two distinct records. The accepted code and mission snapshot 
 [`8c118b7`](https://github.com/manfromnowhere143/sentinel/tree/8c118b74c699bf0f139f9bd659192bad06b895f8)
 is **current through iteration 134**. [MISSION_STATE.json](MISSION_STATE.json) preserves
 that historical contract.
-Later research, through the corrected Iter178 qualification, is retained in a separate
-[research lineage](https://github.com/manfromnowhere143/sentinel/tree/c62f7aaafb6703827a57ef2da1fe989457b672fb).
+Later research, through the Iter179 frontier audit, is retained in a separate
+[research lineage](https://github.com/manfromnowhere143/sentinel/tree/e947a4705a24d284c10e74c64f1ff0020baa9dbd).
 This README describes both; a documentation update does not integrate that later experimental
 code into the accepted snapshot. The [current handoff](HANDOFF.md) identifies the next task.
 
 The earlier 12 October editorial refresh brought the default landing page through Iter155.
 This later research revision retains the continuation misses, failed independent
 planner qualification, local qualification, integrated failure and bounded connector
-comparison, allocation result, guidance audit, invalid trial and corrected 3/4 result through Iter178. The public instrument
+comparison, allocation result, guidance audit, invalid trial, corrected 3/4 result
+and frontier continuation audit through Iter179. The public instrument
 follows validated closed-result packets automatically; its older replay and
 native witness do not inherit a new scientific identity from an update.
 
@@ -1107,7 +1139,10 @@ skips on each hosted Python version. Iter177 adds 42 constructed controls and pa
 passes do not change its scientific invalidity. Its closure passed 4,226 tests with
 seven skips on each hosted Python version. Iter178 adds 28 boundary/composition
 controls; 119 focused/retained checks pass with the selected native runtime and
-zero skips. Exact Iter178 closure CI is observed separately after publication.
+zero skips. Its exact closure passed 4,254 tests with seven skips on each hosted
+Python version. Iter179 adds 66 constructed controls; 127 focused/retained checks
+pass with zero skips. Exact Iter179 closure CI is observed separately after
+publication; local software checks do not substitute for scientific admission.
 
 ## Complete experiment index
 
@@ -1289,7 +1324,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 </details>
 
 <details>
-<summary>Information, recoverability and execution: Iter135–178</summary>
+<summary>Information, recoverability and execution: Iter135–179</summary>
 
 | Record | Finding or scope |
 |---|---|
@@ -1337,6 +1372,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 | [176](experiments/iter176_connector_guidance_audit/RESULT.md) | Exploratory nominal reflection audit: 327/386 sets closed, 59 open. Four overlapping incomplete paths pass scalar replay (132 state records). No new search; integrated qualification remains 2/4 and source comparison closed. |
 | [177](experiments/iter177_pose_aware_seed/RESULT.md) | Invalid pose-aware trial: an accepted speed two ulps above 6 fails the next-root strict bound. Six-state scalar diagnosis confirms the interface mismatch. Three earlier producer results remain unadmitted; retained qualification is 2/4 and source comparison closed. |
 | [178](experiments/iter178_root_domain_consistency/RESULT.md) | Corrected next-root interface with the retained pose-aware proposal completes 3/4 versus Iter175's 2/4 under unchanged caps. One gain, no losses; 118 states/full masks replay. All-four qualification fails; source comparison stays closed. |
+| [179](experiments/iter179_frontier_continuation_audit/RESULT.md) | All 16 distinct late roots: three verified checkpoint continuations, two progress exclusions, eleven unresolved bounded misses; no censoring. Full scalar replay covers 621 states. Integrated qualification remains 3/4; source comparison stays closed. |
 
 </details>
 

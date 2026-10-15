@@ -1,3 +1,46 @@
+# Current: Iter179 separates feasible, excluded and unresolved continuations — 15 October 2026
+
+Read experiments/iter179_frontier_continuation_audit/RESULT.md and DECISION.md.
+Independent admission supports the finite diagnostic claim: three checkpoint
+continuations, two necessary-progress exclusions and eleven unresolved bounded
+misses among all 16 distinct late bend_right states. All 19 endpoint records and
+all 2,609 evaluations from 76 late requests are retained. No time censoring.
+The audit is closed; no retry. Integrated qualification remains Iter178's 3/4,
+all-four qualification contradicted, and source comparison closed. Iter177 stays invalid.
+
+Full scalar replay checks 621 distinct states / 4,057,614 point classifications,
+259 retained-path and 240 returned probe-path state records, plus 5,333 retained
+evaluation-prefix records. Bound arithmetic has an independent corner checker.
+The fixed beam uses 3,185 transitions; all unsuccessful probes stop beam-empty.
+Finite misses are not infeasibility. Exclusions concern only the required progress
+checkpoint in the declared numerical model. Witnesses reach frame 16, not full
+completion. Numeric joins preserve ambiguity; native ancestry and unselected
+new-probe background labels remain unverified at that layer.
+
+Next: preregister a paired constant-versus-stepwise local proposal comparison on
+all 16 retained distinct roots, with the same 128-transition allowance and absolute
+clock/predicates/objective. The current witnesses use 495–510 attempts. Two viable
+roots received no original outgoing request. Separate useful local control at
+equal work from expansion allocation before choosing one integrated change.
+No cap/seed sweep, learned viability filter or silent checkpoint relaxation.
+Keep the integrated total budgets and all-four gate; count lost successes.
+
+Frozen source 410bddaadfde91dab7081d03ab32ea700b9b0c72;
+raw committed before admission 16aedc124eeaddc72d8cafc326bf979ab404c90b;
+admission e947a4705a24d284c10e74c64f1ff0020baa9dbd.
+Producer/checker supervised walls 8.559 / 44.551 seconds; both processes reaped.
+No new integrated schedule, driving episode, source query, provider use or spending.
+66 new controls / 127 focused-retained checks pass, zero skips. Exact closure
+hosted CI/public readback is observed separately after push; receipts
+~/.codex/reports/sentinel/iter179/. Iter178 closure is verified: both hosted suites
+4,254 passed / 7 skipped; exact live packet and 187 public references match.
+
+Owned branch research/iter179-frontier-continuation-audit in the same Sentinel
+observation-recovery worktree. Preserve canonical dirty root and historical state.
+The mission remains useful intervention from actual histories with measured
+sensing/computation/actuation delay and a strong responsive comparator. No human
+ceremony pending. Earlier controlling entries below are historical.
+
 # Current: Iter179 retained-frontier continuation audit preregistered — 15 October 2026
 
 Read experiments/iter179_frontier_continuation_audit/PROTOCOL.md, MATHEMATICS.md
@@ -6146,3 +6189,11 @@ Next is the bounded retained-frontier audit, not another cap or seed sweep.
 
 Follow the current top entry and Iter179 protocol. No initialized audit outcome
 yet. Retained integrated qualification remains 3/4; source comparison stays closed.
+
+## Iter179 controlling closure — 15 October 2026
+
+Follow the current top entry and Iter179 RESULT/DECISION. Three checkpoint
+continuations, two progress exclusions and eleven unresolved misses are admitted;
+no new integrated outcome. Qualification remains 3/4 and source comparison closed.
+All scientific jobs are reaped. Next separate local capability at equal work from
+expansion allocation before another integrated planner change.

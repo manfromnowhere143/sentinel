@@ -1,0 +1,824 @@
+{
+  "admission_commit": "e947a4705a24d284c10e74c64f1ff0020baa9dbd",
+  "inputs": {
+    "experiments/iter178_root_domain_consistency/proof/search_raw/bend_right/events.jsonl": "e82193644a859ff1de4e5f5b9ae033951113a46b9bb819c3062441e913ee9ae9",
+    "experiments/iter179_frontier_continuation_audit/STATE.json": "0f2df7e5632a5a5d7b74b7ecdd9afb65eb733290c71639b293dbcac87efa3ae7",
+    "experiments/iter179_frontier_continuation_audit/proof/audit_raw/paths.json": "1bbf959654a6eacb093c4c4baf90d95dfd0ec6ab84baae7f67006a6e47180b7c",
+    "experiments/iter179_frontier_continuation_audit/proof/audit_raw/probes.json": "375237ec5e0e182f245ee0766d3ba41eb9122985cd6efe1193521ed5e7d36c84"
+  },
+  "raw_commit": "16aedc124eeaddc72d8cafc326bf979ab404c90b",
+  "records": [
+    {
+      "call": 3,
+      "classification": "bounded_miss",
+      "minimum_squared_distance_gap": -189.99621270393217,
+      "outgoing_requests": [
+        4,
+        5,
+        7,
+        8,
+        10,
+        11,
+        13,
+        14,
+        15,
+        17,
+        18,
+        21,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        32,
+        33,
+        35,
+        36,
+        37,
+        38,
+        40,
+        48,
+        49,
+        50,
+        52,
+        55,
+        57,
+        58
+      ],
+      "probe_counts": {
+        "collision": 16
+      },
+      "progress_radius": 5.619974608443036,
+      "representative_of": [
+        3
+      ],
+      "returned_rc": 0.5741626794258373,
+      "returned_suffix": [],
+      "root_frame": 12,
+      "root_rc": 0.5741626794258373,
+      "root_state": [
+        12.8575793318908,
+        -3.668021830085815,
+        -0.4433545422053364,
+        4.493299424589049,
+        -0.13089969389957473
+      ]
+    },
+    {
+      "call": 51,
+      "classification": "verified_continuation",
+      "minimum_squared_distance_gap": -78.9826558557293,
+      "outgoing_requests": [
+        67
+      ],
+      "probe_counts": {
+        "clear": 86,
+        "collision": 416,
+        "controls": 8
+      },
+      "progress_radius": 5.4515531218815,
+      "representative_of": [
+        51
+      ],
+      "returned_rc": 0.6166932482721956,
+      "returned_suffix": [
+        {
+          "action": [
+            2.0,
+            0.2617993877991494
+          ],
+          "frame": 13,
+          "rc": 0.3827751196172249,
+          "state": [
+            7.959565574252754,
+            -2.26255872991098,
+            -0.8716372408753706,
+            4.768737442507001,
+            -0.32142790187762393
+          ]
+        },
+        {
+          "action": [
+            2.0,
+            0.2617993877991494
+          ],
+          "frame": 14,
+          "rc": 0.45720361509835195,
+          "state": [
+            8.807271567859473,
+            -3.2707101016220674,
+            -0.9993160937025183,
+            5.268737442507001,
+            -0.2559780549278366
+          ]
+        },
+        {
+          "action": [
+            2.0,
+            0.2617993877991494
+          ],
+          "frame": 15,
+          "rc": 0.5475810738968634,
+          "state": [
+            9.587316879889949,
+            -4.48373320165589,
+            -1.1023348682291145,
+            5.768737442507001,
+            -0.19052820797804926
+          ]
+        },
+        {
+          "action": [
+            -2.0,
+            -0.2617993877991494
+          ],
+          "frame": 16,
+          "rc": 0.6166932482721956,
+          "state": [
+            10.182044105595308,
+            -5.659009410418966,
+            -1.230013721056262,
+            5.268737442507001,
+            -0.2559780549278366
+          ]
+        }
+      ],
+      "root_frame": 12,
+      "root_rc": 0.3189792663476874,
+      "root_state": [
+        7.0669098021257,
+        -1.4723250795193599,
+        -0.7246122662853358,
+        4.268737442507001,
+        -0.38687774882741127
+      ]
+    },
+    {
+      "call": 59,
+      "classification": "bounded_miss",
+      "minimum_squared_distance_gap": -112.71469003189671,
+      "outgoing_requests": [
+        60,
+        62,
+        70,
+        72,
+        73,
+        75,
+        78,
+        79,
+        81,
+        86,
+        89,
+        90,
+        97,
+        104,
+        107,
+        108,
+        109,
+        129,
+        139
+      ],
+      "probe_counts": {
+        "collision": 15
+      },
+      "progress_radius": 1.875000020000375,
+      "representative_of": [
+        59
+      ],
+      "returned_rc": 0.6273258904837853,
+      "returned_suffix": [],
+      "root_frame": 14,
+      "root_rc": 0.6273258904837853,
+      "root_state": [
+        13.673631758868778,
+        -5.01630406366448,
+        -0.8941711056923767,
+        3.0,
+        -0.3926990816987241
+      ]
+    },
+    {
+      "call": 63,
+      "classification": "progress_excluded",
+      "minimum_squared_distance_gap": 1.980998962086792,
+      "outgoing_requests": [
+        68,
+        87
+      ],
+      "probe_counts": {
+        "controls": 5,
+        "progress": 10
+      },
+      "progress_radius": 0.21337703475145475,
+      "representative_of": [
+        63
+      ],
+      "returned_rc": 0.23391812865497078,
+      "returned_suffix": [],
+      "root_frame": 15,
+      "root_rc": 0.23391812865497078,
+      "root_state": [
+        5.358351496654386,
+        1.132848386323336,
+        0.49583132808120967,
+        0.353508099005319,
+        -0.06544984694978732
+      ]
+    },
+    {
+      "call": 64,
+      "classification": "bounded_miss",
+      "minimum_squared_distance_gap": -178.45139028925564,
+      "outgoing_requests": [
+        69,
+        85
+      ],
+      "probe_counts": {
+        "clear": 16,
+        "collision": 239
+      },
+      "progress_radius": 5.25000004000125,
+      "representative_of": [
+        64,
+        92
+      ],
+      "returned_rc": 0.6273258904837853,
+      "returned_suffix": [
+        {
+          "action": [
+            -2.0,
+            -0.2617993877991494
+          ],
+          "frame": 13,
+          "rc": 0.6007442849548112,
+          "state": [
+            13.139978317092357,
+            -4.4893182914844525,
+            -0.7791117828109614,
+            3.5,
+            -0.32724923474893675
+          ]
+        },
+        {
+          "action": [
+            -2.0,
+            -0.2617993877991494
+          ],
+          "frame": 14,
+          "rc": 0.6273258904837853,
+          "state": [
+            13.673631758868778,
+            -5.01630406366448,
+            -0.8941711056923767,
+            3.0,
+            -0.3926990816987241
+          ]
+        }
+      ],
+      "root_frame": 12,
+      "root_rc": 0.5741626794258373,
+      "root_state": [
+        12.453647487729157,
+        -3.9465706589095877,
+        -0.6691034581793118,
+        4.0,
+        -0.2617993877991494
+      ]
+    },
+    {
+      "call": 67,
+      "classification": "bounded_miss",
+      "minimum_squared_distance_gap": -51.0795677777666,
+      "outgoing_requests": [
+        82,
+        83,
+        102
+      ],
+      "probe_counts": {
+        "collision": 16
+      },
+      "progress_radius": 3.5765531118810006,
+      "representative_of": [
+        67
+      ],
+      "returned_rc": 0.37214247740563533,
+      "returned_suffix": [],
+      "root_frame": 13,
+      "root_rc": 0.37214247740563533,
+      "root_state": [
+        7.772376452836632,
+        -2.0968474363204104,
+        -0.8941806837013179,
+        3.7687374425070006,
+        -0.4523275957771986
+      ]
+    },
+    {
+      "call": 69,
+      "classification": "bounded_miss",
+      "minimum_squared_distance_gap": -139.36569249725054,
+      "outgoing_requests": [
+        110
+      ],
+      "probe_counts": {
+        "clear": 6,
+        "collision": 99
+      },
+      "progress_radius": 3.37500003000075,
+      "representative_of": [
+        69
+      ],
+      "returned_rc": 0.6273258904837853,
+      "returned_suffix": [
+        {
+          "action": [
+            -2.0,
+            -0.2617993877991494
+          ],
+          "frame": 14,
+          "rc": 0.6273258904837853,
+          "state": [
+            13.673631758868778,
+            -5.01630406366448,
+            -0.8941711056923767,
+            3.0,
+            -0.3926990816987241
+          ]
+        }
+      ],
+      "root_frame": 13,
+      "root_rc": 0.6007442849548112,
+      "root_state": [
+        13.139978317092357,
+        -4.4893182914844525,
+        -0.7791117828109614,
+        3.5,
+        -0.32724923474893675
+      ]
+    },
+    {
+      "call": 84,
+      "classification": "bounded_miss",
+      "minimum_squared_distance_gap": -178.45139028925564,
+      "outgoing_requests": [
+        88,
+        99
+      ],
+      "probe_counts": {
+        "clear": 15,
+        "collision": 225
+      },
+      "progress_radius": 5.25000004000125,
+      "representative_of": [
+        84,
+        94
+      ],
+      "returned_rc": 0.6007442849548112,
+      "returned_suffix": [
+        {
+          "action": [
+            -2.0,
+            -0.2617993877991494
+          ],
+          "frame": 13,
+          "rc": 0.6007442849548112,
+          "state": [
+            13.166490434762682,
+            -4.45399546404288,
+            -0.6830855421102281,
+            3.5,
+            -0.19634954084936207
+          ]
+        }
+      ],
+      "root_frame": 12,
+      "root_rc": 0.5741626794258373,
+      "root_state": [
+        12.453647487729157,
+        -3.9465706589095877,
+        -0.6186232008297834,
+        4.0,
+        -0.13089969389957473
+      ]
+    },
+    {
+      "call": 85,
+      "classification": "bounded_miss",
+      "minimum_squared_distance_gap": -152.94570602649483,
+      "outgoing_requests": [
+        119
+      ],
+      "probe_counts": {
+        "collision": 15
+      },
+      "progress_radius": 3.75000003000075,
+      "representative_of": [
+        85
+      ],
+      "returned_rc": 0.6060606060606061,
+      "returned_suffix": [],
+      "root_frame": 13,
+      "root_rc": 0.6060606060606061,
+      "root_state": [
+        13.238025578429959,
+        -4.566853667566576,
+        -0.7427747053569629,
+        4.0,
+        -0.19634954084936207
+      ]
+    },
+    {
+      "call": 88,
+      "classification": "bounded_miss",
+      "minimum_squared_distance_gap": -139.084179254358,
+      "outgoing_requests": [
+        101
+      ],
+      "probe_counts": {
+        "collision": 15
+      },
+      "progress_radius": 3.37500003000075,
+      "representative_of": [
+        88,
+        99
+      ],
+      "returned_rc": 0.6007442849548112,
+      "returned_suffix": [],
+      "root_frame": 13,
+      "root_rc": 0.6007442849548112,
+      "root_state": [
+        13.166490434762682,
+        -4.45399546404288,
+        -0.6398641378532403,
+        3.5,
+        -0.06544984694978738
+      ]
+    },
+    {
+      "call": 91,
+      "classification": "verified_continuation",
+      "minimum_squared_distance_gap": -59.61798541817209,
+      "outgoing_requests": [],
+      "probe_counts": {
+        "clear": 507
+      },
+      "progress_radius": 4.862487482508251,
+      "representative_of": [
+        91
+      ],
+      "returned_rc": 0.5528973950026582,
+      "returned_suffix": [
+        {
+          "action": [
+            2.0,
+            0.2617993877991494
+          ],
+          "frame": 13,
+          "rc": 0.35619351408825095,
+          "state": [
+            7.669011212584852,
+            -1.8296129322748704,
+            -0.6561647360266806,
+            4.112487442507001,
+            -0.19537634478914462
+          ]
+        },
+        {
+          "action": [
+            2.0,
+            -0.1308996938995747
+          ],
+          "frame": 14,
+          "rc": 0.4199893673577884,
+          "state": [
+            8.582673343727064,
+            -2.533112424507785,
+            -0.7553081992051999,
+            4.612487442507001,
+            -0.2281012682640383
+          ]
+        },
+        {
+          "action": [
+            2.0,
+            -0.2617993877991494
+          ],
+          "frame": 15,
+          "rc": 0.4891015417331207,
+          "state": [
+            9.5132231330695,
+            -3.409281689071849,
+            -0.8984030531509154,
+            5.112487442507001,
+            -0.29355111521382565
+          ]
+        },
+        {
+          "action": [
+            -2.0,
+            -0.2617993877991494
+          ],
+          "frame": 16,
+          "rc": 0.5528973950026582,
+          "state": [
+            10.231456738047154,
+            -4.311407242493379,
+            -1.058671061349014,
+            4.612487442507001,
+            -0.359000962163613
+          ]
+        }
+      ],
+      "root_frame": 12,
+      "root_rc": 0.3083466241360978,
+      "root_state": [
+        6.8094805832679475,
+        -1.2654838180069612,
+        -0.5808068835662217,
+        3.6124874425070006,
+        -0.26082619173893196
+      ]
+    },
+    {
+      "call": 110,
+      "classification": "bounded_miss",
+      "minimum_squared_distance_gap": -113.82132780704563,
+      "outgoing_requests": [
+        111,
+        114,
+        117,
+        118,
+        120,
+        122,
+        123,
+        125,
+        128,
+        135,
+        137
+      ],
+      "probe_counts": {
+        "collision": 15
+      },
+      "progress_radius": 1.906250020000375,
+      "representative_of": [
+        110
+      ],
+      "returned_rc": 0.6273258904837853,
+      "returned_suffix": [],
+      "root_frame": 14,
+      "root_rc": 0.6273258904837853,
+      "root_state": [
+        13.684749538905788,
+        -5.02728293391823,
+        -0.8965681749190728,
+        3.0625,
+        -0.3926990816987241
+      ]
+    },
+    {
+      "call": 112,
+      "classification": "bounded_miss",
+      "minimum_squared_distance_gap": -178.45139028925564,
+      "outgoing_requests": [],
+      "probe_counts": {
+        "clear": 13,
+        "collision": 197
+      },
+      "progress_radius": 5.25000004000125,
+      "representative_of": [
+        112
+      ],
+      "returned_rc": 0.6007442849548112,
+      "returned_suffix": [
+        {
+          "action": [
+            -2.0,
+            -0.2617993877991494
+          ],
+          "frame": 13,
+          "rc": 0.6007442849548112,
+          "state": [
+            13.1536300810101,
+            -4.471593867066796,
+            -0.7303696501518183,
+            3.5,
+            -0.2617993877991494
+          ]
+        }
+      ],
+      "root_frame": 12,
+      "root_rc": 0.5741626794258373,
+      "root_state": [
+        12.453647487729157,
+        -3.9465706589095877,
+        -0.6435342637158064,
+        4.0,
+        -0.19634954084936207
+      ]
+    },
+    {
+      "call": 121,
+      "classification": "bounded_miss",
+      "minimum_squared_distance_gap": -188.57585737373756,
+      "outgoing_requests": [],
+      "probe_counts": {
+        "clear": 6,
+        "collision": 105
+      },
+      "progress_radius": 5.479388247062257,
+      "representative_of": [
+        121
+      ],
+      "returned_rc": 0.6060606060606061,
+      "returned_suffix": [
+        {
+          "action": [
+            -2.0,
+            -0.2617993877991494
+          ],
+          "frame": 13,
+          "rc": 0.6060606060606061,
+          "state": [
+            13.442986615380965,
+            -4.44368637853994,
+            -0.539245897010328,
+            3.80585094274801,
+            -0.06544984694978738
+          ]
+        }
+      ],
+      "root_frame": 12,
+      "root_rc": 0.5794790005316321,
+      "root_state": [
+        12.615474427658334,
+        -3.974106868156981,
+        -0.5161487998115925,
+        4.30585094274801,
+        -2.7755575615628914e-17
+      ]
+    },
+    {
+      "call": 131,
+      "classification": "verified_continuation",
+      "minimum_squared_distance_gap": -53.34850943286105,
+      "outgoing_requests": [],
+      "probe_counts": {
+        "clear": 319,
+        "collision": 176
+      },
+      "progress_radius": 4.518737482508251,
+      "representative_of": [
+        131
+      ],
+      "returned_rc": 0.5475810738968634,
+      "returned_suffix": [
+        {
+          "action": [
+            2.0,
+            0.2617993877991494
+          ],
+          "frame": 13,
+          "rc": 0.35619351408825095,
+          "state": [
+            7.584091186035651,
+            -1.9362425911264374,
+            -0.8030831071064947,
+            3.7687374425070006,
+            -0.32142790187762393
+          ]
+        },
+        {
+          "action": [
+            2.0,
+            0.2617993877991494
+          ],
+          "frame": 14,
+          "rc": 0.41467304625199364,
+          "state": [
+            8.32524188383099,
+            -2.704082485065145,
+            -0.9065286679504314,
+            4.268737442507001,
+            -0.2559780549278366
+          ]
+        },
+        {
+          "action": [
+            2.0,
+            0.2617993877991494
+          ],
+          "frame": 15,
+          "rc": 0.48378522062732593,
+          "state": [
+            9.06020288846963,
+            -3.642770863273576,
+            -0.9916893278456524,
+            4.768737442507001,
+            -0.19052820797804926
+          ]
+        },
+        {
+          "action": [
+            -2.0,
+            -0.2617993877991494
+          ],
+          "frame": 16,
+          "rc": 0.5475810738968634,
+          "state": [
+            9.644248083785998,
+            -4.535952630549527,
+            -1.0951348886895893,
+            4.268737442507001,
+            -0.2559780549278366
+          ]
+        }
+      ],
+      "root_frame": 12,
+      "root_rc": 0.3083466241360978,
+      "root_state": [
+        6.855573078156218,
+        -1.3387706370554453,
+        -0.686889138912304,
+        3.2687374425070006,
+        -0.38687774882741127
+      ]
+    },
+    {
+      "call": 132,
+      "classification": "progress_excluded",
+      "minimum_squared_distance_gap": 3.8692008478536506,
+      "outgoing_requests": [],
+      "probe_counts": {
+        "clear": 375,
+        "controls": 30,
+        "progress": 240
+      },
+      "progress_radius": 1.25000004000125,
+      "representative_of": [
+        132
+      ],
+      "returned_rc": 0.17012227538543329,
+      "returned_suffix": [
+        {
+          "action": [
+            2.0,
+            -0.2617993877991494
+          ],
+          "frame": 13,
+          "rc": 0.14354066985645933,
+          "state": [
+            3.30139111870376,
+            0.21711435849130017,
+            0.13629654197542987,
+            0.5,
+            -0.03149471858330734
+          ]
+        },
+        {
+          "action": [
+            2.0,
+            -0.2617993877991494
+          ],
+          "frame": 14,
+          "rc": 0.1541733120680489,
+          "state": [
+            3.549072617804467,
+            0.2510830941643644,
+            0.12729196654468858,
+            1.0,
+            -0.09694456553309469
+          ]
+        },
+        {
+          "action": [
+            2.0,
+            -0.2617993877991494
+          ],
+          "frame": 15,
+          "rc": 0.17012227538543329,
+          "state": [
+            3.9210386094672294,
+            0.2986887770849741,
+            0.10453680181171078,
+            1.5,
+            -0.16239441248288206
+          ]
+        }
+      ],
+      "root_frame": 12,
+      "root_rc": 0.13822434875066456,
+      "root_state": [
+        3.177575273784191,
+        0.19994937824507802,
+        0.13775511309126537,
+        0.0,
+        0.033955128366480014
+      ]
+    }
+  ],
+  "scope": "Read-only post-admission summaries of frozen retained data; no additional search or causal inference.",
+  "source_commit": "410bddaadfde91dab7081d03ab32ea700b9b0c72",
+  "status": "descriptive"
+}
