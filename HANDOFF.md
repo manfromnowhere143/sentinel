@@ -1,3 +1,38 @@
+# Current: Iter179 retained-frontier continuation audit preregistered — 15 October 2026
+
+Read experiments/iter179_frontier_continuation_audit/PROTOCOL.md, MATHEMATICS.md
+and DECISION_PACKET.md. No retained-root continuation or progress-bound outcome
+has been acquired. Iter178 remains the retained integrated result: 3/4, all-four
+qualification contradicted, source comparison closed. Iter177 remains invalid.
+
+Audit all 19 accepted late bend_right endpoints (16 distinct numeric states),
+their replayable earliest numeric-join prefixes and all 2,609 evaluations from
+76 late requests. Preserve duplicate and ambiguous joins. Verify complete scalar
+masks for retained queried states and returned diagnostic paths. Native ancestry
+and unselected new-probe background labels remain unverified at that layer.
+
+Each distinct root receives one stepwise-control probe through checkpoint frame
+16: at most 1,024 transitions, 16,384 total, width 16 and a shared 120-second
+search envelope. Preserve original motion, scene and checkpoint predicates.
+Compute an independently checked necessary progress bound without pruning or
+skipping probes. Separate verified continuation, progress exclusion, bounded
+miss and censoring. A checkpoint witness is not a new integrated completion;
+a finite miss is not continuous-control infeasibility or collision inevitability.
+
+Sixty-six constructed controls and 127 focused/retained checks pass, zero skips;
+Ruff passes. Freeze scientific source, acquire once, commit raw, then independently
+admit. No retry, planner modification, cap/seed sweep or source comparison. Keep
+all errors and unknowns. No human ceremony pending.
+
+Iter178 closure 82d93e69d6cfc3e1548d039f607bfa552a60ee0b is published and verified:
+both hosted Python suites 4,254 passed / 7 skipped; exact live packet and all 187
+public source references match. Receipts ~/.codex/reports/sentinel/iter178/.
+Owned branch research/iter179-frontier-continuation-audit in the same Sentinel
+observation-recovery worktree. Preserve canonical dirty root and historical state.
+The mission remains useful intervention from actual histories with measured
+sensing/computation/actuation delay and a strong responsive comparator. Earlier
+controlling entries below are historical.
+
 # Current: Iter178 admits 3/4; source comparison remains closed — 15 October 2026
 
 Read experiments/iter178_root_domain_consistency/RESULT.md and DECISION.md.
