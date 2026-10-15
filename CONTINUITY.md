@@ -1,3 +1,37 @@
+# Current: Iter177 pose-aware seed preregistered — 15 October 2026
+
+Continue the autonomous mission through one initial-proposal test against retained
+Iter175. Read experiments/iter177_pose_aware_seed/PROTOCOL.md, MATHEMATICS.md and
+DECISION_PACKET.md. The new four-case schedule has not executed. Integrated
+qualification remains 2/4 and source comparison stays closed.
+
+Only the initial forward program changes to a bounded analytic pose-aware guess.
+Preserve fallback programs, cases/seeds, 128 inner transitions, eight-step horizon,
+18,000-transition / 120-second / 96-action outer caps and every native, sampler,
+metric, prefix, physical/scene and checkpoint rule. The source substitution
+contract checks these boundaries. No extra nonlinear rollout, optimizer or scene
+query is hidden in proposal arithmetic. Existing wall time covers computation.
+
+Constructed controls cover independent polynomial reconstruction, physical
+reflection, coordinate changes, positive pose targets, an adverse exact old
+connection lost by the approximation, one-step lateral timing, endpoint bounds,
+prescribed phases, absolute clocks, budget accounting and source corruptions.
+Forty-two new controls and 122 focused/retained checks pass, with the selected
+native library and zero skips. This does not predict the integrated outcomes.
+
+Freeze scientific source, execute one schedule, commit raw, then admit separately.
+No retry, retuning or reference rerun. Preserve losses of current successes. Exact
+source CI/public readback for Iter176 are verified: 4,177 passed, 7 skipped on
+each hosted Python version; live packet and 185 public source references match.
+Receipts ~/.codex/reports/sentinel/iter176/. Iter176's nominal coverage audit and
+four incomplete paths remain closed; no new integrated result was acquired there.
+
+Owned branch research/iter177-pose-aware-seed in the existing Sentinel observation-
+recovery worktree. Preserve canonical dirty root and historical mission state.
+The mission remains actual-history intervention with measured sensing/computation/
+actuation delay and a responsive comparator. No human ceremony is pending.
+Earlier controlling entries below are historical.
+
 # Current: Iter176 closed; coverage audit leaves integrated result at 2/4 — 15 October 2026
 
 Continue the autonomous mission with the distinct mechanism in
@@ -5938,3 +5972,8 @@ Follow the current top entry and Iter176 RESULT/DECISION. Nominal all-request
 reflection closure is contradicted; four incomplete paths pass scalar replay.
 No new integrated outcome: qualification remains 2/4 and source comparison closed.
 All scientific jobs are reaped. Earlier preregistration notices are historical.
+
+## Iter177 controlling preregistration — 15 October 2026
+
+Follow the current top entry and Iter177 protocol. No initialized integrated
+outcome yet. The retained 2/4 result and closed source-comparison gate remain.
