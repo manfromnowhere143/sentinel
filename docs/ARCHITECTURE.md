@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 14 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter174 research record. The [README](../README.md) carries the scientific
+limits through the Iter175 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -229,8 +229,8 @@ flowchart TB
   R --> J["Iter168: stops pass; turns miss"]
   J --> H["Iter169–171: control<br/>12/12 qualify"]
   H --> I["Iter172: integrated RRT<br/>0/4 cases"]
-  I --> O["Iter173: connector<br/>local test passes"]
-  O --> U["Iter174: forward RRT<br/>1/4; unqualified"]
+  I --> O["Iter173: connector<br/>local pass"]
+  O --> U["Iter174–175: RRT<br/>1/4 → 2/4; unqualified"]
 ```
 
 These privileged diagnostic inputs are not delivered to the released monitor. Iter153's model
@@ -462,3 +462,20 @@ stays closed. The next proposed test changes only the inner work allocation,
 keeping the total budget fixed; its possible loss of late useful proposals is
 explicitly retained. [Integrated result](../experiments/iter174_forward_integrated_rrt/RESULT.md) ·
 [next decision](../experiments/iter174_forward_integrated_rrt/DECISION.md).
+
+
+Iter175 changes only the connection allowance, from 1,024 to 128 transitions.
+The adapter/runtime remain byte-identical, every other scientific PLAN field is
+checked against the retained reference, and raw is committed before admission.
+Independent replay admits 2/4: bend_left is gained, chicane_left is retained.
+Calls/accepted edges rise to 387/241; 49,055 transitions are charged. All-four
+qualification still fails. Full scalar masks cover 102 returned states.
+
+The shorter cap also changes proposal coverage: none of 324 eight-step solves
+reaches Halton. More calls do not isolate a pure breadth advantage. A descriptive
+audit finds four discarded chicane_right prefixes through frame 32, with low
+route progress and unselected background labels still requiring scalar replay.
+The next task audits reflection, guidance and selection before a distinct repair;
+no cap sweep or source comparison is authorized by this failed qualification.
+[Allocation result](../experiments/iter175_connection_allocation/RESULT.md) ·
+[next decision](../experiments/iter175_connection_allocation/DECISION.md).

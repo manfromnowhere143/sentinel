@@ -1,3 +1,46 @@
+# Current: Iter175 closed; 128-cap connections complete 2/4 — 15 October 2026
+
+Independent replay admits bend_left and retains chicane_left: 2/4 versus Iter174's
+1/4. Both right-hand cases remain bounded misses. All-four qualification is
+contradicted; source comparison stays closed. Read
+experiments/iter175_connection_allocation/RESULT.md and DECISION.md.
+
+Only connection_attempt_budget changes from 1,024 to 128. Original cases/seeds,
+outer 18,000-transition / 120-second / 96-action caps, eight-step horizon and all
+other mechanics are fixed. One schedule, fresh processes, no retry or retuning.
+Attempts 49,055; calls 387; accepted edges 241. Returned frames 34,14,32,18;
+checkpoint counts 2,0,2,1. One gain and zero losses against retained Iter174.
+Every attempted motion/accounting/proposal is checked. Full scalar masks cover
+102 returned states / 741,972 point-state classifications. Unselected background
+labels and native tree/RNG remain producer evidence. No transfer or superiority.
+
+None of 324 eight-step solves reaches Halton; this is not a pure breadth test.
+A post-outcome audit finds four discarded chicane_right prefixes reaching frame
+32 with only 0.623–0.640 route progress; they are not completions. Their full masks
+remain unverified. Bend_right has no reported valid prefix past frame 14.
+Next: close cap tuning and audit matched reflection, local guidance and discarded
+continuations before choosing one distinct mechanism. No new source comparison.
+Do not infer a directional bug from left/right cases with different seeds.
+
+Frozen source 5701fc64b31ec1ad56f088db82e0b1c3f6da1090;
+raw 19233bf7c5215000e289d49111d10b5ed0c5e537 committed before admission;
+admission 104524a4cd014a5ad5e0adab7b7fa1f535dfb1ad.
+Supervised producer/checker walls 44.179/19.072 seconds; all scientific jobs reaped.
+No provider, spending, new driving episode or source query. Selected runtime
+identities verify. No hermeticity or real-time intervention claim.
+
+Eighty prefreeze focused/retained checks pass, including 21 new controls, with
+native runtime and zero skips. Three post-outcome diagnostic/reference controls pass. Exact closure
+CI and public packet/hash readback are observed separately after push; receipts
+live in ~/.codex/reports/sentinel/iter175/. Scientific source remains frozen.
+Owned branch research/iter175-connection-allocation in the Sentinel observation-
+recovery worktree. Canonical dirty root and historical mission state are preserved.
+
+The mission remains useful intervention from actual histories with realistic
+sensing, computation and actuation delay against a strong responsive comparator.
+An offline planner improvement alone does not establish that claim. No human
+ceremony is pending. Earlier controlling entries below are historical.
+
 # Current: Iter175 connection allocation preregistered — 15 October 2026
 
 Direct task: advance the mission autonomously, beginning with one 128-transition

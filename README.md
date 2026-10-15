@@ -18,7 +18,7 @@ against a competent responsive baseline, with information access, permitted acti
 resource budgets stated explicitly.
 
 [System](#what-sentinel-does) · [Results](#measured-results) ·
-[Research history](#how-the-question-changed) · [Latest result](#iteration-174-one-integrated-completion-three-misses) ·
+[Research history](#how-the-question-changed) · [Latest result](#iteration-175-shorter-connections-complete-two-of-four) ·
 [Next test](#the-next-scientific-test) · [Reproduce](#reproduce-and-inspect) ·
 [Repository status](#repository-status--14-october-2026) · [Experiment index](#complete-experiment-index)
 
@@ -247,7 +247,7 @@ flowchart TB
   J --> H["Iter169–171: control<br/>12/12 qualify"]
   H --> I["Iter172: integrated RRT<br/>0/4 cases"]
   I --> O["Iter173: connector<br/>local test passes"]
-  O --> U["Iter174: forward RRT<br/>1/4; unqualified"]
+  O --> U["Iter174–175: forward RRT<br/>1/4 → 2/4; unqualified"]
 ```
 
 ### 5. Establish what the controller actually executes
@@ -786,6 +786,34 @@ tradeoff remains untested. [Result and limits](experiments/iter174_forward_integ
 [independent admission](experiments/iter174_forward_integrated_rrt/proof/admission.json) ·
 [next decision](experiments/iter174_forward_integrated_rrt/DECISION.md).
 
+## Iteration 175: shorter connections complete two of four
+
+Reducing the inner allowance from 1,024 to 128 transitions admits **2/4 original
+completions**, up from 1/4. `bend_left` is gained and `chicane_left` is retained.
+Both right-hand cases still exhaust their work allocations. The original total
+budgets, seeds, cases and other mechanics are unchanged; no reference run is
+repeated. **All-four qualification remains contradicted; source comparison stays closed.**
+
+![Paired connection allocation](experiments/iter175_connection_allocation/proof/qualification.png)
+
+Calls rise from 70 to 387 and accepted connections from 42 to 241. Actual work
+falls from 66,274 to 49,055 attempted transitions because completions stop early.
+Independent replay checks all attempted motion/accounting and 102 returned states
+with full scalar masks. This is one seed per exposed case, not an estimate of
+population success, equal-used-work efficiency or response latency.
+
+No eight-step solve reaches the later Halton proposal family under the shorter
+cap. The trial therefore changes proposal coverage as well as tree opportunities.
+The remaining misses also differ: bend_right has no reported valid prefix beyond
+frame 14; chicane_right has four discarded prefixes through frame 32 but only
+0.623–0.640 route progress. They are not completions and still need full scalar
+background replay. Close cap tuning. Next audit matched reflection, guidance and
+prefix selection before choosing one distinct mechanism. Keep the actual-history,
+deadline-aware information comparison as the mission dependency.
+[Result and limits](experiments/iter175_connection_allocation/RESULT.md) ·
+[independent admission](experiments/iter175_connection_allocation/proof/admission.json) ·
+[next decision](experiments/iter175_connection_allocation/DECISION.md).
+
 ## The next scientific test
 
 The intended contribution is a monitor and evaluation system that can show **which failures
@@ -810,8 +838,9 @@ The following work is proposed; all previous schedules retain their closed accou
    Iter171 qualifies all twelve local tasks after a numerical coordinate correction.
    Iter172 integrates that controller but completes 0/4 original cases. Iter173
    passes a bounded forward-connector comparison on exposed requests and controls.
-   Iter174 integrates it and completes 1/4. Test work allocation inside the same
-   total budget next; keep the three misses visible.
+   Iter174 integrates it and completes 1/4. Iter175 shortens the connection allowance
+   and admits 2/4 under the same total caps. Stop cap tuning; audit guidance, reflection
+   and discarded continuations before choosing a distinct mechanism.
    Source comparison remains closed until all four cases pass.
    Offline cost is not a response-time result.
 3. **After establishing useful recovery, test one information hypothesis against a responsive baseline.**
@@ -833,7 +862,7 @@ flowchart TB
   D --> E["Iter171: centered shooting<br/>12/12 local tasks qualify"]
   E --> F["Iter172: integrated RRT<br/>0/4 cases; attempt caps bind"]
   F --> P["Iter173: forward proposals<br/>finite connector test passes"]
-  P --> U["Iter174: forward RRT<br/>1/4; unqualified"]
+  P --> U["Iter174–175: allocation trial<br/>1/4 → 2/4; unqualified"]
   U --> A{"All four cases<br/>qualify?"}
   A -- "no" --> N["Retain bounded miss<br/>repair diagnosed limitation"]
   A -- "yes" --> R["Compare at unchanged first fire<br/>fixed constraints and total cost"]
@@ -896,7 +925,7 @@ not a complete distribution of every runtime asset.
 | [Architecture](docs/ARCHITECTURE.md) | Implemented interfaces, simulator distinctions, evidence flow and timing. |
 | [Original preregistration](PREREGISTRATION.md) | The initial benchmark question and decision rules. |
 | [Research direction](docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md) | Information and recoverability: mathematical formulation and dated literature review. |
-| [Next scientific decision](experiments/iter174_forward_integrated_rrt/DECISION.md) | Test connection allocation under the same total budget; all four cases must pass before source comparison. |
+| [Next scientific decision](experiments/iter175_connection_allocation/DECISION.md) | Close cap tuning; audit guidance and discarded continuations. All four cases must pass before source comparison. |
 | [Handoff](HANDOFF.md) | Exact next task, acceptance criteria, resource closure and recovery instructions. |
 | [Continuity](CONTINUITY.md) and [next phase](docs/NEXT_PHASE.md) | Current state followed by retained historical decisions. |
 | [Technical report](docs/REPORT.md) | Historical synthesis through Iter134; it predates the current execution program. |
@@ -915,17 +944,17 @@ records update after exact-source CI and source validation. Its historical repla
 and native witness keep their own identities; automatic delivery does not grant a
 scientific claim or reinterpret the archived mission state.
 
-## Repository status — 14 October 2026
+## Repository status — 15 October 2026
 
-**This research lineage is current through Iter174, completed on 14 October.**
+**This research lineage is current through Iter175, completed on 15 October.**
 The preselected path completes two native replicas from reset. The same exact/24
 method then misses after preserving the actual first-fire history. All 49 subsequent discarded/retained
 continuations also miss. An independent RRT adapter remains unqualified after a
 retained terminal-contract correction. Local stopping, waiting and full-horizon
 turning pass all twelve constructed tasks, but the shooting integration completes 0/4
 original cases under unchanged budgets. Bounded forward proposals pass the subsequent
-local connector comparison; the new forward integration completes 1/4. The all-four
-qualification still fails. These results do not prove the later state unrecoverable.
+local connector comparison. Forward integration completes 1/4, then the fixed-budget
+allocation trial completes 2/4. The all-four qualification still fails. These results do not prove the later state unrecoverable.
 Monitor-time recovery, useful information and real-time operation remain unestablished.
 Iteration 135's dose-response experiment remains **deferred and unrun**.
 
@@ -933,15 +962,15 @@ The repository has two distinct records. The accepted code and mission snapshot 
 [`8c118b7`](https://github.com/manfromnowhere143/sentinel/tree/8c118b74c699bf0f139f9bd659192bad06b895f8)
 is **current through iteration 134**. [MISSION_STATE.json](MISSION_STATE.json) preserves
 that historical contract.
-Later research, through the Iter174 forward integration, is retained in a separate
-[research lineage](https://github.com/manfromnowhere143/sentinel/tree/520d9b1ef96c885cbfc5fd885391402197c56014).
+Later research, through the Iter175 allocation trial, is retained in a separate
+[research lineage](https://github.com/manfromnowhere143/sentinel/tree/104524a4cd014a5ad5e0adab7b7fa1f535dfb1ad).
 This README describes both; a documentation update does not integrate that later experimental
 code into the accepted snapshot. The [current handoff](HANDOFF.md) identifies the next task.
 
 The earlier 12 October editorial refresh brought the default landing page through Iter155.
 This later research revision retains the continuation misses, failed independent
 planner qualification, local qualification, integrated failure and bounded connector
-comparison plus the 1/4 integration result through Iter174. The public instrument
+comparison plus the 2/4 allocation result through Iter175. The public instrument
 follows validated closed-result packets automatically; its older replay and
 native witness do not inherit a new scientific identity from an update.
 
@@ -983,7 +1012,9 @@ Iter173 adds 22 proposal, budget, cache, population and scalar-mask checks. Its
 finite positive connector result does not qualify the integrated planner.
 Iter174 adds 16 integration/contract checks and three post-outcome arithmetic
 controls. Independent replay admits one completion while retaining the all-four
-scientific failure. Exact closure CI is observed separately.
+scientific failure. Iter175 adds 21 prefreeze allocation/contract/adverse-outcome
+checks and three post-outcome diagnostic/reference controls. Independent replay admits 2/4
+while retaining the failed all-four claim. Exact closure CI is observed separately.
 
 ## Complete experiment index
 
@@ -1165,7 +1196,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 </details>
 
 <details>
-<summary>Information, recoverability and execution: Iter135–174</summary>
+<summary>Information, recoverability and execution: Iter135–175</summary>
 
 | Record | Finding or scope |
 |---|---|
@@ -1209,6 +1240,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 | [172](experiments/iter172_integrated_rrt/RESULT.md) | Integrated RRT completes 0/4 original cases in 71,986 transitions. All attempts checked; 38 selected states/full masks replay. Source comparison remains closed. |
 | [173](experiments/iter173_matched_connector_cost/RESULT.md) | Forward proposals pass 14/14 constructed tasks and improve 16/80 requests versus shooting 12/14 and 15/80. Both return 24 admissible edges and zero checkpoint crossings. Matched caps; integrated/source qualification remains closed. |
 | [174](experiments/iter174_forward_integrated_rrt/RESULT.md) | Forward-connected RRT completes 1/4 original cases; chicane_left passes both checkpoints at 8 s. Three budget-limited misses remain. 76 states/full masks replay; source comparison stays closed. |
+| [175](experiments/iter175_connection_allocation/RESULT.md) | 128-transition connections complete 2/4 versus retained 1/4 under unchanged total caps. One gain, no loss; two right-hand misses remain. 102 states/full masks replay. Source comparison stays closed. |
 
 </details>
 

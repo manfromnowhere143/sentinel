@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "iteration": 174,
-  "directory": "experiments/iter174_forward_integrated_rrt",
-  "title": "Forward-connected RRT completes one of four original cases.",
-  "summary": "Independent replay confirms chicane_left completes at 8 seconds with both checkpoints. Three cases exhaust their transition allocations. The unchanged four-case qualification remains contradicted; source comparison stays closed.",
-  "boundary": "One seed per exposed case, unchanged total budgets. Full scalar masks cover 76 returned states; unselected background labels and native tree/RNG remain producer evidence. This does not establish source recovery, transfer or superiority.",
-  "next": "Test a smaller inner connection allowance within the same total budget. Later proposals contribute to the completed path, so the tradeoff needs a new frozen trial. All four cases must qualify before source comparison.",
+  "iteration": 175,
+  "directory": "experiments/iter175_connection_allocation",
+  "title": "Shorter connections complete two of four original cases.",
+  "summary": "Independent replay admits bend_left and retains chicane_left: 2/4 versus 1/4. Both right-hand cases miss under unchanged total budgets. All-four qualification remains contradicted; source comparison stays closed.",
+  "boundary": "One seed per exposed case. Full scalar masks cover 102 returned states. The shorter allowance also truncates proposal coverage. Unselected background labels and native tree/RNG remain producer evidence; no recovery or superiority claim.",
+  "next": "Close cap tuning. Audit mirrored proposal coverage and discarded continuations before choosing one distinct mechanism. Require all four cases before source comparison; actual-history intervention and delay remain mission dependencies.",
   "metrics": [
     {
       "label": "Original qualification cases",
