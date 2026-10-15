@@ -1,3 +1,30 @@
+# Current: Iter183 timing eligibility preregistered — 15 October 2026
+
+Read experiments/iter183_timing_eligibility/PROTOCOL.md and MATHEMATICS.md.
+Candidate: exclude only certified late timing dead ends before the existing
+Iter181 selection rule; retain uncertain states and all physical work/budgets.
+A certified exclusion inherits to later prefixes in the same valid program.
+Deadline interruption takes precedence over selecting a new prefix. Keep both
+comparators: Iter178 retained 3/4 and Iter181 adverse experimental parent 2/4.
+
+Constructed controls precede a fixed exposed-path/cost qualification: 72 states
+from five retained successes and four checkpoint witnesses, seven audit roots,
+and 256 constructed inputs with cold/warm cache passes. No new four-case outcome
+has been acquired. Freeze final source only after this qualification, then acquire
+once, commit raw and independently admit. Count gains and losses against both
+references. Source comparison remains closed unless all four cases complete.
+
+Iter182 is closed and publicly verified: four checkpoint continuations, one
+premature-completion and two progress exclusions; none completes the route.
+Both hosted suites passed 4,502 tests / 7 skipped; all 191 public references and
+the live instrument match closure 51ccd68c11454a61ad4e76342c26f12d30bd12be.
+All prior scientific/publication jobs are reaped; no provider use or spending.
+
+Owned branch research/iter183-timing-eligibility in the same Sentinel worktree.
+Preserve the canonical root, index and historical mission state. Mission remains
+useful actual-history intervention with measured sensing/computation/actuation
+delay against a strong responsive comparator. Earlier entries are historical.
+
 # Current: Iter182 admits four continuations and three timing constraints — 15 October 2026
 
 Read experiments/iter182_late_frontier_timing/RESULT.md and DECISION.md.
