@@ -1,3 +1,39 @@
+# Current: Iter183 restores 3/4; right-bend continuation remains unresolved — 15 October 2026
+
+Read experiments/iter183_timing_eligibility/RESULT.md and DECISION.md.
+Timing eligibility gains one success with no losses against its Iter181 parent;
+it ties retained Iter178 3/4 with zero gains or losses. All-four qualification is
+contradicted and source comparison stays closed. All 115 returned states / 848,694
+point-state classifications pass independent scalar replay. Total work: 40,256
+transitions, 319 calls, 206 accepted edges, with every original ceiling unchanged.
+
+A matched left-bend request has the same 16 physical evaluations in both runs.
+Excluding a certified premature-completion trap changes the selected prefix;
+the next connection completes. This explains one exposed local repair, not a
+superior best result. The right bend exhausts allocatable work and still misses.
+
+Next audit all 15 recorded-valid eligible discarded right-bend prefixes beyond
+the tree's maximum retained route index. Their masks and full paths need separate
+replay. Then probe one maximal-progress root per source connection (83/8/7,
+98/8/6, 110/2/1) for full-route continuation, with remaining transition ceilings
+7,385 / 5,465 / 3,929 and conservative original-wall charging. Freeze conditional
+fresh-tree/RNG and original sampled-clock semantics before acquisition. Higher
+progress is not proof of extendability; no integrated win follows from this audit.
+Do not change ranking, increase budgets, rerun the original cases or tune seeds.
+
+Preregistration 8456b91b752edfc4f736b9926e9f75b2e3ece316;
+frozen source cdab7abcdf49c270884380e31f8f643c5cfb375c;
+raw 172cf0f5449e4171c3f9a25bc45d6e6cb7f03bd5 before independent admission
+c53ac67984fde742a6f16a7451451f55a7913e70. All scientific processes exited/reaped.
+50 new controls / 166 focused checks pass, zero skips. Iter182's exact hosted
+closure passed 4,502 tests / 7 skipped on each Python version. Iter183 closure
+CI and public readback follow publication; no unobserved hosted pass is claimed.
+
+Owned branch research/iter183-timing-eligibility; canonical dirty root/index and
+historical mission state preserved. Mission remains useful actual-history
+intervention with measured delay and a strong responsive comparator. No provider
+use or spending. Earlier entries below are historical.
+
 # Current: Iter183 timing eligibility preregistered — 15 October 2026
 
 Iter183 pre-acquisition qualification is supported: 50 new controls / 166 focused
@@ -6491,3 +6527,10 @@ reaped. Next preregister necessary-constraint eligibility with unchanged budgets
 Follow the current top entry and Iter183 protocol. No new integrated outcome.
 Qualify retained paths and constructed cost, freeze final source, acquire once
 and admit independently. All budgets and the all-four source gate remain fixed.
+
+## Iter183 controlling closure — 15 October 2026
+
+Follow the current top entry and Iter183 RESULT/DECISION. Three completions restore
+the lost left bend but do not exceed Iter178. All-four qualification contradicted;
+source comparison closed. All scientific jobs reaped. Next audit 15 discarded
+progress prefixes before a conditional full-route continuation study or planner change.

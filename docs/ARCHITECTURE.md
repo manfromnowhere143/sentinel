@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 14 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter182 research record. The [README](../README.md) carries the scientific
+limits through the Iter183 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -230,7 +230,7 @@ flowchart TB
   J --> H["Iter169–171: control<br/>12/12 qualify"]
   H --> I["Iter172: integrated RRT<br/>0/4 cases"]
   I --> O["Iter173: connector<br/>local pass"]
-  O --> U["Iter174–181: RRT<br/>1/4 → 3/4 → 2/4; unqualified"]
+  O --> U["Iter174–183: RRT<br/>1/4 → 3/4 → 2/4 → 3/4"]
 ```
 
 These privileged diagnostic inputs are not delivered to the released monitor. Iter153's model
@@ -646,3 +646,27 @@ and cache identity before integration; count lost successes in all four cases.
 [Audit result](../experiments/iter182_late_frontier_timing/RESULT.md) ·
 [mathematical domain](../experiments/iter182_late_frontier_timing/MATHEMATICS.md) ·
 [next decision](../experiments/iter182_late_frontier_timing/DECISION.md).
+
+## Timing eligibility and the discarded-progress boundary
+
+Iter183 excludes only independently certified late timing traps before the existing
+selection rule. Uncertified prefixes remain eligible; all attempted physical work
+and certificate cost count under unchanged integrated ceilings. It restores 3/4,
+tying Iter178 and recovering one success against Iter181. Full scalar replay covers
+115 returned states. The right bend still misses; source comparison stays closed.
+
+```mermaid
+flowchart LR
+  A["Original physical evaluations"] --> B["Timing certificate or explicit unknown"]
+  B --> C["Eligible prefix selection"]
+  C --> D["3/4 complete<br/>Right bend misses"]
+  D --> E["Audit 15 discarded advancing prefixes"]
+  E --> F["Three conditional full-route probes<br/>Remaining budgets; no integrated credit"]
+```
+
+The matched left request demonstrates one local selection repair. Fifteen eligible
+but discarded advancing prefix records motivate a source-bound full-path/mask audit;
+three fixed conditional continuations follow only after their admission. Fresh
+conditional trees do not reproduce inserting nodes into the original native tree.
+No ranking change is supported yet. [Result](../experiments/iter183_timing_eligibility/RESULT.md) ·
+[next decision](../experiments/iter183_timing_eligibility/DECISION.md).

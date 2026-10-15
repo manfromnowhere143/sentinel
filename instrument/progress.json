@@ -1,41 +1,41 @@
 {
   "schemaVersion": 1,
-  "iteration": 182,
-  "directory": "experiments/iter182_late_frontier_timing",
-  "title": "Four continuations; three timing constraints.",
-  "summary": "All seven late endpoints are audited. Four have verified checkpoint continuations; one must complete too early and two cannot reach required progress in time. Every queried state passes independent scalar replay.",
-  "boundary": "Bounds apply to the declared numerical source model. None of the four witnesses completes the route. No integrated rerun: best retained 3/4, adverse candidate 2/4, source comparison closed. Actual-history intervention remains unestablished.",
-  "next": "Test necessary-constraint eligibility before selection, preserving uncertain states, all budgets and explicit lost-success accounting against both the retained baseline and experimental parent.",
+  "iteration": 183,
+  "directory": "experiments/iter183_timing_eligibility",
+  "title": "Timing eligibility restores three of four.",
+  "summary": "The left bend and both chicanes complete. One gain with no losses against the experimental parent; no gains or losses against the retained best. Independent replay admits all 115 returned states.",
+  "boundary": "The right bend still misses and all-four qualification fails. Source comparison stays closed. One exposed case explains a local repair; useful actual-history intervention and measured response delay remain unestablished.",
+  "next": "Audit all 15 discarded advancing prefixes, then three fixed full-route continuations within the work remaining at discovery. Higher progress alone does not establish feasibility.",
   "metrics": [
     {
-      "label": "Retained endpoints",
-      "field": "retained_endpoint_records"
+      "label": "Complete cases",
+      "field": "complete_cases"
     },
     {
-      "label": "Verified checkpoint continuations",
-      "field": "checkpoint_witnesses"
+      "label": "Qualification cases",
+      "field": "total_cases"
     },
     {
-      "label": "Scalar-replayed states",
-      "field": "distinct_scalar_states"
+      "label": "Scalar-replayed returned states",
+      "field": "verified_states"
     },
     {
       "label": "Attempted transitions",
-      "field": "diagnostic_attempts"
+      "field": "total_attempts"
     }
   ],
   "breakdown": [
     {
-      "label": "Premature-completion exclusions",
-      "field": "premature_completion_exclusions"
+      "label": "Gains against retained best",
+      "field": "comparison.gained_cases"
     },
     {
-      "label": "Progress exclusions",
-      "field": "progress_exclusions"
+      "label": "Gains against experimental parent",
+      "field": "parent_comparison.gained_cases"
     },
     {
-      "label": "Unresolved bounded misses",
-      "field": "bounded_misses"
+      "label": "Losses against retained best",
+      "field": "comparison.lost_cases"
     }
   ]
 }

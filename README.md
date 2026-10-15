@@ -18,7 +18,7 @@ against a competent responsive baseline, with information access, permitted acti
 resource budgets stated explicitly.
 
 [System](#what-sentinel-does) · [Results](#measured-results) ·
-[Research history](#how-the-question-changed) · [Latest result](#iteration-182-four-continuations-three-timing-constraints) ·
+[Research history](#how-the-question-changed) · [Latest result](#iteration-183-timing-eligibility-restores-three-of-four) ·
 [Next test](#the-next-scientific-test) · [Reproduce](#reproduce-and-inspect) ·
 [Repository status](#repository-status--15-october-2026) · [Experiment index](#complete-experiment-index)
 
@@ -247,7 +247,7 @@ flowchart TB
   J --> H["Iter169–171: control<br/>12/12 qualify"]
   H --> I["Iter172: integrated RRT<br/>0/4 cases"]
   I --> O["Iter173: connector<br/>local pass"]
-  O --> U["Iter174–181: RRT<br/>1/4 → 3/4 → 2/4; unqualified"]
+  O --> U["Iter174–183: RRT<br/>1/4 → 3/4 → 2/4 → 3/4"]
 ```
 
 ### 5. Establish what the controller actually executes
@@ -993,6 +993,29 @@ audit. Source comparison remains closed.
 [independent admission](experiments/iter182_late_frontier_timing/proof/admission.json) ·
 [next decision](experiments/iter182_late_frontier_timing/DECISION.md).
 
+## Iteration 183: timing eligibility restores three of four
+
+**The left bend and both chicanes complete; the right bend still misses.**
+The necessary-constraint filter repairs the lost success against Iter181, with
+no losses, and ties retained Iter178's 3/4. It does not improve the best outcome.
+All original budgets remain fixed; source comparison stays closed.
+
+![Timing eligibility qualification](experiments/iter183_timing_eligibility/proof/qualification.png)
+
+Independent replay admits 115 returned states / 848,694 point-state classifications.
+A directly matched left-bend request has the same 16 physical program evaluations;
+removing a certified premature-completion trap changes selection, and the next
+connection completes. The right bend remains limited by allocatable transitions.
+
+That failed run generated 15 recorded-valid eligible prefixes beyond every retained
+tree endpoint's route index, across three connections. None was retained on its
+selected edge. Their additional masks and onward feasibility remain unverified.
+Next audit every such prefix, then test three fixed full-route continuations under
+the work remaining at discovery. Higher progress alone is not an admissible opportunity.
+[Result and scope](experiments/iter183_timing_eligibility/RESULT.md) ·
+[independent admission](experiments/iter183_timing_eligibility/proof/admission.json) ·
+[next decision](experiments/iter183_timing_eligibility/DECISION.md).
+
 ## The next scientific test
 
 The intended contribution is a monitor and evaluation system that can show **which failures
@@ -1029,8 +1052,8 @@ The following work is proposed; all previous schedules retain their closed accou
    at prefix selection. Iter181 tests checkpoint-aware selection under unchanged
    budgets and loses one success, completing 2/4. Iter182 separates four verified
    checkpoint continuations from three demonstrated timing exclusions at its seven
-   late endpoints. Next test necessary-constraint eligibility with unchanged budgets
-   and loss accounting against the retained 3/4 comparator.
+   late endpoints. Iter183 applies necessary-constraint eligibility and restores 3/4,
+   tying the retained best. Next audit discarded progress before changing retention.
    Source comparison remains closed until all four cases pass.
    Offline cost is not a response-time result.
 3. **After establishing useful recovery, test one information hypothesis against a responsive baseline.**
@@ -1052,7 +1075,7 @@ flowchart TB
   D --> E["Iter171: centered shooting<br/>12/12 local tasks qualify"]
   E --> F["Iter172: integrated RRT<br/>0/4 cases; attempt caps bind"]
   F --> P["Iter173: forward proposals<br/>finite connector test passes"]
-  P --> U["Iter174–181: RRT<br/>1/4 → 3/4 → 2/4; unqualified"]
+  P --> U["Iter174–183: RRT<br/>1/4 → 3/4 → 2/4 → 3/4"]
   U --> A{"All four cases<br/>qualify?"}
   A -- "no" --> N["Retain bounded miss<br/>repair diagnosed limitation"]
   A -- "yes" --> R["Compare at unchanged first fire<br/>fixed constraints and total cost"]
@@ -1116,7 +1139,7 @@ not a complete distribution of every runtime asset.
 | [Architecture](docs/ARCHITECTURE.md) | Implemented interfaces, simulator distinctions, evidence flow and timing. |
 | [Original preregistration](PREREGISTRATION.md) | The initial benchmark question and decision rules. |
 | [Research direction](docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md) | Information and recoverability: mathematical formulation and dated literature review. |
-| [Next scientific decision](experiments/iter182_late_frontier_timing/DECISION.md) | Test necessary-constraint eligibility before selection, preserving uncertain states, all budgets and explicit losses. Keep Iter178's 3/4 comparator, Iter181's adverse 2/4 parent and the closed source-comparison gate. |
+| [Next scientific decision](experiments/iter183_timing_eligibility/DECISION.md) | Audit all 15 discarded advancing prefixes and three fixed full-route continuations within remaining work. Preserve 3/4 qualification and the closed source-comparison gate. |
 | [Handoff](HANDOFF.md) | Exact next task, acceptance criteria, resource closure and recovery instructions. |
 | [Continuity](CONTINUITY.md) and [next phase](docs/NEXT_PHASE.md) | Current state followed by retained historical decisions. |
 | [Technical report](docs/REPORT.md) | Historical synthesis through Iter134; it predates the current execution program. |
@@ -1137,7 +1160,7 @@ scientific claim or reinterpret the archived mission state.
 
 ## Repository status — 15 October 2026
 
-**Current through Iter182: four checkpoint continuations and three timing exclusions; integrated qualification remains 3/4.**
+**Current through Iter183: timing eligibility restores 3/4; the right bend still misses.**
 The preselected path completes two native replicas from reset. The same exact/24
 method then misses after preserving the actual first-fire history. All 49 subsequent discarded/retained
 continuations also miss. An independent RRT adapter remains unqualified after a
@@ -1157,7 +1180,10 @@ traces a valid original program discarded by prefix selection. No new integrated
 outcome is inferred from that diagnostic. Iter181 tests the selection preference
 and admits 2/4: one lost success and no gains. Iter182 audits all seven late
 endpoints, admitting four checkpoint continuations and three timing exclusions.
-No witness completes the full route; source comparison stays closed.
+No audit witness completes the full route. Iter183 applies necessary-constraint
+eligibility, restoring 3/4 without exceeding the best retained outcome. Fifteen
+discarded advancing prefix records motivate the next continuation audit; source
+comparison stays closed.
 Monitor-time recovery, useful information and real-time operation remain unestablished.
 Iteration 135's dose-response experiment remains **deferred and unrun**.
 
@@ -1165,8 +1191,8 @@ The repository has two distinct records. The accepted code and mission snapshot 
 [`8c118b7`](https://github.com/manfromnowhere143/sentinel/tree/8c118b74c699bf0f139f9bd659192bad06b895f8)
 is **current through iteration 134**. [MISSION_STATE.json](MISSION_STATE.json) preserves
 that historical contract.
-Later research, through the Iter182 timing audit, is retained in a separate
-[research lineage](https://github.com/manfromnowhere143/sentinel/tree/84fa02a7b4cf0fc47eb79e5eb337f2f5d4576045).
+Later research, through Iter183 timing eligibility, is retained in a separate
+[research lineage](https://github.com/manfromnowhere143/sentinel/tree/c53ac67984fde742a6f16a7451451f55a7913e70).
 This README describes both; a documentation update does not integrate that later experimental
 code into the accepted snapshot. The [current handoff](HANDOFF.md) identifies the next task.
 
@@ -1175,7 +1201,7 @@ This later research revision retains the continuation misses, failed independent
 planner qualification, local qualification, integrated failure and bounded connector
 comparison, allocation result, guidance audit, invalid trial, corrected 3/4 result,
 frontier continuation audit, equal-ceiling comparison, adverse selection trial
-and late timing audit through Iter182. The public instrument
+late timing audit and eligibility repair through Iter183. The public instrument
 follows validated closed-result packets automatically; its older replay and
 native witness do not inherit a new scientific identity from an update.
 
@@ -1236,6 +1262,8 @@ seven skips on each hosted Python version. Iter181 adds 59 constructed controls;
 150 focused checks pass with zero skips and the selected native runtime. Its exact
 closure passed 4,445 tests with seven skips on each hosted Python version. Iter182
 adds 57 constructed controls; 189 focused checks pass with zero skips. Its exact
+closure passed 4,502 tests with seven skips on each hosted Python version. Iter183
+adds 50 constructed controls; 166 focused checks pass with zero skips. Its exact
 closure CI is observed separately after publication. Software checks do not
 rehabilitate failed qualification or establish actual-history intervention.
 
@@ -1419,7 +1447,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 </details>
 
 <details>
-<summary>Information, recoverability and execution: Iter135–182</summary>
+<summary>Information, recoverability and execution: Iter135–183</summary>
 
 | Record | Finding or scope |
 |---|---|
@@ -1471,6 +1499,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 | [180](experiments/iter180_equal_work_continuation/RESULT.md) | Equal 128-transition ceilings: both retained programs and width-two beam find the same three checkpoint witnesses; no gains, losses or censoring. All 1,502 queried states scalar-verified. Original records expose a generated valid path lost at prefix selection. Integrated qualification remains 3/4. |
 | [181](experiments/iter181_checkpoint_prefix_selection/RESULT.md) | Checkpoint-aware prefix selection completes 2/4 versus retained 3/4: zero gains, one lost success. All returned paths scalar-replay (115 states). Later progress and premature-completion failures remain distinct; source comparison stays closed. |
 | [182](experiments/iter182_late_frontier_timing/RESULT.md) | Seven late endpoints: four verified frame-32 continuations, one premature-completion exclusion, two progress exclusions, zero unresolved/censored probes. Every queried mask replays; no full-route witness or new integrated result. |
+| [183](experiments/iter183_timing_eligibility/RESULT.md) | Necessary timing eligibility restores 3/4: one gain against Iter181, zero gains/losses against retained Iter178. Right bend still misses; 15 discarded advancing prefixes require continuation audit. |
 
 </details>
 
