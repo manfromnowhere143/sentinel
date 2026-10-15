@@ -1,3 +1,39 @@
+# Current: Iter180 equal-work continuation comparison preregistered — 15 October 2026
+
+Read experiments/iter180_equal_work_continuation/PROTOCOL.md, MATHEMATICS.md and
+DECISION_PACKET.md. No retained-root outcome has been acquired for this comparison.
+Iter179 is closed and publicly verified: three checkpoint continuations, two
+progress exclusions, eleven unresolved misses; no censoring. Its correction is
+retained: the old generator already includes multi-phase controls. Integrated
+qualification remains Iter178's 3/4 and source comparison stays closed.
+
+Compare the actual retained generator/evaluator with the existing stepwise probe
+at width two over all 16 distinct late roots. Each arm/root receives 128 transitions
+and three seconds checked before propagation; 32 runs, at most 4,096 attempts.
+Alternate arm order, preserve all predicates and absolute clocks, and use the frozen
+nominal-speed route target with a common checkpoint-feasibility objective. This is
+not original sampled-target replay or an isolated expressivity test. Width two
+follows the 126-transition worst-case four-step bound; it is not guaranteed to win.
+All queried states, including unselected/invalid-suffix queries, require full scalar
+mask agreement. Preserve numerical disagreement as invalid, censoring as unknown
+and observed losses. No integrated planner change or cap/width/seed sweep.
+
+66 new constructed controls / 174 focused-retained checks pass, zero skips. A real
+point-wall control verifies that the narrow beam can lose a valid program witness.
+The initial boundary-aligned version triggered an exact scalar-mask disagreement;
+its prefreeze record is preserved in ~/.codex/reports/sentinel/iter180/fixture-history.json.
+No tolerance was relaxed. Freeze source, acquire once, commit raw, then admit
+independently. No human ceremony pending.
+
+Iter179 corrected closure d71eab91dbe7d0979d1e3f6d7259e0a84d1bc89b passed both hosted
+Python suites: 4,320 passed / 7 skipped each. Exact live packet and 188 public
+references match; all owned jobs are reaped. Receipts ~/.codex/reports/sentinel/iter179/.
+Owned branch research/iter180-equal-work-continuation in the same Sentinel
+observation-recovery worktree. Preserve canonical dirty root and historical state.
+The mission remains useful actual-history intervention with measured sensing,
+computation and actuation delay and a strong responsive comparator. Earlier
+controlling entries below are historical.
+
 # Current: Iter179 separates feasible, excluded and unresolved continuations — 15 October 2026
 
 Read experiments/iter179_frontier_continuation_audit/RESULT.md and DECISION.md.
