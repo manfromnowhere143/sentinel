@@ -1,0 +1,23 @@
+{
+  "stage": "producer",
+  "command": [
+    "python3",
+    "-m",
+    "experiments.iter177_pose_aware_seed.run",
+    "--root",
+    "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011",
+    "--source",
+    "5762157a1ae612fd6c6c2b1c89bba9701f2150cd",
+    "--library",
+    "/Users/danielwahnich/.codex/reports/sentinel/iter172/libsentinel_ompl.dylib"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011",
+  "started": "2026-10-15T11:52:06.915007+00:00",
+  "limit_seconds": 910,
+  "status": "invalid",
+  "pid": 15943,
+  "returncode": 1,
+  "elapsed_seconds": 32.26093533303356,
+  "finished": "2026-10-15T11:52:39.176331+00:00",
+  "process_reaped": true
+}
