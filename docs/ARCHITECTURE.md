@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 14 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter180 research record. The [README](../README.md) carries the scientific
+limits through the Iter181 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -230,7 +230,7 @@ flowchart TB
   J --> H["Iter169–171: control<br/>12/12 qualify"]
   H --> I["Iter172: integrated RRT<br/>0/4 cases"]
   I --> O["Iter173: connector<br/>local pass"]
-  O --> U["Iter174–178: RRT<br/>1/4 → 3/4; unqualified"]
+  O --> U["Iter174–181: RRT<br/>1/4 → 3/4 → 2/4; unqualified"]
 ```
 
 These privileged diagnostic inputs are not delivered to the released monitor. Iter153's model
@@ -590,3 +590,23 @@ Expansion allocation remains a separate question. Integrated diagrams still show
 3/4, and source comparison remains closed.
 [Comparison](../experiments/iter180_equal_work_continuation/RESULT.md) ·
 [next decision](../experiments/iter180_equal_work_continuation/DECISION.md).
+
+
+Iter181 changes only prefix selection: among continuously valid uninterrupted
+prefixes, prefer more scheduled checkpoint times crossed since the root, then
+retain the old target distance and tie order. Full completion takes precedence.
+The independent checker uses checkpoint times and reconstructs eligibility before
+ranking. Generator, sampler, native nearest-neighbor metric, root tolerance,
+physical predicates, stopping and total budgets remain unchanged.
+
+The candidate completes 2/4 against retained Iter178's 3/4, with no gains and one
+lost bend_left success. Independent full scalar replay covers 115 returned-path
+states / 853,050 point-state classifications. The bend_right tree reaches frame
+31 without enough later progress, while bend_left approaches completion before the
+required time. Four of seven late endpoints receive no outgoing request. Those
+are distinct observed signatures, not continuous-control exclusions or proof of
+an allocation repair. The next bounded audit separates progress reach, premature
+completion and feasible continuation before another integrated change. Source
+comparison stays closed; the adverse candidate is not promoted.
+[Selection result](../experiments/iter181_checkpoint_prefix_selection/RESULT.md) ·
+[next decision](../experiments/iter181_checkpoint_prefix_selection/DECISION.md).

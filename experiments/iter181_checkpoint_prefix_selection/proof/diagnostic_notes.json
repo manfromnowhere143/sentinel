@@ -1,0 +1,167 @@
+{
+  "status": "descriptive",
+  "scope": "Read-only post-admission counts from committed records; no new continuation search, scalar admission of these extra endpoints, continuous-control exclusion or causal attribution.",
+  "admission_commit": "bd59d533032953c83234f95a851fbf7337280868",
+  "raw_commit": "36383c3dd420ab7a8d7efad4c4808c3bae37c09b",
+  "inputs": {
+    "experiments/iter181_checkpoint_prefix_selection/proof/search_raw/bend_left/events.jsonl": "853f5651d1f54303f2e02c3e626f421a86227ce71567101a263d227adeb0a035",
+    "experiments/iter181_checkpoint_prefix_selection/proof/search_raw/bend_right/events.jsonl": "10edb652190bf1d29510c6734747a8ccfbeaf2ec7fcb19f8f5121bf13a6556b6",
+    "experiments/iter178_root_domain_consistency/proof/search_raw/bend_left/events.jsonl": "ce3ced4b993b9cfa6548cbeb5206ba6996f6bbfb26591960a08d114ee305678e"
+  },
+  "late_population_rule": "All accepted endpoint records at absolute frame >=24 in the two missed candidate cases; next existing checkpoint frame32.",
+  "late_endpoint_records": 7,
+  "records": [
+    {
+      "case": "bend_left",
+      "call": 91,
+      "frame": 29,
+      "state": [
+        14.306683266367623,
+        13.644763756060366,
+        1.436874168954385,
+        2.0,
+        0.2617993877991494
+      ],
+      "rc": 0.988835725677831,
+      "outgoing_calls": [
+        92,
+        93,
+        95,
+        103,
+        120,
+        123,
+        130,
+        132,
+        137,
+        139,
+        140,
+        141
+      ],
+      "accepted_outgoing_calls": [],
+      "first_rejections": {
+        "premature_completion": 438
+      }
+    },
+    {
+      "case": "bend_left",
+      "call": 104,
+      "frame": 25,
+      "state": [
+        13.923501566516354,
+        12.061870237205934,
+        1.1135401867649957,
+        3.0,
+        2.7755575615628914e-17
+      ],
+      "rc": 0.9197235513024987,
+      "outgoing_calls": [
+        110
+      ],
+      "accepted_outgoing_calls": [
+        110
+      ],
+      "first_rejections": {
+        "premature_completion": 11,
+        "controls": 5
+      }
+    },
+    {
+      "case": "bend_left",
+      "call": 110,
+      "frame": 26,
+      "state": [
+        14.199431439192319,
+        12.622662271176662,
+        1.0983680888910978,
+        2.5,
+        -0.06544984694978732
+      ],
+      "rc": 0.9463051568314726,
+      "outgoing_calls": [],
+      "accepted_outgoing_calls": [],
+      "first_rejections": {}
+    },
+    {
+      "case": "bend_left",
+      "call": 128,
+      "frame": 24,
+      "state": [
+        13.871734710740748,
+        7.227031234053558,
+        1.53770663521502,
+        2.3294088728493128,
+        0.5223877625750829
+      ],
+      "rc": 0.7177033492822966,
+      "outgoing_calls": [],
+      "accepted_outgoing_calls": [],
+      "first_rejections": {}
+    },
+    {
+      "case": "bend_left",
+      "call": 134,
+      "frame": 24,
+      "state": [
+        13.478623247310745,
+        11.166303310156437,
+        1.125994806582717,
+        1.5,
+        0.19634954084936207
+      ],
+      "rc": 0.8771929824561404,
+      "outgoing_calls": [],
+      "accepted_outgoing_calls": [],
+      "first_rejections": {}
+    },
+    {
+      "case": "bend_right",
+      "call": 102,
+      "frame": 31,
+      "state": [
+        10.265614790223704,
+        -2.4872170428045397,
+        -0.6089600788342752,
+        0.4983879089007667,
+        -0.4523275957771986
+      ],
+      "rc": 0.4784688995215311,
+      "outgoing_calls": [
+        112
+      ],
+      "accepted_outgoing_calls": [],
+      "first_rejections": {
+        "progress": 125,
+        "controls": 3
+      }
+    },
+    {
+      "case": "bend_right",
+      "call": 138,
+      "frame": 30,
+      "state": [
+        10.601796518229019,
+        -2.6339923066414617,
+        -0.4150128190425827,
+        0.9253645255089877,
+        0.4697021726230564
+      ],
+      "rc": 0.4944178628389155,
+      "outgoing_calls": [],
+      "accepted_outgoing_calls": [],
+      "first_rejections": {}
+    }
+  ],
+  "baseline_bend_left_completed_connection_chain": [
+    1,
+    2,
+    3,
+    18,
+    20,
+    27,
+    34,
+    37,
+    38
+  ],
+  "first_changed_bend_left_call5_on_baseline_completed_chain": false,
+  "next_question": "Separate late progress shortfall, premature completion and feasible unexpanded continuations before changing selection or tree retention again."
+}

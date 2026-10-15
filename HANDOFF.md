@@ -1,3 +1,47 @@
+# Current: Iter181 selection candidate loses one success — 15 October 2026
+
+Read experiments/iter181_checkpoint_prefix_selection/RESULT.md and DECISION.md.
+Independent admission contradicts all-four qualification: candidate 2/4 versus
+Iter178's retained 3/4, zero gains and one lost bend_left success. Both chicanes
+complete; bend_right still misses. Source comparison stays closed. Preserve this
+adverse result and do not promote the candidate over the retained baseline.
+
+All returned paths pass full scalar replay: 115 states / 853,050 point-state
+classifications, plus attempted motion, clock, proposal, cache, selection and
+accounting checks. Total work 50,727 transitions / 400 calls / 267 accepted edges.
+Bend_left returns frame 29 near completion; bend_right returns frame 14 while its
+tree reaches 31. Tree endpoints outside returned paths retain the stated scalar
+verification limit. Neither miss is time-censored; transition/reservation caps bind.
+
+Post-admission records retain all seven accepted endpoints at frame >= 24 in both
+missed cases. Four have no outgoing request. Left frame 29 receives 12 requests,
+438 evaluations all first rejecting premature_completion. Right frame 31 receives
+one request: 125 progress and 3 controls first rejections. These are finite reported
+rejections, not proofs of continuous-control infeasibility.
+
+Next: preregister a bounded timing audit of all seven late endpoint records.
+Reconstruct/check full scalar paths; separate feasible frame 32 continuations,
+necessary progress constraints, unavoidable premature-completion constraints and
+unresolved/censored misses. Independently verify any new bound; no pruning or
+new integrated run. Keep existing checkpoint/motion rules and explicit unknowns.
+Use that evidence before changing selection, retention or allocation again.
+
+Frozen source 129ebac0ad7369b5c8a41e71c8990cfa99d94604;
+raw committed before admission 36383c3dd420ab7a8d7efad4c4808c3bae37c09b;
+admission bd59d533032953c83234f95a851fbf7337280868.
+Producer/checker supervised walls 38.332 / 18.763 seconds; all scientific jobs reaped.
+59 new controls / 150 focused checks pass, zero skips; selected runtime verifies.
+No driving episode, source recovery query, provider use or spending. Exact closure
+hosted CI/public readback follows push; receipts ~/.codex/reports/sentinel/iter181/.
+Iter180 closure is publicly verified: 4,386 passed / 7 skipped each hosted Python,
+live packet and 189 public references match. All prior jobs are reaped.
+
+Owned branch research/iter181-checkpoint-prefix-selection in the same Sentinel
+observation-recovery worktree. Preserve canonical dirty root and historical state.
+Mission remains useful actual-history intervention with measured sensing,
+computation and actuation delay against a strong responsive comparator. No human
+ceremony pending. Earlier controlling entries below are historical.
+
 # Current: Iter181 checkpoint-aware prefix selection preregistered — 15 October 2026
 
 Read experiments/iter181_checkpoint_prefix_selection/PROTOCOL.md, MATHEMATICS.md
