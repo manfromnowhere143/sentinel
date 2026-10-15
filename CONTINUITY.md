@@ -1,3 +1,34 @@
+# Current: Iter178 next-root consistency correction preregistered — 15 October 2026
+
+Read experiments/iter178_root_domain_consistency/PROTOCOL.md and DECISION_PACKET.md.
+The new corrected four-case schedule has not executed. Iter177 remains invalid,
+closed and never retried; its three earlier producer records remain unadmitted.
+Retained qualification is Iter175's 2/4, and source comparison stays closed.
+
+Only next-root numerical acceptance changes to the existing motion tolerance:
+speed [-1e-12,6+1e-12], absolute steering <=pi/3+1e-12. Preserve every state value;
+no projection, clipping or change to physical predicates/tolerances. Source
+contracts bind the original Controls methods and the two import substitutions.
+Retain Iter177's seed/fallback generator, runtime, cases/seeds, sampler, metric,
+prefix rules and all 128-inner / 18,000-total-transition / 120-second / 96-action
+budgets. This corrected candidate is compared as a whole against retained Iter175;
+no isolated pose-guidance causal or holdout claim.
+
+Twenty-eight new controls cover accepted-state composition, all four numerical
+boundaries, the next representable value outside each, unchanged interior actions,
+scene rejection, absolute clocks, accounting and source/identity corruption.
+119 focused/retained checks pass with the selected native runtime and zero skips;
+Ruff passes. Freeze source before the single schedule, commit raw, then admit
+separately. Iter177 exact hosted closure/public readback is verified: both Python
+suites 4,226 passed / 7 skipped; live packet and 186 public source references match.
+Receipts ~/.codex/reports/sentinel/iter177/. No human ceremony pending.
+
+Owned branch research/iter178-root-domain-consistency in the existing Sentinel
+observation-recovery worktree. Preserve canonical dirty root and historical state.
+The mission remains useful intervention from actual histories with measured
+sensing/computation/actuation delay and a strong responsive comparator. Earlier
+controlling entries below are historical.
+
 # Current: Iter177 invalid; accepted-state/next-root boundary diagnosed — 15 October 2026
 
 Read experiments/iter177_pose_aware_seed/RESULT.md and DECISION.md. The original
@@ -6025,3 +6056,8 @@ outcome yet. The retained 2/4 result and closed source-comparison gate remain.
 Follow the current top entry and Iter177 RESULT/DECISION. The initialized schedule
 is invalid and must not be retried. One boundary witness is independently checked;
 three prior case results remain unadmitted. Source comparison stays closed.
+
+## Iter178 controlling preregistration — 15 October 2026
+
+Follow the current top entry and Iter178 protocol. No initialized corrected
+qualification yet. Iter177 remains invalid; source comparison stays closed.
