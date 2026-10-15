@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 14 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter181 research record. The [README](../README.md) carries the scientific
+limits through the Iter182 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -605,8 +605,44 @@ states / 853,050 point-state classifications. The bend_right tree reaches frame
 31 without enough later progress, while bend_left approaches completion before the
 required time. Four of seven late endpoints receive no outgoing request. Those
 are distinct observed signatures, not continuous-control exclusions or proof of
-an allocation repair. The next bounded audit separates progress reach, premature
+an allocation repair. Iter182 below separates progress reach, premature
 completion and feasible continuation before another integrated change. Source
 comparison stays closed; the adverse candidate is not promoted.
 [Selection result](../experiments/iter181_checkpoint_prefix_selection/RESULT.md) ·
 [next decision](../experiments/iter181_checkpoint_prefix_selection/DECISION.md).
+
+
+## Late-frontier timing audit
+
+Iter182 independently admits four frame-32 continuations and three sufficient
+numerical-model exclusions among all seven late Iter181 endpoints. The left
+frame-29 root must complete too early; both right roots cannot reach checkpoint
+progress in time. Zero unresolved or censored probes in this population. The
+premature-completion certificate is inapplicable at frame31, independently of its
+progress certificate. No certificate prunes a diagnostic probe.
+
+```mermaid
+flowchart LR
+  A["Seven retained endpoints<br/>two missed cases"] --> B["Full scalar prefixes<br/>case-scoped masks"]
+  B --> C["Fixed unpruned probes<br/>independent timing bounds"]
+  C --> D["Four verified checkpoint paths<br/>zero full-route completions"]
+  C --> E["One premature-completion exclusion<br/>two progress exclusions"]
+  C --> F["Zero unresolved misses<br/>zero censored probes"]
+  D --> G["No integrated promotion<br/>best retained 3/4; gate closed"]
+  E --> G
+  F --> G
+```
+
+All 3,969 queried states / 25,933,446 point-state classifications replay, including
+unselected and rejected queries. Exact numeric joins reconstruct paths; they do
+not identify native ancestry. Three witness roots lacked original expansion, but
+all diagnostic witnesses used more than the original 128-transition connection
+ceiling. Allocation alone is not established as the mechanism.
+
+Next preregister necessary-constraint eligibility before prefix selection on the
+Iter181 experimental parent, preserving the Iter178 comparator and every budget.
+Unknown states remain eligible. Validate retained successful prefixes, bound cost
+and cache identity before integration; count lost successes in all four cases.
+[Audit result](../experiments/iter182_late_frontier_timing/RESULT.md) ·
+[mathematical domain](../experiments/iter182_late_frontier_timing/MATHEMATICS.md) ·
+[next decision](../experiments/iter182_late_frontier_timing/DECISION.md).

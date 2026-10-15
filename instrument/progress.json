@@ -1,41 +1,41 @@
 {
   "schemaVersion": 1,
-  "iteration": 181,
-  "directory": "experiments/iter181_checkpoint_prefix_selection",
-  "title": "Checkpoint preference loses a previous success.",
-  "summary": "The candidate completes two of four cases against the retained three-of-four baseline: zero gains and one lost bend-left success. Independent replay verifies 115 returned-path states and 853,050 point-state classifications.",
-  "boundary": "All-four qualification is contradicted and source comparison stays closed. Later progress, premature completion and unexpanded states remain distinct questions. The candidate is not promoted; useful actual-history intervention remains unestablished.",
-  "next": "Audit all seven late endpoints in the two missed cases for progress deadlines, premature completion and feasible continuations before changing the planner again.",
+  "iteration": 182,
+  "directory": "experiments/iter182_late_frontier_timing",
+  "title": "Four continuations; three timing constraints.",
+  "summary": "All seven late endpoints are audited. Four have verified checkpoint continuations; one must complete too early and two cannot reach required progress in time. Every queried state passes independent scalar replay.",
+  "boundary": "Bounds apply to the declared numerical source model. None of the four witnesses completes the route. No integrated rerun: best retained 3/4, adverse candidate 2/4, source comparison closed. Actual-history intervention remains unestablished.",
+  "next": "Test necessary-constraint eligibility before selection, preserving uncertain states, all budgets and explicit lost-success accounting against both the retained baseline and experimental parent.",
   "metrics": [
     {
-      "label": "Candidate complete cases",
-      "field": "complete_cases"
+      "label": "Retained endpoints",
+      "field": "retained_endpoint_records"
     },
     {
-      "label": "Retained baseline complete cases",
-      "field": "comparison.reference_complete_cases"
+      "label": "Verified checkpoint continuations",
+      "field": "checkpoint_witnesses"
     },
     {
-      "label": "Original cases",
-      "field": "total_cases"
+      "label": "Scalar-replayed states",
+      "field": "distinct_scalar_states"
     },
     {
-      "label": "Verified returned-path states",
-      "field": "verified_states"
+      "label": "Attempted transitions",
+      "field": "diagnostic_attempts"
     }
   ],
   "breakdown": [
     {
-      "label": "Gained cases",
-      "field": "comparison.gained_cases"
+      "label": "Premature-completion exclusions",
+      "field": "premature_completion_exclusions"
     },
     {
-      "label": "Lost successes",
-      "field": "comparison.lost_cases"
+      "label": "Progress exclusions",
+      "field": "progress_exclusions"
     },
     {
-      "label": "Attempted transitions",
-      "field": "total_attempts"
+      "label": "Unresolved bounded misses",
+      "field": "bounded_misses"
     }
   ]
 }

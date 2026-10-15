@@ -1,3 +1,42 @@
+# Current: Iter182 admits four continuations and three timing constraints — 15 October 2026
+
+Read experiments/iter182_late_frontier_timing/RESULT.md and DECISION.md.
+All seven late endpoint records are independently admitted: four verified frame-32
+continuations, one premature-completion exclusion and two progress exclusions.
+Zero unresolved bounded misses, zero censored probes, zero certificate conflicts.
+All 3,969 queried states / 25,933,446 point-state classifications pass scalar replay,
+including unselected/rejected queries; 196 retained path records, 226 probe-path
+records and 1,217 prefix records from all 582 original evaluations also replay.
+
+Three feasible roots had no original outgoing request. Each diagnostic witness
+costs 966–1,499 transitions and uses another procedure, above the original 128 cap;
+allocation alone is not a causal diagnosis. None of the four frame-32 witnesses
+completes the route. Bounds apply only to the declared numerical source model.
+No planner change or integrated rerun. Best retained result remains Iter178 3/4;
+Iter181 remains adverse 2/4 and the all-four source-comparison gate stays closed.
+
+Next preregister one necessary-constraint eligibility filter on late valid prefixes
+before existing selection in the Iter181 experimental parent. Retain Iter178 as
+performance comparator and Iter181 as direct-parent comparator. Reject only proven
+exclusions; uncertified states remain eligible. Validate against successful paths,
+profile bound/cache cost, preserve all integrated budgets and count lost successes.
+No combined beam/allowance/allocation change. See DECISION for the exact boundary.
+
+Frozen source b357b7c3dd19eefce3fa394f9859d9cc8b5f9f25;
+raw before admission 8a4ccf7c02a4e517ae1834025b871555cce52430;
+admission 84fa02a7b4cf0fc47eb79e5eb337f2f5d4576045.
+One acquisition, 5,413 transitions. Producer/checker supervised walls 9.990 / 196.188
+seconds; both exited/reaped. 57 new controls / 189 focused checks pass, zero skips.
+No driving, provider use or spending. Exact closure hosted CI/public readback follows
+push; operational receipts ~/.codex/reports/sentinel/iter182/. Iter181 publication
+passed 4,445 tests / 7 skipped in both hosted Python suites; 190 public refs match.
+
+Owned branch research/iter182-late-frontier-timing in the same Sentinel worktree.
+Preserve the canonical dirty root, index and historical MISSION_STATE. Mission:
+useful actual-history intervention with measured sensing/computation/actuation
+delay against a strong responsive comparator. No human ceremony pending.
+Earlier entries below are historical.
+
 # Current: Iter182 late-frontier timing audit preregistered — 15 October 2026
 
 Read experiments/iter182_late_frontier_timing/PROTOCOL.md and MATHEMATICS.md.
@@ -6403,3 +6442,10 @@ late endpoints for timing constraints and feasible continuations before a change
 Follow the current top entry and Iter182 protocol. The seven-endpoint timing audit
 has no acquired outcome. Keep both bounds separate from unpruned probes and full
 scalar admission. Integrated qualification remains 3/4; source comparison closed.
+
+## Iter182 controlling closure — 15 October 2026
+
+Follow the current top entry and Iter182 RESULT/DECISION. Four checkpoint witnesses,
+one premature-completion and two progress exclusions; no unresolved/censored probe.
+No route completion or new integrated outcome; gate closed. All scientific jobs
+reaped. Next preregister necessary-constraint eligibility with unchanged budgets.
