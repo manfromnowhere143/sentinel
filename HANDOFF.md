@@ -1,3 +1,24 @@
+# Current: Iter182 late-frontier timing audit preregistered — 15 October 2026
+
+Read experiments/iter182_late_frontier_timing/PROTOCOL.md and MATHEMATICS.md.
+No new retained-root bound or continuation outcome has been acquired. All seven
+late accepted endpoints in the two missed Iter181 cases will receive one fixed
+frame-32 diagnostic, full scalar replay, and two separately checked constraints.
+Keep feasible witnesses, progress exclusions, premature-completion exclusions,
+bounded misses and censoring distinct. Bounds cannot prune the diagnostic.
+
+57 new controls / 189 focused checks pass. Freeze source, acquire once, commit
+raw, then admit independently. No planner change, integrated rerun or budget
+increase. Iter181 remains adverse 2/4 against retained Iter178's 3/4; the all-four
+source-comparison gate remains closed. Iter181 publication is verified: both
+hosted suites passed 4,445 tests / 7 skipped; all 190 public references match.
+
+Owned branch research/iter182-late-frontier-timing in the same Sentinel worktree.
+Preserve canonical dirty root, historical MISSION_STATE and prior accepted bytes.
+No provider use, GPU, spending or new driving. The mission remains useful actual-
+history intervention with measured delay against a strong responsive comparator.
+Earlier entries below are historical; no ceremony or independent human is pending.
+
 # Current: Iter181 selection candidate loses one success — 15 October 2026
 
 Read experiments/iter181_checkpoint_prefix_selection/RESULT.md and DECISION.md.
