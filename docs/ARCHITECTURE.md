@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 14 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter176 research record. The [README](../README.md) carries the scientific
+limits through the Iter177 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -493,8 +493,26 @@ earliest exact numeric join. The raw traces and vector masks are committed befor
 independent scalar replay of all 132 state records / 1,054,152 point classifications.
 All four paths are admissible but incomplete at 62–64% route progress. Ambiguous
 joins and shared ancestry remain explicit. No native search is added; the three
-architecture diagrams retain the latest integrated 2/4 result. The next proposed
-change is one pose-aware initial control program, with the fallback order and all
-budgets fixed after constructed positive/adverse qualification.
+architecture diagrams retain the latest valid integrated 2/4 result. Iter177
+below tests one pose-aware initial control program after constructed positive/adverse
+qualification, with fallback order and all budgets fixed.
 [Audit result](../experiments/iter176_connector_guidance_audit/RESULT.md) ·
 [next decision](../experiments/iter176_connector_guidance_audit/DECISION.md).
+
+
+Iter177 adds one algebraic pose-aware seed to that forward interface, then stops
+invalid in chicane_right. Its first accepted five-step connection reaches speed
+6.000000000000002. The unchanged trajectory validator accepts it within 1e-12;
+the unchanged Controls constructor rejects it as a next root using a strict bound
+of 6. This exposes a mismatch between adjacent interfaces. No state projection or
+physical-tolerance relaxation has been applied.
+
+A separately frozen failure checker binds all raw/initialization/failure records,
+checks all 125 attempted transitions of the retained first connection, and scalar-
+checks its six-state path / 47,916 point classifications. The next callback input
+was not logged. Three prior worker outputs remain unadmitted, so no new integrated
+result replaces the valid 2/4 diagram node. The next correction needs constructed
+inside/outside boundary tests and a new frozen qualification under unchanged
+physical tolerances and total budgets.
+[Invalid result](../experiments/iter177_pose_aware_seed/RESULT.md) ·
+[next decision](../experiments/iter177_pose_aware_seed/DECISION.md).

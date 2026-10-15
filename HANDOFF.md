@@ -1,3 +1,45 @@
+# Current: Iter177 invalid; accepted-state/next-root boundary diagnosed — 15 October 2026
+
+Read experiments/iter177_pose_aware_seed/RESULT.md and DECISION.md. The original
+four-case schedule is invalid and closed; do not rerun it or its launch command.
+No new complete-case count is admitted. Retained qualification is Iter175's 2/4;
+source comparison remains closed. All scientific processes have exited and reaped.
+
+Chicane_right's first selected connection reaches speed 6.000000000000002 after
+five updates from 4 with acceleration 1.6. The physical predicate accepts this
+within its existing 1e-12 tolerance; the next Controls root bound requires <=6
+exactly. The worker traceback records reset_bounds; next callback input was not
+logged. Independent diagnosis checks 125 attempts and six selected states/full
+scalar masks (47,916 point-state classifications). Three earlier result files
+remain producer evidence, not an admitted two-of-four outcome for this trial.
+
+Next: qualify consistent next-root acceptance at the already-existing motion
+tolerance. Preserve state values, physical limits/tolerances and all budgets;
+no path snapping or threshold relaxation. Construct inside/outside controls at
+zero/max speed and both steering bounds, plus absolute-clock and accounting
+checks. Freeze a small constructor/evaluator substitution and a distinct corrected
+qualification, preserving the pose-aware seed and all other planner mechanics.
+Retain exposure and the invalid schedule; no seed-weight or cap sweep. All four
+must qualify before source comparison. No human ceremony is pending.
+
+Frozen trial source 5762157a1ae612fd6c6c2b1c89bba9701f2150cd;
+raw 314840a3b996860bf5d5a48b51c09254c359fdf1 committed before diagnosis;
+frozen diagnostic source 3f3cd6948b8b6774fc5b69399d97270cb85912a6;
+failure admission 91f53c9065e806e297e500030d80313c18e1fdb0.
+Producer supervised 32.261 seconds, diagnostic checker 8.527 seconds. No retry,
+new driving episode, provider use, source query or spending. Forty-two constructed
+controls / 122 focused-retained checks passed before acquisition (native runtime,
+zero skips); seven failure-diagnosis controls pass. Scientific source is unchanged.
+Exact closure hosted checks/public readback are observed separately after push;
+receipts ~/.codex/reports/sentinel/iter177/. Iter176 closure is verified: both hosted
+suites 4,177 passed / 7 skipped; live packet and 185 public source references match.
+
+Owned branch research/iter177-pose-aware-seed in the Sentinel observation-recovery
+worktree. Canonical dirty root and historical mission state are preserved. The
+mission remains useful intervention from actual histories under realistic sensing,
+computation and actuation delay against a strong responsive comparator. Earlier
+controlling entries below are historical.
+
 # Current: Iter177 pose-aware seed preregistered — 15 October 2026
 
 Continue the autonomous mission through one initial-proposal test against retained

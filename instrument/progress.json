@@ -1,33 +1,33 @@
 {
   "schemaVersion": 1,
-  "iteration": 176,
-  "directory": "experiments/iter176_connector_guidance_audit",
-  "title": "Coverage audit admits four incomplete paths; qualification remains 2/4.",
-  "summary": "Independent reconstruction finds 327/386 nominal program sets preserve reflected coverage; 59 do not. Four discarded paths pass scalar replay but finish at 62\u201364% route progress. No new integrated search; source comparison stays closed.",
-  "boundary": "Exploratory audit of exposed requests. Nominal enumeration does not reproduce mirrored solver stopping or trees. The four paths overlap in one case. Coverage differences do not establish directional bias, a cache defect or a working repair.",
-  "next": "Test one pose-aware initial control proposal after constructed positive/adverse controls. Preserve fallback proposals and all budgets. Require all four integrated cases before source comparison; actual-history intervention and delay remain unestablished.",
+  "iteration": 177,
+  "directory": "experiments/iter177_pose_aware_seed",
+  "title": "Pose-aware trial invalid at an accepted-state boundary.",
+  "summary": "The fourth worker stops when an accepted speed of 6.000000000000002 fails the next-root strict bound. Independent scalar replay confirms the six-state witness. Three earlier producer results remain unadmitted; retained qualification stays 2/4.",
+  "boundary": "One invalid initialized schedule; no retry and no new complete-case count. The next callback input was not logged. The diagnosed edge passes existing motion tolerances but fails the next-root interface. Source comparison remains closed.",
+  "next": "Qualify next-root acceptance consistent with existing motion tolerances. Preserve states, physical thresholds and budgets; freeze a distinct corrected qualification. No retry of this invalid schedule, seed-weight sweep or source comparison.",
   "metrics": [
     {
-      "label": "Executed retained requests",
-      "field": "request_count"
+      "label": "Registered qualification cases",
+      "field": "total_cases"
     },
     {
-      "label": "Reflection-closed nominal sets",
-      "field": "reflection_closed_requests"
+      "label": "Unadmitted producer records",
+      "field": "unadmitted_producer_records"
     },
     {
-      "label": "Admitted incomplete paths",
-      "field": "partial_paths_verified"
+      "label": "Failed workers",
+      "field": "failed_workers"
     },
     {
-      "label": "Verified state records and masks",
+      "label": "Scalar-verified witness states",
       "field": "verified_states"
     }
   ],
   "breakdown": [
     {
-      "label": "Reflection-open nominal sets",
-      "field": "reflection_open_requests"
+      "label": "Independently diagnosed requests",
+      "field": "diagnosed_requests"
     },
     {
       "label": "Retained completed cases",
