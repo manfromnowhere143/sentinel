@@ -1,3 +1,33 @@
+# Current: Iter175 connection allocation preregistered — 15 October 2026
+
+Direct task: advance the mission autonomously, beginning with one 128-transition
+connection allowance trial against retained Iter174. Read
+experiments/iter175_connection_allocation/PROTOCOL.md and DECISION_PACKET.md.
+The new four-case schedule has not executed. Only the inner allowance changes;
+18,000-transition / 120-second / 96-action outer caps, eight-step horizon,
+original cases/seeds and all planner/evaluator/constraint mechanics stay fixed.
+Retained Iter174 remains 1/4 and all-four qualification contradicted. Source
+comparison stays closed unless all four qualify in the new admitted trial.
+
+The shorter allowance can lose the current completion and truncate later
+proposal families. Gains, losses, tree requests and coverage are recorded;
+more edges alone is not mission progress. No automatic cap sweep after a miss.
+Freeze source, execute one fresh process per case, commit raw, independently
+replay, then close/publish the result. No scientific retry or retuning.
+No provider, spending, source query or human ceremony is pending.
+
+Eighty focused/retained tests pass with the installed native bridge and no skips,
+including 21 new allocation/contract/adverse-outcome checks. Ruff and supply-chain
+checks pass. Selected runtime identities verify; all 502 Iter174 scientific
+bindings remain unchanged. Exact closure hosted CI will be observed after push.
+Owned branch research/iter175-connection-allocation in the existing Sentinel
+observation-recovery worktree. Preserve canonical dirty root and historical state.
+
+The broader mission remains intervention from actual decision histories with
+realistic sensing/computation/actuation delay and a strong responsive comparator.
+Finite planner qualification is a dependency, not a state-of-the-art claim.
+Earlier controlling entries below are historical.
+
 # Current: Iter174 closed; forward-connected RRT completes 1/4 — 14 October 2026
 
 Independent replay confirms chicane_left completes at 8 seconds and passes both
@@ -5771,3 +5801,7 @@ Follow the current top entry and Iter174 protocol. No initialized scientific out
 Follow the current top entry and Iter174 RESULT/DECISION. One completion is admitted;
 the all-four claim is contradicted. Source comparison stays closed. All scientific
 jobs are reaped. Earlier preregistration notices are historical.
+
+## Iter175 controlling preregistration — 15 October 2026
+
+Follow the current top entry and Iter175 protocol. No initialized scientific outcome yet.
