@@ -1,3 +1,34 @@
+# Current: Iter181 checkpoint-aware prefix selection preregistered — 15 October 2026
+
+Read experiments/iter181_checkpoint_prefix_selection/PROTOCOL.md, MATHEMATICS.md
+and DECISION_PACKET.md. No original-case outcome has been acquired. Iter180 is
+closed and publicly verified: equal-ceiling comparison null, same three witnesses,
+no gains/losses/censoring. Original call 67 generated a valid checkpoint path but
+returned an earlier prefix; its discarded path matches an admitted scalar witness.
+
+Change one preference: among uninterrupted valid prefixes, favor more existing
+checkpoint times crossed since the root, then original target distance/ties.
+Apply within and across evaluations; preserve full completion precedence. No new
+checkpoint stopping, feasibility relaxation or changed proposal/sampler/metric.
+Keep all four cases/seeds, 18,000 transitions/120 seconds/96 actions per case,
+128 transitions/eight steps per connection, all original predicates and runtime.
+A different returned state changes the tree and can lose a current success.
+
+59 new controls / 150 focused checks pass, zero skips, using the selected native
+runtime. Independent selection arithmetic, actual toy rejection/accounting and
+read-only call-67 regression pass. Freeze source, acquire once, commit raw, admit
+independently. No retuning/retry. Compare against Iter178's retained 3/4 and count
+lost successes. Source comparison stays closed unless all four are admitted.
+
+Iter180 closure a52187abe34a198a6289b962ca97fd5cb8c72912 passed both hosted suites:
+4,386 passed / 7 skipped each. Live packet and all 189 public references match.
+All prior owned jobs are reaped. Receipts ~/.codex/reports/sentinel/iter180/.
+Owned branch research/iter181-checkpoint-prefix-selection in the same Sentinel
+observation-recovery worktree. Preserve canonical dirty root and historical state.
+Mission remains useful actual-history intervention with measured sensing,
+computation and actuation delay against a strong responsive comparator. No human
+ceremony pending. Earlier controlling entries below are historical.
+
 # Current: Iter180 comparison is null; original selection loses a checkpoint path — 15 October 2026
 
 Read experiments/iter180_equal_work_continuation/RESULT.md and DECISION.md.
@@ -6289,3 +6320,8 @@ the same three witnesses, no gains/losses/censoring. Original prefix selection
 loses one generated valid checkpoint path. Next preregister checkpoint-aware
 selection under unchanged integrated budgets, all four cases and explicit losses.
 All scientific jobs are reaped. Integrated qualification remains 3/4, gate closed.
+
+## Iter181 controlling preregistration — 15 October 2026
+
+Follow the current top entry and Iter181 protocol. No initialized integrated
+outcome yet. Retained qualification remains 3/4; source comparison stays closed.
