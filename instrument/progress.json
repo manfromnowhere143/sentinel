@@ -1,41 +1,41 @@
 {
   "schemaVersion": 1,
-  "iteration": 179,
-  "directory": "experiments/iter179_frontier_continuation_audit",
-  "title": "The retained frontier has three different outcomes.",
-  "summary": "Independent replay finds three checkpoint continuations, two necessary-progress exclusions and eleven unresolved misses among all 16 distinct late states. No probe is time-censored. Full scalar replay checks 621 states and 4,057,614 point-state classifications.",
-  "boundary": "Checkpoint continuations are not full route completions. Exclusions apply to the declared numerical progress bound; finite misses do not prove infeasibility. Integrated qualification remains 3/4, source comparison closed, and actual-history intervention unestablished.",
-  "next": "Compare the actual retained program generator and stepwise beam search on all roots under the same 128-transition allowance. Separate local search from tree expansion allocation before an integrated change; preserve total budgets and count lost successes.",
+  "iteration": 180,
+  "directory": "experiments/iter180_equal_work_continuation",
+  "title": "Both searches find the same three continuations.",
+  "summary": "Under equal 128-transition ceilings, retained programs and a width-two beam find the same three checkpoint witnesses among 16 roots. No gains, losses or censoring. Independent scalar replay checks all 1,502 queried states.",
+  "boundary": "These are checkpoint continuations from exposed roots, not full route completions. Two prior progress exclusions and eleven unresolved misses remain distinct. Integrated qualification stays 3/4, source comparison closed, and actual-history intervention unestablished.",
+  "next": "Test checkpoint-aware prefix selection: original records show a generated valid frame-16 path discarded in favor of frame 13. Preserve the existing search and total budgets; test all four cases and count lost successes.",
   "metrics": [
     {
       "label": "Distinct retained frontier states",
       "field": "distinct_frontier_states"
     },
     {
-      "label": "Verified checkpoint continuations",
-      "field": "checkpoint_witnesses"
+      "label": "Program checkpoint witnesses",
+      "field": "program_witnesses"
     },
     {
-      "label": "Progress exclusions",
-      "field": "progress_exclusions"
-    },
-    {
-      "label": "Unresolved bounded misses",
-      "field": "bounded_misses"
-    }
-  ],
-  "breakdown": [
-    {
-      "label": "Diagnostic attempted transitions",
-      "field": "diagnostic_attempts"
+      "label": "Beam checkpoint witnesses",
+      "field": "beam_witnesses"
     },
     {
       "label": "Distinct scalar-verified states",
       "field": "distinct_scalar_states"
+    }
+  ],
+  "breakdown": [
+    {
+      "label": "Gained checkpoint witnesses",
+      "field": "gains"
     },
     {
-      "label": "Time-censored probes",
-      "field": "censored_probes"
+      "label": "Lost checkpoint witnesses",
+      "field": "losses"
+    },
+    {
+      "label": "Time-censored pairs",
+      "field": "censored_pairs"
     }
   ]
 }

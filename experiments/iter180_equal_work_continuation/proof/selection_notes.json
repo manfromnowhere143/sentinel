@@ -1,0 +1,73 @@
+{
+  "status": "descriptive",
+  "scope": "Read-only post-admission comparison of committed records. No additional search, integrated result or causal estimate.",
+  "inputs": {
+    "experiments/iter178_root_domain_consistency/proof/search_raw/bend_right/events.jsonl": {
+      "commit": "1ba6a4e90db895fe2991eeb2df26fc3b48ccdeba",
+      "sha256": "e82193644a859ff1de4e5f5b9ae033951113a46b9bb819c3062441e913ee9ae9"
+    },
+    "experiments/iter178_root_domain_consistency/connection.py": {
+      "commit": "1ba6a4e90db895fe2991eeb2df26fc3b48ccdeba",
+      "sha256": "e1a3aba3710fef038def345dd5c23f69d72d80ef365ef2ba6340b6fc5f400d73"
+    },
+    "experiments/iter167_planner_terminal_contract/adapter.py": {
+      "commit": "1ba6a4e90db895fe2991eeb2df26fc3b48ccdeba",
+      "sha256": "a510b21efdf5308bc4aacb74a5d214946a7a8abc82c8c644813c3f01b108e21b"
+    },
+    "experiments/iter180_equal_work_continuation/proof/admission.json": {
+      "commit": "a133930242bca149801a1fbd9bb808ff2a8a36a1",
+      "sha256": "ff6e80f20cec61c33b36bf1f4b65115dadcee48c77529b9e7c3d232e1414b1fb"
+    },
+    "experiments/iter180_equal_work_continuation/proof/study_raw/runs.json": {
+      "commit": "b9a86860a6b58c676c55620cf8ce9aa83a941128",
+      "sha256": "896aa8c33a6726bb12c5e41cb189d439fd68e16cf856363abf9fa80cc4b5c59d"
+    },
+    "experiments/iter180_equal_work_continuation/proof/study_raw/run_03/trace.json": {
+      "commit": "b9a86860a6b58c676c55620cf8ce9aa83a941128",
+      "sha256": "b9f568b8b6b0c524f06a1b764a6f39e3a94ad0e567cd6ab093f1fe7edf7360cf"
+    }
+  },
+  "admission_commit": "a133930242bca149801a1fbd9bb808ff2a8a36a1",
+  "source_root_call": 51,
+  "original_request_call": 67,
+  "original_evaluations": 32,
+  "original_attempts": 128,
+  "sole_fully_clear_late_evaluation": {
+    "call": 67,
+    "evaluation": 28,
+    "frames": [
+      12,
+      13,
+      14,
+      15,
+      16
+    ]
+  },
+  "checkpoint_path_matches_admitted_program_suffix_exactly": true,
+  "admitted_program_run_index": 3,
+  "original_selected_evaluation": 6,
+  "original_selected_prefix": 1,
+  "original_returned_frame": 13,
+  "original_selected_distance": 2.6120316528243595,
+  "witness_selected_prefix": 1,
+  "witness_prefix_distances": [
+    {
+      "frame": 13,
+      "distance": 2.898358499177108
+    },
+    {
+      "frame": 14,
+      "distance": 3.976266233371358
+    },
+    {
+      "frame": 15,
+      "distance": 5.014001974052072
+    },
+    {
+      "frame": 16,
+      "distance": 6.011672790026089
+    }
+  ],
+  "result": "A valid frame-16 continuation was generated within the original 128-transition call, but sampled-target prefix ranking returned a frame-13 state from another evaluation.",
+  "boundary": "This identifies a recorded selection loss, not proof that retaining the checkpoint path completes the integrated case or preserves the other three successes."
+}

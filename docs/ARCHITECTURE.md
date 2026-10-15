@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 14 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter178 research record. The [README](../README.md) carries the scientific
+limits through the Iter180 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -559,3 +559,34 @@ establishes the sole cause of the integrated miss. The diagrams continue to show
 3/4; the audit adds no integrated outcome.
 [Frontier audit](../experiments/iter179_frontier_continuation_audit/RESULT.md) ·
 [next decision](../experiments/iter179_frontier_continuation_audit/DECISION.md).
+
+
+Iter180 compares the actual retained program generator and width-two stepwise beam
+on all 16 distinct roots under equal 128-transition/three-second ceilings. Both
+find the same three checkpoint witnesses: null gain-without-loss claim, no
+censoring. Scalar replay covers all queried states, including unselected and
+invalid suffixes: 1,502 full masks / 9,814,068 point-state classifications. This
+comparison changes the local objective to checkpoint feasibility; it does not
+replay original sampled targets or change the integrated planner.
+
+Original call 67 already generated a valid frame-16 program within 128 attempts.
+Its transition records exactly match the admitted program witness, but original
+sampled-target ranking selected an earlier prefix from another evaluation. The
+following is a descriptive trace, not a counterfactual integrated result:
+
+```mermaid
+flowchart LR
+  R["Retained root 51<br/>frame 12"] --> G["Original call 67<br/>128 transitions"]
+  G --> W["Evaluation 28<br/>valid through frame 16"]
+  G --> P["Evaluation 6<br/>selected frame 13"]
+  W --> D["Checkpoint suffix discarded<br/>target-distance ranking"]
+  P --> T["Returned to native tree"]
+```
+
+Next proposed change is checkpoint-aware prefix selection within and across
+evaluations, with existing proposal order, stopping, predicates and total budgets.
+It can alter the tree unfavorably; all four cases and losses must be checked.
+Expansion allocation remains a separate question. Integrated diagrams still show
+3/4, and source comparison remains closed.
+[Comparison](../experiments/iter180_equal_work_continuation/RESULT.md) ·
+[next decision](../experiments/iter180_equal_work_continuation/DECISION.md).

@@ -18,7 +18,7 @@ against a competent responsive baseline, with information access, permitted acti
 resource budgets stated explicitly.
 
 [System](#what-sentinel-does) · [Results](#measured-results) ·
-[Research history](#how-the-question-changed) · [Latest result](#iteration-179-the-retained-frontier-is-not-uniformly-infeasible) ·
+[Research history](#how-the-question-changed) · [Latest result](#iteration-180-equal-ceilings-find-the-same-three-witnesses) ·
 [Next test](#the-next-scientific-test) · [Reproduce](#reproduce-and-inspect) ·
 [Repository status](#repository-status--15-october-2026) · [Experiment index](#complete-experiment-index)
 
@@ -917,6 +917,31 @@ integrated change. No planner modification or source comparison occurred here.
 [independent admission](experiments/iter179_frontier_continuation_audit/proof/admission.json) ·
 [next decision](experiments/iter179_frontier_continuation_audit/DECISION.md).
 
+## Iteration 180: equal ceilings find the same three witnesses
+
+**Null comparison: the retained program generator and width-two beam each find
+checkpoint continuations from the same three of 16 roots.** There are no gains,
+losses or censored pairs. Each run receives 128 transitions and three seconds;
+the common checkpoint objective differs from original sampled-target matching.
+Integrated qualification remains **3/4**, and source comparison stays closed.
+
+![Equal-ceiling continuation comparison](experiments/iter180_equal_work_continuation/proof/continuation_comparison.png)
+
+Independent replay checks all queried states: 1,502 full scalar masks and
+9,814,068 point-state classifications. The program uses 1,776 transitions and
+the beam 702. Equal ceilings do not mean equal consumed work. The thirteen paired
+misses include the two prior progress exclusions; the other eleven remain
+unresolved. Witnesses pass frame 16, not full route completion.
+
+A read-only trace of the original integrated record reveals a specific selection
+loss: call 67 already generated the same valid checkpoint program within 128
+attempts, but sampled-target ranking returned frame 13 from another evaluation.
+Next, test checkpoint-aware prefix selection while retaining proposals, total
+budgets and all four cases. This may still miss or lose a current success.
+[Result and limits](experiments/iter180_equal_work_continuation/RESULT.md) ·
+[independent admission](experiments/iter180_equal_work_continuation/proof/admission.json) ·
+[next decision](experiments/iter180_equal_work_continuation/DECISION.md).
+
 ## The next scientific test
 
 The intended contribution is a monitor and evaluation system that can show **which failures
@@ -948,8 +973,10 @@ The following work is proposed; all previous schedules retain their closed accou
    the next-root bound. Iter178 corrects that interface at the existing tolerance
    and admits 3/4 with one gain and no lost successes. Iter179 separates three
    feasible checkpoint continuations, two progress exclusions and eleven unresolved
-   misses. Next compare local proposal families at the same 128-transition allowance,
-   separating local control capability from expansion allocation before an integrated change.
+   misses. Iter180 finds the same three witnesses with both methods under equal
+   128-transition ceilings. Original records expose a valid checkpoint path lost
+   at prefix selection. Next test checkpoint-aware selection under unchanged
+   integrated budgets, explicitly counting lost successes.
    Source comparison remains closed until all four cases pass.
    Offline cost is not a response-time result.
 3. **After establishing useful recovery, test one information hypothesis against a responsive baseline.**
@@ -1035,7 +1062,7 @@ not a complete distribution of every runtime asset.
 | [Architecture](docs/ARCHITECTURE.md) | Implemented interfaces, simulator distinctions, evidence flow and timing. |
 | [Original preregistration](PREREGISTRATION.md) | The initial benchmark question and decision rules. |
 | [Research direction](docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md) | Information and recoverability: mathematical formulation and dated literature review. |
-| [Next scientific decision](experiments/iter179_frontier_continuation_audit/DECISION.md) | Compare the retained program generator and stepwise beam search under the same 128-transition allowance across all retained roots; distinguish local search from tree expansion allocation. Source comparison stays closed. |
+| [Next scientific decision](experiments/iter180_equal_work_continuation/DECISION.md) | Test checkpoint-aware prefix selection after identifying a generated valid continuation discarded by target-distance ranking. Preserve total budgets and all four cases; count lost successes. Source comparison stays closed. |
 | [Handoff](HANDOFF.md) | Exact next task, acceptance criteria, resource closure and recovery instructions. |
 | [Continuity](CONTINUITY.md) and [next phase](docs/NEXT_PHASE.md) | Current state followed by retained historical decisions. |
 | [Technical report](docs/REPORT.md) | Historical synthesis through Iter134; it predates the current execution program. |
@@ -1056,7 +1083,7 @@ scientific claim or reinterpret the archived mission state.
 
 ## Repository status — 15 October 2026
 
-**This research lineage is current through Iter179; integrated qualification remains 3/4.**
+**This research lineage is current through Iter180; integrated qualification remains 3/4.**
 The preselected path completes two native replicas from reset. The same exact/24
 method then misses after preserving the actual first-fire history. All 49 subsequent discarded/retained
 continuations also miss. An independent RRT adapter remains unqualified after a
@@ -1071,6 +1098,9 @@ physical tolerances and budgets and admits 3/4, with one gain and no losses vers
 Iter175. Iter179 then verifies three checkpoint continuations, two progress
 exclusions and eleven unresolved misses in the remaining late frontier. It adds no
 integrated completion and does not establish continuous-control infeasibility.
+Iter180 finds the same three witnesses with both methods at equal ceilings, then
+traces a valid original program discarded by prefix selection. No new integrated
+outcome is inferred.
 Monitor-time recovery, useful information and real-time operation remain unestablished.
 Iteration 135's dose-response experiment remains **deferred and unrun**.
 
@@ -1078,16 +1108,16 @@ The repository has two distinct records. The accepted code and mission snapshot 
 [`8c118b7`](https://github.com/manfromnowhere143/sentinel/tree/8c118b74c699bf0f139f9bd659192bad06b895f8)
 is **current through iteration 134**. [MISSION_STATE.json](MISSION_STATE.json) preserves
 that historical contract.
-Later research, through the Iter179 frontier audit, is retained in a separate
-[research lineage](https://github.com/manfromnowhere143/sentinel/tree/e947a4705a24d284c10e74c64f1ff0020baa9dbd).
+Later research, through the Iter180 continuation comparison, is retained in a separate
+[research lineage](https://github.com/manfromnowhere143/sentinel/tree/a133930242bca149801a1fbd9bb808ff2a8a36a1).
 This README describes both; a documentation update does not integrate that later experimental
 code into the accepted snapshot. The [current handoff](HANDOFF.md) identifies the next task.
 
 The earlier 12 October editorial refresh brought the default landing page through Iter155.
 This later research revision retains the continuation misses, failed independent
 planner qualification, local qualification, integrated failure and bounded connector
-comparison, allocation result, guidance audit, invalid trial, corrected 3/4 result
-and frontier continuation audit through Iter179. The public instrument
+comparison, allocation result, guidance audit, invalid trial, corrected 3/4 result,
+frontier continuation audit and equal-ceiling comparison through Iter180. The public instrument
 follows validated closed-result packets automatically; its older replay and
 native witness do not inherit a new scientific identity from an update.
 
@@ -1141,8 +1171,10 @@ seven skips on each hosted Python version. Iter178 adds 28 boundary/composition
 controls; 119 focused/retained checks pass with the selected native runtime and
 zero skips. Its exact closure passed 4,254 tests with seven skips on each hosted
 Python version. Iter179 adds 66 constructed controls; 127 focused/retained checks
-pass with zero skips. Exact Iter179 closure CI is observed separately after
-publication; local software checks do not substitute for scientific admission.
+pass with zero skips. Its corrected closure passed 4,320 tests with seven skips
+on each hosted Python version. Iter180 adds 66 constructed controls; 174
+focused/retained checks pass with zero skips. Exact Iter180 closure CI is observed
+separately after publication; software checks do not substitute for admission.
 
 ## Complete experiment index
 
@@ -1324,7 +1356,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 </details>
 
 <details>
-<summary>Information, recoverability and execution: Iter135–179</summary>
+<summary>Information, recoverability and execution: Iter135–180</summary>
 
 | Record | Finding or scope |
 |---|---|
@@ -1373,6 +1405,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 | [177](experiments/iter177_pose_aware_seed/RESULT.md) | Invalid pose-aware trial: an accepted speed two ulps above 6 fails the next-root strict bound. Six-state scalar diagnosis confirms the interface mismatch. Three earlier producer results remain unadmitted; retained qualification is 2/4 and source comparison closed. |
 | [178](experiments/iter178_root_domain_consistency/RESULT.md) | Corrected next-root interface with the retained pose-aware proposal completes 3/4 versus Iter175's 2/4 under unchanged caps. One gain, no losses; 118 states/full masks replay. All-four qualification fails; source comparison stays closed. |
 | [179](experiments/iter179_frontier_continuation_audit/RESULT.md) | All 16 distinct late roots: three verified checkpoint continuations, two progress exclusions, eleven unresolved bounded misses; no censoring. Full scalar replay covers 621 states. Integrated qualification remains 3/4; source comparison stays closed. |
+| [180](experiments/iter180_equal_work_continuation/RESULT.md) | Equal 128-transition ceilings: both retained programs and width-two beam find the same three checkpoint witnesses; no gains, losses or censoring. All 1,502 queried states scalar-verified. Original records expose a generated valid path lost at prefix selection. Integrated qualification remains 3/4. |
 
 </details>
 

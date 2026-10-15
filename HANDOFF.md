@@ -1,3 +1,44 @@
+# Current: Iter180 comparison is null; original selection loses a checkpoint path — 15 October 2026
+
+Read experiments/iter180_equal_work_continuation/RESULT.md and DECISION.md.
+The paired comparison is closed and independently admitted: program and width-two
+beam both find the same three checkpoint witnesses among 16 roots, with zero
+gains, losses or censored pairs. Equal ceilings: 128 transitions/three seconds
+per run, 32 runs. Actual work: program 1,776, beam 702, total 2,478 transitions.
+All 1,502 queried states / 9,814,068 point-state classifications pass scalar replay.
+No integrated outcome: qualification remains Iter178's 3/4 and source comparison
+closed. Iter179's three feasible, two progress-excluded and eleven unresolved
+classifications remain distinct. Iter177 remains invalid and unpooled.
+
+Post-admission read-only records expose a selection loss: original call 67 from
+root 51 generated a valid frame-16 path at evaluation 28 within its 128 allowance,
+but returned frame 13 from evaluation 6 under sampled-target ranking. The discarded
+suffix exactly matches the admitted program witness. Retain this as descriptive
+evidence; it does not prove that a different tree completes or retains successes.
+
+Next: preregister one integrated checkpoint-aware prefix-selection candidate,
+within and across evaluations, preserving proposals, sampler, predicates, root
+domain, all budgets and stopping. Construct replay/negative controls before
+acquisition. Compare all four cases with Iter178, count losses, keep all-four gate.
+No beam swap, cap/seed sweep, checkpoint relaxation or combined allocation change.
+See DECISION.md for the prospective boundary. Source comparison stays closed.
+
+Frozen source 999390d2e5135190c9c190a7f0ecc188b5b7a1a7;
+raw committed before admission b9a86860a6b58c676c55620cf8ce9aa83a941128;
+admission a133930242bca149801a1fbd9bb808ff2a8a36a1.
+Producer/checker supervised walls 7.514 / 82.400 seconds; both processes reaped.
+66 new controls / 174 focused-retained checks pass, zero skips. No new integrated
+schedule, driving episode, source recovery query, provider use or spending.
+Exact closure hosted CI/public readback is observed separately after push; receipts
+~/.codex/reports/sentinel/iter180/. Iter179 corrected closure is verified: both
+hosted suites 4,320 passed / 7 skipped; live packet and 188 public references match.
+
+Owned branch research/iter180-equal-work-continuation in the same Sentinel
+observation-recovery worktree. Preserve canonical dirty root and historical state.
+Mission remains useful actual-history intervention with measured sensing,
+computation and actuation delay against a strong responsive comparator. No human
+ceremony pending. Earlier controlling entries below are historical.
+
 # Current: Iter180 equal-work continuation comparison preregistered — 15 October 2026
 
 Read experiments/iter180_equal_work_continuation/PROTOCOL.md, MATHEMATICS.md and
