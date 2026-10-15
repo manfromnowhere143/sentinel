@@ -1,3 +1,33 @@
+# Current: Iter176 connector audit preregistered — 15 October 2026
+
+Continue the autonomous mission through one bounded exploratory audit after Iter175.
+Read experiments/iter176_connector_guidance_audit/PROTOCOL.md and DECISION_PACKET.md.
+The new audit has not executed. Retained integrated qualification remains 2/4;
+source comparison stays closed. No cap sweep, new integrated search or source query.
+
+Audit all 386 executed retained requests (one excluded of 387) for reflected
+control-program availability under nominal full-rollout accounting. This does
+not predict mirrored solver stopping or tree outcomes. Separately reconstruct
+and scalar-check four discarded chicane_right prefixes (call 84, evaluations
+2,4,11,12), retaining low route progress and all ancestors. Four partial paths
+are not four recovered cases. Scientific source/raw/admission order is mandatory.
+
+Constructed controls cover full steering pairs, cache-induced cutoffs, signed
+zero, wrong-axis reflection, accounting corruption, ancestor/clock corruption,
+full masks and canonical raw documents. Thirty-five new controls pass before
+retained audit outcomes. Selected Python/runtime identities and immutable inputs
+verify. No native OMPL invocation or human ceremony is pending.
+
+Iter175 closure is 20130fd53a35040efa2f48e5019349feaa724233. Both hosted Python
+suites passed 4,142 tests, 7 skipped each; public packet and 184 source references
+(183 files and one directory listing) verify. Receipts:
+~/.codex/reports/sentinel/iter175/. Its closed schedule is not rerun.
+
+Owned branch research/iter176-connector-guidance-audit in the existing Sentinel
+observation-recovery worktree. Preserve canonical dirty root and historical state.
+Actual-history intervention, measured end-to-end delay and controlled information
+value remain the objective. Earlier controlling entries below are historical.
+
 # Current: Iter175 closed; 128-cap connections complete 2/4 — 15 October 2026
 
 Independent replay admits bend_left and retains chicane_left: 2/4 versus Iter174's
