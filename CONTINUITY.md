@@ -1,5 +1,14 @@
 # Current: Iter183 timing eligibility preregistered — 15 October 2026
 
+Iter183 pre-acquisition qualification is supported: 50 new controls / 166 focused
+checks pass, zero skips, with the selected native runtime verified. All 72 applicable
+retained witness/success-path states stay eligible; all seven audit roots reproduce
+the three exclusions and four nonexclusions. The fixed 256-input profile has cold
+median 2.992 ms, p95 3.123 ms, maximum 3.194 ms; warm median 2.792 microseconds.
+These are constructed costs, not integrated or real-time evidence. Qualification
+finished once in 3.348 supervised seconds and its process is reaped. No new
+integrated outcome. Freeze the final source and execute the registered schedule.
+
 Read experiments/iter183_timing_eligibility/PROTOCOL.md and MATHEMATICS.md.
 Candidate: exclude only certified late timing dead ends before the existing
 Iter181 selection rule; retain uncertain states and all physical work/budgets.
