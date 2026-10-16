@@ -13,3 +13,7 @@ certificate remains unresolved. Neither outcome alone changes the source gate.
 Forty-five new constructed checks and 152 focused checks pass with the selected
 native runtime. The initial five checkpoint-free fixture errors were corrected
 before acquisition. No original root search or new four-case schedule has run.
+
+Amendment 1 follows a pre-query historical JSON-formatting failure. Forty-seven
+new controls / 154 focused checks now pass. Population, probes and all budgets
+remain unchanged; the original failed initialization is retained separately.

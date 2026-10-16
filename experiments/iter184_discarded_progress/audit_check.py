@@ -21,7 +21,7 @@ def check(root, commit):
         runtime_identity() == document(root, BASE / "RUNTIME.json")["python_runtime"],
         "checker_runtime",
     )
-    raw = root / BASE / "proof/audit_raw"
+    raw = root / BASE / "proof/audit_retry_raw"
     execution = committed(root, raw, commit, plan)
     case, connections, trials, records, maxima = load(root, plan)
     old = document(root, OLD)
@@ -97,7 +97,7 @@ def admitted(root, commit, plan):
     data = read(root, name)
     require(data == git(root, "show", commit + ":" + name), "audit_admission_commit")
     result = document(root, name)
-    execution = committed(root, root / BASE / "proof/audit_raw", result["raw_commit"], plan)
+    execution = committed(root, root / BASE / "proof/audit_retry_raw", result["raw_commit"], plan)
     require(
         result["status"] == "supported"
         and result["phase"] == "prefix_admitted"

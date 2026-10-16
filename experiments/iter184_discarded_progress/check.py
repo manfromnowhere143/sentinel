@@ -178,7 +178,7 @@ def check(root, commit):
         "admitted_prefix_identity",
     )
     case, _, _, _, maxima = load(root, plan)
-    paths = document(root, BASE / "proof/audit_raw/paths.json")
+    paths = document(root, BASE / "proof/audit_retry_raw/paths.json")
     old = document(root, OLD)
     parent = document(root, PREVIOUS + "PLAN.json")
     require(

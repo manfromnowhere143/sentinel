@@ -6,6 +6,8 @@ from .common import BASE, read, require
 def check_plan(root, plan):
     fixed = dict(
         iteration=184,
+        amendment=1,
+        audit_retry_producer_seconds=300,
         status="preregistered",
         record_count=15,
         probe_roots=[[83, 8, 7], [98, 8, 6], [110, 2, 1]],

@@ -4,6 +4,10 @@ Preregistered 16 October 2026. Parent closure is Iter183 `59ab3974b061422434443e
 original raw is `172cf0f5449e4171c3f9a25bc45d6e6cb7f03bd5`. Integrated qualification
 remains 3/4 and source comparison stays closed throughout this diagnostic.
 
+The pre-query historical-reader failure and one prospective mechanical retry are
+specified in [Amendment 1](AMENDMENT_1.md). All scientific design below is unchanged;
+the first failed initialization remains in its original output directory.
+
 The finite population is every recorded-valid, eligible prefix in the retained
 right-bend acquisition whose nearest-route index strictly exceeds the largest
 index among accepted tree endpoints. This yields all 15 records across calls 83,

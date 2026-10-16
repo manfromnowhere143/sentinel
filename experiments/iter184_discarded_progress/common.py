@@ -21,7 +21,10 @@ OLD = Path("experiments/iter153_action_feasibility/PLAN.json")
 def document(root, name):
     raw = read(root, name)
     value = parse(raw)
-    require(encode(value) == raw, "canonical_document")
+    # The immutable Iter153 plan predates canonical JSON. Its original bytes are
+    # checked against both SHA256 and the parent commit by retained.load.
+    if str(name) != str(OLD):
+        require(encode(value) == raw, "canonical_document")
     return value
 
 

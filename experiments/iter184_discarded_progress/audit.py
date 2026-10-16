@@ -19,9 +19,9 @@ from .runtime import verify
 def run(root, source, library):
     started = time.monotonic()
     verify(root, library)
-    raw = root / BASE / "proof/audit_raw"
+    raw = root / BASE / "proof/audit_retry_raw"
     raw.parent.mkdir(exist_ok=True)
-    plan = initialize(root, raw, source, "audit")
+    plan = initialize(root, raw, source, "audit_retry")
     try:
         check_plan(root, plan)
         case, connections, trials, records, maxima = load(root, plan)
@@ -59,7 +59,7 @@ def run(root, source, library):
             raw,
             source,
             plan,
-            "audit",
+            "audit_retry",
             started,
             path_records=len(paths),
             distinct_masks=len(masks.rows),

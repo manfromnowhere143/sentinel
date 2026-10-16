@@ -54,7 +54,7 @@ def run(root, output, index, library):
     plan = document(root, BASE / "PLAN.json")
     case, _, _, _, maxima = load(root, plan)
     selected = maxima[index]
-    audit = root / BASE / "proof/audit_raw"
+    audit = root / BASE / "proof/audit_retry_raw"
     path = next(p for p in document(audit, "paths.json") if identity(p) == identity(selected))
     prefix = path["trace"]
     old = document(root, OLD)

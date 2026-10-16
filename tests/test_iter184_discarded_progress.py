@@ -328,6 +328,20 @@ def test_duplicate_initialization_rejected(tmp_path, monkeypatch):
         records.initialize(tmp_path, output, "0" * 40, "audit")
 
 
+def test_historical_bound_plan_is_read_without_rewriting():
+    path = ROOT / retained.OLD
+    before = path.read_bytes()
+    assert document(ROOT, retained.OLD) == json.loads(before)
+    assert path.read_bytes() == before
+    assert encode(json.loads(before)) != before
+
+
+def test_new_documents_still_require_canonical_bytes(tmp_path):
+    (tmp_path / "new.json").write_text('{ "example": 1 }\n')
+    with pytest.raises(ValueError, match="canonical_document"):
+        document(tmp_path, "new.json")
+
+
 @pytest.mark.skipif(
     not os.environ.get("SENTINEL_RRT172_LIBRARY"), reason="selected native library unavailable"
 )

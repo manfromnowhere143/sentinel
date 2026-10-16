@@ -1,3 +1,16 @@
+# Current: Iter184 pre-evidence reader amendment — 16 October 2026
+
+The original source cc4e3c29c30878ba452467e173da43a9506c2a08 stopped before
+any query: strict canonical JSON formatting rejected the already hash-bound
+historical Iter153 plan. Failure raw fb4816e52cba93e6bd8fab7940dab0bdccb86c33
+contains only initialization/failure records; process reaped. No scientific outcome.
+Read experiments/iter184_discarded_progress/AMENDMENT_1.md. One mechanical retry
+uses a fresh audit_retry_raw directory and preserves historical bytes, every
+population/root/seed/budget/claim and the original failure. Further failure stops
+this amended acquisition. 47 new / 154 focused controls pass, zero skips. Freeze
+amended source before acquiring prefixes; separate admission precedes all probes.
+The original preregistration and all-four source gate below remain controlling.
+
 # Current: Iter184 discarded-progress audit preregistered — 16 October 2026
 
 Read experiments/iter184_discarded_progress/PROTOCOL.md and DECISION_PACKET.md.
@@ -6568,3 +6581,9 @@ progress prefixes before a conditional full-route continuation study or planner 
 Follow the current top entry and Iter184 protocol. No retained-root acquisition.
 Admit all fifteen prefixes before the three fixed conditional searches. Integrated
 qualification remains 3/4; source comparison closed. Every stage is one acquisition.
+
+## Iter184 controlling pre-evidence amendment — 16 October 2026
+
+Original initialization failed before queries on historical JSON formatting.
+Retain that source/raw and follow Amendment 1 for one mechanical reader retry in
+a fresh directory. Every scientific population, seed and budget remains fixed.
