@@ -1,3 +1,31 @@
+# Current: Iter184 discarded-progress audit preregistered — 16 October 2026
+
+Read experiments/iter184_discarded_progress/PROTOCOL.md and DECISION_PACKET.md.
+All 15 eligible discarded advancing right-bend prefixes are fixed. First acquire
+and independently admit their complete source-bound paths and every scalar mask.
+Then execute one fresh conditional native search from each fixed root 83/8/7,
+98/8/6, 110/2/1; caps 7,385 / 5,465 / 3,929 transitions. Charge the complete original
+12.51213537500007-second search wall before new work. Preserve absolute clock,
+128-transition connections, 96-action horizon and original 0–96 sampled time law.
+
+45 new constructed controls / 152 focused checks pass, zero skips, including a
+real native nonzero-root smoke and independently rejected altered/omitted unselected
+masks. Initial five checkpoint-free fixture failures corrected before acquisition.
+No retained-root acquisition yet. Freeze source, acquire prefix raw once, commit,
+admit, commit admission, acquire three continuations once, commit raw and admit.
+No fallback, retry, original-case rerun, ranking change or integrated gate credit.
+
+Iter183 is closed and publicly verified at 59ab3974b061422434443e4ba45a788b968868e1:
+3/4, one gain against the adverse parent, no gain/loss against retained best.
+Both hosted suites passed 4,552 tests / 7 skipped; 192 public references and the
+live instrument match. Prior observer's API failure was recovered by reading the
+same completed jobs; no scientific/CI rerun. All prior processes are reaped.
+
+Owned branch research/iter184-discarded-progress in the same Sentinel worktree.
+Canonical dirty root/index and historical mission state preserved. Source
+comparison stays closed. Mission remains useful actual-history intervention with
+measured delay and a strong responsive comparator. Earlier entries are historical.
+
 # Current: Iter183 restores 3/4; right-bend continuation remains unresolved — 15 October 2026
 
 Read experiments/iter183_timing_eligibility/RESULT.md and DECISION.md.
