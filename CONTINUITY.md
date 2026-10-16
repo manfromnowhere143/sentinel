@@ -1,3 +1,30 @@
+# Current: Iter185 corrected prefix admission preregistered — 16 October 2026
+
+Read experiments/iter185_retained_prefix_admission/PROTOCOL.md and DECISION_PACKET.md.
+No prefix reacquisition: reuse Iter184 raw e5d9f7611e3d401e1b2e72c9e5d59ff7b4ee0ab6
+from producer source 777d6de8e9d8f254c83ab86e9cac987feedb3480. Its invalid result
+remains unchanged. Bind original producer and corrected validator separately.
+
+All twelve actual metadata inputs parse after byte verification; only the historical
+plan and runtime use noncanonical encoding. New records stay canonical. 15 new
+controls / 112 focused checks pass, zero skips, including complete constructed
+replay and five explicit corruption rejections. Actual local runtime is verified.
+Freeze source; run and commit same-source metadata/constructed qualification;
+then admit all 15 retained paths / 82 masks and commit admission before searches.
+
+Only after admission run the original three roots and remaining budgets with the
+unchanged Iter184 worker: 83/8/7, 98/8/6, 110/2/1; 7,385 / 5,465 / 3,929 transitions,
+seed 20261015 each, original full-wall charging, absolute clocks and sampler law.
+No fallback, retry, original-case rerun or integrated qualification credit.
+
+Iter184 is closed and publicly verified at 643e5eec7eb99767a02cdf28aebf39644457e47e;
+both hosted suites passed 4,598 tests / 8 skipped, 193 public refs and live instrument
+match its invalid state. All prior jobs reaped; original failures preserved.
+Owned branch research/iter185-retained-prefix-admission. Canonical dirty root/index
+and historical mission state remain preserved. Integrated qualification stays 3/4,
+source comparison closed. Mission: useful actual-history intervention with measured
+delay against a strong responsive comparator. Earlier entries are historical.
+
 # Current: Iter184 invalid before scalar admission — 16 October 2026
 
 Read experiments/iter184_discarded_progress/RESULT.md and DECISION.md.
@@ -6627,3 +6654,9 @@ Follow the current top entry and Iter184 RESULT/DECISION. Fifteen paths/82 masks
 collected; scalar admission invalid at runtime metadata. Three probes unrun.
 No further retry in this study. Freeze corrected validator for retained raw;
 source comparison closed and all scientific processes reaped.
+
+## Iter185 controlling preregistration — 16 October 2026
+
+Reuse committed prefix evidence with separately frozen corrected metadata admission.
+Qualify actual readers and constructed replay before retained scalar replay; commit
+prefix admission before unchanged conditional searches. No prefix reacquisition.
