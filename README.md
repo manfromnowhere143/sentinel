@@ -18,7 +18,7 @@ against a competent responsive baseline, with information access, permitted acti
 resource budgets stated explicitly.
 
 [System](#what-sentinel-does) · [Results](#measured-results) ·
-[Research history](#how-the-question-changed) · [Latest result](#iteration-184-discarded-prefix-audit-invalid-before-admission) ·
+[Research history](#how-the-question-changed) · [Latest result](#iteration-185-one-discarded-full-route-opportunity) ·
 [Next test](#the-next-scientific-test) · [Reproduce](#reproduce-and-inspect) ·
 [Repository status](#repository-status--15-october-2026) · [Experiment index](#complete-experiment-index)
 
@@ -1037,6 +1037,35 @@ admission must precede the unchanged three-root continuation schedule.
 [invalid admission record](experiments/iter184_discarded_progress/proof/admission.json) ·
 [next decision](experiments/iter184_discarded_progress/DECISION.md).
 
+## Iteration 185: one discarded full-route opportunity
+
+**One of three fixed conditional continuations completes the route; two remain
+unresolved bounded misses.** Independent replay finds no timing exclusion for
+these roots and no time censoring. The successful prefix was generated but
+not retained by the original right-bend tree. Integrated qualification remains
+3/4; source comparison stays closed.
+
+![Conditional continuation paths and accounted work](experiments/iter185_retained_prefix_admission/proof/continuations.png)
+
+The witness preserves its complete prefix and passes both absolute checkpoints,
+finishing at frame 33. Its conditional search uses 1,671 of 7,385 remaining
+transitions. Original work through discovery plus this continuation is 12,286
+of 18,000; conservative charged search wall is 14.999 seconds. Fresh conditional
+tree/RNG semantics prevent treating this as an integrated win or measured latency.
+
+All queried masks replay independently: 1,827 state checks / 11,937,618 point-state
+classifications, with 1,808 globally distinct states. Corrected metadata admission
+first verified all fifteen retained prefixes without recollection; Iter184's
+invalid result remains visible. Twelve prefix records remain unprobed.
+
+Next qualify one deterministic alternative-branch retention mechanism, then test
+all four cases under unchanged budgets with explicit lost-success accounting.
+A uniform illustrative rule would act much earlier than the known witness and
+on all four cases; its performance is unknown.
+[Result and scope](experiments/iter185_retained_prefix_admission/RESULT.md) ·
+[independent admission](experiments/iter185_retained_prefix_admission/proof/admission.json) ·
+[next decision](experiments/iter185_retained_prefix_admission/DECISION.md).
+
 ## The next scientific test
 
 The intended contribution is a monitor and evaluation system that can show **which failures
@@ -1075,8 +1104,9 @@ The following work is proposed; all previous schedules retain their closed accou
    checkpoint continuations from three demonstrated timing exclusions at its seven
    late endpoints. Iter183 applies necessary-constraint eligibility and restores 3/4,
    tying the retained best. Iter184 collects discarded prefixes but stops invalid
-   before scalar admission on metadata formatting. Next correct that validator
-   against retained raw before the fixed conditional continuation probes.
+   before scalar admission on metadata formatting. Iter185 corrects admission without
+   recollection and finds one full-route conditional witness plus two bounded misses.
+   Next qualify alternative branch retention before an unchanged-budget all-four trial.
    Source comparison remains closed until all four cases pass.
    Offline cost is not a response-time result.
 3. **After establishing useful recovery, test one information hypothesis against a responsive baseline.**
@@ -1162,7 +1192,7 @@ not a complete distribution of every runtime asset.
 | [Architecture](docs/ARCHITECTURE.md) | Implemented interfaces, simulator distinctions, evidence flow and timing. |
 | [Original preregistration](PREREGISTRATION.md) | The initial benchmark question and decision rules. |
 | [Research direction](docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md) | Information and recoverability: mathematical formulation and dated literature review. |
-| [Next scientific decision](experiments/iter184_discarded_progress/DECISION.md) | Correct metadata admission and replay the existing 15 paths / 82 masks before the unchanged conditional continuation probes. Preserve 3/4 and the closed source gate. |
+| [Next scientific decision](experiments/iter185_retained_prefix_admission/DECISION.md) | Qualify one prospective alternative-branch mechanism, then test all four cases with unchanged budgets and explicit losses. A conditional witness is not an integrated win; source comparison stays closed. |
 | [Handoff](HANDOFF.md) | Exact next task, acceptance criteria, resource closure and recovery instructions. |
 | [Continuity](CONTINUITY.md) and [next phase](docs/NEXT_PHASE.md) | Current state followed by retained historical decisions. |
 | [Technical report](docs/REPORT.md) | Historical synthesis through Iter134; it predates the current execution program. |
@@ -1183,7 +1213,7 @@ scientific claim or reinterpret the archived mission state.
 
 ## Repository status — 15 October 2026
 
-**Current through Iter184: discarded-prefix admission is invalid; integrated qualification remains 3/4.**
+**Current through Iter185: one discarded full-route opportunity is verified; integrated qualification remains 3/4.**
 The preselected path completes two native replicas from reset. The same exact/24
 method then misses after preserving the actual first-fire history. All 49 subsequent discarded/retained
 continuations also miss. An independent RRT adapter remains unqualified after a
@@ -1208,7 +1238,9 @@ eligibility, restoring 3/4 without exceeding the best retained outcome. Fifteen
 discarded advancing prefix records motivate the next continuation audit; source
 comparison stays closed. Iter184 collects those prefixes but its checker stops on
 runtime metadata formatting before scalar replay. No conditional search ran; the
-next task is corrected admission against retained raw.
+next task was corrected admission against retained raw. Iter185 completes that
+admission and verifies one full-route conditional opportunity; two probes remain
+bounded misses. It adds no integrated qualification credit.
 Monitor-time recovery, useful information and real-time operation remain unestablished.
 Iteration 135's dose-response experiment remains **deferred and unrun**.
 
@@ -1216,8 +1248,8 @@ The repository has two distinct records. The accepted code and mission snapshot 
 [`8c118b7`](https://github.com/manfromnowhere143/sentinel/tree/8c118b74c699bf0f139f9bd659192bad06b895f8)
 is **current through iteration 134**. [MISSION_STATE.json](MISSION_STATE.json) preserves
 that historical contract.
-Later research, through the invalid Iter184 prefix audit, is retained in a separate
-[research lineage](https://github.com/manfromnowhere143/sentinel/tree/531e44d6a8ded01997ee4940551a02168005c66b).
+Later research, through the Iter185 conditional-continuation audit, is retained in a separate
+[research lineage](https://github.com/manfromnowhere143/sentinel/tree/d25eea6749395d173808e980cc134c9b51d9f94a).
 This README describes both; a documentation update does not integrate that later experimental
 code into the accepted snapshot. The [current handoff](HANDOFF.md) identifies the next task.
 
@@ -1226,7 +1258,8 @@ This later research revision retains the continuation misses, failed independent
 planner qualification, local qualification, integrated failure and bounded connector
 comparison, allocation result, guidance audit, invalid trial, corrected 3/4 result,
 frontier continuation audit, equal-ceiling comparison, adverse selection trial
-late timing audit and eligibility repair and invalid prefix audit through Iter184. The public instrument
+late timing audit, eligibility repair, invalid prefix audit and corrected conditional
+continuations through Iter185. The public instrument
 follows validated closed-result packets automatically; its older replay and
 native witness do not inherit a new scientific identity from an update.
 
@@ -1291,8 +1324,11 @@ closure passed 4,502 tests with seven skips on each hosted Python version. Iter1
 adds 50 constructed controls; 166 focused checks pass with zero skips. Its exact
 closure passed 4,552 tests with seven skips on each hosted Python version. Iter184
 adds 47 constructed controls; 154 focused checks pass with zero skips. Two actual
-metadata reader failures remain retained; its closure CI is observed separately
-after publication. Software checks do not
+metadata reader failures remain retained; its closure passed 4,598 tests with eight
+skips on each hosted Python version. Iter185 adds 15 constructed controls; 112
+focused checks pass with zero skips. Its actual metadata/constructed qualification
+and retained prefix/continuation admissions are separately bound. Exact closure CI
+is observed after publication. Software checks do not
 rehabilitate failed qualification or establish actual-history intervention.
 
 ## Complete experiment index
@@ -1475,7 +1511,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 </details>
 
 <details>
-<summary>Information, recoverability and execution: Iter135–184</summary>
+<summary>Information, recoverability and execution: Iter135–185</summary>
 
 | Record | Finding or scope |
 |---|---|
@@ -1529,6 +1565,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 | [182](experiments/iter182_late_frontier_timing/RESULT.md) | Seven late endpoints: four verified frame-32 continuations, one premature-completion exclusion, two progress exclusions, zero unresolved/censored probes. Every queried mask replays; no full-route witness or new integrated result. |
 | [183](experiments/iter183_timing_eligibility/RESULT.md) | Necessary timing eligibility restores 3/4: one gain against Iter181, zero gains/losses against retained Iter178. Right bend still misses; 15 discarded advancing prefixes require continuation audit. |
 | [184](experiments/iter184_discarded_progress/RESULT.md) | Invalid before scalar admission: 15 discarded-prefix paths / 82 masks collected, three continuation probes unrun. Two metadata-reader failures retained; corrected validation must reuse existing raw. |
+| [185](experiments/iter185_retained_prefix_admission/RESULT.md) | Corrected retained-prefix admission; one full-route conditional witness, two unresolved bounded misses, no timing exclusions or censoring. All queried states replay. Integrated qualification stays 3/4. |
 
 </details>
 

@@ -1,3 +1,40 @@
+# Current: Iter185 admits one discarded full-route opportunity — 16 October 2026
+
+Read experiments/iter185_retained_prefix_admission/RESULT.md and DECISION.md.
+One of three fixed conditional probes completes; zero demonstrated timing exclusions,
+two unresolved transition-limited misses, zero censoring. The successful call 83/8/7
+prefix completes at frame 33 using 1,671 of 7,385 remaining transitions; original
+work plus continuation is 12,286 / 18,000, charged wall 14.999 seconds. Fresh conditional
+search is not insertion into the original tree or integrated qualification credit.
+Best integrated result remains 3/4 and source comparison stays closed.
+
+All queried masks independently replay: 1,827 state checks, 1,808 globally distinct
+states and 11,937,618 point-state classifications. Earlier prefix admission verifies
+all fifteen paths: 350 state records / 82 distinct states; eight timing certificates,
+no exclusions, three explicit numeric-join ambiguities. Twelve prefix records remain
+unprobed. Iter184's invalid result is preserved; no prefix recollection occurred.
+
+Next specify and qualify one deterministic extra-branch retention mechanism before
+one all-four trial with losses against Iter178 and Iter183. Preserve selected edges,
+allow at most one eligible unselected advancing prefix per connection, and avoid
+hindsight case/call targeting. The illustrative online rule identifies 39 original
+candidate connections across all four cases, starting at left call 1 / right call 2;
+it would change later trees and does not guarantee preserving any success. Native
+branch parent/token/duration, duplicate rejection, deadlines and zero-alternative
+compatibility require qualification before acquisition. See DECISION for boundaries.
+
+Source df50a6b9123ca2389952da795b384225a4f9d980;
+qualification 7743d53e4051f7864764707b5c41dd7c906f3455;
+prefix admission 5cf4d638a616ce5baeabe25c07483ff4aae9f4ab;
+continuation raw 6fbb27220192bf3ccf88783ffdb192a834d462a0;
+admission d25eea6749395d173808e980cc134c9b51d9f94a. All scientific processes reaped.
+15 new controls / 112 focused checks pass, zero skips. Iter184's hosted closure
+passed 4,598 tests / 8 skipped each; Iter185 closure publication is observed separately.
+Owned branch research/iter185-retained-prefix-admission; canonical dirty root/index
+and historical mission state preserved. No driving, provider use or spending.
+Mission remains useful actual-history intervention with measured delay and a strong
+responsive comparator. Earlier entries below are historical.
+
 # Current: Iter184 invalid before scalar admission — 16 October 2026
 
 Read experiments/iter184_discarded_progress/RESULT.md and DECISION.md.

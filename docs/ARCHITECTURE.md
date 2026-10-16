@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 14 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter184 research record. The [README](../README.md) carries the scientific
+limits through the Iter185 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -691,3 +691,30 @@ qualify the actual manifest readers, preserve historical bytes and avoid repeati
 collection. Integrated qualification remains 3/4; source comparison stays closed.
 [Failure scope](../experiments/iter184_discarded_progress/RESULT.md) ·
 [next decision](../experiments/iter184_discarded_progress/DECISION.md).
+
+## Conditional opportunity without integrated credit
+
+Iter185 corrects metadata admission while preserving Iter184's invalid result and
+raw bytes. All fifteen prefixes pass scalar replay before three fixed conditional
+searches. One completes at frame 33; two exhaust their remaining transitions and
+remain unresolved. Every newly queried state receives scalar replay, including
+unselected alternatives. Source comparison stays closed at integrated 3/4.
+
+```mermaid
+flowchart LR
+  A["Original prefix raw<br/>No recollection"] --> B["Corrected bound-metadata validator"]
+  B --> C["15 prefixes admitted"]
+  C --> D["Three fixed conditional searches"]
+  D --> E["1 full-route witness<br/>2 unresolved misses"]
+  E --> F["Qualify prospective branch retention<br/>Then all four cases; count losses"]
+```
+
+The producer and corrected validator have separate source identities. Native
+sequence tokens and complete paths replay; native internal tree/RNG generation
+remains producer evidence. A fresh conditional tree is not the original tree with
+an inserted node. A retention rule must use only information available at the
+current connection and cannot target the known successful call. Native branch
+registration, parent/time identity, duplicates, deadlines and unchanged-case budgets
+must be qualified before a new integrated trial.
+[Result](../experiments/iter185_retained_prefix_admission/RESULT.md) ·
+[next decision](../experiments/iter185_retained_prefix_admission/DECISION.md).

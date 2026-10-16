@@ -1,41 +1,41 @@
 {
   "schemaVersion": 1,
-  "iteration": 184,
-  "directory": "experiments/iter184_discarded_progress",
-  "title": "Prefix admission stopped before replay.",
-  "summary": "Collection retained 15 discarded-prefix paths and 82 masks. The checker rejected historical runtime-metadata formatting before scalar replay. None of the three continuation searches ran.",
-  "boundary": "Invalid admission: collected masks do not establish feasible prefixes. Continuation, constraint and bounded-miss outcomes remain unobserved. Integrated qualification stays 3/4 and source comparison stays closed.",
-  "next": "Qualify a corrected validator against actual bound metadata, then replay existing raw without recollection. Successful prefix admission must precede the unchanged three-root continuation schedule.",
+  "iteration": 185,
+  "directory": "experiments/iter185_retained_prefix_admission",
+  "title": "One discarded prefix can complete the route.",
+  "summary": "Independent replay verifies one full-route continuation from three fixed discarded roots. Two searches exhaust their remaining work without completion; neither miss is proved inevitable. Every queried state passes scalar replay.",
+  "boundary": "Fresh conditional trees do not establish an integrated win. Qualification remains 3/4 and source comparison stays closed. Twelve audited prefix records remain unprobed. Actual-history intervention and measured response delay remain unestablished.",
+  "next": "Qualify deterministic retention of an additional eligible branch, then run the original four cases with unchanged budgets and explicit lost-success accounting. Avoid targeting the known successful root.",
   "metrics": [
     {
-      "label": "Collected prefix records",
-      "field": "collected_prefix_records"
+      "label": "Full-route continuations",
+      "field": "full_route_continuations"
     },
     {
-      "label": "Collected distinct masks",
-      "field": "materialized_masks"
+      "label": "Fixed continuation probes",
+      "field": "probed_roots"
     },
     {
-      "label": "Conditional searches run",
-      "field": "conditional_searches"
+      "label": "Distinct scalar-replayed states",
+      "field": "distinct_scalar_states"
     },
     {
-      "label": "Mechanical amendments",
-      "field": "mechanical_amendments"
+      "label": "Conditional transitions",
+      "field": "diagnostic_attempts"
     }
   ],
   "breakdown": [
     {
-      "label": "Planned continuation roots",
-      "field": "planned_roots"
+      "label": "Demonstrated timing exclusions",
+      "field": "demonstrated_constraints"
     },
     {
-      "label": "Initialization failures",
-      "field": "initialization_failures"
+      "label": "Unresolved bounded misses",
+      "field": "unresolved_misses"
     },
     {
-      "label": "Admission failures",
-      "field": "admission_failures"
+      "label": "Audited but unprobed records",
+      "field": "unprobed_records"
     }
   ]
 }
