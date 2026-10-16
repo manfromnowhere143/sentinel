@@ -20,7 +20,27 @@ resource budgets stated explicitly.
 [System](#what-sentinel-does) · [Results](#measured-results) ·
 [Research history](#how-the-question-changed) · [Latest result](#iteration-185-one-discarded-full-route-opportunity) ·
 [Next test](#the-next-scientific-test) · [Reproduce](#reproduce-and-inspect) ·
-[Repository status](#repository-status--15-october-2026) · [Experiment index](#complete-experiment-index)
+[Repository status](#repository-status--16-october-2026) · [Experiment index](#complete-experiment-index)
+
+## Reading the evidence
+
+The full record below follows the changes in the scientific question. Start with
+the system interface, then the measured gains and costs, then the current
+qualification gap. Every experiment result remains indexed at the end.
+
+| Stage | Retained finding | What it does not establish |
+|---|---|---|
+| Released monitor | NeuroNCAP score improves; frontal collisions increase and progress benefit is unestablished. | General safety or transfer. |
+| Attribution and transfer | Placebo attribution remains unresolved; HUGSIM comparisons are null. | Semantic information value. |
+| Execution and geometry | Controller, clocks and background masks have separately checked contracts. | Physical scene fidelity. |
+| Recovery search | A fixed path completes native runs from reset; actual first-fire searches miss. | Useful monitor-time intervention. |
+| Integrated development | Best is 3/4; a selection change lost a success before eligibility restored it. | All-four qualification or source-comparison readiness. |
+| Current audit | One discarded prefix has a full-route continuation; two probes remain bounded misses. | Success of an online retention policy. |
+
+The [next proposal](docs/research/SENTINEL_BRANCH_RETENTION_PROPOSAL_2026-10-16.md)
+tests one additional retained branch under unchanged budgets. The
+[dated research assessment](docs/research/SENTINEL_FRONTIER_ASSESSMENT_2026-10-16.md)
+relates this question to current primary evidence without claiming frontier parity.
 
 ## What Sentinel does
 
@@ -227,27 +247,14 @@ sets out the mathematical target, relevant prior work and the proposed experimen
 
 ```mermaid
 flowchart TB
-  accTitle: How evidence changed the question
-  accDescr: Local qualification is not first-fire recovery.
-  N["NeuroNCAP gain<br/>attribution limits"] --> T["HUGSIM transfer nulls"]
-  T --> E["Iter136–151: execution nulls"]
-  E --> P["Iter152: brake pulses<br/>no useful recovery"]
-  P --> M["Iter153–154: path<br/>fails full scene"]
-  M --> W["Iter155–156: collision<br/>masks agree"]
-  W --> L["Iter157: fixed library<br/>0 of 75 qualify"]
-  L --> A["Iter158–159: search unqualified"]
-  A --> K["Iter160: suffix shortfall"]
-  K --> G["Iter161: grouping × width<br/>exact/24 qualifies"]
-  G --> S["Iter162: two model paths"]
-  S --> V["Iter163: two native<br/>completions from reset"]
-  V --> B["Iter164: first-fire miss"]
-  B --> D["Iter165: all 49 roots miss"]
-  D --> R["Iter166–167: RRT repair<br/>0/4 controls"]
-  R --> J["Iter168: stops pass; turns miss"]
-  J --> H["Iter169–171: control<br/>12/12 qualify"]
-  H --> I["Iter172: integrated RRT<br/>0/4 cases"]
-  I --> O["Iter173: connector<br/>local pass"]
-  O --> U["Iter174–183: RRT<br/>1/4 → 3/4 → 2/4 → 3/4"]
+  accTitle: How the research question changed
+  accDescr: Gains and failures lead to execution checks, recovery qualification and a prospective retention test.
+  N["Benchmark gain and costs<br/>Attribution unresolved; transfer null"] --> E["Iter136–156<br/>Execution contracts and scene predicates"]
+  E --> R["Iter157–163<br/>Finite misses, then native reset completion"]
+  R --> H["Iter164–165<br/>Actual-history and later-root misses"]
+  H --> Q["Iter166–183<br/>Local passes; integrated best 3/4"]
+  Q --> A["Iter184–185<br/>Invalid audit retained; corrected full-route witness"]
+  A -. "proposed" .-> P["Retain one extra branch<br/>Count gains, losses and total cost"]
 ```
 
 ### 5. Establish what the controller actually executes
@@ -1071,6 +1078,8 @@ on all four cases; its performance is unknown.
 The intended contribution is a monitor and evaluation system that can show **which failures
 remain preventable, which signal enables prevention, and the measured cost and limits**.
 The following work is proposed; all previous schedules retain their closed accounting.
+The [next proposal](docs/research/SENTINEL_BRANCH_RETENTION_PROPOSAL_2026-10-16.md)
+specifies the online rule, native-interface controls, fixed budgets and gain/loss decision.
 
 1. **Retain the finite-library null.** Iter157 rules out this fixed route-offset library
    under complete source-model constraints. Keep the counterexamples, the 61 prior
@@ -1119,20 +1128,15 @@ The following work is proposed; all previous schedules retain their closed accou
 
 ```mermaid
 flowchart TB
-  accTitle: Separate search competence from intervention timing
-  accDescr: Finite source misses and failed adapter qualification do not prove unrecoverability.
-  S["Iter162–163: reset paths<br/>model and native completion"] --> B["Iter164–165: actual history<br/>and all 49 later roots miss"]
-  B --> Q["Iter166: RRT qualification invalid<br/>early terminal condition"]
-  Q --> C["Iter167: terminal condition corrected<br/>0 of 4 controls complete"]
-  C --> D["Iter168–170: local turns miss"]
-  D --> E["Iter171: centered shooting<br/>12/12 local tasks qualify"]
-  E --> F["Iter172: integrated RRT<br/>0/4 cases; attempt caps bind"]
-  F --> P["Iter173: forward proposals<br/>finite connector test passes"]
-  P --> U["Iter174–183: RRT<br/>1/4 → 3/4 → 2/4 → 3/4"]
-  U --> A{"All four cases<br/>qualify?"}
-  A -- "no" --> N["Retain bounded miss<br/>repair diagnosed limitation"]
-  A -- "yes" --> R["Compare at unchanged first fire<br/>fixed constraints and total cost"]
-  R --> W["If admitted: native continuation<br/>then information and transfer tests"]
+  accTitle: From a conditional opportunity to useful intervention
+  accDescr: The current audit does not bypass integrated qualification, actual-history execution or measured delay.
+  W["Iter185: one conditional witness<br/>Two unresolved misses"] -. "proposed" .-> N["Qualify native extra-branch interface"]
+  N --> T["One all-four trial<br/>Fixed budgets; count lost successes"]
+  T --> G{"All four admitted?"}
+  G -- "no" --> F["Source comparison closed<br/>Retain failure and diagnose"]
+  G -- "yes" --> H["Compare at actual first fire<br/>Preserve history and constraints"]
+  H --> R["Native continuation and measured delay"]
+  R --> I["Information ablation<br/>Strong responsive baseline; new scenes"]
 ```
 
 The development sequence retains Iter178's 3/4 and Iter181's adverse 2/4 candidate.
@@ -1198,7 +1202,7 @@ not a complete distribution of every runtime asset.
 | [Technical report](docs/REPORT.md) | Historical synthesis through Iter134; it predates the current execution program. |
 | [Paper status](docs/paper/STATUS.md) | Archived manuscript and rewrite requirements; not submission-ready. |
 | [Verification archive](experiments/verification/README.md) | Early audit scripts, raw logs and correction history. |
-| [Editorial review](docs/editorial/2026-10-12/REVIEW.md) | Claim corrections, diagram review and reconciliation of the public and local READMEs. |
+| [Integration review](docs/editorial/2026-10-16/REVIEW.md) | Default-branch integration, current diagrams, evidence scope and validation. |
 
 The [Iter157 result](experiments/iter157_constrained_action_library/RESULT.md) binds the
 original producer/raw, failed admission, correction source and successful scalar
@@ -1211,7 +1215,7 @@ records update after exact-source CI and source validation. Its historical repla
 and native witness keep their own identities; automatic delivery does not grant a
 scientific claim or reinterpret the archived mission state.
 
-## Repository status — 15 October 2026
+## Repository status — 16 October 2026
 
 **Current through Iter185: one discarded full-route opportunity is verified; integrated qualification remains 3/4.**
 The preselected path completes two native replicas from reset. The same exact/24
@@ -1244,24 +1248,24 @@ bounded misses. It adds no integrated qualification credit.
 Monitor-time recovery, useful information and real-time operation remain unestablished.
 Iteration 135's dose-response experiment remains **deferred and unrun**.
 
-The repository has two distinct records. The accepted code and mission snapshot at
-[`8c118b7`](https://github.com/manfromnowhere143/sentinel/tree/8c118b74c699bf0f139f9bd659192bad06b895f8)
-is **current through iteration 134**. [MISSION_STATE.json](MISSION_STATE.json) preserves
-that historical contract.
-Later research, through the Iter185 conditional-continuation audit, is retained in a separate
-[research lineage](https://github.com/manfromnowhere143/sentinel/tree/d25eea6749395d173808e980cc134c9b51d9f94a).
-This README describes both; a documentation update does not integrate that later experimental
-code into the accepted snapshot. The [current handoff](HANDOFF.md) identifies the next task.
+This revision brings the research record through Iter185 together with the
+default branch's documentation and CI history for **`master`**, the repository's default branch. Integration preserves all original commits;
+it does not promote a diagnostic result into a qualified intervention system.
+The [current handoff](HANDOFF.md) identifies the next task, and the
+[integration review](docs/editorial/2026-10-16/REVIEW.md) records scope and validation.
 
-The earlier 12 October editorial refresh brought the default landing page through Iter155.
-This later research revision retains the continuation misses, failed independent
-planner qualification, local qualification, integrated failure and bounded connector
-comparison, allocation result, guidance audit, invalid trial, corrected 3/4 result,
-frontier continuation audit, equal-ceiling comparison, adverse selection trial
-late timing audit, eligibility repair, invalid prefix audit and corrected conditional
-continuations through Iter185. The public instrument
-follows validated closed-result packets automatically; its older replay and
-native witness do not inherit a new scientific identity from an update.
+The immutable code and mission snapshot at
+[`8c118b7`](https://github.com/manfromnowhere143/sentinel/tree/8c118b74c699bf0f139f9bd659192bad06b895f8)
+remains **current through iteration 134**. [MISSION_STATE.json](MISSION_STATE.json)
+retains that historical contract byte-for-byte. Current research state lives in
+each experiment's protocol, raw evidence, admission and result. The historical
+validator runs at its declared revision; current source, links, diagrams and
+result coverage are checked in the present checkout. This distinction prevents
+an old control contract from silently acquiring new scientific meaning.
+
+The public [instrument](https://sentinel.danielwahnich.dev/) follows validated
+closed-result packets. Publication, hosted software tests and scientific admission
+remain separately identified observations.
 
 Validation remains scoped. Iter155's original hosted Ruff failures remain in the
 [retained outcome](experiments/iter155_background_witness/proof/hosted_ci_outcome.json).

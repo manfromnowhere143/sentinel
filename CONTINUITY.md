@@ -1,3 +1,19 @@
+# Default-branch integration and next proposal — 16 October 2026
+
+The complete research record through Iter185 is integrated with the existing
+master history on research/iter185-default-integration. Publication advances
+master only after exact-source hosted checks and readback. The latest proposal is
+in docs/research/SENTINEL_BRANCH_RETENTION_PROPOSAL_2026-10-16.md; current primary
+research context is in docs/research/SENTINEL_FRONTIER_ASSESSMENT_2026-10-16.md.
+Read docs/editorial/2026-10-16/REVIEW.md for integration and validation scope.
+No new planner or scientific acquisition is introduced by this presentation work.
+
+Next qualify the native extra-branch interface, freeze its source/build and
+complete protocol, then run one all-four schedule with unchanged budgets and
+explicit losses. Integrated qualification remains 3/4; source comparison closed.
+The original dirty checkout/index and historical mission bytes are preserved.
+Earlier entries below retain their dated scopes and branch identities.
+
 # Current: Iter185 admits one discarded full-route opportunity — 16 October 2026
 
 Read experiments/iter185_retained_prefix_admission/RESULT.md and DECISION.md.

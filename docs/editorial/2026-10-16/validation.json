@@ -1,0 +1,110 @@
+{
+  "status": "supported",
+  "scope": "Local integration and editorial checks, not hosted CI or scientific promotion",
+  "observed_at": "2026-10-16T08:16:16.960467+00:00",
+  "source_closure": "65b259b8302a6f97855fb83cb584918e954c11e9",
+  "merge": "be62e66003df1ff49a8d9e2ba4ddaebd51dbd59a",
+  "merge_tree_identical_to_research_closure": true,
+  "content_sha256": {
+    "README.md": "3ccaf34cbb0d45fe19c9acd147f4cf43df95c220cc836e9083d2f684a8108fb7",
+    "docs/ARCHITECTURE.md": "b34fb73018e4528c1cd45dc0f56de16a48fd556693ba6649f755ec79a93e9cbb",
+    "docs/research/SENTINEL_BRANCH_RETENTION_PROPOSAL_2026-10-16.md": "978c8b31c8778b9c4347e160b020c6b418422f677052c4759423290497d2dafc",
+    "docs/research/SENTINEL_FRONTIER_ASSESSMENT_2026-10-16.md": "c12bec4c2e2fb36f7edefb30ca8b000e6cdf595c950e0052cef9f071d10848b7",
+    "docs/editorial/2026-10-16/REVIEW.md": "a7a0e6134d8b893cde1075001101e59dab2e8080c7824f16f1aca346feade4e2"
+  },
+  "frozen_iter185_source_bindings_unchanged": 720,
+  "maintained_source_ruff": "passed",
+  "supply_chain": "passed",
+  "markdown_files_checked": 685,
+  "local_links_and_anchors": 436,
+  "all_experiment_results_indexed": true,
+  "diagram_sources": [
+    {
+      "file": "README.md",
+      "index": 1,
+      "characters": 798,
+      "sha256": "1247bf62633155b66528f2ab8aadac67db0a9577664c1eff965e6259b3801f17"
+    },
+    {
+      "file": "README.md",
+      "index": 2,
+      "characters": 687,
+      "sha256": "a979a75ef20ecdcc9ff4d2e17b2ca16829d5779828965e8b8ed873def117dddb"
+    },
+    {
+      "file": "README.md",
+      "index": 3,
+      "characters": 721,
+      "sha256": "ae12e9a2a7c092d58a199095ab1e33b068c6c802b7d6d87f1f622e18b0503543"
+    },
+    {
+      "file": "docs/ARCHITECTURE.md",
+      "index": 1,
+      "characters": 787,
+      "sha256": "c16e3ea59aaefa02976c57ed3a017e04fcd993a77730cd5cd7258d4f5edbd84c"
+    },
+    {
+      "file": "docs/ARCHITECTURE.md",
+      "index": 2,
+      "characters": 737,
+      "sha256": "2e5063a5e2338e0a4fb73cbc495acdbcc894c081fa18bc6c0f81e30a500382bf"
+    },
+    {
+      "file": "docs/ARCHITECTURE.md",
+      "index": 3,
+      "characters": 867,
+      "sha256": "43fc9d3e3b67d112e8f73f9f92a81ee11c7e36015bda3edcfe10a917a362c9b1"
+    },
+    {
+      "file": "docs/ARCHITECTURE.md",
+      "index": 4,
+      "characters": 724,
+      "sha256": "6240f448918903afd604db38665c59a922c5ec8c304dd672a1f3a602aadea50f"
+    },
+    {
+      "file": "docs/ARCHITECTURE.md",
+      "index": 5,
+      "characters": 697,
+      "sha256": "de6555d7fddfab3d04fdd8cda51ffabebab30becad8f5379b61dd8e989be3f35"
+    },
+    {
+      "file": "docs/ARCHITECTURE.md",
+      "index": 6,
+      "characters": 442,
+      "sha256": "a000908e97a60389b6b3f3632a5a557717b6d47c3c343c6c345f8473d971cf80"
+    },
+    {
+      "file": "docs/ARCHITECTURE.md",
+      "index": 7,
+      "characters": 611,
+      "sha256": "d8dc9e3c9bb21af89bcf55c7a2e0773e6fb7ce2cfdf1f2ee20eaa30ae7c8670d"
+    },
+    {
+      "file": "docs/ARCHITECTURE.md",
+      "index": 8,
+      "characters": 462,
+      "sha256": "9d7313de8ae8c6523549973295dc89523f89c1f667e90e0110f1217d5d56ebe0"
+    },
+    {
+      "file": "docs/ARCHITECTURE.md",
+      "index": 9,
+      "characters": 426,
+      "sha256": "ffa169aa6038d784cf42f5079d940690242facfccb6dd92b207c2f9e3f19fb29"
+    },
+    {
+      "file": "docs/ARCHITECTURE.md",
+      "index": 10,
+      "characters": 474,
+      "sha256": "da418d9a86d827908b0cf63505b3d10e85999a46ba277e0f18038d28f9e2c1db"
+    }
+  ],
+  "diagram_renders": 26,
+  "diagram_layout_findings": [],
+  "visual_review": "Phase diagrams and final diagnostic layouts inspected; labels readable, no overlap or clipped content. Light and dark render checks passed.",
+  "instrument_tests_passed": 14,
+  "iter185_focused_tests_passed": 112,
+  "iter185_focused_skipped": 0,
+  "canonical_dirty_index_and_status_preserved": true,
+  "historical_mission_bytes_preserved": true,
+  "hosted_integration_outcome": "unobserved before publication"
+}

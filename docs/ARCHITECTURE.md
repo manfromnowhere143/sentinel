@@ -1,10 +1,38 @@
 # Sentinel architecture
 
-Updated 14 October 2026. This describes the implemented research apparatus and its measured
+Updated 16 October 2026. This describes the implemented research apparatus and its measured
 limits through the Iter185 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
+
+## Current evidence flow and proposed extension
+
+The released monitor, privileged search and evidence checker have different
+information access. The search can query the retained scene predicate; the
+released monitor receives planner outputs. A checker admits specified recorded
+properties and does not supply a live action. Native tree construction remains
+producer evidence where no separate reconstruction exists.
+
+```mermaid
+flowchart TB
+  accTitle: Current search evidence and proposed branch retention
+  accDescr: Frozen source produces raw records before separate replay. A proposed branch extension returns to qualification, not directly to driving.
+  S["Frozen cases, geometry, budgets<br/>and native build"] --> P["Current planner<br/>evaluate, filter, select one edge"]
+  P --> R["Raw controls, states, masks<br/>tokens, clocks and accounting"]
+  R --> V["Separate replay<br/>scalar geometry and execution contracts"]
+  V --> A["Admitted results<br/>failures and unknowns retained"]
+  A --> D["Iter185: one discarded opportunity"]
+  D -. "proposed" .-> B["One additional eligible branch<br/>Exact native parent and sequence"]
+  B -.-> Q["Interface qualification<br/>then unchanged-budget all-four trial"]
+```
+
+The [retention proposal](research/SENTINEL_BRANCH_RETENTION_PROPOSAL_2026-10-16.md)
+defines prospective selection and required controls. It is not implemented here.
+Additional insertion changes native planner semantics and requires a new bound
+binary. Offline search wall time is not sensing-to-actuation delay. The later
+actual-history comparison must retain observation availability, decision time,
+computation completion and applied-action time separately.
 
 ## Components and interfaces
 
@@ -208,29 +236,15 @@ recovery and information benefit remain unestablished.
 
 ```mermaid
 flowchart TB
-  accTitle: Scene constraints and planner qualification
-  accDescr: Reset completion is not first-fire recovery.
-  G["Route and foreground inputs"] --> M["Iter153–154: reduced model<br/>fails native scene"]
-  M --> X["Iter155: points, boxes, ground"]
-  X --> C["Native CUDA masks"]
-  X --> S["Scalar reconstruction"]
-  C --> E["Exact masks: 0 and 273<br/>threshold >100"]
-  S --> E
-  E --> F["Iter156: 115 masks agree"]
-  F --> L["Iter157: 0 of 75 qualify"]
-  L --> A["Iter158–159: search unqualified"]
-  A --> K["Iter160: suffix shortfall"]
-  K --> Z["Iter161: exact/24<br/>passes four controls"]
-  Z --> Y["Iter162: two model paths"]
-  Y --> V["Iter163: two native<br/>completions from reset"]
-  V --> B["Iter164: first-fire miss"]
-  B --> D["Iter165: all 49 roots miss"]
-  D --> R["Iter166–167: RRT repair<br/>0/4 controls"]
-  R --> J["Iter168: stops pass; turns miss"]
-  J --> H["Iter169–171: control<br/>12/12 qualify"]
-  H --> I["Iter172: integrated RRT<br/>0/4 cases"]
-  I --> O["Iter173: connector<br/>local pass"]
-  O --> U["Iter174–183: RRT<br/>1/4 → 3/4 → 2/4 → 3/4"]
+  accTitle: From scene calibration to planner qualification
+  accDescr: Model validity, search competence and native recovery are separate claims.
+  M["Iter153–154<br/>Reduced-model candidate fails native scene"] --> C["Iter155–156<br/>Native and scalar background masks agree"]
+  C --> S["Iter157–162<br/>Finite search and four-case grouping qualification"]
+  S --> N["Iter163<br/>Two native completions from reset"]
+  N --> H["Iter164–165<br/>Actual-history continuations miss"]
+  H --> L["Iter166–173<br/>Adapter and local-control qualification"]
+  L --> Q["Iter174–183<br/>Integrated best 3/4; losses retained"]
+  Q --> W["Iter184–185<br/>One conditional full-route opportunity"]
 ```
 
 These privileged diagnostic inputs are not delivered to the released monitor. Iter153's model
@@ -575,7 +589,9 @@ sampled-target ranking selected an earlier prefix from another evaluation. The
 following is a descriptive trace, not a counterfactual integrated result:
 
 ```mermaid
-flowchart LR
+flowchart TB
+  accTitle: Retained prefix selection diagnostic
+  accDescr: An original local program is a finite witness, not a new integrated success.
   R["Retained root 51<br/>frame 12"] --> G["Original call 67<br/>128 transitions"]
   G --> W["Evaluation 28<br/>valid through frame 16"]
   G --> P["Evaluation 6<br/>selected frame 13"]
@@ -622,7 +638,9 @@ premature-completion certificate is inapplicable at frame31, independently of it
 progress certificate. No certificate prunes a diagnostic probe.
 
 ```mermaid
-flowchart LR
+flowchart TB
+  accTitle: Late-frontier timing audit
+  accDescr: Verified continuations and necessary timing exclusions remain distinct.
   A["Seven retained endpoints<br/>two missed cases"] --> B["Full scalar prefixes<br/>case-scoped masks"]
   B --> C["Fixed unpruned probes<br/>independent timing bounds"]
   C --> D["Four verified checkpoint paths<br/>zero full-route completions"]
@@ -656,7 +674,9 @@ tying Iter178 and recovering one success against Iter181. Full scalar replay cov
 115 returned states. The right bend still misses; source comparison stays closed.
 
 ```mermaid
-flowchart LR
+flowchart TB
+  accTitle: Timing eligibility before selection
+  accDescr: Physical evaluation precedes timing eligibility and unchanged selection.
   A["Original physical evaluations"] --> B["Timing certificate or explicit unknown"]
   B --> C["Eligible prefix selection"]
   C --> D["3/4 complete<br/>Right bend misses"]
@@ -679,7 +699,9 @@ pre-query plan-formatting failure and one mechanical amendment remain visible.
 No continuation search ran; producer masks do not establish feasible prefixes.
 
 ```mermaid
-flowchart LR
+flowchart TB
+  accTitle: Invalid discarded-prefix audit
+  accDescr: Retained raw survives an admission failure and must not be recollected.
   A["15 fixed discarded prefixes"] --> B["Paths and 82 masks collected"]
   B --> C["Metadata reader failure<br/>Scalar admission unobserved"]
   C --> D["Freeze corrected validator<br/>Reuse retained raw"]
@@ -701,12 +723,14 @@ remain unresolved. Every newly queried state receives scalar replay, including
 unselected alternatives. Source comparison stays closed at integrated 3/4.
 
 ```mermaid
-flowchart LR
+flowchart TB
+  accTitle: Corrected conditional continuation audit
+  accDescr: Independent admission yields one witness and two bounded misses.
   A["Original prefix raw<br/>No recollection"] --> B["Corrected bound-metadata validator"]
   B --> C["15 prefixes admitted"]
   C --> D["Three fixed conditional searches"]
   D --> E["1 full-route witness<br/>2 unresolved misses"]
-  E --> F["Qualify prospective branch retention<br/>Then all four cases; count losses"]
+  E -. "proposed" .-> F["Qualify prospective branch retention<br/>Then all four cases; count losses"]
 ```
 
 The producer and corrected validator have separate source identities. Native
