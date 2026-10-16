@@ -1,0 +1,3 @@
+Info:    RRT: Starting planning with 1 states already in datastructure
+Info:    RRT: Created 1 states
+{'root_identity': [110, 2, 1], 'complete': False, 'attempts': 3929, 'stop': 'attempt_budget'}

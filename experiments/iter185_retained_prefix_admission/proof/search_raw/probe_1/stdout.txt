@@ -1,0 +1,4 @@
+Info:    RRT: Starting planning with 1 states already in datastructure
+Info:    ProblemDefinition: Adding approximate solution from planner RRT
+Info:    RRT: Created 36 states
+{'root_identity': [98, 8, 6], 'complete': False, 'attempts': 5465, 'stop': 'attempt_budget'}
