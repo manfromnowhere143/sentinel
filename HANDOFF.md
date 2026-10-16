@@ -1,3 +1,36 @@
+# Current: Iter184 invalid before scalar admission — 16 October 2026
+
+Read experiments/iter184_discarded_progress/RESULT.md and DECISION.md.
+Collection retained all 15 discarded-prefix paths and 82 masks, but the checker
+stopped before scalar replay on the runtime manifest's historical JSON formatting.
+No prefix feasibility or continuation outcome is admitted. All three planned
+searches remain unrun. Integrated qualification stays 3/4; source comparison closed.
+
+The first initialization also failed before queries on the historical plan format.
+Its source/raw remain retained. One prospective amendment corrected that reader
+without changing scientific parameters; the second formatting failure stops this
+amended study. No extra retry, root fallback, seed change or original-case rerun.
+47 new controls / 154 focused checks pass, zero skips, but did not cover the actual
+runtime-metadata entrypoint. All scientific processes exited/reaped. No provider
+use or spending. Corrected source and producer success are not scientific admission.
+
+Next freeze a minimal validator correction, qualify the complete actual manifest
+reader boundary, and replay the existing committed paths/masks without reacquisition.
+Keep original producer and corrected validator identities separate. Only successful
+prefix admission permits the same three conditional full-route probes and budgets.
+Retain unknown continuation/constraint/miss counts as unobserved, not zero.
+
+Original source cc4e3c29c30878ba452467e173da43a9506c2a08;
+first failure raw fb4816e52cba93e6bd8fab7940dab0bdccb86c33;
+amended source 777d6de8e9d8f254c83ab86e9cac987feedb3480;
+collected raw e5d9f7611e3d401e1b2e72c9e5d59ff7b4ee0ab6.
+Owned branch research/iter184-discarded-progress. Prior Iter183 closure passed
+4,552 tests / 7 skipped on both hosted Python versions; 192 public refs and live
+instrument match. Iter184 closure publication is observed separately after push.
+Canonical root/index and historical mission state preserved. Mission remains useful
+actual-history intervention with measured delay and a strong responsive comparator.
+Earlier entries below are historical.
+
 # Current: Iter184 pre-evidence reader amendment — 16 October 2026
 
 The original source cc4e3c29c30878ba452467e173da43a9506c2a08 stopped before

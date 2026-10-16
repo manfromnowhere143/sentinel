@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 14 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter183 research record. The [README](../README.md) carries the scientific
+limits through the Iter184 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -670,3 +670,24 @@ three fixed conditional continuations follow only after their admission. Fresh
 conditional trees do not reproduce inserting nodes into the original native tree.
 No ranking change is supported yet. [Result](../experiments/iter183_timing_eligibility/RESULT.md) ·
 [next decision](../experiments/iter183_timing_eligibility/DECISION.md).
+
+## Discarded-prefix admission failure
+
+Iter184 retains 15 paths and 82 masks, but scalar admission is invalid before
+replay because the copied runtime manifest is not canonically formatted. An earlier
+pre-query plan-formatting failure and one mechanical amendment remain visible.
+No continuation search ran; producer masks do not establish feasible prefixes.
+
+```mermaid
+flowchart LR
+  A["15 fixed discarded prefixes"] --> B["Paths and 82 masks collected"]
+  B --> C["Metadata reader failure<br/>Scalar admission unobserved"]
+  C --> D["Freeze corrected validator<br/>Reuse retained raw"]
+  D --> E["Only after prefix admission:<br/>three unchanged conditional probes"]
+```
+
+The correction must bind original producer and corrected validator separately,
+qualify the actual manifest readers, preserve historical bytes and avoid repeating
+collection. Integrated qualification remains 3/4; source comparison stays closed.
+[Failure scope](../experiments/iter184_discarded_progress/RESULT.md) ·
+[next decision](../experiments/iter184_discarded_progress/DECISION.md).

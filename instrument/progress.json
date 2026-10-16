@@ -1,41 +1,41 @@
 {
   "schemaVersion": 1,
-  "iteration": 183,
-  "directory": "experiments/iter183_timing_eligibility",
-  "title": "Timing eligibility restores three of four.",
-  "summary": "The left bend and both chicanes complete. One gain with no losses against the experimental parent; no gains or losses against the retained best. Independent replay admits all 115 returned states.",
-  "boundary": "The right bend still misses and all-four qualification fails. Source comparison stays closed. One exposed case explains a local repair; useful actual-history intervention and measured response delay remain unestablished.",
-  "next": "Audit all 15 discarded advancing prefixes, then three fixed full-route continuations within the work remaining at discovery. Higher progress alone does not establish feasibility.",
+  "iteration": 184,
+  "directory": "experiments/iter184_discarded_progress",
+  "title": "Prefix admission stopped before replay.",
+  "summary": "Collection retained 15 discarded-prefix paths and 82 masks. The checker rejected historical runtime-metadata formatting before scalar replay. None of the three continuation searches ran.",
+  "boundary": "Invalid admission: collected masks do not establish feasible prefixes. Continuation, constraint and bounded-miss outcomes remain unobserved. Integrated qualification stays 3/4 and source comparison stays closed.",
+  "next": "Qualify a corrected validator against actual bound metadata, then replay existing raw without recollection. Successful prefix admission must precede the unchanged three-root continuation schedule.",
   "metrics": [
     {
-      "label": "Complete cases",
-      "field": "complete_cases"
+      "label": "Collected prefix records",
+      "field": "collected_prefix_records"
     },
     {
-      "label": "Qualification cases",
-      "field": "total_cases"
+      "label": "Collected distinct masks",
+      "field": "materialized_masks"
     },
     {
-      "label": "Scalar-replayed returned states",
-      "field": "verified_states"
+      "label": "Conditional searches run",
+      "field": "conditional_searches"
     },
     {
-      "label": "Attempted transitions",
-      "field": "total_attempts"
+      "label": "Mechanical amendments",
+      "field": "mechanical_amendments"
     }
   ],
   "breakdown": [
     {
-      "label": "Gains against retained best",
-      "field": "comparison.gained_cases"
+      "label": "Planned continuation roots",
+      "field": "planned_roots"
     },
     {
-      "label": "Gains against experimental parent",
-      "field": "parent_comparison.gained_cases"
+      "label": "Initialization failures",
+      "field": "initialization_failures"
     },
     {
-      "label": "Losses against retained best",
-      "field": "comparison.lost_cases"
+      "label": "Admission failures",
+      "field": "admission_failures"
     }
   ]
 }
