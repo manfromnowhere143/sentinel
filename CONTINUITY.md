@@ -1,3 +1,19 @@
+# Current: Iter186 native branch qualification preregistered — 16 October 2026
+
+The native branch interface is implemented and its bounded qualification is frozen.
+Read experiments/iter186_native_branch/PROTOCOL.md and DECISION_PACKET.md.
+Run 37 isolated native processes plus ten selection controls, retain raw, then
+independently reconstruct native IDs/tokens/durations and replay all fifteen
+retained paths / 82 masks. No new integrated outcome or mask acquisition.
+Local development checks: 121 passed, zero skips, including the actual native build.
+Integrated qualification remains 3/4; source comparison stays closed.
+
+The GitHub language classification is corrected on master at 0620a86. Exactly six
+retained third-party pricing snapshots are marked vendored; no code/evidence bytes
+or history were removed. GitHub readback reports Python. Original dirty root/index
+and historical mission state remain preserved. Current owned branch:
+research/iter186-native-branch-qualification.
+
 # Default-branch integration and next proposal — 16 October 2026
 
 The complete research record through Iter185 is integrated with the existing
