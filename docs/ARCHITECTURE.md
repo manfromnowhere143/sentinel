@@ -1,12 +1,12 @@
 # Sentinel architecture
 
 Updated 16 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter185 research record. The [README](../README.md) carries the scientific
+limits through the Iter186 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
 
-## Current evidence flow and proposed extension
+## Current evidence flow and qualified native interface
 
 The released monitor, privileged search and evidence checker have different
 information access. The search can query the retained scene predicate; the
@@ -16,21 +16,24 @@ producer evidence where no separate reconstruction exists.
 
 ```mermaid
 flowchart TB
-  accTitle: Current search evidence and proposed branch retention
-  accDescr: Frozen source produces raw records before separate replay. A proposed branch extension returns to qualification, not directly to driving.
+  accTitle: Current search evidence and native branch qualification
+  accDescr: Frozen source produces raw records before separate replay. Iter186 qualifies explicit native branch identities; the integrated trial remains proposed.
   S["Frozen cases, geometry, budgets<br/>and native build"] --> P["Current planner<br/>evaluate, filter, select one edge"]
   P --> R["Raw controls, states, masks<br/>tokens, clocks and accounting"]
   R --> V["Separate replay<br/>scalar geometry and execution contracts"]
   V --> A["Admitted results<br/>failures and unknowns retained"]
   A --> D["Iter185: one discarded opportunity"]
-  D -. "proposed" .-> B["One additional eligible branch<br/>Exact native parent and sequence"]
-  B -.-> Q["Interface qualification<br/>then unchanged-budget all-four trial"]
+  D --> B["Iter186: native interface qualified<br/>Exact parent IDs, tokens and sequences"]
+  B -. "proposed" .-> Q["Complete planner wiring<br/>unchanged-budget all-four trial"]
 ```
 
 The [retention proposal](research/SENTINEL_BRANCH_RETENTION_PROPOSAL_2026-10-16.md)
-defines prospective selection and required controls. It is not implemented here.
-Additional insertion changes native planner semantics and requires a new bound
-binary. Offline search wall time is not sensing-to-actuation delay. The later
+defines prospective selection and required controls.
+[Iter186](../experiments/iter186_native_branch/RESULT.md) qualifies the modified
+native interface, including extra-branch insertion, exact identities and deadline
+precedence. All fifteen retained paths replay; complete planner integration and
+its four-case trial remain unrun. The new fixture-tree identities do not recover
+historical native ancestry. The changed semantics have a separately bound binary. Offline search wall time is not sensing-to-actuation delay. The later
 actual-history comparison must retain observation availability, decision time,
 computation completion and applied-action time separately.
 

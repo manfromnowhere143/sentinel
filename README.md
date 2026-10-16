@@ -18,7 +18,7 @@ against a competent responsive baseline, with information access, permitted acti
 resource budgets stated explicitly.
 
 [System](#what-sentinel-does) · [Results](#measured-results) ·
-[Research history](#how-the-question-changed) · [Latest result](#iteration-185-one-discarded-full-route-opportunity) ·
+[Research history](#how-the-question-changed) · [Latest result](#iteration-186-native-branch-retention-interface-qualified) ·
 [Next test](#the-next-scientific-test) · [Reproduce](#reproduce-and-inspect) ·
 [Repository status](#repository-status--16-october-2026) · [Experiment index](#complete-experiment-index)
 
@@ -35,7 +35,8 @@ qualification gap. Every experiment result remains indexed at the end.
 | Execution and geometry | Controller, clocks and background masks have separately checked contracts. | Physical scene fidelity. |
 | Recovery search | A fixed path completes native runs from reset; actual first-fire searches miss. | Useful monitor-time intervention. |
 | Integrated development | Best is 3/4; a selection change lost a success before eligibility restored it. | All-four qualification or source-comparison readiness. |
-| Current audit | One discarded prefix has a full-route continuation; two probes remain bounded misses. | Success of an online retention policy. |
+| Continuation audit | One discarded prefix has a full-route continuation; two probes remain bounded misses. | Success of an online retention policy. |
+| Current interface qualification | Exact native ancestry and sequence transport pass; all fifteen retained paths replay. | A new integrated completion. |
 
 The [next proposal](docs/research/SENTINEL_BRANCH_RETENTION_PROPOSAL_2026-10-16.md)
 tests one additional retained branch under unchanged budgets. The
@@ -1073,6 +1074,29 @@ on all four cases; its performance is unknown.
 [independent admission](experiments/iter185_retained_prefix_admission/proof/admission.json) ·
 [next decision](experiments/iter185_retained_prefix_admission/DECISION.md).
 
+## Iteration 186: native branch-retention interface qualified
+
+**The extra-branch interface passes its frozen qualification; the integrated
+result remains 3/4.** Three constructed comparisons match all 410 ordinary
+callbacks and returned paths when no extra branch is supplied. Nine corrupted
+native submissions are rejected, and six deadline positions return no admitted
+post-deadline path.
+
+The new interface assigns exact native parent and node IDs to sequence tokens.
+All fifteen previously admitted paths pass through it with 350 state, control and
+clock records preserved. Separate replay checks all 82 retained collision masks
+and 535,788 point-state classifications. It also rejects changed parent, token,
+duration and control records. These fixture IDs do not resolve the old tree's
+numeric-join ambiguities.
+
+All 37 native processes exited and were reaped. No new motion search, collision
+query or integrated case ran. The next trial must still establish whether
+retaining an additional already evaluated branch repairs the remaining miss
+without losing an existing success, under the same total budgets.
+[Result and scope](experiments/iter186_native_branch/RESULT.md) ·
+[independent admission](experiments/iter186_native_branch/proof/admission.json) ·
+[next decision](experiments/iter186_native_branch/DECISION.md).
+
 ## The next scientific test
 
 The intended contribution is a monitor and evaluation system that can show **which failures
@@ -1080,6 +1104,8 @@ remain preventable, which signal enables prevention, and the measured cost and l
 The following work is proposed; all previous schedules retain their closed accounting.
 The [next proposal](docs/research/SENTINEL_BRANCH_RETENTION_PROPOSAL_2026-10-16.md)
 specifies the online rule, native-interface controls, fixed budgets and gain/loss decision.
+Iter186 qualifies the native interface; complete planner wiring and one frozen
+all-four comparison are next. Its total search and wall budgets remain unchanged.
 
 1. **Retain the finite-library null.** Iter157 rules out this fixed route-offset library
    under complete source-model constraints. Keep the counterexamples, the 61 prior
@@ -1217,7 +1243,7 @@ scientific claim or reinterpret the archived mission state.
 
 ## Repository status — 16 October 2026
 
-**Current through Iter185: one discarded full-route opportunity is verified; integrated qualification remains 3/4.**
+**Current through Iter186: the native branch interface is qualified; integrated qualification remains 3/4.**
 The preselected path completes two native replicas from reset. The same exact/24
 method then misses after preserving the actual first-fire history. All 49 subsequent discarded/retained
 continuations also miss. An independent RRT adapter remains unqualified after a
@@ -1244,13 +1270,17 @@ comparison stays closed. Iter184 collects those prefixes but its checker stops o
 runtime metadata formatting before scalar replay. No conditional search ran; the
 next task was corrected admission against retained raw. Iter185 completes that
 admission and verifies one full-route conditional opportunity; two probes remain
-bounded misses. It adds no integrated qualification credit.
+bounded misses. It adds no integrated qualification credit. Iter186 qualifies
+explicit native branch identity, transport and deadlines on constructed controls
+and retained paths; its four-case integration is still unrun.
 Monitor-time recovery, useful information and real-time operation remain unestablished.
 Iteration 135's dose-response experiment remains **deferred and unrun**.
 
-This revision brings the research record through Iter185 together with the
-default branch's documentation and CI history for **`master`**, the repository's default branch. Integration preserves all original commits;
+The research record through Iter186 preserves the
+documentation and CI history of **`master`**, the repository's default branch. Integration preserves all original commits;
 it does not promote a diagnostic result into a qualified intervention system.
+GitHub language statistics exclude six archived Google Cloud pricing pages as
+third-party evidence. Their bytes remain intact; the repository is classified as Python.
 The [current handoff](HANDOFF.md) identifies the next task, and the
 [integration review](docs/editorial/2026-10-16/REVIEW.md) records scope and validation.
 
@@ -1570,6 +1600,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 | [183](experiments/iter183_timing_eligibility/RESULT.md) | Necessary timing eligibility restores 3/4: one gain against Iter181, zero gains/losses against retained Iter178. Right bend still misses; 15 discarded advancing prefixes require continuation audit. |
 | [184](experiments/iter184_discarded_progress/RESULT.md) | Invalid before scalar admission: 15 discarded-prefix paths / 82 masks collected, three continuation probes unrun. Two metadata-reader failures retained; corrected validation must reuse existing raw. |
 | [185](experiments/iter185_retained_prefix_admission/RESULT.md) | Corrected retained-prefix admission; one full-route conditional witness, two unresolved bounded misses, no timing exclusions or censoring. All queried states replay. Integrated qualification stays 3/4. |
+| [186](experiments/iter186_native_branch/RESULT.md) | Native branch interface qualified: 410 matching callbacks, fifteen retained paths and 82 scalar-replayed masks; no new integrated outcome. |
 
 </details>
 

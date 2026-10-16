@@ -1,3 +1,29 @@
+# Current: Iter186 native branch interface qualified — 16 October 2026
+
+Read experiments/iter186_native_branch/RESULT.md and DECISION.md. Independent
+admission supports the declared native qualification: 37 isolated processes;
+three no-extra comparisons / 410 matching callbacks; nine native corruptions
+rejected; six deadline controls; ten selection controls; all fifteen retained
+paths / 350 state records / 82 masks / 535,788 scalar classifications admitted.
+Four corruptions of raw parent/token/duration/control records also fail replay.
+
+No new motion search, mask query or integrated run occurred. Native fixture IDs
+do not resolve historical numeric-join ambiguity. Integrated result remains 3/4;
+source comparison stays closed. Next wire the qualified interface into one
+prospective all-four unchanged-budget trial, with explicit gains and losses.
+The original primary edge stays selected; at most one already evaluated eligible
+advancing prefix is retained in addition. Charge all bookkeeping to the same wall.
+
+Source 75cab4c05b8802fc5546eef3e890849ebcbd4dd0;
+raw 18a1cc93bc78abaf25aa2c35da9d308bde81aa82;
+admission 35027b44fe49acbd96c12692646766f0761e27cb.
+121 focused local tests pass, zero skips (35 new). All qualification children
+exited/reaped. Hosted and live publication readbacks are observed separately.
+Owned branch research/iter186-native-branch-qualification; original dirty root,
+index and historical mission bytes preserved. GitHub now classifies master as
+Python after the six pricing-evidence paths were marked vendored at 0620a86.
+Both hosted suites for that metadata-only correction passed.
+
 # Current: Iter186 native branch qualification preregistered — 16 October 2026
 
 The native branch interface is implemented and its bounded qualification is frozen.
@@ -6736,3 +6762,9 @@ One conditional full-route witness, zero demonstrated timing exclusions, two
 unresolved bounded misses. All queried states independently replay. Integrated
 qualification remains 3/4; source comparison closed. All scientific jobs reaped.
 Next qualify prospective branch retention, then one all-four unchanged-budget trial.
+
+## Iter186 controlling closure — 16 October 2026
+
+Native interface qualification supported; no new integrated runs. All fifteen
+retained paths and 82 masks independently replay. Next qualify complete planner
+wiring and freeze one all-four unchanged-budget trial. Source comparison closed.

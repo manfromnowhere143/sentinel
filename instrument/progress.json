@@ -1,41 +1,41 @@
 {
   "schemaVersion": 1,
-  "iteration": 185,
-  "directory": "experiments/iter185_retained_prefix_admission",
-  "title": "One discarded prefix can complete the route.",
-  "summary": "Independent replay verifies one full-route continuation from three fixed discarded roots. Two searches exhaust their remaining work without completion; neither miss is proved inevitable. Every queried state passes scalar replay.",
-  "boundary": "Fresh conditional trees do not establish an integrated win. Qualification remains 3/4 and source comparison stays closed. Twelve audited prefix records remain unprobed. Actual-history intervention and measured response delay remain unestablished.",
-  "next": "Qualify deterministic retention of an additional eligible branch, then run the original four cases with unchanged budgets and explicit lost-success accounting. Avoid targeting the known successful root.",
+  "iteration": 186,
+  "directory": "experiments/iter186_native_branch",
+  "title": "Native branch identities and transport qualified.",
+  "summary": "Three no-extra comparisons match 410 callbacks. All fifteen retained paths preserve 350 state/control/clock records, and 82 masks pass independent scalar replay. Corrupted ancestry, tokens, durations and controls are rejected.",
+  "boundary": "Software qualification only: no new integrated search or recovery. Best result remains 3/4; source comparison stays closed. New fixture IDs do not resolve historical ancestry ambiguity. Actual-history intervention and measured delay remain unestablished.",
+  "next": "Qualify complete planner wiring, then freeze one all-four trial retaining at most one additional eligible branch from existing work. Preserve total budgets and report lost successes.",
   "metrics": [
     {
-      "label": "Full-route continuations",
-      "field": "full_route_continuations"
+      "label": "Retained paths transported",
+      "field": "retained_paths"
     },
     {
-      "label": "Fixed continuation probes",
-      "field": "probed_roots"
+      "label": "State records preserved",
+      "field": "transported_states"
     },
     {
-      "label": "Distinct scalar-replayed states",
-      "field": "distinct_scalar_states"
+      "label": "Matching callbacks",
+      "field": "matching_callbacks"
     },
     {
-      "label": "Conditional transitions",
-      "field": "diagnostic_attempts"
+      "label": "Scalar-replayed masks",
+      "field": "scalar_replay.distinct_scalar_states"
     }
   ],
   "breakdown": [
     {
-      "label": "Demonstrated timing exclusions",
-      "field": "demonstrated_constraints"
+      "label": "Native corruptions rejected",
+      "field": "native_rejections"
     },
     {
-      "label": "Unresolved bounded misses",
-      "field": "unresolved_misses"
+      "label": "Deadline controls",
+      "field": "deadline_controls"
     },
     {
-      "label": "Audited but unprobed records",
-      "field": "unprobed_records"
+      "label": "New integrated runs",
+      "field": "new_integrated_runs"
     }
   ]
 }
