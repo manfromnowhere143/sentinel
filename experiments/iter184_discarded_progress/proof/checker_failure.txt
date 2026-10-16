@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter184_discarded_progress/audit_check.py", line 119, in <module>
+    check(a.root.resolve(), a.raw_commit)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter184_discarded_progress/audit_check.py", line 21, in check
+    runtime_identity() == document(root, BASE / "RUNTIME.json")["python_runtime"],
+                          ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter184_discarded_progress/common.py", line 27, in document
+    require(encode(value) == raw, "canonical_document")
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter158_constraint_aware_search/common.py", line 20, in require
+    raise ValueError(reason)
+ValueError: canonical_document

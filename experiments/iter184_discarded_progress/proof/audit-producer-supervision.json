@@ -1,0 +1,23 @@
+{
+  "stage": "audit-producer",
+  "command": [
+    "/opt/homebrew/opt/python@3.14/bin/python3.14",
+    "-m",
+    "experiments.iter184_discarded_progress.audit",
+    "--root",
+    "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011",
+    "--source",
+    "cc4e3c29c30878ba452467e173da43a9506c2a08",
+    "--library",
+    "/Users/danielwahnich/.codex/reports/sentinel/iter172/libsentinel_ompl.dylib"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011",
+  "started": "2026-10-16T07:02:08.747446+00:00",
+  "limit_seconds": 360,
+  "status": "invalid",
+  "pid": 73214,
+  "returncode": 1,
+  "elapsed_seconds": 7.096585332998075,
+  "finished": "2026-10-16T07:02:15.844439+00:00",
+  "process_reaped": true
+}
