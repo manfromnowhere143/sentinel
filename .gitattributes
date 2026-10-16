@@ -1,0 +1,8 @@
+# Captured third-party pricing pages are research evidence, not Sentinel source.
+# Keep their exact bytes while excluding them from GitHub language statistics.
+experiments/iter145_constrained_execution/proof/gcp_accelerator_pricing.html linguist-vendored
+experiments/iter145_constrained_execution/proof/resume_gcp_pricing.html linguist-vendored
+experiments/iter146_route_outcome_contract/proof/gcp_accelerator_pricing.html linguist-vendored
+experiments/iter147_full_horizon_execution/proof/gcp_accelerator_pricing.html linguist-vendored
+experiments/iter148_recovery_study/proof/block_000/gcp_accelerator_pricing.html linguist-vendored
+experiments/iter148_recovery_study/proof/block_000_attempt_002/gcp_accelerator_pricing.html linguist-vendored
