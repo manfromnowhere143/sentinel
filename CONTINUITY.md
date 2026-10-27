@@ -1,3 +1,31 @@
+# Current: Iter187 closes with one gained and one lost case — 27 October 2026
+
+Read experiments/iter187_integrated_branch_retention/RESULT.md and DECISION.md.
+Independent replay admits the fixed trial: right bend gained, left bend lost,
+both chicanes complete. Three of four remains three of four against Iter178 and
+Iter183. The all-four claim is contradicted; source comparison remains closed.
+45,632 attempted transitions, 235 primaries / 16 extras, 483 distinct registered
+state masks / 3,530,538 scalar classifications. All four children exited/reaped.
+No new simulator driving, provider access, GPU use or spending; no retry.
+
+Frozen source 7302dd9f1f0a82858f74ff284c7f1e91386aca08;
+qualification admission 06982623ddd1ae554f4ac3a8fe2af04b87351d3a;
+four-case raw 0ae5bd0a7804827ba591ccc93fe3afe08684029a;
+independent admission f2d21146a005a2b0827dc5e9992cd9ea31940daa.
+201 distinct focused checks pass, including 36 new; native checks ran locally.
+Producer closed in 89.817 seconds; separate admission in 86.763 seconds. Hosted
+publication/readbacks are observed separately, not inferred from local checks.
+
+Next prospectively audit early registered endpoints across all four retained
+cases for necessary timing feasibility before another planner change. Left has
+no registered node beyond frame 21; its logs retain 960 first premature-completion
+rejections versus 34 in Iter183. This is a descriptive hypothesis, not causal
+attribution or unavoidability. Preserve the right-bend witness and left-bend loss.
+Actual-history intervention, measured delay and superiority remain unestablished.
+Owned branch research/iter187-integrated-branch-retention in the verified
+sentinel-observation-recovery-20261011 worktree. Original root/index and historical
+mission bytes remain preserved. Earlier entries below are historical.
+
 # Current: Iter187 integrated branch-retention trial preregistered — 27 October 2026
 
 Read experiments/iter187_integrated_branch_retention/PROTOCOL.md and DECISION_PACKET.md.
@@ -6785,3 +6813,9 @@ Next qualify prospective branch retention, then one all-four unchanged-budget tr
 Native interface qualification supported; no new integrated runs. All fifteen
 retained paths and 82 masks independently replay. Next qualify complete planner
 wiring and freeze one all-four unchanged-budget trial. Source comparison closed.
+
+## Iter187 controlling closure — 27 October 2026
+
+Follow the top entry and Iter187 RESULT/DECISION. One gain and one loss, still 3/4;
+source comparison closed. All scientific jobs reaped. Next audit early timing
+feasibility across the retained population; no automatic new search or retuning.

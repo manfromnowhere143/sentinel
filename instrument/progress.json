@@ -1,41 +1,41 @@
 {
   "schemaVersion": 1,
-  "iteration": 186,
-  "directory": "experiments/iter186_native_branch",
-  "title": "Native branch identities and transport qualified.",
-  "summary": "Three no-extra comparisons match 410 callbacks. All fifteen retained paths preserve 350 state/control/clock records, and 82 masks pass independent scalar replay. Corrupted ancestry, tokens, durations and controls are rejected.",
-  "boundary": "Software qualification only: no new integrated search or recovery. Best result remains 3/4; source comparison stays closed. New fixture IDs do not resolve historical ancestry ambiguity. Actual-history intervention and measured delay remain unestablished.",
-  "next": "Qualify complete planner wiring, then freeze one all-four trial retaining at most one additional eligible branch from existing work. Preserve total budgets and report lost successes.",
+  "iteration": 187,
+  "directory": "experiments/iter187_integrated_branch_retention",
+  "title": "One gained case and one lost case; 3/4 remains 3/4.",
+  "summary": "Integrated retention completes the previously missed right bend but loses the left-bend success. Both chicanes complete. Separate replay admits all four cases, 45,632 attempted transitions and 3,530,538 scalar classifications across every registered branch.",
+  "boundary": "The all-four hypothesis is contradicted. These are four exposed development cases, not independent scenes. Source comparison stays closed. Actual-history intervention, measured response delay and competitive advantage remain unestablished.",
+  "next": "Audit timing feasibility of early registered endpoints across all four retained cases before changing the planner. Freeze the diagnostic population and test any proposed exclusion against retained successful transitions.",
   "metrics": [
     {
-      "label": "Retained paths transported",
-      "field": "retained_paths"
+      "label": "Completed cases",
+      "field": "complete_cases"
     },
     {
-      "label": "State records preserved",
-      "field": "transported_states"
+      "label": "Attempted transitions",
+      "field": "total_attempts"
     },
     {
-      "label": "Matching callbacks",
-      "field": "matching_callbacks"
+      "label": "Registered extra branches",
+      "field": "registered_extra"
     },
     {
-      "label": "Scalar-replayed masks",
-      "field": "scalar_replay.distinct_scalar_states"
+      "label": "Scalar classifications",
+      "field": "scalar_classifications"
     }
   ],
   "breakdown": [
     {
-      "label": "Native corruptions rejected",
-      "field": "native_rejections"
+      "label": "Admitted development cases",
+      "field": "total_cases"
     },
     {
-      "label": "Deadline controls",
-      "field": "deadline_controls"
+      "label": "New simulator driving episodes",
+      "field": "new_driving_episodes"
     },
     {
-      "label": "New integrated runs",
-      "field": "new_integrated_runs"
+      "label": "Provider spending",
+      "field": "provider_spend"
     }
   ]
 }

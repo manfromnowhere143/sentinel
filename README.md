@@ -18,9 +18,9 @@ against a competent responsive baseline, with information access, permitted acti
 resource budgets stated explicitly.
 
 [System](#what-sentinel-does) · [Results](#measured-results) ·
-[Research history](#how-the-question-changed) · [Latest result](#iteration-186-native-branch-retention-interface-qualified) ·
+[Research history](#how-the-question-changed) · [Latest result](#iteration-187-one-gained-case-and-one-lost-case) ·
 [Next test](#the-next-scientific-test) · [Reproduce](#reproduce-and-inspect) ·
-[Repository status](#repository-status--16-october-2026) · [Experiment index](#complete-experiment-index)
+[Repository status](#repository-status--27-october-2026) · [Experiment index](#complete-experiment-index)
 
 ## Reading the evidence
 
@@ -36,12 +36,13 @@ qualification gap. Every experiment result remains indexed at the end.
 | Recovery search | A fixed path completes native runs from reset; actual first-fire searches miss. | Useful monitor-time intervention. |
 | Integrated development | Best is 3/4; a selection change lost a success before eligibility restored it. | All-four qualification or source-comparison readiness. |
 | Continuation audit | One discarded prefix has a full-route continuation; two probes remain bounded misses. | Success of an online retention policy. |
-| Current interface qualification | Exact native ancestry and sequence transport pass; all fifteen retained paths replay. | A new integrated completion. |
+| Current integrated retention trial | Right bend gained, left bend lost; both chicanes complete. All registered branch masks replay. | All-four qualification, useful actual-history intervention or superiority. |
 
-The [next proposal](docs/research/SENTINEL_BRANCH_RETENTION_PROPOSAL_2026-10-16.md)
-tests one additional retained branch under unchanged budgets. The
-[dated research assessment](docs/research/SENTINEL_FRONTIER_ASSESSMENT_2026-10-16.md)
-relates this question to current primary evidence without claiming frontier parity.
+The [next decision](experiments/iter187_integrated_branch_retention/DECISION.md)
+requires an early-endpoint timing-feasibility audit after a gained and a lost case.
+The [updated primary research review](experiments/iter187_integrated_branch_retention/RESEARCH.md)
+relates the mission to current trajectory repair and closed-loop evaluation work
+without claiming frontier parity.
 
 ## What Sentinel does
 
@@ -1097,15 +1098,38 @@ without losing an existing success, under the same total budgets.
 [independent admission](experiments/iter186_native_branch/proof/admission.json) ·
 [next decision](experiments/iter186_native_branch/DECISION.md).
 
+## Iteration 187: one gained case and one lost case
+
+**The integrated retention trial stays at 3/4.** The right bend now completes,
+but the left bend loses its prior success. Both chicanes complete: one gain and
+one loss against both Iter178 and Iter183. All original cases, seeds and budgets
+remain fixed; the all-four claim is contradicted and source comparison stays closed.
+
+The modified planner preserves each request's primary selection and retains at
+most one already evaluated eligible advancing alternative. Separate replay checks
+45,632 attempted transitions, exact native ancestry, online selection and accounting.
+All 251 registered branches, including 16 extras, are covered by 483 distinct scalar
+masks / 3,530,538 point-state classifications. All four processes exited and were reaped.
+No new simulator driving or provider spending occurred.
+
+On the lost left bend, no registered node advances beyond frame 21, although the
+best-progress endpoint is nearly complete before the required frame-32 checkpoint.
+This motivates a necessary timing-feasibility audit across all four retained cases;
+it is not yet a causal explanation or a global impossibility result. The next
+change must preserve the right-bend witness and make any new lost success visible.
+[Result](experiments/iter187_integrated_branch_retention/RESULT.md) ·
+[independent admission](experiments/iter187_integrated_branch_retention/proof/admission.json) ·
+[next decision](experiments/iter187_integrated_branch_retention/DECISION.md).
+
 ## The next scientific test
 
 The intended contribution is a monitor and evaluation system that can show **which failures
 remain preventable, which signal enables prevention, and the measured cost and limits**.
 The following work is proposed; all previous schedules retain their closed accounting.
-The [next proposal](docs/research/SENTINEL_BRANCH_RETENTION_PROPOSAL_2026-10-16.md)
-specifies the online rule, native-interface controls, fixed budgets and gain/loss decision.
-Iter186 qualifies the native interface; complete planner wiring and one frozen
-all-four comparison are next. Its total search and wall budgets remain unchanged.
+The [current decision](experiments/iter187_integrated_branch_retention/DECISION.md)
+specifies a prospective early-endpoint timing-feasibility audit before another
+planner amendment. Iter187 completes the integrated retention test with one gain
+and one loss. Source comparison stays closed; the all-four criterion remains fixed.
 
 1. **Retain the finite-library null.** Iter157 rules out this fixed route-offset library
    under complete source-model constraints. Keep the counterexamples, the 61 prior
@@ -1141,7 +1165,8 @@ all-four comparison are next. Its total search and wall budgets remain unchanged
    tying the retained best. Iter184 collects discarded prefixes but stops invalid
    before scalar admission on metadata formatting. Iter185 corrects admission without
    recollection and finds one full-route conditional witness plus two bounded misses.
-   Next qualify alternative branch retention before an unchanged-budget all-four trial.
+   Iter187 tests alternative branch retention and retains one gain and one loss.
+   Next audit early-endpoint timing feasibility before another planner amendment.
    Source comparison remains closed until all four cases pass.
    Offline cost is not a response-time result.
 3. **After establishing useful recovery, test one information hypothesis against a responsive baseline.**
@@ -1241,9 +1266,9 @@ records update after exact-source CI and source validation. Its historical repla
 and native witness keep their own identities; automatic delivery does not grant a
 scientific claim or reinterpret the archived mission state.
 
-## Repository status — 16 October 2026
+## Repository status — 27 October 2026
 
-**Current through Iter186: the native branch interface is qualified; integrated qualification remains 3/4.**
+**Current through Iter187: integrated retention gains the right bend and loses the left; qualification remains 3/4.**
 The preselected path completes two native replicas from reset. The same exact/24
 method then misses after preserving the actual first-fire history. All 49 subsequent discarded/retained
 continuations also miss. An independent RRT adapter remains unqualified after a
@@ -1272,11 +1297,13 @@ next task was corrected admission against retained raw. Iter185 completes that
 admission and verifies one full-route conditional opportunity; two probes remain
 bounded misses. It adds no integrated qualification credit. Iter186 qualifies
 explicit native branch identity, transport and deadlines on constructed controls
-and retained paths; its four-case integration is still unrun.
+and retained paths. Iter187 then runs the integrated mechanism once: the right bend
+completes, the left bend loses its success, and both chicanes complete. Every
+registered branch mask replays; the all-four gate remains closed.
 Monitor-time recovery, useful information and real-time operation remain unestablished.
 Iteration 135's dose-response experiment remains **deferred and unrun**.
 
-The research record through Iter186 preserves the
+The research record through Iter187 preserves the
 documentation and CI history of **`master`**, the repository's default branch. Integration preserves all original commits;
 it does not promote a diagnostic result into a qualified intervention system.
 GitHub language statistics exclude six archived Google Cloud pricing pages as
@@ -1601,6 +1628,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 | [184](experiments/iter184_discarded_progress/RESULT.md) | Invalid before scalar admission: 15 discarded-prefix paths / 82 masks collected, three continuation probes unrun. Two metadata-reader failures retained; corrected validation must reuse existing raw. |
 | [185](experiments/iter185_retained_prefix_admission/RESULT.md) | Corrected retained-prefix admission; one full-route conditional witness, two unresolved bounded misses, no timing exclusions or censoring. All queried states replay. Integrated qualification stays 3/4. |
 | [186](experiments/iter186_native_branch/RESULT.md) | Native branch interface qualified: 410 matching callbacks, fifteen retained paths and 82 scalar-replayed masks; no new integrated outcome. |
+| [187](experiments/iter187_integrated_branch_retention/RESULT.md) | Integrated retention gains the right bend and loses the left; 3/4 remains 3/4. All 483 registered-state masks replay; source comparison closed. |
 
 </details>
 

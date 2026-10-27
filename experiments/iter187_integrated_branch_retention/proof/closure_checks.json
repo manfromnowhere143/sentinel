@@ -1,0 +1,46 @@
+{
+  "status": "supported",
+  "frozen_source": "7302dd9f1f0a82858f74ff284c7f1e91386aca08",
+  "frozen_files": 759,
+  "plan_preserved": true,
+  "parent_contract_preserved": true,
+  "state_matches_admission": true,
+  "canonical_root_head_index_files_status_preserved": true,
+  "canonical_root_checked_files": 25,
+  "instrument_tests": {
+    "passed": 14,
+    "seconds": 8.21,
+    "command": "python3 -m pytest -q tests/test_instrument_progress.py"
+  },
+  "plot": {
+    "rendered": true,
+    "visually_inspected": true,
+    "scope": "retained paths only; no new motion query"
+  },
+  "lint": {
+    "command": "ruff check .",
+    "exit_code": 0
+  },
+  "documentation": {
+    "command": "python3 scripts/validate_docs.py",
+    "exit_code": 0,
+    "markdown_files": 692,
+    "all_results_indexed": true
+  },
+  "supply_chain": {
+    "command": "python3 -I -B -S tools/ci/verify_supply_chain.py",
+    "exit_code": 0,
+    "marker": "SUPPLY_CHAIN_VERIFICATION_OK"
+  },
+  "whitespace": {
+    "command": "git diff --check",
+    "exit_code": 0
+  },
+  "architecture_diagram": {
+    "rendered_themes": [
+      "default",
+      "dark"
+    ],
+    "visually_inspected_both": true
+  }
+}

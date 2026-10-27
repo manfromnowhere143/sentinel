@@ -1,0 +1,14 @@
+[
+  {
+    "source": "experiments/iter187_integrated_branch_retention/proof/diagrams/architecture-0.mmd",
+    "theme": "default",
+    "output": "experiments/iter187_integrated_branch_retention/proof/diagrams/architecture-0-default.png",
+    "rendered": true
+  },
+  {
+    "source": "experiments/iter187_integrated_branch_retention/proof/diagrams/architecture-0.mmd",
+    "theme": "dark",
+    "output": "experiments/iter187_integrated_branch_retention/proof/diagrams/architecture-0-dark.png",
+    "rendered": true
+  }
+]

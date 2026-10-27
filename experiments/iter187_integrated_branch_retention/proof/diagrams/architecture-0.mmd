@@ -1,0 +1,10 @@
+flowchart TB
+  accTitle: Current search evidence and native branch qualification
+  accDescr: Frozen source produces raw records before separate replay. Iter186 qualifies explicit native branch identities; Iter187 tests the integrated rule with one gain and one loss.
+  S["Frozen cases, geometry, budgets<br/>and native build"] --> P["Current planner<br/>primary plus at most one advancing extra"]
+  P --> R["Raw controls, states, masks<br/>tokens, clocks and accounting"]
+  R --> V["Separate replay<br/>scalar geometry and execution contracts"]
+  V --> A["Admitted results<br/>failures and unknowns retained"]
+  A --> D["Iter185: one discarded opportunity"]
+  D --> B["Iter186: native interface qualified<br/>Exact parent IDs, tokens and sequences"]
+  B --> Q["Iter187: one gain, one loss<br/>3 of 4; source comparison closed"]
