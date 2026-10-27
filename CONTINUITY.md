@@ -1,3 +1,18 @@
+# Current: Iter188 early timing audit preregistered — 27 October 2026
+
+Read experiments/iter188_early_timing_feasibility/PROTOCOL.md and MATHEMATICS.md.
+Population frozen before new bounds: all 255 Iter187 native nodes and 300 transition
+roots from nine admitted Iter178/183/187 completed paths. Separate binary64 enclosure,
+exact rational corner checker and fixed scalar counterchecks qualified: 147 focused
+checks pass, including 90 new. Initial qualification failures/corrections retained.
+No scientific audit acquired yet. One 300-second producer and one 300-second checker;
+commit raw before admission. No new integrated search, collision query or planner change.
+Best qualification remains 3/4; source comparison closed. Daniel also requested a
+complete README diagram accuracy/design review in this pass. Preserve prior evidence.
+Owned branch research/iter188-early-timing-feasibility, same-repository worktree
+sentinel-observation-recovery-20261011. Original root WIP/index remains untouched.
+Earlier entries below are historical.
+
 # Current: Iter187 closes with one gained and one lost case — 27 October 2026
 
 Read experiments/iter187_integrated_branch_retention/RESULT.md and DECISION.md.

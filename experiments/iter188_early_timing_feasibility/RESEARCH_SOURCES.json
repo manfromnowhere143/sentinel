@@ -1,0 +1,26 @@
+[
+  {
+    "name": "reachability",
+    "url": "https://arxiv.org/html/2609.09073v1",
+    "sha256": "d5484af4bfc6e6ba18ba2c23b2ed7c6bc9850929bce7ece9fe638df2ae2ec590",
+    "bytes": 308555
+  },
+  {
+    "name": "robust-predicates",
+    "url": "https://arxiv.org/html/2208.00497v1",
+    "sha256": "4d3263660efd2e088b3b63689f5d71df9da93315cd4fac886e99a8e0ee8fe25a",
+    "bytes": 445988
+  },
+  {
+    "name": "verified-floating-point",
+    "url": "https://arxiv.org/abs/2501.10127v3",
+    "sha256": "0db14a08e045988a3a18cc778107da5017edc85cda7f821546bc1c0a8dab7c5a",
+    "bytes": 42946
+  },
+  {
+    "name": "python-math",
+    "url": "https://docs.python.org/3.14/library/math.html",
+    "sha256": "7723d068abdc663741aa5244c8591e758f8d51dcdc91e9c09fe6d33907e4da5d",
+    "bytes": 118361
+  }
+]
