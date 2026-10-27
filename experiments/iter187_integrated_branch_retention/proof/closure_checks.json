@@ -33,7 +33,10 @@
     "marker": "SUPPLY_CHAIN_VERIFICATION_OK"
   },
   "whitespace": {
-    "command": "git diff --check",
+    "initial_tracked_worktree_check": 0,
+    "first_staged_check": "failed: generated SVG path lines had trailing whitespace",
+    "correction": "strip trailing whitespace in SVG serializer and existing presentation asset; no scientific bytes changed",
+    "corrected_complete_change_check": "git diff --check d88b71637320bc482b24a6c8151505d8edcc74dc",
     "exit_code": 0
   },
   "architecture_diagram": {

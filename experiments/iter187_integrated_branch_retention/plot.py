@@ -59,7 +59,9 @@ def plot(root):
         )
     fig.suptitle("One gained case, one lost case: 3/4 remains 3/4", fontsize=16)
     fig.savefig(root / BASE / "proof/progress-comparison.png", dpi=170)
-    fig.savefig(root / BASE / "proof/progress-comparison.svg")
+    svg = root / BASE / "proof/progress-comparison.svg"
+    fig.savefig(svg)
+    svg.write_text("\n".join(line.rstrip() for line in svg.read_text().splitlines()) + "\n")
     plt.close(fig)
     write(
         root / BASE / "proof/figure-data.json",
