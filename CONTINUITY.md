@@ -1,3 +1,20 @@
+# Current: Iter187 integrated branch-retention trial preregistered — 27 October 2026
+
+Read experiments/iter187_integrated_branch_retention/PROTOCOL.md and DECISION_PACKET.md.
+The qualified native interface is wired to unchanged Iter183 connection work and
+primary selection. At most one already evaluated eligible advancing prefix is
+retained additionally, with exact native ancestry and separate tokens. All original
+four cases/seeds, 18,000 transitions / 120 seconds, 128 per connection and horizons
+remain fixed. Report gains and losses versus both Iter178 and Iter183.
+
+Constructed development wiring checks pass. Freeze source, acquire/commit one
+constructed worker control, independently admit/commit it, then acquire the four
+cases once and commit raw before separate replay. No integrated outcome acquired.
+Best retained result remains 3/4; source comparison closed. Scalar replay will cover
+all registered branch masks, including unused extras. Original root/index and
+historical evidence preserved. Owned branch research/iter187-integrated-branch-retention.
+Earlier entries below retain their historical scope.
+
 # Current: Iter186 native branch interface qualified — 16 October 2026
 
 Read experiments/iter186_native_branch/RESULT.md and DECISION.md. Independent
