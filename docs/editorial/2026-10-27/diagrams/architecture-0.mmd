@@ -1,0 +1,27 @@
+---
+config:
+  flowchart:
+    curve: linear
+    nodeSpacing: 24
+    wrappingWidth: 170
+    rankSpacing: 32
+---
+flowchart TB
+  accTitle: Current recovery research engine and evidence path
+  accDescr: Privileged search produces raw records; separate replay admits bounded claims.
+  S["Frozen cases + source geometry<br/>Actions · absolute clocks · budgets"]
+  subgraph P["SEARCH ENGINE · Iter187"]
+    direction LR
+    R["Native control-RRT<br/>Exact parent + sequence IDs"] --> C["Bounded connector<br/>Primary + at most one extra"]
+  end
+  S --> P
+  subgraph E["EVIDENCE"]
+    direction LR
+    D[("Committed raw<br/>States · masks · controls<br/>Clocks · accounting")] --> V["Separate replay<br/>Motion · geometry<br/>Timing · ancestry"] --> A["Admitted scope<br/>3/4 integrated<br/>Iter188 timing audit"]
+  end
+  P --> E
+  classDef default fill:#f1f5f9,stroke:#8293a6,color:#23354a;
+  classDef focus fill:#17324d,stroke:#17324d,color:#fff;
+  class A focus;
+  style P fill:transparent,stroke:#8595a5
+  style E fill:transparent,stroke:#8595a5

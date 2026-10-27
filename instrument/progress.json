@@ -1,41 +1,41 @@
 {
   "schemaVersion": 1,
-  "iteration": 187,
-  "directory": "experiments/iter187_integrated_branch_retention",
-  "title": "One gained case and one lost case; 3/4 remains 3/4.",
-  "summary": "Integrated retention completes the previously missed right bend but loses the left-bend success. Both chicanes complete. Separate replay admits all four cases, 45,632 attempted transitions and 3,530,538 scalar classifications across every registered branch.",
-  "boundary": "The all-four hypothesis is contradicted. These are four exposed development cases, not independent scenes. Source comparison stays closed. Actual-history intervention, measured response delay and competitive advantage remain unestablished.",
-  "next": "Audit timing feasibility of early registered endpoints across all four retained cases before changing the planner. Freeze the diagnostic population and test any proposed exclusion against retained successful transitions.",
+  "iteration": 188,
+  "directory": "experiments/iter188_early_timing_feasibility",
+  "title": "Two early timing traps; successful controls remain unexcluded.",
+  "summary": "Independent replay excludes two early extra-branch endpoints on the lost left bend, including its returned endpoint. Of all 255 native endpoints, 34 have retained completion suffixes and 219 remain unknown. All 300 successful-transition controls remain unexcluded.",
+  "boundary": "Source-model timing evidence, not a causal explanation of the whole search loss. No planner change or new integrated run. Qualification remains 3/4 and source comparison stays closed. Unknown does not mean feasible; actual-history recovery and measured response delay remain unestablished.",
+  "next": "Qualify the same necessary timing rule before primary and extra selection, preserving unknowns. Then freeze an unchanged-budget all-four comparison with explicit gained and lost successes.",
   "metrics": [
     {
-      "label": "Completed cases",
-      "field": "complete_cases"
+      "label": "Timing exclusions",
+      "field": "excluded_endpoints"
     },
     {
-      "label": "Attempted transitions",
-      "field": "total_attempts"
+      "label": "Exclusions before frame 24",
+      "field": "early_excluded_endpoints"
     },
     {
-      "label": "Registered extra branches",
-      "field": "registered_extra"
+      "label": "Successful transition controls",
+      "field": "successful_transition_controls"
     },
     {
-      "label": "Scalar classifications",
-      "field": "scalar_classifications"
+      "label": "Scalar counterchecks",
+      "field": "scalar_probes"
     }
   ],
   "breakdown": [
     {
-      "label": "Admitted development cases",
-      "field": "total_cases"
+      "label": "Known completion suffixes",
+      "field": "retained_completion_endpoints"
     },
     {
-      "label": "New simulator driving episodes",
-      "field": "new_driving_episodes"
+      "label": "Unknown endpoints",
+      "field": "unknown_endpoints"
     },
     {
-      "label": "Provider spending",
-      "field": "provider_spend"
+      "label": "New integrated runs",
+      "field": "new_integrated_runs"
     }
   ]
 }

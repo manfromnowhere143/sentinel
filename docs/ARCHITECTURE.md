@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 27 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter187 research record. The [README](../README.md) carries the scientific
+limits through the Iter188 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -15,16 +15,33 @@ properties and does not supply a live action. Native tree construction remains
 producer evidence where no separate reconstruction exists.
 
 ```mermaid
+---
+config:
+  flowchart:
+    curve: linear
+    nodeSpacing: 24
+    wrappingWidth: 170
+    rankSpacing: 32
+---
 flowchart TB
-  accTitle: Current search evidence and native branch qualification
-  accDescr: Frozen source produces raw records before separate replay. Iter186 qualifies explicit native branch identities; Iter187 tests the integrated rule with one gain and one loss.
-  S["Frozen cases, geometry, budgets<br/>and native build"] --> P["Current planner<br/>primary plus at most one advancing extra"]
-  P --> R["Raw controls, states, masks<br/>tokens, clocks and accounting"]
-  R --> V["Separate replay<br/>scalar geometry and execution contracts"]
-  V --> A["Admitted results<br/>failures and unknowns retained"]
-  A --> D["Iter185: one discarded opportunity"]
-  D --> B["Iter186: native interface qualified<br/>Exact parent IDs, tokens and sequences"]
-  B --> Q["Iter187: one gain, one loss<br/>3 of 4; source comparison closed"]
+  accTitle: Current recovery research engine and evidence path
+  accDescr: Privileged search produces raw records; separate replay admits bounded claims.
+  S["Frozen cases + source geometry<br/>Actions · absolute clocks · budgets"]
+  subgraph P["SEARCH ENGINE · Iter187"]
+    direction LR
+    R["Native control-RRT<br/>Exact parent + sequence IDs"] --> C["Bounded connector<br/>Primary + at most one extra"]
+  end
+  S --> P
+  subgraph E["EVIDENCE"]
+    direction LR
+    D[("Committed raw<br/>States · masks · controls<br/>Clocks · accounting")] --> V["Separate replay<br/>Motion · geometry<br/>Timing · ancestry"] --> A["Admitted scope<br/>3/4 integrated<br/>Iter188 timing audit"]
+  end
+  P --> E
+  classDef default fill:#f1f5f9,stroke:#8293a6,color:#23354a;
+  classDef focus fill:#17324d,stroke:#17324d,color:#fff;
+  class A focus;
+  style P fill:transparent,stroke:#8595a5
+  style E fill:transparent,stroke:#8595a5
 ```
 
 The [retention proposal](research/SENTINEL_BRANCH_RETENTION_PROPOSAL_2026-10-16.md)
@@ -34,8 +51,11 @@ native interface, including extra-branch insertion, exact identities and deadlin
 precedence. All fifteen retained paths replay.
 [Iter187](../experiments/iter187_integrated_branch_retention/RESULT.md) integrates the rule:
 one gained and one lost case, still 3/4. Exact native ancestry and every registered
-branch mask replay. The next task audits early timing feasibility before another
-planner amendment. The new fixture-tree identities do not recover
+branch mask replay. [Iter188](../experiments/iter188_early_timing_feasibility/RESULT.md)
+now audits all 255 endpoints: two early timing exclusions, 34 known complete
+suffixes and 219 unknowns. All 300 retained successful transitions remain unexcluded.
+The next proposed change applies the necessary rule consistently before primary
+and extra selection, then tests all four cases under unchanged budgets. The new fixture-tree identities do not recover
 historical native ancestry. The changed semantics have a separately bound binary. Offline search wall time is not sensing-to-actuation delay. The later
 actual-history comparison must retain observation availability, decision time,
 computation completion and applied-action time separately.
@@ -242,7 +262,7 @@ recovery and information benefit remain unestablished.
 
 ```mermaid
 flowchart TB
-  accTitle: From scene calibration to planner qualification
+  accTitle: From scene calibration to planner qualification, through Iter185
   accDescr: Model validity, search competence and native recovery are separate claims.
   M["Iter153–154<br/>Reduced-model candidate fails native scene"] --> C["Iter155–156<br/>Native and scalar background masks agree"]
   C --> S["Iter157–162<br/>Finite search and four-case grouping qualification"]
@@ -736,7 +756,7 @@ flowchart TB
   B --> C["15 prefixes admitted"]
   C --> D["Three fixed conditional searches"]
   D --> E["1 full-route witness<br/>2 unresolved misses"]
-  E -. "proposed" .-> F["Qualify prospective branch retention<br/>Then all four cases; count losses"]
+  E --> F["Later: Iter186 interface qualified<br/>Iter187: one gain and one loss"]
 ```
 
 The producer and corrected validator have separate source identities. Native
@@ -748,3 +768,28 @@ registration, parent/time identity, duplicates, deadlines and unchanged-case bud
 must be qualified before a new integrated trial.
 [Result](../experiments/iter185_retained_prefix_admission/RESULT.md) ·
 [next decision](../experiments/iter185_retained_prefix_admission/DECISION.md).
+
+## Early timing feasibility without a planner change
+
+Iter188 freezes every Iter187 root and registered primary/extra node before
+computing bounds. The source update order makes one-step position depend on the
+old heading and new speed. Outward binary64 arithmetic encloses all allowed
+accelerations; exact rational distance inequalities test whether every resulting
+position is already in a completing nearest-route region before frame 32.
+A separate implementation reconstructs the enclosure and checks its corners.
+
+The certificate includes a derived error margin for the declared source norm and
+independent scalar norm. Its domain and libm assumptions are explicit; this is
+not formal compiler verification. Steering and scene constraints omitted from the
+rectangle enlarge the possible set, so a positive exclusion is necessary but a
+non-exclusion is not a feasibility claim. Scalar counterchecks enforce the joint
+motion constraints. No new collision query is performed.
+
+Of 255 endpoints, two extra branches on bend_left are excluded at frames 19 and 21.
+Thirty-four exactly match admitted complete suffixes, including three terminal
+endpoints; 219 remain unknown. All 300 transitions from nine retained successful
+paths remain unexcluded. The fixed 9,925 scalar probes supply counterchecks,
+not a new continuous-control search. Integrated qualification stays 3/4.
+[Mathematics](../experiments/iter188_early_timing_feasibility/MATHEMATICS.md) ·
+[result](../experiments/iter188_early_timing_feasibility/RESULT.md) ·
+[next decision](../experiments/iter188_early_timing_feasibility/DECISION.md).

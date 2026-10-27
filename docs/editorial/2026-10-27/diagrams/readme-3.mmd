@@ -1,0 +1,22 @@
+---
+config:
+  flowchart:
+    curve: linear
+    nodeSpacing: 24
+    wrappingWidth: 170
+    rankSpacing: 32
+---
+flowchart TB
+  accTitle: The next test and the intervention evidence still required
+  accDescr: Timing exclusions motivate a proposed trial. Later intervention gates remain closed.
+  A["ADMITTED · Iter188<br/>2 exclusions<br/>34 known suffixes<br/>219 unknowns"]
+  A -. "next experiment" .-> T["Qualify timing rule<br/>Primary + extras<br/>Fixed budgets"]
+  T --> G{"All four cases pass?"}
+  G -- "no" --> F["Source comparison closed<br/>Retain gains, losses<br/>and unknowns"]
+  G -. "yes, then test" .-> H["Actual first-fire history<br/>Native recovery + measured delay"]
+  H -. "if useful" .-> I["Information ablations<br/>Responsive baseline + new scenes"]
+  classDef default fill:#f1f5f9,stroke:#8293a6,color:#23354a;
+  classDef focus fill:#17324d,stroke:#17324d,color:#fff;
+  classDef proposed fill:#f4f7fa,stroke:#65768a,color:#23354a,stroke-dasharray:5 4;
+  class A focus;
+  class T,H,I proposed;

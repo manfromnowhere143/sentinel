@@ -1,0 +1,24 @@
+---
+config:
+  flowchart:
+    curve: linear
+    nodeSpacing: 24
+    wrappingWidth: 170
+    rankSpacing: 36
+---
+flowchart TB
+  accTitle: Released monitor — information, decision, execution
+  accDescr: Planner outputs drive the brake latch; outcomes belong to evaluation.
+  P["Frozen UniAD<br/>Plan · objects · IDs<br/>Ego pose"]
+  subgraph M["RELEASED MONITOR"]
+    direction LR
+    T["World-coordinate tracks<br/>Velocity estimate"] --> C["CPA or closing TTC<br/>Frozen thresholds"] --> L["Brake latch<br/>Release after<br/>4 clear frames"]
+  end
+  P --> M
+  P -- "nominal plan" --> A["Simulator controller<br/>Apply plan or braking request"]
+  M -- "brake request" --> A
+  A --> E["Evaluation records<br/>Collision · severity · progress · cost"]
+  classDef default fill:#f1f5f9,stroke:#8293a6,color:#23354a;
+  classDef focus fill:#17324d,stroke:#17324d,color:#fff;
+  class A focus;
+  style M fill:transparent,stroke:#8595a5

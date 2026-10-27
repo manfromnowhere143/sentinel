@@ -1,0 +1,1 @@
+{"status": "supported", "total_endpoints": 255, "excluded_endpoints": 2, "early_excluded_endpoints": 2, "retained_completion_endpoints": 34, "unknown_endpoints": 219, "successful_transition_controls": 300, "scalar_probes": 9925}

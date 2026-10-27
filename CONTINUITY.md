@@ -1,3 +1,40 @@
+# Current: Iter188 closes with two early timing exclusions — 27 October 2026
+
+Read experiments/iter188_early_timing_feasibility/RESULT.md and DECISION.md.
+The complete prospective audit admits 255 native endpoints: two early exclusions
+(bend_left extra nodes 18/token 50 at frame 19 and 50/token 168 at frame 21),
+34 retained completion suffixes and 219 unknowns. The latter excluded node is
+the lost left run's returned endpoint. All 300 successful transitions from nine
+Iter178/183/187 completed paths remain unexcluded. Separate replay checks 555
+certificates and 9,925 scalar probes. No planner change, integrated run, new
+collision query, simulator driving or provider spending occurred. Current
+integrated credit remains 3/4 and source comparison stays closed.
+
+Population frozen e1defe45cf0122ffb2f39a7d0bcff9175b48dbd3;
+qualified source 818d06cd4f96f364b7f7e0b1df80eeb7448ccddd;
+raw before replay 45b36644d6eda7d1d4cd48899f4b95b3f156e42d;
+independent admission 6cd2c7c2a84034bca4fe1321908085908ca018b6.
+147 focused checks pass without skips, including 90 new controls. Qualification
+failures/corrections remain retained. Producer 3.891 s / 137,347,072 bytes;
+checker 12.520 s / 152,764,416 bytes. Both exited/reaped within their separate
+300-second / 1-GiB envelopes. Closed scientific stages must not be rerun.
+
+Next qualify the same necessary timing predicate before primary and extra
+selection, preserving unknown states, existing late constraints and all budgets.
+Then prospectively freeze an all-four trial with gains/losses against both
+Iter183 and Iter187. The two exclusions do not prove the cause of the whole
+search loss or guarantee a repair. Retained successful controls are exposed,
+not held-out evidence. Actual-history recovery and response delay remain open.
+
+README reviewed end to end: four redesigned diagrams now distinguish released
+monitor, current search/evidence engine, completed research and future gates.
+Three architecture diagrams are synchronized; all historical results/index rows
+remain visible. See docs/editorial/2026-10-27/REVIEW.md for render validation.
+Hosted exact-source CI, instrument publication and remote readbacks are observed
+separately after closure. Owned branch research/iter188-early-timing-feasibility
+in sentinel-observation-recovery-20261011. Preserve the original dirty root/index
+and historical mission bytes. Earlier entries below are historical.
+
 # Current: Iter188 early timing audit preregistered — 27 October 2026
 
 Read experiments/iter188_early_timing_feasibility/PROTOCOL.md and MATHEMATICS.md.
