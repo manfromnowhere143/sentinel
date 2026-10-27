@@ -1,0 +1,2 @@
+Info:    ProblemDefinition: Adding approximate solution from planner SentinelRetainingRRT186
+{"complete": false, "native_status": 1, "native_stop_code": 1, "attempts": 17993, "queries": 10274, "directed_calls": 142, "accepted_connections": 82, "registered_primary": 82, "registered_extra": 4, "selected_tokens": [1, 23, 29, 44, 53, 67, 168], "unused_attempt_budget": 7, "elapsed_seconds": 12.284241332905367, "peak_rss_bytes": 179978240, "stop": "attempt_budget", "case": "bend_left", "seed": 20261014, "materialization_queries": 140, "distinct_registered_states": 118}
