@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 28 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter189 research record. The [README](../README.md) carries the scientific
+limits through the Iter190 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -25,7 +25,7 @@ config:
 ---
 flowchart TB
   accTitle: Current recovery research engine and evidence path
-  accDescr: Privileged search produces raw records; separate replay admits bounded claims.
+  accDescr: Conditional continuation is audited separately from integrated qualification.
   S["Frozen cases + source geometry<br/>Actions · absolute clocks · budgets"]
   subgraph P["SEARCH ENGINE · Iter189"]
     direction LR
@@ -34,7 +34,7 @@ flowchart TB
   S --> P
   subgraph E["EVIDENCE"]
     direction LR
-    D[("Committed raw<br/>States · masks · controls<br/>Clocks · accounting")] --> V["Separate replay<br/>Motion · geometry<br/>Timing · ancestry"] --> A["Admitted scope<br/>3/4 integrated<br/>All-four contradicted"]
+    D[("Committed tree + raw")] --> Q["Iter190 · 22 late nodes<br/>Two conditional probes"] --> V["Separate replay<br/>All queries · paths · budgets"] --> A["16/21 roots complete<br/>Integrated stays 3/4"]
   end
   P --> E
   classDef default fill:#f1f5f9,stroke:#8293a6,color:#23354a;
@@ -56,7 +56,11 @@ now audits all 255 endpoints: two early timing exclusions, 34 known complete
 suffixes and 219 unknowns. All 300 retained successful transitions remain unexcluded.
 [Iter189](../experiments/iter189_uniform_timing_eligibility/RESULT.md) applies the rule uniformly: the
 same three cases complete, with 96 early-excluded evaluations on the left. The
-next audit tests continuation feasibility and expansion at all 22 late endpoints. The new fixture-tree identities do not recover
+[Iter190](../experiments/iter190_late_continuation_audit/RESULT.md) audit covers all 22 late nodes: 16/21 exact
+roots have full continuations within original remaining budgets, including every
+left-bend late node. Three left nodes received no request; the requested node
+never generated the full continuation. Proposal qualification is next. The audit
+replays all 7,172 queried-state masks and adds no integrated credit. The new fixture-tree identities do not recover
 historical native ancestry. The changed semantics have a separately bound binary. Offline search wall time is not sensing-to-actuation delay. The later
 actual-history comparison must retain observation availability, decision time,
 computation completion and applied-action time separately.

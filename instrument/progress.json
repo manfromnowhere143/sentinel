@@ -1,23 +1,23 @@
 {
   "schemaVersion": 1,
-  "iteration": 189,
-  "directory": "experiments/iter189_uniform_timing_eligibility",
-  "title": "Uniform timing checks preserve 3/4; the left bend still misses.",
-  "summary": "Independent replay admits the same three completions as Iter187. The uniform rule excludes a prefix in 96 left-bend evaluations; its tree reaches frame 26 instead of 21, without completing. All 483 registered-state masks replay.",
-  "boundary": "All-four qualification is contradicted. Four exposed development cases, one fixed seed each; no gained or lost success against Iter187. Source comparison stays closed. Actual-history recovery, response delay and competitor superiority remain unestablished.",
-  "next": "Freeze all 22 late registered endpoints for a continuation-and-expansion audit. Establish feasibility and remaining-budget fit before another planner amendment.",
+  "iteration": 190,
+  "directory": "experiments/iter190_late_continuation_audit",
+  "title": "Late left-bend states can finish; three received no expansion request.",
+  "summary": "All 22 late node records were audited. Sixteen of 21 exact roots have full continuations within original remaining budgets, including all four left-bend records. Their first fixed stop/wait/route programs need only 7\u20138 attempts.",
+  "boundary": "Conditional source-model witnesses; the integrated planner remains at 3/4 and source comparison stays closed. No new integrated search, driving, actual-history recovery, response-delay result or competitor superiority.",
+  "next": "Qualify state-dependent stop/wait/release proposals in the existing bounded connector, then preregister an unchanged-budget all-four trial with gains and losses.",
   "metrics": [
     {
-      "label": "Complete cases",
-      "field": "complete_cases"
+      "label": "Audited node records",
+      "field": "node_records"
     },
     {
-      "label": "Attempted transitions",
-      "field": "total_attempts"
+      "label": "Full-route exact roots",
+      "field": "full_route_roots"
     },
     {
-      "label": "Registered extras",
-      "field": "registered_extra"
+      "label": "Unexpanded complete records",
+      "field": "unexpanded_complete_records"
     },
     {
       "label": "Scalar classifications",
@@ -26,8 +26,8 @@
   ],
   "breakdown": [
     {
-      "label": "Development cases",
-      "field": "total_cases"
+      "label": "Distinct roots",
+      "field": "distinct_roots"
     },
     {
       "label": "New driving episodes",

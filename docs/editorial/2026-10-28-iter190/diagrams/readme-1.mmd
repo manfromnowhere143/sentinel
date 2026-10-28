@@ -1,0 +1,27 @@
+---
+config:
+  flowchart:
+    curve: linear
+    nodeSpacing: 24
+    wrappingWidth: 170
+    rankSpacing: 32
+---
+flowchart TB
+  accTitle: Current recovery research engine and evidence path
+  accDescr: Conditional continuation is audited separately from integrated qualification.
+  S["Frozen cases + source geometry<br/>Actions · absolute clocks · budgets"]
+  subgraph P["SEARCH ENGINE · Iter189"]
+    direction LR
+    R["Native control-RRT<br/>Exact parent + sequence IDs"] --> C["Bounded connector<br/>Uniform timing eligibility<br/>Primary + at most one extra"]
+  end
+  S --> P
+  subgraph E["EVIDENCE"]
+    direction LR
+    D[("Committed tree + raw")] --> Q["Iter190 · 22 late nodes<br/>Two conditional probes"] --> V["Separate replay<br/>All queries · paths · budgets"] --> A["16/21 roots complete<br/>Integrated stays 3/4"]
+  end
+  P --> E
+  classDef default fill:#f1f5f9,stroke:#8293a6,color:#23354a;
+  classDef focus fill:#17324d,stroke:#17324d,color:#fff;
+  class A focus;
+  style P fill:transparent,stroke:#8595a5
+  style E fill:transparent,stroke:#8595a5

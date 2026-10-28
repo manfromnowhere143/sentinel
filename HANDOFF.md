@@ -1,3 +1,49 @@
+# Current: Iter190 verifies unexploited late continuations — 28 October 2026
+
+Read experiments/iter190_late_continuation_audit/RESULT.md and DECISION.md.
+All 22 late node records / 21 exact roots are admitted. Sixteen roots have full
+continuations, one has only a checkpoint witness, and four remain bounded misses.
+No censoring or necessary-bound exclusions occurred. All four left-bend node
+records complete at frame 33 with only 7–8 conditional attempts, within their
+original remaining budgets. Nodes 76, 85 and 90 received no outgoing request;
+node 62 received three requests / 50 evaluations but never generated the full
+continuation. Its longest exact generated match is one step, registered match zero.
+Nodes 76 and 85 share probe computation but retain distinct original histories.
+
+The first stop/wait/route program brakes at -v/dt to land at zero, holds through
+frame 32, then releases. All original prefixes and joined paths replay. The old
+beam misses every left root. Its fixed grid and route commands omit the needed
+-0.5 m/s² braking action at 0.125 m/s. This is a concrete proposal gap, not proof
+that expansion allocation alone caused the integrated failure. Integrated credit
+remains 3/4; source comparison stays closed.
+
+Next qualify a generic state-dependent stop/wait/release proposal inside the
+existing bounded connector. Node 62 was already requested: address proposal
+coverage before changing the metric or allocation. Preserve all physical rules,
+clocks, 128-transition connection cap and original all-four budgets. Freeze any
+new integrated trial separately, retaining gains and losses against Iter189 and
+Iter183. Do not rerun this closed audit or tune its schedules from the outcome.
+
+Population d33ee2570705fdd85449a69de6b0079200684600;
+frozen source 3722cb4cb87cb92d3b3ee85166acaef3a430811d;
+raw before replay 85543d8d0cb673a9a4c2f9758f3702fccb50a6e1;
+independent admission 549239cea5cb6e026f071396c345fb00745d1243.
+976 source/input bindings; 58 new tests; 238 focused checks pass and 30 older
+native-library checks skip because the library was not supplied to that command.
+No native planner runs in this audit. Three old success paths / 106 states and
+24 timing controls pass qualification. Replay covers 691 original outgoing
+evaluations, 10,524 new attempts, 7,487 new queries, 7,172 distinct scalar states
+and 55,967,340 point-state classifications. Producer 26.105 s / 395,673,600 bytes;
+checker 436.201 s / 466,796,544 bytes. Both exited/reaped; no scientific retry.
+No new driving, provider use, GPU use or spending. Actual-history intervention,
+measured response delay and competitor superiority remain unestablished.
+
+README, architecture, current diagrams and instrument descriptor advance to this
+admitted result. Hosted exact-source CI, publication and remote readback are
+observed separately after closure. Owned branch research/iter190-late-continuation-audit
+in sentinel-observation-recovery-20261011. Preserve canonical root WIP/index and
+historical MISSION_STATE bytes. Earlier entries below are historical.
+
 # Current: Iter189 preserves the same three successes — 28 October 2026
 
 Read experiments/iter189_uniform_timing_eligibility/RESULT.md and DECISION.md.

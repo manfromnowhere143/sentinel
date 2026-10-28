@@ -1,0 +1,22 @@
+---
+config:
+  flowchart:
+    curve: linear
+    nodeSpacing: 24
+    wrappingWidth: 170
+    rankSpacing: 32
+---
+flowchart TB
+  accTitle: Next experiment and intervention gates
+  accDescr: Admitted conditional paths motivate proposal qualification before a new integrated trial.
+  A["ADMITTED · Iter190<br/>All four left late nodes feasible<br/>Three received no request"]
+  A -. "next qualification" .-> T["State-dependent stop + wait<br/>Release after checkpoint<br/>Existing bounded connector"]
+  T -. "then qualify + test" .-> G{"New all-four trial passes?"}
+  G -- "no" --> F["Source comparison closed<br/>Preserve gains + losses"]
+  G -. "yes" .-> H["Actual first-fire history<br/>Native recovery + measured delay"]
+  H -. "if useful" .-> I["Information ablations<br/>Responsive baseline + new scenes"]
+  classDef default fill:#f1f5f9,stroke:#8293a6,color:#23354a;
+  classDef focus fill:#17324d,stroke:#17324d,color:#fff;
+  classDef proposed fill:#f4f7fa,stroke:#65768a,color:#23354a,stroke-dasharray:5 4;
+  class A focus;
+  class T,H,I proposed;
