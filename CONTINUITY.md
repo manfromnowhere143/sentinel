@@ -1,3 +1,30 @@
+# Current: forensic frontier review completed — 28 October 2026
+
+Read docs/research/SENTINEL_FORENSIC_FRONTIER_REVIEW_2026-10-28.md and its
+forensic_2026_10_28/sources.json ledger (31 primary sources, reading depth explicit).
+Daniel requested a research verdict before another experiment and supplied a GPT
+verdict as reference only. Recommendations remain proposed. Scientific state stays
+Iter191 supported, integrated 3/4; no new integrated or driving trial was launched.
+
+Verdict: continue the recoverability question; superiority, production readiness
+and acquisition/valuation claims remain unsupported. Best immediate test is the
+unchanged-budget all-four integration of the exact Iter191 proposal. Then return
+to actual-history recovery and locked strong-baseline/held-out comparisons. Treat
+offline recovery qualification as the first product hypothesis. Branch retention
+needs a separate causal comparison; proposal coverage is the demonstrated gain.
+
+New constructed legacy-input probe (six cases / 24 calls) confirms missing/null
+object data can count toward release and decoder exceptions return the nominal
+plan while the latch stays set. This is not evidence of historical collision
+causation. Historical source is unchanged; no runtime successor is implemented.
+The probe, source/result hashes and limitations are retained beside the report.
+
+Work is on research/forensic-frontier-review-20261028 in the owned worktree,
+based on 345495fee70c12a30928353779f3507046484791. Preserve the canonical dirty
+root and historical MISSION_STATE. The completed review is local documentation;
+its scientific recommendations do not amend any frozen experiment. Earlier entries
+below describe the retained experimental/publication history.
+
 # Current: Iter191 qualifies stop/wait/release in the connector — 28 October 2026
 
 Read experiments/iter191_stop_wait_release/RESULT.md, DECISION.md and PAIRS.md.
@@ -7037,3 +7064,13 @@ supported: original requests 1/23 → 8/23, no lost completion; synthetic goals
 credit stays 3/4; source comparison stays closed. Next freeze one unchanged-budget
 all-four trial before changing allocation. No closed-study retry or tuning.
 All scientific processes exited and were reaped; no next integrated run has begun.
+
+## Forensic review controlling closure — 28 October 2026
+
+Read the current top entry and the dated frontier review. Research review and the
+constructed legacy-input diagnosis are complete; recommendations remain proposed.
+No new scientific acquisition, runtime change or integrated credit. The next
+experimental question remains unchanged-budget integration of the exact Iter191
+proposal, followed by actual-history recovery rather than endless four-case tuning.
+DualShield/GUARDIAN and the supplied GPT verdict informed the comparison; external
+claims are bounded to inspected versions and are not reproduced Sentinel results.

@@ -1,0 +1,76 @@
+{
+  "base_commit": "345495fee70c12a30928353779f3507046484791",
+  "scope": "Whole-file identities of selected review inputs; reading was scoped, not a claim to inspect every byte. HANDOFF and CONTINUITY receive review pointers after this base.",
+  "files": [
+    {
+      "path": "README.md",
+      "base_sha256": "b98b3812d2e5a39f689bb4fb75979a2189056d12192d12e73b6f4a999559d5c2",
+      "bytes": 142017
+    },
+    {
+      "path": "AGENTS.md",
+      "base_sha256": "9dd96d223327384d77760671396b8075a5a57bc1396abdcff5a12095055add69",
+      "bytes": 6595
+    },
+    {
+      "path": "MISSION_STATE.json",
+      "base_sha256": "beae857424df58aaf0fc2e289955d332c181b964a74abc6555e1f1aacf116560",
+      "bytes": 3307
+    },
+    {
+      "path": "HANDOFF.md",
+      "base_sha256": "6615060238c42f190fd6818db71d0447f8047470eeb6d03201e53f5a487f925a",
+      "bytes": 169478
+    },
+    {
+      "path": "CONTINUITY.md",
+      "base_sha256": "87b005a0b74779b1b7e9d1c375cb2bdbff6c6127c11e88a174288d42b6da0816",
+      "bytes": 530148
+    },
+    {
+      "path": "docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md",
+      "base_sha256": "093c428e59bf80afc9bf7f3d85b0bfd5ec1a55761a7fe78ecda802ea03026038",
+      "bytes": 17703
+    },
+    {
+      "path": "experiments/iter15_latch_release/server_patch_union_release.py",
+      "base_sha256": "d0338d5cee088d2271ee886b86ccac6f03775bf94991b4128013015159b91189",
+      "bytes": 6682
+    },
+    {
+      "path": "experiments/iter134_neuroncap_placebo_semantics_execution/RESULT.md",
+      "base_sha256": "61727fcd46fc77b78900aee285744a4ea530975514ef0d74f1bfb9f22f2ae074",
+      "bytes": 10327
+    },
+    {
+      "path": "experiments/iter148_recovery_study/RESULT.md",
+      "base_sha256": "47ab54bdfda5b2373b29184a85284ee39f830acae2a2c9a7c821bfd6975c9aa6",
+      "bytes": 9340
+    },
+    {
+      "path": "experiments/iter153_action_feasibility/planner.py",
+      "base_sha256": "10571cee190940e95c021864b39cfb83dc519afb83caaa3d111af4dd9db0f2b8",
+      "bytes": 3409
+    },
+    {
+      "path": "experiments/iter164_monitor_time_continuation/RESULT.md",
+      "base_sha256": "1adb57406cc24b0e2eb7f9b19630dbb59989d0236e6aca38d67cc612b3b44ba9",
+      "bytes": 4518
+    },
+    {
+      "path": "experiments/iter191_stop_wait_release/RESULT.md",
+      "base_sha256": "2cfcfc0e843277846994fca1341a347cf2c5587926f7181a6fbfa9f7a2bc71ee",
+      "bytes": 7281
+    },
+    {
+      "path": "experiments/iter191_stop_wait_release/policy.py",
+      "base_sha256": "4116f8faafa674da8d7636fcbba84ee3c1836a846ab33f2723bf5db3f1b4d4fa",
+      "bytes": 2113
+    },
+    {
+      "path": "experiments/iter191_stop_wait_release/RESEARCH.md",
+      "base_sha256": "0767a7ed37c02ffc3d1d71d8ddfcc8a52488afd064defbcddf6587c054785396",
+      "bytes": 2623
+    }
+  ]
+}

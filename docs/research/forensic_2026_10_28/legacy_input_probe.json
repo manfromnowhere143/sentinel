@@ -1,0 +1,413 @@
+{
+  "cases": {
+    "all_fields_missing": {
+      "input": {},
+      "log": [
+        {
+          "brake": true,
+          "clear": 1,
+          "cpa": 1000000000.0,
+          "run": -1,
+          "ttc": 1000000000.0
+        },
+        {
+          "brake": true,
+          "clear": 2,
+          "cpa": 1000000000.0,
+          "run": -1,
+          "ttc": 1000000000.0
+        },
+        {
+          "brake": true,
+          "clear": 3,
+          "cpa": 1000000000.0,
+          "run": -1,
+          "ttc": 1000000000.0
+        },
+        {
+          "cpa": 1000000000.0,
+          "release": true,
+          "run": -1,
+          "ttc": 1000000000.0
+        }
+      ],
+      "trace": [
+        {
+          "braking_latch": true,
+          "clear_count": 1,
+          "frame": 1,
+          "returned_brake": true,
+          "returned_nominal": false
+        },
+        {
+          "braking_latch": true,
+          "clear_count": 2,
+          "frame": 2,
+          "returned_brake": true,
+          "returned_nominal": false
+        },
+        {
+          "braking_latch": true,
+          "clear_count": 3,
+          "frame": 3,
+          "returned_brake": true,
+          "returned_nominal": false
+        },
+        {
+          "braking_latch": false,
+          "clear_count": 0,
+          "frame": 4,
+          "returned_brake": false,
+          "returned_nominal": true
+        }
+      ]
+    },
+    "decoder_exception": {
+      "input": "constructed_exception",
+      "log": [
+        {
+          "intervene_err": "constructed auxiliary decoder failure"
+        },
+        {
+          "intervene_err": "constructed auxiliary decoder failure"
+        },
+        {
+          "intervene_err": "constructed auxiliary decoder failure"
+        },
+        {
+          "intervene_err": "constructed auxiliary decoder failure"
+        }
+      ],
+      "trace": [
+        {
+          "braking_latch": true,
+          "clear_count": 0,
+          "frame": 1,
+          "returned_brake": false,
+          "returned_nominal": true
+        },
+        {
+          "braking_latch": true,
+          "clear_count": 0,
+          "frame": 2,
+          "returned_brake": false,
+          "returned_nominal": true
+        },
+        {
+          "braking_latch": true,
+          "clear_count": 0,
+          "frame": 3,
+          "returned_brake": false,
+          "returned_nominal": true
+        },
+        {
+          "braking_latch": true,
+          "clear_count": 0,
+          "frame": 4,
+          "returned_brake": false,
+          "returned_nominal": true
+        }
+      ]
+    },
+    "objects_missing": {
+      "input": {
+        "object_ids": [
+          1
+        ],
+        "object_scores": [
+          1.0
+        ]
+      },
+      "log": [
+        {
+          "brake": true,
+          "clear": 1,
+          "cpa": 1000000000.0,
+          "run": -1,
+          "ttc": 1000000000.0
+        },
+        {
+          "brake": true,
+          "clear": 2,
+          "cpa": 1000000000.0,
+          "run": -1,
+          "ttc": 1000000000.0
+        },
+        {
+          "brake": true,
+          "clear": 3,
+          "cpa": 1000000000.0,
+          "run": -1,
+          "ttc": 1000000000.0
+        },
+        {
+          "cpa": 1000000000.0,
+          "release": true,
+          "run": -1,
+          "ttc": 1000000000.0
+        }
+      ],
+      "trace": [
+        {
+          "braking_latch": true,
+          "clear_count": 1,
+          "frame": 1,
+          "returned_brake": true,
+          "returned_nominal": false
+        },
+        {
+          "braking_latch": true,
+          "clear_count": 2,
+          "frame": 2,
+          "returned_brake": true,
+          "returned_nominal": false
+        },
+        {
+          "braking_latch": true,
+          "clear_count": 3,
+          "frame": 3,
+          "returned_brake": true,
+          "returned_nominal": false
+        },
+        {
+          "braking_latch": false,
+          "clear_count": 0,
+          "frame": 4,
+          "returned_brake": false,
+          "returned_nominal": true
+        }
+      ]
+    },
+    "objects_null": {
+      "input": {
+        "object_scores": [
+          1.0
+        ],
+        "objects_in_bev": null
+      },
+      "log": [
+        {
+          "brake": true,
+          "clear": 1,
+          "cpa": 1000000000.0,
+          "run": -1,
+          "ttc": 1000000000.0
+        },
+        {
+          "brake": true,
+          "clear": 2,
+          "cpa": 1000000000.0,
+          "run": -1,
+          "ttc": 1000000000.0
+        },
+        {
+          "brake": true,
+          "clear": 3,
+          "cpa": 1000000000.0,
+          "run": -1,
+          "ttc": 1000000000.0
+        },
+        {
+          "cpa": 1000000000.0,
+          "release": true,
+          "run": -1,
+          "ttc": 1000000000.0
+        }
+      ],
+      "trace": [
+        {
+          "braking_latch": true,
+          "clear_count": 1,
+          "frame": 1,
+          "returned_brake": true,
+          "returned_nominal": false
+        },
+        {
+          "braking_latch": true,
+          "clear_count": 2,
+          "frame": 2,
+          "returned_brake": true,
+          "returned_nominal": false
+        },
+        {
+          "braking_latch": true,
+          "clear_count": 3,
+          "frame": 3,
+          "returned_brake": true,
+          "returned_nominal": false
+        },
+        {
+          "braking_latch": false,
+          "clear_count": 0,
+          "frame": 4,
+          "returned_brake": false,
+          "returned_nominal": true
+        }
+      ]
+    },
+    "present_threat": {
+      "input": {
+        "object_ids": [
+          1
+        ],
+        "object_scores": [
+          1.0
+        ],
+        "objects_in_bev": [
+          [
+            1.0,
+            0.0
+          ]
+        ]
+      },
+      "log": [
+        {
+          "brake": true,
+          "clear": 0,
+          "cpa": 0.0,
+          "run": -1,
+          "ttc": 1000000000.0
+        },
+        {
+          "brake": true,
+          "clear": 0,
+          "cpa": 0.0,
+          "run": -1,
+          "ttc": 1000000000.0
+        },
+        {
+          "brake": true,
+          "clear": 0,
+          "cpa": 0.0,
+          "run": -1,
+          "ttc": 1000000000.0
+        },
+        {
+          "brake": true,
+          "clear": 0,
+          "cpa": 0.0,
+          "run": -1,
+          "ttc": 1000000000.0
+        }
+      ],
+      "trace": [
+        {
+          "braking_latch": true,
+          "clear_count": 0,
+          "frame": 1,
+          "returned_brake": true,
+          "returned_nominal": false
+        },
+        {
+          "braking_latch": true,
+          "clear_count": 0,
+          "frame": 2,
+          "returned_brake": true,
+          "returned_nominal": false
+        },
+        {
+          "braking_latch": true,
+          "clear_count": 0,
+          "frame": 3,
+          "returned_brake": true,
+          "returned_nominal": false
+        },
+        {
+          "braking_latch": true,
+          "clear_count": 0,
+          "frame": 4,
+          "returned_brake": true,
+          "returned_nominal": false
+        }
+      ]
+    },
+    "valid_empty": {
+      "input": {
+        "object_ids": [],
+        "object_scores": [],
+        "objects_in_bev": []
+      },
+      "log": [
+        {
+          "brake": true,
+          "clear": 1,
+          "cpa": 1000000000.0,
+          "run": -1,
+          "ttc": 1000000000.0
+        },
+        {
+          "brake": true,
+          "clear": 2,
+          "cpa": 1000000000.0,
+          "run": -1,
+          "ttc": 1000000000.0
+        },
+        {
+          "brake": true,
+          "clear": 3,
+          "cpa": 1000000000.0,
+          "run": -1,
+          "ttc": 1000000000.0
+        },
+        {
+          "cpa": 1000000000.0,
+          "release": true,
+          "run": -1,
+          "ttc": 1000000000.0
+        }
+      ],
+      "trace": [
+        {
+          "braking_latch": true,
+          "clear_count": 1,
+          "frame": 1,
+          "returned_brake": true,
+          "returned_nominal": false
+        },
+        {
+          "braking_latch": true,
+          "clear_count": 2,
+          "frame": 2,
+          "returned_brake": true,
+          "returned_nominal": false
+        },
+        {
+          "braking_latch": true,
+          "clear_count": 3,
+          "frame": 3,
+          "returned_brake": true,
+          "returned_nominal": false
+        },
+        {
+          "braking_latch": false,
+          "clear_count": 0,
+          "frame": 4,
+          "returned_brake": false,
+          "returned_nominal": true
+        }
+      ]
+    }
+  },
+  "limits": [
+    "No claim about occurrence or causal effect in historical driving episodes.",
+    "No new integrated run, deployment, physical test or Iter191 change.",
+    "Missing source data and valid empty observations follow the same release path.",
+    "Decoder errors return the nominal plan even while the braking latch is set."
+  ],
+  "numpy": "2.4.2",
+  "probe_sha256": "9b5717d7328927682a70cb10c012ea30ca2a06aa1b6706b6bb01191d09d9706b",
+  "python": "3.14.2",
+  "scope": "constructed legacy-helper behavior only",
+  "settings": {
+    "SENTINEL_CPA_MARGIN": "1.5",
+    "SENTINEL_ENABLED": "1",
+    "SENTINEL_MAXGAP": "30.0",
+    "SENTINEL_MIN_CLOSING": "3.0",
+    "SENTINEL_MIN_SCORE": "0.3",
+    "SENTINEL_RELEASE_K": "4",
+    "SENTINEL_TTC": "2.5"
+  },
+  "source": "experiments/iter15_latch_release/server_patch_union_release.py",
+  "source_sha256": "d0338d5cee088d2271ee886b86ccac6f03775bf94991b4128013015159b91189",
+  "status": "supported"
+}
