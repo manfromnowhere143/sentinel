@@ -1,0 +1,8 @@
+{
+  "status": "invalid_invocation",
+  "source_argument": "0dc73de3",
+  "error": "ValueError:source_encoding",
+  "qualification_raw_exists": false,
+  "observations": 0,
+  "correction": "Use the full frozen 40-character commit; no acquisition or worker started."
+}

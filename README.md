@@ -18,9 +18,9 @@ against a competent responsive baseline, with information access, permitted acti
 resource budgets stated explicitly.
 
 [System](#what-sentinel-does) · [Results](#measured-results) ·
-[Research history](#how-the-question-changed) · [Latest result](#iteration-188-two-early-timing-traps) ·
+[Research history](#how-the-question-changed) · [Latest result](#iteration-189-uniform-timing-preserves-three-successes) ·
 [Next test](#the-next-scientific-test) · [Reproduce](#reproduce-and-inspect) ·
-[Repository status](#repository-status--27-october-2026) · [Experiment index](#complete-experiment-index)
+[Repository status](#repository-status--28-october-2026) · [Experiment index](#complete-experiment-index)
 
 ## Reading the evidence
 
@@ -37,13 +37,14 @@ qualification gap. Every experiment result remains indexed at the end.
 | Integrated development | Best is 3/4; a selection change lost a success before eligibility restored it. | All-four qualification or source-comparison readiness. |
 | Continuation audit | One discarded prefix has a full-route continuation; two probes remain bounded misses. | Success of an online retention policy. |
 | Integrated retention trial | Right bend gained, left bend lost; both chicanes complete. All registered branch masks replay. | All-four qualification, useful actual-history intervention or superiority. |
-| Current timing audit | Two early endpoints excluded; 34 have retained completion suffixes; 219 remain unknown. | A repaired planner, causal explanation of the loss, or feasibility of unknown states. |
+| Early timing audit | Two early endpoints excluded; 34 have retained completion suffixes; 219 remain unknown. | A repaired planner, causal explanation of the loss, or feasibility of unknown states. |
+| Uniform timing trial | Same three successes; 96 left-bend evaluations meet early exclusions; tree reaches frame 26. | All-four qualification or a proven explanation of the remaining miss. |
 
-The [next decision](experiments/iter188_early_timing_feasibility/DECISION.md)
-is to qualify a uniform necessary timing rule before primary and extra selection,
-then test all four cases under unchanged budgets. The
-[primary research review](experiments/iter188_early_timing_feasibility/RESEARCH.md)
-informs the reachability and numerical checks without claiming frontier parity.
+The [next decision](experiments/iter189_uniform_timing_eligibility/DECISION.md)
+is to audit continuation feasibility and expansion from all 22 registered late
+endpoints before another planner amendment. The
+[primary research review](experiments/iter189_uniform_timing_eligibility/RESEARCH.md)
+separates necessary exclusions, finite search competence and useful intervention.
 
 ## What Sentinel does
 
@@ -126,14 +127,14 @@ flowchart TB
   accTitle: Current recovery research engine and evidence path
   accDescr: Privileged search produces raw records; separate replay admits bounded claims.
   S["Frozen cases + source geometry<br/>Actions · absolute clocks · budgets"]
-  subgraph P["SEARCH ENGINE · Iter187"]
+  subgraph P["SEARCH ENGINE · Iter189"]
     direction LR
-    R["Native control-RRT<br/>Exact parent + sequence IDs"] --> C["Bounded connector<br/>Primary + at most one extra"]
+    R["Native control-RRT<br/>Exact parent + sequence IDs"] --> C["Bounded connector<br/>Uniform timing eligibility<br/>Primary + at most one extra"]
   end
   S --> P
   subgraph E["EVIDENCE"]
     direction LR
-    D[("Committed raw<br/>States · masks · controls<br/>Clocks · accounting")] --> V["Separate replay<br/>Motion · geometry<br/>Timing · ancestry"] --> A["Admitted scope<br/>3/4 integrated<br/>Iter188 timing audit"]
+    D[("Committed raw<br/>States · masks · controls<br/>Clocks · accounting")] --> V["Separate replay<br/>Motion · geometry<br/>Timing · ancestry"] --> A["Admitted scope<br/>3/4 integrated<br/>All-four contradicted"]
   end
   P --> E
   classDef default fill:#f1f5f9,stroke:#8293a6,color:#23354a;
@@ -146,7 +147,9 @@ flowchart TB
 The [native interface](experiments/iter186_native_branch/RESULT.md),
 [integrated trial](experiments/iter187_integrated_branch_retention/RESULT.md) and
 [timing audit](experiments/iter188_early_timing_feasibility/RESULT.md) have separate
-contracts. Iter188 reads retained endpoints; it adds no search or live control.
+contracts. [Iter189](experiments/iter189_uniform_timing_eligibility/RESULT.md) applies uniform timing
+eligibility in a new integrated trial: the same three cases complete. Iter188 remains
+a retained-endpoint audit; no result establishes live control.
 A verified model path is not yet a useful intervention at the monitor's decision time.
 
 ## What a useful intervention must establish
@@ -312,7 +315,7 @@ config:
     rankSpacing: 32
 ---
 flowchart TB
-  accTitle: Research progress through Iter188
+  accTitle: Research progress through Iter189
   accDescr: Three phases preserve gains and failures. First-fire recovery remains open.
   subgraph A["01 · MONITOR"]
     direction LR
@@ -324,7 +327,7 @@ flowchart TB
   end
   subgraph C["03 · SEARCH"]
     direction LR
-    Q["166–185 · Search qualification<br/>Integrated 3/4; conditional witness"] --> R["186–188 · Retention + timing<br/>One gain, one loss; two traps"]
+    Q["166–185 · Search qualification<br/>Integrated 3/4; conditional witness"] --> R["186–189 · Retention + timing<br/>Traps excluded; still 3/4"]
   end
   A --> B --> C
   classDef default fill:#f1f5f9,stroke:#8293a6,color:#23354a;
@@ -1223,16 +1226,41 @@ simulator episode ran. Qualification remains **3/4**; source comparison stays cl
 [independent admission](experiments/iter188_early_timing_feasibility/proof/admission.json) ·
 [next decision](experiments/iter188_early_timing_feasibility/DECISION.md).
 
+## Iteration 189: uniform timing preserves three successes
+
+**The same three cases complete; the left bend still misses.** The necessary timing
+rule now applies before both primary and extra selection. Independent replay admits
+45,638 attempted transitions and every registered branch mask: 483 distinct states /
+3,530,538 scalar classifications. All cases retain their original budgets and seeds.
+Against Iter187 there are zero gains and zero losses; against Iter183 there is one
+of each. The all-four hypothesis is **contradicted**, and source comparison stays closed.
+
+![Completion and attempted work under unchanged ceilings](experiments/iter189_uniform_timing_eligibility/proof/comparison.png)
+
+The new rule excludes a prefix in 96 left-bend evaluations. Its tree now reaches
+frame 26 rather than 21, yet no complete path is found. Three frame-26 nodes receive
+no outgoing request. Their continuation feasibility remains unknown. This separates
+correct local exclusion from successful budgeted exploration; another ranking
+change needs evidence about what can actually be completed from those states.
+
+Qualification preserved all nine successful paths / 300 transitions and rejected
+exactly the two retained traps. **274 focused tests pass without skips.** No new
+simulator driving, cloud/GPU use or spending occurred. These four exposed development
+cases provide no population or competitor-superiority claim.
+[Result](experiments/iter189_uniform_timing_eligibility/RESULT.md) ·
+[independent admission](experiments/iter189_uniform_timing_eligibility/proof/admission.json) ·
+[next decision](experiments/iter189_uniform_timing_eligibility/DECISION.md).
+
 ## The next scientific test
 
 The intended contribution is a monitor and evaluation system that can show **which failures
 remain preventable, which signal enables prevention, and the measured cost and limits**.
 The following work is proposed; all previous schedules retain their closed accounting.
-The [current decision](experiments/iter188_early_timing_feasibility/DECISION.md)
-specifies a uniform necessary timing rule before primary and extra selection,
-followed by an unchanged-budget all-four comparison. Iter187 retained one gain
-and one loss; Iter188 now establishes two early timing exclusions without changing
-the planner. Source comparison stays closed; the all-four criterion remains fixed.
+The [current decision](experiments/iter189_uniform_timing_eligibility/DECISION.md)
+specifies an audit of all 22 late registered endpoints: establish continuation
+feasibility, remaining-budget fit and observed expansion before another amendment.
+Iter189 preserves the same 3/4 despite valid early exclusions. Source comparison
+stays closed; the all-four criterion remains fixed.
 
 1. **Retain the finite-library null.** Iter157 rules out this fixed route-offset library
    under complete source-model constraints. Keep the counterexamples, the 61 prior
@@ -1270,8 +1298,9 @@ the planner. Source comparison stays closed; the all-four criterion remains fixe
    recollection and finds one full-route conditional witness plus two bounded misses.
    Iter187 tests alternative branch retention and retains one gain and one loss.
    Iter188 establishes two early timing exclusions while preserving all retained
-   success controls. Next qualify the necessary rule consistently across primary
-   and extra endpoints, then measure all-four gains and losses at unchanged budgets.
+   success controls. Iter189 applies the rule uniformly and retains the same 3/4.
+   Next distinguish late-state continuation feasibility from unrequested expansion
+   across the complete retained late population before another integrated change.
    Source comparison remains closed until all four cases pass.
    Offline cost is not a response-time result.
 3. **After establishing useful recovery, test one information hypothesis against a responsive baseline.**
@@ -1292,13 +1321,13 @@ config:
     rankSpacing: 32
 ---
 flowchart TB
-  accTitle: The next test and the intervention evidence still required
-  accDescr: Timing exclusions motivate a proposed trial. Later intervention gates remain closed.
-  A["ADMITTED · Iter188<br/>2 exclusions<br/>34 known suffixes<br/>219 unknowns"]
-  A -. "next experiment" .-> T["Qualify timing rule<br/>Primary + extras<br/>Fixed budgets"]
-  T --> G{"All four cases pass?"}
-  G -- "no" --> F["Source comparison closed<br/>Retain gains, losses<br/>and unknowns"]
-  G -. "yes, then test" .-> H["Actual first-fire history<br/>Native recovery + measured delay"]
+  accTitle: Next experiment and intervention gates
+  accDescr: Late-state feasibility precedes any new planner trial or intervention claim.
+  A["ADMITTED · Iter189<br/>Same 3/4 successes<br/>Left reaches frame 26"]
+  A -. "next audit" .-> T["22 late endpoints<br/>Feasible continuation?<br/>Was it explored?"]
+  T -. "then qualify + test" .-> G{"New all-four trial passes?"}
+  G -- "no" --> F["Source comparison closed<br/>Preserve gains + losses"]
+  G -. "yes" .-> H["Actual first-fire history<br/>Native recovery + measured delay"]
   H -. "if useful" .-> I["Information ablations<br/>Responsive baseline + new scenes"]
   classDef default fill:#f1f5f9,stroke:#8293a6,color:#23354a;
   classDef focus fill:#17324d,stroke:#17324d,color:#fff;
@@ -1364,13 +1393,13 @@ not a complete distribution of every runtime asset.
 | [Architecture](docs/ARCHITECTURE.md) | Implemented interfaces, simulator distinctions, evidence flow and timing. |
 | [Original preregistration](PREREGISTRATION.md) | The initial benchmark question and decision rules. |
 | [Research direction](docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md) | Information and recoverability: mathematical formulation and dated literature review. |
-| [Next scientific decision](experiments/iter188_early_timing_feasibility/DECISION.md) | Qualify uniform necessary timing eligibility, then compare all four cases under unchanged budgets with explicit gains and losses. |
+| [Next scientific decision](experiments/iter189_uniform_timing_eligibility/DECISION.md) | Audit all 22 late endpoints for continuation feasibility, remaining-budget fit and expansion before another planner amendment. |
 | [Handoff](HANDOFF.md) | Exact next task, acceptance criteria, resource closure and recovery instructions. |
 | [Continuity](CONTINUITY.md) and [next phase](docs/NEXT_PHASE.md) | Current state followed by retained historical decisions. |
 | [Technical report](docs/REPORT.md) | Historical synthesis through Iter134; it predates the current execution program. |
 | [Paper status](docs/paper/STATUS.md) | Archived manuscript and rewrite requirements; not submission-ready. |
 | [Verification archive](experiments/verification/README.md) | Early audit scripts, raw logs and correction history. |
-| [Diagram review](docs/editorial/2026-10-27/REVIEW.md) | Current engine, research history, claim boundaries and light/dark visual validation. |
+| [Diagram review](docs/editorial/2026-10-28/REVIEW.md) | Current engine, research history, claim boundaries and light/dark visual validation. |
 | [Integration review](docs/editorial/2026-10-16/REVIEW.md) | Retained default-branch integration and evidence scope through Iter185. |
 
 The [Iter157 result](experiments/iter157_constrained_action_library/RESULT.md) binds the
@@ -1384,9 +1413,9 @@ records update after exact-source CI and source validation. Its historical repla
 and native witness keep their own identities; automatic delivery does not grant a
 scientific claim or reinterpret the archived mission state.
 
-## Repository status — 27 October 2026
+## Repository status — 28 October 2026
 
-**Current through Iter188: two early timing traps admitted; integrated qualification remains 3/4.**
+**Current through Iter189: uniform timing checks preserve the same 3/4; the all-four claim is contradicted.**
 The preselected path completes two native replicas from reset. The same exact/24
 method then misses after preserving the actual first-fire history. All 49 subsequent discarded/retained
 continuations also miss. An independent RRT adapter remains unqualified after a
@@ -1420,11 +1449,14 @@ completes, the left bend loses its success, and both chicanes complete. Every
 registered branch mask replays; the all-four gate remains closed. Iter188 audits
 all 255 endpoints: two early extra-branch exclusions on the lost left bend,
 34 retained completion suffixes and 219 unknowns. All 300 successful transitions
-remain unexcluded; no new integrated run or planner change occurred.
+remain unexcluded; no new integrated run or planner change occurred in that audit.
+Iter189 applies the rule uniformly: 96 evaluations hit early exclusions, the left
+tree reaches frame 26, and the same three cases complete. No additional success
+is established. The next audit separates continuation feasibility from expansion.
 Monitor-time recovery, useful information and real-time operation remain unestablished.
 Iteration 135's dose-response experiment remains **deferred and unrun**.
 
-The research record through Iter188 preserves the
+The research record through Iter189 preserves the
 documentation and CI history of **`master`**, the repository's default branch. Integration preserves all original commits;
 it does not promote a diagnostic result into a qualified intervention system.
 GitHub language statistics exclude six archived Google Cloud pricing pages as
@@ -1520,6 +1552,9 @@ the newly added native checks ran locally. Iter188 adds 90 timing, numeric,
 false-exclusion and evidence controls; all 147 focused tests pass without skips.
 Its scientific acquisition and independent admission both close successfully.
 Hosted checks and publication retain their own exact commit identities.
+Iter189 adds 63 controls; 274 focused tests pass without skips. Both its constructed
+qualification and four-case raw receive separate committed replay. The scientific
+result is contradicted despite passing software and evidence checks.
 
 ## Complete experiment index
 
@@ -1701,7 +1736,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 </details>
 
 <details>
-<summary>Information, recoverability and execution: Iter135–188</summary>
+<summary>Information, recoverability and execution: Iter135–189</summary>
 
 | Record | Finding or scope |
 |---|---|
@@ -1759,6 +1794,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 | [186](experiments/iter186_native_branch/RESULT.md) | Native branch interface qualified: 410 matching callbacks, fifteen retained paths and 82 scalar-replayed masks; no new integrated outcome. |
 | [187](experiments/iter187_integrated_branch_retention/RESULT.md) | Integrated retention gains the right bend and loses the left; 3/4 remains 3/4. All 483 registered-state masks replay; source comparison closed. |
 | [188](experiments/iter188_early_timing_feasibility/RESULT.md) | All 255 endpoints: two early timing exclusions, 34 known completion suffixes, 219 unknowns. All 300 successful transitions remain unexcluded; no planner change or integrated credit. |
+| [189](experiments/iter189_uniform_timing_eligibility/RESULT.md) | Uniform timing eligibility preserves the same 3/4, with 96 early-excluded evaluations on the left. Its tree reaches frame 26 but still misses. Every registered mask replays; all-four claim contradicted. |
 
 </details>
 

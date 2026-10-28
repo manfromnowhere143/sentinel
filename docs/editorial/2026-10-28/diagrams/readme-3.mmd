@@ -1,0 +1,22 @@
+---
+config:
+  flowchart:
+    curve: linear
+    nodeSpacing: 24
+    wrappingWidth: 170
+    rankSpacing: 32
+---
+flowchart TB
+  accTitle: Next experiment and intervention gates
+  accDescr: Late-state feasibility precedes any new planner trial or intervention claim.
+  A["ADMITTED · Iter189<br/>Same 3/4 successes<br/>Left reaches frame 26"]
+  A -. "next audit" .-> T["22 late endpoints<br/>Feasible continuation?<br/>Was it explored?"]
+  T -. "then qualify + test" .-> G{"New all-four trial passes?"}
+  G -- "no" --> F["Source comparison closed<br/>Preserve gains + losses"]
+  G -. "yes" .-> H["Actual first-fire history<br/>Native recovery + measured delay"]
+  H -. "if useful" .-> I["Information ablations<br/>Responsive baseline + new scenes"]
+  classDef default fill:#f1f5f9,stroke:#8293a6,color:#23354a;
+  classDef focus fill:#17324d,stroke:#17324d,color:#fff;
+  classDef proposed fill:#f4f7fa,stroke:#65768a,color:#23354a,stroke-dasharray:5 4;
+  class A focus;
+  class T,H,I proposed;

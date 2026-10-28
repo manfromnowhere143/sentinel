@@ -1,3 +1,45 @@
+# Current: Iter189 preserves the same three successes — 28 October 2026
+
+Read experiments/iter189_uniform_timing_eligibility/RESULT.md and DECISION.md.
+Uniform early timing eligibility applies before both primary and extra selection,
+retaining the old late scan and all budgets. Separate replay admits 3/4: zero gains
+or losses against Iter187; one gain and one lost success against Iter183. The
+all-four claim is contradicted. Source comparison stays closed.
+
+Qualification preserves all nine successful paths / 300 transitions and excludes
+exactly the two known traps among 255 endpoint paths. Both constructed native
+controls pass. Scientific replay checks 45,638 attempted transitions, 7,512 uniform
+certificates, 239 primaries / 15 extras and 483 registered-state masks / 3,530,538
+scalar classifications. The rule excludes prefixes in 96 left-bend evaluations.
+Its tree reaches frame 26 rather than 21 but still misses full completion.
+
+Next freeze all 22 registered frame-24-to-31 endpoints across all four cases for
+continuation-feasibility and expansion audit. The left case has four such nodes;
+three frame-26 nodes receive no outgoing request. Their low speed does not prove
+feasibility. Separate checkpoint witness, full completion, original remaining-budget
+fit and observed expansion before another proposal/selection/allocation amendment.
+No next-audit acquisition has begun. Do not rerun either closed Iter189 acquisition.
+
+Frozen source 0dc73de3ee97ff30d441e130b6af77c07cc51894;
+qualification raw 54c2d7d6cae43790de07c6927b4d53bae7f21eab;
+qualification admission bd48bc478e4f0fd1912029961d5f14917a66a48c;
+scientific raw 4ec7f311a48edceaf766eba4c73d04db7b02605e;
+scientific admission b182e85e5984ac732bf367e6064b9c0c10009773.
+274 focused checks pass without skips, including 63 new controls and actual native
+execution. Producer 94.131 s / 359,628,800 bytes; checker 135.461 s / 329,646,080 bytes.
+All children exited/reaped. An abbreviated-source invocation was rejected before
+initialization; its record is retained. No scientific retry, simulator driving,
+provider access, GPU use or spending occurred.
+
+README, current diagrams, architecture and instrument descriptor advance to this
+admitted result, preserving all earlier losses and nulls. Hosted exact-source CI,
+publication and remote readback are observed separately after closure. Owned branch
+research/iter189-uniform-timing-eligibility in sentinel-observation-recovery-20261011.
+Canonical root WIP/index and historical MISSION_STATE bytes remain preserved.
+Daniel resumed on 28 October; the earlier hold was revoked. No competitor advantage,
+actual-history intervention or response-delay result is established. Earlier entries
+below are historical.
+
 # Current: Iter188 closes with two early timing exclusions — 27 October 2026
 
 Read experiments/iter188_early_timing_feasibility/RESULT.md and DECISION.md.

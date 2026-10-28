@@ -1,7 +1,7 @@
 # Sentinel architecture
 
-Updated 27 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter188 research record. The [README](../README.md) carries the scientific
+Updated 28 October 2026. This describes the implemented research apparatus and its measured
+limits through the Iter189 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -27,14 +27,14 @@ flowchart TB
   accTitle: Current recovery research engine and evidence path
   accDescr: Privileged search produces raw records; separate replay admits bounded claims.
   S["Frozen cases + source geometry<br/>Actions · absolute clocks · budgets"]
-  subgraph P["SEARCH ENGINE · Iter187"]
+  subgraph P["SEARCH ENGINE · Iter189"]
     direction LR
-    R["Native control-RRT<br/>Exact parent + sequence IDs"] --> C["Bounded connector<br/>Primary + at most one extra"]
+    R["Native control-RRT<br/>Exact parent + sequence IDs"] --> C["Bounded connector<br/>Uniform timing eligibility<br/>Primary + at most one extra"]
   end
   S --> P
   subgraph E["EVIDENCE"]
     direction LR
-    D[("Committed raw<br/>States · masks · controls<br/>Clocks · accounting")] --> V["Separate replay<br/>Motion · geometry<br/>Timing · ancestry"] --> A["Admitted scope<br/>3/4 integrated<br/>Iter188 timing audit"]
+    D[("Committed raw<br/>States · masks · controls<br/>Clocks · accounting")] --> V["Separate replay<br/>Motion · geometry<br/>Timing · ancestry"] --> A["Admitted scope<br/>3/4 integrated<br/>All-four contradicted"]
   end
   P --> E
   classDef default fill:#f1f5f9,stroke:#8293a6,color:#23354a;
@@ -54,8 +54,9 @@ one gained and one lost case, still 3/4. Exact native ancestry and every registe
 branch mask replay. [Iter188](../experiments/iter188_early_timing_feasibility/RESULT.md)
 now audits all 255 endpoints: two early timing exclusions, 34 known complete
 suffixes and 219 unknowns. All 300 retained successful transitions remain unexcluded.
-The next proposed change applies the necessary rule consistently before primary
-and extra selection, then tests all four cases under unchanged budgets. The new fixture-tree identities do not recover
+[Iter189](../experiments/iter189_uniform_timing_eligibility/RESULT.md) applies the rule uniformly: the
+same three cases complete, with 96 early-excluded evaluations on the left. The
+next audit tests continuation feasibility and expansion at all 22 late endpoints. The new fixture-tree identities do not recover
 historical native ancestry. The changed semantics have a separately bound binary. Offline search wall time is not sensing-to-actuation delay. The later
 actual-history comparison must retain observation availability, decision time,
 computation completion and applied-action time separately.
@@ -793,3 +794,23 @@ not a new continuous-control search. Integrated qualification stays 3/4.
 [Mathematics](../experiments/iter188_early_timing_feasibility/MATHEMATICS.md) ·
 [result](../experiments/iter188_early_timing_feasibility/RESULT.md) ·
 [next decision](../experiments/iter188_early_timing_feasibility/DECISION.md).
+
+## Uniform early timing eligibility and the remaining search gap
+
+Iter189 preserves the original late-window scan, then applies the independently
+qualified one-step exclusion to every surviving prefix before both selections.
+An exact state/frame cache binds geometry, dynamics and rule version. Unknown
+remains eligible; expiry removes all eligibility. The new rule makes no collision
+query. Every propagated transition and all certificate work consume the original
+search ceilings.
+
+Separate replay admits 45,638 attempted transitions, 7,512 new-rule certificates,
+239 primary / 15 extra branches and all 483 registered-state scalar masks. The
+all-four hypothesis is contradicted: the same three cases complete as Iter187.
+The left tree reaches frame 26, and three frame-26 nodes have no outgoing request.
+That describes allocation, not continuation feasibility or the cause of the miss.
+A complete late-endpoint audit must precede another planner change. Actual-history
+recovery and sensing-to-actuation latency remain unestablished.
+
+[Result](../experiments/iter189_uniform_timing_eligibility/RESULT.md) ·
+[decision](../experiments/iter189_uniform_timing_eligibility/DECISION.md).

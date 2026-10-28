@@ -1,41 +1,41 @@
 {
   "schemaVersion": 1,
-  "iteration": 188,
-  "directory": "experiments/iter188_early_timing_feasibility",
-  "title": "Two early timing traps; successful controls remain unexcluded.",
-  "summary": "Independent replay excludes two early extra-branch endpoints on the lost left bend, including its returned endpoint. Of all 255 native endpoints, 34 have retained completion suffixes and 219 remain unknown. All 300 successful-transition controls remain unexcluded.",
-  "boundary": "Source-model timing evidence, not a causal explanation of the whole search loss. No planner change or new integrated run. Qualification remains 3/4 and source comparison stays closed. Unknown does not mean feasible; actual-history recovery and measured response delay remain unestablished.",
-  "next": "Qualify the same necessary timing rule before primary and extra selection, preserving unknowns. Then freeze an unchanged-budget all-four comparison with explicit gained and lost successes.",
+  "iteration": 189,
+  "directory": "experiments/iter189_uniform_timing_eligibility",
+  "title": "Uniform timing checks preserve 3/4; the left bend still misses.",
+  "summary": "Independent replay admits the same three completions as Iter187. The uniform rule excludes a prefix in 96 left-bend evaluations; its tree reaches frame 26 instead of 21, without completing. All 483 registered-state masks replay.",
+  "boundary": "All-four qualification is contradicted. Four exposed development cases, one fixed seed each; no gained or lost success against Iter187. Source comparison stays closed. Actual-history recovery, response delay and competitor superiority remain unestablished.",
+  "next": "Freeze all 22 late registered endpoints for a continuation-and-expansion audit. Establish feasibility and remaining-budget fit before another planner amendment.",
   "metrics": [
     {
-      "label": "Timing exclusions",
-      "field": "excluded_endpoints"
+      "label": "Complete cases",
+      "field": "complete_cases"
     },
     {
-      "label": "Exclusions before frame 24",
-      "field": "early_excluded_endpoints"
+      "label": "Attempted transitions",
+      "field": "total_attempts"
     },
     {
-      "label": "Successful transition controls",
-      "field": "successful_transition_controls"
+      "label": "Registered extras",
+      "field": "registered_extra"
     },
     {
-      "label": "Scalar counterchecks",
-      "field": "scalar_probes"
+      "label": "Scalar classifications",
+      "field": "scalar_classifications"
     }
   ],
   "breakdown": [
     {
-      "label": "Known completion suffixes",
-      "field": "retained_completion_endpoints"
+      "label": "Development cases",
+      "field": "total_cases"
     },
     {
-      "label": "Unknown endpoints",
-      "field": "unknown_endpoints"
+      "label": "New driving episodes",
+      "field": "new_driving_episodes"
     },
     {
-      "label": "New integrated runs",
-      "field": "new_integrated_runs"
+      "label": "Provider spend",
+      "field": "provider_spend"
     }
   ]
 }
