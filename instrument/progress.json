@@ -1,23 +1,23 @@
 {
   "schemaVersion": 1,
-  "iteration": 192,
-  "directory": "experiments/iter192_integrated_feedback",
-  "title": "The exact feedback proposal completes all four integrated cases.",
-  "summary": "4/4 complete within unchanged budgets; one gain and no lost completion against each retained comparator. Attempts fall 22.3% versus Iter189. All 9,539 queried states and 66.23M point-state classifications replay.",
-  "boundary": "Four exposed development cases, retained historical controls. No actual-history recovery, native recovery execution, online response or competitor superiority is established.",
-  "next": "Return to preserved actual history and imposed delay under the separately frozen Iter193 protocol. Stop further four-case tuning.",
+  "iteration": 193,
+  "directory": "experiments/iter193_history_delay",
+  "title": "History and delay expose the next recovery limit.",
+  "summary": "No full returned continuation in six conditions; four searches are time-censored. Original history and deadlines remain intact. Selected paths pass scalar replay. A separate exploratory audit verifies a partial first-fire branch, without full or online recovery credit.",
+  "boundary": "One exposed static source scene. Finite misses leave feasibility unknown. Offline search and full-worker times exceed a 250 ms tick. No native simulator recovery, unseen-case efficacy or competitor advantage is established.",
+  "next": "Qualify a fixed conventional feedback-policy library, then compare at the same actual history with matched information, constraints and computation. Keep complete witnesses separate from unknowns.",
   "metrics": [
     {
-      "label": "Complete cases",
-      "field": "complete_cases"
+      "label": "History/delay conditions",
+      "field": "conditions"
     },
     {
-      "label": "Total cases",
-      "field": "total_cases"
+      "label": "First-fire full completions",
+      "field": "actual_first_fire_completions"
     },
     {
-      "label": "Attempted transitions",
-      "field": "total_attempts"
+      "label": "Time-censored searches",
+      "field": "censored_searches"
     },
     {
       "label": "Scalar classifications",
@@ -26,8 +26,8 @@
   ],
   "breakdown": [
     {
-      "label": "Geometry queries",
-      "field": "total_queries"
+      "label": "Attempted transitions",
+      "field": "total_attempts"
     },
     {
       "label": "New driving episodes",

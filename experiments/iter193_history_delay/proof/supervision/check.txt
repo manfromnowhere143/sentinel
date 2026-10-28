@@ -1,0 +1,7 @@
+{"checked": "origin_23_delay_0", "complete": false}
+{"checked": "origin_23_delay_1", "complete": false}
+{"checked": "origin_23_delay_2", "complete": false}
+{"checked": "origin_25_delay_0", "complete": false}
+{"checked": "origin_25_delay_1", "complete": false}
+{"checked": "origin_25_delay_2", "complete": false}
+{"iteration": 193, "phase": "closed", "status": "inconclusive", "source_commit": "0ada2f6a38563cfff01615c3a594239a2c96195e", "raw_commit": "a3f66a4424a679772705298ae5aaf2337ab4b037", "conditions": 6, "actual_first_fire_conditions": 3, "actual_first_fire_completions": 0, "earlier_completions": 0, "censored_searches": 4, "ineligible_prefixes": 0, "total_attempts": 77733, "total_queries": 28057, "scalar_classifications": 47561268, "elapsed_seconds": 349.97434820909984, "peak_rss_bytes": 380534784, "new_driving_episodes": 0, "provider_spend": 0, "native_execution": null, "online_recovery": null, "superiority": null}

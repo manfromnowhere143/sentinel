@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 28 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter192 research record. The [README](../README.md) carries the scientific
+limits through the Iter193 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -25,16 +25,16 @@ config:
 ---
 flowchart TB
   accTitle: Qualified feedback planner and separate intervention boundary
-  accDescr: Four exposed integrated cases pass; actual-history recovery remains a separate test.
+  accDescr: Development completion and history recovery are separate populations and claims.
   S["Frozen states + geometry<br/>Targets · clocks · remaining budgets"]
-  subgraph P["FEEDBACK PLANNER · 191–192"]
+  subgraph P["FEEDBACK PLANNER"]
     direction LR
     R["Native callback fixtures<br/>Exact parent + sequence IDs"] --> C["Stop · wait · release<br/>128 attempts · fixed selectors"]
   end
   S --> P
   subgraph E["EVIDENCE"]
     direction LR
-    D[("Committed raw")] --> Q["Four exposed integrated cases"] --> V["Separate replay<br/>All queries · paths · budgets"] --> A["SUPPORTED · Iter192<br/>4/4 · no lost completions"]
+    D[("Committed raw")] --> Q["4 development cases<br/>6 history/delay conditions"] --> V["Separate replay<br/>Declared mask scope<br/>Paths · clocks · budgets"] --> A["Development: 4/4<br/>History: 0/6<br/>Inconclusive · 4 censored"]
   end
   P --> E
   classDef default fill:#f1f5f9,stroke:#8293a6,color:#23354a;
@@ -69,11 +69,16 @@ replays. Sampling, allocation, physical checks, timing eligibility and both sele
 stay fixed. [Iter192](../experiments/iter192_integrated_feedback/RESULT.md) now
 integrates that exact proposal: 4/4 complete, with one gain and no loss against each
 retained comparator. All 66,226,446 point-state classifications replay.
-[Iter193](../experiments/iter193_history_delay/PROTOCOL.md) separately preregisters
-preserved-history and command-hold-delay tests. Its static-scene time translation
-preserves absolute deadlines and the original total horizon. Selected full-source
-paths receive scalar mask replay; unselected background labels remain producer
-evidence, unlike Iter192's all-query replay. The new fixture-tree identities do not recover
+[Iter193](../experiments/iter193_history_delay/RESULT.md) executes six
+preserved-history and command-hold-delay conditions: no full returned continuation,
+four time-censored searches, primary status inconclusive. Its static-scene time
+translation preserves absolute deadlines and the original total horizon. Selected
+full-source paths receive scalar mask replay; unselected background labels remain
+producer evidence, unlike Iter192's all-query replay. A separate post-admission
+audit now replays the furthest no-delay first-fire branch: frame 63 / 15.75 s,
+progress 0.63986510, both checkpoints passed, still incomplete. This post-selected
+branch is not the expired search's returned result and establishes no online
+response. Search and full-worker time exceed a 250 ms tick in every condition. The new fixture-tree identities do not recover
 historical native ancestry. The changed semantics have a separately bound binary. Offline search wall time is not sensing-to-actuation delay. The later
 actual-history comparison must retain observation availability, decision time,
 computation completion and applied-action time separately.

@@ -1,0 +1,53 @@
+{
+  "all_children_reaped": true,
+  "checker": {
+    "analysis": "exploratory post-admission branch replay",
+    "boundary": "Post-selected branch, not the expired planner's returned result, complete recovery, or executed online intervention.",
+    "complete": false,
+    "elapsed_seconds": 122.68398154200986,
+    "eligible": true,
+    "final_frame": 63,
+    "max_background_count": 94,
+    "peak_rss_bytes": 315703296,
+    "primary_raw_commit": "a3f66a4424a679772705298ae5aaf2337ab4b037",
+    "progress": 0.6398651047213347,
+    "progress_checks": 2,
+    "raw_commit": "a3e0c55b0f589175517b4e5b4fea75ab01beedae",
+    "rejections": [],
+    "scalar_classifications": 17697216,
+    "selected_actions": 63,
+    "selected_node": 44,
+    "source_commit": "e4fc1632b17037c3f146775f79d1e3380df171a3",
+    "status": "supported",
+    "trace_sha256": "734d9dbe89cd2299156c49a484a1f65c0ae5d10f13f8d9354d7818edb8e6d71a",
+    "verified_states": 64
+  },
+  "logs": {
+    "frontier-acquire.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "frontier-check.txt": "95455ccc5005874e1c62325ef87355d21b45f1da6d9fa5ec5e7a8e283706db80",
+    "frontier-envelope-tests.txt": "389b2de15809d6b3041bc69be2d06bb2172d19cc33e633b6e3d5e4d4e41f2c0d",
+    "frontier-tests-final.txt": "f38a1e0747530aa0551a6aac22a5dc0f3b6cc420025694ae60b632089390075c",
+    "frontier-tests.txt": "0ead1110be795e3aa57f83cff8d7ce0d5b7d58e628ffc8800b055c12a9009e3c"
+  },
+  "new_searches": 0,
+  "post_admission_envelope_known_bads": {
+    "passed": 6,
+    "skipped": 0
+  },
+  "pre_acquisition_tests": {
+    "passed": 6,
+    "skipped": 0
+  },
+  "producer": {
+    "elapsed_seconds": 15.596020499942824,
+    "materialization_queries": 64,
+    "peak_rss_bytes": 441516032,
+    "primary_raw_commit": "a3f66a4424a679772705298ae5aaf2337ab4b037",
+    "selected_node": 44,
+    "source_commit": "e4fc1632b17037c3f146775f79d1e3380df171a3",
+    "status": "completed"
+  },
+  "scientific_retries": 0,
+  "scope": "Exploratory post-admission partial-branch replay, not primary success",
+  "status": "supported"
+}

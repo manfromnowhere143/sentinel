@@ -1,0 +1,27 @@
+---
+config:
+  flowchart:
+    curve: linear
+    nodeSpacing: 24
+    wrappingWidth: 170
+    rankSpacing: 32
+---
+flowchart TB
+  accTitle: Connector qualification and separate integrated boundary
+  accDescr: Paired requests and native fixtures qualify the connector, not the full planner.
+  S["Frozen states + geometry<br/>Targets · clocks · remaining budgets"]
+  subgraph P["CONNECTOR · 191"]
+    direction LR
+    R["Native callback fixtures<br/>Exact parent + sequence IDs"] --> C["Stop · wait · release<br/>128 attempts · fixed selectors"]
+  end
+  S --> P
+  subgraph E["EVIDENCE"]
+    direction LR
+    D[("Committed paired raw")] --> Q["23 original + 21 goal requests"] --> V["Separate replay<br/>All queries · paths · budgets"] --> A["Original: 1/23 → 8/23<br/>Integrated stays 3/4"]
+  end
+  P --> E
+  classDef default fill:#f1f5f9,stroke:#8293a6,color:#23354a;
+  classDef focus fill:#17324d,stroke:#17324d,color:#fff;
+  class A focus;
+  style P fill:transparent,stroke:#8595a5
+  style E fill:transparent,stroke:#8595a5

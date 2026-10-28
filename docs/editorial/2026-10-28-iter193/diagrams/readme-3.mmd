@@ -1,0 +1,24 @@
+---
+config:
+  flowchart:
+    curve: linear
+    nodeSpacing: 24
+    wrappingWidth: 170
+    rankSpacing: 32
+---
+flowchart TB
+  accTitle: Development and intervention gates
+  accDescr: Development completion does not establish complete or online recovery.
+  A["SUPPORTED · Iter192<br/>4/4 development cases"]
+  A --> B["INCONCLUSIVE · Iter193<br/>0/6 full continuations<br/>4 time-censored"]
+  B --> C["Exploratory replay<br/>First-fire history<br/>64% progress · partial"]
+  C -. "next falsification" .-> D["Fixed feedback library<br/>Same history + constraints<br/>Matched information + compute"]
+  D -. "if useful" .-> E["Native execution + deadlines<br/>Strong alternatives + unseen cases"]
+  D --> F["No complete witness?<br/>Retain unknown feasibility"]
+  classDef default fill:#f1f5f9,stroke:#8293a6,color:#23354a;
+  classDef focus fill:#17324d,stroke:#17324d,color:#fff;
+  classDef unresolved fill:#fbf0dd,stroke:#927144,color:#543e22;
+  classDef proposed fill:#f4f7fa,stroke:#65768a,color:#23354a,stroke-dasharray:5 4;
+  class A focus;
+  class B unresolved;
+  class D,E proposed;

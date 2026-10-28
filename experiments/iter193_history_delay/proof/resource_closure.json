@@ -1,0 +1,29 @@
+{
+  "acquisitions": 1,
+  "all_children_reaped": true,
+  "checker": {
+    "elapsed_seconds": 349.97434820909984,
+    "peak_rss_bytes": 380534784,
+    "raw_commit": "a3f66a4424a679772705298ae5aaf2337ab4b037",
+    "source_commit": "0ada2f6a38563cfff01615c3a594239a2c96195e"
+  },
+  "largest_worker_rss_bytes": 481263616,
+  "logs": {
+    "acquire.txt": "94764ddadc5b83589ec8b9f839332499e0433990e04163a339d97a4dcad9abdb",
+    "check.txt": "ef56a122e667340ac11a4f5bc151b865fb11e1958a153c5e61c177db3b1367fb"
+  },
+  "producer": {
+    "children_reaped": true,
+    "elapsed_seconds": 614.3123530838639,
+    "new_driving_episodes": 0,
+    "peak_rss_bytes": 189792256,
+    "plan_sha256": "f350ed1db688b0902efac564ba26c3c083b752534d1eee7b34ff77e9bdbbbdd0",
+    "provider_spend": 0,
+    "raw_bytes_before_finalization": 71530216,
+    "source_commit": "0ada2f6a38563cfff01615c3a594239a2c96195e",
+    "stage": "search",
+    "status": "completed"
+  },
+  "scientific_retries": 0,
+  "status": "inconclusive"
+}

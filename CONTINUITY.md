@@ -1,3 +1,62 @@
+# Current: Iter193 closed; preserve the gain and the recovery limit — 28 October 2026
+
+Daniel authorized the execution sequence: all-four integration, actual intervention
+history/delay, strong unseen-case comparisons, then evidence-based product selection.
+The first two stages are closed. The unseen-case efficacy stage remains behind its
+registered recovery gate; no full source/native intervention was established.
+No permission ceremony is pending. Read experiments/iter193_history_delay/DECISION.md
+and docs/research/SENTINEL_NEXT_COMPARISON_AND_PRODUCT_GATE_2026-10-28.md.
+
+Iter192 is supported: 4/4 under unchanged 18,000-transition / 120-second ceilings,
+with one gain and no lost completion against each retained Iter189/Iter183 comparator.
+35,445 attempts (22.3% below Iter189), 23,947 queries; all 9,539 queried states /
+66,226,446 point-state classifications replay. Exact Iter191 adapter, no allocation
+or metric change. Source b11ea920717a6a95acb721f645b13bf9ec3f7c93; raw
+f64341c8bcc7976b5d17d2fa9b4ad4ad4ce902f8; admission
+3c0bed93455282ace9f944d408185a1d4e2c4113. Producer/checker 76.958/600.192 s.
+
+Iter193 is inconclusive: 0/6 full returned continuations, four wall-time censored,
+two transition-reservation stops. Actual histories at 5.75/6.25 s, delays 0/250/500 ms;
+original 7.75/9.00 s checkpoints and total 401-action horizon preserved. Thirty
+new checks pass. Source 0ada2f6a38563cfff01615c3a594239a2c96195e; raw
+a3f66a4424a679772705298ae5aaf2337ab4b037; admission
+c5bb87b7e8d966750f875b13e381ac4ab651c16e. All attempts/native identities/physical
+predicates replay; full masks on 172 returned-history states / 47,561,268
+classifications. Unselected background labels remain producer evidence.
+Producer/checker 614.312/349.974 s. All prefixes eligible. No scientific retry.
+First fire plus 250 ms returns 13 new controls through 9.75 s / progress 0.31860135,
+passing both checkpoints, still incomplete. Every worker exceeds a 250 ms tick.
+
+A separate post-admission exploratory audit validates native node 44 from exact
+first fire with NO imposed delay: unchanged 25-control history, 38 further controls,
+frame 63 / 15.75 s / progress 0.63986510; both checkpoints pass, still incomplete.
+All 64 states / 17,697,216 classifications replay, max background count 94 under the
+frozen threshold. Source e4fc1632b17037c3f146775f79d1e3380df171a3; diagnostic raw
+a3e0c55b0f589175517b4e5b4fea75ab01beedae; admission
+ecb073a3073da5ee7a6e53d0d5250407377cd379. Six pre-acquisition controls plus six
+later envelope known-bads pass. No new search; this branch was NOT returned before
+the original deadline and adds no primary completion or online credit.
+Materialization/checker 15.596/122.684 s, charged separately from primary search.
+
+Next: separately qualify a fixed conventional feedback-policy library, then a
+matched-history comparison with complete witnesses, costs and harms. No further
+four-case tuning or unbounded six-row repair loop. Profile scene predicates before
+claiming a compute bottleneck; any exact acceleration needs retained/adversarial
+mask parity and equal comparator access. Later predictive filtering, learned
+monitoring and unseen cases need their own qualified interfaces and frozen split.
+Offline recovery qualification is the first product hypothesis, not demonstrated
+customer value. Runtime supervision, superiority and valuation are unestablished.
+
+All scientific workers/checkers are exited and reaped. No new driving episode,
+native recovery execution, provider/GPU job or spending. Scientific state, raw,
+source and publication observations are separate. Exact-source hosted CI/channel
+readback belong to closure receipts, not inferred from local tests. Reports:
+/Users/danielwahnich/.codex/reports/sentinel/iter192/ and iter193/.
+Owned worktree /Users/danielwahnich/workspace/sentinel-observation-recovery-20261011,
+branch research/iter192-integrated-feedback-20261028. Preserve canonical dirty root
+and historical MISSION_STATE; do not reset, stage or normalize them. The following
+sections retain earlier states and decisions; this top section controls recovery.
+
 # Current: Iter192 admitted; Iter193 history/delay acquisition running — 28 October 2026
 
 Daniel directly authorized execution of the all-four integration, then actual
@@ -7116,3 +7175,10 @@ claims are bounded to inspected versions and are not reproduced Sentinel results
 
 The new top section controls: Iter192 is admitted; finish the sole frozen Iter193
 acquisition and independent replay. No source tuning or scientific retry.
+
+## Controlling closure — Iter192 supported; Iter193 inconclusive
+
+The new top section controls. Primary and exploratory evidence are admitted, all
+scientific jobs are reaped, and no next scientific acquisition is running. Preserve
+all failures and the post-hoc boundary. Next qualify the conventional feedback-policy
+comparison; do not silently tune or repeat the closed populations.

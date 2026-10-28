@@ -1,0 +1,30 @@
+---
+config:
+  flowchart:
+    curve: linear
+    nodeSpacing: 24
+    wrappingWidth: 170
+    rankSpacing: 32
+---
+flowchart TB
+  accTitle: Research progress through Iter189
+  accDescr: Three phases preserve gains and failures. First-fire recovery remains open.
+  subgraph A["01 · MONITOR"]
+    direction LR
+    N["Benchmark gain + costs"] --> T["Attribution unresolved<br/>Transfer null"]
+  end
+  subgraph B["02 · RECOVERABILITY"]
+    direction LR
+    E["136–163 · Execution<br/>Native completion from reset"] --> H["164–165 · Actual first fire<br/>Bounded continuation misses"]
+  end
+  subgraph C["03 · SEARCH"]
+    direction LR
+    Q["166–185 · Search qualification<br/>Integrated 3/4; conditional witness"] --> R["186–189 · Retention + timing<br/>Traps excluded; still 3/4"]
+  end
+  A --> B --> C
+  classDef default fill:#f1f5f9,stroke:#8293a6,color:#23354a;
+  classDef focus fill:#17324d,stroke:#17324d,color:#fff;
+  class R focus;
+  style A fill:transparent,stroke:#8595a5
+  style B fill:transparent,stroke:#8595a5
+  style C fill:transparent,stroke:#8595a5

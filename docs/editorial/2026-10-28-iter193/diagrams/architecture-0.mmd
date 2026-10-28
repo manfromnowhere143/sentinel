@@ -1,0 +1,27 @@
+---
+config:
+  flowchart:
+    curve: linear
+    nodeSpacing: 24
+    wrappingWidth: 170
+    rankSpacing: 32
+---
+flowchart TB
+  accTitle: Qualified feedback planner and separate intervention boundary
+  accDescr: Development completion and history recovery are separate populations and claims.
+  S["Frozen states + geometry<br/>Targets · clocks · remaining budgets"]
+  subgraph P["FEEDBACK PLANNER"]
+    direction LR
+    R["Native callback fixtures<br/>Exact parent + sequence IDs"] --> C["Stop · wait · release<br/>128 attempts · fixed selectors"]
+  end
+  S --> P
+  subgraph E["EVIDENCE"]
+    direction LR
+    D[("Committed raw")] --> Q["4 development cases<br/>6 history/delay conditions"] --> V["Separate replay<br/>Declared mask scope<br/>Paths · clocks · budgets"] --> A["Development: 4/4<br/>History: 0/6<br/>Inconclusive · 4 censored"]
+  end
+  P --> E
+  classDef default fill:#f1f5f9,stroke:#8293a6,color:#23354a;
+  classDef focus fill:#17324d,stroke:#17324d,color:#fff;
+  class A focus;
+  style P fill:transparent,stroke:#8595a5
+  style E fill:transparent,stroke:#8595a5
