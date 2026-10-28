@@ -27,7 +27,9 @@ with the original 18,000 transitions / 120 seconds. Records are dependent; neith
 
 Each arm receives `min(2048, minimum remaining original transitions)` and
 `min(20 seconds, minimum remaining original seconds)`. Its timer includes setup,
-initial query, all attempted controls, queried masks, and final record serialization.
+initial queries, all attempted controls, queried masks, and scientific payload
+serialization. The small clock receipt written after that measurement is offline
+accounting. The unchanged beam helper makes a second root query; both are charged.
 A returned witness after expiry is censored for the budgeted claim. Each rejected
 transition consumes one attempt. Shared prefix revalidation and independent replay
 are offline evidence work, with their own resources, not added to a live latency claim.
