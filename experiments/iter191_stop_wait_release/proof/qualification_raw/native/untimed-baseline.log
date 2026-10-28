@@ -1,0 +1,4 @@
+Warning: SentinelRetainingRRT186: Planner setup called multiple times
+         at line 101 in /Users/runner/miniforge3/conda-bld/bld/rattler-build_ompl_1785504924/work/src/ompl/base/src/Planner.cpp
+Info:    ProblemDefinition: Adding approximate solution from planner SentinelRetainingRRT186
+{"fixture": "untimed", "arm": "baseline", "complete": false, "attempts": 512}

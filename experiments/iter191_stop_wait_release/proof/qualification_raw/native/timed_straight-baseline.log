@@ -1,0 +1,3 @@
+Warning: SentinelRetainingRRT186: Planner setup called multiple times
+         at line 101 in /Users/runner/miniforge3/conda-bld/bld/rattler-build_ompl_1785504924/work/src/ompl/base/src/Planner.cpp
+{"fixture": "timed_straight", "arm": "baseline", "complete": true, "attempts": 1}
