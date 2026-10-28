@@ -18,7 +18,7 @@ against a competent responsive baseline, with information access, permitted acti
 resource budgets stated explicitly.
 
 [System](#what-sentinel-does) · [Results](#measured-results) ·
-[Research history](#how-the-question-changed) · [Latest result](#iteration-190-late-states-have-unexploited-full-continuations) ·
+[Research history](#how-the-question-changed) · [Latest result](#iteration-191-stop-wait-release-qualifies-inside-the-connector) ·
 [Next test](#the-next-scientific-test) · [Reproduce](#reproduce-and-inspect) ·
 [Repository status](#repository-status--28-october-2026) · [Experiment index](#complete-experiment-index)
 
@@ -40,13 +40,14 @@ qualification gap. Every experiment result remains indexed at the end.
 | Early timing audit | Two early endpoints excluded; 34 have retained completion suffixes; 219 remain unknown. | A repaired planner, causal explanation of the loss, or feasibility of unknown states. |
 | Uniform timing trial | Same three successes; 96 left-bend evaluations meet early exclusions; tree reaches frame 26. | All-four qualification or a proven explanation of the remaining miss. |
 | Late continuation audit | All four left-bend late nodes can finish within the original remaining budgets; three received no request. | A repaired integrated planner or isolated causal explanation. |
+| Connector feedback qualification | Original-request completions rise 1/23 → 8/23, with no lost completion; two left requests finish in eight attempts. | An integrated all-four success or unseen-case advantage. |
 
-The [next decision](experiments/iter190_late_continuation_audit/DECISION.md)
-is to qualify a state-dependent stop/wait/release proposal inside the existing
-bounded connector. The [complete audit](experiments/iter190_late_continuation_audit/RESULT.md)
-establishes full continuations from 16 of 21 exact late roots; integrated credit
-remains 3/4. The [primary research review](experiments/iter190_late_continuation_audit/RESEARCH.md)
-separates finite search failure, checkpoint feasibility and full continuation.
+The [next decision](experiments/iter191_stop_wait_release/DECISION.md)
+is a separately frozen all-four integrated trial of the qualified stop/wait/release
+proposal, under unchanged budgets and allocation. The [paired qualification](experiments/iter191_stop_wait_release/RESULT.md)
+reproduces all 23 original baseline requests and admits seven new completions.
+Integrated credit remains 3/4. The [research rationale](experiments/iter191_stop_wait_release/RESEARCH.md)
+separates a finite-budget connector improvement from an integrated or physical guarantee.
 
 ## What Sentinel does
 
@@ -126,17 +127,17 @@ config:
     rankSpacing: 32
 ---
 flowchart TB
-  accTitle: Current recovery research engine and evidence path
-  accDescr: Conditional continuation is audited separately from integrated qualification.
-  S["Frozen cases + source geometry<br/>Actions · absolute clocks · budgets"]
-  subgraph P["SEARCH ENGINE · Iter189"]
+  accTitle: Connector qualification and separate integrated boundary
+  accDescr: Paired requests and native fixtures qualify the connector, not the full planner.
+  S["Frozen states + geometry<br/>Targets · clocks · remaining budgets"]
+  subgraph P["CONNECTOR · 191"]
     direction LR
-    R["Native control-RRT<br/>Exact parent + sequence IDs"] --> C["Bounded connector<br/>Uniform timing eligibility<br/>Primary + at most one extra"]
+    R["Native callback fixtures<br/>Exact parent + sequence IDs"] --> C["Stop · wait · release<br/>128 attempts · fixed selectors"]
   end
   S --> P
   subgraph E["EVIDENCE"]
     direction LR
-    D[("Committed tree + raw")] --> Q["Iter190 · 22 late nodes<br/>Two conditional probes"] --> V["Separate replay<br/>All queries · paths · budgets"] --> A["16/21 roots complete<br/>Integrated stays 3/4"]
+    D[("Committed paired raw")] --> Q["23 original + 21 goal requests"] --> V["Separate replay<br/>All queries · paths · budgets"] --> A["Original: 1/23 → 8/23<br/>Integrated stays 3/4"]
   end
   P --> E
   classDef default fill:#f1f5f9,stroke:#8293a6,color:#23354a;
@@ -153,6 +154,9 @@ contracts. [Iter189](experiments/iter189_uniform_timing_eligibility/RESULT.md) a
 eligibility in a new integrated trial: the same three cases complete. Iter188 remains
 a retained-endpoint audit. [Iter190](experiments/iter190_late_continuation_audit/RESULT.md) verifies budgeted full
 continuations from every left-bend late node, including three without requests.
+[Iter191](experiments/iter191_stop_wait_release/RESULT.md) qualifies a feedback proposal
+inside the same connector: original requests improve 1/23 → 8/23 and synthetic
+goal requests 5/21 → 13/21, with no lost completion. A new integrated trial is next.
 Conditional witnesses add no integrated credit; no result establishes live control.
 A verified model path is not yet a useful intervention at the monitor's decision time.
 
@@ -1281,16 +1285,45 @@ states / 55,967,340 scalar classifications**. Integrated qualification remains
 [admission](experiments/iter190_late_continuation_audit/proof/admission.json) ·
 [next decision](experiments/iter190_late_continuation_audit/DECISION.md).
 
+## Iteration 191: stop/wait/release qualifies inside the connector
+
+**Original-request full completions improve from 1/23 to 8/23, with no lost
+completion.** All 23 original baseline requests reproduce exactly. Independent
+replay supports the preregistered qualification, with no censoring. Synthetic
+goal requests improve separately from 5/21 to 13/21.
+
+![Paired connector completion counts](experiments/iter191_stop_wait_release/proof/paired-completions.png)
+
+Two original left-bend requests now finish at frame 33 in eight attempts each.
+The third has a seven-step horizon: it reaches the checkpoint at frame 32 but
+cannot release within that call. No horizon, physical constraint, selector,
+allocation or total budget is relaxed. The proposal computes braking from the
+actual evaluated speed, holds through the scheduled checkpoint and then releases.
+
+Original-request attempts fall 2,815 → 1,956 overall, but costs do not improve on
+every request; the [complete paired table](experiments/iter191_stop_wait_release/PAIRS.md)
+retains each cost and outcome. Six native constructed runs qualify dispatch and
+transport. Replay checks 1,726 scalar-state records / 10,772,001 classifications,
+including rejected and unselected evaluations. **85 new tests and 277 focused
+regressions pass without skips.**
+
+This is qualification on exposed inputs. Integrated credit remains **3/4** and
+source comparison stays closed. The next step is a separately preregistered
+all-four integrated trial against Iter189 and Iter183, under unchanged budgets.
+[Result](experiments/iter191_stop_wait_release/RESULT.md) ·
+[admission](experiments/iter191_stop_wait_release/proof/admission.json) ·
+[next decision](experiments/iter191_stop_wait_release/DECISION.md).
+
 ## The next scientific test
 
 The intended contribution is a monitor and evaluation system that can show **which failures
 remain preventable, which signal enables prevention, and the measured cost and limits**.
 The following work is proposed; all previous schedules retain their closed accounting.
-The [current decision](experiments/iter190_late_continuation_audit/DECISION.md)
-qualifies a state-dependent stop/wait/release proposal within the existing bounded
-connector, then requires a fixed-budget all-four trial with gains and losses.
-Iter190 establishes budgeted full continuations from every left-bend late node;
-Iter189's integrated result remains 3/4. Source comparison stays closed.
+The [current decision](experiments/iter191_stop_wait_release/DECISION.md)
+freezes an unchanged-budget all-four integrated trial of the qualified feedback
+proposal, retaining gains and losses against Iter189 and Iter183. Iter191 improves
+original-request completions 1/23 → 8/23 without a lost completion; that local
+qualification adds no integrated credit. Source comparison stays closed.
 
 1. **Retain the finite-library null.** Iter157 rules out this fixed route-offset library
    under complete source-model constraints. Keep the counterexamples, the 61 prior
@@ -1330,8 +1363,10 @@ Iter189's integrated result remains 3/4. Source comparison stays closed.
    Iter188 establishes two early timing exclusions while preserving all retained
    success controls. Iter189 applies the rule uniformly and retains the same 3/4.
    Iter190 verifies full continuations from 16/21 late roots, including every
-   left-bend late node; three left nodes received no outgoing request. Next qualify
-   a state-dependent stop/wait/release proposal before changing expansion allocation.
+   left-bend late node; three left nodes received no outgoing request. Iter191
+   qualifies the feedback proposal on all original requests, improving 1/23 → 8/23
+   without a lost completion. Next test all four integrated cases before changing
+   expansion allocation.
    Source comparison remains closed until all four cases pass.
    Offline cost is not a response-time result.
 3. **After establishing useful recovery, test one information hypothesis against a responsive baseline.**
@@ -1352,12 +1387,12 @@ config:
     rankSpacing: 32
 ---
 flowchart TB
-  accTitle: Next experiment and intervention gates
-  accDescr: Admitted conditional paths motivate proposal qualification before a new integrated trial.
-  A["ADMITTED · Iter190<br/>All four left late nodes feasible<br/>Three received no request"]
-  A -. "next qualification" .-> T["State-dependent stop + wait<br/>Release after checkpoint<br/>Existing bounded connector"]
-  T -. "then qualify + test" .-> G{"New all-four trial passes?"}
-  G -- "no" --> F["Source comparison closed<br/>Preserve gains + losses"]
+  accTitle: Qualified proposal and remaining intervention gates
+  accDescr: Connector gains motivate a new integrated trial; actual-history recovery remains open.
+  A["SUPPORTED · Iter191<br/>Original requests: 1/23 → 8/23<br/>No lost completion"]
+  A -. "next frozen trial" .-> T["All-four trial<br/>Same budgets<br/>Same allocation<br/>Iter189 + Iter183"]
+  T -. "test" .-> G{"All four complete?"}
+  G -- "no" --> F["Source comparison closed<br/>Inspect gains + losses"]
   G -. "yes" .-> H["Actual first-fire history<br/>Native recovery + measured delay"]
   H -. "if useful" .-> I["Information ablations<br/>Responsive baseline + new scenes"]
   classDef default fill:#f1f5f9,stroke:#8293a6,color:#23354a;
@@ -1424,7 +1459,7 @@ not a complete distribution of every runtime asset.
 | [Architecture](docs/ARCHITECTURE.md) | Implemented interfaces, simulator distinctions, evidence flow and timing. |
 | [Original preregistration](PREREGISTRATION.md) | The initial benchmark question and decision rules. |
 | [Research direction](docs/research/SENTINEL_INFORMATION_AND_RECOVERABILITY_RESEARCH_DIRECTION_2026-10-09.md) | Information and recoverability: mathematical formulation and dated literature review. |
-| [Next scientific decision](experiments/iter190_late_continuation_audit/DECISION.md) | Qualify state-dependent stop/wait/release proposals, then test all four cases under unchanged budgets. |
+| [Next scientific decision](experiments/iter191_stop_wait_release/DECISION.md) | Test the qualified feedback proposal in all four integrated cases under unchanged budgets and allocation. |
 | [Handoff](HANDOFF.md) | Exact next task, acceptance criteria, resource closure and recovery instructions. |
 | [Continuity](CONTINUITY.md) and [next phase](docs/NEXT_PHASE.md) | Current state followed by retained historical decisions. |
 | [Technical report](docs/REPORT.md) | Historical synthesis through Iter134; it predates the current execution program. |
@@ -1446,7 +1481,7 @@ scientific claim or reinterpret the archived mission state.
 
 ## Repository status — 28 October 2026
 
-**Current through Iter190: all four left-bend late nodes have budgeted full continuations; integrated qualification remains 3/4.**
+**Current through Iter191: connector qualification improves original requests 1/23 → 8/23 without lost completions; integrated qualification remains 3/4.**
 The preselected path completes two native replicas from reset. The same exact/24
 method then misses after preserving the actual first-fire history. All 49 subsequent discarded/retained
 continuations also miss. An independent RRT adapter remains unqualified after a
@@ -1486,11 +1521,14 @@ tree reaches frame 26, and the same three cases complete. No additional success
 is established. Iter190 admits full continuations from 16/21 exact late roots,
 including all four left-bend node records. Three left nodes received no request;
 the fourth never generated the full admitted continuation. Proposal coverage now
-has a concrete next qualification target. This diagnostic adds no integrated credit.
+has a concrete qualification target. Iter191 now supports that connector intervention:
+original completions rise 1/23 → 8/23 and synthetic goal completions 5/21 → 13/21,
+with no losses or censoring. The integrated all-four test has not run. These
+qualifications add no integrated credit.
 Monitor-time recovery, useful information and real-time operation remain unestablished.
 Iteration 135's dose-response experiment remains **deferred and unrun**.
 
-The research record through Iter190 preserves the
+The research record through Iter191 preserves the
 documentation and CI history of **`master`**, the repository's default branch. Integration preserves all original commits;
 it does not promote a diagnostic result into a qualified intervention system.
 GitHub language statistics exclude six archived Google Cloud pricing pages as
@@ -1594,6 +1632,11 @@ Iter190 adds 58 constructed and corruption controls. Its focused regression repo
 238 passed and 30 unavailable older native-library checks; the audit itself runs
 no native planner. Separate scalar admission verifies every queried mask and all
 original remaining-work accounting. [Qualification](experiments/iter190_late_continuation_audit/QUALIFICATION.json).
+
+Iter191 adds 85 qualification controls and passes 277 focused regressions without
+skips using the bound native library. It checks native dispatch, stop/wait/release,
+cache separation, target horizons, rejected work, serialization expiry, corruptions
+and complete checker orchestration. [Qualification](experiments/iter191_stop_wait_release/QUALIFICATION.json).
 
 ## Complete experiment index
 
@@ -1775,7 +1818,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 </details>
 
 <details>
-<summary>Information, recoverability and execution: Iter135–190</summary>
+<summary>Information, recoverability and execution: Iter135–191</summary>
 
 | Record | Finding or scope |
 |---|---|
@@ -1835,6 +1878,7 @@ Repeated analyses of the same cases do not increase the number of independent ca
 | [188](experiments/iter188_early_timing_feasibility/RESULT.md) | All 255 endpoints: two early timing exclusions, 34 known completion suffixes, 219 unknowns. All 300 successful transitions remain unexcluded; no planner change or integrated credit. |
 | [189](experiments/iter189_uniform_timing_eligibility/RESULT.md) | Uniform timing eligibility preserves the same 3/4, with 96 early-excluded evaluations on the left. Its tree reaches frame 26 but still misses. Every registered mask replays; all-four claim contradicted. |
 | [190](experiments/iter190_late_continuation_audit/RESULT.md) | All 22 late nodes audited: 16/21 roots have full continuations, including every left-bend node; three left nodes received no request. All queries replay; integrated credit remains 3/4. |
+| [191](experiments/iter191_stop_wait_release/RESULT.md) | Stop/wait/release connector qualification supported: original requests 1/23 → 8/23, synthetic goals 5/21 → 13/21, no lost completion or censoring. All queries replay; integrated credit remains 3/4. |
 
 </details>
 

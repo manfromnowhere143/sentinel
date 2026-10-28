@@ -1,0 +1,22 @@
+---
+config:
+  flowchart:
+    curve: linear
+    nodeSpacing: 24
+    wrappingWidth: 170
+    rankSpacing: 32
+---
+flowchart TB
+  accTitle: Qualified proposal and remaining intervention gates
+  accDescr: Connector gains motivate a new integrated trial; actual-history recovery remains open.
+  A["SUPPORTED · Iter191<br/>Original requests: 1/23 → 8/23<br/>No lost completion"]
+  A -. "next frozen trial" .-> T["All-four trial<br/>Same budgets<br/>Same allocation<br/>Iter189 + Iter183"]
+  T -. "test" .-> G{"All four complete?"}
+  G -- "no" --> F["Source comparison closed<br/>Inspect gains + losses"]
+  G -. "yes" .-> H["Actual first-fire history<br/>Native recovery + measured delay"]
+  H -. "if useful" .-> I["Information ablations<br/>Responsive baseline + new scenes"]
+  classDef default fill:#f1f5f9,stroke:#8293a6,color:#23354a;
+  classDef focus fill:#17324d,stroke:#17324d,color:#fff;
+  classDef proposed fill:#f4f7fa,stroke:#65768a,color:#23354a,stroke-dasharray:5 4;
+  class A focus;
+  class T,H,I proposed;

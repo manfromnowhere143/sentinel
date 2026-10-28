@@ -1,0 +1,144 @@
+{
+  "renderer": "11.4.2",
+  "source_blocks": [
+    {
+      "path": "README.md",
+      "block": 0,
+      "sha256": "5bec5917f211e4095d2866b1f0250e87d0cb4c5b3901b0d28893f88b8d311458",
+      "characters": 924
+    },
+    {
+      "path": "README.md",
+      "block": 1,
+      "sha256": "ed3ab2455a5d0ca2a2b506e93d347a9fba04c8f67cf82ee2681b637f6356c235",
+      "characters": 1020
+    },
+    {
+      "path": "README.md",
+      "block": 2,
+      "sha256": "92f1d29d69e5af5c2dfeda1ff3cb07ec6a6ee765152f83f5dc26b6228652f9a6",
+      "characters": 1058
+    },
+    {
+      "path": "README.md",
+      "block": 3,
+      "sha256": "5eef0d90e13abd93f73902da4d8f4ab0ddb15661bbd1941c7434d8440758ddb9",
+      "characters": 1012
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "block": 0,
+      "sha256": "ed3ab2455a5d0ca2a2b506e93d347a9fba04c8f67cf82ee2681b637f6356c235",
+      "characters": 1020
+    }
+  ],
+  "rendered": [
+    {
+      "path": "docs/editorial/2026-10-28-iter191/diagrams/readme-0-default.svg",
+      "sha256": "34404f4aa3bbdb5ce56b3c7f9096865ad87b0eadbc7a5d14134eec9a917db395",
+      "bytes": 14614
+    },
+    {
+      "path": "docs/editorial/2026-10-28-iter191/diagrams/readme-0-default.png",
+      "sha256": "aac925559874ba46ab658d06a1e734eeaef188cbb3216b6ed9fe2a6177f68358",
+      "bytes": 45589
+    },
+    {
+      "path": "docs/editorial/2026-10-28-iter191/diagrams/readme-0-dark.svg",
+      "sha256": "74dd465a12f7e7b3f4c548c52f9a58972852f083b39a712713e9d3c26a2d7149",
+      "bytes": 14758
+    },
+    {
+      "path": "docs/editorial/2026-10-28-iter191/diagrams/readme-0-dark.png",
+      "sha256": "2bd6bcdd14b0fa8d3316769d1daf40042ea5d56420fc25963ffb19499ba945b9",
+      "bytes": 45721
+    },
+    {
+      "path": "docs/editorial/2026-10-28-iter191/diagrams/readme-1-default.svg",
+      "sha256": "9e5d32cb7d066c71e3049afe6271e27fcaf88c2e25f70b4312c86a82aa9526bc",
+      "bytes": 15937
+    },
+    {
+      "path": "docs/editorial/2026-10-28-iter191/diagrams/readme-1-default.png",
+      "sha256": "070fb2aa633e190131f62eb3c97e96ae053a58b3567db951e5ee35ec6e3ffa9b",
+      "bytes": 48010
+    },
+    {
+      "path": "docs/editorial/2026-10-28-iter191/diagrams/readme-1-dark.svg",
+      "sha256": "f13f6489f943310e0f55f4522824fe3afac6836777809f770f0d4369ad10ff41",
+      "bytes": 16081
+    },
+    {
+      "path": "docs/editorial/2026-10-28-iter191/diagrams/readme-1-dark.png",
+      "sha256": "f90bdb098189eb9b785e3b8c5480619ae011b0cf4a25ad60b480bc2ddcf11521",
+      "bytes": 47907
+    },
+    {
+      "path": "docs/editorial/2026-10-28-iter191/diagrams/readme-2-default.svg",
+      "sha256": "13e902a30255966034d62ed9e2f7a9229d5e7944babc28d468c352e21ec1c500",
+      "bytes": 15049
+    },
+    {
+      "path": "docs/editorial/2026-10-28-iter191/diagrams/readme-2-default.png",
+      "sha256": "9a98cf388e3df897a262bc61ea8f4ffa669f03aaee3ebecf077587808d7f34f0",
+      "bytes": 43159
+    },
+    {
+      "path": "docs/editorial/2026-10-28-iter191/diagrams/readme-2-dark.svg",
+      "sha256": "97bc50b50f2967539e2c2ed5c5e91d700f224feb5dfec0e153df5b84df1001fc",
+      "bytes": 15193
+    },
+    {
+      "path": "docs/editorial/2026-10-28-iter191/diagrams/readme-2-dark.png",
+      "sha256": "ba17399a9ec8ab94dadab735b4bafc7fa15bebc83fc88cd744174641d0d87374",
+      "bytes": 43877
+    },
+    {
+      "path": "docs/editorial/2026-10-28-iter191/diagrams/readme-3-default.svg",
+      "sha256": "6b7866a6df2246ec2b5b9c389733960ab0f0e95919804e5d803fd95a6262852f",
+      "bytes": 14107
+    },
+    {
+      "path": "docs/editorial/2026-10-28-iter191/diagrams/readme-3-default.png",
+      "sha256": "b7b4b3eeab34adf8deae201cb20d3c6c52ee55f2831180f98ac720cbc8cbb1de",
+      "bytes": 52823
+    },
+    {
+      "path": "docs/editorial/2026-10-28-iter191/diagrams/readme-3-dark.svg",
+      "sha256": "d7e7e6a9402f68d11b2a79ebc9f97f1308baae204e54dedeca3485b4e6e62d4d",
+      "bytes": 14251
+    },
+    {
+      "path": "docs/editorial/2026-10-28-iter191/diagrams/readme-3-dark.png",
+      "sha256": "cd0e302d3aa4bd5a0cc564235374cf181fb968ca499ccc0870e1fd7747769c87",
+      "bytes": 52625
+    },
+    {
+      "path": "docs/editorial/2026-10-28-iter191/diagrams/architecture-0-default.svg",
+      "sha256": "9e5d32cb7d066c71e3049afe6271e27fcaf88c2e25f70b4312c86a82aa9526bc",
+      "bytes": 15937
+    },
+    {
+      "path": "docs/editorial/2026-10-28-iter191/diagrams/architecture-0-default.png",
+      "sha256": "070fb2aa633e190131f62eb3c97e96ae053a58b3567db951e5ee35ec6e3ffa9b",
+      "bytes": 48010
+    },
+    {
+      "path": "docs/editorial/2026-10-28-iter191/diagrams/architecture-0-dark.svg",
+      "sha256": "f13f6489f943310e0f55f4522824fe3afac6836777809f770f0d4369ad10ff41",
+      "bytes": 16081
+    },
+    {
+      "path": "docs/editorial/2026-10-28-iter191/diagrams/architecture-0-dark.png",
+      "sha256": "f90bdb098189eb9b785e3b8c5480619ae011b0cf4a25ad60b480bc2ddcf11521",
+      "bytes": 47907
+    }
+  ],
+  "theme_modes": [
+    "default",
+    "dark"
+  ],
+  "viewport_width": 1100,
+  "scale": 1.5,
+  "scope": "README all four diagrams; architecture changed current-engine diagram. Local render, not proof of GitHub renderer version."
+}

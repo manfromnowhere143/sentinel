@@ -1,23 +1,23 @@
 {
   "schemaVersion": 1,
-  "iteration": 190,
-  "directory": "experiments/iter190_late_continuation_audit",
-  "title": "Late left-bend states can finish; three received no expansion request.",
-  "summary": "All 22 late node records were audited. Sixteen of 21 exact roots have full continuations within original remaining budgets, including all four left-bend records. Their first fixed stop/wait/route programs need only 7\u20138 attempts.",
-  "boundary": "Conditional source-model witnesses; the integrated planner remains at 3/4 and source comparison stays closed. No new integrated search, driving, actual-history recovery, response-delay result or competitor superiority.",
-  "next": "Qualify state-dependent stop/wait/release proposals in the existing bounded connector, then preregister an unchanged-budget all-four trial with gains and losses.",
+  "iteration": 191,
+  "directory": "experiments/iter191_stop_wait_release",
+  "title": "Stop/wait/release improves original requests without losing a completion.",
+  "summary": "Connector qualification supported: all 23 baseline requests reproduce; full completions rise 1/23 to 8/23. Two left-bend requests finish in eight attempts. Synthetic goals improve separately from 5/21 to 13/21; all queried states replay.",
+  "boundary": "Exposed-request qualification, not a new integrated result. Integrated credit remains 3/4; source comparison stays closed. No new driving, actual-history recovery, measured response delay or competitor superiority.",
+  "next": "Preregister one all-four integrated trial with unchanged budgets and allocation, reporting gains and losses against Iter189 and Iter183.",
   "metrics": [
     {
-      "label": "Audited node records",
-      "field": "node_records"
+      "label": "Original paired requests",
+      "field": "original_requests"
     },
     {
-      "label": "Full-route exact roots",
-      "field": "full_route_roots"
+      "label": "Original baseline completions",
+      "field": "original_baseline_completions"
     },
     {
-      "label": "Unexpanded complete records",
-      "field": "unexpanded_complete_records"
+      "label": "Original candidate completions",
+      "field": "original_candidate_completions"
     },
     {
       "label": "Scalar classifications",
@@ -26,8 +26,8 @@
   ],
   "breakdown": [
     {
-      "label": "Distinct roots",
-      "field": "distinct_roots"
+      "label": "Lost original completions",
+      "field": "original_completion_losses"
     },
     {
       "label": "New driving episodes",

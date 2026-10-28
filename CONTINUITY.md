@@ -1,3 +1,55 @@
+# Current: Iter191 qualifies stop/wait/release in the connector — 28 October 2026
+
+Read experiments/iter191_stop_wait_release/RESULT.md, DECISION.md and PAIRS.md.
+Status supported. All 23 original baseline requests reproduce exactly. Full
+completions rise 1/23 → 8/23 with seven gains and no lost completion. Two original
+left-bend requests, calls 132/139 from node 62, complete at frame 33 in eight
+attempts each. Call 120 keeps its seven-step horizon and returns the frame-32
+checkpoint without completion. Synthetic goal requests improve separately from
+5/21 → 13/21, with eight gains and no losses. No arm is censored.
+
+The qualified intervention inserts one state-dependent stop/wait/release request
+before the unchanged proposal schedule when the final scheduled checkpoint lies
+within the next eight frames. Controls use the actually evaluated state. Native
+binary, sampling, metric, target horizon, timing eligibility, primary/extra rules,
+128-transition connector ceiling and 18,000-transition / 120-second case budgets
+stay fixed. No hidden rollout, state clamp or allocation amendment is introduced.
+Original-request attempts fall 2,815 → 1,956 overall; costs increase on some requests
+and remain visible in PAIRS.md. No returned progress decreases. The largest original
+plus new totals are 17,903 attempts and 23.330275 seconds.
+
+Next preregister one unchanged-budget all-four integrated trial of this exact
+qualified proposal against Iter189 and Iter183. Preserve the three existing
+successes as exposed controls and retain all gains/losses, native identities,
+queries and masks. Do not change expansion allocation or metric simultaneously.
+No next integrated acquisition has started. Iter191 is closed; no retry or
+post-outcome tuning. Integrated credit remains 3/4; source comparison stays closed.
+
+Population c27ee6899e13782696feda76fb0f04c4a3235de3;
+frozen source e904cb6a3d67d3e8727aed6aa1ca2eac8926d804;
+raw before replay 79267ac3a22023c9ecbd6a733b9ff2f85c7d2021;
+independent automated admission f2d29eeb27dccfffaa14ca64462325e679bbf662.
+1,002 source/input bindings. Before freeze, 85 new controls and 277 focused
+regressions pass without skips using the bound native library. Constructed runs
+exercise native dispatch, untimed parity, curved release and exact transport.
+Pre-freeze implementation corrections and initial failing tests are retained in
+QUALIFICATION.json; no retained-input outcome preceded source freeze.
+
+Replay admits 8,219 retained-request attempts / 4,432 queries and 1,031 native
+fixture attempts / 751 queries. All 1,726 scalar-state records / 10,772,001
+classifications replay, including rejected and unselected evaluations. Producer
+50.153 s / 473,792,512 RSS bytes; checker 154.198 s / 598,327,296 RSS bytes.
+All scientific workers/checkers exited and were reaped. One acquisition, no retry.
+No new integrated trial, driving, cloud/GPU use or provider spending. Actual-history
+intervention, response delay and competitor superiority remain unestablished.
+
+README, current diagrams, architecture and instrument descriptor advance to this
+admitted result. Hosted exact-source CI, publication and readback are observed
+separately after closure. Owned branch research/iter191-stop-wait-release-qualification
+in sentinel-observation-recovery-20261011. Preserve canonical root WIP/index,
+all frozen scientific bytes and historical MISSION_STATE. Earlier entries below
+are historical. Daniel's resumed mission superseded the earlier usage hold.
+
 # Current: Iter190 verifies unexploited late continuations — 28 October 2026
 
 Read experiments/iter190_late_continuation_audit/RESULT.md and DECISION.md.
@@ -6976,3 +7028,12 @@ request. Sixteen of 21 exact roots complete conditionally. Integrated credit sta
 3/4 and source comparison stays closed. Next qualify state-dependent stop/wait/
 release proposals before changing allocation. No audit retry or post-outcome tuning.
 All scientific workers/checkers exited and were reaped.
+
+## Iter191 controlling closure — 28 October 2026
+
+Follow the current top entry and Iter191 RESULT/DECISION. Connector qualification
+supported: original requests 1/23 → 8/23, no lost completion; synthetic goals
+5/21 → 13/21 separately. All queries and native fixture paths replay. Integrated
+credit stays 3/4; source comparison stays closed. Next freeze one unchanged-budget
+all-four trial before changing allocation. No closed-study retry or tuning.
+All scientific processes exited and were reaped; no next integrated run has begun.

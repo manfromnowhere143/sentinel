@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 28 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter190 research record. The [README](../README.md) carries the scientific
+limits through the Iter191 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -24,17 +24,17 @@ config:
     rankSpacing: 32
 ---
 flowchart TB
-  accTitle: Current recovery research engine and evidence path
-  accDescr: Conditional continuation is audited separately from integrated qualification.
-  S["Frozen cases + source geometry<br/>Actions · absolute clocks · budgets"]
-  subgraph P["SEARCH ENGINE · Iter189"]
+  accTitle: Connector qualification and separate integrated boundary
+  accDescr: Paired requests and native fixtures qualify the connector, not the full planner.
+  S["Frozen states + geometry<br/>Targets · clocks · remaining budgets"]
+  subgraph P["CONNECTOR · 191"]
     direction LR
-    R["Native control-RRT<br/>Exact parent + sequence IDs"] --> C["Bounded connector<br/>Uniform timing eligibility<br/>Primary + at most one extra"]
+    R["Native callback fixtures<br/>Exact parent + sequence IDs"] --> C["Stop · wait · release<br/>128 attempts · fixed selectors"]
   end
   S --> P
   subgraph E["EVIDENCE"]
     direction LR
-    D[("Committed tree + raw")] --> Q["Iter190 · 22 late nodes<br/>Two conditional probes"] --> V["Separate replay<br/>All queries · paths · budgets"] --> A["16/21 roots complete<br/>Integrated stays 3/4"]
+    D[("Committed paired raw")] --> Q["23 original + 21 goal requests"] --> V["Separate replay<br/>All queries · paths · budgets"] --> A["Original: 1/23 → 8/23<br/>Integrated stays 3/4"]
   end
   P --> E
   classDef default fill:#f1f5f9,stroke:#8293a6,color:#23354a;
@@ -59,8 +59,15 @@ same three cases complete, with 96 early-excluded evaluations on the left. The
 [Iter190](../experiments/iter190_late_continuation_audit/RESULT.md) audit covers all 22 late nodes: 16/21 exact
 roots have full continuations within original remaining budgets, including every
 left-bend late node. Three left nodes received no request; the requested node
-never generated the full continuation. Proposal qualification is next. The audit
-replays all 7,172 queried-state masks and adds no integrated credit. The new fixture-tree identities do not recover
+never generated the full continuation. That audit replays all 7,172 queried-state
+masks and adds no integrated credit. [Iter191](../experiments/iter191_stop_wait_release/RESULT.md)
+now qualifies one state-dependent stop/wait/release proposal within the same
+connector. All 23 original baseline requests reproduce; completions rise 1/23 →
+8/23 with no lost completion. Synthetic goal requests improve 5/21 → 13/21 separately.
+Native straight, curved and untimed controls pass, and every new queried mask
+replays. Sampling, allocation, physical checks, timing eligibility and both selectors
+stay fixed. The next all-four integrated trial has not started; integrated credit
+remains 3/4. The new fixture-tree identities do not recover
 historical native ancestry. The changed semantics have a separately bound binary. Offline search wall time is not sensing-to-actuation delay. The later
 actual-history comparison must retain observation availability, decision time,
 computation completion and applied-action time separately.
