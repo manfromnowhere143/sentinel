@@ -9,11 +9,22 @@ from experiments.iter164_monitor_time_continuation.path_check import verify_path
 from experiments.iter172_integrated_rrt.check import outcome
 from experiments.iter191_stop_wait_release.runtime import verify
 from .clock import join
-from .common import BASE, git, load_source, read, require, rss, sha, write
+from .common import BASE, git, load_source, read, require, rss, sha, write, source_check
 
 SOURCE = BASE / "proof/search_raw/origin_25_delay_0"
 OUTPUT = BASE / "proof/frontier_audit_raw"
 RAW_COMMIT = "a3f66a4424a679772705298ae5aaf2337ab4b037"
+
+
+def bind_primary(root):
+    name = str(BASE / "proof/admission.json")
+    data = read(root, name)
+    require(
+        data == git(root, "show", "c5bb87b7e8d966750f875b13e381ac4ab651c16e:" + name),
+        "primary_admission_changed",
+    )
+    primary = json.loads(data)
+    source_check(root, json.loads(read(root, BASE / "PLAN.json")), primary["source_commit"])
 
 
 def selected(sequences):
@@ -60,6 +71,7 @@ def original(root):
 
 def acquire(root, source):
     started = time.monotonic()
+    bind_primary(root)
     verify(root)
     for name in (
         BASE / "frontier_audit.py",
@@ -95,6 +107,7 @@ def acquire(root, source):
 
 def check(root, raw_commit):
     started = time.monotonic()
+    bind_primary(root)
     verify(root)
     folder = root / OUTPUT
     paths = (

@@ -3,6 +3,7 @@
 import copy
 import pytest
 from experiments.iter193_history_delay.frontier_audit import selected, reconstruct
+from experiments.iter193_history_delay import frontier_audit
 
 
 def sequences():
@@ -38,3 +39,10 @@ def test_bad_ancestry_rejected(kind):
         values["1"]["node"] = 3
     with pytest.raises(ValueError):
         reconstruct(values, 3)
+
+
+def test_changed_primary_admission_rejected(tmp_path, monkeypatch):
+    monkeypatch.setattr(frontier_audit, "read", lambda *args: b"changed")
+    monkeypatch.setattr(frontier_audit, "git", lambda *args: b"original")
+    with pytest.raises(ValueError, match="primary_admission_changed"):
+        frontier_audit.bind_primary(tmp_path)
