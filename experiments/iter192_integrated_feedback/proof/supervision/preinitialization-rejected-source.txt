@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter192_integrated_feedback/produce.py", line 72, in <module>
+    run(Path.cwd(), a.source)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter192_integrated_feedback/produce.py", line 21, in run
+    plan = initialize(root, output, source, "search")
+  File "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter192_integrated_feedback/records.py", line 14, in initialize
+    source_check(root, plan, source)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter192_integrated_feedback/common.py", line 23, in source_check
+    require(len(source) == 40 and all(c in "0123456789abcdef" for c in source), "source_encoding")
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011/experiments/iter158_constraint_aware_search/common.py", line 20, in require
+    raise ValueError(reason)
+ValueError: source_encoding

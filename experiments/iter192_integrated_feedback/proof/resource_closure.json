@@ -1,0 +1,31 @@
+{
+  "acquisitions": 1,
+  "all_children_reaped": true,
+  "checker": {
+    "elapsed_seconds": 600.1924750828184,
+    "peak_rss_bytes": 353746944,
+    "raw_commit": "f64341c8bcc7976b5d17d2fa9b4ad4ad4ce902f8",
+    "source_commit": "b11ea920717a6a95acb721f645b13bf9ec3f7c93"
+  },
+  "logs": {
+    "acquire.txt": "3a24288e8856e1e5806760e7fa9842a5e90d8312c72098593ac6083c176dfb3a",
+    "check.txt": "e1348a7abd8e5e895d57ffd2d09d28e048e9fe5d72e137482ddd864432a776ef",
+    "preinitialization-rejected-source.txt": "28a709e0433461f1f56d5a885bee9bce5c10c54e915180849591198486b93a6a"
+  },
+  "preinitialization_rejections": 1,
+  "producer": {
+    "children_reaped": true,
+    "elapsed_seconds": 76.95849012490362,
+    "new_driving_episodes": 0,
+    "new_integrated_runs": 4,
+    "peak_rss_bytes": 209158144,
+    "plan_sha256": "2090c42d505bb6d4515747785841cdfbd293c8e760eb6833b00d0fd02fc31689",
+    "provider_spend": 0,
+    "raw_bytes_before_finalization": 52016538,
+    "source_commit": "b11ea920717a6a95acb721f645b13bf9ec3f7c93",
+    "stage": "search",
+    "status": "completed"
+  },
+  "scientific_retries": 0,
+  "status": "supported"
+}

@@ -1,0 +1,5 @@
+{"checked_case": "bend_left", "complete": true}
+{"checked_case": "bend_right", "complete": true}
+{"checked_case": "chicane_left", "complete": true}
+{"checked_case": "chicane_right", "complete": true}
+{"iteration": 192, "phase": "closed", "status": "supported", "source_commit": "b11ea920717a6a95acb721f645b13bf9ec3f7c93", "raw_commit": "f64341c8bcc7976b5d17d2fa9b4ad4ad4ce902f8", "complete_cases": 4, "total_cases": 4, "total_attempts": 35445, "total_queries": 23947, "scalar_classifications": 66226446, "elapsed_seconds": 600.1924750828184, "peak_rss_bytes": 353746944, "actual_history_intervention": null, "response_delay": null, "superiority": null, "new_driving_episodes": 0, "provider_spend": 0}

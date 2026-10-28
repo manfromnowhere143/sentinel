@@ -1,3 +1,40 @@
+# Current: Iter192 admitted; Iter193 history/delay acquisition running — 28 October 2026
+
+Daniel directly authorized execution of the all-four integration, then actual
+intervention histories/delay, then strong unseen-case comparisons and product
+selection conditional on evidence. No additional human ceremony is required.
+
+Iter192 is supported: all four complete under unchanged ceilings, with one gain
+and no lost completion against each retained Iter189/Iter183 comparator.
+35,445 attempts versus Iter189 45,638; 23,947 queries; all 9,539 queried states /
+66,226,446 scalar point-state classifications replay. Producer 76.958 s;
+checker 600.192 s. One acquisition, no scientific retry. Source
+b11ea920717a6a95acb721f645b13bf9ec3f7c93; raw
+f64341c8bcc7976b5d17d2fa9b4ad4ad4ce902f8; admission
+3c0bed93455282ace9f944d408185a1d4e2c4113. All workers/checker exited.
+Read experiments/iter192_integrated_feedback/RESULT.md and DECISION.md.
+
+Iter193 protocol 29aeffb5 separately freezes six source-model conditions: actual
+history through frames 23/25, each with 0/1/2 ticks of held-command delay.
+Clock translation retains original absolute deadlines and the 401-action horizon.
+Exact Iter191 planner, 18,000 attempts / 120 search seconds each; no new tuning.
+30 new checks pass with native execution and known-bads. Qualified frozen source
+0ada2f6a38563cfff01615c3a594239a2c96195e precedes all acquisition.
+Its sole producer is running. The three origin-23 conditions observed so far are
+time-censored misses, not admitted results or proof of infeasibility. Finish the
+remaining fixed schedule, commit raw before separate replay, then close evidence.
+Do not rerun, amend source or promote producer summaries. Logs are under
+/Users/danielwahnich/.codex/reports/sentinel/iter193/. Runtime Python3.14 remains
+bound; the separate Iter192 plotting venv changes no scientific environment.
+
+Owned same-repository worktree:
+/Users/danielwahnich/workspace/sentinel-observation-recovery-20261011,
+branch research/iter192-integrated-feedback-20261028. Canonical dirty root and
+historical MISSION_STATE remain untouched. Review and new research commits are
+local, not yet pushed; exact-source CI/publication remain separate closure work.
+No new driving episodes, provider/GPU use or spending. No native actual-history
+recovery, online response, held-out advantage or product value is established.
+
 # Current: Iter191 qualifies stop/wait/release in the connector — 28 October 2026
 
 Read experiments/iter191_stop_wait_release/RESULT.md, DECISION.md and PAIRS.md.

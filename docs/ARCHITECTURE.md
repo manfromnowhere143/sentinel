@@ -1,7 +1,7 @@
 # Sentinel architecture
 
 Updated 28 October 2026. This describes the implemented research apparatus and its measured
-limits through the Iter191 research record. The [README](../README.md) carries the scientific
+limits through the Iter192 research record. The [README](../README.md) carries the scientific
 results and publication boundary. The [original design](history/ARCHITECTURE_original_design.snapshot.txt)
 is retained as history; its proposed Maestro integration, signed receipts and universal
 reproducibility guarantees are not claims about the system described here.
@@ -24,17 +24,17 @@ config:
     rankSpacing: 32
 ---
 flowchart TB
-  accTitle: Connector qualification and separate integrated boundary
-  accDescr: Paired requests and native fixtures qualify the connector, not the full planner.
+  accTitle: Qualified feedback planner and separate intervention boundary
+  accDescr: Four exposed integrated cases pass; actual-history recovery remains a separate test.
   S["Frozen states + geometry<br/>Targets · clocks · remaining budgets"]
-  subgraph P["CONNECTOR · 191"]
+  subgraph P["FEEDBACK PLANNER · 191–192"]
     direction LR
     R["Native callback fixtures<br/>Exact parent + sequence IDs"] --> C["Stop · wait · release<br/>128 attempts · fixed selectors"]
   end
   S --> P
   subgraph E["EVIDENCE"]
     direction LR
-    D[("Committed paired raw")] --> Q["23 original + 21 goal requests"] --> V["Separate replay<br/>All queries · paths · budgets"] --> A["Original: 1/23 → 8/23<br/>Integrated stays 3/4"]
+    D[("Committed raw")] --> Q["Four exposed integrated cases"] --> V["Separate replay<br/>All queries · paths · budgets"] --> A["SUPPORTED · Iter192<br/>4/4 · no lost completions"]
   end
   P --> E
   classDef default fill:#f1f5f9,stroke:#8293a6,color:#23354a;
@@ -66,8 +66,14 @@ connector. All 23 original baseline requests reproduce; completions rise 1/23 �
 8/23 with no lost completion. Synthetic goal requests improve 5/21 → 13/21 separately.
 Native straight, curved and untimed controls pass, and every new queried mask
 replays. Sampling, allocation, physical checks, timing eligibility and both selectors
-stay fixed. The next all-four integrated trial has not started; integrated credit
-remains 3/4. The new fixture-tree identities do not recover
+stay fixed. [Iter192](../experiments/iter192_integrated_feedback/RESULT.md) now
+integrates that exact proposal: 4/4 complete, with one gain and no loss against each
+retained comparator. All 66,226,446 point-state classifications replay.
+[Iter193](../experiments/iter193_history_delay/PROTOCOL.md) separately preregisters
+preserved-history and command-hold-delay tests. Its static-scene time translation
+preserves absolute deadlines and the original total horizon. Selected full-source
+paths receive scalar mask replay; unselected background labels remain producer
+evidence, unlike Iter192's all-query replay. The new fixture-tree identities do not recover
 historical native ancestry. The changed semantics have a separately bound binary. Offline search wall time is not sensing-to-actuation delay. The later
 actual-history comparison must retain observation availability, decision time,
 computation completion and applied-action time separately.
