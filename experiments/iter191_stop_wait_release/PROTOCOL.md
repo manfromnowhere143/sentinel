@@ -44,6 +44,8 @@ tree context, ancestry and attempted work consumed before the request. Also free
 root, using the existing native goal construction and target frame 96. These
 test connector compatibility from unrequested roots; they are not actual original
 requests. Duplicate roots use the later, smaller-budget history and its tree context.
+Synthetic requests use the completed native registration batch and its next unused
+call/sequence IDs; they never reuse a token already present in that tree.
 
 Run the original Iter189 connector and the candidate once for every request.
 Alternate arm order by population index. Both get the same original remaining
@@ -100,3 +102,14 @@ If supported, the next step is a separately frozen unchanged-budget all-four
 integrated trial with gains/losses against Iter189 and Iter183. No expansion
 allocation or metric amendment is part of this qualification. Source comparison
 stays closed; actual-history recovery, response delay and superiority remain open.
+
+## Pre-evidence population correction
+
+The first population commit `9cc8ab9e3f114cc9e1af9550eb2cf7090c4799d1` assigned
+synthetic requests call 1 and captured the tree immediately at node registration.
+Before any new retained-input evaluation, this was corrected to the next unused
+call after the entire registration batch. Otherwise a proposed branch could reuse
+an old sequence ID or omit its same-callback sibling from the extra-selector context.
+All 23 actual requests, 21 synthetic states/targets, histories, controls and budgets
+are unchanged. Initial bytes remain in history. Only constructed fixtures have run;
+this correction uses original event identities, not new candidate outcomes.

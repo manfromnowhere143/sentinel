@@ -27,13 +27,13 @@ def build(root):
         events = [json.loads(line) for line in read(root, folder / "events.jsonl").splitlines()]
         original = json.loads(read(root, folder / "result.json"))
         nodes, registered, spent, request = {}, {}, 0, None
-        for row in events:
+        for event_index, row in enumerate(events):
             if row["kind"] == "native_event":
                 event = row["event"]
                 if event["kind"] in (0, 1, 2):
                     nodes[event["node"]] = event
                     if event["node"] in by_node:
-                        registered[event["node"]] = copy.deepcopy(nodes)
+                        registered[event["node"]] = event_index
                 elif event["kind"] == 3:
                     request = dict(
                         parent=event["node"],
@@ -68,19 +68,33 @@ def build(root):
                 continue
             group = [r for r in members if r["representative"] == member["id"]]
             latest = min(group, key=lambda r: r["remaining_attempts"])
+            at = registered[latest["node"]]
+            end = next(
+                (
+                    i
+                    for i in range(at + 1, len(events))
+                    if events[i]["kind"] == "native_event" and events[i]["event"]["kind"] == 3
+                ),
+                len(events),
+            )
+            snapshot = {
+                r["event"]["node"]: r["event"]
+                for r in events[:end]
+                if r["kind"] == "native_event" and r["event"]["kind"] in (0, 1, 2)
+            }
             synthetic.append(
                 dict(
                     id="goal:" + member["id"],
                     kind="goal",
                     case=name,
-                    call=1,
+                    call=(latest["token"] + 1) // 2 + 1,
                     members=[r["id"] for r in group],
                     parent=latest["node"],
                     before=[*latest["state"], latest["frame"]],
                     target=target,
                     consumed_attempts=latest["consumed_attempts"],
                     charged_original_wall=original["elapsed_seconds"],
-                    nodes=registered[latest["node"]],
+                    nodes=snapshot,
                     trace=latest["trace"],
                     original_connection=None,
                 )
