@@ -1,0 +1,430 @@
+.............FFF.FF.FF.FF............................................... [ 27%]
+........................................................................ [ 55%]
+........................................................................ [ 83%]
+...........................................                              [100%]
+=================================== FAILURES ===================================
+_____________ test_exact_native_wrapper_and_scalar_replay[untimed] _____________
+
+acquired = (PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/iter1920'), {'...accepted_connections': 4, 'attempts': 512, 'case': 'constructed_untimed', 'collection_peak_rss_bytes': 272121856, ...})
+
+    def test_exact_native_wrapper_and_scalar_replay(acquired):
+        folder, case, old, planner, result = acquired
+        actual = check.case_check(folder, case, old, planner, result, time.monotonic() + 60)
+>       assert actual["complete"]
+E       assert False
+
+tests/test_iter192_integrated_feedback.py:112: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+Info:    ProblemDefinition: Adding approximate solution from planner SentinelRetainingRRT186
+---------------------------- Captured stderr setup -----------------------------
+Warning: SentinelRetainingRRT186: Planner setup called multiple times
+         at line 101 in /Users/runner/miniforge3/conda-bld/bld/rattler-build_ompl_1785504924/work/src/ompl/base/src/Planner.cpp
+______ test_native_evidence_corruption_rejected[untimed-false_completion] ______
+
+acquired = (PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/iter1920'), {'...accepted_connections': 4, 'attempts': 512, 'case': 'constructed_untimed', 'collection_peak_rss_bytes': 272121856, ...})
+mutation = 'false_completion'
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/test_native_evidence_corruptio0')
+
+    @pytest.mark.parametrize(
+        "mutation", ["false_completion", "action", "missing_mask", "token", "query_count"]
+    )
+    def test_native_evidence_corruption_rejected(acquired, mutation, tmp_path):
+        import shutil
+    
+        original, case, old, planner, result = acquired
+        folder = tmp_path / "raw"
+        shutil.copytree(original, folder)
+        result = copy.deepcopy(result)
+        if mutation == "false_completion":
+            result["complete"] = not result["complete"]
+>           common.write(folder / "result.json", result)
+
+tests/test_iter192_integrated_feedback.py:129: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter158_constraint_aware_search/common.py:34: in write
+    with Path(path).open("xb") as stream:
+         ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/test_native_evidence_corruptio0/raw/result.json')
+mode = 'xb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileExistsError: [Errno 17] File exists: '/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/test_native_evidence_corruptio0/raw/result.json'
+
+/opt/homebrew/Cellar/python@3.14/3.14.2_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:771: FileExistsError
+___________ test_native_evidence_corruption_rejected[untimed-action] ___________
+
+acquired = (PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/iter1920'), {'...accepted_connections': 4, 'attempts': 512, 'case': 'constructed_untimed', 'collection_peak_rss_bytes': 272121856, ...})
+mutation = 'action'
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/test_native_evidence_corruptio1')
+
+    @pytest.mark.parametrize(
+        "mutation", ["false_completion", "action", "missing_mask", "token", "query_count"]
+    )
+    def test_native_evidence_corruption_rejected(acquired, mutation, tmp_path):
+        import shutil
+    
+        original, case, old, planner, result = acquired
+        folder = tmp_path / "raw"
+        shutil.copytree(original, folder)
+        result = copy.deepcopy(result)
+        if mutation == "false_completion":
+            result["complete"] = not result["complete"]
+            common.write(folder / "result.json", result)
+        elif mutation == "action":
+            trace = json.loads((folder / "trace.json").read_text())
+            trace[1]["action"][0] += 0.1
+>           common.write(folder / "trace.json", trace)
+
+tests/test_iter192_integrated_feedback.py:133: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter158_constraint_aware_search/common.py:34: in write
+    with Path(path).open("xb") as stream:
+         ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/test_native_evidence_corruptio1/raw/trace.json')
+mode = 'xb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileExistsError: [Errno 17] File exists: '/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/test_native_evidence_corruptio1/raw/trace.json'
+
+/opt/homebrew/Cellar/python@3.14/3.14.2_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:771: FileExistsError
+___________ test_native_evidence_corruption_rejected[untimed-token] ____________
+
+acquired = (PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/iter1920'), {'...accepted_connections': 4, 'attempts': 512, 'case': 'constructed_untimed', 'collection_peak_rss_bytes': 272121856, ...})
+mutation = 'token'
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/test_native_evidence_corruptio3')
+
+    @pytest.mark.parametrize(
+        "mutation", ["false_completion", "action", "missing_mask", "token", "query_count"]
+    )
+    def test_native_evidence_corruption_rejected(acquired, mutation, tmp_path):
+        import shutil
+    
+        original, case, old, planner, result = acquired
+        folder = tmp_path / "raw"
+        shutil.copytree(original, folder)
+        result = copy.deepcopy(result)
+        if mutation == "false_completion":
+            result["complete"] = not result["complete"]
+            common.write(folder / "result.json", result)
+        elif mutation == "action":
+            trace = json.loads((folder / "trace.json").read_text())
+            trace[1]["action"][0] += 0.1
+            common.write(folder / "trace.json", trace)
+        elif mutation == "missing_mask":
+            next((folder / "masks").glob("*.bin")).unlink()
+        elif mutation == "token":
+            sequences = json.loads((folder / "sequences.json").read_text())
+            next(iter(sequences.values()))["parent"] += 10
+>           common.write(folder / "sequences.json", sequences)
+
+tests/test_iter192_integrated_feedback.py:139: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter158_constraint_aware_search/common.py:34: in write
+    with Path(path).open("xb") as stream:
+         ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/test_native_evidence_corruptio3/raw/sequences.json')
+mode = 'xb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileExistsError: [Errno 17] File exists: '/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/test_native_evidence_corruptio3/raw/sequences.json'
+
+/opt/homebrew/Cellar/python@3.14/3.14.2_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:771: FileExistsError
+________ test_native_evidence_corruption_rejected[untimed-query_count] _________
+
+acquired = (PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/iter1920'), {'...accepted_connections': 4, 'attempts': 512, 'case': 'constructed_untimed', 'collection_peak_rss_bytes': 272121856, ...})
+mutation = 'query_count'
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/test_native_evidence_corruptio4')
+
+    @pytest.mark.parametrize(
+        "mutation", ["false_completion", "action", "missing_mask", "token", "query_count"]
+    )
+    def test_native_evidence_corruption_rejected(acquired, mutation, tmp_path):
+        import shutil
+    
+        original, case, old, planner, result = acquired
+        folder = tmp_path / "raw"
+        shutil.copytree(original, folder)
+        result = copy.deepcopy(result)
+        if mutation == "false_completion":
+            result["complete"] = not result["complete"]
+            common.write(folder / "result.json", result)
+        elif mutation == "action":
+            trace = json.loads((folder / "trace.json").read_text())
+            trace[1]["action"][0] += 0.1
+            common.write(folder / "trace.json", trace)
+        elif mutation == "missing_mask":
+            next((folder / "masks").glob("*.bin")).unlink()
+        elif mutation == "token":
+            sequences = json.loads((folder / "sequences.json").read_text())
+            next(iter(sequences.values()))["parent"] += 10
+            common.write(folder / "sequences.json", sequences)
+        else:
+            result["recorded_queries"] += 1
+>           common.write(folder / "result.json", result)
+
+tests/test_iter192_integrated_feedback.py:142: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter158_constraint_aware_search/common.py:34: in write
+    with Path(path).open("xb") as stream:
+         ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/test_native_evidence_corruptio4/raw/result.json')
+mode = 'xb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileExistsError: [Errno 17] File exists: '/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/test_native_evidence_corruptio4/raw/result.json'
+
+/opt/homebrew/Cellar/python@3.14/3.14.2_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:771: FileExistsError
+____ test_native_evidence_corruption_rejected[timed_curve-false_completion] ____
+
+acquired = (PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/iter1921'), {'...cepted_connections': 1, 'attempts': 2, 'case': 'constructed_timed_curve', 'collection_peak_rss_bytes': 272121856, ...})
+mutation = 'false_completion'
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/test_native_evidence_corruptio5')
+
+    @pytest.mark.parametrize(
+        "mutation", ["false_completion", "action", "missing_mask", "token", "query_count"]
+    )
+    def test_native_evidence_corruption_rejected(acquired, mutation, tmp_path):
+        import shutil
+    
+        original, case, old, planner, result = acquired
+        folder = tmp_path / "raw"
+        shutil.copytree(original, folder)
+        result = copy.deepcopy(result)
+        if mutation == "false_completion":
+            result["complete"] = not result["complete"]
+>           common.write(folder / "result.json", result)
+
+tests/test_iter192_integrated_feedback.py:129: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter158_constraint_aware_search/common.py:34: in write
+    with Path(path).open("xb") as stream:
+         ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/test_native_evidence_corruptio5/raw/result.json')
+mode = 'xb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileExistsError: [Errno 17] File exists: '/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/test_native_evidence_corruptio5/raw/result.json'
+
+/opt/homebrew/Cellar/python@3.14/3.14.2_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:771: FileExistsError
+_________ test_native_evidence_corruption_rejected[timed_curve-action] _________
+
+acquired = (PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/iter1921'), {'...cepted_connections': 1, 'attempts': 2, 'case': 'constructed_timed_curve', 'collection_peak_rss_bytes': 272121856, ...})
+mutation = 'action'
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/test_native_evidence_corruptio6')
+
+    @pytest.mark.parametrize(
+        "mutation", ["false_completion", "action", "missing_mask", "token", "query_count"]
+    )
+    def test_native_evidence_corruption_rejected(acquired, mutation, tmp_path):
+        import shutil
+    
+        original, case, old, planner, result = acquired
+        folder = tmp_path / "raw"
+        shutil.copytree(original, folder)
+        result = copy.deepcopy(result)
+        if mutation == "false_completion":
+            result["complete"] = not result["complete"]
+            common.write(folder / "result.json", result)
+        elif mutation == "action":
+            trace = json.loads((folder / "trace.json").read_text())
+            trace[1]["action"][0] += 0.1
+>           common.write(folder / "trace.json", trace)
+
+tests/test_iter192_integrated_feedback.py:133: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter158_constraint_aware_search/common.py:34: in write
+    with Path(path).open("xb") as stream:
+         ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/test_native_evidence_corruptio6/raw/trace.json')
+mode = 'xb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileExistsError: [Errno 17] File exists: '/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/test_native_evidence_corruptio6/raw/trace.json'
+
+/opt/homebrew/Cellar/python@3.14/3.14.2_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:771: FileExistsError
+_________ test_native_evidence_corruption_rejected[timed_curve-token] __________
+
+acquired = (PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/iter1921'), {'...cepted_connections': 1, 'attempts': 2, 'case': 'constructed_timed_curve', 'collection_peak_rss_bytes': 272121856, ...})
+mutation = 'token'
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/test_native_evidence_corruptio8')
+
+    @pytest.mark.parametrize(
+        "mutation", ["false_completion", "action", "missing_mask", "token", "query_count"]
+    )
+    def test_native_evidence_corruption_rejected(acquired, mutation, tmp_path):
+        import shutil
+    
+        original, case, old, planner, result = acquired
+        folder = tmp_path / "raw"
+        shutil.copytree(original, folder)
+        result = copy.deepcopy(result)
+        if mutation == "false_completion":
+            result["complete"] = not result["complete"]
+            common.write(folder / "result.json", result)
+        elif mutation == "action":
+            trace = json.loads((folder / "trace.json").read_text())
+            trace[1]["action"][0] += 0.1
+            common.write(folder / "trace.json", trace)
+        elif mutation == "missing_mask":
+            next((folder / "masks").glob("*.bin")).unlink()
+        elif mutation == "token":
+            sequences = json.loads((folder / "sequences.json").read_text())
+            next(iter(sequences.values()))["parent"] += 10
+>           common.write(folder / "sequences.json", sequences)
+
+tests/test_iter192_integrated_feedback.py:139: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter158_constraint_aware_search/common.py:34: in write
+    with Path(path).open("xb") as stream:
+         ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/test_native_evidence_corruptio8/raw/sequences.json')
+mode = 'xb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileExistsError: [Errno 17] File exists: '/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/test_native_evidence_corruptio8/raw/sequences.json'
+
+/opt/homebrew/Cellar/python@3.14/3.14.2_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:771: FileExistsError
+______ test_native_evidence_corruption_rejected[timed_curve-query_count] _______
+
+acquired = (PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/iter1921'), {'...cepted_connections': 1, 'attempts': 2, 'case': 'constructed_timed_curve', 'collection_peak_rss_bytes': 272121856, ...})
+mutation = 'query_count'
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/test_native_evidence_corruptio9')
+
+    @pytest.mark.parametrize(
+        "mutation", ["false_completion", "action", "missing_mask", "token", "query_count"]
+    )
+    def test_native_evidence_corruption_rejected(acquired, mutation, tmp_path):
+        import shutil
+    
+        original, case, old, planner, result = acquired
+        folder = tmp_path / "raw"
+        shutil.copytree(original, folder)
+        result = copy.deepcopy(result)
+        if mutation == "false_completion":
+            result["complete"] = not result["complete"]
+            common.write(folder / "result.json", result)
+        elif mutation == "action":
+            trace = json.loads((folder / "trace.json").read_text())
+            trace[1]["action"][0] += 0.1
+            common.write(folder / "trace.json", trace)
+        elif mutation == "missing_mask":
+            next((folder / "masks").glob("*.bin")).unlink()
+        elif mutation == "token":
+            sequences = json.loads((folder / "sequences.json").read_text())
+            next(iter(sequences.values()))["parent"] += 10
+            common.write(folder / "sequences.json", sequences)
+        else:
+            result["recorded_queries"] += 1
+>           common.write(folder / "result.json", result)
+
+tests/test_iter192_integrated_feedback.py:142: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/iter158_constraint_aware_search/common.py:34: in write
+    with Path(path).open("xb") as stream:
+         ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/test_native_evidence_corruptio9/raw/result.json')
+mode = 'xb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileExistsError: [Errno 17] File exists: '/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-692/test_native_evidence_corruptio9/raw/result.json'
+
+/opt/homebrew/Cellar/python@3.14/3.14.2_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:771: FileExistsError
+=========================== short test summary info ============================
+FAILED tests/test_iter192_integrated_feedback.py::test_exact_native_wrapper_and_scalar_replay[untimed]
+FAILED tests/test_iter192_integrated_feedback.py::test_native_evidence_corruption_rejected[untimed-false_completion]
+FAILED tests/test_iter192_integrated_feedback.py::test_native_evidence_corruption_rejected[untimed-action]
+FAILED tests/test_iter192_integrated_feedback.py::test_native_evidence_corruption_rejected[untimed-token]
+FAILED tests/test_iter192_integrated_feedback.py::test_native_evidence_corruption_rejected[untimed-query_count]
+FAILED tests/test_iter192_integrated_feedback.py::test_native_evidence_corruption_rejected[timed_curve-false_completion]
+FAILED tests/test_iter192_integrated_feedback.py::test_native_evidence_corruption_rejected[timed_curve-action]
+FAILED tests/test_iter192_integrated_feedback.py::test_native_evidence_corruption_rejected[timed_curve-token]
+FAILED tests/test_iter192_integrated_feedback.py::test_native_evidence_corruption_rejected[timed_curve-query_count]
+9 failed, 250 passed in 83.75s (0:01:23)
